@@ -28,6 +28,8 @@ public class ModContainer {
         DEPENDENCIES_RESOLVED, // 의존성 확인 완료
         MIXINS_APPLIED, // Mixin 적용됨
         INITIALIZED, // 초기화 완료
+        LOADED, // 정상 로드됨 (활성 상태)
+        DISABLED, // 비활성화됨 (핫 리로드)
         ERRORED // 에러 발생
     }
 

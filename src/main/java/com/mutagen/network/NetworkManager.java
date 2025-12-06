@@ -93,7 +93,7 @@ public class NetworkManager {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 패킷 송신 (게임 네트워킹에 연결 필요)
+    // 패킷 송신 (GameNetworkBridge를 통해 게임 네트워크에 연결)
     // ─────────────────────────────────────────────────────────────
 
     /**
@@ -101,19 +101,28 @@ public class NetworkManager {
      */
     public static void sendToServer(Packet packet) {
         byte[] data = INSTANCE.serialize(packet);
-        // TODO: 게임 네트워크 시스템에 연결
-        System.out.println("[Mutagen/Network] Would send to server: " +
-                packet.getId() + " (" + data.length + " bytes)");
+        boolean sent = GameNetworkBridge.getInstance().sendToServer(data);
+
+        if (!sent) {
+            System.out.println("[Mutagen/Network] Queued for server: " +
+                    packet.getId() + " (" + data.length + " bytes)");
+        }
     }
 
     /**
      * 클라이언트로 패킷 전송 (서버에서 호출)
+     * 
+     * @param connection 클라이언트 연결 객체 (UdpConnection)
+     * @param packet     전송할 패킷
      */
-    public static void sendToClient(Object player, Packet packet) {
+    public static void sendToClient(Object connection, Packet packet) {
         byte[] data = INSTANCE.serialize(packet);
-        // TODO: 게임 네트워크 시스템에 연결
-        System.out.println("[Mutagen/Network] Would send to client: " +
-                packet.getId() + " (" + data.length + " bytes)");
+        boolean sent = GameNetworkBridge.getInstance().sendToClient(connection, data);
+
+        if (!sent) {
+            System.out.println("[Mutagen/Network] Queued for client: " +
+                    packet.getId() + " (" + data.length + " bytes)");
+        }
     }
 
     /**
@@ -121,9 +130,12 @@ public class NetworkManager {
      */
     public static void sendToAll(Packet packet) {
         byte[] data = INSTANCE.serialize(packet);
-        // TODO: 게임 네트워크 시스템에 연결
-        System.out.println("[Mutagen/Network] Would send to all: " +
-                packet.getId() + " (" + data.length + " bytes)");
+        boolean sent = GameNetworkBridge.getInstance().sendToAll(data);
+
+        if (!sent) {
+            System.out.println("[Mutagen/Network] Queued for broadcast: " +
+                    packet.getId() + " (" + data.length + " bytes)");
+        }
     }
 
     // ─────────────────────────────────────────────────────────────

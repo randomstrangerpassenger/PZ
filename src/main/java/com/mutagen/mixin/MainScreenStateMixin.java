@@ -14,14 +14,11 @@ public abstract class MainScreenStateMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void mutagen$onRenderHead(CallbackInfo ci) {
-        System.out.println("[Mutagen/Mixin] MainScreenState.render() - HEAD");
+        // 렌더링 훅 - 필요시 여기에 로직 추가
     }
 
     @Inject(method = "render", at = @At("RETURN"))
     private void mutagen$onRenderReturn(CallbackInfo ci) {
-        // 너무 많은 로그 방지 - 가끔만 출력
-        if (Math.random() < 0.01) {
-            System.out.println("[Mutagen/Mixin] MainScreenState.render() - RETURN");
-        }
+        // 렌더링 완료 훅 - 필요시 여기에 로직 추가
     }
 }

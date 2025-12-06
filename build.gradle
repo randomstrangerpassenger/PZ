@@ -1,0 +1,88 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.mutagen'
+version = '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven/' }
+}
+
+dependencies {
+    // Mixin Core
+    implementation 'org.spongepowered:mixin:0.8.5'
+
+    // JSON (Mixin config 파싱에 필요)
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // ASM (바이트코드 조작)
+    implementation 'org.ow2.asm:asm:9.5'
+    implementation 'org.ow2.asm:asm-commons:9.5'
+    implementation 'org.ow2.asm:asm-tree:9.5'
+    implementation 'org.ow2.asm:asm-util:9.5'
+    implementation 'org.ow2.asm:asm-analysis:9.5'
+
+    // Guava (Mixin 내부에서 사용)
+    implementation 'com.google.guava:guava:32.1.2-jre'
+
+    // Game Code (컴파일 전용)
+    compileOnly files('C:/SteamLibrary/steamapps/common/ProjectZomboid')
+    compileOnly fileTree(dir: 'C:/SteamLibrary/steamapps/common/ProjectZomboid', include: ['*.jar'])
+}
+
+shadowJar {
+    archiveBaseName.set('Mutagen')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+
+    // 서비스 파일 병합 (중요!)
+    mergeServiceFiles()
+
+    // 중복 제외
+    exclude 'META-INF/MANIFEST.MF'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+
+    manifest {
+        attributes(
+            'Premain-Class': 'com.mutagen.MutagenAgent',
+            'Agent-Class': 'com.mutagen.MutagenAgent',
+            'Can-Retransform-Classes': 'true',
+            'Can-Redefine-Classes': 'true',
+            'Can-Set-Native-Method-Prefix': 'true',
+            'Implementation-Title': 'Mutagen',
+            'Implementation-Version': project.version,
+            'Multi-Release': 'true'
+        )
+    }
+}
+
+tasks.named('build') {
+    dependsOn shadowJar
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-parameters']  // 메서드 파라미터 이름 유지
+}
+
+// 디버그: 종속성 트리 출력
+task printDeps {
+    doLast {
+        configurations.runtimeClasspath.each { println it }
+    }
+}

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Premain-Class: com.mutagen.MutagenAgent
+Agent-Class: com.mutagen.MutagenAgent
+Can-Retransform-Classes: true
+Can-Redefine-Classes: true
+Can-Set-Native-Method-Prefix: true
+Implementation-Title: Mutagen
+Implementation-Version: 1.0.0-SNAPSHOT
+Multi-Release: true
+

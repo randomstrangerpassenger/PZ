@@ -1,0 +1,97 @@
+﻿
+> Task :compileJava FAILED
+.\gradlew : C:\Users\M
+W\Downloads\coding\Mut
+agen\src\main\java\com
+\pulse\service\Mutagen
+ClassTracker.java:12: 
+error: class PulseClas
+sTracker is public, sh
+ould be declared in a 
+file named PulseClassT
+racker.java
+At line:1 char:1
++ .\gradlew compileJav
+a --console=plain > co
+mpile_error.log 2>&1
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (C:\Users\M   
+ W\Dow...assTracke    
+r.java:String) []    ,
+ RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+public class PulseClas
+sTracker implements IC
+lassTracker {
+       ^
+Note: C:\Users\MW\Down
+loads\coding\Mutagen\s
+rc\main\java\com\pulse
+\service\PulseMixinSer
+vice.java uses or over
+rides a deprecated API
+.
+Note: Recompile with -
+Xlint:deprecation for 
+details.
+1 error
+
+[Incubating] Problems report is available at: file:///C:/Users/MW/Downloads/coding/Mutagen/build/reports/problems/problems-report.html
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for t
+ask ':compileJava'.
+> Compilation failed; 
+see the compiler outpu
+t below.
+  Note: C:\Users\MW\Do
+wnloads\coding\Mutagen
+\src\main\java\com\pul
+se\service\PulseMixinS
+ervice.java uses or ov
+errides a deprecated A
+PI.
+  Note: Recompile with
+ -Xlint:deprecation fo
+r details.
+  C:\Users\MW\Download
+s\coding\Mutagen\src\m
+ain\java\com\pulse\ser
+vice\MutagenClassTrack
+er.java:12: error: cla
+ss PulseClassTracker i
+s public, should be de
+clared in a file named
+ PulseClassTracker.jav
+a
+  public class PulseCl
+assTracker implements 
+IClassTracker {
+         ^
+  1 error
+
+* Try:
+> Check your code and 
+dependencies to fix th
+e compilation error(s)
+> Run with --scan to g
+et full insights.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 1s
+1 actionable task: 1 executed

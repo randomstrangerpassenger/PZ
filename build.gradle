@@ -5,7 +5,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
-group = 'com.mutagen'
+group = 'com.pulse'
 version = '1.0.0-SNAPSHOT'
 
 java {
@@ -44,7 +44,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveBaseName.set('Mutagen')
+    archiveBaseName.set('Pulse')
     archiveClassifier.set('')
     archiveVersion.set('')
 
@@ -59,12 +59,12 @@ shadowJar {
 
     manifest {
         attributes(
-            'Premain-Class': 'com.mutagen.MutagenAgent',
-            'Agent-Class': 'com.mutagen.MutagenAgent',
+            'Premain-Class': 'com.pulse.PulseAgent',
+            'Agent-Class': 'com.pulse.PulseAgent',
             'Can-Retransform-Classes': 'true',
             'Can-Redefine-Classes': 'true',
             'Can-Set-Native-Method-Prefix': 'true',
-            'Implementation-Title': 'Mutagen',
+            'Implementation-Title': 'Pulse',
             'Implementation-Version': project.version,
             'Multi-Release': 'true'
         )

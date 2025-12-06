@@ -1,0 +1,17 @@
+{
+    "id": "test_mod_b",
+    "name": "Test Mod B",
+    "version": "1.0.0",
+    "author": "Pulse Team",
+    "description": "Mixin test mod for Phase 1 verification",
+    "entrypoint": "com.pulse.test.b.TestModB",
+    "mixins": [
+        "mixins.testmodb.json"
+    ],
+    "dependencies": [
+        {
+            "id": "Pulse",
+            "version": ">=1.0.0"
+        }
+    ]
+}

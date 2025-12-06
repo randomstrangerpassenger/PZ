@@ -1,1 +1,5 @@
-rootProject.name = 'Mutagen'
+rootProject.name = 'Pulse'
+
+include 'first-party-mods:pulse-profiler'
+include 'first-party-mods:pulse-engine-optim'
+include 'first-party-mods:pulse-lua-optim'

@@ -1,9 +1,9 @@
 package com.example.examplemod;
 
-import com.mutagen.command.Arg;
-import com.mutagen.command.Command;
-import com.mutagen.command.CommandContext;
-import com.mutagen.command.CommandRegistry;
+import com.pulse.command.Arg;
+import com.pulse.command.Command;
+import com.pulse.command.CommandContext;
+import com.pulse.command.CommandRegistry;
 
 /**
  * 예제 명령어 클래스.

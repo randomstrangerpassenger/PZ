@@ -1,7 +1,7 @@
 package com.example.examplemod;
 
-import com.mutagen.config.Config;
-import com.mutagen.config.ConfigValue;
+import com.pulse.config.Config;
+import com.pulse.config.ConfigValue;
 
 /**
  * Example Mod 설정.

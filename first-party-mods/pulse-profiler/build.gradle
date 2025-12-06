@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.pulse.profiler'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven/' }
+}
+
+dependencies {
+    // Pulse API
+    compileOnly files('../../build/libs/Pulse-1.0.0-all.jar')
+    
+    // Mixin
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+    
+    // PZ 게임 코드 (컴파일 전용)
+    // compileOnly fileTree(dir: 'C:/SteamLibrary/steamapps/common/ProjectZomboid', include: ['*.jar'])
+}
+
+jar {
+    archiveBaseName.set('Pulse-profiler')
+    
+    from('src/main/resources') {
+        include 'pulse.mod.json'
+        include 'mixins.profiler.json'
+    }
+
+    manifest {
+        attributes(
+            'Implementation-Title': 'Pulse Profiler',
+            'Implementation-Version': version
+        )
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

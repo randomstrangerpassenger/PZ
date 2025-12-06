@@ -1,36 +1,36 @@
 package com.example.examplemod;
 
-import com.mutagen.api.GameAccess;
-import com.mutagen.api.Mutagen;
-import com.mutagen.attachment.DataAttachments;
-import com.mutagen.config.ConfigManager;
-import com.mutagen.event.EventBus;
-import com.mutagen.event.EventPriority;
-import com.mutagen.event.lifecycle.GameInitEvent;
-import com.mutagen.event.lifecycle.GameTickEvent;
-import com.mutagen.event.lifecycle.WorldLoadEvent;
-import com.mutagen.event.lifecycle.WorldUnloadEvent;
-import com.mutagen.event.player.PlayerDamageEvent;
-import com.mutagen.event.player.PlayerUpdateEvent;
-import com.mutagen.input.KeyBinding;
-import com.mutagen.input.KeyBindingRegistry;
-import com.mutagen.input.KeyCode;
-import com.mutagen.mod.MutagenMod;
-import com.mutagen.scheduler.MutagenScheduler;
+import com.pulse.api.GameAccess;
+import com.pulse.api.Pulse;
+import com.pulse.attachment.DataAttachments;
+import com.pulse.config.ConfigManager;
+import com.pulse.event.EventBus;
+import com.pulse.event.EventPriority;
+import com.pulse.event.lifecycle.GameInitEvent;
+import com.pulse.event.lifecycle.GameTickEvent;
+import com.pulse.event.lifecycle.WorldLoadEvent;
+import com.pulse.event.lifecycle.WorldUnloadEvent;
+import com.pulse.event.player.PlayerDamageEvent;
+import com.pulse.event.player.PlayerUpdateEvent;
+import com.pulse.input.KeyBinding;
+import com.pulse.input.KeyBindingRegistry;
+import com.pulse.input.KeyCode;
+import com.pulse.mod.PulseMod;
+import com.pulse.scheduler.PulseScheduler;
 
 /**
- * Example Mod - Mutagen API 사용 예제
+ * Example Mod - Pulse API 사용 예제
  *
- * 이 모드는 Mutagen의 주요 기능을 보여줍니다:
+ * 이 모드는 Pulse의 주요 기능을 보여줍니다:
  * - 설정 시스템 (@Config)
  * - 이벤트 구독 및 처리
  * - 명령어 시스템 (@Command)
  * - 데이터 첨부 (DataAttachments)
- * - 스케줄러 (MutagenScheduler)
+ * - 스케줄러 (PulseScheduler)
  * - 키 바인딩 (KeyBinding)
  * - GameAccess API 사용
  */
-public class ExampleMod implements MutagenMod {
+public class ExampleMod implements PulseMod {
 
     private static final String MOD_ID = "examplemod";
     private long lastLogTick = 0;
@@ -41,15 +41,15 @@ public class ExampleMod implements MutagenMod {
 
     @Override
     public void onInitialize() {
-        Mutagen.log(MOD_ID, "Example Mod initializing...");
+        Pulse.log(MOD_ID, "Example Mod initializing...");
 
         // 1. 설정 등록 및 로드
         ConfigManager.register(ExampleConfig.class);
-        Mutagen.log(MOD_ID, "Config loaded - Debug mode: " + ExampleConfig.debugMode);
+        Pulse.log(MOD_ID, "Config loaded - Debug mode: " + ExampleConfig.debugMode);
 
         // 2. 명령어 등록
         ExampleCommands.register();
-        Mutagen.log(MOD_ID, "Commands registered");
+        Pulse.log(MOD_ID, "Commands registered");
 
         // 3. 이벤트 리스너 등록
         registerEventListeners();
@@ -60,7 +60,7 @@ public class ExampleMod implements MutagenMod {
         // 5. 스케줄러 예제
         scheduleExampleTasks();
 
-        Mutagen.log(MOD_ID, "Example Mod initialized!");
+        Pulse.log(MOD_ID, "Example Mod initialized!");
     }
 
     private void registerEventListeners() {
@@ -100,17 +100,17 @@ public class ExampleMod implements MutagenMod {
 
     private void scheduleExampleTasks() {
         // 게임 시작 후 5초(100틱) 뒤에 환영 메시지
-        MutagenScheduler.runLater(() -> {
-            Mutagen.log(MOD_ID, "Welcome to Example Mod! Press M to open menu.");
+        PulseScheduler.runLater(() -> {
+            Pulse.log(MOD_ID, "Welcome to Example Mod! Press M to open menu.");
         }, 100, "welcome-message");
 
         // 1분마다 플레이어 데이터 자동 저장 (1200틱)
-        MutagenScheduler.runTimer(() -> {
+        PulseScheduler.runTimer(() -> {
             Object player = GameAccess.getLocalPlayer();
             if (player != null) {
                 DataAttachments.save(player, "examplemod_player.json");
                 if (ExampleConfig.debugMode) {
-                    Mutagen.log(MOD_ID, "Player data auto-saved");
+                    Pulse.log(MOD_ID, "Player data auto-saved");
                 }
             }
         }, 1200, 1200, "auto-save");
@@ -121,7 +121,7 @@ public class ExampleMod implements MutagenMod {
     // ─────────────────────────────────────────────────────────────
 
     private void onGameInit(GameInitEvent event) {
-        Mutagen.log(MOD_ID, "Game initialization complete!");
+        Pulse.log(MOD_ID, "Game initialization complete!");
     }
 
     private void onGameTick(GameTickEvent event) {
@@ -142,13 +142,13 @@ public class ExampleMod implements MutagenMod {
 
     private void checkKeyBindings() {
         if (openMenuKey != null && openMenuKey.wasPressed()) {
-            Mutagen.log(MOD_ID, "Menu key pressed! (Placeholder for actual menu)");
+            Pulse.log(MOD_ID, "Menu key pressed! (Placeholder for actual menu)");
         }
 
         if (toggleDebugKey != null && toggleDebugKey.wasPressed()) {
             ExampleConfig.debugMode = !ExampleConfig.debugMode;
             ConfigManager.save(ExampleConfig.class);
-            Mutagen.log(MOD_ID, "Debug mode: " + (ExampleConfig.debugMode ? "ON" : "OFF"));
+            Pulse.log(MOD_ID, "Debug mode: " + (ExampleConfig.debugMode ? "ON" : "OFF"));
         }
     }
 
@@ -172,14 +172,14 @@ public class ExampleMod implements MutagenMod {
     }
 
     private void onWorldLoad(WorldLoadEvent event) {
-        Mutagen.log(MOD_ID, "World loaded: " + event.getWorldName());
+        Pulse.log(MOD_ID, "World loaded: " + event.getWorldName());
 
         // 플레이어 데이터 로드 시도
         Object player = GameAccess.getLocalPlayer();
         if (player != null) {
             DataAttachments.load(player, "examplemod_player.json");
             PlayerExtraData data = DataAttachments.get(player, PlayerExtraData.TYPE);
-            Mutagen.log(MOD_ID, "Loaded player data: " + data);
+            Pulse.log(MOD_ID, "Loaded player data: " + data);
         }
 
         // 월드 로드 시 게임 상태 출력
@@ -189,13 +189,13 @@ public class ExampleMod implements MutagenMod {
     }
 
     private void onWorldUnload(WorldUnloadEvent event) {
-        Mutagen.log(MOD_ID, "World unloaded");
+        Pulse.log(MOD_ID, "World unloaded");
 
         // 플레이어 데이터 저장
         Object player = GameAccess.getLocalPlayer();
         if (player != null) {
             DataAttachments.save(player, "examplemod_player.json");
-            Mutagen.log(MOD_ID, "Player data saved on world unload");
+            Pulse.log(MOD_ID, "Player data saved on world unload");
         }
     }
 
@@ -209,7 +209,7 @@ public class ExampleMod implements MutagenMod {
         String type = event.getDamageType();
 
         if (ExampleConfig.debugMode) {
-            Mutagen.log(MOD_ID, String.format(
+            Pulse.log(MOD_ID, String.format(
                     "Player taking %.1f damage (type: %s)", damage, type));
         }
 
@@ -218,7 +218,7 @@ public class ExampleMod implements MutagenMod {
             float reducedDamage = damage * (1.0f - ExampleConfig.damageReduction);
             event.setDamage(reducedDamage);
             if (ExampleConfig.debugMode) {
-                Mutagen.log(MOD_ID, String.format(
+                Pulse.log(MOD_ID, String.format(
                         "Damage reduced: %.1f -> %.1f", damage, reducedDamage));
             }
         }
@@ -226,7 +226,7 @@ public class ExampleMod implements MutagenMod {
         // 화염 면역 설정
         if (ExampleConfig.fireImmunity && "fire".equals(type)) {
             event.cancel();
-            Mutagen.log(MOD_ID, "Fire damage blocked!");
+            Pulse.log(MOD_ID, "Fire damage blocked!");
         }
 
         // 사망 시 데이터 업데이트
@@ -284,7 +284,7 @@ public class ExampleMod implements MutagenMod {
 
         sb.append("═══════════════════════════════════════");
 
-        Mutagen.log(MOD_ID, sb.toString());
+        Pulse.log(MOD_ID, sb.toString());
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -293,19 +293,19 @@ public class ExampleMod implements MutagenMod {
 
     @Override
     public void onWorldLoad() {
-        // MutagenMod 인터페이스의 월드 로드 콜백
-        Mutagen.log(MOD_ID, "MutagenMod.onWorldLoad() called");
+        // PulseMod 인터페이스의 월드 로드 콜백
+        Pulse.log(MOD_ID, "PulseMod.onWorldLoad() called");
     }
 
     @Override
     public void onWorldUnload() {
-        // MutagenMod 인터페이스의 월드 언로드 콜백
-        Mutagen.log(MOD_ID, "MutagenMod.onWorldUnload() called");
+        // PulseMod 인터페이스의 월드 언로드 콜백
+        Pulse.log(MOD_ID, "PulseMod.onWorldUnload() called");
     }
 
     @Override
     public void onUnload() {
-        Mutagen.log(MOD_ID, "Example Mod unloading...");
+        Pulse.log(MOD_ID, "Example Mod unloading...");
 
         // 설정 저장
         ConfigManager.save(ExampleConfig.class);
@@ -316,6 +316,6 @@ public class ExampleMod implements MutagenMod {
             DataAttachments.save(player, "examplemod_player.json");
         }
 
-        Mutagen.log(MOD_ID, "Example Mod unloaded");
+        Pulse.log(MOD_ID, "Example Mod unloaded");
     }
 }

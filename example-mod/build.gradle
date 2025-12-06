@@ -15,14 +15,14 @@ repositories {
 }
 
 dependencies {
-    // Mutagen API - 컴파일 타임에만 필요
-    compileOnly files('../build/libs/Mutagen-1.0.0-all.jar')
+    // Pulse API - 컴파일 타임에만 필요
+    compileOnly files('../build/libs/Pulse-1.0.0-all.jar')
 }
 
 jar {
-    // mutagen.mod.json을 JAR 루트에 포함
+    // pulse.mod.json을 JAR 루트에 포함
     from('src/main/resources') {
-        include 'mutagen.mod.json'
+        include 'pulse.mod.json'
     }
 
     manifest {

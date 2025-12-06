@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.pulse.engineoptim'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven/' }
+}
+
+dependencies {
+    compileOnly files('../../build/libs/Pulse-1.0.0-all.jar')
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+    compileOnly fileTree(dir: 'C:/SteamLibrary/steamapps/common/ProjectZomboid', include: ['*.jar'])
+}
+
+jar {
+    archiveBaseName.set('Pulse-engine-optim')
+    
+    from('src/main/resources') {
+        include 'pulse.mod.json'
+        include 'mixins.engineoptim.json'
+    }
+
+    manifest {
+        attributes(
+            'Implementation-Title': 'Pulse Engine Optim',
+            'Implementation-Version': version
+        )
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

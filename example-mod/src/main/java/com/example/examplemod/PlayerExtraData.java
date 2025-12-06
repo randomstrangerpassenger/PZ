@@ -1,6 +1,6 @@
 package com.example.examplemod;
 
-import com.mutagen.attachment.AttachmentType;
+import com.pulse.attachment.AttachmentType;
 
 /**
  * 플레이어에 첨부할 커스텀 데이터 예제.

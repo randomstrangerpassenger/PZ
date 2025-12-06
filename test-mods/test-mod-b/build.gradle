@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.pulse.test'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven/' }
+}
+
+dependencies {
+    // Pulse API - 컴파일 타임에만 필요
+    compileOnly files('../../build/libs/Pulse.jar')
+    
+    // Mixin (annotation processing용)
+    compileOnly 'org.spongepowered:mixin:0.8.5'
+}
+
+jar {
+    archiveBaseName.set('test-mod-b')
+    
+    from('src/main/resources') {
+        include 'pulse.mod.json'
+        include 'mixins.testmodb.json'
+    }
+
+    manifest {
+        attributes(
+            'Implementation-Title': 'Test Mod B',
+            'Implementation-Version': version
+        )
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

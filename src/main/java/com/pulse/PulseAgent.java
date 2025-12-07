@@ -265,6 +265,26 @@ public class PulseAgent {
         // ─────────────────────────────────────────────────────────────
         PulseEnvironment.markInitialized();
 
+        // ─────────────────────────────────────────────────────────────
+        // STEP 6.5: Optimization Extensions 초기화 (v1.0.1)
+        // ─────────────────────────────────────────────────────────────
+        System.out.println("[Pulse] Step 6.5: Initializing optimization extensions...");
+        try {
+            // CapabilityFlags 초기화
+            com.pulse.api.CapabilityFlags.initialize();
+
+            // OptimizationPointRegistry 초기화
+            com.pulse.api.optimization.OptimizationPointRegistry.initialize();
+
+            // SafeGameAccess 메인 스레드 설정
+            com.pulse.api.SafeGameAccess.setMainThread(Thread.currentThread());
+
+            System.out.println("[Pulse] Step 6.5: Complete");
+        } catch (Throwable t) {
+            System.err.println("[Pulse] Step 6.5: Optimization extensions init error (non-fatal)");
+            t.printStackTrace();
+        }
+
         System.out.println();
         System.out.println("[Pulse] ════════════════════════════════════════════════════");
         System.out.println("[Pulse] CORE INITIALIZATION COMPLETE");

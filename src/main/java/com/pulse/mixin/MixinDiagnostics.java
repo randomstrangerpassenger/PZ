@@ -1,6 +1,7 @@
 package com.pulse.mixin;
 
 import com.pulse.api.DevMode;
+import com.pulse.api.mixin.MixinInjectionValidator;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,8 +35,17 @@ public class MixinDiagnostics {
      */
     public void recordMixinApplied(String targetClass, String mixinClass,
             String modId, int priority) {
+        long startTime = System.currentTimeMillis();
         MixinInfo info = new MixinInfo(mixinClass, modId, priority);
         appliedMixins.computeIfAbsent(targetClass, k -> new ArrayList<>()).add(info);
+        long elapsed = System.currentTimeMillis() - startTime;
+
+        // v1.0.1: MixinInjectionValidator에도 성공 기록
+        try {
+            MixinInjectionValidator.recordSuccess(mixinClass, targetClass, elapsed);
+        } catch (Exception e) {
+            // ignore - Validator가 초기화되지 않았을 수 있음
+        }
 
         if (DevMode.isEnabled()) {
             System.out.println("[Pulse/Mixin] Applied " + mixinClass +
@@ -50,6 +60,13 @@ public class MixinDiagnostics {
             String targetClass, String reason) {
         FailedMixin failed = new FailedMixin(mixinClass, modId, targetClass, reason);
         failedMixins.add(failed);
+
+        // v1.0.1: MixinInjectionValidator에도 실패 기록
+        try {
+            MixinInjectionValidator.recordFailure(mixinClass, targetClass, reason);
+        } catch (Exception e) {
+            // ignore - Validator가 초기화되지 않았을 수 있음
+        }
 
         System.err.println("[Pulse/Mixin] Failed " + mixinClass + " from " + modId +
                 " to " + targetClass + ": " + reason);

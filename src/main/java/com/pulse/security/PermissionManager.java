@@ -130,6 +130,11 @@ public class PermissionManager {
         GAME_PLAYER_DATA(PermissionPolicy.ALLOW_ALL),
         GAME_ADMIN_COMMANDS(PermissionPolicy.ASK),
 
+        // 콘솔 (멀티플레이 보안)
+        CONSOLE_ACCESS(PermissionPolicy.ALLOW_ALL), // 기본 콘솔 접근
+        CONSOLE_LUA_EXEC(PermissionPolicy.DENY), // Lua 코드 실행 (위험)
+        CONSOLE_MOD_MANAGE(PermissionPolicy.DENY), // 모드 reload/disable/enable
+
         // 모드 간
         MOD_IMC(PermissionPolicy.ALLOW_ALL),
         MOD_ACCESS_INTERNAL(PermissionPolicy.DENY);

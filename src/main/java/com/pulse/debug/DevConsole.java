@@ -3,6 +3,9 @@ package com.pulse.debug;
 import com.pulse.mod.ModLoader;
 import com.pulse.mod.ModContainer;
 import com.pulse.mod.ModReloadManager;
+import com.pulse.security.PermissionManager;
+import com.pulse.security.PermissionManager.Permission;
+import com.pulse.security.SideValidator;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -11,6 +14,12 @@ import java.util.function.Consumer;
 /**
  * 인게임 개발자 콘솔.
  * REPL 스타일 디버그 명령어 실행.
+ * 
+ * <p>
+ * <b>멀티플레이어 보안:</b>
+ * 서버 환경에서는 위험한 명령어(lua, mods reload/disable/enable)에 대해
+ * 관리자 권한 검사를 수행합니다. 권한이 없는 유저는 해당 명령어를 실행할 수 없습니다.
+ * </p>
  * 
  * 사용 예:
  * 
@@ -24,10 +33,18 @@ public class DevConsole {
 
     private static final DevConsole INSTANCE = new DevConsole();
 
+    /** 위험 명령어 목록 - 서버에서 권한 검사 필요 */
+    private static final Set<String> PRIVILEGED_COMMANDS = Set.of("lua");
+    private static final Set<String> MOD_MANAGE_SUBCOMMANDS = Set.of("reload", "disable", "enable");
+
     private final Map<String, ConsoleCommand> commands = new LinkedHashMap<>();
     private final Queue<String> outputBuffer = new ConcurrentLinkedQueue<>();
     private Consumer<String> outputHandler;
     private boolean eventMonitoring = false;
+
+    /** 현재 콘솔 사용자의 권한 (플레이어 ID 또는 "pulse:system") */
+    private static String currentExecutor = "pulse:system";
+    private static boolean currentExecutorIsAdmin = true;
 
     private DevConsole() {
         registerDefaultCommands();
@@ -35,6 +52,38 @@ public class DevConsole {
 
     public static DevConsole getInstance() {
         return INSTANCE;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 권한 관리 (멀티플레이어 보안)
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * 현재 콘솔 실행자 설정.
+     * 멀티플레이어 서버에서 콘솔 UI 열 때 호출해야 합니다.
+     * 
+     * @param executorId 플레이어 ID 또는 시스템 ID
+     * @param isAdmin    관리자 권한 여부
+     */
+    public static void setCurrentExecutor(String executorId, boolean isAdmin) {
+        currentExecutor = executorId != null ? executorId : "pulse:system";
+        currentExecutorIsAdmin = isAdmin;
+        System.out.println("[DevConsole] Executor set: " + currentExecutor + " (admin=" + isAdmin + ")");
+    }
+
+    /**
+     * 현재 실행자가 관리자인지 확인.
+     */
+    public static boolean isCurrentExecutorAdmin() {
+        return currentExecutorIsAdmin;
+    }
+
+    /**
+     * 시스템 권한으로 리셋 (콘솔 UI 닫을 때 호출).
+     */
+    public static void resetExecutorToSystem() {
+        currentExecutor = "pulse:system";
+        currentExecutorIsAdmin = true;
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -56,6 +105,37 @@ public class DevConsole {
         String[] parts = input.trim().split("\\s+", 2);
         String cmdName = parts[0].toLowerCase();
         String args = parts.length > 1 ? parts[1] : "";
+
+        // ═══════════════════════════════════════════════════════════════
+        // 멀티플레이어 보안 검사
+        // ═══════════════════════════════════════════════════════════════
+
+        // 1. 서버 환경에서 권한 검사 강화
+        if (!SideValidator.isClient()) {
+            // 1a. Lua 명령어: CONSOLE_LUA_EXEC 권한 필요
+            if (PRIVILEGED_COMMANDS.contains(cmdName)) {
+                if (!currentExecutorIsAdmin &&
+                        !PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_LUA_EXEC)) {
+                    System.err.println("[DevConsole] BLOCKED: User '" + currentExecutor +
+                            "' attempted privileged command: " + cmdName);
+                    return "§c[보안] 권한 부족: '" + cmdName + "' 명령어는 관리자만 사용할 수 있습니다.";
+                }
+            }
+
+            // 1b. 모드 관리 명령어: CONSOLE_MOD_MANAGE 권한 필요
+            if ("mods".equals(cmdName) && args.length() > 0) {
+                String subCmd = args.split("\\s+")[0].toLowerCase();
+                if (MOD_MANAGE_SUBCOMMANDS.contains(subCmd)) {
+                    if (!currentExecutorIsAdmin &&
+                            !PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_MOD_MANAGE)) {
+                        System.err.println("[DevConsole] BLOCKED: User '" + currentExecutor +
+                                "' attempted mod management: mods " + subCmd);
+                        return "§c[보안] 권한 부족: 'mods " + subCmd + "'는 관리자만 사용할 수 있습니다.";
+                    }
+                }
+            }
+        }
+        // ═══════════════════════════════════════════════════════════════
 
         ConsoleCommand cmd = commands.get(cmdName);
         if (cmd == null) {

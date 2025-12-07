@@ -43,7 +43,7 @@ public class DevConsole {
 
     /** 현재 콘솔 사용자의 권한 (플레이어 ID 또는 "pulse:system") */
     private static String currentExecutor = "pulse:system";
-    private static boolean currentExecutorIsAdmin = true;
+    private static boolean currentExecutorIsAdmin = false;
 
     /** 디버그 모드 여부 (개발 중에만 true) */
     private static boolean debugModeEnabled = false;
@@ -484,11 +484,8 @@ public class DevConsole {
      * @return 관리자 여부 (확인 실패 시 false - 안전)
      */
     private static boolean isPZAdmin() {
-        // 먼저 Pulse 내부 플래그 확인
-        if (currentExecutorIsAdmin) {
-            return true;
-        }
-
+        // 항상 PZ 게임 엔진에서 직접 Admin 상태를 확인
+        // (currentExecutorIsAdmin 플래그에 의존하지 않음 - 보안 강화)
         try {
             // 방법 1: GameClient.connection.isAdmin() 확인
             Class<?> gameClientClass = Class.forName("zombie.network.GameClient");

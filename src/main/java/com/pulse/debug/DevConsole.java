@@ -5,7 +5,6 @@ import com.pulse.mod.ModContainer;
 import com.pulse.mod.ModReloadManager;
 import com.pulse.security.PermissionManager;
 import com.pulse.security.PermissionManager.Permission;
-import com.pulse.security.SideValidator;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -33,7 +32,7 @@ public class DevConsole {
 
     private static final DevConsole INSTANCE = new DevConsole();
 
-    /** 위험 명령어 목록 - 서버에서 권한 검사 필요 */
+    /** 위험 명령어 목록 - 권한 검사 필요 */
     private static final Set<String> PRIVILEGED_COMMANDS = Set.of("lua");
     private static final Set<String> MOD_MANAGE_SUBCOMMANDS = Set.of("reload", "disable", "enable");
 
@@ -45,6 +44,12 @@ public class DevConsole {
     /** 현재 콘솔 사용자의 권한 (플레이어 ID 또는 "pulse:system") */
     private static String currentExecutor = "pulse:system";
     private static boolean currentExecutorIsAdmin = true;
+
+    /** 디버그 모드 여부 (개발 중에만 true) */
+    private static boolean debugModeEnabled = false;
+
+    /** 멀티플레이어 세션 여부 */
+    private static boolean inMultiplayerSession = false;
 
     private DevConsole() {
         registerDefaultCommands();
@@ -86,6 +91,50 @@ public class DevConsole {
         currentExecutorIsAdmin = true;
     }
 
+    /**
+     * 디버그 모드 설정.
+     * 개발 환경이나 싱글플레이 테스트 시 true로 설정하면 권한 검사 우회.
+     * 
+     * @param enabled 디버그 모드 활성화 여부
+     */
+    public static void setDebugMode(boolean enabled) {
+        debugModeEnabled = enabled;
+        System.out.println("[DevConsole] Debug mode: " + (enabled ? "ENABLED" : "DISABLED"));
+    }
+
+    /**
+     * 디버그 모드 상태 확인.
+     */
+    public static boolean isDebugModeEnabled() {
+        return debugModeEnabled;
+    }
+
+    /**
+     * 멀티플레이어 세션 시작 시 호출.
+     * 멀티플레이 서버 접속 시 자동으로 호출되어야 합니다.
+     */
+    public static void onMultiplayerSessionStart() {
+        inMultiplayerSession = true;
+        debugModeEnabled = false; // 멀티플레이에서는 디버그 모드 강제 비활성화
+        System.out.println("[DevConsole] Multiplayer session started - security enforced");
+    }
+
+    /**
+     * 멀티플레이어 세션 종료 시 호출.
+     */
+    public static void onMultiplayerSessionEnd() {
+        inMultiplayerSession = false;
+        resetExecutorToSystem();
+        System.out.println("[DevConsole] Multiplayer session ended");
+    }
+
+    /**
+     * 멀티플레이어 세션 여부 확인.
+     */
+    public static boolean isInMultiplayerSession() {
+        return inMultiplayerSession;
+    }
+
     // ─────────────────────────────────────────────────────────────
     // 명령어 실행
     // ─────────────────────────────────────────────────────────────
@@ -107,27 +156,33 @@ public class DevConsole {
         String args = parts.length > 1 ? parts[1] : "";
 
         // ═══════════════════════════════════════════════════════════════
-        // 멀티플레이어 보안 검사
+        // 보안 검사 (Anti-Cheat)
+        // ═══════════════════════════════════════════════════════════════
+        //
+        // 검사 우회 조건 (아래 중 하나 충족 시):
+        // 1. 디버그 모드 활성화 AND 싱글플레이어 (개발 테스트용)
+        // 2. 현재 실행자가 관리자권한 보유
+        //
+        // 그 외 모든 경우에서 위험 명령어 차단
         // ═══════════════════════════════════════════════════════════════
 
-        // 1. 서버 환경에서 권한 검사 강화
-        if (!SideValidator.isClient()) {
-            // 1a. Lua 명령어: CONSOLE_LUA_EXEC 권한 필요
+        boolean bypassSecurity = (debugModeEnabled && !inMultiplayerSession) || currentExecutorIsAdmin;
+
+        if (!bypassSecurity) {
+            // Lua 명령어: CONSOLE_LUA_EXEC 권한 필요
             if (PRIVILEGED_COMMANDS.contains(cmdName)) {
-                if (!currentExecutorIsAdmin &&
-                        !PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_LUA_EXEC)) {
+                if (!PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_LUA_EXEC)) {
                     System.err.println("[DevConsole] BLOCKED: User '" + currentExecutor +
                             "' attempted privileged command: " + cmdName);
                     return "§c[보안] 권한 부족: '" + cmdName + "' 명령어는 관리자만 사용할 수 있습니다.";
                 }
             }
 
-            // 1b. 모드 관리 명령어: CONSOLE_MOD_MANAGE 권한 필요
+            // 모드 관리 명령어: CONSOLE_MOD_MANAGE 권한 필요
             if ("mods".equals(cmdName) && args.length() > 0) {
                 String subCmd = args.split("\\s+")[0].toLowerCase();
                 if (MOD_MANAGE_SUBCOMMANDS.contains(subCmd)) {
-                    if (!currentExecutorIsAdmin &&
-                            !PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_MOD_MANAGE)) {
+                    if (!PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_MOD_MANAGE)) {
                         System.err.println("[DevConsole] BLOCKED: User '" + currentExecutor +
                                 "' attempted mod management: mods " + subCmd);
                         return "§c[보안] 권한 부족: 'mods " + subCmd + "'는 관리자만 사용할 수 있습니다.";

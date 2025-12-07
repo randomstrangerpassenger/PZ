@@ -152,6 +152,38 @@ public class MixinDiagnostics {
         return appliedMixins.getOrDefault(targetClass, Collections.emptyList());
     }
 
+    /**
+     * 크래시 리포트용 변환 상세 정보 반환.
+     * 
+     * @return 타겟 클래스 → Mixin 클래스 목록 맵
+     */
+    public static Map<String, List<String>> getTransformationDetails() {
+        Map<String, List<String>> result = new LinkedHashMap<>();
+
+        for (Map.Entry<String, List<MixinInfo>> entry : INSTANCE.appliedMixins.entrySet()) {
+            List<String> mixinNames = new ArrayList<>();
+            for (MixinInfo info : entry.getValue()) {
+                mixinNames.add(info.mixinClass + " (" + info.modId + ")");
+            }
+            result.put(entry.getKey(), mixinNames);
+        }
+
+        return result;
+    }
+
+    /**
+     * 적용된 Mixin 목록 문자열로 반환.
+     */
+    public static List<String> getAppliedMixins() {
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<String, List<MixinInfo>> entry : INSTANCE.appliedMixins.entrySet()) {
+            for (MixinInfo info : entry.getValue()) {
+                result.add(info.mixinClass + " → " + entry.getKey() + " (" + info.modId + ")");
+            }
+        }
+        return result;
+    }
+
     // ─────────────────────────────────────────────────────────────
     // 내부 클래스
     // ─────────────────────────────────────────────────────────────

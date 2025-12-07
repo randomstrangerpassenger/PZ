@@ -19,6 +19,12 @@ import java.lang.annotation.Target;
  * <pre>
  * {@literal @}ConfigValue(comment = "Maximum items", min = 1, max = 1000)
  * public static int maxItems = 100;
+ * 
+ * {@literal @}ConfigValue(options = {"LOW", "MEDIUM", "HIGH"})
+ * public static String quality = "MEDIUM";
+ * 
+ * {@literal @}ConfigValue(min = 0, max = 100, step = 5)
+ * public static int volume = 50;
  * </pre>
  */
 @Retention(RetentionPolicy.RUNTIME)
@@ -48,4 +54,26 @@ public @interface ConfigValue {
      * 재시작 필요 여부
      */
     boolean requiresRestart() default false;
+
+    /**
+     * 허용 값 목록 (String/Enum 타입용)
+     * 비어있으면 제한 없음
+     */
+    String[] options() default {};
+
+    /**
+     * 증감 단위 (슬라이더 UI용)
+     * 0이면 연속 값
+     */
+    double step() default 0;
+
+    /**
+     * 카테고리 (UI 그룹화용)
+     */
+    String category() default "";
+
+    /**
+     * 숨김 여부 (고급 사용자용)
+     */
+    boolean hidden() default false;
 }

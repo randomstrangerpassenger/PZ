@@ -176,7 +176,9 @@ public class HandshakeHandler {
             System.err.println("[Pulse/Handshake] Client validation failed: " + result.getReason());
             HandshakePacket response = HandshakePacket.create(HandshakePacket.HandshakePhase.REJECT);
             NetworkManager.sendToClient(connection, response);
-            // TODO: 연결 종료
+
+            // 연결 종료
+            disconnectClient(connection, result.getReason());
         }
     }
 
@@ -186,7 +188,77 @@ public class HandshakeHandler {
 
         if (!result.isSuccess()) {
             System.err.println("[Pulse/Handshake] Server mod mismatch: " + result.getReason());
-            // TODO: 경고 표시 또는 연결 종료
+
+            // 경고 표시 및 연결 종료
+            showModMismatchWarning(result.getReason());
+            disconnectFromServer(result.getReason());
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 연결 관리
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * 클라이언트 연결 종료 (서버 측).
+     */
+    private void disconnectClient(Object connection, String reason) {
+        try {
+            // GameServer.kick 또는 유사한 메서드 호출
+            Class<?> gameServerClass = Class.forName("zombie.network.GameServer");
+
+            // connection에서 플레이어/연결 정보 추출 시도
+            if (connection != null) {
+                java.lang.reflect.Method disconnectMethod = gameServerClass.getMethod("disconnect", Object.class,
+                        String.class);
+                disconnectMethod.invoke(null, connection, "Mod mismatch: " + reason);
+                System.out.println("[Pulse/Handshake] Client disconnected: " + reason);
+            }
+        } catch (ClassNotFoundException e) {
+            // GameServer 클래스 없음 - 싱글플레이어이거나 다른 환경
+            System.out.println("[Pulse/Handshake] Cannot disconnect client (not a server environment)");
+        } catch (Exception e) {
+            System.err.println("[Pulse/Handshake] Failed to disconnect client: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 서버 연결 종료 (클라이언트 측).
+     */
+    private void disconnectFromServer(String reason) {
+        try {
+            Class<?> gameClientClass = Class.forName("zombie.network.GameClient");
+            java.lang.reflect.Method disconnectMethod = gameClientClass.getMethod("disconnect");
+            disconnectMethod.invoke(null);
+            System.out.println("[Pulse/Handshake] Disconnected from server: " + reason);
+        } catch (ClassNotFoundException e) {
+            System.out.println("[Pulse/Handshake] Cannot disconnect (not a client environment)");
+        } catch (Exception e) {
+            System.err.println("[Pulse/Handshake] Failed to disconnect from server: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 모드 불일치 경고 표시.
+     */
+    private void showModMismatchWarning(String reason) {
+        // 콘솔에 경고 출력
+        System.err.println("══════════════════════════════════════════════════════════");
+        System.err.println("  [Pulse] MOD MISMATCH WARNING");
+        System.err.println("══════════════════════════════════════════════════════════");
+        System.err.println("  " + reason);
+        System.err.println("══════════════════════════════════════════════════════════");
+
+        // UI 모달 표시 시도 (게임 UI 사용 가능한 경우)
+        try {
+            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
+            java.lang.reflect.Method runLuaMethod = luaManagerClass.getMethod("RunLua", String.class);
+            String luaCode = String.format(
+                    "getCore():doPopup('[Pulse] Mod Mismatch', '%s')",
+                    reason.replace("'", "\\'"));
+            runLuaMethod.invoke(null, luaCode);
+        } catch (Exception e) {
+            // UI 팝업 실패 - 콘솔 경고만 표시됨
         }
     }
 

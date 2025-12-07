@@ -1,7 +1,9 @@
 package com.pulse.config;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -48,7 +50,10 @@ public class ConfigSpec {
                         defaultValue,
                         annotation.min(),
                         annotation.max(),
-                        annotation.requiresRestart());
+                        annotation.requiresRestart(),
+                        annotation.options(),
+                        annotation.step(),
+                        annotation.category());
 
                 entries.add(entry);
             }
@@ -86,8 +91,39 @@ public class ConfigSpec {
     }
 
     /**
-     * 단일 설정 엔트리
+     * @Validate 메서드 실행.
+     * @return 검증 성공 여부
      */
+    public boolean runValidation() {
+        for (Method method : configClass.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(Validate.class)) {
+                method.setAccessible(true);
+                try {
+                    Object result = method.invoke(null);
+                    if (result instanceof Boolean b && !b) {
+                        Validate validate = method.getAnnotation(Validate.class);
+                        System.err.println("[Pulse/Config] Validation failed: " + validate.message());
+                        return false;
+                    }
+                } catch (Exception e) {
+                    System.err.println("[Pulse/Config] Validation error: " + e.getMessage());
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 모든 값을 기본값으로 리셋.
+     */
+    public void resetAll() {
+        for (ConfigEntry entry : entries) {
+            entry.reset();
+        }
+        System.out.println("[Pulse/Config] Reset all values to defaults for: " + modId);
+    }
+
     public static class ConfigEntry {
         private final String key;
         private final Field field;
@@ -96,9 +132,13 @@ public class ConfigSpec {
         private final double min;
         private final double max;
         private final boolean requiresRestart;
+        private final String[] options;
+        private final double step;
+        private final String category;
 
         public ConfigEntry(String key, Field field, String comment, Object defaultValue,
-                double min, double max, boolean requiresRestart) {
+                double min, double max, boolean requiresRestart,
+                String[] options, double step, String category) {
             this.key = key;
             this.field = field;
             this.comment = comment;
@@ -106,6 +146,9 @@ public class ConfigSpec {
             this.min = min;
             this.max = max;
             this.requiresRestart = requiresRestart;
+            this.options = options;
+            this.step = step;
+            this.category = category;
         }
 
         public String getKey() {
@@ -150,16 +193,36 @@ public class ConfigSpec {
 
         public void setValue(Object value) {
             try {
-                // 범위 검사 (숫자 타입)
-                if (value instanceof Number num) {
-                    double val = num.doubleValue();
-                    if (min != Double.MIN_VALUE && val < min) {
-                        value = convertToFieldType(min, field.getType());
-                    }
-                    if (max != Double.MAX_VALUE && val > max) {
-                        value = convertToFieldType(max, field.getType());
+                // options 검증 (String 타입)
+                if (options != null && options.length > 0 && value instanceof String strVal) {
+                    List<String> optionList = Arrays.asList(options);
+                    if (!optionList.contains(strVal)) {
+                        System.err.println("[Pulse/Config] Invalid option '" + strVal +
+                                "' for " + key + ", resetting to default");
+                        value = defaultValue;
                     }
                 }
+
+                // 범위 검사 및 step 적용 (숫자 타입)
+                if (value instanceof Number num) {
+                    double val = num.doubleValue();
+
+                    // step 적용 (반올림)
+                    if (step > 0) {
+                        val = Math.round(val / step) * step;
+                    }
+
+                    // min/max 범위 적용
+                    if (min != Double.MIN_VALUE && val < min) {
+                        val = min;
+                    }
+                    if (max != Double.MAX_VALUE && val > max) {
+                        val = max;
+                    }
+
+                    value = convertToFieldType(val, field.getType());
+                }
+
                 field.set(null, value);
             } catch (IllegalAccessException e) {
                 System.err.println("[Pulse/Config] Failed to set value for " + key);
@@ -180,6 +243,22 @@ public class ConfigSpec {
 
         public void reset() {
             setValue(defaultValue);
+        }
+
+        public String[] getOptions() {
+            return options;
+        }
+
+        public double getStep() {
+            return step;
+        }
+
+        public String getCategory() {
+            return category;
+        }
+
+        public boolean hasOptions() {
+            return options != null && options.length > 0;
         }
     }
 }

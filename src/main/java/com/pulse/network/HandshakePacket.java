@@ -1,5 +1,6 @@
 package com.pulse.network;
 
+import com.pulse.api.Pulse;
 import com.pulse.mod.ModLoader;
 import com.pulse.registry.Identifier;
 
@@ -33,7 +34,7 @@ public class HandshakePacket implements Packet {
      */
     public static HandshakePacket create(HandshakePhase phase) {
         HandshakePacket packet = new HandshakePacket(phase);
-        packet.loaderVersion = "1.0.0"; // TODO: 실제 버전
+        packet.loaderVersion = Pulse.VERSION;
 
         // 로드된 모드 정보 수집
         ModLoader loader = ModLoader.getInstance();

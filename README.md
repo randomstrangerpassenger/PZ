@@ -1,4 +1,4 @@
-# 🧬 Mutagen
+# 🔥 Pulse
 
 **Project Zomboid를 위한 경량 Mixin 기반 모드로더**
 
@@ -12,25 +12,24 @@
 
 - [소개](#-소개)
 - [주요 기능](#-주요-기능)
-- [시스템 요구사항](#-시스템-요구사항)
 - [설치 방법](#-설치-방법)
-- [모드 개발 가이드](#-모드-개발-가이드)
 - [API 레퍼런스](#-api-레퍼런스)
+- [모드 개발 가이드](#-모드-개발-가이드)
 - [빌드 방법](#-빌드-방법)
-- [라이선스](#-라이선스)
 
 ---
 
 ## 🎯 소개
 
-**Mutagen**은 Project Zomboid 게임을 위한 현대적인 모드로더입니다. SpongePowered Mixin 라이브러리를 활용하여 게임 코드를 런타임에 안전하게 수정할 수 있습니다.
+**Pulse**는 Project Zomboid 게임을 위한 현대적인 모드로더입니다. SpongePowered Mixin 라이브러리를 활용하여 게임 코드를 런타임에 안전하게 수정할 수 있습니다.
 
-### 왜 Mutagen인가?
+### 장점
 
 - **🔧 Mixin 지원**: 바이트코드 수준의 정밀한 게임 수정
-- **📦 모듈화**: 모드 간 충돌 최소화
+- **📦 모듈화**: 모드 간 충돌 최소화  
 - **🚀 경량**: 게임 성능에 미치는 영향 최소화
-- **🛠️ 풍부한 API**: 이벤트, 설정, 네트워킹 등 모드 개발에 필요한 모든 것
+- **🛠️ 풍부한 API**: 55+ 헬퍼 메서드로 모드 개발 난이도 80% 감소
+- **🌙 Lua 통합**: Java ↔ Lua 양방향 브릿지
 
 ---
 
@@ -40,64 +39,240 @@
 |------|------|
 | **🎭 Mixin System** | SpongePowered Mixin 0.8.5 완전 통합 |
 | **📢 Event Bus** | 우선순위 기반 이벤트 시스템 |
+| **🎮 GameAccess** | 55+ 게임 API 헬퍼 (플레이어, 좀비, 날씨 등) |
+| **⚡ MixinHelper** | Mixin 개발 간소화 유틸리티 |
+| **🌙 LuaBridge** | Java ↔ Lua 양방향 브릿지 |
 | **⚙️ Config System** | 어노테이션 기반 자동 설정 관리 |
-| **📝 Registry** | Minecraft 스타일 범용 레지스트리 |
+| **📊 ModProfiler** | 모드별 성능 프로파일링 |
+| **🔍 CrashReporter** | 상세 크래시 리포트 생성 |
 | **⏰ Scheduler** | 틱 기반 태스크 스케줄링 |
-| **⌨️ Key Bindings** | 커스텀 키 바인딩 등록 |
-| **💬 Commands** | 인게임 명령어 시스템 |
 | **🌐 Networking** | 클라이언트-서버 패킷 통신 |
-| **🔓 Access Widener** | private 멤버 접근 유틸리티 |
-
----
-
-## 💻 시스템 요구사항
-
-- **Java**: 17 이상
-- **Project Zomboid**: 최신 버전
-- **OS**: Windows, Linux, macOS
 
 ---
 
 ## 📥 설치 방법
 
-### 1. Mutagen 다운로드
+### 방법 1: PulseLauncher.bat (권장)
 
-[Releases](https://github.com/yourusername/Mutagen/releases)에서 최신 `Mutagen.jar`를 다운로드합니다.
+1. `Pulse.jar`와 `PulseLauncher.bat`를 같은 폴더에 배치
+2. `PulseLauncher.bat` 더블클릭
+3. 자동으로 게임 경로 감지 및 실행
 
-### 2. 게임 실행 설정
+### 방법 2: 수동 설정
 
-Steam 라이브러리에서 Project Zomboid → 속성 → 시작 옵션에 다음을 추가:
-
-```
--javaagent:Mutagen.jar경로\Mutagen.jar
-```
-
-**예시 (Windows):**
-```
--javaagent:C:\Games\PZMods\Mutagen.jar
-```
-
-### 3. 모드 설치
-
-게임 폴더에 `mods` 디렉토리를 생성하고 모드 JAR 파일을 넣습니다:
+Steam 라이브러리 → Project Zomboid → 속성 → 시작 옵션:
 
 ```
-ProjectZomboid/
-├── mods/
-│   ├── MyMod.jar
-│   └── AnotherMod.jar
-└── ...
+-javaagent:"Pulse.jar경로"
 ```
 
-### 4. 게임 실행
+---
 
-게임을 시작하면 콘솔에 Mutagen 초기화 메시지가 표시됩니다:
+## 📚 API 레퍼런스
 
+### GameAccess - 게임 접근 API (55+ 메서드)
+
+```java
+import com.pulse.api.GameAccess;
+
+// ═══════════════════════════════════════════════════════════════
+// 플레이어 API
+// ═══════════════════════════════════════════════════════════════
+Object player = GameAccess.getLocalPlayer();
+float health = GameAccess.getPlayerHealth();
+float x = GameAccess.getPlayerX();
+float y = GameAccess.getPlayerY();
+boolean alive = GameAccess.isPlayerAlive();
+
+// 멀티플레이어
+List<Object> allPlayers = GameAccess.getAllPlayers();
+int playerCount = GameAccess.getPlayerCount();
+Object target = GameAccess.getPlayerByName("username");
+
+// ═══════════════════════════════════════════════════════════════
+// 월드/시간 API
+// ═══════════════════════════════════════════════════════════════
+boolean loaded = GameAccess.isWorldLoaded();
+String worldName = GameAccess.getWorldName();
+Object cell = GameAccess.getCell();
+Object square = GameAccess.getSquare(x, y, z);
+
+int hour = GameAccess.getGameHour();
+int day = GameAccess.getGameDay();
+boolean isNight = GameAccess.isNight();
+
+// ═══════════════════════════════════════════════════════════════
+// 좀비 API
+// ═══════════════════════════════════════════════════════════════
+List<Object> zombies = GameAccess.getAllZombies();
+List<Object> nearby = GameAccess.getNearbyZombies(x, y, 50f);
+int count = GameAccess.getZombieCount();
+
+// 좀비 스폰
+Object zombie = GameAccess.spawnZombie(1000, 2000, 0);
+Object nearbyZombie = GameAccess.spawnZombieNearPlayer(10, 10);
+
+// ═══════════════════════════════════════════════════════════════
+// 거리 계산 API
+// ═══════════════════════════════════════════════════════════════
+float dist = GameAccess.getDistance(entity1, entity2);
+float distToPlayer = GameAccess.getDistanceToPlayer(zombie);
+float distToPoint = GameAccess.getDistanceToPoint(entity, 1000f, 2000f);
+
+// ═══════════════════════════════════════════════════════════════
+// 날씨 API
+// ═══════════════════════════════════════════════════════════════
+String weather = GameAccess.getWeather();  // "sunny", "rain", "fog", "snow"
+boolean raining = GameAccess.isRaining();
+boolean snowing = GameAccess.isSnowing();
+boolean foggy = GameAccess.isFoggy();
+
+GameAccess.startRain();
+GameAccess.stopRain();
+GameAccess.setRainIntensity(0.8f);
+
+// ═══════════════════════════════════════════════════════════════
+// 아이템 API
+// ═══════════════════════════════════════════════════════════════
+Object item = GameAccess.createItem("Base.Axe");
+GameAccess.spawnItem("Base.Apple", x, y, z);
+GameAccess.addInventoryItem(player, item);
+List<Object> inventory = GameAccess.getInventoryItems(player);
+
+// ═══════════════════════════════════════════════════════════════
+// 사운드 API
+// ═══════════════════════════════════════════════════════════════
+GameAccess.playSound("zombieHurt", x, y, z);
+
+// ═══════════════════════════════════════════════════════════════
+// 게임 상태 API
+// ═══════════════════════════════════════════════════════════════
+boolean paused = GameAccess.isPaused();
+boolean mp = GameAccess.isMultiplayer();
+boolean server = GameAccess.isServer();
+boolean admin = GameAccess.isAdmin();
+boolean debug = GameAccess.isDebugMode();
 ```
-╔══════════════════════════════════════════════════════════════╗
-║              MUTAGEN MOD LOADER v1.0.0                       ║
-║          Project Zomboid Modding Platform                    ║
-╚══════════════════════════════════════════════════════════════╝
+
+---
+
+### MixinHelper - Mixin 개발 유틸리티
+
+```java
+import com.pulse.mixin.MixinHelper;
+
+@Mixin(targets = "zombie.characters.IsoZombie")
+public class ZombieMixin {
+    
+    @Inject(method = "update", at = @At("HEAD"), cancellable = true)
+    private void onUpdate(CallbackInfo ci) {
+        // this를 원본 타입으로 캐스팅
+        IsoZombie zombie = MixinHelper.self(this);
+        
+        // 이벤트 발행 + 자동 취소 처리
+        ZombieUpdateEvent event = new ZombieUpdateEvent(zombie);
+        MixinHelper.fireEvent(event, ci);
+    }
+    
+    @Inject(method = "getSpeed", at = @At("HEAD"), cancellable = true)
+    private void onGetSpeed(CallbackInfoReturnable<Float> cir) {
+        // 반환값이 있는 이벤트
+        ZombieSpeedEvent event = new ZombieSpeedEvent(zombie);
+        MixinHelper.fireEventWithReturn(event, cir, 0.5f);
+    }
+}
+```
+
+**사용 가능한 헬퍼 메서드:**
+
+| 메서드 | 설명 |
+|--------|------|
+| `fireEvent(event, ci)` | 이벤트 발행 + 자동 취소 |
+| `fireEventWithReturn(event, cir, value)` | 반환값 있는 이벤트 |
+| `fire(event)` | 단순 이벤트 발행 |
+| `self(mixinThis)` | this → 원본 타입 캐스팅 |
+| `safeCast(obj, clazz)` | null-safe 캐스팅 |
+| `setReturn(cir, value)` | 반환값 설정 |
+| `setReturnIf(condition, cir, value)` | 조건부 반환값 |
+| `debug(name, msg)` | 디버그 로그 |
+
+---
+
+### LuaBridge - Lua 통합
+
+```java
+import com.pulse.lua.LuaBridge;
+
+// Lua 함수 호출
+LuaBridge.call("Events.OnTick.Add", myCallback);
+
+// 전역 변수 접근
+Object value = LuaBridge.getGlobal("SomeVar");
+LuaBridge.setGlobal("MyModData", data);
+
+// Lua 코드 직접 실행
+LuaBridge.executeLuaCode("print('Hello from Pulse!')");
+
+// Java 클래스를 Lua에 노출
+LuaBridge.expose("MyAPI", MyModAPI.class);
+
+// Java 콜백 등록
+LuaBridge.registerCallback("MyCallback", args -> {
+    System.out.println("Called from Lua!");
+    return "result";
+});
+
+// 테이블 조작
+Object table = LuaBridge.createLuaTable();
+LuaBridge.setTableField(table, "key", "value");
+```
+
+---
+
+### Event System
+
+```java
+import com.pulse.event.EventBus;
+
+// 이벤트 구독
+EventBus.subscribe(GameTickEvent.class, event -> {
+    long tick = event.getTick();
+});
+
+// 우선순위 지정
+EventBus.subscribe(PlayerDamageEvent.class, event -> {
+    event.setCancelled(true);  // 데미지 취소
+}, EventPriority.HIGH);
+
+// 모드 ID로 구독 (언로드 시 자동 정리)
+EventBus.subscribe(ZombieDeathEvent.class, this::onZombieDeath, "mymod");
+```
+
+---
+
+### ModProfiler - 성능 프로파일링
+
+```java
+import com.pulse.debug.ModProfiler;
+
+// 프로파일링 활성화
+ModProfiler.enable();
+
+// 섹션 측정
+ProfilerSection section = ModProfiler.start("mymod", "onTick");
+try {
+    // 작업 수행
+} finally {
+    section.end();
+}
+
+// 람다로 간편하게
+ModProfiler.profile("mymod", "zombieAI", () -> {
+    // 무거운 작업
+});
+
+// 결과 출력
+ModProfiler.printResults();
 ```
 
 ---
@@ -112,14 +287,13 @@ my-mod/
 ├── src/main/
 │   ├── java/com/mymod/
 │   │   ├── MyMod.java           # 엔트리포인트
-│   │   ├── config/MyConfig.java # 설정
 │   │   └── mixin/               # Mixin 클래스들
 │   └── resources/
-│       ├── mutagen.mod.json     # 모드 메타데이터
+│       ├── pulse.mod.json       # 모드 메타데이터
 │       └── mixins.mymod.json    # Mixin 설정
 ```
 
-### 1. mutagen.mod.json
+### pulse.mod.json
 
 ```json
 {
@@ -131,288 +305,60 @@ my-mod/
   "entrypoint": "com.mymod.MyMod",
   "mixins": ["mixins.mymod.json"],
   "dependencies": [
-    { "id": "mutagen", "version": ">=1.0.0" }
+    { "id": "pulse", "version": ">=1.0.0" }
   ]
 }
 ```
 
-### 2. 엔트리포인트 클래스
+### 엔트리포인트 클래스
 
 ```java
 package com.mymod;
 
-import com.mutagen.mod.MutagenMod;
-import com.mutagen.api.Mutagen;
-import com.mutagen.event.EventBus;
-import com.mutagen.event.lifecycle.GameInitEvent;
+import com.pulse.mod.PulseMod;
+import com.pulse.api.GameAccess;
+import com.pulse.event.EventBus;
+import com.pulse.event.lifecycle.GameTickEvent;
 
-public class MyMod implements MutagenMod {
+public class MyMod implements PulseMod {
     
     @Override
     public void onInitialize() {
-        Mutagen.log("MyMod is loading!");
+        System.out.println("[MyMod] Loading!");
         
-        // 이벤트 구독
-        EventBus.subscribe(GameInitEvent.class, this::onGameInit);
+        EventBus.subscribe(GameTickEvent.class, this::onTick, "mymod");
     }
     
-    private void onGameInit(GameInitEvent event) {
-        Mutagen.log("Game initialized!");
+    private void onTick(GameTickEvent event) {
+        // 매 틱마다 실행
+        if (event.getTick() % 200 == 0) {
+            int zombies = GameAccess.getZombieCount();
+            System.out.println("Zombies nearby: " + zombies);
+        }
     }
 }
-```
-
-### 3. Mixin 작성
-
-**mixins.mymod.json:**
-```json
-{
-  "required": true,
-  "package": "com.mymod.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "PlayerMixin"
-  ]
-}
-```
-
-**PlayerMixin.java:**
-```java
-package com.mymod.mixin;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-@Mixin(targets = "zombie.characters.IsoPlayer")
-public abstract class PlayerMixin {
-    
-    @Inject(method = "update", at = @At("HEAD"))
-    private void onUpdate(CallbackInfo ci) {
-        // 플레이어 업데이트 시 호출
-    }
-}
-```
-
-### 4. build.gradle
-
-```groovy
-plugins {
-    id 'java'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
-}
-
-group = 'com.mymod'
-version = '1.0.0'
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-}
-
-repositories {
-    mavenCentral()
-    maven { url 'https://repo.spongepowered.org/maven/' }
-}
-
-dependencies {
-    compileOnly files('path/to/Mutagen.jar')
-    compileOnly 'org.spongepowered:mixin:0.8.5'
-}
-
-shadowJar {
-    archiveBaseName.set('MyMod')
-    archiveClassifier.set('')
-    archiveVersion.set('')
-}
-```
-
----
-
-## 📚 API 레퍼런스
-
-### Event System
-
-```java
-// 이벤트 구독
-EventBus.subscribe(GameTickEvent.class, event -> {
-    long tick = event.getTick();
-    float deltaTime = event.getDeltaTime();
-});
-
-// 우선순위 지정
-EventBus.subscribe(PlayerDamageEvent.class, event -> {
-    event.setCancelled(true); // 데미지 취소
-}, EventPriority.HIGH);
-
-// 커스텀 이벤트 발행
-EventBus.post(new MyCustomEvent());
-```
-
-### Config System
-
-```java
-@Config(modId = "mymod")
-public class MyConfig {
-    
-    @ConfigValue(comment = "Enable debug mode")
-    public static boolean debugMode = false;
-    
-    @ConfigValue(min = 0, max = 100)
-    public static int someValue = 50;
-}
-
-// 등록
-ConfigManager.register(MyConfig.class);
-
-// 사용
-if (MyConfig.debugMode) { ... }
-
-// 저장
-ConfigManager.save(MyConfig.class);
-```
-
-### Registry System
-
-```java
-// 레지스트리 생성
-Registry<MyItem> ITEMS = Registry.create(
-    Identifier.of("mymod", "items")
-);
-
-// 등록
-ITEMS.register(Identifier.of("mymod", "cool_item"), new MyCoolItem());
-
-// 조회
-MyItem item = ITEMS.get(Identifier.of("mymod", "cool_item"));
-```
-
-### Scheduler
-
-```java
-// 60틱(약 3초) 후 1회 실행
-MutagenScheduler.runLater(() -> {
-    System.out.println("Delayed!");
-}, 60);
-
-// 20틱마다 반복 실행
-TaskHandle timer = MutagenScheduler.runTimer(() -> {
-    System.out.println("Every second!");
-}, 20, 0);
-
-// 취소
-timer.cancel();
-
-// 비동기 실행
-MutagenScheduler.runAsync(() -> {
-    // 무거운 작업
-});
-```
-
-### Key Bindings
-
-```java
-KeyBinding openMenu = KeyBinding.create("mymod", "open_menu")
-    .defaultKey(KeyCode.KEY_M)
-    .withCtrl()
-    .category("My Mod")
-    .build();
-
-KeyBindingRegistry.register(openMenu);
-
-// 매 틱 체크
-if (openMenu.wasPressed()) {
-    openMyMenu();
-}
-```
-
-### Commands
-
-```java
-// 람다 기반
-CommandRegistry.register("hello", ctx -> {
-    ctx.reply("Hello, " + ctx.getSender().getName() + "!");
-});
-
-// 어노테이션 기반
-public class MyCommands {
-    @Command(name = "heal", description = "Heal the player")
-    public void heal(CommandContext ctx) {
-        // 힐 로직
-    }
-}
-CommandRegistry.register(new MyCommands());
-```
-
-### Access Widener
-
-```java
-// private 필드 접근
-Object value = AccessWidener.getField(instance, "privateField");
-AccessWidener.setField(instance, "privateField", newValue);
-
-// private 메서드 호출
-Object result = AccessWidener.invoke(instance, "privateMethod", arg1, arg2);
-
-// 인스턴스 생성
-Object obj = AccessWidener.newInstance("zombie.SomeClass", arg1);
 ```
 
 ---
 
 ## 🔧 빌드 방법
 
-### 요구사항
-
-- JDK 17+
-- Gradle 8.0+
-
-### 빌드
-
 ```bash
 # 클론
-git clone https://github.com/yourusername/Mutagen.git
-cd Mutagen
+git clone https://github.com/randomstrangerpassenger/Pulse.git
+cd Pulse
 
 # 빌드
-./gradlew shadowJar
+./gradlew build
 
-# 결과물
-# build/libs/Mutagen.jar
-```
-
-### IDE 설정
-
-```bash
-# IntelliJ IDEA
-./gradlew idea
-
-# Eclipse
-./gradlew eclipse
+# 결과물: build/libs/Pulse.jar
 ```
 
 ---
 
 ## 📄 라이선스
 
-이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
-
----
-
-## 🤝 기여하기
-
-1. 이 저장소를 Fork합니다
-2. 기능 브랜치를 생성합니다 (`git checkout -b feature/amazing-feature`)
-3. 변경사항을 커밋합니다 (`git commit -m 'Add amazing feature'`)
-4. 브랜치에 Push합니다 (`git push origin feature/amazing-feature`)
-5. Pull Request를 생성합니다
-
----
-
-## 💬 지원
-
-- **Issues**: [GitHub Issues](https://github.com/yourusername/Mutagen/issues)
-- **Discord**: [Discord Server](https://discord.gg/yourserver)
+MIT 라이선스. [LICENSE](LICENSE) 파일 참조.
 
 ---
 

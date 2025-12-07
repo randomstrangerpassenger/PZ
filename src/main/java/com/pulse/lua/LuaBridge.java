@@ -221,4 +221,279 @@ public class LuaBridge {
             pending.clear();
         }
     }
+
+    // ─────────────────────────────────────────────────────────────
+    // Lua 코드 실행
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * Lua 코드 문자열 직접 실행.
+     * 
+     * @param luaCode 실행할 Lua 코드 문자열
+     * @return 실행 결과 또는 null
+     */
+    public static Object executeLuaCode(String luaCode) {
+        if (!isAvailable()) {
+            System.err.println("[Pulse/Lua] Cannot execute - Lua not available");
+            return null;
+        }
+
+        try {
+            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
+
+            // RunLua 메서드 시도
+            try {
+                java.lang.reflect.Method runMethod = luaManagerClass.getMethod("RunLua", String.class);
+                return runMethod.invoke(null, luaCode);
+            } catch (NoSuchMethodException e) {
+                // 대안: LuaManager.convertor.load() 시도
+                java.lang.reflect.Field convertorField = luaManagerClass.getDeclaredField("convertor");
+                convertorField.setAccessible(true);
+                Object convertor = convertorField.get(null);
+
+                if (convertor != null) {
+                    java.lang.reflect.Method loadMethod = convertor.getClass().getMethod("load",
+                            String.class, String.class);
+                    Object result = loadMethod.invoke(convertor, luaCode, "Pulse");
+                    return result;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("[Pulse/Lua] Failed to execute code: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 간단한 print 문 실행.
+     */
+    public static void luaPrint(String message) {
+        executeLuaCode("print(\"" + message.replace("\"", "\\\"") + "\")");
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Lua 테이블 생성/조작
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * 새 Lua 테이블 생성.
+     * 
+     * @return Lua 테이블 객체 또는 null
+     */
+    public static Object createLuaTable() {
+        if (!isAvailable()) {
+            return null;
+        }
+
+        try {
+            Class<?> kahluaTableClass = Class.forName("se.krka.kahlua.vm.KahluaTable");
+            return kahluaTableClass.getDeclaredConstructor().newInstance();
+        } catch (ClassNotFoundException e) {
+            // 대안: LuaManager를 통한 테이블 생성
+            try {
+                Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
+                java.lang.reflect.Field envField = luaManagerClass.getDeclaredField("env");
+                envField.setAccessible(true);
+                Object env = envField.get(null);
+
+                if (env != null) {
+                    java.lang.reflect.Method newTableMethod = env.getClass().getMethod("newTable");
+                    return newTableMethod.invoke(env);
+                }
+            } catch (Exception ex) {
+                System.err.println("[Pulse/Lua] Failed to create table: " + ex.getMessage());
+            }
+        } catch (Exception e) {
+            System.err.println("[Pulse/Lua] Failed to create table: " + e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * Lua 테이블에 값 설정.
+     * 
+     * @param table Lua 테이블 객체
+     * @param key   키
+     * @param value 값
+     */
+    public static void setTableField(Object table, String key, Object value) {
+        if (table == null)
+            return;
+
+        try {
+            java.lang.reflect.Method rawsetMethod = table.getClass().getMethod("rawset", Object.class, Object.class);
+            Object converted = LuaTypeConverter.javaToLua(value);
+            rawsetMethod.invoke(table, key, converted);
+        } catch (Exception e) {
+            System.err.println("[Pulse/Lua] Failed to set table field: " + key);
+        }
+    }
+
+    /**
+     * Lua 테이블에서 값 가져오기.
+     */
+    public static Object getTableField(Object table, String key) {
+        if (table == null)
+            return null;
+
+        try {
+            java.lang.reflect.Method rawgetMethod = table.getClass().getMethod("rawget", Object.class);
+            return rawgetMethod.invoke(table, key);
+        } catch (Exception e) {
+            System.err.println("[Pulse/Lua] Failed to get table field: " + key);
+            return null;
+        }
+    }
+
+    /**
+     * Java Map을 Lua 테이블로 변환하여 전역에 설정.
+     * 
+     * @param name 전역 변수 이름
+     * @param map  변환할 Map
+     */
+    public static void setGlobalTable(String name, java.util.Map<String, Object> map) {
+        if (!isAvailable())
+            return;
+
+        Object table = createLuaTable();
+        if (table == null)
+            return;
+
+        for (var entry : map.entrySet()) {
+            setTableField(table, entry.getKey(), entry.getValue());
+        }
+
+        setGlobal(name, table);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Java 콜백 등록
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * Java 콜백을 Lua에서 호출 가능하게 등록.
+     * 
+     * @param name     Lua에서 호출할 이름
+     * @param callback 콜백 함수
+     */
+    public static void registerCallback(String name, java.util.function.Function<Object[], Object> callback) {
+        if (!isAvailable()) {
+            System.err.println("[Pulse/Lua] Cannot register callback - Lua not available");
+            return;
+        }
+
+        // LuaCallable 래퍼 생성
+        Object wrapper = createCallableWrapper(callback);
+        if (wrapper != null) {
+            setGlobal(name, wrapper);
+            System.out.println("[Pulse/Lua] Registered callback: " + name);
+        }
+    }
+
+    /**
+     * Java 함수를 Lua에서 호출 가능한 객체로 래핑.
+     */
+    private static Object createCallableWrapper(java.util.function.Function<Object[], Object> callback) {
+        try {
+            // LuaCaller 인터페이스의 동적 프록시 생성
+            Class<?> luaCallerClass = Class.forName("se.krka.kahlua.vm.LuaCallable");
+
+            return java.lang.reflect.Proxy.newProxyInstance(
+                    luaCallerClass.getClassLoader(),
+                    new Class<?>[] { luaCallerClass },
+                    (proxy, method, args) -> {
+                        if (method.getName().equals("call")) {
+                            // args[0] = LuaCallFrame, args[1] = int argCount
+                            Object callFrame = args[0];
+                            int argCount = (int) args[1];
+
+                            // 인자 추출
+                            Object[] luaArgs = new Object[argCount];
+                            for (int i = 0; i < argCount; i++) {
+                                java.lang.reflect.Method getMethod = callFrame.getClass().getMethod("get", int.class);
+                                luaArgs[i] = getMethod.invoke(callFrame, i);
+                            }
+
+                            // Java 콜백 호출
+                            Object result = callback.apply(luaArgs);
+
+                            // 결과 반환
+                            if (result != null) {
+                                java.lang.reflect.Method pushMethod = callFrame.getClass().getMethod("push",
+                                        Object.class);
+                                pushMethod.invoke(callFrame, LuaTypeConverter.javaToLua(result));
+                                return 1;
+                            }
+                            return 0;
+                        }
+                        return null;
+                    });
+        } catch (Exception e) {
+            System.err.println("[Pulse/Lua] Failed to create callable wrapper: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 유틸리티
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * Lua 상태 재초기화 (게임 재시작 시 호출).
+     */
+    public static void reinitialize() {
+        INSTANCE.initialized = false;
+        INSTANCE.luaState = null;
+        initialize();
+    }
+
+    /**
+     * 디버그: Lua 전역 변수 덤프.
+     */
+    public static void dumpGlobals() {
+        if (!isAvailable())
+            return;
+
+        try {
+            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
+            java.lang.reflect.Field envField = luaManagerClass.getDeclaredField("env");
+            envField.setAccessible(true);
+            Object env = envField.get(null);
+
+            System.out.println("[Pulse/Lua] === Global Variables ===");
+            if (env != null) {
+                System.out.println("[Pulse/Lua] Env type: " + env.getClass().getName());
+
+                // keys() 메서드로 전역 변수 이름 가져오기
+                try {
+                    java.lang.reflect.Method keysMethod = env.getClass().getMethod("keys");
+                    Object keys = keysMethod.invoke(env);
+
+                    if (keys instanceof Iterable<?> iterable) {
+                        int count = 0;
+                        for (Object key : iterable) {
+                            System.out.println("[Pulse/Lua]   - " + key);
+                            count++;
+                            if (count >= 50) {
+                                System.out.println("[Pulse/Lua]   ... (truncated, " + count + "+ items)");
+                                break;
+                            }
+                        }
+                    } else if (keys != null) {
+                        System.out.println("[Pulse/Lua] Keys type: " + keys.getClass().getName());
+                    }
+                } catch (NoSuchMethodException e) {
+                    System.out.println("[Pulse/Lua] (keys() method not available)");
+                }
+            } else {
+                System.out.println("[Pulse/Lua] (env is null)");
+            }
+            System.out.println("[Pulse/Lua] ========================");
+        } catch (Exception e) {
+            System.err.println("[Pulse/Lua] Failed to dump globals: " + e.getMessage());
+        }
+    }
 }

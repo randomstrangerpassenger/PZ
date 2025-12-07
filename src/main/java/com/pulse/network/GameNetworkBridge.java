@@ -132,6 +132,7 @@ public class GameNetworkBridge {
                 if (debugMode) {
                     System.out.println("[Pulse/Network] Sent " + data.length + " bytes to server");
                 }
+                recordSent(data.length);
                 return true;
             }
 
@@ -280,6 +281,7 @@ public class GameNetworkBridge {
             if (debugMode) {
                 System.out.println("[Pulse/Network] Received " + length + " bytes");
             }
+            recordReceived(length);
 
         } catch (Exception e) {
             System.err.println("[Pulse/Network] Error handling received packet: " + e.getMessage());
@@ -386,5 +388,104 @@ public class GameNetworkBridge {
      */
     public static short getPulsePacketId() {
         return Pulse_PACKET_ID;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 패킷 통계 (평가 개선사항)
+    // ─────────────────────────────────────────────────────────────
+
+    private volatile int sentPacketCount = 0;
+    private volatile int receivedPacketCount = 0;
+    private volatile long totalBytesSent = 0;
+    private volatile long totalBytesReceived = 0;
+
+    /**
+     * 전송된 패킷 수
+     */
+    public int getSentPacketCount() {
+        return sentPacketCount;
+    }
+
+    /**
+     * 수신된 패킷 수
+     */
+    public int getReceivedPacketCount() {
+        return receivedPacketCount;
+    }
+
+    /**
+     * 총 전송 바이트 수
+     */
+    public long getTotalBytesSent() {
+        return totalBytesSent;
+    }
+
+    /**
+     * 총 수신 바이트 수
+     */
+    public long getTotalBytesReceived() {
+        return totalBytesReceived;
+    }
+
+    /**
+     * 연결 상태 확인
+     */
+    public boolean isConnected() {
+        if (!initialized) {
+            initialize();
+        }
+
+        // 클라이언트 또는 서버 클래스가 로드되어 있으면 연결 가능 상태
+        return gameClientClass != null || gameServerClass != null;
+    }
+
+    /**
+     * 네트워크 재초기화 시도
+     */
+    public void reconnect() {
+        initialized = false;
+        gameClientClass = null;
+        gameServerClass = null;
+        byteBufferWriterClass = null;
+        udpConnectionClass = null;
+
+        initialize();
+
+        System.out.println("[Pulse/Network] Reconnect attempted");
+    }
+
+    /**
+     * 통계 기록 (전송)
+     */
+    private void recordSent(int bytes) {
+        sentPacketCount++;
+        totalBytesSent += bytes;
+    }
+
+    /**
+     * 통계 기록 (수신)
+     */
+    private void recordReceived(int bytes) {
+        receivedPacketCount++;
+        totalBytesReceived += bytes;
+    }
+
+    /**
+     * 통계 초기화
+     */
+    public void resetStatistics() {
+        sentPacketCount = 0;
+        receivedPacketCount = 0;
+        totalBytesSent = 0;
+        totalBytesReceived = 0;
+    }
+
+    /**
+     * 네트워크 통계 문자열
+     */
+    public String getStatisticsReport() {
+        return String.format(
+                "[Pulse/Network] Stats: sent=%d packets (%d bytes), received=%d packets (%d bytes)",
+                sentPacketCount, totalBytesSent, receivedPacketCount, totalBytesReceived);
     }
 }

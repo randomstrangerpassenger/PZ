@@ -1,9 +1,12 @@
 package com.pulse.mixin;
 
+import com.pulse.api.DevMode;
 import com.pulse.event.Event;
 import com.pulse.event.EventBus;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.function.Function;
 
 /**
  * Mixin 개발 유틸리티.
@@ -195,5 +198,69 @@ public final class MixinHelper {
      */
     public static void logInjection(String targetClass, String targetMethod) {
         System.out.println("[Pulse/Mixin] Injected: " + targetClass + "." + targetMethod);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // @ModifyVariable / @Redirect 헬퍼
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * 로컬 변수 수정 헬퍼 (@ModifyVariable 용).
+     * 
+     * <pre>
+     * {@literal @}ModifyVariable(method = "update", at = @At("HEAD"))
+     * private float modifySpeed(float original) {
+     *     return MixinHelper.modifyLocal(original, speed -> speed * 1.5f);
+     * }
+     * </pre>
+     * 
+     * @param original 원본 값
+     * @param modifier 수정 함수
+     * @return 수정된 값
+     */
+    public static <T> T modifyLocal(T original, Function<T, T> modifier) {
+        return modifier.apply(original);
+    }
+
+    /**
+     * 메서드 반환값 수정 헬퍼 (@Redirect 용).
+     * 
+     * <pre>
+     * {@literal @}Redirect(method = "update", at = @At(value = "INVOKE", target = "..."))
+     * private float redirectDamage(float original) {
+     *     return MixinHelper.redirect(original, dmg -> dmg * 0.5f);
+     * }
+     * </pre>
+     * 
+     * @param original   원본 값
+     * @param redirector 리다이렉트 함수
+     * @return 수정된 값
+     */
+    public static <T> T redirect(T original, Function<T, T> redirector) {
+        return redirector.apply(original);
+    }
+
+    /**
+     * DevMode일 때만 디버그 로그 출력.
+     * 
+     * @param mixinName Mixin 이름
+     * @param message   로그 메시지
+     */
+    public static void debugIf(String mixinName, String message) {
+        if (DevMode.isEnabled()) {
+            debug(mixinName, message);
+        }
+    }
+
+    /**
+     * DevMode일 때만 주입 로그 출력.
+     * 
+     * @param targetClass  타겟 클래스
+     * @param targetMethod 타겟 메서드
+     */
+    public static void logInjectionIf(String targetClass, String targetMethod) {
+        if (DevMode.isEnabled()) {
+            logInjection(targetClass, targetMethod);
+        }
     }
 }

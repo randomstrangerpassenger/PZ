@@ -214,4 +214,93 @@ public class MixinDiagnostics {
             this.reason = reason;
         }
     }
+
+    // ─────────────────────────────────────────────────────────────
+    // 통계 메서드 (평가 개선사항)
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * 모드별 적용된 Mixin 수 반환.
+     * 
+     * @return 모드 ID → Mixin 수 맵
+     */
+    public Map<String, Integer> getMixinCountByMod() {
+        Map<String, Integer> counts = new HashMap<>();
+        for (List<MixinInfo> infos : appliedMixins.values()) {
+            for (MixinInfo info : infos) {
+                counts.merge(info.modId, 1, (a, b) -> a + b);
+            }
+        }
+        return counts;
+    }
+
+    /**
+     * 가장 많이 Mixin이 적용된 클래스 TOP N 반환.
+     * 
+     * @param n 반환할 개수
+     * @return (클래스명, Mixin 수) 리스트
+     */
+    public List<Map.Entry<String, Integer>> getTopMixedClasses(int n) {
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>();
+        for (Map.Entry<String, List<MixinInfo>> entry : appliedMixins.entrySet()) {
+            entries.add(new AbstractMap.SimpleEntry<>(entry.getKey(), entry.getValue().size()));
+        }
+        entries.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
+        return entries.subList(0, Math.min(n, entries.size()));
+    }
+
+    /**
+     * 동일 타겟, 동일 모드 내에서 우선순위 충돌 검사.
+     * 같은 모드에서 같은 타겟에 다른 우선순위의 Mixin이 있으면 경고.
+     */
+    public void checkPriorityConflicts() {
+        if (!DevMode.isEnabled())
+            return;
+
+        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
+        System.out.println("[Pulse/Mixin] Checking priority conflicts...");
+
+        int conflictCount = 0;
+
+        for (Map.Entry<String, List<MixinInfo>> entry : appliedMixins.entrySet()) {
+            String targetClass = entry.getKey();
+            List<MixinInfo> mixins = entry.getValue();
+
+            // 같은 모드 내 우선순위별 그룹화
+            Map<String, List<Integer>> modPriorities = new HashMap<>();
+            for (MixinInfo info : mixins) {
+                modPriorities.computeIfAbsent(info.modId, k -> new ArrayList<>()).add(info.priority);
+            }
+
+            // 같은 모드에서 여러 우선순위 있으면 경고
+            for (Map.Entry<String, List<Integer>> modEntry : modPriorities.entrySet()) {
+                List<Integer> priorities = modEntry.getValue();
+                if (priorities.size() > 1) {
+                    Set<Integer> uniquePriorities = new HashSet<>(priorities);
+                    if (uniquePriorities.size() > 1) {
+                        System.out.println("[Pulse/Mixin] Priority variation in " + modEntry.getKey() +
+                                " for " + targetClass + ": " + uniquePriorities);
+                        conflictCount++;
+                    }
+                }
+            }
+        }
+
+        if (conflictCount == 0) {
+            System.out.println("[Pulse/Mixin] No priority conflicts detected.");
+        } else {
+            System.out.println("[Pulse/Mixin] " + conflictCount + " priority variation(s) found.");
+        }
+
+        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
+    }
+
+    /**
+     * 전체 진단 실행 (충돌 + 우선순위 검사).
+     */
+    public void runFullDiagnostics() {
+        printReport();
+        checkConflicts();
+        checkPriorityConflicts();
+    }
 }

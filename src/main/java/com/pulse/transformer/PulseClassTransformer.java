@@ -1,13 +1,14 @@
 package com.pulse.transformer;
 
 import com.pulse.PulseEnvironment;
+import com.pulse.mixin.MixinDiagnostics;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformer;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.security.ProtectionDomain;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Pulse의 핵심 클래스 트랜스포머.
@@ -20,8 +21,8 @@ import java.util.Set;
  */
 public class PulseClassTransformer implements ClassFileTransformer {
 
-    private final Set<String> transformedClasses = new HashSet<>();
-    private final Set<String> excludedPrefixes = new HashSet<>();
+    private final Set<String> transformedClasses = ConcurrentHashMap.newKeySet();
+    private final Set<String> excludedPrefixes = ConcurrentHashMap.newKeySet();
 
     private IMixinTransformer mixinTransformer;
     private boolean mixinReady = false;
@@ -116,11 +117,20 @@ public class PulseClassTransformer implements ClassFileTransformer {
 
             if (result != null && result != classfileBuffer) {
                 transformedClasses.add(dotName);
+
+                // MixinDiagnostics 연동
+                MixinDiagnostics.getInstance().recordMixinApplied(
+                        dotName, "PulseTransformer", "pulse", 1000);
+
                 System.out.println("[Pulse/Transformer] ✓ Mixin applied to: " + dotName);
                 return result;
             }
 
         } catch (Throwable t) {
+            // 실패 추적
+            MixinDiagnostics.getInstance().recordMixinFailed(
+                    "Unknown", "pulse", dotName, t.getMessage());
+
             System.err.println("[Pulse/Transformer] Error transforming: " + dotName);
             t.printStackTrace();
         }
@@ -129,7 +139,7 @@ public class PulseClassTransformer implements ClassFileTransformer {
     }
 
     public Set<String> getTransformedClasses() {
-        return new HashSet<>(transformedClasses);
+        return new java.util.HashSet<>(transformedClasses);
     }
 
     public boolean isMixinReady() {

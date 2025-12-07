@@ -258,7 +258,18 @@ public class DevConsole {
         });
 
         // lua
-        register("lua", "Execute Lua code", args -> {
+        register("lua", "Execute Lua code (Admin only in multiplayer)", args -> {
+            // ═══════════════════════════════════════════════════════════════
+            // Project Zomboid SandboxOptions 검사
+            // 멀티플레이 서버에서 Lua 콘솔이 비허용되면 차단
+            // ═══════════════════════════════════════════════════════════════
+            if (inMultiplayerSession) {
+                if (!isLuaConsoleAllowedByServer()) {
+                    System.err.println("[DevConsole] BLOCKED: Lua console not allowed on this server");
+                    return "§c[보안] 이 서버에서는 Lua 콘솔이 비활성화되어 있습니다.";
+                }
+            }
+
             try {
                 Object result = com.pulse.lua.LuaBridge.call(args);
                 return result != null ? result.toString() : "nil";
@@ -348,6 +359,65 @@ public class DevConsole {
             INSTANCE.outputHandler.accept(message);
         }
         System.out.println("[DevConsole] " + message);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Project Zomboid 연동 (SandboxOptions)
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * Project Zomboid 서버에서 Lua 콘솔이 허용되는지 확인.
+     * SandboxOptions.instance.AllowedToLuaConsole.getValue() 호출.
+     * 
+     * PZ 런타임이 없는 경우 기본값 false (안전) 반환.
+     * 
+     * @return Lua 콘솔 허용 여부
+     */
+    private static boolean isLuaConsoleAllowedByServer() {
+        try {
+            // zombie.SandboxOptions 클래스 로드
+            Class<?> sandboxOptionsClass = Class.forName("zombie.SandboxOptions");
+
+            // SandboxOptions.instance 필드 획득
+            java.lang.reflect.Field instanceField = sandboxOptionsClass.getField("instance");
+            Object instance = instanceField.get(null);
+
+            if (instance == null) {
+                System.out.println("[DevConsole] SandboxOptions.instance is null, defaulting to blocked");
+                return false;
+            }
+
+            // AllowedToLuaConsole 필드 획득
+            java.lang.reflect.Field luaConsoleField = sandboxOptionsClass.getField("AllowedToLuaConsole");
+            Object luaConsoleOption = luaConsoleField.get(instance);
+
+            if (luaConsoleOption == null) {
+                System.out.println("[DevConsole] AllowedToLuaConsole is null, defaulting to blocked");
+                return false;
+            }
+
+            // getValue() 메서드 호출
+            java.lang.reflect.Method getValueMethod = luaConsoleOption.getClass().getMethod("getValue");
+            Object result = getValueMethod.invoke(luaConsoleOption);
+
+            if (result instanceof Boolean) {
+                return (Boolean) result;
+            }
+
+            System.out.println("[DevConsole] Unexpected getValue() result type: " + result);
+            return false;
+
+        } catch (ClassNotFoundException e) {
+            // PZ 런타임 외부에서 실행 중 - 디버그 모드라면 허용
+            if (debugModeEnabled) {
+                return true;
+            }
+            System.out.println("[DevConsole] Not running in PZ runtime, Lua console blocked");
+            return false;
+        } catch (Exception e) {
+            System.err.println("[DevConsole] Error checking SandboxOptions: " + e.getMessage());
+            return false; // 오류 시 안전하게 차단
+        }
     }
 
     // ─────────────────────────────────────────────────────────────

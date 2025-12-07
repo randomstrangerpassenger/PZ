@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.echo'
+version = '0.1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven' }
+}
+
+dependencies {
+    // Pulse dependency (compile-only, provided at runtime)
+    compileOnly files('libs/Pulse.jar')
+    
+    // Project Zomboid stubs (compile-only)
+    compileOnly files('libs/pz-stubs.jar')
+    
+    // Gson for JSON serialization
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+shadowJar {
+    archiveBaseName.set('Echo')
+    archiveClassifier.set('')
+    archiveVersion.set(version)
+    
+    // Relocate Gson to avoid conflicts
+    relocate 'com.google.gson', 'com.echo.shaded.gson'
+    
+    manifest {
+        attributes(
+            'Echo-Version': version,
+            'Pulse-Mod': 'true',
+            'Mod-Id': 'echo',
+            'Mod-Name': 'Echo Profiler',
+            'Mod-Version': version,
+            'Mod-Authors': 'Echo Team',
+            'Mod-Description': 'Performance profiling tool for Project Zomboid'
+        )
+    }
+}
+
+tasks.named('jar') {
+    enabled = false
+}
+
+tasks.named('build') {
+    dependsOn shadowJar
+}
+
+// Create libs directory task
+tasks.register('createLibsDir') {
+    doLast {
+        mkdir 'libs'
+    }
+}

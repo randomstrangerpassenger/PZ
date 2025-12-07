@@ -1,0 +1,8 @@
+name=Echo Profiler
+id=echo
+description=Performance profiling tool for Project Zomboid - "Observe, Don't Patch"
+url=
+modversion=0.1.0
+pzversion=41.78
+authors=Echo Team
+require=pulse

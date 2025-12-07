@@ -198,6 +198,35 @@ public class EventBus {
         return list != null ? list.size() : 0;
     }
 
+    /**
+     * 특정 modId로 등록된 모든 리스너 해제.
+     * 모드 비활성화/리로드 시 사용.
+     * 
+     * @param modId 해제할 모드 ID
+     * @return 해제된 리스너 수
+     */
+    public static int unsubscribeAll(String modId) {
+        return INSTANCE.unregisterAll(modId);
+    }
+
+    private int unregisterAll(String modId) {
+        if (modId == null)
+            return 0;
+
+        int removed = 0;
+        for (List<RegisteredListener<?>> list : listeners.values()) {
+            int before = list.size();
+            list.removeIf(reg -> modId.equals(reg.modId));
+            removed += (before - list.size());
+        }
+
+        if (removed > 0) {
+            System.out.println("[Pulse/Event] Unregistered " + removed +
+                    " listeners for mod: " + modId);
+        }
+        return removed;
+    }
+
     public void setDebug(boolean debug) {
         this.debug = debug;
     }

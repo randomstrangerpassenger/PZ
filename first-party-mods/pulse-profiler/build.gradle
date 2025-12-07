@@ -16,8 +16,8 @@ repositories {
 }
 
 dependencies {
-    // Pulse API
-    compileOnly files('../../build/libs/Pulse-1.0.0-all.jar')
+    // Pulse API - use project dependency for multi-project build
+    compileOnly project(':')
     
     // Mixin
     compileOnly 'org.spongepowered:mixin:0.8.5'
@@ -28,6 +28,7 @@ dependencies {
 
 jar {
     archiveBaseName.set('Pulse-profiler')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     
     from('src/main/resources') {
         include 'pulse.mod.json'

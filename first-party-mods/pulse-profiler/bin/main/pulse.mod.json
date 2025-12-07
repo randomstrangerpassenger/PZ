@@ -1,0 +1,17 @@
+{
+    "id": "Pulse_profiler",
+    "name": "Pulse Profiler",
+    "version": "1.0.0",
+    "author": "Pulse Team",
+    "description": "Performance profiling tool for Project Zomboid",
+    "entrypoint": "com.pulse.profiler.ProfilerMod",
+    "mixins": [
+        "mixins.profiler.json"
+    ],
+    "dependencies": [
+        {
+            "id": "Pulse",
+            "version": ">=1.0.0"
+        }
+    ]
+}

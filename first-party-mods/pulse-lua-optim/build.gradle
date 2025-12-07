@@ -12,16 +12,18 @@ java {
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven/' }
 }
 
 dependencies {
-    compileOnly files('../../build/libs/Pulse-1.0.0-all.jar')
+    compileOnly project(':')
     compileOnly 'org.spongepowered:mixin:0.8.5'
     compileOnly fileTree(dir: 'C:/SteamLibrary/steamapps/common/ProjectZomboid', include: ['*.jar'])
 }
 
 jar {
     archiveBaseName.set('Pulse-lua-optim')
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     
     from('src/main/resources') {
         include 'pulse.mod.json'

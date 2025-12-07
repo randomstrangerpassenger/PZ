@@ -1,0 +1,14 @@
+﻿{
+  "id": "testmod",
+  "name": "Test Mod",
+  "version": "1.0.0",
+  "author": "Developer",
+  "description": "A Pulse mod for Project Zomboid",
+  "entrypoint": "com.example.testmod.testmodMod",
+  "dependencies": [
+    {
+      "id": "Pulse",
+      "version": ">=1.0.0"
+    }
+  ]
+}

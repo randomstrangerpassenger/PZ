@@ -1,283 +1,370 @@
-# 🔥 Pulse
+<p align="center">
+  <img src="https://img.shields.io/badge/🔥_PULSE-1.0.0-ff6f00?style=for-the-badge&labelColor=1a1a2e" alt="Pulse Logo"/>
+</p>
 
-**Project Zomboid를 위한 경량 Mixin 기반 모드로더**
+<h1 align="center">🔥 Pulse</h1>
 
-[![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://openjdk.org/)
-[![Mixin](https://img.shields.io/badge/SpongePowered-Mixin%200.8.5-blue.svg)](https://github.com/SpongePowered/Mixin)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+<p align="center">
+  <strong>Next-generation Mixin-based Mod Loader for Project Zomboid</strong>
+</p>
 
----
+<p align="center">
+  <a href="https://openjdk.org/"><img src="https://img.shields.io/badge/Java-17+-ED8B00?style=flat-square&logo=openjdk&logoColor=white" alt="Java 17+"/></a>
+  <a href="https://github.com/SpongePowered/Mixin"><img src="https://img.shields.io/badge/SpongePowered-Mixin%200.8.5-00adb5?style=flat-square&logo=java&logoColor=white" alt="Mixin 0.8.5"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License"/></a>
+  <img src="https://img.shields.io/badge/Status-Production%20Ready-success?style=flat-square" alt="Production Ready"/>
+</p>
 
-## 📋 목차
-
-- [소개](#-소개)
-- [주요 기능](#-주요-기능)
-- [설치 방법](#-설치-방법)
-- [API 레퍼런스](#-api-레퍼런스)
-- [모드 개발 가이드](#-모드-개발-가이드)
-- [빌드 방법](#-빌드-방법)
-
----
-
-## 🎯 소개
-
-**Pulse**는 Project Zomboid 게임을 위한 현대적인 모드로더입니다. SpongePowered Mixin 라이브러리를 활용하여 게임 코드를 런타임에 안전하게 수정할 수 있습니다.
-
-### 장점
-
-- **🔧 Mixin 지원**: 바이트코드 수준의 정밀한 게임 수정
-- **📦 모듈화**: 모드 간 충돌 최소화  
-- **🚀 경량**: 게임 성능에 미치는 영향 최소화
-- **🛠️ 풍부한 API**: 55+ 헬퍼 메서드로 모드 개발 난이도 80% 감소
-- **🌙 Lua 통합**: Java ↔ Lua 양방향 브릿지
+<p align="center">
+  <a href="#-installation">Installation</a> •
+  <a href="#-key-features">Features</a> •
+  <a href="#-for-developers">Developers</a> •
+  <a href="#-한국어-korean">한국어</a>
+</p>
 
 ---
 
-## ✨ 주요 기능
+## 🎯 Introduction
 
-| 기능 | 설명 |
-|------|------|
-| **🎭 Mixin System** | SpongePowered Mixin 0.8.5 완전 통합 |
-| **📢 Event Bus** | 우선순위 기반 이벤트 시스템 |
-| **🎮 GameAccess** | 55+ 게임 API 헬퍼 (플레이어, 좀비, 날씨 등) |
-| **⚡ MixinHelper** | Mixin 개발 간소화 유틸리티 |
-| **🌙 LuaBridge** | Java ↔ Lua 양방향 브릿지 |
-| **⚙️ Config System** | 어노테이션 기반 자동 설정 관리 |
-| **📊 ModProfiler** | 모드별 성능 프로파일링 |
-| **🔍 CrashReporter** | 상세 크래시 리포트 생성 |
-| **⏰ Scheduler** | 틱 기반 태스크 스케줄링 |
-| **🌐 Networking** | 클라이언트-서버 패킷 통신 |
+**Pulse** is a revolutionary mod loader that brings the power of **SpongePowered Mixin** technology to Project Zomboid. Built for both players and developers, it enables precise runtime bytecode manipulation while providing a rich API ecosystem that significantly simplifies mod development.
+
+> _"Where traditional Lua hooks end, Pulse begins."_
 
 ---
 
-## 📥 설치 방법
+## ✨ Key Features
 
-### 방법 1: PulseLauncher.bat (권장)
+| Feature | Description |
+|---------|-------------|
+| 🔧 **Powerful Runtime Manipulation** | Leverages SpongePowered Mixin 0.8.5 for safe, precise bytecode modification — overcoming the limitations of Lua hooks |
+| 🌉 **Innovative Two-way Bridge** | Seamless Java ↔ Lua bidirectional communication via `LuaBridge` — call Lua functions from Java and expose Java objects to Lua |
+| 📦 **Smart Dependency Management** | Topological Sort-based automatic load ordering with conflict prevention |
+| ⚡ **Developer Productivity (DX)** | `GameAccess` Facade API (55+ methods), `EventBus`, `CrashReporter`, `ModProfiler` and more |
 
-1. `Pulse.jar`와 `PulseLauncher.bat`를 같은 폴더에 배치
-2. `PulseLauncher.bat` 더블클릭
-3. 자동으로 게임 경로 감지 및 실행
+### More Features
 
-### 방법 2: 수동 설정
+- 🎭 **Mixin System** — Full SpongePowered Mixin 0.8.5 integration
+- 📢 **Event Bus** — Priority-based event subscription system
+- 🎮 **GameAccess** — 55+ game API helpers (Player, Zombie, Weather, etc.)
+- ⚡ **MixinHelper** — Mixin development utilities
+- ⚙️ **Config System** — Annotation-based automatic configuration
+- ⏰ **Scheduler** — Tick-based task scheduling
+- 🌐 **Networking** — Client-server packet communication
+- 📊 **ModProfiler** — Per-mod performance profiling
+- 🔍 **CrashReporter** — Detailed crash report generation
 
-Steam 라이브러리 → Project Zomboid → 속성 → 시작 옵션:
+---
+
+## 📥 Installation
+
+### Method 1: PulseLauncher (Recommended)
+
+1. Download `Pulse.jar` and `PulseLauncher.bat` to the same folder
+2. Double-click `PulseLauncher.bat`
+3. The launcher will automatically detect your game path and start with Pulse
 
 ```
--javaagent:"Pulse.jar경로"
+📁 Your Folder
+├── Pulse.jar
+└── PulseLauncher.bat   ← Run this!
+```
+
+### Method 2: Manual Configuration
+
+Add the following to Steam → Project Zomboid → Properties → Launch Options:
+
+```
+-javaagent:"<path_to_Pulse.jar>"
+```
+
+**Example:**
+```
+-javaagent:"C:\Games\PZ-Mods\Pulse.jar"
 ```
 
 ---
 
-## 📚 API 레퍼런스
+## 👩‍💻 For Developers
 
-### GameAccess - 게임 접근 API (55+ 메서드)
+### Project Structure
+
+```
+my-mod/
+├── build.gradle
+├── src/main/
+│   ├── java/com/mymod/
+│   │   ├── MyMod.java           # Entrypoint
+│   │   └── mixin/               # Mixin classes
+│   └── resources/
+│       ├── pulse.mod.json       # Mod metadata
+│       └── mixins.mymod.json    # Mixin configuration
+```
+
+### pulse.mod.json
+
+```json
+{
+  "id": "mymod",
+  "name": "My Awesome Mod",
+  "version": "1.0.0",
+  "description": "An awesome mod for Project Zomboid",
+  "authors": ["YourName"],
+  "entrypoint": "com.mymod.MyMod",
+  "mixins": ["mixins.mymod.json"],
+  "dependencies": [
+    { "id": "pulse", "version": ">=1.0.0" }
+  ]
+}
+```
+
+### Entrypoint Class
 
 ```java
+package com.mymod;
+
+import com.pulse.mod.PulseMod;
 import com.pulse.api.GameAccess;
+import com.pulse.event.EventBus;
+import com.pulse.event.lifecycle.GameTickEvent;
 
-// ═══════════════════════════════════════════════════════════════
-// 플레이어 API
-// ═══════════════════════════════════════════════════════════════
-Object player = GameAccess.getLocalPlayer();
-float health = GameAccess.getPlayerHealth();
-float x = GameAccess.getPlayerX();
-float y = GameAccess.getPlayerY();
-boolean alive = GameAccess.isPlayerAlive();
-
-// 멀티플레이어
-List<Object> allPlayers = GameAccess.getAllPlayers();
-int playerCount = GameAccess.getPlayerCount();
-Object target = GameAccess.getPlayerByName("username");
-
-// ═══════════════════════════════════════════════════════════════
-// 월드/시간 API
-// ═══════════════════════════════════════════════════════════════
-boolean loaded = GameAccess.isWorldLoaded();
-String worldName = GameAccess.getWorldName();
-Object cell = GameAccess.getCell();
-Object square = GameAccess.getSquare(x, y, z);
-
-int hour = GameAccess.getGameHour();
-int day = GameAccess.getGameDay();
-boolean isNight = GameAccess.isNight();
-
-// ═══════════════════════════════════════════════════════════════
-// 좀비 API
-// ═══════════════════════════════════════════════════════════════
-List<Object> zombies = GameAccess.getAllZombies();
-List<Object> nearby = GameAccess.getNearbyZombies(x, y, 50f);
-int count = GameAccess.getZombieCount();
-
-// 좀비 스폰
-Object zombie = GameAccess.spawnZombie(1000, 2000, 0);
-Object nearbyZombie = GameAccess.spawnZombieNearPlayer(10, 10);
-
-// ═══════════════════════════════════════════════════════════════
-// 거리 계산 API
-// ═══════════════════════════════════════════════════════════════
-float dist = GameAccess.getDistance(entity1, entity2);
-float distToPlayer = GameAccess.getDistanceToPlayer(zombie);
-float distToPoint = GameAccess.getDistanceToPoint(entity, 1000f, 2000f);
-
-// ═══════════════════════════════════════════════════════════════
-// 날씨 API
-// ═══════════════════════════════════════════════════════════════
-String weather = GameAccess.getWeather();  // "sunny", "rain", "fog", "snow"
-boolean raining = GameAccess.isRaining();
-boolean snowing = GameAccess.isSnowing();
-boolean foggy = GameAccess.isFoggy();
-
-GameAccess.startRain();
-GameAccess.stopRain();
-GameAccess.setRainIntensity(0.8f);
-
-// ═══════════════════════════════════════════════════════════════
-// 아이템 API
-// ═══════════════════════════════════════════════════════════════
-Object item = GameAccess.createItem("Base.Axe");
-GameAccess.spawnItem("Base.Apple", x, y, z);
-GameAccess.addInventoryItem(player, item);
-List<Object> inventory = GameAccess.getInventoryItems(player);
-
-// ═══════════════════════════════════════════════════════════════
-// 사운드 API
-// ═══════════════════════════════════════════════════════════════
-GameAccess.playSound("zombieHurt", x, y, z);
-
-// ═══════════════════════════════════════════════════════════════
-// 게임 상태 API
-// ═══════════════════════════════════════════════════════════════
-boolean paused = GameAccess.isPaused();
-boolean mp = GameAccess.isMultiplayer();
-boolean server = GameAccess.isServer();
-boolean admin = GameAccess.isAdmin();
-boolean debug = GameAccess.isDebugMode();
+public class MyMod implements PulseMod {
+    
+    @Override
+    public void onInitialize() {
+        System.out.println("[MyMod] Loading!");
+        EventBus.subscribe(GameTickEvent.class, this::onTick, "mymod");
+    }
+    
+    private void onTick(GameTickEvent event) {
+        if (event.getTick() % 200 == 0) {
+            int zombies = GameAccess.getZombieCount();
+            System.out.println("Zombies nearby: " + zombies);
+        }
+    }
+}
 ```
 
----
-
-### MixinHelper - Mixin 개발 유틸리티
+### Mixin Usage
 
 ```java
 import com.pulse.mixin.MixinHelper;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(targets = "zombie.characters.IsoZombie")
 public class ZombieMixin {
     
     @Inject(method = "update", at = @At("HEAD"), cancellable = true)
     private void onUpdate(CallbackInfo ci) {
-        // this를 원본 타입으로 캐스팅
-        IsoZombie zombie = MixinHelper.self(this);
+        // Cast 'this' to the original type
+        Object zombie = MixinHelper.self(this);
         
-        // 이벤트 발행 + 자동 취소 처리
+        // Fire event with automatic cancellation handling
         ZombieUpdateEvent event = new ZombieUpdateEvent(zombie);
         MixinHelper.fireEvent(event, ci);
-    }
-    
-    @Inject(method = "getSpeed", at = @At("HEAD"), cancellable = true)
-    private void onGetSpeed(CallbackInfoReturnable<Float> cir) {
-        // 반환값이 있는 이벤트
-        ZombieSpeedEvent event = new ZombieSpeedEvent(zombie);
-        MixinHelper.fireEventWithReturn(event, cir, 0.5f);
     }
 }
 ```
 
-**사용 가능한 헬퍼 메서드:**
+#### MixinHelper Methods
 
-| 메서드 | 설명 |
-|--------|------|
-| `fireEvent(event, ci)` | 이벤트 발행 + 자동 취소 |
-| `fireEventWithReturn(event, cir, value)` | 반환값 있는 이벤트 |
-| `fire(event)` | 단순 이벤트 발행 |
-| `self(mixinThis)` | this → 원본 타입 캐스팅 |
-| `safeCast(obj, clazz)` | null-safe 캐스팅 |
-| `setReturn(cir, value)` | 반환값 설정 |
-| `setReturnIf(condition, cir, value)` | 조건부 반환값 |
-| `debug(name, msg)` | 디버그 로그 |
+| Method | Description |
+|--------|-------------|
+| `fireEvent(event, ci)` | Fire event + auto cancel |
+| `fireEventWithReturn(event, cir, value)` | Event with return value |
+| `fire(event)` | Simple event dispatch |
+| `self(mixinThis)` | Cast this → original type |
+| `safeCast(obj, clazz)` | Null-safe casting |
+| `setReturn(cir, value)` | Set return value |
+| `setReturnIf(condition, cir, value)` | Conditional return |
+| `debug(name, msg)` | Debug logging |
 
----
+### LuaBridge Usage
 
-### LuaBridge - Lua 통합
+The `LuaBridge` enables seamless Java ↔ Lua bidirectional communication:
 
 ```java
 import com.pulse.lua.LuaBridge;
 
-// Lua 함수 호출
+// Call Lua functions from Java
 LuaBridge.call("Events.OnTick.Add", myCallback);
 
-// 전역 변수 접근
+// Access global variables
 Object value = LuaBridge.getGlobal("SomeVar");
 LuaBridge.setGlobal("MyModData", data);
 
-// Lua 코드 직접 실행
+// Execute Lua code directly
 LuaBridge.executeLuaCode("print('Hello from Pulse!')");
 
-// Java 클래스를 Lua에 노출
+// Expose Java class to Lua environment
 LuaBridge.expose("MyAPI", MyModAPI.class);
 
-// Java 콜백 등록
+// Register Java callback for Lua
 LuaBridge.registerCallback("MyCallback", args -> {
     System.out.println("Called from Lua!");
     return "result";
 });
 
-// 테이블 조작
+// Table manipulation
 Object table = LuaBridge.createLuaTable();
 LuaBridge.setTableField(table, "key", "value");
+Object field = LuaBridge.getTableField(table, "key");
 ```
 
 ---
 
-### Event System
+## 🛠️ Utilities
+
+### ModProfiler
+
+Monitor and optimize your mod's performance:
+
+```java
+import com.pulse.debug.ModProfiler;
+
+// Enable profiling
+ModProfiler.enable();
+
+// Profile a section
+ProfilerSection section = ModProfiler.start("mymod", "onTick");
+try {
+    // Your heavy operation
+} finally {
+    section.end();
+}
+
+// Lambda-style profiling
+ModProfiler.profile("mymod", "zombieAI", () -> {
+    // Heavy computation
+});
+
+// Print results
+ModProfiler.printResults();
+```
+
+### CrashReporter
+
+Automatic detailed crash report generation with:
+- Full stack trace analysis
+- Active mod list with versions
+- Applied Mixin information
+- System environment details
+
+### EventBus
+
+Priority-based event subscription system:
 
 ```java
 import com.pulse.event.EventBus;
 
-// 이벤트 구독
+// Subscribe to events
 EventBus.subscribe(GameTickEvent.class, event -> {
     long tick = event.getTick();
 });
 
-// 우선순위 지정
+// Priority-based subscription
 EventBus.subscribe(PlayerDamageEvent.class, event -> {
-    event.setCancelled(true);  // 데미지 취소
+    event.setCancelled(true);  // Cancel damage
 }, EventPriority.HIGH);
 
-// 모드 ID로 구독 (언로드 시 자동 정리)
+// Mod-scoped subscription (auto-cleanup on unload)
 EventBus.subscribe(ZombieDeathEvent.class, this::onZombieDeath, "mymod");
 ```
 
 ---
 
-### ModProfiler - 성능 프로파일링
+## 🔨 Building from Source
 
-```java
-import com.pulse.debug.ModProfiler;
+```bash
+# Clone the repository
+git clone https://github.com/randomstrangerpassenger/Pulse.git
+cd Pulse
 
-// 프로파일링 활성화
-ModProfiler.enable();
+# Build
+./gradlew build
 
-// 섹션 측정
-ProfilerSection section = ModProfiler.start("mymod", "onTick");
-try {
-    // 작업 수행
-} finally {
-    section.end();
-}
-
-// 람다로 간편하게
-ModProfiler.profile("mymod", "zombieAI", () -> {
-    // 무거운 작업
-});
-
-// 결과 출력
-ModProfiler.printResults();
+# Output: build/libs/Pulse.jar
 ```
 
 ---
 
-## 🔨 모드 개발 가이드
+## 📄 License
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
+
+<br>
+
+<h1 align="center">🔥 Pulse</h1>
+
+<h2 align="center">한국어 (Korean)</h2>
+
+---
+
+## 🎯 소개
+
+**Pulse**는 Project Zomboid를 위한 차세대 모드 로더입니다. **SpongePowered Mixin** 기술을 도입하여 런타임에 게임의 바이트코드를 안전하고 정밀하게 수정할 수 있습니다. 기존 Lua 훅킹의 한계를 극복하고, 개발자와 플레이어 모두를 위한 풍부한 API 생태계를 제공합니다.
+
+> _"기존 Lua 훅의 한계를 넘어, Pulse가 시작됩니다."_
+
+---
+
+## ✨ 핵심 기능
+
+| 기능 | 설명 |
+|------|------|
+| 🔧 **강력한 런타임 조작 (Mixin)** | SpongePowered Mixin 0.8.5를 활용한 안전하고 정밀한 바이트코드 수정 — Lua 훅의 한계 극복 |
+| 🌉 **혁신적인 양방향 브릿지 (LuaBridge)** | Java ↔ Lua 완벽한 양방향 통신 — Java에서 Lua 함수 호출 및 Java 객체의 Lua 전역 노출 |
+| 📦 **스마트 의존성 관리** | 위상 정렬(Topological Sort) 기반 자동 로드 순서 결정 및 충돌 방지 |
+| ⚡ **개발자 생산성 (DX)** | `GameAccess` Facade API (55+ 메서드), `EventBus`, `CrashReporter`, `ModProfiler` 등 |
+
+### 추가 기능
+
+- 🎭 **Mixin System** — SpongePowered Mixin 0.8.5 완전 통합
+- 📢 **Event Bus** — 우선순위 기반 이벤트 구독 시스템
+- 🎮 **GameAccess** — 55+ 게임 API 헬퍼 (플레이어, 좀비, 날씨 등)
+- ⚡ **MixinHelper** — Mixin 개발 간소화 유틸리티
+- ⚙️ **Config System** — 어노테이션 기반 자동 설정 관리
+- ⏰ **Scheduler** — 틱 기반 태스크 스케줄링
+- 🌐 **Networking** — 클라이언트-서버 패킷 통신
+- 📊 **ModProfiler** — 모드별 성능 프로파일링
+- 🔍 **CrashReporter** — 상세 크래시 리포트 생성
+
+---
+
+## 📥 설치 방법
+
+### 방법 1: PulseLauncher (권장)
+
+1. `Pulse.jar`와 `PulseLauncher.bat`를 같은 폴더에 다운로드
+2. `PulseLauncher.bat` 더블클릭
+3. 런처가 자동으로 게임 경로를 감지하고 Pulse와 함께 실행
+
+```
+📁 폴더 구조
+├── Pulse.jar
+└── PulseLauncher.bat   ← 실행!
+```
+
+### 방법 2: 수동 설정
+
+Steam → Project Zomboid → 속성 → 시작 옵션에 다음을 추가:
+
+```
+-javaagent:"<Pulse.jar 경로>"
+```
+
+**예시:**
+```
+-javaagent:"C:\Games\PZ-Mods\Pulse.jar"
+```
+
+---
+
+## 👩‍💻 개발자 가이드
 
 ### 프로젝트 구조
 
@@ -300,7 +387,7 @@ my-mod/
   "id": "mymod",
   "name": "My Awesome Mod",
   "version": "1.0.0",
-  "description": "An awesome mod for Project Zomboid",
+  "description": "Project Zomboid를 위한 멋진 모드",
   "authors": ["YourName"],
   "entrypoint": "com.mymod.MyMod",
   "mixins": ["mixins.mymod.json"],
@@ -324,27 +411,154 @@ public class MyMod implements PulseMod {
     
     @Override
     public void onInitialize() {
-        System.out.println("[MyMod] Loading!");
-        
+        System.out.println("[MyMod] 로딩 중!");
         EventBus.subscribe(GameTickEvent.class, this::onTick, "mymod");
     }
     
     private void onTick(GameTickEvent event) {
-        // 매 틱마다 실행
         if (event.getTick() % 200 == 0) {
             int zombies = GameAccess.getZombieCount();
-            System.out.println("Zombies nearby: " + zombies);
+            System.out.println("주변 좀비 수: " + zombies);
         }
     }
 }
 ```
 
+### Mixin 사용법
+
+```java
+import com.pulse.mixin.MixinHelper;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(targets = "zombie.characters.IsoZombie")
+public class ZombieMixin {
+    
+    @Inject(method = "update", at = @At("HEAD"), cancellable = true)
+    private void onUpdate(CallbackInfo ci) {
+        // 'this'를 원본 타입으로 캐스팅
+        Object zombie = MixinHelper.self(this);
+        
+        // 이벤트 발행 + 자동 취소 처리
+        ZombieUpdateEvent event = new ZombieUpdateEvent(zombie);
+        MixinHelper.fireEvent(event, ci);
+    }
+}
+```
+
+#### MixinHelper 메서드
+
+| 메서드 | 설명 |
+|--------|------|
+| `fireEvent(event, ci)` | 이벤트 발행 + 자동 취소 |
+| `fireEventWithReturn(event, cir, value)` | 반환값 있는 이벤트 |
+| `fire(event)` | 단순 이벤트 발행 |
+| `self(mixinThis)` | this → 원본 타입 캐스팅 |
+| `safeCast(obj, clazz)` | null-safe 캐스팅 |
+| `setReturn(cir, value)` | 반환값 설정 |
+| `setReturnIf(condition, cir, value)` | 조건부 반환값 |
+| `debug(name, msg)` | 디버그 로그 |
+
+### LuaBridge 사용법
+
+`LuaBridge`는 Java와 Lua 간의 완벽한 양방향 통신을 지원합니다:
+
+```java
+import com.pulse.lua.LuaBridge;
+
+// Java에서 Lua 함수 호출
+LuaBridge.call("Events.OnTick.Add", myCallback);
+
+// 전역 변수 접근
+Object value = LuaBridge.getGlobal("SomeVar");
+LuaBridge.setGlobal("MyModData", data);
+
+// Lua 코드 직접 실행
+LuaBridge.executeLuaCode("print('Hello from Pulse!')");
+
+// Java 클래스를 Lua 환경에 노출
+LuaBridge.expose("MyAPI", MyModAPI.class);
+
+// Lua용 Java 콜백 등록
+LuaBridge.registerCallback("MyCallback", args -> {
+    System.out.println("Lua에서 호출됨!");
+    return "result";
+});
+
+// 테이블 조작
+Object table = LuaBridge.createLuaTable();
+LuaBridge.setTableField(table, "key", "value");
+Object field = LuaBridge.getTableField(table, "key");
+```
+
 ---
 
-## 🔧 빌드 방법
+## 🛠️ 유틸리티
+
+### ModProfiler
+
+모드의 성능을 모니터링하고 최적화하세요:
+
+```java
+import com.pulse.debug.ModProfiler;
+
+// 프로파일링 활성화
+ModProfiler.enable();
+
+// 섹션 측정
+ProfilerSection section = ModProfiler.start("mymod", "onTick");
+try {
+    // 무거운 작업 수행
+} finally {
+    section.end();
+}
+
+// 람다 스타일 프로파일링
+ModProfiler.profile("mymod", "zombieAI", () -> {
+    // 무거운 연산
+});
+
+// 결과 출력
+ModProfiler.printResults();
+```
+
+### CrashReporter
+
+자동 상세 크래시 리포트 생성:
+- 전체 스택 트레이스 분석
+- 활성 모드 목록 및 버전
+- 적용된 Mixin 정보
+- 시스템 환경 정보
+
+### EventBus
+
+우선순위 기반 이벤트 구독 시스템:
+
+```java
+import com.pulse.event.EventBus;
+
+// 이벤트 구독
+EventBus.subscribe(GameTickEvent.class, event -> {
+    long tick = event.getTick();
+});
+
+// 우선순위 기반 구독
+EventBus.subscribe(PlayerDamageEvent.class, event -> {
+    event.setCancelled(true);  // 데미지 취소
+}, EventPriority.HIGH);
+
+// 모드 범위 구독 (언로드 시 자동 정리)
+EventBus.subscribe(ZombieDeathEvent.class, this::onZombieDeath, "mymod");
+```
+
+---
+
+## 🔨 빌드 방법
 
 ```bash
-# 클론
+# 저장소 클론
 git clone https://github.com/randomstrangerpassenger/Pulse.git
 cd Pulse
 
@@ -358,7 +572,7 @@ cd Pulse
 
 ## 📄 라이선스
 
-MIT 라이선스. [LICENSE](LICENSE) 파일 참조.
+이 프로젝트는 **MIT 라이선스** 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
 
 ---
 

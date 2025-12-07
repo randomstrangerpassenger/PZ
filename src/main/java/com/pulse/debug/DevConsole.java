@@ -156,7 +156,26 @@ public class DevConsole {
         String args = parts.length > 1 ? parts[1] : "";
 
         // ═══════════════════════════════════════════════════════════════
-        // 보안 검사 (Anti-Cheat)
+        // [최우선] Project Zomboid 권한 직접 검사
+        // ═══════════════════════════════════════════════════════════════
+        // 클라이언트에서 위험한 명령어 시도 시, PZ의 실제 Admin 상태 확인
+        // 이 검사는 외부 설정(setCurrentExecutor 등)에 의존하지 않음
+        // ═══════════════════════════════════════════════════════════════
+
+        if (PRIVILEGED_COMMANDS.contains(cmdName) ||
+                ("mods".equals(cmdName) && args.length() > 0
+                        && MOD_MANAGE_SUBCOMMANDS.contains(args.split("\\s+")[0].toLowerCase()))) {
+
+            // PZ 멀티플레이어 클라이언트에서 Admin이 아니면 차단
+            if (isInPZMultiplayerClient() && !isPZAdmin()) {
+                System.err.println(
+                        "[DevConsole] BLOCKED: Non-admin attempted privileged command in multiplayer: " + cmdName);
+                return "§c[보안] Error: 관리자 권한이 없습니다. 이 명령어는 멀티플레이에서 관리자만 사용할 수 있습니다.";
+            }
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // 보안 검사 (Anti-Cheat) - 2차 검증
         // ═══════════════════════════════════════════════════════════════
         //
         // 검사 우회 조건 (아래 중 하나 충족 시):
@@ -417,6 +436,90 @@ public class DevConsole {
         } catch (Exception e) {
             System.err.println("[DevConsole] Error checking SandboxOptions: " + e.getMessage());
             return false; // 오류 시 안전하게 차단
+        }
+    }
+
+    /**
+     * Project Zomboid 멀티플레이어 클라이언트에서 실행 중인지 확인.
+     * GameWindow.bServer == false AND GameClient.bConnected == true 인 경우.
+     * 
+     * @return 멀티플레이어 클라이언트 여부
+     */
+    private static boolean isInPZMultiplayerClient() {
+        // 먼저 Pulse 내부 플래그 확인 (더 빠름)
+        if (inMultiplayerSession) {
+            return true;
+        }
+
+        try {
+            // GameWindow.bServer 확인 (서버인지)
+            Class<?> gameWindowClass = Class.forName("zombie.GameWindow");
+            java.lang.reflect.Field bServerField = gameWindowClass.getField("bServer");
+            boolean isServer = bServerField.getBoolean(null);
+
+            if (isServer) {
+                return false; // 서버에서는 멀티플레이어 클라이언트가 아님
+            }
+
+            // GameClient.bConnected 확인 (멀티플레이어 접속 중인지)
+            Class<?> gameClientClass = Class.forName("zombie.network.GameClient");
+            java.lang.reflect.Field bConnectedField = gameClientClass.getField("bConnected");
+            boolean isConnected = bConnectedField.getBoolean(null);
+
+            return isConnected;
+
+        } catch (ClassNotFoundException e) {
+            // PZ 런타임 외부 - Pulse 내부 플래그에 의존
+            return inMultiplayerSession;
+        } catch (Exception e) {
+            System.err.println("[DevConsole] Error checking multiplayer state: " + e.getMessage());
+            return inMultiplayerSession;
+        }
+    }
+
+    /**
+     * 현재 플레이어가 Project Zomboid 서버 관리자인지 확인.
+     * GameClient.isAdmin() 또는 유사한 API 호출.
+     * 
+     * @return 관리자 여부 (확인 실패 시 false - 안전)
+     */
+    private static boolean isPZAdmin() {
+        // 먼저 Pulse 내부 플래그 확인
+        if (currentExecutorIsAdmin) {
+            return true;
+        }
+
+        try {
+            // 방법 1: GameClient.connection.isAdmin() 확인
+            Class<?> gameClientClass = Class.forName("zombie.network.GameClient");
+            java.lang.reflect.Field connectionField = gameClientClass.getDeclaredField("connection");
+            connectionField.setAccessible(true);
+            Object connection = connectionField.get(null);
+
+            if (connection != null) {
+                java.lang.reflect.Method isAdminMethod = connection.getClass().getMethod("isAdmin");
+                Object result = isAdminMethod.invoke(connection);
+                if (result instanceof Boolean) {
+                    return (Boolean) result;
+                }
+            }
+
+            // 방법 2: 백업 - Core.bDebug 확인 (디버그 모드에서는 허용)
+            Class<?> coreClass = Class.forName("zombie.core.Core");
+            java.lang.reflect.Field bDebugField = coreClass.getField("bDebug");
+            boolean isDebug = bDebugField.getBoolean(null);
+            if (isDebug) {
+                return true;
+            }
+
+            return false;
+
+        } catch (ClassNotFoundException e) {
+            // PZ 런타임 외부 - 디버그 모드라면 허용
+            return debugModeEnabled;
+        } catch (Exception e) {
+            System.err.println("[DevConsole] Error checking admin status: " + e.getMessage());
+            return false; // 오류 시 안전하게 거부
         }
     }
 

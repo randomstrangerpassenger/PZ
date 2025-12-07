@@ -83,7 +83,14 @@ public enum ProfilingPoint {
     CUSTOM_2(Category.CUSTOM, "Custom 2"),
     CUSTOM_3(Category.CUSTOM, "Custom 3"),
     CUSTOM_4(Category.CUSTOM, "Custom 4"),
-    CUSTOM_5(Category.CUSTOM, "Custom 5");
+    CUSTOM_5(Category.CUSTOM, "Custom 5"),
+
+    // ============================================================
+    // INTERNAL - 프로파일러 내부 진단 (Phase 4)
+    // ============================================================
+
+    /** Echo 프로파일러 자체 오버헤드 (메타 프로파일링) */
+    ECHO_OVERHEAD(Category.INTERNAL, "Echo Overhead");
 
     // ============================================================
     // 필드 및 메서드
@@ -119,6 +126,13 @@ public enum ProfilingPoint {
         return category == Category.CUSTOM;
     }
 
+    /**
+     * 내부 진단 포인트 여부
+     */
+    public boolean isInternal() {
+        return category == Category.INTERNAL;
+    }
+
     // ============================================================
     // 카테고리 열거형
     // ============================================================
@@ -127,7 +141,8 @@ public enum ProfilingPoint {
         CORE("Core", "#FF6B6B"),
         SUBSYSTEM("Subsystem", "#4ECDC4"),
         LUA("Lua", "#FFE66D"),
-        CUSTOM("Custom", "#95E1D3");
+        CUSTOM("Custom", "#95E1D3"),
+        INTERNAL("Internal", "#A9A9A9");
 
         private final String displayName;
         private final String color;

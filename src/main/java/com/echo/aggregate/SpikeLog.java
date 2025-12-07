@@ -12,13 +12,20 @@ import java.util.concurrent.atomic.AtomicLong;
  * 스파이크 로그
  * 
  * 성능 스파이크 이벤트를 기록하고 분석합니다.
+ * Phase 4: 스택 캡처 기능 추가
  */
 public class SpikeLog {
 
     private static final int MAX_ENTRIES = 100;
+    private static final int MAX_STACK_DEPTH = 10;
 
     private final Deque<SpikeEntry> entries = new ConcurrentLinkedDeque<>();
     private volatile double thresholdMs;
+
+    // Phase 4: 스택 캡처 옵션
+    private volatile boolean stackCaptureEnabled = false;
+    private static final StackWalker STACK_WALKER = StackWalker.getInstance(
+            StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
     // 통계 (스레드 안전)
     private final AtomicLong totalSpikes = new AtomicLong(0);
@@ -31,6 +38,19 @@ public class SpikeLog {
 
     public SpikeLog(double thresholdMs) {
         this.thresholdMs = thresholdMs;
+    }
+
+    /**
+     * 스택 캡처 활성화/비활성화
+     * 주의: 성능 비용이 크므로 디버깅 시에만 사용
+     */
+    public void setStackCaptureEnabled(boolean enabled) {
+        this.stackCaptureEnabled = enabled;
+        System.out.println("[Echo] Spike stack capture: " + (enabled ? "ENABLED" : "DISABLED"));
+    }
+
+    public boolean isStackCaptureEnabled() {
+        return stackCaptureEnabled;
     }
 
     /**
@@ -48,12 +68,18 @@ public class SpikeLog {
         if (durationMs < thresholdMs)
             return;
 
+        // Phase 4: 스택 캡처 (옵션)
+        String capturedStack = stackPath;
+        if (stackCaptureEnabled && capturedStack == null) {
+            capturedStack = captureStackTrace();
+        }
+
         SpikeEntry entry = new SpikeEntry(
                 Instant.now(),
                 durationMicros,
                 point,
                 label,
-                stackPath);
+                capturedStack);
 
         entries.addLast(entry);
         totalSpikes.incrementAndGet();
@@ -74,6 +100,28 @@ public class SpikeLog {
         while (entries.size() > MAX_ENTRIES) {
             entries.pollFirst();
         }
+    }
+
+    /**
+     * 스택 트레이스 캡처 (Phase 4)
+     * 비용이 크므로 옵션으로만 사용
+     */
+    private String captureStackTrace() {
+        StringBuilder sb = new StringBuilder();
+        STACK_WALKER.walk(frames -> {
+            frames.limit(MAX_STACK_DEPTH)
+                    .skip(3) // logSpike 호출 스택 스킵
+                    .forEach(frame -> {
+                        sb.append(frame.getClassName())
+                                .append(".")
+                                .append(frame.getMethodName())
+                                .append(":")
+                                .append(frame.getLineNumber())
+                                .append("\n");
+                    });
+            return null;
+        });
+        return sb.toString().trim();
     }
 
     /**

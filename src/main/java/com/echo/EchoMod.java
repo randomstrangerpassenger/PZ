@@ -13,7 +13,7 @@ public class EchoMod {
 
     public static final String MOD_ID = "echo";
     public static final String MOD_NAME = "Echo Profiler";
-    public static final String VERSION = "0.1.0";
+    public static final String VERSION = "0.2.0";
 
     private static boolean initialized = false;
 
@@ -59,7 +59,10 @@ public class EchoMod {
                 new com.echo.report.EchoReport(profiler)
                         .saveWithTimestamp("./echo_reports");
             } catch (Exception e) {
+                // Phase 2: 상세 에러 로깅
                 System.err.println("[Echo] Failed to save report: " + e.getMessage());
+                System.err.println("[Echo] Stack trace for debugging:");
+                e.printStackTrace(System.err);
             }
         }
 

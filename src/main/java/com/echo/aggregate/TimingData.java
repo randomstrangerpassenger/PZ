@@ -218,82 +218,160 @@ public class TimingData {
     // ============================================================
 
     /**
-     * 시간 윈도우 기반 롤링 통계
+     * 시간 윈도우 기반 롤링 통계 (Zero-Allocation Ring Buffer)
+     * 
+     * Phase 1 최적화:
+     * - ArrayDeque → 고정 크기 long[] (GC-Free)
+     * - Stream API → Running Sum (O(1) 연산)
+     * - 샘플 기반 윈도우 (틱 기반, ~60 FPS 가정)
      */
     public static class RollingStats {
+        // 상수: 60 FPS 기준
+        public static final int SAMPLES_PER_SECOND = 60;
+        public static final int WINDOW_1S = SAMPLES_PER_SECOND; // 60
+        public static final int WINDOW_5S = SAMPLES_PER_SECOND * 5; // 300
+        public static final int WINDOW_60S = SAMPLES_PER_SECOND * 60; // 3600
+
+        private final int capacity;
+        private final long[] values;
+        private int head = 0; // 다음 쓸 위치
+        private int size = 0; // 현재 샘플 수
+
+        // Running statistics (O(1) 조회)
+        private long runningSum = 0;
+        private long runningMax = 0;
+
+        // 호환성을 위한 windowMs (deprecated, 표시용)
+        @Deprecated
         private final long windowMs;
-        private final Deque<Sample> samples = new ArrayDeque<>();
-        private final Object lock = new Object();
 
         public RollingStats(long windowMs) {
+            // 기존 API 호환: windowMs → 샘플 수 변환
             this.windowMs = windowMs;
+            if (windowMs <= 1_000) {
+                this.capacity = WINDOW_1S;
+            } else if (windowMs <= 5_000) {
+                this.capacity = WINDOW_5S;
+            } else {
+                this.capacity = WINDOW_60S;
+            }
+            this.values = new long[capacity];
         }
 
+        /**
+         * 새 샘플 추가 (O(1), Zero-Allocation)
+         * 
+         * @param value     측정값 (마이크로초)
+         * @param timestamp 무시됨 (호환성용)
+         */
         public void addSample(long value, long timestamp) {
-            synchronized (lock) {
-                samples.addLast(new Sample(value, timestamp));
-                cleanup(timestamp);
-            }
+            addSample(value);
         }
 
-        private void cleanup(long now) {
-            long threshold = now - windowMs;
-            while (!samples.isEmpty() && samples.peekFirst().timestamp < threshold) {
-                samples.pollFirst();
+        /**
+         * 새 샘플 추가 (O(1), Zero-Allocation)
+         */
+        public void addSample(long value) {
+            // Ring Buffer가 가득 찬 경우 가장 오래된 값 제거
+            if (size == capacity) {
+                runningSum -= values[head];
             }
+
+            // 새 값 저장
+            values[head] = value;
+            runningSum += value;
+
+            // Max 갱신 (가장 오래된 값이 max였을 수 있으므로 재계산 필요)
+            if (size == capacity && values[(head + 1) % capacity] == runningMax) {
+                recalculateMax();
+            } else if (value > runningMax) {
+                runningMax = value;
+            }
+
+            // 포인터 이동
+            head = (head + 1) % capacity;
+            size = Math.min(size + 1, capacity);
         }
 
+        /**
+         * 평균값 조회 (O(1))
+         */
         public long getAverage() {
-            synchronized (lock) {
-                if (samples.isEmpty())
-                    return 0;
-                cleanup(System.currentTimeMillis());
-                return (long) samples.stream()
-                        .mapToLong(s -> s.value)
-                        .average()
-                        .orElse(0);
-            }
+            return size == 0 ? 0 : runningSum / size;
         }
 
+        /**
+         * 최대값 조회 (O(1) 평균, 드물게 O(n))
+         */
         public long getMax() {
-            synchronized (lock) {
-                if (samples.isEmpty())
-                    return 0;
-                cleanup(System.currentTimeMillis());
-                return samples.stream()
-                        .mapToLong(s -> s.value)
-                        .max()
-                        .orElse(0);
-            }
+            return size == 0 ? 0 : runningMax;
         }
 
+        /**
+         * 현재 샘플 수
+         */
         public int getSampleCount() {
-            synchronized (lock) {
-                cleanup(System.currentTimeMillis());
-                return samples.size();
-            }
+            return size;
         }
 
+        /**
+         * 버퍼 용량
+         */
+        public int getCapacity() {
+            return capacity;
+        }
+
+        /**
+         * 윈도우 시간 (deprecated - 호환성용)
+         */
+        @Deprecated
         public long getWindowMs() {
             return windowMs;
         }
 
-        public void reset() {
-            synchronized (lock) {
-                samples.clear();
-            }
+        /**
+         * 통계적 신뢰도 (0.0 ~ 1.0)
+         * Event-driven Points에서 낮은 호출 빈도 감지용
+         */
+        public double getConfidence() {
+            return (double) size / capacity;
         }
 
         /**
-         * 오래된 샘플 정리 (외부 호출용)
+         * 통계적으로 의미 있는 데이터인지 (50% 이상 채워짐)
          */
-        public void performCleanup() {
-            synchronized (lock) {
-                cleanup(System.currentTimeMillis());
-            }
+        public boolean isStatisticallyMeaningful() {
+            return size >= capacity / 2;
         }
 
-        private record Sample(long value, long timestamp) {
+        /**
+         * 초기화
+         */
+        public void reset() {
+            Arrays.fill(values, 0);
+            head = 0;
+            size = 0;
+            runningSum = 0;
+            runningMax = 0;
+        }
+
+        /**
+         * 오래된 샘플 정리 (호환성용 - 샘플 기반이므로 NOP)
+         */
+        public void performCleanup() {
+            // 샘플 기반 Ring Buffer에서는 자동으로 관리되므로 불필요
+        }
+
+        /**
+         * 최대값 재계산 (O(n) - 드물게 호출)
+         */
+        private void recalculateMax() {
+            runningMax = 0;
+            for (int i = 0; i < size; i++) {
+                if (values[i] > runningMax) {
+                    runningMax = values[i];
+                }
+            }
         }
     }
 

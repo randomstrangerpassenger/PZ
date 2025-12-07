@@ -49,6 +49,8 @@ public class EchoCommands {
         commands.put("config", EchoCommands::cmdConfig);
         commands.put("memory", EchoCommands::cmdMemory);
         commands.put("test", EchoCommands::cmdTest);
+        commands.put("stack", EchoCommands::cmdStack); // Phase 4
+        commands.put("overhead", EchoCommands::cmdOverhead); // Phase 4
 
         registered = true;
         System.out.println("[Echo] Commands registered");
@@ -116,6 +118,19 @@ public class EchoCommands {
         EchoProfiler profiler = EchoProfiler.getInstance();
         profiler.printStatus();
 
+        // Enhanced Phase 3: 추가 상태 정보
+        System.out.println("⚙️ CONFIGURATION");
+        System.out.println("───────────────────────────────────────────────────────");
+        System.out.printf("  Lua Profiling:   %s%n",
+                profiler.isLuaProfilingEnabled() ? "✅ ENABLED" : "❌ DISABLED");
+        System.out.printf("  Spike Threshold: %.2f ms%n",
+                profiler.getSpikeLog().getThresholdMs());
+        System.out.printf("  Stack Depth:     %d (current thread)%n",
+                profiler.getCurrentStackDepth());
+        System.out.printf("  Session Time:    %d seconds%n",
+                profiler.getSessionDurationSeconds());
+        System.out.println();
+
         // Pulse integration status
         if (PulseEventAdapter.isRegistered()) {
             TickProfiler tickProfiler = PulseEventAdapter.getTickProfiler();
@@ -176,29 +191,89 @@ public class EchoCommands {
     }
 
     private static void cmdConfig(String[] args) {
-        if (args.length < 3) {
-            System.out.println("[Echo] Usage: /echo config threshold <ms>");
-            System.out.println("[Echo]   Example: /echo config threshold 50");
+        EchoProfiler profiler = EchoProfiler.getInstance();
+        SpikeLog spikeLog = profiler.getSpikeLog();
+
+        // /echo config (no args) - show current config
+        if (args.length < 2) {
+            System.out.println();
+            System.out.println("╔═══════════════════════════════════════════════╗");
+            System.out.println("║           Echo Configuration                  ║");
+            System.out.println("╠═══════════════════════════════════════════════╣");
+            System.out.printf("║  Spike Threshold: %.2f ms                    ║%n", spikeLog.getThresholdMs());
+            System.out.printf("║  Lua Profiling:   %s                      ║%n",
+                    profiler.isLuaProfilingEnabled() ? "ON " : "OFF");
+            System.out.println("╠═══════════════════════════════════════════════╣");
+            System.out.println("║  Usage:                                       ║");
+            System.out.println("║    /echo config get              - Show all   ║");
+            System.out.println("║    /echo config set threshold <ms>            ║");
+            System.out.println("╚═══════════════════════════════════════════════╝");
+            System.out.println();
             return;
         }
 
-        String option = args[1].toLowerCase();
-        if ("threshold".equals(option)) {
+        String action = args[1].toLowerCase();
+
+        // /echo config get
+        if ("get".equals(action)) {
+            System.out.println("[Echo] Current Configuration:");
+            System.out.printf("  spike.threshold = %.2f ms%n", spikeLog.getThresholdMs());
+            System.out.printf("  lua.enabled = %s%n", profiler.isLuaProfilingEnabled());
+            System.out.printf("  profiler.enabled = %s%n", profiler.isEnabled());
+            return;
+        }
+
+        // /echo config set <key> <value>
+        if ("set".equals(action)) {
+            if (args.length < 4) {
+                System.out.println("[Echo] Usage: /echo config set <key> <value>");
+                System.out.println("[Echo]   Available keys: threshold");
+                return;
+            }
+
+            String key = args[2].toLowerCase();
+            String value = args[3];
+
+            if ("threshold".equals(key)) {
+                try {
+                    double thresholdMs = Double.parseDouble(value);
+                    if (thresholdMs <= 0) {
+                        System.out.println("[Echo] Threshold must be positive");
+                        return;
+                    }
+                    spikeLog.setThresholdMs(thresholdMs);
+                    System.out.printf("[Echo] Spike threshold set to %.2f ms%n", thresholdMs);
+                } catch (NumberFormatException e) {
+                    System.out.println("[Echo] Invalid number: " + value);
+                }
+            } else {
+                System.out.println("[Echo] Unknown config key: " + key);
+                System.out.println("[Echo] Available keys: threshold");
+            }
+            return;
+        }
+
+        // Legacy: /echo config threshold <value> (backward compatibility)
+        if ("threshold".equals(action)) {
+            if (args.length < 3) {
+                System.out.printf("[Echo] Current threshold: %.2f ms%n", spikeLog.getThresholdMs());
+                return;
+            }
             try {
                 double thresholdMs = Double.parseDouble(args[2]);
                 if (thresholdMs <= 0) {
                     System.out.println("[Echo] Threshold must be positive");
                     return;
                 }
-                SpikeLog spikeLog = EchoProfiler.getInstance().getSpikeLog();
                 spikeLog.setThresholdMs(thresholdMs);
             } catch (NumberFormatException e) {
                 System.out.println("[Echo] Invalid number: " + args[2]);
             }
-        } else {
-            System.out.println("[Echo] Unknown config option: " + option);
-            System.out.println("[Echo] Available: threshold");
+            return;
         }
+
+        System.out.println("[Echo] Unknown config action: " + action);
+        System.out.println("[Echo] Usage: /echo config [get|set <key> <value>]");
     }
 
     private static void cmdMemory(String[] args) {
@@ -210,13 +285,17 @@ public class EchoCommands {
 
         EchoProfiler profiler = EchoProfiler.getInstance();
         boolean wasEnabled = profiler.isEnabled();
+        long testStartTime = System.currentTimeMillis();
 
         if (!wasEnabled) {
             profiler.enable();
         }
 
+        int testIterations = 100;
+        int successCount = 0;
+
         // Simulate some profiling
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < testIterations; i++) {
             try (var scope = profiler.scope(ProfilingPoint.TICK)) {
                 // Simulate tick work
                 Thread.sleep(1);
@@ -228,17 +307,163 @@ public class EchoCommands {
                 try (var renderScope = profiler.scope(ProfilingPoint.RENDER)) {
                     Thread.sleep(0, 300000); // 0.3ms
                 }
+                successCount++;
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
             }
         }
 
-        System.out.println("[Echo] Test complete! 100 simulated ticks recorded.");
+        long testDuration = System.currentTimeMillis() - testStartTime;
+
+        System.out.println("[Echo] Test complete! " + successCount + "/" + testIterations + " ticks recorded.");
         profiler.printStatus();
+
+        // Phase 3: 결과 파일 저장
+        saveTestResult(profiler, testIterations, successCount, testDuration);
 
         if (!wasEnabled) {
             profiler.disable();
         }
+    }
+
+    /**
+     * Smoke Test 결과를 파일로 저장 (회귀 테스트용)
+     */
+    private static void saveTestResult(EchoProfiler profiler, int iterations, int success, long durationMs) {
+        try {
+            java.io.File dir = new java.io.File("./echo_tests");
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String timestamp = java.time.LocalDateTime.now()
+                    .format(java.time.format.DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+            java.io.File file = new java.io.File(dir, "smoke_test_" + timestamp + ".txt");
+
+            try (java.io.PrintWriter writer = new java.io.PrintWriter(file)) {
+                writer.println("═══════════════════════════════════════════════════════");
+                writer.println("  Echo Profiler Smoke Test Report");
+                writer.println("  " + java.time.LocalDateTime.now());
+                writer.println("═══════════════════════════════════════════════════════");
+                writer.println();
+                writer.println("TEST SUMMARY");
+                writer.println("───────────────────────────────────────────────────────");
+                writer.println("  Iterations:    " + iterations);
+                writer.println("  Success:       " + success);
+                writer.println("  Duration:      " + durationMs + " ms");
+                writer.println("  Result:        " + (success == iterations ? "✅ PASS" : "❌ FAIL"));
+                writer.println();
+                writer.println("PROFILER METRICS");
+                writer.println("───────────────────────────────────────────────────────");
+
+                for (ProfilingPoint point : ProfilingPoint.values()) {
+                    var data = profiler.getTimingData(point);
+                    if (data != null && data.getCallCount() > 0) {
+                        writer.printf("  %-15s | calls: %,8d | avg: %6.2f ms | max: %6.2f ms%n",
+                                point.getDisplayName(),
+                                data.getCallCount(),
+                                data.getAverageMicros() / 1000.0,
+                                data.getMaxMicros() / 1000.0);
+                    }
+                }
+
+                writer.println();
+                writer.println("CONFIGURATION");
+                writer.println("───────────────────────────────────────────────────────");
+                writer.println("  Spike Threshold: " + profiler.getSpikeLog().getThresholdMs() + " ms");
+                writer.println("  Lua Profiling:   " + profiler.isLuaProfilingEnabled());
+                writer.println();
+                writer.println("═══════════════════════════════════════════════════════");
+            }
+
+            System.out.println("[Echo] Test result saved: " + file.getAbsolutePath());
+        } catch (Exception e) {
+            System.err.println("[Echo] Failed to save test result: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Phase 4: 스파이크 스택 캡처 토글
+     */
+    private static void cmdStack(String[] args) {
+        SpikeLog spikeLog = EchoProfiler.getInstance().getSpikeLog();
+
+        if (args.length < 2) {
+            System.out.println("[Echo] Stack capture: " +
+                    (spikeLog.isStackCaptureEnabled() ? "ENABLED" : "DISABLED"));
+            System.out.println("[Echo] Usage: /echo stack <on|off>");
+            System.out.println("[Echo] ⚠️ Warning: Stack capture has significant performance cost!");
+            return;
+        }
+
+        String toggle = args[1].toLowerCase();
+        if ("on".equals(toggle)) {
+            spikeLog.setStackCaptureEnabled(true);
+        } else if ("off".equals(toggle)) {
+            spikeLog.setStackCaptureEnabled(false);
+        } else {
+            System.out.println("[Echo] Usage: /echo stack <on|off>");
+        }
+    }
+
+    /**
+     * Phase 4: 메타 프로파일링 (프로파일러 오버헤드 측정)
+     */
+    private static void cmdOverhead(String[] args) {
+        System.out.println("[Echo] Measuring profiler overhead...");
+
+        EchoProfiler profiler = EchoProfiler.getInstance();
+        boolean wasEnabled = profiler.isEnabled();
+
+        if (!wasEnabled) {
+            profiler.enable(false);
+        }
+
+        int iterations = 10000;
+
+        // 오버헤드 없이 측정
+        long baselineStart = System.nanoTime();
+        for (int i = 0; i < iterations; i++) {
+            // 빈 루프
+        }
+        long baselineTime = System.nanoTime() - baselineStart;
+
+        // 프로파일링 오버헤드 측정
+        long profiledStart = System.nanoTime();
+        for (int i = 0; i < iterations; i++) {
+            long start = profiler.startRaw(ProfilingPoint.ECHO_OVERHEAD);
+            profiler.endRaw(ProfilingPoint.ECHO_OVERHEAD, start);
+        }
+        long profiledTime = System.nanoTime() - profiledStart;
+
+        // scope() API 오버헤드 측정
+        long scopeStart = System.nanoTime();
+        for (int i = 0; i < iterations; i++) {
+            try (var scope = profiler.scope(ProfilingPoint.ECHO_OVERHEAD)) {
+                // 빈 루프
+            }
+        }
+        long scopeTime = System.nanoTime() - scopeStart;
+
+        if (!wasEnabled) {
+            profiler.disable();
+        }
+
+        // 결과 출력
+        double rawOverheadNs = (profiledTime - baselineTime) / (double) iterations;
+        double scopeOverheadNs = (scopeTime - baselineTime) / (double) iterations;
+
+        System.out.println();
+        System.out.println("╔═══════════════════════════════════════════════╗");
+        System.out.println("║         Echo Profiler Overhead Report         ║");
+        System.out.println("╠═══════════════════════════════════════════════╣");
+        System.out.printf("║  Iterations:        %,d                   ║%n", iterations);
+        System.out.printf("║  Raw API overhead:  %.2f ns/call           ║%n", rawOverheadNs);
+        System.out.printf("║  Scope API overhead: %.2f ns/call          ║%n", scopeOverheadNs);
+        System.out.println("╠═══════════════════════════════════════════════╣");
+        System.out.println("║  💡 Lower is better. <100ns is excellent.     ║");
+        System.out.println("╚═══════════════════════════════════════════════╝");
+        System.out.println();
     }
 }

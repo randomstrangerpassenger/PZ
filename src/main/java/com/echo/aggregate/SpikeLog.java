@@ -6,6 +6,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 스파이크 로그
@@ -17,12 +18,12 @@ public class SpikeLog {
     private static final int MAX_ENTRIES = 100;
 
     private final Deque<SpikeEntry> entries = new ConcurrentLinkedDeque<>();
-    private final double thresholdMs;
+    private volatile double thresholdMs;
 
-    // 통계
-    private long totalSpikes = 0;
-    private long worstSpikeMicros = 0;
-    private String worstSpikeLabel = "";
+    // 통계 (스레드 안전)
+    private final AtomicLong totalSpikes = new AtomicLong(0);
+    private final AtomicLong worstSpikeMicros = new AtomicLong(0);
+    private volatile String worstSpikeLabel = "";
 
     public SpikeLog() {
         this(33.33); // 기본 2프레임 (30fps 기준)
@@ -36,6 +37,13 @@ public class SpikeLog {
      * 스파이크 기록
      */
     public void logSpike(long durationMicros, ProfilingPoint point, String label) {
+        logSpike(durationMicros, point, label, null);
+    }
+
+    /**
+     * 스파이크 기록 (스택 경로 포함)
+     */
+    public void logSpike(long durationMicros, ProfilingPoint point, String label, String stackPath) {
         double durationMs = durationMicros / 1000.0;
         if (durationMs < thresholdMs)
             return;
@@ -44,14 +52,21 @@ public class SpikeLog {
                 Instant.now(),
                 durationMicros,
                 point,
-                label);
+                label,
+                stackPath);
 
         entries.addLast(entry);
-        totalSpikes++;
+        totalSpikes.incrementAndGet();
 
-        // 최악 스파이크 갱신
-        if (durationMicros > worstSpikeMicros) {
-            worstSpikeMicros = durationMicros;
+        // 최악 스파이크 갱신 (CAS 패턴)
+        long current;
+        do {
+            current = worstSpikeMicros.get();
+            if (durationMicros <= current)
+                break;
+        } while (!worstSpikeMicros.compareAndSet(current, durationMicros));
+
+        if (durationMicros > current) {
             worstSpikeLabel = (label != null ? label : point.name());
         }
 
@@ -91,14 +106,14 @@ public class SpikeLog {
      * 총 스파이크 수
      */
     public long getTotalSpikes() {
-        return totalSpikes;
+        return totalSpikes.get();
     }
 
     /**
      * 최악 스파이크 시간 (밀리초)
      */
     public double getWorstSpikeMs() {
-        return worstSpikeMicros / 1000.0;
+        return worstSpikeMicros.get() / 1000.0;
     }
 
     /**
@@ -113,6 +128,16 @@ public class SpikeLog {
      */
     public double getThresholdMs() {
         return thresholdMs;
+    }
+
+    /**
+     * 임계값 설정
+     * 
+     * @param thresholdMs 새 임계값 (밀리초)
+     */
+    public void setThresholdMs(double thresholdMs) {
+        this.thresholdMs = thresholdMs;
+        System.out.println("[Echo] Spike threshold set to: " + thresholdMs + " ms");
     }
 
     /**
@@ -150,8 +175,8 @@ public class SpikeLog {
      */
     public void reset() {
         entries.clear();
-        totalSpikes = 0;
-        worstSpikeMicros = 0;
+        totalSpikes.set(0);
+        worstSpikeMicros.set(0);
         worstSpikeLabel = "";
     }
 
@@ -164,13 +189,20 @@ public class SpikeLog {
         private final long durationMicros;
         private final ProfilingPoint point;
         private final String label;
+        private final String stackPath;
 
         public SpikeEntry(Instant timestamp, long durationMicros,
                 ProfilingPoint point, String label) {
+            this(timestamp, durationMicros, point, label, null);
+        }
+
+        public SpikeEntry(Instant timestamp, long durationMicros,
+                ProfilingPoint point, String label, String stackPath) {
             this.timestamp = timestamp;
             this.durationMicros = durationMicros;
             this.point = point;
             this.label = label;
+            this.stackPath = stackPath;
         }
 
         public Instant getTimestamp() {
@@ -193,12 +225,19 @@ public class SpikeLog {
             return label;
         }
 
+        public String getStackPath() {
+            return stackPath;
+        }
+
         public Map<String, Object> toMap() {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("timestamp", DateTimeFormatter.ISO_INSTANT.format(timestamp));
             map.put("duration_ms", Math.round(getDurationMs() * 100) / 100.0);
             map.put("point", point.name());
             map.put("label", label != null ? label : point.getDisplayName());
+            if (stackPath != null) {
+                map.put("stack_path", stackPath);
+            }
             return map;
         }
 

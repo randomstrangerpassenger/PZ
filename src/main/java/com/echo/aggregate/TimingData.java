@@ -284,6 +284,15 @@ public class TimingData {
             }
         }
 
+        /**
+         * 오래된 샘플 정리 (외부 호출용)
+         */
+        public void performCleanup() {
+            synchronized (lock) {
+                cleanup(System.currentTimeMillis());
+            }
+        }
+
         private record Sample(long value, long timestamp) {
         }
     }

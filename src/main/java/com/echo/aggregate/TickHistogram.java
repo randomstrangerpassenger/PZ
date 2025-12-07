@@ -25,6 +25,11 @@ public class TickHistogram {
     // 통계
     private final LongAdder sumMicros = new LongAdder();
 
+    // 정확한 백분위수 계산을 위한 최근 샘플 추적
+    private final long[] recentSamples = new long[1000];
+    private int sampleIndex = 0;
+    private final Object sampleLock = new Object();
+
     public TickHistogram() {
         this(DEFAULT_BUCKETS);
     }
@@ -50,6 +55,12 @@ public class TickHistogram {
         counts[bucketIndex].increment();
         totalSamples.increment();
         sumMicros.add(durationMicros);
+
+        // 최근 샘플 저장 (정확한 백분위수용)
+        synchronized (sampleLock) {
+            recentSamples[sampleIndex] = durationMicros;
+            sampleIndex = (sampleIndex + 1) % recentSamples.length;
+        }
     }
 
     private int findBucket(double durationMs) {
@@ -87,7 +98,7 @@ public class TickHistogram {
     }
 
     /**
-     * 백분위수 계산
+     * 백분위수 계산 (개선된 버전)
      * 
      * @param percentile 0-100 사이 값
      */
@@ -96,17 +107,39 @@ public class TickHistogram {
         if (total == 0)
             return 0;
 
+        // 최근 샘플 기반 정확한 계산 시도
+        synchronized (sampleLock) {
+            int validSamples = (int) Math.min(total, recentSamples.length);
+            if (validSamples >= 10) {
+                long[] sorted = new long[validSamples];
+                System.arraycopy(recentSamples, 0, sorted, 0, validSamples);
+                java.util.Arrays.sort(sorted);
+                int index = (int) Math.ceil(percentile / 100.0 * validSamples) - 1;
+                index = Math.max(0, Math.min(index, validSamples - 1));
+                return sorted[index] / 1000.0; // 마이크로초 -> 밀리초
+            }
+        }
+
+        // 폴백: 버킷 기반 추정
         long target = (long) (total * percentile / 100.0);
         long cumulative = 0;
 
         for (int i = 0; i < counts.length; i++) {
             cumulative += counts[i].sum();
             if (cumulative >= target) {
-                // 해당 버킷의 중간값 반환
                 if (i == counts.length - 1) {
-                    return buckets[i] * 1.5; // 마지막 버킷
+                    // 마지막 버킷: 경계값 + 50% 추정 대신 실제 버킷 시작값 사용
+                    return buckets[i];
                 }
-                return (buckets[i] + buckets[i + 1]) / 2;
+                // 선형 보간
+                double bucketStart = buckets[i];
+                double bucketEnd = buckets[i + 1];
+                long bucketCount = counts[i].sum();
+                long prevCumulative = cumulative - bucketCount;
+                double fraction = bucketCount > 0
+                        ? (double) (target - prevCumulative) / bucketCount
+                        : 0.5;
+                return bucketStart + fraction * (bucketEnd - bucketStart);
             }
         }
 
@@ -218,5 +251,9 @@ public class TickHistogram {
         }
         totalSamples.reset();
         sumMicros.reset();
+        synchronized (sampleLock) {
+            java.util.Arrays.fill(recentSamples, 0);
+            sampleIndex = 0;
+        }
     }
 }

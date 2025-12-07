@@ -1,6 +1,8 @@
 package com.echo.command;
 
+import com.echo.aggregate.SpikeLog;
 import com.echo.measure.EchoProfiler;
+import com.echo.measure.MemoryProfiler;
 import com.echo.measure.ProfilingPoint;
 import com.echo.pulse.PulseEventAdapter;
 import com.echo.pulse.TickProfiler;
@@ -22,6 +24,8 @@ import java.util.function.Consumer;
  * - /echo report - 리포트 생성
  * - /echo reset - 통계 초기화
  * - /echo lua on/off - Lua 프로파일링 토글
+ * - /echo config threshold <ms> - 스파이크 임계값 설정
+ * - /echo memory - 메모리 상태 출력
  */
 public class EchoCommands {
 
@@ -42,6 +46,8 @@ public class EchoCommands {
         commands.put("report", EchoCommands::cmdReport);
         commands.put("reset", EchoCommands::cmdReset);
         commands.put("lua", EchoCommands::cmdLua);
+        commands.put("config", EchoCommands::cmdConfig);
+        commands.put("memory", EchoCommands::cmdMemory);
         commands.put("test", EchoCommands::cmdTest);
 
         registered = true;
@@ -91,6 +97,8 @@ public class EchoCommands {
         System.out.println("║  /echo reset       - Reset all statistics     ║");
         System.out.println("║  /echo lua on      - Enable Lua profiling     ║");
         System.out.println("║  /echo lua off     - Disable Lua profiling    ║");
+        System.out.println("║  /echo config threshold <ms> - Set spike threshold ║");
+        System.out.println("║  /echo memory      - Show memory status       ║");
         System.out.println("║  /echo test        - Run quick test           ║");
         System.out.println("╚═══════════════════════════════════════════════╝");
         System.out.println();
@@ -165,6 +173,36 @@ public class EchoCommands {
         } else {
             System.out.println("[Echo] Usage: /echo lua <on|off>");
         }
+    }
+
+    private static void cmdConfig(String[] args) {
+        if (args.length < 3) {
+            System.out.println("[Echo] Usage: /echo config threshold <ms>");
+            System.out.println("[Echo]   Example: /echo config threshold 50");
+            return;
+        }
+
+        String option = args[1].toLowerCase();
+        if ("threshold".equals(option)) {
+            try {
+                double thresholdMs = Double.parseDouble(args[2]);
+                if (thresholdMs <= 0) {
+                    System.out.println("[Echo] Threshold must be positive");
+                    return;
+                }
+                SpikeLog spikeLog = EchoProfiler.getInstance().getSpikeLog();
+                spikeLog.setThresholdMs(thresholdMs);
+            } catch (NumberFormatException e) {
+                System.out.println("[Echo] Invalid number: " + args[2]);
+            }
+        } else {
+            System.out.println("[Echo] Unknown config option: " + option);
+            System.out.println("[Echo] Available: threshold");
+        }
+    }
+
+    private static void cmdMemory(String[] args) {
+        MemoryProfiler.printStatus();
     }
 
     private static void cmdTest(String[] args) {

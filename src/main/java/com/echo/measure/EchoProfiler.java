@@ -8,6 +8,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Echo Profiler - 계층적 프로파일링 엔진
@@ -149,10 +150,27 @@ public class EchoProfiler {
     // 제어 API
     // ============================================================
 
+    /**
+     * 프로파일러 활성화 (새 세션 시 통계 초기화)
+     */
     public void enable() {
+        enable(true);
+    }
+
+    /**
+     * 프로파일러 활성화
+     * 
+     * @param resetStats true: 기존 통계 초기화, false: 기존 통계 유지
+     */
+    public void enable(boolean resetStats) {
+        if (!enabled && resetStats) {
+            reset();
+        }
         this.enabled = true;
-        this.sessionStartTime = System.currentTimeMillis();
-        System.out.println("[Echo] Profiler ENABLED");
+        if (sessionStartTime == 0) {
+            this.sessionStartTime = System.currentTimeMillis();
+        }
+        System.out.println("[Echo] Profiler ENABLED" + (resetStats ? " (stats reset)" : ""));
     }
 
     public void disable() {
@@ -276,7 +294,7 @@ public class EchoProfiler {
      * 스택 프레임 - 진행 중인 측정 정보
      */
     private static class ProfilingFrame {
-        private static long idCounter = 0;
+        private static final AtomicLong idCounter = new AtomicLong(0);
 
         final long id;
         final ProfilingPoint point;
@@ -284,14 +302,14 @@ public class EchoProfiler {
         final long startTime;
 
         ProfilingFrame(ProfilingPoint point, long startTime) {
-            this.id = ++idCounter;
+            this.id = idCounter.incrementAndGet();
             this.point = point;
             this.customLabel = null;
             this.startTime = startTime;
         }
 
         ProfilingFrame(ProfilingPoint point, String customLabel, long startTime) {
-            this.id = ++idCounter;
+            this.id = idCounter.incrementAndGet();
             this.point = point;
             this.customLabel = customLabel;
             this.startTime = startTime;

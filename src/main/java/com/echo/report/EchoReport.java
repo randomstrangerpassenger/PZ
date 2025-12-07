@@ -5,6 +5,7 @@ import com.echo.aggregate.TickHistogram;
 import com.echo.aggregate.SpikeLog;
 import com.echo.lua.LuaCallTracker;
 import com.echo.measure.EchoProfiler;
+import com.echo.measure.MemoryProfiler;
 import com.echo.measure.ProfilingPoint;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,12 +22,12 @@ import java.util.*;
  */
 public class EchoReport {
 
+    // Use ISO_INSTANT format consistently for all dates
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
-            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
             .create();
 
-    private static final String VERSION = "0.1.0";
+    private static final String VERSION = "0.1.1";
 
     private final EchoProfiler profiler;
     private final int topN;
@@ -56,6 +57,7 @@ public class EchoReport {
         echoReport.put("heavy_functions", generateHeavyFunctions());
         echoReport.put("tick_histogram", generateHistogram());
         echoReport.put("spikes", generateSpikes());
+        echoReport.put("memory", generateMemoryStats());
         echoReport.put("lua_profiling", generateLuaProfiling());
         echoReport.put("recommendations", generateRecommendations());
         echoReport.put("metadata", generateMetadata());
@@ -359,6 +361,10 @@ public class EchoReport {
         }
 
         return recommendations;
+    }
+
+    private Map<String, Object> generateMemoryStats() {
+        return MemoryProfiler.toMap();
     }
 
     private Map<String, Object> generateLuaProfiling() {

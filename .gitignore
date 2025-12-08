@@ -1,0 +1,18 @@
+# Generated code files
+Echo_All_Code.txt
+코드 추출법.txt
+
+# Build outputs
+build/
+out/
+target/
+*.jar
+!gradle-wrapper.jar
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Gradle
+.gradle/

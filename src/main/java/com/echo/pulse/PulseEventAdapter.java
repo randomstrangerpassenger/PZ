@@ -94,6 +94,9 @@ public class PulseEventAdapter {
      * 렌더 시작 시 호출 (수동)
      */
     public static void onRenderStart() {
+        // PulseMetricsAdapter에 프레임 시작 알림
+        PulseMetricsAdapter.onFrameStart();
+
         if (renderProfiler != null) {
             renderProfiler.onRenderPre();
         }

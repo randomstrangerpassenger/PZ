@@ -6,7 +6,7 @@ Project Zomboid용 Pulse 모드 로더 위에서 동작하는 프로파일링 �
 
 ## 기능
 
-### v0.1.1
+### v0.2.0
 - ✅ **Tick 시간 측정** - 평균, 최대 스파이크, 히스토리
 - ✅ **Subsystem별 시간 측정** - Render, Simulation, Physics, Zombie AI, Lua
 - ✅ **호출 빈도 데이터 수집**
@@ -185,6 +185,12 @@ MemoryProfiler.printStatus();
 - Java 17+
 
 ## 변경 로그
+
+### v0.2.0
+- **버그 수정**: `LuaFunctionStats.maxMicros` 스레드 안전성 (AtomicLong CAS 패턴)
+- **버그 수정**: `RollingStats.addSample()` 동기화 추가
+- **버그 수정**: `EchoProfiler.getCurrentStackDepth()` 메인 스레드 감지 수정
+- **개선**: 전체 버전 통일 (0.2.0)
 
 ### v0.1.1
 - **버그 수정**: `enable()` 호출 시 통계 자동 초기화 (재활성화 시 데이터 섞임 방지)

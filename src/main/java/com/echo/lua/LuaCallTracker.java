@@ -6,6 +6,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.LongAdder;
 
+import com.echo.util.StringUtils;
+
 /**
  * Lua 호출 추적기
  * 
@@ -210,7 +212,7 @@ public class LuaCallTracker {
         for (LuaFunctionStats stats : getTopFunctionsByTime(topN)) {
             System.out.printf("    #%d %-25s | calls: %,6d | total: %6.2f ms | avg: %.3f ms%n",
                     rank++,
-                    truncate(stats.getName(), 25),
+                    StringUtils.truncate(stats.getName(), 25),
                     stats.getCallCount(),
                     stats.getTotalMs(),
                     stats.getAverageMs());
@@ -220,7 +222,7 @@ public class LuaCallTracker {
             System.out.println("\n  Events:");
             for (LuaEventStats stats : eventStats.values()) {
                 System.out.printf("    %-25s | fires: %,6d | handlers: %,d | total: %.2f ms%n",
-                        truncate(stats.getName(), 25),
+                        StringUtils.truncate(stats.getName(), 25),
                         stats.getFireCount(),
                         stats.getTotalHandlers(),
                         stats.getTotalMs());
@@ -229,9 +231,7 @@ public class LuaCallTracker {
         System.out.println();
     }
 
-    private String truncate(String s, int maxLen) {
-        return s.length() <= maxLen ? s : s.substring(0, maxLen - 3) + "...";
-    }
+    // truncate method removed - using StringUtils.truncate()
 
     /**
      * JSON 출력용 Map
@@ -269,7 +269,7 @@ public class LuaCallTracker {
         private final String name;
         private final LongAdder callCount = new LongAdder();
         private final LongAdder totalMicros = new LongAdder();
-        private volatile long maxMicros = 0;
+        private final java.util.concurrent.atomic.AtomicLong maxMicros = new java.util.concurrent.atomic.AtomicLong(0);
 
         public LuaFunctionStats(String name) {
             this.name = name;
@@ -278,9 +278,13 @@ public class LuaCallTracker {
         public void record(long durationMicros) {
             callCount.increment();
             totalMicros.add(durationMicros);
-            if (durationMicros > maxMicros) {
-                maxMicros = durationMicros;
-            }
+            // CAS pattern for thread-safe max update
+            long current;
+            do {
+                current = maxMicros.get();
+                if (durationMicros <= current)
+                    return;
+            } while (!maxMicros.compareAndSet(current, durationMicros));
         }
 
         public String getName() {
@@ -296,7 +300,7 @@ public class LuaCallTracker {
         }
 
         public long getMaxMicros() {
-            return maxMicros;
+            return maxMicros.get();
         }
 
         public double getTotalMs() {
@@ -309,7 +313,7 @@ public class LuaCallTracker {
         }
 
         public double getMaxMs() {
-            return maxMicros / 1000.0;
+            return maxMicros.get() / 1000.0;
         }
 
         public Map<String, Object> toMap(int rank) {

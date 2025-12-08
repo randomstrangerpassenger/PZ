@@ -15,6 +15,8 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import com.echo.util.StringUtils;
+
 /**
  * Echo Report 생성기
  * 
@@ -27,7 +29,7 @@ public class EchoReport {
             .setPrettyPrinting()
             .create();
 
-    private static final String VERSION = "0.1.1";
+    private static final String VERSION = "0.2.0";
 
     private final EchoProfiler profiler;
     private final int topN;
@@ -133,7 +135,7 @@ public class EchoReport {
                     break;
                 sb.append(String.format("  #%d %-30s │ total: %6.2f ms │ max: %6.2f ms │ calls: %,d\n",
                         rank++,
-                        truncate(func.label, 30),
+                        StringUtils.truncate(func.label, 30),
                         func.totalMicros / 1000.0,
                         func.maxMicros / 1000.0,
                         func.callCount));
@@ -176,6 +178,175 @@ public class EchoReport {
         }
 
         saveToFile(fullPath);
+        return fullPath;
+    }
+
+    /**
+     * CSV 리포트 생성
+     */
+    public String generateCsv() {
+        StringBuilder sb = new StringBuilder();
+
+        // Header
+        sb.append("Point,Category,CallCount,TotalMs,AvgMs,MaxMs,MinMs\n");
+
+        // Data rows
+        for (ProfilingPoint point : ProfilingPoint.values()) {
+            TimingData data = profiler.getTimingData(point);
+            if (data != null && data.getCallCount() > 0) {
+                sb.append(String.format("%s,%s,%d,%.2f,%.2f,%.2f,%.2f\n",
+                        point.name(),
+                        point.getCategory().name(),
+                        data.getCallCount(),
+                        data.getTotalMicros() / 1000.0,
+                        data.getAverageMicros() / 1000.0,
+                        data.getMaxMicros() / 1000.0,
+                        data.getMinMicros() / 1000.0));
+            }
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * CSV 파일로 저장
+     */
+    public String saveCsv(String directory) throws IOException {
+        String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")
+                .format(java.time.LocalDateTime.now());
+        String filename = "echo_report_" + timestamp + ".csv";
+        String fullPath = directory + File.separator + filename;
+
+        File dir = new File(directory);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        try (Writer writer = new FileWriter(fullPath)) {
+            writer.write(generateCsv());
+        }
+        System.out.println("[Echo] CSV report saved to: " + fullPath);
+        return fullPath;
+    }
+
+    /**
+     * HTML 리포트 생성
+     */
+    public String generateHtml() {
+        TimingData tickData = profiler.getTimingData(ProfilingPoint.TICK);
+        TickHistogram histogram = profiler.getTickHistogram();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n");
+        sb.append("  <meta charset=\"UTF-8\">\n");
+        sb.append("  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
+        sb.append("  <title>Echo Profiler Report</title>\n");
+        sb.append("  <style>\n");
+        sb.append("    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; ");
+        sb.append("           background: #1a1a2e; color: #eee; padding: 20px; }\n");
+        sb.append("    .container { max-width: 1200px; margin: 0 auto; }\n");
+        sb.append("    h1 { color: #4ecdc4; border-bottom: 2px solid #4ecdc4; padding-bottom: 10px; }\n");
+        sb.append("    h2 { color: #ff6b6b; margin-top: 30px; }\n");
+        sb.append("    .card { background: #16213e; border-radius: 8px; padding: 20px; margin: 15px 0; }\n");
+        sb.append("    table { width: 100%; border-collapse: collapse; margin-top: 10px; }\n");
+        sb.append("    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }\n");
+        sb.append("    th { background: #0f3460; color: #4ecdc4; }\n");
+        sb.append("    tr:hover { background: #1a1a40; }\n");
+        sb.append("    .metric { font-size: 2em; color: #4ecdc4; font-weight: bold; }\n");
+        sb.append("    .label { color: #888; font-size: 0.9em; }\n");
+        sb.append(
+                "    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }\n");
+        sb.append(
+                "    .bar { height: 20px; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 4px; }\n");
+        sb.append("  </style>\n</head>\n<body>\n<div class=\"container\">\n");
+
+        // Header
+        sb.append("  <h1>🔊 Echo Profiler Report</h1>\n");
+        sb.append("  <p>Generated: ").append(java.time.LocalDateTime.now()).append("</p>\n");
+
+        // Summary Cards
+        sb.append("  <h2>📊 Summary</h2>\n");
+        sb.append("  <div class=\"grid\">\n");
+
+        if (tickData != null && tickData.getCallCount() > 0) {
+            sb.append("    <div class=\"card\"><div class=\"metric\">")
+                    .append(String.format("%,d", tickData.getCallCount()))
+                    .append("</div><div class=\"label\">Total Ticks</div></div>\n");
+            sb.append("    <div class=\"card\"><div class=\"metric\">")
+                    .append(String.format("%.2f ms", tickData.getAverageMicros() / 1000.0))
+                    .append("</div><div class=\"label\">Avg Tick Time</div></div>\n");
+            sb.append("    <div class=\"card\"><div class=\"metric\">")
+                    .append(String.format("%.2f ms", tickData.getMaxMicros() / 1000.0))
+                    .append("</div><div class=\"label\">Max Spike</div></div>\n");
+            sb.append("    <div class=\"card\"><div class=\"metric\">")
+                    .append(String.format("%.1f ms", histogram.getP95()))
+                    .append("</div><div class=\"label\">P95</div></div>\n");
+        }
+        sb.append("  </div>\n");
+
+        // Subsystems Table
+        sb.append("  <h2>📈 Subsystems</h2>\n");
+        sb.append("  <div class=\"card\">\n");
+        sb.append("    <table>\n");
+        sb.append("      <tr><th>Subsystem</th><th>Calls</th><th>Total</th><th>Avg</th><th>Max</th></tr>\n");
+
+        for (ProfilingPoint point : ProfilingPoint.values()) {
+            TimingData data = profiler.getTimingData(point);
+            if (data != null && data.getCallCount() > 0 && point.getCategory() == ProfilingPoint.Category.SUBSYSTEM) {
+                sb.append("      <tr>");
+                sb.append("<td>").append(point.getDisplayName()).append("</td>");
+                sb.append("<td>").append(String.format("%,d", data.getCallCount())).append("</td>");
+                sb.append("<td>").append(String.format("%.2f ms", data.getTotalMicros() / 1000.0)).append("</td>");
+                sb.append("<td>").append(String.format("%.2f ms", data.getAverageMicros() / 1000.0)).append("</td>");
+                sb.append("<td>").append(String.format("%.2f ms", data.getMaxMicros() / 1000.0)).append("</td>");
+                sb.append("</tr>\n");
+            }
+        }
+        sb.append("    </table>\n  </div>\n");
+
+        // Histogram
+        sb.append("  <h2>📉 Tick Distribution</h2>\n");
+        sb.append("  <div class=\"card\">\n");
+        long[] counts = histogram.getCounts();
+        double[] buckets = histogram.getBuckets();
+        long maxCount = java.util.Arrays.stream(counts).max().orElse(1);
+
+        for (int i = 0; i < buckets.length; i++) {
+            String label = i == buckets.length - 1
+                    ? String.format("≥%.1fms", buckets[i])
+                    : String.format("%.1f-%.1fms", buckets[i], buckets[i + 1]);
+            int barWidth = (int) ((counts[i] * 100) / Math.max(maxCount, 1));
+
+            sb.append("    <div style=\"margin: 8px 0;\">");
+            sb.append("<span style=\"display:inline-block;width:100px;\">").append(label).append("</span>");
+            sb.append("<div class=\"bar\" style=\"width:").append(barWidth).append("%;display:inline-block;\"></div>");
+            sb.append(" <span>").append(counts[i]).append("</span>");
+            sb.append("</div>\n");
+        }
+        sb.append("  </div>\n");
+
+        sb.append("</div>\n</body>\n</html>");
+        return sb.toString();
+    }
+
+    /**
+     * HTML 파일로 저장
+     */
+    public String saveHtml(String directory) throws IOException {
+        String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")
+                .format(java.time.LocalDateTime.now());
+        String filename = "echo_report_" + timestamp + ".html";
+        String fullPath = directory + File.separator + filename;
+
+        File dir = new File(directory);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        try (Writer writer = new FileWriter(fullPath)) {
+            writer.write(generateHtml());
+        }
+        System.out.println("[Echo] HTML report saved to: " + fullPath);
         return fullPath;
     }
 
@@ -390,11 +561,7 @@ public class EchoReport {
         return Math.round(value * 100.0) / 100.0;
     }
 
-    private String truncate(String s, int maxLen) {
-        if (s == null)
-            return "";
-        return s.length() <= maxLen ? s : s.substring(0, maxLen - 3) + "...";
-    }
+    // truncate method removed - using StringUtils.truncate()
 
     // ============================================================
     // Helper Class

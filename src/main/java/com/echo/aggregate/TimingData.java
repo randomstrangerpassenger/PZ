@@ -271,7 +271,7 @@ public class TimingData {
         /**
          * 새 샘플 추가 (O(1), Zero-Allocation)
          */
-        public void addSample(long value) {
+        public synchronized void addSample(long value) {
             // Ring Buffer가 가득 찬 경우 가장 오래된 값 제거
             if (size == capacity) {
                 runningSum -= values[head];

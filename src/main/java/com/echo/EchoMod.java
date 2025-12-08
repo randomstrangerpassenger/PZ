@@ -27,6 +27,63 @@ public class EchoMod {
             return;
         }
 
+        // Phase 0: 서버 환경 감지
+        if (isServerEnvironment()) {
+            EchoRuntime.enableSilentMode("Server environment detected");
+            return;
+        }
+
+        // Fail-soft wrapper
+        try {
+            initInternal();
+            initialized = true;
+            System.out.println("[Echo] Use '/echo help' for available commands");
+        } catch (Exception e) {
+            EchoRuntime.recordError("init", e);
+            System.err.println("[Echo] Initialization failed: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 서버 환경 감지
+     * GameServer.bServer 또는 Pulse API로 확인
+     */
+    private static boolean isServerEnvironment() {
+        try {
+            // Pulse API 우선 체크
+            Class<?> pulseSide = Class.forName("com.pulse.api.PulseSide");
+            java.lang.reflect.Method isServer = pulseSide.getMethod("isServer");
+            Object result = isServer.invoke(null);
+            if (Boolean.TRUE.equals(result)) {
+                return true;
+            }
+        } catch (ClassNotFoundException e) {
+            // Pulse API 없음 - 폴백으로 PZ API 체크
+        } catch (Exception e) {
+            System.out.println("[Echo] Warning: Failed to check Pulse API: " + e.getMessage());
+        }
+
+        try {
+            // PZ GameServer.bServer 체크
+            Class<?> gameServer = Class.forName("zombie.network.GameServer");
+            java.lang.reflect.Field bServer = gameServer.getField("bServer");
+            Object result = bServer.get(null);
+            if (Boolean.TRUE.equals(result)) {
+                return true;
+            }
+        } catch (ClassNotFoundException e) {
+            // 개발 환경 - 서버 아님으로 간주
+        } catch (Exception e) {
+            System.out.println("[Echo] Warning: Failed to check GameServer: " + e.getMessage());
+        }
+
+        return false;
+    }
+
+    /**
+     * 내부 초기화 로직
+     */
+    private static void initInternal() {
         System.out.println();
         System.out.println("╔═══════════════════════════════════════════════╗");
         System.out.println("║     Echo Profiler v" + VERSION + " Initialized         ║");
@@ -40,9 +97,8 @@ public class EchoMod {
         // Pulse 이벤트 어댑터 등록
         PulseEventAdapter.register();
 
-        initialized = true;
-
-        System.out.println("[Echo] Use '/echo help' for available commands");
+        // 키바인딩 등록
+        com.echo.input.EchoKeyBindings.register();
     }
 
     /**

@@ -1,9 +1,11 @@
 package com.echo.command;
 
 import com.echo.aggregate.SpikeLog;
+import com.echo.config.EchoConfig;
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.MemoryProfiler;
 import com.echo.measure.ProfilingPoint;
+import com.echo.monitor.EchoMonitorServer;
 import com.echo.pulse.PulseEventAdapter;
 import com.echo.pulse.TickProfiler;
 import com.echo.pulse.RenderProfiler;
@@ -51,6 +53,7 @@ public class EchoCommands {
         commands.put("test", EchoCommands::cmdTest);
         commands.put("stack", EchoCommands::cmdStack); // Phase 4
         commands.put("overhead", EchoCommands::cmdOverhead); // Phase 4
+        commands.put("monitor", EchoCommands::cmdMonitor); // Phase 4
 
         registered = true;
         System.out.println("[Echo] Commands registered");
@@ -155,11 +158,28 @@ public class EchoCommands {
     private static void cmdReport(String[] args) {
         EchoProfiler profiler = EchoProfiler.getInstance();
         EchoReport report = new EchoReport(profiler);
+        String reportDir = EchoConfig.getInstance().getReportDirectory();
 
-        if (args.length > 1 && "json".equalsIgnoreCase(args[1])) {
+        if (args.length > 1) {
+            String format = args[1].toLowerCase();
             try {
-                String path = report.saveWithTimestamp("./echo_reports");
-                System.out.println("[Echo] JSON report saved: " + path);
+                switch (format) {
+                    case "json":
+                        String jsonPath = report.saveWithTimestamp(reportDir);
+                        System.out.println("[Echo] JSON report saved: " + jsonPath);
+                        break;
+                    case "csv":
+                        String csvPath = report.saveCsv(reportDir);
+                        System.out.println("[Echo] CSV report saved: " + csvPath);
+                        break;
+                    case "html":
+                        String htmlPath = report.saveHtml(reportDir);
+                        System.out.println("[Echo] HTML report saved: " + htmlPath);
+                        break;
+                    default:
+                        System.out.println("[Echo] Unknown format: " + format);
+                        System.out.println("[Echo] Usage: /echo report [json|csv|html]");
+                }
             } catch (Exception e) {
                 System.err.println("[Echo] Failed to save report: " + e.getMessage());
             }
@@ -465,5 +485,39 @@ public class EchoCommands {
         System.out.println("║  💡 Lower is better. <100ns is excellent.     ║");
         System.out.println("╚═══════════════════════════════════════════════╝");
         System.out.println();
+    }
+
+    /**
+     * Phase 4: HTTP 모니터 서버 제어
+     */
+    private static void cmdMonitor(String[] args) {
+        EchoMonitorServer server = EchoMonitorServer.getInstance();
+
+        if (args.length < 2) {
+            System.out.println("[Echo] Monitor server: " + (server.isRunning() ? "RUNNING" : "STOPPED"));
+            System.out.println("[Echo] Usage: /echo monitor <start|stop>");
+            return;
+        }
+
+        String action = args[1].toLowerCase();
+        switch (action) {
+            case "start":
+                if (args.length > 2) {
+                    try {
+                        int port = Integer.parseInt(args[2]);
+                        server.start(port);
+                    } catch (NumberFormatException e) {
+                        System.out.println("[Echo] Invalid port: " + args[2]);
+                    }
+                } else {
+                    server.start();
+                }
+                break;
+            case "stop":
+                server.stop();
+                break;
+            default:
+                System.out.println("[Echo] Usage: /echo monitor <start|stop>");
+        }
     }
 }

@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.LongAdder;
 
+import com.echo.EchoConstants;
+
 /**
  * 틱 히스토그램
  * 
@@ -14,9 +16,7 @@ import java.util.concurrent.atomic.LongAdder;
 public class TickHistogram {
 
     // 기본 버킷 경계 (밀리초)
-    private static final double[] DEFAULT_BUCKETS = {
-            0, 5, 10, 16.67, 20, 33.33, 50, 100, 200
-    };
+    private static final double[] DEFAULT_BUCKETS = EchoConstants.DEFAULT_HISTOGRAM_BUCKETS;
 
     private final double[] buckets;
     private final LongAdder[] counts;
@@ -25,8 +25,16 @@ public class TickHistogram {
     // 통계
     private final LongAdder sumMicros = new LongAdder();
 
+    // Jank 카운터 (Phase 4)
+    private final LongAdder jankCount60 = new LongAdder(); // >16.67ms (60fps 기준)
+    private final LongAdder jankCount30 = new LongAdder(); // >33.33ms (30fps 기준)
+
+    // Jank 임계값 (마이크로초)
+    private static final long JANK_THRESHOLD_60_MICROS = 16_667; // 16.67ms
+    private static final long JANK_THRESHOLD_30_MICROS = 33_333; // 33.33ms
+
     // 정확한 백분위수 계산을 위한 최근 샘플 추적
-    private final long[] recentSamples = new long[1000];
+    private final long[] recentSamples = new long[EchoConstants.HISTOGRAM_SAMPLE_BUFFER];
     private int sampleIndex = 0;
     private final Object sampleLock = new Object();
 
@@ -55,6 +63,14 @@ public class TickHistogram {
         counts[bucketIndex].increment();
         totalSamples.increment();
         sumMicros.add(durationMicros);
+
+        // Jank 카운터 업데이트
+        if (durationMicros > JANK_THRESHOLD_60_MICROS) {
+            jankCount60.increment();
+        }
+        if (durationMicros > JANK_THRESHOLD_30_MICROS) {
+            jankCount30.increment();
+        }
 
         // 최근 샘플 저장 (정확한 백분위수용)
         synchronized (sampleLock) {
@@ -177,6 +193,48 @@ public class TickHistogram {
         return (sumMicros.sum() / 1000.0) / total;
     }
 
+    // ============================================================
+    // Jank 통계 (Phase 4)
+    // ============================================================
+
+    /**
+     * 60fps 기준 Jank 비율 (>16.67ms)
+     * 
+     * @return Jank 비율 (0-100%)
+     */
+    public double getJankPercent60() {
+        long total = totalSamples.sum();
+        if (total == 0)
+            return 0;
+        return (jankCount60.sum() * 100.0) / total;
+    }
+
+    /**
+     * 30fps 기준 Jank 비율 (>33.33ms)
+     * 
+     * @return Jank 비율 (0-100%)
+     */
+    public double getJankPercent30() {
+        long total = totalSamples.sum();
+        if (total == 0)
+            return 0;
+        return (jankCount30.sum() * 100.0) / total;
+    }
+
+    /**
+     * 60fps 기준 Jank 카운트
+     */
+    public long getJankCount60() {
+        return jankCount60.sum();
+    }
+
+    /**
+     * 30fps 기준 Jank 카운트
+     */
+    public long getJankCount30() {
+        return jankCount30.sum();
+    }
+
     /**
      * JSON 출력용 Map 생성
      */
@@ -201,6 +259,8 @@ public class TickHistogram {
         map.put("p50_ms", Math.round(getP50() * 100) / 100.0);
         map.put("p95_ms", Math.round(getP95() * 100) / 100.0);
         map.put("p99_ms", Math.round(getP99() * 100) / 100.0);
+        map.put("jank_percent_60fps", Math.round(getJankPercent60() * 100) / 100.0);
+        map.put("jank_percent_30fps", Math.round(getJankPercent30() * 100) / 100.0);
 
         return map;
     }
@@ -251,6 +311,8 @@ public class TickHistogram {
         }
         totalSamples.reset();
         sumMicros.reset();
+        jankCount60.reset();
+        jankCount30.reset();
         synchronized (sampleLock) {
             java.util.Arrays.fill(recentSamples, 0);
             sampleIndex = 0;

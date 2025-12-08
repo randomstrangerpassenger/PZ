@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.echo.aggregate.SpikeLogTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-08T10:21:32" hostname="DESKTOP-M9CHBTO" time="0.032">
+  <properties/>
+  <testcase name="Recent spikes retrieval" classname="com.echo.aggregate.SpikeLogTest" time="0.016"/>
+  <testcase name="Reset clears all data" classname="com.echo.aggregate.SpikeLogTest" time="0.001"/>
+  <testcase name="toMap generates valid output" classname="com.echo.aggregate.SpikeLogTest" time="0.003"/>
+  <testcase name="Spikes below threshold not logged" classname="com.echo.aggregate.SpikeLogTest" time="0.0"/>
+  <testcase name="Spikes above threshold logged" classname="com.echo.aggregate.SpikeLogTest" time="0.001"/>
+  <testcase name="Threshold can be changed at runtime" classname="com.echo.aggregate.SpikeLogTest" time="0.005"/>
+  <testcase name="Initial state" classname="com.echo.aggregate.SpikeLogTest" time="0.0"/>
+  <testcase name="Worst spike tracking" classname="com.echo.aggregate.SpikeLogTest" time="0.001"/>
+  <system-out><![CDATA[[Echo] Spike threshold set to: 5.0 ms
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

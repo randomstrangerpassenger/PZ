@@ -8,6 +8,8 @@ import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.echo.EchoConstants;
+
 /**
  * 스파이크 로그
  * 
@@ -16,8 +18,8 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class SpikeLog {
 
-    private static final int MAX_ENTRIES = 100;
-    private static final int MAX_STACK_DEPTH = 10;
+    private static final int MAX_ENTRIES = EchoConstants.SPIKE_LOG_MAX_ENTRIES;
+    private static final int MAX_STACK_DEPTH = EchoConstants.SPIKE_MAX_STACK_DEPTH;
 
     private final Deque<SpikeEntry> entries = new ConcurrentLinkedDeque<>();
     private volatile double thresholdMs;
@@ -33,7 +35,7 @@ public class SpikeLog {
     private volatile String worstSpikeLabel = "";
 
     public SpikeLog() {
-        this(33.33); // 기본 2프레임 (30fps 기준)
+        this(EchoConstants.DEFAULT_SPIKE_THRESHOLD_MS); // 기본 2프레임 (30fps 기준)
     }
 
     public SpikeLog(double thresholdMs) {

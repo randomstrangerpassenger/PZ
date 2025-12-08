@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.echo'
-version = '0.1.1'
+version = '0.2.1'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -25,6 +25,14 @@ dependencies {
     
     // Gson for JSON serialization
     implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // Test dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 shadowJar {

@@ -393,14 +393,14 @@ public class EchoProfiler {
      * 현재 스택 깊이 확인 (디버그용)
      */
     public int getCurrentStackDepth() {
-        return frameStack.get().size();
+        return getFrameStack().size();
     }
 
     /**
      * 현재 최상위 프레임 확인 (디버그용)
      */
     public ProfilingPoint getCurrentPoint() {
-        Deque<ProfilingFrame> stack = frameStack.get();
+        Deque<ProfilingFrame> stack = getFrameStack();
         if (stack.isEmpty())
             return null;
         return stack.peek().point;

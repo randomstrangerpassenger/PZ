@@ -281,8 +281,9 @@ public class TimingData {
             values[head] = value;
             runningSum += value;
 
-            // Max 갱신 (가장 오래된 값이 max였을 수 있으므로 재계산 필요)
-            if (size == capacity && values[(head + 1) % capacity] == runningMax) {
+            // Max 갱신 (제거되는 값이 max였을 수 있으므로 재계산 필요)
+            // 버그 수정: head가 다음 쓸 위치이므로, 현재 head 위치의 값이 덮어써질 값
+            if (size == capacity && values[head] == runningMax) {
                 recalculateMax();
             } else if (value > runningMax) {
                 runningMax = value;

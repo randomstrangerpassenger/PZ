@@ -199,50 +199,23 @@ public class EchoHUD {
     }
 
     // ============================================================
-    // PZ 렌더링 API 래퍼 (실제 구현은 PZ 환경에서)
+    // PZ 렌더링 API 래퍼 (RenderHelper 사용 - 캐시된 리플렉션)
     // ============================================================
 
     /**
      * 사각형 그리기 (ARGB 색상)
+     * RenderHelper를 통해 캐시된 리플렉션 사용
      */
     private static void drawRect(int x, int y, int width, int height, int argbColor) {
-        // Project Zomboid API 호출:
-        // UIManager.DrawRect(...) 또는 IndieGL 사용
-        // 개발 환경에서는 no-op
-        try {
-            Class<?> uiManager = Class.forName("zombie.ui.UIManager");
-            java.lang.reflect.Method drawRect = uiManager.getMethod(
-                    "DrawRect", int.class, int.class, int.class, int.class,
-                    float.class, float.class, float.class, float.class);
-            float a = ((argbColor >> 24) & 0xFF) / 255f;
-            float r = ((argbColor >> 16) & 0xFF) / 255f;
-            float g = ((argbColor >> 8) & 0xFF) / 255f;
-            float b = (argbColor & 0xFF) / 255f;
-            drawRect.invoke(null, x, y, width, height, r, g, b, a);
-        } catch (Exception e) {
-            // 개발 환경 - 무시
-        }
+        RenderHelper.drawRect(x, y, width, height, argbColor);
     }
 
     /**
      * 텍스트 그리기
+     * RenderHelper를 통해 캐시된 리플렉션 사용
      */
     private static void drawText(String text, int x, int y, int rgbColor) {
-        // Project Zomboid API 호출:
-        // TextManager.DrawString(...) 사용
-        // 개발 환경에서는 no-op
-        try {
-            Class<?> textManager = Class.forName("zombie.ui.TextManager");
-            java.lang.reflect.Method drawString = textManager.getMethod(
-                    "DrawString", Object.class, int.class, int.class,
-                    float.class, float.class, float.class, float.class);
-            float r = ((rgbColor >> 16) & 0xFF) / 255f;
-            float g = ((rgbColor >> 8) & 0xFF) / 255f;
-            float b = (rgbColor & 0xFF) / 255f;
-            drawString.invoke(null, text, x, y, r, g, b, 1.0f);
-        } catch (Exception e) {
-            // 개발 환경 - 무시
-        }
+        RenderHelper.drawText(text, x, y, rgbColor);
     }
 
     // ============================================================

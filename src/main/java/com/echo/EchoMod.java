@@ -13,7 +13,7 @@ public class EchoMod {
 
     public static final String MOD_ID = "echo";
     public static final String MOD_NAME = "Echo Profiler";
-    public static final String VERSION = "0.2.0";
+    public static final String VERSION = EchoConstants.VERSION;
 
     private static boolean initialized = false;
 

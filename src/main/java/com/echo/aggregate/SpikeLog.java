@@ -207,7 +207,7 @@ public class SpikeLog {
     public Map<String, Object> toMap() {
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("threshold_ms", thresholdMs);
-        map.put("total_spikes", totalSpikes);
+        map.put("total_spikes", totalSpikes.get());
         map.put("worst_spike_ms", Math.round(getWorstSpikeMs() * 100) / 100.0);
         map.put("worst_spike_source", worstSpikeLabel);
 

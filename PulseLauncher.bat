@@ -13,10 +13,71 @@ chcp 65001 >nul 2>&1
 :: ----------------------------------------------------------------------------
 set "LAUNCHER_DIR=%~dp0"
 set "PULSE_JAR=%LAUNCHER_DIR%Pulse.jar"
+set "VERSION_FILE=%LAUNCHER_DIR%pulse-version.txt"
+set "MODS_DIR=%LAUNCHER_DIR%mods"
 set "CONFIG_FILE=%LAUNCHER_DIR%PulseLauncher.ini"
 set "LOG_FILE=%LAUNCHER_DIR%pulse_launcher.log"
+set "CRASH_LOG_DIR=%LAUNCHER_DIR%crash-logs"
 set "GAME_PATH="
 set "JAVA_EXE="
+set "PULSE_VERSION=Unknown"
+set "MOD_COUNT=0"
+set "DEBUG_MODE=false"
+set "CHECK_UPDATE=false"
+set "LAUNCHER_VERSION=1.1.0"
+
+:: ----------------------------------------------------------------------------
+:: CLI Argument Parsing
+:: ----------------------------------------------------------------------------
+:PARSE_ARGS
+if "%~1"=="" goto :ARGS_DONE
+if /i "%~1"=="--version" goto :SHOW_VERSION
+if /i "%~1"=="-v" goto :SHOW_VERSION
+if /i "%~1"=="--help" goto :SHOW_HELP
+if /i "%~1"=="-h" goto :SHOW_HELP
+if /i "%~1"=="--debug" set "DEBUG_MODE=true" & shift & goto :PARSE_ARGS
+if /i "%~1"=="-d" set "DEBUG_MODE=true" & shift & goto :PARSE_ARGS
+if /i "%~1"=="--check-update" set "CHECK_UPDATE=true" & shift & goto :PARSE_ARGS
+if /i "%~1"=="-u" set "CHECK_UPDATE=true" & shift & goto :PARSE_ARGS
+shift
+goto :PARSE_ARGS
+
+:SHOW_VERSION
+:: Read version first
+if exist "%VERSION_FILE%" (
+    set /p PULSE_VERSION=<"%VERSION_FILE%"
+) else (
+    set "PULSE_VERSION=Unknown"
+)
+echo Pulse Launcher v%LAUNCHER_VERSION%
+echo Pulse Core: %PULSE_VERSION%
+exit /b 0
+
+:SHOW_HELP
+echo.
+echo  Pulse Launcher - Project Zomboid Mod Loader
+echo  ============================================
+echo.
+echo  Usage: PulseLauncher.bat [OPTIONS]
+echo.
+echo  Options:
+echo    --version, -v      Show version information
+echo    --help, -h         Show this help message
+echo    --debug, -d        Enable debug mode (verbose output)
+echo    --check-update, -u Check for Pulse updates before launching
+echo.
+echo  Configuration:
+echo    Edit PulseLauncher.ini to customize memory settings,
+echo    game path, and language preferences.
+echo.
+echo  Examples:
+echo    PulseLauncher.bat              Launch normally
+echo    PulseLauncher.bat --debug      Launch with debug output
+echo    PulseLauncher.bat -u           Check for updates then launch
+echo.
+exit /b 0
+
+:ARGS_DONE
 
 :: ----------------------------------------------------------------------------
 :: Default Configuration (can be overridden by .ini file)
@@ -85,6 +146,12 @@ if "%LANG%"=="KO" (
     set "MSG_CONFIG_LOADED=설정 파일 로드됨:"
     set "MSG_CONFIG_CREATED=기본 설정 파일 생성됨:"
     set "MSG_LOG_START====== Pulse 런처 로그 시작 ====="
+    set "MSG_VERSION=버전:"
+    set "MSG_MODS_DETECTED=개의 Pulse 모드 감지됨"
+    set "MSG_NO_MODS=mods 폴더에 Pulse 모드가 없습니다"
+    set "MSG_STEAM_TIP=[선택사항] Steam 연동 ^(고급 사용자용^)"
+    set "MSG_STEAM_DEFAULT=기본: PulseLauncher.bat 사용 ^(권장^)"
+    set "MSG_STEAM_ALT=대안: Steam 시작 옵션에 추가:"
 ) else (
     :: English Messages (Default)
     set "MSG_TITLE=Pulse Mod Launcher"
@@ -122,6 +189,12 @@ if "%LANG%"=="KO" (
     set "MSG_CONFIG_LOADED=Config file loaded:"
     set "MSG_CONFIG_CREATED=Default config file created:"
     set "MSG_LOG_START===== Pulse Launcher Log Start ====="
+    set "MSG_VERSION=Version:"
+    set "MSG_MODS_DETECTED=Pulse mod(s) detected"
+    set "MSG_NO_MODS=No Pulse mods found in mods folder"
+    set "MSG_STEAM_TIP=[OPTIONAL] Steam Integration ^(Advanced Users^)"
+    set "MSG_STEAM_DEFAULT=Default: Use PulseLauncher.bat ^(recommended^)"
+    set "MSG_STEAM_ALT=Alternative: Add to Steam Launch Options:"
 )
 
 :: Jump to main execution
@@ -197,15 +270,69 @@ if exist "%CONFIG_FILE%" (
 )
 
 :: ----------------------------------------------------------------------------
-:: Display Header
+:: Read Pulse Version
+:: ----------------------------------------------------------------------------
+if exist "%VERSION_FILE%" (
+    set /p PULSE_VERSION=<"%VERSION_FILE%"
+) else (
+    set "PULSE_VERSION=Unknown"
+)
+
+:: ----------------------------------------------------------------------------
+:: Count Installed Mods
+:: ----------------------------------------------------------------------------
+if exist "%MODS_DIR%" (
+    for %%f in ("%MODS_DIR%\*.jar") do set /a MOD_COUNT+=1
+)
+
+:: ----------------------------------------------------------------------------
+:: Check for Updates (if requested)
+:: ----------------------------------------------------------------------------
+if "%CHECK_UPDATE%"=="true" (
+    echo  [INFO] Checking for Pulse updates...
+    set "UPDATE_SCRIPT=%LAUNCHER_DIR%tools\check-pulse-update.ps1"
+    if exist "!UPDATE_SCRIPT!" (
+        powershell -ExecutionPolicy Bypass -File "!UPDATE_SCRIPT!" -CurrentVersion "%PULSE_VERSION%" 2>nul
+        echo.
+        echo  Press any key to continue launching...
+        pause >nul
+    ) else (
+        echo  [WARN] Update checker not found: !UPDATE_SCRIPT!
+        echo.
+    )
+)
+
+:: ----------------------------------------------------------------------------
+:: Display Enhanced Header
 :: ----------------------------------------------------------------------------
 echo.
 echo  ╔═══════════════════════════════════════════════════════════════╗
-echo  ║              PULSE MOD LAUNCHER for Project Zomboid           ║
+echo  ║           🔥 PULSE MOD LAUNCHER v%LAUNCHER_VERSION% for Project Zomboid      ║
+echo  ╠═══════════════════════════════════════════════════════════════╣
+echo  ║  Pulse %MSG_VERSION% %PULSE_VERSION%
+echo  ║  Mods: %MOD_COUNT% %MSG_MODS_DETECTED%
+if "%DEBUG_MODE%"=="true" (
+echo  ║  Mode: DEBUG
+)
 echo  ╠═══════════════════════════════════════════════════════════════╣
 echo  ║  Injects Pulse.jar as Java Agent - No file modifications!     ║
 echo  ╚═══════════════════════════════════════════════════════════════╝
 echo.
+
+:: Show warning if no mods detected
+if %MOD_COUNT%==0 (
+    echo  [INFO] %MSG_NO_MODS%
+    echo.
+)
+
+:: Debug mode info
+if "%DEBUG_MODE%"=="true" (
+    echo  [DEBUG] Launcher Dir: %LAUNCHER_DIR%
+    echo  [DEBUG] Pulse JAR: %PULSE_JAR%
+    echo  [DEBUG] Config File: %CONFIG_FILE%
+    echo  [DEBUG] Memory: %MIN_MEMORY% - %MAX_MEMORY%
+    echo.
+)
 
 :: ----------------------------------------------------------------------------
 :: Step 1: Verify Pulse.jar exists in launcher directory
@@ -403,6 +530,17 @@ echo  ╔═══════════════════════�
 echo  ║  %MSG_LAUNCHING%
 echo  ╚═══════════════════════════════════════════════════════════════╝
 echo.
+
+:: Show Steam integration tip (optional for advanced users)
+echo  ╔═══════════════════════════════════════════════════════════════╗
+echo  ║  💡 %MSG_STEAM_TIP%
+echo  ╠═══════════════════════════════════════════════════════════════╣
+echo  ║  %MSG_STEAM_DEFAULT%
+echo  ║  %MSG_STEAM_ALT%
+echo  ║  -javaagent:"%PULSE_JAR%"
+echo  ╚═══════════════════════════════════════════════════════════════╝
+echo.
+
 call :LOG "[Pulse] %MSG_JVM_AGENT% %PULSE_JAR%"
 call :LOG "[Pulse] %MSG_MEMORY% %MIN_MEMORY% - %MAX_MEMORY%"
 call :LOG "[Pulse] %MSG_GAME_PATH% %GAME_PATH%"
@@ -432,7 +570,7 @@ if "%ENABLE_LOGGING%"=="true" (
 set "EXIT_CODE=%ERRORLEVEL%"
 
 :: ----------------------------------------------------------------------------
-:: Step 7: Handle exit
+:: Step 7: Handle exit and collect crash logs
 :: ----------------------------------------------------------------------------
 if "%ENABLE_LOGGING%"=="true" (
     echo [%DATE% %TIME%] Game exited with code: %EXIT_CODE% >> "%LOG_FILE%"
@@ -445,9 +583,65 @@ if %EXIT_CODE% NEQ 0 (
     echo  ║  %MSG_EXIT_ERROR% %EXIT_CODE%
     echo  ╚═══════════════════════════════════════════════════════════════╝
     echo.
+    
+    :: Collect crash logs
+    call :COLLECT_CRASH_LOGS
+    
     echo [Pulse] %MSG_CHECK_LOGS%
     pause >nul
 )
 
 endlocal
 exit /b %EXIT_CODE%
+
+:: ----------------------------------------------------------------------------
+:: Crash Log Collection Subroutine
+:: ----------------------------------------------------------------------------
+:COLLECT_CRASH_LOGS
+if not exist "%CRASH_LOG_DIR%" mkdir "%CRASH_LOG_DIR%"
+
+:: Generate timestamp for crash log filename
+for /f "tokens=2 delims==" %%I in ('wmic os get localdatetime /value 2^>nul') do set "DATETIME=%%I"
+set "CRASH_TIMESTAMP=%DATETIME:~0,8%_%DATETIME:~8,6%"
+set "CRASH_FILE=%CRASH_LOG_DIR%\crash_%CRASH_TIMESTAMP%.log"
+
+echo Collecting crash log: %CRASH_FILE%
+echo.
+
+(
+    echo ===============================================================
+    echo  PULSE CRASH LOG
+    echo  Timestamp: %DATE% %TIME%
+    echo  Exit Code: %EXIT_CODE%
+    echo ===============================================================
+    echo.
+    echo --- System Information ---
+    echo Pulse Version: %PULSE_VERSION%
+    echo Launcher Version: %LAUNCHER_VERSION%
+    echo Game Path: %GAME_PATH%
+    echo Java: %JAVA_EXE%
+    echo Memory: %MIN_MEMORY% - %MAX_MEMORY%
+    echo Mods Loaded: %MOD_COUNT%
+    echo.
+    echo --- Launcher Log ---
+    if exist "%LOG_FILE%" (
+        type "%LOG_FILE%"
+    ) else (
+        echo [No launcher log found]
+    )
+    echo.
+    echo --- PZ Console Log (last 100 lines) ---
+    set "PZ_LOG=%USERPROFILE%\Zomboid\console.txt"
+    if exist "!PZ_LOG!" (
+        powershell -Command "Get-Content '!PZ_LOG!' -Tail 100" 2>nul
+    ) else (
+        echo [No PZ console log found]
+    )
+    echo.
+    echo --- End of Crash Log ---
+) > "%CRASH_FILE%"
+
+echo  [INFO] Crash log saved to: %CRASH_FILE%
+echo.
+goto :eof
+

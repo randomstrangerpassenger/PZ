@@ -86,3 +86,17 @@ task printDeps {
         configurations.runtimeClasspath.each { println it }
     }
 }
+
+// 버전 파일 생성 (PulseLauncher에서 읽기용)
+task generateVersionFile {
+    description = 'Generates pulse-version.txt for PulseLauncher'
+    doLast {
+        def versionFile = file("pulse-version.txt")
+        def cleanVersion = version.toString().replace('-SNAPSHOT', '')
+        versionFile.text = cleanVersion
+        println "Generated pulse-version.txt: ${cleanVersion}"
+    }
+}
+
+// shadowJar 빌드 시 버전 파일도 함께 생성
+shadowJar.dependsOn generateVersionFile

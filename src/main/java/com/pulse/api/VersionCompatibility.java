@@ -25,10 +25,10 @@ public final class VersionCompatibility {
     // ═══════════════════════════════════════════════════════════════
 
     /** Pulse API 버전 (정수) */
-    public static final int PULSE_API_VERSION = 2;
+    public static final int PULSE_API_VERSION = 1;
 
     /** Pulse 버전 문자열 */
-    public static final String PULSE_VERSION = "1.1.0";
+    public static final String PULSE_VERSION = "0.8.0";
 
     /** 최소 지원 PZ 버전 */
     public static final String MIN_GAME_VERSION = "41.78";

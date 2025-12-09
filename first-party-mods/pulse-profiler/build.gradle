@@ -16,8 +16,12 @@ repositories {
 }
 
 dependencies {
-    // Pulse API - use project dependency for multi-project build
-    compileOnly project(':')
+    // Pulse main module - provides all com.pulse.* classes
+    // The project path is :Pulse from the root settings.gradle
+    compileOnly project(':Pulse')
+    
+    // Also depend on pulse-api for shared interfaces
+    compileOnly project(':pulse-api')
     
     // Mixin
     compileOnly 'org.spongepowered:mixin:0.8.5'

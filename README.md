@@ -4,41 +4,123 @@ Project Zomboid용 Pulse 모드 로더 위에서 동작하는 프로파일링 �
 
 > **핵심 철학**: "패치가 아닌 관찰" - 게임 로직을 변경하지 않고 성능 병목을 발견하는 센서 역할
 
-## 기능
+## 주요 기능 (v1.0.0)
 
-### v0.2.0
-- ✅ **Tick 시간 측정** - 평균, 최대 스파이크, 히스토리
-- ✅ **Subsystem별 시간 측정** - Render, Simulation, Physics, Zombie AI, Lua
-- ✅ **호출 빈도 데이터 수집**
-- ✅ **Heavy Function Top N 랭킹**
-- ✅ **히스토그램** - P50/P95/P99 백분위수 (개선된 정확도)
-- ✅ **스파이크 감지** - 조정 가능한 임계값
-- ✅ **Lua 프로파일링** - On-Demand 함수별 통계
-- ✅ **메모리 프로파일링** - 힙 사용량, GC 통계
-- ✅ **JSON 자동 리포트 생성**
-- ✅ **성능 권장사항** - 자동 분석 및 제안
+| 기능 | 설명 |
+|------|------|
+| ⏱️ **실시간 HUD** | FPS, Frame/Tick 시간, Top 3 핫스팟 (F6 토글) |
+| 📊 **상세 패널** | 5초/60초 윈도우, 스파이크 로그, Lua 상태 (F8 토글) |
+| 📈 **히스토그램** | P50/P95/P99 백분위수 + Jank 비율 |
+| 🔥 **스파이크 감지** | 임계값 설정 + 스택 캡처 옵션 |
+| 🌙 **Lua 프로파일링** | 함수별 시간/호출 통계 |
+| 💾 **다중 리포트** | JSON, CSV, HTML 형식 |
+| 🖥️ **HTTP 모니터** | 실시간 메트릭 API |
 
-## 설치
+## 빠른 시작
 
-1. `Echo.jar`를 Pulse mods 폴더에 복사
-2. 게임 실행
+### 설치
+
+1. `Echo-1.0.0.jar`를 Pulse mods 폴더에 복사
+2. PulseLauncher로 게임 실행
+
+### 키보드 단축키
+
+| 키 | 동작 |
+|----|------|
+| **F6** | HUD 토글 (FPS, 프레임/틱 시간, 핫스팟) |
+| **F7** | 프로파일링 On/Off |
+| **F8** | 상세 패널 토글 |
+
+## 리포트 수집 가이드
+
+### Step 1: 프로파일링 시작
+```
+/echo enable
+```
+또는 **F7** 키
+
+### Step 2: 게임 플레이
+- 최소 1-2분간 일반적인 플레이
+- 렉이 발생하는 상황 재현
+
+### Step 3: 리포트 생성
+```
+/echo report          # 콘솔에 출력
+/echo report json     # JSON 파일 저장
+/echo report html     # HTML 파일 저장
+```
+
+리포트 저장 위치: `./echo_reports/`
+
+## 리포트 해석 가이드
+
+### 핵심 지표
+
+| 지표 | 좋음 | 주의 | 위험 |
+|------|------|------|------|
+| **평균 틱** | < 16ms | 16-33ms | > 33ms |
+| **P99** | < 33ms | 33-50ms | > 50ms |
+| **Jank 60fps** | < 5% | 5-15% | > 15% |
+| **스파이크** | < 10 | 10-30 | > 30 |
+
+### 서브시스템 분석
+
+```
+📊 SUBSYSTEMS
+──────────────────────────────────────────────────
+  ZOMBIE_AI     calls:  12,000  avg:  2.45ms  max: 15.20ms
+  RENDER        calls:  18,000  avg:  8.12ms  max: 25.00ms
+  LUA_EVENT     calls:  50,000  avg:  0.35ms  max:  5.80ms
+```
+
+- **높은 avg**: 해당 서브시스템이 전반적으로 느림
+- **높은 max**: 간헐적 스파이크 발생 (스파이크 로그 확인)
+- **높은 calls**: 호출 빈도 최적화 필요
+
+### 권장사항 예시
+
+```
+⚠️ RECOMMENDATIONS
+──────────────────────────────────────────────────
+  🔴 High tick time detected (avg: 28.5ms)
+  🟡 Zombie AI spike: 45.2ms (consider reducing zombie count)
+  🟡 Lua functions taking 15% of tick time
+```
 
 ## 콘솔 명령어
 
+### 기본 명령어
 | 명령어 | 설명 |
 |--------|------|
 | `/echo help` | 도움말 표시 |
-| `/echo enable` | 프로파일링 시작 (통계 초기화) |
+| `/echo enable` | 프로파일링 시작 |
 | `/echo disable` | 프로파일링 중지 |
 | `/echo status` | 현재 상태 출력 |
-| `/echo report` | 콘솔에 리포트 출력 |
-| `/echo report json` | JSON 파일로 저장 |
+| `/echo report [json\|csv\|html]` | 리포트 생성 |
 | `/echo reset` | 통계 초기화 |
+
+### Lua 프로파일링
+| 명령어 | 설명 |
+|--------|------|
 | `/echo lua on` | Lua 프로파일링 활성화 |
 | `/echo lua off` | Lua 프로파일링 비활성화 |
-| `/echo config threshold <ms>` | 스파이크 임계값 설정 |
+
+### 설정
+| 명령어 | 설명 |
+|--------|------|
+| `/echo config` | 현재 설정 표시 |
+| `/echo config set threshold <ms>` | 스파이크 임계값 설정 |
 | `/echo memory` | 메모리 상태 출력 |
-| `/echo test` | 빠른 테스트 실행 |
+
+### 고급 기능 (Phase 4)
+| 명령어 | 설명 |
+|--------|------|
+| `/echo stack on` | 스파이크 스택 캡처 활성화 ⚠️ |
+| `/echo overhead` | 프로파일러 오버헤드 측정 |
+| `/echo monitor start [port]` | HTTP 모니터 서버 시작 |
+| `/echo test` | 빠른 기능 테스트 |
+
+> ⚠️ 스택 캡처는 성능 비용이 크므로 디버깅 시에만 사용
 
 ## API 사용법
 
@@ -57,25 +139,6 @@ try (var scope = EchoProfiler.getInstance().scope(ProfilingPoint.TICK)) {
 try (var scope = profiler.scope(ProfilingPoint.ZOMBIE_AI, "pathfinding")) {
     // AI 로직
 }
-
-// 통계 유지하면서 재활성화
-profiler.enable(false); // resetStats = false
-```
-
-### 서브시스템 래핑
-
-```java
-import com.echo.pulse.SubsystemProfiler;
-
-// 간편 래퍼
-SubsystemProfiler.profileZombieAI(() -> {
-    zombie.updateAI();
-});
-
-// 라벨 포함
-SubsystemProfiler.profileNetwork("packet_send", () -> {
-    network.sendPacket(packet);
-});
 ```
 
 ### Lua 프로파일링
@@ -83,66 +146,9 @@ SubsystemProfiler.profileNetwork("packet_send", () -> {
 ```java
 import com.echo.lua.LuaCallTracker;
 
-// Lua 함수 호출 측정
 LuaCallTracker.getInstance().profileFunction("onPlayerUpdate", () -> {
     luaManager.call("onPlayerUpdate", player);
 });
-
-// 통계 출력
-LuaCallTracker.getInstance().printStats(10);
-```
-
-### 메모리 프로파일링
-
-```java
-import com.echo.measure.MemoryProfiler;
-
-// 힙 사용량 조회
-long heapUsed = MemoryProfiler.getHeapUsed();
-double usagePercent = MemoryProfiler.getHeapUsagePercent();
-
-// GC 정보
-long gcCount = MemoryProfiler.getTotalGcCount();
-long gcTime = MemoryProfiler.getTotalGcTimeMs();
-
-// 상태 출력
-MemoryProfiler.printStatus();
-```
-
-## JSON 리포트 구조
-
-```json
-{
-  "echo_report": {
-    "version": "0.1.1",
-    "summary": {
-      "total_ticks": 18000,
-      "average_tick_ms": 16.2,
-      "max_tick_spike_ms": 45.8,
-      "performance_score": 87.5
-    },
-    "tick_histogram": {
-      "p50_ms": 12.5,
-      "p95_ms": 28.3,
-      "p99_ms": 42.1
-    },
-    "spikes": {
-      "total_spikes": 15,
-      "worst_spike_ms": 85.2
-    },
-    "memory": {
-      "heap": { "used_mb": 512, "max_mb": 2048, "usage_percent": 25.0 },
-      "gc": { "total_count": 45, "total_time_ms": 320 }
-    },
-    "lua_profiling": {
-      "total_calls": 50000,
-      "top_functions_by_time": [...]
-    },
-    "recommendations": [
-      "Performance looks good!"
-    ]
-  }
-}
 ```
 
 ## 빌드
@@ -150,25 +156,8 @@ MemoryProfiler.printStatus();
 ### 사전 요구사항
 
 > **중요:** 빌드 전에 `libs/` 폴더에 다음 파일들이 필요합니다:
-> - `Pulse.jar` - Pulse 모드 로더 JAR (빌드된 버전)
+> - `Pulse.jar` - Pulse 모드 로더 JAR
 > - `pz-stubs.jar` - Project Zomboid 클래스 스텁
-
-#### Stub JAR 생성 방법
-
-`pz-stubs.jar`는 Project Zomboid의 게임 클래스를 컴파일시에만 참조하기 위한 스텁 파일입니다:
-
-1. **자동화 도구 사용** (권장):
-   ```bash
-   # Pulse 저장소의 stub 생성 스크립트 사용
-   java -jar pulse-stub-generator.jar "C:\Program Files (x86)\Steam\steamapps\common\ProjectZomboid"
-   ```
-
-2. **수동 생성**:
-   - Project Zomboid 설치 폴더에서 `zombie/*.class` 파일들을 추출
-   - 필요한 클래스 시그니처만 포함하는 빈 구현체로 JAR 생성
-
-3. **Pulse 저장소에서 복사**:
-   - Pulse 빌드 시 생성된 `pz-stubs.jar` 사용
 
 ### 빌드 명령
 
@@ -176,7 +165,7 @@ MemoryProfiler.printStatus();
 ./gradlew build
 ```
 
-빌드 결과물: `build/libs/Echo-0.1.1.jar`
+빌드 결과물: `build/libs/Echo-1.0.0.jar`
 
 ## 요구사항
 
@@ -186,23 +175,15 @@ MemoryProfiler.printStatus();
 
 ## 변경 로그
 
-### v0.2.0
-- **버그 수정**: `LuaFunctionStats.maxMicros` 스레드 안전성 (AtomicLong CAS 패턴)
-- **버그 수정**: `RollingStats.addSample()` 동기화 추가
-- **버그 수정**: `EchoProfiler.getCurrentStackDepth()` 메인 스레드 감지 수정
-- **개선**: 전체 버전 통일 (0.2.0)
+자세한 변경 사항은 [CHANGELOG.md](CHANGELOG.md)를 참조하세요.
 
-### v0.1.1
-- **버그 수정**: `enable()` 호출 시 통계 자동 초기화 (재활성화 시 데이터 섞임 방지)
-- **버그 수정**: `ProfilingFrame.idCounter` 스레드 안전성 개선 (AtomicLong)
-- **개선**: `TickHistogram` 백분위수 계산 정확도 향상 (실제 샘플 기반)
-- **개선**: `SpikeLog` 임계값 런타임 변경 지원
-- **신규**: `MemoryProfiler` - 힙/GC 모니터링
-- **신규**: `/echo config threshold <ms>` 명령어
-- **신규**: `/echo memory` 명령어
-
-### v0.1.0
-- 초기 릴리스
+### v1.0.0 (2025-12-08)
+- 🎉 **안정 릴리스**
+- RenderHelper 리플렉션 캐싱 (성능 대폭 개선)
+- RollingStats/SpikeLog 버그 수정
+- HTTP 모니터 서버
+- 메타 프로파일링 (오버헤드 측정)
+- Jank 비율 추적
 
 ## 라이선스
 

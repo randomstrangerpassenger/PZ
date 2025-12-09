@@ -1,11 +1,15 @@
 package com.echo.ui;
 
 import com.echo.EchoRuntime;
+import com.echo.EchoMod;
 import com.echo.input.EchoKeyBindings;
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.ProfilingPoint;
 import com.echo.aggregate.TimingData;
 import com.echo.pulse.PulseMetricsAdapter;
+
+import com.pulse.ui.HUDOverlay;
+import com.pulse.ui.UIRenderContext;
 
 import java.util.List;
 import java.util.Map;
@@ -13,24 +17,28 @@ import java.util.Map;
 /**
  * Echo HUD - 인게임 성능 오버레이
  * 
- * 실시간 FPS, 프레임/틱 시간, 핫스팟 정보를 화면에 표시합니다.
+ * Pulse HUDOverlay 시스템을 통해 렌더링됩니다.
  * F6 키로 토글할 수 있습니다.
+ * 
+ * @since 2.0.0 - Pulse Native Integration
  */
-public class EchoHUD {
+public class EchoHUD extends HUDOverlay.HUDLayer {
 
     // ============================================================
     // 상수
     // ============================================================
+
+    /** HUD 레이어 ID */
+    public static final String LAYER_ID = "echo_hud";
+
+    /** HUD 레이어 우선순위 (낮을수록 먼저 렌더링) */
+    public static final int LAYER_PRIORITY = 100;
 
     /** HUD 갱신 주기 (밀리초) */
     private static final long UPDATE_INTERVAL_MS = 500;
 
     /** Top Hotspot 표시 개수 */
     private static final int TOP_HOTSPOT_COUNT = 3;
-
-    /** HUD 위치 (왼쪽 상단 기준) */
-    private static int hudX = 10;
-    private static int hudY = 10;
 
     /** HUD 패딩 */
     private static final int PADDING = 6;
@@ -39,33 +47,84 @@ public class EchoHUD {
     private static final int LINE_HEIGHT = 14;
 
     // ============================================================
+    // 싱글톤 인스턴스
+    // ============================================================
+
+    private static EchoHUD INSTANCE;
+
+    // ============================================================
+    // 인스턴스 필드
+    // ============================================================
+
+    /** HUD 위치 */
+    private int hudX = 10;
+    private int hudY = 10;
+
+    // ============================================================
     // 캐시 (0.5초마다 갱신)
     // ============================================================
 
-    private static final StringBuilder sb = new StringBuilder(512);
-    private static long lastCacheUpdate = 0;
+    private long lastCacheUpdate = 0;
 
     // 캐시된 표시 값
-    private static String cachedFpsText = "FPS: --";
-    private static String cachedFrameTimeText = "Frame: --ms";
-    private static String cachedTickTimeText = "Tick: --ms";
-    private static String cachedProfileStatus = "[OFF]";
-    private static String[] cachedHotspots = new String[TOP_HOTSPOT_COUNT];
-    private static int[] cachedHotspotColors = new int[TOP_HOTSPOT_COUNT];
+    private String cachedFpsText = "FPS: --";
+    private String cachedFrameTimeText = "Frame: --ms";
+    private String cachedTickTimeText = "Tick: --ms";
+    private String cachedProfileStatus = "[OFF]";
+    private final String[] cachedHotspots = new String[TOP_HOTSPOT_COUNT];
+    private final int[] cachedHotspotColors = new int[TOP_HOTSPOT_COUNT];
 
-    private static int fpsColor = EchoTheme.GOOD;
-    private static int frameTimeColor = EchoTheme.GOOD;
-    private static int tickTimeColor = EchoTheme.GOOD;
+    private int fpsColor = EchoTheme.GOOD;
+    private int frameTimeColor = EchoTheme.GOOD;
+    private int tickTimeColor = EchoTheme.GOOD;
 
     // ============================================================
-    // 렌더링
+    // 생성자 및 등록
     // ============================================================
+
+    private EchoHUD() {
+        // Private constructor for singleton
+    }
 
     /**
-     * HUD 렌더링
-     * 렌더 루프에서 호출됨
+     * HUD 레이어 등록
+     * EchoMod.init()에서 호출됨
      */
-    public static void render() {
+    public static void register() {
+        if (INSTANCE != null) {
+            System.out.println("[Echo] EchoHUD already registered");
+            return;
+        }
+
+        INSTANCE = new EchoHUD();
+        HUDOverlay.registerLayer(LAYER_ID, INSTANCE, LAYER_PRIORITY);
+        System.out.println("[Echo] EchoHUD registered as Pulse HUD layer");
+    }
+
+    /**
+     * HUD 레이어 등록 해제
+     */
+    public static void unregister() {
+        if (INSTANCE == null)
+            return;
+        HUDOverlay.unregisterLayer(LAYER_ID);
+        INSTANCE = null;
+        System.out.println("[Echo] EchoHUD unregistered");
+    }
+
+    /**
+     * 인스턴스 가져오기
+     */
+    public static EchoHUD getInstance() {
+        return INSTANCE;
+    }
+
+    // ============================================================
+    // HUDLayer 구현
+    // ============================================================
+
+    @Override
+    public void render(UIRenderContext ctx) {
         // 안전 체크
         if (!EchoRuntime.isEnabled() || !EchoKeyBindings.isHudVisible()) {
             return;
@@ -73,16 +132,25 @@ public class EchoHUD {
 
         try {
             updateCacheIfNeeded();
-            renderHud();
+            renderHud(ctx);
         } catch (Exception e) {
             EchoRuntime.recordError("HUD", e);
         }
     }
 
+    @Override
+    public void update(float deltaTime) {
+        // HUD는 render에서 캐시 갱신하므로 별도 업데이트 불필요
+    }
+
+    // ============================================================
+    // 캐시 갱신
+    // ============================================================
+
     /**
      * 캐시 갱신 (0.5초마다)
      */
-    private static void updateCacheIfNeeded() {
+    private void updateCacheIfNeeded() {
         long now = System.currentTimeMillis();
         if (now - lastCacheUpdate < UPDATE_INTERVAL_MS) {
             return;
@@ -113,7 +181,7 @@ public class EchoHUD {
     /**
      * Top Hotspot 갱신
      */
-    private static void updateHotspots(EchoProfiler profiler) {
+    private void updateHotspots(EchoProfiler profiler) {
         if (!profiler.isEnabled()) {
             for (int i = 0; i < TOP_HOTSPOT_COUNT; i++) {
                 cachedHotspots[i] = null;
@@ -152,10 +220,14 @@ public class EchoHUD {
         }
     }
 
+    // ============================================================
+    // 렌더링 (UIRenderContext 사용)
+    // ============================================================
+
     /**
-     * HUD 렌더링 (PZ UI API 사용)
+     * HUD 렌더링 (Pulse UI API 사용)
      */
-    private static void renderHud() {
+    private void renderHud(UIRenderContext ctx) {
         // 배경 박스 크기 계산
         int lineCount = 4; // FPS, Frame, Tick, Status
         for (String hotspot : cachedHotspots) {
@@ -165,25 +237,25 @@ public class EchoHUD {
         int boxWidth = 150;
         int boxHeight = PADDING * 2 + lineCount * LINE_HEIGHT;
 
-        // 배경 렌더링 (PZ API 호출 - 실제 구현은 PZ 환경에서)
-        drawRect(hudX, hudY, boxWidth, boxHeight, EchoTheme.getBackground());
+        // 배경 렌더링
+        ctx.fillRect(hudX, hudY, boxWidth, boxHeight, EchoTheme.getBackgroundRGB(), EchoTheme.getBackgroundAlpha());
 
         // 텍스트 렌더링
         int y = hudY + PADDING;
 
         // FPS
-        drawText(cachedFpsText, hudX + PADDING, y, fpsColor);
+        ctx.drawText(cachedFpsText, hudX + PADDING, y, fpsColor);
         // 프로파일링 상태 (오른쪽)
         int statusColor = cachedProfileStatus.equals("[ON]") ? EchoTheme.GOOD : EchoTheme.TEXT_SECONDARY;
-        drawText(cachedProfileStatus, hudX + boxWidth - PADDING - 30, y, statusColor);
+        ctx.drawText(cachedProfileStatus, hudX + boxWidth - PADDING - 30, y, statusColor);
         y += LINE_HEIGHT;
 
         // Frame Time
-        drawText(cachedFrameTimeText, hudX + PADDING, y, frameTimeColor);
+        ctx.drawText(cachedFrameTimeText, hudX + PADDING, y, frameTimeColor);
         y += LINE_HEIGHT;
 
         // Tick Time
-        drawText(cachedTickTimeText, hudX + PADDING, y, tickTimeColor);
+        ctx.drawText(cachedTickTimeText, hudX + PADDING, y, tickTimeColor);
         y += LINE_HEIGHT;
 
         // 구분선
@@ -192,30 +264,10 @@ public class EchoHUD {
         // Hotspots
         for (int i = 0; i < TOP_HOTSPOT_COUNT; i++) {
             if (cachedHotspots[i] != null) {
-                drawText(cachedHotspots[i], hudX + PADDING, y, cachedHotspotColors[i]);
+                ctx.drawText(cachedHotspots[i], hudX + PADDING, y, cachedHotspotColors[i]);
                 y += LINE_HEIGHT;
             }
         }
-    }
-
-    // ============================================================
-    // PZ 렌더링 API 래퍼 (RenderHelper 사용 - 캐시된 리플렉션)
-    // ============================================================
-
-    /**
-     * 사각형 그리기 (ARGB 색상)
-     * RenderHelper를 통해 캐시된 리플렉션 사용
-     */
-    private static void drawRect(int x, int y, int width, int height, int argbColor) {
-        RenderHelper.drawRect(x, y, width, height, argbColor);
-    }
-
-    /**
-     * 텍스트 그리기
-     * RenderHelper를 통해 캐시된 리플렉션 사용
-     */
-    private static void drawText(String text, int x, int y, int rgbColor) {
-        RenderHelper.drawText(text, x, y, rgbColor);
     }
 
     // ============================================================
@@ -225,7 +277,7 @@ public class EchoHUD {
     /**
      * 문자열 자르기
      */
-    private static String truncate(String str, int maxLen) {
+    private String truncate(String str, int maxLen) {
         if (str == null)
             return "";
         if (str.length() <= maxLen)
@@ -236,7 +288,7 @@ public class EchoHUD {
     /**
      * ProfilingPoint별 색상
      */
-    private static int getPointColor(ProfilingPoint point) {
+    private int getPointColor(ProfilingPoint point) {
         return switch (point) {
             case RENDER, RENDER_WORLD, RENDER_UI -> EchoTheme.SUBSYSTEM_RENDER;
             case ZOMBIE_AI, NPC_AI -> EchoTheme.SUBSYSTEM_AI;
@@ -252,16 +304,23 @@ public class EchoHUD {
     // 설정
     // ============================================================
 
-    public static void setPosition(int x, int y) {
-        hudX = x;
-        hudY = y;
+    public void setPosition(int x, int y) {
+        this.hudX = x;
+        this.hudY = y;
     }
 
-    public static int getX() {
+    public int getX() {
         return hudX;
     }
 
-    public static int getY() {
+    public int getY() {
         return hudY;
+    }
+
+    // Static 호환성 메서드 (기존 코드 호환)
+    public static void setHudPosition(int x, int y) {
+        if (INSTANCE != null) {
+            INSTANCE.setPosition(x, y);
+        }
     }
 }

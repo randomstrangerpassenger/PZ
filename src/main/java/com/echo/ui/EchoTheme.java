@@ -122,4 +122,26 @@ public final class EchoTheme {
             return WARNING;
         return CRITICAL;
     }
+
+    // ============================================================
+    // UIRenderContext 호환 메서드
+    // ============================================================
+
+    /**
+     * 배경 RGB 색상 반환 (UIRenderContext용)
+     * 
+     * @return RGB 색상 (0xRRGGBB)
+     */
+    public static int getBackgroundRGB() {
+        return BACKGROUND;
+    }
+
+    /**
+     * 배경 알파 값 반환 (UIRenderContext용)
+     * 
+     * @return 알파 값 (0.0 - 1.0)
+     */
+    public static float getBackgroundAlpha() {
+        return BG_ALPHA / 255.0f;
+    }
 }

@@ -1,10 +1,16 @@
 package com.echo.pulse;
 
+import com.echo.EchoMod;
+import com.pulse.event.EventBus;
+import com.pulse.event.lifecycle.GameTickEvent;
+import com.pulse.event.gui.GuiRenderEvent;
+
 /**
  * Pulse 이벤트 버스 어댑터
  * 
- * Pulse 모드 로더의 이벤트를 Echo 프로파일러와 연결합니다.
- * 초기 버전은 Mixin 없이 Callable wrapping 방식으로 구현합니다.
+ * Pulse EventBus API를 직접 사용하여 Echo 프로파일러와 연결합니다.
+ * 
+ * @since 2.0.0 - Pulse Native Integration (Reflection 제거)
  */
 public class PulseEventAdapter {
 
@@ -25,14 +31,22 @@ public class PulseEventAdapter {
         tickProfiler = new TickProfiler();
         renderProfiler = new RenderProfiler();
 
-        // Pulse 이벤트 버스 등록 (실제 구현은 Pulse API에 따라 다름)
-        // PulseEvents.TICK.register(tickProfiler::onTick);
-        // PulseEvents.RENDER.register(renderProfiler::onRender);
+        // Pulse EventBus 직접 구독 (v2.0 Native)
+        EventBus.subscribe(GameTickEvent.class, event -> {
+            tickProfiler.onTickPre();
+            // 틱 처리는 이벤트 핸들러가 완료된 후 측정
+        }, EchoMod.MOD_ID);
+
+        EventBus.subscribe(GuiRenderEvent.class, event -> {
+            // 렌더 프레임 시작 알림
+            PulseMetricsAdapter.onFrameStart();
+            renderProfiler.onRenderPre();
+        }, EchoMod.MOD_ID);
 
         registered = true;
-        System.out.println("[Echo] Pulse event adapter registered");
-        System.out.println("[Echo]   - TickProfiler: OnTick.Pre / OnTick.Post");
-        System.out.println("[Echo]   - RenderProfiler: OnRender.Pre / OnRender.Post");
+        System.out.println("[Echo] Pulse event adapter registered (Native EventBus)");
+        System.out.println("[Echo]   - TickProfiler: GameTickEvent");
+        System.out.println("[Echo]   - RenderProfiler: GuiRenderEvent");
     }
 
     /**
@@ -42,7 +56,9 @@ public class PulseEventAdapter {
         if (!registered)
             return;
 
-        // 이벤트 해제
+        // 모든 Echo 리스너 해제
+        EventBus.unsubscribeAll(EchoMod.MOD_ID);
+
         registered = false;
         System.out.println("[Echo] Pulse event adapter unregistered");
     }
@@ -69,7 +85,7 @@ public class PulseEventAdapter {
     }
 
     // ============================================================
-    // 수동 호출용 API (Mixin 없이 사용할 때)
+    // 수동 호출용 API (Mixin 사용 시 또는 테스팅용)
     // ============================================================
 
     /**

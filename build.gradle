@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.echo'
-version = '0.2.1'
+version = '2.0.0'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -17,8 +17,20 @@ repositories {
 }
 
 dependencies {
-    // Pulse dependency (compile-only, provided at runtime)
-    compileOnly files('libs/Pulse.jar')
+    // Pulse API (compile-only, provided at runtime by Pulse.jar)
+    // - 로컬 개발 (PZ 루트): project(':pulse-api') 사용
+    // - 단독 빌드 (Echo repo만): libs/pulse-api.jar 사용
+    if (findProject(':pulse-api') != null) {
+        compileOnly project(':pulse-api')
+    } else {
+        // Echo repo 단독 클론 시 폴백
+        compileOnly files('libs/pulse-api.jar')
+    }
+    
+    // Pulse main (compile-only, for HUDOverlay/UIRenderContext - v2.0 Native UI)
+    if (findProject(':Pulse') != null) {
+        compileOnly project(':Pulse')
+    }
     
     // Project Zomboid stubs (compile-only)
     compileOnly files('libs/pz-stubs.jar')

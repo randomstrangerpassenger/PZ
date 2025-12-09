@@ -3,6 +3,7 @@ package com.echo;
 import com.echo.command.EchoCommands;
 import com.echo.measure.EchoProfiler;
 import com.echo.pulse.PulseEventAdapter;
+import com.echo.spi.EchoProfilerProvider;
 
 /**
  * Echo Mod 진입점
@@ -99,6 +100,41 @@ public class EchoMod {
 
         // 키바인딩 등록
         com.echo.input.EchoKeyBindings.register();
+
+        // HUD 레이어 등록 (Pulse Native UI)
+        com.echo.ui.EchoHUD.register();
+        com.echo.ui.HotspotPanel.register();
+
+        // OptimizationPoint 동기화 (Pulse Registry에서 로드)
+        com.echo.pulse.OptimizationPointSync.syncFromPulse();
+
+        // SPI 프로바이더 등록 (Pulse가 있을 때만)
+        registerSpiProvider();
+    }
+
+    /**
+     * Pulse SPI에 EchoProfilerProvider 등록
+     */
+    private static void registerSpiProvider() {
+        try {
+            // Pulse API 존재 확인
+            Class<?> pulseClass = Class.forName("com.pulse.api.Pulse");
+            java.lang.reflect.Method getRegistry = pulseClass.getMethod("getProviderRegistry");
+            Object registry = getRegistry.invoke(null);
+
+            if (registry != null) {
+                // 프로바이더 등록
+                java.lang.reflect.Method registerMethod = registry.getClass()
+                        .getMethod("register", Class.forName("com.pulse.api.spi.IProvider"));
+                registerMethod.invoke(registry, new EchoProfilerProvider());
+                System.out.println("[Echo] Registered as Pulse SPI provider");
+            }
+        } catch (ClassNotFoundException e) {
+            // Pulse API 없음 - 독립 모드로 동작
+            System.out.println("[Echo] Running in standalone mode (Pulse not detected)");
+        } catch (Exception e) {
+            System.out.println("[Echo] Warning: Failed to register SPI provider: " + e.getMessage());
+        }
     }
 
     /**

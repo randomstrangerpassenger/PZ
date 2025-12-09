@@ -112,27 +112,42 @@ public class PulseClassTransformer implements ClassFileTransformer {
             // Mixin 환경 가져오기
             MixinEnvironment env = MixinEnvironment.getDefaultEnvironment();
 
+            long startTime = System.nanoTime();
+
             // 변환 수행
             byte[] result = mixinTransformer.transformClass(env, dotName, classfileBuffer);
 
             if (result != null && result != classfileBuffer) {
+                long elapsedMs = (System.nanoTime() - startTime) / 1_000_000;
+
                 transformedClasses.add(dotName);
 
                 // MixinDiagnostics 연동
                 MixinDiagnostics.getInstance().recordMixinApplied(
                         dotName, "PulseTransformer", "pulse", 1000);
 
+                // MixinInjectionValidator 성공 기록
+                com.pulse.api.mixin.MixinInjectionValidator.recordSuccess(
+                        "PulseTransformer", dotName, elapsedMs);
+
                 System.out.println("[Pulse/Transformer] ✓ Mixin applied to: " + dotName);
                 return result;
             }
 
         } catch (Throwable t) {
-            // 실패 추적
+            // Fail-soft 처리 - 실패해도 게임 계속
             MixinDiagnostics.getInstance().recordMixinFailed(
                     "Unknown", "pulse", dotName, t.getMessage());
 
-            System.err.println("[Pulse/Transformer] Error transforming: " + dotName);
-            t.printStackTrace();
+            // MixinInjectionValidator 실패 기록
+            com.pulse.api.mixin.MixinInjectionValidator.recordFailure(
+                    "PulseTransformer", dotName, t.getMessage());
+
+            // FailsoftPolicy로 처리 (크래시 대신 경고)
+            com.pulse.api.FailsoftPolicy.handleMixinFailure(
+                    "PulseTransformer", dotName, t);
+
+            System.err.println("[Pulse/Transformer] Error transforming: " + dotName + " (fail-soft applied)");
         }
 
         return null;

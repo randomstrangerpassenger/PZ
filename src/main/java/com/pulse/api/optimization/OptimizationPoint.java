@@ -27,53 +27,53 @@ import java.util.Optional;
 public enum OptimizationPoint {
 
     // ═══════════════════════════════════════════════════════════════
-    // Tier 1: Base - 핵심 병목 영역
+    // Tier 1: Base - 핵심 병목 영역 (7개)
     // ═══════════════════════════════════════════════════════════════
 
     /**
      * 메인 게임 틱 루프.
      * 전체 프레임 시간의 병목점을 파악하는 데 사용.
      */
-    TICK_LOOP("zombie.gameStates.IngameState", "tick", 1),
+    TICK_LOOP("zombie.gameStates.IngameState", "update", "tick", 1),
 
     /**
      * 좀비 AI 업데이트.
      * AI 경로 탐색 및 상태 머신 처리.
      */
-    ZOMBIE_AI_UPDATE("zombie.ai.ZombieAI", "zombie.ai", 1),
+    ZOMBIE_AI_UPDATE("zombie.ai.ZombieAI", "update", "zombie.ai", 1),
 
     /**
      * 청크 스트리밍.
      * 월드 청크 로드/언로드 처리.
      */
-    CHUNK_STREAMING("zombie.iso.IsoChunkGrid", "chunk", 1),
+    CHUNK_STREAMING("zombie.iso.IsoChunkGrid", "loadChunk", "chunk", 1),
 
     /**
      * Lua 이벤트 시스템.
      * Lua 모드의 이벤트 핸들러 호출.
      */
-    LUA_EVENT("zombie.Lua.LuaEventManager", "lua.event", 1),
+    LUA_EVENT("zombie.Lua.LuaEventManager", "triggerEvent", "lua.event", 1),
 
     /**
      * 네트워크 패킷 처리.
      * 클라이언트-서버 통신.
      */
-    NETWORK_PACKET("zombie.network.GameClient", "network", 1),
+    NETWORK_PACKET("zombie.network.GameClient", "processPacket", "network", 1),
 
     /**
      * 경로 탐색.
      * A* 알고리즘 기반 경로 계산.
      */
-    PATHFINDING("zombie.ai.astar.AStarPathFinder", "pathfind", 1),
+    PATHFINDING("zombie.ai.astar.AStarPathFinder", "findPath", "pathfind", 1),
 
     /**
      * 메인 렌더링.
      * 화면 렌더링 파이프라인.
      */
-    RENDER_MAIN("zombie.core.Core", "render", 1),
+    RENDER_MAIN("zombie.core.Core", "render", "render", 1),
 
     // ═══════════════════════════════════════════════════════════════
-    // Tier 2: Platform Extension - Pulse 생태계 확장
+    // Tier 2: Platform Extension - Pulse 생태계 확장 (3개)
     // ═══════════════════════════════════════════════════════════════
 
     /**
@@ -81,30 +81,32 @@ public enum OptimizationPoint {
      * 컨테이너, 아이템 정렬/스캔/트랜잭션 처리.
      * 멀티플레이어에서 병목이 자주 발생하는 영역.
      */
-    INVENTORY_UPDATE("zombie.inventory.InventoryContainer", "inventory", 2),
+    INVENTORY_UPDATE("zombie.inventory.InventoryContainer", "update", "inventory", 2),
 
     /**
      * 차량 업데이트.
      * 차량 물리 연산, 충돌 처리, tick-based update.
      */
-    VEHICLE_UPDATE("zombie.vehicles.BaseVehicle", "vehicle", 2),
+    VEHICLE_UPDATE("zombie.vehicles.BaseVehicle", "update", "vehicle", 2),
 
     /**
      * 애니메이션 업데이트.
      * 모델 업데이트, 스킨, 애니메이션 처리.
      */
-    ANIMATION_UPDATE("zombie.core.skinnedmodel.ModelManager", "animation", 2);
+    ANIMATION_UPDATE("zombie.core.skinnedmodel.ModelManager", "updateAnimation", "animation", 2);
 
     // ═══════════════════════════════════════════════════════════════
     // 필드 및 메서드
     // ═══════════════════════════════════════════════════════════════
 
     private final String mixinTarget;
+    private final String targetMethod;
     private final String echoPrefix;
     private final int tier;
 
-    OptimizationPoint(String mixinTarget, String echoPrefix, int tier) {
+    OptimizationPoint(String mixinTarget, String targetMethod, String echoPrefix, int tier) {
         this.mixinTarget = mixinTarget;
+        this.targetMethod = targetMethod;
         this.echoPrefix = echoPrefix;
         this.tier = tier;
     }
@@ -116,6 +118,15 @@ public enum OptimizationPoint {
      */
     public String getMixinTarget() {
         return mixinTarget;
+    }
+
+    /**
+     * Mixin 대상 메서드 이름 반환.
+     * 
+     * @return 대상 메서드명 (예: "update")
+     */
+    public String getTargetMethod() {
+        return targetMethod;
     }
 
     /**
@@ -137,10 +148,20 @@ public enum OptimizationPoint {
     }
 
     /**
-     * Echo 라벨 생성 헬퍼.
+     * Echo 프로파일러용 전체 라벨 반환.
+     * prefix + "." + targetMethod 형식.
      * 
-     * @param suffix 라벨 suffix (예: "update", "tick")
-     * @return 전체 라벨 (예: "zombie.ai.update")
+     * @return 전체 Echo 라벨 (예: "zombie.ai.update")
+     */
+    public String getEchoLabel() {
+        return echoPrefix + "." + targetMethod;
+    }
+
+    /**
+     * Echo 라벨 생성 헬퍼 (커스텀 suffix 사용).
+     * 
+     * @param suffix 라벨 suffix (예: "start", "end")
+     * @return 전체 라벨 (예: "zombie.ai.start")
      */
     public String createEchoLabel(String suffix) {
         return echoPrefix + "." + suffix;

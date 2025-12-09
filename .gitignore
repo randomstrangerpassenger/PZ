@@ -1,0 +1,22 @@
+# 코드 추출 관련 파일
+코드 추출법.txt
+Pulse_All_Code.txt
+
+# IDE
+.idea/
+*.iml
+
+# Build outputs
+build/
+out/
+target/
+*.jar
+!libs/*.jar
+
+# Gradle
+.gradle/
+gradle.properties
+
+# OS
+.DS_Store
+Thumbs.db

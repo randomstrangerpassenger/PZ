@@ -47,6 +47,28 @@ public final class CapabilityFlags {
     public static final String DEV_MODE = "DEV_MODE";
 
     // ═══════════════════════════════════════════════════════════════
+    // v1.1.0 새 기능 상수 (Fuse/Nerve 지원)
+    // ═══════════════════════════════════════════════════════════════
+
+    /** Side API 지원 */
+    public static final String SIDE_API = "SIDE_API";
+
+    /** Silent Mode 지원 */
+    public static final String SILENT_MODE = "SILENT_MODE";
+
+    /** ProfilerScope 지원 */
+    public static final String PROFILER_SCOPE = "PROFILER_SCOPE";
+
+    /** Fail-soft 정책 지원 */
+    public static final String FAILSOFT = "FAILSOFT_POLICY";
+
+    /** 버전 호환성 API 지원 */
+    public static final String VERSION_COMPAT = "VERSION_COMPATIBILITY";
+
+    /** FeatureFlags 지원 */
+    public static final String FEATURE_FLAGS = "FEATURE_FLAGS";
+
+    // ═══════════════════════════════════════════════════════════════
     // 내부 상태
     // ═══════════════════════════════════════════════════════════════
 
@@ -75,6 +97,14 @@ public final class CapabilityFlags {
         register(LUA_BUDGET);
         register(SAFE_GAME_ACCESS);
         register(DEV_MODE);
+
+        // 1.1.0 추가 기능 (Fuse/Nerve 지원)
+        register(SIDE_API);
+        register(SILENT_MODE);
+        register(PROFILER_SCOPE);
+        register(FAILSOFT);
+        register(VERSION_COMPAT);
+        register(FEATURE_FLAGS);
 
         // Echo는 별도 모드로 로드되므로 여기서는 등록하지 않음
         // Echo가 로드되면 Echo에서 ECHO_INTEGRATION을 등록

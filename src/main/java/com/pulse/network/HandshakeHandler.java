@@ -168,6 +168,10 @@ public class HandshakeHandler {
     private void handleClientRequest(HandshakePacket clientPacket, Object connection) {
         HandshakeResult result = validate(clientPacket.getModVersions());
 
+        // SilentMode 콜백 - 클라이언트에 Pulse가 있는지 확인
+        boolean clientHasPulse = clientPacket.getModVersions().containsKey("pulse");
+        com.pulse.api.SilentMode.onHandshakeReceived(clientHasPulse);
+
         if (result.isSuccess()) {
             System.out.println("[Pulse/Handshake] Client validated successfully");
             HandshakePacket response = HandshakePacket.create(HandshakePacket.HandshakePhase.ACCEPT);
@@ -183,6 +187,10 @@ public class HandshakeHandler {
     }
 
     private void handleServerResponse(HandshakePacket serverPacket) {
+        // SilentMode 콜백 - 서버에 Pulse가 있는지 확인
+        boolean serverHasPulse = serverPacket.getModVersions().containsKey("pulse");
+        com.pulse.api.SilentMode.onHandshakeReceived(serverHasPulse);
+
         // 클라이언트 측에서 서버 모드 확인
         HandshakeResult result = validate(serverPacket.getModVersions());
 

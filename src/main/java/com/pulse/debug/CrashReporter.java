@@ -24,10 +24,38 @@ public class CrashReporter {
 
     private static Path crashLogDirectory = Paths.get("crash-reports");
 
+    // ═══════════════════════════════════════════════════════════════
+    // 이벤트 타입 상수
+    // ═══════════════════════════════════════════════════════════════
+
+    /** Mixin 실패 이벤트 */
+    public static final String EVENT_MIXIN_FAILURE = "MIXIN_FAILURE";
+
+    /** Lua 예산 초과 이벤트 */
+    public static final String EVENT_LUA_BUDGET_EXCEEDED = "LUA_BUDGET_EXCEEDED";
+
+    /** SafeGameAccess fallback 이벤트 */
+    public static final String EVENT_SAFE_ACCESS_FALLBACK = "SAFE_ACCESS_FALLBACK";
+
+    /** Fail-soft 정책 트리거 이벤트 */
+    public static final String EVENT_FAILSOFT_TRIGGERED = "FAILSOFT_TRIGGERED";
+
+    /** 클래스 미발견 이벤트 */
+    public static final String EVENT_CLASS_NOT_FOUND = "CLASS_NOT_FOUND";
+
+    // ═══════════════════════════════════════════════════════════════
+    // 로그/이벤트 버퍼
+    // ═══════════════════════════════════════════════════════════════
+
     // 최근 로그 버퍼
     private static final int MAX_LOG_LINES = 100;
     private static final LinkedList<String> recentLogs = new LinkedList<>();
     private static final Object logLock = new Object();
+
+    // 최근 이벤트 버퍼
+    private static final int MAX_EVENTS = 50;
+    private static final LinkedList<EventRecord> recentEvents = new LinkedList<>();
+    private static final Object eventLock = new Object();
 
     /**
      * 로그 라인 추가 (순환 버퍼).
@@ -336,5 +364,103 @@ public class CrashReporter {
      */
     public static Path getLogDirectory() {
         return crashLogDirectory;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 구조화된 이벤트 기록 (Fail-soft 연동)
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * 구조화된 이벤트 기록.
+     * Fail-soft 정책에서 호출됨.
+     * 
+     * @param eventType 이벤트 타입 (EVENT_* 상수)
+     * @param source    이벤트 발생 소스
+     * @param message   이벤트 메시지
+     */
+    public static void recordEvent(String eventType, String source, String message) {
+        EventRecord record = new EventRecord(eventType, source, message);
+
+        synchronized (eventLock) {
+            if (recentEvents.size() >= MAX_EVENTS) {
+                recentEvents.removeFirst();
+            }
+            recentEvents.add(record);
+        }
+
+        // 콘솔에도 출력
+        System.out.println("[Pulse/Event] " + eventType + " | " + source + " | " + message);
+    }
+
+    /**
+     * 최근 이벤트 목록 반환.
+     *
+     * @return 최근 이벤트 리스트 (복사본)
+     */
+    public static List<EventRecord> getRecentEvents() {
+        synchronized (eventLock) {
+            return new ArrayList<>(recentEvents);
+        }
+    }
+
+    /**
+     * 특정 타입의 이벤트만 반환.
+     *
+     * @param eventType 이벤트 타입
+     * @return 해당 타입 이벤트 리스트
+     */
+    public static List<EventRecord> getEventsByType(String eventType) {
+        synchronized (eventLock) {
+            return recentEvents.stream()
+                    .filter(e -> e.eventType.equals(eventType))
+                    .collect(java.util.stream.Collectors.toList());
+        }
+    }
+
+    /**
+     * 이벤트 버퍼 초기화.
+     */
+    public static void clearEvents() {
+        synchronized (eventLock) {
+            recentEvents.clear();
+        }
+    }
+
+    /**
+     * 이벤트 개수.
+     *
+     * @return 기록된 이벤트 수
+     */
+    public static int getEventCount() {
+        synchronized (eventLock) {
+            return recentEvents.size();
+        }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 이벤트 레코드 클래스
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * 구조화된 이벤트 레코드.
+     */
+    public static class EventRecord {
+        public final String eventType;
+        public final String source;
+        public final String message;
+        public final long timestamp;
+
+        public EventRecord(String eventType, String source, String message) {
+            this.eventType = eventType;
+            this.source = source;
+            this.message = message;
+            this.timestamp = System.currentTimeMillis();
+        }
+
+        @Override
+        public String toString() {
+            return String.format("[%tF %tT] %s | %s | %s",
+                    timestamp, timestamp, eventType, source, message);
+        }
     }
 }

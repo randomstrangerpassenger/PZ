@@ -4,6 +4,8 @@ import com.pulse.PulseEnvironment;
 import com.pulse.event.EventBus;
 import com.pulse.mod.ModContainer;
 import com.pulse.mod.ModLoader;
+import com.pulse.service.ProviderRegistry;
+import com.pulse.api.spi.IProviderRegistry;
 
 import java.nio.file.Path;
 import java.util.Collection;
@@ -89,6 +91,29 @@ public final class Pulse {
     }
 
     // ─────────────────────────────────────────────────────────────
+    // SPI (Service Provider Interface)
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * 프로바이더 레지스트리 접근.
+     * 모든 SPI 프로바이더를 등록하고 조회할 수 있음.
+     * 
+     * 사용 예:
+     * Pulse.getProviderRegistry().register(myProfiler);
+     * Pulse.getProviderRegistry().getProvider(IProfilerProvider.class);
+     */
+    public static IProviderRegistry getProviderRegistry() {
+        return ProviderRegistry.getInstance();
+    }
+
+    /**
+     * 특정 타입의 프로바이더가 있는지 확인
+     */
+    public static <T extends com.pulse.api.spi.IProvider> boolean hasProvider(Class<T> type) {
+        return ProviderRegistry.getInstance().hasProvider(type);
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // 환경 정보
     // ─────────────────────────────────────────────────────────────
 
@@ -118,6 +143,103 @@ public final class Pulse {
      */
     public static Path getConfigDirectory() {
         return getGameDirectory().resolve("config");
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // Side API (v1.1.0)
+    // ─────────────────────────────────────────────────────────────
+
+    private static volatile PulseSide currentSide = PulseSide.UNKNOWN;
+
+    /**
+     * 현재 실행 사이드 반환.
+     * 
+     * @return 현재 사이드 (CLIENT, DEDICATED_SERVER, INTEGRATED_SERVER, UNKNOWN)
+     */
+    public static PulseSide getSide() {
+        if (currentSide == PulseSide.UNKNOWN) {
+            currentSide = detectSide();
+        }
+        return currentSide;
+    }
+
+    /**
+     * 클라이언트 환경인지 확인.
+     * 싱글플레이어(INTEGRATED_SERVER)도 클라이언트 역할을 포함.
+     * 
+     * @return 클라이언트면 true
+     */
+    public static boolean isClient() {
+        return getSide().isClient();
+    }
+
+    /**
+     * 서버 환경인지 확인.
+     * 싱글플레이어(INTEGRATED_SERVER)도 서버 역할을 포함.
+     * 
+     * @return 서버면 true
+     */
+    public static boolean isServer() {
+        return getSide().isServer();
+    }
+
+    /**
+     * 데디케이티드 서버인지 확인.
+     * 
+     * @return 데디케이티드 서버면 true
+     */
+    public static boolean isDedicatedServer() {
+        return getSide().isDedicated();
+    }
+
+    /**
+     * 사이드 설정 (내부용).
+     * 
+     * @param side 설정할 사이드
+     */
+    @InternalAPI
+    public static void setSide(PulseSide side) {
+        if (side != null) {
+            currentSide = side;
+            log("Side set to: " + side);
+        }
+    }
+
+    /**
+     * 사이드 자동 감지.
+     */
+    private static PulseSide detectSide() {
+        try {
+            // GameServer 클래스 로드 시도
+            Class<?> gameServerClass = Class.forName("zombie.network.GameServer");
+            java.lang.reflect.Field bServerField = gameServerClass.getDeclaredField("bServer");
+            bServerField.setAccessible(true);
+            boolean isServer = bServerField.getBoolean(null);
+
+            if (isServer) {
+                // 서버 모드 - 헤드리스인지 확인
+                try {
+                    Class<?> gameWindowClass = Class.forName("zombie.GameWindow");
+                    java.lang.reflect.Field bNoRenderField = gameWindowClass.getDeclaredField("bNoRender");
+                    bNoRenderField.setAccessible(true);
+                    boolean noRender = bNoRenderField.getBoolean(null);
+
+                    return noRender ? PulseSide.DEDICATED_SERVER : PulseSide.INTEGRATED_SERVER;
+                } catch (Exception e) {
+                    // 렌더링 체크 실패 - 아마도 데디케이티드
+                    return PulseSide.DEDICATED_SERVER;
+                }
+            } else {
+                // 클라이언트 모드
+                return PulseSide.CLIENT;
+            }
+        } catch (ClassNotFoundException e) {
+            // 게임 클래스 로드 전 - 나중에 다시 감지
+            return PulseSide.UNKNOWN;
+        } catch (Exception e) {
+            log("Side detection failed: " + e.getMessage());
+            return PulseSide.UNKNOWN;
+        }
     }
 
     // ─────────────────────────────────────────────────────────────

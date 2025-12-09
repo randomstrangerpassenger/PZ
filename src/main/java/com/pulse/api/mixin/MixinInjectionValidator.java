@@ -39,12 +39,60 @@ public final class MixinInjectionValidator {
     // 인젝션 결과 저장
     private static final Map<String, InjectionResult> results = new ConcurrentHashMap<>();
 
+    // 비활성화된 Mixin 목록 (Fail-soft용)
+    private static final Set<String> disabledMixins = ConcurrentHashMap.newKeySet();
+
     // 콜백 리스너
     private static final List<Consumer<InjectionResult>> callbacks = new CopyOnWriteArrayList<>();
     private static final List<InjectionListener> listeners = new CopyOnWriteArrayList<>();
 
     private MixinInjectionValidator() {
     } // 인스턴스화 방지
+
+    // ═══════════════════════════════════════════════════════════════
+    // Mixin 비활성화 (Fail-soft용)
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * Mixin 비활성화.
+     * 실패한 Mixin을 다시 적용하지 않도록 표시.
+     * 
+     * @param mixinClass Mixin 클래스 전체 경로
+     */
+    public static void disableMixin(String mixinClass) {
+        if (mixinClass != null && !mixinClass.isEmpty()) {
+            disabledMixins.add(mixinClass);
+            System.out.println("[MixinInjectionValidator] Mixin disabled: " + mixinClass);
+        }
+    }
+
+    /**
+     * Mixin이 비활성화되어 있는지 확인.
+     * 
+     * @param mixinClass Mixin 클래스 전체 경로
+     * @return 비활성화되어 있으면 true
+     */
+    public static boolean isMixinDisabled(String mixinClass) {
+        return mixinClass != null && disabledMixins.contains(mixinClass);
+    }
+
+    /**
+     * 비활성화된 Mixin 목록 반환.
+     * 
+     * @return 불변 Set
+     */
+    public static Set<String> getDisabledMixins() {
+        return java.util.Collections.unmodifiableSet(disabledMixins);
+    }
+
+    /**
+     * 비활성화된 Mixin 수.
+     * 
+     * @return 비활성화된 Mixin 수
+     */
+    public static int getDisabledCount() {
+        return disabledMixins.size();
+    }
 
     // ═══════════════════════════════════════════════════════════════
     // 결과 기록 (내부용)

@@ -39,6 +39,69 @@ public final class LuaBudgetManager {
 
     private static final LuaBudgetManager INSTANCE = new LuaBudgetManager();
 
+    // ═══════════════════════════════════════════════════════════════
+    // 표준 컨텍스트 ID 상수 (v1.1.0)
+    // ═══════════════════════════════════════════════════════════════
+
+    /** OnTick 이벤트 컨텍스트 */
+    public static final String CTX_ON_TICK = "lua.event.OnTick";
+
+    /** OnPlayerUpdate 이벤트 컨텍스트 */
+    public static final String CTX_ON_PLAYER_UPDATE = "lua.event.OnPlayerUpdate";
+
+    /** OnGameTimeTick 이벤트 컨텍스트 */
+    public static final String CTX_ON_GAME_TIME_TICK = "lua.event.OnGameTimeTick";
+
+    /** OnContainerUpdate 이벤트 컨텍스트 */
+    public static final String CTX_ON_CONTAINER_UPDATE = "lua.event.OnContainerUpdate";
+
+    /** OnZombieDead 이벤트 컨텍스트 */
+    public static final String CTX_ON_ZOMBIE_DEAD = "lua.event.OnZombieDead";
+
+    /** OnRenderTick 이벤트 컨텍스트 */
+    public static final String CTX_ON_RENDER_TICK = "lua.event.OnRenderTick";
+
+    // ═══════════════════════════════════════════════════════════════
+    // Fast-path 토글 (Nerve 활성화 전에는 오버헤드 최소화)
+    // ═══════════════════════════════════════════════════════════════
+
+    private static volatile boolean budgetEnforcementEnabled = false;
+
+    /**
+     * Budget 강제 적용 활성화 여부.
+     * Nerve가 로드되면 true로 설정됨.
+     * 
+     * @return 활성화되어 있으면 true
+     */
+    public static boolean isBudgetEnforcementEnabled() {
+        return budgetEnforcementEnabled;
+    }
+
+    /**
+     * Budget 강제 적용 활성화/비활성화.
+     * 
+     * @param enabled 활성화 여부
+     */
+    public static void enableBudgetEnforcement(boolean enabled) {
+        budgetEnforcementEnabled = enabled;
+        System.out.println("[LuaBudgetManager] Budget enforcement: " + (enabled ? "ENABLED" : "DISABLED"));
+    }
+
+    /**
+     * 모드별 컨텍스트 ID 생성 헬퍼.
+     * 
+     * @param modId     모드 ID
+     * @param eventName 이벤트 이름
+     * @return 컨텍스트 ID (예: "lua.mod.mymod.OnTick")
+     */
+    public static String modContext(String modId, String eventName) {
+        return "lua.mod." + modId + "." + eventName;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 내부 상태
+    // ═══════════════════════════════════════════════════════════════
+
     // 컨텍스트별 설정
     private final Map<String, BudgetConfig> configs = new ConcurrentHashMap<>();
 

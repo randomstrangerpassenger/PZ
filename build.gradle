@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'eclipse'
+    id 'idea'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
@@ -32,8 +34,9 @@ dependencies {
         compileOnly project(':Pulse')
     }
     
-    // Project Zomboid stubs (compile-only)
-    compileOnly files('libs/pz-stubs.jar')
+    // Project Zomboid stubs (compile-only, optional)
+    // Use fileTree to gracefully handle missing file
+    compileOnly fileTree(dir: 'libs', include: ['pz-stubs.jar'])
     
     // Gson for JSON serialization
     implementation 'com.google.code.gson:gson:2.10.1'

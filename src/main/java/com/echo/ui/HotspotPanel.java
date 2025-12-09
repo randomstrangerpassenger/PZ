@@ -225,8 +225,9 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
                 double avgMs = (is5s ? data.getStats5s().getAverage() : data.getStats60s().getAverage()) / 1000.0;
                 long total = data.getTotalMicros() / 1000; // total ms
 
-                // 전체 시간 대비 비율 계산
-                long sessionMs = Math.max(1, (System.currentTimeMillis() - data.getStats1s().getWindowMs()) / 1000);
+                // 전체 시간 대비 비율 계산: use EchoProfiler session time instead of deprecated
+                // getWindowMs()
+                long sessionMs = Math.max(1, EchoProfiler.getInstance().getSessionDurationMs());
                 double percent = Math.min(100, (total * 100.0) / sessionMs);
 
                 hotspots[i] = String.format("%-12s %5.1fms %4.0f%% %s",

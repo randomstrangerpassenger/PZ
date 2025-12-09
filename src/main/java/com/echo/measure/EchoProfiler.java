@@ -435,6 +435,15 @@ public class EchoProfiler {
         return (System.currentTimeMillis() - sessionStartTime) / 1000;
     }
 
+    /**
+     * 세션 지속 시간 (밀리초)
+     */
+    public long getSessionDurationMs() {
+        if (sessionStartTime == 0)
+            return 0;
+        return System.currentTimeMillis() - sessionStartTime;
+    }
+
     // ============================================================
     // 내부 클래스
     // ============================================================

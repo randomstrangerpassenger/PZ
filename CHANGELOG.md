@@ -2,11 +2,30 @@
 
 All notable changes to Echo Profiler will be documented in this file.
 
-## [1.0.0] - 2025-12-08
+## [0.8.0] - 2025-12-09
 
-### 🎉 v1.0.0 Stable Release
+### 🚀 v0.8.0 Pulse Native Integration
 
-Echo reaches production-ready status with comprehensive bug fixes and performance optimizations.
+Major update with deep Pulse integration and performance improvements.
+
+### Added
+- **Pulse Native UI** - `HUDOverlay.HUDLayer` inheritance for native rendering
+- **SPI Provider** - `IProfilerProvider` implementation for Pulse ecosystem
+- **Zero-Allocation HUD** - `StringBuilder` reuse, no per-frame allocations
+- **Enhanced HTTP API** - CORS support, 5 endpoints
+
+### Changed
+- EchoHUD extends `HUDOverlay.HUDLayer` instead of manual rendering
+- Version downgraded to 0.8.0 to reflect pre-production status
+- README completely rewritten for v0.8.0 features
+
+---
+
+## [0.7.0] - 2025-12-08
+
+### 🎉 v0.7.0 Initial Public Release
+
+Echo reaches feature-complete status with comprehensive bug fixes and performance optimizations.
 
 ### Added
 - **RenderHelper** - Reflection caching utility for HUD rendering (eliminates per-frame overhead)

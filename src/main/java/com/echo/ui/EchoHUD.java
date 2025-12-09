@@ -65,6 +65,9 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
 
     private long lastCacheUpdate = 0;
 
+    // Zero-Allocation: StringBuilder 재사용
+    private final StringBuilder formatBuffer = new StringBuilder(64);
+
     // 캐시된 표시 값
     private String cachedFpsText = "FPS: --";
     private String cachedFrameTimeText = "Frame: --ms";
@@ -156,14 +159,14 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
         }
         lastCacheUpdate = now;
 
-        // FPS / Frame Time / Tick Time
+        // FPS / Frame Time / Tick Time (Zero-Allocation formatting)
         double fps = PulseMetricsAdapter.getFps();
         double frameTimeMs = PulseMetricsAdapter.getFrameTimeMs();
         double tickTimeMs = PulseMetricsAdapter.getTickTimeMs();
 
-        cachedFpsText = String.format("FPS: %.0f", fps);
-        cachedFrameTimeText = String.format("Frame: %.1fms", frameTimeMs);
-        cachedTickTimeText = String.format("Tick: %.1fms", tickTimeMs);
+        cachedFpsText = formatFps(fps);
+        cachedFrameTimeText = formatTime("Frame: ", frameTimeMs);
+        cachedTickTimeText = formatTime("Tick: ", tickTimeMs);
 
         fpsColor = EchoTheme.getGradeColor(PulseMetricsAdapter.getFpsGrade());
         frameTimeColor = EchoTheme.getGradeColor(PulseMetricsAdapter.getFrameTimeGrade());
@@ -208,10 +211,7 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
                 TimingData data = entry.getValue();
                 double avgMs = data.getStats5s().getAverage() / 1000.0; // micros → ms
 
-                cachedHotspots[i] = String.format("%d. %-10s %.2fms",
-                        i + 1,
-                        truncate(point.name(), 10),
-                        avgMs);
+                cachedHotspots[i] = formatHotspot(i + 1, point.name(), avgMs);
                 cachedHotspotColors[i] = getPointColor(point);
             } else {
                 cachedHotspots[i] = null;
@@ -273,15 +273,78 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
     // 유틸리티
     // ============================================================
 
+    // ============================================================
+    // Zero-Allocation 포맷터 (String.format 대체)
+    // ============================================================
+
     /**
-     * 문자열 자르기
+     * FPS 텍스트 생성 (Zero-Allocation)
+     * 예: "FPS: 60"
      */
-    private String truncate(String str, int maxLen) {
-        if (str == null)
-            return "";
-        if (str.length() <= maxLen)
-            return str;
-        return str.substring(0, maxLen - 1) + "…";
+    private String formatFps(double fps) {
+        formatBuffer.setLength(0);
+        formatBuffer.append("FPS: ").append((int) fps);
+        return formatBuffer.toString();
+    }
+
+    /**
+     * 시간 텍스트 생성 (Zero-Allocation)
+     * 예: "Frame: 16.7ms"
+     */
+    private String formatTime(String prefix, double ms) {
+        formatBuffer.setLength(0);
+        formatBuffer.append(prefix);
+        appendDecimal(formatBuffer, ms, 1);
+        formatBuffer.append("ms");
+        return formatBuffer.toString();
+    }
+
+    /**
+     * Hotspot 항목 생성 (Zero-Allocation)
+     * 예: "1. RENDER 16.70ms"
+     */
+    private String formatHotspot(int index, String name, double ms) {
+        formatBuffer.setLength(0);
+        formatBuffer.append(index).append(". ");
+
+        // 이름 처리 (10자 고정폭 패딩)
+        String safeName = (name != null) ? name : "";
+        if (safeName.length() > 10) {
+            formatBuffer.append(safeName, 0, 10);
+        } else {
+            formatBuffer.append(safeName);
+            // 패딩 공백 추가 (%-10s 효과)
+            for (int i = 0; i < 10 - safeName.length(); i++) {
+                formatBuffer.append(' ');
+            }
+        }
+
+        formatBuffer.append(' ');
+        appendDecimal(formatBuffer, ms, 2); // 소수점 2자리
+        formatBuffer.append("ms");
+        return formatBuffer.toString();
+    }
+
+    /**
+     * 소수점 포맷팅 (Zero-Allocation, Truncation 방식)
+     * String.format("%.Nf") 대체
+     * 
+     * @param sb       StringBuilder (재사용)
+     * @param value    포맷팅할 값
+     * @param decimals 소수점 자릿수
+     */
+    private void appendDecimal(StringBuilder sb, double value, int decimals) {
+        if (value < 0) {
+            sb.append('-');
+            value = -value;
+        }
+        long intPart = (long) value;
+        sb.append(intPart).append('.');
+        double fracPart = value - intPart;
+        for (int i = 0; i < decimals; i++) {
+            fracPart *= 10;
+            sb.append((int) fracPart % 10);
+        }
     }
 
     /**

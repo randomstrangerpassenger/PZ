@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.echo.measure.EchoProfilerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-09T09:19:36.071Z" hostname="DESKTOP-M9CHBTO" time="0.156">
+<testsuite name="com.echo.measure.EchoProfilerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-09T11:38:50" hostname="DESKTOP-M9CHBTO" time="0.154">
   <properties/>
-  <testcase name="Reset clears all data" classname="com.echo.measure.EchoProfilerTest" time="0.01"/>
-  <testcase name="Profiler singleton instance" classname="com.echo.measure.EchoProfilerTest" time="0.001"/>
-  <testcase name="Push/Pop records timing data" classname="com.echo.measure.EchoProfilerTest" time="0.018"/>
-  <testcase name="Scope API with try-with-resources" classname="com.echo.measure.EchoProfilerTest" time="0.006"/>
-  <testcase name="Enable/Disable profiler" classname="com.echo.measure.EchoProfilerTest" time="0.001"/>
+  <testcase name="Reset clears all data" classname="com.echo.measure.EchoProfilerTest" time="0.008"/>
+  <testcase name="Profiler singleton instance" classname="com.echo.measure.EchoProfilerTest" time="0.002"/>
+  <testcase name="Push/Pop records timing data" classname="com.echo.measure.EchoProfilerTest" time="0.013"/>
+  <testcase name="Scope API with try-with-resources" classname="com.echo.measure.EchoProfilerTest" time="0.007"/>
+  <testcase name="Enable/Disable profiler" classname="com.echo.measure.EchoProfilerTest" time="0.002"/>
   <testcase name="Labeled profiling" classname="com.echo.measure.EchoProfilerTest" time="0.003"/>
   <testcase name="Session duration tracking" classname="com.echo.measure.EchoProfilerTest" time="0.113"/>
-  <testcase name="Raw API for zero-allocation" classname="com.echo.measure.EchoProfilerTest" time="0.001"/>
+  <testcase name="Raw API for zero-allocation" classname="com.echo.measure.EchoProfilerTest" time="0.002"/>
   <system-out><![CDATA[[Echo] All timing data RESET
 [Echo] All timing data RESET
 [Echo] Profiler ENABLED (stats reset)

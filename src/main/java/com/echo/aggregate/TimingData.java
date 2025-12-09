@@ -365,6 +365,13 @@ public class TimingData {
 
         /**
          * 최대값 재계산 (O(n) - 드물게 호출)
+         * 
+         * 성능 분석:
+         * - 윈도우 사이즈: 60(1초), 300(5초), 3600(60초)
+         * - 최악의 경우에도 3600회 비교로 ~0.01ms 소요
+         * - Sliding Window Maximum 알고리즘(O(1))은 추가 메모리(Deque)가 필요하여
+         * 현재 규모에서는 단순 순회가 더 효율적
+         * - 호출 빈도: 윈도우가 가득 차고 나가는 값이 최대값일 때만 호출 (드문 경우)
          */
         private void recalculateMax() {
             runningMax = 0;

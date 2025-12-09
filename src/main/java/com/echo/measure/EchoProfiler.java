@@ -476,6 +476,18 @@ public class EchoProfiler {
 
     /**
      * try-with-resources용 스코프 (Poolable)
+     * 
+     * 예외 안전성:
+     * try-with-resources 블록 내에서 예외가 발생해도 close()가 자동 호출되어
+     * pop()이 실행됩니다. 이로 인해 스택의 정합성이 유지됩니다.
+     * 
+     * 예시:
+     * 
+     * <pre>
+     * try (var scope = profiler.scope(TICK)) {
+     *     throw new RuntimeException(); // 예외 발생
+     * } // 예외가 throw되어도 close() → pop() 자동 호출됨
+     * </pre>
      */
     public static class ProfilingScope implements AutoCloseable {
         ProfilingPoint point;

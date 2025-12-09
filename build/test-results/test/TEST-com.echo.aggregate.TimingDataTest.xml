@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.echo.aggregate.TimingDataTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-09T09:19:36.061Z" hostname="DESKTOP-M9CHBTO" time="0.007">
+<testsuite name="com.echo.aggregate.TimingDataTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-09T11:38:50" hostname="DESKTOP-M9CHBTO" time="0.01">
   <properties/>
   <testcase name="Max value tracking" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
   <testcase name="Reset clears all data" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
-  <testcase name="Top N by total time" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
-  <testcase name="Multiple samples average correctly" classname="com.echo.aggregate.TimingDataTest" time="0.0"/>
-  <testcase name="Labeled sub-timing data" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
+  <testcase name="Top N by total time" classname="com.echo.aggregate.TimingDataTest" time="0.002"/>
+  <testcase name="Multiple samples average correctly" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
+  <testcase name="Labeled sub-timing data" classname="com.echo.aggregate.TimingDataTest" time="0.0"/>
   <testcase name="Initial state" classname="com.echo.aggregate.TimingDataTest" time="0.0"/>
-  <testcase name="Add sample updates statistics" classname="com.echo.aggregate.TimingDataTest" time="0.0"/>
+  <testcase name="Add sample updates statistics" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
   <testcase name="Min value tracking" classname="com.echo.aggregate.TimingDataTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Premain-Class: com.pulse.PulseAgent
+Agent-Class: com.pulse.PulseAgent
+Can-Retransform-Classes: true
+Can-Redefine-Classes: true
+Can-Set-Native-Method-Prefix: true
+Implementation-Title: Pulse
+Implementation-Version: 0.8.0-SNAPSHOT
+Multi-Release: true
+

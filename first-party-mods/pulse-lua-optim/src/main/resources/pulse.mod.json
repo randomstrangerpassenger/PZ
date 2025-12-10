@@ -1,0 +1,17 @@
+{
+    "id": "Pulse_lua_optim",
+    "name": "Pulse Lua Optimizer",
+    "version": "1.0.0",
+    "author": "Pulse Team",
+    "description": "Lua script performance optimization library",
+    "entrypoint": "com.pulse.luaoptim.LuaOptimMod",
+    "mixins": [
+        "mixins.luaoptim.json"
+    ],
+    "dependencies": [
+        {
+            "id": "Pulse",
+            "version": ">=1.0.0"
+        }
+    ]
+}

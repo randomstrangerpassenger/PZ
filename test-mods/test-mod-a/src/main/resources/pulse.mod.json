@@ -1,0 +1,14 @@
+{
+    "id": "test_mod_a",
+    "name": "Test Mod A",
+    "version": "1.0.0",
+    "author": "Pulse Team",
+    "description": "Simple logging and event test mod for Phase 1 verification",
+    "entrypoint": "com.pulse.test.a.TestModA",
+    "dependencies": [
+        {
+            "id": "Pulse",
+            "version": ">=1.0.0"
+        }
+    ]
+}

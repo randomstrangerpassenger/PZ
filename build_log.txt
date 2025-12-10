@@ -1,0 +1,6 @@
+> Task :pulse-api:compileJava UP-TO-DATE
+> Task :Pulse:compileJava UP-TO-DATE
+> Task :Echo:compileJava UP-TO-DATE
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 3 up-to-date

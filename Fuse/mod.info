@@ -1,0 +1,5 @@
+name=Fuse
+id=Fuse
+description=Performance Optimizer for Project Zomboid
+poster=poster.png
+require=Pulse

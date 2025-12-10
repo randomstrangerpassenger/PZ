@@ -1,0 +1,5 @@
+name=Nerve
+id=Nerve
+description=Network Enhancement for Project Zomboid
+poster=poster.png
+require=Pulse

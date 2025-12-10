@@ -1,0 +1,8 @@
+// NOTE: This project is now managed by the root PZ/settings.gradle
+// These includes are inherited from the root project
+// rootProject.name = 'Pulse'
+
+// First-party mods are included via root settings.gradle
+// include 'first-party-mods:pulse-profiler'
+// include 'first-party-mods:pulse-engine-optim'
+// include 'first-party-mods:pulse-lua-optim'

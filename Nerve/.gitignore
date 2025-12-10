@@ -1,0 +1,19 @@
+# Build outputs
+build/
+bin/
+out/
+
+# Gradle
+.gradle/
+gradle/wrapper/
+
+# IDE
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# Generated files
+Nerve_All_Code.txt
+코드 추출법.txt

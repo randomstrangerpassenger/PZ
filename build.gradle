@@ -1,0 +1,42 @@
+// PZ Root Project - Common Build Configuration
+// Applies common settings to all subprojects
+
+plugins {
+    id 'base'
+}
+
+// Common configuration for all subprojects
+subprojects {
+    // Apply Java plugin to Java projects only
+    afterEvaluate {
+        if (plugins.hasPlugin('java')) {
+            java {
+                sourceCompatibility = JavaVersion.VERSION_17
+                targetCompatibility = JavaVersion.VERSION_17
+            }
+            
+            tasks.withType(JavaCompile).configureEach {
+                options.encoding = 'UTF-8'
+            }
+            
+            repositories {
+                mavenCentral()
+                maven { url 'https://repo.spongepowered.org/maven/' }
+            }
+        }
+    }
+}
+
+// Task to build all projects
+task buildAll {
+    description = 'Builds all subprojects'
+    group = 'build'
+    dependsOn subprojects.collect { it.tasks.matching { it.name == 'build' } }
+}
+
+// Task to clean all projects
+task cleanAll {
+    description = 'Cleans all subprojects'
+    group = 'build'
+    dependsOn subprojects.collect { it.tasks.matching { it.name == 'clean' } }
+}

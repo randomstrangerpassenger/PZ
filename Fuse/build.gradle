@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.fuse'
+version = '0.1.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Pulse API dependency
+    compileOnly project(':pulse-api')
+    
+    // PZ stubs
+    compileOnly files('../Pulse/libs/pz-stubs.jar')
+}
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'Fuse',
+            'Implementation-Version': version
+        )
+    }
+}
+
+shadowJar {
+    archiveBaseName.set('Fuse')
+    archiveClassifier.set('')
+    archiveVersion.set(version)
+}

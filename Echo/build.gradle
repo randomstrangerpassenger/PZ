@@ -1,0 +1,90 @@
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.echo'
+version = '0.8.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spongepowered.org/maven' }
+}
+
+dependencies {
+    // Pulse API (compile-only, provided at runtime by Pulse.jar)
+    // - 로컬 개발 (PZ 루트): project(':pulse-api') 사용
+    // - 단독 빌드 (Echo repo만): libs/pulse-api.jar 사용
+    if (findProject(':pulse-api') != null) {
+        compileOnly project(':pulse-api')
+    } else {
+        // Echo repo 단독 클론 시 폴백
+        compileOnly files('libs/pulse-api.jar')
+    }
+    
+    // Pulse main (compile-only, for HUDOverlay/UIRenderContext - v2.0 Native UI)
+    if (findProject(':Pulse') != null) {
+        compileOnly project(':Pulse')
+    }
+    
+    // Project Zomboid stubs (compile-only, optional)
+    // Use fileTree to gracefully handle missing file
+    compileOnly fileTree(dir: 'libs', include: ['pz-stubs.jar'])
+    
+    // Gson for JSON serialization
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // Test dependencies
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+shadowJar {
+    archiveBaseName.set('Echo')
+    archiveClassifier.set('')
+    archiveVersion.set(version)
+    
+    // Include resources (pulse.mod.json)
+    from sourceSets.main.resources
+    
+    // Relocate Gson to avoid conflicts
+    relocate 'com.google.gson', 'com.echo.shaded.gson'
+    
+    manifest {
+        attributes(
+            'Echo-Version': version,
+            'Pulse-Mod': 'true',
+            'Mod-Id': 'echo',
+            'Mod-Name': 'Echo Profiler',
+            'Mod-Version': version,
+            'Mod-Authors': 'Echo Team',
+            'Mod-Description': 'Performance profiling tool for Project Zomboid'
+        )
+    }
+}
+
+tasks.named('jar') {
+    enabled = false
+}
+
+tasks.named('build') {
+    dependsOn shadowJar
+}
+
+// Create libs directory task
+tasks.register('createLibsDir') {
+    doLast {
+        mkdir 'libs'
+    }
+}

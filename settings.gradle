@@ -1,0 +1,18 @@
+// PZ Root Project - Pulse Mod Ecosystem
+// This is the root settings file that includes all subprojects
+
+rootProject.name = 'pz-mods'
+
+// Core API (shared interfaces)
+include 'pulse-api'
+
+// Main projects
+include 'Pulse'
+include 'Echo'
+include 'Fuse'
+include 'Nerve'
+
+// Pulse first-party mods (from Pulse project)
+include 'Pulse:first-party-mods:pulse-profiler'
+include 'Pulse:first-party-mods:pulse-engine-optim'
+include 'Pulse:first-party-mods:pulse-lua-optim'

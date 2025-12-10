@@ -1,0 +1,32 @@
+// pulse-api - Shared API interfaces for Pulse ecosystem
+// This module contains only interfaces and DTOs, no implementations
+
+plugins {
+    id 'java-library'
+}
+
+group = 'com.pulse'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+// No dependencies - pure interfaces only
+dependencies {
+    // Intentionally empty
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Title': 'Pulse API',
+            'Implementation-Version': project.version
+        )
+    }
+}

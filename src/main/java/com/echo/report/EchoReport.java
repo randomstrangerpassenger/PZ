@@ -5,8 +5,11 @@ import com.echo.aggregate.TickHistogram;
 import com.echo.aggregate.SpikeLog;
 import com.echo.lua.LuaCallTracker;
 import com.echo.measure.EchoProfiler;
+import com.echo.measure.FreezeDetector;
 import com.echo.measure.MemoryProfiler;
 import com.echo.measure.ProfilingPoint;
+import com.echo.measure.SubProfiler;
+import com.echo.measure.TickPhaseProfiler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -57,10 +60,14 @@ public class EchoReport {
         echoReport.put("summary", generateSummary());
         echoReport.put("subsystems", generateSubsystems());
         echoReport.put("heavy_functions", generateHeavyFunctions());
+        echoReport.put("tick_phase_breakdown", TickPhaseProfiler.getInstance().toMap());
         echoReport.put("tick_histogram", generateHistogram());
         echoReport.put("spikes", generateSpikes());
+        echoReport.put("freeze_history", generateFreezes());
         echoReport.put("memory", generateMemoryStats());
         echoReport.put("lua_profiling", generateLuaProfiling());
+        echoReport.put("lua_gc", generateLuaGCStats());
+        echoReport.put("fuse_deep_analysis", generateFuseDeepAnalysis());
         echoReport.put("recommendations", generateRecommendations());
         echoReport.put("metadata", generateMetadata());
 
@@ -232,100 +239,181 @@ public class EchoReport {
     /**
      * HTML 리포트 생성
      */
+    /**
+     * HTML 리포트 생성 (Interactive Dashboard)
+     */
     public String generateHtml() {
         TimingData tickData = profiler.getTimingData(ProfilingPoint.TICK);
         TickHistogram histogram = profiler.getTickHistogram();
+        String jsonChain = generateJson(); // Embed JSON for JS to use
 
         StringBuilder sb = new StringBuilder();
         sb.append("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n");
         sb.append("  <meta charset=\"UTF-8\">\n");
-        sb.append("  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n");
         sb.append("  <title>Echo Profiler Report</title>\n");
         sb.append("  <style>\n");
-        sb.append("    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; ");
-        sb.append("           background: #1a1a2e; color: #eee; padding: 20px; }\n");
-        sb.append("    .container { max-width: 1200px; margin: 0 auto; }\n");
-        sb.append("    h1 { color: #4ecdc4; border-bottom: 2px solid #4ecdc4; padding-bottom: 10px; }\n");
-        sb.append("    h2 { color: #ff6b6b; margin-top: 30px; }\n");
-        sb.append("    .card { background: #16213e; border-radius: 8px; padding: 20px; margin: 15px 0; }\n");
+        sb.append("    :root { --bg: #1a1a2e; --card: #16213e; --text: #eee; --accent: #4ecdc4; --warn: #ff6b6b; }\n");
+        sb.append(
+                "    body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 0; margin: 0; }\n");
+        sb.append(
+                "    .header { background: #0f3460; padding: 20px; display: flex; justify-content: space-between; align-items: center; }\n");
+        sb.append("    .tabs { display: flex; background: #1a1a40; }\n");
+        sb.append("    .tab { padding: 15px 25px; cursor: pointer; opacity: 0.7; transition: 0.3s; }\n");
+        sb.append("    .tab:hover { opacity: 1; background: #2a2a50; }\n");
+        sb.append("    .tab.active { border-bottom: 3px solid var(--accent); opacity: 1; }\n");
+        sb.append("    .content { padding: 20px; display: none; }\n");
+        sb.append("    .content.active { display: block; animation: fadein 0.3s; }\n");
+        sb.append(
+                "    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }\n");
+        sb.append(
+                "    .card { background: var(--card); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }\n");
+        sb.append("    .metric-value { font-size: 2em; font-weight: bold; color: var(--accent); }\n");
         sb.append("    table { width: 100%; border-collapse: collapse; margin-top: 10px; }\n");
         sb.append("    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }\n");
-        sb.append("    th { background: #0f3460; color: #4ecdc4; }\n");
-        sb.append("    tr:hover { background: #1a1a40; }\n");
-        sb.append("    .metric { font-size: 2em; color: #4ecdc4; font-weight: bold; }\n");
-        sb.append("    .label { color: #888; font-size: 0.9em; }\n");
-        sb.append(
-                "    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }\n");
-        sb.append(
-                "    .bar { height: 20px; background: linear-gradient(90deg, #4ecdc4, #44a08d); border-radius: 4px; }\n");
-        sb.append("  </style>\n</head>\n<body>\n<div class=\"container\">\n");
+        sb.append("    th { background: rgba(255,255,255,0.05); color: var(--accent); }\n");
+        sb.append("    .bar-container { background: #333; height: 10px; border-radius: 5px; overflow: hidden; }\n");
+        sb.append("    .bar-fill { height: 100%; background: var(--accent); }\n");
+        sb.append("    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }\n");
+        sb.append("  </style>\n");
+        sb.append("</head>\n<body>\n");
 
         // Header
-        sb.append("  <h1>🔊 Echo Profiler Report</h1>\n");
-        sb.append("  <p>Generated: ").append(java.time.LocalDateTime.now()).append("</p>\n");
+        sb.append("<div class=\"header\">\n");
+        sb.append("  <h1>🔊 Echo Profiler</h1>\n");
+        sb.append("  <div>").append(java.time.LocalDateTime.now()).append("</div>\n");
+        sb.append("</div>\n");
 
-        // Summary Cards
-        sb.append("  <h2>📊 Summary</h2>\n");
+        // Tabs
+        sb.append("<div class=\"tabs\">\n");
+        sb.append("  <div class=\"tab active\" onclick=\"showTab('summary')\">Summary</div>\n");
+        sb.append("  <div class=\"tab\" onclick=\"showTab('heavy')\">Heavy Functions</div>\n");
+        sb.append("  <div class=\"tab\" onclick=\"showTab('lua')\">Lua / Context</div>\n");
+        sb.append("  <div class=\"tab\" onclick=\"showTab('deep')\">Deep Analysis</div>\n");
+        sb.append("  <div class=\"tab\" onclick=\"showTab('raw')\">Raw JSON</div>\n");
+        sb.append("</div>\n");
+
+        // TAB 1: Summary
+        sb.append("<div id=\"summary\" class=\"content active\">\n");
         sb.append("  <div class=\"grid\">\n");
-
-        if (tickData != null && tickData.getCallCount() > 0) {
-            sb.append("    <div class=\"card\"><div class=\"metric\">")
-                    .append(String.format("%,d", tickData.getCallCount()))
-                    .append("</div><div class=\"label\">Total Ticks</div></div>\n");
-            sb.append("    <div class=\"card\"><div class=\"metric\">")
-                    .append(String.format("%.2f ms", tickData.getAverageMicros() / 1000.0))
-                    .append("</div><div class=\"label\">Avg Tick Time</div></div>\n");
-            sb.append("    <div class=\"card\"><div class=\"metric\">")
-                    .append(String.format("%.2f ms", tickData.getMaxMicros() / 1000.0))
-                    .append("</div><div class=\"label\">Max Spike</div></div>\n");
-            sb.append("    <div class=\"card\"><div class=\"metric\">")
-                    .append(String.format("%.1f ms", histogram.getP95()))
-                    .append("</div><div class=\"label\">P95</div></div>\n");
+        if (tickData != null) {
+            sb.append("    <div class=\"card\"><div>Avg Tick</div><div class=\"metric-value\">")
+                    .append(String.format("%.2f ms", tickData.getAverageMicros() / 1000.0)).append("</div></div>\n");
+            sb.append(
+                    "    <div class=\"card\"><div>Max Spike</div><div class=\"metric-value\" style=\"color:var(--warn)\">")
+                    .append(String.format("%.2f ms", tickData.getMaxMicros() / 1000.0)).append("</div></div>\n");
+            sb.append("    <div class=\"card\"><div>Total Ticks</div><div class=\"metric-value\">")
+                    .append(String.format("%,d", tickData.getCallCount())).append("</div></div>\n");
         }
         sb.append("  </div>\n");
 
-        // Subsystems Table
-        sb.append("  <h2>📈 Subsystems</h2>\n");
-        sb.append("  <div class=\"card\">\n");
-        sb.append("    <table>\n");
-        sb.append("      <tr><th>Subsystem</th><th>Calls</th><th>Total</th><th>Avg</th><th>Max</th></tr>\n");
-
-        for (ProfilingPoint point : ProfilingPoint.values()) {
-            TimingData data = profiler.getTimingData(point);
-            if (data != null && data.getCallCount() > 0 && point.getCategory() == ProfilingPoint.Category.SUBSYSTEM) {
-                sb.append("      <tr>");
-                sb.append("<td>").append(point.getDisplayName()).append("</td>");
-                sb.append("<td>").append(String.format("%,d", data.getCallCount())).append("</td>");
-                sb.append("<td>").append(String.format("%.2f ms", data.getTotalMicros() / 1000.0)).append("</td>");
-                sb.append("<td>").append(String.format("%.2f ms", data.getAverageMicros() / 1000.0)).append("</td>");
-                sb.append("<td>").append(String.format("%.2f ms", data.getMaxMicros() / 1000.0)).append("</td>");
-                sb.append("</tr>\n");
-            }
-        }
-        sb.append("    </table>\n  </div>\n");
-
-        // Histogram
-        sb.append("  <h2>📉 Tick Distribution</h2>\n");
-        sb.append("  <div class=\"card\">\n");
+        sb.append("  <div class=\"card\"><h3>Tick Distribution</h3>\n");
         long[] counts = histogram.getCounts();
         double[] buckets = histogram.getBuckets();
         long maxCount = java.util.Arrays.stream(counts).max().orElse(1);
-
         for (int i = 0; i < buckets.length; i++) {
-            String label = i == buckets.length - 1
-                    ? String.format("≥%.1fms", buckets[i])
-                    : String.format("%.1f-%.1fms", buckets[i], buckets[i + 1]);
-            int barWidth = (int) ((counts[i] * 100) / Math.max(maxCount, 1));
-
-            sb.append("    <div style=\"margin: 8px 0;\">");
-            sb.append("<span style=\"display:inline-block;width:100px;\">").append(label).append("</span>");
-            sb.append("<div class=\"bar\" style=\"width:").append(barWidth).append("%;display:inline-block;\"></div>");
-            sb.append(" <span>").append(counts[i]).append("</span>");
-            sb.append("</div>\n");
+            String label = i == buckets.length - 1 ? String.format("≥%.1f", buckets[i])
+                    : String.format("%.1f", buckets[i]);
+            int w = (int) ((counts[i] * 100) / maxCount);
+            sb.append("<div style=\"display:flex; align-items:center; margin:5px 0\">");
+            sb.append("<div style=\"width:60px\">").append(label).append("</div>");
+            sb.append("<div class=\"bar-container\" style=\"flex-grow:1\"><div class=\"bar-fill\" style=\"width:")
+                    .append(w).append("%\"></div></div>");
+            sb.append("<div style=\"width:50px; text-align:right\">").append(counts[i]).append("</div>");
+            sb.append("</div>");
         }
         sb.append("  </div>\n");
+        sb.append("</div>\n");
 
-        sb.append("</div>\n</body>\n</html>");
+        // TAB 2: Heavy Functions
+        sb.append("<div id=\"heavy\" class=\"content\">\n");
+        sb.append("  <div class=\"card\"><h3>Top Heavy Functions (Java/Engine)</h3><table>\n");
+        sb.append("    <tr><th>Function</th><th>Total (ms)</th><th>Avg (ms)</th><th>Count</th></tr>\n");
+        List<RankedFunction> funcs = collectHeavyFunctions();
+        for (int i = 0; i < Math.min(funcs.size(), 20); i++) {
+            RankedFunction f = funcs.get(i);
+            sb.append("<tr><td>").append(f.label).append("</td>");
+            sb.append("<td>").append(String.format("%.2f", f.totalMicros / 1000.0)).append("</td>");
+            sb.append("<td>").append(String.format("%.2f", (double) f.totalMicros / f.callCount / 1000.0))
+                    .append("</td>");
+            sb.append("<td>").append(f.callCount).append("</td></tr>\n");
+        }
+        sb.append("  </table></div>\n");
+        sb.append("</div>\n");
+
+        // TAB 3: Lua
+        sb.append("<div id=\"lua\" class=\"content\">\n");
+        sb.append("  <div class=\"grid\">\n");
+        sb.append("    <div class=\"card\"><h3>Lua Contexts</h3><div id=\"lua-context-list\"></div></div>\n");
+        sb.append("    <div class=\"card\"><h3>Heavy Lua Files</h3><div id=\"lua-file-list\"></div></div>\n");
+        sb.append("  </div>\n");
+        sb.append("  <div class=\"card\"><h3>Top Lua Functions</h3><div id=\"lua-func-list\"></div></div>\n");
+        sb.append("</div>\n");
+
+        // TAB 4: Deep Analysis
+        sb.append("<div id=\"deep\" class=\"content\">\n");
+        sb.append("  <p>Granular breakdown of Pathfinding, Zombie, and IsoGrid.</p>\n");
+        sb.append("  <div class=\"grid\">\n");
+        sb.append("     <div class=\"card\"><h3>Pathfinding</h3><div id=\"deep-path\"></div></div>\n");
+        sb.append("     <div class=\"card\"><h3>Zombie</h3><div id=\"deep-zombie\"></div></div>\n");
+        sb.append("  </div>\n");
+        sb.append("  <div class=\"card\"><h3>IsoGrid</h3><div id=\"deep-grid\"></div></div>\n");
+        sb.append("</div>\n");
+
+        // TAB 5: Raw
+        sb.append("<div id=\"raw\" class=\"content\">\n");
+        sb.append("  <textarea style=\"width:100%; height:400px; background:#111; color:#ccc; border:none;\">")
+                .append(jsonChain).append("</textarea>\n");
+        sb.append("</div>\n");
+
+        // SCRIPT
+        sb.append("<script>\n");
+        sb.append("  const data = ").append(jsonChain).append(";\n");
+        sb.append(
+                "  function showTab(id) { document.querySelectorAll('.content').forEach(c => c.classList.remove('active')); document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); document.getElementById(id).classList.add('active'); event.target.classList.add('active'); }\n");
+        sb.append("  \n");
+        sb.append("  // Populate Lua\n");
+        sb.append("  if(data.echo_report.lua_profiling) {\n");
+        sb.append("     const lua = data.echo_report.lua_profiling;\n");
+        sb.append("     // Contexts\n");
+        sb.append("     if(lua.context_stats) {\n");
+        sb.append("        let html = '<table><tr><th>Context</th><th>Total (ms)</th></tr>';\n");
+        sb.append(
+                "        for(const [k,v] of Object.entries(lua.context_stats)) html += `<tr><td>${k}</td><td>${v.toFixed(2)}</td></tr>`;\n");
+        sb.append("        html += '</table>'; document.getElementById('lua-context-list').innerHTML = html;\n");
+        sb.append("     }\n");
+        sb.append("     // Files\n");
+        sb.append("     if(lua.heavy_files) {\n");
+        sb.append("        let html = '<table><tr><th>File</th><th>Total (ms)</th></tr>';\n");
+        sb.append(
+                "        lua.heavy_files.forEach(f => html += `<tr><td>${f.file}</td><td>${f.total_ms}</td></tr>`);\n");
+        sb.append("        html += '</table>'; document.getElementById('lua-file-list').innerHTML = html;\n");
+        sb.append("     }\n");
+        sb.append("     // Functions\n");
+        sb.append("     if(lua.top_functions_by_time) {\n");
+        sb.append("        let html = '<table><tr><th>Name</th><th>Calls</th><th>Total (ms)</th></tr>';\n");
+        sb.append(
+                "        lua.top_functions_by_time.forEach(f => html += `<tr><td>${f.name}</td><td>${f.call_count}</td><td>${f.total_time_ms}</td></tr>`);\n");
+        sb.append("        html += '</table>'; document.getElementById('lua-func-list').innerHTML = html;\n");
+        sb.append("     }\n");
+        sb.append("  }\n");
+        sb.append("  \n");
+        sb.append("  // Populate Deep\n");
+        sb.append("  if(data.echo_report.fuse_deep_analysis) {\n");
+        sb.append("     const deep = data.echo_report.fuse_deep_analysis;\n");
+        sb.append("     const renderDeep = (obj) => {\n");
+        sb.append("        if(!obj || !obj.steps) return 'No Data';\n");
+        sb.append("        let html = '<table><tr><th>Step</th><th>Count</th><th>Total (ms)</th></tr>';\n");
+        sb.append(
+                "        for(const [k,v] of Object.entries(obj.steps)) html += `<tr><td>${k}</td><td>${v.count}</td><td>${v.total_ms.toFixed(2)}</td></tr>`;\n");
+        sb.append("        return html + '</table>';\n");
+        sb.append("     };\n");
+        sb.append("     document.getElementById('deep-path').innerHTML = renderDeep(deep.pathfinding);\n");
+        sb.append("     document.getElementById('deep-zombie').innerHTML = renderDeep(deep.zombie);\n");
+        sb.append("     document.getElementById('deep-grid').innerHTML = renderDeep(deep.iso_grid);\n");
+        sb.append("  }\n");
+        sb.append("</script>\n");
+
+        sb.append("</body>\n</html>");
         return sb.toString();
     }
 
@@ -417,6 +505,12 @@ public class EchoReport {
     private Map<String, Object> generateHeavyFunctions() {
         Map<String, Object> heavy = new LinkedHashMap<>();
 
+        // SubProfiler 데이터 추가 (Echo 1.0)
+        SubProfiler subProfiler = SubProfiler.getInstance();
+        if (subProfiler.isEnabled()) {
+            heavy.put("subtiming", subProfiler.toMap());
+        }
+
         List<RankedFunction> byTotal = collectHeavyFunctions();
 
         List<Map<String, Object>> byTotalList = new ArrayList<>();
@@ -460,6 +554,22 @@ public class EchoReport {
     private List<RankedFunction> collectHeavyFunctions() {
         List<RankedFunction> functions = new ArrayList<>();
 
+        // SubProfiler 데이터 수집 (Echo 1.0 - 우선순위 높음)
+        SubProfiler subProfiler = SubProfiler.getInstance();
+        if (subProfiler.isEnabled()) {
+            for (SubProfiler.SubTimingData subData : subProfiler.getAllTimings()) {
+                if (subData.getCallCount() > 0) {
+                    functions.add(new RankedFunction(
+                            subData.getLabel().getDisplayName(),
+                            subData.getLabel().getCategory().getDisplayName(),
+                            subData.getCallCount(),
+                            subData.getTotalMicros(),
+                            subData.getMaxMicros()));
+                }
+            }
+        }
+
+        // Legacy: TimingData 기반 라벨 통계 (기존 호환성)
         for (Map.Entry<ProfilingPoint, TimingData> entry : profiler.getTimingData().entrySet()) {
             ProfilingPoint point = entry.getKey();
             TimingData data = entry.getValue();
@@ -487,6 +597,39 @@ public class EchoReport {
     private Map<String, Object> generateSpikes() {
         SpikeLog spikeLog = profiler.getSpikeLog();
         return spikeLog.toMap();
+    }
+
+    private Map<String, Object> generateFreezes() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        List<FreezeDetector.FreezeSnapshot> freezes = FreezeDetector.getInstance().getRecentFreezes();
+
+        map.put("total_freezes", freezes.size());
+
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (FreezeDetector.FreezeSnapshot snapshot : freezes) {
+            Map<String, Object> item = new LinkedHashMap<>();
+            item.put("timestamp", formatInstant(Instant.ofEpochMilli(snapshot.timestamp)));
+            item.put("duration_ms", snapshot.freezeDurationMs);
+
+            Map<String, Object> mem = new LinkedHashMap<>();
+            mem.put("used_mb", snapshot.memory.used / 1024 / 1024);
+            mem.put("total_mb", snapshot.memory.total / 1024 / 1024);
+            item.put("memory", mem);
+
+            // Stack Trace (Top 5 lines usually enough for quick check)
+            List<String> stack = new ArrayList<>();
+            int limit = 0;
+            for (String line : snapshot.stackTrace) {
+                if (limit++ > 10)
+                    break;
+                stack.add(line);
+            }
+            item.put("stack_trace", stack);
+
+            list.add(item);
+        }
+        map.put("history", list);
+        return map;
     }
 
     private List<String> generateRecommendations() {
@@ -541,6 +684,21 @@ public class EchoReport {
     private Map<String, Object> generateLuaProfiling() {
         LuaCallTracker luaTracker = LuaCallTracker.getInstance();
         return luaTracker.toMap(topN);
+    }
+
+    private Map<String, Object> generateLuaGCStats() {
+        return com.echo.lua.LuaGCProfiler.getInstance().toMap();
+    }
+
+    private Map<String, Object> generateFuseDeepAnalysis() {
+        if (!com.echo.config.EchoConfig.getInstance().isDeepAnalysisEnabled()) {
+            return null;
+        }
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("pathfinding", com.echo.fuse.PathfindingProfiler.getInstance().toMap());
+        map.put("zombie", com.echo.fuse.ZombieProfiler.getInstance().toMap());
+        map.put("iso_grid", com.echo.fuse.IsoGridProfiler.getInstance().toMap());
+        return map;
     }
 
     private Map<String, Object> generateMetadata() {

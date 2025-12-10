@@ -72,7 +72,7 @@ public final class EchoConstants {
     public static final int DEFAULT_TOP_N = 10;
 
     /** 기본 리포트 저장 경로 */
-    public static final String DEFAULT_REPORT_DIR = "./echo_reports";
+    public static final String DEFAULT_REPORT_DIR = System.getProperty("user.home") + "/Zomboid/echo_reports";
 
     /** 기본 테스트 결과 저장 경로 */
     public static final String DEFAULT_TEST_DIR = "./echo_tests";

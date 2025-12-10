@@ -1,18 +1,19 @@
 package com.echo.lua;
 
 import com.echo.measure.EchoProfiler;
+import com.echo.util.StringUtils;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.LongAdder;
-
-import com.echo.util.StringUtils;
 
 /**
  * Lua 호출 추적기
  * 
  * Lua 함수/이벤트 호출을 세부적으로 추적하고 통계를 제공합니다.
  * On-Demand 방식으로 활성화됩니다.
+ * 
+ * v1.1 Enhancements: UI Element Tracking, debug.sethook support foundation
  */
 public class LuaCallTracker {
 
@@ -24,6 +25,15 @@ public class LuaCallTracker {
     // 이벤트별 통계
     private final Map<String, LuaEventStats> eventStats = new ConcurrentHashMap<>();
 
+    // UI 요소별 통계 (Phase 2.1)
+    private final Map<String, LuaUIElementStats> uiElementStats = new ConcurrentHashMap<>();
+
+    // Context별 통계 (Phase 3)
+    private final Map<String, LongAdder> contextStats = new ConcurrentHashMap<>();
+
+    // 파일별 통계 (Phase 3)
+    private final Map<String, LongAdder> fileStats = new ConcurrentHashMap<>();
+
     // 전체 통계
     private final LongAdder totalCalls = new LongAdder();
     private final LongAdder totalTimeMicros = new LongAdder();
@@ -33,6 +43,10 @@ public class LuaCallTracker {
     private volatile List<LuaFunctionStats> topByCallsCached = new ArrayList<>();
     private volatile long lastCacheUpdate = 0;
     private static final long CACHE_TTL_MS = 1000;
+
+    public enum LuaUICategory {
+        TOOLTIP, CONTEXT_MENU, INVENTORY_GRID, MODAL_DIALOG, HUD_ELEMENT, OTHER
+    }
 
     private LuaCallTracker() {
     }
@@ -57,6 +71,21 @@ public class LuaCallTracker {
 
         totalCalls.increment();
         totalTimeMicros.add(durationMicros);
+
+        // Phase 3: Context Tracking
+        String context = EchoLuaContext.getContext();
+        contextStats.computeIfAbsent(context, k -> new LongAdder()).add(durationMicros);
+    }
+
+    /**
+     * Lua 함수 호출 기록 (Source File 포함) - Phase 3
+     */
+    public void recordFunctionCall(String functionName, String sourceFile, long durationMicros) {
+        recordFunctionCall(functionName, durationMicros);
+
+        if (sourceFile != null && !sourceFile.isEmpty()) {
+            fileStats.computeIfAbsent(sourceFile, k -> new LongAdder()).add(durationMicros);
+        }
     }
 
     /**
@@ -68,6 +97,18 @@ public class LuaCallTracker {
 
         eventStats.computeIfAbsent(eventName, LuaEventStats::new)
                 .record(durationMicros, handlerCount);
+    }
+
+    /**
+     * UI 요소 비용 기록 (Phase 2.1)
+     */
+    public void recordUIElementCall(LuaUICategory category, String elementName, long durationMicros) {
+        if (!EchoProfiler.getInstance().isLuaProfilingEnabled())
+            return;
+
+        String key = category.name() + ":" + elementName;
+        uiElementStats.computeIfAbsent(key, k -> new LuaUIElementStats(category, elementName))
+                .record(durationMicros);
     }
 
     /**
@@ -110,59 +151,43 @@ public class LuaCallTracker {
     // 조회 API
     // ============================================================
 
-    /**
-     * 총 Lua 호출 수
-     */
     public long getTotalCalls() {
         return totalCalls.sum();
     }
 
-    /**
-     * 총 Lua 실행 시간 (밀리초)
-     */
     public double getTotalTimeMs() {
         return totalTimeMicros.sum() / 1000.0;
     }
 
-    /**
-     * 함수별 통계 조회
-     */
     public LuaFunctionStats getFunctionStats(String functionName) {
         return functionStats.get(functionName);
     }
 
-    /**
-     * 모든 함수 통계
-     */
     public Collection<LuaFunctionStats> getAllFunctionStats() {
         return Collections.unmodifiableCollection(functionStats.values());
     }
 
-    /**
-     * 이벤트별 통계 조회
-     */
     public LuaEventStats getEventStats(String eventName) {
         return eventStats.get(eventName);
     }
 
-    /**
-     * 모든 이벤트 통계
-     */
     public Collection<LuaEventStats> getAllEventStats() {
         return Collections.unmodifiableCollection(eventStats.values());
     }
 
-    /**
-     * Top N 함수 (총 시간 기준)
-     */
+    public LuaUIElementStats getUIElementStats(LuaUICategory category, String elementName) {
+        return uiElementStats.get(category.name() + ":" + elementName);
+    }
+
+    public Collection<LuaUIElementStats> getAllUIElementStats() {
+        return Collections.unmodifiableCollection(uiElementStats.values());
+    }
+
     public List<LuaFunctionStats> getTopFunctionsByTime(int n) {
         updateCacheIfNeeded();
         return topByTimeCached.size() <= n ? topByTimeCached : topByTimeCached.subList(0, n);
     }
 
-    /**
-     * Top N 함수 (호출 횟수 기준)
-     */
     public List<LuaFunctionStats> getTopFunctionsByCalls(int n) {
         updateCacheIfNeeded();
         return topByCallsCached.size() <= n ? topByCallsCached : topByCallsCached.subList(0, n);
@@ -190,10 +215,13 @@ public class LuaCallTracker {
     public void reset() {
         functionStats.clear();
         eventStats.clear();
+        uiElementStats.clear();
         totalCalls.reset();
         totalTimeMicros.reset();
         topByTimeCached.clear();
         topByCallsCached.clear();
+        contextStats.clear();
+        fileStats.clear();
         System.out.println("[Echo] Lua call tracker RESET");
     }
 
@@ -228,10 +256,26 @@ public class LuaCallTracker {
                         stats.getTotalMs());
             }
         }
+
+        if (!uiElementStats.isEmpty()) {
+            System.out.println("\n  UI Elements:");
+            List<LuaUIElementStats> sortedUI = new ArrayList<>(uiElementStats.values());
+            sortedUI.sort((a, b) -> Long.compare(b.getTotalMicros(), a.getTotalMicros()));
+
+            int count = 0;
+            for (LuaUIElementStats stats : sortedUI) {
+                if (count++ >= topN)
+                    break;
+                System.out.printf("    %-15s | %-20s | draws: %,6d | total: %6.2f ms | avg: %.3f ms%n",
+                        stats.getCategory(),
+                        StringUtils.truncate(stats.getElementName(), 20),
+                        stats.getDrawCount(),
+                        stats.getTotalMs(),
+                        stats.getAverageMs());
+            }
+        }
         System.out.println();
     }
-
-    // truncate method removed - using StringUtils.truncate()
 
     /**
      * JSON 출력용 Map
@@ -255,6 +299,38 @@ public class LuaCallTracker {
         }
         map.put("events", events);
 
+        List<Map<String, Object>> uiList = new ArrayList<>();
+        List<LuaUIElementStats> sortedUI = new ArrayList<>(uiElementStats.values());
+        sortedUI.sort((a, b) -> Long.compare(b.getTotalMicros(), a.getTotalMicros()));
+
+        int count = 0;
+        for (LuaUIElementStats stats : sortedUI) {
+            if (count++ >= topN)
+                break;
+            uiList.add(stats.toMap());
+        }
+        map.put("ui_elements", uiList);
+
+        // Context Stats
+        Map<String, Double> contextMap = new LinkedHashMap<>();
+        contextStats.entrySet().stream()
+                .sorted((a, b) -> Long.compare(b.getValue().sum(), a.getValue().sum()))
+                .forEach(e -> contextMap.put(e.getKey(), e.getValue().sum() / 1000.0));
+        map.put("context_stats", contextMap);
+
+        // File Stats
+        List<Map<String, Object>> fileList = new ArrayList<>();
+        fileStats.entrySet().stream()
+                .sorted((a, b) -> Long.compare(b.getValue().sum(), a.getValue().sum()))
+                .limit(topN)
+                .forEach(e -> {
+                    Map<String, Object> f = new LinkedHashMap<>();
+                    f.put("file", e.getKey());
+                    f.put("total_ms", Math.round((e.getValue().sum() / 1000.0) * 100) / 100.0);
+                    fileList.add(f);
+                });
+        map.put("heavy_files", fileList);
+
         return map;
     }
 
@@ -262,9 +338,6 @@ public class LuaCallTracker {
     // 내부 클래스
     // ============================================================
 
-    /**
-     * 개별 Lua 함수 통계
-     */
     public static class LuaFunctionStats {
         private final String name;
         private final LongAdder callCount = new LongAdder();
@@ -278,7 +351,6 @@ public class LuaCallTracker {
         public void record(long durationMicros) {
             callCount.increment();
             totalMicros.add(durationMicros);
-            // CAS pattern for thread-safe max update
             long current;
             do {
                 current = maxMicros.get();
@@ -301,7 +373,7 @@ public class LuaCallTracker {
 
         public long getMaxMicros() {
             return maxMicros.get();
-        }
+        } // Added getter
 
         public double getTotalMs() {
             return totalMicros.sum() / 1000.0;
@@ -312,10 +384,6 @@ public class LuaCallTracker {
             return count == 0 ? 0 : getTotalMs() / count;
         }
 
-        public double getMaxMs() {
-            return maxMicros.get() / 1000.0;
-        }
-
         public Map<String, Object> toMap(int rank) {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("rank", rank);
@@ -323,14 +391,11 @@ public class LuaCallTracker {
             map.put("call_count", getCallCount());
             map.put("total_time_ms", Math.round(getTotalMs() * 100) / 100.0);
             map.put("average_time_ms", Math.round(getAverageMs() * 1000) / 1000.0);
-            map.put("max_time_ms", Math.round(getMaxMs() * 100) / 100.0);
+            map.put("max_time_ms", Math.round(getMaxMicros() / 1000.0 * 100) / 100.0);
             return map;
         }
     }
 
-    /**
-     * 개별 Lua 이벤트 통계
-     */
     public static class LuaEventStats {
         private final String name;
         private final LongAdder fireCount = new LongAdder();
@@ -375,6 +440,65 @@ public class LuaCallTracker {
             map.put("total_handlers", getTotalHandlers());
             map.put("avg_handlers_per_fire", Math.round(getAverageHandlersPerFire() * 10) / 10.0);
             map.put("total_time_ms", Math.round(getTotalMs() * 100) / 100.0);
+            return map;
+        }
+    }
+
+    public static class LuaUIElementStats {
+        private final LuaUICategory category;
+        private final String elementName;
+        private final LongAdder drawCount = new LongAdder();
+        private final LongAdder totalMicros = new LongAdder();
+        private final java.util.concurrent.atomic.AtomicLong maxMicros = new java.util.concurrent.atomic.AtomicLong(0);
+
+        public LuaUIElementStats(LuaUICategory category, String elementName) {
+            this.category = category;
+            this.elementName = elementName;
+        }
+
+        public void record(long durationMicros) {
+            drawCount.increment();
+            totalMicros.add(durationMicros);
+            long current;
+            do {
+                current = maxMicros.get();
+                if (durationMicros <= current)
+                    return;
+            } while (!maxMicros.compareAndSet(current, durationMicros));
+        }
+
+        public LuaUICategory getCategory() {
+            return category;
+        }
+
+        public String getElementName() {
+            return elementName;
+        }
+
+        public long getDrawCount() {
+            return drawCount.sum();
+        }
+
+        public long getTotalMicros() {
+            return totalMicros.sum();
+        }
+
+        public double getTotalMs() {
+            return totalMicros.sum() / 1000.0;
+        }
+
+        public double getAverageMs() {
+            long count = drawCount.sum();
+            return count == 0 ? 0 : getTotalMs() / count;
+        }
+
+        public Map<String, Object> toMap() {
+            Map<String, Object> map = new LinkedHashMap<>();
+            map.put("category", category.name());
+            map.put("element", elementName);
+            map.put("draw_count", getDrawCount());
+            map.put("total_ms", Math.round(getTotalMs() * 100) / 100.0);
+            map.put("avg_ms", Math.round(getAverageMs() * 1000) / 1000.0);
             return map;
         }
     }

@@ -27,8 +27,61 @@ public class TickProfiler {
     private long lastTickDuration = 0;
 
     /**
-     * 틱 시작 시 호출
+     * 틱 완료 시 호출 (GameTickEvent의 deltaTime 기반)
+     * 
+     * GameTickEvent는 틱 완료 후 발생하므로 Pre/Post 패턴이 아닌
+     * 단일 이벤트로 deltaTime을 직접 기록합니다.
+     * 
+     * @param deltaTimeMs 틱 소요 시간 (밀리초)
      */
+    public void onTick(float deltaTimeMs) {
+        // 디버그: 매 100번째 틱마다 상태 출력
+        if (tickCount % 100 == 0) {
+            System.out.printf("[Echo/DEBUG] onTick called: tick=%d, deltaMs=%.2f, profilerEnabled=%b%n",
+                    tickCount, deltaTimeMs, profiler.isEnabled());
+        }
+
+        if (!profiler.isEnabled()) {
+            // 비활성화 상태면 최초 1회만 경고
+            if (tickCount == 0) {
+                System.out.println("[Echo/WARN] TickProfiler.onTick(): Profiler is DISABLED!");
+            }
+            tickCount++;
+            return;
+        }
+
+        long durationMicros = (long) (deltaTimeMs * 1000);
+        long durationNanos = durationMicros * 1000;
+
+        tickCount++;
+        lastTickDuration = durationMicros;
+
+        // TimingData에 직접 샘플 추가 (Raw API와 동일한 방식)
+        profiler.getTimingData(ProfilingPoint.TICK).addSample(durationNanos, null);
+
+        // Histogram에 기록
+        profiler.getTickHistogram().addSample(durationMicros);
+
+        // 스파이크 로그에 기록
+        profiler.getSpikeLog().logSpike(durationMicros, ProfilingPoint.TICK, null);
+
+        // 스파이크 감지
+        if (durationMicros > spikeThresholdMicros) {
+            onSpikeDetected(durationMicros);
+        }
+
+        // 첫 틱에서 정상 동작 확인
+        if (tickCount == 1) {
+            System.out.println("[Echo] ✓ First tick recorded successfully!");
+        }
+    }
+
+    /**
+     * 틱 시작 시 호출 (Legacy - 수동 계측용)
+     * 
+     * @deprecated Use onTick(float deltaTimeMs) instead
+     */
+    @Deprecated
     public void onTickPre() {
         if (!profiler.isEnabled())
             return;
@@ -39,8 +92,11 @@ public class TickProfiler {
     }
 
     /**
-     * 틱 종료 시 호출
+     * 틱 종료 시 호출 (Legacy - 수동 계측용)
+     * 
+     * @deprecated Use onTick(float deltaTimeMs) instead
      */
+    @Deprecated
     public void onTickPost() {
         if (currentScope == null)
             return;

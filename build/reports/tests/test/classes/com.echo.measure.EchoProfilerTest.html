@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">5</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.150s</div>
+<div class="counter">0.240s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">37%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,13 +61,91 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Tests</a>
+<a href="#tab0">Failed tests</a>
 </li>
 <li>
-<a href="#tab1">Standard output</a>
+<a href="#tab1">Tests</a>
+</li>
+<li>
+<a href="#tab2">Standard output</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
+<h2>Failed tests</h2>
+<div class="test">
+<a name="testLabeledProfiling()"></a>
+<h3 class="failures">Labeled profiling</h3>
+<span class="code">
+<pre>java.lang.NullPointerException: Cannot invoke &quot;com.echo.aggregate.TimingData.getLabelStats()&quot; because &quot;data&quot; is null
+	at com.echo.measure.EchoProfilerTest.testLabeledProfiling(EchoProfilerTest.java:96)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="testPushPop()"></a>
+<h3 class="failures">Push/Pop records timing data</h3>
+<span class="code">
+<pre>org.opentest4j.AssertionFailedError: expected: not &lt;null&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertNotNull.failNull(AssertNotNull.java:49)
+	at app//org.junit.jupiter.api.AssertNotNull.assertNotNull(AssertNotNull.java:35)
+	at app//org.junit.jupiter.api.AssertNotNull.assertNotNull(AssertNotNull.java:30)
+	at app//org.junit.jupiter.api.Assertions.assertNotNull(Assertions.java:300)
+	at app//com.echo.measure.EchoProfilerTest.testPushPop(EchoProfilerTest.java:55)
+	at java.base@17.0.12/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="testRawApi()"></a>
+<h3 class="failures">Raw API for zero-allocation</h3>
+<span class="code">
+<pre>java.lang.NullPointerException: Cannot invoke &quot;com.echo.aggregate.TimingData.getCallCount()&quot; because &quot;data&quot; is null
+	at com.echo.measure.EchoProfilerTest.testRawApi(EchoProfilerTest.java:83)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="testReset()"></a>
+<h3 class="failures">Reset clears all data</h3>
+<span class="code">
+<pre>java.lang.NullPointerException: Cannot invoke &quot;com.echo.aggregate.TimingData.getCallCount()&quot; because &quot;data&quot; is null
+	at com.echo.measure.EchoProfilerTest.testReset(EchoProfilerTest.java:112)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+</span>
+</div>
+<div class="test">
+<a name="testScopeApi()"></a>
+<h3 class="failures">Scope API with try-with-resources</h3>
+<span class="code">
+<pre>org.opentest4j.AssertionFailedError: expected: not &lt;null&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertNotNull.failNull(AssertNotNull.java:49)
+	at app//org.junit.jupiter.api.AssertNotNull.assertNotNull(AssertNotNull.java:35)
+	at app//org.junit.jupiter.api.AssertNotNull.assertNotNull(AssertNotNull.java:30)
+	at app//org.junit.jupiter.api.Assertions.assertNotNull(Assertions.java:300)
+	at app//com.echo.measure.EchoProfilerTest.testScopeApi(EchoProfilerTest.java:71)
+	at java.base@17.0.12/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
 <h2>Tests</h2>
 <table>
 <thead>
@@ -81,91 +159,128 @@
 <tr>
 <td class="success">Enable/Disable profiler</td>
 <td class="success">testEnableDisable()</td>
-<td class="success">0.002s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">Labeled profiling</td>
-<td class="success">testLabeledProfiling()</td>
-<td class="success">0.003s</td>
-<td class="success">passed</td>
+<td class="failures">Labeled profiling</td>
+<td class="failures">testLabeledProfiling()</td>
+<td class="failures">0.004s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
-<td class="success">Push/Pop records timing data</td>
-<td class="success">testPushPop()</td>
-<td class="success">0.013s</td>
-<td class="success">passed</td>
+<td class="failures">Push/Pop records timing data</td>
+<td class="failures">testPushPop()</td>
+<td class="failures">0.021s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
-<td class="success">Raw API for zero-allocation</td>
-<td class="success">testRawApi()</td>
-<td class="success">0.002s</td>
-<td class="success">passed</td>
+<td class="failures">Raw API for zero-allocation</td>
+<td class="failures">testRawApi()</td>
+<td class="failures">0.004s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
-<td class="success">Reset clears all data</td>
-<td class="success">testReset()</td>
-<td class="success">0.008s</td>
-<td class="success">passed</td>
+<td class="failures">Reset clears all data</td>
+<td class="failures">testReset()</td>
+<td class="failures">0.076s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
-<td class="success">Scope API with try-with-resources</td>
-<td class="success">testScopeApi()</td>
-<td class="success">0.007s</td>
-<td class="success">passed</td>
+<td class="failures">Scope API with try-with-resources</td>
+<td class="failures">testScopeApi()</td>
+<td class="failures">0.008s</td>
+<td class="failures">failed</td>
 </tr>
 <tr>
 <td class="success">Session duration tracking</td>
 <td class="success">testSessionDuration()</td>
-<td class="success">0.113s</td>
+<td class="success">0.118s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Profiler singleton instance</td>
 <td class="success">testSingleton()</td>
-<td class="success">0.002s</td>
+<td class="success">0.004s</td>
 <td class="success">passed</td>
 </tr>
 </table>
 </div>
-<div id="tab1" class="tab">
+<div id="tab2" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>[Echo] All timing data RESET
-[Echo] All timing data RESET
+<pre>[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
-[Echo] All timing data RESET
+[Echo] Config loaded from: C:\Users\MW\Zomboid\Echo\echo.json
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
-[Echo] All timing data RESET
-[Echo] All timing data RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
-[Echo] All timing data RESET
-[Echo] All timing data RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
-[Echo] All timing data RESET
-[Echo] All timing data RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
-[Echo] All timing data RESET
-[Echo] All timing data RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
-[Echo] All timing data RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
-[Echo] All timing data RESET
-[Echo] All timing data RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
-[Echo] All timing data RESET
-[Echo] All timing data RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
-[Echo] All timing data RESET
-[Echo] All timing data RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] Lua call tracker RESET
+[Echo] Profiler stats RESET
+[Echo] FreezeDetector started
 [Echo] Profiler ENABLED (stats reset)
+[Echo] FreezeDetector stopped
 [Echo] Profiler DISABLED
 </pre>
 </span>
@@ -178,7 +293,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.10.2</a> at 2025. 12. 9. 오후 8:38:50</p>
+<a href="http://www.gradle.org">Gradle 8.10.2</a> at 2025. 12. 11. 오전 12:34:37</p>
 </div>
 </div>
 </body>

@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
-Echo-Version: 2.0.0
+Echo-Version: 0.8.0
 Pulse-Mod: true
 Mod-Id: echo
 Mod-Name: Echo Profiler
-Mod-Version: 2.0.0
+Mod-Version: 0.8.0
 Mod-Authors: Echo Team
 Mod-Description: Performance profiling tool for Project Zomboid
 

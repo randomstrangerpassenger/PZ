@@ -1,6 +1,7 @@
 package com.echo.pulse;
 
 import com.echo.EchoMod;
+import com.echo.measure.FreezeDetector;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEvent;
 import com.pulse.event.gui.GuiRenderEvent;
@@ -32,9 +33,24 @@ public class PulseEventAdapter {
         renderProfiler = new RenderProfiler();
 
         // Pulse EventBus 직접 구독 (v2.0 Native)
+        // GameTickEvent는 틱 완료 후 발생하므로 Pre/Post가 아닌 단일 이벤트로 처리
         EventBus.subscribe(GameTickEvent.class, event -> {
-            tickProfiler.onTickPre();
-            // 틱 처리는 이벤트 핸들러가 완료된 후 측정
+            // Echo 1.0: FreezeDetector 생존 신고
+            FreezeDetector.getInstance().tick();
+
+            // 디버그: 첫 이벤트 수신 확인
+            if (event.getTick() == 1) {
+                System.out.println("[Echo/DEBUG] First GameTickEvent received! deltaTime=" + event.getDeltaTime());
+            }
+            // 매 1000번째 틱마다 상태 출력
+            if (event.getTick() % 1000 == 0) {
+                System.out.printf("[Echo/DEBUG] GameTickEvent #%d received, deltaTime=%.4f%n",
+                        event.getTick(), event.getDeltaTime());
+            }
+
+            // deltaTime을 밀리초로 변환해서 직접 기록
+            float deltaTimeMs = event.getDeltaTime() * 1000.0f;
+            tickProfiler.onTick(deltaTimeMs);
         }, EchoMod.MOD_ID);
 
         EventBus.subscribe(GuiRenderEvent.class, event -> {
@@ -85,12 +101,16 @@ public class PulseEventAdapter {
     }
 
     // ============================================================
-    // 수동 호출용 API (Mixin 사용 시 또는 테스팅용)
+    // 수동 호출용 API (Legacy - Mixin 사용 시 또는 테스팅용)
+    // GameTickEvent 기반 onTick(deltaTimeMs)를 사용 권장
     // ============================================================
 
     /**
      * 틱 시작 시 호출 (수동)
+     * 
+     * @deprecated Use GameTickEvent-based profiling instead
      */
+    @Deprecated
     public static void onTickStart() {
         if (tickProfiler != null) {
             tickProfiler.onTickPre();
@@ -99,7 +119,10 @@ public class PulseEventAdapter {
 
     /**
      * 틱 종료 시 호출 (수동)
+     * 
+     * @deprecated Use GameTickEvent-based profiling instead
      */
+    @Deprecated
     public static void onTickEnd() {
         if (tickProfiler != null) {
             tickProfiler.onTickPost();

@@ -55,6 +55,9 @@ shadowJar {
     archiveClassifier.set('')
     archiveVersion.set(version)
     
+    // Include resources (pulse.mod.json)
+    from sourceSets.main.resources
+    
     // Relocate Gson to avoid conflicts
     relocate 'com.google.gson', 'com.echo.shaded.gson'
     

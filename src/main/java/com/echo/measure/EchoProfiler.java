@@ -3,6 +3,7 @@ package com.echo.measure;
 import com.echo.aggregate.TimingData;
 import com.echo.aggregate.TickHistogram;
 import com.echo.aggregate.SpikeLog;
+import com.echo.lua.LuaCallTracker;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -180,6 +181,9 @@ public class EchoProfiler {
 
         // TICK 포인트인 경우 히스토그램에 기록
         if (point == ProfilingPoint.TICK) {
+            if (com.echo.config.EchoConfig.getInstance().isDebugMode() && !isMainThread()) {
+                System.err.println("[Echo] CRITICAL: TICK recorded on non-main thread!");
+            }
             tickHistogram.addSample(elapsedMicros);
         }
 
@@ -293,6 +297,7 @@ public class EchoProfiler {
         if (sessionStartTime == 0) {
             this.sessionStartTime = System.currentTimeMillis();
         }
+        FreezeDetector.getInstance().start();
         System.out.println("[Echo] Profiler ENABLED" + (resetStats ? " (stats reset)" : ""));
     }
 
@@ -304,6 +309,7 @@ public class EchoProfiler {
         }
 
         this.enabled = false;
+        FreezeDetector.getInstance().stop();
         System.out.println("[Echo] Profiler DISABLED");
     }
 
@@ -353,11 +359,33 @@ public class EchoProfiler {
      * 모든 통계 초기화
      */
     public void reset() {
-        timingRegistry.values().forEach(TimingData::reset);
+        timingRegistry.clear();
         tickHistogram.reset();
         spikeLog.reset();
         sessionStartTime = System.currentTimeMillis();
-        System.out.println("[Echo] All timing data RESET");
+
+        // SubProfiler 초기화 (Echo 1.0)
+        SubProfiler.getInstance().reset();
+
+        // Lua Profiler 초기화
+        LuaCallTracker.getInstance().reset();
+
+        // Lua GC Profiler 초기화 (Echo 1.0 Phase 2.2)
+        com.echo.lua.LuaGCProfiler.getInstance().reset();
+
+        // Fuse Deep Analysis 초기화 (Echo 1.0 Phase 4)
+        com.echo.fuse.PathfindingProfiler.getInstance().reset();
+        com.echo.fuse.ZombieProfiler.getInstance().reset();
+        com.echo.fuse.IsoGridProfiler.getInstance().reset();
+
+        System.out.println("[Echo] Profiler stats RESET");
+    }
+
+    /**
+     * SubProfiler 접근 (Echo 1.0)
+     */
+    public SubProfiler getSubProfiler() {
+        return SubProfiler.getInstance();
     }
 
     /**

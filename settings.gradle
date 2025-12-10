@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // PZ Root Project - Pulse Mod Ecosystem
 // This is the root settings file that includes all subprojects
 
@@ -16,3 +17,6 @@ include 'Nerve'
 include 'Pulse:first-party-mods:pulse-profiler'
 include 'Pulse:first-party-mods:pulse-engine-optim'
 include 'Pulse:first-party-mods:pulse-lua-optim'
+=======
+rootProject.name = 'Echo'
+>>>>>>> echo-history/main

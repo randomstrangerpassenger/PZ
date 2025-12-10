@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Echo Profiler Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --accent-color: #bb86fc;
+            --border-color: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .drop-zone {
+            border: 2px dashed var(--accent-color);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .drop-zone:hover {
+            background-color: rgba(187, 134, 252, 0.1);
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        h1, h2, h3 { color: var(--accent-color); margin-top: 0; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { color: #bb86fc; }
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        .hidden { display: none; }
+        .metric-value { font-size: 1.5em; font-weight: bold; }
+        .metric-label { font-size: 0.9em; color: #888; }
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; text-align: center; }
+        
+        .badge {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            background: #333;
+        }
+        .badge.freeze { background: #cf6679; color: black; }
+        .badge.phase { background: #03dac6; color: black; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Echo Profiler Viewer</h1>
+        
+        <div id="dropZone" class="drop-zone">
+            <h2>Drag & Drop echo_report.json here</h2>
+            <p>or click to select file</p>
+            <input type="file" id="fileInput" accept=".json" style="display:none">
+        </div>
+
+        <div id="dashboard" class="hidden">
+            <!-- Metadata & Summary -->
+            <div class="card">
+                <h2>Session Summary</h2>
+                <div class="stat-grid" id="summaryStats">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Tick Analysis -->
+            <div class="grid">
+                <div class="card">
+                    <h3>Tick Duration Histogram</h3>
+                    <div class="chart-container">
+                        <canvas id="tickHistogramChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Tick Phase Breakdown</h3>
+                    <div class="chart-container">
+                        <canvas id="tickPhaseChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Heavy Functions -->
+            <div class="card">
+                <h3>Top Heavy Functions (Including SubTiming)</h3>
+                <table id="heavyFunctionsTable">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Name</th>
+                            <th>Calls</th>
+                            <th>Total Time (ms)</th>
+                            <th>Max Time (ms)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Freeze History -->
+            <div class="card">
+                <h3>Freeze History (> 500ms)</h3>
+                <table id="freezeTable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Duration (ms)</th>
+                            <th>Memory (Used/Total)</th>
+                            <th>Stack Trace (Top Frame)</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- Lua Profiling -->
+            <div class="grid">
+                <div class="card">
+                    <h3>Lua UI Elements Cost</h3>
+                    <div class="chart-container">
+                        <canvas id="luaUIChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Lua GC Statistics</h3>
+                    <div class="stat-grid" id="luaGCStats"></div>
+                    <div class="chart-container" style="height: 200px; margin-top: 20px;">
+                         <canvas id="luaGCChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const dashboard = document.getElementById('dashboard');
+
+        // Drag & Drop Handlers
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = '#fff'; });
+        dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = '#bb86fc'; });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#bb86fc';
+            handleFile(e.dataTransfer.files[0]);
+        });
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        function handleFile(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    renderDashboard(data.echo_report || data); // Handle wrapped or direct report
+                    dashboard.classList.remove('hidden');
+                    dropZone.style.display = 'none';
+                } catch (err) {
+                    alert('Invalid JSON file: ' + err);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function renderDashboard(data) {
+            renderSummary(data);
+            renderTickHistogram(data.tick_histogram);
+            renderTickPhase(data.tick_phase_breakdown);
+            renderHeavyFunctions(data.heavy_functions.by_total_time); // Updated path
+            renderFreezes(data.freeze_history);
+            renderLuaStats(data.lua_profiling, data.lua_gc);
+        }
+
+        function renderSummary(data) {
+            const sum = data.summary;
+            const grid = document.getElementById('summaryStats');
+            
+            const metrics = [
+                { label: 'Total Ticks', value: sum.total_ticks?.toLocaleString() || '-' },
+                { label: 'Avg Tick', value: (sum.avg_tick_ms || 0) + ' ms' },
+                { label: 'P99 Tick', value: (data.tick_histogram?.p99_ms || 0) + ' ms' },
+                { label: 'Total Freezes', value: data.freeze_history?.total_freezes || 0 },
+            ];
+
+            grid.innerHTML = metrics.map(m => `
+                <div>
+                    <div class="metric-value">${m.value}</div>
+                    <div class="metric-label">${m.label}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderTickHistogram(hist) {
+            if (!hist || !hist.buckets) return;
+            const ctx = document.getElementById('tickHistogramChart').getContext('2d');
+            
+            // Format labels like "0-5ms", "5-10ms"
+            const labels = Object.keys(hist.buckets).map(k => k + 'ms');
+            const values = Object.values(hist.buckets);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Tick Count',
+                        data: values,
+                        backgroundColor: '#bb86fc',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, grid: { color: '#333' } }, x: { grid: { display: false } } }
+                }
+            });
+        }
+
+        function renderTickPhase(phases) {
+            if (!phases || !phases.phases) return;
+            const ctx = document.getElementById('tickPhaseChart').getContext('2d');
+            
+            const labels = phases.phases.map(p => p.phase);
+            const values = phases.phases.map(p => p.avg_ms);
+            const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'];
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: colors,
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { position: 'right', labels: { color: '#e0e0e0' } } 
+                    }
+                }
+            });
+        }
+
+        function renderHeavyFunctions(list) {
+            const tbody = document.querySelector('#heavyFunctionsTable tbody');
+            tbody.innerHTML = (list || []).slice(0, 10).map(f => `
+                <tr>
+                    <td>#${f.rank}</td>
+                    <td>${f.name}</td>
+                    <td>${f.call_count.toLocaleString()}</td>
+                    <td>${f.total_time_ms.toFixed(2)}</td>
+                    <td>${f.max_time_ms.toFixed(2)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function renderFreezes(freezeData) {
+            const tbody = document.querySelector('#freezeTable tbody');
+            const list = freezeData?.history || [];
+            
+            if (list.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#666;">No freezes detected</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = list.map(f => `
+                <tr>
+                    <td>${f.timestamp.split('T')[1].split('.')[0]}</td>
+                    <td><span class="badge freeze">${f.duration_ms} ms</span></td>
+                    <td>${f.memory.used_mb}MB / ${f.memory.total_mb}MB</td>
+                    <td style="font-family:monospace; font-size:0.9em; color:#aaa;">
+                        ${f.stack_trace && f.stack_trace[0] ? f.stack_trace[0] : 'N/A'}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderLuaStats(lua, gc) {
+            // UI Chart
+            if (lua?.ui_elements) {
+                const ctx = document.getElementById('luaUIChart').getContext('2d');
+                const top5 = lua.ui_elements.slice(0, 5);
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: top5.map(i => i.element),
+                        datasets: [{
+                            label: 'Avg Time (ms)',
+                            data: top5.map(i => i.avg_ms),
+                            backgroundColor: '#03dac6'
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: { x: { grid: { color: '#333' } }, y: { grid: { display: false } } }
+                    }
+                });
+            }
+
+            // GC Stats
+            if (gc) {
+                const grid = document.getElementById('luaGCStats');
+                grid.innerHTML = `
+                    <div><div class="metric-value">${gc.total_cycles}</div><div class="metric-label">Cycles</div></div>
+                    <div><div class="metric-value">${gc.avg_duration_ms}ms</div><div class="metric-label">Avg Duration</div></div>
+                    <div><div class="metric-value">${(gc.total_reclaimed_kb/1024).toFixed(1)}MB</div><div class="metric-label">Reclaimed</div></div>
+                `;
+
+                if (gc.history) {
+                    const ctx = document.getElementById('luaGCChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: gc.history.map((_, i) => '#' + (i+1)),
+                            datasets: [{
+                                label: 'GC Duration (ms)',
+                                data: gc.history.map(req => req.duration_ms),
+                                borderColor: '#cf6679',
+                                tension: 0.4,
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: { y: { beginAtZero: true, grid: { color: '#333' } }, x: { display: false } }
+                        }
+                    });
+                }
+            }
+        }
+    </script>
+</body>
+</html>

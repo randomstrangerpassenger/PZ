@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.echo.aggregate.TimingDataTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-12-10T15:34:37" hostname="DESKTOP-M9CHBTO" time="0.009">
+  <properties/>
+  <testcase name="Max value tracking" classname="com.echo.aggregate.TimingDataTest" time="0.0"/>
+  <testcase name="Reset clears all data" classname="com.echo.aggregate.TimingDataTest" time="0.002"/>
+  <testcase name="Top N by total time" classname="com.echo.aggregate.TimingDataTest" time="0.002"/>
+  <testcase name="Multiple samples average correctly" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
+  <testcase name="Labeled sub-timing data" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
+  <testcase name="Initial state" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
+  <testcase name="Add sample updates statistics" classname="com.echo.aggregate.TimingDataTest" time="0.0"/>
+  <testcase name="Min value tracking" classname="com.echo.aggregate.TimingDataTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

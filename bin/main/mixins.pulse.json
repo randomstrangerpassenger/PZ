@@ -7,7 +7,10 @@
     "GameClientMixin",
     "GameWindowMixin",
     "IsoWorldMixin",
-    "IsoPlayerMixin"
+    "IsoPlayerMixin",
+    "IsoZombieMixin",
+    "PathfindingMixin",
+    "IsoGridMixin"
   ],
   "client": [],
   "server": [],

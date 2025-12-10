@@ -5,6 +5,6 @@ Can-Retransform-Classes: true
 Can-Redefine-Classes: true
 Can-Set-Native-Method-Prefix: true
 Implementation-Title: Pulse
-Implementation-Version: 1.0.0-SNAPSHOT
+Implementation-Version: 0.8.0-SNAPSHOT
 Multi-Release: true
 

@@ -24,9 +24,10 @@ public abstract class GameClientMixin {
 
     /**
      * GameClient.update() 메서드 끝에서 GameTickEvent 발생 및 스케줄러 틱 처리
+     * Note: update()는 인스턴스 메서드이므로 핸들러도 인스턴스 메서드여야 함
      */
     @Inject(method = "update", at = @At("RETURN"))
-    private static void Pulse$onUpdate(CallbackInfo ci) {
+    private void Pulse$onUpdate(CallbackInfo ci) {
         long currentTime = System.nanoTime();
         float deltaTime = (currentTime - Pulse$lastTickTime) / 1_000_000_000.0f;
         Pulse$lastTickTime = currentTime;

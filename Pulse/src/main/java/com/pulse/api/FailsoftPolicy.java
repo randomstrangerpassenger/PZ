@@ -54,7 +54,17 @@ public final class FailsoftPolicy {
         /**
          * 전체 기능 모듈 비활성화.
          */
-        DISABLE_FEATURE
+        DISABLE_FEATURE,
+
+        /**
+         * 페이즈 시퀀스 오류 (v0.9 Fuse/Nerve 지원).
+         */
+        PHASE_SEQUENCE_ERROR,
+
+        /**
+         * 안전하지 않은 월드 상태 접근 (v0.9 Fuse/Nerve 지원).
+         */
+        UNSAFE_WORLDSTATE_ACCESS
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -89,6 +99,14 @@ public final class FailsoftPolicy {
             case DISABLE_FEATURE:
                 FeatureFlags.disableModule(source);
                 Pulse.warn("pulse", "[Failsoft] Feature module disabled: " + source);
+                break;
+
+            case PHASE_SEQUENCE_ERROR:
+                Pulse.warn("pulse", "[Failsoft] Phase sequence error: " + source + " - " + message);
+                break;
+
+            case UNSAFE_WORLDSTATE_ACCESS:
+                Pulse.warn("pulse", "[Failsoft] Unsafe worldstate access: " + source + " - " + message);
                 break;
         }
 
@@ -196,5 +214,46 @@ public final class FailsoftPolicy {
                 "SIGNATURE_MISMATCH",
                 feature,
                 String.format("%s.%s: expected %s, got %s", className, methodName, expected, actual));
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // v0.9 Fuse/Nerve 전용 핸들러
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * 페이즈 시퀀스 오류 처리 (v0.9 Fuse/Nerve).
+     * 페이즈 순서가 예상과 다를 때 호출.
+     * 
+     * @param phase    현재 페이즈
+     * @param expected 예상된 페이즈
+     * @param actual   실제 페이즈
+     */
+    public static void handlePhaseSequenceError(String phase, String expected, String actual) {
+        Pulse.warn("pulse", String.format(
+                "[Failsoft/Phase] Sequence error in '%s': expected '%s', got '%s'",
+                phase, expected, actual));
+
+        CrashReporter.recordEvent(
+                "PHASE_SEQUENCE_ERROR",
+                phase,
+                String.format("Expected: %s, Actual: %s", expected, actual));
+    }
+
+    /**
+     * 안전하지 않은 월드 상태 접근 처리 (v0.9 Fuse/Nerve).
+     * 월드 초기화 전이나 언로드 후 월드 상태에 접근할 때 호출.
+     * 
+     * @param context   컨텍스트 (어떤 모듈/기능에서 발생했는지)
+     * @param operation 시도한 작업
+     */
+    public static void handleUnsafeWorldstateAccess(String context, String operation) {
+        Pulse.warn("pulse", String.format(
+                "[Failsoft/Worldstate] Unsafe access in '%s': %s",
+                context, operation));
+
+        CrashReporter.recordEvent(
+                "UNSAFE_WORLDSTATE_ACCESS",
+                context,
+                "Operation: " + operation);
     }
 }

@@ -19,8 +19,8 @@ dependencies {
     // Pulse API dependency
     compileOnly project(':pulse-api')
     
-    // PZ stubs
-    compileOnly files('../Pulse/libs/pz-stubs.jar')
+    // PZ stubs (optional, graceful handling when missing)
+    compileOnly fileTree(dir: '../Pulse/libs', include: ['pz-stubs.jar'])
 }
 
 jar {

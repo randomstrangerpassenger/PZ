@@ -290,6 +290,9 @@ public class EchoProfiler {
      * @param resetStats true: 기존 통계 초기화, false: 기존 통계 유지
      */
     public void enable(boolean resetStats) {
+        // Config 검증 및 자동 수정 (Echo 0.9.0)
+        com.echo.config.EchoConfig.getInstance().sanitize();
+
         if (!enabled && resetStats) {
             reset();
         }
@@ -298,6 +301,13 @@ public class EchoProfiler {
             this.sessionStartTime = System.currentTimeMillis();
         }
         FreezeDetector.getInstance().start();
+
+        // Self-Validation 스케줄링 (Echo 0.9.0)
+        com.echo.validation.SelfValidation.getInstance().scheduleValidation();
+
+        // Fallback Tick 모니터링 시작 (Echo 0.9.0)
+        com.echo.validation.FallbackTickEmitter.getInstance().startMonitoring();
+
         System.out.println("[Echo] Profiler ENABLED" + (resetStats ? " (stats reset)" : ""));
     }
 
@@ -310,6 +320,13 @@ public class EchoProfiler {
 
         this.enabled = false;
         FreezeDetector.getInstance().stop();
+
+        // Self-Validation 종료 (Echo 0.9.0)
+        com.echo.validation.SelfValidation.getInstance().shutdown();
+
+        // Fallback Tick 종료 (Echo 0.9.0)
+        com.echo.validation.FallbackTickEmitter.getInstance().stop();
+
         System.out.println("[Echo] Profiler DISABLED");
     }
 
@@ -359,7 +376,12 @@ public class EchoProfiler {
      * 모든 통계 초기화
      */
     public void reset() {
+        // TimingData를 clear 후 다시 초기화 (getTimingData가 null을 반환하지 않도록)
         timingRegistry.clear();
+        for (ProfilingPoint point : ProfilingPoint.values()) {
+            timingRegistry.put(point, new TimingData(point.name()));
+        }
+
         tickHistogram.reset();
         spikeLog.reset();
         sessionStartTime = System.currentTimeMillis();

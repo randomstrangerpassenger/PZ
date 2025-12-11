@@ -213,8 +213,12 @@ public class EchoMod implements PulseMod {
         // 리포트 자동 저장
         if (config.isAutoSaveReports()) {
             try {
-                String reportPath = new com.echo.report.EchoReport(profiler)
-                        .saveWithTimestamp(config.getReportDirectory());
+                com.echo.report.EchoReport report = new com.echo.report.EchoReport(profiler);
+                String reportPath = report.saveWithTimestamp(config.getReportDirectory());
+
+                // Phase 6.2: Print Session Summary
+                report.printQualitySummary();
+
                 System.out.println("[Echo] Report saved: " + reportPath);
             } catch (Exception e) {
                 System.err.println("[Echo] Failed to save report: " + e.getMessage());

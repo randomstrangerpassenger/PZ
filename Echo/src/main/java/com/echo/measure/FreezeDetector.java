@@ -164,6 +164,9 @@ public class FreezeDetector {
         if (!isRunning.get())
             return;
         lastTickTime.set(System.currentTimeMillis());
+
+        // Self-Validation: freeze check heartbeat (Echo 0.9.0)
+        com.echo.validation.SelfValidation.getInstance().freezeCheckHeartbeat();
     }
 
     // ============================================================

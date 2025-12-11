@@ -1,0 +1,90 @@
+﻿> Task :pulse-api:compileJava UP-TO-DATE
+> Task :Pulse:compileJava UP-TO-DATE
+> Task :Echo:compileJava UP-TO-DATE
+> Task :Echo:processResources UP-TO-DATE
+> Task :Echo:classes UP-TO-DATE
+> Task :Echo:compileTestJava UP-TO-DATE
+> Task :Echo:processTestResources NO-SOURCE
+> Task :Echo:testClasses UP-TO-DATE
+./gradlew : Failed to 
+map supported failure 
+'org.opentest4j.Assert
+ionFailedError: expect
+ed: not <null>' with m
+apper 'org.gradle.api.
+internal.tasks.testing
+.failure.mappers.OpenT
+estAssertionFailedMapp
+er@12d2ce03': Cannot i
+nvoke "Object.getClass
+()" because "obj" is n
+ull
+At line:1 char:1
++ ./gradlew :Echo:test
+ --console=plain 2>&1 
+| Out-File -FilePath t
+est_o ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpecifi
+ed    : (Failed to map
+ s.    ..e "obj" is nu
+ll:S    tring) [], Rem
+oteEx    ception
+    + FullyQualifiedEr
+r    orId : NativeComm
+an    dError
+ 
+Failed to map supporte
+d failure 'org.opentes
+t4j.AssertionFailedErr
+or: expected: not <nul
+l>' with mapper 'org.g
+radle.api.internal.tas
+ks.testing.failure.map
+pers.OpenTestAssertion
+FailedMapper@12d2ce03'
+: Cannot invoke "Objec
+t.getClass()" because 
+"obj" is null
+
+> Task :Echo:test FAILED
+
+EchoProfilerTest > Reset clears all data FAILED
+    java.lang.NullPointerException at EchoProfilerTest.java:112
+
+EchoProfilerTest > Push/Pop records timing data FAILED
+    org.opentest4j.AssertionFailedError at EchoProfilerTest.java:55
+
+EchoProfilerTest > Scope API with try-with-resources FAILED
+    org.opentest4j.AssertionFailedError at EchoProfilerTest.java:71
+
+EchoProfilerTest > Labeled profiling FAILED
+    java.lang.NullPointerException at EchoProfilerTest.java:96
+
+EchoProfilerTest > Raw API for zero-allocation FAILED
+    java.lang.NullPointerException at EchoProfilerTest.java:83
+
+24 tests completed, 5 
+failed
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for t
+ask ':Echo:test'.
+> There were failing t
+ests. See the report a
+t: file:///C:/Users/MW
+/Downloads/coding/PZ/E
+cho/build/reports/test
+s/test/index.html
+
+* Try:
+> Run with --scan to g
+et full insights.
+
+BUILD FAILED in 1s
+6 actionable tasks: 1 executed, 5 up-to-date

@@ -4,6 +4,8 @@ import com.echo.EchoMod;
 import com.echo.measure.FreezeDetector;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEvent;
+import com.pulse.event.lifecycle.GameTickStartEvent;
+import com.pulse.event.lifecycle.GameTickEndEvent;
 import com.pulse.event.gui.GuiRenderEvent;
 
 /**
@@ -33,24 +35,47 @@ public class PulseEventAdapter {
         renderProfiler = new RenderProfiler();
 
         // Pulse EventBus 직접 구독 (v2.0 Native)
-        // GameTickEvent는 틱 완료 후 발생하므로 Pre/Post가 아닌 단일 이벤트로 처리
-        EventBus.subscribe(GameTickEvent.class, event -> {
-            // Echo 1.0: FreezeDetector 생존 신고
-            FreezeDetector.getInstance().tick();
+
+        // v0.9: GameTickStartEvent - 틱 시작 (계약 검증용)
+        EventBus.subscribe(GameTickStartEvent.class, event -> {
+            tickProfiler.onTickStart();
 
             // 디버그: 첫 이벤트 수신 확인
             if (event.getTick() == 1) {
-                System.out.println("[Echo/DEBUG] First GameTickEvent received! deltaTime=" + event.getDeltaTime());
+                System.out.println("[Echo/DEBUG] First GameTickStartEvent received!");
+            }
+        }, EchoMod.MOD_ID);
+
+        // v0.9: GameTickEndEvent - 정밀 틱 소요 시간 기록 (Primary API)
+        EventBus.subscribe(GameTickEndEvent.class, event -> {
+            // Echo 1.0: FreezeDetector 생존 신고
+            FreezeDetector.getInstance().tick();
+
+            // 정밀 타이밍 기록 (Pulse에서 계산한 nanos 사용)
+            tickProfiler.recordTickDuration(event.getDurationNanos());
+
+            // 디버그: 첫 이벤트 수신 확인
+            if (event.getTick() == 1) {
+                System.out.println("[Echo/DEBUG] First GameTickEndEvent received! durationMs=" + event.getDurationMs());
             }
             // 매 1000번째 틱마다 상태 출력
             if (event.getTick() % 1000 == 0) {
-                System.out.printf("[Echo/DEBUG] GameTickEvent #%d received, deltaTime=%.4f%n",
-                        event.getTick(), event.getDeltaTime());
+                System.out.printf("[Echo/DEBUG] GameTickEndEvent #%d, durationMs=%.4f%n",
+                        event.getTick(), event.getDurationMs());
             }
+        }, EchoMod.MOD_ID);
 
-            // deltaTime을 밀리초로 변환해서 직접 기록
-            float deltaTimeMs = event.getDeltaTime() * 1000.0f;
-            tickProfiler.onTick(deltaTimeMs);
+        // Legacy: GameTickEvent - 하위 호환성 유지 (deltaTime 기반 계약 검증)
+        // GameTickEvent는 틱 완료 후 발생하므로 Pre/Post가 아닌 단일 이벤트로 처리
+        EventBus.subscribe(GameTickEvent.class, event -> {
+            // Contract 검증만 수행 (Start/End가 primary)
+            com.echo.validation.PulseContractVerifier.getInstance().onGameTick(event.getDeltaTime());
+
+            // 디버그: 첫 이벤트 수신 확인
+            if (event.getTick() == 1) {
+                System.out.println(
+                        "[Echo/DEBUG] First GameTickEvent received (legacy) deltaTime=" + event.getDeltaTime());
+            }
         }, EchoMod.MOD_ID);
 
         EventBus.subscribe(GuiRenderEvent.class, event -> {

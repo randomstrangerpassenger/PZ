@@ -80,6 +80,34 @@ public class EchoConfig {
     private int topNFunctions = EchoConstants.DEFAULT_TOP_N;
 
     // ============================================================
+    // v0.9.0 Zero-Risk Engine 설정
+    // ============================================================
+
+    /**
+     * Fallback tick 허용 (디버그 전용, 기본 OFF)
+     * 
+     * @see com.pulse.api.TickContract
+     */
+    private boolean allowFallbackTicks = false;
+
+    /**
+     * Fallback tick 간격 (ms)
+     * 기준: TickContract.DEFAULT_FALLBACK_INTERVAL_MS (200ms)
+     * 
+     * @see com.pulse.api.TickContract#DEFAULT_FALLBACK_INTERVAL_MS
+     */
+    private long fallbackTickIntervalMs = 200;
+
+    /** 저장 최소 품질 임계값 (기본 0 = 모두 저장) */
+    private int minQualityToSave = 0;
+
+    /** 사용자가 명시적으로 Lua OFF를 지정했는지 */
+    private boolean userExplicitLuaOff = false;
+
+    /** fallback tick이 사용되었는지 (런타임 상태) */
+    private transient boolean usedFallbackTicks = false;
+
+    // ============================================================
     // Singleton
     // ============================================================
 
@@ -183,8 +211,68 @@ public class EchoConfig {
         this.stackCaptureEnabled = false;
         this.debugMode = false;
         this.topNFunctions = EchoConstants.DEFAULT_TOP_N;
+        this.allowFallbackTicks = false;
+        this.minQualityToSave = 0;
+        this.userExplicitLuaOff = false;
         save();
         System.out.println("[Echo] Config reset to defaults");
+    }
+
+    /**
+     * 설정 검증 및 자동 수정 (Echo 0.9.0 Zero-Risk)
+     * enable() 전에 호출하여 잘못된 설정 자동 보정
+     * 
+     * @return 수정된 항목 수
+     */
+    public int sanitize() {
+        int fixCount = 0;
+        StringBuilder log = new StringBuilder();
+
+        // 1. spikeThresholdMs < 0 → 기본값
+        if (spikeThresholdMs < 0) {
+            spikeThresholdMs = EchoConstants.DEFAULT_SPIKE_THRESHOLD_MS;
+            log.append("  - spikeThresholdMs was negative → set to ").append(spikeThresholdMs).append("ms\n");
+            fixCount++;
+        }
+
+        // 2. deepAnalysisEnabled=true인데 모든 detail 옵션이 false → Wave 1 자동 활성화
+        if (deepAnalysisEnabled && !enablePathfindingDetails && !enableZombieDetails && !enableIsoGridDetails) {
+            // Wave 1 기본 옵션을 켜줌 (최소한의 deep analysis)
+            log.append("  - DeepAnalysis ON but all detail options OFF → enabling basic Wave 1\n");
+            // Wave 1은 SubProfiler의 기본 라벨들로 deepAnalysisEnabled만 있으면 동작함
+            // 추가 조치 없음 (Wave 1은 deepAnalysisEnabled가 true면 자동 활성화)
+            fixCount++;
+        }
+
+        // 3. topNFunctions가 너무 작거나 큰 경우
+        if (topNFunctions < 1) {
+            topNFunctions = 1;
+            log.append("  - topNFunctions was < 1 → set to 1\n");
+            fixCount++;
+        } else if (topNFunctions > 100) {
+            topNFunctions = 100;
+            log.append("  - topNFunctions was > 100 → set to 100\n");
+            fixCount++;
+        }
+
+        // 4. minQualityToSave 범위 체크
+        if (minQualityToSave < 0) {
+            minQualityToSave = 0;
+            log.append("  - minQualityToSave was < 0 → set to 0\n");
+            fixCount++;
+        } else if (minQualityToSave > 100) {
+            minQualityToSave = 100;
+            log.append("  - minQualityToSave was > 100 → set to 100\n");
+            fixCount++;
+        }
+
+        if (fixCount > 0) {
+            System.out.println("[Echo] Config.sanitize() auto-fixed " + fixCount + " issue(s):");
+            System.out.print(log);
+            save();
+        }
+
+        return fixCount;
     }
 
     // ============================================================
@@ -307,6 +395,50 @@ public class EchoConfig {
         this.topNFunctions = topNFunctions;
     }
 
+    // ============================================================
+    // v0.9.0 Zero-Risk Engine Getters / Setters
+    // ============================================================
+
+    public boolean isAllowFallbackTicks() {
+        return allowFallbackTicks;
+    }
+
+    public void setAllowFallbackTicks(boolean allowFallbackTicks) {
+        this.allowFallbackTicks = allowFallbackTicks;
+    }
+
+    public int getMinQualityToSave() {
+        return minQualityToSave;
+    }
+
+    public void setMinQualityToSave(int minQualityToSave) {
+        this.minQualityToSave = minQualityToSave;
+    }
+
+    public boolean isUserExplicitLuaOff() {
+        return userExplicitLuaOff;
+    }
+
+    public void setUserExplicitLuaOff(boolean userExplicitLuaOff) {
+        this.userExplicitLuaOff = userExplicitLuaOff;
+    }
+
+    public boolean isUsedFallbackTicks() {
+        return usedFallbackTicks;
+    }
+
+    public void setUsedFallbackTicks(boolean usedFallbackTicks) {
+        this.usedFallbackTicks = usedFallbackTicks;
+    }
+
+    public long getFallbackTickIntervalMs() {
+        return fallbackTickIntervalMs;
+    }
+
+    public void setFallbackTickIntervalMs(long fallbackTickIntervalMs) {
+        this.fallbackTickIntervalMs = Math.max(50, Math.min(1000, fallbackTickIntervalMs)); // 50-1000ms range
+    }
+
     /**
      * 콘솔 출력
      */
@@ -326,6 +458,9 @@ public class EchoConfig {
         System.out.printf("  stack.capture       = %s%n", stackCaptureEnabled);
         System.out.printf("  debug.mode          = %s%n", debugMode);
         System.out.printf("  top_n               = %d%n", topNFunctions);
+        System.out.println("  --- Zero-Risk Engine (v0.9.0) ---");
+        System.out.printf("  fallback.ticks      = %s%n", allowFallbackTicks);
+        System.out.printf("  min.quality.save    = %d%n", minQualityToSave);
         System.out.println();
     }
 }

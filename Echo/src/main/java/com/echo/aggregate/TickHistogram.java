@@ -24,10 +24,17 @@ public class TickHistogram {
 
     // 통계
     private final LongAdder sumMicros = new LongAdder();
+    private final LongAdder sumSquaresMicros = new LongAdder(); // v0.9: 표준편차 계산용
 
     // Jank 카운터 (Phase 4)
     private final LongAdder jankCount60 = new LongAdder(); // >16.67ms (60fps 기준)
     private final LongAdder jankCount30 = new LongAdder(); // >33.33ms (30fps 기준)
+    private final LongAdder warmupCount = new LongAdder(); // Warmup 기간 틱 수 (Echo 0.9.0)
+
+    // v0.9: 틱 간 편차 추적
+    private long lastSampleMicros = -1;
+    private final LongAdder varianceSum = new LongAdder(); // abs(current - prev) 누적
+    private final LongAdder varianceCount = new LongAdder();
 
     // Jank 임계값 (마이크로초)
     private static final long JANK_THRESHOLD_60_MICROS = 16_667; // 16.67ms
@@ -72,11 +79,31 @@ public class TickHistogram {
             jankCount30.increment();
         }
 
+        // v0.9: 표준편차 계산용 제곱합
+        sumSquaresMicros.add(durationMicros * durationMicros / 1000); // overflow 방지: micros^2 / 1000
+
+        // v0.9: 틱 간 편차 추적
+        if (lastSampleMicros >= 0) {
+            long variance = Math.abs(durationMicros - lastSampleMicros);
+            varianceSum.add(variance);
+            varianceCount.increment();
+        }
+        lastSampleMicros = durationMicros;
+
         // 최근 샘플 저장 (정확한 백분위수용)
         synchronized (sampleLock) {
             recentSamples[sampleIndex] = durationMicros;
             sampleIndex = (sampleIndex + 1) % recentSamples.length;
         }
+    }
+
+    /**
+     * Warmup 샘플 추가 (통계 제외, 카운트만)
+     */
+    public void addWarmupSample(long durationMicros) {
+        warmupCount.increment();
+        // Warmup 데이터는 메인 통계(P50 등)에 포함하지 않음
+        // 필요시 나중에 별도 분석용으로 저장 가능
     }
 
     private int findBucket(double durationMs) {
@@ -235,6 +262,83 @@ public class TickHistogram {
         return jankCount30.sum();
     }
 
+    // ============================================================
+    // v0.9: Histogram 품질 측정 (Fuse/Nerve 지원)
+    // ============================================================
+
+    /**
+     * 표준편차 (밀리초)
+     * 틱 시간의 분포 폭을 측정합니다.
+     */
+    public double getStandardDeviationMs() {
+        long n = totalSamples.sum();
+        if (n < 2)
+            return 0;
+
+        double mean = (sumMicros.sum() / 1000.0) / n; // ms
+        double sumSq = sumSquaresMicros.sum(); // micros^2 / 1000 단위
+
+        // Variance = E[X^2] - (E[X])^2
+        // sumSq는 micros^2/1000 단위이므로 변환 필요
+        double meanSq = mean * mean;
+        double varMs = (sumSq / n / 1000.0) - meanSq; // 근사치
+
+        return varMs > 0 ? Math.sqrt(varMs) : 0;
+    }
+
+    /**
+     * 상위 1% 스파이크 수 (P99 초과 샘플 수)
+     */
+    public long getP99SpikeCount() {
+        long total = totalSamples.sum();
+        if (total == 0)
+            return 0;
+
+        // 상위 1% = P99 초과
+        return (long) Math.ceil(total * 0.01);
+    }
+
+    /**
+     * 틱 간 편차 변화율 (밀리초)
+     * 연속된 틱 사이의 평균 시간 차이를 측정합니다.
+     * 낮을수록 일관성 있는 프레임 타이밍.
+     */
+    public double getVarianceRateMs() {
+        long count = varianceCount.sum();
+        if (count == 0)
+            return 0;
+        return (varianceSum.sum() / 1000.0) / count;
+    }
+
+    /**
+     * 품질 점수 (0-100)
+     * P99/P50 비율과 표준편차를 기반으로 버퍼 안정성을 평가합니다.
+     */
+    public int getQualityScore() {
+        long samples = totalSamples.sum();
+        if (samples < 60)
+            return 0; // 최소 60 샘플 (1초) 필요
+
+        double p50 = getP50();
+        double p99 = getP99();
+        double stdDev = getStandardDeviationMs();
+
+        if (p50 <= 0)
+            return 0;
+
+        // P99/P50 ratio: 1.0 = 완벽, 2.0+ = 불안정
+        double ratio = p99 / p50;
+        int ratioScore = (int) Math.max(0, 100 - (ratio - 1) * 30);
+
+        // StdDev: 0 = 완벽, 10ms+ = 불안정
+        int stdDevScore = (int) Math.max(0, 100 - stdDev * 5);
+
+        // Jank 60fps: 0% = 완벽, 10%+ = 불안정
+        int jankScore = (int) Math.max(0, 100 - getJankPercent60() * 5);
+
+        return (ratioScore + stdDevScore + jankScore) / 3;
+    }
+
     /**
      * JSON 출력용 Map 생성
      */
@@ -261,6 +365,13 @@ public class TickHistogram {
         map.put("p99_ms", Math.round(getP99() * 100) / 100.0);
         map.put("jank_percent_60fps", Math.round(getJankPercent60() * 100) / 100.0);
         map.put("jank_percent_30fps", Math.round(getJankPercent30() * 100) / 100.0);
+        map.put("warmup_ticks", warmupCount.sum());
+
+        // v0.9: 품질 측정 지표
+        map.put("std_deviation_ms", Math.round(getStandardDeviationMs() * 100) / 100.0);
+        map.put("p99_spike_count", getP99SpikeCount());
+        map.put("variance_rate_ms", Math.round(getVarianceRateMs() * 100) / 100.0);
+        map.put("quality_score", getQualityScore());
 
         return map;
     }
@@ -311,8 +422,13 @@ public class TickHistogram {
         }
         totalSamples.reset();
         sumMicros.reset();
+        sumSquaresMicros.reset();
         jankCount60.reset();
         jankCount30.reset();
+        warmupCount.reset();
+        varianceSum.reset();
+        varianceCount.reset();
+        lastSampleMicros = -1;
         synchronized (sampleLock) {
             java.util.Arrays.fill(recentSamples, 0);
             sampleIndex = 0;

@@ -1,0 +1,30 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.5/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :pulse-api:compileJava UP-TO-DATE
+> Task :Pulse:compileJava UP-TO-DATE
+
+> Task :Echo:compileJava FAILED
+C:\Users\MW\Downloads\coding\PZ\Echo\src\main\java\com\echo\pulse\TickPhaseBridge.java:117: error: cannot find symbol
+        int pulsePhaseErrors = TickPhaseHook.getPhaseErrorCount();
+                                            ^
+  symbol:   method getPhaseErrorCount()
+  location: class TickPhaseHook
+C:\Users\MW\Downloads\coding\PZ\Echo\src\main\java\com\echo\validation\SelfValidation.java:227: error: cannot find symbol
+        int phaseErrors = TickPhaseHook.getPhaseErrorCount();
+                                       ^
+  symbol:   method getPhaseErrorCount()
+  location: class TickPhaseHook
+2 errors
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':Echo:compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+> Run with --info option to get more log output.
+> Run with --scan to get full insights.
+
+BUILD FAILED in 8s
+3 actionable tasks: 1 executed, 2 up-to-date

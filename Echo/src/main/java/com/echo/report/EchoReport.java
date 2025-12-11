@@ -10,6 +10,7 @@ import com.echo.measure.MemoryProfiler;
 import com.echo.measure.ProfilingPoint;
 import com.echo.measure.SubProfiler;
 import com.echo.measure.TickPhaseProfiler;
+import com.echo.validation.SelfValidation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -32,7 +33,7 @@ public class EchoReport {
             .setPrettyPrinting()
             .create();
 
-    private static final String VERSION = "0.2.0";
+    private static final String VERSION = "0.9.0";
 
     private final EchoProfiler profiler;
     private final int topN;
@@ -68,6 +69,9 @@ public class EchoReport {
         echoReport.put("lua_profiling", generateLuaProfiling());
         echoReport.put("lua_gc", generateLuaGCStats());
         echoReport.put("fuse_deep_analysis", generateFuseDeepAnalysis());
+        echoReport.put("validation_status", generateValidationStatus());
+        echoReport.put("pulse_contract", com.echo.validation.PulseContractVerifier.getInstance().toMap());
+        echoReport.put("report_quality", generateReportQuality());
         echoReport.put("recommendations", generateRecommendations());
         echoReport.put("metadata", generateMetadata());
 
@@ -174,6 +178,22 @@ public class EchoReport {
      * 타임스탬프 파일명으로 자동 저장
      */
     public String saveWithTimestamp(String directory) throws IOException {
+        // Check for empty data (Phase 2.3)
+        if (profiler.getTickHistogram().getTotalSamples() == 0) {
+            System.out.println("[Echo] Skipping report save: No data collected (0 ticks).");
+            return null;
+        }
+
+        // Phase 5.2: Low Quality Report Handling
+        int score = ReportQualityScorer.getInstance().calculateScore(profiler).score;
+        int minQuality = com.echo.config.EchoConfig.getInstance().getMinQualityToSave();
+
+        if (score < minQuality) {
+            directory = directory + File.separator + "low_quality";
+            System.out.println("[Echo] Report quality (" + score + ") below threshold (" + minQuality
+                    + "). Saving to low_quality folder.");
+        }
+
         String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")
                 .format(java.time.LocalDateTime.now());
         String filename = "echo_report_" + timestamp + ".json";
@@ -670,11 +690,59 @@ public class EchoReport {
             }
         }
 
+        // Hook Status Check
+        SelfValidation.ValidationResult val = SelfValidation.getInstance().getLastResult();
+        if (val != null && val.hookStatus != SelfValidation.HookStatus.OK) {
+            recommendations.add("CRITICAL: Pulse hooks are MISSING or PARTIAL. Check Mixin logs.");
+        }
+
+        // Fallback Ticks Check
+        if (com.echo.config.EchoConfig.getInstance().isUsedFallbackTicks()) {
+            recommendations.add("WARNING: Fallback ticks were used. Timing data may be inaccurate.");
+        }
+
+        // Session Length Check
+        long sessionMs = profiler.getSessionDurationMs();
+        if (sessionMs < 10000) {
+            recommendations.add("INFO: Short session (<10s). Data may be noisy.");
+        }
+
         if (recommendations.isEmpty()) {
             recommendations.add("Performance looks good! No critical issues detected.");
         }
 
         return recommendations;
+    }
+
+    /**
+     * 세션 종료 시 품질 요약 출력 (Phase 6.2)
+     */
+    public void printQualitySummary() {
+        ReportQualityScorer.QualityResult result = ReportQualityScorer.getInstance().calculateScore(profiler);
+        System.out.println("\n═══════════════════════════════════════════════════════");
+        System.out.printf(" 🎯 ECHO SESSION QUALITY: %d/100%n", result.score);
+        System.out.println("═══════════════════════════════════════════════════════");
+
+        if (result.hasIssues()) {
+            System.out.println(" Detected Issues:");
+            for (Map<String, String> issue : result.issues) {
+                String severity = issue.get("severity").toUpperCase();
+                String desc = issue.get("description");
+                System.out.printf("   [%s] %s%n", severity, desc);
+            }
+        } else {
+            System.out.println(" ✅ No significant data quality issues.");
+        }
+
+        // Recommendations
+        List<String> recs = generateRecommendations();
+        if (!recs.isEmpty()) {
+            System.out.println("\n Recommendations:");
+            for (String rec : recs) {
+                System.out.println("   - " + rec);
+            }
+        }
+        System.out.println("═══════════════════════════════════════════════════════\n");
     }
 
     private Map<String, Object> generateMemoryStats() {
@@ -699,6 +767,21 @@ public class EchoReport {
         map.put("zombie", com.echo.fuse.ZombieProfiler.getInstance().toMap());
         map.put("iso_grid", com.echo.fuse.IsoGridProfiler.getInstance().toMap());
         return map;
+    }
+
+    /**
+     * Self-Validation 상태 생성 (Echo 0.9.0)
+     */
+    private Map<String, Object> generateValidationStatus() {
+        return com.echo.validation.SelfValidation.getInstance().toMap();
+    }
+
+    /**
+     * 리포트 품질 점수 생성 (Echo 0.9.0)
+     */
+    private Map<String, Object> generateReportQuality() {
+        ReportQualityScorer.QualityResult result = ReportQualityScorer.getInstance().calculateScore(profiler);
+        return result.toMap();
     }
 
     private Map<String, Object> generateMetadata() {

@@ -7,7 +7,9 @@ import com.echo.measure.ProfilingPoint;
  * 틱 프로파일러
  * 
  * 게임 틱 시작/종료 시점을 측정합니다.
- * Pulse OnTick 이벤트와 연동됩니다.
+ * Pulse GameTickStartEvent/GameTickEndEvent와 연동됩니다.
+ * 
+ * @since Echo 0.9 - Added Start/End event-based profiling
  */
 public class TickProfiler {
 
@@ -35,6 +37,9 @@ public class TickProfiler {
      * @param deltaTimeMs 틱 소요 시간 (밀리초)
      */
     public void onTick(float deltaTimeMs) {
+        // Self-Validation: heartbeat 증가 (Echo 0.9.0)
+        com.echo.validation.SelfValidation.getInstance().tickHeartbeat();
+
         // 디버그: 매 100번째 틱마다 상태 출력
         if (tickCount % 100 == 0) {
             System.out.printf("[Echo/DEBUG] onTick called: tick=%d, deltaMs=%.2f, profilerEnabled=%b%n",
@@ -60,7 +65,12 @@ public class TickProfiler {
         profiler.getTimingData(ProfilingPoint.TICK).addSample(durationNanos, null);
 
         // Histogram에 기록
-        profiler.getTickHistogram().addSample(durationMicros);
+        // Histogram에 기록 (Warmup 체크: 3초)
+        if (profiler.getSessionDurationMs() < 3000) {
+            profiler.getTickHistogram().addWarmupSample(durationMicros);
+        } else {
+            profiler.getTickHistogram().addSample(durationMicros);
+        }
 
         // 스파이크 로그에 기록
         profiler.getSpikeLog().logSpike(durationMicros, ProfilingPoint.TICK, null);
@@ -73,6 +83,69 @@ public class TickProfiler {
         // 첫 틱에서 정상 동작 확인
         if (tickCount == 1) {
             System.out.println("[Echo] ✓ First tick recorded successfully!");
+        }
+    }
+
+    // ============================================================
+    // v0.9: Start/End Event-Based Profiling (Primary API)
+    // ============================================================
+
+    /**
+     * 틱 시작 시 호출 (GameTickStartEvent)
+     * 타이밍은 GameTickEndEvent의 durationNanos로 측정하므로
+     * 이 메서드는 contract 검증용으로만 사용됩니다.
+     */
+    public void onTickStart() {
+        lastTickStartTime = System.nanoTime();
+        // Contract verification은 PulseContractVerifier에서 처리
+    }
+
+    /**
+     * 정밀 틱 소요 시간 기록 (GameTickEndEvent)
+     * Pulse에서 직접 계산한 나노초 단위의 정밀 타이밍을 사용합니다.
+     * 
+     * @param durationNanos 틱 소요 시간 (나노초) - Pulse에서 계산됨
+     */
+    public void recordTickDuration(long durationNanos) {
+        // Self-Validation: heartbeat 증가
+        com.echo.validation.SelfValidation.getInstance().tickHeartbeat();
+
+        if (!profiler.isEnabled()) {
+            if (tickCount == 0) {
+                System.out.println("[Echo/WARN] TickProfiler: Profiler is DISABLED!");
+            }
+            tickCount++;
+            return;
+        }
+
+        tickCount++;
+        long durationMicros = durationNanos / 1000;
+        lastTickDuration = durationMicros;
+
+        // TimingData에 직접 샘플 추가
+        profiler.getTimingData(ProfilingPoint.TICK).addSample(durationNanos, null);
+
+        // Histogram에 기록 (Warmup 체크: 3초)
+        if (profiler.getSessionDurationMs() < 3000) {
+            profiler.getTickHistogram().addWarmupSample(durationMicros);
+        } else {
+            profiler.getTickHistogram().addSample(durationMicros);
+        }
+
+        // 스파이크 로그에 기록
+        profiler.getSpikeLog().logSpike(durationMicros, ProfilingPoint.TICK, null);
+
+        // 스파이크 감지
+        if (durationMicros > spikeThresholdMicros) {
+            onSpikeDetected(durationMicros);
+        }
+
+        // 첫 틱 / 100번째 틱 로그
+        if (tickCount == 1) {
+            System.out.println("[Echo] ✓ First tick recorded via Start/End events!");
+        } else if (tickCount % 100 == 0) {
+            System.out.printf("[Echo/DEBUG] recordTickDuration: tick=%d, durationMs=%.2f%n",
+                    tickCount, durationNanos / 1_000_000.0);
         }
     }
 

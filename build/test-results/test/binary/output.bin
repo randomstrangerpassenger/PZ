@@ -1,74 +1,0 @@
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector started
-'[Echo] Profiler ENABLED (stats reset)
-?[Echo] Config loaded from: C:\Users\MW\Zomboid\Echo\echo.json
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector stopped
-[Echo] Profiler DISABLED
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector started
-'[Echo] Profiler ENABLED (stats reset)
-[Echo] FreezeDetector stopped
-[Echo] Profiler DISABLED
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector started
-'[Echo] Profiler ENABLED (stats reset)
-[Echo] FreezeDetector stopped
-[Echo] Profiler DISABLED
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector started
-'[Echo] Profiler ENABLED (stats reset)
-[Echo] FreezeDetector stopped
-[Echo] Profiler DISABLED
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector started
-'[Echo] Profiler ENABLED (stats reset)
-[Echo] FreezeDetector stopped
-[Echo] Profiler DISABLED
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector started
-'[Echo] Profiler ENABLED (stats reset)
-[Echo] FreezeDetector stopped
-[Echo] Profiler DISABLED
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector started
-'[Echo] Profiler ENABLED (stats reset)
-[Echo] FreezeDetector stopped
-[Echo] Profiler DISABLED
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] Lua call tracker RESET
-[Echo] Profiler stats RESET
-[Echo] FreezeDetector started
-'[Echo] Profiler ENABLED (stats reset)
-[Echo] FreezeDetector stopped
-[Echo] Profiler DISABLED
-	[Echo] Lua call tracker RESET
-	[Echo] Profiler stats RESET
-	[Echo] Lua call tracker RESET
-	[Echo] Profiler stats RESET
-	[Echo] FreezeDetector started
-	'[Echo] Profiler ENABLED (stats reset)
-	[Echo] FreezeDetector stopped
-	[Echo] Profiler DISABLED
-'[Echo] Spike threshold set to: 5.0 ms

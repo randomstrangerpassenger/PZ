@@ -244,6 +244,21 @@ public class TickPhaseProfiler {
     }
 
     /**
+     * 데이터가 있는 Phase 수 반환 (Quality Scorer용)
+     * 
+     * @since Echo 0.9.0
+     */
+    public int getTotalPhaseCount() {
+        int count = 0;
+        for (PhaseTimingData data : phaseTimings.values()) {
+            if (data.getCallCount() > 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
      * 현재 틱의 Phase별 시간 반환 (ms 단위)
      */
     public Map<TickPhase, Double> getCurrentTickPhaseMs() {

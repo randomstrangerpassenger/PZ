@@ -19,6 +19,11 @@ public class LuaCallTracker {
 
     private static final LuaCallTracker INSTANCE = new LuaCallTracker();
 
+    // Auto-Enable 설정 (Echo 0.9.0)
+    private static final int AUTO_ENABLE_THRESHOLD = 5;
+    private final java.util.concurrent.atomic.AtomicInteger consecutiveCallCount = new java.util.concurrent.atomic.AtomicInteger(
+            0);
+
     // 함수별 통계
     private final Map<String, LuaFunctionStats> functionStats = new ConcurrentHashMap<>();
 
@@ -115,6 +120,9 @@ public class LuaCallTracker {
      * 프로파일링 래퍼 - 함수
      */
     public void profileFunction(String functionName, Runnable function) {
+        // Phase 2.2: Auto-Enable Logic
+        checkAutoEnable();
+
         if (!EchoProfiler.getInstance().isLuaProfilingEnabled()) {
             function.run();
             return;
@@ -133,6 +141,9 @@ public class LuaCallTracker {
      * 프로파일링 래퍼 - 이벤트
      */
     public void profileEvent(String eventName, int handlerCount, Runnable event) {
+        // Phase 2.2: Auto-Enable Logic
+        checkAutoEnable();
+
         if (!EchoProfiler.getInstance().isLuaProfilingEnabled()) {
             event.run();
             return;
@@ -209,6 +220,28 @@ public class LuaCallTracker {
         lastCacheUpdate = now;
     }
 
+    private void checkAutoEnable() {
+        com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
+
+        // 이미 켜져있거나, 사용자가 명시적으로 껐으면 체크 안함
+        if (config.isLuaProfilingEnabled()) {
+            // 이미 켜져있으면 카운터 0으로 유지 (불필요한 증가 방지)
+            consecutiveCallCount.set(0);
+            return;
+        }
+        if (config.isUserExplicitLuaOff()) {
+            return;
+        }
+
+        // 연속 호출 감지
+        if (consecutiveCallCount.incrementAndGet() >= AUTO_ENABLE_THRESHOLD) {
+            System.out.println("[Echo] ⚠️ Detected sustained Lua activity (" + AUTO_ENABLE_THRESHOLD
+                    + " calls). Auto-enabling Lua Profiling.");
+            config.setLuaProfilingEnabled(true);
+            config.save();
+        }
+    }
+
     /**
      * 초기화
      */
@@ -222,6 +255,10 @@ public class LuaCallTracker {
         topByCallsCached.clear();
         contextStats.clear();
         fileStats.clear();
+
+        // Reset auto-enable counter
+        consecutiveCallCount.set(0);
+
         System.out.println("[Echo] Lua call tracker RESET");
     }
 

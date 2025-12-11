@@ -2,7 +2,11 @@ package com.pulse.mixin;
 
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEvent;
+import com.pulse.event.lifecycle.GameTickStartEvent;
+import com.pulse.event.lifecycle.GameTickEndEvent;
 import com.pulse.event.lifecycle.WorldLoadEvent;
+import com.pulse.hook.HookTypes;
+import com.pulse.hook.PulseHookRegistry;
 import com.pulse.scheduler.PulseScheduler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * GameClient.update()는 멀티플레이어 전용이므로 여기서 GameTickEvent를 발생시킴.
  * 
  * @since Pulse 1.0
- * @since Echo 1.0 - SubProfilerHook 통합
+ * @since Pulse 1.2 - GameTickStartEvent/GameTickEndEvent, HookRegistry 통합
  */
 @Mixin(targets = "zombie.iso.IsoWorld")
 public abstract class IsoWorldMixin {
@@ -51,6 +55,10 @@ public abstract class IsoWorldMixin {
 
     @Unique
     private static boolean Pulse$firstTickLogged = false;
+
+    // Pulse 1.2: Tick 시작 시간 (정밀 측정용)
+    @Unique
+    private static long Pulse$tickStartNanos = -1;
 
     // Echo 1.0: SubProfiler 시작 시간
     @Unique
@@ -86,6 +94,16 @@ public abstract class IsoWorldMixin {
      */
     @Inject(method = "update", at = @At("HEAD"))
     private void Pulse$onUpdateStart(CallbackInfo ci) {
+        // Pulse 1.2: 틱 시작 시간 기록
+        Pulse$tickStartNanos = System.nanoTime();
+
+        // Pulse 1.2: GameTickStartEvent 발생
+        EventBus.post(new GameTickStartEvent(Pulse$tickCount + 1));
+
+        // Pulse 1.2: HookRegistry 콜백 호출
+        final long tickNum = Pulse$tickCount + 1;
+        PulseHookRegistry.broadcast(HookTypes.GAME_TICK, cb -> cb.onGameTickStart(tickNum));
+
         // Echo 1.0: WORLD_UPDATE Phase Start
         Pulse$worldUpdateStart = com.pulse.api.profiler.TickPhaseHook.startPhase("WORLD_UPDATE");
     }
@@ -101,6 +119,10 @@ public abstract class IsoWorldMixin {
         Pulse$worldUpdateStart = -1;
 
         long currentTime = System.nanoTime();
+
+        // Pulse 1.2: 정밀 틱 소요 시간 계산
+        long tickDurationNanos = currentTime - Pulse$tickStartNanos;
+
         float deltaTime = (currentTime - Pulse$lastTickTime) / 1_000_000_000.0f;
         Pulse$lastTickTime = currentTime;
 
@@ -123,7 +145,15 @@ public abstract class IsoWorldMixin {
         // Tick Phase 완료 알림
         com.pulse.api.profiler.TickPhaseHook.onTickComplete();
 
-        // GameTickEvent 발생
+        // Pulse 1.2: GameTickEndEvent 발생 (정밀 소요 시간 포함)
+        EventBus.post(new GameTickEndEvent(Pulse$tickCount, tickDurationNanos));
+
+        // Pulse 1.2: HookRegistry 콜백 호출
+        final long tickNum = Pulse$tickCount;
+        final long duration = tickDurationNanos;
+        PulseHookRegistry.broadcast(HookTypes.GAME_TICK, cb -> cb.onGameTickEnd(tickNum, duration));
+
+        // 기존 GameTickEvent 발생 (하위 호환성)
         EventBus.post(new GameTickEvent(Pulse$tickCount, deltaTime));
     }
 }

@@ -24,9 +24,11 @@ dependencies {
     // - 단독 빌드 (Echo repo만): libs/pulse-api.jar 사용
     if (findProject(':pulse-api') != null) {
         compileOnly project(':pulse-api')
+        testImplementation project(':pulse-api')  // v0.9: 테스트에서도 pulse-api 참조 필요
     } else {
         // Echo repo 단독 클론 시 폴백
         compileOnly files('libs/pulse-api.jar')
+        testImplementation files('libs/pulse-api.jar')
     }
     
     // Pulse main (compile-only, for HUDOverlay/UIRenderContext - v2.0 Native UI)

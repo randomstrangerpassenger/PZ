@@ -314,6 +314,21 @@ public class SubProfiler {
     }
 
     /**
+     * 데이터가 있는 엔트리 수 반환 (SelfValidation용)
+     * 
+     * @since Echo 0.9.0
+     */
+    public int getEntryCount() {
+        int count = 0;
+        for (SubTimingData data : subTimings.values()) {
+            if (data.getCallCount() > 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    /**
      * 모든 SubTimingData 조회
      */
     public Collection<SubTimingData> getAllTimings() {

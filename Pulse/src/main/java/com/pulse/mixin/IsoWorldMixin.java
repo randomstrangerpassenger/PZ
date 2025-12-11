@@ -97,6 +97,9 @@ public abstract class IsoWorldMixin {
         // Pulse 1.2: 틱 시작 시간 기록
         Pulse$tickStartNanos = System.nanoTime();
 
+        // Pulse 1.3: PulseMetrics 틱 시작 알림 (Echo 연동)
+        com.pulse.api.PulseMetrics.onTickStart();
+
         // Pulse 1.2: GameTickStartEvent 발생
         EventBus.post(new GameTickStartEvent(Pulse$tickCount + 1));
 
@@ -122,6 +125,9 @@ public abstract class IsoWorldMixin {
 
         // Pulse 1.2: 정밀 틱 소요 시간 계산
         long tickDurationNanos = currentTime - Pulse$tickStartNanos;
+
+        // Pulse 1.3: PulseMetrics 틱 종료 알림 (Echo 연동)
+        com.pulse.api.PulseMetrics.onTickEnd(tickDurationNanos);
 
         float deltaTime = (currentTime - Pulse$lastTickTime) / 1_000_000_000.0f;
         Pulse$lastTickTime = currentTime;

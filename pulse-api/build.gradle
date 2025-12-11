@@ -13,9 +13,14 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-// No dependencies - pure interfaces only
+// No runtime dependencies - pure interfaces only
 dependencies {
-    // Intentionally empty
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 tasks.withType(JavaCompile).configureEach {

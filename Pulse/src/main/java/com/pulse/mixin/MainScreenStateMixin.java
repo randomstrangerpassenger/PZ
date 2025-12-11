@@ -14,7 +14,8 @@ public abstract class MainScreenStateMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void Pulse$onRenderHead(CallbackInfo ci) {
-        // 렌더링 훅 - 필요시 여기에 로직 추가
+        // Pulse 1.3: 프레임 시작 알림 (Echo PulseMetrics 연동)
+        com.pulse.api.PulseMetrics.onFrameStart();
     }
 
     @Inject(method = "render", at = @At("RETURN"))

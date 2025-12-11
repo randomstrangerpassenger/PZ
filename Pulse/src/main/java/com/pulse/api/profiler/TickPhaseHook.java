@@ -60,6 +60,9 @@ public class TickPhaseHook {
         callback = null;
     }
 
+    // Use AtomicInteger for thread safety if needed, though usually on main thread
+    private static int phaseErrorCount = 0;
+
     /**
      * Start a phase. Auto-closes any unclosed previous phase.
      * 
@@ -69,6 +72,7 @@ public class TickPhaseHook {
     public static long startPhase(String phase) {
         // Auto-close unclosed phase (with rate-limited warning)
         if (currentPhase != null) {
+            phaseErrorCount++; // Increment error count
             if (autoCloseWarningCount < MAX_AUTO_CLOSE_WARNINGS) {
                 autoCloseWarningCount++;
                 Pulse.warn("pulse", "[TickPhaseHook] Auto-closing unclosed phase: " + currentPhase
@@ -95,6 +99,7 @@ public class TickPhaseHook {
     public static void endPhase(String phase, long startTime) {
         // Validate phase matches
         if (currentPhase != null && !currentPhase.equals(phase)) {
+            phaseErrorCount++; // Increment error count
             Pulse.warn("pulse", "[TickPhaseHook] Phase mismatch: ending '" + phase
                     + "' but current is '" + currentPhase + "'");
         }
@@ -113,6 +118,7 @@ public class TickPhaseHook {
     public static void onTickComplete() {
         // Auto-close any unclosed phase at tick end
         if (currentPhase != null) {
+            phaseErrorCount++; // Increment error count
             if (autoCloseWarningCount < MAX_AUTO_CLOSE_WARNINGS) {
                 autoCloseWarningCount++;
                 Pulse.warn("pulse", "[TickPhaseHook] Phase '" + currentPhase
@@ -134,9 +140,17 @@ public class TickPhaseHook {
     }
 
     /**
+     * Get total phase errors (mismatches + unclosed phases)
+     */
+    public static int getPhaseErrorCount() {
+        return phaseErrorCount;
+    }
+
+    /**
      * Reset warning counter (for testing)
      */
     public static void resetWarnings() {
         autoCloseWarningCount = 0;
+        phaseErrorCount = 0;
     }
 }

@@ -84,9 +84,35 @@ public final class HookTypes {
      */
     public static final HookType<IChunkCallback> CHUNK = HookType.create("CHUNK", IChunkCallback.class);
 
+    /**
+     * Lua Function Call Hook
+     * 
+     * Hooks into se.krka.kahlua.vm.KahluaThread.call/pcall
+     */
+    public static final HookType<ILuaCallCallback> LUA_CALL = HookType.create("LUA_CALL", ILuaCallCallback.class);
+
     // ─────────────────────────────────────────────────────────────
     // 콜백 인터페이스 정의 (Phase 1.1에서 구현 예정)
     // ─────────────────────────────────────────────────────────────
+
+    /**
+     * Lua Call Callback Interface
+     */
+    public interface ILuaCallCallback {
+        /**
+         * Lua 함수 호출 시작
+         * 
+         * @param function Function object or name (toString)
+         */
+        default void onLuaCallStart(Object function) {
+        }
+
+        /**
+         * Lua 함수 호출 종료
+         */
+        default void onLuaCallEnd(Object function) {
+        }
+    }
 
     /**
      * 게임 틱 콜백 인터페이스

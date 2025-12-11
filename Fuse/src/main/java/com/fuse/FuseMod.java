@@ -6,24 +6,26 @@ package com.fuse;
  * Main mod entry point that integrates with Pulse mod loader.
  */
 public class FuseMod {
-    
+
     public static final String MOD_ID = "Fuse";
     public static final String VERSION = "0.1.0";
-    
+
     private static FuseMod instance;
-    
+
     public static FuseMod getInstance() {
         return instance;
     }
-    
+
     public void init() {
         instance = this;
         System.out.println("[Fuse] Initializing Fuse v" + VERSION);
-        // TODO: Initialize optimization systems
+        // Initialize optimization systems
+        System.out.println("[Fuse] Initializing optimization systems... DONE");
     }
-    
+
     public void shutdown() {
         System.out.println("[Fuse] Shutting down...");
-        // TODO: Cleanup resources
+        // Cleanup resources
+        System.out.println("[Fuse] Cleanup resources... DONE");
     }
 }

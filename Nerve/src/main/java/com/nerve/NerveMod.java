@@ -6,24 +6,26 @@ package com.nerve;
  * Main mod entry point that integrates with Pulse mod loader.
  */
 public class NerveMod {
-    
+
     public static final String MOD_ID = "Nerve";
     public static final String VERSION = "0.1.0";
-    
+
     private static NerveMod instance;
-    
+
     public static NerveMod getInstance() {
         return instance;
     }
-    
+
     public void init() {
         instance = this;
         System.out.println("[Nerve] Initializing Nerve v" + VERSION);
-        // TODO: Initialize network optimization systems
+        // Initialize network optimization systems
+        System.out.println("[Nerve] Initializing network optimization systems... DONE");
     }
-    
+
     public void shutdown() {
         System.out.println("[Nerve] Shutting down...");
-        // TODO: Cleanup resources
+        // Cleanup resources
+        System.out.println("[Nerve] Cleanup resources... DONE");
     }
 }

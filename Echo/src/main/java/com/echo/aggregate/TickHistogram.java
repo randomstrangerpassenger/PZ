@@ -29,6 +29,7 @@ public class TickHistogram {
     // Jank 카운터 (Phase 4)
     private final LongAdder jankCount60 = new LongAdder(); // >16.67ms (60fps 기준)
     private final LongAdder jankCount30 = new LongAdder(); // >33.33ms (30fps 기준)
+    private final LongAdder jankCount100 = new LongAdder(); // >100ms (Major Stutter)
     private final LongAdder warmupCount = new LongAdder(); // Warmup 기간 틱 수 (Echo 0.9.0)
 
     // v0.9: 틱 간 편차 추적
@@ -39,6 +40,7 @@ public class TickHistogram {
     // Jank 임계값 (마이크로초)
     private static final long JANK_THRESHOLD_60_MICROS = 16_667; // 16.67ms
     private static final long JANK_THRESHOLD_30_MICROS = 33_333; // 33.33ms
+    private static final long JANK_THRESHOLD_100_MICROS = 100_000; // 100ms
 
     // 정확한 백분위수 계산을 위한 최근 샘플 추적
     private final long[] recentSamples = new long[EchoConstants.HISTOGRAM_SAMPLE_BUFFER];
@@ -78,6 +80,9 @@ public class TickHistogram {
         if (durationMicros > JANK_THRESHOLD_30_MICROS) {
             jankCount30.increment();
         }
+        if (durationMicros > JANK_THRESHOLD_100_MICROS) {
+            jankCount100.increment();
+        }
 
         // v0.9: 표준편차 계산용 제곱합
         sumSquaresMicros.add(durationMicros * durationMicros / 1000); // overflow 방지: micros^2 / 1000
@@ -95,6 +100,60 @@ public class TickHistogram {
             recentSamples[sampleIndex] = durationMicros;
             sampleIndex = (sampleIndex + 1) % recentSamples.length;
         }
+    }
+
+    // ... (Skipping methods)
+
+    /**
+     * 100ms 초과 Major Stutter 비율
+     */
+    public double getJankPercent100() {
+        long total = totalSamples.sum();
+        if (total == 0)
+            return 0;
+        return (jankCount100.sum() * 100.0) / total;
+    }
+
+    public long getJankCount100() {
+        return jankCount100.sum();
+    }
+
+    /**
+     * JSON 출력용 Map 생성
+     */
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new LinkedHashMap<>();
+
+        // 버킷 라벨 생성
+        String[] labels = new String[buckets.length];
+        for (int i = 0; i < buckets.length; i++) {
+            if (i == buckets.length - 1) {
+                labels[i] = String.format(">=%.1fms", buckets[i]);
+            } else {
+                labels[i] = String.format("%.1f-%.1fms", buckets[i], buckets[i + 1]);
+            }
+        }
+
+        map.put("buckets_ms", buckets);
+        map.put("labels", labels);
+        map.put("counts", getCounts());
+        map.put("total_samples", getTotalSamples());
+        map.put("average_ms", Math.round(getAverageMs() * 100) / 100.0);
+        map.put("p50_ms", Math.round(getP50() * 100) / 100.0);
+        map.put("p95_ms", Math.round(getP95() * 100) / 100.0);
+        map.put("p99_ms", Math.round(getP99() * 100) / 100.0);
+        map.put("jank_percent_60fps", Math.round(getJankPercent60() * 100) / 100.0);
+        map.put("jank_percent_30fps", Math.round(getJankPercent30() * 100) / 100.0);
+        map.put("jank_percent_100ms", Math.round(getJankPercent100() * 100) / 100.0);
+        map.put("warmup_ticks", warmupCount.sum());
+
+        // v0.9: 품질 측정 지표
+        map.put("std_deviation_ms", Math.round(getStandardDeviationMs() * 100) / 100.0);
+        map.put("p99_spike_count", getP99SpikeCount());
+        map.put("variance_rate_ms", Math.round(getVarianceRateMs() * 100) / 100.0);
+        map.put("quality_score", getQualityScore());
+
+        return map;
     }
 
     /**
@@ -337,43 +396,6 @@ public class TickHistogram {
         int jankScore = (int) Math.max(0, 100 - getJankPercent60() * 5);
 
         return (ratioScore + stdDevScore + jankScore) / 3;
-    }
-
-    /**
-     * JSON 출력용 Map 생성
-     */
-    public Map<String, Object> toMap() {
-        Map<String, Object> map = new LinkedHashMap<>();
-
-        // 버킷 라벨 생성
-        String[] labels = new String[buckets.length];
-        for (int i = 0; i < buckets.length; i++) {
-            if (i == buckets.length - 1) {
-                labels[i] = String.format(">=%.1fms", buckets[i]);
-            } else {
-                labels[i] = String.format("%.1f-%.1fms", buckets[i], buckets[i + 1]);
-            }
-        }
-
-        map.put("buckets_ms", buckets);
-        map.put("labels", labels);
-        map.put("counts", getCounts());
-        map.put("total_samples", getTotalSamples());
-        map.put("average_ms", Math.round(getAverageMs() * 100) / 100.0);
-        map.put("p50_ms", Math.round(getP50() * 100) / 100.0);
-        map.put("p95_ms", Math.round(getP95() * 100) / 100.0);
-        map.put("p99_ms", Math.round(getP99() * 100) / 100.0);
-        map.put("jank_percent_60fps", Math.round(getJankPercent60() * 100) / 100.0);
-        map.put("jank_percent_30fps", Math.round(getJankPercent30() * 100) / 100.0);
-        map.put("warmup_ticks", warmupCount.sum());
-
-        // v0.9: 품질 측정 지표
-        map.put("std_deviation_ms", Math.round(getStandardDeviationMs() * 100) / 100.0);
-        map.put("p99_spike_count", getP99SpikeCount());
-        map.put("variance_rate_ms", Math.round(getVarianceRateMs() * 100) / 100.0);
-        map.put("quality_score", getQualityScore());
-
-        return map;
     }
 
     /**

@@ -63,45 +63,14 @@ public class SpikeLog {
     }
 
     /**
-     * 스파이크 기록 (스택 경로 포함)
+     * 포인트별 스파이크 카운트
      */
-    public void logSpike(long durationMicros, ProfilingPoint point, String label, String stackPath) {
-        double durationMs = durationMicros / 1000.0;
-        if (durationMs < thresholdMs)
-            return;
-
-        // Phase 4: 스택 캡처 (옵션)
-        String capturedStack = stackPath;
-        if (stackCaptureEnabled && capturedStack == null) {
-            capturedStack = captureStackTrace();
+    public Map<ProfilingPoint, Long> getSpikesByPoint() {
+        Map<ProfilingPoint, Long> result = new EnumMap<>(ProfilingPoint.class);
+        for (SpikeEntry entry : entries) {
+            result.merge(entry.point, 1L, Long::sum);
         }
-
-        SpikeEntry entry = new SpikeEntry(
-                Instant.now(),
-                durationMicros,
-                point,
-                label,
-                capturedStack);
-
-        entries.addLast(entry);
-        totalSpikes.incrementAndGet();
-
-        // 최악 스파이크 갱신 (CAS 패턴)
-        long current;
-        do {
-            current = worstSpikeMicros.get();
-            if (durationMicros <= current)
-                break;
-        } while (!worstSpikeMicros.compareAndSet(current, durationMicros));
-
-        if (durationMicros > current) {
-            worstSpikeLabel = (label != null ? label : point.name());
-        }
-
-        // 최대 엔트리 수 유지
-        while (entries.size() > MAX_ENTRIES) {
-            entries.pollFirst();
-        }
+        return result;
     }
 
     /**
@@ -190,15 +159,68 @@ public class SpikeLog {
         System.out.println("[Echo] Spike threshold set to: " + thresholdMs + " ms");
     }
 
+    // Phase 2: Context Provider (Snapshots)
+    private java.util.function.Supplier<Map<String, Object>> contextProvider;
+
     /**
-     * 포인트별 스파이크 카운트
+     * Set the context provider for capturing game state during spikes.
      */
-    public Map<ProfilingPoint, Long> getSpikesByPoint() {
-        Map<ProfilingPoint, Long> result = new EnumMap<>(ProfilingPoint.class);
-        for (SpikeEntry entry : entries) {
-            result.merge(entry.point, 1L, Long::sum);
+    public void setContextProvider(java.util.function.Supplier<Map<String, Object>> provider) {
+        this.contextProvider = provider;
+    }
+
+    /**
+     * 스파이크 기록 (스택 경로 포함)
+     */
+    public void logSpike(long durationMicros, ProfilingPoint point, String label, String stackPath) {
+        double durationMs = durationMicros / 1000.0;
+        if (durationMs < thresholdMs)
+            return;
+
+        // Phase 4: 스택 캡처 (옵션)
+        String capturedStack = stackPath;
+        if (stackCaptureEnabled && capturedStack == null) {
+            capturedStack = captureStackTrace();
         }
-        return result;
+
+        // Phase 2: Context Snapshot
+        Map<String, Object> context = null;
+        if (contextProvider != null) {
+            try {
+                context = contextProvider.get();
+            } catch (Exception e) {
+                // Prevent crash during logging
+                System.err.println("[Echo] Failed to capture spike context: " + e.getMessage());
+            }
+        }
+
+        SpikeEntry entry = new SpikeEntry(
+                Instant.now(),
+                durationMicros,
+                point,
+                label,
+                capturedStack,
+                context);
+
+        entries.addLast(entry);
+        totalSpikes.incrementAndGet();
+
+        // 최악 스파이크 갱신 (CAS 패턴)
+        long current;
+        do {
+            current = worstSpikeMicros.get();
+            if (durationMicros <= current)
+                break;
+        } while (!worstSpikeMicros.compareAndSet(current, durationMicros));
+
+        if (durationMicros > current) {
+            worstSpikeLabel = (label != null ? label : point.name());
+        }
+
+        // 최대 엔트리 수 유지
+        while (entries.size() > MAX_ENTRIES) {
+            entries.pollFirst();
+        }
     }
 
     /**
@@ -240,19 +262,26 @@ public class SpikeLog {
         private final ProfilingPoint point;
         private final String label;
         private final String stackPath;
+        private final Map<String, Object> context; // Phase 2
 
         public SpikeEntry(Instant timestamp, long durationMicros,
                 ProfilingPoint point, String label) {
-            this(timestamp, durationMicros, point, label, null);
+            this(timestamp, durationMicros, point, label, null, null);
         }
 
         public SpikeEntry(Instant timestamp, long durationMicros,
                 ProfilingPoint point, String label, String stackPath) {
+            this(timestamp, durationMicros, point, label, stackPath, null);
+        }
+
+        public SpikeEntry(Instant timestamp, long durationMicros,
+                ProfilingPoint point, String label, String stackPath, Map<String, Object> context) {
             this.timestamp = timestamp;
             this.durationMicros = durationMicros;
             this.point = point;
             this.label = label;
             this.stackPath = stackPath;
+            this.context = context;
         }
 
         public Instant getTimestamp() {
@@ -279,6 +308,10 @@ public class SpikeLog {
             return stackPath;
         }
 
+        public Map<String, Object> getContext() {
+            return context;
+        }
+
         public Map<String, Object> toMap() {
             Map<String, Object> map = new LinkedHashMap<>();
             map.put("timestamp", DateTimeFormatter.ISO_INSTANT.format(timestamp));
@@ -287,6 +320,9 @@ public class SpikeLog {
             map.put("label", label != null ? label : point.getDisplayName());
             if (stackPath != null) {
                 map.put("stack_path", stackPath);
+            }
+            if (context != null) {
+                map.put("context", context);
             }
             return map;
         }

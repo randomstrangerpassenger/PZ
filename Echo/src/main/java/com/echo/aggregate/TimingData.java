@@ -220,17 +220,16 @@ public class TimingData {
     /**
      * 시간 윈도우 기반 롤링 통계 (Zero-Allocation Ring Buffer)
      * 
-     * Phase 1 최적화:
-     * - ArrayDeque → 고정 크기 long[] (GC-Free)
-     * - Stream API → Running Sum (O(1) 연산)
-     * - 샘플 기반 윈도우 (틱 기반, ~60 FPS 가정)
+     * Phase 1 Update:
+     * - Added Standard Deviation / Variance calculation
+     * - Replaced hardcoded FPS regarding TickContract
      */
     public static class RollingStats {
-        // 상수: 60 FPS 기준
-        public static final int SAMPLES_PER_SECOND = 60;
-        public static final int WINDOW_1S = SAMPLES_PER_SECOND; // 60
-        public static final int WINDOW_5S = SAMPLES_PER_SECOND * 5; // 300
-        public static final int WINDOW_60S = SAMPLES_PER_SECOND * 60; // 3600
+        // 상수: TickContract 기준 (기본 60 FPS)
+        public static final int SAMPLES_PER_SECOND = com.pulse.api.TickContract.TARGET_TICK_RATE;
+        public static final int WINDOW_1S = SAMPLES_PER_SECOND;
+        public static final int WINDOW_5S = SAMPLES_PER_SECOND * 5;
+        public static final int WINDOW_60S = SAMPLES_PER_SECOND * 60;
 
         private final int capacity;
         private final long[] values;
@@ -239,6 +238,7 @@ public class TimingData {
 
         // Running statistics (O(1) 조회)
         private long runningSum = 0;
+        private long runningSumSq = 0; // Variance 계산용
         private long runningMax = 0;
 
         // 호환성을 위한 windowMs (deprecated, 표시용)
@@ -274,12 +274,15 @@ public class TimingData {
         public synchronized void addSample(long value) {
             // Ring Buffer가 가득 찬 경우 가장 오래된 값 제거
             if (size == capacity) {
-                runningSum -= values[head];
+                long oldValue = values[head];
+                runningSum -= oldValue;
+                runningSumSq -= (oldValue * oldValue);
             }
 
             // 새 값 저장
             values[head] = value;
             runningSum += value;
+            runningSumSq += (value * value);
 
             // Max 갱신 (제거되는 값이 max였을 수 있으므로 재계산 필요)
             // 버그 수정: head가 다음 쓸 위치이므로, 현재 head 위치의 값이 덮어써질 값
@@ -299,6 +302,25 @@ public class TimingData {
          */
         public long getAverage() {
             return size == 0 ? 0 : runningSum / size;
+        }
+
+        /**
+         * 분산 조회 (O(1))
+         * Variance = E[X^2] - (E[X])^2
+         */
+        public double getVariance() {
+            if (size == 0)
+                return 0.0;
+            double mean = (double) runningSum / size;
+            double meanSq = (double) runningSumSq / size;
+            return Math.max(0, meanSq - (mean * mean));
+        }
+
+        /**
+         * 표준편차 조회 (O(1))
+         */
+        public double getStdDev() {
+            return Math.sqrt(getVariance());
         }
 
         /**
@@ -353,6 +375,7 @@ public class TimingData {
             head = 0;
             size = 0;
             runningSum = 0;
+            runningSumSq = 0;
             runningMax = 0;
         }
 
@@ -365,13 +388,6 @@ public class TimingData {
 
         /**
          * 최대값 재계산 (O(n) - 드물게 호출)
-         * 
-         * 성능 분석:
-         * - 윈도우 사이즈: 60(1초), 300(5초), 3600(60초)
-         * - 최악의 경우에도 3600회 비교로 ~0.01ms 소요
-         * - Sliding Window Maximum 알고리즘(O(1))은 추가 메모리(Deque)가 필요하여
-         * 현재 규모에서는 단순 순회가 더 효율적
-         * - 호출 빈도: 윈도우가 가득 차고 나가는 값이 최대값일 때만 호출 (드문 경우)
          */
         private void recalculateMax() {
             runningMax = 0;

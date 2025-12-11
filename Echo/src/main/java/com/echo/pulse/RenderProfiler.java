@@ -126,6 +126,32 @@ public class RenderProfiler {
         return lastFrameDuration / 1000.0;
     }
 
+    // OpenGL Queries (Requires LWJGL)
+    private static final int GL_TIMESTAMP = 0x8E28;
+    private int[] queryIds = new int[2]; // Front/Back buffer for querying
+    private boolean glQuerySupported = false;
+
+    /**
+     * GPU 시간 측정 시작 (glQueryCounter)
+     * Note: Requires OpenGL context and GL3.3+
+     */
+    public void startGpuTimer() {
+        if (!glQuerySupported)
+            return;
+        // Stub: GL33.glQueryCounter(queryIds[0], GL_TIMESTAMP);
+    }
+
+    /**
+     * GPU 시간 측정 종료 및 수집
+     */
+    public void endGpuTimer() {
+        if (!glQuerySupported)
+            return;
+        // Stub: GL33.glQueryCounter(queryIds[1], GL_TIMESTAMP);
+        // long start = GL33.glGetQueryObjectui64(queryIds[0], GL_QUERY_RESULT);
+        // long end = GL33.glGetQueryObjectui64(queryIds[1], GL_QUERY_RESULT);
+    }
+
     /**
      * 카운터 초기화
      */

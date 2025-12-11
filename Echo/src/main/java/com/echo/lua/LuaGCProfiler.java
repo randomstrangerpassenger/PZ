@@ -17,9 +17,14 @@ public class LuaGCProfiler {
     private long lastTotalMemory = 0;
     private long lastFreeMemory = 0;
 
-    private final AtomicLong heapDeltaPerTick = new AtomicLong(0);
+    private final java.util.List<java.lang.management.GarbageCollectorMXBean> gcBeans;
+    private long lastTotalGcTime = 0;
+    private final AtomicLong gcPausePerTick = new AtomicLong(0);
+    private final java.util.concurrent.atomic.AtomicLong heapDeltaPerTick = new java.util.concurrent.atomic.AtomicLong(
+            0);
 
     private LuaGCProfiler() {
+        gcBeans = java.lang.management.ManagementFactory.getGarbageCollectorMXBeans();
     }
 
     public static LuaGCProfiler getInstance() {
@@ -36,6 +41,15 @@ public class LuaGCProfiler {
         Runtime rt = Runtime.getRuntime();
         lastTotalMemory = rt.totalMemory();
         lastFreeMemory = rt.freeMemory();
+
+        // Capture GC time at start
+        long totalGc = 0;
+        for (java.lang.management.GarbageCollectorMXBean bean : gcBeans) {
+            long time = bean.getCollectionTime();
+            if (time != -1)
+                totalGc += time;
+        }
+        lastTotalGcTime = totalGc;
     }
 
     /**
@@ -56,10 +70,25 @@ public class LuaGCProfiler {
 
         long delta = usedNow - usedBefore;
         heapDeltaPerTick.set(delta);
+
+        // Calculate GC Pause (difference in collection time)
+        long totalGc = 0;
+        for (java.lang.management.GarbageCollectorMXBean bean : gcBeans) {
+            long time = bean.getCollectionTime();
+            if (time != -1)
+                totalGc += time;
+        }
+
+        long pause = totalGc - lastTotalGcTime;
+        gcPausePerTick.set(pause > 0 ? pause : 0);
     }
 
     public long getHeapDelta() {
         return heapDeltaPerTick.get();
+    }
+
+    public long getGcPauseTime() {
+        return gcPausePerTick.get();
     }
 
     public long getUsedMemory() {
@@ -69,14 +98,17 @@ public class LuaGCProfiler {
 
     public void reset() {
         heapDeltaPerTick.set(0);
+        gcPausePerTick.set(0);
         lastTotalMemory = 0;
         lastFreeMemory = 0;
+        lastTotalGcTime = 0;
     }
 
     public java.util.Map<String, Object> toMap() {
         java.util.Map<String, Object> map = new java.util.HashMap<>();
         map.put("heap_delta_bytes", getHeapDelta());
         map.put("used_memory_bytes", getUsedMemory());
+        map.put("gc_pause_ms", getGcPauseTime());
         return map;
     }
 }

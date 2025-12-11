@@ -53,6 +53,10 @@ public class ZombieProfiler {
         totalZombiesUpdated.increment();
     }
 
+    public long getZombieCount() {
+        return totalZombiesUpdated.sum();
+    }
+
     public void reset() {
         for (ZombieStep step : ZombieStep.values()) {
             stepTimes.get(step).reset();

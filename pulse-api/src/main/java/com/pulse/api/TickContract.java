@@ -27,9 +27,21 @@ public final class TickContract {
     // ═══════════════════════════════════════════════════════════════
 
     /**
+     * 목표 Tick Rate (FPS)
+     * TARGET_FPS와 동일한 의미, 명확성을 위해 추가.
+     */
+    public static final int TARGET_TICK_RATE = 60;
+
+    /**
      * 목표 FPS (Project Zomboid 기본값)
      */
-    public static final int TARGET_FPS = 60;
+    public static final int TARGET_FPS = TARGET_TICK_RATE;
+
+    /**
+     * 예상 틱 간격 (nanoseconds)
+     * 16,666,666ns
+     */
+    public static final long TARGET_TICK_DELTA_NANOS = 1_000_000_000L / TARGET_TICK_RATE;
 
     /**
      * 예상 틱 간격 (ms)

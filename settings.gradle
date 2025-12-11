@@ -12,7 +12,5 @@ include 'Echo'
 include 'Fuse'
 include 'Nerve'
 
-// Pulse first-party mods (from Pulse project)
-include 'Pulse:first-party-mods:pulse-profiler'
-include 'Pulse:first-party-mods:pulse-engine-optim'
-include 'Pulse:first-party-mods:pulse-lua-optim'
+// Pulse first-party mods (Removed - superseded by top-level projects)
+

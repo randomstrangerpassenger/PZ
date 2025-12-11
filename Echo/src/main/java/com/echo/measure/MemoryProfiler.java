@@ -102,6 +102,78 @@ public class MemoryProfiler {
         return delta;
     }
 
+    // ═══════════════════════════════════════════════════════════════
+    // Allocation Rate Tracking
+    // ═══════════════════════════════════════════════════════════════
+
+    private static final com.sun.management.ThreadMXBean threadMXBean;
+    private static boolean allocationTrackingEnabled = false;
+    private static long lastTotalAllocatedBytes = 0;
+    private static long currentAllocationRate = 0; // Bytes per tick
+
+    static {
+        java.lang.management.ThreadMXBean bean = ManagementFactory.getThreadMXBean();
+        if (bean instanceof com.sun.management.ThreadMXBean) {
+            threadMXBean = (com.sun.management.ThreadMXBean) bean;
+            try {
+                if (threadMXBean.isThreadAllocatedMemorySupported()) {
+                    threadMXBean.setThreadAllocatedMemoryEnabled(true);
+                    allocationTrackingEnabled = true;
+                }
+            } catch (UnsupportedOperationException e) {
+                // Ignore
+            }
+        } else {
+            threadMXBean = null;
+        }
+    }
+
+    /**
+     * Update allocation rate stats (Call once per tick)
+     */
+    public static void update() {
+        if (!allocationTrackingEnabled)
+            return;
+
+        long currentTotal = 0;
+        long[] ids = threadMXBean.getAllThreadIds();
+        // Note: multiple calls to getThreadAllocatedBytes can be expensive
+        // Only summing active threads or just current thread?
+        // Usually full allocation rate requires summing all threads.
+        // For performance, we might limit this or use a more efficient way if
+        // available.
+        // But getThreadAllocatedBytes(long[]) is available in newer JDKs.
+        // Here we use loop for compatibility.
+        // Optimization: track only main thread? NO, global allocation is requested.
+
+        // Batch fetch if possible (Java 14+) but fallback to loop
+        // getThreadAllocatedBytes(long[]) exists in com.sun.management.ThreadMXBean
+        long[] bytes = threadMXBean.getThreadAllocatedBytes(ids);
+        for (long b : bytes) {
+            if (b != -1)
+                currentTotal += b;
+        }
+
+        if (lastTotalAllocatedBytes > 0) {
+            long delta = currentTotal - lastTotalAllocatedBytes;
+            // Handle thread death/birth (total might decrease if threads die? No, allocated
+            // bytes are usually cumulative per thread)
+            // If threads die, their bytes are lost from the sum.
+            // Correct way: Map<Long, Long> lastAllocatedPerThread.
+            // But that's heavy.
+            // Simple approximation: if delta < 0, assume 0.
+            currentAllocationRate = delta > 0 ? delta : 0;
+        }
+        lastTotalAllocatedBytes = currentTotal;
+    }
+
+    /**
+     * Get memory allocation rate (bytes per tick)
+     */
+    public static long getAllocationRate() {
+        return currentAllocationRate;
+    }
+
     /**
      * GC 정보 조회
      */
@@ -129,6 +201,9 @@ public class MemoryProfiler {
                 getHeapUsagePercent()));
         sb.append(String.format("  Non-Heap:      %,d MB%n",
                 getNonHeapUsed() / (1024 * 1024)));
+        if (allocationTrackingEnabled) {
+            sb.append(String.format("  Alloc Rate:    %,d KB/tick%n", currentAllocationRate / 1024));
+        }
         sb.append(String.format("  GC Count:      %,d%n", getTotalGcCount()));
         sb.append(String.format("  GC Time:       %,d ms%n", getTotalGcTimeMs()));
         return sb.toString();
@@ -148,6 +223,10 @@ public class MemoryProfiler {
         map.put("heap", heap);
 
         map.put("non_heap_mb", Math.round(getNonHeapUsed() / (1024.0 * 1024.0) * 100) / 100.0);
+
+        if (allocationTrackingEnabled) {
+            map.put("allocation_rate_bytes", currentAllocationRate);
+        }
 
         Map<String, Object> gc = new LinkedHashMap<>();
         gc.put("total_count", getTotalGcCount());

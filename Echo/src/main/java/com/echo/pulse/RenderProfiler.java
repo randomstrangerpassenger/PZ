@@ -127,7 +127,9 @@ public class RenderProfiler {
     }
 
     // OpenGL Queries (Requires LWJGL)
+    @SuppressWarnings("unused")
     private static final int GL_TIMESTAMP = 0x8E28;
+    @SuppressWarnings("unused")
     private int[] queryIds = new int[2]; // Front/Back buffer for querying
     private boolean glQuerySupported = false;
 

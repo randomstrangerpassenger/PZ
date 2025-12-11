@@ -805,31 +805,13 @@ public class EchoReport {
     private final com.echo.analysis.CorrelationAnalyzer correlationAnalyzer = new com.echo.analysis.CorrelationAnalyzer();
 
     public void onTick() {
-        // Called by EchoProfiler on tick end ideally, or we hook it up manually.
-        // For now, let's assume EchoReport isn't the driver, but for simplicity we
-        // expose the analyzer
-        // or let the Profiler drive it.
-        // Actually, EchoProfiler should own CorrelationAnalyzer.
-        // But to avoid changing EchoProfiler structure too much, let's instantiate it
-        // here or in Profiler.
-        // Let's defer that and just put a placeholder here that returns the map.
-        // WAIT: EchoProfiler doesn't have it yet.
+        // Gather correlation data
+        correlationAnalyzer.onTick();
     }
 
     private Map<String, Object> generateAnalysis() {
-        // In a real scenario, this would come from
-        // EchoProfiler.getCorrelationAnalyzer().
-        // Since we just created it and it's not hooked up to the loop yet,
-        // we will return the analyzer's map if we can reach it.
-        // Let's add it to EchoProfiler instead of here directly?
-        // User wanted "Analysis Tools".
-
-        // For this step, I will return an empty map or the new analyzer's map.
-        // Since I can't easily inject it into the main loop from here without editing
-        // EchoProfiler,
-        // I'll leave it as a new feature that needs to be integrated.
-        // But I must satisfy the method call.
-        return new LinkedHashMap<>();
+        // Integrate CorrelationAnalyzer
+        return correlationAnalyzer.analyze();
     }
 
     private Map<String, Object> generateMetadata() {

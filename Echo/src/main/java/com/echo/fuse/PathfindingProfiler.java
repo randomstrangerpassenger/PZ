@@ -61,6 +61,24 @@ public class PathfindingProfiler {
         totalPathRequests.reset();
     }
 
+    /**
+     * 총 패스파인딩 요청 수
+     */
+    public long getTotalRequests() {
+        return totalPathRequests.sum();
+    }
+
+    /**
+     * 총 패스파인딩 시간 (밀리초)
+     */
+    public double getTotalTimeMs() {
+        double total = 0;
+        for (PathfindingStep step : PathfindingStep.values()) {
+            total += stepTimes.get(step).sum() / 1000.0;
+        }
+        return total;
+    }
+
     public Map<String, Object> toMap() {
         Map<String, Object> map = new ConcurrentHashMap<>();
         map.put("total_requests", totalPathRequests.sum());

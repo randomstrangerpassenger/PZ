@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.fuse'
-version = '0.1.0'
+version = '0.2.0'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -18,6 +18,9 @@ repositories {
 dependencies {
     // Pulse API dependency
     compileOnly project(':pulse-api')
+    
+    // Echo dependency for BottleneckDetector
+    compileOnly project(':Echo')
     
     // PZ stubs (optional, graceful handling when missing)
     compileOnly fileTree(dir: '../Pulse/libs', include: ['pz-stubs.jar'])

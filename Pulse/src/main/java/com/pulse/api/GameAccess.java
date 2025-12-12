@@ -1429,4 +1429,207 @@ public final class GameAccess {
     public static void stopRain() {
         setRainIntensity(0f);
     }
+
+    // ─────────────────────────────────────────────────────────────
+    // Echo/Pulse 메트릭용 메서드 (Phase 1)
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * 로드된 셀(청크) 수 가져오기
+     * IsoCell의 ChunkMap에서 활성 청크 수를 조회합니다.
+     * 
+     * @return 로드된 청크 수, 실패 시 0
+     */
+    public static int getLoadedCellCount() {
+        ensureInitialized();
+        try {
+            Object world = getIsoWorldInstance();
+            if (world == null)
+                return 0;
+
+            Method getCellMethod = isoWorldClass.getMethod("getCell");
+            Object cell = getCellMethod.invoke(world);
+            if (cell == null)
+                return 0;
+
+            // getChunkMap()에서 로드된 청크 수 조회 시도
+            try {
+                Method getChunkMap = cell.getClass().getMethod("getChunkMap", int.class);
+                // 보통 레이어 0 사용
+                Object chunkMap = getChunkMap.invoke(cell, 0);
+                if (chunkMap != null) {
+                    Method getLoadedChunkCount = chunkMap.getClass().getMethod("getWorldChunks");
+                    Object chunks = getLoadedChunkCount.invoke(chunkMap);
+                    if (chunks instanceof java.util.Collection<?> c) {
+                        return c.size();
+                    }
+                }
+            } catch (NoSuchMethodException e) {
+                // 대안: getLoadedChunks() 시도
+                try {
+                    Method getLoadedChunks = cell.getClass().getMethod("getLoadedChunks");
+                    Object chunks = getLoadedChunks.invoke(cell);
+                    if (chunks instanceof java.util.Collection<?> c) {
+                        return c.size();
+                    }
+                } catch (Exception e2) {
+                    // 무시
+                }
+            }
+        } catch (Exception e) {
+            // 무시
+        }
+        return 0;
+    }
+
+    /**
+     * NPC 수 가져오기 (좀비 제외 생존자)
+     * 
+     * @return NPC 수, 실패 시 0
+     */
+    public static int getNpcCount() {
+        ensureInitialized();
+        try {
+            Object world = getIsoWorldInstance();
+            if (world == null)
+                return 0;
+
+            Method getCellMethod = isoWorldClass.getMethod("getCell");
+            Object cell = getCellMethod.invoke(world);
+            if (cell == null)
+                return 0;
+
+            // getSurvivorList() 시도
+            try {
+                Method getSurvivorList = cell.getClass().getMethod("getSurvivorList");
+                Object survivors = getSurvivorList.invoke(cell);
+                if (survivors instanceof java.util.Collection<?> c) {
+                    return c.size();
+                }
+            } catch (NoSuchMethodException e) {
+                // 대안: NPC 리스트에서 조회
+                try {
+                    Method getNpcList = cell.getClass().getMethod("getNpcList");
+                    Object npcs = getNpcList.invoke(cell);
+                    if (npcs instanceof java.util.Collection<?> c) {
+                        return c.size();
+                    }
+                } catch (Exception e2) {
+                    // 무시
+                }
+            }
+        } catch (Exception e) {
+            // 무시
+        }
+        return 0;
+    }
+
+    /**
+     * 차량 수 가져오기
+     * 
+     * @return 차량 수, 실패 시 0
+     */
+    public static int getVehicleCount() {
+        ensureInitialized();
+        try {
+            Object world = getIsoWorldInstance();
+            if (world == null)
+                return 0;
+
+            Method getCellMethod = isoWorldClass.getMethod("getCell");
+            Object cell = getCellMethod.invoke(world);
+            if (cell == null)
+                return 0;
+
+            Method getVehicleListMethod = cell.getClass().getMethod("getVehicles");
+            Object vehicles = getVehicleListMethod.invoke(cell);
+            if (vehicles instanceof java.util.Collection<?> c) {
+                return c.size();
+            }
+        } catch (Exception e) {
+            // 무시
+        }
+        return 0;
+    }
+
+    /**
+     * 전체 엔티티 수 (좀비 + NPC + 동물)
+     * 
+     * @return 총 엔티티 수
+     */
+    public static int getTotalEntityCount() {
+        return getZombieCount() + getNpcCount() + getVehicleCount();
+    }
+
+    /**
+     * 맵 시드 가져오기
+     * 
+     * @return 맵 시드 문자열, 실패 시 "unknown"
+     */
+    public static String getMapSeed() {
+        ensureInitialized();
+        try {
+            Object world = getIsoWorldInstance();
+            if (world == null)
+                return "unknown";
+
+            // getSeed() 메서드 시도
+            try {
+                Method getSeed = isoWorldClass.getMethod("getSeed");
+                Object seed = getSeed.invoke(world);
+                if (seed != null) {
+                    return seed.toString();
+                }
+            } catch (NoSuchMethodException e) {
+                // 대안: 월드 이름 사용
+                String worldName = getWorldName();
+                if (!worldName.isEmpty()) {
+                    return "world:" + worldName;
+                }
+            }
+        } catch (Exception e) {
+            // 무시
+        }
+        return "unknown";
+    }
+
+    /**
+     * 날씨 상태 문자열
+     * 
+     * @return 날씨 상태 (예: "clear", "rain", "fog")
+     */
+    public static String getWeatherState() {
+        try {
+            ClassLoader loader = PulseEnvironment.getGameClassLoader();
+            if (loader == null)
+                loader = ClassLoader.getSystemClassLoader();
+
+            Class<?> climateClass = loader.loadClass("zombie.iso.weather.ClimateManager");
+            Method getInstance = climateClass.getMethod("getInstance");
+            Object climate = getInstance.invoke(null);
+
+            if (climate != null) {
+                // getRainIntensity() 체크
+                Method getRain = climateClass.getMethod("getRainIntensity");
+                Object rainIntensity = getRain.invoke(climate);
+                if (rainIntensity instanceof Number n && n.floatValue() > 0.1f) {
+                    return "rain";
+                }
+
+                // getFogIntensity() 체크
+                try {
+                    Method getFog = climateClass.getMethod("getFogIntensity");
+                    Object fogIntensity = getFog.invoke(climate);
+                    if (fogIntensity instanceof Number n && n.floatValue() > 0.3f) {
+                        return "fog";
+                    }
+                } catch (NoSuchMethodException e) {
+                    // 무시
+                }
+            }
+        } catch (Exception e) {
+            // 무시
+        }
+        return "clear";
+    }
 }

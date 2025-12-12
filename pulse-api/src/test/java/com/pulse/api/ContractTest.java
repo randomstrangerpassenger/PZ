@@ -30,10 +30,21 @@ public class ContractTest {
                 .map(Method::getName)
                 .collect(Collectors.toSet());
 
-        // Echo가 기대하는 필수 메서드
+        // Echo가 기대하는 필수 메서드 - 기존
         assertTrue(methodNames.contains("getFps"), "getFps() required by Echo");
         assertTrue(methodNames.contains("getTickTimeMs"), "getTickTimeMs() required by Echo");
         assertTrue(methodNames.contains("getFrameTimeMs"), "getFrameTimeMs() required by Echo");
+        assertTrue(methodNames.contains("getAverageTickTimeMs"), "getAverageTickTimeMs() required by Echo");
+        assertTrue(methodNames.contains("getMaxTickTimeMs"), "getMaxTickTimeMs() required by Echo");
+        assertTrue(methodNames.contains("getTps"), "getTps() required by Echo");
+
+        // Phase 0 추가: 누락 메서드 4개
+        assertTrue(methodNames.contains("getLoadedChunkCount"),
+                "getLoadedChunkCount() required by Echo for correlation analysis");
+        assertTrue(methodNames.contains("getEntityCount"),
+                "getEntityCount() required by Echo for correlation analysis");
+        assertTrue(methodNames.contains("getUsedMemoryMB"), "getUsedMemoryMB() required by Echo for memory profiling");
+        assertTrue(methodNames.contains("getMaxMemoryMB"), "getMaxMemoryMB() required by Echo for memory profiling");
     }
 
     /**

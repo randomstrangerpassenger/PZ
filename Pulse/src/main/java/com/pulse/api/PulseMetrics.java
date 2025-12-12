@@ -138,6 +138,41 @@ public final class PulseMetrics {
         return System.nanoTime() - lastTickNanos;
     }
 
+    // ============================================================
+    // IPulseMetrics 누락 메서드 구현 (Phase 0)
+    // ============================================================
+
+    /**
+     * 현재 로드된 청크 수
+     * Echo 및 다른 모듈에서 성능 상관관계 분석에 사용
+     */
+    public static int getLoadedChunkCount() {
+        return GameAccess.getLoadedCellCount();
+    }
+
+    /**
+     * 현재 엔티티 수 (좀비 + NPC + 차량)
+     * Echo 및 다른 모듈에서 성능 상관관계 분석에 사용
+     */
+    public static int getEntityCount() {
+        return GameAccess.getTotalEntityCount();
+    }
+
+    /**
+     * 현재 사용 중인 메모리 (MB)
+     */
+    public static long getUsedMemoryMB() {
+        Runtime rt = Runtime.getRuntime();
+        return (rt.totalMemory() - rt.freeMemory()) / (1024 * 1024);
+    }
+
+    /**
+     * 최대 할당 가능 메모리 (MB)
+     */
+    public static long getMaxMemoryMB() {
+        return Runtime.getRuntime().maxMemory() / (1024 * 1024);
+    }
+
     /**
      * 최대 틱 시간 리셋 (주기적으로 호출)
      */

@@ -2,6 +2,7 @@ package com.echo.input;
 
 import com.echo.EchoRuntime;
 import com.echo.measure.EchoProfiler;
+import com.echo.ui.EchoExtendedHUD;
 
 /**
  * Echo 키바인딩 관리
@@ -9,6 +10,7 @@ import com.echo.measure.EchoProfiler;
  * F6: HUD 토글
  * F7: 프로파일링 On/Off
  * F8: HotspotPanel 토글
+ * F9: Extended HUD 토글 (메모리/네트워크/병목)
  */
 public final class EchoKeyBindings {
 
@@ -20,6 +22,7 @@ public final class EchoKeyBindings {
     public static final int KEY_F6 = 64; // 0x40 - HUD 토글
     public static final int KEY_F7 = 65; // 0x41 - 프로파일링 토글
     public static final int KEY_F8 = 66; // 0x42 - 패널 토글
+    public static final int KEY_F9 = 67; // 0x43 - Extended HUD 토글
 
     private EchoKeyBindings() {
         // Utility class
@@ -37,7 +40,7 @@ public final class EchoKeyBindings {
         }
 
         // 폴백: 수동 키 체크 (render 루프에서 호출 필요)
-        System.out.println("[Echo] Key bindings: F6=HUD, F7=Profile, F8=Panel");
+        System.out.println("[Echo] Key bindings: F6=HUD, F7=Profile, F8=Panel, F9=Extended");
         System.out.println("[Echo] Note: Use PulseEventAdapter.checkKeys() in render loop");
     }
 
@@ -57,6 +60,7 @@ public final class EchoKeyBindings {
             registerMethod.invoke(null, "echo_hud", KEY_F6, (Runnable) EchoKeyBindings::toggleHud);
             registerMethod.invoke(null, "echo_profile", KEY_F7, (Runnable) EchoKeyBindings::toggleProfiling);
             registerMethod.invoke(null, "echo_panel", KEY_F8, (Runnable) EchoKeyBindings::togglePanel);
+            registerMethod.invoke(null, "echo_extended", KEY_F9, (Runnable) EchoKeyBindings::toggleExtendedHud);
 
             return true;
         } catch (ClassNotFoundException e) {
@@ -80,6 +84,7 @@ public final class EchoKeyBindings {
             case KEY_F6 -> toggleHud();
             case KEY_F7 -> toggleProfiling();
             case KEY_F8 -> togglePanel();
+            case KEY_F9 -> toggleExtendedHud();
         }
     }
 
@@ -119,6 +124,15 @@ public final class EchoKeyBindings {
         System.out.println("[Echo] Panel " + (panelVisible ? "ON" : "OFF"));
     }
 
+    /**
+     * Extended HUD 토글 (F9)
+     */
+    public static void toggleExtendedHud() {
+        if (!EchoRuntime.isEnabled())
+            return;
+        EchoExtendedHUD.toggle();
+    }
+
     // Getters
     public static boolean isHudVisible() {
         return hudVisible && EchoRuntime.isEnabled();
@@ -126,6 +140,10 @@ public final class EchoKeyBindings {
 
     public static boolean isPanelVisible() {
         return panelVisible && EchoRuntime.isEnabled();
+    }
+
+    public static boolean isExtendedHudVisible() {
+        return EchoExtendedHUD.isShown() && EchoRuntime.isEnabled();
     }
 
     // Setters (테스트/명령어용)

@@ -33,7 +33,7 @@ public class EchoReport {
             .setPrettyPrinting()
             .create();
 
-    private static final String VERSION = "0.9.0";
+    private static final String VERSION = "1.0.1";
 
     private final EchoProfiler profiler;
     private final int topN;
@@ -42,6 +42,15 @@ public class EchoReport {
     private String scenarioName = "default";
     private Set<String> scenarioTags = new HashSet<>();
 
+    // Phase 1: Enhanced Metadata
+    private final ReportMetadata reportMetadata = new ReportMetadata();
+
+    // Phase 1: Quality Flag Aggregation
+    private final java.util.EnumMap<com.echo.aggregate.DataQualityFlag, Integer> qualityFlagCounts = new java.util.EnumMap<>(
+            com.echo.aggregate.DataQualityFlag.class);
+    private final java.util.List<QualityEvent> recentQualityEvents = new java.util.ArrayList<>();
+    private static final int MAX_QUALITY_EVENTS = 100;
+
     public EchoReport(EchoProfiler profiler) {
         this(profiler, 10);
     }
@@ -49,6 +58,7 @@ public class EchoReport {
     public EchoReport(EchoProfiler profiler, int topN) {
         this.profiler = profiler;
         this.topN = topN;
+        reportMetadata.collectFromPulse();
     }
 
     public void setScenarioName(String name) {
@@ -91,6 +101,14 @@ public class EchoReport {
         echoReport.put("recommendations", generateRecommendations());
         echoReport.put("analysis", generateAnalysis());
         echoReport.put("metadata", generateMetadata());
+
+        // Phase 2-5: Extended Analysis
+        echoReport.put("extended_analysis", com.echo.analysis.ExtendedCorrelationAnalyzer.getInstance().analyze());
+        echoReport.put("memory_timeseries", com.echo.aggregate.MemoryTimeSeries.getInstance().toMap());
+        echoReport.put("bottleneck_detection", com.echo.analysis.BottleneckDetector.getInstance().toMap());
+        echoReport.put("network", com.echo.measure.NetworkMetrics.getInstance().toMap());
+        echoReport.put("render", com.echo.measure.RenderMetrics.getInstance().toMap());
+        echoReport.put("timeseries_summary", com.echo.aggregate.TimeSeriesStore.getInstance().toSummary());
 
         report.put("echo_report", echoReport);
         return GSON.toJson(report);
@@ -815,18 +833,66 @@ public class EchoReport {
     }
 
     private Map<String, Object> generateMetadata() {
-        Map<String, Object> meta = new LinkedHashMap<>();
+        // Finalize sampling duration
+        reportMetadata.finalizeSampling();
+
+        Map<String, Object> meta = reportMetadata.toMap();
+
+        // Add legacy fields for backward compatibility
         meta.put("echo_version", VERSION);
-        meta.put("java_version", System.getProperty("java.version"));
-        meta.put("os", System.getProperty("os.name"));
         meta.put("session_start_time", formatInstant(
                 Instant.ofEpochMilli(profiler.getSessionStartTime())));
 
-        // Phase 3
+        // Phase 3: Scenario info
         meta.put("scenario_name", scenarioName);
         meta.put("scenario_tags", scenarioTags);
 
+        // Phase 1: Quality flag summary
+        meta.put("quality_flags", generateQualityFlagSummary());
+
         return meta;
+    }
+
+    /**
+     * 품질 플래그 기록 (Phase 1)
+     */
+    public void recordQualityFlag(com.echo.aggregate.DataQualityFlag flag) {
+        qualityFlagCounts.merge(flag, 1, Integer::sum);
+        if (recentQualityEvents.size() < MAX_QUALITY_EVENTS) {
+            recentQualityEvents.add(new QualityEvent(flag, System.currentTimeMillis()));
+        }
+    }
+
+    /**
+     * 품질 플래그 요약 생성
+     */
+    private Map<String, Object> generateQualityFlagSummary() {
+        Map<String, Object> summary = new LinkedHashMap<>();
+
+        // 플래그별 카운트
+        Map<String, Integer> counts = new LinkedHashMap<>();
+        for (var entry : qualityFlagCounts.entrySet()) {
+            counts.put(entry.getKey().name(), entry.getValue());
+        }
+        summary.put("flag_counts", counts);
+
+        // 총 플래그 수
+        int totalFlags = qualityFlagCounts.values().stream().mapToInt(Integer::intValue).sum();
+        summary.put("total_flags", totalFlags);
+
+        // 데이터 품질 점수 (플래그가 많을수록 낮음)
+        long totalTicks = profiler.getTickHistogram().getTotalSamples();
+        double qualityScore = totalTicks > 0 ? Math.max(0, 1.0 - (double) totalFlags / totalTicks) : 1.0;
+        summary.put("data_quality_score", round(qualityScore * 100));
+
+        return summary;
+    }
+
+    /**
+     * ReportMetadata 접근자
+     */
+    public ReportMetadata getReportMetadata() {
+        return reportMetadata;
     }
 
     private String formatInstant(Instant instant) {
@@ -870,6 +936,28 @@ public class EchoReport {
                     : 0);
             map.put("max_time_ms", Math.round(maxMicros / 10.0) / 100.0);
             return map;
+        }
+    }
+
+    /**
+     * 품질 이벤트 기록용 내부 클래스
+     */
+    @SuppressWarnings("unused") // Fields used for future detailed quality event history
+    private static class QualityEvent {
+        final com.echo.aggregate.DataQualityFlag flag;
+        final long timestamp;
+
+        QualityEvent(com.echo.aggregate.DataQualityFlag flag, long timestamp) {
+            this.flag = flag;
+            this.timestamp = timestamp;
+        }
+
+        public com.echo.aggregate.DataQualityFlag getFlag() {
+            return flag;
+        }
+
+        public long getTimestamp() {
+            return timestamp;
         }
     }
 }

@@ -161,7 +161,10 @@ public abstract class IsoWorldMixin {
             // 스케줄러 틱 처리
             PulseScheduler.getInstance().tick();
 
-            // Tick Phase 완료 알림
+            // v0.9: CRITICAL - onTickComplete() MUST be called from game logic loop
+            // (IsoWorld.update)
+            // NOT from render loop (GameWindow.render) to avoid FPS/TPS confusion
+            // This is the correct injection point: RETURN of IsoWorld.update()
             com.pulse.api.profiler.TickPhaseHook.onTickComplete();
 
             // Pulse 1.2: GameTickEndEvent 발생 (정밀 소요 시간 포함)

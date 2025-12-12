@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.echo'
-version = '0.8.0'
+version = '2.0.0'  // Synced with pulse.mod.json
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

@@ -109,15 +109,25 @@ public class EchoReport {
             return null;
         }
 
-        // Phase 5.2: Low Quality Report Handling
+        // Phase 5.2 + v0.9: Quality-based three-tier path separation
         int score = ReportQualityScorer.getInstance().calculateScore(collector.getProfiler()).score;
         int minQuality = com.echo.config.EchoConfig.getInstance().getMinQualityToSave();
+        int baselineThreshold = com.echo.config.EchoConfig.getInstance().getBaselineQualityThreshold();
 
-        if (score < minQuality) {
-            directory = directory + File.separator + "low_quality";
-            System.out.println("[Echo] Report quality (" + score + ") below threshold (" + minQuality
-                    + "). Saving to low_quality folder.");
+        // Determine save location based on quality score
+        String subFolder;
+        if (score >= baselineThreshold) {
+            subFolder = "baseline";
+            System.out.println("[Echo] High quality report (" + score + ") → baseline folder.");
+        } else if (score >= minQuality) {
+            subFolder = "normal";
+            System.out.println("[Echo] Report quality (" + score + ") → normal folder.");
+        } else {
+            subFolder = "low_quality";
+            System.out.println("[Echo] Low quality report (" + score + ") below threshold (" + minQuality
+                    + ") → low_quality folder.");
         }
+        directory = directory + File.separator + subFolder;
 
         String timestamp = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")
                 .format(java.time.LocalDateTime.now());

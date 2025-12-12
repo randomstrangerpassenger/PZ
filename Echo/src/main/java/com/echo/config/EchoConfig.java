@@ -101,6 +101,9 @@ public class EchoConfig {
     /** 저장 최소 품질 임계값 (기본 0 = 모두 저장) */
     private int minQualityToSave = 0;
 
+    /** Baseline 품질 임계값 (기본 30, 이상이면 baseline 폴더에 저장) */
+    private int baselineQualityThreshold = 30;
+
     /** 사용자가 명시적으로 Lua OFF를 지정했는지 */
     private boolean userExplicitLuaOff = false;
 
@@ -432,6 +435,14 @@ public class EchoConfig {
 
     public void setMinQualityToSave(int minQualityToSave) {
         this.minQualityToSave = minQualityToSave;
+    }
+
+    public int getBaselineQualityThreshold() {
+        return baselineQualityThreshold;
+    }
+
+    public void setBaselineQualityThreshold(int threshold) {
+        this.baselineQualityThreshold = Math.max(0, Math.min(100, threshold));
     }
 
     public boolean isUserExplicitLuaOff() {

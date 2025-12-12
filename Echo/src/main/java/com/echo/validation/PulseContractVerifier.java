@@ -36,6 +36,10 @@ public class PulseContractVerifier {
     private final AtomicLong largeDeltaTimes = new AtomicLong(0);
     private final AtomicLong duplicateEvents = new AtomicLong(0);
 
+    // v0.9: Burst tick allowance for MP catch-up (server sync)
+    private int burstTickCount = 0;
+    private static final int MAX_BURST_ALLOWANCE = 5;
+
     // Last reported violation
     private volatile String lastViolationMessage = null;
 
@@ -85,11 +89,17 @@ public class PulseContractVerifier {
         tickMissing = false;
         long currentNanos = System.nanoTime();
 
-        // Check 1: Zero deltaTime (indicates duplicate event)
-        if (deltaTime == 0) {
-            if (zeroDeltaTimes.incrementAndGet() == 1) {
-                recordViolation("Zero deltaTime detected (possible duplicate event)");
+        // Check 1: Zero deltaTime with burst allowance (v0.9 MP catch-up fix)
+        if (deltaTime <= 0.000001f) {
+            burstTickCount++;
+            if (burstTickCount > MAX_BURST_ALLOWANCE) {
+                if (zeroDeltaTimes.incrementAndGet() == 1) {
+                    recordViolation("Excessive zero-delta ticks (Limit: " + MAX_BURST_ALLOWANCE + ")");
+                }
             }
+            // Within burst allowance - treat as normal server sync
+        } else {
+            burstTickCount = 0; // Reset burst counter on normal tick
         }
 
         // Check 2: Large deltaTime (indicates stall or lag spike)
@@ -183,6 +193,7 @@ public class PulseContractVerifier {
         lastViolationMessage = null;
         lastPhase = null;
         tickMissing = false;
+        burstTickCount = 0;
         lastTickReceivedTime = 0;
     }
 
@@ -198,6 +209,8 @@ public class PulseContractVerifier {
         map.put("large_delta_times", largeDeltaTimes.get());
         map.put("duplicate_events", duplicateEvents.get());
         map.put("thread_contentions", threadContentions.get());
+        map.put("burst_tick_allowance", MAX_BURST_ALLOWANCE);
+        map.put("current_burst_count", burstTickCount);
         map.put("missing_phase_data", isPhaseSignalMissing());
         map.put("tick_missing", tickMissing);
         map.put("total_ticks", gameTickCount.get());

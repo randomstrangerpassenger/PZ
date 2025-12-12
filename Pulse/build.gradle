@@ -44,6 +44,14 @@ dependencies {
     // Game Code (컴파일 전용)
     compileOnly files('C:/SteamLibrary/steamapps/common/ProjectZomboid')
     compileOnly fileTree(dir: 'C:/SteamLibrary/steamapps/common/ProjectZomboid', include: ['*.jar'])
+
+    // Testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
 }
 
 shadowJar {

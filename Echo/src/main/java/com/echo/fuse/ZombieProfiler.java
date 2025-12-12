@@ -27,6 +27,7 @@ public class ZombieProfiler {
     private final Map<ZombieStep, LongAdder> stepTimes = new EnumMap<>(ZombieStep.class);
     private final Map<ZombieStep, LongAdder> stepCounts = new EnumMap<>(ZombieStep.class);
     private final LongAdder totalZombiesUpdated = new LongAdder(); // Total zombie update calls
+    private final LongAdder tickZombiesUpdated = new LongAdder(); // Per-tick updates
 
     private ZombieProfiler() {
         for (ZombieStep step : ZombieStep.values()) {
@@ -51,10 +52,19 @@ public class ZombieProfiler {
         if (!EchoConfig.getInstance().isDeepAnalysisEnabled())
             return;
         totalZombiesUpdated.increment();
+        tickZombiesUpdated.increment();
     }
 
     public long getZombieCount() {
         return totalZombiesUpdated.sum();
+    }
+
+    public long getTickZombieCount() {
+        return tickZombiesUpdated.sum();
+    }
+
+    public void endTick() {
+        tickZombiesUpdated.reset();
     }
 
     public void reset() {

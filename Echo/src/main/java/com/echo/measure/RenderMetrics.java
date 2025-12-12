@@ -1,6 +1,8 @@
 package com.echo.measure;
 
 import java.util.*;
+import com.pulse.api.service.echo.RenderEfficiency;
+import com.pulse.api.service.echo.IRenderMetrics;
 
 /**
  * 렌더링 메트릭 수집기.
@@ -12,7 +14,7 @@ import java.util.*;
  * 
  * @since 1.0.1
  */
-public class RenderMetrics {
+public class RenderMetrics implements IRenderMetrics {
 
     private static final RenderMetrics INSTANCE = new RenderMetrics();
 
@@ -167,6 +169,7 @@ public class RenderMetrics {
         return lastFrameTimeMs;
     }
 
+    @Override
     public double getAvgFrameTimeMs() {
         return avgFrameTimeMs;
     }
@@ -175,6 +178,7 @@ public class RenderMetrics {
         return maxFrameTimeMs;
     }
 
+    @Override
     public double getFps() {
         return avgFrameTimeMs > 0 ? 1000.0 / avgFrameTimeMs : 0;
     }
@@ -194,6 +198,7 @@ public class RenderMetrics {
     /**
      * 렌더 효율성 등급
      */
+    @Override
     public RenderEfficiency getRenderEfficiency() {
         double batching = getBatchingEfficiency();
         double drawCalls = getAvgDrawCallsPerFrame();
@@ -277,26 +282,5 @@ public class RenderMetrics {
         map.put("efficiency", getRenderEfficiency().name());
 
         return map;
-    }
-
-    // ============================================================
-    // 내부 클래스
-    // ============================================================
-
-    public enum RenderEfficiency {
-        EXCELLENT("Optimal batching and low draw calls"),
-        GOOD("Good performance with minor optimization opportunities"),
-        FAIR("Noticeable inefficiencies, consider optimization"),
-        POOR("High draw calls or poor batching efficiency");
-
-        private final String description;
-
-        RenderEfficiency(String description) {
-            this.description = description;
-        }
-
-        public String getDescription() {
-            return description;
-        }
     }
 }

@@ -2,6 +2,7 @@ package com.echo.event;
 
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.ProfilingPoint;
+import com.echo.measure.ProfilingScope;
 
 /**
  * Echo 이벤트 리스너
@@ -18,8 +19,8 @@ public class EchoEventListener {
     private static final EchoProfiler profiler = EchoProfiler.getInstance();
 
     // 현재 활성 스코프 (수동 관리용)
-    private static EchoProfiler.ProfilingScope currentTickScope = null;
-    private static EchoProfiler.ProfilingScope currentRenderScope = null;
+    private static ProfilingScope currentTickScope = null;
+    private static ProfilingScope currentRenderScope = null;
 
     /**
      * 게임 틱 시작

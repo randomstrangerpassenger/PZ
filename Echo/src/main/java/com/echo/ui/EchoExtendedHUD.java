@@ -4,6 +4,8 @@ import com.echo.EchoRuntime;
 import com.echo.analysis.BottleneckDetector;
 import com.echo.analysis.BottleneckDetector.*;
 import com.echo.measure.*;
+import com.pulse.api.service.echo.ConnectionQuality;
+import com.pulse.api.service.echo.RenderEfficiency;
 
 import com.pulse.ui.HUDOverlay;
 import com.pulse.ui.UIRenderContext;
@@ -114,19 +116,19 @@ public class EchoExtendedHUD extends HUDOverlay.HUDLayer {
 
         // 네트워크
         NetworkMetrics net = NetworkMetrics.getInstance();
-        NetworkMetrics.ConnectionQuality quality = net.getConnectionQuality();
+        ConnectionQuality quality = net.getConnectionQuality();
         cachedNetworkText = String.format("Net: %.0fms (%s)",
                 net.getAvgPingMs(), qualityToShort(quality));
-        networkColor = quality == NetworkMetrics.ConnectionQuality.POOR ? EchoTheme.CRITICAL
-                : quality == NetworkMetrics.ConnectionQuality.FAIR ? EchoTheme.WARNING : EchoTheme.GOOD;
+        networkColor = quality == ConnectionQuality.POOR ? EchoTheme.CRITICAL
+                : quality == ConnectionQuality.FAIR ? EchoTheme.WARNING : EchoTheme.GOOD;
 
         // 렌더링
         RenderMetrics render = RenderMetrics.getInstance();
-        RenderMetrics.RenderEfficiency efficiency = render.getRenderEfficiency();
+        RenderEfficiency efficiency = render.getRenderEfficiency();
         cachedRenderText = String.format("DC: %.0f B:%.0f%%",
                 render.getAvgDrawCallsPerFrame(), render.getBatchingEfficiency());
-        renderColor = efficiency == RenderMetrics.RenderEfficiency.POOR ? EchoTheme.CRITICAL
-                : efficiency == RenderMetrics.RenderEfficiency.FAIR ? EchoTheme.WARNING : EchoTheme.GOOD;
+        renderColor = efficiency == RenderEfficiency.POOR ? EchoTheme.CRITICAL
+                : efficiency == RenderEfficiency.FAIR ? EchoTheme.WARNING : EchoTheme.GOOD;
 
         // 병목
         List<Bottleneck> bottlenecks = BottleneckDetector.getInstance().identifyTopN(1);
@@ -180,7 +182,7 @@ public class EchoExtendedHUD extends HUDOverlay.HUDLayer {
         }
     }
 
-    private String qualityToShort(NetworkMetrics.ConnectionQuality quality) {
+    private String qualityToShort(ConnectionQuality quality) {
         return switch (quality) {
             case EXCELLENT -> "EX";
             case GOOD -> "OK";

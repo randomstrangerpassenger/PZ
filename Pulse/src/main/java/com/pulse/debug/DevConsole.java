@@ -4,8 +4,6 @@ import com.pulse.mod.ModLoader;
 import com.pulse.mod.ModContainer;
 import com.pulse.mod.ModReloadManager;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.security.PermissionManager;
-import com.pulse.security.PermissionManager.Permission;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -17,41 +15,18 @@ import java.util.function.Consumer;
  * 
  * <p>
  * <b>멀티플레이어 보안:</b>
- * 서버 환경에서는 위험한 명령어(lua, mods reload/disable/enable)에 대해
- * 관리자 권한 검사를 수행합니다. 권한이 없는 유저는 해당 명령어를 실행할 수 없습니다.
+ * PermissionValidator를 통해 관리자 권한을 엄격하게 검사합니다.
  * </p>
- * 
- * 사용 예:
- * 
- * <pre>
- * DevConsole.execute("mods list");
- * DevConsole.execute("reload mymod");
- * DevConsole.execute("events monitor");
- * </pre>
  */
 public class DevConsole {
 
     private static final DevConsole INSTANCE = new DevConsole();
     private static final String LOG = PulseLogger.PULSE;
 
-    /** 위험 명령어 목록 - 권한 검사 필요 */
-    private static final Set<String> PRIVILEGED_COMMANDS = Set.of("lua");
-    private static final Set<String> MOD_MANAGE_SUBCOMMANDS = Set.of("reload", "disable", "enable");
-
     private final Map<String, ConsoleCommand> commands = new LinkedHashMap<>();
     private final Queue<String> outputBuffer = new ConcurrentLinkedQueue<>();
     private Consumer<String> outputHandler;
     private boolean eventMonitoring = false;
-
-    /** 현재 콘솔 사용자의 권한 (플레이어 ID 또는 "pulse:system") */
-    private static String currentExecutor = "pulse:system";
-    private static boolean currentExecutorIsAdmin = false;
-
-    /** 디버그 모드 여부 (개발 중에만 true) */
-    private static boolean debugModeEnabled = false;
-
-    /** 멀티플레이어 세션 여부 */
-    private static boolean inMultiplayerSession = false;
 
     private DevConsole() {
         registerDefaultCommands();
@@ -62,88 +37,45 @@ public class DevConsole {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 권한 관리 (멀티플레이어 보안)
+    // 권한 관리 (Delegated to PermissionValidator)
     // ─────────────────────────────────────────────────────────────
 
-    /**
-     * 현재 콘솔 실행자 설정.
-     * 멀티플레이어 서버에서 콘솔 UI 열 때 호출해야 합니다.
-     * 
-     * @param executorId 플레이어 ID 또는 시스템 ID
-     * @param isAdmin    관리자 권한 여부
-     */
     public static void setCurrentExecutor(String executorId, boolean isAdmin) {
-        currentExecutor = executorId != null ? executorId : "pulse:system";
-        currentExecutorIsAdmin = isAdmin;
-        PulseLogger.info(LOG, "[DevConsole] Executor set: {} (admin={})", currentExecutor, isAdmin);
+        PermissionValidator.getInstance().setCurrentExecutor(executorId, isAdmin);
     }
 
-    /**
-     * 현재 실행자가 관리자인지 확인.
-     */
     public static boolean isCurrentExecutorAdmin() {
-        return currentExecutorIsAdmin;
+        return PermissionValidator.getInstance().isCurrentExecutorAdmin();
     }
 
-    /**
-     * 시스템 권한으로 리셋 (콘솔 UI 닫을 때 호출).
-     */
     public static void resetExecutorToSystem() {
-        currentExecutor = "pulse:system";
-        currentExecutorIsAdmin = true;
+        PermissionValidator.getInstance().resetExecutorToSystem();
     }
 
-    /**
-     * 디버그 모드 설정.
-     * 개발 환경이나 싱글플레이 테스트 시 true로 설정하면 권한 검사 우회.
-     * 
-     * @param enabled 디버그 모드 활성화 여부
-     */
     public static void setDebugMode(boolean enabled) {
-        debugModeEnabled = enabled;
-        PulseLogger.info(LOG, "[DevConsole] Debug mode: {}", enabled ? "ENABLED" : "DISABLED");
+        PermissionValidator.getInstance().setDebugMode(enabled);
     }
 
-    /**
-     * 디버그 모드 상태 확인.
-     */
     public static boolean isDebugModeEnabled() {
-        return debugModeEnabled;
+        return PermissionValidator.getInstance().isDebugModeEnabled();
     }
 
-    /**
-     * 멀티플레이어 세션 시작 시 호출.
-     * 멀티플레이 서버 접속 시 자동으로 호출되어야 합니다.
-     */
     public static void onMultiplayerSessionStart() {
-        inMultiplayerSession = true;
-        debugModeEnabled = false; // 멀티플레이에서는 디버그 모드 강제 비활성화
-        PulseLogger.info(LOG, "[DevConsole] Multiplayer session started - security enforced");
+        PermissionValidator.getInstance().onMultiplayerSessionStart();
     }
 
-    /**
-     * 멀티플레이어 세션 종료 시 호출.
-     */
     public static void onMultiplayerSessionEnd() {
-        inMultiplayerSession = false;
-        resetExecutorToSystem();
-        PulseLogger.info(LOG, "[DevConsole] Multiplayer session ended");
+        PermissionValidator.getInstance().onMultiplayerSessionEnd();
     }
 
-    /**
-     * 멀티플레이어 세션 여부 확인.
-     */
     public static boolean isInMultiplayerSession() {
-        return inMultiplayerSession;
+        return PermissionValidator.getInstance().isInMultiplayerSession();
     }
 
     // ─────────────────────────────────────────────────────────────
     // 명령어 실행
     // ─────────────────────────────────────────────────────────────
 
-    /**
-     * 명령어 실행.
-     */
     public static String execute(String input) {
         return INSTANCE.executeInternal(input);
     }
@@ -157,61 +89,11 @@ public class DevConsole {
         String cmdName = parts[0].toLowerCase();
         String args = parts.length > 1 ? parts[1] : "";
 
-        // ═══════════════════════════════════════════════════════════════
-        // [최우선] Project Zomboid 권한 직접 검사
-        // ═══════════════════════════════════════════════════════════════
-        // 클라이언트에서 위험한 명령어 시도 시, PZ의 실제 Admin 상태 확인
-        // 이 검사는 외부 설정(setCurrentExecutor 등)에 의존하지 않음
-        // ═══════════════════════════════════════════════════════════════
-
-        if (PRIVILEGED_COMMANDS.contains(cmdName) ||
-                ("mods".equals(cmdName) && args.length() > 0
-                        && MOD_MANAGE_SUBCOMMANDS.contains(args.split("\\s+")[0].toLowerCase()))) {
-
-            // PZ 멀티플레이어 클라이언트에서 Admin이 아니면 차단
-            if (isInPZMultiplayerClient() && !isPZAdmin()) {
-                PulseLogger.error(LOG,
-                        "[DevConsole] BLOCKED: Non-admin attempted privileged command in multiplayer: {}", cmdName);
-                return "§c[보안] Error: 관리자 권한이 없습니다. 이 명령어는 멀티플레이에서 관리자만 사용할 수 있습니다.";
-            }
+        // 보안 검사 위임
+        String error = PermissionValidator.getInstance().validateCommand(cmdName, args);
+        if (error != null) {
+            return error;
         }
-
-        // ═══════════════════════════════════════════════════════════════
-        // 보안 검사 (Anti-Cheat) - 2차 검증
-        // ═══════════════════════════════════════════════════════════════
-        //
-        // 검사 우회 조건 (아래 중 하나 충족 시):
-        // 1. 디버그 모드 활성화 AND 싱글플레이어 (개발 테스트용)
-        // 2. 현재 실행자가 관리자권한 보유
-        //
-        // 그 외 모든 경우에서 위험 명령어 차단
-        // ═══════════════════════════════════════════════════════════════
-
-        boolean bypassSecurity = (debugModeEnabled && !inMultiplayerSession) || currentExecutorIsAdmin;
-
-        if (!bypassSecurity) {
-            // Lua 명령어: CONSOLE_LUA_EXEC 권한 필요
-            if (PRIVILEGED_COMMANDS.contains(cmdName)) {
-                if (!PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_LUA_EXEC)) {
-                    PulseLogger.error(LOG, "[DevConsole] BLOCKED: User '{}' attempted privileged command: {}",
-                            currentExecutor, cmdName);
-                    return "§c[보안] 권한 부족: '" + cmdName + "' 명령어는 관리자만 사용할 수 있습니다.";
-                }
-            }
-
-            // 모드 관리 명령어: CONSOLE_MOD_MANAGE 권한 필요
-            if ("mods".equals(cmdName) && args.length() > 0) {
-                String subCmd = args.split("\\s+")[0].toLowerCase();
-                if (MOD_MANAGE_SUBCOMMANDS.contains(subCmd)) {
-                    if (!PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_MOD_MANAGE)) {
-                        PulseLogger.error(LOG, "[DevConsole] BLOCKED: User '{}' attempted mod management: mods {}",
-                                currentExecutor, subCmd);
-                        return "§c[보안] 권한 부족: 'mods " + subCmd + "'는 관리자만 사용할 수 있습니다.";
-                    }
-                }
-            }
-        }
-        // ═══════════════════════════════════════════════════════════════
 
         ConsoleCommand cmd = commands.get(cmdName);
         if (cmd == null) {
@@ -221,6 +103,7 @@ public class DevConsole {
         try {
             return cmd.execute(args);
         } catch (Exception e) {
+            PulseLogger.error(LOG, "Command execution failed: " + cmdName, e);
             return "Error: " + e.getMessage();
         }
     }
@@ -231,7 +114,7 @@ public class DevConsole {
 
     private void registerDefaultCommands() {
         // help
-        register("help", "Show available commands", args -> {
+        registerCommand("help", "Show available commands", args -> {
             StringBuilder sb = new StringBuilder("Available commands:\n");
             for (var entry : commands.entrySet()) {
                 sb.append("  ").append(entry.getKey())
@@ -242,7 +125,7 @@ public class DevConsole {
         });
 
         // mods
-        register("mods", "Mod management (list/info/reload/disable/enable)", args -> {
+        registerCommand("mods", "Mod management (list/info/reload/disable/enable)", args -> {
             String[] parts = args.split("\\s+", 2);
             String subCmd = parts.length > 0 ? parts[0] : "list";
             String modId = parts.length > 1 ? parts[1] : null;
@@ -264,7 +147,7 @@ public class DevConsole {
         });
 
         // events
-        register("events", "Event system (monitor/stats)", args -> {
+        registerCommand("events", "Event system (monitor/stats)", args -> {
             if (args.startsWith("monitor")) {
                 eventMonitoring = !eventMonitoring;
                 return "Event monitoring: " + (eventMonitoring ? "ON" : "OFF");
@@ -273,24 +156,14 @@ public class DevConsole {
         });
 
         // clear
-        register("clear", "Clear output buffer", args -> {
+        registerCommand("clear", "Clear output buffer", args -> {
             outputBuffer.clear();
             return "Output cleared.";
         });
 
         // lua
-        register("lua", "Execute Lua code (Admin only in multiplayer)", args -> {
-            // ═══════════════════════════════════════════════════════════════
-            // Project Zomboid SandboxOptions 검사
-            // 멀티플레이 서버에서 Lua 콘솔이 비허용되면 차단
-            // ═══════════════════════════════════════════════════════════════
-            if (inMultiplayerSession) {
-                if (!isLuaConsoleAllowedByServer()) {
-                    PulseLogger.error(LOG, "[DevConsole] BLOCKED: Lua console not allowed on this server");
-                    return "§c[보안] 이 서버에서는 Lua 콘솔이 비활성화되어 있습니다.";
-                }
-            }
-
+        registerCommand("lua", "Execute Lua code (Admin only in multiplayer)", args -> {
+            // PermissionValidator에서 이미 권한 및 SandboxOptions 검사를 수행했으므로 바로 실행
             try {
                 Object result = com.pulse.lua.LuaBridge.call(args);
                 return result != null ? result.toString() : "nil";
@@ -361,191 +234,22 @@ public class DevConsole {
      * 커스텀 명령어 등록.
      */
     public static void register(String name, String description, CommandExecutor executor) {
-        INSTANCE.commands.put(name.toLowerCase(), new ConsoleCommand(description, executor));
+        INSTANCE.registerCommand(name, description, executor);
     }
 
-    /**
-     * 출력 핸들러 설정 (UI 연동용).
-     */
+    private void registerCommand(String name, String description, CommandExecutor executor) {
+        commands.put(name.toLowerCase(), new ConsoleCommand(description, executor));
+    }
+
     public static void setOutputHandler(Consumer<String> handler) {
         INSTANCE.outputHandler = handler;
     }
 
-    /**
-     * 콘솔에 출력.
-     */
     public static void print(String message) {
         INSTANCE.outputBuffer.offer(message);
         if (INSTANCE.outputHandler != null) {
             INSTANCE.outputHandler.accept(message);
         }
         PulseLogger.info(LOG, "[DevConsole] {}", message);
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // Project Zomboid 연동 (SandboxOptions)
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * Project Zomboid 서버에서 Lua 콘솔이 허용되는지 확인.
-     * SandboxOptions.instance.AllowedToLuaConsole.getValue() 호출.
-     * 
-     * PZ 런타임이 없는 경우 기본값 false (안전) 반환.
-     * 
-     * @return Lua 콘솔 허용 여부
-     */
-    private static boolean isLuaConsoleAllowedByServer() {
-        try {
-            // zombie.SandboxOptions 클래스 로드
-            Class<?> sandboxOptionsClass = Class.forName("zombie.SandboxOptions");
-
-            // SandboxOptions.instance 필드 획득
-            java.lang.reflect.Field instanceField = sandboxOptionsClass.getField("instance");
-            Object instance = instanceField.get(null);
-
-            if (instance == null) {
-                PulseLogger.warn(LOG, "[DevConsole] SandboxOptions.instance is null, defaulting to blocked");
-                return false;
-            }
-
-            // AllowedToLuaConsole 필드 획득
-            java.lang.reflect.Field luaConsoleField = sandboxOptionsClass.getField("AllowedToLuaConsole");
-            Object luaConsoleOption = luaConsoleField.get(instance);
-
-            if (luaConsoleOption == null) {
-                PulseLogger.warn(LOG, "[DevConsole] AllowedToLuaConsole is null, defaulting to blocked");
-                return false;
-            }
-
-            // getValue() 메서드 호출
-            java.lang.reflect.Method getValueMethod = luaConsoleOption.getClass().getMethod("getValue");
-            Object result = getValueMethod.invoke(luaConsoleOption);
-
-            if (result instanceof Boolean) {
-                return (Boolean) result;
-            }
-
-            PulseLogger.warn(LOG, "[DevConsole] Unexpected getValue() result type: {}", result);
-            return false;
-
-        } catch (ClassNotFoundException e) {
-            // PZ 런타임 외부에서 실행 중 - 디버그 모드라면 허용
-            if (debugModeEnabled) {
-                return true;
-            }
-            PulseLogger.info(LOG, "[DevConsole] Not running in PZ runtime, Lua console blocked");
-            return false;
-        } catch (Exception e) {
-            PulseLogger.error(LOG, "[DevConsole] Error checking SandboxOptions: {}", e.getMessage());
-            return false; // 오류 시 안전하게 차단
-        }
-    }
-
-    /**
-     * Project Zomboid 멀티플레이어 클라이언트에서 실행 중인지 확인.
-     * GameWindow.bServer == false AND GameClient.bConnected == true 인 경우.
-     * 
-     * @return 멀티플레이어 클라이언트 여부
-     */
-    private static boolean isInPZMultiplayerClient() {
-        // 먼저 Pulse 내부 플래그 확인 (더 빠름)
-        if (inMultiplayerSession) {
-            return true;
-        }
-
-        try {
-            // GameWindow.bServer 확인 (서버인지)
-            Class<?> gameWindowClass = Class.forName("zombie.GameWindow");
-            java.lang.reflect.Field bServerField = gameWindowClass.getField("bServer");
-            boolean isServer = bServerField.getBoolean(null);
-
-            if (isServer) {
-                return false; // 서버에서는 멀티플레이어 클라이언트가 아님
-            }
-
-            // GameClient.bConnected 확인 (멀티플레이어 접속 중인지)
-            Class<?> gameClientClass = Class.forName("zombie.network.GameClient");
-            java.lang.reflect.Field bConnectedField = gameClientClass.getField("bConnected");
-            boolean isConnected = bConnectedField.getBoolean(null);
-
-            return isConnected;
-
-        } catch (ClassNotFoundException e) {
-            // PZ 런타임 외부 - Pulse 내부 플래그에 의존
-            return inMultiplayerSession;
-        } catch (Exception e) {
-            PulseLogger.error(LOG, "[DevConsole] Error checking multiplayer state: {}", e.getMessage());
-            return inMultiplayerSession;
-        }
-    }
-
-    /**
-     * 현재 플레이어가 Project Zomboid 서버 관리자인지 확인.
-     * GameClient.isAdmin() 또는 유사한 API 호출.
-     * 
-     * @return 관리자 여부 (확인 실패 시 false - 안전)
-     */
-    private static boolean isPZAdmin() {
-        // 항상 PZ 게임 엔진에서 직접 Admin 상태를 확인
-        // (currentExecutorIsAdmin 플래그에 의존하지 않음 - 보안 강화)
-        try {
-            // 방법 1: GameClient.connection.isAdmin() 확인
-            Class<?> gameClientClass = Class.forName("zombie.network.GameClient");
-            java.lang.reflect.Field connectionField = gameClientClass.getDeclaredField("connection");
-            connectionField.setAccessible(true);
-            Object connection = connectionField.get(null);
-
-            if (connection != null) {
-                java.lang.reflect.Method isAdminMethod = connection.getClass().getMethod("isAdmin");
-                Object result = isAdminMethod.invoke(connection);
-                if (result instanceof Boolean) {
-                    return (Boolean) result;
-                }
-            }
-
-            // 방법 2: 백업 - Core.bDebug 확인 (디버그 모드에서는 허용)
-            Class<?> coreClass = Class.forName("zombie.core.Core");
-            java.lang.reflect.Field bDebugField = coreClass.getField("bDebug");
-            boolean isDebug = bDebugField.getBoolean(null);
-            if (isDebug) {
-                return true;
-            }
-
-            return false;
-
-        } catch (ClassNotFoundException e) {
-            // PZ 런타임 외부 - 디버그 모드라면 허용
-            return debugModeEnabled;
-        } catch (Exception e) {
-            PulseLogger.error(LOG, "[DevConsole] Error checking admin status: {}", e.getMessage());
-            return false; // 오류 시 안전하게 거부
-        }
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // 내부 클래스
-    // ─────────────────────────────────────────────────────────────
-
-    @FunctionalInterface
-    public interface CommandExecutor {
-        String execute(String args);
-    }
-
-    private static class ConsoleCommand {
-        private final String description;
-        private final CommandExecutor executor;
-
-        ConsoleCommand(String description, CommandExecutor executor) {
-            this.description = description;
-            this.executor = executor;
-        }
-
-        String getDescription() {
-            return description;
-        }
-
-        String execute(String args) {
-            return executor.execute(args);
-        }
     }
 }

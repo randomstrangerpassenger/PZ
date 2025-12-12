@@ -1,8 +1,11 @@
 package com.pulse.api.util;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.pulse.api.exception.ReflectionException;
 
 /**
  * 리플렉션 캐시.
@@ -21,6 +24,9 @@ public final class ReflectionCache {
 
     // Method 캐시: "className.methodName(paramTypes...)" → Method
     private static final Map<String, Method> METHOD_CACHE = new ConcurrentHashMap<>();
+
+    // Field 캐시: "className.fieldName" → Field
+    private static final Map<String, Field> FIELD_CACHE = new ConcurrentHashMap<>();
 
     // Class 캐시: className → Class
     private static final Map<String, Class<?>> CLASS_CACHE = new ConcurrentHashMap<>();
@@ -56,6 +62,17 @@ public final class ReflectionCache {
     }
 
     /**
+     * 캐시된 Method 조회 (예외 발생).
+     */
+    public static Method getMethodOrThrow(Class<?> cls, String name, Class<?>... params) {
+        try {
+            return getMethod(cls, name, params);
+        } catch (NoSuchMethodException e) {
+            throw new ReflectionException("Method not found: " + cls.getName() + "." + name, e);
+        }
+    }
+
+    /**
      * 캐시된 Method 조회 (Optional 스타일).
      */
     public static Method getMethodOrNull(Class<?> cls, String name, Class<?>... params) {
@@ -63,6 +80,41 @@ public final class ReflectionCache {
             return getMethod(cls, name, params);
         } catch (NoSuchMethodException e) {
             return null;
+        }
+    }
+
+    /**
+     * 캐시된 Field 조회.
+     *
+     * @param cls  대상 클래스
+     * @param name 필드 이름
+     * @return Field 객체
+     * @throws NoSuchFieldException 필드가 없으면 발생
+     */
+    public static Field getField(Class<?> cls, String name) throws NoSuchFieldException {
+        String key = cls.getName() + "." + name;
+
+        Field cached = FIELD_CACHE.computeIfAbsent(key, k -> {
+            try {
+                Field f = cls.getDeclaredField(name);
+                f.setAccessible(true);
+                return f;
+            } catch (NoSuchFieldException e) {
+                return null;
+            }
+        });
+
+        if (cached == null) {
+            throw new NoSuchFieldException(cls.getName() + "." + name);
+        }
+        return cached;
+    }
+
+    public static Field getFieldOrThrow(Class<?> cls, String name) {
+        try {
+            return getField(cls, name);
+        } catch (NoSuchFieldException e) {
+            throw new ReflectionException("Field not found: " + cls.getName() + "." + name, e);
         }
     }
 
@@ -91,6 +143,17 @@ public final class ReflectionCache {
     }
 
     /**
+     * 캐시된 Class 조회 (예외 발생).
+     */
+    public static Class<?> getClassOrThrow(String className, ClassLoader loader) {
+        try {
+            return getClass(className, loader);
+        } catch (ClassNotFoundException e) {
+            throw new ReflectionException("Class not found: " + className, e);
+        }
+    }
+
+    /**
      * 캐시된 Class 조회 (Optional 스타일).
      */
     public static Class<?> getClassOrNull(String className, ClassLoader loader) {
@@ -112,11 +175,16 @@ public final class ReflectionCache {
         return CLASS_CACHE.size();
     }
 
+    public static int getFieldCacheSize() {
+        return FIELD_CACHE.size();
+    }
+
     /**
      * 캐시 전체 초기화.
      */
     public static void clearAll() {
         METHOD_CACHE.clear();
+        FIELD_CACHE.clear();
         CLASS_CACHE.clear();
     }
 

@@ -147,7 +147,7 @@ public final class PulseMetrics {
      * Echo 및 다른 모듈에서 성능 상관관계 분석에 사용
      */
     public static int getLoadedChunkCount() {
-        return GameAccess.getLoadedCellCount();
+        return com.pulse.api.access.WorldAccess.getLoadedCellCount();
     }
 
     /**
@@ -155,7 +155,7 @@ public final class PulseMetrics {
      * Echo 및 다른 모듈에서 성능 상관관계 분석에 사용
      */
     public static int getEntityCount() {
-        return GameAccess.getTotalEntityCount();
+        return com.pulse.api.access.WorldAccess.getTotalEntityCount();
     }
 
     /**

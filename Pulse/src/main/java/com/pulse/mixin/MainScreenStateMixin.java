@@ -18,6 +18,9 @@ public abstract class MainScreenStateMixin {
             // Pulse 1.3: 프레임 시작 알림 (Echo PulseMetrics 연동)
             com.pulse.api.PulseMetrics.onFrameStart();
         } catch (Throwable t) {
+            if (com.pulse.PulseEnvironment.isDevelopmentMode()) {
+                throw t;
+            }
             PulseErrorHandler.reportMixinFailure("MainScreenStateMixin.onRenderHead", t);
         }
     }

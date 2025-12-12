@@ -2,6 +2,7 @@ package com.echo.pulse;
 
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.ProfilingPoint;
+import com.echo.measure.ProfilingScope;
 
 /**
  * 렌더 프로파일러
@@ -14,7 +15,7 @@ public class RenderProfiler {
     private final EchoProfiler profiler = EchoProfiler.getInstance();
 
     // 현재 활성 스코프
-    private EchoProfiler.ProfilingScope currentScope = null;
+    private ProfilingScope currentScope = null;
 
     // 프레임 카운터
     private long frameCount = 0;
@@ -126,21 +127,20 @@ public class RenderProfiler {
         return lastFrameDuration / 1000.0;
     }
 
-    // OpenGL Queries (Requires LWJGL)
-    @SuppressWarnings("unused")
-    private static final int GL_TIMESTAMP = 0x8E28;
-    @SuppressWarnings("unused")
-    private int[] queryIds = new int[2]; // Front/Back buffer for querying
+    // GPU Timing (Requires GL33)
     private boolean glQuerySupported = false;
+    private long lastGpuDuration = 0;
+
+    // Placeholder for OpenGL Query Object
+    private final GpuQueryRing gpuQueryRing = new GpuQueryRing();
 
     /**
      * GPU 시간 측정 시작 (glQueryCounter)
-     * Note: Requires OpenGL context and GL3.3+
      */
     public void startGpuTimer() {
         if (!glQuerySupported)
             return;
-        // Stub: GL33.glQueryCounter(queryIds[0], GL_TIMESTAMP);
+        gpuQueryRing.start();
     }
 
     /**
@@ -149,9 +149,49 @@ public class RenderProfiler {
     public void endGpuTimer() {
         if (!glQuerySupported)
             return;
-        // Stub: GL33.glQueryCounter(queryIds[1], GL_TIMESTAMP);
-        // long start = GL33.glGetQueryObjectui64(queryIds[0], GL_QUERY_RESULT);
-        // long end = GL33.glGetQueryObjectui64(queryIds[1], GL_QUERY_RESULT);
+        gpuQueryRing.end();
+        // In a real implementation, we would poll query results here
+        // lastGpuDuration = gpuQueryRing.getResult();
+    }
+
+    /**
+     * 프레임 드랍 원인 분석
+     */
+    public FrameDropCause analyzeFrameDrop() {
+        if (lastFrameDuration < 16666) { // 60 FPS (16.6ms)
+            return FrameDropCause.NONE;
+        }
+
+        // If GPU time makes up > 80% of frame time, it's likely GPU bound
+        if (lastGpuDuration > 0 && lastGpuDuration > lastFrameDuration * 0.8) {
+            return FrameDropCause.GPU_BOUND;
+        }
+
+        // Otherwise, assume CPU bound
+        return FrameDropCause.CPU_BOUND;
+    }
+
+    public enum FrameDropCause {
+        NONE,
+        CPU_BOUND,
+        GPU_BOUND,
+        UNKNOWN
+    }
+
+    /**
+     * Placeholder Inner Class for GPU Queries
+     */
+    private static class GpuQueryRing {
+        // private int[] queries = new int[4];
+
+        public void start() {
+            // GL33.glQueryCounter(queries[head], GL_TIMESTAMP);
+        }
+
+        public void end() {
+            // GL33.glQueryCounter(queries[head + 1], GL_TIMESTAMP);
+            // head = (head + 2) % queries.length;
+        }
     }
 
     /**

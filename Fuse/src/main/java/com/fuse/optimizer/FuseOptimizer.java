@@ -1,7 +1,8 @@
 package com.fuse.optimizer;
 
-import com.echo.analysis.BottleneckDetector;
-import com.echo.analysis.BottleneckDetector.*;
+import com.pulse.api.service.echo.IBottleneckDetector;
+import com.pulse.api.service.echo.OptimizationPriority;
+import com.pulse.di.PulseServiceLocator;
 
 import java.util.*;
 
@@ -72,8 +73,17 @@ public class FuseOptimizer {
             return;
         lastAnalysisTime = now;
 
-        // Echo BottleneckDetector에서 Fuse 타겟 조회
-        currentTarget = BottleneckDetector.getInstance().suggestFuseTarget();
+        // Echo BottleneckDetector에서 Fuse 타겟 조회 (SPI)
+        try {
+            IBottleneckDetector detector = PulseServiceLocator.getInstance().getService(IBottleneckDetector.class);
+            if (detector != null) {
+                currentTarget = detector.suggestFuseTarget();
+            } else {
+                currentTarget = null;
+            }
+        } catch (Exception e) {
+            currentTarget = null;
+        }
 
         if (autoOptimize && currentTarget != null && currentTarget.priority > 50) {
             applyOptimization(currentTarget);

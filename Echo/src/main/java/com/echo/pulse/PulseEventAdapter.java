@@ -54,6 +54,10 @@ public class PulseEventAdapter {
             // 정밀 타이밍 기록 (Pulse에서 계산한 nanos 사용)
             tickProfiler.recordTickDuration(event.getDurationNanos());
 
+            // Phase 3: Metric Collection
+            com.echo.measure.EchoProfiler.getInstance().getMetricCollector().collect(tickProfiler, renderProfiler);
+            com.echo.fuse.ZombieProfiler.getInstance().endTick();
+
             // 디버그: 첫 이벤트 수신 확인
             if (event.getTick() == 1) {
                 System.out.println("[Echo/DEBUG] First GameTickEndEvent received! durationMs=" + event.getDurationMs());

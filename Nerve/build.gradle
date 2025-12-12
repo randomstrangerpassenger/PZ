@@ -19,8 +19,8 @@ dependencies {
     // Pulse API dependency
     compileOnly project(':pulse-api')
     
-    // Echo dependency for BottleneckDetector and metrics
-    compileOnly project(':Echo')
+    // Pulse Core dependency (for PulseLogger and other core utilities)
+    compileOnly project(':Pulse')
     
     // PZ stubs (optional, graceful handling when missing)
     compileOnly fileTree(dir: '../Pulse/libs', include: ['pz-stubs.jar'])

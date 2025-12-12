@@ -1,6 +1,7 @@
 package com.fuse;
 
 import com.fuse.optimizer.FuseOptimizer;
+import com.pulse.api.service.echo.OptimizationPriority;
 
 /**
  * Fuse - Performance Optimizer for Project Zomboid

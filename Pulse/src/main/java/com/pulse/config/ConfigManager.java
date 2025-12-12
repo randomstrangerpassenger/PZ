@@ -112,7 +112,8 @@ public class ConfigManager {
      */
     public void registerConfig(Class<?> configClass) {
         if (!configClass.isAnnotationPresent(Config.class)) {
-            throw new IllegalArgumentException("Class must have @Config annotation: " + configClass.getName());
+            throw new com.pulse.api.exception.ConfigurationException(
+                    "Class must have @Config annotation: " + configClass.getName());
         }
 
         ConfigSpec spec = new ConfigSpec(configClass);
@@ -121,7 +122,12 @@ public class ConfigManager {
         PulseLogger.debug(LOG, "Registered config: {}", spec.getModId());
 
         // 파일에서 로드 시도
-        loadConfig(configClass);
+        try {
+            loadConfig(configClass);
+        } catch (Exception e) {
+            // 등록 시 로드 실패는 경고만 (아직 초기화 덜 됐을 수 있음)
+            PulseLogger.warn(LOG, "Failed to load config during registration: {}", e.getMessage());
+        }
     }
 
     /**
@@ -130,8 +136,7 @@ public class ConfigManager {
     public void loadConfig(Class<?> configClass) {
         ConfigSpec spec = specs.get(configClass);
         if (spec == null) {
-            PulseLogger.warn(LOG, "Config not registered: {}", configClass.getName());
-            return;
+            throw new com.pulse.api.exception.ConfigurationException("Config not registered: " + configClass.getName());
         }
 
         Path configFile = getConfigPath(spec);
@@ -159,6 +164,9 @@ public class ConfigManager {
             PulseLogger.debug(LOG, "Loaded: {}", configFile.getFileName());
 
         } catch (Exception e) {
+            if (com.pulse.PulseEnvironment.isDevelopmentMode()) {
+                throw new com.pulse.api.exception.ConfigurationException("Failed to load config: " + configFile, e);
+            }
             PulseLogger.error(LOG, "Failed to load {}: {}", configFile, e.getMessage());
             // 로드 실패 시 기본값 유지
         }
@@ -170,8 +178,7 @@ public class ConfigManager {
     public void saveConfig(Class<?> configClass) {
         ConfigSpec spec = specs.get(configClass);
         if (spec == null) {
-            PulseLogger.warn(LOG, "Config not registered: {}", configClass.getName());
-            return;
+            throw new com.pulse.api.exception.ConfigurationException("Config not registered: " + configClass.getName());
         }
 
         Path configFile = getConfigPath(spec);
@@ -205,6 +212,9 @@ public class ConfigManager {
             PulseLogger.debug(LOG, "Saved: {}", configFile.getFileName());
 
         } catch (Exception e) {
+            if (com.pulse.PulseEnvironment.isDevelopmentMode()) {
+                throw new com.pulse.api.exception.ConfigurationException("Failed to save config: " + configFile, e);
+            }
             PulseLogger.error(LOG, "Failed to save {}: {}", configFile, e.getMessage());
             e.printStackTrace();
         }

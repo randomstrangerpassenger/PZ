@@ -3,6 +3,8 @@ package com.echo.analysis;
 import com.echo.aggregate.TimingData;
 import com.echo.measure.*;
 import com.echo.fuse.*;
+import com.pulse.api.service.echo.IBottleneckDetector;
+import com.pulse.api.service.echo.OptimizationPriority;
 
 import java.util.*;
 
@@ -13,7 +15,7 @@ import java.util.*;
  * 
  * @since 1.0.1
  */
-public class BottleneckDetector {
+public class BottleneckDetector implements IBottleneckDetector {
 
     private static final BottleneckDetector INSTANCE = new BottleneckDetector();
 
@@ -120,6 +122,7 @@ public class BottleneckDetector {
     /**
      * Fuse 타겟 제안
      */
+    @Override
     public OptimizationPriority suggestFuseTarget() {
         List<Bottleneck> bottlenecks = identifyTopN(5);
 
@@ -140,6 +143,7 @@ public class BottleneckDetector {
     /**
      * Nerve 타겟 제안
      */
+    @Override
     public OptimizationPriority suggestNerveTarget() {
         List<Bottleneck> bottlenecks = identifyTopN(5);
 
@@ -316,29 +320,6 @@ public class BottleneckDetector {
 
     public enum OptimizationModule {
         FUSE, NERVE, EITHER
-    }
-
-    public static class OptimizationPriority {
-        public final String targetName;
-        public final String displayName;
-        public final int priority;
-        public final String recommendation;
-
-        public OptimizationPriority(String targetName, String displayName, int priority, String recommendation) {
-            this.targetName = targetName;
-            this.displayName = displayName;
-            this.priority = priority;
-            this.recommendation = recommendation;
-        }
-
-        public Map<String, Object> toMap() {
-            Map<String, Object> map = new LinkedHashMap<>();
-            map.put("target", targetName);
-            map.put("display_name", displayName);
-            map.put("priority", priority);
-            map.put("recommendation", recommendation);
-            return map;
-        }
     }
 
     public static class AnomalyReport {

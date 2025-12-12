@@ -2,6 +2,7 @@ package com.echo.pulse;
 
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.ProfilingPoint;
+import com.echo.measure.ProfilingScope;
 
 /**
  * 틱 프로파일러
@@ -16,7 +17,7 @@ public class TickProfiler {
     private final EchoProfiler profiler = EchoProfiler.getInstance();
 
     // 현재 활성 스코프
-    private EchoProfiler.ProfilingScope currentScope = null;
+    private ProfilingScope currentScope = null;
 
     // 틱 카운터
     private long tickCount = 0;

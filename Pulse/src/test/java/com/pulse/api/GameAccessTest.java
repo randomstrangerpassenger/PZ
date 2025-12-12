@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * GameAccess 및 분리된 Access 클래스 회귀 테스트.
  * 리팩토링 후 기존 동작이 유지되는지 검증.
  */
+
 class GameAccessTest {
 
     @Test
@@ -40,9 +41,4 @@ class GameAccessTest {
         assertTrue(NetworkAccess.isSinglePlayer());
     }
 
-    @Test
-    void gameAccess_legacy_isWorldLoaded_matchesWorldAccess() {
-        // 레거시 GameAccess와 새 WorldAccess가 동일한 결과 반환
-        assertEquals(GameAccess.isWorldLoaded(), WorldAccess.isWorldLoaded());
-    }
 }

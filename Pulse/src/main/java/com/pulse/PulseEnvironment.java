@@ -76,6 +76,61 @@ public class PulseEnvironment {
         return initialized;
     }
 
+    // ================= Development Mode =================
+
+    private static volatile Boolean developmentModeCache = null;
+
+    /**
+     * 개발 모드 여부 확인.
+     * 
+     * 다음 조건 중 하나라도 만족하면 개발 모드:
+     * <ul>
+     * <li>시스템 프로퍼티 {@code pulse.dev=true}</li>
+     * <li>환경 변수 {@code PULSE_DEV} 설정됨</li>
+     * <li>실행 디렉토리에 {@code pulse_dev.lock} 파일 존재</li>
+     * </ul>
+     * 
+     * 개발 모드에서는 Mixin 에러가 전파되어 디버깅이 용이함.
+     * 프로덕션에서는 에러가 격리되어 게임 안정성 유지.
+     * 
+     * @return 개발 모드이면 true
+     */
+    public static boolean isDevelopmentMode() {
+        if (developmentModeCache != null) {
+            return developmentModeCache;
+        }
+
+        // System property check
+        if (Boolean.getBoolean("pulse.dev")) {
+            developmentModeCache = true;
+            return true;
+        }
+
+        // Environment variable check
+        String envVar = System.getenv("PULSE_DEV");
+        if (envVar != null && !envVar.isEmpty()) {
+            developmentModeCache = true;
+            return true;
+        }
+
+        // Lock file check
+        java.io.File lockFile = new java.io.File("pulse_dev.lock");
+        if (lockFile.exists()) {
+            developmentModeCache = true;
+            return true;
+        }
+
+        developmentModeCache = false;
+        return false;
+    }
+
+    /**
+     * 개발 모드 캐시 초기화 (테스트용).
+     */
+    public static void resetDevelopmentModeCache() {
+        developmentModeCache = null;
+    }
+
     // ================= Debug Info =================
 
     public static void printStatus() {

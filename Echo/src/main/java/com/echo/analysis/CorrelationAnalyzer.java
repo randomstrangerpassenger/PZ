@@ -1,91 +1,80 @@
 package com.echo.analysis;
 
-import com.echo.aggregate.TimingData;
-import com.echo.measure.EchoProfiler;
-import com.echo.measure.ProfilingPoint;
-import com.echo.fuse.ZombieProfiler;
+import com.echo.history.MetricHistory;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 /**
- * Correlation Analyzer
- * 
- * Finds correlations between different metrics.
- * Example: Do high Zombie counts correlate with high Frame times?
- * 
- * Uses Pearson Correlation Coefficient.
+ * 상관관계 분석기
+ * Pearson Correlation Coefficient(PCC)를 사용하여 두 메트릭 간의 상관관계를 분석합니다.
  */
 public class CorrelationAnalyzer {
 
-    // Simple ring buffer for paired data
-    private static class CorrelationBuffer {
-        private static final int CSV_BUFFER_SIZE = 100;
-        private final double[] xBuffer = new double[CSV_BUFFER_SIZE];
-        private final double[] yBuffer = new double[CSV_BUFFER_SIZE];
-        private int count = 0;
-        private int head = 0;
+    /**
+     * 두 히스토리 데이터의 상관계수를 계산합니다.
+     * 
+     * @return -1.0 ~ 1.0 사이의 값. 데이터가 부족하거나 분산이 0이면 0.0 반환.
+     */
+    public static double calculateCorrelation(MetricHistory h1, MetricHistory h2) {
+        if (h1 == null || h2 == null)
+            return 0.0;
 
-        public void addSample(double x, double y) {
-            xBuffer[head] = x;
-            yBuffer[head] = y;
-            head = (head + 1) % CSV_BUFFER_SIZE;
-            if (count < CSV_BUFFER_SIZE)
-                count++;
+        double[] d1 = h1.toArray();
+        double[] d2 = h2.toArray();
+
+        // 1. 데이터 길이 맞추기 (뒤에서부터, 즉 최신 데이터 기준으로 매칭)
+        int len = Math.min(d1.length, d2.length);
+        if (len < 5) {
+            // 데이터가 너무 적으면 의미 없음 (적어도 5개 샘플은 필요)
+            return 0.0;
         }
 
-        public double calculateCorrelation() {
-            if (count < 2)
-                return 0;
+        // 최신 N개 추출
+        double[] x = Arrays.copyOfRange(d1, d1.length - len, d1.length);
+        double[] y = Arrays.copyOfRange(d2, d2.length - len, d2.length);
 
-            double sumX = 0, sumY = 0, sumXY = 0;
-            double sumX2 = 0, sumY2 = 0;
+        return computePearson(x, y);
+    }
 
-            for (int i = 0; i < count; i++) {
-                double x = xBuffer[i];
-                double y = yBuffer[i];
+    private static double computePearson(double[] x, double[] y) {
+        if (x.length != y.length)
+            return 0.0;
+        int n = x.length;
 
-                sumX += x;
-                sumY += y;
-                sumXY += x * y;
-                sumX2 += x * x;
-                sumY2 += y * y;
-            }
+        double sumX = 0.0;
+        double sumY = 0.0;
+        double sumXY = 0.0;
+        double sumX2 = 0.0;
+        double sumY2 = 0.0;
 
-            double n = count;
-            double numerator = n * sumXY - sumX * sumY;
-            double denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
-
-            return denominator == 0 ? 0 : numerator / denominator;
+        for (int i = 0; i < n; i++) {
+            sumX += x[i];
+            sumY += y[i];
+            sumXY += x[i] * y[i];
+            sumX2 += x[i] * x[i];
+            sumY2 += y[i] * y[i];
         }
+
+        double numerator = n * sumXY - sumX * sumY;
+        double denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
+
+        if (denominator == 0)
+            return 0.0; // 분모가 0이면(표준편차가 0이면) 상관관계 정의 불가
+
+        return numerator / denominator;
     }
 
-    // ===================================
-    // Specific Analyzers
-    // ===================================
+    /**
+     * 상관관계 해석 (디버그용/리포트용)
+     */
+    public static String interpret(double correlation) {
+        double abs = Math.abs(correlation);
+        String direction = correlation > 0 ? "Positive" : "Negative";
 
-    // Zombie Count vs Tick Duration
-    private final CorrelationBuffer zombieVsTick = new CorrelationBuffer();
-
-    public void onTick() {
-        // Collect data
-        long zombieCount = ZombieProfiler.getInstance().getZombieCount();
-        TimingData tickData = EchoProfiler.getInstance().getTimingData(ProfilingPoint.TICK);
-
-        // We need the *last* tick duration, but TimingData aggregates.
-        // Ideally we'd get the exact duration of this tick.
-        // For now, let's use the average of the last 1s as a proxy.
-        if (tickData == null)
-            return;
-
-        double tickMs = tickData.getStats1s().getAverage() / 1000.0;
-
-        zombieVsTick.addSample(zombieCount, tickMs);
-    }
-
-    public Map<String, Object> analyze() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("zombie_vs_tick", zombieVsTick.calculateCorrelation());
-        return map;
+        if (abs > 0.7)
+            return "Strong " + direction;
+        if (abs > 0.3)
+            return "Moderate " + direction;
+        return "Weak/None";
     }
 }

@@ -1,6 +1,8 @@
 package com.echo.measure;
 
 import java.util.*;
+import com.pulse.api.service.echo.ConnectionQuality;
+import com.pulse.api.service.echo.INetworkMetrics;
 
 /**
  * 네트워크 메트릭 수집기.
@@ -10,7 +12,7 @@ import java.util.*;
  * 
  * @since 1.0.1
  */
-public class NetworkMetrics {
+public class NetworkMetrics implements INetworkMetrics {
 
     private static final NetworkMetrics INSTANCE = new NetworkMetrics();
 
@@ -117,6 +119,7 @@ public class NetworkMetrics {
         return currentPingMs;
     }
 
+    @Override
     public double getAvgPingMs() {
         return avgPingMs;
     }
@@ -141,6 +144,7 @@ public class NetworkMetrics {
         return packetsLost;
     }
 
+    @Override
     public double getPacketLossRate() {
         long total = packetsSent + packetsReceived;
         if (total == 0)
@@ -174,6 +178,7 @@ public class NetworkMetrics {
     /**
      * 연결 품질 등급
      */
+    @Override
     public ConnectionQuality getConnectionQuality() {
         double loss = getPacketLossRate();
         double ping = avgPingMs;
@@ -246,26 +251,5 @@ public class NetworkMetrics {
         map.put("session_duration_ms", getSessionDurationMs());
 
         return map;
-    }
-
-    // ============================================================
-    // 내부 클래스
-    // ============================================================
-
-    public enum ConnectionQuality {
-        EXCELLENT("Excellent - Low latency, no packet loss"),
-        GOOD("Good - Minor latency or occasional packet loss"),
-        FAIR("Fair - Noticeable latency or packet loss"),
-        POOR("Poor - High latency and significant packet loss");
-
-        private final String description;
-
-        ConnectionQuality(String description) {
-            this.description = description;
-        }
-
-        public String getDescription() {
-            return description;
-        }
     }
 }

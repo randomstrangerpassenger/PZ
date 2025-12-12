@@ -87,17 +87,15 @@ class CommandContextTest {
     }
 
     // 테스트용 Mock CommandSender
+    // 테스트용 Mock CommandSender
     private static class MockSender implements CommandSender {
-        private String lastMessage;
 
         @Override
         public void sendMessage(String message) {
-            lastMessage = message;
         }
 
         @Override
         public void sendError(String message) {
-            lastMessage = "[ERROR] " + message;
         }
 
         @Override

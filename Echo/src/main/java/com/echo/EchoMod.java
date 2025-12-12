@@ -152,6 +152,9 @@ public class EchoMod implements PulseMod {
         // SPI 프로바이더 등록 (Pulse가 있을 때만)
         registerSpiProvider();
 
+        // Phase 5: Service Registration using PulseServiceLocator
+        registerServices();
+
         // 자동 프로파일링 시작 - 항상 활성화 (데이터 손실 방지)
         com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
         com.echo.measure.EchoProfiler profiler = com.echo.measure.EchoProfiler.getInstance();
@@ -196,6 +199,27 @@ public class EchoMod implements PulseMod {
             System.out.println("[Echo] Running in standalone mode (Pulse not detected)");
         } catch (Exception e) {
             System.out.println("[Echo] Warning: Failed to register SPI provider: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Phase 5: Register Echo services to PulseServiceLocator
+     */
+    private static void registerServices() {
+        try {
+            com.pulse.di.PulseServiceLocator locator = com.pulse.di.PulseServiceLocator.getInstance();
+            locator.registerService(com.pulse.api.service.echo.INetworkMetrics.class,
+                    com.echo.measure.NetworkMetrics.getInstance());
+            locator.registerService(com.pulse.api.service.echo.IRenderMetrics.class,
+                    com.echo.measure.RenderMetrics.getInstance());
+            locator.registerService(com.pulse.api.service.echo.IBottleneckDetector.class,
+                    com.echo.analysis.BottleneckDetector.getInstance());
+            System.out.println("[Echo] Registered services to PulseServiceLocator");
+        } catch (NoClassDefFoundError e) {
+            // Pulse not available
+            System.out.println("[Echo] PulseServiceLocator not found, skipping service registration");
+        } catch (Exception e) {
+            System.err.println("[Echo] Failed to register services: " + e.getMessage());
         }
     }
 

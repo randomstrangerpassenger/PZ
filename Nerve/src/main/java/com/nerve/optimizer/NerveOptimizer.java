@@ -1,9 +1,13 @@
 package com.nerve.optimizer;
 
-import com.echo.analysis.BottleneckDetector;
-import com.echo.analysis.BottleneckDetector.*;
-import com.echo.measure.NetworkMetrics;
-import com.echo.measure.RenderMetrics;
+import com.pulse.api.log.PulseLogger;
+import com.pulse.api.service.echo.ConnectionQuality;
+import com.pulse.api.service.echo.IBottleneckDetector;
+import com.pulse.api.service.echo.INetworkMetrics;
+import com.pulse.api.service.echo.IRenderMetrics;
+import com.pulse.api.service.echo.OptimizationPriority;
+import com.pulse.api.service.echo.RenderEfficiency;
+import com.pulse.di.PulseServiceLocator;
 
 import java.util.*;
 
@@ -17,6 +21,7 @@ import java.util.*;
  */
 public class NerveOptimizer {
 
+    private static final String LOG = "Nerve";
     private static final NerveOptimizer INSTANCE = new NerveOptimizer();
 
     // 최적화 상태
@@ -50,7 +55,7 @@ public class NerveOptimizer {
      */
     public void enable() {
         this.enabled = true;
-        System.out.println("[Nerve] Optimizer enabled");
+        PulseLogger.info(LOG, "Optimizer enabled");
     }
 
     /**
@@ -59,7 +64,7 @@ public class NerveOptimizer {
     public void disable() {
         this.enabled = false;
         revertAllOptimizations();
-        System.out.println("[Nerve] Optimizer disabled");
+        PulseLogger.info(LOG, "Optimizer disabled");
     }
 
     /**
@@ -67,7 +72,14 @@ public class NerveOptimizer {
      */
     public void setAutoOptimize(boolean auto) {
         this.autoOptimize = auto;
-        System.out.println("[Nerve] Auto-optimize: " + (auto ? "ON" : "OFF"));
+        PulseLogger.info(LOG, "Auto-optimize: {}", auto ? "ON" : "OFF");
+    }
+
+    /**
+     * 자동 최적화 모드 토글
+     */
+    public void toggleAutoOptimize() {
+        setAutoOptimize(!autoOptimize);
     }
 
     /**
@@ -82,8 +94,13 @@ public class NerveOptimizer {
             return;
         lastAnalysisTime = now;
 
-        // Echo BottleneckDetector에서 Nerve 타겟 조회
-        currentTarget = BottleneckDetector.getInstance().suggestNerveTarget();
+        // Echo BottleneckDetector에서 Nerve 타겟 조회 (SPI)
+        IBottleneckDetector detector = PulseServiceLocator.getInstance().getService(IBottleneckDetector.class);
+        if (detector != null) {
+            currentTarget = detector.suggestNerveTarget();
+        } else {
+            currentTarget = null;
+        }
 
         // 네트워크 품질 기반 자동 조절
         if (autoOptimize) {
@@ -100,7 +117,11 @@ public class NerveOptimizer {
      * 네트워크 품질에 따른 자동 조절
      */
     private void autoAdjustNetwork() {
-        NetworkMetrics.ConnectionQuality quality = NetworkMetrics.getInstance().getConnectionQuality();
+        INetworkMetrics metrics = PulseServiceLocator.getInstance().getService(INetworkMetrics.class);
+        if (metrics == null)
+            return;
+
+        ConnectionQuality quality = metrics.getConnectionQuality();
 
         switch (quality) {
             case POOR:
@@ -108,8 +129,7 @@ public class NerveOptimizer {
                 if (packetBatchSize < 5) {
                     packetBatchSize = 5;
                     deltaCompression = true;
-                    System.out
-                            .println("[Nerve] Network quality POOR - enabling aggressive batching (5) and compression");
+                    PulseLogger.info(LOG, "Network quality POOR - enabling aggressive batching (5) and compression");
                 }
                 break;
 
@@ -118,7 +138,7 @@ public class NerveOptimizer {
                 if (packetBatchSize != 3) {
                     packetBatchSize = 3;
                     deltaCompression = true;
-                    System.out.println("[Nerve] Network quality FAIR - moderate batching (3)");
+                    PulseLogger.info(LOG, "Network quality FAIR - moderate batching (3)");
                 }
                 break;
 
@@ -127,7 +147,7 @@ public class NerveOptimizer {
                 if (packetBatchSize != 2) {
                     packetBatchSize = 2;
                     deltaCompression = false;
-                    System.out.println("[Nerve] Network quality GOOD - light batching (2)");
+                    PulseLogger.info(LOG, "Network quality GOOD - light batching (2)");
                 }
                 break;
 
@@ -136,7 +156,7 @@ public class NerveOptimizer {
                 if (packetBatchSize != 1) {
                     packetBatchSize = 1;
                     deltaCompression = false;
-                    System.out.println("[Nerve] Network quality EXCELLENT - no batching needed");
+                    PulseLogger.debug(LOG, "Network quality EXCELLENT - no batching needed");
                 }
                 break;
         }
@@ -146,24 +166,28 @@ public class NerveOptimizer {
      * 렌더링 성능에 따른 자동 조절
      */
     private void autoAdjustRendering() {
-        RenderMetrics.RenderEfficiency efficiency = RenderMetrics.getInstance().getRenderEfficiency();
-        double fps = RenderMetrics.getInstance().getFps();
+        IRenderMetrics metrics = PulseServiceLocator.getInstance().getService(IRenderMetrics.class);
+        if (metrics == null)
+            return;
 
-        if (fps < 30 || efficiency == RenderMetrics.RenderEfficiency.POOR) {
+        RenderEfficiency efficiency = metrics.getRenderEfficiency();
+        double fps = metrics.getFps();
+
+        if (fps < 30 || efficiency == RenderEfficiency.POOR) {
             // FPS 낮음 → 공격적 최적화
             if (lodLevel < 2) {
                 lodLevel = 2;
                 occlusionCulling = true;
                 drawCallBatching = true;
-                System.out.println("[Nerve] FPS low (" + (int) fps + ") - enabling aggressive render optimizations");
+                PulseLogger.warn(LOG, "FPS low ({}) - enabling aggressive render optimizations", (int) fps);
             }
-        } else if (fps < 45 || efficiency == RenderMetrics.RenderEfficiency.FAIR) {
+        } else if (fps < 45 || efficiency == RenderEfficiency.FAIR) {
             // FPS 보통 → 중간 최적화
             if (lodLevel != 1) {
                 lodLevel = 1;
                 occlusionCulling = true;
                 drawCallBatching = false;
-                System.out.println("[Nerve] FPS moderate (" + (int) fps + ") - enabling moderate render optimizations");
+                PulseLogger.info(LOG, "FPS moderate ({}) - enabling moderate render optimizations", (int) fps);
             }
         } else {
             // FPS 양호 → 최적화 축소
@@ -171,7 +195,7 @@ public class NerveOptimizer {
                 lodLevel = 0;
                 occlusionCulling = false;
                 drawCallBatching = false;
-                System.out.println("[Nerve] FPS good (" + (int) fps + ") - reducing render optimizations");
+                PulseLogger.debug(LOG, "FPS good ({}) - reducing render optimizations", (int) fps);
             }
         }
     }
@@ -191,8 +215,8 @@ public class NerveOptimizer {
         if (success) {
             activeOptimizations.add(optId);
             optimizationsApplied++;
-            System.out.println("[Nerve] Applied optimization: " + optId);
-            System.out.println("[Nerve] Recommendation: " + target.recommendation);
+            PulseLogger.info(LOG, "Applied optimization: {}", optId);
+            PulseLogger.info(LOG, "Recommendation: {}", target.recommendation);
         }
     }
 
@@ -204,25 +228,25 @@ public class NerveOptimizer {
             case "RENDER":
                 // 렌더링 최적화: Draw Call 배칭
                 drawCallBatching = true;
-                System.out.println("[Nerve] Enabling DrawCall batching...");
+                PulseLogger.info(LOG, "Enabling DrawCall batching...");
                 return true;
 
             case "RENDER_WORLD":
                 // 월드 렌더링 최적화: Occlusion Culling + LOD
                 occlusionCulling = true;
                 lodLevel = Math.min(lodLevel + 1, 3);
-                System.out.println("[Nerve] Enabling occlusion culling and LOD level " + lodLevel);
+                PulseLogger.info(LOG, "Enabling occlusion culling and LOD level {}", lodLevel);
                 return true;
 
             case "NETWORK":
                 // 네트워크 최적화: 패킷 배칭 + 압축
                 packetBatchSize = Math.min(packetBatchSize + 2, 10);
                 deltaCompression = true;
-                System.out.println("[Nerve] Enabling packet batching (" + packetBatchSize + ") and delta compression");
+                PulseLogger.info(LOG, "Enabling packet batching ({}) and delta compression", packetBatchSize);
                 return true;
 
             default:
-                System.out.println("[Nerve] No optimization available for: " + targetId);
+                PulseLogger.debug(LOG, "No optimization available for: {}", targetId);
                 return false;
         }
     }
@@ -237,7 +261,7 @@ public class NerveOptimizer {
         occlusionCulling = false;
         drawCallBatching = false;
         lodLevel = 0;
-        System.out.println("[Nerve] All optimizations reverted");
+        PulseLogger.info(LOG, "All optimizations reverted");
     }
 
     /**
@@ -254,7 +278,11 @@ public class NerveOptimizer {
         Map<String, Object> network = new LinkedHashMap<>();
         network.put("packet_batch_size", packetBatchSize);
         network.put("delta_compression", deltaCompression);
-        network.put("connection_quality", NetworkMetrics.getInstance().getConnectionQuality().name());
+
+        INetworkMetrics netMetrics = PulseServiceLocator.getInstance().getService(INetworkMetrics.class);
+        if (netMetrics != null) {
+            network.put("connection_quality", netMetrics.getConnectionQuality().name());
+        }
         status.put("network_settings", network);
 
         // 렌더링 설정
@@ -262,7 +290,11 @@ public class NerveOptimizer {
         render.put("occlusion_culling", occlusionCulling);
         render.put("draw_call_batching", drawCallBatching);
         render.put("lod_level", lodLevel);
-        render.put("render_efficiency", RenderMetrics.getInstance().getRenderEfficiency().name());
+
+        IRenderMetrics renderMetrics = PulseServiceLocator.getInstance().getService(IRenderMetrics.class);
+        if (renderMetrics != null) {
+            render.put("render_efficiency", renderMetrics.getRenderEfficiency().name());
+        }
         status.put("render_settings", render);
 
         if (currentTarget != null) {

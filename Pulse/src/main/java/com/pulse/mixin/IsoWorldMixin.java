@@ -115,6 +115,9 @@ public abstract class IsoWorldMixin {
             // Echo 1.0: WORLD_UPDATE Phase Start
             Pulse$worldUpdateStart = com.pulse.api.profiler.TickPhaseHook.startPhase("WORLD_UPDATE");
         } catch (Throwable t) {
+            if (com.pulse.PulseEnvironment.isDevelopmentMode()) {
+                throw t;
+            }
             PulseErrorHandler.reportMixinFailure("IsoWorldMixin.onUpdateStart", t);
         }
     }
@@ -172,6 +175,9 @@ public abstract class IsoWorldMixin {
             // 기존 GameTickEvent 발생 (하위 호환성)
             EventBus.post(new GameTickEvent(Pulse$tickCount, deltaTime));
         } catch (Throwable t) {
+            if (com.pulse.PulseEnvironment.isDevelopmentMode()) {
+                throw t;
+            }
             PulseErrorHandler.reportMixinFailure("IsoWorldMixin.onUpdate", t);
         }
     }

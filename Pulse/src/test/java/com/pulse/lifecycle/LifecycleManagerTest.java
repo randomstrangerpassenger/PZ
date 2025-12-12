@@ -14,20 +14,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class LifecycleManagerTest {
 
     private LifecycleManager manager;
-    private boolean hookCalled;
     private int callOrder;
 
     @BeforeEach
     void setUp() {
         manager = LifecycleManager.getInstance();
-        hookCalled = false;
         callOrder = 0;
     }
 
     @Test
     void registerShutdownHook_isCalledOnShutdown() {
         // Arrange
-        manager.registerShutdownHook(() -> hookCalled = true);
+        manager.registerShutdownHook(() -> {
+        });
 
         // Act - 강제 셧다운 호출 (테스트용)
         // 실제 JVM 셧다운은 테스트하지 않음

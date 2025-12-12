@@ -26,6 +26,9 @@ public class EventBus {
     // 이벤트 타입 → 리스너 목록
     private final Map<Class<? extends Event>, List<RegisteredListener<?>>> listeners = new ConcurrentHashMap<>();
 
+    // Lazy Sort 최적화: 정렬이 필요한 이벤트 타입 추적
+    private final Set<Class<? extends Event>> needsSort = ConcurrentHashMap.newKeySet();
+
     // 디버그 모드
     private boolean debug = false;
 
@@ -110,8 +113,8 @@ public class EventBus {
         RegisteredListener<T> registered = new RegisteredListener<>(listener, priority, modId);
         list.add(registered);
 
-        // 우선순위로 정렬 (높은 것이 먼저)
-        list.sort((a, b) -> Integer.compare(b.priority.getValue(), a.priority.getValue()));
+        // Lazy Sort: 즉시 정렬하지 않고 플래그만 설정
+        needsSort.add(eventType);
 
         if (debug) {
             String modInfo = modId != null ? " from mod " + modId : "";
@@ -135,10 +138,16 @@ public class EventBus {
      */
     @SuppressWarnings("unchecked")
     public <T extends Event> T fire(T event) {
-        List<RegisteredListener<?>> list = listeners.get(event.getClass());
+        Class<? extends Event> eventType = event.getClass();
+        List<RegisteredListener<?>> list = listeners.get(eventType);
 
         if (list == null || list.isEmpty()) {
             return event;
+        }
+
+        // Lazy Sort: 필요할 때만 정렬
+        if (needsSort.remove(eventType)) {
+            list.sort((a, b) -> Integer.compare(b.priority.getValue(), a.priority.getValue()));
         }
 
         if (debug) {

@@ -1,6 +1,10 @@
 package com.pulse.api;
 
 import com.pulse.PulseEnvironment;
+import com.pulse.api.access.NetworkAccess;
+import com.pulse.api.access.PlayerAccess;
+import com.pulse.api.access.TimeAccess;
+import com.pulse.api.access.WorldAccess;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -9,6 +13,25 @@ import java.lang.reflect.Method;
  * 게임 내부 접근 API.
  * 리플렉션을 사용하여 게임 코드에 접근.
  * 게임 버전 변경에 유연하게 대응 가능.
+ * 
+ * <p>
+ * <strong>Migration Notice (v1.1.0):</strong>
+ * </p>
+ * <p>
+ * 이 클래스의 메서드들은 다음 클래스들로 분리되었습니다.
+ * v1.3.0에서 deprecated 메서드들이 제거될 예정입니다.
+ * </p>
+ * <ul>
+ * <li>{@link WorldAccess} - 월드 관련 (isWorldLoaded, getWorldName)</li>
+ * <li>{@link PlayerAccess} - 플레이어 관련 (getLocalPlayer, getPlayerHealth)</li>
+ * <li>{@link TimeAccess} - 시간 관련 (getGameHour, isNight)</li>
+ * <li>{@link NetworkAccess} - 네트워크 상태 (isMultiplayer, isServer)</li>
+ * </ul>
+ * 
+ * @see WorldAccess
+ * @see PlayerAccess
+ * @see TimeAccess
+ * @see NetworkAccess
  */
 public final class GameAccess {
 

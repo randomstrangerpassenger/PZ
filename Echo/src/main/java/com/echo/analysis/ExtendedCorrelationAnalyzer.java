@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * 확장 상관관계 분석기.
  * 
- * Phase 4.1: 다양한 메트릭 간의 상관관계를 분석합니다.
+ * 다양한 메트릭 간의 상관관계를 분석합니다.
  * 기존 CorrelationAnalyzer를 확장합니다.
  * 
  * @since 1.0.1

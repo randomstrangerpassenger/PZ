@@ -51,9 +51,9 @@ public class EchoCommands {
         commands.put("config", EchoCommands::cmdConfig);
         commands.put("memory", EchoCommands::cmdMemory);
         commands.put("test", EchoCommands::cmdTest);
-        commands.put("stack", EchoCommands::cmdStack); // Phase 4
-        commands.put("overhead", EchoCommands::cmdOverhead); // Phase 4
-        commands.put("monitor", EchoCommands::cmdMonitor); // Phase 4
+        commands.put("stack", EchoCommands::cmdStack);
+        commands.put("overhead", EchoCommands::cmdOverhead);
+        commands.put("monitor", EchoCommands::cmdMonitor);
 
         registered = true;
         System.out.println("[Echo] Commands registered");

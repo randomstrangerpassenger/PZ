@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class EchoProfiler {
 
-    private static final EchoProfiler INSTANCE = new EchoProfiler();
+    private static EchoProfiler INSTANCE = new EchoProfiler();
 
     // ============================================================
     // Phase 1 최적화: Main Thread Fast-Path
@@ -69,6 +69,24 @@ public class EchoProfiler {
 
     public static EchoProfiler getInstance() {
         return INSTANCE;
+    }
+
+    /**
+     * 테스트용 인스턴스 설정.
+     * 
+     * @param instance 테스트용 인스턴스 (null이면 기본 인스턴스로 리셋)
+     */
+    @com.pulse.api.VisibleForTesting
+    static void setInstance(EchoProfiler instance) {
+        INSTANCE = instance != null ? instance : new EchoProfiler();
+    }
+
+    /**
+     * 테스트용 인스턴스 리셋.
+     */
+    @com.pulse.api.VisibleForTesting
+    static void resetInstance() {
+        INSTANCE = new EchoProfiler();
     }
 
     /**

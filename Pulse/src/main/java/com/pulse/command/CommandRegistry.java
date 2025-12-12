@@ -1,5 +1,7 @@
 package com.pulse.command;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,6 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CommandRegistry {
 
     private static final CommandRegistry INSTANCE = new CommandRegistry();
+    private static final String LOG = PulseLogger.PULSE;
 
     // 등록된 명령어
     private final Map<String, RegisteredCommand> commands = new ConcurrentHashMap<>();
@@ -134,7 +137,7 @@ public class CommandRegistry {
             commands.put(alias.toLowerCase(), cmd);
         }
 
-        System.out.println("[Pulse/CMD] Registered command: /" + cmd.getName());
+        PulseLogger.info(LOG, "[CMD] Registered command: /{}", cmd.getName());
     }
 
     /**
@@ -186,7 +189,7 @@ public class CommandRegistry {
             cmd.execute(ctx);
         } catch (Exception e) {
             sender.sendError("Error executing command: " + e.getMessage());
-            e.printStackTrace();
+            PulseLogger.error(LOG, "Error executing command", e);
         }
 
         return true;

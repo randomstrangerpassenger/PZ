@@ -10,11 +10,11 @@ import java.util.List;
 public class Panel extends Widget {
 
     private final List<Widget> children = new ArrayList<>();
-    private int backgroundColor = 0x303030;
-    private int borderColor = 0x505050;
+    private int backgroundColor = UIConstants.Colors.PANEL_BG;
+    private int borderColor = UIConstants.Colors.PANEL_BORDER;
     private boolean drawBackground = true;
     private boolean drawBorder = true;
-    private int padding = 4;
+    private int padding = UIConstants.Layout.DEFAULT_PADDING;
 
     public Panel(int x, int y, int width, int height) {
         super(x, y, width, height);

@@ -1,7 +1,7 @@
 package com.pulse.api.access;
 
-import com.pulse.PulseEnvironment;
 import com.pulse.api.GameAccess;
+import com.pulse.api.util.ReflectionClassCache;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -18,37 +18,21 @@ public final class WorldAccess {
     private WorldAccess() {
     }
 
-    // 캐시된 클래스 참조
-    private static Class<?> isoWorldClass;
-    private static boolean initialized = false;
-
-    private static void ensureInitialized() {
-        if (initialized)
-            return;
-        ClassLoader gameLoader = PulseEnvironment.getGameClassLoader();
-        if (gameLoader == null)
-            gameLoader = ClassLoader.getSystemClassLoader();
-        try {
-            isoWorldClass = gameLoader.loadClass("zombie.iso.IsoWorld");
-        } catch (ClassNotFoundException e) {
-            // 무시
-        }
-        initialized = true;
-    }
+    // ReflectionClassCache 사용으로 ensureInitialized() 패턴 제거
+    private static final ReflectionClassCache<Object> isoWorldCache = new ReflectionClassCache<>("zombie.iso.IsoWorld");
 
     /**
      * 클래스 참조 갱신.
      */
     public static void refresh() {
-        initialized = false;
-        ensureInitialized();
+        isoWorldCache.refresh();
     }
 
     /**
      * IsoWorld 인스턴스 가져오기.
      */
     public static Object getIsoWorldInstance() {
-        ensureInitialized();
+        Class<?> isoWorldClass = isoWorldCache.get();
         if (isoWorldClass == null)
             return null;
 
@@ -81,6 +65,10 @@ public final class WorldAccess {
         if (world == null)
             return "";
 
+        Class<?> isoWorldClass = isoWorldCache.get();
+        if (isoWorldClass == null)
+            return "";
+
         try {
             Method getWorld = isoWorldClass.getMethod("getWorld");
             Object result = getWorld.invoke(world);
@@ -96,6 +84,10 @@ public final class WorldAccess {
     public static Object getSquare(int x, int y, int z) {
         Object world = getIsoWorldInstance();
         if (world == null)
+            return null;
+
+        Class<?> isoWorldClass = isoWorldCache.get();
+        if (isoWorldClass == null)
             return null;
 
         try {
@@ -117,10 +109,52 @@ public final class WorldAccess {
         if (world == null)
             return null;
 
+        Class<?> isoWorldClass = isoWorldCache.get();
+        if (isoWorldClass == null)
+            return null;
+
         try {
             return isoWorldClass.getMethod("getCell").invoke(world);
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /**
+     * 로드된 청크(Cell) 개수.
+     */
+    public static int getLoadedCellCount() {
+        Object cell = getCurrentCell();
+        if (cell == null)
+            return 0;
+        try {
+            Method getChunkList = cell.getClass().getMethod("getChunkList");
+            Object list = getChunkList.invoke(cell);
+            if (list instanceof java.util.List<?> l) {
+                return l.size();
+            }
+        } catch (Exception e) {
+            // ignore
+        }
+        return 0;
+    }
+
+    /**
+     * 전체 엔티티 개수 (좀비 포함).
+     */
+    public static int getTotalEntityCount() {
+        Object cell = getCurrentCell();
+        if (cell == null)
+            return 0;
+        try {
+            Method getObjectList = cell.getClass().getMethod("getObjectList");
+            Object list = getObjectList.invoke(cell);
+            if (list instanceof java.util.List<?> l) {
+                return l.size();
+            }
+        } catch (Exception e) {
+            // ignore
+        }
+        return 0;
     }
 }

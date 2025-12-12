@@ -1,6 +1,7 @@
 package com.pulse.attachment;
 
 import com.google.gson.*;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.registry.Identifier;
 
 import java.io.*;
@@ -38,6 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DataAttachments {
 
     private static final DataAttachments INSTANCE = new DataAttachments();
+    private static final String LOG = PulseLogger.PULSE;
 
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
@@ -289,12 +291,13 @@ public class DataAttachments {
             String json = GSON.toJson(root);
             Files.writeString(filePath, json, StandardCharsets.UTF_8);
 
-            System.out.println("[Pulse/Attachment] Saved: " + filePath.getFileName());
+            Files.writeString(filePath, json, StandardCharsets.UTF_8);
+
+            PulseLogger.info(LOG, "[Attachment] Saved: {}", filePath.getFileName());
             return true;
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Attachment] Failed to save: " + filename);
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[Attachment] Failed to save: {}", filename, e);
             return false;
         }
     }
@@ -325,7 +328,7 @@ public class DataAttachments {
                 AttachmentType<?> type = AttachmentType.get(id);
 
                 if (type == null) {
-                    System.err.println("[Pulse/Attachment] Unknown type: " + key);
+                    PulseLogger.error(LOG, "[Attachment] Unknown type: {}", key);
                     continue;
                 }
 
@@ -351,12 +354,11 @@ public class DataAttachments {
                 holderData.put(type, value);
             }
 
-            System.out.println("[Pulse/Attachment] Loaded: " + filePath.getFileName());
+            PulseLogger.info(LOG, "[Attachment] Loaded: {}", filePath.getFileName());
             return true;
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Attachment] Failed to load: " + filename);
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[Attachment] Failed to load: {}", filename, e);
             return false;
         }
     }
@@ -381,7 +383,7 @@ public class DataAttachments {
                 field.set(target, value);
             }
         } catch (Exception e) {
-            System.err.println("[Pulse/Attachment] Failed to copy JSON to object: " + e.getMessage());
+            PulseLogger.error(LOG, "[Attachment] Failed to copy JSON to object: {}", e.getMessage());
         }
     }
 
@@ -397,7 +399,7 @@ public class DataAttachments {
                 saved++;
             }
         }
-        System.out.println("[Pulse/Attachment] Saved " + saved + " holder(s)");
+        PulseLogger.info(LOG, "[Attachment] Saved {} holder(s)", saved);
     }
 
     /**

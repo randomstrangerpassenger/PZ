@@ -1,5 +1,6 @@
 package com.pulse.mod;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.config.ConfigManager;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.ModReloadEvent;
@@ -37,6 +38,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ModReloadManager {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final ModReloadManager INSTANCE = new ModReloadManager();
 
     // 비활성화된 모드 목록
@@ -94,17 +96,17 @@ public class ModReloadManager {
         ModContainer container = loader.getMod(modId);
 
         if (container == null) {
-            System.err.println("[Pulse/Reload] Mod not found: " + modId);
+            PulseLogger.error(LOG, "Mod not found: {}", modId);
             return false;
         }
 
         if (disabledMods.contains(modId)) {
-            System.out.println("[Pulse/Reload] Mod already disabled: " + modId);
+            PulseLogger.debug(LOG, "Mod already disabled: {}", modId);
             return true;
         }
 
         try {
-            System.out.println("[Pulse/Reload] Disabling mod: " + modId);
+            PulseLogger.info(LOG, "Disabling mod: {}", modId);
 
             // 1. 모드의 onUnload 호출
             PulseMod instance = container.getModInstance(PulseMod.class);
@@ -112,7 +114,7 @@ public class ModReloadManager {
                 try {
                     instance.onUnload();
                 } catch (Exception e) {
-                    System.err.println("[Pulse/Reload] Error in onUnload: " + e.getMessage());
+                    PulseLogger.error(LOG, "Error in onUnload: {}", e.getMessage());
                 }
             }
 
@@ -126,11 +128,11 @@ public class ModReloadManager {
             // 4. 이벤트 발행
             EventBus.post(new ModReloadEvent(modId, ModReloadEvent.Action.DISABLED));
 
-            System.out.println("[Pulse/Reload] Mod disabled: " + modId);
+            PulseLogger.info(LOG, "Mod disabled: {}", modId);
             return true;
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Reload] Failed to disable mod: " + modId);
+            PulseLogger.error(LOG, "Failed to disable mod: {}", modId);
             e.printStackTrace();
             return false;
         }
@@ -141,17 +143,17 @@ public class ModReloadManager {
         ModContainer container = loader.getMod(modId);
 
         if (container == null) {
-            System.err.println("[Pulse/Reload] Mod not found: " + modId);
+            PulseLogger.error(LOG, "Mod not found: {}", modId);
             return false;
         }
 
         if (!disabledMods.contains(modId)) {
-            System.out.println("[Pulse/Reload] Mod already enabled: " + modId);
+            PulseLogger.debug(LOG, "Mod already enabled: {}", modId);
             return true;
         }
 
         try {
-            System.out.println("[Pulse/Reload] Enabling mod: " + modId);
+            PulseLogger.info(LOG, "Enabling mod: {}", modId);
 
             // 1. 활성화 상태로 표시
             disabledMods.remove(modId);
@@ -166,18 +168,18 @@ public class ModReloadManager {
                 try {
                     instance.onInitialize();
                 } catch (Exception e) {
-                    System.err.println("[Pulse/Reload] Error in onInitialize: " + e.getMessage());
+                    PulseLogger.error(LOG, "Error in onInitialize: {}", e.getMessage());
                 }
             }
 
             // 4. 이벤트 발행
             EventBus.post(new ModReloadEvent(modId, ModReloadEvent.Action.ENABLED));
 
-            System.out.println("[Pulse/Reload] Mod enabled: " + modId);
+            PulseLogger.info(LOG, "Mod enabled: {}", modId);
             return true;
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Reload] Failed to enable mod: " + modId);
+            PulseLogger.error(LOG, "Failed to enable mod: {}", modId);
             e.printStackTrace();
             return false;
         }
@@ -209,17 +211,17 @@ public class ModReloadManager {
      */
     public static void reloadAllConfigs() {
         ConfigManager.reloadAll();
-        System.out.println("[Pulse/Reload] All configs reloaded");
+        PulseLogger.info(LOG, "All configs reloaded");
     }
 
     private boolean reloadConfigInternal(String modId) {
         try {
             // modId에 해당하는 설정 클래스를 알 수 없으므로 전체 리로드
             ConfigManager.reloadAll();
-            System.out.println("[Pulse/Reload] Config reloaded for: " + modId);
+            PulseLogger.debug(LOG, "Config reloaded for: {}", modId);
             return true;
         } catch (Exception e) {
-            System.err.println("[Pulse/Reload] Failed to reload config: " + modId);
+            PulseLogger.error(LOG, "Failed to reload config: {}", modId);
             e.printStackTrace();
             return false;
         }
@@ -230,12 +232,12 @@ public class ModReloadManager {
         ModContainer container = loader.getMod(modId);
 
         if (container == null) {
-            System.err.println("[Pulse/Reload] Mod not found: " + modId);
+            PulseLogger.error(LOG, "Mod not found: {}", modId);
             return false;
         }
 
         try {
-            System.out.println("[Pulse/Reload] Soft reloading mod: " + modId);
+            PulseLogger.info(LOG, "Soft reloading mod: {}", modId);
 
             PulseMod instance = container.getModInstance(PulseMod.class);
 
@@ -244,7 +246,7 @@ public class ModReloadManager {
                 try {
                     instance.onUnload();
                 } catch (Exception e) {
-                    System.err.println("[Pulse/Reload] Error in onUnload: " + e.getMessage());
+                    PulseLogger.error(LOG, "Error in onUnload: {}", e.getMessage());
                 }
             }
 
@@ -256,18 +258,18 @@ public class ModReloadManager {
                 try {
                     instance.onInitialize();
                 } catch (Exception e) {
-                    System.err.println("[Pulse/Reload] Error in onInitialize: " + e.getMessage());
+                    PulseLogger.error(LOG, "Error in onInitialize: {}", e.getMessage());
                 }
             }
 
             // 4. 이벤트 발행
             EventBus.post(new ModReloadEvent(modId, ModReloadEvent.Action.RELOADED));
 
-            System.out.println("[Pulse/Reload] Mod soft reloaded: " + modId);
+            PulseLogger.info(LOG, "Mod soft reloaded: {}", modId);
             return true;
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Reload] Failed to soft reload mod: " + modId);
+            PulseLogger.error(LOG, "Failed to soft reload mod: {}", modId);
             e.printStackTrace();
             return false;
         }
@@ -292,13 +294,13 @@ public class ModReloadManager {
 
     private boolean hotSwapMod(String modId, File newJarFile) {
         if (!newJarFile.exists() || !newJarFile.getName().endsWith(".jar")) {
-            System.err.println("[Pulse/Reload] Invalid JAR file: " + newJarFile);
+            PulseLogger.error(LOG, "Invalid JAR file: {}", newJarFile);
             return false;
         }
 
         try {
-            System.out.println("[Pulse/Reload] Hot swapping mod: " + modId);
-            System.out.println("[Pulse/Reload] New JAR: " + newJarFile.getAbsolutePath());
+            PulseLogger.info(LOG, "Hot swapping mod: {}", modId);
+            PulseLogger.info(LOG, "New JAR: {}", newJarFile.getAbsolutePath());
 
             // 1. 현재 모드 비활성화
             disable(modId);
@@ -327,10 +329,10 @@ public class ModReloadManager {
                             instanceField.setAccessible(true);
                             instanceField.set(container, newInstance);
 
-                            System.out.println("[Pulse/Reload] Loaded new mod instance");
+                            PulseLogger.info(LOG, "Loaded new mod instance");
                         }
                     } catch (ClassNotFoundException e) {
-                        System.out.println("[Pulse/Reload] Entrypoint not found in new JAR, using existing");
+                        PulseLogger.debug(LOG, "Entrypoint not found in new JAR, using existing");
                     }
                 }
             }
@@ -341,11 +343,11 @@ public class ModReloadManager {
             // 5. 이벤트 발행
             EventBus.post(new ModReloadEvent(modId, ModReloadEvent.Action.HOT_SWAPPED));
 
-            System.out.println("[Pulse/Reload] Hot swap complete (partial - JVM limitations apply)");
+            PulseLogger.info(LOG, "Hot swap complete (partial - JVM limitations apply)");
             return true;
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Reload] Hot swap failed: " + modId);
+            PulseLogger.error(LOG, "Hot swap failed: {}", modId);
             e.printStackTrace();
             return false;
         }
@@ -367,18 +369,17 @@ public class ModReloadManager {
      * 모든 모드 상태 출력.
      */
     public static void printStatus() {
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("       MOD RELOAD MANAGER STATUS       ");
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "       MOD RELOAD MANAGER STATUS       ");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
 
         ModLoader loader = ModLoader.getInstance();
         for (String modId : loader.getLoadedModIds()) {
             ModContainer mod = loader.getMod(modId);
             String status = INSTANCE.disabledMods.contains(mod.getId()) ? "DISABLED" : "ENABLED";
-            System.out.println("  " + mod.getId() + " v" + mod.getMetadata().getVersion() +
-                    " [" + status + "]");
+            PulseLogger.info(LOG, "  {} v{} [{}]", mod.getId(), mod.getMetadata().getVersion(), status);
         }
 
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 }

@@ -1,5 +1,7 @@
 package com.pulse.ui;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.Stack;
 
 /**
@@ -10,15 +12,17 @@ public class UIScreen extends Panel {
 
     private static final Stack<UIScreen> screenStack = new Stack<>();
     private static UIScreen currentScreen = null;
+    private static final String LOG = PulseLogger.PULSE;
 
     private String title;
     private boolean pauseGame = false;
 
     public UIScreen(String title) {
-        super(0, 0, 800, 600); // 기본 크기 (런타임에 조정)
+        super(0, 0, UIConstants.Defaults.DEFAULT_SCREEN_WIDTH, UIConstants.Defaults.DEFAULT_SCREEN_HEIGHT); // 기본 크기
+                                                                                                            // (런타임에 조정)
         this.title = title;
         setDrawBackground(true);
-        setBackgroundColor(0x000000);
+        setBackgroundColor(UIConstants.Colors.SCREEN_BG);
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -29,14 +33,14 @@ public class UIScreen extends Panel {
      * 스크린이 열릴 때 호출.
      */
     public void onOpen() {
-        System.out.println("[Pulse/UI] Screen opened: " + title);
+        PulseLogger.info(LOG, "[UI] Screen opened: {}", title);
     }
 
     /**
      * 스크린이 닫힐 때 호출.
      */
     public void onClose() {
-        System.out.println("[Pulse/UI] Screen closed: " + title);
+        PulseLogger.info(LOG, "[UI] Screen closed: {}", title);
     }
 
     /**

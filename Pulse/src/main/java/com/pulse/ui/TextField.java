@@ -9,7 +9,7 @@ public class TextField extends Widget {
 
     private StringBuilder text = new StringBuilder();
     private String placeholder = "";
-    private int maxLength = 256;
+    private int maxLength = UIConstants.Defaults.MAX_INPUT_LENGTH;
     private int cursorPosition = 0;
     private boolean focused = false;
 
@@ -18,11 +18,12 @@ public class TextField extends Widget {
     private Consumer<String> onSubmit;
 
     // 색상
-    private int backgroundColor = 0x202020;
-    private int textColor = 0xFFFFFF;
-    private int placeholderColor = 0x808080;
-    private int borderColor = 0x404040;
-    private int focusBorderColor = 0x6060FF;
+    // 색상
+    private int backgroundColor = UIConstants.Colors.INPUT_BG;
+    private int textColor = UIConstants.Colors.TEXT_DEFAULT;
+    private int placeholderColor = UIConstants.Colors.PLACEHOLDER;
+    private int borderColor = UIConstants.Colors.INPUT_BORDER;
+    private int focusBorderColor = UIConstants.Colors.INPUT_FOCUS_BORDER;
 
     public TextField(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -51,7 +52,7 @@ public class TextField extends Widget {
         String displayText = text.length() > 0 ? text.toString() : placeholder;
         int color = text.length() > 0 ? textColor : placeholderColor;
 
-        int padding = 4;
+        int padding = UIConstants.Layout.DEFAULT_PADDING;
         int textY = absY + (height - ctx.getTextHeight()) / 2;
         ctx.drawText(displayText, absX + padding, textY, color);
 
@@ -59,7 +60,8 @@ public class TextField extends Widget {
         if (focused && System.currentTimeMillis() % 1000 < 500) {
             String beforeCursor = text.substring(0, Math.min(cursorPosition, text.length()));
             int cursorX = absX + padding + ctx.getTextWidth(beforeCursor);
-            ctx.fillRect(cursorX, absY + 2, 1, height - 4, textColor);
+            ctx.fillRect(cursorX, absY + UIConstants.Layout.CURSOR_OFFSET, UIConstants.Layout.CURSOR_WIDTH,
+                    height - (UIConstants.Layout.DEFAULT_PADDING * 2), textColor);
         }
     }
 

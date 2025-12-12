@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.LongAdder;
  */
 public class LuaCallTracker {
 
-    private static final LuaCallTracker INSTANCE = new LuaCallTracker();
+    private static LuaCallTracker INSTANCE;
 
     // Auto-Enable 설정 (Echo 0.9.0)
     private static final int AUTO_ENABLE_THRESHOLD = 5;
@@ -53,10 +53,39 @@ public class LuaCallTracker {
         TOOLTIP, CONTEXT_MENU, INVENTORY_GRID, MODAL_DIALOG, HUD_ELEMENT, OTHER
     }
 
+    // Dependencies
+    private final com.echo.config.EchoConfig config;
+    private final EchoProfiler profiler;
+
+    /**
+     * @deprecated Use Constructor Injection via PulseServiceLocator
+     */
+    @Deprecated
     private LuaCallTracker() {
+        this(com.echo.config.EchoConfig.getInstance(), EchoProfiler.getInstance());
+    }
+
+    public LuaCallTracker(com.echo.config.EchoConfig config, EchoProfiler profiler) {
+        this.config = config;
+        this.profiler = profiler;
     }
 
     public static LuaCallTracker getInstance() {
+        // 1. Try ServiceLocator (Hybrid DI)
+        try {
+            com.pulse.di.PulseServiceLocator locator = com.pulse.di.PulseServiceLocator.getInstance();
+            LuaCallTracker service = locator.getService(LuaCallTracker.class);
+            if (service != null) {
+                return service;
+            }
+        } catch (NoClassDefFoundError | Exception ignored) {
+            // Pulse might not be fully loaded
+        }
+
+        // 2. Fallback
+        if (INSTANCE == null) {
+            INSTANCE = new LuaCallTracker(com.echo.config.EchoConfig.getInstance(), EchoProfiler.getInstance());
+        }
         return INSTANCE;
     }
 
@@ -68,7 +97,7 @@ public class LuaCallTracker {
      * Lua 함수 호출 기록
      */
     public void recordFunctionCall(String functionName, long durationMicros) {
-        if (!EchoProfiler.getInstance().isLuaProfilingEnabled())
+        if (!profiler.isLuaProfilingEnabled())
             return;
 
         functionStats.computeIfAbsent(functionName, LuaFunctionStats::new)
@@ -97,7 +126,7 @@ public class LuaCallTracker {
      * Lua 이벤트 호출 기록
      */
     public void recordEventCall(String eventName, long durationMicros, int handlerCount) {
-        if (!EchoProfiler.getInstance().isLuaProfilingEnabled())
+        if (!profiler.isLuaProfilingEnabled())
             return;
 
         eventStats.computeIfAbsent(eventName, LuaEventStats::new)
@@ -108,7 +137,7 @@ public class LuaCallTracker {
      * UI 요소 비용 기록 (Phase 2.1)
      */
     public void recordUIElementCall(LuaUICategory category, String elementName, long durationMicros) {
-        if (!EchoProfiler.getInstance().isLuaProfilingEnabled())
+        if (!profiler.isLuaProfilingEnabled())
             return;
 
         String key = category.name() + ":" + elementName;
@@ -123,7 +152,7 @@ public class LuaCallTracker {
         // Phase 2.2: Auto-Enable Logic
         checkAutoEnable();
 
-        if (!EchoProfiler.getInstance().isLuaProfilingEnabled()) {
+        if (!profiler.isLuaProfilingEnabled()) {
             function.run();
             return;
         }
@@ -144,7 +173,7 @@ public class LuaCallTracker {
         // Phase 2.2: Auto-Enable Logic
         checkAutoEnable();
 
-        if (!EchoProfiler.getInstance().isLuaProfilingEnabled()) {
+        if (!profiler.isLuaProfilingEnabled()) {
             event.run();
             return;
         }
@@ -221,8 +250,6 @@ public class LuaCallTracker {
     }
 
     private void checkAutoEnable() {
-        com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
-
         // 이미 켜져있거나, 사용자가 명시적으로 껐으면 체크 안함
         if (config.isLuaProfilingEnabled()) {
             // 이미 켜져있으면 카운터 0으로 유지 (불필요한 증가 방지)
@@ -319,7 +346,7 @@ public class LuaCallTracker {
      */
     public Map<String, Object> toMap(int topN) {
         Map<String, Object> map = new LinkedHashMap<>();
-        map.put("enabled", EchoProfiler.getInstance().isLuaProfilingEnabled());
+        map.put("enabled", profiler.isLuaProfilingEnabled());
         map.put("total_calls", getTotalCalls());
         map.put("total_time_ms", Math.round(getTotalTimeMs() * 100) / 100.0);
 

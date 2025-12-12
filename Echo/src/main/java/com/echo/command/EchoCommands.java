@@ -15,6 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+// Pulse integration
+import com.pulse.command.CommandContext;
+import com.pulse.command.CommandRegistry;
+
 /**
  * Echo 콘솔 명령어
  * 
@@ -35,12 +39,13 @@ public class EchoCommands {
     private static boolean registered = false;
 
     /**
-     * 명령어 등록
+     * 명령어 등록 (Pulse CommandRegistry 통합)
      */
     public static void register() {
         if (registered)
             return;
 
+        // Register internal command map for dispatch
         commands.put("help", EchoCommands::cmdHelp);
         commands.put("enable", EchoCommands::cmdEnable);
         commands.put("disable", EchoCommands::cmdDisable);
@@ -55,8 +60,37 @@ public class EchoCommands {
         commands.put("overhead", EchoCommands::cmdOverhead);
         commands.put("monitor", EchoCommands::cmdMonitor);
 
+        // Register with Pulse CommandRegistry (if available)
+        try {
+            CommandRegistry.register("echo", "Echo Profiler 명령어", EchoCommands::handleEchoCommand);
+            System.out.println("[Echo] Commands registered via Pulse CommandRegistry");
+        } catch (NoClassDefFoundError e) {
+            // Pulse not available, fallback to direct invocation
+            System.out.println("[Echo] Commands registered (standalone mode)");
+        }
+
         registered = true;
-        System.out.println("[Echo] Commands registered");
+    }
+
+    /**
+     * Pulse CommandContext 기반 핸들러
+     */
+    private static void handleEchoCommand(CommandContext ctx) {
+        String[] args = ctx.getRawArgs();
+        if (args.length == 0) {
+            cmdHelp(new String[0]);
+            return;
+        }
+
+        String subCommand = args[0].toLowerCase();
+        Consumer<String[]> handler = commands.get(subCommand);
+
+        if (handler != null) {
+            handler.accept(args);
+        } else {
+            ctx.reply("[Echo] Unknown command: " + subCommand);
+            ctx.reply("[Echo] Use '/echo help' for available commands");
+        }
     }
 
     /**

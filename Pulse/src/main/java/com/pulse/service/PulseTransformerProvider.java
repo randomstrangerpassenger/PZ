@@ -1,5 +1,6 @@
 package com.pulse.service;
 
+import com.pulse.api.log.PulseLogger;
 import org.spongepowered.asm.service.ITransformer;
 import org.spongepowered.asm.service.ITransformerProvider;
 
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class PulseTransformerProvider implements ITransformerProvider {
 
+    private static final String LOG = PulseLogger.PULSE;
     private final List<ITransformer> transformers = new ArrayList<>();
     private final List<ITransformer> delegatedTransformers = new ArrayList<>();
     private final List<String> exclusions = new ArrayList<>();
@@ -27,7 +29,7 @@ public class PulseTransformerProvider implements ITransformerProvider {
         exclusions.add("java.");
         exclusions.add("javax.");
         exclusions.add("sun.");
-        exclusions.add("com.pulse.mixin.");  // Mixin 클래스 자체는 제외
+        exclusions.add("com.pulse.mixin."); // Mixin 클래스 자체는 제외
     }
 
     @Override
@@ -44,7 +46,7 @@ public class PulseTransformerProvider implements ITransformerProvider {
     public void addTransformerExclusion(String name) {
         if (name != null && !name.isEmpty()) {
             exclusions.add(name);
-            System.out.println("[Pulse/TransformerProvider] Added exclusion: " + name);
+            PulseLogger.info(LOG, "[TransformerProvider] Added exclusion: {}", name);
         }
     }
 
@@ -54,8 +56,7 @@ public class PulseTransformerProvider implements ITransformerProvider {
     public void registerTransformer(ITransformer transformer) {
         if (transformer != null) {
             transformers.add(transformer);
-            System.out.println("[Pulse/TransformerProvider] Registered transformer: " + 
-                transformer.getClass().getName());
+            PulseLogger.info(LOG, "[TransformerProvider] Registered transformer: {}", transformer.getClass().getName());
         }
     }
 

@@ -11,15 +11,16 @@ import com.echo.measure.ProfilingPoint;
 import com.echo.measure.SubProfiler;
 import com.echo.measure.TickPhaseProfiler;
 import com.echo.validation.SelfValidation;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.echo.report.generator.CsvReportGenerator;
+import com.echo.report.generator.HtmlReportGenerator;
+import com.echo.report.generator.JsonReportGenerator;
+import com.echo.report.generator.ReportGenerator;
+import com.echo.report.generator.TextReportGenerator;
 
 import java.io.*;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
-import com.echo.util.StringUtils;
 
 /**
  * Echo Report 생성기
@@ -28,15 +29,12 @@ import com.echo.util.StringUtils;
  */
 public class EchoReport {
 
-    // Use ISO_INSTANT format consistently for all dates
-    private static final Gson GSON = new GsonBuilder()
-            .setPrettyPrinting()
-            .create();
-
     private static final String VERSION = "1.0.1";
 
     private final EchoProfiler profiler;
     private final int topN;
+
+    private final Map<String, ReportGenerator> generators = new HashMap<>();
 
     // Phase 3: Metadata
     private String scenarioName = "default";
@@ -59,6 +57,12 @@ public class EchoReport {
         this.profiler = profiler;
         this.topN = topN;
         reportMetadata.collectFromPulse();
+
+        // Initialize generators
+        generators.put("json", new JsonReportGenerator());
+        generators.put("text", new TextReportGenerator());
+        generators.put("csv", new CsvReportGenerator());
+        generators.put("html", new HtmlReportGenerator());
     }
 
     public void setScenarioName(String name) {
@@ -76,7 +80,10 @@ public class EchoReport {
     /**
      * JSON 리포트 생성
      */
-    public String generateJson() {
+    /**
+     * 리포트 데이터 수집 (Map 형태)
+     */
+    public Map<String, Object> collectReportData() {
         Map<String, Object> report = new LinkedHashMap<>();
         Map<String, Object> echoReport = new LinkedHashMap<>();
 
@@ -87,7 +94,9 @@ public class EchoReport {
         echoReport.put("summary", generateSummary());
         echoReport.put("subsystems", generateSubsystems());
         echoReport.put("heavy_functions", generateHeavyFunctions());
-        echoReport.put("tick_phase_breakdown", TickPhaseProfiler.getInstance().toMap());
+
+        // Safely collect singleton-based data
+        echoReport.put("tick_phase_breakdown", safeGetMap(() -> TickPhaseProfiler.getInstance().toMap()));
         echoReport.put("tick_histogram", generateHistogram());
         echoReport.put("spikes", generateSpikes());
         echoReport.put("freeze_history", generateFreezes());
@@ -96,100 +105,55 @@ public class EchoReport {
         echoReport.put("lua_gc", generateLuaGCStats());
         echoReport.put("fuse_deep_analysis", generateFuseDeepAnalysis());
         echoReport.put("validation_status", generateValidationStatus());
-        echoReport.put("pulse_contract", com.echo.validation.PulseContractVerifier.getInstance().toMap());
+        echoReport.put("pulse_contract",
+                safeGetMap(() -> com.echo.validation.PulseContractVerifier.getInstance().toMap()));
         echoReport.put("report_quality", generateReportQuality());
         echoReport.put("recommendations", generateRecommendations());
         echoReport.put("analysis", generateAnalysis());
         echoReport.put("metadata", generateMetadata());
 
         // Phase 2-5: Extended Analysis
-        echoReport.put("extended_analysis", com.echo.analysis.ExtendedCorrelationAnalyzer.getInstance().analyze());
-        echoReport.put("memory_timeseries", com.echo.aggregate.MemoryTimeSeries.getInstance().toMap());
-        echoReport.put("bottleneck_detection", com.echo.analysis.BottleneckDetector.getInstance().toMap());
-        echoReport.put("network", com.echo.measure.NetworkMetrics.getInstance().toMap());
-        echoReport.put("render", com.echo.measure.RenderMetrics.getInstance().toMap());
-        echoReport.put("timeseries_summary", com.echo.aggregate.TimeSeriesStore.getInstance().toSummary());
+        echoReport.put("extended_analysis",
+                safeGetMap(() -> com.echo.analysis.ExtendedCorrelationAnalyzer.getInstance().analyze()));
+        echoReport.put("memory_timeseries",
+                safeGetMap(() -> com.echo.aggregate.MemoryTimeSeries.getInstance().toMap()));
+        echoReport.put("bottleneck_detection",
+                safeGetMap(() -> com.echo.analysis.BottleneckDetector.getInstance().toMap()));
+        echoReport.put("network", safeGetMap(() -> com.echo.measure.NetworkMetrics.getInstance().toMap()));
+        echoReport.put("render", safeGetMap(() -> com.echo.measure.RenderMetrics.getInstance().toMap()));
+        echoReport.put("timeseries_summary",
+                safeGetMap(() -> com.echo.aggregate.TimeSeriesStore.getInstance().toSummary()));
 
         report.put("echo_report", echoReport);
-        return GSON.toJson(report);
+        return report;
+    }
+
+    /**
+     * 특정 포맷의 리포트 생성
+     */
+    public String generate(String format) {
+        ReportGenerator generator = generators.get(format.toLowerCase());
+        if (generator == null) {
+            throw new IllegalArgumentException("Unsupported report format: " + format);
+        }
+        return generator.generate(collectReportData());
+    }
+
+    /**
+     * JSON 리포트 생성 (Delegated)
+     */
+    public String generateJson() {
+        return generate("json");
     }
 
     /**
      * 콘솔 출력용 텍스트 리포트
      */
+    /**
+     * 콘솔 출력용 텍스트 리포트 (Delegated)
+     */
     public String generateText() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n═══════════════════════════════════════════════════════\n");
-        sb.append("               ECHO PROFILER REPORT\n");
-        sb.append("═══════════════════════════════════════════════════════\n\n");
-
-        // Summary
-        TimingData tickData = profiler.getTimingData(ProfilingPoint.TICK);
-        if (tickData != null && tickData.getCallCount() > 0) {
-            sb.append("📊 TICK SUMMARY\n");
-            sb.append("───────────────────────────────────────────────────────\n");
-            sb.append(String.format("  Total Ticks:    %,d\n", tickData.getCallCount()));
-            sb.append(String.format("  Average:        %.2f ms\n", tickData.getAverageMicros() / 1000.0));
-            sb.append(String.format("  Max Spike:      %.2f ms\n", tickData.getMaxMicros() / 1000.0));
-            sb.append(String.format("  Min:            %.2f ms\n", tickData.getMinMicros() / 1000.0));
-            sb.append(String.format("  Session:        %d seconds\n", profiler.getSessionDurationSeconds()));
-            sb.append("\n");
-        }
-
-        // Subsystems
-        sb.append("📈 SUBSYSTEM BREAKDOWN\n");
-        sb.append("───────────────────────────────────────────────────────\n");
-
-        List<Map.Entry<ProfilingPoint, TimingData>> sorted = profiler.getTimingData().entrySet().stream()
-                .filter(e -> e.getValue().getCallCount() > 0)
-                .filter(e -> e.getKey().getCategory() == ProfilingPoint.Category.SUBSYSTEM)
-                .sorted((a, b) -> Long.compare(b.getValue().getTotalMicros(), a.getValue().getTotalMicros()))
-                .toList();
-
-        for (Map.Entry<ProfilingPoint, TimingData> entry : sorted) {
-            ProfilingPoint point = entry.getKey();
-            TimingData data = entry.getValue();
-            sb.append(String.format("  %-15s │ avg: %6.2f ms │ max: %6.2f ms │ calls: %,d\n",
-                    point.getDisplayName(),
-                    data.getAverageMicros() / 1000.0,
-                    data.getMaxMicros() / 1000.0,
-                    data.getCallCount()));
-        }
-
-        // Rolling Stats (last 5s)
-        sb.append("\n📉 ROLLING STATS (Last 5s)\n");
-        sb.append("───────────────────────────────────────────────────────\n");
-
-        if (tickData != null) {
-            TimingData.RollingStats stats5s = tickData.getStats5s();
-            sb.append(String.format("  Tick Avg (5s):  %.2f ms\n", stats5s.getAverage() / 1000.0));
-            sb.append(String.format("  Tick Max (5s):  %.2f ms\n", stats5s.getMax() / 1000.0));
-            sb.append(String.format("  Samples:        %d\n", stats5s.getSampleCount()));
-        }
-
-        // Heavy Functions
-        sb.append("\n🔥 HEAVY FUNCTIONS (Top " + topN + ")\n");
-        sb.append("───────────────────────────────────────────────────────\n");
-
-        List<RankedFunction> heavyFunctions = collectHeavyFunctions();
-        if (heavyFunctions.isEmpty()) {
-            sb.append("  (No labeled function data collected)\n");
-        } else {
-            int rank = 1;
-            for (RankedFunction func : heavyFunctions) {
-                if (rank > topN)
-                    break;
-                sb.append(String.format("  #%d %-30s │ total: %6.2f ms │ max: %6.2f ms │ calls: %,d\n",
-                        rank++,
-                        StringUtils.truncate(func.label, 30),
-                        func.totalMicros / 1000.0,
-                        func.maxMicros / 1000.0,
-                        func.callCount));
-            }
-        }
-
-        sb.append("\n═══════════════════════════════════════════════════════\n");
-        return sb.toString();
+        return generate("text");
     }
 
     /**
@@ -246,28 +210,21 @@ public class EchoReport {
     /**
      * CSV 리포트 생성
      */
-    public String generateCsv() {
-        StringBuilder sb = new StringBuilder();
-
-        // Header
-        sb.append("Point,Category,CallCount,TotalMs,AvgMs,MaxMs,MinMs\n");
-
-        // Data rows
-        for (ProfilingPoint point : ProfilingPoint.values()) {
-            TimingData data = profiler.getTimingData(point);
-            if (data != null && data.getCallCount() > 0) {
-                sb.append(String.format("%s,%s,%d,%.2f,%.2f,%.2f,%.2f\n",
-                        point.name(),
-                        point.getCategory().name(),
-                        data.getCallCount(),
-                        data.getTotalMicros() / 1000.0,
-                        data.getAverageMicros() / 1000.0,
-                        data.getMaxMicros() / 1000.0,
-                        data.getMinMicros() / 1000.0));
-            }
+    private Map<String, Object> safeGetMap(java.util.function.Supplier<Map<String, Object>> supplier) {
+        try {
+            return supplier.get();
+        } catch (Exception e) {
+            Map<String, Object> err = new HashMap<>();
+            err.put("error", "Data collection failed: " + e.getMessage());
+            return err;
         }
+    }
 
-        return sb.toString();
+    /**
+     * CSV 리포트 생성 (Delegated)
+     */
+    public String generateCsv() {
+        return generate("csv");
     }
 
     /**
@@ -297,179 +254,11 @@ public class EchoReport {
     /**
      * HTML 리포트 생성 (Interactive Dashboard)
      */
+    /**
+     * HTML 리포트 생성 (Delegated)
+     */
     public String generateHtml() {
-        TimingData tickData = profiler.getTimingData(ProfilingPoint.TICK);
-        TickHistogram histogram = profiler.getTickHistogram();
-        String jsonChain = generateJson(); // Embed JSON for JS to use
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n");
-        sb.append("  <meta charset=\"UTF-8\">\n");
-        sb.append("  <title>Echo Profiler Report</title>\n");
-        sb.append("  <style>\n");
-        sb.append("    :root { --bg: #1a1a2e; --card: #16213e; --text: #eee; --accent: #4ecdc4; --warn: #ff6b6b; }\n");
-        sb.append(
-                "    body { font-family: sans-serif; background: var(--bg); color: var(--text); padding: 0; margin: 0; }\n");
-        sb.append(
-                "    .header { background: #0f3460; padding: 20px; display: flex; justify-content: space-between; align-items: center; }\n");
-        sb.append("    .tabs { display: flex; background: #1a1a40; }\n");
-        sb.append("    .tab { padding: 15px 25px; cursor: pointer; opacity: 0.7; transition: 0.3s; }\n");
-        sb.append("    .tab:hover { opacity: 1; background: #2a2a50; }\n");
-        sb.append("    .tab.active { border-bottom: 3px solid var(--accent); opacity: 1; }\n");
-        sb.append("    .content { padding: 20px; display: none; }\n");
-        sb.append("    .content.active { display: block; animation: fadein 0.3s; }\n");
-        sb.append(
-                "    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }\n");
-        sb.append(
-                "    .card { background: var(--card); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }\n");
-        sb.append("    .metric-value { font-size: 2em; font-weight: bold; color: var(--accent); }\n");
-        sb.append("    table { width: 100%; border-collapse: collapse; margin-top: 10px; }\n");
-        sb.append("    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }\n");
-        sb.append("    th { background: rgba(255,255,255,0.05); color: var(--accent); }\n");
-        sb.append("    .bar-container { background: #333; height: 10px; border-radius: 5px; overflow: hidden; }\n");
-        sb.append("    .bar-fill { height: 100%; background: var(--accent); }\n");
-        sb.append("    @keyframes fadein { from { opacity: 0; } to { opacity: 1; } }\n");
-        sb.append("  </style>\n");
-        sb.append("</head>\n<body>\n");
-
-        // Header
-        sb.append("<div class=\"header\">\n");
-        sb.append("  <h1>🔊 Echo Profiler</h1>\n");
-        sb.append("  <div>").append(java.time.LocalDateTime.now()).append("</div>\n");
-        sb.append("</div>\n");
-
-        // Tabs
-        sb.append("<div class=\"tabs\">\n");
-        sb.append("  <div class=\"tab active\" onclick=\"showTab('summary')\">Summary</div>\n");
-        sb.append("  <div class=\"tab\" onclick=\"showTab('heavy')\">Heavy Functions</div>\n");
-        sb.append("  <div class=\"tab\" onclick=\"showTab('lua')\">Lua / Context</div>\n");
-        sb.append("  <div class=\"tab\" onclick=\"showTab('deep')\">Deep Analysis</div>\n");
-        sb.append("  <div class=\"tab\" onclick=\"showTab('raw')\">Raw JSON</div>\n");
-        sb.append("</div>\n");
-
-        // TAB 1: Summary
-        sb.append("<div id=\"summary\" class=\"content active\">\n");
-        sb.append("  <div class=\"grid\">\n");
-        if (tickData != null) {
-            sb.append("    <div class=\"card\"><div>Avg Tick</div><div class=\"metric-value\">")
-                    .append(String.format("%.2f ms", tickData.getAverageMicros() / 1000.0)).append("</div></div>\n");
-            sb.append(
-                    "    <div class=\"card\"><div>Max Spike</div><div class=\"metric-value\" style=\"color:var(--warn)\">")
-                    .append(String.format("%.2f ms", tickData.getMaxMicros() / 1000.0)).append("</div></div>\n");
-            sb.append("    <div class=\"card\"><div>Total Ticks</div><div class=\"metric-value\">")
-                    .append(String.format("%,d", tickData.getCallCount())).append("</div></div>\n");
-        }
-        sb.append("  </div>\n");
-
-        sb.append("  <div class=\"card\"><h3>Tick Distribution</h3>\n");
-        long[] counts = histogram.getCounts();
-        double[] buckets = histogram.getBuckets();
-        long maxCount = java.util.Arrays.stream(counts).max().orElse(1);
-        for (int i = 0; i < buckets.length; i++) {
-            String label = i == buckets.length - 1 ? String.format("≥%.1f", buckets[i])
-                    : String.format("%.1f", buckets[i]);
-            int w = (int) ((counts[i] * 100) / maxCount);
-            sb.append("<div style=\"display:flex; align-items:center; margin:5px 0\">");
-            sb.append("<div style=\"width:60px\">").append(label).append("</div>");
-            sb.append("<div class=\"bar-container\" style=\"flex-grow:1\"><div class=\"bar-fill\" style=\"width:")
-                    .append(w).append("%\"></div></div>");
-            sb.append("<div style=\"width:50px; text-align:right\">").append(counts[i]).append("</div>");
-            sb.append("</div>");
-        }
-        sb.append("  </div>\n");
-        sb.append("</div>\n");
-
-        // TAB 2: Heavy Functions
-        sb.append("<div id=\"heavy\" class=\"content\">\n");
-        sb.append("  <div class=\"card\"><h3>Top Heavy Functions (Java/Engine)</h3><table>\n");
-        sb.append("    <tr><th>Function</th><th>Total (ms)</th><th>Avg (ms)</th><th>Count</th></tr>\n");
-        List<RankedFunction> funcs = collectHeavyFunctions();
-        for (int i = 0; i < Math.min(funcs.size(), 20); i++) {
-            RankedFunction f = funcs.get(i);
-            sb.append("<tr><td>").append(f.label).append("</td>");
-            sb.append("<td>").append(String.format("%.2f", f.totalMicros / 1000.0)).append("</td>");
-            sb.append("<td>").append(String.format("%.2f", (double) f.totalMicros / f.callCount / 1000.0))
-                    .append("</td>");
-            sb.append("<td>").append(f.callCount).append("</td></tr>\n");
-        }
-        sb.append("  </table></div>\n");
-        sb.append("</div>\n");
-
-        // TAB 3: Lua
-        sb.append("<div id=\"lua\" class=\"content\">\n");
-        sb.append("  <div class=\"grid\">\n");
-        sb.append("    <div class=\"card\"><h3>Lua Contexts</h3><div id=\"lua-context-list\"></div></div>\n");
-        sb.append("    <div class=\"card\"><h3>Heavy Lua Files</h3><div id=\"lua-file-list\"></div></div>\n");
-        sb.append("  </div>\n");
-        sb.append("  <div class=\"card\"><h3>Top Lua Functions</h3><div id=\"lua-func-list\"></div></div>\n");
-        sb.append("</div>\n");
-
-        // TAB 4: Deep Analysis
-        sb.append("<div id=\"deep\" class=\"content\">\n");
-        sb.append("  <p>Granular breakdown of Pathfinding, Zombie, and IsoGrid.</p>\n");
-        sb.append("  <div class=\"grid\">\n");
-        sb.append("     <div class=\"card\"><h3>Pathfinding</h3><div id=\"deep-path\"></div></div>\n");
-        sb.append("     <div class=\"card\"><h3>Zombie</h3><div id=\"deep-zombie\"></div></div>\n");
-        sb.append("  </div>\n");
-        sb.append("  <div class=\"card\"><h3>IsoGrid</h3><div id=\"deep-grid\"></div></div>\n");
-        sb.append("</div>\n");
-
-        // TAB 5: Raw
-        sb.append("<div id=\"raw\" class=\"content\">\n");
-        sb.append("  <textarea style=\"width:100%; height:400px; background:#111; color:#ccc; border:none;\">")
-                .append(jsonChain).append("</textarea>\n");
-        sb.append("</div>\n");
-
-        // SCRIPT
-        sb.append("<script>\n");
-        sb.append("  const data = ").append(jsonChain).append(";\n");
-        sb.append(
-                "  function showTab(id) { document.querySelectorAll('.content').forEach(c => c.classList.remove('active')); document.querySelectorAll('.tab').forEach(t => t.classList.remove('active')); document.getElementById(id).classList.add('active'); event.target.classList.add('active'); }\n");
-        sb.append("  \n");
-        sb.append("  // Populate Lua\n");
-        sb.append("  if(data.echo_report.lua_profiling) {\n");
-        sb.append("     const lua = data.echo_report.lua_profiling;\n");
-        sb.append("     // Contexts\n");
-        sb.append("     if(lua.context_stats) {\n");
-        sb.append("        let html = '<table><tr><th>Context</th><th>Total (ms)</th></tr>';\n");
-        sb.append(
-                "        for(const [k,v] of Object.entries(lua.context_stats)) html += `<tr><td>${k}</td><td>${v.toFixed(2)}</td></tr>`;\n");
-        sb.append("        html += '</table>'; document.getElementById('lua-context-list').innerHTML = html;\n");
-        sb.append("     }\n");
-        sb.append("     // Files\n");
-        sb.append("     if(lua.heavy_files) {\n");
-        sb.append("        let html = '<table><tr><th>File</th><th>Total (ms)</th></tr>';\n");
-        sb.append(
-                "        lua.heavy_files.forEach(f => html += `<tr><td>${f.file}</td><td>${f.total_ms}</td></tr>`);\n");
-        sb.append("        html += '</table>'; document.getElementById('lua-file-list').innerHTML = html;\n");
-        sb.append("     }\n");
-        sb.append("     // Functions\n");
-        sb.append("     if(lua.top_functions_by_time) {\n");
-        sb.append("        let html = '<table><tr><th>Name</th><th>Calls</th><th>Total (ms)</th></tr>';\n");
-        sb.append(
-                "        lua.top_functions_by_time.forEach(f => html += `<tr><td>${f.name}</td><td>${f.call_count}</td><td>${f.total_time_ms}</td></tr>`);\n");
-        sb.append("        html += '</table>'; document.getElementById('lua-func-list').innerHTML = html;\n");
-        sb.append("     }\n");
-        sb.append("  }\n");
-        sb.append("  \n");
-        sb.append("  // Populate Deep\n");
-        sb.append("  if(data.echo_report.fuse_deep_analysis) {\n");
-        sb.append("     const deep = data.echo_report.fuse_deep_analysis;\n");
-        sb.append("     const renderDeep = (obj) => {\n");
-        sb.append("        if(!obj || !obj.steps) return 'No Data';\n");
-        sb.append("        let html = '<table><tr><th>Step</th><th>Count</th><th>Total (ms)</th></tr>';\n");
-        sb.append(
-                "        for(const [k,v] of Object.entries(obj.steps)) html += `<tr><td>${k}</td><td>${v.count}</td><td>${v.total_ms.toFixed(2)}</td></tr>`;\n");
-        sb.append("        return html + '</table>';\n");
-        sb.append("     };\n");
-        sb.append("     document.getElementById('deep-path').innerHTML = renderDeep(deep.pathfinding);\n");
-        sb.append("     document.getElementById('deep-zombie').innerHTML = renderDeep(deep.zombie);\n");
-        sb.append("     document.getElementById('deep-grid').innerHTML = renderDeep(deep.iso_grid);\n");
-        sb.append("  }\n");
-        sb.append("</script>\n");
-
-        sb.append("</body>\n</html>");
-        return sb.toString();
+        return generate("html");
     }
 
     /**

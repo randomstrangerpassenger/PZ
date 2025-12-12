@@ -1,5 +1,6 @@
 package com.pulse.service;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.spi.*;
 
 import java.util.*;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
  */
 public class ProviderRegistry implements IProviderRegistry {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final ProviderRegistry INSTANCE = new ProviderRegistry();
 
     private final Map<String, IProvider> providersById = new ConcurrentHashMap<>();
@@ -33,22 +35,22 @@ public class ProviderRegistry implements IProviderRegistry {
 
         String id = provider.getId();
         if (providersById.containsKey(id)) {
-            System.out.println("[Pulse] Provider already registered: " + id);
+            PulseLogger.warn(LOG, "Provider already registered: {}", id);
             return;
         }
 
         providersById.put(id, provider);
         lifecycles.put(id, ProviderLifecycle.REGISTERED);
 
-        System.out.println(
-                "[Pulse] Registered provider: " + provider.getName() + " (" + id + ") v" + provider.getVersion());
+        PulseLogger.info(LOG, "Registered provider: {} ({}) v{}",
+                provider.getName(), id, provider.getVersion());
 
         // 콜백 알림
         for (IProviderCallback callback : callbacks) {
             try {
                 callback.onProviderRegistered(provider);
             } catch (Exception e) {
-                System.err.println("[Pulse] Callback error: " + e.getMessage());
+                PulseLogger.error(LOG, "Callback error: {}", e.getMessage());
             }
         }
 
@@ -62,10 +64,10 @@ public class ProviderRegistry implements IProviderRegistry {
             updateLifecycle(provider, ProviderLifecycle.INITIALIZING);
             provider.onInitialize();
             updateLifecycle(provider, ProviderLifecycle.ACTIVE);
-            System.out.println("[Pulse] Provider initialized: " + id);
+            PulseLogger.info(LOG, "Provider initialized: {}", id);
         } catch (Exception e) {
             updateLifecycle(provider, ProviderLifecycle.ERROR);
-            System.err.println("[Pulse] Failed to initialize provider " + id + ": " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to initialize provider {}: {}", id, e.getMessage());
             notifyError(provider, e);
         }
     }
@@ -79,17 +81,17 @@ public class ProviderRegistry implements IProviderRegistry {
                 provider.onShutdown();
                 updateLifecycle(provider, ProviderLifecycle.TERMINATED);
             } catch (Exception e) {
-                System.err.println("[Pulse] Error during shutdown: " + e.getMessage());
+                PulseLogger.error(LOG, "Error during shutdown: {}", e.getMessage());
             }
 
             lifecycles.remove(providerId);
-            System.out.println("[Pulse] Unregistered provider: " + providerId);
+            PulseLogger.info(LOG, "Unregistered provider: {}", providerId);
 
             for (IProviderCallback callback : callbacks) {
                 try {
                     callback.onProviderUnregistered(provider);
                 } catch (Exception e) {
-                    System.err.println("[Pulse] Callback error: " + e.getMessage());
+                    PulseLogger.error(LOG, "Callback error: {}", e.getMessage());
                 }
             }
         }
@@ -168,7 +170,7 @@ public class ProviderRegistry implements IProviderRegistry {
      * 모든 프로바이더 종료
      */
     public void shutdownAll() {
-        System.out.println("[Pulse] Shutting down all providers...");
+        PulseLogger.info(LOG, "Shutting down all providers...");
         for (String id : new ArrayList<>(providersById.keySet())) {
             unregister(id);
         }
@@ -183,7 +185,7 @@ public class ProviderRegistry implements IProviderRegistry {
             try {
                 callback.onLifecycleChanged(provider, oldState, newState);
             } catch (Exception e) {
-                System.err.println("[Pulse] Callback error: " + e.getMessage());
+                PulseLogger.error(LOG, "Callback error: {}", e.getMessage());
             }
         }
     }
@@ -193,7 +195,7 @@ public class ProviderRegistry implements IProviderRegistry {
             try {
                 callback.onProviderError(provider, error);
             } catch (Exception e) {
-                System.err.println("[Pulse] Callback error: " + e.getMessage());
+                PulseLogger.error(LOG, "Callback error: {}", e.getMessage());
             }
         }
     }

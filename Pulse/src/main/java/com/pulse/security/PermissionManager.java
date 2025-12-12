@@ -1,5 +1,7 @@
 package com.pulse.security;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,6 +15,7 @@ public class PermissionManager {
 
     // modId -> 허용된 권한 세트
     private final Map<String, Set<Permission>> grantedPermissions = new ConcurrentHashMap<>();
+    private static final String LOG = PulseLogger.PULSE;
 
     // 권한별 기본 정책
     private final Map<Permission, PermissionPolicy> defaultPolicies = new EnumMap<>(Permission.class);
@@ -71,7 +74,7 @@ public class PermissionManager {
         INSTANCE.grantedPermissions
                 .computeIfAbsent(modId, k -> ConcurrentHashMap.newKeySet())
                 .add(permission);
-        System.out.println("[Pulse/Security] Granted " + permission + " to " + modId);
+        PulseLogger.info(LOG, "[Security] Granted {} to {}", permission, modId);
     }
 
     /**
@@ -100,7 +103,7 @@ public class PermissionManager {
                 Permission perm = Permission.valueOf(name.toUpperCase().replace(".", "_"));
                 grant(modId, perm);
             } catch (IllegalArgumentException e) {
-                System.err.println("[Pulse/Security] Unknown permission: " + name);
+                PulseLogger.warn(LOG, "[Security] Unknown permission: {}", name);
             }
         }
     }

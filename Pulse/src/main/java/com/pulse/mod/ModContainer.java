@@ -1,5 +1,7 @@
 package com.pulse.mod;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.net.URLClassLoader;
 
 /**
@@ -30,6 +32,7 @@ public class ModContainer {
         INITIALIZED, // 초기화 완료
         LOADED, // 정상 로드됨 (활성 상태)
         DISABLED, // 비활성화됨 (핫 리로드)
+        UNLOADED, // 언로드됨 (종료 시)
         ERRORED // 에러 발생
     }
 
@@ -43,13 +46,13 @@ public class ModContainer {
     public void initialize() throws Exception {
         String entrypoint = metadata.getEntrypoint();
         if (entrypoint == null || entrypoint.isEmpty()) {
-            System.out.println("[Pulse/Mod] " + metadata.getId() + " has no entrypoint, skipping initialization");
+            PulseLogger.info(PulseLogger.PULSE, "{} has no entrypoint, skipping initialization", metadata.getId());
             state = ModState.INITIALIZED;
             return;
         }
 
         try {
-            System.out.println("[Pulse/Mod] Initializing mod: " + metadata.getId());
+            PulseLogger.info(PulseLogger.PULSE, "Initializing mod: {}", metadata.getId());
 
             // 엔트리포인트 클래스 로드
             Class<?> entryClass = classLoader.loadClass(entrypoint);
@@ -58,10 +61,9 @@ public class ModContainer {
             if (PulseMod.class.isAssignableFrom(entryClass)) {
                 modInstance = entryClass.getDeclaredConstructor().newInstance();
                 ((PulseMod) modInstance).onInitialize();
-                System.out.println("[Pulse/Mod] ✓ " + metadata.getId() + " initialized successfully");
+                PulseLogger.info(PulseLogger.PULSE, "✓ {} initialized successfully", metadata.getId());
             } else {
-                System.err.println("[Pulse/Mod] WARNING: " + entrypoint +
-                        " does not implement PulseMod interface");
+                PulseLogger.warn(PulseLogger.PULSE, "{} does not implement PulseMod interface", entrypoint);
                 modInstance = entryClass.getDeclaredConstructor().newInstance();
             }
 
@@ -70,7 +72,7 @@ public class ModContainer {
 
         } catch (Exception e) {
             state = ModState.ERRORED;
-            System.err.println("[Pulse/Mod] Failed to initialize mod: " + metadata.getId());
+            PulseLogger.error(PulseLogger.PULSE, "Failed to initialize mod: {}", metadata.getId());
             throw e;
         }
     }

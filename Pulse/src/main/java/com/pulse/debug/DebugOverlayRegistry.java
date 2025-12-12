@@ -1,6 +1,7 @@
 package com.pulse.debug;
 
 import com.pulse.api.DevMode;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DebugOverlayRegistry {
 
     private static final Map<String, DebugOverlayRenderer> renderers = new ConcurrentHashMap<>();
+    private static final String LOG = PulseLogger.PULSE;
     private static boolean enabled = true;
 
     private DebugOverlayRegistry() {
@@ -37,7 +39,7 @@ public class DebugOverlayRegistry {
         renderers.put(modId, renderer);
 
         if (DevMode.isEnabled()) {
-            System.out.println("[Pulse/Debug] Registered overlay renderer for: " + modId);
+            PulseLogger.info(LOG, "Registered overlay renderer for: {}", modId);
         }
     }
 
@@ -68,7 +70,7 @@ public class DebugOverlayRegistry {
                 renderer.render(ctx);
                 ctx.endSection();
             } catch (Exception e) {
-                System.err.println("[Pulse/Debug] Error in overlay renderer for " + modId);
+                PulseLogger.error(LOG, "Error in overlay renderer for {}", modId);
                 if (DevMode.isEnabled()) {
                     e.printStackTrace();
                 }
@@ -86,13 +88,13 @@ public class DebugOverlayRegistry {
         DebugRenderContext ctx = new DebugRenderContext();
         ctx.reset(0);
 
-        System.out.println("[Pulse/Debug] ═══════════════════════════════════════");
-        System.out.println("[Pulse/Debug] DEBUG OVERLAY OUTPUT");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "DEBUG OVERLAY OUTPUT");
 
         renderAll(ctx);
 
-        System.out.print(ctx.getOutput());
-        System.out.println("[Pulse/Debug] ═══════════════════════════════════════");
+        PulseLogger.info(LOG, "\n{}", ctx.getOutput());
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 
     // ─────────────────────────────────────────────────────────────

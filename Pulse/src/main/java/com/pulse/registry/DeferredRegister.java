@@ -1,5 +1,7 @@
 package com.pulse.registry;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -28,6 +30,7 @@ public class DeferredRegister<T> {
     private final Registry<T> registry;
     private final List<PendingEntry<T>> pendingEntries = new ArrayList<>();
     private boolean committed = false;
+    private static final String LOG = PulseLogger.PULSE;
 
     private DeferredRegister(String modId, Registry<T> registry) {
         this.modId = modId;
@@ -97,8 +100,9 @@ public class DeferredRegister<T> {
         }
 
         committed = true;
-        System.out.println("[Pulse/Registry] Committed " + pendingEntries.size() +
-                " entries from " + modId + " to " + registry.getRegistryId());
+        committed = true;
+        PulseLogger.info(LOG, "[Registry] Committed {} entries from {} to {}",
+                pendingEntries.size(), modId, registry.getRegistryId());
     }
 
     // ─────────────────────────────────────────────────────────────

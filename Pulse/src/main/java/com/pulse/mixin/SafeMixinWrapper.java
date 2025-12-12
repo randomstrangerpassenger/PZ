@@ -1,5 +1,7 @@
 package com.pulse.mixin;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,6 +30,8 @@ import java.util.function.Supplier;
  * @since Pulse 1.2
  */
 public final class SafeMixinWrapper {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     // Mixin별 오류 카운터 (로그 스팸 방지)
     private static final Map<String, AtomicInteger> errorCounts = new ConcurrentHashMap<>();
@@ -98,12 +102,12 @@ public final class SafeMixinWrapper {
 
         // 로그 스팸 방지 (디버그 모드가 아닌 경우)
         if (debugMode || count <= MAX_ERROR_LOGS_PER_MIXIN) {
-            System.err.println("[Pulse/SafeMixin] Error in " + mixinId + " (#" + count + "): " + t.getMessage());
+            PulseLogger.error(LOG, "Error in {} (#{})): {}", mixinId, count, t.getMessage());
             if (debugMode) {
                 t.printStackTrace();
             }
         } else if (count == MAX_ERROR_LOGS_PER_MIXIN + 1) {
-            System.err.println("[Pulse/SafeMixin] Suppressing further errors for " + mixinId);
+            PulseLogger.warn(LOG, "Suppressing further errors for {}", mixinId);
         }
     }
 
@@ -127,7 +131,7 @@ public final class SafeMixinWrapper {
     public static void setDebugMode(boolean enabled) {
         debugMode = enabled;
         if (enabled) {
-            System.out.println("[Pulse/SafeMixin] Debug mode enabled - all errors will be printed");
+            PulseLogger.info(LOG, "SafeMixin debug mode enabled - all errors will be printed");
         }
     }
 

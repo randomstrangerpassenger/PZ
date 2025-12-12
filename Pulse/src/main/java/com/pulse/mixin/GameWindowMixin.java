@@ -2,6 +2,7 @@ package com.pulse.mixin;
 
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameInitEvent;
+import com.pulse.api.log.PulseLogger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(targets = "zombie.GameWindow")
 public abstract class GameWindowMixin {
+    @Unique
+    private static final String Pulse$LOG = PulseLogger.PULSE;
 
     @Unique
     private static boolean Pulse$initEventFired = false;
@@ -25,7 +28,7 @@ public abstract class GameWindowMixin {
     private static void Pulse$onInit(CallbackInfo ci) {
         if (!Pulse$initEventFired) {
             Pulse$initEventFired = true;
-            System.out.println("[Pulse] Game initialization complete, firing GameInitEvent");
+            PulseLogger.info(Pulse$LOG, "Game initialization complete, firing GameInitEvent");
             EventBus.post(new GameInitEvent());
         }
     }

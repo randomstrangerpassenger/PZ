@@ -1,0 +1,18 @@
+﻿> Task :pulse-api:compileJava UP-TO-DATE
+> Task :Pulse:compileJava UP-TO-DATE
+> Task :Echo:compileJava UP-TO-DATE
+> Task :Echo:processResources UP-TO-DATE
+> Task :Echo:classes UP-TO-DATE
+> Task :Echo:compileTestJava
+> Task :Echo:processTestResources NO-SOURCE
+> Task :Echo:testClasses
+> Task :Pulse:processResources
+> Task :Pulse:classes
+> Task :Pulse:jar
+> Task :pulse-api:processResources NO-SOURCE
+> Task :pulse-api:classes UP-TO-DATE
+> Task :pulse-api:jar UP-TO-DATE
+> Task :Echo:test
+
+BUILD SUCCESSFUL in 2s
+9 actionable tasks: 4 executed, 5 up-to-date

@@ -1,5 +1,6 @@
 package com.pulse.security;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.mod.ModContainer;
 import com.pulse.mod.ModMetadata;
 
@@ -19,13 +20,14 @@ public class SideValidator {
     }
 
     private static Side currentSide = Side.CLIENT;
+    private static final String LOG = PulseLogger.PULSE;
 
     /**
      * 현재 사이드 설정.
      */
     public static void setCurrentSide(Side side) {
         currentSide = side;
-        System.out.println("[Pulse/Side] Running on: " + side);
+        PulseLogger.info(LOG, "[Side] Running on: {}", side);
     }
 
     /**
@@ -95,8 +97,8 @@ public class SideValidator {
         }
 
         if (!valid) {
-            System.err.println("[Pulse/Side] WARNING: Mod '" + modId +
-                    "' requires " + requiredSide + " but running on " + currentSide);
+            PulseLogger.warn(LOG, "[Side] WARNING: Mod '{}' requires {} but running on {}",
+                    modId, requiredSide, currentSide);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.pulse.mod;
 
+import com.pulse.api.log.PulseLogger;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +38,8 @@ import java.util.regex.Pattern;
  * </pre>
  */
 public class VersionComparator {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     // ─────────────────────────────────────────────────────────────
     // Version 클래스
@@ -89,7 +92,7 @@ public class VersionComparator {
 
             Matcher matcher = SEMVER_PATTERN.matcher(version);
             if (!matcher.matches()) {
-                System.err.println("[Pulse/Version] Invalid version format: " + version);
+                PulseLogger.error(LOG, "[Version] Invalid version format: {}", version);
                 return null;
             }
 
@@ -374,30 +377,34 @@ public class VersionComparator {
      * 테스트용 메인 메서드.
      */
     public static void main(String[] args) {
-        System.out.println("=== VersionComparator Tests ===");
+        PulseLogger.info(LOG, "=== VersionComparator Tests ===");
 
         // 파싱 테스트
-        System.out.println("\n[Parsing]");
-        System.out.println("1.0.0 → " + Version.parse("1.0.0"));
-        System.out.println("1.2.3-alpha → " + Version.parse("1.2.3-alpha"));
-        System.out.println("v2.0.0-beta.1+build.123 → " + Version.parse("v2.0.0-beta.1+build.123"));
+        PulseLogger.info(LOG, "");
+        PulseLogger.info(LOG, "[Parsing]");
+        PulseLogger.info(LOG, "1.0.0 → {}", Version.parse("1.0.0"));
+        PulseLogger.info(LOG, "1.2.3-alpha → {}", Version.parse("1.2.3-alpha"));
+        PulseLogger.info(LOG, "v2.0.0-beta.1+build.123 → {}", Version.parse("v2.0.0-beta.1+build.123"));
 
         // 비교 테스트
-        System.out.println("\n[Comparison]");
-        System.out.println("1.0.0 vs 1.0.1: " + compare("1.0.0", "1.0.1"));
-        System.out.println("1.1.0 vs 1.0.9: " + compare("1.1.0", "1.0.9"));
-        System.out.println("2.0.0-alpha vs 2.0.0: " + compare("2.0.0-alpha", "2.0.0"));
+        PulseLogger.info(LOG, "");
+        PulseLogger.info(LOG, "[Comparison]");
+        PulseLogger.info(LOG, "1.0.0 vs 1.0.1: {}", compare("1.0.0", "1.0.1"));
+        PulseLogger.info(LOG, "1.1.0 vs 1.0.9: {}", compare("1.1.0", "1.0.9"));
+        PulseLogger.info(LOG, "2.0.0-alpha vs 2.0.0: {}", compare("2.0.0-alpha", "2.0.0"));
 
         // 매칭 테스트
-        System.out.println("\n[Matching]");
-        System.out.println("1.2.3 matches >=1.0.0: " + matches("1.2.3", ">=1.0.0"));
-        System.out.println("1.2.3 matches <2.0.0: " + matches("1.2.3", "<2.0.0"));
-        System.out.println("1.2.3 matches ~1.2.0: " + matches("1.2.3", "~1.2.0"));
-        System.out.println("1.3.0 matches ~1.2.0: " + matches("1.3.0", "~1.2.0"));
-        System.out.println("1.9.9 matches ^1.2.3: " + matches("1.9.9", "^1.2.3"));
-        System.out.println("2.0.0 matches ^1.2.3: " + matches("2.0.0", "^1.2.3"));
-        System.out.println("1.5.0 matches >=1.0.0 <2.0.0: " + matches("1.5.0", ">=1.0.0 <2.0.0"));
+        PulseLogger.info(LOG, "");
+        PulseLogger.info(LOG, "[Matching]");
+        PulseLogger.info(LOG, "1.2.3 matches >=1.0.0: {}", matches("1.2.3", ">=1.0.0"));
+        PulseLogger.info(LOG, "1.2.3 matches <2.0.0: {}", matches("1.2.3", "<2.0.0"));
+        PulseLogger.info(LOG, "1.2.3 matches ~1.2.0: {}", matches("1.2.3", "~1.2.0"));
+        PulseLogger.info(LOG, "1.3.0 matches ~1.2.0: {}", matches("1.3.0", "~1.2.0"));
+        PulseLogger.info(LOG, "1.9.9 matches ^1.2.3: {}", matches("1.9.9", "^1.2.3"));
+        PulseLogger.info(LOG, "2.0.0 matches ^1.2.3: {}", matches("2.0.0", "^1.2.3"));
+        PulseLogger.info(LOG, "1.5.0 matches >=1.0.0 <2.0.0: {}", matches("1.5.0", ">=1.0.0 <2.0.0"));
 
-        System.out.println("\n=== All Tests Completed ===");
+        PulseLogger.info(LOG, "");
+        PulseLogger.info(LOG, "=== All Tests Completed ===");
     }
 }

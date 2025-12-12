@@ -1,5 +1,6 @@
 package com.pulse;
 
+import com.pulse.api.log.PulseLogger;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformer;
 
 /**
@@ -16,7 +17,7 @@ public class PulseEnvironment {
     private static ClassLoader gameClassLoader;
     private static IMixinTransformer mixinTransformer;
     private static java.lang.instrument.Instrumentation instrumentation;
-    
+
     private static boolean initialized = false;
     private static boolean mixinReady = false;
 
@@ -25,8 +26,8 @@ public class PulseEnvironment {
     public static void setGameClassLoader(ClassLoader cl) {
         if (gameClassLoader == null && cl != null) {
             gameClassLoader = cl;
-            System.out.println("[Pulse/Env] Game ClassLoader registered: " + cl);
-            System.out.println("[Pulse/Env] ClassLoader class: " + cl.getClass().getName());
+            PulseLogger.info(PulseLogger.PULSE, "Game ClassLoader registered: {}", cl);
+            PulseLogger.debug(PulseLogger.PULSE, "ClassLoader class: {}", cl.getClass().getName());
         }
     }
 
@@ -40,8 +41,8 @@ public class PulseEnvironment {
         if (mixinTransformer == null && transformer != null) {
             mixinTransformer = transformer;
             mixinReady = true;
-            System.out.println("[Pulse/Env] Mixin Transformer registered: " + 
-                transformer.getClass().getName());
+            PulseLogger.info(PulseLogger.PULSE, "Mixin Transformer registered: {}",
+                    transformer.getClass().getName());
         }
     }
 
@@ -57,7 +58,7 @@ public class PulseEnvironment {
 
     public static void setInstrumentation(java.lang.instrument.Instrumentation inst) {
         instrumentation = inst;
-        System.out.println("[Pulse/Env] Instrumentation registered");
+        PulseLogger.info(PulseLogger.PULSE, "Instrumentation registered");
     }
 
     public static java.lang.instrument.Instrumentation getInstrumentation() {
@@ -68,7 +69,7 @@ public class PulseEnvironment {
 
     public static void markInitialized() {
         initialized = true;
-        System.out.println("[Pulse/Env] Environment marked as initialized");
+        PulseLogger.info(PulseLogger.PULSE, "Environment marked as initialized");
     }
 
     public static boolean isInitialized() {
@@ -78,13 +79,16 @@ public class PulseEnvironment {
     // ================= Debug Info =================
 
     public static void printStatus() {
-        System.out.println("==================================================");
-        System.out.println("[Pulse/Env] STATUS REPORT");
-        System.out.println("  Initialized: " + initialized);
-        System.out.println("  Game ClassLoader: " + (gameClassLoader != null ? gameClassLoader : "NOT SET"));
-        System.out.println("  Mixin Ready: " + mixinReady);
-        System.out.println("  Mixin Transformer: " + (mixinTransformer != null ? "SET" : "NOT SET"));
-        System.out.println("  Instrumentation: " + (instrumentation != null ? "SET" : "NOT SET"));
-        System.out.println("==================================================");
+        PulseLogger.info(PulseLogger.PULSE, "==================================================");
+        PulseLogger.info(PulseLogger.PULSE, "STATUS REPORT");
+        PulseLogger.info(PulseLogger.PULSE, "  Initialized: {}", initialized);
+        PulseLogger.info(PulseLogger.PULSE, "  Game ClassLoader: {}",
+                (gameClassLoader != null ? gameClassLoader : "NOT SET"));
+        PulseLogger.info(PulseLogger.PULSE, "  Mixin Ready: {}", mixinReady);
+        PulseLogger.info(PulseLogger.PULSE, "  Mixin Transformer: {}",
+                (mixinTransformer != null ? "SET" : "NOT SET"));
+        PulseLogger.info(PulseLogger.PULSE, "  Instrumentation: {}",
+                (instrumentation != null ? "SET" : "NOT SET"));
+        PulseLogger.info(PulseLogger.PULSE, "==================================================");
     }
 }

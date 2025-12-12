@@ -1,15 +1,20 @@
 package com.pulse.service;
 
+import com.pulse.api.log.PulseLogger;
 import org.spongepowered.asm.logging.ILogger;
 import org.spongepowered.asm.logging.Level;
 
 /**
- * Pulse용 Mixin 로거 구현.
+ * Pulse용 Mixin ILogger 구현.
+ * Sponge Mixin이 필요로 하는 ILogger 인터페이스 구현체.
+ * 
+ * Note: com.pulse.api.log.PulseLogger와 구분을 위해 MixinLogger로 명명.
  */
-public class PulseLogger implements ILogger {
+public class MixinLogger implements ILogger {
+    private static final String LOG = PulseLogger.PULSE;
     private final String name;
 
-    public PulseLogger(String name) {
+    public MixinLogger(String name) {
         this.name = name;
     }
 
@@ -38,99 +43,118 @@ public class PulseLogger implements ILogger {
                 }
             }
         }
-        return String.format("[Pulse/%s] [%s] %s", level, name, formatted);
+        return String.format("[Mixin/%s] [%s] %s", level, name, formatted);
     }
 
     @Override
     public void debug(String message, Object... params) {
-        System.out.println(format("DEBUG", message, params));
+        PulseLogger.debug(LOG, format("DEBUG", message, params));
     }
 
     @Override
     public void debug(String message, Throwable t) {
-        System.out.println(format("DEBUG", message));
-        t.printStackTrace(System.out);
+        PulseLogger.debug(LOG, format("DEBUG", message), t);
     }
 
     @Override
     public void trace(String message, Object... params) {
-        // Trace 레벨은 더 상세한 디버깅용
-        System.out.println(format("TRACE", message, params));
+        PulseLogger.trace(LOG, format("TRACE", message, params));
     }
 
     @Override
     public void trace(String message, Throwable t) {
-        System.out.println(format("TRACE", message));
-        t.printStackTrace(System.out);
+        PulseLogger.trace(LOG, format("TRACE", message), t);
     }
 
     @Override
     public void info(String message, Object... params) {
-        System.out.println(format("INFO", message, params));
+        PulseLogger.info(LOG, format("INFO", message, params));
     }
 
     @Override
     public void info(String message, Throwable t) {
-        System.out.println(format("INFO", message));
-        t.printStackTrace(System.out);
+        PulseLogger.info(LOG, format("INFO", message), t);
     }
 
     @Override
     public void warn(String message, Object... params) {
-        System.out.println(format("WARN", message, params));
+        PulseLogger.warn(LOG, format("WARN", message, params));
     }
 
     @Override
     public void warn(String message, Throwable t) {
-        System.out.println(format("WARN", message));
-        t.printStackTrace(System.out);
+        PulseLogger.warn(LOG, format("WARN", message), t);
     }
 
     @Override
     public void error(String message, Object... params) {
-        System.err.println(format("ERROR", message, params));
+        PulseLogger.error(LOG, format("ERROR", message, params));
     }
 
     @Override
     public void error(String message, Throwable t) {
-        System.err.println(format("ERROR", message));
-        t.printStackTrace(System.err);
+        PulseLogger.error(LOG, format("ERROR", message), t);
     }
 
     @Override
     public void fatal(String message, Object... params) {
-        System.err.println(format("FATAL", message, params));
+        PulseLogger.error(LOG, format("FATAL", message, params));
     }
 
     @Override
     public void fatal(String message, Throwable t) {
-        System.err.println(format("FATAL", message));
-        t.printStackTrace(System.err);
+        PulseLogger.error(LOG, format("FATAL", message), t);
     }
 
     @Override
     public void log(Level level, String message, Object... params) {
         switch (level) {
-            case DEBUG: debug(message, params); break;
-            case TRACE: trace(message, params); break;
-            case INFO: info(message, params); break;
-            case WARN: warn(message, params); break;
-            case ERROR: error(message, params); break;
-            case FATAL: fatal(message, params); break;
-            default: info(message, params);
+            case DEBUG:
+                debug(message, params);
+                break;
+            case TRACE:
+                trace(message, params);
+                break;
+            case INFO:
+                info(message, params);
+                break;
+            case WARN:
+                warn(message, params);
+                break;
+            case ERROR:
+                error(message, params);
+                break;
+            case FATAL:
+                fatal(message, params);
+                break;
+            default:
+                info(message, params);
         }
     }
 
     @Override
     public void log(Level level, String message, Throwable t) {
         switch (level) {
-            case DEBUG: debug(message, t); break;
-            case TRACE: trace(message, t); break;
-            case INFO: info(message, t); break;
-            case WARN: warn(message, t); break;
-            case ERROR: error(message, t); break;
-            case FATAL: fatal(message, t); break;
-            default: info(message, t);
+            case DEBUG:
+                debug(message, t);
+                break;
+            case TRACE:
+                trace(message, t);
+                break;
+            case INFO:
+                info(message, t);
+                break;
+            case WARN:
+                warn(message, t);
+                break;
+            case ERROR:
+                error(message, t);
+                break;
+            case FATAL:
+                fatal(message, t);
+                break;
+            default:
+                info(message, t);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.pulse.config;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class ConfigSpec {
     private final String fileName;
     private final String category;
     private final List<ConfigEntry> entries = new ArrayList<>();
+    private static final String LOG = PulseLogger.PULSE;
 
     public ConfigSpec(Class<?> configClass) {
         this.configClass = configClass;
@@ -102,11 +105,11 @@ public class ConfigSpec {
                     Object result = method.invoke(null);
                     if (result instanceof Boolean b && !b) {
                         Validate validate = method.getAnnotation(Validate.class);
-                        System.err.println("[Pulse/Config] Validation failed: " + validate.message());
+                        PulseLogger.error(LOG, "[Config] Validation failed: {}", validate.message());
                         return false;
                     }
                 } catch (Exception e) {
-                    System.err.println("[Pulse/Config] Validation error: " + e.getMessage());
+                    PulseLogger.error(LOG, "[Config] Validation error: {}", e.getMessage());
                     return false;
                 }
             }
@@ -121,7 +124,7 @@ public class ConfigSpec {
         for (ConfigEntry entry : entries) {
             entry.reset();
         }
-        System.out.println("[Pulse/Config] Reset all values to defaults for: " + modId);
+        PulseLogger.info(LOG, "[Config] Reset all values to defaults for: {}", modId);
     }
 
     public static class ConfigEntry {
@@ -197,8 +200,7 @@ public class ConfigSpec {
                 if (options != null && options.length > 0 && value instanceof String strVal) {
                     List<String> optionList = Arrays.asList(options);
                     if (!optionList.contains(strVal)) {
-                        System.err.println("[Pulse/Config] Invalid option '" + strVal +
-                                "' for " + key + ", resetting to default");
+                        PulseLogger.warn(LOG, "[Config] Invalid option '{}' for {}, resetting to default", strVal, key);
                         value = defaultValue;
                     }
                 }
@@ -225,7 +227,7 @@ public class ConfigSpec {
 
                 field.set(null, value);
             } catch (IllegalAccessException e) {
-                System.err.println("[Pulse/Config] Failed to set value for " + key);
+                PulseLogger.error(LOG, "[Config] Failed to set value for {}", key);
             }
         }
 

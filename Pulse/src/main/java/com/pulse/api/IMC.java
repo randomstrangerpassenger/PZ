@@ -1,5 +1,7 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
@@ -28,6 +30,7 @@ import java.util.function.Supplier;
 public class IMC {
 
     private static final IMC INSTANCE = new IMC();
+    private static final String LOG = PulseLogger.PULSE;
 
     // 등록된 서비스
     private final Map<String, ServiceRegistration<?>> services = new ConcurrentHashMap<>();
@@ -51,7 +54,7 @@ public class IMC {
      */
     public static <T> void registerService(String id, Class<T> type, Supplier<T> factory) {
         INSTANCE.services.put(id, new ServiceRegistration<>(type, factory));
-        System.out.println("[Pulse/IMC] Registered service: " + id);
+        PulseLogger.info(LOG, "[IMC] Registered service: {}", id);
     }
 
     /**
@@ -68,7 +71,7 @@ public class IMC {
             return null;
         }
         if (!type.isAssignableFrom(reg.type)) {
-            System.err.println("[Pulse/IMC] Service type mismatch: " + id);
+            PulseLogger.error(LOG, "[IMC] Service type mismatch: {}", id);
             return null;
         }
         return (T) reg.getInstance();
@@ -114,7 +117,7 @@ public class IMC {
             try {
                 handler.handle(messageType, data);
             } catch (Exception e) {
-                System.err.println("[Pulse/IMC] Error handling message: " + e.getMessage());
+                PulseLogger.error(LOG, "[IMC] Error handling message: {}", e.getMessage());
             }
         }
     }

@@ -2,6 +2,7 @@ package com.pulse.api.access;
 
 import com.pulse.PulseEnvironment;
 import com.pulse.api.GameAccess;
+import com.pulse.api.util.ReflectionClassCache;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -18,50 +19,27 @@ public final class NetworkAccess {
     private NetworkAccess() {
     }
 
-    // 캐시된 클래스 참조
-    private static Class<?> gameClientClass;
-    private static Class<?> gameServerClass;
-    private static Class<?> coreClass;
-    private static boolean initialized = false;
-
-    private static void ensureInitialized() {
-        if (initialized)
-            return;
-        ClassLoader gameLoader = PulseEnvironment.getGameClassLoader();
-        if (gameLoader == null)
-            gameLoader = ClassLoader.getSystemClassLoader();
-        try {
-            gameClientClass = gameLoader.loadClass("zombie.network.GameClient");
-        } catch (ClassNotFoundException e) {
-            // 무시
-        }
-        try {
-            gameServerClass = gameLoader.loadClass("zombie.network.GameServer");
-        } catch (ClassNotFoundException e) {
-            // 무시
-        }
-        try {
-            coreClass = gameLoader.loadClass("zombie.core.Core");
-        } catch (ClassNotFoundException e) {
-            // 무시
-        }
-        initialized = true;
-    }
+    // ReflectionClassCache 사용으로 ensureInitialized() 패턴 제거
+    private static final ReflectionClassCache<Object> gameClientCache = new ReflectionClassCache<>(
+            "zombie.network.GameClient");
+    private static final ReflectionClassCache<Object> gameServerCache = new ReflectionClassCache<>(
+            "zombie.network.GameServer");
+    private static final ReflectionClassCache<Object> coreCache = new ReflectionClassCache<>("zombie.core.Core");
 
     /**
      * 클래스 참조 갱신.
      */
     public static void refresh() {
-        initialized = false;
-        ensureInitialized();
+        gameClientCache.refresh();
+        gameServerCache.refresh();
+        coreCache.refresh();
     }
 
     /**
      * 게임 일시정지 상태인지 확인.
      */
     public static boolean isPaused() {
-        ensureInitialized();
-
+        Class<?> coreClass = coreCache.get();
         if (coreClass != null) {
             try {
                 Method getInstance = coreClass.getMethod("getInstance");
@@ -100,8 +78,7 @@ public final class NetworkAccess {
      * 멀티플레이어인지 확인.
      */
     public static boolean isMultiplayer() {
-        ensureInitialized();
-
+        Class<?> gameClientClass = gameClientCache.get();
         if (gameClientClass != null) {
             try {
                 Field bClientField = gameClientClass.getDeclaredField("bClient");
@@ -115,6 +92,7 @@ public final class NetworkAccess {
             }
         }
 
+        Class<?> gameServerClass = gameServerCache.get();
         if (gameServerClass != null) {
             try {
                 Field bServerField = gameServerClass.getDeclaredField("bServer");
@@ -135,8 +113,7 @@ public final class NetworkAccess {
      * 서버인지 확인 (멀티플레이어).
      */
     public static boolean isServer() {
-        ensureInitialized();
-
+        Class<?> gameServerClass = gameServerCache.get();
         if (gameServerClass != null) {
             try {
                 Field bServerField = gameServerClass.getDeclaredField("bServer");
@@ -157,8 +134,7 @@ public final class NetworkAccess {
      * 클라이언트인지 확인 (멀티플레이어).
      */
     public static boolean isClient() {
-        ensureInitialized();
-
+        Class<?> gameClientClass = gameClientCache.get();
         if (gameClientClass != null) {
             try {
                 Field bClientField = gameClientClass.getDeclaredField("bClient");

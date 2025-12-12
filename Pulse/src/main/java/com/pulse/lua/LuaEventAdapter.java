@@ -1,5 +1,6 @@
 package com.pulse.lua;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.event.Event;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEvent;
@@ -35,6 +36,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class LuaEventAdapter {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final String MOD_ID = "pulse_lua_adapter";
     private static boolean standardMappingsInitialized = false;
 
@@ -68,8 +70,7 @@ public class LuaEventAdapter {
             triggerLuaEvent(luaEventName, eventToLuaArgs(event));
         }, MOD_ID);
 
-        System.out.println("[Pulse/LuaAdapter] Bridged " +
-                eventClass.getSimpleName() + " → Lua:" + luaEventName);
+        PulseLogger.info(LOG, "[LuaAdapter] Bridged {} → Lua:{}", eventClass.getSimpleName(), luaEventName);
     }
 
     /**
@@ -83,7 +84,7 @@ public class LuaEventAdapter {
             // Events.<eventName>.Trigger(args...)
             LuaBridge.call("Events." + eventName + ".Trigger", args);
         } catch (Exception e) {
-            System.err.println("[Pulse/LuaAdapter] Failed to trigger Lua event: " + eventName);
+            PulseLogger.error(LOG, "[LuaAdapter] Failed to trigger Lua event: {}", eventName);
         }
     }
 
@@ -142,8 +143,7 @@ public class LuaEventAdapter {
         // Lua에 Java 콜백 등록
         registerLuaCallback(luaEventName);
 
-        System.out.println("[Pulse/LuaAdapter] Bridged Lua:" +
-                luaEventName + " → " + eventClass.getSimpleName());
+        PulseLogger.info(LOG, "[LuaAdapter] Bridged Lua:{} → {}", luaEventName, eventClass.getSimpleName());
     }
 
     /**
@@ -165,7 +165,7 @@ public class LuaEventAdapter {
             // Lua에 등록
             LuaBridge.call("Events." + luaEventName + ".Add", callback);
         } catch (Exception e) {
-            System.err.println("[Pulse/LuaAdapter] Failed to register Lua callback: " + luaEventName);
+            PulseLogger.error(LOG, "[LuaAdapter] Failed to register Lua callback: {}", luaEventName);
         }
     }
 
@@ -182,8 +182,7 @@ public class LuaEventAdapter {
             Event event = ((LuaToJavaMapping<Event>) mapping).factory.create(args);
             EventBus.post(event);
         } catch (Exception e) {
-            System.err.println("[Pulse/LuaAdapter] Failed to create event from Lua: " + luaEventName);
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[LuaAdapter] Failed to create event from Lua: {}", luaEventName, e);
         }
     }
 
@@ -251,24 +250,24 @@ public class LuaEventAdapter {
         // 실제 연결은 런타임에 LuaBridge가 사용 가능할 때 수행됨
 
         standardMappingsInitialized = true;
-        System.out.println("[Pulse/LuaAdapter] Standard mappings initialized: " + count + " events");
+        PulseLogger.info(LOG, "[LuaAdapter] Standard mappings initialized: {} events", count);
     }
 
     /**
      * 매핑 현황 출력 (디버그용).
      */
     public static void printMappings() {
-        System.out.println("[Pulse/LuaAdapter] === Event Mappings ===");
-        System.out.println("[Pulse/LuaAdapter] Java → Lua:");
+        PulseLogger.info(LOG, "[LuaAdapter] === Event Mappings ===");
+        PulseLogger.info(LOG, "[LuaAdapter] Java → Lua:");
         for (var entry : javaToLuaMappings.entrySet()) {
-            System.out.println("[Pulse/LuaAdapter]   " + entry.getKey().getSimpleName() + " → " + entry.getValue());
+            PulseLogger.info(LOG, "[LuaAdapter]   {} → {}", entry.getKey().getSimpleName(), entry.getValue());
         }
-        System.out.println("[Pulse/LuaAdapter] Lua → Java:");
+        PulseLogger.info(LOG, "[LuaAdapter] Lua → Java:");
         for (var entry : luaToJavaMappings.entrySet()) {
-            System.out.println(
-                    "[Pulse/LuaAdapter]   " + entry.getKey() + " → " + entry.getValue().eventClass.getSimpleName());
+            PulseLogger.info(LOG, "[LuaAdapter]   {} → {}", entry.getKey(),
+                    entry.getValue().eventClass.getSimpleName());
         }
-        System.out.println("[Pulse/LuaAdapter] =====================");
+        PulseLogger.info(LOG, "[LuaAdapter] =====================");
     }
 
     /**

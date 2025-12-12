@@ -1,5 +1,7 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * 버전 호환성 검사 유틸리티.
  * Pulse API 버전과 게임 버전 호환성을 확인합니다.
@@ -19,6 +21,8 @@ package com.pulse.api;
  */
 @PublicAPI(since = "1.1.0")
 public final class VersionCompatibility {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     // ═══════════════════════════════════════════════════════════════
     // 버전 상수
@@ -193,15 +197,15 @@ public final class VersionCompatibility {
      * 디버그 정보 출력.
      */
     public static void printInfo() {
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("  Version Compatibility Info");
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("  Pulse Version: " + PULSE_VERSION);
-        System.out.println("  API Version: " + PULSE_API_VERSION);
-        System.out.println("  Game Version: " + getGameVersion());
-        System.out.println("  Min Supported: " + MIN_GAME_VERSION);
-        System.out.println("  Max Tested: " + MAX_TESTED_GAME_VERSION);
-        System.out.println("  Compatible: " + isGameVersionCompatible());
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "  Version Compatibility Info");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "  Pulse Version: {}", PULSE_VERSION);
+        PulseLogger.info(LOG, "  API Version: {}", PULSE_API_VERSION);
+        PulseLogger.info(LOG, "  Game Version: {}", getGameVersion());
+        PulseLogger.info(LOG, "  Min Supported: {}", MIN_GAME_VERSION);
+        PulseLogger.info(LOG, "  Max Tested: {}", MAX_TESTED_GAME_VERSION);
+        PulseLogger.info(LOG, "  Compatible: {}", isGameVersionCompatible());
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 }

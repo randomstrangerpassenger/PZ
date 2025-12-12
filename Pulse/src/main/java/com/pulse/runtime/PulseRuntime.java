@@ -1,5 +1,7 @@
 package com.pulse.runtime;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Pulse 런타임 환경 정보.
  * 
@@ -19,6 +21,8 @@ package com.pulse.runtime;
  * @since Pulse 1.2
  */
 public final class PulseRuntime {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     /**
      * Project Zomboid 버전
@@ -64,8 +68,7 @@ public final class PulseRuntime {
             if (versionObj != null) {
                 versionString = versionObj.toString();
                 detectedVersion = parseVersion(versionString);
-                System.out
-                        .println("[Pulse/Runtime] Detected game version: " + versionString + " -> " + detectedVersion);
+                PulseLogger.info(LOG, "Detected game version: {} -> {}", versionString, detectedVersion);
                 return;
             }
         } catch (Exception e) {
@@ -78,8 +81,7 @@ public final class PulseRuntime {
             java.lang.reflect.Field versionField = Class.forName("zombie.GameVersion").getField("VERSION");
             versionString = (String) versionField.get(null);
             detectedVersion = parseVersion(versionString);
-            System.out.println(
-                    "[Pulse/Runtime] Detected game version (GameVersion): " + versionString + " -> " + detectedVersion);
+            PulseLogger.info(LOG, "Detected game version (GameVersion): {} -> {}", versionString, detectedVersion);
             return;
         } catch (Exception e) {
             // 방법 2 실패
@@ -90,7 +92,7 @@ public final class PulseRuntime {
             Class.forName("zombie.core.opengl.ShaderProgram"); // B42에만 존재하는 클래스 예시
             detectedVersion = Version.B42;
             versionString = "B42 (inferred)";
-            System.out.println("[Pulse/Runtime] Inferred game version: B42");
+            PulseLogger.info(LOG, "Inferred game version: B42");
             return;
         } catch (ClassNotFoundException e) {
             // B42 전용 클래스 없음 - B41로 추정
@@ -99,7 +101,7 @@ public final class PulseRuntime {
         // 기본값: B41로 추정
         detectedVersion = Version.B41;
         versionString = "B41 (default)";
-        System.out.println("[Pulse/Runtime] Defaulting to: B41");
+        PulseLogger.info(LOG, "Defaulting to: B41");
     }
 
     private static Version parseVersion(String version) {

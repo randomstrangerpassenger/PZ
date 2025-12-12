@@ -1,5 +1,6 @@
 package com.pulse.loader;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.event.EventBus;
 import com.pulse.hook.PulseHookRegistry;
 
@@ -28,6 +29,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @since Pulse 1.2
  */
 public final class ModReloader {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     // 등록된 모드 정보
     private static final Map<String, ModInfo> registeredMods = new LinkedHashMap<>();
@@ -70,7 +73,7 @@ public final class ModReloader {
 
         ModInfo info = new ModInfo(modId, modPath, callback);
         registeredMods.put(modId, info);
-        System.out.println("[Pulse/ModReloader] Registered mod: " + modId);
+        PulseLogger.info(LOG, "[ModReloader] Registered mod: {}", modId);
     }
 
     /**
@@ -78,7 +81,7 @@ public final class ModReloader {
      */
     public static void unregisterMod(String modId) {
         if (registeredMods.remove(modId) != null) {
-            System.out.println("[Pulse/ModReloader] Unregistered mod: " + modId);
+            PulseLogger.info(LOG, "[ModReloader] Unregistered mod: {}", modId);
         }
     }
 
@@ -95,7 +98,7 @@ public final class ModReloader {
     public static boolean reload(String modId) {
         ModInfo info = registeredMods.get(modId);
         if (info == null) {
-            System.err.println("[Pulse/ModReloader] Unknown mod: " + modId);
+            PulseLogger.error(LOG, "[ModReloader] Unknown mod: {}", modId);
             return false;
         }
 
@@ -104,15 +107,15 @@ public final class ModReloader {
         String errorMessage = null;
 
         try {
-            System.out.println("[Pulse/ModReloader] Starting reload: " + modId);
+            PulseLogger.info(LOG, "[ModReloader] Starting reload: {}", modId);
 
             // 1. 모드의 이벤트 리스너 해제
             int unsubscribed = EventBus.unsubscribeAll(modId);
-            System.out.println("[Pulse/ModReloader]   Unsubscribed " + unsubscribed + " event listeners");
+            PulseLogger.info(LOG, "[ModReloader]   Unsubscribed {} event listeners", unsubscribed);
 
             // 2. 모드의 Hook 콜백 해제
             int unregisteredHooks = PulseHookRegistry.unregisterAll(modId);
-            System.out.println("[Pulse/ModReloader]   Unregistered " + unregisteredHooks + " hook callbacks");
+            PulseLogger.info(LOG, "[ModReloader]   Unregistered {} hook callbacks", unregisteredHooks);
 
             // 3. Lua 파일 리로드 (게임 API 호출)
             success = reloadLuaFiles(info);
@@ -122,12 +125,11 @@ public final class ModReloader {
                 info.callback.onReload();
             }
 
-            System.out.println("[Pulse/ModReloader] Reload " + (success ? "successful" : "failed") + ": " + modId);
+            PulseLogger.info(LOG, "[ModReloader] Reload {}: {}", success ? "successful" : "failed", modId);
 
         } catch (Exception e) {
             errorMessage = e.getMessage();
-            System.err.println("[Pulse/ModReloader] Reload failed: " + modId + " - " + e.getMessage());
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[ModReloader] Reload failed: {} - {}", modId, e.getMessage(), e);
         }
 
         long duration = System.currentTimeMillis() - startTime;
@@ -172,7 +174,7 @@ public final class ModReloader {
      */
     private static boolean reloadLuaFiles(ModInfo info) {
         if (info.modPath == null) {
-            System.out.println("[Pulse/ModReloader] No mod path specified, skipping Lua reload");
+            PulseLogger.info(LOG, "[ModReloader] No mod path specified, skipping Lua reload");
             return true;
         }
 
@@ -180,7 +182,7 @@ public final class ModReloader {
         java.io.File luaDir = new java.io.File(luaPath);
 
         if (!luaDir.exists() || !luaDir.isDirectory()) {
-            System.out.println("[Pulse/ModReloader] Lua directory not found: " + luaPath);
+            PulseLogger.info(LOG, "[ModReloader] Lua directory not found: {}", luaPath);
             return true; // 디렉토리 없으면 성공으로 처리 (Java-only 모드 가능)
         }
 
@@ -192,7 +194,7 @@ public final class ModReloader {
                 java.lang.reflect.Method loadDirRecursive = luaManagerClass.getMethod(
                         "LoadDirRecursive", String.class, boolean.class, boolean.class);
                 loadDirRecursive.invoke(null, luaPath, true, false);
-                System.out.println("[Pulse/ModReloader] Reloaded Lua via LoadDirRecursive: " + luaPath);
+                PulseLogger.info(LOG, "[ModReloader] Reloaded Lua via LoadDirRecursive: {}", luaPath);
                 return true;
             } catch (NoSuchMethodException e) {
                 // LoadDirRecursive 없음, 다음 시도
@@ -202,7 +204,7 @@ public final class ModReloader {
             try {
                 java.lang.reflect.Method loadDir = luaManagerClass.getMethod("LoadDir", String.class);
                 loadDir.invoke(null, luaPath);
-                System.out.println("[Pulse/ModReloader] Reloaded Lua via LoadDir: " + luaPath);
+                PulseLogger.info(LOG, "[ModReloader] Reloaded Lua via LoadDir: {}", luaPath);
                 return true;
             } catch (NoSuchMethodException e) {
                 // LoadDir 없음, 실패
@@ -212,21 +214,21 @@ public final class ModReloader {
             try {
                 java.lang.reflect.Method reloadMethod = luaManagerClass.getMethod("reloadLuaFiles", String.class);
                 reloadMethod.invoke(null, luaPath);
-                System.out.println("[Pulse/ModReloader] Reloaded Lua via reloadLuaFiles: " + luaPath);
+                PulseLogger.info(LOG, "[ModReloader] Reloaded Lua via reloadLuaFiles: {}", luaPath);
                 return true;
             } catch (NoSuchMethodException e) {
-                System.err.println("[Pulse/ModReloader] No suitable Lua reload method found in LuaManager");
+                PulseLogger.error(LOG, "[ModReloader] No suitable Lua reload method found in LuaManager");
                 return false;
             }
 
         } catch (ClassNotFoundException e) {
             // 게임 런타임 외부에서 실행 중
-            System.out.println("[Pulse/ModReloader] Not in game runtime, simulating Lua reload: " + luaPath);
+            PulseLogger.info(LOG, "[ModReloader] Not in game runtime, simulating Lua reload: {}", luaPath);
             return true;
         } catch (Exception e) {
-            System.err.println("[Pulse/ModReloader] Lua reload failed: " + e.getMessage());
+            PulseLogger.error(LOG, "[ModReloader] Lua reload failed: {}", e.getMessage());
             if (e.getCause() != null) {
-                System.err.println("[Pulse/ModReloader]   Cause: " + e.getCause().getMessage());
+                PulseLogger.error(LOG, "[ModReloader]   Cause: {}", e.getCause().getMessage());
             }
             return false;
         }

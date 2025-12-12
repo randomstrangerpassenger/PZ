@@ -1,5 +1,7 @@
 package com.pulse.security;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * 모드 서명 및 검증.
  * 모드 JAR의 무결성 확인.
@@ -11,6 +13,7 @@ public class ModSignature {
     private final byte[] signature;
     private final String publicKeyId;
     private boolean verified = false;
+    private static final String LOG = PulseLogger.PULSE;
 
     public ModSignature(String modId, String algorithm, byte[] signature, String publicKeyId) {
         this.modId = modId;
@@ -33,7 +36,7 @@ public class ModSignature {
             // 공개 키 로드 (신뢰 저장소에서)
             java.security.PublicKey publicKey = TrustStore.getPublicKey(publicKeyId);
             if (publicKey == null) {
-                System.err.println("[Pulse/Security] Unknown public key: " + publicKeyId);
+                PulseLogger.error(LOG, "[Security] Unknown public key: {}", publicKeyId);
                 return false;
             }
 
@@ -42,14 +45,14 @@ public class ModSignature {
             verified = sig.verify(signature);
 
             if (verified) {
-                System.out.println("[Pulse/Security] Signature verified: " + modId);
+                PulseLogger.info(LOG, "[Security] Signature verified: {}", modId);
             } else {
-                System.err.println("[Pulse/Security] Signature verification failed: " + modId);
+                PulseLogger.error(LOG, "[Security] Signature verification failed: {}", modId);
             }
 
             return verified;
         } catch (Exception e) {
-            System.err.println("[Pulse/Security] Signature error: " + e.getMessage());
+            PulseLogger.error(LOG, "[Security] Signature error: {}", e.getMessage());
             return false;
         }
     }
@@ -104,7 +107,7 @@ public class ModSignature {
 
             return new ModSignature(modId, "SHA256withRSA", signature, publicKeyId);
         } catch (Exception e) {
-            System.err.println("[Pulse/Security] Failed to sign: " + e.getMessage());
+            PulseLogger.error(LOG, "[Security] Failed to sign: {}", e.getMessage());
             return null;
         }
     }
@@ -141,7 +144,7 @@ public class ModSignature {
                 java.security.PublicKey key = kf.generatePublic(spec);
                 registerPublicKey(keyId, key);
             } catch (Exception e) {
-                System.err.println("[Pulse/Security] Failed to load key: " + e.getMessage());
+                PulseLogger.error(LOG, "[Security] Failed to load key: {}", e.getMessage());
             }
         }
     }

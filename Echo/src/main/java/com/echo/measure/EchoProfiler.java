@@ -60,7 +60,20 @@ public class EchoProfiler {
     // 세션 시작 시간
     private volatile long sessionStartTime = 0;
 
+    // 의존성
+    private final com.echo.config.EchoConfig config;
+
+    /**
+     * @deprecated Use Constructor Injection via PulseServiceLocator or
+     *             PulseBootstrap
+     */
+    @Deprecated
     private EchoProfiler() {
+        this(com.echo.config.EchoConfig.getInstance());
+    }
+
+    public EchoProfiler(com.echo.config.EchoConfig config) {
+        this.config = config;
         // 모든 ProfilingPoint에 대한 TimingData 초기화
         for (ProfilingPoint point : ProfilingPoint.values()) {
             timingRegistry.put(point, new TimingData(point.name()));
@@ -68,6 +81,21 @@ public class EchoProfiler {
     }
 
     public static EchoProfiler getInstance() {
+        // 1. Try ServiceLocator (Hybrid DI)
+        try {
+            com.pulse.di.PulseServiceLocator locator = com.pulse.di.PulseServiceLocator.getInstance();
+            EchoProfiler service = locator.getService(EchoProfiler.class);
+            if (service != null) {
+                return service;
+            }
+        } catch (NoClassDefFoundError | Exception ignored) {
+            // Pulse might not be fully loaded
+        }
+
+        // 2. Fallback
+        if (INSTANCE == null) {
+            INSTANCE = new EchoProfiler(com.echo.config.EchoConfig.getInstance());
+        }
         return INSTANCE;
     }
 
@@ -199,7 +227,7 @@ public class EchoProfiler {
 
         // TICK 포인트인 경우 히스토그램에 기록
         if (point == ProfilingPoint.TICK) {
-            if (com.echo.config.EchoConfig.getInstance().isDebugMode() && !isMainThread()) {
+            if (config.isDebugMode() && !isMainThread()) {
                 System.err.println("[Echo] CRITICAL: TICK recorded on non-main thread!");
             }
             tickHistogram.addSample(elapsedMicros);
@@ -309,7 +337,7 @@ public class EchoProfiler {
      */
     public void enable(boolean resetStats) {
         // Config 검증 및 자동 수정 (Echo 0.9.0)
-        com.echo.config.EchoConfig.getInstance().sanitize();
+        config.sanitize();
 
         if (!enabled && resetStats) {
             reset();

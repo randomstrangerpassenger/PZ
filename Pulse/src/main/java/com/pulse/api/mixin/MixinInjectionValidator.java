@@ -1,6 +1,7 @@
 package com.pulse.api.mixin;
 
 import com.pulse.api.InternalAPI;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.PublicAPI;
 
 import java.util.*;
@@ -37,6 +38,7 @@ import java.util.stream.Collectors;
 public final class MixinInjectionValidator {
 
     // 인젝션 결과 저장
+    private static final String LOG = PulseLogger.PULSE;
     private static final Map<String, InjectionResult> results = new ConcurrentHashMap<>();
 
     // 비활성화된 Mixin 목록 (Fail-soft용)
@@ -62,7 +64,7 @@ public final class MixinInjectionValidator {
     public static void disableMixin(String mixinClass) {
         if (mixinClass != null && !mixinClass.isEmpty()) {
             disabledMixins.add(mixinClass);
-            System.out.println("[MixinInjectionValidator] Mixin disabled: " + mixinClass);
+            PulseLogger.info(LOG, "[MixinInjectionValidator] Mixin disabled: {}", mixinClass);
         }
     }
 
@@ -128,7 +130,7 @@ public final class MixinInjectionValidator {
             try {
                 callback.accept(result);
             } catch (Exception e) {
-                System.err.println("[MixinInjectionValidator] Callback failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[MixinInjectionValidator] Callback failed: {}", e.getMessage());
             }
         }
 
@@ -143,7 +145,7 @@ public final class MixinInjectionValidator {
                             result.getTargetClass(), result.getFailureReason());
                 }
             } catch (Exception e) {
-                System.err.println("[MixinInjectionValidator] Listener failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[MixinInjectionValidator] Listener failed: {}", e.getMessage());
             }
         }
     }
@@ -277,24 +279,24 @@ public final class MixinInjectionValidator {
      * 인젝션 상태 리포트 출력.
      */
     public static void printReport() {
-        System.out.println("═══════════════════════════════════════════════");
-        System.out.println("  Mixin Injection Report");
-        System.out.println("═══════════════════════════════════════════════");
-        System.out.printf("  Total: %d | Success: %d | Failed: %d%n",
+        PulseLogger.info(LOG, "═══════════════════════════════════════════════");
+        PulseLogger.info(LOG, "  Mixin Injection Report");
+        PulseLogger.info(LOG, "═══════════════════════════════════════════════");
+        PulseLogger.info(LOG, "  Total: {} | Success: {} | Failed: {}",
                 getTotalCount(), getSuccessCount(), getFailureCount());
-        System.out.println("───────────────────────────────────────────────");
+        PulseLogger.info(LOG, "───────────────────────────────────────────────");
 
         // 실패한 것들 먼저 출력
         List<InjectionResult> failures = getFailedInjections();
         if (!failures.isEmpty()) {
-            System.out.println("  ✗ Failed Injections:");
+            PulseLogger.info(LOG, "  ✗ Failed Injections:");
             for (InjectionResult r : failures) {
-                System.out.printf("    - %s → %s%n", r.getMixinClass(), r.getTargetClass());
-                System.out.printf("      Reason: %s%n", r.getFailureReason());
+                PulseLogger.info(LOG, "    - {} → {}", r.getMixinClass(), r.getTargetClass());
+                PulseLogger.info(LOG, "      Reason: {}", r.getFailureReason());
             }
         }
 
-        System.out.println("═══════════════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════════════");
     }
 
     // ═══════════════════════════════════════════════════════════════

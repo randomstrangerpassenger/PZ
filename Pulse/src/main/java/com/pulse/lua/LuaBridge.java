@@ -1,5 +1,7 @@
 package com.pulse.lua;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Lua-Java 브릿지.
  * Java에서 Lua 함수를 호출하고 Lua에서 Java를 호출할 수 있도록 함.
@@ -21,10 +23,13 @@ package com.pulse.lua;
  */
 public class LuaBridge {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final LuaBridge INSTANCE = new LuaBridge();
 
     private boolean initialized = false;
     private Object luaState; // KahluaThread 또는 LuaState
+    private static final java.util.concurrent.atomic.AtomicLong callCount = new java.util.concurrent.atomic.AtomicLong(
+            0);
 
     private LuaBridge() {
     }
@@ -58,15 +63,15 @@ public class LuaBridge {
             luaState = stateField.get(null);
 
             if (luaState != null) {
-                System.out.println("[Pulse/Lua] Lua state acquired successfully");
+                PulseLogger.info(LOG, "[Lua] Lua state acquired successfully");
                 initialized = true;
             } else {
-                System.out.println("[Pulse/Lua] Lua state is null - game not fully loaded yet");
+                PulseLogger.warn(LOG, "[Lua] Lua state is null - game not fully loaded yet");
             }
         } catch (ClassNotFoundException e) {
-            System.out.println("[Pulse/Lua] PZ Lua classes not found - running outside game?");
+            PulseLogger.warn(LOG, "[Lua] PZ Lua classes not found - running outside game?");
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to initialize: " + e.getMessage());
+            PulseLogger.error(LOG, "[Lua] Failed to initialize: {}", e.getMessage());
         }
     }
 
@@ -90,13 +95,14 @@ public class LuaBridge {
      */
     public static Object call(String functionPath, Object... args) {
         if (!isAvailable()) {
-            System.err.println("[Pulse/Lua] Cannot call - Lua not available");
+            PulseLogger.error(LOG, "[Lua] Cannot call - Lua not available");
             return null;
         }
         return INSTANCE.callInternal(functionPath, args);
     }
 
     private Object callInternal(String functionPath, Object... args) {
+        callCount.incrementAndGet();
         try {
             // zombie.Lua.LuaManager.call 사용
             Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
@@ -105,8 +111,7 @@ public class LuaBridge {
 
             return callMethod.invoke(null, functionPath, args);
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Call failed: " + functionPath);
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[Lua] Call failed: {}", functionPath, e);
             return null;
         }
     }
@@ -132,7 +137,7 @@ public class LuaBridge {
 
             return getMethod.invoke(null, name);
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to get global: " + name);
+            PulseLogger.error(LOG, "[Lua] Failed to get global: {}", name);
             return null;
         }
     }
@@ -156,7 +161,7 @@ public class LuaBridge {
 
             setMethod.invoke(null, name, converted);
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to set global: " + name);
+            PulseLogger.error(LOG, "[Lua] Failed to set global: {}", name);
         }
     }
 
@@ -187,10 +192,9 @@ public class LuaBridge {
                     "expose", String.class, Class.class);
 
             exposeMethod.invoke(null, globalName, clazz);
-            System.out.println("[Pulse/Lua] Exposed: " + globalName + " -> " + clazz.getSimpleName());
+            PulseLogger.info(LOG, "[Lua] Exposed: {} -> {}", globalName, clazz.getSimpleName());
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to expose: " + globalName);
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[Lua] Failed to expose: {}", globalName, e);
         }
     }
 
@@ -234,7 +238,7 @@ public class LuaBridge {
      */
     public static Object executeLuaCode(String luaCode) {
         if (!isAvailable()) {
-            System.err.println("[Pulse/Lua] Cannot execute - Lua not available");
+            PulseLogger.error(LOG, "[Lua] Cannot execute - Lua not available");
             return null;
         }
 
@@ -259,8 +263,7 @@ public class LuaBridge {
                 }
             }
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to execute code: " + e.getMessage());
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[Lua] Failed to execute code: {}", e.getMessage(), e);
         }
 
         return null;
@@ -303,10 +306,10 @@ public class LuaBridge {
                     return newTableMethod.invoke(env);
                 }
             } catch (Exception ex) {
-                System.err.println("[Pulse/Lua] Failed to create table: " + ex.getMessage());
+                PulseLogger.error(LOG, "[Lua] Failed to create table: {}", ex.getMessage());
             }
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to create table: " + e.getMessage());
+            PulseLogger.error(LOG, "[Lua] Failed to create table: {}", e.getMessage());
         }
 
         return null;
@@ -328,7 +331,7 @@ public class LuaBridge {
             Object converted = LuaTypeConverter.javaToLua(value);
             rawsetMethod.invoke(table, key, converted);
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to set table field: " + key);
+            PulseLogger.error(LOG, "[Lua] Failed to set table field: {}", key);
         }
     }
 
@@ -343,7 +346,7 @@ public class LuaBridge {
             java.lang.reflect.Method rawgetMethod = table.getClass().getMethod("rawget", Object.class);
             return rawgetMethod.invoke(table, key);
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to get table field: " + key);
+            PulseLogger.error(LOG, "[Lua] Failed to get table field: {}", key);
             return null;
         }
     }
@@ -381,7 +384,7 @@ public class LuaBridge {
      */
     public static void registerCallback(String name, java.util.function.Function<Object[], Object> callback) {
         if (!isAvailable()) {
-            System.err.println("[Pulse/Lua] Cannot register callback - Lua not available");
+            PulseLogger.error(LOG, "[Lua] Cannot register callback - Lua not available");
             return;
         }
 
@@ -389,7 +392,7 @@ public class LuaBridge {
         Object wrapper = createCallableWrapper(callback);
         if (wrapper != null) {
             setGlobal(name, wrapper);
-            System.out.println("[Pulse/Lua] Registered callback: " + name);
+            PulseLogger.info(LOG, "[Lua] Registered callback: {}", name);
         }
     }
 
@@ -432,7 +435,7 @@ public class LuaBridge {
                         return null;
                     });
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to create callable wrapper: " + e.getMessage());
+            PulseLogger.error(LOG, "[Lua] Failed to create callable wrapper: {}", e.getMessage());
             return null;
         }
     }
@@ -451,6 +454,13 @@ public class LuaBridge {
     }
 
     /**
+     * Get the total number of Lua calls made.
+     */
+    public static long getCallCount() {
+        return callCount.get();
+    }
+
+    /**
      * 디버그: Lua 전역 변수 덤프.
      */
     public static void dumpGlobals() {
@@ -463,9 +473,9 @@ public class LuaBridge {
             envField.setAccessible(true);
             Object env = envField.get(null);
 
-            System.out.println("[Pulse/Lua] === Global Variables ===");
+            PulseLogger.info(LOG, "[Lua] === Global Variables ===");
             if (env != null) {
-                System.out.println("[Pulse/Lua] Env type: " + env.getClass().getName());
+                PulseLogger.info(LOG, "[Lua] Env type: {}", env.getClass().getName());
 
                 // keys() 메서드로 전역 변수 이름 가져오기
                 try {
@@ -475,25 +485,25 @@ public class LuaBridge {
                     if (keys instanceof Iterable<?> iterable) {
                         int count = 0;
                         for (Object key : iterable) {
-                            System.out.println("[Pulse/Lua]   - " + key);
+                            PulseLogger.info(LOG, "[Lua]   - {}", key);
                             count++;
                             if (count >= 50) {
-                                System.out.println("[Pulse/Lua]   ... (truncated, " + count + "+ items)");
+                                PulseLogger.info(LOG, "[Lua]   ... (truncated, {}+ items)", count);
                                 break;
                             }
                         }
                     } else if (keys != null) {
-                        System.out.println("[Pulse/Lua] Keys type: " + keys.getClass().getName());
+                        PulseLogger.info(LOG, "[Lua] Keys type: {}", keys.getClass().getName());
                     }
                 } catch (NoSuchMethodException e) {
-                    System.out.println("[Pulse/Lua] (keys() method not available)");
+                    PulseLogger.info(LOG, "[Lua] (keys() method not available)");
                 }
             } else {
-                System.out.println("[Pulse/Lua] (env is null)");
+                PulseLogger.info(LOG, "[Lua] (env is null)");
             }
-            System.out.println("[Pulse/Lua] ========================");
+            PulseLogger.info(LOG, "[Lua] ========================");
         } catch (Exception e) {
-            System.err.println("[Pulse/Lua] Failed to dump globals: " + e.getMessage());
+            PulseLogger.error(LOG, "[Lua] Failed to dump globals: {}", e.getMessage());
         }
     }
 }

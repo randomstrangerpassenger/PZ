@@ -111,13 +111,32 @@ public class EchoConfig {
     // Singleton
     // ============================================================
 
-    private EchoConfig() {
+    public EchoConfig() {
     }
 
     public static EchoConfig getInstance() {
+        // 1. Try ServiceLocator (Hybrid DI)
+        try {
+            com.pulse.di.PulseServiceLocator locator = com.pulse.di.PulseServiceLocator.getInstance();
+            EchoConfig service = locator.getService(EchoConfig.class);
+            if (service != null) {
+                return service;
+            }
+        } catch (NoClassDefFoundError | Exception ignored) {
+            // Pulse might not be fully loaded or in standalone test mode
+        }
+
+        // 2. Fallback to Singleton
         if (instance == null) {
             instance = new EchoConfig();
             instance.load();
+
+            // Register to ServiceLocator if available
+            try {
+                com.pulse.di.PulseServiceLocator.getInstance().registerService(EchoConfig.class, instance);
+            } catch (NoClassDefFoundError | Exception ignored) {
+                // Ignore
+            }
         }
         return instance;
     }

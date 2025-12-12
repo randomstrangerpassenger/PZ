@@ -1,5 +1,7 @@
 package com.pulse.attachment;
 
+import com.pulse.api.log.PulseLogger;
+
 import com.pulse.registry.Identifier;
 
 import java.util.*;
@@ -38,6 +40,7 @@ public class AttachmentType<T> {
 
     // 등록된 모든 첨부 타입
     private static final Map<Identifier, AttachmentType<?>> REGISTRY = new ConcurrentHashMap<>();
+    private static final String LOG = PulseLogger.PULSE;
 
     private AttachmentType(Identifier id, Supplier<T> defaultFactory,
             boolean persistent, boolean copyOnDeath,
@@ -147,7 +150,7 @@ public class AttachmentType<T> {
         public AttachmentType<T> build() {
             AttachmentType<T> type = new AttachmentType<>(
                     id, defaultFactory, persistent, copyOnDeath, serializer);
-            System.out.println("[Pulse/Attachment] Registered: " + id);
+            PulseLogger.info(LOG, "[Attachment] Registered: {}", id);
             return type;
         }
     }

@@ -1,5 +1,6 @@
 package com.pulse.network;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.mod.ModLoader;
 import com.pulse.mod.ModContainer;
 
@@ -11,6 +12,7 @@ import java.util.*;
  */
 public class HandshakeHandler {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final HandshakeHandler INSTANCE = new HandshakeHandler();
 
     // 필수 모드 목록 (이 모드들은 클라이언트와 서버 모두에 있어야 함)
@@ -143,7 +145,7 @@ public class HandshakeHandler {
         // 핸들러 등록
         NetworkManager.registerHandler(HandshakePacket.class, INSTANCE::handlePacket);
 
-        System.out.println("[Pulse/Handshake] Initialized");
+        PulseLogger.info(LOG, "Handshake system initialized");
     }
 
     private void handlePacket(HandshakePacket packet, Object sender) {
@@ -157,10 +159,10 @@ public class HandshakeHandler {
                 handleServerResponse(packet);
                 break;
             case ACCEPT:
-                System.out.println("[Pulse/Handshake] Handshake accepted");
+                PulseLogger.info(LOG, "Handshake accepted");
                 break;
             case REJECT:
-                System.err.println("[Pulse/Handshake] Handshake rejected");
+                PulseLogger.error(LOG, "Handshake rejected");
                 break;
         }
     }
@@ -173,11 +175,11 @@ public class HandshakeHandler {
         com.pulse.api.SilentMode.onHandshakeReceived(clientHasPulse);
 
         if (result.isSuccess()) {
-            System.out.println("[Pulse/Handshake] Client validated successfully");
+            PulseLogger.info(LOG, "Client validated successfully");
             HandshakePacket response = HandshakePacket.create(HandshakePacket.HandshakePhase.ACCEPT);
             NetworkManager.sendToClient(connection, response);
         } else {
-            System.err.println("[Pulse/Handshake] Client validation failed: " + result.getReason());
+            PulseLogger.error(LOG, "Client validation failed: {}", result.getReason());
             HandshakePacket response = HandshakePacket.create(HandshakePacket.HandshakePhase.REJECT);
             NetworkManager.sendToClient(connection, response);
 
@@ -195,7 +197,7 @@ public class HandshakeHandler {
         HandshakeResult result = validate(serverPacket.getModVersions());
 
         if (!result.isSuccess()) {
-            System.err.println("[Pulse/Handshake] Server mod mismatch: " + result.getReason());
+            PulseLogger.error(LOG, "Server mod mismatch: {}", result.getReason());
 
             // 경고 표시 및 연결 종료
             showModMismatchWarning(result.getReason());
@@ -220,13 +222,13 @@ public class HandshakeHandler {
                 java.lang.reflect.Method disconnectMethod = gameServerClass.getMethod("disconnect", Object.class,
                         String.class);
                 disconnectMethod.invoke(null, connection, "Mod mismatch: " + reason);
-                System.out.println("[Pulse/Handshake] Client disconnected: " + reason);
+                PulseLogger.info(LOG, "Client disconnected: {}", reason);
             }
         } catch (ClassNotFoundException e) {
             // GameServer 클래스 없음 - 싱글플레이어이거나 다른 환경
-            System.out.println("[Pulse/Handshake] Cannot disconnect client (not a server environment)");
+            PulseLogger.debug(LOG, "Cannot disconnect client (not a server environment)");
         } catch (Exception e) {
-            System.err.println("[Pulse/Handshake] Failed to disconnect client: " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to disconnect client: {}", e.getMessage());
         }
     }
 
@@ -238,11 +240,11 @@ public class HandshakeHandler {
             Class<?> gameClientClass = Class.forName("zombie.network.GameClient");
             java.lang.reflect.Method disconnectMethod = gameClientClass.getMethod("disconnect");
             disconnectMethod.invoke(null);
-            System.out.println("[Pulse/Handshake] Disconnected from server: " + reason);
+            PulseLogger.info(LOG, "Disconnected from server: {}", reason);
         } catch (ClassNotFoundException e) {
-            System.out.println("[Pulse/Handshake] Cannot disconnect (not a client environment)");
+            PulseLogger.debug(LOG, "Cannot disconnect (not a client environment)");
         } catch (Exception e) {
-            System.err.println("[Pulse/Handshake] Failed to disconnect from server: " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to disconnect from server: {}", e.getMessage());
         }
     }
 
@@ -251,11 +253,11 @@ public class HandshakeHandler {
      */
     private void showModMismatchWarning(String reason) {
         // 콘솔에 경고 출력
-        System.err.println("══════════════════════════════════════════════════════════");
-        System.err.println("  [Pulse] MOD MISMATCH WARNING");
-        System.err.println("══════════════════════════════════════════════════════════");
-        System.err.println("  " + reason);
-        System.err.println("══════════════════════════════════════════════════════════");
+        PulseLogger.error(LOG, "══════════════════════════════════════════════════════════");
+        PulseLogger.error(LOG, "  [Pulse] MOD MISMATCH WARNING");
+        PulseLogger.error(LOG, "══════════════════════════════════════════════════════════");
+        PulseLogger.error(LOG, "  {}", reason);
+        PulseLogger.error(LOG, "══════════════════════════════════════════════════════════");
 
         // UI 모달 표시 시도 (게임 UI 사용 가능한 경우)
         try {

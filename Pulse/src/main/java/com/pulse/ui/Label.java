@@ -6,11 +6,11 @@ package com.pulse.ui;
 public class Label extends Widget {
 
     private String text;
-    private int textColor = 0xFFFFFF;
+    private int textColor = UIConstants.Colors.TEXT_DEFAULT;
     private Alignment alignment = Alignment.LEFT;
 
     public Label(int x, int y, String text) {
-        super(x, y, 0, 16); // 너비는 텍스트에 맞춰 자동 조정
+        super(x, y, 0, UIConstants.Layout.TEXT_HEIGHT); // 너비는 텍스트에 맞춰 자동 조정
         this.text = text;
     }
 

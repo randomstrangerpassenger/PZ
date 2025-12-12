@@ -1,5 +1,6 @@
 package com.pulse.debug;
 
+import com.pulse.api.log.PulseLogger;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
@@ -22,6 +23,7 @@ import java.util.function.Supplier;
 public class ModProfiler {
 
     private static final ModProfiler INSTANCE = new ModProfiler();
+    private static final String LOG = PulseLogger.PULSE;
 
     private boolean enabled = false;
     private final Map<String, ModProfile> profiles = new ConcurrentHashMap<>();
@@ -39,12 +41,12 @@ public class ModProfiler {
 
     public static void enable() {
         INSTANCE.enabled = true;
-        System.out.println("[Pulse/Profiler] Profiling enabled");
+        PulseLogger.info(LOG, "[Profiler] Profiling enabled");
     }
 
     public static void disable() {
         INSTANCE.enabled = false;
-        System.out.println("[Pulse/Profiler] Profiling disabled");
+        PulseLogger.info(LOG, "[Profiler] Profiling disabled");
     }
 
     public static boolean isEnabled() {
@@ -110,26 +112,27 @@ public class ModProfiler {
      * 프로파일링 결과 출력.
      */
     public static void printResults() {
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("         MOD PROFILER RESULTS          ");
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "         MOD PROFILER RESULTS          ");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
 
         for (ModProfile profile : INSTANCE.profiles.values()) {
-            System.out.println("\n  [" + profile.modId + "]");
+            PulseLogger.info(LOG, "\n  [{}]", profile.modId);
             double totalMs = 0;
 
             for (var entry : profile.sections.entrySet()) {
                 SectionStats stats = entry.getValue();
                 double avgMs = stats.getAverageMs();
                 totalMs += avgMs * stats.count;
-                System.out.printf("    %-25s : %6d calls, avg %.3fms\n",
-                        entry.getKey(), stats.count, avgMs);
+                PulseLogger.info(LOG, "    {}: {} calls, avg {}ms",
+                        String.format("%-25s", entry.getKey()), stats.count, String.format("%.3f", avgMs));
             }
 
-            System.out.printf("    %-25s : %.2fms total\n", "TOTAL", totalMs);
+            PulseLogger.info(LOG, "    {}: {}ms total", String.format("%-25s", "TOTAL"),
+                    String.format("%.2f", totalMs));
         }
 
-        System.out.println("\n═══════════════════════════════════════");
+        PulseLogger.info(LOG, "\n═══════════════════════════════════════");
     }
 
     /**

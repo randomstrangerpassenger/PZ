@@ -1,5 +1,6 @@
 package com.pulse.access;
 
+import com.pulse.api.log.PulseLogger;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,6 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AccessWidener {
 
     private static final AccessWidener INSTANCE = new AccessWidener();
+    private static final String LOG = PulseLogger.PULSE;
 
     // 캐시
     private final Map<String, Class<?>> classCache = new ConcurrentHashMap<>();
@@ -71,7 +73,7 @@ public class AccessWidener {
                 ClassLoader loader = gameClassLoader != null ? gameClassLoader : ClassLoader.getSystemClassLoader();
                 return loader.loadClass(name);
             } catch (ClassNotFoundException e) {
-                System.err.println("[Pulse/Access] Class not found: " + name);
+                PulseLogger.error(LOG, "[Access] Class not found: {}", name);
                 return null;
             }
         });
@@ -133,7 +135,7 @@ public class AccessWidener {
         try {
             return field.get(instance);
         } catch (IllegalAccessException e) {
-            System.err.println("[Pulse/Access] Cannot access field: " + fieldName);
+            PulseLogger.error(LOG, "[Access] Cannot access field: {}", fieldName);
             return null;
         }
     }
@@ -158,7 +160,7 @@ public class AccessWidener {
             }
             field.set(instance, value);
         } catch (Exception e) {
-            System.err.println("[Pulse/Access] Cannot set field: " + fieldName);
+            PulseLogger.error(LOG, "[Access] Cannot set field: {}", fieldName);
         }
     }
 
@@ -175,7 +177,7 @@ public class AccessWidener {
                     current = current.getSuperclass();
                 }
             }
-            System.err.println("[Pulse/Access] Field not found: " + fieldName);
+            PulseLogger.error(LOG, "[Access] Field not found: {}", fieldName);
             return null;
         });
     }
@@ -222,8 +224,7 @@ public class AccessWidener {
         try {
             return method.invoke(instance, args);
         } catch (Exception e) {
-            System.err.println("[Pulse/Access] Cannot invoke method: " + methodName);
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[Access] Cannot invoke method: {}", methodName, e);
             return null;
         }
     }
@@ -254,9 +255,10 @@ public class AccessWidener {
                 }
                 current = current.getSuperclass();
             }
-            System.err.println("[Pulse/Access] Method not found: " + methodName);
+            PulseLogger.error(LOG, "[Access] Method not found: {}", methodName);
             return null;
         });
+
     }
 
     private boolean isCompatible(Class<?>[] paramTypes, Object[] args) {
@@ -332,11 +334,10 @@ public class AccessWidener {
                 }
             }
 
-            System.err.println("[Pulse/Access] No matching constructor found");
+            PulseLogger.error(LOG, "[Access] No matching constructor found");
             return null;
         } catch (Exception e) {
-            System.err.println("[Pulse/Access] Cannot create instance of: " + clazz.getName());
-            e.printStackTrace();
+            PulseLogger.error(LOG, "[Access] Cannot create instance of: {}", clazz.getName(), e);
             return null;
         }
     }

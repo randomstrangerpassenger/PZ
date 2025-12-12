@@ -1,6 +1,7 @@
 package com.pulse.api.mixin;
 
 import com.pulse.api.PublicAPI;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Mixin 인젝션 이벤트 리스너 인터페이스.
@@ -24,6 +25,7 @@ import com.pulse.api.PublicAPI;
  */
 @PublicAPI(since = "1.0.1", status = PublicAPI.Status.EXPERIMENTAL)
 public interface InjectionListener {
+    String LOG = PulseLogger.PULSE;
 
     /**
      * Mixin 인젝션 성공 시 호출.
@@ -54,7 +56,7 @@ public interface InjectionListener {
         return new InjectionListener() {
             @Override
             public void onInjectionSuccess(String mixinClass, String targetClass, long timeMs) {
-                System.out.println("[Mixin] ✓ " + mixinClass + " → " + targetClass + " (" + timeMs + "ms)");
+                PulseLogger.info(LOG, "[Mixin] ✓ {} → {} ({}ms)", mixinClass, targetClass, timeMs);
             }
 
             @Override
@@ -76,7 +78,7 @@ public interface InjectionListener {
 
             @Override
             public void onInjectionFailed(String mixinClass, String targetClass, String reason) {
-                System.err.println("[Mixin] ✗ " + mixinClass + " → " + targetClass + ": " + reason);
+                PulseLogger.error(LOG, "[Mixin] ✗ {} → {}: {}", mixinClass, targetClass, reason);
             }
         };
     }
@@ -88,12 +90,12 @@ public interface InjectionListener {
         return new InjectionListener() {
             @Override
             public void onInjectionSuccess(String mixinClass, String targetClass, long timeMs) {
-                System.out.println("[Mixin] ✓ " + mixinClass + " → " + targetClass + " (" + timeMs + "ms)");
+                PulseLogger.info(LOG, "[Mixin] ✓ {} → {} ({}ms)", mixinClass, targetClass, timeMs);
             }
 
             @Override
             public void onInjectionFailed(String mixinClass, String targetClass, String reason) {
-                System.err.println("[Mixin] ✗ " + mixinClass + " → " + targetClass + ": " + reason);
+                PulseLogger.error(LOG, "[Mixin] ✗ {} → {}: {}", mixinClass, targetClass, reason);
             }
         };
     }

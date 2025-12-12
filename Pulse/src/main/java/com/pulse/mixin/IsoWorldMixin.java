@@ -1,5 +1,6 @@
 package com.pulse.mixin;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEvent;
 import com.pulse.event.lifecycle.GameTickStartEvent;
@@ -28,6 +29,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 @Mixin(targets = "zombie.iso.IsoWorld")
 public abstract class IsoWorldMixin {
+
+    @Unique
+    private static final String LOG = PulseLogger.PULSE;
 
     @Shadow
     public abstract String getWorld();
@@ -85,7 +89,7 @@ public abstract class IsoWorldMixin {
         Pulse$lastTickTime = System.nanoTime();
         Pulse$firstTickLogged = false;
 
-        System.out.println("[Pulse] World loaded: " + worldName);
+        PulseLogger.info(LOG, "World loaded: {}", worldName);
         EventBus.post(new WorldLoadEvent(worldName));
     }
 
@@ -94,21 +98,25 @@ public abstract class IsoWorldMixin {
      */
     @Inject(method = "update", at = @At("HEAD"))
     private void Pulse$onUpdateStart(CallbackInfo ci) {
-        // Pulse 1.2: 틱 시작 시간 기록
-        Pulse$tickStartNanos = System.nanoTime();
+        try {
+            // Pulse 1.2: 틱 시작 시간 기록
+            Pulse$tickStartNanos = System.nanoTime();
 
-        // Pulse 1.3: PulseMetrics 틱 시작 알림 (Echo 연동)
-        com.pulse.api.PulseMetrics.onTickStart();
+            // Pulse 1.3: PulseMetrics 틱 시작 알림 (Echo 연동)
+            com.pulse.api.PulseMetrics.onTickStart();
 
-        // Pulse 1.2: GameTickStartEvent 발생
-        EventBus.post(new GameTickStartEvent(Pulse$tickCount + 1));
+            // Pulse 1.2: GameTickStartEvent 발생
+            EventBus.post(new GameTickStartEvent(Pulse$tickCount + 1));
 
-        // Pulse 1.2: HookRegistry 콜백 호출
-        final long tickNum = Pulse$tickCount + 1;
-        PulseHookRegistry.broadcast(HookTypes.GAME_TICK, cb -> cb.onGameTickStart(tickNum));
+            // Pulse 1.2: HookRegistry 콜백 호출
+            final long tickNum = Pulse$tickCount + 1;
+            PulseHookRegistry.broadcast(HookTypes.GAME_TICK, cb -> cb.onGameTickStart(tickNum));
 
-        // Echo 1.0: WORLD_UPDATE Phase Start
-        Pulse$worldUpdateStart = com.pulse.api.profiler.TickPhaseHook.startPhase("WORLD_UPDATE");
+            // Echo 1.0: WORLD_UPDATE Phase Start
+            Pulse$worldUpdateStart = com.pulse.api.profiler.TickPhaseHook.startPhase("WORLD_UPDATE");
+        } catch (Throwable t) {
+            PulseErrorHandler.reportMixinFailure("IsoWorldMixin.onUpdateStart", t);
+        }
     }
 
     /**
@@ -117,49 +125,54 @@ public abstract class IsoWorldMixin {
      */
     @Inject(method = "update", at = @At("RETURN"))
     private void Pulse$onUpdate(CallbackInfo ci) {
-        // Echo 1.0: WORLD_UPDATE Phase End
-        com.pulse.api.profiler.TickPhaseHook.endPhase("WORLD_UPDATE", Pulse$worldUpdateStart);
-        Pulse$worldUpdateStart = -1;
+        try {
+            // Echo 1.0: WORLD_UPDATE Phase End
+            com.pulse.api.profiler.TickPhaseHook.endPhase("WORLD_UPDATE", Pulse$worldUpdateStart);
+            Pulse$worldUpdateStart = -1;
 
-        long currentTime = System.nanoTime();
+            long currentTime = System.nanoTime();
 
-        // Pulse 1.2: 정밀 틱 소요 시간 계산
-        long tickDurationNanos = currentTime - Pulse$tickStartNanos;
+            // Pulse 1.2: 정밀 틱 소요 시간 계산
+            long tickDurationNanos = currentTime - Pulse$tickStartNanos;
 
-        // Pulse 1.3: PulseMetrics 틱 종료 알림 (Echo 연동)
-        com.pulse.api.PulseMetrics.onTickEnd(tickDurationNanos);
+            // Pulse 1.3: PulseMetrics 틱 종료 알림 (Echo 연동)
+            com.pulse.api.PulseMetrics.onTickEnd(tickDurationNanos);
 
-        float deltaTime = (currentTime - Pulse$lastTickTime) / 1_000_000_000.0f;
-        Pulse$lastTickTime = currentTime;
+            float deltaTime = (currentTime - Pulse$lastTickTime) / 1_000_000_000.0f;
+            Pulse$lastTickTime = currentTime;
 
-        Pulse$tickCount++;
+            Pulse$tickCount++;
 
-        // 첫 틱 디버그 로그
-        if (!Pulse$firstTickLogged) {
-            Pulse$firstTickLogged = true;
-            System.out.println("[Pulse] First IsoWorld.update() tick! GameTickEvent will now fire.");
+            // 첦 틱 디버그 로그
+            if (!Pulse$firstTickLogged) {
+                Pulse$firstTickLogged = true;
+                PulseLogger.info(LOG, "First IsoWorld.update() tick! GameTickEvent will now fire.");
+            }
+
+            // 매 1000번째 틱마다 상태 로그
+            if (Pulse$tickCount % 1000 == 0) {
+                PulseLogger.debug(LOG, "IsoWorld tick #{}, deltaTime={}", Pulse$tickCount,
+                        String.format("%.4f", deltaTime));
+            }
+
+            // 스케줄러 틱 처리
+            PulseScheduler.getInstance().tick();
+
+            // Tick Phase 완료 알림
+            com.pulse.api.profiler.TickPhaseHook.onTickComplete();
+
+            // Pulse 1.2: GameTickEndEvent 발생 (정밀 소요 시간 포함)
+            EventBus.post(new GameTickEndEvent(Pulse$tickCount, tickDurationNanos));
+
+            // Pulse 1.2: HookRegistry 콜백 호출
+            final long tickNum = Pulse$tickCount;
+            final long duration = tickDurationNanos;
+            PulseHookRegistry.broadcast(HookTypes.GAME_TICK, cb -> cb.onGameTickEnd(tickNum, duration));
+
+            // 기존 GameTickEvent 발생 (하위 호환성)
+            EventBus.post(new GameTickEvent(Pulse$tickCount, deltaTime));
+        } catch (Throwable t) {
+            PulseErrorHandler.reportMixinFailure("IsoWorldMixin.onUpdate", t);
         }
-
-        // 매 1000번째 틱마다 상태 로그
-        if (Pulse$tickCount % 1000 == 0) {
-            System.out.printf("[Pulse/DEBUG] IsoWorld tick #%d, deltaTime=%.4f%n", Pulse$tickCount, deltaTime);
-        }
-
-        // 스케줄러 틱 처리
-        PulseScheduler.getInstance().tick();
-
-        // Tick Phase 완료 알림
-        com.pulse.api.profiler.TickPhaseHook.onTickComplete();
-
-        // Pulse 1.2: GameTickEndEvent 발생 (정밀 소요 시간 포함)
-        EventBus.post(new GameTickEndEvent(Pulse$tickCount, tickDurationNanos));
-
-        // Pulse 1.2: HookRegistry 콜백 호출
-        final long tickNum = Pulse$tickCount;
-        final long duration = tickDurationNanos;
-        PulseHookRegistry.broadcast(HookTypes.GAME_TICK, cb -> cb.onGameTickEnd(tickNum, duration));
-
-        // 기존 GameTickEvent 발생 (하위 호환성)
-        EventBus.post(new GameTickEvent(Pulse$tickCount, deltaTime));
     }
 }

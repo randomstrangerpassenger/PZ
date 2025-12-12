@@ -25,15 +25,16 @@ public abstract class IsoZombieMixin {
      */
     @Inject(method = "update", at = @At("HEAD"))
     private void Pulse$onZombieUpdateStart(CallbackInfo ci) {
-        Pulse$zombieUpdateStart = SubProfilerHook.start("ZOMBIE_UPDATE");
-        com.pulse.api.profiler.ZombieHook.onZombieUpdate();
+        try {
+            Pulse$zombieUpdateStart = SubProfilerHook.start("ZOMBIE_UPDATE");
+            com.pulse.api.profiler.ZombieHook.onZombieUpdate();
 
-        // Phase 2: Detailed Profiling
-        // Currently wrapped at HEAD, so it effectively measures Total unless we move
-        // this injection.
-        // But we guard it nonetheless.
-        if (com.pulse.api.profiler.ZombieHook.detailsEnabled) {
-            com.pulse.api.profiler.ZombieHook.onMotionUpdateStart();
+            // Phase 2: Detailed Profiling
+            if (com.pulse.api.profiler.ZombieHook.detailsEnabled) {
+                com.pulse.api.profiler.ZombieHook.onMotionUpdateStart();
+            }
+        } catch (Throwable t) {
+            PulseErrorHandler.reportMixinFailure("IsoZombieMixin.onZombieUpdateStart", t);
         }
     }
 
@@ -42,10 +43,14 @@ public abstract class IsoZombieMixin {
      */
     @Inject(method = "update", at = @At("RETURN"))
     private void Pulse$onZombieUpdateEnd(CallbackInfo ci) {
-        if (com.pulse.api.profiler.ZombieHook.detailsEnabled) {
-            com.pulse.api.profiler.ZombieHook.onMotionUpdateEnd();
+        try {
+            if (com.pulse.api.profiler.ZombieHook.detailsEnabled) {
+                com.pulse.api.profiler.ZombieHook.onMotionUpdateEnd();
+            }
+            SubProfilerHook.end("ZOMBIE_UPDATE", Pulse$zombieUpdateStart);
+            Pulse$zombieUpdateStart = -1;
+        } catch (Throwable t) {
+            PulseErrorHandler.reportMixinFailure("IsoZombieMixin.onZombieUpdateEnd", t);
         }
-        SubProfilerHook.end("ZOMBIE_UPDATE", Pulse$zombieUpdateStart);
-        Pulse$zombieUpdateStart = -1;
     }
 }

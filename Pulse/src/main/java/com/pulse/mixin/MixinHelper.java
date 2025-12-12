@@ -1,6 +1,7 @@
 package com.pulse.mixin;
 
 import com.pulse.api.DevMode;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.event.Event;
 import com.pulse.event.EventBus;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -27,6 +28,8 @@ import java.util.function.Function;
  * </pre>
  */
 public final class MixinHelper {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     private MixinHelper() {
     }
@@ -187,7 +190,7 @@ public final class MixinHelper {
      * @param message   로그 메시지
      */
     public static void debug(String mixinName, String message) {
-        System.out.println("[Pulse/Mixin/" + mixinName + "] " + message);
+        PulseLogger.debug(LOG, "[Mixin/{}] {}", mixinName, message);
     }
 
     /**
@@ -197,7 +200,7 @@ public final class MixinHelper {
      * @param targetMethod 타겟 메서드
      */
     public static void logInjection(String targetClass, String targetMethod) {
-        System.out.println("[Pulse/Mixin] Injected: " + targetClass + "." + targetMethod);
+        PulseLogger.debug(LOG, "Injected: {}.{}", targetClass, targetMethod);
     }
 
     // ─────────────────────────────────────────────────────────────

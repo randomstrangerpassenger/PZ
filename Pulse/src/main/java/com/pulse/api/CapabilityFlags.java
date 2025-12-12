@@ -1,5 +1,7 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @PublicAPI(since = "1.0.1")
 public final class CapabilityFlags {
+    private static final String LOG = PulseLogger.PULSE;
 
     // ═══════════════════════════════════════════════════════════════
     // 기본 제공 기능 상수
@@ -110,7 +113,8 @@ public final class CapabilityFlags {
         // Echo가 로드되면 Echo에서 ECHO_INTEGRATION을 등록
 
         initialized = true;
-        System.out.println("[Pulse] CapabilityFlags initialized: " + capabilities.size() + " capabilities");
+        initialized = true;
+        PulseLogger.info(LOG, "CapabilityFlags initialized: {} capabilities", capabilities.size());
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -209,12 +213,12 @@ public final class CapabilityFlags {
      * 디버그 출력.
      */
     public static void printCapabilities() {
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("  Pulse Capabilities (" + capabilities.size() + ")");
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "  Pulse Capabilities ({})", capabilities.size());
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
         for (String cap : capabilities) {
-            System.out.println("  ✓ " + cap);
+            PulseLogger.info(LOG, "  ✓ {}", cap);
         }
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 }

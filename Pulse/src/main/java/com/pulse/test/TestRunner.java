@@ -1,5 +1,6 @@
 package com.pulse.test;
 
+import com.pulse.api.log.PulseLogger;
 import java.lang.reflect.*;
 import java.util.*;
 
@@ -10,6 +11,7 @@ import java.util.*;
 public class TestRunner {
 
     private static final TestRunner INSTANCE = new TestRunner();
+    private static final String LOG = PulseLogger.PULSE;
 
     private final List<TestResult> results = new ArrayList<>();
     private int passed = 0;
@@ -34,15 +36,15 @@ public class TestRunner {
     }
 
     private void runClass(Class<?> testClass) {
-        System.out.println("\n═══════════════════════════════════════");
-        System.out.println("  Running: " + testClass.getSimpleName());
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "\n═══════════════════════════════════════");
+        PulseLogger.info(LOG, "  Running: {}", testClass.getSimpleName());
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
 
         Object instance = null;
         try {
             instance = testClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
-            System.err.println("Failed to instantiate test class: " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to instantiate test class: {}", e.getMessage());
             return;
         }
 
@@ -79,18 +81,20 @@ public class TestRunner {
             long duration = (System.nanoTime() - startTime) / 1_000_000;
             passed++;
             results.add(new TestResult(testName, true, duration, null));
-            System.out.println("  ✓ " + method.getName() + " (" + duration + "ms)");
+            PulseLogger.info(LOG, "  ✓ {} ({}ms)", method.getName(), duration);
 
         } catch (InvocationTargetException e) {
             long duration = (System.nanoTime() - startTime) / 1_000_000;
             Throwable cause = e.getCause();
             failed++;
             results.add(new TestResult(testName, false, duration, cause));
-            System.out.println("  ✗ " + method.getName() + " - " + cause.getMessage());
+            results.add(new TestResult(testName, false, duration, cause));
+            PulseLogger.info(LOG, "  ✗ {} - {}", method.getName(), cause.getMessage());
         } catch (Exception e) {
             failed++;
             results.add(new TestResult(testName, false, 0, e));
-            System.out.println("  ✗ " + method.getName() + " - " + e.getMessage());
+            results.add(new TestResult(testName, false, 0, e));
+            PulseLogger.info(LOG, "  ✗ {} - {}", method.getName(), e.getMessage());
         }
     }
 
@@ -102,16 +106,16 @@ public class TestRunner {
                     method.setAccessible(true);
                     method.invoke(isStatic && Modifier.isStatic(method.getModifiers()) ? null : instance);
                 } catch (Exception e) {
-                    System.err.println("Setup/Teardown failed: " + e.getMessage());
+                    PulseLogger.error(LOG, "Setup/Teardown failed: {}", e.getMessage());
                 }
             }
         }
     }
 
     private void printSummary() {
-        System.out.println("───────────────────────────────────────");
-        System.out.printf("  Results: %d passed, %d failed%n", passed, failed);
-        System.out.println("═══════════════════════════════════════\n");
+        PulseLogger.info(LOG, "───────────────────────────────────────");
+        PulseLogger.info(LOG, "  Results: {} passed, {} failed", passed, failed);
+        PulseLogger.info(LOG, "═══════════════════════════════════════\n");
     }
 
     /**

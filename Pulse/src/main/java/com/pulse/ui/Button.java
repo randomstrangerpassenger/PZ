@@ -13,11 +13,12 @@ public class Button extends Widget {
     private boolean pressed = false;
 
     // 색상
-    private int backgroundColor = 0x404040;
-    private int hoverColor = 0x505050;
-    private int pressedColor = 0x303030;
-    private int textColor = 0xFFFFFF;
-    private int borderColor = 0x606060;
+    // 색상
+    private int backgroundColor = UIConstants.Colors.BUTTON_BG;
+    private int hoverColor = UIConstants.Colors.BUTTON_HOVER_BG;
+    private int pressedColor = UIConstants.Colors.BUTTON_PRESSED_BG;
+    private int textColor = UIConstants.Colors.TEXT_DEFAULT;
+    private int borderColor = UIConstants.Colors.BUTTON_BORDER;
 
     public Button(int x, int y, int width, int height, String text) {
         super(x, y, width, height);
@@ -49,7 +50,7 @@ public class Button extends Widget {
         int textHeight = ctx.getTextHeight();
         int textX = absX + (width - textWidth) / 2;
         int textY = absY + (height - textHeight) / 2;
-        ctx.drawText(text, textX, textY, enabled ? textColor : 0x808080);
+        ctx.drawText(text, textX, textY, enabled ? textColor : UIConstants.Colors.DISABLED_TEXT);
     }
 
     @Override

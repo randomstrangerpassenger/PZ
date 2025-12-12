@@ -4,7 +4,10 @@ package com.pulse.command;
  * 명령 발신자 인터페이스.
  * 플레이어, 콘솔, 또는 기타 소스.
  */
+import com.pulse.api.log.PulseLogger;
+
 public interface CommandSender {
+    String LOG = PulseLogger.PULSE;
 
     /**
      * 발신자 이름
@@ -56,12 +59,12 @@ public interface CommandSender {
 
         @Override
         public void sendMessage(String message) {
-            System.out.println("[Pulse/CMD] " + message);
+            PulseLogger.info(LOG, "[CMD] {}", message);
         }
 
         @Override
         public void sendError(String message) {
-            System.err.println("[Pulse/CMD] ERROR: " + message);
+            PulseLogger.error(LOG, "[CMD] ERROR: {}", message);
         }
 
         @Override

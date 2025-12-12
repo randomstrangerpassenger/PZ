@@ -107,14 +107,14 @@ public class UIRenderContext {
         } catch (Exception e) {
             // 폴백: 글자당 8픽셀
         }
-        return text.length() * 8;
+        return text.length() * UIConstants.Layout.DEFAULT_CHAR_WIDTH;
     }
 
     /**
      * 텍스트 높이.
      */
     public int getTextHeight() {
-        return 16; // 기본 폰트 높이
+        return UIConstants.Layout.TEXT_HEIGHT; // 기본 폰트 높이
     }
 
     // Getters

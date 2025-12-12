@@ -1,5 +1,7 @@
 package com.pulse.command;
 
+import com.pulse.api.log.PulseLogger;
+
 import com.pulse.diagnostics.HotspotMap;
 import com.pulse.diagnostics.PulseThreadGuard;
 import com.pulse.diagnostics.PulseTickContext;
@@ -20,6 +22,7 @@ import java.util.List;
  * @since Pulse 1.2
  */
 public final class PulseCommands {
+    private static final String LOG = PulseLogger.PULSE;
 
     private PulseCommands() {
     }
@@ -29,7 +32,7 @@ public final class PulseCommands {
      */
     public static void registerAll() {
         CommandRegistry.register("pulse", "Pulse 메인 명령어", PulseCommands::handlePulse);
-        System.out.println("[Pulse] Registered /pulse commands");
+        PulseLogger.info(LOG, "Registered /pulse commands");
     }
 
     /**

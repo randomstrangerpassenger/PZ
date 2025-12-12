@@ -2,6 +2,7 @@ package com.pulse.api.optimization;
 
 import com.pulse.api.InternalAPI;
 import com.pulse.api.PublicAPI;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -29,6 +30,7 @@ public final class OptimizationPointRegistry {
 
     // 커스텀 등록된 포인트
     private static final Map<String, OptimizationPointInfo> customPoints = new ConcurrentHashMap<>();
+    private static final String LOG = PulseLogger.PULSE;
 
     // 초기화 플래그
     private static volatile boolean initialized = false;
@@ -60,8 +62,8 @@ public final class OptimizationPointRegistry {
         }
 
         initialized = true;
-        System.out.println("[Pulse] OptimizationPointRegistry initialized with "
-                + OptimizationPoint.values().length + " built-in points");
+        PulseLogger.info(LOG, "OptimizationPointRegistry initialized with {} built-in points",
+                OptimizationPoint.values().length);
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -100,14 +102,14 @@ public final class OptimizationPointRegistry {
         String normalizedId = id.toUpperCase();
 
         if (customPoints.containsKey(normalizedId)) {
-            System.out.println("[Pulse/WARN] OptimizationPoint already exists: " + normalizedId);
+            PulseLogger.warn(LOG, "OptimizationPoint already exists: {}", normalizedId);
             return false;
         }
 
         customPoints.put(normalizedId, new OptimizationPointInfo(
                 normalizedId, mixinTarget, echoPrefix, tier, false));
 
-        System.out.println("[Pulse] Registered custom OptimizationPoint: " + normalizedId);
+        PulseLogger.info(LOG, "Registered custom OptimizationPoint: {}", normalizedId);
         return true;
     }
 

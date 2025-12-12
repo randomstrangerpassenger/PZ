@@ -1,6 +1,7 @@
 package com.pulse.mixin;
 
 import com.pulse.api.DevMode;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.mixin.MixinInjectionValidator;
 
 import java.util.*;
@@ -14,6 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class MixinDiagnostics {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final MixinDiagnostics INSTANCE = new MixinDiagnostics();
 
     // 타겟 클래스 → 적용된 Mixin 정보 목록
@@ -48,8 +50,8 @@ public class MixinDiagnostics {
         }
 
         if (DevMode.isEnabled()) {
-            System.out.println("[Pulse/Mixin] Applied " + mixinClass +
-                    " to " + targetClass + " (mod: " + modId + ", priority: " + priority + ")");
+            PulseLogger.debug(LOG, "Applied {} to {} (mod: {}, priority: {})",
+                    mixinClass, targetClass, modId, priority);
         }
     }
 
@@ -68,8 +70,7 @@ public class MixinDiagnostics {
             // ignore - Validator가 초기화되지 않았을 수 있음
         }
 
-        System.err.println("[Pulse/Mixin] Failed " + mixinClass + " from " + modId +
-                " to " + targetClass + ": " + reason);
+        PulseLogger.error(LOG, "Failed {} from {} to {}: {}", mixinClass, modId, targetClass, reason);
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -83,8 +84,8 @@ public class MixinDiagnostics {
         if (!DevMode.isEnabled())
             return;
 
-        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
-        System.out.println("[Pulse/Mixin] Checking for potential Mixin conflicts...");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "Checking for potential Mixin conflicts...");
 
         int conflictCount = 0;
 
@@ -101,10 +102,10 @@ public class MixinDiagnostics {
 
                 if (mods.size() > 1) {
                     // 다른 모드의 Mixin이 같은 클래스를 수정
-                    System.out.println("[Pulse/Mixin] Potential conflict on " + targetClass + ":");
+                    PulseLogger.warn(LOG, "Potential conflict on {}:", targetClass);
                     for (MixinInfo info : mixins) {
-                        System.out.println("[Pulse/Mixin]   - " + info.modId +
-                                ": " + info.mixinClass + " (priority: " + info.priority + ")");
+                        PulseLogger.warn(LOG, "  - {}: {} (priority: {})",
+                                info.modId, info.mixinClass, info.priority);
                     }
                     conflictCount++;
                 }
@@ -112,12 +113,12 @@ public class MixinDiagnostics {
         }
 
         if (conflictCount == 0) {
-            System.out.println("[Pulse/Mixin] No conflicts detected.");
+            PulseLogger.info(LOG, "No conflicts detected.");
         } else {
-            System.out.println("[Pulse/Mixin] " + conflictCount + " potential conflict(s) found.");
+            PulseLogger.warn(LOG, "{} potential conflict(s) found.", conflictCount);
         }
 
-        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -128,29 +129,29 @@ public class MixinDiagnostics {
      * 전체 Mixin 적용 상태 리포트
      */
     public void printReport() {
-        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
-        System.out.println("[Pulse/Mixin] MIXIN APPLICATION REPORT");
-        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "MIXIN APPLICATION REPORT");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
 
-        System.out.println("[Pulse/Mixin] Applied Mixins by Target:");
+        PulseLogger.info(LOG, "Applied Mixins by Target:");
         for (Map.Entry<String, List<MixinInfo>> entry : appliedMixins.entrySet()) {
-            System.out.println("[Pulse/Mixin]   " + entry.getKey() + ":");
+            PulseLogger.info(LOG, "  {}:", entry.getKey());
             for (MixinInfo info : entry.getValue()) {
-                System.out.println("[Pulse/Mixin]     - " + info.mixinClass +
-                        " (" + info.modId + ", p=" + info.priority + ")");
+                PulseLogger.debug(LOG, "    - {} ({}, p={})",
+                        info.mixinClass, info.modId, info.priority);
             }
         }
 
         if (!failedMixins.isEmpty()) {
-            System.out.println("[Pulse/Mixin] Failed Mixins:");
+            PulseLogger.warn(LOG, "Failed Mixins:");
             for (FailedMixin failed : failedMixins) {
-                System.out.println("[Pulse/Mixin]   ✗ " + failed.mixinClass +
-                        " from " + failed.modId + " → " + failed.targetClass);
-                System.out.println("[Pulse/Mixin]     Reason: " + failed.reason);
+                PulseLogger.error(LOG, "  ✗ {} from {} → {}",
+                        failed.mixinClass, failed.modId, failed.targetClass);
+                PulseLogger.error(LOG, "    Reason: {}", failed.reason);
             }
         }
 
-        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -274,8 +275,8 @@ public class MixinDiagnostics {
         if (!DevMode.isEnabled())
             return;
 
-        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
-        System.out.println("[Pulse/Mixin] Checking priority conflicts...");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "Checking priority conflicts...");
 
         int conflictCount = 0;
 
@@ -295,8 +296,8 @@ public class MixinDiagnostics {
                 if (priorities.size() > 1) {
                     Set<Integer> uniquePriorities = new HashSet<>(priorities);
                     if (uniquePriorities.size() > 1) {
-                        System.out.println("[Pulse/Mixin] Priority variation in " + modEntry.getKey() +
-                                " for " + targetClass + ": " + uniquePriorities);
+                        PulseLogger.warn(LOG, "Priority variation in {} for {}: {}",
+                                modEntry.getKey(), targetClass, uniquePriorities);
                         conflictCount++;
                     }
                 }
@@ -304,12 +305,12 @@ public class MixinDiagnostics {
         }
 
         if (conflictCount == 0) {
-            System.out.println("[Pulse/Mixin] No priority conflicts detected.");
+            PulseLogger.info(LOG, "No priority conflicts detected.");
         } else {
-            System.out.println("[Pulse/Mixin] " + conflictCount + " priority variation(s) found.");
+            PulseLogger.warn(LOG, "{} priority variation(s) found.", conflictCount);
         }
 
-        System.out.println("[Pulse/Mixin] ═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 
     /**

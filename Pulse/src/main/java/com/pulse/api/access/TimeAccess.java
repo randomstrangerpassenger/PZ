@@ -1,7 +1,7 @@
 package com.pulse.api.access;
 
-import com.pulse.PulseEnvironment;
 import com.pulse.api.GameAccess;
+import com.pulse.api.util.ReflectionClassCache;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -18,37 +18,21 @@ public final class TimeAccess {
     private TimeAccess() {
     }
 
-    // 캐시된 클래스 참조
-    private static Class<?> gameTimeClass;
-    private static boolean initialized = false;
-
-    private static void ensureInitialized() {
-        if (initialized)
-            return;
-        ClassLoader gameLoader = PulseEnvironment.getGameClassLoader();
-        if (gameLoader == null)
-            gameLoader = ClassLoader.getSystemClassLoader();
-        try {
-            gameTimeClass = gameLoader.loadClass("zombie.GameTime");
-        } catch (ClassNotFoundException e) {
-            // 무시
-        }
-        initialized = true;
-    }
+    // ReflectionClassCache 사용으로 ensureInitialized() 패턴 제거
+    private static final ReflectionClassCache<Object> gameTimeCache = new ReflectionClassCache<>("zombie.GameTime");
 
     /**
      * 클래스 참조 갱신.
      */
     public static void refresh() {
-        initialized = false;
-        ensureInitialized();
+        gameTimeCache.refresh();
     }
 
     /**
      * GameTime 인스턴스 가져오기.
      */
     public static Object getGameTimeInstance() {
-        ensureInitialized();
+        Class<?> gameTimeClass = gameTimeCache.get();
         if (gameTimeClass == null)
             return null;
 
@@ -74,6 +58,7 @@ public final class TimeAccess {
         if (gameTime == null)
             return 0;
 
+        Class<?> gameTimeClass = gameTimeCache.get();
         try {
             Method getHour = gameTimeClass.getMethod("getHour");
             Object result = getHour.invoke(gameTime);
@@ -94,6 +79,7 @@ public final class TimeAccess {
         if (gameTime == null)
             return 0;
 
+        Class<?> gameTimeClass = gameTimeCache.get();
         try {
             Method getMinutes = gameTimeClass.getMethod("getMinutes");
             Object result = getMinutes.invoke(gameTime);
@@ -114,6 +100,7 @@ public final class TimeAccess {
         if (gameTime == null)
             return 1;
 
+        Class<?> gameTimeClass = gameTimeCache.get();
         try {
             Method getDay = gameTimeClass.getMethod("getDay");
             Object result = getDay.invoke(gameTime);
@@ -142,6 +129,7 @@ public final class TimeAccess {
         if (gameTime == null)
             return 7;
 
+        Class<?> gameTimeClass = gameTimeCache.get();
         try {
             Method getMonth = gameTimeClass.getMethod("getMonth");
             Object result = getMonth.invoke(gameTime);
@@ -162,6 +150,7 @@ public final class TimeAccess {
         if (gameTime == null)
             return 1993;
 
+        Class<?> gameTimeClass = gameTimeCache.get();
         try {
             Method getYear = gameTimeClass.getMethod("getYear");
             Object result = getYear.invoke(gameTime);

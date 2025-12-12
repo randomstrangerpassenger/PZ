@@ -1,5 +1,7 @@
 package com.pulse.registry;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
@@ -32,6 +34,7 @@ public class Registry<T> {
 
     // 글로벌 레지스트리 목록
     private static final Map<Identifier, Registry<?>> REGISTRIES = new ConcurrentHashMap<>();
+    private static final String LOG = PulseLogger.PULSE;
 
     private Registry(Identifier registryId) {
         this.registryId = registryId;
@@ -48,7 +51,7 @@ public class Registry<T> {
         Registry<T> registry = new Registry<>(registryId);
         REGISTRIES.put(registryId, registry);
 
-        System.out.println("[Pulse/Registry] Created registry: " + registryId);
+        PulseLogger.info(LOG, "[Registry] Created registry: {}", registryId);
         return registry;
     }
 
@@ -76,7 +79,7 @@ public class Registry<T> {
         }
 
         entries.put(id, value);
-        System.out.println("[Pulse/Registry] Registered " + registryId + " -> " + id);
+        PulseLogger.info(LOG, "[Registry] Registered {} -> {}", registryId, id);
         return value;
     }
 
@@ -198,7 +201,7 @@ public class Registry<T> {
         deferredEntries.clear();
 
         frozen = true;
-        System.out.println("[Pulse/Registry] Frozen " + registryId + " with " + entries.size() + " entries");
+        PulseLogger.info(LOG, "[Registry] Frozen {} with {} entries", registryId, entries.size());
     }
 
     public boolean isFrozen() {

@@ -1,5 +1,7 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Pulse DevMode 관리자.
  * 개발 모드 플래그를 관리하고 디버그 기능을 제어.
@@ -14,6 +16,8 @@ package com.pulse.api;
  * - 의존성 문제 추가 정보 출력
  */
 public final class DevMode {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     private static boolean enabled = false;
     private static boolean initialized = false;
@@ -37,10 +41,10 @@ public final class DevMode {
         enabled = "true".equalsIgnoreCase(devModeProp) || "1".equals(devModeProp);
 
         if (enabled) {
-            System.out.println("[Pulse/DevMode] ═══════════════════════════════════════");
-            System.out.println("[Pulse/DevMode] DEVELOPER MODE ENABLED");
-            System.out.println("[Pulse/DevMode] Additional diagnostics will be shown");
-            System.out.println("[Pulse/DevMode] ═══════════════════════════════════════");
+            PulseLogger.info(LOG, "═══════════════════════════════════════");
+            PulseLogger.info(LOG, "DEVELOPER MODE ENABLED");
+            PulseLogger.info(LOG, "Additional diagnostics will be shown");
+            PulseLogger.info(LOG, "═══════════════════════════════════════");
         }
 
         initialized = true;
@@ -67,7 +71,8 @@ public final class DevMode {
         enabled = true;
         if (!initialized) {
             initialized = true;
-            System.out.println("[Pulse/DevMode] Developer mode enabled programmatically");
+            initialized = true;
+            PulseLogger.info(LOG, "[DevMode] Developer mode enabled programmatically");
         }
     }
 
@@ -87,7 +92,7 @@ public final class DevMode {
      */
     public static void log(String tag, String message) {
         if (isEnabled()) {
-            System.out.println("[Pulse/Debug/" + tag + "] " + message);
+            PulseLogger.info(LOG, "[Debug/{}] {}", tag, message);
         }
     }
 

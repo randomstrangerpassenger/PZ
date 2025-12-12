@@ -4,6 +4,8 @@ import com.pulse.mixin.MixinDiagnostics;
 import com.pulse.mod.ModContainer;
 import com.pulse.mod.ModLoader;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.io.*;
 import java.nio.file.*;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ import java.util.*;
  */
 public class CrashReporter {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static Path crashLogDirectory = Paths.get("crash-reports");
 
     // ═══════════════════════════════════════════════════════════════
@@ -149,12 +152,12 @@ public class CrashReporter {
 
             // 파일 저장
             Files.writeString(reportPath, report.toString());
-            System.err.println("[Pulse/Crash] Report saved to: " + reportPath.toAbsolutePath());
+            PulseLogger.error(LOG, "[Crash] Report saved to: {}", reportPath.toAbsolutePath());
 
             return reportPath.toFile();
 
         } catch (IOException e) {
-            System.err.println("[Pulse/Crash] Failed to write crash report: " + e.getMessage());
+            PulseLogger.error(LOG, "[Crash] Failed to write crash report: {}", e.getMessage());
             return null;
         }
     }
@@ -346,10 +349,10 @@ public class CrashReporter {
      */
     public static void installHandler() {
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
-            System.err.println("[Pulse/Crash] Uncaught exception in thread: " + thread.getName());
+            PulseLogger.error(LOG, "[Crash] Uncaught exception in thread: {}", thread.getName());
             report(throwable, "Uncaught exception in " + thread.getName());
         });
-        System.out.println("[Pulse/Crash] Exception handler installed");
+        PulseLogger.info(LOG, "[Crash] Exception handler installed");
     }
 
     /**
@@ -389,7 +392,7 @@ public class CrashReporter {
         }
 
         // 콘솔에도 출력
-        System.out.println("[Pulse/Event] " + eventType + " | " + source + " | " + message);
+        PulseLogger.info(LOG, "[Event] {} | {} | {}", eventType, source, message);
     }
 
     /**

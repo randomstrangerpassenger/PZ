@@ -1,5 +1,7 @@
 package com.pulse.ui;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.*;
 
 /**
@@ -9,6 +11,7 @@ import java.util.*;
 public class HUDOverlay {
 
     private static final HUDOverlay INSTANCE = new HUDOverlay();
+    private static final String LOG = PulseLogger.PULSE;
 
     private final Map<String, HUDLayer> layers = new LinkedHashMap<>();
     private boolean visible = true;
@@ -36,7 +39,7 @@ public class HUDOverlay {
         layer.priority = priority;
         INSTANCE.layers.put(id, layer);
         INSTANCE.sortLayers();
-        System.out.println("[Pulse/HUD] Registered layer: " + id);
+        PulseLogger.info(LOG, "[HUD] Registered layer: {}", id);
     }
 
     /**
@@ -79,8 +82,7 @@ public class HUDOverlay {
                 try {
                     layer.render(ctx);
                 } catch (Exception e) {
-                    System.err.println("[Pulse/HUD] Error rendering layer: " + layer.id);
-                    e.printStackTrace();
+                    PulseLogger.error(LOG, "[HUD] Error rendering layer: {}", layer.id, e);
                 }
             }
         }

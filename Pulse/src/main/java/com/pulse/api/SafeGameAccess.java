@@ -1,5 +1,8 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
+import com.pulse.api.access.ZombieAccess;
+import com.pulse.api.util.ReflectionUtil;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +35,7 @@ import java.util.function.Supplier;
 public final class SafeGameAccess {
 
     // 메인 스레드 관련
+    private static final String LOG = PulseLogger.PULSE;
     private static volatile Thread mainThread = null;
     private static final ConcurrentLinkedQueue<Runnable> mainThreadQueue = new ConcurrentLinkedQueue<>();
     private static final AtomicBoolean processingQueue = new AtomicBoolean(false);
@@ -77,7 +81,7 @@ public final class SafeGameAccess {
             return accessor.apply(zombie);
         } catch (Exception e) {
             if (DevMode.isEnabled()) {
-                System.err.println("[SafeGameAccess] Zombie access failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] Zombie access failed: {}", e.getMessage());
             }
             return fallback;
         }
@@ -93,11 +97,11 @@ public final class SafeGameAccess {
      */
     public static Optional<List<Object>> getNearbyZombiesSafe(float x, float y, float radius) {
         try {
-            List<Object> zombies = GameAccess.getNearbyZombies(x, y, radius);
+            List<Object> zombies = ZombieAccess.getNearbyZombies(x, y, radius);
             return Optional.ofNullable(zombies);
         } catch (Exception e) {
             if (DevMode.isEnabled()) {
-                System.err.println("[SafeGameAccess] getNearbyZombies failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] getNearbyZombies failed: {}", e.getMessage());
             }
             return Optional.empty();
         }
@@ -122,7 +126,7 @@ public final class SafeGameAccess {
             return accessor.apply(chunk);
         } catch (Exception e) {
             if (DevMode.isEnabled()) {
-                System.err.println("[SafeGameAccess] Chunk access failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] Chunk access failed: {}", e.getMessage());
             }
             return fallback;
         }
@@ -152,7 +156,7 @@ public final class SafeGameAccess {
             return Optional.ofNullable(chunk);
         } catch (Exception e) {
             if (DevMode.isEnabled()) {
-                System.err.println("[SafeGameAccess] getChunk failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] getChunk failed: {}", e.getMessage());
             }
             return Optional.empty();
         }
@@ -163,12 +167,12 @@ public final class SafeGameAccess {
      */
     private static Object getIsoWorldInstanceInternal() {
         try {
-            Object world = GameAccess.getStaticField("zombie.iso.IsoWorld", "instance");
+            Object world = ReflectionUtil.getStaticField("zombie.iso.IsoWorld", "instance");
             if (world != null)
                 return world;
 
             // 대안: 클래스 직접 로드 시도
-            Class<?> isoWorldClass = GameAccess.getGameClass("zombie.iso.IsoWorld");
+            Class<?> isoWorldClass = ReflectionUtil.getGameClass("zombie.iso.IsoWorld");
             if (isoWorldClass != null) {
                 java.lang.reflect.Field instanceField = isoWorldClass.getDeclaredField("instance");
                 instanceField.setAccessible(true);
@@ -199,7 +203,7 @@ public final class SafeGameAccess {
             return accessor.apply(ai);
         } catch (Exception e) {
             if (DevMode.isEnabled()) {
-                System.err.println("[SafeGameAccess] AI access failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] AI access failed: {}", e.getMessage());
             }
             return fallback;
         }
@@ -219,10 +223,10 @@ public final class SafeGameAccess {
     public static <T> T withLuaState(Function<Object, T> accessor, T fallback) {
         try {
             // LuaManager.GlobalEnvironment 접근
-            Object luaEnv = GameAccess.getStaticField("se.krka.kahlua.vm.LuaState", "instance");
+            Object luaEnv = ReflectionUtil.getStaticField("se.krka.kahlua.vm.LuaState", "instance");
             if (luaEnv == null) {
                 // 대체 경로
-                Object platform = GameAccess.getStaticField("se.krka.kahlua.j2se.J2SEPlatform", "instance");
+                Object platform = ReflectionUtil.getStaticField("se.krka.kahlua.j2se.J2SEPlatform", "instance");
                 if (platform != null) {
                     Method newEnvMethod = platform.getClass().getMethod("newEnvironment");
                     luaEnv = newEnvMethod.invoke(platform);
@@ -235,7 +239,7 @@ public final class SafeGameAccess {
             return fallback;
         } catch (Exception e) {
             if (DevMode.isEnabled()) {
-                System.err.println("[SafeGameAccess] Lua state access failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] Lua state access failed: {}", e.getMessage());
             }
             return fallback;
         }
@@ -270,7 +274,7 @@ public final class SafeGameAccess {
             try {
                 action.run();
             } catch (Exception e) {
-                System.err.println("[SafeGameAccess] Main thread action failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] Main thread action failed: {}", e.getMessage());
                 if (DevMode.isEnabled()) {
                     e.printStackTrace();
                 }
@@ -316,7 +320,7 @@ public final class SafeGameAccess {
                 try {
                     action.run();
                 } catch (Exception e) {
-                    System.err.println("[SafeGameAccess] Queued action failed: " + e.getMessage());
+                    PulseLogger.error(LOG, "[SafeGameAccess] Queued action failed: {}", e.getMessage());
                 }
                 processed++;
             }
@@ -351,7 +355,7 @@ public final class SafeGameAccess {
             return accessor.apply(target);
         } catch (Exception e) {
             if (DevMode.isEnabled()) {
-                System.err.println("[SafeGameAccess] Safe access failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] Safe access failed: {}", e.getMessage());
             }
             return fallback;
         }
@@ -380,7 +384,7 @@ public final class SafeGameAccess {
             return (T) method.invoke(target, args);
         } catch (Exception e) {
             if (DevMode.isEnabled()) {
-                System.err.println("[SafeGameAccess] safeInvoke(" + methodName + ") failed: " + e.getMessage());
+                PulseLogger.error(LOG, "[SafeGameAccess] safeInvoke({}) failed: {}", methodName, e.getMessage());
             }
             return fallback;
         }

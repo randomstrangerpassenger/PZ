@@ -1,5 +1,6 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
@@ -24,6 +25,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @PublicAPI(since = "1.1.0")
 public final class FeatureFlags {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     // ═══════════════════════════════════════════════════════════════
     // 표준 기능 ID
@@ -210,20 +213,20 @@ public final class FeatureFlags {
      * 디버그 출력.
      */
     public static void printStatus() {
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("  FeatureFlags Status");
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "  FeatureFlags Status");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
 
         if (disabledFlags.isEmpty()) {
-            System.out.println("  All features enabled");
+            PulseLogger.info(LOG, "  All features enabled");
         } else {
-            System.out.println("  Disabled features (" + disabledFlags.size() + "):");
+            PulseLogger.info(LOG, "  Disabled features ({}):", disabledFlags.size());
             for (String featureId : disabledFlags) {
                 String reason = disableReasons.getOrDefault(featureId, "Unknown");
-                System.out.println("    ✗ " + featureId + " - " + reason);
+                PulseLogger.info(LOG, "    ✗ {} - {}", featureId, reason);
             }
         }
 
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 }

@@ -1,5 +1,7 @@
 package com.pulse.lua;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -31,6 +33,7 @@ public final class PulseLuaController {
 
     // 기본 예산 (밀리초)
     private static final long DEFAULT_BUDGET_MS = 100;
+    private static final String LOG = PulseLogger.PULSE;
 
     // 현재 예산
     private static volatile long budgetMs = DEFAULT_BUDGET_MS;
@@ -71,7 +74,7 @@ public final class PulseLuaController {
         }
         budgetMs = ms;
         if (loggingEnabled) {
-            System.out.println("[Pulse/LuaController] Budget set to " + ms + "ms");
+            PulseLogger.info(LOG, "[LuaController] Budget set to {}ms", ms);
         }
     }
 
@@ -105,7 +108,7 @@ public final class PulseLuaController {
         if (funcName != null && !funcName.isEmpty()) {
             blockedFunctions.add(funcName);
             if (loggingEnabled) {
-                System.out.println("[Pulse/LuaController] Blocked function: " + funcName);
+                PulseLogger.info(LOG, "[LuaController] Blocked function: {}", funcName);
             }
         }
     }
@@ -192,7 +195,7 @@ public final class PulseLuaController {
             monitoredEvents.add(eventName);
             eventStats.computeIfAbsent(eventName, k -> new LuaEventStats());
             if (loggingEnabled) {
-                System.out.println("[Pulse/LuaController] Monitoring event: " + eventName);
+                PulseLogger.info(LOG, "[LuaController] Monitoring event: {}", eventName);
             }
         }
     }

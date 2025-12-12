@@ -1,5 +1,6 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,7 +22,7 @@ public class ModLogger {
 
     private ModLogger(String modId) {
         this.modId = modId;
-        this.prefix = "[Mod/" + modId + "] ";
+        this.prefix = "Mod/" + modId;
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -43,14 +44,14 @@ public class ModLogger {
      * INFO 레벨 로그
      */
     public void info(String message) {
-        System.out.println(prefix + message);
+        PulseLogger.info(prefix, message);
     }
 
     /**
      * INFO 레벨 로그 (포맷팅)
      */
     public void info(String format, Object... args) {
-        System.out.println(prefix + String.format(format, args));
+        PulseLogger.info(prefix, String.format(format, args));
     }
 
     /**
@@ -58,7 +59,7 @@ public class ModLogger {
      */
     public void debug(String message) {
         if (DevMode.isEnabled()) {
-            System.out.println(prefix + "[DEBUG] " + message);
+            PulseLogger.debug(prefix, message);
         }
     }
 
@@ -67,7 +68,7 @@ public class ModLogger {
      */
     public void debug(String format, Object... args) {
         if (DevMode.isEnabled()) {
-            System.out.println(prefix + "[DEBUG] " + String.format(format, args));
+            PulseLogger.debug(prefix, String.format(format, args));
         }
     }
 
@@ -75,36 +76,35 @@ public class ModLogger {
      * WARN 레벨 로그
      */
     public void warn(String message) {
-        System.out.println(prefix + "[WARN] " + message);
+        PulseLogger.warn(prefix, message);
     }
 
     /**
      * WARN 레벨 로그 (포맷팅)
      */
     public void warn(String format, Object... args) {
-        System.out.println(prefix + "[WARN] " + String.format(format, args));
+        PulseLogger.warn(prefix, String.format(format, args));
     }
 
     /**
      * ERROR 레벨 로그
      */
     public void error(String message) {
-        System.err.println(prefix + "[ERROR] " + message);
+        PulseLogger.error(prefix, message);
     }
 
     /**
      * ERROR 레벨 로그 (예외 포함)
      */
     public void error(String message, Throwable t) {
-        System.err.println(prefix + "[ERROR] " + message);
-        t.printStackTrace(System.err);
+        PulseLogger.error(prefix, message, t);
     }
 
     /**
      * ERROR 레벨 로그 (포맷팅)
      */
     public void error(String format, Object... args) {
-        System.err.println(prefix + "[ERROR] " + String.format(format, args));
+        PulseLogger.error(prefix, String.format(format, args));
     }
 
     // ─────────────────────────────────────────────────────────────

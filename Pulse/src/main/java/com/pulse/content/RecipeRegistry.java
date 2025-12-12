@@ -1,5 +1,6 @@
 package com.pulse.content;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.registry.Identifier;
 
 import java.util.*;
@@ -11,6 +12,7 @@ import java.util.*;
 public class RecipeRegistry {
 
     private static final RecipeRegistry INSTANCE = new RecipeRegistry();
+    private static final String LOG = PulseLogger.PULSE;
 
     private final Map<Identifier, Recipe> recipes = new LinkedHashMap<>();
     private final Map<Identifier, Set<Recipe>> byOutput = new HashMap<>();
@@ -35,7 +37,7 @@ public class RecipeRegistry {
 
     private void registerInternal(Recipe recipe) {
         if (recipes.containsKey(recipe.getId())) {
-            System.err.println("[Pulse/Recipes] Duplicate recipe ID: " + recipe.getId());
+            PulseLogger.error(LOG, "[Recipes] Duplicate recipe ID: {}", recipe.getId());
             return;
         }
 
@@ -44,7 +46,7 @@ public class RecipeRegistry {
         // 출력 아이템으로 인덱싱
         byOutput.computeIfAbsent(recipe.getOutput(), k -> new HashSet<>()).add(recipe);
 
-        System.out.println("[Pulse/Recipes] Registered: " + recipe.getId());
+        PulseLogger.info(LOG, "[Recipes] Registered: {}", recipe.getId());
     }
 
     /**

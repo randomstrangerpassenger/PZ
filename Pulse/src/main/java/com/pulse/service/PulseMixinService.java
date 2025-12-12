@@ -1,5 +1,6 @@
 package com.pulse.service;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.PulseEnvironment;
 import org.spongepowered.asm.launch.platform.container.ContainerHandleVirtual;
 import org.spongepowered.asm.launch.platform.container.IContainerHandle;
@@ -30,6 +31,8 @@ import java.util.Collections;
  */
 public class PulseMixinService implements IMixinService, IClassProvider, IClassBytecodeProvider {
 
+    private static final String LOG = PulseLogger.PULSE;
+
     private final ReEntranceLock lock = new ReEntranceLock(1);
     private final PulseTransformerProvider transformerProvider = new PulseTransformerProvider();
     private final PulseClassTracker classTracker = new PulseClassTracker();
@@ -42,7 +45,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
     private IContainerHandle primaryContainer;
 
     public PulseMixinService() {
-        System.out.println("[Pulse/Service] PulseMixinService instantiated");
+        PulseLogger.debug(LOG, "PulseMixinService instantiated");
     }
 
     // ================= ClassLoader 관리 =================
@@ -78,7 +81,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
 
     @Override
     public void prepare() {
-        System.out.println("[Pulse/Service] prepare() called");
+        PulseLogger.debug(LOG, "prepare() called");
     }
 
     @Override
@@ -88,24 +91,24 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
 
     @Override
     public void offer(IMixinInternal internal) {
-        System.out.println("[Pulse/Service] offer() called with: " +
+        PulseLogger.debug(LOG, "offer() called with: {}",
                 (internal != null ? internal.getClass().getName() : "null"));
 
         if (internal instanceof IMixinTransformerFactory) {
             this.transformerFactory = (IMixinTransformerFactory) internal;
-            System.out.println("[Pulse/Service] Received IMixinTransformerFactory");
+            PulseLogger.info(LOG, "Received IMixinTransformerFactory");
 
             // Transformer 생성
             try {
                 this.mixinTransformer = transformerFactory.createTransformer();
-                System.out.println("[Pulse/Service] Created IMixinTransformer: " +
+                PulseLogger.info(LOG, "Created IMixinTransformer: {}",
                         (mixinTransformer != null ? mixinTransformer.getClass().getName() : "null"));
 
                 // PulseEnvironment에 저장하여 외부에서 접근 가능하게 함
                 PulseEnvironment.setMixinTransformer(mixinTransformer);
 
             } catch (Exception e) {
-                System.err.println("[Pulse/Service] Failed to create transformer");
+                PulseLogger.error(LOG, "Failed to create transformer: {}", e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -113,17 +116,17 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
 
     @Override
     public void init() {
-        System.out.println("[Pulse/Service] init() called");
+        PulseLogger.debug(LOG, "init() called");
     }
 
     @Override
     public void beginPhase() {
-        System.out.println("[Pulse/Service] beginPhase() called");
+        PulseLogger.debug(LOG, "beginPhase() called");
     }
 
     @Override
     public void checkEnv(Object bootSource) {
-        System.out.println("[Pulse/Service] checkEnv() called");
+        PulseLogger.debug(LOG, "checkEnv() called");
     }
 
     @Override
@@ -176,7 +179,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
                 // 이 클래스가 포함된 JAR/폴더의 위치
                 URL location = getClass().getProtectionDomain().getCodeSource().getLocation();
                 primaryContainer = new ContainerHandleVirtual(getName());
-                System.out.println("[Pulse/Service] Primary container location: " + location);
+                PulseLogger.debug(LOG, "Primary container location: {}", location);
             } catch (Exception e) {
                 primaryContainer = new ContainerHandleVirtual(getName());
             }
@@ -193,39 +196,37 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
 
     @Override
     public InputStream getResourceAsStream(String name) {
-        System.out.println("[Pulse/Service] getResourceAsStream() called for: " + name);
+        PulseLogger.trace(LOG, "getResourceAsStream() called for: {}", name);
 
         ClassLoader cl = getEffectiveClassLoader();
-        System.out.println("[Pulse/Service]   - Using ClassLoader: " + cl.getClass().getName());
+        PulseLogger.trace(LOG, "  - Using ClassLoader: {}", cl.getClass().getName());
 
         // 여러 경로 시도
         InputStream is = cl.getResourceAsStream(name);
-        System.out.println("[Pulse/Service]   - Try 1 (direct): " + (is != null ? "FOUND" : "not found"));
+        PulseLogger.trace(LOG, "  - Try 1 (direct): {}", (is != null ? "FOUND" : "not found"));
 
         if (is == null) {
             // 슬래시로 시작하는 경로 시도
             is = cl.getResourceAsStream("/" + name);
-            System.out.println("[Pulse/Service]   - Try 2 (with /): " + (is != null ? "FOUND" : "not found"));
+            PulseLogger.trace(LOG, "  - Try 2 (with /): {}", (is != null ? "FOUND" : "not found"));
         }
 
         if (is == null) {
             // 이 클래스의 클래스로더에서 시도
             is = getClass().getClassLoader().getResourceAsStream(name);
-            System.out.println(
-                    "[Pulse/Service]   - Try 3 (service classloader): " + (is != null ? "FOUND" : "not found"));
+            PulseLogger.trace(LOG, "  - Try 3 (service classloader): {}", (is != null ? "FOUND" : "not found"));
         }
 
         if (is == null) {
             // 시스템 클래스로더에서 시도
             is = ClassLoader.getSystemClassLoader().getResourceAsStream(name);
-            System.out.println(
-                    "[Pulse/Service]   - Try 4 (system classloader): " + (is != null ? "FOUND" : "not found"));
+            PulseLogger.trace(LOG, "  - Try 4 (system classloader): {}", (is != null ? "FOUND" : "not found"));
         }
 
         if (is == null) {
-            System.err.println("[Pulse/Service]   - FAILED to find resource: " + name);
+            PulseLogger.warn(LOG, "  - FAILED to find resource: {}", name);
         } else {
-            System.out.println("[Pulse/Service]   - SUCCESS: Found resource: " + name);
+            PulseLogger.trace(LOG, "  - SUCCESS: Found resource: {}", name);
         }
 
         return is;
@@ -243,7 +244,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
 
     @Override
     public ILogger getLogger(String name) {
-        return new PulseLogger(name);
+        return new MixinLogger(name);
     }
 
     // ================= IClassProvider 구현 =================

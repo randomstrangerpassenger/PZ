@@ -1,5 +1,6 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.PulseEnvironment;
 import com.pulse.event.EventBus;
 import com.pulse.mod.ModContainer;
@@ -21,6 +22,8 @@ import java.util.Optional;
  * }
  */
 public final class Pulse {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     private Pulse() {
     } // 인스턴스화 방지
@@ -142,7 +145,7 @@ public final class Pulse {
      * 설정 디렉토리 경로
      */
     public static Path getConfigDirectory() {
-        return getGameDirectory().resolve("config");
+        return getGameDirectory().resolve(PulseConstants.CONFIG_DIR_NAME);
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -201,7 +204,7 @@ public final class Pulse {
     public static void setSide(PulseSide side) {
         if (side != null) {
             currentSide = side;
-            log("Side set to: " + side);
+            PulseLogger.debug(LOG, "Side set to: {}", side);
         }
     }
 
@@ -237,7 +240,7 @@ public final class Pulse {
             // 게임 클래스 로드 전 - 나중에 다시 감지
             return PulseSide.UNKNOWN;
         } catch (Exception e) {
-            log("Side detection failed: " + e.getMessage());
+            PulseLogger.warn(LOG, "Side detection failed: {}", e.getMessage());
             return PulseSide.UNKNOWN;
         }
     }
@@ -261,7 +264,7 @@ public final class Pulse {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 로깅
+    // 로깅 (PulseLogger로 위임)
     // ─────────────────────────────────────────────────────────────
 
     /**
@@ -275,49 +278,49 @@ public final class Pulse {
      * Pulse 로그 출력
      */
     public static void log(String message) {
-        System.out.println("[Pulse] " + message);
+        PulseLogger.info(LOG, message);
     }
 
     /**
      * 모드 로그 출력 (modId prefix 포함)
      */
     public static void log(String modId, String message) {
-        System.out.println("[Mod/" + modId + "] " + message);
+        PulseLogger.info(modId, message);
     }
 
     /**
      * Pulse 경고 출력
      */
     public static void warn(String message) {
-        System.out.println("[Pulse/WARN] " + message);
+        PulseLogger.warn(LOG, message);
     }
 
     /**
      * 모드 경고 출력
      */
     public static void warn(String modId, String message) {
-        System.out.println("[Mod/" + modId + "/WARN] " + message);
+        PulseLogger.warn(modId, message);
     }
 
     /**
      * Pulse 에러 출력
      */
     public static void error(String message) {
-        System.err.println("[Pulse/ERROR] " + message);
+        PulseLogger.error(LOG, message);
     }
 
     /**
      * 모드 에러 출력
      */
     public static void error(String modId, String message) {
-        System.err.println("[Mod/" + modId + "/ERROR] " + message);
+        PulseLogger.error(modId, message);
     }
 
     /**
      * Pulse 에러 출력 (예외 포함)
      */
     public static void error(String message, Throwable t) {
-        System.err.println("[Pulse/ERROR] " + message);
+        PulseLogger.error(LOG, "{}: {}", message, t.getMessage());
         t.printStackTrace();
     }
 
@@ -325,7 +328,7 @@ public final class Pulse {
      * 모드 에러 출력 (예외 포함)
      */
     public static void error(String modId, String message, Throwable t) {
-        System.err.println("[Mod/" + modId + "/ERROR] " + message);
+        PulseLogger.error(modId, "{}: {}", message, t.getMessage());
         t.printStackTrace();
     }
 }

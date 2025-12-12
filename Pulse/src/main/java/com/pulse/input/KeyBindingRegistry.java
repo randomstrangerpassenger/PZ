@@ -1,5 +1,6 @@
 package com.pulse.input;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.event.EventBus;
 
 import java.util.*;
@@ -29,6 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class KeyBindingRegistry {
 
     private static final KeyBindingRegistry INSTANCE = new KeyBindingRegistry();
+    private static final String LOG = PulseLogger.PULSE;
 
     // 등록된 키 바인딩
     private final Map<String, KeyBinding> bindings = new ConcurrentHashMap<>();
@@ -89,7 +91,7 @@ public class KeyBindingRegistry {
         String fullId = binding.getFullId();
 
         if (bindings.containsKey(fullId)) {
-            System.err.println("[Pulse/Input] Duplicate keybinding: " + fullId);
+            PulseLogger.error(LOG, "[Input] Duplicate keybinding: {}", fullId);
             return;
         }
 
@@ -97,8 +99,7 @@ public class KeyBindingRegistry {
         byCategory.computeIfAbsent(binding.getCategory(), k -> new ArrayList<>())
                 .add(binding);
 
-        System.out.println("[Pulse/Input] Registered keybinding: " + fullId +
-                " (" + binding + ")");
+        PulseLogger.info(LOG, "[Input] Registered keybinding: {} ({})", fullId, binding);
     }
 
     public KeyBinding getBinding(String fullId) {

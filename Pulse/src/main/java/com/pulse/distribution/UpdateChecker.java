@@ -1,5 +1,6 @@
 package com.pulse.distribution;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.mod.ModLoader;
 import com.pulse.mod.ModContainer;
 
@@ -14,6 +15,7 @@ import java.util.*;
 public class UpdateChecker {
 
     private static final UpdateChecker INSTANCE = new UpdateChecker();
+    private static final String LOG = PulseLogger.PULSE;
 
     private String updateServerUrl = "https://pulse-mods.example.com/api";
     private final Map<String, UpdateInfo> updateCache = new HashMap<>();
@@ -53,12 +55,12 @@ public class UpdateChecker {
                     updateCache.put(modId, info);
                 }
             } catch (Exception e) {
-                System.err.println("[Pulse/Update] Failed to check: " + modId);
+                PulseLogger.error(LOG, "[Update] Failed to check: {}", modId);
             }
         }
 
         lastCheckTime = System.currentTimeMillis();
-        System.out.println("[Pulse/Update] Found " + updates.size() + " updates available");
+        PulseLogger.info(LOG, "[Update] Found {} updates available", updates.size());
         return updates;
     }
 

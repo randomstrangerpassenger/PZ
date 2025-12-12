@@ -5,9 +5,23 @@ plugins {
     id 'base'
 }
 
+// ═══════════════════════════════════════════════════════════════
+// Version Catalog - Centralized dependency versions
+// ═══════════════════════════════════════════════════════════════
+ext {
+    versions = [
+        mixin: '0.8.5',
+        asm: '9.6',
+        gson: '2.10.1',
+        junit: '5.10.0',
+        mockito: '5.6.0'
+    ]
+}
+
+// ═══════════════════════════════════════════════════════════════
 // Common configuration for all subprojects
+// ═══════════════════════════════════════════════════════════════
 subprojects {
-    // Apply Java plugin to Java projects only
     afterEvaluate {
         if (plugins.hasPlugin('java')) {
             java {
@@ -17,26 +31,48 @@ subprojects {
             
             tasks.withType(JavaCompile).configureEach {
                 options.encoding = 'UTF-8'
+                options.compilerArgs << '-Xlint:unchecked' << '-Xlint:deprecation'
             }
             
             repositories {
                 mavenCentral()
                 maven { url 'https://repo.spongepowered.org/maven/' }
             }
+            
+            // Common test dependencies
+            dependencies {
+                testImplementation "org.junit.jupiter:junit-jupiter:${rootProject.ext.versions.junit}"
+                testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+            }
+            
+            test {
+                useJUnitPlatform()
+                testLogging {
+                    events 'passed', 'skipped', 'failed'
+                }
+            }
         }
     }
 }
 
-// Task to build all projects
+// ═══════════════════════════════════════════════════════════════
+// Aggregate Tasks
+// ═══════════════════════════════════════════════════════════════
+
 task buildAll {
     description = 'Builds all subprojects'
     group = 'build'
     dependsOn subprojects.collect { it.tasks.matching { it.name == 'build' } }
 }
 
-// Task to clean all projects
 task cleanAll {
     description = 'Cleans all subprojects'
     group = 'build'
     dependsOn subprojects.collect { it.tasks.matching { it.name == 'clean' } }
+}
+
+task testAll {
+    description = 'Runs tests for all subprojects'
+    group = 'verification'
+    dependsOn subprojects.collect { it.tasks.matching { it.name == 'test' } }
 }

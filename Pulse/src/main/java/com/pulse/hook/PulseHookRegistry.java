@@ -1,5 +1,7 @@
 package com.pulse.hook;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -50,7 +52,9 @@ public final class PulseHookRegistry {
     private static final Map<HookType<?>, Boolean> registeredTypes = new ConcurrentHashMap<>();
     private static final Map<Object, Integer> callbackPriorities = new ConcurrentHashMap<>();
     private static final Map<Object, String> callbackOwners = new ConcurrentHashMap<>();
+
     private static volatile boolean debugEnabled = false;
+    private static final String LOG = PulseLogger.PULSE;
 
     private PulseHookRegistry() {
         // Utility class
@@ -119,8 +123,8 @@ public final class PulseHookRegistry {
             sortCallbacksByPriority(callbacks);
 
             if (debugEnabled) {
-                System.out.println("[Pulse/HookRegistry] Registered callback for " + type.getName()
-                        + " (priority=" + priority + ", total=" + callbacks.size() + ")");
+                PulseLogger.debug(LOG, "[HookRegistry] Registered callback for {} (priority={}, total={})",
+                        type.getName(), priority, callbacks.size());
             }
         }
     }
@@ -159,8 +163,8 @@ public final class PulseHookRegistry {
             callbackPriorities.remove(callback);
             callbackOwners.remove(callback);
             if (debugEnabled) {
-                System.out.println("[Pulse/HookRegistry] Unregistered callback for " + type.getName()
-                        + " (remaining: " + callbacks.size() + ")");
+                PulseLogger.debug(LOG, "[HookRegistry] Unregistered callback for {} (remaining: {})",
+                        type.getName(), callbacks.size());
             }
         }
 
@@ -207,18 +211,17 @@ public final class PulseHookRegistry {
             try {
                 action.accept(callback);
             } catch (Throwable t) {
-                System.err.println("[Pulse/HookRegistry] Error in callback for " + type.getName()
-                        + ": " + t.getMessage());
+                PulseLogger.error(LOG, "[HookRegistry] Error in callback for {}: {}", type.getName(), t.getMessage());
                 if (debugEnabled) {
-                    t.printStackTrace();
+                    PulseLogger.error(LOG, "Stack trace", t);
                 }
             } finally {
                 long elapsedMs = (System.nanoTime() - start) / 1_000_000;
                 if (elapsedMs > HOOK_TIMEOUT_MS && slowHookWarningCount < MAX_SLOW_HOOK_WARNINGS) {
                     slowHookWarningCount++;
-                    System.err.println("[Pulse/HookRegistry] Slow hook detected (" + elapsedMs + "ms): "
-                            + callback.getClass().getName() + " for " + type.getName()
-                            + " (warning " + slowHookWarningCount + "/" + MAX_SLOW_HOOK_WARNINGS + ")");
+                    PulseLogger.warn(LOG, "[HookRegistry] Slow hook detected ({}ms): {} for {} (warning {}/{})",
+                            elapsedMs, callback.getClass().getName(), type.getName(), slowHookWarningCount,
+                            MAX_SLOW_HOOK_WARNINGS);
                 }
             }
         }
@@ -235,7 +238,7 @@ public final class PulseHookRegistry {
             }
             callbacks.clear();
             if (debugEnabled) {
-                System.out.println("[Pulse/HookRegistry] Cleared all callbacks for " + type.getName());
+                PulseLogger.debug(LOG, "[HookRegistry] Cleared all callbacks for {}", type.getName());
             }
         }
     }
@@ -259,7 +262,7 @@ public final class PulseHookRegistry {
         }
 
         if (debugEnabled && removed > 0) {
-            System.out.println("[Pulse/HookRegistry] Unregistered " + removed + " callbacks for mod: " + modId);
+            PulseLogger.debug(LOG, "[HookRegistry] Unregistered {} callbacks for mod: {}", removed, modId);
         }
 
         return removed;

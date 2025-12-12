@@ -25,10 +25,10 @@ public class CsvReportGenerator implements ReportGenerator {
                 Map<String, Object> subsystem = (Map<String, Object>) entry.getValue();
                 sb.append(String.format("%s,%.4f,%.4f,%.4f,%d\n",
                         escapeCsv(entry.getKey()),
-                        getDouble(subsystem, "avgMs"),
-                        getDouble(subsystem, "maxMs"),
-                        getDouble(subsystem, "minMs"),
-                        getInt(subsystem, "callCount")));
+                        getDouble(subsystem, "average_time_ms"),
+                        getDouble(subsystem, "max_time_ms"),
+                        getDouble(subsystem, "min_time_ms"),
+                        getInt(subsystem, "call_count")));
             }
         }
 

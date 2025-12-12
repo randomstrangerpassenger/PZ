@@ -1,5 +1,6 @@
 package com.pulse.debug;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.event.Event;
 
 import java.util.*;
@@ -21,6 +22,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public class EventMonitor {
 
     private static final EventMonitor INSTANCE = new EventMonitor();
+    private static final String LOG = PulseLogger.PULSE;
 
     private boolean enabled = false;
     private final Map<Class<? extends Event>, EventStats> stats = new ConcurrentHashMap<>();
@@ -40,12 +42,12 @@ public class EventMonitor {
 
     public static void enable() {
         INSTANCE.enabled = true;
-        System.out.println("[Pulse/EventMonitor] Monitoring enabled");
+        PulseLogger.info(LOG, "[EventMonitor] Monitoring enabled");
     }
 
     public static void disable() {
         INSTANCE.enabled = false;
-        System.out.println("[Pulse/EventMonitor] Monitoring disabled");
+        PulseLogger.info(LOG, "[EventMonitor] Monitoring disabled");
     }
 
     public static boolean isEnabled() {
@@ -91,21 +93,21 @@ public class EventMonitor {
      * 이벤트 통계 출력.
      */
     public static void printStats() {
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("        EVENT MONITOR STATISTICS        ");
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "        EVENT MONITOR STATISTICS        ");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
 
         List<EventStats> sorted = new ArrayList<>(INSTANCE.stats.values());
         sorted.sort((a, b) -> Long.compare(b.count.get(), a.count.get()));
 
         for (EventStats stat : sorted) {
-            System.out.printf("  %-30s : %6d events, avg %.2fms\n",
-                    stat.eventType.getSimpleName(),
+            PulseLogger.info(LOG, "  {} : {} events, avg {}ms",
+                    String.format("%-30s", stat.eventType.getSimpleName()),
                     stat.count.get(),
-                    stat.getAverageMs());
+                    String.format("%.2f", stat.getAverageMs()));
         }
 
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 
     /**

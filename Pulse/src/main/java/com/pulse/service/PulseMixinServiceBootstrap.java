@@ -1,5 +1,6 @@
 package com.pulse.service;
 
+import com.pulse.api.log.PulseLogger;
 import org.spongepowered.asm.service.IMixinServiceBootstrap;
 
 /**
@@ -10,6 +11,7 @@ import org.spongepowered.asm.service.IMixinServiceBootstrap;
  * META-INF/services/org.spongepowered.asm.service.IMixinServiceBootstrap
  */
 public class PulseMixinServiceBootstrap implements IMixinServiceBootstrap {
+    private static final String LOG = PulseLogger.PULSE;
 
     @Override
     public String getName() {
@@ -23,11 +25,11 @@ public class PulseMixinServiceBootstrap implements IMixinServiceBootstrap {
 
     @Override
     public void bootstrap() {
-        System.out.println("[Pulse/Bootstrap] Mixin service bootstrap initiated");
-        
+        PulseLogger.info(LOG, "[Bootstrap] Mixin service bootstrap initiated");
+
         // 환경 준비 작업
         // 예: 시스템 프로퍼티 설정, 초기 상태 구성 등
-        
-        System.out.println("[Pulse/Bootstrap] Bootstrap complete");
+
+        PulseLogger.info(LOG, "[Bootstrap] Bootstrap complete");
     }
 }

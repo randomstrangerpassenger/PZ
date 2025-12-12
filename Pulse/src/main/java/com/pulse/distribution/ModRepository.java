@@ -1,5 +1,8 @@
 package com.pulse.distribution;
 
+import com.pulse.api.log.PulseLogger;
+import com.pulse.api.PulseConstants;
+
 import java.io.*;
 import java.net.*;
 import java.nio.file.*;
@@ -12,6 +15,7 @@ import java.util.*;
 public class ModRepository {
 
     private static final ModRepository INSTANCE = new ModRepository();
+    private static final String LOG = PulseLogger.PULSE;
 
     private final List<String> repositoryUrls = new ArrayList<>();
     private Path downloadDirectory;
@@ -19,7 +23,7 @@ public class ModRepository {
     private ModRepository() {
         // 기본 저장소
         repositoryUrls.add("https://pulse-mods.example.com");
-        downloadDirectory = Paths.get("mods");
+        downloadDirectory = Paths.get(PulseConstants.MODS_DIR_NAME);
     }
 
     public static ModRepository getInstance() {
@@ -78,7 +82,7 @@ public class ModRepository {
                     }
                 }
             } catch (Exception e) {
-                System.err.println("[Pulse/Repo] Search failed for " + repoUrl);
+                PulseLogger.error(LOG, "[Repo] Search failed for {}", repoUrl);
             }
         }
 
@@ -140,14 +144,14 @@ public class ModRepository {
         Files.createDirectories(downloadDirectory);
         Path targetPath = downloadDirectory.resolve(modInfo.id + "-" + modInfo.version + ".jar");
 
-        System.out.println("[Pulse/Repo] Downloading: " + modInfo.name);
+        PulseLogger.info(LOG, "[Repo] Downloading: {}", modInfo.name);
 
         URL url = new URL(modInfo.downloadUrl);
         try (InputStream in = url.openStream()) {
             Files.copy(in, targetPath, StandardCopyOption.REPLACE_EXISTING);
         }
 
-        System.out.println("[Pulse/Repo] Downloaded: " + targetPath);
+        PulseLogger.info(LOG, "[Repo] Downloaded: {}", targetPath);
         return targetPath.toFile();
     }
 

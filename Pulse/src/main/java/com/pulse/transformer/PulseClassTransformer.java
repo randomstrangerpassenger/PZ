@@ -1,5 +1,6 @@
 package com.pulse.transformer;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.PulseEnvironment;
 import com.pulse.mixin.MixinDiagnostics;
 import org.spongepowered.asm.mixin.MixinEnvironment;
@@ -20,6 +21,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * 3. 향후 추가될 다른 transformer들과 체이닝
  */
 public class PulseClassTransformer implements ClassFileTransformer {
+
+    private static final String LOG = PulseLogger.PULSE;
 
     private final Set<String> transformedClasses = ConcurrentHashMap.newKeySet();
     private final Set<String> excludedPrefixes = ConcurrentHashMap.newKeySet();
@@ -47,9 +50,9 @@ public class PulseClassTransformer implements ClassFileTransformer {
         this.mixinReady = (transformer != null);
 
         if (mixinReady) {
-            System.out.println("[Pulse/Transformer] Mixin transformer connected successfully");
+            PulseLogger.info(LOG, "Mixin transformer connected successfully");
         } else {
-            System.err.println("[Pulse/Transformer] WARNING: Mixin transformer is null!");
+            PulseLogger.warn(LOG, "WARNING: Mixin transformer is null!");
         }
     }
 
@@ -130,7 +133,7 @@ public class PulseClassTransformer implements ClassFileTransformer {
                 com.pulse.api.mixin.MixinInjectionValidator.recordSuccess(
                         "PulseTransformer", dotName, elapsedMs);
 
-                System.out.println("[Pulse/Transformer] ✓ Mixin applied to: " + dotName);
+                PulseLogger.debug(LOG, "✓ Mixin applied to: {}", dotName);
                 return result;
             }
 
@@ -147,7 +150,7 @@ public class PulseClassTransformer implements ClassFileTransformer {
             com.pulse.api.FailsoftPolicy.handleMixinFailure(
                     "PulseTransformer", dotName, t);
 
-            System.err.println("[Pulse/Transformer] Error transforming: " + dotName + " (fail-soft applied)");
+            PulseLogger.warn(LOG, "Error transforming: {} (fail-soft applied)", dotName);
         }
 
         return null;

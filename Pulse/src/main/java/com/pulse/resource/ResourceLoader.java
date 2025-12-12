@@ -1,5 +1,6 @@
 package com.pulse.resource;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.registry.Identifier;
 
 import java.io.*;
@@ -34,6 +35,7 @@ import java.util.jar.JarFile;
 public class ResourceLoader {
 
     private static final ResourceLoader INSTANCE = new ResourceLoader();
+    private static final String LOG = PulseLogger.PULSE;
 
     // 등록된 리소스 소스
     private final List<ResourceSource> sources = new ArrayList<>();
@@ -76,17 +78,17 @@ public class ResourceLoader {
 
     private void registerJarSource(Path jarPath) {
         sources.add(new JarResourceSource(jarPath));
-        System.out.println("[Pulse/Resource] Added JAR source: " + jarPath.getFileName());
+        PulseLogger.info(LOG, "[Resource] Added JAR source: {}", jarPath.getFileName());
     }
 
     private void registerDirectorySource(Path directory) {
         sources.add(new DirectoryResourceSource(directory));
-        System.out.println("[Pulse/Resource] Added directory source: " + directory);
+        PulseLogger.info(LOG, "[Resource] Added directory source: {}", directory);
     }
 
     private void registerClassLoaderSource(ClassLoader classLoader, String namespace) {
         sources.add(new ClassLoaderResourceSource(classLoader, namespace));
-        System.out.println("[Pulse/Resource] Added classloader source for: " + namespace);
+        PulseLogger.info(LOG, "[Resource] Added classloader source for: {}", namespace);
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -128,7 +130,7 @@ public class ResourceLoader {
             props.load(is);
             return props;
         } catch (IOException e) {
-            System.err.println("[Pulse/Resource] Failed to load properties: " + id);
+            PulseLogger.error(LOG, "[Resource] Failed to load properties: {}", id);
             return null;
         }
     }

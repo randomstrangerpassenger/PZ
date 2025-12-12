@@ -1,5 +1,7 @@
 package com.pulse.mixin;
 
+import com.pulse.api.DevMode;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.mixin.MixinInjectionValidator;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -25,12 +27,13 @@ import java.util.Set;
  */
 public class PulseMixinPlugin implements IMixinConfigPlugin {
 
+    private static final String LOG = PulseLogger.PULSE;
     private String mixinPackage;
 
     @Override
     public void onLoad(String mixinPackage) {
         this.mixinPackage = mixinPackage;
-        System.out.println("[Pulse/MixinPlugin] Loaded for package: " + mixinPackage);
+        PulseLogger.debug(LOG, "MixinPlugin loaded for package: {}", mixinPackage);
     }
 
     @Override
@@ -51,13 +54,13 @@ public class PulseMixinPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         // Mixin이 비활성화되어 있는지 확인
         if (MixinInjectionValidator.isMixinDisabled(mixinClassName)) {
-            System.out.println("[Pulse/MixinPlugin] Skipping disabled mixin: " + mixinClassName);
+            PulseLogger.debug(LOG, "Skipping disabled mixin: {}", mixinClassName);
             return false;
         }
 
         // 등록된 패키지의 Mixin인지 검증
         if (mixinPackage != null && !mixinClassName.startsWith(mixinPackage)) {
-            System.out.println("[Pulse/MixinPlugin] Note: Mixin from external package: " + mixinClassName);
+            PulseLogger.trace(LOG, "Note: Mixin from external package: {}", mixinClassName);
         }
 
         return true;
@@ -80,8 +83,8 @@ public class PulseMixinPlugin implements IMixinConfigPlugin {
             String mixinClassName, IMixinInfo mixinInfo) {
         // Mixin 적용 전 훅
         // 디버그 로깅 (DevMode에서만)
-        if (com.pulse.api.DevMode.isEnabled()) {
-            System.out.println("[Pulse/MixinPlugin] Pre-apply: " + mixinClassName + " → " + targetClassName);
+        if (DevMode.isEnabled()) {
+            PulseLogger.debug(LOG, "Pre-apply: {} → {}", mixinClassName, targetClassName);
         }
     }
 
@@ -92,8 +95,8 @@ public class PulseMixinPlugin implements IMixinConfigPlugin {
         // 성공 기록
         MixinInjectionValidator.recordSuccess(mixinClassName, targetClassName, 0);
 
-        if (com.pulse.api.DevMode.isEnabled()) {
-            System.out.println("[Pulse/MixinPlugin] Post-apply: " + mixinClassName + " → " + targetClassName + " ✓");
+        if (DevMode.isEnabled()) {
+            PulseLogger.debug(LOG, "Post-apply: {} → {} ✓", mixinClassName, targetClassName);
         }
     }
 }

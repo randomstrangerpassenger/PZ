@@ -14,8 +14,12 @@ public abstract class MainScreenStateMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void Pulse$onRenderHead(CallbackInfo ci) {
-        // Pulse 1.3: 프레임 시작 알림 (Echo PulseMetrics 연동)
-        com.pulse.api.PulseMetrics.onFrameStart();
+        try {
+            // Pulse 1.3: 프레임 시작 알림 (Echo PulseMetrics 연동)
+            com.pulse.api.PulseMetrics.onFrameStart();
+        } catch (Throwable t) {
+            PulseErrorHandler.reportMixinFailure("MainScreenStateMixin.onRenderHead", t);
+        }
     }
 
     @Inject(method = "render", at = @At("RETURN"))

@@ -1,7 +1,7 @@
 package com.pulse.api.access;
 
-import com.pulse.PulseEnvironment;
 import com.pulse.api.GameAccess;
+import com.pulse.api.util.ReflectionClassCache;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -18,37 +18,22 @@ public final class PlayerAccess {
     private PlayerAccess() {
     }
 
-    // 캐시된 클래스 참조
-    private static Class<?> isoPlayerClass;
-    private static boolean initialized = false;
-
-    private static void ensureInitialized() {
-        if (initialized)
-            return;
-        ClassLoader gameLoader = PulseEnvironment.getGameClassLoader();
-        if (gameLoader == null)
-            gameLoader = ClassLoader.getSystemClassLoader();
-        try {
-            isoPlayerClass = gameLoader.loadClass("zombie.characters.IsoPlayer");
-        } catch (ClassNotFoundException e) {
-            // 무시
-        }
-        initialized = true;
-    }
+    // ReflectionClassCache 사용으로 ensureInitialized() 패턴 제거
+    private static final ReflectionClassCache<Object> isoPlayerCache = new ReflectionClassCache<>(
+            "zombie.characters.IsoPlayer");
 
     /**
      * 클래스 참조 갱신.
      */
     public static void refresh() {
-        initialized = false;
-        ensureInitialized();
+        isoPlayerCache.refresh();
     }
 
     /**
      * 로컬 플레이어 가져오기.
      */
     public static Object getLocalPlayer() {
-        ensureInitialized();
+        Class<?> isoPlayerClass = isoPlayerCache.get();
         if (isoPlayerClass == null)
             return null;
 

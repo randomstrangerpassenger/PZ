@@ -1,5 +1,6 @@
 package com.pulse.content;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.registry.Identifier;
 import com.google.gson.*;
 
@@ -12,6 +13,7 @@ import java.nio.file.*;
  * 아이템, 레시피 등을 JSON 파일에서 로드.
  */
 public class DataLoader {
+    private static final String LOG = PulseLogger.PULSE;
 
     @SuppressWarnings("unused") // Reserved for future JSON serialization
     private static final Gson GSON = new GsonBuilder()
@@ -29,7 +31,7 @@ public class DataLoader {
         int count = 0;
 
         if (!Files.exists(directory)) {
-            System.out.println("[Pulse/Data] Items directory not found: " + directory);
+            PulseLogger.warn(LOG, "[Data] Items directory not found: {}", directory);
             return 0;
         }
 
@@ -42,13 +44,12 @@ public class DataLoader {
                         count++;
                     }
                 } catch (Exception e) {
-                    System.err.println("[Pulse/Data] Failed to load item: " + path);
-                    e.printStackTrace();
+                    PulseLogger.error(LOG, "[Data] Failed to load item: {}", path, e);
                 }
             }
         }
 
-        System.out.println("[Pulse/Data] Loaded " + count + " items from " + directory);
+        PulseLogger.info(LOG, "[Data] Loaded {} items from {}", count, directory);
         return count;
     }
 
@@ -107,7 +108,7 @@ public class DataLoader {
         int count = 0;
 
         if (!Files.exists(directory)) {
-            System.out.println("[Pulse/Data] Recipes directory not found: " + directory);
+            PulseLogger.warn(LOG, "[Data] Recipes directory not found: {}", directory);
             return 0;
         }
 
@@ -120,13 +121,12 @@ public class DataLoader {
                         count++;
                     }
                 } catch (Exception e) {
-                    System.err.println("[Pulse/Data] Failed to load recipe: " + path);
-                    e.printStackTrace();
+                    PulseLogger.error(LOG, "[Data] Failed to load recipe: {}", path, e);
                 }
             }
         }
 
-        System.out.println("[Pulse/Data] Loaded " + count + " recipes from " + directory);
+        PulseLogger.info(LOG, "[Data] Loaded {} recipes from {}", count, directory);
         return count;
     }
 

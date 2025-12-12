@@ -26,11 +26,11 @@ public class TextReportGenerator implements ReportGenerator {
             Map<String, Object> summary = (Map<String, Object>) data.get("summary");
             sb.append("┌─ Summary ─────────────────────────────────────────────────────┐\n");
             sb.append(String.format("│  Sessions: %-10s  Tick Count: %-20s │\n",
-                    summary.getOrDefault("sessions", 0),
-                    summary.getOrDefault("totalTickCount", 0)));
+                    "1", // Single session per report
+                    summary.getOrDefault("total_ticks", 0)));
             sb.append(String.format("│  Avg Tick: %-10s  Max Tick: %-21s │\n",
-                    formatMs(summary.get("avgTickMs")),
-                    formatMs(summary.get("maxTickMs"))));
+                    formatMs(summary.get("average_tick_ms")),
+                    formatMs(summary.get("max_tick_spike_ms"))));
             sb.append("└───────────────────────────────────────────────────────────────┘\n");
             sb.append("\n");
         }
@@ -45,19 +45,21 @@ public class TextReportGenerator implements ReportGenerator {
                 Map<String, Object> subsystem = (Map<String, Object>) entry.getValue();
                 sb.append(String.format("│  %-15s avg: %-8s  max: %-8s  calls: %-6s │\n",
                         entry.getKey(),
-                        formatMs(subsystem.get("avgMs")),
-                        formatMs(subsystem.get("maxMs")),
-                        subsystem.getOrDefault("callCount", 0)));
+                        formatMs(subsystem.get("average_time_ms")),
+                        formatMs(subsystem.get("max_time_ms")),
+                        subsystem.getOrDefault("call_count", 0)));
             }
             sb.append("└───────────────────────────────────────────────────────────────┘\n");
             sb.append("\n");
         }
 
         // Heavy functions section
-        if (data.containsKey("heavyFunctions")) {
+        if (data.containsKey("heavy_functions")) {
             @SuppressWarnings("unchecked")
-            List<Map<String, Object>> heavy = (List<Map<String, Object>>) data.get("heavyFunctions");
-            if (!heavy.isEmpty()) {
+            Map<String, Object> heavyRoot = (Map<String, Object>) data.get("heavy_functions");
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> heavy = (List<Map<String, Object>>) heavyRoot.get("by_total_time");
+            if (heavy != null && !heavy.isEmpty()) {
                 sb.append("┌─ Heavy Functions (Top 5) ─────────────────────────────────────┐\n");
                 int count = 0;
                 for (Map<String, Object> func : heavy) {
@@ -65,8 +67,8 @@ public class TextReportGenerator implements ReportGenerator {
                         break;
                     sb.append(String.format("│  %d. %-40s %8s │\n",
                             count,
-                            truncate(String.valueOf(func.get("name")), 40),
-                            formatMs(func.get("totalMs"))));
+                            truncate(String.valueOf(func.get("label")), 40),
+                            formatMs(func.get("total_time_ms"))));
                 }
                 sb.append("└───────────────────────────────────────────────────────────────┘\n");
                 sb.append("\n");

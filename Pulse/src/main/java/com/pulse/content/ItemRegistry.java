@@ -1,5 +1,6 @@
 package com.pulse.content;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.registry.Identifier;
 
 import java.util.*;
@@ -11,6 +12,7 @@ import java.util.*;
 public class ItemRegistry {
 
     private static final ItemRegistry INSTANCE = new ItemRegistry();
+    private static final String LOG = PulseLogger.PULSE;
 
     private final Map<Identifier, ItemDefinition> items = new LinkedHashMap<>();
     private final Map<String, Set<Identifier>> byTag = new HashMap<>();
@@ -38,7 +40,7 @@ public class ItemRegistry {
         Identifier id = item.getId();
 
         if (items.containsKey(id)) {
-            System.err.println("[Pulse/Items] Duplicate item ID: " + id);
+            PulseLogger.error(LOG, "[Items] Duplicate item ID: {}", id);
             return;
         }
 
@@ -52,7 +54,7 @@ public class ItemRegistry {
         // 카테고리 인덱싱
         byCategory.computeIfAbsent(item.getCategory(), k -> new HashSet<>()).add(id);
 
-        System.out.println("[Pulse/Items] Registered: " + id);
+        PulseLogger.info(LOG, "[Items] Registered: {}", id);
     }
 
     /**

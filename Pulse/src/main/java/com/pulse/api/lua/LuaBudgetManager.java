@@ -2,6 +2,7 @@ package com.pulse.api.lua;
 
 import com.pulse.api.InternalAPI;
 import com.pulse.api.PublicAPI;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,6 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class LuaBudgetManager {
 
     private static final LuaBudgetManager INSTANCE = new LuaBudgetManager();
+    private static final String LOG = PulseLogger.PULSE;
 
     // ═══════════════════════════════════════════════════════════════
     // 표준 컨텍스트 ID 상수 (v1.1.0)
@@ -84,7 +86,7 @@ public final class LuaBudgetManager {
      */
     public static void enableBudgetEnforcement(boolean enabled) {
         budgetEnforcementEnabled = enabled;
-        System.out.println("[LuaBudgetManager] Budget enforcement: " + (enabled ? "ENABLED" : "DISABLED"));
+        PulseLogger.info(LOG, "[LuaBudgetManager] Budget enforcement: {}", (enabled ? "ENABLED" : "DISABLED"));
     }
 
     /**
@@ -206,7 +208,7 @@ public final class LuaBudgetManager {
                 try {
                     config.fallbackHandler.run();
                 } catch (Exception e) {
-                    System.err.println("[LuaBudgetManager] Fallback failed: " + e.getMessage());
+                    PulseLogger.error(LOG, "[LuaBudgetManager] Fallback failed: {}", e.getMessage());
                 }
             }
         }
@@ -301,23 +303,24 @@ public final class LuaBudgetManager {
      * 전체 Budget 상태 리포트 출력.
      */
     public void printReport() {
-        System.out.println("═══════════════════════════════════════════════");
-        System.out.println("  Lua Budget Report");
-        System.out.println("═══════════════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════════════");
+        PulseLogger.info(LOG, "  Lua Budget Report");
+        PulseLogger.info(LOG, "═══════════════════════════════════════════════");
 
         for (String contextId : configs.keySet()) {
             BudgetConfig config = configs.get(contextId);
             LuaBudgetStats stat = stats.getOrDefault(contextId, new LuaBudgetStats());
 
-            System.out.printf("  [%s]%n", contextId);
-            System.out.printf("    Budget: %.2fms%n", config.budgetMicros / 1000.0);
-            System.out.printf("    Executions: %d (exceeded: %d)%n",
+            PulseLogger.info(LOG, "  [{}]", contextId);
+            PulseLogger.info(LOG, "    Budget: {}ms", String.format("%.2f", config.budgetMicros / 1000.0));
+            PulseLogger.info(LOG, "    Executions: {} (exceeded: {})",
                     stat.totalExecutions, stat.budgetExceededCount);
-            System.out.printf("    Avg: %.2fms, Max: %.2fms%n",
-                    stat.avgExecutionMicros / 1000.0, stat.maxExecutionMicros / 1000.0);
+            PulseLogger.info(LOG, "    Avg: {}ms, Max: {}ms",
+                    String.format("%.2f", stat.avgExecutionMicros / 1000.0),
+                    String.format("%.2f", stat.maxExecutionMicros / 1000.0));
         }
 
-        System.out.println("═══════════════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════════════");
     }
 
     // ═══════════════════════════════════════════════════════════════

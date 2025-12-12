@@ -1,5 +1,6 @@
 package com.pulse.service;
 
+import com.pulse.api.log.PulseLogger;
 import org.spongepowered.asm.launch.platform.MixinPlatformAgentAbstract;
 import org.spongepowered.asm.launch.platform.container.IContainerHandle;
 
@@ -7,6 +8,7 @@ import org.spongepowered.asm.launch.platform.container.IContainerHandle;
  * Mixin Platform Agent.
  */
 public class PulsePlatformAgent extends MixinPlatformAgentAbstract {
+    private static final String LOG = PulseLogger.PULSE;
 
     public AcceptResult accept(IContainerHandle root, String className) {
         if (className != null && className.startsWith("com.pulse.")) {
@@ -20,15 +22,15 @@ public class PulsePlatformAgent extends MixinPlatformAgentAbstract {
     }
 
     public void prepare() {
-        System.out.println("[Pulse/PlatformAgent] prepare()");
+        PulseLogger.info(LOG, "[PlatformAgent] prepare()");
     }
 
     public void initPrimaryContainer() {
-        System.out.println("[Pulse/PlatformAgent] initPrimaryContainer()");
+        PulseLogger.info(LOG, "[PlatformAgent] initPrimaryContainer()");
     }
 
     public void inject() {
-        System.out.println("[Pulse/PlatformAgent] inject()");
+        PulseLogger.info(LOG, "[PlatformAgent] inject()");
     }
 
     public String getLaunchTarget() {

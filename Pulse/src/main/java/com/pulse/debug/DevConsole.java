@@ -3,6 +3,7 @@ package com.pulse.debug;
 import com.pulse.mod.ModLoader;
 import com.pulse.mod.ModContainer;
 import com.pulse.mod.ModReloadManager;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.security.PermissionManager;
 import com.pulse.security.PermissionManager.Permission;
 
@@ -31,6 +32,7 @@ import java.util.function.Consumer;
 public class DevConsole {
 
     private static final DevConsole INSTANCE = new DevConsole();
+    private static final String LOG = PulseLogger.PULSE;
 
     /** 위험 명령어 목록 - 권한 검사 필요 */
     private static final Set<String> PRIVILEGED_COMMANDS = Set.of("lua");
@@ -73,7 +75,7 @@ public class DevConsole {
     public static void setCurrentExecutor(String executorId, boolean isAdmin) {
         currentExecutor = executorId != null ? executorId : "pulse:system";
         currentExecutorIsAdmin = isAdmin;
-        System.out.println("[DevConsole] Executor set: " + currentExecutor + " (admin=" + isAdmin + ")");
+        PulseLogger.info(LOG, "[DevConsole] Executor set: {} (admin={})", currentExecutor, isAdmin);
     }
 
     /**
@@ -99,7 +101,7 @@ public class DevConsole {
      */
     public static void setDebugMode(boolean enabled) {
         debugModeEnabled = enabled;
-        System.out.println("[DevConsole] Debug mode: " + (enabled ? "ENABLED" : "DISABLED"));
+        PulseLogger.info(LOG, "[DevConsole] Debug mode: {}", enabled ? "ENABLED" : "DISABLED");
     }
 
     /**
@@ -116,7 +118,7 @@ public class DevConsole {
     public static void onMultiplayerSessionStart() {
         inMultiplayerSession = true;
         debugModeEnabled = false; // 멀티플레이에서는 디버그 모드 강제 비활성화
-        System.out.println("[DevConsole] Multiplayer session started - security enforced");
+        PulseLogger.info(LOG, "[DevConsole] Multiplayer session started - security enforced");
     }
 
     /**
@@ -125,7 +127,7 @@ public class DevConsole {
     public static void onMultiplayerSessionEnd() {
         inMultiplayerSession = false;
         resetExecutorToSystem();
-        System.out.println("[DevConsole] Multiplayer session ended");
+        PulseLogger.info(LOG, "[DevConsole] Multiplayer session ended");
     }
 
     /**
@@ -168,8 +170,8 @@ public class DevConsole {
 
             // PZ 멀티플레이어 클라이언트에서 Admin이 아니면 차단
             if (isInPZMultiplayerClient() && !isPZAdmin()) {
-                System.err.println(
-                        "[DevConsole] BLOCKED: Non-admin attempted privileged command in multiplayer: " + cmdName);
+                PulseLogger.error(LOG,
+                        "[DevConsole] BLOCKED: Non-admin attempted privileged command in multiplayer: {}", cmdName);
                 return "§c[보안] Error: 관리자 권한이 없습니다. 이 명령어는 멀티플레이에서 관리자만 사용할 수 있습니다.";
             }
         }
@@ -191,8 +193,8 @@ public class DevConsole {
             // Lua 명령어: CONSOLE_LUA_EXEC 권한 필요
             if (PRIVILEGED_COMMANDS.contains(cmdName)) {
                 if (!PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_LUA_EXEC)) {
-                    System.err.println("[DevConsole] BLOCKED: User '" + currentExecutor +
-                            "' attempted privileged command: " + cmdName);
+                    PulseLogger.error(LOG, "[DevConsole] BLOCKED: User '{}' attempted privileged command: {}",
+                            currentExecutor, cmdName);
                     return "§c[보안] 권한 부족: '" + cmdName + "' 명령어는 관리자만 사용할 수 있습니다.";
                 }
             }
@@ -202,8 +204,8 @@ public class DevConsole {
                 String subCmd = args.split("\\s+")[0].toLowerCase();
                 if (MOD_MANAGE_SUBCOMMANDS.contains(subCmd)) {
                     if (!PermissionManager.hasPermission(currentExecutor, Permission.CONSOLE_MOD_MANAGE)) {
-                        System.err.println("[DevConsole] BLOCKED: User '" + currentExecutor +
-                                "' attempted mod management: mods " + subCmd);
+                        PulseLogger.error(LOG, "[DevConsole] BLOCKED: User '{}' attempted mod management: mods {}",
+                                currentExecutor, subCmd);
                         return "§c[보안] 권한 부족: 'mods " + subCmd + "'는 관리자만 사용할 수 있습니다.";
                     }
                 }
@@ -284,7 +286,7 @@ public class DevConsole {
             // ═══════════════════════════════════════════════════════════════
             if (inMultiplayerSession) {
                 if (!isLuaConsoleAllowedByServer()) {
-                    System.err.println("[DevConsole] BLOCKED: Lua console not allowed on this server");
+                    PulseLogger.error(LOG, "[DevConsole] BLOCKED: Lua console not allowed on this server");
                     return "§c[보안] 이 서버에서는 Lua 콘솔이 비활성화되어 있습니다.";
                 }
             }
@@ -377,7 +379,7 @@ public class DevConsole {
         if (INSTANCE.outputHandler != null) {
             INSTANCE.outputHandler.accept(message);
         }
-        System.out.println("[DevConsole] " + message);
+        PulseLogger.info(LOG, "[DevConsole] {}", message);
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -402,7 +404,7 @@ public class DevConsole {
             Object instance = instanceField.get(null);
 
             if (instance == null) {
-                System.out.println("[DevConsole] SandboxOptions.instance is null, defaulting to blocked");
+                PulseLogger.warn(LOG, "[DevConsole] SandboxOptions.instance is null, defaulting to blocked");
                 return false;
             }
 
@@ -411,7 +413,7 @@ public class DevConsole {
             Object luaConsoleOption = luaConsoleField.get(instance);
 
             if (luaConsoleOption == null) {
-                System.out.println("[DevConsole] AllowedToLuaConsole is null, defaulting to blocked");
+                PulseLogger.warn(LOG, "[DevConsole] AllowedToLuaConsole is null, defaulting to blocked");
                 return false;
             }
 
@@ -423,7 +425,7 @@ public class DevConsole {
                 return (Boolean) result;
             }
 
-            System.out.println("[DevConsole] Unexpected getValue() result type: " + result);
+            PulseLogger.warn(LOG, "[DevConsole] Unexpected getValue() result type: {}", result);
             return false;
 
         } catch (ClassNotFoundException e) {
@@ -431,10 +433,10 @@ public class DevConsole {
             if (debugModeEnabled) {
                 return true;
             }
-            System.out.println("[DevConsole] Not running in PZ runtime, Lua console blocked");
+            PulseLogger.info(LOG, "[DevConsole] Not running in PZ runtime, Lua console blocked");
             return false;
         } catch (Exception e) {
-            System.err.println("[DevConsole] Error checking SandboxOptions: " + e.getMessage());
+            PulseLogger.error(LOG, "[DevConsole] Error checking SandboxOptions: {}", e.getMessage());
             return false; // 오류 시 안전하게 차단
         }
     }
@@ -472,7 +474,7 @@ public class DevConsole {
             // PZ 런타임 외부 - Pulse 내부 플래그에 의존
             return inMultiplayerSession;
         } catch (Exception e) {
-            System.err.println("[DevConsole] Error checking multiplayer state: " + e.getMessage());
+            PulseLogger.error(LOG, "[DevConsole] Error checking multiplayer state: {}", e.getMessage());
             return inMultiplayerSession;
         }
     }
@@ -515,7 +517,7 @@ public class DevConsole {
             // PZ 런타임 외부 - 디버그 모드라면 허용
             return debugModeEnabled;
         } catch (Exception e) {
-            System.err.println("[DevConsole] Error checking admin status: " + e.getMessage());
+            PulseLogger.error(LOG, "[DevConsole] Error checking admin status: {}", e.getMessage());
             return false; // 오류 시 안전하게 거부
         }
     }

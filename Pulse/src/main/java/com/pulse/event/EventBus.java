@@ -1,10 +1,13 @@
 package com.pulse.event;
 
 import com.pulse.api.DevMode;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Pulse 이벤트 버스.
@@ -13,7 +16,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * 사용 예:
  * // 구독
  * EventBus.subscribe(GameTickEvent.class, event -> {
- * System.out.println("Game tick: " + event.getTick());
+ * PulseLogger.info("Pulse", "Game tick: {}", event.getTick());
  * });
  * 
  * // 발행
@@ -21,6 +24,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class EventBus {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final EventBus INSTANCE = new EventBus();
 
     // 이벤트 타입 → 리스너 목록
@@ -28,6 +32,14 @@ public class EventBus {
 
     // Lazy Sort 최적화: 정렬이 필요한 이벤트 타입 추적
     private final Set<Class<? extends Event>> needsSort = ConcurrentHashMap.newKeySet();
+
+    // 비동기 이벤트 실행용 스레드 풀
+    private final ExecutorService asyncExecutor = Executors.newSingleThreadExecutor(
+            r -> {
+                Thread t = new Thread(r, "Pulse-AsyncEventBus");
+                t.setDaemon(true);
+                return t;
+            });
 
     // 디버그 모드
     private boolean debug = false;
@@ -83,10 +95,28 @@ public class EventBus {
     }
 
     /**
-     * 이벤트 발행
+     * 이벤트 발행 (동기)
      */
     public static <T extends Event> T post(T event) {
         return INSTANCE.fire(event);
+    }
+
+    /**
+     * 이벤트 비동기 발행 (UI/네트워크 이벤트용)
+     * 
+     * 게임 틱에 영향을 주지 않는 백그라운드 이벤트 처리에 사용.
+     * 예: 로깅, 네트워크 전송, 파일 I/O
+     * 
+     * @param event 발행할 이벤트
+     */
+    public static <T extends Event> void postAsync(T event) {
+        INSTANCE.asyncExecutor.submit(() -> {
+            try {
+                INSTANCE.fire(event);
+            } catch (Throwable t) {
+                PulseLogger.error(LOG, "[EventBus] Async event error: {}", t.getMessage());
+            }
+        });
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -118,8 +148,8 @@ public class EventBus {
 
         if (debug) {
             String modInfo = modId != null ? " from mod " + modId : "";
-            System.out.println("[Pulse/Event] Registered listener for " +
-                    eventType.getSimpleName() + " with priority " + priority + modInfo);
+            PulseLogger.debug(LOG, "Registered listener for {} with priority {}{}",
+                    eventType.getSimpleName(), priority, modInfo);
         }
     }
 
@@ -151,8 +181,7 @@ public class EventBus {
         }
 
         if (debug) {
-            System.out.println("[Pulse/EventBus] Firing " + event.getEventName() +
-                    " to " + list.size() + " listener(s)");
+            PulseLogger.debug(LOG, "Firing {} to {} listener(s)", event.getEventName(), list.size());
         }
 
         for (RegisteredListener<?> registered : list) {
@@ -166,14 +195,12 @@ public class EventBus {
             } catch (Exception e) {
                 // 예외 격리: 어느 모드에서 문제가 발생했는지 명확히 로그
                 String modId = registered.modId != null ? registered.modId : "unknown";
-                System.err.println("[Pulse/Event] Exception in listener {" + modId +
-                        "} for event {" + event.getEventName() + "}");
+                PulseLogger.error(LOG, "Exception in listener {{}} for event {{}}", modId, event.getEventName());
 
                 // DevMode일 때 추가 정보
                 if (DevMode.isEnabled()) {
-                    System.err.println("[Pulse/Event]   Listener class: " +
-                            registered.listener.getClass().getName());
-                    System.err.println("[Pulse/Event]   Priority: " + registered.priority);
+                    PulseLogger.error(LOG, "  Listener class: {}", registered.listener.getClass().getName());
+                    PulseLogger.error(LOG, "  Priority: {}", registered.priority);
                 }
 
                 e.printStackTrace();
@@ -230,8 +257,7 @@ public class EventBus {
         }
 
         if (removed > 0) {
-            System.out.println("[Pulse/Event] Unregistered " + removed +
-                    " listeners for mod: " + modId);
+            PulseLogger.info(LOG, "Unregistered {} listeners for mod: {}", removed, modId);
         }
         return removed;
     }

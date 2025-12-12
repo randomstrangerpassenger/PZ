@@ -1,5 +1,7 @@
 package com.pulse.api;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Silent Mode 관리자.
  * 리모트(서버/클라이언트)에 Pulse가 없을 때 네트워크 기능을 조용히 비활성화합니다.
@@ -19,6 +21,7 @@ package com.pulse.api;
 @PublicAPI(since = "1.1.0")
 public final class SilentMode {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static volatile boolean enabled = false;
     private static volatile boolean remotePulseDetected = false;
     private static volatile boolean handshakeCompleted = false;
@@ -153,13 +156,13 @@ public final class SilentMode {
      * 상태 정보 출력.
      */
     public static void printStatus() {
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("  SilentMode Status");
-        System.out.println("═══════════════════════════════════════");
-        System.out.println("  Enabled: " + enabled);
-        System.out.println("  Remote Pulse: " + remotePulseDetected);
-        System.out.println("  Handshake Done: " + handshakeCompleted);
-        System.out.println("  Can Send Packets: " + canSendPulsePackets());
-        System.out.println("═══════════════════════════════════════");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "  SilentMode Status");
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
+        PulseLogger.info(LOG, "  Enabled: {}", enabled);
+        PulseLogger.info(LOG, "  Remote Pulse: {}", remotePulseDetected);
+        PulseLogger.info(LOG, "  Handshake Done: {}", handshakeCompleted);
+        PulseLogger.info(LOG, "  Can Send Packets: {}", canSendPulsePackets());
+        PulseLogger.info(LOG, "═══════════════════════════════════════");
     }
 }

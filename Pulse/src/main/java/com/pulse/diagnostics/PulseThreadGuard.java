@@ -1,5 +1,7 @@
 package com.pulse.diagnostics;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * 메인 게임 스레드 감지 및 보호.
  * 
@@ -21,6 +23,7 @@ package com.pulse.diagnostics;
  * @since Pulse 1.2
  */
 public final class PulseThreadGuard {
+    private static final String LOG = PulseLogger.PULSE;
 
     private static volatile Thread mainThread = null;
     private static volatile String mainThreadName = null;
@@ -37,7 +40,7 @@ public final class PulseThreadGuard {
     public static void markMainThread() {
         mainThread = Thread.currentThread();
         mainThreadName = mainThread.getName();
-        System.out.println("[Pulse/ThreadGuard] Main thread marked: " + mainThreadName);
+        PulseLogger.info(LOG, "[ThreadGuard] Main thread marked: {}", mainThreadName);
     }
 
     /**
@@ -66,11 +69,11 @@ public final class PulseThreadGuard {
             if (strictMode) {
                 throw new IllegalStateException(message);
             } else if (warningsEnabled) {
-                System.err.println(message);
+                PulseLogger.warn(LOG, message);
                 // 스택 트레이스 일부 출력
                 StackTraceElement[] stack = Thread.currentThread().getStackTrace();
                 for (int i = 2; i < Math.min(6, stack.length); i++) {
-                    System.err.println("    at " + stack[i]);
+                    PulseLogger.warn(LOG, "    at {}", stack[i]);
                 }
             }
         }

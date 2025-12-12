@@ -1,5 +1,6 @@
 package com.pulse.network;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.registry.Identifier;
 
 import java.util.*;
@@ -18,7 +19,7 @@ import java.util.function.Supplier;
  * 
  * // 패킷 핸들러 등록
  * NetworkManager.registerHandler(MyPacket.class, (packet, sender) -> {
- *     System.out.println("Received: " + packet.getMessage());
+ *     PulseLogger.info("Pulse", "Received: {}", packet.getMessage());
  * });
  * 
  * // 패킷 송신
@@ -27,6 +28,7 @@ import java.util.function.Supplier;
  */
 public class NetworkManager {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final NetworkManager INSTANCE = new NetworkManager();
 
     // 등록된 패킷 타입
@@ -78,8 +80,7 @@ public class NetworkManager {
         packetsByType.put(id, registration);
         packetsByClass.put(packetClass, registration);
 
-        System.out.println("[Pulse/Network] Registered packet: " + id +
-                " (" + side + ")");
+        PulseLogger.debug(LOG, "Registered packet: {} ({})", id, side);
     }
 
     @SuppressWarnings("unchecked")
@@ -88,7 +89,7 @@ public class NetworkManager {
         if (reg != null) {
             reg.addHandler(handler);
         } else {
-            System.err.println("[Pulse/Network] Cannot add handler: packet not registered");
+            PulseLogger.error(LOG, "Cannot add handler: packet not registered");
         }
     }
 
@@ -104,8 +105,7 @@ public class NetworkManager {
         boolean sent = GameNetworkBridge.getInstance().sendToServer(data);
 
         if (!sent) {
-            System.out.println("[Pulse/Network] Queued for server: " +
-                    packet.getId() + " (" + data.length + " bytes)");
+            PulseLogger.debug(LOG, "Queued for server: {} ({} bytes)", packet.getId(), data.length);
         }
     }
 
@@ -120,8 +120,7 @@ public class NetworkManager {
         boolean sent = GameNetworkBridge.getInstance().sendToClient(connection, data);
 
         if (!sent) {
-            System.out.println("[Pulse/Network] Queued for client: " +
-                    packet.getId() + " (" + data.length + " bytes)");
+            PulseLogger.debug(LOG, "Queued for client: {} ({} bytes)", packet.getId(), data.length);
         }
     }
 
@@ -133,8 +132,7 @@ public class NetworkManager {
         boolean sent = GameNetworkBridge.getInstance().sendToAll(data);
 
         if (!sent) {
-            System.out.println("[Pulse/Network] Queued for broadcast: " +
-                    packet.getId() + " (" + data.length + " bytes)");
+            PulseLogger.debug(LOG, "Queued for broadcast: {} ({} bytes)", packet.getId(), data.length);
         }
     }
 
@@ -171,7 +169,7 @@ public class NetworkManager {
         // 패킷 타입 찾기
         PacketRegistration<T> reg = (PacketRegistration<T>) packetsByType.get(id);
         if (reg == null) {
-            System.err.println("[Pulse/Network] Unknown packet: " + id);
+            PulseLogger.warn(LOG, "Unknown packet: {}", id);
             return null;
         }
 
@@ -194,7 +192,7 @@ public class NetworkManager {
 
         PacketRegistration<?> reg = packetsByType.get(id);
         if (reg == null) {
-            System.err.println("[Pulse/Network] Unknown packet: " + id);
+            PulseLogger.warn(LOG, "Unknown packet: {}", id);
             return;
         }
 
@@ -251,7 +249,7 @@ public class NetworkManager {
                 try {
                     handler.handle(packet, sender);
                 } catch (Exception e) {
-                    System.err.println("[Pulse/Network] Handler error for " + id);
+                    PulseLogger.error(LOG, "Handler error for {}: {}", id, e.getMessage());
                     e.printStackTrace();
                 }
             }

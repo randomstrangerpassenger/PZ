@@ -1,5 +1,6 @@
 package com.pulse.network;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.PulseEnvironment;
 import com.pulse.access.AccessWidener;
 import com.pulse.api.GameAccess;
@@ -18,6 +19,7 @@ import java.nio.ByteBuffer;
  */
 public class GameNetworkBridge {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final GameNetworkBridge INSTANCE = new GameNetworkBridge();
 
     // 게임 네트워크 클래스 캐시
@@ -56,37 +58,37 @@ public class GameNetworkBridge {
             // 게임 클래스 로드 시도
             try {
                 gameClientClass = loader.loadClass("zombie.network.GameClient");
-                System.out.println("[Pulse/Network] GameClient class loaded");
+                PulseLogger.debug(LOG, "GameClient class loaded");
             } catch (ClassNotFoundException e) {
-                System.out.println("[Pulse/Network] GameClient class not found (may be server-only)");
+                PulseLogger.debug(LOG, "GameClient class not found (may be server-only)");
             }
 
             try {
                 gameServerClass = loader.loadClass("zombie.network.GameServer");
-                System.out.println("[Pulse/Network] GameServer class loaded");
+                PulseLogger.debug(LOG, "GameServer class loaded");
             } catch (ClassNotFoundException e) {
-                System.out.println("[Pulse/Network] GameServer class not found (may be client-only)");
+                PulseLogger.debug(LOG, "GameServer class not found (may be client-only)");
             }
 
             try {
                 byteBufferWriterClass = loader.loadClass("zombie.core.network.ByteBufferWriter");
-                System.out.println("[Pulse/Network] ByteBufferWriter class loaded");
+                PulseLogger.debug(LOG, "ByteBufferWriter class loaded");
             } catch (ClassNotFoundException e) {
-                System.out.println("[Pulse/Network] ByteBufferWriter class not found");
+                PulseLogger.debug(LOG, "ByteBufferWriter class not found");
             }
 
             try {
                 udpConnectionClass = loader.loadClass("zombie.network.UdpConnection");
-                System.out.println("[Pulse/Network] UdpConnection class loaded");
+                PulseLogger.debug(LOG, "UdpConnection class loaded");
             } catch (ClassNotFoundException e) {
-                System.out.println("[Pulse/Network] UdpConnection class not found");
+                PulseLogger.debug(LOG, "UdpConnection class not found");
             }
 
             initialized = true;
-            System.out.println("[Pulse/Network] Network bridge initialized");
+            PulseLogger.info(LOG, "Network bridge initialized");
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Network] Failed to initialize network bridge: " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to initialize network bridge: {}", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -101,7 +103,7 @@ public class GameNetworkBridge {
 
         if (gameClientClass == null) {
             if (debugMode) {
-                System.err.println("[Pulse/Network] Cannot send to server: GameClient not available");
+                PulseLogger.warn(LOG, "Cannot send to server: GameClient not available");
             }
             return false;
         }
@@ -130,7 +132,7 @@ public class GameNetworkBridge {
             if (sendMethod != null) {
                 sendMethod.invoke(null, writer);
                 if (debugMode) {
-                    System.out.println("[Pulse/Network] Sent " + data.length + " bytes to server");
+                    PulseLogger.debug(LOG, "Sent {} bytes to server", data.length);
                 }
                 recordSent(data.length);
                 return true;
@@ -139,7 +141,7 @@ public class GameNetworkBridge {
             return sendRawPacket(data, null);
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Network] Error sending to server: " + e.getMessage());
+            PulseLogger.error(LOG, "Error sending to server: {}", e.getMessage());
             if (debugMode) {
                 e.printStackTrace();
             }
@@ -157,7 +159,7 @@ public class GameNetworkBridge {
 
         if (gameServerClass == null) {
             if (debugMode) {
-                System.err.println("[Pulse/Network] Cannot send to client: GameServer not available");
+                PulseLogger.warn(LOG, "Cannot send to client: GameServer not available");
             }
             return false;
         }
@@ -184,7 +186,7 @@ public class GameNetworkBridge {
                 if (sendMethod != null) {
                     sendMethod.invoke(connection, writer);
                     if (debugMode) {
-                        System.out.println("[Pulse/Network] Sent " + data.length + " bytes to client");
+                        PulseLogger.debug(LOG, "Sent {} bytes to client", data.length);
                     }
                     return true;
                 }
@@ -193,7 +195,7 @@ public class GameNetworkBridge {
             return sendRawPacket(data, connection);
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Network] Error sending to client: " + e.getMessage());
+            PulseLogger.error(LOG, "Error sending to client: {}", e.getMessage());
             if (debugMode) {
                 e.printStackTrace();
             }
@@ -211,7 +213,7 @@ public class GameNetworkBridge {
 
         if (gameServerClass == null) {
             if (debugMode) {
-                System.err.println("[Pulse/Network] Cannot send to all: GameServer not available");
+                PulseLogger.warn(LOG, "Cannot send to all: GameServer not available");
             }
             return false;
         }
@@ -225,7 +227,7 @@ public class GameNetworkBridge {
 
             if (connections == null) {
                 if (debugMode) {
-                    System.out.println("[Pulse/Network] No connections found, cannot broadcast");
+                    PulseLogger.debug(LOG, "No connections found, cannot broadcast");
                 }
                 return false;
             }
@@ -239,7 +241,7 @@ public class GameNetworkBridge {
                     }
                 }
                 if (debugMode) {
-                    System.out.println("[Pulse/Network] Broadcast to " + sent + " clients");
+                    PulseLogger.debug(LOG, "Broadcast to {} clients", sent);
                 }
                 return sent > 0;
             }
@@ -247,7 +249,7 @@ public class GameNetworkBridge {
             return false;
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Network] Error broadcasting: " + e.getMessage());
+            PulseLogger.error(LOG, "Error broadcasting: {}", e.getMessage());
             if (debugMode) {
                 e.printStackTrace();
             }
@@ -279,12 +281,12 @@ public class GameNetworkBridge {
             NetworkManager.getInstance().handleReceived(data, sender);
 
             if (debugMode) {
-                System.out.println("[Pulse/Network] Received " + length + " bytes");
+                PulseLogger.debug(LOG, "Received {} bytes", length);
             }
             recordReceived(length);
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Network] Error handling received packet: " + e.getMessage());
+            PulseLogger.error(LOG, "Error handling received packet: {}", e.getMessage());
             if (debugMode) {
                 e.printStackTrace();
             }
@@ -357,8 +359,7 @@ public class GameNetworkBridge {
         // 게임 네트워크 API를 직접 찾을 수 없는 경우
         // 이 메서드는 게임별 커스터마이징이 필요함
         if (debugMode) {
-            System.out.println("[Pulse/Network] Raw packet send not implemented (" +
-                    data.length + " bytes)");
+            PulseLogger.debug(LOG, "Raw packet send not implemented ({} bytes)", data.length);
         }
         return false;
     }
@@ -451,7 +452,7 @@ public class GameNetworkBridge {
 
         initialize();
 
-        System.out.println("[Pulse/Network] Reconnect attempted");
+        PulseLogger.info(LOG, "Reconnect attempted");
     }
 
     /**

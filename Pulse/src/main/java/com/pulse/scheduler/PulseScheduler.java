@@ -1,5 +1,7 @@
 package com.pulse.scheduler;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -49,16 +51,29 @@ public class PulseScheduler {
     private final ConcurrentLinkedQueue<Runnable> syncQueue = new ConcurrentLinkedQueue<>();
 
     // 비동기 실행용 스레드 풀
-    private final ExecutorService asyncExecutor = Executors.newCachedThreadPool(r -> {
-        Thread t = new Thread(r, "Pulse-Async-" + taskIdGenerator.incrementAndGet());
-        t.setDaemon(true);
-        return t;
-    });
+    private ExecutorService asyncExecutor = Executors.newCachedThreadPool(new PulseThreadFactory("Pulse-Async"));
 
     // 디버그 모드
     private boolean debug = false;
 
+    // 설정
+    private SchedulerConfig config = new SchedulerConfig();
+
     private PulseScheduler() {
+        // 기본 ThreadFactory 설정
+        config.setThreadFactory(new PulseThreadFactory("Pulse-Async"));
+    }
+
+    /**
+     * 설정을 업데이트합니다.
+     * 실행 중인 태스크에는 즉시 영향을 미치지 않을 수 있습니다.
+     */
+    public void setConfig(SchedulerConfig config) {
+        this.config = config;
+    }
+
+    public SchedulerConfig getConfig() {
+        return config;
     }
 
     public static PulseScheduler getInstance() {
@@ -156,8 +171,7 @@ public class PulseScheduler {
         tasks.add(scheduled);
 
         if (debug) {
-            System.out.println("[Pulse/Scheduler] Scheduled once: " + taskName +
-                    " (delay=" + delayTicks + " ticks)");
+            PulseLogger.debug(PulseLogger.PULSE, "Scheduled once: {} (delay={} ticks)", taskName, delayTicks);
         }
 
         return handle;
@@ -175,8 +189,8 @@ public class PulseScheduler {
         tasks.add(scheduled);
 
         if (debug) {
-            System.out.println("[Pulse/Scheduler] Scheduled repeating: " + taskName +
-                    " (period=" + periodTicks + ", delay=" + delayTicks + " ticks)");
+            PulseLogger.debug(PulseLogger.PULSE, "Scheduled repeating: {} (period={}, delay={} ticks)",
+                    taskName, periodTicks, delayTicks);
         }
 
         return handle;
@@ -193,13 +207,13 @@ public class PulseScheduler {
                 handle.incrementExecutionCount();
                 handle.markCompleted();
             } catch (Exception e) {
-                System.err.println("[Pulse/Scheduler] Async task error: " + taskName);
+                PulseLogger.error(PulseLogger.PULSE, "Async task error: {}", taskName);
                 e.printStackTrace();
             }
         });
 
         if (debug) {
-            System.out.println("[Pulse/Scheduler] Submitted async: " + taskName);
+            PulseLogger.debug(PulseLogger.PULSE, "Submitted async: {}", taskName);
         }
 
         return handle;
@@ -227,14 +241,14 @@ public class PulseScheduler {
     private void processSyncQueue() {
         Runnable task;
         int processed = 0;
-        int maxPerTick = 100; // 한 틱당 최대 처리량
+        int maxPerTick = config.getTickBatchSize(); // 한 틱당 최대 처리량
 
         while ((task = syncQueue.poll()) != null && processed < maxPerTick) {
             try {
                 task.run();
                 processed++;
             } catch (Exception e) {
-                System.err.println("[Pulse/Scheduler] Sync task error");
+                PulseLogger.error(PulseLogger.PULSE, "Sync task error");
                 e.printStackTrace();
             }
         }
@@ -250,7 +264,7 @@ public class PulseScheduler {
             }
 
             if (task.isReadyToExecute(currentTick)) {
-                task.execute();
+                task.execute(config.getExceptionPolicy());
 
                 if (!task.shouldContinue()) {
                     toRemove.add(task);

@@ -1,6 +1,8 @@
 package com.pulse.config;
 
 import com.google.gson.*;
+import com.pulse.api.log.PulseLogger;
+import com.pulse.api.PulseConstants;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -37,6 +39,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ConfigManager {
 
+    private static final String LOG = PulseLogger.PULSE;
     private static final ConfigManager INSTANCE = new ConfigManager();
 
     // 등록된 설정 스펙
@@ -54,7 +57,7 @@ public class ConfigManager {
     private ConfigManager() {
         // 기본 설정 디렉토리: 게임 폴더/config
         String gameDir = System.getProperty("user.dir");
-        this.configDirectory = Paths.get(gameDir, "config");
+        this.configDirectory = Paths.get(gameDir, PulseConstants.CONFIG_DIR_NAME);
     }
 
     public static ConfigManager getInstance() {
@@ -115,7 +118,7 @@ public class ConfigManager {
         ConfigSpec spec = new ConfigSpec(configClass);
         specs.put(configClass, spec);
 
-        System.out.println("[Pulse/Config] Registered config: " + spec.getModId());
+        PulseLogger.debug(LOG, "Registered config: {}", spec.getModId());
 
         // 파일에서 로드 시도
         loadConfig(configClass);
@@ -127,7 +130,7 @@ public class ConfigManager {
     public void loadConfig(Class<?> configClass) {
         ConfigSpec spec = specs.get(configClass);
         if (spec == null) {
-            System.err.println("[Pulse/Config] Config not registered: " + configClass.getName());
+            PulseLogger.warn(LOG, "Config not registered: {}", configClass.getName());
             return;
         }
 
@@ -153,10 +156,10 @@ public class ConfigManager {
                 }
             }
 
-            System.out.println("[Pulse/Config] Loaded: " + configFile.getFileName());
+            PulseLogger.debug(LOG, "Loaded: {}", configFile.getFileName());
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Config] Failed to load " + configFile + ": " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to load {}: {}", configFile, e.getMessage());
             // 로드 실패 시 기본값 유지
         }
     }
@@ -167,7 +170,7 @@ public class ConfigManager {
     public void saveConfig(Class<?> configClass) {
         ConfigSpec spec = specs.get(configClass);
         if (spec == null) {
-            System.err.println("[Pulse/Config] Config not registered: " + configClass.getName());
+            PulseLogger.warn(LOG, "Config not registered: {}", configClass.getName());
             return;
         }
 
@@ -199,10 +202,10 @@ public class ConfigManager {
             String json = gson.toJson(root);
             Files.writeString(configFile, json, StandardCharsets.UTF_8);
 
-            System.out.println("[Pulse/Config] Saved: " + configFile.getFileName());
+            PulseLogger.debug(LOG, "Saved: {}", configFile.getFileName());
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Config] Failed to save " + configFile + ": " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to save {}: {}", configFile, e.getMessage());
             e.printStackTrace();
         }
     }
@@ -271,7 +274,7 @@ public class ConfigManager {
             return gson.fromJson(element, type);
 
         } catch (Exception e) {
-            System.err.println("[Pulse/Config] Failed to parse value: " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to parse value: {}", e.getMessage());
             return null;
         }
     }

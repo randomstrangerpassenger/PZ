@@ -129,10 +129,7 @@ public class PulseEventAdapter {
         return renderProfiler;
     }
 
-    // ============================================================
-    // 수동 호출용 API (Legacy - Mixin 사용 시 또는 테스팅용)
-    // GameTickEvent 기반 onTick(deltaTimeMs)를 사용 권장
-    // ============================================================
+    // --- Legacy Manual API ---
 
     /**
      * 틱 시작 시 호출 (수동)

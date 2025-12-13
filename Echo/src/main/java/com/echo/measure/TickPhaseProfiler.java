@@ -20,9 +20,7 @@ public class TickPhaseProfiler {
 
     private static final TickPhaseProfiler INSTANCE = new TickPhaseProfiler();
 
-    // ============================================================
-    // TickPhase Enum
-    // ============================================================
+    // --- TickPhase Enum ---
 
     public enum TickPhase {
         AI_PHASE("AI Phase", "#FF6B6B"),
@@ -48,9 +46,7 @@ public class TickPhaseProfiler {
         }
     }
 
-    // ============================================================
-    // PhaseTimingData - 단계별 타이밍 데이터
-    // ============================================================
+    // --- PhaseTimingData - 단계별 타이밍 데이터 ---
 
     public static class PhaseTimingData {
         private final TickPhase phase;
@@ -137,9 +133,7 @@ public class TickPhaseProfiler {
         }
     }
 
-    // ============================================================
-    // 필드
-    // ============================================================
+    // --- 필드 ---
 
     private final Map<TickPhase, PhaseTimingData> phaseTimings = new EnumMap<>(TickPhase.class);
     private final Map<TickPhase, Long> activeStarts = new EnumMap<>(TickPhase.class);
@@ -157,9 +151,7 @@ public class TickPhaseProfiler {
         return INSTANCE;
     }
 
-    // ============================================================
-    // 측정 API
-    // ============================================================
+    // --- 측정 API ---
 
     /**
      * Phase 측정 시작
@@ -227,9 +219,7 @@ public class TickPhaseProfiler {
         currentTickPhases.clear();
     }
 
-    // ============================================================
-    // 조회 API
-    // ============================================================
+    // --- 조회 API ---
 
     public boolean isEnabled() {
         return EchoConfig.getInstance().isDeepAnalysisEnabled();

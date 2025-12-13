@@ -239,9 +239,7 @@ public class BottleneckDetector implements IBottleneckDetector {
         return map;
     }
 
-    // ============================================================
-    // 헬퍼 메서드
-    // ============================================================
+    // --- 헬퍼 메서드 ---
 
     private BottleneckType classifyBottleneck(ProfilingPoint point, double ratio) {
         return switch (point) {
@@ -289,9 +287,7 @@ public class BottleneckDetector implements IBottleneckDetector {
         };
     }
 
-    // ============================================================
-    // 내부 클래스
-    // ============================================================
+    // --- 내부 클래스 ---
 
     public static class Bottleneck {
         public final String name;

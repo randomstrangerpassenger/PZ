@@ -131,9 +131,7 @@ public class RenderMetrics implements IRenderMetrics {
         this.gpuTimeMs = gpuMs;
     }
 
-    // ============================================================
-    // Getters
-    // ============================================================
+    // --- Getters ---
 
     public long getFrameDrawCalls() {
         return frameDrawCalls;

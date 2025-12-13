@@ -26,9 +26,7 @@ public class EchoConfig {
 
     private static EchoConfig instance;
 
-    // ============================================================
-    // 설정 필드
-    // ============================================================
+    // --- Config Fields ---
 
     /** 설정 버전 (마이그레이션용) */
     private int configVersion = 1;
@@ -57,9 +55,7 @@ public class EchoConfig {
     /** IsoGrid 상세 분석 (Lighting/Recalc) */
     private boolean enableIsoGridDetails = false;
 
-    // ============================================================
-    // 기타 설정
-    // ============================================================
+    // --- Other Settings ---
 
     /** 게임 시작 시 자동으로 프로파일링 시작 */
     private boolean autoStartProfiling = true;
@@ -79,9 +75,7 @@ public class EchoConfig {
     /** Top N 함수 표시 수 */
     private int topNFunctions = EchoConstants.DEFAULT_TOP_N;
 
-    // ============================================================
-    // v0.9.0 Zero-Risk Engine 설정
-    // ============================================================
+    // --- Zero-Risk Engine (v0.9.0) ---
 
     /**
      * Fallback tick 허용 (디버그 전용, 기본 OFF)
@@ -110,9 +104,7 @@ public class EchoConfig {
     /** fallback tick이 사용되었는지 (런타임 상태) */
     private transient boolean usedFallbackTicks = false;
 
-    // ============================================================
-    // Singleton
-    // ============================================================
+    // --- Singleton ---
 
     public EchoConfig() {
     }
@@ -144,9 +136,7 @@ public class EchoConfig {
         return instance;
     }
 
-    // ============================================================
-    // 로드/저장
-    // ============================================================
+    // --- Load/Save ---
 
     /**
      * 설정 파일 로드
@@ -170,7 +160,7 @@ public class EchoConfig {
                     // 마이그레이션 로직이 필요하면 여기에 추가
                 }
 
-                // this.configVersion = this.configVersion; // Keep current version (no-op)
+                // Migrate if needed
                 this.spikeThresholdMs = loaded.spikeThresholdMs;
                 this.coreProfilingEnabled = loaded.coreProfilingEnabled;
                 this.deepAnalysisEnabled = loaded.deepAnalysisEnabled;
@@ -297,9 +287,7 @@ public class EchoConfig {
         return fixCount;
     }
 
-    // ============================================================
-    // Getters / Setters
-    // ============================================================
+    // --- Getters/Setters ---
 
     public int getConfigVersion() {
         return configVersion;
@@ -417,9 +405,7 @@ public class EchoConfig {
         this.topNFunctions = topNFunctions;
     }
 
-    // ============================================================
-    // v0.9.0 Zero-Risk Engine Getters / Setters
-    // ============================================================
+    // --- Zero-Risk Engine Getters/Setters ---
 
     public boolean isAllowFallbackTicks() {
         return allowFallbackTicks;

@@ -24,9 +24,7 @@ public class FreezeDetector {
     // Watchdog 체크 주기 (100ms)
     private static final long CHECK_INTERVAL_MS = 100;
 
-    // ============================================================
-    // 스냅샷 데이터 구조
-    // ============================================================
+    // --- 스냅샷 데이터 구조 ---
 
     public static class FreezeSnapshot {
         public long timestamp;
@@ -93,9 +91,7 @@ public class FreezeDetector {
         }
     }
 
-    // ============================================================
-    // 필드
-    // ============================================================
+    // --- 필드 ---
 
     private final AtomicLong lastTickTime = new AtomicLong(System.currentTimeMillis());
     private final AtomicBoolean isRunning = new AtomicBoolean(false);
@@ -115,9 +111,7 @@ public class FreezeDetector {
         return INSTANCE;
     }
 
-    // ============================================================
-    // 제어 API
-    // ============================================================
+    // --- 제어 API ---
 
     /**
      * 감지기 시작
@@ -181,9 +175,7 @@ public class FreezeDetector {
         com.echo.validation.SelfValidation.getInstance().freezeCheckHeartbeat();
     }
 
-    // ============================================================
-    // Watchdog 로직
-    // ============================================================
+    // --- Watchdog 로직 ---
 
     private void watchdogLoop() {
         while (isRunning.get()) {
@@ -228,9 +220,7 @@ public class FreezeDetector {
         }
     }
 
-    // ============================================================
-    // 조회 API
-    // ============================================================
+    // --- 조회 API ---
 
     public List<FreezeSnapshot> getRecentFreezes() {
         synchronized (recentFreezes) {

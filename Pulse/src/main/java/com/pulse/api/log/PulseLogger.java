@@ -37,7 +37,7 @@ public final class PulseLogger {
     private PulseLogger() {
     }
 
-    // === 로거 관리 ===
+    // --- 로거 관리---
 
     /**
      * 모듈별 로거를 가져오거나 생성합니다.
@@ -69,7 +69,7 @@ public final class PulseLogger {
         return globalLevel;
     }
 
-    // === 정적 로깅 메서드 ===
+    // --- 정적 로깅 메서드---
 
     public static void trace(String module, String message) {
         getLogger(module).trace(message);
@@ -127,7 +127,7 @@ public final class PulseLogger {
         getLogger(module).error(message, t);
     }
 
-    // === 모듈별 상수 ===
+    // --- 모듈별 상수---
 
     /** Pulse 코어 모듈 */
     public static final String PULSE = "Pulse";
@@ -141,7 +141,7 @@ public final class PulseLogger {
     /** Nerve 모니터링 모듈 */
     public static final String NERVE = "Nerve";
 
-    // === 디버그 전용 헬퍼 ===
+    // --- 디버그 전용 헬퍼---
 
     /**
      * 디버그 레벨이 활성화되어 있는지 확인.

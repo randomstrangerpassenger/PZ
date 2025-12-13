@@ -38,7 +38,7 @@ public interface PulseLoggerInterface {
      */
     boolean isEnabled(PulseLogLevel level);
 
-    // === 편의 메서드 ===
+    // --- 편의 메서드---
 
     default void trace(String message) {
         log(PulseLogLevel.TRACE, message);
@@ -96,7 +96,7 @@ public interface PulseLoggerInterface {
         log(PulseLogLevel.ERROR, message, throwable);
     }
 
-    // === 향후 MDC 컨텍스트 확장용 (Phase 1에서는 미구현) ===
+    // --- 향후 MDC 컨텍스트 확장용 (Phase 1에서는 미구현)---
     // default void setContext(String key, String value) {}
     // default void clearContext() {}
 }

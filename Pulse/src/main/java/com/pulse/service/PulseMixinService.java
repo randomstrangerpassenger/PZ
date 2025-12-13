@@ -48,7 +48,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
         PulseLogger.debug(LOG, "PulseMixinService instantiated");
     }
 
-    // ================= ClassLoader 관리 =================
+    // --- ClassLoader Management ---
 
     private ClassLoader getEffectiveClassLoader() {
         // 1순위: 게임 클래스 로더
@@ -67,7 +67,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
         return ClassLoader.getSystemClassLoader();
     }
 
-    // ================= IMixinService 구현 =================
+    // --- IMixinService ---
 
     @Override
     public String getName() {
@@ -247,7 +247,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
         return new MixinLogger(name);
     }
 
-    // ================= IClassProvider 구현 =================
+    // --- IClassProvider ---
 
     @Override
     public Class<?> findClass(String name) throws ClassNotFoundException {
@@ -273,7 +273,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
         return new URL[0];
     }
 
-    // ================= IClassBytecodeProvider 구현 =================
+    // --- IClassBytecodeProvider ---
 
     @Override
     public ClassNode getClassNode(String name) throws ClassNotFoundException, IOException {
@@ -302,7 +302,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
         }
     }
 
-    // ================= Pulse 전용 메서드 =================
+    // --- Pulse Methods ---
 
     /**
      * Mixin transformer 반환 (PulseClassTransformer에서 사용)

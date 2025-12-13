@@ -172,9 +172,7 @@ public class FallbackTickEmitter {
         fallbackTickCount.set(0);
     }
 
-    // ============================================================
-    // 조회 API
-    // ============================================================
+    // --- 조회 API ---
 
     public boolean isFallbackActive() {
         return fallbackActive.get();

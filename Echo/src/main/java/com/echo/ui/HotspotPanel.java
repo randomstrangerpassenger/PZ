@@ -27,9 +27,7 @@ import java.util.Map;
  */
 public class HotspotPanel extends HUDOverlay.HUDLayer {
 
-    // ============================================================
-    // 상수
-    // ============================================================
+    // --- 상수 ---
 
     /** 패널 레이어 ID */
     public static final String LAYER_ID = "echo_hotspot_panel";
@@ -54,23 +52,17 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
     // 시간 포맷
     private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    // ============================================================
-    // 싱글톤 인스턴스
-    // ============================================================
+    // --- 싱글톤 인스턴스 ---
 
     private static HotspotPanel INSTANCE;
 
-    // ============================================================
-    // 인스턴스 필드
-    // ============================================================
+    // --- 인스턴스 필드 ---
 
     /** 패널 위치 */
     private int panelX = 170;
     private int panelY = 10;
 
-    // ============================================================
-    // 캐시
-    // ============================================================
+    // --- 캐시 ---
 
     private long lastCacheUpdate = 0;
 
@@ -93,9 +85,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
     private int cachedLuaCount = 0;
     private String cachedLuaSummary = "";
 
-    // ============================================================
-    // 생성자 및 등록
-    // ============================================================
+    // --- 생성자 및 등록 ---
 
     private HotspotPanel() {
         // Private constructor for singleton
@@ -134,9 +124,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
         return INSTANCE;
     }
 
-    // ============================================================
-    // HUDLayer 구현
-    // ============================================================
+    // --- HUDLayer 구현 ---
 
     @Override
     public void render(UIRenderContext ctx) {
@@ -158,9 +146,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
         // Panel은 render에서 캐시 갱신하므로 별도 업데이트 불필요
     }
 
-    // ============================================================
-    // 캐시 갱신
-    // ============================================================
+    // --- 캐시 갱신 ---
 
     /**
      * 캐시 갱신 (1초마다)
@@ -317,9 +303,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
         }
     }
 
-    // ============================================================
-    // 렌더링 (UIRenderContext 사용)
-    // ============================================================
+    // --- 렌더링 (UIRenderContext 사용) ---
 
     /**
      * 패널 렌더링 (Pulse UI API 사용)
@@ -345,7 +329,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
 
         y += PADDING;
 
-        // === Last 5 Seconds ===
+        // --- Last 5 Seconds---
         ctx.drawText("━━ Last 5 Seconds ━━", panelX + PADDING, y, EchoTheme.TEXT_HIGHLIGHT);
         y += LINE_HEIGHT;
 
@@ -358,7 +342,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
 
         y += SECTION_GAP;
 
-        // === Last 60 Seconds ===
+        // --- Last 60 Seconds---
         ctx.drawText("━━ Last 60 Seconds ━━", panelX + PADDING, y, EchoTheme.TEXT_HIGHLIGHT);
         y += LINE_HEIGHT;
 
@@ -371,7 +355,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
 
         y += SECTION_GAP;
 
-        // === Recent Spikes ===
+        // --- Recent Spikes---
         ctx.drawText("━━ Recent Spikes ━━", panelX + PADDING, y, EchoTheme.TEXT_HIGHLIGHT);
         y += LINE_HEIGHT;
 
@@ -390,7 +374,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
 
         y += SECTION_GAP;
 
-        // === Lua Status ===
+        // --- Lua Status---
         ctx.drawText("━━ Lua Status ━━", panelX + PADDING, y, EchoTheme.TEXT_HIGHLIGHT);
         y += LINE_HEIGHT;
 
@@ -405,9 +389,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
         }
     }
 
-    // ============================================================
-    // 유틸리티
-    // ============================================================
+    // --- 유틸리티 ---
 
     private String truncate(String str, int maxLen) {
         if (str == null)
@@ -444,9 +426,7 @@ public class HotspotPanel extends HUDOverlay.HUDLayer {
         };
     }
 
-    // ============================================================
-    // 설정
-    // ============================================================
+    // --- 설정 ---
 
     public void setPosition(int x, int y) {
         this.panelX = x;

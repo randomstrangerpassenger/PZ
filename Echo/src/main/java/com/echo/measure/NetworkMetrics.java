@@ -111,9 +111,7 @@ public class NetworkMetrics implements INetworkMetrics {
         }
     }
 
-    // ============================================================
-    // Getters
-    // ============================================================
+    // --- Getters ---
 
     public double getCurrentPingMs() {
         return currentPingMs;

@@ -21,9 +21,7 @@ public class EchoProfiler {
 
     private static EchoProfiler INSTANCE = new EchoProfiler();
 
-    // ============================================================
-    // Phase 1 최적화: Main Thread Fast-Path
-    // ============================================================
+    // --- Main Thread Fast-Path ---
 
     // 메인 스레드 (Fast-Path용)
     private static volatile Thread mainThread = null;
@@ -31,9 +29,7 @@ public class EchoProfiler {
     // 메인 스레드 전용 스택 (ThreadLocal 우회)
     private final Deque<ProfilingFrame> mainThreadStack = new ArrayDeque<>();
 
-    // ============================================================
-    // Core Fields
-    // ============================================================
+    // --- Core Fields ---
 
     // 스레드별 프로파일링 스택 (메인 스레드 외)
     private final ThreadLocal<Deque<ProfilingFrame>> frameStack = ThreadLocal.withInitial(ArrayDeque::new);
@@ -114,9 +110,7 @@ public class EchoProfiler {
         INSTANCE = new EchoProfiler();
     }
 
-    /**
-     * 메인 스레드 설정
-     */
+    /** 메인 스레드 설정 */
     public static void setMainThread(Thread thread) {
         mainThread = thread;
         System.out.println("[Echo] Main thread set: " + thread.getName());
@@ -140,9 +134,7 @@ public class EchoProfiler {
         return scopePool.get();
     }
 
-    // ============================================================
-    // 핵심 API: push / pop
-    // ============================================================
+    // --- Core API: push / pop ---
 
     public long push(ProfilingPoint point) {
         if (!enabled)
@@ -210,9 +202,7 @@ public class EchoProfiler {
         return getScopePool().acquire(point, this);
     }
 
-    // ============================================================
-    // Phase 1: Low-Level Raw API (완전 Zero-Allocation)
-    // ============================================================
+    // --- Raw API (Zero-Allocation) ---
 
     public long startRaw(ProfilingPoint point) {
         if (!enabled)
@@ -260,9 +250,7 @@ public class EchoProfiler {
         spikeLog.logSpike(elapsedMicros, point, label);
     }
 
-    // ============================================================
-    // 제어 API
-    // ============================================================
+    // --- Control API ---
 
     public void enable() {
         enable(true);
@@ -378,9 +366,7 @@ public class EchoProfiler {
         return metricCollector;
     }
 
-    // ============================================================
-    // 편의 메서드
-    // ============================================================
+    // --- Utility ---
 
     public int getCurrentStackDepth() {
         return getFrameStack().size();

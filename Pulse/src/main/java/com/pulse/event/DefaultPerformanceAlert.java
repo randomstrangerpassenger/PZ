@@ -37,9 +37,7 @@ public class DefaultPerformanceAlert implements PerformanceAlertEvent {
         this(alertType, severity, message, ThreadContext.MAIN, sourceId);
     }
 
-    // ============================================================
-    // PerformanceAlertEvent 구현
-    // ============================================================
+    // --- PerformanceAlertEvent 구현 ---
 
     @Override
     public AlertType getAlertType() {
@@ -71,9 +69,7 @@ public class DefaultPerformanceAlert implements PerformanceAlertEvent {
         return sourceId;
     }
 
-    // ============================================================
-    // IPulseEvent 구현
-    // ============================================================
+    // --- IPulseEvent 구현 ---
 
     @Override
     public String getEventName() {
@@ -95,9 +91,7 @@ public class DefaultPerformanceAlert implements PerformanceAlertEvent {
         this.cancelled = true;
     }
 
-    // ============================================================
-    // 유틸리티 메서드
-    // ============================================================
+    // --- 유틸리티 메서드 ---
 
     /**
      * 심각도가 높음인지 확인 (>= 0.7)
@@ -119,9 +113,7 @@ public class DefaultPerformanceAlert implements PerformanceAlertEvent {
                 alertType, severity, sourceId, threadContext, message);
     }
 
-    // ============================================================
-    // Factory 메서드
-    // ============================================================
+    // --- Factory 메서드 ---
 
     /**
      * LAG_SPIKE 경보 생성

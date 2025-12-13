@@ -11,9 +11,7 @@ package com.echo.measure;
  */
 public enum ProfilingPoint {
 
-    // ============================================================
-    // CORE - 핵심 게임 루프
-    // ============================================================
+    // --- CORE - 핵심 게임 루프 ---
 
     /** 전체 게임 틱 */
     TICK(Category.CORE, "Game Tick"),
@@ -21,9 +19,7 @@ public enum ProfilingPoint {
     /** 전체 렌더링 프레임 */
     FRAME(Category.CORE, "Render Frame"),
 
-    // ============================================================
-    // SUBSYSTEM - 주요 서브시스템
-    // ============================================================
+    // --- SUBSYSTEM - 주요 서브시스템 ---
 
     /** 렌더링 서브시스템 */
     RENDER(Category.SUBSYSTEM, "Rendering"),
@@ -55,9 +51,7 @@ public enum ProfilingPoint {
     /** 청크 로딩/저장 */
     CHUNK_IO(Category.SUBSYSTEM, "Chunk I/O"),
 
-    // ============================================================
-    // LUA - Lua 관련 (On-Demand)
-    // ============================================================
+    // --- LUA - Lua 관련 (On-Demand) ---
 
     /** Lua 이벤트 디스패치 */
     LUA_EVENT(Category.LUA, "Lua Event"),
@@ -68,9 +62,7 @@ public enum ProfilingPoint {
     /** Lua 가비지 컬렉션 */
     LUA_GC(Category.LUA, "Lua GC"),
 
-    // ============================================================
-    // CUSTOM - 사용자/모드 정의
-    // ============================================================
+    // --- CUSTOM - 사용자/모드 정의 ---
 
     /** 모드 초기화 */
     MOD_INIT(Category.CUSTOM, "Mod Initialization"),
@@ -85,16 +77,12 @@ public enum ProfilingPoint {
     CUSTOM_4(Category.CUSTOM, "Custom 4"),
     CUSTOM_5(Category.CUSTOM, "Custom 5"),
 
-    // ============================================================
-    // INTERNAL - 프로파일러 내부 진단 (Phase 4)
-    // ============================================================
+    // --- INTERNAL - 프로파일러 내부 진단 (Phase 4) ---
 
     /** Echo 프로파일러 자체 오버헤드 (메타 프로파일링) */
     ECHO_OVERHEAD(Category.INTERNAL, "Echo Overhead");
 
-    // ============================================================
-    // 필드 및 메서드
-    // ============================================================
+    // --- 필드 및 메서드 ---
 
     private final Category category;
     private final String displayName;
@@ -133,9 +121,7 @@ public enum ProfilingPoint {
         return category == Category.INTERNAL;
     }
 
-    // ============================================================
-    // 카테고리 열거형
-    // ============================================================
+    // --- 카테고리 열거형 ---
 
     public enum Category {
         CORE("Core", "#FF6B6B"),

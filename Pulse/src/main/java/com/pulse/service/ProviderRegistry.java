@@ -139,9 +139,7 @@ public class ProviderRegistry implements IProviderRegistry {
                 .anyMatch(p -> type.isAssignableFrom(p.getClass()) && p.isEnabled());
     }
 
-    // ============================================================
-    // 추가 기능
-    // ============================================================
+    // --- 추가 기능 ---
 
     /**
      * 콜백 등록

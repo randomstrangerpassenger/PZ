@@ -252,9 +252,7 @@ public class SpikeLog {
         worstSpikeLabel = "";
     }
 
-    // ============================================================
-    // 스파이크 엔트리
-    // ============================================================
+    // --- 스파이크 엔트리 ---
 
     public static class SpikeEntry {
         private final Instant timestamp;

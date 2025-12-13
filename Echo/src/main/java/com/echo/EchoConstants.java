@@ -9,16 +9,12 @@ public final class EchoConstants {
         // 상수 클래스
     }
 
-    // ============================================================
-    // 버전
-    // ============================================================
+    // --- Version ---
 
     /** 현재 Echo 버전 */
     public static final String VERSION = "0.8.0";
 
-    // ============================================================
-    // 스파이크 감지
-    // ============================================================
+    // --- Spike Detection ---
 
     /** 기본 스파이크 임계값 (ms) - 30fps 기준 2프레임 */
     public static final double DEFAULT_SPIKE_THRESHOLD_MS = 33.33;
@@ -29,9 +25,7 @@ public final class EchoConstants {
     /** 스파이크 스택 캡처 최대 깊이 */
     public static final int SPIKE_MAX_STACK_DEPTH = 10;
 
-    // ============================================================
-    // 히스토그램
-    // ============================================================
+    // --- Histogram ---
 
     /** 히스토그램 최근 샘플 버퍼 크기 */
     public static final int HISTOGRAM_SAMPLE_BUFFER = 1000;
@@ -41,9 +35,7 @@ public final class EchoConstants {
             0, 5, 10, 16.67, 20, 33.33, 50, 100, 200
     };
 
-    // ============================================================
-    // 롤링 통계
-    // ============================================================
+    // --- Rolling Stats ---
 
     /** 초당 예상 샘플 수 (60 FPS 기준) */
     public static final int SAMPLES_PER_SECOND = 60;
@@ -57,16 +49,12 @@ public final class EchoConstants {
     /** 60초 윈도우 샘플 수 */
     public static final int ROLLING_WINDOW_60S = SAMPLES_PER_SECOND * 60;
 
-    // ============================================================
-    // 객체 풀
-    // ============================================================
+    // --- Object Pool ---
 
     /** ProfilingScope 풀 크기 */
     public static final int SCOPE_POOL_SIZE = 16;
 
-    // ============================================================
-    // 리포트
-    // ============================================================
+    // --- Report ---
 
     /** 기본 Top N 함수 표시 수 */
     public static final int DEFAULT_TOP_N = 10;
@@ -77,9 +65,7 @@ public final class EchoConstants {
     /** 기본 테스트 결과 저장 경로 */
     public static final String DEFAULT_TEST_DIR = "./echo_tests";
 
-    // ============================================================
-    // 타임아웃 및 캐시
-    // ============================================================
+    // --- Timeout & Cache ---
 
     /** Lua 통계 캐시 TTL (ms) */
     public static final long LUA_CACHE_TTL_MS = 1000;

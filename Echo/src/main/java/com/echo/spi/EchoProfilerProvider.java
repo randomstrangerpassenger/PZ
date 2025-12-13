@@ -23,9 +23,7 @@ public class EchoProfilerProvider implements IProfilerProvider {
         this.profiler = EchoProfiler.getInstance();
     }
 
-    // ============================================================
-    // IProvider 기본 메서드
-    // ============================================================
+    // --- IProvider 기본 메서드 ---
 
     @Override
     public String getId() {
@@ -69,9 +67,7 @@ public class EchoProfilerProvider implements IProfilerProvider {
         return enabled;
     }
 
-    // ============================================================
-    // IProfilerProvider 구현
-    // ============================================================
+    // --- IProfilerProvider 구현 ---
 
     @Override
     public void onTickStart() {
@@ -148,9 +144,7 @@ public class EchoProfilerProvider implements IProfilerProvider {
         System.out.println("[Echo] Profiling data reset");
     }
 
-    // ============================================================
-    // Echo 전용 확장 메서드
-    // ============================================================
+    // --- Echo 전용 확장 메서드 ---
 
     /**
      * 내부 EchoProfiler 인스턴스 접근

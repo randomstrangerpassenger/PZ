@@ -69,9 +69,7 @@ public class EchoReportTest {
         // If stub returns valid TimingData, we can check content
     }
 
-    // ============================================================
-    // Golden Master Tests for Phase 2 Refactoring Safety
-    // ============================================================
+    // --- Golden Master Tests for Phase 2 Refactoring Safety ---
 
     /**
      * Golden Master Test: JSON 구조 안정성 검증.

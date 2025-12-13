@@ -11,9 +11,7 @@ public final class EchoTheme {
         // Utility class
     }
 
-    // ============================================================
-    // 상태 색상 (부드러운 팔레트)
-    // ============================================================
+    // --- Status Colors ---
 
     /** 양호 상태 (청록) - FPS ≥55, Frame Time ≤16.67ms */
     public static final int GOOD = 0x4ECDC4;
@@ -24,9 +22,7 @@ public final class EchoTheme {
     /** 위험 상태 (연한 빨강) - FPS <30, Frame Time >33.33ms */
     public static final int CRITICAL = 0xFF6B6B;
 
-    // ============================================================
-    // 기본 색상
-    // ============================================================
+    // --- Base Colors ---
 
     /** 기본 텍스트 색상 (흰색) */
     public static final int TEXT = 0xFFFFFF;
@@ -46,9 +42,7 @@ public final class EchoTheme {
     /** 패널 테두리 색상 */
     public static final int BORDER = 0x555555;
 
-    // ============================================================
-    // 서브시스템 색상 (Hotspot 표시용)
-    // ============================================================
+    // --- Subsystem Colors ---
 
     /** 렌더링 시스템 색상 */
     public static final int SUBSYSTEM_RENDER = 0x6C5CE7;
@@ -71,9 +65,7 @@ public final class EchoTheme {
     /** 기타 시스템 색상 */
     public static final int SUBSYSTEM_OTHER = 0x95A5A6;
 
-    // ============================================================
-    // 유틸리티 메서드
-    // ============================================================
+    // --- Utility ---
 
     /**
      * 등급에 따른 색상 반환
@@ -123,9 +115,7 @@ public final class EchoTheme {
         return CRITICAL;
     }
 
-    // ============================================================
-    // UIRenderContext 호환 메서드
-    // ============================================================
+    // --- UIRenderContext Compatibility ---
 
     /**
      * 배경 RGB 색상 반환 (UIRenderContext용)

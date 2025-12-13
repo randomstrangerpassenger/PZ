@@ -24,9 +24,7 @@ public class SubProfiler {
 
     private static final SubProfiler INSTANCE = new SubProfiler();
 
-    // ============================================================
-    // SubLabel - Tick 내부 측정 라벨
-    // ============================================================
+    // --- SubLabel ---
 
     /**
      * Wave 1: 최소 핵심 포인트 (3~5개)
@@ -132,9 +130,7 @@ public class SubProfiler {
         }
     }
 
-    // ============================================================
-    // SubTimingData - 경량 타이밍 데이터
-    // ============================================================
+    // --- SubTimingData ---
 
     public static class SubTimingData {
         private final SubLabel label;
@@ -217,9 +213,7 @@ public class SubProfiler {
         }
     }
 
-    // ============================================================
-    // 필드
-    // ============================================================
+    // --- Fields ---
 
     private final Map<SubLabel, SubTimingData> subTimings = new ConcurrentHashMap<>();
     private final Map<SubLabel, Long> activeStarts = new ConcurrentHashMap<>();
@@ -235,9 +229,7 @@ public class SubProfiler {
         return INSTANCE;
     }
 
-    // ============================================================
-    // 측정 API
-    // ============================================================
+    // --- Measurement API ---
 
     /**
      * 서브타이밍 측정 시작
@@ -302,9 +294,7 @@ public class SubProfiler {
         }
     }
 
-    // ============================================================
-    // 조회 API
-    // ============================================================
+    // --- Query API ---
 
     /**
      * SubTiming 활성화 여부

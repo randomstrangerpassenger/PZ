@@ -21,7 +21,7 @@ public class PulseEnvironment {
     private static boolean initialized = false;
     private static boolean mixinReady = false;
 
-    // ================= Game ClassLoader =================
+    // --- Game ClassLoader ---
 
     public static void setGameClassLoader(ClassLoader cl) {
         if (gameClassLoader == null && cl != null) {
@@ -35,7 +35,7 @@ public class PulseEnvironment {
         return gameClassLoader;
     }
 
-    // ================= Mixin Transformer =================
+    // --- Mixin Transformer ---
 
     public static void setMixinTransformer(IMixinTransformer transformer) {
         if (mixinTransformer == null && transformer != null) {
@@ -54,7 +54,7 @@ public class PulseEnvironment {
         return mixinReady;
     }
 
-    // ================= Instrumentation =================
+    // --- Instrumentation ---
 
     public static void setInstrumentation(java.lang.instrument.Instrumentation inst) {
         instrumentation = inst;
@@ -65,7 +65,7 @@ public class PulseEnvironment {
         return instrumentation;
     }
 
-    // ================= Lifecycle =================
+    // --- Lifecycle ---
 
     public static void markInitialized() {
         initialized = true;
@@ -76,7 +76,7 @@ public class PulseEnvironment {
         return initialized;
     }
 
-    // ================= Development Mode =================
+    // --- Development Mode ---
 
     private static volatile Boolean developmentModeCache = null;
 
@@ -131,7 +131,7 @@ public class PulseEnvironment {
         developmentModeCache = null;
     }
 
-    // ================= Debug Info =================
+    // --- Debug Info ---
 
     public static void printStatus() {
         PulseLogger.info(PulseLogger.PULSE, "==================================================");

@@ -168,9 +168,7 @@ public class ExtendedCorrelationAnalyzer {
         lastTickTime = System.currentTimeMillis();
     }
 
-    // ============================================================
-    // 내부 클래스
-    // ============================================================
+    // --- 내부 클래스 ---
 
     private static class CorrelationBuffer {
         private final double[] xBuffer;

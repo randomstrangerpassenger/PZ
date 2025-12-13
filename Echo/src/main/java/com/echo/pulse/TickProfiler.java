@@ -87,9 +87,7 @@ public class TickProfiler {
         }
     }
 
-    // ============================================================
-    // v0.9: Start/End Event-Based Profiling (Primary API)
-    // ============================================================
+    // --- v0.9: Start/End Event-Based Profiling (Primary API) ---
 
     /**
      * 틱 시작 시 호출 (GameTickStartEvent)
@@ -197,9 +195,7 @@ public class TickProfiler {
                 tickCount, durationMs, spikeThresholdMicros / 1000.0);
     }
 
-    // ============================================================
-    // 설정 및 조회
-    // ============================================================
+    // --- 설정 및 조회 ---
 
     /**
      * 스파이크 임계값 설정 (밀리초)

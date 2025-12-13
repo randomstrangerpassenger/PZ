@@ -97,9 +97,7 @@ public class EchoMonitorServer {
         return running;
     }
 
-    // ============================================================
-    // HTTP Handlers
-    // ============================================================
+    // --- HTTP Handlers ---
 
     private static class RootHandler implements HttpHandler {
         @Override
@@ -175,9 +173,7 @@ public class EchoMonitorServer {
         }
     }
 
-    // ============================================================
-    // Utility Methods
-    // ============================================================
+    // --- Utility Methods ---
 
     private static void sendJsonResponse(HttpExchange exchange, Object data) throws IOException {
         String json = GSON.toJson(data);

@@ -142,9 +142,7 @@ public class ReportQualityScorer {
         return "normal";
     }
 
-    // ============================================================
-    // Result Class
-    // ============================================================
+    // --- Result Class ---
 
     public static class QualityResult {
         public int score = 100;

@@ -13,7 +13,7 @@ public final class GameClassRegistry {
     private GameClassRegistry() {
     }
 
-    // === IsoWorld 관련 ===
+    // --- IsoWorld 관련---
 
     /** zombie.iso.IsoWorld */
     public static final String ISO_WORLD = "zombie.iso.IsoWorld";
@@ -27,7 +27,7 @@ public final class GameClassRegistry {
     /** zombie.iso.IsoChunk */
     public static final String ISO_CHUNK = "zombie.iso.IsoChunk";
 
-    // === Character 관련 ===
+    // --- Character 관련---
 
     /** zombie.characters.IsoPlayer */
     public static final String ISO_PLAYER = "zombie.characters.IsoPlayer";
@@ -41,7 +41,7 @@ public final class GameClassRegistry {
     /** zombie.characters.IsoLivingCharacter */
     public static final String ISO_LIVING_CHARACTER = "zombie.characters.IsoLivingCharacter";
 
-    // === Core 관련 ===
+    // --- Core 관련---
 
     /** zombie.GameTime */
     public static final String GAME_TIME = "zombie.GameTime";
@@ -52,7 +52,7 @@ public final class GameClassRegistry {
     /** zombie.core.Core */
     public static final String CORE = "zombie.core.Core";
 
-    // === Network 관련 ===
+    // --- Network 관련---
 
     /** zombie.network.GameClient */
     public static final String GAME_CLIENT = "zombie.network.GameClient";
@@ -60,12 +60,12 @@ public final class GameClassRegistry {
     /** zombie.network.GameServer */
     public static final String GAME_SERVER = "zombie.network.GameServer";
 
-    // === UI 관련 ===
+    // --- UI 관련---
 
     /** zombie.ui.UIManager */
     public static final String UI_MANAGER = "zombie.ui.UIManager";
 
-    // === Pathfinding 관련 ===
+    // --- Pathfinding 관련---
 
     /** zombie.ai.astar.Mover */
     public static final String ASTAR_MOVER = "zombie.ai.astar.Mover";
@@ -73,7 +73,7 @@ public final class GameClassRegistry {
     /** zombie.ai.states.ZombiePathFindState */
     public static final String ZOMBIE_PATHFIND_STATE = "zombie.ai.states.ZombiePathFindState";
 
-    // === Lua 관련 ===
+    // --- Lua 관련---
 
     /** se.krka.kahlua.vm.KahluaTable */
     public static final String KAHLUA_TABLE = "se.krka.kahlua.vm.KahluaTable";

@@ -12,7 +12,7 @@ public final class UIConstants {
     private UIConstants() {
     }
 
-    // === 색상 (RGBA) ===
+    // --- 색상 (RGBA)---
 
     /** 기본 배경색 - 반투명 검정 */
     public static final float[] BG_DEFAULT = { 0f, 0f, 0f, 0.7f };
@@ -35,7 +35,7 @@ public final class UIConstants {
     /** 디버그 색상 - 회색 */
     public static final float[] TEXT_DEBUG = { 0.7f, 0.7f, 0.7f, 1f };
 
-    // === HUD 위치 ===
+    // --- HUD 위치---
 
     /** HUD 기본 오프셋 X */
     public static final int HUD_OFFSET_X = 10;
@@ -49,7 +49,7 @@ public final class UIConstants {
     /** HUD 패딩 */
     public static final int HUD_PADDING = 5;
 
-    // === 폰트 ===
+    // --- 폰트---
 
     /** 기본 폰트 크기 */
     public static final int FONT_SIZE_DEFAULT = 12;
@@ -60,7 +60,7 @@ public final class UIConstants {
     /** 작은 폰트 크기 */
     public static final int FONT_SIZE_SMALL = 10;
 
-    // === 애니메이션 ===
+    // --- 애니메이션---
 
     /** 페이드 인 시간 (ms) */
     public static final int FADE_IN_MS = 200;
@@ -71,7 +71,7 @@ public final class UIConstants {
     /** 알림 표시 시간 (ms) */
     public static final int NOTIFICATION_DURATION_MS = 3000;
 
-    // === 성능 표시 임계값 ===
+    // --- 성능 표시 임계값---
 
     /** FPS 경고 임계값 */
     public static final int FPS_WARNING_THRESHOLD = 30;
@@ -85,7 +85,7 @@ public final class UIConstants {
     /** 틱 위험 임계값 (ms) */
     public static final float TICK_CRITICAL_THRESHOLD_MS = 50f;
 
-    // === 그래프 ===
+    // --- 그래프---
 
     /** 그래프 너비 */
     public static final int GRAPH_WIDTH = 200;

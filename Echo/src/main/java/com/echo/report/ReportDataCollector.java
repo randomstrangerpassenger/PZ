@@ -52,8 +52,6 @@ public class ReportDataCollector {
     private final EnumMap<DataQualityFlag, Integer> qualityFlagCounts = new EnumMap<>(DataQualityFlag.class);
 
     // Phase 3: Analysis
-    // private final CorrelationAnalyzer correlationAnalyzer = new
-    // CorrelationAnalyzer();
 
     public ReportDataCollector(EchoProfiler profiler, int topN) {
         this.profiler = profiler;
@@ -74,7 +72,6 @@ public class ReportDataCollector {
     }
 
     public void onTick() {
-        // correlationAnalyzer.onTick();
         // Handled by PulseEventAdapter -> MetricCollector
     }
 

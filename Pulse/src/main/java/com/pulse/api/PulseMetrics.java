@@ -29,9 +29,7 @@ public final class PulseMetrics {
         // Utility class
     }
 
-    // ============================================================
-    // Public API (Echo PulseMetricsAdapter에서 reflection으로 호출)
-    // ============================================================
+    // --- Public API (Echo PulseMetricsAdapter에서 reflection으로 호출) ---
 
     /**
      * 현재 FPS
@@ -75,9 +73,7 @@ public final class PulseMetrics {
         return tps;
     }
 
-    // ============================================================
-    // Internal Update Methods (Pulse Mixin에서 호출)
-    // ============================================================
+    // --- Internal Update Methods (Pulse Mixin에서 호출) ---
 
     /**
      * 프레임 시작 시 호출.
@@ -138,9 +134,7 @@ public final class PulseMetrics {
         return System.nanoTime() - lastTickNanos;
     }
 
-    // ============================================================
-    // IPulseMetrics 누락 메서드 구현 (Phase 0)
-    // ============================================================
+    // --- IPulseMetrics 누락 메서드 구현 (Phase 0) ---
 
     /**
      * 현재 로드된 청크 수

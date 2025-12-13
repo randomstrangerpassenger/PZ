@@ -111,9 +111,7 @@ public class EchoCommands {
         }
     }
 
-    // ============================================================
-    // Command Handlers
-    // ============================================================
+    // --- Command Handlers ---
 
     private static void cmdHelp(String[] args) {
         System.out.println();

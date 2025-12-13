@@ -52,16 +52,12 @@ public class NerveMod {
         optimizer.update();
     }
 
-    /**
-     * 자동 최적화 토글
-     */
+    /** 자동 최적화 토글 */
     public void toggleAutoOptimize() {
         optimizer.toggleAutoOptimize();
     }
 
-    /**
-     * 현재 타겟에 대해 수동 최적화 적용
-     */
+    /** 현재 타겟에 수동 최적화 적용 */
     public void applyCurrentTarget() {
         var target = optimizer.getStatus().get("current_target");
         if (target != null) {
@@ -72,9 +68,7 @@ public class NerveMod {
         }
     }
 
-    /**
-     * 옵티마이저 상태 출력
-     */
+    /** 옵티마이저 상태 출력 */
     public void printStatus() {
         PulseLogger.info(LOG, "");
         PulseLogger.info(LOG, "╔═══════════════════════════════════════════════╗");

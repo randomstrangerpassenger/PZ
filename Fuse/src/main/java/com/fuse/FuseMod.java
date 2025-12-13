@@ -1,7 +1,6 @@
 package com.fuse;
 
 import com.fuse.optimizer.FuseOptimizer;
-import com.pulse.api.service.echo.OptimizationPriority;
 
 /**
  * Fuse - Performance Optimizer for Project Zomboid
@@ -51,16 +50,12 @@ public class FuseMod {
         optimizer.update();
     }
 
-    /**
-     * 자동 최적화 토글
-     */
+    /** 자동 최적화 토글 */
     public void toggleAutoOptimize() {
         optimizer.setAutoOptimize(!optimizer.isAutoOptimize());
     }
 
-    /**
-     * 현재 타겟에 대해 수동 최적화 적용
-     */
+    /** 현재 타겟에 수동 최적화 적용 */
     public void applyCurrentTarget() {
         var target = optimizer.getCurrentTarget();
         if (target != null) {
@@ -70,9 +65,7 @@ public class FuseMod {
         }
     }
 
-    /**
-     * 옵티마이저 상태 출력
-     */
+    /** 옵티마이저 상태 출력 */
     public void printStatus() {
         System.out.println();
         System.out.println("╔═══════════════════════════════════════════════╗");

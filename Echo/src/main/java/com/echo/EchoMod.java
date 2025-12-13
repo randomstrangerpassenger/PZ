@@ -27,25 +27,17 @@ public class EchoMod implements PulseMod {
         // PulseMod에서 인스턴스 관리
     }
 
-    /**
-     * PulseMod 인터페이스 구현 - 모드 초기화
-     */
     @Override
     public void onInitialize() {
         init();
     }
 
-    /**
-     * PulseMod 인터페이스 구현 - 모드 언로드
-     */
     @Override
     public void onUnload() {
         shutdown();
     }
 
-    /**
-     * 모드 초기화
-     */
+    /** 모드 초기화 */
     public static void init() {
         if (initialized) {
             System.out.println("[Echo] Already initialized, skipping...");
@@ -89,7 +81,7 @@ public class EchoMod implements PulseMod {
                 return true;
             }
         } catch (ClassNotFoundException e) {
-            // Pulse API 없음 - 폴백으로 PZ API 체크
+            // Pulse API unavailable
         } catch (Exception e) {
             System.out.println("[Echo] Warning: Failed to check Pulse API: " + e.getMessage());
         }
@@ -103,7 +95,7 @@ public class EchoMod implements PulseMod {
                 return true;
             }
         } catch (ClassNotFoundException e) {
-            // 개발 환경 - 서버 아님으로 간주
+            // Dev environment
         } catch (Exception e) {
             System.out.println("[Echo] Warning: Failed to check GameServer: " + e.getMessage());
         }
@@ -111,9 +103,7 @@ public class EchoMod implements PulseMod {
         return false;
     }
 
-    /**
-     * 내부 초기화 로직
-     */
+    /** 내부 초기화 로직 */
     private static void initInternal() {
         System.out.println();
         System.out.println("╔═══════════════════════════════════════════════╗");
@@ -195,8 +185,8 @@ public class EchoMod implements PulseMod {
                 System.out.println("[Echo] Registered as Pulse SPI provider");
             }
         } catch (ClassNotFoundException e) {
-            // Pulse API 없음 - 독립 모드로 동작
-            System.out.println("[Echo] Running in standalone mode (Pulse not detected)");
+            // Pulse API unavailable - standalone mode
+            System.out.println("[Echo] Running in standalone mode");
         } catch (Exception e) {
             System.out.println("[Echo] Warning: Failed to register SPI provider: " + e.getMessage());
         }
@@ -216,16 +206,14 @@ public class EchoMod implements PulseMod {
                     com.echo.analysis.BottleneckDetector.getInstance());
             System.out.println("[Echo] Registered services to PulseServiceLocator");
         } catch (NoClassDefFoundError e) {
-            // Pulse not available
-            System.out.println("[Echo] PulseServiceLocator not found, skipping service registration");
+            // Pulse unavailable
+            System.out.println("[Echo] PulseServiceLocator not found");
         } catch (Exception e) {
             System.err.println("[Echo] Failed to register services: " + e.getMessage());
         }
     }
 
-    /**
-     * 모드 종료
-     */
+    /** 모드 종료 */
     public static void shutdown() {
         if (!initialized) {
             return;
@@ -257,10 +245,7 @@ public class EchoMod implements PulseMod {
         initialized = false;
     }
 
-    /**
-     * 리포트 강제 저장 (종료 없이)
-     * 크래시 핸들러나 주기적 저장용
-     */
+    /** 리포트 강제 저장 (종료 없이) */
     public static void flush() {
         if (!initialized)
             return;
@@ -277,16 +262,10 @@ public class EchoMod implements PulseMod {
         }
     }
 
-    /**
-     * 초기화 여부 확인
-     */
     public static boolean isInitialized() {
         return initialized;
     }
 
-    /**
-     * 버전 문자열 반환
-     */
     public static String getVersion() {
         return VERSION;
     }

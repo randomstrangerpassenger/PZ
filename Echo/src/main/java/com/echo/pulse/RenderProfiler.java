@@ -95,9 +95,7 @@ public class RenderProfiler {
         }
     }
 
-    // ============================================================
-    // 조회
-    // ============================================================
+    // --- 조회 ---
 
     /**
      * 총 프레임 카운트
@@ -150,8 +148,6 @@ public class RenderProfiler {
         if (!glQuerySupported)
             return;
         gpuQueryRing.end();
-        // In a real implementation, we would poll query results here
-        // lastGpuDuration = gpuQueryRing.getResult();
     }
 
     /**
@@ -182,15 +178,10 @@ public class RenderProfiler {
      * Placeholder Inner Class for GPU Queries
      */
     private static class GpuQueryRing {
-        // private int[] queries = new int[4];
-
         public void start() {
-            // GL33.glQueryCounter(queries[head], GL_TIMESTAMP);
         }
 
         public void end() {
-            // GL33.glQueryCounter(queries[head + 1], GL_TIMESTAMP);
-            // head = (head + 2) % queries.length;
         }
     }
 

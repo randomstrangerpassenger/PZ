@@ -28,9 +28,7 @@ public class SelfValidation {
     // Note: 게임 시작 후 월드 로드까지 시간이 걸리므로 충분한 지연 필요
     private static final long VALIDATION_DELAY_MS = 10000;
 
-    // ============================================================
-    // Heartbeat Counters
-    // ============================================================
+    // --- Heartbeat Counters ---
 
     /** Tick 호출 횟수 (매 onTick() 마다 증가) */
     private final AtomicLong heartbeatCount = new AtomicLong(0);
@@ -46,9 +44,7 @@ public class SelfValidation {
     @SuppressWarnings("unused")
     private volatile int subProfilerEntryCount = 0;
 
-    // ============================================================
-    // v0.9: Phase State Tracking
-    // ============================================================
+    // --- v0.9: Phase State Tracking ---
 
     /** Phase 시작 호출 횟수 */
     private final AtomicLong phaseStartCount = new AtomicLong(0);
@@ -56,9 +52,7 @@ public class SelfValidation {
     /** Phase 종료 호출 횟수 */
     private final AtomicLong phaseEndCount = new AtomicLong(0);
 
-    // ============================================================
-    // Validation State
-    // ============================================================
+    // --- Validation State ---
 
     /** 마지막 검증 시간 (reserved for future use) */
     @SuppressWarnings("unused")
@@ -78,9 +72,7 @@ public class SelfValidation {
         return INSTANCE;
     }
 
-    // ============================================================
-    // Heartbeat API (호출되는 쪽에서 증가)
-    // ============================================================
+    // --- Heartbeat API (호출되는 쪽에서 증가) ---
 
     /**
      * Tick heartbeat 증가 (TickProfiler.onTick()에서 호출)
@@ -138,9 +130,7 @@ public class SelfValidation {
         return phaseEndCount.get();
     }
 
-    // ============================================================
-    // Validation Control
-    // ============================================================
+    // --- Validation Control ---
 
     /**
      * 검증 스케줄 시작 (EchoProfiler.enable() 에서 호출)
@@ -389,9 +379,7 @@ public class SelfValidation {
         return map;
     }
 
-    // ============================================================
-    // Inner Classes
-    // ============================================================
+    // --- Inner Classes ---
 
     public static class ValidationResult {
         public HookStatus hookStatus = HookStatus.UNKNOWN;

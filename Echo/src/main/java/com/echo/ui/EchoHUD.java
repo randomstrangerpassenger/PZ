@@ -23,9 +23,7 @@ import java.util.Map;
  */
 public class EchoHUD extends HUDOverlay.HUDLayer {
 
-    // ============================================================
-    // 상수
-    // ============================================================
+    // --- 상수 ---
 
     /** HUD 레이어 ID */
     public static final String LAYER_ID = "echo_hud";
@@ -45,23 +43,17 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
     /** 줄 높이 */
     private static final int LINE_HEIGHT = 14;
 
-    // ============================================================
-    // 싱글톤 인스턴스
-    // ============================================================
+    // --- 싱글톤 인스턴스 ---
 
     private static EchoHUD INSTANCE;
 
-    // ============================================================
-    // 인스턴스 필드
-    // ============================================================
+    // --- 인스턴스 필드 ---
 
     /** HUD 위치 */
     private int hudX = 10;
     private int hudY = 10;
 
-    // ============================================================
-    // 캐시 (0.5초마다 갱신)
-    // ============================================================
+    // --- 캐시 (0.5초마다 갱신) ---
 
     private long lastCacheUpdate = 0;
 
@@ -80,9 +72,7 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
     private int frameTimeColor = EchoTheme.GOOD;
     private int tickTimeColor = EchoTheme.GOOD;
 
-    // ============================================================
-    // 생성자 및 등록
-    // ============================================================
+    // --- 생성자 및 등록 ---
 
     private EchoHUD() {
         // Private constructor for singleton
@@ -121,9 +111,7 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
         return INSTANCE;
     }
 
-    // ============================================================
-    // HUDLayer 구현
-    // ============================================================
+    // --- HUDLayer 구현 ---
 
     @Override
     public void render(UIRenderContext ctx) {
@@ -145,9 +133,7 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
         // HUD는 render에서 캐시 갱신하므로 별도 업데이트 불필요
     }
 
-    // ============================================================
-    // 캐시 갱신
-    // ============================================================
+    // --- 캐시 갱신 ---
 
     /**
      * 캐시 갱신 (0.5초마다)
@@ -219,9 +205,7 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
         }
     }
 
-    // ============================================================
-    // 렌더링 (UIRenderContext 사용)
-    // ============================================================
+    // --- 렌더링 (UIRenderContext 사용) ---
 
     /**
      * HUD 렌더링 (Pulse UI API 사용)
@@ -269,13 +253,9 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
         }
     }
 
-    // ============================================================
-    // 유틸리티
-    // ============================================================
+    // --- 유틸리티 ---
 
-    // ============================================================
-    // Zero-Allocation 포맷터 (String.format 대체)
-    // ============================================================
+    // --- Zero-Allocation 포맷터 (String.format 대체) ---
 
     /**
      * FPS 텍스트 생성 (Zero-Allocation)
@@ -362,9 +342,7 @@ public class EchoHUD extends HUDOverlay.HUDLayer {
         };
     }
 
-    // ============================================================
-    // 설정
-    // ============================================================
+    // --- 설정 ---
 
     public void setPosition(int x, int y) {
         this.hudX = x;

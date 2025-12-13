@@ -40,9 +40,7 @@ public final class PulseInfo {
         return cachedVersion;
     }
 
-    /**
-     * 버전 정보 로드 (여러 소스 시도)
-     */
+    /** 버전 정보 로드 */
     private static String loadVersion() {
         // 1. pulse-version.txt 파일에서 읽기 시도 (Gradle generateVersionFile 태스크)
         String version = loadFromVersionFile();
@@ -106,7 +104,7 @@ public final class PulseInfo {
                 }
             }
         } catch (Exception e) {
-            // 무시 - 다음 방법 시도
+            // fallback
         }
         return null;
     }
@@ -132,14 +130,12 @@ public final class PulseInfo {
                 }
             }
         } catch (Exception e) {
-            // 무시 - 다음 방법 시도
+            // fallback
         }
         return null;
     }
 
-    /**
-     * 전체 버전 문자열 (SNAPSHOT 포함)
-     */
+    /** 전체 버전 문자열 (SNAPSHOT 포함) */
     public static String getFullVersion() {
         String version = loadFromManifest();
         if (version != null) {
@@ -148,9 +144,7 @@ public final class PulseInfo {
         return getVersion();
     }
 
-    /**
-     * 빌드 정보 요약
-     */
+    /** 빌드 정보 요약 */
     public static String getBuildInfo() {
         return String.format("Pulse v%s (Java %s)", getVersion(), System.getProperty("java.version"));
     }

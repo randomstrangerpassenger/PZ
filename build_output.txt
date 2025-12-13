@@ -1,0 +1,46 @@
+﻿> Task :clean
+> Task :Echo:clean
+> Task :Fuse:clean
+> Task :Nerve:clean
+> Task :Pulse:clean
+> Task :pulse-api:clean
+> Task :pulse-api:compileJava
+
+> Task :Pulse:compileJava
+./gradlew : C:\Users\M
+W\Downloads\coding\PZ\
+Pulse\src\main\java\co
+m\pulse\service\PulseM
+ixinService.java:270: 
+warning: [deprecation]
+ getClassPath() in ICl
+assProvider has been d
+eprecated
+At line:1 char:1
++ ./gradlew clean comp
+ileJava 2>&1 | Out-Fil
+e -FilePath build_outp
+ut.tx ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo    
+          : NotSpecifi
+ed: (C:\User    s\MW\D
+ow...been deprecat    
+ed:String) [], RemoteE
+xc    eption
+    + FullyQualifiedEr
+rorId     : NativeComm
+andError
+ 
+    public URL[] getCl
+assPath() {
+                 ^
+1 warning
+
+> Task :Echo:compileJava
+> Task :Fuse:compileJava
+> Task :Nerve:compileJava
+
+BUILD SUCCESSFUL in 4s
+11 actionable tasks: 11 executed

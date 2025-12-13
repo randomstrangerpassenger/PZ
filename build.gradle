@@ -16,6 +16,106 @@ ext {
         junit: '5.10.0',
         mockito: '5.6.0'
     ]
+    
+    // ═══════════════════════════════════════════════════════════════
+    // Project Zomboid Auto-Detection
+    // Automatically finds the game installation by reading Steam's
+    // library configuration file (libraryfolders.vdf)
+    // ═══════════════════════════════════════════════════════════════
+    
+    findProjectZomboid = {
+        // 1. Manual override via gradle.properties or environment variable
+        def manualPath = System.getenv('PZ_HOME') ?: findProperty('pzHome')
+        if (manualPath) {
+            def manualDir = file(manualPath)
+            if (manualDir.exists()) {
+                logger.lifecycle("[PZ] Using manual path: ${manualPath}")
+                return manualPath
+            } else {
+                logger.warn("[PZ] Manual path not found: ${manualPath}")
+            }
+        }
+        
+        // 2. Find Steam installation
+        def steamPaths = []
+        
+        // Windows default Steam locations
+        if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+            steamPaths.addAll([
+                'C:/Program Files (x86)/Steam',
+                'C:/Program Files/Steam',
+                'D:/Program Files (x86)/Steam',
+                'D:/Steam'
+            ])
+            
+            // Try to read from Windows Registry
+            try {
+                def regQuery = 'reg query "HKEY_CURRENT_USER\\Software\\Valve\\Steam" /v SteamPath'.execute()
+                def output = regQuery.text
+                def match = output =~ /SteamPath\s+REG_SZ\s+(.+)/
+                if (match) {
+                    steamPaths.add(0, match[0][1].trim().replace('\\', '/'))
+                }
+            } catch (Exception ignored) {}
+        }
+        // Linux
+        else if (System.getProperty('os.name').toLowerCase().contains('linux')) {
+            def home = System.getProperty('user.home')
+            steamPaths.addAll([
+                "${home}/.steam/steam",
+                "${home}/.local/share/Steam"
+            ])
+        }
+        // macOS
+        else if (System.getProperty('os.name').toLowerCase().contains('mac')) {
+            def home = System.getProperty('user.home')
+            steamPaths.add("${home}/Library/Application Support/Steam")
+        }
+        
+        // 3. Find the actual Steam directory
+        def steamDir = steamPaths.find { file(it).exists() }
+        if (!steamDir) {
+            logger.warn("[PZ] Steam installation not found in common locations")
+            return null
+        }
+        logger.lifecycle("[PZ] Found Steam: ${steamDir}")
+        
+        // 4. Parse libraryfolders.vdf to find all Steam libraries
+        def libraryFolders = []
+        libraryFolders.add("${steamDir}/steamapps") // Default library
+        
+        def vdfFile = file("${steamDir}/steamapps/libraryfolders.vdf")
+        if (vdfFile.exists()) {
+            def vdfContent = vdfFile.text
+            // Simple regex to extract paths from VDF
+            def pathPattern = /"path"\s+"([^"]+)"/
+            (vdfContent =~ pathPattern).each { match ->
+                def libPath = match[1].replace('\\\\', '/').replace('\\', '/')
+                def steamapps = "${libPath}/steamapps"
+                if (!libraryFolders.contains(steamapps) && file(steamapps).exists()) {
+                    libraryFolders.add(steamapps)
+                }
+            }
+        }
+        
+        logger.lifecycle("[PZ] Found ${libraryFolders.size()} Steam library folder(s)")
+        
+        // 5. Search for ProjectZomboid in all libraries
+        for (lib in libraryFolders) {
+            def pzPath = "${lib}/common/ProjectZomboid"
+            if (file(pzPath).exists()) {
+                logger.lifecycle("[PZ] Found Project Zomboid: ${pzPath}")
+                return pzPath
+            }
+        }
+        
+        logger.warn("[PZ] Project Zomboid not found in any Steam library")
+        logger.warn("[PZ] Please set 'pzHome' in gradle.properties or PZ_HOME environment variable")
+        return null
+    }
+    
+    // Cache the result
+    pzGamePath = findProjectZomboid()
 }
 
 // ═══════════════════════════════════════════════════════════════

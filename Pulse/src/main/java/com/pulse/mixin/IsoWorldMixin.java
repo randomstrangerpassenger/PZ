@@ -26,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * 
  * @since Pulse 1.0
  * @since Pulse 1.2 - GameTickStartEvent/GameTickEndEvent, HookRegistry 통합
+ * @since Pulse 1.3 - LOS Hook activated
  */
 @Mixin(targets = "zombie.iso.IsoWorld")
 public abstract class IsoWorldMixin {
@@ -37,14 +38,17 @@ public abstract class IsoWorldMixin {
     public abstract String getWorld();
 
     // Echo 2.0 Phase 2: LOS Hook
-    @Inject(method = "checkLineOfSight(Lzombie/iso/IsoGridSquare;Lzombie/iso/IsoGridSquare;)Z", at = @At("HEAD"))
+    // Note: checkLineOfSight has multiple overloads - targeting the main
+    // implementation
+
+    @Inject(method = "checkLineOfSight", at = @At("HEAD"), remap = false)
     private void Pulse$onCheckLineOfSightStart(CallbackInfoReturnable<Boolean> cir) {
         if (com.pulse.api.profiler.PathfindingHook.enabled) {
             com.pulse.api.profiler.PathfindingHook.onLosCalculationStart();
         }
     }
 
-    @Inject(method = "checkLineOfSight(Lzombie/iso/IsoGridSquare;Lzombie/iso/IsoGridSquare;)Z", at = @At("RETURN"))
+    @Inject(method = "checkLineOfSight", at = @At("RETURN"), remap = false)
     private void Pulse$onCheckLineOfSightEnd(CallbackInfoReturnable<Boolean> cir) {
         if (com.pulse.api.profiler.PathfindingHook.enabled) {
             com.pulse.api.profiler.PathfindingHook.onLosCalculationEnd();

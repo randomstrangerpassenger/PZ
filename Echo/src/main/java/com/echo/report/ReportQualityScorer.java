@@ -95,8 +95,8 @@ public class ReportQualityScorer {
             // (추후 LuaCallTracker 연동)
         }
 
-        // 5. Validation Status Penalty
-        SelfValidation.ValidationResult validationResult = SelfValidation.getInstance().getLastResult();
+        // 5. Validation Status Penalty (현재 상태로 검증)
+        SelfValidation.ValidationResult validationResult = SelfValidation.getInstance().validate();
         if (validationResult != null) {
             if (validationResult.hookStatus == SelfValidation.HookStatus.MISSING) {
                 score -= VALIDATION_PENALTY_MAX;

@@ -163,6 +163,18 @@ public class FreezeDetector {
     public void tick() {
         if (!isRunning.get())
             return;
+
+        // 첫 tick 호출 시 진짜 메인 스레드 캡처
+        // (start()가 Monitor 스레드에서 호출되었을 수 있음)
+        if (this.mainThread == null || !this.mainThread.getName().contains("LWJGL")) {
+            Thread current = Thread.currentThread();
+            if (current.getName().contains("LWJGL") || current.getName().contains("main") ||
+                    current.getName().contains("Main") || this.mainThread == null) {
+                this.mainThread = current;
+                System.out.println("[Echo] FreezeDetector: Main thread captured: " + current.getName());
+            }
+        }
+
         lastTickTime.set(System.currentTimeMillis());
 
         // Self-Validation: freeze check heartbeat (Echo 0.9.0)

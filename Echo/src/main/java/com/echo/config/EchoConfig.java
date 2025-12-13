@@ -40,7 +40,7 @@ public class EchoConfig {
     private boolean coreProfilingEnabled = true;
 
     /** 심층 분석 활성화 (SubTiming, Fuse, TickPhase 등) */
-    private boolean deepAnalysisEnabled = false;
+    private boolean deepAnalysisEnabled = true; // 기본 활성화 (tick_phase, heavy_functions 등)
 
     /** Lua 프로파일링 활성화 (Heavy) */
     private boolean luaProfilingEnabled = false;
@@ -220,7 +220,7 @@ public class EchoConfig {
     public void reset() {
         this.spikeThresholdMs = EchoConstants.DEFAULT_SPIKE_THRESHOLD_MS;
         this.coreProfilingEnabled = true;
-        this.deepAnalysisEnabled = false;
+        this.deepAnalysisEnabled = true; // 기본 활성화
         this.luaProfilingEnabled = false;
         this.luaSamplingEnabled = false;
         this.enablePathfindingDetails = false;

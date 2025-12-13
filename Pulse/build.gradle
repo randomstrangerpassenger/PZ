@@ -41,9 +41,13 @@ dependencies {
     // Guava (Mixin 내부에서 사용)
     implementation 'com.google.guava:guava:32.1.2-jre'
 
-    // Game Code (컴파일 전용)
-    compileOnly files('C:/SteamLibrary/steamapps/common/ProjectZomboid')
-    compileOnly fileTree(dir: 'C:/SteamLibrary/steamapps/common/ProjectZomboid', include: ['*.jar'])
+    // Game Code (컴파일 전용 - 자동 감지)
+    if (rootProject.ext.pzGamePath) {
+        compileOnly files(rootProject.ext.pzGamePath)
+        compileOnly fileTree(dir: rootProject.ext.pzGamePath, include: ['*.jar'])
+    } else {
+        logger.warn("[Pulse] Project Zomboid not found - some features may not compile")
+    }
 
     // Testing
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'

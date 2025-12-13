@@ -24,8 +24,9 @@ public class SelfValidation {
 
     private static final SelfValidation INSTANCE = new SelfValidation();
 
-    // 검증 지연 시간 (기본 2초)
-    private static final long VALIDATION_DELAY_MS = 2000;
+    // 검증 지연 시간 (10초 - 월드 로드 대기)
+    // Note: 게임 시작 후 월드 로드까지 시간이 걸리므로 충분한 지연 필요
+    private static final long VALIDATION_DELAY_MS = 10000;
 
     // ============================================================
     // Heartbeat Counters
@@ -336,11 +337,8 @@ public class SelfValidation {
     public Map<String, Object> toMap() {
         Map<String, Object> map = new LinkedHashMap<>();
 
-        ValidationResult result = lastResult;
-        if (result == null) {
-            // 검증이 아직 안 됐으면 즉시 수행
-            result = validate();
-        }
+        // 리포트 생성 시 항상 최신 검증 수행 (캐시된 초기 결과는 월드 로드 전일 수 있음)
+        ValidationResult result = validate();
 
         map.put("hook_status", result.hookStatus.name());
         map.put("heartbeat_count", result.heartbeatCount);

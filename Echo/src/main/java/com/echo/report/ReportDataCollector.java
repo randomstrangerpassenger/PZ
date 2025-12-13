@@ -357,7 +357,8 @@ public class ReportDataCollector {
             }
         }
 
-        SelfValidation.ValidationResult val = SelfValidation.getInstance().getLastResult();
+        // 현재 상태로 검증 (캐시된 결과가 아닌 실시간)
+        SelfValidation.ValidationResult val = SelfValidation.getInstance().validate();
         if (val != null && val.hookStatus != SelfValidation.HookStatus.OK) {
             recommendations.add("CRITICAL: Pulse hooks are MISSING or PARTIAL. Check Mixin logs.");
         }

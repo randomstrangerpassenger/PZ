@@ -2,6 +2,7 @@ package com.echo;
 
 import com.echo.command.EchoCommands;
 import com.echo.measure.EchoProfiler;
+import com.echo.session.SessionManager;
 import com.echo.pulse.PulseEventAdapter;
 import com.echo.pulse.SubProfilerBridge;
 import com.echo.pulse.PathfindingBridge;
@@ -55,12 +56,14 @@ public class EchoMod implements PulseMod {
             initInternal();
             initialized = true;
 
-            // JVM shutdown hook 등록 (게임 종료 시 리포트 자동 저장)
+            // v2.1: Shutdown hook - 비정상 종료 시에만 저장 (Alt+F4 등)
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                shutdown();
+                SessionManager manager = SessionManager.getInstance();
+                manager.saveSync(); // 조건부 저장 (미저장 데이터가 있을 때만)
+                manager.shutdownExecutor(); // Executor 정리
             }, "Echo-Shutdown-Hook"));
 
-            System.out.println("[Echo] Profiling is now active - data will be saved on game exit");
+            System.out.println("[Echo] Profiling is now active - session-based saving enabled");
         } catch (Exception e) {
             EchoRuntime.recordError("init", e);
             System.err.println("[Echo] Initialization failed: " + e.getMessage());

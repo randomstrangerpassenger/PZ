@@ -2,11 +2,16 @@ package com.echo.pulse;
 
 import com.echo.EchoMod;
 import com.echo.measure.FreezeDetector;
+import com.echo.session.SessionManager;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEvent;
 import com.pulse.event.lifecycle.GameTickStartEvent;
 import com.pulse.event.lifecycle.GameTickEndEvent;
+import com.pulse.event.lifecycle.WorldLoadEvent;
+import com.pulse.event.lifecycle.WorldUnloadEvent;
 import com.pulse.event.gui.GuiRenderEvent;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Pulse 이벤트 버스 어댑터
@@ -14,10 +19,11 @@ import com.pulse.event.gui.GuiRenderEvent;
  * Pulse EventBus API를 직접 사용하여 Echo 프로파일러와 연결합니다.
  * 
  * @since 2.0.0 - Pulse Native Integration (Reflection 제거)
+ * @since 2.1.0 - Session-based recording (WorldLoad/Unload)
  */
 public class PulseEventAdapter {
 
-    private static boolean registered = false;
+    private static final AtomicBoolean registered = new AtomicBoolean(false);
     private static TickProfiler tickProfiler;
     private static RenderProfiler renderProfiler;
 
@@ -26,7 +32,7 @@ public class PulseEventAdapter {
      * EchoMod.init()에서 호출됨
      */
     public static void register() {
-        if (registered) {
+        if (!registered.compareAndSet(false, true)) {
             System.out.println("[Echo] Pulse adapter already registered");
             return;
         }
@@ -58,6 +64,9 @@ public class PulseEventAdapter {
             com.echo.measure.EchoProfiler.getInstance().getMetricCollector().collect(tickProfiler, renderProfiler);
             com.echo.fuse.ZombieProfiler.getInstance().endTick();
 
+            // v2.1: 세션 데이터 수집 마킹
+            SessionManager.getInstance().onTick();
+
             // 디버그: 첫 이벤트 수신 확인
             if (event.getTick() == 1) {
                 System.out.println("[Echo/DEBUG] First GameTickEndEvent received! durationMs=" + event.getDurationMs());
@@ -88,23 +97,32 @@ public class PulseEventAdapter {
             renderProfiler.onRenderPre();
         }, EchoMod.MOD_ID);
 
-        registered = true;
+        // v2.1: 세션 라이프사이클 이벤트
+        EventBus.subscribe(WorldLoadEvent.class, event -> {
+            boolean isMP = isMultiplayerWorld();
+            SessionManager.getInstance().onWorldLoad(event.getWorldName(), isMP);
+        }, EchoMod.MOD_ID);
+
+        EventBus.subscribe(WorldUnloadEvent.class, event -> {
+            SessionManager.getInstance().onWorldUnload();
+        }, EchoMod.MOD_ID);
+
         System.out.println("[Echo] Pulse event adapter registered (Native EventBus)");
         System.out.println("[Echo]   - TickProfiler: GameTickEvent");
         System.out.println("[Echo]   - RenderProfiler: GuiRenderEvent");
+        System.out.println("[Echo]   - SessionManager: WorldLoad/UnloadEvent");
     }
 
     /**
      * 이벤트 버스에서 리스너 해제
      */
     public static void unregister() {
-        if (!registered)
+        if (!registered.compareAndSet(true, false))
             return;
 
         // 모든 Echo 리스너 해제
         EventBus.unsubscribeAll(EchoMod.MOD_ID);
 
-        registered = false;
         System.out.println("[Echo] Pulse event adapter unregistered");
     }
 
@@ -112,7 +130,20 @@ public class PulseEventAdapter {
      * 등록 상태 확인
      */
     public static boolean isRegistered() {
-        return registered;
+        return registered.get();
+    }
+
+    /**
+     * 멀티플레이어 환경인지 확인
+     */
+    private static boolean isMultiplayerWorld() {
+        try {
+            Class<?> gameClient = Class.forName("zombie.network.GameClient");
+            java.lang.reflect.Field bClient = gameClient.getField("bClient");
+            return Boolean.TRUE.equals(bClient.get(null));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     /**

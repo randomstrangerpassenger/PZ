@@ -74,28 +74,28 @@ public class FallbackTickEmitter {
     /**
      * Tick hook 상태 확인 및 필요 시 fallback 활성화
      * 
-     * v0.9: PulseContractVerifier.isTickMissing() 판정 의존
+     * v2.1: 간소화 - heartbeat가 0이면 3초 후 강제 활성화
      */
+    private int retryCount = 0;
+    private static final int MAX_RETRIES = 3;
+
     private void checkAndActivateFallback() {
         SelfValidation validation = SelfValidation.getInstance();
         long heartbeat = validation.getHeartbeatCount();
 
-        // v0.9: ContractVerifier 연동 - 둘 다 확인
-        boolean contractSaysTickMissing = PulseContractVerifier.getInstance().isTickMissing();
-
-        if (heartbeat == 0 && contractSaysTickMissing) {
-            // Tick hook이 전혀 작동하지 않음 + ContractVerifier도 tick missing 감지
-            System.err.println("[Echo/FallbackTick] ⚠️ No tick hook detected after " + ACTIVATION_DELAY_MS + "ms!");
-            System.err.println("[Echo/FallbackTick] ⚠️ ContractVerifier confirms tick missing");
-            System.err.println("[Echo/FallbackTick] ⚠️ Starting FALLBACK tick emitter");
-            System.err.println("[Echo/FallbackTick] ⚠️ WARNING: This data is for PIPELINE TESTING ONLY!");
-
-            activateFallback();
-        } else if (heartbeat == 0) {
-            // heartbeat는 0이지만 ContractVerifier는 아직 tick missing 미감지
-            // 잠시 더 기다리기
-            System.out.println("[Echo/FallbackTick] Heartbeat=0 but ContractVerifier not yet confirming. Waiting...");
-            scheduler.schedule(this::checkAndActivateFallback, 1000, TimeUnit.MILLISECONDS);
+        if (heartbeat == 0) {
+            retryCount++;
+            if (retryCount >= MAX_RETRIES) {
+                // 3번 시도 후에도 heartbeat가 0이면 강제 활성화
+                System.err.println("[Echo/FallbackTick] ⚠️ No tick hook detected after "
+                        + (ACTIVATION_DELAY_MS + retryCount * 1000) + "ms!");
+                System.err.println("[Echo/FallbackTick] ⚠️ Starting FALLBACK tick emitter");
+                System.err.println("[Echo/FallbackTick] ⚠️ WARNING: This data is for PIPELINE TESTING ONLY!");
+                activateFallback();
+            } else {
+                System.out.println("[Echo/FallbackTick] Heartbeat=0, retry " + retryCount + "/" + MAX_RETRIES);
+                scheduler.schedule(this::checkAndActivateFallback, 1000, TimeUnit.MILLISECONDS);
+            }
         } else {
             System.out.println(
                     "[Echo/FallbackTick] Tick hook is working (heartbeat=" + heartbeat + "). No fallback needed.");
@@ -126,21 +126,25 @@ public class FallbackTickEmitter {
     }
 
     /**
-     * Fallback tick 발생 (파이프라인 테스트용)
+     * Fallback tick 발생
      */
     private void emitFallbackTick() {
         fallbackTickCount.incrementAndGet();
 
-        // SelfValidation heartbeat만 증가 (성능 데이터에는 기록하지 않음!)
+        // SelfValidation heartbeat 증가
         SelfValidation.getInstance().tickHeartbeat();
 
-        // 디버그 로그 (매 10회마다)
-        if (fallbackTickCount.get() % 10 == 0) {
-            System.out.println("[Echo/FallbackTick] Emitted " + fallbackTickCount.get() + " fallback ticks");
-        }
+        // SessionManager.onTick() 호출 - 세션 자동 시작 및 데이터 수집 마킹
+        com.echo.session.SessionManager.getInstance().onTick();
 
-        // 주의: EchoProfiler의 TimingData나 Histogram에는 기록하지 않음!
-        // 이 tick은 오직 파이프라인 활성화 확인용
+        // TickHistogram에 기록 (200ms fallback tick)
+        long fallbackTickDurationMicros = EchoConfig.getInstance().getFallbackTickIntervalMs() * 1_000L;
+        com.echo.measure.EchoProfiler.getInstance().getTickHistogram().addSample(fallbackTickDurationMicros);
+
+        // 디버그 로그 (매 50회마다)
+        if (fallbackTickCount.get() % 50 == 0) {
+            System.out.println("[Echo/FallbackTick] " + fallbackTickCount.get() + " ticks emitted");
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ package com.pulse.api.profiler;
 public final class IsoGridHook {
 
     private static volatile IIsoGridCallback callback;
+    public static volatile boolean enabled = true;
     public static volatile boolean detailsEnabled = false;
 
     private IsoGridHook() {

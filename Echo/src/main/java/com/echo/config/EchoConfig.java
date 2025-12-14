@@ -82,7 +82,7 @@ public class EchoConfig {
      * 
      * @see com.pulse.api.TickContract
      */
-    private boolean allowFallbackTicks = false;
+    private boolean allowFallbackTicks = true;
 
     /**
      * Fallback tick 간격 (ms)
@@ -223,7 +223,7 @@ public class EchoConfig {
         this.stackCaptureEnabled = false;
         this.debugMode = false;
         this.topNFunctions = EchoConstants.DEFAULT_TOP_N;
-        this.allowFallbackTicks = false;
+        this.allowFallbackTicks = true;
         this.minQualityToSave = 0;
         this.userExplicitLuaOff = false;
         save();

@@ -78,6 +78,8 @@ public abstract class IsoWorldMixin {
      */
     @Inject(method = "init", at = @At("RETURN"))
     private void Pulse$onWorldInit(CallbackInfo ci) {
+        System.out.println("[Pulse/DEBUG] IsoWorld.init() CALLED - Mixin injection SUCCESS!");
+
         String worldName = "Unknown";
         try {
             worldName = getWorld();
@@ -95,14 +97,42 @@ public abstract class IsoWorldMixin {
 
         PulseLogger.info(LOG, "World loaded: {}", worldName);
         EventBus.post(new WorldLoadEvent(worldName));
+
+        System.out.println("[Pulse/DEBUG] WorldLoadEvent posted for: " + worldName);
     }
 
     /**
      * IsoWorld.update() 시작 시점
+     * 
+     * v2.1: init() Mixin이 작동하지 않으므로 첫 update()에서 WorldLoadEvent 발생
      */
     @Inject(method = "update", at = @At("HEAD"))
     private void Pulse$onUpdateStart(CallbackInfo ci) {
         try {
+            // v2.1: init() 대신 첫 update()에서 WorldLoadEvent 발생
+            if (!Pulse$firstTickLogged) {
+                String worldName = "Unknown";
+                try {
+                    worldName = getWorld();
+                    if (worldName == null || worldName.isEmpty()) {
+                        worldName = "World";
+                    }
+                } catch (Exception e) {
+                    // ignore
+                }
+
+                Pulse$tickCount = 0;
+                Pulse$lastTickTime = System.nanoTime();
+                Pulse$firstTickLogged = true;
+
+                System.out.println("[Pulse] First update() detected - firing WorldLoadEvent for: " + worldName);
+                PulseLogger.info(LOG, "World loaded (via update): {}", worldName);
+                EventBus.post(new WorldLoadEvent(worldName));
+
+                // Note: Session state is managed by Echo via WorldLoadEvent subscription
+                // MixinSessionState.enterGame() removed to avoid cross-class issues in Mixin
+            }
+
             // Pulse 1.2: 틱 시작 시간 기록
             Pulse$tickStartNanos = System.nanoTime();
 

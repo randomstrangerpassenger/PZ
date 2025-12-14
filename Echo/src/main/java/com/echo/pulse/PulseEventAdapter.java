@@ -107,10 +107,15 @@ public class PulseEventAdapter {
             SessionManager.getInstance().onWorldUnload();
         }, EchoMod.MOD_ID);
 
+        // v2.1: 메인 메뉴 렌더 이벤트 구독 - 세션 종료 감지
+        EventBus.subscribe(com.pulse.event.lifecycle.MainMenuRenderEvent.class, event -> {
+            SessionManager.getInstance().onMainMenuRender();
+        }, EchoMod.MOD_ID);
+
         System.out.println("[Echo] Pulse event adapter registered (Native EventBus)");
         System.out.println("[Echo]   - TickProfiler: GameTickEvent");
         System.out.println("[Echo]   - RenderProfiler: GuiRenderEvent");
-        System.out.println("[Echo]   - SessionManager: WorldLoad/UnloadEvent");
+        System.out.println("[Echo]   - SessionManager: WorldLoad/Unload/MainMenuRender");
     }
 
     /**

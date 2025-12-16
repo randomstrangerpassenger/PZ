@@ -36,6 +36,13 @@ public class SessionManager {
     private volatile int menuRenderCount = 0;
     private static final int MENU_RENDER_THRESHOLD = 10;
 
+    // --- 메인 메뉴 상태 (false 세션 방지) ---
+    private volatile boolean onMainMenu = true; // 게임 시작 시 메인 메뉴로 시작
+
+    // --- 메인 메뉴 이탈 감지 (틱 기반) ---
+    private volatile int ticksSinceMenuRender = 0;
+    private static final int MENU_EXIT_THRESHOLD = 60; // 60틱 동안 메뉴 렌더 없으면 게임 진입
+
     // --- 비동기 저장 ---
     private final ExecutorService saveExecutor = Executors.newSingleThreadExecutor(r -> new Thread(r, "Echo-Save"));
 
@@ -52,6 +59,9 @@ public class SessionManager {
      * 월드 로드 시 호출 (세션 시작)
      */
     public void onWorldLoad(String worldName, boolean multiplayer) {
+        // 메인 메뉴 플래그 해제 - 게임에 진입함
+        onMainMenu = false;
+
         if (!sessionActive) {
             sessionActive = true;
             dirty = false;
@@ -87,6 +97,16 @@ public class SessionManager {
      * 이 메서드가 호출되면 메인 메뉴로 돌아온 것입니다.
      */
     public void onMainMenuRender() {
+        // 메인 메뉴 플래그 설정 - 새 세션 시작 방지
+        onMainMenu = true;
+
+        // 틱 카운터 리셋 - 메뉴 렌더가 호출되면 아직 메인 메뉴임
+        ticksSinceMenuRender = 0;
+
+        // 메인 메뉴에서는 wasWorldLoaded를 현재 상태로 동기화
+        // 이렇게 하면 onTick()의 false→true 전환 감지가 작동하지 않음
+        wasWorldLoaded = com.pulse.api.access.WorldAccess.isWorldLoaded();
+
         if (!sessionActive) {
             menuRenderCount = 0;
             return;
@@ -105,27 +125,73 @@ public class SessionManager {
         }
     }
 
+    // --- Mixin 실패 대비: 월드 상태 변화 감지 ---
+    private volatile boolean wasWorldLoaded = false;
+
     /**
      * 틱 완료 시 호출 (데이터 수집 마킹)
+     * 
+     * Pulse GameStateAccess와 WorldAccess를 사용하여 정확한 상태 감지.
+     * - GameStateAccess.isOnMainMenu(): 메인 메뉴 상태 확인
+     * - WorldAccess.isWorldLoaded(): 월드 로드 상태 확인 (Cell 존재 여부 포함)
+     * 
+     * @since 2.1.1 - Pulse GameStateAccess 기반으로 개선
      */
     public void onTick() {
-        // Fallback: WorldLoadEvent가 발생하지 않았으면 첫 틱에서 세션 자동 시작
-        if (!sessionActive) {
-            sessionActive = true;
-            dirty = false;
-            tickCount = 0;
-            currentWorldName = "AutoDetected";
-            isMultiplayer = isMultiplayerWorld();
+        // Phase 1: Pulse API로 현재 상태 확인
+        boolean isOnMainMenuNow = com.pulse.api.access.GameStateAccess.isOnMainMenu();
+        boolean isWorldLoaded = com.pulse.api.access.WorldAccess.isWorldLoaded();
 
-            EchoProfiler.getInstance().reset();
-            System.out.println("[Echo] Session auto-started on first tick");
+        // 메인 메뉴 상태 동기화 (Pulse API 결과 반영)
+        if (isOnMainMenuNow) {
+            onMainMenu = true;
+            ticksSinceMenuRender = 0;
+        } else if (onMainMenu) {
+            // 틱 기반 감지 (GameStateAccess 실패 시 폴백)
+            ticksSinceMenuRender++;
+            if (ticksSinceMenuRender >= MENU_EXIT_THRESHOLD) {
+                onMainMenu = false;
+                // 게임 진입 시 wasWorldLoaded 리셋 - 전환 감지 재활성화
+                wasWorldLoaded = false;
+                System.out.println(
+                        "[Echo] Game entered (fallback: no menu render for " + ticksSinceMenuRender + " ticks)");
+            }
         }
 
+        // 세션이 없을 때: 게임 진입 및 월드 로드 감지
+        if (!sessionActive) {
+            // 메인 메뉴에서는 세션 시작하지 않음 (wasWorldLoaded 업데이트하지 않음)
+            if (onMainMenu || isOnMainMenuNow) {
+                // 중요: wasWorldLoaded를 업데이트하지 않음 - 게임 진입 후 false→true 감지 보장
+                return;
+            }
+
+            // 월드 로드 상태가 false→true로 변경됐을 때 또는 게임 진입 직후 월드가 로드된 경우
+            if (isWorldLoaded && !wasWorldLoaded) {
+                sessionActive = true;
+                dirty = false;
+                tickCount = 0;
+                currentWorldName = com.pulse.api.access.WorldAccess.getWorldName();
+                if (currentWorldName == null || currentWorldName.isEmpty()) {
+                    currentWorldName = "AutoDetected";
+                }
+                isMultiplayer = isMultiplayerWorld();
+
+                EchoProfiler.getInstance().reset();
+                System.out.println("[Echo] Session started (world: " + currentWorldName + ")");
+            }
+            wasWorldLoaded = isWorldLoaded;
+            return;
+        }
+
+        // 세션이 활성 상태: 틱 카운트 증가
         tickCount++;
         if (tickCount >= MIN_TICKS_FOR_DIRTY && !dirty) {
             dirty = true;
             System.out.println("[Echo] Session marked dirty (sufficient data)");
         }
+
+        wasWorldLoaded = isWorldLoaded;
     }
 
     private boolean isMultiplayerWorld() {
@@ -234,5 +300,8 @@ public class SessionManager {
         tickCount = 0;
         currentWorldName = null;
         isMultiplayer = false;
+        onMainMenu = true;
+        ticksSinceMenuRender = 0;
+        wasWorldLoaded = false;
     }
 }

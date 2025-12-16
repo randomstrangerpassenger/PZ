@@ -52,9 +52,19 @@ public final class WorldAccess {
 
     /**
      * 현재 월드가 로드되었는지 확인.
+     * 
+     * IsoWorld 인스턴스가 있고 Cell이 존재하는 경우에만 true.
+     * 메인 메뉴에서는 IsoWorld 인스턴스가 있어도 Cell이 없으므로 false 반환.
+     * 
+     * @since 1.1.1 - Cell 존재 여부 추가 확인
      */
     public static boolean isWorldLoaded() {
-        return getIsoWorldInstance() != null;
+        Object world = getIsoWorldInstance();
+        if (world == null)
+            return false;
+
+        // Cell이 없으면 실제 월드가 로드된 것이 아님 (메인 메뉴일 수 있음)
+        return getCurrentCell() != null;
     }
 
     /**

@@ -5,6 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * Mixin for IsoGrid profiling.
@@ -15,19 +16,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * 
  * @since Pulse 0.2.0
  * @since Pulse 1.2 - Activated with enabled flag check
+ * @since Pulse 1.3 - Fixed: renderFloor returns boolean, use
+ *        CallbackInfoReturnable
  */
 @Mixin(targets = "zombie.iso.IsoGridSquare")
 public class IsoGridMixin {
 
+    // NOTE: renderFloor returns boolean, so we need CallbackInfoReturnable
     @Inject(method = "renderFloor", at = @At("HEAD"), remap = false)
-    private void Pulse$onRenderFloorStart(CallbackInfo ci) {
+    private void Pulse$onRenderFloorStart(CallbackInfoReturnable<Boolean> cir) {
         if (IsoGridHook.enabled) {
             IsoGridHook.onFloorUpdateStart();
         }
     }
 
     @Inject(method = "renderFloor", at = @At("RETURN"), remap = false)
-    private void Pulse$onRenderFloorEnd(CallbackInfo ci) {
+    private void Pulse$onRenderFloorEnd(CallbackInfoReturnable<Boolean> cir) {
         if (IsoGridHook.enabled) {
             IsoGridHook.onFloorUpdateEnd();
         }

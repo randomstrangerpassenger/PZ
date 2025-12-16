@@ -38,22 +38,9 @@ public abstract class IsoWorldMixin {
     public abstract String getWorld();
 
     // Echo 2.0 Phase 2: LOS Hook
-    // Note: checkLineOfSight has multiple overloads - targeting the main
-    // implementation
-
-    @Inject(method = "checkLineOfSight", at = @At("HEAD"), remap = false)
-    private void Pulse$onCheckLineOfSightStart(CallbackInfoReturnable<Boolean> cir) {
-        if (com.pulse.api.profiler.PathfindingHook.enabled) {
-            com.pulse.api.profiler.PathfindingHook.onLosCalculationStart();
-        }
-    }
-
-    @Inject(method = "checkLineOfSight", at = @At("RETURN"), remap = false)
-    private void Pulse$onCheckLineOfSightEnd(CallbackInfoReturnable<Boolean> cir) {
-        if (com.pulse.api.profiler.PathfindingHook.enabled) {
-            com.pulse.api.profiler.PathfindingHook.onLosCalculationEnd();
-        }
-    }
+    // NOTE: checkLineOfSight is NOT in IsoWorld - it's in LosUtil
+    // This hook was removed to prevent Mixin failure
+    // TODO: Move LOS profiling to a separate LosUtilMixin if needed
 
     @Unique
     private static long Pulse$tickCount = 0;

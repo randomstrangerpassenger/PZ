@@ -261,24 +261,48 @@ public class PulseContractVerifier {
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // v0.9: Tick 누락 감지 API (FallbackTickEmitter용)
+    // v0.9.1: Tick 누락 감지 API (개선됨)
     // ═══════════════════════════════════════════════════════════════
 
     /**
-     * Tick이 누락되었는지 확인.
-     * FallbackTickEmitter에서 활성화 조건으로 사용.
+     * 리포트용: 세션 중 마지막으로 확인된 tick_missing 상태 반환
+     * 
+     * v0.9.1: 리포트 생성 시점이 아닌 세션 중 상태를 반환하여
+     * 게임 종료 후 false positive 방지
+     * 
+     * @return 세션 중 tick 누락이 발생했는지 여부
      */
     public boolean isTickMissing() {
+        // 세션 중 마지막으로 저장된 상태 반환 (false positive 방지)
+        return tickMissing;
+    }
+
+    /**
+     * 실시간 체크: 현재 tick이 누락되었는지 확인
+     * FallbackTickEmitter에서 활성화 조건으로 사용.
+     * 
+     * @return 현재 시점에서 tick 누락 여부
+     */
+    public boolean checkTickMissingNow() {
         if (lastTickReceivedTime == 0) {
             return false; // 아직 시작 안됨
         }
         long elapsed = System.currentTimeMillis() - lastTickReceivedTime;
         // 3초 이상 Tick이 없으면 누락으로 판정
         if (elapsed > TickContract.FALLBACK_ACTIVATION_DELAY_MS) {
-            tickMissing = true;
+            tickMissing = true; // 세션 상태 업데이트
             return true;
         }
         return false;
+    }
+
+    /**
+     * Real tick 수신 시 tick_missing 상태 리셋
+     * onGameTick()에서 자동 호출됨
+     */
+    public void onRealTickReceived() {
+        tickMissing = false;
+        lastTickReceivedTime = System.currentTimeMillis();
     }
 
     /**

@@ -106,6 +106,9 @@ public class TickProfiler {
      * @param durationNanos 틱 소요 시간 (나노초) - Pulse에서 계산됨
      */
     public void recordTickDuration(long durationNanos) {
+        // v0.9.1: Real tick 수신 알림 - Fallback 자동 비활성화
+        com.echo.validation.FallbackTickEmitter.getInstance().onRealTickReceived();
+
         // Self-Validation: heartbeat 증가
         com.echo.validation.SelfValidation.getInstance().tickHeartbeat();
 

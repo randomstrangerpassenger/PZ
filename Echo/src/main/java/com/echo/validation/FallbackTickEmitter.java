@@ -35,11 +35,38 @@ public class FallbackTickEmitter {
     private final AtomicBoolean fallbackActive = new AtomicBoolean(false);
     private final AtomicLong fallbackTickCount = new AtomicLong(0);
 
+    /**
+     * v0.9.1: Fallback이 히스토그램 데이터를 오염시켰는지 추적
+     * 이전 버전에서는 fallback tick이 히스토그램에 기록됐음
+     * 이 플래그는 레거시 오염 감지용 (새 버전에서는 항상 false)
+     */
+    private final AtomicBoolean histogramContaminated = new AtomicBoolean(false);
+
     private FallbackTickEmitter() {
     }
 
     public static FallbackTickEmitter getInstance() {
         return INSTANCE;
+    }
+
+    /**
+     * Real tick 수신 시 호출 - Fallback 자동 비활성화
+     * 
+     * TickProfiler.recordTickDuration()에서 호출됨.
+     * Real tick이 들어오면 fallback은 더 이상 필요 없음.
+     * 
+     * @since Echo 0.9.1
+     */
+    public void onRealTickReceived() {
+        if (fallbackActive.compareAndSet(true, false)) {
+            // Fallback task 중지
+            if (fallbackTask != null) {
+                fallbackTask.cancel(false);
+                fallbackTask = null;
+            }
+            System.out.println("[Echo/FallbackTick] Real tick received - Fallback DEACTIVATED after "
+                    + fallbackTickCount.get() + " fallback ticks");
+        }
     }
 
     /**
@@ -74,7 +101,8 @@ public class FallbackTickEmitter {
     /**
      * Tick hook 상태 확인 및 필요 시 fallback 활성화
      * 
-     * v2.1: 간소화 - heartbeat가 0이면 3초 후 강제 활성화
+     * v0.9.1: 강화된 조건 - heartbeat == 0 AND phase_start_count == 0
+     * 둘 다 0이어야 진짜 hook 누락으로 판정
      */
     private int retryCount = 0;
     private static final int MAX_RETRIES = 3;
@@ -82,23 +110,29 @@ public class FallbackTickEmitter {
     private void checkAndActivateFallback() {
         SelfValidation validation = SelfValidation.getInstance();
         long heartbeat = validation.getHeartbeatCount();
+        long phaseStartCount = validation.getPhaseStartCount();
 
-        if (heartbeat == 0) {
+        // v0.9.1: 강화된 조건 - tick과 phase 둘 다 없어야 fallback 활성화
+        boolean noTickHook = heartbeat == 0;
+        boolean noPhaseHook = phaseStartCount == 0;
+
+        if (noTickHook && noPhaseHook) {
             retryCount++;
             if (retryCount >= MAX_RETRIES) {
-                // 3번 시도 후에도 heartbeat가 0이면 강제 활성화
-                System.err.println("[Echo/FallbackTick] ⚠️ No tick hook detected after "
+                // 3번 시도 후에도 둘 다 0이면 강제 활성화
+                System.err.println("[Echo/FallbackTick] ⚠️ No tick/phase hook detected after "
                         + (ACTIVATION_DELAY_MS + retryCount * 1000) + "ms!");
                 System.err.println("[Echo/FallbackTick] ⚠️ Starting FALLBACK tick emitter");
                 System.err.println("[Echo/FallbackTick] ⚠️ WARNING: This data is for PIPELINE TESTING ONLY!");
                 activateFallback();
             } else {
-                System.out.println("[Echo/FallbackTick] Heartbeat=0, retry " + retryCount + "/" + MAX_RETRIES);
+                System.out.println("[Echo/FallbackTick] Heartbeat=0, phase=0, retry " + retryCount + "/" + MAX_RETRIES);
                 scheduler.schedule(this::checkAndActivateFallback, 1000, TimeUnit.MILLISECONDS);
             }
         } else {
             System.out.println(
-                    "[Echo/FallbackTick] Tick hook is working (heartbeat=" + heartbeat + "). No fallback needed.");
+                    "[Echo/FallbackTick] Hook detected (heartbeat=" + heartbeat + ", phase=" + phaseStartCount
+                            + "). No fallback needed.");
         }
     }
 
@@ -127,23 +161,27 @@ public class FallbackTickEmitter {
 
     /**
      * Fallback tick 발생
+     * 
+     * v0.9.1: 히스토그램에는 기록하지 않음 (데이터 오염 방지)
+     * Fallback tick은 파이프라인 검증용으로만 사용
      */
     private void emitFallbackTick() {
         fallbackTickCount.incrementAndGet();
 
-        // SelfValidation heartbeat 증가
+        // SelfValidation heartbeat 증가 (파이프라인 검증용)
         SelfValidation.getInstance().tickHeartbeat();
 
         // SessionManager.onTick() 호출 - 세션 자동 시작 및 데이터 수집 마킹
         com.echo.session.SessionManager.getInstance().onTick();
 
-        // TickHistogram에 기록 (200ms fallback tick)
-        long fallbackTickDurationMicros = EchoConfig.getInstance().getFallbackTickIntervalMs() * 1_000L;
-        com.echo.measure.EchoProfiler.getInstance().getTickHistogram().addSample(fallbackTickDurationMicros);
+        // v0.9.1: 히스토그램에는 기록하지 않음!
+        // 이전 버전에서는 200ms 고정값이 기록되어 P95/P99를 오염시켰음
+        // 이제 fallback tick은 heartbeat/session 유지용으로만 사용
 
         // 디버그 로그 (매 50회마다)
         if (fallbackTickCount.get() % 50 == 0) {
-            System.out.println("[Echo/FallbackTick] " + fallbackTickCount.get() + " ticks emitted");
+            System.out.println(
+                    "[Echo/FallbackTick] " + fallbackTickCount.get() + " fallback ticks (pipeline only, no histogram)");
         }
     }
 
@@ -184,5 +222,18 @@ public class FallbackTickEmitter {
 
     public long getFallbackTickCount() {
         return fallbackTickCount.get();
+    }
+
+    /**
+     * v0.9.1: 히스토그램 데이터가 fallback tick으로 오염됐는지 확인
+     * 
+     * 새 버전(0.9.1+)에서는 fallback tick이 히스토그램에 기록되지 않으므로
+     * 항상 false를 반환합니다. 이 플래그는 레거시 호환성과
+     * 명시적인 "오염 없음" 확인을 위해 유지됩니다.
+     * 
+     * @return true if histogram was contaminated by fallback ticks (legacy only)
+     */
+    public boolean isHistogramContaminated() {
+        return histogramContaminated.get();
     }
 }

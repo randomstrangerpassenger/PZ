@@ -359,12 +359,15 @@ public class SelfValidation {
             map.put("issues", issueList);
         }
 
-        // Fallback Tick 정보 (Echo 0.9.0)
+        // Fallback Tick 정보 (Echo 0.9.0 / 0.9.1 강화)
         FallbackTickEmitter fallback = FallbackTickEmitter.getInstance();
         map.put("used_fallback_ticks", com.echo.config.EchoConfig.getInstance().isUsedFallbackTicks());
-        if (fallback.isFallbackActive()) {
-            map.put("fallback_tick_count", fallback.getFallbackTickCount());
-        }
+        map.put("fallback_tick_count", fallback.getFallbackTickCount());
+
+        // v0.9.1: 핵심 플래그 - "데이터 오염 여부" (골든 판정 기준)
+        // used_fallback_ticks: fallback이 활성화된 적이 있었는지 (진단용)
+        // fallback_contaminated_timing: timing 데이터가 오염됐는지 (골든 판정용)
+        map.put("fallback_contaminated_timing", fallback.isHistogramContaminated());
 
         // v0.9: Phase State 정보
         map.put("phase_status", result.phaseStatus != null ? result.phaseStatus.name() : "UNKNOWN");

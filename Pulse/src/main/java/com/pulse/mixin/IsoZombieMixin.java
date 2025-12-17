@@ -22,9 +22,6 @@ public abstract class IsoZombieMixin {
     private long Pulse$zombieUpdateStart = -1;
 
     @Unique
-    private static int Pulse$iterIndex = 0;
-
-    @Unique
     private static int Pulse$worldTick = 0;
 
     @Unique
@@ -44,14 +41,15 @@ public abstract class IsoZombieMixin {
                 System.out.println("[Pulse/IsoZombieMixin] update() called - count: " + Pulse$debugCallCount);
             }
 
-            Pulse$iterIndex++;
+            // MP-safe: zombie ID 사용 (클라이언트 간 동일)
+            int zombieId = Pulse$getZombieId();
 
             // Throttle 체크 (Fuse 활성화 시)
             float distSq = Pulse$getDistSqToPlayer();
             boolean attacking = Pulse$isAttacking();
             boolean hasTarget = Pulse$hasTarget();
 
-            if (ZombieHook.shouldSkipFast(distSq, attacking, hasTarget, Pulse$iterIndex, Pulse$worldTick)) {
+            if (ZombieHook.shouldSkipFast(distSq, attacking, hasTarget, zombieId, Pulse$worldTick)) {
                 ci.cancel();
                 return;
             }
@@ -141,6 +139,41 @@ public abstract class IsoZombieMixin {
             return target != null;
         } catch (Throwable t) {
             return true;
+        }
+    }
+
+    /**
+     * MP-safe zombie ID 가져오기.
+     * MP: getOnlineID() (서버 동기화된 ID)
+     * SP: getID() (로컬 ID)
+     * Fallback: hashCode()
+     */
+    @Unique
+    private int Pulse$getZombieId() {
+        try {
+            // MP first: getOnlineID()
+            Object zombie = this;
+            try {
+                Object onlineId = zombie.getClass().getMethod("getOnlineID").invoke(zombie);
+                if (onlineId != null && ((Number) onlineId).intValue() > 0) {
+                    return ((Number) onlineId).intValue();
+                }
+            } catch (NoSuchMethodException ignored) {
+            }
+
+            // SP fallback: getID()
+            try {
+                Object id = zombie.getClass().getMethod("getID").invoke(zombie);
+                if (id != null) {
+                    return ((Number) id).intValue();
+                }
+            } catch (NoSuchMethodException ignored) {
+            }
+
+            // Final fallback: object identity (not MP-safe but functional)
+            return System.identityHashCode(zombie);
+        } catch (Throwable t) {
+            return System.identityHashCode(this);
         }
     }
 }

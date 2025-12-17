@@ -3,6 +3,7 @@ package com.fuse;
 import com.fuse.config.FuseConfig;
 import com.fuse.hook.FuseHookAdapter;
 import com.fuse.optimizer.FuseOptimizer;
+import com.fuse.throttle.FuseStepPolicy;
 import com.fuse.throttle.FuseThrottleController;
 import com.pulse.api.profiler.ZombieHook;
 import com.pulse.mod.PulseMod;
@@ -59,13 +60,22 @@ public class FuseMod implements PulseMod {
             System.err.println("[Fuse] Failed to register ZombieHook: " + e.getMessage());
         }
 
-        // Phase 2: Throttle Controller 등록
+        // Phase 2: Throttle Controller 등록 (full update skip)
         try {
             throttleController = new FuseThrottleController();
             ZombieHook.setThrottlePolicy(throttleController);
-            System.out.println("[Fuse] ThrottlePolicy registered (disabled by default)");
+            System.out.println("[Fuse] ThrottlePolicy registered (full-update mode)");
         } catch (Exception e) {
             System.err.println("[Fuse] Failed to register ThrottlePolicy: " + e.getMessage());
+        }
+
+        // Phase 2.5: Step-level Throttle Policy 등록 (experimental)
+        try {
+            FuseStepPolicy stepPolicy = new FuseStepPolicy();
+            com.pulse.api.profiler.ZombieStepHook.setStepPolicy(stepPolicy);
+            System.out.println("[Fuse] StepPolicy registered (step-level mode, disabled by default)");
+        } catch (Exception e) {
+            System.err.println("[Fuse] Failed to register StepPolicy: " + e.getMessage());
         }
 
         // 옵티마이저 초기화

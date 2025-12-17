@@ -22,9 +22,6 @@ repositories {
 }
 
 dependencies {
-    // Pulse API (shared interfaces)
-    api project(':pulse-api')
-    
     // Mixin Core
     implementation 'org.spongepowered:mixin:0.8.5'
 
@@ -42,9 +39,10 @@ dependencies {
     implementation 'com.google.guava:guava:32.1.2-jre'
 
     // Game Code (컴파일 전용 - 자동 감지)
-    if (rootProject.ext.pzGamePath) {
-        compileOnly files(rootProject.ext.pzGamePath)
-        compileOnly fileTree(dir: rootProject.ext.pzGamePath, include: ['*.jar'])
+    def pzPath = rootProject.hasProperty('ext') && rootProject.ext.has('pzGamePath') ? rootProject.ext.pzGamePath : null
+    if (pzPath) {
+        compileOnly files(pzPath)
+        compileOnly fileTree(dir: pzPath, include: ['*.jar'])
     } else {
         logger.warn("[Pulse] Project Zomboid not found - some features may not compile")
     }

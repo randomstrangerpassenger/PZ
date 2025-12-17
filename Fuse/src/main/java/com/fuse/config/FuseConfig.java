@@ -12,8 +12,11 @@ public class FuseConfig {
 
     // --- Throttling Settings ---
 
-    /** Throttling master switch (default: OFF) */
+    /** Throttling master switch (default: ON) */
     private boolean enableThrottling = true;
+
+    /** Step-level throttling (default: OFF - experimental) */
+    private boolean enableStepThrottling = false;
 
     /** Distance bands (squared) */
     private int nearDistSq = 400; // 20²
@@ -60,6 +63,10 @@ public class FuseConfig {
 
     public int getHysteresisMargin() {
         return hysteresisMargin;
+    }
+
+    public boolean isStepThrottlingEnabled() {
+        return enableStepThrottling;
     }
 
     // --- Setters ---

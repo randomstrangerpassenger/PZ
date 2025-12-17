@@ -23,12 +23,25 @@ public class SubProfilerBridge implements SubProfilerHook.ISubProfilerCallback {
      * EchoMod.init()에서 호출됨
      */
     public static void register() {
+        System.out.println("[Echo/SubProfilerBridge] register() called");
+
         if (INSTANCE != null) {
+            System.out.println("[Echo/SubProfilerBridge] Already registered, skipping");
             return;
         }
-        INSTANCE = new SubProfilerBridge();
-        SubProfilerHook.setCallback(INSTANCE);
-        System.out.println("[Echo] SubProfilerBridge registered with Pulse");
+
+        try {
+            INSTANCE = new SubProfilerBridge();
+            SubProfilerHook.setCallback(INSTANCE);
+
+            // 등록 확인
+            System.out.println("[Echo] SubProfilerBridge registered with Pulse");
+            System.out.println("[Echo/SubProfilerBridge] Callback instance: " + INSTANCE.getClass().getName());
+        } catch (Throwable t) {
+            System.err.println("[Echo/SubProfilerBridge] FAILED to register: " + t.getMessage());
+            t.printStackTrace();
+            INSTANCE = null;
+        }
     }
 
     /**

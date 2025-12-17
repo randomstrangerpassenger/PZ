@@ -360,8 +360,13 @@ public class ReportDataCollector {
             recommendations.add("CRITICAL: Pulse hooks are MISSING or PARTIAL. Check Mixin logs.");
         }
 
-        if (EchoConfig.getInstance().isUsedFallbackTicks()) {
-            recommendations.add("WARNING: Fallback ticks were used. Timing data may be inaccurate.");
+        // v0.9.1: 두 레벨로 분리
+        com.echo.validation.FallbackTickEmitter fallback = com.echo.validation.FallbackTickEmitter.getInstance();
+        if (fallback.isHistogramContaminated()) {
+            recommendations
+                    .add("WARNING: Fallback ticks contaminated timing data. Histogram/percentiles may be inaccurate.");
+        } else if (EchoConfig.getInstance().isUsedFallbackTicks()) {
+            recommendations.add("INFO: Fallback tick emitter was activated but timing data is clean.");
         }
 
         long sessionMs = profiler.getSessionDurationMs();

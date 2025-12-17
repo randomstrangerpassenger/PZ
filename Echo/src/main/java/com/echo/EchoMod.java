@@ -116,31 +116,102 @@ public class EchoMod implements PulseMod {
         System.out.println();
 
         // 명령어 등록
-        EchoCommands.register();
+        try {
+            EchoCommands.register();
+            System.out.println("[Echo] ✓ EchoCommands registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ EchoCommands.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
 
         // Pulse 이벤트 어댑터 등록
-        PulseEventAdapter.register();
+        try {
+            PulseEventAdapter.register();
+            System.out.println("[Echo] ✓ PulseEventAdapter registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ PulseEventAdapter.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
 
         // Echo 1.0: SubProfiler 브릿지 등록 (Pulse Mixin → Echo SubProfiler 연동)
-        SubProfilerBridge.register();
+        try {
+            SubProfilerBridge.register();
+            System.out.println("[Echo] ✓ SubProfilerBridge registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ SubProfilerBridge.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
 
         // Echo 1.0: TickPhase 브릿지 등록 (Pulse Mixin → Echo TickPhaseProfiler 연동)
-        com.echo.pulse.TickPhaseBridge.register();
+        try {
+            com.echo.pulse.TickPhaseBridge.register();
+            System.out.println("[Echo] ✓ TickPhaseBridge registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ TickPhaseBridge.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
 
         // Echo 1.0 Phase 4: Fuse Deep Analysis 브릿지 등록
-        PathfindingBridge.register();
-        ZombieBridge.register();
-        IsoGridBridge.register();
+        try {
+            PathfindingBridge.register();
+            System.out.println("[Echo] ✓ PathfindingBridge registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ PathfindingBridge.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
+
+        try {
+            ZombieBridge.register();
+            System.out.println("[Echo] ✓ ZombieBridge registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ ZombieBridge.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
+
+        try {
+            IsoGridBridge.register();
+            System.out.println("[Echo] ✓ IsoGridBridge registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ IsoGridBridge.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
+
+        // Echo 2.0: ProfilerBridge Sink 등록 (Fuse → Pulse → Echo 데이터 경로)
+        try {
+            com.echo.pulse.EchoProfilerSink.register();
+            System.out.println("[Echo] ✓ EchoProfilerSink registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ EchoProfilerSink.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
 
         // 키바인딩 등록
-        com.echo.input.EchoKeyBindings.register();
+        try {
+            com.echo.input.EchoKeyBindings.register();
+            System.out.println("[Echo] ✓ EchoKeyBindings registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ EchoKeyBindings.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
 
         // HUD 레이어 등록 (Pulse Native UI)
-        com.echo.ui.EchoHUD.register();
-        com.echo.ui.HotspotPanel.register();
+        try {
+            com.echo.ui.EchoHUD.register();
+            com.echo.ui.HotspotPanel.register();
+            System.out.println("[Echo] ✓ EchoHUD, HotspotPanel registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ HUD registration FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
 
         // OptimizationPoint 동기화 (Pulse Registry에서 로드)
-        com.echo.pulse.OptimizationPointSync.syncFromPulse();
+        try {
+            com.echo.pulse.OptimizationPointSync.syncFromPulse();
+            System.out.println("[Echo] ✓ OptimizationPointSync completed");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ OptimizationPointSync FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
 
         // SPI 프로바이더 등록 (Pulse가 있을 때만)
         registerSpiProvider();

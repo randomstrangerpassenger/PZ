@@ -1,0 +1,19 @@
+{
+    "id": "fuse",
+    "name": "Fuse Optimizer",
+    "version": "0.3.0",
+    "description": "CPU Performance Optimizer for Project Zomboid - Zombie AI and simulation throttling",
+    "authors": [
+        "Fuse Team"
+    ],
+    "entrypoint": "com.fuse.FuseMod",
+    "dependencies": [
+        {
+            "id": "Pulse",
+            "version": ">=0.8.0",
+            "optional": false
+        }
+    ],
+    "conflicts": [],
+    "mixins": []
+}

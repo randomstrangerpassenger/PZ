@@ -112,10 +112,21 @@ public class ReportQualityScorer {
             }
         }
 
-        // 6. Fallback Tick Penalty
-        if (config.isUsedFallbackTicks()) {
+        // 6. Fallback Tick Penalty (v0.9.1: 두 레벨로 분리)
+        com.echo.validation.FallbackTickEmitter fallback = com.echo.validation.FallbackTickEmitter.getInstance();
+
+        // (A) 골든 탈락 조건: timing 데이터가 오염된 경우에만 패널티
+        if (fallback.isHistogramContaminated()) {
             score -= 20;
-            result.addIssue("used_fallback_ticks", "warning", "Fallback ticks were used - data may be inaccurate");
+            result.addIssue("fallback_contaminated", "warning",
+                    "Fallback ticks contaminated timing data - histogram/percentiles may be inaccurate");
+        }
+
+        // (B) 진단 정보: fallback이 켜졌던 사실은 info로 남김 (골든 판정에 영향 없음)
+        if (config.isUsedFallbackTicks()) {
+            // 패널티 없음 - 정보성 경고만
+            result.addIssue("used_fallback_ticks", "info",
+                    "Fallback tick emitter was activated during session (timing data not contaminated)");
         }
 
         result.score = Math.max(0, score);

@@ -1,3 +1,4 @@
 cd c:\Users\MW\Downloads\coding\PZ
 .\gradlew.bat :Echo:shadowJar
 .\gradlew.bat :Pulse:shadowJar
+.\gradlew.bat :Fuse:shadowJar

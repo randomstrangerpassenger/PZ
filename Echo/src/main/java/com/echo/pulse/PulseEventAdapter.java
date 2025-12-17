@@ -112,10 +112,14 @@ public class PulseEventAdapter {
             SessionManager.getInstance().onMainMenuRender();
         }, EchoMod.MOD_ID);
 
+        // Lua Call Hook (On-Demand profiling)
+        LuaHookAdapter.register();
+
         System.out.println("[Echo] Pulse event adapter registered (Native EventBus)");
         System.out.println("[Echo]   - TickProfiler: GameTickEvent");
         System.out.println("[Echo]   - RenderProfiler: GuiRenderEvent");
         System.out.println("[Echo]   - SessionManager: WorldLoad/Unload/MainMenuRender");
+        System.out.println("[Echo]   - LuaHookAdapter: LUA_CALL (On-Demand)");
     }
 
     /**
@@ -127,6 +131,9 @@ public class PulseEventAdapter {
 
         // 모든 Echo 리스너 해제
         EventBus.unsubscribeAll(EchoMod.MOD_ID);
+
+        // Lua Hook 해제
+        LuaHookAdapter.unregister();
 
         System.out.println("[Echo] Pulse event adapter unregistered");
     }

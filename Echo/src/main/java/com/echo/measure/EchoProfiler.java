@@ -263,6 +263,9 @@ public class EchoProfiler {
             reset();
         }
         this.enabled = true;
+
+        // Apply Lua profiling setting from config
+        this.luaProfilingEnabled = config.isLuaProfilingEnabled();
         if (sessionStartTime == 0) {
             this.sessionStartTime = System.currentTimeMillis();
         }

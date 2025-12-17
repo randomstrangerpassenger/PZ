@@ -164,8 +164,12 @@ public class FreezeDetector {
             Thread current = Thread.currentThread();
             if (current.getName().contains("LWJGL") || current.getName().contains("main") ||
                     current.getName().contains("Main") || this.mainThread == null) {
+                boolean wasNull = this.mainThread == null;
                 this.mainThread = current;
-                System.out.println("[Echo] FreezeDetector: Main thread captured: " + current.getName());
+                // 최초 캡처 시에만 로그 출력
+                if (wasNull) {
+                    System.out.println("[Echo] FreezeDetector: Main thread captured: " + current.getName());
+                }
             }
         }
 

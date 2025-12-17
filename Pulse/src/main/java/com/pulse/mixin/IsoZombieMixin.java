@@ -1,6 +1,7 @@
 package com.pulse.mixin;
 
 import com.pulse.api.profiler.SubProfilerHook;
+import com.pulse.api.profiler.ZombieHook;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -9,29 +10,59 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * IsoZombie Mixin.
- * 좀비 업데이트 측정을 위한 SubProfiler 후킹.
  * 
- * @since Pulse 1.1 / Echo 1.0
+ * Phase 2 Fixed: SubProfilerHook 항상 실행, Fuse 콜백만 조건부
+ * 
+ * @since Pulse 1.2
  */
 @Mixin(targets = "zombie.characters.IsoZombie")
 public abstract class IsoZombieMixin {
 
-    // Echo 1.0: SubProfiler 시작 시간
     @Unique
     private long Pulse$zombieUpdateStart = -1;
 
+    @Unique
+    private static int Pulse$iterIndex = 0;
+
+    @Unique
+    private static int Pulse$worldTick = 0;
+
+    @Unique
+    private static int Pulse$debugCallCount = 0;
+
     /**
-     * IsoZombie.update() 시작 시점
+     * IsoZombie.update() 시작
      */
-    @Inject(method = "update", at = @At("HEAD"))
+    @Inject(method = "update", at = @At("HEAD"), cancellable = true)
     private void Pulse$onZombieUpdateStart(CallbackInfo ci) {
         try {
-            Pulse$zombieUpdateStart = SubProfilerHook.start("ZOMBIE_UPDATE");
-            com.pulse.api.profiler.ZombieHook.onZombieUpdate();
+            // 디버그: Mixin 호출 확인
+            Pulse$debugCallCount++;
+            if (Pulse$debugCallCount == 1) {
+                System.out.println("[Pulse/IsoZombieMixin] ✅ First update() call! Mixin is working.");
+            } else if (Pulse$debugCallCount % 1000 == 0) {
+                System.out.println("[Pulse/IsoZombieMixin] update() called - count: " + Pulse$debugCallCount);
+            }
 
-            // Phase 2: Detailed Profiling
-            if (com.pulse.api.profiler.ZombieHook.detailsEnabled) {
-                com.pulse.api.profiler.ZombieHook.onMotionUpdateStart();
+            Pulse$iterIndex++;
+
+            // Throttle 체크 (Fuse 활성화 시)
+            float distSq = Pulse$getDistSqToPlayer();
+            boolean attacking = Pulse$isAttacking();
+            boolean hasTarget = Pulse$hasTarget();
+
+            if (ZombieHook.shouldSkipFast(distSq, attacking, hasTarget, Pulse$iterIndex, Pulse$worldTick)) {
+                ci.cancel();
+                return;
+            }
+
+            // SubProfiler - 항상 실행 (Echo heavy_functions용)
+            Pulse$zombieUpdateStart = SubProfilerHook.start("ZOMBIE_UPDATE");
+
+            // Fuse 콜백 - 조건부 (zombie.total_updates용)
+            if (ZombieHook.profilingEnabled) {
+                ZombieHook.onZombieUpdate(this);
+                ZombieHook.onMotionUpdateStart(this);
             }
         } catch (Throwable t) {
             PulseErrorHandler.reportMixinFailure("IsoZombieMixin.onZombieUpdateStart", t);
@@ -39,18 +70,77 @@ public abstract class IsoZombieMixin {
     }
 
     /**
-     * IsoZombie.update() 종료 시점
+     * IsoZombie.update() 종료
      */
     @Inject(method = "update", at = @At("RETURN"))
     private void Pulse$onZombieUpdateEnd(CallbackInfo ci) {
         try {
-            if (com.pulse.api.profiler.ZombieHook.detailsEnabled) {
-                com.pulse.api.profiler.ZombieHook.onMotionUpdateEnd();
+            // SubProfiler - 항상 실행
+            if (Pulse$zombieUpdateStart > 0) {
+                SubProfilerHook.end("ZOMBIE_UPDATE", Pulse$zombieUpdateStart);
+                Pulse$zombieUpdateStart = -1;
             }
-            SubProfilerHook.end("ZOMBIE_UPDATE", Pulse$zombieUpdateStart);
-            Pulse$zombieUpdateStart = -1;
+
+            // Fuse 콜백 - 조건부
+            if (ZombieHook.profilingEnabled) {
+                ZombieHook.onMotionUpdateEnd(this);
+            }
         } catch (Throwable t) {
             PulseErrorHandler.reportMixinFailure("IsoZombieMixin.onZombieUpdateEnd", t);
+        }
+    }
+
+    // --- Helper methods ---
+
+    @Unique
+    private float Pulse$getDistSqToPlayer() {
+        try {
+            Object zombie = this;
+            float zx = (float) zombie.getClass().getMethod("getX").invoke(zombie);
+            float zy = (float) zombie.getClass().getMethod("getY").invoke(zombie);
+
+            Class<?> playerClass = Class.forName("zombie.characters.IsoPlayer");
+            java.lang.reflect.Field playersField = playerClass.getField("players");
+            @SuppressWarnings("unchecked")
+            java.util.ArrayList<?> players = (java.util.ArrayList<?>) playersField.get(null);
+
+            if (players == null || players.isEmpty())
+                return Float.MAX_VALUE;
+
+            float minDistSq = Float.MAX_VALUE;
+            for (Object player : players) {
+                if (player == null)
+                    continue;
+                float px = (float) player.getClass().getMethod("getX").invoke(player);
+                float py = (float) player.getClass().getMethod("getY").invoke(player);
+                float dx = zx - px;
+                float dy = zy - py;
+                float distSq = dx * dx + dy * dy;
+                if (distSq < minDistSq)
+                    minDistSq = distSq;
+            }
+            return minDistSq;
+        } catch (Throwable t) {
+            return Float.MAX_VALUE;
+        }
+    }
+
+    @Unique
+    private boolean Pulse$isAttacking() {
+        try {
+            return (boolean) this.getClass().getMethod("isAttacking").invoke(this);
+        } catch (Throwable t) {
+            return true;
+        }
+    }
+
+    @Unique
+    private boolean Pulse$hasTarget() {
+        try {
+            Object target = this.getClass().getMethod("getTarget").invoke(this);
+            return target != null;
+        } catch (Throwable t) {
+            return true;
         }
     }
 }

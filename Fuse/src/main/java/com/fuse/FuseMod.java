@@ -1,6 +1,11 @@
 package com.fuse;
 
+import com.fuse.config.FuseConfig;
+import com.fuse.hook.FuseHookAdapter;
 import com.fuse.optimizer.FuseOptimizer;
+import com.fuse.throttle.FuseThrottleController;
+import com.pulse.api.profiler.ZombieHook;
+import com.pulse.mod.PulseMod;
 
 /**
  * Fuse - Performance Optimizer for Project Zomboid
@@ -8,17 +13,29 @@ import com.fuse.optimizer.FuseOptimizer;
  * Echo의 BottleneckDetector 분석 결과를 기반으로
  * CPU 병목(좀비 AI, 시뮬레이션, 물리 등)을 자동 최적화합니다.
  */
-public class FuseMod {
+public class FuseMod implements PulseMod {
 
     public static final String MOD_ID = "Fuse";
-    public static final String VERSION = "0.2.0";
+    public static final String VERSION = "0.3.0";
 
     private static FuseMod instance;
     private FuseOptimizer optimizer;
+    private FuseHookAdapter hookAdapter;
+    private FuseThrottleController throttleController;
     private boolean initialized = false;
 
     public static FuseMod getInstance() {
         return instance;
+    }
+
+    @Override
+    public void onInitialize() {
+        init();
+    }
+
+    @Override
+    public void onUnload() {
+        shutdown();
     }
 
     public void init() {
@@ -29,16 +46,36 @@ public class FuseMod {
         System.out.println("║     \"Detect and Optimize\"                     ║");
         System.out.println("╚═══════════════════════════════════════════════╝");
 
+        // Config 초기화
+        FuseConfig.getInstance();
+
+        // Phase 1: Hook Adapter 등록 (계측)
+        try {
+            hookAdapter = new FuseHookAdapter();
+            ZombieHook.setCallback(hookAdapter);
+            ZombieHook.profilingEnabled = true;
+            System.out.println("[Fuse] ZombieHook callback registered");
+        } catch (Exception e) {
+            System.err.println("[Fuse] Failed to register ZombieHook: " + e.getMessage());
+        }
+
+        // Phase 2: Throttle Controller 등록
+        try {
+            throttleController = new FuseThrottleController();
+            ZombieHook.setThrottlePolicy(throttleController);
+            System.out.println("[Fuse] ThrottlePolicy registered (disabled by default)");
+        } catch (Exception e) {
+            System.err.println("[Fuse] Failed to register ThrottlePolicy: " + e.getMessage());
+        }
+
         // 옵티마이저 초기화
         optimizer = FuseOptimizer.getInstance();
         optimizer.enable();
-
-        // 자동 최적화는 기본적으로 비활성화 (수동 제어 권장)
         optimizer.setAutoOptimize(false);
 
         initialized = true;
         System.out.println("[Fuse] Initialization complete");
-        System.out.println("[Fuse] Use /fuse commands to control optimizations");
+        System.out.println("[Fuse] Use /fuse throttle on|off to control throttling");
     }
 
     /**
@@ -95,6 +132,14 @@ public class FuseMod {
 
     public void shutdown() {
         System.out.println("[Fuse] Shutting down...");
+
+        // Cleanup hook callback
+        try {
+            ZombieHook.setCallback(null);
+            ZombieHook.profilingEnabled = false;
+        } catch (Exception ignored) {
+        }
+
         if (optimizer != null) {
             optimizer.disable();
         }

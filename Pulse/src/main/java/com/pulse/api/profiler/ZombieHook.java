@@ -1,37 +1,24 @@
 package com.pulse.api.profiler;
 
 /**
- * Zombie Hooks for Echo.
+ * Zombie Hooks for Echo/Fuse.
  * 
- * Allows Echo to receive zombie-level timing events from Pulse mixins.
+ * Phase 2 Optimized: 리플렉션 제거, 경량화
  * 
- * @since Pulse 1.1
+ * @since Pulse 1.2
  */
 public class ZombieHook {
 
-    /**
-     * Enable detailed zombie profiling (motion, perception, tracking).
-     * Set by Echo config at startup.
-     */
-    public static boolean detailsEnabled = false;
+    /** Enable detailed profiling (계측 오버헤드 있음) */
+    public static boolean profilingEnabled = false;
 
-    public interface IZombieCallback {
-        void onMotionUpdateStart();
+    /** Throttle policy (Fuse) */
+    private static IZombieThrottlePolicy throttlePolicy;
 
-        void onMotionUpdateEnd();
-
-        void onSoundPerceptionStart();
-
-        void onSoundPerceptionEnd();
-
-        void onTargetTrackingStart();
-
-        void onTargetTrackingEnd();
-
-        void onZombieUpdate();
-    }
-
+    /** Profiling callback */
     private static IZombieCallback callback;
+
+    // --- Registration ---
 
     public static void setCallback(IZombieCallback cb) {
         callback = cb;
@@ -41,45 +28,155 @@ public class ZombieHook {
         callback = null;
     }
 
-    public static void onMotionUpdateStart() {
-        if (callback != null) {
-            callback.onMotionUpdateStart();
+    public static void setThrottlePolicy(IZombieThrottlePolicy policy) {
+        throttlePolicy = policy;
+        if (policy != null) {
+            System.out.println("[Pulse] ZombieThrottlePolicy registered");
         }
+    }
+
+    public static void clearThrottlePolicy() {
+        throttlePolicy = null;
+    }
+
+    // --- Optimized Throttle Check (Mixin에서 직접 호출) ---
+
+    /**
+     * 경량 throttle 체크.
+     * Mixin에서 직접 호출, 리플렉션 없음.
+     * 
+     * @param distSq      플레이어까지 거리 제곱 (Mixin에서 계산)
+     * @param isAttacking 공격 중 여부
+     * @param hasTarget   타겟 있음 여부
+     * @param iterIndex   순회 인덱스
+     * @param worldTick   월드 틱
+     * @return true면 스킵
+     */
+    public static boolean shouldSkipFast(float distSq, boolean isAttacking, boolean hasTarget,
+            int iterIndex, int worldTick) {
+        if (throttlePolicy == null)
+            return false;
+
+        try {
+            return throttlePolicy.shouldSkipFast(distSq, isAttacking, hasTarget, iterIndex, worldTick);
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    // --- Profiling (조건부) ---
+
+    public static void onZombieUpdate(Object zombie) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onZombieUpdateWithContext(zombie);
+            } catch (Throwable t) {
+            }
+        }
+    }
+
+    public static void onMotionUpdateStart(Object zombie) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onMotionUpdateStartWithContext(zombie);
+            } catch (Throwable t) {
+            }
+        }
+    }
+
+    public static void onMotionUpdateEnd(Object zombie) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onMotionUpdateEndWithContext(zombie);
+            } catch (Throwable t) {
+            }
+        }
+    }
+
+    // Legacy - disabled
+    public static void onZombieUpdate() {
+    }
+
+    public static void onMotionUpdateStart() {
     }
 
     public static void onMotionUpdateEnd() {
-        if (callback != null) {
-            callback.onMotionUpdateEnd();
-        }
     }
 
     public static void onSoundPerceptionStart() {
-        if (callback != null) {
-            callback.onSoundPerceptionStart();
-        }
     }
 
     public static void onSoundPerceptionEnd() {
-        if (callback != null) {
-            callback.onSoundPerceptionEnd();
-        }
     }
 
     public static void onTargetTrackingStart() {
-        if (callback != null) {
-            callback.onTargetTrackingStart();
-        }
     }
 
     public static void onTargetTrackingEnd() {
-        if (callback != null) {
-            callback.onTargetTrackingEnd();
-        }
     }
 
-    public static void onZombieUpdate() {
-        if (callback != null) {
-            callback.onZombieUpdate();
+    public static void onSoundPerceptionStart(Object z) {
+    }
+
+    public static void onSoundPerceptionEnd(Object z) {
+    }
+
+    public static void onTargetTrackingStart(Object z) {
+    }
+
+    public static void onTargetTrackingEnd(Object z) {
+    }
+
+    // --- Callback Interface ---
+
+    public interface IZombieCallback {
+        default void onZombieUpdate() {
+        }
+
+        default void onMotionUpdateStart() {
+        }
+
+        default void onMotionUpdateEnd() {
+        }
+
+        default void onSoundPerceptionStart() {
+        }
+
+        default void onSoundPerceptionEnd() {
+        }
+
+        default void onTargetTrackingStart() {
+        }
+
+        default void onTargetTrackingEnd() {
+        }
+
+        default void onZombieUpdateWithContext(Object zombie) {
+            onZombieUpdate();
+        }
+
+        default void onMotionUpdateStartWithContext(Object zombie) {
+            onMotionUpdateStart();
+        }
+
+        default void onMotionUpdateEndWithContext(Object zombie) {
+            onMotionUpdateEnd();
+        }
+
+        default void onSoundPerceptionStartWithContext(Object zombie) {
+            onSoundPerceptionStart();
+        }
+
+        default void onSoundPerceptionEndWithContext(Object zombie) {
+            onSoundPerceptionEnd();
+        }
+
+        default void onTargetTrackingStartWithContext(Object zombie) {
+            onTargetTrackingStart();
+        }
+
+        default void onTargetTrackingEndWithContext(Object zombie) {
+            onTargetTrackingEnd();
         }
     }
 }

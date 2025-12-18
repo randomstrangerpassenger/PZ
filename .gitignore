@@ -22,3 +22,6 @@ Thumbs.db
 # Build outputs
 out/
 bin/
+
+# Class code
+Classcode/

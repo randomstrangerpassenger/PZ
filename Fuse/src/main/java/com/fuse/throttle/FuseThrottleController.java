@@ -1,5 +1,7 @@
 package com.fuse.throttle;
 
+import com.fuse.cache.ZombieStateCache;
+import com.fuse.cache.ZombieStateCache.ZombieState;
 import com.fuse.config.FuseConfig;
 import com.pulse.api.profiler.IZombieThrottlePolicy;
 
@@ -45,14 +47,29 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
             return false;
         }
 
-        // 4. 거리 band
+        // 4. 좀비 상태 기반 throttle 배수 적용
+        ZombieState zombieState = ZombieStateCache.getInstance().getState(iterIndex);
+        if (!zombieState.canThrottle()) {
+            // CHASING, ATTACKING 상태는 throttle 면제
+            updateCount++;
+            return false;
+        }
+
+        // 5. 거리 band
         int intervalMask = getIntervalMask(distSq);
         if (intervalMask == 0) {
             updateCount++;
             return false;
         }
 
-        // 5. 비트 연산 throttle
+        // 6. 상태 배수 적용 (FAKE_DEAD, EATING 등은 더 공격적으로 throttle)
+        float stateMultiplier = zombieState.throttleMultiplier;
+        if (stateMultiplier > 1.0f) {
+            // 배수가 높으면 interval 확대 (더 많이 skip)
+            intervalMask = Math.min(15, (int) (intervalMask * stateMultiplier));
+        }
+
+        // 7. 비트 연산 throttle
         boolean skip = ((iterIndex + worldTick) & intervalMask) != 0;
 
         if (skip) {

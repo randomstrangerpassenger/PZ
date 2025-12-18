@@ -40,8 +40,8 @@ public class EchoConfig {
     /** 심층 분석 활성화 (SubTiming, Fuse, TickPhase 등) */
     private boolean deepAnalysisEnabled = true; // 기본 활성화 (tick_phase, heavy_functions 등)
 
-    /** Lua 프로파일링 활성화 (Heavy) */
-    private boolean luaProfilingEnabled = false;
+    /** Lua 프로파일링 활성화 (기본 ON) */
+    private boolean luaProfilingEnabled = true;
 
     /** Lua Sampling Profiler 활성화 (sethook) */
     private boolean luaSamplingEnabled = false;

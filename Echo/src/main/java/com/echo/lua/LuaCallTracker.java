@@ -254,6 +254,21 @@ public class LuaCallTracker {
     }
 
     /**
+     * Pulse Lua Hook에서 path hit count 가져오기
+     * 
+     * Mixin 경로 검증용. path_hits > 0이면 MixinLuaEventManager가 작동 중.
+     * Pulse API 없으면 0 반환.
+     */
+    private long getPathHitsFromPulse() {
+        try {
+            return com.pulse.api.lua.PulseLuaHook.getPathHitCount();
+        } catch (NoClassDefFoundError | Exception e) {
+            // Pulse API not available
+            return 0;
+        }
+    }
+
+    /**
      * 초기화
      */
     public void reset() {
@@ -333,6 +348,21 @@ public class LuaCallTracker {
         map.put("enabled", profiler.isLuaProfilingEnabled());
         map.put("total_calls", getTotalCalls());
         map.put("total_time_ms", Math.round(getTotalTimeMs() * 100) / 100.0);
+
+        // Phase 1B: Pulse Lua Hook 경로 검증
+        // path_hits > 0이면 Mixin 경로가 작동하는 것
+        // total_calls = 0이어도 path_hits > 0이면 Mixin은 정상
+        long pathHits = getPathHitsFromPulse();
+        map.put("path_hits", pathHits);
+
+        // mode: 현재 Lua 프로파일링 상태 설명
+        // - "path_verify": path_hits만 수집 (경량, 기본)
+        // - "detailed": 함수별 상세 통계 수집 (C 방식)
+        String mode = (getTotalCalls() > 0) ? "detailed" : "path_verify";
+        map.put("mode", mode);
+
+        // path_verified: path_hits > 0이면 true
+        map.put("path_verified", pathHits > 0);
 
         List<Map<String, Object>> topFunctions = new ArrayList<>();
         int rank = 1;

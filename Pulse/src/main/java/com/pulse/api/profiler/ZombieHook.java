@@ -93,6 +93,35 @@ public class ZombieHook {
         }
     }
 
+    // --- Phase 2: New Zombie Event Hooks ---
+
+    public static void onZombieSpotted(Object zombie, Object target, boolean forced) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onZombieSpottedWithContext(zombie, target, forced);
+            } catch (Throwable t) {
+            }
+        }
+    }
+
+    public static void onZombieHit(Object zombie, Object attacker, float damage) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onZombieHitWithContext(zombie, attacker, damage);
+            } catch (Throwable t) {
+            }
+        }
+    }
+
+    public static void onZombieKill(Object zombie, Object killer) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onZombieKillWithContext(zombie, killer);
+            } catch (Throwable t) {
+            }
+        }
+    }
+
     // Legacy - disabled
     public static void onZombieUpdate() {
     }
@@ -177,6 +206,28 @@ public class ZombieHook {
 
         default void onTargetTrackingEndWithContext(Object zombie) {
             onTargetTrackingEnd();
+        }
+
+        // Phase 2: New Event Hooks
+        default void onZombieSpotted(Object target, boolean forced) {
+        }
+
+        default void onZombieSpottedWithContext(Object zombie, Object target, boolean forced) {
+            onZombieSpotted(target, forced);
+        }
+
+        default void onZombieHit(Object attacker, float damage) {
+        }
+
+        default void onZombieHitWithContext(Object zombie, Object attacker, float damage) {
+            onZombieHit(attacker, damage);
+        }
+
+        default void onZombieKill(Object killer) {
+        }
+
+        default void onZombieKillWithContext(Object zombie, Object killer) {
+            onZombieKill(killer);
         }
     }
 }

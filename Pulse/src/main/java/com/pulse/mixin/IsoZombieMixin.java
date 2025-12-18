@@ -176,4 +176,14 @@ public abstract class IsoZombieMixin {
             return System.identityHashCode(this);
         }
     }
+
+    // =================================================================
+    // NOTE: spotted(), Hit(), Kill() 메서드들은 파라미터 타입이
+    // IsoMovingObject, IsoGameCharacter 등 게임 클래스를 요구합니다.
+    // 컴파일 타임에 이 클래스들이 없으므로 Mixin Injection이 실패합니다.
+    //
+    // 향후 필요 시:
+    // 1. compileOnly로 게임 JAR 의존성 추가
+    // 2. 또는 ASM을 이용한 수동 바이트코드 조작
+    // =================================================================
 }

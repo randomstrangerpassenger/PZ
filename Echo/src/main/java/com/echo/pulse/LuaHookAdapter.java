@@ -52,8 +52,6 @@ public class LuaHookAdapter implements ILuaCallCallback {
         this.tracker = tracker;
     }
 
-    // --- Registration API ---
-
     /**
      * Pulse Hook Registry에 콜백 등록
      */
@@ -67,6 +65,9 @@ public class LuaHookAdapter implements ILuaCallCallback {
         LuaCallTracker tracker = LuaCallTracker.getInstance();
         INSTANCE = new LuaHookAdapter(profiler, tracker);
 
+        // Phase 2C: PulseLuaHook 콜백 등록 (신규 방식)
+        registerPulseLuaHookCallback(tracker, profiler);
+
         try {
             PulseHookRegistry.register(HookTypes.LUA_CALL, INSTANCE, "Echo");
             registered = true;
@@ -79,6 +80,33 @@ public class LuaHookAdapter implements ILuaCallCallback {
         } catch (Exception e) {
             System.err.println("[Echo/LuaHook] ❌ Failed to register LUA_CALL callback: " + e.getMessage());
             registered = false;
+        }
+    }
+
+    /**
+     * Phase 2C: InternalLuaHook 콜백 등록
+     * 
+     * MixinLuaEventManager → InternalLuaHook → 이 콜백 → LuaCallTracker
+     * (pulse-api 대신 Pulse 내부 클래스 사용 - Gradle 의존성 문제 우회)
+     */
+    private static void registerPulseLuaHookCallback(LuaCallTracker tracker, EchoProfiler profiler) {
+        try {
+            com.pulse.internal.InternalLuaHook.setCallback(
+                    (eventName, durationMicros) -> {
+                        // LuaCallTracker.recordEventCall(eventName, durationMicros, handlerCount)
+                        // handlerCount는 현재 알 수 없으므로 1로 설정
+                        tracker.recordEventCall(eventName, durationMicros, 1);
+                    });
+
+            // 프로파일링 활성화 상태 동기화
+            com.pulse.internal.InternalLuaHook.setProfilingEnabled(profiler.isLuaProfilingEnabled());
+
+            System.out.println("[Echo/LuaHook] ✅ InternalLuaHook callback registered (Phase 2C)");
+            System.out.println("[Echo/LuaHook]   profilingEnabled = " + profiler.isLuaProfilingEnabled());
+        } catch (NoClassDefFoundError e) {
+            System.out.println("[Echo/LuaHook] ⚠ InternalLuaHook not available (Phase 2C disabled)");
+        } catch (Exception e) {
+            System.err.println("[Echo/LuaHook] ❌ Failed to register InternalLuaHook callback: " + e.getMessage());
         }
     }
 

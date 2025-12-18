@@ -10,7 +10,8 @@
     "IsoPlayerMixin",
     "IsoZombieMixin",
     "PathfindingMixin",
-    "IsoGridMixin"
+    "IsoGridMixin",
+    "lua.MixinLuaEventManager"
   ],
   "client": [],
   "server": [],

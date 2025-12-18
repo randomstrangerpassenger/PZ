@@ -120,6 +120,12 @@ public class TickPhaseBridge implements TickPhaseHook.ITickPhaseCallback {
             phaseMismatchCount.set(pulsePhaseErrors);
         }
 
+        // v2.0: Lua 경로 히트 프로브 (30초 후 1회 검증)
+        com.echo.lua.LuaPathHitBridge probe = com.echo.lua.LuaPathHitBridge.getInstance();
+        if (probe != null) {
+            probe.onTick();
+        }
+
         TickPhaseProfiler.getInstance().onTickComplete();
     }
 

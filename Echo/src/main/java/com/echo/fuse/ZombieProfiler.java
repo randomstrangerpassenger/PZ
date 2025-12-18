@@ -21,7 +21,11 @@ public class ZombieProfiler {
         SOUND_PERCEPTION,
         TARGET_TRACKING,
         COLLISION,
-        BEHAVIOR_TICK
+        BEHAVIOR_TICK,
+        // Phase 1 추가: IsoZombie 분석 기반
+        PLAYER_DETECTION, // spotted() 메서드
+        PATH_RECALC, // pathToCharacter() 경로 재계산
+        LOS_CHECK // 시야 확인 (Line of Sight)
     }
 
     private final Map<ZombieStep, LongAdder> stepTimes = new EnumMap<>(ZombieStep.class);

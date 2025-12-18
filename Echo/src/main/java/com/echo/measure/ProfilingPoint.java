@@ -39,6 +39,15 @@ public enum ProfilingPoint {
     /** 좀비 AI 업데이트 */
     ZOMBIE_AI(Category.SUBSYSTEM, "Zombie AI"),
 
+    /** 좀비 플레이어 탐지 (spotted 메서드) */
+    ZOMBIE_DETECTION(Category.SUBSYSTEM, "Zombie Detection"),
+
+    /** 좀비 경로 탐색 (pathToCharacter 메서드) */
+    ZOMBIE_PATHFINDING(Category.SUBSYSTEM, "Zombie Pathfinding"),
+
+    /** 좀비 소리 반응 (RespondToSound 메서드) */
+    ZOMBIE_SOUND(Category.SUBSYSTEM, "Zombie Sound Response"),
+
     /** NPC AI 업데이트 */
     NPC_AI(Category.SUBSYSTEM, "NPC AI"),
 

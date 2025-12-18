@@ -115,6 +115,18 @@ public class EchoMod implements PulseMod {
         System.out.println("╚═══════════════════════════════════════════════╝");
         System.out.println();
 
+        // Phase 0: Profiler 선 활성화 (다른 컴포넌트들이 상태를 체크하기 전에)
+        com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
+        com.echo.measure.EchoProfiler profiler = com.echo.measure.EchoProfiler.getInstance();
+
+        profiler.enable();
+
+        // Lua 프로파일링 설정 동기화 (EchoConfig → EchoProfiler)
+        if (config.isLuaProfilingEnabled()) {
+            profiler.enableLuaProfiling();
+            System.out.println("[Echo] ✓ Lua Profiling PRE-ENABLED (from config)");
+        }
+
         // 명령어 등록
         try {
             EchoCommands.register();
@@ -148,6 +160,15 @@ public class EchoMod implements PulseMod {
             System.out.println("[Echo] ✓ TickPhaseBridge registered");
         } catch (Throwable t) {
             System.err.println("[Echo] ✗ TickPhaseBridge.register() FAILED: " + t.getMessage());
+            t.printStackTrace();
+        }
+
+        // Echo 2.0: Lua Path Hit 프로브 등록 (30초 후 검증 로그)
+        try {
+            com.echo.lua.LuaPathHitBridge.register();
+            System.out.println("[Echo] ✓ LuaPathHitBridge registered");
+        } catch (Throwable t) {
+            System.err.println("[Echo] ✗ LuaPathHitBridge.register() FAILED: " + t.getMessage());
             t.printStackTrace();
         }
 
@@ -219,17 +240,7 @@ public class EchoMod implements PulseMod {
         // Phase 5: Service Registration using PulseServiceLocator
         registerServices();
 
-        // 자동 프로파일링 시작 - 항상 활성화 (데이터 손실 방지)
-        com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
-        com.echo.measure.EchoProfiler profiler = com.echo.measure.EchoProfiler.getInstance();
-
-        if (!config.isAutoStartProfiling()) {
-            System.out.println(
-                    "[Echo] WARNING: autoStartProfiling is disabled in config, but enabling anyway for safety!");
-            System.out.println("[Echo] To disable profiling, use /echo off command in-game.");
-        }
-
-        profiler.enable();
+        // 프로파일러 상태 최종 확인 (이미 Phase 0에서 활성화됨)
         System.out.println("╔═══════════════════════════════════════════════╗");
         System.out.println("║  [Echo] ✓ PROFILER ENABLED - Collecting Data  ║");
         System.out.println("╚═══════════════════════════════════════════════╝");

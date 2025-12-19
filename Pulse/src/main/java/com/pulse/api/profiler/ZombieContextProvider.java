@@ -85,7 +85,6 @@ public class ZombieContextProvider {
                 return Float.MAX_VALUE;
 
             // ArrayList<IsoPlayer>
-            @SuppressWarnings("unchecked")
             java.util.ArrayList<?> players = (java.util.ArrayList<?>) playersArray;
 
             float minDistSq = Float.MAX_VALUE;

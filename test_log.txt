@@ -1,0 +1,204 @@
+﻿
+> Configure project :
+[PZ] Found Steam: g:/program files (x86)/steam
+[PZ] Found 3 Steam library folder(s)
+[PZ] Found Project Zomboid: g:/program files (x86)/steam/steamapps/common/ProjectZomboid
+
+> Task :pulse-api:compileJava UP-TO-DATE
+> Task :Pulse:compileJava UP-TO-DATE
+> Task :Pulse:processResources UP-TO-DATE
+> Task :Pulse:classes UP-TO-DATE
+> Task :Pulse:compileTestJava
+> Task :Pulse:processTestResources NO-SOURCE
+> Task :Pulse:testClasses
+> Task :pulse-api:processResources NO-SOURCE
+> Task :pulse-api:classes UP-TO-DATE
+> Task :pulse-api:jar UP-TO-DATE
+
+> Task :Pulse:test
+
+PulseBoundaryTest > Core package must not depend on internal package PASSED
+
+PulseBoundaryTest > Core mixin package must not contain optimization classes PASSED
+
+PulseBoundaryTest > Only bindings and mixin packages may reference zombie.* directly PASSED
+
+PulseBoundaryTest > Loader package should not directly reference zombie.* classes PASSED
+
+PulseBoundaryTest > API package must not depend on internal package PASSED
+
+PulseBoundaryTest > Core package should not directly reference zombie.* classes PASSED
+
+PulseBoundaryTest > API package should not directly reference zombie.* classes PASSED
+
+PulseBoundaryTest > Core packages must not depend on loader packages PASSED
+
+PulseBoundaryTest > Core must not have classes with Optimizer/Throttle in name PASSED
+
+GameAccessTest > networkAccess_isMultiplayer_returnsFalseByDefault() PASSED
+
+GameAccessTest > playerAccess_getLocalPlayer_returnsNullWhenNotInGame() PASSED
+
+GameAccessTest > timeAccess_getGameHour_returnsZeroWhenNotLoaded() PASSED
+
+GameAccessTest > worldAccess_isWorldLoaded_returnsFalseWhenNotLoaded() PASSED
+
+GameAccessTest > networkAccess_isSinglePlayer_returnsTrueByDefault() PASSED
+
+ExceptionHierarchyTest > injectionException_circularDependency() PASSED
+
+ExceptionHierarchyTest > mixinApplyException_targetNotFound() PASSED
+
+ExceptionHierarchyTest > mixinApplyException_signatureMismatch() PASSED
+
+ExceptionHierarchyTest > injectionException_serviceNotFound() PASSED
+
+ExceptionHierarchyTest > luaInteropException_executionError() PASSED
+
+ExceptionHierarchyTest > configurationException_missingRequired() PASSED
+
+ExceptionHierarchyTest > configurationException_invalidValue() PASSED
+
+ExceptionHierarchyTest > luaInteropException_functionNotFound() PASSED
+
+.\gradlew.bat : Java H
+otSpot(TM) 64-Bit Serv
+er VM warning: Sharing
+ is only supported for
+ boot loader classes b
+ecause bootstrap class
+path has been appended
+At line:1 char:1
++ .\gradlew.bat :Pulse
+:test --console=plain 
+2>&1 | Out-File -FileP
+ath " ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
+~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (Java HotSp   
+ ot(TM...s been ap    
+pended:String) []    ,
+ RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+
+> Task :Pulse:test
+
+ModInitializerTest > initialize_ShouldHandleExceptionGracefully() PASSED
+
+ModInitializerTest > initialize_ShouldCallModLoaderMethods() PASSED
+
+SystemPropertyInitializerTest > initialize_ShouldSetMixinProperties() PASSED
+
+CommandContextTest > getInt_withDefault_returnsDefaultForMissing() PASSED
+
+CommandContextTest > getInt_returnsNullForNonInteger() PASSED
+
+CommandContextTest > getArg_returnsNullForInvalidIndex() PASSED
+
+CommandContextTest > getArgCount_returnsCorrectCount() PASSED
+
+CommandContextTest > getArg_returnsCorrectArg() PASSED
+
+CommandContextTest > getBoolean_parsesTruthy() PASSED
+
+CommandContextTest > getArg_withDefault_returnsDefaultForMissing() PASSED
+
+CommandContextTest > getRemainingArgs_joinsArgs() PASSED
+
+CommandContextTest > getInt_parsesInteger() PASSED
+
+CommandContextTest > hasArg_returnsTrueForValidIndex() PASSED
+
+PulseContractTest > testReflectionCacheContract() PASSED
+
+PulseContractTest > testEventBusContract() PASSED
+
+PulseContractTest > testSchedulerContract() PASSED
+
+DevConsoleTest > execute_withNull_doesNotThrow() PASSED
+
+DevConsoleTest > execute_withEmptyString_doesNotThrow() PASSED
+
+DevConsoleTest > getInstance_notNull() PASSED
+
+DevConsoleTest > getInstance_returnsSameInstance() PASSED
+
+EventBusTest > subscribe_and_fire_callsListener() PASSED
+
+EventBusTest > getListenerCount_returnsCorrectCount() PASSED
+
+EventBusTest > priority_highCalledFirst() PASSED
+
+EventBusTest > clearAll_removesAllListeners() PASSED
+
+EventBusTest > unsubscribe_removesListener() PASSED
+
+LifecycleManagerTest > registerShutdownHook_isCalledOnShutdown() PASSED
+
+LifecycleManagerTest > multipleHooks_allCalled() PASSED
+
+LifecycleManagerTest > isShuttingDown_initiallyFalse() PASSED
+
+BatchLuaBridgeBenchmarkTest > benchmarkBatchVsDirect() PASSED
+
+LuaBridgeTest > call_withInvalidFunction_returnsNull() PASSED
+
+LuaBridgeTest > getInstance_returnsSameInstance() PASSED
+
+LuaBridgeTest > getGlobal_withNullName_returnsNull() PASSED
+
+LuaBridgeTest > call_withNullFunction_returnsNull() PASSED
+
+LuaBridgeTest > setGlobal_withNullName_doesNotThrow() PASSED
+
+ModLoaderTest > getAllMods_returnsCollection() PASSED
+
+ModLoaderTest > getLoadOrder_returnsUnmodifiableList() PASSED
+
+ModLoaderTest > getModCount_returnsNonNegative() PASSED
+
+ModLoaderTest > getMod_returnsNullForUnknown() PASSED
+
+ModLoaderTest > isModLoaded_returnsFalseForUnknown() PASSED
+
+ModLoaderTest > getModsDirectory_returnsValidPath() PASSED
+
+ModLoaderTest > getInstance_returnsSameInstance() PASSED
+
+GameNetworkBridgeTest > isClient_withoutPZRuntime_returnsFalse() PASSED
+
+GameNetworkBridgeTest > isServer_withoutPZRuntime_returnsFalse() PASSED
+
+GameNetworkBridgeTest > getInstance_notNull() PASSED
+
+GameNetworkBridgeTest > reconnect_doesNotThrow() PASSED
+
+GameNetworkBridgeTest > getInstance_returnsSameInstance() PASSED
+
+PulseSchedulerTest > runTimer_executesMultipleTimes() PASSED
+
+PulseSchedulerTest > runLater_executesAfterDelay() PASSED
+
+PulseSchedulerTest > cancelAll_stopsAllTasks() PASSED
+
+PulseSchedulerTest > getActiveTaskCount_returnsCorrectCount() PASSED
+
+PulseSchedulerTest > cancel_stopsExecution() PASSED
+
+[14:29:54.371] [Pulse/INFO] [Lifecycle] Shutting down Pulse...
+[14:29:54.372] [Pulse/
+WARN] [Lua] PZ Lua cla
+sses not found - runni
+ng outside game?
+[14:29:54.373] [Pulse/INFO] Unloading all mods...
+[14:29:54.373] [Pulse/INFO] All mods unloaded
+[14:29:54.373] [Pulse/INFO] [Lifecycle] Pulse shutdown complete
+
+BUILD SUCCESSFUL in 12s
+6 actionable tasks: 2 executed, 4 up-to-date

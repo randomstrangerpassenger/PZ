@@ -1,6 +1,5 @@
 package com.echo.lua;
 
-import com.echo.pulse.TickPhaseBridge;
 import com.pulse.api.lua.PulseLuaHook;
 
 /**

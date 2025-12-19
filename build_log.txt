@@ -1,0 +1,29 @@
+﻿
+> Configure project :
+[PZ] Found Steam: g:/program files (x86)/steam
+[PZ] Found 3 Steam library folder(s)
+[PZ] Found Project Zomboid: g:/program files (x86)/steam/steamapps/common/ProjectZomboid
+
+> Task :pulse-api:compileJava UP-TO-DATE
+> Task :Pulse:compileJava UP-TO-DATE
+> Task :Pulse:processResources UP-TO-DATE
+> Task :Pulse:classes UP-TO-DATE
+> Task :Pulse:jar UP-TO-DATE
+> Task :Pulse:assemble UP-TO-DATE
+
+> Task :Pulse:generateVersionFile
+Generated pulse-version.txt: 0.8.0
+
+> Task :pulse-api:processResources NO-SOURCE
+> Task :pulse-api:classes UP-TO-DATE
+> Task :pulse-api:jar UP-TO-DATE
+> Task :Pulse:shadowJar UP-TO-DATE
+> Task :Pulse:compileTestJava UP-TO-DATE
+> Task :Pulse:processTestResources NO-SOURCE
+> Task :Pulse:testClasses UP-TO-DATE
+> Task :Pulse:test UP-TO-DATE
+> Task :Pulse:check UP-TO-DATE
+> Task :Pulse:build UP-TO-DATE
+
+BUILD SUCCESSFUL in 5s
+9 actionable tasks: 1 executed, 8 up-to-date

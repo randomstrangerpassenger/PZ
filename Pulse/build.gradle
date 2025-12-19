@@ -55,6 +55,9 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:5.5.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+    // Architecture Testing (package boundary enforcement)
+    testImplementation 'com.tngtech.archunit:archunit-junit5:1.2.1'
 }
 
 test {
@@ -118,3 +121,70 @@ task generateVersionFile {
 
 // shadowJar 빌드 시 버전 파일도 함께 생성
 shadowJar.dependsOn generateVersionFile
+
+// ═══════════════════════════════════════════════════════════════
+// Dual Output: pulse-core.jar and pulse-all.jar
+// For future core-loader separation
+// ═══════════════════════════════════════════════════════════════
+
+task shadowJarCore(type: com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+    description = 'Build Pulse-core.jar (without loader packages)'
+    group = 'build'
+    
+    archiveBaseName.set('Pulse-core')
+    archiveClassifier.set('')
+    archiveVersion.set('')
+    
+    from sourceSets.main.output
+    configurations = [project.configurations.runtimeClasspath]
+    
+    // Exclude loader packages (core should be self-sufficient)
+    exclude 'com/pulse/loader/**'
+    exclude 'com/pulse/ui/**'
+    
+    // Exclude optimization mixins (belong in Fuse, not core)
+    exclude 'com/pulse/mixin/optimization/**'
+    
+    mergeServiceFiles()
+    
+    // Same META-INF exclusions as main shadowJar
+    exclude 'META-INF/MANIFEST.MF'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    
+    manifest {
+        attributes(
+            'Premain-Class': 'com.pulse.PulseAgent',
+            'Agent-Class': 'com.pulse.PulseAgent',
+            'Can-Retransform-Classes': 'true',
+            'Can-Redefine-Classes': 'true',
+            'Can-Set-Native-Method-Prefix': 'true',
+            'Implementation-Title': 'Pulse Core',
+            'Implementation-Version': project.version,
+            'Multi-Release': 'true'
+        )
+    }
+}
+
+task buildAll {
+    description = 'Build both pulse-all.jar and pulse-core.jar'
+    group = 'build'
+    dependsOn shadowJar      // Pulse.jar (all inclusive)
+    dependsOn shadowJarCore  // Pulse-core.jar (core only)
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Architecture Test Task (run boundary tests separately)
+// ═══════════════════════════════════════════════════════════════
+
+task archTest(type: Test) {
+    description = 'Run architecture boundary tests'
+    group = 'verification'
+    useJUnitPlatform {
+        includeTags 'architecture'
+    }
+    filter {
+        includeTestsMatching '*BoundaryTest*'
+    }
+}

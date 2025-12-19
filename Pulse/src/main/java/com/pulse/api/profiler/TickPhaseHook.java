@@ -50,7 +50,54 @@ public class TickPhaseHook {
         void onTickComplete();
     }
 
-    private static ITickPhaseCallback callback;
+    private static volatile ITickPhaseCallback callback;
+    private static volatile boolean installed = false;
+
+    // ═══════════════════════════════════════════════════════════════
+    // Bootstrap Activation (explicit install)
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * Install TickPhaseHook (called by PulseCoreBootstrap).
+     * 
+     * <p>
+     * This provides explicit activation instead of relying on static
+     * initialization.
+     * Safe to call multiple times (idempotent).
+     * </p>
+     * 
+     * @return true if successfully installed, false if already installed
+     */
+    public static boolean install() {
+        if (installed) {
+            return false;
+        }
+
+        // Reset state for clean start
+        resetWarnings();
+        currentPhase = null;
+        currentPhaseStart = -1;
+
+        installed = true;
+        Pulse.log("pulse", "[TickPhaseHook] Installed and ready");
+        return true;
+    }
+
+    /**
+     * Check if TickPhaseHook has been installed by Bootstrap.
+     */
+    public static boolean isInstalled() {
+        return installed;
+    }
+
+    /**
+     * Uninstall TickPhaseHook (for testing/cleanup).
+     */
+    public static void uninstall() {
+        clearCallback();
+        resetWarnings();
+        installed = false;
+    }
 
     public static void setCallback(ITickPhaseCallback cb) {
         callback = cb;

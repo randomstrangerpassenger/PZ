@@ -127,6 +127,12 @@ if exist "!CONFIG_FILE!" (
 :: Read version
 if exist "!VERSION_FILE!" set /p PULSE_VERSION=<"!VERSION_FILE!"
 
+:: Create mods folder if not exists
+if not exist "!MODS_DIR!" (
+    mkdir "!MODS_DIR!"
+    call :LOG "Created mods directory: !MODS_DIR!"
+)
+
 :: Count mods
 if exist "!MODS_DIR!" (
     for %%f in ("!MODS_DIR!\*.jar") do set /a MOD_COUNT+=1

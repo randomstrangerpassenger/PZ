@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * IsoWorld Mixin.
@@ -40,7 +39,7 @@ public abstract class IsoWorldMixin {
     // Echo 2.0 Phase 2: LOS Hook
     // NOTE: checkLineOfSight is NOT in IsoWorld - it's in LosUtil
     // This hook was removed to prevent Mixin failure
-    // TODO: Move LOS profiling to a separate LosUtilMixin if needed
+    // NOTE: Move LOS profiling to a separate LosUtilMixin if needed
 
     @Unique
     private static long Pulse$tickCount = 0;

@@ -1,0 +1,119 @@
+﻿
+> Configure project :
+[PZ] Found Steam: g:/program files (x86)/steam
+[PZ] Found 3 Steam library folder(s)
+[PZ] Found Project Zomboid: g:/program files (x86)/steam/steamapps/common/ProjectZomboid
+
+> Task :pulse-api:compileJava UP-TO-DATE
+> Task :pulse-api:processResources NO-SOURCE
+> Task :pulse-api:classes UP-TO-DATE
+> Task :pulse-api:jar
+> Task :pulse-api:assemble
+> Task :pulse-api:compileTestJava UP-TO-DATE
+> Task :pulse-api:processTestResources NO-SOURCE
+> Task :pulse-api:testClasses UP-TO-DATE
+
+> Task :pulse-api:test
+
+ContractTest > ipulseMetricsHasRequiredMethods() PASSED
+
+ContractTest > failsoftPolicyHasRequiredActions() PASSED
+
+ContractTest > ipulseHasRequiredMethods() PASSED
+
+ContractTest > ipulseEventHasExpectedMethods() PASSED
+
+> Task :pulse-api:check
+> Task :pulse-api:build
+> Task :Pulse:compileJava UP-TO-DATE
+> Task :Pulse:processResources UP-TO-DATE
+> Task :Pulse:classes UP-TO-DATE
+
+> Task :Pulse:generateVersionFile
+Generated pulse-version.txt: 0.8.0
+
+> Task :Pulse:shadowJar UP-TO-DATE
+> Task :Echo:compileJava
+> Task :Echo:processResources
+> Task :Echo:classes
+> Task :Echo:jar SKIPPED
+> Task :Echo:assemble UP-TO-DATE
+> Task :Echo:shadowJar
+> Task :Echo:compileTestJava
+> Task :Echo:processTestResources NO-SOURCE
+> Task :Echo:testClasses
+> Task :Pulse:jar
+
+> Task :Echo:test
+
+SpikeLogTest > Recent spikes retrieval PASSED
+
+SpikeLogTest > Reset clears all data PASSED
+
+SpikeLogTest > toMap generates valid output PASSED
+
+SpikeLogTest > Spikes below threshold not logged PASSED
+
+SpikeLogTest > Spikes above threshold logged PASSED
+
+SpikeLogTest > Threshold can be changed at runtime PASSED
+
+SpikeLogTest > Initial state PASSED
+
+SpikeLogTest > Worst spike tracking PASSED
+
+TimingDataTest > Max value tracking PASSED
+
+TimingDataTest > Reset clears all data PASSED
+
+TimingDataTest > Top N by total time PASSED
+
+TimingDataTest > Multiple samples average correctly PASSED
+
+TimingDataTest > Labeled sub-timing data PASSED
+
+TimingDataTest > Initial state PASSED
+
+TimingDataTest > Add sample updates statistics PASSED
+
+TimingDataTest > Min value tracking PASSED
+
+EchoDIIntegrationTest > testLuaCallTrackerUsesMockedDependencies() PASSED
+
+EchoDIIntegrationTest > testEchoConfigMocking() PASSED
+
+EchoProfilerTest > Reset clears all data PASSED
+
+EchoProfilerTest > Profiler singleton instance PASSED
+
+EchoProfilerTest > Push/Pop records timing data PASSED
+
+EchoProfilerTest > Scope API with try-with-resources PASSED
+
+EchoProfilerTest > Enable/Disable profiler PASSED
+
+EchoProfilerTest > Labeled profiling PASSED
+
+EchoProfilerTest > Session duration tracking PASSED
+
+EchoProfilerTest > Raw API for zero-allocation PASSED
+
+EchoReportTest > goldenMasterFormatConsistency() PASSED
+
+EchoReportTest > testTextGeneration() PASSED
+
+EchoReportTest > goldenMasterJsonStructure() PASSED
+
+EchoReportTest > testCollectReportData() PASSED
+
+EchoReportTest > testHtmlGeneration() PASSED
+
+EchoReportTest > testJsonGeneration() PASSED
+
+EchoReportTest > testCsvGeneration() PASSED
+
+> Task :Echo:check
+> Task :Echo:build
+
+BUILD SUCCESSFUL in 5s
+14 actionable tasks: 9 executed, 5 up-to-date

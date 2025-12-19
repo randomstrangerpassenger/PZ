@@ -1,0 +1,1082 @@
+﻿
+> Task :compileJava FAILED
+./gradlew : C:\Users\MW\Downl
+oads\coding\PZ\Echo\src\main\
+java\com\echo\analysis\Bottle
+neckDetector.java:6: error: p
+ackage com.pulse.api.service.
+echo does not exist
+At line:1 char:1
++ ./gradlew compileJava 2>&1 
+| Out-File -FilePath build_lo
+g2.txt -Encod ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (C:\User  
+  s\MW\Dow... does not exi   
+ st:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+import com.pulse.api.service.
+echo.IBottleneckDetector;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:7: error: package com.p
+ulse.api.service.echo does no
+t exist
+import com.pulse.api.service.
+echo.OptimizationPriority;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:18: error: cannot find 
+symbol
+public class BottleneckDetect
+or implements IBottleneckDete
+ctor {
+                             
+              ^
+  symbol: class IBottleneckDe
+tector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:126: error: cannot find
+ symbol
+    public OptimizationPriori
+ty suggestFuseTarget() {
+           ^
+  symbol:   class Optimizatio
+nPriority
+  location: class BottleneckD
+etector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:147: error: cannot find
+ symbol
+    public OptimizationPriori
+ty suggestNerveTarget() {
+           ^
+  symbol:   class Optimizatio
+nPriority
+  location: class BottleneckD
+etector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\command\EchoCommands.java:5
+: error: package com.pulse.co
+mmand does not exist
+import com.pulse.command.Comm
+andContext;
+                        ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\command\EchoCommands.java:6
+: error: package com.pulse.co
+mmand does not exist
+import com.pulse.command.Comm
+andRegistry;
+                        ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\command\EchoCommands.java:7
+1: error: cannot find symbol
+    private static void handl
+eEchoCommand(CommandContext c
+tx) {
+                             
+             ^
+  symbol:   class CommandCont
+ext
+  location: class EchoCommand
+s
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:12: error: pac
+kage com.pulse.mod does not e
+xist
+import com.pulse.mod.PulseMod
+;
+                    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:19: error: can
+not find symbol
+public class EchoMod implemen
+ts PulseMod {
+                             
+   ^
+  symbol: class PulseMod
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\event\ProfilerResetEvent.ja
+va:3: error: package com.puls
+e.event does not exist
+import com.pulse.event.Event;
+                      ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\event\ProfilerResetEvent.ja
+va:15: error: cannot find sym
+bol
+public class ProfilerResetEve
+nt extends Event {
+                             
+           ^
+  symbol: class Event
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:4: error: package com.pulse.
+api.service.echo does not exi
+st
+import com.pulse.api.service.
+echo.ConnectionQuality;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:5: error: package com.pulse.
+api.service.echo does not exi
+st
+import com.pulse.api.service.
+echo.INetworkMetrics;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:15: error: cannot find symbo
+l
+public class NetworkMetrics i
+mplements INetworkMetrics {
+                             
+          ^
+  symbol: class INetworkMetri
+cs
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:180: error: cannot find symb
+ol
+    public ConnectionQuality 
+getConnectionQuality() {
+           ^
+  symbol:   class ConnectionQ
+uality
+  location: class NetworkMetr
+ics
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+4: error: package com.pulse.a
+pi.service.echo does not exis
+t
+import com.pulse.api.service.
+echo.RenderEfficiency;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+5: error: package com.pulse.a
+pi.service.echo does not exis
+t
+import com.pulse.api.service.
+echo.IRenderMetrics;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+17: error: cannot find symbol
+public class RenderMetrics im
+plements IRenderMetrics {
+                             
+         ^
+  symbol: class IRenderMetric
+s
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+200: error: cannot find symbo
+l
+    public RenderEfficiency g
+etRenderEfficiency() {
+           ^
+  symbol:   class RenderEffic
+iency
+  location: class RenderMetri
+cs
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\EchoProfilerSink.java
+:4: error: cannot find symbol
+import com.pulse.api.profiler
+.ProfilerBridge;
+                             
+^
+  symbol:   class ProfilerBri
+dge
+  location: package com.pulse
+.api.profiler
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\EchoProfilerSink.java
+:5: error: cannot find symbol
+import com.pulse.api.profiler
+.ProfilerSink;
+                             
+^
+  symbol:   class ProfilerSin
+k
+  location: package com.pulse
+.api.profiler
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\EchoProfilerSink.java
+:15: error: cannot find symbo
+l
+public class EchoProfilerSink
+ implements ProfilerSink {
+                             
+            ^
+  symbol: class ProfilerSink
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\LuaHookAdapter.java:5
+: error: package com.pulse.ho
+ok does not exist
+import com.pulse.hook.HookTyp
+es;
+                     ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\LuaHookAdapter.java:6
+: error: package com.pulse.ho
+ok.HookTypes does not exist
+import com.pulse.hook.HookTyp
+es.ILuaCallCallback;
+                             
+  ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\LuaHookAdapter.java:7
+: error: package com.pulse.ho
+ok does not exist
+import com.pulse.hook.PulseHo
+okRegistry;
+                     ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\LuaHookAdapter.java:2
+0: error: cannot find symbol
+public class LuaHookAdapter i
+mplements ILuaCallCallback {
+                             
+          ^
+  symbol: class ILuaCallCallb
+ack
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\OptimizationPointSync
+.java:3: error: package com.p
+ulse.api.optimization does no
+t exist
+import com.pulse.api.optimiza
+tion.OptimizationPointRegistr
+y;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\OptimizationPointSync
+.java:4: error: package com.p
+ulse.api.optimization.Optimiz
+ationPointRegistry does not e
+xist
+import com.pulse.api.optimiza
+tion.OptimizationPointRegistr
+y.OptimizationPointInfo;
+                             
+                             
+ ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\OptimizationPointSync
+.java:20: error: cannot find 
+symbol
+    private static final Map<
+String, OptimizationPointInfo
+> loadedPoints = new Concurre
+ntHashMap<>();
+                             
+        ^
+  symbol:   class Optimizatio
+nPointInfo
+  location: class Optimizatio
+nPointSync
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\OptimizationPointSync
+.java:69: error: cannot find 
+symbol
+    public static Collection<
+OptimizationPointInfo> getPoi
+nts() {
+                             
+^
+  symbol:   class Optimizatio
+nPointInfo
+  location: class Optimizatio
+nPointSync
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\OptimizationPointSync
+.java:79: error: cannot find 
+symbol
+    public static Optimizatio
+nPointInfo getPoint(String id
+) {
+                  ^
+  symbol:   class Optimizatio
+nPointInfo
+  location: class Optimizatio
+nPointSync
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\OptimizationPointSync
+.java:113: error: cannot find
+ symbol
+    public static Optional<Op
+timizationPointInfo> findByEc
+hoPrefix(String echoPrefix) {
+                           ^
+  symbol:   class Optimizatio
+nPointInfo
+  location: class Optimizatio
+nPointSync
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\OptimizationPointSync
+.java:125: error: cannot find
+ symbol
+    public static List<Optimi
+zationPointInfo> getPointsByT
+ier(int tier) {
+                       ^
+  symbol:   class Optimizatio
+nPointInfo
+  location: class Optimizatio
+nPointSync
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\PulseEventAdapter.jav
+a:6: error: package com.pulse
+.event does not exist
+import com.pulse.event.EventB
+us;
+                      ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\PulseEventAdapter.jav
+a:7: error: package com.pulse
+.event.lifecycle does not exi
+st
+import com.pulse.event.lifecy
+cle.GameTickEvent;
+                             
+   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\PulseEventAdapter.jav
+a:8: error: package com.pulse
+.event.lifecycle does not exi
+st
+import com.pulse.event.lifecy
+cle.GameTickStartEvent;
+                             
+   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\PulseEventAdapter.jav
+a:9: error: package com.pulse
+.event.lifecycle does not exi
+st
+import com.pulse.event.lifecy
+cle.GameTickEndEvent;
+                             
+   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\PulseEventAdapter.jav
+a:10: error: package com.puls
+e.event.lifecycle does not ex
+ist
+import com.pulse.event.lifecy
+cle.WorldLoadEvent;
+                             
+   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\PulseEventAdapter.jav
+a:11: error: package com.puls
+e.event.lifecycle does not ex
+ist
+import com.pulse.event.lifecy
+cle.WorldUnloadEvent;
+                             
+   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\PulseEventAdapter.jav
+a:12: error: package com.puls
+e.event.gui does not exist
+import com.pulse.event.gui.Gu
+iRenderEvent;
+                          ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoExtendedHUD.java:7: 
+error: package com.pulse.api.
+service.echo does not exist
+import com.pulse.api.service.
+echo.ConnectionQuality;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoExtendedHUD.java:8: 
+error: package com.pulse.api.
+service.echo does not exist
+import com.pulse.api.service.
+echo.RenderEfficiency;
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoExtendedHUD.java:10:
+ error: package com.pulse.ui 
+does not exist
+import com.pulse.ui.HUDOverla
+y;
+                   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoExtendedHUD.java:11:
+ error: package com.pulse.ui 
+does not exist
+import com.pulse.ui.UIRenderC
+ontext;
+                   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoExtendedHUD.java:23:
+ error: package HUDOverlay do
+es not exist
+public class EchoExtendedHUD 
+extends HUDOverlay.HUDLayer {
+                             
+                  ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoExtendedHUD.java:87:
+ error: cannot find symbol
+    public void render(UIRend
+erContext ctx) {
+                       ^
+  symbol:   class UIRenderCon
+text
+  location: class EchoExtende
+dHUD
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoExtendedHUD.java:149
+: error: cannot find symbol
+    private void renderExtend
+edHud(UIRenderContext ctx) {
+                             
+      ^
+  symbol:   class UIRenderCon
+text
+  location: class EchoExtende
+dHUD
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoExtendedHUD.java:185
+: error: cannot find symbol
+    private String qualityToS
+hort(ConnectionQuality qualit
+y) {
+                             
+     ^
+  symbol:   class ConnectionQ
+uality
+  location: class EchoExtende
+dHUD
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoHUD.java:10: error: 
+package com.pulse.ui does not
+ exist
+import com.pulse.ui.HUDOverla
+y;
+                   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoHUD.java:11: error: 
+package com.pulse.ui does not
+ exist
+import com.pulse.ui.UIRenderC
+ontext;
+                   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoHUD.java:24: error: 
+package HUDOverlay does not e
+xist
+public class EchoHUD extends 
+HUDOverlay.HUDLayer {
+                             
+          ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoHUD.java:117: error:
+ cannot find symbol
+    public void render(UIRend
+erContext ctx) {
+                       ^
+  symbol:   class UIRenderCon
+text
+  location: class EchoHUD
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\EchoHUD.java:213: error:
+ cannot find symbol
+    private void renderHud(UI
+RenderContext ctx) {
+                           ^
+  symbol:   class UIRenderCon
+text
+  location: class EchoHUD
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\HotspotPanel.java:10: er
+ror: package com.pulse.ui doe
+s not exist
+import com.pulse.ui.HUDOverla
+y;
+                   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\HotspotPanel.java:11: er
+ror: package com.pulse.ui doe
+s not exist
+import com.pulse.ui.UIRenderC
+ontext;
+                   ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\HotspotPanel.java:12: er
+ror: cannot find symbol
+import com.pulse.api.lua.LuaB
+udgetManager;
+                        ^
+  symbol:   class LuaBudgetMa
+nager
+  location: package com.pulse
+.api.lua
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\HotspotPanel.java:13: er
+ror: package com.pulse.api.lu
+a.LuaBudgetManager does not e
+xist
+import com.pulse.api.lua.LuaB
+udgetManager.LuaBudgetStats;
+                             
+            ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\HotspotPanel.java:28: er
+ror: package HUDOverlay does 
+not exist
+public class HotspotPanel ext
+ends HUDOverlay.HUDLayer {
+                             
+               ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\HotspotPanel.java:130: e
+rror: cannot find symbol
+    public void render(UIRend
+erContext ctx) {
+                       ^
+  symbol:   class UIRenderCon
+text
+  location: class HotspotPane
+l
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\ui\HotspotPanel.java:311: e
+rror: cannot find symbol
+    private void renderPanel(
+UIRenderContext ctx) {
+                             
+^
+  symbol:   class UIRenderCon
+text
+  location: class HotspotPane
+l
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:125: error: method does
+ not override or implement a 
+method from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:131: error: cannot find
+ symbol
+                return new Op
+timizationPriority(
+                           ^
+  symbol:   class Optimizatio
+nPriority
+  location: class BottleneckD
+etector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:139: error: cannot find
+ symbol
+        return new Optimizati
+onPriority("NONE", "No Fuse t
+arget identified", 0,
+                   ^
+  symbol:   class Optimizatio
+nPriority
+  location: class BottleneckD
+etector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:146: error: method does
+ not override or implement a 
+method from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:152: error: cannot find
+ symbol
+                return new Op
+timizationPriority(
+                           ^
+  symbol:   class Optimizatio
+nPriority
+  location: class BottleneckD
+etector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:160: error: cannot find
+ symbol
+        return new Optimizati
+onPriority("NONE", "No Nerve 
+target identified", 0,
+                   ^
+  symbol:   class Optimizatio
+nPriority
+  location: class BottleneckD
+etector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:230: error: cannot find
+ symbol
+        OptimizationPriority 
+fuse = suggestFuseTarget();
+        ^
+  symbol:   class Optimizatio
+nPriority
+  location: class BottleneckD
+etector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\analysis\BottleneckDetector
+.java:232: error: cannot find
+ symbol
+        OptimizationPriority 
+nerve = suggestNerveTarget();
+        ^
+  symbol:   class Optimizatio
+nPriority
+  location: class BottleneckD
+etector
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\command\EchoCommands.java:5
+8: error: cannot find symbol
+            CommandRegistry.r
+egister("echo", "Echo Profile
+r 명령어", EchoCommands::handleE
+choCommand);
+            ^
+  symbol:   variable CommandR
+egistry
+  location: class EchoCommand
+s
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\EchoProfiler.java:8
+4: error: package com.pulse.d
+i does not exist
+            com.pulse.di.Puls
+eServiceLocator locator = com
+.pulse.di.PulseServiceLocator
+.getInstance();
+                        ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\EchoProfiler.java:8
+4: error: package com.pulse.d
+i does not exist
+            com.pulse.di.Puls
+eServiceLocator locator = com
+.pulse.di.PulseServiceLocator
+.getInstance();
+                             
+                             
+         ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\config\EchoConfig.java:115:
+ error: package com.pulse.di 
+does not exist
+            com.pulse.di.Puls
+eServiceLocator locator = com
+.pulse.di.PulseServiceLocator
+.getInstance();
+                        ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\config\EchoConfig.java:115:
+ error: package com.pulse.di 
+does not exist
+            com.pulse.di.Puls
+eServiceLocator locator = com
+.pulse.di.PulseServiceLocator
+.getInstance();
+                             
+                             
+         ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\config\EchoConfig.java:131:
+ error: package com.pulse.di 
+does not exist
+                com.pulse.di.
+PulseServiceLocator.getInstan
+ce().registerService(EchoConf
+ig.class, instance);
+                            ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:31: error: met
+hod does not override or impl
+ement a method from a superty
+pe
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:36: error: met
+hod does not override or impl
+ement a method from a superty
+pe
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:285: error: pa
+ckage com.pulse.di does not e
+xist
+            com.pulse.di.Puls
+eServiceLocator locator = com
+.pulse.di.PulseServiceLocator
+.getInstance();
+                        ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:285: error: pa
+ckage com.pulse.di does not e
+xist
+            com.pulse.di.Puls
+eServiceLocator locator = com
+.pulse.di.PulseServiceLocator
+.getInstance();
+                             
+                             
+         ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:286: error: pa
+ckage com.pulse.api.service.e
+cho does not exist
+            locator.registerS
+ervice(com.pulse.api.service.
+echo.INetworkMetrics.class,
+                             
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:288: error: pa
+ckage com.pulse.api.service.e
+cho does not exist
+            locator.registerS
+ervice(com.pulse.api.service.
+echo.IRenderMetrics.class,
+                             
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\EchoMod.java:290: error: pa
+ckage com.pulse.api.service.e
+cho does not exist
+            locator.registerS
+ervice(com.pulse.api.service.
+echo.IBottleneckDetector.clas
+s,
+                             
+                             
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\lua\LuaCallTracker.java:64:
+ error: package com.pulse.di 
+does not exist
+            com.pulse.di.Puls
+eServiceLocator locator = com
+.pulse.di.PulseServiceLocator
+.getInstance();
+                        ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\lua\LuaCallTracker.java:64:
+ error: package com.pulse.di 
+does not exist
+            com.pulse.di.Puls
+eServiceLocator locator = com
+.pulse.di.PulseServiceLocator
+.getInstance();
+                             
+                             
+         ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:120: error: method does not 
+override or implement a metho
+d from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:145: error: method does not 
+override or implement a metho
+d from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:179: error: method does not 
+override or implement a metho
+d from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:185: error: cannot find symb
+ol
+1 actionable task: 1 executed
+            return Connection
+Quality.POOR;
+                   ^
+  symbol:   variable Connecti
+onQuality
+  location: class NetworkMetr
+ics
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:187: error: cannot find symb
+ol
+            return Connection
+Quality.FAIR;
+                   ^
+  symbol:   variable Connecti
+onQuality
+  location: class NetworkMetr
+ics
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:189: error: cannot find symb
+ol
+            return Connection
+Quality.GOOD;
+                   ^
+  symbol:   variable Connecti
+onQuality
+  location: class NetworkMetr
+ics
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\NetworkMetrics.java
+:190: error: cannot find symb
+ol
+        return ConnectionQual
+ity.EXCELLENT;
+               ^
+  symbol:   variable Connecti
+onQuality
+  location: class NetworkMetr
+ics
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+170: error: method does not o
+verride or implement a method
+ from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+179: error: method does not o
+verride or implement a method
+ from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+199: error: method does not o
+verride or implement a method
+ from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+205: error: cannot find symbo
+l
+            return RenderEffi
+ciency.EXCELLENT;
+                   ^
+  symbol:   variable RenderEf
+ficiency
+  location: class RenderMetri
+cs
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+207: error: cannot find symbo
+l
+            return RenderEffi
+ciency.GOOD;
+                   ^
+  symbol:   variable RenderEf
+ficiency
+  location: class RenderMetri
+cs
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+209: error: cannot find symbo
+l
+            return RenderEffi
+ciency.FAIR;
+                   ^
+  symbol:   variable RenderEf
+ficiency
+  location: class RenderMetri
+cs
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\measure\RenderMetrics.java:
+210: error: cannot find symbo
+l
+        return RenderEfficien
+cy.POOR;
+               ^
+  symbol:   variable RenderEf
+ficiency
+  location: class RenderMetri
+cs
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\EchoProfilerSink.java
+:25: error: cannot find symbo
+l
+            ProfilerBridge.se
+tSink(INSTANCE);
+            ^
+  symbol:   variable Profiler
+Bridge
+  location: class EchoProfile
+rSink
+C:\Users\MW\Downloads\coding\
+PZ\Echo\src\main\java\com\ech
+o\pulse\EchoProfilerSink.java
+:33: error: cannot find symbo
+l
+        ProfilerBridge.clearS
+ink();
+        ^
+  symbol:   variable Profiler
+Bridge
+  location: class EchoProfile
+rSink
+100 errors
+only showing the first 100 er
+rors, of 163 total; use -Xmax
+errs if you would like to see
+ more
+
+FAILURE: Build failed with an
+ exception.
+
+* What went wrong:
+Execution failed for task ':c
+ompileJava'.
+> Compilation failed; see the
+ compiler error output for de
+tails.
+
+* Try:
+> Run with --info option to g
+et more log output.
+> Run with --scan to get full
+ insights.
+
+BUILD FAILED in 1s

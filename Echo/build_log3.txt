@@ -1,0 +1,1441 @@
+﻿> Task :clean
+
+> Task :compileJava FAILED
+./gradlew : C:\Users\M
+W\Downloads\coding\PZ\
+Echo\src\main\java\com
+\echo\analysis\Bottlen
+eckDetector.java:135: 
+error: incompatible ty
+pes: String cannot be 
+converted to double
+At line:1 char:1
++ ./gradlew clean buil
+d 2>&1 | Out-File -Fil
+ePath build_log3.txt -
+Encod ...
++ ~~~~~~~~~~~~~~~~~~~~
+~~~~~~
+    + CategoryInfo    
+          : NotSpeci  
+  fied: (C:\Users\M   
+ W\Dow...erted to     
+double:String) []    ,
+ RemoteException
+    + FullyQualifiedE 
+   rrorId : NativeCo  
+  mmandError
+ 
+                      
+  generateFuseRecommen
+dation(b));
+                      
+                      
+      ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\analys
+is\BottleneckDetector.
+java:140: error: incom
+patible types: String 
+cannot be converted to
+ double
+                "Curre
+nt performance is acce
+ptable or bottlenecks 
+are not Fuse-optimizab
+le.");
+                ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\analys
+is\BottleneckDetector.
+java:156: error: incom
+patible types: String 
+cannot be converted to
+ double
+                      
+  generateNerveRecomme
+ndation(b));
+                      
+                      
+       ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\analys
+is\BottleneckDetector.
+java:161: error: incom
+patible types: String 
+cannot be converted to
+ double
+                "Curre
+nt load is manageable 
+or requires code-level
+ optimization.");
+                ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\analys
+is\BottleneckDetector.
+java:231: error: canno
+t find symbol
+        suggestions.pu
+t("fuse_target", fuse.
+toMap());
+                      
+                     ^
+  symbol:   method toM
+ap()
+  location: variable f
+use of type Optimizati
+onPriority
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\analys
+is\BottleneckDetector.
+java:233: error: canno
+t find symbol
+        suggestions.pu
+t("nerve_target", nerv
+e.toMap());
+                      
+                      
+ ^
+  symbol:   method toM
+ap()
+  location: variable n
+erve of type Optimizat
+ionPriority
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\comman
+d\EchoCommands.java:72
+: error: cannot find s
+ymbol
+        String[] args 
+= ctx.getRawArgs();
+                      
+     ^
+  symbol:   method get
+RawArgs()
+  location: variable c
+tx of type CommandCont
+ext
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\EchoMo
+d.java:19: error: Echo
+Mod is not abstract an
+d does not override ab
+stract method getModId
+() in PulseMod
+public class EchoMod i
+mplements PulseMod {
+       ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\EchoMo
+d.java:354: error: get
+Version() in EchoMod c
+annot implement getVer
+sion() in PulseMod
+    public static Stri
+ng getVersion() {
+                      
+   ^
+  overriding method is
+ static
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\EchoMo
+d.java:36: error: meth
+od does not override o
+r implement a method f
+rom a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\measur
+e\NetworkMetrics.java:
+15: error: NetworkMetr
+ics is not abstract an
+d does not override ab
+stract method getAvera
+geLatency() in INetwor
+kMetrics
+public class NetworkMe
+trics implements INetw
+orkMetrics {
+       ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\measur
+e\NetworkMetrics.java:
+120: error: method doe
+s not override or impl
+ement a method from a 
+supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\measur
+e\RenderMetrics.java:1
+7: error: RenderMetric
+s is not abstract and 
+does not override abst
+ract method getAverage
+FrameTime() in IRender
+Metrics
+public class RenderMet
+rics implements IRende
+rMetrics {
+       ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\measur
+e\RenderMetrics.java:1
+70: error: method does
+ not override or imple
+ment a method from a s
+upertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\measur
+e\RenderMetrics.java:1
+79: error: method does
+ not override or imple
+ment a method from a s
+upertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\measur
+e\RenderMetrics.java:2
+05: error: cannot find
+ symbol
+            return Ren
+derEfficiency.EXCELLEN
+T;
+                      
+             ^
+  symbol:   variable E
+XCELLENT
+  location: class Rend
+erEfficiency
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\measur
+e\RenderMetrics.java:2
+09: error: cannot find
+ symbol
+            return Ren
+derEfficiency.FAIR;
+                      
+             ^
+  symbol:   variable F
+AIR
+  location: class Rend
+erEfficiency
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+EchoProfilerSink.java:
+15: error: EchoProfile
+rSink is not abstract 
+and does not override 
+abstract method getNam
+e() in ProfilerSink
+public class EchoProfi
+lerSink implements Pro
+filerSink {
+       ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+EchoProfilerSink.java:
+25: error: cannot find
+ symbol
+            ProfilerBr
+idge.setSink(INSTANCE)
+;
+                      
+    ^
+  symbol:   method set
+Sink(EchoProfilerSink)
+  location: class Prof
+ilerBridge
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+EchoProfilerSink.java:
+33: error: cannot find
+ symbol
+        ProfilerBridge
+.clearSink();
+                      
+^
+  symbol:   method cle
+arSink()
+  location: class Prof
+ilerBridge
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+EchoProfilerSink.java:
+37: error: method does
+ not override or imple
+ment a method from a s
+upertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+EchoProfilerSink.java:
+47: error: method does
+ not override or imple
+ment a method from a s
+upertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:20
+: error: LuaHookAdapte
+r is not abstract and 
+does not override abst
+ract method onLuaCall(
+String,String,long) in
+ ILuaCallCallback
+public class LuaHookAd
+apter implements ILuaC
+allCallback {
+       ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:72
+: error: cannot find s
+ymbol
+            PulseHookR
+egistry.register(HookT
+ypes.LUA_CALL, INSTANC
+E, "Echo");
+                      
+                      
+    ^
+  symbol:   variable L
+UA_CALL
+  location: class Hook
+Types
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:76
+: error: cannot find s
+ymbol
+            int callba
+ckCount = PulseHookReg
+istry.getCallbacks(Hoo
+kTypes.LUA_CALL).size(
+);
+                      
+                      
+                      
+      ^
+  symbol:   variable L
+UA_CALL
+  location: class Hook
+Types
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:94
+: error: package com.p
+ulse.internal does not
+ exist
+            com.pulse.
+internal.InternalLuaHo
+ok.setCallback(
+                      
+        ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:10
+2: error: package com.
+pulse.internal does no
+t exist
+            com.pulse.
+internal.InternalLuaHo
+ok.setProfilingEnabled
+(profiler.isLuaProfili
+ngEnabled());
+                      
+        ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:12
+2: error: cannot find 
+symbol
+            PulseHookR
+egistry.unregister(Hoo
+kTypes.LUA_CALL, INSTA
+NCE);
+                      
+                      
+      ^
+  symbol:   variable L
+UA_CALL
+  location: class Hook
+Types
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:14
+8: error: method does 
+not override or implem
+ent a method from a su
+pertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:16
+2: error: method does 
+not override or implem
+ent a method from a su
+pertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+LuaHookAdapter.java:24
+8: error: cannot find 
+symbol
+            int count 
+= PulseHookRegistry.ge
+tCallbacks(HookTypes.L
+UA_CALL).size();
+                      
+                      
+                    ^
+  symbol:   variable L
+UA_CALL
+  location: class Hook
+Types
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+PulseEventAdapter.java
+:46: error: method sub
+scribe in class EventB
+us cannot be applied t
+o given types;
+        EventBus.subsc
+ribe(GameTickStartEven
+t.class, event -> {
+                ^
+  required: Class<T>,C
+onsumer<T>
+  found:    Class<Game
+TickStartEvent>,(event
+)->{[...]; } },String
+  reason: cannot infer
+ type-variable(s) T
+    (actual and formal
+ argument lists differ
+ in length)
+  where T is a type-va
+riable:
+    T extends Event de
+clared in method <T>su
+bscribe(Class<T>,Consu
+mer<T>)
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+PulseEventAdapter.java
+:56: error: method sub
+scribe in class EventB
+us cannot be applied t
+o given types;
+        EventBus.subsc
+ribe(GameTickEndEvent.
+class, event -> {
+                ^
+  required: Class<T>,C
+onsumer<T>
+  found:    Class<Game
+TickEndEvent>,(event)-
+>{[...]; } },String
+  reason: cannot infer
+ type-variable(s) T
+    (actual and formal
+ argument lists differ
+ in length)
+  where T is a type-va
+riable:
+    T extends Event de
+clared in method <T>su
+bscribe(Class<T>,Consu
+mer<T>)
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+PulseEventAdapter.java
+:83: error: method sub
+scribe in class EventB
+us cannot be applied t
+o given types;
+        EventBus.subsc
+ribe(GameTickEvent.cla
+ss, event -> {
+                ^
+  required: Class<T>,C
+onsumer<T>
+  found:    Class<Game
+TickEvent>,(event)->{[
+...]; } },String
+  reason: cannot infer
+ type-variable(s) T
+    (actual and formal
+ argument lists differ
+ in length)
+  where T is a type-va
+riable:
+    T extends Event de
+clared in method <T>su
+bscribe(Class<T>,Consu
+mer<T>)
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+PulseEventAdapter.java
+:94: error: method sub
+scribe in class EventB
+us cannot be applied t
+o given types;
+        EventBus.subsc
+ribe(GuiRenderEvent.cl
+ass, event -> {
+                ^
+  required: Class<T>,C
+onsumer<T>
+  found:    Class<GuiR
+enderEvent>,(event)->{
+[...](); },String
+  reason: cannot infer
+ type-variable(s) T
+    (actual and formal
+ argument lists differ
+ in length)
+  where T is a type-va
+riable:
+    T extends Event de
+clared in method <T>su
+bscribe(Class<T>,Consu
+mer<T>)
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+PulseEventAdapter.java
+:101: error: method su
+bscribe in class Event
+Bus cannot be applied 
+to given types;
+        EventBus.subsc
+ribe(WorldLoadEvent.cl
+ass, event -> {
+                ^
+  required: Class<T>,C
+onsumer<T>
+  found:    Class<Worl
+dLoadEvent>,(event)->{
+[...]P); },String
+  reason: cannot infer
+ type-variable(s) T
+    (actual and formal
+ argument lists differ
+ in length)
+  where T is a type-va
+riable:
+    T extends Event de
+clared in method <T>su
+bscribe(Class<T>,Consu
+mer<T>)
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+PulseEventAdapter.java
+:106: error: method su
+bscribe in class Event
+Bus cannot be applied 
+to given types;
+        EventBus.subsc
+ribe(WorldUnloadEvent.
+class, event -> {
+                ^
+  required: Class<T>,C
+onsumer<T>
+  found:    Class<Worl
+dUnloadEvent>,(event)-
+>{[...](); },String
+  reason: cannot infer
+ type-variable(s) T
+    (actual and formal
+ argument lists differ
+ in length)
+  where T is a type-va
+riable:
+    T extends Event de
+clared in method <T>su
+bscribe(Class<T>,Consu
+mer<T>)
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+PulseEventAdapter.java
+:111: error: cannot fi
+nd symbol
+        EventBus.subsc
+ribe(com.pulse.event.l
+ifecycle.MainMenuRende
+rEvent.class, event ->
+ {
+                      
+                      
+        ^
+  symbol:   class Main
+MenuRenderEvent
+  location: package co
+m.pulse.event.lifecycl
+e
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\pulse\
+PulseEventAdapter.java
+:133: error: cannot fi
+nd symbol
+        EventBus.unsub
+scribeAll(EchoMod.MOD_
+ID);
+                ^
+  symbol:   method uns
+ubscribeAll(String)
+  location: class Even
+tBus
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\sessio
+n\SessionManager.java:
+108: error: package co
+m.pulse.api.access doe
+s not exist
+        wasWorldLoaded
+ = com.pulse.api.acces
+s.WorldAccess.isWorldL
+oaded();
+                      
+                      
+ ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\sessio
+n\SessionManager.java:
+142: error: package co
+m.pulse.api.access doe
+s not exist
+        boolean isOnMa
+inMenuNow = com.pulse.
+api.access.GameStateAc
+cess.isOnMainMenu();
+                      
+                      
+          ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\sessio
+n\SessionManager.java:
+143: error: package co
+m.pulse.api.access doe
+s not exist
+        boolean isWorl
+dLoaded = com.pulse.ap
+i.access.WorldAccess.i
+sWorldLoaded();
+                      
+                      
+        ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\sessio
+n\SessionManager.java:
+174: error: package co
+m.pulse.api.access doe
+s not exist
+                curren
+tWorldName = com.pulse
+.api.access.WorldAcces
+s.getWorldName();
+                      
+                      
+           ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:62: 
+error: method register
+Layer in class HUDOver
+lay cannot be applied 
+to given types;
+        HUDOverlay.reg
+isterLayer(LAYER_ID, I
+NSTANCE, LAYER_PRIORIT
+Y);
+                  ^
+  required: HUDLayer
+  found:    String,Ech
+oExtendedHUD,int
+  reason: actual and f
+ormal argument lists d
+iffer in length
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:69: 
+error: incompatible ty
+pes: String cannot be 
+converted to HUDLayer
+        HUDOverlay.unr
+egisterLayer(LAYER_ID)
+;
+                      
+             ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:100:
+ error: method does no
+t override or implemen
+t a method from a supe
+rtype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:131:
+ error: cannot find sy
+mbol
+                : effi
+ciency == RenderEffici
+ency.FAIR ? EchoTheme.
+WARNING : EchoTheme.GO
+OD;
+                      
+                      
+    ^
+  symbol:   variable F
+AIR
+  location: class Rend
+erEfficiency
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:154:
+ error: cannot find sy
+mbol
+        ctx.fillRect(h
+udX, hudY, BOX_WIDTH, 
+boxHeight, EchoTheme.g
+etBackgroundRGB(), Ech
+oTheme.getBackgroundAl
+pha());
+           ^
+  symbol:   method fil
+lRect(int,int,int,int,
+int,float)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:159:
+ error: cannot find sy
+mbol
+        ctx.drawText("
+─ Extended ─", hudX + 
+PADDING, y, EchoTheme.
+TEXT_HIGHLIGHT);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:163:
+ error: cannot find sy
+mbol
+        ctx.drawText(c
+achedMemoryText, hudX 
++ PADDING, y, memoryCo
+lor);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:164:
+ error: cannot find sy
+mbol
+        ctx.drawText(c
+achedGcText, hudX + BO
+X_WIDTH - PADDING - 50
+, y, EchoTheme.TEXT_SE
+CONDARY);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:168:
+ error: cannot find sy
+mbol
+        ctx.drawText(c
+achedNetworkText, hudX
+ + PADDING, y, network
+Color);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:172:
+ error: cannot find sy
+mbol
+        ctx.drawText(c
+achedRenderText, hudX 
++ PADDING, y, renderCo
+lor);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:176:
+ error: cannot find sy
+mbol
+        ctx.drawText(c
+achedTopBottleneck, hu
+dX + PADDING, y, bottl
+eneckColor);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oExtendedHUD.java:181:
+ error: cannot find sy
+mbol
+            ctx.drawTe
+xt(cachedBottleneckHin
+t, hudX + PADDING + 10
+, y, EchoTheme.TEXT_SE
+CONDARY);
+               ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:92: error: m
+ethod registerLayer in
+ class HUDOverlay cann
+ot be applied to given
+ types;
+        HUDOverlay.reg
+isterLayer(LAYER_ID, I
+NSTANCE, LAYER_PRIORIT
+Y);
+                  ^
+  required: HUDLayer
+  found:    String,Ech
+oHUD,int
+  reason: actual and f
+ormal argument lists d
+iffer in length
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:102: error: 
+incompatible types: St
+ring cannot be convert
+ed to HUDLayer
+        HUDOverlay.unr
+egisterLayer(LAYER_ID)
+;
+                      
+             ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:131: error: 
+method does not overri
+de or implement a meth
+od from a supertype
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:224: error: 
+cannot find symbol
+        ctx.fillRect(h
+udX, hudY, boxWidth, b
+oxHeight, EchoTheme.ge
+tBackgroundRGB(), Echo
+Theme.getBackgroundAlp
+ha());
+           ^
+  symbol:   method fil
+lRect(int,int,int,int,
+int,float)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:230: error: 
+cannot find symbol
+        ctx.drawText(c
+achedFpsText, hudX + P
+ADDING, y, fpsColor);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:233: error: 
+cannot find symbol
+        ctx.drawText(c
+achedProfileStatus, hu
+dX + boxWidth - PADDIN
+G - 30, y, statusColor
+);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:237: error: 
+cannot find symbol
+        ctx.drawText(c
+achedFrameTimeText, hu
+dX + PADDING, y, frame
+TimeColor);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:241: error: 
+cannot find symbol
+        ctx.drawText(c
+achedTickTimeText, hud
+X + PADDING, y, tickTi
+meColor);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Ech
+oHUD.java:250: error: 
+cannot find symbol
+                ctx.dr
+awText(cachedHotspots[
+i], hudX + PADDING, y,
+ cachedHotspotColors[i
+]);
+                   ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:105: er
+ror: method registerLa
+yer in class HUDOverla
+y cannot be applied to
+ given types;
+        HUDOverlay.reg
+isterLayer(LAYER_ID, I
+NSTANCE, LAYER_PRIORIT
+Y);
+                  ^
+  required: HUDLayer
+  found:    String,Hot
+spotPanel,int
+  reason: actual and f
+ormal argument lists d
+iffer in length
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:115: er
+ror: incompatible type
+s: String cannot be co
+nverted to HUDLayer
+        HUDOverlay.unr
+egisterLayer(LAYER_ID)
+;
+                      
+             ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:144: er
+ror: method does not o
+verride or implement a
+ method from a superty
+pe
+    @Override
+    ^
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:272: er
+ror: cannot find symbo
+l
+            LuaBudgetS
+tats tickStats = budge
+t.getStats(LuaBudgetMa
+nager.CTX_ON_TICK);
+                      
+                      
+                      
+     ^
+  symbol:   variable C
+TX_ON_TICK
+  location: class LuaB
+udgetManager
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:276: er
+ror: cannot find symbo
+l
+                    ti
+ckStats.avgExecutionMi
+cros / 1000.0,
+                      
+       ^
+  symbol:   variable a
+vgExecutionMicros
+  location: variable t
+ickStats of type LuaBu
+dgetStats
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:277: er
+ror: cannot find symbo
+l
+                    ti
+ckStats.budgetExceeded
+Count);
+                      
+       ^
+  symbol:   variable b
+udgetExceededCount
+  location: variable t
+ickStats of type LuaBu
+dgetStats
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:281: er
+ror: cannot find symbo
+l
+                    Lu
+aBudgetManager.CTX_ON_
+TICK,
+                      
+              ^
+  symbol:   variable C
+TX_ON_TICK
+  location: class LuaB
+udgetManager
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:282: er
+ror: cannot find symbo
+l
+                    Lu
+aBudgetManager.CTX_ON_
+PLAYER_UPDATE,
+                      
+              ^
+  symbol:   variable C
+TX_ON_PLAYER_UPDATE
+  location: class LuaB
+udgetManager
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:283: er
+ror: cannot find symbo
+l
+                    Lu
+aBudgetManager.CTX_ON_
+RENDER_TICK
+                      
+              ^
+2 actionable tasks: 2 executed
+  symbol:   variable C
+TX_ON_RENDER_TICK
+  location: class LuaB
+udgetManager
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:288: er
+ror: method getStats i
+n class LuaBudgetManag
+er cannot be applied t
+o given types;
+                LuaBud
+getStats stats = budge
+t.getStats(contexts[i]
+);
+                      
+                      
+ ^
+  required: no argumen
+ts
+  found:    String
+  reason: actual and f
+ormal argument lists d
+iffer in length
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:289: er
+ror: cannot find symbo
+l
+                if (st
+ats.totalExecutions > 
+0) {
+                      
+   ^
+  symbol:   variable t
+otalExecutions
+  location: variable s
+tats of type LuaBudget
+Stats
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:293: er
+ror: cannot find symbo
+l
+                      
+      stats.maxExecuti
+onMicros / 1000.0);
+                      
+           ^
+  symbol:   variable m
+axExecutionMicros
+  location: variable s
+tats of type LuaBudget
+Stats
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:327: er
+ror: cannot find symbo
+l
+        ctx.fillRect(p
+anelX, panelY, PANEL_W
+IDTH, totalHeight, Ech
+oTheme.getBackgroundRG
+B(),
+           ^
+  symbol:   method fil
+lRect(int,int,int,int,
+int,float)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:333: er
+ror: cannot find symbo
+l
+        ctx.drawText("
+━━ Last 5 Seconds ━━",
+ panelX + PADDING, y, 
+EchoTheme.TEXT_HIGHLIG
+HT);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:338: er
+ror: cannot find symbo
+l
+                ctx.dr
+awText(cached5sHotspot
+s[i], panelX + PADDING
+, y, cached5sColors[i]
+);
+                   ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:346: er
+ror: cannot find symbo
+l
+        ctx.drawText("
+━━ Last 60 Seconds ━━"
+, panelX + PADDING, y,
+ EchoTheme.TEXT_HIGHLI
+GHT);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:351: er
+ror: cannot find symbo
+l
+                ctx.dr
+awText(cached60sHotspo
+ts[i], panelX + PADDIN
+G, y, cached60sColors[
+i]);
+                   ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:359: er
+ror: cannot find symbo
+l
+        ctx.drawText("
+━━ Recent Spikes ━━", 
+panelX + PADDING, y, E
+choTheme.TEXT_HIGHLIGH
+T);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:363: er
+ror: cannot find symbo
+l
+            ctx.drawTe
+xt("No spikes recorded
+", panelX + PADDING, y
+, EchoTheme.TEXT_SECON
+DARY);
+               ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:369: er
+ror: cannot find symbo
+l
+                    ct
+x.drawText(cachedSpike
+s[i], panelX + PADDING
+, y, spikeColor);
+                      
+ ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:378: er
+ror: cannot find symbo
+l
+        ctx.drawText("
+━━ Lua Status ━━", pan
+elX + PADDING, y, Echo
+Theme.TEXT_HIGHLIGHT);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:381: er
+ror: cannot find symbo
+l
+        ctx.drawText(c
+achedLuaSummary, panel
+X + PADDING, y, EchoTh
+eme.SUBSYSTEM_LUA);
+           ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+C:\Users\MW\Downloads\
+coding\PZ\Echo\src\mai
+n\java\com\echo\ui\Hot
+spotPanel.java:386: er
+ror: cannot find symbo
+l
+                ctx.dr
+awText(cachedLuaTop[i]
+, panelX + PADDING, y,
+ EchoTheme.SUBSYSTEM_L
+UA);
+                   ^
+  symbol:   method dra
+wText(String,int,int,i
+nt)
+  location: variable c
+tx of type UIRenderCon
+text
+Note: Some messages ha
+ve been simplified; re
+compile with -Xdiags:v
+erbose to get full out
+put
+87 errors
+
+FAILURE: Build failed 
+with an exception.
+
+* What went wrong:
+Execution failed for t
+ask ':compileJava'.
+> Compilation failed; 
+see the compiler error
+ output for details.
+
+* Try:
+> Run with --info opti
+on to get more log out
+put.
+> Run with --scan to g
+et full insights.
+
+BUILD FAILED in 1s

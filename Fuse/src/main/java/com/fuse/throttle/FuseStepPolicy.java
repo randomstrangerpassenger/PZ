@@ -1,7 +1,8 @@
 package com.fuse.throttle;
 
 import com.fuse.config.FuseConfig;
-import com.pulse.api.profiler.ZombieStepHook;
+import com.pulse.api.profiler.ThrottleLevel;
+import com.pulse.api.profiler.ZombieHook;
 import com.pulse.api.profiler.ZombieStepHook.IStepContext;
 import com.pulse.api.profiler.ZombieStepHook.IZombieStepPolicy;
 import com.pulse.api.profiler.ZombieStepHook.StepType;
@@ -9,10 +10,12 @@ import com.pulse.api.profiler.ZombieStepHook.StepType;
 /**
  * Fuse Step Throttle Policy.
  * 
- * Implements Pulse's IZombieStepPolicy to provide step-level throttling.
- * Different steps have different throttle intervals based on distance.
+ * ThrottleLevel과 연동하여 Step별 throttle 결정.
+ * ZombieHook의 ThreadLocal 컨텍스트에서 현재 ThrottleLevel을 읽어
+ * shouldExecute()로 실행 여부를 판단합니다.
  * 
  * @since Fuse 0.4.0
+ * @since Fuse 0.5.0 - ThrottleLevel 연동
  */
 public class FuseStepPolicy implements IZombieStepPolicy {
 
@@ -20,12 +23,15 @@ public class FuseStepPolicy implements IZombieStepPolicy {
 
     // 통계
     private long perceptionSkipCount = 0;
+    private long perceptionExecCount = 0;
     private long behaviorSkipCount = 0;
+    private long behaviorExecCount = 0;
     private long targetSkipCount = 0;
+    private long targetExecCount = 0;
     private long totalStepCalls = 0;
 
     public FuseStepPolicy() {
-        System.out.println("[" + LOG + "] StepPolicy initialized");
+        System.out.println("[" + LOG + "] StepPolicy initialized (ThrottleLevel mode)");
     }
 
     @Override
@@ -36,85 +42,48 @@ public class FuseStepPolicy implements IZombieStepPolicy {
 
         totalStepCalls++;
 
-        // Context에서 추가 정보 추출
-        int iterIndex = context != null ? context.getIterIndex() : 0;
+        // Context에서 필요 정보 추출
+        int zombieId = context != null ? context.getIterIndex() : 0;
         int worldTick = context != null ? context.getWorldTick() : 0;
-        boolean isAttacking = context != null && context.isAttacking();
-        boolean hasTarget = context != null && context.hasTarget();
 
-        // 공격 중이거나 타겟 있으면 스킵 안 함
-        if (isAttacking || hasTarget) {
-            return false;
-        }
+        // ZombieHook에서 현재 ThrottleLevel 조회
+        ThrottleLevel level = ZombieHook.getCurrentThrottleLevel(worldTick);
 
-        // Step별 다른 interval 적용
-        int intervalMask = getIntervalMask(stepType, distSq);
-        if (intervalMask == 0) {
-            return false;
-        }
-
-        boolean skip = ((iterIndex + worldTick) & intervalMask) != 0;
+        // ThrottleLevel의 shouldExecute()로 실행 여부 결정
+        boolean shouldExecute = level.shouldExecute(stepType, zombieId, worldTick);
+        boolean skip = !shouldExecute;
 
         // 통계 업데이트
-        if (skip) {
-            switch (stepType) {
-                case PERCEPTION:
-                    perceptionSkipCount++;
-                    break;
-                case BEHAVIOR:
-                    behaviorSkipCount++;
-                    break;
-                case TARGET:
-                    targetSkipCount++;
-                    break;
-                default:
-                    break;
-            }
-        }
+        updateStats(stepType, skip);
 
         return skip;
     }
 
-    /**
-     * Step별, 거리별 interval mask 반환.
-     * 
-     * PERCEPTION: 가장 비싼 연산 → 적극적 throttle
-     * BEHAVIOR: 중간 비용 → 중간 throttle
-     * TARGET: 가벼운 편 → 보수적 throttle
-     */
-    private int getIntervalMask(StepType stepType, float distSq) {
-        FuseConfig config = FuseConfig.getInstance();
-
-        // 근거리는 모든 step 매 틱 실행
-        if (distSq < config.getNearDistSq()) {
-            return 0;
-        }
+    private void updateStats(StepType stepType, boolean skip) {
+        if (stepType == null)
+            return;
 
         switch (stepType) {
             case PERCEPTION:
-                // 가장 비싼 연산: 적극적 throttle
-                if (distSq < config.getMediumDistSq())
-                    return 1; // 2틱
-                if (distSq < config.getFarDistSq())
-                    return 3; // 4틱
-                return 7; // 8틱
-
+                if (skip)
+                    perceptionSkipCount++;
+                else
+                    perceptionExecCount++;
+                break;
             case BEHAVIOR:
-                // 중간 비용
-                if (distSq < config.getMediumDistSq())
-                    return 0; // 매 틱
-                if (distSq < config.getFarDistSq())
-                    return 1; // 2틱
-                return 3; // 4틱
-
+                if (skip)
+                    behaviorSkipCount++;
+                else
+                    behaviorExecCount++;
+                break;
             case TARGET:
-                // 가벼운 편: 보수적 throttle
-                if (distSq < config.getFarDistSq())
-                    return 0; // 매 틱
-                return 1; // 2틱
-
+                if (skip)
+                    targetSkipCount++;
+                else
+                    targetExecCount++;
+                break;
             default:
-                return 0;
+                break;
         }
     }
 
@@ -138,16 +107,19 @@ public class FuseStepPolicy implements IZombieStepPolicy {
 
     public void resetStats() {
         perceptionSkipCount = 0;
+        perceptionExecCount = 0;
         behaviorSkipCount = 0;
+        behaviorExecCount = 0;
         targetSkipCount = 0;
+        targetExecCount = 0;
         totalStepCalls = 0;
     }
 
     public void printStatus() {
         System.out.println("[" + LOG + "] Step Throttle Stats:");
-        System.out.println("  PERCEPTION skipped: " + perceptionSkipCount);
-        System.out.println("  BEHAVIOR skipped: " + behaviorSkipCount);
-        System.out.println("  TARGET skipped: " + targetSkipCount);
+        System.out.println("  PERCEPTION: exec=" + perceptionExecCount + " skip=" + perceptionSkipCount);
+        System.out.println("  BEHAVIOR: exec=" + behaviorExecCount + " skip=" + behaviorSkipCount);
+        System.out.println("  TARGET: exec=" + targetExecCount + " skip=" + targetSkipCount);
         System.out.println("  Total calls: " + totalStepCalls);
     }
 }

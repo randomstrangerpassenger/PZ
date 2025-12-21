@@ -196,6 +196,14 @@ public class TickProfiler {
         double durationMs = durationMicros / 1000.0;
         System.out.printf("[Echo] ⚠ SPIKE DETECTED: Tick #%d took %.2f ms (threshold: %.2f ms)%n",
                 tickCount, durationMs, spikeThresholdMicros / 1000.0);
+
+        // Phase 3.2: Slow Tick 발생 시 Detailed Window 자동 트리거
+        try {
+            com.echo.lua.DetailedWindowManager.getInstance()
+                    .trigger(com.echo.lua.DetailedWindowManager.DetailedTrigger.SLOW_TICK);
+        } catch (Exception ignored) {
+            // DetailedWindowManager 초기화 전이면 무시
+        }
     }
 
     // --- 설정 및 조회 ---

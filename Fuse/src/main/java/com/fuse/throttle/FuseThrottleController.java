@@ -1,16 +1,17 @@
 package com.fuse.throttle;
 
-import com.fuse.cache.ZombieStateCache;
-import com.fuse.cache.ZombieStateCache.ZombieState;
 import com.fuse.config.FuseConfig;
 import com.pulse.api.profiler.IZombieThrottlePolicy;
+import com.pulse.api.profiler.ThrottleLevel;
 
 /**
  * Fuse Throttle Controller.
  * 
- * 거리 기반 좀비 업데이트 throttling (경량화).
+ * Tiered 거리 기반 좀비 업데이트 throttling.
+ * update()는 절대 취소하지 않고, ThrottleLevel만 반환.
  * 
  * @since Fuse 0.3.0
+ * @since Fuse 0.5.0 - Tiered ThrottleLevel 방식으로 전환
  */
 public class FuseThrottleController implements IZombieThrottlePolicy {
 
@@ -21,66 +22,67 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
     private int lastMpCheckTick = -100;
 
     // 통계
-    private long skipCount = 0;
-    private long updateCount = 0;
+    private long fullCount = 0;
+    private long reducedCount = 0;
+    private long lowCount = 0;
+    private long minimalCount = 0;
+    private long engagedUpgradeCount = 0; // recentlyEngaged로 인한 순수 FULL 승격
 
     public FuseThrottleController() {
-        System.out.println("[" + LOG + "] ThrottleController initialized (optimized)");
+        System.out.println("[" + LOG + "] ThrottleController initialized (Tiered mode)");
     }
 
     @Override
-    public boolean shouldSkipFast(float distSq, boolean isAttacking, boolean hasTarget,
-            int iterIndex, int worldTick) {
+    public ThrottleLevel getThrottleLevel(float distSq, boolean isAttacking,
+            boolean hasTarget, boolean recentlyEngaged) {
+
         // 1. Config 체크
         if (!FuseConfig.getInstance().isThrottlingEnabled()) {
-            return false;
+            return ThrottleLevel.FULL;
         }
 
-        // 2. MP 체크
-        if (checkMultiplayer(worldTick)) {
-            return false;
+        // 2. 즉시 FULL 승격 조건
+        if (isAttacking || hasTarget || recentlyEngaged) {
+            fullCount++;
+            // 순수 engaged 승격만 카운트 (attacking, hasTarget 아닌 경우)
+            if (recentlyEngaged && !isAttacking && !hasTarget) {
+                engagedUpgradeCount++;
+            }
+            return ThrottleLevel.FULL;
         }
 
-        // 3. 상태 예외
-        if (isAttacking || hasTarget) {
-            updateCount++;
-            return false;
+        // 3. MP 모드에서는 throttle 비활성화 (동기화 문제 방지)
+        // TODO: MP 환경 테스트 후 점진적으로 활성화
+        // if (checkMultiplayer(currentTick)) {
+        // return ThrottleLevel.FULL;
+        // }
+
+        // 4. 거리 기반 Tiered 레벨 결정
+        FuseConfig config = FuseConfig.getInstance();
+
+        if (distSq < config.getNearDistSq()) {
+            fullCount++;
+            return ThrottleLevel.FULL;
         }
 
-        // 4. 좀비 상태 기반 throttle 배수 적용
-        ZombieState zombieState = ZombieStateCache.getInstance().getState(iterIndex);
-        if (!zombieState.canThrottle()) {
-            // CHASING, ATTACKING 상태는 throttle 면제
-            updateCount++;
-            return false;
+        if (distSq < config.getMediumDistSq()) {
+            reducedCount++;
+            return ThrottleLevel.REDUCED;
         }
 
-        // 5. 거리 band
-        int intervalMask = getIntervalMask(distSq);
-        if (intervalMask == 0) {
-            updateCount++;
-            return false;
+        if (distSq < config.getFarDistSq()) {
+            lowCount++;
+            return ThrottleLevel.LOW;
         }
 
-        // 6. 상태 배수 적용 (FAKE_DEAD, EATING 등은 더 공격적으로 throttle)
-        float stateMultiplier = zombieState.throttleMultiplier;
-        if (stateMultiplier > 1.0f) {
-            // 배수가 높으면 interval 확대 (더 많이 skip)
-            intervalMask = Math.min(15, (int) (intervalMask * stateMultiplier));
-        }
-
-        // 7. 비트 연산 throttle
-        boolean skip = ((iterIndex + worldTick) & intervalMask) != 0;
-
-        if (skip) {
-            skipCount++;
-        } else {
-            updateCount++;
-        }
-
-        return skip;
+        minimalCount++;
+        return ThrottleLevel.MINIMAL;
     }
 
+    /**
+     * @deprecated Tiered 방식으로 전환됨. 하위 호환용.
+     */
+    @Deprecated
     private int getIntervalMask(float distSq) {
         FuseConfig config = FuseConfig.getInstance();
 
@@ -110,26 +112,49 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
 
     // --- Stats ---
 
-    public long getSkipCount() {
-        return skipCount;
+    public long getFullCount() {
+        return fullCount;
     }
 
-    public long getUpdateCount() {
-        return updateCount;
+    public long getReducedCount() {
+        return reducedCount;
     }
 
-    public float getSkipRatio() {
-        long total = skipCount + updateCount;
-        return total == 0 ? 0f : (float) skipCount / total;
+    public long getLowCount() {
+        return lowCount;
+    }
+
+    public long getMinimalCount() {
+        return minimalCount;
+    }
+
+    public long getEngagedUpgradeCount() {
+        return engagedUpgradeCount;
+    }
+
+    public long getTotalCount() {
+        return fullCount + reducedCount + lowCount + minimalCount;
     }
 
     public void resetStats() {
-        skipCount = 0;
-        updateCount = 0;
+        fullCount = 0;
+        reducedCount = 0;
+        lowCount = 0;
+        minimalCount = 0;
+        engagedUpgradeCount = 0;
     }
 
     public void printStatus() {
-        System.out.println("[" + LOG + "] Throttle: skip=" + skipCount +
-                " update=" + updateCount + " ratio=" + String.format("%.1f%%", getSkipRatio() * 100));
+        long total = getTotalCount();
+        System.out.println("[" + LOG + "] Tiered Throttle Stats:");
+        System.out.println("  FULL: " + fullCount + " (" + pct(fullCount, total) + "%)");
+        System.out.println("  REDUCED: " + reducedCount + " (" + pct(reducedCount, total) + "%)");
+        System.out.println("  LOW: " + lowCount + " (" + pct(lowCount, total) + "%)");
+        System.out.println("  MINIMAL: " + minimalCount + " (" + pct(minimalCount, total) + "%)");
+        System.out.println("  EngagedUpgrade: " + engagedUpgradeCount);
+    }
+
+    private String pct(long count, long total) {
+        return total == 0 ? "0.0" : String.format("%.1f", (count * 100.0) / total);
     }
 }

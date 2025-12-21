@@ -115,11 +115,20 @@ public class PulseEventAdapter {
         // Lua Call Hook (On-Demand profiling)
         LuaHookAdapter.register();
 
+        // v2.2: 초기화 시 첫 5초간 Detailed Window 자동 열기 (명령어 없이 데이터 수집)
+        try {
+            com.echo.lua.DetailedWindowManager.getInstance()
+                    .startManualCapture(5000); // 5초간 100% 샘플링
+            System.out.println("[Echo] ✓ Initial Detailed Window opened (5s auto-capture)");
+        } catch (Exception e) {
+            System.err.println("[Echo] Failed to open initial Detailed Window: " + e.getMessage());
+        }
+
         System.out.println("[Echo] Pulse event adapter registered (Native EventBus)");
         System.out.println("[Echo]   - TickProfiler: GameTickEvent");
         System.out.println("[Echo]   - RenderProfiler: GuiRenderEvent");
         System.out.println("[Echo]   - SessionManager: WorldLoad/Unload/MainMenuRender");
-        System.out.println("[Echo]   - LuaHookAdapter: LUA_CALL (On-Demand)");
+        System.out.println("[Echo]   - LuaHookAdapter: LUA_CALL (Auto-capture enabled)");
     }
 
     /**

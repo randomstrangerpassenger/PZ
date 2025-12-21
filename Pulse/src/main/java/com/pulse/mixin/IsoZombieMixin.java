@@ -3,6 +3,7 @@ package com.pulse.mixin;
 import com.pulse.adapter.zombie.IZombieAdapter;
 import com.pulse.adapter.zombie.ZombieAdapterProvider;
 import com.pulse.api.profiler.SubProfilerHook;
+import com.pulse.api.profiler.ThrottleLevel;
 import com.pulse.api.profiler.ZombieHook;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -13,7 +14,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * IsoZombie Mixin.
  * 
- * Phase 2 Fixed: SubProfilerHook 항상 실행, Fuse 콜백만 조건부
+ * Phase 3: Tiered throttle - update() 절대 취소 안 함!
+ * ThrottleLevel을 컨텍스트에 저장하여 Step hook에서 활용.
  * 
  * Version Adapter 적용:
  * - 직접 reflection 호출 → ZombieAdapterProvider 사용
@@ -21,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * 
  * @since Pulse 1.2
  * @since Pulse 1.4 - Version Adapter 적용
+ * @since Pulse 1.5 - Tiered throttle (ci.cancel 제거)
  */
 @Mixin(targets = "zombie.characters.IsoZombie")
 public abstract class IsoZombieMixin {
@@ -51,18 +54,21 @@ public abstract class IsoZombieMixin {
 
     /**
      * IsoZombie.update() 시작
+     * 
+     * 중요: cancellable = false! update()는 절대 취소하지 않음.
+     * ThrottleLevel만 컨텍스트에 저장하여 Step hook에서 활용.
      */
-    @Inject(method = "update", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "update", at = @At("HEAD"))
     private void Pulse$onZombieUpdateStart(CallbackInfo ci) {
         try {
+            Pulse$worldTick++;
+
             // 디버그: Mixin 호출 확인
             Pulse$debugCallCount++;
             if (Pulse$debugCallCount == 1) {
                 IZombieAdapter adapter = Pulse$getAdapter();
-                System.out.println("[Pulse/IsoZombieMixin] ✅ First update() call! Mixin is working.");
+                System.out.println("[Pulse/IsoZombieMixin] ✅ First update() call! Tiered Throttle active.");
                 System.out.println("[Pulse/IsoZombieMixin] Using adapter: " + adapter.getName());
-            } else if (Pulse$debugCallCount % 1000 == 0) {
-                System.out.println("[Pulse/IsoZombieMixin] update() called - count: " + Pulse$debugCallCount);
             }
 
             IZombieAdapter adapter = Pulse$getAdapter();
@@ -70,15 +76,17 @@ public abstract class IsoZombieMixin {
             // MP-safe: zombie ID 사용 (클라이언트 간 동일)
             int zombieId = adapter.getZombieId(this);
 
-            // Throttle 체크 (Fuse 활성화 시) - 어댑터 사용
+            // 거리 및 상태 체크
             float distSq = adapter.getDistanceSquaredToNearestPlayer(this);
             boolean attacking = adapter.isAttacking(this);
             boolean hasTarget = adapter.hasTarget(this);
 
-            if (ZombieHook.shouldSkipFast(distSq, attacking, hasTarget, zombieId, Pulse$worldTick)) {
-                ci.cancel();
-                return;
-            }
+            // 최근 피격 여부 (어댑터 기반 - B41/B42 호환)
+            boolean recentlyEngaged = adapter.isRecentlyHit(this);
+
+            // ThrottleLevel 결정 (cancel 없음!)
+            ThrottleLevel level = ZombieHook.getThrottleLevel(distSq, attacking, hasTarget, recentlyEngaged);
+            ZombieHook.setCurrentThrottleLevel(level, Pulse$worldTick);
 
             // SubProfiler - 항상 실행 (Echo heavy_functions용)
             Pulse$zombieUpdateStart = SubProfilerHook.start("ZOMBIE_UPDATE");
@@ -99,6 +107,9 @@ public abstract class IsoZombieMixin {
     @Inject(method = "update", at = @At("RETURN"))
     private void Pulse$onZombieUpdateEnd(CallbackInfo ci) {
         try {
+            // ThrottleLevel 컨텍스트 정리 (필수!)
+            ZombieHook.clearCurrentThrottleLevel();
+
             // SubProfiler - 항상 실행
             if (Pulse$zombieUpdateStart > 0) {
                 SubProfilerHook.end("ZOMBIE_UPDATE", Pulse$zombieUpdateStart);

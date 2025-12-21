@@ -4,8 +4,10 @@ package com.pulse.api.profiler;
  * Zombie Hooks for Echo/Fuse.
  * 
  * Phase 2 Optimized: 리플렉션 제거, 경량화
+ * Phase 3: Tiered throttle + ThreadLocal 컨텍스트
  * 
  * @since Pulse 1.2
+ * @since Pulse 1.5 - ThrottleLevel 기반 Tiered throttle
  */
 public class ZombieHook {
 
@@ -18,7 +20,58 @@ public class ZombieHook {
     /** Profiling callback */
     private static IZombieCallback callback;
 
-    // --- Registration ---
+    // =================================================================
+    // ThreadLocal ThrottleLevel Context (Stale 방지 포함)
+    // =================================================================
+
+    /** ThreadLocal 컨텍스트 (level + 설정 틱) */
+    private static final ThreadLocal<ThrottleLevelContext> currentContext = new ThreadLocal<>();
+
+    /** 컨텍스트 레코드 - level과 설정 틱을 함께 저장 */
+    private static class ThrottleLevelContext {
+        final ThrottleLevel level;
+        final long setTick;
+
+        ThrottleLevelContext(ThrottleLevel level, long setTick) {
+            this.level = level;
+            this.setTick = setTick;
+        }
+    }
+
+    /**
+     * 현재 좀비의 ThrottleLevel 설정 (Mixin update HEAD에서 호출).
+     */
+    public static void setCurrentThrottleLevel(ThrottleLevel level, long worldTick) {
+        currentContext.set(new ThrottleLevelContext(level, worldTick));
+    }
+
+    /**
+     * 현재 ThrottleLevel 조회 (Step hook에서 호출).
+     * Stale 방지: 1틱 이상 지난 컨텍스트는 FULL로 폴백.
+     */
+    public static ThrottleLevel getCurrentThrottleLevel(long worldTick) {
+        ThrottleLevelContext ctx = currentContext.get();
+        if (ctx == null) {
+            return ThrottleLevel.FULL;
+        }
+
+        if (worldTick - ctx.setTick > 1) {
+            currentContext.remove();
+            return ThrottleLevel.FULL;
+        }
+        return ctx.level;
+    }
+
+    /**
+     * ThrottleLevel 컨텍스트 정리 (Mixin update RETURN에서 호출).
+     */
+    public static void clearCurrentThrottleLevel() {
+        currentContext.remove();
+    }
+
+    // =================================================================
+    // Registration
+    // =================================================================
 
     public static void setCallback(IZombieCallback cb) {
         callback = cb;
@@ -31,7 +84,7 @@ public class ZombieHook {
     public static void setThrottlePolicy(IZombieThrottlePolicy policy) {
         throttlePolicy = policy;
         if (policy != null) {
-            System.out.println("[Pulse] ZombieThrottlePolicy registered");
+            System.out.println("[Pulse] ZombieThrottlePolicy registered (Tiered mode)");
         }
     }
 
@@ -39,22 +92,38 @@ public class ZombieHook {
         throttlePolicy = null;
     }
 
-    // --- Optimized Throttle Check (Mixin에서 직접 호출) ---
+    // =================================================================
+    // ThrottleLevel API (신규)
+    // =================================================================
 
     /**
-     * 경량 throttle 체크.
-     * Mixin에서 직접 호출, 리플렉션 없음.
+     * ThrottleLevel 조회 (Mixin에서 호출).
      */
-    public static boolean shouldSkipFast(float distSq, boolean isAttacking, boolean hasTarget,
-            int iterIndex, int worldTick) {
-        if (throttlePolicy == null)
-            return false;
+    public static ThrottleLevel getThrottleLevel(float distSq, boolean isAttacking,
+            boolean hasTarget, boolean recentlyEngaged) {
+        if (throttlePolicy == null) {
+            return ThrottleLevel.FULL;
+        }
 
         try {
-            return throttlePolicy.shouldSkipFast(distSq, isAttacking, hasTarget, iterIndex, worldTick);
+            return throttlePolicy.getThrottleLevel(distSq, isAttacking, hasTarget, recentlyEngaged);
         } catch (Throwable t) {
-            return false;
+            return ThrottleLevel.FULL;
         }
+    }
+
+    // =================================================================
+    // Legacy API (Deprecated)
+    // =================================================================
+
+    /**
+     * @deprecated Use getThrottleLevel() instead
+     */
+    @Deprecated
+    public static boolean shouldSkipFast(float distSq, boolean isAttacking, boolean hasTarget,
+            int iterIndex, int worldTick) {
+        ThrottleLevel level = getThrottleLevel(distSq, isAttacking, hasTarget, false);
+        return level != ThrottleLevel.FULL;
     }
 
     // --- Profiling (조건부) ---

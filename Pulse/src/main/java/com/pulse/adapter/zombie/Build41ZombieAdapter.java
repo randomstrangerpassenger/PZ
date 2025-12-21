@@ -35,6 +35,7 @@ public class Build41ZombieAdapter implements IZombieAdapter {
     private Method methodGetTarget;
     private Method methodIsCrawling;
     private Method methodIsOnFloor;
+    private Method methodGetHitTime;
 
     // 플레이어 클래스 캐시
     private Class<?> playerClass;
@@ -208,6 +209,11 @@ public class Build41ZombieAdapter implements IZombieAdapter {
         return invokeBooleanMethod(zombie, methodIsOnFloor, "isOnFloor", false);
     }
 
+    @Override
+    public int getHitTime(Object zombie) {
+        return invokeIntMethod(zombie, methodGetHitTime, "getHitTime", 0);
+    }
+
     // ═══════════════════════════════════════════════════════════════
     // Internal Helpers
     // ═══════════════════════════════════════════════════════════════
@@ -229,6 +235,7 @@ public class Build41ZombieAdapter implements IZombieAdapter {
             methodGetTarget = findMethod(zombieClass, "getTarget");
             methodIsCrawling = findMethod(zombieClass, "isCrawling");
             methodIsOnFloor = findMethod(zombieClass, "isOnFloor");
+            methodGetHitTime = findMethod(zombieClass, "getHitTime");
 
             // 플레이어 클래스 캐싱
             playerClass = Class.forName("zombie.characters.IsoPlayer");
@@ -275,6 +282,22 @@ public class Build41ZombieAdapter implements IZombieAdapter {
             Object result = m.invoke(obj);
             if (result instanceof Boolean) {
                 return (Boolean) result;
+            }
+        } catch (Throwable t) {
+            // Silently fail
+        }
+        return fallback;
+    }
+
+    private int invokeIntMethod(Object obj, Method cached, String methodName, int fallback) {
+        try {
+            Method m = cached;
+            if (m == null) {
+                m = obj.getClass().getMethod(methodName);
+            }
+            Object result = m.invoke(obj);
+            if (result instanceof Number) {
+                return ((Number) result).intValue();
             }
         } catch (Throwable t) {
             // Silently fail

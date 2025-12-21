@@ -104,8 +104,10 @@ public class PulseClassTransformer implements ClassFileTransformer {
             return null;
         }
 
-        // zombie 패키지만 Mixin 대상
-        if (!className.startsWith("zombie/")) {
+        // Mixin 대상 패키지: zombie, se.krka.kahlua (Lua VM)
+        boolean isTargetPackage = className.startsWith("zombie/") ||
+                className.startsWith("se/krka/kahlua/");
+        if (!isTargetPackage) {
             return null;
         }
 

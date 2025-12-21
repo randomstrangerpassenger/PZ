@@ -120,4 +120,47 @@ public interface IZombieAdapter extends IVersionAdapter {
      * @return 바닥에 있으면 true
      */
     boolean isOnFloor(Object zombie);
+
+    // ═══════════════════════════════════════════════════════════════
+    // Engagement Methods (Fuse throttle용)
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * 최근 피격 여부 확인.
+     * 
+     * hitTime이 양수이면 최근에 피격된 것으로 판단.
+     * hitTime은 피격 후 감소하는 타이머로 추정됨.
+     * 
+     * @param zombie IsoZombie 인스턴스
+     * @return true면 최근 피격됨
+     */
+    default boolean isRecentlyHit(Object zombie) {
+        return getHitTime(zombie) > 0;
+    }
+
+    /**
+     * hitTime 값 반환.
+     * 
+     * IsoZombie.getHitTime() 호출.
+     * 피격 후 일정 시간 동안 양수로 유지됨.
+     * 
+     * @param zombie IsoZombie 인스턴스
+     * @return hitTime 값 (0 이하면 피격 상태 아님)
+     */
+    int getHitTime(Object zombie);
+
+    /**
+     * 최근 교전 여부 (통합 판정).
+     * 
+     * 다음 중 하나라도 true면 recentlyEngaged:
+     * - isRecentlyHit() == true
+     * - hasTarget() == true
+     * - isAttacking() == true
+     * 
+     * @param zombie IsoZombie 인스턴스
+     * @return true면 즉시 FULL throttle 적용
+     */
+    default boolean isRecentlyEngaged(Object zombie) {
+        return isRecentlyHit(zombie) || hasTarget(zombie) || isAttacking(zombie);
+    }
 }

@@ -15,8 +15,8 @@ public class FuseConfig {
     /** Throttling master switch (default: ON) */
     private boolean enableThrottling = true;
 
-    /** Step-level throttling (default: OFF - experimental) */
-    private boolean enableStepThrottling = false;
+    /** Step-level throttling (default: ON - ThrottleLevel 연동) */
+    private boolean enableStepThrottling = true;
 
     /** Distance bands (squared) */
     private int nearDistSq = 400; // 20²

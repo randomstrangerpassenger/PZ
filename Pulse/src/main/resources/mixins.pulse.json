@@ -11,7 +11,8 @@
     "IsoZombieMixin",
     "PathfindingMixin",
     "IsoGridMixin",
-    "lua.MixinLuaEventManager"
+    "lua.MixinLuaEventManager",
+    "kahlua.MixinKahluaThread"
   ],
   "client": [],
   "server": [],

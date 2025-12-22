@@ -1,6 +1,7 @@
 package com.fuse.governor;
 
 import com.fuse.telemetry.TelemetryReason;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Tick Budget Governor.
@@ -34,7 +35,7 @@ public class TickBudgetGovernor {
     private TelemetryReason lastReason = null;
 
     public TickBudgetGovernor() {
-        System.out.println("[" + LOG + "] TickBudgetGovernor initialized (budget: "
+        PulseLogger.info(LOG, "TickBudgetGovernor initialized (budget: "
                 + budgetMs + "ms, cutoff: " + forceCutoffMs + "ms, batch: " + batchCheckSize + ")");
     }
 
@@ -81,9 +82,8 @@ public class TickBudgetGovernor {
                 cutoffTriggered = true;
                 totalCutoffs++;
                 lastReason = TelemetryReason.GOVERNOR_CUTOFF;
-                // 과도한 로깅 방지: 100번마다 한 번만 로그
                 if (totalCutoffs % 100 == 1) {
-                    System.out.println("[" + LOG + "] Governor cutoff triggered at "
+                    PulseLogger.debug(LOG, "Governor cutoff triggered at "
                             + String.format("%.2f", elapsedMs) + "ms (total: " + totalCutoffs + ")");
                 }
             }
@@ -165,13 +165,13 @@ public class TickBudgetGovernor {
     }
 
     public void printStatus() {
-        System.out.println("[" + LOG + "] Governor Status:");
-        System.out.println("  Budget: " + budgetMs + "ms");
-        System.out.println("  Force Cutoff: " + forceCutoffMs + "ms");
-        System.out.println("  Batch Check Size: " + batchCheckSize);
-        System.out.println("  Total Ticks: " + totalTicks);
-        System.out.println("  Total Cutoffs: " + totalCutoffs + " ("
+        PulseLogger.info(LOG, "Governor Status:");
+        PulseLogger.info(LOG, "  Budget: " + budgetMs + "ms");
+        PulseLogger.info(LOG, "  Force Cutoff: " + forceCutoffMs + "ms");
+        PulseLogger.info(LOG, "  Batch Check Size: " + batchCheckSize);
+        PulseLogger.info(LOG, "  Total Ticks: " + totalTicks);
+        PulseLogger.info(LOG, "  Total Cutoffs: " + totalCutoffs + " ("
                 + String.format("%.2f", getCutoffRatio() * 100) + "%)");
-        System.out.println("  Last Tick: " + String.format("%.2f", lastTickMs) + "ms");
+        PulseLogger.info(LOG, "  Last Tick: " + String.format("%.2f", lastTickMs) + "ms");
     }
 }

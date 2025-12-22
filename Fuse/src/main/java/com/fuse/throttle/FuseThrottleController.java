@@ -7,6 +7,7 @@ import com.fuse.governor.TickBudgetGovernor;
 import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
 import com.fuse.telemetry.TelemetryReason;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.IZombieThrottlePolicy;
 import com.pulse.api.profiler.ThrottleLevel;
 
@@ -62,7 +63,7 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
     private TelemetryReason lastReason = null;
 
     public FuseThrottleController() {
-        System.out.println("[" + LOG + "] ThrottleController initialized (v1.1 with hysteresis)");
+        PulseLogger.info(LOG, "ThrottleController initialized (v1.1 with hysteresis)");
     }
 
     /**
@@ -336,20 +337,20 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
 
     public void printStatus() {
         long total = getTotalCount();
-        System.out.println("[" + LOG + "] Throttle Controller Status (v1.1):");
-        System.out.println("  FULL: " + fullCount + " (" + pct(fullCount, total) + "%)");
-        System.out.println("  REDUCED: " + reducedCount + " (" + pct(reducedCount, total) + "%)");
-        System.out.println("  LOW: " + lowCount + " (" + pct(lowCount, total) + "%)");
-        System.out.println("  MINIMAL: " + minimalCount + " (" + pct(minimalCount, total) + "%)");
-        System.out.println("  ---");
-        System.out.println("  EngagedUpgrade: " + engagedUpgradeCount);
-        System.out.println("  PanicOverride: " + panicOverrideCount);
-        System.out.println("  GuardOverride: " + guardOverrideCount);
-        System.out.println("  CutoffCount: " + cutoffCount);
-        System.out.println("  ---");
-        System.out.println("  HysteresisActive: " + hysteresisActive);
-        System.out.println("  HysteresisLevel: " + hysteresisLevel);
-        System.out.println("  StabilityCounter: " + stabilityCounter + "/" + EXIT_STABILITY_TICKS);
+        PulseLogger.info(LOG, "Throttle Controller Status (v1.1):");
+        PulseLogger.info(LOG, "  FULL: " + fullCount + " (" + pct(fullCount, total) + "%)");
+        PulseLogger.info(LOG, "  REDUCED: " + reducedCount + " (" + pct(reducedCount, total) + "%)");
+        PulseLogger.info(LOG, "  LOW: " + lowCount + " (" + pct(lowCount, total) + "%)");
+        PulseLogger.info(LOG, "  MINIMAL: " + minimalCount + " (" + pct(minimalCount, total) + "%)");
+        PulseLogger.info(LOG, "  ---");
+        PulseLogger.info(LOG, "  EngagedUpgrade: " + engagedUpgradeCount);
+        PulseLogger.info(LOG, "  PanicOverride: " + panicOverrideCount);
+        PulseLogger.info(LOG, "  GuardOverride: " + guardOverrideCount);
+        PulseLogger.info(LOG, "  CutoffCount: " + cutoffCount);
+        PulseLogger.info(LOG, "  ---");
+        PulseLogger.info(LOG, "  HysteresisActive: " + hysteresisActive);
+        PulseLogger.info(LOG, "  HysteresisLevel: " + hysteresisLevel);
+        PulseLogger.info(LOG, "  StabilityCounter: " + stabilityCounter + "/" + EXIT_STABILITY_TICKS);
     }
 
     private String pct(long count, long total) {

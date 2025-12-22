@@ -1,5 +1,6 @@
 package com.fuse.hook;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ProfilerBridge;
 import com.pulse.api.profiler.ZombieHook;
 
@@ -32,7 +33,7 @@ public class FuseHookAdapter implements ZombieHook.IZombieCallback {
     private Object currentZombie = null;
 
     public FuseHookAdapter() {
-        System.out.println("[" + LOG + "] HookAdapter initialized (Phase 1.5 - WithContext)");
+        PulseLogger.info(LOG, "HookAdapter initialized (Phase 1.5 - WithContext)");
     }
 
     // --- Phase 1.5: WithContext 오버라이드 ---
@@ -166,11 +167,11 @@ public class FuseHookAdapter implements ZombieHook.IZombieCallback {
     }
 
     public void printStatus() {
-        System.out.println("[" + LOG + "] HookAdapter Stats:");
-        System.out.println("  Zombie Updates: " + zombieUpdateCount);
-        System.out.println("  Motion: " + (totalMotionMicros / 1000) + "ms");
-        System.out.println("  Perception: " + (totalPerceptionMicros / 1000) + "ms");
-        System.out.println("  Tracking: " + (totalTrackingMicros / 1000) + "ms");
-        System.out.println("  ProfilerBridge Sink: " + ProfilerBridge.hasSink());
+        PulseLogger.info(LOG, "HookAdapter Stats:");
+        PulseLogger.info(LOG, "  Zombie Updates: " + zombieUpdateCount);
+        PulseLogger.info(LOG, "  Motion: " + (totalMotionMicros / 1000) + "ms");
+        PulseLogger.info(LOG, "  Perception: " + (totalPerceptionMicros / 1000) + "ms");
+        PulseLogger.info(LOG, "  Tracking: " + (totalTrackingMicros / 1000) + "ms");
+        PulseLogger.info(LOG, "  ProfilerBridge Sink: " + ProfilerBridge.hasSink());
     }
 }

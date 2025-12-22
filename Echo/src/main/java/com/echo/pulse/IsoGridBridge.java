@@ -1,5 +1,6 @@
 package com.echo.pulse;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.IsoGridHook;
 
 /**
@@ -26,7 +27,7 @@ public class IsoGridBridge implements IsoGridHook.IIsoGridCallback {
         // Phase 2: Sync fast-flag
         boolean detailsEnabled = com.echo.config.EchoConfig.getInstance().isEnableIsoGridDetails();
 
-        System.out.println("[Echo] IsoGridBridge registered with Pulse (Details: " + detailsEnabled + ")");
+        PulseLogger.info("Echo", "IsoGridBridge registered with Pulse (Details: " + detailsEnabled + ")");
     }
 
     @Override

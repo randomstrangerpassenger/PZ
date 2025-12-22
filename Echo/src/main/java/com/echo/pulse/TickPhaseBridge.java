@@ -3,6 +3,7 @@ package com.echo.pulse;
 import com.echo.measure.TickPhaseProfiler;
 import com.echo.validation.PulseContractVerifier;
 import com.echo.validation.SelfValidation;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.TickPhaseHook;
 
 import java.util.HashMap;
@@ -65,7 +66,7 @@ public class TickPhaseBridge implements TickPhaseHook.ITickPhaseCallback {
         }
         INSTANCE = new TickPhaseBridge();
         TickPhaseHook.setCallback(INSTANCE);
-        System.out.println("[Echo] TickPhaseBridge registered with Pulse (v0.9 mapping enabled)");
+        PulseLogger.info("Echo", "TickPhaseBridge registered with Pulse (v0.9 mapping enabled)");
     }
 
     /**

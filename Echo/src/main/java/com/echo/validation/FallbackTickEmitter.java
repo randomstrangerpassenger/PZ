@@ -1,6 +1,7 @@
 package com.echo.validation;
 
 import com.echo.config.EchoConfig;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -64,7 +65,7 @@ public class FallbackTickEmitter {
                 fallbackTask.cancel(false);
                 fallbackTask = null;
             }
-            System.out.println("[Echo/FallbackTick] Real tick received - Fallback DEACTIVATED after "
+            PulseLogger.info("Echo/FallbackTick", "Real tick received - Fallback DEACTIVATED after "
                     + fallbackTickCount.get() + " fallback ticks");
         }
     }
@@ -78,7 +79,7 @@ public class FallbackTickEmitter {
 
         // Config에서 허용하지 않으면 즉시 반환
         if (!config.isAllowFallbackTicks()) {
-            System.out.println("[Echo/FallbackTick] Fallback ticks disabled (Config.allowFallbackTicks = false)");
+            PulseLogger.debug("Echo/FallbackTick", "Fallback ticks disabled (Config.allowFallbackTicks = false)");
             return;
         }
 
@@ -95,7 +96,7 @@ public class FallbackTickEmitter {
 
         // 지정된 시간 후 tick hook 상태 확인
         scheduler.schedule(this::checkAndActivateFallback, ACTIVATION_DELAY_MS, TimeUnit.MILLISECONDS);
-        System.out.println("[Echo/FallbackTick] Monitoring started (will check in " + ACTIVATION_DELAY_MS + "ms)");
+        PulseLogger.debug("Echo/FallbackTick", "Monitoring started (will check in " + ACTIVATION_DELAY_MS + "ms)");
     }
 
     /**
@@ -119,19 +120,17 @@ public class FallbackTickEmitter {
         if (noTickHook && noPhaseHook) {
             retryCount++;
             if (retryCount >= MAX_RETRIES) {
-                // 3번 시도 후에도 둘 다 0이면 강제 활성화
-                System.err.println("[Echo/FallbackTick] ⚠️ No tick/phase hook detected after "
+                PulseLogger.warn("Echo/FallbackTick", "⚠️ No tick/phase hook detected after "
                         + (ACTIVATION_DELAY_MS + retryCount * 1000) + "ms!");
-                System.err.println("[Echo/FallbackTick] ⚠️ Starting FALLBACK tick emitter");
-                System.err.println("[Echo/FallbackTick] ⚠️ WARNING: This data is for PIPELINE TESTING ONLY!");
+                PulseLogger.warn("Echo/FallbackTick", "⚠️ Starting FALLBACK tick emitter (PIPELINE TESTING ONLY)");
                 activateFallback();
             } else {
-                System.out.println("[Echo/FallbackTick] Heartbeat=0, phase=0, retry " + retryCount + "/" + MAX_RETRIES);
+                PulseLogger.debug("Echo/FallbackTick", "Heartbeat=0, phase=0, retry " + retryCount + "/" + MAX_RETRIES);
                 scheduler.schedule(this::checkAndActivateFallback, 1000, TimeUnit.MILLISECONDS);
             }
         } else {
-            System.out.println(
-                    "[Echo/FallbackTick] Hook detected (heartbeat=" + heartbeat + ", phase=" + phaseStartCount
+            PulseLogger.debug("Echo/FallbackTick",
+                    "Hook detected (heartbeat=" + heartbeat + ", phase=" + phaseStartCount
                             + "). No fallback needed.");
         }
     }
@@ -150,7 +149,7 @@ public class FallbackTickEmitter {
 
         // Configurable interval로 fallback tick 생성 (default: 200ms)
         long intervalMs = config.getFallbackTickIntervalMs();
-        System.out.println("[Echo/FallbackTick] Using interval: " + intervalMs + "ms");
+        PulseLogger.debug("Echo/FallbackTick", "Using interval: " + intervalMs + "ms");
 
         fallbackTask = scheduler.scheduleAtFixedRate(
                 this::emitFallbackTick,
@@ -178,10 +177,9 @@ public class FallbackTickEmitter {
         // 이전 버전에서는 200ms 고정값이 기록되어 P95/P99를 오염시켰음
         // 이제 fallback tick은 heartbeat/session 유지용으로만 사용
 
-        // 디버그 로그 (매 50회마다)
         if (fallbackTickCount.get() % 50 == 0) {
-            System.out.println(
-                    "[Echo/FallbackTick] " + fallbackTickCount.get() + " fallback ticks (pipeline only, no histogram)");
+            PulseLogger.debug("Echo/FallbackTick",
+                    fallbackTickCount.get() + " fallback ticks (pipeline only, no histogram)");
         }
     }
 
@@ -200,7 +198,7 @@ public class FallbackTickEmitter {
         }
 
         if (fallbackActive.get()) {
-            System.out.println("[Echo/FallbackTick] Stopped after " + fallbackTickCount.get() + " fallback ticks");
+            PulseLogger.info("Echo/FallbackTick", "Stopped after " + fallbackTickCount.get() + " fallback ticks");
         }
 
         fallbackActive.set(false);

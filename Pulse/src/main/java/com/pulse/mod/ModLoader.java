@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.PulseConstants;
+import com.pulse.api.exception.InitializationException;
 import com.pulse.mod.dependency.DependencyResolver;
 import com.pulse.mod.discovery.ModDiscovery;
 import com.pulse.mod.mixin.MixinRegistrar;
@@ -117,10 +118,14 @@ public class ModLoader {
             try {
                 container.initialize();
                 success++;
+            } catch (InitializationException e) {
+                failed++;
+                PulseLogger.error(LOG, "✗ {} failed: {} (phase: {})",
+                        container.getId(), e.getMessage(), e.getPhase());
             } catch (Exception e) {
                 failed++;
-                PulseLogger.error(LOG, "✗ {} failed:", container.getId());
-                e.printStackTrace();
+                PulseLogger.error(LOG, "✗ {} failed unexpectedly: {}",
+                        container.getId(), e.getMessage(), e);
             }
         }
 
@@ -176,8 +181,8 @@ public class ModLoader {
                 }
                 container.setState(ModContainer.ModState.UNLOADED);
                 PulseLogger.debug(LOG, "Unloaded: {}", container.getId());
-            } catch (Exception e) {
-                PulseLogger.error(LOG, "Failed to unload mod: {}", container.getId());
+            } catch (RuntimeException e) {
+                PulseLogger.error(LOG, "Failed to unload mod {}: {}", container.getId(), e.getMessage());
             }
         }
 

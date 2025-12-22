@@ -3,6 +3,7 @@ package com.echo.pulse;
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.ProfilingPoint;
 import com.echo.measure.ProfilingScope;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * 틱 프로파일러
@@ -41,16 +42,14 @@ public class TickProfiler {
         // Self-Validation: heartbeat 증가 (Echo 0.9.0)
         com.echo.validation.SelfValidation.getInstance().tickHeartbeat();
 
-        // 디버그: 매 100번째 틱마다 상태 출력
         if (tickCount % 100 == 0) {
-            System.out.printf("[Echo/DEBUG] onTick called: tick=%d, deltaMs=%.2f, profilerEnabled=%b%n",
-                    tickCount, deltaTimeMs, profiler.isEnabled());
+            PulseLogger.debug("Echo", String.format("onTick called: tick=%d, deltaMs=%.2f, profilerEnabled=%b",
+                    tickCount, deltaTimeMs, profiler.isEnabled()));
         }
 
         if (!profiler.isEnabled()) {
-            // 비활성화 상태면 최초 1회만 경고
             if (tickCount == 0) {
-                System.out.println("[Echo/WARN] TickProfiler.onTick(): Profiler is DISABLED!");
+                PulseLogger.warn("Echo", "TickProfiler.onTick(): Profiler is DISABLED!");
             }
             tickCount++;
             return;
@@ -81,9 +80,8 @@ public class TickProfiler {
             onSpikeDetected(durationMicros);
         }
 
-        // 첫 틱에서 정상 동작 확인
         if (tickCount == 1) {
-            System.out.println("[Echo] ✓ First tick recorded successfully!");
+            PulseLogger.info("Echo", "✓ First tick recorded successfully!");
         }
     }
 
@@ -114,7 +112,7 @@ public class TickProfiler {
 
         if (!profiler.isEnabled()) {
             if (tickCount == 0) {
-                System.out.println("[Echo/WARN] TickProfiler: Profiler is DISABLED!");
+                PulseLogger.warn("Echo", "TickProfiler: Profiler is DISABLED!");
             }
             tickCount++;
             return;
@@ -142,12 +140,11 @@ public class TickProfiler {
             onSpikeDetected(durationMicros);
         }
 
-        // 첫 틱 / 100번째 틱 로그
         if (tickCount == 1) {
-            System.out.println("[Echo] ✓ First tick recorded via Start/End events!");
+            PulseLogger.info("Echo", "✓ First tick recorded via Start/End events!");
         } else if (tickCount % 100 == 0) {
-            System.out.printf("[Echo/DEBUG] recordTickDuration: tick=%d, durationMs=%.2f%n",
-                    tickCount, durationNanos / 1_000_000.0);
+            PulseLogger.debug("Echo", String.format("recordTickDuration: tick=%d, durationMs=%.2f",
+                    tickCount, durationNanos / 1_000_000.0));
         }
     }
 
@@ -194,15 +191,13 @@ public class TickProfiler {
      */
     private void onSpikeDetected(long durationMicros) {
         double durationMs = durationMicros / 1000.0;
-        System.out.printf("[Echo] ⚠ SPIKE DETECTED: Tick #%d took %.2f ms (threshold: %.2f ms)%n",
-                tickCount, durationMs, spikeThresholdMicros / 1000.0);
+        PulseLogger.warn("Echo", String.format("⚠ SPIKE DETECTED: Tick #%d took %.2f ms (threshold: %.2f ms)",
+                tickCount, durationMs, spikeThresholdMicros / 1000.0));
 
-        // Phase 3.2: Slow Tick 발생 시 Detailed Window 자동 트리거
         try {
             com.echo.lua.DetailedWindowManager.getInstance()
                     .trigger(com.echo.lua.DetailedWindowManager.DetailedTrigger.SLOW_TICK);
         } catch (Exception ignored) {
-            // DetailedWindowManager 초기화 전이면 무시
         }
     }
 
@@ -213,7 +208,7 @@ public class TickProfiler {
      */
     public void setSpikeThresholdMs(double thresholdMs) {
         this.spikeThresholdMicros = (long) (thresholdMs * 1000);
-        System.out.printf("[Echo] Spike threshold set to %.2f ms%n", thresholdMs);
+        PulseLogger.info("Echo", String.format("Spike threshold set to %.2f ms", thresholdMs));
     }
 
     /**

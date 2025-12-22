@@ -1,11 +1,11 @@
 package com.pulse.command;
 
+import com.pulse.api.PulseServices;
 import com.pulse.api.log.PulseLogger;
 
 import com.pulse.diagnostics.HotspotMap;
 import com.pulse.diagnostics.PulseThreadGuard;
 import com.pulse.diagnostics.PulseTickContext;
-import com.pulse.event.EventBus;
 import com.pulse.hook.PulseHookRegistry;
 import com.pulse.mixin.PulseErrorHandler;
 import com.pulse.mixin.SafeMixinWrapper;
@@ -96,7 +96,7 @@ public final class PulseCommands {
         // 디버그 모드 설정
         PulseHookRegistry.setDebugEnabled(enable);
         SafeMixinWrapper.setDebugMode(enable);
-        EventBus.getInstance().setDebug(enable);
+        PulseServices.eventBus().setDebug(enable);
         HotspotMap.setEnabled(enable);
 
         ctx.reply("§aDebug mode: " + (enable ? "§aENABLED" : "§cDISABLED"));

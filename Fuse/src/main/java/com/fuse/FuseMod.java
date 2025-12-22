@@ -11,6 +11,7 @@ import com.fuse.hook.FuseHookAdapter;
 import com.fuse.optimizer.FuseOptimizer;
 import com.fuse.throttle.FuseStepPolicy;
 import com.fuse.throttle.FuseThrottleController;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ZombieHook;
 import com.pulse.mod.PulseMod;
 
@@ -82,7 +83,7 @@ public class FuseMod implements PulseMod {
         try {
             // Rolling Tick Stats (윈도우 통계)
             stats = new RollingTickStats();
-            System.out.println("[Fuse] RollingTickStats initialized");
+            PulseLogger.info("Fuse", "RollingTickStats initialized");
 
             // Tick Budget Governor (컷오프 스위치)
             governor = new TickBudgetGovernor();
@@ -92,10 +93,9 @@ public class FuseMod implements PulseMod {
             // Spike Panic Protocol (슬라이딩 윈도우 + 점진적 복구)
             panicProtocol = new SpikePanicProtocol();
 
-            System.out.println("[Fuse] Core safety components initialized");
+            PulseLogger.info("Fuse", "Core safety components initialized");
         } catch (Exception e) {
-            System.err.println("[Fuse] Failed to initialize safety components: " + e.getMessage());
-            e.printStackTrace();
+            PulseLogger.error("Fuse", "Failed to initialize safety components: " + e.getMessage(), e);
         }
 
         // ========================================
@@ -115,9 +115,9 @@ public class FuseMod implements PulseMod {
             failsoftController = new FailsoftController();
             failsoftController.setMaxConsecutiveErrors(config.getMaxConsecutiveErrors());
 
-            System.out.println("[Fuse] Guards initialized");
+            PulseLogger.info("Fuse", "Guards initialized");
         } catch (Exception e) {
-            System.err.println("[Fuse] Failed to initialize guards: " + e.getMessage());
+            PulseLogger.error("Fuse", "Failed to initialize guards: " + e.getMessage(), e);
         }
 
         // ========================================
@@ -128,9 +128,9 @@ public class FuseMod implements PulseMod {
             hookAdapter = new FuseHookAdapter();
             ZombieHook.setCallback(hookAdapter);
             ZombieHook.profilingEnabled = true;
-            System.out.println("[Fuse] ZombieHook callback registered");
+            PulseLogger.info("Fuse", "ZombieHook callback registered");
         } catch (Exception e) {
-            System.err.println("[Fuse] Failed to register ZombieHook: " + e.getMessage());
+            PulseLogger.error("Fuse", "Failed to register ZombieHook: " + e.getMessage(), e);
         }
 
         // ========================================
@@ -147,9 +147,9 @@ public class FuseMod implements PulseMod {
             throttleController.setGuards(vehicleGuard, streamingGuard);
 
             ZombieHook.setThrottlePolicy(throttleController);
-            System.out.println("[Fuse] ThrottleController registered (v1.1 with hysteresis)");
+            PulseLogger.info("Fuse", "ThrottleController registered (v1.1 with hysteresis)");
         } catch (Exception e) {
-            System.err.println("[Fuse] Failed to register ThrottlePolicy: " + e.getMessage());
+            PulseLogger.error("Fuse", "Failed to register ThrottlePolicy: " + e.getMessage(), e);
         }
 
         // ========================================
@@ -159,9 +159,9 @@ public class FuseMod implements PulseMod {
         try {
             stepPolicy = new FuseStepPolicy();
             com.pulse.api.profiler.ZombieStepHook.setStepPolicy(stepPolicy);
-            System.out.println("[Fuse] StepPolicy registered");
+            PulseLogger.info("Fuse", "StepPolicy registered");
         } catch (Exception e) {
-            System.err.println("[Fuse] Failed to register StepPolicy: " + e.getMessage());
+            PulseLogger.error("Fuse", "Failed to register StepPolicy: " + e.getMessage(), e);
         }
 
         // ========================================
@@ -173,8 +173,8 @@ public class FuseMod implements PulseMod {
         optimizer.setAutoOptimize(false);
 
         initialized = true;
-        System.out.println("[Fuse] Initialization complete (v1.1 Stabilization)");
-        System.out.println("[Fuse] Use /fuse status to view v1.1 component status");
+        PulseLogger.info("Fuse", "Initialization complete (v1.1 Stabilization)");
+        PulseLogger.info("Fuse", "Use /fuse status to view v1.1 component status");
     }
 
     /**
@@ -229,7 +229,7 @@ public class FuseMod implements PulseMod {
             if (failsoftController != null) {
                 failsoftController.recordError(t);
             } else {
-                System.err.println("[Fuse] onTick error: " + t.getMessage());
+                PulseLogger.error("Fuse", "onTick error: " + t.getMessage(), t);
             }
         }
     }
@@ -245,7 +245,7 @@ public class FuseMod implements PulseMod {
         if (target != null) {
             optimizer.applyOptimization(target);
         } else {
-            System.out.println("[Fuse] No optimization target available");
+            PulseLogger.info("Fuse", "No optimization target available");
         }
     }
 
@@ -327,7 +327,7 @@ public class FuseMod implements PulseMod {
     }
 
     public void shutdown() {
-        System.out.println("[Fuse] Shutting down...");
+        PulseLogger.info("Fuse", "Shutting down...");
 
         // Cleanup hook callback
         try {
@@ -341,6 +341,6 @@ public class FuseMod implements PulseMod {
         }
 
         initialized = false;
-        System.out.println("[Fuse] Shutdown complete");
+        PulseLogger.info("Fuse", "Shutdown complete");
     }
 }

@@ -1,5 +1,6 @@
 package com.echo.pulse;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.optimization.OptimizationPointRegistry;
 import com.pulse.api.optimization.OptimizationPointRegistry.OptimizationPointInfo;
 
@@ -32,7 +33,7 @@ public class OptimizationPointSync {
      */
     public static void syncFromPulse() {
         if (synced) {
-            System.out.println("[Echo] OptimizationPoint already synced");
+            PulseLogger.debug("Echo", "OptimizationPoint already synced");
             return;
         }
 
@@ -44,20 +45,18 @@ public class OptimizationPointSync {
             }
 
             synced = true;
-            System.out.println("[Echo] Synced " + loadedPoints.size() + " optimization points from Pulse");
+            PulseLogger.info("Echo", "Synced " + loadedPoints.size() + " optimization points from Pulse");
 
-            // 디버그 출력 (처음 5개만)
             int count = 0;
             for (OptimizationPointInfo info : loadedPoints.values()) {
                 if (count++ >= 5) {
-                    System.out.println("[Echo]   ... and " + (loadedPoints.size() - 5) + " more");
+                    PulseLogger.debug("Echo", "... and " + (loadedPoints.size() - 5) + " more");
                     break;
                 }
-                System.out.println("[Echo]   - " + info.getId() + " (tier " + info.getTier() + ")");
+                PulseLogger.debug("Echo", "- " + info.getId() + " (tier " + info.getTier() + ")");
             }
         } catch (Exception e) {
-            System.err.println("[Echo] Failed to sync optimization points: " + e.getMessage());
-            // 실패해도 계속 진행 (graceful degradation)
+            PulseLogger.error("Echo", "Failed to sync optimization points: " + e.getMessage());
         }
     }
 

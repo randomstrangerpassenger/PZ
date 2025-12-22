@@ -90,7 +90,7 @@ public final class Pulse {
      * 이벤트 버스 접근
      */
     public static EventBus getEventBus() {
-        return EventBus.getInstance();
+        return PulseServices.eventBus();
     }
 
     // ─────────────────────────────────────────────────────────────

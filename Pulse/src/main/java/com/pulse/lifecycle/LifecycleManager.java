@@ -1,11 +1,10 @@
 package com.pulse.lifecycle;
 
+import com.pulse.api.PulseServices;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.di.PulseServiceLocator;
-import com.pulse.event.EventBus;
 import com.pulse.lua.LuaBridge;
 import com.pulse.mod.ModLoader;
-import com.pulse.scheduler.PulseScheduler;
 
 import java.io.Closeable;
 import java.util.ArrayList;
@@ -121,14 +120,14 @@ public final class LifecycleManager {
 
         // 3. 핵심 컴포넌트 정리
         try {
-            PulseScheduler.getInstance().shutdown();
+            PulseServices.scheduler().shutdown();
             PulseLogger.debug(LOG, "[Lifecycle] Scheduler shutdown complete");
         } catch (Throwable t) {
             errors.add("Scheduler: " + t.getMessage());
         }
 
         try {
-            EventBus.getInstance().clearAll();
+            PulseServices.eventBus().clearAll();
             PulseLogger.debug(LOG, "[Lifecycle] EventBus cleared");
         } catch (Throwable t) {
             errors.add("EventBus: " + t.getMessage());

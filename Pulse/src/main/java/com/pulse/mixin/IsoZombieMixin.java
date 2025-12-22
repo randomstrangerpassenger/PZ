@@ -2,6 +2,7 @@ package com.pulse.mixin;
 
 import com.pulse.adapter.zombie.IZombieAdapter;
 import com.pulse.adapter.zombie.ZombieAdapterProvider;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.SubProfilerHook;
 import com.pulse.api.profiler.ThrottleLevel;
 import com.pulse.api.profiler.ZombieHook;
@@ -35,7 +36,8 @@ public abstract class IsoZombieMixin {
     private static int Pulse$worldTick = 0;
 
     @Unique
-    private static int Pulse$debugCallCount = 0;
+    private static final java.util.concurrent.atomic.AtomicInteger Pulse$debugCallCount = new java.util.concurrent.atomic.AtomicInteger(
+            0);
 
     @Unique
     private static IZombieAdapter Pulse$adapter = null;
@@ -64,11 +66,11 @@ public abstract class IsoZombieMixin {
             Pulse$worldTick++;
 
             // 디버그: Mixin 호출 확인
-            Pulse$debugCallCount++;
-            if (Pulse$debugCallCount == 1) {
+            int callCount = Pulse$debugCallCount.incrementAndGet();
+            if (callCount == 1) {
                 IZombieAdapter adapter = Pulse$getAdapter();
-                System.out.println("[Pulse/IsoZombieMixin] ✅ First update() call! Tiered Throttle active.");
-                System.out.println("[Pulse/IsoZombieMixin] Using adapter: " + adapter.getName());
+                PulseLogger.info("Pulse/IsoZombieMixin", "✅ First update() call! Tiered Throttle active.");
+                PulseLogger.info("Pulse/IsoZombieMixin", "Using adapter: " + adapter.getName());
             }
 
             IZombieAdapter adapter = Pulse$getAdapter();

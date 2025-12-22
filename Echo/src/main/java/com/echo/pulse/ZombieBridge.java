@@ -1,6 +1,7 @@
 package com.echo.pulse;
 
 import com.echo.fuse.ZombieProfiler;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ZombieHook;
 
 /**
@@ -26,7 +27,7 @@ public class ZombieBridge implements ZombieHook.IZombieCallback {
         // Phase 2: Sync fast-flag
         boolean detailsEnabled = com.echo.config.EchoConfig.getInstance().isEnableZombieDetails();
 
-        System.out.println("[Echo] ZombieBridge registered with Pulse (Details: " + detailsEnabled + ")");
+        PulseLogger.info("Echo", "ZombieBridge registered with Pulse (Details: " + detailsEnabled + ")");
     }
 
     @Override

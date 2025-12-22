@@ -1,6 +1,10 @@
 package com.pulse.lua;
 
 import com.pulse.api.log.PulseLogger;
+import com.pulse.api.util.ReflectionCache;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * Lua-Java 브릿지.
@@ -50,28 +54,74 @@ public class LuaBridge {
         INSTANCE.init();
     }
 
+    // 캐싱된 리플렉션 참조 (Phase 1 성능 최적화)
+    private static final String LUA_MANAGER_CLASS = "zombie.Lua.LuaManager";
+    private static volatile Class<?> cachedLuaManagerClass;
+    private static volatile Method cachedCallMethod;
+    private static volatile Method cachedGetGlobalMethod;
+    private static volatile Method cachedSetGlobalMethod;
+    private static volatile Method cachedExposeMethod;
+
     private void init() {
         if (initialized)
             return;
 
         try {
-            // PZ의 Lua 상태 가져오기 시도
-            // zombie.Lua.LuaManager에 접근
-            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
-            java.lang.reflect.Field stateField = luaManagerClass.getDeclaredField("thread");
-            stateField.setAccessible(true);
+            // PZ의 Lua 상태 가져오기 시도 (ReflectionCache 사용)
+            Class<?> luaManagerClass = getLuaManagerClass();
+            if (luaManagerClass == null) {
+                PulseLogger.warn(LOG, "[Lua] PZ Lua classes not found - running outside game?");
+                return;
+            }
+
+            Field stateField = ReflectionCache.getField(luaManagerClass, "thread");
             luaState = stateField.get(null);
 
             if (luaState != null) {
-                PulseLogger.info(LOG, "[Lua] Lua state acquired successfully");
+                // 초기화 시 자주 사용하는 메서드들 캐싱
+                initMethodCache(luaManagerClass);
+                PulseLogger.info(LOG, "[Lua] Lua state acquired successfully (cached)");
                 initialized = true;
             } else {
                 PulseLogger.warn(LOG, "[Lua] Lua state is null - game not fully loaded yet");
             }
-        } catch (ClassNotFoundException e) {
-            PulseLogger.warn(LOG, "[Lua] PZ Lua classes not found - running outside game?");
+        } catch (NoSuchFieldException e) {
+            PulseLogger.warn(LOG, "[Lua] LuaManager.thread field not found");
         } catch (Exception e) {
             PulseLogger.error(LOG, "[Lua] Failed to initialize: {}", e.getMessage());
+        }
+    }
+
+    /**
+     * LuaManager 클래스 캐싱된 조회
+     */
+    private static Class<?> getLuaManagerClass() {
+        if (cachedLuaManagerClass == null) {
+            synchronized (LuaBridge.class) {
+                if (cachedLuaManagerClass == null) {
+                    cachedLuaManagerClass = ReflectionCache.getClassOrNull(
+                            LUA_MANAGER_CLASS, LuaBridge.class.getClassLoader());
+                }
+            }
+        }
+        return cachedLuaManagerClass;
+    }
+
+    /**
+     * 자주 호출되는 메서드들 초기화 시 캐싱
+     */
+    private void initMethodCache(Class<?> luaManagerClass) {
+        try {
+            cachedCallMethod = ReflectionCache.getMethodOrNull(
+                    luaManagerClass, "call", String.class, Object[].class);
+            cachedGetGlobalMethod = ReflectionCache.getMethodOrNull(
+                    luaManagerClass, "getGlobalObject", String.class);
+            cachedSetGlobalMethod = ReflectionCache.getMethodOrNull(
+                    luaManagerClass, "setGlobalObject", String.class, Object.class);
+            cachedExposeMethod = ReflectionCache.getMethodOrNull(
+                    luaManagerClass, "expose", String.class, Class.class);
+        } catch (Exception e) {
+            PulseLogger.warn(LOG, "[Lua] Some methods not cached: {}", e.getMessage());
         }
     }
 
@@ -104,11 +154,16 @@ public class LuaBridge {
     private Object callInternal(String functionPath, Object... args) {
         callCount.incrementAndGet();
         try {
-            // zombie.Lua.LuaManager.call 사용
-            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
-            java.lang.reflect.Method callMethod = luaManagerClass.getMethod(
-                    "call", String.class, Object[].class);
-
+            // 캐싱된 메서드 사용 (Phase 1 성능 최적화)
+            if (cachedCallMethod != null) {
+                return cachedCallMethod.invoke(null, functionPath, args);
+            }
+            // Fallback: 캐시 미스 시 ReflectionCache 사용
+            Class<?> luaManagerClass = getLuaManagerClass();
+            if (luaManagerClass == null)
+                return null;
+            Method callMethod = ReflectionCache.getMethod(
+                    luaManagerClass, "call", String.class, Object[].class);
             return callMethod.invoke(null, functionPath, args);
         } catch (Exception e) {
             PulseLogger.error(LOG, "[Lua] Call failed: {}", functionPath, e);
@@ -131,10 +186,16 @@ public class LuaBridge {
 
     private Object getGlobalInternal(String name) {
         try {
-            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
-            java.lang.reflect.Method getMethod = luaManagerClass.getMethod(
-                    "getGlobalObject", String.class);
-
+            // 캐싱된 메서드 사용 (Phase 1 성능 최적화)
+            if (cachedGetGlobalMethod != null) {
+                return cachedGetGlobalMethod.invoke(null, name);
+            }
+            // Fallback
+            Class<?> luaManagerClass = getLuaManagerClass();
+            if (luaManagerClass == null)
+                return null;
+            Method getMethod = ReflectionCache.getMethod(
+                    luaManagerClass, "getGlobalObject", String.class);
             return getMethod.invoke(null, name);
         } catch (Exception e) {
             PulseLogger.error(LOG, "[Lua] Failed to get global: {}", name);
@@ -154,11 +215,17 @@ public class LuaBridge {
     private void setGlobalInternal(String name, Object value) {
         try {
             Object converted = LuaTypeConverter.javaToLua(value);
-
-            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
-            java.lang.reflect.Method setMethod = luaManagerClass.getMethod(
-                    "setGlobalObject", String.class, Object.class);
-
+            // 캐싱된 메서드 사용 (Phase 1 성능 최적화)
+            if (cachedSetGlobalMethod != null) {
+                cachedSetGlobalMethod.invoke(null, name, converted);
+                return;
+            }
+            // Fallback
+            Class<?> luaManagerClass = getLuaManagerClass();
+            if (luaManagerClass == null)
+                return;
+            Method setMethod = ReflectionCache.getMethod(
+                    luaManagerClass, "setGlobalObject", String.class, Object.class);
             setMethod.invoke(null, name, converted);
         } catch (Exception e) {
             PulseLogger.error(LOG, "[Lua] Failed to set global: {}", name);
@@ -187,10 +254,18 @@ public class LuaBridge {
 
     private void exposeInternal(String globalName, Class<?> clazz) {
         try {
-            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
-            java.lang.reflect.Method exposeMethod = luaManagerClass.getMethod(
-                    "expose", String.class, Class.class);
-
+            // 캐싱된 메서드 사용 (Phase 1 성능 최적화)
+            if (cachedExposeMethod != null) {
+                cachedExposeMethod.invoke(null, globalName, clazz);
+                PulseLogger.info(LOG, "[Lua] Exposed: {} -> {}", globalName, clazz.getSimpleName());
+                return;
+            }
+            // Fallback
+            Class<?> luaManagerClass = getLuaManagerClass();
+            if (luaManagerClass == null)
+                return;
+            Method exposeMethod = ReflectionCache.getMethod(
+                    luaManagerClass, "expose", String.class, Class.class);
             exposeMethod.invoke(null, globalName, clazz);
             PulseLogger.info(LOG, "[Lua] Exposed: {} -> {}", globalName, clazz.getSimpleName());
         } catch (Exception e) {
@@ -243,24 +318,29 @@ public class LuaBridge {
         }
 
         try {
-            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
+            // ReflectionCache 사용 (Phase 1 성능 최적화)
+            Class<?> luaManagerClass = getLuaManagerClass();
+            if (luaManagerClass == null)
+                return null;
 
             // RunLua 메서드 시도
-            try {
-                java.lang.reflect.Method runMethod = luaManagerClass.getMethod("RunLua", String.class);
+            Method runMethod = ReflectionCache.getMethodOrNull(luaManagerClass, "RunLua", String.class);
+            if (runMethod != null) {
                 return runMethod.invoke(null, luaCode);
-            } catch (NoSuchMethodException e) {
-                // 대안: LuaManager.convertor.load() 시도
-                java.lang.reflect.Field convertorField = luaManagerClass.getDeclaredField("convertor");
-                convertorField.setAccessible(true);
+            }
+
+            // 대안: LuaManager.convertor.load() 시도
+            try {
+                Field convertorField = ReflectionCache.getField(luaManagerClass, "convertor");
                 Object convertor = convertorField.get(null);
 
                 if (convertor != null) {
-                    java.lang.reflect.Method loadMethod = convertor.getClass().getMethod("load",
-                            String.class, String.class);
-                    Object result = loadMethod.invoke(convertor, luaCode, "Pulse");
-                    return result;
+                    Method loadMethod = ReflectionCache.getMethod(
+                            convertor.getClass(), "load", String.class, String.class);
+                    return loadMethod.invoke(convertor, luaCode, "Pulse");
                 }
+            } catch (NoSuchFieldException | NoSuchMethodException ignored) {
+                // convertor 방식 실패
             }
         } catch (Exception e) {
             PulseLogger.error(LOG, "[Lua] Failed to execute code: {}", e.getMessage(), e);
@@ -291,22 +371,23 @@ public class LuaBridge {
         }
 
         try {
-            Class<?> kahluaTableClass = Class.forName("se.krka.kahlua.vm.KahluaTable");
-            return kahluaTableClass.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException e) {
+            // ReflectionCache 사용 (Phase 1 성능 최적화)
+            Class<?> kahluaTableClass = ReflectionCache.getClassOrNull(
+                    "se.krka.kahlua.vm.KahluaTable", LuaBridge.class.getClassLoader());
+            if (kahluaTableClass != null) {
+                return kahluaTableClass.getDeclaredConstructor().newInstance();
+            }
+
             // 대안: LuaManager를 통한 테이블 생성
-            try {
-                Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
-                java.lang.reflect.Field envField = luaManagerClass.getDeclaredField("env");
-                envField.setAccessible(true);
+            Class<?> luaManagerClass = getLuaManagerClass();
+            if (luaManagerClass != null) {
+                Field envField = ReflectionCache.getField(luaManagerClass, "env");
                 Object env = envField.get(null);
 
                 if (env != null) {
-                    java.lang.reflect.Method newTableMethod = env.getClass().getMethod("newTable");
+                    Method newTableMethod = ReflectionCache.getMethod(env.getClass(), "newTable");
                     return newTableMethod.invoke(env);
                 }
-            } catch (Exception ex) {
-                PulseLogger.error(LOG, "[Lua] Failed to create table: {}", ex.getMessage());
             }
         } catch (Exception e) {
             PulseLogger.error(LOG, "[Lua] Failed to create table: {}", e.getMessage());
@@ -401,8 +482,13 @@ public class LuaBridge {
      */
     private static Object createCallableWrapper(java.util.function.Function<Object[], Object> callback) {
         try {
-            // LuaCaller 인터페이스의 동적 프록시 생성
-            Class<?> luaCallerClass = Class.forName("se.krka.kahlua.vm.LuaCallable");
+            // ReflectionCache 사용 (Phase 1 성능 최적화)
+            Class<?> luaCallerClass = ReflectionCache.getClassOrNull(
+                    "se.krka.kahlua.vm.LuaCallable", LuaBridge.class.getClassLoader());
+            if (luaCallerClass == null) {
+                PulseLogger.warn(LOG, "[Lua] LuaCallable class not found");
+                return null;
+            }
 
             return java.lang.reflect.Proxy.newProxyInstance(
                     luaCallerClass.getClassLoader(),
@@ -413,10 +499,10 @@ public class LuaBridge {
                             Object callFrame = args[0];
                             int argCount = (int) args[1];
 
-                            // 인자 추출
+                            // 인자 추출 (ReflectionCache 사용)
                             Object[] luaArgs = new Object[argCount];
+                            Method getMethod = ReflectionCache.getMethod(callFrame.getClass(), "get", int.class);
                             for (int i = 0; i < argCount; i++) {
-                                java.lang.reflect.Method getMethod = callFrame.getClass().getMethod("get", int.class);
                                 luaArgs[i] = getMethod.invoke(callFrame, i);
                             }
 
@@ -425,7 +511,7 @@ public class LuaBridge {
 
                             // 결과 반환
                             if (result != null) {
-                                java.lang.reflect.Method pushMethod = callFrame.getClass().getMethod("push",
+                                Method pushMethod = ReflectionCache.getMethod(callFrame.getClass(), "push",
                                         Object.class);
                                 pushMethod.invoke(callFrame, LuaTypeConverter.javaToLua(result));
                                 return 1;
@@ -468,9 +554,12 @@ public class LuaBridge {
             return;
 
         try {
-            Class<?> luaManagerClass = Class.forName("zombie.Lua.LuaManager");
-            java.lang.reflect.Field envField = luaManagerClass.getDeclaredField("env");
-            envField.setAccessible(true);
+            // ReflectionCache 사용 (Phase 1 성능 최적화)
+            Class<?> luaManagerClass = getLuaManagerClass();
+            if (luaManagerClass == null)
+                return;
+
+            Field envField = ReflectionCache.getField(luaManagerClass, "env");
             Object env = envField.get(null);
 
             PulseLogger.info(LOG, "[Lua] === Global Variables ===");
@@ -478,8 +567,8 @@ public class LuaBridge {
                 PulseLogger.info(LOG, "[Lua] Env type: {}", env.getClass().getName());
 
                 // keys() 메서드로 전역 변수 이름 가져오기
-                try {
-                    java.lang.reflect.Method keysMethod = env.getClass().getMethod("keys");
+                Method keysMethod = ReflectionCache.getMethodOrNull(env.getClass(), "keys");
+                if (keysMethod != null) {
                     Object keys = keysMethod.invoke(env);
 
                     if (keys instanceof Iterable<?> iterable) {
@@ -495,7 +584,7 @@ public class LuaBridge {
                     } else if (keys != null) {
                         PulseLogger.info(LOG, "[Lua] Keys type: {}", keys.getClass().getName());
                     }
-                } catch (NoSuchMethodException e) {
+                } else {
                     PulseLogger.info(LOG, "[Lua] (keys() method not available)");
                 }
             } else {

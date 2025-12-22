@@ -1,5 +1,6 @@
 package com.pulse.mixin.lua;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.lua.PulseLuaHook;
 import com.pulse.internal.InternalLuaHook;
 import org.spongepowered.asm.mixin.Mixin;
@@ -155,9 +156,8 @@ public abstract class MixinLuaEventManager {
         // Phase 2C: 이벤트 시작 기록 (On-Demand)
         InternalLuaHook.fireEventStart(eventName);
 
-        // 최초 1회만 로그
         if (FIRST.compareAndSet(false, true)) {
-            System.out.println("[Pulse/MixinLuaEventManager] ✅ First triggerEvent! Mixin is working.");
+            PulseLogger.info("Pulse/MixinLuaEventManager", "✅ First triggerEvent! Mixin is working.");
         }
     }
 }

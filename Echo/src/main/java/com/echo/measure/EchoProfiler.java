@@ -5,6 +5,7 @@ import com.echo.aggregate.TickHistogram;
 import com.echo.aggregate.SpikeLog;
 import com.echo.lua.LuaCallTracker;
 import com.echo.history.MetricCollector;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -113,7 +114,7 @@ public class EchoProfiler {
     /** 메인 스레드 설정 */
     public static void setMainThread(Thread thread) {
         mainThread = thread;
-        System.out.println("[Echo] Main thread set: " + thread.getName());
+        PulseLogger.debug("Echo", "Main thread set: " + thread.getName());
     }
 
     private boolean isMainThread() {
@@ -166,14 +167,14 @@ public class EchoProfiler {
 
         Deque<ProfilingFrame> stack = getFrameStack();
         if (stack.isEmpty()) {
-            System.err.println("[Echo] Warning: Unmatched pop for " + point);
+            PulseLogger.warn("Echo", "Warning: Unmatched pop for " + point);
             return;
         }
 
         ProfilingFrame frame = stack.pop();
 
         if (frame.point != point) {
-            System.err.println("[Echo] Warning: Mismatched push/pop - expected "
+            PulseLogger.warn("Echo", "Warning: Mismatched push/pop - expected "
                     + frame.point + ", got " + point);
         }
 
@@ -273,13 +274,13 @@ public class EchoProfiler {
         com.echo.validation.SelfValidation.getInstance().scheduleValidation();
         com.echo.validation.FallbackTickEmitter.getInstance().startMonitoring();
 
-        System.out.println("[Echo] Profiler ENABLED" + (resetStats ? " (stats reset)" : ""));
+        PulseLogger.info("Echo", "Profiler ENABLED" + (resetStats ? " (stats reset)" : ""));
     }
 
     public void disable() {
         int orphanedFrames = clearActiveStacks();
         if (orphanedFrames > 0) {
-            System.err.println("[Echo] Warning: " + orphanedFrames + " orphaned frames cleared on disable");
+            PulseLogger.warn("Echo", "Warning: " + orphanedFrames + " orphaned frames cleared on disable");
         }
 
         this.enabled = false;
@@ -287,7 +288,7 @@ public class EchoProfiler {
         com.echo.validation.SelfValidation.getInstance().shutdown();
         com.echo.validation.FallbackTickEmitter.getInstance().stop();
 
-        System.out.println("[Echo] Profiler DISABLED");
+        PulseLogger.info("Echo", "Profiler DISABLED");
     }
 
     private int clearActiveStacks() {
@@ -304,12 +305,12 @@ public class EchoProfiler {
 
     public void enableLuaProfiling() {
         this.luaProfilingEnabled = true;
-        System.out.println("[Echo] Lua Profiling ENABLED (On-Demand)");
+        PulseLogger.info("Echo", "Lua Profiling ENABLED (On-Demand)");
     }
 
     public void disableLuaProfiling() {
         this.luaProfilingEnabled = false;
-        System.out.println("[Echo] Lua Profiling DISABLED");
+        PulseLogger.info("Echo", "Lua Profiling DISABLED");
     }
 
     public boolean isEnabled() {
@@ -342,7 +343,7 @@ public class EchoProfiler {
         com.echo.fuse.ZombieProfiler.getInstance().reset();
         com.echo.fuse.IsoGridProfiler.getInstance().reset();
 
-        System.out.println("[Echo] Profiler stats RESET");
+        PulseLogger.info("Echo", "Profiler stats RESET");
     }
 
     public SubProfiler getSubProfiler() {

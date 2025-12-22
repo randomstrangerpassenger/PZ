@@ -1,8 +1,10 @@
 package com.echo.session;
 
+import com.echo.EchoConstants;
 import com.echo.config.EchoConfig;
 import com.echo.measure.EchoProfiler;
 import com.echo.report.EchoReport;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -28,20 +30,17 @@ public class SessionManager {
     private volatile String currentWorldName = null;
     private volatile boolean isMultiplayer = false;
 
-    // --- dirty 최소 조건 (10초 = 600틱) ---
+    // --- dirty 최소 조건 ---
     private volatile int tickCount = 0;
-    private static final int MIN_TICKS_FOR_DIRTY = 600;
 
     // --- 메인 메뉴 렌더 기반 세션 종료 감지 ---
     private volatile int menuRenderCount = 0;
-    private static final int MENU_RENDER_THRESHOLD = 10;
 
     // --- 메인 메뉴 상태 (false 세션 방지) ---
-    private volatile boolean onMainMenu = true; // 게임 시작 시 메인 메뉴로 시작
+    private volatile boolean onMainMenu = true;
 
     // --- 메인 메뉴 이탈 감지 (틱 기반) ---
     private volatile int ticksSinceMenuRender = 0;
-    private static final int MENU_EXIT_THRESHOLD = 60; // 60틱 동안 메뉴 렌더 없으면 게임 진입
 
     // --- 비동기 저장 ---
     private final ExecutorService saveExecutor = Executors.newSingleThreadExecutor(r -> new Thread(r, "Echo-Save"));
@@ -70,22 +69,19 @@ public class SessionManager {
             isMultiplayer = multiplayer;
 
             EchoProfiler.getInstance().reset();
-            System.out.println("[Echo] Session started: " + worldName +
+            PulseLogger.info("Echo", "Session started: " + worldName +
                     (multiplayer ? " (MP)" : " (SP)"));
         }
     }
 
-    /**
-     * 월드 언로드 시 호출 (세션 종료)
-     */
     public void onWorldUnload() {
         if (sessionActive && dirty) {
             sessionActive = false;
             saveAsync();
-            System.out.println("[Echo] Session ended - saving report");
+            PulseLogger.info("Echo", "Session ended - saving report");
         } else if (sessionActive) {
             sessionActive = false;
-            System.out.println("[Echo] Session ended - no data to save (tickCount=" + tickCount + ")");
+            PulseLogger.debug("Echo", "Session ended - no data to save (tickCount=" + tickCount + ")");
         }
         menuRenderCount = 0;
     }
@@ -114,9 +110,8 @@ public class SessionManager {
 
         menuRenderCount++;
 
-        // 일정 프레임 이상 메뉴 렌더 → 세션 종료
-        if (menuRenderCount >= MENU_RENDER_THRESHOLD && dirty) {
-            System.out.println("[Echo] Menu detected (" + menuRenderCount + " frames) - saving session");
+        if (menuRenderCount >= EchoConstants.MENU_RENDER_THRESHOLD && dirty) {
+            PulseLogger.info("Echo", "Menu detected (" + menuRenderCount + " frames) - saving session");
             sessionActive = false;
             dirty = false;
             tickCount = 0;
@@ -149,12 +144,11 @@ public class SessionManager {
         } else if (onMainMenu) {
             // 틱 기반 감지 (GameStateAccess 실패 시 폴백)
             ticksSinceMenuRender++;
-            if (ticksSinceMenuRender >= MENU_EXIT_THRESHOLD) {
+            if (ticksSinceMenuRender >= EchoConstants.MENU_EXIT_THRESHOLD) {
                 onMainMenu = false;
-                // 게임 진입 시 wasWorldLoaded 리셋 - 전환 감지 재활성화
                 wasWorldLoaded = false;
-                System.out.println(
-                        "[Echo] Game entered (fallback: no menu render for " + ticksSinceMenuRender + " ticks)");
+                PulseLogger.debug("Echo",
+                        "Game entered (fallback: no menu render for " + ticksSinceMenuRender + " ticks)");
             }
         }
 
@@ -178,7 +172,7 @@ public class SessionManager {
                 isMultiplayer = isMultiplayerWorld();
 
                 EchoProfiler.getInstance().reset();
-                System.out.println("[Echo] Session started (world: " + currentWorldName + ")");
+                PulseLogger.info("Echo", "Session started (world: " + currentWorldName + ")");
             }
             wasWorldLoaded = isWorldLoaded;
             return;
@@ -186,9 +180,9 @@ public class SessionManager {
 
         // 세션이 활성 상태: 틱 카운트 증가
         tickCount++;
-        if (tickCount >= MIN_TICKS_FOR_DIRTY && !dirty) {
+        if (tickCount >= EchoConstants.MIN_TICKS_FOR_DIRTY && !dirty) {
             dirty = true;
-            System.out.println("[Echo] Session marked dirty (sufficient data)");
+            PulseLogger.debug("Echo", "Session marked dirty (sufficient data)");
         }
 
         wasWorldLoaded = isWorldLoaded;
@@ -231,23 +225,20 @@ public class SessionManager {
             return;
         }
 
-        System.out.println("[Echo] Shutdown - saving session...");
+        PulseLogger.info("Echo", "Shutdown - saving session...");
         EchoReport report = new EchoReport(EchoProfiler.getInstance());
         saveReport(report);
     }
 
-    /**
-     * 리포트 저장 실행
-     */
     private boolean saveReport(EchoReport report) {
         try {
             EchoConfig config = EchoConfig.getInstance();
             String path = report.saveWithTimestamp(config.getReportDirectory());
             report.printQualitySummary();
-            System.out.println("[Echo] Report saved: " + path);
+            PulseLogger.info("Echo", "Report saved: " + path);
             return true;
         } catch (Exception e) {
-            System.err.println("[Echo] Failed to save report: " + e.getMessage());
+            PulseLogger.error("Echo", "Failed to save report: " + e.getMessage());
             return false;
         }
     }

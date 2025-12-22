@@ -1,5 +1,7 @@
 package com.fuse.config;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Fuse Configuration.
  * 
@@ -113,7 +115,7 @@ public class FuseConfig {
 
     public void load() {
         // 간단한 기본값 사용 (파일 로드는 추후 구현)
-        System.out.println("[Fuse] Config loaded (v1.1 Conservative Preset)");
+        PulseLogger.info("Fuse", "Config loaded (v1.1 Conservative Preset)");
     }
 
     public void save() {
@@ -238,11 +240,11 @@ public class FuseConfig {
 
     public void setThrottlingEnabled(boolean enabled) {
         this.enableThrottling = enabled;
-        System.out.println("[Fuse] Throttling: " + (enabled ? "ON" : "OFF"));
+        PulseLogger.info("Fuse", "Throttling: " + (enabled ? "ON" : "OFF"));
     }
 
     public void setThrottleIntensity(float intensity) {
         this.throttleIntensity = Math.max(0f, Math.min(1f, intensity));
-        System.out.println("[Fuse] Throttle intensity: " + this.throttleIntensity);
+        PulseLogger.info("Fuse", "Throttle intensity: " + this.throttleIntensity);
     }
 }

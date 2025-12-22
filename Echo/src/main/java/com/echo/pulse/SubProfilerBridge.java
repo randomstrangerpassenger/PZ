@@ -1,6 +1,7 @@
 package com.echo.pulse;
 
 import com.echo.measure.SubProfiler;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.SubProfilerHook;
 
 /**
@@ -23,10 +24,10 @@ public class SubProfilerBridge implements SubProfilerHook.ISubProfilerCallback {
      * EchoMod.init()에서 호출됨
      */
     public static void register() {
-        System.out.println("[Echo/SubProfilerBridge] register() called");
+        PulseLogger.debug("Echo/SubProfilerBridge", "register() called");
 
         if (INSTANCE != null) {
-            System.out.println("[Echo/SubProfilerBridge] Already registered, skipping");
+            PulseLogger.debug("Echo/SubProfilerBridge", "Already registered, skipping");
             return;
         }
 
@@ -34,12 +35,10 @@ public class SubProfilerBridge implements SubProfilerHook.ISubProfilerCallback {
             INSTANCE = new SubProfilerBridge();
             SubProfilerHook.setCallback(INSTANCE);
 
-            // 등록 확인
-            System.out.println("[Echo] SubProfilerBridge registered with Pulse");
-            System.out.println("[Echo/SubProfilerBridge] Callback instance: " + INSTANCE.getClass().getName());
+            PulseLogger.info("Echo", "SubProfilerBridge registered with Pulse");
+            PulseLogger.debug("Echo/SubProfilerBridge", "Callback instance: " + INSTANCE.getClass().getName());
         } catch (Throwable t) {
-            System.err.println("[Echo/SubProfilerBridge] FAILED to register: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo/SubProfilerBridge", "FAILED to register: " + t.getMessage(), t);
             INSTANCE = null;
         }
     }

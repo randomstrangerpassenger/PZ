@@ -1,5 +1,7 @@
 package com.pulse.api.profiler;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Zombie Hooks for Echo/Fuse.
  * 
@@ -92,7 +94,7 @@ public class ZombieHook {
     public static void setThrottlePolicy(IZombieThrottlePolicy policy) {
         throttlePolicy = policy;
         if (policy != null) {
-            System.out.println("[Pulse] ZombieThrottlePolicy registered (Tiered mode)");
+            PulseLogger.info("Pulse", "ZombieThrottlePolicy registered (Tiered mode)");
         }
     }
 

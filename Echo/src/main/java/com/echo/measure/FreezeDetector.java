@@ -1,5 +1,7 @@
 package com.echo.measure;
 
+import com.pulse.api.log.PulseLogger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -133,7 +135,7 @@ public class FreezeDetector {
         this.watchdogThread.setPriority(Thread.MAX_PRIORITY); // 높은 우선순위
         this.watchdogThread.start();
 
-        System.out.println("[Echo] FreezeDetector started");
+        PulseLogger.info("Echo", "FreezeDetector started");
     }
 
     /**
@@ -148,7 +150,7 @@ public class FreezeDetector {
             watchdogThread.interrupt();
             watchdogThread = null;
         }
-        System.out.println("[Echo] FreezeDetector stopped");
+        PulseLogger.info("Echo", "FreezeDetector stopped");
     }
 
     /**
@@ -166,9 +168,8 @@ public class FreezeDetector {
                     current.getName().contains("Main") || this.mainThread == null) {
                 boolean wasNull = this.mainThread == null;
                 this.mainThread = current;
-                // 최초 캡처 시에만 로그 출력
                 if (wasNull) {
-                    System.out.println("[Echo] FreezeDetector: Main thread captured: " + current.getName());
+                    PulseLogger.debug("Echo", "FreezeDetector: Main thread captured: " + current.getName());
                 }
             }
         }
@@ -210,10 +211,8 @@ public class FreezeDetector {
     }
 
     private void onFreezeDetected(long initialDuration) {
-        // 프리즈 감지!
-        System.err.println("[Echo] Freeze Detected! Main thread stalled for " + initialDuration + "ms");
+        PulseLogger.warn("Echo", "Freeze Detected! Main thread stalled for " + initialDuration + "ms");
 
-        // 스냅샷 캡처
         FreezeSnapshot snapshot = new FreezeSnapshot(initialDuration, mainThread);
 
         synchronized (recentFreezes) {

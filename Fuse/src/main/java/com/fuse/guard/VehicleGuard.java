@@ -1,6 +1,7 @@
 package com.fuse.guard;
 
 import com.fuse.telemetry.TelemetryReason;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Vehicle Guard.
@@ -26,7 +27,7 @@ public class VehicleGuard {
     private TelemetryReason lastReason = null;
 
     public VehicleGuard() {
-        System.out.println("[" + LOG + "] VehicleGuard initialized (entry: "
+        PulseLogger.info(LOG, "VehicleGuard initialized (entry: "
                 + speedEntryKmh + "km/h, exit: " + speedExitKmh + "km/h)");
     }
 
@@ -53,12 +54,12 @@ public class VehicleGuard {
         if (!passiveMode && speed > speedEntryKmh) {
             passiveMode = true;
             lastReason = TelemetryReason.GUARD_VEHICLE;
-            System.out.println("[" + LOG + "] VehicleGuard: PASSIVE mode (speed: "
+            PulseLogger.debug(LOG, "VehicleGuard: PASSIVE mode (speed: "
                     + String.format("%.1f", speed) + "km/h)");
         } else if (passiveMode && speed < speedExitKmh) {
             passiveMode = false;
             lastReason = null;
-            System.out.println("[" + LOG + "] VehicleGuard: NORMAL mode (speed: "
+            PulseLogger.debug(LOG, "VehicleGuard: NORMAL mode (speed: "
                     + String.format("%.1f", speed) + "km/h)");
         }
 

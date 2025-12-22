@@ -1,6 +1,7 @@
 package com.fuse.throttle;
 
 import com.fuse.config.FuseConfig;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ThrottleLevel;
 import com.pulse.api.profiler.ZombieHook;
 import com.pulse.api.profiler.ZombieStepHook.IStepContext;
@@ -31,7 +32,7 @@ public class FuseStepPolicy implements IZombieStepPolicy {
     private long totalStepCalls = 0;
 
     public FuseStepPolicy() {
-        System.out.println("[" + LOG + "] StepPolicy initialized (ThrottleLevel mode)");
+        PulseLogger.info(LOG, "StepPolicy initialized (ThrottleLevel mode)");
     }
 
     @Override
@@ -116,10 +117,10 @@ public class FuseStepPolicy implements IZombieStepPolicy {
     }
 
     public void printStatus() {
-        System.out.println("[" + LOG + "] Step Throttle Stats:");
-        System.out.println("  PERCEPTION: exec=" + perceptionExecCount + " skip=" + perceptionSkipCount);
-        System.out.println("  BEHAVIOR: exec=" + behaviorExecCount + " skip=" + behaviorSkipCount);
-        System.out.println("  TARGET: exec=" + targetExecCount + " skip=" + targetSkipCount);
-        System.out.println("  Total calls: " + totalStepCalls);
+        PulseLogger.info(LOG, "Step Throttle Stats:");
+        PulseLogger.info(LOG, "  PERCEPTION: exec=" + perceptionExecCount + " skip=" + perceptionSkipCount);
+        PulseLogger.info(LOG, "  BEHAVIOR: exec=" + behaviorExecCount + " skip=" + behaviorSkipCount);
+        PulseLogger.info(LOG, "  TARGET: exec=" + targetExecCount + " skip=" + targetSkipCount);
+        PulseLogger.info(LOG, "  Total calls: " + totalStepCalls);
     }
 }

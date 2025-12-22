@@ -1,6 +1,7 @@
 package com.echo.pulse;
 
 import com.echo.fuse.ZombieProfiler;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ProfilerBridge;
 import com.pulse.api.profiler.ProfilerSink;
 
@@ -23,9 +24,9 @@ public class EchoProfilerSink implements ProfilerSink {
         try {
             INSTANCE = new EchoProfilerSink();
             ProfilerBridge.setSink(INSTANCE);
-            System.out.println("[Echo] ProfilerSink registered with Pulse");
+            PulseLogger.info("Echo", "ProfilerSink registered with Pulse");
         } catch (Throwable t) {
-            System.err.println("[Echo] Failed to register ProfilerSink: " + t.getMessage());
+            PulseLogger.error("Echo", "Failed to register ProfilerSink: " + t.getMessage());
         }
     }
 

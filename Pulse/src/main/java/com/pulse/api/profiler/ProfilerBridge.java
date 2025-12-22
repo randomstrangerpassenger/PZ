@@ -1,5 +1,7 @@
 package com.pulse.api.profiler;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Profiler Bridge - Pulse 경유 profiler 데이터 전달.
  * 
@@ -23,7 +25,7 @@ public final class ProfilerBridge {
     public static void setSink(ProfilerSink s) {
         sink = s;
         if (s != null) {
-            System.out.println("[Pulse] ProfilerSink registered");
+            PulseLogger.info("Pulse", "ProfilerSink registered");
         }
     }
 

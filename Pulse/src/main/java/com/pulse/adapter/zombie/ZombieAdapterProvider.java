@@ -1,5 +1,6 @@
 package com.pulse.adapter.zombie;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.version.GameVersion;
 
 /**
@@ -56,7 +57,7 @@ public final class ZombieAdapterProvider {
     public static void override(IZombieAdapter adapter) {
         synchronized (LOCK) {
             instance = adapter;
-            System.out.println("[Pulse/ZombieAdapterProvider] Overridden with: " + adapter.getName());
+            PulseLogger.info("Pulse/ZombieAdapterProvider", "Overridden with: " + adapter.getName());
         }
     }
 
@@ -66,20 +67,17 @@ public final class ZombieAdapterProvider {
         IZombieAdapter adapter;
 
         if (version >= GameVersion.BUILD_42) {
-            // Build 42+ 어댑터 시도
             Build42ZombieAdapter b42 = new Build42ZombieAdapter();
             if (b42.isCompatible()) {
                 adapter = b42;
-                System.out.println("[Pulse/ZombieAdapterProvider] Using Build42ZombieAdapter");
+                PulseLogger.info("Pulse/ZombieAdapterProvider", "Using Build42ZombieAdapter");
             } else {
-                // 호환되지 않으면 Build 41로 폴백
                 adapter = new Build41ZombieAdapter();
-                System.out.println("[Pulse/ZombieAdapterProvider] Build 42 not compatible, using Build41ZombieAdapter");
+                PulseLogger.info("Pulse/ZombieAdapterProvider", "Build 42 not compatible, using Build41ZombieAdapter");
             }
         } else {
-            // Build 41
             adapter = new Build41ZombieAdapter();
-            System.out.println("[Pulse/ZombieAdapterProvider] Using Build41ZombieAdapter");
+            PulseLogger.info("Pulse/ZombieAdapterProvider", "Using Build41ZombieAdapter");
         }
 
         return adapter;

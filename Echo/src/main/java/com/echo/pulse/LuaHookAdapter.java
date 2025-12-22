@@ -2,6 +2,7 @@ package com.echo.pulse;
 
 import com.echo.lua.LuaCallTracker;
 import com.echo.measure.EchoProfiler;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.hook.HookTypes;
 import com.pulse.hook.HookTypes.ILuaCallCallback;
 import com.pulse.hook.PulseHookRegistry;
@@ -32,7 +33,7 @@ public class LuaHookAdapter implements ILuaCallCallback {
      */
     public static void register() {
         if (registered) {
-            System.out.println("[Echo/LuaHook] Already registered");
+            PulseLogger.debug("Echo/LuaHook", "Already registered");
             return;
         }
 
@@ -40,7 +41,6 @@ public class LuaHookAdapter implements ILuaCallCallback {
         LuaCallTracker tracker = LuaCallTracker.getInstance();
         INSTANCE = new LuaHookAdapter(profiler, tracker);
 
-        // Phase 2C: PulseLuaHook 콜백 등록 (InternalLuaHook)
         registerPulseLuaHookCallback(tracker, profiler);
 
         try {
@@ -48,11 +48,11 @@ public class LuaHookAdapter implements ILuaCallCallback {
             registered = true;
 
             int callbackCount = PulseHookRegistry.getCallbacks(HookTypes.LUA_CALL).size();
-            System.out.println("[Echo/LuaHook] ✅ LUA_CALL callback registered (v2.0)");
-            System.out.println("[Echo/LuaHook]   lua_profiling.enabled = " + profiler.isLuaProfilingEnabled());
-            System.out.println("[Echo/LuaHook]   LUA_CALL callbacks count = " + callbackCount);
+            PulseLogger.info("Echo/LuaHook", "✅ LUA_CALL callback registered (v2.0)");
+            PulseLogger.debug("Echo/LuaHook", "lua_profiling.enabled = " + profiler.isLuaProfilingEnabled());
+            PulseLogger.debug("Echo/LuaHook", "LUA_CALL callbacks count = " + callbackCount);
         } catch (Exception e) {
-            System.err.println("[Echo/LuaHook] ❌ Failed to register LUA_CALL callback: " + e.getMessage());
+            PulseLogger.error("Echo/LuaHook", "❌ Failed to register LUA_CALL callback: " + e.getMessage());
             registered = false;
         }
     }
@@ -65,11 +65,11 @@ public class LuaHookAdapter implements ILuaCallCallback {
                     });
 
             com.pulse.internal.InternalLuaHook.setProfilingEnabled(profiler.isLuaProfilingEnabled());
-            System.out.println("[Echo/LuaHook] ✅ InternalLuaHook callback registered");
+            PulseLogger.info("Echo/LuaHook", "✅ InternalLuaHook callback registered");
         } catch (NoClassDefFoundError e) {
-            System.out.println("[Echo/LuaHook] ⚠ InternalLuaHook not available");
+            PulseLogger.warn("Echo/LuaHook", "⚠ InternalLuaHook not available");
         } catch (Exception e) {
-            System.err.println("[Echo/LuaHook] ❌ Failed to register InternalLuaHook: " + e.getMessage());
+            PulseLogger.error("Echo/LuaHook", "❌ Failed to register InternalLuaHook: " + e.getMessage());
         }
     }
 
@@ -79,9 +79,9 @@ public class LuaHookAdapter implements ILuaCallCallback {
 
         try {
             PulseHookRegistry.unregister(HookTypes.LUA_CALL, INSTANCE);
-            System.out.println("[Echo/LuaHook] LUA_CALL callback unregistered");
+            PulseLogger.info("Echo/LuaHook", "LUA_CALL callback unregistered");
         } catch (Exception e) {
-            System.err.println("[Echo/LuaHook] Failed to unregister: " + e.getMessage());
+            PulseLogger.error("Echo/LuaHook", "Failed to unregister: " + e.getMessage());
         } finally {
             registered = false;
             INSTANCE = null;
@@ -123,20 +123,19 @@ public class LuaHookAdapter implements ILuaCallCallback {
      * 진단 정보 출력
      */
     public static void printDiagnostics() {
-        System.out.println("\n[Echo/LuaHook] === Diagnostics ===");
-        System.out.println("  registered = " + registered);
+        PulseLogger.info("Echo/LuaHook", "=== Diagnostics ===");
+        PulseLogger.info("Echo/LuaHook", "registered = " + registered);
         if (INSTANCE != null) {
-            System.out.println("  lua_profiling.enabled = " + INSTANCE.profiler.isLuaProfilingEnabled());
-            System.out.println("  detailed_active = " + INSTANCE.tracker.isDetailedActive());
-            System.out.println("  total_calls = " + INSTANCE.tracker.getTotalCalls());
-            System.out.println("  sampled_calls = " + INSTANCE.tracker.getSampledCalls());
+            PulseLogger.info("Echo/LuaHook", "lua_profiling.enabled = " + INSTANCE.profiler.isLuaProfilingEnabled());
+            PulseLogger.info("Echo/LuaHook", "detailed_active = " + INSTANCE.tracker.isDetailedActive());
+            PulseLogger.info("Echo/LuaHook", "total_calls = " + INSTANCE.tracker.getTotalCalls());
+            PulseLogger.info("Echo/LuaHook", "sampled_calls = " + INSTANCE.tracker.getSampledCalls());
         }
         try {
             int count = PulseHookRegistry.getCallbacks(HookTypes.LUA_CALL).size();
-            System.out.println("  LUA_CALL callbacks = " + count);
+            PulseLogger.info("Echo/LuaHook", "LUA_CALL callbacks = " + count);
         } catch (Exception e) {
-            System.out.println("  LUA_CALL callbacks = (error: " + e.getMessage() + ")");
+            PulseLogger.warn("Echo/LuaHook", "LUA_CALL callbacks = (error: " + e.getMessage() + ")");
         }
-        System.out.println();
     }
 }

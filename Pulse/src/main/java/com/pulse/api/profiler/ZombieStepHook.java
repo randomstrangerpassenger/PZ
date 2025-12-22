@@ -1,5 +1,7 @@
 package com.pulse.api.profiler;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Zombie Step Hook - Step-level throttling API.
  * 
@@ -27,7 +29,7 @@ public class ZombieStepHook {
     public static void setStepPolicy(IZombieStepPolicy policy) {
         stepPolicy = policy;
         if (policy != null) {
-            System.out.println("[Pulse] ZombieStepPolicy registered: " + policy.getClass().getSimpleName());
+            PulseLogger.info("Pulse", "ZombieStepPolicy registered: " + policy.getClass().getSimpleName());
         }
     }
 

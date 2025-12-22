@@ -3,6 +3,7 @@ package com.echo.pulse;
 import com.echo.EchoMod;
 import com.echo.measure.FreezeDetector;
 import com.echo.session.SessionManager;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEvent;
 import com.pulse.event.lifecycle.GameTickStartEvent;
@@ -33,7 +34,7 @@ public class PulseEventAdapter {
      */
     public static void register() {
         if (!registered.compareAndSet(false, true)) {
-            System.out.println("[Echo] Pulse adapter already registered");
+            PulseLogger.debug("Echo", "Pulse adapter already registered");
             return;
         }
 
@@ -46,9 +47,8 @@ public class PulseEventAdapter {
         EventBus.subscribe(GameTickStartEvent.class, event -> {
             tickProfiler.onTickStart();
 
-            // 디버그: 첫 이벤트 수신 확인
             if (event.getTick() == 1) {
-                System.out.println("[Echo/DEBUG] First GameTickStartEvent received!");
+                PulseLogger.debug("Echo", "First GameTickStartEvent received!");
             }
         }, EchoMod.MOD_ID);
 
@@ -67,14 +67,12 @@ public class PulseEventAdapter {
             // v2.1: 세션 데이터 수집 마킹
             SessionManager.getInstance().onTick();
 
-            // 디버그: 첫 이벤트 수신 확인
             if (event.getTick() == 1) {
-                System.out.println("[Echo/DEBUG] First GameTickEndEvent received! durationMs=" + event.getDurationMs());
+                PulseLogger.debug("Echo", "First GameTickEndEvent received! durationMs=" + event.getDurationMs());
             }
-            // 매 1000번째 틱마다 상태 출력
             if (event.getTick() % 1000 == 0) {
-                System.out.printf("[Echo/DEBUG] GameTickEndEvent #%d, durationMs=%.4f%n",
-                        event.getTick(), event.getDurationMs());
+                PulseLogger.debug("Echo", String.format("GameTickEndEvent #%d, durationMs=%.4f",
+                        event.getTick(), event.getDurationMs()));
             }
         }, EchoMod.MOD_ID);
 
@@ -84,10 +82,8 @@ public class PulseEventAdapter {
             // Contract 검증만 수행 (Start/End가 primary)
             com.echo.validation.PulseContractVerifier.getInstance().onGameTick(event.getDeltaTime());
 
-            // 디버그: 첫 이벤트 수신 확인
             if (event.getTick() == 1) {
-                System.out.println(
-                        "[Echo/DEBUG] First GameTickEvent received (legacy) deltaTime=" + event.getDeltaTime());
+                PulseLogger.debug("Echo", "First GameTickEvent received (legacy) deltaTime=" + event.getDeltaTime());
             }
         }, EchoMod.MOD_ID);
 
@@ -115,20 +111,19 @@ public class PulseEventAdapter {
         // Lua Call Hook (On-Demand profiling)
         LuaHookAdapter.register();
 
-        // v2.2: 초기화 시 첫 5초간 Detailed Window 자동 열기 (명령어 없이 데이터 수집)
         try {
             com.echo.lua.DetailedWindowManager.getInstance()
-                    .startManualCapture(5000); // 5초간 100% 샘플링
-            System.out.println("[Echo] ✓ Initial Detailed Window opened (5s auto-capture)");
+                    .startManualCapture(5000);
+            PulseLogger.info("Echo", "✓ Initial Detailed Window opened (5s auto-capture)");
         } catch (Exception e) {
-            System.err.println("[Echo] Failed to open initial Detailed Window: " + e.getMessage());
+            PulseLogger.error("Echo", "Failed to open initial Detailed Window: " + e.getMessage());
         }
 
-        System.out.println("[Echo] Pulse event adapter registered (Native EventBus)");
-        System.out.println("[Echo]   - TickProfiler: GameTickEvent");
-        System.out.println("[Echo]   - RenderProfiler: GuiRenderEvent");
-        System.out.println("[Echo]   - SessionManager: WorldLoad/Unload/MainMenuRender");
-        System.out.println("[Echo]   - LuaHookAdapter: LUA_CALL (Auto-capture enabled)");
+        PulseLogger.info("Echo", "Pulse event adapter registered (Native EventBus)");
+        PulseLogger.debug("Echo", "- TickProfiler: GameTickEvent");
+        PulseLogger.debug("Echo", "- RenderProfiler: GuiRenderEvent");
+        PulseLogger.debug("Echo", "- SessionManager: WorldLoad/Unload/MainMenuRender");
+        PulseLogger.debug("Echo", "- LuaHookAdapter: LUA_CALL (Auto-capture enabled)");
     }
 
     /**
@@ -144,7 +139,7 @@ public class PulseEventAdapter {
         // Lua Hook 해제
         LuaHookAdapter.unregister();
 
-        System.out.println("[Echo] Pulse event adapter unregistered");
+        PulseLogger.info("Echo", "Pulse event adapter unregistered");
     }
 
     /**

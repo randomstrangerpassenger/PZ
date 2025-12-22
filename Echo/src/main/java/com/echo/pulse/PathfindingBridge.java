@@ -1,6 +1,7 @@
 package com.echo.pulse;
 
 import com.echo.fuse.PathfindingProfiler;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.PathfindingHook;
 
 /**
@@ -26,7 +27,7 @@ public class PathfindingBridge implements PathfindingHook.IPathfindingCallback {
         // Phase 2: Sync fast-flag
         boolean enabled = com.echo.config.EchoConfig.getInstance().isEnablePathfindingDetails();
 
-        System.out.println("[Echo] PathfindingBridge registered with Pulse (Details: " + enabled + ")");
+        PulseLogger.info("Echo", "PathfindingBridge registered with Pulse (Details: " + enabled + ")");
     }
 
     @Override

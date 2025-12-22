@@ -1,0 +1,33 @@
+﻿To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.5/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+[PZ] Found Steam: g:/program files (x86)/steam
+[PZ] Found 3 Steam library folder(s)
+[PZ] Found Project Zomboid: g:/program files (x86)/steam/steamapps/common/ProjectZomboid
+
+> Task :pulse-api:compileJava UP-TO-DATE
+> Task :Pulse:compileJava UP-TO-DATE
+> Task :Pulse:processResources UP-TO-DATE
+> Task :Pulse:classes UP-TO-DATE
+> Task :Pulse:compileTestJava
+> Task :Pulse:processTestResources NO-SOURCE
+> Task :Pulse:testClasses
+> Task :pulse-api:processResources NO-SOURCE
+> Task :pulse-api:classes UP-TO-DATE
+> Task :pulse-api:jar UP-TO-DATE
+
+> Task :Pulse:test
+
+LuaBridgeTest > call_withInvalidFunction_returnsNull() PASSED
+
+LuaBridgeTest > getInstance_returnsSameInstance() PASSED
+
+LuaBridgeTest > getGlobal_withNullName_returnsNull() PASSED
+
+LuaBridgeTest > call_withNullFunction_returnsNull() PASSED
+
+LuaBridgeTest > setGlobal_withNullName_doesNotThrow() PASSED
+
+BUILD SUCCESSFUL in 8s
+6 actionable tasks: 2 executed, 4 up-to-date

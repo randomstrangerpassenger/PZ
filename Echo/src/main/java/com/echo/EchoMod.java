@@ -9,6 +9,7 @@ import com.echo.pulse.PathfindingBridge;
 import com.echo.pulse.ZombieBridge;
 import com.echo.pulse.IsoGridBridge;
 import com.echo.spi.EchoProfilerProvider;
+import com.pulse.api.log.PulseLogger;
 import com.pulse.mod.PulseMod;
 
 /**
@@ -41,7 +42,7 @@ public class EchoMod implements PulseMod {
     /** 모드 초기화 */
     public static void init() {
         if (initialized) {
-            System.out.println("[Echo] Already initialized, skipping...");
+            PulseLogger.debug("Echo", "Already initialized, skipping...");
             return;
         }
 
@@ -63,10 +64,10 @@ public class EchoMod implements PulseMod {
                 manager.shutdownExecutor(); // Executor 정리
             }, "Echo-Shutdown-Hook"));
 
-            System.out.println("[Echo] Profiling is now active - session-based saving enabled");
+            PulseLogger.info("Echo", "Profiling is now active - session-based saving enabled");
         } catch (Exception e) {
             EchoRuntime.recordError("init", e);
-            System.err.println("[Echo] Initialization failed: " + e.getMessage());
+            PulseLogger.error("Echo", "Initialization failed: " + e.getMessage(), e);
         }
     }
 
@@ -86,7 +87,7 @@ public class EchoMod implements PulseMod {
         } catch (ClassNotFoundException e) {
             // Pulse API unavailable
         } catch (Exception e) {
-            System.out.println("[Echo] Warning: Failed to check Pulse API: " + e.getMessage());
+            PulseLogger.warn("Echo", "Warning: Failed to check Pulse API: " + e.getMessage());
         }
 
         try {
@@ -100,7 +101,7 @@ public class EchoMod implements PulseMod {
         } catch (ClassNotFoundException e) {
             // Dev environment
         } catch (Exception e) {
-            System.out.println("[Echo] Warning: Failed to check GameServer: " + e.getMessage());
+            PulseLogger.warn("Echo", "Warning: Failed to check GameServer: " + e.getMessage());
         }
 
         return false;
@@ -124,114 +125,102 @@ public class EchoMod implements PulseMod {
         // Lua 프로파일링 설정 동기화 (EchoConfig → EchoProfiler)
         if (config.isLuaProfilingEnabled()) {
             profiler.enableLuaProfiling();
-            System.out.println("[Echo] ✓ Lua Profiling PRE-ENABLED (from config)");
+            PulseLogger.info("Echo", "✓ Lua Profiling PRE-ENABLED (from config)");
         }
 
         // 명령어 등록
         try {
             EchoCommands.register();
-            System.out.println("[Echo] ✓ EchoCommands registered");
+            PulseLogger.info("Echo", "✓ EchoCommands registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ EchoCommands.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ EchoCommands.register() FAILED: " + t.getMessage(), t);
         }
 
         // Pulse 이벤트 어댑터 등록
         try {
             PulseEventAdapter.register();
-            System.out.println("[Echo] ✓ PulseEventAdapter registered");
+            PulseLogger.info("Echo", "✓ PulseEventAdapter registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ PulseEventAdapter.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ PulseEventAdapter.register() FAILED: " + t.getMessage(), t);
         }
 
         // Echo 1.0: SubProfiler 브릿지 등록 (Pulse Mixin → Echo SubProfiler 연동)
         try {
             SubProfilerBridge.register();
-            System.out.println("[Echo] ✓ SubProfilerBridge registered");
+            PulseLogger.info("Echo", "✓ SubProfilerBridge registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ SubProfilerBridge.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ SubProfilerBridge.register() FAILED: " + t.getMessage(), t);
         }
 
         // Echo 1.0: TickPhase 브릿지 등록 (Pulse Mixin → Echo TickPhaseProfiler 연동)
         try {
             com.echo.pulse.TickPhaseBridge.register();
-            System.out.println("[Echo] ✓ TickPhaseBridge registered");
+            PulseLogger.info("Echo", "✓ TickPhaseBridge registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ TickPhaseBridge.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ TickPhaseBridge.register() FAILED: " + t.getMessage(), t);
         }
 
         // Echo 2.0: Lua Path Hit 프로브 등록 (30초 후 검증 로그)
         try {
             com.echo.lua.LuaPathHitBridge.register();
-            System.out.println("[Echo] ✓ LuaPathHitBridge registered");
+            PulseLogger.info("Echo", "✓ LuaPathHitBridge registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ LuaPathHitBridge.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ LuaPathHitBridge.register() FAILED: " + t.getMessage(), t);
         }
 
         // Echo 1.0 Phase 4: Fuse Deep Analysis 브릿지 등록
         try {
             PathfindingBridge.register();
-            System.out.println("[Echo] ✓ PathfindingBridge registered");
+            PulseLogger.info("Echo", "✓ PathfindingBridge registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ PathfindingBridge.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ PathfindingBridge.register() FAILED: " + t.getMessage(), t);
         }
 
         try {
             ZombieBridge.register();
-            System.out.println("[Echo] ✓ ZombieBridge registered");
+            PulseLogger.info("Echo", "✓ ZombieBridge registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ ZombieBridge.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ ZombieBridge.register() FAILED: " + t.getMessage(), t);
         }
 
         try {
             IsoGridBridge.register();
-            System.out.println("[Echo] ✓ IsoGridBridge registered");
+            PulseLogger.info("Echo", "✓ IsoGridBridge registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ IsoGridBridge.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ IsoGridBridge.register() FAILED: " + t.getMessage(), t);
         }
 
         // Echo 2.0: ProfilerBridge Sink 등록 (Fuse → Pulse → Echo 데이터 경로)
         try {
             com.echo.pulse.EchoProfilerSink.register();
-            System.out.println("[Echo] ✓ EchoProfilerSink registered");
+            PulseLogger.info("Echo", "✓ EchoProfilerSink registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ EchoProfilerSink.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ EchoProfilerSink.register() FAILED: " + t.getMessage(), t);
         }
 
         // 키바인딩 등록
         try {
             com.echo.input.EchoKeyBindings.register();
-            System.out.println("[Echo] ✓ EchoKeyBindings registered");
+            PulseLogger.info("Echo", "✓ EchoKeyBindings registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ EchoKeyBindings.register() FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ EchoKeyBindings.register() FAILED: " + t.getMessage(), t);
         }
 
         // HUD 레이어 등록 (Pulse Native UI)
         try {
             com.echo.ui.EchoHUD.register();
             com.echo.ui.HotspotPanel.register();
-            System.out.println("[Echo] ✓ EchoHUD, HotspotPanel registered");
+            PulseLogger.info("Echo", "✓ EchoHUD, HotspotPanel registered");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ HUD registration FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ HUD registration FAILED: " + t.getMessage(), t);
         }
 
         // OptimizationPoint 동기화 (Pulse Registry에서 로드)
         try {
             com.echo.pulse.OptimizationPointSync.syncFromPulse();
-            System.out.println("[Echo] ✓ OptimizationPointSync completed");
+            PulseLogger.info("Echo", "✓ OptimizationPointSync completed");
         } catch (Throwable t) {
-            System.err.println("[Echo] ✗ OptimizationPointSync FAILED: " + t.getMessage());
-            t.printStackTrace();
+            PulseLogger.error("Echo", "✗ OptimizationPointSync FAILED: " + t.getMessage(), t);
         }
 
         // SPI 프로바이더 등록 (Pulse가 있을 때만)
@@ -247,8 +236,8 @@ public class EchoMod implements PulseMod {
 
         // 활성화 확인 로그
         if (!profiler.isEnabled()) {
-            System.err.println("[Echo] CRITICAL ERROR: Profiler failed to enable!");
-            System.err.println("[Echo] Check for initialization errors above.");
+            PulseLogger.error("Echo", "CRITICAL ERROR: Profiler failed to enable!");
+            PulseLogger.error("Echo", "Check for initialization errors above.");
         }
     }
 
@@ -263,17 +252,15 @@ public class EchoMod implements PulseMod {
             Object registry = getRegistry.invoke(null);
 
             if (registry != null) {
-                // 프로바이더 등록
                 java.lang.reflect.Method registerMethod = registry.getClass()
                         .getMethod("register", Class.forName("com.pulse.api.spi.IProvider"));
                 registerMethod.invoke(registry, new EchoProfilerProvider());
-                System.out.println("[Echo] Registered as Pulse SPI provider");
+                PulseLogger.info("Echo", "Registered as Pulse SPI provider");
             }
         } catch (ClassNotFoundException e) {
-            // Pulse API unavailable - standalone mode
-            System.out.println("[Echo] Running in standalone mode");
+            PulseLogger.debug("Echo", "Running in standalone mode");
         } catch (Exception e) {
-            System.out.println("[Echo] Warning: Failed to register SPI provider: " + e.getMessage());
+            PulseLogger.warn("Echo", "Warning: Failed to register SPI provider: " + e.getMessage());
         }
     }
 
@@ -289,12 +276,11 @@ public class EchoMod implements PulseMod {
                     com.echo.measure.RenderMetrics.getInstance());
             locator.registerService(com.pulse.api.service.echo.IBottleneckDetector.class,
                     com.echo.analysis.BottleneckDetector.getInstance());
-            System.out.println("[Echo] Registered services to PulseServiceLocator");
+            PulseLogger.info("Echo", "Registered services to PulseServiceLocator");
         } catch (NoClassDefFoundError e) {
-            // Pulse unavailable
-            System.out.println("[Echo] PulseServiceLocator not found");
+            PulseLogger.debug("Echo", "PulseServiceLocator not found");
         } catch (Exception e) {
-            System.err.println("[Echo] Failed to register services: " + e.getMessage());
+            PulseLogger.error("Echo", "Failed to register services: " + e.getMessage());
         }
     }
 
@@ -313,12 +299,11 @@ public class EchoMod implements PulseMod {
                 com.echo.report.EchoReport report = new com.echo.report.EchoReport(profiler);
                 String reportPath = report.saveWithTimestamp(config.getReportDirectory());
 
-                // Phase 6.2: Print Session Summary
                 report.printQualitySummary();
 
-                System.out.println("[Echo] Report saved: " + reportPath);
+                PulseLogger.info("Echo", "Report saved: " + reportPath);
             } catch (Exception e) {
-                System.err.println("[Echo] Failed to save report: " + e.getMessage());
+                PulseLogger.error("Echo", "Failed to save report: " + e.getMessage());
             }
         }
 
@@ -341,9 +326,9 @@ public class EchoMod implements PulseMod {
 
             String reportPath = new com.echo.report.EchoReport(profiler)
                     .saveWithTimestamp(config.getReportDirectory());
-            System.out.println("[Echo] Report flushed: " + reportPath);
+            PulseLogger.info("Echo", "Report flushed: " + reportPath);
         } catch (Exception e) {
-            System.err.println("[Echo] Failed to flush report: " + e.getMessage());
+            PulseLogger.error("Echo", "Failed to flush report: " + e.getMessage());
         }
     }
 

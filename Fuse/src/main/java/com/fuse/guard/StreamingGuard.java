@@ -1,6 +1,7 @@
 package com.fuse.guard;
 
 import com.fuse.telemetry.TelemetryReason;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Streaming Guard.
@@ -33,7 +34,7 @@ public class StreamingGuard {
     private TelemetryReason lastReason = null;
 
     public StreamingGuard() {
-        System.out.println("[" + LOG + "] StreamingGuard initialized (v1.1 indirect signals)");
+        PulseLogger.info(LOG, "StreamingGuard initialized (v1.1 indirect signals)");
     }
 
     /**
@@ -64,10 +65,10 @@ public class StreamingGuard {
         // 상태 변경 시 로그
         if (yieldMode && !wasPreviousYield) {
             lastReason = TelemetryReason.GUARD_STREAMING;
-            System.out.println("[" + LOG + "] StreamingGuard: YIELD mode (heavy streaming detected)");
+            PulseLogger.debug(LOG, "StreamingGuard: YIELD mode (heavy streaming detected)");
         } else if (!yieldMode && wasPreviousYield) {
             lastReason = null;
-            System.out.println("[" + LOG + "] StreamingGuard: NORMAL mode");
+            PulseLogger.debug(LOG, "StreamingGuard: NORMAL mode");
         }
 
         return yieldMode;

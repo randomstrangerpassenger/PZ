@@ -1,5 +1,6 @@
 package com.fuse.optimizer;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.service.echo.IBottleneckDetector;
 import com.pulse.api.service.echo.OptimizationPriority;
 import com.pulse.di.PulseServiceLocator;
@@ -41,7 +42,7 @@ public class FuseOptimizer {
      */
     public void enable() {
         this.enabled = true;
-        System.out.println("[Fuse] Optimizer enabled");
+        PulseLogger.info("Fuse", "Optimizer enabled");
     }
 
     /**
@@ -50,7 +51,7 @@ public class FuseOptimizer {
     public void disable() {
         this.enabled = false;
         revertAllOptimizations();
-        System.out.println("[Fuse] Optimizer disabled");
+        PulseLogger.info("Fuse", "Optimizer disabled");
     }
 
     /**
@@ -58,7 +59,7 @@ public class FuseOptimizer {
      */
     public void setAutoOptimize(boolean auto) {
         this.autoOptimize = auto;
-        System.out.println("[Fuse] Auto-optimize: " + (auto ? "ON" : "OFF"));
+        PulseLogger.info("Fuse", "Auto-optimize: " + (auto ? "ON" : "OFF"));
     }
 
     /**
@@ -99,7 +100,7 @@ public class FuseOptimizer {
 
         String optId = target.targetName;
         if (activeOptimizations.contains(optId)) {
-            System.out.println("[Fuse] Optimization already active: " + optId);
+            PulseLogger.debug("Fuse", "Optimization already active: " + optId);
             return;
         }
 
@@ -108,8 +109,8 @@ public class FuseOptimizer {
         if (success) {
             activeOptimizations.add(optId);
             optimizationsApplied++;
-            System.out.println("[Fuse] Applied optimization: " + optId);
-            System.out.println("[Fuse] Recommendation: " + target.recommendation);
+            PulseLogger.info("Fuse", "Applied optimization: " + optId);
+            PulseLogger.info("Fuse", "Recommendation: " + target.recommendation);
         }
     }
 
@@ -119,33 +120,27 @@ public class FuseOptimizer {
     private boolean applyOptimizationLogic(String targetId) {
         switch (targetId) {
             case "ZOMBIE_AI":
-                // 좀비 AI 최적화: LOD 기반 업데이트 빈도 조절
-                // TODO: 실제 구현
-                System.out.println("[Fuse] Applying Zombie AI LOD optimization...");
+                PulseLogger.info("Fuse", "Applying Zombie AI LOD optimization...");
                 return true;
 
             case "SIMULATION":
-                // 시뮬레이션 최적화: 배칭 및 멀티스레딩
-                System.out.println("[Fuse] Applying Simulation batching...");
+                PulseLogger.info("Fuse", "Applying Simulation batching...");
                 return true;
 
             case "PHYSICS":
-                // 물리 최적화: 충돌 체크 빈도 감소
-                System.out.println("[Fuse] Applying Physics LOD...");
+                PulseLogger.info("Fuse", "Applying Physics LOD...");
                 return true;
 
             case "PATHFINDING_DEEP":
-                // 패스파인딩 최적화: 캐싱 및 계층적 패스파인딩
-                System.out.println("[Fuse] Applying Pathfinding caching...");
+                PulseLogger.info("Fuse", "Applying Pathfinding caching...");
                 return true;
 
             case "ZOMBIE_PROCESSING":
-                // 좀비 처리 최적화: 풀링 및 배칭
-                System.out.println("[Fuse] Applying Zombie processing pooling...");
+                PulseLogger.info("Fuse", "Applying Zombie processing pooling...");
                 return true;
 
             default:
-                System.out.println("[Fuse] No optimization available for: " + targetId);
+                PulseLogger.warn("Fuse", "No optimization available for: " + targetId);
                 return false;
         }
     }
@@ -160,7 +155,7 @@ public class FuseOptimizer {
         // 최적화 취소 로직
         activeOptimizations.remove(optId);
         optimizationsReverted++;
-        System.out.println("[Fuse] Reverted optimization: " + optId);
+        PulseLogger.info("Fuse", "Reverted optimization: " + optId);
     }
 
     /**

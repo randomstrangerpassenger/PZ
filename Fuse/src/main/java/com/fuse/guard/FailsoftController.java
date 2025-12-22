@@ -1,6 +1,7 @@
 package com.fuse.guard;
 
 import com.fuse.telemetry.TelemetryReason;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Fail-soft Controller.
@@ -29,7 +30,7 @@ public class FailsoftController {
     private TelemetryReason lastReason = null;
 
     public FailsoftController() {
-        System.out.println("[" + LOG + "] FailsoftController initialized (max errors: "
+        PulseLogger.info(LOG, "FailsoftController initialized (max errors: "
                 + maxConsecutiveErrors + ")");
     }
 
@@ -51,12 +52,12 @@ public class FailsoftController {
         lastError = t;
         lastErrorTimestamp = System.currentTimeMillis();
 
-        System.err.println("[" + LOG + "] FailsoftController: Error recorded ("
+        PulseLogger.warn(LOG, "FailsoftController: Error recorded ("
                 + consecutiveErrors + "/" + maxConsecutiveErrors + ")");
 
         if (t != null) {
-            System.err.println("[" + LOG + "] Error: " + t.getClass().getSimpleName()
-                    + ": " + t.getMessage());
+            PulseLogger.error(LOG, "Error: " + t.getClass().getSimpleName()
+                    + ": " + t.getMessage(), t);
         }
 
         if (consecutiveErrors >= maxConsecutiveErrors) {
@@ -70,22 +71,22 @@ public class FailsoftController {
      */
     private void disableIntervention() {
         if (interventionDisabled) {
-            return; // 이미 비활성화됨
+            return;
         }
 
         interventionDisabled = true;
         lastReason = TelemetryReason.FAILSOFT_ERROR;
 
-        System.err.println();
-        System.err.println("[" + LOG + "] ╔═══════════════════════════════════════════════╗");
-        System.err.println("[" + LOG + "] ║     ⚠️ FAILSOFT: Intervention Disabled        ║");
-        System.err.println("[" + LOG + "] ║     Fuse is running in SAFE MODE              ║");
-        System.err.println("[" + LOG + "] ║     (All throttling bypassed, vanilla only)   ║");
-        System.err.println("[" + LOG + "] ╚═══════════════════════════════════════════════╝");
-        System.err.println();
+        PulseLogger.error(LOG, "");
+        PulseLogger.error(LOG, "╔═══════════════════════════════════════════════╗");
+        PulseLogger.error(LOG, "║     ⚠️ FAILSOFT: Intervention Disabled        ║");
+        PulseLogger.error(LOG, "║     Fuse is running in SAFE MODE              ║");
+        PulseLogger.error(LOG, "║     (All throttling bypassed, vanilla only)   ║");
+        PulseLogger.error(LOG, "╚═══════════════════════════════════════════════╝");
+        PulseLogger.error(LOG, "");
 
         if (lastError != null) {
-            lastError.printStackTrace(System.err);
+            PulseLogger.error(LOG, "Stack trace:", lastError);
         }
     }
 
@@ -140,16 +141,16 @@ public class FailsoftController {
         lastError = null;
         lastErrorTimestamp = 0;
         lastReason = null;
-        System.out.println("[" + LOG + "] FailsoftController manually reset");
+        PulseLogger.info(LOG, "FailsoftController manually reset");
     }
 
     public void printStatus() {
-        System.out.println("[" + LOG + "] Failsoft Status:");
-        System.out.println("  Intervention Disabled: " + interventionDisabled);
-        System.out.println("  Consecutive Errors: " + consecutiveErrors + "/" + maxConsecutiveErrors);
+        PulseLogger.info(LOG, "Failsoft Status:");
+        PulseLogger.info(LOG, "  Intervention Disabled: " + interventionDisabled);
+        PulseLogger.info(LOG, "  Consecutive Errors: " + consecutiveErrors + "/" + maxConsecutiveErrors);
         if (lastError != null) {
-            System.out.println("  Last Error: " + lastError.getClass().getSimpleName());
-            System.out.println("  Error Time: " + new java.util.Date(lastErrorTimestamp));
+            PulseLogger.info(LOG, "  Last Error: " + lastError.getClass().getSimpleName());
+            PulseLogger.info(LOG, "  Error Time: " + new java.util.Date(lastErrorTimestamp));
         }
     }
 }

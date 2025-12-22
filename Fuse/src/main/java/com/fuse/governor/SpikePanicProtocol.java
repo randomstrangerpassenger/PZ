@@ -1,6 +1,7 @@
 package com.fuse.governor;
 
 import com.fuse.telemetry.TelemetryReason;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Spike Panic Protocol.
@@ -43,7 +44,7 @@ public class SpikePanicProtocol {
 
     public SpikePanicProtocol() {
         this.spikeCounter = new SlidingWindowCounter(windowSizeMs);
-        System.out.println("[" + LOG + "] SpikePanicProtocol initialized (sliding window: "
+        PulseLogger.info(LOG, "SpikePanicProtocol initialized (sliding window: "
                 + windowSizeMs + "ms, threshold: " + spikeCountThreshold + " spikes)");
     }
 
@@ -105,11 +106,10 @@ public class SpikePanicProtocol {
             recoveryTickCounter = 0;
 
             if (recoveryPhase >= 3) {
-                // 완전 복구
                 enterNormal();
             } else {
                 lastReason = TelemetryReason.RECOVERING_GRADUAL;
-                System.out.println("[" + LOG + "] SpikePanicProtocol: Recovery phase "
+                PulseLogger.debug(LOG, "SpikePanicProtocol: Recovery phase "
                         + recoveryPhase + "/3 (multiplier: " + getThrottleMultiplier() + ")");
             }
         }
@@ -121,7 +121,7 @@ public class SpikePanicProtocol {
         recoveryTickCounter = 0;
         normalTickCounter = 0;
         lastReason = TelemetryReason.PANIC_WINDOW_SPIKES;
-        System.err.println("[" + LOG + "] ⚠️ PANIC mode entered! "
+        PulseLogger.warn(LOG, "⚠️ PANIC mode entered! "
                 + spikeCounter.getCountInWindow() + " spikes in " + windowSizeMs + "ms window");
     }
 
@@ -130,7 +130,7 @@ public class SpikePanicProtocol {
         recoveryPhase = 0;
         recoveryTickCounter = 0;
         lastReason = TelemetryReason.RECOVERING_GRADUAL;
-        System.out.println("[" + LOG + "] SpikePanicProtocol: Entering RECOVERING state");
+        PulseLogger.info(LOG, "SpikePanicProtocol: Entering RECOVERING state");
     }
 
     private void enterNormal() {
@@ -139,7 +139,7 @@ public class SpikePanicProtocol {
         recoveryTickCounter = 0;
         normalTickCounter = 0;
         lastReason = null;
-        System.out.println("[" + LOG + "] SpikePanicProtocol: Recovered to NORMAL state");
+        PulseLogger.info(LOG, "SpikePanicProtocol: Recovered to NORMAL state");
     }
 
     /**

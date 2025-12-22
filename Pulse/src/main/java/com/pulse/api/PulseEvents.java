@@ -94,7 +94,7 @@ public final class PulseEvents {
      * 특정 이벤트 리스너 수 조회
      */
     public static int listenerCount(Class<? extends Event> eventType) {
-        return EventBus.getInstance().getListenerCount(eventType);
+        return PulseServices.eventBus().getListenerCount(eventType);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.pulse.adapter.lua;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.version.GameVersion;
 
 /**
@@ -48,7 +49,7 @@ public final class LuaAdapterProvider {
     public static void override(ILuaAdapter adapter) {
         synchronized (LOCK) {
             instance = adapter;
-            System.out.println("[Pulse/LuaAdapterProvider] Overridden with: " + adapter.getName());
+            PulseLogger.info("Pulse/LuaAdapterProvider", "Overridden with: " + adapter.getName());
         }
     }
 
@@ -61,14 +62,14 @@ public final class LuaAdapterProvider {
             Build42LuaAdapter b42 = new Build42LuaAdapter();
             if (b42.isCompatible()) {
                 adapter = b42;
-                System.out.println("[Pulse/LuaAdapterProvider] Using Build42LuaAdapter");
+                PulseLogger.info("Pulse/LuaAdapterProvider", "Using Build42LuaAdapter");
             } else {
                 adapter = new Build41LuaAdapter();
-                System.out.println("[Pulse/LuaAdapterProvider] Build 42 not compatible, using Build41LuaAdapter");
+                PulseLogger.info("Pulse/LuaAdapterProvider", "Build 42 not compatible, using Build41LuaAdapter");
             }
         } else {
             adapter = new Build41LuaAdapter();
-            System.out.println("[Pulse/LuaAdapterProvider] Using Build41LuaAdapter");
+            PulseLogger.info("Pulse/LuaAdapterProvider", "Using Build41LuaAdapter");
         }
 
         return adapter;

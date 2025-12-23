@@ -29,12 +29,15 @@ public class PulseContractVerifier {
     private long lastPhaseTime = 0;
     private final AtomicBoolean contractViolated = new AtomicBoolean(false);
 
-    // Violations
+    // Violations (진짜 계약 파손)
     private final AtomicLong orderViolations = new AtomicLong(0);
     private final AtomicLong invalidDeltaTimes = new AtomicLong(0);
     private final AtomicLong zeroDeltaTimes = new AtomicLong(0);
-    private final AtomicLong largeDeltaTimes = new AtomicLong(0);
     private final AtomicLong duplicateEvents = new AtomicLong(0);
+
+    // Stall Events (환경 이벤트 - 계약 파손 아님)
+    private final AtomicLong largeDeltaTimes = new AtomicLong(0);
+    private volatile String lastStallMessage = null;
 
     // v0.9: Burst tick allowance for MP catch-up (server sync)
     private int burstTickCount = 0;
@@ -103,9 +106,10 @@ public class PulseContractVerifier {
         }
 
         // Check 2: Large deltaTime (indicates stall or lag spike)
+        // v1.1: 스톨은 환경 이벤트로 분리 - 계약 파손으로 처리하지 않음
         if (deltaTime > LARGE_DELTA_THRESHOLD && deltaTime <= MAX_REASONABLE_DELTA) {
             if (largeDeltaTimes.incrementAndGet() <= 3) { // Only log first 3
-                recordViolation("Large deltaTime: " + String.format("%.1f", deltaTime * 1000) + "ms (possible stall)");
+                recordStallEvent("Large deltaTime: " + String.format("%.1f", deltaTime * 1000) + "ms (possible stall)");
             }
         }
 
@@ -178,6 +182,15 @@ public class PulseContractVerifier {
     }
 
     /**
+     * 스톨 이벤트 기록 (환경 이벤트 - 계약 파손 아님).
+     * v1.1: 스톨은 WARNING으로만 표시, VIOLATED 상태로 전환하지 않음.
+     */
+    private void recordStallEvent(String message) {
+        lastStallMessage = message;
+        System.out.println("[Echo] Stall Event: " + message);
+    }
+
+    /**
      * Reset all counters (for testing)
      */
     public void reset() {
@@ -202,13 +215,21 @@ public class PulseContractVerifier {
         // v0.9: TickContract 버전 포함
         map.put("pulse_contract_version", TickContract.VERSION);
         map.put("tick_contract_valid", !contractViolated.get());
-        map.put("status", contractViolated.get() ? "VIOLATED" : "OK");
+        map.put("status", getStatusForDisplay()); // v1.1: use getStatusForDisplay()
+
+        // 진짜 계약 파손
         map.put("order_violations", orderViolations.get());
         map.put("invalid_delta_times", invalidDeltaTimes.get());
         map.put("zero_delta_times", zeroDeltaTimes.get());
-        map.put("large_delta_times", largeDeltaTimes.get());
         map.put("duplicate_events", duplicateEvents.get());
         map.put("thread_contentions", threadContentions.get());
+
+        // v1.1: 스톨 이벤트 (환경 이벤트 - 별도 카테고리)
+        map.put("stall_events", largeDeltaTimes.get());
+        if (lastStallMessage != null) {
+            map.put("last_stall", lastStallMessage);
+        }
+
         map.put("burst_tick_allowance", MAX_BURST_ALLOWANCE);
         map.put("current_burst_count", burstTickCount);
         map.put("missing_phase_data", isPhaseSignalMissing());
@@ -228,6 +249,8 @@ public class PulseContractVerifier {
     /**
      * Get contract status for Fuse/Nerve debug display.
      * 
+     * v1.1: 스톨은 WARNING, 진짜 계약 파손만 VIOLATED
+     * 
      * @return "OK", "WARNING", or "VIOLATED"
      */
     public String getStatusForDisplay() {
@@ -240,10 +263,18 @@ public class PulseContractVerifier {
 
     /**
      * Get total violation count for Fuse/Nerve display.
+     * v1.1: stall_events 제외 (환경 이벤트는 계약 파손 아님)
      */
     public long getTotalViolationCount() {
         return orderViolations.get() + invalidDeltaTimes.get() + zeroDeltaTimes.get()
-                + largeDeltaTimes.get() + duplicateEvents.get() + threadContentions.get();
+                + duplicateEvents.get() + threadContentions.get();
+    }
+
+    /**
+     * Get stall event count (환경 이벤트).
+     */
+    public long getStallEventCount() {
+        return largeDeltaTimes.get();
     }
 
     /**

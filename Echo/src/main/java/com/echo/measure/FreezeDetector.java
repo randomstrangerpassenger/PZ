@@ -76,6 +76,14 @@ public class FreezeDetector {
             }
             return trace;
         }
+
+        /**
+         * v1.1: 스택이 메인 루프 스택인지 확인.
+         * DebugMonitor 등 비메인 스레드 오염 방지.
+         */
+        public boolean isMainLoopStack() {
+            return FreezeDetector.isMainLoopStack(this.stackTrace);
+        }
     }
 
     public static class MemorySnapshot {
@@ -229,5 +237,61 @@ public class FreezeDetector {
         synchronized (recentFreezes) {
             return new ArrayList<>(recentFreezes);
         }
+    }
+
+    /**
+     * v1.1: 메인 루프 스택만 포함된 freeze 반환.
+     * DebugMonitor 등 비메인 스레드 오염 제거.
+     */
+    public List<FreezeSnapshot> getMainLoopFreezes() {
+        synchronized (recentFreezes) {
+            List<FreezeSnapshot> filtered = new ArrayList<>();
+            for (FreezeSnapshot snapshot : recentFreezes) {
+                if (snapshot.isMainLoopStack()) {
+                    filtered.add(snapshot);
+                }
+            }
+            return filtered;
+        }
+    }
+
+    // ===================================================
+    // v1.1: 릤인 루프 스택 파턴 판별
+    // ===================================================
+
+    /**
+     * 메인 루프 스택 패턴 매칭.
+     * 핵심 프레임: GameWindow, Core, Main 관련 메서드가 포함되어야 함.
+     */
+    private static final String[] MAIN_LOOP_PATTERNS = {
+            "GameWindow.run",
+            "GameWindow.mainThread",
+            "Core.run",
+            "Core.update",
+            "Core.doUpdate",
+            "zombie.GameWindow",
+            "zombie.core.Core",
+            "LWJGL"
+    };
+
+    /**
+     * 스택이 메인 루프 스택인지 확인.
+     * 
+     * @param stackTrace 스택 트레이스 문자열 리스트
+     * @return 메인 루프 스택이면 true
+     */
+    public static boolean isMainLoopStack(List<String> stackTrace) {
+        if (stackTrace == null || stackTrace.isEmpty()) {
+            return false;
+        }
+
+        for (String frame : stackTrace) {
+            for (String pattern : MAIN_LOOP_PATTERNS) {
+                if (frame.contains(pattern)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

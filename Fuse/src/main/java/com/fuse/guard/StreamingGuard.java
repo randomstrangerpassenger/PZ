@@ -105,8 +105,12 @@ public class StreamingGuard {
                 }
             }
 
-            // 도보 이동 속도 체크 (getPathSpeed 등)
-            // 보수적으로 false 반환 (차량이 아니면 무시)
+            // 도보 이동 속도 체크
+            Object speedObj = isoPlayerClass.getMethod("getMoveSpeed").invoke(player);
+            if (speedObj instanceof Number) {
+                float speed = ((Number) speedObj).floatValue();
+                return speed > playerSpeedThreshold;
+            }
             return false;
         } catch (Exception e) {
             return false;

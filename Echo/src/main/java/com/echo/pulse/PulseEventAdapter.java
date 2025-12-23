@@ -67,6 +67,11 @@ public class PulseEventAdapter {
             // v2.1: 세션 데이터 수집 마킹
             SessionManager.getInstance().onTick();
 
+            // v1.1: 주기적 Echo 상태 로깅 (60초마다)
+            if (event.getTick() > 0 && event.getTick() % 3600 == 0) {
+                logEchoStatusSummary();
+            }
+
             if (event.getTick() == 1) {
                 PulseLogger.debug("Echo", "First GameTickEndEvent received! durationMs=" + event.getDurationMs());
             }
@@ -159,6 +164,34 @@ public class PulseEventAdapter {
             return Boolean.TRUE.equals(bClient.get(null));
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    /**
+     * v1.1: 주기적 Echo 상태 요약 로깅 (60초마다).
+     * PulseContractVerifier의 stall_events 분리 확인용.
+     */
+    private static void logEchoStatusSummary() {
+        try {
+            com.echo.validation.PulseContractVerifier verifier = com.echo.validation.PulseContractVerifier
+                    .getInstance();
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n========== [Echo v1.1] 60s Status Summary ==========\n");
+            sb.append("  Contract Status: ").append(verifier.getStatusForDisplay()).append("\n");
+            sb.append("  True Violations: ").append(verifier.getTotalViolationCount()).append("\n");
+            sb.append("  Stall Events: ").append(verifier.getStallEventCount()).append("\n");
+
+            // Freeze 정보
+            com.echo.measure.FreezeDetector detector = com.echo.measure.FreezeDetector.getInstance();
+            sb.append("  Freezes (main loop): ").append(detector.getMainLoopFreezes().size()).append("\n");
+            sb.append("  Freezes (all): ").append(detector.getRecentFreezes().size()).append("\n");
+
+            sb.append("====================================================\n");
+
+            PulseLogger.info("Echo", sb.toString());
+        } catch (Exception e) {
+            PulseLogger.warn("Echo", "Failed to log status summary: " + e.getMessage());
         }
     }
 

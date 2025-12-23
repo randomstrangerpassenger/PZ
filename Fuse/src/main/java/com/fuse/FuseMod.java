@@ -9,11 +9,17 @@ import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
 import com.fuse.hook.FuseHookAdapter;
 import com.fuse.optimizer.FuseOptimizer;
+import com.fuse.telemetry.ReasonStats;
+import com.fuse.telemetry.TelemetryReason;
 import com.fuse.throttle.FuseStepPolicy;
 import com.fuse.throttle.FuseThrottleController;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ZombieHook;
+import com.pulse.event.EventBus;
+import com.pulse.event.lifecycle.GameTickEndEvent;
 import com.pulse.mod.PulseMod;
+
+import java.util.Map;
 
 /**
  * Fuse - Performance Optimizer for Project Zomboid
@@ -48,6 +54,11 @@ public class FuseMod implements PulseMod {
     private VehicleGuard vehicleGuard;
     private StreamingGuard streamingGuard;
     private FailsoftController failsoftController;
+    private ReasonStats reasonStats;
+
+    // --- 주기적 로깅 ---
+    private long tickCounter = 0;
+    private static final long LOG_INTERVAL_TICKS = 3600; // 60초 (60fps 기준)
 
     private boolean initialized = false;
 
@@ -92,6 +103,9 @@ public class FuseMod implements PulseMod {
 
             // Spike Panic Protocol (슬라이딩 윈도우 + 점진적 복구)
             panicProtocol = new SpikePanicProtocol();
+
+            // Reason Stats (개입 이유 통계)
+            reasonStats = new ReasonStats();
 
             PulseLogger.info("Fuse", "Core safety components initialized");
         } catch (Exception e) {
@@ -145,6 +159,7 @@ public class FuseMod implements PulseMod {
             throttleController.setPanicProtocol(panicProtocol);
             throttleController.setStats(stats);
             throttleController.setGuards(vehicleGuard, streamingGuard);
+            throttleController.setReasonStats(reasonStats);
 
             ZombieHook.setThrottlePolicy(throttleController);
             PulseLogger.info("Fuse", "ThrottleController registered (v1.1 with hysteresis)");
@@ -171,6 +186,18 @@ public class FuseMod implements PulseMod {
         optimizer = FuseOptimizer.getInstance();
         optimizer.enable();
         optimizer.setAutoOptimize(false);
+
+        // ========================================
+        // Phase 7: Tick Event Subscription (로그 출력용)
+        // ========================================
+        try {
+            EventBus.subscribe(GameTickEndEvent.class, event -> {
+                onTick();
+            }, MOD_ID);
+            PulseLogger.info("Fuse", "GameTickEndEvent subscription active");
+        } catch (Exception e) {
+            PulseLogger.warn("Fuse", "Failed to subscribe to GameTickEndEvent: " + e.getMessage());
+        }
 
         initialized = true;
         PulseLogger.info("Fuse", "Initialization complete (v1.1 Stabilization)");
@@ -220,9 +247,14 @@ public class FuseMod implements PulseMod {
                 }
             }
 
-            // Failsoft 성공 기록
             if (failsoftController != null) {
                 failsoftController.recordSuccess();
+            }
+
+            // 주기적 상태 로깅 (60초마다)
+            tickCounter++;
+            if (tickCounter % LOG_INTERVAL_TICKS == 0) {
+                logStatusSummary();
             }
         } catch (Throwable t) {
             // Failsoft 오류 기록
@@ -301,7 +333,75 @@ public class FuseMod implements PulseMod {
         System.out.println("    Auto-Optimize: " + status.get("auto_optimize"));
         System.out.println("    Applied:       " + status.get("optimizations_applied"));
 
+        // v1.1: Reason 통계
+        if (reasonStats != null && reasonStats.getTotalCount() > 0) {
+            System.out.println();
+            System.out.println("  Intervention Reasons (Top 3):");
+            var topReasons = reasonStats.getTop(3);
+            int rank = 1;
+            for (Map.Entry<TelemetryReason, Long> entry : topReasons) {
+                System.out.println("    " + rank + ". " + entry.getKey().name() + ": " + entry.getValue());
+                rank++;
+            }
+            System.out.println("    Total: " + reasonStats.getTotalCount());
+        }
+
         System.out.println();
+    }
+
+    /**
+     * 주기적 상태 요약 로깅 (콘솔 확인용).
+     * 60초마다 자동 출력.
+     */
+    private void logStatusSummary() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n========== [Fuse v1.1] 60s Status Summary ==========\n");
+
+        // Tick 카운터
+        sb.append("  Ticks: ").append(tickCounter).append("\n");
+
+        // Failsoft 상태
+        if (failsoftController != null && failsoftController.isInterventionDisabled()) {
+            sb.append("  ⚠️  FAILSOFT: Intervention DISABLED\n");
+        }
+
+        // Panic 상태
+        if (panicProtocol != null) {
+            sb.append("  Panic: ").append(panicProtocol.getState())
+                    .append(" (multiplier=").append(String.format("%.2f", panicProtocol.getThrottleMultiplier()))
+                    .append(")\n");
+        }
+
+        // Governor 상태
+        if (governor != null) {
+            sb.append("  Governor: cutoffs=").append(governor.getTotalCutoffs())
+                    .append(", last=").append(String.format("%.2f", governor.getLastTickMs())).append("ms\n");
+        }
+
+        // Guards 상태
+        sb.append("  Guards: vehicle=")
+                .append(vehicleGuard != null && vehicleGuard.isPassiveMode() ? "PASSIVE" : "normal")
+                .append(", streaming=")
+                .append(streamingGuard != null && streamingGuard.isYieldMode() ? "YIELD" : "normal").append("\n");
+
+        // v1.1: Reason 통계
+        if (reasonStats != null && reasonStats.getTotalCount() > 0) {
+            sb.append("  Intervention Reasons (Top 3):\n");
+            var topReasons = reasonStats.getTop(3);
+            int rank = 1;
+            for (Map.Entry<TelemetryReason, Long> entry : topReasons) {
+                sb.append("    ").append(rank).append(". ").append(entry.getKey().name())
+                        .append(": ").append(entry.getValue()).append("\n");
+                rank++;
+            }
+            sb.append("    Total: ").append(reasonStats.getTotalCount()).append("\n");
+        } else {
+            sb.append("  Intervention Reasons: (none yet)\n");
+        }
+
+        sb.append("=====================================================\n");
+
+        PulseLogger.info("Fuse", sb.toString());
     }
 
     // --- Getters ---
@@ -324,6 +424,10 @@ public class FuseMod implements PulseMod {
 
     public FailsoftController getFailsoftController() {
         return failsoftController;
+    }
+
+    public ReasonStats getReasonStats() {
+        return reasonStats;
     }
 
     public void shutdown() {

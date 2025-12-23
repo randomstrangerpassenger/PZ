@@ -293,8 +293,11 @@ public class ReportDataCollector {
 
     private Map<String, Object> generateFreezes() {
         Map<String, Object> map = new LinkedHashMap<>();
-        List<FreezeDetector.FreezeSnapshot> freezes = FreezeDetector.getInstance().getRecentFreezes();
+        // v1.1: 메인 루프 스택만 포함된 freeze 사용 (오염 제거)
+        List<FreezeDetector.FreezeSnapshot> freezes = FreezeDetector.getInstance().getMainLoopFreezes();
+        List<FreezeDetector.FreezeSnapshot> allFreezes = FreezeDetector.getInstance().getRecentFreezes();
         map.put("total_freezes", freezes.size());
+        map.put("filtered_count", allFreezes.size() - freezes.size()); // v1.1: 필터링된 수
 
         List<Map<String, Object>> list = new ArrayList<>();
         for (FreezeDetector.FreezeSnapshot snapshot : freezes) {

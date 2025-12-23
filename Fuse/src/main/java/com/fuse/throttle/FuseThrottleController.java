@@ -6,6 +6,7 @@ import com.fuse.governor.SpikePanicProtocol;
 import com.fuse.governor.TickBudgetGovernor;
 import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
+import com.fuse.telemetry.ReasonStats;
 import com.fuse.telemetry.TelemetryReason;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.IZombieThrottlePolicy;
@@ -33,6 +34,7 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
     private RollingTickStats stats;
     private VehicleGuard vehicleGuard;
     private StreamingGuard streamingGuard;
+    private ReasonStats reasonStats;
 
     // --- 히스테리시스 설정 (윈도우 통계 기반) ---
     private static final double ENTRY_MAX_1S_MS = 33.33; // 진입: 1초 내 max > 33.33ms
@@ -89,6 +91,13 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         this.streamingGuard = streamingGuard;
     }
 
+    /**
+     * v1.1: ReasonStats 설정.
+     */
+    public void setReasonStats(ReasonStats reasonStats) {
+        this.reasonStats = reasonStats;
+    }
+
     @Override
     public ThrottleLevel getThrottleLevel(float distSq, boolean isAttacking,
             boolean hasTarget, boolean recentlyEngaged) {
@@ -102,11 +111,13 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         if (vehicleGuard != null && vehicleGuard.shouldPassive()) {
             guardOverrideCount++;
             lastReason = vehicleGuard.getLastReason();
+            recordReason(lastReason);
             return ThrottleLevel.FULL; // 최소 개입
         }
         if (streamingGuard != null && streamingGuard.shouldYieldToStreaming()) {
             guardOverrideCount++;
             lastReason = streamingGuard.getLastReason();
+            recordReason(lastReason);
             return ThrottleLevel.MINIMAL; // 예산 양보
         }
 
@@ -114,6 +125,7 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         if (panicProtocol != null && panicProtocol.getState() != SpikePanicProtocol.State.NORMAL) {
             panicOverrideCount++;
             lastReason = panicProtocol.getLastReason();
+            recordReason(lastReason);
 
             // Panic/Recovering 배수 적용
             float multiplier = panicProtocol.getThrottleMultiplier();
@@ -131,6 +143,7 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         if (governor != null && !governor.shouldContinueThisTick()) {
             cutoffCount++;
             lastReason = governor.getLastReason();
+            recordReason(lastReason);
             return hysteresisLevel; // 현재 히스테리시스 레벨 유지
         }
 
@@ -192,6 +205,7 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
             lastReason = max1s > ENTRY_MAX_1S_MS
                     ? TelemetryReason.THROTTLE_WINDOW_EXCEEDED
                     : TelemetryReason.THROTTLE_AVG_HIGH;
+            recordReason(lastReason);
 
             // 더 보수적인 레벨로 전환
             hysteresisLevel = getMoreConservativeLevel(hysteresisLevel);
@@ -230,15 +244,21 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         };
     }
 
-    /**
-     * 통계 업데이트.
-     */
     private void updateStats(ThrottleLevel level) {
         switch (level) {
             case FULL -> fullCount++;
             case REDUCED -> reducedCount++;
             case LOW -> lowCount++;
             case MINIMAL -> minimalCount++;
+        }
+    }
+
+    /**
+     * ReasonStats에 개입 이유 기록.
+     */
+    private void recordReason(TelemetryReason reason) {
+        if (reasonStats != null && reason != null) {
+            reasonStats.increment(reason);
         }
     }
 

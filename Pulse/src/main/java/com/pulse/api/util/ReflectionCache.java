@@ -3,19 +3,28 @@ package com.pulse.api.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.pulse.api.exception.ReflectionException;
 
 /**
  * 리플렉션 캐시.
- * Method 조회 결과를 캐싱하여 반복적인 리플렉션 호출 성능을 개선합니다.
+ * Method/Field/Class 조회 결과를 캐싱하여 반복적인 리플렉션 호출 성능을 개선합니다.
  * 
  * <p>
  * Thread-safe: ConcurrentHashMap + computeIfAbsent로 원자성 보장
  * </p>
  * 
+ * <h2>API 패턴</h2>
+ * <ul>
+ * <li>{@code findXxx()} - Optional 반환 (권장)</li>
+ * <li>{@code getXxxOrThrow()} - 실패 시 ReflectionException</li>
+ * <li>{@code getXxxOrNull()} - 실패 시 null (레거시 호환)</li>
+ * </ul>
+ * 
  * @since 1.1.0
+ * @since 2.0.0 - Optional API 추가, PulseReflection 통합
  */
 public final class ReflectionCache {
 
@@ -81,6 +90,18 @@ public final class ReflectionCache {
         } catch (NoSuchMethodException e) {
             return null;
         }
+    }
+
+    /**
+     * 캐시된 Method 조회 (Optional 반환 - 권장).
+     * 
+     * @param cls    대상 클래스
+     * @param name   메서드 이름
+     * @param params 파라미터 타입
+     * @return Optional로 감싼 Method
+     */
+    public static Optional<Method> findMethod(Class<?> cls, String name, Class<?>... params) {
+        return Optional.ofNullable(getMethodOrNull(cls, name, params));
     }
 
     /**

@@ -5,12 +5,18 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.pulse.api.util.ReflectionCache;
+
 /**
  * 안전한 Reflection 유틸리티.
  * 
  * B42에서 클래스/메서드 시그니처가 변경될 수 있으므로
  * Reflection 호출을 안전하게 래핑합니다.
  * 로드맵의 "Reflection Safety Layer" 요구사항을 충족합니다.
+ * 
+ * <p>
+ * v2.0: 내부적으로 {@link ReflectionCache}를 사용하여 캐시를 일원화합니다.
+ * </p>
  * 
  * <h2>사용 예시</h2>
  * 
@@ -28,19 +34,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * }</pre>
  * 
  * @since Pulse 1.2
+ * @since Pulse 2.0 - ReflectionCache 통합
  */
 public final class PulseReflection {
 
-    // 클래스 캐시
-    private static final Map<String, Class<?>> classCache = new ConcurrentHashMap<>();
-
-    // 메서드 캐시
-    private static final Map<String, Method> methodCache = new ConcurrentHashMap<>();
-
-    // 필드 캐시
-    private static final Map<String, Field> fieldCache = new ConcurrentHashMap<>();
-
-    // 존재하지 않는 항목 캐시 (반복 실패 방지)
+    // 존재하지 않는 항목 캐시 (반복 실패 방지) - PulseReflection 고유 기능
     private static final Map<String, Boolean> notFoundCache = new ConcurrentHashMap<>();
 
     private PulseReflection() {
@@ -58,14 +56,11 @@ public final class PulseReflection {
             return null;
         }
 
-        return classCache.computeIfAbsent(className, name -> {
-            try {
-                return Class.forName(name);
-            } catch (ClassNotFoundException e) {
-                notFoundCache.put("class:" + name, true);
-                return null;
-            }
-        });
+        Class<?> result = ReflectionCache.getClassOrNull(className, getClassLoader());
+        if (result == null) {
+            notFoundCache.put("class:" + className, true);
+        }
+        return result;
     }
 
     /**
@@ -83,7 +78,7 @@ public final class PulseReflection {
      * 안전한 메서드 호출 (인자 없음)
      */
     public static Object safeInvoke(Object obj, String methodName) {
-        return safeInvoke(obj, methodName, (Object[]) new Class<?>[0]);
+        return safeInvoke(obj, methodName, new Object[0]);
     }
 
     /**
@@ -94,30 +89,30 @@ public final class PulseReflection {
             return null;
         }
 
-        String cacheKey = obj.getClass().getName() + "." + methodName;
-        if (notFoundCache.containsKey("method:" + cacheKey)) {
+        String cacheKey = "method:" + obj.getClass().getName() + "." + methodName;
+        if (notFoundCache.containsKey(cacheKey)) {
             return null;
         }
 
         try {
-            Method method = methodCache.get(cacheKey);
-            if (method == null) {
-                // 인자 타입 추론
-                Class<?>[] paramTypes = new Class<?>[args.length];
-                for (int i = 0; i < args.length; i++) {
-                    paramTypes[i] = args[i] != null ? args[i].getClass() : Object.class;
-                }
-
-                method = findMethod(obj.getClass(), methodName, paramTypes);
-                if (method != null) {
-                    method.setAccessible(true);
-                    methodCache.put(cacheKey, method);
-                } else {
-                    notFoundCache.put("method:" + cacheKey, true);
-                    return null;
-                }
+            // 인자 타입 추론
+            Class<?>[] paramTypes = new Class<?>[args.length];
+            for (int i = 0; i < args.length; i++) {
+                paramTypes[i] = args[i] != null ? args[i].getClass() : Object.class;
             }
-            return method.invoke(obj, args);
+
+            Method method = ReflectionCache.getMethodOrNull(obj.getClass(), methodName, paramTypes);
+            if (method == null) {
+                // 파라미터 타입 무시하고 이름만으로 검색
+                method = findMethodByName(obj.getClass(), methodName, args.length);
+            }
+
+            if (method != null) {
+                return method.invoke(obj, args);
+            } else {
+                notFoundCache.put(cacheKey, true);
+                return null;
+            }
         } catch (Exception e) {
             // 조용히 실패
             return null;
@@ -140,23 +135,14 @@ public final class PulseReflection {
         return false;
     }
 
-    private static Method findMethod(Class<?> clazz, String name, Class<?>[] paramTypes) {
-        try {
-            return clazz.getMethod(name, paramTypes);
-        } catch (NoSuchMethodException e) {
-            // 부모 클래스에서도 검색
-            try {
-                return clazz.getDeclaredMethod(name, paramTypes);
-            } catch (NoSuchMethodException e2) {
-                // 파라미터 타입 무시하고 이름만으로 검색
-                for (Method m : clazz.getMethods()) {
-                    if (m.getName().equals(name) && m.getParameterCount() == paramTypes.length) {
-                        return m;
-                    }
-                }
-                return null;
+    private static Method findMethodByName(Class<?> clazz, String name, int paramCount) {
+        for (Method m : clazz.getMethods()) {
+            if (m.getName().equals(name) && m.getParameterCount() == paramCount) {
+                m.setAccessible(true);
+                return m;
             }
         }
+        return null;
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -171,24 +157,19 @@ public final class PulseReflection {
             return null;
         }
 
-        String cacheKey = obj.getClass().getName() + "." + fieldName;
-        if (notFoundCache.containsKey("field:" + cacheKey)) {
+        String cacheKey = "field:" + obj.getClass().getName() + "." + fieldName;
+        if (notFoundCache.containsKey(cacheKey)) {
             return null;
         }
 
         try {
-            Field field = fieldCache.get(cacheKey);
-            if (field == null) {
-                field = findField(obj.getClass(), fieldName);
-                if (field != null) {
-                    field.setAccessible(true);
-                    fieldCache.put(cacheKey, field);
-                } else {
-                    notFoundCache.put("field:" + cacheKey, true);
-                    return null;
-                }
+            Field field = findFieldInHierarchy(obj.getClass(), fieldName);
+            if (field != null) {
+                return field.get(obj);
+            } else {
+                notFoundCache.put(cacheKey, true);
+                return null;
             }
-            return field.get(obj);
         } catch (Exception e) {
             return null;
         }
@@ -203,9 +184,8 @@ public final class PulseReflection {
             return null;
 
         try {
-            Field field = findField(clazz, fieldName);
+            Field field = findFieldInHierarchy(clazz, fieldName);
             if (field != null) {
-                field.setAccessible(true);
                 return field.get(null); // static 필드
             }
         } catch (Exception e) {
@@ -219,23 +199,20 @@ public final class PulseReflection {
      */
     public static boolean fieldExists(String className, String fieldName) {
         Class<?> clazz = findClass(className);
-        return clazz != null && findField(clazz, fieldName) != null;
+        return clazz != null && findFieldInHierarchy(clazz, fieldName) != null;
     }
 
-    private static Field findField(Class<?> clazz, String name) {
+    private static Field findFieldInHierarchy(Class<?> clazz, String name) {
+        // ReflectionCache 먼저 시도
         try {
-            return clazz.getField(name);
+            return ReflectionCache.getField(clazz, name);
         } catch (NoSuchFieldException e) {
-            try {
-                return clazz.getDeclaredField(name);
-            } catch (NoSuchFieldException e2) {
-                // 부모 클래스 검색
-                Class<?> parent = clazz.getSuperclass();
-                if (parent != null) {
-                    return findField(parent, name);
-                }
-                return null;
+            // 부모 클래스 검색
+            Class<?> parent = clazz.getSuperclass();
+            if (parent != null) {
+                return findFieldInHierarchy(parent, name);
             }
+            return null;
         }
     }
 
@@ -247,17 +224,24 @@ public final class PulseReflection {
      * 캐시 초기화
      */
     public static void clearCaches() {
-        classCache.clear();
-        methodCache.clear();
-        fieldCache.clear();
         notFoundCache.clear();
+        // ReflectionCache는 전역 캐시이므로 여기서 초기화하지 않음
+        // ReflectionCache.clearAll()은 필요시 별도 호출
     }
 
     /**
      * 캐시 통계
      */
     public static String getCacheStats() {
-        return String.format("PulseReflection Cache: classes=%d, methods=%d, fields=%d, notFound=%d",
-                classCache.size(), methodCache.size(), fieldCache.size(), notFoundCache.size());
+        return String.format("PulseReflection: notFound=%d, ReflectionCache: methods=%d, fields=%d, classes=%d",
+                notFoundCache.size(),
+                ReflectionCache.getMethodCacheSize(),
+                ReflectionCache.getFieldCacheSize(),
+                ReflectionCache.getClassCacheSize());
+    }
+
+    private static ClassLoader getClassLoader() {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        return loader != null ? loader : ClassLoader.getSystemClassLoader();
     }
 }

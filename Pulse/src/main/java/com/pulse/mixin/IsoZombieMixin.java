@@ -75,9 +75,6 @@ public abstract class IsoZombieMixin {
 
             IZombieAdapter adapter = Pulse$getAdapter();
 
-            // MP-safe: zombie ID 사용 (클라이언트 간 동일)
-            int zombieId = adapter.getZombieId(this);
-
             // 거리 및 상태 체크
             float distSq = adapter.getDistanceSquaredToNearestPlayer(this);
             boolean attacking = adapter.isAttacking(this);

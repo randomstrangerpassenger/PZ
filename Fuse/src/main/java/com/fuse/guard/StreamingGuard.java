@@ -17,15 +17,12 @@ public class StreamingGuard {
     private static final String LOG = "Fuse";
 
     // --- 설정값 ---
-    private float playerSpeedThreshold = 15f; // 타일/초
+    private float playerSpeedThreshold = 15f; // 타일/초 (도보 속도 체크용)
     private long frameDropThresholdMs = 50; // 50ms 이상이면 프레임 드랍
 
     // --- 상태 ---
     private boolean yieldMode = false;
     private boolean enabled = true;
-
-    // 프레임 드랍 감지용
-    private long lastFrameTimeMs = 0;
     private int recentDropCount = 0;
     private static final int DROP_WINDOW_TICKS = 30;
     private int tickCounter = 0;
@@ -82,7 +79,6 @@ public class StreamingGuard {
         if (durationMs >= frameDropThresholdMs) {
             recentDropCount++;
         }
-        lastFrameTimeMs = System.currentTimeMillis();
     }
 
     /**

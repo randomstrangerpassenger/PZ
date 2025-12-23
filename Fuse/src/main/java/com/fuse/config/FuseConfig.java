@@ -13,6 +13,8 @@ import com.pulse.api.log.PulseLogger;
 public class FuseConfig {
 
     private static final FuseConfig INSTANCE = new FuseConfig();
+    /** Config file path (reserved for future file-based config loading) */
+    @SuppressWarnings("unused")
     private static final String CONFIG_FILE = "Fuse/fuse.json";
 
     // ========================================

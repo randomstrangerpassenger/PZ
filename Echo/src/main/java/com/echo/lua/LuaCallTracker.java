@@ -57,7 +57,6 @@ public class LuaCallTracker {
     // Dependencies
     // ═══════════════════════════════════════════════════════════════
 
-    private final com.echo.config.EchoConfig config;
     private final EchoProfiler profiler;
 
     // ═══════════════════════════════════════════════════════════════
@@ -65,7 +64,7 @@ public class LuaCallTracker {
     // ═══════════════════════════════════════════════════════════════
 
     public LuaCallTracker(com.echo.config.EchoConfig config, EchoProfiler profiler) {
-        this.config = config;
+        // config is accepted for API compatibility but not used internally
         this.profiler = profiler;
     }
 

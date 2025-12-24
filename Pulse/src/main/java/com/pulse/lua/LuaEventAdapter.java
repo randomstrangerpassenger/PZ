@@ -17,6 +17,7 @@ import com.pulse.event.vehicle.VehicleExitEvent;
 import com.pulse.event.save.PreSaveEvent;
 import com.pulse.event.save.PreLoadEvent;
 import com.pulse.event.save.SaveEvent;
+import com.pulse.event.save.SaveEventState;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -256,13 +257,19 @@ public class LuaEventAdapter {
 
             // 세이브 이벤트 (PZ OnSave → Pulse PreSaveEvent)
             // OnSave: 캐릭터/샌드박스 저장 후, 월드 저장 전 발생 (파라미터 없음)
+            // P0: SaveEventMixin이 활성화된 경우 중복 방지
             bridgeFromLua("OnSave", PreSaveEvent.class,
                     args -> {
-                        PulseLogger.info(LOG, "[LuaAdapter] ★★★ OnSave event received from Lua! ★★★");
-                        return new PreSaveEvent("lua_OnSave", SaveEvent.SaveType.WORLD);
+                        // Mixin이 이미 처리 중이면 Lua fallback 스킵
+                        if (SaveEventState.isActive()) {
+                            PulseLogger.debug(LOG, "[LuaAdapter] OnSave skipped (Mixin active)");
+                            return null; // 발행 안 함
+                        }
+                        PulseLogger.info(LOG, "[LuaAdapter] ★★★ OnSave event received from Lua (Fallback)! ★★★");
+                        return new PreSaveEvent("lua_fallback", SaveEvent.SaveType.WORLD);
                     });
             count++;
-            PulseLogger.info(LOG, "[LuaAdapter] OnSave → PreSaveEvent bridge registered");
+            PulseLogger.info(LOG, "[LuaAdapter] OnSave → PreSaveEvent bridge registered (Fallback mode)");
 
             // 로드 이벤트 (v2.0: 로그만, IOGuard 트리거 없음)
             bridgeFromLua("OnLoad", PreLoadEvent.class,

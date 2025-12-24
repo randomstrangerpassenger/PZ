@@ -2,18 +2,15 @@ package com.pulse.mixin;
 
 import com.pulse.api.log.PulseLogger;
 import com.pulse.event.EventBus;
-import com.pulse.event.save.PostLoadEvent;
 import com.pulse.event.save.PostSaveEvent;
-import com.pulse.event.save.PreLoadEvent;
 import com.pulse.event.save.PreSaveEvent;
 import com.pulse.event.save.SaveEvent;
+import com.pulse.event.save.SaveEventState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Save Event Mixin.
@@ -25,68 +22,50 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 
  * <h3>Hooked Methods:</h3>
  * <ul>
- * <li>{@code GameWindow.SaveGame()} - 수동 세이브 및 오토세이브</li>
- * <li>{@code GameWindow.SaveGameAndWorld()} - 월드 포함 세이브</li>
+ * <li>{@code GameWindow.save(boolean)} - 게임 세이브</li>
  * </ul>
  * 
  * <h3>Thread Safety:</h3>
- * AtomicBoolean으로 중복 이벤트 발행 방지.
+ * SaveEventState를 통해 중복 이벤트 발행 방지.
+ * 
+ * <h3>Note:</h3>
+ * Mixin 클래스에서 public static 메서드는 허용되지 않으므로,
+ * 상태 관리는 {@link SaveEventState}로 분리됨.
  * 
  * @since Pulse 1.7
  */
-@Mixin(targets = "zombie.GameWindow")
+@Mixin(targets = "zombie.GameWindow", remap = false)
 public abstract class SaveEventMixin {
 
+    @Unique
     private static final String LOG = PulseLogger.PULSE;
 
     // ═══════════════════════════════════════════════════════════════
-    // Thread Safety: 중복 이벤트 방지
-    // ═══════════════════════════════════════════════════════════════
-
-    @Unique
-    private static final AtomicBoolean Pulse$saveInProgress = new AtomicBoolean(false);
-
-    @Unique
-    private static volatile long Pulse$saveStartTime = 0;
-
-    // ═══════════════════════════════════════════════════════════════
-    // SaveGame Hook
+    // save(boolean) Hook
     // ═══════════════════════════════════════════════════════════════
 
     /**
-     * SaveGame 시작 시점에 PreSaveEvent 발행.
+     * save(boolean) 시작 시점에 PreSaveEvent 발행.
+     * 
+     * @param doWorld 월드 포함 세이브 여부
+     * @param ci      Callback info
      */
-    @Inject(method = "SaveGame", at = @At("HEAD"), remap = false)
-    private static void Pulse$onSaveGameStart(CallbackInfo ci) {
-        Pulse$onPreSave("SaveGame", SaveEvent.SaveType.WORLD);
+    @Inject(method = "save(Z)V", at = @At("HEAD"), remap = false, require = 0)
+    private static void Pulse$onSaveStart(boolean doWorld, CallbackInfo ci) {
+        SaveEvent.SaveType saveType = doWorld ? SaveEvent.SaveType.WORLD : SaveEvent.SaveType.PLAYER;
+        Pulse$onPreSave("save", saveType);
     }
 
     /**
-     * SaveGame 완료 시점에 PostSaveEvent 발행.
+     * save(boolean) 완료 시점에 PostSaveEvent 발행.
+     * 
+     * @param doWorld 월드 포함 세이브 여부
+     * @param ci      Callback info
      */
-    @Inject(method = "SaveGame", at = @At("RETURN"), remap = false)
-    private static void Pulse$onSaveGameEnd(CallbackInfo ci) {
-        Pulse$onPostSave("SaveGame", SaveEvent.SaveType.WORLD, true);
-    }
-
-    // ═══════════════════════════════════════════════════════════════
-    // SaveGameAndWorld Hook (월드 포함 세이브)
-    // ═══════════════════════════════════════════════════════════════
-
-    /**
-     * SaveGameAndWorld 시작 시점.
-     */
-    @Inject(method = "SaveGameAndWorld", at = @At("HEAD"), remap = false)
-    private static void Pulse$onSaveGameAndWorldStart(CallbackInfo ci) {
-        Pulse$onPreSave("SaveGameAndWorld", SaveEvent.SaveType.WORLD);
-    }
-
-    /**
-     * SaveGameAndWorld 완료 시점.
-     */
-    @Inject(method = "SaveGameAndWorld", at = @At("RETURN"), remap = false)
-    private static void Pulse$onSaveGameAndWorldEnd(CallbackInfo ci) {
-        Pulse$onPostSave("SaveGameAndWorld", SaveEvent.SaveType.WORLD, true);
+    @Inject(method = "save(Z)V", at = @At("RETURN"), remap = false, require = 0)
+    private static void Pulse$onSaveEnd(boolean doWorld, CallbackInfo ci) {
+        SaveEvent.SaveType saveType = doWorld ? SaveEvent.SaveType.WORLD : SaveEvent.SaveType.PLAYER;
+        Pulse$onPostSave("save", saveType, true);
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -95,39 +74,37 @@ public abstract class SaveEventMixin {
 
     @Unique
     private static void Pulse$onPreSave(String source, SaveEvent.SaveType saveType) {
-        // 이미 세이브 진행 중이면 중복 이벤트 방지
-        if (!Pulse$saveInProgress.compareAndSet(false, true)) {
+        // SaveEventState를 통한 중복 방지
+        if (!SaveEventState.beginSave()) {
             PulseLogger.debug(LOG, "[SaveEvent] Skipping duplicate PreSaveEvent (already in progress)");
             return;
         }
 
-        Pulse$saveStartTime = System.currentTimeMillis();
-
         try {
             String saveName = Pulse$extractSaveName();
-            PulseLogger.debug(LOG, "[SaveEvent] PreSaveEvent fired: source={}, type={}, name={}",
+            PulseLogger.info(LOG, "[SaveEvent] PreSaveEvent fired: source={}, type={}, name={}",
                     source, saveType, saveName);
             EventBus.post(new PreSaveEvent(saveName, saveType));
         } catch (Throwable t) {
             // Fail-soft: 이벤트 발행 실패해도 세이브는 진행
             PulseLogger.warn(LOG, "[SaveEvent] Failed to post PreSaveEvent: " + t.getMessage());
-            Pulse$saveInProgress.set(false);
+            SaveEventState.forceReset();
         }
     }
 
     @Unique
     private static void Pulse$onPostSave(String source, SaveEvent.SaveType saveType, boolean success) {
-        // PreSaveEvent가 발행되지 않았으면 무시
-        if (!Pulse$saveInProgress.compareAndSet(true, false)) {
+        // SaveEventState를 통한 상태 확인
+        if (!SaveEventState.endSave()) {
             PulseLogger.debug(LOG, "[SaveEvent] Skipping PostSaveEvent (no matching PreSaveEvent)");
             return;
         }
 
-        long duration = System.currentTimeMillis() - Pulse$saveStartTime;
+        long duration = System.currentTimeMillis() - SaveEventState.getSaveStartTime();
 
         try {
             String saveName = Pulse$extractSaveName();
-            PulseLogger.debug(LOG, "[SaveEvent] PostSaveEvent fired: source={}, type={}, name={}, duration={}ms",
+            PulseLogger.info(LOG, "[SaveEvent] PostSaveEvent fired: source={}, type={}, name={}, duration={}ms",
                     source, saveType, saveName, duration);
             EventBus.post(new PostSaveEvent(saveName, saveType, success));
         } catch (Throwable t) {
@@ -160,20 +137,5 @@ public abstract class SaveEventMixin {
             // 실패 시 기본값 반환
         }
         return "World";
-    }
-
-    /**
-     * 강제 PostSave (예외 발생 시 안전 조치).
-     * IOGuard의 Deadman Switch와 별도로 Pulse 레벨에서 정리.
-     */
-    @Unique
-    private static void Pulse$forcePostSaveIfNeeded() {
-        if (Pulse$saveInProgress.get()) {
-            long elapsed = System.currentTimeMillis() - Pulse$saveStartTime;
-            if (elapsed > 30_000) { // 30초 초과 시
-                PulseLogger.warn(LOG, "[SaveEvent] Force releasing stale save state ({}ms elapsed)", elapsed);
-                Pulse$saveInProgress.set(false);
-            }
-        }
     }
 }

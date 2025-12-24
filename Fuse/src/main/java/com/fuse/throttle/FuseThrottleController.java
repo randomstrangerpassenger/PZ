@@ -4,6 +4,7 @@ import com.fuse.config.FuseConfig;
 import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
 import com.fuse.governor.TickBudgetGovernor;
+import com.fuse.guard.IOGuard;
 import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
 import com.fuse.telemetry.ReasonStats;
@@ -36,6 +37,9 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
     private StreamingGuard streamingGuard;
     private ReasonStats reasonStats;
 
+    // --- v2.0 IOGuard ---
+    private IOGuard ioGuard;
+
     // --- 히스테리시스 설정 (윈도우 통계 기반) ---
     private static final double ENTRY_MAX_1S_MS = 33.33; // 진입: 1초 내 max > 33.33ms
     private static final double ENTRY_AVG_5S_MS = 20.0; // 또는: 5초 avg > 20ms
@@ -59,13 +63,14 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
     private long engagedUpgradeCount = 0;
     private long panicOverrideCount = 0;
     private long guardOverrideCount = 0;
+    private long ioGuardOverrideCount = 0;
     private long cutoffCount = 0;
 
     // 텔레메트리
     private TelemetryReason lastReason = null;
 
     public FuseThrottleController() {
-        PulseLogger.info(LOG, "ThrottleController initialized (v1.1 with hysteresis)");
+        PulseLogger.info(LOG, "ThrottleController initialized (v2.0 with IOGuard)");
     }
 
     /**
@@ -98,6 +103,13 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         this.reasonStats = reasonStats;
     }
 
+    /**
+     * v2.0: IOGuard 설정.
+     */
+    public void setIOGuard(IOGuard ioGuard) {
+        this.ioGuard = ioGuard;
+    }
+
     @Override
     public ThrottleLevel getThrottleLevel(float distSq, boolean isAttacking,
             boolean hasTarget, boolean recentlyEngaged) {
@@ -119,6 +131,22 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
             lastReason = streamingGuard.getLastReason();
             recordReason(lastReason);
             return ThrottleLevel.MINIMAL; // 예산 양보
+        }
+
+        // 1.5 IOGuard 체크 (v2.0) - 곱셈 기반 보수화
+        // IO 중이면 더 보수적인 레벨로 강등
+        float ioMultiplier = 1.0f;
+        if (ioGuard != null && ioGuard.isActive()) {
+            ioMultiplier = ioGuard.getBudgetMultiplier();
+            ioGuardOverrideCount++;
+            ioGuard.incrementOverrideCount();
+
+            // Telemetry 기록 (상태 전이 시에만)
+            TelemetryReason ioReason = ioGuard.getTelemetryReason();
+            if (ioReason != null) {
+                lastReason = ioReason;
+                recordReason(ioReason);
+            }
         }
 
         // 2. Panic 체크

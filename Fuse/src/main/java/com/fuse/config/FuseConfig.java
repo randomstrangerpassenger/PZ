@@ -104,6 +104,40 @@ public class FuseConfig {
     private int maxConsecutiveErrors = 3;
 
     // ========================================
+    // IOGuard Settings (v2.0)
+    // ========================================
+
+    /** IOGuard master switch */
+    private boolean enableIOGuard = true;
+
+    /** IO_ENTER 예산 배수 */
+    private float ioEnterBudgetMultiplier = 0.7f;
+
+    /** IO_ACTIVE 예산 배수 */
+    private float ioActiveBudgetMultiplier = 0.3f;
+
+    /** COOLDOWN 예산 배수 */
+    private float ioCooldownBudgetMultiplier = 0.9f;
+
+    /** IO_ENTER 틱 수 */
+    private int ioEnterTicks = 5;
+
+    /** IO_EXIT 복구 틱 수 */
+    private int ioRecoveryTicks = 30;
+
+    /** COOLDOWN 틱 수 */
+    private int ioCooldownTicks = 10;
+
+    /** Deadman Switch: IO_ACTIVE 최대 틱 (5초 @60fps) */
+    private int ioActiveTimeoutTicks = 300;
+
+    /** WORLD 타입만 IOGuard 적용 */
+    private boolean ioGuardWorldSaveOnly = false;
+
+    /** IOGuard 로그 활성화 */
+    private boolean ioGuardLogEnabled = true;
+
+    // ========================================
     // Singleton
     // ========================================
 
@@ -234,6 +268,50 @@ public class FuseConfig {
 
     public int getMaxConsecutiveErrors() {
         return maxConsecutiveErrors;
+    }
+
+    // ========================================
+    // IOGuard Getters (v2.0)
+    // ========================================
+
+    public boolean isIOGuardEnabled() {
+        return enableIOGuard;
+    }
+
+    public float getIOEnterBudgetMultiplier() {
+        return ioEnterBudgetMultiplier;
+    }
+
+    public float getIOActiveBudgetMultiplier() {
+        return ioActiveBudgetMultiplier;
+    }
+
+    public float getIOCooldownBudgetMultiplier() {
+        return ioCooldownBudgetMultiplier;
+    }
+
+    public int getIOEnterTicks() {
+        return ioEnterTicks;
+    }
+
+    public int getIORecoveryTicks() {
+        return ioRecoveryTicks;
+    }
+
+    public int getIOCooldownTicks() {
+        return ioCooldownTicks;
+    }
+
+    public int getIOActiveTimeoutTicks() {
+        return ioActiveTimeoutTicks;
+    }
+
+    public boolean isIOGuardWorldSaveOnly() {
+        return ioGuardWorldSaveOnly;
+    }
+
+    public boolean isIOGuardLogEnabled() {
+        return ioGuardLogEnabled;
     }
 
     // ========================================

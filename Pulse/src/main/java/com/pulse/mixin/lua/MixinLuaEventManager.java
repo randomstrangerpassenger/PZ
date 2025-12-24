@@ -3,6 +3,7 @@ package com.pulse.mixin.lua;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.lua.PulseLuaHook;
 import com.pulse.internal.InternalLuaHook;
+import com.pulse.lua.LuaEventAdapter;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -156,8 +157,16 @@ public abstract class MixinLuaEventManager {
         // Phase 2C: 이벤트 시작 기록 (On-Demand)
         InternalLuaHook.fireEventStart(eventName);
 
+        // Initialize on first event (before forwarding to ensure mappings exist)
         if (FIRST.compareAndSet(false, true)) {
             PulseLogger.info("Pulse/MixinLuaEventManager", "✅ First triggerEvent! Mixin is working.");
+
+            // Initialize Lua→Java event bridges (OnSave→PreSaveEvent, etc.)
+            LuaEventAdapter.initializeStandardMappings();
         }
+
+        // Forward to LuaEventAdapter for Lua→Java bridging (OnSave, OnLoad, etc.)
+        // Pass empty array for parameterless events
+        LuaEventAdapter.onLuaEvent(eventName, new Object[0]);
     }
 }

@@ -5,6 +5,7 @@ import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
 import com.fuse.governor.TickBudgetGovernor;
 import com.fuse.guard.FailsoftController;
+import com.fuse.guard.IOGuard;
 import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
 import com.fuse.hook.FuseHookAdapter;
@@ -17,6 +18,8 @@ import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ZombieHook;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEndEvent;
+import com.pulse.event.save.PostSaveEvent;
+import com.pulse.event.save.PreSaveEvent;
 import com.pulse.mod.PulseMod;
 
 import java.util.Map;
@@ -37,7 +40,7 @@ import java.util.Map;
 public class FuseMod implements PulseMod {
 
     public static final String MOD_ID = "Fuse";
-    public static final String VERSION = "1.1.0";
+    public static final String VERSION = "2.0.0";
 
     private static FuseMod instance;
 
@@ -55,6 +58,9 @@ public class FuseMod implements PulseMod {
     private StreamingGuard streamingGuard;
     private FailsoftController failsoftController;
     private ReasonStats reasonStats;
+
+    // --- v2.0 IOGuard ---
+    private IOGuard ioGuard;
 
     // --- 주기적 로깅 ---
     private long tickCounter = 0;
@@ -129,7 +135,15 @@ public class FuseMod implements PulseMod {
             failsoftController = new FailsoftController();
             failsoftController.setMaxConsecutiveErrors(config.getMaxConsecutiveErrors());
 
-            PulseLogger.info("Fuse", "Guards initialized");
+            // IOGuard (v2.0)
+            ioGuard = new IOGuard();
+            ioGuard.loadConfig(config);
+
+            // IOGuard EventBus 구독
+            EventBus.subscribe(PreSaveEvent.class, ioGuard::onPreSave, MOD_ID);
+            EventBus.subscribe(PostSaveEvent.class, ioGuard::onPostSave, MOD_ID);
+
+            PulseLogger.info("Fuse", "Guards initialized (v2.0 with IOGuard)");
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to initialize guards: " + e.getMessage(), e);
         }
@@ -161,8 +175,11 @@ public class FuseMod implements PulseMod {
             throttleController.setGuards(vehicleGuard, streamingGuard);
             throttleController.setReasonStats(reasonStats);
 
+            // v2.0 IOGuard 연동
+            throttleController.setIOGuard(ioGuard);
+
             ZombieHook.setThrottlePolicy(throttleController);
-            PulseLogger.info("Fuse", "ThrottleController registered (v1.1 with hysteresis)");
+            PulseLogger.info("Fuse", "ThrottleController registered (v2.0 with IOGuard)");
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to register ThrottlePolicy: " + e.getMessage(), e);
         }
@@ -245,6 +262,11 @@ public class FuseMod implements PulseMod {
                 if (streamingGuard != null) {
                     streamingGuard.recordTickDuration((long) lastTickMs);
                 }
+
+                // IOGuard 틱 (v2.0)
+                if (ioGuard != null) {
+                    ioGuard.tick();
+                }
             }
 
             if (failsoftController != null) {
@@ -318,6 +340,10 @@ public class FuseMod implements PulseMod {
         if (streamingGuard != null) {
             System.out.println("    Streaming: " + (streamingGuard.isYieldMode() ? "YIELD" : "normal"));
         }
+        if (ioGuard != null) {
+            System.out.println("    IOGuard: " + ioGuard.getCurrentState() +
+                    " (multiplier=" + String.format("%.2f", ioGuard.getBudgetMultiplier()) + ")");
+        }
 
         // Throttle Controller 상태
         if (throttleController != null) {
@@ -355,7 +381,7 @@ public class FuseMod implements PulseMod {
      */
     private void logStatusSummary() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n========== [Fuse v1.1] 60s Status Summary ==========\n");
+        sb.append("\n========== [Fuse v2.0] 60s Status Summary ==========\n");
 
         // Tick 카운터
         sb.append("  Ticks: ").append(tickCounter).append("\n");
@@ -383,6 +409,16 @@ public class FuseMod implements PulseMod {
                 .append(vehicleGuard != null && vehicleGuard.isPassiveMode() ? "PASSIVE" : "normal")
                 .append(", streaming=")
                 .append(streamingGuard != null && streamingGuard.isYieldMode() ? "YIELD" : "normal").append("\n");
+
+        // IOGuard 상태 (v2.0)
+        if (ioGuard != null) {
+            sb.append("  IOGuard: ").append(ioGuard.getCurrentState())
+                    .append(" (multiplier=").append(String.format("%.2f", ioGuard.getBudgetMultiplier()))
+                    .append(", events=").append(ioGuard.getTotalIOEvents())
+                    .append(", avgMs=").append(ioGuard.getAverageIOTimeMs())
+                    .append(", timeouts=").append(ioGuard.getTimeoutCount())
+                    .append(")\n");
+        }
 
         // v1.1: Reason 통계
         if (reasonStats != null && reasonStats.getTotalCount() > 0) {
@@ -428,6 +464,10 @@ public class FuseMod implements PulseMod {
 
     public ReasonStats getReasonStats() {
         return reasonStats;
+    }
+
+    public IOGuard getIOGuard() {
+        return ioGuard;
     }
 
     public void shutdown() {

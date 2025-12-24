@@ -14,6 +14,9 @@ import com.pulse.event.environment.TimeChangeEvent;
 import com.pulse.event.environment.WeatherChangeEvent;
 import com.pulse.event.vehicle.VehicleEnterEvent;
 import com.pulse.event.vehicle.VehicleExitEvent;
+import com.pulse.event.save.PreSaveEvent;
+import com.pulse.event.save.PreLoadEvent;
+import com.pulse.event.save.SaveEvent;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -171,9 +174,10 @@ public class LuaEventAdapter {
 
     /**
      * Lua에서 호출되는 콜백.
+     * MixinLuaEventManager에서 triggerEvent 발생 시 호출됨.
      */
     @SuppressWarnings("unchecked")
-    private static void onLuaEvent(String luaEventName, Object[] args) {
+    public static void onLuaEvent(String luaEventName, Object[] args) {
         LuaToJavaMapping<?> mapping = luaToJavaMappings.get(luaEventName);
         if (mapping == null)
             return;
@@ -195,62 +199,85 @@ public class LuaEventAdapter {
      */
     public static void initializeStandardMappings() {
         if (standardMappingsInitialized) {
+            PulseLogger.info(LOG, "[LuaAdapter] Standard mappings already initialized, skipping");
             return;
         }
 
-        int count = 0;
+        PulseLogger.info(LOG, "[LuaAdapter] Initializing standard event mappings...");
 
-        // ═══════════════════════════════════════════════════════════
-        // Java → Lua 방향
-        // ═══════════════════════════════════════════════════════════
+        try {
+            int count = 0;
 
-        // 라이프사이클 이벤트
-        bridgeToLua(GameTickEvent.class, "OnPulseTick");
-        count++;
+            // ═══════════════════════════════════════════════════════════
+            // Java → Lua 방향
+            // ═══════════════════════════════════════════════════════════
 
-        bridgeToLua(WorldLoadEvent.class, "OnPulseWorldLoad");
-        count++;
+            // 라이프사이클 이벤트
+            bridgeToLua(GameTickEvent.class, "OnPulseTick");
+            count++;
 
-        bridgeToLua(WorldUnloadEvent.class, "OnPulseWorldUnload");
-        count++;
+            bridgeToLua(WorldLoadEvent.class, "OnPulseWorldLoad");
+            count++;
 
-        // 플레이어 이벤트
-        bridgeToLua(PlayerUpdateEvent.class, "OnPulsePlayerUpdate");
-        count++;
+            bridgeToLua(WorldUnloadEvent.class, "OnPulseWorldUnload");
+            count++;
 
-        bridgeToLua(PlayerDamageEvent.class, "OnPulsePlayerDamage");
-        count++;
+            // 플레이어 이벤트
+            bridgeToLua(PlayerUpdateEvent.class, "OnPulsePlayerUpdate");
+            count++;
 
-        // 좀비 이벤트
-        bridgeToLua(ZombieDeathEvent.class, "OnPulseZombieDeath");
-        count++;
+            bridgeToLua(PlayerDamageEvent.class, "OnPulsePlayerDamage");
+            count++;
 
-        bridgeToLua(ZombieSpawnEvent.class, "OnPulseZombieSpawn");
-        count++;
+            // 좀비 이벤트
+            bridgeToLua(ZombieDeathEvent.class, "OnPulseZombieDeath");
+            count++;
 
-        // 환경 이벤트
-        bridgeToLua(TimeChangeEvent.class, "OnPulseTimeChange");
-        count++;
+            bridgeToLua(ZombieSpawnEvent.class, "OnPulseZombieSpawn");
+            count++;
 
-        bridgeToLua(WeatherChangeEvent.class, "OnPulseWeatherChange");
-        count++;
+            // 환경 이벤트
+            bridgeToLua(TimeChangeEvent.class, "OnPulseTimeChange");
+            count++;
 
-        // 차량 이벤트
-        bridgeToLua(VehicleEnterEvent.class, "OnPulseVehicleEnter");
-        count++;
+            bridgeToLua(WeatherChangeEvent.class, "OnPulseWeatherChange");
+            count++;
 
-        bridgeToLua(VehicleExitEvent.class, "OnPulseVehicleExit");
-        count++;
+            // 차량 이벤트
+            bridgeToLua(VehicleEnterEvent.class, "OnPulseVehicleEnter");
+            count++;
 
-        // ═══════════════════════════════════════════════════════════
-        // Lua → Java 방향 (PZ 네이티브 이벤트 래핑)
-        // ═══════════════════════════════════════════════════════════
+            bridgeToLua(VehicleExitEvent.class, "OnPulseVehicleExit");
+            count++;
 
-        // 이 부분은 게임 이벤트를 Java EventBus로 변환
-        // 실제 연결은 런타임에 LuaBridge가 사용 가능할 때 수행됨
+            // ═══════════════════════════════════════════════════════════
+            // Lua → Java 방향 (PZ 네이티브 이벤트 래핑)
+            // ═══════════════════════════════════════════════════════════
 
-        standardMappingsInitialized = true;
-        PulseLogger.info(LOG, "[LuaAdapter] Standard mappings initialized: {} events", count);
+            // 세이브 이벤트 (PZ OnSave → Pulse PreSaveEvent)
+            // OnSave: 캐릭터/샌드박스 저장 후, 월드 저장 전 발생 (파라미터 없음)
+            bridgeFromLua("OnSave", PreSaveEvent.class,
+                    args -> {
+                        PulseLogger.info(LOG, "[LuaAdapter] ★★★ OnSave event received from Lua! ★★★");
+                        return new PreSaveEvent("lua_OnSave", SaveEvent.SaveType.WORLD);
+                    });
+            count++;
+            PulseLogger.info(LOG, "[LuaAdapter] OnSave → PreSaveEvent bridge registered");
+
+            // 로드 이벤트 (v2.0: 로그만, IOGuard 트리거 없음)
+            bridgeFromLua("OnLoad", PreLoadEvent.class,
+                    args -> {
+                        PulseLogger.debug(LOG, "[LuaAdapter] OnLoad event received (logging only)");
+                        return new PreLoadEvent("lua_OnLoad", SaveEvent.SaveType.WORLD);
+                    });
+            count++;
+
+            standardMappingsInitialized = true;
+            PulseLogger.info(LOG, "[LuaAdapter] Standard mappings initialized: {} events", count);
+        } catch (Exception e) {
+            PulseLogger.error(LOG, "[LuaAdapter] Failed to initialize standard mappings: {}", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

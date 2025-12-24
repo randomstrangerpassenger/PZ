@@ -26,7 +26,12 @@ public enum TelemetryReason {
     FAILSOFT_ERROR("Intervention disabled due to errors"),
 
     // --- Governor 관련 ---
-    GOVERNOR_CUTOFF("Budget exceeded, cutoff triggered");
+    GOVERNOR_CUTOFF("Budget exceeded, cutoff triggered"),
+
+    // --- IOGuard 관련 (v2.0) ---
+    IO_GUARD_ACTIVE("Save/Load in progress"),
+    IO_GUARD_RECOVERY("Post-IO recovery in progress"),
+    IO_GUARD_TIMEOUT("IO timeout - forced exit");
 
     public final String description;
 

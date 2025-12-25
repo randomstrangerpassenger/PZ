@@ -138,6 +138,34 @@ public class FuseConfig {
     private boolean ioGuardLogEnabled = true;
 
     // ========================================
+    // GC Pressure Guard Settings (v2.1)
+    // ========================================
+
+    /** GCPressureGuard master switch */
+    private boolean enableGCPressureGuard = true;
+
+    /** DIET 진입 임계값 (pressure 0.0~1.0) */
+    private float gcDietThreshold = 0.60f;
+
+    /** RECOVERING 진입 임계값 (히스테리시스) */
+    private float gcRecoveryThreshold = 0.35f;
+
+    /** DIET 상태 예산 배수 (보수적 초기값) */
+    private float gcDietMultiplier = 0.65f;
+
+    /** CRITICAL 상태 예산 배수 (보수적 초기값) */
+    private float gcCriticalMultiplier = 0.45f;
+
+    /** RECOVERING 기간 (틱) */
+    private int gcRecoveryTicks = 60;
+
+    /** 히스테리시스 윈도우 (틱) */
+    private int gcHysteresisWindow = 30;
+
+    /** POST_GC_RECOVERY 기간 (틱) */
+    private int gcPostGcRecoveryTicks = 45;
+
+    // ========================================
     // Singleton
     // ========================================
 
@@ -312,6 +340,42 @@ public class FuseConfig {
 
     public boolean isIOGuardLogEnabled() {
         return ioGuardLogEnabled;
+    }
+
+    // ========================================
+    // GC Pressure Guard Getters (v2.1)
+    // ========================================
+
+    public boolean isGCPressureGuardEnabled() {
+        return enableGCPressureGuard;
+    }
+
+    public float getGcDietThreshold() {
+        return gcDietThreshold;
+    }
+
+    public float getGcRecoveryThreshold() {
+        return gcRecoveryThreshold;
+    }
+
+    public float getGcDietMultiplier() {
+        return gcDietMultiplier;
+    }
+
+    public float getGcCriticalMultiplier() {
+        return gcCriticalMultiplier;
+    }
+
+    public int getGcRecoveryTicks() {
+        return gcRecoveryTicks;
+    }
+
+    public int getGcHysteresisWindow() {
+        return gcHysteresisWindow;
+    }
+
+    public int getGcPostGcRecoveryTicks() {
+        return gcPostGcRecoveryTicks;
     }
 
     // ========================================

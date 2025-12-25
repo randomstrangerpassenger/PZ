@@ -31,7 +31,12 @@ public enum TelemetryReason {
     // --- IOGuard 관련 (v2.0) ---
     IO_GUARD_ACTIVE("Save/Load in progress"),
     IO_GUARD_RECOVERY("Post-IO recovery in progress"),
-    IO_GUARD_TIMEOUT("IO timeout - forced exit");
+    IO_GUARD_TIMEOUT("IO timeout - forced exit"),
+
+    // --- GC Pressure 관련 (v2.1) ---
+    GC_PRESSURE_DIET("GC pressure high - budget reduced"),
+    GC_PRESSURE_RECOVERING("GC pressure recovering"),
+    GC_PRESSURE_POST_GC("Post-GC recovery in progress");
 
     public final String description;
 

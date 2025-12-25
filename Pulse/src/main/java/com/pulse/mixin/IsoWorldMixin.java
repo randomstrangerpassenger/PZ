@@ -1,7 +1,11 @@
 package com.pulse.mixin;
 
 import com.pulse.api.PulseServices;
+import com.pulse.api.gc.GcObservedEvent;
+import com.pulse.api.gc.GcSample;
 import com.pulse.api.log.PulseLogger;
+import com.pulse.core.gc.GcEventState;
+import com.pulse.core.gc.GcSampler;
 import com.pulse.event.EventBus;
 import com.pulse.event.lifecycle.GameTickEvent;
 import com.pulse.event.lifecycle.GameTickStartEvent;
@@ -53,6 +57,12 @@ public abstract class IsoWorldMixin {
     @Unique
     private static long Pulse$worldUpdateStart = -1;
 
+    // GC Pressure Guard: Sampler and State (v2.1)
+    @Unique
+    private static GcSampler Pulse$gcSampler = null;
+    @Unique
+    private static GcEventState Pulse$gcEventState = null;
+
     // ═══════════════════════════════════════════════════════════════
     // World Init
     // ═══════════════════════════════════════════════════════════════
@@ -69,6 +79,13 @@ public abstract class IsoWorldMixin {
 
         // Initialize handler
         WorldTickHandler.getInstance().install();
+
+        // Initialize GC Sampler (v2.1)
+        if (Pulse$gcSampler == null) {
+            Pulse$gcSampler = new GcSampler();
+            Pulse$gcEventState = new GcEventState();
+            PulseLogger.info(LOG, "GcSampler initialized for GCPressureGuard");
+        }
 
         PulseLogger.info(LOG, "World loaded: {}", worldName);
         EventBus.post(new WorldLoadEvent(worldName));
@@ -147,6 +164,18 @@ public abstract class IsoWorldMixin {
 
             // GameTickEndEvent
             EventBus.post(new GameTickEndEvent(result.getTickCount(), result.getDurationNanos()));
+
+            // GcObservedEvent (v2.1 - for GCPressureGuard)
+            try {
+                if (Pulse$gcSampler != null && Pulse$gcEventState != null) {
+                    GcSample sample = Pulse$gcSampler.sample(result.getTickCount());
+                    if (Pulse$gcEventState.shouldPublish(sample)) {
+                        EventBus.post(new GcObservedEvent(sample));
+                    }
+                }
+            } catch (Throwable gcError) {
+                // Fail-soft: GC sampling failure should not affect game
+            }
 
             // HookRegistry broadcast
             final long tickNum = result.getTickCount();

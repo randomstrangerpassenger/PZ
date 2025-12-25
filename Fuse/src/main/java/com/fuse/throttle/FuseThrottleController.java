@@ -4,6 +4,7 @@ import com.fuse.config.FuseConfig;
 import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
 import com.fuse.governor.TickBudgetGovernor;
+import com.fuse.guard.GCPressureGuard;
 import com.fuse.guard.IOGuard;
 import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
@@ -40,6 +41,10 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
     // --- v2.0 IOGuard ---
     private IOGuard ioGuard;
 
+    // --- v2.1 GCPressureGuard ---
+    private GCPressureGuard gcPressureGuard;
+    private long gcPressureOverrideCount = 0;
+
     // --- 히스테리시스 설정 (윈도우 통계 기반) ---
     private static final double ENTRY_MAX_1S_MS = 33.33; // 진입: 1초 내 max > 33.33ms
     private static final double ENTRY_AVG_5S_MS = 20.0; // 또는: 5초 avg > 20ms
@@ -70,7 +75,7 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
     private TelemetryReason lastReason = null;
 
     public FuseThrottleController() {
-        PulseLogger.info(LOG, "ThrottleController initialized (v2.0 with IOGuard)");
+        PulseLogger.info(LOG, "ThrottleController initialized (v2.1 with IOGuard + GCPressureGuard)");
     }
 
     /**
@@ -108,6 +113,13 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
      */
     public void setIOGuard(IOGuard ioGuard) {
         this.ioGuard = ioGuard;
+    }
+
+    /**
+     * v2.1: GCPressureGuard 설정.
+     */
+    public void setGCPressureGuard(GCPressureGuard gcPressureGuard) {
+        this.gcPressureGuard = gcPressureGuard;
     }
 
     @Override
@@ -149,22 +161,41 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
             }
         }
 
+        // 1.6 GCPressureGuard 체크 (v2.1)
+        float gcMultiplier = 1.0f;
+        if (gcPressureGuard != null && gcPressureGuard.isActive()) {
+            gcMultiplier = gcPressureGuard.getBudgetMultiplier();
+            gcPressureOverrideCount++;
+
+            TelemetryReason gcReason = gcPressureGuard.getLastReason();
+            if (gcReason != null) {
+                lastReason = gcReason;
+                recordReason(gcReason);
+            }
+        }
+
         // 2. Panic 체크
+        float panicMultiplier = 1.0f;
         if (panicProtocol != null && panicProtocol.getState() != SpikePanicProtocol.State.NORMAL) {
             panicOverrideCount++;
             lastReason = panicProtocol.getLastReason();
             recordReason(lastReason);
+            panicMultiplier = panicProtocol.getThrottleMultiplier();
+        }
 
-            // Panic/Recovering 배수 적용
-            float multiplier = panicProtocol.getThrottleMultiplier();
-            if (multiplier <= 0.2f) {
-                return ThrottleLevel.MINIMAL; // 극도 축소
-            } else if (multiplier <= 0.6f) {
-                return ThrottleLevel.LOW;
-            } else if (multiplier <= 0.8f) {
-                return ThrottleLevel.REDUCED;
-            }
-            // 1.0 근처면 정상 계산으로
+        // 2.5 Min 합성: 가장 보수적인 배수 적용 (v2.1)
+        float combinedMultiplier = Math.min(ioMultiplier, Math.min(gcMultiplier, panicMultiplier));
+        combinedMultiplier = Math.max(0.10f, combinedMultiplier); // 하한선
+
+        // Min 합성 결과로 ThrottleLevel 결정
+        if (combinedMultiplier <= 0.2f) {
+            return ThrottleLevel.MINIMAL;
+        } else if (combinedMultiplier <= 0.5f) {
+            return ThrottleLevel.LOW;
+        } else if (combinedMultiplier <= 0.8f) {
+            // 다음 단계로 진행 (거리 기반 계산)
+        } else {
+            // combinedMultiplier > 0.8f: 정상 계산으로
         }
 
         // 3. Governor 컷오프 체크

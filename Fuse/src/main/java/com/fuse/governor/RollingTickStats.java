@@ -101,4 +101,27 @@ public class RollingTickStats {
     public boolean hasEnoughData() {
         return sampleCount >= WINDOW_1S_TICKS;
     }
+
+    /**
+     * 최근 5초(300틱) 표준편차 반환.
+     * GC 압력 계산의 jitter 지표로 사용.
+     * 
+     * @since Fuse 2.1
+     */
+    public double getStdDev() {
+        if (sampleCount < 2) {
+            return 0.0;
+        }
+
+        double avg = getLast5sAvgMs();
+        double sumSqDiff = 0.0;
+
+        for (int i = 0; i < sampleCount; i++) {
+            int idx = (writeIndex - 1 - i + WINDOW_5S_TICKS) % WINDOW_5S_TICKS;
+            double diff = tickDurations[idx] - avg;
+            sumSqDiff += diff * diff;
+        }
+
+        return Math.sqrt(sumSqDiff / sampleCount);
+    }
 }

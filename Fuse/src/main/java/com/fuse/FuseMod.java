@@ -5,6 +5,7 @@ import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
 import com.fuse.governor.TickBudgetGovernor;
 import com.fuse.guard.FailsoftController;
+import com.fuse.guard.GCPressureGuard;
 import com.fuse.guard.IOGuard;
 import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
@@ -14,6 +15,7 @@ import com.fuse.telemetry.ReasonStats;
 import com.fuse.telemetry.TelemetryReason;
 import com.fuse.throttle.FuseStepPolicy;
 import com.fuse.throttle.FuseThrottleController;
+import com.pulse.api.gc.GcObservedEvent;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ZombieHook;
 import com.pulse.event.EventBus;
@@ -40,7 +42,7 @@ import java.util.Map;
 public class FuseMod implements PulseMod {
 
     public static final String MOD_ID = "Fuse";
-    public static final String VERSION = "2.0.0";
+    public static final String VERSION = "2.1.0";
 
     private static FuseMod instance;
 
@@ -61,6 +63,9 @@ public class FuseMod implements PulseMod {
 
     // --- v2.0 IOGuard ---
     private IOGuard ioGuard;
+
+    // --- v2.1 GC Pressure Guard ---
+    private GCPressureGuard gcPressureGuard;
 
     // --- 주기적 로깅 ---
     private long tickCounter = 0;
@@ -143,7 +148,19 @@ public class FuseMod implements PulseMod {
             EventBus.subscribe(PreSaveEvent.class, ioGuard::onPreSave, MOD_ID);
             EventBus.subscribe(PostSaveEvent.class, ioGuard::onPostSave, MOD_ID);
 
-            PulseLogger.info("Fuse", "Guards initialized (v2.0 with IOGuard)");
+            // GCPressureGuard (v2.1)
+            if (config.isGCPressureGuardEnabled()) {
+                gcPressureGuard = new GCPressureGuard();
+                gcPressureGuard.setRollingTickStats(stats);
+                gcPressureGuard.setReasonStats(reasonStats);
+
+                // EventBus 구독 (Hub&Spoke: Pulse GcObservedEvent 수신)
+                EventBus.subscribe(GcObservedEvent.class, gcPressureGuard::onGcObserved, MOD_ID);
+
+                PulseLogger.info("Fuse", "GCPressureGuard initialized (v2.1)");
+            }
+
+            PulseLogger.info("Fuse", "Guards initialized (v2.1 with IOGuard + GCPressureGuard)");
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to initialize guards: " + e.getMessage(), e);
         }
@@ -178,8 +195,13 @@ public class FuseMod implements PulseMod {
             // v2.0 IOGuard 연동
             throttleController.setIOGuard(ioGuard);
 
+            // v2.1 GCPressureGuard 연동
+            if (gcPressureGuard != null) {
+                throttleController.setGCPressureGuard(gcPressureGuard);
+            }
+
             ZombieHook.setThrottlePolicy(throttleController);
-            PulseLogger.info("Fuse", "ThrottleController registered (v2.0 with IOGuard)");
+            PulseLogger.info("Fuse", "ThrottleController registered (v2.1 with IOGuard + GCPressureGuard)");
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to register ThrottlePolicy: " + e.getMessage(), e);
         }
@@ -417,6 +439,15 @@ public class FuseMod implements PulseMod {
                     .append(", events=").append(ioGuard.getTotalIOEvents())
                     .append(", avgMs=").append(ioGuard.getAverageIOTimeMs())
                     .append(", timeouts=").append(ioGuard.getTimeoutCount())
+                    .append(")\n");
+        }
+
+        // GCPressureGuard 상태 (v2.1)
+        if (gcPressureGuard != null) {
+            sb.append("  GCPressure: ").append(gcPressureGuard.getCurrentState())
+                    .append(" (p=").append(String.format("%.2f", gcPressureGuard.getCurrentSignal().getPressureValue()))
+                    .append(", mult=").append(String.format("%.2f", gcPressureGuard.getBudgetMultiplier()))
+                    .append(", trans=").append(gcPressureGuard.getTransitionCount())
                     .append(")\n");
         }
 

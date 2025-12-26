@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 /**
  * Mixin 인젝션 검증 API.
- * Fuse/Nerve가 Mixin 인젝션 성공/실패를 확인하고 대응할 수 있습니다.
+ * 외부 모드가 Mixin 인젝션 성공/실패를 확인하고 대응할 수 있습니다.
  * 
  * <pre>
  * // 사용 예시
  * InjectionResult result = MixinInjectionValidator.validateInjection(
- *         "com.fuse.mixin.ZombieAIMixin",
+ *         "com.mymod.mixin.MyMixin",
  *         "zombie.ai.ZombieAI");
  * 
  * if (!result.isSuccess()) {

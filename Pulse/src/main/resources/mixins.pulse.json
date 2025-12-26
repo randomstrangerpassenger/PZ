@@ -12,6 +12,8 @@
     "PathfindingMixin",
     "IsoGridMixin",
     "SaveEventMixin",
+    "WorldItemMixin",
+    "ItemSpawnMixin",
     "lua.MixinLuaEventManager",
     "kahlua.MixinKahluaThread"
   ],

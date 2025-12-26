@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 /**
  * 모듈별 로거 구현체.
  * 
- * 각 모듈(Pulse, Echo, Fuse, Nerve)에서 독립적인 로그 레벨을 설정할 수 있습니다.
+ * 각 모듈에서 독립적인 로그 레벨을 설정할 수 있습니다.
  * 
  * @since 1.1.0
  */
@@ -23,7 +23,7 @@ public class ModuleLogger implements PulseLoggerInterface {
     /**
      * 모듈 로거 생성.
      * 
-     * @param moduleName 모듈 이름 (예: "Pulse", "Echo")
+     * @param moduleName 모듈 이름 (예: "Pulse", "MyMod")
      */
     public ModuleLogger(String moduleName) {
         this(moduleName, PulseLogLevel.INFO);

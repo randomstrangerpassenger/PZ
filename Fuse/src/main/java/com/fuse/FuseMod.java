@@ -1,6 +1,7 @@
 package com.fuse;
 
 import com.fuse.config.FuseConfig;
+import com.fuse.governor.ItemGovernor;
 import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
 import com.fuse.governor.TickBudgetGovernor;
@@ -66,6 +67,9 @@ public class FuseMod implements PulseMod {
 
     // --- v2.1 GC Pressure Guard ---
     private GCPressureGuard gcPressureGuard;
+
+    // --- v2.2 Area 7: Item Governor ---
+    private ItemGovernor itemGovernor;
 
     // --- 주기적 로깅 ---
     private long tickCounter = 0;
@@ -207,6 +211,30 @@ public class FuseMod implements PulseMod {
         }
 
         // ========================================
+        // Phase 4.5: Area 7 - ItemGovernor (World Objects)
+        // ========================================
+
+        try {
+            itemGovernor = new ItemGovernor();
+
+            // Inject policy into WorldItemMixin using reflection
+            try {
+                Class<?> worldItemMixinClass = Class.forName("com.pulse.mixin.WorldItemMixin");
+                java.lang.reflect.Method setPolicyMethod = worldItemMixinClass.getDeclaredMethod(
+                        "Pulse$setPolicy",
+                        com.pulse.api.world.IWorldObjectThrottlePolicy.class);
+                setPolicyMethod.setAccessible(true);
+                setPolicyMethod.invoke(null, itemGovernor);
+            } catch (Exception e) {
+                PulseLogger.error("Fuse", "Failed to inject policy into WorldItemMixin: " + e.getMessage());
+            }
+
+            PulseLogger.info("Fuse", "ItemGovernor initialized and injected into WorldItemMixin");
+        } catch (Exception e) {
+            PulseLogger.error("Fuse", "Failed to register ThrottlePolicy: " + e.getMessage(), e);
+        }
+
+        // ========================================
         // Phase 5: Step-level Throttle Policy
         // ========================================
 
@@ -288,6 +316,13 @@ public class FuseMod implements PulseMod {
                 // IOGuard 틱 (v2.0)
                 if (ioGuard != null) {
                     ioGuard.tick();
+                }
+
+                // ItemGovernor ShellShock 연동 (v2.2 Area 7)
+                if (itemGovernor != null && panicProtocol != null) {
+                    // ShellShock 상태를 ItemGovernor에 전달
+                    boolean isShellShock = panicProtocol.getState() != SpikePanicProtocol.State.NORMAL;
+                    itemGovernor.setShellShockActive(isShellShock);
                 }
             }
 
@@ -440,6 +475,15 @@ public class FuseMod implements PulseMod {
                     .append(", avgMs=").append(ioGuard.getAverageIOTimeMs())
                     .append(", timeouts=").append(ioGuard.getTimeoutCount())
                     .append(")\n");
+        }
+
+        // ItemGovernor 상태 (v2.2 Area 7)
+        if (itemGovernor != null) {
+            sb.append("  ItemGovernor: decisions=").append(itemGovernor.getTotalDecisions())
+                    .append(", shellShock=").append(itemGovernor.getShellShockThrottleCount())
+                    .append(", starvation=").append(itemGovernor.getStarvationPreventCount())
+                    .append(", active=").append(itemGovernor.isShellShockActive() ? "YES" : "NO")
+                    .append("\n");
         }
 
         // GCPressureGuard 상태 (v2.1)

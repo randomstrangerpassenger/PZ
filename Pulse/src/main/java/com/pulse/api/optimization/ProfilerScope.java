@@ -2,11 +2,12 @@ package com.pulse.api.optimization;
 
 import com.pulse.api.PublicAPI;
 import com.pulse.api.FeatureFlags;
+import com.pulse.api.spi.IProfilerProvider;
 
 /**
  * 프로파일러 스코프.
- * Echo 프로파일러와 연동되는 AutoCloseable 스코프.
- * Echo가 로드되지 않았을 때도 안전하게 no-op으로 동작합니다.
+ * SPI를 통해 프로파일러와 연동되는 AutoCloseable 스코프.
+ * 프로파일러가 로드되지 않았을 때도 안전하게 no-op으로 동작합니다.
  * 
  * <pre>
  * // 사용 예시 - try-with-resources
@@ -26,11 +27,15 @@ import com.pulse.api.FeatureFlags;
 @PublicAPI(since = "1.1.0")
 public final class ProfilerScope implements AutoCloseable {
 
-    // No-op 싱글톤 (Echo 없을 때 사용)
+    // No-op 싱글톤 (프로파일러 없을 때 사용)
     private static final ProfilerScope NO_OP = new ProfilerScope(null, null, false);
 
-    // Echo 프로파일러 사용 가능 여부 캐시
-    private static volatile Boolean echoAvailable = null;
+    // No-op Provider (Provider 없을 때 사용)
+    private static final IProfilerProvider NOOP_PROVIDER = new NoOpProfilerProvider();
+
+    // Provider 캐시
+    private static volatile IProfilerProvider cachedProvider = null;
+    private static volatile boolean providerChecked = false;
 
     private final OptimizationPoint point;
     private final String label;
@@ -48,7 +53,7 @@ public final class ProfilerScope implements AutoCloseable {
         this.startNanos = active ? System.nanoTime() : 0;
 
         if (active && label != null) {
-            pushEchoScope(label);
+            getProvider().pushScope(label);
         }
     }
 
@@ -58,7 +63,7 @@ public final class ProfilerScope implements AutoCloseable {
 
     /**
      * OptimizationPoint로 스코프 시작.
-     * Echo가 없으면 no-op 스코프 반환.
+     * 프로파일러가 없으면 no-op 스코프 반환.
      * 
      * @param point OptimizationPoint
      * @return ProfilerScope (자동 닫힘)
@@ -68,13 +73,13 @@ public final class ProfilerScope implements AutoCloseable {
             return NO_OP;
         }
 
-        String echoLabel = point.getEchoLabel();
-        return new ProfilerScope(point, echoLabel, true);
+        String profilerLabel = point.getFullLabel();
+        return new ProfilerScope(point, profilerLabel, true);
     }
 
     /**
      * 커스텀 라벨로 스코프 시작.
-     * Echo가 없으면 no-op 스코프 반환.
+     * 프로파일러가 없으면 no-op 스코프 반환.
      * 
      * @param label 프로파일러 라벨
      * @return ProfilerScope (자동 닫힘)
@@ -151,18 +156,18 @@ public final class ProfilerScope implements AutoCloseable {
     @Override
     public void close() {
         if (active && label != null) {
-            popEchoScope(label);
+            getProvider().popScope();
         }
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // Echo 프로파일러 연동
+    // SPI Provider 연동 (리플렉션 제거, SPI 사용)
     // ═══════════════════════════════════════════════════════════════
 
     /**
-     * Echo 프로파일러 사용 가능 여부 확인.
+     * 프로파일러 사용 가능 여부 확인.
      * 
-     * @return Echo가 로드되어 있으면 true
+     * @return 프로파일러 Provider가 등록되어 있으면 true
      */
     public static boolean isProfilerAvailable() {
         // 기능이 비활성화되어 있으면 false
@@ -170,53 +175,33 @@ public final class ProfilerScope implements AutoCloseable {
             return false;
         }
 
-        // 캐시된 결과 사용
-        if (echoAvailable != null) {
-            return echoAvailable;
-        }
-
-        // Echo 클래스 존재 여부 확인
-        try {
-            Class.forName("com.pulse.echo.EchoProfiler");
-            echoAvailable = true;
-        } catch (ClassNotFoundException e) {
-            echoAvailable = false;
-        }
-
-        return echoAvailable;
+        return getProvider() != NOOP_PROVIDER;
     }
 
     /**
-     * 프로파일러 가용성 캐시 초기화 (테스트용).
+     * Provider 가용성 캐시 초기화 (테스트용).
      */
     public static void resetCache() {
-        echoAvailable = null;
+        cachedProvider = null;
+        providerChecked = false;
     }
 
-    // ═══════════════════════════════════════════════════════════════
-    // Echo 내부 연동 메서드
-    // ═══════════════════════════════════════════════════════════════
-
-    private static void pushEchoScope(String label) {
-        try {
-            // Echo가 있으면 EchoProfiler.push(label) 호출
-            Class<?> echoClass = Class.forName("com.pulse.echo.EchoProfiler");
-            java.lang.reflect.Method pushMethod = echoClass.getMethod("push", String.class);
-            pushMethod.invoke(null, label);
-        } catch (Exception e) {
-            // Echo 없음 - 무시
+    /**
+     * Get the profiler provider via SPI.
+     * Returns No-op provider if none registered.
+     */
+    private static IProfilerProvider getProvider() {
+        if (!providerChecked) {
+            try {
+                cachedProvider = com.pulse.api.Pulse.getProviderRegistry()
+                        .getProvider(IProfilerProvider.class)
+                        .orElse(NOOP_PROVIDER);
+            } catch (Exception e) {
+                cachedProvider = NOOP_PROVIDER;
+            }
+            providerChecked = true;
         }
-    }
-
-    private static void popEchoScope(String label) {
-        try {
-            // Echo가 있으면 EchoProfiler.pop() 호출
-            Class<?> echoClass = Class.forName("com.pulse.echo.EchoProfiler");
-            java.lang.reflect.Method popMethod = echoClass.getMethod("pop");
-            popMethod.invoke(null);
-        } catch (Exception e) {
-            // Echo 없음 - 무시
-        }
+        return cachedProvider;
     }
 
     @Override
@@ -225,5 +210,105 @@ public final class ProfilerScope implements AutoCloseable {
             return "ProfilerScope[NO_OP]";
         }
         return String.format("ProfilerScope[%s, %.3fms]", label, getElapsedMillis());
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // No-op Provider (프로파일러 없을 때 사용)
+    // ═══════════════════════════════════════════════════════════════
+
+    private static class NoOpProfilerProvider implements IProfilerProvider {
+        @Override
+        public String getId() {
+            return "noop";
+        }
+
+        @Override
+        public String getName() {
+            return "No-op Profiler";
+        }
+
+        @Override
+        public String getVersion() {
+            return "0.0.0";
+        }
+
+        @Override
+        public String getDescription() {
+            return "No-op profiler provider";
+        }
+
+        @Override
+        public int getPriority() {
+            return 0;
+        }
+
+        @Override
+        public void onInitialize() {
+        }
+
+        @Override
+        public void onShutdown() {
+        }
+
+        @Override
+        public boolean isEnabled() {
+            return false;
+        }
+
+        @Override
+        public void onTickStart() {
+        }
+
+        @Override
+        public void onTickEnd(long tickTimeNanos) {
+        }
+
+        @Override
+        public void onFrameStart() {
+        }
+
+        @Override
+        public void onFrameEnd(long frameTimeNanos) {
+        }
+
+        @Override
+        public double getCurrentFps() {
+            return 0;
+        }
+
+        @Override
+        public double getAverageTickTimeMs() {
+            return 0;
+        }
+
+        @Override
+        public double getAverageFrameTimeMs() {
+            return 0;
+        }
+
+        @Override
+        public void startProfiling() {
+        }
+
+        @Override
+        public void stopProfiling() {
+        }
+
+        @Override
+        public boolean isProfiling() {
+            return false;
+        }
+
+        @Override
+        public void resetData() {
+        }
+
+        @Override
+        public void pushScope(String label) {
+        }
+
+        @Override
+        public void popScope() {
+        }
     }
 }

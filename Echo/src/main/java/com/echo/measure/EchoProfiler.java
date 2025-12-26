@@ -203,6 +203,30 @@ public class EchoProfiler {
         return getScopePool().acquire(point, this);
     }
 
+    // --- String Label API (for SPI IProfilerProvider) ---
+
+    /**
+     * Push a profiling scope with string label.
+     * Used by IProfilerProvider.pushScope() for external SPI integration.
+     * 
+     * @param label Label in format: area/subsystem/detail
+     */
+    public void pushLabel(String label) {
+        if (!enabled || label == null)
+            return;
+        push(ProfilingPoint.CUSTOM_1, label);
+    }
+
+    /**
+     * Pop the current label-based scope.
+     * Used by IProfilerProvider.popScope().
+     */
+    public void popLabel() {
+        if (!enabled)
+            return;
+        pop(ProfilingPoint.CUSTOM_1);
+    }
+
     // --- Raw API (Zero-Allocation) ---
 
     public long startRaw(ProfilingPoint point) {
@@ -339,9 +363,9 @@ public class EchoProfiler {
         LuaCallTracker.getInstance().reset();
         com.echo.lua.LuaGCProfiler.getInstance().reset();
 
-        com.echo.fuse.PathfindingProfiler.getInstance().reset();
-        com.echo.fuse.ZombieProfiler.getInstance().reset();
-        com.echo.fuse.IsoGridProfiler.getInstance().reset();
+        com.echo.subsystem.PathfindingProfiler.getInstance().reset();
+        com.echo.subsystem.ZombieProfiler.getInstance().reset();
+        com.echo.subsystem.IsoGridProfiler.getInstance().reset();
 
         PulseLogger.info("Echo", "Profiler stats RESET");
     }

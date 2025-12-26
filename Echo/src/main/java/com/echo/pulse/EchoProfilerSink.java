@@ -1,6 +1,6 @@
 package com.echo.pulse;
 
-import com.echo.fuse.ZombieProfiler;
+import com.echo.subsystem.ZombieProfiler;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ProfilerBridge;
 import com.pulse.api.profiler.ProfilerSink;

@@ -67,4 +67,41 @@ public interface IProfilerProvider extends IProvider {
      * Reset all profiling data.
      */
     void resetData();
+
+    // ═══════════════════════════════════════════════════════════════
+    // Scope-based Profiling (v1.1.0)
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * Push a profiling scope.
+     * Label format: area/subsystem/detail (e.g., zombie/ai/pathfinding)
+     *
+     * @param label Scope label
+     */
+    default void pushScope(String label) {
+        // Default no-op for backward compatibility
+    }
+
+    /**
+     * Pop the current profiling scope.
+     */
+    default void popScope() {
+        // Default no-op for backward compatibility
+    }
+
+    /**
+     * Execute action within a profiling scope.
+     * Ensures proper push/pop even on exception.
+     *
+     * @param label  Scope label
+     * @param action Action to execute
+     */
+    default void withScope(String label, Runnable action) {
+        pushScope(label);
+        try {
+            action.run();
+        } finally {
+            popScope();
+        }
+    }
 }

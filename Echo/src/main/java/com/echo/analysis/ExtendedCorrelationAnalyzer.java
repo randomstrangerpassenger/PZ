@@ -2,7 +2,7 @@ package com.echo.analysis;
 
 import com.echo.aggregate.*;
 import com.echo.measure.*;
-import com.echo.fuse.*;
+import com.echo.subsystem.*;
 
 import java.util.*;
 

@@ -159,4 +159,16 @@ public class EchoProfilerProvider implements IProfilerProvider {
     public TimingData getTimingData(ProfilingPoint point) {
         return profiler.getTimingData(point);
     }
+
+    // --- Scope-based Profiling (v1.1.0) ---
+
+    @Override
+    public void pushScope(String label) {
+        profiler.pushLabel(label);
+    }
+
+    @Override
+    public void popScope() {
+        profiler.popLabel();
+    }
 }

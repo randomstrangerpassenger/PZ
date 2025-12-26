@@ -55,7 +55,7 @@ public final class OptimizationPointRegistry {
             customPoints.put(point.name(), new OptimizationPointInfo(
                     point.name(),
                     point.getMixinTarget(),
-                    point.getEchoPrefix(),
+                    point.getProfilerLabel(),
                     point.getTier(),
                     true // built-in
             ));
@@ -73,30 +73,30 @@ public final class OptimizationPointRegistry {
     /**
      * 커스텀 OptimizationPoint 등록.
      * 
-     * @param id          고유 식별자 (대문자 권장, 예: "MY_CUSTOM_POINT")
-     * @param mixinTarget Mixin 대상 클래스 전체 경로
-     * @param echoPrefix  Echo 프로파일러 라벨 prefix
+     * @param id            고유 식별자 (대문자 권장, 예: "MY_CUSTOM_POINT")
+     * @param mixinTarget   Mixin 대상 클래스 전체 경로
+     * @param profilerLabel 프로파일러 라벨
      * @return 등록 성공 여부 (이미 존재하면 false)
      */
-    public static boolean register(String id, String mixinTarget, String echoPrefix) {
-        return register(id, mixinTarget, echoPrefix, 3); // Tier 3 = custom
+    public static boolean register(String id, String mixinTarget, String profilerLabel) {
+        return register(id, mixinTarget, profilerLabel, 3); // Tier 3 = custom
     }
 
     /**
      * 커스텀 OptimizationPoint 등록 (Tier 지정).
      * 
-     * @param id          고유 식별자
-     * @param mixinTarget Mixin 대상 클래스 전체 경로
-     * @param echoPrefix  Echo 프로파일러 라벨 prefix
-     * @param tier        Tier 레벨 (3 이상 권장)
+     * @param id            고유 식별자
+     * @param mixinTarget   Mixin 대상 클래스 전체 경로
+     * @param profilerLabel 프로파일러 라벨
+     * @param tier          Tier 레벨 (3 이상 권장)
      * @return 등록 성공 여부
      */
-    public static boolean register(String id, String mixinTarget, String echoPrefix, int tier) {
+    public static boolean register(String id, String mixinTarget, String profilerLabel, int tier) {
         if (id == null || id.isEmpty())
             return false;
         if (mixinTarget == null || mixinTarget.isEmpty())
             return false;
-        if (echoPrefix == null || echoPrefix.isEmpty())
+        if (profilerLabel == null || profilerLabel.isEmpty())
             return false;
 
         String normalizedId = id.toUpperCase();
@@ -107,7 +107,7 @@ public final class OptimizationPointRegistry {
         }
 
         customPoints.put(normalizedId, new OptimizationPointInfo(
-                normalizedId, mixinTarget, echoPrefix, tier, false));
+                normalizedId, mixinTarget, profilerLabel, tier, false));
 
         PulseLogger.info(LOG, "Registered custom OptimizationPoint: {}", normalizedId);
         return true;
@@ -188,17 +188,25 @@ public final class OptimizationPointRegistry {
     }
 
     /**
-     * Echo prefix로 포인트 찾기.
+     * 프로파일러 라벨로 포인트 찾기.
      * 
-     * @param echoPrefix Echo 라벨 prefix
+     * @param profilerLabel 프로파일러 라벨
      * @return Optional containing the info
      */
-    public static Optional<OptimizationPointInfo> findByEchoPrefix(String echoPrefix) {
+    public static Optional<OptimizationPointInfo> findByProfilerLabel(String profilerLabel) {
         if (!initialized)
             initialize();
         return customPoints.values().stream()
-                .filter(info -> info.getEchoPrefix().equals(echoPrefix))
+                .filter(info -> info.getProfilerLabel().equals(profilerLabel))
                 .findFirst();
+    }
+
+    /**
+     * @deprecated Use {@link #findByProfilerLabel(String)} instead.
+     */
+    @Deprecated
+    public static Optional<OptimizationPointInfo> findByEchoPrefix(String echoPrefix) {
+        return findByProfilerLabel(echoPrefix);
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -212,15 +220,15 @@ public final class OptimizationPointRegistry {
     public static final class OptimizationPointInfo {
         private final String id;
         private final String mixinTarget;
-        private final String echoPrefix;
+        private final String profilerLabel;
         private final int tier;
         private final boolean builtIn;
 
-        OptimizationPointInfo(String id, String mixinTarget, String echoPrefix,
+        OptimizationPointInfo(String id, String mixinTarget, String profilerLabel,
                 int tier, boolean builtIn) {
             this.id = id;
             this.mixinTarget = mixinTarget;
-            this.echoPrefix = echoPrefix;
+            this.profilerLabel = profilerLabel;
             this.tier = tier;
             this.builtIn = builtIn;
         }
@@ -233,8 +241,16 @@ public final class OptimizationPointRegistry {
             return mixinTarget;
         }
 
+        public String getProfilerLabel() {
+            return profilerLabel;
+        }
+
+        /**
+         * @deprecated Use {@link #getProfilerLabel()} instead.
+         */
+        @Deprecated
         public String getEchoPrefix() {
-            return echoPrefix;
+            return profilerLabel;
         }
 
         public int getTier() {
@@ -246,16 +262,24 @@ public final class OptimizationPointRegistry {
         }
 
         /**
-         * Echo 라벨 생성.
+         * 프로파일러 라벨 생성.
          */
+        public String createLabel(String suffix) {
+            return profilerLabel + "." + suffix;
+        }
+
+        /**
+         * @deprecated Use {@link #createLabel(String)} instead.
+         */
+        @Deprecated
         public String createEchoLabel(String suffix) {
-            return echoPrefix + "." + suffix;
+            return createLabel(suffix);
         }
 
         @Override
         public String toString() {
-            return String.format("OptimizationPoint[%s, tier=%d, target=%s, echo=%s]",
-                    id, tier, mixinTarget, echoPrefix);
+            return String.format("OptimizationPoint[%s, tier=%d, target=%s, label=%s]",
+                    id, tier, mixinTarget, profilerLabel);
         }
     }
 }

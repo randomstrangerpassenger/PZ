@@ -19,11 +19,9 @@ public final class PulseExceptionFormatter {
     private static final int DEFAULT_MAX_LINES = 10;
 
     // 항상 포함할 패키지 접두어
+    // Note: External modules can register additional prefixes via SPI if needed
     private static final Set<String> ALWAYS_INCLUDE = new HashSet<>(Arrays.asList(
-            "com.pulse.",
-            "com.echo.",
-            "com.fuse.",
-            "com.nerve."));
+            "com.pulse."));
 
     // 제외할 패키지 (너무 많은 프레임 방지)
     private static final Set<String> EXCLUDE_PACKAGES = new HashSet<>(Arrays.asList(
@@ -134,7 +132,7 @@ public final class PulseExceptionFormatter {
             String pkg = className.substring(0, lastDot);
             String simpleName = className.substring(lastDot + 1);
 
-            // 패키지를 축약 (예: com.echo.measure -> c.e.measure)
+            // 패키지를 축약 (예: com.mymod.measure -> c.m.measure)
             String[] parts = pkg.split("\\.");
             StringBuilder abbrev = new StringBuilder();
             for (int i = 0; i < parts.length - 1 && i < 3; i++) {

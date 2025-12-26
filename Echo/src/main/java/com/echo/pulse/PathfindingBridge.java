@@ -1,6 +1,6 @@
 package com.echo.pulse;
 
-import com.echo.fuse.PathfindingProfiler;
+import com.echo.subsystem.PathfindingProfiler;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.PathfindingHook;
 

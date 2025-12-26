@@ -19,7 +19,7 @@ import java.util.function.Supplier;
  * PulseLogger.info("Pulse", "Initialization complete");
  * 
  * // 포맷 문자열
- * PulseLogger.debug("Echo", "Tick {} took {}ms", tickNumber, duration);
+ * PulseLogger.debug("MyMod", "Tick {} took {}ms", tickNumber, duration);
  * 
  * // Lazy evaluation (성능 최적화)
  * PulseLogger.debug("Pulse", () -> "Heavy computation: " + expensiveCall());
@@ -131,15 +131,6 @@ public final class PulseLogger {
 
     /** Pulse 코어 모듈 */
     public static final String PULSE = "Pulse";
-
-    /** Echo 프로파일러 모듈 */
-    public static final String ECHO = "Echo";
-
-    /** Fuse 최적화 모듈 */
-    public static final String FUSE = "Fuse";
-
-    /** Nerve 모니터링 모듈 */
-    public static final String NERVE = "Nerve";
 
     // --- 디버그 전용 헬퍼---
 

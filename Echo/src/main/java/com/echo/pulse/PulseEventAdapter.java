@@ -62,7 +62,7 @@ public class PulseEventAdapter {
 
             // Phase 3: Metric Collection
             com.echo.measure.EchoProfiler.getInstance().getMetricCollector().collect(tickProfiler, renderProfiler);
-            com.echo.fuse.ZombieProfiler.getInstance().endTick();
+            com.echo.subsystem.ZombieProfiler.getInstance().endTick();
 
             // v2.1: 세션 데이터 수집 마킹
             SessionManager.getInstance().onTick();

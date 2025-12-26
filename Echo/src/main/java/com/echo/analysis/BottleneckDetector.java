@@ -2,7 +2,7 @@ package com.echo.analysis;
 
 import com.echo.aggregate.TimingData;
 import com.echo.measure.*;
-import com.echo.fuse.*;
+import com.echo.subsystem.*;
 import com.pulse.api.service.echo.IBottleneckDetector;
 import com.pulse.api.service.echo.OptimizationPriority;
 

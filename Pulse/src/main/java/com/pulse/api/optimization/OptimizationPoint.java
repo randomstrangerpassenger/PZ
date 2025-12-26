@@ -5,7 +5,7 @@ import java.util.Optional;
 
 /**
  * 최적화 지점 정의.
- * 각 포인트는 Mixin 타깃 클래스와 Echo 프로파일러 라벨 prefix와 연결됩니다.
+ * 각 포인트는 Mixin 타깃 클래스와 프로파일러 라벨과 연결됩니다.
  * 
  * <p>
  * Tier 1 (Base): 핵심 병목 영역 - 7개
@@ -18,7 +18,7 @@ import java.util.Optional;
  * // 사용 예시
  * OptimizationPoint point = OptimizationPoint.ZOMBIE_AI_UPDATE;
  * String target = point.getMixinTarget(); // "zombie.ai.ZombieAI"
- * String prefix = point.getEchoPrefix(); // "zombie.ai"
+ * String label = point.getProfilerLabel(); // "zombie.ai"
  * </pre>
  * 
  * @since 1.0.1
@@ -101,13 +101,13 @@ public enum OptimizationPoint {
 
     private final String mixinTarget;
     private final String targetMethod;
-    private final String echoPrefix;
+    private final String profilerLabel;
     private final int tier;
 
-    OptimizationPoint(String mixinTarget, String targetMethod, String echoPrefix, int tier) {
+    OptimizationPoint(String mixinTarget, String targetMethod, String profilerLabel, int tier) {
         this.mixinTarget = mixinTarget;
         this.targetMethod = targetMethod;
-        this.echoPrefix = echoPrefix;
+        this.profilerLabel = profilerLabel;
         this.tier = tier;
     }
 
@@ -130,12 +130,20 @@ public enum OptimizationPoint {
     }
 
     /**
-     * Echo 프로파일러 라벨 prefix 반환.
+     * 프로파일러 라벨 반환.
      * 
-     * @return Echo 라벨 prefix (예: "zombie.ai")
+     * @return 라벨 prefix (예: "zombie.ai")
      */
+    public String getProfilerLabel() {
+        return profilerLabel;
+    }
+
+    /**
+     * @deprecated Use {@link #getProfilerLabel()} instead.
+     */
+    @Deprecated
     public String getEchoPrefix() {
-        return echoPrefix;
+        return profilerLabel;
     }
 
     /**
@@ -148,23 +156,39 @@ public enum OptimizationPoint {
     }
 
     /**
-     * Echo 프로파일러용 전체 라벨 반환.
-     * prefix + "." + targetMethod 형식.
+     * 프로파일러용 전체 라벨 반환.
+     * profilerLabel + "." + targetMethod 형식.
      * 
-     * @return 전체 Echo 라벨 (예: "zombie.ai.update")
+     * @return 전체 라벨 (예: "zombie.ai.update")
      */
-    public String getEchoLabel() {
-        return echoPrefix + "." + targetMethod;
+    public String getFullLabel() {
+        return profilerLabel + "." + targetMethod;
     }
 
     /**
-     * Echo 라벨 생성 헬퍼 (커스텀 suffix 사용).
+     * @deprecated Use {@link #getFullLabel()} instead.
+     */
+    @Deprecated
+    public String getEchoLabel() {
+        return getFullLabel();
+    }
+
+    /**
+     * 라벨 생성 헬퍼 (커스텀 suffix 사용).
      * 
      * @param suffix 라벨 suffix (예: "start", "end")
      * @return 전체 라벨 (예: "zombie.ai.start")
      */
+    public String createLabel(String suffix) {
+        return profilerLabel + "." + suffix;
+    }
+
+    /**
+     * @deprecated Use {@link #createLabel(String)} instead.
+     */
+    @Deprecated
     public String createEchoLabel(String suffix) {
-        return echoPrefix + "." + suffix;
+        return createLabel(suffix);
     }
 
     /**
@@ -197,17 +221,25 @@ public enum OptimizationPoint {
     }
 
     /**
-     * Echo prefix로 OptimizationPoint 찾기.
+     * 프로파일러 라벨로 OptimizationPoint 찾기.
      * 
-     * @param prefix Echo 라벨 prefix
+     * @param label 프로파일러 라벨
      * @return Optional containing the point, or empty if not found
      */
-    public static Optional<OptimizationPoint> byEchoPrefix(String prefix) {
+    public static Optional<OptimizationPoint> byProfilerLabel(String label) {
         for (OptimizationPoint point : values()) {
-            if (point.echoPrefix.equals(prefix)) {
+            if (point.profilerLabel.equals(label)) {
                 return Optional.of(point);
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * @deprecated Use {@link #byProfilerLabel(String)} instead.
+     */
+    @Deprecated
+    public static Optional<OptimizationPoint> byEchoPrefix(String prefix) {
+        return byProfilerLabel(prefix);
     }
 }

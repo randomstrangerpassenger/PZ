@@ -1,7 +1,7 @@
 package com.echo.history;
 
 import com.echo.analysis.CorrelationAnalyzer;
-import com.echo.fuse.ZombieProfiler;
+import com.echo.subsystem.ZombieProfiler;
 import com.echo.pulse.RenderProfiler;
 import com.echo.pulse.TickProfiler;
 

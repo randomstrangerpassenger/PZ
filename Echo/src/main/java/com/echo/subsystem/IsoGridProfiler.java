@@ -1,4 +1,4 @@
-package com.echo.fuse;
+package com.echo.subsystem;
 
 import com.echo.config.EchoConfig;
 import java.util.EnumMap;
@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.LongAdder;
 
 /**
- * IsoGrid Profiler for Fuse Deep Analysis.
+ * IsoGrid Profiler for Deep Analysis.
  * Tracks detailed timing for IsoGrid updates (Map rendering/update logic).
  * 
  * @since Echo 1.0 Phase 4

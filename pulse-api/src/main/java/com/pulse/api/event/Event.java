@@ -1,21 +1,21 @@
-package com.pulse.event;
+package com.pulse.api.event;
 
 /**
  * 모든 Pulse 이벤트의 기본 클래스.
  */
 public abstract class Event {
-    
+
     private boolean cancelled = false;
     private final boolean cancellable;
-    
+
     protected Event() {
         this(false);
     }
-    
+
     protected Event(boolean cancellable) {
         this.cancellable = cancellable;
     }
-    
+
     /**
      * 이벤트 취소 (취소 가능한 이벤트만)
      */
@@ -25,15 +25,15 @@ public abstract class Event {
         }
         this.cancelled = true;
     }
-    
+
     public boolean isCancelled() {
         return cancelled;
     }
-    
+
     public boolean isCancellable() {
         return cancellable;
     }
-    
+
     /**
      * 이벤트 이름 (디버깅용)
      */

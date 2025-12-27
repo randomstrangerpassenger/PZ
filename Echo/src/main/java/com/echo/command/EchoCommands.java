@@ -2,8 +2,8 @@ package com.echo.command;
 
 import com.echo.command.impl.*;
 import com.echo.measure.EchoProfiler;
-import com.pulse.command.CommandContext;
-import com.pulse.command.CommandRegistry;
+import com.pulse.api.command.ICommandContext;
+import com.pulse.api.di.PulseServices;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class EchoCommands {
     private static boolean registered = false;
 
     /**
-     * 명령어 등록 (Pulse CommandRegistry 통합)
+     * 명령어 등록 (Pulse API 통합)
      */
     public static void register() {
         if (registered)
@@ -53,11 +53,11 @@ public class EchoCommands {
 
         commands.put("reset", EchoCommands::cmdReset);
 
-        // Register with Pulse CommandRegistry (if available)
+        // Register with Pulse CommandRegistry via PulseServices API
         try {
-            CommandRegistry.register("echo", "Echo Profiler 명령어", EchoCommands::handleEchoCommand);
-            System.out.println("[Echo] Commands registered via Pulse CommandRegistry");
-        } catch (NoClassDefFoundError e) {
+            PulseServices.commands().register("echo", "Echo Profiler 명령어", EchoCommands::handleEchoCommand);
+            System.out.println("[Echo] Commands registered via Pulse API");
+        } catch (IllegalStateException | NoClassDefFoundError e) {
             // Pulse not available, fallback to direct invocation
             System.out.println("[Echo] Commands registered (standalone mode)");
         }
@@ -66,9 +66,9 @@ public class EchoCommands {
     }
 
     /**
-     * Pulse CommandContext 기반 핸들러
+     * Pulse ICommandContext 기반 핸들러
      */
-    private static void handleEchoCommand(CommandContext ctx) {
+    private static void handleEchoCommand(ICommandContext ctx) {
         String[] args = ctx.getRawArgs();
         if (args.length == 0) {
             cmdHelp(new String[0]);

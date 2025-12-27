@@ -110,14 +110,14 @@ public class EchoConfig {
     }
 
     public static EchoConfig getInstance() {
-        // 1. Try ServiceLocator (Hybrid DI)
+        // 1. Try ServiceLocator via PulseServices (Hybrid DI)
         try {
-            com.pulse.di.PulseServiceLocator locator = com.pulse.di.PulseServiceLocator.getInstance();
+            var locator = com.pulse.api.di.PulseServices.getServiceLocator();
             EchoConfig service = locator.getService(EchoConfig.class);
             if (service != null) {
                 return service;
             }
-        } catch (NoClassDefFoundError | Exception ignored) {
+        } catch (Exception ignored) {
             // Pulse might not be fully loaded or in standalone test mode
         }
 
@@ -128,8 +128,8 @@ public class EchoConfig {
 
             // Register to ServiceLocator if available
             try {
-                com.pulse.di.PulseServiceLocator.getInstance().registerService(EchoConfig.class, instance);
-            } catch (NoClassDefFoundError | Exception ignored) {
+                com.pulse.api.di.PulseServices.getServiceLocator().registerService(EchoConfig.class, instance);
+            } catch (Exception ignored) {
                 // Ignore
             }
         }

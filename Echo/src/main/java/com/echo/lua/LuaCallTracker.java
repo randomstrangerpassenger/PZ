@@ -70,12 +70,12 @@ public class LuaCallTracker {
 
     public static LuaCallTracker getInstance() {
         try {
-            com.pulse.di.PulseServiceLocator locator = com.pulse.di.PulseServiceLocator.getInstance();
+            var locator = com.pulse.api.di.PulseServices.getServiceLocator();
             LuaCallTracker service = locator.getService(LuaCallTracker.class);
             if (service != null) {
                 return service;
             }
-        } catch (NoClassDefFoundError | Exception ignored) {
+        } catch (Exception ignored) {
         }
 
         if (INSTANCE == null) {

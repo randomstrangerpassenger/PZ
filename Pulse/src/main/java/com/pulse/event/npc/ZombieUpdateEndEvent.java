@@ -1,6 +1,6 @@
 package com.pulse.event.npc;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 좀비 업데이트 루프 종료 이벤트.

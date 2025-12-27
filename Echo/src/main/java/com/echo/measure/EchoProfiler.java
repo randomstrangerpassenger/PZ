@@ -80,14 +80,14 @@ public class EchoProfiler {
     }
 
     public static EchoProfiler getInstance() {
-        // 1. Try ServiceLocator (Hybrid DI)
+        // 1. Try ServiceLocator via PulseServices (Hybrid DI)
         try {
-            com.pulse.di.PulseServiceLocator locator = com.pulse.di.PulseServiceLocator.getInstance();
+            var locator = com.pulse.api.di.PulseServices.getServiceLocator();
             EchoProfiler service = locator.getService(EchoProfiler.class);
             if (service != null) {
                 return service;
             }
-        } catch (NoClassDefFoundError | Exception ignored) {
+        } catch (Exception ignored) {
             // Pulse might not be fully loaded
         }
 

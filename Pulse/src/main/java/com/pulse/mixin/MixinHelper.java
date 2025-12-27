@@ -2,7 +2,7 @@ package com.pulse.mixin;
 
 import com.pulse.api.DevMode;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 import com.pulse.event.EventBus;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;

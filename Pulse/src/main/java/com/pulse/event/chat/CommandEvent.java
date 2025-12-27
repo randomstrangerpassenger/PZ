@@ -1,6 +1,6 @@
 package com.pulse.event.chat;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 명령어 실행 시 발생.

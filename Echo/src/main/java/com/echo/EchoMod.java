@@ -10,7 +10,7 @@ import com.echo.pulse.ZombieBridge;
 import com.echo.pulse.IsoGridBridge;
 import com.echo.spi.EchoProfilerProvider;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.mod.PulseMod;
+import com.pulse.api.mod.PulseMod;
 
 /**
  * Echo Mod 진입점
@@ -269,7 +269,7 @@ public class EchoMod implements PulseMod {
      */
     private static void registerServices() {
         try {
-            com.pulse.di.PulseServiceLocator locator = com.pulse.di.PulseServiceLocator.getInstance();
+            var locator = com.pulse.api.di.PulseServices.getServiceLocator();
             locator.registerService(com.pulse.api.service.echo.INetworkMetrics.class,
                     com.echo.measure.NetworkMetrics.getInstance());
             locator.registerService(com.pulse.api.service.echo.IRenderMetrics.class,
@@ -277,7 +277,7 @@ public class EchoMod implements PulseMod {
             locator.registerService(com.pulse.api.service.echo.IBottleneckDetector.class,
                     com.echo.analysis.BottleneckDetector.getInstance());
             PulseLogger.info("Echo", "Registered services to PulseServiceLocator");
-        } catch (NoClassDefFoundError e) {
+        } catch (IllegalStateException | NoClassDefFoundError e) {
             PulseLogger.debug("Echo", "PulseServiceLocator not found");
         } catch (Exception e) {
             PulseLogger.error("Echo", "Failed to register services: " + e.getMessage());

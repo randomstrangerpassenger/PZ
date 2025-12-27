@@ -1,6 +1,6 @@
 package com.pulse.event.multiplayer;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 플레이어 서버 접속 이벤트.

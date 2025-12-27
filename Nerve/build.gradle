@@ -16,13 +16,14 @@ repositories {
 }
 
 dependencies {
-    // Pulse API dependency
+    // Pulse API (Phase 2: API 계약만 의존)
     compileOnly project(':pulse-api')
     
-    // Pulse Core dependency (for PulseLogger and other core utilities)
-    compileOnly project(':Pulse')
-    
-    // PZ stubs (optional, graceful handling when missing)
+    // Project Zomboid (use pzGamePath from root)
+    def pzDir = rootProject.ext.pzGamePath ?: ''
+    compileOnly files("${pzDir}/java/zombie")
+    compileOnly files("${pzDir}/java/jinput.jar")
+    compileOnly files("${pzDir}/java/lwjgl.jar")
     compileOnly fileTree(dir: '../Pulse/libs', include: ['pz-stubs.jar'])
 }
 

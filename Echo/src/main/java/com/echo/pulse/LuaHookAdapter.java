@@ -2,89 +2,87 @@ package com.echo.pulse;
 
 import com.echo.lua.LuaCallTracker;
 import com.echo.measure.EchoProfiler;
+import com.pulse.api.di.PulseServices;
+import com.pulse.api.hook.HookType;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.hook.HookTypes;
-import com.pulse.hook.HookTypes.ILuaCallCallback;
-import com.pulse.hook.PulseHookRegistry;
 
 /**
- * Pulse LUA_CALL Hook 어댑터 (v2.0 - 중계자 역할)
+ * Pulse LUA_CALL Hook 어댑터.
  * 
- * Pulse의 MixinKahluaThread가 브로드캐스트하는 Lua 호출을 수신하여
- * LuaCallTracker에 직접 위임합니다.
+ * Lua 함수 호출을 추적하여 EchoProfiler에 전달합니다.
+ * Phase 4: IPulseHookRegistry.register() 사용하여 복원.
  * 
- * 기존 스택 관리 로직 제거 - LuaCallTracker가 전담.
+ * @since Echo 2.0
+ * @since Echo 3.0 - Stub Implementation (Phase 3)
+ * @since Echo 4.0 - Restored with IPulseHookRegistry (Phase 4)
  */
-public class LuaHookAdapter implements ILuaCallCallback {
+public class LuaHookAdapter {
 
-    private static LuaHookAdapter INSTANCE;
+    private static final String OWNER_ID = "echo";
     private static volatile boolean registered = false;
+    private static LuaCallCallback callback;
 
-    private final EchoProfiler profiler;
-    private final LuaCallTracker tracker;
-
-    public LuaHookAdapter(EchoProfiler profiler, LuaCallTracker tracker) {
-        this.profiler = profiler;
-        this.tracker = tracker;
+    /**
+     * Lua Call 콜백 인터페이스.
+     * Pulse Hook에서 호출됩니다.
+     */
+    public interface LuaCallCallback {
+        void onLuaCall(String functionName, long durationNanos);
     }
 
     /**
-     * Pulse Hook Registry에 콜백 등록
+     * Pulse Hook Registry에 콜백 등록.
      */
     public static void register() {
         if (registered) {
-            PulseLogger.debug("Echo/LuaHook", "Already registered");
             return;
         }
 
-        EchoProfiler profiler = EchoProfiler.getInstance();
-        LuaCallTracker tracker = LuaCallTracker.getInstance();
-        INSTANCE = new LuaHookAdapter(profiler, tracker);
-
-        registerPulseLuaHookCallback(tracker, profiler);
-
         try {
-            PulseHookRegistry.register(HookTypes.LUA_CALL, INSTANCE, "Echo");
+            callback = LuaHookAdapter::handleLuaCall;
+            PulseServices.hooks().register(HookType.LUA_CALL, callback, OWNER_ID);
             registered = true;
-
-            int callbackCount = PulseHookRegistry.getCallbacks(HookTypes.LUA_CALL).size();
-            PulseLogger.info("Echo/LuaHook", "✅ LUA_CALL callback registered (v2.0)");
-            PulseLogger.debug("Echo/LuaHook", "lua_profiling.enabled = " + profiler.isLuaProfilingEnabled());
-            PulseLogger.debug("Echo/LuaHook", "LUA_CALL callbacks count = " + callbackCount);
+            PulseLogger.info("Echo/LuaHook", "LuaHookAdapter registered (Phase 4 - IPulseHookRegistry)");
+        } catch (IllegalStateException e) {
+            PulseLogger.warn("Echo/LuaHook", "LuaHookAdapter registration failed: PulseServices not initialized");
         } catch (Exception e) {
-            PulseLogger.error("Echo/LuaHook", "❌ Failed to register LUA_CALL callback: " + e.getMessage());
-            registered = false;
+            PulseLogger.error("Echo/LuaHook", "LuaHookAdapter registration failed: " + e.getMessage());
         }
     }
 
-    private static void registerPulseLuaHookCallback(LuaCallTracker tracker, EchoProfiler profiler) {
-        try {
-            com.pulse.internal.InternalLuaHook.setCallback(
-                    (eventName, durationMicros) -> {
-                        tracker.recordEventCall(eventName, durationMicros, 1);
-                    });
-
-            com.pulse.internal.InternalLuaHook.setProfilingEnabled(profiler.isLuaProfilingEnabled());
-            PulseLogger.info("Echo/LuaHook", "✅ InternalLuaHook callback registered");
-        } catch (NoClassDefFoundError e) {
-            PulseLogger.warn("Echo/LuaHook", "⚠ InternalLuaHook not available");
-        } catch (Exception e) {
-            PulseLogger.error("Echo/LuaHook", "❌ Failed to register InternalLuaHook: " + e.getMessage());
-        }
-    }
-
+    /**
+     * Pulse Hook Registry에서 콜백 해제.
+     */
     public static void unregister() {
-        if (!registered || INSTANCE == null)
+        if (!registered) {
             return;
+        }
 
         try {
-            PulseHookRegistry.unregister(HookTypes.LUA_CALL, INSTANCE);
-            PulseLogger.info("Echo/LuaHook", "LUA_CALL callback unregistered");
-        } catch (Exception e) {
-            PulseLogger.error("Echo/LuaHook", "Failed to unregister: " + e.getMessage());
-        } finally {
+            if (callback != null) {
+                PulseServices.hooks().unregister(HookType.LUA_CALL, callback);
+                callback = null;
+            }
             registered = false;
-            INSTANCE = null;
+            PulseLogger.info("Echo/LuaHook", "LuaHookAdapter unregistered");
+        } catch (Exception e) {
+            // Ignore - may already be shutdown
+        }
+    }
+
+    /**
+     * Lua 호출 처리 - Pulse에서 콜백됨.
+     */
+    private static void handleLuaCall(String functionName, long durationNanos) {
+        try {
+            EchoProfiler profiler = EchoProfiler.getInstance();
+            if (profiler.isLuaProfilingEnabled()) {
+                // Convert nanos to micros
+                long durationMicros = durationNanos / 1000;
+                LuaCallTracker.getInstance().recordFunctionCall(functionName, durationMicros);
+            }
+        } catch (Exception e) {
+            // Silent fail - don't disrupt game
         }
     }
 
@@ -92,50 +90,26 @@ public class LuaHookAdapter implements ILuaCallCallback {
         return registered;
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // ILuaCallCallback Implementation (nanoTime 버전 사용)
-    // ─────────────────────────────────────────────────────────────
-
-    @Override
-    public void onLuaCallStart(Object function, long startNanos) {
-        // LuaCallTracker에 직접 위임 (스택 관리는 Tracker에서)
-        tracker.recordCallStart(function, startNanos);
-    }
-
-    @Override
-    public void onLuaCallEnd(Object function, long endNanos) {
-        // LuaCallTracker에 직접 위임
-        tracker.recordCallEnd(function, endNanos);
-    }
-
-    // Legacy 메서드 (하위 호환성 - 사용되지 않음)
-    @Override
-    public void onLuaCallStart(Object function) {
-        // nanoTime 버전이 호출되므로 여기는 실행되지 않음
-    }
-
-    @Override
-    public void onLuaCallEnd(Object function) {
-        // nanoTime 버전이 호출되므로 여기는 실행되지 않음
-    }
-
     /**
-     * 진단 정보 출력
+     * 진단 정보 출력.
      */
     public static void printDiagnostics() {
         PulseLogger.info("Echo/LuaHook", "=== Diagnostics ===");
         PulseLogger.info("Echo/LuaHook", "registered = " + registered);
-        if (INSTANCE != null) {
-            PulseLogger.info("Echo/LuaHook", "lua_profiling.enabled = " + INSTANCE.profiler.isLuaProfilingEnabled());
-            PulseLogger.info("Echo/LuaHook", "detailed_active = " + INSTANCE.tracker.isDetailedActive());
-            PulseLogger.info("Echo/LuaHook", "total_calls = " + INSTANCE.tracker.getTotalCalls());
-            PulseLogger.info("Echo/LuaHook", "sampled_calls = " + INSTANCE.tracker.getSampledCalls());
-        }
+        PulseLogger.info("Echo/LuaHook", "status = " + (registered ? "ACTIVE" : "INACTIVE"));
+
         try {
-            int count = PulseHookRegistry.getCallbacks(HookTypes.LUA_CALL).size();
-            PulseLogger.info("Echo/LuaHook", "LUA_CALL callbacks = " + count);
+            int hookCount = PulseServices.hooks().getCallbackCount(HookType.LUA_CALL);
+            PulseLogger.info("Echo/LuaHook", "total_lua_hooks = " + hookCount);
         } catch (Exception e) {
-            PulseLogger.warn("Echo/LuaHook", "LUA_CALL callbacks = (error: " + e.getMessage() + ")");
+            PulseLogger.info("Echo/LuaHook", "total_lua_hooks = UNAVAILABLE");
         }
+
+        EchoProfiler profiler = EchoProfiler.getInstance();
+        LuaCallTracker tracker = LuaCallTracker.getInstance();
+
+        PulseLogger.info("Echo/LuaHook", "lua_profiling.enabled = " + profiler.isLuaProfilingEnabled());
+        PulseLogger.info("Echo/LuaHook", "detailed_active = " + tracker.isDetailedActive());
+        PulseLogger.info("Echo/LuaHook", "total_calls = " + tracker.getTotalCalls());
     }
 }

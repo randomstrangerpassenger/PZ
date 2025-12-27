@@ -1,6 +1,6 @@
 package com.pulse.event.environment;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 게임 내 시간 변경 이벤트.

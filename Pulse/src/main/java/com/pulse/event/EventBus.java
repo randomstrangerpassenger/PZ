@@ -1,6 +1,9 @@
 package com.pulse.event;
 
 import com.pulse.api.DevMode;
+import com.pulse.api.event.Event;
+import com.pulse.api.event.EventListener;
+import com.pulse.api.event.EventPriority;
 import com.pulse.api.log.PulseLogger;
 
 import java.util.*;
@@ -235,13 +238,13 @@ public class EventBus {
     }
 
     /**
-     * 특정 modId로 등록된 모든 리스너 해제.
+     * 특정 modId로 등록된 모든 리스너 해제 (정적 메서드 버전).
      * 모드 비활성화/리로드 시 사용.
      * 
      * @param modId 해제할 모드 ID
      * @return 해제된 리스너 수
      */
-    public static int unsubscribeAll(String modId) {
+    public static int unsubscribeAllByModId(String modId) {
         return INSTANCE.unregisterAll(modId);
     }
 

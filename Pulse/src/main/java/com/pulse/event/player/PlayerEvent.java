@@ -1,7 +1,7 @@
 package com.pulse.event.player;
 
 import com.pulse.access.AccessWidener;
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 플레이어 관련 이벤트 기본 클래스.

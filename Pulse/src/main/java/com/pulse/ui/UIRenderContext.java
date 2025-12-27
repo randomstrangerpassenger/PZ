@@ -1,10 +1,12 @@
 package com.pulse.ui;
 
+import com.pulse.api.ui.IUIRenderContext;
+
 /**
  * UI 렌더링 컨텍스트.
  * 위젯 렌더링에 필요한 그래픽 API 래퍼.
  */
-public class UIRenderContext {
+public class UIRenderContext implements IUIRenderContext {
 
     private Object graphics; // PZ의 UIGraphics 또는 Graphics2D
     private float deltaTime;
@@ -23,8 +25,9 @@ public class UIRenderContext {
     // ─────────────────────────────────────────────────────────────
 
     /**
-     * 사각형 그리기.
+     * 사각형 그리기 (IUIRenderContext 구현).
      */
+    @Override
     public void drawRect(int x, int y, int width, int height, int color) {
         drawRect(x, y, width, height, color, 1.0f);
     }
@@ -74,8 +77,18 @@ public class UIRenderContext {
     }
 
     /**
+     * 선 그리기 (IUIRenderContext 구현).
+     */
+    @Override
+    public void drawLine(int x1, int y1, int x2, int y2, int color) {
+        // 간단 구현: 두 점 사이 선 그리기 (실제로는 PZ API 사용)
+        // 현재는 기본 구현만 제공
+    }
+
+    /**
      * 텍스트 그리기.
      */
+    @Override
     public void drawText(String text, int x, int y, int color) {
         try {
             if (graphics != null) {
@@ -126,10 +139,12 @@ public class UIRenderContext {
         return deltaTime;
     }
 
+    @Override
     public int getScreenWidth() {
         return screenWidth;
     }
 
+    @Override
     public int getScreenHeight() {
         return screenHeight;
     }

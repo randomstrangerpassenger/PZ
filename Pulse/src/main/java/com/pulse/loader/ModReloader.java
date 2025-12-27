@@ -110,7 +110,7 @@ public final class ModReloader {
             PulseLogger.info(LOG, "[ModReloader] Starting reload: {}", modId);
 
             // 1. 모드의 이벤트 리스너 해제
-            int unsubscribed = EventBus.unsubscribeAll(modId);
+            int unsubscribed = EventBus.unsubscribeAllByModId(modId);
             PulseLogger.info(LOG, "[ModReloader]   Unsubscribed {} event listeners", unsubscribed);
 
             // 2. 모드의 Hook 콜백 해제

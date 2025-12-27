@@ -1,6 +1,6 @@
 package com.pulse.api.gc;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * GC 관찰 이벤트.

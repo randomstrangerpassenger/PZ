@@ -1,16 +1,16 @@
 package com.pulse.mixin;
 
-import com.pulse.api.PulseServices;
+import com.pulse.api.di.PulseServices;
 import com.pulse.api.gc.GcObservedEvent;
 import com.pulse.api.gc.GcSample;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.core.gc.GcEventState;
 import com.pulse.core.gc.GcSampler;
 import com.pulse.event.EventBus;
-import com.pulse.event.lifecycle.GameTickEvent;
-import com.pulse.event.lifecycle.GameTickStartEvent;
-import com.pulse.event.lifecycle.GameTickEndEvent;
-import com.pulse.event.lifecycle.WorldLoadEvent;
+import com.pulse.api.event.lifecycle.GameTickEvent;
+import com.pulse.api.event.lifecycle.GameTickStartEvent;
+import com.pulse.api.event.lifecycle.GameTickEndEvent;
+import com.pulse.api.event.lifecycle.WorldLoadEvent;
 import com.pulse.handler.TickEndResult;
 import com.pulse.handler.TickStartResult;
 import com.pulse.handler.WorldTickHandler;
@@ -170,7 +170,8 @@ public abstract class IsoWorldMixin {
                 if (Pulse$gcSampler != null && Pulse$gcEventState != null) {
                     GcSample sample = Pulse$gcSampler.sample(result.getTickCount());
                     if (Pulse$gcEventState.shouldPublish(sample)) {
-                        EventBus.post(new GcObservedEvent(sample));
+                        // TODO: Phase 3 - Fix GcObservedEvent type bound issue\n //
+                        // PulseServices.events().publish(new GcObservedEvent(sample));
                     }
                 }
             } catch (Throwable gcError) {

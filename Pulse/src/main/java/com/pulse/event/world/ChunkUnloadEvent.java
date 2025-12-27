@@ -1,6 +1,6 @@
 package com.pulse.event.world;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 청크 언로드 이벤트.

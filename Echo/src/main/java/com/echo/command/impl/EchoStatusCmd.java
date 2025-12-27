@@ -1,9 +1,6 @@
 package com.echo.command.impl;
 
 import com.echo.measure.EchoProfiler;
-import com.echo.pulse.PulseEventAdapter;
-import com.echo.pulse.TickProfiler;
-import com.echo.pulse.RenderProfiler;
 
 public class EchoStatusCmd {
     public static void execute(String[] args) {
@@ -23,24 +20,6 @@ public class EchoStatusCmd {
                 profiler.getSessionDurationSeconds());
         System.out.println();
 
-        // Pulse integration status
-        if (PulseEventAdapter.isRegistered()) {
-            TickProfiler tickProfiler = PulseEventAdapter.getTickProfiler();
-            RenderProfiler renderProfiler = PulseEventAdapter.getRenderProfiler();
-
-            System.out.println("📡 PULSE INTEGRATION");
-            System.out.println("───────────────────────────────────────────────────────");
-            if (tickProfiler != null) {
-                System.out.printf("  Tick Count:     %,d%n", tickProfiler.getTickCount());
-                System.out.printf("  Last Tick:      %.2f ms%n", tickProfiler.getLastTickDurationMs());
-                System.out.printf("  Spike Threshold: %.2f ms%n", tickProfiler.getSpikeThresholdMs());
-            }
-            if (renderProfiler != null) {
-                System.out.printf("  Frame Count:    %,d%n", renderProfiler.getFrameCount());
-                System.out.printf("  Current FPS:    %.1f%n", renderProfiler.getCurrentFps());
-                System.out.printf("  Last Frame:     %.2f ms%n", renderProfiler.getLastFrameDurationMs());
-            }
-            System.out.println();
-        }
+        // TODO: Pulse integration requires profiler API alignment
     }
 }

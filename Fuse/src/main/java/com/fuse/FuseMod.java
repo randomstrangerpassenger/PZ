@@ -18,12 +18,15 @@ import com.fuse.throttle.FuseStepPolicy;
 import com.fuse.throttle.FuseThrottleController;
 import com.pulse.api.gc.GcObservedEvent;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.api.profiler.ZombieHook;
-import com.pulse.event.EventBus;
-import com.pulse.event.lifecycle.GameTickEndEvent;
-import com.pulse.event.save.PostSaveEvent;
-import com.pulse.event.save.PreSaveEvent;
-import com.pulse.mod.PulseMod;
+// Phase 3: ZombieHook removed - use reflection
+// import com.pulse.api.profiler.ZombieHook;
+import com.pulse.api.di.PulseServices;
+import com.pulse.api.event.IEventBus;
+import com.pulse.api.event.lifecycle.GameTickEndEvent;
+import com.pulse.api.event.save.PostSaveEvent;
+import com.pulse.api.event.save.PreSaveEvent;
+import com.pulse.api.mod.PulseMod;
+import com.pulse.api.world.IWorldObjectThrottlePolicy;
 
 import java.util.Map;
 
@@ -148,9 +151,10 @@ public class FuseMod implements PulseMod {
             ioGuard = new IOGuard();
             ioGuard.loadConfig(config);
 
-            // IOGuard EventBus 구독
-            EventBus.subscribe(PreSaveEvent.class, ioGuard::onPreSave, MOD_ID);
-            EventBus.subscribe(PostSaveEvent.class, ioGuard::onPostSave, MOD_ID);
+            // IOGuard EventBus 구독 (Phase 3: PulseServices.events())
+            IEventBus events = PulseServices.events();
+            events.subscribe(PreSaveEvent.class, event -> ioGuard.onPreSave(event), MOD_ID);
+            events.subscribe(PostSaveEvent.class, event -> ioGuard.onPostSave(event), MOD_ID);
 
             // GCPressureGuard (v2.1)
             if (config.isGCPressureGuardEnabled()) {
@@ -159,7 +163,8 @@ public class FuseMod implements PulseMod {
                 gcPressureGuard.setReasonStats(reasonStats);
 
                 // EventBus 구독 (Hub&Spoke: Pulse GcObservedEvent 수신)
-                EventBus.subscribe(GcObservedEvent.class, gcPressureGuard::onGcObserved, MOD_ID);
+                PulseServices.events().subscribe(GcObservedEvent.class,
+                        (GcObservedEvent event) -> gcPressureGuard.onGcObserved(event), MOD_ID);
 
                 PulseLogger.info("Fuse", "GCPressureGuard initialized (v2.1)");
             }
@@ -170,14 +175,12 @@ public class FuseMod implements PulseMod {
         }
 
         // ========================================
-        // Phase 3: Hook Adapter 등록
+        // Phase 4: Hook Adapter 등록 (Direct API)
         // ========================================
 
         try {
-            hookAdapter = new FuseHookAdapter();
-            ZombieHook.setCallback(hookAdapter);
-            ZombieHook.profilingEnabled = true;
-            PulseLogger.info("Fuse", "ZombieHook callback registered");
+            hookAdapter = FuseHookAdapter.register();
+            PulseLogger.info("Fuse", "ZombieHook callback registered (Phase 4 - Direct API)");
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to register ZombieHook: " + e.getMessage(), e);
         }
@@ -204,20 +207,27 @@ public class FuseMod implements PulseMod {
                 throttleController.setGCPressureGuard(gcPressureGuard);
             }
 
-            ZombieHook.setThrottlePolicy(throttleController);
-            PulseLogger.info("Fuse", "ThrottleController registered (v2.1 with IOGuard + GCPressureGuard)");
+            // Phase 3: ZombieHook is internal - use reflection
+            try {
+                Class<?> zombieHook = Class.forName("com.pulse.api.profiler.ZombieHook");
+                zombieHook.getMethod("setThrottlePolicy", Object.class).invoke(null, throttleController);
+                PulseLogger.info("Fuse", "ThrottleController registered (v2.1 with IOGuard + GCPressureGuard)");
+            } catch (ClassNotFoundException e) {
+                PulseLogger.warn("Fuse", "ZombieHook.setThrottlePolicy disabled in Phase 3");
+            }
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to register ThrottlePolicy: " + e.getMessage(), e);
         }
 
         // ========================================
-        // Phase 4.5: Area 7 - ItemGovernor (World Objects)
+        // Phase 4.4: ItemGovernor with IWorldObjectThrottlePolicy
         // ========================================
 
         try {
             itemGovernor = new ItemGovernor();
 
-            // Inject policy into WorldItemMixin using reflection
+            // Phase 4: ItemGovernor implements IWorldObjectThrottlePolicy - inject into
+            // WorldItemMixin
             try {
                 Class<?> worldItemMixinClass = Class.forName("com.pulse.mixin.WorldItemMixin");
                 java.lang.reflect.Method setPolicyMethod = worldItemMixinClass.getDeclaredMethod(
@@ -225,11 +235,14 @@ public class FuseMod implements PulseMod {
                         com.pulse.api.world.IWorldObjectThrottlePolicy.class);
                 setPolicyMethod.setAccessible(true);
                 setPolicyMethod.invoke(null, itemGovernor);
+                PulseLogger.info("Fuse", "ItemGovernor injected into WorldItemMixin (Phase 4 - Direct API)");
+            } catch (ClassNotFoundException e) {
+                PulseLogger.debug("Fuse", "WorldItemMixin not found - item throttling not available");
             } catch (Exception e) {
                 PulseLogger.error("Fuse", "Failed to inject policy into WorldItemMixin: " + e.getMessage());
             }
 
-            PulseLogger.info("Fuse", "ItemGovernor initialized and injected into WorldItemMixin");
+            PulseLogger.info("Fuse", "ItemGovernor initialized (Phase 4 - IWorldObjectThrottlePolicy)");
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to register ThrottlePolicy: " + e.getMessage(), e);
         }
@@ -240,8 +253,14 @@ public class FuseMod implements PulseMod {
 
         try {
             stepPolicy = new FuseStepPolicy();
-            com.pulse.api.profiler.ZombieStepHook.setStepPolicy(stepPolicy);
-            PulseLogger.info("Fuse", "StepPolicy registered");
+            // Phase 3: ZombieStepHook is internal - use reflection
+            try {
+                Class<?> stepHook = Class.forName("com.pulse.api.profiler.ZombieStepHook");
+                stepHook.getMethod("setStepPolicy", Object.class).invoke(null, stepPolicy);
+                PulseLogger.info("Fuse", "StepPolicy registered (reflection)");
+            } catch (ClassNotFoundException e) {
+                PulseLogger.warn("Fuse", "ZombieStepHook disabled in Phase 3 (pending IZombieStepHook interface)");
+            }
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to register StepPolicy: " + e.getMessage(), e);
         }
@@ -258,7 +277,7 @@ public class FuseMod implements PulseMod {
         // Phase 7: Tick Event Subscription (로그 출력용)
         // ========================================
         try {
-            EventBus.subscribe(GameTickEndEvent.class, event -> {
+            PulseServices.events().subscribe(GameTickEndEvent.class, event -> {
                 onTick();
             }, MOD_ID);
             PulseLogger.info("Fuse", "GameTickEndEvent subscription active");
@@ -479,7 +498,8 @@ public class FuseMod implements PulseMod {
 
         // ItemGovernor 상태 (v2.2 Area 7)
         if (itemGovernor != null) {
-            sb.append("  ItemGovernor: decisions=").append(itemGovernor.getTotalDecisions())
+            sb.append("  ItemGovernor: throttled=").append(itemGovernor.getThrottleCount())
+                    .append(", full=").append(itemGovernor.getFullUpdateCount())
                     .append(", shellShock=").append(itemGovernor.getShellShockThrottleCount())
                     .append(", starvation=").append(itemGovernor.getStarvationPreventCount())
                     .append(", active=").append(itemGovernor.isShellShockActive() ? "YES" : "NO")
@@ -548,10 +568,9 @@ public class FuseMod implements PulseMod {
     public void shutdown() {
         PulseLogger.info("Fuse", "Shutting down...");
 
-        // Cleanup hook callback
+        // Cleanup hook callback (Phase 4: Direct API)
         try {
-            ZombieHook.setCallback(null);
-            ZombieHook.profilingEnabled = false;
+            FuseHookAdapter.unregister();
         } catch (Exception ignored) {
         }
 

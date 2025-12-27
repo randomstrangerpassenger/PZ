@@ -1,6 +1,6 @@
 package com.pulse.event.inventory;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 인벤토리 관련 이벤트 기본 클래스.

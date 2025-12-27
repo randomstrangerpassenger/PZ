@@ -1,137 +1,126 @@
 package com.echo.pulse;
 
+import com.pulse.api.di.PulseServices;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.api.optimization.OptimizationPointRegistry;
-import com.pulse.api.optimization.OptimizationPointRegistry.OptimizationPointInfo;
+import com.pulse.api.profiler.IOptimizationPointRegistry;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Pulse OptimizationPointRegistry와 Echo 측정 시스템 동기화
+ * Pulse OptimizationPointRegistry와 Echo 측정 시스템 동기화.
  * 
- * Pulse에 등록된 모든 최적화 포인트를 Echo 프로파일러에서
- * 동적으로 사용할 수 있도록 합니다.
+ * Phase 4: IOptimizationPointRegistry 인터페이스 사용하여 복원.
+ * PulseServices.optimizationPoints()를 통해 최적화 포인트 정보에 접근합니다.
  * 
  * @since 2.0.0 - Pulse Native Integration
+ * @since 3.0.0 - Stub Implementation (Phase 3)
+ * @since 4.0.0 - Restored with IOptimizationPointRegistry (Phase 4)
  */
 public class OptimizationPointSync {
 
-    // 동기화된 포인트 캐시
-    private static final Map<String, OptimizationPointInfo> loadedPoints = new ConcurrentHashMap<>();
-
-    // 동기화 상태
+    // 캐시된 포인트 데이터
+    private static final Map<String, Long> cachedPoints = new LinkedHashMap<>();
     private static boolean synced = false;
+    private static long lastSyncTick = 0;
+
+    // 동기화 간격 (틱당 한 번만)
+    private static final long SYNC_INTERVAL_MS = 1000;
 
     private OptimizationPointSync() {
         // Utility class
     }
 
     /**
-     * Pulse OptimizationPointRegistry에서 모든 포인트 동기화
-     * EchoMod.init()에서 호출됨
+     * Pulse OptimizationPointRegistry에서 모든 포인트 동기화.
      */
     public static void syncFromPulse() {
-        if (synced) {
-            PulseLogger.debug("Echo", "OptimizationPoint already synced");
-            return;
+        if (synced && System.currentTimeMillis() - lastSyncTick < SYNC_INTERVAL_MS) {
+            return; // 이미 최근에 동기화됨
         }
 
         try {
-            Collection<OptimizationPointInfo> all = OptimizationPointRegistry.getAll();
+            IOptimizationPointRegistry registry = PulseServices.optimizationPoints();
+            cachedPoints.clear();
 
-            for (OptimizationPointInfo info : all) {
-                loadedPoints.put(info.getId(), info);
+            for (String pointId : registry.getPointIds()) {
+                if (registry.isPointEnabled(pointId)) {
+                    long value = registry.getPointValue(pointId);
+                    cachedPoints.put(pointId, value);
+                }
             }
 
             synced = true;
-            PulseLogger.info("Echo", "Synced " + loadedPoints.size() + " optimization points from Pulse");
-
-            int count = 0;
-            for (OptimizationPointInfo info : loadedPoints.values()) {
-                if (count++ >= 5) {
-                    PulseLogger.debug("Echo", "... and " + (loadedPoints.size() - 5) + " more");
-                    break;
-                }
-                PulseLogger.debug("Echo", "- " + info.getId() + " (tier " + info.getTier() + ")");
+            lastSyncTick = System.currentTimeMillis();
+            PulseLogger.debug("Echo", "OptimizationPointSync: synced " + cachedPoints.size() + " points");
+        } catch (IllegalStateException e) {
+            // PulseServices not initialized - use empty state
+            if (!synced) {
+                PulseLogger.debug("Echo", "OptimizationPointSync: PulseServices not ready");
+                synced = true; // Mark as synced to avoid repeated warnings
             }
         } catch (Exception e) {
-            PulseLogger.error("Echo", "Failed to sync optimization points: " + e.getMessage());
+            PulseLogger.warn("Echo", "OptimizationPointSync failed: " + e.getMessage());
+            synced = true;
         }
     }
 
     /**
-     * 동기화된 모든 포인트 반환
+     * 동기화된 모든 포인트 반환.
      * 
-     * @return 불변 컬렉션
+     * @return 포인트 ID → 측정값 맵 (읽기 전용)
      */
-    public static Collection<OptimizationPointInfo> getPoints() {
-        return Collections.unmodifiableCollection(loadedPoints.values());
+    public static Map<String, Long> getPoints() {
+        syncFromPulse();
+        return Collections.unmodifiableMap(cachedPoints);
     }
 
     /**
-     * ID로 포인트 조회
+     * 특정 포인트 값 조회.
      * 
-     * @param id 포인트 ID
-     * @return OptimizationPointInfo or null
+     * @param pointId 포인트 ID
+     * @return 측정값 (나노초), 없으면 -1
      */
-    public static OptimizationPointInfo getPoint(String id) {
-        return loadedPoints.get(id);
+    public static long getPointValue(String pointId) {
+        syncFromPulse();
+        return cachedPoints.getOrDefault(pointId, -1L);
     }
 
     /**
-     * 포인트 ID 존재 여부 확인
-     * 
-     * @param id 포인트 ID
-     * @return 존재하면 true
-     */
-    public static boolean hasPoint(String id) {
-        return loadedPoints.containsKey(id);
-    }
-
-    /**
-     * 동기화된 포인트 수
+     * 동기화된 포인트 수.
      */
     public static int getPointCount() {
-        return loadedPoints.size();
+        syncFromPulse();
+        return cachedPoints.size();
     }
 
     /**
-     * 동기화 상태 확인
+     * 동기화 상태 확인.
      */
     public static boolean isSynced() {
         return synced;
     }
 
     /**
-     * Echo 라벨로 포인트 찾기
-     * 
-     * @param echoPrefix Echo 라벨 접두사
-     * @return Optional containing the info
+     * 포인트 ID 존재 여부 확인.
      */
-    public static Optional<OptimizationPointInfo> findByEchoPrefix(String echoPrefix) {
-        return loadedPoints.values().stream()
-                .filter(info -> echoPrefix.equals(info.getEchoPrefix()))
-                .findFirst();
+    public static boolean hasPoint(String id) {
+        syncFromPulse();
+        return cachedPoints.containsKey(id);
     }
 
     /**
-     * Tier로 포인트 필터링
-     * 
-     * @param tier Tier 레벨
-     * @return 해당 Tier의 포인트 목록
-     */
-    public static List<OptimizationPointInfo> getPointsByTier(int tier) {
-        return loadedPoints.values().stream()
-                .filter(info -> info.getTier() == tier)
-                .toList();
-    }
-
-    /**
-     * 동기화 초기화 (테스트용)
+     * 동기화 초기화 (테스트용).
      */
     public static void reset() {
-        loadedPoints.clear();
+        cachedPoints.clear();
         synced = false;
+        lastSyncTick = 0;
+    }
+
+    /**
+     * 강제 동기화 (다음 호출 시 새로 가져옴).
+     */
+    public static void invalidate() {
+        lastSyncTick = 0;
     }
 }

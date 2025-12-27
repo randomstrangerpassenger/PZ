@@ -3,9 +3,9 @@ package com.fuse.guard;
 import com.fuse.config.FuseConfig;
 import com.fuse.telemetry.TelemetryReason;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.event.save.PostSaveEvent;
-import com.pulse.event.save.PreSaveEvent;
-import com.pulse.event.save.SaveEvent;
+import com.pulse.api.event.save.PostSaveEvent;
+import com.pulse.api.event.save.PreSaveEvent;
+import com.pulse.api.event.save.SaveEvent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 

@@ -1,6 +1,6 @@
 package com.pulse.event.lifecycle;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 모드 리로드 이벤트.

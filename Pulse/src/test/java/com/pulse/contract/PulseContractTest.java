@@ -2,7 +2,7 @@ package com.pulse.contract;
 
 import com.pulse.api.util.ReflectionCache;
 import com.pulse.event.EventBus;
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 import com.pulse.scheduler.PulseScheduler;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

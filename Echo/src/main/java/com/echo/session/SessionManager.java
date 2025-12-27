@@ -101,7 +101,7 @@ public class SessionManager {
 
         // 메인 메뉴에서는 wasWorldLoaded를 현재 상태로 동기화
         // 이렇게 하면 onTick()의 false→true 전환 감지가 작동하지 않음
-        wasWorldLoaded = com.pulse.api.access.WorldAccess.isWorldLoaded();
+        wasWorldLoaded = isWorldLoadedSafe();
 
         if (!sessionActive) {
             menuRenderCount = 0;
@@ -133,9 +133,9 @@ public class SessionManager {
      * @since 2.1.1 - Pulse GameStateAccess 기반으로 개선
      */
     public void onTick() {
-        // Phase 1: Pulse API로 현재 상태 확인
-        boolean isOnMainMenuNow = com.pulse.api.access.GameStateAccess.isOnMainMenu();
-        boolean isWorldLoaded = com.pulse.api.access.WorldAccess.isWorldLoaded();
+        // Phase 1: 현재 상태 확인 (Pulse API fallback)
+        boolean isOnMainMenuNow = isOnMainMenuSafe();
+        boolean isWorldLoaded = isWorldLoadedSafe();
 
         // 메인 메뉴 상태 동기화 (Pulse API 결과 반영)
         if (isOnMainMenuNow) {
@@ -165,7 +165,7 @@ public class SessionManager {
                 sessionActive = true;
                 dirty = false;
                 tickCount = 0;
-                currentWorldName = com.pulse.api.access.WorldAccess.getWorldName();
+                currentWorldName = getWorldNameSafe();
                 if (currentWorldName == null || currentWorldName.isEmpty()) {
                     currentWorldName = "AutoDetected";
                 }
@@ -188,13 +188,67 @@ public class SessionManager {
         wasWorldLoaded = isWorldLoaded;
     }
 
+    // --- Pulse API Access Helpers (PulseServices with fallback) ---
+
+    private static boolean isWorldLoadedSafe() {
+        try {
+            return com.pulse.api.di.PulseServices.world().isWorldLoaded();
+        } catch (IllegalStateException e) {
+            // Fallback: PulseServices not initialized - use reflection
+            try {
+                Class<?> isoWorld = Class.forName("zombie.iso.IsoWorld");
+                Object instance = isoWorld.getField("instance").get(null);
+                return instance != null;
+            } catch (Exception ex) {
+                return false;
+            }
+        }
+    }
+
+    private static boolean isOnMainMenuSafe() {
+        try {
+            return com.pulse.api.di.PulseServices.gameState().isOnMainMenu();
+        } catch (IllegalStateException e) {
+            // Fallback: PulseServices not initialized - use reflection
+            try {
+                Class<?> gameState = Class.forName("zombie.gameStates.GameState");
+                Object current = gameState.getMethod("getCurrentState").invoke(null);
+                if (current == null)
+                    return true;
+                return current.getClass().getSimpleName().contains("MainScreen");
+            } catch (Exception ex) {
+                return true; // Assume main menu on error
+            }
+        }
+    }
+
+    private static String getWorldNameSafe() {
+        try {
+            return com.pulse.api.di.PulseServices.world().getWorldName();
+        } catch (IllegalStateException e) {
+            // Fallback: PulseServices not initialized - use reflection
+            try {
+                Class<?> core = Class.forName("zombie.core.Core");
+                Object world = core.getField("GameSaveWorld").get(null);
+                return world != null ? world.toString() : null;
+            } catch (Exception ex) {
+                return null;
+            }
+        }
+    }
+
     private boolean isMultiplayerWorld() {
         try {
-            Class<?> gameClient = Class.forName("zombie.network.GameClient");
-            java.lang.reflect.Field bClient = gameClient.getField("bClient");
-            return Boolean.TRUE.equals(bClient.get(null));
-        } catch (Exception e) {
-            return false;
+            return com.pulse.api.di.PulseServices.gameState().isMultiplayer();
+        } catch (IllegalStateException e) {
+            // Fallback: PulseServices not initialized - use reflection
+            try {
+                Class<?> gameClient = Class.forName("zombie.network.GameClient");
+                java.lang.reflect.Field bClient = gameClient.getField("bClient");
+                return Boolean.TRUE.equals(bClient.get(null));
+            } catch (Exception ex) {
+                return false;
+            }
         }
     }
 

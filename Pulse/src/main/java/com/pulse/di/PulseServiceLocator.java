@@ -1,5 +1,7 @@
 package com.pulse.di;
 
+import com.pulse.api.di.IServiceLocator;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Usage:
  * PulseServiceLocator.getInstance().getService(MyService.class);
  */
-public class PulseServiceLocator {
+public class PulseServiceLocator implements IServiceLocator {
 
     private static final PulseServiceLocator INSTANCE = new PulseServiceLocator();
     private final Map<Class<?>, Object> services = new ConcurrentHashMap<>();
@@ -27,8 +29,14 @@ public class PulseServiceLocator {
         services.put(type, instance);
     }
 
+    @Override
     public <T> T getService(Class<T> type) {
         return type.cast(services.get(type));
+    }
+
+    @Override
+    public <T> boolean hasService(Class<T> type) {
+        return services.containsKey(type);
     }
 
     public void clear() {

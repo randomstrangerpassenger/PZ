@@ -1,7 +1,7 @@
 package com.pulse.mixin;
 
 import com.pulse.event.EventBus;
-import com.pulse.event.lifecycle.GameInitEvent;
+import com.pulse.api.event.lifecycle.GameInitEvent;
 import com.pulse.api.log.PulseLogger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

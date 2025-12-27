@@ -31,9 +31,8 @@ dependencies {
         testImplementation files('libs/pulse-api.jar')
     }
     
-    // Pulse main (compile-only, for HUDOverlay/UIRenderContext - v2.0 Native UI)
+    // Pulse main (for testing only)
     if (findProject(':Pulse') != null) {
-        compileOnly project(':Pulse')
         testImplementation project(':Pulse')
     }
     

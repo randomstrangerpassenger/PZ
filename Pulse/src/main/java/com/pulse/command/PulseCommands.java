@@ -1,6 +1,6 @@
 package com.pulse.command;
 
-import com.pulse.api.PulseServices;
+import com.pulse.api.di.PulseServices;
 import com.pulse.api.log.PulseLogger;
 
 import com.pulse.diagnostics.HotspotMap;
@@ -96,7 +96,7 @@ public final class PulseCommands {
         // 디버그 모드 설정
         PulseHookRegistry.setDebugEnabled(enable);
         SafeMixinWrapper.setDebugMode(enable);
-        PulseServices.eventBus().setDebug(enable);
+        PulseServices.events().setDebug(enable);
         HotspotMap.setEnabled(enable);
 
         ctx.reply("§aDebug mode: " + (enable ? "§aENABLED" : "§cDISABLED"));

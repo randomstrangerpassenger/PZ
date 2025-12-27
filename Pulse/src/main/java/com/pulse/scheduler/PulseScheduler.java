@@ -1,6 +1,7 @@
 package com.pulse.scheduler;
 
 import com.pulse.api.log.PulseLogger;
+import com.pulse.api.scheduler.IScheduler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * });
  * </pre>
  */
-public class PulseScheduler {
+public class PulseScheduler implements IScheduler {
 
     private static final PulseScheduler INSTANCE = new PulseScheduler();
 

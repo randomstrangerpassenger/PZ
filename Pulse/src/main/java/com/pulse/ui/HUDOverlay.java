@@ -1,14 +1,18 @@
 package com.pulse.ui;
 
 import com.pulse.api.log.PulseLogger;
+import com.pulse.api.ui.IHUDLayer;
+import com.pulse.api.ui.IHUDOverlay;
+import com.pulse.api.ui.IUIRenderContext;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * HUD 오버레이 매니저.
  * 게임 화면 위에 표시되는 UI 레이어.
  */
-public class HUDOverlay {
+public class HUDOverlay implements IHUDOverlay {
 
     private static final HUDOverlay INSTANCE = new HUDOverlay();
     private static final String LOG = PulseLogger.PULSE;
@@ -24,7 +28,38 @@ public class HUDOverlay {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 레이어 관리
+    // IHUDOverlay 구현 (Phase 2: API 계약)
+    // ─────────────────────────────────────────────────────────────
+
+    /**
+     * HUD 렌더링 콜백 등록 (IHUDOverlay 구현).
+     * 
+     * @param id       고유 식별자
+     * @param renderer 렌더링 함수
+     */
+    @Override
+    public void registerRenderer(String id, Consumer<IUIRenderContext> renderer) {
+        // Consumer를 HUDLayer로 래핑하여 기존 시스템에 통합
+        HUDLayer layer = new HUDLayer() {
+            @Override
+            public void render(UIRenderContext ctx) {
+                // UIRenderContext가 IUIRenderContext를 구현하므로 안전하게 전달
+                renderer.accept((IUIRenderContext) ctx);
+            }
+        };
+        registerLayer(id, layer, 0); // 기본 우선순위 0
+    }
+
+    /**
+     * HUD 렌더링 콜백 제거 (IHUDOverlay 구현).
+     */
+    @Override
+    public void unregisterRenderer(String id) {
+        unregisterLayer(id);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 레이어 관리 (Phase 3에서 Frame으로 이동 예정)
     // ─────────────────────────────────────────────────────────────
 
     /**
@@ -33,7 +68,9 @@ public class HUDOverlay {
      * @param id       레이어 식별자
      * @param layer    레이어
      * @param priority 우선순위 (낮을수록 먼저 렌더링)
+     * @deprecated Phase 3에서 Frame으로 이동 예정. registerRenderer() 사용 권장.
      */
+    @Deprecated
     public static void registerLayer(String id, HUDLayer layer, int priority) {
         layer.id = id;
         layer.priority = priority;

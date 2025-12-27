@@ -1,6 +1,6 @@
 package com.pulse.event.lifecycle;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 월드 로드 시 발생

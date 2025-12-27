@@ -1,6 +1,6 @@
 package com.echo.event;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * EchoProfiler 리셋 이벤트.

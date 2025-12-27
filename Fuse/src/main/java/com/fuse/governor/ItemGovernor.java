@@ -1,52 +1,151 @@
 package com.fuse.governor;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.world.IWorldObjectThrottlePolicy;
 import com.pulse.api.world.WorldObjectThrottleLevel;
-import com.pulse.api.log.PulseLogger;
 
 /**
- * ItemGovernor - implements IWorldObjectThrottlePolicy for world items.
+ * Fuse Item Governor - 월드 아이템 업데이트 쓰로틀링 정책 구현.
  * 
- * Features:
- * - Sequence-based throttle distribution
- * - ShellShock integration
- * - Starvation-aware policy
+ * IWorldObjectThrottlePolicy를 구현하여 WorldItemMixin에 정책을 주입합니다.
+ * 적응형 쓰로틀링: 시스템 부하에 따라 업데이트 주기를 조절합니다.
  * 
- * @since Fuse v2.2 Area 7
+ * Phase 4: stub에서 복원 - IWorldObjectThrottlePolicy 구현
+ * 
+ * @since Fuse 0.3.0
+ * @since Fuse 0.4.0 - Phase 4: IWorldObjectThrottlePolicy 구현 복원
  */
 public class ItemGovernor implements IWorldObjectThrottlePolicy {
 
-    private static final String LOG = "Fuse/ItemGovernor";
+    private static final String LOG = "Fuse";
 
-    // ShellShock state
-    private volatile boolean shellShockActive = false;
+    // 쓰로틀 설정
+    private boolean enabled = true;
+    private boolean shellShockActive = false;
+    private float baseDistance = 20.0f;
+    private int cacheValidTicks = 60;
 
-    // Statistics
-    private long fullLevelCount = 0;
-    private long lightLevelCount = 0;
-    private long mediumLevelCount = 0;
-    private long heavyLevelCount = 0;
-    private long veryHeavyLevelCount = 0;
+    // 통계
+    private long throttleCount = 0;
+    private long fullUpdateCount = 0;
     private long shellShockThrottleCount = 0;
     private long starvationPreventCount = 0;
 
-    // Starvation limit (from WorldItemMixin)
-    private static final int ITEM_STARVATION_LIMIT = 60;
-
     public ItemGovernor() {
-        PulseLogger.info(LOG, "✅ ItemGovernor initialized");
+        PulseLogger.info(LOG, "ItemGovernor initialized (Phase 4 - IWorldObjectThrottlePolicy)");
     }
 
-    /**
-     * Set ShellShock state - called by FuseThrottleController.
-     */
+    // --- IWorldObjectThrottlePolicy Implementation ---
+
+    @Override
+    public WorldObjectThrottleLevel decideThrottleLevel(
+            Object item, // zombie.iso.objects.IsoWorldInventoryObject
+            int sequenceId,
+            WorldObjectThrottleLevel cachedLevel,
+            long lastCacheTick,
+            long currentTick,
+            int ticksSinceLastUpdate) {
+
+        if (!enabled) {
+            return WorldObjectThrottleLevel.FULL;
+        }
+
+        // Starvation 방지: 300틱 이상 업데이트 안된 경우 Full 업데이트
+        if (ticksSinceLastUpdate > 300) {
+            starvationPreventCount++;
+            return WorldObjectThrottleLevel.FULL;
+        }
+
+        // 캐시 유효성 확인
+        if (cachedLevel != null && (currentTick - lastCacheTick) < cacheValidTicks) {
+            return cachedLevel;
+        }
+
+        // ShellShock 상태: 최소 업데이트만
+        if (shellShockActive) {
+            shellShockThrottleCount++;
+            return WorldObjectThrottleLevel.MINIMAL;
+        }
+
+        // 플레이어 거리 기반 결정 (간략화된 로직)
+        // 실제 거리 계산은 Mixin에서 수행하여 전달해야 함
+        // 여기서는 sequenceId 기반 분산 처리
+        int mod = sequenceId % 4;
+        WorldObjectThrottleLevel level;
+        switch (mod) {
+            case 0:
+                level = WorldObjectThrottleLevel.FULL;
+                fullUpdateCount++;
+                break;
+            case 1:
+                level = WorldObjectThrottleLevel.REDUCED;
+                throttleCount++;
+                break;
+            case 2:
+                level = WorldObjectThrottleLevel.LOW;
+                throttleCount++;
+                break;
+            default:
+                level = WorldObjectThrottleLevel.MINIMAL;
+                throttleCount++;
+                break;
+        }
+
+        return level;
+    }
+
+    @Override
+    public WorldObjectThrottleLevel decideThrottleLevelForCorpse(
+            Object corpse, // zombie.iso.objects.IsoDeadBody
+            int sequenceId,
+            WorldObjectThrottleLevel cachedLevel,
+            long lastCacheTick,
+            long currentTick,
+            int ticksSinceLastUpdate) {
+
+        if (!enabled) {
+            return WorldObjectThrottleLevel.FULL;
+        }
+
+        // Starvation 방지: 시체는 600틱까지 허용
+        if (ticksSinceLastUpdate > 600) {
+            starvationPreventCount++;
+            return WorldObjectThrottleLevel.FULL;
+        }
+
+        // 캐시 유효성 확인
+        if (cachedLevel != null && (currentTick - lastCacheTick) < cacheValidTicks * 2) {
+            return cachedLevel;
+        }
+
+        // ShellShock 상태: 시체는 거의 업데이트 안 함
+        if (shellShockActive) {
+            shellShockThrottleCount++;
+            return WorldObjectThrottleLevel.MINIMAL;
+        }
+
+        // 시체는 기본적으로 낮은 우선순위
+        throttleCount++;
+        return WorldObjectThrottleLevel.LOW;
+    }
+
+    // --- Control Methods ---
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        PulseLogger.info(LOG, "ItemGovernor enabled: " + enabled);
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public void setShellShockActive(boolean active) {
-        if (active && !this.shellShockActive) {
-            this.shellShockActive = true;
-            PulseLogger.info(LOG, "🔥 ShellShock ACTIVE - aggressive throttling enabled");
-        } else if (!active && this.shellShockActive) {
-            this.shellShockActive = false;
-            PulseLogger.info(LOG, "✅ ShellShock ENDED - normal throttling resumed");
+        this.shellShockActive = active;
+        if (active) {
+            PulseLogger.warn(LOG, "ItemGovernor ShellShock mode ACTIVATED");
+        } else {
+            PulseLogger.info(LOG, "ItemGovernor ShellShock mode deactivated");
         }
     }
 
@@ -54,125 +153,46 @@ public class ItemGovernor implements IWorldObjectThrottlePolicy {
         return shellShockActive;
     }
 
-    @Override
-    public WorldObjectThrottleLevel decideThrottleLevel(
-            Object item,
-            int sequenceId,
-            WorldObjectThrottleLevel cachedLevel,
-            long lastCacheTick,
-            long currentTick,
-            int ticksSinceLastUpdate) {
-        try {
-            // Starvation prevention
-            if (ticksSinceLastUpdate >= ITEM_STARVATION_LIMIT - 10) {
-                starvationPreventCount++;
-                return WorldObjectThrottleLevel.LIGHT;
-            }
-
-            // ShellShock handling - throttle more aggressively
-            if (shellShockActive) {
-                shellShockThrottleCount++;
-                return WorldObjectThrottleLevel.HEAVY;
-            }
-
-            // Sequence-based distribution
-            WorldObjectThrottleLevel level = calculateLevelSimple(sequenceId);
-            incrementLevelStat(level);
-            return level;
-
-        } catch (Throwable t) {
-            PulseLogger.error(LOG, "Error in decideThrottleLevel: " + t.getMessage());
-            return WorldObjectThrottleLevel.FULL;
-        }
+    public void setBaseDistance(float distance) {
+        this.baseDistance = distance;
     }
 
-    @Override
-    public WorldObjectThrottleLevel decideThrottleLevelForCorpse(
-            Object corpse,
-            int sequenceId,
-            WorldObjectThrottleLevel cachedLevel,
-            long lastCacheTick,
-            long currentTick,
-            int ticksSinceLastUpdate) {
-        // Corpse throttling not implemented (corpses don't use update() loop)
-        return WorldObjectThrottleLevel.FULL;
+    public float getBaseDistance() {
+        return baseDistance;
     }
 
-    /**
-     * Simple level calculation based on sequenceId distribution.
-     */
-    private WorldObjectThrottleLevel calculateLevelSimple(int sequenceId) {
-        int mod = sequenceId % 10;
-        if (mod < 3) {
-            return WorldObjectThrottleLevel.FULL;
-        } else if (mod < 6) {
-            return WorldObjectThrottleLevel.LIGHT;
-        } else if (mod < 8) {
-            return WorldObjectThrottleLevel.MEDIUM;
-        } else {
-            return WorldObjectThrottleLevel.HEAVY;
-        }
+    // --- Statistics ---
+
+    public long getThrottleCount() {
+        return throttleCount;
     }
 
-    private void incrementLevelStat(WorldObjectThrottleLevel level) {
-        switch (level) {
-            case FULL:
-                fullLevelCount++;
-                break;
-            case LIGHT:
-                lightLevelCount++;
-                break;
-            case MEDIUM:
-                mediumLevelCount++;
-                break;
-            case HEAVY:
-                heavyLevelCount++;
-                break;
-            case VERY_HEAVY:
-                veryHeavyLevelCount++;
-                break;
-        }
+    public long getFullUpdateCount() {
+        return fullUpdateCount;
     }
 
-    public long getTotalDecisions() {
-        return fullLevelCount + lightLevelCount + mediumLevelCount + heavyLevelCount + veryHeavyLevelCount;
-    }
-
-    public void printStatus() {
-        long total = getTotalDecisions();
-        PulseLogger.info(LOG, "ItemGovernor Status:");
-        PulseLogger.info(LOG, String.format("  FULL: %d (%.1f%%)", fullLevelCount, pct(fullLevelCount, total)));
-        PulseLogger.info(LOG, String.format("  LIGHT: %d (%.1f%%)", lightLevelCount, pct(lightLevelCount, total)));
-        PulseLogger.info(LOG, String.format("  MEDIUM: %d (%.1f%%)", mediumLevelCount, pct(mediumLevelCount, total)));
-        PulseLogger.info(LOG, String.format("  HEAVY: %d (%.1f%%)", heavyLevelCount, pct(heavyLevelCount, total)));
-        PulseLogger.info(LOG,
-                String.format("  VERY_HEAVY: %d (%.1f%%)", veryHeavyLevelCount, pct(veryHeavyLevelCount, total)));
-        PulseLogger.info(LOG, "  ---");
-        PulseLogger.info(LOG, "  ShellShock throttles: " + shellShockThrottleCount);
-        PulseLogger.info(LOG, "  Starvation prevents: " + starvationPreventCount);
-        PulseLogger.info(LOG, "  ShellShock active: " + (shellShockActive ? "YES" : "NO"));
-    }
-
-    public void resetStats() {
-        fullLevelCount = 0;
-        lightLevelCount = 0;
-        mediumLevelCount = 0;
-        heavyLevelCount = 0;
-        veryHeavyLevelCount = 0;
-        shellShockThrottleCount = 0;
-        starvationPreventCount = 0;
-    }
-
-    private double pct(long count, long total) {
-        return total == 0 ? 0.0 : (count * 100.0) / total;
-    }
-
-    // Getters for telemetry
     public long getShellShockThrottleCount() {
         return shellShockThrottleCount;
     }
 
     public long getStarvationPreventCount() {
         return starvationPreventCount;
+    }
+
+    public void resetStats() {
+        throttleCount = 0;
+        fullUpdateCount = 0;
+        shellShockThrottleCount = 0;
+        starvationPreventCount = 0;
+    }
+
+    public void printStatus() {
+        PulseLogger.info(LOG, "ItemGovernor Stats:");
+        PulseLogger.info(LOG, "  Enabled: " + enabled);
+        PulseLogger.info(LOG, "  ShellShock: " + shellShockActive);
+        PulseLogger.info(LOG, "  Throttled: " + throttleCount);
+        PulseLogger.info(LOG, "  Full Updates: " + fullUpdateCount);
+        PulseLogger.info(LOG, "  ShellShock Throttles: " + shellShockThrottleCount);
+        PulseLogger.info(LOG, "  Starvation Prevents: " + starvationPreventCount);
     }
 }

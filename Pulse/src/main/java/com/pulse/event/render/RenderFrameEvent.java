@@ -1,6 +1,6 @@
 package com.pulse.event.render;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 렌더 프레임 이벤트.

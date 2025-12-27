@@ -1,18 +1,18 @@
 package com.fuse.hook;
 
 import com.pulse.api.log.PulseLogger;
-import com.pulse.api.profiler.ProfilerBridge;
 import com.pulse.api.profiler.ZombieHook;
 
 /**
  * Fuse Hook Adapter - ZombieHook 콜백 구현.
  * 
  * Pulse API만 사용 (Echo 의존성 없음).
- * ProfilerBridge를 통해 데이터를 Echo로 전달.
+ * ZombieHook.IZombieCallback을 통해 데이터를 수집.
  * 
- * Phase 1.5: WithContext 메서드로 zombie 객체 접근 가능
+ * Phase 4: stub에서 복원 - IZombieCallback 구현
  * 
  * @since Fuse 0.3.0
+ * @since Fuse 0.4.0 - Phase 4: IZombieCallback 구현 복원
  */
 public class FuseHookAdapter implements ZombieHook.IZombieCallback {
 
@@ -29,23 +29,35 @@ public class FuseHookAdapter implements ZombieHook.IZombieCallback {
     private long totalPerceptionMicros = 0;
     private long totalTrackingMicros = 0;
 
-    // Phase 1.5: 현재 처리 중인 좀비 (Phase 2 throttling용)
+    // 현재 처리 중인 좀비
     private Object currentZombie = null;
 
     public FuseHookAdapter() {
-        PulseLogger.info(LOG, "HookAdapter initialized (Phase 1.5 - WithContext)");
+        PulseLogger.info(LOG, "HookAdapter initialized (Phase 4 - IZombieCallback)");
     }
 
-    // --- Phase 1.5: WithContext 오버라이드 ---
+    // --- Registration ---
+
+    public static FuseHookAdapter register() {
+        FuseHookAdapter adapter = new FuseHookAdapter();
+        ZombieHook.setCallback(adapter);
+        ZombieHook.profilingEnabled = true;
+        PulseLogger.info("Fuse", "ZombieHook callback registered");
+        return adapter;
+    }
+
+    public static void unregister() {
+        ZombieHook.clearCallback();
+        ZombieHook.profilingEnabled = false;
+        PulseLogger.info("Fuse", "ZombieHook callback unregistered");
+    }
+
+    // --- IZombieCallback Implementation ---
 
     @Override
     public void onZombieUpdateWithContext(Object zombie) {
         currentZombie = zombie;
         zombieUpdateCount++;
-        ProfilerBridge.incrementZombieUpdates();
-
-        // Phase 2: 여기서 shouldSkip(zombie) 체크 가능
-        // if (throttleController.shouldSkip(zombie)) { return; }
     }
 
     @Override
@@ -60,8 +72,6 @@ public class FuseHookAdapter implements ZombieHook.IZombieCallback {
             long durationMicros = (System.nanoTime() - motionStartNanos) / 1000;
             totalMotionMicros += durationMicros;
             motionStartNanos = -1;
-
-            ProfilerBridge.recordZombieStep("MOTION_UPDATE", durationMicros);
         }
         currentZombie = null;
     }
@@ -78,8 +88,6 @@ public class FuseHookAdapter implements ZombieHook.IZombieCallback {
             long durationMicros = (System.nanoTime() - perceptionStartNanos) / 1000;
             totalPerceptionMicros += durationMicros;
             perceptionStartNanos = -1;
-
-            ProfilerBridge.recordZombieStep("SOUND_PERCEPTION", durationMicros);
         }
     }
 
@@ -95,46 +103,7 @@ public class FuseHookAdapter implements ZombieHook.IZombieCallback {
             long durationMicros = (System.nanoTime() - trackingStartNanos) / 1000;
             totalTrackingMicros += durationMicros;
             trackingStartNanos = -1;
-
-            ProfilerBridge.recordZombieStep("TARGET_TRACKING", durationMicros);
         }
-    }
-
-    // --- Original methods (delegate to WithContext) ---
-
-    @Override
-    public void onZombieUpdate() {
-        onZombieUpdateWithContext(null);
-    }
-
-    @Override
-    public void onMotionUpdateStart() {
-        onMotionUpdateStartWithContext(null);
-    }
-
-    @Override
-    public void onMotionUpdateEnd() {
-        onMotionUpdateEndWithContext(null);
-    }
-
-    @Override
-    public void onSoundPerceptionStart() {
-        onSoundPerceptionStartWithContext(null);
-    }
-
-    @Override
-    public void onSoundPerceptionEnd() {
-        onSoundPerceptionEndWithContext(null);
-    }
-
-    @Override
-    public void onTargetTrackingStart() {
-        onTargetTrackingStartWithContext(null);
-    }
-
-    @Override
-    public void onTargetTrackingEnd() {
-        onTargetTrackingEndWithContext(null);
     }
 
     // --- Getters ---
@@ -172,6 +141,5 @@ public class FuseHookAdapter implements ZombieHook.IZombieCallback {
         PulseLogger.info(LOG, "  Motion: " + (totalMotionMicros / 1000) + "ms");
         PulseLogger.info(LOG, "  Perception: " + (totalPerceptionMicros / 1000) + "ms");
         PulseLogger.info(LOG, "  Tracking: " + (totalTrackingMicros / 1000) + "ms");
-        PulseLogger.info(LOG, "  ProfilerBridge Sink: " + ProfilerBridge.hasSink());
     }
 }

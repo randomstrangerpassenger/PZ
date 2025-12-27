@@ -1,6 +1,6 @@
 package com.pulse.lifecycle;
 
-import com.pulse.api.PulseServices;
+import com.pulse.api.di.PulseServices;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.di.PulseServiceLocator;
 import com.pulse.lua.LuaBridge;
@@ -127,7 +127,7 @@ public final class LifecycleManager {
         }
 
         try {
-            PulseServices.eventBus().clearAll();
+            PulseServices.events().clearAll();
             PulseLogger.debug(LOG, "[Lifecycle] EventBus cleared");
         } catch (Throwable t) {
             errors.add("EventBus: " + t.getMessage());

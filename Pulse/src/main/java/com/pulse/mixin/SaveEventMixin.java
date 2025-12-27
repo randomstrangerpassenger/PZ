@@ -2,9 +2,9 @@ package com.pulse.mixin;
 
 import com.pulse.api.log.PulseLogger;
 import com.pulse.event.EventBus;
-import com.pulse.event.save.PostSaveEvent;
-import com.pulse.event.save.PreSaveEvent;
-import com.pulse.event.save.SaveEvent;
+import com.pulse.api.event.save.PostSaveEvent;
+import com.pulse.api.event.save.PreSaveEvent;
+import com.pulse.api.event.save.SaveEvent;
 import com.pulse.event.save.SaveEventState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

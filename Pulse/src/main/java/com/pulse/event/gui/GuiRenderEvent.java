@@ -1,6 +1,6 @@
 package com.pulse.event.gui;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * GUI 렌더링 이벤트.

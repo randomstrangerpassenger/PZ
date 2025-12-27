@@ -1,6 +1,6 @@
 package com.pulse.input;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 키 입력 이벤트.

@@ -1,5 +1,6 @@
 package com.pulse.event.save;
 
+import com.pulse.api.event.save.SaveEvent;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**

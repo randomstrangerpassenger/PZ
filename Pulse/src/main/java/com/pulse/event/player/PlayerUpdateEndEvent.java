@@ -1,6 +1,6 @@
 package com.pulse.event.player;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 플레이어 업데이트 종료 이벤트.

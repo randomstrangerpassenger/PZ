@@ -3,7 +3,7 @@ package com.pulse.mod;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.config.ConfigManager;
 import com.pulse.event.EventBus;
-import com.pulse.event.lifecycle.ModReloadEvent;
+import com.pulse.api.event.lifecycle.ModReloadEvent;
 
 import java.io.File;
 import java.net.URL;

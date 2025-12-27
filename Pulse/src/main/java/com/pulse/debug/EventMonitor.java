@@ -1,7 +1,7 @@
 package com.pulse.debug;
 
 import com.pulse.api.log.PulseLogger;
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,6 +1,6 @@
 package com.pulse.event.chat;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
 
 /**
  * 채팅 관련 이벤트 기본 클래스.

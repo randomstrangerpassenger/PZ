@@ -1,9 +1,9 @@
 package com.pulse.api;
 
-import com.pulse.event.Event;
+import com.pulse.api.event.Event;
+import com.pulse.api.event.EventListener;
+import com.pulse.api.event.EventPriority;
 import com.pulse.event.EventBus;
-import com.pulse.event.EventListener;
-import com.pulse.event.EventPriority;
 
 /**
  * Pulse 이벤트 API.
@@ -14,7 +14,7 @@ import com.pulse.event.EventPriority;
  * 
  * <pre>{@code
  * import com.pulse.api.PulseEvents;
- * import com.pulse.event.lifecycle.GameTickEvent;
+ * import com.pulse.api.event.lifecycle.GameTickEvent;
  * 
  * // 이벤트 구독
  * PulseEvents.on(GameTickEvent.class, event -> {
@@ -101,6 +101,6 @@ public final class PulseEvents {
      * 모드의 모든 리스너 해제
      */
     public static int unsubscribeAll(String modId) {
-        return EventBus.unsubscribeAll(modId);
+        return EventBus.unsubscribeAllByModId(modId);
     }
 }

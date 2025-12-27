@@ -1,7 +1,7 @@
 package com.pulse.mixin;
 
 import com.pulse.event.EventBus;
-import com.pulse.event.lifecycle.MainMenuRenderEvent;
+import com.pulse.api.event.lifecycle.MainMenuRenderEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

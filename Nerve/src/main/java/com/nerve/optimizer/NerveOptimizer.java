@@ -1,5 +1,6 @@
 package com.nerve.optimizer;
 
+import com.pulse.api.di.PulseServices;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.service.echo.ConnectionQuality;
 import com.pulse.api.service.echo.IBottleneckDetector;
@@ -7,7 +8,6 @@ import com.pulse.api.service.echo.INetworkMetrics;
 import com.pulse.api.service.echo.IRenderMetrics;
 import com.pulse.api.service.echo.OptimizationPriority;
 import com.pulse.api.service.echo.RenderEfficiency;
-import com.pulse.di.PulseServiceLocator;
 
 import java.util.*;
 
@@ -95,7 +95,7 @@ public class NerveOptimizer {
         lastAnalysisTime = now;
 
         // Echo BottleneckDetector에서 Nerve 타겟 조회 (SPI)
-        IBottleneckDetector detector = PulseServiceLocator.getInstance().getService(IBottleneckDetector.class);
+        IBottleneckDetector detector = PulseServices.getServiceLocator().getService(IBottleneckDetector.class);
         if (detector != null) {
             currentTarget = detector.suggestNerveTarget();
         } else {
@@ -117,7 +117,7 @@ public class NerveOptimizer {
      * 네트워크 품질에 따른 자동 조절
      */
     private void autoAdjustNetwork() {
-        INetworkMetrics metrics = PulseServiceLocator.getInstance().getService(INetworkMetrics.class);
+        INetworkMetrics metrics = PulseServices.getServiceLocator().getService(INetworkMetrics.class);
         if (metrics == null)
             return;
 
@@ -166,7 +166,7 @@ public class NerveOptimizer {
      * 렌더링 성능에 따른 자동 조절
      */
     private void autoAdjustRendering() {
-        IRenderMetrics metrics = PulseServiceLocator.getInstance().getService(IRenderMetrics.class);
+        IRenderMetrics metrics = PulseServices.getServiceLocator().getService(IRenderMetrics.class);
         if (metrics == null)
             return;
 
@@ -279,7 +279,7 @@ public class NerveOptimizer {
         network.put("packet_batch_size", packetBatchSize);
         network.put("delta_compression", deltaCompression);
 
-        INetworkMetrics netMetrics = PulseServiceLocator.getInstance().getService(INetworkMetrics.class);
+        INetworkMetrics netMetrics = PulseServices.getServiceLocator().getService(INetworkMetrics.class);
         if (netMetrics != null) {
             network.put("connection_quality", netMetrics.getConnectionQuality().name());
         }
@@ -291,7 +291,7 @@ public class NerveOptimizer {
         render.put("draw_call_batching", drawCallBatching);
         render.put("lod_level", lodLevel);
 
-        IRenderMetrics renderMetrics = PulseServiceLocator.getInstance().getService(IRenderMetrics.class);
+        IRenderMetrics renderMetrics = PulseServices.getServiceLocator().getService(IRenderMetrics.class);
         if (renderMetrics != null) {
             render.put("render_efficiency", renderMetrics.getRenderEfficiency().name());
         }

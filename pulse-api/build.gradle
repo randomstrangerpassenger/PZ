@@ -13,10 +13,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-// No runtime dependencies - pure interfaces only
+// No runtime dependencies
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    // No external dependencies - pure API module
+    // This module only contains interfaces and contracts
 }
 
 test {

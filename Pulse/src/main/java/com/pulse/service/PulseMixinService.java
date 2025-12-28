@@ -267,6 +267,7 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public URL[] getClassPath() {
         // 클래스패스 URL 배열 반환
         // Java 9+에서는 모듈 시스템 때문에 복잡해질 수 있음

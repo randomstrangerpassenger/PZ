@@ -7,7 +7,7 @@ import com.pulse.api.log.PulseLogger;
 import com.pulse.core.gc.GcEventState;
 import com.pulse.core.gc.GcSampler;
 import com.pulse.event.EventBus;
-import com.pulse.api.event.lifecycle.GameTickEvent;
+import com.pulse.event.lifecycle.GameTickEvent;
 import com.pulse.api.event.lifecycle.GameTickStartEvent;
 import com.pulse.api.event.lifecycle.GameTickEndEvent;
 import com.pulse.api.event.lifecycle.WorldLoadEvent;
@@ -88,7 +88,8 @@ public abstract class IsoWorldMixin {
         }
 
         PulseLogger.info(LOG, "World loaded: {}", worldName);
-        EventBus.post(new WorldLoadEvent(worldName));
+        // Use PulseServices.events() so mods subscribing via API receive this event
+        PulseServices.events().publish(new WorldLoadEvent(worldName));
 
         PulseLogger.debug(LOG, "WorldLoadEvent posted for: " + worldName);
     }
@@ -115,11 +116,21 @@ public abstract class IsoWorldMixin {
                 String worldName = getWorldNameSafe();
                 PulseLogger.debug(LOG, "First update() detected - firing WorldLoadEvent for: " + worldName);
                 PulseLogger.info(LOG, "World loaded (via update): {}", worldName);
-                EventBus.post(new WorldLoadEvent(worldName));
+                // Use PulseServices.events() so mods subscribing via API receive this event
+                WorldLoadEvent worldLoadEvent = new WorldLoadEvent(worldName);
+                PulseLogger.info(LOG, "Publishing WorldLoadEvent: {} (class={})", worldName,
+                        worldLoadEvent.getClass().getName());
+                PulseServices.events().publish(worldLoadEvent);
+                PulseLogger.info(LOG, "WorldLoadEvent published successfully");
             }
 
-            // GameTickStartEvent
-            EventBus.post(new GameTickStartEvent(result.getExpectedTickCount()));
+            // GameTickStartEvent - use PulseServices.events() so Echo can receive it
+            GameTickStartEvent tickStartEvent = new GameTickStartEvent(result.getExpectedTickCount());
+            if (result.getExpectedTickCount() == 1) {
+                PulseLogger.info(LOG, "First GameTickStartEvent: tick={}, class={}", result.getExpectedTickCount(),
+                        tickStartEvent.getClass().getName());
+            }
+            PulseServices.events().publish(tickStartEvent);
 
             // HookRegistry broadcast
             final long tickNum = result.getExpectedTickCount();
@@ -162,8 +173,8 @@ public abstract class IsoWorldMixin {
             // Tick complete hook
             com.pulse.api.profiler.TickPhaseHook.onTickComplete();
 
-            // GameTickEndEvent
-            EventBus.post(new GameTickEndEvent(result.getTickCount(), result.getDurationNanos()));
+            // GameTickEndEvent - use PulseServices.events() so Echo can receive it
+            PulseServices.events().publish(new GameTickEndEvent(result.getTickCount(), result.getDurationNanos()));
 
             // GcObservedEvent (v2.1 - for GCPressureGuard)
             try {

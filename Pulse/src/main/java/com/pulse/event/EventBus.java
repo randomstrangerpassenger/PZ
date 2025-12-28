@@ -168,11 +168,24 @@ public class EventBus {
 
     /**
      * 이벤트 발행 (모든 리스너에 전달)
+     * 
+     * v2.1: ClassLoader 호환성을 위한 FQCN 기반 fallback 매칭 추가.
+     * PZ 모드 로더가 Echo와 Pulse를 다른 ClassLoader에서 로드할 경우,
+     * 같은 이름의 클래스도 Class.equals()에서 다르게 인식됨.
+     * 이를 해결하기 위해 Class 객체로 찾지 못하면 FQCN(클래스 이름)으로 fallback.
      */
     @SuppressWarnings("unchecked")
     public <T extends Event> T fire(T event) {
         Class<? extends Event> eventType = event.getClass();
         List<RegisteredListener<?>> list = listeners.get(eventType);
+
+        // ClassLoader Fallback: Class 객체로 찾지 못하면 FQCN으로 찾기
+        if (list == null || list.isEmpty()) {
+            list = findListenersByFQCN(eventType.getName());
+            if (list != null && !list.isEmpty() && debug) {
+                PulseLogger.debug(LOG, "[EventBus] FQCN fallback matched for: {}", eventType.getName());
+            }
+        }
 
         if (list == null || list.isEmpty()) {
             return event;
@@ -195,6 +208,20 @@ public class EventBus {
 
             try {
                 ((EventListener<T>) registered.listener).onEvent(event);
+            } catch (ClassCastException cce) {
+                // ClassLoader 불일치로 인한 ClassCastException 처리
+                if (debug) {
+                    PulseLogger.warn(LOG, "[EventBus] ClassCastException for {}: {}",
+                            event.getEventName(), cce.getMessage());
+                }
+                // ClassLoader 불일치 시 리플렉션으로 호출 시도
+                try {
+                    invokeListenerReflectively(registered.listener, event);
+                } catch (Exception reflectEx) {
+                    String modId = registered.modId != null ? registered.modId : "unknown";
+                    PulseLogger.error(LOG, "[EventBus] Reflective invocation failed for {}: {}",
+                            modId, reflectEx.getMessage());
+                }
             } catch (Exception e) {
                 // 예외 격리: 어느 모드에서 문제가 발생했는지 명확히 로그
                 String modId = registered.modId != null ? registered.modId : "unknown";
@@ -213,6 +240,36 @@ public class EventBus {
         }
 
         return event;
+    }
+
+    /**
+     * FQCN(Fully Qualified Class Name)으로 리스너 찾기.
+     * ClassLoader 불일치 시 fallback으로 사용.
+     */
+    private List<RegisteredListener<?>> findListenersByFQCN(String eventClassName) {
+        for (Map.Entry<Class<? extends Event>, List<RegisteredListener<?>>> entry : listeners.entrySet()) {
+            if (entry.getKey().getName().equals(eventClassName)) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 리플렉션을 사용하여 리스너 호출.
+     * ClassLoader 불일치로 직접 캐스팅이 불가능할 때 사용.
+     */
+    private void invokeListenerReflectively(Object listener, Event event) throws Exception {
+        java.lang.reflect.Method onEventMethod = null;
+        for (java.lang.reflect.Method method : listener.getClass().getMethods()) {
+            if ("onEvent".equals(method.getName()) && method.getParameterCount() == 1) {
+                onEventMethod = method;
+                break;
+            }
+        }
+        if (onEventMethod != null) {
+            onEventMethod.invoke(listener, event);
+        }
     }
 
     /**

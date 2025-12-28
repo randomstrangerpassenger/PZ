@@ -42,6 +42,9 @@ public class SessionManager {
     // --- 메인 메뉴 이탈 감지 (틱 기반) ---
     private volatile int ticksSinceMenuRender = 0;
 
+    // --- 디버그 로그 스팸 방지 ---
+    private volatile boolean menuDebugLogged = false;
+
     // --- 비동기 저장 ---
     private final ExecutorService saveExecutor = Executors.newSingleThreadExecutor(r -> new Thread(r, "Echo-Save"));
 
@@ -67,6 +70,7 @@ public class SessionManager {
             tickCount = 0;
             currentWorldName = worldName;
             isMultiplayer = multiplayer;
+            menuDebugLogged = false; // 새 세션 시작 시 로그 플래그 리셋
 
             EchoProfiler.getInstance().reset();
             PulseLogger.info("Echo", "Session started: " + worldName +
@@ -93,6 +97,13 @@ public class SessionManager {
      * 이 메서드가 호출되면 메인 메뉴로 돌아온 것입니다.
      */
     public void onMainMenuRender() {
+        // 디버그 로깅 - 첫 호출 시에만 출력 (로그 스팸 방지)
+        if (!menuDebugLogged) {
+            PulseLogger.info("Echo", "onMainMenuRender: sessionActive={}, dirty={}, menuRenderCount={}",
+                    sessionActive, dirty, menuRenderCount);
+            menuDebugLogged = true;
+        }
+
         // 메인 메뉴 플래그 설정 - 새 세션 시작 방지
         onMainMenu = true;
 
@@ -117,6 +128,7 @@ public class SessionManager {
             tickCount = 0;
             saveAsync();
             menuRenderCount = 0;
+
         }
     }
 

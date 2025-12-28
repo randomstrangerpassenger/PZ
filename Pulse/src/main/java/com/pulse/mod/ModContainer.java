@@ -57,11 +57,16 @@ public class ModContainer {
             // 엔트리포인트 클래스 로드
             Class<?> entryClass = classLoader.loadClass(entrypoint);
 
-            // PulseMod 인터페이스 구현 여부 확인
+            // PulseMod 인터페이스 구현 여부 확인 (Pulse Core 또는 pulse-api)
             if (PulseMod.class.isAssignableFrom(entryClass)) {
                 modInstance = entryClass.getDeclaredConstructor().newInstance();
                 ((PulseMod) modInstance).onInitialize();
                 PulseLogger.info(PulseLogger.PULSE, "✓ {} initialized successfully", metadata.getId());
+            } else if (com.pulse.api.mod.PulseMod.class.isAssignableFrom(entryClass)) {
+                // pulse-api의 PulseMod도 지원
+                modInstance = entryClass.getDeclaredConstructor().newInstance();
+                ((com.pulse.api.mod.PulseMod) modInstance).onInitialize();
+                PulseLogger.info(PulseLogger.PULSE, "✓ {} initialized successfully (pulse-api)", metadata.getId());
             } else {
                 PulseLogger.warn(PulseLogger.PULSE, "{} does not implement PulseMod interface", entrypoint);
                 modInstance = entryClass.getDeclaredConstructor().newInstance();

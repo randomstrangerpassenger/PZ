@@ -4,6 +4,7 @@ import com.echo.lua.LuaCallTracker;
 import com.echo.measure.EchoProfiler;
 import com.pulse.api.di.PulseServices;
 import com.pulse.api.hook.HookType;
+import com.pulse.api.hook.ILuaCallCallback;
 import com.pulse.api.log.PulseLogger;
 
 /**
@@ -15,20 +16,13 @@ import com.pulse.api.log.PulseLogger;
  * @since Echo 2.0
  * @since Echo 3.0 - Stub Implementation (Phase 3)
  * @since Echo 4.0 - Restored with IPulseHookRegistry (Phase 4)
+ * @since Echo 4.1 - Uses pulse-api ILuaCallCallback interface
  */
 public class LuaHookAdapter {
 
     private static final String OWNER_ID = "echo";
     private static volatile boolean registered = false;
-    private static LuaCallCallback callback;
-
-    /**
-     * Lua Call 콜백 인터페이스.
-     * Pulse Hook에서 호출됩니다.
-     */
-    public interface LuaCallCallback {
-        void onLuaCall(String functionName, long durationNanos);
-    }
+    private static ILuaCallCallback callback;
 
     /**
      * Pulse Hook Registry에 콜백 등록.
@@ -39,7 +33,7 @@ public class LuaHookAdapter {
         }
 
         try {
-            callback = LuaHookAdapter::handleLuaCall;
+            callback = new EchoLuaCallCallback();
             PulseServices.hooks().register(HookType.LUA_CALL, callback, OWNER_ID);
             registered = true;
             PulseLogger.info("Echo/LuaHook", "LuaHookAdapter registered (Phase 4 - IPulseHookRegistry)");
@@ -70,22 +64,6 @@ public class LuaHookAdapter {
         }
     }
 
-    /**
-     * Lua 호출 처리 - Pulse에서 콜백됨.
-     */
-    private static void handleLuaCall(String functionName, long durationNanos) {
-        try {
-            EchoProfiler profiler = EchoProfiler.getInstance();
-            if (profiler.isLuaProfilingEnabled()) {
-                // Convert nanos to micros
-                long durationMicros = durationNanos / 1000;
-                LuaCallTracker.getInstance().recordFunctionCall(functionName, durationMicros);
-            }
-        } catch (Exception e) {
-            // Silent fail - don't disrupt game
-        }
-    }
-
     public static boolean isRegistered() {
         return registered;
     }
@@ -111,5 +89,30 @@ public class LuaHookAdapter {
         PulseLogger.info("Echo/LuaHook", "lua_profiling.enabled = " + profiler.isLuaProfilingEnabled());
         PulseLogger.info("Echo/LuaHook", "detailed_active = " + tracker.isDetailedActive());
         PulseLogger.info("Echo/LuaHook", "total_calls = " + tracker.getTotalCalls());
+    }
+
+    /**
+     * ILuaCallCallback 구현체.
+     * pulse-api의 공통 인터페이스를 구현.
+     */
+    private static class EchoLuaCallCallback implements ILuaCallCallback {
+
+        @Override
+        public void onLuaCall(String functionName, long durationNanos) {
+            try {
+                EchoProfiler profiler = EchoProfiler.getInstance();
+                if (profiler.isLuaProfilingEnabled()) {
+                    long durationMicros = durationNanos / 1000;
+                    LuaCallTracker.getInstance().recordFunctionCall(functionName, durationMicros);
+                }
+            } catch (Exception e) {
+                // Silent fail - don't disrupt game
+            }
+        }
+
+        @Override
+        public void onLuaCallEnd(Object function, long endNanos) {
+            // 이 메서드는 Mixin에서 호출됨 - 여기서는 사용하지 않음
+        }
     }
 }

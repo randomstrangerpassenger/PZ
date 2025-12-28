@@ -1,5 +1,6 @@
 package com.pulse.hook;
 
+import com.pulse.api.hook.ILuaCallCallback;
 import com.pulse.api.profiler.IsoGridHook;
 import com.pulse.api.profiler.PathfindingHook;
 import com.pulse.api.profiler.TickPhaseHook;
@@ -92,52 +93,9 @@ public final class HookTypes {
     public static final HookType<ILuaCallCallback> LUA_CALL = HookType.create("LUA_CALL", ILuaCallCallback.class);
 
     // ─────────────────────────────────────────────────────────────
-    // 콜백 인터페이스 정의 (Phase 1.1에서 구현 예정)
+    // 콜백 인터페이스 정의
+    // Note: ILuaCallCallback은 pulse-api에서 import됨
     // ─────────────────────────────────────────────────────────────
-
-    /**
-     * Lua Call Callback Interface
-     * 
-     * NOTE: nanoTime 파라미터 메서드는 Echo 전용입니다.
-     * 다른 모드는 이 파라미터에 의존하지 마세요.
-     */
-    public interface ILuaCallCallback {
-        /**
-         * Lua 함수 호출 시작 (legacy)
-         * 
-         * @param function Function object
-         */
-        default void onLuaCallStart(Object function) {
-        }
-
-        /**
-         * Lua 함수 호출 종료 (legacy)
-         * 
-         * @param function Function object
-         */
-        default void onLuaCallEnd(Object function) {
-        }
-
-        /**
-         * Lua 함수 호출 시작 (Echo 전용 - 정확한 시간 측정용)
-         * 
-         * @param function   Function object
-         * @param startNanos System.nanoTime() at call start
-         */
-        default void onLuaCallStart(Object function, long startNanos) {
-            onLuaCallStart(function); // 하위 호환성
-        }
-
-        /**
-         * Lua 함수 호출 종료 (Echo 전용 - 정확한 시간 측정용)
-         * 
-         * @param function Function object
-         * @param endNanos System.nanoTime() at call end
-         */
-        default void onLuaCallEnd(Object function, long endNanos) {
-            onLuaCallEnd(function); // 하위 호환성
-        }
-    }
 
     /**
      * 게임 틱 콜백 인터페이스

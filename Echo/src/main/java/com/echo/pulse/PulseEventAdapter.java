@@ -1,7 +1,9 @@
 package com.echo.pulse;
 
 import com.echo.EchoMod;
+import com.echo.measure.EchoProfiler;
 import com.echo.measure.FreezeDetector;
+import com.echo.measure.ProfilingPoint;
 import com.echo.session.SessionManager;
 import com.pulse.api.di.PulseServices;
 import com.pulse.api.event.IEventBus;
@@ -59,6 +61,9 @@ public class PulseEventAdapter {
         events.subscribe(GameTickEndEvent.class, event -> {
             FreezeDetector.getInstance().tick();
             tickProfiler.recordTickDuration(event.getDurationNanos());
+            // Fix: Also update PulseContractVerifier tick count (converts ms to seconds)
+            com.echo.validation.PulseContractVerifier.getInstance()
+                    .onGameTick((float) (event.getDurationMs() / 1000.0));
             // TODO: TickProfiler inner class type mismatch with MetricCollector - needs API
             // alignment
             // com.echo.measure.EchoProfiler.getInstance().getMetricCollector().collect(tickProfiler,
@@ -95,6 +100,18 @@ public class PulseEventAdapter {
         events.subscribe(WorldLoadEvent.class, event -> {
             boolean isMP = isMultiplayerWorld();
             SessionManager.getInstance().onWorldLoad(event.getWorldName(), isMP);
+            // v2.2: Reset profilers on world load for accurate session-based FPS
+            if (tickProfiler != null)
+                tickProfiler.reset();
+            if (renderProfiler != null)
+                renderProfiler.reset();
+            PulseLogger.debug("Echo", "Profilers reset on world load");
+
+            // v2.3: Schedule Self-validation 60 seconds after world load
+            // This ensures validation runs when actual game data (zombies, ticks) is
+            // available
+            com.echo.validation.SelfValidation.getInstance().scheduleValidation();
+            PulseLogger.info("Echo", "Self-validation scheduled (60s after world load)");
         }, EchoMod.MOD_ID);
 
         events.subscribe(WorldUnloadEvent.class, event -> {
@@ -155,10 +172,10 @@ public class PulseEventAdapter {
         private long totalDurationNanos = 0;
         private double lastDurationMs = 0;
         private double peakDurationMs = 0;
-        private long currentTickStartNanos = 0;
 
         public void onTickStart() {
-            currentTickStartNanos = System.nanoTime();
+            // Tick start timing - duration is calculated by IsoWorldMixin and passed via
+            // GameTickEndEvent
         }
 
         public void recordTickDuration(long durationNanos) {
@@ -167,6 +184,20 @@ public class PulseEventAdapter {
             lastDurationMs = durationNanos / 1_000_000.0;
             if (lastDurationMs > peakDurationMs) {
                 peakDurationMs = lastDurationMs;
+            }
+
+            // Fix: Record timing data to EchoProfiler so total_ticks is properly counted
+            EchoProfiler profiler = EchoProfiler.getInstance();
+            if (profiler.isEnabled()) {
+                profiler.getTimingData(ProfilingPoint.TICK).addSample(durationNanos, null);
+
+                // Also record to histogram
+                long durationMicros = durationNanos / 1000;
+                if (profiler.getSessionDurationMs() < 3000) {
+                    profiler.getTickHistogram().addWarmupSample(durationMicros);
+                } else {
+                    profiler.getTickHistogram().addSample(durationMicros);
+                }
             }
         }
 

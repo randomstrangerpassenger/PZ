@@ -498,6 +498,14 @@ public class IOGuard {
         return recoveryProgress;
     }
 
+    public SaveEvent.SaveType getCurrentSaveType() {
+        return currentSaveType;
+    }
+
+    public String getCurrentSaveName() {
+        return currentSaveName;
+    }
+
     public void resetStats() {
         totalIOEvents = 0;
         totalIOTimeMs = 0;

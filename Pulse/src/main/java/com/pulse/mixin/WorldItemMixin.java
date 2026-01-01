@@ -9,7 +9,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import zombie.iso.IsoWorld;
 import zombie.inventory.InventoryItem;
 
 /**
@@ -215,7 +214,6 @@ public class WorldItemMixin {
 
     /**
      * Calculate distance squared to nearest player.
-     * TODO: Implement actual distance calculation using player positions.
      * 
      * @return Distance squared to nearest player
      */

@@ -1,9 +1,14 @@
-package com.pulse.api.service.echo;
+package com.echo.analysis;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
+/**
+ * 최적화 우선순위 DTO.
+ * 
+ * @since Echo 1.0.1
+ */
 public class OptimizationPriority {
+
     public final String targetName;
     public final String displayName;
     public final int priority;

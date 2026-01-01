@@ -2,7 +2,6 @@ package com.pulse.event;
 
 import com.pulse.api.event.Event;
 import com.pulse.api.event.EventListener;
-import com.pulse.api.event.EventPriority;
 import com.pulse.api.event.IEventBus;
 
 /**

@@ -31,8 +31,9 @@ dependencies {
         testImplementation files('libs/pulse-api.jar')
     }
     
-    // Pulse main (for testing only)
+    // Pulse main (for compiling against Pulse classes)
     if (findProject(':Pulse') != null) {
+        compileOnly project(':Pulse')
         testImplementation project(':Pulse')
     }
     

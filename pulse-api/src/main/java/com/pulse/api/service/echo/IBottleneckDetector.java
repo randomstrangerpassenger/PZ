@@ -11,7 +11,9 @@ package com.pulse.api.service.echo;
  */
 @Deprecated
 public interface IBottleneckDetector {
+    @Deprecated
     OptimizationPriority suggestNerveTarget();
 
+    @Deprecated
     OptimizationPriority suggestFuseTarget();
 }

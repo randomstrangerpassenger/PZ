@@ -85,6 +85,7 @@ public class NerveOptimizer {
     /**
      * 틱마다 호출하여 병목 분석 및 최적화 적용
      */
+    @SuppressWarnings("deprecation")
     public void update() {
         if (!enabled)
             return;

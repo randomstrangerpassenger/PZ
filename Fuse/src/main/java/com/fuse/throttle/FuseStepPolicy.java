@@ -2,8 +2,6 @@ package com.fuse.throttle;
 
 import com.fuse.config.FuseConfig;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.api.profiler.ThrottleLevel;
-import com.pulse.api.profiler.ZombieHook;
 import com.pulse.api.profiler.ZombieStepHook.IStepContext;
 import com.pulse.api.profiler.ZombieStepHook.IZombieStepPolicy;
 import com.pulse.api.profiler.ZombieStepHook.StepType;
@@ -11,12 +9,11 @@ import com.pulse.api.profiler.ZombieStepHook.StepType;
 /**
  * Fuse Step Throttle Policy.
  * 
- * ThrottleLevel과 연동하여 Step별 throttle 결정.
- * ZombieHook의 ThreadLocal 컨텍스트에서 현재 ThrottleLevel을 읽어
- * shouldExecute()로 실행 여부를 판단합니다.
+ * Fuse 내부 ThrottleLevel과 연동하여 Step별 throttle 결정.
  * 
  * @since Fuse 0.4.0
  * @since Fuse 0.5.0 - ThrottleLevel 연동
+ * @since Fuse 2.0 - Pulse 정화로 인해 Fuse 내부 ThrottleLevel 사용
  */
 public class FuseStepPolicy implements IZombieStepPolicy {
 
@@ -31,8 +28,15 @@ public class FuseStepPolicy implements IZombieStepPolicy {
     private long targetExecCount = 0;
     private long totalStepCalls = 0;
 
+    // 현재 스로틀 레벨 캐시
+    private ThrottleLevel currentLevel = ThrottleLevel.FULL;
+
     public FuseStepPolicy() {
         PulseLogger.info(LOG, "StepPolicy initialized (ThrottleLevel mode)");
+    }
+
+    public void setCurrentThrottleLevel(ThrottleLevel level) {
+        this.currentLevel = level != null ? level : ThrottleLevel.FULL;
     }
 
     @Override
@@ -45,19 +49,35 @@ public class FuseStepPolicy implements IZombieStepPolicy {
 
         // Context에서 필요 정보 추출
         int zombieId = context != null ? context.getIterIndex() : 0;
-        int worldTick = context != null ? context.getWorldTick() : 0;
+        long worldTick = context != null ? context.getWorldTick() : 0;
 
-        // ZombieHook에서 현재 ThrottleLevel 조회
-        ThrottleLevel level = ZombieHook.getCurrentThrottleLevel(worldTick);
+        // Fuse 내부 ThrottleLevel 사용
+        ThrottleLevel level = currentLevel;
 
         // ThrottleLevel의 shouldExecute()로 실행 여부 결정
-        boolean shouldExecute = level.shouldExecute(stepType, zombieId, worldTick);
+        ThrottleLevel.StepType fuseStepType = mapStepType(stepType);
+        boolean shouldExecute = level.shouldExecute(fuseStepType, zombieId, worldTick);
         boolean skip = !shouldExecute;
 
         // 통계 업데이트
         updateStats(stepType, skip);
 
         return skip;
+    }
+
+    /**
+     * Pulse StepType을 Fuse 내부 ThrottleLevel.StepType으로 변환.
+     */
+    private ThrottleLevel.StepType mapStepType(StepType stepType) {
+        if (stepType == null)
+            return null;
+        return switch (stepType) {
+            case PERCEPTION -> ThrottleLevel.StepType.PERCEPTION;
+            case BEHAVIOR -> ThrottleLevel.StepType.BEHAVIOR;
+            case TARGET -> ThrottleLevel.StepType.TARGET;
+            case MOTION -> ThrottleLevel.StepType.MOTION;
+            case COLLISION -> ThrottleLevel.StepType.COLLISION;
+        };
     }
 
     private void updateStats(StepType stepType, boolean skip) {

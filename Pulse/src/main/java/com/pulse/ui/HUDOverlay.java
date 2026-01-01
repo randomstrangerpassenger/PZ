@@ -1,7 +1,6 @@
 package com.pulse.ui;
 
 import com.pulse.api.log.PulseLogger;
-import com.pulse.api.ui.IHUDLayer;
 import com.pulse.api.ui.IHUDOverlay;
 import com.pulse.api.ui.IUIRenderContext;
 

@@ -181,8 +181,7 @@ public abstract class IsoWorldMixin {
                 if (Pulse$gcSampler != null && Pulse$gcEventState != null) {
                     GcSample sample = Pulse$gcSampler.sample(result.getTickCount());
                     if (Pulse$gcEventState.shouldPublish(sample)) {
-                        // TODO: Phase 3 - Fix GcObservedEvent type bound issue\n //
-                        // PulseServices.events().publish(new GcObservedEvent(sample));
+                        PulseServices.events().publish(new GcObservedEvent(sample));
                     }
                 }
             } catch (Throwable gcError) {

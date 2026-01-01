@@ -11,8 +11,8 @@ import com.fuse.guard.VehicleGuard;
 import com.fuse.telemetry.ReasonStats;
 import com.fuse.telemetry.TelemetryReason;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.api.profiler.IZombieThrottlePolicy;
-import com.pulse.api.profiler.ThrottleLevel;
+import com.pulse.api.profiler.IHookContext;
+import com.pulse.api.profiler.IThrottlePolicy;
 
 /**
  * Fuse Throttle Controller.
@@ -26,7 +26,7 @@ import com.pulse.api.profiler.ThrottleLevel;
  * @since Fuse 0.5.0 - Tiered ThrottleLevel 방식으로 전환
  * @since Fuse 1.1.0 - Window-based hysteresis + Governor/Panic integration
  */
-public class FuseThrottleController implements IZombieThrottlePolicy {
+public class FuseThrottleController implements IThrottlePolicy {
 
     private static final String LOG = "Fuse";
 
@@ -122,7 +122,29 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         this.gcPressureGuard = gcPressureGuard;
     }
 
+    // =================================================================
+    // IThrottlePolicy 구현
+    // =================================================================
+
     @Override
+    public boolean shouldProcess(IHookContext context) {
+        // 간단한 구현: 항상 처리 (Step-level throttle은 getThrottleLevel로)
+        return true;
+    }
+
+    @Override
+    public int getAllowedBudget(IHookContext context) {
+        // 현재 히스테리시스 레벨 기반 예산 반환
+        return hysteresisLevel.budget;
+    }
+
+    // =================================================================
+    // 내부 ThrottleLevel API (Fuse 전용)
+    // =================================================================
+
+    /**
+     * 좀비 스로틀 레벨 계산 (내부 API).
+     */
     public ThrottleLevel getThrottleLevel(float distSq, boolean isAttacking,
             boolean hasTarget, boolean recentlyEngaged) {
 
@@ -400,6 +422,13 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         return hysteresisActive;
     }
 
+    /**
+     * 현재 히스테리시스 레벨 반환 (Step 동기화용).
+     */
+    public ThrottleLevel getCurrentLevel() {
+        return hysteresisLevel;
+    }
+
     public void resetStats() {
         fullCount = 0;
         reducedCount = 0;
@@ -416,7 +445,7 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
 
     public void printStatus() {
         long total = getTotalCount();
-        PulseLogger.info(LOG, "Throttle Controller Status (v1.1):");
+        PulseLogger.info(LOG, "Throttle Controller Status (v2.1):");
         PulseLogger.info(LOG, "  FULL: " + fullCount + " (" + pct(fullCount, total) + "%)");
         PulseLogger.info(LOG, "  REDUCED: " + reducedCount + " (" + pct(reducedCount, total) + "%)");
         PulseLogger.info(LOG, "  LOW: " + lowCount + " (" + pct(lowCount, total) + "%)");
@@ -425,6 +454,8 @@ public class FuseThrottleController implements IZombieThrottlePolicy {
         PulseLogger.info(LOG, "  EngagedUpgrade: " + engagedUpgradeCount);
         PulseLogger.info(LOG, "  PanicOverride: " + panicOverrideCount);
         PulseLogger.info(LOG, "  GuardOverride: " + guardOverrideCount);
+        PulseLogger.info(LOG, "  IOGuardOverride: " + ioGuardOverrideCount);
+        PulseLogger.info(LOG, "  GCPressureOverride: " + gcPressureOverrideCount);
         PulseLogger.info(LOG, "  CutoffCount: " + cutoffCount);
         PulseLogger.info(LOG, "  ---");
         PulseLogger.info(LOG, "  HysteresisActive: " + hysteresisActive);

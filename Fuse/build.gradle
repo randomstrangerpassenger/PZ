@@ -19,6 +19,11 @@ dependencies {
     // Pulse API dependency
     compileOnly project(':pulse-api')
     
+    // Pulse main (for compiling against Pulse classes like ZombieHook)
+    if (findProject(':Pulse') != null) {
+        compileOnly project(':Pulse')
+    }
+    
     // PZ stubs (optional, graceful handling when missing)
     compileOnly fileTree(dir: '../Pulse/libs', include: ['pz-stubs.jar'])
 }

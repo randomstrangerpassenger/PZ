@@ -1,20 +1,21 @@
 package com.fuse.hook;
 
+import com.pulse.api.hook.IZombieCallback;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ZombieHook;
 
 /**
  * Fuse Hook Adapter - ZombieHook 콜백 구현.
  * 
- * Pulse API만 사용 (Echo 의존성 없음).
- * ZombieHook.IZombieCallback을 통해 데이터를 수집.
+ * Pulse API 사용.
+ * IZombieCallback을 통해 데이터를 수집.
  * 
  * Phase 4: stub에서 복원 - IZombieCallback 구현
  * 
  * @since Fuse 0.3.0
  * @since Fuse 0.4.0 - Phase 4: IZombieCallback 구현 복원
  */
-public class FuseHookAdapter implements ZombieHook.IZombieCallback {
+public class FuseHookAdapter implements IZombieCallback {
 
     private static final String LOG = "Fuse";
 

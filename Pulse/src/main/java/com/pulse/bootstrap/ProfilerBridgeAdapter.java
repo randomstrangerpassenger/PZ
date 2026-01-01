@@ -61,6 +61,14 @@ public class ProfilerBridgeAdapter implements IProfilerBridge {
             this.delegate = delegate;
         }
 
+        /**
+         * Returns the wrapped delegate sink.
+         */
+        @SuppressWarnings("unused") // Part of public API for external use
+        public IProfilerSink getDelegate() {
+            return delegate;
+        }
+
         @Override
         public void recordZombieStep(String step, long durationMicros) {
             // IProfilerSink에는 이 메서드가 없으므로 no-op

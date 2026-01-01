@@ -24,9 +24,9 @@ public class SelfValidation {
 
     private static final SelfValidation INSTANCE = new SelfValidation();
 
-    // 검증 지연 시간 (10초 - 월드 로드 대기)
-    // Note: 게임 시작 후 월드 로드까지 시간이 걸리므로 충분한 지연 필요
-    private static final long VALIDATION_DELAY_MS = 10000;
+    // 검증 지연 시간 (60초 - WorldLoad 후 인게임 데이터 수집 대기)
+    // Note: v2.3 - Now scheduled on WorldLoadEvent, not on profiler enable
+    private static final long VALIDATION_DELAY_MS = 60000;
 
     // --- Heartbeat Counters ---
 

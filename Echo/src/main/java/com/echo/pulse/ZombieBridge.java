@@ -1,13 +1,14 @@
 package com.echo.pulse;
 
 import com.echo.subsystem.ZombieProfiler;
+import com.pulse.api.hook.IZombieCallback;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ZombieHook;
 
 /**
  * Bridge for Zombie profiling hooks.
  */
-public class ZombieBridge implements ZombieHook.IZombieCallback {
+public class ZombieBridge implements IZombieCallback {
 
     private static ZombieBridge INSTANCE;
 

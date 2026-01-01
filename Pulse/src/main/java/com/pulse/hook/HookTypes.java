@@ -1,15 +1,15 @@
 package com.pulse.hook;
 
 import com.pulse.api.hook.ILuaCallCallback;
+import com.pulse.api.hook.IZombieCallback;
 import com.pulse.api.profiler.IsoGridHook;
 import com.pulse.api.profiler.PathfindingHook;
 import com.pulse.api.profiler.TickPhaseHook;
-import com.pulse.api.profiler.ZombieHook;
 
 /**
  * 사전 정의된 Hook 타입들.
  * 
- * Echo, Fuse, Nerve에서 공통으로 사용되는 Hook 타입 상수입니다.
+ * 하위 최적화/프로파일링 모드에서 공통으로 사용되는 Hook 타입 상수입니다.
  * 각 타입은 해당하는 콜백 인터페이스와 연결됩니다.
  * 
  * <h2>사용 예시</h2>
@@ -31,7 +31,7 @@ public final class HookTypes {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // Profiler Hooks (Echo/Fuse용)
+    // Profiler Hooks (프로파일러/최적화 모드용)
     // ─────────────────────────────────────────────────────────────
 
     /**
@@ -47,8 +47,8 @@ public final class HookTypes {
      * 
      * IsoZombie.update() 전후에 호출됩니다.
      */
-    public static final HookType<ZombieHook.IZombieCallback> ZOMBIE = HookType.create("ZOMBIE",
-            ZombieHook.IZombieCallback.class);
+    public static final HookType<IZombieCallback> ZOMBIE = HookType.create("ZOMBIE",
+            IZombieCallback.class);
 
     /**
      * 경로 탐색 프로파일링 Hook

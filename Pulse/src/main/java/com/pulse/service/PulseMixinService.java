@@ -86,7 +86,9 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
 
     @Override
     public Phase getInitialPhase() {
-        return Phase.PREINIT;
+        // Mixin 0.8.7: Return DEFAULT phase to ensure environment is fully initialized
+        // PREINIT phase causes "this.env is null" errors in MixinConfig.onLoad()
+        return Phase.DEFAULT;
     }
 
     @Override
@@ -266,8 +268,8 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
         return Class.forName(name, initialize, ClassLoader.getSystemClassLoader());
     }
 
-    @Override
     @SuppressWarnings("deprecation")
+    @Override
     public URL[] getClassPath() {
         // 클래스패스 URL 배열 반환
         // Java 9+에서는 모듈 시스템 때문에 복잡해질 수 있음
@@ -284,7 +286,6 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
     @Override
     public ClassNode getClassNode(String name, boolean runTransformers)
             throws ClassNotFoundException, IOException {
-
         String resourceName = name.replace('.', '/') + ".class";
         InputStream is = getResourceAsStream(resourceName);
 

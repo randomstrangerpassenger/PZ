@@ -1,19 +1,18 @@
 package com.fuse.optimizer;
 
-import com.pulse.api.di.PulseServices;
 import com.pulse.api.log.PulseLogger;
-import com.pulse.api.service.echo.IBottleneckDetector;
-import com.pulse.api.service.echo.OptimizationPriority;
+import com.pulse.api.telemetry.IOptimizationHintProvider;
 
 import java.util.*;
 
 /**
- * Fuse 자동 최적화 컨트롤러.
+ * Fuse 최적화 컨트롤러.
  * 
- * Echo의 BottleneckDetector 분석 결과를 기반으로
- * CPU 병목에 대한 최적화 결정을 내립니다.
+ * CPU 최적화 결정을 관리합니다.
  * 
  * @since 0.1.0
+ * @since 2.0 - 단순화 (IBottleneckDetector 삭제됨)
+ * @since 2.1 - IOptimizationHintProvider SPI 연동
  */
 public class FuseOptimizer {
 
@@ -22,9 +21,12 @@ public class FuseOptimizer {
     // 최적화 상태
     private boolean enabled = false;
     private boolean autoOptimize = false;
-    private OptimizationPriority currentTarget = null;
+    private String currentTargetName = null;
     private long lastAnalysisTime = 0;
-    private static final long ANALYSIS_INTERVAL_MS = 5000; // 5초마다
+    private static final long ANALYSIS_INTERVAL_MS = 5000;
+
+    // SPI 연동
+    private IOptimizationHintProvider hintProvider;
 
     // 활성 최적화
     private final Set<String> activeOptimizations = new HashSet<>();
@@ -37,33 +39,31 @@ public class FuseOptimizer {
         return INSTANCE;
     }
 
-    /**
-     * 최적화 엔진 활성화
-     */
+    public void setHintProvider(IOptimizationHintProvider provider) {
+        this.hintProvider = provider;
+        if (provider != null) {
+            PulseLogger.info("Fuse", "HintProvider registered: " + provider.getClass().getSimpleName());
+        }
+    }
+
     public void enable() {
         this.enabled = true;
         PulseLogger.info("Fuse", "Optimizer enabled");
     }
 
-    /**
-     * 최적화 엔진 비활성화
-     */
     public void disable() {
         this.enabled = false;
         revertAllOptimizations();
         PulseLogger.info("Fuse", "Optimizer disabled");
     }
 
-    /**
-     * 자동 최적화 모드 설정
-     */
     public void setAutoOptimize(boolean auto) {
         this.autoOptimize = auto;
         PulseLogger.info("Fuse", "Auto-optimize: " + (auto ? "ON" : "OFF"));
     }
 
     /**
-     * 틱마다 호출하여 병목 분석 및 최적화 적용
+     * 틱마다 호출 - 자동 최적화 적용
      */
     public void update() {
         if (!enabled)
@@ -74,102 +74,108 @@ public class FuseOptimizer {
             return;
         lastAnalysisTime = now;
 
-        // Echo BottleneckDetector에서 Fuse 타겟 조회 (SPI)
+        // IOptimizationHintProvider 연동 - 자동 최적화 (리플렉션 사용)
+        if (autoOptimize) {
+            applyAutoOptimizationFromHints();
+        }
+    }
+
+    /**
+     * SPI를 통한 자동 최적화 적용.
+     * IOptimizationHintProvider로 힌트를 가져와 적용.
+     */
+    private void applyAutoOptimizationFromHints() {
+        if (hintProvider == null)
+            return;
+
         try {
-            IBottleneckDetector detector = PulseServices.getServiceLocator().getService(IBottleneckDetector.class);
-            if (detector != null) {
-                currentTarget = detector.suggestFuseTarget();
-            } else {
-                currentTarget = null;
+            var hints = hintProvider.getHints();
+            if (hints.isEmpty())
+                return;
+
+            // 상위 힌트 가져오기
+            var topHint = hintProvider.getTopHint();
+            if (topHint == null)
+                return;
+
+            // severity가 0.5 이상이고 활성화되지 않은 경우 적용
+            if (topHint.severity() > 0.5 && !activeOptimizations.contains(topHint.target())) {
+                applyOptimization(topHint.target(), topHint.description());
             }
         } catch (Exception e) {
-            currentTarget = null;
-        }
-
-        if (autoOptimize && currentTarget != null && currentTarget.priority > 50) {
-            applyOptimization(currentTarget);
+            // Fail-soft: SPI 호출 실패 시 무시
         }
     }
 
     /**
      * 수동으로 최적화 적용
      */
-    public void applyOptimization(OptimizationPriority target) {
-        if (target == null || "NONE".equals(target.targetName))
+    public void applyOptimization(String targetId, String recommendation) {
+        if (targetId == null || "NONE".equals(targetId))
             return;
 
-        String optId = target.targetName;
-        if (activeOptimizations.contains(optId)) {
-            PulseLogger.debug("Fuse", "Optimization already active: " + optId);
+        if (activeOptimizations.contains(targetId)) {
+            PulseLogger.debug("Fuse", "Optimization already active: " + targetId);
             return;
         }
 
-        // 최적화 적용 (실제 로직은 각 최적화 모듈에서 구현)
-        boolean success = applyOptimizationLogic(optId);
+        boolean success = applyOptimizationLogic(targetId);
         if (success) {
-            activeOptimizations.add(optId);
+            activeOptimizations.add(targetId);
             optimizationsApplied++;
-            PulseLogger.info("Fuse", "Applied optimization: " + optId);
-            PulseLogger.info("Fuse", "Recommendation: " + target.recommendation);
+            currentTargetName = targetId;
+            PulseLogger.info("Fuse", "Applied optimization: " + targetId);
+            if (recommendation != null) {
+                PulseLogger.info("Fuse", "Recommendation: " + recommendation);
+            }
         }
     }
 
-    /**
-     * 실제 최적화 로직 (확장 포인트)
-     */
     private boolean applyOptimizationLogic(String targetId) {
-        switch (targetId) {
-            case "ZOMBIE_AI":
+        return switch (targetId) {
+            case "ZOMBIE_AI" -> {
                 PulseLogger.info("Fuse", "Applying Zombie AI LOD optimization...");
-                return true;
-
-            case "SIMULATION":
+                yield true;
+            }
+            case "SIMULATION" -> {
                 PulseLogger.info("Fuse", "Applying Simulation batching...");
-                return true;
-
-            case "PHYSICS":
+                yield true;
+            }
+            case "PHYSICS" -> {
                 PulseLogger.info("Fuse", "Applying Physics LOD...");
-                return true;
-
-            case "PATHFINDING_DEEP":
+                yield true;
+            }
+            case "PATHFINDING_DEEP" -> {
                 PulseLogger.info("Fuse", "Applying Pathfinding caching...");
-                return true;
-
-            case "ZOMBIE_PROCESSING":
+                yield true;
+            }
+            case "ZOMBIE_PROCESSING" -> {
                 PulseLogger.info("Fuse", "Applying Zombie processing pooling...");
-                return true;
-
-            default:
+                yield true;
+            }
+            default -> {
                 PulseLogger.warn("Fuse", "No optimization available for: " + targetId);
-                return false;
-        }
+                yield false;
+            }
+        };
     }
 
-    /**
-     * 특정 최적화 취소
-     */
     public void revertOptimization(String optId) {
         if (!activeOptimizations.contains(optId))
             return;
 
-        // 최적화 취소 로직
         activeOptimizations.remove(optId);
         optimizationsReverted++;
         PulseLogger.info("Fuse", "Reverted optimization: " + optId);
     }
 
-    /**
-     * 모든 최적화 취소
-     */
     public void revertAllOptimizations() {
         for (String optId : new ArrayList<>(activeOptimizations)) {
             revertOptimization(optId);
         }
+        currentTargetName = null;
     }
 
-    /**
-     * 현재 상태 조회
-     */
     public Map<String, Object> getStatus() {
         Map<String, Object> status = new LinkedHashMap<>();
         status.put("enabled", enabled);
@@ -177,24 +183,14 @@ public class FuseOptimizer {
         status.put("active_optimizations", new ArrayList<>(activeOptimizations));
         status.put("optimizations_applied", optimizationsApplied);
         status.put("optimizations_reverted", optimizationsReverted);
-
-        if (currentTarget != null) {
-            status.put("current_target", currentTarget.toMap());
-        }
-
+        status.put("current_target", currentTargetName);
         return status;
     }
 
-    /**
-     * 현재 제안 타겟 조회
-     */
-    public OptimizationPriority getCurrentTarget() {
-        return currentTarget;
+    public String getCurrentTargetName() {
+        return currentTargetName;
     }
 
-    /**
-     * 활성 최적화 수
-     */
     public int getActiveOptimizationCount() {
         return activeOptimizations.size();
     }

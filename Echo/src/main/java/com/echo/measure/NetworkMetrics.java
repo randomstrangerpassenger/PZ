@@ -1,8 +1,6 @@
 package com.echo.measure;
 
 import java.util.*;
-import com.pulse.api.service.echo.ConnectionQuality;
-import com.pulse.api.service.echo.INetworkMetrics;
 
 /**
  * 네트워크 메트릭 수집기.

@@ -271,11 +271,24 @@ public class SubProfiler {
      * Raw API - 시작 시간 반환 (Zero-Allocation)
      */
     public long startRaw(SubLabel label) {
-        if (!isEnabled() || !label.isEnabledByConfig()) {
+        boolean enabled = isEnabled();
+        boolean labelEnabled = label.isEnabledByConfig();
+
+        // Debug logging (first 10 calls per label)
+        if (debugCounters.getOrDefault(label, 0) < 10) {
+            debugCounters.merge(label, 1, Integer::sum);
+            com.pulse.api.log.PulseLogger.debug("Echo/SubProfiler",
+                    "startRaw(" + label + "): isEnabled=" + enabled + ", labelEnabled=" + labelEnabled);
+        }
+
+        if (!enabled || !labelEnabled) {
             return -1;
         }
         return System.nanoTime();
     }
+
+    @SuppressWarnings("unused")
+    private static final java.util.Map<SubLabel, Integer> debugCounters = new java.util.concurrent.ConcurrentHashMap<>();
 
     /**
      * Raw API - 종료 및 기록 (Zero-Allocation)

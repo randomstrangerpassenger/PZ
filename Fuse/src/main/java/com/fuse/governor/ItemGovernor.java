@@ -31,6 +31,10 @@ public class ItemGovernor implements IWorldObjectThrottlePolicy {
     private long shellShockThrottleCount = 0;
     private long starvationPreventCount = 0;
 
+    // Rate limiting for log messages (ms)
+    private static final long DEACTIVATION_LOG_INTERVAL_MS = 60000; // 1 minute
+    private long lastDeactivationLogTime = 0;
+
     public ItemGovernor() {
         PulseLogger.info(LOG, "ItemGovernor initialized (Phase 4 - IWorldObjectThrottlePolicy)");
     }
@@ -145,7 +149,12 @@ public class ItemGovernor implements IWorldObjectThrottlePolicy {
         if (active) {
             PulseLogger.warn(LOG, "ItemGovernor ShellShock mode ACTIVATED");
         } else {
-            PulseLogger.info(LOG, "ItemGovernor ShellShock mode deactivated");
+            // Rate-limit deactivation log to ~once per minute
+            long now = System.currentTimeMillis();
+            if (now - lastDeactivationLogTime >= DEACTIVATION_LOG_INTERVAL_MS) {
+                PulseLogger.info(LOG, "ItemGovernor ShellShock mode deactivated");
+                lastDeactivationLogTime = now;
+            }
         }
     }
 

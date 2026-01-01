@@ -1,9 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_13",
   "package": "com.pulse.mixin",
   "mixins": [
     "MainScreenStateMixin",
+    "IngameStateMixin",
     "GameClientMixin",
     "GameWindowMixin",
     "IsoWorldMixin",

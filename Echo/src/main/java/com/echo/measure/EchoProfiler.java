@@ -295,7 +295,8 @@ public class EchoProfiler {
             this.sessionStartTime = System.currentTimeMillis();
         }
         com.echo.measure.FreezeDetector.getInstance().start();
-        com.echo.validation.SelfValidation.getInstance().scheduleValidation();
+        // Note: SelfValidation is now scheduled on WorldLoadEvent (PulseEventAdapter)
+        // to ensure validation runs when actual game data is available
         com.echo.validation.FallbackTickEmitter.getInstance().startMonitoring();
 
         PulseLogger.info("Echo", "Profiler ENABLED" + (resetStats ? " (stats reset)" : ""));

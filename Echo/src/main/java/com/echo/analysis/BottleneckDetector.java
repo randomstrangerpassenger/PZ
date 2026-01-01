@@ -3,19 +3,18 @@ package com.echo.analysis;
 import com.echo.aggregate.TimingData;
 import com.echo.measure.*;
 import com.echo.subsystem.*;
-import com.pulse.api.service.echo.IBottleneckDetector;
-import com.pulse.api.service.echo.OptimizationPriority;
 
 import java.util.*;
 
 /**
  * 자동 병목 식별기.
  * 
- * 성능 병목을 자동으로 식별하고 Fuse/Nerve 최적화 타겟을 제안합니다.
+ * 성능 병목을 자동으로 식별하고 최적화 타짓을 제안합니다.
  * 
  * @since 1.0.1
+ * @since 2.0 - Pulse 정화로 인해 Echo 내부 클래스로 이동
  */
-public class BottleneckDetector implements IBottleneckDetector {
+public class BottleneckDetector {
 
     private static final BottleneckDetector INSTANCE = new BottleneckDetector();
 
@@ -120,9 +119,8 @@ public class BottleneckDetector implements IBottleneckDetector {
     }
 
     /**
-     * Fuse 타겟 제안
+     * CPU 최적화 타겟 제안 (Fuse 용)
      */
-    @Override
     public OptimizationPriority suggestFuseTarget() {
         List<Bottleneck> bottlenecks = identifyTopN(5);
 
@@ -136,14 +134,13 @@ public class BottleneckDetector implements IBottleneckDetector {
             }
         }
 
-        return new OptimizationPriority("NONE", "No Fuse target identified", 0,
-                "Current performance is acceptable or bottlenecks are not Fuse-optimizable.");
+        return new OptimizationPriority("NONE", "No CPU bottleneck identified", 0,
+                "Current performance is acceptable.");
     }
 
     /**
-     * Nerve 타겟 제안
+     * IO/네트워크 최적화 타겟 제안 (Nerve 용)
      */
-    @Override
     public OptimizationPriority suggestNerveTarget() {
         List<Bottleneck> bottlenecks = identifyTopN(5);
 
@@ -157,8 +154,8 @@ public class BottleneckDetector implements IBottleneckDetector {
             }
         }
 
-        return new OptimizationPriority("NONE", "No Nerve target identified", 0,
-                "Current load is manageable or requires code-level optimization.");
+        return new OptimizationPriority("NONE", "No IO/Network bottleneck identified", 0,
+                "Current load is manageable.");
     }
 
     /**

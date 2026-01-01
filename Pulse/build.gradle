@@ -11,9 +11,6 @@ version = '0.8.0-SNAPSHOT'
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
 }
 
 repositories {
@@ -25,7 +22,7 @@ dependencies {
     // Pulse API (shared interfaces)
     implementation project(':pulse-api')
     
-    // Mixin Core
+    // Mixin Core - Version 0.8.5 (0.8.7 has internal ASM conflicts)
     implementation 'org.spongepowered:mixin:0.8.5'
 
     // JSON (Mixin config 파싱에 필요)
@@ -71,6 +68,9 @@ shadowJar {
 
     // 서비스 파일 병합 (중요!)
     mergeServiceFiles()
+    
+    // 주의: ASM/Mixin relocation은 인터페이스 타입 불일치를 초래함
+    // JAVA_13으로 타협하고 relocation 없이 진행
 
     // 중복 제외
     exclude 'META-INF/MANIFEST.MF'
@@ -188,3 +188,60 @@ task archTest(type: Test) {
         includeTestsMatching '*BoundaryTest*'
     }
 }
+
+// ═══════════════════════════════════════════════════════════════
+// Platform Purity Check (재발 방지)
+// Pulse는 하위 모드(Echo/Fuse/Nerve)의 존재를 몰라야 함
+// ═══════════════════════════════════════════════════════════════
+
+task architectureCheck {
+    description = 'Verify Pulse platform purity - no mod names or policy words in API'
+    group = 'verification'
+    
+    doLast {
+        def violations = []
+        
+        // 1. Pulse 전체에서 모드명 검색 - 주석 제외, import/class 정의만 체크
+        fileTree('src/main/java/com/pulse').matching {
+            include '**/*.java'
+        }.each { file ->
+            def content = file.text
+            def lines = content.readLines()
+            lines.eachWithIndex { line, idx ->
+                // 주석 및 문자열 제거 후 검사
+                def codePart = line.replaceAll('//.*$', '').replaceAll('/\\*.*\\*/', '')
+                def trimmed = codePart.trim()
+                
+                // 빈 라인이나 주석 전용 라인 무시
+                if (trimmed.isEmpty() || trimmed.startsWith("*") || trimmed.startsWith("/*")) {
+                    return
+                }
+                
+                // 실제 코드에서 모드명이 import나 클래스 참조로 사용되는지 체크
+                if (codePart =~ /import\s+com\.(echo|fuse|nerve|iris|frame)\./) {
+                    violations << "${file.name}:${idx+1}: 하위 모드 import 사용"
+                }
+            }
+        }
+        
+        // 2. pulse-api에서 삭제된 정책 인터페이스 검색 (새로 정의한 것 제외)
+        fileTree('src/main/java/com/pulse/api').matching {
+            include '**/*.java'
+        }.each { file ->
+            def content = file.text
+            // 삭제되어야 할 구체적인 정책 클래스만 체크
+            if (content =~ /\b(IBottleneckDetector|IZombieThrottlePolicy|ThrottleLevel)\b/) {
+                violations << "${file.name}: 삭제된 정책 클래스 참조"
+            }
+        }
+        
+        if (!violations.isEmpty()) {
+            println "\n❌ Architecture violations found:"
+            violations.each { println "  - $it" }
+            throw new GradleException("Platform purity check failed: ${violations.size()} violations")
+        }
+        println "✅ Architecture check passed - Pulse platform is pure"
+    }
+}
+
+check.dependsOn architectureCheck

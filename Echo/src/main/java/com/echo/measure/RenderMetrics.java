@@ -1,8 +1,6 @@
 package com.echo.measure;
 
 import java.util.*;
-import com.pulse.api.service.echo.RenderEfficiency;
-import com.pulse.api.service.echo.IRenderMetrics;
 
 /**
  * 렌더링 메트릭 수집기.

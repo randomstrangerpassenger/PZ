@@ -28,6 +28,8 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 jar {
+    // 기본 동작 사용 - sourceSets.main.output 자동 포함
+    
     manifest {
         attributes(
             'Implementation-Title': 'Pulse API',

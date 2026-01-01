@@ -149,6 +149,13 @@ public class EventBus {
         // Lazy Sort: 즉시 정렬하지 않고 플래그만 설정
         needsSort.add(eventType);
 
+        // ClassLoader 디버그 (항상 출력 - 문제 진단용)
+        String loaderName = eventType.getClassLoader() != null
+                ? eventType.getClassLoader().getClass().getSimpleName()
+                : "bootstrap";
+        PulseLogger.info(LOG, "[EventBus] SUBSCRIBE: {} [loader={}] from {}",
+                eventType.getName(), loaderName, modId != null ? modId : "unknown");
+
         if (debug) {
             String modInfo = modId != null ? " from mod " + modId : "";
             PulseLogger.debug(LOG, "Registered listener for {} with priority {}{}",
@@ -179,15 +186,27 @@ public class EventBus {
         Class<? extends Event> eventType = event.getClass();
         List<RegisteredListener<?>> list = listeners.get(eventType);
 
+        // ClassLoader 디버그 (최초 1회 + 주기적)
+        String eventClassName = eventType.getName();
+        String eventLoaderName = eventType.getClassLoader() != null
+                ? eventType.getClassLoader().getClass().getSimpleName()
+                : "bootstrap";
+
         // ClassLoader Fallback: Class 객체로 찾지 못하면 FQCN으로 찾기
         if (list == null || list.isEmpty()) {
-            list = findListenersByFQCN(eventType.getName());
-            if (list != null && !list.isEmpty() && debug) {
-                PulseLogger.debug(LOG, "[EventBus] FQCN fallback matched for: {}", eventType.getName());
+            list = findListenersByFQCN(eventClassName);
+            if (list != null && !list.isEmpty()) {
+                PulseLogger.info(LOG, "[EventBus] FQCN FALLBACK: {} [loader={}] -> found {} listeners",
+                        eventClassName, eventLoaderName, list.size());
             }
         }
 
         if (list == null || list.isEmpty()) {
+            // 첫 GameTickEndEvent에 대해서만 경고
+            if (eventClassName.contains("GameTickEndEvent")) {
+                PulseLogger.warn(LOG, "[EventBus] NO LISTENERS for {} [loader={}]",
+                        eventClassName, eventLoaderName);
+            }
             return event;
         }
 

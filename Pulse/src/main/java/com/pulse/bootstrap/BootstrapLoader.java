@@ -17,12 +17,104 @@ public class BootstrapLoader {
 
         MixinBootstrap.init();
 
+        // Mixin 0.8.7: Force transition to DEFAULT phase to ensure environment is
+        // initialized
+        // This prevents "this.env is null" errors in MixinConfig.onLoad()
+        forceDefaultPhase();
+
         checkEnvironment();
         inspectPhase();
 
         PulseLogger.info(LOG, "Step 2: Complete");
 
         checkMixinInternalState();
+    }
+
+    private void forceDefaultPhase() {
+        PulseLogger.info(LOG, "  [DEBUG] Forcing transition to DEFAULT phase...");
+
+        try {
+            Class<?> envClass = MixinEnvironment.class;
+
+            // Method 1 (Priority): Get DEFAULT environment and set it as current
+            // This is the most direct approach
+            try {
+                MixinEnvironment defaultEnv = MixinEnvironment.getDefaultEnvironment();
+                if (defaultEnv != null) {
+                    Field currentEnvField = envClass.getDeclaredField("currentEnvironment");
+                    currentEnvField.setAccessible(true);
+                    Object oldEnv = currentEnvField.get(null);
+                    currentEnvField.set(null, defaultEnv);
+                    PulseLogger.info(LOG, "  [DEBUG] Set currentEnvironment: {} -> {}", oldEnv, defaultEnv);
+                } else {
+                    PulseLogger.warn(LOG, "  [DEBUG] getDefaultEnvironment() returned null!");
+                }
+            } catch (Exception e) {
+                PulseLogger.warn(LOG, "  [DEBUG] Could not set currentEnvironment: {}", e.getMessage());
+            }
+
+            // Method 2: Try to get Phase.DEFAULT via static field access
+            Object defaultPhase = null;
+            try {
+                Class<?> phaseClass = Class.forName("org.spongepowered.asm.mixin.MixinEnvironment$Phase");
+
+                // Try to get DEFAULT as a static field
+                try {
+                    Field defaultField = phaseClass.getDeclaredField("DEFAULT");
+                    defaultField.setAccessible(true);
+                    defaultPhase = defaultField.get(null);
+                    PulseLogger.info(LOG, "  [DEBUG] Got Phase.DEFAULT via field: {}", defaultPhase);
+                } catch (NoSuchFieldException e) {
+                    // Try enum constants as fallback
+                    Object[] enumConstants = phaseClass.getEnumConstants();
+                    if (enumConstants != null) {
+                        for (Object enumVal : enumConstants) {
+                            if ("DEFAULT".equals(enumVal.toString())) {
+                                defaultPhase = enumVal;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (defaultPhase != null) {
+                    // Set currentPhase field
+                    try {
+                        Field currentPhaseField = envClass.getDeclaredField("currentPhase");
+                        currentPhaseField.setAccessible(true);
+                        Object oldPhase = currentPhaseField.get(null);
+                        currentPhaseField.set(null, defaultPhase);
+                        PulseLogger.info(LOG, "  [DEBUG] Set currentPhase: {} -> {}", oldPhase, defaultPhase);
+                    } catch (Exception e) {
+                        PulseLogger.warn(LOG, "  [DEBUG] Could not set currentPhase: {}", e.getMessage());
+                    }
+
+                    // Try gotoPhase() method
+                    try {
+                        java.lang.reflect.Method gotoPhase = envClass.getDeclaredMethod("gotoPhase", phaseClass);
+                        gotoPhase.setAccessible(true);
+                        gotoPhase.invoke(null, defaultPhase);
+                        PulseLogger.info(LOG, "  [DEBUG] gotoPhase(DEFAULT) called successfully");
+                    } catch (Exception e) {
+                        PulseLogger.warn(LOG, "  [DEBUG] gotoPhase() failed: {}", e.getMessage());
+                    }
+                }
+            } catch (ClassNotFoundException e) {
+                PulseLogger.warn(LOG, "  [DEBUG] Phase class not found: {}", e.getMessage());
+            }
+
+            // Verify the change
+            try {
+                MixinEnvironment currentEnv = MixinEnvironment.getCurrentEnvironment();
+                PulseLogger.info(LOG, "  [DEBUG] Verification: getCurrentEnvironment() = {}", currentEnv);
+            } catch (Exception e) {
+                PulseLogger.warn(LOG, "  [DEBUG] Verification failed: {}", e.getMessage());
+            }
+
+        } catch (Exception e) {
+            PulseLogger.error(LOG, "  [DEBUG] forceDefaultPhase failed: {}", e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void checkEnvironment() {

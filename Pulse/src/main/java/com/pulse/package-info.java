@@ -40,9 +40,8 @@
  * <h2>Sub-module Projects</h2>
  * <ul>
  * <li><b>pulse-api</b> - SPI interfaces for dependent projects</li>
- * <li><b>Echo</b> - Performance profiler using Pulse API</li>
- * <li><b>Fuse</b> - AI-based optimizer</li>
- * <li><b>Nerve</b> - Network optimizer</li>
+ * <li>Performance profilers using Pulse API</li>
+ * <li>Optimization modules using Pulse hooks</li>
  * </ul>
  * 
  * <h2>Quick Start</h2>

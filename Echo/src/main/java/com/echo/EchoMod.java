@@ -254,8 +254,14 @@ public class EchoMod implements PulseMod {
             if (registry != null) {
                 java.lang.reflect.Method registerMethod = registry.getClass()
                         .getMethod("register", Class.forName("com.pulse.api.spi.IProvider"));
+
+                // EchoProfilerProvider 등록
                 registerMethod.invoke(registry, new EchoProfilerProvider());
-                PulseLogger.info("Echo", "Registered as Pulse SPI provider");
+                PulseLogger.info("Echo", "Registered EchoProfilerProvider");
+
+                // EchoHintProvider 등록 (Fuse 연동용)
+                registerMethod.invoke(registry, com.echo.spi.EchoHintProvider.getInstance());
+                PulseLogger.info("Echo", "Registered EchoHintProvider (id: echo.hints)");
             }
         } catch (ClassNotFoundException e) {
             PulseLogger.debug("Echo", "Running in standalone mode");

@@ -158,9 +158,50 @@ public class PulseEventAdapter {
     }
 
     private static void logEchoStatusSummary() {
-        double avgFps = renderProfiler != null ? renderProfiler.getAverageFps() : -1;
-        double avgTick = tickProfiler != null ? tickProfiler.getAverageTickMs() : -1;
-        PulseLogger.info("Echo", String.format("[Echo Status] avgFps=%.1f, avgTickMs=%.2f", avgFps, avgTick));
+        StringBuilder sb = new StringBuilder();
+        sb.append("[Echo] 60s | ");
+
+        // FPS & Tick
+        double avgFps = renderProfiler != null ? renderProfiler.getAverageFps() : 0;
+        double avgTick = tickProfiler != null ? tickProfiler.getAverageTickMs() : 0;
+        sb.append(String.format("FPS:%.0f Tick:%.1fms | ", avgFps, avgTick));
+
+        // AI Phase %
+        try {
+            var tpp = com.echo.measure.TickPhaseProfiler.getInstance();
+            var ai = tpp.getPhaseData(com.echo.measure.TickPhaseProfiler.TickPhase.AI_PHASE);
+            var world = tpp.getPhaseData(com.echo.measure.TickPhaseProfiler.TickPhase.WORLD_UPDATE);
+            if (ai != null && ai.getCallCount() > 0 && world != null && world.getAverageMs() > 0) {
+                sb.append(String.format("AI:%.0f%% | ", ai.getAverageMs() * 100.0 / world.getAverageMs()));
+            } else {
+                sb.append("AI:- | ");
+            }
+        } catch (Exception e) {
+            sb.append("AI:err | ");
+        }
+
+        // Memory
+        try {
+            long heapMB = com.echo.measure.MemoryProfiler.getHeapUsed() / (1024 * 1024);
+            long gcCount = com.echo.measure.MemoryProfiler.getTotalGcCount();
+            sb.append(String.format("Heap:%dMB GC:%d | ", heapMB, gcCount));
+        } catch (Exception e) {
+            sb.append("Mem:- | ");
+        }
+
+        // Top Bottleneck
+        try {
+            var top = com.echo.analysis.BottleneckDetector.getInstance().identifyTopN(1);
+            if (!top.isEmpty()) {
+                sb.append(String.format("Top:%s(%.0f%%)", top.get(0).displayName, top.get(0).ratio * 100));
+            } else {
+                sb.append("Top:-");
+            }
+        } catch (Exception e) {
+            sb.append("Top:-");
+        }
+
+        PulseLogger.info("Echo", sb.toString());
     }
 
     // ─────────────────────────────────────────────────────────────────────────────

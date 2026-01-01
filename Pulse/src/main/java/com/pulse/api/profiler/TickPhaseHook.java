@@ -1,14 +1,33 @@
 package com.pulse.api.profiler;
 
 import com.pulse.api.Pulse;
+import com.pulse.diagnostics.PulseThreadGuard;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 /**
  * Tick Phase Hooks for Echo.
  * 
  * Allows Echo to receive phase-level timing events from Pulse mixins.
  * 
+ * <h2>v5.1 Update: ThreadLocal Stack for Nested Phases</h2>
+ * <p>
+ * Supports nested phases (e.g., WORLD_UPDATE containing AI_UPDATE).
+ * Uses ThreadLocal stack for thread safety and proper LIFO ordering.
+ * </p>
+ * 
+ * <h2>Iron Rules</h2>
+ * <ol>
+ * <li>ThreadLocal Stack - thread-independent stacks</li>
+ * <li>Main Thread Guard - non-main thread calls are no-ops</li>
+ * <li>Single Source of Truth - stack's internal time is authoritative</li>
+ * <li>Fail-soft Recovery - mismatch clears stack, next tick is clean</li>
+ * </ol>
+ * 
  * @since Pulse 1.1
  * @since Pulse 0.9 - Added phase validation and predefined phases
+ * @since Pulse 1.3 - ThreadLocal Stack for nested phases
  */
 public class TickPhaseHook {
 
@@ -32,15 +51,31 @@ public class TickPhaseHook {
     public static final String PHASE_ISOGRID_UPDATE = "isogrid_update";
 
     // ═══════════════════════════════════════════════════════════════
-    // Phase Tracking for Validation
+    // v5.1: ThreadLocal Stack for Nested Phase Support
     // ═══════════════════════════════════════════════════════════════
 
-    private static String currentPhase = null;
-    private static long currentPhaseStart = -1;
+    /**
+     * Phase state for stack entries.
+     */
+    private static class PhaseState {
+        final String phase;
+        final long startTime;
+
+        PhaseState(String phase, long startTime) {
+            this.phase = phase;
+            this.startTime = startTime;
+        }
+    }
+
+    /**
+     * [Rule 1] ThreadLocal Stack - each thread gets its own stack.
+     */
+    private static final ThreadLocal<Deque<PhaseState>> phaseStack = ThreadLocal.withInitial(ArrayDeque::new);
 
     // Rate-limit for warnings (max 5 warnings per session)
-    private static int autoCloseWarningCount = 0;
-    private static final int MAX_AUTO_CLOSE_WARNINGS = 5;
+    private static int errorWarningCount = 0;
+    private static final int MAX_ERROR_WARNINGS = 5;
+    private static int phaseErrorCount = 0;
 
     public interface ITickPhaseCallback {
         long startPhase(String phase);
@@ -59,43 +94,28 @@ public class TickPhaseHook {
 
     /**
      * Install TickPhaseHook (called by PulseCoreBootstrap).
-     * 
-     * <p>
-     * This provides explicit activation instead of relying on static
-     * initialization.
-     * Safe to call multiple times (idempotent).
-     * </p>
-     * 
-     * @return true if successfully installed, false if already installed
      */
     public static boolean install() {
         if (installed) {
             return false;
         }
 
-        // Reset state for clean start
         resetWarnings();
-        currentPhase = null;
-        currentPhaseStart = -1;
+        phaseStack.get().clear();
 
         installed = true;
-        Pulse.log("pulse", "[TickPhaseHook] Installed and ready");
+        Pulse.log("pulse", "[TickPhaseHook] Installed with ThreadLocal Stack support");
         return true;
     }
 
-    /**
-     * Check if TickPhaseHook has been installed by Bootstrap.
-     */
     public static boolean isInstalled() {
         return installed;
     }
 
-    /**
-     * Uninstall TickPhaseHook (for testing/cleanup).
-     */
     public static void uninstall() {
         clearCallback();
         resetWarnings();
+        phaseStack.get().clear();
         installed = false;
     }
 
@@ -107,83 +127,119 @@ public class TickPhaseHook {
         callback = null;
     }
 
-    // Use AtomicInteger for thread safety if needed, though usually on main thread
-    private static int phaseErrorCount = 0;
+    // ═══════════════════════════════════════════════════════════════
+    // Phase API (v5.1: Stack-based)
+    // ═══════════════════════════════════════════════════════════════
 
     /**
-     * Start a phase. Auto-closes any unclosed previous phase.
+     * Start a phase. Supports nested phases via stack.
      * 
      * @param phase Phase name (use PHASE_* constants when possible)
-     * @return Start time in nanoseconds
+     * @return Start time in nanoseconds, or -1 if not on main thread
      */
     public static long startPhase(String phase) {
-        // Auto-close unclosed phase (with rate-limited warning)
-        if (currentPhase != null) {
-            phaseErrorCount++; // Increment error count
-            if (autoCloseWarningCount < MAX_AUTO_CLOSE_WARNINGS) {
-                autoCloseWarningCount++;
-                Pulse.warn("pulse", "[TickPhaseHook] Auto-closing unclosed phase: " + currentPhase
-                        + " (warning " + autoCloseWarningCount + "/" + MAX_AUTO_CLOSE_WARNINGS + ")");
-            }
-            endPhase(currentPhase, currentPhaseStart);
+        // [Rule 2] Main Thread Guard
+        if (!PulseThreadGuard.isMainThread()) {
+            return -1;
         }
 
-        currentPhase = phase;
-        currentPhaseStart = System.nanoTime();
+        long now = System.nanoTime();
+        Deque<PhaseState> stack = phaseStack.get();
+        stack.push(new PhaseState(phase, now));
 
-        if (callback != null) {
-            return callback.startPhase(phase);
+        ITickPhaseCallback cb = callback;
+        if (cb != null) {
+            return cb.startPhase(phase);
         }
-        return currentPhaseStart;
+        return now;
     }
 
     /**
-     * End a phase. Validates phase matches current phase.
+     * End a phase. Validates LIFO ordering.
      * 
-     * @param phase     Phase name
-     * @param startTime Start time from startPhase()
+     * @param phase            Phase name
+     * @param ignoredStartTime Ignored - stack's internal time is used [Rule 3]
      */
-    public static void endPhase(String phase, long startTime) {
-        // Validate phase matches
-        if (currentPhase != null && !currentPhase.equals(phase)) {
-            phaseErrorCount++; // Increment error count
-            Pulse.warn("pulse", "[TickPhaseHook] Phase mismatch: ending '" + phase
-                    + "' but current is '" + currentPhase + "'");
+    public static void endPhase(String phase, long ignoredStartTime) {
+        // [Rule 2] Main Thread Guard
+        if (!PulseThreadGuard.isMainThread()) {
+            return;
         }
 
-        currentPhase = null;
-        currentPhaseStart = -1;
+        Deque<PhaseState> stack = phaseStack.get();
 
-        if (callback != null) {
-            callback.endPhase(phase, startTime);
+        if (stack.isEmpty()) {
+            reportError("Stack underflow: endPhase('" + phase + "') called but stack is empty");
+            return;
+        }
+
+        PhaseState top = stack.peek();
+        if (!top.phase.equals(phase)) {
+            // [Rule 4] Mismatch → clear stack for fail-soft recovery
+            reportError("Phase mismatch: endPhase('" + phase + "') but top is '" + top.phase + "'");
+            stack.clear();
+            return;
+        }
+
+        stack.pop();
+
+        ITickPhaseCallback cb = callback;
+        if (cb != null) {
+            // [Rule 3] Use stack's internal startTime, not the ignored parameter
+            cb.endPhase(phase, top.startTime);
         }
     }
 
     /**
      * Called when a complete tick finishes.
+     * Clears any unclosed phases (fail-soft).
      */
     public static void onTickComplete() {
-        // Auto-close any unclosed phase at tick end
-        if (currentPhase != null) {
-            phaseErrorCount++; // Increment error count
-            if (autoCloseWarningCount < MAX_AUTO_CLOSE_WARNINGS) {
-                autoCloseWarningCount++;
-                Pulse.warn("pulse", "[TickPhaseHook] Phase '" + currentPhase
-                        + "' not closed before tick complete");
-            }
-            endPhase(currentPhase, currentPhaseStart);
+        // [Rule 2] Main Thread Guard
+        if (!PulseThreadGuard.isMainThread()) {
+            return;
         }
 
-        if (callback != null) {
-            callback.onTickComplete();
+        Deque<PhaseState> stack = phaseStack.get();
+
+        if (!stack.isEmpty()) {
+            // [Rule 4] Clear unclosed phases
+            StringBuilder unclosed = new StringBuilder();
+            while (!stack.isEmpty()) {
+                PhaseState state = stack.pop();
+                if (unclosed.length() > 0)
+                    unclosed.append(", ");
+                unclosed.append(state.phase);
+            }
+            reportError("Tick ended with " + stack.size() + " unclosed phases: " + unclosed);
+        }
+
+        ITickPhaseCallback cb = callback;
+        if (cb != null) {
+            cb.onTickComplete();
         }
     }
 
+    // ═══════════════════════════════════════════════════════════════
+    // Diagnostics & Testing
+    // ═══════════════════════════════════════════════════════════════
+
     /**
-     * Get current active phase (for debugging)
+     * Get current active phase (top of stack, for debugging)
      */
     public static String getCurrentPhase() {
-        return currentPhase;
+        Deque<PhaseState> stack = phaseStack.get();
+        if (stack.isEmpty()) {
+            return null;
+        }
+        return stack.peek().phase;
+    }
+
+    /**
+     * Get current stack depth (for debugging)
+     */
+    public static int getStackDepth() {
+        return phaseStack.get().size();
     }
 
     /**
@@ -197,7 +253,20 @@ public class TickPhaseHook {
      * Reset warning counter (for testing)
      */
     public static void resetWarnings() {
-        autoCloseWarningCount = 0;
+        errorWarningCount = 0;
         phaseErrorCount = 0;
+    }
+
+    /**
+     * Report error with rate limiting.
+     */
+    private static void reportError(String message) {
+        phaseErrorCount++;
+
+        if (errorWarningCount < MAX_ERROR_WARNINGS) {
+            errorWarningCount++;
+            Pulse.warn("pulse", "[TickPhaseHook] " + message
+                    + " (warning " + errorWarningCount + "/" + MAX_ERROR_WARNINGS + ")");
+        }
     }
 }

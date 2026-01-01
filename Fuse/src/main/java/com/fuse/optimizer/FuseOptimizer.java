@@ -1,7 +1,7 @@
 package com.fuse.optimizer;
 
 import com.pulse.api.log.PulseLogger;
-import com.pulse.api.telemetry.IOptimizationHintProvider;
+import com.pulse.api.spi.IOptimizationHintProvider;
 
 import java.util.*;
 
@@ -89,18 +89,16 @@ public class FuseOptimizer {
             return;
 
         try {
-            var hints = hintProvider.getHints();
+            var hints = hintProvider.getTopHints(1);
             if (hints.isEmpty())
                 return;
 
             // 상위 힌트 가져오기
-            var topHint = hintProvider.getTopHint();
-            if (topHint == null)
-                return;
+            var topHint = hints.get(0);
 
-            // severity가 0.5 이상이고 활성화되지 않은 경우 적용
-            if (topHint.severity() > 0.5 && !activeOptimizations.contains(topHint.target())) {
-                applyOptimization(topHint.target(), topHint.description());
+            // priority가 50 이상이고 활성화되지 않은 경우 적용
+            if (topHint.priority > 50 && !activeOptimizations.contains(topHint.targetName)) {
+                applyOptimization(topHint.targetName, topHint.recommendation);
             }
         } catch (Exception e) {
             // Fail-soft: SPI 호출 실패 시 무시

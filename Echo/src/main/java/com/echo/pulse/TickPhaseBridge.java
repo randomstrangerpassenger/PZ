@@ -127,6 +127,15 @@ public class TickPhaseBridge implements TickPhaseHook.ITickPhaseCallback {
             probe.onTick();
         }
 
+        // v2.1: MemoryTimeSeries 연결 (Phase 2)
+        // - 메인 틱 스레드 검증은 불필요 (이 콜백은 Pulse Mixin에서 호출됨)
+        // - 내부 1초 스로틀링으로 오버헤드 최소화
+        try {
+            com.echo.aggregate.MemoryTimeSeries.getInstance().record();
+        } catch (Throwable t) {
+            // fail-soft: 메모리 기록 실패는 게임에 영향 없음
+        }
+
         TickPhaseProfiler.getInstance().onTickComplete();
     }
 

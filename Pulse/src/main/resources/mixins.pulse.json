@@ -11,6 +11,7 @@
     "IsoWorldMixin",
     "IsoPlayerMixin",
     "IsoZombieMixin",
+    "MovingObjectUpdateSchedulerMixin",
     "PathfindingMixin",
     "IsoGridMixin",
     "SaveEventMixin",

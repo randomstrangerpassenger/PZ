@@ -2,8 +2,7 @@ package com.echo.validation;
 
 import com.echo.measure.TickPhaseProfiler.TickPhase;
 import com.pulse.api.TickContract;
-import java.util.Map;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -18,13 +17,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 
  * @since Echo 0.9 - Enhanced deltaTime anomaly detection, thread safety,
  *        Fuse/Nerve API
+ * @since Echo 2.2 - Stack-based nested phase support (matches TickPhaseHook
+ *        v5.1)
  */
 public class PulseContractVerifier {
 
     private static final PulseContractVerifier INSTANCE = new PulseContractVerifier();
 
-    // Contract State
-    private TickPhase lastPhase = null;
+    // v2.2: Stack-based phase tracking for nested phase support
+    private final Deque<TickPhase> phaseStack = new ArrayDeque<>();
     @SuppressWarnings("unused") // Reserved for phase timing analysis
     private long lastPhaseTime = 0;
     private final AtomicBoolean contractViolated = new AtomicBoolean(false);
@@ -75,9 +76,14 @@ public class PulseContractVerifier {
     private final AtomicLong phaseSignalCount = new AtomicLong(0);
     private final AtomicLong gameTickCount = new AtomicLong(0);
 
+    /**
+     * v2.2: Push phase onto stack (nested phase support)
+     */
     public void onPhaseStart(TickPhase phase) {
         phaseSignalCount.incrementAndGet();
-        lastPhase = phase;
+        synchronized (phaseStack) {
+            phaseStack.push(phase);
+        }
         lastPhaseTime = System.nanoTime();
     }
 
@@ -163,11 +169,23 @@ public class PulseContractVerifier {
         return schedulerTickedThisCycle;
     }
 
+    /**
+     * v2.2: Pop phase from stack with LIFO validation (nested phase support)
+     */
     public void onPhaseEnd(TickPhase phase) {
-        if (lastPhase != phase) {
-            recordViolation("Phase Mismatch: Ended " + phase + " but expected " + lastPhase);
+        synchronized (phaseStack) {
+            if (phaseStack.isEmpty()) {
+                recordViolation("Phase stack underflow: Ended " + phase + " but stack is empty");
+                return;
+            }
+            TickPhase expected = phaseStack.peek();
+            if (expected != phase) {
+                recordViolation("Phase Mismatch: Ended " + phase + " but expected " + expected);
+                phaseStack.clear(); // Fail-soft: clear stack on mismatch
+                return;
+            }
+            phaseStack.pop();
         }
-        lastPhase = null;
     }
 
     public boolean isPhaseSignalMissing() {
@@ -204,7 +222,9 @@ public class PulseContractVerifier {
         gameTickCount.set(0);
         lastTickNanos = 0;
         lastViolationMessage = null;
-        lastPhase = null;
+        synchronized (phaseStack) {
+            phaseStack.clear();
+        }
         tickMissing = false;
         burstTickCount = 0;
         lastTickReceivedTime = 0;

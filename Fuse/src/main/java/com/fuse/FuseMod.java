@@ -269,6 +269,9 @@ public class FuseMod implements PulseMod {
         optimizer.enable();
         optimizer.setAutoOptimize(false);
 
+        // Phase 6.1: Connect EchoHintProvider via SPI (Hub & Spoke)
+        connectHintProvider();
+
         // ========================================
         // Phase 7: Tick Event Subscription (로그 출력용)
         // ========================================
@@ -568,6 +571,26 @@ public class FuseMod implements PulseMod {
 
     public FuseHookAdapter getHookAdapter() {
         return hookAdapter;
+    }
+
+    /**
+     * Connect to EchoHintProvider via Pulse SPI (Hub & Spoke pattern).
+     * Uses getProviders() + stream filter to find provider by ID.
+     */
+    private void connectHintProvider() {
+        try {
+            com.pulse.api.Pulse.getProviderRegistry()
+                    .getProviders(com.pulse.api.spi.IOptimizationHintProvider.class)
+                    .stream()
+                    .filter(p -> "echo.hints".equals(p.getId()))
+                    .findFirst()
+                    .ifPresent(provider -> {
+                        optimizer.setHintProvider(provider);
+                        PulseLogger.info("Fuse", "Connected to EchoHintProvider (id: " + provider.getId() + ")");
+                    });
+        } catch (Exception e) {
+            PulseLogger.debug("Fuse", "EchoHintProvider not available: " + e.getMessage());
+        }
     }
 
     public void shutdown() {

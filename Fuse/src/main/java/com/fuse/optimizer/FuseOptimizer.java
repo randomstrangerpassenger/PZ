@@ -149,29 +149,32 @@ public class FuseOptimizer {
     }
 
     private boolean applyOptimizationLogic(String targetId) {
-        return switch (targetId) {
-            case "ZOMBIE_AI" -> {
+        // Normalize to lowercase for consistent matching with Echo's primitive API
+        String normalized = targetId != null ? targetId.toLowerCase() : "";
+
+        return switch (normalized) {
+            case "zombie_ai" -> {
                 PulseLogger.info("Fuse", "Applying Zombie AI LOD optimization...");
                 yield true;
             }
-            case "SIMULATION" -> {
+            case "simulation" -> {
                 PulseLogger.info("Fuse", "Applying Simulation batching...");
                 yield true;
             }
-            case "PHYSICS" -> {
+            case "physics" -> {
                 PulseLogger.info("Fuse", "Applying Physics LOD...");
                 yield true;
             }
-            case "PATHFINDING_DEEP" -> {
+            case "pathfinding", "pathfinding_deep" -> {
                 PulseLogger.info("Fuse", "Applying Pathfinding caching...");
                 yield true;
             }
-            case "ZOMBIE_PROCESSING" -> {
+            case "zombie_processing" -> {
                 PulseLogger.info("Fuse", "Applying Zombie processing pooling...");
                 yield true;
             }
             default -> {
-                PulseLogger.warn("Fuse", "No optimization available for: " + targetId);
+                PulseLogger.debug("Fuse", "No optimization available for: " + targetId);
                 yield false;
             }
         };

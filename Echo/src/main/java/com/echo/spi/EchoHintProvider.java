@@ -215,14 +215,15 @@ public class EchoHintProvider implements IOptimizationHintProvider {
     private OptimizationHint createHint(Bottleneck b) {
         String category = mapCategory(b);
         int priority = (int) (b.ratio * 100);
-        String recommendation = String.format("Optimize %s: %.1fms (%.0f%%)",
+        // Echo는 관측치만 제공 - 중립적 텍스트 사용
+        String observation = String.format("Top bottleneck: %s (%.1fms, %.0f%%)",
                 b.displayName, b.avgMs, b.ratio * 100);
 
         return new OptimizationHint(
                 b.name.toLowerCase(),
                 b.displayName,
                 priority,
-                recommendation,
+                observation, // 추천이 아닌 관측
                 category);
     }
 

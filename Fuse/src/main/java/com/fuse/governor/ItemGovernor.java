@@ -162,6 +162,14 @@ public class ItemGovernor implements IWorldObjectThrottlePolicy {
         return shellShockActive;
     }
 
+    /**
+     * Check if ItemGovernor is actively throttling items.
+     * Returns true if enabled and has processed at least one item.
+     */
+    public boolean isActive() {
+        return enabled && (throttleCount + fullUpdateCount) > 0;
+    }
+
     public void setBaseDistance(float distance) {
         this.baseDistance = distance;
     }

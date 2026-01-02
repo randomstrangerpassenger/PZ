@@ -224,10 +224,12 @@ public class FuseMod implements PulseMod {
             itemGovernor = new ItemGovernor();
 
             // Phase 4: ItemGovernor implements IWorldObjectThrottlePolicy - inject into
-            // WorldItemMixin
+            // WorldItemMixin (merged into IsoWorldInventoryObject at runtime)
             try {
-                Class<?> worldItemMixinClass = Class.forName("com.pulse.mixin.WorldItemMixin");
-                java.lang.reflect.Method setPolicyMethod = worldItemMixinClass.getDeclaredMethod(
+                // [FIX] Must target the actual game class, not the Mixin class
+                // Mixin merges @Unique static fields into the target class
+                Class<?> targetClass = Class.forName("zombie.iso.objects.IsoWorldInventoryObject");
+                java.lang.reflect.Method setPolicyMethod = targetClass.getDeclaredMethod(
                         "Pulse$setPolicy",
                         com.pulse.api.world.IWorldObjectThrottlePolicy.class);
                 setPolicyMethod.setAccessible(true);
@@ -506,7 +508,7 @@ public class FuseMod implements PulseMod {
                     .append(", full=").append(itemGovernor.getFullUpdateCount())
                     .append(", shellShock=").append(itemGovernor.getShellShockThrottleCount())
                     .append(", starvation=").append(itemGovernor.getStarvationPreventCount())
-                    .append(", active=").append(itemGovernor.isShellShockActive() ? "YES" : "NO")
+                    .append(", active=").append(itemGovernor.isActive() ? "YES" : "NO")
                     .append("\n");
         }
 

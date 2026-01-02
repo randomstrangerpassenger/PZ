@@ -16,8 +16,8 @@ repositories {
 }
 
 dependencies {
-    // Pulse API dependency
-    compileOnly project(':pulse-api')
+    // Pulse API dependency - MUST be implementation so the enum classes are available at runtime
+    implementation project(':pulse-api')
     
     // Pulse main (for compiling against Pulse classes like ZombieHook)
     if (findProject(':Pulse') != null) {

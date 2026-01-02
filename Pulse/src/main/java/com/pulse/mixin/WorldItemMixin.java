@@ -149,6 +149,9 @@ public class WorldItemMixin {
             // Ensure sequenceId is assigned
             Pulse$ensureSequenceId();
 
+            // Get current tick (approximate using counter)
+            long currentTick = ++Pulse$tickCounter;
+
             // If no policy is set, allow update (fail-open for safety)
             if (Pulse$policy == null) {
                 return;
@@ -159,56 +162,58 @@ public class WorldItemMixin {
                 return;
             }
 
-            // Get current tick (approximate using counter)
-            long currentTick = ++Pulse$tickCounter;
-
-            // Check near-distance immediate update
-            // Calculate distance to nearest player (placeholder - should use actual
-            // implementation)
-            float distSq = Pulse$getDistanceToNearestPlayer();
-            if (distSq < NEAR_DIST_SQ) {
-                // Force FULL throttle for nearby items
-                if (Pulse$cachedLevel != WorldObjectThrottleLevel.FULL) {
-                    Pulse$cachedLevel = WorldObjectThrottleLevel.FULL;
-                    Pulse$lastCacheTick = currentTick;
-                    Pulse$consecutiveSkips = 0;
-                }
-                return; // Allow update
-            }
-
-            // Check starvation limit - force update if exceeded
+            // Check starvation limit
             if (Pulse$consecutiveSkips >= STARVATION_LIMIT) {
                 Pulse$consecutiveSkips = 0;
-                return; // Allow update
+                return;
             }
 
-            // Refresh cache if needed
-            if (Pulse$cachedLevel == null || (currentTick - Pulse$lastCacheTick) >= CACHE_REFRESH_TICKS) {
-                Pulse$cachedLevel = Pulse$policy.decideThrottleLevel(
-                        (zombie.iso.objects.IsoWorldInventoryObject) (Object) this,
-                        Pulse$sequenceId,
-                        Pulse$cachedLevel,
-                        Pulse$lastCacheTick,
-                        currentTick,
-                        Pulse$consecutiveSkips);
-                Pulse$lastCacheTick = currentTick;
+            // Cache refresh check
+            boolean needsCacheRefresh = (Pulse$cachedLevel == null
+                    || (currentTick - Pulse$lastCacheTick) >= CACHE_REFRESH_TICKS);
+
+            if (needsCacheRefresh) {
+                try {
+                    WorldObjectThrottleLevel newLevel = Pulse$policy.decideThrottleLevel(
+                            (zombie.iso.objects.IsoWorldInventoryObject) (Object) this,
+                            Pulse$sequenceId,
+                            Pulse$cachedLevel,
+                            Pulse$lastCacheTick,
+                            currentTick,
+                            Pulse$consecutiveSkips);
+
+                    // Null check with fallback
+                    if (newLevel == null) {
+                        newLevel = WorldObjectThrottleLevel.FULL;
+                    }
+
+                    Pulse$cachedLevel = newLevel;
+                    Pulse$lastCacheTick = currentTick;
+
+                } catch (Throwable policyError) {
+                    PulseErrorHandler.reportMixinFailure("WorldItemMixin.policy", policyError);
+                    Pulse$cachedLevel = WorldObjectThrottleLevel.FULL;
+                    Pulse$lastCacheTick = currentTick;
+                }
             }
 
-            // Check if this tick should update based on throttle level
+            // Final null safety
+            if (Pulse$cachedLevel == null) {
+                Pulse$cachedLevel = WorldObjectThrottleLevel.FULL;
+            }
+
+            // Decision
             boolean shouldUpdate = Pulse$cachedLevel.shouldUpdate(currentTick, Pulse$sequenceId);
 
             if (shouldUpdate) {
                 Pulse$consecutiveSkips = 0;
-                // Allow update
             } else {
                 Pulse$consecutiveSkips++;
-                // Cancel update
                 ci.cancel();
             }
 
         } catch (Throwable t) {
             PulseErrorHandler.reportMixinFailure("WorldItemMixin.onUpdate", t);
-            // Fail-open: allow update on error
         }
     }
 
@@ -219,9 +224,6 @@ public class WorldItemMixin {
      */
     @Unique
     private float Pulse$getDistanceToNearestPlayer() {
-        // Placeholder implementation - returns large distance
-        // Actual implementation should iterate through players and calculate min
-        // distance
         try {
             zombie.iso.objects.IsoWorldInventoryObject self = (zombie.iso.objects.IsoWorldInventoryObject) (Object) this;
 
@@ -229,32 +231,28 @@ public class WorldItemMixin {
                 return Float.MAX_VALUE;
             }
 
-            // Find nearest player manually using ZombieList
-            zombie.characters.IsoPlayer nearestPlayer = null;
             float minDistSq = Float.MAX_VALUE;
 
-            for (int i = 0; i < zombie.iso.IsoWorld.instance.getCell().getZombieList().size(); i++) {
-                Object obj = zombie.iso.IsoWorld.instance.getCell().getZombieList().get(i);
-                if (obj instanceof zombie.characters.IsoPlayer) {
-                    zombie.characters.IsoPlayer player = (zombie.characters.IsoPlayer) obj;
-                    float dx = player.getX() - (self.square.getX() + 0.5f);
-                    float dy = player.getY() - (self.square.getY() + 0.5f);
-                    float distSq = dx * dx + dy * dy;
-                    if (distSq < minDistSq) {
-                        minDistSq = distSq;
-                        nearestPlayer = player;
-                    }
-                }
-            }
+            // [FIX] Use IsoPlayer.players + numPlayers (SP/MP compatible)
+            for (int i = 0; i < zombie.characters.IsoPlayer.numPlayers; i++) {
+                zombie.characters.IsoPlayer player = zombie.characters.IsoPlayer.players[i];
 
-            if (nearestPlayer == null) {
-                return Float.MAX_VALUE;
+                if (player == null || player.isDead())
+                    continue;
+
+                float dx = player.getX() - (self.square.getX() + 0.5f);
+                float dy = player.getY() - (self.square.getY() + 0.5f);
+                float distSq = dx * dx + dy * dy;
+
+                if (distSq < minDistSq) {
+                    minDistSq = distSq;
+                }
             }
 
             return minDistSq;
 
         } catch (Exception e) {
-            return Float.MAX_VALUE;
+            return Float.MAX_VALUE; // Fail-soft
         }
     }
 }

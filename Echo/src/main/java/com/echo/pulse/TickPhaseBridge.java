@@ -136,6 +136,13 @@ public class TickPhaseBridge implements TickPhaseHook.ITickPhaseCallback {
             // fail-soft: 메모리 기록 실패는 게임에 영향 없음
         }
 
+        // v3.0: EchoHintProvider 스냅샷 갱신 (Primitive-only SPI)
+        try {
+            com.echo.spi.EchoHintProvider.getInstance().updateSnapshot();
+        } catch (Throwable t) {
+            // fail-soft
+        }
+
         TickPhaseProfiler.getInstance().onTickComplete();
     }
 

@@ -12,20 +12,33 @@ import java.util.Optional;
 /**
  * Echo 힌트 제공자.
  * 
- * BottleneckDetector의 분석 결과를 OptimizationHint로 변환하여 제공.
- * Pulse SPI를 통해 Fuse에 최적화 힌트를 전달합니다.
+ * BottleneckDetector의 관측치를 Primitive 타입으로 제공.
+ * Pulse SPI를 통해 Fuse에 메트릭을 전달합니다.
+ * 
+ * Hub & Spoke 원칙:
+ * - Echo: 관측치만 제공 (severity, category)
+ * - Fuse: 판단/정책 결정 (임계값, 조치)
  * 
  * @since Echo 2.0
  * @since Echo 2.1 - IProvider 메서드 구현 추가
+ * @since Echo 3.0 - Primitive-only API
  */
 public class EchoHintProvider implements IOptimizationHintProvider {
 
     public static final String PROVIDER_ID = "echo.hints";
     public static final String PROVIDER_NAME = "Echo Optimization Hints";
-    public static final String PROVIDER_VERSION = "1.0.0";
+    public static final String PROVIDER_VERSION = "2.0.0";
 
     private static EchoHintProvider instance;
     private boolean enabled = true;
+
+    // ═══════════════════════════════════════════════════════════════
+    // Primitive Cache (Atomic Snapshot)
+    // ═══════════════════════════════════════════════════════════════
+
+    private volatile String cachedTopTargetId = null;
+    private volatile int cachedTopSeverity = 0;
+    private volatile String cachedTopCategory = null;
 
     public static EchoHintProvider getInstance() {
         if (instance == null) {
@@ -58,12 +71,12 @@ public class EchoHintProvider implements IOptimizationHintProvider {
 
     @Override
     public String getDescription() {
-        return "Provides optimization hints based on Echo's bottleneck analysis";
+        return "Provides primitive metrics based on Echo's bottleneck analysis";
     }
 
     @Override
     public int getPriority() {
-        return 100; // Standard priority
+        return 100;
     }
 
     @Override
@@ -82,10 +95,67 @@ public class EchoHintProvider implements IOptimizationHintProvider {
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // IOptimizationHintProvider Implementation
+    // Snapshot Management (Echo 내부에서만 호출)
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * 스냅샷 갱신 - Echo 내부에서만 호출.
+     * 호출 시점: EchoProfiler 또는 EchoMod의 onTick()
+     */
+    public void updateSnapshot() {
+        try {
+            BottleneckDetector detector = BottleneckDetector.getInstance();
+            if (detector == null) {
+                clearCache();
+                return;
+            }
+
+            List<Bottleneck> top = detector.identifyTopN(1);
+            if (!top.isEmpty()) {
+                Bottleneck b = top.get(0);
+                this.cachedTopTargetId = b.name != null ? b.name.toLowerCase() : null;
+                this.cachedTopSeverity = (int) (b.ratio * 100);
+                this.cachedTopCategory = mapCategory(b);
+            } else {
+                clearCache();
+            }
+        } catch (Exception e) {
+            // Fail-soft
+            clearCache();
+        }
+    }
+
+    private void clearCache() {
+        this.cachedTopTargetId = null;
+        this.cachedTopSeverity = 0;
+        this.cachedTopCategory = null;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Primitive-only API (v2.0)
     // ═══════════════════════════════════════════════════════════════
 
     @Override
+    public String getTopTargetId() {
+        return cachedTopTargetId;
+    }
+
+    @Override
+    public int getTopTargetSeverity() {
+        return cachedTopSeverity;
+    }
+
+    @Override
+    public String getTopTargetCategory() {
+        return cachedTopCategory;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // Deprecated (하위 호환)
+    // ═══════════════════════════════════════════════════════════════
+
+    @Override
+    @Deprecated
     public Optional<OptimizationHint> suggestTarget(String category) {
         try {
             BottleneckDetector detector = BottleneckDetector.getInstance();
@@ -102,13 +172,14 @@ public class EchoHintProvider implements IOptimizationHintProvider {
                 }
             }
         } catch (Exception e) {
-            // Fail-soft: 에러 시 빈 Optional 반환
+            // Fail-soft
         }
 
         return Optional.empty();
     }
 
     @Override
+    @Deprecated
     public List<OptimizationHint> getTopHints(int n) {
         List<OptimizationHint> hints = new ArrayList<>();
 
@@ -124,48 +195,35 @@ public class EchoHintProvider implements IOptimizationHintProvider {
                 hints.add(createHint(b));
             }
         } catch (Exception e) {
-            // Fail-soft: 에러 시 빈 리스트 반환
+            // Fail-soft
         }
 
         return hints;
     }
 
     @Override
+    @Deprecated
     public boolean isUnderPressure() {
-        try {
-            BottleneckDetector detector = BottleneckDetector.getInstance();
-            if (detector == null) {
-                return false;
-            }
-
-            List<Bottleneck> top = detector.identifyTopN(1);
-            if (!top.isEmpty()) {
-                // 상위 병목이 전체의 50% 이상을 차지하면 압박 상태
-                return top.get(0).ratio > 0.5;
-            }
-        } catch (Exception e) {
-            // Fail-soft
-        }
-        return false;
+        return false; // Fuse가 판단해야 함
     }
 
     // ═══════════════════════════════════════════════════════════════
     // Helper Methods
     // ═══════════════════════════════════════════════════════════════
 
+    @Deprecated
     private OptimizationHint createHint(Bottleneck b) {
         String category = mapCategory(b);
-        int priority = (int) (b.ratio * 100); // ratio를 priority로 변환 (0-100)
+        int priority = (int) (b.ratio * 100);
         String recommendation = String.format("Optimize %s: %.1fms (%.0f%%)",
                 b.displayName, b.avgMs, b.ratio * 100);
 
         return new OptimizationHint(
-                b.name.toLowerCase(), // targetName
-                b.displayName, // displayName
-                priority, // priority
-                recommendation, // recommendation
-                category // category
-        );
+                b.name.toLowerCase(),
+                b.displayName,
+                priority,
+                recommendation,
+                category);
     }
 
     private String mapCategory(Bottleneck b) {

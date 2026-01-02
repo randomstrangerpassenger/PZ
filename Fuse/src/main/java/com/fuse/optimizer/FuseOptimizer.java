@@ -82,27 +82,46 @@ public class FuseOptimizer {
 
     /**
      * SPI를 통한 자동 최적화 적용.
-     * IOptimizationHintProvider로 힌트를 가져와 적용.
+     * Primitive-only API 사용 - Echo는 관측치만 제공, Fuse가 판단.
+     * 
+     * @since 3.0 - Primitive-only refactoring
      */
     private void applyAutoOptimizationFromHints() {
         if (hintProvider == null)
             return;
 
         try {
-            var hints = hintProvider.getTopHints(1);
-            if (hints.isEmpty())
+            String targetId = hintProvider.getTopTargetId();
+            if (targetId == null)
                 return;
 
-            // 상위 힌트 가져오기
-            var topHint = hints.get(0);
+            int severity = hintProvider.getTopTargetSeverity();
+            if (severity <= 50)
+                return; // Fuse가 임계값 결정
 
-            // priority가 50 이상이고 활성화되지 않은 경우 적용
-            if (topHint.priority > 50 && !activeOptimizations.contains(topHint.targetName)) {
-                applyOptimization(topHint.targetName, topHint.recommendation);
-            }
+            if (activeOptimizations.contains(targetId))
+                return;
+
+            // Recommendation은 Fuse 내부 정책에서 결정
+            String recommendation = determineAction(targetId, severity);
+            applyOptimization(targetId, recommendation);
+
         } catch (Exception e) {
-            // Fail-soft: SPI 호출 실패 시 무시
+            PulseLogger.debug("Fuse", "HintProvider error: " + e.getMessage());
         }
+    }
+
+    /**
+     * Fuse 내부 정책 - Echo가 아닌 Fuse가 판단.
+     */
+    private String determineAction(String targetId, int severity) {
+        return switch (targetId) {
+            case "zombie_ai" -> "Throttle zombie updates";
+            case "pathfinding" -> "Reduce pathfinding frequency";
+            case "simulation" -> "Apply simulation batching";
+            case "physics" -> "Apply physics LOD";
+            default -> "Apply generic optimization";
+        };
     }
 
     /**

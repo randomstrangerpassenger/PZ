@@ -25,6 +25,7 @@ import com.pulse.api.profiler.IThrottlePolicy;
  * @since Fuse 0.3.0
  * @since Fuse 0.5.0 - Tiered ThrottleLevel 방식으로 전환
  * @since Fuse 1.1.0 - Window-based hysteresis + Governor/Panic integration
+ * @since Fuse 2.2.0 - IHookContext.getTarget() 기반 거리 계산
  */
 public class FuseThrottleController implements IThrottlePolicy {
 
@@ -126,10 +127,66 @@ public class FuseThrottleController implements IThrottlePolicy {
     // IThrottlePolicy 구현
     // =================================================================
 
+    /**
+     * 좀비 처리 여부 결정.
+     * 
+     * context.getTarget()에서 좀비 객체를 추출하여 거리 기반 스로틀링 적용.
+     * 핵심: getThrottleLevel()을 호출하여 통계 갱신 및 히스테리시스 적용.
+     * 
+     * @param context 훅 컨텍스트 (target = 좀비 객체)
+     * @return true면 처리, false면 스킵
+     */
     @Override
     public boolean shouldProcess(IHookContext context) {
-        // 간단한 구현: 항상 처리 (Step-level throttle은 getThrottleLevel로)
-        return true;
+        // DEBUG: 매 1000번째 호출마다 로그
+        long tick = context != null ? context.gameTick() : 0;
+        boolean shouldLog = (tick % 1000 == 0);
+
+        // Fail-open: context가 없거나 target이 없으면 처리
+        if (context == null) {
+            if (shouldLog) {
+                PulseLogger.debug(LOG, "[DEBUG] shouldProcess: context is NULL → returning true");
+            }
+            return true;
+        }
+
+        if (context.getTarget() == null) {
+            if (shouldLog) {
+                PulseLogger.debug(LOG,
+                        "[DEBUG] shouldProcess: context.getTarget() is NULL → returning true (tick=" + tick + ")");
+            }
+            return true;
+        }
+
+        Object target = context.getTarget();
+
+        if (shouldLog) {
+            PulseLogger.debug(LOG, "[DEBUG] shouldProcess: tick=" + tick
+                    + ", target=" + target.getClass().getSimpleName());
+        }
+
+        // ZombieReflectionHelper를 통해 거리 및 상태 조회 (리플렉션 기반)
+        float distSq = ZombieReflectionHelper.getDistanceSquaredToPlayer(target);
+        boolean isAttacking = ZombieReflectionHelper.isAttacking(target);
+        boolean hasTarget = ZombieReflectionHelper.hasTarget(target);
+
+        if (shouldLog) {
+            PulseLogger.debug(LOG, "[DEBUG] shouldProcess: distSq=" + distSq
+                    + ", isAttacking=" + isAttacking + ", hasTarget=" + hasTarget);
+        }
+
+        // 핵심: 반드시 getThrottleLevel() 호출하여 통계 갱신
+        ThrottleLevel level = getThrottleLevel(distSq, isAttacking, hasTarget, false);
+
+        if (shouldLog) {
+            PulseLogger.debug(LOG, "[DEBUG] shouldProcess: level=" + level
+                    + " → shouldProcess=" + (level != ThrottleLevel.MINIMAL)
+                    + " (stats: FULL=" + fullCount + ", REDUCED=" + reducedCount
+                    + ", LOW=" + lowCount + ", MINIMAL=" + minimalCount + ")");
+        }
+
+        // MINIMAL이면 스킵 (shouldProcess = false)
+        return level != ThrottleLevel.MINIMAL;
     }
 
     @Override

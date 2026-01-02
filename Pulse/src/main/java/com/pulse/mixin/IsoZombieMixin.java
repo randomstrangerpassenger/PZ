@@ -2,6 +2,7 @@ package com.pulse.mixin;
 
 import com.pulse.api.profiler.SubProfilerHook;
 import com.pulse.api.profiler.ZombieHook;
+import com.pulse.handler.WorldTickHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * 
  * @since Pulse 1.2
  * @since Pulse 2.2 - 익명 클래스 제거 (Mixin 0.8.5 호환성)
+ * @since Pulse 2.3 - WorldTickHandler 사용 (전역 틱 무결성)
  */
 @Mixin(targets = "zombie.characters.IsoZombie")
 public abstract class IsoZombieMixin {
@@ -27,22 +29,19 @@ public abstract class IsoZombieMixin {
     @Unique
     private long Pulse$zombieUpdateStart = -1;
 
-    @Unique
-    private static long Pulse$worldTick = 0;
-
     /**
      * IsoZombie.update() 시작
      */
     @Inject(method = "update()V", at = @At("HEAD"))
     private void Pulse$onZombieUpdateStart(CallbackInfo ci) {
         try {
-            Pulse$worldTick++;
-            final long currentTick = Pulse$worldTick;
+            // 전역 월드 틱 조회 (좀비 수에 상관없이 일정)
+            final long currentTick = WorldTickHandler.getInstance().getTickCount();
 
-            // 스로틀링 정책 체크 - 익명 클래스 없이 직접 호출
+            // 스로틀링 정책 체크 - 좀비 객체(this)를 context에 전달
             if (ZombieHook.hasPolicyRegistered()) {
-                boolean shouldProcess = ZombieHook.shouldProcessSimple("ZOMBIE_UPDATE", currentTick);
-                int budget = ZombieHook.getAllowedBudgetSimple("ZOMBIE_UPDATE", currentTick);
+                boolean shouldProcess = ZombieHook.shouldProcessWithTarget(this, currentTick);
+                int budget = ZombieHook.getAllowedBudgetWithTarget(this, currentTick);
                 ZombieHook.setThrottleResult(shouldProcess, budget, currentTick);
             }
 

@@ -519,6 +519,15 @@ public class FuseMod implements PulseMod {
                     .append(")\n");
         }
 
+        // v2.2: ZombieThrottle 통계
+        if (throttleController != null) {
+            sb.append("  ZombieThrottle: FULL=").append(throttleController.getFullCount())
+                    .append(", REDUCED=").append(throttleController.getReducedCount())
+                    .append(", LOW=").append(throttleController.getLowCount())
+                    .append(", MINIMAL=").append(throttleController.getMinimalCount())
+                    .append("\n");
+        }
+
         // v1.1: Reason 통계
         if (reasonStats != null && reasonStats.getTotalCount() > 0) {
             sb.append("  Intervention Reasons (Top 3):\n");

@@ -3,6 +3,7 @@ package com.pulse.api.profiler;
 import com.pulse.api.hook.IZombieCallback;
 import com.pulse.api.hook.IZombieHook;
 import com.pulse.api.log.PulseLogger;
+import com.pulse.runtime.MutableHookContext;
 
 /**
  * Zombie Update Hook for profiling and throttling integration.
@@ -22,6 +23,7 @@ import com.pulse.api.log.PulseLogger;
  * @since Pulse 1.2
  * @since Pulse 2.0 - IThrottlePolicy 기반으로 재설계
  * @since Pulse 2.1 - IZombieHook 인터페이스 구현
+ * @since Pulse 2.2 - Zero-allocation ThreadLocal context 패턴 도입
  */
 public class ZombieHook implements IZombieHook {
 
@@ -39,6 +41,10 @@ public class ZombieHook implements IZombieHook {
 
     /** Profiling callback */
     private static IZombieCallback callback;
+
+    /** Zero-allocation ThreadLocal context (v2.2) */
+    private static final ThreadLocal<MutableHookContext> REUSABLE_CTX = ThreadLocal
+            .withInitial(MutableHookContext::new);
 
     // =================================================================
     // 싱글톤 접근
@@ -246,41 +252,105 @@ public class ZombieHook implements IZombieHook {
         }
     }
 
+    // =================================================================
+    // Zero-allocation Context Methods (v2.2)
+    // =================================================================
+
     /**
-     * 익명 클래스 없이 shouldProcess 호출 (Mixin 0.8.5 호환).
+     * 좀비 객체와 함께 shouldProcess 호출 (Zero-allocation).
      * 
-     * @param hookId   훅 ID (예: "ZOMBIE_UPDATE")
+     * ThreadLocal MutableHookContext를 재사용하여 GC 압력 최소화.
+     * 
+     * @param zombie   좀비 객체 (Object 타입으로 전달)
      * @param gameTick 현재 게임 틱
      * @return 처리 여부
+     * @since Pulse 2.2
      */
-    public static boolean shouldProcessSimple(String hookId, long gameTick) {
+    public static boolean shouldProcessWithTarget(Object zombie, long gameTick) {
+        // DEBUG: 1000틱마다 로그 출력 (스팸 방지)
+        boolean shouldLog = (gameTick % 1000 == 0);
+
         if (throttlePolicy == null) {
+            if (shouldLog) {
+                PulseLogger.debug("ZombieHook", "[DEBUG] shouldProcessWithTarget: throttlePolicy is NULL");
+            }
             return true;
         }
+
+        if (shouldLog) {
+            PulseLogger.debug("ZombieHook", "[DEBUG] shouldProcessWithTarget: tick=" + gameTick
+                    + ", zombie=" + (zombie != null ? zombie.getClass().getSimpleName() : "null")
+                    + ", policy=" + throttlePolicy.getClass().getSimpleName());
+        }
+
+        MutableHookContext ctx = REUSABLE_CTX.get();
         try {
-            // null context로 호출하거나, 정책이 null을 처리하도록
-            return throttlePolicy.shouldProcess(null);
+            ctx.update("ZOMBIE_UPDATE", gameTick, zombie);
+            boolean result = throttlePolicy.shouldProcess(ctx);
+
+            if (shouldLog) {
+                PulseLogger.debug("ZombieHook", "[DEBUG] shouldProcessWithTarget: result=" + result);
+            }
+            return result;
         } catch (Throwable t) {
-            return true;
+            PulseLogger.warn("ZombieHook", "[ERROR] shouldProcessWithTarget failed: " + t.getMessage());
+            return true; // fail-open
+        } finally {
+            ctx.clear(); // 참조 해제 (메모리 누수 방지)
         }
     }
 
     /**
-     * 익명 클래스 없이 getAllowedBudget 호출 (Mixin 0.8.5 호환).
+     * 좀비 객체와 함께 getAllowedBudget 호출 (Zero-allocation).
      * 
+     * @param zombie   좀비 객체 (Object 타입으로 전달)
+     * @param gameTick 현재 게임 틱
+     * @return 0-100 예산
+     * @since Pulse 2.2
+     */
+    public static int getAllowedBudgetWithTarget(Object zombie, long gameTick) {
+        if (throttlePolicy == null) {
+            return 100;
+        }
+        MutableHookContext ctx = REUSABLE_CTX.get();
+        try {
+            ctx.update("ZOMBIE_BUDGET", gameTick, zombie);
+            return throttlePolicy.getAllowedBudget(ctx);
+        } catch (Throwable t) {
+            return 100; // fail-open
+        } finally {
+            ctx.clear();
+        }
+    }
+
+    // =================================================================
+    // Legacy Methods (Deprecated)
+    // =================================================================
+
+    /**
+     * 익명 클래스 없이 shouldProcess 호출.
+     * 
+     * @deprecated Use {@link #shouldProcessWithTarget(Object, long)} instead.
+     * @param hookId   훅 ID (예: "ZOMBIE_UPDATE")
+     * @param gameTick 현재 게임 틱
+     * @return 처리 여부
+     */
+    @Deprecated
+    public static boolean shouldProcessSimple(String hookId, long gameTick) {
+        return shouldProcessWithTarget(null, gameTick);
+    }
+
+    /**
+     * 익명 클래스 없이 getAllowedBudget 호출.
+     * 
+     * @deprecated Use {@link #getAllowedBudgetWithTarget(Object, long)} instead.
      * @param hookId   훅 ID (예: "ZOMBIE_UPDATE")
      * @param gameTick 현재 게임 틱
      * @return 0-100 예산
      */
+    @Deprecated
     public static int getAllowedBudgetSimple(String hookId, long gameTick) {
-        if (throttlePolicy == null) {
-            return 100;
-        }
-        try {
-            return throttlePolicy.getAllowedBudget(null);
-        } catch (Throwable t) {
-            return 100;
-        }
+        return getAllowedBudgetWithTarget(null, gameTick);
     }
 
     // =================================================================

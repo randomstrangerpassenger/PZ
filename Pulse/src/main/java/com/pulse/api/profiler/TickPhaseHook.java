@@ -167,9 +167,15 @@ public class TickPhaseHook {
         }
 
         Deque<PhaseState> stack = phaseStack.get();
+        ITickPhaseCallback cb = callback;
 
         if (stack.isEmpty()) {
             reportError("Stack underflow: endPhase('" + phase + "') called but stack is empty");
+            // v5.2: Still notify callback with -1 startTime so Echo can skip measurement
+            // but maintain heartbeat balance
+            if (cb != null) {
+                cb.endPhase(phase, -1);
+            }
             return;
         }
 
@@ -178,12 +184,15 @@ public class TickPhaseHook {
             // [Rule 4] Mismatch → clear stack for fail-soft recovery
             reportError("Phase mismatch: endPhase('" + phase + "') but top is '" + top.phase + "'");
             stack.clear();
+            // v5.2: Notify callback with -1 to maintain heartbeat balance
+            if (cb != null) {
+                cb.endPhase(phase, -1);
+            }
             return;
         }
 
         stack.pop();
 
-        ITickPhaseCallback cb = callback;
         if (cb != null) {
             // [Rule 3] Use stack's internal startTime, not the ignored parameter
             cb.endPhase(phase, top.startTime);

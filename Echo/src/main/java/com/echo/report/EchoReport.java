@@ -219,15 +219,6 @@ public class EchoReport {
         } else {
             System.out.println(" ✅ No significant data quality issues.");
         }
-
-        // Recommendations
-        List<String> recs = collector.generateRecommendations();
-        if (!recs.isEmpty()) {
-            System.out.println("\n Recommendations:");
-            for (String rec : recs) {
-                System.out.println("   - " + rec);
-            }
-        }
         System.out.println("═══════════════════════════════════════════════════════\n");
     }
 

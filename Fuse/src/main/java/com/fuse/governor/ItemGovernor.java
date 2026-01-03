@@ -10,16 +10,31 @@ import com.pulse.api.world.WorldObjectThrottleLevel;
  * IWorldObjectThrottlePolicy를 구현하여 WorldItemMixin에 정책을 주입합니다.
  * 적응형 쓰로틀링: 시스템 부하에 따라 업데이트 주기를 조절합니다.
  * 
- * Phase 4: stub에서 복원 - IWorldObjectThrottlePolicy 구현
- * 
  * @since Fuse 0.3.0
  * @since Fuse 0.4.0 - Phase 4: IWorldObjectThrottlePolicy 구현 복원
+ * @since Fuse 0.5.0 - 헌법 정화: 정책 상수 귀속 (Pulse에서 이관)
  */
 public class ItemGovernor implements IWorldObjectThrottlePolicy {
 
     private static final String LOG = "Fuse";
 
+    // ═══════════════════════════════════════════════════════════════
+    // 정책 상수 (v0.5.0 - Pulse에서 이관, 헌법 정화)
+    // ═══════════════════════════════════════════════════════════════
+
+    /** 캐시 갱신 주기 (틱) - Pulse mixin이 이 간격마다 정책 재평가 */
+    private static final int CACHE_REFRESH_TICKS = 10;
+
+    /** 기아 한계 - 최대 연속 스킵 횟수. 초과시 무조건 업데이트 (안정성) */
+    private static final int STARVATION_LIMIT = 60;
+
+    /** 근거리 임계값 (제곱 거리) - 이 거리 내 객체는 즉시 FULL 업데이트 */
+    private static final float NEAR_DISTANCE_SQ = 100.0f;
+
+    // ═══════════════════════════════════════════════════════════════
     // 쓰로틀 설정
+    // ═══════════════════════════════════════════════════════════════
+
     private boolean enabled = true;
     private boolean shellShockActive = false;
     private float baseDistance = 20.0f;
@@ -36,7 +51,7 @@ public class ItemGovernor implements IWorldObjectThrottlePolicy {
     private long lastDeactivationLogTime = 0;
 
     public ItemGovernor() {
-        PulseLogger.info(LOG, "ItemGovernor initialized (Phase 4 - IWorldObjectThrottlePolicy)");
+        PulseLogger.info(LOG, "ItemGovernor initialized (Policy v0.5.0 - 헌법 정화)");
     }
 
     // --- IWorldObjectThrottlePolicy Implementation ---
@@ -211,5 +226,24 @@ public class ItemGovernor implements IWorldObjectThrottlePolicy {
         PulseLogger.info(LOG, "  Full Updates: " + fullUpdateCount);
         PulseLogger.info(LOG, "  ShellShock Throttles: " + shellShockThrottleCount);
         PulseLogger.info(LOG, "  Starvation Prevents: " + starvationPreventCount);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // IWorldObjectThrottlePolicy getter (v0.5.0 - 헌법 정화)
+    // ═══════════════════════════════════════════════════════════════
+
+    @Override
+    public int getCacheRefreshTicks() {
+        return CACHE_REFRESH_TICKS;
+    }
+
+    @Override
+    public int getStarvationLimit() {
+        return STARVATION_LIMIT;
+    }
+
+    @Override
+    public float getNearDistanceSquared() {
+        return NEAR_DISTANCE_SQ;
     }
 }

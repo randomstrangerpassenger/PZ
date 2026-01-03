@@ -3,11 +3,8 @@ package com.echo.spi;
 import com.echo.analysis.BottleneckDetector;
 import com.echo.analysis.BottleneckDetector.Bottleneck;
 import com.pulse.api.spi.IOptimizationHintProvider;
-import com.pulse.api.spi.OptimizationHint;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Echo 힌트 제공자.
@@ -151,81 +148,8 @@ public class EchoHintProvider implements IOptimizationHintProvider {
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // Deprecated (하위 호환)
+    // Helper Methods (관측 데이터 분류용)
     // ═══════════════════════════════════════════════════════════════
-
-    @Override
-    @Deprecated
-    public Optional<OptimizationHint> suggestTarget(String category) {
-        try {
-            BottleneckDetector detector = BottleneckDetector.getInstance();
-            if (detector == null) {
-                return Optional.empty();
-            }
-
-            List<Bottleneck> bottlenecks = detector.identifyTopN(10);
-
-            for (Bottleneck b : bottlenecks) {
-                String mappedCategory = mapCategory(b);
-                if (mappedCategory.equals(category)) {
-                    return Optional.of(createHint(b));
-                }
-            }
-        } catch (Exception e) {
-            // Fail-soft
-        }
-
-        return Optional.empty();
-    }
-
-    @Override
-    @Deprecated
-    public List<OptimizationHint> getTopHints(int n) {
-        List<OptimizationHint> hints = new ArrayList<>();
-
-        try {
-            BottleneckDetector detector = BottleneckDetector.getInstance();
-            if (detector == null) {
-                return hints;
-            }
-
-            List<Bottleneck> bottlenecks = detector.identifyTopN(n);
-
-            for (Bottleneck b : bottlenecks) {
-                hints.add(createHint(b));
-            }
-        } catch (Exception e) {
-            // Fail-soft
-        }
-
-        return hints;
-    }
-
-    @Override
-    @Deprecated
-    public boolean isUnderPressure() {
-        return false; // Fuse가 판단해야 함
-    }
-
-    // ═══════════════════════════════════════════════════════════════
-    // Helper Methods
-    // ═══════════════════════════════════════════════════════════════
-
-    @Deprecated
-    private OptimizationHint createHint(Bottleneck b) {
-        String category = mapCategory(b);
-        int priority = (int) (b.ratio * 100);
-        // Echo는 관측치만 제공 - 중립적 텍스트 사용
-        String observation = String.format("Top bottleneck: %s (%.1fms, %.0f%%)",
-                b.displayName, b.avgMs, b.ratio * 100);
-
-        return new OptimizationHint(
-                b.name.toLowerCase(),
-                b.displayName,
-                priority,
-                observation, // 추천이 아닌 관측
-                category);
-    }
 
     private String mapCategory(Bottleneck b) {
         if (b.name == null)

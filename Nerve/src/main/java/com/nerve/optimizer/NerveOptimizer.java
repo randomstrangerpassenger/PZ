@@ -3,11 +3,10 @@ package com.nerve.optimizer;
 import com.pulse.api.di.PulseServices;
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.service.echo.ConnectionQuality;
-import com.pulse.api.service.echo.IBottleneckDetector;
 import com.pulse.api.service.echo.INetworkMetrics;
 import com.pulse.api.service.echo.IRenderMetrics;
-import com.pulse.api.service.echo.OptimizationPriority;
 import com.pulse.api.service.echo.RenderEfficiency;
+import com.pulse.api.spi.IOptimizationHintProvider;
 
 import java.util.*;
 
@@ -27,7 +26,8 @@ public class NerveOptimizer {
     // 최적화 상태
     private boolean enabled = false;
     private boolean autoOptimize = false;
-    private OptimizationPriority currentTarget = null;
+    private String currentTargetId = null;
+    private int currentSeverity = 0;
     private long lastAnalysisTime = 0;
     private static final long ANALYSIS_INTERVAL_MS = 5000;
 
@@ -84,8 +84,9 @@ public class NerveOptimizer {
 
     /**
      * 틱마다 호출하여 병목 분석 및 최적화 적용
+     * 
+     * @since 3.0 - IOptimizationHintProvider primitive API 사용
      */
-    @SuppressWarnings("deprecation")
     public void update() {
         if (!enabled)
             return;
@@ -95,12 +96,35 @@ public class NerveOptimizer {
             return;
         lastAnalysisTime = now;
 
-        // Echo BottleneckDetector에서 Nerve 타겟 조회 (SPI)
-        IBottleneckDetector detector = PulseServices.getServiceLocator().getService(IBottleneckDetector.class);
-        if (detector != null) {
-            currentTarget = detector.suggestNerveTarget();
-        } else {
-            currentTarget = null;
+        // Echo로부터 원시 관측 데이터만 수신 (SPI primitive API)
+        try {
+            IOptimizationHintProvider provider = com.pulse.api.Pulse.getProviderRegistry()
+                    .getProviders(IOptimizationHintProvider.class)
+                    .stream()
+                    .filter(p -> "echo.hints".equals(p.getId()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (provider != null) {
+                currentTargetId = provider.getTopTargetId();
+                currentSeverity = provider.getTopTargetSeverity();
+                String category = provider.getTopTargetCategory();
+
+                // Nerve는 RENDER, NETWORK 카테고리만 처리
+                if (category != null &&
+                        !IOptimizationHintProvider.CATEGORY_RENDER.equals(category) &&
+                        !IOptimizationHintProvider.CATEGORY_NETWORK.equals(category)) {
+                    currentTargetId = null;
+                    currentSeverity = 0;
+                }
+            } else {
+                currentTargetId = null;
+                currentSeverity = 0;
+            }
+        } catch (Exception e) {
+            PulseLogger.debug(LOG, "HintProvider not available: {}", e.getMessage());
+            currentTargetId = null;
+            currentSeverity = 0;
         }
 
         // 네트워크 품질 기반 자동 조절
@@ -108,8 +132,9 @@ public class NerveOptimizer {
             autoAdjustNetwork();
             autoAdjustRendering();
 
-            if (currentTarget != null && currentTarget.priority > 50) {
-                applyOptimization(currentTarget);
+            // Nerve 내부 정책: severity 50 이상이면 최적화 적용
+            if (currentTargetId != null && currentSeverity > 50) {
+                applyOptimization(currentTargetId);
             }
         }
     }
@@ -203,22 +228,36 @@ public class NerveOptimizer {
 
     /**
      * 수동으로 최적화 적용
+     * 
+     * @param targetId 타겟 ID (예: "RENDER", "NETWORK")
      */
-    public void applyOptimization(OptimizationPriority target) {
-        if (target == null || "NONE".equals(target.targetName))
+    public void applyOptimization(String targetId) {
+        if (targetId == null || "NONE".equalsIgnoreCase(targetId))
             return;
 
-        String optId = target.targetName;
-        if (activeOptimizations.contains(optId))
+        if (activeOptimizations.contains(targetId))
             return;
 
-        boolean success = applyOptimizationLogic(optId);
+        boolean success = applyOptimizationLogic(targetId);
         if (success) {
-            activeOptimizations.add(optId);
+            activeOptimizations.add(targetId);
             optimizationsApplied++;
-            PulseLogger.info(LOG, "Applied optimization: {}", optId);
-            PulseLogger.info(LOG, "Recommendation: {}", target.recommendation);
+            PulseLogger.info(LOG, "Applied optimization: {}", targetId);
+            // Nerve 내부 정책 결정 로그
+            PulseLogger.info(LOG, "Policy applied: {}", determineAction(targetId, currentSeverity));
         }
+    }
+
+    /**
+     * Nerve 내부 정책 - Echo가 아닌 Nerve가 판단.
+     */
+    private String determineAction(String targetId, int severity) {
+        return switch (targetId.toUpperCase()) {
+            case "RENDER" -> "Enable DrawCall batching";
+            case "RENDER_WORLD" -> "Enable occlusion culling + LOD";
+            case "NETWORK" -> "Enable packet batching + compression";
+            default -> "Apply generic optimization";
+        };
     }
 
     /**
@@ -298,8 +337,11 @@ public class NerveOptimizer {
         }
         status.put("render_settings", render);
 
-        if (currentTarget != null) {
-            status.put("current_target", currentTarget.toMap());
+        if (currentTargetId != null) {
+            Map<String, Object> targetInfo = new LinkedHashMap<>();
+            targetInfo.put("target_id", currentTargetId);
+            targetInfo.put("severity", currentSeverity);
+            status.put("current_target", targetInfo);
         }
 
         return status;

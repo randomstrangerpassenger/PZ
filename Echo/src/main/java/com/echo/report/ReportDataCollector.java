@@ -1,8 +1,6 @@
 package com.echo.report;
 
 import com.echo.aggregate.DataQualityFlag;
-import com.echo.aggregate.SpikeLog;
-import com.echo.aggregate.TickHistogram;
 import com.echo.aggregate.TimingData;
 import com.echo.aggregate.MemoryTimeSeries;
 import com.echo.aggregate.TimeSeriesStore;
@@ -115,7 +113,6 @@ public class ReportDataCollector {
         echoReport.put("pulse_contract",
                 safeGetMap(() -> PulseContractVerifier.getInstance().toMap()));
         echoReport.put("report_quality", generateReportQuality());
-        echoReport.put("recommendations", generateRecommendations());
         echoReport.put("analysis", generateAnalysis());
         echoReport.put("metadata", generateMetadata());
 
@@ -322,66 +319,6 @@ public class ReportDataCollector {
         }
         map.put("history", list);
         return map;
-    }
-
-    public List<String> generateRecommendations() {
-        List<String> recommendations = new ArrayList<>();
-        TimingData tickData = profiler.getTimingData(ProfilingPoint.TICK);
-        TickHistogram histogram = profiler.getTickHistogram();
-        SpikeLog spikeLog = profiler.getSpikeLog();
-
-        if (tickData != null && tickData.getCallCount() > 0) {
-            double avgMs = tickData.getAverageMicros() / 1000.0;
-            double maxMs = tickData.getMaxMicros() / 1000.0;
-
-            if (avgMs > 33.33) {
-                recommendations.add("CRITICAL: Average tick time (" + round(avgMs)
-                        + "ms) exceeds 33ms. Game is running below 30 FPS.");
-            } else if (avgMs > 16.67) {
-                recommendations.add("WARNING: Average tick time (" + round(avgMs)
-                        + "ms) exceeds 16.67ms target. Consider optimization.");
-            }
-
-            if (spikeLog.getTotalSpikes() > 10) {
-                recommendations.add("High spike count (" + spikeLog.getTotalSpikes() + "). Investigate: "
-                        + spikeLog.getWorstSpikeLabel());
-            }
-
-            if (maxMs > 100) {
-                recommendations.add("SEVERE: Max tick spike (" + round(maxMs) + "ms) exceeded 100ms.");
-            }
-
-            double p95 = histogram.getP95();
-            if (p95 > 33.33) {
-                recommendations.add("P95 tick time (" + round(p95) + "ms) is high. 5% of ticks are causing stutters.");
-            }
-        }
-
-        // 현재 상태로 검증 (캐시된 결과가 아닌 실시간)
-        SelfValidation.ValidationResult val = SelfValidation.getInstance().validate();
-        if (val != null && val.hookStatus != SelfValidation.HookStatus.OK) {
-            recommendations.add("CRITICAL: Pulse hooks are MISSING or PARTIAL. Check Mixin logs.");
-        }
-
-        // v0.9.1: 두 레벨로 분리
-        com.echo.validation.FallbackTickEmitter fallback = com.echo.validation.FallbackTickEmitter.getInstance();
-        if (fallback.isHistogramContaminated()) {
-            recommendations
-                    .add("WARNING: Fallback ticks contaminated timing data. Histogram/percentiles may be inaccurate.");
-        } else if (EchoConfig.getInstance().isUsedFallbackTicks()) {
-            recommendations.add("INFO: Fallback tick emitter was activated but timing data is clean.");
-        }
-
-        long sessionMs = profiler.getSessionDurationMs();
-        if (sessionMs < 10000) {
-            recommendations.add("INFO: Short session (<10s). Data may be noisy.");
-        }
-
-        if (recommendations.isEmpty()) {
-            recommendations.add("Performance looks good! No critical issues detected.");
-        }
-
-        return recommendations;
     }
 
     private Map<String, Object> generateMemoryStats() {

@@ -36,7 +36,12 @@ public enum TelemetryReason {
     // --- GC Pressure 관련 (v2.1) ---
     GC_PRESSURE_DIET("GC pressure high - budget reduced"),
     GC_PRESSURE_RECOVERING("GC pressure recovering"),
-    GC_PRESSURE_POST_GC("Post-GC recovery in progress");
+    GC_PRESSURE_POST_GC("Post-GC recovery in progress"),
+
+    // --- Area 7: 경로탐색/충돌/물리 (v2.2) ---
+    PATH_REQUEST_DEFERRED("Path request deferred to next tick"),
+    PATH_REQUEST_DROPPED("Path request dropped - queue overflow"),
+    PHYSICS_SANITY_FAILURE("Physics sanity check failed - state restored");
 
     public final String description;
 

@@ -19,6 +19,9 @@ dependencies {
     // Pulse API (Phase 2: API 계약만 의존)
     compileOnly project(':pulse-api')
     
+    // Pulse SPI (Phase 4: IOptimizationHintProvider 접근)
+    compileOnly project(':Pulse')
+    
     // Project Zomboid (use pzGamePath from root)
     def pzDir = rootProject.ext.pzGamePath ?: ''
     compileOnly files("${pzDir}/java/zombie")

@@ -1,5 +1,6 @@
 package com.fuse;
 
+import com.fuse.area7.FusePathfindingGuard;
 import com.fuse.config.FuseConfig;
 import com.fuse.governor.ItemGovernor;
 import com.fuse.governor.RollingTickStats;
@@ -22,6 +23,7 @@ import com.pulse.api.profiler.ZombieHook;
 import com.pulse.api.di.PulseServices;
 import com.pulse.api.event.IEventBus;
 import com.pulse.api.event.lifecycle.GameTickEndEvent;
+import com.pulse.api.event.lifecycle.GameTickStartEvent;
 import com.pulse.api.event.save.PostSaveEvent;
 import com.pulse.api.event.save.PreSaveEvent;
 import com.pulse.api.mod.PulseMod;
@@ -71,6 +73,9 @@ public class FuseMod implements PulseMod {
 
     // --- v2.2 Area 7: Item Governor ---
     private ItemGovernor itemGovernor;
+
+    // --- v2.2 Area 7: Pathfinding Guard ---
+    private FusePathfindingGuard pathfindingGuard;
 
     // --- 주기적 로깅 ---
     private long tickCounter = 0;
@@ -264,6 +269,18 @@ public class FuseMod implements PulseMod {
         }
 
         // ========================================
+        // Phase 5.5: Area 7 - Pathfinding Guard
+        // ========================================
+
+        try {
+            pathfindingGuard = new FusePathfindingGuard(reasonStats);
+            pathfindingGuard.register();
+            PulseLogger.info("Fuse", "Area 7 PathfindingGuard initialized");
+        } catch (Exception e) {
+            PulseLogger.error("Fuse", "Failed to initialize PathfindingGuard: " + e.getMessage(), e);
+        }
+
+        // ========================================
         // Phase 6: Optimizer
         // ========================================
 
@@ -275,15 +292,27 @@ public class FuseMod implements PulseMod {
         connectHintProvider();
 
         // ========================================
-        // Phase 7: Tick Event Subscription (로그 출력용)
+        // Phase 7: Tick Event Subscription
         // ========================================
         try {
+            // GameTickStart: Area 7 틱 시작
+            PulseServices.events().subscribe(GameTickStartEvent.class, event -> {
+                if (pathfindingGuard != null) {
+                    pathfindingGuard.onTickStart(tickCounter);
+                }
+            }, MOD_ID);
+
+            // GameTickEnd: Area 7 틱 종료 + 기존 로직
             PulseServices.events().subscribe(GameTickEndEvent.class, event -> {
                 onTick();
+                if (pathfindingGuard != null) {
+                    pathfindingGuard.onTickEnd(tickCounter);
+                }
             }, MOD_ID);
-            PulseLogger.info("Fuse", "GameTickEndEvent subscription active");
+
+            PulseLogger.info("Fuse", "GameTick event subscriptions active (with Area 7)");
         } catch (Exception e) {
-            PulseLogger.warn("Fuse", "Failed to subscribe to GameTickEndEvent: " + e.getMessage());
+            PulseLogger.warn("Fuse", "Failed to subscribe to GameTick events: " + e.getMessage());
         }
 
         initialized = true;

@@ -1,9 +1,5 @@
 package com.pulse.api.spi;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
 /**
  * SPI interface for optimization hint providers.
  * 
@@ -16,6 +12,7 @@ import java.util.Optional;
  * 
  * @since Pulse 1.1.0
  * @since Pulse 2.0.0 - Primitive-only API
+ * @since Pulse 3.0.0 - 헌법 정화: deprecated 메서드 제거
  */
 public interface IOptimizationHintProvider extends IProvider {
 
@@ -30,7 +27,7 @@ public interface IOptimizationHintProvider extends IProvider {
     String CATEGORY_NETWORK = "NETWORK";
 
     // ═══════════════════════════════════════════════════════════════
-    // Primitive-only API (v2.0)
+    // Primitive-only API (v2.0+)
     // ═══════════════════════════════════════════════════════════════
 
     /**
@@ -53,32 +50,4 @@ public interface IOptimizationHintProvider extends IProvider {
      * @return CATEGORY_* 상수 중 하나, 타겟 없으면 null
      */
     String getTopTargetCategory();
-
-    // ═══════════════════════════════════════════════════════════════
-    // Deprecated (하위 호환용, 다음 메이저에서 제거)
-    // ═══════════════════════════════════════════════════════════════
-
-    /**
-     * @deprecated Use {@link #getTopTargetId()} instead
-     */
-    @Deprecated
-    default Optional<OptimizationHint> suggestTarget(String category) {
-        return Optional.empty();
-    }
-
-    /**
-     * @deprecated Use primitive methods instead
-     */
-    @Deprecated
-    default List<OptimizationHint> getTopHints(int n) {
-        return Collections.emptyList();
-    }
-
-    /**
-     * @deprecated Fuse should determine pressure threshold
-     */
-    @Deprecated
-    default boolean isUnderPressure() {
-        return false;
-    }
 }

@@ -85,27 +85,9 @@ public class WorldItemMixin {
     @Unique
     private static long Pulse$tickCounter = 0;
 
-    /**
-     * Cache refresh interval in ticks.
-     * Policy decisions are re-evaluated every CACHE_REFRESH_TICKS.
-     */
-    @Unique
-    private static final int CACHE_REFRESH_TICKS = 10;
-
-    /**
-     * Starvation limit - maximum consecutive skips before forcing an update.
-     * P0 mandatory feature for stability.
-     */
-    @Unique
-    private static final int STARVATION_LIMIT = 60;
-
-    /**
-     * Near distance threshold (squared) - items within this distance get FULL
-     * throttle immediately.
-     * Distance in grid squares: ~10 squares = 100 squared.
-     */
-    @Unique
-    private static final float NEAR_DIST_SQ = 100.0f;
+    // 헌법 정화 v3.0: 정책 상수들 제거됨
+    // CACHE_REFRESH_TICKS, STARVATION_LIMIT, NEAR_DIST_SQ
+    // 이제 policy.getCacheRefreshTicks() 등을 사용
 
     /**
      * Static method to inject the policy from FuseThrottleController.
@@ -162,15 +144,15 @@ public class WorldItemMixin {
                 return;
             }
 
-            // Check starvation limit
-            if (Pulse$consecutiveSkips >= STARVATION_LIMIT) {
+            // Check starvation limit (policy에서 값 획득)
+            if (Pulse$consecutiveSkips >= Pulse$policy.getStarvationLimit()) {
                 Pulse$consecutiveSkips = 0;
                 return;
             }
 
-            // Cache refresh check
+            // Cache refresh check (policy에서 값 획득)
             boolean needsCacheRefresh = (Pulse$cachedLevel == null
-                    || (currentTick - Pulse$lastCacheTick) >= CACHE_REFRESH_TICKS);
+                    || (currentTick - Pulse$lastCacheTick) >= Pulse$policy.getCacheRefreshTicks());
 
             if (needsCacheRefresh) {
                 try {

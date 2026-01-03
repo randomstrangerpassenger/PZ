@@ -75,19 +75,6 @@ public class TextReportGenerator implements ReportGenerator {
             }
         }
 
-        // Recommendations section
-        if (data.containsKey("recommendations")) {
-            @SuppressWarnings("unchecked")
-            List<String> recommendations = (List<String>) data.get("recommendations");
-            if (!recommendations.isEmpty()) {
-                sb.append("┌─ Recommendations ─────────────────────────────────────────────┐\n");
-                for (String rec : recommendations) {
-                    sb.append(String.format("│  • %-60s │\n", truncate(rec, 60)));
-                }
-                sb.append("└───────────────────────────────────────────────────────────────┘\n");
-            }
-        }
-
         return sb.toString();
     }
 

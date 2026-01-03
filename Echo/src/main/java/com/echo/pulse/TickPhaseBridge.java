@@ -80,34 +80,37 @@ public class TickPhaseBridge implements TickPhaseHook.ITickPhaseCallback {
     @Override
     public long startPhase(String phase) {
         TickPhaseProfiler.TickPhase tickPhase = parsePhase(phase);
-        if (tickPhase != null) {
-            // v0.9: Pulse에서 이미 phase sequence 검증을 수행하므로
-            // 여기서는 Echo ContractVerifier에 알림만 전달
-            PulseContractVerifier.getInstance().onPhaseStart(tickPhase);
-
-            // v0.9: SelfValidation heartbeat
-            SelfValidation.getInstance().phaseStartHeartbeat();
-
-            return TickPhaseProfiler.getInstance().startPhaseRaw(tickPhase);
+        if (tickPhase == null) {
+            // Unknown phase - 경미한 경고만 (품질에 영향 없음)
+            // v0.9.1: DO NOT increment heartbeat for unknown phases
+            return -1;
         }
 
-        // Unknown phase - 경미한 경고만 (품질에 영향 없음)
-        return -1;
+        // v0.9: Pulse에서 이미 phase sequence 검증을 수행하므로
+        // 여기서는 Echo ContractVerifier에 알림만 전달
+        PulseContractVerifier.getInstance().onPhaseStart(tickPhase);
+
+        // v0.9: SelfValidation heartbeat
+        SelfValidation.getInstance().phaseStartHeartbeat();
+
+        return TickPhaseProfiler.getInstance().startPhaseRaw(tickPhase);
     }
 
     @Override
     public void endPhase(String phase, long startTime) {
-        if (startTime < 0)
-            return;
         TickPhaseProfiler.TickPhase tickPhase = parsePhase(phase);
-        if (tickPhase != null) {
-            // v0.9: Phase 순서 검증은 Pulse TickPhaseHook에서 수행
-            // Echo는 결과만 기록
-            PulseContractVerifier.getInstance().onPhaseEnd(tickPhase);
+        if (tickPhase == null) {
+            // Unknown phase - skip entirely (no heartbeat was called in startPhase)
+            return;
+        }
 
-            // v0.9: SelfValidation heartbeat
-            SelfValidation.getInstance().phaseEndHeartbeat();
+        // v0.9.1: Always call heartbeat to maintain balance with startPhase
+        // (even if startTime < 0 due to stack error in Pulse TickPhaseHook)
+        PulseContractVerifier.getInstance().onPhaseEnd(tickPhase);
+        SelfValidation.getInstance().phaseEndHeartbeat();
 
+        // Only record timing if startTime is valid
+        if (startTime >= 0) {
             TickPhaseProfiler.getInstance().endPhaseRaw(tickPhase, startTime);
         }
     }

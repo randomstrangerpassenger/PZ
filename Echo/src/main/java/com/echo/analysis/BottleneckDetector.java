@@ -9,10 +9,13 @@ import java.util.*;
 /**
  * 자동 병목 식별기.
  * 
- * 성능 병목을 자동으로 식별하고 최적화 타짓을 제안합니다.
+ * 성능 병목을 자동으로 식별하고 관측 요약을 제공합니다.
+ * Echo는 "어디(Where)가 아픈지"만 분류하며, "누가(Who) 처리할지"는 판단하지 않습니다.
  * 
  * @since 1.0.1
  * @since 2.0 - Pulse 정화로 인해 Echo 내부 클래스로 이동
+ * @since 3.0 - 헌법 정화: 제안/추천 API 제거, 관측 전용
+ * @since 3.1 - Domain 기반 분류 채택: 모듈명(FUSE/NERVE) → 도메인명(ENGINE/RENDER)
  */
 public class BottleneckDetector {
 
@@ -54,7 +57,7 @@ public class BottleneckDetector {
 
             if (ratio >= 0.1) { // 10% 이상이면 병목 후보
                 BottleneckType type = classifyBottleneck(point, ratio);
-                OptimizationModule module = suggestModule(point);
+                BottleneckDomain domain = classifyDomain(point);
                 int priority = calculatePriority(point, ratio, avgMs);
 
                 // CRITICAL_RATIO 이상이면 우선순위 가산
@@ -68,7 +71,7 @@ public class BottleneckDetector {
                         avgMs,
                         ratio,
                         type,
-                        module,
+                        domain,
                         priority));
             }
         }
@@ -94,7 +97,7 @@ public class BottleneckDetector {
                     pfMs,
                     ratio,
                     BottleneckType.CPU_BOUND,
-                    OptimizationModule.FUSE,
+                    BottleneckDomain.ENGINE,
                     calculatePriority(null, ratio, pfMs)));
         }
 
@@ -112,50 +115,10 @@ public class BottleneckDetector {
                         estimatedMs,
                         ratio,
                         BottleneckType.CPU_BOUND,
-                        OptimizationModule.FUSE,
+                        BottleneckDomain.ENGINE,
                         (int) (ratio * 100)));
             }
         }
-    }
-
-    /**
-     * CPU 최적화 타겟 제안 (Fuse 용)
-     */
-    public OptimizationPriority suggestFuseTarget() {
-        List<Bottleneck> bottlenecks = identifyTopN(5);
-
-        for (Bottleneck b : bottlenecks) {
-            if (b.suggestedModule == OptimizationModule.FUSE) {
-                return new OptimizationPriority(
-                        b.name,
-                        b.displayName,
-                        b.priority,
-                        generateFuseRecommendation(b));
-            }
-        }
-
-        return new OptimizationPriority("NONE", "No CPU bottleneck identified", 0,
-                "Current performance is acceptable.");
-    }
-
-    /**
-     * IO/네트워크 최적화 타겟 제안 (Nerve 용)
-     */
-    public OptimizationPriority suggestNerveTarget() {
-        List<Bottleneck> bottlenecks = identifyTopN(5);
-
-        for (Bottleneck b : bottlenecks) {
-            if (b.suggestedModule == OptimizationModule.NERVE) {
-                return new OptimizationPriority(
-                        b.name,
-                        b.displayName,
-                        b.priority,
-                        generateNerveRecommendation(b));
-            }
-        }
-
-        return new OptimizationPriority("NONE", "No IO/Network bottleneck identified", 0,
-                "Current load is manageable.");
     }
 
     /**
@@ -216,21 +179,13 @@ public class BottleneckDetector {
             bMap.put("avg_ms", Math.round(b.avgMs * 100) / 100.0);
             bMap.put("ratio_percent", Math.round(b.ratio * 10000) / 100.0);
             bMap.put("type", b.type.name());
-            bMap.put("suggested_module", b.suggestedModule.name());
+            bMap.put("domain", b.domain.name());
             bMap.put("priority", b.priority);
             bottleneckList.add(bMap);
         }
         map.put("top_bottlenecks", bottleneckList);
 
-        // 최적화 제안
-        Map<String, Object> suggestions = new LinkedHashMap<>();
-        OptimizationPriority fuse = suggestFuseTarget();
-        suggestions.put("fuse_target", fuse.toMap());
-        OptimizationPriority nerve = suggestNerveTarget();
-        suggestions.put("nerve_target", nerve.toMap());
-        map.put("optimization_suggestions", suggestions);
-
-        // 이상 탐지
+        // 이상 탐지 (관측 데이터만)
         map.put("anomalies", detectAnomalies().toMap());
 
         return map;
@@ -247,12 +202,17 @@ public class BottleneckDetector {
         };
     }
 
-    private OptimizationModule suggestModule(ProfilingPoint point) {
+    /**
+     * 도메인 분류 - "어디가 아픈지"만 분류.
+     * Echo는 "누가 처리할지"를 지정하지 않음.
+     */
+    private BottleneckDomain classifyDomain(ProfilingPoint point) {
         return switch (point) {
-            case ZOMBIE_AI, SIMULATION, PHYSICS -> OptimizationModule.FUSE;
-            case RENDER, RENDER_WORLD -> OptimizationModule.NERVE;
-            case NETWORK -> OptimizationModule.NERVE;
-            default -> OptimizationModule.FUSE;
+            case ZOMBIE_AI, SIMULATION, PHYSICS -> BottleneckDomain.ENGINE;
+            case RENDER, RENDER_WORLD, RENDER_UI -> BottleneckDomain.RENDER;
+            case NETWORK -> BottleneckDomain.IO;
+            case CHUNK_IO -> BottleneckDomain.WORLD;
+            default -> BottleneckDomain.ENGINE;
         };
     }
 
@@ -265,25 +225,6 @@ public class BottleneckDetector {
         return Math.min(100, base);
     }
 
-    private String generateFuseRecommendation(Bottleneck b) {
-        return switch (b.name) {
-            case "ZOMBIE_AI" -> "Consider zombie AI pooling and LOD-based update frequency";
-            case "SIMULATION" -> "Review high-frequency simulation updates for batching opportunities";
-            case "PHYSICS" -> "Implement physics LOD or reduce collision check frequency";
-            case "PATHFINDING_DEEP" -> "Cache pathfinding results and implement hierarchical pathfinding";
-            default -> "Profile detailed call stacks to identify hot paths";
-        };
-    }
-
-    private String generateNerveRecommendation(Bottleneck b) {
-        return switch (b.name) {
-            case "RENDER" -> "Implement occlusion culling and batch similar draw calls";
-            case "RENDER_WORLD" -> "Consider LOD for distant objects and frustum culling";
-            case "NETWORK" -> "Batch network packets and implement delta compression";
-            default -> "Monitor I/O patterns for optimization opportunities";
-        };
-    }
-
     // --- 내부 클래스 ---
 
     public static class Bottleneck {
@@ -292,17 +233,17 @@ public class BottleneckDetector {
         public final double avgMs;
         public final double ratio;
         public final BottleneckType type;
-        public final OptimizationModule suggestedModule;
+        public final BottleneckDomain domain;
         public final int priority;
 
         public Bottleneck(String name, String displayName, double avgMs, double ratio,
-                BottleneckType type, OptimizationModule suggestedModule, int priority) {
+                BottleneckType type, BottleneckDomain domain, int priority) {
             this.name = name;
             this.displayName = displayName;
             this.avgMs = avgMs;
             this.ratio = ratio;
             this.type = type;
-            this.suggestedModule = suggestedModule;
+            this.domain = domain;
             this.priority = priority;
         }
     }
@@ -311,8 +252,17 @@ public class BottleneckDetector {
         CPU_BOUND, GPU_BOUND, IO_BOUND, MEMORY_BOUND
     }
 
-    public enum OptimizationModule {
-        FUSE, NERVE, EITHER
+    /**
+     * 병목 도메인 - "어디"가 아픈지 분류.
+     * 모듈명(WHO)이 아닌 영역명(WHERE)만 사용.
+     */
+    public enum BottleneckDomain {
+        ENGINE, // Java 레벨: 좀비AI, 물리, 시뮬레이션
+        SCRIPT, // Lua 레벨: 이벤트, UI, 모드 스크립트
+        RENDER, // 렌더링: 텍스처, 조명, 쉐이더
+        IO, // 파일/네트워크
+        MEMORY, // GC, 힙, 할당
+        WORLD // 청크, 스트리밍, 월드 데이터
     }
 
     public static class AnomalyReport {

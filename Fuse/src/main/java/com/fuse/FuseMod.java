@@ -7,8 +7,6 @@ import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
 import com.fuse.governor.TickBudgetGovernor;
 import com.fuse.guard.FailsoftController;
-import com.fuse.guard.GCPressureGuard;
-import com.fuse.guard.IOGuard;
 import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
 import com.fuse.hook.FuseHookAdapter;
@@ -17,15 +15,12 @@ import com.fuse.telemetry.ReasonStats;
 import com.fuse.telemetry.TelemetryReason;
 import com.fuse.throttle.FuseStepPolicy;
 import com.fuse.throttle.FuseThrottleController;
-import com.pulse.api.gc.GcObservedEvent;
+
 import com.pulse.api.log.PulseLogger;
 import com.pulse.api.profiler.ZombieHook;
 import com.pulse.api.di.PulseServices;
-import com.pulse.api.event.IEventBus;
 import com.pulse.api.event.lifecycle.GameTickEndEvent;
 import com.pulse.api.event.lifecycle.GameTickStartEvent;
-import com.pulse.api.event.save.PostSaveEvent;
-import com.pulse.api.event.save.PreSaveEvent;
 import com.pulse.api.mod.PulseMod;
 
 import java.util.Map;
@@ -46,7 +41,10 @@ import java.util.Map;
 public class FuseMod implements PulseMod {
 
     public static final String MOD_ID = "Fuse";
-    public static final String VERSION = "2.1.0";
+    public static final String VERSION = "2.3.0";
+
+    // --- v2.3: Removed guards version marker ---
+    private static final String REMOVED_GUARD_VERSION = "v2.3";
 
     private static FuseMod instance;
 
@@ -65,11 +63,7 @@ public class FuseMod implements PulseMod {
     private FailsoftController failsoftController;
     private ReasonStats reasonStats;
 
-    // --- v2.0 IOGuard ---
-    private IOGuard ioGuard;
-
-    // --- v2.1 GC Pressure Guard ---
-    private GCPressureGuard gcPressureGuard;
+    // --- v2.0/v2.1 IOGuard/GCPressureGuard removed in v2.3 ---
 
     // --- v2.2 Area 7: Item Governor ---
     private ItemGovernor itemGovernor;
@@ -150,29 +144,9 @@ public class FuseMod implements PulseMod {
             failsoftController = new FailsoftController();
             failsoftController.setMaxConsecutiveErrors(config.getMaxConsecutiveErrors());
 
-            // IOGuard (v2.0)
-            ioGuard = new IOGuard();
-            ioGuard.loadConfig(config);
+            // IOGuard/GCPressureGuard removed in v2.3
 
-            // IOGuard EventBus 구독 (Phase 3: PulseServices.events())
-            IEventBus events = PulseServices.events();
-            events.subscribe(PreSaveEvent.class, event -> ioGuard.onPreSave(event), MOD_ID);
-            events.subscribe(PostSaveEvent.class, event -> ioGuard.onPostSave(event), MOD_ID);
-
-            // GCPressureGuard (v2.1)
-            if (config.isGCPressureGuardEnabled()) {
-                gcPressureGuard = new GCPressureGuard();
-                gcPressureGuard.setRollingTickStats(stats);
-                gcPressureGuard.setReasonStats(reasonStats);
-
-                // EventBus 구독 (Hub&Spoke: Pulse GcObservedEvent 수신)
-                PulseServices.events().subscribe(GcObservedEvent.class,
-                        (GcObservedEvent event) -> gcPressureGuard.onGcObserved(event), MOD_ID);
-
-                PulseLogger.info("Fuse", "GCPressureGuard initialized (v2.1)");
-            }
-
-            PulseLogger.info("Fuse", "Guards initialized (v2.1 with IOGuard + GCPressureGuard)");
+            PulseLogger.info("Fuse", "Guards initialized (v2.3 - IO/GC guards removed)");
         } catch (Exception e) {
             PulseLogger.error("Fuse", "Failed to initialize guards: " + e.getMessage(), e);
         }
@@ -202,13 +176,7 @@ public class FuseMod implements PulseMod {
             throttleController.setGuards(vehicleGuard, streamingGuard);
             throttleController.setReasonStats(reasonStats);
 
-            // v2.0 IOGuard 연동
-            throttleController.setIOGuard(ioGuard);
-
-            // v2.1 GCPressureGuard 연동
-            if (gcPressureGuard != null) {
-                throttleController.setGCPressureGuard(gcPressureGuard);
-            }
+            // v2.0/v2.1 IOGuard/GCPressureGuard removed in v2.3
 
             // Step 5: ZombieHook 정책 등록 (직접 API 사용)
             try {
@@ -362,10 +330,7 @@ public class FuseMod implements PulseMod {
                     streamingGuard.recordTickDuration((long) lastTickMs);
                 }
 
-                // IOGuard 틱 (v2.0)
-                if (ioGuard != null) {
-                    ioGuard.tick();
-                }
+                // IOGuard tick removed in v2.3
 
                 // ItemGovernor ShellShock 연동 (v2.2 Area 7)
                 if (itemGovernor != null && panicProtocol != null) {
@@ -451,10 +416,9 @@ public class FuseMod implements PulseMod {
         if (streamingGuard != null) {
             System.out.println("    Streaming: " + (streamingGuard.isYieldMode() ? "YIELD" : "normal"));
         }
-        if (ioGuard != null) {
-            System.out.println("    IOGuard: " + ioGuard.getCurrentState() +
-                    " (multiplier=" + String.format("%.2f", ioGuard.getBudgetMultiplier()) + ")");
-        }
+        // IO/GC Guards removed in v2.3
+        System.out.println("    IOGuard: removed (" + REMOVED_GUARD_VERSION + ")");
+        System.out.println("    GCPressure: removed (" + REMOVED_GUARD_VERSION + ")");
 
         // Throttle Controller 상태
         if (throttleController != null) {
@@ -489,10 +453,11 @@ public class FuseMod implements PulseMod {
     /**
      * 주기적 상태 요약 로깅 (콘솔 확인용).
      * 60초마다 자동 출력.
+     * v2.2: IGuardWindowMetrics 통일 스키마 + NO_INTERVENTION top-3
      */
     private void logStatusSummary() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n========== [Fuse v2.0] 60s Status Summary ==========\n");
+        sb.append("\n========== [Fuse v2.2] 60s Status Summary ==========\n");
 
         // Tick 카운터
         sb.append("  Ticks: ").append(tickCounter).append("\n");
@@ -521,15 +486,9 @@ public class FuseMod implements PulseMod {
                 .append(", streaming=")
                 .append(streamingGuard != null && streamingGuard.isYieldMode() ? "YIELD" : "normal").append("\n");
 
-        // IOGuard 상태 (v2.0)
-        if (ioGuard != null) {
-            sb.append("  IOGuard: ").append(ioGuard.getCurrentState())
-                    .append(" (multiplier=").append(String.format("%.2f", ioGuard.getBudgetMultiplier()))
-                    .append(", events=").append(ioGuard.getTotalIOEvents())
-                    .append(", avgMs=").append(ioGuard.getAverageIOTimeMs())
-                    .append(", timeouts=").append(ioGuard.getTimeoutCount())
-                    .append(")\n");
-        }
+        // v2.3: IOGuard/GCPressureGuard removed
+        sb.append("  IOGuard: removed\n");
+        sb.append("  GCPressure: removed\n");
 
         // ItemGovernor 상태 (v2.2 Area 7)
         if (itemGovernor != null) {
@@ -541,15 +500,6 @@ public class FuseMod implements PulseMod {
                     .append("\n");
         }
 
-        // GCPressureGuard 상태 (v2.1)
-        if (gcPressureGuard != null) {
-            sb.append("  GCPressure: ").append(gcPressureGuard.getCurrentState())
-                    .append(" (p=").append(String.format("%.2f", gcPressureGuard.getCurrentSignal().getPressureValue()))
-                    .append(", mult=").append(String.format("%.2f", gcPressureGuard.getBudgetMultiplier()))
-                    .append(", trans=").append(gcPressureGuard.getTransitionCount())
-                    .append(")\n");
-        }
-
         // v2.2: ZombieThrottle 통계
         if (throttleController != null) {
             sb.append("  ZombieThrottle: FULL=").append(throttleController.getFullCount())
@@ -557,6 +507,19 @@ public class FuseMod implements PulseMod {
                     .append(", LOW=").append(throttleController.getLowCount())
                     .append(", MINIMAL=").append(throttleController.getMinimalCount())
                     .append("\n");
+
+            // v2.2: NO_INTERVENTION top-3 blockers
+            var blockerCounts = throttleController.getNoInterventionByBlocker();
+            if (throttleController.getNoInterventionCountThisWindow() > 0) {
+                sb.append("  NoIntervention: ");
+                blockerCounts.entrySet().stream()
+                        .filter(e -> e.getValue() > 0)
+                        .sorted(Map.Entry.<com.fuse.throttle.FuseThrottleController.InterventionBlocker, Integer>comparingByValue()
+                                .reversed())
+                        .limit(3)
+                        .forEach(e -> sb.append(e.getKey().name()).append("=").append(e.getValue()).append(" "));
+                sb.append("(total=").append(throttleController.getNoInterventionCountThisWindow()).append(")\n");
+            }
         }
 
         // v1.1: Reason 통계
@@ -577,6 +540,11 @@ public class FuseMod implements PulseMod {
         sb.append("=====================================================\n");
 
         PulseLogger.info("Fuse", sb.toString());
+
+        // v2.3: IOGuard/GCPressureGuard window reset removed
+        if (throttleController != null) {
+            throttleController.resetNoInterventionMetrics();
+        }
     }
 
     // --- Getters ---
@@ -605,9 +573,7 @@ public class FuseMod implements PulseMod {
         return reasonStats;
     }
 
-    public IOGuard getIOGuard() {
-        return ioGuard;
-    }
+    // getIOGuard() removed in v2.3
 
     public FuseHookAdapter getHookAdapter() {
         return hookAdapter;

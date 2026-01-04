@@ -5,7 +5,7 @@ import com.pulse.api.log.PulseLogger;
 /**
  * Fuse Configuration.
  * 
- * v1.1: Conservative Preset 기본값 + 신규 파라미터
+ * Conservative Preset 기본값 + 신규 파라미터
  * 
  * @since Fuse 0.3.0
  * @since Fuse 1.1.0 - Conservative Preset
@@ -36,7 +36,7 @@ public class FuseConfig {
     private int farDistSq = 6400; // 80² tiles
 
     // ========================================
-    // Governor Settings (v1.1)
+    // Governor Settings
     // ========================================
 
     /** Tick budget for 60fps */
@@ -49,7 +49,7 @@ public class FuseConfig {
     private int batchCheckSize = 20;
 
     // ========================================
-    // Panic Protocol Settings (v1.1)
+    // Panic Protocol Settings
     // ========================================
 
     /** Spike threshold (ms) */
@@ -104,66 +104,8 @@ public class FuseConfig {
     private int maxConsecutiveErrors = 3;
 
     // ========================================
-    // IOGuard Settings (v2.0)
+    // IOGuard/GCPressureGuard Settings removed in v2.3
     // ========================================
-
-    /** IOGuard master switch */
-    private boolean enableIOGuard = true;
-
-    /** IO_ENTER 예산 배수 */
-    private float ioEnterBudgetMultiplier = 0.7f;
-
-    /** IO_ACTIVE 예산 배수 */
-    private float ioActiveBudgetMultiplier = 0.3f;
-
-    /** COOLDOWN 예산 배수 */
-    private float ioCooldownBudgetMultiplier = 0.9f;
-
-    /** IO_ENTER 틱 수 */
-    private int ioEnterTicks = 5;
-
-    /** IO_EXIT 복구 틱 수 */
-    private int ioRecoveryTicks = 30;
-
-    /** COOLDOWN 틱 수 */
-    private int ioCooldownTicks = 10;
-
-    /** Deadman Switch: IO_ACTIVE 최대 틱 (5초 @60fps) */
-    private int ioActiveTimeoutTicks = 300;
-
-    /** WORLD 타입만 IOGuard 적용 */
-    private boolean ioGuardWorldSaveOnly = false;
-
-    /** IOGuard 로그 활성화 */
-    private boolean ioGuardLogEnabled = true;
-
-    // ========================================
-    // GC Pressure Guard Settings (v2.1)
-    // ========================================
-
-    /** GCPressureGuard master switch */
-    private boolean enableGCPressureGuard = true;
-
-    /** DIET 진입 임계값 (pressure 0.0~1.0) */
-    private float gcDietThreshold = 0.60f;
-
-    /** RECOVERING 진입 임계값 (히스테리시스) */
-    private float gcRecoveryThreshold = 0.35f;
-
-    /** DIET 상태 예산 배수 (보수적 초기값) */
-    private float gcDietMultiplier = 0.65f;
-
-    /** CRITICAL 상태 예산 배수 (보수적 초기값) */
-    private float gcCriticalMultiplier = 0.45f;
-
-    /** RECOVERING 기간 (틱) */
-    private int gcRecoveryTicks = 60;
-
-    /** 히스테리시스 윈도우 (틱) */
-    private int gcHysteresisWindow = 30;
-
-    /** POST_GC_RECOVERY 기간 (틱) */
-    private int gcPostGcRecoveryTicks = 45;
 
     // ========================================
     // Singleton
@@ -179,7 +121,7 @@ public class FuseConfig {
 
     public void load() {
         // 간단한 기본값 사용 (파일 로드는 추후 구현)
-        PulseLogger.info("Fuse", "Config loaded (v1.1 Conservative Preset)");
+        PulseLogger.info("Fuse", "Config loaded (v2.3 - IO/GC guards removed)");
     }
 
     public void save() {
@@ -215,7 +157,7 @@ public class FuseConfig {
     }
 
     // ========================================
-    // Governor Getters (v1.1)
+    // Governor Getters
     // ========================================
 
     public double getTickBudgetMs() {
@@ -231,7 +173,7 @@ public class FuseConfig {
     }
 
     // ========================================
-    // Panic Getters (v1.1)
+    // Panic Getters
     // ========================================
 
     public long getSpikeThresholdMs() {
@@ -251,7 +193,7 @@ public class FuseConfig {
     }
 
     // ========================================
-    // Hysteresis Getters (v1.1)
+    // Hysteresis Getters
     // ========================================
 
     public double getEntryMax1sMs() {
@@ -271,7 +213,7 @@ public class FuseConfig {
     }
 
     // ========================================
-    // Guard Getters (v1.1)
+    // Guard Getters
     // ========================================
 
     public float getVehicleSpeedEntryKmh() {
@@ -291,7 +233,7 @@ public class FuseConfig {
     }
 
     // ========================================
-    // Failsoft Getters (v1.1)
+    // Failsoft Getters
     // ========================================
 
     public int getMaxConsecutiveErrors() {
@@ -299,84 +241,8 @@ public class FuseConfig {
     }
 
     // ========================================
-    // IOGuard Getters (v2.0)
+    // IOGuard/GCPressureGuard Getters removed in v2.3
     // ========================================
-
-    public boolean isIOGuardEnabled() {
-        return enableIOGuard;
-    }
-
-    public float getIOEnterBudgetMultiplier() {
-        return ioEnterBudgetMultiplier;
-    }
-
-    public float getIOActiveBudgetMultiplier() {
-        return ioActiveBudgetMultiplier;
-    }
-
-    public float getIOCooldownBudgetMultiplier() {
-        return ioCooldownBudgetMultiplier;
-    }
-
-    public int getIOEnterTicks() {
-        return ioEnterTicks;
-    }
-
-    public int getIORecoveryTicks() {
-        return ioRecoveryTicks;
-    }
-
-    public int getIOCooldownTicks() {
-        return ioCooldownTicks;
-    }
-
-    public int getIOActiveTimeoutTicks() {
-        return ioActiveTimeoutTicks;
-    }
-
-    public boolean isIOGuardWorldSaveOnly() {
-        return ioGuardWorldSaveOnly;
-    }
-
-    public boolean isIOGuardLogEnabled() {
-        return ioGuardLogEnabled;
-    }
-
-    // ========================================
-    // GC Pressure Guard Getters (v2.1)
-    // ========================================
-
-    public boolean isGCPressureGuardEnabled() {
-        return enableGCPressureGuard;
-    }
-
-    public float getGcDietThreshold() {
-        return gcDietThreshold;
-    }
-
-    public float getGcRecoveryThreshold() {
-        return gcRecoveryThreshold;
-    }
-
-    public float getGcDietMultiplier() {
-        return gcDietMultiplier;
-    }
-
-    public float getGcCriticalMultiplier() {
-        return gcCriticalMultiplier;
-    }
-
-    public int getGcRecoveryTicks() {
-        return gcRecoveryTicks;
-    }
-
-    public int getGcHysteresisWindow() {
-        return gcHysteresisWindow;
-    }
-
-    public int getGcPostGcRecoveryTicks() {
-        return gcPostGcRecoveryTicks;
-    }
 
     // ========================================
     // Setters
@@ -391,4 +257,6 @@ public class FuseConfig {
         this.throttleIntensity = Math.max(0f, Math.min(1f, intensity));
         PulseLogger.info("Fuse", "Throttle intensity: " + this.throttleIntensity);
     }
+
+    // Debug Force Getters removed in v2.3
 }

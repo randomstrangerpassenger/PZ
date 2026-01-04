@@ -28,12 +28,18 @@ public enum TelemetryReason {
     // --- Governor 관련 ---
     GOVERNOR_CUTOFF("Budget exceeded, cutoff triggered"),
 
-    // --- IOGuard 관련 (v2.0) ---
+    /*
+     * === LEGACY SECTION (v2.3) ===
+     * The following reason codes are no longer triggered.
+     * Kept for binary/log compatibility. Do not remove.
+     */
+
+    // --- IOGuard (legacy, never triggered) ---
     IO_GUARD_ACTIVE("Save/Load in progress"),
     IO_GUARD_RECOVERY("Post-IO recovery in progress"),
     IO_GUARD_TIMEOUT("IO timeout - forced exit"),
 
-    // --- GC Pressure 관련 (v2.1) ---
+    // --- GC Pressure (legacy, never triggered) ---
     GC_PRESSURE_DIET("GC pressure high - budget reduced"),
     GC_PRESSURE_RECOVERING("GC pressure recovering"),
     GC_PRESSURE_POST_GC("Post-GC recovery in progress"),

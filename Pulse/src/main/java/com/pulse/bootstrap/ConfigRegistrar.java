@@ -5,7 +5,6 @@ import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**

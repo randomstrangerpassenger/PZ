@@ -36,7 +36,8 @@ public class ZombieHook implements IZombieHook {
     /** Throttle policy (하위 최적화 모드가 등록) */
     private static IThrottlePolicy throttlePolicy;
 
-    /** 현재 처리 중인 좀비 */
+    /** 현재 처리 중인 좀비 (IZombieHook 인터페이스 구현용) */
+    @SuppressWarnings("unused")
     private static Object currentZombie;
 
     /** Profiling callback */

@@ -268,7 +268,6 @@ public class PulseMixinService implements IMixinService, IClassProvider, IClassB
         return Class.forName(name, initialize, ClassLoader.getSystemClassLoader());
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public URL[] getClassPath() {
         // 클래스패스 URL 배열 반환

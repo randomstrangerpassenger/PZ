@@ -4,13 +4,8 @@ import com.fuse.telemetry.TelemetryReason;
 import com.pulse.api.log.PulseLogger;
 
 /**
- * Tick Budget Governor.
- * 
- * ZombieUpdate 계열 작업에 틱당 시간 상한을 부여합니다.
- * 컷오프 스위치 방식: 예산 초과 시 남은 작업은 다음 틱에서 자연스럽게 처리됩니다.
- * Batch Check로 System.nanoTime() 호출 비용을 최소화합니다.
- * 
- * @since Fuse 1.1
+ * Tick Budget Governor - 틱당 시간 상한 관리.
+ * 예산 초과 시 컷오프, Batch Check로 nanoTime() 비용 최소화.
  */
 public class TickBudgetGovernor {
 
@@ -60,13 +55,7 @@ public class TickBudgetGovernor {
         tickStartNanos = -1;
     }
 
-    /**
-     * 컷오프 스위치 - 이번 틱 계속 처리 가능 여부.
-     * 
-     * Batch Check: batchCheckSize마다만 시간 체크하여 nanoTime() 호출 비용 최소화.
-     * 
-     * @return true면 계속 처리, false면 이번 틱 종료 (남은 작업은 다음 틱에서)
-     */
+    /** 컷오프 스위치 - Batch Check로 N마리마다 시간 체크 */
     public boolean shouldContinueThisTick() {
         zombiesProcessedThisTick++;
 

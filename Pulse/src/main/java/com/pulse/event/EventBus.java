@@ -12,19 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * Pulse 이벤트 버스.
- * 이벤트 등록, 발행, 구독을 관리.
- * 
- * 사용 예:
- * // 구독
- * EventBus.subscribe(GameTickEvent.class, event -> {
- * PulseLogger.info("Pulse", "Game tick: {}", event.getTick());
- * });
- * 
- * // 발행
- * EventBus.post(new GameTickEvent(tickCount));
- */
+/** Pulse 이벤트 버스 - 이벤트 등록/발행/구독 관리 */
 public class EventBus {
 
     private static final String LOG = PulseLogger.PULSE;
@@ -47,71 +35,40 @@ public class EventBus {
     // 디버그 모드
     private boolean debug = false;
 
-    // ─────────────────────────────────────────────────────────────
-    // 싱글톤 접근
-    // ─────────────────────────────────────────────────────────────
-
+    // Singleton
     public static EventBus getInstance() {
         return INSTANCE;
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 정적 메서드 (편의용)
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * 이벤트 리스너 등록 (기본 우선순위)
-     */
+    // Static convenience methods
     public static <T extends Event> void subscribe(Class<T> eventType, EventListener<T> listener) {
         INSTANCE.register(eventType, listener, EventPriority.NORMAL, null);
     }
 
-    /**
-     * 이벤트 리스너 등록 (우선순위 지정)
-     */
     public static <T extends Event> void subscribe(Class<T> eventType, EventListener<T> listener,
             EventPriority priority) {
         INSTANCE.register(eventType, listener, priority, null);
     }
 
-    /**
-     * 이벤트 리스너 등록 (modId 지정 - 예외 격리용)
-     */
     public static <T extends Event> void subscribe(Class<T> eventType, EventListener<T> listener,
             String modId) {
         INSTANCE.register(eventType, listener, EventPriority.NORMAL, modId);
     }
 
-    /**
-     * 이벤트 리스너 등록 (우선순위 + modId 지정)
-     */
     public static <T extends Event> void subscribe(Class<T> eventType, EventListener<T> listener,
             EventPriority priority, String modId) {
         INSTANCE.register(eventType, listener, priority, modId);
     }
 
-    /**
-     * 이벤트 리스너 해제
-     */
     public static <T extends Event> void unsubscribe(Class<T> eventType, EventListener<T> listener) {
         INSTANCE.unregister(eventType, listener);
     }
 
-    /**
-     * 이벤트 발행 (동기)
-     */
     public static <T extends Event> T post(T event) {
         return INSTANCE.fire(event);
     }
 
-    /**
-     * 이벤트 비동기 발행 (UI/네트워크 이벤트용)
-     * 
-     * 게임 틱에 영향을 주지 않는 백그라운드 이벤트 처리에 사용.
-     * 예: 로깅, 네트워크 전송, 파일 I/O
-     * 
-     * @param event 발행할 이벤트
-     */
+    /** 비동기 이벤트 발행 (UI/네트워크 이벤트용) */
     public static <T extends Event> void postAsync(T event) {
         INSTANCE.asyncExecutor.submit(() -> {
             try {
@@ -122,13 +79,7 @@ public class EventBus {
         });
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 인스턴스 메서드
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * 리스너 등록 (modId 없이)
-     */
+    // Instance methods
     public <T extends Event> void register(Class<T> eventType, EventListener<T> listener,
             EventPriority priority) {
         register(eventType, listener, priority, null);
@@ -163,9 +114,6 @@ public class EventBus {
         }
     }
 
-    /**
-     * 리스너 해제
-     */
     public <T extends Event> void unregister(Class<T> eventType, EventListener<T> listener) {
         List<RegisteredListener<?>> list = listeners.get(eventType);
         if (list != null) {
@@ -345,10 +293,7 @@ public class EventBus {
         this.debug = debug;
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 내부 클래스
-    // ─────────────────────────────────────────────────────────────
-
+    // Internal classes
     private static class RegisteredListener<T extends Event> {
         final EventListener<T> listener;
         final EventPriority priority;

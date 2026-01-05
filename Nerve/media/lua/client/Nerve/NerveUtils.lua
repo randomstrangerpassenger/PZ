@@ -1,15 +1,8 @@
---[[
-    NerveUtils.lua
-    Nerve 공용 유틸리티 함수
-    
-    v0.1 Final
-]]
+-- NerveUtils.lua - 공용 유틸리티 (v0.1)
 
 NerveUtils = NerveUtils or {}
 
---------------------------------------------------------------------------------
--- table.wipe 폴백
---------------------------------------------------------------------------------
+-- table.wipe polyfill
 
 -- PZ Lua 환경에 table.wipe가 없을 수 있으므로 polyfill 설치
 if not table.wipe then
@@ -34,37 +27,27 @@ function NerveUtils.safeWipe(t)
     end
 end
 
---------------------------------------------------------------------------------
 -- 로깅 유틸리티
---------------------------------------------------------------------------------
 
--- 디버그 로그 (NerveConfig.debug가 true일 때만 출력)
 function NerveUtils.debug(...)
     if NerveConfig and NerveConfig.debug then
         print("[Nerve:DEBUG]", ...)
     end
 end
 
--- 정보 로그
 function NerveUtils.info(...)
     print("[Nerve]", ...)
 end
 
--- 경고 로그
 function NerveUtils.warn(...)
     print("[Nerve] WARN:", ...)
 end
 
--- 에러 로그
 function NerveUtils.error(...)
     print("[Nerve] ERROR:", ...)
 end
 
---------------------------------------------------------------------------------
--- 안전한 함수 호출
---------------------------------------------------------------------------------
-
--- pcall 래퍼 (에러 시 nil 반환)
+-- 안전한 함수 호출 (pcall 래퍼)
 function NerveUtils.safeCall(fn, ...)
     if type(fn) ~= "function" then
         return nil
@@ -79,11 +62,7 @@ function NerveUtils.safeCall(fn, ...)
     end
 end
 
---------------------------------------------------------------------------------
--- 객체 ID 추출 유틸리티
---------------------------------------------------------------------------------
-
--- 객체에서 ID를 안전하게 추출 (여러 메서드명 시도)
+-- 객체 ID 추출
 function NerveUtils.getObjectId(obj)
     if obj == nil then
         return nil

@@ -7,9 +7,22 @@ import java.util.concurrent.atomic.AtomicLong;
  * Pulse Failsoft Policy
  * 
  * Pulse/Echo/Fuse/Nerve 전체에서 공유하는 에러 처리 정책.
- * 비정상 상태 발생 시 통일된 방식으로 보고하고 대응합니다.
+ * Mixin 실패, Lua 예산 초과 등의 오류가 발생해도 게임을 크래시하지 않고
+ * 해당 기능만 비활성화합니다.
  * 
- * @since Pulse 0.9
+ * <pre>
+ * // 사용 예시 (Pulse 내부)
+ * try {
+ *     // 위험한 작업
+ * } catch (Exception e) {
+ *     FailsoftPolicy.handle(FailsoftAction.WARN_AND_CONTINUE, "MyMod", e);
+ * }
+ * 
+ * // 보고 전용 (외부 모드)
+ * FailsoftPolicy.report(Action.WARNING, "Something happened");
+ * </pre>
+ * 
+ * @since Pulse 0.9 / 1.1.0
  */
 public final class FailsoftPolicy {
 
@@ -17,41 +30,49 @@ public final class FailsoftPolicy {
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // Failsoft Action 타입
+    // Failsoft Action 타입 (pulse-api용 - 보고 전용)
     // ═══════════════════════════════════════════════════════════════
 
     /**
-     * Failsoft 액션 타입
+     * Failsoft 액션 타입 (보고용)
      */
     public enum Action {
-        /**
-         * Phase 시퀀스 에러 (startPhase 후 endPhase 누락)
-         */
+        /** Phase 시퀀스 에러 */
         PHASE_SEQUENCE_ERROR,
-
-        /**
-         * Tick 계약 위반 (비정상 deltaTime)
-         */
+        /** Tick 계약 위반 */
         TICK_CONTRACT_VIOLATION,
-
-        /**
-         * Lua 예산 초과 (Fuse/Nerve용)
-         */
+        /** Lua 예산 초과 */
         LUA_BUDGET_EXCEEDED,
-
-        /**
-         * 일반 경고 (치명적이지 않은 문제)
-         */
+        /** 일반 경고 */
         WARNING,
-
-        /**
-         * 치명적 에러 (기능 비활성화 필요)
-         */
+        /** 치명적 에러 */
         CRITICAL
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // 에러 기록
+    // FailsoftAction (Pulse 내부용 - 처리 지시)
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * Failsoft 액션 타입 (처리 지시용).
+     */
+    public enum FailsoftAction {
+        /** 실패한 Mixin만 비활성화 */
+        DISABLE_MIXIN_ONLY,
+        /** 경고 로그 후 계속 */
+        WARN_AND_CONTINUE,
+        /** 해당 기능 스킵 */
+        SKIP_FEATURE,
+        /** 전체 기능 모듈 비활성화 */
+        DISABLE_FEATURE,
+        /** 페이즈 시퀀스 오류 */
+        PHASE_SEQUENCE_ERROR,
+        /** 안전하지 않은 월드 상태 접근 */
+        UNSAFE_WORLDSTATE_ACCESS
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 에러 기록 (pulse-api)
     // ═══════════════════════════════════════════════════════════════
 
     /**
@@ -90,14 +111,11 @@ public final class FailsoftPolicy {
     private static final AtomicLong criticalErrors = new AtomicLong(0);
 
     // ═══════════════════════════════════════════════════════════════
-    // 보고 API
+    // 보고 API (pulse-api - 외부 모드용)
     // ═══════════════════════════════════════════════════════════════
 
     /**
      * Failsoft 이슈 보고 (기본)
-     * 
-     * @param action 액션 타입
-     * @param detail 상세 설명
      */
     public static void report(Action action, String detail) {
         report(action, detail, null);
@@ -105,16 +123,11 @@ public final class FailsoftPolicy {
 
     /**
      * Failsoft 이슈 보고 (컨텍스트 포함)
-     * 
-     * @param action    액션 타입
-     * @param detail    상세 설명
-     * @param contextId 컨텍스트 ID (예: modId, phaseId)
      */
     public static void report(Action action, String detail, String contextId) {
         if (action == null || detail == null)
             return;
 
-        // 카운터 증가
         totalReports.incrementAndGet();
         switch (action) {
             case PHASE_SEQUENCE_ERROR:
@@ -133,76 +146,96 @@ public final class FailsoftPolicy {
                 break;
         }
 
-        // 레포트 저장 (최근 N개만)
         Report report = new Report(action, detail, contextId);
         recentReports.offer(report);
         while (recentReports.size() > MAX_REPORTS) {
             recentReports.poll();
         }
 
-        // 콘솔 출력
         String level = (action == Action.CRITICAL) ? "ERROR" : "WARN";
         System.err.printf("[Pulse/Failsoft/%s] %s%n", level, report);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // 핵심 핸들러 (Pulse 내부용 - 스텁)
+    // 실제 구현은 Pulse 프로젝트의 FailsoftPolicyImpl에서 제공
+    // ═══════════════════════════════════════════════════════════════
+
+    private static FailsoftHandler handler = null;
+
+    /**
+     * 핸들러 인터페이스 (Pulse에서 구현)
+     */
+    public interface FailsoftHandler {
+        void handle(FailsoftAction action, String source, Throwable error);
+
+        void handleMixinFailure(String mixinClass, String targetClass, Throwable error);
+    }
+
+    /**
+     * 핸들러 등록 (Pulse 초기화 시 호출)
+     */
+    public static void registerHandler(FailsoftHandler h) {
+        handler = h;
+    }
+
+    /**
+     * Failsoft 액션 수행 (Pulse 내부용)
+     */
+    public static void handle(FailsoftAction action, String source, Throwable error) {
+        if (handler != null) {
+            handler.handle(action, source, error);
+        } else {
+            // 폴백: 콘솔 출력
+            System.err.printf("[Pulse/Failsoft] %s: %s - %s%n",
+                    action, source, error != null ? error.getMessage() : "Unknown");
+        }
+    }
+
+    /**
+     * Mixin 실패 처리
+     */
+    public static void handleMixinFailure(String mixinClass, String targetClass, Throwable error) {
+        if (handler != null) {
+            handler.handleMixinFailure(mixinClass, targetClass, error);
+        } else {
+            System.err.printf("[Pulse/Failsoft/Mixin] %s → %s FAILED: %s%n",
+                    mixinClass, targetClass, error != null ? error.getMessage() : "Unknown");
+        }
     }
 
     // ═══════════════════════════════════════════════════════════════
     // 조회 API
     // ═══════════════════════════════════════════════════════════════
 
-    /**
-     * 전체 보고 수
-     */
     public static long getTotalReports() {
         return totalReports.get();
     }
 
-    /**
-     * Phase 시퀀스 에러 수
-     */
     public static long getPhaseSequenceErrors() {
         return phaseSequenceErrors.get();
     }
 
-    /**
-     * Tick 계약 위반 수
-     */
     public static long getTickContractViolations() {
         return tickContractViolations.get();
     }
 
-    /**
-     * Lua 예산 초과 수
-     */
     public static long getLuaBudgetExceeded() {
         return luaBudgetExceeded.get();
     }
 
-    /**
-     * 치명적 에러 수
-     */
     public static long getCriticalErrors() {
         return criticalErrors.get();
     }
 
-    /**
-     * 최근 보고 목록 (복사본)
-     */
     public static Report[] getRecentReports() {
         return recentReports.toArray(new Report[0]);
     }
 
-    /**
-     * 상태가 안전한지 확인
-     * 
-     * @return 치명적 에러가 없으면 true
-     */
     public static boolean isSafe() {
         return criticalErrors.get() == 0;
     }
 
-    /**
-     * 카운터 리셋
-     */
     public static void reset() {
         recentReports.clear();
         totalReports.set(0);

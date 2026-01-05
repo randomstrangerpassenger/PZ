@@ -3,15 +3,7 @@ package com.pulse;
 import com.pulse.api.log.PulseLogger;
 import org.spongepowered.asm.mixin.transformer.IMixinTransformer;
 
-/**
- * Pulse 전역 환경 상태 관리.
- * 
- * 다양한 컴포넌트 간에 공유되는 상태를 보관:
- * - Game ClassLoader
- * - Mixin Transformer
- * - Instrumentation 인스턴스
- * - 기타 환경 설정
- */
+/** Pulse 전역 환경 상태 관리 - ClassLoader, Mixin, Instrumentation */
 public class PulseEnvironment {
 
     private static ClassLoader gameClassLoader;
@@ -21,8 +13,7 @@ public class PulseEnvironment {
     private static boolean initialized = false;
     private static boolean mixinReady = false;
 
-    // --- Game ClassLoader ---
-
+    // Game ClassLoader
     public static void setGameClassLoader(ClassLoader cl) {
         if (gameClassLoader == null && cl != null) {
             gameClassLoader = cl;
@@ -35,8 +26,7 @@ public class PulseEnvironment {
         return gameClassLoader;
     }
 
-    // --- Mixin Transformer ---
-
+    // Mixin Transformer
     public static void setMixinTransformer(IMixinTransformer transformer) {
         if (mixinTransformer == null && transformer != null) {
             mixinTransformer = transformer;
@@ -54,8 +44,7 @@ public class PulseEnvironment {
         return mixinReady;
     }
 
-    // --- Instrumentation ---
-
+    // Instrumentation
     public static void setInstrumentation(java.lang.instrument.Instrumentation inst) {
         instrumentation = inst;
         PulseLogger.info(PulseLogger.PULSE, "Instrumentation registered");
@@ -65,8 +54,7 @@ public class PulseEnvironment {
         return instrumentation;
     }
 
-    // --- Lifecycle ---
-
+    // Lifecycle
     public static void markInitialized() {
         initialized = true;
         PulseLogger.info(PulseLogger.PULSE, "Environment marked as initialized");
@@ -76,25 +64,10 @@ public class PulseEnvironment {
         return initialized;
     }
 
-    // --- Development Mode ---
-
+    // Development Mode
     private static volatile Boolean developmentModeCache = null;
 
-    /**
-     * 개발 모드 여부 확인.
-     * 
-     * 다음 조건 중 하나라도 만족하면 개발 모드:
-     * <ul>
-     * <li>시스템 프로퍼티 {@code pulse.dev=true}</li>
-     * <li>환경 변수 {@code PULSE_DEV} 설정됨</li>
-     * <li>실행 디렉토리에 {@code pulse_dev.lock} 파일 존재</li>
-     * </ul>
-     * 
-     * 개발 모드에서는 Mixin 에러가 전파되어 디버깅이 용이함.
-     * 프로덕션에서는 에러가 격리되어 게임 안정성 유지.
-     * 
-     * @return 개발 모드이면 true
-     */
+    /** 개발 모드 여부 (pulse.dev, PULSE_DEV 환경변수, pulse_dev.lock) */
     public static boolean isDevelopmentMode() {
         if (developmentModeCache != null) {
             return developmentModeCache;
@@ -131,8 +104,7 @@ public class PulseEnvironment {
         developmentModeCache = null;
     }
 
-    // --- Debug Info ---
-
+    // Debug Info
     public static void printStatus() {
         PulseLogger.info(PulseLogger.PULSE, "==================================================");
         PulseLogger.info(PulseLogger.PULSE, "STATUS REPORT");

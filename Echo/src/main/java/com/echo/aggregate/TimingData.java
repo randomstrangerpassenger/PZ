@@ -235,13 +235,8 @@ public class TimingData {
         private long runningSumSq = 0; // Variance 계산용
         private long runningMax = 0;
 
-        // 호환성을 위한 windowMs (deprecated, 표시용)
-        @Deprecated
-        private final long windowMs;
-
         public RollingStats(long windowMs) {
             // 기존 API 호환: windowMs → 샘플 수 변환
-            this.windowMs = windowMs;
             if (windowMs <= 1_000) {
                 this.capacity = WINDOW_1S;
             } else if (windowMs <= 5_000) {
@@ -338,32 +333,14 @@ public class TimingData {
             return capacity;
         }
 
-        /**
-         * 윈도우 시간 (deprecated - 호환성용)
-         */
-        @Deprecated
-        public long getWindowMs() {
-            return windowMs;
-        }
-
-        /**
-         * 통계적 신뢰도 (0.0 ~ 1.0)
-         * Event-driven Points에서 낮은 호출 빈도 감지용
-         */
         public double getConfidence() {
             return (double) size / capacity;
         }
 
-        /**
-         * 통계적으로 의미 있는 데이터인지 (50% 이상 채워짐)
-         */
         public boolean isStatisticallyMeaningful() {
             return size >= capacity / 2;
         }
 
-        /**
-         * 초기화
-         */
         public void reset() {
             Arrays.fill(values, 0);
             head = 0;
@@ -371,13 +348,6 @@ public class TimingData {
             runningSum = 0;
             runningSumSq = 0;
             runningMax = 0;
-        }
-
-        /**
-         * 오래된 샘플 정리 (호환성용 - 샘플 기반이므로 NOP)
-         */
-        public void performCleanup() {
-            // 샘플 기반 Ring Buffer에서는 자동으로 관리되므로 불필요
         }
 
         /**

@@ -61,6 +61,45 @@ public final class SafeMixinWrapper {
     }
 
     /**
+     * Mixin 로직을 안전하게 실행 (심각도 지정)
+     * 
+     * @param mixinId  Mixin 식별자
+     * @param logic    실행할 로직
+     * @param severity 오류 심각도
+     */
+    public static void execute(String mixinId, Runnable logic,
+            com.pulse.api.mixin.MixinSeverity severity) {
+        try {
+            logic.run();
+        } catch (Throwable t) {
+            handleError(mixinId, t, severity);
+        }
+    }
+
+    /**
+     * 심각도 기반 오류 처리
+     */
+    private static void handleError(String mixinId, Throwable t,
+            com.pulse.api.mixin.MixinSeverity severity) {
+        switch (severity) {
+            case HIGH:
+                // 핵심 기능 - 에러 로그 + 메트릭
+                handleError(mixinId, t);
+                break;
+            case MEDIUM:
+                // 보조 기능 - 디버그 모드에서만 로그
+                if (debugMode) {
+                    PulseLogger.debug(LOG, "{}: {}", mixinId, t.getMessage());
+                }
+                break;
+            case LOW:
+            default:
+                // 부가 기능 - 조용히 무시
+                break;
+        }
+    }
+
+    /**
      * Mixin 로직을 안전하게 실행 (반환값 있음)
      * 
      * @param mixinId  Mixin 식별자

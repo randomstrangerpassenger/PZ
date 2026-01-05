@@ -1,17 +1,6 @@
 --[[
-    NerveMod.lua
-    Nerve 모드 진입점
-    
-    v0.1 Final - 이벤트 디스패치 + UI/인벤토리 안정화
-    
-    핵심 기능:
-    - Pulse 런타임 감지
-    - 2중 초기화 훅 (OnGameBoot + OnInitGlobalModData)
-    - Idempotent 이벤트 래핑 (__nerveWrapped)
-    - 콜백 래핑 캐시 (weak table)
-    - _listeners 안전 체크
-    - Area 5: UI/Inventory coalesce
-    - Area 6: Event deduplication
+    NerveMod.lua - Nerve 모드 진입점 (v0.1)
+    Pulse 감지, Idempotent 이벤트 래핑, Area 5/6 통합
 ]]
 
 -- 의존성 로드
@@ -27,22 +16,13 @@ Nerve.VERSION = "0.1.0"
 Nerve.hasPulse = false
 Nerve.pulseVersion = nil
 
---------------------------------------------------------------------------------
--- 초기화 상태 관리 (2단계)
---------------------------------------------------------------------------------
-
+-- 초기화 상태
 local initState = "NONE"  -- NONE | STARTED | DONE
 
---------------------------------------------------------------------------------
--- 콜백 래핑 캐시 (weak table - GC 허용)
---------------------------------------------------------------------------------
-
+-- 콜백 래핑 캐시 (weak table)
 local wrappedCallbacks = setmetatable({}, { __mode = "k" })
 
---------------------------------------------------------------------------------
 -- Pulse 감지
---------------------------------------------------------------------------------
-
 local function detectPulse()
     -- 방법 1: 전역 변수 확인 (더 안정적)
     if rawget(_G, "Pulse") and Pulse.VERSION then
@@ -69,10 +49,7 @@ local function detectPulse()
     NerveUtils.info("Standalone mode (Lite)")
 end
 
---------------------------------------------------------------------------------
 -- 리스너 카운트 안전 조회
---------------------------------------------------------------------------------
-
 local function getListenerCount(eventObj)
     if eventObj._listeners then
         return #eventObj._listeners
@@ -82,10 +59,7 @@ local function getListenerCount(eventObj)
     return nil  -- unknown
 end
 
---------------------------------------------------------------------------------
 -- 이벤트 래핑 (Idempotent)
---------------------------------------------------------------------------------
-
 local function wrapEvent(eventName)
     local eventObj = Events[eventName]
     
@@ -167,10 +141,7 @@ local function wrapEvent(eventName)
     return true
 end
 
---------------------------------------------------------------------------------
--- 래퍼 무결성 체크 (디버그용)
---------------------------------------------------------------------------------
-
+-- 래퍼 무결성 체크
 function Nerve.checkWrapperIntegrity()
     if not NerveConfig or not NerveConfig.area6 then return end
     
@@ -196,10 +167,7 @@ function Nerve.checkWrapperIntegrity()
     return issues
 end
 
---------------------------------------------------------------------------------
 -- 메인 초기화
---------------------------------------------------------------------------------
-
 local function initializeNerve()
     -- 이미 완료된 경우 스킵
     if initState == "DONE" then
@@ -264,10 +232,7 @@ local function initializeNerve()
     initState = "DONE"
 end
 
---------------------------------------------------------------------------------
 -- 틱 핸들러
---------------------------------------------------------------------------------
-
 local function onTickStart()
     -- Area6 틱 시작 처리
     if Nerve.Area6 and Nerve.Area6.onTickStart then
@@ -292,9 +257,7 @@ local function onTickEnd()
     end
 end
 
---------------------------------------------------------------------------------
 -- 이벤트 등록 (2중 초기화 훅)
---------------------------------------------------------------------------------
 
 -- 방법 1: OnGameBoot (일반적으로 빠름)
 if Events.OnGameBoot then
@@ -316,10 +279,7 @@ if Events.OnTickEven then
     Events.OnTickEven.Add(onTickEnd)
 end
 
---------------------------------------------------------------------------------
 -- 공개 API
---------------------------------------------------------------------------------
-
 function Nerve.isInitialized()
     return initState == "DONE"
 end

@@ -12,15 +12,7 @@ import java.nio.file.Path;
 import java.util.Collection;
 import java.util.Optional;
 
-/**
- * Pulse API 메인 진입점.
- * 모드 개발자가 사용하는 안정적인 API.
- * 
- * 사용 예:
- * if (Pulse.isModLoaded("othermod")) {
- * // othermod와 연동
- * }
- */
+/** Pulse API 메인 진입점 - 모드 개발자용 안정적 API */
 public final class Pulse {
 
     private static final String LOG = PulseLogger.PULSE;
@@ -28,9 +20,7 @@ public final class Pulse {
     private Pulse() {
     } // 인스턴스화 방지
 
-    // ─────────────────────────────────────────────────────────────
-    // 버전 정보
-    // ─────────────────────────────────────────────────────────────
+    // Version
 
     public static final String VERSION = "0.8.0";
     public static final String NAME = "Pulse";
@@ -50,9 +40,7 @@ public final class Pulse {
         return API_VERSION;
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 모드 관련
-    // ─────────────────────────────────────────────────────────────
+    // Mod
 
     /**
      * 특정 모드가 로드되었는지 확인
@@ -82,9 +70,7 @@ public final class Pulse {
         return ModLoader.getInstance().getModCount();
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 이벤트 시스템
-    // ─────────────────────────────────────────────────────────────
+    // Event Bus
 
     /**
      * 이벤트 버스 접근
@@ -93,9 +79,7 @@ public final class Pulse {
         return EventBus.getInstance();
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // SPI (Service Provider Interface)
-    // ─────────────────────────────────────────────────────────────
+    // SPI
 
     /**
      * 프로바이더 레지스트리 접근.
@@ -116,9 +100,7 @@ public final class Pulse {
         return ProviderRegistry.getInstance().hasProvider(type);
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // 환경 정보
-    // ─────────────────────────────────────────────────────────────
+    // Environment
 
     /**
      * Pulse이 완전히 초기화되었는지 확인
@@ -148,9 +130,7 @@ public final class Pulse {
         return getGameDirectory().resolve(PulseConstants.CONFIG_DIR_NAME);
     }
 
-    // ─────────────────────────────────────────────────────────────
-    // Side API (v1.1.0)
-    // ─────────────────────────────────────────────────────────────
+    // Side API
 
     private static volatile PulseSide currentSide = PulseSide.UNKNOWN;
 
@@ -245,9 +225,7 @@ public final class Pulse {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────
     // DevMode
-    // ─────────────────────────────────────────────────────────────
 
     /**
      * DevMode 활성화 여부 확인

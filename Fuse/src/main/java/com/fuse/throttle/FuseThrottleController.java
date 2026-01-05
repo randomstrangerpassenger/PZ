@@ -16,50 +16,24 @@ import java.util.EnumMap;
 import java.util.Map;
 
 /**
- * Fuse Throttle Controller.
- * 
- * Tiered 거리 기반 좀비 업데이트 throttling.
- * update()는 절대 취소하지 않고, ThrottleLevel만 반환.
- * 
- * v1.1: 윈도우 기반 히스테리시스 + Governor/Panic 연동
- * v2.2: NO_INTERVENTION cause/blocker 2축 집계
- * 
- * @since Fuse 0.3.0
- * @since Fuse 0.5.0 - Tiered ThrottleLevel 방식으로 전환
- * @since Fuse 1.1.0 - Window-based hysteresis + Governor/Panic integration
- * @since Fuse 2.2.0 - IHookContext.getTarget() 기반 거리 계산
- * @since Fuse 2.3.0 - IOGuard/GCPressureGuard removed
+ * Tiered 거리 기반 좀비 업데이트 throttling (v2.3).
+ * 히스테리시스 + Governor/Panic 연동.
  */
 public class FuseThrottleController implements IThrottlePolicy {
 
     private static final String LOG = "Fuse";
 
-    // =================================================================
-    // NO_INTERVENTION 추적 (v2.2)
-    // =================================================================
-
-    /**
-     * 압력의 원인 (관측된 현상).
-     */
+    /** 압력의 원인 */
     public enum InterventionCause {
-        /*
-         * === LEGACY (v2.3) ===
-         * GC_PRESSURE and IO_BURST are no longer triggered.
-         * Kept for binary/log compatibility.
-         */
-        GC_PRESSURE, // GC 압력 감지 (legacy, never triggered)
-        IO_BURST, // IO 스파이크 감지 (legacy, never triggered)
-        TICK_SPIKE // 틱 시간 스파이크
+        TICK_SPIKE
     }
 
-    /**
-     * 개입 차단 사유.
-     */
+    /** 개입 차단 사유 */
     public enum InterventionBlocker {
-        THRESHOLD_NOT_MET, // 임계치 미달
-        NON_SLICEABLE, // 분할 불가능한 작업
-        FAILOPEN_SAFETY, // Fail-open 안전 모드
-        GUARD_DISABLED // Guard 비활성화
+        THRESHOLD_NOT_MET,
+        NON_SLICEABLE,
+        FAILOPEN_SAFETY,
+        GUARD_DISABLED
     }
 
     // EnumMap 집계 (v2.2)
@@ -88,10 +62,6 @@ public class FuseThrottleController implements IThrottlePolicy {
     private ThrottleLevel hysteresisLevel = ThrottleLevel.FULL;
     private int stabilityCounter = 0;
     private boolean hysteresisActive = false;
-
-    // --- 멀티플레이어 캐시 ---
-    private boolean isMultiplayer = false;
-    private int lastMpCheckTick = -100;
 
     // --- 통계 ---
     private long fullCount = 0;
@@ -398,39 +368,6 @@ public class FuseThrottleController implements IThrottlePolicy {
         if (reasonStats != null && reason != null) {
             reasonStats.increment(reason);
         }
-    }
-
-    // --- Legacy ---
-
-    /**
-     * @deprecated Tiered 방식으로 전환됨. 하위 호환용.
-     */
-    @Deprecated
-    @SuppressWarnings("unused")
-    private int getIntervalMask(float distSq) {
-        FuseConfig config = FuseConfig.getInstance();
-        if (distSq < config.getNearDistSq())
-            return 0;
-        if (distSq < config.getMediumDistSq())
-            return 1;
-        if (distSq < config.getFarDistSq())
-            return 3;
-        return 7;
-    }
-
-    @SuppressWarnings("unused")
-    private boolean checkMultiplayer(int currentTick) {
-        if (currentTick - lastMpCheckTick < 100) {
-            return isMultiplayer;
-        }
-        lastMpCheckTick = currentTick;
-        try {
-            Class<?> gc = Class.forName("zombie.network.GameClient");
-            isMultiplayer = (boolean) gc.getField("bClient").get(null);
-        } catch (Throwable t) {
-            isMultiplayer = false;
-        }
-        return isMultiplayer;
     }
 
     // --- Stats ---

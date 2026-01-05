@@ -19,6 +19,9 @@ dependencies {
     // Pulse API dependency - MUST be implementation so the enum classes are available at runtime
     implementation project(':pulse-api')
     
+    // Gson for config serialization
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
     // Pulse main (for compiling against Pulse classes like ZombieHook)
     if (findProject(':Pulse') != null) {
         compileOnly project(':Pulse')

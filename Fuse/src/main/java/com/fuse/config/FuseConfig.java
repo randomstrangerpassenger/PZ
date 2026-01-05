@@ -1,21 +1,29 @@
 package com.fuse.config;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.pulse.api.log.PulseLogger;
+
+import java.io.*;
+import java.nio.file.*;
 
 /**
  * Fuse Configuration.
  * 
  * Conservative Preset 기본값 + 신규 파라미터
+ * JSON 파일 기반 영속화 (v2.4)
  * 
  * @since Fuse 0.3.0
  * @since Fuse 1.1.0 - Conservative Preset
+ * @since Fuse 2.4.0 - JSON file persistence
  */
 public class FuseConfig {
 
-    private static final FuseConfig INSTANCE = new FuseConfig();
-    /** Config file path (reserved for future file-based config loading) */
-    @SuppressWarnings("unused")
-    private static final String CONFIG_FILE = "Fuse/fuse.json";
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final String CONFIG_DIR = System.getProperty("user.home") + "/Zomboid/Fuse";
+    private static final String CONFIG_FILE = "fuse.json";
+
+    private static FuseConfig INSTANCE;
 
     // ========================================
     // Throttling Settings
@@ -112,20 +120,78 @@ public class FuseConfig {
     // ========================================
 
     public static FuseConfig getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new FuseConfig();
+            INSTANCE.load();
+        }
         return INSTANCE;
     }
 
     private FuseConfig() {
-        load();
+        // Private constructor - load() called from getInstance()
     }
 
     public void load() {
-        // 간단한 기본값 사용 (파일 로드는 추후 구현)
-        PulseLogger.info("Fuse", "Config loaded (v2.3 - IO/GC guards removed)");
+        Path configPath = Paths.get(CONFIG_DIR, CONFIG_FILE);
+
+        if (!Files.exists(configPath)) {
+            PulseLogger.info("Fuse", "Config file not found, using defaults");
+            save(); // Create default config file
+            return;
+        }
+
+        try (Reader reader = new FileReader(configPath.toFile())) {
+            FuseConfig loaded = GSON.fromJson(reader, FuseConfig.class);
+            if (loaded != null) {
+                copyFrom(loaded);
+            }
+            PulseLogger.info("Fuse", "Config loaded from: " + configPath);
+        } catch (Exception e) {
+            PulseLogger.error("Fuse", "Failed to load config: " + e.getMessage());
+        }
     }
 
     public void save() {
-        // 추후 구현
+        Path configDir = Paths.get(CONFIG_DIR);
+        Path configPath = configDir.resolve(CONFIG_FILE);
+
+        try {
+            if (!Files.exists(configDir)) {
+                Files.createDirectories(configDir);
+            }
+
+            try (Writer writer = new FileWriter(configPath.toFile())) {
+                GSON.toJson(this, writer);
+            }
+            PulseLogger.info("Fuse", "Config saved to: " + configPath);
+        } catch (Exception e) {
+            PulseLogger.error("Fuse", "Failed to save config: " + e.getMessage());
+        }
+    }
+
+    private void copyFrom(FuseConfig other) {
+        this.enableThrottling = other.enableThrottling;
+        this.enableStepThrottling = other.enableStepThrottling;
+        this.throttleIntensity = other.throttleIntensity;
+        this.nearDistSq = other.nearDistSq;
+        this.mediumDistSq = other.mediumDistSq;
+        this.farDistSq = other.farDistSq;
+        this.tickBudgetMs = other.tickBudgetMs;
+        this.forceCutoffMs = other.forceCutoffMs;
+        this.batchCheckSize = other.batchCheckSize;
+        this.spikeThresholdMs = other.spikeThresholdMs;
+        this.windowSizeMs = other.windowSizeMs;
+        this.spikeCountThreshold = other.spikeCountThreshold;
+        this.recoveryPhaseTicks = other.recoveryPhaseTicks;
+        this.entryMax1sMs = other.entryMax1sMs;
+        this.entryAvg5sMs = other.entryAvg5sMs;
+        this.exitAvg5sMs = other.exitAvg5sMs;
+        this.exitStabilityTicks = other.exitStabilityTicks;
+        this.vehicleSpeedEntryKmh = other.vehicleSpeedEntryKmh;
+        this.vehicleSpeedExitKmh = other.vehicleSpeedExitKmh;
+        this.playerSpeedThreshold = other.playerSpeedThreshold;
+        this.frameDropThresholdMs = other.frameDropThresholdMs;
+        this.maxConsecutiveErrors = other.maxConsecutiveErrors;
     }
 
     // ========================================

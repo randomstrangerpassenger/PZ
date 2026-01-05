@@ -1,17 +1,5 @@
 --[[
-    Area5Coordinator.lua
-    Area 5 통합 조율 모듈
-    
-    v0.1 Final
-    
-    핵심 역할:
-    - 컴포넌트 초기화 순서 관리
-    - 지연 초기화 재시도 (3회)
-    - onTickStart/End 조율
-    
-    훅 지점:
-    - onTickStart: Events.OnTick 시작부 (Area 6과 동일)
-    - onTickEnd: Events.OnTickEven 또는 OnTick 말미
+    Area5Coordinator.lua - UI/인벤토리 안정화 통합 조율 (v0.1)
 ]]
 
 require "Nerve/NerveUtils"
@@ -24,10 +12,6 @@ local Area5Coordinator = {}
 
 Area5Coordinator.initialized = false
 Area5Coordinator.retryCount = 0
-
---------------------------------------------------------------------------------
--- 초기화
---------------------------------------------------------------------------------
 
 function Area5Coordinator.init()
     -- 설정 체크
@@ -60,10 +44,7 @@ function Area5Coordinator.init()
     return true
 end
 
---------------------------------------------------------------------------------
 -- 지연 초기화 재시도
---------------------------------------------------------------------------------
-
 function Area5Coordinator.retryInit()
     Area5Coordinator.retryCount = Area5Coordinator.retryCount + 1
     
@@ -81,36 +62,21 @@ function Area5Coordinator.retryInit()
     end
 end
 
---------------------------------------------------------------------------------
 -- 틱 처리
---------------------------------------------------------------------------------
-
--- 틱 시작 (훅 지점: Events.OnTick 시작부)
 function Area5Coordinator.onTickStart()
     if not Area5Coordinator.initialized then return end
-    
-    -- 순서: 상태 초기화
     Nerve.InventoryGuard.onTickStart()
     Nerve.UIRefreshCoalescer.onTickStart()
     Nerve.ContainerScanDedup.onTickStart()
 end
 
--- 틱 끝 (훅 지점: Events.OnTickEven 또는 OnTick 말미)
 function Area5Coordinator.onTickEnd()
     if not Area5Coordinator.initialized then return end
-    
-    -- 순서 중요!
-    -- 1. UIRefreshCoalescer flush (범용) - executeFn 없으면 NOP
     Nerve.UIRefreshCoalescer.flush()
-    
-    -- 2. InventoryGuard flush (특화)
     Nerve.InventoryGuard.flushPending()
 end
 
---------------------------------------------------------------------------------
 -- 통계 조회
---------------------------------------------------------------------------------
-
 function Area5Coordinator.getStats()
     return {
         initialized = Area5Coordinator.initialized,
@@ -125,15 +91,10 @@ function Area5Coordinator.printStatus()
     NerveUtils.info("========================================")
     NerveUtils.info("  Initialized: " .. tostring(Area5Coordinator.initialized))
     NerveUtils.info("  Retry count: " .. Area5Coordinator.retryCount)
-    
-    -- 통계 출력
     Area5Stats.print()
 end
 
---------------------------------------------------------------------------------
 -- Nerve에 등록
---------------------------------------------------------------------------------
-
 Nerve = Nerve or {}
 Nerve.Area5 = Area5Coordinator
 

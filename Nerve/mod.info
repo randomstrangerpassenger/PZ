@@ -1,5 +1,4 @@
 name=Nerve
 id=Nerve
-description=Network Enhancement for Project Zomboid
+description=Event Dispatch Stabilizer for Project Zomboid - Lua-based stability layer that prevents event flooding and cascade explosions.
 poster=poster.png
-require=Pulse

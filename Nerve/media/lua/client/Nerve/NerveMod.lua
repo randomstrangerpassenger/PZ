@@ -2,7 +2,7 @@
     NerveMod.lua
     Nerve 모드 진입점
     
-    v0.1 Final - 이벤트 디스패치 안정화
+    v0.1 Final - 이벤트 디스패치 + UI/인벤토리 안정화
     
     핵심 기능:
     - Pulse 런타임 감지
@@ -10,10 +10,13 @@
     - Idempotent 이벤트 래핑 (__nerveWrapped)
     - 콜백 래핑 캐시 (weak table)
     - _listeners 안전 체크
+    - Area 5: UI/Inventory coalesce
+    - Area 6: Event deduplication
 ]]
 
 -- 의존성 로드
 require "Nerve/NerveUtils"
+require "Nerve/area5/Area5Coordinator"
 
 --------------------------------------------------------------------------------
 -- Nerve 메인 모듈
@@ -253,6 +256,11 @@ local function initializeNerve()
     NerveUtils.info("Mode: " .. (Nerve.hasPulse and "Full (Pulse)" or "Lite (Standalone)"))
     NerveUtils.info("========================================")
     
+    -- Area 5 초기화 (UI/Inventory)
+    if Nerve.Area5 and Nerve.Area5.init then
+        Nerve.Area5.init()
+    end
+    
     initState = "DONE"
 end
 
@@ -264,6 +272,23 @@ local function onTickStart()
     -- Area6 틱 시작 처리
     if Nerve.Area6 and Nerve.Area6.onTickStart then
         Nerve.Area6.onTickStart()
+    end
+    
+    -- Area5 틱 시작 처리
+    if Nerve.Area5 and Nerve.Area5.onTickStart then
+        Nerve.Area5.onTickStart()
+    end
+end
+
+local function onTickEnd()
+    -- Area6 틱 종료 처리
+    if Nerve.Area6 and Nerve.Area6.onTickEnd then
+        Nerve.Area6.onTickEnd()
+    end
+    
+    -- Area5 틱 종료 처리
+    if Nerve.Area5 and Nerve.Area5.onTickEnd then
+        Nerve.Area5.onTickEnd()
     end
 end
 
@@ -284,6 +309,11 @@ end
 -- 틱 시작 처리
 if Events.OnTick then
     Events.OnTick.Add(onTickStart)
+end
+
+-- 틱 종료 처리
+if Events.OnTickEven then
+    Events.OnTickEven.Add(onTickEnd)
 end
 
 --------------------------------------------------------------------------------

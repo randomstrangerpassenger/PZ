@@ -140,7 +140,11 @@ public class FuseLifecycle {
                 throttleController.setAdaptiveGate(adaptiveGate);
                 registry.setAdaptiveGate(adaptiveGate);
                 registry.getGovernor().setReasonStats(registry.getReasonStats());
-                PulseLogger.info(LOG, "AdaptiveGate enabled (v2.5)");
+
+                // v2.6 Bundle C: HardLimitObserver 연동 (봉인#1)
+                registry.getGovernor().setHardLimitObserver(adaptiveGate);
+
+                PulseLogger.info(LOG, "AdaptiveGate enabled (v2.6 Bundle C)");
 
                 // v2.5: FuseSnapshotProvider 초기화
                 FuseSnapshotProvider snapshotProvider = new FuseSnapshotProvider(

@@ -125,6 +125,22 @@ public class FuseConfig {
     private boolean enablePathDedup = false;
 
     // ========================================
+    // Bundle C: Sustained Early Exit Settings (v2.6)
+    // ========================================
+
+    /** Sustained Early Exit master switch (opt-in, default OFF) */
+    private boolean sustainedEarlyExitEnabled = false;
+
+    /** ACTIVE state maximum duration before forced COOLDOWN (ms) */
+    private long activeMaxMs = 2000;
+
+    /** Hard limit streak threshold for forced COOLDOWN */
+    private int hardStreakMax = 4;
+
+    /** COOLDOWN duration before returning to PASSTHROUGH (ms) */
+    private long cooldownMs = 2000;
+
+    // ========================================
     // IOGuard/GCPressureGuard Settings removed in v2.3
     // ========================================
 
@@ -209,6 +225,11 @@ public class FuseConfig {
         this.enableAdaptiveGate = other.enableAdaptiveGate;
         this.enableZombieDedup = other.enableZombieDedup;
         this.enablePathDedup = other.enablePathDedup;
+        // v2.6 Bundle C
+        this.sustainedEarlyExitEnabled = other.sustainedEarlyExitEnabled;
+        this.activeMaxMs = other.activeMaxMs;
+        this.hardStreakMax = other.hardStreakMax;
+        this.cooldownMs = other.cooldownMs;
     }
 
     // ========================================
@@ -362,5 +383,25 @@ public class FuseConfig {
 
     public boolean isEnablePathDedup() {
         return enablePathDedup;
+    }
+
+    // ========================================
+    // Bundle C: Sustained Early Exit Getters (v2.6)
+    // ========================================
+
+    public boolean isSustainedEarlyExitEnabled() {
+        return sustainedEarlyExitEnabled;
+    }
+
+    public long getActiveMaxMs() {
+        return activeMaxMs;
+    }
+
+    public int getHardStreakMax() {
+        return hardStreakMax;
+    }
+
+    public long getCooldownMs() {
+        return cooldownMs;
     }
 }

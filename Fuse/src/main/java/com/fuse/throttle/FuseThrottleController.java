@@ -147,11 +147,11 @@ public class FuseThrottleController implements IThrottlePolicy {
     @Override
     public boolean shouldProcess(IHookContext context) {
         // ═══════════════════════════════════════════════════════
-        // v2.5: Adaptive Gate Fast Path
-        // PASSTHROUGH 상태: 즉시 true 반환 (제로 오버헤드)
+        // v2.6: Adaptive Gate Fast Path (Bundle C)
+        // PASSTHROUGH 또는 COOLDOWN 상태: 즉시 true 반환 (제로 오버헤드)
         // ⚠️ 이 블록 내에서 로깅 절대 금지!
         // ═══════════════════════════════════════════════════════
-        if (adaptiveGate != null && adaptiveGate.isPassthrough()) {
+        if (adaptiveGate != null && adaptiveGate.isInterventionBlocked()) {
             return true;
         }
 

@@ -18,6 +18,9 @@ public enum TelemetryReason {
     ADAPTIVE_GATE_ACTIVATED("Gate activated - entering intervention mode"),
     ADAPTIVE_GATE_PASSTHROUGH("Gate passthrough - zero overhead"),
 
+    // --- Bundle C: Sustained Early Exit (v2.6) ---
+    SUSTAINED_EARLY_EXIT("forced cooldown due to sustained ACTIVE"),
+
     // --- Budget 관련 (v2.5) ---
     BUDGET_SOFT_LIMIT("Fuse overhead soft limit exceeded (0.5ms)"),
     BUDGET_HARD_LIMIT("Fuse overhead hard limit - cutoff (2.0ms)"),

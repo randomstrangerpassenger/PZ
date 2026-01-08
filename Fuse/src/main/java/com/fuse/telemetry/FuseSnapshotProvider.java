@@ -172,7 +172,19 @@ public class FuseSnapshotProvider implements IStabilizerSnapshotProvider {
                 snapshot.put("gate_state", adaptiveGate.getState().name());
                 snapshot.put("gate_transitions", adaptiveGate.getStateTransitions());
                 snapshot.put("passthrough", adaptiveGate.isPassthrough());
+                snapshot.put("intervention_blocked", adaptiveGate.isInterventionBlocked());
+
+                // Bundle C 메트릭
+                snapshot.put("escape_count", adaptiveGate.getEscapeCount());
+                snapshot.put("escape_by_timeout", adaptiveGate.getEscapeByTimeoutCount());
+                snapshot.put("escape_by_hard_streak", adaptiveGate.getEscapeByHardStreakCount());
+                snapshot.put("hard_limit_streak_max", adaptiveGate.getHardLimitStreakMax());
             }
+
+            // Bundle C: 정책 모드
+            snapshot.put("policy_mode", FuseConfig.getInstance().isSustainedEarlyExitEnabled()
+                    ? "SUSTAINED_EARLY_EXIT"
+                    : "BASELINE");
 
             // Governor 오버헤드
             if (governor != null) {

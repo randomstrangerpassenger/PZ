@@ -1,5 +1,6 @@
 package com.fuse.governor;
 
+import com.fuse.telemetry.ReasonStats;
 import com.fuse.telemetry.TelemetryReason;
 import com.pulse.api.log.PulseLogger;
 
@@ -16,18 +17,30 @@ public class TickBudgetGovernor {
     private double forceCutoffMs = 33.33; // 30fps 방어선
     private int batchCheckSize = 20; // N마리마다 시간 체크
 
+    // --- Fuse 오버헤드 예산 (v2.5) ---
+    private static final double SOFT_LIMIT_MS = 0.5; // 경고
+    private static final double HARD_LIMIT_MS = 2.0; // 강제 중단
+
     // --- 상태 ---
     private long tickStartNanos = -1;
     private int zombiesProcessedThisTick = 0;
     private double lastTickMs = 0.0;
     private boolean cutoffTriggered = false;
 
+    // --- Fuse 오버헤드 측정 (v2.5) ---
+    private double fuseConsumedMs = 0.0;
+    private long interventionStartNanos = 0;
+    private boolean softLimitWarned = false;
+
     // --- 통계 ---
     private long totalCutoffs = 0;
     private long totalTicks = 0;
+    private long softLimitHits = 0;
+    private long hardLimitHits = 0;
 
     // 텔레메트리
     private TelemetryReason lastReason = null;
+    private ReasonStats reasonStats;
 
     public TickBudgetGovernor() {
         PulseLogger.info(LOG, "TickBudgetGovernor initialized (budget: "
@@ -42,6 +55,66 @@ public class TickBudgetGovernor {
         zombiesProcessedThisTick = 0;
         cutoffTriggered = false;
         lastReason = null;
+        // v2.5: 오버헤드 측정 리셋
+        fuseConsumedMs = 0.0;
+        softLimitWarned = false;
+    }
+
+    /**
+     * ReasonStats 연동 (v2.5).
+     */
+    public void setReasonStats(ReasonStats reasonStats) {
+        this.reasonStats = reasonStats;
+    }
+
+    /**
+     * Fuse 개입 시작 전 호출 - 타이머 시작 (v2.5).
+     */
+    public void beginIntervention() {
+        interventionStartNanos = System.nanoTime();
+    }
+
+    /**
+     * Fuse 개입 종료 후 호출 - 비용 자동 기록 (v2.5).
+     */
+    public void endIntervention() {
+        if (interventionStartNanos > 0) {
+            long elapsed = System.nanoTime() - interventionStartNanos;
+            fuseConsumedMs += elapsed / 1_000_000.0;
+            interventionStartNanos = 0;
+        }
+    }
+
+    /**
+     * Fuse 개입 가능 여부 (단계적 상한) (v2.5).
+     */
+    public boolean canIntervene() {
+        // Hard limit 초과 시 강제 중단
+        if (fuseConsumedMs >= HARD_LIMIT_MS) {
+            if (reasonStats != null) {
+                reasonStats.increment(TelemetryReason.BUDGET_HARD_LIMIT);
+            }
+            hardLimitHits++;
+            return false;
+        }
+
+        // Soft limit 초과 시 경고 (1회만)
+        if (fuseConsumedMs >= SOFT_LIMIT_MS && !softLimitWarned) {
+            if (reasonStats != null) {
+                reasonStats.increment(TelemetryReason.BUDGET_SOFT_LIMIT);
+            }
+            softLimitWarned = true;
+            softLimitHits++;
+        }
+
+        return true;
+    }
+
+    /**
+     * 현재 Fuse 오버헤드 소비량 (v2.5).
+     */
+    public double getFuseConsumedMs() {
+        return fuseConsumedMs;
     }
 
     /**
@@ -162,5 +235,9 @@ public class TickBudgetGovernor {
         PulseLogger.info(LOG, "  Total Cutoffs: " + totalCutoffs + " ("
                 + String.format("%.2f", getCutoffRatio() * 100) + "%)");
         PulseLogger.info(LOG, "  Last Tick: " + String.format("%.2f", lastTickMs) + "ms");
+        // v2.5: Fuse 오버헤드 예산 상태
+        PulseLogger.info(LOG, "  Fuse Overhead Limit: soft=" + SOFT_LIMIT_MS + "ms, hard=" + HARD_LIMIT_MS + "ms");
+        PulseLogger.info(LOG, "  Soft Limit Hits: " + softLimitHits);
+        PulseLogger.info(LOG, "  Hard Limit Hits: " + hardLimitHits);
     }
 }

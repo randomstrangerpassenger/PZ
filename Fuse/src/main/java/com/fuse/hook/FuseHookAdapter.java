@@ -2,6 +2,7 @@ package com.fuse.hook;
 
 import com.pulse.api.hook.IZombieCallback;
 import com.pulse.api.log.PulseLogger;
+import com.pulse.api.profiler.ProfilerBridge;
 import com.pulse.api.profiler.ZombieHook;
 
 /**
@@ -72,6 +73,7 @@ public class FuseHookAdapter implements IZombieCallback {
         if (motionStartNanos > 0) {
             long durationMicros = (System.nanoTime() - motionStartNanos) / 1000;
             totalMotionMicros += durationMicros;
+            ProfilerBridge.recordZombieStep("MOTION_UPDATE", durationMicros);
             motionStartNanos = -1;
         }
         currentZombie = null;
@@ -88,6 +90,7 @@ public class FuseHookAdapter implements IZombieCallback {
         if (perceptionStartNanos > 0) {
             long durationMicros = (System.nanoTime() - perceptionStartNanos) / 1000;
             totalPerceptionMicros += durationMicros;
+            ProfilerBridge.recordZombieStep("SOUND_PERCEPTION", durationMicros);
             perceptionStartNanos = -1;
         }
     }
@@ -103,6 +106,7 @@ public class FuseHookAdapter implements IZombieCallback {
         if (trackingStartNanos > 0) {
             long durationMicros = (System.nanoTime() - trackingStartNanos) / 1000;
             totalTrackingMicros += durationMicros;
+            ProfilerBridge.recordZombieStep("TARGET_TRACKING", durationMicros);
             trackingStartNanos = -1;
         }
     }

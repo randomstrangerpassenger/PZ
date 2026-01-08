@@ -435,14 +435,38 @@ public class ZombieHook implements IZombieHook {
     }
 
     public static void onSoundPerceptionStart(Object z) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onSoundPerceptionStartWithContext(z);
+            } catch (Throwable t) {
+            }
+        }
     }
 
     public static void onSoundPerceptionEnd(Object z) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onSoundPerceptionEndWithContext(z);
+            } catch (Throwable t) {
+            }
+        }
     }
 
     public static void onTargetTrackingStart(Object z) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onTargetTrackingStartWithContext(z);
+            } catch (Throwable t) {
+            }
+        }
     }
 
     public static void onTargetTrackingEnd(Object z) {
+        if (callback != null && profilingEnabled) {
+            try {
+                callback.onTargetTrackingEndWithContext(z);
+            } catch (Throwable t) {
+            }
+        }
     }
 }

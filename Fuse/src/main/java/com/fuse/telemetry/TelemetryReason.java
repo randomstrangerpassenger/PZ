@@ -14,6 +14,18 @@ public enum TelemetryReason {
     THROTTLE_WINDOW_EXCEEDED("last_1s.max > 33.33ms"),
     THROTTLE_AVG_HIGH("last_5s.avg > 20ms"),
 
+    // --- Adaptive Gate 관련 (v2.5) ---
+    ADAPTIVE_GATE_ACTIVATED("Gate activated - entering intervention mode"),
+    ADAPTIVE_GATE_PASSTHROUGH("Gate passthrough - zero overhead"),
+
+    // --- Budget 관련 (v2.5) ---
+    BUDGET_SOFT_LIMIT("Fuse overhead soft limit exceeded (0.5ms)"),
+    BUDGET_HARD_LIMIT("Fuse overhead hard limit - cutoff (2.0ms)"),
+    BUDGET_PRESSURE_SKIP("Budget pressure - secondary step skipped"),
+
+    // --- Dedup 관련 (v2.5) ---
+    DUPLICATE_SKIPPED("Duplicate call skipped this tick"),
+
     // --- Panic 관련 ---
     PANIC_WINDOW_SPIKES("100ms+ spikes x2 in 5s"),
     RECOVERING_GRADUAL("Gradual recovery in progress"),
@@ -45,6 +57,7 @@ public enum TelemetryReason {
     GC_PRESSURE_POST_GC("Post-GC recovery in progress"),
 
     // --- Area 7: 경로탐색/충돌/물리 (v2.2) ---
+    DEFERRED_EXPIRED("Deferred request expired (>1 tick)"),
     PATH_REQUEST_DEFERRED("Path request deferred to next tick"),
     PATH_REQUEST_DROPPED("Path request dropped - queue overflow"),
     PHYSICS_SANITY_FAILURE("Physics sanity check failed - state restored");

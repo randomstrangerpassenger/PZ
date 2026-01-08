@@ -23,4 +23,25 @@ public interface IProfilerSink {
      * @param durationNanos 소요 시간 (나노초)
      */
     void onRenderProfile(long frameNumber, long durationNanos);
+
+    /**
+     * 좀비 step 타이밍 기록.
+     * 
+     * @param step           Step 이름 (MOTION_UPDATE, SOUND_PERCEPTION,
+     *                       TARGET_TRACKING 등)
+     * @param durationMicros 소요 시간 (microseconds)
+     * @since Pulse 2.5
+     */
+    default void recordZombieStep(String step, long durationMicros) {
+        // Default no-op
+    }
+
+    /**
+     * 좀비 업데이트 카운트 증가.
+     * 
+     * @since Pulse 2.5
+     */
+    default void incrementZombieUpdates() {
+        // Default no-op
+    }
 }

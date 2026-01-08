@@ -1,6 +1,7 @@
 package com.fuse.throttle;
 
 import com.fuse.config.FuseConfig;
+import com.fuse.governor.AdaptiveGate;
 import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
 import com.fuse.governor.TickBudgetGovernor;
@@ -50,7 +51,8 @@ public class FuseThrottleController implements IThrottlePolicy {
     private StreamingGuard streamingGuard;
     private ReasonStats reasonStats;
 
-    // --- v2.0/v2.1 IOGuard/GCPressureGuard removed in v2.3 ---
+    // --- v2.5 AdaptiveGate ---
+    private AdaptiveGate adaptiveGate;
 
     // --- 히스테리시스 설정 (윈도우 통계 기반) ---
     private static final double ENTRY_MAX_1S_MS = 33.33; // 진입: 1초 내 max > 33.33ms
@@ -118,6 +120,13 @@ public class FuseThrottleController implements IThrottlePolicy {
         this.reasonStats = reasonStats;
     }
 
+    /**
+     * v2.5: AdaptiveGate 설정.
+     */
+    public void setAdaptiveGate(AdaptiveGate adaptiveGate) {
+        this.adaptiveGate = adaptiveGate;
+    }
+
     // setIOGuard(), setGCPressureGuard() removed in v2.3
 
     // =================================================================
@@ -127,63 +136,62 @@ public class FuseThrottleController implements IThrottlePolicy {
     /**
      * 좀비 처리 여부 결정.
      * 
-     * context.getTarget()에서 좀비 객체를 추출하여 거리 기반 스로틀링 적용.
-     * 핵심: getThrottleLevel()을 호출하여 통계 갱신 및 히스테리시스 적용.
+     * v2.5: AdaptiveGate Fast-Path 추가
+     * - PASSTHROUGH: 즉시 true 반환 (제로 오버헤드)
+     * - ACTIVE + canIntervene(): 기존 로직 (측정됨)
+     * - ACTIVE + !canIntervene(): true 반환 (예산 초과)
      * 
      * @param context 훅 컨텍스트 (target = 좀비 객체)
      * @return true면 처리, false면 스킵
      */
     @Override
     public boolean shouldProcess(IHookContext context) {
-        // DEBUG: 매 1000번째 호출마다 로그
-        long tick = context != null ? context.gameTick() : 0;
-        boolean shouldLog = (tick % 1000 == 0);
+        // ═══════════════════════════════════════════════════════
+        // v2.5: Adaptive Gate Fast Path
+        // PASSTHROUGH 상태: 즉시 true 반환 (제로 오버헤드)
+        // ⚠️ 이 블록 내에서 로깅 절대 금지!
+        // ═══════════════════════════════════════════════════════
+        if (adaptiveGate != null && adaptiveGate.isPassthrough()) {
+            return true;
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // ACTIVE 상태: Governor 예산 내에서만 개입
+        // ═══════════════════════════════════════════════════════
+        if (governor != null && !governor.canIntervene()) {
+            return true; // 예산 초과 시 개입 중단 (바닐라처럼 처리)
+        }
 
         // Fail-open: context가 없거나 target이 없으면 처리
-        if (context == null) {
-            if (shouldLog) {
-                PulseLogger.debug(LOG, "[DEBUG] shouldProcess: context is NULL → returning true");
-            }
+        if (context == null || context.getTarget() == null) {
             return true;
         }
 
-        if (context.getTarget() == null) {
-            if (shouldLog) {
-                PulseLogger.debug(LOG,
-                        "[DEBUG] shouldProcess: context.getTarget() is NULL → returning true (tick=" + tick + ")");
+        // 개입 비용 측정 시작
+        if (governor != null) {
+            governor.beginIntervention();
+        }
+
+        try {
+            Object target = context.getTarget();
+
+            // ZombieReflectionHelper를 통해 거리 및 상태 조회 (리플렉션 기반)
+            float distSq = ZombieReflectionHelper.getDistanceSquaredToPlayer(target);
+            boolean isAttacking = ZombieReflectionHelper.isAttacking(target);
+            boolean hasTarget = ZombieReflectionHelper.hasTarget(target);
+
+            // 핵심: 반드시 getThrottleLevel() 호출하여 통계 갱신
+            ThrottleLevel level = getThrottleLevel(distSq, isAttacking, hasTarget, false);
+
+            // MINIMAL이면 스킵 (shouldProcess = false)
+            return level != ThrottleLevel.MINIMAL;
+
+        } finally {
+            // 개입 비용 측정 종료
+            if (governor != null) {
+                governor.endIntervention();
             }
-            return true;
         }
-
-        Object target = context.getTarget();
-
-        if (shouldLog) {
-            PulseLogger.debug(LOG, "[DEBUG] shouldProcess: tick=" + tick
-                    + ", target=" + target.getClass().getSimpleName());
-        }
-
-        // ZombieReflectionHelper를 통해 거리 및 상태 조회 (리플렉션 기반)
-        float distSq = ZombieReflectionHelper.getDistanceSquaredToPlayer(target);
-        boolean isAttacking = ZombieReflectionHelper.isAttacking(target);
-        boolean hasTarget = ZombieReflectionHelper.hasTarget(target);
-
-        if (shouldLog) {
-            PulseLogger.debug(LOG, "[DEBUG] shouldProcess: distSq=" + distSq
-                    + ", isAttacking=" + isAttacking + ", hasTarget=" + hasTarget);
-        }
-
-        // 핵심: 반드시 getThrottleLevel() 호출하여 통계 갱신
-        ThrottleLevel level = getThrottleLevel(distSq, isAttacking, hasTarget, false);
-
-        if (shouldLog) {
-            PulseLogger.debug(LOG, "[DEBUG] shouldProcess: level=" + level
-                    + " → shouldProcess=" + (level != ThrottleLevel.MINIMAL)
-                    + " (stats: FULL=" + fullCount + ", REDUCED=" + reducedCount
-                    + ", LOW=" + lowCount + ", MINIMAL=" + minimalCount + ")");
-        }
-
-        // MINIMAL이면 스킵 (shouldProcess = false)
-        return level != ThrottleLevel.MINIMAL;
     }
 
     @Override

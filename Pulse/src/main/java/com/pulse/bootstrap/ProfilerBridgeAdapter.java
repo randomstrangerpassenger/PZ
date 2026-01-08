@@ -4,6 +4,7 @@ import com.pulse.api.profiler.IProfilerBridge;
 import com.pulse.api.profiler.IProfilerSink;
 import com.pulse.api.profiler.ProfilerBridge;
 import com.pulse.api.profiler.ProfilerSink;
+import java.lang.reflect.Method;
 
 /**
  * IProfilerBridge 어댑터.
@@ -56,9 +57,26 @@ public class ProfilerBridgeAdapter implements IProfilerBridge {
      */
     private static class ProfilerSinkWrapper implements ProfilerSink {
         private final IProfilerSink delegate;
+        private Method recordZombieStepMethod;
+        private Method incrementZombieUpdatesMethod;
+        private boolean methodsInitialized = false;
 
         ProfilerSinkWrapper(IProfilerSink delegate) {
             this.delegate = delegate;
+        }
+
+        private void initMethods() {
+            if (methodsInitialized)
+                return;
+            methodsInitialized = true;
+            try {
+                recordZombieStepMethod = delegate.getClass().getMethod("recordZombieStep", String.class, long.class);
+            } catch (NoSuchMethodException ignored) {
+            }
+            try {
+                incrementZombieUpdatesMethod = delegate.getClass().getMethod("incrementZombieUpdates");
+            } catch (NoSuchMethodException ignored) {
+            }
         }
 
         /**
@@ -71,13 +89,28 @@ public class ProfilerBridgeAdapter implements IProfilerBridge {
 
         @Override
         public void recordZombieStep(String step, long durationMicros) {
-            // IProfilerSink에는 이 메서드가 없으므로 no-op
-            // Echo의 EchoProfilerSink가 직접 ProfilerSink를 구현함
+            if (delegate == null)
+                return;
+            initMethods();
+            if (recordZombieStepMethod != null) {
+                try {
+                    recordZombieStepMethod.invoke(delegate, step, durationMicros);
+                } catch (Exception ignored) {
+                }
+            }
         }
 
         @Override
         public void incrementZombieUpdates() {
-            // IProfilerSink에는 이 메서드가 없으므로 no-op
+            if (delegate == null)
+                return;
+            initMethods();
+            if (incrementZombieUpdatesMethod != null) {
+                try {
+                    incrementZombieUpdatesMethod.invoke(delegate);
+                } catch (Exception ignored) {
+                }
+            }
         }
     }
 }

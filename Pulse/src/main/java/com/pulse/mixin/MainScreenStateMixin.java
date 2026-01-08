@@ -23,14 +23,7 @@ public abstract class MainScreenStateMixin {
             com.pulse.api.PulseMetrics.onFrameStart();
 
             // v2.1: MainMenuRenderEvent 발생 - Echo가 세션 종료 감지
-            MainMenuRenderEvent event = new MainMenuRenderEvent();
-            int listenerCount = EventBus.getInstance().getListenerCount(MainMenuRenderEvent.class);
-            if (event.getRenderCount() == 1 || event.getRenderCount() % 300 == 0) {
-                com.pulse.api.log.PulseLogger.info("Pulse",
-                        "MainMenuRenderEvent: count={}, listeners={}",
-                        event.getRenderCount(), listenerCount);
-            }
-            EventBus.post(event);
+            EventBus.post(new MainMenuRenderEvent());
         } catch (Throwable t) {
             if (com.pulse.PulseEnvironment.isDevelopmentMode()) {
                 throw t;

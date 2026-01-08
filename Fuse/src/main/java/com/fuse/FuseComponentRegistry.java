@@ -1,6 +1,7 @@
 package com.fuse;
 
 import com.fuse.area7.FusePathfindingGuard;
+import com.fuse.governor.AdaptiveGate;
 import com.fuse.governor.ItemGovernor;
 import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
@@ -10,6 +11,7 @@ import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
 import com.fuse.hook.FuseHookAdapter;
 import com.fuse.optimizer.FuseOptimizer;
+import com.fuse.telemetry.FuseSnapshotProvider;
 import com.fuse.telemetry.ReasonStats;
 import com.fuse.throttle.FuseStepPolicy;
 import com.fuse.throttle.FuseThrottleController;
@@ -47,6 +49,8 @@ public class FuseComponentRegistry {
     private TickBudgetGovernor governor;
     private SpikePanicProtocol panicProtocol;
     private ReasonStats reasonStats;
+    private AdaptiveGate adaptiveGate; // v2.5
+    private FuseSnapshotProvider snapshotProvider; // v2.5
 
     // --- Phase 2: Guards ---
     private VehicleGuard vehicleGuard;
@@ -83,6 +87,14 @@ public class FuseComponentRegistry {
 
     public ReasonStats getReasonStats() {
         return reasonStats;
+    }
+
+    public AdaptiveGate getAdaptiveGate() {
+        return adaptiveGate;
+    }
+
+    public FuseSnapshotProvider getSnapshotProvider() {
+        return snapshotProvider;
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -155,6 +167,14 @@ public class FuseComponentRegistry {
 
     void setReasonStats(ReasonStats reasonStats) {
         this.reasonStats = reasonStats;
+    }
+
+    void setAdaptiveGate(AdaptiveGate adaptiveGate) {
+        this.adaptiveGate = adaptiveGate;
+    }
+
+    void setSnapshotProvider(FuseSnapshotProvider snapshotProvider) {
+        this.snapshotProvider = snapshotProvider;
     }
 
     void setVehicleGuard(VehicleGuard vehicleGuard) {

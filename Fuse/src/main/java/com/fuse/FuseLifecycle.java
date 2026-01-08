@@ -2,6 +2,7 @@ package com.fuse;
 
 import com.fuse.area7.FusePathfindingGuard;
 import com.fuse.config.FuseConfig;
+import com.fuse.governor.AdaptiveGate;
 import com.fuse.governor.ItemGovernor;
 import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.SpikePanicProtocol;
@@ -11,6 +12,7 @@ import com.fuse.guard.StreamingGuard;
 import com.fuse.guard.VehicleGuard;
 import com.fuse.hook.FuseHookAdapter;
 import com.fuse.optimizer.FuseOptimizer;
+import com.fuse.telemetry.FuseSnapshotProvider;
 import com.fuse.telemetry.ReasonStats;
 import com.fuse.telemetry.TelemetryReason;
 import com.fuse.throttle.FuseStepPolicy;
@@ -128,6 +130,28 @@ public class FuseLifecycle {
             throttleController.setStats(registry.getStats());
             throttleController.setGuards(registry.getVehicleGuard(), registry.getStreamingGuard());
             throttleController.setReasonStats(registry.getReasonStats());
+
+            // v2.5: AdaptiveGate 연동
+            if (config.isEnableAdaptiveGate()) {
+                AdaptiveGate adaptiveGate = new AdaptiveGate(
+                        registry.getStats(),
+                        registry.getPanicProtocol(),
+                        registry.getReasonStats());
+                throttleController.setAdaptiveGate(adaptiveGate);
+                registry.setAdaptiveGate(adaptiveGate);
+                registry.getGovernor().setReasonStats(registry.getReasonStats());
+                PulseLogger.info(LOG, "AdaptiveGate enabled (v2.5)");
+
+                // v2.5: FuseSnapshotProvider 초기화
+                FuseSnapshotProvider snapshotProvider = new FuseSnapshotProvider(
+                        registry.getHookAdapter(),
+                        registry.getReasonStats(),
+                        adaptiveGate,
+                        registry.getGovernor());
+                registry.setSnapshotProvider(snapshotProvider);
+                PulseLogger.info(LOG, "FuseSnapshotProvider initialized (v2.5)");
+            }
+
             registry.setThrottleController(throttleController);
 
             try {
@@ -261,6 +285,12 @@ public class FuseLifecycle {
                 governor.beginTick();
             }
 
+            // v2.5: AdaptiveGate 평가 (틱당 1회)
+            AdaptiveGate gate = registry.getAdaptiveGate();
+            if (gate != null) {
+                gate.evaluateThisTick();
+            }
+
             FuseOptimizer optimizer = registry.getOptimizer();
             if (optimizer != null) {
                 optimizer.update();
@@ -339,7 +369,18 @@ public class FuseLifecycle {
         TickBudgetGovernor governor = registry.getGovernor();
         if (governor != null) {
             sb.append("  Governor: cutoffs=").append(governor.getTotalCutoffs())
-                    .append(", last=").append(String.format("%.2f", governor.getLastTickMs())).append("ms\n");
+                    .append(", last=").append(String.format("%.2f", governor.getLastTickMs())).append("ms")
+                    .append(", fuseOverhead=").append(String.format("%.3f", governor.getFuseConsumedMs()))
+                    .append("ms\n");
+        }
+
+        // v2.5: AdaptiveGate 상태
+        AdaptiveGate gate = registry.getAdaptiveGate();
+        if (gate != null) {
+            sb.append("  AdaptiveGate: ").append(gate.getState())
+                    .append(" (transitions=").append(gate.getStateTransitions())
+                    .append(", stability=").append(gate.getStabilityCounter())
+                    .append(")\n");
         }
 
         VehicleGuard vehicle = registry.getVehicleGuard();

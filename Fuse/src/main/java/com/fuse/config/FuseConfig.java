@@ -112,6 +112,19 @@ public class FuseConfig {
     private int maxConsecutiveErrors = 3;
 
     // ========================================
+    // Adaptive Gate Settings (v2.5)
+    // ========================================
+
+    /** Adaptive Gate master switch */
+    private boolean enableAdaptiveGate = true;
+
+    /** Zombie dedup (experimental, default OFF) */
+    private boolean enableZombieDedup = false;
+
+    /** Path dedup (experimental, default OFF) */
+    private boolean enablePathDedup = false;
+
+    // ========================================
     // IOGuard/GCPressureGuard Settings removed in v2.3
     // ========================================
 
@@ -192,6 +205,10 @@ public class FuseConfig {
         this.playerSpeedThreshold = other.playerSpeedThreshold;
         this.frameDropThresholdMs = other.frameDropThresholdMs;
         this.maxConsecutiveErrors = other.maxConsecutiveErrors;
+        // v2.5
+        this.enableAdaptiveGate = other.enableAdaptiveGate;
+        this.enableZombieDedup = other.enableZombieDedup;
+        this.enablePathDedup = other.enablePathDedup;
     }
 
     // ========================================
@@ -325,4 +342,25 @@ public class FuseConfig {
     }
 
     // Debug Force Getters removed in v2.3
+
+    // ========================================
+    // Adaptive Gate Getters/Setters (v2.5)
+    // ========================================
+
+    public boolean isEnableAdaptiveGate() {
+        return enableAdaptiveGate;
+    }
+
+    public void setEnableAdaptiveGate(boolean enable) {
+        this.enableAdaptiveGate = enable;
+        PulseLogger.info("Fuse", "Adaptive Gate: " + (enable ? "ON" : "OFF"));
+    }
+
+    public boolean isEnableZombieDedup() {
+        return enableZombieDedup;
+    }
+
+    public boolean isEnablePathDedup() {
+        return enablePathDedup;
+    }
 }

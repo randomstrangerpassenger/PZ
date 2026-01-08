@@ -26,7 +26,7 @@ public class EchoProfilerSink implements IProfilerSink {
             PulseServices.profiler().setSink(INSTANCE);
             PulseLogger.info("Echo", "ProfilerSink registered with Pulse");
         } catch (Exception t) {
-            PulseLogger.error("Echo", "Failed to register ProfilerSink: " + t.getMessage());
+            PulseLogger.error("Echo", "Failed to register ProfilerSink: " + t.getMessage(), t);
         }
     }
 
@@ -49,7 +49,8 @@ public class EchoProfilerSink implements IProfilerSink {
     }
 
     /**
-     * Zombie step recording (extension method, kept for backward compatibility).
+     * Zombie step recording (v2.5 - called via reflection from
+     * ProfilerSinkWrapper).
      */
     public void recordZombieStep(String step, long durationMicros) {
         try {
@@ -61,7 +62,8 @@ public class EchoProfilerSink implements IProfilerSink {
     }
 
     /**
-     * Increment zombie update count (extension method).
+     * Increment zombie update count (v2.5 - called via reflection from
+     * ProfilerSinkWrapper).
      */
     public void incrementZombieUpdates() {
         ZombieProfiler.getInstance().incrementZombieUpdates();

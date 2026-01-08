@@ -34,6 +34,9 @@ public class SpikeLog {
     private final AtomicLong worstSpikeMicros = new AtomicLong(0);
     private volatile String worstSpikeLabel = "";
 
+    // Bundle A: CAS 기반 1회/초 rate-limit for context capture
+    private final AtomicLong lastContextCaptureMs = new AtomicLong(0);
+
     public SpikeLog() {
         this(EchoConstants.DEFAULT_SPIKE_THRESHOLD_MS); // 기본 2프레임 (30fps 기준)
     }
@@ -170,6 +173,32 @@ public class SpikeLog {
     }
 
     /**
+     * Bundle A: CAS 기반 1회/초 rate-limit
+     * 핫패스에서 컨텍스트 캡처 빈도 제한
+     */
+    private boolean shouldCaptureContext() {
+        if (contextProvider == null)
+            return false;
+        long now = System.currentTimeMillis();
+        long last = lastContextCaptureMs.get();
+        if (now - last < 1000)
+            return false; // 1초 상한
+        return lastContextCaptureMs.compareAndSet(last, now);
+    }
+
+    /**
+     * Bundle A: 안전한 컨텍스트 캡처
+     * 규약: 실패 시 null 반환, 예외 전파 금지
+     */
+    private Map<String, Object> safeContextCapture() {
+        try {
+            return contextProvider.get();
+        } catch (Exception ignored) {
+            return null; // 누락 허용, 무음 실패
+        }
+    }
+
+    /**
      * 스파이크 기록 (스택 경로 포함)
      */
     public void logSpike(long durationMicros, ProfilingPoint point, String label, String stackPath) {
@@ -183,15 +212,10 @@ public class SpikeLog {
             capturedStack = captureStackTrace();
         }
 
-        // Phase 2: Context Snapshot
+        // Bundle A: CAS 기반 1회/초 rate-limit + 안전 컨텍스트 캡처
         Map<String, Object> context = null;
-        if (contextProvider != null) {
-            try {
-                context = contextProvider.get();
-            } catch (Exception e) {
-                // Prevent crash during logging
-                System.err.println("[Echo] Failed to capture spike context: " + e.getMessage());
-            }
+        if (shouldCaptureContext()) {
+            context = safeContextCapture();
         }
 
         SpikeEntry entry = new SpikeEntry(

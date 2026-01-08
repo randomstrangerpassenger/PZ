@@ -1,6 +1,7 @@
 package com.echo;
 
 import com.echo.command.EchoCommands;
+import com.echo.config.EchoConfigSnapshot;
 import com.echo.measure.EchoProfiler;
 import com.echo.session.SessionManager;
 import com.echo.pulse.PulseEventAdapter;
@@ -121,6 +122,10 @@ public class EchoMod implements PulseMod {
         com.echo.measure.EchoProfiler profiler = com.echo.measure.EchoProfiler.getInstance();
 
         profiler.enable();
+
+        // Bundle A: EchoRuntimeState 스냅샷 초기화 (RUNNING 상태)
+        EchoRuntimeState.update(EchoConfigSnapshot.fromConfig(config));
+        PulseLogger.debug("Echo", "✓ EchoRuntimeState initialized (RUNNING)");
 
         // Lua 프로파일링 설정 동기화 (EchoConfig → EchoProfiler)
         if (config.isLuaProfilingEnabled()) {
@@ -294,6 +299,11 @@ public class EchoMod implements PulseMod {
 
         EchoProfiler profiler = EchoProfiler.getInstance();
         com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
+
+        // Bundle A: EchoRuntimeState 종료 상태로 전환 (핫패스 즐각 차단)
+        EchoRuntimeState.update(
+                EchoRuntimeState.current().withLifecyclePhase(LifecyclePhase.SHUTTING_DOWN));
+        PulseLogger.debug("Echo", "✓ EchoRuntimeState set to SHUTTING_DOWN");
 
         // 리포트 자동 저장
         if (config.isAutoSaveReports()) {

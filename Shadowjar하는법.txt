@@ -1,6 +1,7 @@
 cd c:\Users\MW\Downloads\coding\PZ
 .\gradlew.bat :Echo:shadowJar
 .\gradlew.bat :Pulse:shadowJar
+.\gradlew.bat :Fuse:shadowJar
 .\gradlew.bat :Pulse:shadowJar :Echo:shadowJar :Fuse:shadowJar
 
 소스코드 추출하는법

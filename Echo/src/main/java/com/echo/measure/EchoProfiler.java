@@ -1,5 +1,8 @@
 package com.echo.measure;
 
+import com.echo.EchoRuntimeState;
+import com.echo.LifecyclePhase;
+import com.echo.config.EchoConfigSnapshot;
 import com.echo.aggregate.TimingData;
 import com.echo.aggregate.TickHistogram;
 import com.echo.aggregate.SpikeLog;
@@ -11,6 +14,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Echo Profiler - 계층적 프로파일링 엔진
@@ -59,6 +63,9 @@ public class EchoProfiler {
 
     // 세션 시작 시간
     private volatile long sessionStartTime = 0;
+
+    // Bundle A: Dual-Mode 원샷 경고 플래그 (스택 불일치 시 세션당 1회만)
+    private final AtomicBoolean mismatchReported = new AtomicBoolean(false);
 
     // 의존성
     private final com.echo.config.EchoConfig config;
@@ -138,9 +145,13 @@ public class EchoProfiler {
     // --- Core API: push / pop ---
 
     public long push(ProfilingPoint point) {
-        if (!enabled)
+        // Bundle A: Fast-Exit via EchoRuntimeState (핫패스 안전)
+        EchoConfigSnapshot state = EchoRuntimeState.current();
+        if (!state.enabled)
             return -1;
-        if (point.isLuaRelated() && !luaProfilingEnabled)
+        if (state.lifecyclePhase != LifecyclePhase.RUNNING)
+            return -1;
+        if (point.isLuaRelated() && !state.luaProfilingEnabled)
             return -1;
 
         ProfilingFrame frame = new ProfilingFrame(point, System.nanoTime());
@@ -150,9 +161,13 @@ public class EchoProfiler {
     }
 
     public long push(ProfilingPoint point, String customLabel) {
-        if (!enabled)
+        // Bundle A: Fast-Exit via EchoRuntimeState (핫패스 안전)
+        EchoConfigSnapshot state = EchoRuntimeState.current();
+        if (!state.enabled)
             return -1;
-        if (point.isLuaRelated() && !luaProfilingEnabled)
+        if (state.lifecyclePhase != LifecyclePhase.RUNNING)
+            return -1;
+        if (point.isLuaRelated() && !state.luaProfilingEnabled)
             return -1;
 
         ProfilingFrame frame = new ProfilingFrame(point, customLabel, System.nanoTime());
@@ -162,20 +177,27 @@ public class EchoProfiler {
     }
 
     public void pop(ProfilingPoint point) {
-        if (!enabled)
+        // Bundle A: Fast-Exit via EchoRuntimeState (핫패스 안전)
+        EchoConfigSnapshot state = EchoRuntimeState.current();
+        if (!state.enabled)
             return;
 
         Deque<ProfilingFrame> stack = getFrameStack();
         if (stack.isEmpty()) {
-            PulseLogger.warn("Echo", "Warning: Unmatched pop for " + point);
+            // Bundle A: Dual-Mode 원샷 경고 (debugMode에서만 세션당 1회)
+            if (state.debugMode && !mismatchReported.getAndSet(true)) {
+                System.err.println("[Echo] Unmatched pop for " + point);
+            }
             return;
         }
 
         ProfilingFrame frame = stack.pop();
 
         if (frame.point != point) {
-            PulseLogger.warn("Echo", "Warning: Mismatched push/pop - expected "
-                    + frame.point + ", got " + point);
+            // Bundle A: Dual-Mode 원샷 경고 (debugMode에서만 세션당 1회)
+            if (state.debugMode && !mismatchReported.getAndSet(true)) {
+                System.err.println("[Echo] Stack mismatch: expected " + frame.point + ", got " + point);
+            }
         }
 
         long elapsed = System.nanoTime() - frame.startTime;
@@ -230,9 +252,13 @@ public class EchoProfiler {
     // --- Raw API (Zero-Allocation) ---
 
     public long startRaw(ProfilingPoint point) {
-        if (!enabled)
+        // Bundle A: Fast-Exit via EchoRuntimeState (핫패스 안전)
+        EchoConfigSnapshot state = EchoRuntimeState.current();
+        if (!state.enabled)
             return -1;
-        if (point.isLuaRelated() && !luaProfilingEnabled)
+        if (state.lifecyclePhase != LifecyclePhase.RUNNING)
+            return -1;
+        if (point.isLuaRelated() && !state.luaProfilingEnabled)
             return -1;
         return System.nanoTime();
     }

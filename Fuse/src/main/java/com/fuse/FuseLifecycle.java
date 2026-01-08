@@ -149,6 +149,18 @@ public class FuseLifecycle {
                         adaptiveGate,
                         registry.getGovernor());
                 registry.setSnapshotProvider(snapshotProvider);
+
+                // Bundle B v4: Pulse Registry에 SPI provider 등록 (1회만 시도)
+                try {
+                    snapshotProvider.updateStatus();
+                    com.pulse.api.Pulse.getProviderRegistry().register(snapshotProvider);
+                    PulseLogger.info(LOG, "FuseSnapshotProvider registered to Pulse SPI (Bundle B)");
+                } catch (Exception e) {
+                    // v4: 재등록 시도 없음 - 실패만 마킹
+                    snapshotProvider.setFailed("REGISTRATION_FAILED", e.getMessage());
+                    PulseLogger.warn(LOG, "Failed to register FuseSnapshotProvider: " + e.getMessage());
+                }
+
                 PulseLogger.info(LOG, "FuseSnapshotProvider initialized (v2.5)");
             }
 

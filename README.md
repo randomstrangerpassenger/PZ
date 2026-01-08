@@ -17,84 +17,159 @@
 
 ---
 
-## 📦 Modules
+## 🎯 Introduction
 
-The Pulse ecosystem consists of 4 integrated modules:
+**Pulse**는 Project Zomboid를 위한 차세대 **Mixin 기반 모드 로더**입니다. 기존 Lua 모딩의 한계를 넘어 Java 런타임 바이트코드 조작을 가능하게 하며, 모더에게는 더 큰 자유도를, 유저에게는 더 많은 모드 선택지를 제공합니다.
 
-| Module | Description | Status |
-|--------|-------------|--------|
-| [**Pulse**](./Pulse/README.md) | Core mod loader with Mixin support | v1.0.0 ✅ |
-| [**Echo**](./Echo/README.md) | Performance profiler | v0.8.0 ✅ |
-| [**Fuse**](./Fuse/README.md) | Performance optimizer | v0.1.0 🚧 |
-| [**Nerve**](./Nerve/README.md) | Network & rendering optimizer | v0.1.0 🚧 |
+> _"전통적인 Lua 훅이 끝나는 곳에서, Pulse가 시작됩니다."_
 
-### Module Dependencies
+---
+
+## 🏛️ 설계 철학
+
+> **자세한 내용은 [Philosophy.md](./Philosophy.md)를 참조하세요.**
+
+### 핵심 원칙
+
+1. **단방향 의존성**: 위성 모듈 → Pulse만 허용, 역방향 금지
+2. **Hub & Spoke**: 위성 모듈끼리 직접 참조 금지, Pulse 경유 필수
+3. **SPI 구조**: 인터페이스 기반 느슨한 결합
+4. **호환성 최우선**: 타 모드와의 공존이 1순위
 
 ```
-Pulse (Core)
-├── Echo (Profiler) - Uses Pulse EventBus & SPI
-├── Fuse (Optimizer) - Uses Echo profiling data
-└── Nerve (Network) - Uses Echo bottleneck analysis
+                     ┌──────────┐
+                     │  Pulse   │  ← 중앙 허브
+                     │ Platform │
+                     └────┬─────┘
+           ┌──────────────┼──────────────┐
+           ▼              ▼              ▼
+      ┌────────┐    ┌────────┐    ┌────────┐
+      │  Echo  │    │  Fuse  │    │ Nerve  │
+      │Profiler│    │Java Opt│    │Lua Opt │
+      └────────┘    └────────┘    └────────┘
+           ✕──────────────✕──────────────✕
+                  (상호 참조 금지)
 ```
 
 ---
 
-## 🎯 Introduction
+## 📦 Modules
 
-**Pulse** is a revolutionary mod loader that brings the power of **SpongePowered Mixin** technology to Project Zomboid. Built for both players and developers, it enables precise runtime bytecode manipulation while providing a rich API ecosystem that significantly simplifies mod development.
+| 모듈 | 언어 | 역할 | 상태 |
+|------|------|------|------|
+| **[Pulse](./Pulse/README.md)** | Java | 플랫폼 / 모드 로더 | v1.0.0 ✅ |
+| **[Echo](./Echo/README.md)** | Java | 프로파일러 | v0.8.0 ✅ |
+| **[Fuse](./Fuse/README.md)** | Java | 안정성 레이어 (Mixin) | v0.1.0 🚧 |
+| **[Nerve](./Nerve/README.md)** | Lua | 안정성 레이어 (Lua) | v0.1.0 🚧 |
 
-> _"Where traditional Lua hooks end, Pulse begins."_
+### Pulse - 플랫폼
+
+> 얇은 Fabric형 플랫폼. 모드적 기능 없이 순수 기반 기능만 제공.
+
+- **Mixin 지원**: SpongePowered Mixin 0.8.5
+- **모드 로더**: TopSort 기반 의존성 해결
+- **EventBus**: 모드 간 이벤트 통신
+- **SPI Provider Registry**: 느슨한 결합 서비스 레지스트리
+- **LuaBridge**: Java ↔ Lua 양방향 통신
+- **GameAccess API**: 55+ 게임 접근 메서드
+
+### Echo - 프로파일러
+
+> 병목 지점을 찾아내는 성능 프로파일링 도구.
+
+- **계층적 프로파일링**: Tick → Phase → Subsystem → Scope
+- **측정 대상**: 틱 시간, 메모리, 네트워크, 렌더링, 프리즈
+- **리포트 생성**: JSON 기반 상세 분석 리포트
+
+### Fuse - Java 안정성 레이어
+
+> Mixin 기반 성능 안정화 모듈.
+
+**담당 영역:**
+| 영역 | 기능 | 핵심 컴포넌트 |
+|------|------|---------------|
+| ① 좀비 AI | 거리 기반 스로틀링 | `FuseThrottleController`, `AdaptiveGate` |
+| ⑦ 경로탐색 | A* 최적화 | `FusePathfindingGuard` (Area 7) |
+
+**핵심 기능:**
+- **TickBudgetGovernor**: 틱당 시간 예산 관리
+- **AdaptiveGate**: 3상태 머신 (PASSTHROUGH → ACTIVE → COOLDOWN)
+- **ThrottleLevel**: FULL/REDUCED/LOW/MINIMAL 단계적 스로틀링
+
+### Nerve - Lua 안정성 레이어
+
+> Lua 기반 성능 안정화 모듈. Pulse 없이도 Lite 모드 동작 가능.
+
+**담당 영역:**
+| 영역 | 기능 | 핵심 컴포넌트 |
+|------|------|---------------|
+| ⑤ 인벤/UI | UI 갱신 병합, 스캔 중복 제거 | Area 5 |
+| ⑥ 이벤트 | 이벤트 중복 제거, 캐스케이드 방지 | Area 6 |
 
 ---
 
 ## ✨ Key Features
 
-| Feature | Description |
-|---------|-------------|
-| 🔧 **Powerful Runtime Manipulation** | Leverages SpongePowered Mixin 0.8.5 for safe, precise bytecode modification |
-| 🌉 **Innovative Two-way Bridge** | Seamless Java ↔ Lua bidirectional communication via `LuaBridge` |
-| 📦 **Smart Dependency Management** | Topological Sort-based automatic load ordering with conflict prevention |
-| ⚡ **Developer Productivity (DX)** | `GameAccess` Facade API (55+ methods), `EventBus`, `CrashReporter` and more |
+| 기능 | 설명 |
+|------|------|
+| 🔧 **런타임 바이트코드 조작** | SpongePowered Mixin 0.8.5 기반 안전한 수정 |
+| 🌉 **양방향 브릿지** | Java ↔ Lua `LuaBridge` 통신 |
+| 📦 **스마트 의존성 관리** | TopSort 기반 자동 로드 순서 결정 |
+| ⚡ **개발자 생산성** | `GameAccess` 파사드, `EventBus`, `CrashReporter` |
+| 📊 **성능 프로파일링** | Echo를 통한 계층적 병목 분석 |
+| 🛡️ **안정성 레이어** | Fuse(Java) + Nerve(Lua) 이중 안정화 |
 
 ---
 
 ## 🚀 Quick Start
 
-### Installation
+### 설치
 
-1. Download the latest release
-2. Run `PulseLauncher.bat` (Windows) or `PulseLauncher.sh` (Linux/macOS)
+1. 최신 릴리즈 다운로드
+2. `PulseLauncher.bat` (Windows) 또는 `PulseLauncher.sh` (Linux/macOS) 실행
 
-### For Mod Developers
+### 빌드
 
-See the individual module documentation:
-- [Pulse Developer Guide](./Pulse/README.md#-for-developers)
+```bash
+# 전체 빌드
+./gradlew build
+
+# 개별 모듈 빌드
+./gradlew :Pulse:build
+./gradlew :Echo:build
+./gradlew :Fuse:build
+./gradlew :Nerve:build
+
+# ShadowJar (Fat JAR)
+./gradlew :Pulse:shadowJar
+```
+
+### 개발자 가이드
+
+- [Pulse Developer Guide](./Pulse/README.md)
 - [Echo Profiler Guide](./Echo/README.md)
 - [Mod Template](./docs/MOD_TEMPLATE.md)
 - [API Reference](./docs/API_REFERENCE.md)
 
 ---
 
-## 🏗️ Building
+## 🎯 최적화 담당 영역
 
-### Prerequisites
-
-- Java 17+
-- Gradle 8.0+
-
-### Build All Modules
-
-```bash
-./gradlew build
 ```
-
-### Build Individual Module
-
-```bash
-./gradlew :Pulse:build
-./gradlew :Echo:build
-./gradlew :Fuse:build
-./gradlew :Nerve:build
+┌────────────────────────────────────────────────────────────┐
+│                    PZ 최적화 지형도                         │
+├──────────────────────────────┬─────────────────────────────┤
+│  ① 좀비 AI/업데이트          │  Fuse ✅                    │
+│  ② 월드 스트리밍             │  -                          │
+│  ③ 차량/고속 이동            │  -                          │
+│  ④ 라이팅/가시성             │  (Fuse 예정, B42 대비 보류)  │
+│  ⑤ 인벤/UI                   │  Nerve ✅                   │
+│  ⑥ 이벤트 디스패치           │  Nerve ✅                   │
+│  ⑦ 경로탐색/물리             │  Fuse ✅                    │
+│  ⑧ 세이브/IO                 │  (덩어리 스파이크, 해결 불가) │
+│  ⑨ 네트워크/멀티             │  Nerve (예정)               │
+│  ⑩ GC/할당 압력              │  (덩어리 스파이크, 해결 불가) │
+└──────────────────────────────┴─────────────────────────────┘
 ```
 
 ---
@@ -108,11 +183,3 @@ This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for d
 <div align="center">
   <sub>Built with ❤️ for the Project Zomboid modding community</sub>
 </div>
-
----
-
-## 🇰🇷 한국어 (Korean)
-
-자세한 한국어 문서는 각 모듈의 README를 참조하세요:
-- [Pulse 한국어 가이드](./Pulse/README.md#-한국어-korean)
-- [Echo 한국어 가이드](./Echo/README.md)

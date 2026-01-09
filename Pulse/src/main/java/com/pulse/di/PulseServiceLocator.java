@@ -6,12 +6,27 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Service Locator for Pulse ecosystem.
- * Provides a bridge for components that cannot use constructor injection (e.g.
- * Mixins).
+ * Pulse 생태계 서비스 로케이터 (유일한 구현체).
  * 
- * Usage:
- * PulseServiceLocator.getInstance().getService(MyService.class);
+ * <h2>설계 원칙 (Phase 2-B)</h2>
+ * <ul>
+ * <li>이 클래스가 서비스 등록/조회의 <b>유일한 진입점</b></li>
+ * <li>Mixin 등 DI 불가능한 컴포넌트를 위한 브릿지</li>
+ * <li>등록 시점: {@code PulseBootstrap.init()} (PulseRuntime 초기화 시)</li>
+ * </ul>
+ * 
+ * <h2>사용 예시</h2>
+ * 
+ * <pre>{@code
+ * // 조회
+ * MyService service = PulseServiceLocator.getInstance().getService(MyService.class);
+ * 
+ * // 등록 (PulseBootstrap에서만)
+ * PulseServiceLocator.getInstance().registerService(MyService.class, myServiceInstance);
+ * }</pre>
+ * 
+ * @since Pulse 1.0
+ * @see com.pulse.api.di.PulseServices 정적 접근 API
  */
 public class PulseServiceLocator implements IServiceLocator {
 

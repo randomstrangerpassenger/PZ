@@ -36,4 +36,47 @@ public class HubSpokeBoundaryTest {
                         .should().dependOnClassesThat()
                         .resideInAnyPackage("com.echo..", "com.fuse..", "com.nerve..")
                         .because("Hub (Pulse) must not depend on Spoke modules (Echo, Fuse, Nerve)");
+
+        // ═══════════════════════════════════════════════════════════════
+        // Spoke 간 상호 의존 금지 (Hub & Spoke 핵심)
+        // Philosophy.md: "Echo, Fuse, Nerve는 절대 서로를 참조하거나 의존성을 가지면 안됨"
+        //
+        // 주의: 이 테스트는 Pulse 모듈에서 실행됨. Echo/Fuse/Nerve 패키지가
+        // 없을 경우 allowEmptyShould(true)로 빈 결과를 허용함.
+        // 실제 위반(Spoke 클래스가 다른 Spoke를 import)이 있을 때만 실패함.
+        // ═══════════════════════════════════════════════════════════════
+
+        /**
+         * Echo는 Fuse, Nerve를 직접 참조할 수 없음.
+         * Spoke 간 통신이 필요하면 반드시 Pulse(Hub)를 경유해야 함.
+         */
+        @ArchTest
+        static final ArchRule echo_should_not_depend_on_other_spokes = noClasses()
+                        .that().resideInAnyPackage("com.echo..")
+                        .should().dependOnClassesThat()
+                        .resideInAnyPackage("com.fuse..", "com.nerve..")
+                        .allowEmptyShould(true)
+                        .because("Spoke modules must not depend on each other (Hub & Spoke architecture)");
+
+        /**
+         * Fuse는 Echo, Nerve를 직접 참조할 수 없음.
+         */
+        @ArchTest
+        static final ArchRule fuse_should_not_depend_on_other_spokes = noClasses()
+                        .that().resideInAnyPackage("com.fuse..")
+                        .should().dependOnClassesThat()
+                        .resideInAnyPackage("com.echo..", "com.nerve..")
+                        .allowEmptyShould(true)
+                        .because("Spoke modules must not depend on each other (Hub & Spoke architecture)");
+
+        /**
+         * Nerve는 Echo, Fuse를 직접 참조할 수 없음.
+         */
+        @ArchTest
+        static final ArchRule nerve_should_not_depend_on_other_spokes = noClasses()
+                        .that().resideInAnyPackage("com.nerve..")
+                        .should().dependOnClassesThat()
+                        .resideInAnyPackage("com.echo..", "com.fuse..")
+                        .allowEmptyShould(true)
+                        .because("Spoke modules must not depend on each other (Hub & Spoke architecture)");
 }

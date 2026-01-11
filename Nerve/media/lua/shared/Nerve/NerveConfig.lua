@@ -38,8 +38,8 @@ NerveConfig.area6 = {
         -- 추후 관측 데이터 기반으로 확장
     },
     
-    -- 중복 제거 적용 이벤트 (화이트리스트)
-    -- targetEvents 중에서도 중복 제거가 안전한 이벤트만
+    -- 기술적 안정성 목적 중복 제거 대상 이벤트 집합
+    -- (이벤트 의미 기반 선별이 아닌, contextKey 존재 + 동일 틱 중복 제거 가능)
     deduplicateEvents = {
         ["OnContainerUpdate"] = true,
         ["OnInventoryUpdate"] = true,
@@ -60,6 +60,22 @@ NerveConfig.area6 = {
         enabled = false,        -- v0.1: 기본 OFF
         observeOnly = true,     -- 스킵 없이 로그만
         maxDepth = 10,          -- 관측 시에는 높게
+    },
+    
+    -- [Phase 1-B] Sustained Event Pressure 감지
+    -- 느림 판정: Lua wall-clock delta (os.clock() 기반, 추세 판단용)
+    sustainedPressure = {
+        enabled = false,        -- opt-in 기본 OFF
+        windowMs = 100,         -- 압력 감지 창 (ms)
+        threshold = 5,          -- 창 내 동일 이벤트 임계값
+    },
+    
+    -- [Phase 1-D] Early Exit & Cooldown
+    -- Fuse 철학 차용, 구현은 Nerve
+    earlyExit = {
+        enabled = false,        -- opt-in 기본 OFF
+        activeMaxMs = 500,      -- ACTIVE 최대 지속 시간
+        cooldownMs = 1000,      -- COOLDOWN 지속 시간
     },
 }
 

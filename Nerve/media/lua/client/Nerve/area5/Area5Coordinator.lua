@@ -1,17 +1,27 @@
 --[[
-    Area5Coordinator.lua - UI/인벤토리 안정화 통합 조율 (v0.1)
+    Area5Coordinator.lua - UI/인벤토리 안정화 통합 조율
+    v1.1 - Phase 2 통합
 ]]
 
 require "Nerve/NerveUtils"
+require "Nerve/SharedFlags"
 require "Nerve/area5/Area5Stats"
 require "Nerve/area5/ContainerScanDedup"
 require "Nerve/area5/UIRefreshCoalescer"
 require "Nerve/area5/InventoryGuard"
+-- Phase 2 컴포넌트
+require "Nerve/area5/UIFormClassifier"
+require "Nerve/area5/UISustainedDegradationDetector"
 
 local Area5Coordinator = {}
 
 Area5Coordinator.initialized = false
 Area5Coordinator.retryCount = 0
+
+-- Phase 2 컴포넌트 참조
+Area5Coordinator.formClassifier = Nerve.UIFormClassifier
+Area5Coordinator.degradationDetector = Nerve.UISustainedDegradationDetector
+Area5Coordinator.sharedFlags = Nerve.SharedFlags
 
 function Area5Coordinator.init()
     -- 설정 체크
@@ -23,6 +33,7 @@ function Area5Coordinator.init()
     NerveUtils.info("----------------------------------------")
     NerveUtils.info("Area 5: UI/Inventory Stabilization")
     NerveUtils.info("\"Data immediate, visuals coalesced\"")
+    NerveUtils.info("[Phase 2] UIFormClassifier + UISustainedDegradationDetector active")
     NerveUtils.info("----------------------------------------")
     
     -- InventoryGuard 초기화 시도
@@ -65,6 +76,18 @@ end
 -- 틱 처리
 function Area5Coordinator.onTickStart()
     if not Area5Coordinator.initialized then return end
+    
+    -- [Phase 2] Form Classifier 초기화
+    if Area5Coordinator.formClassifier then
+        Area5Coordinator.formClassifier.onTickStart()
+    end
+    
+    -- [Phase 2] Degradation Detector 초기화
+    if Area5Coordinator.degradationDetector then
+        Area5Coordinator.degradationDetector.onTickStart()
+    end
+    
+    -- 기존 컴포넌트
     Nerve.InventoryGuard.onTickStart()
     Nerve.UIRefreshCoalescer.onTickStart()
     Nerve.ContainerScanDedup.onTickStart()
@@ -72,17 +95,43 @@ end
 
 function Area5Coordinator.onTickEnd()
     if not Area5Coordinator.initialized then return end
+    
+    -- [Phase 2] Degradation 상태를 SharedFlags에 반영
+    if Area5Coordinator.degradationDetector and Area5Coordinator.sharedFlags then
+        local degradeResult = Area5Coordinator.degradationDetector.recordAndCheck()
+        Area5Coordinator.sharedFlags.setArea5Degraded(degradeResult.isDegraded)
+    end
+    
+    -- 기존 플러시
     Nerve.UIRefreshCoalescer.flush()
     Nerve.InventoryGuard.flushPending()
 end
 
 -- 통계 조회
 function Area5Coordinator.getStats()
-    return {
+    local stats = {
         initialized = Area5Coordinator.initialized,
         retryCount = Area5Coordinator.retryCount,
         area5Stats = Area5Stats,
+        -- Phase 2
+        formClassifier = nil,
+        degradationDetector = nil,
+        sharedFlags = nil,
     }
+    
+    if Area5Coordinator.formClassifier then
+        stats.formClassifier = Area5Coordinator.formClassifier.getStats()
+    end
+    
+    if Area5Coordinator.degradationDetector then
+        stats.degradationDetector = Area5Coordinator.degradationDetector.getStats()
+    end
+    
+    if Area5Coordinator.sharedFlags then
+        stats.sharedFlags = Area5Coordinator.sharedFlags.getAll()
+    end
+    
+    return stats
 end
 
 function Area5Coordinator.printStatus()

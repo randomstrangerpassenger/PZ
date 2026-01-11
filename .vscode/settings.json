@@ -1,7 +1,4 @@
 {
-<<<<<<< HEAD
     "java.compile.nullAnalysis.mode": "automatic",
-=======
->>>>>>> echo-history/main
     "java.configuration.updateBuildConfiguration": "interactive"
 }

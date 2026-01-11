@@ -56,6 +56,10 @@ end
 
 --------------------------------------------------------------------------------
 -- 래퍼
+-- [P2-1 Fail-soft 예외 정책]
+--   1. Nerve 부가 로직 오류 → pcall 삼킴 + fail-soft 기록 + 원본 호출
+--   2. 원본(바닐라) 호출 오류 → 그대로 전파 (바닐라 동작 유지)
+-- 이유: 디버깅 시 "Nerve가 촉발했다" 착시 방지, 책임소재 명확화
 --------------------------------------------------------------------------------
 
 function InventoryGuard.refreshWrapper(self)
@@ -120,15 +124,21 @@ function InventoryGuard.onTickStart()
 end
 
 -- 틱 끝: pending 플러시
+-- [P2-1 Fail-soft 정책] 정리 단계에서의 오류 삼킴:
+--   - 이 함수는 "정리/보조" 단계 (데이터는 이미 반영됨)
+--   - 원본 오류 발생 시 로그만 남기고 진행 (flush 실패가 다른 패널에 영향 X)
+--   - 사용자 경험 연속성 유지 목적
 function InventoryGuard.flushPending()
     for panel in pairs(InventoryGuard.registry) do
         -- javaObject만 체크 (isVisible 제거 - 정책 판단 금지)
         if panel.javaObject and panel.__nerve_pending then
             -- 원본 직접 호출 (래퍼 우회 → 루프 방지)
+            -- [정책] pcall 삼킴: 정리 단계, 로그 기록 후 계속 진행
             local ok, err = pcall(ISInventoryPage.__nerveOriginal_refreshBackpack, panel)
             if ok then
                 Area5Stats.pendingFlushed = Area5Stats.pendingFlushed + 1
             else
+                -- 오류 기록만, 전파하지 않음 (정리 단계)
                 NerveUtils.warn("Area5: flushPending error - " .. tostring(err))
             end
         end

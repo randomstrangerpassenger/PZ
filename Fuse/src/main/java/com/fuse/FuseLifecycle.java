@@ -151,7 +151,8 @@ public class FuseLifecycle {
                         registry.getHookAdapter(),
                         registry.getReasonStats(),
                         adaptiveGate,
-                        registry.getGovernor());
+                        registry.getGovernor(),
+                        registry.getStats()); // v2.6: 진단용 sampleCount
                 registry.setSnapshotProvider(snapshotProvider);
 
                 // Bundle B v4: Pulse Registry에 SPI provider 등록 (1회만 시도)
@@ -268,7 +269,7 @@ public class FuseLifecycle {
             }, FuseMod.MOD_ID);
 
             PulseServices.events().subscribe(GameTickEndEvent.class, event -> {
-                onTick();
+                onTick(event.getDurationMs()); // v2.6: 실제 게임 틱 시간 사용
                 FusePathfindingGuard guard = registry.getPathfindingGuard();
                 if (guard != null) {
                     guard.onTickEnd(tickCounter);
@@ -285,7 +286,11 @@ public class FuseLifecycle {
     // Tick Processing
     // ═══════════════════════════════════════════════════════════════
 
-    public void onTick() {
+    /**
+     * v2.6: gameDurationMs는 실제 게임 틱 소요 시간 (Pulse에서 측정).
+     * 이전에는 governor.getLastTickMs()를 사용했으나, 이는 Fuse 내부 처리 시간만 측정.
+     */
+    public void onTick(double gameDurationMs) {
         if (!initialized) {
             return;
         }
@@ -314,21 +319,22 @@ public class FuseLifecycle {
 
             if (governor != null) {
                 governor.endTick();
-                double lastTickMs = governor.getLastTickMs();
+                // v2.6: gameDurationMs 사용 (실제 게임 틱 시간)
+                // governor.getLastTickMs()는 여전히 Fuse 내부 측정용으로 사용
 
                 RollingTickStats stats = registry.getStats();
                 if (stats != null) {
-                    stats.record(lastTickMs);
+                    stats.record(gameDurationMs); // v2.6: 실제 게임 틱 시간
                 }
 
                 SpikePanicProtocol panic = registry.getPanicProtocol();
                 if (panic != null) {
-                    panic.recordTickDuration((long) lastTickMs);
+                    panic.recordTickDuration((long) gameDurationMs); // v2.6
                 }
 
                 StreamingGuard streaming = registry.getStreamingGuard();
                 if (streaming != null) {
-                    streaming.recordTickDuration((long) lastTickMs);
+                    streaming.recordTickDuration((long) gameDurationMs); // v2.6
                 }
 
                 ItemGovernor item = registry.getItemGovernor();

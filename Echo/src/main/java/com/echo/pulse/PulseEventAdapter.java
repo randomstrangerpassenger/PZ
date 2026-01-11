@@ -152,9 +152,18 @@ public class PulseEventAdapter {
     }
 
     private static boolean isMultiplayerWorld() {
-        // TODO: PZ stubs needed for zombie.network.GameClient access
-        // Simplified to avoid compile-time dependency
-        return false;
+        try {
+            return com.pulse.api.di.PulseServices.gameState().isMultiplayer();
+        } catch (IllegalStateException e) {
+            // Fallback: PulseServices not initialized - use reflection
+            try {
+                Class<?> gameClient = Class.forName("zombie.network.GameClient");
+                java.lang.reflect.Field bClient = gameClient.getField("bClient");
+                return Boolean.TRUE.equals(bClient.get(null));
+            } catch (Exception ex) {
+                return false;
+            }
+        }
     }
 
     private static void logEchoStatusSummary() {

@@ -3,6 +3,7 @@ package com.fuse.telemetry;
 import com.fuse.FuseMod;
 import com.fuse.config.FuseConfig;
 import com.fuse.governor.AdaptiveGate;
+import com.fuse.governor.RollingTickStats;
 import com.fuse.governor.TickBudgetGovernor;
 import com.fuse.hook.FuseHookAdapter;
 import com.pulse.api.spi.IStabilizerSnapshotProvider;
@@ -27,6 +28,7 @@ public class FuseSnapshotProvider implements IStabilizerSnapshotProvider {
     private final ReasonStats reasonStats;
     private final AdaptiveGate adaptiveGate;
     private final TickBudgetGovernor governor;
+    private final RollingTickStats stats; // v2.6: sampleCount 진단용
 
     private ProviderStatus status = ProviderStatus.INACTIVE;
     private String lastErrorCode = "";
@@ -42,11 +44,13 @@ public class FuseSnapshotProvider implements IStabilizerSnapshotProvider {
     public FuseSnapshotProvider(FuseHookAdapter hookAdapter,
             ReasonStats reasonStats,
             AdaptiveGate adaptiveGate,
-            TickBudgetGovernor governor) {
+            TickBudgetGovernor governor,
+            RollingTickStats stats) {
         this.hookAdapter = hookAdapter;
         this.reasonStats = reasonStats;
         this.adaptiveGate = adaptiveGate;
         this.governor = governor;
+        this.stats = stats;
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -189,6 +193,12 @@ public class FuseSnapshotProvider implements IStabilizerSnapshotProvider {
             // Governor 오버헤드
             if (governor != null) {
                 snapshot.put("fuse_overhead_ms", governor.getFuseConsumedMs());
+            }
+
+            // v2.6: RollingTickStats 진단 (sample_count 0이면 record() 미호출 의심)
+            if (stats != null) {
+                snapshot.put("rolling_stats_sample_count", stats.getSampleCount());
+                snapshot.put("rolling_stats_has_enough_data", stats.hasEnoughData());
             }
 
         } catch (Exception e) {

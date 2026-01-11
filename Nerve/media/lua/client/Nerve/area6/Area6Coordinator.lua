@@ -2,16 +2,23 @@
     Area6Coordinator.lua
     Area 6 통합 조율 모듈
     
-    v1.1 - Phase 1 통합
+    v1.2 - Critical Reinforcement
     
     핵심 역할:
     - EventDeduplicator, CascadeGuard 통합 관리
     - [Phase 1] EventFormClassifier, SustainedPressureDetector, EarlyExitHandler 통합
+    - [Reinforcement] NerveTiming 단일 진입점, NerveFailsoft 보호
     - 단일 진입점 shouldProcess() API 제공
     - 컴포넌트 초기화/종료 조율
+    
+    EarlyExit 안전장치:
+    - 첫 발생(First occurrence)은 절대 차단하지 않음
+    - 동일 tick + 동일 contextKey 재진입만 대상
 ]]
 
 require "Nerve/NerveUtils"
+require "Nerve/NerveTiming"
+require "Nerve/NerveFailsoft"
 require "Nerve/area6/ContextExtractors"
 require "Nerve/area6/EventDeduplicator"
 require "Nerve/area6/CascadeGuard"
@@ -39,7 +46,12 @@ Area6Coordinator.earlyExitHandler = Nerve.EarlyExitHandler
 --------------------------------------------------------------------------------
 
 function Area6Coordinator.onTickStart()
-    -- [Phase 1] 타이밍 추적 먼저
+    -- [Reinforcement] NerveTiming 먼저 갱신 (단일 진입점)
+    if Nerve.Timing then
+        Nerve.Timing.onTickStart()
+    end
+    
+    -- [Phase 1] 타이밍 추적
     if Area6Coordinator.pressureDetector then
         Area6Coordinator.pressureDetector.onTickStart()
     end

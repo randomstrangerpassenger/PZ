@@ -59,27 +59,51 @@ end
 --------------------------------------------------------------------------------
 
 function InventoryGuard.refreshWrapper(self)
-    -- WeakRef 레지스트리 등록
-    InventoryGuard.registry[self] = true
+    -- [Fail-soft] Nerve 로직 체크
+    if Nerve.Failsoft and not Nerve.Failsoft.isEnabled("InventoryGuard") then
+        -- Nerve 비활성화 → 원본 직접 호출
+        return ISInventoryPage.__nerveOriginal_refreshBackpack(self)
+    end
     
-    -- 텔레메트리
-    Area5Stats.wrapperCalls = Area5Stats.wrapperCalls + 1
-    
-    -- 틱 단위 coalesce
-    if self.__nerve_refreshedThisTick then
-        self.__nerve_pending = true
-        Area5Stats.blockedCalls = Area5Stats.blockedCalls + 1
+    -- Nerve 로직을 pcall로 보호
+    local nerveOk, nerveErr = pcall(function()
+        -- WeakRef 레지스트리 등록
+        InventoryGuard.registry[self] = true
         
-        if NerveConfig.debug then
-            NerveUtils.debug("Area5: SKIP refreshBackpack (already refreshed this tick)")
+        -- 텔레메트리
+        Area5Stats.wrapperCalls = Area5Stats.wrapperCalls + 1
+        
+        -- 틱 단위 coalesce
+        if self.__nerve_refreshedThisTick then
+            self.__nerve_pending = true
+            Area5Stats.blockedCalls = Area5Stats.blockedCalls + 1
+            
+            if NerveConfig.debug then
+                NerveUtils.debug("Area5: SKIP refreshBackpack (already refreshed this tick)")
+            end
+            return "skip"  -- 스킵 신호
         end
+        
+        self.__nerve_refreshedThisTick = true
+        Area5Stats.originalCalls = Area5Stats.originalCalls + 1
+        return "proceed"
+    end)
+    
+    -- Nerve 로직 오류 시 fail-soft 후 원본 실행
+    if not nerveOk then
+        if Nerve.Failsoft then
+            Nerve.Failsoft.recordError("InventoryGuard", nerveErr)
+        end
+        -- 원본 호출 (Nerve 실패해도 기능은 유지)
+        return ISInventoryPage.__nerveOriginal_refreshBackpack(self)
+    end
+    
+    -- 스킵 신호면 리턴
+    if nerveErr == "skip" then
         return
     end
     
-    self.__nerve_refreshedThisTick = true
-    Area5Stats.originalCalls = Area5Stats.originalCalls + 1
-    
-    -- 원본 호출 (pcall 없이 - 에러는 그대로 전파)
+    -- 원본 호출 (오류 시 그대로 전파 - 바닐라 동작 유지)
     return ISInventoryPage.__nerveOriginal_refreshBackpack(self)
 end
 

@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Lua 실행 제어 및 샌드박스 관리.
  * 
- * Nerve 최적화에 필요한 기능들을 제공합니다:
+ * Lua 최적화에 필요한 기능들을 제공합니다:
  * - Lua 콜백 호출 시간 제한 (budget)
  * - 과도한 UI/Lua 이벤트 차단
  * - 비싼 함수 throttle/skip 결정

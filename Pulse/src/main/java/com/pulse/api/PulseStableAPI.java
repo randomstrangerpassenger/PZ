@@ -3,7 +3,7 @@ package com.pulse.api;
 /**
  * Pulse Stable API v1 Reference
  * 
- * This class documents the stable public API that Echo, Fuse, and Nerve
+ * This class documents the stable public API that submodules
  * can safely depend on. These APIs are guaranteed to maintain backward
  * compatibility within major versions.
  * 

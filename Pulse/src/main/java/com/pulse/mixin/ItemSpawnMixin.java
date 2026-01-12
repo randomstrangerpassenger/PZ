@@ -26,7 +26,7 @@ import zombie.inventory.InventoryItem;
  * assignment.
  * WorldItemMixin also has lazy sequenceId assignment as a fallback.
  * 
- * @since Fuse v2.2 Area 7
+ * @since v2.2 Area 7
  */
 @Mixin(targets = "zombie.iso.IsoGridSquare")
 public class ItemSpawnMixin {

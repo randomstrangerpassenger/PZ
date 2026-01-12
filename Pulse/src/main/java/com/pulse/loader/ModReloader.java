@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * 안전한 모드 핫 리로드 관리자.
  * 
  * 코드 전체 재시작 없이 모드의 Lua/Core 부분만 재적용합니다.
- * Fuse/Nerve 파라미터 실험 시 유용합니다.
+ * 파라미터 실험 시 유용합니다.
  * 
  * <h2>사용 예시</h2>
  * 

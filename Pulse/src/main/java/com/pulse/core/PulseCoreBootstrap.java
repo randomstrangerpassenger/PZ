@@ -148,7 +148,7 @@ public final class PulseCoreBootstrap {
         PulseLogger.debug(LOG, "[Bootstrap] Initializing SPI Registry...");
 
         // ServiceLoader-based provider registration
-        // This allows Echo, Fuse, Nerve to register their providers
+        // This allows submodules to register their providers
 
         PulseLogger.info(LOG, "[Bootstrap] ✓ SPI Registry initialized");
     }

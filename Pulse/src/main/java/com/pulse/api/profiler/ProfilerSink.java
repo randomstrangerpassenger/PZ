@@ -4,9 +4,9 @@ package com.pulse.api.profiler;
  * Profiler Sink Interface.
  * 
  * Pulse 경유로 profiler 데이터를 전달하기 위한 인터페이스.
- * Echo가 구현하여 등록하면, Fuse가 ProfilerBridge를 통해 데이터를 전달함.
+ * 프로파일러가 구현하여 등록하면, 옵티마이저가 ProfilerBridge를 통해 데이터를 전달함.
  * 
- * Hub and Spoke 패턴: Fuse → Pulse → Echo (직접 의존 없음)
+ * Hub and Spoke 패턴: 옵티마이저 → Pulse → 프로파일러 (직접 의존 없음)
  * 
  * @since Pulse 1.1
  */

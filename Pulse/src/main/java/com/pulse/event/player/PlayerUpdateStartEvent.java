@@ -6,7 +6,7 @@ import com.pulse.api.event.Event;
  * 플레이어 업데이트 시작 이벤트.
  * 
  * IsoPlayer.update() 진입 시 발생합니다.
- * Nerve UI 이벤트에 사용됩니다.
+ * UI 이벤트에 사용됩니다.
  * 
  * @since Pulse 1.2
  */

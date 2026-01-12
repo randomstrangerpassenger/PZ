@@ -125,7 +125,7 @@ public class EventBus {
      * 이벤트 발행 (모든 리스너에 전달)
      * 
      * v2.1: ClassLoader 호환성을 위한 FQCN 기반 fallback 매칭 추가.
-     * PZ 모드 로더가 Echo와 Pulse를 다른 ClassLoader에서 로드할 경우,
+     * PZ 모드 로더가 모듈들을 다른 ClassLoader에서 로드할 경우,
      * 같은 이름의 클래스도 Class.equals()에서 다르게 인식됨.
      * 이를 해결하기 위해 Class 객체로 찾지 못하면 FQCN(클래스 이름)으로 fallback.
      */

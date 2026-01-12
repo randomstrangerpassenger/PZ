@@ -23,7 +23,7 @@ import zombie.inventory.InventoryItem;
  * 
  * Injection Point: IsoWorldInventoryObject.update()
  * 
- * @since Fuse v2.2 Area 7
+ * @since v2.2 Area 7
  */
 @Mixin(targets = "zombie.iso.objects.IsoWorldInventoryObject")
 public class WorldItemMixin {
@@ -64,7 +64,7 @@ public class WorldItemMixin {
     private int Pulse$consecutiveSkips = 0;
 
     /**
-     * Static policy instance - injected by FuseThrottleController.
+     * Static policy instance - injected by ThrottleController.
      * Volatile to ensure visibility across threads.
      */
     @Unique
@@ -90,7 +90,7 @@ public class WorldItemMixin {
     // 이제 policy.getCacheRefreshTicks() 등을 사용
 
     /**
-     * Static method to inject the policy from FuseThrottleController.
+     * Static method to inject the policy from ThrottleController.
      * This maintains loose coupling via the interface.
      * 
      * @param policy The throttle policy implementation

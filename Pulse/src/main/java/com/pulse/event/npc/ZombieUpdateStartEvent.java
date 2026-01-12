@@ -6,7 +6,7 @@ import com.pulse.api.event.Event;
  * 좀비 업데이트 루프 시작 이벤트.
  * 
  * 프레임당 모든 좀비 업데이트가 시작되기 전에 발생합니다.
- * Fuse의 AI 최적화 결정에 사용됩니다.
+ * AI 최적화 결정에 사용됩니다.
  * 
  * @since Pulse 1.2
  */

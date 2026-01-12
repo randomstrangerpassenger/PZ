@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
  * 게임 상태(GameState) 접근 API.
  * 
  * 현재 게임이 메인 메뉴인지, 게임 중인지 확인할 수 있습니다.
- * Echo에서 세션 관리에 활용합니다.
+ * 세션 관리에 활용됩니다.
  * 
  * @since 1.1.1
  */

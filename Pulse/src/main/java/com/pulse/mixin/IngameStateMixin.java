@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * 인게임 렌더링 훅을 제공합니다.
  * 
  * <p>
- * GuiRenderEvent를 발행하여 Echo가 FPS를 측정할 수 있도록 합니다.
+ * GuiRenderEvent를 발행하여 FPS를 측정할 수 있도록 합니다.
  * </p>
  * 
  * @since Pulse 2.2 - 인게임 렌더링 이벤트 발행
@@ -38,7 +38,7 @@ public abstract class IngameStateMixin {
             // PulseMetrics 프레임 시작 알림
             com.pulse.api.PulseMetrics.onFrameStart();
 
-            // GuiRenderEvent 발행 - Echo RenderProfiler가 FPS 측정
+            // GuiRenderEvent 발행 - RenderProfiler가 FPS 측정
             GuiRenderEvent event = new GuiRenderEvent(null, "IngameState", 0);
             EventBus.post(event);
 

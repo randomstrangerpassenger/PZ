@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Mixin for se.krka.kahlua.vm.KahluaThread.
  * 
  * <p>
- * Lua 호출(call/pcall)을 가로채서 Echo 프로파일링에 노출합니다.
+ * Lua 호출(call/pcall)을 가로채서 프로파일링에 노출합니다.
  * </p>
  * 
  * <p>

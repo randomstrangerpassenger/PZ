@@ -5,8 +5,8 @@ import com.pulse.api.PerformanceAlertEvent;
 /**
  * PerformanceAlertEvent 기본 구현체.
  * 
- * Echo에서 성능 문제 감지 시 이 이벤트를 생성하여 발행합니다.
- * Nerve에서 수신하여 자동 최적화 또는 사용자 알림을 처리합니다.
+ * 성능 문제 감지 시 이 이벤트를 생성하여 발행합니다.
+ * 소비자 모듈에서 수신하여 처리합니다.
  * 
  * @since 1.0.1
  */
@@ -92,20 +92,7 @@ public class DefaultPerformanceAlert implements PerformanceAlertEvent {
     }
 
     // --- 유틸리티 메서드 ---
-
-    /**
-     * 심각도가 높음인지 확인 (>= 0.7)
-     */
-    public boolean isHighSeverity() {
-        return severity >= 0.7;
-    }
-
-    /**
-     * 심각도가 치명적인지 확인 (>= 0.9)
-     */
-    public boolean isCritical() {
-        return severity >= 0.9;
-    }
+    // [REMOVED] isHighSeverity(), isCritical() - 정책 판단은 소비자 모듈 책임
 
     @Override
     public String toString() {

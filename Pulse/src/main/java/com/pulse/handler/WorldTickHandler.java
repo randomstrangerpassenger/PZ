@@ -101,7 +101,7 @@ public final class WorldTickHandler {
 
         currentTickStartNanos = System.nanoTime();
 
-        // Notify PulseMetrics (Echo integration)
+        // Notify PulseMetrics (profiler integration)
         com.pulse.api.PulseMetrics.onTickStart();
 
         return new TickStartResult(isFirstTick, currentTickStartNanos, tickCount + 1);

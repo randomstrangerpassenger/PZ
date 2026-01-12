@@ -4,7 +4,7 @@ package com.pulse.api.profiler;
  * Zombie Context Interface.
  * 
  * 좀비 상태 정보를 Pulse API로 추상화.
- * Fuse가 PZ 클래스를 직접 참조하지 않도록 함.
+ * 옵티마이저가 PZ 클래스를 직접 참조하지 않도록 함.
  * 
  * @since Pulse 1.2 / Phase 2
  */

@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Pulse 기능 지원 여부 체크 API.
- * Fuse/Nerve 등 모드가 런타임에 Pulse 버전과 기능 지원 여부를 확인할 수 있습니다.
+ * 하위 모드가 런타임에 Pulse 버전과 기능 지원 여부를 확인할 수 있습니다.
  * 
  * <pre>
  * // 사용 예시
@@ -43,14 +43,14 @@ public final class CapabilityFlags {
     /** SafeGameAccess 지원 */
     public static final String SAFE_GAME_ACCESS = "SAFE_GAME_ACCESS";
 
-    /** Echo 프로파일러 통합 */
-    public static final String ECHO_INTEGRATION = "ECHO_INTEGRATION";
+    /** 프로파일러 통합 */
+    public static final String PROFILER_INTEGRATION = "PROFILER_INTEGRATION";
 
     /** DevMode 지원 */
     public static final String DEV_MODE = "DEV_MODE";
 
     // ═══════════════════════════════════════════════════════════════
-    // v1.1.0 새 기능 상수 (Fuse/Nerve 지원)
+    // v1.1.0 새 기능 상수
     // ═══════════════════════════════════════════════════════════════
 
     /** Side API 지원 */
@@ -101,7 +101,7 @@ public final class CapabilityFlags {
         register(SAFE_GAME_ACCESS);
         register(DEV_MODE);
 
-        // 1.1.0 추가 기능 (Fuse/Nerve 지원)
+        // 1.1.0 추가 기능
         register(SIDE_API);
         register(SILENT_MODE);
         register(PROFILER_SCOPE);
@@ -109,8 +109,7 @@ public final class CapabilityFlags {
         register(VERSION_COMPAT);
         register(FEATURE_FLAGS);
 
-        // Echo는 별도 모드로 로드되므로 여기서는 등록하지 않음
-        // Echo가 로드되면 Echo에서 ECHO_INTEGRATION을 등록
+        // 프로파일러 통합은 하위 모드에서 등록
 
         initialized = true;
         initialized = true;

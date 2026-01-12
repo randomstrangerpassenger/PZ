@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Lua 실행 시간 Budget 관리자.
- * Nerve같은 Lua 최적화 모드가 Lua 실행 시간을 제어할 수 있습니다.
+ * Lua 최적화 모드가 Lua 실행 시간을 제어할 수 있습니다.
  * 
  * <pre>
  * // 사용 예시
@@ -64,14 +64,14 @@ public final class LuaBudgetManager {
     public static final String CTX_ON_RENDER_TICK = "lua.event.OnRenderTick";
 
     // ═══════════════════════════════════════════════════════════════
-    // Fast-path 토글 (Nerve 활성화 전에는 오버헤드 최소화)
+    // Fast-path 토글 (활성화 전에는 오버헤드 최소화)
     // ═══════════════════════════════════════════════════════════════
 
     private static volatile boolean budgetEnforcementEnabled = false;
 
     /**
      * Budget 강제 적용 활성화 여부.
-     * Nerve가 로드되면 true로 설정됨.
+     * 스타빌라이저가 로드되면 true로 설정됨.
      * 
      * @return 활성화되어 있으면 true
      */

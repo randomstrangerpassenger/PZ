@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * 
  * Provides hooks for floor rendering and property recalculation in
  * IsoGridSquare.
- * These hooks allow Echo to profile grid-level operations.
+ * These hooks allow profilers to measure grid-level operations.
  * 
  * @since Pulse 0.2.0
  * @since Pulse 1.2 - Activated with enabled flag check
@@ -37,7 +37,7 @@ public class IsoGridMixin {
         }
     }
 
-    // Echo 2.0 Phase 2: RecalcProperties Hook
+    // v2.0 Phase 2: RecalcProperties Hook
 
     @Inject(method = "RecalcProperties", at = @At("HEAD"), remap = false)
     private void Pulse$onRecalcPropertiesStart(CallbackInfo ci) {

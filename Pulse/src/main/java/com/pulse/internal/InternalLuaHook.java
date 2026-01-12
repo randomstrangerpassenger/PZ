@@ -18,7 +18,7 @@ import java.util.Deque;
  */
 public final class InternalLuaHook {
 
-    /** 콜백 인터페이스 - Echo가 구현 */
+    /** 콜백 인터페이스 - 프로파일러가 구현 */
     public interface LuaEventCallback {
         void onEventEnd(String eventName, long durationMicros);
     }

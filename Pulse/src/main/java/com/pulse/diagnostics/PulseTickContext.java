@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 현재 틱의 엔진 상태 정보를 담는 컨텍스트.
  * 
- * Pulse가 매 틱마다 수집하여 Echo/Fuse에게 제공하는 성능 플래그입니다.
+ * Pulse가 매 틱마다 수집하여 하위 모듈에게 제공하는 성능 플래그입니다.
  * 로드맵의 "Performance Flag Broadcast" 요구사항을 충족합니다.
  * 
  * <h2>수집되는 정보</h2>
@@ -98,7 +98,7 @@ public final class PulseTickContext {
     }
 
     // ─────────────────────────────────────────────────────────────
-    // Getters (Echo/Fuse에서 호출)
+    // Getters (하위 모듈에서 호출)
     // ─────────────────────────────────────────────────────────────
 
     public long getCurrentTick() {

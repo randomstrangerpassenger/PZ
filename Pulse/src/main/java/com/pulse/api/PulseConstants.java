@@ -83,12 +83,5 @@ public final class PulseConstants {
     /** Pulse 버전 */
     public static final String PULSE_VERSION = "1.1.0";
 
-    /** Echo 버전 */
-    public static final String ECHO_VERSION = "1.1.0";
-
-    /** Fuse 버전 */
-    public static final String FUSE_VERSION = "0.2.0";
-
-    /** Nerve 버전 */
-    public static final String NERVE_VERSION = "0.1.0";
+    // [REMOVED] Spoke 버전 상수 - Hub는 Spoke 존재를 몰라야 함 (헌법 준수)
 }

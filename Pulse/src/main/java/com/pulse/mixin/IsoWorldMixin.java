@@ -53,7 +53,7 @@ public abstract class IsoWorldMixin {
     @Shadow
     public abstract String getWorld();
 
-    // Echo: SubProfiler phase tracking
+    // SubProfiler phase tracking
     @Unique
     private static long Pulse$worldUpdateStart = -1;
 
@@ -124,7 +124,7 @@ public abstract class IsoWorldMixin {
                 PulseLogger.info(LOG, "WorldLoadEvent published successfully");
             }
 
-            // GameTickStartEvent - use PulseServices.events() so Echo can receive it
+            // GameTickStartEvent - use PulseServices.events() so subscribers can receive it
             GameTickStartEvent tickStartEvent = new GameTickStartEvent(result.getExpectedTickCount());
             if (result.getExpectedTickCount() == 1) {
                 PulseLogger.info(LOG, "First GameTickStartEvent: tick={}, class={}", result.getExpectedTickCount(),
@@ -136,7 +136,7 @@ public abstract class IsoWorldMixin {
             final long tickNum = result.getExpectedTickCount();
             PulseHookRegistry.broadcast(HookTypes.GAME_TICK, cb -> cb.onGameTickStart(tickNum));
 
-            // Echo: WORLD_UPDATE Phase Start
+            // WORLD_UPDATE Phase Start
             Pulse$worldUpdateStart = com.pulse.api.profiler.TickPhaseHook.startPhase("WORLD_UPDATE");
         } catch (Throwable t) {
             if (com.pulse.PulseEnvironment.isDevelopmentMode()) {
@@ -160,7 +160,7 @@ public abstract class IsoWorldMixin {
     @Inject(method = "update", at = @At("RETURN"))
     private void Pulse$onUpdate(CallbackInfo ci) {
         try {
-            // Echo: WORLD_UPDATE Phase End
+            // WORLD_UPDATE Phase End
             com.pulse.api.profiler.TickPhaseHook.endPhase("WORLD_UPDATE", Pulse$worldUpdateStart);
             Pulse$worldUpdateStart = -1;
 
@@ -173,7 +173,7 @@ public abstract class IsoWorldMixin {
             // Tick complete hook
             com.pulse.api.profiler.TickPhaseHook.onTickComplete();
 
-            // GameTickEndEvent - use PulseServices.events() so Echo can receive it
+            // GameTickEndEvent - use PulseServices.events() so subscribers can receive it
             PulseServices.events().publish(new GameTickEndEvent(result.getTickCount(), result.getDurationNanos()));
 
             // GcObservedEvent (v2.1 - for GCPressureGuard)

@@ -6,7 +6,7 @@ import com.pulse.api.event.Event;
  * 메인 메뉴 렌더 이벤트
  * 
  * MainScreenState.render()가 호출될 때 발생합니다.
- * Echo가 이 이벤트를 구독하여 게임에서 메뉴로 복귀했는지 감지할 수 있습니다.
+ * 이 이벤트를 구독하여 게임에서 메뉴로 복귀했는지 감지할 수 있습니다.
  * 
  * @since Pulse 2.1
  */

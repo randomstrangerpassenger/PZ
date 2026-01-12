@@ -6,7 +6,7 @@ import com.pulse.api.event.Event;
  * 렌더 프레임 이벤트.
  * 
  * 화면 렌더링 루프에서 발생합니다.
- * Echo의 프레임 타임 분석에 사용됩니다.
+ * 프레임 타임 분석에 사용됩니다.
  * 
  * @since Pulse 1.2
  */

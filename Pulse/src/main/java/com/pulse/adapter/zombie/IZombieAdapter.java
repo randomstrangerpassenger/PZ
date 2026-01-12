@@ -122,7 +122,7 @@ public interface IZombieAdapter extends IVersionAdapter {
     boolean isOnFloor(Object zombie);
 
     // ═══════════════════════════════════════════════════════════════
-    // Engagement Methods (Fuse throttle용)
+    // Engagement Methods (throttle용)
     // ═══════════════════════════════════════════════════════════════
 
     /**

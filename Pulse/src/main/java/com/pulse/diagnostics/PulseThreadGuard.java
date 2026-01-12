@@ -5,7 +5,7 @@ import com.pulse.api.log.PulseLogger;
 /**
  * 메인 게임 스레드 감지 및 보호.
  * 
- * B42는 스레드 구조 변화가 있기 때문에 Echo가 메인 스레드에서만 동작해야 할 때
+ * B42는 스레드 구조 변화가 있기 때문에 프로파일러가 메인 스레드에서만 동작해야 할 때
  * 이 클래스를 사용하여 검증할 수 있습니다.
  * 
  * <h2>사용 예시</h2>
@@ -17,7 +17,7 @@ import com.pulse.api.log.PulseLogger;
  * }
  * 
  * // 메인 스레드 강제 (아닌 경우 경고)
- * PulseThreadGuard.assertMainThread("EchoProfiler.sample");
+ * PulseThreadGuard.assertMainThread("Profiler.sample");
  * }</pre>
  * 
  * @since Pulse 1.2

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * MainScreenState Mixin.
  * 게임 메인 화면 렌더링에 훅을 건다.
  * 
- * @since Pulse 2.1 - MainMenuRenderEvent 발생 (Echo에서 세션 종료 감지)
+ * @since Pulse 2.1 - MainMenuRenderEvent 발생 (세션 종료 감지용)
  */
 @Mixin(targets = "zombie.gameStates.MainScreenState")
 public abstract class MainScreenStateMixin {
@@ -19,10 +19,10 @@ public abstract class MainScreenStateMixin {
     @Inject(method = "render", at = @At("HEAD"))
     private void Pulse$onRenderHead(CallbackInfo ci) {
         try {
-            // Pulse 1.3: 프레임 시작 알림 (Echo PulseMetrics 연동)
+            // Pulse 1.3: 프레임 시작 알림 (PulseMetrics 연동)
             com.pulse.api.PulseMetrics.onFrameStart();
 
-            // v2.1: MainMenuRenderEvent 발생 - Echo가 세션 종료 감지
+            // v2.1: MainMenuRenderEvent 발생 - 세션 종료 감지용
             EventBus.post(new MainMenuRenderEvent());
         } catch (Throwable t) {
             if (com.pulse.PulseEnvironment.isDevelopmentMode()) {

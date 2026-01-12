@@ -3,7 +3,7 @@ package com.pulse.api;
 /**
  * Pulse 메트릭 정적 접근 클래스.
  * 
- * Echo의 PulseMetricsAdapter가 reflection으로 이 클래스를 찾습니다.
+ * PulseMetricsAdapter가 reflection으로 이 클래스를 찾습니다.
  * 게임 상태에서 성능 메트릭을 수집하여 제공합니다.
  * 
  * @since 1.0.1
@@ -29,7 +29,7 @@ public final class PulseMetrics {
         // Utility class
     }
 
-    // --- Public API (Echo PulseMetricsAdapter에서 reflection으로 호출) ---
+    // --- Public API (PulseMetricsAdapter에서 reflection으로 호출) ---
 
     /**
      * 현재 FPS
@@ -138,7 +138,7 @@ public final class PulseMetrics {
 
     /**
      * 현재 로드된 청크 수
-     * Echo 및 다른 모듈에서 성능 상관관계 분석에 사용
+     * 다른 모듈에서 성능 상관관계 분석에 사용
      */
     public static int getLoadedChunkCount() {
         return com.pulse.api.access.WorldAccess.getLoadedCellCount();
@@ -146,7 +146,7 @@ public final class PulseMetrics {
 
     /**
      * 현재 엔티티 수 (좀비 + NPC + 차량)
-     * Echo 및 다른 모듈에서 성능 상관관계 분석에 사용
+     * 다른 모듈에서 성능 상관관계 분석에 사용
      */
     public static int getEntityCount() {
         return com.pulse.api.access.WorldAccess.getTotalEntityCount();

@@ -72,7 +72,7 @@ public class TickRateDetector {
 
     /**
      * 감지된 틱 레이트 기준 예상 틱 시간 (ms)
-     * Echo의 TickHistogram 등에서 기준값으로 사용
+     * TickHistogram 등에서 기준값으로 사용
      */
     public double getExpectedTickMs() {
         return expectedTickMs;

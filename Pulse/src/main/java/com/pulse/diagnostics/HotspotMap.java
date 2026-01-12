@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * 엔진 함수별 소요 시간을 기록하는 핫스팟 맵.
  * 
- * Fuse 개발자가 "어떤 함수가 병목인지" 자동으로 파악할 수 있게 합니다.
+ * 개발자가 "어떤 함수가 병목인지" 자동으로 파악할 수 있게 합니다.
  * 로드맵의 "Hotspot Map API" 요구사항을 충족합니다.
  * 
  * <h2>사용 예시</h2>

@@ -23,16 +23,16 @@ public interface CoreFeatureFlags {
     // Standard Feature Flags
     // ═══════════════════════════════════════════════════════════════
 
-    /** Lua call profiling (Echo integration) */
+    /** Lua call profiling (profiler integration) */
     String FEATURE_LUA_PROFILING = "lua_profiling";
 
     /** Tick phase timing hooks */
     String FEATURE_TICK_PHASE_HOOKS = "tick_phase_hooks";
 
-    /** Network optimization features (Nerve) */
+    /** Network optimization features (stabilizer) */
     String FEATURE_NETWORK_OPTIMIZATION = "network_optimization";
 
-    /** Zombie update throttling (Fuse) */
+    /** Zombie update throttling (optimizer) */
     String FEATURE_ZOMBIE_THROTTLE = "zombie_throttle";
 
     /** Detailed crash reporting */

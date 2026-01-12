@@ -7,9 +7,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
- * Tick Phase Hooks for Echo.
+ * Tick Phase Hooks for Profiler.
  * 
- * Allows Echo to receive phase-level timing events from Pulse mixins.
+ * Allows profilers to receive phase-level timing events from Pulse mixins.
  * 
  * <h2>v5.1 Update: ThreadLocal Stack for Nested Phases</h2>
  * <p>
@@ -32,7 +32,7 @@ import java.util.Deque;
 public class TickPhaseHook {
 
     // ═══════════════════════════════════════════════════════════════
-    // Predefined Phase Constants (for Fuse/Nerve integration)
+    // Predefined Phase Constants (for submodule integration)
     // ═══════════════════════════════════════════════════════════════
 
     public static final String PHASE_WORLD_UPDATE = "world_update";
@@ -44,7 +44,7 @@ public class TickPhaseHook {
     public static final String PHASE_LOS_CHECK = "los_check";
     public static final String PHASE_RENDER = "render";
 
-    // v0.9: Additional phases for Echo TickPhaseProfiler mapping
+    // v0.9: Additional phases for TickPhaseProfiler mapping
     public static final String PHASE_AI_UPDATE = "ai_update";
     public static final String PHASE_PHYSICS_UPDATE = "physics_update";
     public static final String PHASE_RENDER_PREP = "render_prep";
@@ -171,7 +171,8 @@ public class TickPhaseHook {
 
         if (stack.isEmpty()) {
             reportError("Stack underflow: endPhase('" + phase + "') called but stack is empty");
-            // v5.2: Still notify callback with -1 startTime so Echo can skip measurement
+            // v5.2: Still notify callback with -1 startTime so profiler can skip
+            // measurement
             // but maintain heartbeat balance
             if (cb != null) {
                 cb.endPhase(phase, -1);

@@ -6,7 +6,7 @@ import com.pulse.api.event.Event;
  * 게임 틱 시작 이벤트.
  * 
  * IsoWorld.update() 진입 직전에 발생합니다.
- * Echo의 TickPhaseProfiler에서 정확한 틱 시작점을 측정하는 데 사용됩니다.
+ * TickPhaseProfiler에서 정확한 틱 시작점을 측정하는 데 사용됩니다.
  * 
  * @since Pulse 1.2
  */

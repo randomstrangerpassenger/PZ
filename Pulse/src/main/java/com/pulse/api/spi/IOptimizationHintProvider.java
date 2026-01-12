@@ -3,12 +3,12 @@ package com.pulse.api.spi;
 /**
  * SPI interface for optimization hint providers.
  * 
- * Provides primitive-only metrics from analysis modules (e.g., Echo)
- * to optimization modules (e.g., Fuse) without object coupling.
+ * Provides primitive-only metrics from analysis modules (e.g., profiler)
+ * to optimization modules (e.g., optimizer) without object coupling.
  * 
  * Hub & Spoke 원칙:
- * - Provider(Echo): 관측치만 제공 (severity, category)
- * - Consumer(Fuse): 판단/정책 결정 (임계값, 조치)
+ * - Provider(프로파일러): 관측치만 제공 (severity, category)
+ * - Consumer(옵티마이저): 판단/정책 결정 (임계값, 조치)
  * 
  * @since Pulse 1.1.0
  * @since Pulse 2.0.0 - Primitive-only API

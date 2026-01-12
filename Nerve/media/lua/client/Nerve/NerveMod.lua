@@ -330,12 +330,9 @@ if Events.OnTick then
 end
 
 -- 틱 종료 처리
--- ⚠️ 의도적으로 OnTickEven 사용 (매 2틱마다 실행)
--- - 이유: flush 부하 절감 (UI coalesce/pending은 1틱 지연되어도 안전)
--- - 의미 불변 보장: 상태/버퍼 flush가 1틱 밀려도 재현성에 영향 없음
---   (defer/drop이 아닌 coalesce이므로 데이터는 이미 즉시 반영됨)
-if Events.OnTickEven then
-    Events.OnTickEven.Add(onTickEnd)
+-- [FIX] OnTickEven → OnTick 변경 (Delay 금지 원칙 준수)
+if Events.OnTick then
+    Events.OnTick.Add(onTickEnd)
 end
 
 -- 공개 API

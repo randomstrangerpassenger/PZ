@@ -47,39 +47,26 @@ NerveConfig.area6 = {
         -- OnTick은 중복 제거하면 안 됨 (매 틱 호출이 정상)
     },
     
-    -- EventRecursionGuard 설정 (크래시 방지용 최후 가드)
-    -- [!] strict=true 시 DROP 발생 (crash prevention only)
+    -- EventRecursionGuard 설정 (관측 전용)
+    -- [FIX] strict 옵션 제거 - Drop 금지 원칙 준수
     recursionGuard = {
         enabled = true,         -- 관측은 항상 활성화
-        strict = false,         -- DEFAULT: Report-only (차단 안 함)
-        maxDepth = 5000,        -- 폭주 임계값
+        maxDepth = 5000,        -- 폭주 임계값 (경고 로그 기준)
     },
     
     -- seenThisTick 키 폭증 방지
     maxSeenEntriesPerTick = 1000,
     
-    -- CascadeGuard 설정
+    -- CascadeGuard 설정 (관측 전용)
+    -- [FIX] strict 옵션 제거 - Drop 금지 원칙 준수
     cascadeGuard = {
-        enabled = false,        -- v0.1: 기본 OFF
-        observeOnly = true,     -- 스킵 없이 로그만
-        maxDepth = 10,          -- 관측 시에는 높게
+        enabled = false,        -- 기본 OFF
+        observeOnly = true,     -- 항상 관측 전용
+        maxDepth = 10,          -- 경고 로그 기준
     },
     
-    -- [Phase 1-B] Sustained Event Pressure 감지
-    -- 느림 판정: Lua wall-clock delta (os.clock() 기반, 추세 판단용)
-    sustainedPressure = {
-        enabled = false,        -- opt-in 기본 OFF
-        windowMs = 100,         -- 압력 감지 창 (ms)
-        threshold = 5,          -- 창 내 동일 이벤트 임계값
-    },
-    
-    -- [Phase 1-D] Early Exit & Cooldown
-    -- Fuse 철학 차용, 구현은 Nerve
-    earlyExit = {
-        enabled = false,        -- opt-in 기본 OFF
-        activeMaxMs = 500,      -- ACTIVE 최대 지속 시간
-        cooldownMs = 1000,      -- COOLDOWN 지속 시간
-    },
+    -- [REMOVED] 정책성 컴포넌트 설정 제거 (헌법 준수)
+    -- sustainedPressure, earlyExit는 더 이상 사용되지 않음
 }
 
 --------------------------------------------------------------------------------

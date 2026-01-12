@@ -1,12 +1,12 @@
 --[[
     EventRecursionGuard.lua
-    재귀/재진입 깊이 가드 (크래시 방지 전용)
+    재귀/재진입 깊이 가드 (관측 전용)
     
-    v0.2 - Refactored from EventDeduplicator
+    v0.3 - Pure Observation Mode (헌법 준수)
     
     핵심 원칙:
-    - Default(strict=false): Report-only (로그만, 차단 없음)
-    - Strict opt-in: 폭주 시 차단 (=DROP, 로그 필수)
+    - 항상 통과 (Drop 금지 원칙 준수)
+    - 폭주 시 경고 로그만 출력
     - 틱 단위 중복은 더 이상 스킵하지 않음
 ]]
 
@@ -25,7 +25,6 @@ EventRecursionGuard.blockCount = 0
 
 -- 기본값
 local DEFAULT_MAX_RECURSION = 5000
-local DEFAULT_STRICT_MODE = false
 
 --------------------------------------------------------------------------------
 -- 틱 시작 처리
@@ -42,7 +41,7 @@ end
 
 -- 이벤트 진입 체크
 -- @param eventName: 이벤트 이름
--- @return: true (통과), false (차단 - Strict 모드 + 폭주일 때만)
+-- @return: true (항상 통과 - 관측 전용)
 function EventRecursionGuard.enter(eventName)
     local depth = (EventRecursionGuard.callStack[eventName] or 0) + 1
     EventRecursionGuard.callStack[eventName] = depth
@@ -59,29 +58,15 @@ function EventRecursionGuard.enter(eventName)
         and NerveConfig.area6.recursionGuard.maxDepth 
         or DEFAULT_MAX_RECURSION
     
-    local strictMode = NerveConfig 
-        and NerveConfig.area6 
-        and NerveConfig.area6.recursionGuard 
-        and NerveConfig.area6.recursionGuard.strict 
-        or DEFAULT_STRICT_MODE
-    
-    -- 폭주 감지
+    -- 폭주 감지 (관측 전용 - Drop 금지 원칙 준수)
     if depth >= maxRecursion then
-        -- 항상 로그 (침묵 금지)
+        -- 경고 로그만 (차단 없음)
         NerveUtils.warn("RECURSION GUARD: " .. eventName 
-            .. " depth=" .. depth .. "/" .. maxRecursion)
-        
-        -- Strict 모드에서만 실제 차단
-        if strictMode then
-            -- DROP임을 노골적으로 명시 (침묵 금지)
-            NerveUtils.error("[!] LAST-RESORT DROP: " .. eventName 
-                .. " (strict=true, crash prevention)")
-            EventRecursionGuard.blockCount = EventRecursionGuard.blockCount + 1
-            return false  -- 차단 (=DROP)
-        end
+            .. " depth=" .. depth .. "/" .. maxRecursion .. " (observe-only)")
+        EventRecursionGuard.blockCount = EventRecursionGuard.blockCount + 1
     end
     
-    return true  -- 기본: 항상 통과
+    return true  -- [FIX] 항상 통과 (Drop 금지 원칙)
 end
 
 --------------------------------------------------------------------------------

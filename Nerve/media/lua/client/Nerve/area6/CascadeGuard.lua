@@ -1,13 +1,12 @@
 --[[
     CascadeGuard.lua
-    이벤트 연쇄 깊이 관측
+    이벤트 연쇄 깊이 관측 (관측 전용)
     
-    v0.2 - Strict Mode Support
+    v0.3 - Pure Observation Mode (헌법 준수)
     
     핵심 원칙:
-    - 기본 OFF (observeOnly = true)
-    - Default: 스킵 없이 깊이만 로깅
-    - Strict opt-in: 폭주 시 DROP (로그 필수)
+    - 항상 통과 (Drop 금지 원칙 준수)
+    - 깊이 초과 시 경고 로그만 출력
 ]]
 
 require "Nerve/NerveUtils"
@@ -34,15 +33,6 @@ local function isEnabled()
         and NerveConfig.area6.cascadeGuard.enabled
 end
 
-local function isObserveOnly()
-    if not NerveConfig 
-        or not NerveConfig.area6 
-        or not NerveConfig.area6.cascadeGuard then
-        return true  -- 기본값: 관측만
-    end
-    return NerveConfig.area6.cascadeGuard.observeOnly ~= false
-end
-
 local function getMaxDepth()
     return NerveConfig 
         and NerveConfig.area6 
@@ -51,21 +41,13 @@ local function getMaxDepth()
         or 10
 end
 
-local function isStrictMode()
-    return NerveConfig 
-        and NerveConfig.area6 
-        and NerveConfig.area6.cascadeGuard 
-        and NerveConfig.area6.cascadeGuard.strict
-        or false
-end
-
 --------------------------------------------------------------------------------
 -- 깊이 추적
 --------------------------------------------------------------------------------
 
 -- 이벤트 진입
 -- @param eventName: 이벤트 이름
--- @return: true (진행), false (스킵)
+-- @return: true (항상 통과 - Drop 금지 원칙)
 function CascadeGuard.enter(eventName)
     if not isEnabled() then
         return true  -- 비활성화 시 항상 진행
@@ -83,30 +65,12 @@ function CascadeGuard.enter(eventName)
         NerveUtils.debug("New max cascade depth: " .. depth .. " (event: " .. eventName .. ")")
     end
     
-    -- 관측 모드에서는 항상 진행
-    if isObserveOnly() then
-        if depth > getMaxDepth() then
-            NerveUtils.debug("CASCADE OBSERVE: " .. eventName .. " at depth " .. depth)
-        end
-        return true
-    end
-    
-    -- 제어 모드: 최대 깊이 초과 시
+    -- 최대 깊이 초과 시 경고 로그만 (관측 전용)
     if depth > getMaxDepth() then
-        -- Strict 모드 체크
-        if not isStrictMode() then
-            -- Report-only: 로그만 남기고 통과
-            NerveUtils.warn("CASCADE: " .. eventName .. " depth=" .. depth .. " (report-only)")
-            return true
-        end
-        
-        -- Strict 모드: DROP 노골화 + 차단
-        NerveUtils.error("[!] LAST-RESORT DROP: " .. eventName .. " cascade depth=" .. depth .. " (strict)")
-        CascadeGuard.currentDepth = CascadeGuard.currentDepth - 1  -- 롤백
-        return false
+        NerveUtils.warn("CASCADE: " .. eventName .. " depth=" .. depth .. " (observe-only)")
     end
     
-    return true
+    return true  -- [FIX] 항상 통과 (Drop 금지 원칙)
 end
 
 -- 이벤트 종료

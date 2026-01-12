@@ -29,7 +29,8 @@ public class FuseOptimizer {
     private long lastAnalysisTime = 0;
     private static final long ANALYSIS_INTERVAL_MS = 5000;
 
-    // SPI 연동
+    // [FROZEN] SPI 연동 - 동결 원칙에 의해 비활성화됨
+    @SuppressWarnings("unused")
     private IOptimizationHintProvider hintProvider;
 
     // 활성 최적화
@@ -43,10 +44,15 @@ public class FuseOptimizer {
         return INSTANCE;
     }
 
+    /**
+     * @deprecated 동결 원칙에 의해 비활성화됨. 자동 최적화 기능이 제거됨.
+     */
+    @Deprecated
     public void setHintProvider(IOptimizationHintProvider provider) {
         this.hintProvider = provider;
         if (provider != null) {
-            PulseLogger.info("Fuse", "HintProvider registered: " + provider.getClass().getSimpleName());
+            PulseLogger.info("Fuse",
+                    "HintProvider registered (FROZEN - not used): " + provider.getClass().getSimpleName());
         }
     }
 
@@ -83,62 +89,12 @@ public class FuseOptimizer {
             return;
         lastAnalysisTime = now;
 
-        // [FROZEN] 자동 최적화 기능 비활성화됨
-        if (autoOptimize && !AUTO_OPTIMIZE_FROZEN) {
-            applyAutoOptimizationFromHints();
-        }
+        // [FROZEN] 자동 최적화 기능 영구 비활성화됨
+        // AUTO_OPTIMIZE_FROZEN = true 이므로 호출되지 않음
     }
 
-    /**
-     * SPI를 통한 자동 최적화 적용.
-     * Primitive-only API 사용 - Echo는 관측치만 제공, Fuse가 판단.
-     * 
-     * @since 3.0 - Primitive-only refactoring
-     * @deprecated 동결 원칙에 의해 비활성화됨. Observer 원칙 침범 가능성.
-     */
-    @Deprecated
-    private void applyAutoOptimizationFromHints() {
-        // [FROZEN] 이 메서드는 더 이상 호출되지 않음
-        if (AUTO_OPTIMIZE_FROZEN) {
-            return;
-        }
-
-        if (hintProvider == null)
-            return;
-
-        try {
-            String targetId = hintProvider.getTopTargetId();
-            if (targetId == null)
-                return;
-
-            int severity = hintProvider.getTopTargetSeverity();
-            if (severity <= 50)
-                return; // Fuse가 임계값 결정
-
-            if (activeOptimizations.contains(targetId))
-                return;
-
-            // Recommendation은 Fuse 내부 정책에서 결정
-            String recommendation = determineAction(targetId, severity);
-            applyOptimization(targetId, recommendation);
-
-        } catch (Exception e) {
-            PulseLogger.debug("Fuse", "HintProvider error: " + e.getMessage());
-        }
-    }
-
-    /**
-     * Fuse 내부 정책 - Echo가 아닌 Fuse가 판단.
-     */
-    private String determineAction(String targetId, int severity) {
-        return switch (targetId) {
-            case "zombie_ai" -> "Throttle zombie updates";
-            case "pathfinding" -> "Reduce pathfinding frequency";
-            case "simulation" -> "Apply simulation batching";
-            case "physics" -> "Apply physics LOD";
-            default -> "Apply generic optimization";
-        };
-    }
+    // [REMOVED] applyAutoOptimizationFromHints() - 동결 원칙에 의해 제거
+    // [REMOVED] determineAction() - 동결 원칙에 의해 제거
 
     /**
      * 수동으로 최적화 적용

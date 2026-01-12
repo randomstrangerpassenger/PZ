@@ -2,12 +2,12 @@
     CascadeGuard.lua
     이벤트 연쇄 깊이 관측
     
-    v0.1 Final
+    v0.2 - Strict Mode Support
     
     핵심 원칙:
     - 기본 OFF (observeOnly = true)
-    - 스킵 없이 깊이만 로깅
-    - v0.2에서 제어 모드 활성화 예정
+    - Default: 스킵 없이 깊이만 로깅
+    - Strict opt-in: 폭주 시 DROP (로그 필수)
 ]]
 
 require "Nerve/NerveUtils"
@@ -51,6 +51,14 @@ local function getMaxDepth()
         or 10
 end
 
+local function isStrictMode()
+    return NerveConfig 
+        and NerveConfig.area6 
+        and NerveConfig.area6.cascadeGuard 
+        and NerveConfig.area6.cascadeGuard.strict
+        or false
+end
+
 --------------------------------------------------------------------------------
 -- 깊이 추적
 --------------------------------------------------------------------------------
@@ -83,9 +91,17 @@ function CascadeGuard.enter(eventName)
         return true
     end
     
-    -- 제어 모드: 최대 깊이 초과 시 스킵
+    -- 제어 모드: 최대 깊이 초과 시
     if depth > getMaxDepth() then
-        NerveUtils.debug("CASCADE SKIP: " .. eventName .. " at depth " .. depth)
+        -- Strict 모드 체크
+        if not isStrictMode() then
+            -- Report-only: 로그만 남기고 통과
+            NerveUtils.warn("CASCADE: " .. eventName .. " depth=" .. depth .. " (report-only)")
+            return true
+        end
+        
+        -- Strict 모드: DROP 노골화 + 차단
+        NerveUtils.error("[!] LAST-RESORT DROP: " .. eventName .. " cascade depth=" .. depth .. " (strict)")
         CascadeGuard.currentDepth = CascadeGuard.currentDepth - 1  -- 롤백
         return false
     end

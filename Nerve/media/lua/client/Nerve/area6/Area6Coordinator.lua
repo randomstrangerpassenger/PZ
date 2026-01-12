@@ -2,25 +2,25 @@
     Area6Coordinator.lua
     Area 6 통합 조율 모듈
     
-    v1.2 - Critical Reinforcement
+    v2.0 - EventRecursionGuard Refactoring
     
     핵심 역할:
-    - EventDeduplicator, CascadeGuard 통합 관리
+    - EventRecursionGuard, CascadeGuard 통합 관리
     - [Phase 1] EventFormClassifier, SustainedPressureDetector, EarlyExitHandler 통합
     - [Reinforcement] NerveTiming 단일 진입점, NerveFailsoft 보호
     - 단일 진입점 shouldProcess() API 제공
     - 컴포넌트 초기화/종료 조율
     
-    EarlyExit 안전장치:
-    - 첫 발생(First occurrence)은 절대 차단하지 않음
-    - 동일 tick + 동일 contextKey 재진입만 대상
+    변경 사항 (v2.0):
+    - EventDeduplicator 제거 → EventRecursionGuard 교체
+    - 틱 중복 스킵 제거, 재귀 폭주 감지만 수행
 ]]
 
 require "Nerve/NerveUtils"
 require "Nerve/NerveTiming"
 require "Nerve/NerveFailsoft"
 require "Nerve/area6/ContextExtractors"
-require "Nerve/area6/EventDeduplicator"
+require "Nerve/area6/EventRecursionGuard"
 require "Nerve/area6/CascadeGuard"
 require "Nerve/area6/EventFormClassifier"
 require "Nerve/area6/SustainedPressureDetector"
@@ -33,7 +33,7 @@ require "Nerve/area6/EarlyExitHandler"
 local Area6Coordinator = {}
 
 -- 컴포넌트 참조
-Area6Coordinator.deduplicator = Nerve.EventDeduplicator
+Area6Coordinator.recursionGuard = Nerve.EventRecursionGuard
 Area6Coordinator.cascadeGuard = Nerve.CascadeGuard
 Area6Coordinator.contextExtractors = Nerve.ContextExtractors
 -- Phase 1 컴포넌트
@@ -66,9 +66,9 @@ function Area6Coordinator.onTickStart()
         Area6Coordinator.formClassifier.onTickStart()
     end
     
-    -- Deduplicator 초기화
-    if Area6Coordinator.deduplicator then
-        Area6Coordinator.deduplicator.onTickStart()
+    -- RecursionGuard 초기화
+    if Area6Coordinator.recursionGuard then
+        Area6Coordinator.recursionGuard.onTickStart()
     end
     
     -- CascadeGuard 체크
@@ -101,40 +101,32 @@ function Area6Coordinator.shouldProcess(eventName, contextKey)
     -- [Phase 1] Sustained Pressure 체크 및 Early Exit 연동
     if Area6Coordinator.pressureDetector and Area6Coordinator.earlyExitHandler then
         local pressureResult = Area6Coordinator.pressureDetector.recordAndCheck(eventName)
-        
-        -- Sustained 상태를 Early Exit Handler에 전달
         Area6Coordinator.earlyExitHandler.updateFromSustained(pressureResult.isSustained)
-        
-        -- [Phase 1-C] 이미 붕괴 상태 + contextKey 있음 → 추가 이벤트 개입 차단
-        -- 의미 불변: 동일 틱·동일 contextKey만 대상
-        if pressureResult.isSustained 
-            and Area6Coordinator.earlyExitHandler.shouldIntervene()
-            and contextKey ~= nil then
-            -- 중복 경로 무음 탈락 (연쇄 이벤트 후속 처리)
-            if Area6Coordinator.deduplicator 
-                and Area6Coordinator.deduplicator.shouldSkip(eventName, contextKey) then
-                return false
-            end
-        end
     end
     
-    -- 1. Deduplicator 체크 (기존)
-    if Area6Coordinator.deduplicator 
-        and NerveConfig.area6.deduplicator 
-        and NerveConfig.area6.deduplicator.enabled then
+    -- 1. RecursionGuard 체크 (크래시 방지용 최후 가드)
+    if Area6Coordinator.recursionGuard 
+        and NerveConfig.area6.recursionGuard 
+        and NerveConfig.area6.recursionGuard.enabled then
         
-        if Area6Coordinator.deduplicator.shouldSkip(eventName, contextKey) then
-            return false  -- 중복으로 스킵
+        if not Area6Coordinator.recursionGuard.enter(eventName) then
+            -- Invariant 검증: DROP 발생 기록
+            if Nerve.EventInvariants then
+                Nerve.EventInvariants.checkNoDropNoDelay(eventName, true, false)
+            end
+            return false  -- Strict + 폭주일 때만 도달
         end
     end
     
     -- 2. CascadeGuard 체크
     if Area6Coordinator.cascadeGuard then
         if not Area6Coordinator.cascadeGuard.enter(eventName) then
+            -- Invariant 검증: DROP 발생 기록
+            if Nerve.EventInvariants then
+                Nerve.EventInvariants.checkNoDropNoDelay(eventName, true, false)
+            end
             return false  -- 깊이 초과로 스킵
         end
-        -- Note: CascadeGuard.exit()는 이벤트 완료 후 호출해야 하지만,
-        -- v0.1에서는 observeOnly 모드이므로 생략해도 안전
     end
     
     return true  -- 처리
@@ -154,7 +146,7 @@ end
 
 function Area6Coordinator.getStats()
     local stats = {
-        deduplicator = nil,
+        recursionGuard = nil,
         cascadeGuard = nil,
         -- Phase 1
         formClassifier = nil,
@@ -162,8 +154,8 @@ function Area6Coordinator.getStats()
         earlyExitHandler = nil,
     }
     
-    if Area6Coordinator.deduplicator then
-        stats.deduplicator = Area6Coordinator.deduplicator.getStats()
+    if Area6Coordinator.recursionGuard then
+        stats.recursionGuard = Area6Coordinator.recursionGuard.getStats()
     end
     
     if Area6Coordinator.cascadeGuard then
@@ -192,13 +184,12 @@ function Area6Coordinator.printStatus()
     NerveUtils.info("Area 6 Status")
     NerveUtils.info("========================================")
     
-    -- Deduplicator 상태
-    if Area6Coordinator.deduplicator then
-        local stats = Area6Coordinator.deduplicator.getStats()
-        NerveUtils.info("Deduplicator:")
-        NerveUtils.info("  Total: " .. stats.totalCount)
-        NerveUtils.info("  Skipped: " .. stats.skipCount)
-        NerveUtils.info("  Entries: " .. stats.entryCount)
+    -- RecursionGuard 상태
+    if Area6Coordinator.recursionGuard then
+        local stats = Area6Coordinator.recursionGuard.getStats()
+        NerveUtils.info("RecursionGuard:")
+        NerveUtils.info("  Max Depth Observed: " .. stats.maxDepthObserved)
+        NerveUtils.info("  Block Count: " .. stats.blockCount)
     end
     
     -- CascadeGuard 상태

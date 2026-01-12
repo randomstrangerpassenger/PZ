@@ -1,13 +1,14 @@
 --[[
     EventInvariants.lua
-    이벤트 의미 불변 검증 (로그 전용)
+    이벤트 의미 불변 검증
     
-    v0.1 Final
+    v0.2 - checkNoDropNoDelay 추가
     
     핵심 역할:
     - 디버그/테스트 시 의미 불변 검증
     - CRITICAL 이벤트 통과 확인
     - 무음 드롭 방지
+    - Drop/Delay 금지 규칙 위반 감지
 ]]
 
 require "Nerve/NerveUtils"
@@ -77,7 +78,32 @@ end
 
 -- 순서 보존 검사 (v0.2에서 구현 예정)
 function EventInvariants.checkOrderPreserved(eventName, sequence)
-    -- v0.1에서는 순서 변경이 없으므로 항상 통과
+    -- v0.2에서는 순서 변경 기능이 없으므로 통과
+    return true
+end
+
+--------------------------------------------------------------------------------
+-- Drop/Delay 금지 규칙 검증
+--------------------------------------------------------------------------------
+
+-- [필수보완#3] Drop/Delay 금지 규칙 위반 감지
+-- 호출 지점: Area6Coordinator.shouldProcess() (DROP 발생 시)
+function EventInvariants.checkNoDropNoDelay(eventName, wasDropped, wasDelayed)
+    EventInvariants.checks = EventInvariants.checks + 1
+    
+    if wasDropped then
+        EventInvariants.violations = EventInvariants.violations + 1
+        NerveUtils.error("[!] INVARIANT: Event DROPPED: " .. eventName)
+        -- 철수 트리거만 (자동 조정 금지)
+        return false
+    end
+    
+    if wasDelayed then
+        EventInvariants.violations = EventInvariants.violations + 1
+        NerveUtils.error("[!] INVARIANT: Event DELAYED: " .. eventName)
+        return false
+    end
+    
     return true
 end
 

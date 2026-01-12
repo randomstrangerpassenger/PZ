@@ -23,7 +23,8 @@ NerveConfig.debug = false
 
 NerveConfig.area6 = {
     -- 활성화 여부
-    enabled = true,
+    -- [SEALED] DEFAULT OFF: 바닐라 동일 보장 (헌법 준수)
+    enabled = false,
     
     -- 래핑 대상 이벤트 목록 (최소 5~10개로 제한)
     -- "재현된 폭주가 확인된" 이벤트만 추가
@@ -46,10 +47,12 @@ NerveConfig.area6 = {
         -- OnTick은 중복 제거하면 안 됨 (매 틱 호출이 정상)
     },
     
-    -- EventDeduplicator 설정
-    deduplicator = {
-        enabled = true,
-        defaultLimit = 1,       -- 틱당 기본 허용 횟수
+    -- EventRecursionGuard 설정 (크래시 방지용 최후 가드)
+    -- [!] strict=true 시 DROP 발생 (crash prevention only)
+    recursionGuard = {
+        enabled = true,         -- 관측은 항상 활성화
+        strict = false,         -- DEFAULT: Report-only (차단 안 함)
+        maxDepth = 5000,        -- 폭주 임계값
     },
     
     -- seenThisTick 키 폭증 방지

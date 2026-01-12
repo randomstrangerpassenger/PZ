@@ -1,6 +1,11 @@
 --[[
-    NerveMod.lua - Nerve 모드 진입점 (v0.1)
+    NerveMod.lua - Nerve 모드 진입점 (v0.2)
     Pulse 감지, Idempotent 이벤트 래핑, Area 5/6 통합
+    
+    v0.2 변경사항:
+    - 래퍼 충돌 감지 + 철수(back-off) 로직 추가
+    - targetEvents 이름 검증 추가
+    - Passthrough 순수화 (에러 경로 비개입)
 ]]
 
 -- 의존성 로드
@@ -59,6 +64,37 @@ local function getListenerCount(eventObj)
     return nil  -- unknown
 end
 
+--------------------------------------------------------------------------------
+-- Area6 철수 (Back-off)
+--------------------------------------------------------------------------------
+
+-- Area6 비활성화 (충돌 시 철수)
+local function backoffArea6(reason)
+    NerveUtils.warn("[!] Area6 BACK-OFF: " .. reason)
+    if NerveConfig and NerveConfig.area6 then
+        NerveConfig.area6.enabled = false
+    end
+end
+
+-- 래핑 충돌 감지 (시작 시점)
+local function checkWrapperConflict(eventName)
+    local eventObj = Events[eventName]
+    if not eventObj then return false end
+    
+    -- 이미 Nerve가 래핑함
+    if eventObj.__nerveWrapped then
+        return false
+    end
+    
+    -- 다른 모드 래핑 감지 (휴리스틱)
+    if eventObj.__customWrapped or eventObj.__modWrapped or eventObj.__wrapped then
+        NerveUtils.warn("CONFLICT: " .. eventName .. " already wrapped by another mod")
+        return true
+    end
+    
+    return false
+end
+
 -- 이벤트 래핑 (Idempotent)
 local function wrapEvent(eventName)
     local eventObj = Events[eventName]
@@ -66,6 +102,12 @@ local function wrapEvent(eventName)
     -- 이벤트 존재 확인
     if not eventObj then
         NerveUtils.warn("Event not found: " .. eventName)
+        return false
+    end
+    
+    -- 충돌 감지: 다른 모드가 이미 래핑한 경우 철수
+    if checkWrapperConflict(eventName) then
+        backoffArea6("Wrapper conflict on " .. eventName)
         return false
     end
     
@@ -123,7 +165,7 @@ local function wrapEvent(eventName)
                 end
             end
             
-            -- 원본 콜백 실행
+            -- [필수보완#2] 순수 Passthrough: Nerve는 에러 경로에 개입하지 않음
             return callback(...)
         end
         
@@ -143,7 +185,7 @@ end
 
 -- 래퍼 무결성 체크
 function Nerve.checkWrapperIntegrity()
-    if not NerveConfig or not NerveConfig.area6 then return end
+    if not NerveConfig or not NerveConfig.area6 then return 0 end
     
     local targetEvents = NerveConfig.area6.targetEvents or {}
     local issues = 0
@@ -160,6 +202,8 @@ function Nerve.checkWrapperIntegrity()
     
     if issues > 0 then
         NerveUtils.warn("Wrapper integrity issues: " .. issues)
+        -- 충돌 발견 시 Area6 철수
+        backoffArea6("Wrapper integrity compromised")
     else
         NerveUtils.debug("Wrapper integrity OK")
     end
@@ -197,8 +241,19 @@ local function initializeNerve()
         return
     end
     
+    -- [Phase 3] targetEvents 이름 검증
+    local rawEvents = NerveConfig.area6.targetEvents or {}
+    local validatedEvents = {}
+    for _, eventName in ipairs(rawEvents) do
+        if Events[eventName] then
+            table.insert(validatedEvents, eventName)
+        else
+            NerveUtils.warn("INVALID: '" .. eventName .. "' removed from targets")
+        end
+    end
+    
     -- 이벤트 래핑
-    local targetEvents = NerveConfig.area6.targetEvents or {}
+    local targetEvents = validatedEvents
     local wrapResults = {
         success = {},
         failed = {}

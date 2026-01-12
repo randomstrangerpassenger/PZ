@@ -13,10 +13,14 @@ import java.util.*;
  * @since 0.1.0
  * @since 2.0 - 단순화 (IBottleneckDetector 삭제됨)
  * @since 2.1 - IOptimizationHintProvider SPI 연동
+ * @since 3.0 - AUTO_OPTIMIZE_FROZEN: 동결 원칙에 의해 자동 최적화 비활성화
  */
 public class FuseOptimizer {
 
     private static final FuseOptimizer INSTANCE = new FuseOptimizer();
+
+    // [FROZEN] 자동 최적화 기능 영구 비활성화 - 동결 원칙 위반 방지
+    private static final boolean AUTO_OPTIMIZE_FROZEN = true;
 
     // 최적화 상태
     private boolean enabled = false;
@@ -58,6 +62,11 @@ public class FuseOptimizer {
     }
 
     public void setAutoOptimize(boolean auto) {
+        // [FROZEN] 자동 최적화 기능은 동결 원칙에 의해 비활성화됨
+        if (AUTO_OPTIMIZE_FROZEN) {
+            PulseLogger.warn("Fuse", "AUTO_OPTIMIZE_FROZEN: setAutoOptimize() ignored");
+            return;
+        }
         this.autoOptimize = auto;
         PulseLogger.info("Fuse", "Auto-optimize: " + (auto ? "ON" : "OFF"));
     }
@@ -74,8 +83,8 @@ public class FuseOptimizer {
             return;
         lastAnalysisTime = now;
 
-        // IOptimizationHintProvider 연동 - 자동 최적화 (리플렉션 사용)
-        if (autoOptimize) {
+        // [FROZEN] 자동 최적화 기능 비활성화됨
+        if (autoOptimize && !AUTO_OPTIMIZE_FROZEN) {
             applyAutoOptimizationFromHints();
         }
     }
@@ -85,8 +94,15 @@ public class FuseOptimizer {
      * Primitive-only API 사용 - Echo는 관측치만 제공, Fuse가 판단.
      * 
      * @since 3.0 - Primitive-only refactoring
+     * @deprecated 동결 원칙에 의해 비활성화됨. Observer 원칙 침범 가능성.
      */
+    @Deprecated
     private void applyAutoOptimizationFromHints() {
+        // [FROZEN] 이 메서드는 더 이상 호출되지 않음
+        if (AUTO_OPTIMIZE_FROZEN) {
+            return;
+        }
+
         if (hintProvider == null)
             return;
 

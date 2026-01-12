@@ -21,10 +21,6 @@ require "Nerve/NerveFailsoft"
 require "Nerve/area6/ContextExtractors"
 require "Nerve/area6/EventRecursionGuard"
 require "Nerve/area6/CascadeGuard"
--- [REMOVED] 정책성 컴포넌트 제거 (헌법 준수)
--- require "Nerve/area6/EventFormClassifier"
--- require "Nerve/area6/SustainedPressureDetector"
--- require "Nerve/area6/EarlyExitHandler"
 
 --------------------------------------------------------------------------------
 -- Area6Coordinator 모듈

@@ -21,6 +21,21 @@ NerveConfig.debug = false
 -- Area 6: 이벤트 디스패치 안정화
 --------------------------------------------------------------------------------
 
+--[[
+    ┌──────────────────────────────────────────────────────────────────────────┐
+    │ CONSTITUTION: Area 6 Exclusions (Scope-Creep Prevention)                 │
+    │                                                                          │
+    │ ❌ Cascade/Depth as triggers (depth is evidence-only)                    │
+    │ ❌ Cooldown recovery, consecutive-error counters, time-based cooldowns   │
+    │ ❌ Performance KPIs (<1ms, <1MB, etc.) in verification                   │
+    │ ❌ Nerve deciding exception re-propagation (follow vanilla, log only)    │
+    │                                                                          │
+    │ ✅ Triggers: Only (1) same-tick self-recursion, (2) exception            │
+    │ ✅ Action: Only same-tick pass-through (withdrawal)                      │
+    │ ✅ Evidence: Lazy collection ONLY after incident triggers                │
+    └──────────────────────────────────────────────────────────────────────────┘
+]]
+
 NerveConfig.area6 = {
     -- 활성화 여부
     -- [SEALED] DEFAULT OFF: 바닐라 동일 보장 (헌법 준수)
@@ -39,34 +54,41 @@ NerveConfig.area6 = {
         -- 추후 관측 데이터 기반으로 확장
     },
     
-    -- 기술적 안정성 목적 중복 제거 대상 이벤트 집합
-    -- (이벤트 의미 기반 선별이 아닌, contextKey 존재 + 동일 틱 중복 제거 가능)
-    deduplicateEvents = {
-        ["OnContainerUpdate"] = true,
-        ["OnInventoryUpdate"] = true,
-        -- OnTick은 중복 제거하면 안 됨 (매 틱 호출이 정상)
+    -- [REMOVED] deduplicateEvents: Drop 금지 원칙 위반 (중복 제거 = Drop)
+    -- deduplicateEvents = {...} 삭제됨
+    
+    -- 트리거 설정 (2개 고정)
+    triggers = {
+        -- 트리거 1: same-tick self-recursion
+        reentry = {
+            enabled = true,
+        },
+        -- 트리거 2: exception (xpcall 격리)
+        exception = {
+            enabled = true,
+        },
+        -- [SEALED] 추가 트리거 금지
     },
     
-    -- EventRecursionGuard 설정 (관측 전용)
-    -- [FIX] strict 옵션 제거 - Drop 금지 원칙 준수
-    recursionGuard = {
-        enabled = true,         -- 관측은 항상 활성화
-        maxDepth = 5000,        -- 폭주 임계값 (경고 로그 기준)
+    -- 액션 설정 (1개 고정)
+    action = {
+        -- 유일한 액션: 동일 틱 철수 (pass-through)
+        type = "SAME_TICK_PASSTHROUGH",  -- 변경 금지
+    },
+    
+    -- 증거 수집 설정 (incident 후 Lazy만)
+    evidence = {
+        -- 활성화 여부
+        enabled = true,
+        -- [SEALED] 상시 계측 금지 (incident 후에만)
+        incidentGatedOnly = true,
     },
     
     -- seenThisTick 키 폭증 방지
     maxSeenEntriesPerTick = 1000,
     
-    -- CascadeGuard 설정 (관측 전용)
-    -- [FIX] strict 옵션 제거 - Drop 금지 원칙 준수
-    cascadeGuard = {
-        enabled = false,        -- 기본 OFF
-        observeOnly = true,     -- 항상 관측 전용
-        maxDepth = 10,          -- 경고 로그 기준
-    },
-    
     -- [REMOVED] 정책성 컴포넌트 설정 제거 (헌법 준수)
-    -- sustainedPressure, earlyExit는 더 이상 사용되지 않음
+    -- sustainedPressure, earlyExit, cascadeGuard.strict는 더 이상 사용되지 않음
 }
 
 --------------------------------------------------------------------------------

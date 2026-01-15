@@ -1,16 +1,16 @@
 --[[
     NerveMod.lua - Nerve 모드 진입점 (v0.2)
-    Pulse 감지, Idempotent 이벤트 래핑, Area 5/6 통합
+    Pulse 감지, Idempotent 이벤트 래핑, Area 6 통합
     
     v0.2 변경사항:
     - 래퍼 충돌 감지 + 철수(back-off) 로직 추가
     - targetEvents 이름 검증 추가
     - Passthrough 순수화 (에러 경로 비개입)
+    - Area 5 기능 제거 (폐기됨)
 ]]
 
 -- 의존성 로드
 require "Nerve/NerveUtils"
-require "Nerve/area5/Area5Coordinator"
 
 --------------------------------------------------------------------------------
 -- Nerve 메인 모듈
@@ -279,10 +279,7 @@ local function initializeNerve()
     NerveUtils.info("Mode: " .. (Nerve.hasPulse and "Full (Pulse)" or "Lite (Standalone)"))
     NerveUtils.info("========================================")
     
-    -- Area 5 초기화 (UI/Inventory)
-    if Nerve.Area5 and Nerve.Area5.init then
-        Nerve.Area5.init()
-    end
+
     
     initState = "DONE"
 end
@@ -293,22 +290,12 @@ local function onTickStart()
     if Nerve.Area6 and Nerve.Area6.onTickStart then
         Nerve.Area6.onTickStart()
     end
-    
-    -- Area5 틱 시작 처리
-    if Nerve.Area5 and Nerve.Area5.onTickStart then
-        Nerve.Area5.onTickStart()
-    end
 end
 
 local function onTickEnd()
     -- Area6 틱 종료 처리
     if Nerve.Area6 and Nerve.Area6.onTickEnd then
         Nerve.Area6.onTickEnd()
-    end
-    
-    -- Area5 틱 종료 처리
-    if Nerve.Area5 and Nerve.Area5.onTickEnd then
-        Nerve.Area5.onTickEnd()
     end
 end
 

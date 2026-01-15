@@ -2,7 +2,7 @@
     NerveConfig.lua
     Nerve 모드 설정 파일
     
-    v0.1 Final - 이벤트 디스패치 안정화
+    v0.2 - Area 5 제거됨 (폐기)
 ]]
 
 NerveConfig = NerveConfig or {}
@@ -67,41 +67,6 @@ NerveConfig.area6 = {
     
     -- [REMOVED] 정책성 컴포넌트 설정 제거 (헌법 준수)
     -- sustainedPressure, earlyExit는 더 이상 사용되지 않음
-}
-
---------------------------------------------------------------------------------
--- Area 5: UI/인벤토리 안정화
--- "데이터는 즉시, 시각은 모아서"
---------------------------------------------------------------------------------
-
-NerveConfig.area5 = {
-    -- 활성화 여부
-    enabled = true,
-    
-    -- InventoryGuard: refreshBackpack 틱 단위 coalesce
-    inventoryGuard = {
-        enabled = true,
-    },
-    
-    -- UIRefreshCoalescer: 범용 UI 갱신 합치기
-    uiCoalesce = {
-        enabled = true,
-        maxPanelsPerTick = 50,      -- 폭주 방지 상한
-        overflowBehavior = "bypass", -- bypass: coalesce 포기 후 즉시 실행
-        -- defer: ❌ 금지 (틱 넘김 = 캐시)
-        -- drop: ❌ 금지 (UI 누락 = 의미 변화)
-    },
-    
-    -- ContainerScanDedup: 컨테이너 스캔 중복 제거
-    containerScan = {
-        enabled = true,
-    },
-    
-    -- 지연 초기화 재시도
-    retryInit = {
-        enabled = true,
-        maxRetries = 3,
-    },
 }
 
 --------------------------------------------------------------------------------

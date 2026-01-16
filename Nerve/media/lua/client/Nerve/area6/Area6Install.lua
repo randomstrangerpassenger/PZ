@@ -206,6 +206,78 @@ function Area6Install.checkIntegrity()
 end
 
 --------------------------------------------------------------------------------
+-- [P2-1] 언래핑 (안전 롤백)
+--------------------------------------------------------------------------------
+
+-- 단일 이벤트 언래핑
+-- @param eventName: 이벤트 이름
+-- @return: 성공 여부
+function Area6Install.unwrapEvent(eventName)
+    if not Events then
+        return false
+    end
+    
+    local eventObj = Events[eventName]
+    if not eventObj then
+        return false
+    end
+    
+    -- 래핑되지 않았으면 스킵
+    if not eventObj[NERVE_WRAPPED_KEY] then
+        NerveUtils.debug("[Area6Install] Not wrapped: " .. eventName)
+        return true
+    end
+    
+    -- 원본 Add 복구
+    local originalAdd = eventObj[NERVE_ORIGINAL_ADD_KEY]
+    if not originalAdd then
+        NerveUtils.warn("[Area6Install] Cannot unwrap: originalAdd lost for " .. eventName)
+        return false
+    end
+    
+    eventObj.Add = originalAdd
+    eventObj[NERVE_WRAPPED_KEY] = nil
+    eventObj[NERVE_ORIGINAL_ADD_KEY] = nil
+    
+    -- InstallState 갱신
+    if Nerve.Area6InstallState then
+        Nerve.Area6InstallState.setEventState(eventName, false)
+    end
+    
+    NerveUtils.info("[Area6Install] UNWRAPPED: " .. eventName)
+    return true
+end
+
+-- 전체 언래핑
+-- @return: { success: table, failed: table }
+function Area6Install.unwrapAll()
+    local results = {
+        success = {},
+        failed = {},
+    }
+    
+    local targetEvents = NerveConfig 
+        and NerveConfig.area6 
+        and NerveConfig.area6.targetEvents 
+        or {}
+    
+    for _, eventName in ipairs(targetEvents) do
+        if Area6Install.unwrapEvent(eventName) then
+            table.insert(results.success, eventName)
+        else
+            table.insert(results.failed, eventName)
+        end
+    end
+    
+    -- 상태 로그
+    if Nerve.Area6InstallState then
+        Nerve.Area6InstallState.logStateOnce()
+    end
+    
+    return results
+end
+
+--------------------------------------------------------------------------------
 -- Nerve에 등록
 --------------------------------------------------------------------------------
 

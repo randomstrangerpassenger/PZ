@@ -150,22 +150,12 @@ local function wrapEvent(eventName)
         
         -- 새 래핑 콜백 생성
         local wrapped = function(...)
-            -- Area6 Coordinator가 있으면 처리 위임
-            if Nerve.Area6 and Nerve.Area6.shouldProcess then
-                local contextKey = nil
-                
-                -- ContextExtractors가 있으면 키 추출
-                if Nerve.ContextExtractors and Nerve.ContextExtractors.getContextKey then
-                    contextKey = Nerve.ContextExtractors.getContextKey(eventName, ...)
-                end
-                
-                if not Nerve.Area6.shouldProcess(eventName, contextKey) then
-                    -- 스킵됨
-                    return
-                end
+            -- [P1-2 FIX] 단일 실행 경로: Area6Dispatcher로 위임
+            if Nerve.Area6Dispatcher and Nerve.Area6Dispatcher.dispatch then
+                return Nerve.Area6Dispatcher.dispatch(eventName, callback, ...)
             end
             
-            -- [필수보완#2] 순수 Passthrough: Nerve는 에러 경로에 개입하지 않음
+            -- Dispatcher 없으면 원본 호출 (폴백)
             return callback(...)
         end
         
@@ -284,18 +274,17 @@ local function initializeNerve()
     initState = "DONE"
 end
 
--- 틱 핸들러
-local function onTickStart()
-    -- Area6 틱 시작 처리
+-- 틱 핸들러 (단일 진입점)
+local function onTick()
+    -- [FIX] 단일 OnTick 핸들러로 통합
+    -- 틱 시작 처리 (Area6TickCtx 갱신)
+    if Nerve.Area6TickCtx and Nerve.Area6TickCtx.onTickStart then
+        Nerve.Area6TickCtx.onTickStart()
+    end
+    
+    -- 레거시 Coordinator 호환 (deprecated)
     if Nerve.Area6 and Nerve.Area6.onTickStart then
         Nerve.Area6.onTickStart()
-    end
-end
-
-local function onTickEnd()
-    -- Area6 틱 종료 처리
-    if Nerve.Area6 and Nerve.Area6.onTickEnd then
-        Nerve.Area6.onTickEnd()
     end
 end
 
@@ -311,15 +300,9 @@ if Events.OnInitGlobalModData then
     Events.OnInitGlobalModData.Add(initializeNerve)
 end
 
--- 틱 시작 처리
+-- [FIX] 틱 처리 - 단일 핸들러만 등록
 if Events.OnTick then
-    Events.OnTick.Add(onTickStart)
-end
-
--- 틱 종료 처리
--- [FIX] OnTickEven → OnTick 변경 (Delay 금지 원칙 준수)
-if Events.OnTick then
-    Events.OnTick.Add(onTickEnd)
+    Events.OnTick.Add(onTick)
 end
 
 -- 공개 API

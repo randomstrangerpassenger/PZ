@@ -2,6 +2,15 @@
     Area6Coordinator.lua
     Area 6 통합 조율 모듈
     
+    ┌──────────────────────────────────────────────────────────────────────────┐
+    │ ⚠️ DEPRECATED - DO NOT USE                                              │
+    │                                                                          │
+    │ This module is superseded by Area6Dispatcher.lua                         │
+    │ Kept only for backward compatibility. Will be removed in future version. │
+    │                                                                          │
+    │ New code should use: Nerve.Area6Dispatcher.dispatch()                    │
+    └──────────────────────────────────────────────────────────────────────────┘
+    
     v3.0 - Pure Observation Mode (헌법 준수)
     
     핵심 역할:

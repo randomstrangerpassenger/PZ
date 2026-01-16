@@ -104,20 +104,8 @@ function Area6Dispatcher.dispatch(eventName, listener, ...)
         TickCtx.enterListener(eventName, listenerId)
     end
     
-    -- 증거 기록 (평시: 비용 최소)
-    if Nerve.Area6DupCount then
-        Nerve.Area6DupCount.record(eventName, listenerId)
-    end
-    if Nerve.Area6Depth then
-        Nerve.Area6Depth.record()
-    end
-    if Nerve.Area6Fanout then
-        Nerve.Area6Fanout.recordExecution()
-    end
-    if Nerve.Area6Repeat then
-        -- targetId 없이 기본 기록
-        Nerve.Area6Repeat.record(eventName, listenerId, nil)
-    end
+    -- [P3-1 FIX] 증거 기록은 incident 후에만 (상시 호출 금지)
+    -- 평시에는 아무것도 하지 않음
     
     -- [STEP 4] xpcall 격리 실행 -> 에러 시 incident + passthrough
     local success, result
@@ -126,6 +114,20 @@ function Area6Dispatcher.dispatch(eventName, listener, ...)
         success, result = FailSoft.executeIsolated(eventName, listenerId, listener, ...)
         
         if not success then
+            -- [P3-1] incident 발생 후에만 증거 기록
+            if Nerve.Area6DupCount then
+                Nerve.Area6DupCount.record(eventName, listenerId)
+            end
+            if Nerve.Area6Depth then
+                Nerve.Area6Depth.record()
+            end
+            if Nerve.Area6Fanout then
+                Nerve.Area6Fanout.recordExecution()
+            end
+            if Nerve.Area6Repeat then
+                Nerve.Area6Repeat.record(eventName, listenerId, nil)
+            end
+            
             -- [STEP 5] incident 발생 -> 증거 수집
             if Evidence then
                 Evidence.collect(eventName, listenerId, "error")
@@ -148,11 +150,12 @@ function Area6Dispatcher.dispatch(eventName, listener, ...)
     end
     
     -- [STEP 6] 반환
+    -- [P1-1 FIX] 헌법: Nerve는 예외를 막지 않는다 - 예외 재전파
     if success then
         return result
     else
-        -- 에러 시 nil 반환 (철수 완료, 로그는 FailSoft에서 처리됨)
-        return nil
+        -- 예외 재전파 (바닐라 흐름 보존)
+        error(result)
     end
 end
 

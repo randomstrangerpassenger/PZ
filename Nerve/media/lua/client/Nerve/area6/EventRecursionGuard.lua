@@ -2,6 +2,13 @@
     EventRecursionGuard.lua
     재귀/재진입 깊이 가드 (관측 전용)
     
+    ┌──────────────────────────────────────────────────────────────────────────┐
+    │ ⚠️ DEPRECATED - DO NOT USE                                              │
+    │                                                                          │
+    │ This module is superseded by Area6Reentry.lua                            │
+    │ Kept only for backward compatibility. Will be removed in future version. │
+    └──────────────────────────────────────────────────────────────────────────┘
+    
     v0.3 - Pure Observation Mode (헌법 준수)
     
     핵심 원칙:

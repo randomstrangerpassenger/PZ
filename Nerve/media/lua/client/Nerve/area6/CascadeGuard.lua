@@ -2,6 +2,13 @@
     CascadeGuard.lua
     이벤트 연쇄 깊이 관측 (관측 전용)
     
+    ┌──────────────────────────────────────────────────────────────────────────┐
+    │ ⚠️ DEPRECATED - DO NOT USE                                              │
+    │                                                                          │
+    │ This module is superseded by Area6Depth.lua (evidence-only)              │
+    │ Kept only for backward compatibility. Will be removed in future version. │
+    └──────────────────────────────────────────────────────────────────────────┘
+    
     v0.3 - Pure Observation Mode (헌법 준수)
     
     핵심 원칙:

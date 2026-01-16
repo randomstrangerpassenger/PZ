@@ -120,7 +120,14 @@ function Area6Evidence.emitSummary()
     
     local latest = Area6Evidence.collected[#Area6Evidence.collected]
     
+    -- [P3-2] 신뢰도 라벨 (InstallState)
+    local reliability = "unknown"
+    if Nerve.Area6InstallState then
+        reliability = Nerve.Area6InstallState.getState()
+    end
+    
     NerveUtils.info("  [Evidence]")
+    NerveUtils.info("    reliability: " .. reliability)
     NerveUtils.info("    dupCount: " .. latest.dupCount .. " (" .. makeBucket(latest.dupCount) .. ")")
     NerveUtils.info("    chainDepth: " .. latest.chainDepth)
     NerveUtils.info("    fanoutExecuted: " .. latest.fanoutExecuted .. " (" .. makeBucket(latest.fanoutExecuted) .. ")")

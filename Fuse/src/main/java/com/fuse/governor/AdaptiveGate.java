@@ -6,18 +6,15 @@ import com.fuse.telemetry.TelemetryReason;
 import com.pulse.api.log.PulseLogger;
 
 /**
- * Adaptive Gate - 조건부 개입 스위치 (v2.6 Bundle C).
+ * Adaptive Gate - 조건부 개입 스위치.
  * 
  * 평시(PASSTHROUGH): Fuse 개입 완전 비활성화 → 제로 오버헤드
  * 위기(ACTIVE): 기존 Throttle 로직 활성화
- * 강제휴식(COOLDOWN): Bundle C - 개입 강제 차단 (Sustained 감지 후)
+ * 강제휴식(COOLDOWN): 개입 강제 차단 (Sustained 감지 후)
  * 
- * Bundle C 정체성: "성능 최적화"가 아닌 "손 떼기 안전장치"
+ * 정체성: "성능 최적화"가 아닌 "손 떼기 안전장치"
  * - ACTIVE가 오래 유지되면 COOLDOWN으로 강제 복귀
  * - "Fuse ON이 더 끊김" 문제를 구조적으로 차단
- * 
- * @since Fuse 2.5.0
- * @since Fuse 2.6.0 - Bundle C: Sustained Early Exit
  */
 public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
 
@@ -27,10 +24,10 @@ public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
     public enum GateState {
         PASSTHROUGH, // 평시: 개입 없음
         ACTIVE, // 위기: 개입 활성화
-        COOLDOWN // Bundle C: 강제 개입 금지
+        COOLDOWN // 강제 개입 금지
     }
 
-    /** Bundle C: Escape 사유 */
+    /** Escape 사유 */
     private enum EscapeReason {
         TIMEOUT, // ACTIVE 시간 상한 초과
         HARD_STREAK // hard_limit 연속 발생
@@ -44,7 +41,7 @@ public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
     private static final double EXIT_5S_AVG_MS = 12.0;
     private static final int EXIT_STABILITY_TICKS = 180;
 
-    // --- Bundle C: 로그 레이트리밋 ---
+    // 로그 레이트리밋
     private static final int ESCAPE_LOG_LIMIT = 10;
 
     // --- 상태 ---
@@ -52,7 +49,7 @@ public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
     private int stabilityCounter = 0;
     private long stateTransitions = 0;
 
-    // --- Bundle C: Sustained Early Exit 상태 ---
+    // Sustained Early Exit 상태
     private long activeEnterMs = 0; // ACTIVE 진입 시각 (1회만 설정!)
     private long cooldownUntilMs = 0; // COOLDOWN 만료 시각
     private int hardLimitStreak = 0; // 연속 hard limit 횟수
@@ -120,7 +117,7 @@ public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
         // ═══ 0. COOLDOWN 만료 복귀 (최상단 고정) ═══
         handleCooldownRecovery(nowMs);
 
-        // ═══ 1. Bundle C: Sustained Early Exit (opt-in 체크) ═══
+        // ═══ 1. Sustained Early Exit (opt-in 체크) ═══
         if (config.isSustainedEarlyExitEnabled() && state == GateState.ACTIVE) {
             if (isSustainedActive(nowMs)) {
                 EscapeReason reason = getSustainedReason(nowMs);
@@ -178,7 +175,7 @@ public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // Bundle C: Sustained 판정 (O(1) 핫패스)
+    // Sustained 판정 (O(1) 핫패스)
     // ═══════════════════════════════════════════════════════════════
 
     /**
@@ -265,7 +262,7 @@ public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // Bundle C: Escape 카운터 기록 (레이트리밋)
+    // Escape 카운터 기록 (레이트리밋)
     // ═══════════════════════════════════════════════════════════════
 
     private void recordEscape(EscapeReason reason) {
@@ -320,7 +317,7 @@ public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
         return stabilityCounter;
     }
 
-    // --- Bundle C Getters (Snapshot용) ---
+    // Getters (Snapshot용)
 
     public long getEscapeCount() {
         return escapeCount;
@@ -349,7 +346,7 @@ public class AdaptiveGate implements TickBudgetGovernor.HardLimitObserver {
         state = GateState.PASSTHROUGH;
         stabilityCounter = 0;
         stateTransitions = 0;
-        // Bundle C 리셋
+        // 리셋
         activeEnterMs = 0;
         cooldownUntilMs = 0;
         hardLimitStreak = 0;

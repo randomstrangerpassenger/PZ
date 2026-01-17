@@ -3,6 +3,8 @@ package com.pulse.api.log;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Pulse 로깅 파사드.
@@ -33,6 +35,9 @@ public final class PulseLogger {
 
     /** 전역 기본 로그 레벨 */
     private static volatile PulseLogLevel globalLevel = PulseLogLevel.INFO;
+
+    /** FATAL 로그용 타임스탬프 포맷 */
+    private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
 
     private PulseLogger() {
     }
@@ -125,6 +130,43 @@ public final class PulseLogger {
 
     public static void error(String module, String message, Throwable t) {
         getLogger(module).error(message, t);
+    }
+
+    // --- FATAL 로깅 (항상 출력) ---
+
+    /**
+     * 치명적 오류 로깅.
+     * 로그 레벨과 무관하게 항상 System.err에 직접 출력됩니다.
+     * OOM, 크래시 등 로깅 시스템 자체가 실패할 수 있는 상황에서 사용하세요.
+     *
+     * @param module  모듈 이름
+     * @param message 오류 메시지
+     */
+    public static void fatal(String module, String message) {
+        fatal(module, message, null);
+    }
+
+    /**
+     * 치명적 오류 로깅 (예외 포함).
+     * 로그 레벨과 무관하게 항상 System.err에 직접 출력됩니다.
+     *
+     * @param module  모듈 이름
+     * @param message 오류 메시지
+     * @param t       예외 (nullable)
+     */
+    public static void fatal(String module, String message, Throwable t) {
+        // 직접 출력 - 로거 조회 없음, 레벨 체크 없음
+        try {
+            String timestamp = LocalDateTime.now().format(TIME_FORMAT);
+            String formatted = String.format("[%s] [%s/FATAL] %s", timestamp, module, message);
+            System.err.println(formatted);
+            if (t != null) {
+                t.printStackTrace(System.err);
+            }
+        } catch (Throwable ignored) {
+            // 최후의 fallback - 포맷팅조차 실패하면 raw 출력
+            System.err.println("[FATAL] " + module + ": " + message);
+        }
     }
 
     // --- 모듈별 상수---

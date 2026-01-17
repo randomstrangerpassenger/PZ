@@ -5,20 +5,17 @@ import com.fuse.telemetry.TelemetryReason;
 import com.pulse.api.log.PulseLogger;
 
 /**
- * Tick Budget Governor - 틱당 시간 상한 관리 (v2.6 Bundle C).
+ * Tick Budget Governor - 틱당 시간 상한 관리.
  * 예산 초과 시 컷오프, Batch Check로 nanoTime() 비용 최소화.
  * 
- * Bundle C: HardLimitObserver 패턴으로 AdaptiveGate에 hard limit 이벤트 통지.
- * 
- * @since Fuse 1.0.0
- * @since Fuse 2.6.0 - Bundle C: HardLimitObserver
+ * HardLimitObserver 패턴으로 AdaptiveGate에 hard limit 이벤트 통지.
  */
 public class TickBudgetGovernor {
 
     private static final String LOG = "Fuse";
 
     // ═══════════════════════════════════════════════════════════════
-    // Bundle C: HardLimitObserver 인터페이스 (순환 참조 방지)
+    // HardLimitObserver 인터페이스 (순환 참조 방지)
     // ═══════════════════════════════════════════════════════════════
 
     /**
@@ -51,7 +48,7 @@ public class TickBudgetGovernor {
     private long interventionStartNanos = 0;
     private boolean softLimitWarned = false;
 
-    // --- Bundle C: 3점 봉인 플래그 (봉인#1) ---
+    // 3점 봉인 플래그 (봉인#1)
     private boolean hardLimitHitThisTick = false;
     private HardLimitObserver observer;
 
@@ -71,7 +68,7 @@ public class TickBudgetGovernor {
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // Bundle C: Observer 설정
+    // Observer 설정
     // ═══════════════════════════════════════════════════════════════
 
     public void setHardLimitObserver(HardLimitObserver observer) {
@@ -90,10 +87,10 @@ public class TickBudgetGovernor {
         zombiesProcessedThisTick = 0;
         cutoffTriggered = false;
         lastReason = null;
-        // v2.5: 오버헤드 측정 리셋
+        // 오버헤드 측정 리셋
         fuseConsumedMs = 0.0;
         softLimitWarned = false;
-        // Bundle C: 3점 봉인 1) 리셋
+        // 3점 봉인 1) 리셋
         hardLimitHitThisTick = false;
     }
 
@@ -107,7 +104,7 @@ public class TickBudgetGovernor {
         }
         tickStartNanos = -1;
 
-        // Bundle C: 3점 봉인 3) 조건부 miss 통지
+        // 3점 봉인 3) 조건부 miss 통지
         if (!hardLimitHitThisTick && observer != null) {
             observer.onHardLimitMiss();
         }
@@ -116,7 +113,7 @@ public class TickBudgetGovernor {
     }
 
     /**
-     * ReasonStats 연동 (v2.5).
+     * ReasonStats 연동.
      */
     public void setReasonStats(ReasonStats reasonStats) {
         this.reasonStats = reasonStats;
@@ -154,7 +151,7 @@ public class TickBudgetGovernor {
                 reasonStats.increment(TelemetryReason.BUDGET_HARD_LIMIT);
             }
             hardLimitHits++;
-            // Bundle C: 3점 봉인 2) 세팅 + Observer 통지
+            // 3점 봉인 2) 세팅 + Observer 통지
             hardLimitHitThisTick = true;
             if (observer != null) {
                 observer.onHardLimitHit();

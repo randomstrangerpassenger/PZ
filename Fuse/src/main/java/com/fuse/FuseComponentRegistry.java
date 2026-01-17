@@ -40,33 +40,32 @@ import com.fuse.throttle.FuseThrottleController;
  * 13. FuseOptimizer (Singleton)
  * </pre>
  * 
- * @since Fuse 2.4.0
  */
 public class FuseComponentRegistry {
 
-    // --- Phase 1: Core Safety Components ---
+    // Core Safety Components
     private RollingTickStats stats;
     private TickBudgetGovernor governor;
     private SpikePanicProtocol panicProtocol;
     private ReasonStats reasonStats;
-    private AdaptiveGate adaptiveGate; // v2.5
-    private FuseSnapshotProvider snapshotProvider; // v2.5
+    private AdaptiveGate adaptiveGate;
+    private FuseSnapshotProvider snapshotProvider;
 
-    // --- Phase 2: Guards ---
+    // Guards
     private VehicleGuard vehicleGuard;
     private StreamingGuard streamingGuard;
     private FailsoftController failsoftController;
 
-    // --- Phase 4: Hook & Throttle ---
+    // Hook & Throttle
     private FuseHookAdapter hookAdapter;
     private FuseThrottleController throttleController;
     private FuseStepPolicy stepPolicy;
 
-    // --- Phase 5: Item & Pathfinding ---
+    // Item & Pathfinding
     private ItemGovernor itemGovernor;
     private FusePathfindingGuard pathfindingGuard;
 
-    // --- Phase 6: Optimizer ---
+    // Optimizer
     private FuseOptimizer optimizer;
 
     // ═══════════════════════════════════════════════════════════════

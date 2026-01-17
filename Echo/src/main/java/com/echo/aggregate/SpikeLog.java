@@ -15,7 +15,7 @@ import com.echo.EchoConstants;
  * 스파이크 로그
  * 
  * 성능 스파이크 이벤트를 기록하고 분석합니다.
- * Phase 4: 스택 캡처 기능 추가
+ * 스택 캐처 기능 포함.
  */
 public class SpikeLog {
 
@@ -25,7 +25,7 @@ public class SpikeLog {
     private final Deque<SpikeEntry> entries = new ConcurrentLinkedDeque<>();
     private volatile double thresholdMs;
 
-    // Phase 4: 스택 캡처 옵션
+    // 스택 캐처 옵션
     private volatile boolean stackCaptureEnabled = false;
     private static final StackWalker STACK_WALKER = StackWalker.getInstance(
             StackWalker.Option.RETAIN_CLASS_REFERENCE);
@@ -35,7 +35,7 @@ public class SpikeLog {
     private final AtomicLong worstSpikeMicros = new AtomicLong(0);
     private volatile String worstSpikeLabel = "";
 
-    // Bundle A: CAS 기반 1회/초 rate-limit for context capture
+    // CAS 기반 1회/초 rate-limit for context capture
     private final AtomicLong lastContextCaptureMs = new AtomicLong(0);
 
     public SpikeLog() {
@@ -78,7 +78,7 @@ public class SpikeLog {
     }
 
     /**
-     * 스택 트레이스 캡처 (Phase 4)
+     * 스택 트레이스 캐처
      * 비용이 크므로 옵션으로만 사용
      */
     private String captureStackTrace() {
@@ -163,7 +163,7 @@ public class SpikeLog {
         PulseLogger.info("Echo", "Spike threshold set to: " + thresholdMs + " ms");
     }
 
-    // Phase 2: Context Provider (Snapshots)
+    // Context Provider (Snapshots)
     private java.util.function.Supplier<Map<String, Object>> contextProvider;
 
     /**
@@ -174,8 +174,8 @@ public class SpikeLog {
     }
 
     /**
-     * Bundle A: CAS 기반 1회/초 rate-limit
-     * 핫패스에서 컨텍스트 캡처 빈도 제한
+     * CAS 기반 1회/초 rate-limit
+     * 핫패스에서 컨텍스트 캐처 빈도 제한
      */
     private boolean shouldCaptureContext() {
         if (contextProvider == null)
@@ -188,7 +188,7 @@ public class SpikeLog {
     }
 
     /**
-     * Bundle A: 안전한 컨텍스트 캡처
+     * 안전한 컨텍스트 캐처
      * 규약: 실패 시 null 반환, 예외 전파 금지
      */
     private Map<String, Object> safeContextCapture() {
@@ -207,13 +207,13 @@ public class SpikeLog {
         if (durationMs < thresholdMs)
             return;
 
-        // Phase 4: 스택 캡처 (옵션)
+        // 스택 캐처 (옵션)
         String capturedStack = stackPath;
         if (stackCaptureEnabled && capturedStack == null) {
             capturedStack = captureStackTrace();
         }
 
-        // Bundle A: CAS 기반 1회/초 rate-limit + 안전 컨텍스트 캡처
+        // CAS 기반 1회/초 rate-limit + 안전 컨텍스트 캐처
         Map<String, Object> context = null;
         if (shouldCaptureContext()) {
             context = safeContextCapture();
@@ -285,7 +285,7 @@ public class SpikeLog {
         private final ProfilingPoint point;
         private final String label;
         private final String stackPath;
-        private final Map<String, Object> context; // Phase 2
+        private final Map<String, Object> context;
 
         public SpikeEntry(Instant timestamp, long durationMicros,
                 ProfilingPoint point, String label) {

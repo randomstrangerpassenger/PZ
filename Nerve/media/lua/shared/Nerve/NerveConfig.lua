@@ -1,8 +1,6 @@
 --[[
     NerveConfig.lua
     Nerve 모드 설정 파일
-    
-    v0.2 - Area 5 제거됨 (폐기)
 ]]
 
 NerveConfig = NerveConfig or {}

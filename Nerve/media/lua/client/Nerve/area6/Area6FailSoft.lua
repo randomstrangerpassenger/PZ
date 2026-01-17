@@ -2,8 +2,6 @@
     Area6FailSoft.lua
     Fail-Soft 격리 모듈 (xpcall 기반)
     
-    v1.0 - Phase 3: Fail-Soft Isolation
-    
     핵심 역할:
     - 리스너 단위 xpcall 격리
     - 예외 발생 시 incident 표시 + 동일 틱 철수

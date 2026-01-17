@@ -39,14 +39,14 @@ public class EchoProfiler {
     // 스레드별 프로파일링 스택 (메인 스레드 외)
     private final ThreadLocal<Deque<ProfilingFrame>> frameStack = ThreadLocal.withInitial(ArrayDeque::new);
 
-    // Phase 1 최적화: ProfilingScope 객체 풀
+    // ProfilingScope 객체 풀
     private final ThreadLocal<ProfilingScopePool> scopePool = ThreadLocal.withInitial(ProfilingScopePool::new);
     private final ProfilingScopePool mainThreadScopePool = new ProfilingScopePool();
 
     // 포인트별 누적 데이터 (핫패스 - EchoProfiler에 유지)
     private final Map<ProfilingPoint, TimingData> timingRegistry = new ConcurrentHashMap<>();
 
-    // 비핫패스 메트릭 저장소 (Phase 1-A)
+    // 비핫패스 메트릭 저장소
     private final MetricRegistry metricRegistry = new MetricRegistry();
 
     // 프로파일링 활성화 상태
@@ -58,7 +58,7 @@ public class EchoProfiler {
     // 세션 시작 시간
     private volatile long sessionStartTime = 0;
 
-    // Bundle A: Dual-Mode 원샷 경고 플래그 (스택 불일치 시 세션당 1회만)
+    // 원샷 경고 플래그 (스택 불일치 시 세션당 1회)
     private final AtomicBoolean mismatchReported = new AtomicBoolean(false);
 
     // 의존성
@@ -139,7 +139,7 @@ public class EchoProfiler {
     // --- Core API: push / pop ---
 
     public long push(ProfilingPoint point) {
-        // Bundle A: Fast-Exit via EchoRuntimeState (핫패스 안전)
+        // Fast-Exit
         EchoConfigSnapshot state = EchoRuntimeState.current();
         if (!state.enabled)
             return -1;
@@ -155,7 +155,7 @@ public class EchoProfiler {
     }
 
     public long push(ProfilingPoint point, String customLabel) {
-        // Bundle A: Fast-Exit via EchoRuntimeState (핫패스 안전)
+        // Fast-Exit
         EchoConfigSnapshot state = EchoRuntimeState.current();
         if (!state.enabled)
             return -1;
@@ -171,14 +171,14 @@ public class EchoProfiler {
     }
 
     public void pop(ProfilingPoint point) {
-        // Bundle A: Fast-Exit via EchoRuntimeState (핫패스 안전)
+        // Fast-Exit
         EchoConfigSnapshot state = EchoRuntimeState.current();
         if (!state.enabled)
             return;
 
         Deque<ProfilingFrame> stack = getFrameStack();
         if (stack.isEmpty()) {
-            // Bundle A: Dual-Mode 원샷 경고 (debugMode에서만 세션당 1회)
+            // 원샷 경고 (debugMode에서만)
             if (state.debugMode && !mismatchReported.getAndSet(true)) {
                 PulseLogger.warn("Echo", "Unmatched pop for " + point);
             }
@@ -188,7 +188,7 @@ public class EchoProfiler {
         ProfilingFrame frame = stack.pop();
 
         if (frame.point != point) {
-            // Bundle A: Dual-Mode 원샷 경고 (debugMode에서만 세션당 1회)
+            // 원샷 경고 (debugMode에서만)
             if (state.debugMode && !mismatchReported.getAndSet(true)) {
                 PulseLogger.warn("Echo", "Stack mismatch: expected " + frame.point + ", got " + point);
             }
@@ -246,7 +246,7 @@ public class EchoProfiler {
     // --- Raw API (Zero-Allocation) ---
 
     public long startRaw(ProfilingPoint point) {
-        // Bundle A: Fast-Exit via EchoRuntimeState (핫패스 안전)
+        // Fast-Exit
         EchoConfigSnapshot state = EchoRuntimeState.current();
         if (!state.enabled)
             return -1;

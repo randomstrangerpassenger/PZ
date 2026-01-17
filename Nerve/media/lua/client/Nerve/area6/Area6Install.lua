@@ -2,8 +2,6 @@
     Area6Install.lua
     Events.*.Add 전수 래핑 설치 모듈
     
-    v1.0 - Phase 1: Foundation
-    
     핵심 역할:
     - Events.*.Add 몽키패치 (멱등 래핑)
     - Chain-of-custody (원본 보존)
@@ -31,7 +29,7 @@ local NERVE_ORIGINAL_ADD_KEY = "__nerveOriginalAdd"
 -- 래핑된 콜백 캐시 (weak table)
 Area6Install.wrappedCallbacks = setmetatable({}, { __mode = "k" })
 
--- 디스패처 참조 (Phase 6에서 설정)
+-- 디스패처 참조 (설치 완료 후 설정)
 Area6Install.dispatcher = nil
 
 --------------------------------------------------------------------------------
@@ -44,7 +42,7 @@ Area6Install.dispatcher = nil
 -- @return: 래핑된 콜백
 local function createWrappedCallback(eventName, originalCallback)
     return function(...)
-        -- 디스패처가 없으면 원본 그대로 호출 (Phase 6 이전)
+        -- 디스패처가 없으면 원본 그대로 호출
         if not Area6Install.dispatcher then
             return originalCallback(...)
         end
@@ -165,7 +163,7 @@ function Area6Install.wrapAllTargetEvents()
 end
 
 --------------------------------------------------------------------------------
--- 디스패처 연결 (Phase 6)
+-- 디스패처 연결
 --------------------------------------------------------------------------------
 
 function Area6Install.setDispatcher(dispatcher)

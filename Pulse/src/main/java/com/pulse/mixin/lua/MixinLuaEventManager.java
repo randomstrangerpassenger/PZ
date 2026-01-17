@@ -18,12 +18,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * zombie.Lua.LuaEventManager.triggerEvent()를 후킹하여
  * Lua 이벤트 통계를 수집.
  * 
- * Phase 2C 설계:
+ * 설계:
  * - HEAD: incrementPathHit() + fireEventStart(eventName)
  * - RETURN: fireEventEnd()
  * - On-Demand: profilingEnabled 시에만 타이밍 측정
- * 
- * @since Pulse 1.3
  */
 @Mixin(targets = "zombie.Lua.LuaEventManager")
 public abstract class MixinLuaEventManager {
@@ -151,10 +149,10 @@ public abstract class MixinLuaEventManager {
 
     @Unique
     private static void Pulse$onEventHead(String eventName) {
-        // Phase 1B: 경로 카운터 (항상 실행, ~10ns)
+        // 경로 카운터 (항상 실행, ~10ns)
         PulseLuaHook.incrementPathHit();
 
-        // Phase 2C: 이벤트 시작 기록 (On-Demand)
+        // 이벤트 시작 기록 (On-Demand)
         InternalLuaHook.fireEventStart(eventName);
 
         // Initialize on first event (before forwarding to ensure mappings exist)

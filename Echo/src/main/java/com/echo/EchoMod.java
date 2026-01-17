@@ -117,13 +117,13 @@ public class EchoMod implements PulseMod {
         PulseLogger.info("Echo", "╚═══════════════════════════════════════════════╝");
         PulseLogger.info("Echo", "");
 
-        // Phase 0: Profiler 선 활성화 (다른 컴포넌트들이 상태를 체크하기 전에)
+        // Profiler 선 활성화
         com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
         com.echo.measure.EchoProfiler profiler = com.echo.measure.EchoProfiler.getInstance();
 
         profiler.enable();
 
-        // Bundle A: EchoRuntimeState 스냅샷 초기화 (RUNNING 상태)
+        // EchoRuntimeState 초기화
         EchoRuntimeState.update(EchoConfigSnapshot.fromConfig(config));
         PulseLogger.debug("Echo", "✓ EchoRuntimeState initialized (RUNNING)");
 
@@ -149,7 +149,7 @@ public class EchoMod implements PulseMod {
             PulseLogger.error("Echo", "✗ PulseEventAdapter.register() FAILED: " + t.getMessage(), t);
         }
 
-        // Echo 1.0: SubProfiler 브릿지 등록 (Pulse Mixin → Echo SubProfiler 연동)
+        // SubProfiler 브릿지 등록
         try {
             SubProfilerBridge.register();
             PulseLogger.info("Echo", "✓ SubProfilerBridge registered");
@@ -157,7 +157,7 @@ public class EchoMod implements PulseMod {
             PulseLogger.error("Echo", "✗ SubProfilerBridge.register() FAILED: " + t.getMessage(), t);
         }
 
-        // Echo 1.0: TickPhase 브릿지 등록 (Pulse Mixin → Echo TickPhaseProfiler 연동)
+        // TickPhase 브릿지 등록
         try {
             com.echo.pulse.TickPhaseBridge.register();
             PulseLogger.info("Echo", "✓ TickPhaseBridge registered");
@@ -165,7 +165,7 @@ public class EchoMod implements PulseMod {
             PulseLogger.error("Echo", "✗ TickPhaseBridge.register() FAILED: " + t.getMessage(), t);
         }
 
-        // Echo 2.0: Lua Path Hit 프로브 등록 (30초 후 검증 로그)
+        // Lua Path Hit 프로브 등록
         try {
             com.echo.lua.LuaPathHitBridge.register();
             PulseLogger.info("Echo", "✓ LuaPathHitBridge registered");
@@ -173,7 +173,7 @@ public class EchoMod implements PulseMod {
             PulseLogger.error("Echo", "✗ LuaPathHitBridge.register() FAILED: " + t.getMessage(), t);
         }
 
-        // Echo 1.0 Phase 4: Fuse Deep Analysis 브릿지 등록
+        // Fuse Deep Analysis 브릿지 등록
         try {
             PathfindingBridge.register();
             PulseLogger.info("Echo", "✓ PathfindingBridge registered");
@@ -195,7 +195,7 @@ public class EchoMod implements PulseMod {
             PulseLogger.error("Echo", "✗ IsoGridBridge.register() FAILED: " + t.getMessage(), t);
         }
 
-        // Echo 2.0: ProfilerBridge Sink 등록 (Fuse → Pulse → Echo 데이터 경로)
+        // ProfilerBridge Sink 등록
         try {
             com.echo.pulse.EchoProfilerSink.register();
             PulseLogger.info("Echo", "✓ EchoProfilerSink registered");
@@ -276,11 +276,8 @@ public class EchoMod implements PulseMod {
     }
 
     /**
-     * Phase 5: Register Echo services to PulseServiceLocator
-     * 
-     * Note: INetworkMetrics, IRenderMetrics, IBottleneckDetector는
-     * Pulse 정화 후 pulse-api에서 삭제되어 Echo 내부로 이동됨.
-     * 서비스 등록은 더 이상 필요하지 않음.
+     * Echo 서비스를 PulseServiceLocator에 등록.
+     * 더 이상 필요하지 않으므로 빈 구현.
      */
     private static void registerServices() {
         // Pulse 정화 후 서비스 등록 불필요
@@ -288,7 +285,7 @@ public class EchoMod implements PulseMod {
         // - com.echo.measure.NetworkMetrics
         // - com.echo.measure.RenderMetrics
         // - com.echo.analysis.BottleneckDetector
-        PulseLogger.debug("Echo", "Service registration skipped (Pulse 2.0 purification)");
+        PulseLogger.debug("Echo", "Service registration skipped");
     }
 
     /** 모드 종료 */
@@ -300,7 +297,7 @@ public class EchoMod implements PulseMod {
         EchoProfiler profiler = EchoProfiler.getInstance();
         com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
 
-        // Bundle A: EchoRuntimeState 종료 상태로 전환 (핫패스 즐각 차단)
+        // EchoRuntimeState 종료 상태로 전환
         EchoRuntimeState.update(
                 EchoRuntimeState.current().withLifecyclePhase(LifecyclePhase.SHUTTING_DOWN));
         PulseLogger.debug("Echo", "✓ EchoRuntimeState set to SHUTTING_DOWN");

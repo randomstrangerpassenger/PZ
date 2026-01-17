@@ -2,8 +2,6 @@
     Area6Evidence.lua
     포렌식 증거 수집 오케스트레이터
     
-    v1.0 - Phase 5: Forensics (Incident-Gated)
-    
     핵심 역할:
     - incident 발생 후 Lazy 증거 수집 조율
     - DupCount, Depth, Fanout, Repeat 수집

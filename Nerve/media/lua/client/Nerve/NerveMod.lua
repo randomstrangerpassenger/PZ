@@ -1,12 +1,6 @@
 --[[
-    NerveMod.lua - Nerve 모드 진입점 (v0.2)
+    NerveMod.lua - Nerve 모드 진입점
     Pulse 감지, Idempotent 이벤트 래핑, Area 6 통합
-    
-    v0.2 변경사항:
-    - 래퍼 충돌 감지 + 철수(back-off) 로직 추가
-    - targetEvents 이름 검증 추가
-    - Passthrough 순수화 (에러 경로 비개입)
-    - Area 5 기능 제거 (폐기됨)
 ]]
 
 -- 의존성 로드
@@ -239,7 +233,7 @@ local function initializeNerve()
         return
     end
     
-    -- [Phase 3] targetEvents 이름 검증
+    -- targetEvents 이름 검증
     local rawEvents = NerveConfig.area6.targetEvents or {}
     local validatedEvents = {}
     for _, eventName in ipairs(rawEvents) do

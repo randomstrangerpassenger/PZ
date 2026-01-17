@@ -2,8 +2,6 @@
     Area6Dispatcher.lua
     통합 실행 흐름 (The "Sealed" Flow)
     
-    v1.0 - Phase 6: Dispatcher
-    
     핵심 역할:
     - 아래 순서를 코드로 봉인 (변경 금지)
     

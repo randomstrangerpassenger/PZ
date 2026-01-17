@@ -2,8 +2,6 @@
     Area6Guard.lua
     Area 6 헌법 경계선 봉인 모듈
     
-    v1.0 - Phase 0: Constitution Enforcement
-    
     핵심 역할:
     - 금지선 상수 선언 (외부 노출 없음)
     - 개발 중 헌법 위반 키워드 탐지 (dev-only 안전장치)

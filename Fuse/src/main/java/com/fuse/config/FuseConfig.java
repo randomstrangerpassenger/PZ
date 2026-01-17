@@ -11,11 +11,7 @@ import java.nio.file.*;
  * Fuse Configuration.
  * 
  * Conservative Preset 기본값 + 신규 파라미터
- * JSON 파일 기반 영속화 (v2.4)
- * 
- * @since Fuse 0.3.0
- * @since Fuse 1.1.0 - Conservative Preset
- * @since Fuse 2.4.0 - JSON file persistence
+ * JSON 파일 기반 영속화
  */
 public class FuseConfig {
 
@@ -73,7 +69,7 @@ public class FuseConfig {
     private int recoveryPhaseTicks = 30;
 
     // ========================================
-    // Hysteresis Settings (v1.1)
+    // Hysteresis Settings
     // ========================================
 
     /** Entry: 1s max threshold */
@@ -89,7 +85,7 @@ public class FuseConfig {
     private int exitStabilityTicks = 300;
 
     // ========================================
-    // Guard Settings (v1.1)
+    // Guard Settings
     // ========================================
 
     /** Vehicle guard: entry speed */
@@ -105,14 +101,14 @@ public class FuseConfig {
     private long frameDropThresholdMs = 50;
 
     // ========================================
-    // Failsoft Settings (v1.1)
+    // Failsoft Settings
     // ========================================
 
     /** Max consecutive errors before intervention disabled */
     private int maxConsecutiveErrors = 3;
 
     // ========================================
-    // Adaptive Gate Settings (v2.5)
+    // Adaptive Gate Settings
     // ========================================
 
     /** Adaptive Gate master switch */
@@ -125,7 +121,7 @@ public class FuseConfig {
     private boolean enablePathDedup = false;
 
     // ========================================
-    // Bundle C: Sustained Early Exit Settings (v2.6)
+    // Sustained Early Exit Settings
     // ========================================
 
     /** Sustained Early Exit master switch (opt-in, default OFF) */
@@ -141,7 +137,7 @@ public class FuseConfig {
     private long cooldownMs = 2000;
 
     // ========================================
-    // IOGuard/GCPressureGuard Settings removed in v2.3
+    // IOGuard/GCPressureGuard Settings removed
     // ========================================
 
     // ========================================
@@ -221,11 +217,11 @@ public class FuseConfig {
         this.playerSpeedThreshold = other.playerSpeedThreshold;
         this.frameDropThresholdMs = other.frameDropThresholdMs;
         this.maxConsecutiveErrors = other.maxConsecutiveErrors;
-        // v2.5
+        //
         this.enableAdaptiveGate = other.enableAdaptiveGate;
         this.enableZombieDedup = other.enableZombieDedup;
         this.enablePathDedup = other.enablePathDedup;
-        // v2.6 Bundle C
+        //
         this.sustainedEarlyExitEnabled = other.sustainedEarlyExitEnabled;
         this.activeMaxMs = other.activeMaxMs;
         this.hardStreakMax = other.hardStreakMax;
@@ -345,7 +341,7 @@ public class FuseConfig {
     }
 
     // ========================================
-    // IOGuard/GCPressureGuard Getters removed in v2.3
+    // IOGuard/GCPressureGuard Getters removed
     // ========================================
 
     // ========================================
@@ -362,10 +358,10 @@ public class FuseConfig {
         PulseLogger.info("Fuse", "Throttle intensity: " + this.throttleIntensity);
     }
 
-    // Debug Force Getters removed in v2.3
+    // Debug Force Getters removed
 
     // ========================================
-    // Adaptive Gate Getters/Setters (v2.5)
+    // Adaptive Gate Getters/Setters
     // ========================================
 
     public boolean isEnableAdaptiveGate() {
@@ -386,7 +382,7 @@ public class FuseConfig {
     }
 
     // ========================================
-    // Bundle C: Sustained Early Exit Getters (v2.6)
+    // Sustained Early Exit Getters
     // ========================================
 
     public boolean isSustainedEarlyExitEnabled() {

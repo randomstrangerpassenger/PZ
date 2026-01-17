@@ -32,7 +32,6 @@ import com.pulse.api.event.lifecycle.GameTickStartEvent;
  * 모든 초기화, 틱 처리, 종료 로직을 담당합니다.
  * FuseMod에서 분리되어 단일 책임 원칙을 준수합니다.
  * 
- * @since Fuse 2.4.0
  */
 public class FuseLifecycle {
 
@@ -71,8 +70,8 @@ public class FuseLifecycle {
         initPhase7EventSubscription();
 
         initialized = true;
-        PulseLogger.info(LOG, "Initialization complete (v1.1 Stabilization)");
-        PulseLogger.info(LOG, "Use /fuse status to view v1.1 component status");
+        PulseLogger.info(LOG, "Initialization complete");
+        PulseLogger.info(LOG, "Use /fuse status to view component status");
     }
 
     private void initPhase1CoreSafety(FuseConfig config) {
@@ -107,7 +106,7 @@ public class FuseLifecycle {
             failsoftController.setMaxConsecutiveErrors(config.getMaxConsecutiveErrors());
             registry.setFailsoftController(failsoftController);
 
-            PulseLogger.info(LOG, "Guards initialized (v2.3 - IO/GC guards removed)");
+            PulseLogger.info(LOG, "Guards initialized");
         } catch (Exception e) {
             PulseLogger.error(LOG, "Failed to initialize guards: " + e.getMessage(), e);
         }
@@ -116,7 +115,7 @@ public class FuseLifecycle {
     private void initPhase4HookAdapter() {
         try {
             registry.setHookAdapter(FuseHookAdapter.register());
-            PulseLogger.info(LOG, "ZombieHook callback registered (Phase 4 - Direct API)");
+            PulseLogger.info(LOG, "ZombieHook callback registered");
         } catch (Exception e) {
             PulseLogger.error(LOG, "Failed to register ZombieHook: " + e.getMessage(), e);
         }
@@ -131,7 +130,7 @@ public class FuseLifecycle {
             throttleController.setGuards(registry.getVehicleGuard(), registry.getStreamingGuard());
             throttleController.setReasonStats(registry.getReasonStats());
 
-            // v2.5: AdaptiveGate 연동
+            // AdaptiveGate 연동
             if (config.isEnableAdaptiveGate()) {
                 AdaptiveGate adaptiveGate = new AdaptiveGate(
                         registry.getStats(),
@@ -141,18 +140,18 @@ public class FuseLifecycle {
                 registry.setAdaptiveGate(adaptiveGate);
                 registry.getGovernor().setReasonStats(registry.getReasonStats());
 
-                // v2.6 Bundle C: HardLimitObserver 연동 (봉인#1)
+                // HardLimitObserver 연동
                 registry.getGovernor().setHardLimitObserver(adaptiveGate);
 
-                PulseLogger.info(LOG, "AdaptiveGate enabled (v2.6 Bundle C)");
+                PulseLogger.info(LOG, "AdaptiveGate enabled");
 
-                // v2.5: FuseSnapshotProvider 초기화
+                // FuseSnapshotProvider 초기화
                 FuseSnapshotProvider snapshotProvider = new FuseSnapshotProvider(
                         registry.getHookAdapter(),
                         registry.getReasonStats(),
                         adaptiveGate,
                         registry.getGovernor(),
-                        registry.getStats()); // v2.6: 진단용 sampleCount
+                        registry.getStats());
                 registry.setSnapshotProvider(snapshotProvider);
 
                 // Bundle B v4: Pulse Registry에 SPI provider 등록 (1회만 시도)
@@ -161,19 +160,19 @@ public class FuseLifecycle {
                     com.pulse.api.Pulse.getProviderRegistry().register(snapshotProvider);
                     PulseLogger.info(LOG, "FuseSnapshotProvider registered to Pulse SPI (Bundle B)");
                 } catch (Exception e) {
-                    // v4: 재등록 시도 없음 - 실패만 마킹
+                    // 재등록 시도 없음 - 실패만 마킹
                     snapshotProvider.setFailed("REGISTRATION_FAILED", e.getMessage());
                     PulseLogger.warn(LOG, "Failed to register FuseSnapshotProvider: " + e.getMessage());
                 }
 
-                PulseLogger.info(LOG, "FuseSnapshotProvider initialized (v2.5)");
+                PulseLogger.info(LOG, "FuseSnapshotProvider initialized");
             }
 
             registry.setThrottleController(throttleController);
 
             try {
                 ZombieHook.getInstance().setThrottlePolicy(throttleController);
-                PulseLogger.info(LOG, "ThrottleController registered via IZombieHook (v2.1)");
+                PulseLogger.info(LOG, "ThrottleController registered via IZombieHook");
             } catch (Exception e) {
                 PulseLogger.warn(LOG, "ZombieHook.setThrottlePolicy failed: " + e.getMessage());
             }
@@ -194,14 +193,14 @@ public class FuseLifecycle {
                         com.pulse.api.world.IWorldObjectThrottlePolicy.class);
                 setPolicyMethod.setAccessible(true);
                 setPolicyMethod.invoke(null, itemGovernor);
-                PulseLogger.info(LOG, "ItemGovernor injected into WorldItemMixin (Phase 4 - Direct API)");
+                PulseLogger.info(LOG, "ItemGovernor injected into WorldItemMixin");
             } catch (ClassNotFoundException e) {
                 PulseLogger.debug(LOG, "WorldItemMixin not found - item throttling not available");
             } catch (Exception e) {
                 PulseLogger.error(LOG, "Failed to inject policy into WorldItemMixin: " + e.getMessage());
             }
 
-            PulseLogger.info(LOG, "ItemGovernor initialized (Phase 4 - IWorldObjectThrottlePolicy)");
+            PulseLogger.info(LOG, "ItemGovernor initialized");
         } catch (Exception e) {
             PulseLogger.error(LOG, "Failed to register ThrottlePolicy: " + e.getMessage(), e);
         }
@@ -252,7 +251,7 @@ public class FuseLifecycle {
             }, FuseMod.MOD_ID);
 
             PulseServices.events().subscribe(GameTickEndEvent.class, event -> {
-                onTick(event.getDurationMs()); // v2.6: 실제 게임 틱 시간 사용
+                onTick(event.getDurationMs());
                 FusePathfindingGuard guard = registry.getPathfindingGuard();
                 if (guard != null) {
                     guard.onTickEnd(tickCounter);
@@ -270,7 +269,7 @@ public class FuseLifecycle {
     // ═══════════════════════════════════════════════════════════════
 
     /**
-     * v2.6: gameDurationMs는 실제 게임 틱 소요 시간 (Pulse에서 측정).
+     * gameDurationMs는 실제 게임 틱 소요 시간 (Pulse에서 측정).
      * 이전에는 governor.getLastTickMs()를 사용했으나, 이는 Fuse 내부 처리 시간만 측정.
      */
     public void onTick(double gameDurationMs) {
@@ -289,7 +288,7 @@ public class FuseLifecycle {
                 governor.beginTick();
             }
 
-            // v2.5: AdaptiveGate 평가 (틱당 1회)
+            // AdaptiveGate 평가 (틱당 1회)
             AdaptiveGate gate = registry.getAdaptiveGate();
             if (gate != null) {
                 gate.evaluateThisTick();
@@ -302,22 +301,22 @@ public class FuseLifecycle {
 
             if (governor != null) {
                 governor.endTick();
-                // v2.6: gameDurationMs 사용 (실제 게임 틱 시간)
+                // gameDurationMs 사용 (실제 게임 틱 시간)
                 // governor.getLastTickMs()는 여전히 Fuse 내부 측정용으로 사용
 
                 RollingTickStats stats = registry.getStats();
                 if (stats != null) {
-                    stats.record(gameDurationMs); // v2.6: 실제 게임 틱 시간
+                    stats.record(gameDurationMs);
                 }
 
                 SpikePanicProtocol panic = registry.getPanicProtocol();
                 if (panic != null) {
-                    panic.recordTickDuration((long) gameDurationMs); // v2.6
+                    panic.recordTickDuration((long) gameDurationMs);
                 }
 
                 StreamingGuard streaming = registry.getStreamingGuard();
                 if (streaming != null) {
-                    streaming.recordTickDuration((long) gameDurationMs); // v2.6
+                    streaming.recordTickDuration((long) gameDurationMs);
                 }
 
                 ItemGovernor item = registry.getItemGovernor();
@@ -356,7 +355,7 @@ public class FuseLifecycle {
 
     private void logStatusSummary() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n========== [Fuse v2.4] 60s Status Summary ==========\n");
+        sb.append("\n========== [Fuse] 60s Status Summary ==========\n");
         sb.append("  Ticks: ").append(tickCounter).append("\n");
 
         FailsoftController failsoft = registry.getFailsoftController();
@@ -379,7 +378,7 @@ public class FuseLifecycle {
                     .append("ms\n");
         }
 
-        // v2.5: AdaptiveGate 상태
+        // AdaptiveGate 상태
         AdaptiveGate gate = registry.getAdaptiveGate();
         if (gate != null) {
             sb.append("  AdaptiveGate: ").append(gate.getState())

@@ -2,8 +2,6 @@
     Area6Reentry.lua
     재진입(Self-Recursion) 트리거 모듈
     
-    v1.0 - Phase 4: Reentry Trigger
-    
     핵심 역할:
     - same-tick + same-listener wrapper 재진입 검출
     - 트리거 발생 시 incident 표시 + 동일 틱 철수

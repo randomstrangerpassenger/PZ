@@ -9,12 +9,10 @@ import java.util.Deque;
  * MixinLuaEventManager에서 직접 사용.
  * pulse-api 의존성 문제 우회를 위해 Pulse 내부에 구현.
  * 
- * Phase 2C 설계:
+ * 설계:
  * - ThreadLocal<Deque> 스택: 중첩 이벤트 대응
  * - profilingEnabled 플래그: true일 때만 nanoTime() 호출
  * - 예외 방어: 스택 언더플로우 시 안전 처리
- * 
- * @since Pulse 1.3
  */
 public final class InternalLuaHook {
 
@@ -51,7 +49,7 @@ public final class InternalLuaHook {
     // =========================================
 
     /**
-     * 이벤트 시작 (Phase 2C).
+     * 이벤트 시작.
      * 프로파일링 활성화 시에만 스택에 push.
      */
     public static void fireEventStart(String eventName) {
@@ -62,7 +60,7 @@ public final class InternalLuaHook {
     }
 
     /**
-     * 이벤트 종료 (Phase 2C).
+     * 이벤트 종료.
      * 스택에서 pop하고 콜백 호출.
      */
     public static void fireEventEnd() {

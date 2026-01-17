@@ -14,13 +14,10 @@ import com.pulse.api.mod.PulseMod;
 /**
  * Fuse - Performance Optimizer for Project Zomboid
  * 
- * v2.4: God Class 분해 완료
+ * God Class 분해:
  * - FuseComponentRegistry: 컴포넌트 저장/접근
  * - FuseLifecycle: 초기화/틱/종료 로직
  * - FuseMod: Thin Facade (이 클래스)
- * 
- * @since Fuse 0.3.0
- * @since Fuse 2.4.0 - God Class Decomposition
  */
 public class FuseMod implements PulseMod {
 

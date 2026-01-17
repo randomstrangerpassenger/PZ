@@ -15,7 +15,9 @@ public enum PulseLogLevel {
     /** 경고 */
     WARN(3),
     /** 오류 */
-    ERROR(4);
+    ERROR(4),
+    /** 치명적 오류 - 항상 출력됨 */
+    FATAL(5);
 
     private final int level;
 

@@ -10,24 +10,22 @@ import java.util.concurrent.atomic.LongAdder;
  * LuaEventManager Mixin이 호출하는 Lua 이벤트 훅.
  * Echo 등 외부 모드는 콜백을 등록하여 이벤트 통계를 수집.
  * 
- * Phase 2C 설계:
+ * 설계:
  * - ThreadLocal<Deque> 스택: 중첩 이벤트 대응 (OnTick → OnPlayerUpdate 등)
  * - profilingEnabled 플래그: true일 때만 nanoTime() 호출
  * - 예외 방어: 스택 언더플로우 시 안전 처리
- * 
- * @since Pulse 1.3
  */
 public final class PulseLuaHook {
 
     // =========================================
-    // Phase 1B: 경로 히트 카운터 (경량)
+    // 경로 히트 카운터 (경량)
     // =========================================
 
     private static final LongAdder PATH_HITS = new LongAdder();
     private static volatile boolean enabled = true;
 
     // =========================================
-    // Phase 2C: 콜백 & 프로파일링
+    // 콜백 & 프로파일링
     // =========================================
 
     /** 콜백 인터페이스 - Echo가 구현 */
@@ -64,7 +62,7 @@ public final class PulseLuaHook {
     // =========================================
 
     /**
-     * 경로 히트 증가 (Phase 1B).
+     * 경로 히트 증가.
      * 매 triggerEvent마다 호출. ~10ns 미만.
      */
     public static void incrementPathHit() {
@@ -74,7 +72,7 @@ public final class PulseLuaHook {
     }
 
     /**
-     * 이벤트 시작 (Phase 2C).
+     * 이벤트 시작.
      * 프로파일링 활성화 시에만 스택에 push.
      * 
      * @param eventName Lua 이벤트 이름 (OnTick, OnPlayerUpdate 등)
@@ -88,7 +86,7 @@ public final class PulseLuaHook {
     }
 
     /**
-     * 이벤트 종료 (Phase 2C).
+     * 이벤트 종료.
      * 스택에서 pop하고 콜백 호출.
      * 
      * 예외 방어: 스택이 비어있으면 무시 (예외로 onEventStart 없이 도달 시)

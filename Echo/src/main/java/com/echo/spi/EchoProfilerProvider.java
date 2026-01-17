@@ -5,6 +5,7 @@ import com.pulse.api.spi.Priority;
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.ProfilingPoint;
 import com.echo.aggregate.TimingData;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Echo의 IProfilerProvider 구현.
@@ -52,13 +53,13 @@ public class EchoProfilerProvider implements IProfilerProvider {
 
     @Override
     public void onInitialize() {
-        System.out.println("[Echo] ProfilerProvider initialized");
+        PulseLogger.info("Echo", "ProfilerProvider initialized");
         profiler.enable();
     }
 
     @Override
     public void onShutdown() {
-        System.out.println("[Echo] ProfilerProvider shutting down");
+        PulseLogger.info("Echo", "ProfilerProvider shutting down");
         profiler.disable();
     }
 
@@ -123,14 +124,14 @@ public class EchoProfilerProvider implements IProfilerProvider {
     public void startProfiling() {
         profiler.enable();
         enabled = true;
-        System.out.println("[Echo] Profiling started");
+        PulseLogger.info("Echo", "Profiling started");
     }
 
     @Override
     public void stopProfiling() {
         profiler.disable();
         enabled = false;
-        System.out.println("[Echo] Profiling stopped");
+        PulseLogger.info("Echo", "Profiling stopped");
     }
 
     @Override
@@ -141,7 +142,7 @@ public class EchoProfilerProvider implements IProfilerProvider {
     @Override
     public void resetData() {
         profiler.reset();
-        System.out.println("[Echo] Profiling data reset");
+        PulseLogger.info("Echo", "Profiling data reset");
     }
 
     // --- Echo 전용 확장 메서드 ---

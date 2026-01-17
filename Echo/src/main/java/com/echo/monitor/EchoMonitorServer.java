@@ -8,6 +8,7 @@ import com.echo.aggregate.SpikeLog;
 import com.echo.measure.MemoryProfiler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pulse.api.log.PulseLogger;
 
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
@@ -54,7 +55,7 @@ public class EchoMonitorServer {
 
     public void start(int port) {
         if (running) {
-            System.out.println("[Echo] Monitor server already running on port " + server.getAddress().getPort());
+            PulseLogger.info("Echo", "Monitor server already running on port " + server.getAddress().getPort());
             return;
         }
 
@@ -72,10 +73,10 @@ public class EchoMonitorServer {
 
             server.start();
             running = true;
-            System.out.println("[Echo] Monitor server started on http://localhost:" + port);
-            System.out.println("[Echo] Endpoints: /api/status, /api/summary, /api/histogram, /api/spikes, /api/memory");
+            PulseLogger.info("Echo", "Monitor server started on http://localhost:" + port);
+            PulseLogger.info("Echo", "Endpoints: /api/status, /api/summary, /api/histogram, /api/spikes, /api/memory");
         } catch (IOException e) {
-            System.err.println("[Echo] Failed to start monitor server: " + e.getMessage());
+            PulseLogger.error("Echo", "Failed to start monitor server: " + e.getMessage());
         }
     }
 
@@ -84,13 +85,13 @@ public class EchoMonitorServer {
      */
     public void stop() {
         if (!running || server == null) {
-            System.out.println("[Echo] Monitor server not running");
+            PulseLogger.info("Echo", "Monitor server not running");
             return;
         }
 
         server.stop(1);
         running = false;
-        System.out.println("[Echo] Monitor server stopped");
+        PulseLogger.info("Echo", "Monitor server stopped");
     }
 
     public boolean isRunning() {

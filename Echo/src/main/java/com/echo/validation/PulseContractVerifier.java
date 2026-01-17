@@ -5,6 +5,7 @@ import com.pulse.api.TickContract;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicBoolean;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Pulse-Echo API Contract Verifier (Phase 4)
@@ -196,7 +197,7 @@ public class PulseContractVerifier {
     private void recordViolation(String message) {
         contractViolated.set(true);
         lastViolationMessage = message;
-        System.err.println("[Echo] Pulse Contract Violation: " + message);
+        PulseLogger.error("Echo", "Pulse Contract Violation: " + message);
     }
 
     /**
@@ -205,7 +206,7 @@ public class PulseContractVerifier {
      */
     private void recordStallEvent(String message) {
         lastStallMessage = message;
-        System.out.println("[Echo] Stall Event: " + message);
+        PulseLogger.warn("Echo", "Stall Event: " + message);
     }
 
     /**

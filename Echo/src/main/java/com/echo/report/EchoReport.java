@@ -10,6 +10,7 @@ import com.echo.report.generator.HtmlReportGenerator;
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Echo Report 생성기
@@ -86,7 +87,7 @@ public class EchoReport {
      * 콘솔에 리포트 출력
      */
     public void printToConsole() {
-        System.out.println(generateText());
+        PulseLogger.info("Echo", generateText());
     }
 
     /**
@@ -96,7 +97,7 @@ public class EchoReport {
         try (Writer writer = new FileWriter(path)) {
             writer.write(generateJson());
         }
-        System.out.println("[Echo] Report saved to: " + path);
+        PulseLogger.info("Echo", "Report saved to: " + path);
     }
 
     /**
@@ -105,7 +106,7 @@ public class EchoReport {
     public String saveWithTimestamp(String directory) throws IOException {
         // Check for empty data (Phase 2.3)
         if (collector.getProfiler().getTickHistogram().getTotalSamples() == 0) {
-            System.out.println("[Echo] Skipping report save: No data collected (0 ticks).");
+            PulseLogger.info("Echo", "Skipping report save: No data collected (0 ticks).");
             return null;
         }
 
@@ -118,13 +119,13 @@ public class EchoReport {
         String subFolder;
         if (score >= baselineThreshold) {
             subFolder = "baseline";
-            System.out.println("[Echo] High quality report (" + score + ") → baseline folder.");
+            PulseLogger.info("Echo", "High quality report (" + score + ") → baseline folder.");
         } else if (score >= minQuality) {
             subFolder = "normal";
-            System.out.println("[Echo] Report quality (" + score + ") → normal folder.");
+            PulseLogger.info("Echo", "Report quality (" + score + ") → normal folder.");
         } else {
             subFolder = "low_quality";
-            System.out.println("[Echo] Low quality report (" + score + ") below threshold (" + minQuality
+            PulseLogger.info("Echo", "Low quality report (" + score + ") below threshold (" + minQuality
                     + ") → low_quality folder.");
         }
         directory = directory + File.separator + subFolder;
@@ -167,7 +168,7 @@ public class EchoReport {
         try (Writer writer = new FileWriter(fullPath)) {
             writer.write(generateCsv());
         }
-        System.out.println("[Echo] CSV report saved to: " + fullPath);
+        PulseLogger.info("Echo", "CSV report saved to: " + fullPath);
         return fullPath;
     }
 
@@ -195,7 +196,7 @@ public class EchoReport {
         try (Writer writer = new FileWriter(fullPath)) {
             writer.write(generateHtml());
         }
-        System.out.println("[Echo] HTML report saved to: " + fullPath);
+        PulseLogger.info("Echo", "HTML report saved to: " + fullPath);
         return fullPath;
     }
 
@@ -205,21 +206,23 @@ public class EchoReport {
     public void printQualitySummary() {
         ReportQualityScorer.QualityResult result = ReportQualityScorer.getInstance()
                 .calculateScore(collector.getProfiler());
-        System.out.println("\n═══════════════════════════════════════════════════════");
-        System.out.printf(" 🎯 ECHO SESSION QUALITY: %d/100%n", result.score);
-        System.out.println("═══════════════════════════════════════════════════════");
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "═══════════════════════════════════════════════════════");
+        PulseLogger.info("Echo", String.format(" 🎯 ECHO SESSION QUALITY: %d/100", result.score));
+        PulseLogger.info("Echo", "═══════════════════════════════════════════════════════");
 
         if (result.hasIssues()) {
-            System.out.println(" Detected Issues:");
+            PulseLogger.info("Echo", " Detected Issues:");
             for (Map<String, String> issue : result.issues) {
                 String severity = issue.get("severity").toUpperCase();
                 String desc = issue.get("description");
-                System.out.printf("   [%s] %s%n", severity, desc);
+                PulseLogger.info("Echo", String.format("   [%s] %s", severity, desc));
             }
         } else {
-            System.out.println(" ✅ No significant data quality issues.");
+            PulseLogger.info("Echo", " ✅ No significant data quality issues.");
         }
-        System.out.println("═══════════════════════════════════════════════════════\n");
+        PulseLogger.info("Echo", "═══════════════════════════════════════════════════════");
+        PulseLogger.info("Echo", "");
     }
 
     public void onTick() {

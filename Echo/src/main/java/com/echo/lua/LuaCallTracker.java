@@ -1,6 +1,7 @@
 package com.echo.lua;
 
 import com.echo.measure.EchoProfiler;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -69,19 +70,29 @@ public class LuaCallTracker {
     }
 
     public static LuaCallTracker getInstance() {
+        // 1. Try ServiceLocator (Hybrid DI)
         try {
-            var locator = com.pulse.api.di.PulseServices.getServiceLocator();
+            var locator = com.pulse.di.PulseServiceLocator.getInstance();
             LuaCallTracker service = locator.getService(LuaCallTracker.class);
             if (service != null) {
                 return service;
             }
         } catch (Exception ignored) {
+            // ServiceLocator not available
         }
 
         if (INSTANCE == null) {
             INSTANCE = new LuaCallTracker(com.echo.config.EchoConfig.getInstance(), EchoProfiler.getInstance());
         }
         return INSTANCE;
+    }
+
+    /**
+     * 싱글톤 인스턴스 리셋 (테스트 전용)
+     */
+    @com.pulse.api.VisibleForTesting
+    public static void resetInstance() {
+        INSTANCE = null;
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -103,7 +114,8 @@ public class LuaCallTracker {
         this.lastWindowOpenTime = now;
 
         statistics.incrementDetailedWindowsOpened();
-        System.out.println("[Echo/LuaTracker] Detailed window opened: " + durationMs + "ms, rate=1/" + sampleRate
+        statistics.incrementDetailedWindowsOpened();
+        PulseLogger.info("Echo", "[LuaTracker] Detailed window opened: " + durationMs + "ms, rate=1/" + sampleRate
                 + ", context=" + contextTag);
     }
 
@@ -343,7 +355,9 @@ public class LuaCallTracker {
     public void reset() {
         statistics.reset();
         functionNameCache.clear();
-        System.out.println("[Echo] Lua call tracker RESET");
+        statistics.reset();
+        functionNameCache.clear();
+        PulseLogger.info("Echo", "Lua call tracker RESET");
     }
 
     public void printStats(int topN) {

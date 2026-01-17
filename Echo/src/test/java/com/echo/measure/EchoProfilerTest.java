@@ -1,5 +1,8 @@
 package com.echo.measure;
 
+import com.echo.EchoRuntimeState;
+import com.echo.LifecyclePhase;
+import com.echo.config.EchoConfigSnapshot;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,17 +12,35 @@ import static org.junit.jupiter.api.Assertions.*;
 class EchoProfilerTest {
 
     private EchoProfiler profiler;
+    private EchoConfigSnapshot originalSnapshot;
 
     @BeforeEach
     void setUp() {
         profiler = EchoProfiler.getInstance();
         profiler.reset();
-        profiler.enable(true);
+
+        // 원래 스냅샷 저장
+        originalSnapshot = EchoRuntimeState.current();
+
+        // 테스트용 스냅샷 설정 (enabled=true, lifecyclePhase=RUNNING)
+        EchoConfigSnapshot testSnapshot = new EchoConfigSnapshot(
+                true, // enabled
+                false, // luaProfilingEnabled
+                33.33, // spikeThresholdMs
+                LifecyclePhase.RUNNING, // lifecyclePhase - 핵심!
+                true // debugMode
+        );
+        EchoRuntimeState.setForTest(testSnapshot);
+
+        // 메인 스레드 설정
+        EchoProfiler.setMainThread(Thread.currentThread());
     }
 
     @AfterEach
     void tearDown() {
         profiler.disable();
+        // 원래 스냅샷 복원
+        EchoRuntimeState.setForTest(originalSnapshot);
     }
 
     @Test

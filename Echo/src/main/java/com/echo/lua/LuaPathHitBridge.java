@@ -1,6 +1,7 @@
 package com.echo.lua;
 
 import com.pulse.api.lua.PulseLuaHook;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Lua 경로 히트 프로브 브릿지.
@@ -43,7 +44,7 @@ public final class LuaPathHitBridge {
             return;
         }
         INSTANCE = new LuaPathHitBridge();
-        System.out.println("[Echo] LuaPathHitBridge registered (30s validation probe)");
+        PulseLogger.info("Echo", "LuaPathHitBridge registered (30s validation probe)");
     }
 
     /**
@@ -76,14 +77,14 @@ public final class LuaPathHitBridge {
             lastPathHitCount = hits;
 
             if (hits > 0) {
-                System.out.println("[Echo/LuaHook] ✅ pathHitCount after ~30s = " + hits + " (Lua path is ACTIVE)");
+                PulseLogger.info("Echo", "✅ pathHitCount after ~30s = " + hits + " (Lua path is ACTIVE)");
             } else {
-                System.out.println("[Echo/LuaHook] ⚠️ pathHitCount = 0 (Lua path NOT active - check Mixin)");
+                PulseLogger.warn("Echo", "⚠️ pathHitCount = 0 (Lua path NOT active - check Mixin)");
             }
         } catch (NoClassDefFoundError e) {
-            System.out.println("[Echo/LuaHook] ⚠️ PulseLuaHook not available (Pulse outdated?)");
+            PulseLogger.warn("Echo", "⚠️ PulseLuaHook not available (Pulse outdated?)");
         } catch (Throwable t) {
-            System.out.println("[Echo/LuaHook] ❌ Failed to read pathHitCount: " + t.getMessage());
+            PulseLogger.error("Echo", "❌ Failed to read pathHitCount: " + t.getMessage());
         }
     }
 

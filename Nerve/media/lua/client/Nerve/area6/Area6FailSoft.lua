@@ -47,20 +47,10 @@ local function ensureCurrentTick()
 end
 
 --------------------------------------------------------------------------------
--- xpcall 에러 핸들러
---------------------------------------------------------------------------------
-
-local function errorHandler(err)
-    -- 스택트레이스 포함
-    local stack = debug.traceback(tostring(err), 2)
-    return stack
-end
-
---------------------------------------------------------------------------------
 -- 격리된 리스너 실행
 --------------------------------------------------------------------------------
 
--- 리스너를 xpcall로 격리 실행
+-- 리스너를 pcall로 격리 실행 (PZ Kahlua에는 xpcall 없음)
 -- @param eventName: 이벤트 이름
 -- @param listenerId: 리스너 식별자
 -- @param listener: 원본 리스너 함수
@@ -69,11 +59,17 @@ end
 function Area6FailSoft.executeIsolated(eventName, listenerId, listener, ...)
     ensureCurrentTick()
     
+    -- listener nil 체크
+    if type(listener) ~= "function" then
+        NerveUtils.warn("[Area6FailSoft] Invalid listener: " .. tostring(listener))
+        return false, "listener is not a function"
+    end
+    
     local TickCtx = Nerve.Area6TickCtx
     local InstallState = Nerve.Area6InstallState
     
-    -- xpcall 실행
-    local ok, result = xpcall(listener, errorHandler, ...)
+    -- pcall 실행 (PZ Kahlua에는 xpcall이 없음)
+    local ok, result = pcall(listener, ...)
     
     if ok then
         -- 정상 실행

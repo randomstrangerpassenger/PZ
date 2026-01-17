@@ -3,6 +3,7 @@ package com.echo.command.impl;
 import com.echo.config.EchoConfig;
 import com.echo.measure.EchoProfiler;
 import com.echo.report.EchoReport;
+import com.pulse.api.log.PulseLogger;
 
 public class EchoReportCmd {
     public static void execute(String[] args) {
@@ -16,22 +17,22 @@ public class EchoReportCmd {
                 switch (format) {
                     case "json":
                         String jsonPath = report.saveWithTimestamp(reportDir);
-                        System.out.println("[Echo] JSON report saved: " + jsonPath);
+                        PulseLogger.info("Echo", "JSON report saved: " + jsonPath);
                         break;
                     case "csv":
                         String csvPath = report.saveCsv(reportDir);
-                        System.out.println("[Echo] CSV report saved: " + csvPath);
+                        PulseLogger.info("Echo", "CSV report saved: " + csvPath);
                         break;
                     case "html":
                         String htmlPath = report.saveHtml(reportDir);
-                        System.out.println("[Echo] HTML report saved: " + htmlPath);
+                        PulseLogger.info("Echo", "HTML report saved: " + htmlPath);
                         break;
                     default:
-                        System.out.println("[Echo] Unknown format: " + format);
-                        System.out.println("[Echo] Usage: /echo report [json|csv|html]");
+                        PulseLogger.warn("Echo", "Unknown format: " + format);
+                        PulseLogger.info("Echo", "Usage: /echo report [json|csv|html]");
                 }
             } catch (Exception e) {
-                System.err.println("[Echo] Failed to save report: " + e.getMessage());
+                PulseLogger.error("Echo", "Failed to save report: " + e.getMessage());
             }
         } else {
             report.printToConsole();

@@ -2,6 +2,7 @@ package com.echo.report.collector;
 
 import com.echo.aggregate.TimingData;
 import com.echo.measure.ProfilingPoint;
+import com.echo.report.ReportUtils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -34,20 +35,16 @@ public class SummaryCollector implements SectionCollector {
 
         if (tickData != null) {
             summary.put("total_ticks", tickData.getCallCount());
-            summary.put("average_tick_ms", round(tickData.getAverageMicros() / 1000.0));
-            summary.put("max_tick_spike_ms", round(tickData.getMaxMicros() / 1000.0));
-            summary.put("min_tick_ms", round(tickData.getMinMicros() / 1000.0));
+            summary.put("average_tick_ms", ReportUtils.microsToMs(tickData.getAverageMicros()));
+            summary.put("max_tick_spike_ms", ReportUtils.microsToMs(tickData.getMaxMicros()));
+            summary.put("min_tick_ms", ReportUtils.microsToMs(tickData.getMinMicros()));
             summary.put("target_tick_ms", 16.67);
 
             double avgMs = tickData.getAverageMicros() / 1000.0;
             double score = Math.max(0, 100 - Math.max(0, avgMs - 16.67) * 5);
-            summary.put("performance_score", round(Math.min(100, score)));
+            summary.put("performance_score", ReportUtils.round(Math.min(100, score)));
         }
 
         return summary;
-    }
-
-    private double round(double value) {
-        return Math.round(value * 100.0) / 100.0;
     }
 }

@@ -2,6 +2,7 @@ package com.echo.lua;
 
 import java.util.ArrayDeque;
 import java.util.concurrent.atomic.AtomicLong;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Lua 호출 스택 관리.
@@ -162,7 +163,7 @@ public class CallStackTracker {
             }
         }
         if (cleaned > 0) {
-            System.out.println("[Echo/CallStack] Cleaned " + cleaned + " stale frames (likely exception escape)");
+            PulseLogger.info("Echo", "Cleaned " + cleaned + " stale frames (likely exception escape)");
         }
         return cleaned;
     }
@@ -177,7 +178,7 @@ public class CallStackTracker {
         int size = stack.size();
         if (size > 0) {
             stack.clear();
-            System.out.println("[Echo/CallStack] Stack reset (had " + size + " frames)");
+            PulseLogger.info("Echo", "[CallStack] Stack reset (had " + size + " frames)");
         }
         return size;
     }

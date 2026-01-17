@@ -1,6 +1,7 @@
 package com.pulse.adapter.zombie;
 
 import com.pulse.api.version.GameVersion;
+import com.pulse.api.log.PulseLogger;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  */
 public class Build41ZombieAdapter implements IZombieAdapter {
 
-    private static final String LOG = "[Pulse/Build41ZombieAdapter]";
+    private static final String LOG = "Pulse";
 
     // 캐시된 메서드 (성능 최적화)
     private Method methodGetOnlineID;
@@ -243,7 +244,7 @@ public class Build41ZombieAdapter implements IZombieAdapter {
 
             initialized = true;
         } catch (Throwable t) {
-            System.err.println(LOG + " Failed to initialize: " + t.getMessage());
+            PulseLogger.error(LOG, "Build41ZombieAdapter failed to initialize: " + t.getMessage());
         }
     }
 

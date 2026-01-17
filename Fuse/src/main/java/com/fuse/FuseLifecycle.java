@@ -19,12 +19,12 @@ import com.fuse.throttle.FuseStepPolicy;
 import com.fuse.throttle.FuseThrottleController;
 
 import com.pulse.api.log.PulseLogger;
+import java.util.Map;
+
 import com.pulse.api.profiler.ZombieHook;
 import com.pulse.api.di.PulseServices;
 import com.pulse.api.event.lifecycle.GameTickEndEvent;
 import com.pulse.api.event.lifecycle.GameTickStartEvent;
-
-import java.util.Map;
 
 /**
  * Fuse 라이프사이클 관리자.
@@ -52,11 +52,11 @@ public class FuseLifecycle {
     // ═══════════════════════════════════════════════════════════════
 
     public void init() {
-        System.out.println();
-        System.out.println("╔═══════════════════════════════════════════════╗");
-        System.out.println("║     Fuse v" + FuseMod.VERSION + " - Stabilization Release     ║");
-        System.out.println("║     \"Always Safe, Always Predictable\"         ║");
-        System.out.println("╚═══════════════════════════════════════════════╝");
+        PulseLogger.info("Fuse", "");
+        PulseLogger.info("Fuse", "╔═══════════════════════════════════════════════╗");
+        PulseLogger.info("Fuse", "║     Fuse v" + FuseMod.VERSION + " - Stabilization Release     ║");
+        PulseLogger.info("Fuse", "║     \"Always Safe, Always Predictable\"         ║");
+        PulseLogger.info("Fuse", "╚═══════════════════════════════════════════════╝");
 
         FuseConfig config = FuseConfig.getInstance();
 
@@ -240,23 +240,6 @@ public class FuseLifecycle {
         optimizer.setAutoOptimize(false);
         registry.setOptimizer(optimizer);
 
-        connectHintProvider(optimizer);
-    }
-
-    private void connectHintProvider(FuseOptimizer optimizer) {
-        try {
-            com.pulse.api.Pulse.getProviderRegistry()
-                    .getProviders(com.pulse.api.spi.IOptimizationHintProvider.class)
-                    .stream()
-                    .filter(p -> "echo.hints".equals(p.getId()))
-                    .findFirst()
-                    .ifPresent(provider -> {
-                        optimizer.setHintProvider(provider);
-                        PulseLogger.info(LOG, "Connected to EchoHintProvider (id: " + provider.getId() + ")");
-                    });
-        } catch (Exception e) {
-            PulseLogger.debug(LOG, "EchoHintProvider not available: " + e.getMessage());
-        }
     }
 
     private void initPhase7EventSubscription() {

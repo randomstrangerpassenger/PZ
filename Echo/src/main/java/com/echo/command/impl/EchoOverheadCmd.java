@@ -2,10 +2,11 @@ package com.echo.command.impl;
 
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.ProfilingPoint;
+import com.pulse.api.log.PulseLogger;
 
 public class EchoOverheadCmd {
     public static void execute(String[] args) {
-        System.out.println("[Echo] Measuring profiler overhead...");
+        PulseLogger.info("Echo", "Measuring profiler overhead...");
 
         EchoProfiler profiler = EchoProfiler.getInstance();
         boolean wasEnabled = profiler.isEnabled();
@@ -48,16 +49,16 @@ public class EchoOverheadCmd {
         double rawOverheadNs = (profiledTime - baselineTime) / (double) iterations;
         double scopeOverheadNs = (scopeTime - baselineTime) / (double) iterations;
 
-        System.out.println();
-        System.out.println("╔═══════════════════════════════════════════════╗");
-        System.out.println("║         Echo Profiler Overhead Report         ║");
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.printf("║  Iterations:        %,d                   ║%n", iterations);
-        System.out.printf("║  Raw API overhead:  %.2f ns/call           ║%n", rawOverheadNs);
-        System.out.printf("║  Scope API overhead: %.2f ns/call          ║%n", scopeOverheadNs);
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.println("║  💡 Lower is better. <100ns is excellent.     ║");
-        System.out.println("╚═══════════════════════════════════════════════╝");
-        System.out.println();
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "╔═══════════════════════════════════════════════╗");
+        PulseLogger.info("Echo", "║         Echo Profiler Overhead Report         ║");
+        PulseLogger.info("Echo", "╠═══════════════════════════════════════════════╣");
+        PulseLogger.info("Echo", String.format("║  Iterations:        %,d                   ║", iterations));
+        PulseLogger.info("Echo", String.format("║  Raw API overhead:  %.2f ns/call           ║", rawOverheadNs));
+        PulseLogger.info("Echo", String.format("║  Scope API overhead: %.2f ns/call          ║", scopeOverheadNs));
+        PulseLogger.info("Echo", "╠═══════════════════════════════════════════════╣");
+        PulseLogger.info("Echo", "║  💡 Lower is better. <100ns is excellent.     ║");
+        PulseLogger.info("Echo", "╚═══════════════════════════════════════════════╝");
+        PulseLogger.info("Echo", "");
     }
 }

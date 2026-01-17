@@ -4,6 +4,7 @@ import com.echo.aggregate.SpikeLog;
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.MemoryProfiler;
 import com.echo.monitor.EchoMonitorServer;
+import com.pulse.api.log.PulseLogger;
 
 public class EchoMonitoringCmd {
 
@@ -11,8 +12,8 @@ public class EchoMonitoringCmd {
         EchoMonitorServer server = EchoMonitorServer.getInstance();
 
         if (args.length < 2) {
-            System.out.println("[Echo] Monitor server: " + (server.isRunning() ? "RUNNING" : "STOPPED"));
-            System.out.println("[Echo] Usage: /echo monitor <start|stop>");
+            PulseLogger.info("Echo", "Monitor server: " + (server.isRunning() ? "RUNNING" : "STOPPED"));
+            PulseLogger.info("Echo", "Usage: /echo monitor <start|stop>");
             return;
         }
 
@@ -24,7 +25,7 @@ public class EchoMonitoringCmd {
                         int port = Integer.parseInt(args[2]);
                         server.start(port);
                     } catch (NumberFormatException e) {
-                        System.out.println("[Echo] Invalid port: " + args[2]);
+                        PulseLogger.warn("Echo", "Invalid port: " + args[2]);
                     }
                 } else {
                     server.start();
@@ -34,7 +35,7 @@ public class EchoMonitoringCmd {
                 server.stop();
                 break;
             default:
-                System.out.println("[Echo] Usage: /echo monitor <start|stop>");
+                PulseLogger.info("Echo", "Usage: /echo monitor <start|stop>");
         }
     }
 
@@ -46,10 +47,10 @@ public class EchoMonitoringCmd {
         SpikeLog spikeLog = EchoProfiler.getInstance().getSpikeLog();
 
         if (args.length < 2) {
-            System.out.println("[Echo] Stack capture: " +
+            PulseLogger.info("Echo", "Stack capture: " +
                     (spikeLog.isStackCaptureEnabled() ? "ENABLED" : "DISABLED"));
-            System.out.println("[Echo] Usage: /echo stack <on|off>");
-            System.out.println("[Echo] ⚠️ Warning: Stack capture has significant performance cost!");
+            PulseLogger.info("Echo", "Usage: /echo stack <on|off>");
+            PulseLogger.warn("Echo", "⚠️ Warning: Stack capture has significant performance cost!");
             return;
         }
 
@@ -59,7 +60,7 @@ public class EchoMonitoringCmd {
         } else if ("off".equals(toggle)) {
             spikeLog.setStackCaptureEnabled(false);
         } else {
-            System.out.println("[Echo] Usage: /echo stack <on|off>");
+            PulseLogger.info("Echo", "Usage: /echo stack <on|off>");
         }
     }
 }

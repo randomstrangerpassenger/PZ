@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Collections;
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.LongAdder;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Lua 함수 라벨러 - 제네릭 라벨을 실제 식별 가능한 함수 ID로 변환
@@ -223,8 +224,7 @@ public class FunctionLabeler {
                 }
             }
         } catch (Exception e) {
-            // 필드 없으면 null로 유지
-            System.err.println("[Echo/FunctionLabeler] Field initialization failed: " + e.getMessage());
+            PulseLogger.error("Echo", "FunctionLabeler Field initialization failed: " + e.getMessage());
         }
 
         fieldsInitialized = true;

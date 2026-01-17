@@ -26,7 +26,6 @@ import com.echo.validation.PulseContractVerifier;
 import com.echo.validation.SelfValidation;
 
 import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -133,13 +132,7 @@ public class ReportDataCollector {
     }
 
     private Map<String, Object> safeGetMap(java.util.function.Supplier<Map<String, Object>> supplier) {
-        try {
-            return supplier.get();
-        } catch (Exception e) {
-            Map<String, Object> err = new HashMap<>();
-            err.put("error", "Data collection failed: " + e.getMessage());
-            return err;
-        }
+        return ReportUtils.safeGetMap(supplier);
     }
 
     private Map<String, Object> generateSummary() {
@@ -565,11 +558,11 @@ public class ReportDataCollector {
     }
 
     private String formatInstant(Instant instant) {
-        return DateTimeFormatter.ISO_INSTANT.format(instant);
+        return ReportUtils.formatInstant(instant);
     }
 
     private double round(double value) {
-        return Math.round(value * 100.0) / 100.0;
+        return ReportUtils.round(value);
     }
 
     private static class RankedFunction {

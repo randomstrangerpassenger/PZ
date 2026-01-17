@@ -150,12 +150,20 @@ local function wrapEvent(eventName)
         
         -- 새 래핑 콜백 생성
         local wrapped = function(...)
-            -- [P1-2 FIX] 단일 실행 경로: Area6Dispatcher로 위임
-            if Nerve.Area6Dispatcher and Nerve.Area6Dispatcher.dispatch then
+            -- Area6 활성화 여부 확인
+            local area6Enabled = NerveConfig 
+                and NerveConfig.area6 
+                and NerveConfig.area6.enabled
+            
+            -- Area6 활성 + Dispatcher 존재 시에만 위임
+            if area6Enabled 
+                and Nerve.Area6Dispatcher 
+                and Nerve.Area6Dispatcher.dispatch 
+                and Nerve.Area6FailSoft then
                 return Nerve.Area6Dispatcher.dispatch(eventName, callback, ...)
             end
             
-            -- Dispatcher 없으면 원본 호출 (폴백)
+            -- Area6 비활성 또는 모듈 미로드 시 원본 호출 (폴백)
             return callback(...)
         end
         
@@ -282,10 +290,8 @@ local function onTick()
         Nerve.Area6TickCtx.onTickStart()
     end
     
-    -- 레거시 Coordinator 호환 (deprecated)
-    if Nerve.Area6 and Nerve.Area6.onTickStart then
-        Nerve.Area6.onTickStart()
-    end
+    -- [REMOVED] 레거시 Coordinator 호출 제거 (deprecated - nil 호출 에러 발생)
+    -- Area6Coordinator는 더 이상 사용되지 않음
 end
 
 -- 이벤트 등록 (2중 초기화 훅)

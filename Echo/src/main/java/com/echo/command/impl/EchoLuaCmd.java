@@ -1,11 +1,12 @@
 package com.echo.command.impl;
 
 import com.echo.measure.EchoProfiler;
+import com.pulse.api.log.PulseLogger;
 
 public class EchoLuaCmd {
     public static void execute(String[] args) {
         if (args.length < 2) {
-            System.out.println("[Echo] Usage: /echo lua <on|off>");
+            PulseLogger.info("Echo", "Usage: /echo lua <on|off>");
             return;
         }
 
@@ -17,7 +18,7 @@ public class EchoLuaCmd {
         } else if ("off".equals(toggle)) {
             profiler.disableLuaProfiling();
         } else {
-            System.out.println("[Echo] Usage: /echo lua <on|off>");
+            PulseLogger.info("Echo", "Usage: /echo lua <on|off>");
         }
     }
 }

@@ -45,6 +45,6 @@ class FuseLifecycleTest {
     @DisplayName("초기화 전 onTick 호출은 안전하게 무시됨")
     void onTickBeforeInitIsSafe() {
         // Should not throw
-        assertDoesNotThrow(() -> lifecycle.onTick());
+        assertDoesNotThrow(() -> lifecycle.onTick(0.0));
     }
 }

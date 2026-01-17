@@ -55,15 +55,15 @@ public class FuseThrottleController implements IThrottlePolicy {
     private AdaptiveGate adaptiveGate;
 
     // --- 히스테리시스 설정 (윈도우 통계 기반) ---
-    private static final double ENTRY_MAX_1S_MS = 33.33; // 진입: 1초 내 max > 33.33ms
-    private static final double ENTRY_AVG_5S_MS = 20.0; // 또는: 5초 avg > 20ms
-    private static final double EXIT_AVG_5S_MS = 12.0; // 복구: 5초 avg < 12ms
-    private static final int EXIT_STABILITY_TICKS = 300; // 5초 유지 필요
+    // --- 히스테리시스 설정 (윈도우 통계 기반) ---
+    // Moved to ThrottleCalculator
 
-    // --- 히스테리시스 상태 ---
-    private ThrottleLevel hysteresisLevel = ThrottleLevel.FULL;
-    private int stabilityCounter = 0;
-    private boolean hysteresisActive = false;
+    // --- Phase 1-C: ThrottleCalculator 분리 ---
+    private final ThrottleCalculator calculator = new ThrottleCalculator();
+
+    // --- 히스테리시스 상태 (deprecated - ThrottleCalculator로 이동) ---
+    // --- 히스테리시스 상태 (deprecated - ThrottleCalculator로 이동) ---
+    // Logic moved to ThrottleCalculator
 
     // --- 통계 ---
     private long fullCount = 0;
@@ -88,6 +88,9 @@ public class FuseThrottleController implements IThrottlePolicy {
             noInterventionByBlocker.put(b, 0);
         }
         PulseLogger.info(LOG, "ThrottleController initialized (v2.3 - IO/GC guards removed)");
+
+        // Phase 1-C: ThrottleCalculator에 ReasonStats 연결
+        // (setReasonStats 호출은 아래에서 수행)
     }
 
     /**
@@ -116,8 +119,10 @@ public class FuseThrottleController implements IThrottlePolicy {
     /**
      * v1.1: ReasonStats 설정.
      */
-    public void setReasonStats(ReasonStats reasonStats) {
-        this.reasonStats = reasonStats;
+    public void setReasonStats(ReasonStats stats) {
+        this.reasonStats = stats;
+        // Phase 1-C: ThrottleCalculator에도 전달
+        calculator.setReasonStats(stats);
     }
 
     /**
@@ -197,7 +202,7 @@ public class FuseThrottleController implements IThrottlePolicy {
     @Override
     public int getAllowedBudget(IHookContext context) {
         // 현재 히스테리시스 레벨 기반 예산 반환
-        return hysteresisLevel.budget;
+        return calculator.getHysteresisLevel().budget;
     }
 
     // =================================================================
@@ -260,7 +265,7 @@ public class FuseThrottleController implements IThrottlePolicy {
             cutoffCount++;
             lastReason = governor.getLastReason();
             recordReason(lastReason);
-            return hysteresisLevel; // 현재 히스테리시스 레벨 유지
+            return calculator.getHysteresisLevel(); // 현재 히스테리시스 레벨 유지
         }
 
         // 4. 즉시 FULL 승격 조건 (공격/타겟/최근 교전)
@@ -273,91 +278,16 @@ public class FuseThrottleController implements IThrottlePolicy {
             return ThrottleLevel.FULL;
         }
 
-        // 5. 거리 기반 Tiered 레벨 계산
-        ThrottleLevel calculated = calculateDistanceLevel(distSq);
+        // 5. 거리 기반 Tiered level 계산 (Phase 1-C: ThrottleCalculator 위임)
+        ThrottleLevel calculated = calculator.calculateDistanceLevel(distSq);
 
-        // 6. 윈도우 기반 히스테리시스 적용
-        ThrottleLevel final_ = applyHysteresis(calculated);
+        // 6. 윈도우 기반 히스테리시스 적용 (Phase 1-C: ThrottleCalculator 위임)
+        ThrottleLevel final_ = calculator.applyHysteresis(calculated, stats);
 
         // 통계 업데이트
         updateStats(final_);
 
         return final_;
-    }
-
-    /**
-     * 거리 기반 ThrottleLevel 계산.
-     */
-    private ThrottleLevel calculateDistanceLevel(float distSq) {
-        FuseConfig config = FuseConfig.getInstance();
-
-        if (distSq < config.getNearDistSq()) {
-            return ThrottleLevel.FULL;
-        }
-        if (distSq < config.getMediumDistSq()) {
-            return ThrottleLevel.REDUCED;
-        }
-        if (distSq < config.getFarDistSq()) {
-            return ThrottleLevel.LOW;
-        }
-        return ThrottleLevel.MINIMAL;
-    }
-
-    /**
-     * 윈도우 통계 기반 히스테리시스 적용.
-     */
-    private ThrottleLevel applyHysteresis(ThrottleLevel newLevel) {
-        if (stats == null || !stats.hasEnoughData()) {
-            return newLevel; // 데이터 부족 시 bypass
-        }
-
-        double max1s = stats.getLast1sMaxMs();
-        double avg5s = stats.getLast5sAvgMs();
-
-        // 진입 조건: 1초 내 max > 33.33ms 또는 5초 avg > 20ms
-        if (max1s > ENTRY_MAX_1S_MS || avg5s > ENTRY_AVG_5S_MS) {
-            stabilityCounter = 0;
-            hysteresisActive = true;
-            lastReason = max1s > ENTRY_MAX_1S_MS
-                    ? TelemetryReason.THROTTLE_WINDOW_EXCEEDED
-                    : TelemetryReason.THROTTLE_AVG_HIGH;
-            recordReason(lastReason);
-
-            // 더 보수적인 레벨로 전환
-            hysteresisLevel = getMoreConservativeLevel(hysteresisLevel);
-            return hysteresisLevel;
-        }
-
-        // 복구 조건: 5초 avg < 12ms가 N초 유지
-        if (avg5s < EXIT_AVG_5S_MS) {
-            stabilityCounter++;
-            if (stabilityCounter >= EXIT_STABILITY_TICKS) {
-                hysteresisActive = false;
-                hysteresisLevel = ThrottleLevel.FULL;
-                lastReason = null;
-                return newLevel; // 완전 복구
-            }
-        } else {
-            stabilityCounter = 0; // 안정성 깨짐
-        }
-
-        // 히스테리시스 활성 중이면 현재 레벨 유지
-        if (hysteresisActive) {
-            return hysteresisLevel;
-        }
-
-        return newLevel;
-    }
-
-    /**
-     * 더 보수적인 ThrottleLevel 반환.
-     */
-    private ThrottleLevel getMoreConservativeLevel(ThrottleLevel current) {
-        return switch (current) {
-            case FULL -> ThrottleLevel.REDUCED;
-            case REDUCED -> ThrottleLevel.LOW;
-            case LOW, MINIMAL -> ThrottleLevel.MINIMAL;
-        };
     }
 
     private void updateStats(ThrottleLevel level) {
@@ -421,14 +351,14 @@ public class FuseThrottleController implements IThrottlePolicy {
     }
 
     public boolean isHysteresisActive() {
-        return hysteresisActive;
+        return calculator.isHysteresisActive();
     }
 
     /**
      * 현재 히스테리시스 레벨 반환 (Step 동기화용).
      */
     public ThrottleLevel getCurrentLevel() {
-        return hysteresisLevel;
+        return calculator.getHysteresisLevel();
     }
 
     public void resetStats() {
@@ -440,9 +370,7 @@ public class FuseThrottleController implements IThrottlePolicy {
         panicOverrideCount = 0;
         guardOverrideCount = 0;
         cutoffCount = 0;
-        stabilityCounter = 0;
-        hysteresisActive = false;
-        hysteresisLevel = ThrottleLevel.FULL;
+        calculator.reset();
     }
 
     public void printStatus() {
@@ -459,9 +387,9 @@ public class FuseThrottleController implements IThrottlePolicy {
         // IOGuardOverride, GCPressureOverride removed in v2.3
         PulseLogger.info(LOG, "  CutoffCount: " + cutoffCount);
         PulseLogger.info(LOG, "  ---");
-        PulseLogger.info(LOG, "  HysteresisActive: " + hysteresisActive);
-        PulseLogger.info(LOG, "  HysteresisLevel: " + hysteresisLevel);
-        PulseLogger.info(LOG, "  StabilityCounter: " + stabilityCounter + "/" + EXIT_STABILITY_TICKS);
+        PulseLogger.info(LOG, "  HysteresisActive: " + calculator.isHysteresisActive());
+        PulseLogger.info(LOG, "  HysteresisLevel: " + calculator.getHysteresisLevel());
+        PulseLogger.info(LOG, "  StabilityCounter: " + calculator.getStabilityCounter() + "/300");
     }
 
     private String pct(long count, long total) {

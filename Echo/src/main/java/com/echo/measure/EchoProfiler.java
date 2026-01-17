@@ -43,17 +43,11 @@ public class EchoProfiler {
     private final ThreadLocal<ProfilingScopePool> scopePool = ThreadLocal.withInitial(ProfilingScopePool::new);
     private final ProfilingScopePool mainThreadScopePool = new ProfilingScopePool();
 
-    // 포인트별 누적 데이터
+    // 포인트별 누적 데이터 (핫패스 - EchoProfiler에 유지)
     private final Map<ProfilingPoint, TimingData> timingRegistry = new ConcurrentHashMap<>();
 
-    // 틱 히스토그램 (Phase 3)
-    private final TickHistogram tickHistogram = new TickHistogram();
-
-    // 스파이크 로그 (Phase 3)
-    private final SpikeLog spikeLog = new SpikeLog();
-
-    // 메트릭 수집기 (Phase 3)
-    private final MetricCollector metricCollector = new MetricCollector();
+    // 비핫패스 메트릭 저장소 (Phase 1-A)
+    private final MetricRegistry metricRegistry = new MetricRegistry();
 
     // 프로파일링 활성화 상태
     private volatile boolean enabled = false;
@@ -186,7 +180,7 @@ public class EchoProfiler {
         if (stack.isEmpty()) {
             // Bundle A: Dual-Mode 원샷 경고 (debugMode에서만 세션당 1회)
             if (state.debugMode && !mismatchReported.getAndSet(true)) {
-                System.err.println("[Echo] Unmatched pop for " + point);
+                PulseLogger.warn("Echo", "Unmatched pop for " + point);
             }
             return;
         }
@@ -196,7 +190,7 @@ public class EchoProfiler {
         if (frame.point != point) {
             // Bundle A: Dual-Mode 원샷 경고 (debugMode에서만 세션당 1회)
             if (state.debugMode && !mismatchReported.getAndSet(true)) {
-                System.err.println("[Echo] Stack mismatch: expected " + frame.point + ", got " + point);
+                PulseLogger.warn("Echo", "Stack mismatch: expected " + frame.point + ", got " + point);
             }
         }
 
@@ -209,10 +203,10 @@ public class EchoProfiler {
         }
 
         if (point == ProfilingPoint.TICK) {
-            tickHistogram.addSample(elapsedMicros);
+            metricRegistry.recordTickSample(elapsedMicros);
         }
 
-        spikeLog.logSpike(elapsedMicros, point, frame.customLabel);
+        metricRegistry.logSpike(elapsedMicros, point, frame.customLabel);
     }
 
     public ProfilingScope scope(ProfilingPoint point) {
@@ -276,10 +270,10 @@ public class EchoProfiler {
         }
 
         if (point == ProfilingPoint.TICK) {
-            tickHistogram.addSample(elapsedMicros);
+            metricRegistry.recordTickSample(elapsedMicros);
         }
 
-        spikeLog.logSpike(elapsedMicros, point, null);
+        metricRegistry.logSpike(elapsedMicros, point, null);
     }
 
     public void endRaw(ProfilingPoint point, long startTime, String label) {
@@ -295,10 +289,10 @@ public class EchoProfiler {
         }
 
         if (point == ProfilingPoint.TICK) {
-            tickHistogram.addSample(elapsedMicros);
+            metricRegistry.recordTickSample(elapsedMicros);
         }
 
-        spikeLog.logSpike(elapsedMicros, point, label);
+        metricRegistry.logSpike(elapsedMicros, point, label);
     }
 
     // --- Control API ---
@@ -382,8 +376,7 @@ public class EchoProfiler {
             timingRegistry.put(point, new TimingData(point.name()));
         }
 
-        tickHistogram.reset();
-        spikeLog.reset();
+        metricRegistry.reset();
         sessionStartTime = System.currentTimeMillis();
 
         SubProfiler.getInstance().reset();
@@ -410,15 +403,24 @@ public class EchoProfiler {
     }
 
     public TickHistogram getTickHistogram() {
-        return tickHistogram;
+        return metricRegistry.getTickHistogram();
     }
 
     public SpikeLog getSpikeLog() {
-        return spikeLog;
+        return metricRegistry.getSpikeLog();
     }
 
     public MetricCollector getMetricCollector() {
-        return metricCollector;
+        return metricRegistry.getMetricCollector();
+    }
+
+    /**
+     * MetricRegistry 조회 (Phase 1-A)
+     * 
+     * @return MetricRegistry 인스턴스
+     */
+    public MetricRegistry getMetricRegistry() {
+        return metricRegistry;
     }
 
     // --- Utility ---
@@ -435,23 +437,24 @@ public class EchoProfiler {
     }
 
     public void printStatus() {
-        System.out.println("\n[Echo] === Profiler Status ===");
-        System.out.println("  Enabled: " + enabled);
-        System.out.println("  Lua Profiling: " + luaProfilingEnabled);
-        System.out.println("  Session Duration: " + getSessionDurationSeconds() + "s");
-        System.out.println();
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "=== Profiler Status ===");
+        PulseLogger.info("Echo", "  Enabled: " + enabled);
+        PulseLogger.info("Echo", "  Lua Profiling: " + luaProfilingEnabled);
+        PulseLogger.info("Echo", "  Session Duration: " + getSessionDurationSeconds() + "s");
+        PulseLogger.info("Echo", "");
 
         for (ProfilingPoint point : ProfilingPoint.values()) {
             TimingData data = timingRegistry.get(point);
             if (data != null && data.getCallCount() > 0) {
-                System.out.printf("  %-15s | calls: %,8d | avg: %6.2f ms | max: %6.2f ms%n",
+                PulseLogger.info("Echo", String.format("  %-15s | calls: %,8d | avg: %6.2f ms | max: %6.2f ms",
                         point.getDisplayName(),
                         data.getCallCount(),
                         data.getAverageMicros() / 1000.0,
-                        data.getMaxMicros() / 1000.0);
+                        data.getMaxMicros() / 1000.0));
             }
         }
-        System.out.println();
+        PulseLogger.info("Echo", "");
     }
 
     public long getSessionDurationSeconds() {

@@ -4,6 +4,7 @@ import com.echo.command.impl.*;
 import com.echo.measure.EchoProfiler;
 import com.pulse.api.command.ICommandContext;
 import com.pulse.api.di.PulseServices;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,10 +57,10 @@ public class EchoCommands {
         // Register with Pulse CommandRegistry via PulseServices API
         try {
             PulseServices.commands().register("echo", "Echo Profiler 명령어", EchoCommands::handleEchoCommand);
-            System.out.println("[Echo] Commands registered via Pulse API");
+            PulseLogger.info("Echo", "Commands registered via Pulse API");
         } catch (IllegalStateException | NoClassDefFoundError e) {
             // Pulse not available, fallback to direct invocation
-            System.out.println("[Echo] Commands registered (standalone mode)");
+            PulseLogger.info("Echo", "Commands registered (standalone mode)");
         }
 
         registered = true;
@@ -105,8 +106,8 @@ public class EchoCommands {
             handler.accept(args);
             return true;
         } else {
-            System.out.println("[Echo] Unknown command: " + subCommand);
-            System.out.println("[Echo] Use '/echo help' for available commands");
+            PulseLogger.warn("Echo", "Unknown command: " + subCommand);
+            PulseLogger.warn("Echo", "Use '/echo help' for available commands");
             return false;
         }
     }
@@ -114,35 +115,35 @@ public class EchoCommands {
     // --- Command Handlers ---
 
     private static void cmdHelp(String[] args) {
-        System.out.println();
-        System.out.println("╔═══════════════════════════════════════════════╗");
-        System.out.println("║           Echo Profiler Commands              ║");
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.println("║  Basic Commands:                              ║");
-        System.out.println("║  /echo help        - Show this help           ║");
-        System.out.println("║  /echo enable      - Start profiling          ║");
-        System.out.println("║  /echo disable     - Stop profiling           ║");
-        System.out.println("║  /echo status      - Show current status      ║");
-        System.out.println("║  /echo report      - Generate report          ║");
-        System.out.println("║  /echo report json - Save JSON report         ║");
-        System.out.println("║  /echo reset       - Reset all statistics     ║");
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.println("║  Lua Profiling:                               ║");
-        System.out.println("║  /echo lua on      - Enable Lua profiling     ║");
-        System.out.println("║  /echo lua off     - Disable Lua profiling    ║");
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.println("║  Configuration:                               ║");
-        System.out.println("║  /echo config      - Show current config      ║");
-        System.out.println("║  /echo config set threshold <ms>              ║");
-        System.out.println("║  /echo memory      - Show memory status       ║");
-        System.out.println("╠═══════════════════════════════════════════════╣");
-        System.out.println("║  Advanced (Phase 4):                          ║");
-        System.out.println("║  /echo stack on    - Enable spike stack trace ║");
-        System.out.println("║  /echo overhead    - Measure profiler cost    ║");
-        System.out.println("║  /echo monitor start [port] - Start HTTP API  ║");
-        System.out.println("║  /echo test        - Run quick test           ║");
-        System.out.println("╚═══════════════════════════════════════════════╝");
-        System.out.println();
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "╔═══════════════════════════════════════════════╗");
+        PulseLogger.info("Echo", "║           Echo Profiler Commands              ║");
+        PulseLogger.info("Echo", "╠═══════════════════════════════════════════════╣");
+        PulseLogger.info("Echo", "║  Basic Commands:                              ║");
+        PulseLogger.info("Echo", "║  /echo help        - Show this help           ║");
+        PulseLogger.info("Echo", "║  /echo enable      - Start profiling          ║");
+        PulseLogger.info("Echo", "║  /echo disable     - Stop profiling           ║");
+        PulseLogger.info("Echo", "║  /echo status      - Show current status      ║");
+        PulseLogger.info("Echo", "║  /echo report      - Generate report          ║");
+        PulseLogger.info("Echo", "║  /echo report json - Save JSON report         ║");
+        PulseLogger.info("Echo", "║  /echo reset       - Reset all statistics     ║");
+        PulseLogger.info("Echo", "╠═══════════════════════════════════════════════╣");
+        PulseLogger.info("Echo", "║  Lua Profiling:                               ║");
+        PulseLogger.info("Echo", "║  /echo lua on      - Enable Lua profiling     ║");
+        PulseLogger.info("Echo", "║  /echo lua off     - Disable Lua profiling    ║");
+        PulseLogger.info("Echo", "╠═══════════════════════════════════════════════╣");
+        PulseLogger.info("Echo", "║  Configuration:                               ║");
+        PulseLogger.info("Echo", "║  /echo config      - Show current config      ║");
+        PulseLogger.info("Echo", "║  /echo config set threshold <ms>              ║");
+        PulseLogger.info("Echo", "║  /echo memory      - Show memory status       ║");
+        PulseLogger.info("Echo", "╠═══════════════════════════════════════════════╣");
+        PulseLogger.info("Echo", "║  Advanced (Phase 4):                          ║");
+        PulseLogger.info("Echo", "║  /echo stack on    - Enable spike stack trace ║");
+        PulseLogger.info("Echo", "║  /echo overhead    - Measure profiler cost    ║");
+        PulseLogger.info("Echo", "║  /echo monitor start [port] - Start HTTP API  ║");
+        PulseLogger.info("Echo", "║  /echo test        - Run quick test           ║");
+        PulseLogger.info("Echo", "╚═══════════════════════════════════════════════╝");
+        PulseLogger.info("Echo", "");
     }
 
     private static void cmdEnable(String[] args) {

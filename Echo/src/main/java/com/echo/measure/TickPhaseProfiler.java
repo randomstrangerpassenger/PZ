@@ -5,6 +5,7 @@ import com.echo.config.EchoConfig;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.LongAdder;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Tick Phase 분해 프로파일러
@@ -322,29 +323,29 @@ public class TickPhaseProfiler {
      */
     public void printStats() {
         if (!isEnabled()) {
-            System.out.println("[Echo/TickPhase] Tick Phase Breakdown is disabled");
+            PulseLogger.info("Echo", "Tick Phase Breakdown is disabled");
             return;
         }
 
-        System.out.println("\n[Echo/TickPhase] Tick Phase Breakdown:");
-        System.out.println("─────────────────────────────────────────────────────────────────");
-        System.out.printf("%-20s %10s %10s %10s %8s%n",
-                "Phase", "Total(ms)", "Avg(ms)", "Max(ms)", "%");
-        System.out.println("─────────────────────────────────────────────────────────────────");
+        PulseLogger.info("Echo", "\n[Echo/TickPhase] Tick Phase Breakdown:");
+        PulseLogger.info("Echo", "─────────────────────────────────────────────────────────────────");
+        PulseLogger.info("Echo", String.format("%-20s %10s %10s %10s %8s",
+                "Phase", "Total(ms)", "Avg(ms)", "Max(ms)", "%"));
+        PulseLogger.info("Echo", "─────────────────────────────────────────────────────────────────");
 
         Map<TickPhase, Double> percentages = getPhasePercentages();
 
         for (PhaseTimingData data : phaseTimings.values()) {
             if (data.getCallCount() > 0) {
                 double pct = percentages.getOrDefault(data.getPhase(), 0.0);
-                System.out.printf("%-20s %10.2f %10.2f %10.2f %7.1f%%%n",
+                PulseLogger.info("Echo", String.format("%-20s %10.2f %10.2f %10.2f %7.1f%%",
                         data.getPhase().getDisplayName(),
                         data.getTotalMs(),
                         data.getAverageMs(),
                         data.getMaxMs(),
-                        pct);
+                        pct));
             }
         }
-        System.out.println();
+        PulseLogger.info("Echo", "");
     }
 }

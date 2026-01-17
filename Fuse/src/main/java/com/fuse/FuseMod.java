@@ -8,6 +8,7 @@ import com.fuse.optimizer.FuseOptimizer;
 import com.fuse.telemetry.ReasonStats;
 import com.fuse.throttle.FuseThrottleController;
 
+import com.pulse.api.log.PulseLogger;
 import com.pulse.api.mod.PulseMod;
 
 /**
@@ -108,58 +109,61 @@ public class FuseMod implements PulseMod {
     // ═══════════════════════════════════════════════════════════════
 
     public void printStatus() {
-        System.out.println();
-        System.out.println("╔═══════════════════════════════════════════════╗");
-        System.out.println("║         FUSE v2.4 DECOMPOSED STATUS           ║");
-        System.out.println("╚═══════════════════════════════════════════════╝");
+        PulseLogger.info("Fuse", "");
+        PulseLogger.info("Fuse", "╔═══════════════════════════════════════════════╗");
+        PulseLogger.info("Fuse", "║         FUSE v2.4 DECOMPOSED STATUS           ║");
+        PulseLogger.info("Fuse", "╚═══════════════════════════════════════════════╝");
 
         FailsoftController failsoft = registry.getFailsoftController();
-        if (failsoft != null && failsoft.isInterventionDisabled()) {
-            System.out.println("\n  ⚠️  FAILSOFT: Intervention DISABLED");
-            failsoft.printStatus();
-            return;
+        if (failsoft != null) {
+            if (failsoft.isInterventionDisabled()) { // Assuming this is the intended check
+                PulseLogger.warn("Fuse", "\n  ⚠️  FAILSOFT: Intervention DISABLED");
+                failsoft.printStatus();
+                return;
+            }
         }
 
         SpikePanicProtocol panic = registry.getPanicProtocol();
-        if (panic != null) {
-            System.out.println("\n  Panic State: " + panic.getState());
-            System.out.println("  Panic Multiplier: " + panic.getThrottleMultiplier());
+        if (panic != null) { // Added null check for panic
+            PulseLogger.info("Fuse", "\n  Panic State: " + panic.getState());
+            PulseLogger.info("Fuse", "  Panic Multiplier: " + panic.getThrottleMultiplier());
         }
 
         TickBudgetGovernor gov = registry.getGovernor();
         if (gov != null) {
-            System.out.println();
+            PulseLogger.info("Fuse", ""); // Changed System.out.println() to PulseLogger.info()
             gov.printStatus();
         }
 
         FuseThrottleController throttle = registry.getThrottleController();
         if (throttle != null) {
-            System.out.println();
+            PulseLogger.info("Fuse", ""); // Changed System.out.println() to PulseLogger.info()
             throttle.printStatus();
         }
 
         FuseOptimizer opt = registry.getOptimizer();
         if (opt != null) {
             var status = opt.getStatus();
-            System.out.println("\n  Optimizer:");
-            System.out.println("    Enabled:       " + status.get("enabled"));
-            System.out.println("    Auto-Optimize: " + status.get("auto_optimize"));
-            System.out.println("    Applied:       " + status.get("optimizations_applied"));
+            PulseLogger.info("Fuse", "");
+            PulseLogger.info("Fuse", "  Optimizer:");
+            PulseLogger.info("Fuse", "    Enabled:       " + status.get("enabled"));
+            PulseLogger.info("Fuse", "    Auto-Optimize: " + status.get("auto_optimize"));
+            PulseLogger.info("Fuse", "    Applied:       " + status.get("optimizations_applied"));
         }
 
-        ReasonStats reasons = registry.getReasonStats();
+        ReasonStats reasons = registry.getReasonStats(); // Kept original ReasonStats type
         if (reasons != null && reasons.getTotalCount() > 0) {
-            System.out.println("\n  Intervention Reasons (Top 3):");
-            var topReasons = reasons.getTop(3);
+            PulseLogger.info("Fuse", "\n  Intervention Reasons (Top 3):");
+            var topReasons = reasons.getTop(3); // Kept original getTop method
             int rank = 1;
-            for (var entry : topReasons) {
-                System.out.println("    " + rank + ". " + entry.getKey().name() + ": " + entry.getValue());
+            for (var entry : topReasons) { // Kept original iteration
+                PulseLogger.info("Fuse", "    " + rank + ". " + entry.getKey().name() + ": " + entry.getValue());
                 rank++;
             }
-            System.out.println("    Total: " + reasons.getTotalCount());
+            PulseLogger.info("Fuse", "    Total: " + reasons.getTotalCount());
         }
 
-        System.out.println();
+        PulseLogger.info("Fuse", ""); // Changed System.out.println() to PulseLogger.info()
     }
 
     // ═══════════════════════════════════════════════════════════════

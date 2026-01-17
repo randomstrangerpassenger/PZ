@@ -1,6 +1,7 @@
 package com.echo.aggregate;
 
 import com.echo.measure.ProfilingPoint;
+import com.pulse.api.log.PulseLogger;
 
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
@@ -51,7 +52,7 @@ public class SpikeLog {
      */
     public void setStackCaptureEnabled(boolean enabled) {
         this.stackCaptureEnabled = enabled;
-        System.out.println("[Echo] Spike stack capture: " + (enabled ? "ENABLED" : "DISABLED"));
+        PulseLogger.info("Echo", "Spike stack capture: " + (enabled ? "ENABLED" : "DISABLED"));
     }
 
     public boolean isStackCaptureEnabled() {
@@ -159,7 +160,7 @@ public class SpikeLog {
      */
     public void setThresholdMs(double thresholdMs) {
         this.thresholdMs = thresholdMs;
-        System.out.println("[Echo] Spike threshold set to: " + thresholdMs + " ms");
+        PulseLogger.info("Echo", "Spike threshold set to: " + thresholdMs + " ms");
     }
 
     // Phase 2: Context Provider (Snapshots)

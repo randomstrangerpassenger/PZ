@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
+import com.pulse.api.log.PulseLogger;
 
 import com.pulse.api.profiler.TickPhaseHook;
 
@@ -149,7 +150,7 @@ public class SelfValidation {
         });
 
         scheduler.schedule(this::performValidation, VALIDATION_DELAY_MS, TimeUnit.MILLISECONDS);
-        System.out.println("[Echo] Self-validation scheduled in " + VALIDATION_DELAY_MS + "ms");
+        PulseLogger.info("Echo", "Self-validation scheduled in " + VALIDATION_DELAY_MS + "ms");
     }
 
     /**
@@ -249,46 +250,48 @@ public class SelfValidation {
      * 검증 결과 콘솔 출력
      */
     private void printValidationResult(ValidationResult result) {
-        System.out.println("\n[Echo] ══════════════════════════════════════");
-        System.out.println("[Echo]          SELF-VALIDATION RESULT");
-        System.out.println("[Echo] ══════════════════════════════════════");
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "══════════════════════════════════════");
+        PulseLogger.info("Echo", "         SELF-VALIDATION RESULT");
+        PulseLogger.info("Echo", "══════════════════════════════════════");
 
         // Hook Status
         String hookIcon = result.hookStatus == HookStatus.OK ? "✓"
                 : result.hookStatus == HookStatus.PARTIAL ? "⚠" : "✗";
-        System.out.printf("[Echo] %s Hook Status: %s (heartbeat: %d)%n",
-                hookIcon, result.hookStatus, result.heartbeatCount);
+        PulseLogger.info("Echo", String.format("%s Hook Status: %s (heartbeat: %d)",
+                hookIcon, result.hookStatus, result.heartbeatCount));
 
         // FreezeDetector Status
         String freezeIcon = result.freezeDetectorStatus == FreezeDetectorStatus.ACTIVE ? "✓" : "✗";
-        System.out.printf("[Echo] %s FreezeDetector: %s (checks: %d)%n",
-                freezeIcon, result.freezeDetectorStatus, result.freezeCheckCount);
+        PulseLogger.info("Echo", String.format("%s FreezeDetector: %s (checks: %d)",
+                freezeIcon, result.freezeDetectorStatus, result.freezeCheckCount));
 
         // SubProfiler Status
         if (result.subProfilerStatus != SubProfilerStatus.DISABLED) {
             String subIcon = result.subProfilerStatus == SubProfilerStatus.OK ? "✓" : "✗";
-            System.out.printf("[Echo] %s SubProfiler: %s (entries: %d)%n",
-                    subIcon, result.subProfilerStatus, result.subProfilerEntryCount);
+            PulseLogger.info("Echo", String.format("%s SubProfiler: %s (entries: %d)",
+                    subIcon, result.subProfilerStatus, result.subProfilerEntryCount));
         }
 
         // Issues
         if (!result.issues.isEmpty()) {
-            System.out.println("[Echo] ──────────────────────────────────────");
+            PulseLogger.info("Echo", "──────────────────────────────────────");
             for (ValidationIssue issue : result.issues) {
-                System.out.printf("[Echo] ⚠ %s: %s%n", issue.name(), issue.getDescription());
+                PulseLogger.info("Echo", String.format("⚠ %s: %s", issue.name(), issue.getDescription()));
             }
         }
 
         // Critical Error: Hook Missing
         if (result.hookStatus == HookStatus.MISSING) {
-            System.err.println("[Echo] ══════════════════════════════════════");
-            System.err.println("[Echo] ERROR: Tick hook not firing!");
-            System.err.println("[Echo] Pulse hook may be missing or misconfigured.");
-            System.err.println("[Echo] total_ticks will be 0 in the report.");
-            System.err.println("[Echo] ══════════════════════════════════════");
+            PulseLogger.error("Echo", "══════════════════════════════════════");
+            PulseLogger.error("Echo", "ERROR: Tick hook not firing!");
+            PulseLogger.error("Echo", "Pulse hook may be missing or misconfigured.");
+            PulseLogger.error("Echo", "total_ticks will be 0 in the report.");
+            PulseLogger.error("Echo", "══════════════════════════════════════");
         }
 
-        System.out.println("[Echo] ══════════════════════════════════════\n");
+        PulseLogger.info("Echo", "══════════════════════════════════════");
+        PulseLogger.info("Echo", "");
     }
 
     /**

@@ -7,6 +7,7 @@ import java.lang.management.MemoryUsage;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * 메모리 프로파일러
@@ -241,6 +242,6 @@ public class MemoryProfiler {
      * 메모리 통계 출력
      */
     public static void printStatus() {
-        System.out.println(getStatusString());
+        PulseLogger.info("Echo", getStatusString());
     }
 }

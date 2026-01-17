@@ -3,6 +3,8 @@ package com.echo.lua;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Detailed Window 트리거 관리자 (v2.1)
  * 
@@ -70,13 +72,13 @@ public class DetailedWindowManager {
 
         WindowConfig config = CONFIGS.get(type);
         if (config == null) {
-            System.err.println("[Echo/DetailedWindow] Unknown trigger type: " + type);
+            PulseLogger.error("Echo", "Unknown trigger type: " + type);
             return;
         }
 
         // P2: 컨텍스트 태그 전달
         tracker.openDetailedWindow(config.durationMs, config.sampleRate, config.contextTag);
-        System.out.println("[Echo/DetailedWindow] Triggered: " + type +
+        PulseLogger.info("Echo", "DetailedWindow Triggered: " + type +
                 " (" + config.durationMs + "ms, 1/" + config.sampleRate + " sample, context=" + config.contextTag
                 + ")");
     }
@@ -95,19 +97,21 @@ public class DetailedWindowManager {
      */
     public void startManualCapture(long durationMs) {
         tracker.openDetailedWindow(durationMs, 1, "MANUAL_COMMAND"); // 100% 샘플링
-        System.out.println("[Echo/DetailedWindow] Manual capture started: " + durationMs + "ms");
+        PulseLogger.info("Echo", "DetailedWindow Manual capture started: " + durationMs + "ms");
     }
 
     /**
      * 상태 출력
      */
     public void printStatus() {
-        System.out.println("\n[Echo/DetailedWindow] Status:");
-        System.out.println("  active = " + isActive());
-        System.out.println("  cooldown_ms = " + COOLDOWN_MS);
-        System.out.println("  last_trigger = " +
-                (System.currentTimeMillis() - lastTriggerTime.get()) + "ms ago");
-        System.out.println("  windows_opened = " + tracker.getDetailedWindowsOpened());
-        System.out.println("  total_active_ms = " + tracker.getDetailedTotalActiveMs());
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "[Echo/DetailedWindow] Status:");
+        PulseLogger.info("Echo", "  active = " + isActive());
+        PulseLogger.info("Echo", "  cooldown_ms = " + COOLDOWN_MS);
+        PulseLogger.info("Echo", "  last_trigger = " +
+                (lastTriggerTime.get() == 0 ? "NEVER"
+                        : ((System.currentTimeMillis() - lastTriggerTime.get()) + "ms ago")));
+        PulseLogger.info("Echo", "  windows_opened = " + tracker.getDetailedWindowsOpened());
+        PulseLogger.info("Echo", "  total_active_ms = " + tracker.getDetailedTotalActiveMs());
     }
 }

@@ -150,12 +150,13 @@ function Area6Dispatcher.dispatch(eventName, listener, ...)
     end
     
     -- [STEP 6] 반환
-    -- [P1-1 FIX] 헌법: Nerve는 예외를 막지 않는다 - 예외 재전파
+    -- [FIX] Fail-Soft: 에러 시 nil 반환하고 이벤트 체인 계속
+    -- (error()로 재전파하면 PZ 이벤트 시스템 전체가 깨짐)
+    -- 침묵 금지는 Area6FailSoft에서 로그로 처리됨
     if success then
         return result
     else
-        -- 예외 재전파 (바닐라 흐름 보존)
-        error(result)
+        return nil
     end
 end
 

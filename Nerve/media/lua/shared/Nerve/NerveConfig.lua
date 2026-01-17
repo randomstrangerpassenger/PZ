@@ -38,8 +38,8 @@ NerveConfig.debug = false
 
 NerveConfig.area6 = {
     -- 활성화 여부
-    -- [SEALED] DEFAULT OFF: 바닐라 동일 보장 (헌법 준수)
-    enabled = false,
+    -- [DEBUG] 임시로 활성화 - 문제 파악 후 false로 복구
+    enabled = true,
     
     -- 래핑 대상 이벤트 목록 (최소 5~10개로 제한)
     -- "재현된 폭주가 확인된" 이벤트만 추가

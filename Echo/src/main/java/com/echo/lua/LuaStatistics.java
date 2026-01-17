@@ -1,7 +1,9 @@
 package com.echo.lua;
 
 import com.echo.util.StringUtils;
+
 import com.pulse.api.util.TopNCollector;
+import com.pulse.api.log.PulseLogger;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -287,39 +289,38 @@ public class LuaStatistics {
     // ═══════════════════════════════════════════════════════════════
 
     public void printStats(int topN, int sampleRate) {
-        System.out.println("\n🔷 LUA PROFILING STATS (v2.1)");
-        System.out.println("───────────────────────────────────────────────────────");
-        System.out.printf("  Total Calls: %,d | Tracked: %,d | Untracked: %,d%n",
-                getTotalCalls(), getTrackedCalls(), getUntrackedCalls());
-        System.out.printf("  Dropped Frames: %,d | Stack Resets: %,d%n",
-                getDroppedFrames(), getStackResets());
-        System.out.printf("  Windows Opened: %,d | Active Time: %,d ms%n",
-                getDetailedWindowsOpened(), getDetailedTotalActiveMs());
-        System.out.printf("  Total Time: %.2f ms%n", getTotalTimeMs());
-        System.out.println();
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "🔷 LUA PROFILING STATS (v2.1)");
+        PulseLogger.info("Echo", "───────────────────────────────────────────────────────");
+        PulseLogger.info("Echo", String.format("  Total Calls: %,d | Tracked: %,d | Untracked: %,d",
+                totalCalls.sum(), trackedCalls.sum(), untrackedCalls.sum()));
+        PulseLogger.info("Echo", String.format("  Dropped Frames: %,d | Stack Resets: %,d",
+                droppedFrames.sum(), stackResets.sum()));
+        PulseLogger.info("Echo", String.format("  Windows Opened: %,d | Active Time: %,d ms",
+                detailedWindowsOpened.sum(), detailedTotalActiveMs.sum()));
+        PulseLogger.info("Echo", String.format("  Total Time: %.2f ms", getTotalTimeMs()));
+        PulseLogger.info("Echo", "");
 
-        System.out.println("  Top Functions by Time:");
-        int rank = 1;
-        for (LuaFunctionStats stats : getTopFunctionsByTime(topN)) {
-            System.out.printf("    #%d %-30s | calls: %,6d | total: %6.2f ms | self: %6.2f ms%n",
-                    rank++,
-                    StringUtils.truncate(stats.getName(), 30),
-                    stats.getCallCount(),
-                    stats.getTotalMs(),
-                    stats.getSelfTimeMs());
+        PulseLogger.info("Echo", "  Top Functions by Time:");
+        List<LuaFunctionStats> topFuncs = getTopFunctionsByTime(topN);
+        for (int i = 0; i < topFuncs.size(); i++) {
+            LuaFunctionStats s = topFuncs.get(i);
+            PulseLogger.info("Echo", String.format("    #%d %-30s | calls: %,6d | total: %6.2f ms | self: %6.2f ms",
+                    i + 1, StringUtils.truncate(s.getName(), 30), s.getCallCount(),
+                    s.getTotalMs() * sampleRate, // 샘플링 보정
+                    s.getSelfTimeMs() * sampleRate));
         }
 
         if (!eventStats.isEmpty()) {
-            System.out.println("\n  Events:");
-            for (LuaEventStats stats : eventStats.values()) {
-                System.out.printf("    %-25s | fires: %,6d | handlers: %,d | total: %.2f ms%n",
-                        StringUtils.truncate(stats.getName(), 25),
-                        stats.getFireCount(),
-                        stats.getTotalHandlers(),
-                        stats.getTotalMs());
+            PulseLogger.info("Echo", "");
+            PulseLogger.info("Echo", "  Events:");
+            for (LuaEventStats e : eventStats.values()) {
+                PulseLogger.info("Echo", String.format("    %-25s | fires: %,6d | handlers: %,d | total: %.2f ms",
+                        StringUtils.truncate(e.getName(), 25), e.getFireCount(), e.getTotalHandlers(),
+                        e.getTotalMs() * sampleRate));
             }
         }
-        System.out.println();
+        PulseLogger.info("Echo", "");
     }
 
     /**

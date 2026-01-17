@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.LongAdder;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * SubProfiler - Tick 내부 세부 측정 프로파일러
@@ -277,7 +278,7 @@ public class SubProfiler {
         // Debug logging (first 10 calls per label)
         if (debugCounters.getOrDefault(label, 0) < 10) {
             debugCounters.merge(label, 1, Integer::sum);
-            com.pulse.api.log.PulseLogger.debug("Echo/SubProfiler",
+            PulseLogger.debug("Echo/SubProfiler",
                     "startRaw(" + label + "): isEnabled=" + enabled + ", labelEnabled=" + labelEnabled);
         }
 
@@ -449,26 +450,26 @@ public class SubProfiler {
      */
     public void printStats(int topN) {
         if (!isEnabled()) {
-            System.out.println("[Echo/SubProfiler] SubTiming is disabled");
+            PulseLogger.info("Echo", "SubTiming is disabled");
             return;
         }
 
-        System.out.println("\n[Echo/SubProfiler] Heavy Functions (Top " + topN + "):");
-        System.out.println("─────────────────────────────────────────────────────────────────");
-        System.out.printf("%-4s %-20s %-10s %10s %10s %10s%n",
-                "Rank", "Label", "Category", "Total(ms)", "Avg(ms)", "Max(ms)");
-        System.out.println("─────────────────────────────────────────────────────────────────");
+        PulseLogger.info("Echo", "\n[Echo/SubProfiler] Heavy Functions (Top " + topN + "):");
+        PulseLogger.info("Echo", "─────────────────────────────────────────────────────────────────");
+        PulseLogger.info("Echo", String.format("%-4s %-20s %-10s %10s %10s %10s",
+                "Rank", "Label", "Category", "Total(ms)", "Avg(ms)", "Max(ms)"));
+        PulseLogger.info("Echo", "─────────────────────────────────────────────────────────────────");
 
         int rank = 1;
         for (SubTimingData data : getTopNByTotalTime(topN)) {
-            System.out.printf("%-4d %-20s %-10s %10.2f %10.2f %10.2f%n",
+            PulseLogger.info("Echo", String.format("%-4d %-20s %-10s %10.2f %10.2f %10.2f",
                     rank++,
                     data.getLabel().getDisplayName(),
                     data.getLabel().getCategory().getDisplayName(),
                     data.getTotalMs(),
                     data.getAverageMs(),
-                    data.getMaxMs());
+                    data.getMaxMs()));
         }
-        System.out.println();
+        PulseLogger.info("Echo", "");
     }
 }

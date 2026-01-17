@@ -1,6 +1,7 @@
 package com.echo;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Echo 런타임 상태 관리
@@ -51,7 +52,7 @@ public final class EchoRuntime {
     public static void disable(String reason) {
         if (enabled) {
             enabled = false;
-            System.out.println("[Echo] Disabled: " + reason);
+            PulseLogger.info("Echo", "Disabled: " + reason);
         }
     }
 
@@ -63,7 +64,7 @@ public final class EchoRuntime {
     public static void enableSilentMode(String reason) {
         if (!silentMode) {
             silentMode = true;
-            System.out.println("[Echo] Silent Mode: " + reason);
+            PulseLogger.info("Echo", "Silent Mode: " + reason);
         }
     }
 
@@ -89,7 +90,7 @@ public final class EchoRuntime {
 
         // 첫 번째 에러만 상세 로그
         if (count == 1 && e != null) {
-            System.err.println("[Echo] Error in " + context + ": " + e.getMessage());
+            PulseLogger.error("Echo", "Error in " + context + ": " + e.getMessage(), e);
         }
 
         // 임계값 초과 시 비활성화

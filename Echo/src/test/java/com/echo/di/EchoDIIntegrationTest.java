@@ -18,17 +18,18 @@ public class EchoDIIntegrationTest {
 
     @BeforeEach
     void setUp() {
+        // 싱글톤 인스턴스 리셋 (테스트 격리)
+        EchoConfig.resetInstance();
+        LuaCallTracker.resetInstance();
         PulseServiceLocator.getInstance().clear();
-        // Reset singletons if possible?
-        // Note: We can't easily reset static singletons without reflection or adding
-        // reset methods.
-        // For this test, we rely on the fact that getInstance() checks the Locator
-        // FIRST.
     }
 
     @AfterEach
     void tearDown() {
         PulseServiceLocator.getInstance().clear();
+        // 싱글톤도 리셋하여 다른 테스트에 영향 방지
+        EchoConfig.resetInstance();
+        LuaCallTracker.resetInstance();
     }
 
     @Test

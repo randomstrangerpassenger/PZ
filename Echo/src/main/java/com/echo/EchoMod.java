@@ -110,12 +110,12 @@ public class EchoMod implements PulseMod {
 
     /** 내부 초기화 로직 */
     private static void initInternal() {
-        System.out.println();
-        System.out.println("╔═══════════════════════════════════════════════╗");
-        System.out.println("║     Echo Profiler v" + VERSION + " Initialized         ║");
-        System.out.println("║     \"Observe, Don't Patch\"                    ║");
-        System.out.println("╚═══════════════════════════════════════════════╝");
-        System.out.println();
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "╔═══════════════════════════════════════════════╗");
+        PulseLogger.info("Echo", "║     Echo Profiler v" + VERSION + " Initialized         ║");
+        PulseLogger.info("Echo", "║     \"Observe, Don't Patch\"                    ║");
+        PulseLogger.info("Echo", "╚═══════════════════════════════════════════════╝");
+        PulseLogger.info("Echo", "");
 
         // Phase 0: Profiler 선 활성화 (다른 컴포넌트들이 상태를 체크하기 전에)
         com.echo.config.EchoConfig config = com.echo.config.EchoConfig.getInstance();
@@ -235,9 +235,9 @@ public class EchoMod implements PulseMod {
         registerServices();
 
         // 프로파일러 상태 최종 확인 (이미 Phase 0에서 활성화됨)
-        System.out.println("╔═══════════════════════════════════════════════╗");
-        System.out.println("║  [Echo] ✓ PROFILER ENABLED - Collecting Data  ║");
-        System.out.println("╚═══════════════════════════════════════════════╝");
+        PulseLogger.info("Echo", "╔═══════════════════════════════════════════════╗");
+        PulseLogger.info("Echo", "║  [Echo] ✓ PROFILER ENABLED - Collecting Data  ║");
+        PulseLogger.info("Echo", "╚═══════════════════════════════════════════════╝");
 
         // 활성화 확인 로그
         if (!profiler.isEnabled()) {

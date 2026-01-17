@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.pulse.api.log.PulseLogger;
+
 /**
  * Echo 설정 관리
  * 
@@ -23,6 +25,7 @@ public class EchoConfig {
     // 사용자 홈 디렉토리 기반 설정 경로 (권한 문제 방지)
     private static final String CONFIG_DIR = System.getProperty("user.home") + "/Zomboid/Echo";
     private static final String CONFIG_FILE = "echo.json";
+    private static final String LOG = "Echo";
 
     private static EchoConfig instance;
 
@@ -110,15 +113,15 @@ public class EchoConfig {
     }
 
     public static EchoConfig getInstance() {
-        // 1. Try ServiceLocator via PulseServices (Hybrid DI)
+        // 1. Try ServiceLocator (Hybrid DI)
         try {
-            var locator = com.pulse.api.di.PulseServices.getServiceLocator();
+            var locator = com.pulse.di.PulseServiceLocator.getInstance();
             EchoConfig service = locator.getService(EchoConfig.class);
             if (service != null) {
                 return service;
             }
         } catch (Exception ignored) {
-            // Pulse might not be fully loaded or in standalone test mode
+            // ServiceLocator not available
         }
 
         // 2. Fallback to Singleton
@@ -128,12 +131,20 @@ public class EchoConfig {
 
             // Register to ServiceLocator if available
             try {
-                com.pulse.api.di.PulseServices.getServiceLocator().registerService(EchoConfig.class, instance);
+                com.pulse.di.PulseServiceLocator.getInstance().registerService(EchoConfig.class, instance);
             } catch (Exception ignored) {
                 // Ignore
             }
         }
         return instance;
+    }
+
+    /**
+     * 싱글톤 인스턴스 리셋 (테스트 전용)
+     */
+    @com.pulse.api.VisibleForTesting
+    public static void resetInstance() {
+        instance = null;
     }
 
     // --- Load/Save ---
@@ -145,7 +156,7 @@ public class EchoConfig {
         Path configPath = Paths.get(CONFIG_DIR, CONFIG_FILE);
 
         if (!Files.exists(configPath)) {
-            System.out.println("[Echo] Config file not found, using defaults");
+            PulseLogger.info(LOG, "Config file not found, using defaults");
             save(); // 기본값으로 생성
             return;
         }
@@ -155,7 +166,7 @@ public class EchoConfig {
             if (loaded != null) {
                 // Config Version Check
                 if (loaded.configVersion < this.configVersion) {
-                    System.out.println("[Echo] Config version mismatch (Found: " + loaded.configVersion + ", Current: "
+                    PulseLogger.info(LOG, "Config version mismatch (Found: " + loaded.configVersion + ", Current: "
                             + this.configVersion + "). Migrating defaults where necessary.");
                     // 마이그레이션 로직이 필요하면 여기에 추가
                 }
@@ -177,9 +188,9 @@ public class EchoConfig {
                 this.debugMode = loaded.debugMode;
                 this.topNFunctions = loaded.topNFunctions;
             }
-            System.out.println("[Echo] Config loaded from: " + configPath);
+            PulseLogger.info(LOG, "Config loaded from: " + configPath);
         } catch (Exception e) {
-            System.err.println("[Echo] Failed to load config: " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to load config: " + e.getMessage());
         }
     }
 
@@ -198,9 +209,9 @@ public class EchoConfig {
             try (Writer writer = new FileWriter(configPath.toFile())) {
                 GSON.toJson(this, writer);
             }
-            System.out.println("[Echo] Config saved to: " + configPath);
+            PulseLogger.info(LOG, "Config saved to: " + configPath);
         } catch (Exception e) {
-            System.err.println("[Echo] Failed to save config: " + e.getMessage());
+            PulseLogger.error(LOG, "Failed to save config: " + e.getMessage());
         }
     }
 
@@ -227,7 +238,7 @@ public class EchoConfig {
         this.minQualityToSave = 0;
         this.userExplicitLuaOff = false;
         save();
-        System.out.println("[Echo] Config reset to defaults");
+        PulseLogger.info(LOG, "Config reset to defaults");
     }
 
     /**
@@ -279,8 +290,8 @@ public class EchoConfig {
         }
 
         if (fixCount > 0) {
-            System.out.println("[Echo] Config.sanitize() auto-fixed " + fixCount + " issue(s):");
-            System.out.print(log);
+            PulseLogger.info(LOG, "Config.sanitize() auto-fixed " + fixCount + " issue(s):");
+            PulseLogger.debug(LOG, log.toString());
             save();
         }
 
@@ -459,24 +470,25 @@ public class EchoConfig {
      * 콘솔 출력
      */
     public void printConfig() {
-        System.out.println("\n[Echo] Current Configuration (v" + configVersion + "):");
-        System.out.println("───────────────────────────────────────────────────────");
-        System.out.printf("  spike.threshold     = %.2f ms%n", spikeThresholdMs);
-        System.out.printf("  core.profiling      = %s%n", coreProfilingEnabled);
-        System.out.printf("  deep.analysis       = %s%n", deepAnalysisEnabled);
-        System.out.printf("  lua.profiling       = %s%n", luaProfilingEnabled);
-        System.out.printf("    - pathfinding     = %s%n", enablePathfindingDetails);
-        System.out.printf("    - zombie          = %s%n", enableZombieDetails);
-        System.out.printf("    - isogrid         = %s%n", enableIsoGridDetails);
-        System.out.printf("  auto.start          = %s%n", autoStartProfiling);
-        System.out.printf("  report.auto_save    = %s%n", autoSaveReports);
-        System.out.printf("  report.directory    = %s%n", reportDirectory);
-        System.out.printf("  stack.capture       = %s%n", stackCaptureEnabled);
-        System.out.printf("  debug.mode          = %s%n", debugMode);
-        System.out.printf("  top_n               = %d%n", topNFunctions);
-        System.out.println("  --- Zero-Risk Engine (v0.9.0) ---");
-        System.out.printf("  fallback.ticks      = %s%n", allowFallbackTicks);
-        System.out.printf("  min.quality.save    = %d%n", minQualityToSave);
-        System.out.println();
+        PulseLogger.info("Echo", "");
+        PulseLogger.info("Echo", "[Echo] Current Configuration (v" + configVersion + "):");
+        PulseLogger.info("Echo", "───────────────────────────────────────────────────────");
+        PulseLogger.info("Echo", String.format("  spike.threshold     = %.2f ms", spikeThresholdMs));
+        PulseLogger.info("Echo", String.format("  core.profiling      = %s", coreProfilingEnabled));
+        PulseLogger.info("Echo", String.format("  deep.analysis       = %s", deepAnalysisEnabled));
+        PulseLogger.info("Echo", String.format("  lua.profiling       = %s", luaProfilingEnabled));
+        PulseLogger.info("Echo", String.format("    - pathfinding     = %s", enablePathfindingDetails));
+        PulseLogger.info("Echo", String.format("    - zombie          = %s", enableZombieDetails));
+        PulseLogger.info("Echo", String.format("    - isogrid         = %s", enableIsoGridDetails));
+        PulseLogger.info("Echo", String.format("  auto.start          = %s", autoStartProfiling));
+        PulseLogger.info("Echo", String.format("  report.auto_save    = %s", autoSaveReports));
+        PulseLogger.info("Echo", String.format("  report.directory    = %s", reportDirectory));
+        PulseLogger.info("Echo", String.format("  stack.capture       = %s", stackCaptureEnabled));
+        PulseLogger.info("Echo", String.format("  debug.mode          = %s", debugMode));
+        PulseLogger.info("Echo", String.format("  top_n               = %d", topNFunctions));
+        PulseLogger.info("Echo", "  --- Zero-Risk Engine (v0.9.0) ---");
+        PulseLogger.info("Echo", String.format("  fallback.ticks      = %s", allowFallbackTicks));
+        PulseLogger.info("Echo", String.format("  min.quality.save    = %d", minQualityToSave));
+        PulseLogger.info("Echo", "");
     }
 }

@@ -2,6 +2,7 @@ package com.echo.command.impl;
 
 import com.echo.measure.EchoProfiler;
 import com.echo.measure.ProfilingPoint;
+import com.pulse.api.log.PulseLogger;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -10,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 
 public class EchoTestCmd {
     public static void execute(String[] args) {
-        System.out.println("[Echo] Running quick profiling test...");
+        PulseLogger.info("Echo", "Running quick profiling test...");
 
         EchoProfiler profiler = EchoProfiler.getInstance();
         boolean wasEnabled = profiler.isEnabled();
@@ -45,7 +46,7 @@ public class EchoTestCmd {
 
         long testDuration = System.currentTimeMillis() - testStartTime;
 
-        System.out.println("[Echo] Test complete! " + successCount + "/" + testIterations + " ticks recorded.");
+        PulseLogger.info("Echo", "Test complete! " + successCount + "/" + testIterations + " ticks recorded.");
         profiler.printStatus();
 
         // Phase 3: 결과 파일 저장
@@ -103,9 +104,9 @@ public class EchoTestCmd {
                 writer.println("═══════════════════════════════════════════════════════");
             }
 
-            System.out.println("[Echo] Test result saved: " + file.getAbsolutePath());
+            PulseLogger.info("Echo", "Test result saved: " + file.getAbsolutePath());
         } catch (Exception e) {
-            System.err.println("[Echo] Failed to save test result: " + e.getMessage());
+            PulseLogger.error("Echo", "Failed to save test result: " + e.getMessage());
         }
     }
 }

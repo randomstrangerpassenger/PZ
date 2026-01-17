@@ -3,6 +3,7 @@ package com.echo.input;
 import com.echo.EchoRuntime;
 import com.echo.measure.EchoProfiler;
 import com.echo.ui.EchoExtendedHUD;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Echo 키바인딩 관리
@@ -35,13 +36,13 @@ public final class EchoKeyBindings {
     public static void register() {
         // Pulse KeyBindings API 시도
         if (tryPulseKeyBindings()) {
-            System.out.println("[Echo] Key bindings registered via Pulse API");
+            PulseLogger.info("Echo", "Key bindings registered via Pulse API");
             return;
         }
 
         // 폴백: 수동 키 체크 (render 루프에서 호출 필요)
-        System.out.println("[Echo] Key bindings: F6=HUD, F7=Profile, F8=Panel, F9=Extended");
-        System.out.println("[Echo] Note: Use PulseEventAdapter.checkKeys() in render loop");
+        PulseLogger.info("Echo", "Key bindings: F6=HUD, F7=Profile, F8=Panel, F9=Extended");
+        PulseLogger.info("Echo", "Note: Use PulseEventAdapter.checkKeys() in render loop");
     }
 
     /**
@@ -66,7 +67,7 @@ public final class EchoKeyBindings {
         } catch (ClassNotFoundException e) {
             return false;
         } catch (Exception e) {
-            System.out.println("[Echo] Warning: Failed to register key bindings: " + e.getMessage());
+            PulseLogger.warn("Echo", "Warning: Failed to register key bindings: " + e.getMessage());
             return false;
         }
     }
@@ -95,7 +96,7 @@ public final class EchoKeyBindings {
         if (!EchoRuntime.isEnabled())
             return;
         hudVisible = !hudVisible;
-        System.out.println("[Echo] HUD " + (hudVisible ? "ON" : "OFF"));
+        PulseLogger.info("Echo", "HUD " + (hudVisible ? "ON" : "OFF"));
     }
 
     /**
@@ -107,10 +108,10 @@ public final class EchoKeyBindings {
         EchoProfiler profiler = EchoProfiler.getInstance();
         if (profiler.isEnabled()) {
             profiler.disable();
-            System.out.println("[Echo] Profiling OFF");
+            PulseLogger.info("Echo", "Profiling OFF");
         } else {
             profiler.enable();
-            System.out.println("[Echo] Profiling ON");
+            PulseLogger.info("Echo", "Profiling ON");
         }
     }
 
@@ -121,7 +122,7 @@ public final class EchoKeyBindings {
         if (!EchoRuntime.isEnabled())
             return;
         panelVisible = !panelVisible;
-        System.out.println("[Echo] Panel " + (panelVisible ? "ON" : "OFF"));
+        PulseLogger.info("Echo", "Panel " + (panelVisible ? "ON" : "OFF"));
     }
 
     /**

@@ -2,6 +2,7 @@ package com.pulse.adapter.lua;
 
 import com.pulse.api.version.GameVersion;
 import com.pulse.internal.InternalLuaHook;
+import com.pulse.api.log.PulseLogger;
 
 /**
  * Build 41 전용 Lua 시스템 어댑터.
@@ -118,7 +119,7 @@ public class Build41LuaAdapter implements ILuaAdapter {
 
             initialized = true;
         } catch (Throwable t) {
-            System.err.println("[Pulse/Build41LuaAdapter] Init failed: " + t.getMessage());
+            PulseLogger.error("Pulse", "[Build41LuaAdapter] Init failed: " + t.getMessage());
             initialized = true; // 재시도 방지
         }
     }

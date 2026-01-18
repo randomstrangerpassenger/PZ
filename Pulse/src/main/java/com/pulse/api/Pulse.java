@@ -1,10 +1,10 @@
 package com.pulse.api;
 
 import com.pulse.api.log.PulseLogger;
-import com.pulse.PulseEnvironment;
 import com.pulse.event.EventBus;
 import com.pulse.mod.ModContainer;
 import com.pulse.mod.ModLoader;
+import com.pulse.service.EnvironmentService;
 import com.pulse.service.ProviderRegistry;
 import com.pulse.api.spi.IProviderRegistry;
 
@@ -101,38 +101,38 @@ public final class Pulse {
     }
 
     // Environment
+    // v4 Phase 2: EnvironmentService로 위임
 
     /**
      * Pulse이 완전히 초기화되었는지 확인
      */
     public static boolean isInitialized() {
-        return PulseEnvironment.isInitialized();
+        return EnvironmentService.getInstance().isInitialized();
     }
 
     /**
      * 게임 디렉토리 경로
      */
     public static Path getGameDirectory() {
-        return Path.of(System.getProperty("user.dir"));
+        return EnvironmentService.getInstance().getGameDirectory();
     }
 
     /**
      * mods 디렉토리 경로
      */
     public static Path getModsDirectory() {
-        return ModLoader.getInstance().getModsDirectory();
+        return EnvironmentService.getInstance().getModsDirectory();
     }
 
     /**
      * 설정 디렉토리 경로
      */
     public static Path getConfigDirectory() {
-        return getGameDirectory().resolve(PulseConstants.CONFIG_DIR_NAME);
+        return EnvironmentService.getInstance().getConfigDirectory();
     }
 
     // Side API
-
-    private static volatile PulseSide currentSide = PulseSide.UNKNOWN;
+    // v4 Phase 2: EnvironmentService로 위임 (SideDetector 어댑터 활용)
 
     /**
      * 현재 실행 사이드 반환.
@@ -140,10 +140,7 @@ public final class Pulse {
      * @return 현재 사이드 (CLIENT, DEDICATED_SERVER, INTEGRATED_SERVER, UNKNOWN)
      */
     public static PulseSide getSide() {
-        if (currentSide == PulseSide.UNKNOWN) {
-            currentSide = detectSide();
-        }
-        return currentSide;
+        return EnvironmentService.getInstance().getSide();
     }
 
     /**
@@ -153,7 +150,7 @@ public final class Pulse {
      * @return 클라이언트면 true
      */
     public static boolean isClient() {
-        return getSide().isClient();
+        return EnvironmentService.getInstance().isClient();
     }
 
     /**
@@ -163,7 +160,7 @@ public final class Pulse {
      * @return 서버면 true
      */
     public static boolean isServer() {
-        return getSide().isServer();
+        return EnvironmentService.getInstance().isServer();
     }
 
     /**
@@ -172,7 +169,7 @@ public final class Pulse {
      * @return 데디케이티드 서버면 true
      */
     public static boolean isDedicatedServer() {
-        return getSide().isDedicated();
+        return EnvironmentService.getInstance().isDedicatedServer();
     }
 
     /**
@@ -182,47 +179,7 @@ public final class Pulse {
      */
     @InternalAPI
     public static void setSide(PulseSide side) {
-        if (side != null) {
-            currentSide = side;
-            PulseLogger.debug(LOG, "Side set to: {}", side);
-        }
-    }
-
-    /**
-     * 사이드 자동 감지.
-     */
-    private static PulseSide detectSide() {
-        try {
-            // GameServer 클래스 로드 시도
-            Class<?> gameServerClass = Class.forName("zombie.network.GameServer");
-            java.lang.reflect.Field bServerField = gameServerClass.getDeclaredField("bServer");
-            bServerField.setAccessible(true);
-            boolean isServer = bServerField.getBoolean(null);
-
-            if (isServer) {
-                // 서버 모드 - 헤드리스인지 확인
-                try {
-                    Class<?> gameWindowClass = Class.forName("zombie.GameWindow");
-                    java.lang.reflect.Field bNoRenderField = gameWindowClass.getDeclaredField("bNoRender");
-                    bNoRenderField.setAccessible(true);
-                    boolean noRender = bNoRenderField.getBoolean(null);
-
-                    return noRender ? PulseSide.DEDICATED_SERVER : PulseSide.INTEGRATED_SERVER;
-                } catch (Exception e) {
-                    // 렌더링 체크 실패 - 아마도 데디케이티드
-                    return PulseSide.DEDICATED_SERVER;
-                }
-            } else {
-                // 클라이언트 모드
-                return PulseSide.CLIENT;
-            }
-        } catch (ClassNotFoundException e) {
-            // 게임 클래스 로드 전 - 나중에 다시 감지
-            return PulseSide.UNKNOWN;
-        } catch (Exception e) {
-            PulseLogger.warn(LOG, "Side detection failed: {}", e.getMessage());
-            return PulseSide.UNKNOWN;
-        }
+        EnvironmentService.getInstance().setSide(side);
     }
 
     // DevMode

@@ -5,6 +5,7 @@
 
 -- 의존성 로드
 require "Nerve/NerveUtils"
+require "Nerve/NerveLogger"
 
 --------------------------------------------------------------------------------
 -- Nerve 메인 모듈
@@ -216,6 +217,11 @@ local function initializeNerve()
     end
     
     initState = "STARTED"
+    
+    -- 로거 초기화
+    if Nerve.Logger and Nerve.Logger.init then
+        Nerve.Logger.init()
+    end
     
     -- 시작 배너
     NerveUtils.info("========================================")

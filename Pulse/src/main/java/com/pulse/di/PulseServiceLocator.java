@@ -57,4 +57,31 @@ public class PulseServiceLocator implements IServiceLocator {
     public void clear() {
         services.clear();
     }
+
+    // ═══════════════════════════════════════════════════════════════
+    // v4 Phase 2: 테스트/리로드 지원
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * 서비스 레지스트리 리셋 (테스트용).
+     * 기본 서비스를 다시 초기화해야 하는 경우 사용.
+     */
+    public void reset() {
+        services.clear();
+        // 필요시 기본 서비스 재등록 로직 추가 가능
+    }
+
+    /**
+     * 서비스 교체 (테스트용).
+     * 기존 서비스를 Mock으로 교체할 때 사용.
+     * 
+     * @param type        서비스 타입
+     * @param newInstance 새 인스턴스
+     * @param <T>         서비스 타입
+     * @return 기존 인스턴스 (없었으면 null)
+     */
+    public <T> T replaceService(Class<T> type, T newInstance) {
+        Object old = services.put(type, newInstance);
+        return type.isInstance(old) ? type.cast(old) : null;
+    }
 }

@@ -1,0 +1,13 @@
+# EventBus Benchmark Baseline
+# Generated: 2026-01-18
+# Purpose: Regression detection for Phase 1 refactoring
+
+# Run command: ./gradlew test --tests "*EventBusBenchmark*"
+
+# Baseline values (to be updated after first run)
+# ================================================
+# 10 listeners:  TBD μs/fire
+# 100 listeners: TBD μs/fire
+
+# Regression threshold: 200% of baseline
+# If current > baseline * 2.0, investigate before merging

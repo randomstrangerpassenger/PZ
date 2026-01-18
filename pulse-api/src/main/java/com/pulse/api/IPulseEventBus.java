@@ -5,7 +5,12 @@ import java.util.function.Consumer;
 /**
  * Pulse 이벤트 버스 인터페이스.
  * 이벤트 등록 및 발행을 위한 계약.
+ * 
+ * @deprecated v0.8.0부터 {@link com.pulse.api.event.IEventBus} 사용을 권장합니다.
+ *             이 인터페이스는 v1.0에서 제거될 예정입니다.
+ * @see com.pulse.api.event.IEventBus
  */
+@Deprecated
 public interface IPulseEventBus {
 
     /**

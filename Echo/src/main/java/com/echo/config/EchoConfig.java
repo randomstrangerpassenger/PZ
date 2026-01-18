@@ -3,6 +3,7 @@ package com.echo.config;
 import com.echo.EchoConstants;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pulse.api.config.ConfigTemplate;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -15,8 +16,9 @@ import com.pulse.api.log.PulseLogger;
  * Echo 설정 관리
  * 
  * JSON 기반 설정 파일 로드/저장
+ * v4 Phase 4: ConfigTemplate 구현
  */
-public class EchoConfig {
+public class EchoConfig implements ConfigTemplate {
 
     private static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting()
@@ -490,5 +492,17 @@ public class EchoConfig {
         PulseLogger.info("Echo", String.format("  fallback.ticks      = %s", allowFallbackTicks));
         PulseLogger.info("Echo", String.format("  min.quality.save    = %d", minQualityToSave));
         PulseLogger.info("Echo", "");
+    }
+
+    // --- ConfigTemplate Implementation ---
+
+    @Override
+    public Path getConfigDirectory() {
+        return Paths.get(CONFIG_DIR);
+    }
+
+    @Override
+    public String getConfigFileName() {
+        return CONFIG_FILE;
     }
 }

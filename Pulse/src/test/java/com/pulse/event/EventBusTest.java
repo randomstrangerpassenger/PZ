@@ -75,6 +75,76 @@ class EventBusTest {
         assertEquals(2, eventBus.getListenerCount(TestEvent.class));
     }
 
+    // ═══════════════════════════════════════════════════════════════
+    // Phase 0-A/0-B: 스냅샷 테스트 (하드코딩 기대값)
+    // 리팩토링 후 동작 의미 보존 검증
+    // ═══════════════════════════════════════════════════════════════
+
+    /**
+     * 우선순위별 호출 순서 검증 (HIGH → NORMAL → LOW).
+     * v4 Phase 0-B: 하드코딩 기대값으로 스냅샷 테스트.
+     */
+    @Test
+    void fire_should_maintain_priority_order_snapshot() {
+        java.util.List<String> callOrder = new java.util.ArrayList<>();
+
+        EventBus.subscribe(TestEvent.class, e -> callOrder.add("LOW"), EventPriority.LOW);
+        EventBus.subscribe(TestEvent.class, e -> callOrder.add("HIGH"), EventPriority.HIGH);
+        EventBus.subscribe(TestEvent.class, e -> callOrder.add("NORMAL"), EventPriority.NORMAL);
+
+        EventBus.post(new TestEvent());
+
+        // 하드코딩 기대값 (스냅샷)
+        assertEquals(java.util.List.of("HIGH", "NORMAL", "LOW"), callOrder,
+                "Priority order should be HIGH → NORMAL → LOW");
+    }
+
+    /**
+     * 예외 격리 검증: 한 리스너에서 예외가 발생해도 다른 리스너는 실행됨.
+     * v4 Phase 0-B: 리팩토링 후에도 예외 격리 동작 유지 확인.
+     */
+    @Test
+    void fire_should_isolate_exceptions() {
+        java.util.List<String> callOrder = new java.util.ArrayList<>();
+
+        EventBus.subscribe(TestEvent.class, e -> {
+            throw new RuntimeException("intentional failure for test");
+        }, EventPriority.HIGH, "mod-a");
+        EventBus.subscribe(TestEvent.class, e -> callOrder.add("executed"),
+                EventPriority.NORMAL, "mod-b");
+
+        // 예외가 발생해도 테스트 자체는 실패하지 않아야 함
+        EventBus.post(new TestEvent());
+
+        // 두 번째 리스너는 실행되어야 함 (예외 격리)
+        assertEquals(java.util.List.of("executed"), callOrder,
+                "Second listener should execute despite first listener's exception");
+    }
+
+    /**
+     * modId별 리스너 해제 검증.
+     * v4 Phase 0-A: unsubscribeAllByModId 동작 확인.
+     */
+    @Test
+    void unsubscribeAllByModId_removesOnlyTargetMod() {
+        java.util.List<String> callOrder = new java.util.ArrayList<>();
+
+        EventBus.subscribe(TestEvent.class, e -> callOrder.add("mod-a"),
+                EventPriority.NORMAL, "mod-a");
+        EventBus.subscribe(TestEvent.class, e -> callOrder.add("mod-b"),
+                EventPriority.NORMAL, "mod-b");
+
+        // mod-a의 리스너만 해제
+        int removed = EventBus.unsubscribeAllByModId("mod-a");
+        assertEquals(1, removed, "Should remove 1 listener from mod-a");
+
+        EventBus.post(new TestEvent());
+
+        // mod-b의 리스너만 실행되어야 함
+        assertEquals(java.util.List.of("mod-b"), callOrder,
+                "Only mod-b listener should execute after mod-a unsubscribe");
+    }
+
     // 테스트용 이벤트 클래스
     static class TestEvent extends Event {
         TestEvent() {

@@ -2,6 +2,7 @@ package com.fuse.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pulse.api.config.ConfigTemplate;
 import com.pulse.api.log.PulseLogger;
 
 import java.io.*;
@@ -12,8 +13,9 @@ import java.nio.file.*;
  * 
  * Conservative Preset 기본값 + 신규 파라미터
  * JSON 파일 기반 영속화
+ * v4 Phase 4: ConfigTemplate 구현
  */
-public class FuseConfig {
+public class FuseConfig implements ConfigTemplate {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final String CONFIG_DIR = System.getProperty("user.home") + "/Zomboid/Fuse";
@@ -399,5 +401,31 @@ public class FuseConfig {
 
     public long getCooldownMs() {
         return cooldownMs;
+    }
+
+    // ========================================
+    // ConfigTemplate Implementation
+    // ========================================
+
+    @Override
+    public Path getConfigDirectory() {
+        return Paths.get(CONFIG_DIR);
+    }
+
+    @Override
+    public String getConfigFileName() {
+        return CONFIG_FILE;
+    }
+
+    @Override
+    public void reset() {
+        // Reset to default values
+        this.enableThrottling = true;
+        this.enableStepThrottling = true;
+        this.throttleIntensity = 0.5f;
+        this.enableAdaptiveGate = true;
+        this.sustainedEarlyExitEnabled = false;
+        save();
+        PulseLogger.info("Fuse", "Config reset to defaults");
     }
 }

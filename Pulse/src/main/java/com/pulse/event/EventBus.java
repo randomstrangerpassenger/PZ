@@ -18,11 +18,12 @@ public class EventBus {
     private static final String LOG = PulseLogger.PULSE;
     private static final EventBus INSTANCE = new EventBus();
 
-    // 이벤트 타입 → 리스너 목록
+    // 이벤트 타입 → 리스너 목록 (1차 경로: Class 키)
     private final Map<Class<? extends Event>, List<RegisteredListener<?>>> listeners = new ConcurrentHashMap<>();
 
-    // Lazy Sort 최적화: 정렬이 필요한 이벤트 타입 추적
-    private final Set<Class<? extends Event>> needsSort = ConcurrentHashMap.newKeySet();
+    // FQCN → 리스너 목록 인덱스 (2차 경로: ClassLoader 불일치 시 O(1) fallback)
+    // v4 Phase 1: 선형 탐색(findListenersByFQCN) 제거를 위한 인덱스
+    private final Map<String, List<RegisteredListener<?>>> fqcnIndex = new ConcurrentHashMap<>();
 
     // 비동기 이벤트 실행용 스레드 풀
     private final ExecutorService asyncExecutor = Executors.newSingleThreadExecutor(
@@ -90,6 +91,7 @@ public class EventBus {
      */
     public <T extends Event> void register(Class<T> eventType, EventListener<T> listener,
             EventPriority priority, String modId) {
+        // 단일 COW 리스트 유지
         List<RegisteredListener<?>> list = listeners.computeIfAbsent(
                 eventType,
                 k -> new CopyOnWriteArrayList<>());
@@ -97,8 +99,12 @@ public class EventBus {
         RegisteredListener<T> registered = new RegisteredListener<>(listener, priority, modId);
         list.add(registered);
 
-        // Lazy Sort: 즉시 정렬하지 않고 플래그만 설정
-        needsSort.add(eventType);
+        // v4 Phase 1: 등록 시점에 정렬 (fire() 시 정렬 제거)
+        // 우선순위 내림차순 (HIGH → NORMAL → LOW)
+        list.sort((a, b) -> Integer.compare(b.priority.getValue(), a.priority.getValue()));
+
+        // v4 Phase 1: FQCN 인덱스 동기화 (동일 리스트 객체 참조)
+        fqcnIndex.put(eventType.getName(), list);
 
         // ClassLoader 디버그 (항상 출력 - 문제 진단용)
         String loaderName = eventType.getClassLoader() != null
@@ -118,6 +124,11 @@ public class EventBus {
         List<RegisteredListener<?>> list = listeners.get(eventType);
         if (list != null) {
             list.removeIf(reg -> reg.listener == listener);
+            // v4 Phase 1: 비었으면 인덱스도 정리
+            if (list.isEmpty()) {
+                listeners.remove(eventType);
+                fqcnIndex.remove(eventType.getName());
+            }
         }
     }
 
@@ -140,9 +151,9 @@ public class EventBus {
                 ? eventType.getClassLoader().getClass().getSimpleName()
                 : "bootstrap";
 
-        // ClassLoader Fallback: Class 객체로 찾지 못하면 FQCN으로 찾기
+        // v4 Phase 1: 2차 경로 - FQCN 인덱스로 O(1) 조회 (선형 탐색 제거)
         if (list == null || list.isEmpty()) {
-            list = findListenersByFQCN(eventClassName);
+            list = fqcnIndex.get(eventClassName);
             if (list != null && !list.isEmpty()) {
                 PulseLogger.info(LOG, "[EventBus] FQCN FALLBACK: {} [loader={}] -> found {} listeners",
                         eventClassName, eventLoaderName, list.size());
@@ -158,10 +169,7 @@ public class EventBus {
             return event;
         }
 
-        // Lazy Sort: 필요할 때만 정렬
-        if (needsSort.remove(eventType)) {
-            list.sort((a, b) -> Integer.compare(b.priority.getValue(), a.priority.getValue()));
-        }
+        // v4 Phase 1: fire() 시 정렬 없음 - 이미 등록 시점에 정렬됨
 
         if (debug) {
             PulseLogger.debug(LOG, "Firing {} to {} listener(s)", event.getEventName(), list.size());
@@ -209,18 +217,7 @@ public class EventBus {
         return event;
     }
 
-    /**
-     * FQCN(Fully Qualified Class Name)으로 리스너 찾기.
-     * ClassLoader 불일치 시 fallback으로 사용.
-     */
-    private List<RegisteredListener<?>> findListenersByFQCN(String eventClassName) {
-        for (Map.Entry<Class<? extends Event>, List<RegisteredListener<?>>> entry : listeners.entrySet()) {
-            if (entry.getKey().getName().equals(eventClassName)) {
-                return entry.getValue();
-            }
-        }
-        return null;
-    }
+    // v4 Phase 1: findListenersByFQCN 삭제됨 - fqcnIndex로 O(1) 조회로 대체
 
     /**
      * 리플렉션을 사용하여 리스너 호출.
@@ -244,6 +241,8 @@ public class EventBus {
      */
     public void clearListeners(Class<? extends Event> eventType) {
         listeners.remove(eventType);
+        // v4 Phase 1: fqcnIndex 동기화
+        fqcnIndex.remove(eventType.getName());
     }
 
     /**
@@ -251,6 +250,8 @@ public class EventBus {
      */
     public void clearAll() {
         listeners.clear();
+        // v4 Phase 1: fqcnIndex 동기화
+        fqcnIndex.clear();
     }
 
     /**
@@ -277,10 +278,25 @@ public class EventBus {
             return 0;
 
         int removed = 0;
-        for (List<RegisteredListener<?>> list : listeners.values()) {
+        // v4: 삭제할 키 수집 → 루프 밖에서 remove (CHM 반복 안전성)
+        List<Class<? extends Event>> keysToRemove = new ArrayList<>();
+
+        for (Map.Entry<Class<? extends Event>, List<RegisteredListener<?>>> entry : listeners.entrySet()) {
+            List<RegisteredListener<?>> list = entry.getValue();
             int before = list.size();
             list.removeIf(reg -> modId.equals(reg.modId));
             removed += (before - list.size());
+
+            // v4 Phase 1: 비었으면 인덱스 정리 대상에 추가
+            if (list.isEmpty()) {
+                keysToRemove.add(entry.getKey());
+            }
+        }
+
+        // v4 Phase 1: 루프 밖에서 안전하게 제거
+        for (Class<? extends Event> key : keysToRemove) {
+            listeners.remove(key);
+            fqcnIndex.remove(key.getName());
         }
 
         if (removed > 0) {

@@ -71,6 +71,10 @@ public class HubSpokeBoundaryTest {
 
         /**
          * Nerve는 Echo, Fuse를 직접 참조할 수 없음.
+         * 
+         * NOTE: Nerve는 Lua 전용 모듈로 Java 코드가 없음.
+         * allowEmptyShould(true)는 의도적으로 빈 결과를 허용함.
+         * 이 규칙은 향후 Nerve에 Java 코드가 추가될 경우를 대비한 것임.
          */
         @ArchTest
         static final ArchRule nerve_should_not_depend_on_other_spokes = noClasses()
@@ -79,4 +83,22 @@ public class HubSpokeBoundaryTest {
                         .resideInAnyPackage("com.echo..", "com.fuse..")
                         .allowEmptyShould(true)
                         .because("Spoke modules must not depend on each other (Hub & Spoke architecture)");
+
+        // ═══════════════════════════════════════════════════════════════
+        // v4 강화: access 레벨 규칙 (dependOn보다 엄격)
+        // Hub가 Spoke 클래스를 접근조차 못 하도록 함
+        // ═══════════════════════════════════════════════════════════════
+
+        /**
+         * Hub(Pulse)는 Spoke 클래스에 접근할 수 없음 (dependOn보다 엄격).
+         * 메서드 호출, 필드 접근 등 모든 형태의 접근을 금지.
+         * 
+         * NOTE: Nerve는 Lua 전용이므로 여기서 제외됨.
+         */
+        @ArchTest
+        static final ArchRule pulse_should_not_access_spoke_classes = noClasses()
+                        .that().resideInAnyPackage("com.pulse..")
+                        .should().accessClassesThat()
+                        .resideInAnyPackage("com.echo..", "com.fuse..")
+                        .because("Hub must not access any Spoke classes (stricter than dependOn)");
 }

@@ -27,24 +27,50 @@ function NerveUtils.safeWipe(t)
     end
 end
 
--- 로깅 유틸리티
+-- 로깅 유틸리티 (NerveLogger 위임)
+
+-- NerveLogger 초기화 확인
+local function ensureLogger()
+    if Nerve and Nerve.Logger then
+        return Nerve.Logger
+    end
+    return nil
+end
 
 function NerveUtils.debug(...)
-    if NerveConfig and NerveConfig.debug then
+    local logger = ensureLogger()
+    if logger then
+        logger.debug(...)
+    elseif NerveConfig and NerveConfig.debug then
         print("[Nerve:DEBUG]", ...)
     end
 end
 
 function NerveUtils.info(...)
-    print("[Nerve]", ...)
+    local logger = ensureLogger()
+    if logger then
+        logger.info(...)
+    else
+        print("[Nerve]", ...)
+    end
 end
 
 function NerveUtils.warn(...)
-    print("[Nerve] WARN:", ...)
+    local logger = ensureLogger()
+    if logger then
+        logger.warn(...)
+    else
+        print("[Nerve] WARN:", ...)
+    end
 end
 
 function NerveUtils.error(...)
-    print("[Nerve] ERROR:", ...)
+    local logger = ensureLogger()
+    if logger then
+        logger.error(...)
+    else
+        print("[Nerve] ERROR:", ...)
+    end
 end
 
 -- 안전한 함수 호출 (pcall 래퍼)

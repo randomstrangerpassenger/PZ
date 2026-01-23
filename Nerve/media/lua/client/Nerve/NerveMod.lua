@@ -7,6 +7,19 @@
 require "Nerve/NerveUtils"
 require "Nerve/NerveLogger"
 
+-- [Area9] 모듈 로드
+require "Nerve/area9/Area9TickCtx"
+require "Nerve/area9/Area9InstallState"
+require "Nerve/area9/Area9Install"
+require "Nerve/area9/Area9Forensic"
+require "Nerve/area9/Area9Reentry"
+require "Nerve/area9/Area9Duplicate"
+require "Nerve/area9/Area9Shape"
+require "Nerve/area9/Area9Depth"
+require "Nerve/area9/Area9Call"
+require "Nerve/area9/Area9Quarantine"
+require "Nerve/area9/Area9Dispatcher"
+
 --------------------------------------------------------------------------------
 -- Nerve 메인 모듈
 --------------------------------------------------------------------------------
@@ -204,6 +217,53 @@ function Nerve.checkWrapperIntegrity()
     return issues
 end
 
+--------------------------------------------------------------------------------
+-- Area9 초기화 (initializeNerve보다 먼저 정의되어야 함)
+--------------------------------------------------------------------------------
+
+local function initializeArea9()
+    -- Area9 비활성화 시 스킵
+    if not NerveConfig or not NerveConfig.area9 or not NerveConfig.area9.enabled then
+        NerveUtils.info("Area 9 disabled in config")
+        return
+    end
+    
+    NerveUtils.info("----------------------------------------")
+    NerveUtils.info("Area 9 initialization")
+    
+    local Area9Install = Nerve.Area9Install
+    local Area9Dispatcher = Nerve.Area9Dispatcher
+    local Area9InstallState = Nerve.Area9InstallState
+    
+    if not Area9Install or not Area9Dispatcher then
+        NerveUtils.warn("Area9 modules not loaded")
+        return
+    end
+    
+    -- 디스패쳐 연결
+    Area9Install.setDispatcher(Area9Dispatcher)
+    
+    -- 대상 이벤트 래핑
+    local results = Area9Install.wrapAllTargetEvents()
+    
+    -- 결과 로그
+    if #results.success > 0 then
+        NerveUtils.info("Area9 wrapped: " .. table.concat(results.success, ", "))
+    end
+    
+    if #results.failed > 0 then
+        NerveUtils.warn("Area9 failed: " .. table.concat(results.failed, ", "))
+    end
+    
+    -- 상태 확인
+    if Area9InstallState then
+        local state = Area9InstallState.getState()
+        NerveUtils.info("Area9 state: " .. state)
+    end
+    
+    NerveUtils.info("Area 9 initialization complete")
+end
+
 -- 메인 초기화
 local function initializeNerve()
     -- 이미 완료된 경우 스킵
@@ -277,21 +337,34 @@ local function initializeNerve()
     NerveUtils.info("Mode: " .. (Nerve.hasPulse and "Full (Pulse)" or "Lite (Standalone)"))
     NerveUtils.info("========================================")
     
-
+    -- [NEW] Area9 초기화
+    initializeArea9()
     
     initState = "DONE"
 end
 
 -- 틱 핸들러 (단일 진입점)
 local function onTick()
-    -- [FIX] 단일 OnTick 핸들러로 통합
-    -- 틱 시작 처리 (Area6TickCtx 갱신)
+    -- [필수-1] tickId 단일 진실의 소스
+    -- Area6/Area9 모두 동일한 tick 기준 사용
+    local currentTick = getTimestampMs and getTimestampMs() or os.time()
+    
+    -- Area6TickCtx 갱신
     if Nerve.Area6TickCtx and Nerve.Area6TickCtx.onTickStart then
         Nerve.Area6TickCtx.onTickStart()
     end
     
-    -- [REMOVED] 레거시 Coordinator 호출 제거 (deprecated - nil 호출 에러 발생)
-    -- Area6Coordinator는 더 이상 사용되지 않음
+    -- [NEW] Area9TickCtx 갱신
+    if NerveConfig and NerveConfig.area9 and NerveConfig.area9.enabled then
+        if Nerve.Area9TickCtx and Nerve.Area9TickCtx.onTickStart then
+            Nerve.Area9TickCtx.onTickStart(currentTick)
+        end
+        
+        -- Quarantine 만료 정리
+        if Nerve.Area9Quarantine and Nerve.Area9Quarantine.cleanup then
+            Nerve.Area9Quarantine.cleanup()
+        end
+    end
 end
 
 -- 이벤트 등록 (2중 초기화 훅)

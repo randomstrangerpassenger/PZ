@@ -1,0 +1,99 @@
+{
+  "$comment": "이 파일은 iris-input-schema-v0.2-final.json의 메타 정보를 담는다. 스키마 검증 대상이 아님.",
+  
+  "schemaInfo": {
+    "schemaFile": "iris-input-schema-v0.2-final.json",
+    "version": "0.2-final",
+    "frozenAt": "2026-01-23"
+  },
+
+  "inputFiles": {
+    "items_itemscript.json": {
+      "schemaKey": "items_itemscript",
+      "description": "아이템 속성 데이터",
+      "itemCount": 2281
+    },
+    "recipes_index_full.json": {
+      "schemaKey": "recipes_index",
+      "description": "Recipe 관계 데이터",
+      "recipesTotal": 386,
+      "itemsWithRelations": 355
+    },
+    "fixing_fixers.json": {
+      "schemaKey": "fixing_fixers",
+      "description": "Fixer 아이템 목록",
+      "itemCount": 20
+    },
+    "moveables_tooldefs.json": {
+      "schemaKey": "moveables_tooldefs",
+      "description": "Moveables 도구 정의",
+      "itemIdsCount": 10,
+      "tagsCount": 3
+    }
+  },
+
+  "statistics": {
+    "items_total": 2281,
+    "recipes_total": 386,
+    "items_with_recipe_rel": 355,
+    "fixing_fixers_count": 20,
+    "moveables_itemIds_count": 10,
+    "moveables_tags_count": 3
+  },
+
+  "layerSeparation": {
+    "inputSchema": {
+      "document": "iris-input-schema-v0.2-final.md / .json",
+      "responsibility": "입력 계약 (데이터 구조, 필드 타입, 파일 형식)"
+    },
+    "evidenceAllowlist": {
+      "document": "iris-evidence-allowlist-v0.2.md",
+      "responsibility": "분류 정책 (허용값, 연산 제약, 가드 규칙)"
+    },
+    "evidenceTable": {
+      "documents": [
+        "iris-tool-evidence-table-v0.2.md",
+        "iris-combat-evidence-table.md",
+        "iris-consumable-evidence-table-v0.2.md",
+        "iris-resource-evidence-table-v0.2.md",
+        "iris-literature-evidence-table.md",
+        "iris-wearable-evidence-table-v0.2.md"
+      ],
+      "responsibility": "분류 규칙 (소분류별 증거 매칭 조건)"
+    },
+    "irisPhilosophy": {
+      "document": "iris-philosophy.md",
+      "responsibility": "분류 철학 (원칙, 금지 사항, 설계 의도)"
+    }
+  },
+
+  "experimentalFields": {
+    "description": "v0.3 정식 채택 검토 대상 필드",
+    "fields": [
+      {
+        "name": "Medical",
+        "type": "boolean",
+        "vanillaCount": 20,
+        "status": "experimental"
+      },
+      {
+        "name": "CanBandage",
+        "type": "boolean",
+        "vanillaCount": 11,
+        "status": "experimental"
+      },
+      {
+        "name": "AlcoholPower",
+        "type": "number",
+        "vanillaCount": 4,
+        "status": "experimental"
+      },
+      {
+        "name": "BandagePower",
+        "type": "number",
+        "vanillaCount": 11,
+        "status": "display-only"
+      }
+    ]
+  }
+}

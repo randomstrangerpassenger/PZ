@@ -1,0 +1,250 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "iris-input-schema-v0.2-final",
+  "title": "Iris Classification Input Schema",
+  "description": "Iris 자동 분류 시스템 입력 데이터 스키마 v0.2 FINAL. 이 스키마는 입력 계약만 정의하며, 분류 정책(허용값, 연결 관계)은 Evidence Allowlist/Table에서 정의한다.",
+  "version": "0.2-final",
+  "frozenAt": "2026-01-23",
+
+  "definitions": {
+    "itemType": {
+      "type": "string",
+      "enum": [
+        "Normal", "Weapon", "Food", "Drainable", "Clothing", "Literature",
+        "Map", "Radio", "Container", "WeaponPart", "Moveable", "Key",
+        "AlarmClock", "AlarmClockClothing"
+      ],
+      "description": "아이템 기본 타입. 분류 연결은 Evidence Table 참조."
+    },
+
+    "recipeRole": {
+      "type": "string",
+      "enum": ["input", "keep"],
+      "description": "레시피에서의 아이템 역할. 분류 연결은 Evidence Table 참조."
+    },
+
+    "recipeCategory": {
+      "type": ["string", "null"],
+      "description": "레시피 카테고리. null 가능 (일부 레시피는 카테고리 미지정). 분류 연결은 Evidence Table 참조."
+    },
+
+    "itemScriptEntry": {
+      "type": "object",
+      "required": ["FullType"],
+      "properties": {
+        "FullType": {
+          "type": "string",
+          "pattern": "^[A-Za-z]+\\.[A-Za-z0-9_]+$",
+          "description": "아이템 전체 ID (module.itemName)"
+        },
+        "Type": { "$ref": "#/definitions/itemType" },
+        "DisplayName": { 
+          "type": "string",
+          "description": "표시 이름 (분류 증거 사용 금지)"
+        },
+        "DisplayCategory": { 
+          "type": "string",
+          "description": "표시 카테고리 (분류 증거 사용 금지)"
+        },
+        "Weight": { 
+          "type": "number",
+          "description": "무게 (분류 증거 사용 금지, 표시용)"
+        },
+
+        "Categories": {
+          "type": "string",
+          "description": "무기 카테고리 (세미콜론 구분). 허용값은 Evidence Allowlist 참조."
+        },
+        "SubCategory": {
+          "type": "string",
+          "description": "무기 세부 카테고리"
+        },
+        "BodyLocation": {
+          "type": "string",
+          "description": "착용 부위. 허용값은 Evidence Allowlist 참조."
+        },
+        "AmmoType": { 
+          "type": "string",
+          "description": "탄약 타입. 허용값은 Evidence Allowlist 참조."
+        },
+        "Tags": {
+          "type": "string",
+          "description": "아이템 태그 (세미콜론 구분). 허용값은 Evidence Allowlist 참조."
+        },
+
+        "TwoHandWeapon": { 
+          "type": "boolean",
+          "description": "양손 무기 여부 (true만 존재, 없으면 한손)"
+        },
+        "IsAimedFirearm": { "type": "boolean" },
+        "MountOn": { 
+          "type": "string",
+          "description": "장착 대상 총기 (exists 여부로 총기부품 판정)"
+        },
+
+        "LightStrength": { "type": "number" },
+        "LightDistance": { "type": "number" },
+        "TorchCone": { "type": "boolean" },
+        "ActivatedItem": { "type": "boolean" },
+
+        "HungerChange": { "type": "number" },
+        "ThirstChange": { "type": "number" },
+        "StressChange": { "type": "number" },
+        "UnhappyChange": { "type": "number" },
+        "Alcoholic": { "type": "boolean" },
+
+        "CustomContextMenu": { 
+          "type": "string",
+          "description": "컨텍스트 메뉴 액션. 허용값은 Evidence Allowlist 참조."
+        },
+        "TeachedRecipes": { "type": "string" },
+        "SkillTrained": { "type": "string" },
+        "CanStoreWater": { "type": "boolean" },
+        "TwoWay": { "type": "boolean" },
+        "IsCookable": { "type": "boolean" },
+
+        "Medical": { 
+          "type": "boolean",
+          "description": "EXPERIMENTAL: 의료 아이템 여부 (v0.3 정식 채택 검토)"
+        },
+        "CanBandage": { 
+          "type": "boolean",
+          "description": "EXPERIMENTAL: 붕대 기능 여부 (v0.3 정식 채택 검토)"
+        },
+        "AlcoholPower": { 
+          "type": "number",
+          "description": "EXPERIMENTAL: 소독 효과 수치 (v0.3 정식 채택 검토)"
+        },
+        "BandagePower": { 
+          "type": "number",
+          "description": "EXPERIMENTAL: 붕대 효과 수치 (표시용)"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "recipeRelation": {
+      "type": "object",
+      "required": ["role", "recipe", "source"],
+      "properties": {
+        "role": { "$ref": "#/definitions/recipeRole" },
+        "category": { 
+          "$ref": "#/definitions/recipeCategory",
+          "description": "레시피 카테고리 (null 가능)"
+        },
+        "recipe": { 
+          "type": "string",
+          "description": "레시피 이름"
+        },
+        "source": { 
+          "type": "string",
+          "description": "소스 파일명"
+        }
+      },
+      "additionalProperties": false
+    },
+
+    "moveablesToolDef": {
+      "type": "array",
+      "items": [
+        { "type": "string", "description": "도구 정의명" },
+        {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "매칭 항목 목록"
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    }
+  },
+
+  "type": "object",
+  "description": "Iris 분류기 입력 파일들의 스키마 정의",
+  "properties": {
+    "items_itemscript": {
+      "description": "items_itemscript_v2.json 스키마",
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/itemScriptEntry" }
+    },
+
+    "recipes_index": {
+      "description": "recipes_index_full_v2.json 스키마",
+      "type": "object",
+      "required": ["meta", "items"],
+      "properties": {
+        "meta": {
+          "type": "object",
+          "required": ["recipes_total", "items_with_relations"],
+          "properties": {
+            "source": { "type": "string" },
+            "recipes_total": { "type": "integer", "minimum": 0 },
+            "items_with_relations": { "type": "integer", "minimum": 0 },
+            "relations_total": { "type": "integer", "minimum": 0 },
+            "roles_total": {
+              "type": "object",
+              "properties": {
+                "input": { "type": "integer" },
+                "keep": { "type": "integer" }
+              }
+            },
+            "get_item_types_groups_referenced": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "unresolved_tokens": {
+              "type": "object",
+              "additionalProperties": { "type": "integer" }
+            }
+          }
+        },
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/recipeRelation" }
+          }
+        }
+      }
+    },
+
+    "fixing_fixers": {
+      "description": "fixing_fixers.json 스키마",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z]+\\.[A-Za-z0-9_]+$"
+      }
+    },
+
+    "moveables_tooldefs": {
+      "description": "moveables_tooldefs.json 스키마",
+      "type": "object",
+      "required": ["itemIds", "tags", "defs"],
+      "properties": {
+        "itemIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z]+\\.[A-Za-z0-9_]+$"
+          },
+          "description": "Moveables에 등록된 아이템 ID 목록"
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Moveables에서 참조하는 태그 목록"
+        },
+        "defs": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/moveablesToolDef" },
+          "description": "도구 정의 목록"
+        }
+      }
+    }
+  },
+
+  "_meta": {
+    "_comment": "통계 및 레이어 정보는 iris-input-schema-v0.2-final.meta.json 참조"
+  }
+}

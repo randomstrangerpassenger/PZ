@@ -1,0 +1,6399 @@
+{
+  "meta": {
+    "source": "scripts.zip (static recipes only)",
+    "recipes_total": 386,
+    "items_with_relations": 355,
+    "relations_total": 934,
+    "roles_total": {
+      "input": 758,
+      "keep": 176
+    },
+    "get_item_types_groups_referenced": [
+      "BakingFat",
+      "CanOpener",
+      "Cheese",
+      "CraftLogStack",
+      "CraftSheetRope",
+      "Disinfectant",
+      "DismantleCamera",
+      "DismantleDigitalWatch",
+      "DullKnife",
+      "Egg",
+      "FishMeat",
+      "Flour",
+      "Hammer",
+      "Liquor",
+      "Milk",
+      "MortarPestle",
+      "Oil",
+      "Petrol",
+      "PizzaSauce",
+      "Rice",
+      "RipClothing_Cotton",
+      "RipClothing_Denim",
+      "RipClothing_Leather",
+      "RipSheets",
+      "Saw",
+      "Scissors",
+      "Screwdriver",
+      "SewingNeedle",
+      "SharpKnife",
+      "Spoon",
+      "StartFire",
+      "Sugar",
+      "WeldingMask"
+    ],
+    "unresolved_tokens": {}
+  },
+  "items": {
+    "Base.Plank": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Mortar and Pestle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Build Spiked Plank",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Smash Watermelon",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Build Drawer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Drill Plank",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Sturdy Stick",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Splint",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Wooden Box Trap",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Snare Trap",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Trap Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Kitchen Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Saw",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Hunting Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Create Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.RippedSheets": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Rag",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Rag",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Rag",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Rag",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Splint",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Flame bomb",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Smoke Bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.RippedSheetsDirty": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Clean Rag",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Splint",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Flame bomb",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Smoke Bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Sheet": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Mattress",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Book": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      }
+    ],
+    "Base.Magazine": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      }
+    ],
+    "Base.Newspaper": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Smoke Bomb",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Newspaper Hat",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Twigs": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      }
+    ],
+    "Base.Log": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Campfire Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Saw Logs",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Saw Logs2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Smash Watermelon",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Drill Plank",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Two-Log Stack",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Three-Log Stack",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Four-Log Stack",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Tarp": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Tent Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Tent Kit",
+        "source": "camping.txt"
+      }
+    ],
+    "camping.TentPeg": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Tent Kit",
+        "source": "camping.txt"
+      }
+    ],
+    "Base.WoodenStick": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Tent Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Tent Kit",
+        "source": "camping.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Splint",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Stick Trap",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Stake": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Tent Kit",
+        "source": "camping.txt"
+      }
+    ],
+    "farming.GardeningSprayEmpty": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Make Mildew Cure",
+        "source": "farming.txt"
+      },
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Make Flies Cure",
+        "source": "farming.txt"
+      }
+    ],
+    "Base.Cigarettes": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Make Flies Cure",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.CarrotBagSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Open Packet of Carrot Seeds",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.BroccoliBagSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Open Packet of Broccoli Seeds",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.RedRadishBagSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Open Packet of Radish Seeds",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.StrewberrieBagSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Open Packet of Strawberries Seeds",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.TomatoBagSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Open Packet of Tomato Seeds",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.PotatoBagSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Open Packet of Potato Seeds",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.CabbageBagSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Open Packet of Cabbage Seeds",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.Bacon": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get Bacon Rashers",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.CarrotSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Put Carrots Seeds in Packet",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.BroccoliSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Put Broccoli Seeds in Packet",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.RedRadishSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Put Radish Seeds in Packet",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.StrewberrieSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Put Strawberry Seeds in Packet",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.TomatoSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Put Tomato Seeds in Packet",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.PotatoSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Put Potato Seeds in Packet",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.CabbageSeed": [
+      {
+        "role": "input",
+        "category": "Farming",
+        "recipe": "Put Cabbage Seeds in Packet",
+        "source": "farming.txt"
+      }
+    ],
+    "farming.BaconRashers": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get Bacon Bits",
+        "source": "farming.txt"
+      }
+    ],
+    "Base.IronIngot": [
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Shovel",
+        "source": "farming.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Hand Shovel",
+        "source": "farming.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Fork",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Spoon",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Cooking Pot",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Roasting Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Saucepan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Baking Tray",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Baking Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Letter Opener",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Nails",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Paperclips",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Scissors",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Door Knob",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Hinge",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Butter Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Ball Peen Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Tongs",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Sheet Metal",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Suture Needle Holder",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Tweezers",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Suture Needle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Metal Drum",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Kitchen Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Saw",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Hunting Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 9mm Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 308 Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 223 Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Shotgun Shells Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 9mm Bullets",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Shotgun Shells",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 308 Bullets",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 223 Bullets",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Sledgehammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Metal Pipe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Metal Bar",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Handle": [
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Shovel",
+        "source": "farming.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Sledgehammer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Tongs": [
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Shovel",
+        "source": "farming.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Hand Shovel",
+        "source": "farming.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Cooking Pot",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Roasting Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Saucepan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Baking Tray",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Baking Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Letter Opener",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Scissors",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Door Knob",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Hinge",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Butter Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Sheet Metal",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Suture Needle Holder",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Tweezers",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Suture Needle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Metal Drum",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Kitchen Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Saw",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Hunting Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 9mm Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 308 Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 223 Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Shotgun Shells Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 9mm Bullets",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Shotgun Shells",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 308 Bullets",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 223 Bullets",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Crowbar",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Golfclub",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Sledgehammer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WineEmpty": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Smash Bottle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "HockeyMaskSmashBottle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WineEmpty2": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Smash Bottle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "HockeyMaskSmashBottle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WhiskeyEmpty": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Smash Bottle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "HockeyMaskSmashBottle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BeerEmpty": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Smash Bottle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.TreeBranch": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stake",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Splint",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Create Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.MeatCleaver": [
+      {
+        "role": "keep",
+        "category": "Survivalist",
+        "recipe": "Make Stake",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Watermelon",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Bread",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Bread",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Pie",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Cake",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Fillet",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Ham",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Frog",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Butcher Small Animal",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Butcher Rabbit",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Butcher Bird",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Survivalist",
+        "recipe": "Create Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Onion",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Squid Calamari",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Baloney",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Salami",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Pizza",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BaseballBat": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Build Spiked Baseball Bat",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Smash Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Nails": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Build Spiked Baseball Bat",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Build Spiked Plank",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Build Drawer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place Nails in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Fix Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Fix Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Wooden Box Trap",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Trap Box",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Shotgun": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Saw Off Shotgun",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Saw": [
+      {
+        "role": "keep",
+        "category": null,
+        "recipe": "Saw Off Shotgun",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": null,
+        "recipe": "Saw Off Double Barrel Shotgun",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DoubleBarrelShotgun": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Saw Off Double Barrel Shotgun",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.EggCarton": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Egg Carton",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Egg": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Put Eggs in Carton",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PanFriedVegetables": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Frying Pan",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.GriddlePanFriedVegetables": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Griddle Pan",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.OmeletteRecipe": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Frying Pan",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PanFriedVegetables2": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Roasting Pan",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.GardenSaw": [
+      {
+        "role": "keep",
+        "category": "Carpentry",
+        "recipe": "Saw Logs2",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedMushroomSoupOpen": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pot of Soup",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Pot": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pot of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pot of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pot of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pot of Soup",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedMushroomSoup": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pot of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Mushroom Soup",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.TinnedSoupOpen": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pot of Soup",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.TinnedSoup": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pot of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Soup",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedFruitCocktail": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Fruit Cocktail",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedFruitBeverage": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Fruit Beverage",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedPeaches": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Peaches",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedPineapple": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Pineapple",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Watermelon": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Watermelon",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Smash Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "[Recipe.GetItemTypes.Saw]": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Axe": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.HandAxe": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.AxeStone": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WoodAxe": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "[Recipe.GetItemTypes.Sledgehammer]": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Smash Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BaseballBatNails": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Smash Watermelon",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.TinnedBeans": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Beans",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bowl of Beans",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Dogfood": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Dog Food",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedMilk": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Condensed Milk",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.OpenBeans": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bowl of Beans",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bowl": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bowl of Beans",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bowl of Beans",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Rice",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Rice",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Pasta",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Pasta",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Stew",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Stew",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Cake Batter",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pizza",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Biscuits",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bowl of Oatmeal",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bowl of Cereal",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Gravy",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pancake",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Prepare Muffins",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Sugar Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Shortbread Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Pasta": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Pasta in Saucepan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Pasta in Cooking Pot",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WaterSaucepan": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Pasta in Saucepan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Rice in Saucepan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Bandage",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Rag",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Rice": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Rice in Saucepan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Rice in Cooking Pot",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WaterPot": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Pasta in Cooking Pot",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Rice in Cooking Pot",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Bandage",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Rag",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CandyPackage": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Candy Package",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.TunaTin": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Tuna",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PotOfSoup": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Soup",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PotOfSoupRecipe": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Soup",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Soup",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WaterPotRice": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Rice",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Rice",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WaterSaucepanRice": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Rice",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Rice",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.RicePot": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Rice",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Rice",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.RicePan": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Rice",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Rice",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WaterSaucepanPasta": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Pasta",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Pasta",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WaterPotPasta": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Pasta",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Pasta",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PastaPan": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Pasta",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Pasta",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PastaPot": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Pasta",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Pasta",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PotOfStew": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 4 Bowls of Stew",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make 2 Bowls of Stew",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Candle": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Light Candle",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CandleLit": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Extinguish Candle",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Torch": [
+      {
+        "role": "keep",
+        "category": null,
+        "recipe": "Remove Battery",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Insert Battery into Flashlight",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Flashlight",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.HandTorch": [
+      {
+        "role": "keep",
+        "category": null,
+        "recipe": "Remove Battery",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Insert Battery into Flashlight",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Flashlight",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Rubberducky2": [
+      {
+        "role": "keep",
+        "category": null,
+        "recipe": "Remove Battery",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Insert Battery into Duck",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Battery": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Insert Battery into Duck",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Insert Battery into Flashlight",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Insert Battery into Flashlight",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BucketEmpty": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Bucket of Plaster",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BucketWaterFull": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Bucket of Plaster",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PlasterPowder": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Bucket of Plaster",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Doorknob": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Build Drawer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BoxOfJars": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of Jars",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.NailsBox": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of Nails",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ScrewsBox": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of Screws",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PaperclipBox": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of Paperclip",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bullets9mmBox": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of 9mm Bullets",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bullets45Box": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of .45 Auto Bullets",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bullets38Box": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of .38 Special Bullets",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bullets44Box": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of .44 Magnum Bullets",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.223Box": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of .223 Ammo",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.308Box": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of .308 Ammo",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ShotgunShellsBox": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of Shotgun Shells",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.556Box": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Box of .556 Ammo",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.556Bullets": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place .556 Ammo in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Gather Gunpowder",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.223Bullets": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place .223 Ammo in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Gather Gunpowder",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.308Bullets": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place .308 Ammo in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Gather Gunpowder",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Screws": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place Screws in Box",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bullets9mm": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place 9mm Bullets in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Gather Gunpowder",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bullets45": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place .45 Auto Bullets in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Gather Gunpowder",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bullets38": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place .38 Speciam Bullets in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Gather Gunpowder",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bullets44": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place .44 Magnum Bullets in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Gather Gunpowder",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ShotgunShells": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place Shotgun Shells in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Gather Gunpowder",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Paperclip": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Place Paperclips in Box",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Fix Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Fix Fishing Rod",
+        "source": "recipes.txt"
+      }
+    ],
+    "[Recipe.GetItemTypes.SharpKnife]": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Bread",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Bread",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Pie",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Slice Cake",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": null,
+        "recipe": "Drill Plank",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bread": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Bread",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BreadDough": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Bread",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Spatula": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Cake Batter",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pizza",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Biscuits",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Gravy",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pancake",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Prepare Omelette",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Prepare Muffins",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Sugar Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Shortbread Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "[Recipe.GetItemTypes.Spoon]": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Cake Batter",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pizza",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Biscuits",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Gravy",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pancake",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Prepare Omelette",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Prepare Muffins",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Sugar Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Shortbread Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "[Recipe.GetItemTypes.Fork]": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Cake Batter",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pizza",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Biscuits",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Gravy",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pancake",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Prepare Omelette",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Prepare Muffins",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Sugar Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Shortbread Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Yeast": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Cake Batter",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pizza",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CakeBatter": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Cake in Baking Pan",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BakingPan": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Cake in Baking Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Pie in Baking Pan",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Butter": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Shortbread Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Lard": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Margarine": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Salt": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pizza",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Biscuits",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.RollingPin": [
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Pizza",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Place Pie in Baking Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Sugar Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Shortbread Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Cheese": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pizza",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Flour": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bread Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Biscuits",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Sugar Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Shortbread Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.MuffinTray": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Biscuits",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Prepare Muffins",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BakingSoda": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Biscuits",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Fried Shrimp",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Fried Onion Rings",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Sugar Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Muffintray_Biscuit": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get 6 Biscuits",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Clean Tray",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.OatsRaw": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bowl of Oatmeal",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Cereal": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Bowl of Cereal",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PieDough": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Place Pie in Baking Pan",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PieWholeRaw": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Pie",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PieWholeRawSweet": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Pie",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CakeRaw": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Cake",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bass": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Fillet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Catfish": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Fillet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Perch": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Fillet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Crappie": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Fillet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Panfish": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Fillet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Pike": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Fillet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Trout": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Fillet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Ham": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Ham",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Frog": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Frog",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Twine": [
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Fix Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Net",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Stick Trap",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Snare Trap",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Pipe bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.FishingLine": [
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Fix Fishing Rod",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.FishingRodBreak": [
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Fix Fishing Rod",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Fix Fishing Rod",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Plantain": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Plantain Poultice",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Comfrey": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Comfrey Poultice",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WildGarlic": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Wild Garlic Poultice",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WildGarlic2": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Wild Garlic Poultice",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Bandage": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Bandage",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Bandage",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Bandage",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Disinfect Bandage",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BandageDirty": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Clean Bandage",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.LeatherStripsDirty": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Clean Leather Strips",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DenimStripsDirty": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Clean Denim Strips",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Splint",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Flame bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "[Recipe.GetItemTypes.DullKnife]": [
+      {
+        "role": "keep",
+        "category": null,
+        "recipe": "Drill Plank",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Cooking",
+        "recipe": "Make Halloween Pumpkin",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SharpedStone": [
+      {
+        "role": "keep",
+        "category": null,
+        "recipe": "Drill Plank",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Survivalist",
+        "recipe": "Create Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DenimStrips": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Make Splint",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Flame bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Stone": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Make Stone Hammer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Wire": [
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Make Fishing Net",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Trapper",
+        "recipe": "Make Cage Trap",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BrokenFishingNet": [
+      {
+        "role": "input",
+        "category": "Fishing",
+        "recipe": "Get Wire Back",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DeadMouse": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Butcher Small Animal",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DeadSquirrel": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Butcher Small Animal",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DeadRat": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Butcher Small Animal",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DeadRabbit": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Butcher Rabbit",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DeadBird": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Butcher Bird",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Thread": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Mattress",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Pillow": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Make Mattress",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CottonBalls": [
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Douse Cotton in Alcohol",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Health",
+        "recipe": "Put Alcohol on Cotton",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.EmptyJar": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Tomatoes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Carrots",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Potatoes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Eggplants",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Leeks",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Red Radishes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Bell Peppers",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Cabbage",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Broccoli",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.JarLid": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Tomatoes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Carrots",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Potatoes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Eggplants",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Leeks",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Red Radishes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Bell Peppers",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Cabbage",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Broccoli",
+        "source": "recipes.txt"
+      }
+    ],
+    "farming.Tomato": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Tomatoes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Vinegar": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Tomatoes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Carrots",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Potatoes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Eggplants",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Leeks",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Red Radishes",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Bell Peppers",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Cabbage",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Broccoli",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedTomato": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Tomatoes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Carrots": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Carrots",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedCarrots": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Carrots",
+        "source": "recipes.txt"
+      }
+    ],
+    "farming.Potato": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Potatoes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedPotato": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Potatoes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Eggplant": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Eggplants",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedEggplant": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Eggplants",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Leek": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Leeks",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedLeek": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Leeks",
+        "source": "recipes.txt"
+      }
+    ],
+    "farming.RedRadish": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Red Radishes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedRedRadish": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Red Radishes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BellPepper": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Bell Peppers",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedBellPepper": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Bell Peppers",
+        "source": "recipes.txt"
+      }
+    ],
+    "farming.Cabbage": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Cabbage",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedCabbage": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Cabbage",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Broccoli": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Jar of Broccoli",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedBroccoli": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Jar of Broccoli",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.LogStacks2": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Unstack Logs",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.LogStacks3": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Unstack Logs",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.LogStacks4": [
+      {
+        "role": "input",
+        "category": "Carpentry",
+        "recipe": "Unstack Logs",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedCornedBeef": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Corned Beef",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedCorn": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Corn",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedBolognese": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Bolognese",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedChili": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Chili",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedPeas": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Peas",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedPotato2": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Potato",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedSardines": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Sardines",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedTomato2": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Tomato",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CannedCarrots2": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Open Canned Carrots",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Remote": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle TV Remote",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V3",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.VideoGame": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Video Game",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CordlessPhone": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Cordless Phone",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Speaker": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Speaker",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.HomeAlarm": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Home Alarm",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Earbuds": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Earbuds",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Headphones": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Headphones",
+        "source": "recipes.txt"
+      }
+    ],
+    "Radio.CDplayer": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle CD Player",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ElectronicsScrap": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Noise Maker",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Pipe bomb",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift HAM Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Walkie Talkie",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Base.Glue": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Controller V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Timer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Receiver": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Trigger",
+        "source": "recipes.txt"
+      }
+    ],
+    "Radio.RadioReceiver": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Remote Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift HAM Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Walkie Talkie",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Base.Timer": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Timer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.AlarmClock2": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Timer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Aerosolbomb": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.TimerCrafted": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.DuctTape": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Bread Knife to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Butter Knife to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Fork to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Letter Opener to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Scalpel to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Spoon to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Scissors to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Hand Fork to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Screwdriver to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Kitchen Knife to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Hunting Knife to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Machete to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Ice Pick to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.MotionSensor": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.TriggerCrafted": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.FlameTrap": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.NoiseTrap": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SmokeBomb": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PipeBomb": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Timer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V1",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V2",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Motion Sensor V3",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Add Crafted Trigger",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WinePetrol": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.WhiskeyPetrol": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Molotov Cocktail",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Hairspray": [
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Aerosol bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Sparklers": [
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Aerosol bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Aluminum": [
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Aerosol bomb",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Make Tin Foil Hat",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift HAM Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Walkie Talkie",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Base.WaterBottleEmpty": [
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Flame bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Coldpack": [
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Smoke Bomb",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Amplifier": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Make Noise Maker",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift HAM Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Walkie Talkie",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Base.MetalPipe": [
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Pipe bomb",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Metal Bar",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.GunPowder": [
+      {
+        "role": "input",
+        "category": "Engineer",
+        "recipe": "Make Pipe bomb",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 9mm Bullets",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Shotgun Shells",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 308 Bullets",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make 223 Bullets",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BallPeenHammer": [
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Cooking Pot",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Roasting Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Saucepan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Baking Tray",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Baking Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Pan",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Letter Opener",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Scissors",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Door Knob",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Hinge",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Hammer",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Sheet Metal",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Suture Needle Holder",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Tweezers",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Suture Needle",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Metal Drum",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Kitchen Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Saw",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Hunting Knife",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 9mm Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 308 Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 223 Bullets Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Shotgun Shells Mold",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Crowbar",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Golfclub",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Axe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Sledgehammer",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.9mmBulletsMold": [
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 9mm Bullets",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ShotgunShellsMold": [
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make Shotgun Shells",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.308BulletsMold": [
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 308 Bullets",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.223BulletsMold": [
+      {
+        "role": "keep",
+        "category": "Smithing",
+        "recipe": "Make 223 Bullets",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.MetalBar": [
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Crowbar",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Smithing",
+        "recipe": "Make Golfclub",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BlowTorch": [
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Metal Pipe",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Metal Bar",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Metal Sheet",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Small Metal Sheet",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Refill Blow Torch",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SmallSheetMetal": [
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Metal Sheet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SheetMetal": [
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Make Small Metal Sheet",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PropaneTank": [
+      {
+        "role": "input",
+        "category": "Welding",
+        "recipe": "Refill Blow Torch",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearCrafted": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Bread Knife to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Butter Knife to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Fork to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Letter Opener to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Scalpel to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Spoon to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Scissors to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Hand Fork to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Screwdriver to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Kitchen Knife to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Hunting Knife to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Machete to Spear",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Ice Pick to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BreadKnife": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Bread Knife to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ButterKnife": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Butter Knife to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Fork": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Fork to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.LetterOpener": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Letter Opener to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Scalpel": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Scalpel to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Spoon": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Spoon to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Scissors": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Scissors to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.HandFork": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Hand Fork to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Screwdriver": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Screwdriver to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.KitchenKnife": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Kitchen Knife to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.HuntingKnife": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Hunting Knife to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Machete": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Machete to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.IcePick": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Attach Ice Pick to Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearBreadKnife": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Bread Knife from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearButterKnife": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Butter Knife from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearFork": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Fork from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearLetterOpener": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Letter Opener from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearScalpel": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Scalpel from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearSpoon": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Spoon from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearScissors": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Scissors from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearHandFork": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Hand Fork from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearScrewdriver": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Screwdriver from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearKnife": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Kitchen Knife from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearHuntingKnife": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Hunting Knife from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearMachete": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Machete from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SpearIcePick": [
+      {
+        "role": "input",
+        "category": "Survivalist",
+        "recipe": "Reclaim Ice Pick from Spear",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ClosedUmbrellaBlue": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Umbrella",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.UmbrellaBlue": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Close Umbrella",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ClosedUmbrellaRed": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Umbrella",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.UmbrellaRed": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Close Umbrella",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ClosedUmbrellaBlack": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Umbrella",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.UmbrellaBlack": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Close Umbrella",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ClosedUmbrellaWhite": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Umbrella",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.UmbrellaWhite": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Close Umbrella",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.GravyMix": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Gravy",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Shrimp": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Fried Shrimp",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.OnionRings": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Fried Onion Rings",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Onion": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Onion",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PancakeMix": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Pancake",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Pan": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Prepare Omelette",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Seaweed": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Maki",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Onigiri",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Avocado": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Maki",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Onigiri",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Squid": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Squid Calamari",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BakingTray_Muffin": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Clean Tray",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get 6 Muffins",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BakingTray_Muffin_Recipe": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Clean Tray",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get 6 Muffins",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Pumpkin": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Halloween Pumpkin",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Apple": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Apples",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_BellPepper": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Bell Peppers",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Broccoli": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Broccoli",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Cabbage": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Cabbages",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Carrot": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Carrots",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Cherry": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Cherries",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Corn": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Corn",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Eggplant": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Eggplants",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Grapes": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Grapes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Leek": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Leeks",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Lettuce": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Lettuce",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Onion": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Onions",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Peach": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Peaches",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Pear": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Pears",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Potato": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Potatoes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_RedRadish": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Radishes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Strawberry": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Strawberries",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.SackProduce_Tomato": [
+      {
+        "role": "input",
+        "category": null,
+        "recipe": "Open Sack of Tomatoes",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Baloney": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Baloney",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Salami": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Salami",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.MincedMeat": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Meat Patty",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Cone": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Scoop Ice Cream",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.Icecream": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Scoop Ice Cream",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PizzaWhole": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Pizza",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.PizzaRecipe": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Slice Pizza",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BreadSlices": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Cheese Sandwich",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.BakingTray": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Oatmeal Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Sugar Cookie Dough",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Shortbread Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CocoaPowder": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CookiesChocolateDough": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get 6 Cookies",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Baking Tray",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.ChocolateChips": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Make Chocolate Chip Cookie Dough",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CookieChocolateChipDough": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get 6 Cookies",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Baking Tray",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CookiesOatmealDough": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get 6 Cookies",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Baking Tray",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CookiesSugarDough": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get 6 Cookies",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Baking Tray",
+        "source": "recipes.txt"
+      }
+    ],
+    "Base.CookiesShortbreadDough": [
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Get 6 Cookies",
+        "source": "recipes.txt"
+      },
+      {
+        "role": "input",
+        "category": "Cooking",
+        "recipe": "Empty Baking Tray",
+        "source": "recipes.txt"
+      }
+    ],
+    "Radio.RadioRed": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.RadioBlack": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.WalkieTalkie1": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Two-way Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.WalkieTalkie2": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Two-way Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.WalkieTalkie3": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Two-way Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.WalkieTalkie4": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Two-way Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.WalkieTalkie5": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Two-way Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.HamRadio1": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle HAM Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.HamRadio2": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle HAM Radio",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.TvAntique": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Television",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.TvWideScreen": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Television",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.TvBlack": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Dismantle Television",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Base.LightBulb": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift HAM Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Walkie Talkie",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.ElectricWire": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift HAM Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Walkie Talkie",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Base.LightBulbGreen": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift HAM Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Walkie Talkie",
+        "source": "recipes_radio.txt"
+      }
+    ],
+    "Radio.RadioTransmitter": [
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift HAM Radio",
+        "source": "recipes_radio.txt"
+      },
+      {
+        "role": "input",
+        "category": "Electrical",
+        "recipe": "Craft Makeshift Walkie Talkie",
+        "source": "recipes_radio.txt"
+      }
+    ]
+  },
+  "get_item_types_groups": {
+    "BakingFat": null,
+    "CanOpener": null,
+    "Cheese": null,
+    "CraftLogStack": null,
+    "CraftSheetRope": null,
+    "Disinfectant": null,
+    "DismantleCamera": null,
+    "DismantleDigitalWatch": null,
+    "DullKnife": null,
+    "Egg": null,
+    "FishMeat": null,
+    "Flour": null,
+    "Hammer": null,
+    "Liquor": null,
+    "Milk": null,
+    "MortarPestle": null,
+    "Oil": null,
+    "Petrol": null,
+    "PizzaSauce": null,
+    "Rice": null,
+    "RipClothing_Cotton": null,
+    "RipClothing_Denim": null,
+    "RipClothing_Leather": null,
+    "RipSheets": null,
+    "Saw": null,
+    "Scissors": null,
+    "Screwdriver": null,
+    "SewingNeedle": null,
+    "SharpKnife": null,
+    "Spoon": null,
+    "StartFire": null,
+    "Sugar": null,
+    "WeldingMask": null
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "version": "0.2",
+  "items_total": 2281,
+  "field_presence": {
+    "Type": 2281,
+    "SubCategory": 128,
+    "Categories": 115,
+    "Tags": 283,
+    "BodyLocation": 735,
+    "AmmoType": 21,
+    "TwoHandWeapon": 72,
+    "SkillTrained": 60,
+    "TeachedRecipes": 30,
+    "CustomContextMenu": 38,
+    "CanStoreWater": 49,
+    "Alcoholic": 7,
+    "ActivatedItem": 4,
+    "TorchCone": 4,
+    "TwoWay": 16,
+    "MountOn": 14,
+    "Medical": 20,
+    "CanBandage": 11,
+    "AlcoholPower": 4,
+    "BandagePower": 11
+  },
+  "recipes_total": 386,
+  "items_with_recipe_rel": 355,
+  "relations_total": 934,
+  "roles_total": {
+    "input": 758,
+    "keep": 176
+  },
+  "fixing_fixers_items": 20,
+  "moveables_tool_itemIds": 10,
+  "moveables_tool_tags": 3,
+  "recipe_unresolved_tokens": 0,
+  "get_item_types_groups": 33
+}

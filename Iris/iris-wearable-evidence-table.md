@@ -1,6 +1,8 @@
-# Iris Wearable(6) 소분류 증거표
+# Iris Wearable(6) 소분류 증거표 (v0.2)
 
 이 문서는 **Wearable 대분류(6)**의 각 소분류별로 사용할 수 있는 증거를 정의한다.
+
+> ⚠️ **v0.2 주요 변경**: BodyLocation 실제 바닐라 값으로 전면 교체. 추상적 값(`Head`, `Torso`, `Legs`)을 세부 값(`Hat`, `Shirt`, `Pants` 등)으로 변경.
 
 ---
 
@@ -21,21 +23,15 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 ### BodyLocation이 소분류 핵심 증거
 
-착용 부위(`BodyLocation`)로 소분류 결정:
-- Head → 6-A(모자/헬멧)
-- Torso/Torso_Upper/Torso_Lower → 6-B(상의)
-- Legs/Groin → 6-C(하의)
-- Hands → 6-D(장갑)
-- Feet → 6-E(신발)
-- Back → 6-F(배낭)
-- FannyPack → 6-G(힙색)
-- Neck/Eyes/Belt 등 → 6-H(액세서리)
+착용 부위(`BodyLocation`)로 소분류 결정.
+
+> ⚠️ **v0.2 변경**: 바닐라에서 `Head`, `Torso`, `Legs` 같은 추상적 값이 **아닌**, `Hat`, `Shirt`, `Pants` 같은 세부 값이 사용됨.
 
 ### 방어 수치는 표시 정보
 
 `BladeDefense`, `BiteDefense` 등 방어 수치는:
 - **exists 여부**만 보조 증거로 사용 가능
-- **수치 비교 금지** (예: `BiteDefense > 50` 같은 조건 금지)
+- **수치 비교 금지**
 - 수치 자체는 **표시 정보**로만 사용
 
 ---
@@ -46,38 +42,35 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 ### 필수 증거 (AND 결합)
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| Type | `= Clothing` | 필수 |
-| **AND** BodyLocation | `= Head` | 머리 부위 |
+| 증거 | 조건 |
+|------|------|
+| Type | `= Clothing` |
+| **AND** BodyLocation | 아래 허용값 중 하나 |
+
+### BodyLocation 허용값 (6-A) — v0.2 확정
+
+| 값 | 설명 | 개수 |
+|----|------|------|
+| `Hat` | 일반 모자 | 83 |
+| `FullHat` | 풀페이스 헬멧 | 6 |
+| `FullHelmet` | 복싱 헬멧 등 | 2 |
+| `Mask` | 발라클라바 등 | 7 |
+| `MaskEyes` | 가스마스크 | 2 |
+| `MaskFull` | 용접마스크 | 1 |
 
 ### 보조 증거
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| BladeDefense | `exists` | 방어구 여부 |
-| BiteDefense | `exists` | 방어구 여부 |
-
-### 금지
-
-| 증거 | 이유 |
+| 증거 | 조건 |
 |------|------|
-| DisplayName 추론 | 이름 추론 금지 |
-| BladeDefense 수치 비교 | 수치 비교 금지 |
-| "좋은 헬멧" 판단 | 판단 금지 |
-
-### 표시 정보 (분류 아님)
-
-- 방어력 (BladeDefense, BiteDefense, BulletDefense 수치)
-- 보온/방수 (Insulation, WaterResistance)
-- 내구도 (ConditionMax)
+| Tags | `GasMask` |
+| BladeDefense | `exists` |
 
 ### 예시 아이템
 
-- 야구 모자 (Baseball Cap)
-- 건설 헬멧 (Hard Hat)
-- 오토바이 헬멧 (Motorcycle Helmet)
-- 방독면 (Gas Mask)
+- 야구 모자 (Baseball Cap) — BodyLocation = Hat
+- 건설 헬멧 (Hard Hat) — BodyLocation = Hat
+- 오토바이 헬멧 (Crash Helmet) — BodyLocation = FullHat
+- 가스마스크 (Gas Mask) — BodyLocation = MaskEyes
 
 ---
 
@@ -87,42 +80,36 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 ### 필수 증거 (AND 결합)
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| Type | `= Clothing` | 필수 |
-| **AND** BodyLocation | `= Torso` 또는 `Torso_Upper` 또는 `Torso_Lower` | 상체 부위 |
-
-### BodyLocation 허용값 (6-B)
-
-| 값 | 설명 |
-|----|------|
-| `Torso` | 상체 전체 |
-| `Torso_Upper` | 상체 상부 |
-| `Torso_Lower` | 상체 하부 |
-
-> ℹ️ **전신복 처리**: 점프수트 등 전신복은 `Torso` + `Legs`를 동시 점유.  
-> Iris는 각 BodyLocation에 따라 6-B + 6-C 둘 다 태깅.
-
-### 보조 증거
-
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| BladeDefense | `exists` | 방어구 여부 |
-| Insulation | `exists` | 보온 의류 |
-
-### 금지
-
-| 증거 | 이유 |
+| 증거 | 조건 |
 |------|------|
-| DisplayName 추론 | 이름 추론 금지 |
-| 방어력 수치 비교 | 수치 비교 금지 |
+| Type | `= Clothing` |
+| **AND** BodyLocation | 아래 허용값 중 하나 |
+
+### BodyLocation 허용값 (6-B) — v0.2 확정
+
+| 값 | 설명 | 개수 |
+|----|------|------|
+| `Shirt` | 셔츠 | 21 |
+| `ShortSleeveShirt` | 반팔 셔츠 | 13 |
+| `Tshirt` | 티셔츠 | 44 |
+| `TankTop` | 민소매 | 2 |
+| `Sweater` | 스웨터 | 7 |
+| `SweaterHat` | 후드 스웨터 | 1 |
+| `Jacket` | 재킷 | 17 |
+| `JacketHat` | 후드 재킷 | 2 |
+| `JacketHat_Bulky` | 두꺼운 후드 재킷 | 1 |
+| `JacketSuit` | 정장 재킷 | 4 |
+| `Jacket_Bulky` | 두꺼운 재킷 | 7 |
+| `Jacket_Down` | 다운 재킷 | 2 |
+| `TorsoExtra` | 앞치마 등 | 11 |
+| `TorsoExtraVest` | 방탄조끼 등 | 9 |
 
 ### 예시 아이템
 
-- 티셔츠 (T-Shirt)
-- 재킷 (Jacket)
-- 방탄조끼 (Bulletproof Vest)
-- 후드티 (Hoodie)
+- 티셔츠 (T-Shirt) — BodyLocation = Tshirt
+- 재킷 (Jacket) — BodyLocation = Jacket
+- 방탄조끼 (Bulletproof Vest) — BodyLocation = TorsoExtraVest
+- 후드티 (Hoodie) — BodyLocation = SweaterHat
 
 ---
 
@@ -132,29 +119,24 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 ### 필수 증거 (AND 결합)
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| Type | `= Clothing` | 필수 |
-| **AND** BodyLocation | `= Legs` 또는 `= Groin` | 하체 부위 |
-
-### BodyLocation 허용값 (6-C)
-
-| 값 | 설명 |
-|----|------|
-| `Legs` | 다리 |
-| `Groin` | 골반/엉덩이 |
-
-### 금지
-
-| 증거 | 이유 |
+| 증거 | 조건 |
 |------|------|
-| DisplayName 추론 | 이름 추론 금지 |
+| Type | `= Clothing` |
+| **AND** BodyLocation | 아래 허용값 중 하나 |
+
+### BodyLocation 허용값 (6-C) — v0.2 확정
+
+| 값 | 설명 | 개수 |
+|----|------|------|
+| `Pants` | 바지 | 48 |
+| `Skirt` | 스커트 | 5 |
+| `Legs1` | 롱존스 하의 | 1 |
 
 ### 예시 아이템
 
-- 청바지 (Jeans)
-- 작업 바지 (Work Pants)
-- 반바지 (Shorts)
+- 청바지 (Jeans) — BodyLocation = Pants
+- 작업 바지 (Work Pants) — BodyLocation = Pants
+- 스커트 (Skirt) — BodyLocation = Skirt
 
 ---
 
@@ -164,22 +146,22 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 ### 필수 증거 (AND 결합)
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| Type | `= Clothing` | 필수 |
-| **AND** BodyLocation | `= Hands` | 손 부위 |
-
-### 금지
-
-| 증거 | 이유 |
+| 증거 | 조건 |
 |------|------|
-| DisplayName 추론 | 이름 추론 금지 |
+| Type | `= Clothing` |
+| **AND** BodyLocation | `= Hands` |
+
+### BodyLocation 허용값 (6-D) — v0.2 확정
+
+| 값 | 설명 | 개수 |
+|----|------|------|
+| `Hands` | 장갑 | 8 |
 
 ### 예시 아이템
 
 - 가죽 장갑 (Leather Gloves)
 - 작업 장갑 (Work Gloves)
-- 의료 장갑 (Medical Gloves)
+- 핑거리스 장갑 (Fingerless Gloves)
 
 ---
 
@@ -189,22 +171,23 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 ### 필수 증거 (AND 결합)
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| Type | `= Clothing` | 필수 |
-| **AND** BodyLocation | `= Feet` | 발 부위 |
-
-### 금지
-
-| 증거 | 이유 |
+| 증거 | 조건 |
 |------|------|
-| DisplayName 추론 | 이름 추론 금지 |
+| Type | `= Clothing` |
+| **AND** BodyLocation | 아래 허용값 중 하나 |
+
+### BodyLocation 허용값 (6-E) — v0.2 확정
+
+| 값 | 설명 | 개수 |
+|----|------|------|
+| `Shoes` | 신발 | 17 |
+| `Socks` | 양말 | 2 |
 
 ### 예시 아이템
 
-- 운동화 (Sneakers)
-- 작업화 (Work Boots)
-- 슬리퍼 (Slippers)
+- 운동화 (Sneakers) — BodyLocation = Shoes
+- 작업화 (Work Boots) — BodyLocation = Shoes
+- 양말 (Socks) — BodyLocation = Socks
 
 ---
 
@@ -212,31 +195,21 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 **핵심 질문**: 등에 착용하는 수납 아이템인가?
 
-### 필수 증거 (AND 결합)
+### 필수 증거
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| Type | `= Clothing` | 필수 |
-| **AND** BodyLocation | `= Back` | 등 부위 |
+**자동 분류 불가** — 바닐라에서 `BodyLocation = Back`이 확인되지 않음.
 
-### 금지
+> ⚠️ **v0.2 발견**: 배낭류는 `Type = Container`로 분류되어 있을 가능성. 추가 분석 필요.
 
-| 증거 | 이유 |
-|------|------|
-| DisplayName 추론 | 이름 추론 금지 |
-| 수납 용량 비교 | 수치 비교 금지 |
+### 처리 방식
 
-### 표시 정보 (분류 아님)
+**수동 오버라이드 또는 Type = Container 별도 처리**
 
-- 수납 용량 (Capacity)
-- 무게 감소율 (WeightReduction)
-
-### 예시 아이템
-
-- 배낭 (Backpack)
-- 등산 배낭 (Hiking Bag)
-- 학생 가방 (School Bag)
-- 군용 배낭 (Military Backpack)
+```lua
+manualOverrides = {
+    ["Base.Bag_BigHikingBag"] = { add = { "Wearable.6-F" } },
+}
+```
 
 ---
 
@@ -246,25 +219,21 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 ### 필수 증거 (AND 결합)
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| Type | `= Clothing` | 필수 |
-| **AND** BodyLocation | `= FannyPack` | 허리 가방 슬롯 |
-
-### 금지
-
-| 증거 | 이유 |
+| 증거 | 조건 |
 |------|------|
-| DisplayName 추론 | 이름 추론 금지 |
+| Type | `= Clothing` |
+| **AND** BodyLocation | 아래 허용값 중 하나 |
 
-### 표시 정보 (분류 아님)
+### BodyLocation 허용값 (6-G) — v0.2 확정
 
-- 수납 용량 (Capacity)
+| 값 | 설명 | 개수 |
+|----|------|------|
+| `FannyPackFront` | 앞쪽 힙색 | 1 |
+| `FannyPackBack` | 뒤쪽 힙색 | 1 |
 
 ### 예시 아이템
 
 - 힙색 (Fanny Pack)
-- 허리 파우치 (Waist Pouch)
 
 ---
 
@@ -274,151 +243,104 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 ### 필수 증거 (AND 결합)
 
-| 증거 | 조건 | 비고 |
-|------|------|------|
-| Type | `= Clothing` | 필수 |
-| **AND** BodyLocation | 액세서리 계열 | 아래 참조 |
-
-### BodyLocation 허용값 (6-H)
-
-| 값 | 설명 |
-|----|------|
-| `Neck` | 목걸이/스카프 |
-| `Belt` | 벨트 |
-| `BeltExtra` | 추가 벨트/홀스터 |
-| `Waist` | 허리 |
-| `Eyes` | 안경/고글 |
-
-> ℹ️ **Back, FannyPack 제외**: 이들은 각각 6-F, 6-G로 분리됨.
-
-### 금지
-
-| 증거 | 이유 |
+| 증거 | 조건 |
 |------|------|
-| DisplayName 추론 | 이름 추론 금지 |
+| Type | `= Clothing` |
+| **AND** BodyLocation | 아래 허용값 중 하나 |
+
+### BodyLocation 허용값 (6-H) — v0.2 확정
+
+| 값 | 설명 | 개수 |
+|----|------|------|
+| `Belt` | 벨트 | 1 |
+| `BeltExtra` | 홀스터 | 2 |
+| `Neck` | 초커 | 10 |
+| `Necklace` | 목걸이 | 11 |
+| `Necklace_Long` | 긴 목걸이 | 7 |
+| `Eyes` | 안경 | 9 |
+| `LeftEye` | 왼쪽 안대 | 1 |
+| `RightEye` | 오른쪽 안대 | 1 |
+| `Ears` | 귀걸이 | 17 |
+| `EarTop` | 상단 귀걸이 | 2 |
+| `Scarf` | 스카프 | 4 |
+| `LeftWrist` | 왼손목 시계 | 12 |
+| `RightWrist` | 오른손목 시계 | 12 |
+| `Left_MiddleFinger` | 왼손 중지 반지 | 5 |
+| `Left_RingFinger` | 왼손 약지 반지 | 5 |
+| `Right_MiddleFinger` | 오른손 중지 반지 | 5 |
+| `Right_RingFinger` | 오른손 약지 반지 | 5 |
+| `Nose` | 코걸이 | 4 |
+| `BellyButton` | 배꼽 피어싱 | 15 |
+| `AmmoStrap` | 탄약 스트랩 | 2 |
 
 ### 예시 아이템
 
-- 시계 (Watch)
-- 벨트 (Belt)
-- 홀스터 (Holster)
-- 안경 (Glasses)
-- 스카프 (Scarf)
+- 시계 (Watch) — BodyLocation = LeftWrist 또는 RightWrist
+- 벨트 (Belt) — BodyLocation = Belt
+- 홀스터 (Holster) — BodyLocation = BeltExtra
+- 안경 (Glasses) — BodyLocation = Eyes
+- 목걸이 (Necklace) — BodyLocation = Necklace
 
 ---
 
 ## 다중 태그 처리 예시
 
-### 오토바이 헬멧 (Motorcycle Helmet)
+### 점프수트/전신복 (Boilersuit)
 
 ```
 증거:
 - Type = Clothing → Wearable 대분류 ✓
-- BodyLocation = Head → Wearable.6-A ✓
-
-결과: [Wearable.6-A]
-```
-
-### 점프수트 (Jumpsuit) — 전신복
-
-```
-증거:
-- Type = Clothing → Wearable 대분류 ✓
-- BodyLocation = Torso → Wearable.6-B ✓
-- BodyLocation = Legs → Wearable.6-C ✓
+- BodyLocation = Boilersuit → Wearable.6-B + Wearable.6-C ✓
 
 결과: [Wearable.6-B, Wearable.6-C]
 ```
 
-> ℹ️ **전신복 처리**: 전신복 전용 BodyLocation은 없음.  
-> 복합 BodyLocation(Torso + Legs)으로 정의되므로, 해당되는 모든 소분류에 태깅.
-
-### 방탄조끼 (Bulletproof Vest)
+### 드레스 (Dress)
 
 ```
 증거:
 - Type = Clothing → Wearable 대분류 ✓
-- BodyLocation = Torso → Wearable.6-B ✓
-- BladeDefense exists, BiteDefense exists (표시 정보)
+- BodyLocation = Dress → Wearable.6-B + Wearable.6-C ✓
 
-결과: [Wearable.6-B]
+결과: [Wearable.6-B, Wearable.6-C]
 ```
 
-### 배낭 (Backpack)
-
-```
-증거:
-- Type = Clothing → Wearable 대분류 ✓
-- BodyLocation = Back → Wearable.6-F ✓
-
-결과: [Wearable.6-F]
-```
-
-### 힙색 (Fanny Pack)
+### 방호복 (Hazmat Suit)
 
 ```
 증거:
 - Type = Clothing → Wearable 대분류 ✓
-- BodyLocation = FannyPack → Wearable.6-G ✓
+- BodyLocation = FullSuitHead → Wearable.6-A + Wearable.6-B + Wearable.6-C ✓
 
-결과: [Wearable.6-G]
+결과: [Wearable.6-A, Wearable.6-B, Wearable.6-C]
 ```
 
 ---
 
-## 바닐라 데이터 확인 결과
+## 분류 제외 BodyLocation
 
-| 항목 | 확인 결과 | 판정 |
-|------|-----------|------|
-| BodyLocation 값 목록 | 고정 enum, 동적 확장 없음 | 자동 분류 안전 |
-| 전신복 BodyLocation | **없음** — 복합 슬롯으로 표현 | 6-B + 6-C 다중 태깅 |
-| 가방류 분리 | Back / FannyPack 별도 슬롯 | 6-F / 6-G 분리 |
-
-### 확인된 BodyLocation 값
-
-| BodyLocation | 소분류 |
-|--------------|--------|
-| `Head` | 6-A |
-| `Eyes` | 6-H |
-| `Neck` | 6-H |
-| `Torso` | 6-B |
-| `Torso_Upper` | 6-B |
-| `Torso_Lower` | 6-B |
-| `Hands` | 6-D |
-| `Legs` | 6-C |
-| `Groin` | 6-C |
-| `Feet` | 6-E |
-| `Waist` | 6-H |
-| `Belt` | 6-H |
-| `BeltExtra` | 6-H |
-| `Back` | 6-F |
-| `FannyPack` | 6-G |
+| 값 | 제외 사유 |
+|----|-----------|
+| `ZedDmg` | 좀비 데미지 표시용 |
+| `Wound` | 상처 표시용 |
+| `Bandage` | 붕대 표시용 (착용 아이템 아님) |
+| `MakeUp_*` | 메이크업 |
+| `Underwear*` | 속옷류 |
+| `Tail` | 코스튬 |
 
 ---
 
-## Evidence Allowlist 개정 필요
+## 다중 태그 BodyLocation 매핑
 
-다음 필드들을 **Iris Evidence Allowlist**에 추가:
-
-**BodyLocation 허용값 (바닐라 확인됨):**
-- 머리: `Head`
-- 상체: `Torso`, `Torso_Upper`, `Torso_Lower`
-- 하체: `Legs`, `Groin`
-- 손: `Hands`
-- 발: `Feet`
-- 배낭: `Back`
-- 힙색: `FannyPack`
-- 액세서리: `Neck`, `Eyes`, `Waist`, `Belt`, `BeltExtra`
-
-**Display Only로 추가:**
-- `BladeDefense`, `BiteDefense`, `BulletDefense` — 방어력 표시
-- `Insulation` — 보온 표시
-- `WaterResistance` — 방수 표시
-- `ConditionMax` — 내구도 표시
-- `Capacity` — 수납 용량 표시
-- `WeightReduction` — 무게 감소율 표시
-
-> ℹ️ 실제 값 추가는 Evidence Allowlist 개정 절차를 따른다.
+| BodyLocation | 분류 |
+|--------------|------|
+| `Boilersuit` | 6-B + 6-C |
+| `Dress` | 6-B + 6-C |
+| `FullSuit` | 6-B + 6-C |
+| `FullSuitHead` | 6-A + 6-B + 6-C |
+| `FullTop` | 6-B + 6-C |
+| `Torso1Legs1` | 6-B + 6-C |
+| `BathRobe` | 6-B + 6-C |
 
 ---
 
@@ -427,3 +349,4 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 | 버전 | 날짜 | 내용 |
 |------|------|------|
 | 0.1 | - | 초안 작성 |
+| 0.2 | - | 바닐라 데이터 기반 전면 개정: BodyLocation 실제 값으로 교체, 6-F 수동 오버라이드 전환 |

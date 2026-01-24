@@ -2,8 +2,8 @@
     IrisAltTooltip.lua - Iris 툴팁 오버레이
     
     동작 방식:
-    1. 항상: "[Iris]" 라벨이 툴팁에 표시 (Alt 불필요)
-    2. Alt 키 누름: "[Iris]" 아래에 상세 정보 표시
+    - Alt 키 누름 시에만 상세 정보 표시 (태그, 연결, 더보기 안내)
+    - 평상시에는 아무것도 표시하지 않음
     
     ISToolTipInv 구조:
     - self.item: InventoryItem
@@ -38,9 +38,6 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
     local lineHeight = 16
     local x = 10
     local startY = tooltipInv.height
-    
-    -- 항상 표시되는 기본 라벨
-    local baseLabel = "[Iris]"
     
     -- Alt 누름 상태에 따른 상세 정보
     local isAlt = isAltPressed()
@@ -97,14 +94,17 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
         end
     end
     
-    -- 전체 높이 계산
-    local totalLines = 1 + #detailLines  -- "[Iris]" + 상세 정보
+    -- Alt 키가 눌리지 않았으면 아무것도 표시하지 않음
+    if not isAlt or #detailLines == 0 then
+        return
+    end
+    
+    -- 전체 높이 계산 (상세 정보만)
+    local totalLines = #detailLines
     local irisHeight = (lineHeight * totalLines) + 8
     
     -- 배경 색상 (어두운 시안)
     local bgR, bgG, bgB, bgA = 0.05, 0.15, 0.2, 0.9
-    -- 라벨 색상 (밝은 시안)
-    local labelR, labelG, labelB, labelA = 0.4, 0.8, 1.0, 1.0
     -- 상세 텍스트 색상 (밝은 회색)
     local txtR, txtG, txtB, txtA = 0.8, 0.9, 0.9, 1.0
     
@@ -112,14 +112,10 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
     tooltipInv:drawRect(0, startY, tooltipInv.width, irisHeight, bgA, bgR, bgG, bgB)
     tooltipInv:drawRectBorder(0, startY, tooltipInv.width, irisHeight, 0.8, 0.4, 0.6, 0.7)
     
-    -- "[Iris]" 라벨 (항상 표시)
-    local currentY = startY + 4
-    tooltipInv:drawText(baseLabel, x, currentY, labelR, labelG, labelB, labelA, UIFont.Small)
-    currentY = currentY + lineHeight
-    
     -- 상세 정보 (Alt 눌렀을 때만)
+    local currentY = startY + 4
     for _, line in ipairs(detailLines) do
-        tooltipInv:drawText("  " .. line, x, currentY, txtR, txtG, txtB, txtA, UIFont.Small)
+        tooltipInv:drawText(line, x, currentY, txtR, txtG, txtB, txtA, UIFont.Small)
         currentY = currentY + lineHeight
     end
     

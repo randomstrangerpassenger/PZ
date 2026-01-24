@@ -35,8 +35,8 @@ function IrisContextMenu.addMenuEntry(player, context, items)
         return
     end
     
-    -- "Iris 메뉴에서 더보기" 메뉴 추가
-    context:addOption("Iris 메뉴에서 더보기", item, function(selectedItem)
+    -- "Iris: View More" 메뉴 추가
+    context:addOption("Iris: View More", item, function(selectedItem)
         -- IrisBrowser 동적 로드 및 호출
         local browserOk, IrisBrowser = pcall(require, "Iris/UI/Browser/IrisBrowser")
         if browserOk and IrisBrowser then

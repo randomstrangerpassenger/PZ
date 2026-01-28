@@ -1,13 +1,15 @@
 # Iris Rule DSL 명세서
 
-**버전**: 1.1  
-**상태**: FROZEN (Evidence Table/Allowlist 기반 확정)
+**버전**: 1.2  
+**상태**: FROZEN (Evidence Table/Allowlist v0.2 기반 확정)
+
+> ⚠️ **v1.2 주요 변경**: Allowlist v0.2와 동기화. 폐기된 값(Blade, MetalWelding, Cookware 등) 제거, BodyLocation 허용값 전면 개정.
 
 ---
 
 ## 1. 목적
 
-이 문서는 **동결된 Evidence Table + Evidence Allowlist**를 Lua Rule 파일로 직렬화하기 위한 **공식 DSL 명세**를 정의한다.
+이 문서는 **동결된 Evidence Table + Evidence Allowlist v0.2**를 Lua Rule 파일로 직렬화하기 위한 **공식 DSL 명세**를 정의한다.
 
 ### 1.1 DSL의 역할
 
@@ -38,7 +40,7 @@ DSL과 Rule 파일은 다음 조건을 **절대 위반할 수 없다**.
 
 ### 2.2 Allowlist 외 증거 사용 금지
 
-- 필드, 연산자, 허용값 모두 Allowlist에 명시된 것만 사용 가능
+- 필드, 연산자, 허용값 모두 Allowlist v0.2에 명시된 것만 사용 가능
 - Allowlist에 없는 predicate는 **파싱/로드 단계에서 거부**
 
 ### 2.3 수치 비교 연산자 금지
@@ -78,6 +80,9 @@ eq("Type", "Clothing")
 eq("Type", "Drainable")    -- ⚠️ 가드 필수 (§3.6 참조)
 eq("Type", "Radio")
 eq("Type", "Map")
+eq("Type", "Normal")
+eq("Type", "Container")
+eq("Type", "WeaponPart")
 
 -- SubCategory (enum) — 단일 값, contains 사용 금지
 eq("SubCategory", "Firearm")
@@ -92,7 +97,8 @@ eq("TorchCone", true)
 eq("ActivatedItem", true)
 eq("TwoWay", true)
 eq("IsLiterature", true)
-eq("IsAimedFirearm", true)
+eq("Medical", true)
+eq("CanBandage", true)
 ```
 
 **제약**:
@@ -100,11 +106,12 @@ eq("IsAimedFirearm", true)
 - 수치 값 비교 금지
 - **SubCategory는 단일 enum** → `eq`만 허용, `contains` 금지
 
+> ⚠️ **v1.2 변경**: `IsAimedFirearm` 제거 (바닐라 미사용), `Medical`, `CanBandage` 추가
+
 #### 3.1.2 `has(field)` — 필드 존재 확인
 
 ```lua
 has("LightStrength")
-has("LightDistance")
 has("HungerChange")
 has("ThirstChange")
 has("StressChange")
@@ -114,10 +121,13 @@ has("SkillTrained")
 has("TeachedRecipes")
 has("Map")
 has("TwoHandWeapon")
+has("AlcoholPower")
 ```
 
 **제약**:
 - **가드 필수 필드**는 단독 사용 금지 (§3.5 참조)
+
+> ⚠️ **v1.2 변경**: `LightDistance` 제거 (Allowlist에 없음), `AlcoholPower` 추가
 
 #### 3.1.3 `not_has(field)` — 필드 부재 확인
 
@@ -135,53 +145,150 @@ not_has("TeachedRecipes")
 
 ```lua
 -- Categories (무기) — 리스트 필드
-contains("Categories", "Blunt")
-contains("Categories", "Blade")
 contains("Categories", "Axe")
+contains("Categories", "Blunt")
+contains("Categories", "SmallBlunt")
+contains("Categories", "LongBlade")
+contains("Categories", "SmallBlade")
 contains("Categories", "Spear")
+contains("Categories", "Improvised")
 
--- Tags — 리스트 필드
-contains("Tags", "Cookware")
-contains("Tags", "Medical")
-contains("Tags", "StartFire")
+-- Tags — 리스트 필드 (도구 관련)
+contains("Tags", "Hammer")
+contains("Tags", "Saw")
+contains("Tags", "Screwdriver")
+contains("Tags", "Crowbar")
+contains("Tags", "Scissors")
+contains("Tags", "CanOpener")
+contains("Tags", "RemoveBarricade")
+contains("Tags", "FishingRod")
+contains("Tags", "FishingSpear")
 contains("Tags", "Lighter")
+contains("Tags", "StartFire")
+contains("Tags", "ChopTree")
+contains("Tags", "DigPlow")
+contains("Tags", "DigGrave")
+contains("Tags", "ClearAshes")
+contains("Tags", "TakeDirt")
+contains("Tags", "Sledgehammer")
+contains("Tags", "WeldingMask")
+
+-- Tags — 의료 관련
+contains("Tags", "RemoveBullet")
+contains("Tags", "RemoveGlass")
+contains("Tags", "SewingNeedle")
+contains("Tags", "Disinfectant")
+
+-- Tags — 조리 관련
+contains("Tags", "CoffeeMaker")
+contains("Tags", "SharpKnife")
+contains("Tags", "DullKnife")
+contains("Tags", "Fork")
+contains("Tags", "Spoon")
+
+-- Tags — 식품/음료 관련
+contains("Tags", "AlcoholicBeverage")
+contains("Tags", "LowAlcohol")
+contains("Tags", "HerbalTea")
+
+-- Tags — 기타
+contains("Tags", "Petrol")
+contains("Tags", "Rope")
+contains("Tags", "GasMask")
 
 -- CustomContextMenu — 리스트 필드
-contains("CustomContextMenu", "Disinfect")
-contains("CustomContextMenu", "Bandage")
-contains("CustomContextMenu", "Splint")
-contains("CustomContextMenu", "Stitch")
-contains("CustomContextMenu", "RemoveBullet")
-contains("CustomContextMenu", "RemoveGlass")
-contains("CustomContextMenu", "CleanWound")
+contains("CustomContextMenu", "Drink")
+contains("CustomContextMenu", "Smoke")
+contains("CustomContextMenu", "Take")
 ```
 
 **제약**:
-- `token`은 Allowlist의 허용값 목록에 있는 것만 사용 가능
+- `token`은 Allowlist v0.2의 허용값 목록에 있는 것만 사용 가능
 - **리스트 필드 전용** — 단일 값 필드(SubCategory 등)에 사용 금지
+
+> ⚠️ **v1.2 폐기된 값** (사용 시 로드 실패):
+> - Categories: `Blade` (→ `SmallBlade`, `LongBlade` 사용)
+> - Tags: `Cookware`, `Medical`, `Tool`, `Weapon`, `Clothing`, `Food`, `Literature`
+> - CustomContextMenu: `Disinfect`, `Bandage`, `Splint`, `Stitch`, `RemoveBullet`, `RemoveGlass`, `CleanWound`
 
 #### 3.1.5 `eq_bodyLocation(value)` — BodyLocation 전용
 
 ```lua
-eq_bodyLocation("Head")
-eq_bodyLocation("Torso")
-eq_bodyLocation("Torso_Upper")
-eq_bodyLocation("Torso_Lower")
+-- 6-A 모자/헬멧
+eq_bodyLocation("Hat")
+eq_bodyLocation("FullHat")
+eq_bodyLocation("FullHelmet")
+eq_bodyLocation("Mask")
+eq_bodyLocation("MaskEyes")
+eq_bodyLocation("MaskFull")
+
+-- 6-B 상의
+eq_bodyLocation("Shirt")
+eq_bodyLocation("ShortSleeveShirt")
+eq_bodyLocation("Tshirt")
+eq_bodyLocation("TankTop")
+eq_bodyLocation("Sweater")
+eq_bodyLocation("SweaterHat")
+eq_bodyLocation("Jacket")
+eq_bodyLocation("JacketHat")
+eq_bodyLocation("JacketHat_Bulky")
+eq_bodyLocation("JacketSuit")
+eq_bodyLocation("Jacket_Bulky")
+eq_bodyLocation("Jacket_Down")
+eq_bodyLocation("TorsoExtra")
+eq_bodyLocation("TorsoExtraVest")
+
+-- 6-C 하의
+eq_bodyLocation("Pants")
+eq_bodyLocation("Skirt")
+eq_bodyLocation("Legs1")
+
+-- 6-D 장갑
 eq_bodyLocation("Hands")
-eq_bodyLocation("Legs")
-eq_bodyLocation("Groin")
-eq_bodyLocation("Feet")
-eq_bodyLocation("Back")
-eq_bodyLocation("FannyPack")
-eq_bodyLocation("Neck")
-eq_bodyLocation("Eyes")
+
+-- 6-E 신발
+eq_bodyLocation("Shoes")
+eq_bodyLocation("Socks")
+
+-- 6-G 힙색
+eq_bodyLocation("FannyPackFront")
+eq_bodyLocation("FannyPackBack")
+
+-- 6-H 액세서리
 eq_bodyLocation("Belt")
 eq_bodyLocation("BeltExtra")
-eq_bodyLocation("Waist")
+eq_bodyLocation("Neck")
+eq_bodyLocation("Necklace")
+eq_bodyLocation("Necklace_Long")
+eq_bodyLocation("Eyes")
+eq_bodyLocation("LeftEye")
+eq_bodyLocation("RightEye")
+eq_bodyLocation("Ears")
+eq_bodyLocation("EarTop")
+eq_bodyLocation("Scarf")
+eq_bodyLocation("LeftWrist")
+eq_bodyLocation("RightWrist")
+eq_bodyLocation("Left_MiddleFinger")
+eq_bodyLocation("Left_RingFinger")
+eq_bodyLocation("Right_MiddleFinger")
+eq_bodyLocation("Right_RingFinger")
+eq_bodyLocation("Nose")
+eq_bodyLocation("BellyButton")
+eq_bodyLocation("AmmoStrap")
+
+-- 다중 태그 (전신복)
+eq_bodyLocation("Boilersuit")    -- → 6-B + 6-C
+eq_bodyLocation("Dress")         -- → 6-B + 6-C
+eq_bodyLocation("FullSuit")      -- → 6-B + 6-C
+eq_bodyLocation("FullSuitHead")  -- → 6-A + 6-B + 6-C
 ```
 
 **제약**:
-- Allowlist의 BodyLocation 허용값만 사용 가능
+- Allowlist v0.2의 BodyLocation 허용값만 사용 가능
+- **분류 제외**: `ZedDmg`, `Wound`, `Bandage`, `MakeUp_*`, `Underwear*`, `Tail`
+
+> ⚠️ **v1.2 전면 개정**: 이전 버전의 `Head`, `Torso`, `Back`, `FannyPack` 등은 폐기.
+> Allowlist v0.2 매핑 테이블 기준으로 전면 교체됨.
 
 #### 3.1.6 `eq_ammoType(value)` — AmmoType 전용
 
@@ -214,8 +321,11 @@ eq_ammoType("Base.ShotgunShells")
 recipe.matches({ role = "input", category = "Carpentry" })
 recipe.matches({ role = "input", category = "Cooking" })
 recipe.matches({ role = "keep", category = "Carpentry" })
-recipe.matches({ role = "keep", category = "Mechanics" })
+recipe.matches({ role = "keep", category = "Cooking" })
 recipe.matches({ role = "require", category = "Farming" })
+recipe.matches({ role = "input", category = "Electrical" })
+recipe.matches({ role = "input", category = "Health" })
+recipe.matches({ role = "input", category = "Welding" })
 ```
 
 **의미**:
@@ -227,20 +337,28 @@ recipe.matches({ role = "require", category = "Farming" })
 - `role` 허용값: `input`, `keep`, `require`, `output`
 - `output`은 분류 태그 부여 증거로 사용 금지 (연결 정보 표시용만)
 
-**허용된 category 값**:
+**허용된 category 값 (Allowlist v0.2)**:
 
 | Category | 용도 |
 |----------|------|
 | `Carpentry` | 목공 |
-| `MetalWelding` | 금속 |
-| `Masonry` | 석공 |
 | `Cooking` | 조리 |
-| `Mechanics` | 차량 정비 |
-| `Farming` | 농업 |
-| `Trapping` | 포획 |
-| `Fishing` | 낚시 |
-| `Electronics` | 전자 |
 | `Electrical` | 전자 |
+| `Smithing` | 대장 |
+| `Welding` | 용접 |
+| `Survivalist` | 생존 |
+| `Farming` | 농업 |
+| `Fishing` | 낚시 |
+| `Trapper` | 덫 |
+| `Health` | 의료 |
+| `Engineer` | 공학 |
+
+> ⚠️ **v1.2 폐기된 category** (사용 시 로드 실패):
+> - `MetalWelding` → `Welding` 사용
+> - `Masonry` — 바닐라에 없음
+> - `Mechanics` — 바닐라에 없음
+> - `Electronics` → `Electrical` 사용
+> - `Trapping` → `Trapper` 사용
 
 #### 3.2.2 `recipe.inGetItemTypes(groupName)` — 그룹 증거
 
@@ -270,6 +388,16 @@ moveables.itemId_registered()
 **의미**:
 - "이 아이템의 fullType이 `ISMoveableDefinitions.lua`의 ToolDefinition.itemId로 등록되어 있는가"
 
+**허용된 itemId (Allowlist v0.2)**:
+
+| ItemId | 도구 정의 |
+|--------|-----------|
+| `Base.Hammer` | Hammer |
+| `Base.Screwdriver` | Electrician, Metal |
+| `Base.Shovel` | Shovel |
+| `Base.Wrench` | Wrench |
+| `Base.PipeWrench` | Wrench |
+
 #### 3.3.2 `moveables.tag_in(tags)` — MoveablesTag 매칭
 
 ```lua
@@ -279,7 +407,7 @@ moveables.tag_in({ "Crowbar", "SharpKnife", "Hammer", "Screwdriver", "Saw", "Wre
 **의미**:
 - "이 아이템이 `ISMoveableDefinitions.lua`의 ToolDefinition.moveablesTag로 참조되고, 그 태그가 허용 목록에 있는가"
 
-**허용된 MoveablesTag 값**:
+**허용된 MoveablesTag 값 (Allowlist v0.2)**:
 
 | Tag | 설명 |
 |-----|------|
@@ -289,6 +417,8 @@ moveables.tag_in({ "Crowbar", "SharpKnife", "Hammer", "Screwdriver", "Saw", "Wre
 | `Screwdriver` | 스크류드라이버류 |
 | `Saw` | 톱류 |
 | `Wrench` | 렌치류 |
+| `Scissors` | 가위류 |
+| `WeldingMask` | 용접마스크 |
 
 **제약**:
 - Item Script의 `Tags`와 **완전히 별개의 네임스페이스**
@@ -323,12 +453,22 @@ fixing.role_eq("Fixer")
 | 필드 | 필수 가드 |
 |------|----------|
 | `LightStrength` | `eq("ActivatedItem", true)` OR `eq("TorchCone", true)` |
-| `LightDistance` | `eq("ActivatedItem", true)` OR `eq("TorchCone", true)` |
 | `HungerChange` | `eq("Type", "Food")` |
 | `ThirstChange` | `eq("Type", "Food")` OR `eq("Type", "Drainable")` + 보조가드 |
 | `StressChange` | `eq("Type", "Food")` |
 | `UnhappyChange` | `eq("Type", "Food")` |
-| `CanStoreWater` | `contains("Tags", "Cookware")` OR `recipe.matches({ role = "keep", category = "Cooking" })` |
+
+**예외: 단독 exists 허용 필드**
+
+다음 필드는 전용 필드이므로 단독 `has()` 허용:
+
+- `Medical` — 의료 아이템 전용
+- `CanBandage` — 붕대 아이템 전용
+- `MountOn` — 총기부품 전용
+- `TorchCone` — 손전등 전용
+- `TeachedRecipes` — 레시피잡지 전용
+- `SkillTrained` — 스킬북 전용
+- `AlcoholPower` — 소독 효과 전용
 
 **검증 시점**: Rule 로드 시 정적 검증. 가드 누락 시 **로드 실패**.
 
@@ -360,27 +500,13 @@ allOf({
   eq("Type", "Drainable"),
   eq("CanStoreWater", true),
 })
-
--- ✅ 허용: Drainable + 둘 다
-allOf({
-  eq("Type", "Drainable"),
-  anyOf({
-    has("ThirstChange"),
-    eq("CanStoreWater", true),
-  }),
-})
 ```
-
-> ⚠️ **허용되는 보조 증거는 정확히 2가지**: `has("ThirstChange")` 또는 `eq("CanStoreWater", true)`.  
-> 다른 증거(예: Recipe 관계)는 Drainable 가드로 인정되지 않음.
-
-**검증 시점**: Rule 로드 시 정적 검증. 보조 증거 누락 시 **로드 실패**.
 
 ---
 
-## 4. 조합 연산자 (Combinators)
+## 4. 복합 조건 (Combinators)
 
-### 4.1 `allOf([...])` — AND 결합
+### 4.1 `allOf([...])` — AND 조합
 
 ```lua
 allOf({
@@ -390,184 +516,66 @@ allOf({
 })
 ```
 
-**의미**: 모든 조건이 참일 때 참
+**의미**: 모든 조건이 참일 때만 참
 
-### 4.2 `anyOf([...])` — OR 결합
+### 4.2 `anyOf([...])` — OR 조합
 
 ```lua
 anyOf({
-  contains("CustomContextMenu", "Stitch"),
-  contains("CustomContextMenu", "RemoveBullet"),
-  contains("CustomContextMenu", "RemoveGlass"),
+  contains("Tags", "Lighter"),
+  contains("Tags", "StartFire"),
 })
 ```
 
-**의미**: 하나 이상의 조건이 참일 때 참
+**의미**: 하나 이상 조건이 참이면 참
 
 ### 4.3 중첩 허용
 
 ```lua
 allOf({
   eq("Type", "Weapon"),
-  eq("SubCategory", "Firearm"),
   anyOf({
-    eq_ammoType("Base.Bullets9mm"),
-    eq_ammoType("Base.Bullets45"),
-    eq_ammoType("Base.Bullets44"),
-    eq_ammoType("Base.Bullets38"),
+    contains("Categories", "SmallBlade"),
+    contains("Categories", "LongBlade"),
   }),
 })
 ```
 
 ---
 
-## 5. Rule 정의
+## 5. Rule 파일 형식
 
-### 5.1 Rule 구조
+### 5.1 단일 Rule 구조
 
 ```lua
 {
-  id = "Category.Subcategory.Name",
-  when = <predicate_expression>,
-  add = { "Tag1", "Tag2", ... },
-  reason = "EvidenceTable:<Category>.<Subcategory>.<EvidenceKey>",
+  id = "Category.X-Y.RuleName",     -- 고유 식별자
+  when = <predicate>,               -- 매칭 조건
+  add = { "Category.X-Y" },         -- 부여할 태그 (add만 허용)
+  reason = "EvidenceTable:...",     -- 추적용 사유
 }
 ```
 
-| 필드 | 타입 | 필수 | 설명 |
-|------|------|------|------|
-| `id` | string | ✅ | 고유 식별자 (디버깅/추적용) |
-| `when` | predicate | ✅ | 매칭 조건 |
-| `add` | string[] | ✅ | 부여할 태그 목록 (1개 이상) |
-| `reason` | string | ✅ | Evidence Table 참조 근거 (**정규화 형식**) |
+### 5.2 파일 형식
 
-### 5.2 `reason` 필드 정규화 형식
-
-```
-EvidenceTable:<대분류>.<소분류>.<증거키>
+```lua
+-- category_xy.lua
+return {
+  { id = "...", when = ..., add = {...}, reason = "..." },
+  { id = "...", when = ..., add = {...}, reason = "..." },
+}
 ```
 
-**예시**:
-- `EvidenceTable:Tool.1-D.TagsCookware`
-- `EvidenceTable:Tool.1-D.RecipeKeepCooking`
+### 5.3 reason 형식 규칙
+
+```
+EvidenceTable:<대분류>.<소분류>.<증거요약>
+```
+
+예시:
+- `EvidenceTable:Tool.1-A.RecipeKeepCarpentry`
 - `EvidenceTable:Combat.2-G.AmmoTypeHandgun`
-- `EvidenceTable:Tool.1-H.LightFieldsGuarded`
-- `EvidenceTable:Consumable.3-B.DrainableThirstChange`
-
-**목적**:
-- Evidence Table ↔ Rule ↔ UI 설명의 기계적 연결
-- 문구 변경으로 인한 의미 변질 방지
-- 디버깅 시 역추적 용이
-
-### 5.3 Rule 예시
-
-#### Tool.1-D (조리)
-
-```lua
--- tool_1d.lua
-return {
-  {
-    id = "Tool.1-D.Cookware",
-    when = contains("Tags", "Cookware"),
-    add = { "Tool.1-D" },
-    reason = "EvidenceTable:Tool.1-D.TagsCookware",
-  },
-  {
-    id = "Tool.1-D.RecipeCooking",
-    when = recipe.matches({ role = "keep", category = "Cooking" }),
-    add = { "Tool.1-D" },
-    reason = "EvidenceTable:Tool.1-D.RecipeKeepCooking",
-  },
-}
-```
-
-#### Combat.2-G (권총)
-
-```lua
--- combat_2g.lua
-return {
-  {
-    id = "Combat.2-G.Handgun",
-    when = allOf({
-      eq("Type", "Weapon"),
-      eq("SubCategory", "Firearm"),  -- eq 사용 (contains 아님)
-      anyOf({
-        eq_ammoType("Base.Bullets9mm"),
-        eq_ammoType("Base.Bullets45"),
-        eq_ammoType("Base.Bullets44"),
-        eq_ammoType("Base.Bullets38"),
-      }),
-    }),
-    add = { "Combat.2-G" },
-    reason = "EvidenceTable:Combat.2-G.AmmoTypeHandgun",
-  },
-}
-```
-
-#### Tool.1-H (광원/점화) — 가드 필수 적용
-
-```lua
--- tool_1h.lua
-return {
-  {
-    id = "Tool.1-H.LightWithGuard",
-    when = anyOf({
-      -- LightStrength + 가드
-      allOf({
-        has("LightStrength"),
-        anyOf({ eq("ActivatedItem", true), eq("TorchCone", true) }),
-      }),
-      -- LightDistance + 가드
-      allOf({
-        has("LightDistance"),
-        anyOf({ eq("ActivatedItem", true), eq("TorchCone", true) }),
-      }),
-      -- TorchCone 단독 허용
-      eq("TorchCone", true),
-    }),
-    add = { "Tool.1-H" },
-    reason = "EvidenceTable:Tool.1-H.LightFieldsGuarded",
-  },
-  {
-    id = "Tool.1-H.StartFire",
-    when = contains("Tags", "StartFire"),
-    add = { "Tool.1-H" },
-    reason = "EvidenceTable:Tool.1-H.TagsStartFire",
-  },
-  {
-    id = "Tool.1-H.Lighter",
-    when = contains("Tags", "Lighter"),
-    add = { "Tool.1-H" },
-    reason = "EvidenceTable:Tool.1-H.TagsLighter",
-  },
-}
-```
-
-#### Consumable.3-B (음료) — Type=Drainable 가드 적용
-
-```lua
--- consumable_3b.lua
-return {
-  {
-    id = "Consumable.3-B.FoodThirst",
-    when = allOf({
-      eq("Type", "Food"),
-      has("ThirstChange"),
-    }),
-    add = { "Consumable.3-B" },
-    reason = "EvidenceTable:Consumable.3-B.FoodThirstChange",
-  },
-  {
-    id = "Consumable.3-B.DrainableThirst",
-    when = allOf({
-      eq("Type", "Drainable"),
-      has("ThirstChange"),  -- Drainable 가드: ThirstChange 필수
-    }),
-    add = { "Consumable.3-B" },
-    reason = "EvidenceTable:Consumable.3-B.DrainableThirstChange",
-  },
-}
-```
+- `EvidenceTable:Wearable.6-A.BodyLocationHat`
 
 ---
 
@@ -671,7 +679,7 @@ finalTags = { "Tool.1-D", "Combat.2-C" }  -- 중복 제거된 합집합
 ```
 media/lua/client/Iris/rules/
 ├── iris_ruleset.lua          -- 엔트리 포인트
-├── allowlist.lua             -- Allowlist 동기화
+├── allowlist.lua             -- Allowlist v0.2 동기화
 ├── overrides_manual.lua      -- 수동 오버라이드
 │
 ├── tool/
@@ -750,9 +758,10 @@ Rule 로더는 다음을 **정적 검증**해야 함.
 
 ### 9.1 Allowlist 준수
 
-- 사용된 모든 필드명이 Allowlist에 존재
-- 사용된 모든 허용값이 Allowlist에 존재
+- 사용된 모든 필드명이 Allowlist v0.2에 존재
+- 사용된 모든 허용값이 Allowlist v0.2에 존재
 - 금지된 연산자 (`gt`, `lt`, `gte`, `lte`) 부재
+- **폐기된 값 사용 시 로드 실패**
 
 ### 9.2 가드 필수 필드 검증
 
@@ -786,7 +795,8 @@ Rule 로더는 다음을 **정적 검증**해야 함.
 |------|------|------|
 | 1.0 | - | 초안 확정 |
 | 1.1 | - | SubCategory eq 전환, Type=Drainable 가드 추가, reason 정규화 |
-| 1.1.1 | - | CanStoreWater 가드 튜플 규칙 정합, Drainable 보조증거 구체화 (2가지만 허용) |
+| 1.1.1 | - | CanStoreWater 가드 튜플 규칙 정합, Drainable 보조증거 구체화 |
+| 1.2 | - | Allowlist v0.2 동기화. 폐기된 값 명시 (Blade, MetalWelding, Cookware 등). BodyLocation 전면 개정. Medical/CanBandage 추가 |
 
 ---
 
@@ -797,8 +807,8 @@ Rule 로더는 다음을 **정적 검증**해야 함.
 | `eq(field, value)` | boolean/enum 동등 | `eq("Type", "Weapon")` |
 | `has(field)` | 필드 존재 | `has("MountOn")` |
 | `not_has(field)` | 필드 부재 | `not_has("TwoHandWeapon")` |
-| `contains(field, token)` | 리스트 포함 (**리스트 필드 전용**) | `contains("Tags", "Cookware")` |
-| `eq_bodyLocation(value)` | BodyLocation 매칭 | `eq_bodyLocation("Head")` |
+| `contains(field, token)` | 리스트 포함 (**리스트 필드 전용**) | `contains("Tags", "Hammer")` |
+| `eq_bodyLocation(value)` | BodyLocation 매칭 | `eq_bodyLocation("Hat")` |
 | `eq_ammoType(value)` | AmmoType 매칭 | `eq_ammoType("Base.Bullets9mm")` |
 | `recipe.matches({...})` | Recipe 튜플 매칭 | `recipe.matches({ role="input", category="Cooking" })` |
 | `recipe.inGetItemTypes(group)` | 그룹 포함 | `recipe.inGetItemTypes("CanOpener")` |
@@ -859,4 +869,67 @@ Rule 로더는 다음을 **정적 검증**해야 함.
 | `ActivatedItem` | boolean |
 | `TwoWay` | boolean |
 | `IsLiterature` | boolean |
-| `IsAimedFirearm` | boolean |
+| `Medical` | boolean |
+| `CanBandage` | boolean |
+
+---
+
+## 부록 D: 폐기된 값 목록 (v1.2)
+
+**사용 시 로드 실패 (Fail-loud)**
+
+### Categories
+
+| 폐기 값 | 대체 |
+|---------|------|
+| `Blade` | `SmallBlade`, `LongBlade` |
+| `Thrown` | 수동 오버라이드 |
+
+### Tags
+
+| 폐기 값 | 대체 |
+|---------|------|
+| `Cookware` | `CoffeeMaker` 또는 Recipe Cooking+keep |
+| `Medical` | `Medical = TRUE` 필드 사용 |
+| `Tool` | 개별 도구 태그 사용 |
+| `Weapon` | `Type = Weapon` 사용 |
+| `Clothing` | `Type = Clothing` 사용 |
+| `Food` | `Type = Food` 사용 |
+| `Literature` | `Type = Literature` 사용 |
+
+### CustomContextMenu
+
+| 폐기 값 | 대체 |
+|---------|------|
+| `Disinfect` | `has("AlcoholPower")` 또는 `contains("Tags", "Disinfectant")` |
+| `Bandage` | `eq("CanBandage", true)` |
+| `Splint` | 수동 오버라이드 |
+| `Stitch` | `contains("Tags", "SewingNeedle")` |
+| `RemoveBullet` | `contains("Tags", "RemoveBullet")` |
+| `RemoveGlass` | `contains("Tags", "RemoveGlass")` |
+| `CleanWound` | 수동 오버라이드 |
+
+### Recipe Category
+
+| 폐기 값 | 대체 |
+|---------|------|
+| `MetalWelding` | `Welding` |
+| `Masonry` | 바닐라 없음 |
+| `Mechanics` | 바닐라 없음 |
+| `Electronics` | `Electrical` |
+| `Trapping` | `Trapper` |
+
+### BodyLocation (v1.1 이전 값)
+
+| 폐기 값 | 대체 |
+|---------|------|
+| `Head` | `Hat`, `FullHat`, `FullHelmet`, `Mask` 등 |
+| `Torso` | `Shirt`, `Jacket`, `TorsoExtra` 등 |
+| `Torso_Upper` | `Shirt`, `Tshirt`, `Sweater` 등 |
+| `Torso_Lower` | `TorsoExtra` 등 |
+| `Legs` | `Pants`, `Skirt`, `Legs1` |
+| `Groin` | `Pants` 등으로 처리 |
+| `Feet` | `Shoes`, `Socks` |
+| `Back` | 폐기 (바닐라 확인 안 됨, Allowlist에 없음) → 사용 시 로드 실패. 6-F는 수동 오버라이드 대상 |
+| `FannyPack` | `FannyPackFront`, `FannyPackBack` |
+| `Waist` | `Belt` 등 |

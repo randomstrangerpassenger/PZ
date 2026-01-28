@@ -14,19 +14,39 @@
 local IrisFactView = {}
 
 --- 리스트 필드를 항상 table로 정규화
+--- Java ArrayList도 처리
 --- @param value any
 --- @return table
 local function normalizeList(value)
     if value == nil then
         return nil
     end
+    
+    -- 이미 Lua table인 경우
     if type(value) == "table" then
         return value
     end
+    
+    -- Java ArrayList인 경우 (size() 메서드가 있음)
+    if type(value) == "userdata" or (type(value) == "table" and value.size) then
+        local ok, size = pcall(function() return value:size() end)
+        if ok and size then
+            local result = {}
+            for i = 0, size - 1 do
+                local okGet, elem = pcall(function() return value:get(i) end)
+                if okGet and elem then
+                    table.insert(result, tostring(elem))
+                end
+            end
+            return result
+        end
+    end
+    
+    -- 단일 문자열인 경우
     if type(value) == "string" then
-        -- 단일 값이면 {value}로 변환
         return { value }
     end
+    
     return nil
 end
 --- 안전하게 메서드 호출하는 헬퍼

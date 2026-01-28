@@ -76,7 +76,6 @@ function IrisAPI.ensureInitialized()
     return true
 end
 
---- 아이템의 태그 Set 반환
 --- @param item InventoryItem|ScriptItem
 --- @return table Set(tags) 또는 빈 테이블
 function IrisAPI.getTagsForItem(item)
@@ -97,12 +96,22 @@ function IrisAPI.getTagsForItem(item)
     -- 의존성 확인
     IrisAPI.ensureInitialized()
     
-    -- Rule Engine 임시 비활성화 (Java RuntimeException 문제 해결 전까지)
-    -- UI가 먼저 작동하는지 확인 필요
+    -- Rule Engine 실행
     local tags = {}
     
-    -- 규칙 실행은 나중에 활성화
-    -- 현재는 빈 태그 반환하여 "기타" 분류로 처리
+    if IrisRuleExecutor and IrisRuleLoader then
+        -- 규칙과 수동 오버라이드 로드
+        local rules = IrisRuleLoader.getRules() or {}
+        local overrides = IrisRuleLoader.getManualOverrides() or {}
+        
+        -- computeFinalTags 호출
+        local ok, result = pcall(function()
+            return IrisRuleExecutor.computeFinalTags(rules, overrides, item, fullType)
+        end)
+        if ok and result and type(result) == "table" then
+            tags = result
+        end
+    end
     
     -- 캐시 저장
     IrisAPI._cache[fullType] = tags

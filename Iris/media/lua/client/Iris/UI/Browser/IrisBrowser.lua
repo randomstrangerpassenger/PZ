@@ -31,6 +31,136 @@ local function ensureDeps()
     end
 end
 
+-- ===============================================================
+-- 번역 시스템 디버그 (한번에 문제 파악용)
+-- ===============================================================
+local _translationDebugDone = false
+
+local function debugTranslationSystem()
+    if _translationDebugDone then return end
+    _translationDebugDone = true
+    
+    print("===============================================================")
+    print("[IrisBrowser] TRANSLATION SYSTEM DEBUG START")
+    print("===============================================================")
+    
+    -- 1. getText 함수 존재 여부
+    print("[DEBUG] 1. getText function exists: " .. tostring(getText ~= nil))
+    print("[DEBUG]    getText type: " .. type(getText))
+    
+    -- 2. Translator 객체 확인 (PZ 내부)
+    print("[DEBUG] 2. Translator object exists: " .. tostring(Translator ~= nil))
+    if Translator then
+        print("[DEBUG]    Translator type: " .. type(Translator))
+        if Translator.getLanguage then
+            local ok, lang = pcall(Translator.getLanguage)
+            print("[DEBUG]    Translator.getLanguage(): ok=" .. tostring(ok) .. ", lang=" .. tostring(lang))
+        end
+    end
+    
+    -- 3. getCore() 언어 설정
+    print("[DEBUG] 3. getCore() check:")
+    if getCore then
+        local ok, core = pcall(getCore)
+        if ok and core then
+            print("[DEBUG]    getCore() exists")
+            if core.getOptionCurrentLanguage then
+                local ok2, lang = pcall(function() return core:getOptionCurrentLanguage() end)
+                print("[DEBUG]    Current language: ok=" .. tostring(ok2) .. ", lang=" .. tostring(lang))
+            end
+            if core.getOptionLanguage then
+                local ok3, lang = pcall(function() return core:getOptionLanguage() end)
+                print("[DEBUG]    Option language: ok=" .. tostring(ok3) .. ", lang=" .. tostring(lang))
+            end
+        else
+            print("[DEBUG]    getCore() failed or nil")
+        end
+    else
+        print("[DEBUG]    getCore not available")
+    end
+    
+    -- 4. 테스트 번역 키 시도
+    print("[DEBUG] 4. Translation key tests:")
+    local testKeys = {
+        "Iris_UI_CategoryLabel",
+        "Iris_UI_SubcategoryLabel", 
+        "Iris_Sub_1A",
+        "IG_UI_Iris_UI_CategoryLabel",  -- 다른 가능한 형식
+        "UI_Iris_CategoryLabel",        -- 또 다른 가능한 형식
+    }
+    
+    for _, key in ipairs(testKeys) do
+        if getText then
+            local ok, result = pcall(getText, key)
+            local status = "MISS"
+            if ok and result and result ~= key then
+                status = "HIT"
+            end
+            print("[DEBUG]    getText('" .. key .. "'): status=" .. status .. ", ok=" .. tostring(ok) .. ", result='" .. tostring(result) .. "'")
+        end
+    end
+    
+    -- 5. 기본 PZ 번역 키 테스트 (작동하는지 확인)
+    print("[DEBUG] 5. Built-in PZ translation test:")
+    local builtinKeys = {"UI_Yes", "UI_No", "UI_Ok", "UI_Cancel"}
+    for _, key in ipairs(builtinKeys) do
+        if getText then
+            local ok, result = pcall(getText, key)
+            print("[DEBUG]    getText('" .. key .. "'): ok=" .. tostring(ok) .. ", result='" .. tostring(result) .. "'")
+        end
+    end
+    
+    print("===============================================================")
+    print("[IrisBrowser] TRANSLATION SYSTEM DEBUG END")
+    print("===============================================================")
+end
+
+-- 한국어 자체 번역 테이블 (PZ 번역 시스템 fallback)
+local TRANSLATIONS_KO = {
+    Iris_UI_CategoryLabel = "대분류",
+    Iris_UI_SubcategoryLabel = "소분류",
+    Iris_UI_ItemLabel = "아이템",
+    Iris_UI_DetailLabel = "상세정보",
+    Iris_UI_SearchPlaceholder = "검색...",
+}
+
+-- 현재 언어 감지
+local function getCurrentLanguage()
+    if getCore then
+        local ok, core = pcall(getCore)
+        if ok and core and core.getOptionCurrentLanguage then
+            local ok2, lang = pcall(function() return core:getOptionCurrentLanguage() end)
+            if ok2 and lang then
+                return tostring(lang):upper()
+            end
+        end
+    end
+    return "EN"
+end
+
+-- 번역 헬퍼 (PZ getText + 자체 번역 fallback)
+local function tr(key, fallback)
+    -- 첫 호출 시 디버그 출력
+    debugTranslationSystem()
+    
+    -- 1순위: PZ getText() 시도
+    if getText and type(getText) == "function" then
+        local ok, result = pcall(getText, key)
+        if ok and result and result ~= key then
+            return result
+        end
+    end
+    
+    -- 2순위: 한국어면 자체 번역 테이블 사용
+    local lang = getCurrentLanguage()
+    if lang == "KO" and TRANSLATIONS_KO[key] then
+        return TRANSLATIONS_KO[key]
+    end
+    
+    -- 3순위: fallback
+    return fallback or key
+end
+
 -- 싱글톤 인스턴스
 IrisBrowser._instance = nil
 
@@ -42,11 +172,17 @@ local COL_DETAIL = 0.55
 
 --- 브라우저 열기 (검색 초기 화면)
 function IrisBrowser.openSearch()
+    print("[IrisBrowser] ########## openSearch() START ##########")
     ensureDeps()
     
     -- 데이터 빌드 확인
+    print("[IrisBrowser] IrisBrowserData exists = " .. tostring(IrisBrowserData ~= nil))
+    print("[IrisBrowser] IrisBrowserData._built = " .. tostring(IrisBrowserData and IrisBrowserData._built))
+    
     if IrisBrowserData and not IrisBrowserData._built then
+        print("[IrisBrowser] Building IrisBrowserData...")
         IrisBrowserData.build()
+        print("[IrisBrowser] Build complete, _built = " .. tostring(IrisBrowserData._built))
     end
     
     -- 기존 인스턴스 닫기
@@ -62,6 +198,7 @@ function IrisBrowser.openSearch()
     local x = (screenW - panelW) / 2
     local y = (screenH - panelH) / 2
     
+    print("[IrisBrowser] Creating browser panel: " .. panelW .. "x" .. panelH)
     local browser = IrisBrowser:new(x, y, panelW, panelH)
     browser:initialise()
     browser:instantiate()
@@ -70,7 +207,7 @@ function IrisBrowser.openSearch()
     browser:bringToTop()
     
     IrisBrowser._instance = browser
-    print("[IrisBrowser] Opened in search mode")
+    print("[IrisBrowser] ########## openSearch() END ##########")
 end
 
 --- 특정 아이템으로 브라우저 열기
@@ -160,8 +297,13 @@ function IrisBrowser:createChildren()
     self.titleLabel = ISLabel:new(10, 10, 25, "Iris Browser", 0.6, 0.9, 1.0, 1.0, UIFont.Medium, true)
     self:addChild(self.titleLabel)
     
-    -- 전체 검색창
-    self.searchBar = ISTextEntryBox:new("", col4X, 8, colDetailW - 40, 24)
+    -- 전체 검색창 (닫기 버튼 왼쪽에 배치)
+    local closeBtnWidth = 25
+    local closeBtnX = self.width - closeBtnWidth - 5
+    local searchBarWidth = 200  -- 적절한 너비로 고정
+    local searchBarX = closeBtnX - searchBarWidth - 10
+    
+    self.searchBar = ISTextEntryBox:new("", searchBarX, 8, searchBarWidth, 24)
     self.searchBar:initialise()
     self.searchBar:instantiate()
     self.searchBar.onTextChange = function()
@@ -169,14 +311,14 @@ function IrisBrowser:createChildren()
     end
     self:addChild(self.searchBar)
     
-    -- 닫기 버튼
-    self.closeBtn = ISButton:new(self.width - 30, 5, 25, 25, "X", self, self.close)
+    -- 닫기 버튼 (검색창 오른쪽)
+    self.closeBtn = ISButton:new(closeBtnX, 5, closeBtnWidth, 25, "X", self, self.close)
     self.closeBtn:initialise()
     self.closeBtn.borderColor = {r=0.5, g=0.5, b=0.5, a=0.5}
     self:addChild(self.closeBtn)
     
-    -- === 대분류 열 ===
-    self.categoryLabel = ISLabel:new(col1X, listTop - 18, 16, "대분류", 0.7, 0.7, 0.7, 1, UIFont.Small, true)
+    -- === Category Column ===
+    self.categoryLabel = ISLabel:new(col1X, listTop - 18, 16, tr("Iris_UI_CategoryLabel", "Category"), 0.7, 0.7, 0.7, 1, UIFont.Small, true)
     self:addChild(self.categoryLabel)
     
     self.categoryList = ISScrollingListBox:new(col1X, listTop, colCatW - 5, listHeight)
@@ -190,8 +332,8 @@ function IrisBrowser:createChildren()
     self.categoryList.itemheight = self.categoryList.fontHgt + 4
     self:addChild(self.categoryList)
     
-    -- === 소분류 열 ===
-    self.subcategoryLabel = ISLabel:new(col2X, listTop - 18, 16, "소분류", 0.7, 0.7, 0.7, 1, UIFont.Small, true)
+    -- === Subcategory Column ===
+    self.subcategoryLabel = ISLabel:new(col2X, listTop - 18, 16, tr("Iris_UI_SubcategoryLabel", "Subcategory"), 0.7, 0.7, 0.7, 1, UIFont.Small, true)
     self:addChild(self.subcategoryLabel)
     
     self.subcategorySearchBar = ISTextEntryBox:new("", col2X, listTop, colSubW - 5, 20)
@@ -213,8 +355,8 @@ function IrisBrowser:createChildren()
     self.subcategoryList.itemheight = self.subcategoryList.fontHgt + 4
     self:addChild(self.subcategoryList)
     
-    -- === 아이템 열 ===
-    self.itemLabel = ISLabel:new(col3X, listTop - 18, 16, "아이템", 0.7, 0.7, 0.7, 1, UIFont.Small, true)
+    -- === Items Column ===
+    self.itemLabel = ISLabel:new(col3X, listTop - 18, 16, tr("Iris_UI_ItemLabel", "Items"), 0.7, 0.7, 0.7, 1, UIFont.Small, true)
     self:addChild(self.itemLabel)
     
     self.itemSearchBar = ISTextEntryBox:new("", col3X, listTop, colItemW - 5, 20)
@@ -236,11 +378,13 @@ function IrisBrowser:createChildren()
     self.itemList.itemheight = self.itemList.fontHgt + 4
     self:addChild(self.itemList)
     
-    -- === 상세 정보 열 ===
-    self.detailLabel = ISLabel:new(col4X, listTop - 18, 16, "아이템 정보", 0.7, 0.7, 0.7, 1, UIFont.Small, true)
+    -- === Detail Column ===
+    self.detailLabel = ISLabel:new(col4X, listTop - 18, 16, tr("Iris_UI_DetailLabel", "Details"), 0.7, 0.7, 0.7, 1, UIFont.Small, true)
     self:addChild(self.detailLabel)
     
-    self.detailPanel = ISPanel:new(col4X, listTop, colDetailW - 10, listHeight)
+    -- Detail 패널 너비를 창 경계 내에 맞춤
+    local detailPanelWidth = self.width - col4X - 10
+    self.detailPanel = ISPanel:new(col4X, listTop, detailPanelWidth, listHeight)
     self.detailPanel:initialise()
     self.detailPanel.backgroundColor = {r=0.05, g=0.08, b=0.1, a=0.8}
     self.detailPanel.borderColor = {r=0.3, g=0.4, b=0.5, a=0.5}
@@ -252,27 +396,46 @@ end
 
 --- 대분류 로드
 function IrisBrowser:loadCategories()
+    print("[IrisBrowser] ========== loadCategories() START ==========")
     self.categoryList:clear()
     
     ensureDeps()
-    if not IrisBrowserData then return end
-    
-    local categories = IrisBrowserData.getCategories()
-    for _, cat in ipairs(categories) do
-        self.categoryList:addItem(cat.name, cat)
+    if not IrisBrowserData then 
+        print("[IrisBrowser] ERROR: IrisBrowserData is nil!")
+        return 
     end
+    
+    print("[IrisBrowser] Calling IrisBrowserData.getCategories()...")
+    local categories = IrisBrowserData.getCategories()
+    print("[IrisBrowser] Got " .. #categories .. " categories")
+    
+    for i, cat in ipairs(categories) do
+        local displayLabel = cat.label or cat.name
+        print("[IrisBrowser] Adding category " .. i .. ": '" .. displayLabel .. "' (code=" .. cat.name .. ")")
+        self.categoryList:addItem(displayLabel, cat)
+    end
+    
+    print("[IrisBrowser] categoryList.items count = " .. #self.categoryList.items)
+    print("[IrisBrowser] ========== loadCategories() END ==========")
 end
 
 --- 소분류 로드
 function IrisBrowser:loadSubcategories(categoryName)
+    print("[IrisBrowser] loadSubcategories called for: " .. tostring(categoryName))
     self.subcategoryList:clear()
     
     ensureDeps()
-    if not IrisBrowserData or not categoryName then return end
+    if not IrisBrowserData or not categoryName then 
+        print("[IrisBrowser] IrisBrowserData or categoryName missing")
+        return 
+    end
     
     local subcategories = IrisBrowserData.getSubcategories(categoryName)
+    print("[IrisBrowser] getSubcategories returned: " .. #subcategories .. " items")
+    
     local filterText = self.subcategorySearchBar:getText():lower()
     
+    local addedCount = 0
     for _, sub in ipairs(subcategories) do
         -- 검색 필터 적용 (코드와 라벨 둘 다 검색 가능)
         local labelLower = (sub.label or sub.name):lower()
@@ -282,37 +445,95 @@ function IrisBrowser:loadSubcategories(categoryName)
             -- 라벨 형식: "코드 라벨 (개수)" 예: "1-A 건설/제작 (5)"
             local displayLabel = sub.name .. " " .. (sub.label or "") .. " (" .. sub.itemCount .. ")"
             self.subcategoryList:addItem(displayLabel, sub)
+            addedCount = addedCount + 1
         end
     end
+    print("[IrisBrowser] Added " .. addedCount .. " subcategories to list")
 end
 
 --- 아이템 로드
 function IrisBrowser:loadItems(categoryName, subcategoryName)
+    print("[IrisBrowser] loadItems called: " .. tostring(categoryName) .. "." .. tostring(subcategoryName))
     self.itemList:clear()
     
     ensureDeps()
-    if not IrisBrowserData or not categoryName or not subcategoryName then return end
+    if not IrisBrowserData or not categoryName or not subcategoryName then 
+        print("[IrisBrowser] loadItems - missing params, returning")
+        return 
+    end
     
     local items = IrisBrowserData.getItems(categoryName, subcategoryName)
+    print("[IrisBrowser] getItems returned " .. #items .. " items")
+    
     local filterText = self.itemSearchBar:getText():lower()
+    local addedCount = 0
     
     for _, item in ipairs(items) do
         -- 검색 필터 적용
         if filterText == "" or item.displayName:lower():find(filterText, 1, true) then
             self.itemList:addItem(item.displayName, item)
+            addedCount = addedCount + 1
         end
     end
+    print("[IrisBrowser] Added " .. addedCount .. " items to list")
 end
 
 --- 상세 정보 표시
 function IrisBrowser:showDetail(fullType)
-    -- 기존 상세 정보 삭제
-    for i = #self.detailPanel:getChildren(), 1, -1 do
-        local child = self.detailPanel:getChildren()[i]
-        self.detailPanel:removeChild(child)
+    print("[IrisBrowser:showDetail] ========== START ==========")
+    print("[IrisBrowser:showDetail] fullType = " .. tostring(fullType))
+    print("[IrisBrowser:showDetail] fullType type = " .. type(fullType))
+    
+    -- 기존 상세 정보 삭제 (ISPanel의 자식 목록 비우기)
+    -- 방법 1: javaObject의 getChildren() 사용 (Java ArrayList)
+    -- 방법 2: ISUIElement는 내부적으로 Lua table로 children 관리할 수 있음
+    local childrenToRemove = {}
+    
+    -- 먼저 javaObject를 통한 Java ArrayList 접근 시도
+    if self.detailPanel.javaObject and self.detailPanel.javaObject.getChildren then
+        local ok, javaChildren = pcall(function() return self.detailPanel.javaObject:getChildren() end)
+        if ok and javaChildren and javaChildren.size then
+            local ok2, sz = pcall(function() return javaChildren:size() end)
+            if ok2 and sz and sz > 0 then
+                for i = 0, sz - 1 do
+                    local ok3, child = pcall(function() return javaChildren:get(i) end)
+                    if ok3 and child then
+                        table.insert(childrenToRemove, child)
+                    end
+                end
+                print("[IrisBrowser:showDetail] Found " .. #childrenToRemove .. " children via javaObject")
+            end
+        end
     end
     
+    -- javaObject 방식이 실패하면 ISUIElement의 Lua children 접근
+    if #childrenToRemove == 0 then
+        local children = self.detailPanel:getChildren()
+        if children then
+            -- ipairs로 순회 (Lua 테이블 스타일)
+            for i, child in ipairs(children) do
+                table.insert(childrenToRemove, child)
+            end
+            -- 만약 ipairs가 실패하면 pairs로 시도
+            if #childrenToRemove == 0 then
+                for k, child in pairs(children) do
+                    if type(k) == "number" then
+                        table.insert(childrenToRemove, child)
+                    end
+                end
+            end
+            print("[IrisBrowser:showDetail] Found " .. #childrenToRemove .. " children via getChildren()")
+        end
+    end
+    
+    -- 수집한 자식들 삭제
+    for _, child in ipairs(childrenToRemove) do
+        self.detailPanel:removeChild(child)
+    end
+    print("[IrisBrowser:showDetail] Cleared " .. #childrenToRemove .. " children")
+    
     if not fullType then
+        print("[IrisBrowser:showDetail] fullType is nil/false, showing placeholder")
         -- placeholder
         local placeholderLabel = ISLabel:new(10, 10, 20, "아이템을 선택하세요", 0.5, 0.5, 0.5, 1, UIFont.Small, true)
         self.detailPanel:addChild(placeholderLabel)
@@ -320,8 +541,39 @@ function IrisBrowser:showDetail(fullType)
     end
     
     ensureDeps()
+    print("[IrisBrowser:showDetail] IrisBrowserData exists = " .. tostring(IrisBrowserData ~= nil))
+    print("[IrisBrowser:showDetail] IrisBrowserData.getItem exists = " .. tostring(IrisBrowserData and IrisBrowserData.getItem ~= nil))
+    
     local item = IrisBrowserData and IrisBrowserData.getItem(fullType)
+    print("[IrisBrowser:showDetail] item = " .. tostring(item))
+    print("[IrisBrowser:showDetail] item type = " .. type(item))
+    
+    if item then
+        -- 아이템 객체 상세 정보
+        print("[IrisBrowser:showDetail] item is truthy, examining properties...")
+        
+        -- 메타테이블 확인
+        local mt = getmetatable(item)
+        print("[IrisBrowser:showDetail] item metatable = " .. tostring(mt))
+        
+        -- 주요 메서드 존재 여부
+        print("[IrisBrowser:showDetail] item.getDisplayName = " .. tostring(item.getDisplayName))
+        print("[IrisBrowser:showDetail] item.getFullName = " .. tostring(item.getFullName))
+        print("[IrisBrowser:showDetail] item.getFullType = " .. tostring(item.getFullType))
+        print("[IrisBrowser:showDetail] item.getScriptItem = " .. tostring(item.getScriptItem))
+        
+        -- tostring 결과
+        local tostringResult = tostring(item)
+        print("[IrisBrowser:showDetail] tostring(item) = " .. tostringResult)
+        
+        -- Java 클래스 이름 추출 시도
+        if tostringResult:match("zombie%.") then
+            print("[IrisBrowser:showDetail] Detected Java object: " .. tostringResult)
+        end
+    end
+    
     if not item then
+        print("[IrisBrowser:showDetail] item is nil, showing error message")
         local errorLabel = ISLabel:new(10, 10, 20, "아이템 정보를 찾을 수 없습니다", 0.8, 0.3, 0.3, 1, UIFont.Small, true)
         self.detailPanel:addChild(errorLabel)
         return
@@ -330,43 +582,102 @@ function IrisBrowser:showDetail(fullType)
     -- IrisWikiSections 사용하여 상세 정보 표시
     local yOffset = 10
     
-    -- 아이템 이름
-    local displayName = item:getDisplayName() or fullType
+    -- 아이템 이름 (안전하게 가져오기)
+    local displayName = fullType
+    print("[IrisBrowser:showDetail] Default displayName = " .. displayName)
+    
+    if item.getDisplayName then
+        print("[IrisBrowser:showDetail] Calling item:getDisplayName()...")
+        local ok, name = pcall(function() return item:getDisplayName() end)
+        print("[IrisBrowser:showDetail] getDisplayName pcall result: ok=" .. tostring(ok) .. ", name=" .. tostring(name))
+        
+        if ok then
+            print("[IrisBrowser:showDetail] name type = " .. type(name))
+            if name then
+                print("[IrisBrowser:showDetail] name length = " .. tostring(#name))
+                -- 바이트 값 확인 (첫 20바이트)
+                local bytes = {}
+                for i = 1, math.min(20, #name) do
+                    bytes[#bytes + 1] = string.byte(name, i)
+                end
+                print("[IrisBrowser:showDetail] name bytes (first 20) = " .. table.concat(bytes, ", "))
+            end
+        else
+            print("[IrisBrowser:showDetail] getDisplayName pcall ERROR: " .. tostring(name))
+        end
+        
+        if ok and name and type(name) == "string" and #name > 0 then
+            displayName = name
+            print("[IrisBrowser:showDetail] Using getDisplayName result: " .. displayName)
+        else
+            print("[IrisBrowser:showDetail] getDisplayName failed or returned invalid, using fullType")
+        end
+    else
+        print("[IrisBrowser:showDetail] item.getDisplayName is nil/false")
+    end
+    
+    print("[IrisBrowser:showDetail] Final displayName = " .. displayName)
+    
     local nameLabel = ISLabel:new(10, yOffset, 25, displayName, 0.6, 0.9, 1.0, 1.0, UIFont.Medium, true)
     self.detailPanel:addChild(nameLabel)
     yOffset = yOffset + 30
     
-    -- 태그 섹션
-    if IrisWikiSections then
-        local tagsText = IrisWikiSections.renderTagsSection(item)
-        local tagsLabel = ISLabel:new(10, yOffset, 18, tagsText, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
-        self.detailPanel:addChild(tagsLabel)
-        yOffset = yOffset + 22
+    -- 태그 및 속성 섹션들 표시
+    if IrisWikiSections and IrisWikiSections.getAllSections then
+        local sections = IrisWikiSections.getAllSections(item)
+        for _, sectionText in ipairs(sections) do
+            if sectionText and sectionText ~= "" then
+                local sectionLabel = ISLabel:new(10, yOffset, 18, sectionText, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
+                self.detailPanel:addChild(sectionLabel)
+                yOffset = yOffset + 22
+            end
+        end
         
-        -- 근거 섹션
-        local reasonText = IrisWikiSections.renderReasonSection(item)
-        local reasonLabel = ISLabel:new(10, yOffset, 18, reasonText, 0.7, 0.7, 0.7, 1, UIFont.Small, true)
-        self.detailPanel:addChild(reasonLabel)
-        yOffset = yOffset + 22
-        
-        -- 연결 섹션
-        local connectionText = IrisWikiSections.renderConnectionSection(item)
-        local connectionLabel = ISLabel:new(10, yOffset, 18, connectionText, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
-        self.detailPanel:addChild(connectionLabel)
-        yOffset = yOffset + 22
-        
-        -- 필드 섹션
-        local fieldsText = IrisWikiSections.renderFieldsSection(item)
-        local fieldsLabel = ISLabel:new(10, yOffset, 18, fieldsText, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
-        self.detailPanel:addChild(fieldsLabel)
+        -- 섹션이 없으면 기본 메시지
+        if #sections == 0 then
+            local noInfoLabel = ISLabel:new(10, yOffset, 18, "추가 정보 없음", 0.6, 0.6, 0.6, 1, UIFont.Small, true)
+            self.detailPanel:addChild(noInfoLabel)
+        end
     end
 end
 
 --- 이벤트 핸들러: 대분류 선택
 function IrisBrowser:onCategorySelected(item)
-    if not item then return end
+    print("[IrisBrowser] onCategorySelected called")
+    print("[IrisBrowser] item type: " .. type(item))
+    
+    if not item then 
+        print("[IrisBrowser] item is nil, returning")
+        return 
+    end
+    
+    -- ISScrollingListBox에서 item 구조 확인
+    if type(item) == "table" then
+        for k, v in pairs(item) do
+            print("[IrisBrowser] item." .. tostring(k) .. " = " .. tostring(v))
+        end
+    end
+    
     local catData = item.item
-    if not catData then return end
+    if not catData then 
+        print("[IrisBrowser] catData is nil, trying self.categoryList.selected")
+        -- ISScrollingListBox에서 selected 인덱스로 가져오기 시도
+        local selectedIdx = self.categoryList.selected
+        if selectedIdx and selectedIdx > 0 then
+            local selectedItem = self.categoryList.items[selectedIdx]
+            if selectedItem then
+                catData = selectedItem.item
+                print("[IrisBrowser] Got catData from selected: " .. tostring(catData and catData.name))
+            end
+        end
+    end
+    
+    if not catData then
+        print("[IrisBrowser] catData still nil, returning")
+        return 
+    end
+    
+    print("[IrisBrowser] Selected category: " .. tostring(catData.name))
     
     self.currentCategory = catData.name
     self.currentSubcategory = nil
@@ -379,9 +690,30 @@ end
 
 --- 이벤트 핸들러: 소분류 선택
 function IrisBrowser:onSubcategorySelected(item)
-    if not item then return end
+    print("[IrisBrowser] onSubcategorySelected called")
+    if not item then 
+        print("[IrisBrowser] subitem is nil")
+        return 
+    end
     local subData = item.item
-    if not subData then return end
+    if not subData then 
+        print("[IrisBrowser] subData is nil, trying selected index")
+        local selectedIdx = self.subcategoryList.selected
+        if selectedIdx and selectedIdx > 0 then
+            local selectedItem = self.subcategoryList.items[selectedIdx]
+            if selectedItem then
+                subData = selectedItem.item
+                print("[IrisBrowser] Got subData from selected: " .. tostring(subData and subData.name))
+            end
+        end
+    end
+    
+    if not subData then
+        print("[IrisBrowser] subData still nil")
+        return 
+    end
+    
+    print("[IrisBrowser] Selected subcategory: " .. tostring(subData.name))
     
     self.currentSubcategory = subData.name
     self.currentSelectedFullType = nil
@@ -392,12 +724,58 @@ end
 
 --- 이벤트 핸들러: 아이템 선택
 function IrisBrowser:onItemSelected(item)
-    if not item then return end
+    print("[IrisBrowser] onItemSelected called")
+    print("[IrisBrowser] item = " .. tostring(item))
+    print("[IrisBrowser] item type = " .. type(item))
+    
+    if not item then 
+        print("[IrisBrowser] item is nil, returning")
+        return 
+    end
+    
+    -- ISScrollingListBox item 구조 확인
+    if type(item) == "table" then
+        for k, v in pairs(item) do
+            print("[IrisBrowser] item." .. tostring(k) .. " = " .. tostring(v))
+        end
+    end
+    
     local itemData = item.item
-    if not itemData then return end
+    print("[IrisBrowser] itemData = " .. tostring(itemData))
+    print("[IrisBrowser] itemData type = " .. type(itemData))
+    
+    if not itemData then 
+        print("[IrisBrowser] itemData is nil, trying selected index")
+        -- ISScrollingListBox에서 selected 인덱스로 가져오기 시도
+        local selectedIdx = self.itemList.selected
+        print("[IrisBrowser] selectedIdx = " .. tostring(selectedIdx))
+        if selectedIdx and selectedIdx > 0 then
+            local selectedItem = self.itemList.items[selectedIdx]
+            print("[IrisBrowser] selectedItem = " .. tostring(selectedItem))
+            if selectedItem then
+                itemData = selectedItem.item
+                print("[IrisBrowser] Got itemData from selected: " .. tostring(itemData))
+            end
+        end
+    end
+    
+    if not itemData then
+        print("[IrisBrowser] itemData still nil, returning")
+        return 
+    end
+    
+    -- itemData 구조 확인
+    if type(itemData) == "table" then
+        for k, v in pairs(itemData) do
+            print("[IrisBrowser] itemData." .. tostring(k) .. " = " .. tostring(v))
+        end
+    end
+    
+    print("[IrisBrowser] itemData.fullType = " .. tostring(itemData.fullType))
     
     -- SSOT: currentSelectedFullType 하나만 유지
     self.currentSelectedFullType = itemData.fullType
+    print("[IrisBrowser] Set currentSelectedFullType = " .. tostring(self.currentSelectedFullType))
     self:showDetail(self.currentSelectedFullType)
 end
 
@@ -454,51 +832,46 @@ function IrisBrowser:selectItem(item)
     local fullType = item:getFullType()
     
     -- IrisBrowserData에서 아이템 정보 조회
-    -- (IrisBrowserData에 역방향 조회 기능이 필요할 수도 있음)
-    -- 현재 구조: _cache.categories[cat].subcategories[sub].items[fullType]
-    
     local targetCat = nil
     local targetSub = nil
     
     -- 전체 검색하여 카테고리 찾기 (역인덱싱이 없으므로 순회)
-    -- 성능 최적화를 위해 나중에 역인덱싱 추가 고려
     if IrisBrowserData and IrisBrowserData._cache and IrisBrowserData._cache.categories then
         for catName, catData in pairs(IrisBrowserData._cache.categories) do
-            for subName, subData in pairs(catData.subcategories) do
-                for _, itemData in ipairs(subData.items) do
-                    if itemData.fullType == fullType then
+            if catData.subcategories then
+                for subName, subData in pairs(catData.subcategories) do
+                    -- items는 { fullType = true } 형태의 set(딕셔너리)
+                    if subData.items and subData.items[fullType] then
                         targetCat = catName
                         targetSub = subName
                         break
                     end
                 end
-                if targetCat then break end
             end
             if targetCat then break end
         end
     end
     
-    -- 카테고리를 찾지 못한 경우 (기타 또는 분류되지 않음)
-    if not targetCat then
-        targetCat = "기타" -- 기본값
-        targetSub = "전체"
-        print("[IrisBrowser] Could not find category for " .. fullType .. ", defaulting to 기타")
-    end
-    
-    -- 카테고리 선택
-    self:selectCategory(targetCat)
-    
-    -- 서브카테고리 선택 (UI가 갱신된 후)
-    self:selectSubcategory(targetSub)
-    
-    -- 아이템 선택 (상세 정보 표시)
-    -- 검색된 목록에서 해당 아이템 찾기
-    for i, itemData in ipairs(self.filteredItems) do
-        if itemData.fullType == fullType then
-            self.selectedItemIndex = i
-            self:updateDetailPanel()
-            break
-        end
+    -- 카테고리를 찾은 경우: 선택 및 상세 표시
+    if targetCat and targetSub then
+        -- 카테고리 선택
+        self.currentCategory = targetCat
+        self:loadSubcategories(targetCat)
+        
+        -- 소분류 선택
+        self.currentSubcategory = targetSub
+        self:loadItems(targetCat, targetSub)
+        
+        -- 상세 표시
+        self.currentSelectedFullType = fullType
+        self:showDetail(fullType)
+        
+        print("[IrisBrowser] Selected item: " .. fullType .. " in " .. targetCat .. "." .. targetSub)
+    else
+        -- 분류되지 않은 아이템: 상세 정보만 표시
+        self.currentSelectedFullType = fullType
+        self:showDetail(fullType)
+        print("[IrisBrowser] Item not classified: " .. fullType)
     end
 end
 

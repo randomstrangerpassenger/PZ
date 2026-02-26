@@ -1,8 +1,8 @@
-# Iris Consumable(3) 소분류 증거표 (v0.2)
+# Iris Consumable(3) 소분류 증거표 (v0.3)
 
 이 문서는 **Consumable 대분류(3)**의 각 소분류별로 사용할 수 있는 증거를 정의한다.
 
-> ⚠️ **v0.2 주요 변경**: 3-C CustomContextMenu→Medical/CanBandage/AlcoholPower 필드, 3-D Tags 추가, 3-E HerbalTea 태그 추가
+> ⚠️ **v0.3 주요 변경**: Context Outcome 보조 증거 추가. 바닐라 Lua에서 정적 추출한 결과 타입을 보조 증거로 사용 가능.
 
 ---
 
@@ -11,7 +11,8 @@
 1. **1차**: Item Script 필드 (Type, 상태변화 필드 존재 여부)
 2. **2차**: Tags / 의료 필드
 3. **3차**: Recipe 관계 (input으로 사용되는 경우)
-4. **최후**: 수동 오버라이드 (증거 누락 시에만)
+4. **4차**: Context Outcome (정적 추출 결과) — v0.3 신규
+5. **최후**: 수동 오버라이드 (증거 누락 시에만)
 
 ---
 
@@ -52,6 +53,8 @@ Consumable 소분류 대부분은 `Type = Food`를 기본 가드로 사용한다
 |------|------|
 | IsCookable | `= true` |
 | DaysFresh / DaysTotallyRotten | `exists` |
+| Context Outcome | `has_outcome("eat_food")` — v0.3 신규 |
+| Context Outcome | `has_outcome("transform_replace")` — v0.3.1 신규 (소비 시 다른 아이템으로 교체) |
 
 ### 금지
 
@@ -86,6 +89,7 @@ Consumable 소분류 대부분은 `Type = Food`를 기본 가드로 사용한다
 |------|------|
 | CustomContextMenu | `contains "Drink"` |
 | CanStoreWater | `= true` + Type 가드 |
+| Context Outcome | `has_outcome("drink_beverage")` — v0.3 신규 |
 
 > ⚠️ **Drainable 단독 금지**: 연료, 세제 등도 포함할 수 있음. 반드시 `ThirstChange exists`와 AND 결합.
 
@@ -111,14 +115,12 @@ Consumable 소분류 대부분은 `Type = Food`를 기본 가드로 사용한다
 | AlcoholPower | `exists` |
 | Tags | `contains "Disinfectant"` |
 
-> ⚠️ **v0.2 변경**: `CustomContextMenu = Disinfect/Bandage/Splint/CleanWound` 제거 (Item Script에 없음). 
-> Medical 필드 및 Tags 기반으로 변경.
-
 ### 보조 증거
 
 | 증거 | 조건 |
 |------|------|
 | CustomContextMenu | `contains "Take"` |
+| Context Outcome | `has_outcome("apply_medical")` — v0.3 신규 |
 
 ### 금지
 
@@ -161,14 +163,13 @@ Consumable 소분류 대부분은 `Type = Food`를 기본 가드로 사용한다
 | CustomContextMenu | `contains "Smoke"` |
 | Tags | `contains "AlcoholicBeverage"` |
 
-> ⚠️ **v0.2 변경**: `CustomContextMenu = Smoke` 추가, `Tags = AlcoholicBeverage` 추가
-
 ### 보조 증거
 
 | 증거 | 조건 |
 |------|------|
 | Tags | `LowAlcohol` |
 | UnhappyChange | `exists` **AND** Type = Food |
+| Context Outcome | `has_outcome("smoke_item")` — v0.3 신규 |
 
 ### 예시 아이템
 
@@ -193,8 +194,6 @@ Consumable 소분류 대부분은 `Type = Food`를 기본 가드로 사용한다
 | 증거 | 조건 |
 |------|------|
 | Tags | `contains "HerbalTea"` |
-
-> ⚠️ **v0.2 변경**: 바닐라에서 `HerbalTea` 태그 확인됨 (16개 아이템). 태그 기반 분류 가능.
 
 ### 대안: 수동 오버라이드
 
@@ -254,6 +253,7 @@ manualOverrides = {
 ```
 증거:
 - Medical = TRUE → Consumable.3-C ✓
+- Context Outcome = apply_medical → Consumable.3-C ✓ (보조)
 
 결과: [Consumable.3-C]
 ```
@@ -264,6 +264,7 @@ manualOverrides = {
 증거:
 - Medical = TRUE → Consumable.3-C ✓
 - CanBandage = TRUE → Consumable.3-C ✓ (중복)
+- Context Outcome = apply_medical → Consumable.3-C ✓ (보조)
 
 결과: [Consumable.3-C]
 ```
@@ -291,3 +292,5 @@ manualOverrides = {
 |------|------|------|
 | 0.1 | - | 초안 작성 |
 | 0.2 | - | 바닐라 데이터 기반 전면 개정: 3-C Medical 필드 추가, 3-D Smoke/AlcoholicBeverage 추가, 3-E HerbalTea 추가 |
+| 0.3 | - | Context Outcome 보조 증거 추가 (3-A eat_food, 3-B drink_beverage, 3-C apply_medical, 3-D smoke_item) |
+| 0.3.1 | - | 완전성 감사 반영: 3-A `has_outcome("transform_replace")` 보조 증거 추가 (소비-교체형) |

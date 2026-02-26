@@ -1,0 +1,6607 @@
+{
+  "_meta": {
+    "timestamp": "2026-02-18T01:29:30.823680",
+    "total_items": 2061,
+    "classified_items": 2079,
+    "unclassified_items": 415,
+    "sha256": "bdcf14f12d759beca7a083eb78f48fccae10b0964e0ae6652280d692dcfb042a",
+    "note": "결정성 검증: sha256이 동일하면 동일한 분류 결과"
+  },
+  "items": {
+    "Base.223Box": [
+      "Misc.9-A"
+    ],
+    "Base.223Bullets": [
+      "Combat.2-K"
+    ],
+    "Base.223BulletsMold": [
+      "Tool.1-A"
+    ],
+    "Base.223Clip": [
+      "Misc.9-A"
+    ],
+    "Base.308Box": [
+      "Misc.9-A"
+    ],
+    "Base.308Bullets": [
+      "Combat.2-K"
+    ],
+    "Base.308BulletsMold": [
+      "Tool.1-A"
+    ],
+    "Base.308Clip": [
+      "Misc.9-A"
+    ],
+    "Base.44Clip": [
+      "Misc.9-A"
+    ],
+    "Base.45Clip": [
+      "Misc.9-A"
+    ],
+    "Base.556Box": [
+      "Misc.9-A"
+    ],
+    "Base.556Bullets": [
+      "Combat.2-K"
+    ],
+    "Base.556Clip": [
+      "Misc.9-A"
+    ],
+    "Base.9mmBulletsMold": [
+      "Tool.1-A"
+    ],
+    "Base.9mmClip": [
+      "Misc.9-A"
+    ],
+    "Base.Acorn": [
+      "Consumable.3-A"
+    ],
+    "Base.Aerosolbomb": [
+      "Resource.4-E"
+    ],
+    "Base.AerosolbombRemote": [
+      "Misc.9-A"
+    ],
+    "Base.AerosolbombSensorV1": [
+      "Misc.9-A"
+    ],
+    "Base.AerosolbombSensorV2": [
+      "Misc.9-A"
+    ],
+    "Base.AerosolbombSensorV3": [
+      "Misc.9-A"
+    ],
+    "Base.AerosolbombTriggered": [
+      "Misc.9-A"
+    ],
+    "Base.AlarmClock": [
+      "Misc.9-A"
+    ],
+    "Base.AlarmClock2": [
+      "Resource.4-E"
+    ],
+    "Base.AlcoholBandage": [
+      "Consumable.3-C",
+      "Consumable.3-D"
+    ],
+    "Base.AlcoholRippedSheets": [
+      "Consumable.3-C",
+      "Consumable.3-D"
+    ],
+    "Base.AlcoholWipes": [
+      "Consumable.3-C"
+    ],
+    "Base.AlcoholedCottonBalls": [
+      "Consumable.3-C"
+    ],
+    "Base.Allsorts": [
+      "Consumable.3-A"
+    ],
+    "Base.Aluminum": [
+      "Resource.4-E"
+    ],
+    "Base.AmericanLadyCaterpillar": [
+      "Consumable.3-A"
+    ],
+    "Base.AmmoStrap_Bullets": [
+      "Wearable.6-G"
+    ],
+    "Base.AmmoStrap_Shells": [
+      "Wearable.6-G"
+    ],
+    "Base.AmmoStraps": [
+      "Combat.2-L"
+    ],
+    "Base.Amplifier": [
+      "Resource.4-E"
+    ],
+    "Base.Antibiotics": [
+      "Consumable.3-C"
+    ],
+    "Base.Apple": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Apron_Black": [
+      "Wearable.6-B"
+    ],
+    "Base.Apron_IceCream": [
+      "Wearable.6-B"
+    ],
+    "Base.Apron_Jay": [
+      "Wearable.6-B"
+    ],
+    "Base.Apron_PileOCrepe": [
+      "Wearable.6-B"
+    ],
+    "Base.Apron_PizzaWhirled": [
+      "Wearable.6-B"
+    ],
+    "Base.Apron_Spiffos": [
+      "Wearable.6-B"
+    ],
+    "Base.Apron_White": [
+      "Wearable.6-B"
+    ],
+    "Base.Apron_WhiteTEXTURE": [
+      "Wearable.6-B"
+    ],
+    "Base.AssaultRifle": [
+      "Combat.2-H"
+    ],
+    "Base.AssaultRifle2": [
+      "Combat.2-H"
+    ],
+    "Base.Avocado": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.Axe": [
+      "Combat.2-A",
+      "Tool.1-D",
+      "Tool.1-E"
+    ],
+    "Base.AxeStone": [
+      "Combat.2-A",
+      "Tool.1-D",
+      "Tool.1-E"
+    ],
+    "Base.BackgammonBoard": [
+      "Misc.9-A"
+    ],
+    "Base.BadmintonRacket": [
+      "Combat.2-C"
+    ],
+    "Base.Bag_ALICEpack": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_ALICEpack_Army": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_BigHikingBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_BowlingBallBag": [
+      "Tool.1-L"
+    ],
+    "Base.Bag_DoctorBag": [
+      "Tool.1-L"
+    ],
+    "Base.Bag_DuffelBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_DuffelBagTINT": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_FannyPackBack": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_FannyPackFront": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_FoodCanned": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_FoodSnacks": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_GolfBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_InmateEscapedBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_JanitorToolbox": [
+      "Tool.1-L"
+    ],
+    "Base.Bag_MedicalBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_Military": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_MoneyBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_NormalHikingBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_PistolCase": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_Satchel": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_Schoolbag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_ShotgunBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_ShotgunDblBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_ShotgunDblSawnoffBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_ShotgunSawnoffBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_SurvivorBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_ToolBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_WeaponBag": [
+      "Wearable.6-F"
+    ],
+    "Base.Bag_WorkerBag": [
+      "Wearable.6-F"
+    ],
+    "Base.BagelPlain": [
+      "Consumable.3-A"
+    ],
+    "Base.BagelPoppy": [
+      "Consumable.3-A"
+    ],
+    "Base.BagelSesame": [
+      "Consumable.3-A"
+    ],
+    "Base.Baguette": [
+      "Consumable.3-A"
+    ],
+    "Base.BaguetteDough": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BaguetteSandwich": [
+      "Consumable.3-A"
+    ],
+    "Base.BaitFish": [
+      "Consumable.3-A"
+    ],
+    "Base.BakingPan": [
+      "Resource.4-B"
+    ],
+    "Base.BakingSoda": [
+      "Resource.4-B"
+    ],
+    "Base.BakingTray": [
+      "Resource.4-B"
+    ],
+    "Base.BakingTrayBread": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BakingTray_Muffin": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.BakingTray_Muffin_Recipe": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.BallPeenHammer": [
+      "Combat.2-C",
+      "Tool.1-A"
+    ],
+    "Base.Baloney": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.BaloneySlice": [
+      "Consumable.3-A"
+    ],
+    "Base.Banana": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Bandage": [
+      "Consumable.3-C",
+      "Resource.4-C"
+    ],
+    "Base.BandageDirty": [
+      "Consumable.3-C",
+      "Resource.4-C"
+    ],
+    "Base.Bandaid": [
+      "Consumable.3-C"
+    ],
+    "Base.BandedWoolyBearCaterpillar": [
+      "Consumable.3-A"
+    ],
+    "Base.Banjo": [
+      "Combat.2-C"
+    ],
+    "Base.BarBell": [
+      "Combat.2-B"
+    ],
+    "Base.BarbedWire": [
+      "Misc.9-A"
+    ],
+    "Base.BareHands": [
+      "Misc.9-A"
+    ],
+    "Base.Baseball": [
+      "Misc.9-A"
+    ],
+    "Base.BaseballBat": [
+      "Combat.2-B",
+      "Resource.4-A",
+      "Tool.1-D"
+    ],
+    "Base.BaseballBatNails": [
+      "Combat.2-B",
+      "Tool.1-D"
+    ],
+    "Base.Basil": [
+      "Consumable.3-A"
+    ],
+    "Base.Basketball": [
+      "Misc.9-A"
+    ],
+    "Base.Bass": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.BathTowel": [
+      "Misc.9-A"
+    ],
+    "Base.BathTowelWet": [
+      "Misc.9-A"
+    ],
+    "Base.Battery": [
+      "Misc.9-A"
+    ],
+    "Base.Bayonnet": [
+      "Combat.2-L"
+    ],
+    "Base.BeanBowl": [
+      "Consumable.3-A"
+    ],
+    "Base.BeautyBerry": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BeefJerky": [
+      "Consumable.3-A"
+    ],
+    "Base.Beer": [
+      "Misc.9-A"
+    ],
+    "Base.Beer2": [
+      "Misc.9-A"
+    ],
+    "Base.BeerBottle": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D"
+    ],
+    "Base.BeerCan": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D"
+    ],
+    "Base.BeerCanEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.BeerEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.BeerWaterFull": [
+      "Misc.9-A"
+    ],
+    "Base.Bell": [
+      "Misc.9-A"
+    ],
+    "Base.BellPepper": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.Bellows": [
+      "Misc.9-A"
+    ],
+    "Base.BellyButton_DangleGold": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_DangleGoldRuby": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_DangleSilver": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_DangleSilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_RingGold": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_RingGoldDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_RingGoldRuby": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_RingSilver": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_RingSilverAmethyst": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_RingSilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_RingSilverRuby": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_StudGold": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_StudGoldDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_StudSilver": [
+      "Wearable.6-G"
+    ],
+    "Base.BellyButton_StudSilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Belt": [
+      "Misc.9-A"
+    ],
+    "Base.Belt2": [
+      "Wearable.6-G"
+    ],
+    "Base.BerryBlack": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BerryBlue": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BerryGeneric1": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BerryGeneric2": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BerryGeneric3": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BerryGeneric4": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BerryGeneric5": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.BerryPoisonIvy": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Beverage": [
+      "Consumable.3-D",
+      "Tool.1-D"
+    ],
+    "Base.Beverage2": [
+      "Consumable.3-D"
+    ],
+    "Base.BigGasTank1": [
+      "Vehicle.8-A"
+    ],
+    "Base.BigGasTank2": [
+      "Vehicle.8-A"
+    ],
+    "Base.BigGasTank3": [
+      "Vehicle.8-A"
+    ],
+    "Base.BigTrunk1": [
+      "Vehicle.8-B"
+    ],
+    "Base.BigTrunk2": [
+      "Vehicle.8-B"
+    ],
+    "Base.BigTrunk3": [
+      "Vehicle.8-B"
+    ],
+    "Base.Bikini_Pattern01": [
+      "Misc.9-A"
+    ],
+    "Base.Bikini_TINT": [
+      "Misc.9-A"
+    ],
+    "Base.Biscuit": [
+      "Consumable.3-A"
+    ],
+    "Base.BlackSage": [
+      "Consumable.3-A",
+      "Consumable.3-E"
+    ],
+    "Base.Blackbeans": [
+      "Consumable.3-A"
+    ],
+    "Base.Bleach": [
+      "Consumable.3-B"
+    ],
+    "Base.BleachEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.BlowTorch": [
+      "Resource.4-A"
+    ],
+    "Base.BluePen": [
+      "Misc.9-A"
+    ],
+    "Base.BobPic": [
+      "Misc.9-A"
+    ],
+    "Base.Boilersuit": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Boilersuit_BlueRed": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Boilersuit_Flying": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Boilersuit_Prisoner": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Boilersuit_PrisonerKhaki": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Boilersuit_Yellow": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.BoobTube": [
+      "Wearable.6-B"
+    ],
+    "Base.BoobTubeSmall": [
+      "Wearable.6-B"
+    ],
+    "Base.Book": [
+      "Literature.5-D"
+    ],
+    "Base.BookBlacksmith1": [
+      "Literature.5-A"
+    ],
+    "Base.BookBlacksmith2": [
+      "Literature.5-A"
+    ],
+    "Base.BookBlacksmith3": [
+      "Literature.5-A"
+    ],
+    "Base.BookBlacksmith4": [
+      "Literature.5-A"
+    ],
+    "Base.BookBlacksmith5": [
+      "Literature.5-A"
+    ],
+    "Base.BookCarpentry1": [
+      "Literature.5-A"
+    ],
+    "Base.BookCarpentry2": [
+      "Literature.5-A"
+    ],
+    "Base.BookCarpentry3": [
+      "Literature.5-A"
+    ],
+    "Base.BookCarpentry4": [
+      "Literature.5-A"
+    ],
+    "Base.BookCarpentry5": [
+      "Literature.5-A"
+    ],
+    "Base.BookCooking1": [
+      "Literature.5-A"
+    ],
+    "Base.BookCooking2": [
+      "Literature.5-A"
+    ],
+    "Base.BookCooking3": [
+      "Literature.5-A"
+    ],
+    "Base.BookCooking4": [
+      "Literature.5-A"
+    ],
+    "Base.BookCooking5": [
+      "Literature.5-A"
+    ],
+    "Base.BookElectrician1": [
+      "Literature.5-A"
+    ],
+    "Base.BookElectrician2": [
+      "Literature.5-A"
+    ],
+    "Base.BookElectrician3": [
+      "Literature.5-A"
+    ],
+    "Base.BookElectrician4": [
+      "Literature.5-A"
+    ],
+    "Base.BookElectrician5": [
+      "Literature.5-A"
+    ],
+    "Base.BookFarming1": [
+      "Literature.5-A"
+    ],
+    "Base.BookFarming2": [
+      "Literature.5-A"
+    ],
+    "Base.BookFarming3": [
+      "Literature.5-A"
+    ],
+    "Base.BookFarming4": [
+      "Literature.5-A"
+    ],
+    "Base.BookFarming5": [
+      "Literature.5-A"
+    ],
+    "Base.BookFirstAid1": [
+      "Literature.5-A"
+    ],
+    "Base.BookFirstAid2": [
+      "Literature.5-A"
+    ],
+    "Base.BookFirstAid3": [
+      "Literature.5-A"
+    ],
+    "Base.BookFirstAid4": [
+      "Literature.5-A"
+    ],
+    "Base.BookFirstAid5": [
+      "Literature.5-A"
+    ],
+    "Base.BookFishing1": [
+      "Literature.5-A"
+    ],
+    "Base.BookFishing2": [
+      "Literature.5-A"
+    ],
+    "Base.BookFishing3": [
+      "Literature.5-A"
+    ],
+    "Base.BookFishing4": [
+      "Literature.5-A"
+    ],
+    "Base.BookFishing5": [
+      "Literature.5-A"
+    ],
+    "Base.BookForaging1": [
+      "Literature.5-A"
+    ],
+    "Base.BookForaging2": [
+      "Literature.5-A"
+    ],
+    "Base.BookForaging3": [
+      "Literature.5-A"
+    ],
+    "Base.BookForaging4": [
+      "Literature.5-A"
+    ],
+    "Base.BookForaging5": [
+      "Literature.5-A"
+    ],
+    "Base.BookMechanic1": [
+      "Literature.5-A"
+    ],
+    "Base.BookMechanic2": [
+      "Literature.5-A"
+    ],
+    "Base.BookMechanic3": [
+      "Literature.5-A"
+    ],
+    "Base.BookMechanic4": [
+      "Literature.5-A"
+    ],
+    "Base.BookMechanic5": [
+      "Literature.5-A"
+    ],
+    "Base.BookMetalWelding1": [
+      "Literature.5-A"
+    ],
+    "Base.BookMetalWelding2": [
+      "Literature.5-A"
+    ],
+    "Base.BookMetalWelding3": [
+      "Literature.5-A"
+    ],
+    "Base.BookMetalWelding4": [
+      "Literature.5-A"
+    ],
+    "Base.BookMetalWelding5": [
+      "Literature.5-A"
+    ],
+    "Base.BookTailoring1": [
+      "Literature.5-A"
+    ],
+    "Base.BookTailoring2": [
+      "Literature.5-A"
+    ],
+    "Base.BookTailoring3": [
+      "Literature.5-A"
+    ],
+    "Base.BookTailoring4": [
+      "Literature.5-A"
+    ],
+    "Base.BookTailoring5": [
+      "Literature.5-A"
+    ],
+    "Base.BookTrapping1": [
+      "Literature.5-A"
+    ],
+    "Base.BookTrapping2": [
+      "Literature.5-A"
+    ],
+    "Base.BookTrapping3": [
+      "Literature.5-A"
+    ],
+    "Base.BookTrapping4": [
+      "Literature.5-A"
+    ],
+    "Base.BookTrapping5": [
+      "Literature.5-A"
+    ],
+    "Base.BorisBadger": [
+      "Misc.9-A"
+    ],
+    "Base.BouillonCube": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-E"
+    ],
+    "Base.Bowl": [
+      "Resource.4-B",
+      "Tool.1-D"
+    ],
+    "Base.BoxOfJars": [
+      "Misc.9-A"
+    ],
+    "Base.Boxers_Hearts": [
+      "Misc.9-A"
+    ],
+    "Base.Boxers_RedStripes": [
+      "Misc.9-A"
+    ],
+    "Base.Boxers_Silk_Black": [
+      "Misc.9-A"
+    ],
+    "Base.Boxers_Silk_Red": [
+      "Misc.9-A"
+    ],
+    "Base.Boxers_White": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Strapless_AnimalPrint": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Strapless_Black": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Strapless_FrillyBlack": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Strapless_FrillyPink": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Strapless_FrillyRed": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Strapless_RedSpots": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Strapless_White": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Straps_AnimalPrint": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Straps_Black": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Straps_FrillyBlack": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Straps_FrillyPink": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Straps_FrillyRed": [
+      "Misc.9-A"
+    ],
+    "Base.Bra_Straps_White": [
+      "Misc.9-A"
+    ],
+    "Base.Bracelet_BangleLeftGold": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_BangleLeftSilver": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_BangleRightGold": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_BangleRightSilver": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_ChainLeftGold": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_ChainLeftSilver": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_ChainRightGold": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_ChainRightSilver": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_LeftFriendshipTINT": [
+      "Wearable.6-G"
+    ],
+    "Base.Bracelet_RightFriendshipTINT": [
+      "Wearable.6-G"
+    ],
+    "Base.Bread": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.BreadDough": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.BreadKnife": [
+      "Combat.2-E"
+    ],
+    "Base.BreadSlices": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Bricktoys": [
+      "Misc.9-A"
+    ],
+    "Base.Briefcase": [
+      "Tool.1-L"
+    ],
+    "Base.Briefs_AnimalPrints": [
+      "Misc.9-A"
+    ],
+    "Base.Briefs_SmallTrunks_Black": [
+      "Misc.9-A"
+    ],
+    "Base.Briefs_SmallTrunks_Blue": [
+      "Misc.9-A"
+    ],
+    "Base.Briefs_SmallTrunks_Red": [
+      "Misc.9-A"
+    ],
+    "Base.Briefs_SmallTrunks_WhiteTINT": [
+      "Misc.9-A"
+    ],
+    "Base.Briefs_White": [
+      "Misc.9-A"
+    ],
+    "Base.Broccoli": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.BrokenFishingNet": [
+      "Misc.9-A"
+    ],
+    "Base.Broom": [
+      "Combat.2-B",
+      "Tool.1-E"
+    ],
+    "Base.BucketConcreteFull": [
+      "Misc.9-A"
+    ],
+    "Base.BucketEmpty": [
+      "Resource.4-A"
+    ],
+    "Base.BucketPlasterFull": [
+      "Misc.9-A"
+    ],
+    "Base.BucketWaterFull": [
+      "Resource.4-A"
+    ],
+    "Base.Bullets38": [
+      "Combat.2-K"
+    ],
+    "Base.Bullets38Box": [
+      "Misc.9-A"
+    ],
+    "Base.Bullets44": [
+      "Combat.2-K"
+    ],
+    "Base.Bullets44Box": [
+      "Misc.9-A"
+    ],
+    "Base.Bullets45": [
+      "Combat.2-K"
+    ],
+    "Base.Bullets45Box": [
+      "Misc.9-A"
+    ],
+    "Base.Bullets9mm": [
+      "Combat.2-K"
+    ],
+    "Base.Bullets9mmBox": [
+      "Misc.9-A"
+    ],
+    "Base.BunnySuitBlack": [
+      "Misc.9-A"
+    ],
+    "Base.BunnySuitPink": [
+      "Misc.9-A"
+    ],
+    "Base.BunnyTail": [
+      "Misc.9-A"
+    ],
+    "Base.Burger": [
+      "Consumable.3-A"
+    ],
+    "Base.BurgerRecipe": [
+      "Consumable.3-A"
+    ],
+    "Base.Burrito": [
+      "Consumable.3-A"
+    ],
+    "Base.BurritoRecipe": [
+      "Consumable.3-A"
+    ],
+    "Base.Butter": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.ButterKnife": [
+      "Combat.2-E"
+    ],
+    "Base.Button": [
+      "Misc.9-A"
+    ],
+    "Base.CakeBatter": [
+      "Resource.4-B"
+    ],
+    "Base.CakeBlackForest": [
+      "Consumable.3-A"
+    ],
+    "Base.CakeCarrot": [
+      "Consumable.3-A"
+    ],
+    "Base.CakeCheeseCake": [
+      "Consumable.3-A"
+    ],
+    "Base.CakeChocolate": [
+      "Consumable.3-A"
+    ],
+    "Base.CakePrep": [
+      "Consumable.3-A"
+    ],
+    "Base.CakeRaw": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.CakeRedVelvet": [
+      "Consumable.3-A"
+    ],
+    "Base.CakeSlice": [
+      "Consumable.3-A"
+    ],
+    "Base.CakeStrawberryShortcake": [
+      "Consumable.3-A"
+    ],
+    "Base.Camera": [
+      "Misc.9-A"
+    ],
+    "Base.CameraDisposable": [
+      "Misc.9-A"
+    ],
+    "Base.CameraExpensive": [
+      "Misc.9-A"
+    ],
+    "Base.CameraFilm": [
+      "Misc.9-A"
+    ],
+    "Base.Candle": [
+      "Misc.9-A"
+    ],
+    "Base.CandleLit": [
+      "Tool.1-H"
+    ],
+    "Base.CandyCorn": [
+      "Consumable.3-A"
+    ],
+    "Base.CandyFruitSlices": [
+      "Consumable.3-A"
+    ],
+    "Base.CandyPackage": [
+      "Resource.4-B"
+    ],
+    "Base.Candycane": [
+      "Consumable.3-A"
+    ],
+    "Base.CannedBellPepper": [
+      "Resource.4-B"
+    ],
+    "Base.CannedBolognese": [
+      "Resource.4-B"
+    ],
+    "Base.CannedBologneseOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.CannedBroccoli": [
+      "Resource.4-B"
+    ],
+    "Base.CannedCabbage": [
+      "Resource.4-B"
+    ],
+    "Base.CannedCarrots": [
+      "Resource.4-B"
+    ],
+    "Base.CannedCarrots2": [
+      "Resource.4-B"
+    ],
+    "Base.CannedCarrotsOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.CannedChili": [
+      "Resource.4-B"
+    ],
+    "Base.CannedChiliOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.CannedCorn": [
+      "Resource.4-B"
+    ],
+    "Base.CannedCornOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.CannedCornedBeef": [
+      "Resource.4-B"
+    ],
+    "Base.CannedCornedBeefOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.CannedEggplant": [
+      "Resource.4-B"
+    ],
+    "Base.CannedFruitBeverage": [
+      "Resource.4-B"
+    ],
+    "Base.CannedFruitBeverageOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.CannedFruitCocktail": [
+      "Resource.4-B"
+    ],
+    "Base.CannedFruitCocktailOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.CannedLeek": [
+      "Resource.4-B"
+    ],
+    "Base.CannedMilk": [
+      "Resource.4-B"
+    ],
+    "Base.CannedMilkOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.CannedMushroomSoup": [
+      "Resource.4-B"
+    ],
+    "Base.CannedMushroomSoupOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.CannedPeaches": [
+      "Resource.4-B"
+    ],
+    "Base.CannedPeachesOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.CannedPeas": [
+      "Resource.4-B"
+    ],
+    "Base.CannedPeasOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.CannedPineapple": [
+      "Resource.4-B"
+    ],
+    "Base.CannedPineappleOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.CannedPotato": [
+      "Resource.4-B"
+    ],
+    "Base.CannedPotato2": [
+      "Resource.4-B"
+    ],
+    "Base.CannedPotatoOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.CannedRedRadish": [
+      "Resource.4-B"
+    ],
+    "Base.CannedSardines": [
+      "Resource.4-B"
+    ],
+    "Base.CannedSardinesOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.CannedTomato": [
+      "Resource.4-B"
+    ],
+    "Base.CannedTomato2": [
+      "Resource.4-B"
+    ],
+    "Base.CannedTomatoOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.CanoePadel": [
+      "Combat.2-B"
+    ],
+    "Base.CanoePadelX2": [
+      "Combat.2-B"
+    ],
+    "Base.CarBattery1": [
+      "Vehicle.8-A"
+    ],
+    "Base.CarBattery2": [
+      "Vehicle.8-A"
+    ],
+    "Base.CarBattery3": [
+      "Vehicle.8-A"
+    ],
+    "Base.CarBatteryCharger": [
+      "Misc.9-A"
+    ],
+    "Base.CarKey": [
+      "Tool.1-K"
+    ],
+    "Base.CardDeck": [
+      "Misc.9-A"
+    ],
+    "Base.Carrots": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.CarvingFork": [
+      "Misc.9-A"
+    ],
+    "Base.CaseyPic": [
+      "Misc.9-A"
+    ],
+    "Base.CatToy": [
+      "Misc.9-A"
+    ],
+    "Base.Catfish": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Centipede": [
+      "Consumable.3-A"
+    ],
+    "Base.Centipede2": [
+      "Consumable.3-A"
+    ],
+    "Base.Cereal": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.CerealBowl": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Chainsaw": [
+      "Combat.2-B"
+    ],
+    "Base.ChairLeg": [
+      "Combat.2-C"
+    ],
+    "Base.Charcoal": [
+      "Misc.9-A"
+    ],
+    "Base.CheckerBoard": [
+      "Misc.9-A"
+    ],
+    "Base.Cheese": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.CheeseSandwich": [
+      "Consumable.3-A"
+    ],
+    "Base.Cherry": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.ChessBlack": [
+      "Misc.9-A"
+    ],
+    "Base.ChessWhite": [
+      "Misc.9-A"
+    ],
+    "Base.Chicken": [
+      "Consumable.3-A"
+    ],
+    "Base.ChickenFoot": [
+      "Consumable.3-A"
+    ],
+    "Base.ChickenFried": [
+      "Consumable.3-A"
+    ],
+    "Base.ChickenNuggets": [
+      "Consumable.3-A"
+    ],
+    "Base.Chives": [
+      "Consumable.3-A"
+    ],
+    "Base.ChocoCakes": [
+      "Consumable.3-A"
+    ],
+    "Base.Chocolate": [
+      "Consumable.3-A"
+    ],
+    "Base.ChocolateChips": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.ChocolateCoveredCoffeeBeans": [
+      "Consumable.3-A"
+    ],
+    "Base.ChokeTubeFull": [
+      "Combat.2-L"
+    ],
+    "Base.ChokeTubeImproved": [
+      "Combat.2-L"
+    ],
+    "Base.Chopsticks": [
+      "Misc.9-A"
+    ],
+    "Base.ChrisPic": [
+      "Misc.9-A"
+    ],
+    "Base.Cigar": [
+      "Consumable.3-D"
+    ],
+    "Base.Cigarettes": [
+      "Consumable.3-A",
+      "Consumable.3-D"
+    ],
+    "Base.Cilantro": [
+      "Consumable.3-A"
+    ],
+    "Base.CinnamonRoll": [
+      "Consumable.3-A"
+    ],
+    "Base.CleaningLiquid": [
+      "Misc.9-A"
+    ],
+    "Base.CleaningLiquid2": [
+      "Misc.9-A"
+    ],
+    "Base.ClosedUmbrellaBlack": [
+      "Combat.2-F"
+    ],
+    "Base.ClosedUmbrellaBlue": [
+      "Combat.2-F"
+    ],
+    "Base.ClosedUmbrellaRed": [
+      "Combat.2-F"
+    ],
+    "Base.ClosedUmbrellaWhite": [
+      "Combat.2-F"
+    ],
+    "Base.ClubHammer": [
+      "Combat.2-C"
+    ],
+    "Base.Coal": [
+      "Misc.9-A"
+    ],
+    "Base.Cockroach": [
+      "Consumable.3-A"
+    ],
+    "Base.CocoaPowder": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.Coffee2": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.ColdCuppa": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Tool.1-D"
+    ],
+    "Base.ColdDrinkRed": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Tool.1-D"
+    ],
+    "Base.ColdDrinkSpiffo": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Tool.1-D"
+    ],
+    "Base.ColdDrinkWhite": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Tool.1-D"
+    ],
+    "Base.Coldpack": [
+      "Resource.4-E"
+    ],
+    "Base.Cologne": [
+      "Misc.9-A"
+    ],
+    "Base.Comb": [
+      "Misc.9-A"
+    ],
+    "Base.CombinationPadlock": [
+      "Tool.1-K"
+    ],
+    "Base.Comfrey": [
+      "Consumable.3-E",
+      "Resource.4-C"
+    ],
+    "Base.ComfreyCataplasm": [
+      "Misc.9-A"
+    ],
+    "Base.ComicBook": [
+      "Literature.5-D"
+    ],
+    "Base.CommonMallow": [
+      "Consumable.3-A",
+      "Consumable.3-E"
+    ],
+    "Base.CompostBag": [
+      "Misc.9-A"
+    ],
+    "Base.ConcretePowder": [
+      "Misc.9-A"
+    ],
+    "Base.Cone": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.ConeIcecream": [
+      "Consumable.3-A"
+    ],
+    "Base.ConeIcecreamMelted": [
+      "Consumable.3-A"
+    ],
+    "Base.ConeIcecreamToppings": [
+      "Consumable.3-A"
+    ],
+    "Base.CookieChocolateChip": [
+      "Consumable.3-A"
+    ],
+    "Base.CookieChocolateChipDough": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.CookieJelly": [
+      "Consumable.3-A"
+    ],
+    "Base.CookiesChocolate": [
+      "Consumable.3-A"
+    ],
+    "Base.CookiesChocolateDough": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.CookiesOatmeal": [
+      "Consumable.3-A"
+    ],
+    "Base.CookiesOatmealDough": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.CookiesShortbread": [
+      "Consumable.3-A"
+    ],
+    "Base.CookiesShortbreadDough": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.CookiesSugar": [
+      "Consumable.3-A"
+    ],
+    "Base.CookiesSugarDough": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.CookingMag1": [
+      "Literature.5-B"
+    ],
+    "Base.CookingMag2": [
+      "Literature.5-B"
+    ],
+    "Base.Cooler": [
+      "Tool.1-L"
+    ],
+    "Base.CordlessPhone": [
+      "Resource.4-E"
+    ],
+    "Base.Cork": [
+      "Misc.9-A"
+    ],
+    "Base.Corkscrew": [
+      "Misc.9-A"
+    ],
+    "Base.Corn": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.CornFrozen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Cornbread": [
+      "Consumable.3-A"
+    ],
+    "Base.Corndog": [
+      "Consumable.3-A"
+    ],
+    "Base.Cornflour": [
+      "Misc.9-A"
+    ],
+    "Base.Cornmeal": [
+      "Misc.9-A"
+    ],
+    "Base.Corset": [
+      "Misc.9-A"
+    ],
+    "Base.Corset_Black": [
+      "Misc.9-A"
+    ],
+    "Base.Corset_Medical": [
+      "Misc.9-A"
+    ],
+    "Base.Corset_Red": [
+      "Misc.9-A"
+    ],
+    "Base.CortmanPic": [
+      "Misc.9-A"
+    ],
+    "Base.CottonBalls": [
+      "Consumable.3-C",
+      "Resource.4-C"
+    ],
+    "Base.Crackers": [
+      "Consumable.3-A"
+    ],
+    "Base.CraftedFishingRod": [
+      "Combat.2-B",
+      "Tool.1-G"
+    ],
+    "Base.CraftedFishingRodTwineLine": [
+      "Combat.2-B",
+      "Tool.1-G"
+    ],
+    "Base.Crappie": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Crayfish": [
+      "Consumable.3-A"
+    ],
+    "Base.Crayons": [
+      "Misc.9-A"
+    ],
+    "Base.CreditCard": [
+      "Misc.9-A"
+    ],
+    "Base.Cricket": [
+      "Consumable.3-A"
+    ],
+    "Base.Crisps": [
+      "Consumable.3-A"
+    ],
+    "Base.Crisps2": [
+      "Consumable.3-A"
+    ],
+    "Base.Crisps3": [
+      "Consumable.3-A"
+    ],
+    "Base.Crisps4": [
+      "Consumable.3-A"
+    ],
+    "Base.Croissant": [
+      "Consumable.3-A"
+    ],
+    "Base.Crowbar": [
+      "Combat.2-B",
+      "Tool.1-B"
+    ],
+    "Base.Cube": [
+      "Misc.9-A"
+    ],
+    "Base.Cupcake": [
+      "Consumable.3-A"
+    ],
+    "Base.CuttingBoardPlastic": [
+      "Misc.9-A"
+    ],
+    "Base.CuttingBoardWooden": [
+      "Misc.9-A"
+    ],
+    "Base.Daikon": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Dandelions": [
+      "Consumable.3-A"
+    ],
+    "Base.Dart": [
+      "Misc.9-A"
+    ],
+    "Base.DeadBird": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.DeadMouse": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.DeadRabbit": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.DeadRat": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.DeadSquirrel": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.DehydratedMeatStick": [
+      "Consumable.3-A"
+    ],
+    "Base.DenimStrips": [
+      "Consumable.3-C",
+      "Resource.4-C",
+      "Resource.4-E"
+    ],
+    "Base.DenimStripsDirty": [
+      "Consumable.3-C",
+      "Resource.4-C",
+      "Resource.4-E"
+    ],
+    "Base.Dice": [
+      "Misc.9-A"
+    ],
+    "Base.DigitalWatch": [
+      "Misc.9-A"
+    ],
+    "Base.DigitalWatch2": [
+      "Misc.9-A"
+    ],
+    "Base.Dirtbag": [
+      "Misc.9-A"
+    ],
+    "Base.Disc": [
+      "Misc.9-A"
+    ],
+    "Base.Disc_Retail": [
+      "Misc.9-A"
+    ],
+    "Base.DishCloth": [
+      "Misc.9-A"
+    ],
+    "Base.DishClothWet": [
+      "Misc.9-A"
+    ],
+    "Base.Disinfectant": [
+      "Consumable.3-C"
+    ],
+    "Base.DogChew": [
+      "Misc.9-A"
+    ],
+    "Base.Dogfood": [
+      "Resource.4-B"
+    ],
+    "Base.DogfoodOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.Doll": [
+      "Misc.9-A"
+    ],
+    "Base.Doodle": [
+      "Literature.5-D"
+    ],
+    "Base.Doorknob": [
+      "Resource.4-A"
+    ],
+    "Base.DoubleBarrelShotgun": [
+      "Combat.2-I"
+    ],
+    "Base.DoubleBarrelShotgunSawnoff": [
+      "Combat.2-I"
+    ],
+    "Base.Dough": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.DoughRolled": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.DoughnutChocolate": [
+      "Consumable.3-A"
+    ],
+    "Base.DoughnutFrosted": [
+      "Consumable.3-A"
+    ],
+    "Base.DoughnutJelly": [
+      "Consumable.3-A"
+    ],
+    "Base.DoughnutPlain": [
+      "Consumable.3-A"
+    ],
+    "Base.Drawer": [
+      "Misc.9-A"
+    ],
+    "Base.DressKnees_Straps": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_Knees": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_Long": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_Normal": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_SatinNegligee": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_Short": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_SmallBlackStrapless": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_SmallBlackStraps": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_SmallStrapless": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_SmallStraps": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_Straps": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Dress_long_Straps": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.DriedBlackBeans": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.DriedChickpeas": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.DriedKidneyBeans": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.DriedLentils": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.DriedSplitPeas": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.DriedWhiteBeans": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Drumstick": [
+      "Combat.2-C"
+    ],
+    "Base.DuctTape": [
+      "Resource.4-E"
+    ],
+    "Base.DumbBell": [
+      "Combat.2-C"
+    ],
+    "Base.Dungarees": [
+      "Wearable.6-C"
+    ],
+    "Base.Earbuds": [
+      "Resource.4-E"
+    ],
+    "Base.Earring_Dangly_Diamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Dangly_Emerald": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Dangly_Pearl": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Dangly_Ruby": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Dangly_Sapphire": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_LoopLrg_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_LoopLrg_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_LoopMed_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_LoopMed_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_LoopSmall_Gold_Both": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_LoopSmall_Gold_Top": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_LoopSmall_Silver_Both": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_LoopSmall_Silver_Top": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Pearl": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Stone_Emerald": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Stone_Ruby": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Stone_Sapphire": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Stud_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.Earring_Stud_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Earrings": [
+      "Misc.9-A"
+    ],
+    "Base.Edamame": [
+      "Consumable.3-A"
+    ],
+    "Base.Egg": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.EggBoiled": [
+      "Consumable.3-A"
+    ],
+    "Base.EggCarton": [
+      "Resource.4-B"
+    ],
+    "Base.EggOmelette": [
+      "Consumable.3-A"
+    ],
+    "Base.EggPoached": [
+      "Consumable.3-A"
+    ],
+    "Base.EggScrambled": [
+      "Consumable.3-A"
+    ],
+    "Base.Eggplant": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.ElectronicsMag1": [
+      "Literature.5-B"
+    ],
+    "Base.ElectronicsMag2": [
+      "Literature.5-B"
+    ],
+    "Base.ElectronicsMag3": [
+      "Literature.5-B"
+    ],
+    "Base.ElectronicsMag4": [
+      "Literature.5-B"
+    ],
+    "Base.ElectronicsMag5": [
+      "Literature.5-B"
+    ],
+    "Base.ElectronicsScrap": [
+      "Resource.4-E"
+    ],
+    "Base.EmptyJar": [
+      "Resource.4-B"
+    ],
+    "Base.EmptyPetrolCan": [
+      "Misc.9-A"
+    ],
+    "Base.EmptySandbag": [
+      "Tool.1-L"
+    ],
+    "Base.EngineDoor1": [
+      "Vehicle.8-B"
+    ],
+    "Base.EngineDoor2": [
+      "Vehicle.8-B"
+    ],
+    "Base.EngineDoor3": [
+      "Vehicle.8-B"
+    ],
+    "Base.EngineParts": [
+      "Vehicle.8-A"
+    ],
+    "Base.EngineerMagazine1": [
+      "Literature.5-B"
+    ],
+    "Base.EngineerMagazine2": [
+      "Literature.5-B"
+    ],
+    "Base.Eraser": [
+      "Misc.9-A"
+    ],
+    "Base.Extinguisher": [
+      "Misc.9-A"
+    ],
+    "Base.FarmingMag1": [
+      "Literature.5-B"
+    ],
+    "Base.Fertilizer": [
+      "Misc.9-A"
+    ],
+    "Base.FertilizerEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.FiberglassStock": [
+      "Combat.2-L"
+    ],
+    "Base.FireWoodKit": [
+      "Misc.9-A"
+    ],
+    "Base.FirstAidKit": [
+      "Consumable.3-C",
+      "Tool.1-L"
+    ],
+    "Base.FishFillet": [
+      "Consumable.3-A"
+    ],
+    "Base.FishFried": [
+      "Consumable.3-A"
+    ],
+    "Base.FishRoe": [
+      "Consumable.3-A"
+    ],
+    "Base.FishingLine": [
+      "Misc.9-A"
+    ],
+    "Base.FishingMag1": [
+      "Literature.5-B"
+    ],
+    "Base.FishingMag2": [
+      "Literature.5-B"
+    ],
+    "Base.FishingNet": [
+      "Misc.9-A"
+    ],
+    "Base.FishingRod": [
+      "Combat.2-B",
+      "Tool.1-G"
+    ],
+    "Base.FishingRodBreak": [
+      "Combat.2-B"
+    ],
+    "Base.FishingRodTwineLine": [
+      "Combat.2-B",
+      "Tool.1-G"
+    ],
+    "Base.FishingTackle": [
+      "Misc.9-A"
+    ],
+    "Base.FishingTackle2": [
+      "Misc.9-A"
+    ],
+    "Base.FlameTrap": [
+      "Resource.4-E"
+    ],
+    "Base.FlameTrapRemote": [
+      "Misc.9-A"
+    ],
+    "Base.FlameTrapSensorV1": [
+      "Misc.9-A"
+    ],
+    "Base.FlameTrapSensorV2": [
+      "Misc.9-A"
+    ],
+    "Base.FlameTrapSensorV3": [
+      "Misc.9-A"
+    ],
+    "Base.FlameTrapTriggered": [
+      "Misc.9-A"
+    ],
+    "Base.Flightcase": [
+      "Tool.1-L"
+    ],
+    "Base.FlintKnife": [
+      "Combat.2-E"
+    ],
+    "Base.Flour": [
+      "Resource.4-B"
+    ],
+    "Base.FluffyfootBunny": [
+      "Misc.9-A"
+    ],
+    "Base.Flute": [
+      "Combat.2-C"
+    ],
+    "Base.Football": [
+      "Misc.9-A"
+    ],
+    "Base.Football2": [
+      "Misc.9-A"
+    ],
+    "Base.Fork": [
+      "Combat.2-E"
+    ],
+    "Base.FountainCup": [
+      "Misc.9-A"
+    ],
+    "Base.Frame": [
+      "Misc.9-A"
+    ],
+    "Base.FreddyFox": [
+      "Misc.9-A"
+    ],
+    "Base.FriedOnionRings": [
+      "Consumable.3-A"
+    ],
+    "Base.FriedOnionRingsCraft": [
+      "Consumable.3-A"
+    ],
+    "Base.Fries": [
+      "Consumable.3-A"
+    ],
+    "Base.FrillyUnderpants_Black": [
+      "Misc.9-A"
+    ],
+    "Base.FrillyUnderpants_Pink": [
+      "Misc.9-A"
+    ],
+    "Base.FrillyUnderpants_Red": [
+      "Misc.9-A"
+    ],
+    "Base.Frog": [
+      "Resource.4-B"
+    ],
+    "Base.FrogMeat": [
+      "Consumable.3-A"
+    ],
+    "Base.FrontCarDoor1": [
+      "Vehicle.8-B"
+    ],
+    "Base.FrontCarDoor2": [
+      "Vehicle.8-B"
+    ],
+    "Base.FrontCarDoor3": [
+      "Vehicle.8-B"
+    ],
+    "Base.FrontWindow1": [
+      "Vehicle.8-B"
+    ],
+    "Base.FrontWindow2": [
+      "Vehicle.8-B"
+    ],
+    "Base.FrontWindow3": [
+      "Vehicle.8-B"
+    ],
+    "Base.FruitSalad": [
+      "Consumable.3-A"
+    ],
+    "Base.FullKettle": [
+      "Tool.1-D"
+    ],
+    "Base.FurbertSquirrel": [
+      "Misc.9-A"
+    ],
+    "Base.GamePieceBlack": [
+      "Misc.9-A"
+    ],
+    "Base.GamePieceRed": [
+      "Misc.9-A"
+    ],
+    "Base.GamePieceWhite": [
+      "Misc.9-A"
+    ],
+    "Base.Garbagebag": [
+      "Tool.1-L"
+    ],
+    "Base.GardenFork": [
+      "Combat.2-F",
+      "Tool.1-E"
+    ],
+    "Base.GardenHoe": [
+      "Combat.2-B",
+      "Tool.1-E"
+    ],
+    "Base.GardenSaw": [
+      "Tool.1-A"
+    ],
+    "Base.Garter": [
+      "Misc.9-A"
+    ],
+    "Base.Generator": [
+      "Tool.1-J"
+    ],
+    "Base.Ghillie_Top": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Ghillie_Trousers": [
+      "Wearable.6-C"
+    ],
+    "Base.GingerPickled": [
+      "Consumable.3-A"
+    ],
+    "Base.GingerRoot": [
+      "Consumable.3-A",
+      "Consumable.3-E"
+    ],
+    "Base.Ginseng": [
+      "Consumable.3-A",
+      "Consumable.3-E"
+    ],
+    "Base.GlassTumbler": [
+      "Tool.1-D"
+    ],
+    "Base.GlassTumblerWater": [
+      "Tool.1-D"
+    ],
+    "Base.GlassWine": [
+      "Tool.1-D"
+    ],
+    "Base.GlassWineWater": [
+      "Tool.1-D"
+    ],
+    "Base.Glasses": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_Aviators": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_Eyepatch_Left": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_Eyepatch_Right": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_Normal": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_Reading": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_SafetyGoggles": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_Shooting": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_SkiGoggles": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_Sun": [
+      "Wearable.6-G"
+    ],
+    "Base.Glasses_SwimmingGoggles": [
+      "Wearable.6-G"
+    ],
+    "Base.GloveBox1": [
+      "Vehicle.8-B"
+    ],
+    "Base.GloveBox2": [
+      "Vehicle.8-B"
+    ],
+    "Base.GloveBox3": [
+      "Vehicle.8-B"
+    ],
+    "Base.Gloves_BoxingBlue": [
+      "Wearable.6-D"
+    ],
+    "Base.Gloves_BoxingRed": [
+      "Wearable.6-D"
+    ],
+    "Base.Gloves_FingerlessGloves": [
+      "Wearable.6-D"
+    ],
+    "Base.Gloves_LeatherGloves": [
+      "Wearable.6-D"
+    ],
+    "Base.Gloves_LeatherGlovesBlack": [
+      "Wearable.6-D"
+    ],
+    "Base.Gloves_LongWomenGloves": [
+      "Wearable.6-D"
+    ],
+    "Base.Gloves_Surgical": [
+      "Wearable.6-D"
+    ],
+    "Base.Gloves_WhiteTINT": [
+      "Wearable.6-D"
+    ],
+    "Base.Glue": [
+      "Resource.4-E"
+    ],
+    "Base.GolfBall": [
+      "Misc.9-A"
+    ],
+    "Base.Golfclub": [
+      "Combat.2-B"
+    ],
+    "Base.GrahamCrackers": [
+      "Consumable.3-A"
+    ],
+    "Base.GranolaBar": [
+      "Consumable.3-A"
+    ],
+    "Base.GrapeLeaves": [
+      "Consumable.3-A"
+    ],
+    "Base.Grapefruit": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Grapes": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Grasshopper": [
+      "Consumable.3-A"
+    ],
+    "Base.Gravelbag": [
+      "Misc.9-A"
+    ],
+    "Base.Gravy": [
+      "Consumable.3-A"
+    ],
+    "Base.GravyMix": [
+      "Resource.4-B"
+    ],
+    "Base.GriddlePanFriedVegetables": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.GridlePan": [
+      "Combat.2-C"
+    ],
+    "Base.GrillBrush": [
+      "Misc.9-A"
+    ],
+    "Base.GrilledCheese": [
+      "Consumable.3-A"
+    ],
+    "Base.GroceryBag1": [
+      "Tool.1-L"
+    ],
+    "Base.GroceryBag2": [
+      "Tool.1-L"
+    ],
+    "Base.GroceryBag3": [
+      "Tool.1-L"
+    ],
+    "Base.GroceryBag4": [
+      "Tool.1-L"
+    ],
+    "Base.GroceryBag5": [
+      "Tool.1-L"
+    ],
+    "Base.Guacamole": [
+      "Consumable.3-A"
+    ],
+    "Base.GuitarAcoustic": [
+      "Combat.2-B"
+    ],
+    "Base.GuitarElectricBassBlack": [
+      "Combat.2-B"
+    ],
+    "Base.GuitarElectricBassBlue": [
+      "Combat.2-B"
+    ],
+    "Base.GuitarElectricBassRed": [
+      "Combat.2-B"
+    ],
+    "Base.GuitarElectricBlack": [
+      "Combat.2-B"
+    ],
+    "Base.GuitarElectricBlue": [
+      "Combat.2-B"
+    ],
+    "Base.GuitarElectricRed": [
+      "Combat.2-B"
+    ],
+    "Base.Guitarcase": [
+      "Tool.1-L"
+    ],
+    "Base.Gum": [
+      "Consumable.3-A"
+    ],
+    "Base.GummyBears": [
+      "Consumable.3-A"
+    ],
+    "Base.GummyWorms": [
+      "Consumable.3-A"
+    ],
+    "Base.GunLight": [
+      "Combat.2-L"
+    ],
+    "Base.GunPowder": [
+      "Resource.4-A",
+      "Resource.4-E"
+    ],
+    "Base.HairDyeBlack": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyeBlonde": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyeBlue": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyeGinger": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyeGreen": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyeLightBrown": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyePink": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyeRed": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyeWhite": [
+      "Misc.9-A"
+    ],
+    "Base.HairDyeYellow": [
+      "Misc.9-A"
+    ],
+    "Base.Hairgel": [
+      "Misc.9-A"
+    ],
+    "Base.Hairspray": [
+      "Misc.9-A"
+    ],
+    "Base.HalloweenPumpkin": [
+      "Consumable.3-A"
+    ],
+    "Base.Ham": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.HamSlice": [
+      "Consumable.3-A"
+    ],
+    "Base.Hammer": [
+      "Combat.2-C",
+      "Tool.1-B"
+    ],
+    "Base.HammerStone": [
+      "Combat.2-C"
+    ],
+    "Base.HandAxe": [
+      "Combat.2-A",
+      "Tool.1-D",
+      "Tool.1-E"
+    ],
+    "Base.HandFork": [
+      "Combat.2-E",
+      "Tool.1-E"
+    ],
+    "Base.HandScythe": [
+      "Combat.2-E"
+    ],
+    "Base.HandTorch": [
+      "Resource.4-E",
+      "Tool.1-H"
+    ],
+    "Base.Handbag": [
+      "Tool.1-L"
+    ],
+    "Base.Handle": [
+      "Resource.4-A"
+    ],
+    "Base.HankPic": [
+      "Misc.9-A"
+    ],
+    "Base.HardCandies": [
+      "Consumable.3-A"
+    ],
+    "Base.Hat_Antlers": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Army": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BalaclavaFace": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BalaclavaFull": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Bandana": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BandanaMask": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BandanaMaskTINT": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BandanaTINT": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BandanaTied": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BandanaTiedTINT": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCap": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapArmy": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapArmy_Reverse": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapBlue": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapBlue_Reverse": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapGreen": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapGreen_Reverse": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapKY": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapKY_Red": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapKY_Reverse": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapRed": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCapRed_Reverse": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballCap_Reverse": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballHelmet_KY": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballHelmet_Rangers": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BaseballHelmet_Z": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Beany": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Beret": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BeretArmy": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BicycleHelmet": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BonnieHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BonnieHat_CamoGreen": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BoxingBlue": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BoxingRed": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BucketHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BunnyEarsBlack": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_BunnyEarsWhite": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_ChefHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Cowboy": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_CrashHelmet": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_CrashHelmetFULL": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_CrashHelmet_Police": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_CrashHelmet_Stars": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_DustMask": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_EarMuff_Protectors": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_EarMuffs": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_FastFood": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_FastFood_IceCream": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_FastFood_Spiffo": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Fedora": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Fedora_Delmonte": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Fireman": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_FootballHelmet": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_FurryEars": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_GasMask": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_GoldStar": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_GolfHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_GolfHatTINT": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_HardHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_HardHat_Miner": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_HockeyHelmet": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_HockeyMask": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Jay": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_JockeyHelmet01": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_JockeyHelmet02": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_JockeyHelmet03": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_JockeyHelmet04": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_JockeyHelmet05": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_JockeyHelmet06": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_JokeArrow": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_JokeKnife": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_NBCmask": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_NewspaperHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_PartyHat_Stars": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_PartyHat_TINT": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_PeakedCapArmy": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Police": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Police_Grey": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Raccoon": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Ranger": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_RidingHelmet": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_RiotHelmet": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_SPHhelmet": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_SantaHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_SantaHatGreen": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_ShowerCap": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Spiffo": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_SummerHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_SurgicalCap_Blue": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_SurgicalCap_Green": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_SurgicalMask_Blue": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_SurgicalMask_Green": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Sweatband": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_TinFoilHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_VisorBlack": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_VisorRed": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_Visor_WhiteTINT": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_WeddingVeil": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_WinterHat": [
+      "Wearable.6-A"
+    ],
+    "Base.Hat_WoolyHat": [
+      "Wearable.6-A"
+    ],
+    "Base.HazmatSuit": [
+      "Wearable.6-A",
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.Headphones": [
+      "Resource.4-E"
+    ],
+    "Base.HerbalistMag": [
+      "Literature.5-B"
+    ],
+    "Base.HiHis": [
+      "Consumable.3-A"
+    ],
+    "Base.Hinge": [
+      "Misc.9-A"
+    ],
+    "Base.HockeyStick": [
+      "Combat.2-B"
+    ],
+    "Base.HolePuncher": [
+      "Misc.9-A"
+    ],
+    "Base.HollyBerry": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.HolsterDouble": [
+      "Wearable.6-G"
+    ],
+    "Base.HolsterSimple": [
+      "Wearable.6-G"
+    ],
+    "Base.HomeAlarm": [
+      "Resource.4-E"
+    ],
+    "Base.Honey": [
+      "Consumable.3-A",
+      "Consumable.3-E"
+    ],
+    "Base.HoodieDOWN_WhiteTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.HoodieUP_WhiteTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.HospitalGown": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.HotDrink": [
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Consumable.3-E",
+      "Tool.1-D"
+    ],
+    "Base.HotDrinkRed": [
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Consumable.3-E",
+      "Tool.1-D"
+    ],
+    "Base.HotDrinkSpiffo": [
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Consumable.3-E",
+      "Tool.1-D"
+    ],
+    "Base.HotDrinkTea": [
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Consumable.3-E",
+      "Tool.1-D"
+    ],
+    "Base.HotDrinkWhite": [
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Consumable.3-E",
+      "Tool.1-D"
+    ],
+    "Base.Hotdog": [
+      "Consumable.3-A"
+    ],
+    "Base.Hotsauce": [
+      "Consumable.3-A"
+    ],
+    "Base.HottieZ": [
+      "Literature.5-D"
+    ],
+    "Base.HuntingKnife": [
+      "Combat.2-E",
+      "Tool.1-B"
+    ],
+    "Base.HuntingMag1": [
+      "Literature.5-B"
+    ],
+    "Base.HuntingMag2": [
+      "Literature.5-B"
+    ],
+    "Base.HuntingMag3": [
+      "Literature.5-B"
+    ],
+    "Base.HuntingRifle": [
+      "Combat.2-H"
+    ],
+    "Base.IceHockeyStick": [
+      "Combat.2-B"
+    ],
+    "Base.IcePick": [
+      "Combat.2-E"
+    ],
+    "Base.Icecream": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.IcecreamMelted": [
+      "Consumable.3-A"
+    ],
+    "Base.Icing": [
+      "Consumable.3-A"
+    ],
+    "Base.IronIngot": [
+      "Resource.4-A"
+    ],
+    "Base.IronSight": [
+      "Combat.2-L"
+    ],
+    "Base.Jack": [
+      "Misc.9-A"
+    ],
+    "Base.JacketLong_Doctor": [
+      "Wearable.6-B"
+    ],
+    "Base.JacketLong_Random": [
+      "Wearable.6-B"
+    ],
+    "Base.JacketLong_Santa": [
+      "Wearable.6-B"
+    ],
+    "Base.JacketLong_SantaGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_ArmyCamoDesert": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_ArmyCamoGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Black": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Chef": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_CoatArmy": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Fireman": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_LeatherBarrelDogs": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_LeatherIronRodent": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_LeatherWildRacoons": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_NavyBlue": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Padded": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_PaddedDOWN": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Police": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Ranger": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Shellsuit_Black": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Shellsuit_Blue": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Shellsuit_Green": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Shellsuit_Pink": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Shellsuit_TINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Shellsuit_Teal": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_Varsity": [
+      "Wearable.6-B"
+    ],
+    "Base.Jacket_WhiteTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.JacquesBeaver": [
+      "Misc.9-A"
+    ],
+    "Base.JamFruit": [
+      "Consumable.3-A"
+    ],
+    "Base.JamMarmalade": [
+      "Consumable.3-A"
+    ],
+    "Base.JamesPic": [
+      "Misc.9-A"
+    ],
+    "Base.JarLid": [
+      "Resource.4-B"
+    ],
+    "Base.JellyBeans": [
+      "Consumable.3-A"
+    ],
+    "Base.Journal": [
+      "Literature.5-D"
+    ],
+    "Base.JuiceBox": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Jujubes": [
+      "Consumable.3-A"
+    ],
+    "Base.Jumper_DiamondPatternTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Jumper_PoloNeck": [
+      "Wearable.6-B"
+    ],
+    "Base.Jumper_RoundNeck": [
+      "Wearable.6-B"
+    ],
+    "Base.Jumper_TankTopDiamondTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Jumper_TankTopTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Jumper_VNeck": [
+      "Wearable.6-B"
+    ],
+    "Base.Katana": [
+      "Combat.2-D"
+    ],
+    "Base.KatePic": [
+      "Misc.9-A"
+    ],
+    "Base.Ketchup": [
+      "Consumable.3-A"
+    ],
+    "Base.Kettle": [
+      "Tool.1-D"
+    ],
+    "Base.Key1": [
+      "Tool.1-K"
+    ],
+    "Base.Key2": [
+      "Tool.1-K"
+    ],
+    "Base.Key3": [
+      "Tool.1-K"
+    ],
+    "Base.Key4": [
+      "Tool.1-K"
+    ],
+    "Base.Key5": [
+      "Tool.1-K"
+    ],
+    "Base.KeyPadlock": [
+      "Tool.1-K"
+    ],
+    "Base.KeyRing": [
+      "Tool.1-L"
+    ],
+    "Base.Keytar": [
+      "Combat.2-B"
+    ],
+    "Base.KitchenKnife": [
+      "Combat.2-E",
+      "Tool.1-B"
+    ],
+    "Base.KitchenTongs": [
+      "Misc.9-A"
+    ],
+    "Base.KnittingNeedles": [
+      "Misc.9-A"
+    ],
+    "Base.LaCrosseStick": [
+      "Combat.2-B"
+    ],
+    "Base.Lamp": [
+      "Misc.9-A"
+    ],
+    "Base.Lard": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Laser": [
+      "Combat.2-L"
+    ],
+    "Base.LeadPipe": [
+      "Combat.2-C"
+    ],
+    "Base.LeafRake": [
+      "Combat.2-B"
+    ],
+    "Base.Leash": [
+      "Misc.9-A"
+    ],
+    "Base.LeatherStrips": [
+      "Consumable.3-C"
+    ],
+    "Base.LeatherStripsDirty": [
+      "Consumable.3-C",
+      "Resource.4-C"
+    ],
+    "Base.Leek": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.Lemon": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-E"
+    ],
+    "Base.LemonGrass": [
+      "Consumable.3-A",
+      "Consumable.3-E"
+    ],
+    "Base.Lemongrass": [
+      "Consumable.3-E"
+    ],
+    "Base.LetterOpener": [
+      "Combat.2-E"
+    ],
+    "Base.Lettuce": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.LicoriceBlack": [
+      "Consumable.3-A"
+    ],
+    "Base.LicoriceRed": [
+      "Consumable.3-A"
+    ],
+    "Base.LightBulb": [
+      "Resource.4-E"
+    ],
+    "Base.LightBulbBlue": [
+      "Misc.9-A"
+    ],
+    "Base.LightBulbCyan": [
+      "Misc.9-A"
+    ],
+    "Base.LightBulbGreen": [
+      "Resource.4-E"
+    ],
+    "Base.LightBulbMagenta": [
+      "Misc.9-A"
+    ],
+    "Base.LightBulbOrange": [
+      "Misc.9-A"
+    ],
+    "Base.LightBulbPink": [
+      "Misc.9-A"
+    ],
+    "Base.LightBulbPurple": [
+      "Misc.9-A"
+    ],
+    "Base.LightBulbRed": [
+      "Misc.9-A"
+    ],
+    "Base.LightBulbYellow": [
+      "Misc.9-A"
+    ],
+    "Base.Lighter": [
+      "Tool.1-H"
+    ],
+    "Base.Lime": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-E"
+    ],
+    "Base.Lipstick": [
+      "Misc.9-A"
+    ],
+    "Base.Lobster": [
+      "Consumable.3-A"
+    ],
+    "Base.Locket": [
+      "Misc.9-A"
+    ],
+    "Base.Log": [
+      "Resource.4-A",
+      "Tool.1-D"
+    ],
+    "Base.LogStacks2": [
+      "Resource.4-A"
+    ],
+    "Base.LogStacks3": [
+      "Resource.4-A"
+    ],
+    "Base.LogStacks4": [
+      "Resource.4-A"
+    ],
+    "Base.Lollipop": [
+      "Consumable.3-A"
+    ],
+    "Base.LongCoat_Bathrobe": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.LongJohns": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.LongJohns_Bottoms": [
+      "Wearable.6-C"
+    ],
+    "Base.LouisvilleMap1": [
+      "Literature.5-C"
+    ],
+    "Base.LouisvilleMap2": [
+      "Literature.5-C"
+    ],
+    "Base.LouisvilleMap3": [
+      "Literature.5-C"
+    ],
+    "Base.LouisvilleMap4": [
+      "Literature.5-C"
+    ],
+    "Base.LouisvilleMap5": [
+      "Literature.5-C"
+    ],
+    "Base.LouisvilleMap6": [
+      "Literature.5-C"
+    ],
+    "Base.LouisvilleMap7": [
+      "Literature.5-C"
+    ],
+    "Base.LouisvilleMap8": [
+      "Literature.5-C"
+    ],
+    "Base.LouisvilleMap9": [
+      "Literature.5-C"
+    ],
+    "Base.LugWrench": [
+      "Misc.9-A"
+    ],
+    "Base.Lunchbag": [
+      "Tool.1-L"
+    ],
+    "Base.Lunchbox": [
+      "Tool.1-L"
+    ],
+    "Base.Lunchbox2": [
+      "Tool.1-L"
+    ],
+    "Base.M14Clip": [
+      "Misc.9-A"
+    ],
+    "Base.Macandcheese": [
+      "Consumable.3-A"
+    ],
+    "Base.Machete": [
+      "Combat.2-D"
+    ],
+    "Base.Magazine": [
+      "Literature.5-D"
+    ],
+    "Base.MagazineCrossword1": [
+      "Literature.5-D"
+    ],
+    "Base.MagazineCrossword2": [
+      "Literature.5-D"
+    ],
+    "Base.MagazineCrossword3": [
+      "Literature.5-D"
+    ],
+    "Base.MagazineWordsearch1": [
+      "Literature.5-D"
+    ],
+    "Base.MagazineWordsearch2": [
+      "Literature.5-D"
+    ],
+    "Base.MagazineWordsearch3": [
+      "Literature.5-D"
+    ],
+    "Base.Maggots": [
+      "Consumable.3-A"
+    ],
+    "Base.Maggots2": [
+      "Consumable.3-A"
+    ],
+    "Base.MakeupEyeshadow": [
+      "Misc.9-A"
+    ],
+    "Base.MakeupFoundation": [
+      "Misc.9-A"
+    ],
+    "Base.Maki": [
+      "Consumable.3-A"
+    ],
+    "Base.Male_Undies": [
+      "Misc.9-A"
+    ],
+    "Base.Mango": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Map": [
+      "Literature.5-C"
+    ],
+    "Base.MapleSyrup": [
+      "Consumable.3-A"
+    ],
+    "Base.MarchRidgeMap": [
+      "Literature.5-C"
+    ],
+    "Base.Margarine": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.MariannePic": [
+      "Misc.9-A"
+    ],
+    "Base.Marinara": [
+      "Consumable.3-A"
+    ],
+    "Base.Marshmallows": [
+      "Consumable.3-A"
+    ],
+    "Base.Matches": [
+      "Tool.1-H"
+    ],
+    "Base.Mattress": [
+      "Furniture.7-A"
+    ],
+    "Base.MeatCleaver": [
+      "Combat.2-E",
+      "Tool.1-D",
+      "Tool.1-G"
+    ],
+    "Base.MeatDumpling": [
+      "Consumable.3-A"
+    ],
+    "Base.MeatPatty": [
+      "Consumable.3-A"
+    ],
+    "Base.MeatSteamBun": [
+      "Consumable.3-A"
+    ],
+    "Base.MechanicMag1": [
+      "Literature.5-B"
+    ],
+    "Base.MechanicMag2": [
+      "Literature.5-B"
+    ],
+    "Base.MechanicMag3": [
+      "Literature.5-B"
+    ],
+    "Base.MetalBar": [
+      "Combat.2-C",
+      "Resource.4-A"
+    ],
+    "Base.MetalPipe": [
+      "Combat.2-C",
+      "Resource.4-A",
+      "Resource.4-E"
+    ],
+    "Base.MetalworkMag1": [
+      "Literature.5-B"
+    ],
+    "Base.MetalworkMag2": [
+      "Literature.5-B"
+    ],
+    "Base.MetalworkMag3": [
+      "Literature.5-B"
+    ],
+    "Base.MetalworkMag4": [
+      "Literature.5-B"
+    ],
+    "Base.Milk": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Millipede": [
+      "Consumable.3-A"
+    ],
+    "Base.Millipede2": [
+      "Consumable.3-A"
+    ],
+    "Base.MincedMeat": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.MintCandy": [
+      "Consumable.3-A"
+    ],
+    "Base.MixedVegetables": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.ModernBrake1": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernBrake2": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernBrake3": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernCarMuffler1": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernCarMuffler2": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernCarMuffler3": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernSuspension1": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernSuspension2": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernSuspension3": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernTire1": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernTire2": [
+      "Vehicle.8-A"
+    ],
+    "Base.ModernTire3": [
+      "Vehicle.8-A"
+    ],
+    "Base.Modjeska": [
+      "Consumable.3-A"
+    ],
+    "Base.MoleyMole": [
+      "Misc.9-A"
+    ],
+    "Base.Molotov": [
+      "Combat.2-J"
+    ],
+    "Base.MonarchCaterpillar": [
+      "Consumable.3-A"
+    ],
+    "Base.Money": [
+      "Misc.9-A"
+    ],
+    "Base.Mop": [
+      "Misc.9-A"
+    ],
+    "Base.MortarPestle": [
+      "Misc.9-A"
+    ],
+    "Base.MotionSensor": [
+      "Resource.4-E"
+    ],
+    "Base.Mov_AirConditioner": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_AntiqueStove": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_ArcadeMachine1": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_ArcadeMachine2": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_BeachChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_BinRound": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Birdbath": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_BlueComfyChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_BluePlasticChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_BlueRattanChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_BrownComfyChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_BrownLowTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_CabinetMedical": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_CabinetTool": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_CardboardBox": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_ChromeSink": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_CoffeeMaker": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_ConcreteMixer": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_CorkBoard": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_DarkBlueChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_DarkWoodenChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_DegreeDoctor": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_DegreeSurgeon": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_DesktopComputer": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Doghouse": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Espresso": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FancyBlackChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FancyDarkTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FancyLowTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FancyTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FancyToilet": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FancyWhiteChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FitnessContraption": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FlagAdmin": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FlagUSA": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FlagUSALarge": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FoldingChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_FridgeMini": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GardenGnome": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GraveArched": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GraveRound": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GraveSquare": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GraveWorn": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GreenChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GreenComfyChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GreenOven": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GreyChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GreyComfyChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_GreyOven": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_HotdogMachine": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_HuntingTrophy": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_IndustrialSink": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Lamp1": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Lamp2": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Lamp3": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Lamp4": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Lamp5": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Lamp6": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_LightConstruction": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_LightRoundTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_LongTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Mailbox": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MannequinFemale": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MannequinMale": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MapUSA": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MetalLocker": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MetalStool": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Microphone": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Microwave": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Microwave2": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MirrorLarge": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MirrorSmall": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MirrorTall": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MirrorWood": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MobileBloodbag": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_MobileCounter": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_ModernOven": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_NapkinDispenser": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_OakRoundTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_OfficeChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_OrangeFuton": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_OrangeModernChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PaintingBetty": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PaintingElisa": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PaintingGreen": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PaintingLibrary": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PalletEmpty": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PileOCrepeChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PinballMachine": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PinkFlamingo": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PlasticChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PlasticLowTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PopcornMachine": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterDroids": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterElement": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterMedical": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterOmega": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterPaws": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterPieBlue": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterPieGreen": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterPiePink": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PosterPieRed": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Projector": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PurpleRattanChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_PurpleWoodenChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_RedBBQ": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_RedChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_RedOven": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_RedWoodenChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_RoadBarrier": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_RoadCone": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_RoadCone2": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_RoundTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_SatelliteDish": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_ScaleMedical": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_ShoppingBaskets": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_SignArmy": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_SignCitrus": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_SignRestricted": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_SignWarning": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_SmallTable": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_SodaMachine": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_TVCamera": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Toaster": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_TowelDispenser": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_Urinal": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_WallClock": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_WaterDispenser": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_WhiteComfyChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_WhiteSimpleChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_WhiteSink": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_WhiteWoodenChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_WoodenChair": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_WoodenStool": [
+      "Furniture.7-A"
+    ],
+    "Base.Mov_YellowModernChair": [
+      "Furniture.7-A"
+    ],
+    "Base.MuffinFruit": [
+      "Consumable.3-A"
+    ],
+    "Base.MuffinGeneric": [
+      "Consumable.3-A"
+    ],
+    "Base.MuffinTray": [
+      "Resource.4-B"
+    ],
+    "Base.Muffintray_Biscuit": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.MugRed": [
+      "Tool.1-D"
+    ],
+    "Base.MugSpiffo": [
+      "Tool.1-D"
+    ],
+    "Base.MugWhite": [
+      "Tool.1-D"
+    ],
+    "Base.Mugfull": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D",
+      "Tool.1-D"
+    ],
+    "Base.Mugl": [
+      "Tool.1-D"
+    ],
+    "Base.MuldraughMap": [
+      "Literature.5-C"
+    ],
+    "Base.MushroomGeneric1": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.MushroomGeneric2": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.MushroomGeneric3": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.MushroomGeneric4": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.MushroomGeneric5": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.MushroomGeneric6": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.MushroomGeneric7": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Mustard": [
+      "Consumable.3-A"
+    ],
+    "Base.MuttonChop": [
+      "Consumable.3-A"
+    ],
+    "Base.Nails": [
+      "Resource.4-A"
+    ],
+    "Base.NailsBox": [
+      "Misc.9-A"
+    ],
+    "Base.NecklaceLong_Amber": [
+      "Wearable.6-G"
+    ],
+    "Base.NecklaceLong_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.NecklaceLong_GoldDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.NecklaceLong_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.NecklaceLong_SilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.NecklaceLong_SilverEmerald": [
+      "Wearable.6-G"
+    ],
+    "Base.NecklaceLong_SilverSapphire": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_Choker": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_Choker_Amber": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_Choker_Diamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_Choker_Sapphire": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_Crucifix": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_DogTag": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_GoldDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_GoldRuby": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_Pearl": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_SilverCrucifix": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_SilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_SilverSapphire": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklace_YingYang": [
+      "Wearable.6-G"
+    ],
+    "Base.Necklacepearl": [
+      "Misc.9-A"
+    ],
+    "Base.Needle": [
+      "Consumable.3-C",
+      "Tool.1-F"
+    ],
+    "Base.Nettles": [
+      "Consumable.3-A"
+    ],
+    "Base.Newspaper": [
+      "Literature.5-D",
+      "Resource.4-E"
+    ],
+    "Base.Nightstick": [
+      "Combat.2-C"
+    ],
+    "Base.NoiseMaker": [
+      "Combat.2-J"
+    ],
+    "Base.NoiseTrap": [
+      "Resource.4-E"
+    ],
+    "Base.NoiseTrapRemote": [
+      "Misc.9-A"
+    ],
+    "Base.NoiseTrapSensorV1": [
+      "Misc.9-A"
+    ],
+    "Base.NoiseTrapSensorV2": [
+      "Misc.9-A"
+    ],
+    "Base.NoiseTrapSensorV3": [
+      "Misc.9-A"
+    ],
+    "Base.NoiseTrapTriggered": [
+      "Misc.9-A"
+    ],
+    "Base.NoodleSoup": [
+      "Consumable.3-A"
+    ],
+    "Base.NormalBrake1": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalBrake2": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalBrake3": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalCarMuffler1": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalCarMuffler2": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalCarMuffler3": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalCarSeat1": [
+      "Vehicle.8-B"
+    ],
+    "Base.NormalCarSeat2": [
+      "Vehicle.8-B"
+    ],
+    "Base.NormalCarSeat3": [
+      "Vehicle.8-B"
+    ],
+    "Base.NormalGasTank1": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalGasTank2": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalGasTank3": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalSuspension1": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalSuspension2": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalSuspension3": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalTire1": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalTire2": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalTire3": [
+      "Vehicle.8-A"
+    ],
+    "Base.NormalTrunk1": [
+      "Vehicle.8-B"
+    ],
+    "Base.NormalTrunk2": [
+      "Vehicle.8-B"
+    ],
+    "Base.NormalTrunk3": [
+      "Vehicle.8-B"
+    ],
+    "Base.NoseRing_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.NoseRing_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.NoseStud_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.NoseStud_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Notebook": [
+      "Literature.5-D"
+    ],
+    "Base.Oatmeal": [
+      "Consumable.3-A"
+    ],
+    "Base.OatsRaw": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.OilOlive": [
+      "Consumable.3-A"
+    ],
+    "Base.OilVegetable": [
+      "Consumable.3-A"
+    ],
+    "Base.OldBrake1": [
+      "Vehicle.8-A"
+    ],
+    "Base.OldBrake2": [
+      "Vehicle.8-A"
+    ],
+    "Base.OldBrake3": [
+      "Vehicle.8-A"
+    ],
+    "Base.OldCarMuffler1": [
+      "Vehicle.8-A"
+    ],
+    "Base.OldCarMuffler2": [
+      "Vehicle.8-A"
+    ],
+    "Base.OldCarMuffler3": [
+      "Vehicle.8-A"
+    ],
+    "Base.OldTire1": [
+      "Vehicle.8-A"
+    ],
+    "Base.OldTire2": [
+      "Vehicle.8-A"
+    ],
+    "Base.OldTire3": [
+      "Vehicle.8-A"
+    ],
+    "Base.OmeletteRecipe": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Onigiri": [
+      "Consumable.3-A"
+    ],
+    "Base.Onion": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.OnionRings": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.OpenBeans": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Orange": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Oregano": [
+      "Consumable.3-A"
+    ],
+    "Base.OvenMitt": [
+      "Misc.9-A"
+    ],
+    "Base.Oysters": [
+      "Consumable.3-A"
+    ],
+    "Base.OystersFried": [
+      "Consumable.3-A"
+    ],
+    "Base.Padlock": [
+      "Tool.1-K"
+    ],
+    "Base.Painauchocolat": [
+      "Consumable.3-A"
+    ],
+    "Base.PaintBlack": [
+      "Misc.9-A"
+    ],
+    "Base.PaintBlue": [
+      "Misc.9-A"
+    ],
+    "Base.PaintBrown": [
+      "Misc.9-A"
+    ],
+    "Base.PaintCyan": [
+      "Misc.9-A"
+    ],
+    "Base.PaintGreen": [
+      "Misc.9-A"
+    ],
+    "Base.PaintGrey": [
+      "Misc.9-A"
+    ],
+    "Base.PaintLightBlue": [
+      "Misc.9-A"
+    ],
+    "Base.PaintLightBrown": [
+      "Misc.9-A"
+    ],
+    "Base.PaintOrange": [
+      "Misc.9-A"
+    ],
+    "Base.PaintPink": [
+      "Misc.9-A"
+    ],
+    "Base.PaintPurple": [
+      "Misc.9-A"
+    ],
+    "Base.PaintRed": [
+      "Misc.9-A"
+    ],
+    "Base.PaintTurquoise": [
+      "Misc.9-A"
+    ],
+    "Base.PaintWhite": [
+      "Misc.9-A"
+    ],
+    "Base.PaintYellow": [
+      "Misc.9-A"
+    ],
+    "Base.Paintbrush": [
+      "Misc.9-A"
+    ],
+    "Base.PaintbucketEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.Pan": [
+      "Combat.2-C",
+      "Resource.4-B"
+    ],
+    "Base.PanFriedVegetables": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.PanFriedVegetables2": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.PancakeHedgehog": [
+      "Misc.9-A"
+    ],
+    "Base.PancakeMix": [
+      "Resource.4-B"
+    ],
+    "Base.Pancakes": [
+      "Consumable.3-A"
+    ],
+    "Base.PancakesCraft": [
+      "Consumable.3-A"
+    ],
+    "Base.PancakesRecipe": [
+      "Consumable.3-A"
+    ],
+    "Base.Panfish": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.PaperBag": [
+      "Tool.1-L"
+    ],
+    "Base.PaperNapkins": [
+      "Misc.9-A"
+    ],
+    "Base.Paperbag_Jays": [
+      "Tool.1-L"
+    ],
+    "Base.Paperbag_Spiffos": [
+      "Tool.1-L"
+    ],
+    "Base.Paperclip": [
+      "Misc.9-A"
+    ],
+    "Base.PaperclipBox": [
+      "Misc.9-A"
+    ],
+    "Base.Parsley": [
+      "Consumable.3-A"
+    ],
+    "Base.Pasta": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.PastaBowl": [
+      "Consumable.3-A"
+    ],
+    "Base.PastaPan": [
+      "Resource.4-B"
+    ],
+    "Base.PastaPot": [
+      "Resource.4-B"
+    ],
+    "Base.Peach": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.PeanutButter": [
+      "Consumable.3-A"
+    ],
+    "Base.PeanutButterSandwich": [
+      "Consumable.3-A"
+    ],
+    "Base.Peanuts": [
+      "Consumable.3-A"
+    ],
+    "Base.Pear": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Peas": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Pen": [
+      "Misc.9-A"
+    ],
+    "Base.Pencil": [
+      "Misc.9-A"
+    ],
+    "Base.Pepper": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.PepperHabanero": [
+      "Consumable.3-A"
+    ],
+    "Base.PepperJalapeno": [
+      "Consumable.3-A"
+    ],
+    "Base.Peppermint": [
+      "Consumable.3-A"
+    ],
+    "Base.Pepperoni": [
+      "Consumable.3-A"
+    ],
+    "Base.PercedWood": [
+      "Misc.9-A"
+    ],
+    "Base.Perch": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Perfume": [
+      "Misc.9-A"
+    ],
+    "Base.Perogies": [
+      "Consumable.3-A"
+    ],
+    "Base.PetrolBleachBottle": [
+      "Resource.4-D"
+    ],
+    "Base.PetrolCan": [
+      "Resource.4-D"
+    ],
+    "Base.PetrolPopBottle": [
+      "Resource.4-D"
+    ],
+    "Base.PickAxe": [
+      "Combat.2-A",
+      "Tool.1-E"
+    ],
+    "Base.PickAxeHandle": [
+      "Combat.2-C"
+    ],
+    "Base.PickAxeHandleSpiked": [
+      "Combat.2-C"
+    ],
+    "Base.Pickles": [
+      "Consumable.3-A"
+    ],
+    "Base.Pie": [
+      "Consumable.3-A"
+    ],
+    "Base.PieApple": [
+      "Consumable.3-A"
+    ],
+    "Base.PieBlueberry": [
+      "Consumable.3-A"
+    ],
+    "Base.PieDough": [
+      "Resource.4-B"
+    ],
+    "Base.PieKeyLime": [
+      "Consumable.3-A"
+    ],
+    "Base.PieLemonMeringue": [
+      "Consumable.3-A"
+    ],
+    "Base.PiePrep": [
+      "Consumable.3-A"
+    ],
+    "Base.PiePumpkin": [
+      "Consumable.3-A"
+    ],
+    "Base.PieWholeRaw": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.PieWholeRawSweet": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Pike": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Pillbug": [
+      "Consumable.3-A"
+    ],
+    "Base.Pillow": [
+      "Resource.4-A"
+    ],
+    "Base.Pills": [
+      "Consumable.3-C"
+    ],
+    "Base.PillsAntiDep": [
+      "Consumable.3-C"
+    ],
+    "Base.PillsBeta": [
+      "Consumable.3-C"
+    ],
+    "Base.PillsSleepingTablets": [
+      "Consumable.3-C"
+    ],
+    "Base.PillsVitamins": [
+      "Consumable.3-C"
+    ],
+    "Base.Pineapple": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Pinecone": [
+      "Misc.9-A"
+    ],
+    "Base.Pipe": [
+      "Misc.9-A"
+    ],
+    "Base.PipeBomb": [
+      "Combat.2-J",
+      "Resource.4-E"
+    ],
+    "Base.PipeBombRemote": [
+      "Misc.9-A"
+    ],
+    "Base.PipeBombSensorV1": [
+      "Misc.9-A"
+    ],
+    "Base.PipeBombSensorV2": [
+      "Misc.9-A"
+    ],
+    "Base.PipeBombSensorV3": [
+      "Misc.9-A"
+    ],
+    "Base.PipeBombTriggered": [
+      "Misc.9-A"
+    ],
+    "Base.PipeWrench": [
+      "Combat.2-C",
+      "Tool.1-B",
+      "Tool.1-C"
+    ],
+    "Base.Pistol": [
+      "Combat.2-G"
+    ],
+    "Base.Pistol2": [
+      "Combat.2-G"
+    ],
+    "Base.Pistol3": [
+      "Combat.2-G"
+    ],
+    "Base.PistolCase1": [
+      "Tool.1-L"
+    ],
+    "Base.PistolCase2": [
+      "Tool.1-L"
+    ],
+    "Base.PistolCase3": [
+      "Tool.1-L"
+    ],
+    "Base.Pizza": [
+      "Consumable.3-A"
+    ],
+    "Base.PizzaRecipe": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.PizzaWhole": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Plank": [
+      "Combat.2-B",
+      "Resource.4-A",
+      "Resource.4-C",
+      "Tool.1-D"
+    ],
+    "Base.PlankNail": [
+      "Combat.2-B"
+    ],
+    "Base.Plantain": [
+      "Consumable.3-E",
+      "Resource.4-C"
+    ],
+    "Base.PlantainCataplasm": [
+      "Misc.9-A"
+    ],
+    "Base.PlasterPowder": [
+      "Resource.4-A"
+    ],
+    "Base.PlasticCup": [
+      "Misc.9-A"
+    ],
+    "Base.PlasticCupWater": [
+      "Misc.9-A"
+    ],
+    "Base.PlasticTray": [
+      "Misc.9-A"
+    ],
+    "Base.Plasticbag": [
+      "Tool.1-L"
+    ],
+    "Base.Plate": [
+      "Misc.9-A"
+    ],
+    "Base.PlateBlue": [
+      "Misc.9-A"
+    ],
+    "Base.PlateFancy": [
+      "Misc.9-A"
+    ],
+    "Base.PlateOrange": [
+      "Misc.9-A"
+    ],
+    "Base.Plonkies": [
+      "Consumable.3-A"
+    ],
+    "Base.Plunger": [
+      "Combat.2-C"
+    ],
+    "Base.PokerChips": [
+      "Misc.9-A"
+    ],
+    "Base.PonchoGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.PonchoGreenDOWN": [
+      "Wearable.6-B"
+    ],
+    "Base.PonchoYellow": [
+      "Wearable.6-B"
+    ],
+    "Base.PonchoYellowDOWN": [
+      "Wearable.6-B"
+    ],
+    "Base.PoolBall": [
+      "Misc.9-A"
+    ],
+    "Base.Poolcue": [
+      "Combat.2-B"
+    ],
+    "Base.Pop": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Pop2": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Pop2Empty": [
+      "Misc.9-A"
+    ],
+    "Base.Pop3": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Pop3Empty": [
+      "Misc.9-A"
+    ],
+    "Base.PopBottle": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.PopBottleEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.PopEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.Popcorn": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.PorkChop": [
+      "Consumable.3-A"
+    ],
+    "Base.Pot": [
+      "Resource.4-B"
+    ],
+    "Base.PotOfSoup": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.PotOfSoupRecipe": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.PotOfStew": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.PotatoPancakes": [
+      "Consumable.3-A"
+    ],
+    "Base.Pretzel": [
+      "Consumable.3-A"
+    ],
+    "Base.Processedcheese": [
+      "Consumable.3-A"
+    ],
+    "Base.PropaneTank": [
+      "Resource.4-A",
+      "Resource.4-D"
+    ],
+    "Base.Pumpkin": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Purse": [
+      "Tool.1-L"
+    ],
+    "Base.QuaggaCakes": [
+      "Consumable.3-A"
+    ],
+    "Base.Rabbitmeat": [
+      "Consumable.3-A"
+    ],
+    "Base.Radio": [
+      "Misc.9-A"
+    ],
+    "Base.Rake": [
+      "Combat.2-B"
+    ],
+    "Base.Ramen": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.RamenBowl": [
+      "Consumable.3-A"
+    ],
+    "Base.Razor": [
+      "Misc.9-A"
+    ],
+    "Base.RearCarDoor1": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearCarDoor2": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearCarDoor3": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearCarDoorDouble1": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearCarDoorDouble2": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearCarDoorDouble3": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearWindow1": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearWindow2": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearWindow3": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearWindshield1": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearWindshield2": [
+      "Vehicle.8-B"
+    ],
+    "Base.RearWindshield3": [
+      "Vehicle.8-B"
+    ],
+    "Base.Receiver": [
+      "Resource.4-E"
+    ],
+    "Base.RecoilPad": [
+      "Combat.2-L"
+    ],
+    "Base.RedDot": [
+      "Combat.2-L"
+    ],
+    "Base.RedPen": [
+      "Misc.9-A"
+    ],
+    "Base.RefriedBeans": [
+      "Consumable.3-A"
+    ],
+    "Base.Remote": [
+      "Resource.4-E"
+    ],
+    "Base.RemoteCraftedV1": [
+      "Misc.9-A"
+    ],
+    "Base.RemoteCraftedV2": [
+      "Misc.9-A"
+    ],
+    "Base.RemoteCraftedV3": [
+      "Misc.9-A"
+    ],
+    "Base.Revolver": [
+      "Combat.2-G"
+    ],
+    "Base.RevolverCase1": [
+      "Tool.1-L"
+    ],
+    "Base.RevolverCase2": [
+      "Tool.1-L"
+    ],
+    "Base.RevolverCase3": [
+      "Tool.1-L"
+    ],
+    "Base.Revolver_Long": [
+      "Combat.2-G"
+    ],
+    "Base.Revolver_Short": [
+      "Combat.2-G"
+    ],
+    "Base.Rice": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.RiceBowl": [
+      "Consumable.3-A"
+    ],
+    "Base.RicePan": [
+      "Resource.4-B"
+    ],
+    "Base.RicePaper": [
+      "Consumable.3-A"
+    ],
+    "Base.RicePot": [
+      "Resource.4-B"
+    ],
+    "Base.RiceVinegar": [
+      "Consumable.3-A"
+    ],
+    "Base.RifleCase1": [
+      "Tool.1-L"
+    ],
+    "Base.RifleCase2": [
+      "Tool.1-L"
+    ],
+    "Base.RifleCase3": [
+      "Tool.1-L"
+    ],
+    "Base.Ring": [
+      "Misc.9-A"
+    ],
+    "Base.Ring_Left_MiddleFinger_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_MiddleFinger_GoldDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_MiddleFinger_GoldRuby": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_MiddleFinger_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_MiddleFinger_SilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_RingFinger_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_RingFinger_GoldDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_RingFinger_GoldRuby": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_RingFinger_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Left_RingFinger_SilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_MiddleFinger_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_MiddleFinger_GoldDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_MiddleFinger_GoldRuby": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_MiddleFinger_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_MiddleFinger_SilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_RingFinger_Gold": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_RingFinger_GoldDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_RingFinger_GoldRuby": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_RingFinger_Silver": [
+      "Wearable.6-G"
+    ],
+    "Base.Ring_Right_RingFinger_SilverDiamond": [
+      "Wearable.6-G"
+    ],
+    "Base.RippedSheets": [
+      "Consumable.3-C",
+      "Resource.4-C",
+      "Resource.4-E"
+    ],
+    "Base.RippedSheetsDirty": [
+      "Consumable.3-C",
+      "Resource.4-C",
+      "Resource.4-E"
+    ],
+    "Base.RiversideMap": [
+      "Literature.5-C"
+    ],
+    "Base.RoastingPan": [
+      "Misc.9-A"
+    ],
+    "Base.RockCandy": [
+      "Consumable.3-A"
+    ],
+    "Base.RollingPin": [
+      "Combat.2-C",
+      "Tool.1-D"
+    ],
+    "Base.Rope": [
+      "Resource.4-F"
+    ],
+    "Base.Rosehips": [
+      "Consumable.3-A",
+      "Consumable.3-E"
+    ],
+    "Base.Rosemary": [
+      "Consumable.3-A"
+    ],
+    "Base.RosewoodMap": [
+      "Literature.5-C"
+    ],
+    "Base.RubberBand": [
+      "Misc.9-A"
+    ],
+    "Base.Rubberducky": [
+      "Misc.9-A"
+    ],
+    "Base.Rubberducky2": [
+      "Misc.9-A"
+    ],
+    "Base.SackCabbages": [
+      "Tool.1-L"
+    ],
+    "Base.SackCarrots": [
+      "Tool.1-L"
+    ],
+    "Base.SackOnions": [
+      "Tool.1-L"
+    ],
+    "Base.SackPotatoes": [
+      "Tool.1-L"
+    ],
+    "Base.SackProduce_Apple": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_BellPepper": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Broccoli": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Cabbage": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Carrot": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Cherry": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Corn": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Eggplant": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Grapes": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Leek": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Lettuce": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Onion": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Peach": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Pear": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Potato": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_RedRadish": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Strawberry": [
+      "Misc.9-A"
+    ],
+    "Base.SackProduce_Tomato": [
+      "Misc.9-A"
+    ],
+    "Base.Sage": [
+      "Consumable.3-A"
+    ],
+    "Base.Salami": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.SalamiSlice": [
+      "Consumable.3-A"
+    ],
+    "Base.Salmon": [
+      "Consumable.3-A"
+    ],
+    "Base.Salt": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.Sandbag": [
+      "Misc.9-A"
+    ],
+    "Base.Sandwich": [
+      "Consumable.3-A"
+    ],
+    "Base.Saucepan": [
+      "Combat.2-C"
+    ],
+    "Base.Sausage": [
+      "Consumable.3-A"
+    ],
+    "Base.Saw": [
+      "Misc.9-A"
+    ],
+    "Base.SawflyLarva": [
+      "Consumable.3-A"
+    ],
+    "Base.Saxophone": [
+      "Combat.2-C"
+    ],
+    "Base.Scalpel": [
+      "Combat.2-E"
+    ],
+    "Base.Scarf_StripeBlackWhite": [
+      "Wearable.6-G"
+    ],
+    "Base.Scarf_StripeBlueWhite": [
+      "Wearable.6-G"
+    ],
+    "Base.Scarf_StripeRedWhite": [
+      "Wearable.6-G"
+    ],
+    "Base.Scarf_White": [
+      "Wearable.6-G"
+    ],
+    "Base.Scissors": [
+      "Combat.2-E",
+      "Tool.1-B"
+    ],
+    "Base.Scotchtape": [
+      "Misc.9-A"
+    ],
+    "Base.ScrapMetal": [
+      "Misc.9-A"
+    ],
+    "Base.Screwdriver": [
+      "Combat.2-E",
+      "Tool.1-B"
+    ],
+    "Base.Screws": [
+      "Misc.9-A"
+    ],
+    "Base.ScrewsBox": [
+      "Misc.9-A"
+    ],
+    "Base.Seaweed": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.SeedBag": [
+      "Tool.1-L"
+    ],
+    "Base.SewingKit": [
+      "Tool.1-L"
+    ],
+    "Base.SharpedStone": [
+      "Tool.1-B"
+    ],
+    "Base.Sheet": [
+      "Resource.4-A"
+    ],
+    "Base.SheetMetal": [
+      "Resource.4-A"
+    ],
+    "Base.SheetPaper2": [
+      "Literature.5-D"
+    ],
+    "Base.SheetRope": [
+      "Resource.4-F"
+    ],
+    "Base.Shirt_Baseball_KY": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Baseball_Rangers": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Baseball_Z": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Bowling_Blue": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Bowling_Brown": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Bowling_Green": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Bowling_LimeGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Bowling_Pink": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Bowling_White": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_CamoDesert": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_CamoGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_CamoUrban": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_CropTopNoArmTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_CropTopTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Denim": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_FormalTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_FormalWhite": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_FormalWhite_ShortSleeve": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_FormalWhite_ShortSleeveTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_HawaiianRed": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_HawaiianTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Jockey01": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Jockey02": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Jockey03": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Jockey04": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Jockey05": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Jockey06": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Lumberjack": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_OfficerWhite": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_PoliceBlue": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_PoliceGrey": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Priest": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_PrisonGuard": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Ranger": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Scrubs": [
+      "Wearable.6-B"
+    ],
+    "Base.Shirt_Workman": [
+      "Wearable.6-B"
+    ],
+    "Base.Shoes_ArmyBoots": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_ArmyBootsDesert": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Black": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_BlackBoots": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_BlueTrainers": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Bowling": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Brown": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Fancy": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_FlipFlop": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Random": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_RedTrainers": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_RidingBoots": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Sandals": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Slippers": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Strapped": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_TrainerTINT": [
+      "Wearable.6-E"
+    ],
+    "Base.Shoes_Wellies": [
+      "Wearable.6-E"
+    ],
+    "Base.Shorts_BoxingBlue": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_BoxingRed": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_CamoGreenLong": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_CamoUrbanLong": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_LongDenim": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_LongSport": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_LongSport_Red": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_ShortDenim": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_ShortFormal": [
+      "Wearable.6-C"
+    ],
+    "Base.Shorts_ShortSport": [
+      "Wearable.6-C"
+    ],
+    "Base.Shotgun": [
+      "Combat.2-I"
+    ],
+    "Base.ShotgunCase1": [
+      "Tool.1-L"
+    ],
+    "Base.ShotgunCase2": [
+      "Tool.1-L"
+    ],
+    "Base.ShotgunSawnoff": [
+      "Combat.2-I"
+    ],
+    "Base.ShotgunShells": [
+      "Combat.2-K"
+    ],
+    "Base.ShotgunShellsBox": [
+      "Misc.9-A"
+    ],
+    "Base.ShotgunShellsMold": [
+      "Tool.1-A"
+    ],
+    "Base.Shovel": [
+      "Combat.2-B",
+      "Tool.1-B",
+      "Tool.1-E"
+    ],
+    "Base.Shovel2": [
+      "Combat.2-B",
+      "Tool.1-E"
+    ],
+    "Base.Shrimp": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.ShrimpDumpling": [
+      "Consumable.3-A"
+    ],
+    "Base.ShrimpFried": [
+      "Consumable.3-A"
+    ],
+    "Base.ShrimpFriedCraft": [
+      "Consumable.3-A"
+    ],
+    "Base.SilkMothCaterpillar": [
+      "Consumable.3-A"
+    ],
+    "Base.Skirt_Knees": [
+      "Wearable.6-C"
+    ],
+    "Base.Skirt_Long": [
+      "Wearable.6-C"
+    ],
+    "Base.Skirt_Mini": [
+      "Wearable.6-C"
+    ],
+    "Base.Skirt_Normal": [
+      "Wearable.6-C"
+    ],
+    "Base.Skirt_Short": [
+      "Wearable.6-C"
+    ],
+    "Base.Sledgehammer": [
+      "Combat.2-B"
+    ],
+    "Base.Sledgehammer2": [
+      "Combat.2-B"
+    ],
+    "Base.Sling": [
+      "Combat.2-L"
+    ],
+    "Base.Slug": [
+      "Consumable.3-A"
+    ],
+    "Base.Slug2": [
+      "Consumable.3-A"
+    ],
+    "Base.SmallGasTank1": [
+      "Vehicle.8-A"
+    ],
+    "Base.SmallGasTank2": [
+      "Vehicle.8-A"
+    ],
+    "Base.SmallGasTank3": [
+      "Vehicle.8-A"
+    ],
+    "Base.SmallSheetMetal": [
+      "Resource.4-A"
+    ],
+    "Base.SmallTrunk1": [
+      "Vehicle.8-B"
+    ],
+    "Base.SmallTrunk2": [
+      "Vehicle.8-B"
+    ],
+    "Base.SmallTrunk3": [
+      "Vehicle.8-B"
+    ],
+    "Base.Smallanimalmeat": [
+      "Consumable.3-A"
+    ],
+    "Base.Smallbirdmeat": [
+      "Consumable.3-A"
+    ],
+    "Base.SmashedBottle": [
+      "Combat.2-E"
+    ],
+    "Base.SmithingMag1": [
+      "Literature.5-B"
+    ],
+    "Base.SmithingMag2": [
+      "Literature.5-B"
+    ],
+    "Base.SmithingMag3": [
+      "Literature.5-B"
+    ],
+    "Base.SmithingMag4": [
+      "Literature.5-B"
+    ],
+    "Base.SmokeBomb": [
+      "Combat.2-J",
+      "Resource.4-E"
+    ],
+    "Base.SmokeBombRemote": [
+      "Misc.9-A"
+    ],
+    "Base.SmokeBombSensorV1": [
+      "Misc.9-A"
+    ],
+    "Base.SmokeBombSensorV2": [
+      "Misc.9-A"
+    ],
+    "Base.SmokeBombSensorV3": [
+      "Misc.9-A"
+    ],
+    "Base.SmokeBombTriggered": [
+      "Misc.9-A"
+    ],
+    "Base.Smore": [
+      "Consumable.3-A"
+    ],
+    "Base.Snail": [
+      "Consumable.3-A"
+    ],
+    "Base.SnoGlobes": [
+      "Consumable.3-A"
+    ],
+    "Base.SnowShovel": [
+      "Combat.2-B",
+      "Tool.1-E"
+    ],
+    "Base.Soap": [
+      "Misc.9-A"
+    ],
+    "Base.Soap2": [
+      "Misc.9-A"
+    ],
+    "Base.SoccerBall": [
+      "Misc.9-A"
+    ],
+    "Base.Socks_Ankle": [
+      "Wearable.6-E"
+    ],
+    "Base.Socks_Long": [
+      "Wearable.6-E"
+    ],
+    "Base.SoupBowl": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Soysauce": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Sparklers": [
+      "Resource.4-E"
+    ],
+    "Base.Spatula": [
+      "Tool.1-D"
+    ],
+    "Base.Speaker": [
+      "Resource.4-E"
+    ],
+    "Base.SpearBreadKnife": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearButterKnife": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearCrafted": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearFork": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearHandFork": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearHuntingKnife": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearIcePick": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearKnife": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearLetterOpener": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearMachete": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearScalpel": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearScissors": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearScrewdriver": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.SpearSpoon": [
+      "Combat.2-F",
+      "Tool.1-G"
+    ],
+    "Base.Spiffo": [
+      "Misc.9-A"
+    ],
+    "Base.SpiffoBig": [
+      "Misc.9-A"
+    ],
+    "Base.SpiffoSuit": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.SpiffoTail": [
+      "Misc.9-A"
+    ],
+    "Base.Splint": [
+      "Consumable.3-C"
+    ],
+    "Base.Sponge": [
+      "Misc.9-A"
+    ],
+    "Base.Spoon": [
+      "Combat.2-E"
+    ],
+    "Base.Springroll": [
+      "Consumable.3-A"
+    ],
+    "Base.Squid": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.SquidCalamari": [
+      "Consumable.3-A"
+    ],
+    "Base.Stake": [
+      "Combat.2-E"
+    ],
+    "Base.Stapler": [
+      "Misc.9-A"
+    ],
+    "Base.Staples": [
+      "Misc.9-A"
+    ],
+    "Base.Steak": [
+      "Consumable.3-A"
+    ],
+    "Base.StewBowl": [
+      "Consumable.3-A"
+    ],
+    "Base.StockingsBlack": [
+      "Misc.9-A"
+    ],
+    "Base.StockingsBlackSemiTrans": [
+      "Misc.9-A"
+    ],
+    "Base.StockingsBlackTrans": [
+      "Misc.9-A"
+    ],
+    "Base.StockingsWhite": [
+      "Misc.9-A"
+    ],
+    "Base.Stone": [
+      "Misc.9-A"
+    ],
+    "Base.Straw": [
+      "Misc.9-A"
+    ],
+    "Base.String": [
+      "Misc.9-A"
+    ],
+    "Base.Sugar": [
+      "Consumable.3-A"
+    ],
+    "Base.SugarBrown": [
+      "Consumable.3-A"
+    ],
+    "Base.SugarPacket": [
+      "Consumable.3-A"
+    ],
+    "Base.Suit_Jacket": [
+      "Wearable.6-B"
+    ],
+    "Base.Suit_JacketTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Suitcase": [
+      "Tool.1-L"
+    ],
+    "Base.SunflowerSeeds": [
+      "Consumable.3-A"
+    ],
+    "Base.SushiEgg": [
+      "Consumable.3-A"
+    ],
+    "Base.SushiFish": [
+      "Consumable.3-A"
+    ],
+    "Base.SutureNeedle": [
+      "Consumable.3-C"
+    ],
+    "Base.SutureNeedleHolder": [
+      "Consumable.3-C",
+      "Tool.1-F"
+    ],
+    "Base.SwallowtailCaterpillar": [
+      "Consumable.3-A"
+    ],
+    "Base.SwimTrunks_Blue": [
+      "Misc.9-A"
+    ],
+    "Base.SwimTrunks_Green": [
+      "Misc.9-A"
+    ],
+    "Base.SwimTrunks_Red": [
+      "Misc.9-A"
+    ],
+    "Base.SwimTrunks_Yellow": [
+      "Misc.9-A"
+    ],
+    "Base.Swimsuit_TINT": [
+      "Misc.9-A"
+    ],
+    "Base.TVDinner": [
+      "Consumable.3-A"
+    ],
+    "Base.TVMagazine": [
+      "Literature.5-D"
+    ],
+    "Base.TableLeg": [
+      "Combat.2-C"
+    ],
+    "Base.Taco": [
+      "Consumable.3-A"
+    ],
+    "Base.TacoRecipe": [
+      "Consumable.3-A"
+    ],
+    "Base.TacoShell": [
+      "Consumable.3-A"
+    ],
+    "Base.Tarp": [
+      "Misc.9-A"
+    ],
+    "Base.Teabag": [
+      "Misc.9-A"
+    ],
+    "Base.Teabag2": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Teacup": [
+      "Tool.1-D"
+    ],
+    "Base.TennisBall": [
+      "Misc.9-A"
+    ],
+    "Base.TennisRacket": [
+      "Combat.2-C"
+    ],
+    "Base.Termites": [
+      "Consumable.3-A"
+    ],
+    "Base.Thistle": [
+      "Consumable.3-A"
+    ],
+    "Base.Thread": [
+      "Resource.4-A"
+    ],
+    "Base.Thyme": [
+      "Consumable.3-A"
+    ],
+    "Base.Tie_BowTieFull": [
+      "Wearable.6-G"
+    ],
+    "Base.Tie_BowTieWorn": [
+      "Wearable.6-G"
+    ],
+    "Base.Tie_Full": [
+      "Wearable.6-G"
+    ],
+    "Base.Tie_Full_Spiffo": [
+      "Wearable.6-G"
+    ],
+    "Base.Tie_Worn": [
+      "Wearable.6-G"
+    ],
+    "Base.Tie_Worn_Spiffo": [
+      "Wearable.6-G"
+    ],
+    "Base.TightsBlack": [
+      "Misc.9-A"
+    ],
+    "Base.TightsBlackSemiTrans": [
+      "Misc.9-A"
+    ],
+    "Base.TightsBlackTrans": [
+      "Misc.9-A"
+    ],
+    "Base.TightsFishnets": [
+      "Misc.9-A"
+    ],
+    "Base.Timer": [
+      "Resource.4-E"
+    ],
+    "Base.TimerCrafted": [
+      "Resource.4-E"
+    ],
+    "Base.TinCanEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.TinOpener": [
+      "Tool.1-B"
+    ],
+    "Base.TinnedBeans": [
+      "Resource.4-B"
+    ],
+    "Base.TinnedSoup": [
+      "Resource.4-B"
+    ],
+    "Base.TinnedSoupOpen": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.TirePump": [
+      "Misc.9-A"
+    ],
+    "Base.Tissue": [
+      "Misc.9-A"
+    ],
+    "Base.Toast": [
+      "Consumable.3-A"
+    ],
+    "Base.Tofu": [
+      "Consumable.3-A"
+    ],
+    "Base.TofuFried": [
+      "Consumable.3-A"
+    ],
+    "Base.ToiletPaper": [
+      "Misc.9-A"
+    ],
+    "Base.TomatoPaste": [
+      "Consumable.3-A"
+    ],
+    "Base.Tongs": [
+      "Tool.1-A"
+    ],
+    "Base.Toolbox": [
+      "Tool.1-L"
+    ],
+    "Base.Toothbrush": [
+      "Misc.9-A"
+    ],
+    "Base.Toothpaste": [
+      "Misc.9-A"
+    ],
+    "Base.Torch": [
+      "Resource.4-E",
+      "Tool.1-H"
+    ],
+    "Base.Tortilla": [
+      "Consumable.3-A"
+    ],
+    "Base.TortillaChips": [
+      "Consumable.3-A"
+    ],
+    "Base.Tote": [
+      "Tool.1-L"
+    ],
+    "Base.ToyBear": [
+      "Misc.9-A"
+    ],
+    "Base.ToyCar": [
+      "Misc.9-A"
+    ],
+    "Base.TrailerTrunk1": [
+      "Vehicle.8-B"
+    ],
+    "Base.TrailerTrunk2": [
+      "Vehicle.8-B"
+    ],
+    "Base.TrailerTrunk3": [
+      "Vehicle.8-B"
+    ],
+    "Base.TrapBox": [
+      "Misc.9-A"
+    ],
+    "Base.TrapCage": [
+      "Misc.9-A"
+    ],
+    "Base.TrapCrate": [
+      "Misc.9-A"
+    ],
+    "Base.TrapMouse": [
+      "Misc.9-A"
+    ],
+    "Base.TrapSnare": [
+      "Misc.9-A"
+    ],
+    "Base.TrapStick": [
+      "Misc.9-A"
+    ],
+    "Base.TreeBranch": [
+      "Resource.4-C"
+    ],
+    "Base.TriggerCrafted": [
+      "Resource.4-E"
+    ],
+    "Base.Trousers": [
+      "Wearable.6-C"
+    ],
+    "Base.TrousersMesh_DenimLight": [
+      "Wearable.6-C"
+    ],
+    "Base.TrousersMesh_Leather": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_ArmyService": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Black": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_CamoDesert": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_CamoGreen": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_CamoUrban": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Chef": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_DefaultTEXTURE": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_DefaultTEXTURE_HUE": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_DefaultTEXTURE_TINT": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Denim": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Fireman": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_JeanBaggy": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_LeatherBlack": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_NavyBlue": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Padded": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Police": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_PoliceGrey": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_PrisonGuard": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Ranger": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Santa": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_SantaGReen": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Scrubs": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Shellsuit_Black": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Shellsuit_Blue": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Shellsuit_Green": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Shellsuit_Pink": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Shellsuit_TINT": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Shellsuit_Teal": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_Suit": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_SuitTEXTURE": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_SuitWhite": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_WhiteTEXTURE": [
+      "Wearable.6-C"
+    ],
+    "Base.Trousers_WhiteTINT": [
+      "Wearable.6-C"
+    ],
+    "Base.Trout": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.Trumpet": [
+      "Combat.2-C"
+    ],
+    "Base.TrunkDoor1": [
+      "Vehicle.8-B"
+    ],
+    "Base.TrunkDoor2": [
+      "Vehicle.8-B"
+    ],
+    "Base.TrunkDoor3": [
+      "Vehicle.8-B"
+    ],
+    "Base.Tshirt_ArmyGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_BusinessSpiffo": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_CamoDesert": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_CamoGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_CamoUrban": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_DefaultDECAL": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_DefaultDECAL_TINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_DefaultTEXTURE": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_DefaultTEXTURE_TINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Fossoil": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Gas2Go": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_IndieStoneDECAL": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_McCoys": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_PileOCrepe": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_PizzaWhirled": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_PoliceBlue": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_PoliceGrey": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_PoloStripedTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_PoloTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_FiremanBlue": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_FiremanRed": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_FiremanRed02": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_FiremanWhite": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_PoliceBlue": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_PoliceWhite": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_RangerBrown": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_RangerGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_VeterenGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Profession_VeterenRed": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Ranger": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Rock": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Scrubs": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_SpiffoDECAL": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_Sport": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_SportDECAL": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_ThunderGas": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_ValleyStation": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_WhiteLongSleeve": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_WhiteLongSleeveTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Tshirt_WhiteTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.TunaTin": [
+      "Resource.4-B"
+    ],
+    "Base.TunaTinOpen": [
+      "Consumable.3-A"
+    ],
+    "Base.Tweezers": [
+      "Consumable.3-C",
+      "Tool.1-F"
+    ],
+    "Base.Twigs": [
+      "Misc.9-A"
+    ],
+    "Base.Twine": [
+      "Resource.4-E"
+    ],
+    "Base.Umbrella": [
+      "Misc.9-A"
+    ],
+    "Base.UmbrellaBlack": [
+      "Misc.9-A"
+    ],
+    "Base.UmbrellaBlue": [
+      "Misc.9-A"
+    ],
+    "Base.UmbrellaRed": [
+      "Misc.9-A"
+    ],
+    "Base.UmbrellaWhite": [
+      "Misc.9-A"
+    ],
+    "Base.Underpants_AnimalPrint": [
+      "Misc.9-A"
+    ],
+    "Base.Underpants_Black": [
+      "Misc.9-A"
+    ],
+    "Base.Underpants_RedSpots": [
+      "Misc.9-A"
+    ],
+    "Base.Underpants_White": [
+      "Misc.9-A"
+    ],
+    "Base.Underwear1": [
+      "Misc.9-A"
+    ],
+    "Base.Underwear2": [
+      "Misc.9-A"
+    ],
+    "Base.UnusableMetal": [
+      "Misc.9-A"
+    ],
+    "Base.UnusableWood": [
+      "Misc.9-A"
+    ],
+    "Base.VHS": [
+      "Misc.9-A"
+    ],
+    "Base.VHS_Home": [
+      "Misc.9-A"
+    ],
+    "Base.VHS_Retail": [
+      "Misc.9-A"
+    ],
+    "Base.VanSeatsTrunk2": [
+      "Vehicle.8-B"
+    ],
+    "Base.VarmintRifle": [
+      "Combat.2-H"
+    ],
+    "Base.Vest_BulletArmy": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_BulletCivilian": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_BulletPolice": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_DefaultTEXTURE": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_DefaultTEXTURE_TINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_Foreman": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_HighViz": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_Hunting_Camo": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_Hunting_CamoGreen": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_Hunting_Grey": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_Hunting_Orange": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_Waistcoat": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_WaistcoatTINT": [
+      "Wearable.6-B"
+    ],
+    "Base.Vest_Waistcoat_GigaMart": [
+      "Wearable.6-B"
+    ],
+    "Base.VideoGame": [
+      "Resource.4-E"
+    ],
+    "Base.Vinegar": [
+      "Resource.4-B"
+    ],
+    "Base.Violets": [
+      "Consumable.3-A"
+    ],
+    "Base.Violin": [
+      "Combat.2-C"
+    ],
+    "Base.Waffles": [
+      "Consumable.3-A"
+    ],
+    "Base.WafflesRecipe": [
+      "Consumable.3-A"
+    ],
+    "Base.Wallet": [
+      "Misc.9-A"
+    ],
+    "Base.Wallet2": [
+      "Misc.9-A"
+    ],
+    "Base.Wallet3": [
+      "Misc.9-A"
+    ],
+    "Base.Wallet4": [
+      "Misc.9-A"
+    ],
+    "Base.Wasabi": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.WaterBleachBottle": [
+      "Misc.9-A"
+    ],
+    "Base.WaterBottleEmpty": [
+      "Resource.4-E"
+    ],
+    "Base.WaterBottleFull": [
+      "Misc.9-A"
+    ],
+    "Base.WaterBottlePetrol": [
+      "Resource.4-D"
+    ],
+    "Base.WaterBowl": [
+      "Misc.9-A"
+    ],
+    "Base.WaterDish": [
+      "Misc.9-A"
+    ],
+    "Base.WaterMug": [
+      "Tool.1-D"
+    ],
+    "Base.WaterMugRed": [
+      "Tool.1-D"
+    ],
+    "Base.WaterMugSpiffo": [
+      "Tool.1-D"
+    ],
+    "Base.WaterMugWhite": [
+      "Tool.1-D"
+    ],
+    "Base.WaterPaintbucket": [
+      "Misc.9-A"
+    ],
+    "Base.WaterPopBottle": [
+      "Misc.9-A"
+    ],
+    "Base.WaterPot": [
+      "Resource.4-B",
+      "Resource.4-C"
+    ],
+    "Base.WaterPotPasta": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.WaterPotRice": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.WaterSaucepan": [
+      "Resource.4-B",
+      "Resource.4-C"
+    ],
+    "Base.WaterSaucepanPasta": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.WaterSaucepanRice": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "Base.WaterTeacup": [
+      "Tool.1-D"
+    ],
+    "Base.Watermelon": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "Base.WatermelonSliced": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.WatermelonSmashed": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.WeddingDress": [
+      "Wearable.6-B",
+      "Wearable.6-C"
+    ],
+    "Base.WeddingJacket": [
+      "Wearable.6-B"
+    ],
+    "Base.WeddingRing_Man": [
+      "Misc.9-A"
+    ],
+    "Base.WeddingRing_Woman": [
+      "Misc.9-A"
+    ],
+    "Base.WeldingMask": [
+      "Wearable.6-A"
+    ],
+    "Base.WeldingRods": [
+      "Misc.9-A"
+    ],
+    "Base.WestpointMap": [
+      "Literature.5-C"
+    ],
+    "Base.WhiskeyEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.WhiskeyFull": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-C",
+      "Consumable.3-D"
+    ],
+    "Base.WhiskeyPetrol": [
+      "Resource.4-D"
+    ],
+    "Base.WhiskeyWaterFull": [
+      "Misc.9-A"
+    ],
+    "Base.WildEggs": [
+      "Consumable.3-A"
+    ],
+    "Base.WildGarlic": [
+      "Resource.4-C"
+    ],
+    "Base.WildGarlic2": [
+      "Consumable.3-A",
+      "Consumable.3-E",
+      "Resource.4-C"
+    ],
+    "Base.WildGarlicCataplasm": [
+      "Misc.9-A"
+    ],
+    "Base.Windshield1": [
+      "Vehicle.8-B"
+    ],
+    "Base.Windshield2": [
+      "Vehicle.8-B"
+    ],
+    "Base.Windshield3": [
+      "Vehicle.8-B"
+    ],
+    "Base.Wine": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D"
+    ],
+    "Base.Wine2": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Consumable.3-D"
+    ],
+    "Base.WineEmpty": [
+      "Misc.9-A"
+    ],
+    "Base.WineEmpty2": [
+      "Misc.9-A"
+    ],
+    "Base.WineInGlass": [
+      "Consumable.3-D"
+    ],
+    "Base.WinePetrol": [
+      "Resource.4-D"
+    ],
+    "Base.WineWaterFull": [
+      "Misc.9-A"
+    ],
+    "Base.WinterBerry": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.Wire": [
+      "Misc.9-A"
+    ],
+    "Base.WoodAxe": [
+      "Combat.2-A",
+      "Tool.1-D",
+      "Tool.1-E"
+    ],
+    "Base.WoodenLance": [
+      "Combat.2-F"
+    ],
+    "Base.WoodenMallet": [
+      "Combat.2-C"
+    ],
+    "Base.WoodenStick": [
+      "Resource.4-C"
+    ],
+    "Base.Woodglue": [
+      "Misc.9-A"
+    ],
+    "Base.Worm": [
+      "Consumable.3-A"
+    ],
+    "Base.Wrench": [
+      "Combat.2-C",
+      "Tool.1-B",
+      "Tool.1-C"
+    ],
+    "Base.WristWatch_Left_ClassicBlack": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Left_ClassicBrown": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Left_ClassicGold": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Left_ClassicMilitary": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Left_DigitalBlack": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Left_DigitalDress": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Left_DigitalRed": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Right_ClassicBlack": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Right_ClassicBrown": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Right_ClassicGold": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Right_ClassicMilitary": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Right_DigitalBlack": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Right_DigitalDress": [
+      "Wearable.6-G"
+    ],
+    "Base.WristWatch_Right_DigitalRed": [
+      "Wearable.6-G"
+    ],
+    "Base.Yarn": [
+      "Misc.9-A"
+    ],
+    "Base.Yeast": [
+      "Resource.4-B"
+    ],
+    "Base.Yoghurt": [
+      "Consumable.3-A"
+    ],
+    "Base.Yoyo": [
+      "Misc.9-A"
+    ],
+    "Base.Zucchini": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "Base.brokenglass_1_0": [
+      "Furniture.7-A"
+    ],
+    "Base.brokenglass_1_1": [
+      "Furniture.7-A"
+    ],
+    "Base.brokenglass_1_2": [
+      "Furniture.7-A"
+    ],
+    "Base.brokenglass_1_3": [
+      "Furniture.7-A"
+    ],
+    "Base.x2Scope": [
+      "Combat.2-L"
+    ],
+    "Base.x4Scope": [
+      "Combat.2-L"
+    ],
+    "Base.x8Scope": [
+      "Combat.2-L"
+    ],
+    "Radio.CDplayer": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.ElectricWire": [
+      "Resource.4-E"
+    ],
+    "Radio.HamRadio1": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.HamRadio2": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.HamRadioMakeShift": [
+      "Tool.1-I"
+    ],
+    "Radio.RadioBlack": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.RadioMag1": [
+      "Literature.5-B"
+    ],
+    "Radio.RadioMag2": [
+      "Literature.5-B"
+    ],
+    "Radio.RadioMag3": [
+      "Literature.5-B"
+    ],
+    "Radio.RadioMakeShift": [
+      "Tool.1-I"
+    ],
+    "Radio.RadioReceiver": [
+      "Resource.4-E"
+    ],
+    "Radio.RadioRed": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.RadioTransmitter": [
+      "Resource.4-E"
+    ],
+    "Radio.ScannerModule": [
+      "Misc.9-A"
+    ],
+    "Radio.TvAntique": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.TvBlack": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.TvWideScreen": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.WalkieTalkie1": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.WalkieTalkie2": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.WalkieTalkie3": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.WalkieTalkie4": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.WalkieTalkie5": [
+      "Resource.4-E",
+      "Tool.1-I"
+    ],
+    "Radio.WalkieTalkieMakeShift": [
+      "Tool.1-I"
+    ],
+    "camping.CampfireKit": [
+      "Misc.9-A"
+    ],
+    "camping.CampingTent": [
+      "Misc.9-A"
+    ],
+    "camping.CampingTentKit": [
+      "Misc.9-A"
+    ],
+    "camping.Flint": [
+      "Misc.9-A"
+    ],
+    "camping.SteelAndFlint": [
+      "Misc.9-A"
+    ],
+    "camping.TentPeg": [
+      "Misc.9-A"
+    ],
+    "farming.Bacon": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "farming.BaconBits": [
+      "Consumable.3-A"
+    ],
+    "farming.BaconRashers": [
+      "Consumable.3-A",
+      "Resource.4-B"
+    ],
+    "farming.BloomingBroccoli": [
+      "Consumable.3-A"
+    ],
+    "farming.BroccoliBagSeed": [
+      "Misc.9-A"
+    ],
+    "farming.BroccoliSeed": [
+      "Misc.9-A"
+    ],
+    "farming.Cabbage": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "farming.CabbageBagSeed": [
+      "Misc.9-A"
+    ],
+    "farming.CabbageSeed": [
+      "Misc.9-A"
+    ],
+    "farming.CarrotBagSeed": [
+      "Misc.9-A"
+    ],
+    "farming.CarrotSeed": [
+      "Misc.9-A"
+    ],
+    "farming.GardeningSprayCigarettes": [
+      "Misc.9-A"
+    ],
+    "farming.GardeningSprayEmpty": [
+      "Misc.9-A"
+    ],
+    "farming.GardeningSprayFull": [
+      "Misc.9-A"
+    ],
+    "farming.GardeningSprayMilk": [
+      "Misc.9-A"
+    ],
+    "farming.HandShovel": [
+      "Combat.2-E",
+      "Tool.1-E"
+    ],
+    "farming.MayonnaiseEmpty": [
+      "Misc.9-A"
+    ],
+    "farming.MayonnaiseFull": [
+      "Consumable.3-A"
+    ],
+    "farming.MayonnaiseHalf": [
+      "Consumable.3-A"
+    ],
+    "farming.MayonnaiseWaterFull": [
+      "Misc.9-A"
+    ],
+    "farming.Potato": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "farming.PotatoBagSeed": [
+      "Misc.9-A"
+    ],
+    "farming.PotatoSeed": [
+      "Misc.9-A"
+    ],
+    "farming.RedRadish": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "farming.RedRadishBagSeed": [
+      "Misc.9-A"
+    ],
+    "farming.RedRadishSeed": [
+      "Misc.9-A"
+    ],
+    "farming.RemouladeEmpty": [
+      "Misc.9-A"
+    ],
+    "farming.RemouladeFull": [
+      "Consumable.3-A"
+    ],
+    "farming.RemouladeHalf": [
+      "Consumable.3-A"
+    ],
+    "farming.RemouladeWaterFull": [
+      "Misc.9-A"
+    ],
+    "farming.Salad": [
+      "Consumable.3-A"
+    ],
+    "farming.Strewberrie": [
+      "Consumable.3-A",
+      "Consumable.3-B"
+    ],
+    "farming.StrewberrieBagSeed": [
+      "Misc.9-A"
+    ],
+    "farming.StrewberrieSeed": [
+      "Misc.9-A"
+    ],
+    "farming.Tomato": [
+      "Consumable.3-A",
+      "Consumable.3-B",
+      "Resource.4-B"
+    ],
+    "farming.TomatoBagSeed": [
+      "Misc.9-A"
+    ],
+    "farming.TomatoSeed": [
+      "Misc.9-A"
+    ],
+    "farming.WateredCan": [
+      "Misc.9-A"
+    ],
+    "farming.WateredCanFull": [
+      "Misc.9-A"
+    ]
+  }
+}

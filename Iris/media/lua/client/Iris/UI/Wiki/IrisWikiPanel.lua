@@ -87,6 +87,14 @@ function IrisWikiPanel.createPanel(item)
     panel:addChild(reasonLabel)
     yOffset = yOffset + 25
     
+    -- B.5) UseCase (빌드 산출물 표시 전용)
+    local usecaseSection = IrisWikiSections.renderUseCaseSection(item)
+    if usecaseSection then
+        local usecaseLabel = ISLabel:new(10, yOffset, 20, usecaseSection, 0.9, 0.95, 0.8, 1, UIFont.Small, true)
+        panel:addChild(usecaseLabel)
+        yOffset = yOffset + 25
+    end
+    
     -- C) 연결 시스템
     local connectionSection = IrisWikiSections.renderConnectionSection(item)
     local connectionLabel = ISLabel:new(10, yOffset, 20, connectionSection, 1, 1, 1, 1, UIFont.Small, true)

@@ -59,6 +59,13 @@ function IrisRecipeIndex.build()
                 if catOk and cat then category = cat end
             end
             
+            -- 레시피 이름 추출
+            local recipeName = "Unknown"
+            if recipe.getName then
+                local nameOk, name = pcall(function() return recipe:getName() end)
+                if nameOk and name then recipeName = tostring(name) end
+            end
+            
             -- input 역할 아이템들
             if recipe.getSource then
                 local srcOk, inputs = pcall(function() return recipe:getSource() end)
@@ -71,7 +78,7 @@ function IrisRecipeIndex.build()
                                 for k = 0, items:size() - 1 do
                                     local itemType = items:get(k)
                                     if itemType then
-                                        IrisRecipeIndex._addRole(tostring(itemType), "input", category)
+                                        IrisRecipeIndex._addRole(tostring(itemType), "input", category, recipeName)
                                     end
                                 end
                             end
@@ -87,7 +94,7 @@ function IrisRecipeIndex.build()
                     for j = 0, keep:size() - 1 do
                         local keepItem = keep:get(j)
                         if keepItem then
-                            IrisRecipeIndex._addRole(tostring(keepItem), "keep", category)
+                            IrisRecipeIndex._addRole(tostring(keepItem), "keep", category, recipeName)
                         end
                     end
                 end
@@ -100,7 +107,7 @@ function IrisRecipeIndex.build()
                     for j = 0, require:size() - 1 do
                         local reqItem = require:get(j)
                         if reqItem then
-                            IrisRecipeIndex._addRole(tostring(reqItem), "require", category)
+                            IrisRecipeIndex._addRole(tostring(reqItem), "require", category, recipeName)
                         end
                     end
                 end
@@ -130,14 +137,24 @@ function IrisRecipeIndex.build()
     IrisRecipeIndex._built = true
 end
 
---- 내부: role 추가
-function IrisRecipeIndex._addRole(fullType, role, category)
+--- 내부: role 추가 (중복 방지 포함)
+function IrisRecipeIndex._addRole(fullType, role, category, recipeName)
     if not IrisRecipeIndex._itemRoles[fullType] then
         IrisRecipeIndex._itemRoles[fullType] = {}
+        IrisRecipeIndex._itemRoles[fullType]._dedup = {} -- 중복 방지용
     end
-    table.insert(IrisRecipeIndex._itemRoles[fullType], {
+    
+    local bucket = IrisRecipeIndex._itemRoles[fullType]
+    local key = tostring(role) .. "|" .. tostring(category) .. "|" .. tostring(recipeName)
+    
+    -- 중복이면 스킵
+    if bucket._dedup[key] then return end
+    bucket._dedup[key] = true
+    
+    table.insert(bucket, {
         role = role,
-        category = category
+        category = category,
+        recipe = recipeName
     })
 end
 

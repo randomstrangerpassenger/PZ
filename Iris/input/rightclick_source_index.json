@@ -1,0 +1,231 @@
+{
+    "meta": {
+        "version": "v1",
+        "created": "2026-02-08",
+        "description": "Capability별 결정적 근거 위치 인덱스 (B41 기준)",
+        "status": "active"
+    },
+    "capabilities": {
+        "can_extinguish_fire": {
+            "primary_source": {
+                "file": "lua/server/FireFighting/FireFighting.lua",
+                "function": "FireFighting.isExtinguisher",
+                "line": 24
+            },
+            "evidence_type": "explicit_predicate",
+            "criteria": [
+                {
+                    "type": "type",
+                    "value": "Extinguisher"
+                },
+                {
+                    "type": "type",
+                    "value": "Sandbag"
+                },
+                {
+                    "type": "type",
+                    "value": "Gravelbag"
+                },
+                {
+                    "type": "type",
+                    "value": "Dirtbag"
+                },
+                {
+                    "type": "property",
+                    "value": "isWaterSource()"
+                }
+            ],
+            "additional_condition": "getDrainableUsesInt() >= getExtinguisherUses(item)"
+        },
+        "can_add_generator_fuel": {
+            "primary_source": {
+                "file": "lua/client/ISUI/ISWorldObjectContextMenu.lua",
+                "function": "predicatePetrol (local)",
+                "line": 6
+            },
+            "evidence_type": "item_tag_or_type",
+            "criteria": [
+                {
+                    "type": "tag",
+                    "value": "Petrol"
+                },
+                {
+                    "type": "type",
+                    "value": "PetrolCan"
+                }
+            ],
+            "scripts_source": [
+                {
+                    "file": "scripts/newitems.txt",
+                    "line": 4979,
+                    "tag": "Tags = Petrol"
+                },
+                {
+                    "file": "scripts/newitems.txt",
+                    "line": 4994,
+                    "tag": "Tags = Petrol"
+                },
+                {
+                    "file": "scripts/newitems.txt",
+                    "line": 5009,
+                    "tag": "Tags = Petrol"
+                },
+                {
+                    "file": "scripts/newitems.txt",
+                    "line": 5024,
+                    "tag": "Tags = Petrol"
+                },
+                {
+                    "file": "scripts/newitems.txt",
+                    "line": 5039,
+                    "tag": "Tags = Petrol"
+                }
+            ]
+        },
+        "can_scrap_moveables": {
+            "primary_source": {
+                "file": "lua/client/Moveables/ISMoveableDefinitions.lua",
+                "table": "scrapDefinitions",
+                "line_range": "129-218"
+            },
+            "evidence_type": "static_table",
+            "materials": [
+                "Fabric",
+                "Leather",
+                "WoodFloor",
+                "WoodenDoor",
+                "Curtain",
+                "Metal",
+                "Glass",
+                "Tile",
+                "Plaster",
+                "Brick"
+            ],
+            "tool_definitions": {
+                "file": "lua/client/Moveables/ISMoveableDefinitions.lua",
+                "line_range": "231-260"
+            }
+        },
+        "can_open_canned_food": {
+            "primary_source": {
+                "file": "scripts/items.txt",
+                "property": "Tags = CanOpener",
+                "line": 542
+            },
+            "evidence_type": "item_tag",
+            "criteria": [
+                {
+                    "type": "tag",
+                    "value": "CanOpener"
+                }
+            ],
+            "recipe_integration": {
+                "file": "scripts/recipes.txt",
+                "pattern": "keep [Recipe.GetItemTypes.CanOpener]",
+                "occurrences": 19
+            },
+            "note": "Recipe Track과 연동됨 (can_open_canned_food는 Recipe 필수조건인 도구)"
+        },
+        "can_stitch_wound": {
+            "primary_source": {
+                "file": "lua/client/XpSystem/ISUI/ISHealthPanel.lua",
+                "handler": "HStitch:checkItem",
+                "line": 1336
+            },
+            "evidence_type": "item_type_or_tag",
+            "criteria": [
+                {
+                    "type": "type",
+                    "value": "Needle"
+                },
+                {
+                    "type": "tag",
+                    "value": "SewingNeedle"
+                },
+                {
+                    "type": "type",
+                    "value": "Thread"
+                },
+                {
+                    "type": "type",
+                    "value": "SutureNeedle"
+                }
+            ],
+            "condition": "bodyPart:isDeepWounded() and not bodyPart:haveGlass()"
+        },
+        "can_remove_embedded_object": {
+            "primary_source": {
+                "file": "lua/client/XpSystem/ISUI/ISHealthPanel.lua",
+                "handlers": [
+                    "HRemoveGlass:checkItem",
+                    "HRemoveBullet:checkItem"
+                ],
+                "lines": [
+                    1455,
+                    1644
+                ]
+            },
+            "evidence_type": "item_tag_or_type",
+            "criteria": {
+                "glass": [
+                    {
+                        "type": "tag",
+                        "value": "RemoveGlass"
+                    },
+                    {
+                        "type": "type",
+                        "value": "SutureNeedleHolder"
+                    },
+                    {
+                        "type": "type",
+                        "value": "Tweezers"
+                    }
+                ],
+                "bullet": [
+                    {
+                        "type": "tag",
+                        "value": "RemoveBullet"
+                    },
+                    {
+                        "type": "type",
+                        "value": "Tweezers"
+                    },
+                    {
+                        "type": "type",
+                        "value": "SutureNeedleHolder"
+                    }
+                ]
+            },
+            "scripts_source": [
+                {
+                    "file": "scripts/newitems.txt",
+                    "line": 891,
+                    "tag": "Tags = RemoveBullet;RemoveGlass"
+                },
+                {
+                    "file": "scripts/newitems.txt",
+                    "line": 2287,
+                    "tag": "Tags = RemoveBullet;RemoveGlass"
+                }
+            ]
+        },
+        "can_attach_weapon_mod": {
+            "primary_source": {
+                "file": "lua/client/ISUI/ISInventoryPaneContextMenu.lua",
+                "function": "getItemsFromCategory",
+                "line": 492
+            },
+            "evidence_type": "item_display_category",
+            "criteria": [
+                {
+                    "type": "display_category",
+                    "value": "WeaponPart"
+                }
+            ],
+            "action_files": [
+                "lua/client/TimedActions/ISUpgradeWeapon.lua",
+                "lua/client/TimedActions/ISRemoveWeaponUpgrade.lua"
+            ]
+        }
+    }
+}

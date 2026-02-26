@@ -1,8 +1,8 @@
-# Iris Tool(1) 소분류 증거표 (v0.2)
+# Iris Tool(1) 소분류 증거표 (v0.3)
 
 이 문서는 **Tool 대분류(1)**의 각 소분류별로 사용할 수 있는 증거를 정의한다.
 
-> ⚠️ **v0.2 주요 변경**: 1-A Category 수정, 1-D Cookware→CoffeeMaker/Recipe, 1-E Tags 추가, 1-F CustomContextMenu→Tags, 1-G Tags 추가
+> ⚠️ **v0.3 주요 변경**: Context Outcome 보조 증거 추가. 바닐라 Lua에서 정적 추출한 결과 타입을 보조 증거로 사용 가능.
 
 ---
 
@@ -12,7 +12,8 @@
 2. **2차**: Recipe role (keep/require)
 3. **3차**: Recipe category (보조 힌트)
 4. **4차**: Moveables/Fixing 관계
-5. **최후**: 수동 오버라이드 (증거 누락 시에만)
+5. **5차**: Context Outcome (정적 추출 결과) — v0.3 신규
+6. **최후**: 수동 오버라이드 (증거 누락 시에만)
 
 ---
 
@@ -26,8 +27,6 @@
 |------|------|------|
 | Recipe role | `keep` 또는 `require` | 필수 |
 | **AND** Recipe category | `Carpentry`, `Welding`, `Smithing` 중 하나 | 필수 |
-
-> ⚠️ **v0.2 변경**: `MetalWelding` → `Welding`, `Masonry` 제거 (바닐라에 없음)
 
 ### 보조 증거
 
@@ -60,6 +59,7 @@
 | 증거 | 조건 |
 |------|------|
 | Tags | `Scissors`, `Screwdriver` |
+| Context Outcome | `has_outcome("disassemble")` — v0.3 신규 |
 
 ### 예시 아이템
 
@@ -74,14 +74,17 @@
 
 **핵심 질문**: 차량, 발전기 등을 수리하는 도구인가?
 
-### 필수 증거 (최소 1개)
+### 필수 증거
 
 | 증거 | 조건 |
 |------|------|
-| Fixing role | `Fixer`로 등록됨 |
 | Moveables.ToolDefinition | Wrench 정의에 포함 (`Base.Wrench`, `Base.PipeWrench`) |
 
-> ⚠️ **v0.2 변경**: `Recipe category = Mechanics` 제거 (바닐라에 없음)
+### 보조 증거 — v0.3 신규
+
+| 증거 | 조건 |
+|------|------|
+| Context Outcome | `has_outcome("repair_item")` |
 
 ### 예시 아이템
 
@@ -100,8 +103,6 @@
 |------|------|
 | Recipe role + category | `keep` + `Cooking` (AND 결합) |
 | Tags | `CoffeeMaker` |
-
-> ⚠️ **v0.2 변경**: `Tags = Cookware` 제거 (바닐라에 없음). `CoffeeMaker` 또는 Recipe 기반으로 변경.
 
 ### 보조 증거
 
@@ -137,8 +138,6 @@
 | Recipe role + category | `keep/require` + `Farming` |
 | Tags | `DigPlow`, `ChopTree`, `ClearAshes`, `TakeDirt`, `DigGrave` |
 
-> ⚠️ **v0.2 변경**: 바닐라에서 농업/채집 관련 Tags 확인됨. 태그 기반 증거 추가.
-
 ### 예시 아이템
 
 - 삽 (Shovel) — Tags DigPlow, TakeDirt
@@ -156,8 +155,6 @@
 | 증거 | 조건 |
 |------|------|
 | Tags | `RemoveBullet`, `RemoveGlass`, `SewingNeedle` |
-
-> ⚠️ **v0.2 변경**: `CustomContextMenu = Stitch/RemoveBullet/RemoveGlass` 제거 (Item Script에 없음). Tags 기반으로 변경.
 
 ### 금지
 
@@ -190,8 +187,6 @@
 | Recipe role + category | `keep/require` + `Trapper` 또는 `Fishing` |
 | Tags | `FishingRod`, `FishingSpear` |
 
-> ⚠️ **v0.2 변경**: 바닐라에서 `FishingRod`, `FishingSpear` Tags 확인됨.
-
 ### 예시 아이템
 
 - 낚싯대 (Fishing Rod) — Tags FishingRod
@@ -210,6 +205,12 @@
 | LightStrength exists | **AND** `ActivatedItem = true` |
 | TorchCone | `= true` |
 | Tags | `StartFire`, `Lighter` |
+
+### 보조 증거 — v0.3 신규
+
+| 증거 | 조건 |
+|------|------|
+| Context Outcome | `has_outcome("toggle_activate")` |
 
 ### 금지
 
@@ -241,6 +242,7 @@
 | 증거 | 조건 |
 |------|------|
 | TwoWay | `= true` (워키토키 구분) |
+| Context Outcome | `has_outcome("toggle_state")` — v0.3.1 신규 (전원/모드 전환) |
 
 ### 예시 아이템
 
@@ -256,6 +258,14 @@
 ### 필수 증거
 
 **없음** — 자동 분류 불가
+
+### 보조 증거 — v0.3 신규
+
+| 증거 | 조건 |
+|------|------|
+| Context Outcome | `has_outcome("place_world")` **AND** `has_outcome("toggle_activate")` |
+
+> ⚠️ Context Outcome만으로는 1-J 자동 분류에 불충분. 여전히 수동 오버라이드 권장.
 
 ### 처리 방식
 
@@ -313,3 +323,5 @@ manualOverrides = {
 |------|------|------|
 | 0.1 | - | 초안 작성 |
 | 0.2 | - | 바닐라 데이터 기반 전면 개정 |
+| 0.3 | - | Context Outcome 보조 증거 추가 (1-B, 1-C, 1-H, 1-J) |
+| 0.3.1 | - | 완전성 감사 반영: 1-I `has_outcome("toggle_state")` 보조 증거 추가 |

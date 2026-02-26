@@ -1,0 +1,590 @@
+{
+  "rc.file_span.lua_client_isui_isinventorypanecontextmenu_l264_l274_recipemanager": {
+    "field_id": "rc.file_span.lua_client_isui_isinventorypanecontextmenu_l264_l274_recipemanager",
+    "representative_anchor": {
+      "kind": "file_span",
+      "ref": "lua/client/ISUI/ISInventoryPaneContextMenu.lua::L264-L274::RecipeManager.getUniqueRecipeItems",
+      "version": "b41",
+      "role": "menu_generation"
+    },
+    "all_anchors": [
+      {
+        "kind": "file_span",
+        "ref": "lua/client/ISUI/ISInventoryPaneContextMenu.lua::L264-L274::RecipeManager.getUniqueRecipeItems",
+        "version": "b41",
+        "role": "menu_generation"
+      },
+      {
+        "kind": "file_span",
+        "ref": "lua/client/ISUI/ISInventoryPaneContextMenu.lua::L2770-L2794::context:addOption(recipe:getName())",
+        "version": "b41",
+        "role": "menu_generation"
+      },
+      {
+        "kind": "file_span",
+        "ref": "lua/client/ISUI/ISInventoryPaneContextMenu.lua::L697-L699::addDynamicalContextMenu",
+        "version": "b41",
+        "role": "menu_generation"
+      },
+      {
+        "kind": "lua_function",
+        "ref": "lua/server/recipecode.lua::Recipe.GetItemTypes.CanOpener",
+        "version": "b41",
+        "role": "tool_predicate"
+      },
+      {
+        "kind": "file_span",
+        "ref": "scripts/recipes.txt::L249-L2011::Result:*Open",
+        "version": "b41",
+        "role": "outcome_change"
+      },
+      {
+        "kind": "file_span",
+        "ref": "scripts/recipes.txt::L249-L2011::Result:*Open+CanOpener",
+        "version": "b41",
+        "role": "target_predicate"
+      }
+    ],
+    "items": [
+      {
+        "fulltype": "Base.TinOpener",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_cm_surface_recipe_open_canned"
+        ],
+        "uniqueness_summary": "STRONG_ONLY"
+      }
+    ]
+  },
+  "rc.itemscript_field.items_itemscript_canstorewater_true_type_{extinguisher,sandbag,gravelbag,dirtbag}": {
+    "field_id": "rc.itemscript_field.items_itemscript_canstorewater_true_type_{extinguisher,sandbag,gravelbag,dirtbag}",
+    "representative_anchor": {
+      "kind": "itemscript_field",
+      "ref": "items_itemscript.json::CanStoreWater=True;Type={Extinguisher,Sandbag,Gravelbag,Dirtbag}",
+      "version": "b41",
+      "role": "tool_predicate"
+    },
+    "all_anchors": [
+      {
+        "kind": "itemscript_field",
+        "ref": "items_itemscript.json::CanStoreWater=True;Type={Extinguisher,Sandbag,Gravelbag,Dirtbag}",
+        "version": "b41",
+        "role": "tool_predicate"
+      },
+      {
+        "kind": "lua_function",
+        "ref": "lua/server/FireFighting/FireFighting.lua::FireFighting.isExtinguisher",
+        "version": "b41",
+        "role": "tool_predicate"
+      }
+    ],
+    "items": [
+      {
+        "fulltype": "Base.BeerEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.BeerWaterFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.BleachEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Bowl",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.BucketEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.BucketWaterFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Dirtbag",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Extinguisher",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.FullKettle",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.GlassTumbler",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.GlassTumblerWater",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.GlassWine",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Gravelbag",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Kettle",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.MugRed",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.MugSpiffo",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.MugWhite",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Mugl",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.PlasticCup",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.PlasticCupWater",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.PopBottleEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Pot",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Sandbag",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Saucepan",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Teacup",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterBleachBottle",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterBottleEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterBottleFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterBowl",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterMug",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterMugRed",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterMugSpiffo",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterMugWhite",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterPaintbucket",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterPopBottle",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterPot",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterSaucepan",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WaterTeacup",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WhiskeyEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WhiskeyWaterFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WineEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WineEmpty2",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.WineWaterFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "farming.GardeningSprayEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "farming.GardeningSprayFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "farming.MayonnaiseEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "farming.MayonnaiseWaterFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "farming.RemouladeEmpty",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "farming.RemouladeWaterFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "farming.WateredCan",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "farming.WateredCanFull",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_firefighting_isextinguisher"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      }
+    ]
+  },
+  "rc.itemscript_field.items_itemscript_displaycategory_firstaid": {
+    "field_id": "rc.itemscript_field.items_itemscript_displaycategory_firstaid",
+    "representative_anchor": {
+      "kind": "itemscript_field",
+      "ref": "items_itemscript.json::DisplayCategory=FirstAid",
+      "version": "b41",
+      "role": "tool_predicate"
+    },
+    "all_anchors": [
+      {
+        "kind": "itemscript_field",
+        "ref": "items_itemscript.json::DisplayCategory=FirstAid",
+        "version": "b41",
+        "role": "tool_predicate"
+      },
+      {
+        "kind": "lua_function",
+        "ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HRemoveBullet.checkItem",
+        "version": "b41",
+        "role": "tool_predicate"
+      },
+      {
+        "kind": "lua_function",
+        "ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HRemoveGlass.checkItem",
+        "version": "b41",
+        "role": "tool_predicate"
+      }
+    ],
+    "items": [
+      {
+        "fulltype": "Base.SutureNeedleHolder",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_healthpanel_hremoveglass",
+          "rule_healthpanel_hremovebullet"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Tweezers",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_healthpanel_hremoveglass",
+          "rule_healthpanel_hremovebullet"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      }
+    ]
+  },
+  "rc.itemscript_field.items_itemscript_type_{needle,sutureneedle,thread}_tags_sewingneedle": {
+    "field_id": "rc.itemscript_field.items_itemscript_type_{needle,sutureneedle,thread}_tags_sewingneedle",
+    "representative_anchor": {
+      "kind": "itemscript_field",
+      "ref": "items_itemscript.json::Type={Needle,SutureNeedle,Thread};Tags=SewingNeedle",
+      "version": "b41",
+      "role": "tool_predicate"
+    },
+    "all_anchors": [
+      {
+        "kind": "itemscript_field",
+        "ref": "items_itemscript.json::Type={Needle,SutureNeedle,Thread};Tags=SewingNeedle",
+        "version": "b41",
+        "role": "tool_predicate"
+      },
+      {
+        "kind": "lua_function",
+        "ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HStitch.checkItem",
+        "version": "b41",
+        "role": "tool_predicate"
+      }
+    ],
+    "items": [
+      {
+        "fulltype": "Base.Needle",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_healthpanel_hstitch"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.SutureNeedle",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_healthpanel_hstitch"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      },
+      {
+        "fulltype": "Base.Thread",
+        "decision": "PASS",
+        "rule_ids": [
+          "rule_healthpanel_hstitch"
+        ],
+        "uniqueness_summary": "WEAK_ONLY"
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "version": "v2.5",
+  "timestamp": "2026-02-26T22:32:28.653944+00:00",
+  "gates": {
+    "Q1_pass_integrity": {
+      "status": "PASS",
+      "checked": 57,
+      "violations": 0,
+      "details": []
+    },
+    "Q2_strong_integrity": {
+      "status": "PASS",
+      "checked": 5,
+      "violations": 0,
+      "details": []
+    },
+    "Q3_anchor_completeness": {
+      "status": "PASS",
+      "checked": 57,
+      "violations": 0,
+      "details": []
+    },
+    "Q4_determinism": {
+      "status": "PASS",
+      "files_checked": 11,
+      "mismatches": 0,
+      "details": []
+    },
+    "Q5_regression_diff": {
+      "status": "PASS",
+      "unexpected_changes": 0,
+      "pending_allowed": 0,
+      "details": [],
+      "warnings": []
+    }
+  },
+  "statistics": {
+    "total_items": 1469,
+    "PASS": 57,
+    "NO": 1399,
+    "REVIEW": 13,
+    "STRONG": 1,
+    "WEAK": 56,
+    "MIXED": 0
+  },
+  "overall": "PASS"
+}

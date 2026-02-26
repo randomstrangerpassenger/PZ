@@ -95,8 +95,21 @@ local TRANSLATIONS = {
         Iris_Sub_6D = "\236\158\165\234\176\145",  -- 장갑
         Iris_Sub_6E = "\236\139\160\235\176\156",  -- 신발
         Iris_Sub_6F = "\235\176\176\235\130\173",  -- 배낭
-        Iris_Sub_6G = "\237\158\153\236\131\137",  -- 힙색
-        Iris_Sub_6H = "\236\149\161\236\132\184\236\132\156\235\166\172",  -- 액세서리
+        Iris_Sub_6G = "\236\149\161\236\132\184\236\132\156\235\166\172",  -- 액세서리
+        
+        -- 상호작용 섹션
+        Iris_Detail_Interaction = "\236\131\129\237\152\184\236\158\145\236\154\169",  -- 상호작용
+        Iris_Prefix_Recipe = "[\235\160\136\236\139\156\237\148\188]",  -- [레시피]
+        Iris_Prefix_RightClick = "[\236\154\176\237\129\180\235\166\173]",  -- [우클릭]
+        
+        -- 우클릭 Capability 라벨
+        Iris_Cap_ExtinguishFire = "\235\182\136 \235\129\132\234\184\176",  -- 불 끄기
+        Iris_Cap_AddGeneratorFuel = "\235\176\156\236\160\132\234\184\176 \236\151\176\235\163\140 \235\132\163\234\184\176",  -- 발전기 연료 넣기
+        Iris_Cap_ScrapMoveables = "\234\176\128\234\181\172 \237\149\180\236\178\180",  -- 가구 해체
+        Iris_Cap_OpenCannedFood = "\236\186\148 \235\148\176\234\184\176",  -- 캔 따기
+        Iris_Cap_StitchWound = "\236\131\129\236\178\152 \235\180\137\237\149\169",  -- 상처 봉합
+        Iris_Cap_RemoveEmbeddedObject = "\235\176\149\237\158\128 \235\172\188\236\178\180 \236\160\156\234\177\176",  -- 박힌 물체 제거
+        Iris_Cap_AttachWeaponMod = "\235\172\180\234\184\176 \235\182\128\236\176\169\235\172\188 \236\158\165\236\176\169",  -- 무기 부착물 장착
     },
     EN = {
         Iris_UI_CategoryLabel = "Category",
@@ -183,13 +196,29 @@ local TRANSLATIONS = {
         Iris_Sub_6D = "Gloves",
         Iris_Sub_6E = "Shoes",
         Iris_Sub_6F = "Backpacks",
-        Iris_Sub_6G = "Hip Bags",
-        Iris_Sub_6H = "Accessories",
+        Iris_Sub_6G = "Accessories",
+        
+        -- Interaction Section
+        Iris_Detail_Interaction = "Interactions",
+        Iris_Prefix_Recipe = "[Recipe]",
+        Iris_Prefix_RightClick = "[Action]",
+        
+        -- Right-Click Capability Labels
+        Iris_Cap_ExtinguishFire = "Extinguish Fire",
+        Iris_Cap_AddGeneratorFuel = "Add Generator Fuel",
+        Iris_Cap_ScrapMoveables = "Scrap Furniture",
+        Iris_Cap_OpenCannedFood = "Open Canned Food",
+        Iris_Cap_StitchWound = "Stitch Wound",
+        Iris_Cap_RemoveEmbeddedObject = "Remove Embedded Object",
+        Iris_Cap_AttachWeaponMod = "Attach Weapon Mod",
     }
 }
 
 -- Iris 번역 테이블 (전역)
 IrisTranslations = nil
+
+-- 캐시된 언어 키 (SSOT: 이 값만이 언어 키의 단일 진실 소스)
+local _cachedLangKey = nil
 
 function IrisTranslationLoader.init()
     print("[IrisTranslation] Initializing translations...")
@@ -204,6 +233,9 @@ function IrisTranslationLoader.init()
     end
     
     print("[IrisTranslation] Detected language: " .. lang)
+    
+    -- 언어 키 캐시 (getLangKey()의 SSOT)
+    _cachedLangKey = lang
     
     -- 해당 언어의 번역 테이블 로드
     IrisTranslations = TRANSLATIONS[lang] or TRANSLATIONS.EN
@@ -226,6 +258,25 @@ function IrisTranslationLoader.get(key, fallback)
         return IrisTranslations[key]
     end
     return fallback or key
+end
+
+--- 언어 키 단일 반환 (SSOT)
+--- 다른 모듈은 Translator.getLanguage()를 직접 호출하지 말고 이 함수를 사용
+--- @return string "KO" | "EN" | ...
+function IrisTranslationLoader.getLangKey()
+    if _cachedLangKey then
+        return _cachedLangKey
+    end
+    -- init()이 아직 안 돌았으면 직접 감지
+    local lang = "EN"
+    if Translator and Translator.getLanguage then
+        local ok, result = pcall(Translator.getLanguage)
+        if ok and result then
+            lang = tostring(result):upper()
+        end
+    end
+    _cachedLangKey = lang
+    return lang
 end
 
 -- 파일 로드 시 즉시 초기화 (OnGameBoot보다 먼저 실행되어야 함)

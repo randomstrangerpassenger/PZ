@@ -13,16 +13,16 @@ local IrisWikiSections = {}
 
 -- 의존성 (lazy load)
 local IrisAPI = nil
-local IrisRuleExecutor = nil
+local IrisTranslationLoaderLocal = nil
 
 local function ensureDeps()
     if not IrisAPI then
         local ok, result = pcall(require, "Iris/IrisAPI")
         if ok then IrisAPI = result end
     end
-    if not IrisRuleExecutor then
-        local ok, result = pcall(require, "Iris/Rules/engine/IrisRuleExecutor")
-        if ok then IrisRuleExecutor = result end
+    if not IrisTranslationLoaderLocal then
+        local ok, result = pcall(require, "Iris/IrisTranslationLoader")
+        if ok then IrisTranslationLoaderLocal = result end
     end
 end
 
@@ -38,7 +38,15 @@ end
 
 --- 번역 텍스트 가져오기 (IrisTranslationLoader 사용)
 local function getLabel(key)
-    -- IrisTranslationLoader 전역 변수 확인
+    -- 1순위: ensureDeps()로 로드한 로컬 모듈
+    ensureDeps()
+    if IrisTranslationLoaderLocal and IrisTranslationLoaderLocal.get then
+        local result = IrisTranslationLoaderLocal.get(key)
+        if result and result ~= key then
+            return result
+        end
+    end
+    -- 2순위: IrisTranslationLoader 전역 변수 확인
     if IrisTranslationLoader and IrisTranslationLoader.get then
         local result = IrisTranslationLoader.get(key)
         if result and result ~= key then
@@ -110,14 +118,10 @@ function IrisWikiSections.renderTagsSection(item)
     
     -- 태그를 정렬된 배열로 변환
     local sorted = {}
-    if IrisRuleExecutor and IrisRuleExecutor.setToSortedArray then
-        sorted = IrisRuleExecutor.setToSortedArray(tags)
-    else
-        for tag, _ in pairs(tags) do
-            table.insert(sorted, tag)
-        end
-        table.sort(sorted)
+    for tag, _ in pairs(tags) do
+        table.insert(sorted, tag)
     end
+    table.sort(sorted)
     
     if #sorted == 0 then
         return nil
@@ -311,6 +315,257 @@ end
 
 function IrisWikiSections.renderFieldsSection(item)
     return IrisWikiSections.renderMiscSection(item)
+end
+
+--- ================================================================
+--- 새 순서 지원 함수 (v1.1)
+--- [1] 기본 정보 → [2] 소분류 설명 → [3] 레시피 → [4] 메타 정보
+--- ================================================================
+
+--- [1] 기본 정보 섹션 (즉시 판단용)
+--- ⚠️ 스코프 고정 (비대화 방지):
+---   ✅ 포함: 무게, 타입, 데미지, 내구도, 갈증/허기 변화량
+---   ❌ 제외: 내부 플래그, 조건부 효과 문장, 레시피/연결 정보
+function IrisWikiSections.renderCoreInfoSection(item)
+    local parts = {}
+    
+    -- 무게
+    local weight = safeCall(item, "getActualWeight") or safeCall(item, "getWeight")
+    if weight and type(weight) == "number" then
+        table.insert(parts, string.format("%s: %.1f", getLabel("Iris_Detail_Weight"), weight))
+    end
+    
+    -- 타입
+    local itemType = safeCall(item, "getType") or safeCall(item, "getTypeString")
+    if itemType then
+        table.insert(parts, getLabel("Iris_Detail_Type") .. ": " .. tostring(itemType))
+    end
+    
+    -- === 핵심 수치 (아이템 종류에 따라) ===
+    
+    -- 데미지 (무기류)
+    local minDmg = safeCall(item, "getMinDamage")
+    local maxDmg = safeCall(item, "getMaxDamage")
+    if minDmg and maxDmg and type(minDmg) == "number" and type(maxDmg) == "number" then
+        if minDmg > 0 or maxDmg > 0 then
+            table.insert(parts, string.format("%s: %.1f~%.1f", getLabel("Iris_Detail_Damage"), minDmg, maxDmg))
+        end
+    end
+    
+    -- 내구도
+    local maxCondition = safeCall(item, "getConditionMax")
+    if maxCondition and type(maxCondition) == "number" and maxCondition > 0 then
+        table.insert(parts, string.format("%s: %.0f", getLabel("Iris_Detail_Durability"), maxCondition))
+    end
+    
+    -- 갈증 변화 (음식류) - PZ에서 이미 정수값으로 저장
+    local thirst = safeCall(item, "getThirstChange")
+    if thirst and type(thirst) == "number" and thirst ~= 0 then
+        local sign = thirst < 0 and "" or "+"
+        table.insert(parts, string.format("%s: %s%.0f", getLabel("Iris_Detail_Thirst"), sign, thirst))
+    end
+    
+    -- 허기 변화 (음식류) - PZ에서 이미 정수값으로 저장
+    local hunger = safeCall(item, "getHungerChange")
+    if hunger and type(hunger) == "number" and hunger ~= 0 then
+        local sign = hunger < 0 and "" or "+"
+        table.insert(parts, string.format("%s: %s%.0f", getLabel("Iris_Detail_Hunger"), sign, hunger))
+    end
+    
+    if #parts == 0 then
+        return nil
+    end
+    return table.concat(parts, " | ")
+end
+
+--- [3] 레시피 정보 섹션
+--- 레시피 0개면 nil 반환 (섹션 자체 미출력)
+function IrisWikiSections.renderRecipeInfoSection(item)
+    ensureDeps()
+    
+    if not IrisAPI then
+        return nil
+    end
+    
+    local recipeOk, recipeInfo = pcall(function() return IrisAPI.getRecipeConnectionsForItem(item) end)
+    if recipeOk and recipeInfo and #recipeInfo > 0 then
+        return getLabel("Iris_Detail_Recipe") .. ": " .. #recipeInfo
+    end
+    
+    -- 레시피 0개면 nil 반환 (빈 줄 표시 금지)
+    return nil
+end
+
+--- [4] 메타 정보 섹션 (분류 ID, 모듈)
+--- 시각적 구분선 포함
+function IrisWikiSections.renderMetaInfoSection(item)
+    ensureDeps()
+    
+    local lines = {}
+    
+    -- 시각적 구분선
+    table.insert(lines, "────────────────────")
+    
+    -- 분류 ID (태그)
+    if IrisAPI and IrisAPI.getTagsForItem then
+        local ok, tags = pcall(function() return IrisAPI.getTagsForItem(item) end)
+        if ok and tags then
+            local sorted = {}
+            for tag, _ in pairs(tags) do
+                table.insert(sorted, tag)
+            end
+            table.sort(sorted)
+            if #sorted > 0 then
+                table.insert(lines, getLabel("Iris_Detail_ClassificationID") .. ": " .. table.concat(sorted, ", "))
+            end
+        end
+    end
+    
+    -- 모듈
+    local moduleName = safeCall(item, "getModule")
+    if moduleName then
+        local modStr = tostring(moduleName)
+        -- Java 객체 문자열에서 이름 추출
+        if modStr:find("@") then
+            local nameMethod = moduleName.getName
+            if nameMethod then
+                local ok, name = pcall(function() return moduleName:getName() end)
+                if ok and name then
+                    modStr = tostring(name)
+                else
+                    modStr = nil
+                end
+            else
+                modStr = nil
+            end
+        end
+        if modStr and modStr ~= "" then
+            table.insert(lines, getLabel("Iris_Detail_Module") .. ": " .. modStr)
+        end
+    end
+    
+    -- 구분선만 있으면 nil 반환
+    if #lines <= 1 then
+        return nil
+    end
+    
+    return table.concat(lines, "\n")
+end
+
+-- ============================================
+-- UseCase Block 섹션 (빌드 산출물 표시 전용)
+-- ============================================
+
+local IrisUseCaseLabelMap = nil
+local IrisConfig = nil
+
+local function ensureUseCaseDeps()
+    if not IrisUseCaseLabelMap then
+        local ok, result = pcall(require, "Iris/Data/IrisUseCaseLabelMap")
+        if ok then IrisUseCaseLabelMap = result end
+    end
+    if not IrisConfig then
+        local ok, result = pcall(require, "Iris/IrisConfig")
+        if ok then IrisConfig = result end
+    end
+end
+
+--- UseCase line 구조체 → 표시 문자열 치환
+--- 키→문자열 단순 lookup만 수행 (조건분기/추론 금지)
+local function renderUseCaseLine(lineObj)
+    ensureUseCaseDeps()
+
+    local label = lineObj.label_key or "?"
+    local surface = lineObj.surface or "context_menu"
+    local strength = lineObj.strength
+    local uniqueness = lineObj.uniqueness
+
+    -- 런타임 언어 감지 (SSOT: IrisTranslationLoader.getLangKey())
+    local lang = "EN"
+    if IrisTranslationLoader and IrisTranslationLoader.getLangKey then
+        lang = IrisTranslationLoader.getLangKey()
+    end
+
+    -- label_key → 표시 문자열 (현재 언어)
+    if IrisUseCaseLabelMap then
+        local langMap = IrisUseCaseLabelMap[lang] or IrisUseCaseLabelMap.EN or {}
+        local mapped = langMap[label]
+        if mapped then label = mapped end
+    end
+
+    -- surface 키 → 표시 문자열
+    local surfaceStr = surface
+    if IrisUseCaseLabelMap then
+        local surfMapKey = "SURFACE_" .. lang
+        local surfMap = IrisUseCaseLabelMap[surfMapKey] or IrisUseCaseLabelMap.SURFACE_EN or {}
+        surfaceStr = surfMap[surface] or surface
+    end
+
+    -- strength 키 → 표시 문자열
+    local strengthStr = ""
+    if strength and IrisUseCaseLabelMap then
+        local strMapKey = "STRENGTH_" .. lang
+        local strMap = IrisUseCaseLabelMap[strMapKey] or IrisUseCaseLabelMap.STRENGTH_EN or {}
+        strengthStr = strMap[strength] or ""
+    end
+
+    -- uniqueness 키 → 표시 문자열
+    local uniquenessStr = ""
+    if uniqueness and IrisUseCaseLabelMap then
+        local uniMapKey = "UNIQUENESS_" .. lang
+        local uniMap = IrisUseCaseLabelMap[uniMapKey] or IrisUseCaseLabelMap.UNIQUENESS_EN or {}
+        uniquenessStr = uniMap[uniqueness] or ""
+    end
+
+    return "- " .. label .. " (" .. surfaceStr .. ")" .. strengthStr .. uniquenessStr
+end
+
+
+--- UseCase Block 섹션 렌더링
+--- nil 책임 경계: API=빈 배열 정규화, UI 섹션=#lines==0→nil(미출력)
+function IrisWikiSections.renderUseCaseSection(item)
+    ensureDeps()
+    ensureUseCaseDeps()
+
+    if not IrisAPI or not item then return nil end
+
+    local fullType = nil
+    if item.getFullType then
+        local ok, result = pcall(function() return item:getFullType() end)
+        if ok then fullType = result end
+    end
+    if not fullType then return nil end
+
+    local data = IrisAPI.getUseCaseLines(fullType)
+    local lines = data.lines or {}
+    local debug_lines = data.debug_lines or {}
+
+    if #lines == 0 and #debug_lines == 0 then
+        return nil
+    end
+
+    local parts = {}
+    table.insert(parts, "--- UseCase ---")
+
+    -- main lines (순서 그대로, 재정렬 금지)
+    for _, lineObj in ipairs(lines) do
+        table.insert(parts, renderUseCaseLine(lineObj))
+    end
+
+    -- debug_lines: SHOW_DEBUG_USECASES일 때만 (DEBUG 혼용 금지)
+    if IrisConfig and IrisConfig.SHOW_DEBUG_USECASES and #debug_lines > 0 then
+        table.insert(parts, "  (debug)")
+        for _, lineObj in ipairs(debug_lines) do
+            table.insert(parts, "  " .. renderUseCaseLine(lineObj))
+        end
+    end
+
+    -- lines가 비어있고 debug만 있는데 플래그 OFF면 미출력
+    if #parts <= 1 then
+        return nil
+    end
+
+    return table.concat(parts, "\n")
 end
 
 return IrisWikiSections

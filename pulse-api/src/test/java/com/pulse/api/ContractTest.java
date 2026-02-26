@@ -21,77 +21,79 @@ import java.util.stream.Collectors;
  */
 public class ContractTest {
 
-    /**
-     * IPulseMetrics 인터페이스에 Echo가 필요로 하는 메서드가 존재하는지 확인
-     */
-    @Test
-    void ipulseMetricsHasRequiredMethods() {
-        Set<String> methodNames = Arrays.stream(IPulseMetrics.class.getMethods())
-                .map(Method::getName)
-                .collect(Collectors.toSet());
+        /**
+         * IPulseMetrics 인터페이스에 Echo가 필요로 하는 메서드가 존재하는지 확인
+         */
+        @Test
+        void ipulseMetricsHasRequiredMethods() {
+                Set<String> methodNames = Arrays.stream(IPulseMetrics.class.getMethods())
+                                .map(Method::getName)
+                                .collect(Collectors.toSet());
 
-        // Echo가 기대하는 필수 메서드 - 기존
-        assertTrue(methodNames.contains("getFps"), "getFps() required by Echo");
-        assertTrue(methodNames.contains("getTickTimeMs"), "getTickTimeMs() required by Echo");
-        assertTrue(methodNames.contains("getFrameTimeMs"), "getFrameTimeMs() required by Echo");
-        assertTrue(methodNames.contains("getAverageTickTimeMs"), "getAverageTickTimeMs() required by Echo");
-        assertTrue(methodNames.contains("getMaxTickTimeMs"), "getMaxTickTimeMs() required by Echo");
-        assertTrue(methodNames.contains("getTps"), "getTps() required by Echo");
+                // Echo가 기대하는 필수 메서드 - 기존
+                assertTrue(methodNames.contains("getFps"), "getFps() required by Echo");
+                assertTrue(methodNames.contains("getTickTimeMs"), "getTickTimeMs() required by Echo");
+                assertTrue(methodNames.contains("getFrameTimeMs"), "getFrameTimeMs() required by Echo");
+                assertTrue(methodNames.contains("getAverageTickTimeMs"), "getAverageTickTimeMs() required by Echo");
+                assertTrue(methodNames.contains("getMaxTickTimeMs"), "getMaxTickTimeMs() required by Echo");
+                assertTrue(methodNames.contains("getTps"), "getTps() required by Echo");
 
-        // Phase 0 추가: 누락 메서드 4개
-        assertTrue(methodNames.contains("getLoadedChunkCount"),
-                "getLoadedChunkCount() required by Echo for correlation analysis");
-        assertTrue(methodNames.contains("getEntityCount"),
-                "getEntityCount() required by Echo for correlation analysis");
-        assertTrue(methodNames.contains("getUsedMemoryMB"), "getUsedMemoryMB() required by Echo for memory profiling");
-        assertTrue(methodNames.contains("getMaxMemoryMB"), "getMaxMemoryMB() required by Echo for memory profiling");
-    }
+                // Phase 0 추가: 누락 메서드 4개
+                assertTrue(methodNames.contains("getLoadedChunkCount"),
+                                "getLoadedChunkCount() required by Echo for correlation analysis");
+                assertTrue(methodNames.contains("getEntityCount"),
+                                "getEntityCount() required by Echo for correlation analysis");
+                assertTrue(methodNames.contains("getUsedMemoryMB"),
+                                "getUsedMemoryMB() required by Echo for memory profiling");
+                assertTrue(methodNames.contains("getMaxMemoryMB"),
+                                "getMaxMemoryMB() required by Echo for memory profiling");
+        }
 
-    /**
-     * IPulseEvent 인터페이스의 기본 계약이 유지되는지 확인 (안정성)
-     */
-    @Test
-    void ipulseEventHasExpectedMethods() {
-        Set<String> methodNames = Arrays.stream(IPulseEvent.class.getDeclaredMethods())
-                .map(Method::getName)
-                .collect(Collectors.toSet());
+        /**
+         * IPulseEvent 인터페이스의 기본 계약이 유지되는지 확인 (안정성)
+         */
+        @Test
+        void ipulseEventHasExpectedMethods() {
+                Set<String> methodNames = Arrays.stream(IPulseEvent.class.getDeclaredMethods())
+                                .map(Method::getName)
+                                .collect(Collectors.toSet());
 
-        // IPulseEvent 필수 메서드
-        assertTrue(methodNames.contains("getEventName"), "getEventName() required");
-        assertTrue(methodNames.contains("isCancellable"), "isCancellable() required");
-        assertTrue(methodNames.contains("isCancelled"), "isCancelled() required");
-        assertTrue(methodNames.contains("cancel"), "cancel() required");
-    }
+                // IPulseEvent 필수 메서드
+                assertTrue(methodNames.contains("getEventName"), "getEventName() required");
+                assertTrue(methodNames.contains("isCancellable"), "isCancellable() required");
+                assertTrue(methodNames.contains("isCancelled"), "isCancelled() required");
+                assertTrue(methodNames.contains("cancel"), "cancel() required");
+        }
 
-    /**
-     * IPulse 인터페이스에 필수 메서드가 존재하는지 확인
-     */
-    @Test
-    void ipulseHasRequiredMethods() {
-        Set<String> methodNames = Arrays.stream(IPulse.class.getMethods())
-                .map(Method::getName)
-                .collect(Collectors.toSet());
+        /**
+         * IPulse 인터페이스에 필수 메서드가 존재하는지 확인
+         */
+        @Test
+        void ipulseHasRequiredMethods() {
+                Set<String> methodNames = Arrays.stream(IPulse.class.getMethods())
+                                .map(Method::getName)
+                                .collect(Collectors.toSet());
 
-        assertTrue(methodNames.contains("getVersion"), "getVersion() required");
-        assertTrue(methodNames.contains("isModLoaded"), "isModLoaded() required");
-        assertTrue(methodNames.contains("isInitialized"), "isInitialized() required");
-    }
+                assertTrue(methodNames.contains("getVersion"), "getVersion() required");
+                assertTrue(methodNames.contains("isModLoaded"), "isModLoaded() required");
+                assertTrue(methodNames.contains("isInitialized"), "isInitialized() required");
+        }
 
-    /**
-     * FailsoftPolicy가 예상된 액션을 가지고 있는지 확인
-     */
-    @Test
-    void failsoftPolicyHasRequiredActions() {
-        // FailsoftPolicy.Action enum 존재 확인
-        FailsoftPolicy.Action[] actions = FailsoftPolicy.Action.values();
-        assertTrue(actions.length >= 3, "FailsoftPolicy should have at least 3 actions");
+        /**
+         * FailsoftPolicy가 예상된 액션을 가지고 있는지 확인
+         */
+        @Test
+        void failsoftPolicyHasRequiredActions() {
+                // FailsoftPolicy.Action enum 존재 확인
+                FailsoftPolicy.Action[] actions = FailsoftPolicy.Action.values();
+                assertTrue(actions.length >= 3, "FailsoftPolicy should have at least 3 actions");
 
-        Set<String> actionNames = Arrays.stream(actions)
-                .map(Enum::name)
-                .collect(Collectors.toSet());
+                Set<String> actionNames = Arrays.stream(actions)
+                                .map(Enum::name)
+                                .collect(Collectors.toSet());
 
-        assertTrue(actionNames.contains("WARNING"), "WARNING action required");
-        assertTrue(actionNames.contains("CRITICAL"), "CRITICAL action required");
-        assertTrue(actionNames.contains("TICK_CONTRACT_VIOLATION"), "TICK_CONTRACT_VIOLATION action required");
-    }
+                assertTrue(actionNames.contains("WARNING"), "WARNING action required");
+                assertTrue(actionNames.contains("CRITICAL"), "CRITICAL action required");
+                assertTrue(actionNames.contains("TICK_CONTRACT_VIOLATION"), "TICK_CONTRACT_VIOLATION action required");
+        }
 }

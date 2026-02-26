@@ -1,0 +1,1705 @@
+{
+  "version": "v2.4",
+  "fulltype_count": 59,
+  "entry_count": 231,
+  "fulltypes": {
+    "Base.BakingPan": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.place_pie_in_baking_pan",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.BakingSoda": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.BakingTray": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Baloney": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_baloney",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Bass": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_fillet",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Bowl": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_cake_batter",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Bread": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_bread",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.BreadDough": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_bread",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Butter": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.CakeRaw": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_cake",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Catfish": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_fillet",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Cheese": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.ChocolateChips": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.CocoaPowder": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Crappie": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_fillet",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.DeadBird": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.butcher_bird",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.DeadMouse": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.butcher_small_animal",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.DeadRabbit": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.butcher_rabbit",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.DeadRat": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.butcher_small_animal",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.DeadSquirrel": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.butcher_small_animal",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.DoubleBarrelShotgun": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.saw_off_double_barrel_shotgun",
+          "role": "keep",
+          "requirement_key": "Base.Saw",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.FishingLine": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_fishing_rod",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Flour": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Frog": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_frog",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.GravyMix": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_gravy",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_gravy",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.GunPowder": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_223_bullets",
+          "role": "keep",
+          "requirement_key": "Base.223BulletsMold",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets",
+          "role": "keep",
+          "requirement_key": "Base.308BulletsMold",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets",
+          "role": "keep",
+          "requirement_key": "Base.9mmBulletsMold",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells",
+          "role": "keep",
+          "requirement_key": "Base.ShotgunShellsMold",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_223_bullets",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Ham": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_ham",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Handle": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_axe",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sledgehammer",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_axe",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shovel",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sledgehammer",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.IronIngot": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_223_bullets",
+          "role": "keep",
+          "requirement_key": "Base.223BulletsMold",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets",
+          "role": "keep",
+          "requirement_key": "Base.308BulletsMold",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets",
+          "role": "keep",
+          "requirement_key": "Base.9mmBulletsMold",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_223_bullets_mold",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets_mold",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets_mold",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_axe",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_baking_pan",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_baking_tray",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_cooking_pot",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_door_knob",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_hammer",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_hinge",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_hunting_knife",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_kitchen_knife",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_letter_opener",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_metal_drum",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pan",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_roasting_pan",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_saucepan",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_saw",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_scissors",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sheet_metal",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells_mold",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sledgehammer",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_suture_needle",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_suture_needle_holder",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_tweezers",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells",
+          "role": "keep",
+          "requirement_key": "Base.ShotgunShellsMold",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_223_bullets",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_223_bullets_mold",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets_mold",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets_mold",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_axe",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_baking_pan",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_baking_tray",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_butter_knife",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_cooking_pot",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_door_knob",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_hand_shovel",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_hinge",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_hunting_knife",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_kitchen_knife",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_letter_opener",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_metal_drum",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pan",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_roasting_pan",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_saucepan",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_saw",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_scissors",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sheet_metal",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells_mold",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_shovel",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_sledgehammer",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_suture_needle",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_suture_needle_holder",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_tweezers",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Lard": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Log": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.saw_logs2",
+          "role": "keep",
+          "requirement_key": "Base.GardenSaw",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.drill_plank",
+          "role": "keep",
+          "requirement_key": "Base.SharpedStone",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Margarine": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.MetalBar": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_crowbar",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_golfclub",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_crowbar",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_golfclub",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.MuffinTray": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.prepare_muffins",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.prepare_muffins",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Nails": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_fishing_rod",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.OatsRaw": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Onion": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_onion",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Pan": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.prepare_omelette",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.PancakeMix": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_pancake",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pancake",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Panfish": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_fillet",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Paperclip": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_fishing_rod",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Perch": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_fillet",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.PieDough": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.place_pie_in_baking_pan",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.PieWholeRaw": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_pie",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.PieWholeRawSweet": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_pie",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Pike": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_fillet",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.PizzaRecipe": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_pizza",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.PizzaWhole": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_pizza",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Plank": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_hunting_knife",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_kitchen_knife",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_saw",
+          "role": "keep",
+          "requirement_key": "Base.BallPeenHammer",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.create_spear",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.create_spear",
+          "role": "keep",
+          "requirement_key": "Base.SharpedStone",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.drill_plank",
+          "role": "keep",
+          "requirement_key": "Base.SharpedStone",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_hunting_knife",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_kitchen_knife",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_saw",
+          "role": "keep",
+          "requirement_key": "Base.Tongs",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Salami": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_salami",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Salt": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Shotgun": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.saw_off_shotgun",
+          "role": "keep",
+          "requirement_key": "Base.Saw",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Squid": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_squid_calamari",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.TreeBranch": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.create_spear",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_stake",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.create_spear",
+          "role": "keep",
+          "requirement_key": "Base.SharpedStone",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Trout": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_fillet",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Twine": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_fishing_rod",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Watermelon": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.slice_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.Axe",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.slice_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.AxeStone",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.smash_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.BaseballBat",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.smash_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.BaseballBatNails",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.slice_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.HandAxe",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.smash_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.Log",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.slice_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.smash_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.Plank",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.slice_watermelon",
+          "role": "keep",
+          "requirement_key": "Base.WoodAxe",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.WoodenStick": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_fishing_rod",
+          "role": "keep",
+          "requirement_key": "Base.MeatCleaver",
+          "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Yeast": {
+      "requirements": [
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.Bowl",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.RollingPin",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_bread_dough",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_cake_batter",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        },
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "role": "keep",
+          "requirement_key": "Base.Spatula",
+          "surface": "recipe_ui"
+        }
+      ]
+    }
+  },
+  "_debug": {
+    "recipe_names": {
+      "rp.recipe.butcher_bird": "Butcher Bird",
+      "rp.recipe.butcher_rabbit": "Butcher Rabbit",
+      "rp.recipe.butcher_small_animal": "Butcher Small Animal",
+      "rp.recipe.create_spear": "Create Spear",
+      "rp.recipe.drill_plank": "Drill Plank",
+      "rp.recipe.make_223_bullets": "Make 223 Bullets",
+      "rp.recipe.make_223_bullets_mold": "Make 223 Bullets Mold",
+      "rp.recipe.make_308_bullets": "Make 308 Bullets",
+      "rp.recipe.make_308_bullets_mold": "Make 308 Bullets Mold",
+      "rp.recipe.make_9mm_bullets": "Make 9mm Bullets",
+      "rp.recipe.make_9mm_bullets_mold": "Make 9mm Bullets Mold",
+      "rp.recipe.make_axe": "Make Axe",
+      "rp.recipe.make_baking_pan": "Make Baking Pan",
+      "rp.recipe.make_baking_tray": "Make Baking Tray",
+      "rp.recipe.make_biscuits": "Make Biscuits",
+      "rp.recipe.make_bread_dough": "Make Bread Dough",
+      "rp.recipe.make_butter_knife": "Make Butter Knife",
+      "rp.recipe.make_cake_batter": "Make Cake Batter",
+      "rp.recipe.make_chocolate_chip_cookie_dough": "Make Chocolate Chip Cookie Dough",
+      "rp.recipe.make_chocolate_cookie_dough": "Make Chocolate Cookie Dough",
+      "rp.recipe.make_cooking_pot": "Make Cooking Pot",
+      "rp.recipe.make_crowbar": "Make Crowbar",
+      "rp.recipe.make_door_knob": "Make Door Knob",
+      "rp.recipe.make_fishing_rod": "Make Fishing Rod",
+      "rp.recipe.make_golfclub": "Make Golfclub",
+      "rp.recipe.make_gravy": "Make Gravy",
+      "rp.recipe.make_hammer": "Make Hammer",
+      "rp.recipe.make_hand_shovel": "Make Hand Shovel",
+      "rp.recipe.make_hinge": "Make Hinge",
+      "rp.recipe.make_hunting_knife": "Make Hunting Knife",
+      "rp.recipe.make_kitchen_knife": "Make Kitchen Knife",
+      "rp.recipe.make_letter_opener": "Make Letter Opener",
+      "rp.recipe.make_metal_drum": "Make Metal Drum",
+      "rp.recipe.make_oatmeal_cookie_dough": "Make Oatmeal Cookie Dough",
+      "rp.recipe.make_pan": "Make Pan",
+      "rp.recipe.make_pancake": "Make Pancake",
+      "rp.recipe.make_pie_dough": "Make Pie Dough",
+      "rp.recipe.make_pizza": "Make Pizza",
+      "rp.recipe.make_roasting_pan": "Make Roasting Pan",
+      "rp.recipe.make_saucepan": "Make Saucepan",
+      "rp.recipe.make_saw": "Make Saw",
+      "rp.recipe.make_scissors": "Make Scissors",
+      "rp.recipe.make_sheet_metal": "Make Sheet Metal",
+      "rp.recipe.make_shortbread_cookie_dough": "Make Shortbread Cookie Dough",
+      "rp.recipe.make_shotgun_shells": "Make Shotgun Shells",
+      "rp.recipe.make_shotgun_shells_mold": "Make Shotgun Shells Mold",
+      "rp.recipe.make_shovel": "Make Shovel",
+      "rp.recipe.make_sledgehammer": "Make Sledgehammer",
+      "rp.recipe.make_squid_calamari": "Make Squid Calamari",
+      "rp.recipe.make_stake": "Make Stake",
+      "rp.recipe.make_sugar_cookie_dough": "Make Sugar Cookie Dough",
+      "rp.recipe.make_suture_needle": "Make Suture Needle",
+      "rp.recipe.make_suture_needle_holder": "Make Suture Needle Holder",
+      "rp.recipe.make_tweezers": "Make Tweezers",
+      "rp.recipe.place_pie_in_baking_pan": "Place Pie in Baking Pan",
+      "rp.recipe.prepare_muffins": "Prepare Muffins",
+      "rp.recipe.prepare_omelette": "Prepare Omelette",
+      "rp.recipe.saw_logs2": "Saw Logs2",
+      "rp.recipe.saw_off_double_barrel_shotgun": "Saw Off Double Barrel Shotgun",
+      "rp.recipe.saw_off_shotgun": "Saw Off Shotgun",
+      "rp.recipe.slice_baloney": "Slice Baloney",
+      "rp.recipe.slice_bread": "Slice Bread",
+      "rp.recipe.slice_cake": "Slice Cake",
+      "rp.recipe.slice_fillet": "Slice Fillet",
+      "rp.recipe.slice_frog": "Slice Frog",
+      "rp.recipe.slice_ham": "Slice Ham",
+      "rp.recipe.slice_onion": "Slice Onion",
+      "rp.recipe.slice_pie": "Slice Pie",
+      "rp.recipe.slice_pizza": "Slice Pizza",
+      "rp.recipe.slice_salami": "Slice Salami",
+      "rp.recipe.slice_watermelon": "Slice Watermelon",
+      "rp.recipe.smash_watermelon": "Smash Watermelon"
+    }
+  }
+}

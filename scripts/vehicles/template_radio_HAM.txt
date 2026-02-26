@@ -1,0 +1,53 @@
+module Base
+{
+    template vehicle Radio_HAM
+    {
+		part Radio
+		{
+		    area = Engine,
+		    itemType = Radio.HamRadio1;Radio.HamRadio2;Radio.HamRadioMakeShift,
+		    specificItem = false,
+		    table install
+            {
+                items
+                {
+                    1
+                    {
+                        type = Base.Screwdriver,
+                        count = 1,
+                        keep = true,
+						equip = primary,
+                    }
+                }
+                time = 100,
+                professions = ,
+                skills = ,
+                traits = ,
+                recipes = ,
+                test = Vehicles.InstallTest.Default,
+                complete = Vehicles.InstallComplete.Radio,
+            }
+            table uninstall
+            {
+                items
+                {
+                    1
+                    {
+                        type = Base.Screwdriver,
+                        count = 1,
+                        keep = true,
+						equip = primary,
+                    }
+                }
+                time = 100,
+                test = Vehicles.UninstallTest.Default,
+            }
+			lua
+			{
+				create = Vehicles.Create.Radio_HAM,
+				update = Vehicles.Update.Radio,
+			}
+		}
+	}
+}
+

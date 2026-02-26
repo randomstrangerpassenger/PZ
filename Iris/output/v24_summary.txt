@@ -1,0 +1,78 @@
+=== PASS (57) ===
+  Base.BeerEmpty  [rule_firefighting_isextinguisher]
+  Base.BeerWaterFull  [rule_firefighting_isextinguisher]
+  Base.BleachEmpty  [rule_firefighting_isextinguisher]
+  Base.Bowl  [rule_firefighting_isextinguisher]
+  Base.BucketEmpty  [rule_firefighting_isextinguisher]
+  Base.BucketWaterFull  [rule_firefighting_isextinguisher]
+  Base.Dirtbag  [rule_firefighting_isextinguisher]
+  Base.Extinguisher  [rule_firefighting_isextinguisher]
+  Base.FullKettle  [rule_firefighting_isextinguisher]
+  Base.GlassTumbler  [rule_firefighting_isextinguisher]
+  Base.GlassTumblerWater  [rule_firefighting_isextinguisher]
+  Base.GlassWine  [rule_firefighting_isextinguisher]
+  Base.Gravelbag  [rule_firefighting_isextinguisher]
+  Base.Kettle  [rule_firefighting_isextinguisher]
+  Base.MugRed  [rule_firefighting_isextinguisher]
+  Base.MugSpiffo  [rule_firefighting_isextinguisher]
+  Base.MugWhite  [rule_firefighting_isextinguisher]
+  Base.Mugl  [rule_firefighting_isextinguisher]
+  Base.Needle  [rule_healthpanel_hstitch]
+  Base.PlasticCup  [rule_firefighting_isextinguisher]
+  Base.PlasticCupWater  [rule_firefighting_isextinguisher]
+  Base.PopBottleEmpty  [rule_firefighting_isextinguisher]
+  Base.Pot  [rule_firefighting_isextinguisher]
+  Base.Sandbag  [rule_firefighting_isextinguisher]
+  Base.Saucepan  [rule_firefighting_isextinguisher]
+  Base.SutureNeedle  [rule_healthpanel_hstitch]
+  Base.SutureNeedleHolder  [rule_healthpanel_hremoveglass, rule_healthpanel_hremovebullet]
+  Base.Teacup  [rule_firefighting_isextinguisher]
+  Base.Thread  [rule_healthpanel_hstitch]
+  Base.TinOpener  [rule_cm_surface_recipe_open_canned]
+  Base.Tweezers  [rule_healthpanel_hremoveglass, rule_healthpanel_hremovebullet]
+  Base.WaterBleachBottle  [rule_firefighting_isextinguisher]
+  Base.WaterBottleEmpty  [rule_firefighting_isextinguisher]
+  Base.WaterBottleFull  [rule_firefighting_isextinguisher]
+  Base.WaterBowl  [rule_firefighting_isextinguisher]
+  Base.WaterMug  [rule_firefighting_isextinguisher]
+  Base.WaterMugRed  [rule_firefighting_isextinguisher]
+  Base.WaterMugSpiffo  [rule_firefighting_isextinguisher]
+  Base.WaterMugWhite  [rule_firefighting_isextinguisher]
+  Base.WaterPaintbucket  [rule_firefighting_isextinguisher]
+  Base.WaterPopBottle  [rule_firefighting_isextinguisher]
+  Base.WaterPot  [rule_firefighting_isextinguisher]
+  Base.WaterSaucepan  [rule_firefighting_isextinguisher]
+  Base.WaterTeacup  [rule_firefighting_isextinguisher]
+  Base.WhiskeyEmpty  [rule_firefighting_isextinguisher]
+  Base.WhiskeyWaterFull  [rule_firefighting_isextinguisher]
+  Base.WineEmpty  [rule_firefighting_isextinguisher]
+  Base.WineEmpty2  [rule_firefighting_isextinguisher]
+  Base.WineWaterFull  [rule_firefighting_isextinguisher]
+  farming.GardeningSprayEmpty  [rule_firefighting_isextinguisher]
+  farming.GardeningSprayFull  [rule_firefighting_isextinguisher]
+  farming.MayonnaiseEmpty  [rule_firefighting_isextinguisher]
+  farming.MayonnaiseWaterFull  [rule_firefighting_isextinguisher]
+  farming.RemouladeEmpty  [rule_firefighting_isextinguisher]
+  farming.RemouladeWaterFull  [rule_firefighting_isextinguisher]
+  farming.WateredCan  [rule_firefighting_isextinguisher]
+  farming.WateredCanFull  [rule_firefighting_isextinguisher]
+
+=== REVIEW (13) ===
+  Base.BallPeenHammer  reason=prove unknown: executing_tool
+  Base.BlowTorch  reason=prove unknown: executing_tool
+  Base.GardenSaw  reason=prove unknown: executing_tool
+  Base.Hammer  reason=prove unknown: executing_tool
+  Base.HammerStone  reason=prove unknown: executing_tool
+  Base.PetrolBleachBottle  reason=property_based exclusion (auto conclusion forbidden)
+  Base.PetrolCan  reason=property_based exclusion (auto conclusion forbidden)
+  Base.PetrolPopBottle  reason=property_based exclusion (auto conclusion forbidden)
+  Base.Saw  reason=prove unknown: executing_tool
+  Base.Screwdriver  reason=prove unknown: executing_tool
+  Base.WaterBottlePetrol  reason=property_based exclusion (auto conclusion forbidden)
+  Base.WhiskeyPetrol  reason=property_based exclusion (auto conclusion forbidden)
+  Base.WinePetrol  reason=property_based exclusion (auto conclusion forbidden)
+
+=== NO (1399) ===
+  equip: 719
+  consumption: 591
+  input_material: 89

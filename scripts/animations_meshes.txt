@@ -1,0 +1,22 @@
+module Base
+{
+	animationsMesh Human
+	{
+		meshFile = Skinned/MaleBody,
+		animationDirectory = Bob,
+		animationDirectory = Kate,
+		animationDirectory = Zombie,
+	}
+
+	animationsMesh Mannequin_Scarecrow
+	{
+		meshFile = Skinned/Mannequin_Scarecrow,
+		animationDirectory = Mannequin_Scarecrow,
+	}
+
+	animationsMesh Mannequin_Skeleton
+	{
+		meshFile = Skinned/Mannequin_Skeleton,
+		animationDirectory = Mannequin_Skeleton,
+	}
+}

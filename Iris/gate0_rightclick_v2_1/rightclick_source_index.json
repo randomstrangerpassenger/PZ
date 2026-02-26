@@ -1,0 +1,692 @@
+{
+    "meta": {
+        "version": "v2",
+        "created": "2026-02-08",
+        "revised": "2026-02-18",
+        "description": "정적 근거(source)로부터 EvidenceCandidate를 생성하는 Extraction Rule 인덱스 (B41 기준)",
+        "status": "active",
+        "supersedes": "rightclick_source_index.json (v1)",
+        "contract": "rightclick_field_registry_v2.md",
+        "pipeline_position": "source_index → evidence_candidates.json → evidence_decisions.json → field_registry.json"
+    },
+    "schema": {
+        "anchor": {
+            "kind": "string (lua_function | lua_table | predicate | file_span | script_tag | itemscript_field)",
+            "ref": "string (정규화된 식별자. kind별 강제 포맷 참조)",
+            "ref_format_by_kind": {
+                "lua_function": "path/to/file.lua::Module.function",
+                "lua_table": "path/to/file.lua::tableName",
+                "predicate": "path/to/file.lua::predicateName",
+                "file_span": "path/to/file.ext::L{start}-L{end}::{token}",
+                "script_tag": "path/to/file.ext::Tags=TagName",
+                "itemscript_field": "items_itemscript.json::Type={TypeValue}"
+            },
+            "version": "string (소스 버전 태그)",
+            "_note": "file_span의 ref는 반드시 L{start}-L{end} 라인 범위와 식별 토큰을 포함해야 Anchor 동일성 비교가 안정됨"
+        },
+        "extract": {
+            "matcher_logic": "string (OR | AND), default OR. matchers 리스트의 결합 로직. OR: 하나라도 매칭이면 후보. AND: 모든 matcher가 매칭이어야 후보.",
+            "matchers": [
+                {
+                    "match_type": "string (type | tag | property | category | display_category | script_type)",
+                    "value": "string",
+                    "_constraint": "match_type=property인 경우 items_itemscript.json에서 정적으로 확인 가능한 property 키만 허용. 정적 결정 불가 property는 excluded_matchers로 이동"
+                }
+            ],
+            "runtime_condition": "string | null (행동 발동 조건. 후보 추출에 사용 금지. 구현자 참조용 메타 전용)",
+            "excluded_matchers": [
+                {
+                    "match_type": "string",
+                    "value": "string",
+                    "exclusion_reason": "string (정적 결정 불가 등 제외 사유)"
+                }
+            ]
+        },
+        "prove": {
+            "executing_tool": "boolean | 'unknown'",
+            "external_target": "boolean | 'unknown'",
+            "persistent_change": "boolean | 'unknown'"
+        },
+        "exclusions": {
+            "recipe": "boolean",
+            "consumption": "boolean",
+            "equip": "boolean",
+            "passive": "boolean",
+            "auto": "boolean",
+            "input_material": "boolean",
+            "property_based": "boolean (속성 기반 조건 아이템. executing_tool 확정 불가 시 사용)"
+        }
+    },
+    "rules": [
+        {
+            "rule_id": "rule_firefighting_isextinguisher",
+            "anchor": {
+                "kind": "lua_function",
+                "ref": "lua/server/FireFighting/FireFighting.lua::FireFighting.isExtinguisher",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "type",
+                        "value": "Extinguisher"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "Sandbag"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "Gravelbag"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "Dirtbag"
+                    },
+                    {
+                        "match_type": "property",
+                        "value": "CanStoreWater"
+                    }
+                ],
+                "runtime_condition": "getDrainableUsesInt() >= getExtinguisherUses(item)"
+            },
+            "prove": {
+                "executing_tool": true,
+                "external_target": true,
+                "persistent_change": true
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "isWaterSource()를 CanStoreWater 정적 필드(items_itemscript.json boolean)로 대체. match_item() property 분기는 item_data[value] 딕셔너리 조회만 수행(정적 확인 완료). type 기반 4개 matcher + CanStoreWater property matcher로 OR 결합."
+        },
+        {
+            "rule_id": "rule_worldobject_predicatepetrol",
+            "anchor": {
+                "kind": "lua_function",
+                "ref": "lua/client/ISUI/ISWorldObjectContextMenu.lua::predicatePetrol",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "tag",
+                        "value": "Petrol"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "PetrolCan"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false,
+                "property_based": true
+            },
+            "notes": "Petrol 태그/PetrolCan 타입은 속성 기반 조건 아이템(연료 컨테이너)에 해당. 아이템이 executing_tool(실행 주체 도구)인지 속성 기반 소모재인지 정적으로 확정 불가. property_based exclusion을 켜고 prove 전항목 unknown 처리. 이 rule의 후보는 REVIEW로 분기."
+        },
+        {
+            "rule_id": "rule_moveabledefinitions_scrapdefinitions",
+            "anchor": {
+                "kind": "lua_table",
+                "ref": "lua/client/Moveables/ISMoveableDefinitions.lua::scrapDefinitions",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [],
+                "extract_blocked_reason": "scrapDefinitions 테이블은 material 기반 정의이며, items_itemscript.json의 FullType에 결정적으로 매칭할 criteria가 부재. 후보 집합을 결정적으로 산출 불가."
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": true,
+                "persistent_change": true
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "matchers가 비어있으므로 이 rule의 모든 후보는 REVIEW로 격리. tool_definitions(line 231-260)는 존재하나 FullType 매칭 기준이 아닌 material 기반이므로 결정적 추출 불가."
+        },
+        {
+            "rule_id": "rule_canopener_tag_evidence",
+            "anchor": {
+                "kind": "script_tag",
+                "ref": "scripts/items.txt::Tags=CanOpener",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "tag",
+                        "value": "CanOpener"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": true,
+                "external_target": true,
+                "persistent_change": true
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "이 rule은 CanOpener 태그를 가진 아이템의 우클릭 행동 Evidence만 추출. Recipe 연동 여부는 별도 rule(rule_canopener_recipe_exclusion)에서 판정."
+        },
+        {
+            "rule_id": "rule_canopener_recipe_exclusion",
+            "anchor": {
+                "kind": "file_span",
+                "ref": "scripts/recipes.txt::L1-L*::keep[Recipe.GetItemTypes.CanOpener]",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "tag",
+                        "value": "CanOpener"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": false,
+                "external_target": false,
+                "persistent_change": false
+            },
+            "exclusions": {
+                "recipe": true,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "동일 CanOpener 아이템이 recipes.txt에서 keep 도구로 사용됨(19회). 이 rule은 해당 아이템의 Recipe Track 해당 여부를 증명하여 Exclusion 분기를 제공. evidence_candidates에서 rule_canopener_tag_evidence와 병합 시 exclusion 판정에 사용."
+        },
+        {
+            "rule_id": "rule_healthpanel_hstitch",
+            "anchor": {
+                "kind": "lua_function",
+                "ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HStitch.checkItem",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "type",
+                        "value": "Needle"
+                    },
+                    {
+                        "match_type": "tag",
+                        "value": "SewingNeedle"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "Thread"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "SutureNeedle"
+                    }
+                ],
+                "runtime_condition": "bodyPart:isDeepWounded() and not bodyPart:haveGlass()"
+            },
+            "prove": {
+                "executing_tool": true,
+                "external_target": true,
+                "persistent_change": true
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "runtime_condition은 행동 발동 조건이며 후보 추출 기준이 아님. 후보는 matchers로만 결정."
+        },
+        {
+            "rule_id": "rule_healthpanel_hremoveglass",
+            "anchor": {
+                "kind": "lua_function",
+                "ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HRemoveGlass.checkItem",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "tag",
+                        "value": "RemoveGlass"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "SutureNeedleHolder"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "Tweezers"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": true,
+                "external_target": true,
+                "persistent_change": true
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": null
+        },
+        {
+            "rule_id": "rule_healthpanel_hremovebullet",
+            "anchor": {
+                "kind": "lua_function",
+                "ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HRemoveBullet.checkItem",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "tag",
+                        "value": "RemoveBullet"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "Tweezers"
+                    },
+                    {
+                        "match_type": "type",
+                        "value": "SutureNeedleHolder"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": true,
+                "external_target": true,
+                "persistent_change": true
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": null
+        },
+        {
+            "rule_id": "rule_inventorypane_weaponpart",
+            "anchor": {
+                "kind": "lua_function",
+                "ref": "lua/client/ISUI/ISInventoryPaneContextMenu.lua::getItemsFromCategory",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "display_category",
+                        "value": "WeaponPart"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": false,
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": true
+            },
+            "notes": "WeaponPart는 무기에 장착되는 입력 재료(부착물)에 해당. executing_tool이 아닌 input_material 패턴. external_target/persistent_change는 부착 대상(무기)에 대한 것이므로 unknown 처리. 이 rule의 후보는 exclusion(input_material) 또는 REVIEW로 분기."
+        },
+        {
+            "rule_id": "rule_exclusion_consumption_food",
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::Type=Food",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "script_type",
+                        "value": "Food"
+                    }
+                ],
+                "secondary_confirm_fields": [
+                    "HungerChange",
+                    "ThirstChange",
+                    "StressChange",
+                    "UnhappyChange",
+                    "BoredomChange",
+                    "FatigueChange",
+                    "EnduranceChange",
+                    "Calories",
+                    "Carbohydrates",
+                    "Lipids",
+                    "Proteins"
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": true,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "Type=Food이면서 consumption 확정 필드(HungerChange 등) 중 1개 이상 존재하는 아이템만 매칭. 확정 필드가 없는 Food는 이 rule에 매칭되지 않아 scope 밖 유지."
+        },
+        {
+            "rule_id": "rule_exclusion_equip_clothing",
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::Type=Clothing",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "script_type",
+                        "value": "Clothing"
+                    }
+                ],
+                "secondary_confirm_fields": [
+                    "BodyLocation"
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": true,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "Type=Clothing이면서 BodyLocation이 존재하는 아이템. Clothing 719개 전수에 BodyLocation이 존재(100% 적중). 장착/해제 행위이므로 equip exclusion."
+        },
+        {
+            "rule_id": "rule_exclusion_consumption_literature",
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::Type=Literature",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "script_type",
+                        "value": "Literature"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": true,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "Type=Literature는 읽기(Read) 행위에 해당. Read는 consumption 제외 정의와 정합."
+        },
+        {
+            "rule_id": "rule_exclusion_consumption_displaycategory_food",
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::DisplayCategory=Food",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "display_category",
+                        "value": "Food"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": true,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "DisplayCategory=Food인 아이템 전체를 consumption exclusion으로 NO 라우팅. 기존 rule_exclusion_consumption_food(Type=Food + confirm_fields)와 달리 DisplayCategory 기준으로 scope 밖 Food도 포함."
+        },
+        {
+            "rule_id": "rule_exclusion_inputmaterial_material",
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::DisplayCategory=Material",
+                "version": "b41"
+            },
+            "extract": {
+                "matcher_logic": "AND",
+                "matchers": [
+                    {
+                        "match_type": "display_category",
+                        "value": "Material"
+                    },
+                    {
+                        "match_type": "script_type",
+                        "value": "Normal"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": true
+            },
+            "notes": "DisplayCategory=Material AND Type=Normal인 아이템만 input_material exclusion. Type=Normal 가드로 기존 STRONG/WEAK(Thread=Drainable, Dirtbag/Gravelbag/Sandbag=Drainable, Plank=Weapon) 보호."
+        },
+        {
+            "rule_id": "rule_exclusion_inputmaterial_ammo",
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::DisplayCategory=Ammo",
+                "version": "b41"
+            },
+            "extract": {
+                "matchers": [
+                    {
+                        "match_type": "display_category",
+                        "value": "Ammo"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": true
+            },
+            "notes": "DisplayCategory=Ammo인 아이템을 input_material exclusion으로 NO 라우팅."
+        },
+        {
+            "rule_id": "rule_candidate_moveable_furniture",
+            "disabled": true,
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::DisplayCategory=Furniture",
+                "version": "b41"
+            },
+            "extract": {
+                "matcher_logic": "AND",
+                "matchers": [
+                    {
+                        "match_type": "script_type",
+                        "value": "Moveable"
+                    },
+                    {
+                        "match_type": "display_category",
+                        "value": "Furniture"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "Type=Moveable AND DC=Furniture. candidate-only: prove 전부 unknown → REVIEW."
+        },
+        {
+            "rule_id": "rule_candidate_vehiclemaintenance",
+            "disabled": true,
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::DisplayCategory=VehicleMaintenance",
+                "version": "b41"
+            },
+            "extract": {
+                "matcher_logic": "AND",
+                "matchers": [
+                    {
+                        "match_type": "script_type",
+                        "value": "Normal"
+                    },
+                    {
+                        "match_type": "display_category",
+                        "value": "VehicleMaintenance"
+                    },
+                    {
+                        "match_type": "property",
+                        "value": "MechanicsItem"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "Type=Normal AND DC=VehicleMaintenance AND MechanicsItem=truthy. candidate-only → REVIEW. 3-way AND 가드로 Petrol 7개(Type=Drainable, MechanicsItem 없음) 구조적 제외."
+        },
+        {
+            "rule_id": "rule_candidate_junk",
+            "disabled": true,
+            "anchor": {
+                "kind": "itemscript_field",
+                "ref": "items_itemscript.json::DisplayCategory=Junk",
+                "version": "b41"
+            },
+            "extract": {
+                "matcher_logic": "AND",
+                "matchers": [
+                    {
+                        "match_type": "script_type",
+                        "value": "Normal"
+                    },
+                    {
+                        "match_type": "display_category",
+                        "value": "Junk"
+                    }
+                ]
+            },
+            "prove": {
+                "executing_tool": "unknown",
+                "external_target": "unknown",
+                "persistent_change": "unknown"
+            },
+            "exclusions": {
+                "recipe": false,
+                "consumption": false,
+                "equip": false,
+                "passive": false,
+                "auto": false,
+                "input_material": false
+            },
+            "notes": "Type=Normal AND DC=Junk. candidate-only: prove 전부 unknown → REVIEW. AND 가드로 Moveable/Drainable Junk 파편 제외."
+        }
+    ]
+}

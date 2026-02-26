@@ -1,0 +1,53 @@
+{
+  "version": "v2.4",
+  "policy": "PERMANENT_REVIEW",
+  "policy_description": "group_def_dynamic은 정적 해석 불가로 영구 REVIEW 고정. FabricType 필드 부재 + ClothingRecipesDefinitions 런타임 테이블 의존으로 정적 재구성 불가 판정. 해결 시도하지 않음.",
+  "frozen_count": 5,
+  "groups": {
+    "CraftSheetRope": {
+      "status": "permanent_review",
+      "reason": "depends_on_unreconstructable_runtime_table",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.CraftSheetRope"
+    },
+    "RipClothing_Cotton": {
+      "status": "permanent_review",
+      "reason": "depends_on_unreconstructable_runtime_table",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.RipClothing_Cotton"
+    },
+    "RipClothing_Denim": {
+      "status": "permanent_review",
+      "reason": "depends_on_unreconstructable_runtime_table",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.RipClothing_Denim"
+    },
+    "RipClothing_Leather": {
+      "status": "permanent_review",
+      "reason": "depends_on_unreconstructable_runtime_table",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.RipClothing_Leather"
+    },
+    "RipSheets": {
+      "status": "permanent_review",
+      "reason": "depends_on_unreconstructable_runtime_table",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.RipSheets"
+    }
+  }
+}

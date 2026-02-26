@@ -1,0 +1,85 @@
+{
+    "meta": {
+        "version": "1.0",
+        "project": "anchor_expansion",
+        "created": "2026-02-22",
+        "description": "Moveable/Furniture 정적 스캔 대상 목록"
+    },
+    "completed": [
+        {
+            "path": "lua/client/ISUI/ISInventoryPaneContextMenu.lua",
+            "purpose": "인벤토리 우클릭 메인 메뉴 빌더",
+            "lines": 3777,
+            "result": "Moveable/Furniture 직접 분기 0건. doPlace3DItemOption(L3707)만 WSI 기반 PlaceOnGround 제공",
+            "anchors_found": [
+                "C"
+            ]
+        },
+        {
+            "path": "lua/client/ISUI/ISWorldObjectContextMenu.lua",
+            "purpose": "월드 오브젝트 우클릭 메인 메뉴 빌더",
+            "result": "moveable/furniture/pickup 0건",
+            "anchors_found": []
+        },
+        {
+            "path": "lua/client/Context/Inventory/InvContextMovable.lua",
+            "purpose": "Moveable 아이템 전용 인벤토리 컨텍스트 메뉴",
+            "lines": 43,
+            "result": "instanceof(Moveable) → IGUI_PlaceObject. 핵심 앵커 발견",
+            "anchors_found": [
+                "A"
+            ]
+        },
+        {
+            "path": "lua/client/Context/World/ISContextDisassemble.lua",
+            "purpose": "월드 오브젝트 해체 메뉴",
+            "lines": 122,
+            "result": "ISMoveableSpriteProps → canScrapObject → Disassemble 메뉴. 월드 우클릭 앵커",
+            "anchors_found": [
+                "B"
+            ]
+        },
+        {
+            "path": "lua/client/Moveables/ISMoveableDefinitions.lua",
+            "purpose": "Moveable 도구/재료/해체 정의 테이블",
+            "lines": 458,
+            "result": "데이터 정의 전용. ContextMenu/addOption 0건",
+            "anchors_found": []
+        },
+        {
+            "path": "lua/client/Moveables/ISMoveableSpriteProps.lua",
+            "purpose": "Moveable 스프라이트 속성/동작 처리",
+            "result": "ISWorldObjectContextMenu.equip 참조만 있음. 직접 메뉴 생성 없음",
+            "anchors_found": []
+        }
+    ],
+    "next_targets": [
+        {
+            "path": "lua/client/Context/Inventory/InvContextRadio.lua",
+            "purpose": "Radio 전용 인벤토리 컨텍스트 – Moveable Radio 제외 로직 확인",
+            "priority": "low"
+        },
+        {
+            "path": "lua/client/Context/ISMenuContextInventory.lua",
+            "purpose": "인벤토리 컨텍스트 라우터 – ISInventoryMenuElements 등록 순서 확인",
+            "priority": "low",
+            "status": "scanned",
+            "note": "L19: self.loadElements(ISInventoryMenuElements) – InvContextMovable 포함 확인 완료"
+        },
+        {
+            "path": "input/items_itemscript.json",
+            "purpose": "WorldStaticItem 필드 존재 여부 확인 → Anchor C 활용 가능성",
+            "priority": "medium"
+        },
+        {
+            "path": "lua/client/Moveables/ISMoveablesAction.lua",
+            "purpose": "place/pickup 실제 TimedAction – 행동 정의 확인",
+            "priority": "low"
+        },
+        {
+            "path": "lua/client/Vehicles/ISUI/ISVehicleMechanics.lua",
+            "purpose": "VehicleMaintenance 항목 UI 패널 경로 확인 (별도 프로젝트)",
+            "priority": "deferred"
+        }
+    ]
+}

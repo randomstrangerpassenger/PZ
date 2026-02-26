@@ -91,19 +91,13 @@ function Iris.initialize()
         print("[Iris:initialize] Step 2c: FAILED to load IrisFixingIndex: " .. tostring(fixResult))
     end
     
-    -- Step 3: Rule Engine
-    print("[Iris:initialize] Step 3: Loading IrisRuleLoader...")
-    local loaderOk, loaderResult = pcall(require, "Iris/Rules/engine/IrisRuleLoader")
-    if loaderOk then
-        print("[Iris:initialize] Step 3: IrisRuleLoader loaded")
-        local loadOk, loadErr = pcall(function() return loaderResult.load() end)
-        if loadOk then
-            print("[Iris:initialize] Step 3: RuleLoader.load() success")
-        else
-            print("[Iris:initialize] Step 3: RuleLoader.load() FAILED: " .. tostring(loadErr))
-        end
+    -- Step 3: 정적 분류 데이터 로드 (헌법적 설계: Rule Engine 없음)
+    print("[Iris:initialize] Step 3: Loading IrisClassifications...")
+    local classOk, classResult = pcall(require, "Iris/Data/IrisClassifications")
+    if classOk then
+        print("[Iris:initialize] Step 3: IrisClassifications loaded successfully")
     else
-        print("[Iris:initialize] Step 3: FAILED to load IrisRuleLoader: " .. tostring(loaderResult))
+        print("[Iris:initialize] Step 3: FAILED to load IrisClassifications: " .. tostring(classResult))
     end
     
     -- Step 4: API
@@ -173,10 +167,30 @@ function Iris.initialize()
         if initOk then
             print("[Iris:initialize] Step 5d: MapIcon.init() success")
         else
-            print("[Iris:initialize] Step 5d: MapIcon.init() FAILED: " .. tostring(initErr))
+        print("[Iris:initialize] Step 5d: MapIcon.init() FAILED: " .. tostring(initErr))
         end
     else
         print("[Iris:initialize] Step 5d: FAILED to load IrisMapIcon: " .. tostring(iconResult))
+    end
+    
+    -- Step 6: 테스트 자동 실행 (설정 시)
+    if Iris.Config and Iris.Config.RUN_TESTS_ON_START then
+        print("[Iris:initialize] Step 6: Running IrisDesc tests...")
+        local testOk, testResult = pcall(require, "Pulse/Iris/Logic/IrisDesc/TestHarness")
+        if testOk and testResult and testResult.runAll then
+            local runOk, allPassed = pcall(testResult.runAll)
+            if runOk then
+                if allPassed then
+                    print("[Iris:initialize] Step 6: All IrisDesc tests PASSED ✓")
+                else
+                    print("[Iris:initialize] Step 6: Some IrisDesc tests FAILED ✗")
+                end
+            else
+                print("[Iris:initialize] Step 6: Test execution error: " .. tostring(allPassed))
+            end
+        else
+            print("[Iris:initialize] Step 6: TestHarness load failed: " .. tostring(testResult))
+        end
     end
     
     -- 완료

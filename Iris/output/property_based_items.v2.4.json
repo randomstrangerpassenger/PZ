@@ -1,0 +1,44 @@
+{
+  "Base.PetrolBleachBottle": {
+    "fulltype": "Base.PetrolBleachBottle",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ],
+    "review_reason": "property_based exclusion (auto conclusion forbidden)"
+  },
+  "Base.PetrolCan": {
+    "fulltype": "Base.PetrolCan",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ],
+    "review_reason": "property_based exclusion (auto conclusion forbidden)"
+  },
+  "Base.PetrolPopBottle": {
+    "fulltype": "Base.PetrolPopBottle",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ],
+    "review_reason": "property_based exclusion (auto conclusion forbidden)"
+  },
+  "Base.WaterBottlePetrol": {
+    "fulltype": "Base.WaterBottlePetrol",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ],
+    "review_reason": "property_based exclusion (auto conclusion forbidden)"
+  },
+  "Base.WhiskeyPetrol": {
+    "fulltype": "Base.WhiskeyPetrol",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ],
+    "review_reason": "property_based exclusion (auto conclusion forbidden)"
+  },
+  "Base.WinePetrol": {
+    "fulltype": "Base.WinePetrol",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ],
+    "review_reason": "property_based exclusion (auto conclusion forbidden)"
+  }
+}

@@ -1,0 +1,1296 @@
+module Base
+{
+	item Mov_FoldingChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Folding Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_60,
+	}
+	
+	item Mov_OfficeChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Black Office Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_50,
+	}
+	
+	item Mov_GreyChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Gray Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_54,
+	}
+	
+	item Mov_WoodenStool
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Wooden Bar Stool,
+		WorldObjectSprite	= location_restaurant_bar_01_26,
+	}
+	
+	item Mov_PlasticChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Plastic Chair,
+		WorldObjectSprite	= furniture_seating_outdoor_01_17,
+	}
+	
+	item Mov_BluePlasticChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Blue Plastic Chair,
+		WorldObjectSprite	= furniture_seating_indoor_02_13,
+	}
+	
+	item Mov_MetalStool
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Metal Stool,
+		WorldObjectSprite	= location_community_medical_01_10,
+	}
+	
+	item Mov_MobileCounter
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Mobile Tool Counter,
+		WorldObjectSprite	= location_community_medical_01_49,
+	}
+	
+	item Mov_MetalLocker
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Green Wall Locker,
+		WorldObjectSprite	= furniture_storage_02_8,
+	}
+	
+	item Mov_ChromeSink
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Chrome Sink,
+		WorldObjectSprite	= fixtures_sinks_01_9,
+	}
+	
+	item Mov_IndustrialSink
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Dark Industrial Sink,
+		WorldObjectSprite	= fixtures_sinks_01_16,
+	}
+	
+	item Mov_WhiteSink
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= White Standing Sink,
+		WorldObjectSprite	= fixtures_sinks_01_12,
+	}
+	
+	item Mov_FancyToilet
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Fancy Toilet,
+		WorldObjectSprite	= fixtures_bathroom_01_0,
+	}
+	
+	item Mov_RedBBQ
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Barbecue,
+		WorldObjectSprite	= appliances_cooking_01_35,
+	}
+	
+	item Mov_GreyOven
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Gray Oven,
+		WorldObjectSprite	= appliances_cooking_01_5,
+	}
+	
+	item Mov_ModernOven
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Modern Oven,
+		WorldObjectSprite	= appliances_cooking_01_13,
+	}
+	
+	item Mov_GreenOven
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Green Oven,
+		WorldObjectSprite	= appliances_cooking_01_1,
+	}
+	
+	item Mov_RedOven
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Red Oven,
+		WorldObjectSprite	= appliances_cooking_01_9,
+	}
+	
+	item Mov_WoodenChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Wooden Chair,
+		WorldObjectSprite	= furniture_seating_indoor_02_5,
+	}
+	
+	item Mov_DarkWoodenChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Dark Wooden Chair,
+		WorldObjectSprite	= furniture_seating_indoor_02_0,
+	}
+	
+	item Mov_GreenChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Green Wooden Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_57,
+	}
+	
+	item Mov_RedWoodenChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Red Wooden Chair,
+		WorldObjectSprite	= furniture_seating_indoor_02_9,
+	}
+	
+	item Mov_WhiteWoodenChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= White Wooden Chair,
+		WorldObjectSprite	= furniture_seating_indoor_02_56,
+	}
+	
+	item Mov_WhiteSimpleChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= White Simple Chair,
+		WorldObjectSprite	= furniture_seating_indoor_03_57,
+	}
+	
+	item Mov_PurpleWoodenChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Purple Wooden Chair,
+		WorldObjectSprite	= furniture_seating_indoor_03_45,
+	}
+	
+	item Mov_PileOCrepeChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Pile o' Crepe Chair,
+		WorldObjectSprite	= location_restaurant_pileocrepe_01_41,
+	}
+	
+	item Mov_FancyWhiteChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= White Fancy Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_37,
+	}
+	
+	item Mov_FancyBlackChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Black Fancy Chair,
+		WorldObjectSprite	= furniture_seating_indoor_03_41,
+	}
+	
+	item Mov_RedChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Red Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_41,
+	}
+	
+	item Mov_DarkBlueChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Dark Blue Chair,
+		WorldObjectSprite	= furniture_seating_indoor_03_49,
+	}
+	
+	item Mov_GreenComfyChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Green Comfy Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_9,
+	}
+	
+	item Mov_WhiteComfyChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= White Lazy Chair,
+		WorldObjectSprite	= furniture_seating_indoor_02_20,
+	}
+	
+	item Mov_BlueComfyChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Blue Comfy Chair,
+		WorldObjectSprite	= furniture_seating_indoor_03_25,
+	}
+	
+	item Mov_GreyComfyChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Grey Lazy Chair,
+		WorldObjectSprite	= furniture_seating_indoor_03_4,
+	}
+	
+	item Mov_BrownComfyChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Brown Lazy Chair,
+		WorldObjectSprite	= furniture_seating_indoor_02_44,
+	}
+	
+	item Mov_YellowModernChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Yellow Modern Chair,
+		WorldObjectSprite	= furniture_seating_indoor_03_28,
+	}
+	
+	item Mov_OrangeModernChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Orange Modern Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_12,
+	}
+	
+	item Mov_OrangeFuton
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Orange Futon,
+		WorldObjectSprite	= furniture_seating_indoor_01_46,
+	}
+	
+	item Mov_BlueRattanChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Blue Rattan Chair,
+		WorldObjectSprite	= furniture_seating_indoor_02_41,
+	}
+	
+	item Mov_PurpleRattanChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Purple Rattan Chair,
+		WorldObjectSprite	= furniture_seating_indoor_01_33,
+	}
+	
+	item Mov_FancyLowTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Fancy Low Table,
+		WorldObjectSprite	= furniture_tables_low_01_3,
+	}
+	
+	item Mov_PlasticLowTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Low Plastic Table,
+		WorldObjectSprite	= furniture_tables_low_01_20,
+	}
+	
+	item Mov_LongTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Long Table,
+		WorldObjectSprite	= furniture_tables_high_01_4,
+	}
+	
+	item Mov_SmallTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Small Table with Drawer,
+		WorldObjectSprite	= furniture_storage_01_52,
+	}
+	
+	item Mov_FancyTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Fancy Table,
+		WorldObjectSprite	= furniture_tables_high_01_15,
+	}
+	
+	item Mov_FancyDarkTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Fancy Dark Table,
+		WorldObjectSprite	= furniture_tables_high_01_16,
+	}
+	
+	item Mov_BrownLowTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Brown Low Table,
+		WorldObjectSprite	= furniture_tables_low_01_13,
+	}
+	
+	item Mov_RoundTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Round Table,
+		WorldObjectSprite	= furniture_tables_high_01_14,
+	}
+	
+	item Mov_OakRoundTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Oak Round Table,
+		WorldObjectSprite	= furniture_tables_high_01_6,
+	}
+	
+	item Mov_LightRoundTable
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Light Round Table,
+		WorldObjectSprite	= furniture_tables_high_01_7,
+	}
+	
+	item Mov_DesktopComputer
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Desktop Computer,
+		WorldObjectSprite	= appliances_com_01_72,
+	}
+	
+	item Mov_CardboardBox
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Cardboard Box,
+		WorldObjectSprite	= trashcontainers_01_24,
+	}
+
+	item Mov_FitnessContraption
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Fitness Contraption,
+		WorldObjectSprite	= recreational_sports_01_41,
+	}
+	
+	item Mov_MannequinMale
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Mannequin,
+		WorldObjectSprite	= location_shop_mall_01_69,
+	}
+	
+	item Mov_MannequinFemale
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Mannequin,
+		WorldObjectSprite	= location_shop_mall_01_66,
+	}
+
+	item Mov_MapUSA
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Map of USA,
+		WorldObjectSprite	= location_community_school_01_22,
+	}
+	
+	item Mov_FlagUSA
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Stars & Stripes Flag,
+		WorldObjectSprite	= walls_decoration_01_16,
+	}
+	
+	item Mov_FlagUSALarge
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= USA Flag,
+		WorldObjectSprite	= location_military_knox_01_8,
+	}
+	
+	item Mov_FlagAdmin
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Administrative Flag,
+		WorldObjectSprite	= walls_decoration_01_18,
+	}
+	
+	item Mov_CabinetTool
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Red Mobile Tool Cabinet,
+		WorldObjectSprite	= location_business_machinery_01_32,
+	}
+	
+	item Mov_LightConstruction
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Flood Lights,
+		WorldObjectSprite	= lighting_outdoor_01_49,
+	}
+	
+	item Mov_ConcreteMixer
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Mortar Grinder,
+		WorldObjectSprite	= construction_01_6,
+	}
+	
+	item Mov_PalletEmpty
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Empty Pallet,
+		WorldObjectSprite	= construction_01_5,
+	}
+	
+	item Mov_RoadBarrier
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Road Block,
+		WorldObjectSprite	= construction_01_8,
+	}
+	
+	item Mov_PinballMachine
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= PAWS Pinball Machine,
+		WorldObjectSprite	= recreational_01_25,
+	}
+	
+	item Mov_ArcadeMachine1
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Dr. Oids Arcade Machine,
+		WorldObjectSprite	= recreational_01_16,
+	}
+	
+	item Mov_ArcadeMachine2
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Kaboom! Arcade Machine,
+		WorldObjectSprite	= recreational_01_20,
+	}
+	
+	item Mov_TVCamera
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Imekagi HK533P,
+		WorldObjectSprite	= appliances_com_01_44,
+	}
+	
+	item Mov_Microphone
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Standing Microphone,
+		WorldObjectSprite	= appliances_com_01_70,
+	}
+	
+	item Mov_HuntingTrophy
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Mounted Deer Trophy,
+		WorldObjectSprite	= camping_01_18,
+	}
+	
+	item Mov_WallClock
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Wall Clock,
+		WorldObjectSprite	= location_community_school_01_32,
+	}
+	
+	item Mov_CorkBoard
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Cork Noteboard,
+		WorldObjectSprite	= location_business_office_generic_01_7,
+	}
+	
+	item Mov_ScaleMedical
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Weighing Scale,
+		WorldObjectSprite	= location_community_medical_01_9,
+	}
+	
+	item Mov_DegreeDoctor
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Doctor Degree Certificate,
+		WorldObjectSprite	= location_community_medical_01_14,
+	}
+	
+	item Mov_DegreeSurgeon
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Surgeon Degree Certificate,
+		WorldObjectSprite	= location_community_medical_01_31,
+	}
+	
+	item Mov_PosterMedical
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Organs Poster,
+		WorldObjectSprite	= location_community_medical_01_11,
+	}
+	
+	item Mov_MirrorTall
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Tall Mirror,
+		WorldObjectSprite	= walls_decoration_01_9,
+	}
+	
+	item Mov_MirrorWood
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Wooden Framed Mirror,
+		WorldObjectSprite	= walls_decoration_01_7,
+	}
+	
+	item Mov_MirrorSmall
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Small Mirror,
+		WorldObjectSprite	= walls_decoration_01_10,
+	}
+	
+	item Mov_MirrorLarge
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Large Mirror,
+		WorldObjectSprite	= walls_decoration_01_5,
+	}
+	
+	item Mov_PaintingGreen
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Waterbeach Hills Painting,
+		WorldObjectSprite	= walls_decoration_01_35,
+	}
+	
+	item Mov_PaintingLibrary
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Incognito Library Painting,
+		WorldObjectSprite	= walls_decoration_01_57,
+	}
+	
+	item Mov_PaintingBetty
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Betty Painting,
+		WorldObjectSprite	= walls_decoration_01_48,
+	}
+	
+	item Mov_PaintingElisa
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Monica Elisa Painting,
+		WorldObjectSprite	= walls_decoration_01_46,
+	}
+	
+	item Mov_PosterDroids
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Dr. Oids Painting,
+		WorldObjectSprite	= walls_decoration_01_33,
+	}
+	
+	item Mov_PosterPaws
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= PAWS Poster,
+		WorldObjectSprite	= location_entertainment_theatre_01_83,
+	}
+	
+	item Mov_PosterOmega
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Omega Department Painting,
+		WorldObjectSprite	= walls_decoration_01_50,
+	}
+	
+	item Mov_PosterElement
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= The Forgotten Element Poster,
+		WorldObjectSprite	= location_entertainment_theatre_01_84,
+	}
+	
+	item Mov_PosterPieRed
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Red Pie Poster,
+		WorldObjectSprite	= location_restaurant_pie_01_56,
+	}
+	
+	item Mov_PosterPieBlue
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Blue Pie Poster,
+		WorldObjectSprite	= location_restaurant_pie_01_57,
+	}
+	
+	item Mov_PosterPiePink
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Pink Pie Poster,
+		WorldObjectSprite	= location_restaurant_pie_01_59,
+	}
+	
+	item Mov_PosterPieGreen
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Green Pie Poster,
+		WorldObjectSprite	= location_restaurant_pie_01_58,
+	}
+	
+	item Mov_SignCitrus
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Citrus Sign,
+		WorldObjectSprite	= location_shop_accessories_01_27,
+	}
+	
+	item Mov_SignArmy
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Property Sign,
+		WorldObjectSprite	= location_military_generic_01_18,
+	}
+	
+	item Mov_SignRestricted
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Restricted Area Sign,
+		WorldObjectSprite	= location_military_generic_01_19,
+	}
+	
+	item Mov_SignWarning
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Warning Sign,
+		WorldObjectSprite	= location_military_generic_01_21,
+	}
+	
+	item Mov_MobileBloodbag
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Mobile Bloodbag,
+		WorldObjectSprite	= location_community_medical_01_25,
+	}
+	
+	item Mov_PinkFlamingo
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Imitation Flamingo,
+		WorldObjectSprite	= vegetation_ornamental_01_25,
+	}
+	
+	item Mov_GardenGnome
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= David the Gnome,
+		WorldObjectSprite	= vegetation_ornamental_01_48,
+	}
+	
+	item Mov_CoffeeMaker
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Coffee X-Press,
+		WorldObjectSprite	= appliances_cooking_01_56,
+	}
+	
+	item Mov_Espresso
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Espresso Deluxe,
+		WorldObjectSprite	= appliances_cooking_01_61,
+	}
+	
+	item Mov_Projector
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Cinema Projector,
+		WorldObjectSprite	= appliances_com_01_85,
+	}
+
+	item Mov_FridgeMini
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Mini Fridge,
+		WorldObjectSprite	= appliances_refrigeration_01_25,
+	}
+	
+	item Mov_CabinetMedical
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Medicine Cabinet,
+		WorldObjectSprite	= fixtures_bathroom_01_28,
+	}
+	
+	item Mov_TowelDispenser
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Paper-towel Dispenser,
+		WorldObjectSprite	= fixtures_bathroom_01_16,
+	}
+	
+	item Mov_Urinal
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Hanging Toilet,
+		WorldObjectSprite	= fixtures_bathroom_01_8,
+	}
+	
+	item Mov_AirConditioner
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Air Conditioner,
+		WorldObjectSprite	= industry_01_4,
+	}
+	
+	item Mov_BeachChair
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Beach Chair,
+		WorldObjectSprite	= furniture_seating_outdoor_01_25,
+	}
+	
+	item Mov_GraveRound
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Round Gravestone,
+		WorldObjectSprite	= location_community_cemetary_01_0,
+	}
+	
+	item Mov_GraveArched
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Arched Gravestone,
+		WorldObjectSprite	= location_community_cemetary_01_2,
+	}
+	
+	item Mov_GraveSquare
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Square Gravestone,
+		WorldObjectSprite	= location_community_cemetary_01_4,
+	}
+	
+	item Mov_GraveWorn
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Battered Gravestone,
+		WorldObjectSprite	= location_community_cemetary_01_8,
+	}
+	
+	item Mov_Doghouse
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Dog House,
+		WorldObjectSprite	= location_farm_accesories_01_9,
+	}
+	
+	item Mov_ShoppingBaskets
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Vegetable Basket,
+		WorldObjectSprite	= location_shop_greenes_01_37,
+	}
+	
+	item Mov_Mailbox
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Mail Box,
+		WorldObjectSprite	= street_decoration_01_21,
+	}
+	
+	item Mov_BinRound
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Round Bin,
+		WorldObjectSprite	= trashcontainers_01_20,
+	}
+	
+	item Mov_Birdbath
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Bird Bath,
+		WorldObjectSprite	= vegetation_ornamental_01_50,
+	}
+
+	item Mov_SatelliteDish
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Satellite Dish,
+		WorldObjectSprite	= appliances_com_01_20,
+	}
+	
+	item Mov_RoadCone
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Road Cone,
+		WorldObjectSprite	= street_decoration_01_26,
+	}
+	
+	item Mov_RoadCone2
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Road Cone,
+		WorldObjectSprite	= street_decoration_01_27,
+	}
+	
+	item brokenglass_1_0
+	{
+		DisplayCategory = Junk,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Broken Glass,
+		WorldObjectSprite	= brokenglass_1_0,
+		Tags = BrokenGlass,
+	}
+	
+	item brokenglass_1_1
+	{
+		DisplayCategory = Junk,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Broken Glass,
+		WorldObjectSprite	= brokenglass_1_1,
+		Tags = BrokenGlass,
+	}
+	
+	item brokenglass_1_2
+	{
+		DisplayCategory = Junk,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Broken Glass,
+		WorldObjectSprite	= brokenglass_1_2,
+		Tags = BrokenGlass,
+	}
+	
+	item brokenglass_1_3
+	{
+		DisplayCategory = Junk,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Broken Glass,
+		WorldObjectSprite	= brokenglass_1_3,
+		Tags = BrokenGlass,
+	}
+	
+	item Mov_HotdogMachine
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Hot Dog Machine,
+		WorldObjectSprite	= location_shop_fossoil_01_10,
+	}
+	
+	item Mov_PopcornMachine
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Popcorn Machine,
+		WorldObjectSprite	= location_entertainment_theatre_01_17,
+	}
+	
+	item Mov_SodaMachine
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Tabletop Soda Machine,
+		WorldObjectSprite	= location_shop_accessories_01_8,
+	}
+	
+	item Mov_NapkinDispenser
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Shop Dispenser,
+		WorldObjectSprite	= location_shop_accessories_01_10,
+	}
+	
+	item Mov_WaterDispenser
+	{
+		DisplayCategory = Furniture,
+		Type			= Moveable,
+		Icon			= default,
+		Weight		  	= 0.5,
+		DisplayName		= Water Dispenser,
+		WorldObjectSprite	= location_business_office_generic_01_49,
+	}
+}

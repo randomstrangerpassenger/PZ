@@ -10,6 +10,7 @@
 
 require "ISUI/ISPanel"
 require "ISUI/ISScrollingListBox"
+require "ISUI/ISScrollPane"
 require "ISUI/ISTextEntryBox"
 require "ISUI/ISButton"
 require "ISUI/ISLabel"
@@ -115,46 +116,61 @@ local function debugTranslationSystem()
     print("===============================================================")
 end
 
--- 한국어 자체 번역 테이블 (PZ 번역 시스템 fallback)
+-- 한국어 자체 번역 테이블 (UTF-8 바이트 이스케이프 시퀀스)
 local TRANSLATIONS_KO = {
-    Iris_UI_CategoryLabel = "대분류",
-    Iris_UI_SubcategoryLabel = "소분류",
-    Iris_UI_ItemLabel = "아이템",
-    Iris_UI_DetailLabel = "상세정보",
-    Iris_UI_SearchPlaceholder = "검색...",
+    Iris_UI_CategoryLabel = "\235\140\128\235\182\132\235\165\152",  -- 대분류
+    Iris_UI_SubcategoryLabel = "\236\134\140\235\182\132\235\165\152",  -- 소분류
+    Iris_UI_ItemLabel = "\236\149\132\236\157\180\237\133\156",  -- 아이템
+    Iris_UI_DetailLabel = "\236\131\129\236\132\184\236\160\149\235\179\180",  -- 상세정보
+    Iris_UI_SearchPlaceholder = "\234\178\128\236\131\137\46\46\46",  -- 검색...
+    Iris_UI_Recipe = "\235\160\136\236\139\156\237\148\188",  -- 레시피
+    
+    -- 상호작용 섹션
+    Iris_Detail_Interaction = "\236\131\129\237\152\184\236\158\145\236\154\169",  -- 상호작용
+    Iris_Prefix_Recipe = "\91\235\160\136\236\139\156\237\148\188\93",  -- [레시피]
+    Iris_Prefix_RightClick = "\91\236\154\176\237\129\180\235\166\173\93",  -- [우클릭]
+    
+    -- 우클릭 Capability 라벨
+    Iris_Cap_ExtinguishFire = "\235\182\136\32\235\129\132\234\184\176",  -- 불 끄기
+    Iris_Cap_AddGeneratorFuel = "\235\176\156\236\160\132\234\184\176\32\236\151\176\235\163\140\32\235\132\163\234\184\176",  -- 발전기 연료 넣기
+    Iris_Cap_ScrapMoveables = "\234\176\128\234\181\172\32\237\149\180\236\178\180",  -- 가구 해체
+    Iris_Cap_OpenCannedFood = "\236\186\148\32\235\148\176\234\184\176",  -- 캔 따기
+    Iris_Cap_StitchWound = "\236\131\129\236\178\152\32\235\180\137\237\149\169",  -- 상처 봉합
+    Iris_Cap_RemoveEmbeddedObject = "\235\176\149\237\158\140\32\235\172\188\236\178\180\32\236\160\156\234\177\176",  -- 박힌 물체 제거
+    Iris_Cap_AttachWeaponMod = "\235\172\180\234\184\176\32\235\182\128\236\176\169\235\172\188\32\236\158\165\236\176\169",  -- 무기 부착물 장착
+
+    -- 신규 대분류
+    Iris_Cat_Furniture = "\234\176\128\234\181\172",  -- 가구
+    Iris_Cat_Vehicle = "\236\176\168\235\159\137",  -- 차량
+    Iris_Cat_Misc = "\234\184\176\237\131\128",  -- 기타
+
+    -- 신규 소분류
+    Iris_Sub_1K = "\235\179\180\236\149\136",  -- 보안
+    Iris_Sub_1L = "\235\179\180\234\180\128\236\154\169\234\184\176",  -- 보관용기
+    Iris_Sub_7A = "\237\131\136\236\176\169\32\234\176\128\234\181\172",  -- 탈착 가구
+    Iris_Sub_8A = "\236\163\188\237\150\137\234\179\132",  -- 주행계
+    Iris_Sub_8B = "\236\176\168\236\178\180\47\235\182\128\236\134\141",  -- 차체/부속
+    Iris_Sub_9A = "\236\158\161\237\153\148",  -- 잡화
 }
 
--- 현재 언어 감지
+-- 현재 언어 감지 (간소화 - 항상 KO 시도)
 local function getCurrentLanguage()
-    if getCore then
-        local ok, core = pcall(getCore)
-        if ok and core and core.getOptionCurrentLanguage then
-            local ok2, lang = pcall(function() return core:getOptionCurrentLanguage() end)
-            if ok2 and lang then
-                return tostring(lang):upper()
-            end
-        end
-    end
-    return "EN"
+    return "KO"  -- 강제로 한국어 반환 (디버깅용)
 end
 
--- 번역 헬퍼 (PZ getText + 자체 번역 fallback)
+-- 번역 헬퍼 (간소화 버전)
 local function tr(key, fallback)
-    -- 첫 호출 시 디버그 출력
-    debugTranslationSystem()
+    -- 1순위: 자체 번역 테이블 (TRANSLATIONS_KO에 있으면 사용)
+    if TRANSLATIONS_KO and TRANSLATIONS_KO[key] then
+        return TRANSLATIONS_KO[key]
+    end
     
-    -- 1순위: PZ getText() 시도
+    -- 2순위: PZ getText() 시도
     if getText and type(getText) == "function" then
         local ok, result = pcall(getText, key)
         if ok and result and result ~= key then
             return result
         end
-    end
-    
-    -- 2순위: 한국어면 자체 번역 테이블 사용
-    local lang = getCurrentLanguage()
-    if lang == "KO" and TRANSLATIONS_KO[key] then
-        return TRANSLATIONS_KO[key]
     end
     
     -- 3순위: fallback
@@ -263,6 +279,11 @@ function IrisBrowser:new(x, y, width, height)
     o.currentCategory = nil
     o.currentSubcategory = nil
     o.currentSelectedFullType = nil  -- SSOT: 하나만 유지
+    o.recipeExpandedByFullType = {}  -- 레시피 펼침 상태 저장
+    
+    -- 상세 패널 스크롤 상태
+    o.detailScrollY = 0
+    o.detailContentHeight = 0
     
     return o
 end
@@ -382,13 +403,72 @@ function IrisBrowser:createChildren()
     self.detailLabel = ISLabel:new(col4X, listTop - 18, 16, tr("Iris_UI_DetailLabel", "Details"), 0.7, 0.7, 0.7, 1, UIFont.Small, true)
     self:addChild(self.detailLabel)
     
-    -- Detail 패널 너비를 창 경계 내에 맞춤
-    local detailPanelWidth = self.width - col4X - 10
+    -- Detail 패널 (스크롤 가능)
+    local scrollBarWidth = 13
+    local detailPanelWidth = self.width - col4X - 10 - scrollBarWidth
     self.detailPanel = ISPanel:new(col4X, listTop, detailPanelWidth, listHeight)
     self.detailPanel:initialise()
     self.detailPanel.backgroundColor = {r=0.05, g=0.08, b=0.1, a=0.8}
     self.detailPanel.borderColor = {r=0.3, g=0.4, b=0.5, a=0.5}
+    
+    -- 마우스휠 이벤트 핸들러
+    local browser = self
+    self.detailPanel.onMouseWheel = function(self, del)
+        browser:onDetailMouseWheel(del)
+        return true
+    end
+    
+    -- 클리핑(scissor) 적용 - 콘텐츠가 패널 영역 밖으로 나가지 않도록
+    local originalPrerender = self.detailPanel.prerender
+    self.detailPanel.prerender = function(self)
+        if originalPrerender then originalPrerender(self) end
+        -- 클리핑 영역 시작
+        self:setStencilRect(0, 0, self.width, self.height)
+    end
+    
+    local originalRender = self.detailPanel.render
+    self.detailPanel.render = function(self)
+        if originalRender then originalRender(self) end
+        -- 클리핑 영역 종료
+        self:clearStencilRect()
+    end
+    
     self:addChild(self.detailPanel)
+    
+    -- 스크롤바 패널 추가 (ISPanel 기반 커스텀)
+    self.detailScrollBarPanel = ISPanel:new(col4X + detailPanelWidth, listTop, scrollBarWidth, listHeight)
+    self.detailScrollBarPanel:initialise()
+    self.detailScrollBarPanel.backgroundColor = {r=0, g=0, b=0, a=0}  -- 투명 배경
+    self.detailScrollBarPanel.borderColor = {r=0, g=0, b=0, a=0}  -- 투명 테두리
+    
+    -- 스크롤바 렌더링
+    local browserRef = self
+    self.detailScrollBarPanel.render = function(scrollPanel)
+        -- 아이템 미선택 또는 스크롤 불필요시 숨기기
+        if not browserRef.currentSelectedFullType then
+            return  -- 아이템 선택 안됨
+        end
+        
+        local needsScroll = browserRef.detailContentHeight > browserRef.detailPanel.height
+        if not needsScroll then
+            return  -- 스크롤 불필요
+        end
+        
+        -- 트랙 배경 그리기
+        scrollPanel:drawRect(0, 0, scrollPanel.width, scrollPanel.height, 0.5, 0.1, 0.12, 0.15)
+        
+        -- 스크롤 썸 (thumb) 그리기
+        local maxScroll = math.max(1, browserRef.detailContentHeight - browserRef.detailPanel.height)
+        local ratio = browserRef.detailScrollY / maxScroll
+        local trackHeight = scrollPanel.height - 4
+        local thumbHeight = math.max(20, (browserRef.detailPanel.height / math.max(1, browserRef.detailContentHeight)) * trackHeight)
+        local thumbY = 2 + ratio * (trackHeight - thumbHeight)
+        
+        -- Thumb 그리기
+        scrollPanel:drawRect(2, thumbY, scrollBarWidth - 4, thumbHeight, 0.7, 0.4, 0.5, 0.7)
+    end
+    
+    self:addChild(self.detailScrollBarPanel)
     
     -- 초기 데이터 로드
     self:loadCategories()
@@ -471,6 +551,7 @@ function IrisBrowser:loadItems(categoryName, subcategoryName)
     for _, item in ipairs(items) do
         -- 검색 필터 적용
         if filterText == "" or item.displayName:lower():find(filterText, 1, true) then
+            -- v3.0.0: 숫자 표시 없이 이름만 표시
             self.itemList:addItem(item.displayName, item)
             addedCount = addedCount + 1
         end
@@ -480,16 +561,9 @@ end
 
 --- 상세 정보 표시
 function IrisBrowser:showDetail(fullType)
-    print("[IrisBrowser:showDetail] ========== START ==========")
-    print("[IrisBrowser:showDetail] fullType = " .. tostring(fullType))
-    print("[IrisBrowser:showDetail] fullType type = " .. type(fullType))
-    
-    -- 기존 상세 정보 삭제 (ISPanel의 자식 목록 비우기)
-    -- 방법 1: javaObject의 getChildren() 사용 (Java ArrayList)
-    -- 방법 2: ISUIElement는 내부적으로 Lua table로 children 관리할 수 있음
+    -- 기존 상세 정보 삭제
     local childrenToRemove = {}
     
-    -- 먼저 javaObject를 통한 Java ArrayList 접근 시도
     if self.detailPanel.javaObject and self.detailPanel.javaObject.getChildren then
         local ok, javaChildren = pcall(function() return self.detailPanel.javaObject:getChildren() end)
         if ok and javaChildren and javaChildren.size then
@@ -501,20 +575,16 @@ function IrisBrowser:showDetail(fullType)
                         table.insert(childrenToRemove, child)
                     end
                 end
-                print("[IrisBrowser:showDetail] Found " .. #childrenToRemove .. " children via javaObject")
             end
         end
     end
     
-    -- javaObject 방식이 실패하면 ISUIElement의 Lua children 접근
     if #childrenToRemove == 0 then
         local children = self.detailPanel:getChildren()
         if children then
-            -- ipairs로 순회 (Lua 테이블 스타일)
             for i, child in ipairs(children) do
                 table.insert(childrenToRemove, child)
             end
-            -- 만약 ipairs가 실패하면 pairs로 시도
             if #childrenToRemove == 0 then
                 for k, child in pairs(children) do
                     if type(k) == "number" then
@@ -522,122 +592,242 @@ function IrisBrowser:showDetail(fullType)
                     end
                 end
             end
-            print("[IrisBrowser:showDetail] Found " .. #childrenToRemove .. " children via getChildren()")
         end
     end
     
-    -- 수집한 자식들 삭제
     for _, child in ipairs(childrenToRemove) do
         self.detailPanel:removeChild(child)
     end
-    print("[IrisBrowser:showDetail] Cleared " .. #childrenToRemove .. " children")
     
     if not fullType then
-        print("[IrisBrowser:showDetail] fullType is nil/false, showing placeholder")
-        -- placeholder
-        local placeholderLabel = ISLabel:new(10, 10, 20, "아이템을 선택하세요", 0.5, 0.5, 0.5, 1, UIFont.Small, true)
-        self.detailPanel:addChild(placeholderLabel)
         return
     end
     
     ensureDeps()
-    print("[IrisBrowser:showDetail] IrisBrowserData exists = " .. tostring(IrisBrowserData ~= nil))
-    print("[IrisBrowser:showDetail] IrisBrowserData.getItem exists = " .. tostring(IrisBrowserData and IrisBrowserData.getItem ~= nil))
     
     local item = IrisBrowserData and IrisBrowserData.getItem(fullType)
-    print("[IrisBrowser:showDetail] item = " .. tostring(item))
-    print("[IrisBrowser:showDetail] item type = " .. type(item))
-    
-    if item then
-        -- 아이템 객체 상세 정보
-        print("[IrisBrowser:showDetail] item is truthy, examining properties...")
-        
-        -- 메타테이블 확인
-        local mt = getmetatable(item)
-        print("[IrisBrowser:showDetail] item metatable = " .. tostring(mt))
-        
-        -- 주요 메서드 존재 여부
-        print("[IrisBrowser:showDetail] item.getDisplayName = " .. tostring(item.getDisplayName))
-        print("[IrisBrowser:showDetail] item.getFullName = " .. tostring(item.getFullName))
-        print("[IrisBrowser:showDetail] item.getFullType = " .. tostring(item.getFullType))
-        print("[IrisBrowser:showDetail] item.getScriptItem = " .. tostring(item.getScriptItem))
-        
-        -- tostring 결과
-        local tostringResult = tostring(item)
-        print("[IrisBrowser:showDetail] tostring(item) = " .. tostringResult)
-        
-        -- Java 클래스 이름 추출 시도
-        if tostringResult:match("zombie%.") then
-            print("[IrisBrowser:showDetail] Detected Java object: " .. tostringResult)
-        end
-    end
     
     if not item then
-        print("[IrisBrowser:showDetail] item is nil, showing error message")
-        local errorLabel = ISLabel:new(10, 10, 20, "아이템 정보를 찾을 수 없습니다", 0.8, 0.3, 0.3, 1, UIFont.Small, true)
+        local errorLabel = ISLabel:new(10, 10, 20, "아이템 정보를 찾을 수 없습니다", 0.8, 0.3, 0.3, 1, UIFont.Medium, true)
         self.detailPanel:addChild(errorLabel)
         return
     end
     
-    -- IrisWikiSections 사용하여 상세 정보 표시
-    local yOffset = 10
+    local yOffset = 10 - self.detailScrollY  -- 스크롤 오프셋 적용
     
-    -- 아이템 이름 (안전하게 가져오기)
+    -- 아이템 이름 가져오기
     local displayName = fullType
-    print("[IrisBrowser:showDetail] Default displayName = " .. displayName)
-    
     if item.getDisplayName then
-        print("[IrisBrowser:showDetail] Calling item:getDisplayName()...")
         local ok, name = pcall(function() return item:getDisplayName() end)
-        print("[IrisBrowser:showDetail] getDisplayName pcall result: ok=" .. tostring(ok) .. ", name=" .. tostring(name))
-        
-        if ok then
-            print("[IrisBrowser:showDetail] name type = " .. type(name))
-            if name then
-                print("[IrisBrowser:showDetail] name length = " .. tostring(#name))
-                -- 바이트 값 확인 (첫 20바이트)
-                local bytes = {}
-                for i = 1, math.min(20, #name) do
-                    bytes[#bytes + 1] = string.byte(name, i)
-                end
-                print("[IrisBrowser:showDetail] name bytes (first 20) = " .. table.concat(bytes, ", "))
-            end
-        else
-            print("[IrisBrowser:showDetail] getDisplayName pcall ERROR: " .. tostring(name))
-        end
-        
         if ok and name and type(name) == "string" and #name > 0 then
             displayName = name
-            print("[IrisBrowser:showDetail] Using getDisplayName result: " .. displayName)
-        else
-            print("[IrisBrowser:showDetail] getDisplayName failed or returned invalid, using fullType")
         end
-    else
-        print("[IrisBrowser:showDetail] item.getDisplayName is nil/false")
     end
-    
-    print("[IrisBrowser:showDetail] Final displayName = " .. displayName)
     
     local nameLabel = ISLabel:new(10, yOffset, 25, displayName, 0.6, 0.9, 1.0, 1.0, UIFont.Medium, true)
     self.detailPanel:addChild(nameLabel)
     yOffset = yOffset + 30
     
-    -- 태그 및 속성 섹션들 표시
-    if IrisWikiSections and IrisWikiSections.getAllSections then
-        local sections = IrisWikiSections.getAllSections(item)
-        for _, sectionText in ipairs(sections) do
-            if sectionText and sectionText ~= "" then
-                local sectionLabel = ISLabel:new(10, yOffset, 18, sectionText, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
-                self.detailPanel:addChild(sectionLabel)
-                yOffset = yOffset + 22
+    -- [1] 기본 정보 (무게, 타입, 핵심 수치)
+    if IrisWikiSections and IrisWikiSections.renderCoreInfoSection then
+        local coreInfo = IrisWikiSections.renderCoreInfoSection(item)
+        if coreInfo and coreInfo ~= "" then
+            local coreLabel = ISLabel:new(10, yOffset, 18, coreInfo, 0.7, 0.85, 0.9, 1, UIFont.Medium, true)
+            self.detailPanel:addChild(coreLabel)
+            yOffset = yOffset + 22
+        end
+    end
+    
+    -- [2] 주 소분류 설명 (IrisDesc)
+    local IrisAPI = nil
+    local apiOk, apiResult = pcall(require, "Iris/IrisAPI")
+    if apiOk then IrisAPI = apiResult end
+    
+    if IrisAPI and IrisAPI.getDescription then
+        local descOk, descText = pcall(function() return IrisAPI.getDescription(fullType, nil) end)
+        
+        if descOk and descText and descText ~= "" then
+            yOffset = yOffset + 5
+            local sepLabel = ISLabel:new(10, yOffset, 14, "────────────────────────", 0.3, 0.4, 0.5, 1, UIFont.Medium, true)
+            self.detailPanel:addChild(sepLabel)
+            yOffset = yOffset + 20
+            
+            for line in descText:gmatch("[^\n]+") do
+                local lineLabel = ISLabel:new(10, yOffset, 18, line, 0.85, 0.85, 0.85, 1, UIFont.Medium, true)
+                self.detailPanel:addChild(lineLabel)
+                yOffset = yOffset + 18
+            end
+            yOffset = yOffset + 10
+        end
+    end
+    
+    -- [3] 상호작용 섹션 (레시피 + 우클릭 행동 통합)
+    local interactionItems = {}  -- { {type="recipe"|"rightclick", name=string, sortKey=string} }
+    
+    -- 레시피 수집
+    local recipeList = {}
+    if IrisAPI and IrisAPI.getRecipeConnectionsForItem then
+        local ok, list = pcall(function() return IrisAPI.getRecipeConnectionsForItem(item) end)
+        if ok and list then recipeList = list end
+    end
+    
+    -- 레시피 이름 중복 제거 및 추가
+    local recipeNameSet = {}
+    for _, e in ipairs(recipeList) do
+        local name = tostring(e.recipe or "Unknown")
+        if not recipeNameSet[name] then
+            recipeNameSet[name] = true
+            table.insert(interactionItems, {type = "recipe", name = name, sortKey = "1_" .. name})
+        end
+    end
+    
+    -- 우클릭 Capability 수집
+    local capabilityList = {}
+    if IrisAPI and IrisAPI.getCapabilities then
+        local ok, caps = pcall(function() return IrisAPI.getCapabilities(fullType) end)
+        if ok and caps then capabilityList = caps end
+    end
+    
+    -- Capability ID → 번역 키 매핑
+    local capabilityLabelMap = {
+        can_extinguish_fire = "Iris_Cap_ExtinguishFire",
+        can_add_generator_fuel = "Iris_Cap_AddGeneratorFuel",
+        can_scrap_moveables = "Iris_Cap_ScrapMoveables",
+        can_open_canned_food = "Iris_Cap_OpenCannedFood",
+        can_stitch_wound = "Iris_Cap_StitchWound",
+        can_remove_embedded_object = "Iris_Cap_RemoveEmbeddedObject",
+        can_attach_weapon_mod = "Iris_Cap_AttachWeaponMod",
+    }
+    
+    for _, capId in ipairs(capabilityList) do
+        local labelKey = capabilityLabelMap[capId]
+        local displayName = labelKey and tr(labelKey, capId) or capId
+        table.insert(interactionItems, {type = "rightclick", name = displayName, sortKey = "0_" .. displayName})
+    end
+    
+    -- 총 개수
+    local totalCount = #interactionItems
+    
+    if totalCount > 0 then
+        -- 정렬 (우클릭 먼저, 그 다음 레시피, 각각 알파벳순)
+        table.sort(interactionItems, function(a, b) return a.sortKey < b.sortKey end)
+        
+        local expandKey = fullType .. "_interactions"
+        local expanded = self.recipeExpandedByFullType[expandKey] == true
+        local arrow = expanded and " [-]" or " [+]"
+        local interactionLabel = tr("Iris_Detail_Interaction", "Interactions")
+        local headerText = interactionLabel .. " (" .. tostring(totalCount) .. ")" .. arrow
+        
+        -- 헤더 버튼
+        local btn = ISButton:new(10, yOffset, 250, 18, headerText, self, IrisBrowser.onToggleRecipeSection)
+        btn:initialise()
+        btn.expandKey = expandKey
+        btn.backgroundColor = {r=0, g=0, b=0, a=0}
+        btn.backgroundColorMouseOver = {r=0.2, g=0.3, b=0.4, a=0.3}
+        btn.borderColor = {r=0, g=0, b=0, a=0}
+        btn.textColor = {r=0.9, g=0.9, b=0.9, a=1}
+        self.detailPanel:addChild(btn)
+        yOffset = yOffset + 20
+        
+        if expanded then
+            local prefixRecipe = tr("Iris_Prefix_Recipe", "[Recipe]")
+            local prefixRightClick = tr("Iris_Prefix_RightClick", "[Action]")
+            
+            for _, item in ipairs(interactionItems) do
+                local prefix = item.type == "recipe" and prefixRecipe or prefixRightClick
+                local r, g, b = 0.85, 0.85, 0.85
+                if item.type == "rightclick" then
+                    r, g, b = 0.7, 0.9, 0.7  -- 우클릭 행동은 녹색 계열
+                end
+                local lbl = ISLabel:new(20, yOffset, 16, prefix .. " " .. item.name, r, g, b, 1, UIFont.Small, true)
+                self.detailPanel:addChild(lbl)
+                yOffset = yOffset + 16
             end
         end
+    end
+
+    
+    -- [4] 변형 목록 (v3.0.0 - DisplayName 기반 접기)
+    local variants = self.currentSelectedVariants
+    if variants and #variants > 1 then
+        local expandKey = fullType .. "_variants"
+        local expanded = self.recipeExpandedByFullType[expandKey] == true
+        local arrow = expanded and " [-]" or " [+]"
+        local headerText = "Variants (" .. #variants .. ")" .. arrow
         
-        -- 섹션이 없으면 기본 메시지
-        if #sections == 0 then
-            local noInfoLabel = ISLabel:new(10, yOffset, 18, "추가 정보 없음", 0.6, 0.6, 0.6, 1, UIFont.Small, true)
-            self.detailPanel:addChild(noInfoLabel)
+        local btn = ISButton:new(10, yOffset, 250, 18, headerText, self, IrisBrowser.onToggleRecipeSection)
+        btn:initialise()
+        btn.expandKey = expandKey
+        btn.backgroundColor = {r=0, g=0, b=0, a=0}
+        btn.backgroundColorMouseOver = {r=0.2, g=0.3, b=0.4, a=0.3}
+        btn.borderColor = {r=0, g=0, b=0, a=0}
+        btn.textColor = {r=0.8, g=0.9, b=1.0, a=1}
+        self.detailPanel:addChild(btn)
+        yOffset = yOffset + 20
+        
+        if expanded then
+            for _, variantFullType in ipairs(variants) do
+                -- 각 변형의 DisplayName 가져오기
+                local variantItem = IrisBrowserData and IrisBrowserData.getItem(variantFullType)
+                local variantDisplayName = variantFullType
+                if variantItem and variantItem.getDisplayName then
+                    local ok, name = pcall(function() return variantItem:getDisplayName() end)
+                    if ok and name then
+                        variantDisplayName = name
+                    end
+                end
+                
+                local prefix = (variantFullType == fullType) and "▸ " or "  "
+                local lbl = ISLabel:new(20, yOffset, 16, prefix .. variantDisplayName .. " [" .. variantFullType .. "]", 0.75, 0.85, 0.95, 1, UIFont.Small, true)
+                self.detailPanel:addChild(lbl)
+                yOffset = yOffset + 16
+            end
         end
+    end
+    
+    -- [5] 메타 정보 (분류 ID, 모듈)
+    if IrisWikiSections and IrisWikiSections.renderMetaInfoSection then
+        local metaInfo = IrisWikiSections.renderMetaInfoSection(item)
+        if metaInfo and metaInfo ~= "" then
+            yOffset = yOffset + 5
+            for line in metaInfo:gmatch("[^\n]+") do
+                local r, g, b = 0.6, 0.6, 0.6
+                if line:find("───") then
+                    r, g, b = 0.3, 0.4, 0.5
+                end
+                local metaLabel = ISLabel:new(10, yOffset, 18, line, r, g, b, 1, UIFont.Small, true)
+                self.detailPanel:addChild(metaLabel)
+                yOffset = yOffset + 16
+            end
+        end
+    end
+    
+    -- 스크롤을 위해 총 콘텐츠 높이 저장 (스크롤 오프셋 빼기 전 기준)
+    self.detailContentHeight = yOffset + self.detailScrollY + 20  -- 여유 공간 추가
+end
+
+
+--- 상세 패널 마우스 휠 핸들러
+function IrisBrowser:onDetailMouseWheel(del)
+    if not self.detailPanel then return end
+    
+    local scrollAmount = 30  -- 한 번에 스크롤할 픽셀
+    local maxScroll = math.max(0, self.detailContentHeight - self.detailPanel.height)
+    
+    -- del > 0: 휠 위로 → 스크롤 위로 (scrollY 감소)
+    -- del < 0: 휠 아래로 → 스크롤 아래로 (scrollY 증가)
+    self.detailScrollY = self.detailScrollY + (del * scrollAmount)
+    
+    -- 범위 제한
+    if self.detailScrollY < 0 then
+        self.detailScrollY = 0
+    elseif self.detailScrollY > maxScroll then
+        self.detailScrollY = maxScroll
+    end
+    
+    -- 현재 선택된 아이템에 대해 상세 정보 다시 표시
+    if self.currentSelectedFullType then
+        self:showDetail(self.currentSelectedFullType)
     end
 end
 
@@ -774,7 +964,9 @@ function IrisBrowser:onItemSelected(item)
     print("[IrisBrowser] itemData.fullType = " .. tostring(itemData.fullType))
     
     -- SSOT: currentSelectedFullType 하나만 유지
+    self.detailScrollY = 0  -- 새 아이템 선택 시 스크롤 초기화
     self.currentSelectedFullType = itemData.fullType
+    self.currentSelectedVariants = itemData.variants  -- v3.0.0: 변형 목록 저장
     print("[IrisBrowser] Set currentSelectedFullType = " .. tostring(self.currentSelectedFullType))
     self:showDetail(self.currentSelectedFullType)
 end
@@ -825,6 +1017,18 @@ function IrisBrowser:close()
     IrisBrowser._instance = nil
 end
 
+--- 레시피 섹션 접기/펼치기 토글
+function IrisBrowser:onToggleRecipeSection(button)
+    local expandKey = button.expandKey
+    if not expandKey then return end
+    
+    -- 펼침 상태 토글
+    self.recipeExpandedByFullType[expandKey] = not (self.recipeExpandedByFullType[expandKey] == true)
+    
+    -- 상세 패널 다시 그리기
+    self:showDetail(self.currentSelectedFullType)
+end
+
 --- 아이템 자동 선택
 function IrisBrowser:selectItem(item)
     if not item then return end
@@ -863,12 +1067,14 @@ function IrisBrowser:selectItem(item)
         self:loadItems(targetCat, targetSub)
         
         -- 상세 표시
+        self.detailScrollY = 0  -- 새 아이템 선택 시 스크롤 초기화
         self.currentSelectedFullType = fullType
         self:showDetail(fullType)
         
         print("[IrisBrowser] Selected item: " .. fullType .. " in " .. targetCat .. "." .. targetSub)
     else
         -- 분류되지 않은 아이템: 상세 정보만 표시
+        self.detailScrollY = 0  -- 새 아이템 선택 시 스크롤 초기화
         self.currentSelectedFullType = fullType
         self:showDetail(fullType)
         print("[IrisBrowser] Item not classified: " .. fullType)

@@ -1,65 +1,224 @@
 {
-  "timestamp": "2026-01-28T08:04:32.360965",
+  "timestamp": "2026-02-18T01:29:30.820178",
   "summary": {
-    "totalItems": 2281,
-    "classifiedItems": 1336,
-    "unclassifiedItems": 945,
-    "rulesExecuted": 1723
+    "totalItems": 2061,
+    "classifiedItems": 1646,
+    "unclassifiedItems": 415,
+    "rulesExecuted": 1977
   },
   "tagDistribution": {
-    "Wearable.6-C": 79,
-    "Combat.2-L": 14,
-    "Wearable.6-H": 116,
+    "Combat.2-I": 4,
     "Consumable.3-A": 412,
     "Resource.4-B": 132,
-    "Resource.4-A": 23,
-    "Consumable.3-B": 110,
+    "Furniture.7-A": 140,
     "Wearable.6-B": 166,
-    "Literature.5-C": 15,
-    "Literature.5-B": 30,
-    "Tool.1-I": 16,
-    "Resource.4-E": 55,
-    "Literature.5-A": 60,
-    "Tool.1-G": 19,
+    "Wearable.6-C": 79,
+    "Wearable.6-A": 102,
+    "Vehicle.8-A": 36,
+    "Vehicle.8-B": 46,
+    "Consumable.3-B": 110,
     "Combat.2-B": 36,
+    "Combat.2-L": 14,
+    "Tool.1-G": 19,
+    "Combat.2-F": 20,
+    "Resource.4-E": 54,
+    "Wearable.6-E": 19,
+    "Combat.2-G": 6,
+    "Combat.2-C": 29,
+    "Wearable.6-G": 130,
+    "Resource.4-A": 23,
+    "Tool.1-D": 39,
+    "Consumable.3-D": 22,
+    "Consumable.3-E": 16,
+    "Combat.2-E": 18,
+    "Tool.1-L": 45,
+    "Consumable.3-C": 28,
+    "Tool.1-I": 16,
+    "Literature.5-D": 16,
+    "Literature.5-B": 30,
+    "Tool.1-H": 5,
+    "Wearable.6-F": 23,
+    "Resource.4-C": 17,
+    "Tool.1-K": 9,
+    "Literature.5-A": 60,
+    "Tool.1-B": 11,
     "Tool.1-E": 13,
     "Combat.2-A": 5,
-    "Wearable.6-A": 102,
-    "Combat.2-C": 29,
-    "Consumable.3-D": 21,
-    "Consumable.3-C": 28,
-    "Resource.4-C": 17,
-    "Tool.1-D": 39,
-    "Wearable.6-E": 19,
-    "Combat.2-F": 20,
-    "Combat.2-E": 18,
-    "Tool.1-H": 5,
-    "Tool.1-C": 20,
-    "Combat.2-G": 6,
-    "Tool.1-B": 11,
-    "Tool.1-A": 7,
     "Tool.1-F": 3,
-    "Literature.5-D": 16,
-    "Resource.4-D": 6,
+    "Literature.5-C": 15,
     "Wearable.6-D": 8,
-    "Consumable.3-E": 16,
-    "Combat.2-H": 4,
-    "Combat.2-I": 4,
     "Combat.2-D": 2,
-    "Resource.4-F": 2
+    "Combat.2-H": 4,
+    "Resource.4-D": 6,
+    "Resource.4-F": 2,
+    "Tool.1-C": 2,
+    "Tool.1-A": 7
   },
+  "preFallbackUnclassified": 415,
   "sampleClassifications": [
     {
-      "fullType": "Base.Trousers_Black",
+      "fullType": "Base.ShotgunSawnoff",
       "tags": [
-        "Wearable.6-C"
+        "Combat.2-I"
       ],
       "rules": [
-        "Wearable.6-C.pants"
+        "Combat.2-I.shotgunshells"
       ]
     },
     {
-      "fullType": "Base.AmmoStraps",
+      "fullType": "Base.Onigiri",
+      "tags": [
+        "Consumable.3-A"
+      ],
+      "rules": [
+        "Consumable.3-A.food"
+      ]
+    },
+    {
+      "fullType": "Base.PieDough",
+      "tags": [
+        "Resource.4-B"
+      ],
+      "rules": [
+        "Resource.4-B.cooking"
+      ]
+    },
+    {
+      "fullType": "Base.Mov_NapkinDispenser",
+      "tags": [
+        "Furniture.7-A"
+      ],
+      "rules": [
+        "Furniture.7-A.moveable"
+      ]
+    },
+    {
+      "fullType": "Base.WaterSaucepanPasta",
+      "tags": [
+        "Consumable.3-A",
+        "Resource.4-B"
+      ],
+      "rules": [
+        "Consumable.3-A.food",
+        "Resource.4-B.cooking"
+      ]
+    },
+    {
+      "fullType": "Base.Dress_Knees",
+      "tags": [
+        "Wearable.6-B",
+        "Wearable.6-C"
+      ],
+      "rules": [
+        "Wearable.6-B.dress",
+        "Wearable.6-C.dress"
+      ]
+    },
+    {
+      "fullType": "Base.Hat_BonnieHat",
+      "tags": [
+        "Wearable.6-A"
+      ],
+      "rules": [
+        "Wearable.6-A.hat"
+      ]
+    },
+    {
+      "fullType": "Base.NormalTire2",
+      "tags": [
+        "Vehicle.8-A"
+      ],
+      "rules": [
+        "Vehicle.8-A.drivetrain"
+      ]
+    },
+    {
+      "fullType": "Base.Hat_PeakedCapArmy",
+      "tags": [
+        "Wearable.6-A"
+      ],
+      "rules": [
+        "Wearable.6-A.hat"
+      ]
+    },
+    {
+      "fullType": "Base.NormalTrunk2",
+      "tags": [
+        "Vehicle.8-B"
+      ],
+      "rules": [
+        "Vehicle.8-B.residual"
+      ]
+    },
+    {
+      "fullType": "Base.Mov_Lamp1",
+      "tags": [
+        "Furniture.7-A"
+      ],
+      "rules": [
+        "Furniture.7-A.moveable"
+      ]
+    },
+    {
+      "fullType": "Base.CookiesShortbreadDough",
+      "tags": [
+        "Consumable.3-A",
+        "Resource.4-B"
+      ],
+      "rules": [
+        "Consumable.3-A.food",
+        "Resource.4-B.cooking"
+      ]
+    },
+    {
+      "fullType": "Base.MushroomGeneric2",
+      "tags": [
+        "Consumable.3-A",
+        "Consumable.3-B"
+      ],
+      "rules": [
+        "Consumable.3-A.food",
+        "Consumable.3-B.food-thirst"
+      ]
+    },
+    {
+      "fullType": "Base.Poolcue",
+      "tags": [
+        "Combat.2-B"
+      ],
+      "rules": [
+        "Combat.2-B.blunt-twohand"
+      ]
+    },
+    {
+      "fullType": "Base.PancakeMix",
+      "tags": [
+        "Resource.4-B"
+      ],
+      "rules": [
+        "Resource.4-B.cooking"
+      ]
+    },
+    {
+      "fullType": "Base.Tshirt_Sport",
+      "tags": [
+        "Wearable.6-B"
+      ],
+      "rules": [
+        "Wearable.6-B.tshirt"
+      ]
+    },
+    {
+      "fullType": "Base.Jacket_Varsity",
+      "tags": [
+        "Wearable.6-B"
+      ],
+      "rules": [
+        "Wearable.6-B.jacket"
+      ]
+    },
+    {
+      "fullType": "Base.x4Scope",
       "tags": [
         "Combat.2-L"
       ],
@@ -68,179 +227,21 @@
       ]
     },
     {
-      "fullType": "Base.Ring_Left_MiddleFinger_Silver",
-      "tags": [
-        "Wearable.6-H"
-      ],
-      "rules": [
-        "Wearable.6-H.left_middlefinger"
-      ]
-    },
-    {
-      "fullType": "Base.MeatDumpling",
-      "tags": [
-        "Consumable.3-A"
-      ],
-      "rules": [
-        "Consumable.3-A.food"
-      ]
-    },
-    {
-      "fullType": "Base.Trousers_Shellsuit_Green",
-      "tags": [
-        "Wearable.6-C"
-      ],
-      "rules": [
-        "Wearable.6-C.pants"
-      ]
-    },
-    {
-      "fullType": "Base.CookiesSugarDough",
-      "tags": [
-        "Consumable.3-A",
-        "Resource.4-B"
-      ],
-      "rules": [
-        "Consumable.3-A.food",
-        "Resource.4-B.cooking"
-      ]
-    },
-    {
-      "fullType": "Base.CannedBroccoli",
-      "tags": [
-        "Resource.4-B"
-      ],
-      "rules": [
-        "Resource.4-B.cooking"
-      ]
-    },
-    {
-      "fullType": "farming.RemouladeFull",
-      "tags": [
-        "Consumable.3-A"
-      ],
-      "rules": [
-        "Consumable.3-A.food"
-      ]
-    },
-    {
-      "fullType": "Base.ConeIcecreamToppings",
-      "tags": [
-        "Consumable.3-A"
-      ],
-      "rules": [
-        "Consumable.3-A.food"
-      ]
-    },
-    {
-      "fullType": "Base.LogStacks2",
-      "tags": [
-        "Resource.4-A"
-      ],
-      "rules": [
-        "Resource.4-A.carpentry"
-      ]
-    },
-    {
-      "fullType": "Base.PotOfSoup",
-      "tags": [
-        "Consumable.3-A",
-        "Consumable.3-B",
-        "Resource.4-B"
-      ],
-      "rules": [
-        "Consumable.3-A.food",
-        "Consumable.3-B.food-thirst",
-        "Resource.4-B.cooking"
-      ]
-    },
-    {
-      "fullType": "Base.Jacket_Shellsuit_Pink",
+      "fullType": "Base.Vest_HighViz",
       "tags": [
         "Wearable.6-B"
       ],
       "rules": [
-        "Wearable.6-B.jacket_bulky"
+        "Wearable.6-B.torsoextravest"
       ]
     },
     {
-      "fullType": "Base.DeadBird",
+      "fullType": "Base.EngineDoor3",
       "tags": [
-        "Consumable.3-A",
-        "Resource.4-B"
+        "Vehicle.8-B"
       ],
       "rules": [
-        "Consumable.3-A.food",
-        "Resource.4-B.cooking"
-      ]
-    },
-    {
-      "fullType": "Base.Boilersuit",
-      "tags": [
-        "Wearable.6-B",
-        "Wearable.6-C"
-      ],
-      "rules": [
-        "Wearable.6-B.boilersuit",
-        "Wearable.6-C.boilersuit"
-      ]
-    },
-    {
-      "fullType": "Base.MuldraughMap",
-      "tags": [
-        "Literature.5-C"
-      ],
-      "rules": [
-        "Literature.5-C.map"
-      ]
-    },
-    {
-      "fullType": "Base.Earring_LoopSmall_Gold_Top",
-      "tags": [
-        "Wearable.6-H"
-      ],
-      "rules": [
-        "Wearable.6-H.eartop"
-      ]
-    },
-    {
-      "fullType": "Base.FarmingMag1",
-      "tags": [
-        "Literature.5-B"
-      ],
-      "rules": [
-        "Literature.5-B.recipemag"
-      ]
-    },
-    {
-      "fullType": "Base.FishingMag2",
-      "tags": [
-        "Literature.5-B"
-      ],
-      "rules": [
-        "Literature.5-B.recipemag"
-      ]
-    },
-    {
-      "fullType": "Radio.TvWideScreen",
-      "tags": [
-        "Tool.1-I",
-        "Resource.4-E"
-      ],
-      "rules": [
-        "Tool.1-I.radio",
-        "Resource.4-E.electrical"
-      ]
-    },
-    {
-      "fullType": "Base.BakingTrayBread",
-      "tags": [
-        "Consumable.3-A",
-        "Consumable.3-B"
-      ],
-      "rules": [
-        "Consumable.3-A.food",
-        "Consumable.3-B.food-thirst"
+        "Vehicle.8-B.residual"
       ]
     }
   ]

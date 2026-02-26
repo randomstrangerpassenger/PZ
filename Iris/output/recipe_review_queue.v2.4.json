@@ -1,0 +1,49 @@
+{
+  "version": "v2.4",
+  "total": 5,
+  "by_reason": {
+    "dynamic_recipe_expr.group_def_dynamic": 5
+  },
+  "items": [
+    {
+      "rule_id": null,
+      "recipe_id": null,
+      "recipe_name": null,
+      "fulltype": null,
+      "reason": "dynamic_recipe_expr.group_def_dynamic",
+      "detail": "Recipe.GetItemTypes.CraftSheetRope"
+    },
+    {
+      "rule_id": null,
+      "recipe_id": null,
+      "recipe_name": null,
+      "fulltype": null,
+      "reason": "dynamic_recipe_expr.group_def_dynamic",
+      "detail": "Recipe.GetItemTypes.RipClothing_Cotton"
+    },
+    {
+      "rule_id": null,
+      "recipe_id": null,
+      "recipe_name": null,
+      "fulltype": null,
+      "reason": "dynamic_recipe_expr.group_def_dynamic",
+      "detail": "Recipe.GetItemTypes.RipClothing_Denim"
+    },
+    {
+      "rule_id": null,
+      "recipe_id": null,
+      "recipe_name": null,
+      "fulltype": null,
+      "reason": "dynamic_recipe_expr.group_def_dynamic",
+      "detail": "Recipe.GetItemTypes.RipClothing_Leather"
+    },
+    {
+      "rule_id": null,
+      "recipe_id": null,
+      "recipe_name": null,
+      "fulltype": null,
+      "reason": "dynamic_recipe_expr.group_def_dynamic",
+      "detail": "Recipe.GetItemTypes.RipSheets"
+    }
+  ]
+}

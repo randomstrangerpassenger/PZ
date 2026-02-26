@@ -1,6 +1,6 @@
 -- Iris Manual Overrides
 -- ONLY for subcategories that cannot be auto-classified
--- Generated: 2026-01-28T08:04:32.360448
+-- Schema: v1.0.0
 --
 -- Allowed manual override tags (자동 분류 불가):
 --   Combat.2-B
@@ -13,12 +13,8 @@
 --   Literature.5-B
 --   Literature.5-C
 --   Literature.5-D
---   Resource.4-A
 --   Resource.4-F
---   Tool.1-A
---   Tool.1-C
 --   Tool.1-D
---   Tool.1-F
 --   Tool.1-J
 --   Wearable.6-F
 

@@ -1,0 +1,9 @@
+{
+  "version": "v2.4",
+  "legacy_count": 0,
+  "_support_definition": {
+    "pass_count": "evidence_decisions에서 해당 rule_id로 PASS된 fulltype 수",
+    "candidate_count": "evidence_candidates에서 해당 rule_id를 포함하는 fulltype 수"
+  },
+  "rules": {}
+}

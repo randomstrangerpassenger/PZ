@@ -16,15 +16,72 @@ local IrisBrowserData = {}
 
 -- 의존성 (lazy load)
 local IrisAPI = nil
-local IrisRuleExecutor = nil
 
 -- 번역 헬퍼 (PZ getText 사용)
 -- Note: PZ Lua는 UTF-8 한글을 제대로 처리하지 못함
 -- 따라서 Lua 파일 내 직접 한글 사용 대신 PZ 번역 시스템(getText) 사용 필요
 -- PZ 번역 시스템이 작동하지 않으면 영어 fallback 사용
 local TRANSLATIONS_KO = {
-    -- Empty - Korean translations should be loaded via PZ translation files
-    -- File: media/lua/shared/translate/ko/UI_Iris_KO.txt
+    -- 대분류
+    Iris_Cat_Tool = "\235\143\132\234\181\172",  -- 도구
+    Iris_Cat_Combat = "\236\160\132\237\136\172",  -- 전투
+    Iris_Cat_Consumable = "\236\134\140\235\170\168\237\146\136",  -- 소모품
+    Iris_Cat_Resource = "\236\158\144\236\155\144",  -- 자원
+    Iris_Cat_Literature = "\235\172\184\237\151\140",  -- 문헌
+    Iris_Cat_Wearable = "\236\157\152\235\165\152",  -- 의류
+    Iris_Cat_Furniture = "\234\176\128\234\181\172",  -- 가구
+    Iris_Cat_Vehicle = "\236\176\168\235\159\137",  -- 차량
+    Iris_Cat_Misc = "\234\184\176\237\131\128",  -- 기타
+
+    -- 소분류
+    Iris_Sub_1A = "\234\177\180\236\132\164\47\236\160\156\236\158\145",  -- 건설/제작
+    Iris_Sub_1B = "\235\182\132\237\149\180\47\234\176\156\235\176\169",  -- 분해/개방
+    Iris_Sub_1C = "\236\160\149\235\185\132",  -- 정비
+    Iris_Sub_1D = "\236\154\148\235\166\172",  -- 요리
+    Iris_Sub_1E = "\235\134\141\236\151\133\47\236\177\132\236\167\145",  -- 농업/채집
+    Iris_Sub_1F = "\236\157\152\235\163\140",  -- 의료
+    Iris_Sub_1G = "\237\143\172\237\154\141",  -- 포획
+    Iris_Sub_1H = "\234\180\145\236\155\144\47\236\160\144\237\153\148",  -- 광원/점화
+    Iris_Sub_1I = "\237\134\181\236\139\160",  -- 통신
+    Iris_Sub_1J = "\236\160\132\235\160\165",  -- 전력
+    Iris_Sub_1K = "\235\179\180\236\149\136",  -- 보안
+    Iris_Sub_1L = "\235\179\180\234\180\128\236\154\169\234\184\176",  -- 보관용기
+    Iris_Sub_2A = "\235\143\132\235\129\188\235\165\152",  -- 도끼류
+    Iris_Sub_2B = "\236\158\165\235\145\148\234\184\176",  -- 장둔기
+    Iris_Sub_2C = "\235\139\168\235\145\148\234\184\176",  -- 단둔기
+    Iris_Sub_2D = "\236\158\165\234\178\128\235\165\152",  -- 장검류
+    Iris_Sub_2E = "\235\139\168\234\178\128\235\165\152",  -- 단검류
+    Iris_Sub_2F = "\236\176\189\235\165\152",  -- 창류
+    Iris_Sub_2G = "\234\182\140\236\180\157",  -- 권총
+    Iris_Sub_2H = "\236\134\140\236\180\157",  -- 소총
+    Iris_Sub_2I = "\236\130\176\237\131\132\236\180\157",  -- 산탄총
+    Iris_Sub_2J = "\237\136\172\236\178\153\47\237\143\173\235\176\156",  -- 투척/폭발
+    Iris_Sub_2K = "\237\131\132\236\149\189",  -- 탄약
+    Iris_Sub_3A = "\236\139\157\237\146\136",  -- 식품
+    Iris_Sub_3B = "\236\157\140\235\163\140",  -- 음료
+    Iris_Sub_3C = "\236\157\152\236\149\189\237\146\136",  -- 의약품
+    Iris_Sub_3D = "\234\184\176\237\152\184\237\146\136",  -- 기호품
+    Iris_Sub_3E = "\236\149\189\236\180\136",  -- 약초
+    Iris_Sub_4A = "\234\177\180\236\132\164\236\158\172\235\163\140",  -- 건설재료
+    Iris_Sub_4B = "\236\161\176\235\166\172\32\236\158\172\235\163\140",  -- 조리 재료
+    Iris_Sub_4C = "\236\157\152\235\163\140\236\158\172\235\163\140",  -- 의료재료
+    Iris_Sub_4D = "\236\151\176\235\163\140",  -- 연료
+    Iris_Sub_4E = "\236\160\132\236\158\144\235\182\128\237\146\136",  -- 전자부품
+    Iris_Sub_5A = "\236\138\164\237\130\172\235\182\129",  -- 스킬북
+    Iris_Sub_5B = "\235\160\136\236\139\156\237\148\188\236\158\161\236\167\128",  -- 레시피잡지
+    Iris_Sub_5C = "\236\167\128\235\143\132",  -- 지도
+    Iris_Sub_5D = "\236\157\188\235\176\152\236\132\156\236\160\129",  -- 일반서적
+    Iris_Sub_6A = "\235\170\168\236\158\144\47\237\151\172\235\169\167",  -- 모자/헬멧
+    Iris_Sub_6B = "\236\131\129\236\157\152",  -- 상의
+    Iris_Sub_6C = "\237\149\152\236\157\152",  -- 하의
+    Iris_Sub_6D = "\236\158\165\234\176\145",  -- 장갑
+    Iris_Sub_6E = "\236\139\160\235\176\156",  -- 신발
+    Iris_Sub_6F = "\235\176\176\235\130\173",  -- 배낭
+    Iris_Sub_6G = "\236\149\161\236\132\184\236\132\156\235\166\172",  -- 액세서리
+    Iris_Sub_7A = "\237\131\136\236\176\169\32\234\176\128\234\181\172",  -- 탈착 가구
+    Iris_Sub_8A = "\236\163\188\237\150\137\234\179\132",  -- 주행계
+    Iris_Sub_8B = "\236\176\168\236\178\180\47\235\182\128\236\134\141",  -- 차체/부속
+    Iris_Sub_9A = "\236\158\161\237\153\148",  -- 잡화
 }
 
 -- 현재 언어 감지 (Translator 사용)
@@ -50,7 +107,12 @@ local function getCurrentLanguage()
 end
 
 local function tr(key, fallback)
-    -- 1순위: IrisTranslationLoader 사용
+    -- 1순위: 자체 번역 테이블 (TRANSLATIONS_KO)
+    if TRANSLATIONS_KO and TRANSLATIONS_KO[key] then
+        return TRANSLATIONS_KO[key]
+    end
+
+    -- 2순위: IrisTranslationLoader 사용
     if IrisTranslationLoader and IrisTranslationLoader.get then
         local result = IrisTranslationLoader.get(key, nil)
         if result and result ~= key then
@@ -58,7 +120,7 @@ local function tr(key, fallback)
         end
     end
     
-    -- 2순위: PZ getText() 시도
+    -- 3순위: PZ getText() 시도
     if getText and type(getText) == "function" then
         local ok, result = pcall(getText, key)
         if ok and result and result ~= key then
@@ -82,6 +144,9 @@ IrisBrowserData.CATEGORY_ORDER = {
     "Resource",
     "Literature",
     "Wearable",
+    "Furniture",
+    "Vehicle",
+    "Misc",
 }
 
 -- 대분류 코드 → 번역키 + fallback 매핑
@@ -92,6 +157,9 @@ IrisBrowserData.CATEGORY_KEYS = {
     ["Resource"] = { key = "Iris_Cat_Resource", fallback = "Resource" },
     ["Literature"] = { key = "Iris_Cat_Literature", fallback = "Literature" },
     ["Wearable"] = { key = "Iris_Cat_Wearable", fallback = "Wearable" },
+    ["Furniture"] = { key = "Iris_Cat_Furniture", fallback = "Furniture" },
+    ["Vehicle"] = { key = "Iris_Cat_Vehicle", fallback = "Vehicle" },
+    ["Misc"] = { key = "Iris_Cat_Misc", fallback = "Misc" },
 }
 
 --- 대분류 라벨 가져오기 (번역 지원)
@@ -106,7 +174,7 @@ end
 -- 대분류 → 소분류 코드 매핑 (Ruleset 태그 형식)
 IrisBrowserData.SUBCATEGORY_MAP = {
     ["Tool"] = {
-        "1-A", "1-B", "1-C", "1-D", "1-E", "1-F", "1-G", "1-H", "1-I", "1-J"
+        "1-A", "1-B", "1-C", "1-D", "1-E", "1-F", "1-G", "1-H", "1-I", "1-J", "1-K", "1-L"
     },
     ["Combat"] = {
         "2-A", "2-B", "2-C", "2-D", "2-E", "2-F", "2-G", "2-H", "2-I", "2-J", "2-K", "2-L"
@@ -121,7 +189,16 @@ IrisBrowserData.SUBCATEGORY_MAP = {
         "5-A", "5-B", "5-C", "5-D"
     },
     ["Wearable"] = {
-        "6-A", "6-B", "6-C", "6-D", "6-E", "6-F", "6-G", "6-H"
+        "6-A", "6-B", "6-C", "6-D", "6-E", "6-F", "6-G"
+    },
+    ["Furniture"] = {
+        "7-A"
+    },
+    ["Vehicle"] = {
+        "8-A", "8-B"
+    },
+    ["Misc"] = {
+        "9-A"
     },
 }
 
@@ -139,6 +216,8 @@ IrisBrowserData.SUBCATEGORY_KEYS = {
     ["1-H"] = { key = "Iris_Sub_1H", fallback = "Light/Ignition" },
     ["1-I"] = { key = "Iris_Sub_1I", fallback = "Communication" },
     ["1-J"] = { key = "Iris_Sub_1J", fallback = "Electrical" },
+    ["1-K"] = { key = "Iris_Sub_1K", fallback = "Storage Containers" },
+    ["1-L"] = { key = "Iris_Sub_1L", fallback = "Bags" },
     -- Combat (2)
     ["2-A"] = { key = "Iris_Sub_2A", fallback = "Axes" },
     ["2-B"] = { key = "Iris_Sub_2B", fallback = "Long Blunt" },
@@ -177,8 +256,14 @@ IrisBrowserData.SUBCATEGORY_KEYS = {
     ["6-D"] = { key = "Iris_Sub_6D", fallback = "Gloves" },
     ["6-E"] = { key = "Iris_Sub_6E", fallback = "Footwear" },
     ["6-F"] = { key = "Iris_Sub_6F", fallback = "Backpacks" },
-    ["6-G"] = { key = "Iris_Sub_6G", fallback = "Fanny Packs" },
-    ["6-H"] = { key = "Iris_Sub_6H", fallback = "Accessories" },
+    ["6-G"] = { key = "Iris_Sub_6G", fallback = "Accessories" },
+    -- Furniture (7)
+    ["7-A"] = { key = "Iris_Sub_7A", fallback = "Moveables" },
+    -- Vehicle (8)
+    ["8-A"] = { key = "Iris_Sub_8A", fallback = "Drivetrain" },
+    ["8-B"] = { key = "Iris_Sub_8B", fallback = "Body/Parts" },
+    -- Misc (9)
+    ["9-A"] = { key = "Iris_Sub_9A", fallback = "Miscellaneous" },
 }
 
 --- 소분류 라벨 가져오기 (번역 지원)
@@ -195,10 +280,6 @@ local function ensureDeps()
     if not IrisAPI then
         local ok, result = pcall(require, "Iris/IrisAPI")
         if ok then IrisAPI = result end
-    end
-    if not IrisRuleExecutor then
-        local ok, result = pcall(require, "Iris/Rules/engine/IrisRuleExecutor")
-        if ok then IrisRuleExecutor = result end
     end
 end
 
@@ -386,25 +467,12 @@ function IrisBrowserData.build()
     
     print("[IrisBrowserData] DEBUG: Loop completed, errors=" .. errorCount)
     
-    -- 규칙 로드 상태 확인 (로그 끝에 출력되도록)
-    local rulesCount = 0
-    if IrisAPI and IrisAPI.ensureInitialized then
-        IrisAPI.ensureInitialized()
-    end
-    local IrisRuleLoader = nil
-    local loaderOk, loaderResult = pcall(require, "Iris/Rules/engine/IrisRuleLoader")
-    if loaderOk and loaderResult then
-        IrisRuleLoader = loaderResult
-        local rules = IrisRuleLoader.getRules()
-        if rules then
-            rulesCount = #rules
-        end
-    end
-    print("[IrisBrowserData] DEBUG: Rules loaded = " .. rulesCount)
+    -- 정적 분류 데이터 통계 (헌법적 설계: Rule Engine 없음)
+    print("[IrisBrowserData] DEBUG: Static classifications used")
     
     IrisBrowserData._built = true
     print("[IrisBrowserData] Cache built: " .. itemCount .. " items scanned, " .. 
-          taggedCount .. " tagged, " .. rulesCount .. " rules")
+          taggedCount .. " tagged (static data)")
     
     return true
 end
@@ -447,6 +515,87 @@ function IrisBrowserData.getCategories()
     return result
 end
 
+--- 접기 후 아이템 개수 계산 (내부용)
+--- DisplayName 기반 접기 + 차단 가드 적용 후 남는 개수
+--- @param categoryName string
+--- @param subCode string
+--- @param subData table
+--- @return number foldedCount
+function IrisBrowserData._calculateFoldedCount(categoryName, subCode, subData)
+    -- DisplayName별로 그룹화
+    local itemsByDisplayName = {}
+    
+    for fullType, _ in pairs(subData.items) do
+        local item = IrisBrowserData._cache.itemsByFullType[fullType]
+        
+        local displayName = fullType
+        if item and item.getDisplayName then
+            local ok, name = pcall(function() return item:getDisplayName() end)
+            if ok and name then
+                displayName = name
+            end
+        end
+        
+        -- 아이템 타입 가져오기
+        local itemType = "Normal"
+        if item and item.getType then
+            local ok, t = pcall(function() return item:getType() end)
+            if ok and t then itemType = tostring(t) end
+        end
+        
+        -- 레시피 여부 확인
+        local hasRecipe = false
+        if IrisAPI and IrisAPI.getRecipeConnectionsForItem then
+            local ok, list = pcall(function() return IrisAPI.getRecipeConnectionsForItem(item) end)
+            if ok and list and #list > 0 then
+                hasRecipe = true
+            end
+        end
+        
+        if not itemsByDisplayName[displayName] then
+            itemsByDisplayName[displayName] = {}
+        end
+        
+        table.insert(itemsByDisplayName[displayName], {
+            itemType = itemType,
+            hasRecipe = hasRecipe,
+        })
+    end
+    
+    -- 접기 후 개수 계산
+    local foldedCount = 0
+    
+    for displayName, group in pairs(itemsByDisplayName) do
+        if #group == 1 then
+            foldedCount = foldedCount + 1
+        else
+            -- 차단 가드 확인
+            local firstType = group[1].itemType
+            local firstHasRecipe = group[1].hasRecipe
+            local canFold = true
+            
+            for i = 2, #group do
+                if group[i].itemType ~= firstType then
+                    canFold = false
+                    break
+                end
+                if group[i].hasRecipe ~= firstHasRecipe then
+                    canFold = false
+                    break
+                end
+            end
+            
+            if canFold then
+                foldedCount = foldedCount + 1  -- 접힌 그룹 = 1개로 카운트
+            else
+                foldedCount = foldedCount + #group  -- 접기 불가 = 각각 카운트
+            end
+        end
+    end
+    
+    return foldedCount
+end
+
 --- 특정 대분류의 소분류 목록 반환 (코드순 정렬)
 --- @param categoryName string
 --- @return table subcategories (code, label, itemCount)
@@ -477,11 +626,16 @@ function IrisBrowserData.getSubcategories(categoryName)
     local result = {}
     for subCode, subData in pairs(catData.subcategories) do
         local label = IrisBrowserData.getSubcategoryLabel(subCode)
-        print("[IrisBrowserData]   Subcategory '" .. subCode .. "': count=" .. tostring(subData.count))
+        
+        -- v3.0.0: 접기 후 개수 계산 (DisplayName 기반)
+        local foldedCount = IrisBrowserData._calculateFoldedCount(categoryName, subCode, subData)
+        
+        print("[IrisBrowserData]   Subcategory '" .. subCode .. "': raw=" .. tostring(subData.count) .. ", folded=" .. tostring(foldedCount))
         table.insert(result, {
             name = subCode,  -- 내부 코드 (태그 매칭용)
             label = label,  -- 표시 이름
-            itemCount = subData.count,
+            itemCount = foldedCount,  -- v3.0.0: 접기 후 개수
+            rawCount = subData.count,  -- 원본 개수 (디버그용)
         })
     end
     
@@ -494,10 +648,52 @@ function IrisBrowserData.getSubcategories(categoryName)
     return result
 end
 
---- 특정 소분류의 아이템 목록 반환 (DisplayName 알파벳순)
+--- 주 소분류 결정 헬퍼 함수 (내부용)
+--- @param item InventoryItem
+--- @param fullType string
+--- @param currentTag string 현재 보고 있는 태그 (예: "Consumable.3-A")
+--- @return boolean isPrimary
+function IrisBrowserData._calculatePrimary(item, fullType, currentTag)
+    local primaryTag = nil
+    
+    -- 1순위: IrisPrimarySubcategory에서 수동 고정 확인
+    if IrisPrimarySubcategory and IrisPrimarySubcategory[fullType] then
+        primaryTag = IrisPrimarySubcategory[fullType]
+    -- 2순위: 태그 기반 자동 계산
+    elseif IrisAPI and IrisAPI.getTagsForItem then
+        local ok, tags = pcall(function() return IrisAPI.getTagsForItem(item) end)
+        if ok and tags then
+            -- 대분류 우선순위에 따라 주 소분류 결정
+            local PRIORITY = { Tool = 1, Combat = 2, Consumable = 3, Resource = 4, Literature = 5, Wearable = 6 }
+            local lowestPriority = 999
+            local lowestCode = "ZZZ"
+            
+            for tag, _ in pairs(tags) do
+                local cat, code = tag:match("^([^%.]+)%.(.+)$")
+                if cat and code then
+                    local priority = PRIORITY[cat] or 999
+                    if priority < lowestPriority or 
+                       (priority == lowestPriority and code < lowestCode) then
+                        lowestPriority = priority
+                        lowestCode = code
+                        primaryTag = tag
+                    end
+                end
+            end
+        end
+    end
+    
+    return primaryTag == currentTag
+end
+
+--- 특정 소분류의 아이템 목록 반환
+--- 정렬 규칙:
+---   1. 현재 소분류가 '주 소분류'인 아이템 → 먼저
+---   2. 현재 소분류가 '보조 소분류'인 아이템 → 나중
+---   3. 각 그룹 내에서는 DisplayName 알파벳순
 --- @param categoryName string
 --- @param subcategoryName string
---- @return table items (fullType, displayName)
+--- @return table items (fullType, displayName, isPrimary)
 function IrisBrowserData.getItems(categoryName, subcategoryName)
     print("[IrisBrowserData] getItems('" .. tostring(categoryName) .. "', '" .. tostring(subcategoryName) .. "') called")
     
@@ -524,9 +720,21 @@ function IrisBrowserData.getItems(categoryName, subcategoryName)
     local subData = catData.subcategories[subcategoryName]
     print("[IrisBrowserData] Found subcategory, items count in set = " .. tostring(subData.count))
     
-    local result = {}
+    -- 현재 소분류의 전체 태그 (예: "Consumable.3-B")
+    local currentTag = categoryName .. "." .. subcategoryName
+    
+    -- =========================================================================
+    -- DisplayName 기반 표현 접기 (v3.0.0)
+    -- 목표: 같은 이름의 아이템을 목록에서 한 줄로 접는다
+    -- 차단 가드: Type 다름, 레시피/우클릭 한쪽만 존재
+    -- =========================================================================
+    
+    -- 1단계: 모든 아이템 수집 및 DisplayName 그룹화
+    local itemsByDisplayName = {}  -- displayName -> { items[] }
+    
     for fullType, _ in pairs(subData.items) do
         local item = IrisBrowserData._cache.itemsByFullType[fullType]
+        
         local displayName = fullType
         if item and item.getDisplayName then
             local ok, name = pcall(function() return item:getDisplayName() end)
@@ -534,18 +742,111 @@ function IrisBrowserData.getItems(categoryName, subcategoryName)
                 displayName = name
             end
         end
-        table.insert(result, {
+        
+        -- 아이템 타입 가져오기
+        local itemType = "Normal"
+        if item and item.getType then
+            local ok, t = pcall(function() return item:getType() end)
+            if ok and t then itemType = tostring(t) end
+        end
+        
+        -- 레시피 여부 확인 (차단 가드용)
+        local hasRecipe = false
+        if IrisAPI and IrisAPI.getRecipeConnectionsForItem then
+            local ok, list = pcall(function() return IrisAPI.getRecipeConnectionsForItem(item) end)
+            if ok and list and #list > 0 then
+                hasRecipe = true
+            end
+        end
+        
+        if not itemsByDisplayName[displayName] then
+            itemsByDisplayName[displayName] = {}
+        end
+        
+        table.insert(itemsByDisplayName[displayName], {
             fullType = fullType,
-            displayName = displayName,
+            item = item,
+            itemType = itemType,
+            hasRecipe = hasRecipe,
         })
     end
     
-    -- DisplayName 알파벳순 정렬
+    -- 2단계: 그룹 내에서 차단 가드 적용 → 접기 여부 결정
+    local result = {}
+    
+    for displayName, group in pairs(itemsByDisplayName) do
+        if #group == 1 then
+            -- 단일 아이템: 그냥 추가
+            local e = group[1]
+            local isPrimary = IrisBrowserData._calculatePrimary(e.item, e.fullType, currentTag)
+            table.insert(result, {
+                fullType = e.fullType,
+                displayName = displayName,
+                isPrimary = isPrimary,
+                variants = nil,  -- 변형 없음
+            })
+        else
+            -- 복수 아이템: 차단 가드 확인
+            local firstType = group[1].itemType
+            local firstHasRecipe = group[1].hasRecipe
+            local canFold = true
+            
+            for i = 2, #group do
+                -- 차단 가드 1: Type 다름
+                if group[i].itemType ~= firstType then
+                    canFold = false
+                    break
+                end
+                -- 차단 가드 2: 레시피 존재 여부 다름
+                if group[i].hasRecipe ~= firstHasRecipe then
+                    canFold = false
+                    break
+                end
+            end
+            
+            if canFold then
+                -- 접기 허용: 대표 1개만 표시
+                local representative = group[1]
+                local variants = {}
+                for _, e in ipairs(group) do
+                    table.insert(variants, e.fullType)
+                end
+                table.sort(variants)  -- 사전순 정렬
+                
+                local isPrimary = IrisBrowserData._calculatePrimary(representative.item, representative.fullType, currentTag)
+                table.insert(result, {
+                    fullType = representative.fullType,
+                    displayName = displayName,
+                    isPrimary = isPrimary,
+                    variants = variants,  -- 상세에서 표시용
+                })
+            else
+                -- 접기 불가: 각각 개별 표시
+                for _, e in ipairs(group) do
+                    local isPrimary = IrisBrowserData._calculatePrimary(e.item, e.fullType, currentTag)
+                    table.insert(result, {
+                        fullType = e.fullType,
+                        displayName = displayName,
+                        isPrimary = isPrimary,
+                        variants = nil,
+                    })
+                end
+            end
+        end
+    end
+    
+    -- 정렬: isPrimary(true) 먼저, 그 다음 displayName 알파벳순, 그 다음 fullType
     table.sort(result, function(a, b)
-        return a.displayName < b.displayName
+        if a.isPrimary ~= b.isPrimary then
+            return a.isPrimary  -- true가 먼저
+        end
+        if a.displayName ~= b.displayName then
+            return a.displayName < b.displayName
+        end
+        return a.fullType < b.fullType
     end)
     
-    print("[IrisBrowserData] getItems() returning " .. #result .. " items")
+    print("[IrisBrowserData] getItems() returning " .. #result .. " items (DisplayName folding)")
     return result
 end
 
@@ -609,6 +910,40 @@ function IrisBrowserData.getItem(fullType)
         return nil
     end
     return IrisBrowserData._cache.itemsByFullType[fullType]
+end
+
+--- 그룹의 변형 아이템 목록 반환
+--- @param groupId string|nil 그룹 ID
+--- @return table variants { fullType, displayName }[] or nil
+function IrisBrowserData.getGroupVariants(groupId)
+    if not groupId then return nil end
+    if not IrisData or not IrisData.ItemGroups then return nil end
+    
+    local groupItems = IrisData.ItemGroups[groupId]
+    if not groupItems then return nil end
+    
+    local result = {}
+    for _, fullType in ipairs(groupItems) do
+        local item = IrisBrowserData._cache.itemsByFullType[fullType]
+        local displayName = fullType
+        if item and item.getDisplayName then
+            local ok, name = pcall(function() return item:getDisplayName() end)
+            if ok and name then
+                displayName = name
+            end
+        end
+        table.insert(result, {
+            fullType = fullType,
+            displayName = displayName,
+        })
+    end
+    
+    -- DisplayName 정렬
+    table.sort(result, function(a, b)
+        return a.displayName < b.displayName
+    end)
+    
+    return result
 end
 
 return IrisBrowserData

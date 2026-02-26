@@ -84,7 +84,21 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
                 table.insert(detailLines, "연결: 없음")
             end
             
-            -- 더보기 안내 (최대 4줄 중 3줄)
+            -- UseCase 요약 (debug_lines 미포함, main lines만)
+            local fullType = nil
+            if tooltipInv.item.getFullType then
+                local ftOk, ftResult = pcall(function() return tooltipInv.item:getFullType() end)
+                if ftOk then fullType = ftResult end
+            end
+            if fullType then
+                local ucData = IrisAPI.getUseCaseLines(fullType)
+                local ucCount = #(ucData.lines or {})
+                if ucCount > 0 then
+                    table.insert(detailLines, "\xEC\x9A\xA9\xEB\x8F\x84: " .. ucCount .. "\xEA\xB1\xB4")
+                end
+            end
+            
+            -- 더보기 안내 (최대 4줄 중 마지막)
             table.insert(detailLines, "더보기: 우클릭 > Iris")
         else
             detailLines = {

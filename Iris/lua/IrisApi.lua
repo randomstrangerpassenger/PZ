@@ -184,8 +184,8 @@ local classificationsMeta = {
 }
 setmetatable(classificationsProxy, classificationsMeta)
 
--- Replace with proxy (optional - enable for strict mode)
--- IrisData.Classifications = classificationsProxy
+-- ⚠️ 헌법적 필수: Read-only 프록시로 교체 (외부 수정 봉인)
+IrisData.Classifications = classificationsProxy
 
 
 -- ============================================

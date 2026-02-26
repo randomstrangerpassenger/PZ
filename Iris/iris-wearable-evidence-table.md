@@ -1,8 +1,8 @@
-# Iris Wearable(6) 소분류 증거표 (v0.2)
+# Iris Wearable(6) 소분류 증거표 (v0.3)
 
 이 문서는 **Wearable 대분류(6)**의 각 소분류별로 사용할 수 있는 증거를 정의한다.
 
-> ⚠️ **v0.2 주요 변경**: BodyLocation 실제 바닐라 값으로 전면 교체. 추상적 값(`Head`, `Torso`, `Legs`)을 세부 값(`Hat`, `Shirt`, `Pants` 등)으로 변경.
+> ⚠️ **v0.3 주요 변경**: Context Outcome 증거 추가. 특히 6-F(배낭)에서 `has_outcome("equip_back")` 사용 가능.
 
 ---
 
@@ -11,7 +11,8 @@
 1. **1차**: Item Script 필드 (Type = Clothing, BodyLocation)
 2. **2차**: Tags
 3. **3차**: 방어/보호 관련 필드 (exists 여부)
-4. **최후**: 수동 오버라이드 (증거 누락 시에만)
+4. **4차**: Context Outcome (정적 추출 결과) — v0.3 신규
+5. **최후**: 수동 오버라이드 (증거 누락 시에만)
 
 ---
 
@@ -24,8 +25,6 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 ### BodyLocation이 소분류 핵심 증거
 
 착용 부위(`BodyLocation`)로 소분류 결정.
-
-> ⚠️ **v0.2 변경**: 바닐라에서 `Head`, `Torso`, `Legs` 같은 추상적 값이 **아닌**, `Hat`, `Shirt`, `Pants` 같은 세부 값이 사용됨.
 
 ### 방어 수치는 표시 정보
 
@@ -47,7 +46,7 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 | Type | `= Clothing` |
 | **AND** BodyLocation | 아래 허용값 중 하나 |
 
-### BodyLocation 허용값 (6-A) — v0.2 확정
+### BodyLocation 허용값 (6-A)
 
 | 값 | 설명 | 개수 |
 |----|------|------|
@@ -85,7 +84,7 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 | Type | `= Clothing` |
 | **AND** BodyLocation | 아래 허용값 중 하나 |
 
-### BodyLocation 허용값 (6-B) — v0.2 확정
+### BodyLocation 허용값 (6-B)
 
 | 값 | 설명 | 개수 |
 |----|------|------|
@@ -103,6 +102,12 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 | `Jacket_Down` | 다운 재킷 | 2 |
 | `TorsoExtra` | 앞치마 등 | 11 |
 | `TorsoExtraVest` | 방탄조끼 등 | 9 |
+
+### 보조 증거 — v0.3 신규
+
+| 증거 | 조건 |
+|------|------|
+| Context Outcome | `has_outcome("rip_clothing")` |
 
 ### 예시 아이템
 
@@ -124,13 +129,19 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 | Type | `= Clothing` |
 | **AND** BodyLocation | 아래 허용값 중 하나 |
 
-### BodyLocation 허용값 (6-C) — v0.2 확정
+### BodyLocation 허용값 (6-C)
 
 | 값 | 설명 | 개수 |
 |----|------|------|
 | `Pants` | 바지 | 48 |
 | `Skirt` | 스커트 | 5 |
 | `Legs1` | 롱존스 하의 | 1 |
+
+### 보조 증거 — v0.3 신규
+
+| 증거 | 조건 |
+|------|------|
+| Context Outcome | `has_outcome("rip_clothing")` |
 
 ### 예시 아이템
 
@@ -151,7 +162,7 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 | Type | `= Clothing` |
 | **AND** BodyLocation | `= Hands` |
 
-### BodyLocation 허용값 (6-D) — v0.2 확정
+### BodyLocation 허용값 (6-D)
 
 | 값 | 설명 | 개수 |
 |----|------|------|
@@ -176,7 +187,7 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 | Type | `= Clothing` |
 | **AND** BodyLocation | 아래 허용값 중 하나 |
 
-### BodyLocation 허용값 (6-E) — v0.2 확정
+### BodyLocation 허용값 (6-E)
 
 | 값 | 설명 | 개수 |
 |----|------|------|
@@ -195,15 +206,17 @@ Wearable 대분류 진입은 `Type = Clothing`이 기본.
 
 **핵심 질문**: 등에 착용하는 수납 아이템인가?
 
-### 필수 증거
+### 필수 증거 — v0.3 개정
 
-**자동 분류 불가** — 바닐라에서 `BodyLocation = Back`이 확인되지 않음.
+| 증거 | 조건 | 비고 |
+|------|------|------|
+| Context Outcome | `has_outcome("equip_back")` | **v0.3 신규 — 핵심 증거** |
 
-> ⚠️ **v0.2 발견**: 배낭류는 `Type = Container`로 분류되어 있을 가능성. 추가 분석 필요.
+> ⚠️ **v0.3 변경**: 바닐라에서 `BodyLocation = Back`이 확인되지 않아 자동 분류 불가였으나, Context Outcome `equip_back`으로 자동 분류 가능해짐.
 
-### 처리 방식
+### 대안: 수동 오버라이드
 
-**수동 오버라이드 또는 Type = Container 별도 처리**
+Context Outcome 데이터가 없는 경우 여전히 수동 오버라이드 필요:
 
 ```lua
 manualOverrides = {
@@ -211,33 +224,17 @@ manualOverrides = {
 }
 ```
 
----
-
-## 6-G. 힙색 (Fanny Pack)
-
-**핵심 질문**: 허리에 착용하는 수납 아이템인가?
-
-### 필수 증거 (AND 결합)
-
-| 증거 | 조건 |
-|------|------|
-| Type | `= Clothing` |
-| **AND** BodyLocation | 아래 허용값 중 하나 |
-
-### BodyLocation 허용값 (6-G) — v0.2 확정
-
-| 값 | 설명 | 개수 |
-|----|------|------|
-| `FannyPackFront` | 앞쪽 힙색 | 1 |
-| `FannyPackBack` | 뒤쪽 힙색 | 1 |
-
 ### 예시 아이템
 
-- 힙색 (Fanny Pack)
+- 대형 등산 배낭 (Big Hiking Bag) — `has_outcome("equip_back")`
+- 학교 가방 (School Bag) — `has_outcome("equip_back")`
+- 군용 배낭 (Military Backpack) — `has_outcome("equip_back")`
 
 ---
 
-## 6-H. 액세서리 (Accessory)
+---
+
+## 6-G. 액세서리 (Accessory)
 
 **핵심 질문**: 장식용 또는 기능성 액세서리인가?
 
@@ -248,7 +245,7 @@ manualOverrides = {
 | Type | `= Clothing` |
 | **AND** BodyLocation | 아래 허용값 중 하나 |
 
-### BodyLocation 허용값 (6-H) — v0.2 확정
+### BodyLocation 허용값 (6-G)
 
 | 값 | 설명 | 개수 |
 |----|------|------|
@@ -272,6 +269,8 @@ manualOverrides = {
 | `Nose` | 코걸이 | 4 |
 | `BellyButton` | 배꼽 피어싱 | 15 |
 | `AmmoStrap` | 탄약 스트랩 | 2 |
+| `FannyPackFront` | 앞쪽 힙색 | 1 |
+| `FannyPackBack` | 뒤쪽 힙색 | 1 |
 
 ### 예시 아이템
 
@@ -280,6 +279,12 @@ manualOverrides = {
 - 홀스터 (Holster) — BodyLocation = BeltExtra
 - 안경 (Glasses) — BodyLocation = Eyes
 - 목걸이 (Necklace) — BodyLocation = Necklace
+
+### 보조 증거 — v0.3.1 신규
+
+| 증거 | 조건 | 비고 |
+|------|------|------|
+| Context Outcome | `has_outcome("equip_variant")` | 착용 시 슬롯 선택 옵션 존재 (좌/우 손목시계 등) |
 
 ---
 
@@ -313,6 +318,15 @@ manualOverrides = {
 - BodyLocation = FullSuitHead → Wearable.6-A + Wearable.6-B + Wearable.6-C ✓
 
 결과: [Wearable.6-A, Wearable.6-B, Wearable.6-C]
+```
+
+### 대형 배낭 (Big Hiking Bag) — v0.3 신규
+
+```
+증거:
+- Context Outcome = equip_back → Wearable.6-F ✓
+
+결과: [Wearable.6-F]
 ```
 
 ---
@@ -350,3 +364,6 @@ manualOverrides = {
 |------|------|------|
 | 0.1 | - | 초안 작성 |
 | 0.2 | - | 바닐라 데이터 기반 전면 개정: BodyLocation 실제 값으로 교체, 6-F 수동 오버라이드 전환 |
+| 0.3 | - | Context Outcome 증거 추가: 6-F `has_outcome("equip_back")` 자동 분류 가능, 6-B/6-C `rip_clothing` 보조 증거 추가 |
+| 0.3.1 | - | 완전성 감사 반영: 6-H `has_outcome("equip_variant")` 보조 증거 추가 (착용 변형 옵션) |
+| 0.4 | 2026-02-06 | 6-G 힙색을 삭제하고 6-H 액세서리를 6-G 액세서리로 리넘버링. FannyPack BodyLocation을 6-G에 통합. |

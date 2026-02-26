@@ -44,6 +44,8 @@ Iris = {
     Iris_Sub_1H = "Light/Ignition",
     Iris_Sub_1I = "Communication",
     Iris_Sub_1J = "Electrical",
+    Iris_Sub_1K = "Security",
+    Iris_Sub_1L = "Storage Containers",
 
     Iris_Sub_2A = "Axes",
     Iris_Sub_2B = "Long Blunt",
@@ -82,7 +84,16 @@ Iris = {
     Iris_Sub_6D = "Gloves",
     Iris_Sub_6E = "Shoes",
     Iris_Sub_6F = "Backpacks",
-    Iris_Sub_6G = "Hip Bags",
-    Iris_Sub_6H = "Accessories",
+    Iris_Sub_6G = "Accessories",
+
+    Iris_Cat_Furniture = "Furniture",
+    Iris_Sub_7A = "Detachable Furniture",
+
+    Iris_Cat_Vehicle = "Vehicle",
+    Iris_Sub_8A = "Drivetrain",
+    Iris_Sub_8B = "Body/Parts",
+
+    Iris_Cat_Misc = "Misc",
+    Iris_Sub_9A = "Sundries",
 }
 

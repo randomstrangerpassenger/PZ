@@ -1,0 +1,372 @@
+module Base
+{
+	evolvedrecipe Soup
+	{
+		BaseItem:WaterPot,
+		MaxItems:6,
+		ResultItem:PotOfSoupRecipe,
+		Cookable:true,
+		Name:Prepare Soup,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Stew
+	{
+		BaseItem:WaterPot,
+		MaxItems:6,
+		ResultItem:PotOfStew,
+		Cookable:true,
+		Name:Prepare Stew,
+	}
+
+	evolvedrecipe Pie
+	{
+		BaseItem:PiePrep,
+		MaxItems:4,
+		ResultItem:PieWholeRaw,
+		Cookable:true,
+		Name:Prepare Pie,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe PieSweet
+	{
+		BaseItem:PiePrep,
+		MaxItems:4,
+		ResultItem:PieWholeRawSweet,
+		Cookable:true,
+		Name:Prepare Sweet Pie,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Cake
+	{
+		BaseItem:CakePrep,
+		MaxItems:4,
+		ResultItem:CakeRaw,
+		Cookable:true,
+		Name:Prepare Cake,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Stir fry
+	{
+		BaseItem:Pan,
+		MaxItems:6,
+		ResultItem:PanFriedVegetables,
+		Cookable:true,
+		Name:Prepare Stir-fry,
+	}
+
+	evolvedrecipe Stir fry Griddle Pan
+	{
+		BaseItem:GridlePan,
+		MaxItems:6,
+		ResultItem:GriddlePanFriedVegetables,
+		Cookable:true,
+		Name:Prepare Stir-fry,
+	}
+
+	evolvedrecipe Roasted Vegetables
+	{
+		BaseItem:RoastingPan,
+		MaxItems:6,
+		ResultItem:PanFriedVegetables2,
+		Cookable:true,
+		Name:Place Ingredients in Roasting Pan,
+	}
+
+	evolvedrecipe Sandwich
+	{
+		BaseItem:BreadSlices,
+		MaxItems:4,
+		ResultItem:Sandwich,
+		Name:Make Sandwich,
+		CanAddSpicesEmpty:true,
+		AddIngredientIfCooked:true,
+	}
+
+	evolvedrecipe Sandwich Baguette
+	{
+		BaseItem:Baguette,
+		MaxItems:4,
+		ResultItem:BaguetteSandwich,
+		Name:Make Sandwich,
+		AddIngredientIfCooked:true,
+	}
+
+	evolvedrecipe Burger
+	{
+		BaseItem:BreadSlices,
+		MaxItems:4,
+		ResultItem:BurgerRecipe,
+		Name:Prepare Burger,
+		AddIngredientIfCooked:true,
+	}
+
+	evolvedrecipe Salad
+	{
+		BaseItem:Bowl,
+		MaxItems:6,
+		ResultItem:farming.Salad,
+		Name:Make Salad,
+	}
+
+	evolvedrecipe FruitSalad
+	{
+		BaseItem:Bowl,
+		MaxItems:6,
+		ResultItem:Base.FruitSalad,
+		Name:Make Fruit Salad,
+	}
+
+	evolvedrecipe PastaPan
+	{
+		BaseItem:WaterSaucepanPasta,
+		MaxItems:4,
+		ResultItem:PastaPan,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		Name:Prepare Pasta,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe RicePan
+	{
+		BaseItem:WaterSaucepanRice,
+		MaxItems:4,
+		ResultItem:RicePan,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		Name:Prepare Rice,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe PastaPot
+	{
+		BaseItem:WaterPotPasta,
+		MaxItems:4,
+		ResultItem:PastaPot,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		Name:Prepare Pasta,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe RicePot
+	{
+		BaseItem:WaterPotRice,
+		MaxItems:4,
+		ResultItem:RicePot,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		Name:Prepare Rice,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe HotDrink
+	{
+		BaseItem:WaterMug,
+		MaxItems:3,
+		ResultItem:HotDrink,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Prepare Beverage,
+		CanAddSpicesEmpty:true,
+	}
+	evolvedrecipe HotDrinkTea
+	{
+		BaseItem:WaterTeacup,
+		MaxItems:3,
+		ResultItem:HotDrinkTea,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Prepare Beverage,
+		CanAddSpicesEmpty:true,
+	}
+	evolvedrecipe HotDrinkRed
+	{
+		BaseItem:WaterMugRed,
+		MaxItems:3,
+		ResultItem:HotDrinkRed,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Prepare Beverage,
+		CanAddSpicesEmpty:true,
+	}
+	evolvedrecipe HotDrinkWhite
+	{
+		BaseItem:WaterMugWhite,
+		MaxItems:3,
+		ResultItem:HotDrinkWhite,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Prepare Beverage,
+		CanAddSpicesEmpty:true,
+	}
+	evolvedrecipe HotDrinkSpiffo
+	{
+		BaseItem:WaterMugSpiffo,
+		MaxItems:3,
+		ResultItem:HotDrinkSpiffo,
+		Cookable:true,
+		AddIngredientIfCooked:true,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Prepare Beverage,
+		CanAddSpicesEmpty:true,
+	}
+	evolvedrecipe Taco
+	{
+		BaseItem:TacoShell,
+		MaxItems:5,
+		ResultItem:TacoRecipe,
+		AddIngredientIfCooked:true,
+		Name:Taco,
+	}
+	evolvedrecipe Burrito
+	{
+		BaseItem:Tortilla,
+		MaxItems:5,
+		ResultItem:BurritoRecipe,
+		AddIngredientIfCooked:true,
+		Name:Burrito,
+	}
+
+	evolvedrecipe Waffles
+	{
+		BaseItem:Waffles,
+		MaxItems:3,
+		ResultItem:WafflesRecipe,
+		AddIngredientIfCooked:true,
+		Name:Waffles,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Pancakes
+	{
+		BaseItem:Pancakes,
+		MaxItems:3,
+		ResultItem:PancakesRecipe,
+		AddIngredientIfCooked:true,
+		Name:Pancakes,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Omelette
+	{
+		BaseItem:OmeletteRecipe,
+		MaxItems:3,
+		ResultItem:OmeletteRecipe,
+		AddIngredientIfCooked:true,
+		Name:Omelette,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Muffin
+	{
+		BaseItem:BakingTray_Muffin,
+		MaxItems:1,
+		ResultItem:BakingTray_Muffin_Recipe,
+		Cookable:true,
+		Name:Muffin,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe ConeIcecream
+	{
+		BaseItem:ConeIcecream,
+		MaxItems:3,
+		ResultItem:ConeIcecreamToppings,
+		Name:Prepare Ice Cream Cone,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Bread
+	{
+		BaseItem:BreadDough,
+		MaxItems:2,
+		ResultItem:BreadDough,
+		Cookable:true,
+		Name:Prepare Bread,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Beverage
+	{
+		BaseItem:GlassTumbler,
+		MaxItems:2,
+		ResultItem:Beverage,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Prepare Beverage in Tumbler,
+	}
+
+	evolvedrecipe Beverage2
+	{
+		BaseItem:PlasticCup,
+		MaxItems:2,
+		ResultItem:Beverage2,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Prepare Beverage in Cup,
+	}
+
+	evolvedrecipe Toast
+	{
+		BaseItem:Toast,
+		MaxItems:3,
+		ResultItem:Toast,
+		AddIngredientIfCooked:true,
+		Name:Prepare Toast,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Oatmeal
+	{
+		BaseItem:Oatmeal,
+		MaxItems:3,
+		ResultItem:Oatmeal,
+		AddIngredientIfCooked:true,
+		Name:Oatmeal,
+		CanAddSpicesEmpty:true,
+	}
+
+	evolvedrecipe Beer
+	{
+		BaseItem:GlassTumbler,
+		MaxItems:1,
+		ResultItem:Beer,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Pour Tumbler of Beer,
+	}
+
+	evolvedrecipe Beer2
+	{
+		BaseItem:PlasticCup,
+		MaxItems:1,
+		ResultItem:Beer2,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Pour Cup of Beer,
+	}
+
+	evolvedrecipe WineInGlass
+	{
+		BaseItem:GlassWine,
+		MaxItems:1,
+		ResultItem:WineInGlass,
+		AddIngredientSound:AddItemInBeverage,
+		Name:Pour Glass of Wine,
+	}
+	
+	evolvedrecipe Pizza
+	{
+		BaseItem:PizzaRecipe,
+		MaxItems:6,
+		ResultItem:PizzaRecipe,
+		Cookable:true,
+		Name:Prepare Pizza,
+		CanAddSpicesEmpty:true,
+	}
+}

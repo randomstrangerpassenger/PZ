@@ -1,0 +1,41 @@
+﻿============================================================
+  Quality Gates v2.5 (BUILD_VERSION=v2.4)
+============================================================
+
+── Gate Q1: PASS Integrity ──
+  Checked: 57 PASS items
+  Status: PASS (violations=0)
+
+── Gate Q2: Strong Integrity ──
+  Checked: 5 rules with uniqueness
+  Status: PASS (violations=0)
+
+── Gate Q3: Anchor Role Completeness ──
+  Profiles loaded: 5 rules
+  Checked: 57 PASS items
+  Status: PASS (violations=0)
+
+── Gate Q4: Determinism (SHA snapshot) ──
+  Files checked: 6
+  Status: FAIL (mismatches=2)
+  ❌ usecases_by_fulltype.v2.4.json: expected=9ad20b5d6246f6cb... actual=f2eedc0a7a645e91...
+  ❌ recipe_classification_matches.v2.4.json: not in frozen_sha
+
+── Gate Q5: Regression Diff ──
+  Status: PASS (unexpected=0, pending=0)
+
+  ✅ frozen SHA 갱신 완료: C:\Users\MW\Downloads\coding\PZ\Iris\build\frozen_sha.v2.4.json
+    evidence_decisions.v2.4.json: 7217bca34b70b1a5756d27ec...
+    evidence_candidates.v2.4.json: 95cb9ad205fa3ba58a06808c...
+    review_queue.v2.4.json: 955fcdb212f47c5a070658d9...
+    uniqueness_overlay.v2.4.json: 10c0ec6b29870d8df9c89b22...
+    usecases_by_fulltype.v2.4.json: f2eedc0a7a645e91f9878a01...
+    recipe_classification_matches.v2.4.json: 78785e5723ab99c0e26d9682...
+  Q4 re-check: PASS
+
+  Saved: C:\Users\MW\Downloads\coding\PZ\Iris\output\build_report.json
+  Saved: C:\Users\MW\Downloads\coding\PZ\Iris\output\build_report.md
+
+============================================================
+  ✅ All Quality Gates PASSED
+============================================================

@@ -1,8 +1,8 @@
-# Iris Resource(4) 소분류 증거표 (v0.2)
+# Iris Resource(4) 소분류 증거표 (v0.3)
 
 이 문서는 **Resource 대분류(4)**의 각 소분류별로 사용할 수 있는 증거를 정의한다.
 
-> ⚠️ **v0.2 주요 변경**: Recipe Category 수정 (`MetalWelding` → `Welding`, `Masonry` 제거, `Electronics` → `Electrical`), 4-C 증거 수정, 4-D Tags 추가
+> ⚠️ **v0.3 주요 변경**: Context Outcome 보조 증거 추가. 바닐라 Lua에서 정적 추출한 결과 타입을 보조 증거로 사용 가능.
 
 ---
 
@@ -11,7 +11,8 @@
 1. **1차**: Recipe role = `input` (재료로 소모되는지)
 2. **2차**: Item Script 필드 (Type, Tags)
 3. **3차**: Fixing role (수리 재료)
-4. **최후**: 수동 오버라이드 (증거 누락 시에만)
+4. **4차**: Context Outcome (정적 추출 결과) — v0.3 신규
+5. **최후**: 수동 오버라이드 (증거 누락 시에만)
 
 ---
 
@@ -47,8 +48,6 @@ Recipe의 category를 조합하여 소분류 결정:
 |------|------|
 | Recipe role | `= input` |
 | **AND** Recipe category | `Carpentry`, `Welding`, `Smithing` 중 하나 |
-
-> ⚠️ **v0.2 변경**: `MetalWelding` → `Welding`, `Masonry` 제거 (바닐라에 없음)
 
 ### 보조 증거
 
@@ -115,8 +114,6 @@ Recipe의 category를 조합하여 소분류 결정:
 | Recipe role | `= input` |
 | **AND** Recipe category | `Health` |
 
-> ⚠️ **v0.2 변경**: Recipe output 역참조 제거. `Recipe category = Health` 기반으로 변경.
-
 ### 대안 증거
 
 | 증거 | 조건 |
@@ -148,7 +145,14 @@ Recipe의 category를 조합하여 소분류 결정:
 |------|------|
 | Tags | `contains "Petrol"` |
 
-> ⚠️ **v0.2 변경**: 바닐라에서 `Tags = Petrol` 확인됨 (6개 아이템). 태그 기반 부분 분류 가능.
+### 보조 증거 — v0.3 신규
+
+| 증거 | 조건 |
+|------|------|
+| Context Outcome | `has_outcome("fill_container")` **AND** `has_outcome("empty_container")` |
+| Context Outcome | `has_outcome("transform_replace")` — v0.3.1 신규 (소비 시 빈 용기로 교체 등) |
+
+> ⚠️ Context Outcome만으로는 4-D 자동 분류에 불충분 (물통 등 오분류 위험). Tags = Petrol이 핵심.
 
 ### 수동 오버라이드 필요 항목
 
@@ -185,8 +189,6 @@ manualOverrides = {
 |------|------|
 | Recipe role | `= input` |
 | **AND** Recipe category | `Electrical` 또는 `Engineer` |
-
-> ⚠️ **v0.2 변경**: `Electronics` → `Electrical`. 바닐라에서 `Electrical`이 실제 사용됨.
 
 ### 대안 증거
 
@@ -295,3 +297,5 @@ manualOverrides = {
 |------|------|------|
 | 0.1 | - | 초안 작성 |
 | 0.2 | - | 바닐라 데이터 기반 전면 개정: Recipe Category 수정, 4-C Health 기반, 4-D Petrol 태그 추가 |
+| 0.3 | - | Context Outcome 보조 증거 추가 (4-D fill_container/empty_container) |
+| 0.3.1 | - | 완전성 감사 반영: 4-D `has_outcome("transform_replace")` 보조 증거 추가 (소비-교체형) |

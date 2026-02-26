@@ -1,0 +1,156 @@
+module Base
+{
+	mannequin FemaleBlack01
+	{
+		female = true,
+		model = FemaleBody,
+		texture = F_Mannequin_Black,
+		animSet = mannequin,
+		animState = female,
+		pose = pose01,
+		outfit = ,
+	}
+
+	mannequin FemaleBlack02
+	{
+		female = true,
+		model = FemaleBody,
+		texture = F_Mannequin_Black,
+		animSet = mannequin,
+		animState = female,
+		pose = pose02,
+		outfit = ,
+	}
+
+	mannequin FemaleBlack03
+	{
+		female = true,
+		model = FemaleBody,
+		texture = F_Mannequin_Black,
+		animSet = mannequin,
+		animState = female,
+		pose = pose03,
+		outfit = ,
+	}
+
+	mannequin MaleBlack01
+	{
+		female = false,
+		model = MaleBody,
+		texture = M_Mannequin_Black,
+		animSet = mannequin,
+		animState = male,
+		pose = pose01,
+		outfit = ,
+	}
+
+	mannequin MaleBlack02
+	{
+		female = false,
+		model = MaleBody,
+		texture = M_Mannequin_Black,
+		animSet = mannequin,
+		animState = male,
+		pose = pose02,
+		outfit = ,
+	}
+
+	mannequin MaleBlack03
+	{
+		female = false,
+		model = MaleBody,
+		texture = M_Mannequin_Black,
+		animSet = mannequin,
+		animState = male,
+		pose = pose03,
+		outfit = ,
+	}
+
+	mannequin FemaleWhite01
+	{
+		female = true,
+		model = FemaleBody,
+		texture = F_Mannequin_White,
+		animSet = mannequin,
+		animState = female,
+		pose = pose01,
+		outfit = ,
+	}
+
+	mannequin FemaleWhite02
+	{
+		female = true,
+		model = FemaleBody,
+		texture = F_Mannequin_White,
+		animSet = mannequin,
+		animState = female,
+		pose = pose02,
+		outfit = ,
+	}
+
+	mannequin FemaleWhite03
+	{
+		female = true,
+		model = FemaleBody,
+		texture = F_Mannequin_White,
+		animSet = mannequin,
+		animState = female,
+		pose = pose03,
+		outfit = ,
+	}
+
+	mannequin MaleWhite01
+	{
+		female = false,
+		model = MaleBody,
+		texture = M_Mannequin_White,
+		animSet = mannequin,
+		animState = male,
+		pose = pose01,
+		outfit = ,
+	}
+
+	mannequin MaleWhite02
+	{
+		female = false,
+		model = MaleBody,
+		texture = M_Mannequin_White,
+		animSet = mannequin,
+		animState = male,
+		pose = pose02,
+		outfit = ,
+	}
+
+	mannequin MaleWhite03
+	{
+		female = false,
+		model = MaleBody,
+		texture = M_Mannequin_White,
+		animSet = mannequin,
+		animState = male,
+		pose = pose03,
+		outfit = ,
+	}
+
+	mannequin MannequinScarecrow01
+	{
+		female = false,
+		model = Mannequin_Scarecrow,
+		texture = Male_Scarecrow,
+		animSet = mannequin,
+		animState = scarecrow,
+		pose = pose01,
+		outfit = none,
+	}
+
+	mannequin MannequinSkeleton01
+	{
+		female = false,
+		model = Mannequin_Skeleton,
+		texture = Skeleton_Mannequin,
+		animSet = mannequin,
+		animState = skeleton,
+		pose = pose01,
+		outfit = none,
+	}
+}

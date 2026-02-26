@@ -37,13 +37,15 @@ Iris = {
     Iris_Sub_1A = "건설/제작",
     Iris_Sub_1B = "분해/개방",
     Iris_Sub_1C = "정비",
-    Iris_Sub_1D = "조리",
+    Iris_Sub_1D = "요리",
     Iris_Sub_1E = "농업/채집",
     Iris_Sub_1F = "의료",
     Iris_Sub_1G = "포획",
     Iris_Sub_1H = "광원/점화",
     Iris_Sub_1I = "통신",
     Iris_Sub_1J = "전력",
+    Iris_Sub_1K = "보안",
+    Iris_Sub_1L = "보관용기",
 
     Iris_Sub_2A = "도끼류",
     Iris_Sub_2B = "장둔기",
@@ -82,7 +84,29 @@ Iris = {
     Iris_Sub_6D = "장갑",
     Iris_Sub_6E = "신발",
     Iris_Sub_6F = "배낭",
-    Iris_Sub_6G = "힙색",
-    Iris_Sub_6H = "액세서리",
-}
+    Iris_Sub_6G = "액세서리",
 
+    Iris_Cat_Furniture = "가구",
+    Iris_Sub_7A = "탈착 가구",
+
+    Iris_Cat_Vehicle = "차량",
+    Iris_Sub_8A = "주행계",
+    Iris_Sub_8B = "차체/부속",
+
+    Iris_Cat_Misc = "기타",
+    Iris_Sub_9A = "잡화",
+
+    -- 상호작용 섹션
+    Iris_Detail_Interaction = "상호작용",
+    Iris_Prefix_Recipe = "[레시피]",
+    Iris_Prefix_RightClick = "[우클릭]",
+
+    -- 우클릭 Capability 라벨
+    Iris_Cap_ExtinguishFire = "불 끄기",
+    Iris_Cap_AddGeneratorFuel = "발전기 연료 넣기",
+    Iris_Cap_ScrapMoveables = "가구 해체",
+    Iris_Cap_OpenCannedFood = "캔 따기",
+    Iris_Cap_StitchWound = "상처 봉합",
+    Iris_Cap_RemoveEmbeddedObject = "박힌 물체 제거",
+    Iris_Cap_AttachWeaponMod = "무기 부착물 장착",
+}

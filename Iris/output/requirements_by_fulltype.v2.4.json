@@ -1,8 +1,254 @@
 {
   "version": "v2.4",
-  "fulltype_count": 59,
-  "entry_count": 231,
+  "fulltype_count": 128,
+  "requirements_entry_count": 231,
+  "require_entry_count": 172,
+  "require_fulltype_count": 77,
   "fulltypes": {
+    "Base.223Bullets": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_223_bullets",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3186
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_223_bullets",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3186
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_223_bullets",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3186
+          },
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "Base.223BulletsMold": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_223_bullets_mold",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3108
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_223_bullets_mold",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3108
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_223_bullets_mold",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3108
+          },
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "Base.308Bullets": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_308_bullets",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3170
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3170
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3170
+          },
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "Base.308BulletsMold": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_308_bullets_mold",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3093
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets_mold",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3093
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_308_bullets_mold",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3093
+          },
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "Base.9mmBulletsMold": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets_mold",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3078
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets_mold",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3078
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets_mold",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3078
+          },
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "Base.Aerosolbomb": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_aerosol_bomb",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2618
+          }
+        }
+      ]
+    },
+    "Base.Axe": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_axe",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3234
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_axe",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3234
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_axe",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3234
+          },
+          "op": ">=",
+          "value": 10
+        }
+      ]
+    },
+    "Base.BaguetteDough": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_bread_dough_3965",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 993
+          }
+        }
+      ]
+    },
     "Base.BakingPan": {
       "requirements": [
         {
@@ -10,6 +256,40 @@
           "role": "keep",
           "requirement_key": "Base.RollingPin",
           "surface": "recipe_ui"
+        }
+      ],
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_baking_pan",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2770
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_baking_pan",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2770
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_baking_pan",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2770
+          },
+          "op": ">=",
+          "value": 2
         }
       ]
     },
@@ -193,6 +473,76 @@
           "requirement_key": "Base.Spatula",
           "surface": "recipe_ui"
         }
+      ],
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_baking_tray",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2755
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_baking_tray",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2755
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_baking_tray",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2755
+          },
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "Base.BallPeenHammer": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_ball_peen_hammer",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2909
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_ball_peen_hammer",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2909
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_ball_peen_hammer",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2909
+          },
+          "op": ">=",
+          "value": 4
+        }
       ]
     },
     "Base.Baloney": {
@@ -245,6 +595,42 @@
         }
       ]
     },
+    "Base.Bullets9mm": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3138
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3138
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_9mm_bullets",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3138
+          },
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
     "Base.Butter": {
       "requirements": [
         {
@@ -276,6 +662,56 @@
           "role": "keep",
           "requirement_key": "Base.Spatula",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.ButterKnife": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_butter_knife",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2893
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_butter_knife",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2893
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_butter_knife",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2893
+          },
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "Base.CakeBatter": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_cake_batter",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 909
+          }
         }
       ]
     },
@@ -365,6 +801,90 @@
         }
       ]
     },
+    "Base.CookieChocolateChipDough": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_chocolate_chip_cookie_dough",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 4366
+          }
+        }
+      ]
+    },
+    "Base.CookiesChocolateDough": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_chocolate_cookie_dough",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 4335
+          }
+        }
+      ]
+    },
+    "Base.CookiesOatmealDough": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_oatmeal_cookie_dough",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 4397
+          }
+        }
+      ]
+    },
+    "Base.CookiesShortbreadDough": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_shortbread_cookie_dough",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 4458
+          }
+        }
+      ]
+    },
+    "Base.CookiesSugarDough": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_sugar_cookie_dough",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 4428
+          }
+        }
+      ]
+    },
+    "Base.CraftedFishingRod": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_fishing_rod_7dfb",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1155
+          }
+        }
+      ]
+    },
     "Base.Crappie": {
       "requirements": [
         {
@@ -372,6 +892,42 @@
           "role": "keep",
           "requirement_key": "Base.MeatCleaver",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Crowbar": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_crowbar",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3202
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_crowbar",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3202
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_crowbar",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3202
+          },
+          "op": ">=",
+          "value": 9
         }
       ]
     },
@@ -425,6 +981,42 @@
         }
       ]
     },
+    "Base.Doorknob": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_door_knob",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2863
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_door_knob",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2863
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_door_knob",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2863
+          },
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
     "Base.DoubleBarrelShotgun": {
       "requirements": [
         {
@@ -442,6 +1034,48 @@
           "role": "keep",
           "requirement_key": "Base.MeatCleaver",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.FishingNet": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_fishing_net",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1417
+          }
+        }
+      ]
+    },
+    "Base.FishingRod": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.fix_fishing_rod_e25f",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1180
+          }
+        }
+      ]
+    },
+    "Base.FlameTrap": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_flame_bomb",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2630
+          }
         }
       ]
     },
@@ -569,6 +1203,30 @@
         }
       ]
     },
+    "Base.Fork": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_fork",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2682
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_fork",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2682
+          }
+        }
+      ]
+    },
     "Base.Frog": {
       "requirements": [
         {
@@ -576,6 +1234,42 @@
           "role": "keep",
           "requirement_key": "Base.MeatCleaver",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Golfclub": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_golfclub",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3218
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_golfclub",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3218
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_golfclub",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3218
+          },
+          "op": ">=",
+          "value": 9
         }
       ]
     },
@@ -657,6 +1351,42 @@
         }
       ]
     },
+    "Base.Hammer": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_hammer",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2938
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_hammer",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2938
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_hammer",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2938
+          },
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
     "Base.Handle": {
       "requirements": [
         {
@@ -688,6 +1418,78 @@
           "role": "keep",
           "requirement_key": "Base.Tongs",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Hinge": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_hinge",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2878
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_hinge",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2878
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_hinge",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2878
+          },
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "Base.HuntingKnife": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_hunting_knife",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3061
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_hunting_knife",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3061
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_hunting_knife",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3061
+          },
+          "op": ">=",
+          "value": 8
         }
       ]
     },
@@ -1055,6 +1857,42 @@
         }
       ]
     },
+    "Base.KitchenKnife": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_kitchen_knife",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3028
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_kitchen_knife",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3028
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_kitchen_knife",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3028
+          },
+          "op": ">=",
+          "value": 7
+        }
+      ]
+    },
     "Base.Lard": {
       "requirements": [
         {
@@ -1068,6 +1906,42 @@
           "role": "keep",
           "requirement_key": "Base.Spatula",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.LetterOpener": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_letter_opener",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2801
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_letter_opener",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2801
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_letter_opener",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2801
+          },
+          "op": ">=",
+          "value": 3
         }
       ]
     },
@@ -1129,6 +2003,96 @@
           "requirement_key": "Base.Tongs",
           "surface": "recipe_ui"
         }
+      ],
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_metal_bar",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3283
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_metal_bar",
+          "kind": "perk",
+          "key": "MetalWelding",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3283
+          },
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "Base.MetalDrum": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_metal_drum",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3013
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_metal_drum",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3013
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_metal_drum",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3013
+          },
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "Base.MetalPipe": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_metal_pipe",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3270
+          }
+        }
+      ]
+    },
+    "Base.MortarPestle": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_mortar_and_pestle",
+          "kind": "perk",
+          "key": "Woodwork",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 35
+          },
+          "op": ">=",
+          "value": 2
+        }
       ]
     },
     "Base.MuffinTray": {
@@ -1159,6 +2123,20 @@
         }
       ]
     },
+    "Base.Muffintray_Biscuit": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_biscuits",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1010
+          }
+        }
+      ]
+    },
     "Base.Nails": {
       "requirements": [
         {
@@ -1166,6 +2144,66 @@
           "role": "keep",
           "requirement_key": "Base.MeatCleaver",
           "surface": "recipe_ui"
+        }
+      ],
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_nails",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2818
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_nails",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2818
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_nails",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2818
+          },
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "Base.NoiseTrap": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_noise_maker",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2654
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_noise_maker",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2654
+          },
+          "op": ">=",
+          "value": 3
         }
       ]
     },
@@ -1209,6 +2247,40 @@
           "requirement_key": "Base.Spatula",
           "surface": "recipe_ui"
         }
+      ],
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_pan",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2785
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_pan",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2785
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_pan",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2785
+          },
+          "op": ">=",
+          "value": 2
+        }
       ]
     },
     "Base.PancakeMix": {
@@ -1245,6 +2317,40 @@
           "requirement_key": "Base.MeatCleaver",
           "surface": "recipe_ui"
         }
+      ],
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_paperclips",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2832
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_paperclips",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2832
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_paperclips",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2832
+          },
+          "op": ">=",
+          "value": 3
+        }
       ]
     },
     "Base.Perch": {
@@ -1264,6 +2370,18 @@
           "role": "keep",
           "requirement_key": "Base.RollingPin",
           "surface": "recipe_ui"
+        }
+      ],
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_pie_dough",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 940
+          }
         }
       ]
     },
@@ -1297,6 +2415,138 @@
         }
       ]
     },
+    "Base.PipeBomb": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_pipe_bomb",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2666
+          }
+        }
+      ]
+    },
+    "Base.PipeBombRemote": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.add_crafted_trigger_6159",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2574
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.add_crafted_trigger_6159",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2574
+          },
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "Base.PipeBombSensorV1": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.add_motion_sensor_v1_0001",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2532
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.add_motion_sensor_v1_0001",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2532
+          },
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "Base.PipeBombSensorV2": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.add_motion_sensor_v2_5680",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2546
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.add_motion_sensor_v2_5680",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2546
+          },
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "Base.PipeBombSensorV3": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.add_motion_sensor_v3_8641",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2560
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.add_motion_sensor_v3_8641",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2560
+          },
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "Base.PipeBombTriggered": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.add_timer_2bcd",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2519
+          }
+        }
+      ]
+    },
     "Base.PizzaRecipe": {
       "requirements": [
         {
@@ -1304,6 +2554,18 @@
           "role": "keep",
           "requirement_key": "Base.MeatCleaver",
           "surface": "recipe_ui"
+        }
+      ],
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_pizza",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 956
+          }
         }
       ]
     },
@@ -1372,6 +2634,152 @@
           "role": "keep",
           "requirement_key": "Base.Tongs",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Pot": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_cooking_pot",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2710
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_roasting_pan",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2725
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_cooking_pot",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2710
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_roasting_pan",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2725
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_cooking_pot",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2710
+          },
+          "op": ">=",
+          "value": 2
+        },
+        {
+          "recipe_id": "rp.recipe.make_roasting_pan",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2725
+          },
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "Base.RemoteCraftedV1": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_remote_controller_v1",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2173
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_remote_controller_v1",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2173
+          },
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "Base.RemoteCraftedV2": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_remote_controller_v2",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2187
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_remote_controller_v2",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2187
+          },
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "Base.RemoteCraftedV3": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_remote_controller_v3",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2201
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_remote_controller_v3",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2201
+          },
+          "op": ">=",
+          "value": 6
         }
       ]
     },
@@ -1449,6 +2857,172 @@
         }
       ]
     },
+    "Base.Saucepan": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_saucepan",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2740
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_saucepan",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2740
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_saucepan",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2740
+          },
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "Base.Saw": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_saw",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3045
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_saw",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3045
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_saw",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3045
+          },
+          "op": ">=",
+          "value": 7
+        }
+      ]
+    },
+    "Base.Scissors": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_scissors",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2847
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_scissors",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2847
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_scissors",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2847
+          },
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "Base.SheetMetal": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_metal_sheet",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3298
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_sheet_metal",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2953
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_sheet_metal",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2953
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_sheet_metal",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2953
+          },
+          "op": ">=",
+          "value": 4
+        },
+        {
+          "recipe_id": "rp.recipe.make_metal_sheet",
+          "kind": "perk",
+          "key": "MetalWelding",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3298
+          },
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
     "Base.Shotgun": {
       "requirements": [
         {
@@ -1459,6 +3033,178 @@
         }
       ]
     },
+    "Base.ShotgunShells": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3154
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3154
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3154
+          },
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "Base.ShotgunShellsMold": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells_mold",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3123
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells_mold",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3123
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_shotgun_shells_mold",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3123
+          },
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "Base.Sledgehammer": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_sledgehammer",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3251
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_sledgehammer",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3251
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_sledgehammer",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3251
+          },
+          "op": ">=",
+          "value": 10
+        }
+      ]
+    },
+    "Base.SmallSheetMetal": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_small_metal_sheet",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3312
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_small_metal_sheet",
+          "kind": "perk",
+          "key": "MetalWelding",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 3312
+          },
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "Base.SmokeBomb": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_smoke_bomb",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2642
+          }
+        }
+      ]
+    },
+    "Base.Spoon": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_spoon",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2696
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_spoon",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2696
+          }
+        }
+      ]
+    },
     "Base.Squid": {
       "requirements": [
         {
@@ -1466,6 +3212,258 @@
           "role": "keep",
           "requirement_key": "Base.MeatCleaver",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.SutureNeedle": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_suture_needle",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2998
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_suture_needle",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2998
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_suture_needle",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2998
+          },
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "Base.SutureNeedleHolder": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_suture_needle_holder",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2968
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_suture_needle_holder",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2968
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_suture_needle_holder",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2968
+          },
+          "op": ">=",
+          "value": 5
+        }
+      ]
+    },
+    "Base.TimerCrafted": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_timer",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2229
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_timer",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2229
+          },
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "Base.Tongs": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_tongs",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2924
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_tongs",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2924
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_tongs",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2924
+          },
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "Base.TrapBox": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_trap_box",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1525
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_trap_box",
+          "kind": "perk",
+          "key": "Trapping",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1525
+          },
+          "op": ">=",
+          "value": 2
+        },
+        {
+          "recipe_id": "rp.recipe.make_trap_box",
+          "kind": "perk",
+          "key": "Woodwork",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1525
+          },
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "Base.TrapCage": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_cage_trap",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1539
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_cage_trap",
+          "kind": "perk",
+          "key": "Trapping",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1539
+          },
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "Base.TrapCrate": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_wooden_box_trap",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1487
+          }
+        }
+      ]
+    },
+    "Base.TrapSnare": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_snare_trap",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1511
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_snare_trap",
+          "kind": "perk",
+          "key": "Trapping",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1511
+          },
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "Base.TrapStick": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_stick_trap",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 1500
+          }
         }
       ]
     },
@@ -1491,6 +3489,32 @@
         }
       ]
     },
+    "Base.TriggerCrafted": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_remote_trigger",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2215
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_remote_trigger",
+          "kind": "perk",
+          "key": "Electricity",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2215
+          },
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
     "Base.Trout": {
       "requirements": [
         {
@@ -1498,6 +3522,42 @@
           "role": "keep",
           "requirement_key": "Base.MeatCleaver",
           "surface": "recipe_ui"
+        }
+      ]
+    },
+    "Base.Tweezers": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_tweezers",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2983
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_tweezers",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2983
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_tweezers",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "recipes.txt",
+            "line_start": 2983
+          },
+          "op": ">=",
+          "value": 5
         }
       ]
     },
@@ -1624,7 +3684,74 @@
           "surface": "recipe_ui"
         }
       ]
+    },
+    "farming.GardeningSprayCigarettes": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_flies_cure",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "farming.txt",
+            "line_start": 728
+          }
+        }
+      ]
+    },
+    "farming.GardeningSprayMilk": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_mildew_cure",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "farming.txt",
+            "line_start": 715
+          }
+        }
+      ]
+    },
+    "farming.HandShovel": {
+      "require": [
+        {
+          "recipe_id": "rp.recipe.make_hand_shovel",
+          "kind": "flag",
+          "key": "NeedToBeLearn",
+          "via": "recipe_field",
+          "source": {
+            "file": "farming.txt",
+            "line_start": 909
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_hand_shovel",
+          "kind": "near_item",
+          "key": "Anvil",
+          "via": "recipe_field",
+          "source": {
+            "file": "farming.txt",
+            "line_start": 909
+          }
+        },
+        {
+          "recipe_id": "rp.recipe.make_hand_shovel",
+          "kind": "perk",
+          "key": "Blacksmith",
+          "via": "recipe_field",
+          "source": {
+            "file": "farming.txt",
+            "line_start": 909
+          },
+          "op": ">=",
+          "value": 6
+        }
+      ]
     }
+  },
+  "diagnostics": {
+    "unparsed_require": []
   },
   "_debug": {
     "recipe_names": {

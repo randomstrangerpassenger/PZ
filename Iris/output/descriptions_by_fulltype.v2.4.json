@@ -20,6 +20,19 @@
           "- uc.recipe.place_223_ammo_in_box (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_223_bullets]",
+          "- Near: Anvil (near_item) [rp.recipe.make_223_bullets]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_223_bullets]"
+        ]
       }
     },
     "Base.223BulletsMold": {
@@ -29,6 +42,19 @@
           "- uc.exclusion.inputmaterial_ammo (우클릭)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_223_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_223_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_223_bullets_mold]"
+        ]
       }
     },
     "Base.223Clip": {
@@ -59,6 +85,19 @@
           "- uc.recipe.place_308_ammo_in_box (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_308_bullets]",
+          "- Near: Anvil (near_item) [rp.recipe.make_308_bullets]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_308_bullets]"
+        ]
       }
     },
     "Base.308BulletsMold": {
@@ -68,6 +107,19 @@
           "- uc.exclusion.inputmaterial_ammo (우클릭)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_308_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_308_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_308_bullets_mold]"
+        ]
       }
     },
     "Base.308Clip": {
@@ -134,6 +186,19 @@
           "- uc.exclusion.inputmaterial_ammo (우클릭)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_9mm_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_9mm_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_9mm_bullets_mold]"
+        ]
       }
     },
     "Base.9mmClip": {
@@ -166,6 +231,15 @@
           "- uc.recipe.add_timer (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_aerosol_bomb]"
+        ]
       }
     },
     "Base.AlarmClock2": {
@@ -344,6 +418,21 @@
         "debug_lines": []
       }
     },
+    "Base.Axe": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 10 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_axe]",
+          "- Near: Anvil (near_item) [rp.recipe.make_axe]",
+          "- Blacksmith >= 10 (perk) [rp.recipe.make_axe]"
+        ]
+      }
+    },
     "Base.BagelPlain": {
       "use_case_block": {
         "title_key": "actions",
@@ -392,6 +481,15 @@
           "- uc.exclusion.consumption_food (우클릭)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_bread_dough_3965]"
+        ]
       }
     },
     "Base.BaguetteSandwich": {
@@ -430,6 +528,19 @@
         ],
         "debug_lines": [
           "- Base.RollingPin (keep) [rp.recipe.place_pie_in_baking_pan]"
+        ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_baking_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_baking_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_baking_pan]"
         ]
       }
     },
@@ -508,6 +619,19 @@
           "- Base.Spatula (keep) [rp.recipe.make_shortbread_cookie_dough]",
           "- Base.Spatula (keep) [rp.recipe.make_sugar_cookie_dough]"
         ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_baking_tray]",
+          "- Near: Anvil (near_item) [rp.recipe.make_baking_tray]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_baking_tray]"
+        ]
       }
     },
     "Base.BakingTrayBread": {
@@ -550,6 +674,19 @@
         "lines": [],
         "debug_lines": [
           "- uc.craft.hammer (우클릭)"
+        ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 4 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_ball_peen_hammer]",
+          "- Near: Anvil (near_item) [rp.recipe.make_ball_peen_hammer]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_ball_peen_hammer]"
         ]
       }
     },
@@ -2565,6 +2702,19 @@
           "- uc.recipe.place_9mm_bullets_in_box (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_9mm_bullets]",
+          "- Near: Anvil (near_item) [rp.recipe.make_9mm_bullets]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_9mm_bullets]"
+        ]
       }
     },
     "Base.Bullets9mmBox": {
@@ -2678,6 +2828,19 @@
           "- uc.recipe.attach_butter_knife_to_spear (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_butter_knife]",
+          "- Near: Anvil (near_item) [rp.recipe.make_butter_knife]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_butter_knife]"
+        ]
       }
     },
     "Base.CakeBatter": {
@@ -2688,6 +2851,15 @@
           "- uc.recipe.place_cake_in_baking_pan (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_cake_batter]"
+        ]
       }
     },
     "Base.CakeBlackForest": {
@@ -3734,6 +3906,15 @@
           "- uc.recipe.get_6_cookies (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_chocolate_chip_cookie_dough]"
+        ]
       }
     },
     "Base.CookieJelly": {
@@ -3766,6 +3947,15 @@
           "- uc.recipe.get_6_cookies (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_chocolate_cookie_dough]"
+        ]
       }
     },
     "Base.CookiesOatmeal": {
@@ -3788,6 +3978,15 @@
           "- uc.recipe.get_6_cookies (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_oatmeal_cookie_dough]"
+        ]
       }
     },
     "Base.CookiesShortbread": {
@@ -3810,6 +4009,15 @@
           "- uc.recipe.get_6_cookies (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_shortbread_cookie_dough]"
+        ]
       }
     },
     "Base.CookiesSugar": {
@@ -3832,6 +4040,15 @@
           "- uc.recipe.get_6_cookies (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_sugar_cookie_dough]"
+        ]
       }
     },
     "Base.CookingMag1": {
@@ -3975,6 +4192,17 @@
         "debug_lines": []
       }
     },
+    "Base.CraftedFishingRod": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_fishing_rod_7dfb]"
+        ]
+      }
+    },
     "Base.Crappie": {
       "use_case_block": {
         "title_key": "actions",
@@ -4063,6 +4291,21 @@
           "- uc.exclusion.consumption_food (우클릭)"
         ],
         "debug_lines": []
+      }
+    },
+    "Base.Crowbar": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 9 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_crowbar]",
+          "- Near: Anvil (near_item) [rp.recipe.make_crowbar]",
+          "- Blacksmith >= 9 (perk) [rp.recipe.make_crowbar]"
+        ]
       }
     },
     "Base.Cupcake": {
@@ -4282,6 +4525,19 @@
           "- uc.recipe.build_drawer (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_door_knob]",
+          "- Near: Anvil (near_item) [rp.recipe.make_door_knob]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_door_knob]"
+        ]
       }
     },
     "Base.DoubleBarrelShotgun": {
@@ -5042,6 +5298,28 @@
         "debug_lines": []
       }
     },
+    "Base.FishingNet": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_fishing_net]"
+        ]
+      }
+    },
+    "Base.FishingRod": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.fix_fishing_rod_e25f]"
+        ]
+      }
+    },
     "Base.FishingRodBreak": {
       "use_case_block": {
         "title_key": "actions",
@@ -5062,6 +5340,15 @@
           "- uc.recipe.add_timer (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_flame_bomb]"
+        ]
       }
     },
     "Base.Flour": {
@@ -5117,6 +5404,17 @@
           "- uc.recipe.attach_fork_to_spear (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_fork]",
+          "- Near: Anvil (near_item) [rp.recipe.make_fork]"
+        ]
       }
     },
     "Base.FriedOnionRings": {
@@ -5510,6 +5808,21 @@
         "debug_lines": []
       }
     },
+    "Base.Golfclub": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 9 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_golfclub]",
+          "- Near: Anvil (near_item) [rp.recipe.make_golfclub]",
+          "- Blacksmith >= 9 (perk) [rp.recipe.make_golfclub]"
+        ]
+      }
+    },
     "Base.GrahamCrackers": {
       "use_case_block": {
         "title_key": "actions",
@@ -5767,6 +6080,19 @@
         "lines": [],
         "debug_lines": [
           "- uc.craft.hammer (우클릭)"
+        ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 4 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_hammer]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hammer]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_hammer]"
         ]
       }
     },
@@ -6778,6 +7104,19 @@
           "- uc.exclusion.inputmaterial_material (우클릭)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_hinge]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hinge]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_hinge]"
+        ]
       }
     },
     "Base.HollyBerry": {
@@ -6940,6 +7279,19 @@
           "- uc.recipe.attach_hunting_knife_to_spear (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_hunting_knife]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hunting_knife]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_hunting_knife]"
+        ]
       }
     },
     "Base.HuntingMag1": {
@@ -7529,6 +7881,19 @@
           "- uc.recipe.attach_kitchen_knife_to_spear (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 7 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_kitchen_knife]",
+          "- Near: Anvil (near_item) [rp.recipe.make_kitchen_knife]",
+          "- Blacksmith >= 7 (perk) [rp.recipe.make_kitchen_knife]"
+        ]
       }
     },
     "Base.Lard": {
@@ -7619,6 +7984,19 @@
           "- uc.recipe.attach_letter_opener_to_spear (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_letter_opener]",
+          "- Near: Anvil (near_item) [rp.recipe.make_letter_opener]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_letter_opener]"
+        ]
       }
     },
     "Base.Lettuce": {
@@ -8327,6 +8705,32 @@
           "- Base.Tongs (keep) [rp.recipe.make_crowbar]",
           "- Base.Tongs (keep) [rp.recipe.make_golfclub]"
         ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- MetalWelding >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_metal_bar]",
+          "- MetalWelding >= 2 (perk) [rp.recipe.make_metal_bar]"
+        ]
+      }
+    },
+    "Base.MetalDrum": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 6 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_metal_drum]",
+          "- Near: Anvil (near_item) [rp.recipe.make_metal_drum]",
+          "- Blacksmith >= 6 (perk) [rp.recipe.make_metal_drum]"
+        ]
       }
     },
     "Base.MetalPipe": {
@@ -8337,6 +8741,15 @@
           "- uc.recipe.make_pipe_bomb (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_metal_pipe]"
+        ]
       }
     },
     "Base.MetalworkMag1": {
@@ -8456,6 +8869,17 @@
         "debug_lines": []
       }
     },
+    "Base.MortarPestle": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- Woodwork >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- Woodwork >= 2 (perk) [rp.recipe.make_mortar_and_pestle]"
+        ]
+      }
+    },
     "Base.MotionSensor": {
       "use_case_block": {
         "title_key": "actions",
@@ -8520,6 +8944,15 @@
           "- uc.recipe.get_6_biscuits (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_biscuits]"
+        ]
       }
     },
     "Base.MugRed": {
@@ -8681,6 +9114,19 @@
         ],
         "debug_lines": [
           "- Base.MeatCleaver (keep) [rp.recipe.make_fishing_rod]"
+        ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_nails]",
+          "- Near: Anvil (near_item) [rp.recipe.make_nails]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_nails]"
         ]
       }
     },
@@ -8934,6 +9380,17 @@
           "- uc.recipe.add_timer (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_noise_maker]",
+          "- Electricity >= 3 (perk) [rp.recipe.make_noise_maker]"
+        ]
       }
     },
     "Base.NoodleSoup": {
@@ -9185,6 +9642,19 @@
         "debug_lines": [
           "- Base.Spatula (keep) [rp.recipe.prepare_omelette]"
         ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_pan]"
+        ]
       }
     },
     "Base.PanFriedVegetables": {
@@ -9297,6 +9767,19 @@
         ],
         "debug_lines": [
           "- Base.MeatCleaver (keep) [rp.recipe.make_fishing_rod]"
+        ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_paperclips]",
+          "- Near: Anvil (near_item) [rp.recipe.make_paperclips]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_paperclips]"
         ]
       }
     },
@@ -9590,6 +10073,15 @@
         "debug_lines": [
           "- Base.RollingPin (keep) [rp.recipe.place_pie_in_baking_pan]"
         ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_pie_dough]"
+        ]
       }
     },
     "Base.PieKeyLime": {
@@ -9742,6 +10234,78 @@
           "- uc.recipe.add_timer (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_pipe_bomb]"
+        ]
+      }
+    },
+    "Base.PipeBombRemote": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.add_crafted_trigger_6159]",
+          "- Electricity >= 2 (perk) [rp.recipe.add_crafted_trigger_6159]"
+        ]
+      }
+    },
+    "Base.PipeBombSensorV1": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.add_motion_sensor_v1_0001]",
+          "- Electricity >= 2 (perk) [rp.recipe.add_motion_sensor_v1_0001]"
+        ]
+      }
+    },
+    "Base.PipeBombSensorV2": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 4 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.add_motion_sensor_v2_5680]",
+          "- Electricity >= 4 (perk) [rp.recipe.add_motion_sensor_v2_5680]"
+        ]
+      }
+    },
+    "Base.PipeBombSensorV3": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 6 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.add_motion_sensor_v3_8641]",
+          "- Electricity >= 6 (perk) [rp.recipe.add_motion_sensor_v3_8641]"
+        ]
+      }
+    },
+    "Base.PipeBombTriggered": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.add_timer_2bcd]"
+        ]
       }
     },
     "Base.Pizza": {
@@ -9771,6 +10335,15 @@
         ],
         "debug_lines": [
           "- Base.MeatCleaver (keep) [rp.recipe.slice_pizza]"
+        ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_pizza]"
         ]
       }
     },
@@ -9996,6 +10569,22 @@
           "- uc.recipe.make_pot_of_soup (레시피) [공유]"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_cooking_pot]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_roasting_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_cooking_pot]",
+          "- Near: Anvil (near_item) [rp.recipe.make_roasting_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_cooking_pot]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_roasting_pan]"
+        ]
       }
     },
     "Base.PotOfSoup": {
@@ -10171,6 +10760,45 @@
           "- uc.recipe.make_remote_controller_v3 (레시피)"
         ],
         "debug_lines": []
+      }
+    },
+    "Base.RemoteCraftedV1": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_remote_controller_v1]",
+          "- Electricity >= 2 (perk) [rp.recipe.make_remote_controller_v1]"
+        ]
+      }
+    },
+    "Base.RemoteCraftedV2": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 4 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_remote_controller_v2]",
+          "- Electricity >= 4 (perk) [rp.recipe.make_remote_controller_v2]"
+        ]
+      }
+    },
+    "Base.RemoteCraftedV3": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 6 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_remote_controller_v3]",
+          "- Electricity >= 6 (perk) [rp.recipe.make_remote_controller_v3]"
+        ]
       }
     },
     "Base.Rice": {
@@ -10791,6 +11419,19 @@
           "- uc.firefighting.extinguish (우클릭) [약] [공유]"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_saucepan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_saucepan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_saucepan]"
+        ]
       }
     },
     "Base.Sausage": {
@@ -10809,6 +11450,19 @@
         "lines": [],
         "debug_lines": [
           "- uc.craft.saw (우클릭)"
+        ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 7 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_saw]",
+          "- Near: Anvil (near_item) [rp.recipe.make_saw]",
+          "- Blacksmith >= 7 (perk) [rp.recipe.make_saw]"
         ]
       }
     },
@@ -10874,6 +11528,19 @@
           "- uc.recipe.attach_scissors_to_spear (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_scissors]",
+          "- Near: Anvil (near_item) [rp.recipe.make_scissors]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_scissors]"
+        ]
       }
     },
     "Base.Scotchtape": {
@@ -10967,6 +11634,22 @@
           "- uc.recipe.make_small_metal_sheet (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 4 (perk)",
+          "- MetalWelding >= 4 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_metal_sheet]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_sheet_metal]",
+          "- Near: Anvil (near_item) [rp.recipe.make_sheet_metal]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_sheet_metal]",
+          "- MetalWelding >= 4 (perk) [rp.recipe.make_metal_sheet]"
+        ]
       }
     },
     "Base.SheetPaper2": {
@@ -11581,6 +12264,19 @@
           "- uc.recipe.place_shotgun_shells_in_box (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_shotgun_shells]",
+          "- Near: Anvil (near_item) [rp.recipe.make_shotgun_shells]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_shotgun_shells]"
+        ]
       }
     },
     "Base.ShotgunShellsBox": {
@@ -11600,6 +12296,19 @@
           "- uc.exclusion.inputmaterial_ammo (우클릭)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 8 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_shotgun_shells_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_shotgun_shells_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_shotgun_shells_mold]"
+        ]
       }
     },
     "Base.Shrimp": {
@@ -11698,6 +12407,21 @@
         "debug_lines": []
       }
     },
+    "Base.Sledgehammer": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 10 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_sledgehammer]",
+          "- Near: Anvil (near_item) [rp.recipe.make_sledgehammer]",
+          "- Blacksmith >= 10 (perk) [rp.recipe.make_sledgehammer]"
+        ]
+      }
+    },
     "Base.Sling": {
       "use_case_block": {
         "title_key": "actions",
@@ -11735,6 +12459,17 @@
           "- uc.recipe.make_metal_sheet (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- MetalWelding >= 4 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_small_metal_sheet]",
+          "- MetalWelding >= 4 (perk) [rp.recipe.make_small_metal_sheet]"
+        ]
       }
     },
     "Base.Smallanimalmeat": {
@@ -11804,6 +12539,15 @@
           "- uc.recipe.add_timer (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_smoke_bomb]"
+        ]
       }
     },
     "Base.Smore": {
@@ -12056,6 +12800,17 @@
           "- uc.recipe.attach_spoon_to_spear (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_spoon]",
+          "- Near: Anvil (near_item) [rp.recipe.make_spoon]"
+        ]
       }
     },
     "Base.Springroll": {
@@ -12276,6 +13031,19 @@
           "- uc.medical.stitch (우클릭) [약] [공유]"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 6 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_suture_needle]",
+          "- Near: Anvil (near_item) [rp.recipe.make_suture_needle]",
+          "- Blacksmith >= 6 (perk) [rp.recipe.make_suture_needle]"
+        ]
       }
     },
     "Base.SutureNeedleHolder": {
@@ -12285,6 +13053,19 @@
           "- uc.medical.remove_bullet (우클릭) [약] [공유]"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 5 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_suture_needle_holder]",
+          "- Near: Anvil (near_item) [rp.recipe.make_suture_needle_holder]",
+          "- Blacksmith >= 5 (perk) [rp.recipe.make_suture_needle_holder]"
+        ]
       }
     },
     "Base.SwallowtailCaterpillar": {
@@ -12575,6 +13356,17 @@
           "- uc.recipe.add_timer (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 1 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_timer]",
+          "- Electricity >= 1 (perk) [rp.recipe.make_timer]"
+        ]
       }
     },
     "Base.TinCanEmpty": {
@@ -12668,6 +13460,21 @@
         "debug_lines": []
       }
     },
+    "Base.Tongs": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 4 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_tongs]",
+          "- Near: Anvil (near_item) [rp.recipe.make_tongs]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_tongs]"
+        ]
+      }
+    },
     "Base.Torch": {
       "use_case_block": {
         "title_key": "actions",
@@ -12696,6 +13503,69 @@
           "- uc.exclusion.consumption_food (우클릭)"
         ],
         "debug_lines": []
+      }
+    },
+    "Base.TrapBox": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Trapping >= 2 (perk)",
+          "- Woodwork >= 1 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_trap_box]",
+          "- Trapping >= 2 (perk) [rp.recipe.make_trap_box]",
+          "- Woodwork >= 1 (perk) [rp.recipe.make_trap_box]"
+        ]
+      }
+    },
+    "Base.TrapCage": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Trapping >= 3 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_cage_trap]",
+          "- Trapping >= 3 (perk) [rp.recipe.make_cage_trap]"
+        ]
+      }
+    },
+    "Base.TrapCrate": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_wooden_box_trap]"
+        ]
+      }
+    },
+    "Base.TrapSnare": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Trapping >= 1 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_snare_trap]",
+          "- Trapping >= 1 (perk) [rp.recipe.make_snare_trap]"
+        ]
+      }
+    },
+    "Base.TrapStick": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_stick_trap]"
+        ]
       }
     },
     "Base.TreeBranch": {
@@ -12732,6 +13602,17 @@
           "- uc.recipe.add_crafted_trigger (레시피)"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Electricity >= 2 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_remote_trigger]",
+          "- Electricity >= 2 (perk) [rp.recipe.make_remote_trigger]"
+        ]
       }
     },
     "Base.Trousers": {
@@ -13465,6 +14346,19 @@
           "- uc.medical.remove_bullet (우클릭) [약] [공유]"
         ],
         "debug_lines": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 5 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_tweezers]",
+          "- Near: Anvil (near_item) [rp.recipe.make_tweezers]",
+          "- Blacksmith >= 5 (perk) [rp.recipe.make_tweezers]"
+        ]
       }
     },
     "Base.Twigs": {
@@ -15843,6 +16737,17 @@
         "debug_lines": []
       }
     },
+    "farming.GardeningSprayCigarettes": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_flies_cure]"
+        ]
+      }
+    },
     "farming.GardeningSprayEmpty": {
       "use_case_block": {
         "title_key": "actions",
@@ -15861,6 +16766,32 @@
           "- uc.firefighting.extinguish (우클릭) [약] [공유]"
         ],
         "debug_lines": []
+      }
+    },
+    "farming.GardeningSprayMilk": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_mildew_cure]"
+        ]
+      }
+    },
+    "farming.HandShovel": {
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)",
+          "- Near: Anvil (near_item)",
+          "- Blacksmith >= 6 (perk)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_hand_shovel]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hand_shovel]",
+          "- Blacksmith >= 6 (perk) [rp.recipe.make_hand_shovel]"
+        ]
       }
     },
     "farming.MayonnaiseEmpty": {

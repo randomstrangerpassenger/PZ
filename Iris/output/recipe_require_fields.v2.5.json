@@ -1,0 +1,3847 @@
+{
+  "version": "v2.5",
+  "recipe_count": 310,
+  "parsed_require_count": 81,
+  "atom_counts": {
+    "flag": 80,
+    "near_item": 40,
+    "perk": 56
+  },
+  "recipes": {
+    "add_crafted_trigger_6159": {
+      "recipe_id": "add_crafted_trigger_6159",
+      "recipe_name": "Add Crafted Trigger",
+      "output_fulltype": "Base.PipeBombRemote",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2574
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "add_motion_sensor_v1_0001": {
+      "recipe_id": "add_motion_sensor_v1_0001",
+      "recipe_name": "Add Motion Sensor V1",
+      "output_fulltype": "Base.PipeBombSensorV1",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2532
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "add_motion_sensor_v2_5680": {
+      "recipe_id": "add_motion_sensor_v2_5680",
+      "recipe_name": "Add Motion Sensor V2",
+      "output_fulltype": "Base.PipeBombSensorV2",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2546
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "add_motion_sensor_v3_8641": {
+      "recipe_id": "add_motion_sensor_v3_8641",
+      "recipe_name": "Add Motion Sensor V3",
+      "output_fulltype": "Base.PipeBombSensorV3",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2560
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "add_timer_2bcd": {
+      "recipe_id": "add_timer_2bcd",
+      "recipe_name": "Add Timer",
+      "output_fulltype": "Base.PipeBombTriggered",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2519
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "attach_bread_knife_to_spear": {
+      "recipe_id": "attach_bread_knife_to_spear",
+      "recipe_name": "Attach Bread Knife to Spear",
+      "output_fulltype": "Base.SpearBreadKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3352
+      }
+    },
+    "attach_butter_knife_to_spear": {
+      "recipe_id": "attach_butter_knife_to_spear",
+      "recipe_name": "Attach Butter Knife to Spear",
+      "output_fulltype": "Base.SpearButterKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3364
+      }
+    },
+    "attach_fork_to_spear": {
+      "recipe_id": "attach_fork_to_spear",
+      "recipe_name": "Attach Fork to Spear",
+      "output_fulltype": "Base.SpearFork",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3376
+      }
+    },
+    "attach_hand_fork_to_spear": {
+      "recipe_id": "attach_hand_fork_to_spear",
+      "recipe_name": "Attach Hand Fork to Spear",
+      "output_fulltype": "Base.SpearHandFork",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3436
+      }
+    },
+    "attach_hunting_knife_to_spear": {
+      "recipe_id": "attach_hunting_knife_to_spear",
+      "recipe_name": "Attach Hunting Knife to Spear",
+      "output_fulltype": "Base.SpearHuntingKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3472
+      }
+    },
+    "attach_ice_pick_to_spear": {
+      "recipe_id": "attach_ice_pick_to_spear",
+      "recipe_name": "Attach Ice Pick to Spear",
+      "output_fulltype": "Base.SpearIcePick",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3496
+      }
+    },
+    "attach_kitchen_knife_to_spear": {
+      "recipe_id": "attach_kitchen_knife_to_spear",
+      "recipe_name": "Attach Kitchen Knife to Spear",
+      "output_fulltype": "Base.SpearKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3460
+      }
+    },
+    "attach_letter_opener_to_spear": {
+      "recipe_id": "attach_letter_opener_to_spear",
+      "recipe_name": "Attach Letter Opener to Spear",
+      "output_fulltype": "Base.SpearLetterOpener",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3388
+      }
+    },
+    "attach_machete_to_spear": {
+      "recipe_id": "attach_machete_to_spear",
+      "recipe_name": "Attach Machete to Spear",
+      "output_fulltype": "Base.SpearMachete",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3484
+      }
+    },
+    "attach_scalpel_to_spear": {
+      "recipe_id": "attach_scalpel_to_spear",
+      "recipe_name": "Attach Scalpel to Spear",
+      "output_fulltype": "Base.SpearScalpel",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3400
+      }
+    },
+    "attach_scissors_to_spear": {
+      "recipe_id": "attach_scissors_to_spear",
+      "recipe_name": "Attach Scissors to Spear",
+      "output_fulltype": "Base.SpearScissors",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3424
+      }
+    },
+    "attach_screwdriver_to_spear": {
+      "recipe_id": "attach_screwdriver_to_spear",
+      "recipe_name": "Attach Screwdriver to Spear",
+      "output_fulltype": "Base.SpearScrewdriver",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3448
+      }
+    },
+    "attach_spoon_to_spear": {
+      "recipe_id": "attach_spoon_to_spear",
+      "recipe_name": "Attach Spoon to Spear",
+      "output_fulltype": "Base.SpearSpoon",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3412
+      }
+    },
+    "build_drawer": {
+      "recipe_id": "build_drawer",
+      "recipe_name": "Build Drawer",
+      "output_fulltype": "Base.Drawer",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 663
+      }
+    },
+    "build_spiked_baseball_bat": {
+      "recipe_id": "build_spiked_baseball_bat",
+      "recipe_name": "Build Spiked Baseball Bat",
+      "output_fulltype": "Base.BaseballBatNails",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 47
+      }
+    },
+    "build_spiked_plank": {
+      "recipe_id": "build_spiked_plank",
+      "recipe_name": "Build Spiked Plank",
+      "output_fulltype": "Base.PlankNail",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 79
+      }
+    },
+    "butcher_bird": {
+      "recipe_id": "butcher_bird",
+      "recipe_name": "Butcher Bird",
+      "output_fulltype": "Base.Smallbirdmeat",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1474
+      }
+    },
+    "butcher_rabbit": {
+      "recipe_id": "butcher_rabbit",
+      "recipe_name": "Butcher Rabbit",
+      "output_fulltype": "Base.Rabbitmeat",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1461
+      }
+    },
+    "butcher_small_animal": {
+      "recipe_id": "butcher_small_animal",
+      "recipe_name": "Butcher Small Animal",
+      "output_fulltype": "Base.Smallanimalmeat",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1448
+      }
+    },
+    "clean_bandage": {
+      "recipe_id": "clean_bandage",
+      "recipe_name": "Clean Bandage",
+      "output_fulltype": "Base.Bandage",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1298
+      }
+    },
+    "clean_denim_strips": {
+      "recipe_id": "clean_denim_strips",
+      "recipe_name": "Clean Denim Strips",
+      "output_fulltype": "Base.DenimStrips",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1320
+      }
+    },
+    "clean_leather_strips": {
+      "recipe_id": "clean_leather_strips",
+      "recipe_name": "Clean Leather Strips",
+      "output_fulltype": "Base.LeatherStrips",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1309
+      }
+    },
+    "clean_rag": {
+      "recipe_id": "clean_rag",
+      "recipe_name": "Clean Rag",
+      "output_fulltype": "Base.RippedSheets",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1351
+      }
+    },
+    "clean_tray": {
+      "recipe_id": "clean_tray",
+      "recipe_name": "Clean Tray",
+      "output_fulltype": "Base.MuffinTray",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3971
+      }
+    },
+    "close_umbrella_38c1": {
+      "recipe_id": "close_umbrella_38c1",
+      "recipe_name": "Close Umbrella",
+      "output_fulltype": "Base.ClosedUmbrellaWhite",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3716
+      }
+    },
+    "craft_sheet_rope": {
+      "recipe_id": "craft_sheet_rope",
+      "recipe_name": "Craft Sheet Rope",
+      "output_fulltype": "Base.SheetRope",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3725
+      }
+    },
+    "create_spear": {
+      "recipe_id": "create_spear",
+      "recipe_name": "Create Spear",
+      "output_fulltype": "Base.SpearCrafted",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3340
+      }
+    },
+    "disinfect_bandage_a06f": {
+      "recipe_id": "disinfect_bandage_a06f",
+      "recipe_name": "Disinfect Bandage",
+      "output_fulltype": "Base.AlcoholBandage",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1331
+      }
+    },
+    "disinfect_rag_9a60": {
+      "recipe_id": "disinfect_rag_9a60",
+      "recipe_name": "Disinfect Rag",
+      "output_fulltype": "Base.AlcoholRippedSheets",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1341
+      }
+    },
+    "dismantle_camera": {
+      "recipe_id": "dismantle_camera",
+      "recipe_name": "Dismantle Camera",
+      "output_fulltype": "Base.ElectronicsScrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4239
+      }
+    },
+    "dismantle_cd_player": {
+      "recipe_id": "dismantle_cd_player",
+      "recipe_name": "Dismantle CD Player",
+      "output_fulltype": "Base.ElectronicsScrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2147
+      }
+    },
+    "dismantle_cordless_phone": {
+      "recipe_id": "dismantle_cordless_phone",
+      "recipe_name": "Dismantle Cordless Phone",
+      "output_fulltype": "Base.ElectronicsScrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2055
+      }
+    },
+    "dismantle_digital_watch": {
+      "recipe_id": "dismantle_digital_watch",
+      "recipe_name": "Dismantle Digital Watch",
+      "output_fulltype": "Base.ElectronicsScrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2102
+      }
+    },
+    "dismantle_earbuds": {
+      "recipe_id": "dismantle_earbuds",
+      "recipe_name": "Dismantle Earbuds",
+      "output_fulltype": "Base.ElectronicsScrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2117
+      }
+    },
+    "dismantle_flashlight": {
+      "recipe_id": "dismantle_flashlight",
+      "recipe_name": "Dismantle Flashlight",
+      "output_fulltype": "Base.ElectronicsScrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 635
+      }
+    },
+    "dismantle_headphones": {
+      "recipe_id": "dismantle_headphones",
+      "recipe_name": "Dismantle Headphones",
+      "output_fulltype": "Base.ElectronicsScrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2132
+      }
+    },
+    "dismantle_home_alarm": {
+      "recipe_id": "dismantle_home_alarm",
+      "recipe_name": "Dismantle Home Alarm",
+      "output_fulltype": "Base.MotionSensor",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2086
+      }
+    },
+    "dismantle_speaker": {
+      "recipe_id": "dismantle_speaker",
+      "recipe_name": "Dismantle Speaker",
+      "output_fulltype": "Base.Amplifier",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2070
+      }
+    },
+    "dismantle_tv_remote": {
+      "recipe_id": "dismantle_tv_remote",
+      "recipe_name": "Dismantle TV Remote",
+      "output_fulltype": "Base.Receiver",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2024
+      }
+    },
+    "dismantle_video_game": {
+      "recipe_id": "dismantle_video_game",
+      "recipe_name": "Dismantle Video Game",
+      "output_fulltype": "Base.ElectronicsScrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2040
+      }
+    },
+    "douse_cotton_in_alcohol": {
+      "recipe_id": "douse_cotton_in_alcohol",
+      "recipe_name": "Douse Cotton in Alcohol",
+      "output_fulltype": "Base.AlcoholedCottonBalls",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1562
+      }
+    },
+    "drill_plank": {
+      "recipe_id": "drill_plank",
+      "recipe_name": "Drill Plank",
+      "output_fulltype": "Base.PercedWood",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1362
+      }
+    },
+    "empty_baking_tray": {
+      "recipe_id": "empty_baking_tray",
+      "recipe_name": "Empty Baking Tray",
+      "output_fulltype": "Base.BakingTray",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4486
+      }
+    },
+    "empty_frying_pan_aa27": {
+      "recipe_id": "empty_frying_pan_aa27",
+      "recipe_name": "Empty Frying Pan",
+      "output_fulltype": "Base.Pan",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 139
+      }
+    },
+    "empty_griddle_pan": {
+      "recipe_id": "empty_griddle_pan",
+      "recipe_name": "Empty Griddle Pan",
+      "output_fulltype": "Base.GridlePan",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 127
+      }
+    },
+    "empty_roasting_pan": {
+      "recipe_id": "empty_roasting_pan",
+      "recipe_name": "Empty Roasting Pan",
+      "output_fulltype": "Base.RoastingPan",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 150
+      }
+    },
+    "extinguish_candle": {
+      "recipe_id": "extinguish_candle",
+      "recipe_name": "Extinguish Candle",
+      "output_fulltype": "Base.Candle",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 577
+      }
+    },
+    "fix_fishing_rod_e25f": {
+      "recipe_id": "fix_fishing_rod_e25f",
+      "recipe_name": "Fix Fishing Rod",
+      "output_fulltype": "Base.FishingRod",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1180
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "gather_gunpowder": {
+      "recipe_id": "gather_gunpowder",
+      "recipe_name": "Gather Gunpowder",
+      "output_fulltype": "Base.GunPowder",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2162
+      }
+    },
+    "get_6_biscuits": {
+      "recipe_id": "get_6_biscuits",
+      "recipe_name": "Get 6 Biscuits",
+      "output_fulltype": "Base.Biscuit",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1027
+      }
+    },
+    "get_6_cookies_a664": {
+      "recipe_id": "get_6_cookies_a664",
+      "recipe_name": "Get 6 Cookies",
+      "output_fulltype": "Base.CookiesShortbread",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4475
+      }
+    },
+    "get_6_muffins": {
+      "recipe_id": "get_6_muffins",
+      "recipe_name": "Get 6 Muffins",
+      "output_fulltype": "Base.MuffinGeneric",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4002
+      }
+    },
+    "get_bacon_bits": {
+      "recipe_id": "get_bacon_bits",
+      "recipe_name": "Get Bacon Bits",
+      "output_fulltype": "farming.BaconBits",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 883
+      }
+    },
+    "get_bacon_rashers": {
+      "recipe_id": "get_bacon_rashers",
+      "recipe_name": "Get Bacon Rashers",
+      "output_fulltype": "farming.BaconRashers",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 810
+      }
+    },
+    "get_wire_back": {
+      "recipe_id": "get_wire_back",
+      "recipe_name": "Get Wire Back",
+      "output_fulltype": null,
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1428
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "hockeymasksmashbottle": {
+      "recipe_id": "hockeymasksmashbottle",
+      "recipe_name": "HockeyMaskSmashBottle",
+      "output_fulltype": "Base.SmashedBottle",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 14
+      }
+    },
+    "insert_battery_into_duck": {
+      "recipe_id": "insert_battery_into_duck",
+      "recipe_name": "Insert Battery into Duck",
+      "output_fulltype": "Base.Rubberducky2",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 599
+      }
+    },
+    "insert_battery_into_flashlight_25fb": {
+      "recipe_id": "insert_battery_into_flashlight_25fb",
+      "recipe_name": "Insert Battery into Flashlight",
+      "output_fulltype": "Base.HandTorch",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 623
+      }
+    },
+    "light_candle": {
+      "recipe_id": "light_candle",
+      "recipe_name": "Light Candle",
+      "output_fulltype": "Base.CandleLit",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 566
+      }
+    },
+    "make_223_bullets": {
+      "recipe_id": "make_223_bullets",
+      "recipe_name": "Make 223 Bullets",
+      "output_fulltype": "Base.223Bullets",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3186
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_223_bullets_mold": {
+      "recipe_id": "make_223_bullets_mold",
+      "recipe_name": "Make 223 Bullets Mold",
+      "output_fulltype": "Base.223BulletsMold",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3108
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_2_bowls_of_pasta": {
+      "recipe_id": "make_2_bowls_of_pasta",
+      "recipe_name": "Make 2 Bowls of Pasta",
+      "output_fulltype": "Base.PastaBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 501
+      }
+    },
+    "make_2_bowls_of_rice": {
+      "recipe_id": "make_2_bowls_of_rice",
+      "recipe_name": "Make 2 Bowls of Rice",
+      "output_fulltype": "Base.RiceBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 487
+      }
+    },
+    "make_2_bowls_of_soup": {
+      "recipe_id": "make_2_bowls_of_soup",
+      "recipe_name": "Make 2 Bowls of Soup",
+      "output_fulltype": "Base.SoupBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 527
+      }
+    },
+    "make_2_bowls_of_stew": {
+      "recipe_id": "make_2_bowls_of_stew",
+      "recipe_name": "Make 2 Bowls of Stew",
+      "output_fulltype": "Base.StewBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 553
+      }
+    },
+    "make_308_bullets": {
+      "recipe_id": "make_308_bullets",
+      "recipe_name": "Make 308 Bullets",
+      "output_fulltype": "Base.308Bullets",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3170
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_308_bullets_mold": {
+      "recipe_id": "make_308_bullets_mold",
+      "recipe_name": "Make 308 Bullets Mold",
+      "output_fulltype": "Base.308BulletsMold",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3093
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_4_bowls_of_pasta": {
+      "recipe_id": "make_4_bowls_of_pasta",
+      "recipe_name": "Make 4 Bowls of Pasta",
+      "output_fulltype": "Base.PastaBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 514
+      }
+    },
+    "make_4_bowls_of_rice": {
+      "recipe_id": "make_4_bowls_of_rice",
+      "recipe_name": "Make 4 Bowls of Rice",
+      "output_fulltype": "Base.RiceBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 474
+      }
+    },
+    "make_4_bowls_of_soup": {
+      "recipe_id": "make_4_bowls_of_soup",
+      "recipe_name": "Make 4 Bowls of Soup",
+      "output_fulltype": "Base.SoupBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 461
+      }
+    },
+    "make_4_bowls_of_stew": {
+      "recipe_id": "make_4_bowls_of_stew",
+      "recipe_name": "Make 4 Bowls of Stew",
+      "output_fulltype": "Base.StewBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 540
+      }
+    },
+    "make_9mm_bullets": {
+      "recipe_id": "make_9mm_bullets",
+      "recipe_name": "Make 9mm Bullets",
+      "output_fulltype": "Base.Bullets9mm",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3138
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_9mm_bullets_mold": {
+      "recipe_id": "make_9mm_bullets_mold",
+      "recipe_name": "Make 9mm Bullets Mold",
+      "output_fulltype": "Base.9mmBulletsMold",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3078
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_aerosol_bomb": {
+      "recipe_id": "make_aerosol_bomb",
+      "recipe_name": "Make Aerosol bomb",
+      "output_fulltype": "Base.Aerosolbomb",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2618
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_axe": {
+      "recipe_id": "make_axe",
+      "recipe_name": "Make Axe",
+      "output_fulltype": "Base.Axe",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3234
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 10
+        }
+      ]
+    },
+    "make_baking_pan": {
+      "recipe_id": "make_baking_pan",
+      "recipe_name": "Make Baking Pan",
+      "output_fulltype": "Base.BakingPan",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2770
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_baking_tray": {
+      "recipe_id": "make_baking_tray",
+      "recipe_name": "Make Baking Tray",
+      "output_fulltype": "Base.BakingTray",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2755
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_ball_peen_hammer": {
+      "recipe_id": "make_ball_peen_hammer",
+      "recipe_name": "Make Ball Peen Hammer",
+      "output_fulltype": "Base.BallPeenHammer",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2909
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "make_biscuits": {
+      "recipe_id": "make_biscuits",
+      "recipe_name": "Make Biscuits",
+      "output_fulltype": "Base.Muffintray_Biscuit",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1010
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_bowl_of_beans_4fdd": {
+      "recipe_id": "make_bowl_of_beans_4fdd",
+      "recipe_name": "Make Bowl of Beans",
+      "output_fulltype": "Base.BeanBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 377
+      }
+    },
+    "make_bowl_of_cereal": {
+      "recipe_id": "make_bowl_of_cereal",
+      "recipe_name": "Make Bowl of Cereal",
+      "output_fulltype": "Base.CerealBowl",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1053
+      }
+    },
+    "make_bowl_of_oatmeal": {
+      "recipe_id": "make_bowl_of_oatmeal",
+      "recipe_name": "Make Bowl of Oatmeal",
+      "output_fulltype": "Base.Oatmeal",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1038
+      }
+    },
+    "make_bread_dough_3965": {
+      "recipe_id": "make_bread_dough_3965",
+      "recipe_name": "Make Bread Dough",
+      "output_fulltype": "Base.BaguetteDough",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 993
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_bucket_of_plaster": {
+      "recipe_id": "make_bucket_of_plaster",
+      "recipe_name": "Make Bucket of Plaster",
+      "output_fulltype": "Base.BucketPlasterFull",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 651
+      }
+    },
+    "make_butter_knife": {
+      "recipe_id": "make_butter_knife",
+      "recipe_name": "Make Butter Knife",
+      "output_fulltype": "Base.ButterKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2893
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_cage_trap": {
+      "recipe_id": "make_cage_trap",
+      "recipe_name": "Make Cage Trap",
+      "output_fulltype": "Base.TrapCage",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1539
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Trapping",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_cake_batter": {
+      "recipe_id": "make_cake_batter",
+      "recipe_name": "Make Cake Batter",
+      "output_fulltype": "Base.CakeBatter",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 909
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_campfire_kit_93ac": {
+      "recipe_id": "make_campfire_kit_93ac",
+      "recipe_name": "Make Campfire Kit",
+      "output_fulltype": "camping.CampfireKit",
+      "source": {
+        "file": "camping.txt",
+        "line_start": 94
+      }
+    },
+    "make_cheese_sandwich": {
+      "recipe_id": "make_cheese_sandwich",
+      "recipe_name": "Make Cheese Sandwich",
+      "output_fulltype": "Base.CheeseSandwich",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4324
+      }
+    },
+    "make_chocolate_chip_cookie_dough": {
+      "recipe_id": "make_chocolate_chip_cookie_dough",
+      "recipe_name": "Make Chocolate Chip Cookie Dough",
+      "output_fulltype": "Base.CookieChocolateChipDough",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4366
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_chocolate_cookie_dough": {
+      "recipe_id": "make_chocolate_cookie_dough",
+      "recipe_name": "Make Chocolate Cookie Dough",
+      "output_fulltype": "Base.CookiesChocolateDough",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4335
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_comfrey_poultice": {
+      "recipe_id": "make_comfrey_poultice",
+      "recipe_name": "Make Comfrey Poultice",
+      "output_fulltype": "Base.ComfreyCataplasm",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1202
+      }
+    },
+    "make_cooking_pot": {
+      "recipe_id": "make_cooking_pot",
+      "recipe_name": "Make Cooking Pot",
+      "output_fulltype": "Base.Pot",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2710
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_crowbar": {
+      "recipe_id": "make_crowbar",
+      "recipe_name": "Make Crowbar",
+      "output_fulltype": "Base.Crowbar",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3202
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 9
+        }
+      ]
+    },
+    "make_door_knob": {
+      "recipe_id": "make_door_knob",
+      "recipe_name": "Make Door Knob",
+      "output_fulltype": "Base.Doorknob",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2863
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_fishing_net": {
+      "recipe_id": "make_fishing_net",
+      "recipe_name": "Make Fishing Net",
+      "output_fulltype": "Base.FishingNet",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1417
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_fishing_rod_7dfb": {
+      "recipe_id": "make_fishing_rod_7dfb",
+      "recipe_name": "Make Fishing Rod",
+      "output_fulltype": "Base.CraftedFishingRod",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1155
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_flame_bomb": {
+      "recipe_id": "make_flame_bomb",
+      "recipe_name": "Make Flame bomb",
+      "output_fulltype": "Base.FlameTrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2630
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_flies_cure": {
+      "recipe_id": "make_flies_cure",
+      "recipe_name": "Make Flies Cure",
+      "output_fulltype": "farming.GardeningSprayCigarettes",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 728
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_fork": {
+      "recipe_id": "make_fork",
+      "recipe_name": "Make Fork",
+      "output_fulltype": "Base.Fork",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2682
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        }
+      ]
+    },
+    "make_four_log_stack": {
+      "recipe_id": "make_four_log_stack",
+      "recipe_name": "Make Four-Log Stack",
+      "output_fulltype": "Base.LogStacks4",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1853
+      }
+    },
+    "make_fried_onion_rings": {
+      "recipe_id": "make_fried_onion_rings",
+      "recipe_name": "Make Fried Onion Rings",
+      "output_fulltype": "Base.FriedOnionRingsCraft",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3872
+      }
+    },
+    "make_fried_shrimp": {
+      "recipe_id": "make_fried_shrimp",
+      "recipe_name": "Make Fried Shrimp",
+      "output_fulltype": "Base.ShrimpFriedCraft",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3861
+      }
+    },
+    "make_golfclub": {
+      "recipe_id": "make_golfclub",
+      "recipe_name": "Make Golfclub",
+      "output_fulltype": "Base.Golfclub",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3218
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 9
+        }
+      ]
+    },
+    "make_gravy": {
+      "recipe_id": "make_gravy",
+      "recipe_name": "Make Gravy",
+      "output_fulltype": "Base.Gravy",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3849
+      }
+    },
+    "make_halloween_pumpkin": {
+      "recipe_id": "make_halloween_pumpkin",
+      "recipe_name": "Make Halloween Pumpkin",
+      "output_fulltype": "Base.HalloweenPumpkin",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4013
+      }
+    },
+    "make_hammer": {
+      "recipe_id": "make_hammer",
+      "recipe_name": "Make Hammer",
+      "output_fulltype": "Base.Hammer",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2938
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "make_hand_shovel": {
+      "recipe_id": "make_hand_shovel",
+      "recipe_name": "Make Hand Shovel",
+      "output_fulltype": "farming.HandShovel",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 909
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "make_hinge": {
+      "recipe_id": "make_hinge",
+      "recipe_name": "Make Hinge",
+      "output_fulltype": "Base.Hinge",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2878
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_hunting_knife": {
+      "recipe_id": "make_hunting_knife",
+      "recipe_name": "Make Hunting Knife",
+      "output_fulltype": "Base.HuntingKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3061
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_jar_of_bell_peppers": {
+      "recipe_id": "make_jar_of_bell_peppers",
+      "recipe_name": "Make Jar of Bell Peppers",
+      "output_fulltype": "Base.CannedBellPepper",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1744
+      }
+    },
+    "make_jar_of_broccoli": {
+      "recipe_id": "make_jar_of_broccoli",
+      "recipe_name": "Make Jar of Broccoli",
+      "output_fulltype": "Base.CannedBroccoli",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1798
+      }
+    },
+    "make_jar_of_cabbage": {
+      "recipe_id": "make_jar_of_cabbage",
+      "recipe_name": "Make Jar of Cabbage",
+      "output_fulltype": "Base.CannedCabbage",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1771
+      }
+    },
+    "make_jar_of_carrots": {
+      "recipe_id": "make_jar_of_carrots",
+      "recipe_name": "Make Jar of Carrots",
+      "output_fulltype": "Base.CannedCarrots",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1609
+      }
+    },
+    "make_jar_of_eggplants": {
+      "recipe_id": "make_jar_of_eggplants",
+      "recipe_name": "Make Jar of Eggplants",
+      "output_fulltype": "Base.CannedEggplant",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1663
+      }
+    },
+    "make_jar_of_leeks": {
+      "recipe_id": "make_jar_of_leeks",
+      "recipe_name": "Make Jar of Leeks",
+      "output_fulltype": "Base.CannedLeek",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1690
+      }
+    },
+    "make_jar_of_potatoes": {
+      "recipe_id": "make_jar_of_potatoes",
+      "recipe_name": "Make Jar of Potatoes",
+      "output_fulltype": "Base.CannedPotato",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1636
+      }
+    },
+    "make_jar_of_red_radishes": {
+      "recipe_id": "make_jar_of_red_radishes",
+      "recipe_name": "Make Jar of Red Radishes",
+      "output_fulltype": "Base.CannedRedRadish",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1717
+      }
+    },
+    "make_jar_of_tomatoes": {
+      "recipe_id": "make_jar_of_tomatoes",
+      "recipe_name": "Make Jar of Tomatoes",
+      "output_fulltype": "Base.CannedTomato",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1582
+      }
+    },
+    "make_kitchen_knife": {
+      "recipe_id": "make_kitchen_knife",
+      "recipe_name": "Make Kitchen Knife",
+      "output_fulltype": "Base.KitchenKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3028
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 7
+        }
+      ]
+    },
+    "make_letter_opener": {
+      "recipe_id": "make_letter_opener",
+      "recipe_name": "Make Letter Opener",
+      "output_fulltype": "Base.LetterOpener",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2801
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_maki": {
+      "recipe_id": "make_maki",
+      "recipe_name": "Make Maki",
+      "output_fulltype": "Base.Maki",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3937
+      }
+    },
+    "make_mattress": {
+      "recipe_id": "make_mattress",
+      "recipe_name": "Make Mattress",
+      "output_fulltype": "Base.Mattress",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1550
+      }
+    },
+    "make_meat_patty": {
+      "recipe_id": "make_meat_patty",
+      "recipe_name": "Make Meat Patty",
+      "output_fulltype": "Base.MeatPatty",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4279
+      }
+    },
+    "make_metal_bar": {
+      "recipe_id": "make_metal_bar",
+      "recipe_name": "Make Metal Bar",
+      "output_fulltype": "Base.MetalBar",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3283
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "MetalWelding",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_metal_drum": {
+      "recipe_id": "make_metal_drum",
+      "recipe_name": "Make Metal Drum",
+      "output_fulltype": "Base.MetalDrum",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3013
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "make_metal_pipe": {
+      "recipe_id": "make_metal_pipe",
+      "recipe_name": "Make Metal Pipe",
+      "output_fulltype": "Base.MetalPipe",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3270
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_metal_sheet": {
+      "recipe_id": "make_metal_sheet",
+      "recipe_name": "Make Metal Sheet",
+      "output_fulltype": "Base.SheetMetal",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3298
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "MetalWelding",
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "make_mildew_cure": {
+      "recipe_id": "make_mildew_cure",
+      "recipe_name": "Make Mildew Cure",
+      "output_fulltype": "farming.GardeningSprayMilk",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 715
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_molotov_cocktail_b208": {
+      "recipe_id": "make_molotov_cocktail_b208",
+      "recipe_name": "Make Molotov Cocktail",
+      "output_fulltype": "Base.Molotov",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2608
+      }
+    },
+    "make_mortar_and_pestle": {
+      "recipe_id": "make_mortar_and_pestle",
+      "recipe_name": "Make Mortar and Pestle",
+      "output_fulltype": "Base.MortarPestle",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 35
+      },
+      "requires": [
+        {
+          "kind": "perk",
+          "key": "Woodwork",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_nails": {
+      "recipe_id": "make_nails",
+      "recipe_name": "Make Nails",
+      "output_fulltype": "Base.Nails",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2818
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_newspaper_hat": {
+      "recipe_id": "make_newspaper_hat",
+      "recipe_name": "Make Newspaper Hat",
+      "output_fulltype": "Base.Hat_NewspaperHat",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3833
+      }
+    },
+    "make_noise_maker": {
+      "recipe_id": "make_noise_maker",
+      "recipe_name": "Make Noise Maker",
+      "output_fulltype": "Base.NoiseTrap",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2654
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_oatmeal_cookie_dough": {
+      "recipe_id": "make_oatmeal_cookie_dough",
+      "recipe_name": "Make Oatmeal Cookie Dough",
+      "output_fulltype": "Base.CookiesOatmealDough",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4397
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_onigiri": {
+      "recipe_id": "make_onigiri",
+      "recipe_name": "Make Onigiri",
+      "output_fulltype": "Base.Onigiri",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3949
+      }
+    },
+    "make_pan": {
+      "recipe_id": "make_pan",
+      "recipe_name": "Make Pan",
+      "output_fulltype": "Base.Pan",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2785
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_pancake": {
+      "recipe_id": "make_pancake",
+      "recipe_name": "Make Pancake",
+      "output_fulltype": "Base.PancakesCraft",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3893
+      }
+    },
+    "make_paperclips": {
+      "recipe_id": "make_paperclips",
+      "recipe_name": "Make Paperclips",
+      "output_fulltype": "Base.Paperclip",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2832
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_pie_dough": {
+      "recipe_id": "make_pie_dough",
+      "recipe_name": "Make Pie Dough",
+      "output_fulltype": "Base.PieDough",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 940
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_pipe_bomb": {
+      "recipe_id": "make_pipe_bomb",
+      "recipe_name": "Make Pipe bomb",
+      "output_fulltype": "Base.PipeBomb",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2666
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_pizza": {
+      "recipe_id": "make_pizza",
+      "recipe_name": "Make Pizza",
+      "output_fulltype": "Base.PizzaRecipe",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 956
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_plantain_poultice": {
+      "recipe_id": "make_plantain_poultice",
+      "recipe_name": "Make Plantain Poultice",
+      "output_fulltype": "Base.PlantainCataplasm",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1192
+      }
+    },
+    "make_remote_controller_v1": {
+      "recipe_id": "make_remote_controller_v1",
+      "recipe_name": "Make Remote Controller V1",
+      "output_fulltype": "Base.RemoteCraftedV1",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2173
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_remote_controller_v2": {
+      "recipe_id": "make_remote_controller_v2",
+      "recipe_name": "Make Remote Controller V2",
+      "output_fulltype": "Base.RemoteCraftedV2",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2187
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "make_remote_controller_v3": {
+      "recipe_id": "make_remote_controller_v3",
+      "recipe_name": "Make Remote Controller V3",
+      "output_fulltype": "Base.RemoteCraftedV3",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2201
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "make_remote_trigger": {
+      "recipe_id": "make_remote_trigger",
+      "recipe_name": "Make Remote Trigger",
+      "output_fulltype": "Base.TriggerCrafted",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2215
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_roasting_pan": {
+      "recipe_id": "make_roasting_pan",
+      "recipe_name": "Make Roasting Pan",
+      "output_fulltype": "Base.Pot",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2725
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_saucepan": {
+      "recipe_id": "make_saucepan",
+      "recipe_name": "Make Saucepan",
+      "output_fulltype": "Base.Saucepan",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2740
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 2
+        }
+      ]
+    },
+    "make_saw": {
+      "recipe_id": "make_saw",
+      "recipe_name": "Make Saw",
+      "output_fulltype": "Base.Saw",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3045
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 7
+        }
+      ]
+    },
+    "make_scissors": {
+      "recipe_id": "make_scissors",
+      "recipe_name": "Make Scissors",
+      "output_fulltype": "Base.Scissors",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2847
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 3
+        }
+      ]
+    },
+    "make_sheet_metal": {
+      "recipe_id": "make_sheet_metal",
+      "recipe_name": "Make Sheet Metal",
+      "output_fulltype": "Base.SheetMetal",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2953
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "make_shortbread_cookie_dough": {
+      "recipe_id": "make_shortbread_cookie_dough",
+      "recipe_name": "Make Shortbread Cookie Dough",
+      "output_fulltype": "Base.CookiesShortbreadDough",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4458
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_shotgun_shells": {
+      "recipe_id": "make_shotgun_shells",
+      "recipe_name": "Make Shotgun Shells",
+      "output_fulltype": "Base.ShotgunShells",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3154
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_shotgun_shells_mold": {
+      "recipe_id": "make_shotgun_shells_mold",
+      "recipe_name": "Make Shotgun Shells Mold",
+      "output_fulltype": "Base.ShotgunShellsMold",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3123
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 8
+        }
+      ]
+    },
+    "make_shovel": {
+      "recipe_id": "make_shovel",
+      "recipe_name": "Make Shovel",
+      "output_fulltype": "farming.Shovel",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 893
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "make_sledgehammer": {
+      "recipe_id": "make_sledgehammer",
+      "recipe_name": "Make Sledgehammer",
+      "output_fulltype": "Base.Sledgehammer",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3251
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 10
+        }
+      ]
+    },
+    "make_small_metal_sheet": {
+      "recipe_id": "make_small_metal_sheet",
+      "recipe_name": "Make Small Metal Sheet",
+      "output_fulltype": "Base.SmallSheetMetal",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3312
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "MetalWelding",
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "make_smoke_bomb": {
+      "recipe_id": "make_smoke_bomb",
+      "recipe_name": "Make Smoke Bomb",
+      "output_fulltype": "Base.SmokeBomb",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2642
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_snare_trap": {
+      "recipe_id": "make_snare_trap",
+      "recipe_name": "Make Snare Trap",
+      "output_fulltype": "Base.TrapSnare",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1511
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Trapping",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "make_splint": {
+      "recipe_id": "make_splint",
+      "recipe_name": "Make Splint",
+      "output_fulltype": "Base.Splint",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1438
+      }
+    },
+    "make_spoon": {
+      "recipe_id": "make_spoon",
+      "recipe_name": "Make Spoon",
+      "output_fulltype": "Base.Spoon",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2696
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        }
+      ]
+    },
+    "make_squid_calamari": {
+      "recipe_id": "make_squid_calamari",
+      "recipe_name": "Make Squid Calamari",
+      "output_fulltype": "Base.SquidCalamari",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3961
+      }
+    },
+    "make_stake": {
+      "recipe_id": "make_stake",
+      "recipe_name": "Make Stake",
+      "output_fulltype": "Base.Stake",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 24
+      }
+    },
+    "make_stick_trap": {
+      "recipe_id": "make_stick_trap",
+      "recipe_name": "Make Stick Trap",
+      "output_fulltype": "Base.TrapStick",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1500
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_stone_axe": {
+      "recipe_id": "make_stone_axe",
+      "recipe_name": "Make Stone Axe",
+      "output_fulltype": "Base.AxeStone",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1373
+      }
+    },
+    "make_stone_hammer": {
+      "recipe_id": "make_stone_hammer",
+      "recipe_name": "Make Stone Hammer",
+      "output_fulltype": "Base.HammerStone",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1384
+      }
+    },
+    "make_stone_knife": {
+      "recipe_id": "make_stone_knife",
+      "recipe_name": "Make Stone Knife",
+      "output_fulltype": "Base.FlintKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1395
+      }
+    },
+    "make_sturdy_stick": {
+      "recipe_id": "make_sturdy_stick",
+      "recipe_name": "Make Sturdy Stick",
+      "output_fulltype": "Base.WoodenStick",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1407
+      }
+    },
+    "make_sugar_cookie_dough": {
+      "recipe_id": "make_sugar_cookie_dough",
+      "recipe_name": "Make Sugar Cookie Dough",
+      "output_fulltype": "Base.CookiesSugarDough",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4428
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "make_sushi": {
+      "recipe_id": "make_sushi",
+      "recipe_name": "Make Sushi",
+      "output_fulltype": "Base.SushiFish",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3927
+      }
+    },
+    "make_suture_needle": {
+      "recipe_id": "make_suture_needle",
+      "recipe_name": "Make Suture Needle",
+      "output_fulltype": "Base.SutureNeedle",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2998
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 6
+        }
+      ]
+    },
+    "make_suture_needle_holder": {
+      "recipe_id": "make_suture_needle_holder",
+      "recipe_name": "Make Suture Needle Holder",
+      "output_fulltype": "Base.SutureNeedleHolder",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2968
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 5
+        }
+      ]
+    },
+    "make_tent_kit_3a59": {
+      "recipe_id": "make_tent_kit_3a59",
+      "recipe_name": "Make Tent Kit",
+      "output_fulltype": "camping.CampingTentKit",
+      "source": {
+        "file": "camping.txt",
+        "line_start": 114
+      }
+    },
+    "make_three_log_stack": {
+      "recipe_id": "make_three_log_stack",
+      "recipe_name": "Make Three-Log Stack",
+      "output_fulltype": "Base.LogStacks3",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1839
+      }
+    },
+    "make_timer": {
+      "recipe_id": "make_timer",
+      "recipe_name": "Make Timer",
+      "output_fulltype": "Base.TimerCrafted",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2229
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Electricity",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "make_tin_foil_hat": {
+      "recipe_id": "make_tin_foil_hat",
+      "recipe_name": "Make Tin Foil Hat",
+      "output_fulltype": "Base.Hat_TinFoilHat",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3841
+      }
+    },
+    "make_tongs": {
+      "recipe_id": "make_tongs",
+      "recipe_name": "Make Tongs",
+      "output_fulltype": "Base.Tongs",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2924
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 4
+        }
+      ]
+    },
+    "make_trap_box": {
+      "recipe_id": "make_trap_box",
+      "recipe_name": "Make Trap Box",
+      "output_fulltype": "Base.TrapBox",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1525
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "perk",
+          "key": "Trapping",
+          "op": ">=",
+          "value": 2
+        },
+        {
+          "kind": "perk",
+          "key": "Woodwork",
+          "op": ">=",
+          "value": 1
+        }
+      ]
+    },
+    "make_tweezers": {
+      "recipe_id": "make_tweezers",
+      "recipe_name": "Make Tweezers",
+      "output_fulltype": "Base.Tweezers",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2983
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        },
+        {
+          "kind": "near_item",
+          "key": "Anvil"
+        },
+        {
+          "kind": "perk",
+          "key": "Blacksmith",
+          "op": ">=",
+          "value": 5
+        }
+      ]
+    },
+    "make_two_log_stack": {
+      "recipe_id": "make_two_log_stack",
+      "recipe_name": "Make Two-Log Stack",
+      "output_fulltype": "Base.LogStacks2",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1825
+      }
+    },
+    "make_wild_garlic_poultice_c2fb": {
+      "recipe_id": "make_wild_garlic_poultice_c2fb",
+      "recipe_name": "Make Wild Garlic Poultice",
+      "output_fulltype": "Base.WildGarlicCataplasm",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1223
+      }
+    },
+    "make_wooden_box_trap": {
+      "recipe_id": "make_wooden_box_trap",
+      "recipe_name": "Make Wooden Box Trap",
+      "output_fulltype": "Base.TrapCrate",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1487
+      },
+      "requires": [
+        {
+          "kind": "flag",
+          "key": "NeedToBeLearn"
+        }
+      ]
+    },
+    "open_box_of_223_ammo": {
+      "recipe_id": "open_box_of_223_ammo",
+      "recipe_name": "Open Box of .223 Ammo",
+      "output_fulltype": "Base.223Bullets",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 747
+      }
+    },
+    "open_box_of_308_ammo": {
+      "recipe_id": "open_box_of_308_ammo",
+      "recipe_name": "Open Box of .308 Ammo",
+      "output_fulltype": "Base.308Bullets",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 756
+      }
+    },
+    "open_box_of_38_special_bullets": {
+      "recipe_id": "open_box_of_38_special_bullets",
+      "recipe_name": "Open Box of .38 Special Bullets",
+      "output_fulltype": "Base.Bullets38",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 729
+      }
+    },
+    "open_box_of_44_magnum_bullets": {
+      "recipe_id": "open_box_of_44_magnum_bullets",
+      "recipe_name": "Open Box of .44 Magnum Bullets",
+      "output_fulltype": "Base.Bullets44",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 738
+      }
+    },
+    "open_box_of_45_auto_bullets": {
+      "recipe_id": "open_box_of_45_auto_bullets",
+      "recipe_name": "Open Box of .45 Auto Bullets",
+      "output_fulltype": "Base.Bullets45",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 720
+      }
+    },
+    "open_box_of_556_ammo": {
+      "recipe_id": "open_box_of_556_ammo",
+      "recipe_name": "Open Box of .556 Ammo",
+      "output_fulltype": "Base.556Bullets",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 774
+      }
+    },
+    "open_box_of_9mm_bullets": {
+      "recipe_id": "open_box_of_9mm_bullets",
+      "recipe_name": "Open Box of 9mm Bullets",
+      "output_fulltype": "Base.Bullets9mm",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 711
+      }
+    },
+    "open_box_of_jars": {
+      "recipe_id": "open_box_of_jars",
+      "recipe_name": "Open Box of Jars",
+      "output_fulltype": "Base.EmptyJar",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 674
+      }
+    },
+    "open_box_of_nails": {
+      "recipe_id": "open_box_of_nails",
+      "recipe_name": "Open Box of Nails",
+      "output_fulltype": "Base.Nails",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 684
+      }
+    },
+    "open_box_of_paperclip": {
+      "recipe_id": "open_box_of_paperclip",
+      "recipe_name": "Open Box of Paperclip",
+      "output_fulltype": "Base.Paperclip",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 702
+      }
+    },
+    "open_box_of_screws": {
+      "recipe_id": "open_box_of_screws",
+      "recipe_name": "Open Box of Screws",
+      "output_fulltype": "Base.Screws",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 693
+      }
+    },
+    "open_box_of_shotgun_shells": {
+      "recipe_id": "open_box_of_shotgun_shells",
+      "recipe_name": "Open Box of Shotgun Shells",
+      "output_fulltype": "Base.ShotgunShells",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 765
+      }
+    },
+    "open_candy_package": {
+      "recipe_id": "open_candy_package",
+      "recipe_name": "Open Candy Package",
+      "output_fulltype": "Base.Lollipop",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 440
+      }
+    },
+    "open_canned_beans": {
+      "recipe_id": "open_canned_beans",
+      "recipe_name": "Open Canned Beans",
+      "output_fulltype": "Base.OpenBeans",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 329
+      }
+    },
+    "open_canned_bolognese": {
+      "recipe_id": "open_canned_bolognese",
+      "recipe_name": "Open Canned Bolognese",
+      "output_fulltype": "Base.CannedBologneseOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1928
+      }
+    },
+    "open_canned_carrots": {
+      "recipe_id": "open_canned_carrots",
+      "recipe_name": "Open Canned Carrots",
+      "output_fulltype": "Base.CannedCarrotsOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 2010
+      }
+    },
+    "open_canned_chili": {
+      "recipe_id": "open_canned_chili",
+      "recipe_name": "Open Canned Chili",
+      "output_fulltype": "Base.CannedChiliOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1940
+      }
+    },
+    "open_canned_corn": {
+      "recipe_id": "open_canned_corn",
+      "recipe_name": "Open Canned Corn",
+      "output_fulltype": "Base.CannedCornOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1916
+      }
+    },
+    "open_canned_corned_beef": {
+      "recipe_id": "open_canned_corned_beef",
+      "recipe_name": "Open Canned Corned Beef",
+      "output_fulltype": "Base.CannedCornedBeefOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1906
+      }
+    },
+    "open_canned_fruit_beverage": {
+      "recipe_id": "open_canned_fruit_beverage",
+      "recipe_name": "Open Canned Fruit Beverage",
+      "output_fulltype": "Base.CannedFruitBeverageOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 268
+      }
+    },
+    "open_canned_fruit_cocktail": {
+      "recipe_id": "open_canned_fruit_cocktail",
+      "recipe_name": "Open Canned Fruit Cocktail",
+      "output_fulltype": "Base.CannedFruitCocktailOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 256
+      }
+    },
+    "open_canned_mushroom_soup": {
+      "recipe_id": "open_canned_mushroom_soup",
+      "recipe_name": "Open Canned Mushroom Soup",
+      "output_fulltype": "Base.CannedMushroomSoupOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1952
+      }
+    },
+    "open_canned_peaches": {
+      "recipe_id": "open_canned_peaches",
+      "recipe_name": "Open Canned Peaches",
+      "output_fulltype": "Base.CannedPeachesOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 280
+      }
+    },
+    "open_canned_peas": {
+      "recipe_id": "open_canned_peas",
+      "recipe_name": "Open Canned Peas",
+      "output_fulltype": "Base.CannedPeasOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1964
+      }
+    },
+    "open_canned_pineapple": {
+      "recipe_id": "open_canned_pineapple",
+      "recipe_name": "Open Canned Pineapple",
+      "output_fulltype": "Base.CannedPineappleOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 292
+      }
+    },
+    "open_canned_potato": {
+      "recipe_id": "open_canned_potato",
+      "recipe_name": "Open Canned Potato",
+      "output_fulltype": "Base.CannedPotatoOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1976
+      }
+    },
+    "open_canned_sardines": {
+      "recipe_id": "open_canned_sardines",
+      "recipe_name": "Open Canned Sardines",
+      "output_fulltype": "Base.CannedSardinesOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1988
+      }
+    },
+    "open_canned_soup": {
+      "recipe_id": "open_canned_soup",
+      "recipe_name": "Open Canned Soup",
+      "output_fulltype": "Base.TinnedSoupOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 244
+      }
+    },
+    "open_canned_tomato": {
+      "recipe_id": "open_canned_tomato",
+      "recipe_name": "Open Canned Tomato",
+      "output_fulltype": "Base.CannedTomatoOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1998
+      }
+    },
+    "open_canned_tuna": {
+      "recipe_id": "open_canned_tuna",
+      "recipe_name": "Open Canned Tuna",
+      "output_fulltype": "Base.TunaTinOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 451
+      }
+    },
+    "open_condensed_milk": {
+      "recipe_id": "open_condensed_milk",
+      "recipe_name": "Open Condensed Milk",
+      "output_fulltype": "Base.CannedMilkOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 353
+      }
+    },
+    "open_dog_food": {
+      "recipe_id": "open_dog_food",
+      "recipe_name": "Open Dog Food",
+      "output_fulltype": "Base.DogfoodOpen",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 341
+      }
+    },
+    "open_egg_carton": {
+      "recipe_id": "open_egg_carton",
+      "recipe_name": "Open Egg Carton",
+      "output_fulltype": "Base.Egg",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 91
+      }
+    },
+    "open_jar_of_bell_peppers": {
+      "recipe_id": "open_jar_of_bell_peppers",
+      "recipe_name": "Open Jar of Bell Peppers",
+      "output_fulltype": "Base.BellPepper",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1760
+      }
+    },
+    "open_jar_of_broccoli": {
+      "recipe_id": "open_jar_of_broccoli",
+      "recipe_name": "Open Jar of Broccoli",
+      "output_fulltype": "Base.Broccoli",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1814
+      }
+    },
+    "open_jar_of_carrots": {
+      "recipe_id": "open_jar_of_carrots",
+      "recipe_name": "Open Jar of Carrots",
+      "output_fulltype": "Base.Carrots",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1625
+      }
+    },
+    "open_jar_of_eggplants": {
+      "recipe_id": "open_jar_of_eggplants",
+      "recipe_name": "Open Jar of Eggplants",
+      "output_fulltype": "Base.Eggplant",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1679
+      }
+    },
+    "open_jar_of_leeks": {
+      "recipe_id": "open_jar_of_leeks",
+      "recipe_name": "Open Jar of Leeks",
+      "output_fulltype": "Base.Leek",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1706
+      }
+    },
+    "open_packet_of_broccoli_seeds": {
+      "recipe_id": "open_packet_of_broccoli_seeds",
+      "recipe_name": "Open Packet of Broccoli Seeds",
+      "output_fulltype": "farming.BroccoliSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 750
+      }
+    },
+    "open_packet_of_cabbage_seeds": {
+      "recipe_id": "open_packet_of_cabbage_seeds",
+      "recipe_name": "Open Packet of Cabbage Seeds",
+      "output_fulltype": "farming.CabbageSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 800
+      }
+    },
+    "open_packet_of_carrot_seeds": {
+      "recipe_id": "open_packet_of_carrot_seeds",
+      "recipe_name": "Open Packet of Carrot Seeds",
+      "output_fulltype": "farming.CarrotSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 740
+      }
+    },
+    "open_packet_of_potato_seeds": {
+      "recipe_id": "open_packet_of_potato_seeds",
+      "recipe_name": "Open Packet of Potato Seeds",
+      "output_fulltype": "farming.PotatoSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 790
+      }
+    },
+    "open_packet_of_radish_seeds": {
+      "recipe_id": "open_packet_of_radish_seeds",
+      "recipe_name": "Open Packet of Radish Seeds",
+      "output_fulltype": "farming.RedRadishSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 760
+      }
+    },
+    "open_packet_of_strawberries_seeds": {
+      "recipe_id": "open_packet_of_strawberries_seeds",
+      "recipe_name": "Open Packet of Strawberries Seeds",
+      "output_fulltype": "farming.StrewberrieSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 770
+      }
+    },
+    "open_packet_of_tomato_seeds": {
+      "recipe_id": "open_packet_of_tomato_seeds",
+      "recipe_name": "Open Packet of Tomato Seeds",
+      "output_fulltype": "farming.TomatoSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 780
+      }
+    },
+    "open_sack_of_apples": {
+      "recipe_id": "open_sack_of_apples",
+      "recipe_name": "Open Sack of Apples",
+      "output_fulltype": "Base.Apple",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4023
+      }
+    },
+    "open_sack_of_bell_peppers": {
+      "recipe_id": "open_sack_of_bell_peppers",
+      "recipe_name": "Open Sack of Bell Peppers",
+      "output_fulltype": "Base.BellPepper",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4035
+      }
+    },
+    "open_sack_of_broccoli": {
+      "recipe_id": "open_sack_of_broccoli",
+      "recipe_name": "Open Sack of Broccoli",
+      "output_fulltype": "Base.Broccoli",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4047
+      }
+    },
+    "open_sack_of_carrots": {
+      "recipe_id": "open_sack_of_carrots",
+      "recipe_name": "Open Sack of Carrots",
+      "output_fulltype": "Base.Carrots",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4071
+      }
+    },
+    "open_sack_of_cherries": {
+      "recipe_id": "open_sack_of_cherries",
+      "recipe_name": "Open Sack of Cherries",
+      "output_fulltype": "Base.Cherry",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4083
+      }
+    },
+    "open_sack_of_corn": {
+      "recipe_id": "open_sack_of_corn",
+      "recipe_name": "Open Sack of Corn",
+      "output_fulltype": "Base.Corn",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4095
+      }
+    },
+    "open_sack_of_eggplants": {
+      "recipe_id": "open_sack_of_eggplants",
+      "recipe_name": "Open Sack of Eggplants",
+      "output_fulltype": "Base.Eggplant",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4107
+      }
+    },
+    "open_sack_of_grapes": {
+      "recipe_id": "open_sack_of_grapes",
+      "recipe_name": "Open Sack of Grapes",
+      "output_fulltype": "Base.Grapes",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4119
+      }
+    },
+    "open_sack_of_leeks": {
+      "recipe_id": "open_sack_of_leeks",
+      "recipe_name": "Open Sack of Leeks",
+      "output_fulltype": "Base.Leek",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4131
+      }
+    },
+    "open_sack_of_lettuce": {
+      "recipe_id": "open_sack_of_lettuce",
+      "recipe_name": "Open Sack of Lettuce",
+      "output_fulltype": "Base.Lettuce",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4143
+      }
+    },
+    "open_sack_of_onions": {
+      "recipe_id": "open_sack_of_onions",
+      "recipe_name": "Open Sack of Onions",
+      "output_fulltype": "Base.Onion",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4155
+      }
+    },
+    "open_sack_of_peaches": {
+      "recipe_id": "open_sack_of_peaches",
+      "recipe_name": "Open Sack of Peaches",
+      "output_fulltype": "Base.Peach",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4167
+      }
+    },
+    "open_sack_of_pears": {
+      "recipe_id": "open_sack_of_pears",
+      "recipe_name": "Open Sack of Pears",
+      "output_fulltype": "Base.Pear",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4179
+      }
+    },
+    "open_umbrella_1be4": {
+      "recipe_id": "open_umbrella_1be4",
+      "recipe_name": "Open Umbrella",
+      "output_fulltype": "Base.UmbrellaWhite",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3707
+      }
+    },
+    "place_223_ammo_in_box": {
+      "recipe_id": "place_223_ammo_in_box",
+      "recipe_name": "Place .223 Ammo in Box",
+      "output_fulltype": "Base.223Box",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 792
+      }
+    },
+    "place_308_ammo_in_box": {
+      "recipe_id": "place_308_ammo_in_box",
+      "recipe_name": "Place .308 Ammo in Box",
+      "output_fulltype": "Base.308Box",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 801
+      }
+    },
+    "place_38_speciam_bullets_in_box": {
+      "recipe_id": "place_38_speciam_bullets_in_box",
+      "recipe_name": "Place .38 Speciam Bullets in Box",
+      "output_fulltype": "Base.Bullets38Box",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 846
+      }
+    },
+    "place_44_magnum_bullets_in_box": {
+      "recipe_id": "place_44_magnum_bullets_in_box",
+      "recipe_name": "Place .44 Magnum Bullets in Box",
+      "output_fulltype": "Base.Bullets44Box",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 855
+      }
+    },
+    "place_45_auto_bullets_in_box": {
+      "recipe_id": "place_45_auto_bullets_in_box",
+      "recipe_name": "Place .45 Auto Bullets in Box",
+      "output_fulltype": "Base.Bullets45Box",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 837
+      }
+    },
+    "place_556_ammo_in_box": {
+      "recipe_id": "place_556_ammo_in_box",
+      "recipe_name": "Place .556 Ammo in Box",
+      "output_fulltype": "Base.556Box",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 783
+      }
+    },
+    "place_9mm_bullets_in_box": {
+      "recipe_id": "place_9mm_bullets_in_box",
+      "recipe_name": "Place 9mm Bullets in Box",
+      "output_fulltype": "Base.Bullets9mmBox",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 828
+      }
+    },
+    "place_cake_in_baking_pan": {
+      "recipe_id": "place_cake_in_baking_pan",
+      "recipe_name": "Place Cake in Baking Pan",
+      "output_fulltype": "Base.CakePrep",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 928
+      }
+    },
+    "place_nails_in_box": {
+      "recipe_id": "place_nails_in_box",
+      "recipe_name": "Place Nails in Box",
+      "output_fulltype": "Base.NailsBox",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 810
+      }
+    },
+    "place_paperclips_in_box": {
+      "recipe_id": "place_paperclips_in_box",
+      "recipe_name": "Place Paperclips in Box",
+      "output_fulltype": "Base.PaperclipBox",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 873
+      }
+    },
+    "place_pasta_in_cooking_pot": {
+      "recipe_id": "place_pasta_in_cooking_pot",
+      "recipe_name": "Place Pasta in Cooking Pot",
+      "output_fulltype": "Base.WaterPotPasta",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 415
+      }
+    },
+    "place_pasta_in_saucepan": {
+      "recipe_id": "place_pasta_in_saucepan",
+      "recipe_name": "Place Pasta in Saucepan",
+      "output_fulltype": "Base.WaterSaucepanPasta",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 391
+      }
+    },
+    "place_pie_in_baking_pan": {
+      "recipe_id": "place_pie_in_baking_pan",
+      "recipe_name": "Place Pie in Baking Pan",
+      "output_fulltype": "Base.PiePrep",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1065
+      }
+    },
+    "place_rice_in_cooking_pot": {
+      "recipe_id": "place_rice_in_cooking_pot",
+      "recipe_name": "Place Rice in Cooking Pot",
+      "output_fulltype": "Base.WaterPotRice",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 427
+      }
+    },
+    "place_rice_in_saucepan": {
+      "recipe_id": "place_rice_in_saucepan",
+      "recipe_name": "Place Rice in Saucepan",
+      "output_fulltype": "Base.WaterSaucepanRice",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 403
+      }
+    },
+    "place_screws_in_box": {
+      "recipe_id": "place_screws_in_box",
+      "recipe_name": "Place Screws in Box",
+      "output_fulltype": "Base.ScrewsBox",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 819
+      }
+    },
+    "place_shotgun_shells_in_box": {
+      "recipe_id": "place_shotgun_shells_in_box",
+      "recipe_name": "Place Shotgun Shells in Box",
+      "output_fulltype": "Base.ShotgunShellsBox",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 864
+      }
+    },
+    "prepare_muffins": {
+      "recipe_id": "prepare_muffins",
+      "recipe_name": "Prepare Muffins",
+      "output_fulltype": "Base.BakingTray_Muffin",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3985
+      }
+    },
+    "prepare_omelette": {
+      "recipe_id": "prepare_omelette",
+      "recipe_name": "Prepare Omelette",
+      "output_fulltype": "Base.OmeletteRecipe",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3905
+      }
+    },
+    "put_alcohol_on_cotton": {
+      "recipe_id": "put_alcohol_on_cotton",
+      "recipe_name": "Put Alcohol on Cotton",
+      "output_fulltype": "Base.AlcoholedCottonBalls",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1572
+      }
+    },
+    "put_broccoli_seeds_in_packet": {
+      "recipe_id": "put_broccoli_seeds_in_packet",
+      "recipe_name": "Put Broccoli Seeds in Packet",
+      "output_fulltype": "farming.BroccoliBagSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 829
+      }
+    },
+    "put_cabbage_seeds_in_packet": {
+      "recipe_id": "put_cabbage_seeds_in_packet",
+      "recipe_name": "Put Cabbage Seeds in Packet",
+      "output_fulltype": "farming.CabbageBagSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 874
+      }
+    },
+    "put_carrots_seeds_in_packet": {
+      "recipe_id": "put_carrots_seeds_in_packet",
+      "recipe_name": "Put Carrots Seeds in Packet",
+      "output_fulltype": "farming.CarrotBagSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 820
+      }
+    },
+    "put_eggs_in_carton": {
+      "recipe_id": "put_eggs_in_carton",
+      "recipe_name": "Put Eggs in Carton",
+      "output_fulltype": "Base.EggCarton",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 103
+      }
+    },
+    "put_potato_seeds_in_packet": {
+      "recipe_id": "put_potato_seeds_in_packet",
+      "recipe_name": "Put Potato Seeds in Packet",
+      "output_fulltype": "farming.PotatoBagSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 865
+      }
+    },
+    "put_radish_seeds_in_packet": {
+      "recipe_id": "put_radish_seeds_in_packet",
+      "recipe_name": "Put Radish Seeds in Packet",
+      "output_fulltype": "farming.RedRadishBagSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 838
+      }
+    },
+    "put_strawberry_seeds_in_packet": {
+      "recipe_id": "put_strawberry_seeds_in_packet",
+      "recipe_name": "Put Strawberry Seeds in Packet",
+      "output_fulltype": "farming.StrewberrieBagSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 847
+      }
+    },
+    "put_tomato_seeds_in_packet": {
+      "recipe_id": "put_tomato_seeds_in_packet",
+      "recipe_name": "Put Tomato Seeds in Packet",
+      "output_fulltype": "farming.TomatoBagSeed",
+      "source": {
+        "file": "farming.txt",
+        "line_start": 856
+      }
+    },
+    "reclaim_bread_knife_from_spear": {
+      "recipe_id": "reclaim_bread_knife_from_spear",
+      "recipe_name": "Reclaim Bread Knife from Spear",
+      "output_fulltype": "Base.BreadKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3510
+      }
+    },
+    "reclaim_butter_knife_from_spear": {
+      "recipe_id": "reclaim_butter_knife_from_spear",
+      "recipe_name": "Reclaim Butter Knife from Spear",
+      "output_fulltype": "Base.ButterKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3521
+      }
+    },
+    "reclaim_fork_from_spear": {
+      "recipe_id": "reclaim_fork_from_spear",
+      "recipe_name": "Reclaim Fork from Spear",
+      "output_fulltype": "Base.Fork",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3532
+      }
+    },
+    "reclaim_hand_fork_from_spear": {
+      "recipe_id": "reclaim_hand_fork_from_spear",
+      "recipe_name": "Reclaim Hand Fork from Spear",
+      "output_fulltype": "Base.HandFork",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3587
+      }
+    },
+    "reclaim_hunting_knife_from_spear": {
+      "recipe_id": "reclaim_hunting_knife_from_spear",
+      "recipe_name": "Reclaim Hunting Knife from Spear",
+      "output_fulltype": "Base.HuntingKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3620
+      }
+    },
+    "reclaim_ice_pick_from_spear": {
+      "recipe_id": "reclaim_ice_pick_from_spear",
+      "recipe_name": "Reclaim Ice Pick from Spear",
+      "output_fulltype": "Base.IcePick",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3642
+      }
+    },
+    "reclaim_kitchen_knife_from_spear": {
+      "recipe_id": "reclaim_kitchen_knife_from_spear",
+      "recipe_name": "Reclaim Kitchen Knife from Spear",
+      "output_fulltype": "Base.KitchenKnife",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3609
+      }
+    },
+    "reclaim_letter_opener_from_spear": {
+      "recipe_id": "reclaim_letter_opener_from_spear",
+      "recipe_name": "Reclaim Letter Opener from Spear",
+      "output_fulltype": "Base.LetterOpener",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3543
+      }
+    },
+    "reclaim_machete_from_spear": {
+      "recipe_id": "reclaim_machete_from_spear",
+      "recipe_name": "Reclaim Machete from Spear",
+      "output_fulltype": "Base.Machete",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3631
+      }
+    },
+    "reclaim_scalpel_from_spear": {
+      "recipe_id": "reclaim_scalpel_from_spear",
+      "recipe_name": "Reclaim Scalpel from Spear",
+      "output_fulltype": "Base.Scalpel",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3554
+      }
+    },
+    "reclaim_scissors_from_spear": {
+      "recipe_id": "reclaim_scissors_from_spear",
+      "recipe_name": "Reclaim Scissors from Spear",
+      "output_fulltype": "Base.Scissors",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3576
+      }
+    },
+    "reclaim_screwdriver_from_spear": {
+      "recipe_id": "reclaim_screwdriver_from_spear",
+      "recipe_name": "Reclaim Screwdriver from Spear",
+      "output_fulltype": "Base.Screwdriver",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3598
+      }
+    },
+    "reclaim_spoon_from_spear": {
+      "recipe_id": "reclaim_spoon_from_spear",
+      "recipe_name": "Reclaim Spoon from Spear",
+      "output_fulltype": "Base.Spoon",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3565
+      }
+    },
+    "refill_blow_torch": {
+      "recipe_id": "refill_blow_torch",
+      "recipe_name": "Refill Blow Torch",
+      "output_fulltype": "Base.BlowTorch",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3326
+      }
+    },
+    "remove_battery": {
+      "recipe_id": "remove_battery",
+      "recipe_name": "Remove Battery",
+      "output_fulltype": "Base.Battery",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 588
+      }
+    },
+    "rip_clothing_ca26": {
+      "recipe_id": "rip_clothing_ca26",
+      "recipe_name": "Rip Clothing",
+      "output_fulltype": "Base.LeatherStrips",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3806
+      }
+    },
+    "rip_sheets": {
+      "recipe_id": "rip_sheets",
+      "recipe_name": "Rip Sheets",
+      "output_fulltype": "Base.RippedSheets",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3821
+      }
+    },
+    "saw_logs": {
+      "recipe_id": "saw_logs",
+      "recipe_name": "Saw Logs",
+      "output_fulltype": "Base.Plank",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 162
+      }
+    },
+    "saw_off_double_barrel_shotgun": {
+      "recipe_id": "saw_off_double_barrel_shotgun",
+      "recipe_name": "Saw Off Double Barrel Shotgun",
+      "output_fulltype": "Base.DoubleBarrelShotgunSawnoff",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 69
+      }
+    },
+    "saw_off_shotgun": {
+      "recipe_id": "saw_off_shotgun",
+      "recipe_name": "Saw Off Shotgun",
+      "output_fulltype": "Base.ShotgunSawnoff",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 59
+      }
+    },
+    "scoop_ice_cream": {
+      "recipe_id": "scoop_ice_cream",
+      "recipe_name": "Scoop Ice Cream",
+      "output_fulltype": "Base.ConeIcecream",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4288
+      }
+    },
+    "slice_baloney": {
+      "recipe_id": "slice_baloney",
+      "recipe_name": "Slice Baloney",
+      "output_fulltype": "Base.BaloneySlice",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4254
+      }
+    },
+    "slice_bread_ce3f": {
+      "recipe_id": "slice_bread_ce3f",
+      "recipe_name": "Slice Bread",
+      "output_fulltype": "Base.BreadSlices",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 895
+      }
+    },
+    "slice_cake": {
+      "recipe_id": "slice_cake",
+      "recipe_name": "Slice Cake",
+      "output_fulltype": "Base.CakeSlice",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1090
+      }
+    },
+    "slice_fillet": {
+      "recipe_id": "slice_fillet",
+      "recipe_name": "Slice Fillet",
+      "output_fulltype": "Base.FishFillet",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1103
+      }
+    },
+    "slice_frog": {
+      "recipe_id": "slice_frog",
+      "recipe_name": "Slice Frog",
+      "output_fulltype": "Base.FrogMeat",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1130
+      }
+    },
+    "slice_ham": {
+      "recipe_id": "slice_ham",
+      "recipe_name": "Slice Ham",
+      "output_fulltype": "Base.HamSlice",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1117
+      }
+    },
+    "slice_onion": {
+      "recipe_id": "slice_onion",
+      "recipe_name": "Slice Onion",
+      "output_fulltype": "Base.OnionRings",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3883
+      }
+    },
+    "slice_pie": {
+      "recipe_id": "slice_pie",
+      "recipe_name": "Slice Pie",
+      "output_fulltype": "Base.Pie",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1077
+      }
+    },
+    "slice_pizza": {
+      "recipe_id": "slice_pizza",
+      "recipe_name": "Slice Pizza",
+      "output_fulltype": "Base.Pizza",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4311
+      }
+    },
+    "slice_salami": {
+      "recipe_id": "slice_salami",
+      "recipe_name": "Slice Salami",
+      "output_fulltype": "Base.SalamiSlice",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 4267
+      }
+    },
+    "slice_watermelon": {
+      "recipe_id": "slice_watermelon",
+      "recipe_name": "Slice Watermelon",
+      "output_fulltype": "Base.WatermelonSliced",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 304
+      }
+    },
+    "smash_bottle": {
+      "recipe_id": "smash_bottle",
+      "recipe_name": "Smash Bottle",
+      "output_fulltype": "Base.SmashedBottle",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 3
+      }
+    },
+    "smash_watermelon": {
+      "recipe_id": "smash_watermelon",
+      "recipe_name": "Smash Watermelon",
+      "output_fulltype": "Base.WatermelonSmashed",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 317
+      }
+    },
+    "unstack_logs_7606": {
+      "recipe_id": "unstack_logs_7606",
+      "recipe_name": "Unstack Logs",
+      "output_fulltype": "Base.Log",
+      "source": {
+        "file": "recipes.txt",
+        "line_start": 1893
+      }
+    }
+  },
+  "diagnostics": {
+    "unparsed_result": [
+      {
+        "file": "recipes.txt",
+        "line": 1428,
+        "recipe_name": "Get Wire Back",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 1598,
+        "recipe_name": "Open Jar of Tomatoes",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 1652,
+        "recipe_name": "Open Jar of Potatoes",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 1733,
+        "recipe_name": "Open Jar of Red Radishes",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 1787,
+        "recipe_name": "Open Jar of Cabbage",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 4059,
+        "recipe_name": "Open Sack of Cabbages",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 4191,
+        "recipe_name": "Open Sack of Potatoes",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 4203,
+        "recipe_name": "Open Sack of Radishes",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 4215,
+        "recipe_name": "Open Sack of Strawberries",
+        "reason": "no_result_line"
+      },
+      {
+        "file": "recipes.txt",
+        "line": 4227,
+        "recipe_name": "Open Sack of Tomatoes",
+        "reason": "no_result_line"
+      }
+    ],
+    "multi_result": [],
+    "unparsable_skill": [],
+    "module_unresolved": []
+  }
+}

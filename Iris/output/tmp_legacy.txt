@@ -1,4 +1,0 @@
-rule_firefighting_isextinguisher: 0 cands
-rule_healthpanel_hstitch: 0 cands
-rule_healthpanel_hremoveglass: 0 cands
-rule_healthpanel_hremovebullet: 0 cands

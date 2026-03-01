@@ -1,0 +1,436 @@
+{
+  "version": "v2.4",
+  "description": "rightclick_source_index에서 추출한 메뉴 생성 조건 원자 (Atom). classify_action_evidence.py의 입력으로 사용.",
+  "rules": [
+    {
+      "rule_id": "rule_firefighting_isextinguisher",
+      "requires_fulltypes": [
+        "Base.Dirtbag",
+        "Base.Extinguisher",
+        "Base.Gravelbag",
+        "Base.Sandbag"
+      ],
+      "requires_tags": [],
+      "requires_props": [
+        "CanStoreWater"
+      ],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "type",
+          "value": "Extinguisher"
+        },
+        {
+          "match_type": "type",
+          "value": "Sandbag"
+        },
+        {
+          "match_type": "type",
+          "value": "Gravelbag"
+        },
+        {
+          "match_type": "type",
+          "value": "Dirtbag"
+        },
+        {
+          "match_type": "property",
+          "value": "CanStoreWater"
+        }
+      ],
+      "source_anchor_ref": "lua/server/FireFighting/FireFighting.lua::FireFighting.isExtinguisher"
+    },
+    {
+      "rule_id": "rule_worldobject_predicatepetrol",
+      "requires_fulltypes": [
+        "Base.PetrolCan"
+      ],
+      "requires_tags": [
+        "Petrol"
+      ],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": true,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "tag",
+          "value": "Petrol"
+        },
+        {
+          "match_type": "type",
+          "value": "PetrolCan"
+        }
+      ],
+      "source_anchor_ref": "lua/client/ISUI/ISWorldObjectContextMenu.lua::predicatePetrol"
+    },
+    {
+      "rule_id": "rule_moveabledefinitions_scrapdefinitions",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [],
+      "source_anchor_ref": "lua/client/Moveables/ISMoveableDefinitions.lua::scrapDefinitions"
+    },
+    {
+      "rule_id": "rule_cm_surface_recipe_open_canned",
+      "requires_fulltypes": [],
+      "requires_tags": [
+        "CanOpener"
+      ],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "tag",
+          "value": "CanOpener"
+        }
+      ],
+      "source_anchor_ref": "lua/client/ISUI/ISInventoryPaneContextMenu.lua::L264-L274::RecipeManager.getUniqueRecipeItems"
+    },
+    {
+      "rule_id": "rule_healthpanel_hstitch",
+      "requires_fulltypes": [
+        "Base.Needle",
+        "Base.SutureNeedle",
+        "Base.Thread"
+      ],
+      "requires_tags": [
+        "SewingNeedle"
+      ],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "type",
+          "value": "Needle"
+        },
+        {
+          "match_type": "tag",
+          "value": "SewingNeedle"
+        },
+        {
+          "match_type": "type",
+          "value": "Thread"
+        },
+        {
+          "match_type": "type",
+          "value": "SutureNeedle"
+        }
+      ],
+      "source_anchor_ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HStitch.checkItem"
+    },
+    {
+      "rule_id": "rule_healthpanel_hremoveglass",
+      "requires_fulltypes": [
+        "Base.SutureNeedleHolder",
+        "Base.Tweezers"
+      ],
+      "requires_tags": [
+        "RemoveGlass"
+      ],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "tag",
+          "value": "RemoveGlass"
+        },
+        {
+          "match_type": "type",
+          "value": "SutureNeedleHolder"
+        },
+        {
+          "match_type": "type",
+          "value": "Tweezers"
+        }
+      ],
+      "source_anchor_ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HRemoveGlass.checkItem"
+    },
+    {
+      "rule_id": "rule_healthpanel_hremovebullet",
+      "requires_fulltypes": [
+        "Base.SutureNeedleHolder",
+        "Base.Tweezers"
+      ],
+      "requires_tags": [
+        "RemoveBullet"
+      ],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "tag",
+          "value": "RemoveBullet"
+        },
+        {
+          "match_type": "type",
+          "value": "Tweezers"
+        },
+        {
+          "match_type": "type",
+          "value": "SutureNeedleHolder"
+        }
+      ],
+      "source_anchor_ref": "lua/client/XpSystem/ISUI/ISHealthPanel.lua::HRemoveBullet.checkItem"
+    },
+    {
+      "rule_id": "rule_inventorypane_weaponpart",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [
+        "WeaponPart"
+      ],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": true,
+      "matchers_raw": [
+        {
+          "match_type": "display_category",
+          "value": "WeaponPart"
+        }
+      ],
+      "source_anchor_ref": "lua/client/ISUI/ISInventoryPaneContextMenu.lua::getItemsFromCategory"
+    },
+    {
+      "rule_id": "rule_exclusion_consumption_food",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [
+        "Food"
+      ],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "script_type",
+          "value": "Food"
+        }
+      ],
+      "source_anchor_ref": "items_itemscript.json::Type=Food"
+    },
+    {
+      "rule_id": "rule_exclusion_equip_clothing",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [
+        "Clothing"
+      ],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "script_type",
+          "value": "Clothing"
+        }
+      ],
+      "source_anchor_ref": "items_itemscript.json::Type=Clothing"
+    },
+    {
+      "rule_id": "rule_exclusion_consumption_literature",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [
+        "Literature"
+      ],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "script_type",
+          "value": "Literature"
+        }
+      ],
+      "source_anchor_ref": "items_itemscript.json::Type=Literature"
+    },
+    {
+      "rule_id": "rule_exclusion_consumption_displaycategory_food",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [
+        "Food"
+      ],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "display_category",
+          "value": "Food"
+        }
+      ],
+      "source_anchor_ref": "items_itemscript.json::DisplayCategory=Food"
+    },
+    {
+      "rule_id": "rule_exclusion_inputmaterial_material",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [
+        "Material"
+      ],
+      "requires_script_types": [
+        "Normal"
+      ],
+      "matcher_logic": "AND",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": true,
+      "matchers_raw": [
+        {
+          "match_type": "display_category",
+          "value": "Material"
+        },
+        {
+          "match_type": "script_type",
+          "value": "Normal"
+        }
+      ],
+      "source_anchor_ref": "items_itemscript.json::DisplayCategory=Material"
+    },
+    {
+      "rule_id": "rule_exclusion_inputmaterial_ammo",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [
+        "Ammo"
+      ],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": true,
+      "matchers_raw": [
+        {
+          "match_type": "display_category",
+          "value": "Ammo"
+        }
+      ],
+      "source_anchor_ref": "items_itemscript.json::DisplayCategory=Ammo"
+    },
+    {
+      "rule_id": "rule_tooldef_hammer",
+      "requires_fulltypes": [],
+      "requires_tags": [
+        "Hammer"
+      ],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "tag",
+          "value": "Hammer"
+        }
+      ],
+      "source_anchor_ref": "lua/client/Moveables/ISMoveableDefinitions.lua::tool_definitions.Hammer"
+    },
+    {
+      "rule_id": "rule_tooldef_screwdriver",
+      "requires_fulltypes": [],
+      "requires_tags": [
+        "Screwdriver"
+      ],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "tag",
+          "value": "Screwdriver"
+        }
+      ],
+      "source_anchor_ref": "lua/client/Moveables/ISMoveableDefinitions.lua::tool_definitions.Screwdriver"
+    },
+    {
+      "rule_id": "rule_tooldef_saw",
+      "requires_fulltypes": [],
+      "requires_tags": [
+        "Saw"
+      ],
+      "requires_props": [],
+      "requires_display_categories": [],
+      "requires_script_types": [],
+      "matcher_logic": "OR",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "tag",
+          "value": "Saw"
+        }
+      ],
+      "source_anchor_ref": "lua/client/Moveables/ISMoveableDefinitions.lua::tool_definitions.Saw"
+    },
+    {
+      "rule_id": "rule_tooldef_blowtorch",
+      "requires_fulltypes": [],
+      "requires_tags": [],
+      "requires_props": [],
+      "requires_display_categories": [
+        "Tool"
+      ],
+      "requires_script_types": [
+        "Drainable"
+      ],
+      "matcher_logic": "AND",
+      "has_property_based_exclusion": false,
+      "has_input_material_exclusion": false,
+      "matchers_raw": [
+        {
+          "match_type": "display_category",
+          "value": "Tool"
+        },
+        {
+          "match_type": "script_type",
+          "value": "Drainable"
+        }
+      ],
+      "source_anchor_ref": "lua/client/Moveables/ISMoveableDefinitions.lua::tool_definitions.BlowTorch"
+    }
+  ]
+}

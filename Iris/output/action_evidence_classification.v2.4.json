@@ -1,0 +1,137 @@
+{
+  "version": "v2.4",
+  "tag_strong_threshold": 4,
+  "description": "uc.action.* 10개 ID의 evidence_strength 분류 결과. build_usecases_by_fulltype.py가 소비.",
+  "classifications": {
+    "uc.action.attach_weapon_part": {
+      "evidence_strength": "exclude",
+      "reason_code": "INPUT_ITEM",
+      "source_rules": [
+        "rule_inventorypane_weaponpart"
+      ],
+      "canonical_tool_fulltypes": [],
+      "excluded_consumables": [],
+      "tag_item_count": null
+    },
+    "uc.action.construction": {
+      "evidence_strength": "strong",
+      "reason_code": "TAG_RESOLVES_TO_TYPE",
+      "source_rules": [
+        "rule_tooldef_hammer"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.BallPeenHammer",
+        "Base.Hammer",
+        "Base.HammerStone"
+      ],
+      "excluded_consumables": [],
+      "tag_item_count": 3
+    },
+    "uc.action.extinguish_fire": {
+      "evidence_strength": "weak",
+      "reason_code": "PROPERTY_GATED",
+      "source_rules": [
+        "rule_firefighting_isextinguisher"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.Extinguisher"
+      ],
+      "excluded_consumables": [
+        "Base.Dirtbag",
+        "Base.Gravelbag",
+        "Base.Sandbag"
+      ],
+      "tag_item_count": null
+    },
+    "uc.action.foreign_body_removal": {
+      "evidence_strength": "strong",
+      "reason_code": "FULLTYPE_GATED",
+      "source_rules": [
+        "rule_healthpanel_hremovebullet",
+        "rule_healthpanel_hremoveglass"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.SutureNeedleHolder",
+        "Base.Tweezers"
+      ],
+      "excluded_consumables": [],
+      "tag_item_count": null
+    },
+    "uc.action.fuel": {
+      "evidence_strength": "weak",
+      "reason_code": "PROPERTY_GATED",
+      "source_rules": [
+        "rule_worldobject_predicatepetrol"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.PetrolCan"
+      ],
+      "excluded_consumables": [],
+      "tag_item_count": null
+    },
+    "uc.action.metal_cutting": {
+      "evidence_strength": "strong",
+      "reason_code": "DCST_RESOLVES_TO_TYPE",
+      "source_rules": [
+        "rule_tooldef_blowtorch"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.BlowTorch"
+      ],
+      "excluded_consumables": [],
+      "tag_item_count": 1
+    },
+    "uc.action.open_can": {
+      "evidence_strength": "strong",
+      "reason_code": "TAG_RESOLVES_TO_TYPE",
+      "source_rules": [
+        "rule_cm_surface_recipe_open_canned"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.TinOpener"
+      ],
+      "excluded_consumables": [],
+      "tag_item_count": 1
+    },
+    "uc.action.screw_disassembly": {
+      "evidence_strength": "strong",
+      "reason_code": "TAG_RESOLVES_TO_TYPE",
+      "source_rules": [
+        "rule_tooldef_screwdriver"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.Screwdriver"
+      ],
+      "excluded_consumables": [],
+      "tag_item_count": 1
+    },
+    "uc.action.wood_cutting": {
+      "evidence_strength": "strong",
+      "reason_code": "TAG_RESOLVES_TO_TYPE",
+      "source_rules": [
+        "rule_tooldef_saw"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.GardenSaw",
+        "Base.Saw"
+      ],
+      "excluded_consumables": [],
+      "tag_item_count": 2
+    },
+    "uc.action.wound_suturing": {
+      "evidence_strength": "strong",
+      "reason_code": "FULLTYPE_GATED",
+      "source_rules": [
+        "rule_healthpanel_hstitch"
+      ],
+      "canonical_tool_fulltypes": [
+        "Base.Needle",
+        "Base.SutureNeedle"
+      ],
+      "excluded_consumables": [
+        "Base.Thread"
+      ],
+      "tag_item_count": null
+    }
+  }
+}

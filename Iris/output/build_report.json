@@ -1,6 +1,6 @@
 {
   "version": "v2.5",
-  "timestamp": "2026-02-27T05:07:10.387532+00:00",
+  "timestamp": "2026-03-01T02:57:23.384880+00:00",
   "gates": {
     "Q1_pass_integrity": {
       "status": "PASS",
@@ -22,7 +22,7 @@
     },
     "Q4_determinism": {
       "status": "PASS",
-      "files_checked": 12,
+      "files_checked": 15,
       "mismatches": 0,
       "details": []
     },
@@ -31,7 +31,19 @@
       "unexpected_changes": 0,
       "pending_allowed": 0,
       "details": [],
-      "warnings": []
+      "warnings": [],
+      "new_metrics": {
+        "rightclick_evidence_fulltype_count": 86,
+        "rightclick_evidence_line_count": 86,
+        "rightclick_exclusion_fulltype_count": 1385,
+        "rightclick_exclusion_line_count": 1801,
+        "recipe_evidence_fulltype_count": 333,
+        "rightclick_strong_fulltype_count": 12,
+        "rightclick_strong_line_count": 12,
+        "rightclick_weak_fulltype_count": 56,
+        "rightclick_exclude_line_count": 18,
+        "unknown_prefix_line_count": 0
+      }
     }
   },
   "statistics": {

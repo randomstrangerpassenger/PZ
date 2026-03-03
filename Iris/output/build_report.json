@@ -1,6 +1,6 @@
 {
   "version": "v2.5",
-  "timestamp": "2026-03-01T02:57:23.384880+00:00",
+  "timestamp": "2026-03-01T15:54:26.637590+00:00",
   "gates": {
     "Q1_pass_integrity": {
       "status": "PASS",
@@ -42,6 +42,8 @@
         "rightclick_strong_line_count": 12,
         "rightclick_weak_fulltype_count": 56,
         "rightclick_exclude_line_count": 18,
+        "override_action_count": 11,
+        "override_strong_count": 8,
         "unknown_prefix_line_count": 0
       }
     }

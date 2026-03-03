@@ -129,6 +129,7 @@ local TRANSLATIONS_KO = {
     Iris_Detail_Interaction = "\236\131\129\237\152\184\236\158\145\236\154\169",  -- 상호작용
     Iris_Prefix_Recipe = "\91\235\160\136\236\139\156\237\148\188\93",  -- [레시피]
     Iris_Prefix_RightClick = "\91\236\154\176\237\129\180\235\166\173\93",  -- [우클릭]
+    Iris_Nav_Go = "\236\157\180\235\143\153",  -- 이동
     
     -- 우클릭 Capability 라벨
     Iris_Cap_ExtinguishFire = "\235\182\136\32\235\129\132\234\184\176",  -- 불 끄기
@@ -664,20 +665,20 @@ function IrisBrowser:showDetail(fullType)
     -- [3] 상호작용 섹션 (레시피 + 우클릭 행동 통합)
     local interactionItems = {}  -- { {type="recipe"|"rightclick", name=string, sortKey=string} }
     
-    -- 레시피 수집
-    local recipeList = {}
-    if IrisAPI and IrisAPI.getRecipeConnectionsForItem then
-        local ok, list = pcall(function() return IrisAPI.getRecipeConnectionsForItem(item) end)
-        if ok and list then recipeList = list end
-    end
-    
-    -- 레시피 이름 중복 제거 및 추가
-    local recipeNameSet = {}
-    for _, e in ipairs(recipeList) do
-        local name = tostring(e.recipe or "Unknown")
-        if not recipeNameSet[name] then
-            recipeNameSet[name] = true
-            table.insert(interactionItems, {type = "recipe", name = name, sortKey = "1_" .. name})
+    -- 레시피 수집 (IrisUseCaseDescriptions 오프라인 데이터 기반)
+    if IrisUseCaseDescriptions and IrisUseCaseDescriptions[fullType] then
+        local ucDesc = IrisUseCaseDescriptions[fullType]
+        if ucDesc and ucDesc.lines then
+            for _, line in ipairs(ucDesc.lines) do
+                if line.surface == "recipe_ui" or line.surface == "both" then
+                    table.insert(interactionItems, {
+                        type = "recipe",
+                        name = line.display_text,
+                        sortKey = "1_" .. (line.label_key or ""),
+                        recipe_nav_ref = line.recipe_nav_ref,  -- nil이면 버튼 미노출
+                    })
+                end
+            end
         end
     end
     
@@ -733,14 +734,35 @@ function IrisBrowser:showDetail(fullType)
             local prefixRecipe = tr("Iris_Prefix_Recipe", "[Recipe]")
             local prefixRightClick = tr("Iris_Prefix_RightClick", "[Action]")
             
-            for _, item in ipairs(interactionItems) do
-                local prefix = item.type == "recipe" and prefixRecipe or prefixRightClick
+            for _, itm in ipairs(interactionItems) do
                 local r, g, b = 0.85, 0.85, 0.85
-                if item.type == "rightclick" then
+                local displayStr
+                if itm.type == "rightclick" then
                     r, g, b = 0.7, 0.9, 0.7  -- 우클릭 행동은 녹색 계열
+                    displayStr = prefixRightClick .. " " .. itm.name
+                else
+                    -- display_text는 이미 "[레시피] ..." 형태의 최종 문자열
+                    displayStr = itm.name
                 end
-                local lbl = ISLabel:new(20, yOffset, 16, prefix .. " " .. item.name, r, g, b, 1, UIFont.Small, true)
+                
+                local textW = getTextManager():MeasureStringX(UIFont.Small, displayStr)
+                local lbl = ISLabel:new(20, yOffset, 16, displayStr, r, g, b, 1, UIFont.Small, true)
                 self.detailPanel:addChild(lbl)
+                
+                -- 버튼 노출: recipe_nav_ref ~= nil (오프라인 결정)
+                if itm.recipe_nav_ref then
+                    local btnText = "[" .. tr("Iris_Nav_Go", "\236\157\180\235\143\153") .. "]"  -- "이동" fallback
+                    local goBtn = ISButton:new(20 + textW + 6, yOffset, 30, 16,
+                        btnText, self, IrisBrowser.onRecipeGoToCrafting)
+                    goBtn:initialise()
+                    goBtn.recipe_nav_ref = itm.recipe_nav_ref
+                    goBtn.backgroundColor = {r=0, g=0, b=0, a=0}
+                    goBtn.backgroundColorMouseOver = {r=0.3, g=0.5, b=0.7, a=0.4}
+                    goBtn.borderColor = {r=0.4, g=0.5, b=0.6, a=0.5}
+                    goBtn.textColor = {r=0.5, g=0.8, b=1.0, a=1}
+                    self.detailPanel:addChild(goBtn)
+                end
+                
                 yOffset = yOffset + 16
             end
         end
@@ -804,6 +826,52 @@ function IrisBrowser:showDetail(fullType)
     
     -- 스크롤을 위해 총 콘텐츠 높이 저장 (스크롤 오프셋 빼기 전 기준)
     self.detailContentHeight = yOffset + self.detailScrollY + 20  -- 여유 공간 추가
+end
+
+
+--- 레시피 → 제작 UI 이동 (FAIL-SOFT: 실패 시 조용히 종료)
+function IrisBrowser:onRecipeGoToCrafting(button)
+    local ref = button and button.recipe_nav_ref
+    if not ref then return end
+
+    -- 동적 playerNum (I2)
+    local playerNum = self.playerNum or 0
+    local ok, craftUI = pcall(getPlayerCraftingUI, playerNum)
+    if not ok or not craftUI then return end
+
+    -- 제작 UI 열기
+    pcall(function()
+        if not craftUI:getIsVisible() then
+            craftUI:setVisible(true)
+            craftUI:addToUIManager()
+        end
+        craftUI:bringToTop()
+    end)
+
+    -- 카테고리 탭 이동 (확정 API: ISTabPanel:activateView)
+    -- raw category → 번역된 탭 이름으로 변환
+    if ref.category and craftUI.panel then
+        pcall(function()
+            local tabName = getTextOrNull("IGUI_CraftCategory_" .. ref.category)
+                or ref.category
+            craftUI.panel:activateView(tabName)
+        end)
+    end
+
+    -- 필터에 original_name 설정
+    -- ISCraftingCategoryUI:update()가 다음 프레임에 text 변경 감지 → filter() 자동 호출
+    if ref.original_name and craftUI.panel then
+        pcall(function()
+            local activeView = craftUI.panel:getActiveView()
+            if activeView and activeView.filterEntry then
+                activeView.filterEntry:setText(ref.original_name)
+            end
+            if activeView and activeView.filterAll then
+                activeView.filterAll:setSelected(1, true)
+            end
+        end)
+    end
+    -- 런타임 대체 탐색 절대 금지. pcall 실패 시 조용히 종료.
 end
 
 

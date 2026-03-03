@@ -846,13 +846,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -1917,13 +1917,13 @@
         {
           "use_case_id": "uc.action.construction",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_tooldef_hammer",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -3038,13 +3038,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -4378,13 +4378,13 @@
         {
           "use_case_id": "uc.action.metal_cutting",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_tooldef_blowtorch",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -10782,13 +10782,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -10805,13 +10805,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -13599,7 +13599,7 @@
         {
           "use_case_id": "uc.action.extinguish_fire",
           "surface": "context_menu",
-          "display_strength": "WEAK",
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
@@ -16224,13 +16224,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -17026,13 +17026,13 @@
         {
           "use_case_id": "uc.action.wood_cutting",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_tooldef_saw",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -17283,7 +17283,7 @@
             {
               "source_type": "rightclick",
               "rule_id": "rule_firefighting_isextinguisher",
-              "decision": "NO",
+              "decision": "PASS",
               "strength": "WEAK"
             }
           ],
@@ -18034,7 +18034,7 @@
         {
           "use_case_id": "uc.action.extinguish_fire",
           "surface": "context_menu",
-          "display_strength": "WEAK",
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
@@ -18361,13 +18361,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -18625,13 +18625,13 @@
         {
           "use_case_id": "uc.action.construction",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_tooldef_hammer",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -18648,13 +18648,13 @@
         {
           "use_case_id": "uc.action.construction",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_tooldef_hammer",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -22471,13 +22471,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -23671,13 +23671,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -27787,13 +27787,13 @@
         {
           "use_case_id": "uc.action.wound_suturing",
           "surface": "context_menu",
-          "display_strength": "WEAK",
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_healthpanel_hstitch",
               "decision": "PASS",
-              "strength": "WEAK"
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -28791,7 +28791,7 @@
             {
               "source_type": "rightclick",
               "rule_id": "rule_firefighting_isextinguisher",
-              "decision": "NO",
+              "decision": "PASS",
               "strength": "WEAK"
             }
           ],
@@ -30060,13 +30060,13 @@
         {
           "use_case_id": "uc.action.fuel",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "WEAK",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_worldobject_predicatepetrol",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "WEAK"
             }
           ],
           "uniqueness": {
@@ -30083,13 +30083,13 @@
         {
           "use_case_id": "uc.action.fuel",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "WEAK",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_worldobject_predicatepetrol",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "WEAK"
             }
           ],
           "uniqueness": {
@@ -30106,13 +30106,13 @@
         {
           "use_case_id": "uc.action.fuel",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "WEAK",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_worldobject_predicatepetrol",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "WEAK"
             }
           ],
           "uniqueness": {
@@ -32347,13 +32347,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -32370,13 +32370,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -34682,7 +34682,7 @@
         {
           "use_case_id": "uc.action.extinguish_fire",
           "surface": "context_menu",
-          "display_strength": "WEAK",
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
@@ -34804,13 +34804,13 @@
         {
           "use_case_id": "uc.action.wood_cutting",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_tooldef_saw",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -35050,13 +35050,13 @@
         {
           "use_case_id": "uc.action.screw_disassembly",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_tooldef_screwdriver",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -37181,13 +37181,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -39081,13 +39081,13 @@
         {
           "use_case_id": "uc.action.wound_suturing",
           "surface": "context_menu",
-          "display_strength": "WEAK",
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_healthpanel_hstitch",
               "decision": "PASS",
-              "strength": "WEAK"
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -39104,19 +39104,19 @@
         {
           "use_case_id": "uc.action.foreign_body_removal",
           "surface": "context_menu",
-          "display_strength": "WEAK",
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_healthpanel_hremovebullet",
               "decision": "PASS",
-              "strength": "WEAK"
+              "strength": "STRONG"
             },
             {
               "source_type": "rightclick",
               "rule_id": "rule_healthpanel_hremoveglass",
               "decision": "PASS",
-              "strength": "WEAK"
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -39662,13 +39662,13 @@
         {
           "use_case_id": "uc.action.wound_suturing",
           "surface": "context_menu",
-          "display_strength": "WEAK",
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_healthpanel_hstitch",
               "decision": "PASS",
-              "strength": "WEAK"
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -42321,19 +42321,19 @@
         {
           "use_case_id": "uc.action.foreign_body_removal",
           "surface": "context_menu",
-          "display_strength": "WEAK",
+          "display_strength": "STRONG",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_healthpanel_hremovebullet",
               "decision": "PASS",
-              "strength": "WEAK"
+              "strength": "STRONG"
             },
             {
               "source_type": "rightclick",
               "rule_id": "rule_healthpanel_hremoveglass",
               "decision": "PASS",
-              "strength": "WEAK"
+              "strength": "STRONG"
             }
           ],
           "uniqueness": {
@@ -43482,13 +43482,13 @@
         {
           "use_case_id": "uc.action.fuel",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "WEAK",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_worldobject_predicatepetrol",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "WEAK"
             }
           ],
           "uniqueness": {
@@ -44499,13 +44499,13 @@
         {
           "use_case_id": "uc.action.fuel",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "WEAK",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_worldobject_predicatepetrol",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "WEAK"
             }
           ],
           "uniqueness": {
@@ -44904,13 +44904,13 @@
         {
           "use_case_id": "uc.action.fuel",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "WEAK",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_worldobject_predicatepetrol",
-              "decision": "REVIEW",
-              "strength": null
+              "decision": "PASS",
+              "strength": "WEAK"
             }
           ],
           "uniqueness": {
@@ -48136,13 +48136,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -48159,13 +48159,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {
@@ -48182,13 +48182,13 @@
         {
           "use_case_id": "uc.action.attach_weapon_part",
           "surface": "context_menu",
-          "display_strength": null,
+          "display_strength": "EXCLUDE",
           "evidence_sources": [
             {
               "source_type": "rightclick",
               "rule_id": "rule_inventorypane_weaponpart",
-              "decision": "NO",
-              "strength": null
+              "decision": "PASS",
+              "strength": "EXCLUDE"
             }
           ],
           "uniqueness": {

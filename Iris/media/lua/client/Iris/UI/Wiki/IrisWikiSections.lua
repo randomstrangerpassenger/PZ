@@ -475,6 +475,25 @@ end
 local function renderUseCaseLine(lineObj)
     ensureUseCaseDeps()
 
+    -- 1순위: Python 빌드 파이프라인에서 이미 렌더링된 '[표면] (텍스트)' 문자열 우선
+    if lineObj.display_text then
+        local displayStr = lineObj.display_text
+        -- strength가 존재하고 필요하다면 후행 처리(선택)
+        local strengthStr = ""
+        local uniquenessStr = ""
+        if lineObj.strength and IrisUseCaseLabelMap then
+            local lang = "EN"
+            if IrisTranslationLoader and IrisTranslationLoader.getLangKey then
+                lang = IrisTranslationLoader.getLangKey()
+            end
+            local strMapKey = "STRENGTH_" .. lang
+            local strMap = IrisUseCaseLabelMap[strMapKey] or IrisUseCaseLabelMap.STRENGTH_EN or {}
+            strengthStr = strMap[lineObj.strength] or ""
+        end
+        return "- " .. displayStr .. strengthStr
+    end
+
+    -- 2순위: 레거시 label_key 및 속성 개별 결합 처리
     local label = lineObj.label_key or "?"
     local surface = lineObj.surface or "context_menu"
     local strength = lineObj.strength

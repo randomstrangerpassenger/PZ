@@ -1,0 +1,1938 @@
+{
+  "entries": {
+    "uc.recipe.add_crafted_trigger": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Crafted Trigger",
+      "recipe_id": "uc.recipe.add_crafted_trigger"
+    },
+    "uc.recipe.add_motion_sensor_v1": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Motion Sensor V1",
+      "recipe_id": "uc.recipe.add_motion_sensor_v1"
+    },
+    "uc.recipe.add_motion_sensor_v2": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Motion Sensor V2",
+      "recipe_id": "uc.recipe.add_motion_sensor_v2"
+    },
+    "uc.recipe.add_motion_sensor_v3": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Motion Sensor V3",
+      "recipe_id": "uc.recipe.add_motion_sensor_v3"
+    },
+    "uc.recipe.add_timer": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Timer",
+      "recipe_id": "uc.recipe.add_timer"
+    },
+    "uc.recipe.attach_bread_knife_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Bread Knife to Spear",
+      "recipe_id": "uc.recipe.attach_bread_knife_to_spear"
+    },
+    "uc.recipe.attach_butter_knife_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Butter Knife to Spear",
+      "recipe_id": "uc.recipe.attach_butter_knife_to_spear"
+    },
+    "uc.recipe.attach_fork_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Fork to Spear",
+      "recipe_id": "uc.recipe.attach_fork_to_spear"
+    },
+    "uc.recipe.attach_hand_fork_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Hand Fork to Spear",
+      "recipe_id": "uc.recipe.attach_hand_fork_to_spear"
+    },
+    "uc.recipe.attach_hunting_knife_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Hunting Knife to Spear",
+      "recipe_id": "uc.recipe.attach_hunting_knife_to_spear"
+    },
+    "uc.recipe.attach_ice_pick_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Ice Pick to Spear",
+      "recipe_id": "uc.recipe.attach_ice_pick_to_spear"
+    },
+    "uc.recipe.attach_kitchen_knife_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Kitchen Knife to Spear",
+      "recipe_id": "uc.recipe.attach_kitchen_knife_to_spear"
+    },
+    "uc.recipe.attach_letter_opener_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Letter Opener to Spear",
+      "recipe_id": "uc.recipe.attach_letter_opener_to_spear"
+    },
+    "uc.recipe.attach_machete_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Machete to Spear",
+      "recipe_id": "uc.recipe.attach_machete_to_spear"
+    },
+    "uc.recipe.attach_scalpel_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Scalpel to Spear",
+      "recipe_id": "uc.recipe.attach_scalpel_to_spear"
+    },
+    "uc.recipe.attach_scissors_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Scissors to Spear",
+      "recipe_id": "uc.recipe.attach_scissors_to_spear"
+    },
+    "uc.recipe.attach_screwdriver_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Screwdriver to Spear",
+      "recipe_id": "uc.recipe.attach_screwdriver_to_spear"
+    },
+    "uc.recipe.attach_spoon_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Spoon to Spear",
+      "recipe_id": "uc.recipe.attach_spoon_to_spear"
+    },
+    "uc.recipe.build_drawer": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Build Drawer",
+      "recipe_id": "uc.recipe.build_drawer"
+    },
+    "uc.recipe.build_spiked_baseball_bat": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Build Spiked Baseball Bat",
+      "recipe_id": "uc.recipe.build_spiked_baseball_bat"
+    },
+    "uc.recipe.build_spiked_plank": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Build Spiked Plank",
+      "recipe_id": "uc.recipe.build_spiked_plank"
+    },
+    "uc.recipe.butcher_bird": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Butcher Bird",
+      "recipe_id": "uc.recipe.butcher_bird"
+    },
+    "uc.recipe.butcher_rabbit": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Butcher Rabbit",
+      "recipe_id": "uc.recipe.butcher_rabbit"
+    },
+    "uc.recipe.butcher_small_animal": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Butcher Small Animal",
+      "recipe_id": "uc.recipe.butcher_small_animal"
+    },
+    "uc.recipe.clean_bandage": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Clean Bandage",
+      "recipe_id": "uc.recipe.clean_bandage"
+    },
+    "uc.recipe.clean_denim_strips": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Clean Denim Strips",
+      "recipe_id": "uc.recipe.clean_denim_strips"
+    },
+    "uc.recipe.clean_leather_strips": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Clean Leather Strips",
+      "recipe_id": "uc.recipe.clean_leather_strips"
+    },
+    "uc.recipe.clean_rag": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Clean Rag",
+      "recipe_id": "uc.recipe.clean_rag"
+    },
+    "uc.recipe.clean_tray": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Clean Tray",
+      "recipe_id": "uc.recipe.clean_tray"
+    },
+    "uc.recipe.close_umbrella": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Close Umbrella",
+      "recipe_id": "uc.recipe.close_umbrella"
+    },
+    "uc.recipe.craft_makeshift_ham_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Craft Makeshift HAM Radio",
+      "recipe_id": "uc.recipe.craft_makeshift_ham_radio"
+    },
+    "uc.recipe.craft_makeshift_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Craft Makeshift Radio",
+      "recipe_id": "uc.recipe.craft_makeshift_radio"
+    },
+    "uc.recipe.craft_makeshift_walkie_talkie": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Craft Makeshift Walkie Talkie",
+      "recipe_id": "uc.recipe.craft_makeshift_walkie_talkie"
+    },
+    "uc.recipe.create_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Create Spear",
+      "recipe_id": "uc.recipe.create_spear"
+    },
+    "uc.recipe.disinfect_bandage": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Disinfect Bandage",
+      "recipe_id": "uc.recipe.disinfect_bandage"
+    },
+    "uc.recipe.disinfect_rag": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Disinfect Rag",
+      "recipe_id": "uc.recipe.disinfect_rag"
+    },
+    "uc.recipe.dismantle_cd_player": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle CD Player",
+      "recipe_id": "uc.recipe.dismantle_cd_player"
+    },
+    "uc.recipe.dismantle_cordless_phone": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Cordless Phone",
+      "recipe_id": "uc.recipe.dismantle_cordless_phone"
+    },
+    "uc.recipe.dismantle_earbuds": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Earbuds",
+      "recipe_id": "uc.recipe.dismantle_earbuds"
+    },
+    "uc.recipe.dismantle_flashlight": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Flashlight",
+      "recipe_id": "uc.recipe.dismantle_flashlight"
+    },
+    "uc.recipe.dismantle_ham_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle HAM Radio",
+      "recipe_id": "uc.recipe.dismantle_ham_radio"
+    },
+    "uc.recipe.dismantle_headphones": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Headphones",
+      "recipe_id": "uc.recipe.dismantle_headphones"
+    },
+    "uc.recipe.dismantle_home_alarm": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Home Alarm",
+      "recipe_id": "uc.recipe.dismantle_home_alarm"
+    },
+    "uc.recipe.dismantle_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Radio",
+      "recipe_id": "uc.recipe.dismantle_radio"
+    },
+    "uc.recipe.dismantle_speaker": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Speaker",
+      "recipe_id": "uc.recipe.dismantle_speaker"
+    },
+    "uc.recipe.dismantle_television": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Television",
+      "recipe_id": "uc.recipe.dismantle_television"
+    },
+    "uc.recipe.dismantle_tv_remote": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle TV Remote",
+      "recipe_id": "uc.recipe.dismantle_tv_remote"
+    },
+    "uc.recipe.dismantle_two_way_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Two-way Radio",
+      "recipe_id": "uc.recipe.dismantle_two_way_radio"
+    },
+    "uc.recipe.dismantle_video_game": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Video Game",
+      "recipe_id": "uc.recipe.dismantle_video_game"
+    },
+    "uc.recipe.douse_cotton_in_alcohol": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Douse Cotton in Alcohol",
+      "recipe_id": "uc.recipe.douse_cotton_in_alcohol"
+    },
+    "uc.recipe.drill_plank": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Drill Plank",
+      "recipe_id": "uc.recipe.drill_plank"
+    },
+    "uc.recipe.empty_baking_tray": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Empty Baking Tray",
+      "recipe_id": "uc.recipe.empty_baking_tray"
+    },
+    "uc.recipe.empty_frying_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Empty Frying Pan",
+      "recipe_id": "uc.recipe.empty_frying_pan"
+    },
+    "uc.recipe.empty_griddle_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Empty Griddle Pan",
+      "recipe_id": "uc.recipe.empty_griddle_pan"
+    },
+    "uc.recipe.empty_roasting_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Empty Roasting Pan",
+      "recipe_id": "uc.recipe.empty_roasting_pan"
+    },
+    "uc.recipe.extinguish_candle": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Extinguish Candle",
+      "recipe_id": "uc.recipe.extinguish_candle"
+    },
+    "uc.recipe.fix_fishing_rod": {
+      "category": "Fishing",
+      "nav_eligible": true,
+      "original_name": "Fix Fishing Rod",
+      "recipe_id": "uc.recipe.fix_fishing_rod"
+    },
+    "uc.recipe.gather_gunpowder": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Gather Gunpowder",
+      "recipe_id": "uc.recipe.gather_gunpowder"
+    },
+    "uc.recipe.get_6_biscuits": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get 6 Biscuits",
+      "recipe_id": "uc.recipe.get_6_biscuits"
+    },
+    "uc.recipe.get_6_cookies": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get 6 Cookies",
+      "recipe_id": "uc.recipe.get_6_cookies"
+    },
+    "uc.recipe.get_6_muffins": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get 6 Muffins",
+      "recipe_id": "uc.recipe.get_6_muffins"
+    },
+    "uc.recipe.get_bacon_bits": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get Bacon Bits",
+      "recipe_id": "uc.recipe.get_bacon_bits"
+    },
+    "uc.recipe.get_bacon_rashers": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get Bacon Rashers",
+      "recipe_id": "uc.recipe.get_bacon_rashers"
+    },
+    "uc.recipe.get_wire_back": {
+      "category": "Fishing",
+      "nav_eligible": true,
+      "original_name": "Get Wire Back",
+      "recipe_id": "uc.recipe.get_wire_back"
+    },
+    "uc.recipe.hockeymasksmashbottle": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "HockeyMaskSmashBottle",
+      "recipe_id": "uc.recipe.hockeymasksmashbottle"
+    },
+    "uc.recipe.insert_battery_into_duck": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Insert Battery into Duck",
+      "recipe_id": "uc.recipe.insert_battery_into_duck"
+    },
+    "uc.recipe.insert_battery_into_flashlight": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Insert Battery into Flashlight",
+      "recipe_id": "uc.recipe.insert_battery_into_flashlight"
+    },
+    "uc.recipe.light_candle": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Light Candle",
+      "recipe_id": "uc.recipe.light_candle"
+    },
+    "uc.recipe.make_223_bullets": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make 223 Bullets",
+      "recipe_id": "uc.recipe.make_223_bullets"
+    },
+    "uc.recipe.make_223_bullets_mold": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make 223 Bullets Mold",
+      "recipe_id": "uc.recipe.make_223_bullets_mold"
+    },
+    "uc.recipe.make_2_bowls_of_pasta": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 2 Bowls of Pasta",
+      "recipe_id": "uc.recipe.make_2_bowls_of_pasta"
+    },
+    "uc.recipe.make_2_bowls_of_rice": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 2 Bowls of Rice",
+      "recipe_id": "uc.recipe.make_2_bowls_of_rice"
+    },
+    "uc.recipe.make_2_bowls_of_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 2 Bowls of Soup",
+      "recipe_id": "uc.recipe.make_2_bowls_of_soup"
+    },
+    "uc.recipe.make_2_bowls_of_stew": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 2 Bowls of Stew",
+      "recipe_id": "uc.recipe.make_2_bowls_of_stew"
+    },
+    "uc.recipe.make_308_bullets": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make 308 Bullets",
+      "recipe_id": "uc.recipe.make_308_bullets"
+    },
+    "uc.recipe.make_308_bullets_mold": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make 308 Bullets Mold",
+      "recipe_id": "uc.recipe.make_308_bullets_mold"
+    },
+    "uc.recipe.make_4_bowls_of_pasta": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 4 Bowls of Pasta",
+      "recipe_id": "uc.recipe.make_4_bowls_of_pasta"
+    },
+    "uc.recipe.make_4_bowls_of_rice": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 4 Bowls of Rice",
+      "recipe_id": "uc.recipe.make_4_bowls_of_rice"
+    },
+    "uc.recipe.make_4_bowls_of_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 4 Bowls of Soup",
+      "recipe_id": "uc.recipe.make_4_bowls_of_soup"
+    },
+    "uc.recipe.make_4_bowls_of_stew": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 4 Bowls of Stew",
+      "recipe_id": "uc.recipe.make_4_bowls_of_stew"
+    },
+    "uc.recipe.make_9mm_bullets": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make 9mm Bullets",
+      "recipe_id": "uc.recipe.make_9mm_bullets"
+    },
+    "uc.recipe.make_9mm_bullets_mold": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make 9mm Bullets Mold",
+      "recipe_id": "uc.recipe.make_9mm_bullets_mold"
+    },
+    "uc.recipe.make_aerosol_bomb": {
+      "category": "Engineer",
+      "nav_eligible": false,
+      "original_name": "Make Aerosol bomb",
+      "recipe_id": "uc.recipe.make_aerosol_bomb"
+    },
+    "uc.recipe.make_axe": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Axe",
+      "recipe_id": "uc.recipe.make_axe"
+    },
+    "uc.recipe.make_baking_pan": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Baking Pan",
+      "recipe_id": "uc.recipe.make_baking_pan"
+    },
+    "uc.recipe.make_baking_tray": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Baking Tray",
+      "recipe_id": "uc.recipe.make_baking_tray"
+    },
+    "uc.recipe.make_ball_peen_hammer": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Ball Peen Hammer",
+      "recipe_id": "uc.recipe.make_ball_peen_hammer"
+    },
+    "uc.recipe.make_biscuits": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Biscuits",
+      "recipe_id": "uc.recipe.make_biscuits"
+    },
+    "uc.recipe.make_bowl_of_beans": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Bowl of Beans",
+      "recipe_id": "uc.recipe.make_bowl_of_beans"
+    },
+    "uc.recipe.make_bowl_of_cereal": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Bowl of Cereal",
+      "recipe_id": "uc.recipe.make_bowl_of_cereal"
+    },
+    "uc.recipe.make_bowl_of_oatmeal": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Bowl of Oatmeal",
+      "recipe_id": "uc.recipe.make_bowl_of_oatmeal"
+    },
+    "uc.recipe.make_bread_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Bread Dough",
+      "recipe_id": "uc.recipe.make_bread_dough"
+    },
+    "uc.recipe.make_bucket_of_plaster": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Bucket of Plaster",
+      "recipe_id": "uc.recipe.make_bucket_of_plaster"
+    },
+    "uc.recipe.make_butter_knife": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Butter Knife",
+      "recipe_id": "uc.recipe.make_butter_knife"
+    },
+    "uc.recipe.make_cage_trap": {
+      "category": "Trapper",
+      "nav_eligible": false,
+      "original_name": "Make Cage Trap",
+      "recipe_id": "uc.recipe.make_cage_trap"
+    },
+    "uc.recipe.make_cake_batter": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Cake Batter",
+      "recipe_id": "uc.recipe.make_cake_batter"
+    },
+    "uc.recipe.make_campfire_kit": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Campfire Kit",
+      "recipe_id": "uc.recipe.make_campfire_kit"
+    },
+    "uc.recipe.make_cheese_sandwich": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Cheese Sandwich",
+      "recipe_id": "uc.recipe.make_cheese_sandwich"
+    },
+    "uc.recipe.make_chocolate_chip_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Chocolate Chip Cookie Dough",
+      "recipe_id": "uc.recipe.make_chocolate_chip_cookie_dough"
+    },
+    "uc.recipe.make_chocolate_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Chocolate Cookie Dough",
+      "recipe_id": "uc.recipe.make_chocolate_cookie_dough"
+    },
+    "uc.recipe.make_comfrey_poultice": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Make Comfrey Poultice",
+      "recipe_id": "uc.recipe.make_comfrey_poultice"
+    },
+    "uc.recipe.make_cooking_pot": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Cooking Pot",
+      "recipe_id": "uc.recipe.make_cooking_pot"
+    },
+    "uc.recipe.make_crowbar": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Crowbar",
+      "recipe_id": "uc.recipe.make_crowbar"
+    },
+    "uc.recipe.make_door_knob": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Door Knob",
+      "recipe_id": "uc.recipe.make_door_knob"
+    },
+    "uc.recipe.make_fishing_net": {
+      "category": "Fishing",
+      "nav_eligible": true,
+      "original_name": "Make Fishing Net",
+      "recipe_id": "uc.recipe.make_fishing_net"
+    },
+    "uc.recipe.make_fishing_rod": {
+      "category": "Fishing",
+      "nav_eligible": true,
+      "original_name": "Make Fishing Rod",
+      "recipe_id": "uc.recipe.make_fishing_rod"
+    },
+    "uc.recipe.make_flame_bomb": {
+      "category": "Engineer",
+      "nav_eligible": false,
+      "original_name": "Make Flame bomb",
+      "recipe_id": "uc.recipe.make_flame_bomb"
+    },
+    "uc.recipe.make_flies_cure": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Make Flies Cure",
+      "recipe_id": "uc.recipe.make_flies_cure"
+    },
+    "uc.recipe.make_fork": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Fork",
+      "recipe_id": "uc.recipe.make_fork"
+    },
+    "uc.recipe.make_four_log_stack": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Four-Log Stack",
+      "recipe_id": "uc.recipe.make_four_log_stack"
+    },
+    "uc.recipe.make_fried_onion_rings": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Fried Onion Rings",
+      "recipe_id": "uc.recipe.make_fried_onion_rings"
+    },
+    "uc.recipe.make_fried_shrimp": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Fried Shrimp",
+      "recipe_id": "uc.recipe.make_fried_shrimp"
+    },
+    "uc.recipe.make_golfclub": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Golfclub",
+      "recipe_id": "uc.recipe.make_golfclub"
+    },
+    "uc.recipe.make_gravy": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Gravy",
+      "recipe_id": "uc.recipe.make_gravy"
+    },
+    "uc.recipe.make_halloween_pumpkin": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Halloween Pumpkin",
+      "recipe_id": "uc.recipe.make_halloween_pumpkin"
+    },
+    "uc.recipe.make_hammer": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Hammer",
+      "recipe_id": "uc.recipe.make_hammer"
+    },
+    "uc.recipe.make_hand_shovel": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Hand Shovel",
+      "recipe_id": "uc.recipe.make_hand_shovel"
+    },
+    "uc.recipe.make_hinge": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Hinge",
+      "recipe_id": "uc.recipe.make_hinge"
+    },
+    "uc.recipe.make_hunting_knife": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Hunting Knife",
+      "recipe_id": "uc.recipe.make_hunting_knife"
+    },
+    "uc.recipe.make_jar_of_bell_peppers": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Bell Peppers",
+      "recipe_id": "uc.recipe.make_jar_of_bell_peppers"
+    },
+    "uc.recipe.make_jar_of_broccoli": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Broccoli",
+      "recipe_id": "uc.recipe.make_jar_of_broccoli"
+    },
+    "uc.recipe.make_jar_of_cabbage": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Cabbage",
+      "recipe_id": "uc.recipe.make_jar_of_cabbage"
+    },
+    "uc.recipe.make_jar_of_carrots": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Carrots",
+      "recipe_id": "uc.recipe.make_jar_of_carrots"
+    },
+    "uc.recipe.make_jar_of_eggplants": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Eggplants",
+      "recipe_id": "uc.recipe.make_jar_of_eggplants"
+    },
+    "uc.recipe.make_jar_of_leeks": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Leeks",
+      "recipe_id": "uc.recipe.make_jar_of_leeks"
+    },
+    "uc.recipe.make_jar_of_potatoes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Potatoes",
+      "recipe_id": "uc.recipe.make_jar_of_potatoes"
+    },
+    "uc.recipe.make_jar_of_red_radishes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Red Radishes",
+      "recipe_id": "uc.recipe.make_jar_of_red_radishes"
+    },
+    "uc.recipe.make_jar_of_tomatoes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Tomatoes",
+      "recipe_id": "uc.recipe.make_jar_of_tomatoes"
+    },
+    "uc.recipe.make_kitchen_knife": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Kitchen Knife",
+      "recipe_id": "uc.recipe.make_kitchen_knife"
+    },
+    "uc.recipe.make_letter_opener": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Letter Opener",
+      "recipe_id": "uc.recipe.make_letter_opener"
+    },
+    "uc.recipe.make_maki": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Maki",
+      "recipe_id": "uc.recipe.make_maki"
+    },
+    "uc.recipe.make_mattress": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Mattress",
+      "recipe_id": "uc.recipe.make_mattress"
+    },
+    "uc.recipe.make_meat_patty": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Meat Patty",
+      "recipe_id": "uc.recipe.make_meat_patty"
+    },
+    "uc.recipe.make_metal_bar": {
+      "category": "Welding",
+      "nav_eligible": false,
+      "original_name": "Make Metal Bar",
+      "recipe_id": "uc.recipe.make_metal_bar"
+    },
+    "uc.recipe.make_metal_drum": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Metal Drum",
+      "recipe_id": "uc.recipe.make_metal_drum"
+    },
+    "uc.recipe.make_metal_pipe": {
+      "category": "Welding",
+      "nav_eligible": false,
+      "original_name": "Make Metal Pipe",
+      "recipe_id": "uc.recipe.make_metal_pipe"
+    },
+    "uc.recipe.make_metal_sheet": {
+      "category": "Welding",
+      "nav_eligible": false,
+      "original_name": "Make Metal Sheet",
+      "recipe_id": "uc.recipe.make_metal_sheet"
+    },
+    "uc.recipe.make_mildew_cure": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Make Mildew Cure",
+      "recipe_id": "uc.recipe.make_mildew_cure"
+    },
+    "uc.recipe.make_molotov_cocktail": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Make Molotov Cocktail",
+      "recipe_id": "uc.recipe.make_molotov_cocktail"
+    },
+    "uc.recipe.make_mortar_and_pestle": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Mortar and Pestle",
+      "recipe_id": "uc.recipe.make_mortar_and_pestle"
+    },
+    "uc.recipe.make_nails": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Nails",
+      "recipe_id": "uc.recipe.make_nails"
+    },
+    "uc.recipe.make_newspaper_hat": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Make Newspaper Hat",
+      "recipe_id": "uc.recipe.make_newspaper_hat"
+    },
+    "uc.recipe.make_noise_maker": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Noise Maker",
+      "recipe_id": "uc.recipe.make_noise_maker"
+    },
+    "uc.recipe.make_oatmeal_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Oatmeal Cookie Dough",
+      "recipe_id": "uc.recipe.make_oatmeal_cookie_dough"
+    },
+    "uc.recipe.make_onigiri": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Onigiri",
+      "recipe_id": "uc.recipe.make_onigiri"
+    },
+    "uc.recipe.make_pan": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Pan",
+      "recipe_id": "uc.recipe.make_pan"
+    },
+    "uc.recipe.make_pancake": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Pancake",
+      "recipe_id": "uc.recipe.make_pancake"
+    },
+    "uc.recipe.make_paperclips": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Paperclips",
+      "recipe_id": "uc.recipe.make_paperclips"
+    },
+    "uc.recipe.make_pie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Pie Dough",
+      "recipe_id": "uc.recipe.make_pie_dough"
+    },
+    "uc.recipe.make_pipe_bomb": {
+      "category": "Engineer",
+      "nav_eligible": false,
+      "original_name": "Make Pipe bomb",
+      "recipe_id": "uc.recipe.make_pipe_bomb"
+    },
+    "uc.recipe.make_pizza": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Pizza",
+      "recipe_id": "uc.recipe.make_pizza"
+    },
+    "uc.recipe.make_plantain_poultice": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Make Plantain Poultice",
+      "recipe_id": "uc.recipe.make_plantain_poultice"
+    },
+    "uc.recipe.make_pot_of_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Pot of Soup",
+      "recipe_id": "uc.recipe.make_pot_of_soup"
+    },
+    "uc.recipe.make_remote_controller_v1": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Remote Controller V1",
+      "recipe_id": "uc.recipe.make_remote_controller_v1"
+    },
+    "uc.recipe.make_remote_controller_v2": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Remote Controller V2",
+      "recipe_id": "uc.recipe.make_remote_controller_v2"
+    },
+    "uc.recipe.make_remote_controller_v3": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Remote Controller V3",
+      "recipe_id": "uc.recipe.make_remote_controller_v3"
+    },
+    "uc.recipe.make_remote_trigger": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Remote Trigger",
+      "recipe_id": "uc.recipe.make_remote_trigger"
+    },
+    "uc.recipe.make_roasting_pan": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Roasting Pan",
+      "recipe_id": "uc.recipe.make_roasting_pan"
+    },
+    "uc.recipe.make_saucepan": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Saucepan",
+      "recipe_id": "uc.recipe.make_saucepan"
+    },
+    "uc.recipe.make_saw": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Saw",
+      "recipe_id": "uc.recipe.make_saw"
+    },
+    "uc.recipe.make_scissors": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Scissors",
+      "recipe_id": "uc.recipe.make_scissors"
+    },
+    "uc.recipe.make_sheet_metal": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Sheet Metal",
+      "recipe_id": "uc.recipe.make_sheet_metal"
+    },
+    "uc.recipe.make_shortbread_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Shortbread Cookie Dough",
+      "recipe_id": "uc.recipe.make_shortbread_cookie_dough"
+    },
+    "uc.recipe.make_shotgun_shells": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Shotgun Shells",
+      "recipe_id": "uc.recipe.make_shotgun_shells"
+    },
+    "uc.recipe.make_shotgun_shells_mold": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Shotgun Shells Mold",
+      "recipe_id": "uc.recipe.make_shotgun_shells_mold"
+    },
+    "uc.recipe.make_shovel": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Shovel",
+      "recipe_id": "uc.recipe.make_shovel"
+    },
+    "uc.recipe.make_sledgehammer": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Sledgehammer",
+      "recipe_id": "uc.recipe.make_sledgehammer"
+    },
+    "uc.recipe.make_small_metal_sheet": {
+      "category": "Welding",
+      "nav_eligible": false,
+      "original_name": "Make Small Metal Sheet",
+      "recipe_id": "uc.recipe.make_small_metal_sheet"
+    },
+    "uc.recipe.make_smoke_bomb": {
+      "category": "Engineer",
+      "nav_eligible": false,
+      "original_name": "Make Smoke Bomb",
+      "recipe_id": "uc.recipe.make_smoke_bomb"
+    },
+    "uc.recipe.make_snare_trap": {
+      "category": "Trapper",
+      "nav_eligible": false,
+      "original_name": "Make Snare Trap",
+      "recipe_id": "uc.recipe.make_snare_trap"
+    },
+    "uc.recipe.make_splint": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Make Splint",
+      "recipe_id": "uc.recipe.make_splint"
+    },
+    "uc.recipe.make_spoon": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Spoon",
+      "recipe_id": "uc.recipe.make_spoon"
+    },
+    "uc.recipe.make_squid_calamari": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Squid Calamari",
+      "recipe_id": "uc.recipe.make_squid_calamari"
+    },
+    "uc.recipe.make_stake": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Stake",
+      "recipe_id": "uc.recipe.make_stake"
+    },
+    "uc.recipe.make_stick_trap": {
+      "category": "Trapper",
+      "nav_eligible": false,
+      "original_name": "Make Stick Trap",
+      "recipe_id": "uc.recipe.make_stick_trap"
+    },
+    "uc.recipe.make_stone_axe": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Stone Axe",
+      "recipe_id": "uc.recipe.make_stone_axe"
+    },
+    "uc.recipe.make_stone_hammer": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Stone Hammer",
+      "recipe_id": "uc.recipe.make_stone_hammer"
+    },
+    "uc.recipe.make_stone_knife": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Stone Knife",
+      "recipe_id": "uc.recipe.make_stone_knife"
+    },
+    "uc.recipe.make_sturdy_stick": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Make Sturdy Stick",
+      "recipe_id": "uc.recipe.make_sturdy_stick"
+    },
+    "uc.recipe.make_sugar_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Sugar Cookie Dough",
+      "recipe_id": "uc.recipe.make_sugar_cookie_dough"
+    },
+    "uc.recipe.make_suture_needle": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Suture Needle",
+      "recipe_id": "uc.recipe.make_suture_needle"
+    },
+    "uc.recipe.make_suture_needle_holder": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Suture Needle Holder",
+      "recipe_id": "uc.recipe.make_suture_needle_holder"
+    },
+    "uc.recipe.make_tent_kit": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Tent Kit",
+      "recipe_id": "uc.recipe.make_tent_kit"
+    },
+    "uc.recipe.make_three_log_stack": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Three-Log Stack",
+      "recipe_id": "uc.recipe.make_three_log_stack"
+    },
+    "uc.recipe.make_timer": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Timer",
+      "recipe_id": "uc.recipe.make_timer"
+    },
+    "uc.recipe.make_tin_foil_hat": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Make Tin Foil Hat",
+      "recipe_id": "uc.recipe.make_tin_foil_hat"
+    },
+    "uc.recipe.make_tongs": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Tongs",
+      "recipe_id": "uc.recipe.make_tongs"
+    },
+    "uc.recipe.make_trap_box": {
+      "category": "Trapper",
+      "nav_eligible": false,
+      "original_name": "Make Trap Box",
+      "recipe_id": "uc.recipe.make_trap_box"
+    },
+    "uc.recipe.make_tweezers": {
+      "category": "Smithing",
+      "nav_eligible": false,
+      "original_name": "Make Tweezers",
+      "recipe_id": "uc.recipe.make_tweezers"
+    },
+    "uc.recipe.make_two_log_stack": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Two-Log Stack",
+      "recipe_id": "uc.recipe.make_two_log_stack"
+    },
+    "uc.recipe.make_wild_garlic_poultice": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Make Wild Garlic Poultice",
+      "recipe_id": "uc.recipe.make_wild_garlic_poultice"
+    },
+    "uc.recipe.make_wooden_box_trap": {
+      "category": "Trapper",
+      "nav_eligible": false,
+      "original_name": "Make Wooden Box Trap",
+      "recipe_id": "uc.recipe.make_wooden_box_trap"
+    },
+    "uc.recipe.open_box_of_223_ammo": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of .223 Ammo",
+      "recipe_id": "uc.recipe.open_box_of_223_ammo"
+    },
+    "uc.recipe.open_box_of_308_ammo": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of .308 Ammo",
+      "recipe_id": "uc.recipe.open_box_of_308_ammo"
+    },
+    "uc.recipe.open_box_of_38_special_bullets": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of .38 Special Bullets",
+      "recipe_id": "uc.recipe.open_box_of_38_special_bullets"
+    },
+    "uc.recipe.open_box_of_44_magnum_bullets": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of .44 Magnum Bullets",
+      "recipe_id": "uc.recipe.open_box_of_44_magnum_bullets"
+    },
+    "uc.recipe.open_box_of_45_auto_bullets": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of .45 Auto Bullets",
+      "recipe_id": "uc.recipe.open_box_of_45_auto_bullets"
+    },
+    "uc.recipe.open_box_of_556_ammo": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of .556 Ammo",
+      "recipe_id": "uc.recipe.open_box_of_556_ammo"
+    },
+    "uc.recipe.open_box_of_9mm_bullets": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of 9mm Bullets",
+      "recipe_id": "uc.recipe.open_box_of_9mm_bullets"
+    },
+    "uc.recipe.open_box_of_jars": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of Jars",
+      "recipe_id": "uc.recipe.open_box_of_jars"
+    },
+    "uc.recipe.open_box_of_nails": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of Nails",
+      "recipe_id": "uc.recipe.open_box_of_nails"
+    },
+    "uc.recipe.open_box_of_paperclip": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of Paperclip",
+      "recipe_id": "uc.recipe.open_box_of_paperclip"
+    },
+    "uc.recipe.open_box_of_screws": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of Screws",
+      "recipe_id": "uc.recipe.open_box_of_screws"
+    },
+    "uc.recipe.open_box_of_shotgun_shells": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Box of Shotgun Shells",
+      "recipe_id": "uc.recipe.open_box_of_shotgun_shells"
+    },
+    "uc.recipe.open_candy_package": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Candy Package",
+      "recipe_id": "uc.recipe.open_candy_package"
+    },
+    "uc.recipe.open_canned_beans": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Beans",
+      "recipe_id": "uc.recipe.open_canned_beans"
+    },
+    "uc.recipe.open_canned_bolognese": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Bolognese",
+      "recipe_id": "uc.recipe.open_canned_bolognese"
+    },
+    "uc.recipe.open_canned_carrots": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Carrots",
+      "recipe_id": "uc.recipe.open_canned_carrots"
+    },
+    "uc.recipe.open_canned_chili": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Chili",
+      "recipe_id": "uc.recipe.open_canned_chili"
+    },
+    "uc.recipe.open_canned_corn": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Corn",
+      "recipe_id": "uc.recipe.open_canned_corn"
+    },
+    "uc.recipe.open_canned_corned_beef": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Corned Beef",
+      "recipe_id": "uc.recipe.open_canned_corned_beef"
+    },
+    "uc.recipe.open_canned_fruit_beverage": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Fruit Beverage",
+      "recipe_id": "uc.recipe.open_canned_fruit_beverage"
+    },
+    "uc.recipe.open_canned_fruit_cocktail": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Fruit Cocktail",
+      "recipe_id": "uc.recipe.open_canned_fruit_cocktail"
+    },
+    "uc.recipe.open_canned_mushroom_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Mushroom Soup",
+      "recipe_id": "uc.recipe.open_canned_mushroom_soup"
+    },
+    "uc.recipe.open_canned_peaches": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Peaches",
+      "recipe_id": "uc.recipe.open_canned_peaches"
+    },
+    "uc.recipe.open_canned_peas": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Peas",
+      "recipe_id": "uc.recipe.open_canned_peas"
+    },
+    "uc.recipe.open_canned_pineapple": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Pineapple",
+      "recipe_id": "uc.recipe.open_canned_pineapple"
+    },
+    "uc.recipe.open_canned_potato": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Potato",
+      "recipe_id": "uc.recipe.open_canned_potato"
+    },
+    "uc.recipe.open_canned_sardines": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Sardines",
+      "recipe_id": "uc.recipe.open_canned_sardines"
+    },
+    "uc.recipe.open_canned_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Soup",
+      "recipe_id": "uc.recipe.open_canned_soup"
+    },
+    "uc.recipe.open_canned_tomato": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Tomato",
+      "recipe_id": "uc.recipe.open_canned_tomato"
+    },
+    "uc.recipe.open_canned_tuna": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Tuna",
+      "recipe_id": "uc.recipe.open_canned_tuna"
+    },
+    "uc.recipe.open_condensed_milk": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Condensed Milk",
+      "recipe_id": "uc.recipe.open_condensed_milk"
+    },
+    "uc.recipe.open_dog_food": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Dog Food",
+      "recipe_id": "uc.recipe.open_dog_food"
+    },
+    "uc.recipe.open_egg_carton": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Egg Carton",
+      "recipe_id": "uc.recipe.open_egg_carton"
+    },
+    "uc.recipe.open_jar_of_bell_peppers": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Bell Peppers",
+      "recipe_id": "uc.recipe.open_jar_of_bell_peppers"
+    },
+    "uc.recipe.open_jar_of_broccoli": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Broccoli",
+      "recipe_id": "uc.recipe.open_jar_of_broccoli"
+    },
+    "uc.recipe.open_jar_of_cabbage": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Cabbage",
+      "recipe_id": "uc.recipe.open_jar_of_cabbage"
+    },
+    "uc.recipe.open_jar_of_carrots": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Carrots",
+      "recipe_id": "uc.recipe.open_jar_of_carrots"
+    },
+    "uc.recipe.open_jar_of_eggplants": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Eggplants",
+      "recipe_id": "uc.recipe.open_jar_of_eggplants"
+    },
+    "uc.recipe.open_jar_of_leeks": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Leeks",
+      "recipe_id": "uc.recipe.open_jar_of_leeks"
+    },
+    "uc.recipe.open_jar_of_potatoes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Potatoes",
+      "recipe_id": "uc.recipe.open_jar_of_potatoes"
+    },
+    "uc.recipe.open_jar_of_red_radishes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Red Radishes",
+      "recipe_id": "uc.recipe.open_jar_of_red_radishes"
+    },
+    "uc.recipe.open_jar_of_tomatoes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Tomatoes",
+      "recipe_id": "uc.recipe.open_jar_of_tomatoes"
+    },
+    "uc.recipe.open_packet_of_broccoli_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Broccoli Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_broccoli_seeds"
+    },
+    "uc.recipe.open_packet_of_cabbage_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Cabbage Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_cabbage_seeds"
+    },
+    "uc.recipe.open_packet_of_carrot_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Carrot Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_carrot_seeds"
+    },
+    "uc.recipe.open_packet_of_potato_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Potato Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_potato_seeds"
+    },
+    "uc.recipe.open_packet_of_radish_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Radish Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_radish_seeds"
+    },
+    "uc.recipe.open_packet_of_strawberries_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Strawberries Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_strawberries_seeds"
+    },
+    "uc.recipe.open_packet_of_tomato_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Tomato Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_tomato_seeds"
+    },
+    "uc.recipe.open_sack_of_apples": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Apples",
+      "recipe_id": "uc.recipe.open_sack_of_apples"
+    },
+    "uc.recipe.open_sack_of_bell_peppers": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Bell Peppers",
+      "recipe_id": "uc.recipe.open_sack_of_bell_peppers"
+    },
+    "uc.recipe.open_sack_of_broccoli": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Broccoli",
+      "recipe_id": "uc.recipe.open_sack_of_broccoli"
+    },
+    "uc.recipe.open_sack_of_cabbages": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Cabbages",
+      "recipe_id": "uc.recipe.open_sack_of_cabbages"
+    },
+    "uc.recipe.open_sack_of_carrots": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Carrots",
+      "recipe_id": "uc.recipe.open_sack_of_carrots"
+    },
+    "uc.recipe.open_sack_of_cherries": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Cherries",
+      "recipe_id": "uc.recipe.open_sack_of_cherries"
+    },
+    "uc.recipe.open_sack_of_corn": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Corn",
+      "recipe_id": "uc.recipe.open_sack_of_corn"
+    },
+    "uc.recipe.open_sack_of_eggplants": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Eggplants",
+      "recipe_id": "uc.recipe.open_sack_of_eggplants"
+    },
+    "uc.recipe.open_sack_of_grapes": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Grapes",
+      "recipe_id": "uc.recipe.open_sack_of_grapes"
+    },
+    "uc.recipe.open_sack_of_leeks": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Leeks",
+      "recipe_id": "uc.recipe.open_sack_of_leeks"
+    },
+    "uc.recipe.open_sack_of_lettuce": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Lettuce",
+      "recipe_id": "uc.recipe.open_sack_of_lettuce"
+    },
+    "uc.recipe.open_sack_of_onions": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Onions",
+      "recipe_id": "uc.recipe.open_sack_of_onions"
+    },
+    "uc.recipe.open_sack_of_peaches": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Peaches",
+      "recipe_id": "uc.recipe.open_sack_of_peaches"
+    },
+    "uc.recipe.open_sack_of_pears": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Pears",
+      "recipe_id": "uc.recipe.open_sack_of_pears"
+    },
+    "uc.recipe.open_sack_of_potatoes": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Potatoes",
+      "recipe_id": "uc.recipe.open_sack_of_potatoes"
+    },
+    "uc.recipe.open_sack_of_radishes": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Radishes",
+      "recipe_id": "uc.recipe.open_sack_of_radishes"
+    },
+    "uc.recipe.open_sack_of_strawberries": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Strawberries",
+      "recipe_id": "uc.recipe.open_sack_of_strawberries"
+    },
+    "uc.recipe.open_sack_of_tomatoes": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Sack of Tomatoes",
+      "recipe_id": "uc.recipe.open_sack_of_tomatoes"
+    },
+    "uc.recipe.open_umbrella": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Open Umbrella",
+      "recipe_id": "uc.recipe.open_umbrella"
+    },
+    "uc.recipe.place_223_ammo_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place .223 Ammo in Box",
+      "recipe_id": "uc.recipe.place_223_ammo_in_box"
+    },
+    "uc.recipe.place_308_ammo_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place .308 Ammo in Box",
+      "recipe_id": "uc.recipe.place_308_ammo_in_box"
+    },
+    "uc.recipe.place_38_speciam_bullets_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place .38 Speciam Bullets in Box",
+      "recipe_id": "uc.recipe.place_38_speciam_bullets_in_box"
+    },
+    "uc.recipe.place_44_magnum_bullets_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place .44 Magnum Bullets in Box",
+      "recipe_id": "uc.recipe.place_44_magnum_bullets_in_box"
+    },
+    "uc.recipe.place_45_auto_bullets_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place .45 Auto Bullets in Box",
+      "recipe_id": "uc.recipe.place_45_auto_bullets_in_box"
+    },
+    "uc.recipe.place_556_ammo_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place .556 Ammo in Box",
+      "recipe_id": "uc.recipe.place_556_ammo_in_box"
+    },
+    "uc.recipe.place_9mm_bullets_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place 9mm Bullets in Box",
+      "recipe_id": "uc.recipe.place_9mm_bullets_in_box"
+    },
+    "uc.recipe.place_cake_in_baking_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Cake in Baking Pan",
+      "recipe_id": "uc.recipe.place_cake_in_baking_pan"
+    },
+    "uc.recipe.place_nails_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place Nails in Box",
+      "recipe_id": "uc.recipe.place_nails_in_box"
+    },
+    "uc.recipe.place_paperclips_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place Paperclips in Box",
+      "recipe_id": "uc.recipe.place_paperclips_in_box"
+    },
+    "uc.recipe.place_pasta_in_cooking_pot": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Pasta in Cooking Pot",
+      "recipe_id": "uc.recipe.place_pasta_in_cooking_pot"
+    },
+    "uc.recipe.place_pasta_in_saucepan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Pasta in Saucepan",
+      "recipe_id": "uc.recipe.place_pasta_in_saucepan"
+    },
+    "uc.recipe.place_pie_in_baking_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Pie in Baking Pan",
+      "recipe_id": "uc.recipe.place_pie_in_baking_pan"
+    },
+    "uc.recipe.place_rice_in_cooking_pot": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Rice in Cooking Pot",
+      "recipe_id": "uc.recipe.place_rice_in_cooking_pot"
+    },
+    "uc.recipe.place_rice_in_saucepan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Rice in Saucepan",
+      "recipe_id": "uc.recipe.place_rice_in_saucepan"
+    },
+    "uc.recipe.place_screws_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place Screws in Box",
+      "recipe_id": "uc.recipe.place_screws_in_box"
+    },
+    "uc.recipe.place_shotgun_shells_in_box": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Place Shotgun Shells in Box",
+      "recipe_id": "uc.recipe.place_shotgun_shells_in_box"
+    },
+    "uc.recipe.prepare_muffins": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Prepare Muffins",
+      "recipe_id": "uc.recipe.prepare_muffins"
+    },
+    "uc.recipe.prepare_omelette": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Prepare Omelette",
+      "recipe_id": "uc.recipe.prepare_omelette"
+    },
+    "uc.recipe.put_alcohol_on_cotton": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Put Alcohol on Cotton",
+      "recipe_id": "uc.recipe.put_alcohol_on_cotton"
+    },
+    "uc.recipe.put_broccoli_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Broccoli Seeds in Packet",
+      "recipe_id": "uc.recipe.put_broccoli_seeds_in_packet"
+    },
+    "uc.recipe.put_cabbage_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Cabbage Seeds in Packet",
+      "recipe_id": "uc.recipe.put_cabbage_seeds_in_packet"
+    },
+    "uc.recipe.put_carrots_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Carrots Seeds in Packet",
+      "recipe_id": "uc.recipe.put_carrots_seeds_in_packet"
+    },
+    "uc.recipe.put_eggs_in_carton": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Put Eggs in Carton",
+      "recipe_id": "uc.recipe.put_eggs_in_carton"
+    },
+    "uc.recipe.put_potato_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Potato Seeds in Packet",
+      "recipe_id": "uc.recipe.put_potato_seeds_in_packet"
+    },
+    "uc.recipe.put_radish_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Radish Seeds in Packet",
+      "recipe_id": "uc.recipe.put_radish_seeds_in_packet"
+    },
+    "uc.recipe.put_strawberry_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Strawberry Seeds in Packet",
+      "recipe_id": "uc.recipe.put_strawberry_seeds_in_packet"
+    },
+    "uc.recipe.put_tomato_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Tomato Seeds in Packet",
+      "recipe_id": "uc.recipe.put_tomato_seeds_in_packet"
+    },
+    "uc.recipe.reclaim_bread_knife_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Bread Knife from Spear",
+      "recipe_id": "uc.recipe.reclaim_bread_knife_from_spear"
+    },
+    "uc.recipe.reclaim_butter_knife_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Butter Knife from Spear",
+      "recipe_id": "uc.recipe.reclaim_butter_knife_from_spear"
+    },
+    "uc.recipe.reclaim_fork_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Fork from Spear",
+      "recipe_id": "uc.recipe.reclaim_fork_from_spear"
+    },
+    "uc.recipe.reclaim_hand_fork_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Hand Fork from Spear",
+      "recipe_id": "uc.recipe.reclaim_hand_fork_from_spear"
+    },
+    "uc.recipe.reclaim_hunting_knife_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Hunting Knife from Spear",
+      "recipe_id": "uc.recipe.reclaim_hunting_knife_from_spear"
+    },
+    "uc.recipe.reclaim_ice_pick_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Ice Pick from Spear",
+      "recipe_id": "uc.recipe.reclaim_ice_pick_from_spear"
+    },
+    "uc.recipe.reclaim_kitchen_knife_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Kitchen Knife from Spear",
+      "recipe_id": "uc.recipe.reclaim_kitchen_knife_from_spear"
+    },
+    "uc.recipe.reclaim_letter_opener_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Letter Opener from Spear",
+      "recipe_id": "uc.recipe.reclaim_letter_opener_from_spear"
+    },
+    "uc.recipe.reclaim_machete_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Machete from Spear",
+      "recipe_id": "uc.recipe.reclaim_machete_from_spear"
+    },
+    "uc.recipe.reclaim_scalpel_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Scalpel from Spear",
+      "recipe_id": "uc.recipe.reclaim_scalpel_from_spear"
+    },
+    "uc.recipe.reclaim_scissors_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Scissors from Spear",
+      "recipe_id": "uc.recipe.reclaim_scissors_from_spear"
+    },
+    "uc.recipe.reclaim_screwdriver_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Screwdriver from Spear",
+      "recipe_id": "uc.recipe.reclaim_screwdriver_from_spear"
+    },
+    "uc.recipe.reclaim_spoon_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Spoon from Spear",
+      "recipe_id": "uc.recipe.reclaim_spoon_from_spear"
+    },
+    "uc.recipe.refill_blow_torch": {
+      "category": "Welding",
+      "nav_eligible": false,
+      "original_name": "Refill Blow Torch",
+      "recipe_id": "uc.recipe.refill_blow_torch"
+    },
+    "uc.recipe.saw_logs": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Saw Logs",
+      "recipe_id": "uc.recipe.saw_logs"
+    },
+    "uc.recipe.saw_logs2": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Saw Logs2",
+      "recipe_id": "uc.recipe.saw_logs2"
+    },
+    "uc.recipe.saw_off_double_barrel_shotgun": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Saw Off Double Barrel Shotgun",
+      "recipe_id": "uc.recipe.saw_off_double_barrel_shotgun"
+    },
+    "uc.recipe.saw_off_shotgun": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Saw Off Shotgun",
+      "recipe_id": "uc.recipe.saw_off_shotgun"
+    },
+    "uc.recipe.scoop_ice_cream": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Scoop Ice Cream",
+      "recipe_id": "uc.recipe.scoop_ice_cream"
+    },
+    "uc.recipe.slice_baloney": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Baloney",
+      "recipe_id": "uc.recipe.slice_baloney"
+    },
+    "uc.recipe.slice_bread": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Bread",
+      "recipe_id": "uc.recipe.slice_bread"
+    },
+    "uc.recipe.slice_cake": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Cake",
+      "recipe_id": "uc.recipe.slice_cake"
+    },
+    "uc.recipe.slice_fillet": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Fillet",
+      "recipe_id": "uc.recipe.slice_fillet"
+    },
+    "uc.recipe.slice_frog": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Frog",
+      "recipe_id": "uc.recipe.slice_frog"
+    },
+    "uc.recipe.slice_ham": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Ham",
+      "recipe_id": "uc.recipe.slice_ham"
+    },
+    "uc.recipe.slice_onion": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Onion",
+      "recipe_id": "uc.recipe.slice_onion"
+    },
+    "uc.recipe.slice_pie": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Pie",
+      "recipe_id": "uc.recipe.slice_pie"
+    },
+    "uc.recipe.slice_pizza": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Pizza",
+      "recipe_id": "uc.recipe.slice_pizza"
+    },
+    "uc.recipe.slice_salami": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Salami",
+      "recipe_id": "uc.recipe.slice_salami"
+    },
+    "uc.recipe.slice_watermelon": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Watermelon",
+      "recipe_id": "uc.recipe.slice_watermelon"
+    },
+    "uc.recipe.smash_bottle": {
+      "category": null,
+      "nav_eligible": false,
+      "original_name": "Smash Bottle",
+      "recipe_id": "uc.recipe.smash_bottle"
+    },
+    "uc.recipe.smash_watermelon": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Smash Watermelon",
+      "recipe_id": "uc.recipe.smash_watermelon"
+    },
+    "uc.recipe.unstack_logs": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Unstack Logs",
+      "recipe_id": "uc.recipe.unstack_logs"
+    }
+  },
+  "stats": {
+    "nav_eligible_count": 210,
+    "nav_ineligible_count": 111,
+    "nav_missing_index_count": 0,
+    "total_recipe_ucids": 321,
+    "uid_collision_count": 0
+  },
+  "version": "v2.4"
+}

@@ -81,6 +81,14 @@
             "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_223_bullets",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_223_bullets)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -93,8 +101,11 @@
           "- Blacksmith >= 8 (perk)"
         ],
         "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_223_bullets]",
           "- NeedToBeLearn (flag) [rp.recipe.make_223_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_223_bullets]",
           "- Near: Anvil (near_item) [rp.recipe.make_223_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_223_bullets]",
           "- Blacksmith >= 8 (perk) [rp.recipe.make_223_bullets_mold]"
         ]
       }
@@ -195,6 +206,14 @@
             "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_308_bullets",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_308_bullets)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -207,8 +226,11 @@
           "- Blacksmith >= 8 (perk)"
         ],
         "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_308_bullets]",
           "- NeedToBeLearn (flag) [rp.recipe.make_308_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_308_bullets]",
           "- Near: Anvil (near_item) [rp.recipe.make_308_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_308_bullets]",
           "- Blacksmith >= 8 (perk) [rp.recipe.make_308_bullets_mold]"
         ]
       }
@@ -344,6 +366,14 @@
             "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_9mm_bullets",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_9mm_bullets)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -356,8 +386,11 @@
           "- Blacksmith >= 8 (perk)"
         ],
         "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_9mm_bullets]",
           "- NeedToBeLearn (flag) [rp.recipe.make_9mm_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_9mm_bullets]",
           "- Near: Anvil (near_item) [rp.recipe.make_9mm_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_9mm_bullets]",
           "- Blacksmith >= 8 (perk) [rp.recipe.make_9mm_bullets_mold]"
         ]
       }
@@ -860,6 +893,20 @@
       }
     },
     "Base.Axe": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.slice_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_watermelon)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
+      },
       "require_block": {
         "title_key": "require",
         "lines": [
@@ -872,6 +919,22 @@
           "- Near: Anvil (near_item) [rp.recipe.make_axe]",
           "- Blacksmith >= 10 (perk) [rp.recipe.make_axe]"
         ]
+      }
+    },
+    "Base.AxeStone": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.slice_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_watermelon)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
       }
     },
     "Base.BagelPlain": {
@@ -1386,6 +1449,222 @@
             "strength": "STRONG",
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_223_bullets_mold",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_223_bullets_mold)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_308_bullets_mold",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_308_bullets_mold)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_9mm_bullets_mold",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_9mm_bullets_mold)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_axe",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_axe)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_baking_pan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_baking_pan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_baking_tray",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_baking_tray)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_cooking_pot",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_cooking_pot)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_crowbar",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_crowbar)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_door_knob",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_door_knob)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_golfclub",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_golfclub)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_hammer",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_hammer)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_hinge",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_hinge)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_hunting_knife",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_hunting_knife)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_kitchen_knife",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_kitchen_knife)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_letter_opener",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_letter_opener)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_metal_drum",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_metal_drum)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_roasting_pan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_roasting_pan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_saucepan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_saucepan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_saw",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_saw)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_scissors",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_scissors)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_sheet_metal",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_sheet_metal)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_shotgun_shells_mold",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_shotgun_shells_mold)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_sledgehammer",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_sledgehammer)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_suture_needle",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_suture_needle)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_suture_needle_holder",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_suture_needle_holder)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_tweezers",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_tweezers)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -1395,12 +1674,101 @@
         "lines": [
           "- NeedToBeLearn (flag)",
           "- Near: Anvil (near_item)",
-          "- Blacksmith >= 4 (perk)"
+          "- Blacksmith >= 2 (perk)",
+          "- Blacksmith >= 3 (perk)",
+          "- Blacksmith >= 4 (perk)",
+          "- Blacksmith >= 5 (perk)",
+          "- Blacksmith >= 6 (perk)",
+          "- Blacksmith >= 7 (perk)",
+          "- Blacksmith >= 8 (perk)",
+          "- Blacksmith >= 9 (perk)",
+          "- Blacksmith >= 10 (perk)"
         ],
         "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_223_bullets_mold]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_308_bullets_mold]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_9mm_bullets_mold]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_axe]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_baking_pan]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_baking_tray]",
           "- NeedToBeLearn (flag) [rp.recipe.make_ball_peen_hammer]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_cooking_pot]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_crowbar]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_door_knob]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_golfclub]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_hammer]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_hinge]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_hunting_knife]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_kitchen_knife]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_letter_opener]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_metal_drum]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_pan]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_roasting_pan]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_saucepan]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_saw]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_scissors]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_sheet_metal]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_shotgun_shells_mold]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_sledgehammer]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_suture_needle]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_suture_needle_holder]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_tweezers]",
+          "- Near: Anvil (near_item) [rp.recipe.make_223_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_308_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_9mm_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_axe]",
+          "- Near: Anvil (near_item) [rp.recipe.make_baking_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_baking_tray]",
           "- Near: Anvil (near_item) [rp.recipe.make_ball_peen_hammer]",
-          "- Blacksmith >= 4 (perk) [rp.recipe.make_ball_peen_hammer]"
+          "- Near: Anvil (near_item) [rp.recipe.make_cooking_pot]",
+          "- Near: Anvil (near_item) [rp.recipe.make_crowbar]",
+          "- Near: Anvil (near_item) [rp.recipe.make_door_knob]",
+          "- Near: Anvil (near_item) [rp.recipe.make_golfclub]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hammer]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hinge]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hunting_knife]",
+          "- Near: Anvil (near_item) [rp.recipe.make_kitchen_knife]",
+          "- Near: Anvil (near_item) [rp.recipe.make_letter_opener]",
+          "- Near: Anvil (near_item) [rp.recipe.make_metal_drum]",
+          "- Near: Anvil (near_item) [rp.recipe.make_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_roasting_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_saucepan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_saw]",
+          "- Near: Anvil (near_item) [rp.recipe.make_scissors]",
+          "- Near: Anvil (near_item) [rp.recipe.make_sheet_metal]",
+          "- Near: Anvil (near_item) [rp.recipe.make_shotgun_shells_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_sledgehammer]",
+          "- Near: Anvil (near_item) [rp.recipe.make_suture_needle]",
+          "- Near: Anvil (near_item) [rp.recipe.make_suture_needle_holder]",
+          "- Near: Anvil (near_item) [rp.recipe.make_tweezers]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_baking_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_baking_tray]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_cooking_pot]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_roasting_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_saucepan]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_door_knob]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_hinge]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_letter_opener]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_scissors]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_ball_peen_hammer]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_hammer]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_sheet_metal]",
+          "- Blacksmith >= 5 (perk) [rp.recipe.make_suture_needle_holder]",
+          "- Blacksmith >= 5 (perk) [rp.recipe.make_tweezers]",
+          "- Blacksmith >= 6 (perk) [rp.recipe.make_metal_drum]",
+          "- Blacksmith >= 6 (perk) [rp.recipe.make_suture_needle]",
+          "- Blacksmith >= 7 (perk) [rp.recipe.make_kitchen_knife]",
+          "- Blacksmith >= 7 (perk) [rp.recipe.make_saw]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_223_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_308_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_9mm_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_hunting_knife]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_shotgun_shells_mold]",
+          "- Blacksmith >= 9 (perk) [rp.recipe.make_crowbar]",
+          "- Blacksmith >= 9 (perk) [rp.recipe.make_golfclub]",
+          "- Blacksmith >= 10 (perk) [rp.recipe.make_axe]",
+          "- Blacksmith >= 10 (perk) [rp.recipe.make_sledgehammer]"
         ]
       }
     },
@@ -2116,6 +2484,30 @@
           {
             "use_case_id": "uc.recipe.build_spiked_baseball_bat",
             "display_text": "[레시피] (unlabeled: uc.recipe.build_spiked_baseball_bat)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.smash_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.smash_watermelon)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
+      }
+    },
+    "Base.BaseballBatNails": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.smash_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.smash_watermelon)",
             "surface": "recipe_ui",
             "strength": null,
             "uniqueness": "none",
@@ -4339,6 +4731,14 @@
             "line_kind": "evidence"
           },
           {
+            "use_case_id": "uc.recipe.make_biscuits",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_biscuits)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
             "use_case_id": "uc.recipe.make_bowl_of_beans",
             "display_text": "[레시피] (unlabeled: uc.recipe.make_bowl_of_beans)",
             "surface": "recipe_ui",
@@ -4363,8 +4763,96 @@
             "line_kind": "evidence"
           },
           {
+            "use_case_id": "uc.recipe.make_bread_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_bread_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
             "use_case_id": "uc.recipe.make_cake_batter",
             "display_text": "[레시피] (unlabeled: uc.recipe.make_cake_batter)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_chocolate_chip_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_chocolate_chip_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_chocolate_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_chocolate_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_gravy",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_gravy)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_oatmeal_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_oatmeal_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pancake",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pancake)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pizza",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pizza)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_shortbread_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_shortbread_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_sugar_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_sugar_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "shared",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.prepare_muffins",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.prepare_muffins)",
             "surface": "recipe_ui",
             "strength": null,
             "uniqueness": "shared",
@@ -4380,6 +4868,22 @@
         ],
         "debug_lines": [
           "- Base.Spatula (keep) [rp.recipe.make_cake_batter]"
+        ]
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_biscuits]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_chocolate_chip_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_chocolate_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_oatmeal_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_pie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_pizza]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_shortbread_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_sugar_cookie_dough]"
         ]
       }
     },
@@ -11692,6 +12196,14 @@
             "strength": "STRONG",
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.saw_logs2",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.saw_logs2)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -12838,6 +13350,22 @@
             "display_text": "[우클릭] 건축 / 해체",
             "surface": "context_menu",
             "strength": "STRONG",
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
+      }
+    },
+    "Base.HandAxe": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.slice_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_watermelon)",
+            "surface": "recipe_ui",
+            "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
           }
@@ -16830,6 +17358,14 @@
             "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.smash_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.smash_watermelon)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -17865,6 +18401,158 @@
             "use_case_id": "uc.exclusion.consumption_food",
             "display_text": "uc.exclusion.consumption_food",
             "surface": "context_menu",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
+      }
+    },
+    "Base.MeatCleaver": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.butcher_bird",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.butcher_bird)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.butcher_rabbit",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.butcher_rabbit)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.butcher_small_animal",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.butcher_small_animal)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.create_spear",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.create_spear)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_fishing_rod",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_fishing_rod)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_squid_calamari",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_squid_calamari)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_stake",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_stake)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_baloney",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_baloney)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_bread",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_bread)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_cake",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_cake)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_fillet",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_fillet)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_frog",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_frog)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_ham",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_ham)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_onion",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_onion)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_pie",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_pie)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_pizza",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_pizza)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_salami",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_salami)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.slice_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_watermelon)",
+            "surface": "recipe_ui",
             "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
@@ -21653,6 +22341,14 @@
             "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.smash_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.smash_watermelon)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -23221,6 +23917,92 @@
         "debug_items": []
       }
     },
+    "Base.RollingPin": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.make_bread_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_bread_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_chocolate_chip_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_chocolate_chip_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_chocolate_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_chocolate_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_oatmeal_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_oatmeal_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pizza",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pizza)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_shortbread_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_shortbread_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_sugar_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_sugar_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.place_pie_in_baking_pan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.place_pie_in_baking_pan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_chocolate_chip_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_chocolate_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_oatmeal_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_pizza]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_shortbread_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_sugar_cookie_dough]"
+        ]
+      }
+    },
     "Base.Rope": {
       "use_case_block": {
         "title_key": "actions",
@@ -24026,6 +24808,22 @@
             "strength": "STRONG",
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.saw_off_double_barrel_shotgun",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.saw_off_double_barrel_shotgun)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.saw_off_shotgun",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.saw_off_shotgun)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -24329,6 +25127,22 @@
             "use_case_id": "uc.exclusion.inputmaterial_material",
             "display_text": "uc.exclusion.inputmaterial_material",
             "surface": "context_menu",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.create_spear",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.create_spear)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.drill_plank",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.drill_plank)",
+            "surface": "recipe_ui",
             "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
@@ -25570,6 +26384,14 @@
             "strength": null,
             "uniqueness": "none",
             "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_shotgun_shells",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_shotgun_shells)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
           }
         ],
         "debug_items": []
@@ -25582,8 +26404,11 @@
           "- Blacksmith >= 8 (perk)"
         ],
         "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_shotgun_shells]",
           "- NeedToBeLearn (flag) [rp.recipe.make_shotgun_shells_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_shotgun_shells]",
           "- Near: Anvil (near_item) [rp.recipe.make_shotgun_shells_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_shotgun_shells]",
           "- Blacksmith >= 8 (perk) [rp.recipe.make_shotgun_shells_mold]"
         ]
       }
@@ -26253,6 +27078,143 @@
           }
         ],
         "debug_items": []
+      }
+    },
+    "Base.Spatula": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.make_biscuits",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_biscuits)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_bread_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_bread_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_cake_batter",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_cake_batter)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_chocolate_chip_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_chocolate_chip_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_chocolate_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_chocolate_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_gravy",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_gravy)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_oatmeal_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_oatmeal_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pancake",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pancake)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pizza",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pizza)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_shortbread_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_shortbread_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_sugar_cookie_dough",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_sugar_cookie_dough)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.prepare_muffins",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.prepare_muffins)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.prepare_omelette",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.prepare_omelette)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
+      },
+      "require_block": {
+        "title_key": "require",
+        "lines": [
+          "- NeedToBeLearn (flag)"
+        ],
+        "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_biscuits]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_cake_batter]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_chocolate_chip_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_chocolate_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_oatmeal_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_pie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_pizza]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_shortbread_cookie_dough]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_sugar_cookie_dough]"
+        ]
       }
     },
     "Base.Speaker": {
@@ -27977,17 +28939,391 @@
       }
     },
     "Base.Tongs": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.make_223_bullets",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_223_bullets)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_223_bullets_mold",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_223_bullets_mold)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_308_bullets",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_308_bullets)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_308_bullets_mold",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_308_bullets_mold)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_9mm_bullets",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_9mm_bullets)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_9mm_bullets_mold",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_9mm_bullets_mold)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_axe",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_axe)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_baking_pan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_baking_pan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_baking_tray",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_baking_tray)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_butter_knife",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_butter_knife)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_cooking_pot",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_cooking_pot)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_crowbar",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_crowbar)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_door_knob",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_door_knob)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_golfclub",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_golfclub)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_hand_shovel",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_hand_shovel)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_hinge",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_hinge)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_hunting_knife",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_hunting_knife)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_kitchen_knife",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_kitchen_knife)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_letter_opener",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_letter_opener)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_metal_drum",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_metal_drum)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_pan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_pan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_roasting_pan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_roasting_pan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_saucepan",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_saucepan)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_saw",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_saw)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_scissors",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_scissors)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_sheet_metal",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_sheet_metal)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_shotgun_shells",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_shotgun_shells)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_shotgun_shells_mold",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_shotgun_shells_mold)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_shovel",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_shovel)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_sledgehammer",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_sledgehammer)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_suture_needle",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_suture_needle)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_suture_needle_holder",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_suture_needle_holder)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          },
+          {
+            "use_case_id": "uc.recipe.make_tweezers",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.make_tweezers)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
+      },
       "require_block": {
         "title_key": "require",
         "lines": [
           "- NeedToBeLearn (flag)",
           "- Near: Anvil (near_item)",
-          "- Blacksmith >= 4 (perk)"
+          "- Blacksmith >= 2 (perk)",
+          "- Blacksmith >= 3 (perk)",
+          "- Blacksmith >= 4 (perk)",
+          "- Blacksmith >= 5 (perk)",
+          "- Blacksmith >= 6 (perk)",
+          "- Blacksmith >= 7 (perk)",
+          "- Blacksmith >= 8 (perk)",
+          "- Blacksmith >= 9 (perk)",
+          "- Blacksmith >= 10 (perk)"
         ],
         "debug_lines": [
+          "- NeedToBeLearn (flag) [rp.recipe.make_223_bullets]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_223_bullets_mold]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_308_bullets]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_308_bullets_mold]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_9mm_bullets]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_9mm_bullets_mold]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_axe]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_baking_pan]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_baking_tray]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_butter_knife]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_cooking_pot]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_crowbar]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_door_knob]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_golfclub]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_hand_shovel]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_hinge]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_hunting_knife]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_kitchen_knife]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_letter_opener]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_metal_drum]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_pan]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_roasting_pan]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_saucepan]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_saw]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_scissors]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_sheet_metal]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_shotgun_shells]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_shotgun_shells_mold]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_sledgehammer]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_suture_needle]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_suture_needle_holder]",
           "- NeedToBeLearn (flag) [rp.recipe.make_tongs]",
+          "- NeedToBeLearn (flag) [rp.recipe.make_tweezers]",
+          "- Near: Anvil (near_item) [rp.recipe.make_223_bullets]",
+          "- Near: Anvil (near_item) [rp.recipe.make_223_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_308_bullets]",
+          "- Near: Anvil (near_item) [rp.recipe.make_308_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_9mm_bullets]",
+          "- Near: Anvil (near_item) [rp.recipe.make_9mm_bullets_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_axe]",
+          "- Near: Anvil (near_item) [rp.recipe.make_baking_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_baking_tray]",
+          "- Near: Anvil (near_item) [rp.recipe.make_butter_knife]",
+          "- Near: Anvil (near_item) [rp.recipe.make_cooking_pot]",
+          "- Near: Anvil (near_item) [rp.recipe.make_crowbar]",
+          "- Near: Anvil (near_item) [rp.recipe.make_door_knob]",
+          "- Near: Anvil (near_item) [rp.recipe.make_golfclub]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hand_shovel]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hinge]",
+          "- Near: Anvil (near_item) [rp.recipe.make_hunting_knife]",
+          "- Near: Anvil (near_item) [rp.recipe.make_kitchen_knife]",
+          "- Near: Anvil (near_item) [rp.recipe.make_letter_opener]",
+          "- Near: Anvil (near_item) [rp.recipe.make_metal_drum]",
+          "- Near: Anvil (near_item) [rp.recipe.make_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_roasting_pan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_saucepan]",
+          "- Near: Anvil (near_item) [rp.recipe.make_saw]",
+          "- Near: Anvil (near_item) [rp.recipe.make_scissors]",
+          "- Near: Anvil (near_item) [rp.recipe.make_sheet_metal]",
+          "- Near: Anvil (near_item) [rp.recipe.make_shotgun_shells]",
+          "- Near: Anvil (near_item) [rp.recipe.make_shotgun_shells_mold]",
+          "- Near: Anvil (near_item) [rp.recipe.make_sledgehammer]",
+          "- Near: Anvil (near_item) [rp.recipe.make_suture_needle]",
+          "- Near: Anvil (near_item) [rp.recipe.make_suture_needle_holder]",
           "- Near: Anvil (near_item) [rp.recipe.make_tongs]",
-          "- Blacksmith >= 4 (perk) [rp.recipe.make_tongs]"
+          "- Near: Anvil (near_item) [rp.recipe.make_tweezers]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_baking_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_baking_tray]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_cooking_pot]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_roasting_pan]",
+          "- Blacksmith >= 2 (perk) [rp.recipe.make_saucepan]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_butter_knife]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_door_knob]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_hinge]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_letter_opener]",
+          "- Blacksmith >= 3 (perk) [rp.recipe.make_scissors]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_sheet_metal]",
+          "- Blacksmith >= 4 (perk) [rp.recipe.make_tongs]",
+          "- Blacksmith >= 5 (perk) [rp.recipe.make_suture_needle_holder]",
+          "- Blacksmith >= 5 (perk) [rp.recipe.make_tweezers]",
+          "- Blacksmith >= 6 (perk) [rp.recipe.make_hand_shovel]",
+          "- Blacksmith >= 6 (perk) [rp.recipe.make_metal_drum]",
+          "- Blacksmith >= 6 (perk) [rp.recipe.make_suture_needle]",
+          "- Blacksmith >= 7 (perk) [rp.recipe.make_kitchen_knife]",
+          "- Blacksmith >= 7 (perk) [rp.recipe.make_saw]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_223_bullets]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_223_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_308_bullets]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_308_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_9mm_bullets]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_9mm_bullets_mold]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_hunting_knife]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_shotgun_shells]",
+          "- Blacksmith >= 8 (perk) [rp.recipe.make_shotgun_shells_mold]",
+          "- Blacksmith >= 9 (perk) [rp.recipe.make_crowbar]",
+          "- Blacksmith >= 9 (perk) [rp.recipe.make_golfclub]",
+          "- Blacksmith >= 10 (perk) [rp.recipe.make_axe]",
+          "- Blacksmith >= 10 (perk) [rp.recipe.make_sledgehammer]"
         ]
       }
     },
@@ -31268,6 +32604,22 @@
           {
             "use_case_id": "uc.recipe.make_fishing_net",
             "display_text": "[레시피] (unlabeled: uc.recipe.make_fishing_net)",
+            "surface": "recipe_ui",
+            "strength": null,
+            "uniqueness": "none",
+            "line_kind": "evidence"
+          }
+        ],
+        "debug_items": []
+      }
+    },
+    "Base.WoodAxe": {
+      "use_case_block": {
+        "title_key": "actions",
+        "items": [
+          {
+            "use_case_id": "uc.recipe.slice_watermelon",
+            "display_text": "[레시피·도구] (unlabeled: uc.recipe.slice_watermelon)",
             "surface": "recipe_ui",
             "strength": null,
             "uniqueness": "none",

@@ -32,6 +32,55 @@ local function ensureDeps()
     end
 end
 
+-- ═══ Recipe Requirements Color Layer ═══
+-- SEAL #1~#3: 충족 여부로 숨김/필터/정렬/텍스트변경 금지
+-- SEAL #5~#6: check 없으면 회색 고정, Lua가 check 생성/수정/override 금지
+local COLOR_MET     = {r=0.5, g=0.85, b=0.5, a=0.9}
+local COLOR_UNMET   = {r=0.85, g=0.4, b=0.4, a=0.9}
+local COLOR_UNKNOWN = {r=0.6, g=0.6, b=0.6, a=0.8}
+
+-- C4: 핸들러는 plain function (내부 pcall 없음)
+-- 예외는 evalRequirementColor의 단일 pcall이 일괄 포착
+local REQ_CHECK_HANDLERS = {
+    perk = function(check, player)
+        -- I1: FromString 우선, Perks[] fallback
+        local perkObj = (Perks.FromString and Perks.FromString(check.perk_id))
+                        or Perks[check.perk_id]
+        if not perkObj then return nil end
+        return player:getPerkLevel(perkObj) >= check.level
+    end,
+
+    flag = function(check, player)
+        if check.flag_id == "NeedToBeLearn" then
+            return player:isRecipeKnown(check.recipe_name)
+        end
+        return nil  -- 미지원 flag → 회색
+    end,
+
+    near_item = function(check, player)
+        -- C2+M1: 1단계 — check 필드는 존재하나 핸들러가 nil 반환 → 회색 고정
+        -- 2단계 커밋에서 near_token→fulltype 해소 + 핸들러 활성화
+        return nil
+    end,
+}
+
+-- C3: player는 호출부에서 주입 (getSpecificPlayer(0) 하드코딩 금지)
+local function evalRequirementColor(check, player)
+    if not check or not check.type then
+        return COLOR_UNKNOWN
+    end
+    local handler = REQ_CHECK_HANDLERS[check.type]
+    if not handler then
+        return COLOR_UNKNOWN
+    end
+    -- C4: 단일 pcall이 핸들러 예외 일괄 포착 → SEAL #7 회색 고정
+    local ok, result = pcall(handler, check, player)
+    if not ok or result == nil then
+        return COLOR_UNKNOWN
+    end
+    return result and COLOR_MET or COLOR_UNMET
+end
+
 -- ===============================================================
 -- 번역 시스템 디버그 (한번에 문제 파악용)
 -- ===============================================================
@@ -665,19 +714,77 @@ function IrisBrowser:showDetail(fullType)
     -- [3] 상호작용 섹션 (레시피 + 우클릭 행동 통합)
     local interactionItems = {}  -- { {type="recipe"|"rightclick", name=string, sortKey=string} }
     
-    -- 레시피 수집 (IrisUseCaseDescriptions 오프라인 데이터 기반)
-    if IrisUseCaseDescriptions and IrisUseCaseDescriptions[fullType] then
-        local ucDesc = IrisUseCaseDescriptions[fullType]
+    -- 레시피 수집: 오프라인 데이터 우선, 런타임 API 폴백
+    local ucDescData = nil
+    local ucOk, ucResult = pcall(require, "Iris/Data/IrisUseCaseDescriptions")
+    if ucOk and ucResult then ucDescData = ucResult end
+    
+    local recipeNameSet = {}  -- 중복 방지용
+    local hasOfflineRecipes = false
+    
+    -- (1) 오프라인 데이터 (IrisUseCaseDescriptions)
+    if ucDescData and ucDescData[fullType] then
+        local ucDesc = ucDescData[fullType]
         if ucDesc and ucDesc.lines then
             for _, line in ipairs(ucDesc.lines) do
                 if line.surface == "recipe_ui" or line.surface == "both" then
-                    table.insert(interactionItems, {
-                        type = "recipe",
-                        name = line.display_text,
-                        sortKey = "1_" .. (line.label_key or ""),
-                        recipe_nav_ref = line.recipe_nav_ref,  -- nil이면 버튼 미노출
-                    })
+                    -- 한국어명 우선, 없으면 영문 original_name, 최종 fallback display_text
+                    local recipeName = line.recipe_translated_name
+                        or line.recipe_original_name
+                        or line.display_text
+                    if not recipeNameSet[recipeName] then
+                        recipeNameSet[recipeName] = true
+                        hasOfflineRecipes = true
+                        table.insert(interactionItems, {
+                            type = "recipe",
+                            name = recipeName,
+                            label_key = line.label_key,
+                            sortKey = "1_" .. (line.label_key or ""),
+                            recipe_nav_ref = line.recipe_nav_ref,
+                            recipe_requirements = line.recipe_requirements,
+                        })
+                    end
                 end
+            end
+        end
+    end
+    
+    -- (2) 런타임 폴백 (오프라인 데이터가 없는 아이템용)
+    if not hasOfflineRecipes then
+        local recipeList = {}
+        if IrisAPI and IrisAPI.getRecipeConnectionsForItem then
+            local ok, list = pcall(function() return IrisAPI.getRecipeConnectionsForItem(item) end)
+            if ok and list then recipeList = list end
+        end
+        for _, e in ipairs(recipeList) do
+            local name = tostring(e.recipe or "Unknown")
+            if not recipeNameSet[name] then
+                recipeNameSet[name] = true
+                -- 런타임 폴백도 이동 버튼 제공 (카테고리 없이 필터만)
+                local trName = nil
+                if getText then
+                    local trKey = "Recipe_" .. name:gsub(" ", "_")
+                    local trOk, trResult = pcall(getText, trKey)
+                    if trOk and trResult and trResult ~= trKey then
+                        trName = trResult
+                    end
+                end
+                -- recipe_requirements lookup (오프라인 인덱스 역매핑)
+                local fallbackReqs = nil
+                if ucDescData and ucDescData._requirementsLookup then
+                    fallbackReqs = ucDescData._requirementsLookup[name]
+                end
+                table.insert(interactionItems, {
+                    type = "recipe",
+                    name = trName or name,
+                    sortKey = "1_" .. name,
+                    recipe_nav_ref = {
+                        original_name = name,
+                        translated_name = trName,
+                        category = nil,  -- 탭 이동 스킵, 필터만 적용
+                    },
+                    recipe_requirements = fallbackReqs,
+                })
             end
         end
     end
@@ -738,21 +845,23 @@ function IrisBrowser:showDetail(fullType)
                 local r, g, b = 0.85, 0.85, 0.85
                 local displayStr
                 if itm.type == "rightclick" then
-                    r, g, b = 0.7, 0.9, 0.7  -- 우클릭 행동은 녹색 계열
+                    r, g, b = 0.7, 0.9, 0.7
                     displayStr = prefixRightClick .. " " .. itm.name
                 else
-                    -- display_text는 이미 "[레시피] ..." 형태의 최종 문자열
-                    displayStr = itm.name
+                    displayStr = prefixRecipe .. " " .. itm.name
                 end
                 
                 local textW = getTextManager():MeasureStringX(UIFont.Small, displayStr)
                 local lbl = ISLabel:new(20, yOffset, 16, displayStr, r, g, b, 1, UIFont.Small, true)
                 self.detailPanel:addChild(lbl)
                 
-                -- 버튼 노출: recipe_nav_ref ~= nil (오프라인 결정)
+                local curX = 20 + textW + 4
+                
+                -- [이동] 버튼
                 if itm.recipe_nav_ref then
-                    local btnText = "[" .. tr("Iris_Nav_Go", "\236\157\180\235\143\153") .. "]"  -- "이동" fallback
-                    local goBtn = ISButton:new(20 + textW + 6, yOffset, 30, 16,
+                    local btnText = "[" .. tr("Iris_Nav_Go", "\236\157\180\235\143\153") .. "]"
+                    local btnW = getTextManager():MeasureStringX(UIFont.Small, btnText) + 8
+                    local goBtn = ISButton:new(curX, yOffset, btnW, 16,
                         btnText, self, IrisBrowser.onRecipeGoToCrafting)
                     goBtn:initialise()
                     goBtn.recipe_nav_ref = itm.recipe_nav_ref
@@ -761,6 +870,34 @@ function IrisBrowser:showDetail(fullType)
                     goBtn.borderColor = {r=0.4, g=0.5, b=0.6, a=0.5}
                     goBtn.textColor = {r=0.5, g=0.8, b=1.0, a=1}
                     self.detailPanel:addChild(goBtn)
+                    curX = curX + btnW + 4
+                end
+                
+                -- 인라인 요구사항 (색상 레이어: check 기반 충족 판정)
+                if itm.recipe_requirements then
+                    local player = getSpecificPlayer(self.playerNum or 0)  -- C3: 루프 밖 1회
+                    for ri, req in ipairs(itm.recipe_requirements) do
+                        -- 구분자
+                        if ri > 1 then
+                            local sep = ", "
+                            local sepW = getTextManager():MeasureStringX(UIFont.Small, sep)
+                            local sepLbl = ISLabel:new(curX, yOffset, 16, sep, 0.5, 0.5, 0.5, 0.6, UIFont.Small, true)
+                            self.detailPanel:addChild(sepLbl)
+                            curX = curX + sepW
+                        end
+                        local reqDisplay = req.display or "?"
+                        local color = evalRequirementColor(req.check, player)
+                        -- NeedToBeLearn: 충족 시 "미습득"→"습득" 동적 교체
+                        if req.check and req.check.type == "flag"
+                            and req.check.flag_id == "NeedToBeLearn"
+                            and color == COLOR_MET then
+                            reqDisplay = "\236\138\181\235\147\157"  -- "습득" (UTF-8 byte escape)
+                        end
+                        local reqW = getTextManager():MeasureStringX(UIFont.Small, reqDisplay)
+                        local reqLbl = ISLabel:new(curX, yOffset, 16, reqDisplay, color.r, color.g, color.b, color.a, UIFont.Small, true)
+                        self.detailPanel:addChild(reqLbl)
+                        curX = curX + reqW
+                    end
                 end
                 
                 yOffset = yOffset + 16
@@ -858,13 +995,14 @@ function IrisBrowser:onRecipeGoToCrafting(button)
         end)
     end
 
-    -- 필터에 original_name 설정
-    -- ISCraftingCategoryUI:update()가 다음 프레임에 text 변경 감지 → filter() 자동 호출
+    -- 필터에 번역된 레시피명 설정 (오프라인 한국어 번역)
     if ref.original_name and craftUI.panel then
         pcall(function()
             local activeView = craftUI.panel:getActiveView()
             if activeView and activeView.filterEntry then
-                activeView.filterEntry:setText(ref.original_name)
+                -- translated_name 우선, 없으면 original_name 폴백
+                local filterText = ref.translated_name or ref.original_name
+                activeView.filterEntry:setText(filterText)
             end
             if activeView and activeView.filterAll then
                 activeView.filterAll:setSelected(1, true)

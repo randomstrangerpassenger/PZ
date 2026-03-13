@@ -1,10 +1,10 @@
 {
   "_meta": {
-    "timestamp": "2026-02-18T01:29:30.823680",
-    "total_items": 2061,
+    "timestamp": "2026-03-09T19:00:56.914353",
+    "total_items": 2064,
     "classified_items": 2079,
-    "unclassified_items": 415,
-    "sha256": "bdcf14f12d759beca7a083eb78f48fccae10b0964e0ae6652280d692dcfb042a",
+    "unclassified_items": 416,
+    "sha256": "9d45f773d8bfbfd6ed96699b7eeb33e49ebfbcdbef43d3a13b35b495b759a8b9",
     "note": "결정성 검증: sha256이 동일하면 동일한 분류 결과"
   },
   "items": {
@@ -228,6 +228,7 @@
       "Wearable.6-F"
     ],
     "Base.Bag_PistolCase": [
+      "Tool.1-L",
       "Wearable.6-F"
     ],
     "Base.Bag_Satchel": [

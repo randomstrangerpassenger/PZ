@@ -1,6 +1,6 @@
 {
   "version": "v2.5",
-  "timestamp": "2026-03-01T15:54:26.637590+00:00",
+  "timestamp": "2026-03-07T05:16:41.095320+00:00",
   "gates": {
     "Q1_pass_integrity": {
       "status": "PASS",
@@ -22,7 +22,7 @@
     },
     "Q4_determinism": {
       "status": "PASS",
-      "files_checked": 15,
+      "files_checked": 17,
       "mismatches": 0,
       "details": []
     },
@@ -37,14 +37,20 @@
         "rightclick_evidence_line_count": 86,
         "rightclick_exclusion_fulltype_count": 1385,
         "rightclick_exclusion_line_count": 1801,
-        "recipe_evidence_fulltype_count": 333,
+        "recipe_evidence_fulltype_count": 349,
         "rightclick_strong_fulltype_count": 12,
         "rightclick_strong_line_count": 12,
         "rightclick_weak_fulltype_count": 56,
         "rightclick_exclude_line_count": 18,
+        "recipe_keep_link_count": 129,
         "override_action_count": 11,
         "override_strong_count": 8,
-        "unknown_prefix_line_count": 0
+        "unknown_prefix_line_count": 0,
+        "nav_eligible_count": 321,
+        "req_with_requirements_count": 79,
+        "req_atoms_total": 172,
+        "req_atoms_with_check": 172,
+        "req_base_slug_fallback_count": 8
       }
     }
   },

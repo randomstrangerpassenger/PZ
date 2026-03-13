@@ -293,6 +293,22 @@ function IrisWikiSections.getAllSections(item)
     local tags = IrisWikiSections.renderTagsSection(item)
     if tags then table.insert(sections, tags) end
     
+    -- 3계층 개별 아이템 설명 (DVF)
+    local Layer3Renderer = nil
+    local l3ok, l3mod = pcall(require, "Iris/Data/layer3_renderer")
+    if l3ok then Layer3Renderer = l3mod end
+    if Layer3Renderer then
+        local fullType = nil
+        if item.getFullType then
+            local ftOk, ftResult = pcall(function() return item:getFullType() end)
+            if ftOk then fullType = ftResult end
+        end
+        if fullType then
+            local l3text = Layer3Renderer.getText(fullType)
+            if l3text then table.insert(sections, l3text) end
+        end
+    end
+    
     local food = IrisWikiSections.renderFoodSection(item)
     if food then table.insert(sections, food) end
     

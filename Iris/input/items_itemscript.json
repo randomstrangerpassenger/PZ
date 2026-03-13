@@ -18129,5 +18129,37 @@
     "FullType": "farming.WateredCanFull",
     "Type": "Drainable",
     "Weight": 4.0
+  },
+  "Base.NoiseMaker": {
+    "DisplayName": "Noise Maker",
+    "DisplayCategory": "Explosives",
+    "FullType": "Base.NoiseMaker",
+    "Type": "Weapon",
+    "Weight": 1.5
+  },
+  "Base.Bag_PistolCase": {
+    "DisplayName": "Pistol Case",
+    "DisplayCategory": "Container",
+    "FullType": "Base.Bag_PistolCase",
+    "Type": "Container",
+    "Weight": 1.0
+  },
+  "Base.Cigar": {
+    "DisplayName": "Cigar",
+    "DisplayCategory": "Junk",
+    "FullType": "Base.Cigar",
+    "Type": "Food",
+    "Weight": 0.1
+  },
+  "Base.Lemongrass": {
+    "DisplayName": "Lemon Grass",
+    "DisplayCategory": "Food",
+    "FullType": "Base.Lemongrass",
+    "Type": "Food",
+    "Weight": 0.1,
+    "ReduceFoodSickness": 12,
+    "FoodType": "Herb",
+    "Spice": "true",
+    "Tags": "HerbalTea"
   }
 }

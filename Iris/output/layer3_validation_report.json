@@ -1,0 +1,33 @@
+{
+  "layer": 3,
+  "status": "pass",
+  "t1_structural": {
+    "schema_errors": 0,
+    "total_entries": 1,
+    "active_count": 0,
+    "silent_count": 1,
+    "unknown_fulltype_count": 0,
+    "duplicate_fulltype_count": 0
+  },
+  "t2_contract": {
+    "newline_violation_count": 0,
+    "bullet_pattern_count": 0,
+    "index_header_count": 0,
+    "comparison_count": 0,
+    "classification_count": 0,
+    "comma_enumeration_warn_count": 0
+  },
+  "t3_language": {
+    "no_ending_count": 0,
+    "key_leak_count": 0,
+    "slash_count": 0,
+    "banned_phrase_count": 0,
+    "label_like_count": 0,
+    "length_warn_count": 0,
+    "translationese_warn_count": 0
+  },
+  "t4_independence": {
+    "high_similarity_count": 0,
+    "skipped": true
+  }
+}

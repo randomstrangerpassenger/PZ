@@ -1,7 +1,7 @@
 -- Iris Classification Data
 -- Schema: v1.1.0
 -- Auto-generated from build pipeline
--- Auto-classified: 1646 | Manual: 58 | Fallback(9-A): 393
+-- Auto-classified: 1648 | Manual: 58 | Fallback(9-A): 393
 -- Total: 2079 items (pre-fallback unclassified: 393)
 -- 
 --  헌법적 설계: 이 파일은 빌드 시점에 Python에서 사전 계산된 정적 데이터입니다.
@@ -78,7 +78,7 @@ local IrisClassifications = {
     ["Base.Bag_Military"] = { "Wearable.6-F" },
     ["Base.Bag_MoneyBag"] = { "Wearable.6-F" },
     ["Base.Bag_NormalHikingBag"] = { "Wearable.6-F" },
-    ["Base.Bag_PistolCase"] = { "Wearable.6-F" },
+    ["Base.Bag_PistolCase"] = { "Tool.1-L", "Wearable.6-F" },
     ["Base.Bag_Satchel"] = { "Wearable.6-F" },
     ["Base.Bag_Schoolbag"] = { "Wearable.6-F" },
     ["Base.Bag_ShotgunBag"] = { "Wearable.6-F" },

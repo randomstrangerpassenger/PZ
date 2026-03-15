@@ -163,7 +163,7 @@ def convert(rendered_path: Path) -> int:
     parts.append(f"-- Total entries: {len(entries)}")
     parts.append(f"-- Generated from Phase 3 compose pipeline (APPROVE_SYNC only)")
     parts.append("")
-    parts.append("IrisLayer3Data = {}")
+    parts.append("local IrisLayer3Data = {}")
     parts.append("")
 
     roundtrip_failures = []
@@ -188,6 +188,8 @@ def convert(rendered_path: Path) -> int:
 
     parts.append("")
     parts.append(f"-- EOF: {len(sorted_keys)} entries")
+    parts.append("")
+    parts.append("return IrisLayer3Data")
     parts.append("")
 
     lua_content = "\n".join(parts)

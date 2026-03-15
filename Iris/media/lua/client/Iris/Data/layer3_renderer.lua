@@ -10,7 +10,7 @@
 local Layer3Renderer = {}
 
 -- 3계층 데이터 (빌드 시 dvf_3_3_rendered.json → IrisLayer3Data.lua로 변환)
--- 런타임 정규 소스: IrisLayer3Data (전역 Lua 테이블)
+-- 런타임 정규 소스: require("Iris/Data/IrisLayer3Data") → local table 반환
 -- 중간 산출물(decisions, facts, sync_queue 등) 직접 참조 금지
 local layer3Data = nil
 local dataLoaded = false
@@ -29,14 +29,9 @@ local function ensureData()
     if dataLoaded then return end
     dataLoaded = true
 
-    local ok, data = pcall(function()
-        if IrisLayer3Data then
-            return IrisLayer3Data
-        end
-        return nil
-    end)
+    local ok, data = pcall(require, "Iris/Data/IrisLayer3Data")
 
-    if ok and data then
+    if ok and data and type(data) == "table" then
         layer3Data = data
         print("[Layer3Renderer] Loaded: " .. tostring(countEntries(data)) .. " entries")
     else

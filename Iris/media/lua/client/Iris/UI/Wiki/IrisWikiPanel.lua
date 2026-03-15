@@ -95,6 +95,26 @@ function IrisWikiPanel.createPanel(item)
         yOffset = yOffset + 25
     end
     
+    -- B.7) 개별 아이템 설명 (DVF Layer 3)
+    local Layer3Renderer = nil
+    local l3ok, l3mod = pcall(require, "Iris/Data/layer3_renderer")
+    if l3ok then Layer3Renderer = l3mod end
+    if Layer3Renderer then
+        local fullType = nil
+        if item.getFullType then
+            local ftOk, ftResult = pcall(function() return item:getFullType() end)
+            if ftOk then fullType = ftResult end
+        end
+        if fullType then
+            local l3text = Layer3Renderer.getText(fullType)
+            if l3text and l3text ~= "" then
+                local l3Label = ISLabel:new(10, yOffset, 20, l3text, 0.85, 0.9, 0.75, 1, UIFont.Small, true)
+                panel:addChild(l3Label)
+                yOffset = yOffset + 25
+            end
+        end
+    end
+
     -- C) 연결 시스템
     local connectionSection = IrisWikiSections.renderConnectionSection(item)
     local connectionLabel = ISLabel:new(10, yOffset, 20, connectionSection, 1, 1, 1, 1, UIFont.Small, true)

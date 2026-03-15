@@ -711,6 +711,27 @@ function IrisBrowser:showDetail(fullType)
         end
     end
     
+    -- [2.5] 개별 아이템 설명 (DVF Layer 3)
+    local Layer3Renderer = nil
+    local l3ok, l3mod = pcall(require, "Iris/Data/layer3_renderer")
+    if l3ok then Layer3Renderer = l3mod end
+    if Layer3Renderer and fullType then
+        local l3text = Layer3Renderer.getText(fullType)
+        if l3text and l3text ~= "" then
+            yOffset = yOffset + 5
+            local sepLabel = ISLabel:new(10, yOffset, 14, "────────────────────────", 0.3, 0.4, 0.5, 1, UIFont.Medium, true)
+            self.detailPanel:addChild(sepLabel)
+            yOffset = yOffset + 20
+
+            for line in l3text:gmatch("[^\n]+") do
+                local lineLabel = ISLabel:new(10, yOffset, 18, line, 0.85, 0.9, 0.75, 1, UIFont.Medium, true)
+                self.detailPanel:addChild(lineLabel)
+                yOffset = yOffset + 18
+            end
+            yOffset = yOffset + 10
+        end
+    end
+
     -- [3] 상호작용 섹션 (레시피 + 우클릭 행동 통합)
     local interactionItems = {}  -- { {type="recipe"|"rightclick", name=string, sortKey=string} }
     

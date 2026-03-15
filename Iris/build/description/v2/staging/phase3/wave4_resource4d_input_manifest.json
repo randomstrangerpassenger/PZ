@@ -1,0 +1,22 @@
+{
+  "pilot_name": "wave4_resource4d",
+  "bucket_id": "Resource.4-D",
+  "source_review_file": "Resource.4-D.acquisition.jsonl",
+  "row_count": 6,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 6
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.PetrolBleachBottle",
+    "Base.PetrolCan",
+    "Base.PetrolPopBottle",
+    "Base.WaterBottlePetrol",
+    "Base.WhiskeyPetrol",
+    "Base.WinePetrol"
+  ],
+  "phase2_snapshot_sha256": "2cd13359e385e746a134ea99143b0955fb117a588299268b156679af89dfad03"
+}

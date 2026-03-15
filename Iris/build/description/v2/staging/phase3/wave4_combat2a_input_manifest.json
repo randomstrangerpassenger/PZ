@@ -1,0 +1,21 @@
+{
+  "pilot_name": "wave4_combat2a",
+  "bucket_id": "Combat.2-A",
+  "source_review_file": "Combat.2-A.acquisition.jsonl",
+  "row_count": 5,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 5
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.Axe",
+    "Base.AxeStone",
+    "Base.HandAxe",
+    "Base.PickAxe",
+    "Base.WoodAxe"
+  ],
+  "phase2_snapshot_sha256": "e5e5a1fb322ca4cc5ca61ad7875ff56df49000983de28b43aa025448cdadb1b5"
+}

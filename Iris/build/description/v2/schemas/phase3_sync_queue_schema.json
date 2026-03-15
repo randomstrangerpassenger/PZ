@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "phase3_sync_queue_schema.json",
+  "title": "Phase 3 Sync Approval Queue Row",
+  "description": "One JSON object per line in phase3_sync_queue_pilot.jsonl.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "fulltype",
+    "bucket_id",
+    "source_overlay",
+    "candidate_state",
+    "candidate_reason_code",
+    "candidate_compose_profile",
+    "phase3_notes",
+    "approval_state",
+    "approval_reason_code",
+    "approval_notes",
+    "phase3_decision_version",
+    "queue_version"
+  ],
+  "properties": {
+    "fulltype": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bucket_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_overlay": {
+      "type": "string",
+      "minLength": 1
+    },
+    "candidate_state": {
+      "type": "string",
+      "enum": [
+        "PROMOTE_ACTIVE",
+        "MANUAL_OVERRIDE_CANDIDATE"
+      ]
+    },
+    "candidate_reason_code": {
+      "type": "string",
+      "enum": [
+        "LOCATION_SPECIFIC",
+        "METHOD_SPECIFIC",
+        "LOCATION_METHOD_SPECIFIC",
+        "CONTEXT_SPECIFIC",
+        "IDENTITY_LINKED",
+        "USE_CONTEXT_LINKED",
+        "LAYER_COLLISION",
+        "SPECIFICITY_BORDERLINE",
+        "COMPOSE_STYLE_RISK",
+        "MULTI_CLAUSE_COLLAPSE",
+        "RULE_GAP"
+      ]
+    },
+    "candidate_compose_profile": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "ACQ_ONLY_LOCATION",
+        "ACQ_ONLY_METHOD",
+        "ACQ_LOCATION_METHOD",
+        "ACQ_CONTEXT_NOTE",
+        "USE_PLUS_ACQ",
+        "IDENTITY_PLUS_ACQ",
+        null
+      ]
+    },
+    "phase3_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "approval_state": {
+      "type": "string",
+      "enum": [
+        "APPROVE_SYNC",
+        "HOLD",
+        "REJECT"
+      ]
+    },
+    "approval_reason_code": {
+      "type": "string",
+      "enum": [
+        "DIRECT_ACQUISITION_READY",
+        "CONTEXTUAL_PROMOTE_REVIEW",
+        "MANUAL_REVIEW_REQUIRED",
+        "SYNC_REJECTED"
+      ]
+    },
+    "approval_notes": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phase3_decision_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "queue_version": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

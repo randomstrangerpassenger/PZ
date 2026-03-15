@@ -1,0 +1,19 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Consumable.3-D",
+      "target_count": 4,
+      "reviewed_count": 4,
+      "keep_count": 1,
+      "promote_count": 3,
+      "manual_count": 0,
+      "reason_breakdown": {
+        "ACQ_NULL": 1,
+        "METHOD_SPECIFIC": 3
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_METHOD": 3
+      }
+    }
+  ]
+}

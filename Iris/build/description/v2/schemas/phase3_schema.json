@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "phase3_schema.json",
+  "title": "Phase 3 Candidate State Overlay Row",
+  "description": "One JSON object per line in candidate_state_phase3.review.jsonl.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "fulltype",
+    "bucket_id",
+    "phase2_acquisition_state_snapshot",
+    "phase2_acquisition_hint_snapshot",
+    "phase2_null_reason_snapshot",
+    "phase2_snapshot_hash",
+    "candidate_state",
+    "candidate_reason_code",
+    "candidate_compose_profile",
+    "notes",
+    "decision_version",
+    "review_closed"
+  ],
+  "properties": {
+    "fulltype": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bucket_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "phase2_acquisition_state_snapshot": {
+      "type": "string",
+      "enum": ["ACQ_HINT", "ACQ_NULL"]
+    },
+    "phase2_acquisition_hint_snapshot": {
+      "type": ["string", "null"]
+    },
+    "phase2_null_reason_snapshot": {
+      "type": ["string", "null"],
+      "enum": ["STANDARDIZATION_IMPOSSIBLE", "UBIQUITOUS_ITEM", null]
+    },
+    "phase2_snapshot_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "candidate_state": {
+      "type": "string",
+      "enum": ["KEEP_SILENT", "PROMOTE_ACTIVE", "MANUAL_OVERRIDE_CANDIDATE"]
+    },
+    "candidate_reason_code": {
+      "type": "string",
+      "enum": [
+        "ACQ_NULL",
+        "GENERIC_BUCKET_LEVEL",
+        "DUPLICATES_SUBCATEGORY",
+        "INTERACTION_LAYER_ONLY",
+        "LOW_ITEM_SPECIFICITY",
+        "PROSE_VALUE_INSUFFICIENT",
+        "LOCATION_SPECIFIC",
+        "METHOD_SPECIFIC",
+        "LOCATION_METHOD_SPECIFIC",
+        "CONTEXT_SPECIFIC",
+        "IDENTITY_LINKED",
+        "USE_CONTEXT_LINKED",
+        "LAYER_COLLISION",
+        "SPECIFICITY_BORDERLINE",
+        "COMPOSE_STYLE_RISK",
+        "MULTI_CLAUSE_COLLAPSE",
+        "RULE_GAP"
+      ]
+    },
+    "candidate_compose_profile": {
+      "type": ["string", "null"],
+      "enum": [
+        "ACQ_ONLY_LOCATION",
+        "ACQ_ONLY_METHOD",
+        "ACQ_LOCATION_METHOD",
+        "ACQ_CONTEXT_NOTE",
+        "USE_PLUS_ACQ",
+        "IDENTITY_PLUS_ACQ",
+        null
+      ]
+    },
+    "notes": {
+      "type": ["string", "null"]
+    },
+    "decision_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_closed": {
+      "const": true
+    }
+  }
+}

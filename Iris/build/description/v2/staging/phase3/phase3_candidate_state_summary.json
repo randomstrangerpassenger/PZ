@@ -1,0 +1,29 @@
+{
+  "review_target_total": 2079,
+  "review_closed_total": 2079,
+  "keep_silent_count": 832,
+  "promote_active_count": 1089,
+  "manual_override_candidate_count": 158,
+  "active_rate": 0.5238,
+  "manual_rate": 0.076,
+  "reason_code_breakdown": {
+    "ACQ_NULL": 42,
+    "DUPLICATES_SUBCATEGORY": 19,
+    "GENERIC_BUCKET_LEVEL": 467,
+    "IDENTITY_LINKED": 33,
+    "INTERACTION_LAYER_ONLY": 304,
+    "LAYER_COLLISION": 158,
+    "LOCATION_SPECIFIC": 762,
+    "METHOD_SPECIFIC": 288,
+    "USE_CONTEXT_LINKED": 6
+  },
+  "compose_profile_breakdown": {
+    "ACQ_ONLY_LOCATION": 762,
+    "ACQ_ONLY_METHOD": 288,
+    "IDENTITY_PLUS_ACQ": 33,
+    "USE_PLUS_ACQ": 6
+  },
+  "invalid_combo_count": 0,
+  "snapshot_mismatch_count": 0,
+  "determinism_sha": "409dff500686f4b7058484437c5c05d74640dc74c86a2d5cd87d32965621086a"
+}

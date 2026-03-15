@@ -1,0 +1,18 @@
+{
+  "pilot_name": "wave4_combat2d",
+  "bucket_id": "Combat.2-D",
+  "source_review_file": "Combat.2-D.acquisition.jsonl",
+  "row_count": 2,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 2
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.Katana",
+    "Base.Machete"
+  ],
+  "phase2_snapshot_sha256": "c0d303d2d82c59f537f47692b224f8cbb9c88b9f03a873695b823372899d68dd"
+}

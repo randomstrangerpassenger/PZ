@@ -1,0 +1,18 @@
+{
+  "pilot_name": "wave4_resource4f",
+  "bucket_id": "Resource.4-F",
+  "source_review_file": "Resource.4-F.acquisition.jsonl",
+  "row_count": 2,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 2
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.Rope",
+    "Base.SheetRope"
+  ],
+  "phase2_snapshot_sha256": "a028258d0600ceadf8dca10612cd6a43d413194fb516cbc9f779416ec94fe0c9"
+}

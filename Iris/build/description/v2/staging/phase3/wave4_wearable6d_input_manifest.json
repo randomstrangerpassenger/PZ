@@ -1,0 +1,24 @@
+{
+  "pilot_name": "wave4_wearable6d",
+  "bucket_id": "Wearable.6-D",
+  "source_review_file": "Wearable.6-D.acquisition.jsonl",
+  "row_count": 8,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 8
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.Gloves_BoxingBlue",
+    "Base.Gloves_BoxingRed",
+    "Base.Gloves_FingerlessGloves",
+    "Base.Gloves_LeatherGloves",
+    "Base.Gloves_LeatherGlovesBlack",
+    "Base.Gloves_LongWomenGloves",
+    "Base.Gloves_Surgical",
+    "Base.Gloves_WhiteTINT"
+  ],
+  "phase2_snapshot_sha256": "ac6cfda2e14f9699584c638e15a3589b6b48fb81855d08159774c5c68a2cf067"
+}

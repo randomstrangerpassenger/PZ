@@ -1,0 +1,19 @@
+{
+  "pilot_name": "wave4_tool1h",
+  "bucket_id": "Tool.1-H",
+  "source_review_file": "Tool.1-H.acquisition.jsonl",
+  "row_count": 3,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 3
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.CandleLit",
+    "Base.Lighter",
+    "Base.Matches"
+  ],
+  "phase2_snapshot_sha256": "f4788426336e882abc49bfa41a40cd348f055df8e5db1f0eec216042189d3bb0"
+}

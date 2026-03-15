@@ -1,0 +1,20 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Literature.5-B",
+      "target_count": 30,
+      "reviewed_count": 30,
+      "keep_count": 27,
+      "promote_count": 3,
+      "manual_count": 0,
+      "reason_breakdown": {
+        "ACQ_NULL": 4,
+        "GENERIC_BUCKET_LEVEL": 23,
+        "LOCATION_SPECIFIC": 3
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_LOCATION": 3
+      }
+    }
+  ]
+}

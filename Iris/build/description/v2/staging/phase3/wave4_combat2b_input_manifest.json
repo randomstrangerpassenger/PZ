@@ -1,0 +1,53 @@
+{
+  "pilot_name": "wave4_combat2b",
+  "bucket_id": "Combat.2-B",
+  "source_review_file": "Combat.2-B.acquisition.jsonl",
+  "row_count": 36,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 35,
+    "ACQ_NULL": 1
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.BarBell",
+    "Base.BaseballBat",
+    "Base.BaseballBatNails",
+    "Base.Broom",
+    "Base.CanoePadel",
+    "Base.CanoePadelX2",
+    "Base.Chainsaw",
+    "Base.CraftedFishingRod",
+    "Base.CraftedFishingRodTwineLine",
+    "Base.Crowbar",
+    "Base.FishingRod",
+    "Base.FishingRodBreak",
+    "Base.FishingRodTwineLine",
+    "Base.GardenHoe",
+    "Base.Golfclub",
+    "Base.GuitarAcoustic",
+    "Base.GuitarElectricBassBlack",
+    "Base.GuitarElectricBassBlue",
+    "Base.GuitarElectricBassRed",
+    "Base.GuitarElectricBlack",
+    "Base.GuitarElectricBlue",
+    "Base.GuitarElectricRed",
+    "Base.HockeyStick",
+    "Base.IceHockeyStick",
+    "Base.Keytar",
+    "Base.LaCrosseStick",
+    "Base.LeafRake",
+    "Base.Plank",
+    "Base.PlankNail",
+    "Base.Poolcue",
+    "Base.Rake",
+    "Base.Shovel",
+    "Base.Shovel2",
+    "Base.Sledgehammer",
+    "Base.Sledgehammer2",
+    "Base.SnowShovel"
+  ],
+  "phase2_snapshot_sha256": "ece766d9f066f31163ecc3cce3e7312f882bf284aa45ae72952da8b4599713a9"
+}

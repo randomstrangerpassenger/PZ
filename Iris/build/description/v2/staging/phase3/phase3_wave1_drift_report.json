@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-03-13T16:02:26.7807290+09:00",
+  "wave_name": "wave1",
+  "bucket_ids": [
+    "Consumable.3-C",
+    "Combat.2-G",
+    "Combat.2-L",
+    "Tool.1-A",
+    "Tool.1-I"
+  ],
+  "coverage": {
+    "target_bucket_count": 5,
+    "covered_bucket_count": 5,
+    "target_row_count": 56,
+    "covered_row_count": 56,
+    "coverage_pct": 100.0
+  },
+  "state_breakdown": {
+    "keep_silent_count": 4,
+    "promote_active_count": 52,
+    "manual_override_candidate_count": 0
+  },
+  "manual_rate": 0.0,
+  "pilot_combined_manual_rate_baseline": 0.0417,
+  "manual_rate_delta_vs_pilot": -0.0417,
+  "reason_code_top_n": [
+    {
+      "reason_code": "LOCATION_SPECIFIC",
+      "count": 37
+    },
+    {
+      "reason_code": "METHOD_SPECIFIC",
+      "count": 15
+    },
+    {
+      "reason_code": "INTERACTION_LAYER_ONLY",
+      "count": 4
+    }
+  ],
+  "compose_profile_top_n": [
+    {
+      "compose_profile": "ACQ_ONLY_LOCATION",
+      "count": 37
+    },
+    {
+      "compose_profile": "ACQ_ONLY_METHOD",
+      "count": 15
+    }
+  ],
+  "layer_collision_count": 0,
+  "hold_queue_rows": 0,
+  "stop_rule_triggered": false,
+  "stop_rule_reasons": []
+}

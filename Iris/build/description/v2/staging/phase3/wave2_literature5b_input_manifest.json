@@ -1,0 +1,47 @@
+{
+  "pilot_name": "wave2_literature5b",
+  "bucket_id": "Literature.5-B",
+  "source_review_file": "Literature.5-B.acquisition.jsonl",
+  "row_count": 30,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 26,
+    "ACQ_NULL": 4
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.CookingMag1",
+    "Base.CookingMag2",
+    "Base.ElectronicsMag1",
+    "Base.ElectronicsMag2",
+    "Base.ElectronicsMag3",
+    "Base.ElectronicsMag4",
+    "Base.ElectronicsMag5",
+    "Base.EngineerMagazine1",
+    "Base.EngineerMagazine2",
+    "Base.FarmingMag1",
+    "Base.FishingMag1",
+    "Base.FishingMag2",
+    "Base.HerbalistMag",
+    "Base.HuntingMag1",
+    "Base.HuntingMag2",
+    "Base.HuntingMag3",
+    "Base.MechanicMag1",
+    "Base.MechanicMag2",
+    "Base.MechanicMag3",
+    "Base.MetalworkMag1",
+    "Base.MetalworkMag2",
+    "Base.MetalworkMag3",
+    "Base.MetalworkMag4",
+    "Base.SmithingMag1",
+    "Base.SmithingMag2",
+    "Base.SmithingMag3",
+    "Base.SmithingMag4",
+    "Radio.RadioMag1",
+    "Radio.RadioMag2",
+    "Radio.RadioMag3"
+  ],
+  "phase2_snapshot_sha256": "6b81a33aee629efa7358def4c481536ca0d8a8a81c77ebfd60ff289f4ad2157d"
+}

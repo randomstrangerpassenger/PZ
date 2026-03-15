@@ -1,0 +1,23 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Wearable.6-A",
+      "target_count": 102,
+      "reviewed_count": 102,
+      "keep_count": 10,
+      "promote_count": 92,
+      "manual_count": 0,
+      "reason_breakdown": {
+        "IDENTITY_LINKED": 2,
+        "INTERACTION_LAYER_ONLY": 10,
+        "LOCATION_SPECIFIC": 88,
+        "METHOD_SPECIFIC": 2
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_LOCATION": 88,
+        "ACQ_ONLY_METHOD": 2,
+        "IDENTITY_PLUS_ACQ": 2
+      }
+    }
+  ]
+}

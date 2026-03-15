@@ -1,0 +1,43 @@
+{
+  "pilot_name": "pilotA",
+  "bucket_id": "Consumable.3-C",
+  "source_review_file": "Consumable.3-C.acquisition.jsonl",
+  "row_count": 27,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 27
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.AlcoholBandage",
+    "Base.AlcoholRippedSheets",
+    "Base.AlcoholWipes",
+    "Base.AlcoholedCottonBalls",
+    "Base.Antibiotics",
+    "Base.Bandage",
+    "Base.BandageDirty",
+    "Base.Bandaid",
+    "Base.CottonBalls",
+    "Base.DenimStrips",
+    "Base.DenimStripsDirty",
+    "Base.Disinfectant",
+    "Base.FirstAidKit",
+    "Base.LeatherStrips",
+    "Base.LeatherStripsDirty",
+    "Base.Needle",
+    "Base.Pills",
+    "Base.PillsAntiDep",
+    "Base.PillsBeta",
+    "Base.PillsSleepingTablets",
+    "Base.PillsVitamins",
+    "Base.RippedSheets",
+    "Base.RippedSheetsDirty",
+    "Base.Splint",
+    "Base.SutureNeedle",
+    "Base.SutureNeedleHolder",
+    "Base.Tweezers"
+  ],
+  "phase2_snapshot_sha256": "687a8a7bb2b19e89cf5944b80f180652a115cd8c6142b0b6ae3e9416982f2560"
+}

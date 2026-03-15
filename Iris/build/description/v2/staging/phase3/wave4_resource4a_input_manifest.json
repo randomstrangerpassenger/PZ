@@ -1,0 +1,36 @@
+{
+  "pilot_name": "wave4_resource4a",
+  "bucket_id": "Resource.4-A",
+  "source_review_file": "Resource.4-A.acquisition.jsonl",
+  "row_count": 19,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 17,
+    "ACQ_NULL": 2
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.BlowTorch",
+    "Base.BucketEmpty",
+    "Base.BucketWaterFull",
+    "Base.Doorknob",
+    "Base.GunPowder",
+    "Base.Handle",
+    "Base.IronIngot",
+    "Base.Log",
+    "Base.LogStacks2",
+    "Base.LogStacks3",
+    "Base.LogStacks4",
+    "Base.Nails",
+    "Base.Pillow",
+    "Base.PlasterPowder",
+    "Base.PropaneTank",
+    "Base.Sheet",
+    "Base.SheetMetal",
+    "Base.SmallSheetMetal",
+    "Base.Thread"
+  ],
+  "phase2_snapshot_sha256": "200cc2121ed7e0f94b99789ddc00110446eb8029e5c35d406de9146f5f2df678"
+}

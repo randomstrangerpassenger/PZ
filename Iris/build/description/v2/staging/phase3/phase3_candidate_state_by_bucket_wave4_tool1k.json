@@ -1,0 +1,21 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Tool.1-K",
+      "target_count": 9,
+      "reviewed_count": 9,
+      "keep_count": 8,
+      "promote_count": 1,
+      "manual_count": 0,
+      "reason_breakdown": {
+        "ACQ_NULL": 1,
+        "DUPLICATES_SUBCATEGORY": 5,
+        "INTERACTION_LAYER_ONLY": 2,
+        "LOCATION_SPECIFIC": 1
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_LOCATION": 1
+      }
+    }
+  ]
+}

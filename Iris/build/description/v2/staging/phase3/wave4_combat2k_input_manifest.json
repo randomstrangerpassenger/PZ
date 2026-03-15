@@ -1,0 +1,24 @@
+{
+  "pilot_name": "wave4_combat2k",
+  "bucket_id": "Combat.2-K",
+  "source_review_file": "Combat.2-K.acquisition.jsonl",
+  "row_count": 8,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 8
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.223Bullets",
+    "Base.308Bullets",
+    "Base.556Bullets",
+    "Base.Bullets38",
+    "Base.Bullets44",
+    "Base.Bullets45",
+    "Base.Bullets9mm",
+    "Base.ShotgunShells"
+  ],
+  "phase2_snapshot_sha256": "ade3899082ab9cdfae3aa8fe4b2c900687f05fc2e5dc4958c7942d683bb99e2a"
+}

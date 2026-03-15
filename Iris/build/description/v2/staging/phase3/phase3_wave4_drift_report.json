@@ -1,0 +1,118 @@
+{
+  "generated_at": "2026-03-14T00:17:46.796715+09:00",
+  "wave_name": "wave4",
+  "bucket_ids": [
+    "Consumable.3-A",
+    "Consumable.3-B",
+    "Consumable.3-D",
+    "Resource.4-A",
+    "Resource.4-C",
+    "Resource.4-D",
+    "Resource.4-F",
+    "Vehicle.8-B",
+    "Literature.5-A",
+    "Literature.5-C",
+    "Literature.5-D",
+    "Tool.1-B",
+    "Tool.1-D",
+    "Tool.1-H",
+    "Tool.1-J",
+    "Tool.1-K",
+    "Combat.2-A",
+    "Combat.2-B",
+    "Combat.2-C",
+    "Combat.2-D",
+    "Combat.2-E",
+    "Combat.2-F",
+    "Combat.2-H",
+    "Combat.2-I",
+    "Combat.2-J",
+    "Combat.2-K",
+    "Wearable.6-A",
+    "Wearable.6-B",
+    "Wearable.6-C",
+    "Wearable.6-D",
+    "Wearable.6-E",
+    "Misc.9-A"
+  ],
+  "coverage": {
+    "target_bucket_count": 32,
+    "covered_bucket_count": 32,
+    "target_row_count": 1507,
+    "covered_row_count": 1507,
+    "coverage_pct": 100.0
+  },
+  "state_breakdown": {
+    "keep_silent_count": 548,
+    "promote_active_count": 841,
+    "manual_override_candidate_count": 118
+  },
+  "manual_rate": 0.0783,
+  "pilot_combined_manual_rate_baseline": 0.0417,
+  "manual_rate_delta_vs_pilot": 0.0366,
+  "known_batch_review_rows": 0,
+  "general_manual_rows_excluding_known_batch": 118,
+  "general_manual_rate_excluding_known_batch": 0.0783,
+  "reason_code_top_n": [
+    {
+      "reason_code": "LOCATION_SPECIFIC",
+      "count": 557
+    },
+    {
+      "reason_code": "GENERIC_BUCKET_LEVEL",
+      "count": 402
+    },
+    {
+      "reason_code": "METHOD_SPECIFIC",
+      "count": 252
+    },
+    {
+      "reason_code": "LAYER_COLLISION",
+      "count": 118
+    },
+    {
+      "reason_code": "INTERACTION_LAYER_ONLY",
+      "count": 107
+    }
+  ],
+  "compose_profile_top_n": [
+    {
+      "compose_profile": "ACQ_ONLY_LOCATION",
+      "count": 557
+    },
+    {
+      "compose_profile": "ACQ_ONLY_METHOD",
+      "count": 252
+    },
+    {
+      "compose_profile": "IDENTITY_PLUS_ACQ",
+      "count": 31
+    },
+    {
+      "compose_profile": "USE_PLUS_ACQ",
+      "count": 1
+    }
+  ],
+  "layer_collision_count": 118,
+  "hold_queue_rows": 197,
+  "hold_queue_rows_added_by_wave": 150,
+  "known_batch_review_breakdown": [],
+  "high_manual_buckets": [
+    {
+      "bucket_id": "Consumable.3-A",
+      "manual_count": 109
+    },
+    {
+      "bucket_id": "Misc.9-A",
+      "manual_count": 4
+    }
+  ],
+  "new_manual_reason_clusters": [],
+  "stop_rule_triggered": true,
+  "advance_decision": "EVALUATION_COMPLETE_PENDING_HOLD_BACKLOG",
+  "stop_rule_reasons": [
+    "manual rate remained above pilot baseline due primarily to Consumable.3-A layer-collision rows",
+    "HOLD queue grew by 150 rows during wave4 and reached cumulative 197 rows"
+  ],
+  "terminal_wave": true
+}

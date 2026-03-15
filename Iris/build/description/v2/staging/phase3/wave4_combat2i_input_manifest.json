@@ -1,0 +1,20 @@
+{
+  "pilot_name": "wave4_combat2i",
+  "bucket_id": "Combat.2-I",
+  "source_review_file": "Combat.2-I.acquisition.jsonl",
+  "row_count": 4,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 4
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.DoubleBarrelShotgun",
+    "Base.DoubleBarrelShotgunSawnoff",
+    "Base.Shotgun",
+    "Base.ShotgunSawnoff"
+  ],
+  "phase2_snapshot_sha256": "e1dca802236b48796026212920ce34067eab59d9b86fb7edbd64530552eccfef"
+}

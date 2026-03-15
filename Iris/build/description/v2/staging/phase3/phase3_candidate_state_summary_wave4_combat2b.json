@@ -1,0 +1,22 @@
+{
+  "review_target_total": 36,
+  "review_closed_total": 36,
+  "keep_silent_count": 2,
+  "promote_active_count": 34,
+  "manual_override_candidate_count": 0,
+  "active_rate": 0.9444,
+  "manual_rate": 0.0,
+  "reason_code_breakdown": {
+    "ACQ_NULL": 1,
+    "INTERACTION_LAYER_ONLY": 1,
+    "LOCATION_SPECIFIC": 28,
+    "METHOD_SPECIFIC": 6
+  },
+  "compose_profile_breakdown": {
+    "ACQ_ONLY_LOCATION": 28,
+    "ACQ_ONLY_METHOD": 6
+  },
+  "invalid_combo_count": 0,
+  "snapshot_mismatch_count": 0,
+  "determinism_sha": "4a3f9998f276e972402edb6b00e900939218e24b313d86c3c22af97a0677e1fe"
+}

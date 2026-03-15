@@ -1,0 +1,19 @@
+{
+  "pilot_name": "wave1_tool1i",
+  "bucket_id": "Tool.1-I",
+  "source_review_file": "Tool.1-I.acquisition.jsonl",
+  "row_count": 3,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 3
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Radio.HamRadioMakeShift",
+    "Radio.RadioMakeShift",
+    "Radio.WalkieTalkieMakeShift"
+  ],
+  "phase2_snapshot_sha256": "68b577276559501f038dbf87074ebdc4e28ab1af84032c91e540bde9c4c5db19"
+}

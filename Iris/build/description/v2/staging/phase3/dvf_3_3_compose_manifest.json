@@ -1,0 +1,13 @@
+{
+  "total_compose_target": 1050,
+  "excluded_hold": 197,
+  "excluded_keep_silent": 832,
+  "profile_breakdown": {
+    "acq_location": 762,
+    "acq_method": 288
+  },
+  "source_sync_queue": "phase3_sync_queue.jsonl",
+  "source_phase3_determinism_sha": "d21cf9708a16b8994db54be85c1b3137ec307ee61a7a458ab2547374d253e5ae",
+  "compose_input_sha": "7b85f1c3b1866d7f458a4eb610009b48b83227fb8e946bf792438e771cd5d677",
+  "build_version": "dvf-3-3-compose-v1"
+}

@@ -1,0 +1,118 @@
+{
+    "pilotA":  {
+                   "pilot_name":  "pilotA",
+                   "bucket_id":  "Consumable.3-C",
+                   "row_count":  27,
+                   "coverage_disposition_breakdown":  {
+                                                          "ACQ_HINT":  27
+                                                      },
+                   "phase2_snapshot_sha256":  "687a8a7bb2b19e89cf5944b80f180652a115cd8c6142b0b6ae3e9416982f2560",
+                   "determinism_sha":  "3a1ad712455fecc9e27fcd9862283012dc621c94e425c7bad1e6d4c5f7925cab",
+                   "state_breakdown":  {
+                                           "keep_silent":  4,
+                                           "promote_active":  23,
+                                           "manual_override_candidate":  0
+                                       },
+                   "active_rate":  0.8519,
+                   "manual_rate":  0.0,
+                   "reason_code_breakdown":  {
+                                                 "INTERACTION_LAYER_ONLY":  4,
+                                                 "LOCATION_SPECIFIC":  16,
+                                                 "METHOD_SPECIFIC":  7
+                                             },
+                   "compose_profile_breakdown":  {
+                                                     "ACQ_ONLY_LOCATION":  16,
+                                                     "ACQ_ONLY_METHOD":  7
+                                                 },
+                   "manual_clusters":  [
+
+                                       ]
+               },
+    "pilotB":  {
+                   "pilot_name":  "pilotB",
+                   "bucket_id":  "Tool.1-L",
+                   "row_count":  45,
+                   "coverage_disposition_breakdown":  {
+                                                          "ACQ_HINT":  40,
+                                                          "ACQ_NULL":  5
+                                                      },
+                   "phase2_snapshot_sha256":  "162d1dd53306bdeec140a6e2b48b78afaa3775dd03b132fbb3c4d4f5d4c3394b",
+                   "determinism_sha":  "abcb95ef43404ccf9050cced9d31ae10763fde138ec52bdade63318a56090d08",
+                   "state_breakdown":  {
+                                           "keep_silent":  13,
+                                           "promote_active":  29,
+                                           "manual_override_candidate":  3
+                                       },
+                   "active_rate":  0.6444,
+                   "manual_rate":  0.0667,
+                   "reason_code_breakdown":  {
+                                                 "ACQ_NULL":  5,
+                                                 "DUPLICATES_SUBCATEGORY":  5,
+                                                 "GENERIC_BUCKET_LEVEL":  3,
+                                                 "IDENTITY_LINKED":  2,
+                                                 "LAYER_COLLISION":  3,
+                                                 "LOCATION_SPECIFIC":  22,
+                                                 "USE_CONTEXT_LINKED":  5
+                                             },
+                   "compose_profile_breakdown":  {
+                                                     "ACQ_ONLY_LOCATION":  22,
+                                                     "IDENTITY_PLUS_ACQ":  2,
+                                                     "USE_PLUS_ACQ":  5
+                                                 },
+                   "manual_clusters":  [
+                                           {
+                                               "reason_code":  "LAYER_COLLISION",
+                                               "count":  3,
+                                               "example_fulltypes":  [
+                                                                         "Base.Bag_BowlingBallBag",
+                                                                         "Base.Handbag",
+                                                                         "Base.Purse"
+                                                                     ]
+                                           }
+                                       ]
+               },
+    "comparison":  {
+                       "row_count_delta":  18,
+                       "active_rate_delta":  -0.2075,
+                       "manual_rate_delta":  0.0667,
+                       "shared_reason_codes":  [
+                                                   "LOCATION_SPECIFIC"
+                                               ],
+                       "pilotA_only_reason_codes":  [
+                                                        "INTERACTION_LAYER_ONLY",
+                                                        "METHOD_SPECIFIC"
+                                                    ],
+                       "pilotB_only_reason_codes":  [
+                                                        "ACQ_NULL",
+                                                        "DUPLICATES_SUBCATEGORY",
+                                                        "GENERIC_BUCKET_LEVEL",
+                                                        "IDENTITY_LINKED",
+                                                        "LAYER_COLLISION",
+                                                        "USE_CONTEXT_LINKED"
+                                                    ],
+                       "shared_compose_profiles":  [
+                                                       "ACQ_ONLY_LOCATION"
+                                                   ],
+                       "pilotB_manual_cluster":  [
+                                                     {
+                                                         "reason_code":  "LAYER_COLLISION",
+                                                         "count":  3,
+                                                         "example_fulltypes":  [
+                                                                                   "Base.Bag_BowlingBallBag",
+                                                                                   "Base.Handbag",
+                                                                                   "Base.Purse"
+                                                                               ]
+                                                     }
+                                                 ],
+                       "notes_usage_check":  {
+                                                 "pilotA_manual_count":  0,
+                                                 "pilotB_manual_count":  3,
+                                                 "manual_only_notes_expected":  true
+                                             },
+                       "interpretation":  [
+                                              "Pilot A remained a promote-heavy ACQ_HINT bucket and validated method/location-based promotion without manual spill.",
+                                              "Pilot B added keep pressure from ACQ_NULL, duplicate shopping bag rows, and generic bucket-level packaging rows while keeping manual limited to a 3-row foraging layer-collision cluster.",
+                                              "Both pilots share LOCATION_SPECIFIC plus ACQ_ONLY_LOCATION as the dominant promote path, so the reason/profile system is carrying across buckets instead of drifting reviewer-by-reviewer."
+                                          ]
+                   }
+}

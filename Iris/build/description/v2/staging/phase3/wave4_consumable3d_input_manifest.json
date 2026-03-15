@@ -1,0 +1,21 @@
+{
+  "pilot_name": "wave4_consumable3d",
+  "bucket_id": "Consumable.3-D",
+  "source_review_file": "Consumable.3-D.acquisition.jsonl",
+  "row_count": 4,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 3,
+    "ACQ_NULL": 1
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.Beverage",
+    "Base.Beverage2",
+    "Base.Cigar",
+    "Base.WineInGlass"
+  ],
+  "phase2_snapshot_sha256": "45455a33fee608c0d3556ceafdd82f1914974cc791cc572d0fcde1bb5e47f678"
+}

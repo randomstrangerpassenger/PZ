@@ -1,0 +1,18 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Combat.2-G",
+      "target_count": 6,
+      "reviewed_count": 6,
+      "keep_count": 0,
+      "promote_count": 6,
+      "manual_count": 0,
+      "reason_breakdown": {
+        "LOCATION_SPECIFIC": 6
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_LOCATION": 6
+      }
+    }
+  ]
+}

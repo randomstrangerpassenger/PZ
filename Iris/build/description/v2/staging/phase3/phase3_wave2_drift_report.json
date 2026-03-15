@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-03-13T17:04:15.9499806+09:00",
+  "wave_name": "wave2",
+  "bucket_ids": [
+    "Tool.1-L",
+    "Resource.4-B",
+    "Resource.4-E",
+    "Literature.5-B",
+    "Wearable.6-F"
+  ],
+  "coverage": {
+    "target_bucket_count": 5,
+    "covered_bucket_count": 5,
+    "target_row_count": 197,
+    "covered_row_count": 197,
+    "coverage_pct": 100.0
+  },
+  "state_breakdown": {
+    "keep_silent_count": 94,
+    "promote_active_count": 99,
+    "manual_override_candidate_count": 4
+  },
+  "manual_rate": 0.0203,
+  "pilot_combined_manual_rate_baseline": 0.0417,
+  "manual_rate_delta_vs_pilot": -0.0214,
+  "reason_code_top_n": [
+    {
+      "reason_code": "LOCATION_SPECIFIC",
+      "count": 71
+    },
+    {
+      "reason_code": "GENERIC_BUCKET_LEVEL",
+      "count": 65
+    },
+    {
+      "reason_code": "METHOD_SPECIFIC",
+      "count": 21
+    },
+    {
+      "reason_code": "ACQ_NULL",
+      "count": 17
+    },
+    {
+      "reason_code": "INTERACTION_LAYER_ONLY",
+      "count": 7
+    }
+  ],
+  "compose_profile_top_n": [
+    {
+      "compose_profile": "ACQ_ONLY_LOCATION",
+      "count": 71
+    },
+    {
+      "compose_profile": "ACQ_ONLY_METHOD",
+      "count": 21
+    },
+    {
+      "compose_profile": "USE_PLUS_ACQ",
+      "count": 5
+    },
+    {
+      "compose_profile": "IDENTITY_PLUS_ACQ",
+      "count": 2
+    }
+  ],
+  "layer_collision_count": 4,
+  "hold_queue_rows": 11,
+  "high_manual_buckets": [
+    {
+      "bucket_id": "Tool.1-L",
+      "manual_count": 3
+    },
+    {
+      "bucket_id": "Resource.4-B",
+      "manual_count": 1
+    }
+  ],
+  "new_manual_reason_clusters": [],
+  "stop_rule_triggered": false,
+  "stop_rule_reasons": []
+}

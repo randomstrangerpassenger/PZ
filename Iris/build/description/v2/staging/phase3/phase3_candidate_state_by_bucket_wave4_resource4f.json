@@ -1,0 +1,19 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Resource.4-F",
+      "target_count": 2,
+      "reviewed_count": 2,
+      "keep_count": 0,
+      "promote_count": 1,
+      "manual_count": 1,
+      "reason_breakdown": {
+        "LAYER_COLLISION": 1,
+        "METHOD_SPECIFIC": 1
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_METHOD": 1
+      }
+    }
+  ]
+}

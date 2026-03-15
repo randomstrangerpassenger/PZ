@@ -1,0 +1,18 @@
+{
+  "review_target_total": 2,
+  "review_closed_total": 2,
+  "keep_silent_count": 0,
+  "promote_active_count": 2,
+  "manual_override_candidate_count": 0,
+  "active_rate": 1.0,
+  "manual_rate": 0.0,
+  "reason_code_breakdown": {
+    "LOCATION_SPECIFIC": 2
+  },
+  "compose_profile_breakdown": {
+    "ACQ_ONLY_LOCATION": 2
+  },
+  "invalid_combo_count": 0,
+  "snapshot_mismatch_count": 0,
+  "determinism_sha": "8ff7cfb9526068a2233089f6cbe0a6cb947bcf80f36e26843ffb007fe6e589e0"
+}

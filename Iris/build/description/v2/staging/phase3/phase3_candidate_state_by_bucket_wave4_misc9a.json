@@ -1,0 +1,25 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Misc.9-A",
+      "target_count": 408,
+      "reviewed_count": 408,
+      "keep_count": 162,
+      "promote_count": 242,
+      "manual_count": 4,
+      "reason_breakdown": {
+        "ACQ_NULL": 3,
+        "DUPLICATES_SUBCATEGORY": 5,
+        "GENERIC_BUCKET_LEVEL": 134,
+        "INTERACTION_LAYER_ONLY": 20,
+        "LAYER_COLLISION": 4,
+        "LOCATION_SPECIFIC": 141,
+        "METHOD_SPECIFIC": 101
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_LOCATION": 141,
+        "ACQ_ONLY_METHOD": 101
+      }
+    }
+  ]
+}

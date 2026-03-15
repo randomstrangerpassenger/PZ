@@ -1,0 +1,18 @@
+{
+  "review_target_total": 8,
+  "review_closed_total": 8,
+  "keep_silent_count": 0,
+  "promote_active_count": 8,
+  "manual_override_candidate_count": 0,
+  "active_rate": 1.0,
+  "manual_rate": 0.0,
+  "reason_code_breakdown": {
+    "METHOD_SPECIFIC": 8
+  },
+  "compose_profile_breakdown": {
+    "ACQ_ONLY_METHOD": 8
+  },
+  "invalid_combo_count": 0,
+  "snapshot_mismatch_count": 0,
+  "determinism_sha": "8fac6e00acd93b08aa5a093f4d5407d8ea13b618f1c46b493a584a2cd03c8724"
+}

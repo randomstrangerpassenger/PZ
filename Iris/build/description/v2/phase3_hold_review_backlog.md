@@ -1,0 +1,250 @@
+# Phase 3 HOLD Review Backlog
+
+## Scope
+
+- generated_at: `2026-03-14T03:01:50.857525+09:00`
+- queue source: `C:\Users\MW\Downloads\coding\PZ\Iris\build\description\v2\staging\phase3\phase3_sync_queue.jsonl`
+- sync queue rows: `1247`
+- hold rows: `197`
+
+## Separation Guardrail
+
+- `candidate_state`는 유지한다.
+- 이 backlog는 `approval_state=HOLD` row만 추적한다.
+- approval review에서 필요한 note만 누적하고 Phase 2 acquisition이나 Phase 3 candidate 판단은 여기서 뒤집지 않는다.
+
+## Batch Review Separation
+
+- known batch review rows: `33`
+- known hotspot rows: `3`
+- general HOLD rows: `161`
+- `KNOWN_LAYER_COLLISION_PURE_FORAGING_ACCESSORIES` / `Wearable.6-G`: `33` | `NO_RULE_CHANGE_BATCH_REVIEW` | Wearable.6-G pure-foraging accessory subset. Keep candidate_state as manual and review as a known collision backlog batch.
+- `HOTSPOT_CONSUMABLE_3E_FORAGING_COLLISION` / `Consumable.3-E`: `3` | `manual_concentration_3_of_3` | `OPEN`
+
+## By Approval Reason
+
+- `CONTEXTUAL_PROMOTE_REVIEW`: `39`
+- `MANUAL_REVIEW_REQUIRED`: `158`
+
+## By Candidate State
+
+- `MANUAL_OVERRIDE_CANDIDATE`: `158`
+- `PROMOTE_ACTIVE`: `39`
+
+## By Bucket
+
+- `Consumable.3-A`: `109` (MANUAL_REVIEW_REQUIRED=109)
+- `Wearable.6-G`: `33` (MANUAL_REVIEW_REQUIRED=33)
+- `Wearable.6-B`: `24` (CONTEXTUAL_PROMOTE_REVIEW=24)
+- `Tool.1-L`: `10` (CONTEXTUAL_PROMOTE_REVIEW=7, MANUAL_REVIEW_REQUIRED=3)
+- `Wearable.6-C`: `5` (CONTEXTUAL_PROMOTE_REVIEW=5)
+- `Misc.9-A`: `4` (MANUAL_REVIEW_REQUIRED=4)
+- `Consumable.3-E`: `3` (MANUAL_REVIEW_REQUIRED=3)
+- `Wearable.6-A`: `2` (CONTEXTUAL_PROMOTE_REVIEW=2)
+- `Consumable.3-B`: `1` (CONTEXTUAL_PROMOTE_REVIEW=1)
+- `Literature.5-D`: `1` (MANUAL_REVIEW_REQUIRED=1)
+- `Resource.4-A`: `1` (MANUAL_REVIEW_REQUIRED=1)
+- `Resource.4-B`: `1` (MANUAL_REVIEW_REQUIRED=1)
+- `Resource.4-C`: `1` (MANUAL_REVIEW_REQUIRED=1)
+- `Resource.4-F`: `1` (MANUAL_REVIEW_REQUIRED=1)
+- `Tool.1-B`: `1` (MANUAL_REVIEW_REQUIRED=1)
+
+## Current HOLD Rows
+
+- `Consumable.3-A / Base.Acorn` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.AmericanLadyCaterpillar` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Apple` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Avocado` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BaitFish` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Banana` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BandedWoolyBearCaterpillar` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Basil` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Bass` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BeautyBerry` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BellPepper` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BerryBlack` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BerryBlue` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BerryGeneric1` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BerryGeneric2` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BerryGeneric3` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BerryGeneric4` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BerryGeneric5` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BerryPoisonIvy` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.BlackSage` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Broccoli` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Carrots` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Catfish` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Centipede` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Centipede2` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Cherry` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Chives` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Cilantro` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Cockroach` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.CommonMallow` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Corn` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Crappie` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Crayfish` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Cricket` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Daikon` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Dandelions` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.DeadBird` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.DeadRabbit` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.DeadRat` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.DeadSquirrel` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Egg` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Eggplant` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.GingerRoot` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Ginseng` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.GrapeLeaves` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Grapefruit` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Grapes` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Grasshopper` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.HollyBerry` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Leek` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Lemon` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.LemonGrass` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Lettuce` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Lime` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Mango` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Millipede` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Millipede2` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.MonarchCaterpillar` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.MushroomGeneric1` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.MushroomGeneric2` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.MushroomGeneric3` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.MushroomGeneric4` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.MushroomGeneric5` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.MushroomGeneric6` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.MushroomGeneric7` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Nettles` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Onion` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Orange` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Oregano` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Panfish` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Parsley` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Peach` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Peanuts` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Pear` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.PepperHabanero` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.PepperJalapeno` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Perch` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Pike` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Pillbug` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Pineapple` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Pumpkin` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Rosehips` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Rosemary` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Sage` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Salmon` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.SawflyLarva` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.SilkMothCaterpillar` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Slug` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Slug2` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Snail` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.SunflowerSeeds` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.SwallowtailCaterpillar` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Termites` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Thistle` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Thyme` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Trout` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 낚시 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Violets` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Watermelon` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.WildEggs` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.WildGarlic2` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.WinterBerry` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Worm` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / Base.Zucchini` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / farming.BloomingBroccoli` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 농사 수확 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / farming.Cabbage` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 농사 수확 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / farming.Potato` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 농사 수확 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / farming.RedRadish` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 농사 수확 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / farming.Strewberrie` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 농사 수확 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-A / farming.Tomato` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 농사 수확 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-B / Base.Bleach` | `CONTEXTUAL_PROMOTE_REVIEW` | `USE_CONTEXT_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Consumable.3-E / Base.Comfrey` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-E / Base.Lemongrass` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Consumable.3-E / Base.Plantain` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Literature.5-D / Base.Journal` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 발견물 문구는 시스템 획득 채널 설명에 가까워 3-4 상호작용층과 겹치며, 현재 row의 주거지 탁자 anchor만으로는 혼합 서술을 3-3 장소 승격으로 닫기 어렵다.
+- `Misc.9-A / Base.Pinecone` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Misc.9-A / Base.Stone` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Misc.9-A / Base.Twigs` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Misc.9-A / camping.Flint` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Resource.4-A / Base.Log` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 문구는 시스템 획득 채널 설명에 가까워 3-4 상호작용층과 겹치며, 현재 row에는 item-specific 장소 맥락이 부족해 3-3 승격 기준으로 닫기 어렵다.
+- `Resource.4-B / Base.Frog` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 문구는 시스템 획득 채널 설명에 가까워 3-4 상호작용층과 겹치며, 현재 row에는 item-specific 장소 맥락이 부족해 3-3 승격 기준으로 닫기 어렵다.
+- `Resource.4-C / Base.TreeBranch` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Resource.4-F / Base.Rope` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 쓰레기 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Tool.1-B / Base.SharpedStone` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Tool.1-L / Base.Bag_BowlingBallBag` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Tool.1-L / Base.Bag_DoctorBag` | `CONTEXTUAL_PROMOTE_REVIEW` | `USE_CONTEXT_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Tool.1-L / Base.Bag_JanitorToolbox` | `CONTEXTUAL_PROMOTE_REVIEW` | `USE_CONTEXT_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Tool.1-L / Base.Handbag` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Tool.1-L / Base.Lunchbag` | `CONTEXTUAL_PROMOTE_REVIEW` | `USE_CONTEXT_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Tool.1-L / Base.Lunchbox` | `CONTEXTUAL_PROMOTE_REVIEW` | `USE_CONTEXT_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Tool.1-L / Base.Lunchbox2` | `CONTEXTUAL_PROMOTE_REVIEW` | `USE_CONTEXT_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Tool.1-L / Base.Paperbag_Jays` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Tool.1-L / Base.Paperbag_Spiffos` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Tool.1-L / Base.Purse` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-A / Base.Hat_FastFood_Spiffo` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-A / Base.Hat_Ranger` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Apron_PileOCrepe` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Apron_PizzaWhirled` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Jacket_Chef` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Jacket_Ranger` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Shirt_Jockey01` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Shirt_Jockey02` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Shirt_Jockey03` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Shirt_Jockey04` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Shirt_Jockey05` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Shirt_Jockey06` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Shirt_Priest` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Shirt_Ranger` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_Fossoil` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_Gas2Go` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_McCoys` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_Profession_PoliceBlue` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_Profession_PoliceWhite` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_Profession_RangerBrown` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_Profession_RangerGreen` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_Ranger` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Tshirt_ThunderGas` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.Vest_Waistcoat_GigaMart` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.WeddingDress` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-B / Base.WeddingJacket` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-C / Base.Shorts_BoxingBlue` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-C / Base.Shorts_BoxingRed` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-C / Base.Trousers_Black` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-C / Base.Trousers_Chef` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-C / Base.Trousers_Ranger` | `CONTEXTUAL_PROMOTE_REVIEW` | `IDENTITY_LINKED` | Context-linked promote requires canon voice and layer-fit review before sync.
+- `Wearable.6-G / Base.Bracelet_BangleLeftGold` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Bracelet_BangleLeftSilver` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Bracelet_ChainLeftGold` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Bracelet_ChainLeftSilver` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Bracelet_RightFriendshipTINT` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Glasses_Eyepatch_Left` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Glasses_Eyepatch_Right` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Glasses_Shooting` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.NecklaceLong_Amber` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.NoseStud_Silver` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Left_MiddleFinger_Gold` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Left_MiddleFinger_GoldDiamond` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Left_MiddleFinger_GoldRuby` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Left_MiddleFinger_Silver` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Left_MiddleFinger_SilverDiamond` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Left_RingFinger_GoldDiamond` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Left_RingFinger_GoldRuby` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Left_RingFinger_SilverDiamond` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Right_MiddleFinger_Gold` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Right_MiddleFinger_GoldDiamond` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Right_MiddleFinger_GoldRuby` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Right_MiddleFinger_Silver` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Right_MiddleFinger_SilverDiamond` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Right_RingFinger_Gold` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.Ring_Right_RingFinger_Silver` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.WristWatch_Left_ClassicBlack` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.WristWatch_Left_ClassicBrown` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.WristWatch_Left_ClassicGold` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.WristWatch_Left_ClassicMilitary` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.WristWatch_Left_DigitalBlack` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.WristWatch_Left_DigitalDress` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.WristWatch_Left_DigitalRed` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.
+- `Wearable.6-G / Base.WristWatch_Right_ClassicMilitary` | `MANUAL_REVIEW_REQUIRED` | `LAYER_COLLISION` | 채집 가능 여부는 시스템 획득 채널 정보라 3-4 상호작용층과 겹치고, 현재 row에는 item-specific 장소 맥락이 없어 3-3 승격 규칙으로 닫기 어렵다.

@@ -1,0 +1,16 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Furniture.7-A",
+      "target_count": 140,
+      "reviewed_count": 140,
+      "keep_count": 140,
+      "promote_count": 0,
+      "manual_count": 0,
+      "reason_breakdown": {
+        "INTERACTION_LAYER_ONLY": 140
+      },
+      "profile_breakdown": {}
+    }
+  ]
+}

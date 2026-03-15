@@ -1,0 +1,26 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Tool.1-L",
+      "target_count": 45,
+      "reviewed_count": 45,
+      "keep_count": 13,
+      "promote_count": 29,
+      "manual_count": 3,
+      "reason_breakdown": {
+        "ACQ_NULL": 5,
+        "DUPLICATES_SUBCATEGORY": 5,
+        "GENERIC_BUCKET_LEVEL": 3,
+        "IDENTITY_LINKED": 2,
+        "LAYER_COLLISION": 3,
+        "LOCATION_SPECIFIC": 22,
+        "USE_CONTEXT_LINKED": 5
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_LOCATION": 22,
+        "IDENTITY_PLUS_ACQ": 2,
+        "USE_PLUS_ACQ": 5
+      }
+    }
+  ]
+}

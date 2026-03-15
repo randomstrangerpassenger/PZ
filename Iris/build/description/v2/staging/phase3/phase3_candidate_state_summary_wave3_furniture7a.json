@@ -1,0 +1,16 @@
+{
+  "review_target_total": 140,
+  "review_closed_total": 140,
+  "keep_silent_count": 140,
+  "promote_active_count": 0,
+  "manual_override_candidate_count": 0,
+  "active_rate": 0.0,
+  "manual_rate": 0.0,
+  "reason_code_breakdown": {
+    "INTERACTION_LAYER_ONLY": 140
+  },
+  "compose_profile_breakdown": {},
+  "invalid_combo_count": 0,
+  "snapshot_mismatch_count": 0,
+  "determinism_sha": "dcf54d0057a18323555114d83b23b3a41c4c4200633718035954c6f31e2516d6"
+}

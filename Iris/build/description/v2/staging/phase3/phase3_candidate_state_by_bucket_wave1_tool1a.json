@@ -1,0 +1,20 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Tool.1-A",
+      "target_count": 6,
+      "reviewed_count": 6,
+      "keep_count": 0,
+      "promote_count": 6,
+      "manual_count": 0,
+      "reason_breakdown": {
+        "LOCATION_SPECIFIC": 1,
+        "METHOD_SPECIFIC": 5
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_LOCATION": 1,
+        "ACQ_ONLY_METHOD": 5
+      }
+    }
+  ]
+}

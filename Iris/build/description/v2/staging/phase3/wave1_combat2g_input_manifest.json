@@ -1,0 +1,22 @@
+{
+  "pilot_name": "wave1_combat2g",
+  "bucket_id": "Combat.2-G",
+  "source_review_file": "Combat.2-G.acquisition.jsonl",
+  "row_count": 6,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 6
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.Pistol",
+    "Base.Pistol2",
+    "Base.Pistol3",
+    "Base.Revolver",
+    "Base.Revolver_Long",
+    "Base.Revolver_Short"
+  ],
+  "phase2_snapshot_sha256": "450865ff059ffc3092dff64c2665d6950347edb22d91e2d370bd217477b00571"
+}

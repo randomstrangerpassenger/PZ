@@ -1,0 +1,34 @@
+{
+  "wave_name": "wave1",
+  "wave_class": "LOW_COLLISION_HIGH_SIGNAL",
+  "bucket_ids": [
+    "Consumable.3-C",
+    "Combat.2-G",
+    "Combat.2-L",
+    "Tool.1-A",
+    "Tool.1-I"
+  ],
+  "canonical_seed_bucket_ids": [
+    "Consumable.3-C"
+  ],
+  "completed_canonical_execution_bucket_ids": [
+    "Combat.2-G",
+    "Combat.2-L",
+    "Tool.1-A",
+    "Tool.1-I"
+  ],
+  "exploratory_reference_bucket_ids": [],
+  "pending_canonical_execution_bucket_ids": [],
+  "bucket_row_counts": {
+    "Consumable.3-C": 27,
+    "Combat.2-G": 6,
+    "Combat.2-L": 14,
+    "Tool.1-A": 6,
+    "Tool.1-I": 3
+  },
+  "total_bucket_count": 5,
+  "total_row_count": 56,
+  "canonical_seed_row_count": 27,
+  "completed_canonical_execution_row_count": 29,
+  "pending_canonical_execution_row_count": 0
+}

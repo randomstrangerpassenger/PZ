@@ -1,0 +1,16 @@
+{
+  "review_target_total": 3,
+  "review_closed_total": 3,
+  "keep_silent_count": 0,
+  "promote_active_count": 0,
+  "manual_override_candidate_count": 3,
+  "active_rate": 0.0,
+  "manual_rate": 1.0,
+  "reason_code_breakdown": {
+    "LAYER_COLLISION": 3
+  },
+  "compose_profile_breakdown": {},
+  "invalid_combo_count": 0,
+  "snapshot_mismatch_count": 0,
+  "determinism_sha": "e7e8424ed9caf4fadb032939f0dd096fe71ffa8f1a43a9d42edb91028cde87a1"
+}

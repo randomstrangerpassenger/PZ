@@ -1,0 +1,24 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Resource.4-B",
+      "target_count": 52,
+      "reviewed_count": 52,
+      "keep_count": 31,
+      "promote_count": 20,
+      "manual_count": 1,
+      "reason_breakdown": {
+        "ACQ_NULL": 1,
+        "GENERIC_BUCKET_LEVEL": 28,
+        "INTERACTION_LAYER_ONLY": 2,
+        "LAYER_COLLISION": 1,
+        "LOCATION_SPECIFIC": 7,
+        "METHOD_SPECIFIC": 13
+      },
+      "profile_breakdown": {
+        "ACQ_ONLY_LOCATION": 7,
+        "ACQ_ONLY_METHOD": 13
+      }
+    }
+  ]
+}

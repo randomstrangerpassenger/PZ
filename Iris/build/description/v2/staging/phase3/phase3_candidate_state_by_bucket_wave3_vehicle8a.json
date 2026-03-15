@@ -1,0 +1,16 @@
+{
+  "buckets": [
+    {
+      "bucket_id": "Vehicle.8-A",
+      "target_count": 46,
+      "reviewed_count": 46,
+      "keep_count": 46,
+      "promote_count": 0,
+      "manual_count": 0,
+      "reason_breakdown": {
+        "INTERACTION_LAYER_ONLY": 46
+      },
+      "profile_breakdown": {}
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "pilot_name": "wave4_tool1b",
+  "bucket_id": "Tool.1-B",
+  "source_review_file": "Tool.1-B.acquisition.jsonl",
+  "row_count": 2,
+  "coverage_disposition_breakdown": {
+    "ACQ_HINT": 2
+  },
+  "contamination": {
+    "system_excluded": 0,
+    "unreviewed": 0
+  },
+  "fulltypes": [
+    "Base.SharpedStone",
+    "Base.TinOpener"
+  ],
+  "phase2_snapshot_sha256": "33cd265b37cdcc7f0dd0ea0d80997a6071fef7d4a207af5f166a8e7af13e273d"
+}

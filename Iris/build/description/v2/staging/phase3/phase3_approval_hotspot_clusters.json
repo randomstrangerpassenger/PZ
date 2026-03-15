@@ -1,0 +1,18 @@
+[
+  {
+    "cluster_id": "HOTSPOT_CONSUMABLE_3E_FORAGING_COLLISION",
+    "source_bucket": "Consumable.3-E",
+    "candidate_state": "MANUAL_OVERRIDE_CANDIDATE",
+    "candidate_reason_code": "LAYER_COLLISION",
+    "approval_reason_code": "MANUAL_REVIEW_REQUIRED",
+    "hotspot_type": "manual_concentration_3_of_3",
+    "cluster_status": "OPEN",
+    "cluster_note_template": "cluster=HOTSPOT_CONSUMABLE_3E_FORAGING_COLLISION | status=known_hotspot_hold | reason=manual concentration; repeated 3-3 vs 3-4 collision | candidate_state_change=none | next_action=batch review with cluster",
+    "policy_patch_required": false,
+    "fulltypes": [
+      "Base.Comfrey",
+      "Base.Lemongrass",
+      "Base.Plantain"
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "compose_target": 1050,
+  "facts_count": 1050,
+  "decisions_count": 1050,
+  "rendered_count": 1050,
+  "gap_count": 0,
+  "dvf_pass": true,
+  "batch_pass": true,
+  "batch_warnings": 0,
+  "rendered_sha": "b32808f3dcfa5c143e2af4650b01a1f16f18d50389a58f3d9e58ed28caa44145",
+  "build_version": "dvf-3-3-compose-v1"
+}

@@ -1,0 +1,286 @@
+{
+  "medical_consumable": {
+    "_comment": "의료 소모품. primary_use가 핵심. acquisition_hint는 핵심 축으로서 단독 블록 배치. limitation+processing을 2-슬롯 블록으로 재합성.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["primary_use"],
+        "required": false,
+        "template": "{primary_use}."
+      },
+      {
+        "slots": ["acquisition_hint"],
+        "required": false,
+        "template": "{acquisition_hint}."
+      },
+      {
+        "slots": ["limitation_hint", "processing_hint"],
+        "required": false,
+        "template_full": "{limitation_hint}. {processing_hint}.",
+        "template_partial": {
+          "limitation_hint_only": "{limitation_hint}.",
+          "processing_hint_only": "{processing_hint}."
+        }
+      }
+    ],
+    "required_any": ["primary_use"],
+    "max_sentences": 5,
+    "max_length_chars": 220
+  },
+
+  "herb_food_remedy": {
+    "_comment": "약초/식품 치료제. primary_use를 required_any에 포함: 약초는 효능 정보가 핵심. acquisition_hint는 이미 블록2에 포함.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["acquisition_hint", "primary_use"],
+        "required": false,
+        "template_full": "{acquisition_hint}. {primary_use}.",
+        "template_partial": {
+          "acquisition_hint_only": "{acquisition_hint}.",
+          "primary_use_only": "{primary_use}."
+        }
+      },
+      {
+        "slots": ["secondary_use", "processing_hint", "limitation_hint"],
+        "required": false,
+        "template_full": "{secondary_use}. {processing_hint}. {limitation_hint}.",
+        "template_partial": {
+          "secondary_use_only": "{secondary_use}.",
+          "processing_hint_only": "{processing_hint}.",
+          "limitation_hint_only": "{limitation_hint}.",
+          "secondary_use+processing_hint": "{secondary_use}. {processing_hint}.",
+          "secondary_use+limitation_hint": "{secondary_use}. {limitation_hint}.",
+          "processing_hint+limitation_hint": "{processing_hint}. {limitation_hint}."
+        }
+      }
+    ],
+    "required_any": ["acquisition_hint", "primary_use"],
+    "max_sentences": 3,
+    "max_length_chars": 220
+  },
+
+  "tool_interaction": {
+    "_comment": "도구/상호작용. primary_use가 핵심. acquisition_hint는 핵심 축으로서 단독 블록 배치, limitation 블록보다 앞.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["primary_use", "secondary_use"],
+        "required": false,
+        "template_full": "{primary_use}. {secondary_use}.",
+        "template_partial": {
+          "primary_use_only": "{primary_use}.",
+          "secondary_use_only": "{secondary_use}."
+        }
+      },
+      {
+        "slots": ["acquisition_hint"],
+        "required": false,
+        "template": "{acquisition_hint}."
+      },
+      {
+        "slots": ["special_context", "limitation_hint"],
+        "required": false,
+        "template_full": "{special_context}. {limitation_hint}.",
+        "template_partial": {
+          "special_context_only": "{special_context}.",
+          "limitation_hint_only": "{limitation_hint}."
+        }
+      }
+    ],
+    "required_any": ["primary_use"],
+    "max_sentences": 4,
+    "max_length_chars": 220
+  },
+
+  "storage_container": {
+    "_comment": "보관/용기. primary_use가 핵심. acquisition_hint는 핵심 축으로서 단독 블록 배치, limitation 블록보다 앞.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["primary_use", "processing_hint"],
+        "required": false,
+        "template_full": "{primary_use}. {processing_hint}.",
+        "template_partial": {
+          "primary_use_only": "{primary_use}.",
+          "processing_hint_only": "{processing_hint}."
+        }
+      },
+      {
+        "slots": ["acquisition_hint"],
+        "required": false,
+        "template": "{acquisition_hint}."
+      },
+      {
+        "slots": ["limitation_hint"],
+        "required": false,
+        "template": "{limitation_hint}."
+      }
+    ],
+    "required_any": ["primary_use"],
+    "max_sentences": 4,
+    "max_length_chars": 200
+  },
+
+  "fuel_container": {
+    "_comment": "연료/에너지원. primary_use가 핵심. acquisition_hint는 이미 블록2에 포함.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["primary_use", "acquisition_hint"],
+        "required": false,
+        "template_full": "{primary_use}. {acquisition_hint}.",
+        "template_partial": {
+          "primary_use_only": "{primary_use}.",
+          "acquisition_hint_only": "{acquisition_hint}."
+        }
+      },
+      {
+        "slots": ["limitation_hint"],
+        "required": false,
+        "template": "{limitation_hint}."
+      }
+    ],
+    "required_any": ["primary_use"],
+    "max_sentences": 3,
+    "max_length_chars": 180
+  },
+
+  "acq_location": {
+    "_comment": "DVF 3-3. 위치 기반 획득 정보만. identity + acquisition 2슬롯.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["acquisition_hint"],
+        "required": true,
+        "template": "{acquisition_hint}."
+      }
+    ],
+    "required_any": ["acquisition_hint"],
+    "max_sentences": 2,
+    "max_length_chars": 120
+  },
+
+  "acq_method": {
+    "_comment": "DVF 3-3. 방법 기반 획득 정보만. identity + acquisition 2슬롯.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["acquisition_hint"],
+        "required": true,
+        "template": "{acquisition_hint}."
+      }
+    ],
+    "required_any": ["acquisition_hint"],
+    "max_sentences": 2,
+    "max_length_chars": 120
+  },
+
+  "identity_acq": {
+    "_comment": "DVF 3-3 HOLD 대비. identity 강화 + acquisition. HOLD 해소 시 사용 예정.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["acquisition_hint"],
+        "required": true,
+        "template": "{acquisition_hint}."
+      }
+    ],
+    "required_any": ["acquisition_hint"],
+    "max_sentences": 2,
+    "max_length_chars": 160
+  },
+
+  "use_acq": {
+    "_comment": "DVF 3-3 HOLD 대비. 용도 + acquisition. HOLD 해소 시 사용 예정.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["primary_use", "special_context"],
+        "required": false,
+        "template_full": "{primary_use}. {special_context}.",
+        "template_partial": {
+          "primary_use_only": "{primary_use}.",
+          "special_context_only": "{special_context}."
+        }
+      },
+      {
+        "slots": ["acquisition_hint"],
+        "required": true,
+        "template": "{acquisition_hint}."
+      }
+    ],
+    "required_any": ["acquisition_hint"],
+    "max_sentences": 4,
+    "max_length_chars": 180
+  },
+
+  "misc_generic": {
+    "_comment": "범용/최소 구조. acquisition_hint를 required_any에 추가: 범용 프로파일에서 획득성이 유일한 실용 정보인 경우 존재.",
+    "sentence_plan": [
+      {
+        "slots": ["identity_hint"],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": ["primary_use"],
+        "required": false,
+        "template": "{primary_use}."
+      },
+      {
+        "slots": ["acquisition_hint"],
+        "required": false,
+        "template": "{acquisition_hint}."
+      },
+      {
+        "slots": ["special_context", "limitation_hint"],
+        "required": false,
+        "template_full": "{special_context}. {limitation_hint}.",
+        "template_partial": {
+          "special_context_only": "{special_context}.",
+          "limitation_hint_only": "{limitation_hint}."
+        }
+      }
+    ],
+    "required_any": ["primary_use", "special_context", "acquisition_hint"],
+    "max_sentences": 3,
+    "max_length_chars": 160
+  }
+}

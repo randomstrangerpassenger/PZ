@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "version": "2.0",
+    "generated_at": "2026-03-11T11:18:59.491946+00:00",
+    "facts_sha256": "7a0c3f3b44bcfa58e88576d1b2523e8b1c929cd4892277ebb5b982da796d0811",
+    "profiles_sha256": "fb5d20784ed6b3314913e5983bf8e7ce6b5600cb4e076829f0f7d75c90398d7f",
+    "stats": {
+      "total": 10,
+      "active_composed": 8,
+      "active_override": 1,
+      "silent": 1,
+      "override_ratio": 0.1
+    }
+  },
+  "entries": {
+    "Base.Comfrey": {
+      "text_ko": "식중독 완화에 쓰이는 약초. 채집으로 구할 수 있다. 식중독 완화에 쓰인다. 다른 재료와 함께 가공하여 의미가 생긴다.",
+      "source": "composed"
+    },
+    "Base.Bandage": {
+      "text_ko": "상처를 감아 출혈을 멈추는 의료 소모품. 출혈 상태의 상처에 적용하여 출혈을 멈춘다. 약국이나 병원에서 발견된다. 감염을 치료하지는 않는다.",
+      "source": "composed"
+    },
+    "Base.TinOpener": {
+      "text_ko": "통조림을 여는 도구. 소지하고 있으면 통조림을 열 수 있다.",
+      "source": "composed"
+    },
+    "Base.Hammer": {
+      "text_ko": "건설과 분해에 사용되는 도구. 건설이나 제작 작업에 사용된다. 가전제품이나 전자기기를 분해하는 데에도 쓰인다.",
+      "source": "composed"
+    },
+    "Base.Bag_FannyPackFront": {
+      "text_ko": "허리에 착용하는 작은 보관 용기. 소량의 물건을 휴대할 수 있다. 장착 시 추가 소지 용량을 제공한다.",
+      "source": "composed"
+    },
+    "Base.PetrolCan": {
+      "text_ko": "연료를 담는 용기. 발전기나 차량에 연료를 공급할 때 쓰인다. 차량 근처나 창고에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Corkscrew": {
+      "text_ko": "코르크 마개가 있는 병을 열 때 사용하는 도구다.",
+      "source": "override"
+    },
+    "Base.WaterBottleFull": {
+      "text_ko": null,
+      "source": "silent"
+    },
+    "Base.Tarp": {
+      "text_ko": "방수 덮개. 창고나 차고에서 발견된다. 비를 막는 간이 차양을 만들 때 쓰인다.",
+      "source": "composed"
+    },
+    "Base.Suture": {
+      "text_ko": "깊은 상처를 봉합하는 의료 소모품. 깊은 상처에 봉합 처치를 할 수 있다. 병원에서 발견된다. 사용 시 고통을 유발한다. 사용 전 소독이 필요하다.",
+      "source": "composed"
+    }
+  }
+}

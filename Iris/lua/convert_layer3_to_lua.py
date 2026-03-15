@@ -1,0 +1,257 @@
+"""
+convert_layer3_to_lua.py — DVF 3-3 rendered JSON → IrisLayer3Data.lua 변환
+============================================================================
+dvf_3_3_rendered.json → IrisLayer3Data.lua (런타임 소비자 입력)
+
+이 스크립트는 DVF Phase 3 compose 파이프라인의 최종 산출물을
+Iris 런타임이 소비할 수 있는 Lua 테이블로 변환한다.
+
+빌드 검증 체크리스트 (fail-loud):
+  1. entry 수 일치 (meta.stats.total == 변환된 entry 수)
+  2. fulltype 중복 0
+  3. UTF-8 escape round-trip 검증
+
+Usage:
+    python convert_layer3_to_lua.py <rendered_json_path>
+    python convert_layer3_to_lua.py  # default: ../build/description/v2/output/dvf_3_3_rendered.json
+"""
+import json
+import sys
+from pathlib import Path
+
+# ── Paths ──
+SCRIPT_DIR = Path(__file__).parent
+IRIS_DIR = SCRIPT_DIR.parent
+OUTPUT_DIR = IRIS_DIR / "output"
+
+# Default input: build/description/v2/output/dvf_3_3_rendered.json
+DEFAULT_RENDERED_PATH = IRIS_DIR / "build" / "description" / "v2" / "output" / "dvf_3_3_rendered.json"
+
+LUA_OUTPUT_PATH = (
+    IRIS_DIR / "media" / "lua" / "client" / "Iris" / "Data"
+    / "IrisLayer3Data.lua"
+)
+
+# Compatibility/debug artifact
+LAYER3_JSON_PATH = OUTPUT_DIR / "layer3_by_fulltype.json"
+STATS_JSON_PATH = OUTPUT_DIR / "layer3_stats.json"
+
+
+def load_json(path: Path) -> dict:
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def lua_str(s: str) -> str:
+    """Python 문자열을 Lua 문자열 리터럴로 변환.
+    Non-ASCII 문자는 UTF-8 바이트 이스케이프 (\\NNN) 으로 변환.
+    """
+    result = []
+    for ch in s:
+        if ord(ch) > 127:
+            for b in ch.encode("utf-8"):
+                result.append("\\" + str(b))
+        elif ch == '\\':
+            result.append('\\\\')
+        elif ch == '"':
+            result.append('\\"')
+        else:
+            result.append(ch)
+    return '"' + ''.join(result) + '"'
+
+
+def lua_str_roundtrip_check(original: str, lua_literal: str) -> bool:
+    """lua_str() 결과를 디코드하여 원본과 일치하는지 검증."""
+    # lua_literal은 '"....."' 형태
+    inner = lua_literal[1:-1]  # 따옴표 제거
+
+    decoded = []
+    i = 0
+    while i < len(inner):
+        if inner[i] == '\\' and i + 1 < len(inner):
+            # \NNN (UTF-8 바이트) 또는 \\ 또는 \"
+            if inner[i + 1] == '\\':
+                decoded.append('\\')
+                i += 2
+            elif inner[i + 1] == '"':
+                decoded.append('"')
+                i += 2
+            elif inner[i + 1].isdigit():
+                # \NNN 형태 — 숫자 끝까지 읽기
+                j = i + 1
+                while j < len(inner) and inner[j].isdigit():
+                    j += 1
+                byte_val = int(inner[i + 1:j])
+                decoded.append(byte_val)
+                i = j
+            else:
+                decoded.append(inner[i])
+                i += 1
+        else:
+            decoded.append(inner[i])
+            i += 1
+
+    # 바이트와 문자를 분리하여 재결합
+    byte_segments = []
+    current_bytes = []
+    for item in decoded:
+        if isinstance(item, int):
+            current_bytes.append(item)
+        else:
+            if current_bytes:
+                byte_segments.append(bytes(current_bytes).decode("utf-8"))
+                current_bytes = []
+            byte_segments.append(item)
+    if current_bytes:
+        byte_segments.append(bytes(current_bytes).decode("utf-8"))
+
+    result = "".join(byte_segments)
+    return result == original
+
+
+def convert(rendered_path: Path) -> int:
+    """메인 변환 파이프라인."""
+    print("=" * 60)
+    print("  DVF Layer 3 → Lua Converter")
+    print("=" * 60)
+
+    # ══ [1] 입력 로드 ══
+    print(f"\n[1] 입력 로드: {rendered_path}")
+
+    if not rendered_path.exists():
+        print(f"  ❌ 파일 없음: {rendered_path}")
+        return 1
+
+    data = load_json(rendered_path)
+    meta = data.get("meta", {})
+    entries = data.get("entries", {})
+    stats = meta.get("stats", {})
+    expected_total = stats.get("total", len(entries))
+
+    print(f"  meta.version: {meta.get('version')}")
+    print(f"  meta.stats.total: {expected_total}")
+    print(f"  entries count: {len(entries)}")
+
+    if len(entries) == 0:
+        print("  ❌ entries가 비어있음")
+        return 1
+
+    # ══ [2] 검증 1: entry 수 일치 ══
+    print(f"\n[2] 검증 1: entry 수 일치")
+    if len(entries) != expected_total:
+        print(f"  ❌ FAIL: meta.stats.total={expected_total} != entries={len(entries)}")
+        return 1
+    print(f"  ✅ PASS: {len(entries)} entries == meta.stats.total")
+
+    # ══ [3] 검증 2: fulltype 중복 0 ══
+    print(f"\n[3] 검증 2: fulltype 중복")
+    # JSON 키는 본질적으로 중복 불가이지만, 명시적 확인
+    sorted_keys = sorted(entries.keys())
+    for i in range(1, len(sorted_keys)):
+        if sorted_keys[i] == sorted_keys[i - 1]:
+            print(f"  ❌ FAIL: 중복 fulltype '{sorted_keys[i]}'")
+            return 1
+    print(f"  ✅ PASS: {len(sorted_keys)} unique fulltypes, 중복 0")
+
+    # ══ [4] Lua 변환 ══
+    print(f"\n[4] Lua 변환")
+
+    parts = []
+    parts.append("-- Iris Layer 3 Individual Item Descriptions")
+    parts.append("-- Auto-generated by convert_layer3_to_lua.py")
+    parts.append(f"-- Source: dvf_3_3_rendered.json (v{meta.get('version', '?')})")
+    parts.append(f"-- Total entries: {len(entries)}")
+    parts.append(f"-- Generated from Phase 3 compose pipeline (APPROVE_SYNC only)")
+    parts.append("")
+    parts.append("IrisLayer3Data = {}")
+    parts.append("")
+
+    roundtrip_failures = []
+
+    for ft in sorted_keys:
+        entry = entries[ft]
+        text_ko = entry.get("text_ko", "")
+        if not text_ko:
+            print(f"  ⚠️ WARNING: {ft} has empty text_ko, skipping")
+            continue
+
+        ft_lua = lua_str(ft)
+        text_lua = lua_str(text_ko)
+
+        # 검증 3: UTF-8 escape round-trip
+        if not lua_str_roundtrip_check(ft, ft_lua):
+            roundtrip_failures.append(f"fulltype: {ft}")
+        if not lua_str_roundtrip_check(text_ko, text_lua):
+            roundtrip_failures.append(f"text_ko for {ft}")
+
+        parts.append(f"IrisLayer3Data[{ft_lua}] = {{ text_ko = {text_lua} }}")
+
+    parts.append("")
+    parts.append(f"-- EOF: {len(sorted_keys)} entries")
+    parts.append("")
+
+    lua_content = "\n".join(parts)
+
+    # ══ [5] 검증 3: UTF-8 escape round-trip ══
+    print(f"\n[5] 검증 3: UTF-8 escape round-trip")
+    if roundtrip_failures:
+        print(f"  ❌ FAIL: {len(roundtrip_failures)} round-trip failures:")
+        for fail in roundtrip_failures[:10]:
+            print(f"    - {fail}")
+        return 1
+    print(f"  ✅ PASS: 모든 {len(sorted_keys) * 2} 문자열 round-trip 성공")
+
+    # ══ [6] 출력 ══
+    print(f"\n[6] 출력")
+
+    # Lua 파일
+    LUA_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(LUA_OUTPUT_PATH, "w", encoding="utf-8", newline="\n") as f:
+        f.write(lua_content)
+    print(f"  ✅ {LUA_OUTPUT_PATH.relative_to(IRIS_DIR)}")
+
+    # layer3_by_fulltype.json (compatibility/debug artifact)
+    compat_data = {}
+    for ft in sorted_keys:
+        entry = entries[ft]
+        if entry.get("text_ko"):
+            compat_data[ft] = {"text_ko": entry["text_ko"]}
+
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    with open(LAYER3_JSON_PATH, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(compat_data, f, indent=2, ensure_ascii=False)
+    print(f"  ✅ {LAYER3_JSON_PATH.relative_to(IRIS_DIR)} (compatibility/debug artifact)")
+
+    # layer3_stats.json
+    stats_data = {
+        "total_entries": len(entries),
+        "active_count": len(compat_data),
+        "silent_count": 0,
+        "source": "dvf_3_3_rendered.json",
+        "source_version": meta.get("version", "unknown"),
+    }
+    with open(STATS_JSON_PATH, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(stats_data, f, indent=2, ensure_ascii=False)
+    print(f"  ✅ {STATS_JSON_PATH.relative_to(IRIS_DIR)}")
+
+    # ══ 최종 ══
+    print(f"\n{'=' * 60}")
+    print(f"  ✅ DVF Layer 3 → Lua 변환 완료")
+    print(f"  entries: {len(compat_data)}")
+    print(f"  output: {LUA_OUTPUT_PATH.name}")
+    print(f"{'=' * 60}")
+
+    return 0
+
+
+def main() -> int:
+    if len(sys.argv) > 1:
+        rendered_path = Path(sys.argv[1])
+    else:
+        rendered_path = DEFAULT_RENDERED_PATH
+
+    return convert(rendered_path)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

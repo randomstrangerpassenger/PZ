@@ -1,6 +1,7 @@
 {
-  "total_entries": 1,
-  "active_count": 0,
-  "silent_count": 1,
-  "unregistered_fulltype_count": 2284
+  "total_entries": 1089,
+  "active_count": 1089,
+  "silent_count": 0,
+  "source": "dvf_3_3_rendered.json",
+  "source_version": "2.0"
 }

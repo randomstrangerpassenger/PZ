@@ -1,1 +1,3269 @@
-{}
+{
+  "Base.223Box": {
+    "text_ko": "탄약. 탄약을 상자에 담아 얻는다."
+  },
+  "Base.223Bullets": {
+    "text_ko": "탄약. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+  },
+  "Base.223BulletsMold": {
+    "text_ko": "탄약. 모루 근처에서 철괴와 망치, 집게로 제작한다."
+  },
+  "Base.223Clip": {
+    "text_ko": "탄약. 총기 취급 장소와 경찰 시설에서 발견된다."
+  },
+  "Base.308Box": {
+    "text_ko": "탄약. 탄약을 상자에 담아 얻는다."
+  },
+  "Base.308Bullets": {
+    "text_ko": "탄약. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+  },
+  "Base.308BulletsMold": {
+    "text_ko": "탄약. 모루 근처에서 철괴와 망치, 집게로 제작한다."
+  },
+  "Base.308Clip": {
+    "text_ko": "탄약. 총기 취급 장소와 경찰 시설에서 발견된다."
+  },
+  "Base.44Clip": {
+    "text_ko": "탄약. 총기 취급 장소와 경찰 시설에서 발견된다."
+  },
+  "Base.45Clip": {
+    "text_ko": "탄약. 총기 취급 장소와 경찰 시설에서 발견된다."
+  },
+  "Base.556Box": {
+    "text_ko": "탄약. 탄약을 상자에 담아 얻는다."
+  },
+  "Base.556Bullets": {
+    "text_ko": "탄약. 탄약 상자를 열어 얻는다."
+  },
+  "Base.556Clip": {
+    "text_ko": "탄약. 총기 취급 장소와 경찰 시설에서 발견된다."
+  },
+  "Base.9mmBulletsMold": {
+    "text_ko": "탄약. 모루 근처에서 철괴와 망치, 집게로 제작한다."
+  },
+  "Base.9mmClip": {
+    "text_ko": "탄약. 총기 취급 장소와 경찰 시설에서 발견된다."
+  },
+  "Base.Aerosolbomb": {
+    "text_ko": "폭발물. 헤어스프레이와 불꽃놀이 재료를 조합해 만든다."
+  },
+  "Base.AerosolbombRemote": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.AerosolbombSensorV1": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.AerosolbombSensorV2": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.AerosolbombSensorV3": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.AerosolbombTriggered": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.AlcoholBandage": {
+    "text_ko": "의료 용품. 붕대를 소독하거나 끓여서 만든다."
+  },
+  "Base.AlcoholRippedSheets": {
+    "text_ko": "의료 용품. 헝겊을 소독하거나 끓여서 만든다."
+  },
+  "Base.AlcoholWipes": {
+    "text_ko": "의료 소모품. 의료 시설이나 구급 차량에서 발견된다."
+  },
+  "Base.AlcoholedCottonBalls": {
+    "text_ko": "의료 소모품. 솜에 알코올을 묻혀 만든다."
+  },
+  "Base.Aluminum": {
+    "text_ko": "재료. 주방이나 전기 공구 보관 장소에서 발견된다."
+  },
+  "Base.AmmoStrap_Bullets": {
+    "text_ko": "액세서리. 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.AmmoStrap_Shells": {
+    "text_ko": "액세서리. 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.AmmoStraps": {
+    "text_ko": "무기 부품. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다."
+  },
+  "Base.Amplifier": {
+    "text_ko": "전자 기기. 스피커를 분해해 구한다."
+  },
+  "Base.Antibiotics": {
+    "text_ko": "의약품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.Apron_Black": {
+    "text_ko": "의류. 조리 도구 보관 장소에서 발견된다."
+  },
+  "Base.Apron_IceCream": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Apron_Jay": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Apron_PileOCrepe": {
+    "text_ko": "의류. 크레페 식당 종업원 복장에서 발견된다."
+  },
+  "Base.Apron_PizzaWhirled": {
+    "text_ko": "의류. 피자 식당 종업원 복장에서 발견된다."
+  },
+  "Base.Apron_Spiffos": {
+    "text_ko": "의류. 스피포 주방과 스피포 상품 진열대, 스피포 차량에서 발견된다."
+  },
+  "Base.Apron_White": {
+    "text_ko": "의류. 주방과 조리 작업 장소에서 발견된다."
+  },
+  "Base.Apron_WhiteTEXTURE": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.AssaultRifle": {
+    "text_ko": "근접 무기. 군용 무기 보관 장소와 총기 보관 장소, 특수 총기 진열대에서 발견된다."
+  },
+  "Base.AssaultRifle2": {
+    "text_ko": "근접 무기. 군용 무기 보관 장소와 총기 보관 장소, 특수 총기 진열대에서 발견된다."
+  },
+  "Base.Axe": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 목공 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.AxeStone": {
+    "text_ko": "무기 겸용 도구. 나뭇가지와 깎인 돌, 천 조각으로 제작한다."
+  },
+  "Base.BadmintonRacket": {
+    "text_ko": "스포츠 용품. 스포츠 상자와 라켓 보관함에서 발견된다."
+  },
+  "Base.Bag_ALICEpack": {
+    "text_ko": "가방. 군용품점과 캠핑, 사냥 장비 보관 장소, 생존 차량에서 발견된다."
+  },
+  "Base.Bag_ALICEpack_Army": {
+    "text_ko": "가방. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Bag_BigHikingBag": {
+    "text_ko": "가방. 캠핑과 사냥 장비 보관 장소, 의류 보관 장소와 생존 차량에서 발견된다."
+  },
+  "Base.Bag_DoctorBag": {
+    "text_ko": "가방. 의사 차량에서 발견된다."
+  },
+  "Base.Bag_DuffelBag": {
+    "text_ko": "가방. 군용품점과 캠핑 장비 보관 장소에서 발견된다."
+  },
+  "Base.Bag_DuffelBagTINT": {
+    "text_ko": "가방. 사물함과 의류 보관 장소, 생존 차량에서 발견된다."
+  },
+  "Base.Bag_FannyPackFront": {
+    "text_ko": "가방. 사물함과 의류 보관 장소, 체육관과 경찰 보관 장소에서 발견된다."
+  },
+  "Base.Bag_FoodCanned": {
+    "text_ko": "가방. 생존 차량에서 발견된다."
+  },
+  "Base.Bag_FoodSnacks": {
+    "text_ko": "가방. 생존 차량에서 발견된다."
+  },
+  "Base.Bag_GolfBag": {
+    "text_ko": "가방. 골프 보관함과 골프 차량에서 발견된다."
+  },
+  "Base.Bag_JanitorToolbox": {
+    "text_ko": "가방. 청소 작업 장소에서 발견된다."
+  },
+  "Base.Bag_MedicalBag": {
+    "text_ko": "가방. 구급차와 의사 차량, 생존 차량에서 발견된다."
+  },
+  "Base.Bag_Military": {
+    "text_ko": "가방. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Bag_NormalHikingBag": {
+    "text_ko": "가방. 캠핑과 사냥 장비 보관 장소, 의류 보관 장소와 생존 차량에서 발견된다."
+  },
+  "Base.Bag_Satchel": {
+    "text_ko": "가방. 서점 가방 진열대와 학교 물품 장소, 사물함에서 발견된다."
+  },
+  "Base.Bag_Schoolbag": {
+    "text_ko": "가방. 서점 가방 진열대와 학교 물품 장소, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Bag_ShotgunBag": {
+    "text_ko": "가방. 생존 차량과 생존자 은닉처에서 발견된다."
+  },
+  "Base.Bag_ShotgunDblBag": {
+    "text_ko": "가방. 생존 차량과 생존자 은닉처에서 발견된다."
+  },
+  "Base.Bag_ShotgunDblSawnoffBag": {
+    "text_ko": "가방. 생존 차량과 생존자 은닉처에서 발견된다."
+  },
+  "Base.Bag_ShotgunSawnoffBag": {
+    "text_ko": "가방. 생존 차량과 생존자 은닉처에서 발견된다."
+  },
+  "Base.Bag_ToolBag": {
+    "text_ko": "가방. 작업 차량과 생존 차량에서 발견된다."
+  },
+  "Base.BaguetteDough": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.BaguetteSandwich": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.BakingPan": {
+    "text_ko": "조리 도구. 가정집이나 제과점에서 발견된다."
+  },
+  "Base.BakingTray": {
+    "text_ko": "조리 도구. 가정집이나 제과점에서 발견된다."
+  },
+  "Base.BakingTrayBread": {
+    "text_ko": "식품. 반죽이나 재료를 조리해 만든다."
+  },
+  "Base.BakingTray_Muffin": {
+    "text_ko": "식품. 반죽이나 재료를 조리해 만든다."
+  },
+  "Base.BakingTray_Muffin_Recipe": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.BallPeenHammer": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.BaloneySlice": {
+    "text_ko": "식품. 고기를 잘라 얻는다."
+  },
+  "Base.Bandage": {
+    "text_ko": "의료 용품. 약국이나 병원에서 발견된다."
+  },
+  "Base.Bandaid": {
+    "text_ko": "의료 용품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.Banjo": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.BarBell": {
+    "text_ko": "스포츠 용품. 체육관과 운동 장비 상자에서 발견된다."
+  },
+  "Base.BarbedWire": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.BaseballBat": {
+    "text_ko": "스포츠 용품. 스포츠 매장과 야구 장비 보관 장소, 차량에서 발견된다."
+  },
+  "Base.BaseballBatNails": {
+    "text_ko": "제작 무기. 야구 방망이와 못, 망치로 제작한다."
+  },
+  "Base.Battery": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.Bayonnet": {
+    "text_ko": "무기 부품. 총기 매장과 차고 총기 보관 장소에서 발견된다."
+  },
+  "Base.BeanBowl": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.Beer": {
+    "text_ko": "식품. 맥주를 따라 얻는다."
+  },
+  "Base.Beer2": {
+    "text_ko": "식품. 맥주를 따라 얻는다."
+  },
+  "Base.BeerWaterFull": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.BellyButton_DangleGold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_DangleGoldRuby": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_DangleSilver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_DangleSilverDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_RingGold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_RingGoldDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_RingGoldRuby": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_RingSilver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_RingSilverAmethyst": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_RingSilverDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_RingSilverRuby": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_StudGold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_StudGoldDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_StudSilver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BellyButton_StudSilverDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Belt2": {
+    "text_ko": "액세서리. 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Beverage": {
+    "text_ko": "식품. 유리컵에 음료를 따라 만든다."
+  },
+  "Base.Beverage2": {
+    "text_ko": "식품. 플라스틱 컵에 음료를 따라 만든다."
+  },
+  "Base.Bikini_Pattern01": {
+    "text_ko": "의류. 수영복 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bikini_TINT": {
+    "text_ko": "의류. 수영복 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bleach": {
+    "text_ko": "생활용품. 청소 관련 장소에서 발견된다."
+  },
+  "Base.BlowTorch": {
+    "text_ko": "소모성 도구. 철물점이나 금속 작업장에서 발견된다."
+  },
+  "Base.Boilersuit": {
+    "text_ko": "의류. 공장 보관 장소와 공구점, 발전기실에서 발견된다."
+  },
+  "Base.Boilersuit_BlueRed": {
+    "text_ko": "의류. 정비 보관 장소와 공구점에서 발견된다."
+  },
+  "Base.Boilersuit_Flying": {
+    "text_ko": "의류. 군 항공 보관 장소에서 발견된다."
+  },
+  "Base.Boilersuit_Prisoner": {
+    "text_ko": "의류. 교도소 수감자 구역에서 발견된다."
+  },
+  "Base.Boilersuit_PrisonerKhaki": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Boilersuit_Yellow": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.BoobTube": {
+    "text_ko": "의류. 의류 보관 장소와 스트립 클럽 탈의실에서 발견된다."
+  },
+  "Base.BoobTubeSmall": {
+    "text_ko": "의류. 의류 보관 장소와 스트립 클럽 탈의실에서 발견된다."
+  },
+  "Base.BoxOfJars": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.Boxers_Hearts": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Boxers_RedStripes": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Boxers_Silk_Black": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Boxers_Silk_Red": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Boxers_White": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Strapless_AnimalPrint": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Strapless_Black": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Strapless_FrillyBlack": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Strapless_FrillyPink": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Strapless_FrillyRed": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Strapless_RedSpots": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Strapless_White": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Straps_AnimalPrint": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Straps_Black": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Straps_FrillyBlack": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Straps_FrillyPink": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Straps_FrillyRed": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bra_Straps_White": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Bracelet_BangleRightGold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Bracelet_BangleRightSilver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Bracelet_ChainRightGold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Bracelet_ChainRightSilver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Bracelet_LeftFriendshipTINT": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.BreadKnife": {
+    "text_ko": "조리 도구. 제과 작업 장소와 식기 보관 장소, 칼 제작 장소에서 발견된다."
+  },
+  "Base.BreadSlices": {
+    "text_ko": "식품. 빵을 잘라 얻는다."
+  },
+  "Base.Briefcase": {
+    "text_ko": "용기. 사무 공간이나 전당포에서 발견된다."
+  },
+  "Base.Briefs_AnimalPrints": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Briefs_SmallTrunks_Black": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Briefs_SmallTrunks_Blue": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Briefs_SmallTrunks_Red": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Briefs_SmallTrunks_WhiteTINT": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Briefs_White": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Broom": {
+    "text_ko": "생활 도구. 청소 작업 장소와 세탁 작업 장소에서 발견된다."
+  },
+  "Base.BucketConcreteFull": {
+    "text_ko": "소모성 재료. 재료를 섞어 얻는다."
+  },
+  "Base.BucketEmpty": {
+    "text_ko": "물통. 물 양동이를 비워 구한다."
+  },
+  "Base.BucketPlasterFull": {
+    "text_ko": "소모성 재료. 재료를 섞어 얻는다."
+  },
+  "Base.BucketWaterFull": {
+    "text_ko": "수원. 양동이에 물을 담아 만든다."
+  },
+  "Base.Bullets38": {
+    "text_ko": "탄약. 탄약 상자를 열어 얻는다."
+  },
+  "Base.Bullets38Box": {
+    "text_ko": "탄약. 탄약을 상자에 담아 얻는다."
+  },
+  "Base.Bullets44": {
+    "text_ko": "탄약. 탄약 상자를 열어 얻는다."
+  },
+  "Base.Bullets44Box": {
+    "text_ko": "탄약. 탄약을 상자에 담아 얻는다."
+  },
+  "Base.Bullets45": {
+    "text_ko": "탄약. 탄약 상자를 열어 얻는다."
+  },
+  "Base.Bullets45Box": {
+    "text_ko": "탄약. 탄약을 상자에 담아 얻는다."
+  },
+  "Base.Bullets9mm": {
+    "text_ko": "탄약. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+  },
+  "Base.Bullets9mmBox": {
+    "text_ko": "탄약. 탄약을 상자에 담아 얻는다."
+  },
+  "Base.BunnySuitBlack": {
+    "text_ko": "의류. 의상 보관 장소와 의류 보관 장소에서 발견된다."
+  },
+  "Base.BunnySuitPink": {
+    "text_ko": "의류. 의상 보관 장소와 의류 보관 장소에서 발견된다."
+  },
+  "Base.BunnyTail": {
+    "text_ko": "의류. 의상 보관 장소와 의류 보관 장소에서 발견된다."
+  },
+  "Base.BurgerRecipe": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.BurritoRecipe": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.ButterKnife": {
+    "text_ko": "조리 도구. 식기 보관 장소와 생활용품 매장, 칼 제작 장소에서 발견된다."
+  },
+  "Base.CakeBatter": {
+    "text_ko": "식재료. 제과점이나 카페에서 발견된다."
+  },
+  "Base.CakePrep": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.CakeRaw": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.Camera": {
+    "text_ko": "잡동사니. 카메라 매장과 사진 자재 보관 장소에서 발견된다."
+  },
+  "Base.CameraDisposable": {
+    "text_ko": "잡동사니. 카메라 매장과 사진 자재 보관 장소에서 발견된다."
+  },
+  "Base.CameraExpensive": {
+    "text_ko": "잡동사니. 카메라 매장과 사진 자재 보관 장소에서 발견된다."
+  },
+  "Base.CameraFilm": {
+    "text_ko": "잡동사니. 카메라 매장과 사진 자재 보관 장소에서 발견된다."
+  },
+  "Base.CandleLit": {
+    "text_ko": "조명 기구. 양초에 불을 붙여 얻는다."
+  },
+  "Base.CandyPackage": {
+    "text_ko": "식품. 식료품점이나 극장에서 발견된다."
+  },
+  "Base.CannedBellPepper": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CannedBroccoli": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CannedCabbage": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CannedCarrots": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CannedEggplant": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CannedLeek": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CannedPotato": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CannedRedRadish": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CannedTomato": {
+    "text_ko": "식품. 재료를 병조림해 만든다."
+  },
+  "Base.CanoePadel": {
+    "text_ko": "스포츠 용품. 스포츠 상자와 패들 보관함에서 발견된다."
+  },
+  "Base.CanoePadelX2": {
+    "text_ko": "스포츠 용품. 스포츠 상자와 패들 보관함에서 발견된다."
+  },
+  "Base.CarBatteryCharger": {
+    "text_ko": "도구. 차량 정비 장소와 차량 보관 장소에서 발견된다."
+  },
+  "Base.CerealBowl": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.Charcoal": {
+    "text_ko": "소모성 재료. 연료 보관 장소와 야외 조리 장비 취급 장소에서 발견된다."
+  },
+  "Base.ChokeTubeFull": {
+    "text_ko": "무기 부품. 총기 매장과 차고 총기 보관 장소에서 발견된다."
+  },
+  "Base.ChokeTubeImproved": {
+    "text_ko": "무기 부품. 총기 매장과 차고 총기 보관 장소에서 발견된다."
+  },
+  "Base.ClubHammer": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.ColdCuppa": {
+    "text_ko": "식품. 컵에 음료를 담아 만든다."
+  },
+  "Base.ColdDrinkRed": {
+    "text_ko": "식품. 컵에 음료를 담아 만든다."
+  },
+  "Base.ColdDrinkSpiffo": {
+    "text_ko": "식품. 컵에 음료를 담아 만든다."
+  },
+  "Base.ColdDrinkWhite": {
+    "text_ko": "식품. 컵에 음료를 담아 만든다."
+  },
+  "Base.Coldpack": {
+    "text_ko": "의료 용품. 의료 물품 보관 장소에서 발견된다."
+  },
+  "Base.ComfreyCataplasm": {
+    "text_ko": "의료 용품. 약초를 가공해 얻는다."
+  },
+  "Base.CompostBag": {
+    "text_ko": "원예 소모품. 퇴비를 담아 얻는다."
+  },
+  "Base.ConcretePowder": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.ConeIcecream": {
+    "text_ko": "식품. 반죽이나 재료를 조리해 만든다."
+  },
+  "Base.ConeIcecreamToppings": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.CookieChocolateChipDough": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.CookiesChocolateDough": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.CookiesOatmealDough": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.CookiesShortbreadDough": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.CookiesSugarDough": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.Cooler": {
+    "text_ko": "용기. 휴가용품 판매 장소에서 발견된다."
+  },
+  "Base.Corset": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Corset_Black": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Corset_Medical": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Corset_Red": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.CottonBalls": {
+    "text_ko": "의료 용품. 의료 시설이나 구급 차량에서 발견된다."
+  },
+  "Base.CraftedFishingRod": {
+    "text_ko": "낚싯대. 나무막대와 낚싯줄, 종이클립이나 못으로 제작한다."
+  },
+  "Base.CraftedFishingRodTwineLine": {
+    "text_ko": "낚싯대. 나무막대와 끈, 종이클립이나 못으로 제작한다."
+  },
+  "Base.Crowbar": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.DenimStrips": {
+    "text_ko": "재료. 데님 의류를 찢어 얻는다."
+  },
+  "Base.DigitalWatch": {
+    "text_ko": "액세서리. 시계 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.DigitalWatch2": {
+    "text_ko": "알람 시계. 시계 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Dirtbag": {
+    "text_ko": "소모성 재료. 흙을 담아 얻는다."
+  },
+  "Base.Disinfectant": {
+    "text_ko": "의료 소모품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.Dogfood": {
+    "text_ko": "식품. 가정집이나 애완용품 판매점에서 발견된다."
+  },
+  "Base.Doorknob": {
+    "text_ko": "재료. 금속 가공으로 만든다."
+  },
+  "Base.DoubleBarrelShotgun": {
+    "text_ko": "근접 무기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.DoubleBarrelShotgunSawnoff": {
+    "text_ko": "근접 무기. 쌍열 산탄총과 톱으로 절단해 만든다."
+  },
+  "Base.DoughRolled": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.DressKnees_Straps": {
+    "text_ko": "의류. 드레스 매장에서 발견된다."
+  },
+  "Base.Dress_Knees": {
+    "text_ko": "의류. 드레스 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Dress_Long": {
+    "text_ko": "의류. 드레스 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Dress_Normal": {
+    "text_ko": "의류. 드레스 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Dress_SatinNegligee": {
+    "text_ko": "의류. 란제리 매장에서 발견된다."
+  },
+  "Base.Dress_Short": {
+    "text_ko": "의류. 드레스 매장과 란제리 매장에서 발견된다."
+  },
+  "Base.Dress_SmallBlackStrapless": {
+    "text_ko": "의류. 드레스 매장과 란제리 매장에서 발견된다."
+  },
+  "Base.Dress_SmallBlackStraps": {
+    "text_ko": "의류. 드레스 매장과 란제리 매장에서 발견된다."
+  },
+  "Base.Dress_SmallStrapless": {
+    "text_ko": "의류. 드레스 매장과 란제리 매장에서 발견된다."
+  },
+  "Base.Dress_SmallStraps": {
+    "text_ko": "의류. 드레스 매장과 란제리 매장에서 발견된다."
+  },
+  "Base.Dress_Straps": {
+    "text_ko": "의류. 드레스 매장에서 발견된다."
+  },
+  "Base.Dress_long_Straps": {
+    "text_ko": "의류. 드레스 매장에서 발견된다."
+  },
+  "Base.Drumstick": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.DuctTape": {
+    "text_ko": "소모성 재료. 공구 보관 장소나 작업장에서 발견된다."
+  },
+  "Base.DumbBell": {
+    "text_ko": "스포츠 용품. 체육관과 운동 장비 상자에서 발견된다."
+  },
+  "Base.Dungarees": {
+    "text_ko": "의류. 캠핑 장비 보관 장소와 공구점, 발전기실에서 발견된다."
+  },
+  "Base.Earring_Dangly_Diamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Dangly_Emerald": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Dangly_Pearl": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Dangly_Ruby": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Dangly_Sapphire": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_LoopLrg_Gold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_LoopLrg_Silver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_LoopMed_Gold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_LoopMed_Silver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_LoopSmall_Gold_Both": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_LoopSmall_Gold_Top": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_LoopSmall_Silver_Both": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_LoopSmall_Silver_Top": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Pearl": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Stone_Emerald": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Stone_Ruby": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Stone_Sapphire": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Stud_Gold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earring_Stud_Silver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Earrings": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소에서 발견된다."
+  },
+  "Base.EggBoiled": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.EggPoached": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.ElectronicsScrap": {
+    "text_ko": "전자 기기. 전자기기를 분해해 구한다."
+  },
+  "Base.EmptyPetrolCan": {
+    "text_ko": "차량 정비 용품. 차량 정비 장소와 차량 보관 장소에서 발견된다."
+  },
+  "Base.EmptySandbag": {
+    "text_ko": "용기. 작업 차량이나 공구점에서 발견된다."
+  },
+  "Base.Extinguisher": {
+    "text_ko": "가정용 소모품. 작업장과 안전 장비 보관 장소에서 발견된다."
+  },
+  "Base.Fertilizer": {
+    "text_ko": "원예 소모품. 원예 용품 취급 장소에서 발견된다."
+  },
+  "Base.FiberglassStock": {
+    "text_ko": "무기 부품. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다."
+  },
+  "Base.FireWoodKit": {
+    "text_ko": "캠핑 용품. 캠핑 장비 취급 장소에서 발견된다."
+  },
+  "Base.FirstAidKit": {
+    "text_ko": "용기. 차량이나 의료 관련 장소에서 발견된다."
+  },
+  "Base.FishFillet": {
+    "text_ko": "식품. 물고기를 손질해 얻는다."
+  },
+  "Base.FishRoe": {
+    "text_ko": "식품. 물고기를 손질해 얻는다."
+  },
+  "Base.FishingLine": {
+    "text_ko": "낚시 소모품. 낚시 장비 취급 장소에서 발견된다."
+  },
+  "Base.FishingNet": {
+    "text_ko": "낚시 용품. 낚시 장비 취급 장소에서 발견된다."
+  },
+  "Base.FishingRod": {
+    "text_ko": "낚싯대. 낚시 장비 상자와 낚시용품점, 차량에서 발견된다."
+  },
+  "Base.FishingRodTwineLine": {
+    "text_ko": "낚싯대. 부러진 낚싯대를 끈과 종이클립이나 못으로 수리한다."
+  },
+  "Base.FishingTackle": {
+    "text_ko": "낚시 용품. 낚시 장비 취급 장소에서 발견된다."
+  },
+  "Base.FishingTackle2": {
+    "text_ko": "낚시 용품. 낚시 장비 취급 장소에서 발견된다."
+  },
+  "Base.FlameTrap": {
+    "text_ko": "폭발물. 휘발유와 천 조각과 빈 병을 조합해 만든다."
+  },
+  "Base.FlameTrapRemote": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.FlameTrapSensorV1": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.FlameTrapSensorV2": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.FlameTrapSensorV3": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.FlameTrapTriggered": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.Flightcase": {
+    "text_ko": "용기. 악기 상점이나 전당포에서 발견된다."
+  },
+  "Base.FlintKnife": {
+    "text_ko": "제작 무기. 나뭇가지와 깎인 돌, 천 조각이나 끈으로 제작한다."
+  },
+  "Base.Flute": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.Fork": {
+    "text_ko": "조리 도구. 식기 보관 장소와 생활용품 매장, 칼 제작 장소에서 발견된다."
+  },
+  "Base.FriedOnionRingsCraft": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.FrillyUnderpants_Black": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.FrillyUnderpants_Pink": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.FrillyUnderpants_Red": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.FrogMeat": {
+    "text_ko": "식품. 동물 사체를 손질해 얻는다."
+  },
+  "Base.FruitSalad": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.FullKettle": {
+    "text_ko": "수원. 빈 용기에 물을 채워 얻는다."
+  },
+  "Base.Garbagebag": {
+    "text_ko": "용기. 폐기물 처리 장소에서 발견된다."
+  },
+  "Base.GardenFork": {
+    "text_ko": "원예 도구. 차고와 농업 물품 상자, 원예 상점과 공구점에서 발견된다."
+  },
+  "Base.GardenHoe": {
+    "text_ko": "원예 도구. 작업 차량과 차고, 농업 물품 상자와 원예 상점에서 발견된다."
+  },
+  "Base.GardenSaw": {
+    "text_ko": "도구. 작업 차량과 차고, 농업 물품 상자와 공구점에서 발견된다."
+  },
+  "Base.Garter": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Ghillie_Top": {
+    "text_ko": "의류. 군용 보관 장소에서 발견된다."
+  },
+  "Base.Ghillie_Trousers": {
+    "text_ko": "의류. 군용 보관 장소에서 발견된다."
+  },
+  "Base.GlassTumbler": {
+    "text_ko": "물통. 식기 상자와 주방용품 매장, 휴게 공간과 식음료 판매대에서 발견된다."
+  },
+  "Base.GlassTumblerWater": {
+    "text_ko": "수원. 빈 용기에 물을 채워 얻는다."
+  },
+  "Base.GlassWine": {
+    "text_ko": "물통. 식기 상자와 주방용품 매장, 휴게 공간과 식음료 판매대에서 발견된다."
+  },
+  "Base.GlassWineWater": {
+    "text_ko": "음료. 빈 용기에 물을 채워 얻는다."
+  },
+  "Base.Glasses": {
+    "text_ko": "액세서리. 안경 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Glasses_Aviators": {
+    "text_ko": "액세서리. 안경 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Glasses_Normal": {
+    "text_ko": "액세서리. 안경 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Glasses_Reading": {
+    "text_ko": "액세서리. 안경 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Glasses_SafetyGoggles": {
+    "text_ko": "액세서리. 작업 현장과 채집으로 구할 수 있다."
+  },
+  "Base.Glasses_SkiGoggles": {
+    "text_ko": "액세서리. 안경 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Glasses_Sun": {
+    "text_ko": "액세서리. 안경 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Glasses_SwimmingGoggles": {
+    "text_ko": "액세서리. 안경 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Gloves_BoxingBlue": {
+    "text_ko": "액세서리. 권투 장비 보관 장소와 골동품점에서 발견된다."
+  },
+  "Base.Gloves_BoxingRed": {
+    "text_ko": "액세서리. 권투 장비 보관 장소와 골동품점에서 발견된다."
+  },
+  "Base.Gloves_FingerlessGloves": {
+    "text_ko": "액세서리. 장갑 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Gloves_LeatherGloves": {
+    "text_ko": "액세서리. 장갑 매장과 가죽 장갑 매장, 무장 은신처 보관 장소에서 발견된다."
+  },
+  "Base.Gloves_LeatherGlovesBlack": {
+    "text_ko": "액세서리. 장갑 매장과 가죽 장갑 매장, 무장 은신처 보관 장소에서 발견된다."
+  },
+  "Base.Gloves_LongWomenGloves": {
+    "text_ko": "액세서리. 장갑 매장과 란제리 액세서리 매장에서 발견된다."
+  },
+  "Base.Gloves_Surgical": {
+    "text_ko": "의료 보호구. 의료 보관 장소와 구급차, 실험 시설에서 발견된다."
+  },
+  "Base.Gloves_WhiteTINT": {
+    "text_ko": "액세서리. 장갑 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Glue": {
+    "text_ko": "소모성 재료. 문구 보관 장소나 사무용품 보관 장소에서 발견된다."
+  },
+  "Base.Golfclub": {
+    "text_ko": "스포츠 용품. 골프 보관함에서 발견된다."
+  },
+  "Base.Gravelbag": {
+    "text_ko": "소모성 재료. 자갈을 담아 얻는다."
+  },
+  "Base.GriddlePanFriedVegetables": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.GridlePan": {
+    "text_ko": "조리 도구. 주방용품 매장과 조리 도구 보관 장소에서 발견된다."
+  },
+  "Base.GrilledCheese": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.Guacamole": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.GuitarAcoustic": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.GuitarElectricBassBlack": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.GuitarElectricBassBlue": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.GuitarElectricBassRed": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.GuitarElectricBlack": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.GuitarElectricBlue": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.GuitarElectricRed": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.Guitarcase": {
+    "text_ko": "용기. 악기 상점이나 전당포에서 발견된다."
+  },
+  "Base.GunLight": {
+    "text_ko": "무기 부품. 총기 매장과 차고 총기 보관 장소에서 발견된다."
+  },
+  "Base.GunPowder": {
+    "text_ko": "소모성 재료. 탄약을 분해해 구한다."
+  },
+  "Base.HalloweenPumpkin": {
+    "text_ko": "식품. 호박을 가공해 만든다."
+  },
+  "Base.HamSlice": {
+    "text_ko": "식품. 고기를 잘라 얻는다."
+  },
+  "Base.Hammer": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.HammerStone": {
+    "text_ko": "무기 겸용 도구. 나뭇가지와 돌, 천 조각으로 제작한다."
+  },
+  "Base.HandAxe": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 목공 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.HandFork": {
+    "text_ko": "무기 겸용 도구. 차고와 농업 물품 상자, 원예 상점과 공구점에서 발견된다."
+  },
+  "Base.HandScythe": {
+    "text_ko": "무기 겸용 도구. 차고와 농업 물품 상자, 원예 상점과 공구점에서 발견된다."
+  },
+  "Base.HandTorch": {
+    "text_ko": "조명 기구. 전자용품점이나 공구 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Antlers": {
+    "text_ko": "액세서리. 축제 물품과 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Army": {
+    "text_ko": "액세서리. 군용 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BalaclavaFace": {
+    "text_ko": "액세서리. 군용품점과 겨울 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BalaclavaFull": {
+    "text_ko": "액세서리. 군용품점과 겨울 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Bandana": {
+    "text_ko": "액세서리. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BandanaTINT": {
+    "text_ko": "액세서리. 밴드 굿즈 진열대와 연습실 의상 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BaseballCap": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소, 학교와 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BaseballCapArmy": {
+    "text_ko": "액세서리. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Hat_BaseballCapBlue": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소, 학교와 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BaseballCapGreen": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소, 학교와 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BaseballCapKY": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소, 학교와 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BaseballCapKY_Red": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소, 학교와 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BaseballCapRed": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소, 학교와 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BaseballHelmet_KY": {
+    "text_ko": "액세서리. 야구 장비 보관 장소와 스포츠 상점, 골동품점에서 발견된다."
+  },
+  "Base.Hat_BaseballHelmet_Rangers": {
+    "text_ko": "액세서리. 야구 장비 보관 장소와 스포츠 상점, 골동품점에서 발견된다."
+  },
+  "Base.Hat_BaseballHelmet_Z": {
+    "text_ko": "액세서리. 야구 장비 보관 장소와 스포츠 상점, 골동품점에서 발견된다."
+  },
+  "Base.Hat_Beany": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Beret": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BeretArmy": {
+    "text_ko": "액세서리. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Hat_BicycleHelmet": {
+    "text_ko": "액세서리. 잡화 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BonnieHat": {
+    "text_ko": "액세서리. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.Hat_BonnieHat_CamoGreen": {
+    "text_ko": "액세서리. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.Hat_BoxingBlue": {
+    "text_ko": "액세서리. 권투 장비 보관 장소와 스포츠 상점에서 발견된다."
+  },
+  "Base.Hat_BoxingRed": {
+    "text_ko": "액세서리. 권투 장비 보관 장소와 스포츠 상점에서 발견된다."
+  },
+  "Base.Hat_BucketHat": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_BunnyEarsBlack": {
+    "text_ko": "액세서리. 코스튬 보관 장소와 의상 액세서리 매장에서 발견된다."
+  },
+  "Base.Hat_BunnyEarsWhite": {
+    "text_ko": "액세서리. 코스튬 보관 장소와 의상 액세서리 매장에서 발견된다."
+  },
+  "Base.Hat_ChefHat": {
+    "text_ko": "액세서리. 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Cowboy": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소, 골동품점에서 발견된다."
+  },
+  "Base.Hat_CrashHelmet": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_CrashHelmetFULL": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_CrashHelmet_Police": {
+    "text_ko": "액세서리. 경찰 보관 장소와 경찰 차량에서 발견된다."
+  },
+  "Base.Hat_CrashHelmet_Stars": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_DustMask": {
+    "text_ko": "액세서리. 공구점과 작업 현장, 실험 시설에서 발견된다."
+  },
+  "Base.Hat_EarMuff_Protectors": {
+    "text_ko": "액세서리. 군과 경찰 보관 장소, 총기점과 작업 현장에서 발견된다."
+  },
+  "Base.Hat_EarMuffs": {
+    "text_ko": "액세서리. 겨울 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_FastFood": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_FastFood_IceCream": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_FastFood_Spiffo": {
+    "text_ko": "액세서리. 스피포 배달 차량과 종업원 복장에서 발견된다."
+  },
+  "Base.Hat_Fedora": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Fedora_Delmonte": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Fireman": {
+    "text_ko": "액세서리. 소방 보관 장소에서 발견된다."
+  },
+  "Base.Hat_FootballHelmet": {
+    "text_ko": "액세서리. 스포츠 장비 장소와 코스튬 보관 장소, 골동품점에서 발견된다."
+  },
+  "Base.Hat_FurryEars": {
+    "text_ko": "액세서리. 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_GasMask": {
+    "text_ko": "액세서리. 군용과 소방 보관 장소, 실험 시설에서 발견된다."
+  },
+  "Base.Hat_GoldStar": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_GolfHat": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_GolfHatTINT": {
+    "text_ko": "액세서리. 골프 보관 장소와 모자 매장, 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_HardHat": {
+    "text_ko": "액세서리. 목공 작업 장소와 공구점, 공장 보관 장소에서 발견된다."
+  },
+  "Base.Hat_HardHat_Miner": {
+    "text_ko": "액세서리. 공구점과 잡화 보관 장소에서 발견된다."
+  },
+  "Base.Hat_HockeyHelmet": {
+    "text_ko": "액세서리. 스포츠 장비 장소와 잡화 보관 장소, 골동품점에서 발견된다."
+  },
+  "Base.Hat_HockeyMask": {
+    "text_ko": "액세서리. 스포츠 장비 장소에서 발견된다."
+  },
+  "Base.Hat_Jay": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_JockeyHelmet01": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_JockeyHelmet02": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_JockeyHelmet03": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_JockeyHelmet04": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_JockeyHelmet05": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_JockeyHelmet06": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_JokeArrow": {
+    "text_ko": "액세서리. 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_JokeKnife": {
+    "text_ko": "액세서리. 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_NBCmask": {
+    "text_ko": "액세서리. 실험 시설에서 발견된다."
+  },
+  "Base.Hat_NewspaperHat": {
+    "text_ko": "액세서리. 신문으로 제작한다."
+  },
+  "Base.Hat_PartyHat_Stars": {
+    "text_ko": "액세서리. 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_PartyHat_TINT": {
+    "text_ko": "액세서리. 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_PeakedCapArmy": {
+    "text_ko": "액세서리. 군용 보관 장소와 군용품점, 골동품점에서 발견된다."
+  },
+  "Base.Hat_Police": {
+    "text_ko": "액세서리. 경찰 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Police_Grey": {
+    "text_ko": "액세서리. 경찰 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Raccoon": {
+    "text_ko": "액세서리. 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Ranger": {
+    "text_ko": "액세서리. 공원 관리 인원 복장에서 발견된다."
+  },
+  "Base.Hat_RidingHelmet": {
+    "text_ko": "액세서리. 잡화 보관 장소에서 발견된다."
+  },
+  "Base.Hat_RiotHelmet": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_SPHhelmet": {
+    "text_ko": "액세서리. 군 항공 보관 장소에서 발견된다."
+  },
+  "Base.Hat_SantaHat": {
+    "text_ko": "액세서리. 축제 물품과 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_SantaHatGreen": {
+    "text_ko": "액세서리. 축제 물품과 코스튬 보관 장소에서 발견된다."
+  },
+  "Base.Hat_ShowerCap": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_Spiffo": {
+    "text_ko": "액세서리. 코스튬 보관 장소와 스피포 상품 진열대에서 발견된다."
+  },
+  "Base.Hat_SummerHat": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_SurgicalCap_Blue": {
+    "text_ko": "의료 보호구. 의료 보관 장소에서 발견된다."
+  },
+  "Base.Hat_SurgicalCap_Green": {
+    "text_ko": "의료 보호구. 군 의료 보관 장소에서 발견된다."
+  },
+  "Base.Hat_SurgicalMask_Blue": {
+    "text_ko": "의료 보호구. 의료 보관 장소와 실험 시설에서 발견된다."
+  },
+  "Base.Hat_SurgicalMask_Green": {
+    "text_ko": "의료 보호구. 군 의료 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Sweatband": {
+    "text_ko": "액세서리. 체육관과 스포츠 의류 장소, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Hat_TinFoilHat": {
+    "text_ko": "액세서리. 알루미늄으로 제작한다."
+  },
+  "Base.Hat_VisorBlack": {
+    "text_ko": "액세서리. 골프 보관 장소와 모자 매장, 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_VisorRed": {
+    "text_ko": "액세서리. 골프 보관 장소와 모자 매장, 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_Visor_WhiteTINT": {
+    "text_ko": "액세서리. 모자 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_WeddingVeil": {
+    "text_ko": "액세서리. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Hat_WinterHat": {
+    "text_ko": "액세서리. 겨울 의류 보관 장소에서 발견된다."
+  },
+  "Base.Hat_WoolyHat": {
+    "text_ko": "액세서리. 겨울 의류 보관 장소에서 발견된다."
+  },
+  "Base.HazmatSuit": {
+    "text_ko": "의류. 실험 시설과 약품 제조 시설에서 발견된다."
+  },
+  "Base.Hinge": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.HockeyStick": {
+    "text_ko": "스포츠 용품. 스포츠 상자와 스틱 보관함에서 발견된다."
+  },
+  "Base.HolsterDouble": {
+    "text_ko": "액세서리. 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.HolsterSimple": {
+    "text_ko": "액세서리. 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.HoodieDOWN_WhiteTINT": {
+    "text_ko": "의류. 점퍼 매장과 의류 보관 장소, 학교와 체육관 보관 장소에서 발견된다."
+  },
+  "Base.HospitalGown": {
+    "text_ko": "의류. 의료 보관 장소와 구급차에서 발견된다."
+  },
+  "Base.HotDrink": {
+    "text_ko": "식품. 컵에 물과 재료를 담아 끓여 만든다."
+  },
+  "Base.HotDrinkRed": {
+    "text_ko": "식품. 컵에 물과 재료를 담아 끓여 만든다."
+  },
+  "Base.HotDrinkSpiffo": {
+    "text_ko": "식품. 컵에 물과 재료를 담아 끓여 만든다."
+  },
+  "Base.HotDrinkTea": {
+    "text_ko": "식품. 컵에 물과 재료를 담아 끓여 만든다."
+  },
+  "Base.HotDrinkWhite": {
+    "text_ko": "식품. 컵에 물과 재료를 담아 끓여 만든다."
+  },
+  "Base.HuntingKnife": {
+    "text_ko": "근접 무기. 군용 보관 장소와 사냥 장비 장소, 전당포에서 발견된다."
+  },
+  "Base.HuntingRifle": {
+    "text_ko": "근접 무기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.IceHockeyStick": {
+    "text_ko": "스포츠 용품. 스포츠 상자와 스틱 보관함에서 발견된다."
+  },
+  "Base.IcePick": {
+    "text_ko": "조리 도구. 냉동 식품 보관 장소와 식기 보관 장소에서 발견된다."
+  },
+  "Base.IronSight": {
+    "text_ko": "무기 부품. 총기 매장 진열대에서 발견된다."
+  },
+  "Base.Jack": {
+    "text_ko": "도구. 차량 정비 장소와 차량 보관 장소에서 발견된다."
+  },
+  "Base.JacketLong_Doctor": {
+    "text_ko": "의류. 의료 보관 장소와 실험 시설, 검시 작업 장소에서 발견된다."
+  },
+  "Base.JacketLong_Random": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.JacketLong_Santa": {
+    "text_ko": "의류. 축제 물품 보관 장소에서 발견된다."
+  },
+  "Base.JacketLong_SantaGreen": {
+    "text_ko": "의류. 축제 물품 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_ArmyCamoDesert": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Jacket_ArmyCamoGreen": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.Jacket_Black": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Chef": {
+    "text_ko": "의류. 요리사 복장에서 발견된다."
+  },
+  "Base.Jacket_CoatArmy": {
+    "text_ko": "의류. 군용 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Fireman": {
+    "text_ko": "의류. 소방 보관 장소와 소방 차량에서 발견된다."
+  },
+  "Base.Jacket_LeatherBarrelDogs": {
+    "text_ko": "의류. 무장 은신처 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_LeatherIronRodent": {
+    "text_ko": "의류. 무장 은신처 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_LeatherWildRacoons": {
+    "text_ko": "의류. 무장 은신처 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_NavyBlue": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Jacket_PaddedDOWN": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Police": {
+    "text_ko": "의류. 경찰 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Ranger": {
+    "text_ko": "의류. 공원 관리 인원 복장에서 발견된다."
+  },
+  "Base.Jacket_Shellsuit_Black": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Shellsuit_Blue": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Shellsuit_Green": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Shellsuit_Pink": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Shellsuit_TINT": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Shellsuit_Teal": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_Varsity": {
+    "text_ko": "의류. 재킷 매장과 학교 보관 장소에서 발견된다."
+  },
+  "Base.Jacket_WhiteTINT": {
+    "text_ko": "의류. 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jumper_DiamondPatternTINT": {
+    "text_ko": "의류. 점퍼 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jumper_PoloNeck": {
+    "text_ko": "의류. 점퍼 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jumper_RoundNeck": {
+    "text_ko": "의류. 점퍼 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jumper_TankTopDiamondTINT": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Jumper_TankTopTINT": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Jumper_VNeck": {
+    "text_ko": "의류. 점퍼 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Katana": {
+    "text_ko": "근접 무기. 전당포 칼 진열대와 무기 진열 장소, 취미품 진열대에서 발견된다."
+  },
+  "Base.Kettle": {
+    "text_ko": "조리 도구. 식기 상자와 주방용품 매장, 휴게 공간과 식음료 판매대에서 발견된다."
+  },
+  "Base.KeyRing": {
+    "text_ko": "용기. 시계 판매점에서 발견된다."
+  },
+  "Base.Keytar": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.KitchenKnife": {
+    "text_ko": "조리 도구. 도축 작업 장소와 식기 보관 장소, 칼 제작 장소에서 발견된다."
+  },
+  "Base.KnittingNeedles": {
+    "text_ko": "잡동사니. 재봉 도구 보관 장소와 침구 취급 장소에서 발견된다."
+  },
+  "Base.LaCrosseStick": {
+    "text_ko": "스포츠 용품. 스포츠 상자와 스틱 보관함에서 발견된다."
+  },
+  "Base.Lamp": {
+    "text_ko": "생활용품. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.Laser": {
+    "text_ko": "무기 부품. 총기 매장과 차고 총기 보관 장소에서 발견된다."
+  },
+  "Base.LeadPipe": {
+    "text_ko": "근접 무기. 배관 자재 장소와 차량에서 발견된다."
+  },
+  "Base.LeafRake": {
+    "text_ko": "원예 도구. 작업 차량과 차고, 농업 물품 상자와 원예 상점에서 발견된다."
+  },
+  "Base.LeatherStrips": {
+    "text_ko": "재료. 가죽 의류를 찢어 얻는다."
+  },
+  "Base.LetterOpener": {
+    "text_ko": "생활 도구. 사무 공간과 우편 업무 장소에서 발견된다."
+  },
+  "Base.LightBulb": {
+    "text_ko": "전자 기기. 전자용품점이나 공구 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbBlue": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbCyan": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbGreen": {
+    "text_ko": "전자 기기. 전자 공구 보관 장소나 전기 부품 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbMagenta": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbOrange": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbPink": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbPurple": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbRed": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.LightBulbYellow": {
+    "text_ko": "전자 기기. 전자제품 매장과 전자 부품 보관 장소에서 발견된다."
+  },
+  "Base.Lighter": {
+    "text_ko": "조명 기구. 차량과 책상, 담배 판매대와 주거지 주방에서 발견된다."
+  },
+  "Base.Locket": {
+    "text_ko": "잡동사니. 장신구 취급 장소와 장신구 보관 장소에서 발견된다."
+  },
+  "Base.LogStacks2": {
+    "text_ko": "재료. 통나무를 묶어 만든다."
+  },
+  "Base.LogStacks3": {
+    "text_ko": "재료. 통나무를 묶어 만든다."
+  },
+  "Base.LogStacks4": {
+    "text_ko": "재료. 통나무를 묶어 만든다."
+  },
+  "Base.LongCoat_Bathrobe": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.LongJohns": {
+    "text_ko": "의류. 겨울 의류와 생존 장비 보관 장소, 소방 차량에서 발견된다."
+  },
+  "Base.LongJohns_Bottoms": {
+    "text_ko": "의류. 겨울 의류와 생존 장비 보관 장소에서 발견된다."
+  },
+  "Base.LouisvilleMap1": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LouisvilleMap2": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LouisvilleMap3": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LouisvilleMap4": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LouisvilleMap5": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LouisvilleMap6": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LouisvilleMap7": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LouisvilleMap8": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LouisvilleMap9": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.LugWrench": {
+    "text_ko": "도구. 차량 정비 장소와 차량 보관 장소에서 발견된다."
+  },
+  "Base.Lunchbag": {
+    "text_ko": "용기. 직장 휴게 공간이나 학교에서 발견된다."
+  },
+  "Base.Lunchbox": {
+    "text_ko": "용기. 직장 휴게 공간이나 학교에서 발견된다."
+  },
+  "Base.Lunchbox2": {
+    "text_ko": "용기. 직장 휴게 공간이나 학교에서 발견된다."
+  },
+  "Base.M14Clip": {
+    "text_ko": "탄약. 총기 취급 장소와 경찰 시설에서 발견된다."
+  },
+  "Base.Machete": {
+    "text_ko": "근접 무기. 차고와 농업 물품 상자, 원예 상점과 전당포에서 발견된다."
+  },
+  "Base.Male_Undies": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.MarchRidgeMap": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.Matches": {
+    "text_ko": "조명 기구. 차량과 책상, 담배 판매대와 주거지 주방에서 발견된다."
+  },
+  "Base.MeatCleaver": {
+    "text_ko": "조리 도구. 도축 작업 장소와 식기 보관 장소, 칼 제작 장소에서 발견된다."
+  },
+  "Base.MetalBar": {
+    "text_ko": "근접 무기. 금속 작업 장소와 정비 차량에서 발견된다."
+  },
+  "Base.MetalPipe": {
+    "text_ko": "근접 무기. 금속 작업 장소와 정비 차량에서 발견된다."
+  },
+  "Base.Molotov": {
+    "text_ko": "폭발물. 술병이나 빈 병, 천 조각과 휘발유로 제작한다."
+  },
+  "Base.MotionSensor": {
+    "text_ko": "전자 기기. 전자 공구 보관 장소에서 발견된다."
+  },
+  "Base.MuffinTray": {
+    "text_ko": "조리 도구. 가정집이나 제과점에서 발견된다."
+  },
+  "Base.Muffintray_Biscuit": {
+    "text_ko": "식품. 반죽이나 재료를 조리해 만든다."
+  },
+  "Base.MugRed": {
+    "text_ko": "조리 도구. 식기 상자와 주방용품 매장, 휴게 공간과 식음료 판매대에서 발견된다."
+  },
+  "Base.MugSpiffo": {
+    "text_ko": "조리 도구. 스피포 매장과 스피포 차량, 스피포 상품 상자에서 발견된다."
+  },
+  "Base.MugWhite": {
+    "text_ko": "조리 도구. 식기 상자와 주방용품 매장, 휴게 공간과 식음료 판매대에서 발견된다."
+  },
+  "Base.Mugfull": {
+    "text_ko": "식품. 컵에 음료를 담아 만든다."
+  },
+  "Base.Mugl": {
+    "text_ko": "조리 도구. 식기 상자와 주방용품 매장, 휴게 공간과 식음료 판매대에서 발견된다."
+  },
+  "Base.MuldraughMap": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.Nails": {
+    "text_ko": "재료. 못 상자를 열어 구한다."
+  },
+  "Base.NailsBox": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.NecklaceLong_Gold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.NecklaceLong_GoldDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.NecklaceLong_Silver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.NecklaceLong_SilverDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.NecklaceLong_SilverEmerald": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.NecklaceLong_SilverSapphire": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_Choker": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_Choker_Amber": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_Choker_Diamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_Choker_Sapphire": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_Crucifix": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_DogTag": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_Gold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_GoldDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_GoldRuby": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_Pearl": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_Silver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_SilverCrucifix": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_SilverDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_SilverSapphire": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklace_YingYang": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Necklacepearl": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소에서 발견된다."
+  },
+  "Base.Needle": {
+    "text_ko": "도구. 재봉 관련 장소나 의료 시설에서 발견된다."
+  },
+  "Base.Nightstick": {
+    "text_ko": "근접 무기. 경찰과 경비 보관 장소에서 발견된다."
+  },
+  "Base.NoiseTrap": {
+    "text_ko": "폭발물. 전자 부품과 증폭기를 조합해 만든다."
+  },
+  "Base.NoiseTrapRemote": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.NoiseTrapSensorV1": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.NoiseTrapSensorV2": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.NoiseTrapSensorV3": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.NoiseTrapTriggered": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.NoseRing_Gold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.NoseRing_Silver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.NoseStud_Gold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Notebook": {
+    "text_ko": "서적. 문구 매대와 사무용품 보관함, 학교 선반과 책상에서 발견된다."
+  },
+  "Base.Oatmeal": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.OmeletteRecipe": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.OnionRings": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.Padlock": {
+    "text_ko": "열쇠. 농업 물품 상자와 공구점, 청소 작업 장소에서 발견된다."
+  },
+  "Base.PaintBlack": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintBlue": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintBrown": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintCyan": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintGreen": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintGrey": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintLightBlue": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintLightBrown": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintOrange": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintPink": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintPurple": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintRed": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintTurquoise": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintWhite": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintYellow": {
+    "text_ko": "도료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.Paintbrush": {
+    "text_ko": "도구. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PaintbucketEmpty": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.Pan": {
+    "text_ko": "조리 도구. 주방용품 매장과 조리 도구 보관 장소에서 발견된다."
+  },
+  "Base.PanFriedVegetables": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.PanFriedVegetables2": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.Pancakes": {
+    "text_ko": "식품. 반죽이나 재료를 조리해 만든다."
+  },
+  "Base.PancakesCraft": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.Paperbag_Jays": {
+    "text_ko": "용기. 제이스 매장에서 발견된다."
+  },
+  "Base.Paperbag_Spiffos": {
+    "text_ko": "용기. 스피포 매장에서 발견된다."
+  },
+  "Base.PastaBowl": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.PastaPan": {
+    "text_ko": "식품. 파스타를 끓여 만든다."
+  },
+  "Base.PastaPot": {
+    "text_ko": "식품. 파스타를 끓여 만든다."
+  },
+  "Base.PercedWood": {
+    "text_ko": "캠핑 용품. 나무 판재를 가공해 얻는다."
+  },
+  "Base.PetrolBleachBottle": {
+    "text_ko": "차량 정비 소모품. 빈 표백제 병에 휘발유를 담아 만든다."
+  },
+  "Base.PetrolCan": {
+    "text_ko": "차량 정비 소모품. 빈 연료통에 휘발유를 담아 만든다."
+  },
+  "Base.PetrolPopBottle": {
+    "text_ko": "차량 정비 소모품. 빈 음료수 병에 휘발유를 담아 만든다."
+  },
+  "Base.PickAxe": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 농업 물품 상자와 공구점에서 발견된다."
+  },
+  "Base.PieDough": {
+    "text_ko": "식재료. 제과점이나 카페에서 발견된다."
+  },
+  "Base.PiePrep": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.PieWholeRaw": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.PieWholeRawSweet": {
+    "text_ko": "식품. 재료를 섞어 준비한다."
+  },
+  "Base.Pillow": {
+    "text_ko": "재료. 침구 보관 장소나 숙박 시설에서 발견된다."
+  },
+  "Base.Pills": {
+    "text_ko": "의료 소모품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.PillsAntiDep": {
+    "text_ko": "의료 소모품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.PillsBeta": {
+    "text_ko": "의료 소모품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.PillsSleepingTablets": {
+    "text_ko": "의료 소모품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.PillsVitamins": {
+    "text_ko": "의료 소모품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.Pipe": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.PipeBomb": {
+    "text_ko": "폭발물. 전자 부품과 금속 파이프, 화약과 끈으로 제작한다."
+  },
+  "Base.PipeBombRemote": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.PipeBombSensorV1": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.PipeBombSensorV2": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.PipeBombSensorV3": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.PipeBombTriggered": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.PipeWrench": {
+    "text_ko": "무기 겸용 도구. 욕실과 배관 자재 장소, 차고와 공구 상자에서 발견된다."
+  },
+  "Base.Pistol": {
+    "text_ko": "근접 무기. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다."
+  },
+  "Base.Pistol2": {
+    "text_ko": "근접 무기. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다."
+  },
+  "Base.Pistol3": {
+    "text_ko": "근접 무기. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다."
+  },
+  "Base.PistolCase1": {
+    "text_ko": "용기. 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.PistolCase2": {
+    "text_ko": "용기. 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.PistolCase3": {
+    "text_ko": "용기. 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.Plank": {
+    "text_ko": "재료. 통나무를 톱으로 가공해 얻는다."
+  },
+  "Base.PlankNail": {
+    "text_ko": "제작 무기. 판자와 못, 망치로 제작한다."
+  },
+  "Base.PlantainCataplasm": {
+    "text_ko": "의료 용품. 약초를 가공해 얻는다."
+  },
+  "Base.PlasterPowder": {
+    "text_ko": "재료. 건축 자재 보관 장소에서 발견된다."
+  },
+  "Base.PlasticCupWater": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.Plunger": {
+    "text_ko": "생활 도구. 욕실과 배관 자재 장소, 청소 작업 장소에서 발견된다."
+  },
+  "Base.PonchoGreenDOWN": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.PonchoYellowDOWN": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.Poolcue": {
+    "text_ko": "스포츠 용품. 당구 용품 상자에서 발견된다."
+  },
+  "Base.PotOfSoup": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.PotOfSoupRecipe": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.PotOfStew": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.PropaneTank": {
+    "text_ko": "소모성 재료. 철물점이나 금속 작업장에서 발견된다."
+  },
+  "Base.Rabbitmeat": {
+    "text_ko": "식품. 동물 사체를 손질해 얻는다."
+  },
+  "Base.Rake": {
+    "text_ko": "원예 도구. 작업 차량과 차고, 농업 물품 상자와 원예 상점에서 발견된다."
+  },
+  "Base.RamenBowl": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.Receiver": {
+    "text_ko": "전자 기기. TV 리모컨을 분해해 구한다."
+  },
+  "Base.RecoilPad": {
+    "text_ko": "무기 부품. 총기 매장과 차고 총기 보관 장소에서 발견된다."
+  },
+  "Base.RedDot": {
+    "text_ko": "무기 부품. 총기 매장과 차고 총기 보관 장소에서 발견된다."
+  },
+  "Base.RemoteCraftedV1": {
+    "text_ko": "전자 기기. 전자 부품을 가공해 얻는다."
+  },
+  "Base.RemoteCraftedV2": {
+    "text_ko": "전자 기기. 전자 부품을 가공해 얻는다."
+  },
+  "Base.RemoteCraftedV3": {
+    "text_ko": "전자 기기. 전자 부품을 가공해 얻는다."
+  },
+  "Base.Revolver": {
+    "text_ko": "근접 무기. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다."
+  },
+  "Base.RevolverCase1": {
+    "text_ko": "용기. 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.RevolverCase2": {
+    "text_ko": "용기. 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.RevolverCase3": {
+    "text_ko": "용기. 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.Revolver_Long": {
+    "text_ko": "근접 무기. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다."
+  },
+  "Base.Revolver_Short": {
+    "text_ko": "근접 무기. 총기 매장과 차고 총기 보관 장소, 은닉 보관 장소에서 발견된다."
+  },
+  "Base.RiceBowl": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.RicePan": {
+    "text_ko": "식품. 쌀을 끓여 만든다."
+  },
+  "Base.RicePot": {
+    "text_ko": "식품. 쌀을 끓여 만든다."
+  },
+  "Base.RifleCase1": {
+    "text_ko": "용기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.RifleCase2": {
+    "text_ko": "용기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.RifleCase3": {
+    "text_ko": "용기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.Ring": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소에서 발견된다."
+  },
+  "Base.Ring_Left_RingFinger_Gold": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Ring_Left_RingFinger_Silver": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Ring_Right_RingFinger_GoldDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Ring_Right_RingFinger_GoldRuby": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.Ring_Right_RingFinger_SilverDiamond": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소, 채집으로 구할 수 있다."
+  },
+  "Base.RippedSheets": {
+    "text_ko": "생활용품. 천이나 의류를 찢어 얻는다."
+  },
+  "Base.RiversideMap": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.RollingPin": {
+    "text_ko": "조리 도구. 주방용품 매장과 조리 도구 보관 장소에서 발견된다."
+  },
+  "Base.RosewoodMap": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.SackProduce_Apple": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_BellPepper": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Broccoli": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Cabbage": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Carrot": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Cherry": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Corn": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Eggplant": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Grapes": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Leek": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Lettuce": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Onion": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Peach": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Pear": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Potato": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_RedRadish": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Strawberry": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SackProduce_Tomato": {
+    "text_ko": "식품. 수확물을 포대에 담아 얻는다."
+  },
+  "Base.SalamiSlice": {
+    "text_ko": "식품. 고기를 잘라 얻는다."
+  },
+  "Base.Sandbag": {
+    "text_ko": "소모성 재료. 모래를 담아 얻는다."
+  },
+  "Base.Sandwich": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.Saucepan": {
+    "text_ko": "조리 도구. 주방용품 매장과 조리 도구 보관 장소에서 발견된다."
+  },
+  "Base.Saw": {
+    "text_ko": "도구. 작업장과 공구 보관 장소에서 발견된다."
+  },
+  "Base.Saxophone": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.Scalpel": {
+    "text_ko": "의료 도구. 의료 보관 장소와 실험실, 검시 작업 장소에서 발견된다."
+  },
+  "Base.Scarf_StripeBlackWhite": {
+    "text_ko": "액세서리. 겨울 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Scarf_StripeBlueWhite": {
+    "text_ko": "액세서리. 겨울 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Scarf_StripeRedWhite": {
+    "text_ko": "액세서리. 겨울 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Scarf_White": {
+    "text_ko": "액세서리. 겨울 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Scissors": {
+    "text_ko": "생활 도구. 사무용품과 학용품 보관 장소, 의료 작업 장소에서 발견된다."
+  },
+  "Base.Scotchtape": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.ScrapMetal": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.Screwdriver": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.Screws": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.ScrewsBox": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.SeedBag": {
+    "text_ko": "용기. 농사용품 판매 장소에서 발견된다."
+  },
+  "Base.SewingKit": {
+    "text_ko": "용기. 재봉용품 판매 장소나 가정집에서 발견된다."
+  },
+  "Base.Sheet": {
+    "text_ko": "재료. 세탁물 보관 장소나 숙박 시설에서 발견된다."
+  },
+  "Base.SheetMetal": {
+    "text_ko": "재료. 금속 가공으로 만든다."
+  },
+  "Base.SheetPaper2": {
+    "text_ko": "서적. 문구 매대와 사무용품 보관함, 학교 선반과 책상에서 발견된다."
+  },
+  "Base.SheetRope": {
+    "text_ko": "재료. 시트나 면 의류를 찢어 만든다."
+  },
+  "Base.Shirt_Baseball_KY": {
+    "text_ko": "의류. 야구 장비 보관 장소와 스포츠 상점, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Baseball_Rangers": {
+    "text_ko": "의류. 야구 장비 보관 장소와 스포츠 상점, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Baseball_Z": {
+    "text_ko": "의류. 야구 장비 보관 장소와 스포츠 상점, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Bowling_Blue": {
+    "text_ko": "의류. 볼링장 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Bowling_Brown": {
+    "text_ko": "의류. 볼링장 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Bowling_Green": {
+    "text_ko": "의류. 볼링장 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Bowling_LimeGreen": {
+    "text_ko": "의류. 볼링장 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Bowling_Pink": {
+    "text_ko": "의류. 볼링장 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Bowling_White": {
+    "text_ko": "의류. 볼링장 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_CamoDesert": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Shirt_CamoGreen": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.Shirt_CamoUrban": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Shirt_CropTopNoArmTINT": {
+    "text_ko": "의류. 의류 보관 장소와 스트립 클럽 탈의실에서 발견된다."
+  },
+  "Base.Shirt_CropTopTINT": {
+    "text_ko": "의류. 의류 보관 장소와 스트립 클럽 탈의실에서 발견된다."
+  },
+  "Base.Shirt_Denim": {
+    "text_ko": "의류. 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_FormalTINT": {
+    "text_ko": "의류. 정장 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_FormalWhite": {
+    "text_ko": "의류. 정장 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_FormalWhite_ShortSleeve": {
+    "text_ko": "의류. 정장 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_FormalWhite_ShortSleeveTINT": {
+    "text_ko": "의류. 정장 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_HawaiianRed": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_HawaiianTINT": {
+    "text_ko": "의류. 여름 의류 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Jockey01": {
+    "text_ko": "의류. 경마장 기수 복장에서 발견된다."
+  },
+  "Base.Shirt_Jockey02": {
+    "text_ko": "의류. 경마장 기수 복장에서 발견된다."
+  },
+  "Base.Shirt_Jockey03": {
+    "text_ko": "의류. 경마장 기수 복장에서 발견된다."
+  },
+  "Base.Shirt_Jockey04": {
+    "text_ko": "의류. 경마장 기수 복장에서 발견된다."
+  },
+  "Base.Shirt_Jockey05": {
+    "text_ko": "의류. 경마장 기수 복장에서 발견된다."
+  },
+  "Base.Shirt_Jockey06": {
+    "text_ko": "의류. 경마장 기수 복장에서 발견된다."
+  },
+  "Base.Shirt_Lumberjack": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 셔츠 매장에서 발견된다."
+  },
+  "Base.Shirt_OfficerWhite": {
+    "text_ko": "의류. 경찰 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_PoliceBlue": {
+    "text_ko": "의류. 경찰과 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_PoliceGrey": {
+    "text_ko": "의류. 경찰과 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Priest": {
+    "text_ko": "의류. 교회 성직자 복장에서 발견된다."
+  },
+  "Base.Shirt_PrisonGuard": {
+    "text_ko": "의류. 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Shirt_Ranger": {
+    "text_ko": "의류. 공원 관리 인원 복장에서 발견된다."
+  },
+  "Base.Shirt_Scrubs": {
+    "text_ko": "의류. 의료 보관 장소와 실험 시설에서 발견된다."
+  },
+  "Base.Shirt_Workman": {
+    "text_ko": "의류. 공장 보관 장소와 공구점에서 발견된다."
+  },
+  "Base.Shoes_ArmyBoots": {
+    "text_ko": "의류. 군용과 소방 보관 장소, 캠핑과 사냥 장비 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_ArmyBootsDesert": {
+    "text_ko": "의류. 군용품점과 부츠 매장, 캠핑 장비 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_Black": {
+    "text_ko": "의류. 신발 매장과 가죽 신발 매장, 경찰과 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_BlackBoots": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 부츠 매장과 공구점에서 발견된다."
+  },
+  "Base.Shoes_BlueTrainers": {
+    "text_ko": "의류. 운동화 매장과 체육관, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_Bowling": {
+    "text_ko": "의류. 볼링장 신발 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_Brown": {
+    "text_ko": "의류. 신발 매장과 가죽 신발 매장, 경찰과 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_Fancy": {
+    "text_ko": "의류. 신발 매장과 의류 보관 장소, 스트립 클럽 탈의실에서 발견된다."
+  },
+  "Base.Shoes_FlipFlop": {
+    "text_ko": "의류. 신발 매장과 의류 보관 장소, 수영장 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_Random": {
+    "text_ko": "의류. 의류 보관 장소와 병원 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_RedTrainers": {
+    "text_ko": "의류. 운동화 매장과 체육관, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_RidingBoots": {
+    "text_ko": "의류. 부츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_Sandals": {
+    "text_ko": "의류. 신발 매장과 의류 보관 장소, 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_Slippers": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Shoes_Strapped": {
+    "text_ko": "의류. 신발 매장과 의류 보관 장소, 스트립 클럽 탈의실에서 발견된다."
+  },
+  "Base.Shoes_TrainerTINT": {
+    "text_ko": "의류. 운동화 매장과 체육관, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Shoes_Wellies": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 부츠 매장과 공구점에서 발견된다."
+  },
+  "Base.Shorts_BoxingBlue": {
+    "text_ko": "의류. 권투 선수 복장에서 발견된다."
+  },
+  "Base.Shorts_BoxingRed": {
+    "text_ko": "의류. 권투 선수 복장에서 발견된다."
+  },
+  "Base.Shorts_CamoGreenLong": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.Shorts_CamoUrbanLong": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Shorts_LongDenim": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shorts_LongSport": {
+    "text_ko": "의류. 체육관과 스포츠 의류 장소, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Shorts_LongSport_Red": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Shorts_ShortDenim": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Shorts_ShortFormal": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Shorts_ShortSport": {
+    "text_ko": "의류. 체육관과 스포츠 의류 장소, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Shotgun": {
+    "text_ko": "근접 무기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.ShotgunCase1": {
+    "text_ko": "용기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.ShotgunCase2": {
+    "text_ko": "용기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.ShotgunSawnoff": {
+    "text_ko": "근접 무기. 산탄총과 톱으로 절단해 만든다."
+  },
+  "Base.ShotgunShells": {
+    "text_ko": "탄약. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+  },
+  "Base.ShotgunShellsBox": {
+    "text_ko": "탄약. 탄약을 상자에 담아 얻는다."
+  },
+  "Base.ShotgunShellsMold": {
+    "text_ko": "탄약. 모루 근처에서 철괴와 망치, 집게로 제작한다."
+  },
+  "Base.Shovel": {
+    "text_ko": "원예 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.Shovel2": {
+    "text_ko": "원예 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.ShrimpFriedCraft": {
+    "text_ko": "식품. 재료를 조리해 만든다."
+  },
+  "Base.Skirt_Knees": {
+    "text_ko": "의류. 드레스 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Skirt_Long": {
+    "text_ko": "의류. 드레스 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Skirt_Mini": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Skirt_Normal": {
+    "text_ko": "의류. 드레스 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Skirt_Short": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Sledgehammer": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.Sledgehammer2": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.Sling": {
+    "text_ko": "무기 부품. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다."
+  },
+  "Base.SmallSheetMetal": {
+    "text_ko": "재료. 금속 가공으로 만든다."
+  },
+  "Base.Smallanimalmeat": {
+    "text_ko": "식품. 동물 사체를 손질해 얻는다."
+  },
+  "Base.Smallbirdmeat": {
+    "text_ko": "식품. 동물 사체를 손질해 얻는다."
+  },
+  "Base.SmashedBottle": {
+    "text_ko": "제작 무기. 빈 술병이나 빈 맥주병을 깨뜨려 만든다."
+  },
+  "Base.SmokeBomb": {
+    "text_ko": "폭발물. 냉찜질팩과 천 조각, 신문으로 제작한다."
+  },
+  "Base.SmokeBombRemote": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.SmokeBombSensorV1": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.SmokeBombSensorV2": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.SmokeBombSensorV3": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.SmokeBombTriggered": {
+    "text_ko": "폭발물. 폭발물을 개조해 얻는다."
+  },
+  "Base.Smore": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.SnowShovel": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.Socks_Ankle": {
+    "text_ko": "의류. 양말 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Socks_Long": {
+    "text_ko": "의류. 양말 매장과 의류 보관 장소, 소방 보관 장소에서 발견된다."
+  },
+  "Base.SoupBowl": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.Sparklers": {
+    "text_ko": "재료. 전기 공구 보관 장소에서 발견된다."
+  },
+  "Base.Spatula": {
+    "text_ko": "조리 도구. 주방용품 매장과 조리 도구 진열대, 바비큐 용품 상자에서 발견된다."
+  },
+  "Base.Speaker": {
+    "text_ko": "전자 기기. 음향 기기 판매점이나 전자용품 보관 장소에서 발견된다."
+  },
+  "Base.SpearBreadKnife": {
+    "text_ko": "제작 무기. 제작한 창과 식빵칼, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearButterKnife": {
+    "text_ko": "제작 무기. 제작한 창과 버터칼, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearCrafted": {
+    "text_ko": "제작 무기. 판자나 나뭇가지와 칼날 도구로 제작한다."
+  },
+  "Base.SpearFork": {
+    "text_ko": "제작 무기. 제작한 창과 포크, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearHandFork": {
+    "text_ko": "제작 무기. 제작한 창과 손갈퀴, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearHuntingKnife": {
+    "text_ko": "제작 무기. 제작한 창과 사냥칼, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearIcePick": {
+    "text_ko": "제작 무기. 제작한 창과 얼음송곳, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearKnife": {
+    "text_ko": "제작 무기. 제작한 창과 식칼, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearLetterOpener": {
+    "text_ko": "제작 무기. 제작한 창과 편지칼, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearMachete": {
+    "text_ko": "제작 무기. 제작한 창과 마체테, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearScalpel": {
+    "text_ko": "제작 무기. 제작한 창과 메스, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearScissors": {
+    "text_ko": "제작 무기. 제작한 창과 가위, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearScrewdriver": {
+    "text_ko": "제작 무기. 제작한 창과 드라이버, 덕트 테이프로 제작한다."
+  },
+  "Base.SpearSpoon": {
+    "text_ko": "제작 무기. 제작한 창과 숟가락, 덕트 테이프로 제작한다."
+  },
+  "Base.SpiffoSuit": {
+    "text_ko": "의류. 코스튬 보관 장소와 스피포 상품 진열대, 스피포 차량에서 발견된다."
+  },
+  "Base.SpiffoTail": {
+    "text_ko": "의류. 스피포 상품 진열대와 의상 보관 장소에서 발견된다."
+  },
+  "Base.Splint": {
+    "text_ko": "의료 용품. 천 조각과 막대 재료로 제작한다."
+  },
+  "Base.Spoon": {
+    "text_ko": "조리 도구. 식기 보관 장소와 생활용품 매장, 칼 제작 장소에서 발견된다."
+  },
+  "Base.Stake": {
+    "text_ko": "제작 무기. 나뭇가지를 칼날 도구로 깎아 만든다."
+  },
+  "Base.StewBowl": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.StockingsBlack": {
+    "text_ko": "액세서리. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.StockingsBlackSemiTrans": {
+    "text_ko": "액세서리. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.StockingsBlackTrans": {
+    "text_ko": "액세서리. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.StockingsWhite": {
+    "text_ko": "액세서리. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Suit_Jacket": {
+    "text_ko": "의류. 정장 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Suit_JacketTINT": {
+    "text_ko": "의류. 정장 재킷 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Suitcase": {
+    "text_ko": "용기. 가정집이나 전당포에서 발견된다."
+  },
+  "Base.SutureNeedle": {
+    "text_ko": "의료 용품. 의료 시설이나 구급 차량에서 발견된다."
+  },
+  "Base.SutureNeedleHolder": {
+    "text_ko": "의료 용품. 의료 시설이나 구급 차량에서 발견된다."
+  },
+  "Base.SwimTrunks_Blue": {
+    "text_ko": "의류. 수영복 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.SwimTrunks_Green": {
+    "text_ko": "의류. 수영복 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.SwimTrunks_Red": {
+    "text_ko": "의류. 수영복 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.SwimTrunks_Yellow": {
+    "text_ko": "의류. 수영복 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Swimsuit_TINT": {
+    "text_ko": "의류. 수영복 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.TacoRecipe": {
+    "text_ko": "식품. 재료를 조합해 만든다."
+  },
+  "Base.Tarp": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.Teacup": {
+    "text_ko": "조리 도구. 식기 상자와 주방용품 매장, 휴게 공간과 식음료 판매대에서 발견된다."
+  },
+  "Base.TennisRacket": {
+    "text_ko": "스포츠 용품. 스포츠 상자와 라켓 보관함에서 발견된다."
+  },
+  "Base.Thread": {
+    "text_ko": "소모성 재료. 재봉 용품점이나 재봉 자재 보관 장소에서 발견된다."
+  },
+  "Base.Tie_BowTieFull": {
+    "text_ko": "액세서리. 격식 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Tie_BowTieWorn": {
+    "text_ko": "액세서리. 격식 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Tie_Full": {
+    "text_ko": "액세서리. 격식 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Tie_Full_Spiffo": {
+    "text_ko": "액세서리. 스피포 상품 보관 장소에서 발견된다."
+  },
+  "Base.Tie_Worn": {
+    "text_ko": "액세서리. 격식 의류 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Tie_Worn_Spiffo": {
+    "text_ko": "액세서리. 스피포 상품 보관 장소와 채집으로 구할 수 있다."
+  },
+  "Base.TightsBlack": {
+    "text_ko": "액세서리. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.TightsBlackSemiTrans": {
+    "text_ko": "액세서리. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.TightsBlackTrans": {
+    "text_ko": "액세서리. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.TightsFishnets": {
+    "text_ko": "액세서리. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.TimerCrafted": {
+    "text_ko": "전자 기기. 타이머나 알람시계를 개조해 만든다."
+  },
+  "Base.TinOpener": {
+    "text_ko": "조리 도구. 주거지 주방과 휴게 공간에서 발견된다."
+  },
+  "Base.TirePump": {
+    "text_ko": "도구. 차량 정비 장소와 차량 보관 장소에서 발견된다."
+  },
+  "Base.Toast": {
+    "text_ko": "식품. 반죽이나 재료를 조리해 만든다."
+  },
+  "Base.Tongs": {
+    "text_ko": "도구. 모루 근처에서 철괴와 망치로 제작한다."
+  },
+  "Base.Toolbox": {
+    "text_ko": "용기. 정비 작업장이나 공구 판매 장소에서 발견된다."
+  },
+  "Base.Torch": {
+    "text_ko": "조명 기구. 전자용품점이나 공구 보관 장소에서 발견된다."
+  },
+  "Base.TrapBox": {
+    "text_ko": "덫 사냥 용품. 제작으로 얻는다."
+  },
+  "Base.TrapCage": {
+    "text_ko": "덫 사냥 용품. 제작으로 얻는다."
+  },
+  "Base.TrapCrate": {
+    "text_ko": "덫 사냥 용품. 제작으로 얻는다."
+  },
+  "Base.TrapMouse": {
+    "text_ko": "덫 사냥 용품. 제작으로 얻는다."
+  },
+  "Base.TrapSnare": {
+    "text_ko": "덫 사냥 용품. 제작으로 얻는다."
+  },
+  "Base.TrapStick": {
+    "text_ko": "덫 사냥 용품. 제작으로 얻는다."
+  },
+  "Base.TriggerCrafted": {
+    "text_ko": "전자 기기. 수신기와 전자 부품으로 만든다."
+  },
+  "Base.Trousers": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.TrousersMesh_DenimLight": {
+    "text_ko": "의류. 청바지 매장과 바지 매장, 의류 보관 장소에서 발견된다."
+  },
+  "Base.TrousersMesh_Leather": {
+    "text_ko": "의류. 가죽 바지 매장과 무장 은신처 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_ArmyService": {
+    "text_ko": "의류. 군용 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Black": {
+    "text_ko": "의류. 보안 인원 복장에서 발견된다."
+  },
+  "Base.Trousers_CamoDesert": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Trousers_CamoGreen": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.Trousers_CamoUrban": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Trousers_Chef": {
+    "text_ko": "의류. 요리사 복장에서 발견된다."
+  },
+  "Base.Trousers_DefaultTEXTURE": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_DefaultTEXTURE_HUE": {
+    "text_ko": "의류. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_DefaultTEXTURE_TINT": {
+    "text_ko": "의류. 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Denim": {
+    "text_ko": "의류. 청바지 매장과 바지 매장, 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Fireman": {
+    "text_ko": "의류. 소방 보관 장소와 소방 차량에서 발견된다."
+  },
+  "Base.Trousers_JeanBaggy": {
+    "text_ko": "의류. 청바지 매장과 바지 매장, 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_LeatherBlack": {
+    "text_ko": "의류. 가죽 바지 매장과 무장 은신처 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_NavyBlue": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Trousers_Padded": {
+    "text_ko": "의류. 겨울 의류와 캠핑 장비 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Police": {
+    "text_ko": "의류. 경찰과 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_PoliceGrey": {
+    "text_ko": "의류. 경찰과 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_PrisonGuard": {
+    "text_ko": "의류. 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Ranger": {
+    "text_ko": "의류. 공원 관리 인원 복장에서 발견된다."
+  },
+  "Base.Trousers_Santa": {
+    "text_ko": "의류. 축제 물품 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_SantaGReen": {
+    "text_ko": "의류. 축제 물품 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Scrubs": {
+    "text_ko": "의류. 의료 보관 장소와 구급차, 실험 시설에서 발견된다."
+  },
+  "Base.Trousers_Shellsuit_Black": {
+    "text_ko": "의류. 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Shellsuit_Blue": {
+    "text_ko": "의류. 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Shellsuit_Green": {
+    "text_ko": "의류. 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Shellsuit_Pink": {
+    "text_ko": "의류. 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Shellsuit_TINT": {
+    "text_ko": "의류. 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Shellsuit_Teal": {
+    "text_ko": "의류. 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_Suit": {
+    "text_ko": "의류. 정장 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_SuitTEXTURE": {
+    "text_ko": "의류. 정장 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_SuitWhite": {
+    "text_ko": "의류. 정장 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trousers_WhiteTEXTURE": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Trousers_WhiteTINT": {
+    "text_ko": "의류. 바지 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Trumpet": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.Tshirt_ArmyGreen": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Tshirt_BusinessSpiffo": {
+    "text_ko": "의류. 스피포 상품 진열대에서 발견된다."
+  },
+  "Base.Tshirt_CamoDesert": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Tshirt_CamoGreen": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 군용품점에서 발견된다."
+  },
+  "Base.Tshirt_CamoUrban": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Tshirt_DefaultDECAL": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Tshirt_DefaultDECAL_TINT": {
+    "text_ko": "의류. 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_DefaultTEXTURE": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Tshirt_DefaultTEXTURE_TINT": {
+    "text_ko": "의류. 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_Fossoil": {
+    "text_ko": "의류. 주유소 인원 복장에서 발견된다."
+  },
+  "Base.Tshirt_Gas2Go": {
+    "text_ko": "의류. 주유소 인원 복장에서 발견된다."
+  },
+  "Base.Tshirt_IndieStoneDECAL": {
+    "text_ko": "의류. 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_McCoys": {
+    "text_ko": "의류. 벌목 인원 복장에서 발견된다."
+  },
+  "Base.Tshirt_PileOCrepe": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Tshirt_PizzaWhirled": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Tshirt_PoliceBlue": {
+    "text_ko": "의류. 경찰과 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_PoliceGrey": {
+    "text_ko": "의류. 경찰과 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_PoloStripedTINT": {
+    "text_ko": "의류. 셔츠 매장과 의류 보관 장소, 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_PoloTINT": {
+    "text_ko": "의류. 셔츠 매장과 의류 보관 장소, 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_Profession_FiremanBlue": {
+    "text_ko": "의류. 소방 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_Profession_FiremanRed": {
+    "text_ko": "의류. 소방 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_Profession_FiremanRed02": {
+    "text_ko": "의류. 소방 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_Profession_FiremanWhite": {
+    "text_ko": "의류. 소방 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_Profession_PoliceBlue": {
+    "text_ko": "의류. 경찰과 교도관 복장에서 발견된다."
+  },
+  "Base.Tshirt_Profession_PoliceWhite": {
+    "text_ko": "의류. 경찰과 교도관 복장에서 발견된다."
+  },
+  "Base.Tshirt_Profession_RangerBrown": {
+    "text_ko": "의류. 공원 관리 인원 복장에서 발견된다."
+  },
+  "Base.Tshirt_Profession_RangerGreen": {
+    "text_ko": "의류. 공원 관리 인원 복장에서 발견된다."
+  },
+  "Base.Tshirt_Profession_VeterenGreen": {
+    "text_ko": "의류. 군용 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_Profession_VeterenRed": {
+    "text_ko": "의류. 군용 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_Ranger": {
+    "text_ko": "의류. 공원 관리 인원 복장에서 발견된다."
+  },
+  "Base.Tshirt_Rock": {
+    "text_ko": "의류. 밴드 굿즈 진열대와 의류 매장에서 발견된다."
+  },
+  "Base.Tshirt_Scrubs": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Tshirt_SpiffoDECAL": {
+    "text_ko": "의류. 스피포 상품 진열대와 의류 매장에서 발견된다."
+  },
+  "Base.Tshirt_Sport": {
+    "text_ko": "의류. 체육관과 스포츠 의류 장소, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_SportDECAL": {
+    "text_ko": "의류. 체육관과 스포츠 의류 장소, 학교 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_ThunderGas": {
+    "text_ko": "의류. 주유소 인원 복장에서 발견된다."
+  },
+  "Base.Tshirt_ValleyStation": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Tshirt_WhiteLongSleeve": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Tshirt_WhiteLongSleeveTINT": {
+    "text_ko": "의류. 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Tshirt_WhiteTINT": {
+    "text_ko": "의류. 셔츠 매장과 의류 보관 장소에서 발견된다."
+  },
+  "Base.Tweezers": {
+    "text_ko": "의료 용품. 가정집이나 의료 시설에서 발견된다."
+  },
+  "Base.Twine": {
+    "text_ko": "소모성 재료. 공구 보관 장소나 작업장에서 발견된다."
+  },
+  "Base.Underpants_AnimalPrint": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Underpants_Black": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Underpants_RedSpots": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Underpants_White": {
+    "text_ko": "의류. 속옷 진열대와 의류 보관 장소에서 발견된다."
+  },
+  "Base.Underwear1": {
+    "text_ko": "생활용품. 의류 보관 장소에서 발견된다."
+  },
+  "Base.Underwear2": {
+    "text_ko": "생활용품. 의류 보관 장소에서 발견된다."
+  },
+  "Base.VarmintRifle": {
+    "text_ko": "근접 무기. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다."
+  },
+  "Base.Vest_BulletArmy": {
+    "text_ko": "의류. 군용 보관 장소와 군용품점에서 발견된다."
+  },
+  "Base.Vest_BulletCivilian": {
+    "text_ko": "의류. 전당포와 무장 은신처, 교도관 보관 장소에서 발견된다."
+  },
+  "Base.Vest_BulletPolice": {
+    "text_ko": "의류. 경찰 보관 장소와 경찰 차량에서 발견된다."
+  },
+  "Base.Vest_DefaultTEXTURE": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Vest_DefaultTEXTURE_TINT": {
+    "text_ko": "의류. 의류 보관 장소와 스포츠 의류 장소, 체육관 보관 장소에서 발견된다."
+  },
+  "Base.Vest_Foreman": {
+    "text_ko": "의류. 공장 보관 장소와 발전기실, 작업 차량에서 발견된다."
+  },
+  "Base.Vest_HighViz": {
+    "text_ko": "의류. 공장 보관 장소와 발전기실, 작업 차량에서 발견된다."
+  },
+  "Base.Vest_Hunting_Camo": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 사냥 차량에서 발견된다."
+  },
+  "Base.Vest_Hunting_CamoGreen": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 사냥 차량에서 발견된다."
+  },
+  "Base.Vest_Hunting_Grey": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Vest_Hunting_Orange": {
+    "text_ko": "의류. 캠핑과 사냥 장비 보관 장소, 사냥 차량에서 발견된다."
+  },
+  "Base.Vest_Waistcoat": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Vest_WaistcoatTINT": {
+    "text_ko": "의류. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+  },
+  "Base.Vest_Waistcoat_GigaMart": {
+    "text_ko": "의류. 대형 마트 직원 복장에서 발견된다."
+  },
+  "Base.VideoGame": {
+    "text_ko": "전자 기기. 장난감 판매점이나 주거지에서 발견된다."
+  },
+  "Base.Violin": {
+    "text_ko": "악기. 악기 상자와 음악 상점, 연습실 보관함에서 발견된다."
+  },
+  "Base.Waffles": {
+    "text_ko": "식품. 반죽이나 재료를 조리해 만든다."
+  },
+  "Base.WaterBleachBottle": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.WaterBottleFull": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.WaterBottlePetrol": {
+    "text_ko": "차량 정비 소모품. 빈 물병에 휘발유를 담아 만든다."
+  },
+  "Base.WaterBowl": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.WaterMug": {
+    "text_ko": "수원. 빈 용기에 물을 채워 얻는다."
+  },
+  "Base.WaterMugRed": {
+    "text_ko": "수원. 빈 용기에 물을 채워 얻는다."
+  },
+  "Base.WaterMugSpiffo": {
+    "text_ko": "수원. 빈 용기에 물을 채워 얻는다."
+  },
+  "Base.WaterMugWhite": {
+    "text_ko": "수원. 빈 용기에 물을 채워 얻는다."
+  },
+  "Base.WaterPaintbucket": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.WaterPopBottle": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.WaterPotPasta": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.WaterPotRice": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.WaterSaucepanPasta": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.WaterSaucepanRice": {
+    "text_ko": "식품. 그릇이나 냄비에 재료를 넣어 조리한다."
+  },
+  "Base.WaterTeacup": {
+    "text_ko": "수원. 빈 용기에 물을 채워 얻는다."
+  },
+  "Base.WatermelonSliced": {
+    "text_ko": "식품. 수박을 잘라 얻는다."
+  },
+  "Base.WatermelonSmashed": {
+    "text_ko": "식품. 수박을 으깨 얻는다."
+  },
+  "Base.WeddingDress": {
+    "text_ko": "의류. 결혼식장 웨딩 복장에서 발견된다."
+  },
+  "Base.WeddingJacket": {
+    "text_ko": "의류. 결혼식장 신랑 복장에서 발견된다."
+  },
+  "Base.WeddingRing_Man": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소에서 발견된다."
+  },
+  "Base.WeddingRing_Woman": {
+    "text_ko": "액세서리. 장신구 취급 장소와 장신구 보관 장소에서 발견된다."
+  },
+  "Base.WeldingMask": {
+    "text_ko": "착용형 도구. 금속 작업 장소와 공구점, 정비 장소에서 발견된다."
+  },
+  "Base.WeldingRods": {
+    "text_ko": "소모성 재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.WestpointMap": {
+    "text_ko": "지도. 지도 진열대와 지도 상자, 차량 정비소 선반과 차량에서 발견된다."
+  },
+  "Base.WhiskeyPetrol": {
+    "text_ko": "차량 정비 소모품. 빈 위스키 병에 휘발유를 담아 만든다."
+  },
+  "Base.WhiskeyWaterFull": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.WildGarlicCataplasm": {
+    "text_ko": "의료 용품. 약초를 가공해 얻는다."
+  },
+  "Base.WineInGlass": {
+    "text_ko": "식품. 와인잔에 와인을 따라 만든다."
+  },
+  "Base.WinePetrol": {
+    "text_ko": "차량 정비 소모품. 빈 와인 병에 휘발유를 담아 만든다."
+  },
+  "Base.WineWaterFull": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "Base.Wire": {
+    "text_ko": "소모성 재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.WoodAxe": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 목공 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.WoodenMallet": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.WoodenStick": {
+    "text_ko": "재료. 판자를 톱질해 만든다."
+  },
+  "Base.Woodglue": {
+    "text_ko": "소모성 재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.Wrench": {
+    "text_ko": "무기 겸용 도구. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+  },
+  "Base.WristWatch_Right_ClassicBlack": {
+    "text_ko": "알람 시계. 시계 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.WristWatch_Right_ClassicBrown": {
+    "text_ko": "알람 시계. 시계 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.WristWatch_Right_ClassicGold": {
+    "text_ko": "알람 시계. 시계 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.WristWatch_Right_DigitalBlack": {
+    "text_ko": "알람 시계. 시계 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.WristWatch_Right_DigitalDress": {
+    "text_ko": "알람 시계. 시계 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.WristWatch_Right_DigitalRed": {
+    "text_ko": "알람 시계. 시계 취급 장소와 채집으로 구할 수 있다."
+  },
+  "Base.Yarn": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "Base.x2Scope": {
+    "text_ko": "무기 부품. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다."
+  },
+  "Base.x4Scope": {
+    "text_ko": "무기 부품. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다."
+  },
+  "Base.x8Scope": {
+    "text_ko": "무기 부품. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다."
+  },
+  "Radio.ElectricWire": {
+    "text_ko": "전자 기기. 전기 부품 보관 장소에서 발견된다."
+  },
+  "Radio.HamRadio1": {
+    "text_ko": "무전기. 전자용품점이나 전기 부품 보관 장소에서 발견된다."
+  },
+  "Radio.HamRadio2": {
+    "text_ko": "무전기. 군용 전자 보관 장소에서 발견된다."
+  },
+  "Radio.HamRadioMakeShift": {
+    "text_ko": "무전기. 전자 스크랩과 무선 부품, 전선과 알루미늄으로 제작한다."
+  },
+  "Radio.RadioMag1": {
+    "text_ko": "기술 서적. 전자제품 매대와 전기공 작업 구역, 차량에서 발견된다."
+  },
+  "Radio.RadioMag2": {
+    "text_ko": "기술 서적. 전자제품 매대와 전기공 작업 구역, 차량에서 발견된다."
+  },
+  "Radio.RadioMag3": {
+    "text_ko": "기술 서적. 전자제품 매대와 전기공 작업 구역, 차량에서 발견된다."
+  },
+  "Radio.RadioMakeShift": {
+    "text_ko": "무전기. 전자 스크랩과 무선 부품, 전선과 알루미늄으로 제작한다."
+  },
+  "Radio.RadioReceiver": {
+    "text_ko": "전자 기기. 전자 공구 보관 장소나 전기 부품 보관 장소에서 발견된다."
+  },
+  "Radio.RadioTransmitter": {
+    "text_ko": "전자 기기. 전자 공구 보관 장소나 전기 부품 보관 장소에서 발견된다."
+  },
+  "Radio.ScannerModule": {
+    "text_ko": "전자 기기. 전자 부품 보관 장소와 무전 장비 취급 장소에서 발견된다."
+  },
+  "Radio.WalkieTalkie4": {
+    "text_ko": "무전기. 보안 장비 보관 장소에서 발견된다."
+  },
+  "Radio.WalkieTalkie5": {
+    "text_ko": "무전기. 군용 장비 보관 장소에서 발견된다."
+  },
+  "Radio.WalkieTalkieMakeShift": {
+    "text_ko": "무전기. 전자 스크랩과 무선 부품, 전선과 알루미늄으로 제작한다."
+  },
+  "camping.CampfireKit": {
+    "text_ko": "캠핑 용품. 캠핑 장비 취급 장소에서 발견된다."
+  },
+  "camping.CampingTent": {
+    "text_ko": "캠핑 용품. 캠핑 장비 취급 장소에서 발견된다."
+  },
+  "camping.CampingTentKit": {
+    "text_ko": "캠핑 용품. 캠핑 장비 취급 장소에서 발견된다."
+  },
+  "camping.SteelAndFlint": {
+    "text_ko": "도구. 캠핑 장비 취급 장소에서 발견된다."
+  },
+  "camping.TentPeg": {
+    "text_ko": "재료. 공사 자재 보관 장소와 작업장에서 발견된다."
+  },
+  "farming.BaconBits": {
+    "text_ko": "식품. 베이컨을 잘게 손질해 얻는다."
+  },
+  "farming.BaconRashers": {
+    "text_ko": "식품. 베이컨을 손질해 얻는다."
+  },
+  "farming.BroccoliBagSeed": {
+    "text_ko": "원예 용품. 씨앗을 봉투에 담아 얻는다."
+  },
+  "farming.BroccoliSeed": {
+    "text_ko": "원예 용품. 씨앗 봉투를 열어 얻는다."
+  },
+  "farming.CabbageBagSeed": {
+    "text_ko": "원예 용품. 씨앗을 봉투에 담아 얻는다."
+  },
+  "farming.CabbageSeed": {
+    "text_ko": "원예 용품. 씨앗 봉투를 열어 얻는다."
+  },
+  "farming.CarrotBagSeed": {
+    "text_ko": "원예 용품. 씨앗을 봉투에 담아 얻는다."
+  },
+  "farming.CarrotSeed": {
+    "text_ko": "원예 용품. 씨앗 봉투를 열어 얻는다."
+  },
+  "farming.GardeningSprayCigarettes": {
+    "text_ko": "원예 소모품. 분무기를 조합해 얻는다."
+  },
+  "farming.GardeningSprayFull": {
+    "text_ko": "원예 소모품. 분무기에 약품을 채워 얻는다."
+  },
+  "farming.GardeningSprayMilk": {
+    "text_ko": "원예 소모품. 분무기를 조합해 얻는다."
+  },
+  "farming.HandShovel": {
+    "text_ko": "원예 도구. 차고와 농업 물품 상자, 원예 상점과 공구점에서 발견된다."
+  },
+  "farming.MayonnaiseWaterFull": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "farming.PotatoBagSeed": {
+    "text_ko": "원예 용품. 씨앗을 봉투에 담아 얻는다."
+  },
+  "farming.PotatoSeed": {
+    "text_ko": "원예 용품. 씨앗 봉투를 열어 얻는다."
+  },
+  "farming.RedRadishBagSeed": {
+    "text_ko": "원예 용품. 씨앗을 봉투에 담아 얻는다."
+  },
+  "farming.RedRadishSeed": {
+    "text_ko": "원예 용품. 씨앗 봉투를 열어 얻는다."
+  },
+  "farming.RemouladeWaterFull": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  },
+  "farming.Salad": {
+    "text_ko": "식품. 재료를 그릇에 담아 만든다."
+  },
+  "farming.StrewberrieBagSeed": {
+    "text_ko": "원예 용품. 씨앗을 봉투에 담아 얻는다."
+  },
+  "farming.StrewberrieSeed": {
+    "text_ko": "원예 용품. 씨앗 봉투를 열어 얻는다."
+  },
+  "farming.TomatoBagSeed": {
+    "text_ko": "원예 용품. 씨앗을 봉투에 담아 얻는다."
+  },
+  "farming.TomatoSeed": {
+    "text_ko": "원예 용품. 씨앗 봉투를 열어 얻는다."
+  },
+  "farming.WateredCan": {
+    "text_ko": "원예 용품. 원예 용품 취급 장소에서 발견된다."
+  },
+  "farming.WateredCanFull": {
+    "text_ko": "수원. 빈 용기에 물을 담아 얻는다."
+  }
+}

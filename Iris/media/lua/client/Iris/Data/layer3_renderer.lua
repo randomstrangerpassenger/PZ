@@ -9,27 +9,39 @@
 
 local Layer3Renderer = {}
 
--- 3계층 데이터 (빌드 시 생성된 JSON → Lua 테이블 변환)
+-- 3계층 데이터 (빌드 시 dvf_3_3_rendered.json → IrisLayer3Data.lua로 변환)
+-- 런타임 정규 소스: IrisLayer3Data (전역 Lua 테이블)
+-- 중간 산출물(decisions, facts, sync_queue 등) 직접 참조 금지
 local layer3Data = nil
 local dataLoaded = false
 
 
---- 데이터 로드 (최초 1회)
+--- 테이블 entry 수 카운트 (로그용)
+local function countEntries(tbl)
+    local n = 0
+    for _ in pairs(tbl) do n = n + 1 end
+    return n
+end
+
+
+--- 데이터 로드 (최초 1회, fail-loud)
 local function ensureData()
     if dataLoaded then return end
     dataLoaded = true
-    
+
     local ok, data = pcall(function()
-        -- IrisLayer3Data는 convert_descriptions_to_lua 등으로 변환되어 로드됨
-        -- 또는 JSON 파싱으로 로드
         if IrisLayer3Data then
             return IrisLayer3Data
         end
         return nil
     end)
-    
+
     if ok and data then
         layer3Data = data
+        print("[Layer3Renderer] Loaded: " .. tostring(countEntries(data)) .. " entries")
+    else
+        -- fail-loud: 데이터 부재를 명시적으로 로그 (silent failure 방지)
+        print("[Layer3Renderer] WARNING: IrisLayer3Data not available — layer 3 descriptions will be empty")
     end
 end
 

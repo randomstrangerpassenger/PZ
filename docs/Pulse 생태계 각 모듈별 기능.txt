@@ -1,0 +1,956 @@
+Pulse
+
+> **v2.0** | Java 140+ 파일 · 65+ 패키지 | 전수 분석 완료
+
+---
+
+## Ⅰ. 근본 기술 — Pulse를 Pulse이게 하는 두 축
+
+### 🎭 바이트코드 런타임 조작 (SpongePowered Mixin 0.8.5)
+
+기존 PZ 모딩은 Lua 훅(Hook)에 의존하여, 게임이 *허락한 시점*에서만 로직을 끼워넣을 수 있었습니다. Pulse는 SpongePowered Mixin 0.8.5를 JVM 레벨에서 통합하여 이 한계를 **근본적으로 돌파**합니다.
+
+- **`@Inject`** — 게임 메서드의 임의 지점에 로직 삽입
+- **`@Redirect`** — 특정 메서드 호출을 가로채어 대체
+- **`@ModifyVariable`** — 로컬 변수 값을 런타임에 수정
+- **`@Overwrite`** — 메서드 전체를 재작성
+
+15개 PZ 핵심 클래스에 Mixin 적용 완료 (`IsoZombie`, `IsoPlayer`, `IsoWorld`, `GameClient`, `GameWindow`, 경로탐색, 세이브, Lua 이벤트 매니저 등). 서드파티 모드도 동일 기반으로 Mixin 작성 가능.
+
+### 🌉 Lua ↔ Java 양방향 통신 (LuaBridge)
+
+PZ의 Kahlua2 Lua 엔진과 Java 사이에 **완전한 양방향 브릿지** 제공:
+
+**Java → Lua:** `call()`, `getGlobal/setGlobal()`, `executeLuaCode()`, `createLuaTable/setTableField/getTableField()`
+
+**Lua → Java:** `expose()`, `registerCallback()`, `setGlobalTable()`
+
+내부적으로 `LuaStateManager`/`LuaCallInvoker`/`LuaExposure` 3모듈로 분리. Lua 미사용 시 큐잉 후 일괄 처리.
+
+### ⏱️ Lua 실행 시간 예산 관리 (LuaBudgetManager)
+
+Lua 실행 시간을 **컨텍스트별로 마이크로초 단위 예산** 설정·강제:
+
+```java
+budget.setBudget("nerve.tick", 5000);  // 틱당 5ms
+try (LuaExecutionContext ctx = budget.beginExecution("nerve.tick")) {
+    while (ctx.hasRemainingBudget()) {
+        luaBridge.call("SomeFunction");
+        ctx.checkpoint();
+    }
+}
+```
+
+PZ 주요 이벤트별 표준 컨텍스트 ID 제공 (`OnTick`, `OnPlayerUpdate`, `OnRenderTick` 등). 예산 초과 시 fallback 핸들러 호출 + 통계 수집(평균/최대/초과 횟수).
+
+---
+
+## Ⅱ. 플랫폼 기능
+
+### 📦 모드 생명주기 (ModLoader)
+
+```
+① Discover   mods/ JAR 스캔 → pulse.mod.json 파싱
+② Resolve    의존성 위상 정렬(TopSort) + 순환 감지
+③ Register   모드별 Mixin config 자동 등록
+④ Initialize PulseMod.onInitialize() 순차 호출
+   Unload     역순 onUnload()
+```
+
+상태 머신: `DISCOVERED → LOADED → INITIALIZED → UNLOADED`
+
+### 📢 EventBus — 51개 이벤트, 10개 카테고리
+
+| 카테고리 | 주요 이벤트 |
+|---------|-----------|
+| lifecycle | GameInit, GameTick(Start/End), WorldLoad/Unload, ModReload |
+| player | PlayerUpdate(Start/End), PlayerDamage |
+| zombie | ZombieSpawn/Death/Behavior, ZombieUpdate(Start/End) |
+| inventory | ItemAdded/Removed/Moved |
+| vehicle | Enter/Exit, Collision |
+| save | PreSave/PostSave, PreLoad/PostLoad |
+| chat | ChatSend/Receive, Command |
+| gui/render | GuiOpen/Close/Render, RenderFrame |
+| environment | TimeChange, WeatherChange |
+| multiplayer | PlayerConnect/Disconnect |
+
+우선순위 정렬, 예외 격리, ClassLoader 3단계 fallback, `postAsync`, 모드별 자동 정리.
+
+### 🪝 Hook 시스템 (PulseHookRegistry)
+
+EventBus와 별도 저수준 콜백 레지스트리. 5단계 우선순위, modId 소유권, **slow hook 100ms 자동 경고** (rate-limited).
+
+### 🌐 Network (패킷 통신)
+
+`registerPacket` / `registerHandler` / `sendToServer` / `sendToClient` / `sendToAll`. `Identifier` 기반 ID, `PacketBuffer` 직렬화, `HandshakeHandler`, `NetworkPacketStats`.
+
+### ⏰ Scheduler (틱 기반)
+
+`runLater` / `runTimer` / `runAsync` / `runSync`. `TaskHandle`로 취소/추적. 배치 크기·예외 정책 설정 가능.
+
+### ⚙️ Config (`@Config` 어노테이션)
+
+`@Config(modId)` + `@ConfigValue(comment, min, max)` → JSON 자동 생성/로드/저장/리로드.
+
+### 📚 Content Registry (아이템·레시피)
+
+**ItemRegistry** — 빌더 패턴, 10개 타입 + 9개 카테고리, 태그·카테고리별 인덱싱, JSON 일괄 로드 (`DataLoader`)
+
+**RecipeRegistry** — 재료·도구·스킬·제작시간, 출력 아이템 역방향 검색, JSON 일괄 로드
+
+### 🔗 DataAttachments (게임 객체 커스텀 데이터)
+
+임의 게임 객체에 모드별 데이터 첨부:
+- `WeakHashMap` → GC 시 자동 정리
+- JSON 영구 저장 (커스텀 `Serializer` 지원)
+- `copyOnDeath` — 사망 시 데이터 이전 플래그
+
+### ⌨️ KeyBinding (키 바인딩)
+
+```java
+KeyBinding key = KeyBinding.create("mymod", "open_menu")
+    .defaultKey(KeyCode.KEY_M).category("My Mod").build();
+KeyBindingRegistry.register(key);
+```
+
+Ctrl/Shift/Alt 조합, `KeyEvent` 자동 발행, 카테고리 그룹핑.
+
+### 💬 Command System (명령어)
+
+```java
+// 어노테이션 기반
+@Command(name="heal", permission="admin", playerOnly=true)
+public void heal(CommandContext ctx) { ... }
+
+// 람다 기반
+CommandRegistry.register("hello", ctx -> ctx.reply("Hello!"));
+```
+
+별칭(aliases), permission/playerOnly/consoleOnly 검증, 커스터마이즈 가능한 접두사.
+
+### 🔐 보안 시스템 (PermissionManager)
+
+모드별 16개 권한 × 3단계 기본 정책:
+
+| 카테고리 | 권한 | 기본 정책 |
+|---------|------|:------:|
+| 파일 | READ / WRITE / DELETE | ✅ / ❓ / ❌ |
+| 네트워크 | CLIENT / SERVER / EXTERNAL | ✅ / ❓ / ❌ |
+| 시스템 | EXEC / CLASSLOADER / REFLECTION | ❌ / ❌ / ❓ |
+| 게임 | WORLD_MODIFY / PLAYER_DATA / ADMIN_CMD | ✅ / ✅ / ❓ |
+| 콘솔 | ACCESS / LUA_EXEC / MOD_MANAGE | ✅ / ❌ / ❌ |
+| 모드 간 | IMC / ACCESS_INTERNAL | ✅ / ❌ |
+
+> ✅ = ALLOW_ALL · ❓ = ASK · ❌ = DENY (명시적 부여 필요)
+
+`pulse.mod.json`의 `permissions` 필드에서 자동 로드.
+
+### 🌍 다국어 (I18n)
+
+```java
+I18n.loadLanguage("mymod");  // 현재 언어 + en_us fallback
+String text = I18n.translate("mymod.item.sword.name");
+String msg = I18n.translate("mymod.welcome", playerName);
+```
+
+JSON / `.properties` 양쪽 포맷 지원. 언어 변경 시 자동 리로드.
+
+### 📁 리소스 로더 (ResourceLoader)
+
+JAR / 디렉토리 / ClassLoader **3종 소스** 지원, `Identifier` 기반 경로 (`assets/namespace/path`), 캐시 내장.
+
+### 📡 배포·업데이트
+
+**ModRepository** — 원격 검색·다운로드 (다중 저장소)
+**UpdateChecker** — 1시간 캐시 업데이트 확인
+
+---
+
+## Ⅲ. 개발자 도구 (DX)
+
+### 🎮 GameAccess 통합 헬퍼 API
+
+플레이어 정보, 좀비 개체 관리, 날씨·시간 변경 등 모딩에서 자주 쓰이는 **55개 이상의 게임 내부 엔진 함수**를 복잡한 리플렉션 없이 한 줄로 호출할 수 있는 Facade API. 6개 도메인(`WorldAccess`, `PlayerAccess`, `TimeAccess`, `NetworkAccess`, `ZombieAccess`, `GameStateAccess`)으로 분리. `ReflectionCache`로 캐싱.
+
+### ⚡ MixinHelper
+
+`fireEvent`(자동 취소), `fireEventWithReturn`, `self`(캐스팅), `safeCast`, `modifyLocal`, `redirect`.
+
+### 📊 모드 프로파일러 (PulseMetrics + ProfilerScope)
+
+특정 로직이나 이벤트 틱이 무겁지 않은지 **성능을 실시간 측정**하고, 어떤 모드가 엔진 병목을 유발하는지 추적하는 측정기:
+
+- **`PulseMetrics`** — FPS, TPS, 틱 시간(현재/평균/최대), 메모리 사용량, 엔티티·청크 수를 실시간 수집 (Mixin으로 자동 연동)
+- **`ProfilerScope`** — `try-with-resources`로 구간 성능 측정:
+  ```java
+  try (ProfilerScope scope = ProfilerScope.begin("mymod.heavyLogic")) {
+      // 측정 대상 코드
+  } // 자동으로 시간 측정 완료
+  ```
+- **`ProfilerBridge`** — 옵티마이저→프로파일러 데이터 전달 (Failsoft: Sink 없으면 no-op)
+- **`TickRateDetector`** — 지수 평활법으로 가변 FPS 런타임 감지
+- **`GcSampler`** — JMX 기반 틱별 GC 델타 샘플링
+
+### 🖥️ UI 프레임워크
+
+| 컴포넌트 | 역할 |
+|---------|------|
+| `Widget` | 기본 UI 요소 (위치·크기·가시성) |
+| `Panel` | 자식 위젯 컨테이너 |
+| `Button` / `Label` / `TextField` | 입력·표시 위젯 |
+| `UIScreen` | 스택 기반 스크린 매니저 (open/close/closeAll) |
+| `HUDOverlay` | 우선순위 기반 HUD 레이어 시스템 |
+
+### 🔍 디버그 & 진단
+
+`CrashReporter`, `DevConsole + CommandExecutor`, `EventMonitor`, `DebugOverlayRenderer`, `MixinDiagnostics`, `TickRateDetector` (지수 평활법 FPS 감지), `HotspotMap`, `PulseThreadGuard`.
+
+### 🧪 TestRunner (헤드리스 테스트)
+
+게임 없이 모드 코드 테스트:
+```java
+public class MyTest {
+    @Test public void testSomething() { Assertions.assertTrue(true); }
+    @BeforeAll public static void setup() { ... }
+}
+TestRunner.run(MyTest.class);
+```
+
+`@Test`, `@BeforeAll`, `@AfterAll`, `@BeforeEach`, `@AfterEach` + `Assertions` 내장.
+
+---
+
+## Ⅳ. 아키텍처 인프라
+
+| 영역 | 내용 |
+|------|------|
+| **SPI Registry** | `Pulse.getProviderRegistry()` — Hub & Spoke 느슨한 결합 |
+| **EngineBindings** | `ILuaBindings` / `IZombieBindings`로 Build 41/42 차이 추상화 |
+| **GcSampler** | JMX 기반 틱별 GC 델타 샘플링 |
+| **LifecycleManager** | JVM 셧다운 훅 → Scheduler→EventBus→ServiceLocator→LuaBridge→ModLoader 순차 정리 |
+| **WorldTickHandler** | 틱 카운트·deltaTime 계산 + `PulseMetrics` 연동 |
+| **7단계 부트스트랩** | SystemProperty → Mixin → Config → Transformer → Optimization → ModInit → Debug |
+| **DI** | `PulseServiceLocator` 의존성 주입 |
+| **Side Detection** | CLIENT / DEDICATED_SERVER / INTEGRATED_SERVER 자동 감지 |
+| **IMC** | Inter-Mod Communication |
+| **FeatureFlags / CapabilityFlags** | 기능·가용성 플래그 |
+| **Identifier** | `namespace:path` 범용 식별자 |
+| **로깅** | `PulseLogger`·`ModLogger`·`MixinLogger` 3계층 |
+
+---
+
+Echo
+
+> **v2.0** | Java 111 파일 · 20+ 패키지 | 전수 분석 완료
+> **"Observe, Don't Patch"** — 관측만 하고, 수정은 하지 않는다
+
+---
+
+## 1. 코어 프로파일링 엔진
+
+### 🎯 초정밀 서브시스템 타이머
+
+게임의 틱(Tick)과 프레임(Frame)을 **23개 측정 포인트 × 5개 카테고리**로 세분화하여, 각 실행 소요 시간과 호출 횟수를 나노초 정밀도로 측정합니다.
+
+| 카테고리 | 측정 포인트 |
+|---------|-----------|
+| **Core** | `TICK`, `FRAME` |
+| **Subsystem** | `RENDER`, `RENDER_WORLD`, `RENDER_UI`, `SIMULATION`, `PHYSICS`, `ZOMBIE_AI`, `ZOMBIE_DETECTION`, `ZOMBIE_PATHFINDING`, `ZOMBIE_SOUND`, `NPC_AI`, `NETWORK`, `AUDIO`, `CHUNK_IO` |
+| **Lua** | `LUA_EVENT`, `LUA_FUNCTION`, `LUA_GC` (On-Demand) |
+| **Custom** | `MOD_INIT`, `MOD_TICK`, `CUSTOM_1`~`5` (모드 확장용) |
+| **Internal** | `ECHO_OVERHEAD` (자기 자신의 부하 측정) |
+
+이 측정 엔진은 **3-Tier API**로 제공됩니다:
+
+```java
+// 1. Stack API — 계층적 호출 추적 (push/pop 대칭)
+profiler.push(ProfilingPoint.ZOMBIE_AI);
+profiler.pop(ProfilingPoint.ZOMBIE_AI);
+
+// 2. Scope API — AutoCloseable + 객체 풀링
+try (ProfilingScope scope = profiler.scope(ProfilingPoint.TICK)) {
+    // push/pop 자동 관리
+}
+
+// 3. Raw API — Zero-Allocation 핫패스용 (long만 사용, 객체 생성 없음)
+long t = profiler.startRaw(ProfilingPoint.TICK);
+profiler.endRaw(ProfilingPoint.TICK, t);
+```
+
+메인 스레드 전용 스택(`ThreadLocal` 우회)으로 핫패스 최적화, `EchoConfigSnapshot` immutable 스냅샷으로 활성화 상태를 분기 없이 검사합니다.
+
+### 📐 심층 분석 (SubProfiler) — Wave 기반 점진적 확장
+
+한 틱 안에서 호출되는 **엔진 함수들의 내부 실행 시간**을 개별적으로 측정합니다. 처음에는 최소한의 포인트만 후킹하고, 설정에 따라 점진적으로 확장합니다:
+
+| Wave | 포인트 | 카테고리 |
+|:----:|-------|---------|
+| **1** | `ZombieUpdate`, `Pathfinding`, `WorldUpdate` | AI, World |
+| **2** | `IsoGrid.Update`, `IsoLight.Update`, `IsoGrid.Recalc`, `IsoCell.Update`, `RenderingPrep`, `SoundManager` | World, Render, Audio |
+| **3** | `Pathfinding.LOS`, `Pathfinding.Grid`, `Zombie.Behavior`, `Zombie.Motion`, `Zombie.Perception`, `Zombie.Collision` | AI |
+
+Wave 3에서는 `enablePathfindingDetails`, `enableZombieDetails`, `enableIsoGridDetails` 개별 토글로 세밀 제어 가능.
+
+### 🔬 전문 서브시스템 프로파일러
+
+- **PathfindingProfiler** — LOS 계산, Grid 탐색, 장애물 검사, 문/창문 감지, Behavior **5단계** 분리 측정
+- **ZombieProfiler** — Motion, Sound Perception, Target Tracking, Collision, Behavior Tick, Player Detection, Path Recalc, LOS Check **8단계** 분리 측정
+- **IsoGridProfiler** — IsoGrid 업데이트 전용 측정
+
+---
+
+## 2. Lua 프로파일링 (On-Demand)
+
+게임 내 수많은 Lua 함수·이벤트가 실행될 때, 어느 함수에서 시간을 얼마나 잡아먹는지 통계를 내는 기능입니다.
+
+**LuaCallTracker v3.0** — 3-모듈 위임 아키텍처:
+
+- `CallStackTracker` — 스택/프레임 관리 (push/pop 대칭 검증)
+- `LuaStatistics` — 함수별 호출 수/총 시간/self 시간, 이벤트별 시간+핸들러 수, UI 요소별 렌더 시간 통계
+- `DetailedWindowManager` — 시간 제한 상세 추적 윈도우 + 샘플 레이트 (1/N 샘플링)
+
+```java
+// 상세 윈도우 열기 — 5초간 1/4 비율로 샘플링
+tracker.openDetailedWindow(5000, 4, "OnTick");
+```
+
+**Lua GC Profiler** — Lua 가비지 컬렉션 시간 전용 추적. **FunctionLabeler** — 익명 함수 자동 이름 추출 (WeakHashMap 캐시).
+
+---
+
+## 3. 스파이크(렉) 감지 & 스택 캡처
+
+### ⚡ SpikeLog
+
+설정한 임계값(기본 33.33ms — 30fps 기준 2프레임) 이상의 지연을 자동 감지하고, 그 순간의 상태를 기록합니다:
+
+- **스택 트레이스 캡처**: `StackWalker` API로 스파이크 시점의 호출 스택을 캡처 (성능 비용이 크므로 옵션)
+- **컨텍스트 스냅샷**: 게임 상태(TickPhase, SubTiming 등) 동시 캡처 (CAS 기반 1회/초 rate-limit)
+- **최악 스파이크 추적**: CAS 패턴으로 lock-free 갱신
+- 포인트별 스파이크 분포 분석
+
+### 🧊 FreezeDetector (500ms Watchdog)
+
+**별도 Watchdog 스레드** (100ms 주기, MAX_PRIORITY)가 메인 스레드의 500ms 이상 정지를 감지합니다. Freeze 감지 시 캡처하는 데이터:
+
+- 메인 스레드 **스택 트레이스** (GameWindow/Core/LWJGL 패턴 매칭)
+- **메모리 스냅샷** (used/free/total/max)
+- **현재 TickPhase 상태** (어느 페이즈에서 멈췄는지)
+- **활성 SubTiming** (현재 실행 중인 함수들)
+- **Top 5 Heavy Functions** (세션 내 가장 무거운 함수)
+
+---
+
+## 4. 메모리/GC 추적 (MemoryProfiler)
+
+JMX `MemoryMXBean` + `GarbageCollectorMXBean`으로 실시간 추적:
+
+- **힙**: used / committed / max / 사용률(%)
+- **Non-Heap**: Metaspace 등
+- **GC**: 컬렉터별 횟수·시간, 델타 계산 (최근 증가분)
+- **할당률(Allocation Rate)**: `ThreadMXBean`으로 틱당 바이트 할당량 추적
+- **시계열 저장**: `MemoryTimeSeries`로 시간 경과 데이터 링 버퍼에 보관
+
+---
+
+## 5. 자동 병목 식별 & 이상 탐지
+
+### 🔍 BottleneckDetector
+
+전체 틱 시간에서 각 서브시스템이 차지하는 비율을 자동 분석하여 Top-N 병목을 식별합니다.
+
+**6개 도메인 분류** — "어디가 아픈지"만 판별, "누가 처리할지"는 판단하지 않음:
+
+| 도메인 | 대상 | 병목 타입 |
+|--------|------|----------|
+| `ENGINE` | 좀비 AI, 물리, 시뮬레이션 | CPU_BOUND |
+| `RENDER` | 텍스처, 조명, 셰이더 | GPU_BOUND |
+| `IO` | 파일, 네트워크 | IO_BOUND |
+| `WORLD` | 청크, 스트리밍, 월드 | IO_BOUND |
+| `MEMORY` | GC, 힙, 할당 | MEMORY_BOUND |
+| `SCRIPT` | Lua 이벤트, UI, 모드 | CPU_BOUND |
+
+### 📊 이상 탐지 (AnomalyReport)
+
+| 이상 | 조건 | 심각도 |
+|------|------|:------:|
+| `TICK_OVERLOAD` | 평균 틱 > 16.67ms × 2 | 🔴 CRITICAL |
+| `TICK_SLOW` | 평균 틱 > 16.67ms | 🟡 WARNING |
+| `SPIKE_DETECTED` | 최대 > 평균 × 5 | 🟡 WARNING |
+| `MEMORY_CRITICAL` | 힙 > 90% | 🔴 CRITICAL |
+| `MEMORY_HIGH` | 힙 > 75% | 🟡 WARNING |
+
+### 🧮 상관관계 분석
+
+Pearson Correlation Coefficient(PCC)로 메트릭 간 상관관계 수치화 (예: "좀비 수 ↔ 틱 시간").
+
+---
+
+## 6. 통계 & 품질 지표 (TickHistogram)
+
+| 지표 | 내용 |
+|------|------|
+| **백분위수** | P50, P95, P99 (최근 샘플 정확 계산 + 버킷 보간 폴백) |
+| **Jank 카운터** | 60fps(>16.67ms), 30fps(>33.33ms), 100ms(Major Stutter) |
+| **분산** | 표준편차, 틱 간 변화율(Variance Rate) |
+| **품질 점수** | 0-100 (P99/P50 비율 + StdDev + Jank 종합) |
+| **Warmup 분리** | 게임 초기 워밍업 데이터를 별도 카운트하여 통계 오염 방지 |
+| **ASCII 차트** | 콘솔에서 바로 분포 시각화 |
+
+---
+
+## 7. 인게임 UI (실시간 오버레이)
+
+| 키 | 기능 | 내용 |
+|:--:|------|------|
+| **F6** | EchoHUD | 메모리 사용량 (색상 코딩 🟢🟡🔴), 가동 시간, 상태 |
+| **F7** | 프로파일링 On/Off | 측정 전체를 즉시 토글 |
+| **F8** | HotspotPanel | 성능 핫스팟 + 활성 스레드 모니터링 패널 |
+| **F9** | ExtendedHUD | 메모리/네트워크/병목 확장 상세 정보 |
+
+---
+
+## 8. 세션 관리 (SessionManager)
+
+```
+월드 로드 → 프로파일러 리셋 → 틱 카운팅 → dirty 마킹 → 메뉴 복귀 감지 → 비동기 저장
+```
+
+- **자동 세션 감지**: Pulse API(`WorldAccess`/`GameStateAccess`)로 월드 로드/언로드, 메인 메뉴 상태 실시간 감지 (reflection 폴백 내장)
+- **dirty 최소 조건**: 최소 틱 수(250+) 축적 후에만 저장 가치 인정
+- **메뉴 복귀 감지**: MainMenuRender 프레임 연속 카운팅
+- **비동기 저장**: 별도 `Echo-Save` 스레드로 메뉴 복귀 시 프리즈 방지
+- **Shutdown Hook**: 비정상 종료(Alt+F4) 시 동기 저장
+
+---
+
+## 9. 리포트 시스템 (EchoReport)
+
+### 4-Format 엑스포트
+
+한동안 게임을 플레이한 뒤, 그동안 측정한 모든 데이터를 추출:
+
+| 포맷 | 용도 |
+|------|------|
+| **JSON** | 구조화 데이터 — 외부 도구·대시보드 연동 |
+| **CSV** | 스프레드시트 분석 |
+| **Text** | 콘솔 출력용 플레인 텍스트 |
+| **HTML** | 시각화 포함 브라우저 열람 |
+
+### 품질 기반 3-Tier 저장
+
+| 품질 점수 | 저장 경로 | 의미 |
+|:---------:|-----------|------|
+| ≥ 30 (기본) | `baseline/` | 기준선 데이터로 활용 가능 |
+| ≥ 0 | `normal/` | 일반 리포트 |
+| < 0 | `low_quality/` | 세션 너무 짧거나 데이터 부족 |
+
+세션 종료 시 품질 요약 자동 출력: `🎯 ECHO SESSION QUALITY: XX/100`.
+
+---
+
+## 10. 외부 연동
+
+### 🌐 내장 HTTP REST API 서버 (EchoMonitorServer)
+
+게임 내부에 **8765번 포트** 소형 웹서버를 구동. 외부 브라우저나 디버깅 툴에서 실시간으로 접속할 수 있습니다:
+
+| 엔드포인트 | 내용 |
+|-----------|------|
+| `GET /api/status` | 프로파일러 상태 (활성/Lua/세션시간) |
+| `GET /api/summary` | 틱 요약 (평균/최대/최근 5초 롤링) |
+| `GET /api/histogram` | 틱 분포 히스토그램 (P50/P95/P99) |
+| `GET /api/spikes` | 최근 스파이크 로그 |
+| `GET /api/memory` | 메모리 상태 (힙/GC/할당률) |
+
+CORS 허용으로 외부 대시보드 바로 연동 가능.
+
+---
+
+## 11. Pulse 플랫폼 연동
+
+### 🔌 SPI 제공자
+
+- **EchoProfilerProvider**: Pulse의 `IProfilerProvider` 표준 구현 — 외부 모드가 Echo의 내부 API를 몰라도 Pulse 경유로 FPS, 틱 지연 시간을 넘겨받을 수 있음
+- **EchoHintProvider**: 병목 관측치를 Primitive 타입으로 Fuse에 전달 (Hub & Spoke — Echo는 관측만, Fuse가 판단)
+
+### 🔗 14개 Pulse 브릿지 어댑터
+
+`PulseEventAdapter`, `TickProfiler`, `RenderProfiler`, `SubsystemProfiler`, `SubProfilerBridge`, `TickPhaseBridge`, `PathfindingBridge`, `ZombieBridge`, `IsoGridBridge`, `LuaHookAdapter`, `LuaProfiler`, `PulseMetricsAdapter`, `OptimizationPointSync`, `EchoProfilerSink`
+
+### 💬 CLI 명령어
+
+`/echo status`, `/echo report [json|html|csv]`, `/echo config`, `/echo lua`, `/echo test`, `/echo overhead`, `/echo monitor` — 인게임 콘솔에서 프로파일링 수위·설정을 실시간 조작.
+
+---
+
+## 12. 안전장치
+
+| 시스템 | 역할 |
+|--------|------|
+| **EchoRuntime** | 1분 내 5회 에러 → 자동 비활성화 (Fail-Soft) |
+| **Silent Mode** | 서버 환경 감지 시 자동 진입 |
+| **SelfValidation** | 60초 후 5항목 자동 검증 (Hook/Freeze/SubProfiler/Phase/PulseContract) |
+| **WarmupDetector** | 초기 워밍업 데이터 분리로 통계 오염 방지 |
+| **FallbackTickEmitter** | Mixin 훅 누락 시 fallback 틱 발생 |
+| **PulseContractVerifier** | Pulse 틱 계약(deltaTime 정상성) 검증 |
+| **EchoConfig.sanitize()** | 잘못된 설정값 자동 보정 (음수, 범위 초과 등) |
+
+---
+
+Fuse
+
+> **v2.0** | Java 37 파일 · 8 패키지 | 전수 분석 완료
+> **"Always Safe, Always Predictable"** — 항상 안전하고, 항상 예측 가능하게
+
+---
+
+## 핵심 정체성
+
+Fuse는 Project Zomboid의 **성능 최적화기**입니다. Echo가 "관측만 하고 수정하지 않는다"라면, Fuse는 **적극적으로 개입하여 게임 부하를 줄이는** 역할을 합니다. 다만 "안전 제일" 원칙에 따라, 개입이 오히려 해를 끼치면 **즉시 손을 떼는** 설계가 근간입니다.
+
+Echo(프로파일러)의 데이터를 Pulse SPI를 통해 수신하여, 어디서 렉이 걸리는지 파악한 뒤 해당 구역의 연산 제한을 **자동으로 적용**하는 형태로 동작합니다.
+
+---
+
+## 1. 동적 엔진 최적화 — Area 7 (경로탐색 · 충돌 · 물리)
+
+코드에서 `area7` 패키지로 명명된 구역은, Project Zomboid의 핵심 병목 구간 중 특히 **연산량이 폭발하기 쉬운 7번 구역** — 경로탐색(Pathfinding), 충돌 연산(Collision), 물리 엔진 연산(Physics) — 의 부하를 줄이는 데 초점을 맞추고 있습니다.
+
+### 불변 원칙 (Area7Invariants)
+
+모든 최적화가 안전하게 동작하는 **절대적 경계**를 코드 수준에서 정의합니다:
+
+| 절대 금지 ❌ | 허용 ⭕ |
+|-------------|--------|
+| 아이템/시체 삭제 | update() 호출 빈도 조정 (결과 동일, 시간만 분산) |
+| 아이템 합치기 | 비가시/원거리 객체 업데이트 주기 감소 |
+| 물리 알고리즘 변경 | Sleep 모드 (update 중지, 존재 유지) |
+| 부패 속도 변경 | 폭주 감지 시 보수적 모드 전환 |
+| 상호작용 지연 | |
+
+### 경로탐색 예산제 (PathfindingBudgetGovernor)
+
+틱당 경로탐색 요청 수를 **예산(budget)으로 제한**합니다:
+
+- **COMBAT 우선순위**: 무조건 즉시 허용 (안전 보장)
+- **근거리 좀비**: 우선 처리
+- **예산 초과**: 경로를 **건너뛰지 않고** 다음 틱으로 **지연** (DeferQueue)
+- **보수 모드**: PanicProtocol 연동 시 예산 50%로 감소
+
+핵심 원칙: **경로 "건너뛰기" ❌ → "지연" ✅** — 결과는 동일, 시간만 분산.
+
+### Area 7 부가 시스템
+
+| 구성요소 | 역할 |
+|---------|------|
+| `PathRequestDeferQueue` | 지연된 경로 요청 FIFO 큐 (다음 틱 자동 처리) |
+| `DuplicatePathRequestFilter` | 중복 경로 요청 필터링 |
+| `NavMeshQueryGuard` | 내비게이션 메시 쿼리 보호 |
+| `PhysicsVelocityClamp` | 물리 속도 클램핑 |
+| `PathfindingPanicProtocol` | 경로탐색 전용 패닉 프로토콜 |
+
+---
+
+## 2. 스로틀링 (Throttling)
+
+### 4-Tier 거리 기반 좀비 스로틀링
+
+게임 틱당 과도하게 몰리는 연산 — 수백 마리 좀비가 동시에 AI 계산·길찾기를 시도하는 상황 — 을 분산시키고, 틱당 처리량의 한계점을 두어 프레임 드랍을 방지합니다:
+
+| Tier | 거리 (타일) | 업데이트 수준 |
+|:----:|:-----------:|:------------:|
+| **FULL** | < 20 | 매 틱 전체 업데이트 |
+| **REDUCED** | 20~40 | 일부 스텝 간헐 스킵 |
+| **LOW** | 40~80 | 핵심만 실행, 나머지 스킵 |
+| **MINIMAL** | > 80 | 거의 대부분 스킵 |
+
+**공격 중 · 타겟 보유 · 최근 교전** 상태인 좀비는 거리 무관 **무조건 FULL 승격**.
+
+### Step-Level AI 행동 분리 스킵
+
+단순히 "할지/말지"가 아니라, **AI 행동 5가지를 각각 독립적으로 스킵 판단**:
+
+| Step | 기능 | 비용 |
+|------|------|:---:|
+| `PERCEPTION` | 주변 감지 (소리, 시야) | 높음 |
+| `BEHAVIOR` | 행동 결정 (FSM) | 높음 |
+| `TARGET` | 타겟 선택/추적 | 중간 |
+| `MOTION` | 이동 계산 | 낮음 |
+| `COLLISION` | 충돌 검사 | 낮음 |
+
+ThrottleLevel에 따라 `shouldExecute(stepType, zombieId, worldTick)` — 좀비마다 다른 프레임에 다른 스텝을 실행하여 **부하가 균등 분산**.
+
+### 히스테리시스 상태 머신 (ThrottleStateMachine)
+
+스로틀링 레벨의 **떨림(chattering)을 방지**하는 이중 임계값 메커니즘:
+
+- **진입**: 1초 max > 33.33ms **OR** 5초 avg > 20ms → 보수화
+- **복구**: 5초 avg < 12ms × 300틱 연속 안정 → FULL 복귀
+
+### 월드 아이템 쓰로틀 (ItemGovernor)
+
+월드에 떨어진 아이템·시체의 업데이트 빈도를 제어:
+
+| 대상 | Starvation 한계 | ShellShock 시 |
+|------|:-----------:|:------------:|
+| **아이템** | 300틱 → 강제 FULL | MINIMAL |
+| **시체** | 600틱 → 강제 FULL | MINIMAL |
+
+---
+
+## 3. 가드 (Guard) — 보호 기능
+
+비정상적 상황 감지 시 Fuse가 자동으로 **보수화하거나 양보**하는 안전장치들:
+
+### VehicleGuard — 차량 고속 이동
+
+| 조건 | 임계값 | 결과 |
+|------|:------:|------|
+| 진입 | > **30km/h** | PASSIVE (최소 개입) |
+| 해제 | < **20km/h** | NORMAL (히스테리시스) |
+
+### StreamingGuard — 청크 스트리밍 양보
+
+빠른 이동 + 프레임 드랍 동시 감지 시 좀비 업데이트 예산을 **MINIMAL로 양보** (청크 로딩에 CPU 우선권).
+
+### FailsoftController — 안전 모드
+
+연속 **3회 에러** → **SAFE MODE** (개입 전면 비활성화, 바닐라로 폴백). 핵심 규칙: **자동 ON ❌ / 자동 OFF만 ⭕**. 모드 자체는 유지되어 디버깅 가능.
+
+### AdaptiveGate — 조건부 개입 스위치
+
+"평시에는 손 떼고, 위기 때만 개입"하는 핵심 안전 메커니즘:
+
+| 상태 | 의미 | 오버헤드 |
+|------|------|:-------:|
+| **PASSTHROUGH** | 개입 없음 (바닐라와 동일) | **제로** |
+| **ACTIVE** | 스로틀링 로직 활성 | 측정됨 |
+| **COOLDOWN** | 개입 **강제 금지** (휴식) | 제로 |
+
+**Sustained Early Exit**: ACTIVE 상태가 2000ms 초과하거나 hard limit 연속 4회 → **COOLDOWN 강제 진입**. "Fuse ON이 더 끊기는" 문제를 구조적으로 차단.
+
+---
+
+## 4. 거버너 (Governor) — 리소스 제한기
+
+엔진 자원 사용량을 모니터링하여 임계점을 넘지 않도록 능동적으로 조절합니다.
+
+### TickBudgetGovernor — 틱 예산 관리
+
+| 항목 | 값 |
+|------|:---:|
+| 목표 예산 | **16.67ms** (60fps) |
+| 강제 컷오프 | **33.33ms** (30fps) |
+| Batch Check | **20마리** 처리당 1회 시간 체크 |
+
+33.33ms 이상 경과 시 나머지 좀비 업데이트 **강제 중단** (다음 틱 이월).
+
+### Fuse 자체 오버헤드 상한
+
+Fuse가 자기 자신 때문에 게임을 느리게 만드는 것을 구조적으로 차단:
+
+| 상한 | 값 | 결과 |
+|------|:---:|------|
+| Soft Limit | **0.5ms** | 경고 기록 |
+| Hard Limit | **2.0ms** | **즉시 개입 중단** |
+
+### SpikePanicProtocol — 연쇄 프리즈 차단
+
+슬라이딩 윈도우(5초)에서 100ms 이상 스파이크 2회 이상 → **PANIC 진입**:
+
+```
+NORMAL → PANIC (×0.1) → RECOVERING (×0.5→0.75→1.0) → NORMAL
+```
+
+각 복구 단계 30틱 안정 유지 시 다음 단계로 진행. 복구 중 스파이크 재발 시 **즉시 PANIC 복귀**.
+
+---
+
+## 5. 상태 관리 — 불변 원칙 & 캐시 최적화
+
+### 좀비 상태 캐시 (ZombieStateCache)
+
+좀비의 현재 행동 상태를 캐싱하여 **상태별 스로틀 배수**를 적용합니다:
+
+| 상태 | 스로틀 배수 | 의미 |
+|------|:---:|------|
+| `CHASING` / `ATTACKING` | ×0.0 | **면제** — 절대 스킵 안 함 |
+| `ALERT` | ×0.5 | 덜 스킵 |
+| `UNKNOWN` | ×1.0 | 기본 |
+| `IDLE` | ×1.5 | 더 공격적 스킵 |
+| `EATING` | ×1.8 | 공격적 스킵 |
+| `FAKE_DEAD` | ×2.0 | 가장 공격적 스킵 |
+
+ConcurrentHashMap 기반, 10,000개 상한 + 반절 제거 전략.
+
+### 프레임 내 충돌 메모이제이션 (FrameLocalCollisionMemo)
+
+같은 틱 안에서 동일한 객체 쌍의 충돌 검사 결과를 캐싱:
+
+- **TTL = 1틱 엄수** (유령 충돌 방지)
+- **객체 쌍** + **셀 좌표** 두 가지 키 타입
+- 순서 무관 키 계산 (min/max 정렬)
+
+### 폭주 감지 (Area7Invariants)
+
+| 임계 | 값 | 결과 |
+|------|:---:|------|
+| ShellShock 발동 | 50개/초 아이템 생성 | ShellShock 모드 진입 |
+| 과부하 | 1,000개 총 오브젝트 | 보수적 모드 전환 |
+| Starvation 한계 | 120틱 스킵 | 강제 업데이트 |
+| ShellShock 최소 지속 | 60틱 (1초) | 너무 빨리 해제 방지 |
+
+---
+
+## 6. 실시간 상태 추적 (Telemetry)
+
+### TelemetryReason — 개입 이유 추적
+
+모든 스로틀링 결정에 **왜 그 결정을 내렸는지** 이유를 기록:
+
+`GOVERNOR_CUTOFF`, `PANIC_WINDOW_SPIKES`, `THROTTLE_WINDOW_EXCEEDED`, `THROTTLE_AVG_HIGH`, `GUARD_VEHICLE`, `GUARD_STREAMING`, `BUDGET_SOFT_LIMIT`, `BUDGET_HARD_LIMIT`, `FAILSOFT_ERROR`, `ADAPTIVE_GATE_ACTIVATED`, `ADAPTIVE_GATE_PASSTHROUGH`, `SUSTAINED_EARLY_EXIT`, `RECOVERING_GRADUAL`, ...
+
+### ReasonStats — Top-N 집계
+
+60초마다 **"개입 이유 Top 3"** + 가드/패닉/컷오프 상태 + ItemGovernor 통계 자동 출력.
+
+### RollingTickStats — 슬라이딩 윈도우 통계
+
+실시간 틱 시간 데이터를 롤링 윈도우로 수집: 1초 max, 5초 avg. AdaptiveGate·ThrottleStateMachine·히스테리시스의 **판단 기반 데이터**.
+
+### FuseSnapshotProvider — Pulse SPI 연동
+
+Fuse의 전체 상태를 Pulse의 `IProvider` SPI로 노출하여 **외부 모드가 Fuse 상태를 조회** 가능.
+
+---
+
+## 7. 설정 (FuseConfig) — 30+ 항목
+
+`~/Zomboid/Fuse/fuse.json` JSON 기반. Conservative Preset 기본값:
+
+| 범주 | 항목 예시 |
+|------|----------|
+| **Throttling** | `enableThrottling`, `throttleIntensity(0.5)`, 거리 밴드 20²/40²/80² |
+| **Governor** | `tickBudgetMs(16.67)`, `forceCutoffMs(33.33)`, `batchCheckSize(20)` |
+| **Panic** | `spikeThresholdMs(100)`, `windowSizeMs(5000)`, `spikeCountThreshold(2)` |
+| **Hysteresis** | `entryMax1sMs(33.33)`, `entryAvg5sMs(20)`, `exitAvg5sMs(12)`, `exitStabilityTicks(300)` |
+| **Guards** | `vehicleSpeedEntryKmh(30)`, `playerSpeedThreshold(15)` |
+| **Adaptive Gate** | `enableAdaptiveGate`, `enableZombieDedup`, `enablePathDedup` |
+| **Sustained Exit** | `sustainedEarlyExitEnabled(false)`, `activeMaxMs(2000)`, `hardStreakMax(4)` |
+| **Failsoft** | `maxConsecutiveErrors(3)` |
+
+Pulse `ConfigTemplate` 구현.
+
+---
+
+Nerve
+
+> **v2.0** | Lua 40 파일 · client/shared 구조 | 전수 분석 완료
+> **"The Event's meaning stays, only the form stabilizes"** — 이벤트의 의미는 유지하되, 형태만 안정화한다
+
+---
+
+## 핵심 정체성
+
+Nerve는 Project Zomboid의 **이벤트 디스패치 안정화기**입니다. 수많은 모드가 게임 이벤트에 리스너를 등록하면서 발생하는 **재진입(recursion)**, **예외 전파**, **네트워크 패킷 폭주** 등의 문제를 감지하고, 해당 틱에서만 **조용히 철수(pass-through)**하여 안정성을 확보합니다.
+
+Pulse/Echo/Fuse가 Java 기반(Mixin 엔진 개입)인 반면, Nerve는 **순수 Lua**로 동작하며, 게임 이벤트 시스템의 `Events[name].Add` 메서드를 래핑하는 방식으로 작동합니다.
+
+---
+
+## 1. Fail-soft 보호 체계 (안전망)
+
+Nerve의 **가장 핵심적인 기능**. 모드 충돌이나 예기치 않은 데이터 형식으로 인해 Lua 스크립트에서 에러가 발생해도, 이벤트 루프 전체가 죽는 현상을 방지합니다.
+
+### 오류 격리 (safeExecute)
+
+리스너를 `pcall` 보호 환경에서 실행합니다 (PZ Kahlua 엔진은 xpcall 미지원):
+- 에러 발생 시: **incident 표시** + **동일 틱 철수** + **에러 서명 기반 레이트리밋 로그** (동일 서명 최대 3회 출력)
+- **침묵 금지**: 반드시 사건 표식 + 로그 남김
+- 원본 바닐라 함수가 터지면 → **동일하게 재전파** (`callOriginal`)
+
+### Auto-Disable (자동 차단 및 쿨다운)
+
+| 항목 | 값 |
+|------|:---:|
+| 연속 오류 한계 | **3회** |
+| cooldown | **10초** |
+| 복귀 | cooldown 후 **자동** |
+| 성공 시 | 오류 카운터 **점진 감소** (-0.1/성공) |
+
+동일 컴포넌트(예: 툴팁 함수)에서 연속 3회 에러 → **해당 컴포넌트만 비활성화**. 10초 cooldown 후 자동 복귀 시도.
+
+### 헌법 봉인 (Area6Guard)
+
+코드 수준에서 Nerve의 **행동 범위를 강제**:
+- **금지 키워드 탐지**: `averageMs`, `histogram`, `priority`, `cooldown`, `drop`, `skip`, `delay`, `defer`, `reorder`, `queue` 등이 코드에 들어오면 경고
+- **validateConstitution()**: 트리거 2개 초과? 액션이 PASSTHROUGH 아닌지? 상시 계측 여부? → 위반 시 경고
+- **래퍼 무결성 체크**: 다른 모드가 Nerve의 래핑을 덮어썼는지 실시간 감지 → 충돌 발견 시 Area6 **전체 철수**
+
+---
+
+## 2. GC 압박 최소화
+
+### REUSE_BUFFER 패턴
+
+틱 통계 조회 시 매번 새 테이블을 생성하지 않고, 미리 할당된 `REUSE_BUFFER` 테이블의 필드를 **덮어쓰기만** 하여 Lua GC 부하를 차단:
+
+```lua
+-- 매번 {}를 새로 만들지 않음
+REUSE_BUFFER.currentDeltaMs = timing.currentTickDeltaMs
+REUSE_BUFFER.avgDeltaMs     = timing.avgDeltaMs
+return REUSE_BUFFER  -- 동일 테이블 재사용
+```
+
+### safeWipe (table.wipe polyfill)
+
+PZ Lua 환경에 `table.wipe`가 없을 수 있으므로 polyfill 제공. 틱마다 상태 테이블을 초기화할 때 새 테이블 생성 대신 **기존 테이블의 키만 nil 처리**하여 GC를 유발하지 않음.
+
+---
+
+## 3. Area 6 — 클라이언트 이벤트 디스패치 안정화
+
+수십~수백 개 모드가 동시에 `OnTick`, `OnContainerUpdate` 같은 이벤트에 리스너를 거는 상황에서, 특정 모드의 에러가 **다른 모드의 이벤트 체인을 연쇄 중단시키는 것을 방지**.
+
+### SEALED 실행 흐름 (6단계, 순서 변경 금지)
+
+```
+1. if !area6.enabled       → 원본 호출
+2. if passthroughThisTick  → 원본 호출 (동일 틱 철수)
+3. reentry check           → hit 시: incident + passthrough 등록
+4. pcall 격리 실행          → error 시: incident + passthrough 등록
+5. if incident             → lazy 증거 수집 + 요약 출력
+6. return
+```
+
+### 트리거 (2개 고정, 추가 금지)
+
+| # | 트리거 | 감지 대상 |
+|:-:|--------|----------|
+| 1 | **Reentry** | 같은 틱에서 같은 리스너가 자기 자신을 재호출 |
+| 2 | **Exception** | 리스너 실행 중 예외 발생 (pcall 격리) |
+
+### 유일한 액션: SAME_TICK_PASSTHROUGH
+
+- 해당 리스너를 **그 틱에서만** 원본 직통(pass-through)
+- 다음 틱에서 **자동 정상 복귀** (wipe)
+- **Drop/Delay/Reorder/Queue 전면 금지**
+
+### 래핑 대상 이벤트 (최소 원칙)
+
+재현된 폭주가 확인된 이벤트만: `OnTick`, `OnTickEvenPaused`, `OnContainerUpdate`, `OnInventoryUpdate`, `OnObjectAdded`, `OnObjectRemoved`
+
+### 증거 수집 (Lazy, Incident-Gated Only)
+
+incident 발생 **후에만** 수집 (상시 계측 금지):
+
+| 증거 모듈 | 수집 내용 |
+|-----------|----------|
+| `DupCount` | 이벤트-리스너 쌍 호출 횟수 |
+| `Depth` | 이벤트 체인 깊이 |
+| `Fanout` | 실행 리스너 수 / 등록 리스너 수 |
+| `Repeat` | 동일 인자 반복 호출 횟수 |
+
+---
+
+## 4. Area 9 — 네트워크/멀티 동기화 안정화
+
+멀티플레이 서버에서 수많은 유저가 동시에 패킷을 보내 서버/클라이언트 스크립트가 지연되거나 꼬일 때, 이를 안전하게 처리합니다.
+
+### 고정 실행 순서 (8단계)
+
+```
+1. TickCtx 갱신         (tickId 단일 진실의 소스)
+2. Quarantine 체크       (선리턴 — 원본 호출 없이 차단)
+3. Re-entrancy           (BYPASS 표시만, 행동 없음)
+4. Duplicate             (카운트만, 스킵 금지)
+5. Shape                 (observe/guard 모드)
+6. Depth                 (상태 표시)
+7. guardedPcall          (incident 조건에 따라 fast/guarded)
+8. Forensic 기록
+```
+
+### 핵심 원칙
+
+| 원칙 | 내용 |
+|------|------|
+| **DEFAULT OFF** | 기본 비활성 — 명시적 opt-in 필요 |
+| **네트워크 경계만** | `OnClientCommand`, `OnServerCommand`만 대상 |
+| **동일 틱 한정 철수** | 다음 틱 자동 복귀 |
+| **정책화 금지** | Drop/Delay/Reorder/Queue/우선순위/가중치 전면 금지 |
+
+### Quarantine — 1틱 격리
+
+handler 단위 키로 1틱만 격리 후 자동 만료. Shape Guard의 hard fail 또는 pcall 에러 발생 시 opt-in 대상만 진입.
+
+### Forensic 링버퍼
+
+고정 크기 128 레코드, **정수만** 저장. 6개 카테고리(`REENTRY`, `DUPLICATE`, `SHAPE_FAIL`, `DEPTH_EXCEED`, `ERROR`, `QUARANTINE`). 출력 기본 OFF — 수동 dump만.
+
+---
+
+## 5. 틱 타이밍 및 지연 감지 (NerveTiming)
+
+### 자체 프레임 진단
+
+`os.clock()` 기반으로 프레임 지연을 자체 진단:
+
+| 지표 | 내용 |
+|------|------|
+| **currentDeltaMs** | 현재 틱 소요 시간 |
+| **avgDeltaMs** | 이동 평균 (EMA, α=0.1) |
+| **isSlowTick** | 50ms 기준 초과 (20fps 미만) |
+| **min/maxDeltaMs** | 세션 내 최소/최대 |
+
+### Pulse API 연동 우선
+
+Pulse 모드가 설치되어 있으면, `os.clock()` 대신 **Java 엔진의 초정밀 틱 데이터** (`Pulse.Timing.getTickDelta`)를 우선 사용합니다:
+
+```lua
+if Nerve.hasPulse and Pulse.Timing.getTickDelta then
+    return Pulse.Timing.getTickDelta()  -- Java 정밀 측정
+end
+return timing.currentTickDeltaMs        -- Lua fallback
+```
+
+---
+
+## 6. 인프라
+
+### Pulse 연동 듀얼 모드 (Full / Lite)
+
+| 모드 | 조건 | 동작 |
+|------|------|------|
+| **Full** | Pulse 감지 | 전체 기능 + 정밀 타이밍 |
+| **Lite** | Pulse 없음 | 독립 동작 (단독 실행 가능) |
+
+### Idempotent 이벤트 래핑
+
+- `Events[name].Add`를 래핑하여 모든 리스너 콜백을 자동 감시
+- weak table 캐시로 **중복 래핑 방지** + **충돌 감지** (`__customWrapped` 등 타 모드 마커 확인)
+
+### 전용 로거 (NerveLogger)
+
+- 전용 로그 파일: `Zomboid/Lua/Nerve/nerve.log`
+- 4-level 지원: `DEBUG`, `INFO`, `WARN`, `ERROR`
+- 게임 시간 타임스탬프 + 세션 자동 백업 (최대 3개)
+- 파일 + 콘솔 동시 출력
+
+---
+
+Iris
+
+---
+
+Frame
+
+---
+
+Cortex
+
+---
+
+Canvas
+
+---

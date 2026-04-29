@@ -687,7 +687,7 @@ function IrisBrowser:showDetail(fullType)
             yOffset = yOffset + 22
         end
     end
-    
+
     -- [2] 주 소분류 설명 (IrisDesc)
     local IrisAPI = nil
     local apiOk, apiResult = pcall(require, "Iris/IrisAPI")
@@ -710,8 +710,26 @@ function IrisBrowser:showDetail(fullType)
             yOffset = yOffset + 10
         end
     end
+
+    -- [3] 3계층 본문 (DVF)
+    if IrisWikiSections and IrisWikiSections.renderLayer3Section then
+        local layer3Text = IrisWikiSections.renderLayer3Section(item)
+        if layer3Text and layer3Text ~= "" then
+            yOffset = yOffset + 5
+            local sepLabel = ISLabel:new(10, yOffset, 14, "────────────────────────", 0.3, 0.4, 0.5, 1, UIFont.Medium, true)
+            self.detailPanel:addChild(sepLabel)
+            yOffset = yOffset + 20
+
+            for line in layer3Text:gmatch("[^\n]+") do
+                local lineLabel = ISLabel:new(10, yOffset, 18, line, 0.92, 0.92, 0.92, 1, UIFont.Medium, true)
+                self.detailPanel:addChild(lineLabel)
+                yOffset = yOffset + 18
+            end
+            yOffset = yOffset + 10
+        end
+    end
     
-    -- [3] 상호작용 섹션 (레시피 + 우클릭 행동 통합)
+    -- [4] 상호작용 섹션 (레시피 + 우클릭 행동 통합)
     local interactionItems = {}  -- { {type="recipe"|"rightclick", name=string, sortKey=string} }
     
     -- 레시피 수집: 오프라인 데이터 우선, 런타임 API 폴백

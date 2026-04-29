@@ -1,0 +1,2259 @@
+{
+  "entries": {
+    "uc.recipe.add_crafted_trigger": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Crafted Trigger",
+      "recipe_id": "uc.recipe.add_crafted_trigger",
+      "translated_name": "격발기 만들기"
+    },
+    "uc.recipe.add_motion_sensor_v1": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Motion Sensor V1",
+      "recipe_id": "uc.recipe.add_motion_sensor_v1",
+      "translated_name": "센서 (V1)로 추가 개조하기"
+    },
+    "uc.recipe.add_motion_sensor_v2": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Motion Sensor V2",
+      "recipe_id": "uc.recipe.add_motion_sensor_v2",
+      "translated_name": "센서 (V2)로 추가 개조하기"
+    },
+    "uc.recipe.add_motion_sensor_v3": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Motion Sensor V3",
+      "recipe_id": "uc.recipe.add_motion_sensor_v3",
+      "translated_name": "센서 (V3)로 추가 개조하기"
+    },
+    "uc.recipe.add_timer": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Add Timer",
+      "recipe_id": "uc.recipe.add_timer",
+      "translated_name": "타이머로 추가하기"
+    },
+    "uc.recipe.attach_bread_knife_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Bread Knife to Spear",
+      "recipe_id": "uc.recipe.attach_bread_knife_to_spear",
+      "translated_name": "창에 빵칼 부착하기"
+    },
+    "uc.recipe.attach_butter_knife_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Butter Knife to Spear",
+      "recipe_id": "uc.recipe.attach_butter_knife_to_spear",
+      "translated_name": "창에 버터칼 부착하기"
+    },
+    "uc.recipe.attach_fork_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Fork to Spear",
+      "recipe_id": "uc.recipe.attach_fork_to_spear",
+      "translated_name": "창에 포크 부착하기"
+    },
+    "uc.recipe.attach_hand_fork_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Hand Fork to Spear",
+      "recipe_id": "uc.recipe.attach_hand_fork_to_spear",
+      "translated_name": "창에 손갈퀴 부착하기"
+    },
+    "uc.recipe.attach_hunting_knife_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Hunting Knife to Spear",
+      "recipe_id": "uc.recipe.attach_hunting_knife_to_spear",
+      "translated_name": "창에 사냥용 칼 부착하기"
+    },
+    "uc.recipe.attach_ice_pick_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Ice Pick to Spear",
+      "recipe_id": "uc.recipe.attach_ice_pick_to_spear",
+      "translated_name": "창에 얼음 송곳 부착하기"
+    },
+    "uc.recipe.attach_kitchen_knife_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Kitchen Knife to Spear",
+      "recipe_id": "uc.recipe.attach_kitchen_knife_to_spear",
+      "translated_name": "창에 부엌칼 부착하기"
+    },
+    "uc.recipe.attach_letter_opener_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Letter Opener to Spear",
+      "recipe_id": "uc.recipe.attach_letter_opener_to_spear",
+      "translated_name": "창에 편지 칼 부착하기"
+    },
+    "uc.recipe.attach_machete_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Machete to Spear",
+      "recipe_id": "uc.recipe.attach_machete_to_spear",
+      "translated_name": "창에 마체테 부착하기"
+    },
+    "uc.recipe.attach_scalpel_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Scalpel to Spear",
+      "recipe_id": "uc.recipe.attach_scalpel_to_spear",
+      "translated_name": "창에 메스 부착하기"
+    },
+    "uc.recipe.attach_scissors_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Scissors to Spear",
+      "recipe_id": "uc.recipe.attach_scissors_to_spear",
+      "translated_name": "창에 가위 부착하기"
+    },
+    "uc.recipe.attach_screwdriver_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Screwdriver to Spear",
+      "recipe_id": "uc.recipe.attach_screwdriver_to_spear",
+      "translated_name": "창에 스크류드라이버 부착하기"
+    },
+    "uc.recipe.attach_spoon_to_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Attach Spoon to Spear",
+      "recipe_id": "uc.recipe.attach_spoon_to_spear",
+      "translated_name": "창에 숟가락 부착하기"
+    },
+    "uc.recipe.build_drawer": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Build Drawer",
+      "recipe_id": "uc.recipe.build_drawer",
+      "translated_name": "서랍 만들기"
+    },
+    "uc.recipe.build_spiked_baseball_bat": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Build Spiked Baseball Bat",
+      "recipe_id": "uc.recipe.build_spiked_baseball_bat",
+      "translated_name": "못 달린 야구방망이 만들기"
+    },
+    "uc.recipe.build_spiked_plank": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Build Spiked Plank",
+      "recipe_id": "uc.recipe.build_spiked_plank",
+      "translated_name": "못 달린 판자 만들기"
+    },
+    "uc.recipe.butcher_bird": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Butcher Bird",
+      "recipe_id": "uc.recipe.butcher_bird",
+      "translated_name": "새 도살하기"
+    },
+    "uc.recipe.butcher_rabbit": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Butcher Rabbit",
+      "recipe_id": "uc.recipe.butcher_rabbit",
+      "translated_name": "토끼 도살하기"
+    },
+    "uc.recipe.butcher_small_animal": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Butcher Small Animal",
+      "recipe_id": "uc.recipe.butcher_small_animal",
+      "translated_name": "작은 동물 도살하기"
+    },
+    "uc.recipe.clean_bandage": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Clean Bandage",
+      "recipe_id": "uc.recipe.clean_bandage",
+      "translated_name": "붕대 세척하기"
+    },
+    "uc.recipe.clean_denim_strips": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Clean Denim Strips",
+      "recipe_id": "uc.recipe.clean_denim_strips",
+      "translated_name": "데님 천 조각 닦기"
+    },
+    "uc.recipe.clean_leather_strips": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Clean Leather Strips",
+      "recipe_id": "uc.recipe.clean_leather_strips",
+      "translated_name": "가죽 조각 닦기"
+    },
+    "uc.recipe.clean_rag": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Clean Rag",
+      "recipe_id": "uc.recipe.clean_rag",
+      "translated_name": "천 세척하기"
+    },
+    "uc.recipe.clean_tray": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Clean Tray",
+      "recipe_id": "uc.recipe.clean_tray",
+      "translated_name": "쟁반 비우기"
+    },
+    "uc.recipe.close_umbrella": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Close Umbrella",
+      "recipe_id": "uc.recipe.close_umbrella",
+      "translated_name": "우산 접기"
+    },
+    "uc.recipe.craft_makeshift_ham_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Craft Makeshift HAM Radio",
+      "recipe_id": "uc.recipe.craft_makeshift_ham_radio",
+      "translated_name": "수제작 아마추어 무선통신기 만들기"
+    },
+    "uc.recipe.craft_makeshift_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Craft Makeshift Radio",
+      "recipe_id": "uc.recipe.craft_makeshift_radio",
+      "translated_name": "수제작 라디오 만들기"
+    },
+    "uc.recipe.craft_makeshift_walkie_talkie": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Craft Makeshift Walkie Talkie",
+      "recipe_id": "uc.recipe.craft_makeshift_walkie_talkie",
+      "translated_name": "수제작 휴대용 무전기 만들기"
+    },
+    "uc.recipe.create_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Create Spear",
+      "recipe_id": "uc.recipe.create_spear",
+      "translated_name": "창 만들기"
+    },
+    "uc.recipe.disinfect_bandage": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Disinfect Bandage",
+      "recipe_id": "uc.recipe.disinfect_bandage",
+      "translated_name": "붕대 소독하기"
+    },
+    "uc.recipe.disinfect_rag": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Disinfect Rag",
+      "recipe_id": "uc.recipe.disinfect_rag",
+      "translated_name": "천 소독하기"
+    },
+    "uc.recipe.dismantle_cd_player": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle CD Player",
+      "recipe_id": "uc.recipe.dismantle_cd_player",
+      "translated_name": "CD 플레이어 분해하기"
+    },
+    "uc.recipe.dismantle_cordless_phone": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Cordless Phone",
+      "recipe_id": "uc.recipe.dismantle_cordless_phone",
+      "translated_name": "무선 전화기 분해하기"
+    },
+    "uc.recipe.dismantle_earbuds": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Earbuds",
+      "recipe_id": "uc.recipe.dismantle_earbuds",
+      "translated_name": "이어폰 분해하기"
+    },
+    "uc.recipe.dismantle_flashlight": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Flashlight",
+      "recipe_id": "uc.recipe.dismantle_flashlight",
+      "translated_name": "손전등 해체하기"
+    },
+    "uc.recipe.dismantle_ham_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle HAM Radio",
+      "recipe_id": "uc.recipe.dismantle_ham_radio",
+      "translated_name": "아마추어 무선통신기 분해하기"
+    },
+    "uc.recipe.dismantle_headphones": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Headphones",
+      "recipe_id": "uc.recipe.dismantle_headphones",
+      "translated_name": "헤드폰 분해하기"
+    },
+    "uc.recipe.dismantle_home_alarm": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Home Alarm",
+      "recipe_id": "uc.recipe.dismantle_home_alarm",
+      "translated_name": "경보기 분해하기"
+    },
+    "uc.recipe.dismantle_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Radio",
+      "recipe_id": "uc.recipe.dismantle_radio",
+      "translated_name": "라디오 분해하기"
+    },
+    "uc.recipe.dismantle_speaker": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Speaker",
+      "recipe_id": "uc.recipe.dismantle_speaker",
+      "translated_name": "스피커 분해하기"
+    },
+    "uc.recipe.dismantle_television": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Television",
+      "recipe_id": "uc.recipe.dismantle_television",
+      "translated_name": "텔레비전 분해하기"
+    },
+    "uc.recipe.dismantle_tv_remote": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle TV Remote",
+      "recipe_id": "uc.recipe.dismantle_tv_remote",
+      "translated_name": "TV 리모컨 분해하기"
+    },
+    "uc.recipe.dismantle_two_way_radio": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Two-way Radio",
+      "recipe_id": "uc.recipe.dismantle_two_way_radio",
+      "translated_name": "송수신 무전기 분해하기"
+    },
+    "uc.recipe.dismantle_video_game": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Dismantle Video Game",
+      "recipe_id": "uc.recipe.dismantle_video_game",
+      "translated_name": "게임기 분해하기"
+    },
+    "uc.recipe.douse_cotton_in_alcohol": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Douse Cotton in Alcohol",
+      "recipe_id": "uc.recipe.douse_cotton_in_alcohol",
+      "translated_name": "살균된 약솜 만들기 (소독약)"
+    },
+    "uc.recipe.drill_plank": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Drill Plank",
+      "recipe_id": "uc.recipe.drill_plank",
+      "translated_name": "판자에 구멍뚫기"
+    },
+    "uc.recipe.empty_baking_tray": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Empty Baking Tray",
+      "recipe_id": "uc.recipe.empty_baking_tray",
+      "translated_name": null
+    },
+    "uc.recipe.empty_frying_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Empty Frying Pan",
+      "recipe_id": "uc.recipe.empty_frying_pan",
+      "translated_name": "프라이팬 비우기"
+    },
+    "uc.recipe.empty_griddle_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Empty Griddle Pan",
+      "recipe_id": "uc.recipe.empty_griddle_pan",
+      "translated_name": "번철 팬 (빈)"
+    },
+    "uc.recipe.empty_roasting_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Empty Roasting Pan",
+      "recipe_id": "uc.recipe.empty_roasting_pan",
+      "translated_name": "오븐 쟁반 비우기"
+    },
+    "uc.recipe.extinguish_candle": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Extinguish Candle",
+      "recipe_id": "uc.recipe.extinguish_candle",
+      "translated_name": "촛불 끄기"
+    },
+    "uc.recipe.fix_fishing_rod": {
+      "category": "Fishing",
+      "nav_eligible": true,
+      "original_name": "Fix Fishing Rod",
+      "recipe_id": "uc.recipe.fix_fishing_rod",
+      "translated_name": "낚싯대 수리하기"
+    },
+    "uc.recipe.gather_gunpowder": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Gather Gunpowder",
+      "recipe_id": "uc.recipe.gather_gunpowder",
+      "translated_name": "화약 모으기"
+    },
+    "uc.recipe.get_6_biscuits": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get 6 Biscuits",
+      "recipe_id": "uc.recipe.get_6_biscuits",
+      "translated_name": "비스킷 6개 얻기"
+    },
+    "uc.recipe.get_6_cookies": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get 6 Cookies",
+      "recipe_id": "uc.recipe.get_6_cookies",
+      "translated_name": "쿠기 6개 얻기"
+    },
+    "uc.recipe.get_6_muffins": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get 6 Muffins",
+      "recipe_id": "uc.recipe.get_6_muffins",
+      "translated_name": "머핀 6개 얻기"
+    },
+    "uc.recipe.get_bacon_bits": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get Bacon Bits",
+      "recipe_id": "uc.recipe.get_bacon_bits",
+      "translated_name": "베이컨 작은 조각 만들기"
+    },
+    "uc.recipe.get_bacon_rashers": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Get Bacon Rashers",
+      "recipe_id": "uc.recipe.get_bacon_rashers",
+      "translated_name": "베이컨 슬라이스 만들기"
+    },
+    "uc.recipe.get_wire_back": {
+      "category": "Fishing",
+      "nav_eligible": true,
+      "original_name": "Get Wire Back",
+      "recipe_id": "uc.recipe.get_wire_back",
+      "translated_name": "철사 회수하기"
+    },
+    "uc.recipe.hockeymasksmashbottle": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "HockeyMaskSmashBottle",
+      "recipe_id": "uc.recipe.hockeymasksmashbottle",
+      "translated_name": null
+    },
+    "uc.recipe.insert_battery_into_duck": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Insert Battery into Duck",
+      "recipe_id": "uc.recipe.insert_battery_into_duck",
+      "translated_name": "오리에 건전지 넣기"
+    },
+    "uc.recipe.insert_battery_into_flashlight": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Insert Battery into Flashlight",
+      "recipe_id": "uc.recipe.insert_battery_into_flashlight",
+      "translated_name": "손전등에 건전지 넣기"
+    },
+    "uc.recipe.light_candle": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Light Candle",
+      "recipe_id": "uc.recipe.light_candle",
+      "translated_name": "양초에 불 붙이기"
+    },
+    "uc.recipe.make_223_bullets": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make 223 Bullets",
+      "recipe_id": "uc.recipe.make_223_bullets",
+      "translated_name": ".223 탄 만들기"
+    },
+    "uc.recipe.make_223_bullets_mold": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make 223 Bullets Mold",
+      "recipe_id": "uc.recipe.make_223_bullets_mold",
+      "translated_name": ".223 탄 틀 만들기"
+    },
+    "uc.recipe.make_2_bowls_of_pasta": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 2 Bowls of Pasta",
+      "recipe_id": "uc.recipe.make_2_bowls_of_pasta",
+      "translated_name": "그릇 2개에 파스타 나눠 담기"
+    },
+    "uc.recipe.make_2_bowls_of_rice": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 2 Bowls of Rice",
+      "recipe_id": "uc.recipe.make_2_bowls_of_rice",
+      "translated_name": "그릇 2개에 밥 나눠 담기"
+    },
+    "uc.recipe.make_2_bowls_of_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 2 Bowls of Soup",
+      "recipe_id": "uc.recipe.make_2_bowls_of_soup",
+      "translated_name": "그릇 2개에 스프 담기"
+    },
+    "uc.recipe.make_2_bowls_of_stew": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 2 Bowls of Stew",
+      "recipe_id": "uc.recipe.make_2_bowls_of_stew",
+      "translated_name": "그릇 2개에 스튜 담기"
+    },
+    "uc.recipe.make_308_bullets": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make 308 Bullets",
+      "recipe_id": "uc.recipe.make_308_bullets",
+      "translated_name": ".308 탄 만들기"
+    },
+    "uc.recipe.make_308_bullets_mold": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make 308 Bullets Mold",
+      "recipe_id": "uc.recipe.make_308_bullets_mold",
+      "translated_name": ".308 탄 틀 만들기"
+    },
+    "uc.recipe.make_4_bowls_of_pasta": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 4 Bowls of Pasta",
+      "recipe_id": "uc.recipe.make_4_bowls_of_pasta",
+      "translated_name": "그릇 4개에 파스타 나눠 담기"
+    },
+    "uc.recipe.make_4_bowls_of_rice": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 4 Bowls of Rice",
+      "recipe_id": "uc.recipe.make_4_bowls_of_rice",
+      "translated_name": "그릇 4개에 밥 나눠 담기"
+    },
+    "uc.recipe.make_4_bowls_of_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 4 Bowls of Soup",
+      "recipe_id": "uc.recipe.make_4_bowls_of_soup",
+      "translated_name": "그릇 4개에 스프 담기"
+    },
+    "uc.recipe.make_4_bowls_of_stew": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make 4 Bowls of Stew",
+      "recipe_id": "uc.recipe.make_4_bowls_of_stew",
+      "translated_name": "그릇 4개에 스튜 담기"
+    },
+    "uc.recipe.make_9mm_bullets": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make 9mm Bullets",
+      "recipe_id": "uc.recipe.make_9mm_bullets",
+      "translated_name": "9mm 탄 만들기"
+    },
+    "uc.recipe.make_9mm_bullets_mold": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make 9mm Bullets Mold",
+      "recipe_id": "uc.recipe.make_9mm_bullets_mold",
+      "translated_name": "9mm 탄 틀 만들기"
+    },
+    "uc.recipe.make_aerosol_bomb": {
+      "category": "Engineer",
+      "nav_eligible": true,
+      "original_name": "Make Aerosol bomb",
+      "recipe_id": "uc.recipe.make_aerosol_bomb",
+      "translated_name": "에어로졸 폭탄 만들기"
+    },
+    "uc.recipe.make_axe": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Axe",
+      "recipe_id": "uc.recipe.make_axe",
+      "translated_name": "도끼 만들기"
+    },
+    "uc.recipe.make_baking_pan": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Baking Pan",
+      "recipe_id": "uc.recipe.make_baking_pan",
+      "translated_name": "빵 굽는 팬 만들기"
+    },
+    "uc.recipe.make_baking_tray": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Baking Tray",
+      "recipe_id": "uc.recipe.make_baking_tray",
+      "translated_name": "빵 판 만들기"
+    },
+    "uc.recipe.make_ball_peen_hammer": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Ball Peen Hammer",
+      "recipe_id": "uc.recipe.make_ball_peen_hammer",
+      "translated_name": "둥근 망치 만들기"
+    },
+    "uc.recipe.make_biscuits": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Biscuits",
+      "recipe_id": "uc.recipe.make_biscuits",
+      "translated_name": "비스킷 만들기"
+    },
+    "uc.recipe.make_bowl_of_beans": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Bowl of Beans",
+      "recipe_id": "uc.recipe.make_bowl_of_beans",
+      "translated_name": "그릇에 콩 담기 "
+    },
+    "uc.recipe.make_bowl_of_cereal": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Bowl of Cereal",
+      "recipe_id": "uc.recipe.make_bowl_of_cereal",
+      "translated_name": "시리얼 그릇에 넣기"
+    },
+    "uc.recipe.make_bowl_of_oatmeal": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Bowl of Oatmeal",
+      "recipe_id": "uc.recipe.make_bowl_of_oatmeal",
+      "translated_name": "오트밀 그릇에 넣기"
+    },
+    "uc.recipe.make_bread_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Bread Dough",
+      "recipe_id": "uc.recipe.make_bread_dough",
+      "translated_name": "빵 반죽 만들기"
+    },
+    "uc.recipe.make_bucket_of_plaster": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Bucket of Plaster",
+      "recipe_id": "uc.recipe.make_bucket_of_plaster",
+      "translated_name": "양동이에 석고 반죽 만들기"
+    },
+    "uc.recipe.make_butter_knife": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Butter Knife",
+      "recipe_id": "uc.recipe.make_butter_knife",
+      "translated_name": "버터칼 만들기"
+    },
+    "uc.recipe.make_cage_trap": {
+      "category": "Trapper",
+      "nav_eligible": true,
+      "original_name": "Make Cage Trap",
+      "recipe_id": "uc.recipe.make_cage_trap",
+      "translated_name": "철장 덫 만들기"
+    },
+    "uc.recipe.make_cake_batter": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Cake Batter",
+      "recipe_id": "uc.recipe.make_cake_batter",
+      "translated_name": "케이크 반죽 만들기"
+    },
+    "uc.recipe.make_campfire_kit": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Campfire Kit",
+      "recipe_id": "uc.recipe.make_campfire_kit",
+      "translated_name": "모닥불 도구 만들기"
+    },
+    "uc.recipe.make_cheese_sandwich": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Cheese Sandwich",
+      "recipe_id": "uc.recipe.make_cheese_sandwich",
+      "translated_name": "치즈 샌드위치 만들기"
+    },
+    "uc.recipe.make_chocolate_chip_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Chocolate Chip Cookie Dough",
+      "recipe_id": "uc.recipe.make_chocolate_chip_cookie_dough",
+      "translated_name": "초코칩 쿠키 도우 만들기"
+    },
+    "uc.recipe.make_chocolate_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Chocolate Cookie Dough",
+      "recipe_id": "uc.recipe.make_chocolate_cookie_dough",
+      "translated_name": "초콜릿 쿠키 도우 만들기"
+    },
+    "uc.recipe.make_comfrey_poultice": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Make Comfrey Poultice",
+      "recipe_id": "uc.recipe.make_comfrey_poultice",
+      "translated_name": "나래지치 습포제 만들기"
+    },
+    "uc.recipe.make_cooking_pot": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Cooking Pot",
+      "recipe_id": "uc.recipe.make_cooking_pot",
+      "translated_name": "조리용 냄비 만들기"
+    },
+    "uc.recipe.make_crowbar": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Crowbar",
+      "recipe_id": "uc.recipe.make_crowbar",
+      "translated_name": "쇠지렛대 만들기"
+    },
+    "uc.recipe.make_door_knob": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Door Knob",
+      "recipe_id": "uc.recipe.make_door_knob",
+      "translated_name": "문 손잡이 만들기"
+    },
+    "uc.recipe.make_fishing_net": {
+      "category": "Fishing",
+      "nav_eligible": true,
+      "original_name": "Make Fishing Net",
+      "recipe_id": "uc.recipe.make_fishing_net",
+      "translated_name": "어망 만들기"
+    },
+    "uc.recipe.make_fishing_rod": {
+      "category": "Fishing",
+      "nav_eligible": true,
+      "original_name": "Make Fishing Rod",
+      "recipe_id": "uc.recipe.make_fishing_rod",
+      "translated_name": "낚싯대 만들기"
+    },
+    "uc.recipe.make_flame_bomb": {
+      "category": "Engineer",
+      "nav_eligible": true,
+      "original_name": "Make Flame bomb",
+      "recipe_id": "uc.recipe.make_flame_bomb",
+      "translated_name": "화염 폭탄 만들기"
+    },
+    "uc.recipe.make_flies_cure": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Make Flies Cure",
+      "recipe_id": "uc.recipe.make_flies_cure",
+      "translated_name": "살충제 만들기"
+    },
+    "uc.recipe.make_fork": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Fork",
+      "recipe_id": "uc.recipe.make_fork",
+      "translated_name": "포크 만들기"
+    },
+    "uc.recipe.make_four_log_stack": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Four-Log Stack",
+      "recipe_id": "uc.recipe.make_four_log_stack",
+      "translated_name": "통나무 4개 묶기"
+    },
+    "uc.recipe.make_fried_onion_rings": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Fried Onion Rings",
+      "recipe_id": "uc.recipe.make_fried_onion_rings",
+      "translated_name": "어니언 링 튀김 만들기"
+    },
+    "uc.recipe.make_fried_shrimp": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Fried Shrimp",
+      "recipe_id": "uc.recipe.make_fried_shrimp",
+      "translated_name": "새우 튀김 만들기"
+    },
+    "uc.recipe.make_golfclub": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Golfclub",
+      "recipe_id": "uc.recipe.make_golfclub",
+      "translated_name": "골프 클럽 만들기"
+    },
+    "uc.recipe.make_gravy": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Gravy",
+      "recipe_id": "uc.recipe.make_gravy",
+      "translated_name": "그레이비 소스 만들기"
+    },
+    "uc.recipe.make_halloween_pumpkin": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Halloween Pumpkin",
+      "recipe_id": "uc.recipe.make_halloween_pumpkin",
+      "translated_name": "핼러윈 호박 만들기"
+    },
+    "uc.recipe.make_hammer": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Hammer",
+      "recipe_id": "uc.recipe.make_hammer",
+      "translated_name": "망치 만들기"
+    },
+    "uc.recipe.make_hand_shovel": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Hand Shovel",
+      "recipe_id": "uc.recipe.make_hand_shovel",
+      "translated_name": "모종삽 만들기"
+    },
+    "uc.recipe.make_hinge": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Hinge",
+      "recipe_id": "uc.recipe.make_hinge",
+      "translated_name": "경첩 만들기"
+    },
+    "uc.recipe.make_hunting_knife": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Hunting Knife",
+      "recipe_id": "uc.recipe.make_hunting_knife",
+      "translated_name": "사냥용 칼 만들기"
+    },
+    "uc.recipe.make_jar_of_bell_peppers": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Bell Peppers",
+      "recipe_id": "uc.recipe.make_jar_of_bell_peppers",
+      "translated_name": "병에 파프리카 절이기"
+    },
+    "uc.recipe.make_jar_of_broccoli": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Broccoli",
+      "recipe_id": "uc.recipe.make_jar_of_broccoli",
+      "translated_name": "병에 브로콜리 절이기"
+    },
+    "uc.recipe.make_jar_of_cabbage": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Cabbage",
+      "recipe_id": "uc.recipe.make_jar_of_cabbage",
+      "translated_name": "병에 양배추 절이기"
+    },
+    "uc.recipe.make_jar_of_carrots": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Carrots",
+      "recipe_id": "uc.recipe.make_jar_of_carrots",
+      "translated_name": "병에 당근 절이기"
+    },
+    "uc.recipe.make_jar_of_eggplants": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Eggplants",
+      "recipe_id": "uc.recipe.make_jar_of_eggplants",
+      "translated_name": "병에 가지 절이기"
+    },
+    "uc.recipe.make_jar_of_leeks": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Leeks",
+      "recipe_id": "uc.recipe.make_jar_of_leeks",
+      "translated_name": "병에 대파 절이기"
+    },
+    "uc.recipe.make_jar_of_potatoes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Potatoes",
+      "recipe_id": "uc.recipe.make_jar_of_potatoes",
+      "translated_name": "병에 감자 절이기"
+    },
+    "uc.recipe.make_jar_of_red_radishes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Red Radishes",
+      "recipe_id": "uc.recipe.make_jar_of_red_radishes",
+      "translated_name": "병에 순무 절이기"
+    },
+    "uc.recipe.make_jar_of_tomatoes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Jar of Tomatoes",
+      "recipe_id": "uc.recipe.make_jar_of_tomatoes",
+      "translated_name": "병에 토마토 절이기"
+    },
+    "uc.recipe.make_kitchen_knife": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Kitchen Knife",
+      "recipe_id": "uc.recipe.make_kitchen_knife",
+      "translated_name": "부엌칼 만들기"
+    },
+    "uc.recipe.make_letter_opener": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Letter Opener",
+      "recipe_id": "uc.recipe.make_letter_opener",
+      "translated_name": "편지 개봉칼 만들기"
+    },
+    "uc.recipe.make_maki": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Maki",
+      "recipe_id": "uc.recipe.make_maki",
+      "translated_name": "김초밥 만들기"
+    },
+    "uc.recipe.make_mattress": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Mattress",
+      "recipe_id": "uc.recipe.make_mattress",
+      "translated_name": "매트리스 만들기"
+    },
+    "uc.recipe.make_meat_patty": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Meat Patty",
+      "recipe_id": "uc.recipe.make_meat_patty",
+      "translated_name": "고기 패티 만들기"
+    },
+    "uc.recipe.make_metal_bar": {
+      "category": "Welding",
+      "nav_eligible": true,
+      "original_name": "Make Metal Bar",
+      "recipe_id": "uc.recipe.make_metal_bar",
+      "translated_name": "금속 막대 만들기"
+    },
+    "uc.recipe.make_metal_drum": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Metal Drum",
+      "recipe_id": "uc.recipe.make_metal_drum",
+      "translated_name": "드럼통 만들기"
+    },
+    "uc.recipe.make_metal_pipe": {
+      "category": "Welding",
+      "nav_eligible": true,
+      "original_name": "Make Metal Pipe",
+      "recipe_id": "uc.recipe.make_metal_pipe",
+      "translated_name": "금속 파이프 만들기"
+    },
+    "uc.recipe.make_metal_sheet": {
+      "category": "Welding",
+      "nav_eligible": true,
+      "original_name": "Make Metal Sheet",
+      "recipe_id": "uc.recipe.make_metal_sheet",
+      "translated_name": "금속판 만들기"
+    },
+    "uc.recipe.make_mildew_cure": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Make Mildew Cure",
+      "recipe_id": "uc.recipe.make_mildew_cure",
+      "translated_name": "곰팡이 제거제 만들기"
+    },
+    "uc.recipe.make_molotov_cocktail": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Make Molotov Cocktail",
+      "recipe_id": "uc.recipe.make_molotov_cocktail",
+      "translated_name": "화염병 만들기"
+    },
+    "uc.recipe.make_mortar_and_pestle": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Mortar and Pestle",
+      "recipe_id": "uc.recipe.make_mortar_and_pestle",
+      "translated_name": "약사발 만들기"
+    },
+    "uc.recipe.make_nails": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Nails",
+      "recipe_id": "uc.recipe.make_nails",
+      "translated_name": "못 만들기"
+    },
+    "uc.recipe.make_newspaper_hat": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Make Newspaper Hat",
+      "recipe_id": "uc.recipe.make_newspaper_hat",
+      "translated_name": "신문지 모자 만들기"
+    },
+    "uc.recipe.make_noise_maker": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Noise Maker",
+      "recipe_id": "uc.recipe.make_noise_maker",
+      "translated_name": "소음 발생기 만들기"
+    },
+    "uc.recipe.make_oatmeal_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Oatmeal Cookie Dough",
+      "recipe_id": "uc.recipe.make_oatmeal_cookie_dough",
+      "translated_name": "오트밀 쿠기 도우 만들기"
+    },
+    "uc.recipe.make_onigiri": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Onigiri",
+      "recipe_id": "uc.recipe.make_onigiri",
+      "translated_name": "주먹밥 만들기"
+    },
+    "uc.recipe.make_pan": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Pan",
+      "recipe_id": "uc.recipe.make_pan",
+      "translated_name": "프라이팬 만들기"
+    },
+    "uc.recipe.make_pancake": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Pancake",
+      "recipe_id": "uc.recipe.make_pancake",
+      "translated_name": "팬케이크 만들기"
+    },
+    "uc.recipe.make_paperclips": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Paperclips",
+      "recipe_id": "uc.recipe.make_paperclips",
+      "translated_name": "종이 집게 만들기"
+    },
+    "uc.recipe.make_pie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Pie Dough",
+      "recipe_id": "uc.recipe.make_pie_dough",
+      "translated_name": "파이 반죽 만들기"
+    },
+    "uc.recipe.make_pipe_bomb": {
+      "category": "Engineer",
+      "nav_eligible": true,
+      "original_name": "Make Pipe bomb",
+      "recipe_id": "uc.recipe.make_pipe_bomb",
+      "translated_name": "파이프 폭탄 만들기"
+    },
+    "uc.recipe.make_pizza": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Pizza",
+      "recipe_id": "uc.recipe.make_pizza",
+      "translated_name": "피자 만들기"
+    },
+    "uc.recipe.make_plantain_poultice": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Make Plantain Poultice",
+      "recipe_id": "uc.recipe.make_plantain_poultice",
+      "translated_name": "질경이 습포제 만들기"
+    },
+    "uc.recipe.make_pot_of_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Pot of Soup",
+      "recipe_id": "uc.recipe.make_pot_of_soup",
+      "translated_name": "냄비에 스프 담기"
+    },
+    "uc.recipe.make_remote_controller_v1": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Remote Controller V1",
+      "recipe_id": "uc.recipe.make_remote_controller_v1",
+      "translated_name": "원격제어 조정기 (V1) 만들기"
+    },
+    "uc.recipe.make_remote_controller_v2": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Remote Controller V2",
+      "recipe_id": "uc.recipe.make_remote_controller_v2",
+      "translated_name": "원격제어 조정기 (V2) 만들기"
+    },
+    "uc.recipe.make_remote_controller_v3": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Remote Controller V3",
+      "recipe_id": "uc.recipe.make_remote_controller_v3",
+      "translated_name": "원격제어 조정기 (V3) 만들기"
+    },
+    "uc.recipe.make_remote_trigger": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Remote Trigger",
+      "recipe_id": "uc.recipe.make_remote_trigger",
+      "translated_name": "수제작 원격 폭탄 격발기 만들기"
+    },
+    "uc.recipe.make_roasting_pan": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Roasting Pan",
+      "recipe_id": "uc.recipe.make_roasting_pan",
+      "translated_name": "오븐 쟁반 만들기"
+    },
+    "uc.recipe.make_saucepan": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Saucepan",
+      "recipe_id": "uc.recipe.make_saucepan",
+      "translated_name": "손잡이 냄비 만들기"
+    },
+    "uc.recipe.make_saw": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Saw",
+      "recipe_id": "uc.recipe.make_saw",
+      "translated_name": "톱 만들기"
+    },
+    "uc.recipe.make_scissors": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Scissors",
+      "recipe_id": "uc.recipe.make_scissors",
+      "translated_name": "가위 만들기"
+    },
+    "uc.recipe.make_sheet_metal": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Sheet Metal",
+      "recipe_id": "uc.recipe.make_sheet_metal",
+      "translated_name": "금속판 만들기"
+    },
+    "uc.recipe.make_shortbread_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Shortbread Cookie Dough",
+      "recipe_id": "uc.recipe.make_shortbread_cookie_dough",
+      "translated_name": "쇼트브레드 쿠키 도우 만들기"
+    },
+    "uc.recipe.make_shotgun_shells": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Shotgun Shells",
+      "recipe_id": "uc.recipe.make_shotgun_shells",
+      "translated_name": "산탄 총탄 만들기"
+    },
+    "uc.recipe.make_shotgun_shells_mold": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Shotgun Shells Mold",
+      "recipe_id": "uc.recipe.make_shotgun_shells_mold",
+      "translated_name": "산탄 총탄 틀 만들기"
+    },
+    "uc.recipe.make_shovel": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Shovel",
+      "recipe_id": "uc.recipe.make_shovel",
+      "translated_name": "삽 만들기"
+    },
+    "uc.recipe.make_sledgehammer": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Sledgehammer",
+      "recipe_id": "uc.recipe.make_sledgehammer",
+      "translated_name": "대형 망치 만들기"
+    },
+    "uc.recipe.make_small_metal_sheet": {
+      "category": "Welding",
+      "nav_eligible": true,
+      "original_name": "Make Small Metal Sheet",
+      "recipe_id": "uc.recipe.make_small_metal_sheet",
+      "translated_name": "작은 금속판 만들기"
+    },
+    "uc.recipe.make_smoke_bomb": {
+      "category": "Engineer",
+      "nav_eligible": true,
+      "original_name": "Make Smoke Bomb",
+      "recipe_id": "uc.recipe.make_smoke_bomb",
+      "translated_name": "연막 폭탄 만들기"
+    },
+    "uc.recipe.make_snare_trap": {
+      "category": "Trapper",
+      "nav_eligible": true,
+      "original_name": "Make Snare Trap",
+      "recipe_id": "uc.recipe.make_snare_trap",
+      "translated_name": "올가미 덫 만들기"
+    },
+    "uc.recipe.make_splint": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Make Splint",
+      "recipe_id": "uc.recipe.make_splint",
+      "translated_name": "부목 만들기"
+    },
+    "uc.recipe.make_spoon": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Spoon",
+      "recipe_id": "uc.recipe.make_spoon",
+      "translated_name": "숟가락 만들기"
+    },
+    "uc.recipe.make_squid_calamari": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Squid Calamari",
+      "recipe_id": "uc.recipe.make_squid_calamari",
+      "translated_name": "칼라마리 만들기"
+    },
+    "uc.recipe.make_stake": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Stake",
+      "recipe_id": "uc.recipe.make_stake",
+      "translated_name": "말뚝 만들기"
+    },
+    "uc.recipe.make_stick_trap": {
+      "category": "Trapper",
+      "nav_eligible": true,
+      "original_name": "Make Stick Trap",
+      "recipe_id": "uc.recipe.make_stick_trap",
+      "translated_name": "막대 덫 만들기"
+    },
+    "uc.recipe.make_stone_axe": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Stone Axe",
+      "recipe_id": "uc.recipe.make_stone_axe",
+      "translated_name": "돌도끼 만들기"
+    },
+    "uc.recipe.make_stone_hammer": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Stone Hammer",
+      "recipe_id": "uc.recipe.make_stone_hammer",
+      "translated_name": "돌망치 만들기"
+    },
+    "uc.recipe.make_stone_knife": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Stone Knife",
+      "recipe_id": "uc.recipe.make_stone_knife",
+      "translated_name": "돌칼 만들기"
+    },
+    "uc.recipe.make_sturdy_stick": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Make Sturdy Stick",
+      "recipe_id": "uc.recipe.make_sturdy_stick",
+      "translated_name": "단단한 막대기 만들기"
+    },
+    "uc.recipe.make_sugar_cookie_dough": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Make Sugar Cookie Dough",
+      "recipe_id": "uc.recipe.make_sugar_cookie_dough",
+      "translated_name": "설탕 쿠기 도우 만들기"
+    },
+    "uc.recipe.make_suture_needle": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Suture Needle",
+      "recipe_id": "uc.recipe.make_suture_needle",
+      "translated_name": "봉합용 바늘 만들기"
+    },
+    "uc.recipe.make_suture_needle_holder": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Suture Needle Holder",
+      "recipe_id": "uc.recipe.make_suture_needle_holder",
+      "translated_name": "봉합용 바늘 집개 만들기"
+    },
+    "uc.recipe.make_tent_kit": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Make Tent Kit",
+      "recipe_id": "uc.recipe.make_tent_kit",
+      "translated_name": "텐트 장비 만들기"
+    },
+    "uc.recipe.make_three_log_stack": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Three-Log Stack",
+      "recipe_id": "uc.recipe.make_three_log_stack",
+      "translated_name": "통나무 3개 묶기"
+    },
+    "uc.recipe.make_timer": {
+      "category": "Electrical",
+      "nav_eligible": true,
+      "original_name": "Make Timer",
+      "recipe_id": "uc.recipe.make_timer",
+      "translated_name": "수제작 타이머 만들기"
+    },
+    "uc.recipe.make_tin_foil_hat": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Make Tin Foil Hat",
+      "recipe_id": "uc.recipe.make_tin_foil_hat",
+      "translated_name": "은박지 모자 만들기"
+    },
+    "uc.recipe.make_tongs": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Tongs",
+      "recipe_id": "uc.recipe.make_tongs",
+      "translated_name": "집게 만들기"
+    },
+    "uc.recipe.make_trap_box": {
+      "category": "Trapper",
+      "nav_eligible": true,
+      "original_name": "Make Trap Box",
+      "recipe_id": "uc.recipe.make_trap_box",
+      "translated_name": "덫상자 만들기"
+    },
+    "uc.recipe.make_tweezers": {
+      "category": "Smithing",
+      "nav_eligible": true,
+      "original_name": "Make Tweezers",
+      "recipe_id": "uc.recipe.make_tweezers",
+      "translated_name": "핀셋 만들기"
+    },
+    "uc.recipe.make_two_log_stack": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Make Two-Log Stack",
+      "recipe_id": "uc.recipe.make_two_log_stack",
+      "translated_name": "통나무 2개 묶기"
+    },
+    "uc.recipe.make_wild_garlic_poultice": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Make Wild Garlic Poultice",
+      "recipe_id": "uc.recipe.make_wild_garlic_poultice",
+      "translated_name": "곰파 습포제 만들기"
+    },
+    "uc.recipe.make_wooden_box_trap": {
+      "category": "Trapper",
+      "nav_eligible": true,
+      "original_name": "Make Wooden Box Trap",
+      "recipe_id": "uc.recipe.make_wooden_box_trap",
+      "translated_name": null
+    },
+    "uc.recipe.open_box_of_223_ammo": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of .223 Ammo",
+      "recipe_id": "uc.recipe.open_box_of_223_ammo",
+      "translated_name": ".223 탄 상자 열기"
+    },
+    "uc.recipe.open_box_of_308_ammo": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of .308 Ammo",
+      "recipe_id": "uc.recipe.open_box_of_308_ammo",
+      "translated_name": ".308 탄 상자 열기"
+    },
+    "uc.recipe.open_box_of_38_special_bullets": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of .38 Special Bullets",
+      "recipe_id": "uc.recipe.open_box_of_38_special_bullets",
+      "translated_name": ".38 스페셜탄 상자 열기 "
+    },
+    "uc.recipe.open_box_of_44_magnum_bullets": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of .44 Magnum Bullets",
+      "recipe_id": "uc.recipe.open_box_of_44_magnum_bullets",
+      "translated_name": ".44 매그넘탄 상자 열기"
+    },
+    "uc.recipe.open_box_of_45_auto_bullets": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of .45 Auto Bullets",
+      "recipe_id": "uc.recipe.open_box_of_45_auto_bullets",
+      "translated_name": ".45 자동탄 상자 열기"
+    },
+    "uc.recipe.open_box_of_556_ammo": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of .556 Ammo",
+      "recipe_id": "uc.recipe.open_box_of_556_ammo",
+      "translated_name": "5.56mm 탄 상자 열기"
+    },
+    "uc.recipe.open_box_of_9mm_bullets": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of 9mm Bullets",
+      "recipe_id": "uc.recipe.open_box_of_9mm_bullets",
+      "translated_name": "9mm 탄 상자 열기"
+    },
+    "uc.recipe.open_box_of_jars": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of Jars",
+      "recipe_id": "uc.recipe.open_box_of_jars",
+      "translated_name": "병이 들어있는 상자 열기"
+    },
+    "uc.recipe.open_box_of_nails": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of Nails",
+      "recipe_id": "uc.recipe.open_box_of_nails",
+      "translated_name": "못 상자 열기"
+    },
+    "uc.recipe.open_box_of_paperclip": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of Paperclip",
+      "recipe_id": "uc.recipe.open_box_of_paperclip",
+      "translated_name": "종이 집게 상자 열기"
+    },
+    "uc.recipe.open_box_of_screws": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of Screws",
+      "recipe_id": "uc.recipe.open_box_of_screws",
+      "translated_name": "나사 상자 열기"
+    },
+    "uc.recipe.open_box_of_shotgun_shells": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Box of Shotgun Shells",
+      "recipe_id": "uc.recipe.open_box_of_shotgun_shells",
+      "translated_name": "산탄 총탄 상자 열기"
+    },
+    "uc.recipe.open_candy_package": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Candy Package",
+      "recipe_id": "uc.recipe.open_candy_package",
+      "translated_name": "사탕 상자 열기"
+    },
+    "uc.recipe.open_canned_beans": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Beans",
+      "recipe_id": "uc.recipe.open_canned_beans",
+      "translated_name": "콩 통조림 열기"
+    },
+    "uc.recipe.open_canned_bolognese": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Bolognese",
+      "recipe_id": "uc.recipe.open_canned_bolognese",
+      "translated_name": "볼로냐 통조림 열기"
+    },
+    "uc.recipe.open_canned_carrots": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Carrots",
+      "recipe_id": "uc.recipe.open_canned_carrots",
+      "translated_name": "당근 통조림 열기"
+    },
+    "uc.recipe.open_canned_chili": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Chili",
+      "recipe_id": "uc.recipe.open_canned_chili",
+      "translated_name": "칠리 통조림 열기"
+    },
+    "uc.recipe.open_canned_corn": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Corn",
+      "recipe_id": "uc.recipe.open_canned_corn",
+      "translated_name": "옥수수 통조림 열기"
+    },
+    "uc.recipe.open_canned_corned_beef": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Corned Beef",
+      "recipe_id": "uc.recipe.open_canned_corned_beef",
+      "translated_name": "소고기 통조림 열기"
+    },
+    "uc.recipe.open_canned_fruit_beverage": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Fruit Beverage",
+      "recipe_id": "uc.recipe.open_canned_fruit_beverage",
+      "translated_name": "과일 음료 통조림 열기"
+    },
+    "uc.recipe.open_canned_fruit_cocktail": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Fruit Cocktail",
+      "recipe_id": "uc.recipe.open_canned_fruit_cocktail",
+      "translated_name": "프루트 칵테일 열기"
+    },
+    "uc.recipe.open_canned_mushroom_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Mushroom Soup",
+      "recipe_id": "uc.recipe.open_canned_mushroom_soup",
+      "translated_name": "버섯스프 통조림 열기"
+    },
+    "uc.recipe.open_canned_peaches": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Peaches",
+      "recipe_id": "uc.recipe.open_canned_peaches",
+      "translated_name": "복숭아 통조림 열기"
+    },
+    "uc.recipe.open_canned_peas": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Peas",
+      "recipe_id": "uc.recipe.open_canned_peas",
+      "translated_name": "완두콩 통조림 열기"
+    },
+    "uc.recipe.open_canned_pineapple": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Pineapple",
+      "recipe_id": "uc.recipe.open_canned_pineapple",
+      "translated_name": "파인애플 통조림 열기"
+    },
+    "uc.recipe.open_canned_potato": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Potato",
+      "recipe_id": "uc.recipe.open_canned_potato",
+      "translated_name": "감자 통조림 열기"
+    },
+    "uc.recipe.open_canned_sardines": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Sardines",
+      "recipe_id": "uc.recipe.open_canned_sardines",
+      "translated_name": "정어리 통조림 열기"
+    },
+    "uc.recipe.open_canned_soup": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Soup",
+      "recipe_id": "uc.recipe.open_canned_soup",
+      "translated_name": "스프 통조림 열기"
+    },
+    "uc.recipe.open_canned_tomato": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Tomato",
+      "recipe_id": "uc.recipe.open_canned_tomato",
+      "translated_name": "토마토 통조림 열기"
+    },
+    "uc.recipe.open_canned_tuna": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Canned Tuna",
+      "recipe_id": "uc.recipe.open_canned_tuna",
+      "translated_name": "참치 통조림 열기"
+    },
+    "uc.recipe.open_condensed_milk": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Condensed Milk",
+      "recipe_id": "uc.recipe.open_condensed_milk",
+      "translated_name": "연유 통조림 열기"
+    },
+    "uc.recipe.open_dog_food": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Dog Food",
+      "recipe_id": "uc.recipe.open_dog_food",
+      "translated_name": "개 사료 통조림 열기"
+    },
+    "uc.recipe.open_egg_carton": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Egg Carton",
+      "recipe_id": "uc.recipe.open_egg_carton",
+      "translated_name": "달걀곽에서 달걀 빼기"
+    },
+    "uc.recipe.open_jar_of_bell_peppers": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Bell Peppers",
+      "recipe_id": "uc.recipe.open_jar_of_bell_peppers",
+      "translated_name": "파프리카 담긴 병 열기"
+    },
+    "uc.recipe.open_jar_of_broccoli": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Broccoli",
+      "recipe_id": "uc.recipe.open_jar_of_broccoli",
+      "translated_name": "브로콜리 담긴 병 열기"
+    },
+    "uc.recipe.open_jar_of_cabbage": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Cabbage",
+      "recipe_id": "uc.recipe.open_jar_of_cabbage",
+      "translated_name": "양배추 담긴 병 열기"
+    },
+    "uc.recipe.open_jar_of_carrots": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Carrots",
+      "recipe_id": "uc.recipe.open_jar_of_carrots",
+      "translated_name": "당근 담긴 병 열기"
+    },
+    "uc.recipe.open_jar_of_eggplants": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Eggplants",
+      "recipe_id": "uc.recipe.open_jar_of_eggplants",
+      "translated_name": "가지 담긴 병 열기"
+    },
+    "uc.recipe.open_jar_of_leeks": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Leeks",
+      "recipe_id": "uc.recipe.open_jar_of_leeks",
+      "translated_name": "대파 담긴 병 열기"
+    },
+    "uc.recipe.open_jar_of_potatoes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Potatoes",
+      "recipe_id": "uc.recipe.open_jar_of_potatoes",
+      "translated_name": "감자 담긴 병 열기"
+    },
+    "uc.recipe.open_jar_of_red_radishes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Red Radishes",
+      "recipe_id": "uc.recipe.open_jar_of_red_radishes",
+      "translated_name": "순무 담긴 병 열기"
+    },
+    "uc.recipe.open_jar_of_tomatoes": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Open Jar of Tomatoes",
+      "recipe_id": "uc.recipe.open_jar_of_tomatoes",
+      "translated_name": "토마토 담긴 병 열기"
+    },
+    "uc.recipe.open_packet_of_broccoli_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Broccoli Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_broccoli_seeds",
+      "translated_name": "브로콜리 씨앗 봉투에서 꺼내기"
+    },
+    "uc.recipe.open_packet_of_cabbage_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Cabbage Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_cabbage_seeds",
+      "translated_name": "양배추 씨앗 봉투에서 꺼내기"
+    },
+    "uc.recipe.open_packet_of_carrot_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Carrot Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_carrot_seeds",
+      "translated_name": "당근 씨앗 봉투에서 꺼내기"
+    },
+    "uc.recipe.open_packet_of_potato_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Potato Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_potato_seeds",
+      "translated_name": "감자 씨앗 봉투에서 꺼내기"
+    },
+    "uc.recipe.open_packet_of_radish_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Radish Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_radish_seeds",
+      "translated_name": "순무 씨앗 봉투에서 꺼내기"
+    },
+    "uc.recipe.open_packet_of_strawberries_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Strawberries Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_strawberries_seeds",
+      "translated_name": "딸기 씨앗 봉투에서 꺼내기"
+    },
+    "uc.recipe.open_packet_of_tomato_seeds": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Open Packet of Tomato Seeds",
+      "recipe_id": "uc.recipe.open_packet_of_tomato_seeds",
+      "translated_name": "토마토 씨앗 봉투에서 꺼내기"
+    },
+    "uc.recipe.open_sack_of_apples": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Apples",
+      "recipe_id": "uc.recipe.open_sack_of_apples",
+      "translated_name": "포대 자루 (사과) 열기"
+    },
+    "uc.recipe.open_sack_of_bell_peppers": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Bell Peppers",
+      "recipe_id": "uc.recipe.open_sack_of_bell_peppers",
+      "translated_name": "포대 자루 (파프리카) 열기"
+    },
+    "uc.recipe.open_sack_of_broccoli": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Broccoli",
+      "recipe_id": "uc.recipe.open_sack_of_broccoli",
+      "translated_name": "포대 자루 (브로콜리) 열기"
+    },
+    "uc.recipe.open_sack_of_cabbages": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Cabbages",
+      "recipe_id": "uc.recipe.open_sack_of_cabbages",
+      "translated_name": "포대 자루 (양배추) 열기"
+    },
+    "uc.recipe.open_sack_of_carrots": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Carrots",
+      "recipe_id": "uc.recipe.open_sack_of_carrots",
+      "translated_name": "포대 자루 (당근) 열기"
+    },
+    "uc.recipe.open_sack_of_cherries": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Cherries",
+      "recipe_id": "uc.recipe.open_sack_of_cherries",
+      "translated_name": "포대 자루 (체리) 열기"
+    },
+    "uc.recipe.open_sack_of_corn": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Corn",
+      "recipe_id": "uc.recipe.open_sack_of_corn",
+      "translated_name": "포대 자루 (옥수수) 열기"
+    },
+    "uc.recipe.open_sack_of_eggplants": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Eggplants",
+      "recipe_id": "uc.recipe.open_sack_of_eggplants",
+      "translated_name": "포대 자루 (가지) 열기"
+    },
+    "uc.recipe.open_sack_of_grapes": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Grapes",
+      "recipe_id": "uc.recipe.open_sack_of_grapes",
+      "translated_name": "포대 자루 (포도) 열기"
+    },
+    "uc.recipe.open_sack_of_leeks": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Leeks",
+      "recipe_id": "uc.recipe.open_sack_of_leeks",
+      "translated_name": "포대 자루 (파) 열기"
+    },
+    "uc.recipe.open_sack_of_lettuce": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Lettuce",
+      "recipe_id": "uc.recipe.open_sack_of_lettuce",
+      "translated_name": "포대 자루 (양상추) 열기"
+    },
+    "uc.recipe.open_sack_of_onions": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Onions",
+      "recipe_id": "uc.recipe.open_sack_of_onions",
+      "translated_name": "포대 자루 (양파) 열기"
+    },
+    "uc.recipe.open_sack_of_peaches": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Peaches",
+      "recipe_id": "uc.recipe.open_sack_of_peaches",
+      "translated_name": "포대 자루 (복숭아) 열기"
+    },
+    "uc.recipe.open_sack_of_pears": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Pears",
+      "recipe_id": "uc.recipe.open_sack_of_pears",
+      "translated_name": "포대 자루 (배) 열기"
+    },
+    "uc.recipe.open_sack_of_potatoes": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Potatoes",
+      "recipe_id": "uc.recipe.open_sack_of_potatoes",
+      "translated_name": "포대 자루 (감자) 열기"
+    },
+    "uc.recipe.open_sack_of_radishes": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Radishes",
+      "recipe_id": "uc.recipe.open_sack_of_radishes",
+      "translated_name": "포대 자루 (순무) 열기"
+    },
+    "uc.recipe.open_sack_of_strawberries": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Strawberries",
+      "recipe_id": "uc.recipe.open_sack_of_strawberries",
+      "translated_name": "포대 자루 (딸기) 열기"
+    },
+    "uc.recipe.open_sack_of_tomatoes": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Sack of Tomatoes",
+      "recipe_id": "uc.recipe.open_sack_of_tomatoes",
+      "translated_name": "포대 자루 (토마토) 열기"
+    },
+    "uc.recipe.open_umbrella": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Open Umbrella",
+      "recipe_id": "uc.recipe.open_umbrella",
+      "translated_name": "우산 펼치기"
+    },
+    "uc.recipe.place_223_ammo_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place .223 Ammo in Box",
+      "recipe_id": "uc.recipe.place_223_ammo_in_box",
+      "translated_name": "상자에 .223 탄 넣기"
+    },
+    "uc.recipe.place_308_ammo_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place .308 Ammo in Box",
+      "recipe_id": "uc.recipe.place_308_ammo_in_box",
+      "translated_name": "상자에 .308 탄 넣기"
+    },
+    "uc.recipe.place_38_speciam_bullets_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place .38 Speciam Bullets in Box",
+      "recipe_id": "uc.recipe.place_38_speciam_bullets_in_box",
+      "translated_name": "상자에 .38 스페셜탄 넣기"
+    },
+    "uc.recipe.place_44_magnum_bullets_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place .44 Magnum Bullets in Box",
+      "recipe_id": "uc.recipe.place_44_magnum_bullets_in_box",
+      "translated_name": "상자에 .44 매그넘탄 넣기"
+    },
+    "uc.recipe.place_45_auto_bullets_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place .45 Auto Bullets in Box",
+      "recipe_id": "uc.recipe.place_45_auto_bullets_in_box",
+      "translated_name": "상자에 .45 자동탄 넣기"
+    },
+    "uc.recipe.place_556_ammo_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place .556 Ammo in Box",
+      "recipe_id": "uc.recipe.place_556_ammo_in_box",
+      "translated_name": "5.56mm 탄 상자에 넣기"
+    },
+    "uc.recipe.place_9mm_bullets_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place 9mm Bullets in Box",
+      "recipe_id": "uc.recipe.place_9mm_bullets_in_box",
+      "translated_name": "상자에 9mm 탄 넣기"
+    },
+    "uc.recipe.place_cake_in_baking_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Cake in Baking Pan",
+      "recipe_id": "uc.recipe.place_cake_in_baking_pan",
+      "translated_name": "빵 굽는 팬에 케이크 넣기"
+    },
+    "uc.recipe.place_nails_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place Nails in Box",
+      "recipe_id": "uc.recipe.place_nails_in_box",
+      "translated_name": "상자에 못 넣기"
+    },
+    "uc.recipe.place_paperclips_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place Paperclips in Box",
+      "recipe_id": "uc.recipe.place_paperclips_in_box",
+      "translated_name": "상자에 종이 집게 넣기"
+    },
+    "uc.recipe.place_pasta_in_cooking_pot": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Pasta in Cooking Pot",
+      "recipe_id": "uc.recipe.place_pasta_in_cooking_pot",
+      "translated_name": "요리솥에 파스타 담기"
+    },
+    "uc.recipe.place_pasta_in_saucepan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Pasta in Saucepan",
+      "recipe_id": "uc.recipe.place_pasta_in_saucepan",
+      "translated_name": "손잡이 냄비에 파스타 담기"
+    },
+    "uc.recipe.place_pie_in_baking_pan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Pie in Baking Pan",
+      "recipe_id": "uc.recipe.place_pie_in_baking_pan",
+      "translated_name": "빵 굽는 팬에 파이 넣기"
+    },
+    "uc.recipe.place_rice_in_cooking_pot": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Rice in Cooking Pot",
+      "recipe_id": "uc.recipe.place_rice_in_cooking_pot",
+      "translated_name": "요리솥에 밥 담기"
+    },
+    "uc.recipe.place_rice_in_saucepan": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Place Rice in Saucepan",
+      "recipe_id": "uc.recipe.place_rice_in_saucepan",
+      "translated_name": "손잡이 냄비에 밥 담기"
+    },
+    "uc.recipe.place_screws_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place Screws in Box",
+      "recipe_id": "uc.recipe.place_screws_in_box",
+      "translated_name": "상자에 나사 넣기"
+    },
+    "uc.recipe.place_shotgun_shells_in_box": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Place Shotgun Shells in Box",
+      "recipe_id": "uc.recipe.place_shotgun_shells_in_box",
+      "translated_name": "상자에 산탄 총탄 넣기"
+    },
+    "uc.recipe.prepare_muffins": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Prepare Muffins",
+      "recipe_id": "uc.recipe.prepare_muffins",
+      "translated_name": "머핀 만들기"
+    },
+    "uc.recipe.prepare_omelette": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Prepare Omelette",
+      "recipe_id": "uc.recipe.prepare_omelette",
+      "translated_name": "오믈렛 만들기"
+    },
+    "uc.recipe.put_alcohol_on_cotton": {
+      "category": "Health",
+      "nav_eligible": true,
+      "original_name": "Put Alcohol on Cotton",
+      "recipe_id": "uc.recipe.put_alcohol_on_cotton",
+      "translated_name": "살균된 약솜 만들기 (위스키)"
+    },
+    "uc.recipe.put_broccoli_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Broccoli Seeds in Packet",
+      "recipe_id": "uc.recipe.put_broccoli_seeds_in_packet",
+      "translated_name": "브로콜리 씨앗 봉투에 담기"
+    },
+    "uc.recipe.put_cabbage_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Cabbage Seeds in Packet",
+      "recipe_id": "uc.recipe.put_cabbage_seeds_in_packet",
+      "translated_name": "양배추 씨앗 봉투에 담기"
+    },
+    "uc.recipe.put_carrots_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Carrots Seeds in Packet",
+      "recipe_id": "uc.recipe.put_carrots_seeds_in_packet",
+      "translated_name": "당근 씨앗 봉투에 담기"
+    },
+    "uc.recipe.put_eggs_in_carton": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Put Eggs in Carton",
+      "recipe_id": "uc.recipe.put_eggs_in_carton",
+      "translated_name": "달걀곽에 달걀 넣기"
+    },
+    "uc.recipe.put_potato_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Potato Seeds in Packet",
+      "recipe_id": "uc.recipe.put_potato_seeds_in_packet",
+      "translated_name": "감자 씨앗 봉투에 담기"
+    },
+    "uc.recipe.put_radish_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Radish Seeds in Packet",
+      "recipe_id": "uc.recipe.put_radish_seeds_in_packet",
+      "translated_name": "순무 씨앗 봉투에 담기"
+    },
+    "uc.recipe.put_strawberry_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Strawberry Seeds in Packet",
+      "recipe_id": "uc.recipe.put_strawberry_seeds_in_packet",
+      "translated_name": "딸기 씨앗 봉투에 담기"
+    },
+    "uc.recipe.put_tomato_seeds_in_packet": {
+      "category": "Farming",
+      "nav_eligible": true,
+      "original_name": "Put Tomato Seeds in Packet",
+      "recipe_id": "uc.recipe.put_tomato_seeds_in_packet",
+      "translated_name": "토마토 씨앗 봉투에 담기"
+    },
+    "uc.recipe.reclaim_bread_knife_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Bread Knife from Spear",
+      "recipe_id": "uc.recipe.reclaim_bread_knife_from_spear",
+      "translated_name": "창에서 빵칼 회수하기"
+    },
+    "uc.recipe.reclaim_butter_knife_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Butter Knife from Spear",
+      "recipe_id": "uc.recipe.reclaim_butter_knife_from_spear",
+      "translated_name": "창에서 버터칼 회수하기"
+    },
+    "uc.recipe.reclaim_fork_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Fork from Spear",
+      "recipe_id": "uc.recipe.reclaim_fork_from_spear",
+      "translated_name": "창에서 포크 회수하기"
+    },
+    "uc.recipe.reclaim_hand_fork_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Hand Fork from Spear",
+      "recipe_id": "uc.recipe.reclaim_hand_fork_from_spear",
+      "translated_name": "창에서 손갈퀴 회수하기"
+    },
+    "uc.recipe.reclaim_hunting_knife_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Hunting Knife from Spear",
+      "recipe_id": "uc.recipe.reclaim_hunting_knife_from_spear",
+      "translated_name": "창에서 사냥용 칼 회수하기"
+    },
+    "uc.recipe.reclaim_ice_pick_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Ice Pick from Spear",
+      "recipe_id": "uc.recipe.reclaim_ice_pick_from_spear",
+      "translated_name": "창에서 얼음 송곳 회수하기"
+    },
+    "uc.recipe.reclaim_kitchen_knife_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Kitchen Knife from Spear",
+      "recipe_id": "uc.recipe.reclaim_kitchen_knife_from_spear",
+      "translated_name": "창에서 부엌칼 회수하기"
+    },
+    "uc.recipe.reclaim_letter_opener_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Letter Opener from Spear",
+      "recipe_id": "uc.recipe.reclaim_letter_opener_from_spear",
+      "translated_name": "창에서 편지칼 회수하기"
+    },
+    "uc.recipe.reclaim_machete_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Machete from Spear",
+      "recipe_id": "uc.recipe.reclaim_machete_from_spear",
+      "translated_name": "창에서 마체테 회수하기"
+    },
+    "uc.recipe.reclaim_scalpel_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Scalpel from Spear",
+      "recipe_id": "uc.recipe.reclaim_scalpel_from_spear",
+      "translated_name": "창에서 수술용 칼 회수하기"
+    },
+    "uc.recipe.reclaim_scissors_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Scissors from Spear",
+      "recipe_id": "uc.recipe.reclaim_scissors_from_spear",
+      "translated_name": "창에서 가위 회수하기"
+    },
+    "uc.recipe.reclaim_screwdriver_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Screwdriver from Spear",
+      "recipe_id": "uc.recipe.reclaim_screwdriver_from_spear",
+      "translated_name": "창에서 스크류드라이버 회수하기"
+    },
+    "uc.recipe.reclaim_spoon_from_spear": {
+      "category": "Survivalist",
+      "nav_eligible": true,
+      "original_name": "Reclaim Spoon from Spear",
+      "recipe_id": "uc.recipe.reclaim_spoon_from_spear",
+      "translated_name": "창에서 숟가락 회수하기"
+    },
+    "uc.recipe.refill_blow_torch": {
+      "category": "Welding",
+      "nav_eligible": true,
+      "original_name": "Refill Blow Torch",
+      "recipe_id": "uc.recipe.refill_blow_torch",
+      "translated_name": "용접가스 충전하기"
+    },
+    "uc.recipe.saw_logs": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Saw Logs",
+      "recipe_id": "uc.recipe.saw_logs",
+      "translated_name": "통나무 자르기"
+    },
+    "uc.recipe.saw_logs2": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Saw Logs2",
+      "recipe_id": "uc.recipe.saw_logs2",
+      "translated_name": "통나무 자르기"
+    },
+    "uc.recipe.saw_off_double_barrel_shotgun": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Saw Off Double Barrel Shotgun",
+      "recipe_id": "uc.recipe.saw_off_double_barrel_shotgun",
+      "translated_name": "더블 배럴 산탄총 자르기"
+    },
+    "uc.recipe.saw_off_shotgun": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Saw Off Shotgun",
+      "recipe_id": "uc.recipe.saw_off_shotgun",
+      "translated_name": "산탄총 총열 자르기"
+    },
+    "uc.recipe.scoop_ice_cream": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Scoop Ice Cream",
+      "recipe_id": "uc.recipe.scoop_ice_cream",
+      "translated_name": "아이스크림 푸기"
+    },
+    "uc.recipe.slice_baloney": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Baloney",
+      "recipe_id": "uc.recipe.slice_baloney",
+      "translated_name": "볼로냐 소시지 썰기"
+    },
+    "uc.recipe.slice_bread": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Bread",
+      "recipe_id": "uc.recipe.slice_bread",
+      "translated_name": "빵 자르기"
+    },
+    "uc.recipe.slice_cake": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Cake",
+      "recipe_id": "uc.recipe.slice_cake",
+      "translated_name": "케이크 자르기"
+    },
+    "uc.recipe.slice_fillet": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Fillet",
+      "recipe_id": "uc.recipe.slice_fillet",
+      "translated_name": "물고기 자르기"
+    },
+    "uc.recipe.slice_frog": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Frog",
+      "recipe_id": "uc.recipe.slice_frog",
+      "translated_name": "개구리 자르기"
+    },
+    "uc.recipe.slice_ham": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Ham",
+      "recipe_id": "uc.recipe.slice_ham",
+      "translated_name": "햄 썰기"
+    },
+    "uc.recipe.slice_onion": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Onion",
+      "recipe_id": "uc.recipe.slice_onion",
+      "translated_name": "양파 썰기"
+    },
+    "uc.recipe.slice_pie": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Pie",
+      "recipe_id": "uc.recipe.slice_pie",
+      "translated_name": "파이 자르기"
+    },
+    "uc.recipe.slice_pizza": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Pizza",
+      "recipe_id": "uc.recipe.slice_pizza",
+      "translated_name": "피자 자르기"
+    },
+    "uc.recipe.slice_salami": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Salami",
+      "recipe_id": "uc.recipe.slice_salami",
+      "translated_name": "살라미 소시지 썰기"
+    },
+    "uc.recipe.slice_watermelon": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Slice Watermelon",
+      "recipe_id": "uc.recipe.slice_watermelon",
+      "translated_name": "수박 자르기"
+    },
+    "uc.recipe.smash_bottle": {
+      "category": null,
+      "nav_eligible": true,
+      "original_name": "Smash Bottle",
+      "recipe_id": "uc.recipe.smash_bottle",
+      "translated_name": "병 부수기"
+    },
+    "uc.recipe.smash_watermelon": {
+      "category": "Cooking",
+      "nav_eligible": true,
+      "original_name": "Smash Watermelon",
+      "recipe_id": "uc.recipe.smash_watermelon",
+      "translated_name": "수박 부수기"
+    },
+    "uc.recipe.unstack_logs": {
+      "category": "Carpentry",
+      "nav_eligible": true,
+      "original_name": "Unstack Logs",
+      "recipe_id": "uc.recipe.unstack_logs",
+      "translated_name": "통나무 풀기"
+    }
+  },
+  "stats": {
+    "nav_eligible_count": 321,
+    "nav_ineligible_count": 0,
+    "nav_missing_index_count": 0,
+    "total_recipe_ucids": 321,
+    "uid_collision_count": 0
+  },
+  "version": "v2.4"
+}

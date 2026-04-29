@@ -9,6 +9,11 @@ Iris/build/description/*
 !Iris/build/description/v2/
 Iris/build/description/v2/*
 !Iris/build/description/v2/*.md
+!Iris/build/description/v2/dvf_3_3_facts_schema_v2.json
+!Iris/build/description/v2/compose_profiles_v2.json
+!Iris/build/description/v2/forbidden_patterns.json
+!Iris/build/description/v2/item_subject_overrides.json
+!Iris/build/description/v2/dvf_3_3_manual_supplements_v2.json
 !Iris/build/description/v2/schemas/
 Iris/build/description/v2/schemas/*
 !Iris/build/description/v2/schemas/phase3_*.json
@@ -16,6 +21,12 @@ Iris/build/description/v2/schemas/*
 Iris/build/description/v2/tools/*
 !Iris/build/description/v2/tools/build/
 Iris/build/description/v2/tools/build/*
+!Iris/build/description/v2/tools/build/compose_layer3_text.py
+!Iris/build/description/v2/tools/build/migrate_dvf_3_3_facts_v2.py
+!Iris/build/description/v2/tools/build/enrich_dvf_3_3_hints_v2.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_v2.py
+!Iris/build/description/v2/tools/build/export_dvf_3_3_pilot_v2.py
+!Iris/build/description/v2/tools/build/merge_cpr39_into_v2.py
 !Iris/build/description/v2/tools/build/generate_acquisition_master.py
 !Iris/build/description/v2/tools/build/export_phase3_pilot_input.py
 !Iris/build/description/v2/tools/build/build_phase3_sync_queue.py
@@ -26,6 +37,12 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/validate_phase3_candidate_state.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
+!Iris/build/description/v2/tests/test_migrate_dvf_3_3_facts_v2.py
+!Iris/build/description/v2/tests/test_compose_layer3_text_v2.py
+!Iris/build/description/v2/tests/test_enrich_dvf_3_3_hints_v2.py
+!Iris/build/description/v2/tests/test_validate_dvf_3_3_v2.py
+!Iris/build/description/v2/tests/test_export_dvf_3_3_pilot_v2.py
+!Iris/build/description/v2/tests/test_merge_cpr39_into_v2.py
 !Iris/build/description/v2/tests/test_phase3_*.py
 !Iris/build/description/v2/tests/test_phase3_sync_queue.py
 !Iris/build/description/v2/staging/

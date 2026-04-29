@@ -1,0 +1,119 @@
+{
+  "interaction_tool": {
+    "sentence_plan": [
+      {
+        "slots": [
+          "identity_hint"
+        ],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": [
+          "primary_use"
+        ],
+        "required": true,
+        "template": "{primary_use}."
+      },
+      {
+        "slots": [
+          "secondary_use"
+        ],
+        "required": false,
+        "template": "{secondary_use}."
+      },
+      {
+        "slots": [
+          "distinctive_mechanic_hint"
+        ],
+        "required": false,
+        "template": "{distinctive_mechanic_hint}."
+      },
+      {
+        "slots": [
+          "acquisition_hint"
+        ],
+        "required": false,
+        "template": "{acquisition_hint}."
+      }
+    ]
+  },
+  "interaction_component": {
+    "sentence_plan": [
+      {
+        "slots": [
+          "identity_hint"
+        ],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": [
+          "primary_use"
+        ],
+        "required": true,
+        "template": "{primary_use}."
+      },
+      {
+        "slots": [
+          "secondary_use"
+        ],
+        "required": false,
+        "template": "{secondary_use}."
+      },
+      {
+        "slots": [
+          "distinctive_mechanic_hint"
+        ],
+        "required": false,
+        "template": "{distinctive_mechanic_hint}."
+      },
+      {
+        "slots": [
+          "acquisition_hint"
+        ],
+        "required": false,
+        "template": "{acquisition_hint}."
+      }
+    ]
+  },
+  "interaction_output": {
+    "sentence_plan": [
+      {
+        "slots": [
+          "identity_hint"
+        ],
+        "required": true,
+        "template": "{identity_hint}."
+      },
+      {
+        "slots": [
+          "primary_use"
+        ],
+        "required": true,
+        "template": "{primary_use}."
+      },
+      {
+        "slots": [
+          "secondary_use"
+        ],
+        "required": false,
+        "template": "{secondary_use}."
+      },
+      {
+        "slots": [
+          "distinctive_mechanic_hint"
+        ],
+        "required": false,
+        "template": "{distinctive_mechanic_hint}."
+      },
+      {
+        "slots": [
+          "acquisition_hint"
+        ],
+        "required": false,
+        "template": "{acquisition_hint}."
+      }
+    ]
+  }
+}

@@ -1,0 +1,734 @@
+{
+  "version": "v2.4",
+  "recipe_rule_ids": [
+    "Resource.4-A.carpentry",
+    "Resource.4-A.smithing",
+    "Resource.4-A.welding",
+    "Resource.4-B.cooking",
+    "Resource.4-C.health",
+    "Resource.4-E.electrical",
+    "Resource.4-E.engineer",
+    "Tool.1-A.carpentry",
+    "Tool.1-A.smithing",
+    "Tool.1-A.welding",
+    "Tool.1-D.recipe",
+    "Tool.1-E.recipe",
+    "Tool.1-G.recipe"
+  ],
+  "matches": {
+    "Base.223BulletsMold": [
+      "Tool.1-A.smithing"
+    ],
+    "Base.308BulletsMold": [
+      "Tool.1-A.smithing"
+    ],
+    "Base.9mmBulletsMold": [
+      "Tool.1-A.smithing"
+    ],
+    "Base.Aerosolbomb": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.AlarmClock2": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Aluminum": [
+      "Resource.4-E.electrical",
+      "Resource.4-E.engineer"
+    ],
+    "Base.Amplifier": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Avocado": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Axe": [
+      "Tool.1-D.recipe"
+    ],
+    "Base.AxeStone": [
+      "Tool.1-D.recipe"
+    ],
+    "Base.BakingPan": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BakingSoda": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BakingTray": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BakingTray_Muffin": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BakingTray_Muffin_Recipe": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BallPeenHammer": [
+      "Tool.1-A.smithing"
+    ],
+    "Base.Baloney": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Bandage": [
+      "Resource.4-C.health"
+    ],
+    "Base.BandageDirty": [
+      "Resource.4-C.health"
+    ],
+    "Base.BaseballBat": [
+      "Resource.4-A.carpentry",
+      "Tool.1-D.recipe"
+    ],
+    "Base.BaseballBatNails": [
+      "Tool.1-D.recipe"
+    ],
+    "Base.Bass": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BellPepper": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BlowTorch": [
+      "Resource.4-A.welding"
+    ],
+    "Base.Bowl": [
+      "Resource.4-B.cooking",
+      "Tool.1-D.recipe"
+    ],
+    "Base.Bread": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BreadDough": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BreadSlices": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Broccoli": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.BucketEmpty": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.BucketWaterFull": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.Butter": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CakeBatter": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CakeRaw": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CandyPackage": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedBellPepper": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedBolognese": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedBroccoli": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedCabbage": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedCarrots": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedCarrots2": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedChili": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedCorn": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedCornedBeef": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedEggplant": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedFruitBeverage": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedFruitCocktail": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedLeek": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedMilk": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedMushroomSoup": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedMushroomSoupOpen": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedPeaches": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedPeas": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedPineapple": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedPotato": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedPotato2": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedRedRadish": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedSardines": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedTomato": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CannedTomato2": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Carrots": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Catfish": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Cereal": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Cheese": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.ChocolateChips": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CocoaPowder": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Coldpack": [
+      "Resource.4-E.engineer"
+    ],
+    "Base.Comfrey": [
+      "Resource.4-C.health"
+    ],
+    "Base.Cone": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CookieChocolateChipDough": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CookiesChocolateDough": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CookiesOatmealDough": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CookiesShortbreadDough": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CookiesSugarDough": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.CordlessPhone": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.CottonBalls": [
+      "Resource.4-C.health"
+    ],
+    "Base.Crappie": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.DeadBird": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.DeadMouse": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.DeadRabbit": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.DeadRat": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.DeadSquirrel": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.DenimStrips": [
+      "Resource.4-C.health",
+      "Resource.4-E.engineer"
+    ],
+    "Base.DenimStripsDirty": [
+      "Resource.4-C.health",
+      "Resource.4-E.engineer"
+    ],
+    "Base.Dogfood": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Doorknob": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.DuctTape": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Earbuds": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Egg": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.EggCarton": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Eggplant": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.ElectronicsScrap": [
+      "Resource.4-E.electrical",
+      "Resource.4-E.engineer"
+    ],
+    "Base.EmptyJar": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.FlameTrap": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Flour": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Frog": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.GardenSaw": [
+      "Tool.1-A.carpentry"
+    ],
+    "Base.Glue": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.GravyMix": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.GriddlePanFriedVegetables": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.GunPowder": [
+      "Resource.4-A.smithing",
+      "Resource.4-E.engineer"
+    ],
+    "Base.Ham": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.HandAxe": [
+      "Tool.1-D.recipe"
+    ],
+    "Base.HandTorch": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Handle": [
+      "Resource.4-A.smithing"
+    ],
+    "Base.Headphones": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.HomeAlarm": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Icecream": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.IronIngot": [
+      "Resource.4-A.smithing",
+      "Resource.4-A.welding"
+    ],
+    "Base.JarLid": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Lard": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.LeatherStripsDirty": [
+      "Resource.4-C.health"
+    ],
+    "Base.Leek": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.LightBulb": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.LightBulbGreen": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Log": [
+      "Resource.4-A.carpentry",
+      "Tool.1-D.recipe"
+    ],
+    "Base.LogStacks2": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.LogStacks3": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.LogStacks4": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.Margarine": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.MeatCleaver": [
+      "Tool.1-D.recipe",
+      "Tool.1-G.recipe"
+    ],
+    "Base.MetalBar": [
+      "Resource.4-A.smithing"
+    ],
+    "Base.MetalPipe": [
+      "Resource.4-A.welding",
+      "Resource.4-E.engineer"
+    ],
+    "Base.MincedMeat": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.MotionSensor": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.MuffinTray": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Muffintray_Biscuit": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Nails": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.Newspaper": [
+      "Resource.4-E.engineer"
+    ],
+    "Base.NoiseTrap": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.OatsRaw": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.OmeletteRecipe": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Onion": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.OnionRings": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.OpenBeans": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Pan": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PanFriedVegetables": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PanFriedVegetables2": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PancakeMix": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Panfish": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Pasta": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PastaPan": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PastaPot": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Perch": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PieDough": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PieWholeRaw": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PieWholeRawSweet": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Pike": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Pillow": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.PipeBomb": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.PizzaRecipe": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PizzaWhole": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Plank": [
+      "Resource.4-A.carpentry",
+      "Resource.4-A.smithing",
+      "Resource.4-C.health",
+      "Tool.1-D.recipe"
+    ],
+    "Base.Plantain": [
+      "Resource.4-C.health"
+    ],
+    "Base.PlasterPowder": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.Pot": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PotOfSoup": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PotOfSoupRecipe": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PotOfStew": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.PropaneTank": [
+      "Resource.4-A.welding"
+    ],
+    "Base.Pumpkin": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Receiver": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Remote": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Rice": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.RicePan": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.RicePot": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.RippedSheets": [
+      "Resource.4-C.health",
+      "Resource.4-E.engineer"
+    ],
+    "Base.RippedSheetsDirty": [
+      "Resource.4-C.health",
+      "Resource.4-E.engineer"
+    ],
+    "Base.RollingPin": [
+      "Tool.1-D.recipe"
+    ],
+    "Base.Salami": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Salt": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Seaweed": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Sheet": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.SheetMetal": [
+      "Resource.4-A.welding"
+    ],
+    "Base.ShotgunShellsMold": [
+      "Tool.1-A.smithing"
+    ],
+    "Base.Shrimp": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.SmallSheetMetal": [
+      "Resource.4-A.welding"
+    ],
+    "Base.SmokeBomb": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Sparklers": [
+      "Resource.4-E.engineer"
+    ],
+    "Base.Spatula": [
+      "Tool.1-D.recipe"
+    ],
+    "Base.Speaker": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Squid": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Thread": [
+      "Resource.4-A.carpentry"
+    ],
+    "Base.Timer": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.TimerCrafted": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.TinnedBeans": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.TinnedSoup": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.TinnedSoupOpen": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Tongs": [
+      "Tool.1-A.smithing"
+    ],
+    "Base.Torch": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.TreeBranch": [
+      "Resource.4-C.health"
+    ],
+    "Base.TriggerCrafted": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Trout": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.TunaTin": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Twine": [
+      "Resource.4-E.engineer"
+    ],
+    "Base.VideoGame": [
+      "Resource.4-E.electrical"
+    ],
+    "Base.Vinegar": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.WaterBottleEmpty": [
+      "Resource.4-E.engineer"
+    ],
+    "Base.WaterPot": [
+      "Resource.4-B.cooking",
+      "Resource.4-C.health"
+    ],
+    "Base.WaterPotPasta": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.WaterPotRice": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.WaterSaucepan": [
+      "Resource.4-B.cooking",
+      "Resource.4-C.health"
+    ],
+    "Base.WaterSaucepanPasta": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.WaterSaucepanRice": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.Watermelon": [
+      "Resource.4-B.cooking"
+    ],
+    "Base.WildGarlic": [
+      "Resource.4-C.health"
+    ],
+    "Base.WildGarlic2": [
+      "Resource.4-C.health"
+    ],
+    "Base.WoodAxe": [
+      "Tool.1-D.recipe"
+    ],
+    "Base.WoodenStick": [
+      "Resource.4-C.health"
+    ],
+    "Base.Yeast": [
+      "Resource.4-B.cooking"
+    ],
+    "Radio.CDplayer": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.ElectricWire": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.HamRadio1": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.HamRadio2": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.RadioBlack": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.RadioReceiver": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.RadioRed": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.RadioTransmitter": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.TvAntique": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.TvBlack": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.TvWideScreen": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.WalkieTalkie1": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.WalkieTalkie2": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.WalkieTalkie3": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.WalkieTalkie4": [
+      "Resource.4-E.electrical"
+    ],
+    "Radio.WalkieTalkie5": [
+      "Resource.4-E.electrical"
+    ],
+    "farming.Bacon": [
+      "Resource.4-B.cooking"
+    ],
+    "farming.BaconRashers": [
+      "Resource.4-B.cooking"
+    ],
+    "farming.Cabbage": [
+      "Resource.4-B.cooking"
+    ],
+    "farming.Potato": [
+      "Resource.4-B.cooking"
+    ],
+    "farming.RedRadish": [
+      "Resource.4-B.cooking"
+    ],
+    "farming.Tomato": [
+      "Resource.4-B.cooking"
+    ]
+  }
+}

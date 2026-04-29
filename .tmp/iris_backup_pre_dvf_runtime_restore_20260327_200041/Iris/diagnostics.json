@@ -1,0 +1,322 @@
+{
+  "meta": {
+    "lua_files": 888,
+    "script_files": 153,
+    "sha256_context_outcomes": "92b694f7f38c55e3bd11249f7cb74e2d4ca433bd47346cc27d901224b562e2cd",
+    "generated_at": "2026-02-04T06:09:21.522343"
+  },
+  "prohibited_tokens": {
+    "counts": {
+      "getText(": 4317,
+      "tooltip": 1625,
+      "displayName": 34,
+      "getLabel(": 25
+    },
+    "samples": [
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 43,
+        "token": "getText(",
+        "context": "local buildOption = context:addOption(getText(\"ContextMenu_Blacksmith\"), worldobjects, nil);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 47,
+        "token": "getText(",
+        "context": "local furnaceOption = subMenu:addOption(getText(\"ContextMenu_Stone_Furnace\"), worldobjects, ISBlacksmithMenu.onStoneFurnace, player);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 53,
+        "token": "getText(",
+        "context": "toolTip:setName(getText(\"ContextMenu_Stone_Furnace\"));"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 54,
+        "token": "getText(",
+        "context": "toolTip.description = getText(\"Tooltip_craft_stoneFurnaceDesc\") .. \" <LINE> \";"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 63,
+        "token": "getText(",
+        "context": "local anvilOption = subMenu:addOption(getText(\"ContextMenu_Anvil\"), worldobjects, ISBlacksmithMenu.onAnvil, player);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 69,
+        "token": "getText(",
+        "context": "toolTip:setName(getText(\"ContextMenu_Anvil\"));"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 70,
+        "token": "getText(",
+        "context": "toolTip.description = getText(\"Tooltip_craft_anvilDesc\") .. \" <LINE> \";"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 101,
+        "token": "getText(",
+        "context": "local drumOption = subMenu:addOption(getText(\"ContextMenu_Metal_Drum\"), worldobjects, ISBlacksmithMenu.onMetalDrum, player, \"crafted_01_24\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 107,
+        "token": "getText(",
+        "context": "toolTip:setName(getText(\"ContextMenu_Metal_Drum\"));"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 108,
+        "token": "getText(",
+        "context": "toolTip.description = getText(\"Tooltip_craft_metalDrumDesc\") .. \" <LINE> \";"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 130,
+        "token": "getText(",
+        "context": "local buildMWOption = context:addOption(getText(\"ContextMenu_MetalWelding\"), worldobjects, nil);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 142,
+        "token": "getText(",
+        "context": "local containerOption = subMenuMW:addOption(getText(\"ContextMenu_Container\"), worldobjects, nil);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 146,
+        "token": "getText(",
+        "context": "local shelvesOption = subMenuContainer:addOption(getText(\"ContextMenu_MetalShelves\"), worldobjects, ISBlacksmithMenu.onMetalShelves, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 147,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(shelvesOption, getText(\"ContextMenu_MetalShelves\"), \"furniture_shelving_01_28\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 151,
+        "token": "getText(",
+        "context": "local crateOption = subMenuContainer:addOption(getText(\"ContextMenu_MetalCrate\"), worldobjects, ISBlacksmithMenu.onMetalCrate, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 152,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(crateOption, getText(\"ContextMenu_MetalCrate\"), \"constructedobjects_01_44\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 156,
+        "token": "getText(",
+        "context": "local metalCounterOption = subMenuContainer:addOption(getText(\"ContextMenu_MetalCounter\"), worldobjects, ISBlacksmithMenu.onMetalCounter, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 157,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(metalCounterOption, getText(\"ContextMenu_MetalCounter\"), \"fixtures_counters_01_35\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 161,
+        "token": "getText(",
+        "context": "local metalCounterCornerOption = subMenuContainer:addOption(getText(\"ContextMenu_MetalCounterCorner\"), worldobjects, ISBlacksmithMenu.onMetalCounterCorner, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 162,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(metalCounterCornerOption, getText(\"ContextMenu_MetalCounterCorner\"), \"fixtures_counters_01_36\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 166,
+        "token": "getText(",
+        "context": "local smallLockerOption = subMenuContainer:addOption(getText(\"ContextMenu_SmallLocker\"), worldobjects, ISBlacksmithMenu.onSmallLocker, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 167,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(smallLockerOption, getText(\"ContextMenu_SmallLocker\"), \"furniture_storage_02_8\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 171,
+        "token": "getText(",
+        "context": "local bigLockerOption = subMenuContainer:addOption(getText(\"ContextMenu_BigLocker\"), worldobjects, ISBlacksmithMenu.onBigLocker, player,\"3\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 172,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(bigLockerOption, getText(\"ContextMenu_BigLocker\"), \"furniture_storage_02_12\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 183,
+        "token": "getText(",
+        "context": "local wallOption = subMenuMW:addOption(getText(\"ContextMenu_WallFencing\"), worldobjects, nil);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 192,
+        "token": "getText(",
+        "context": "local frame = subMenuWall:addOption(getText(\"ContextMenu_MetalWallFrame\"), worldobjects, ISBlacksmithMenu.onMetalWallFrame, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 193,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(frame, getText(\"ContextMenu_MetalWallFrame\"), \"constructedobjects_01_68\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 201,
+        "token": "getText(",
+        "context": "local fenceOption = subMenuWall:addOption(getText(\"ContextMenu_MetalFence\"), worldobjects, ISBlacksmithMenu.onMetalFence, player,\"1\",fenceSprite);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 202,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(fenceOption, getText(\"ContextMenu_MetalFence\"), fenceSprite.sprite);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 206,
+        "token": "getText(",
+        "context": "local fencePoleOption = subMenuWall:addOption(getText(\"ContextMenu_MetalPoleFence\"), worldobjects, ISBlacksmithMenu.onMetalPoleFence, player,\"1\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 207,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(fencePoleOption, getText(\"ContextMenu_MetalPoleFence\"), \"constructedobjects_01_62\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 211,
+        "token": "getText(",
+        "context": "local wiredfenceOption = subMenuWall:addOption(getText(\"ContextMenu_WiredFence\"), worldobjects, ISBlacksmithMenu.onWiredFence, player,\"1\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 212,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(wiredfenceOption, getText(\"ContextMenu_WiredFence\"), \"fencing_01_25\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 217,
+        "token": "getText(",
+        "context": "local bigWiredFenceOption = subMenuWall:addOption(getText(\"ContextMenu_BigWiredFence\"), worldobjects, ISBlacksmithMenu.onBigWiredFence, player,\"1\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 218,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(bigWiredFenceOption, getText(\"ContextMenu_BigWiredFence\"), \"fencing_01_57\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 223,
+        "token": "getText(",
+        "context": "local bigFenceOption = subMenuWall:addOption(getText(\"ContextMenu_BigMetalFence\"), worldobjects, ISBlacksmithMenu.onBigMetalFence, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 224,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(bigFenceOption, getText(\"ContextMenu_BigMetalFence\"), \"constructedobjects_01_78\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 230,
+        "token": "getText(",
+        "context": "local doorOption = subMenuMW:addOption(getText(\"ContextMenu_Door\"), worldobjects, nil);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 234,
+        "token": "getText(",
+        "context": "local fenceGateOption = subMenuDoor:addOption(getText(\"ContextMenu_MetalFenceGate\"), worldobjects, ISBlacksmithMenu.onFenceGate, player,\"1\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 235,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(fenceGateOption, getText(\"ContextMenu_MetalFenceGate\"), \"fixtures_doors_fences_01_28\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 239,
+        "token": "getText(",
+        "context": "local bigFenceGateOption = subMenuDoor:addOption(getText(\"ContextMenu_BigMetalFenceGate\"), worldobjects, ISBlacksmithMenu.onBigMetalFenceGate, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 240,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(bigFenceGateOption, getText(\"ContextMenu_BigMetalFenceGate\"), \"fixtures_doors_fences_01_24\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 244,
+        "token": "getText(",
+        "context": "local doubleDoorOption = subMenuDoor:addOption(getText(\"ContextMenu_BigMetalDoubleDoor\"), worldobjects, ISBlacksmithMenu.onDoublePoleDoor, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 245,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(doubleDoorOption, getText(\"ContextMenu_BigMetalDoubleDoor\"), \"fixtures_doors_fences_01_80\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 249,
+        "token": "getText(",
+        "context": "local doubleDoorOption = subMenuDoor:addOption(getText(\"ContextMenu_Double_Metal_Door\"), worldobjects, ISBlacksmithMenu.onDoubleMetalDoor, player,\"2\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 250,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(doubleDoorOption, getText(\"ContextMenu_Double_Metal_Door\"), \"fixtures_doors_fences_01_64\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 266,
+        "token": "getText(",
+        "context": "local metalFloorOption = subMenuMW:addOption(getText(\"ContextMenu_MetalRoof\"), worldobjects, ISBlacksmithMenu.onMetalFloor, player,\"1\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 267,
+        "token": "getText(",
+        "context": "local toolTip = ISBlacksmithMenu.addToolTip(metalFloorOption, getText(\"ContextMenu_MetalRoof\"), \"constructedobjects_01_86\");"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 370,
+        "token": "getText(",
+        "context": "local lightOption = context:addOption(getText(\"ContextMenu_LitStoneFurnace\"), worldobjects, nil);"
+      },
+      {
+        "file": "client/Blacksmith/ISUI/ISBlacksmithMenu.lua",
+        "line": 407,
+        "token": "getText(",
+        "context": "local lightOption = context:addOption(getText(\"ContextMenu_LitDrum\"), worldobjects, nil);"
+      }
+    ]
+  },
+  "notes": [
+    "Diagnostics are non-fatal by design (v3).",
+    "Outcomes in this run were derived from script fields CanBeEquipped, ActivatedItem, CanBePlaced, CanStoreWater, ReplaceOnDeplete. Lua-based signal scanning was not applied in this run."
+  ]
+}

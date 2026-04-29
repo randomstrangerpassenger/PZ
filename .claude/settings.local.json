@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m json.tool)",
+      "Bash(python3 -c \"import sys, json; [print\\(json.dumps\\(json.loads\\(line\\), ensure_ascii=False, indent=2\\)\\) for line in sys.stdin]\")",
+      "Bash(grep -r compose C:UsersMWDownloadscodingPZIris/_docs/*.md)",
+      "Bash(python3 -c \":*)",
+      "Bash(python3 Iris/lua/convert_layer3_to_lua.py)",
+      "Bash(python Iris/lua/convert_layer3_to_lua.py)"
+    ]
+  }
+}

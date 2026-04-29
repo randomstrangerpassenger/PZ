@@ -1,0 +1,111 @@
+[
+  {
+    "kind": "item_review",
+    "fulltype": "Base.BallPeenHammer",
+    "review_reason": "prove unknown: executing_tool",
+    "rule_ids": [
+      "rule_tooldef_hammer"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.BlowTorch",
+    "review_reason": "prove unknown: executing_tool",
+    "rule_ids": [
+      "rule_tooldef_blowtorch"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.GardenSaw",
+    "review_reason": "prove unknown: executing_tool",
+    "rule_ids": [
+      "rule_tooldef_saw"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.Hammer",
+    "review_reason": "prove unknown: executing_tool",
+    "rule_ids": [
+      "rule_tooldef_hammer"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.HammerStone",
+    "review_reason": "prove unknown: executing_tool",
+    "rule_ids": [
+      "rule_tooldef_hammer"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.PetrolBleachBottle",
+    "review_reason": "property_based exclusion (auto conclusion forbidden)",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.PetrolCan",
+    "review_reason": "property_based exclusion (auto conclusion forbidden)",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.PetrolPopBottle",
+    "review_reason": "property_based exclusion (auto conclusion forbidden)",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.Saw",
+    "review_reason": "prove unknown: executing_tool",
+    "rule_ids": [
+      "rule_tooldef_saw"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.Screwdriver",
+    "review_reason": "prove unknown: executing_tool",
+    "rule_ids": [
+      "rule_tooldef_screwdriver"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.WaterBottlePetrol",
+    "review_reason": "property_based exclusion (auto conclusion forbidden)",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.WhiskeyPetrol",
+    "review_reason": "property_based exclusion (auto conclusion forbidden)",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ]
+  },
+  {
+    "kind": "item_review",
+    "fulltype": "Base.WinePetrol",
+    "review_reason": "property_based exclusion (auto conclusion forbidden)",
+    "rule_ids": [
+      "rule_worldobject_predicatepetrol"
+    ]
+  },
+  {
+    "kind": "rule_blocked",
+    "rule_id": "rule_moveabledefinitions_scrapdefinitions",
+    "blocked_reason": "scrapDefinitions 테이블은 material 기반 정의이며, items_itemscript.json의 FullType에 결정적으로 매칭할 criteria가 부재. 후보 집합을 결정적으로 산출 불가."
+  }
+]

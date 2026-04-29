@@ -1,0 +1,303 @@
+{
+  "version": "v2.4",
+  "group_def_dynamic_policy": "PERMANENT_REVIEW",
+  "total_groups": 33,
+  "resolved_count": 28,
+  "unresolved_count": 5,
+  "tag_index_canonical": "strip, drop_empty, case_preserve, sort_unique",
+  "groups": {
+    "BakingFat": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Butter",
+        "Base.Lard",
+        "Base.Margarine",
+        "Base.OilOlive",
+        "Base.OilVegetable"
+      ]
+    },
+    "CanOpener": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.TinOpener"
+      ]
+    },
+    "Cheese": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Cheese",
+        "Base.Processedcheese"
+      ]
+    },
+    "CraftLogStack": {
+      "status": "resolved",
+      "method": "lua_tag_alias",
+      "matched_fulltypes": [
+        "Base.Rope",
+        "Base.SheetRope"
+      ],
+      "alias_tag": "Rope"
+    },
+    "Disinfectant": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Disinfectant"
+      ]
+    },
+    "DismantleCamera": {
+      "status": "resolved",
+      "method": "lua_tag_alias",
+      "matched_fulltypes": [
+        "Base.Camera",
+        "Base.CameraDisposable",
+        "Base.CameraExpensive"
+      ],
+      "alias_tag": "Camera"
+    },
+    "DismantleDigitalWatch": {
+      "status": "resolved",
+      "method": "static_filter",
+      "matched_fulltypes": [
+        "Base.WristWatch_Left_DigitalBlack",
+        "Base.WristWatch_Left_DigitalDress",
+        "Base.WristWatch_Left_DigitalRed",
+        "Base.WristWatch_Right_DigitalBlack",
+        "Base.WristWatch_Right_DigitalDress",
+        "Base.WristWatch_Right_DigitalRed"
+      ],
+      "filter": {
+        "type_eq": "AlarmClockClothing",
+        "name_contains": "Digital"
+      }
+    },
+    "DullKnife": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.BreadKnife",
+        "Base.ButterKnife"
+      ]
+    },
+    "Egg": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Egg",
+        "Base.WildEggs"
+      ]
+    },
+    "FishMeat": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.FishFillet",
+        "Base.Salmon"
+      ]
+    },
+    "Flour": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Cornflour",
+        "Base.Flour"
+      ]
+    },
+    "Hammer": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.BallPeenHammer",
+        "Base.Hammer",
+        "Base.HammerStone"
+      ]
+    },
+    "Liquor": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.WhiskeyFull"
+      ]
+    },
+    "Milk": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.CannedMilkOpen",
+        "Base.Milk"
+      ]
+    },
+    "MortarPestle": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.MortarPestle"
+      ]
+    },
+    "Oil": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.OilOlive",
+        "Base.OilVegetable"
+      ]
+    },
+    "Petrol": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.PetrolBleachBottle",
+        "Base.PetrolCan",
+        "Base.PetrolPopBottle",
+        "Base.WaterBottlePetrol",
+        "Base.WhiskeyPetrol",
+        "Base.WinePetrol"
+      ]
+    },
+    "PizzaSauce": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.TomatoPaste"
+      ]
+    },
+    "Rice": {
+      "status": "resolved",
+      "method": "lua_tag_alias",
+      "matched_fulltypes": [
+        "Base.WaterPotRice",
+        "Base.WaterSaucepanRice"
+      ],
+      "alias_tag": "RiceRecipe"
+    },
+    "Saw": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.GardenSaw",
+        "Base.Saw"
+      ]
+    },
+    "Scissors": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Scissors"
+      ]
+    },
+    "Screwdriver": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Screwdriver"
+      ]
+    },
+    "SewingNeedle": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Needle"
+      ]
+    },
+    "SharpKnife": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.FlintKnife",
+        "Base.HuntingKnife",
+        "Base.KitchenKnife",
+        "Base.Machete"
+      ]
+    },
+    "Spoon": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Spoon"
+      ]
+    },
+    "StartFire": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.CandleLit",
+        "Base.Lighter",
+        "Base.Matches"
+      ]
+    },
+    "Sugar": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.Sugar",
+        "Base.SugarBrown",
+        "Base.SugarPacket"
+      ]
+    },
+    "WeldingMask": {
+      "status": "resolved",
+      "method": "tag_match",
+      "matched_fulltypes": [
+        "Base.WeldingMask"
+      ]
+    },
+    "CraftSheetRope": {
+      "status": "unresolved",
+      "reason": "group_def_dynamic",
+      "policy": "PERMANENT_REVIEW",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "rationale": "depends_on_unreconstructable_runtime_table",
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.CraftSheetRope"
+    },
+    "RipClothing_Cotton": {
+      "status": "unresolved",
+      "reason": "group_def_dynamic",
+      "policy": "PERMANENT_REVIEW",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "rationale": "depends_on_unreconstructable_runtime_table",
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.RipClothing_Cotton"
+    },
+    "RipClothing_Denim": {
+      "status": "unresolved",
+      "reason": "group_def_dynamic",
+      "policy": "PERMANENT_REVIEW",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "rationale": "depends_on_unreconstructable_runtime_table",
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.RipClothing_Denim"
+    },
+    "RipClothing_Leather": {
+      "status": "unresolved",
+      "reason": "group_def_dynamic",
+      "policy": "PERMANENT_REVIEW",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "rationale": "depends_on_unreconstructable_runtime_table",
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.RipClothing_Leather"
+    },
+    "RipSheets": {
+      "status": "unresolved",
+      "reason": "group_def_dynamic",
+      "policy": "PERMANENT_REVIEW",
+      "depends_on": [
+        "FabricType",
+        "ClothingRecipesDefinitions"
+      ],
+      "rationale": "depends_on_unreconstructable_runtime_table",
+      "source_ref": "recipecode.lua::Recipe.GetItemTypes.RipSheets"
+    }
+  }
+}

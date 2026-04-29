@@ -1,0 +1,69 @@
+{
+  "artifact": "forbidden_patterns",
+  "round": "Iris DVF 3-3 compose authority migration round",
+  "phase": "B",
+  "version": "v0.1",
+  "status": "draft",
+  "patterns": [
+    {
+      "id": "compose_external_repair",
+      "status": "forbidden",
+      "owner": "compose",
+      "description": "Compose 밖의 별도 repair/rewrite stage로 본문을 수정하지 않는다."
+    },
+    {
+      "id": "post_validator_rewrite",
+      "status": "forbidden",
+      "owner": "validator",
+      "description": "Validator 이후 same-build rewrite 또는 text patch 경로를 두지 않는다."
+    },
+    {
+      "id": "runtime_patch",
+      "status": "forbidden",
+      "owner": "runtime",
+      "description": "Lua bridge, Browser, Wiki, runtime consumer가 rendered 본문을 즉석 수정하지 않는다."
+    },
+    {
+      "id": "style_linter_promotion",
+      "status": "forbidden",
+      "owner": "advisory_sensor",
+      "description": "Style linter를 writer input 또는 runtime gate로 승격하지 않는다."
+    },
+    {
+      "id": "overlay_builder_writer_promotion",
+      "status": "forbidden",
+      "owner": "overlay",
+      "description": "Overlay builder를 section policy writer, quality writer, publish writer로 승격하지 않는다."
+    },
+    {
+      "id": "validator_writer_promotion",
+      "status": "forbidden",
+      "owner": "validator",
+      "description": "Validator가 quality_state, publish_state, compose policy를 기록하거나 수정하지 않는다."
+    },
+    {
+      "id": "raw_layer_source_direct_read",
+      "status": "forbidden",
+      "owner": "compose",
+      "description": "Compose가 1/2/4계층 raw source를 직접 읽지 않는다. cross-layer 입력은 body_source_overlay만 허용한다."
+    },
+    {
+      "id": "browser_wiki_lua_compose_substitution",
+      "status": "forbidden",
+      "owner": "runtime_consumer",
+      "description": "Browser, Wiki, Lua bridge가 compose를 대신하지 않는다."
+    },
+    {
+      "id": "structural_signal_same_build_recompose",
+      "status": "forbidden",
+      "owner": "feedback",
+      "description": "Structural signal을 같은 빌드에서 즉시 re-compose나 publish mutation으로 되감지 않는다."
+    },
+    {
+      "id": "external_adapter_preprocessor",
+      "status": "forbidden",
+      "owner": "compatibility_adapter",
+      "description": "Compatibility adapter를 compose_layer3_text.py 외부 preprocessor로 두지 않는다."
+    }
+  ]
+}

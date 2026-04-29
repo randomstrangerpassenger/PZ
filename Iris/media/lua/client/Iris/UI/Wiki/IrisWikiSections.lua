@@ -129,6 +129,124 @@ function IrisWikiSections.renderTagsSection(item)
     return getLabel("Iris_Detail_Tags") .. ": " .. table.concat(sorted, ", ")
 end
 
+local function trimText(value)
+    if not value then
+        return ""
+    end
+    return tostring(value):gsub("^%s+", ""):gsub("%s+$", "")
+end
+
+local function isSentenceBoundary(text, index)
+    local char = text:sub(index, index)
+    if char ~= "." and char ~= "!" and char ~= "?" then
+        return false
+    end
+    if char == "." then
+        local prev = index > 1 and text:sub(index - 1, index - 1) or ""
+        local next = index < #text and text:sub(index + 1, index + 1) or ""
+        if prev:match("%d") and next:match("%d") then
+            return false
+        end
+    end
+    return true
+end
+
+local function splitSentences(text)
+    local sentences = {}
+    local startIndex = 1
+
+    for i = 1, #text do
+        if isSentenceBoundary(text, i) then
+            local sentence = trimText(text:sub(startIndex, i))
+            if sentence ~= "" then
+                table.insert(sentences, sentence)
+            end
+            startIndex = i + 1
+        end
+    end
+
+    local tail = trimText(text:sub(startIndex))
+    if tail ~= "" then
+        table.insert(sentences, tail)
+    end
+
+    return sentences
+end
+
+local function formatLayer3DisplayText(text)
+    if not text or text == "" then
+        return text
+    end
+
+    local formattedLines = {}
+    for rawLine in tostring(text):gmatch("[^\n]+") do
+        local line = trimText(rawLine)
+        if line ~= "" then
+            local sentences = splitSentences(line)
+            if #sentences <= 2 then
+                table.insert(formattedLines, line)
+            else
+                local chunkIndex = 1
+                while chunkIndex <= #sentences do
+                    local chunk = {sentences[chunkIndex]}
+                    if sentences[chunkIndex + 1] then
+                        table.insert(chunk, sentences[chunkIndex + 1])
+                    end
+                    table.insert(formattedLines, table.concat(chunk, " "))
+                    chunkIndex = chunkIndex + 2
+                end
+            end
+        end
+    end
+
+    if #formattedLines == 0 then
+        return trimText(text)
+    end
+
+    return table.concat(formattedLines, "\n")
+end
+
+function IrisWikiSections.renderLayer3Section(item)
+    local Layer3Renderer = nil
+    local l3ok, l3mod = pcall(require, "Iris/Data/layer3_renderer")
+    if l3ok then
+        Layer3Renderer = l3mod
+    end
+    if not Layer3Renderer or not item then
+        return nil
+    end
+
+    local fullType = nil
+    if item.getFullType then
+        local ftOk, ftResult = pcall(function() return item:getFullType() end)
+        if ftOk then
+            fullType = ftResult
+        end
+    end
+    if not fullType and item.getFullName then
+        local fnOk, fnResult = pcall(function() return item:getFullName() end)
+        if fnOk then
+            fullType = fnResult
+        end
+    end
+    if not fullType and item.fullType then
+        fullType = item.fullType
+    end
+    if not fullType then
+        return nil
+    end
+
+    print("[Iris:Layer3] renderLayer3Section fullType=" .. tostring(fullType))
+
+    local l3text = Layer3Renderer.getText(fullType)
+    if l3text and l3text ~= "" then
+        print("[Iris:Layer3] renderLayer3Section found text for " .. tostring(fullType))
+        return formatLayer3DisplayText(l3text)
+    end
+    print("[Iris:Layer3] renderLayer3Section no text for " .. tostring(fullType))
+    return nil
+end
+
 --- C) 음식/소모품 속성 섹션 렌더링
 function IrisWikiSections.renderFoodSection(item)
     local parts = {}
@@ -293,21 +411,8 @@ function IrisWikiSections.getAllSections(item)
     local tags = IrisWikiSections.renderTagsSection(item)
     if tags then table.insert(sections, tags) end
     
-    -- 3계층 개별 아이템 설명 (DVF)
-    local Layer3Renderer = nil
-    local l3ok, l3mod = pcall(require, "Iris/Data/layer3_renderer")
-    if l3ok then Layer3Renderer = l3mod end
-    if Layer3Renderer then
-        local fullType = nil
-        if item.getFullType then
-            local ftOk, ftResult = pcall(function() return item:getFullType() end)
-            if ftOk then fullType = ftResult end
-        end
-        if fullType then
-            local l3text = Layer3Renderer.getText(fullType)
-            if l3text then table.insert(sections, l3text) end
-        end
-    end
+    local layer3 = IrisWikiSections.renderLayer3Section(item)
+    if layer3 then table.insert(sections, layer3) end
     
     local food = IrisWikiSections.renderFoodSection(item)
     if food then table.insert(sections, food) end

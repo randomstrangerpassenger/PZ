@@ -86,6 +86,21 @@ function IrisWikiPanel.createPanel(item)
     local reasonLabel = ISLabel:new(10, yOffset, 20, reasonSection, 0.8, 0.8, 0.8, 1, UIFont.Small, true)
     panel:addChild(reasonLabel)
     yOffset = yOffset + 25
+
+    -- B.25) 3계층 본문
+    local layer3Section = IrisWikiSections.renderLayer3Section(item)
+    if layer3Section then
+        local renderedLineCount = 0
+        for line in layer3Section:gmatch("[^\n]+") do
+            local layer3Label = ISLabel:new(10, yOffset, 20, line, 0.9, 0.9, 0.9, 1, UIFont.Small, true)
+            panel:addChild(layer3Label)
+            yOffset = yOffset + 18
+            renderedLineCount = renderedLineCount + 1
+        end
+        if renderedLineCount > 0 then
+            yOffset = yOffset + 7
+        end
+    end
     
     -- B.5) UseCase (빌드 산출물 표시 전용)
     local usecaseSection = IrisWikiSections.renderUseCaseSection(item)

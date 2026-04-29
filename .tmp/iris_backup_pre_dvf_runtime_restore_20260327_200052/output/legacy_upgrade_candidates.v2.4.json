@@ -1,0 +1,12 @@
+{
+  "version": "v2.4",
+  "total": 0,
+  "_sort_keys": [
+    "support_status (resolved first)",
+    "candidate_count desc",
+    "pass_count desc",
+    "diagnosis length asc",
+    "rule_id asc"
+  ],
+  "candidates": []
+}

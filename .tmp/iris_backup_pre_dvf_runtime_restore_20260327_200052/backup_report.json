@@ -1,0 +1,9 @@
+﻿{
+    "created_at":  "2026-03-27T20:00:52",
+    "backup_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\.tmp\\iris_backup_pre_dvf_runtime_restore_20260327_200052",
+    "source":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris",
+    "excluded":  [
+                     "build\\\\description\\\\v2\\\\.tmp_tests"
+                 ],
+    "purpose":  "pre_dvf_runtime_restore"
+}

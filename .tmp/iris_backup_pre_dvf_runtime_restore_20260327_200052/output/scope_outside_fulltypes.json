@@ -1,0 +1,3278 @@
+{
+  "Base.Aerosolbomb": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.AerosolbombRemote": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.AerosolbombSensorV1": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.AerosolbombSensorV2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.AerosolbombSensorV3": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.AerosolbombTriggered": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.AlarmClock": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.AlarmClock2": {
+    "Type": "AlarmClock",
+    "DisplayCategory": "Household"
+  },
+  "Base.AlcoholBandage": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.AlcoholRippedSheets": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.AlcoholWipes": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.AlcoholedCottonBalls": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.Amplifier": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.Antibiotics": {
+    "Type": "Food",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.AssaultRifle": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.AssaultRifle2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.Axe": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.AxeStone": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.BackgammonBoard": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.BadmintonRacket": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Bag_ALICEpack": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_ALICEpack_Army": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_BigHikingBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_BowlingBallBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_DoctorBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_DuffelBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_DuffelBagTINT": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_FannyPackBack": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_FannyPackFront": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_FoodCanned": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_FoodSnacks": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_GolfBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_InmateEscapedBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_JanitorToolbox": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_MedicalBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_Military": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_MoneyBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_NormalHikingBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_Satchel": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_Schoolbag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_ShotgunBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_ShotgunDblBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_ShotgunDblSawnoffBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_ShotgunSawnoffBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_SurvivorBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_ToolBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_WeaponBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.Bag_WorkerBag": {
+    "Type": "Container",
+    "DisplayCategory": "Bag"
+  },
+  "Base.BakingPan": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.BakingSoda": {
+    "Type": "Drainable",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.BakingTray": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.BallPeenHammer": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.Bandage": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.BandageDirty": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.Bandaid": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.Banjo": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.BarBell": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.BareHands": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.Baseball": {
+    "Type": "Normal",
+    "DisplayCategory": "Sports"
+  },
+  "Base.BaseballBat": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.BaseballBatNails": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.Basketball": {
+    "Type": "Normal",
+    "DisplayCategory": "Sports"
+  },
+  "Base.BathTowel": {
+    "Type": "Drainable",
+    "DisplayCategory": "Household"
+  },
+  "Base.BathTowelWet": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.Battery": {
+    "Type": "Drainable",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.BeerCanEmpty": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Bell": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Bellows": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.Belt": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.BigGasTank1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.BigGasTank2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.BigGasTank3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.BigTrunk1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.BigTrunk2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.BigTrunk3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.BlowTorch": {
+    "Type": "Drainable",
+    "DisplayCategory": "Tool"
+  },
+  "Base.BluePen": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.BobPic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.BorisBadger": {
+    "Type": "Normal",
+    "DisplayCategory": "Badger"
+  },
+  "Base.BreadKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.Bricktoys": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Briefcase": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.BrokenFishingNet": {
+    "Type": "Normal",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.Broom": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.BucketConcreteFull": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.BucketPlasterFull": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.ButterKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.Button": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Camera": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CameraDisposable": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CameraExpensive": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CameraFilm": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Candle": {
+    "Type": "Drainable",
+    "DisplayCategory": "LightSource"
+  },
+  "Base.CandleLit": {
+    "Type": "Drainable",
+    "DisplayCategory": "LightSource"
+  },
+  "Base.CanoePadel": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.CanoePadelX2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.CarBattery1": {
+    "Type": "Drainable",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.CarBattery2": {
+    "Type": "Drainable",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.CarBattery3": {
+    "Type": "Drainable",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.CarBatteryCharger": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.CarKey": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.CardDeck": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CarvingFork": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.CaseyPic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CatToy": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Chainsaw": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.ChairLeg": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.Charcoal": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.CheckerBoard": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.ChessBlack": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.ChessWhite": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Chopsticks": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.ChrisPic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CleaningLiquid": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.CleaningLiquid2": {
+    "Type": "Drainable",
+    "DisplayCategory": "Household"
+  },
+  "Base.ClosedUmbrellaBlack": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.ClosedUmbrellaBlue": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.ClosedUmbrellaRed": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.ClosedUmbrellaWhite": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.ClubHammer": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.Coal": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.Coldpack": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.Cologne": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Comb": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CombinationPadlock": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.Comfrey": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.ComfreyCataplasm": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.CompostBag": {
+    "Type": "Drainable",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.Cooler": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.CordlessPhone": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.Cork": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Corkscrew": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CorpseFemale": {
+    "Type": "Normal",
+    "DisplayCategory": "Corpse"
+  },
+  "Base.CorpseMale": {
+    "Type": "Normal",
+    "DisplayCategory": "Corpse"
+  },
+  "Base.CortmanPic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CottonBalls": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.CraftedFishingRod": {
+    "Type": "Weapon",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.CraftedFishingRodTwineLine": {
+    "Type": "Weapon",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.Crayons": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CreditCard": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Crowbar": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.Cube": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CuttingBoardPlastic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.CuttingBoardWooden": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Dart": {
+    "Type": "Normal",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Dice": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.DigitalWatch": {
+    "Type": "Normal",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.DigitalWatch2": {
+    "Type": "AlarmClock",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.Disc": {
+    "Type": "Normal",
+    "DisplayCategory": "Entertainment"
+  },
+  "Base.Disc_Retail": {
+    "Type": "Normal",
+    "DisplayCategory": "Entertainment"
+  },
+  "Base.DishCloth": {
+    "Type": "Drainable",
+    "DisplayCategory": "Household"
+  },
+  "Base.DishClothWet": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.Disinfectant": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.DogChew": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Doll": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.DoubleBarrelShotgun": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.DoubleBarrelShotgunSawnoff": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.Drumstick": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.DuctTape": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.DumbBell": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Earbuds": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.Earrings": {
+    "Type": "Normal",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.ElectronicsScrap": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.EmptyJar": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.EmptyPetrolCan": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.EmptySandbag": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.EngineDoor1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.EngineDoor2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.EngineDoor3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.EngineParts": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.Eraser": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.Fertilizer": {
+    "Type": "Drainable",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.FertilizerEmpty": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.FireWoodKit": {
+    "Type": "Normal",
+    "DisplayCategory": "Camping"
+  },
+  "Base.FirstAidKit": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.FishingLine": {
+    "Type": "Drainable",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.FishingNet": {
+    "Type": "Normal",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.FishingRod": {
+    "Type": "Weapon",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.FishingRodBreak": {
+    "Type": "Weapon",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.FishingRodTwineLine": {
+    "Type": "Weapon",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.FishingTackle": {
+    "Type": "Normal",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.FishingTackle2": {
+    "Type": "Normal",
+    "DisplayCategory": "Fishing"
+  },
+  "Base.FlameTrap": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.FlameTrapRemote": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.FlameTrapSensorV1": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.FlameTrapSensorV2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.FlameTrapSensorV3": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.FlameTrapTriggered": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.Flightcase": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.FlintKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.FluffyfootBunny": {
+    "Type": "Normal",
+    "DisplayCategory": "Bunny"
+  },
+  "Base.Flute": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.Football": {
+    "Type": "Normal",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Football2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Fork": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.FountainCup": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Frame": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.FreddyFox": {
+    "Type": "Normal",
+    "DisplayCategory": "Fox"
+  },
+  "Base.FrontCarDoor1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.FrontCarDoor2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.FrontCarDoor3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.FrontWindow1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.FrontWindow2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.FrontWindow3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.FurbertSquirrel": {
+    "Type": "Normal",
+    "DisplayCategory": "Squirrel"
+  },
+  "Base.GamePieceBlack": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.GamePieceRed": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.GamePieceWhite": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Garbagebag": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.GardenFork": {
+    "Type": "Weapon",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.GardenHoe": {
+    "Type": "Weapon",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.GardenSaw": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.Generator": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.GloveBox1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.GloveBox2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.GloveBox3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.Glue": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.GolfBall": {
+    "Type": "Normal",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Golfclub": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.GravyMix": {
+    "Type": "Drainable",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.GridlePan": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.GrillBrush": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.GroceryBag1": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.GroceryBag2": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.GroceryBag3": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.GroceryBag4": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.GroceryBag5": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.GuitarAcoustic": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.GuitarElectricBassBlack": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.GuitarElectricBassBlue": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.GuitarElectricBassRed": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.GuitarElectricBlack": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.GuitarElectricBlue": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.GuitarElectricRed": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.Guitarcase": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.GunPowder": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.HairDyeBlack": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyeBlonde": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyeBlue": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyeGinger": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyeGreen": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyeLightBrown": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyePink": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyeRed": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyeWhite": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.HairDyeYellow": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.Hairgel": {
+    "Type": "Drainable",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.Hairspray": {
+    "Type": "Normal",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.Hammer": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.HammerStone": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.HandAxe": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.HandFork": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.HandScythe": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.HandTorch": {
+    "Type": "Drainable",
+    "DisplayCategory": "LightSource"
+  },
+  "Base.Handbag": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.HankPic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Headphones": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.HockeyStick": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.HolePuncher": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.HomeAlarm": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.HuntingKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.HuntingRifle": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.IceHockeyStick": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.IcePick": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.IronIngot": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.Jack": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.JacquesBeaver": {
+    "Type": "Normal",
+    "DisplayCategory": "Beaver"
+  },
+  "Base.JamesPic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.JarLid": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.Katana": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.KatePic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Key1": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.Key2": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.Key3": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.Key4": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.Key5": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.KeyPadlock": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.KeyRing": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Keytar": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.KitchenKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.KitchenTongs": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.KnittingNeedles": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.LaCrosseStick": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Lamp": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.LeadPipe": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.LeafRake": {
+    "Type": "Weapon",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.Leash": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.LetterOpener": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.LightBulb": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbBlue": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbCyan": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbGreen": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbMagenta": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbOrange": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbPink": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbPurple": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbRed": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.LightBulbYellow": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.Lighter": {
+    "Type": "Drainable",
+    "DisplayCategory": "LightSource"
+  },
+  "Base.Lipstick": {
+    "Type": "Normal",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.Locket": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.LouisvilleMap1": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LouisvilleMap2": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LouisvilleMap3": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LouisvilleMap4": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LouisvilleMap5": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LouisvilleMap6": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LouisvilleMap7": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LouisvilleMap8": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LouisvilleMap9": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.LugWrench": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.Lunchbag": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Lunchbox": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Lunchbox2": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Machete": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.MakeupEyeshadow": {
+    "Type": "Normal",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.MakeupFoundation": {
+    "Type": "Normal",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.Map": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.MarchRidgeMap": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.MariannePic": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Matches": {
+    "Type": "Drainable",
+    "DisplayCategory": "LightSource"
+  },
+  "Base.Mattress": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.MeatCleaver": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.MetalBar": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.MetalDrum": {
+    "Type": "Normal",
+    "DisplayCategory": "Hidden"
+  },
+  "Base.MetalPipe": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.Mirror": {
+    "Type": "Normal",
+    "DisplayCategory": "Appearance"
+  },
+  "Base.ModernBrake1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernBrake2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernBrake3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernCarMuffler1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernCarMuffler2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernCarMuffler3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernSuspension1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernSuspension2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernSuspension3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernTire1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernTire2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.ModernTire3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.MoleyMole": {
+    "Type": "Normal",
+    "DisplayCategory": "Mole"
+  },
+  "Base.Molotov": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.Money": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Mop": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.MortarPestle": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.MotionSensor": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.Mov_AirConditioner": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_AntiqueStove": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_ArcadeMachine1": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_ArcadeMachine2": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_BeachChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_BinRound": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Birdbath": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_BlueComfyChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_BluePlasticChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_BlueRattanChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_BrownComfyChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_BrownLowTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_CabinetMedical": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_CabinetTool": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_CardboardBox": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_ChromeSink": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_CoffeeMaker": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_ConcreteMixer": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_CorkBoard": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_DarkBlueChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_DarkWoodenChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_DegreeDoctor": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_DegreeSurgeon": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_DesktopComputer": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Doghouse": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Espresso": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FancyBlackChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FancyDarkTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FancyLowTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FancyTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FancyToilet": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FancyWhiteChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FitnessContraption": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FlagAdmin": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FlagUSA": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FlagUSALarge": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FoldingChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_FridgeMini": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GardenGnome": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GraveArched": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GraveRound": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GraveSquare": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GraveWorn": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GreenChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GreenComfyChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GreenOven": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GreyChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GreyComfyChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_GreyOven": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_HotdogMachine": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_HuntingTrophy": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_IndustrialSink": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Lamp1": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Lamp2": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Lamp3": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Lamp4": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Lamp5": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Lamp6": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_LightConstruction": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_LightRoundTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_LongTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Mailbox": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MannequinFemale": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MannequinMale": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MapUSA": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MetalLocker": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MetalStool": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Microphone": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Microwave": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Microwave2": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MirrorLarge": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MirrorSmall": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MirrorTall": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MirrorWood": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MobileBloodbag": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_MobileCounter": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_ModernOven": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_NapkinDispenser": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_OakRoundTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_OfficeChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_OrangeFuton": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_OrangeModernChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PaintingBetty": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PaintingElisa": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PaintingGreen": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PaintingLibrary": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PalletEmpty": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PileOCrepeChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PinballMachine": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PinkFlamingo": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PlasticChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PlasticLowTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PopcornMachine": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterDroids": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterElement": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterMedical": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterOmega": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterPaws": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterPieBlue": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterPieGreen": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterPiePink": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PosterPieRed": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Projector": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PurpleRattanChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_PurpleWoodenChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_RedBBQ": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_RedChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_RedOven": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_RedWoodenChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_RoadBarrier": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_RoadCone": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_RoadCone2": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_RoundTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_SatelliteDish": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_ScaleMedical": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_ShoppingBaskets": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_SignArmy": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_SignCitrus": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_SignRestricted": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_SignWarning": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_SmallTable": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_SodaMachine": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_TVCamera": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Toaster": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_TowelDispenser": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_Urinal": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_WallClock": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_WaterDispenser": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_WhiteComfyChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_WhiteSimpleChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_WhiteSink": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_WhiteWoodenChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_WoodenChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_WoodenStool": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.Mov_YellowModernChair": {
+    "Type": "Moveable",
+    "DisplayCategory": "Furniture"
+  },
+  "Base.MuffinTray": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.MuldraughMap": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.Necklacepearl": {
+    "Type": "Normal",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.Nightstick": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.NoiseTrap": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.NoiseTrapRemote": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.NoiseTrapSensorV1": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.NoiseTrapSensorV2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.NoiseTrapSensorV3": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.NoiseTrapTriggered": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.NormalBrake1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalBrake2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalBrake3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalCarMuffler1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalCarMuffler2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalCarMuffler3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalCarSeat1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalCarSeat2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalCarSeat3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalGasTank1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalGasTank2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalGasTank3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalSuspension1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalSuspension2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalSuspension3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalTire1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalTire2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalTire3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalTrunk1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalTrunk2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.NormalTrunk3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldBrake1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldBrake2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldBrake3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldCarMuffler1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldCarMuffler2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldCarMuffler3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldTire1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldTire2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OldTire3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.OvenMitt": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.Padlock": {
+    "Type": "Key",
+    "DisplayCategory": "Security"
+  },
+  "Base.PaintBlack": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintBlue": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintBrown": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintCyan": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintGreen": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintGrey": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintLightBlue": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintLightBrown": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintOrange": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintPink": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintPurple": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintRed": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintTurquoise": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintWhite": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.PaintYellow": {
+    "Type": "Drainable",
+    "DisplayCategory": "Paint"
+  },
+  "Base.Paintbrush": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.Pan": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.PancakeHedgehog": {
+    "Type": "Normal",
+    "DisplayCategory": "Hedgehog"
+  },
+  "Base.PancakeMix": {
+    "Type": "Drainable",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.PaperBag": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.PaperNapkins": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Paperbag_Jays": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Paperbag_Spiffos": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Pen": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.Pencil": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.PercedWood": {
+    "Type": "Normal",
+    "DisplayCategory": "Camping"
+  },
+  "Base.Perfume": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.PickAxe": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.PickAxeHandle": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.PickAxeHandleSpiked": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.Pills": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.PillsAntiDep": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.PillsBeta": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.PillsSleepingTablets": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.PillsVitamins": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.Pinecone": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.PipeBomb": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.PipeBombRemote": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.PipeBombSensorV1": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.PipeBombSensorV2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.PipeBombSensorV3": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.PipeBombTriggered": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.PipeWrench": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.Pistol": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.Pistol2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.Pistol3": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.PistolCase1": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.PistolCase2": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.PistolCase3": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Plank": {
+    "Type": "Weapon",
+    "DisplayCategory": "Material"
+  },
+  "Base.PlankNail": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.Plantain": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.PlantainCataplasm": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.PlasticTray": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Plasticbag": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Plate": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.PlateBlue": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.PlateFancy": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.PlateOrange": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Plunger": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.PokerChips": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.PoolBall": {
+    "Type": "Normal",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Poolcue": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Pop2Empty": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Pop3Empty": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.PopEmpty": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.PropaneTank": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.Purse": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Radio": {
+    "Type": "Normal",
+    "DisplayCategory": "Communications"
+  },
+  "Base.Rake": {
+    "Type": "Weapon",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.Razor": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.RearCarDoor1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearCarDoor2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearCarDoor3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearCarDoorDouble1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearCarDoorDouble2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearCarDoorDouble3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearWindow1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearWindow2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearWindow3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearWindshield1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearWindshield2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.RearWindshield3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.Receiver": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.RedPen": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.Remote": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.RemoteCraftedV1": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.RemoteCraftedV2": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.RemoteCraftedV3": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.Revolver": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.RevolverCase1": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.RevolverCase2": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.RevolverCase3": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Revolver_Long": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.Revolver_Short": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.RifleCase1": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.RifleCase2": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.RifleCase3": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Ring": {
+    "Type": "Normal",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.RippedSheets": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.RippedSheetsDirty": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.RiversideMap": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.RoastingPan": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.RollingPin": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.RosewoodMap": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.RubberBand": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Rubberducky": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Rubberducky2": {
+    "Type": "Drainable",
+    "DisplayCategory": "Junk"
+  },
+  "Base.SackCabbages": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.SackCarrots": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.SackOnions": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.SackPotatoes": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Saw": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.Saxophone": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.Scalpel": {
+    "Type": "Weapon",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.Scissors": {
+    "Type": "Weapon",
+    "DisplayCategory": "Household"
+  },
+  "Base.Screwdriver": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.SeedBag": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.SewingKit": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Shotgun": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.ShotgunCase1": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.ShotgunCase2": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.ShotgunSawnoff": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.Shovel": {
+    "Type": "Weapon",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.Shovel2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Gardening"
+  },
+  "Base.Sledgehammer": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.Sledgehammer2": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.SmallGasTank1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.SmallGasTank2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.SmallGasTank3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.SmallTrunk1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.SmallTrunk2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.SmallTrunk3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.SmashedBottle": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SmokeBomb": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.SmokeBombRemote": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.SmokeBombSensorV1": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.SmokeBombSensorV2": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.SmokeBombSensorV3": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.SmokeBombTriggered": {
+    "Type": "Weapon",
+    "DisplayCategory": "Explosives"
+  },
+  "Base.SnowShovel": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.Soap": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.Soap2": {
+    "Type": "Drainable",
+    "DisplayCategory": "Household"
+  },
+  "Base.SoccerBall": {
+    "Type": "Normal",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Spatula": {
+    "Type": "Normal",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.Speaker": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.SpearBreadKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearButterKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearCrafted": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearFork": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearHandFork": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearHuntingKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearIcePick": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearKnife": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearLetterOpener": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearMachete": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearScalpel": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearScissors": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearScrewdriver": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.SpearSpoon": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.Spiffo": {
+    "Type": "Normal",
+    "DisplayCategory": "Raccoon"
+  },
+  "Base.SpiffoBig": {
+    "Type": "Normal",
+    "DisplayCategory": "Raccoon"
+  },
+  "Base.Splint": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.Sponge": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.Spoon": {
+    "Type": "Weapon",
+    "DisplayCategory": "Cooking"
+  },
+  "Base.Stairs": {
+    "Type": "Normal",
+    "DisplayCategory": "Hidden"
+  },
+  "Base.Stake": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.Stapler": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Straw": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Suitcase": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.TableLeg": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.TennisBall": {
+    "Type": "Normal",
+    "DisplayCategory": "Sports"
+  },
+  "Base.TennisRacket": {
+    "Type": "Weapon",
+    "DisplayCategory": "Sports"
+  },
+  "Base.Timer": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.TimerCrafted": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.TirePump": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.Tissue": {
+    "Type": "Drainable",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.ToiletPaper": {
+    "Type": "Drainable",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Tongs": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "Base.Toolbox": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.Toothbrush": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Toothpaste": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Torch": {
+    "Type": "Drainable",
+    "DisplayCategory": "LightSource"
+  },
+  "Base.Tote": {
+    "Type": "Container",
+    "DisplayCategory": "Container"
+  },
+  "Base.ToyBear": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.ToyCar": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.TrailerTrunk1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.TrailerTrunk2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.TrailerTrunk3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.TrapBox": {
+    "Type": "Normal",
+    "DisplayCategory": "Trapping"
+  },
+  "Base.TrapCage": {
+    "Type": "Normal",
+    "DisplayCategory": "Trapping"
+  },
+  "Base.TrapCrate": {
+    "Type": "Normal",
+    "DisplayCategory": "Trapping"
+  },
+  "Base.TrapMouse": {
+    "Type": "Normal",
+    "DisplayCategory": "Trapping"
+  },
+  "Base.TrapSnare": {
+    "Type": "Normal",
+    "DisplayCategory": "Trapping"
+  },
+  "Base.TrapStick": {
+    "Type": "Normal",
+    "DisplayCategory": "Trapping"
+  },
+  "Base.TriggerCrafted": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.Trumpet": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.TrunkDoor1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.TrunkDoor2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.TrunkDoor3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.Twine": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.Umbrella": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.UmbrellaBlack": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.UmbrellaBlue": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.UmbrellaRed": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.UmbrellaWhite": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.Underwear1": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.Underwear2": {
+    "Type": "Normal",
+    "DisplayCategory": "Household"
+  },
+  "Base.VHS": {
+    "Type": "Normal",
+    "DisplayCategory": "Entertainment"
+  },
+  "Base.VHS_Home": {
+    "Type": "Normal",
+    "DisplayCategory": "Entertainment"
+  },
+  "Base.VHS_Retail": {
+    "Type": "Normal",
+    "DisplayCategory": "Entertainment"
+  },
+  "Base.VanSeatsTrunk2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.VarmintRifle": {
+    "Type": "Weapon",
+    "DisplayCategory": "Weapon"
+  },
+  "Base.VideoGame": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Base.Violin": {
+    "Type": "Weapon",
+    "DisplayCategory": "Instrument"
+  },
+  "Base.Wallet": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Wallet2": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Wallet3": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.Wallet4": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.WaterDish": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.WaterDrop": {
+    "Type": "Normal",
+    "DisplayCategory": "Hidden"
+  },
+  "Base.WeddingRing_Man": {
+    "Type": "Normal",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WeddingRing_Woman": {
+    "Type": "Normal",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WeldingRods": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.WestpointMap": {
+    "Type": "Map",
+    "DisplayCategory": "Cartography"
+  },
+  "Base.WildGarlic": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.WildGarlicCataplasm": {
+    "Type": "Normal",
+    "DisplayCategory": "FirstAid"
+  },
+  "Base.Windshield1": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.Windshield2": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.Windshield3": {
+    "Type": "Normal",
+    "DisplayCategory": "VehicleMaintenance"
+  },
+  "Base.Wire": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.WoodAxe": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.WoodenLance": {
+    "Type": "Weapon",
+    "DisplayCategory": "WeaponCrafted"
+  },
+  "Base.WoodenMallet": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.Woodglue": {
+    "Type": "Drainable",
+    "DisplayCategory": "Material"
+  },
+  "Base.Wrench": {
+    "Type": "Weapon",
+    "DisplayCategory": "ToolWeapon"
+  },
+  "Base.WristWatch_Left_ClassicBlack": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Left_ClassicBrown": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Left_ClassicGold": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Left_ClassicMilitary": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Left_DigitalBlack": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Left_DigitalDress": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Left_DigitalRed": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Right_ClassicBlack": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Right_ClassicBrown": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Right_ClassicGold": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Right_ClassicMilitary": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Right_DigitalBlack": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Right_DigitalDress": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.WristWatch_Right_DigitalRed": {
+    "Type": "AlarmClockClothing",
+    "DisplayCategory": "Accessory"
+  },
+  "Base.Yoyo": {
+    "Type": "Normal",
+    "DisplayCategory": "Junk"
+  },
+  "Base.brokenglass_1_0": {
+    "Type": "Moveable",
+    "DisplayCategory": "Junk"
+  },
+  "Base.brokenglass_1_1": {
+    "Type": "Moveable",
+    "DisplayCategory": "Junk"
+  },
+  "Base.brokenglass_1_2": {
+    "Type": "Moveable",
+    "DisplayCategory": "Junk"
+  },
+  "Base.brokenglass_1_3": {
+    "Type": "Moveable",
+    "DisplayCategory": "Junk"
+  },
+  "Radio.CDplayer": {
+    "Type": "Radio",
+    "DisplayCategory": "Electronics"
+  },
+  "Radio.ElectricWire": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Radio.HamRadio1": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.HamRadio2": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.HamRadioMakeShift": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.RadioBlack": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.RadioMakeShift": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.RadioReceiver": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Radio.RadioRed": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.RadioTransmitter": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Radio.ScannerModule": {
+    "Type": "Normal",
+    "DisplayCategory": "Electronics"
+  },
+  "Radio.TvAntique": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.TvBlack": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.TvWideScreen": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.WalkieTalkie1": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.WalkieTalkie2": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.WalkieTalkie3": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.WalkieTalkie4": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.WalkieTalkie5": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "Radio.WalkieTalkieMakeShift": {
+    "Type": "Radio",
+    "DisplayCategory": "Communications"
+  },
+  "camping.CampfireKit": {
+    "Type": "Normal",
+    "DisplayCategory": "Camping"
+  },
+  "camping.CampingTent": {
+    "Type": "Normal",
+    "DisplayCategory": "Camping"
+  },
+  "camping.CampingTentKit": {
+    "Type": "Normal",
+    "DisplayCategory": "Camping"
+  },
+  "camping.SteelAndFlint": {
+    "Type": "Normal",
+    "DisplayCategory": "Tool"
+  },
+  "camping.SteelKnuckle": {
+    "Type": "Normal",
+    "DisplayCategory": "Hidden"
+  },
+  "farming.BroccoliBagSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.BroccoliSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.CabbageBagSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.CabbageSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.CarrotBagSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.CarrotSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.GardeningSprayCigarettes": {
+    "Type": "Drainable",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.GardeningSprayMilk": {
+    "Type": "Drainable",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.HandShovel": {
+    "Type": "Weapon",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.PotatoBagSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.PotatoSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.RedRadishBagSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.RedRadishSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.StrewberrieBagSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.StrewberrieSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.TomatoBagSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  },
+  "farming.TomatoSeed": {
+    "Type": "Normal",
+    "DisplayCategory": "Gardening"
+  }
+}

@@ -16,7 +16,7 @@
 | `recipes_index_full.json` | `recipes_index` | Recipe 관계 데이터 | ✅ |
 | `fixing_fixers.json` | `fixing_fixers` | Fixer 아이템 목록 | ✅ |
 | `moveables_tooldefs.json` | `moveables_tooldefs` | Moveables 도구 정의 | ✅ |
-| `extraction_stats.json` | — | 추출 통계 (참고용) | ❌ |
+| `output/legacy_root/extraction_stats.json` | — | 추출 통계 (참고용 legacy snapshot) | ❌ |
 
 > ℹ️ **스키마 키 매핑**: JSON Schema(`iris-input-schema-v0.2-final.json`)는 각 파일의 스키마를 `스키마 키`로 정의한다. 파일명과 스키마 키는 위 표의 매핑을 따른다.
 

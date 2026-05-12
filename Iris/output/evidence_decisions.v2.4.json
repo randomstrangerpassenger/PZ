@@ -17458,6 +17458,29 @@
     "mechanism_type": "non_recipe",
     "recipe_ui_only": false
   },
+  "Base.Lemongrass": {
+    "decision": "NO",
+    "proof": {
+      "A_static_source": "unknown",
+      "B_external_target": "unknown",
+      "C_persistent_change": "unknown"
+    },
+    "exclusion_reason": "consumption",
+    "review_reason": null,
+    "anchors": [
+      {
+        "kind": "itemscript_field",
+        "ref": "items_itemscript.json::DisplayCategory=Food",
+        "version": "b41"
+      }
+    ],
+    "rule_ids": [
+      "rule_exclusion_consumption_displaycategory_food"
+    ],
+    "surface_type": null,
+    "mechanism_type": "non_recipe",
+    "recipe_ui_only": false
+  },
   "Base.Lettuce": {
     "decision": "NO",
     "proof": {

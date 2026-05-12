@@ -11,50 +11,40 @@
 
 local IrisWikiSections = {}
 
+local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
+local safeRequire = bootstrap.safeRequire
+local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local ItemAccess = require("Iris/Util/IrisItemAccess")
+local Layer3DisplayFormatter = require("Iris/UI/Layer3/IrisLayer3DisplayFormatter")
+local TranslationResolver = require("Iris/Util/IrisTranslationResolver")
+local ObjectAccess = require("Iris/Util/IrisObjectAccess")
+local debug = bootstrap.debug
+local warn = bootstrap.warn
+local logError = bootstrap.logError
+
+-- validation anchor: require, "Iris/Data/layer3_renderer"
+
 -- 의존성 (lazy load)
 local IrisAPI = nil
-local IrisTranslationLoaderLocal = nil
 
 local function ensureDeps()
     if not IrisAPI then
-        local ok, result = pcall(require, "Iris/IrisAPI")
+        local ok, result = safeRequire("Iris/IrisAPI")
         if ok then IrisAPI = result end
-    end
-    if not IrisTranslationLoaderLocal then
-        local ok, result = pcall(require, "Iris/IrisTranslationLoader")
-        if ok then IrisTranslationLoaderLocal = result end
     end
 end
 
 --- 안전하게 메서드 호출
 local function safeCall(obj, methodName)
-    if not obj then return nil end
-    local method = obj[methodName]
-    if not method then return nil end
-    local ok, result = pcall(function() return method(obj) end)
-    if ok then return result end
-    return nil
+    return ObjectAccess.invokeMethod(obj, methodName, nil)
 end
 
---- 번역 텍스트 가져오기 (IrisTranslationLoader 사용)
+local function getRuntimeLangKey()
+    return TranslationResolver.getLangKey("EN")
+end
+
 local function getLabel(key)
-    -- 1순위: ensureDeps()로 로드한 로컬 모듈
-    ensureDeps()
-    if IrisTranslationLoaderLocal and IrisTranslationLoaderLocal.get then
-        local result = IrisTranslationLoaderLocal.get(key)
-        if result and result ~= key then
-            return result
-        end
-    end
-    -- 2순위: IrisTranslationLoader 전역 변수 확인
-    if IrisTranslationLoader and IrisTranslationLoader.get then
-        local result = IrisTranslationLoader.get(key)
-        if result and result ~= key then
-            return result
-        end
-    end
-    -- 폴백: 키에서 Iris_Detail_ 제거하고 반환
-    return key:gsub("Iris_Detail_", "")
+    return TranslationResolver.get(key, key:gsub("Iris_Detail_", ""))
 end
 
 --- A) 기본 정보 섹션 렌더링
@@ -68,7 +58,7 @@ function IrisWikiSections.renderBasicInfoSection(item)
     end
     
     -- 타입
-    local itemType = safeCall(item, "getType") or safeCall(item, "getTypeString")
+    local itemType = ItemAccess.getType(item)
     if itemType then
         table.insert(parts, getLabel("Iris_Detail_Type") .. ": " .. tostring(itemType))
     end
@@ -82,8 +72,8 @@ function IrisWikiSections.renderBasicInfoSection(item)
             -- ScriptModule@xxxx 형식이면 getName() 시도
             local nameMethod = moduleName.getName
             if nameMethod then
-                local ok, name = pcall(function() return moduleName:getName() end)
-                if ok and name then
+                local name = ObjectAccess.invokeMethod(moduleName, "getName", nil)
+                if name then
                     modStr = tostring(name)
                 else
                     modStr = nil -- 실패시 표시 안함
@@ -107,11 +97,11 @@ end
 function IrisWikiSections.renderTagsSection(item)
     ensureDeps()
     
-    if not IrisAPI or not IrisAPI.getTagsForItem then
+    if not IrisAPI or not IrisAPI.Tags or not IrisAPI.Tags.getTagsForItem then
         return nil
     end
     
-    local ok, tags = pcall(function() return IrisAPI.getTagsForItem(item) end)
+    local ok, tags = ProtectedCall.data(function() return IrisAPI.Tags.getTagsForItem(item) end)
     if not ok or not tags then
         return nil
     end
@@ -129,86 +119,9 @@ function IrisWikiSections.renderTagsSection(item)
     return getLabel("Iris_Detail_Tags") .. ": " .. table.concat(sorted, ", ")
 end
 
-local function trimText(value)
-    if not value then
-        return ""
-    end
-    return tostring(value):gsub("^%s+", ""):gsub("%s+$", "")
-end
-
-local function isSentenceBoundary(text, index)
-    local char = text:sub(index, index)
-    if char ~= "." and char ~= "!" and char ~= "?" then
-        return false
-    end
-    if char == "." then
-        local prev = index > 1 and text:sub(index - 1, index - 1) or ""
-        local next = index < #text and text:sub(index + 1, index + 1) or ""
-        if prev:match("%d") and next:match("%d") then
-            return false
-        end
-    end
-    return true
-end
-
-local function splitSentences(text)
-    local sentences = {}
-    local startIndex = 1
-
-    for i = 1, #text do
-        if isSentenceBoundary(text, i) then
-            local sentence = trimText(text:sub(startIndex, i))
-            if sentence ~= "" then
-                table.insert(sentences, sentence)
-            end
-            startIndex = i + 1
-        end
-    end
-
-    local tail = trimText(text:sub(startIndex))
-    if tail ~= "" then
-        table.insert(sentences, tail)
-    end
-
-    return sentences
-end
-
-local function formatLayer3DisplayText(text)
-    if not text or text == "" then
-        return text
-    end
-
-    local formattedLines = {}
-    for rawLine in tostring(text):gmatch("[^\n]+") do
-        local line = trimText(rawLine)
-        if line ~= "" then
-            local sentences = splitSentences(line)
-            if #sentences <= 2 then
-                table.insert(formattedLines, line)
-            else
-                local chunkIndex = 1
-                while chunkIndex <= #sentences do
-                    local chunk = {sentences[chunkIndex]}
-                    if sentences[chunkIndex + 1] then
-                        table.insert(chunk, sentences[chunkIndex + 1])
-                    end
-                    table.insert(formattedLines, table.concat(chunk, " "))
-                    chunkIndex = chunkIndex + 2
-                end
-            end
-        end
-    end
-
-    if #formattedLines == 0 then
-        return trimText(text)
-    end
-
-    return table.concat(formattedLines, "\n")
-end
-
 function IrisWikiSections.renderLayer3Section(item)
     local Layer3Renderer = nil
-    local l3ok, l3mod = pcall(require, "Iris/Data/layer3_renderer")
+    local l3ok, l3mod = safeRequire("Iris/Data/layer3_renderer")
     if l3ok then
         Layer3Renderer = l3mod
     end
@@ -216,34 +129,19 @@ function IrisWikiSections.renderLayer3Section(item)
         return nil
     end
 
-    local fullType = nil
-    if item.getFullType then
-        local ftOk, ftResult = pcall(function() return item:getFullType() end)
-        if ftOk then
-            fullType = ftResult
-        end
-    end
-    if not fullType and item.getFullName then
-        local fnOk, fnResult = pcall(function() return item:getFullName() end)
-        if fnOk then
-            fullType = fnResult
-        end
-    end
-    if not fullType and item.fullType then
-        fullType = item.fullType
-    end
+    local fullType = ItemAccess.getFullType(item)
     if not fullType then
         return nil
     end
 
-    print("[Iris:Layer3] renderLayer3Section fullType=" .. tostring(fullType))
+    debug("[Iris:Layer3] renderLayer3Section fullType=" .. tostring(fullType))
 
     local l3text = Layer3Renderer.getText(fullType)
     if l3text and l3text ~= "" then
-        print("[Iris:Layer3] renderLayer3Section found text for " .. tostring(fullType))
-        return formatLayer3DisplayText(l3text)
+        debug("[Iris:Layer3] renderLayer3Section found text for " .. tostring(fullType))
+        return Layer3DisplayFormatter.format(l3text)
     end
-    print("[Iris:Layer3] renderLayer3Section no text for " .. tostring(fullType))
+    debug("[Iris:Layer3] renderLayer3Section no text for " .. tostring(fullType))
     return nil
 end
 
@@ -335,20 +233,20 @@ end
 function IrisWikiSections.renderConnectionSection(item)
     ensureDeps()
     
-    if not IrisAPI then
+    if not IrisAPI or not IrisAPI.Index then
         return nil
     end
     
     local parts = {}
     
     -- Recipe
-    local recipeOk, recipeInfo = pcall(function() return IrisAPI.getRecipeConnectionsForItem(item) end)
+    local recipeOk, recipeInfo = ProtectedCall.data(function() return IrisAPI.Index.getRecipeConnectionsForItem(item) end)
     if recipeOk and recipeInfo and #recipeInfo > 0 then
         table.insert(parts, getLabel("Iris_Detail_Recipe") .. ": " .. #recipeInfo)
     end
     
     -- Moveables
-    local moveOk, moveablesInfo = pcall(function() return IrisAPI.getMoveablesInfoForItem(item) end)
+    local moveOk, moveablesInfo = ProtectedCall.data(function() return IrisAPI.Index.getMoveablesInfoForItem(item) end)
     if moveOk and moveablesInfo then
         if moveablesInfo.itemId_registered then
             table.insert(parts, getLabel("Iris_Detail_Furniture") .. ": O")
@@ -356,7 +254,7 @@ function IrisWikiSections.renderConnectionSection(item)
     end
     
     -- Fixing
-    local fixOk, fixingInfo = pcall(function() return IrisAPI.getFixingInfoForItem(item) end)
+    local fixOk, fixingInfo = ProtectedCall.data(function() return IrisAPI.Index.getFixingInfoForItem(item) end)
     if fixOk and fixingInfo and fixingInfo.isFixer then
         table.insert(parts, getLabel("Iris_Detail_Fixer") .. ": O")
     end
@@ -457,7 +355,7 @@ function IrisWikiSections.renderCoreInfoSection(item)
     end
     
     -- 타입
-    local itemType = safeCall(item, "getType") or safeCall(item, "getTypeString")
+    local itemType = ItemAccess.getType(item)
     if itemType then
         table.insert(parts, getLabel("Iris_Detail_Type") .. ": " .. tostring(itemType))
     end
@@ -508,7 +406,11 @@ function IrisWikiSections.renderRecipeInfoSection(item)
         return nil
     end
     
-    local recipeOk, recipeInfo = pcall(function() return IrisAPI.getRecipeConnectionsForItem(item) end)
+    if not IrisAPI.Index or not IrisAPI.Index.getRecipeConnectionsForItem then
+        return nil
+    end
+
+    local recipeOk, recipeInfo = ProtectedCall.data(function() return IrisAPI.Index.getRecipeConnectionsForItem(item) end)
     if recipeOk and recipeInfo and #recipeInfo > 0 then
         return getLabel("Iris_Detail_Recipe") .. ": " .. #recipeInfo
     end
@@ -528,8 +430,8 @@ function IrisWikiSections.renderMetaInfoSection(item)
     table.insert(lines, "────────────────────")
     
     -- 분류 ID (태그)
-    if IrisAPI and IrisAPI.getTagsForItem then
-        local ok, tags = pcall(function() return IrisAPI.getTagsForItem(item) end)
+    if IrisAPI and IrisAPI.Tags and IrisAPI.Tags.getTagsForItem then
+        local ok, tags = ProtectedCall.data(function() return IrisAPI.Tags.getTagsForItem(item) end)
         if ok and tags then
             local sorted = {}
             for tag, _ in pairs(tags) do
@@ -550,8 +452,8 @@ function IrisWikiSections.renderMetaInfoSection(item)
         if modStr:find("@") then
             local nameMethod = moduleName.getName
             if nameMethod then
-                local ok, name = pcall(function() return moduleName:getName() end)
-                if ok and name then
+                local name = ObjectAccess.invokeMethod(moduleName, "getName", nil)
+                if name then
                     modStr = tostring(name)
                 else
                     modStr = nil
@@ -582,11 +484,11 @@ local IrisConfig = nil
 
 local function ensureUseCaseDeps()
     if not IrisUseCaseLabelMap then
-        local ok, result = pcall(require, "Iris/Data/IrisUseCaseLabelMap")
+        local ok, result = safeRequire("Iris/Data/IrisUseCaseLabelMap")
         if ok then IrisUseCaseLabelMap = result end
     end
     if not IrisConfig then
-        local ok, result = pcall(require, "Iris/IrisConfig")
+        local ok, result = safeRequire("Iris/IrisConfig")
         if ok then IrisConfig = result end
     end
 end
@@ -596,17 +498,14 @@ end
 local function renderUseCaseLine(lineObj)
     ensureUseCaseDeps()
 
-    -- 1순위: Python 빌드 파이프라인에서 이미 렌더링된 '[표면] (텍스트)' 문자열 우선
+    -- 1순위: Python 빌드 파이프라인에서 이미 렌더링된 display_text 우선
     if lineObj.display_text then
         local displayStr = lineObj.display_text
         -- strength가 존재하고 필요하다면 후행 처리(선택)
         local strengthStr = ""
         local uniquenessStr = ""
         if lineObj.strength and IrisUseCaseLabelMap then
-            local lang = "EN"
-            if IrisTranslationLoader and IrisTranslationLoader.getLangKey then
-                lang = IrisTranslationLoader.getLangKey()
-            end
+            local lang = getRuntimeLangKey()
             local strMapKey = "STRENGTH_" .. lang
             local strMap = IrisUseCaseLabelMap[strMapKey] or IrisUseCaseLabelMap.STRENGTH_EN or {}
             strengthStr = strMap[lineObj.strength] or ""
@@ -621,10 +520,7 @@ local function renderUseCaseLine(lineObj)
     local uniqueness = lineObj.uniqueness
 
     -- 런타임 언어 감지 (SSOT: IrisTranslationLoader.getLangKey())
-    local lang = "EN"
-    if IrisTranslationLoader and IrisTranslationLoader.getLangKey then
-        lang = IrisTranslationLoader.getLangKey()
-    end
+    local lang = getRuntimeLangKey()
 
     -- label_key → 표시 문자열 (현재 언어)
     if IrisUseCaseLabelMap then
@@ -669,14 +565,14 @@ function IrisWikiSections.renderUseCaseSection(item)
 
     if not IrisAPI or not item then return nil end
 
-    local fullType = nil
-    if item.getFullType then
-        local ok, result = pcall(function() return item:getFullType() end)
-        if ok then fullType = result end
-    end
+    local fullType = ItemAccess.getFullType(item)
     if not fullType then return nil end
 
-    local data = IrisAPI.getUseCaseLines(fullType)
+    if not IrisAPI.UseCases or not IrisAPI.UseCases.getUseCaseLines then
+        return nil
+    end
+
+    local data = IrisAPI.UseCases.getUseCaseLines(fullType)
     local lines = data.lines or {}
     local debug_lines = data.debug_lines or {}
 

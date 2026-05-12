@@ -19558,6 +19558,32 @@
       "rule_exclusion_consumption_displaycategory_food"
     ]
   },
+  "Base.Lemongrass": {
+    "anchors": [
+      {
+        "kind": "itemscript_field",
+        "ref": "items_itemscript.json::DisplayCategory=Food",
+        "version": "b41"
+      }
+    ],
+    "prove": {
+      "executing_tool": "unknown",
+      "external_target": "unknown",
+      "persistent_change": "unknown"
+    },
+    "exclusions": {
+      "recipe": false,
+      "consumption": true,
+      "equip": false,
+      "passive": false,
+      "auto": false,
+      "input_material": false,
+      "property_based": false
+    },
+    "rule_ids": [
+      "rule_exclusion_consumption_displaycategory_food"
+    ]
+  },
   "Base.Lettuce": {
     "anchors": [
       {

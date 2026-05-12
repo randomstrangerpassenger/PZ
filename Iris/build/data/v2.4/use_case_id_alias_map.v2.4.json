@@ -1,0 +1,12 @@
+{
+    "version": "v2.4",
+    "description": "uc.action.* 도구명 ID → 능력 기반 ID 매핑. 정책 파일로 Q4 tracked. 매핑이 없는 ID는 그대로 유지.",
+    "map": {
+        "uc.action.blowtorch": "uc.action.metal_cutting",
+        "uc.action.hammer": "uc.action.construction",
+        "uc.action.saw": "uc.action.wood_cutting",
+        "uc.action.screwdriver": "uc.action.screw_disassembly",
+        "uc.action.stitch": "uc.action.wound_suturing",
+        "uc.action.remove_bullet": "uc.action.foreign_body_removal"
+    }
+}

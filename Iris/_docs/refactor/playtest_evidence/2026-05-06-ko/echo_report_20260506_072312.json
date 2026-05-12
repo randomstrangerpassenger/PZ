@@ -1,0 +1,642 @@
+{
+  "echo_report": {
+    "version": "1.0.1",
+    "generated_at": "2026-05-05T22:23:12.977095200Z",
+    "session_duration_seconds": 116,
+    "summary": {
+      "total_ticks": 6078,
+      "average_tick_ms": 1.15,
+      "max_tick_spike_ms": 66.58,
+      "min_tick_ms": 0.63,
+      "target_tick_ms": 16.67,
+      "performance_score": 100.0
+    },
+    "subsystems": [
+      {
+        "name": "TICK",
+        "display_name": "Game Tick",
+        "category": "CORE",
+        "stats": {
+          "call_count": 6078,
+          "total_time_ms": 6999.39,
+          "average_time_ms": 1.15,
+          "max_time_ms": 66.58,
+          "min_time_ms": 0.63
+        },
+        "rolling_stats": {
+          "last_1s": {
+            "avg_ms": 1.05,
+            "max_ms": 66.58,
+            "samples": 60
+          },
+          "last_5s": {
+            "avg_ms": 1.01,
+            "max_ms": 66.58,
+            "samples": 300
+          },
+          "last_60s": {
+            "avg_ms": 1.04,
+            "max_ms": 66.58,
+            "samples": 3600
+          }
+        }
+      }
+    ],
+    "heavy_functions": {
+      "subtiming": {
+        "enabled": true,
+        "heavy_functions": [
+          {
+            "label": "IsoGrid.Update",
+            "category": "World",
+            "call_count": 6559600,
+            "total_ms": 453.435,
+            "avg_ms": 6.912540398804805E-5,
+            "max_ms": 22.741,
+            "rank": 1
+          },
+          {
+            "label": "ZombieUpdate",
+            "category": "AI",
+            "call_count": 69423,
+            "total_ms": 419.627,
+            "avg_ms": 0.006044495340161042,
+            "max_ms": 2.076,
+            "rank": 2
+          }
+        ],
+        "category_totals_ms": {
+          "AI": 419.627,
+          "World": 453.435
+        }
+      },
+      "by_total_time": [
+        {
+          "rank": 1,
+          "label": "IsoGrid.Update",
+          "parent_point": "World",
+          "call_count": 6559600,
+          "total_time_ms": 453.44,
+          "average_time_ms": 0.0,
+          "max_time_ms": 22.74
+        },
+        {
+          "rank": 2,
+          "label": "ZombieUpdate",
+          "parent_point": "AI",
+          "call_count": 69423,
+          "total_time_ms": 419.63,
+          "average_time_ms": 0.01,
+          "max_time_ms": 2.08
+        }
+      ],
+      "by_max_spike": [
+        {
+          "rank": 1,
+          "label": "IsoGrid.Update",
+          "parent_point": "World",
+          "call_count": 6559600,
+          "total_time_ms": 453.44,
+          "average_time_ms": 0.0,
+          "max_time_ms": 22.74
+        },
+        {
+          "rank": 2,
+          "label": "ZombieUpdate",
+          "parent_point": "AI",
+          "call_count": 69423,
+          "total_time_ms": 419.63,
+          "average_time_ms": 0.01,
+          "max_time_ms": 2.08
+        }
+      ],
+      "by_call_frequency": [
+        {
+          "rank": 1,
+          "label": "IsoGrid.Update",
+          "parent_point": "World",
+          "call_count": 6559600,
+          "total_time_ms": 453.44,
+          "average_time_ms": 0.0,
+          "max_time_ms": 22.74
+        },
+        {
+          "rank": 2,
+          "label": "ZombieUpdate",
+          "parent_point": "AI",
+          "call_count": 69423,
+          "total_time_ms": 419.63,
+          "average_time_ms": 0.01,
+          "max_time_ms": 2.08
+        }
+      ]
+    },
+    "tick_phase_breakdown": {
+      "enabled": true,
+      "phases": [
+        {
+          "phase": "AI Phase",
+          "call_count": 6078,
+          "total_ms": 1807.358,
+          "avg_ms": 0.2973606449489964,
+          "max_ms": 12.874,
+          "last_ms": 0.396
+        },
+        {
+          "phase": "World Update",
+          "call_count": 6078,
+          "total_ms": 6941.495,
+          "avg_ms": 1.1420689371503783,
+          "max_ms": 62.786,
+          "last_ms": 1.684
+        }
+      ],
+      "percentages": {
+        "AI Phase": 20.66,
+        "Physics Phase": 0.0,
+        "World Update": 79.34,
+        "Rendering Prep": 0.0,
+        "IsoGrid Update": 0.0
+      }
+    },
+    "tick_histogram": {
+      "buckets_ms": [
+        0.0,
+        5.0,
+        10.0,
+        16.67,
+        20.0,
+        33.33,
+        50.0,
+        100.0,
+        200.0
+      ],
+      "labels": [
+        "0.0-5.0ms",
+        "5.0-10.0ms",
+        "10.0-16.7ms",
+        "16.7-20.0ms",
+        "20.0-33.3ms",
+        "33.3-50.0ms",
+        "50.0-100.0ms",
+        "100.0-200.0ms",
+        "\u003e\u003d200.0ms"
+      ],
+      "counts": [
+        6070,
+        7,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "total_samples": 6078,
+      "average_ms": 1.15,
+      "p50_ms": 0.99,
+      "p95_ms": 1.25,
+      "p99_ms": 1.48,
+      "jank_percent_60fps": 0.02,
+      "jank_percent_30fps": 0.02,
+      "jank_percent_100ms": 0.0,
+      "warmup_ticks": 0,
+      "std_deviation_ms": 0.91,
+      "p99_spike_count": 61,
+      "variance_rate_ms": 0.15,
+      "quality_score": 93
+    },
+    "spikes": {
+      "threshold_ms": 33.33,
+      "total_spikes": 0,
+      "worst_spike_ms": 0.0,
+      "worst_spike_source": "",
+      "recent_spikes": []
+    },
+    "freeze_history": {
+      "total_freezes": 2,
+      "filtered_count": 1,
+      "history": [
+        {
+          "timestamp": "2026-05-05T22:23:10.686Z",
+          "duration_ms": 541,
+          "memory": {
+            "used_mb": 1028,
+            "total_mb": 2048
+          },
+          "stack_trace": [
+            "java.base@17.0.1/java.lang.Thread.yield(Native Method)",
+            "app//zombie.GameWindow.run_ez(GameWindow.java:698)",
+            "app//zombie.GameWindow.mainThread(GameWindow.java:495)",
+            "app//zombie.GameWindow$$Lambda$172/0x0000000800da48a8.run(Unknown Source)",
+            "java.base@17.0.1/java.lang.Thread.run(Unknown Source)"
+          ]
+        },
+        {
+          "timestamp": "2026-05-05T22:23:12.790Z",
+          "duration_ms": 641,
+          "memory": {
+            "used_mb": 1004,
+            "total_mb": 2048
+          },
+          "stack_trace": [
+            "java.base@17.0.1/java.util.zip.Deflater.deflateBytesBytes(Native Method)",
+            "java.base@17.0.1/java.util.zip.Deflater.deflate(Unknown Source)",
+            "java.base@17.0.1/java.util.zip.Deflater.deflate(Unknown Source)",
+            "java.base@17.0.1/java.util.zip.DeflaterOutputStream.deflate(Unknown Source)",
+            "java.base@17.0.1/java.util.zip.DeflaterOutputStream.write(Unknown Source)",
+            "platform/jdk.zipfs@17.0.1/jdk.nio.zipfs.ZipFileSystem$DeflatingEntryOutputStream.write(Unknown Source)",
+            "java.base@17.0.1/java.io.InputStream.transferTo(Unknown Source)",
+            "java.base@17.0.1/java.nio.file.Files.copy(Unknown Source)",
+            "java.base@17.0.1/java.nio.file.CopyMoveHelper.copyToForeignTarget(Unknown Source)",
+            "java.base@17.0.1/java.nio.file.Files.copy(Unknown Source)",
+            "app//zombie.core.logger.ZipLogs.addSaveToZip(ZipLogs.java:179)"
+          ]
+        }
+      ]
+    },
+    "memory": {
+      "heap": {
+        "used_mb": 1008.74,
+        "max_mb": 4096.0,
+        "committed_mb": 2048.0,
+        "usage_percent": 24.63
+      },
+      "non_heap_mb": 103.8,
+      "allocation_rate_bytes": 0,
+      "gc": {
+        "total_count": 17,
+        "total_time_ms": 337,
+        "collectors": {
+          "G1 Young Generation": {
+            "count": 17,
+            "time_ms": 337
+          },
+          "G1 Old Generation": {
+            "count": 0,
+            "time_ms": 0
+          }
+        }
+      }
+    },
+    "lua_profiling": {
+      "enabled": false,
+      "detailed_active": false,
+      "total_calls": 0,
+      "tracked_calls": 0,
+      "untracked_calls": 0,
+      "total_time_ms": 0.0,
+      "detailed_window_stats": {
+        "windows_opened": 0,
+        "total_active_ms": 0
+      },
+      "quality_metrics": {
+        "dropped_frames": 0,
+        "stack_resets": 0,
+        "sample_rate": "1/1",
+        "tracking_rate_percent": 0.0
+      },
+      "top_functions_by_time": [],
+      "events": [],
+      "ui_elements": [],
+      "context_stats": {},
+      "heavy_files": [],
+      "labeling_stats": {
+        "cache_hits": 0,
+        "unknown_labeled": 0,
+        "total_labeled": 0,
+        "cache_hit_ratio": 0.0,
+        "unknown_ratio": 0.0,
+        "cache_size": 0
+      },
+      "path_hits": 210959,
+      "path_verified": true,
+      "mode": "path_verify"
+    },
+    "lua_gc": {
+      "used_memory_bytes": 1058013472,
+      "gc_pause_ms": 0,
+      "heap_delta_bytes": 0
+    },
+    "fuse_deep_analysis": {
+      "spi_available": true,
+      "providers": {
+        "fuse": {
+          "present": false,
+          "active": false,
+          "snapshot_ok": false,
+          "error_code": "PROVIDER_MISSING",
+          "error_message": "No provider registered with id: fuse",
+          "total_interventions": 0,
+          "reason_counts": {}
+        }
+      },
+      "echo_profilers": {
+        "pathfinding": {
+          "total_requests": 0,
+          "steps": {
+            "LOS_CALCULATION": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "GRID_SEARCH": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "BEHAVIOR": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "OBSTACLE_CHECK": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "DOOR_WINDOW_DETECTION": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            }
+          }
+        },
+        "zombie": {
+          "total_updates": 0,
+          "steps": {
+            "MOTION_UPDATE": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "SOUND_PERCEPTION": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "LOS_CHECK": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "COLLISION": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "BEHAVIOR_TICK": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "TARGET_TRACKING": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "PATH_RECALC": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "PLAYER_DETECTION": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            }
+          }
+        },
+        "iso_grid": {
+          "steps": {
+            "WEATHER_IMPACT": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "LIGHTING_UPDATE": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "GENERATOR_UPDATE": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "ROOM_UPDATE": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            },
+            "FLOOR_UPDATE": {
+              "total_ms": 0.0,
+              "avg_ms": 0.0,
+              "count": 0
+            }
+          }
+        }
+      }
+    },
+    "validation_status": {
+      "hook_status": "OK",
+      "heartbeat_count": 793,
+      "min_required_data": "OK",
+      "freeze_detector": "ACTIVE",
+      "freeze_check_count": 6078,
+      "subprofiler_status": "OK",
+      "subprofiler_entry_count": 2,
+      "validation_time": "2026-05-05T22:23:12.991Z",
+      "used_fallback_ticks": true,
+      "fallback_tick_count": 793,
+      "fallback_contaminated_timing": false,
+      "phase_status": "OK",
+      "phase_start_count": 12156,
+      "phase_end_count": 12156,
+      "phase_error_count": 0,
+      "pulse_contract_violated": false,
+      "tick_missing": false
+    },
+    "pulse_contract": {
+      "pulse_contract_version": 1,
+      "tick_contract_valid": true,
+      "status": "OK",
+      "order_violations": 0,
+      "invalid_delta_times": 0,
+      "zero_delta_times": 0,
+      "duplicate_events": 0,
+      "thread_contentions": 0,
+      "stall_events": 0,
+      "burst_tick_allowance": 5,
+      "current_burst_count": 0,
+      "missing_phase_data": false,
+      "tick_missing": false,
+      "total_ticks": 6078,
+      "phase_signals": 12156
+    },
+    "report_quality": {
+      "score": 100,
+      "issues": [
+        {
+          "issue": "used_fallback_ticks",
+          "severity": "info",
+          "description": "Fallback tick emitter was activated during session (timing data not contaminated)"
+        }
+      ]
+    },
+    "analysis": {
+      "zombie_tick_correlation": 0.0,
+      "interpretation": "Weak/None"
+    },
+    "metadata": {
+      "versions": {
+        "pulse": "1.0.1",
+        "echo": "1.0.1"
+      },
+      "session": {
+        "start_time": 1778019792969,
+        "duration_ms": 22,
+        "game_mode": "unknown",
+        "multiplayer": false,
+        "player_count": 1,
+        "map_seed": "unknown"
+      },
+      "system": {
+        "java_version": "17.0.1",
+        "os": "Windows 10",
+        "cpu_cores": 12,
+        "max_memory_mb": 4096,
+        "jvm_options": "-javaagent:G:\\Program Files (x86)\\Steam\\steamapps\\common\\ProjectZomboid\\Pulse.jar -Djava.awt.headless\u003dtrue -Dzomboid.steam\u003d1 -Dzomboid.znetlog\u003d1 -Djava.library.path\u003dG:\\Program Files (x86)\\Steam\\steamapps\\common\\ProjectZomboid\\;G:\\Program Files (x86)\\Steam\\steamapps\\common\\ProjectZomboid\\natives;G:\\Program Files (x86)\\Steam\\steamapps\\common\\ProjectZomboid\\win64;. -Xms2048m -Xmx4096m -XX:+UseG1GC -XX:-OmitStackTraceInFastThrow -Djdk.lang.Process.allowAmbiguousCommands\u003dtrue"
+      },
+      "loaded_mods": [],
+      "echo_version": "1.0.1",
+      "session_start_time": "2026-05-05T22:21:16.694Z",
+      "scenario_name": "default",
+      "scenario_tags": [],
+      "quality_flags": {
+        "flag_counts": {},
+        "total_flags": 0,
+        "data_quality_score": 100.0
+      }
+    },
+    "extended_analysis": {
+      "zombie_vs_tick": {
+        "correlation": 0.0,
+        "samples": 0,
+        "description": "좀비 수 vs 틱 시간",
+        "strength": "NONE"
+      },
+      "chunk_vs_frame": {
+        "correlation": 0.0,
+        "samples": 0,
+        "description": "청크 수 vs 프레임 시간",
+        "strength": "NONE"
+      },
+      "entity_vs_simulation": {
+        "correlation": 0.0,
+        "samples": 0,
+        "description": "엔티티 수 vs 시뮬레이션",
+        "strength": "NONE"
+      },
+      "memory_vs_gc": {
+        "correlation": 0.0,
+        "samples": 0,
+        "description": "메모리 사용률 vs GC 빈도",
+        "strength": "NONE"
+      },
+      "pathfinding_vs_tick": {
+        "correlation": 0.0,
+        "samples": 0,
+        "description": "패스파인딩 호출 vs 틱",
+        "strength": "NONE"
+      },
+      "vehicle_vs_tick": {
+        "correlation": 0.0,
+        "samples": 0,
+        "description": "차량 수 vs 틱 시간",
+        "strength": "NONE"
+      },
+      "summary": {
+        "strongest_correlation": "none",
+        "strongest_value": 0.0
+      }
+    },
+    "memory_timeseries": {
+      "sample_count": 58,
+      "latest_heap_mb": 1034,
+      "latest_gc_count": 16,
+      "latest_gc_time_ms": 333,
+      "trend": {
+        "direction": "DECREASING",
+        "rate_bytes_per_sec": -1755474,
+        "gc_per_minute": 1.03
+      }
+    },
+    "bottleneck_detection": {
+      "top_bottlenecks": [],
+      "anomalies": {
+        "count": 1,
+        "has_critical": false,
+        "items": [
+          {
+            "severity": "WARNING",
+            "type": "SPIKE_DETECTED",
+            "message": "Max spike (66.59ms) is 5x average"
+          }
+        ]
+      }
+    },
+    "network": {
+      "ping": {
+        "current_ms": 0.0,
+        "avg_ms": 0.0,
+        "max_ms": 0.0,
+        "min_ms": 0.0
+      },
+      "packets": {
+        "sent": 0,
+        "received": 0,
+        "lost": 0,
+        "loss_rate_percent": 0.0
+      },
+      "bandwidth": {
+        "upload_kbps": 0.0,
+        "download_kbps": 0.0,
+        "total_sent_kb": 0,
+        "total_received_kb": 0
+      },
+      "connection_quality": "EXCELLENT",
+      "session_duration_ms": 1
+    },
+    "render": {
+      "frame": {
+        "total_frames": 0,
+        "fps": 0.0,
+        "avg_frame_ms": 0.0,
+        "max_frame_ms": 0.0
+      },
+      "draw_calls": {
+        "per_frame": 0,
+        "avg_per_frame": 0,
+        "total": 0
+      },
+      "batching": {
+        "batches_per_frame": 0,
+        "total_batches": 0,
+        "efficiency_percent": 100.0
+      },
+      "texture_swaps_per_frame": 0,
+      "total_texture_swaps": 0,
+      "geometry": {
+        "vertices": 0,
+        "indices": 0
+      },
+      "efficiency": "EXCELLENT"
+    },
+    "timeseries_summary": {
+      "metric_count": 0,
+      "metrics": []
+    }
+  }
+}

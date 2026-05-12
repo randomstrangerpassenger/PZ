@@ -3,7 +3,7 @@
 ## 전제 조건
 
 - [anchor_catalog.md](file:///c:/Users/MW/Downloads/coding/PZ/Iris/anchor_catalog.md)의 **Anchor A** 기반
-- v2 계약 문서: [rightclick_evidence_source_allowlist_v2.md](file:///c:/Users/MW/Downloads/coding/PZ/Iris/rightclick_evidence_source_allowlist_v2.md), [rightclick_source_index.json](file:///c:/Users/MW/Downloads/coding/PZ/Iris/rightclick_source_index.json) 준수
+- v2 계약 문서: [rightclick_evidence_source_allowlist_v2.md](file:///c:/Users/MW/Downloads/coding/PZ/Iris/_docs/rightclick_evidence_source_allowlist_v2.md), [rightclick_source_index.json](file:///c:/Users/MW/Downloads/coding/PZ/Iris/input/rightclick_source_index.json) 준수
 - `matcher_logic=AND` 지원: source_index 스키마 L28에 정의 확인 완료 (단, 본 Proposal 1은 matcher 1개이므로 미사용)
 
 ---

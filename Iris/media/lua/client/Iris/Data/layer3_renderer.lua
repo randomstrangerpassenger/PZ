@@ -4,45 +4,53 @@
     ⚠️ 헌법:
     - text_ko가 있으면 출력, 없으면 건너뜀
     - 문장 수정/필터링/재정렬/추가/폴백 절대 금지
-    - pcall로 감싸서 개별 실패 시 무시
+    - protected call로 감싸서 개별 실패 시 무시
 ]]
 
 local Layer3Renderer = {}
+
+local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
+local safeRequire = bootstrap.safeRequire
+local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local debug = bootstrap.debug
+local warn = bootstrap.warn
+local logError = bootstrap.logError
 
 -- 3계층 데이터 (빌드 시 생성된 JSON → Lua 테이블 변환)
 local layer3Data = nil
 local dataLoaded = false
 local loadStatusLogged = false
 
+-- validation anchor: require, "Iris/Data/IrisLayer3DataChunks"
 
 --- 데이터 로드 (최초 1회)
 local function ensureData()
     if dataLoaded then return end
     dataLoaded = true
     
-    local ok, data = pcall(function()
+    local ok, data = ProtectedCall.data(function()
+        local chunkLoadOk, chunkLoaded = safeRequire("Iris/Data/IrisLayer3DataChunks")
+        if chunkLoadOk and chunkLoaded then
+            if not IrisLayer3Data then
+                IrisLayer3Data = chunkLoaded
+            end
+            return chunkLoaded
+        end
         if IrisLayer3Data then
             return IrisLayer3Data
         end
-        local loadOk, loaded = pcall(require, "Iris/Data/IrisLayer3Data")
-        if loadOk and loaded then
-            if not IrisLayer3Data then
-                IrisLayer3Data = loaded
-            end
-            return loaded
-        end
-        if not loadStatusLogged and not loadOk then
+        if not loadStatusLogged then
             loadStatusLogged = true
-            print("[Iris:Layer3] Failed to require IrisLayer3Data: " .. tostring(loaded))
+            warn("[Iris:Layer3] Failed to require IrisLayer3DataChunks")
         end
-        return IrisLayer3Data
+        return nil
     end)
     
     if ok and data then
         layer3Data = data
         if not loadStatusLogged then
             loadStatusLogged = true
-            print("[Iris:Layer3] Loaded IrisLayer3Data")
+            debug("[Iris:Layer3] Loaded IrisLayer3Data")
         end
     end
 end
@@ -59,7 +67,7 @@ local function getEntry(fullType)
         return nil
     end
 
-    local ok, result = pcall(function()
+    local ok, result = ProtectedCall.data(function()
         return layer3Data[fullType]
     end)
 
@@ -67,7 +75,7 @@ local function getEntry(fullType)
         return result
     end
 
-    -- pcall 실패 시 조용히 nil 반환
+    -- protected call 실패 시 조용히 nil 반환
     return nil
 end
 

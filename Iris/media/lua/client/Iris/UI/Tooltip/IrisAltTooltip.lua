@@ -12,6 +12,42 @@
 
 local IrisAltTooltip = {}
 
+local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
+local safeRequire = bootstrap.safeRequire
+local ItemKey = require("Iris/Util/ItemKey")
+local debug = bootstrap.debug
+local warn = bootstrap.warn
+local logError = bootstrap.logError
+
+local IrisTranslationLoaderLocal = nil
+local IrisTooltipSummaryLocal = nil
+
+local function tr(key, fallback)
+    if not IrisTranslationLoaderLocal then
+        local ok, result = safeRequire("Iris/IrisTranslationLoader")
+        if ok then
+            IrisTranslationLoaderLocal = result
+        end
+    end
+    if IrisTranslationLoaderLocal and IrisTranslationLoaderLocal.get then
+        local result = IrisTranslationLoaderLocal.get(key, nil)
+        if result and result ~= key then
+            return result
+        end
+    end
+    return fallback or key
+end
+
+local function ensureSummary()
+    if not IrisTooltipSummaryLocal then
+        local ok, result = safeRequire("Iris/UI/Tooltip/IrisTooltipSummary")
+        if ok then
+            IrisTooltipSummaryLocal = result
+        end
+    end
+    return IrisTooltipSummaryLocal
+end
+
 -- Alt 키코드 상수 (LWJGL 키보드 코드)
 local KEY_LALT = 56
 local KEY_RALT = 184
@@ -43,67 +79,39 @@ function IrisAltTooltip.addIrisOverlay(tooltipInv)
     local isAlt = isAltPressed()
     local detailLines = {}
     if isAlt and tooltipInv.item then
-        -- IrisAPI에서 실제 태그 가져오기
-        local IrisAPI = nil
-        local ok, result = pcall(require, "Iris/IrisAPI")
-        if ok then IrisAPI = result end
-        
-        if IrisAPI then
-            -- 태그 라인 (최대 4줄 중 1줄)
-            local tags = IrisAPI.getTagsForItem(tooltipInv.item) or {}
-            local tagList = {}
-            for tag, _ in pairs(tags) do
-                table.insert(tagList, tag)
-            end
-            table.sort(tagList)
-            
+        local summaryModule = ensureSummary()
+        local fullType = ItemKey.getFullTypeFromItem(tooltipInv.item)
+        local summary = summaryModule and summaryModule.get and summaryModule.get(fullType) or nil
+
+        if summary then
+            local tagList = summary.tags or {}
             if #tagList > 0 then
                 local tagStr = table.concat(tagList, ", ")
-                -- 너무 길면 자르기
                 if #tagStr > 50 then
                     tagStr = tagStr:sub(1, 47) .. "..."
                 end
-                table.insert(detailLines, "태그: " .. tagStr)
+                table.insert(detailLines, tr("Iris_Tooltip_Tags", "Tags") .. ": " .. tagStr)
             else
-                table.insert(detailLines, "태그: (없음)")
+                table.insert(detailLines, tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_None", "None") .. ")")
             end
             
-            -- 연결 라인 (최대 4줄 중 2줄)
-            local recipeInfo = IrisAPI.getRecipeConnectionsForItem(tooltipInv.item) or {}
-            local moveInfo = IrisAPI.getMoveablesInfoForItem(tooltipInv.item) or {}
-            local fixInfo = IrisAPI.getFixingInfoForItem(tooltipInv.item) or {}
-            
-            local connections = {}
-            if #recipeInfo > 0 then table.insert(connections, "Recipe") end
-            if moveInfo.itemId_registered or moveInfo.moveablesTag then table.insert(connections, "Moveables") end
-            if fixInfo.isFixer then table.insert(connections, "Fixing") end
-            
+            local connections = summary.connections or {}
             if #connections > 0 then
-                table.insert(detailLines, "연결: " .. table.concat(connections, ", "))
+                table.insert(detailLines, tr("Iris_Tooltip_Connections", "Connections") .. ": " .. table.concat(connections, ", "))
             else
-                table.insert(detailLines, "연결: 없음")
+                table.insert(detailLines, tr("Iris_Tooltip_Connections", "Connections") .. ": " .. tr("Iris_Tooltip_None", "None"))
             end
-            
-            -- UseCase 요약 (debug_lines 미포함, main lines만)
-            local fullType = nil
-            if tooltipInv.item.getFullType then
-                local ftOk, ftResult = pcall(function() return tooltipInv.item:getFullType() end)
-                if ftOk then fullType = ftResult end
+
+            local ucCount = summary.useCaseCount or 0
+            if ucCount > 0 then
+                table.insert(detailLines, tr("Iris_Tooltip_UseCase", "Use cases") .. ": " .. ucCount .. tr("Iris_Tooltip_CountSuffix", ""))
             end
-            if fullType then
-                local ucData = IrisAPI.getUseCaseLines(fullType)
-                local ucCount = #(ucData.lines or {})
-                if ucCount > 0 then
-                    table.insert(detailLines, "\xEC\x9A\xA9\xEB\x8F\x84: " .. ucCount .. "\xEA\xB1\xB4")
-                end
-            end
-            
-            -- 더보기 안내 (최대 4줄 중 마지막)
-            table.insert(detailLines, "더보기: 우클릭 > Iris")
+
+            table.insert(detailLines, tr("Iris_Tooltip_More", "More") .. ": " .. tr("Iris_Tooltip_RightClickHint", "Right-click > Iris"))
         else
             detailLines = {
-                "태그: (API 로드 실패)",
-                "더보기: 우클릭 > Iris",
+                tr("Iris_Tooltip_Tags", "Tags") .. ": (" .. tr("Iris_Tooltip_ApiLoadFailed", "API load failed") .. ")",
+                tr("Iris_Tooltip_More", "More") .. ": " .. tr("Iris_Tooltip_RightClickHint", "Right-click > Iris"),
             }
         end
     end
@@ -142,24 +150,24 @@ local originalRender = nil
 local hooked = false
 
 function IrisAltTooltip.hookTooltip()
-    print("[Iris:hookTooltip] === Starting tooltip hook ===")
+    debug("[Iris:hookTooltip] === Starting tooltip hook ===")
     
     if hooked then
-        print("[Iris:hookTooltip] Already hooked, skipping")
+        debug("[Iris:hookTooltip] Already hooked, skipping")
         return
     end
     
     if not ISToolTipInv then
-        print("[Iris:hookTooltip] ERROR: ISToolTipInv is nil")
+        logError("[Iris:hookTooltip] ISToolTipInv is nil")
         return
     end
     
     if not ISToolTipInv.render then
-        print("[Iris:hookTooltip] ERROR: ISToolTipInv.render is nil")
+        logError("[Iris:hookTooltip] ISToolTipInv.render is nil")
         return
     end
     
-    print("[Iris:hookTooltip] ISToolTipInv.render found - hooking...")
+    debug("[Iris:hookTooltip] ISToolTipInv.render found - hooking...")
     originalRender = ISToolTipInv.render
     
     ISToolTipInv.render = function(self)
@@ -176,7 +184,7 @@ function IrisAltTooltip.hookTooltip()
     end
     
     hooked = true
-    print("[Iris:hookTooltip] SUCCESS: ISToolTipInv.render hooked!")
+    debug("[Iris:hookTooltip] SUCCESS: ISToolTipInv.render hooked!")
 end
 
 return IrisAltTooltip

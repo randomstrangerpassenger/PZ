@@ -1,0 +1,49 @@
+{
+    "_comment": "각 rule_id가 PASS를 유지하기 위해 anchor에 존재해야 하는 role 목록. profile 미등록 rule_id가 PASS에 등장하면 Q3 FAIL.",
+    "_exempt_enum": {
+        "exempt_reason": [
+            "single_anchor_missing_roles"
+        ],
+        "migration_target": [
+            "multi_anchor"
+        ]
+    },
+    "rule_firefighting_isextinguisher": {
+        "required_roles": [
+            "tool_predicate"
+        ],
+        "legacy": false,
+        "note": "U2 승격: multi-anchor format. Anchor A(Lua isExtinguisher) + Anchor B(복합 정적 필터: CanStoreWater+Type). 53/53 전수 커버."
+    },
+    "rule_cm_surface_recipe_open_canned": {
+        "required_roles": [
+            "menu_generation",
+            "tool_predicate",
+            "outcome_change",
+            "target_predicate"
+        ],
+        "legacy": false,
+        "note": "v2.4 multi-anchor format. anchor 객체에 실제 role 속성 존재."
+    },
+    "rule_healthpanel_hstitch": {
+        "required_roles": [
+            "tool_predicate"
+        ],
+        "legacy": false,
+        "note": "U2 승격: multi-anchor format. Anchor A(Lua HStitch.checkItem) + Anchor B(복합 정적 필터: Type+Tags). 3/3 전수 커버."
+    },
+    "rule_healthpanel_hremoveglass": {
+        "required_roles": [
+            "tool_predicate"
+        ],
+        "legacy": false,
+        "note": "U1 승격: multi-anchor format. Anchor A(Lua checkItem) + Anchor B(DisplayCategory=FirstAid)."
+    },
+    "rule_healthpanel_hremovebullet": {
+        "required_roles": [
+            "tool_predicate"
+        ],
+        "legacy": false,
+        "note": "U1 승격: multi-anchor format. Anchor A(Lua checkItem) + Anchor B(DisplayCategory=FirstAid)."
+    }
+}

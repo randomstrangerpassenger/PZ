@@ -1,0 +1,33 @@
+{
+    "_comment": "Q4 전용. canonical JSON SHA256. --update-sha로만 갱신. Q1~Q3+Q5 PASS 후에만 갱신 허용.",
+    "_canonical_spec": {
+        "encoding": "utf-8",
+        "newline": "LF",
+        "sort_keys": true,
+        "separators": [
+            ",",
+            ":"
+        ],
+        "ensure_ascii": false
+    },
+    "_version_rule": "frozen_sha.<build_version>.json — quality_gates.py의 BUILD_VERSION 상수로 정확히 1개만 선택",
+    "files": {
+        "evidence_decisions.v2.4.json": "37144deb2cc664afaa9b7139c84febc84d2b03df51a609086a586a1b6c150f06",
+        "evidence_candidates.v2.4.json": "d53b4e9e9db05dea67c23a63c544bd481017be74f9f1eb31573879e2af2a5366",
+        "review_queue.v2.4.json": "955fcdb212f47c5a070658d96be505a31fc506f0c24a4a0ca08907b8c768a9bf",
+        "uniqueness_overlay.v2.4.json": "5b6cb8514428cffc99ff0bbc18275f039a6a85cea808d971d0dc59dc3149e88e",
+        "usecases_by_fulltype.v2.4.json": "4c0f70f372ac406f083d23df3940533f12d27fd0af0b3033cd625c3e538e86d9",
+        "recipe_evidence_decisions.v2.4.json": "4c7e5022fe4b8ddaa8d4682f111874c4307f6738700348f912239dac04a923e5",
+        "recipe_review_queue.v2.4.json": "6c638a6abc64cec3b246380a937c82040d4bbc70622f938e9cecafecff1ef68c",
+        "descriptions_by_fulltype.v2.4.json": "b40d666c250145a381f4ea9154855b7f99482581e850522d6f359c33a5ffa55c",
+        "requirements_by_fulltype.v2.4.json": "2aac331f8601b6a92854c23240c7159a11c590d24c2a851a6fcb9aa336c8672c",
+        "legacy_inventory.v2.4.json": "0faea8d0fc05005e71b6927632ad35e42ca2107a0bec544f6ceababda08036b0",
+        "legacy_upgrade_candidates.v2.4.json": "69909c0ec697413e17d7ef9dfbcc4c748131b9e25e63af04dd84589eb0aef4a2",
+        "recipe_require_fields.v2.5.json": "4d6eb25421add235784c7cbcb158b3efcae211cef20c6857aa012a935caf656e",
+        "action_requirement_index.v2.4.json": "3dd995e227754378b3274f82cea43e301c597433256ed9246d2da5ab823f9245",
+        "action_evidence_classification.v2.4.json": "5d32f85538abe6d303d74d3879c3f8424ef5c45aa6e101b81afd9742d0daa1a0",
+        "recipe_nav_registry.v2.4.json": "6c0acf9c61c241f554217358a882b882f94e2189814a073296e52d38acc5e932",
+        "recipe_requirements_index.v2.4.json": "d2c0d1a8fb10c215a5973610760be35d2561ed2cae64e8f4333b8726f113e3f7",
+        "build/data/v2.4/use_case_id_alias_map.v2.4.json": "f49d0a06cad0f627a5769499ea506c2b2bed661c9cc45baef8d8f9a52bbbd7b1"
+    }
+}

@@ -52,12 +52,12 @@
     },
     "evidenceTable": {
       "documents": [
-        "iris-tool-evidence-table-v0.2.md",
-        "iris-combat-evidence-table.md",
-        "iris-consumable-evidence-table-v0.2.md",
-        "iris-resource-evidence-table-v0.2.md",
-        "iris-literature-evidence-table.md",
-        "iris-wearable-evidence-table-v0.2.md"
+        "evidence/tables/iris-tool-evidence-table.md",
+        "evidence/tables/iris-combat-evidence-table.md",
+        "evidence/tables/iris-consumable-evidence-table.md",
+        "evidence/tables/iris-resource-evidence-table.md",
+        "evidence/tables/iris-literature-evidence-table.md",
+        "evidence/tables/iris-wearable-evidence-table.md"
       ],
       "responsibility": "분류 규칙 (소분류별 증거 매칭 조건)"
     },

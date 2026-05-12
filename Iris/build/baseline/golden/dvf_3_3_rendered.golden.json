@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "version": "interaction-cluster-rendered-v0",
+    "generated_at": "2026-05-01T14:04:03.994239+00:00",
+    "facts_sha256": "0fbff43e932199ca36ba0c67fd683a53608ff56d0ed3373c654cdb2f67ff53e5",
+    "decisions_sha256": "7235a86c11a9e31936f0934c8dd54baa081fcf3f6208a4be35dede2e99448b9d",
+    "profiles_sha256": "418ef196dbf97e8e4b2ab62e0dec4f721550aa19067374d3ab934cd553ed9348",
+    "overlay_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\body_role\\phase2\\layer3_role_check_overlay.jsonl",
+    "overlay_sha256": "9eae0f7ddea8c1f0e04a5885dc02bcb82cd0d6545b966d2822bd47a66b5da130",
+    "entries_sha256": "8bbab2b96ac9334cd13f050b292eea2af3c3345631ca331448a8ee1617022d9d",
+    "stats": {
+      "total": 6,
+      "active_override": 0,
+      "silent": 0,
+      "active_composed": 6,
+      "quality_flagged": 1,
+      "requeue_candidates": 1
+    }
+  },
+  "entries": {
+    "Base.CanOpener": {
+      "text_ko": "도구. 통조림 개봉에 쓰는 도구다. 주방과 조리 도구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.WeldingTorch": {
+      "text_ko": "도구. 금속 접합에 쓰는 도구다. 작업장과 차고에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ElectronicsScrap": {
+      "text_ko": "부품. 전자 조립 작업에 들어가는 부품이다. 전자기기 분해 뒤에 남는 경우가 많다.",
+      "source": "composed"
+    },
+    "Base.GunpowderCan": {
+      "text_ko": "재료. 탄약 제작 작업에 들어가는 화약 재료다. 재장전 관련 보관함에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Tongs": {
+      "text_ko": "도구. 금속 단조에 쓰는 도구다. 대장간과 금속 작업장 주변에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ModKit": {
+      "text_ko": "총기 개조 작업에 들어가는 부품이다. 총포상과 작업대 주변에서 발견된다.",
+      "source": "composed",
+      "quality_flag": "function_narrow"
+    }
+  }
+}

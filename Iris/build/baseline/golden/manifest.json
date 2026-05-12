@@ -1,0 +1,15 @@
+{
+  "schema_version": "iris-p0.6-baseline-manifest-v0",
+  "capture_mode": "static_proxy_partial; in-game marker validation pending",
+  "tracked_golden_files": [
+    "golden/iris_api_golden_subset.json",
+    "golden/dvf_3_3_rendered.golden.json",
+    "golden/runtime_marker_checklist.md"
+  ],
+  "moved_legacy_baseline": "capability_by_fulltype.json",
+  "sample_count": 28,
+  "manual_pending": [
+    "Run PZ once after P0.6 and confirm the marker list in runtime_marker_checklist.md.",
+    "Capture actual Moveables/Fixing build results inside game runtime before P0.7 deletion/archive."
+  ]
+}

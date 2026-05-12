@@ -1,0 +1,8 @@
+{
+  "version": "v2.4",
+  "_comment": "이번 라운드에서 승격할 rule_id 목록. candidates에서 선택.",
+  "accept": [
+    "rule_firefighting_isextinguisher",
+    "rule_healthpanel_hstitch"
+  ]
+}

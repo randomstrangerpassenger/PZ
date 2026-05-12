@@ -259,6 +259,7 @@
         "Base.Leek",
         "Base.Lemon",
         "Base.LemonGrass",
+        "Base.Lemongrass",
         "Base.Lettuce",
         "Base.LicoriceBlack",
         "Base.LicoriceRed",
@@ -495,7 +496,7 @@
         "farming.Tomato"
       ],
       "pass_count": 0,
-      "matched_count": 479,
+      "matched_count": 480,
       "uniqueness": null
     },
     "rule_exclusion_consumption_food": {

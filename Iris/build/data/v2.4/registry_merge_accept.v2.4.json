@@ -1,0 +1,10 @@
+[
+    {
+        "_comment": "Round 1: Jaccard=1.0, co-occurrence 100%. remove_glass를 remove_bullet로 흡수.",
+        "merge_rule_ids": [
+            "rule_healthpanel_hremovebullet",
+            "rule_healthpanel_hremoveglass"
+        ],
+        "target_use_case_id": "uc.medical.remove_bullet"
+    }
+]

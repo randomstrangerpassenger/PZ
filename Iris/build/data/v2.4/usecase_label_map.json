@@ -1,0 +1,191 @@
+{
+    "_comment": "use_case_id → KO/EN 표시 문자열. 단순 치환만, 조건분기/추론 금지. 행동형 표현 우선.",
+    "labels": {
+        "uc.action.attach_weapon_part": {
+            "KO": "무기 부품 장착",
+            "EN": "Weapon Part Attach"
+        },
+        "uc.action.construction": {
+            "KO": "건축 / 해체",
+            "EN": "Construction / Dismantling"
+        },
+        "uc.action.extinguish_fire": {
+            "KO": "소화에 사용",
+            "EN": "Fire Extinguishing"
+        },
+        "uc.action.foreign_body_removal": {
+            "KO": "이물질 제거",
+            "EN": "Foreign Body Removal"
+        },
+        "uc.action.fuel": {
+            "KO": "주유에 사용",
+            "EN": "Used for Refueling"
+        },
+        "uc.action.metal_cutting": {
+            "KO": "금속 절단",
+            "EN": "Metal Cutting"
+        },
+        "uc.action.open_can": {
+            "KO": "캔 따기",
+            "EN": "Can Opening"
+        },
+        "uc.action.screw_disassembly": {
+            "KO": "나사 해체",
+            "EN": "Screw Disassembly"
+        },
+        "uc.action.wood_cutting": {
+            "KO": "톱질 해체",
+            "EN": "Wood Cutting"
+        },
+        "uc.action.wound_suturing": {
+            "KO": "상처 봉합",
+            "EN": "Wound Suturing"
+        },
+        "uc.craft.blowtorch": {
+            "KO": "용접 토치 사용",
+            "EN": "Blowtorch Use"
+        },
+        "uc.craft.carpentry_material": {
+            "KO": "목공에 사용",
+            "EN": "Used in Carpentry"
+        },
+        "uc.craft.carpentry_tool": {
+            "KO": "목공 도구로 사용",
+            "EN": "Used as Carpentry Tool"
+        },
+        "uc.craft.cooking_material": {
+            "KO": "요리에 사용",
+            "EN": "Used in Cooking"
+        },
+        "uc.craft.cooking_tool": {
+            "KO": "요리 도구로 사용",
+            "EN": "Used as Cooking Tool"
+        },
+        "uc.craft.electrical_material": {
+            "KO": "전기 작업에 사용",
+            "EN": "Used in Electrical"
+        },
+        "uc.craft.engineer_material": {
+            "KO": "공학 작업에 사용",
+            "EN": "Used in Engineering"
+        },
+        "uc.craft.hammer": {
+            "KO": "망치로 사용",
+            "EN": "Hammer Use"
+        },
+        "uc.craft.health_material": {
+            "KO": "의료 제작에 사용",
+            "EN": "Used in Health Crafting"
+        },
+        "uc.craft.saw": {
+            "KO": "톱으로 사용",
+            "EN": "Saw Use"
+        },
+        "uc.craft.screwdriver": {
+            "KO": "드라이버로 사용",
+            "EN": "Screwdriver Use"
+        },
+        "uc.craft.smithing_material": {
+            "KO": "대장간 작업에 사용",
+            "EN": "Used in Smithing"
+        },
+        "uc.craft.smithing_tool": {
+            "KO": "대장간 도구로 사용",
+            "EN": "Used as Smithing Tool"
+        },
+        "uc.craft.trapping_tool": {
+            "KO": "덫 설치에 사용",
+            "EN": "Used for Trapping"
+        },
+        "uc.craft.welding_material": {
+            "KO": "용접에 사용",
+            "EN": "Used in Welding"
+        },
+        "uc.exclusion.consumption_displaycategory_food": {
+            "KO": "음식으로 소비",
+            "EN": "Consumed as Food"
+        },
+        "uc.exclusion.consumption_food": {
+            "KO": "음식으로 소비",
+            "EN": "Consumed as Food"
+        },
+        "uc.exclusion.consumption_literature": {
+            "KO": "읽어서 소비",
+            "EN": "Consumed by Reading"
+        },
+        "uc.exclusion.equip_clothing": {
+            "KO": "의류로 착용",
+            "EN": "Equipped as Clothing"
+        },
+        "uc.exclusion.inputmaterial_ammo": {
+            "KO": "탄약으로 소비",
+            "EN": "Used as Ammo"
+        },
+        "uc.exclusion.inputmaterial_material": {
+            "KO": "재료로 소비",
+            "EN": "Used as Material"
+        },
+        "uc.firefighting.extinguish": {
+            "KO": "소화에 사용",
+            "EN": "Fire Extinguishing"
+        },
+        "uc.food.open_can": {
+            "KO": "캔 따기",
+            "EN": "Can Opening"
+        },
+        "uc.medical.remove_bullet": {
+            "KO": "총알 제거",
+            "EN": "Bullet Removal"
+        },
+        "uc.medical.remove_glass": {
+            "KO": "유리 제거",
+            "EN": "Glass Removal"
+        },
+        "uc.medical.stitch": {
+            "KO": "봉합",
+            "EN": "Stitching"
+        },
+        "uc.vehicle.fuel": {
+            "KO": "주유에 사용",
+            "EN": "Used for Refueling"
+        },
+        "uc.weapon.attach_part": {
+            "KO": "무기 부품 장착",
+            "EN": "Weapon Part Attach"
+        }
+    },
+    "surface_labels": {
+        "context_menu": {
+            "KO": "우클릭",
+            "EN": "Right-click"
+        },
+        "recipe_ui": {
+            "KO": "레시피",
+            "EN": "Recipe"
+        },
+        "both": {
+            "KO": "우클릭+레시피",
+            "EN": "Right-click+Recipe"
+        }
+    },
+    "strength_labels": {
+        "STRONG": {
+            "KO": " [강]",
+            "EN": " [Strong]"
+        },
+        "WEAK": {
+            "KO": " [약]",
+            "EN": " [Weak]"
+        }
+    },
+    "uniqueness_labels": {
+        "unique": {
+            "KO": " [고유]",
+            "EN": " [Unique]"
+        },
+        "shared": {
+            "KO": " [공유]",
+            "EN": " [Shared]"
+        }
+    }
+}

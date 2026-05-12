@@ -1,6 +1,6 @@
 {
   "version": "v2.5",
-  "timestamp": "2026-03-07T05:16:41.095320+00:00",
+  "timestamp": "2026-05-12T11:24:19.173002+00:00",
   "gates": {
     "Q1_pass_integrity": {
       "status": "PASS",
@@ -35,8 +35,8 @@
       "new_metrics": {
         "rightclick_evidence_fulltype_count": 86,
         "rightclick_evidence_line_count": 86,
-        "rightclick_exclusion_fulltype_count": 1385,
-        "rightclick_exclusion_line_count": 1801,
+        "rightclick_exclusion_fulltype_count": 1386,
+        "rightclick_exclusion_line_count": 1802,
         "recipe_evidence_fulltype_count": 349,
         "rightclick_strong_fulltype_count": 12,
         "rightclick_strong_line_count": 12,
@@ -55,9 +55,9 @@
     }
   },
   "statistics": {
-    "total_items": 1469,
+    "total_items": 1470,
     "PASS": 57,
-    "NO": 1399,
+    "NO": 1400,
     "REVIEW": 13,
     "STRONG": 1,
     "WEAK": 56,

@@ -1,0 +1,705 @@
+{
+  "schema_version": "iris-p0.6-golden-subset-v0",
+  "capture_mode": "static_proxy_plus_pending_runtime_markers",
+  "notes": [
+    "getTags/getTagsForItem are captured from IrisClassifications.lua.",
+    "getDescriptionBlocks is a static proxy of current TagParser/Ordering/Templates/Renderer behavior.",
+    "getRecipeConnectionsForItem is approximated from Iris/output/recipe_index.v2.4.json.",
+    "Moveables/Fixing build results require PZ runtime and remain pending for manual in-game capture."
+  ],
+  "sample_count": 28,
+  "samples": [
+    {
+      "fullType": "Base.223Bullets",
+      "sample_bucket": "Combat",
+      "getTags": [
+        "Combat.2-K"
+      ],
+      "getTagsForItem_set": {
+        "Combat.2-K": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[전투-탄약]\n이 아이템은 화기를 발사할 때 사용되며, 발사 시 소모된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": null,
+          "recipe": "Gather Gunpowder",
+          "recipe_id": "gather_gunpowder"
+        },
+        {
+          "role": "input",
+          "category": null,
+          "recipe": "Place .223 Ammo in Box",
+          "recipe_id": "place_223_ammo_in_box"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.308Bullets",
+      "sample_bucket": "Combat",
+      "getTags": [
+        "Combat.2-K"
+      ],
+      "getTagsForItem_set": {
+        "Combat.2-K": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[전투-탄약]\n이 아이템은 화기를 발사할 때 사용되며, 발사 시 소모된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": null,
+          "recipe": "Gather Gunpowder",
+          "recipe_id": "gather_gunpowder"
+        },
+        {
+          "role": "input",
+          "category": null,
+          "recipe": "Place .308 Ammo in Box",
+          "recipe_id": "place_308_ammo_in_box"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.556Bullets",
+      "sample_bucket": "Combat",
+      "getTags": [
+        "Combat.2-K"
+      ],
+      "getTagsForItem_set": {
+        "Combat.2-K": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[전투-탄약]\n이 아이템은 화기를 발사할 때 사용되며, 발사 시 소모된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": null,
+          "recipe": "Gather Gunpowder",
+          "recipe_id": "gather_gunpowder"
+        },
+        {
+          "role": "input",
+          "category": null,
+          "recipe": "Place .556 Ammo in Box",
+          "recipe_id": "place_556_ammo_in_box"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.223BulletsMold",
+      "sample_bucket": "Tool",
+      "getTags": [
+        "Tool.1-A"
+      ],
+      "getTagsForItem_set": {
+        "Tool.1-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[도구-건설/제작]\n이 아이템은 다른 물건을 만들거나 조립하고 가공하는 제작 과정에 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "keep",
+          "category": "Smithing",
+          "recipe": "Make 223 Bullets",
+          "recipe_id": "make_223_bullets"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.308BulletsMold",
+      "sample_bucket": "Tool",
+      "getTags": [
+        "Tool.1-A"
+      ],
+      "getTagsForItem_set": {
+        "Tool.1-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[도구-건설/제작]\n이 아이템은 다른 물건을 만들거나 조립하고 가공하는 제작 과정에 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "keep",
+          "category": "Smithing",
+          "recipe": "Make 308 Bullets",
+          "recipe_id": "make_308_bullets"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.9mmBulletsMold",
+      "sample_bucket": "Tool",
+      "getTags": [
+        "Tool.1-A"
+      ],
+      "getTagsForItem_set": {
+        "Tool.1-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[도구-건설/제작]\n이 아이템은 다른 물건을 만들거나 조립하고 가공하는 제작 과정에 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "keep",
+          "category": "Smithing",
+          "recipe": "Make 9mm Bullets",
+          "recipe_id": "make_9mm_bullets"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Acorn",
+      "sample_bucket": "Consumable",
+      "getTags": [
+        "Consumable.3-A"
+      ],
+      "getTagsForItem_set": {
+        "Consumable.3-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[소모품-식품]\n이 아이템은 섭취하여 포만감이나 상태 수치에 영향을 주는 데 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.AlcoholBandage",
+      "sample_bucket": "Consumable",
+      "getTags": [
+        "Consumable.3-C",
+        "Consumable.3-D"
+      ],
+      "getTagsForItem_set": {
+        "Consumable.3-C": true,
+        "Consumable.3-D": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[소모품-의약품]\n이 아이템은 치료나 처치를 통해 상처, 질병, 감염, 통증과 같은 신체 상태에 영향을 주는 데 사용된다.",
+        "[소모품-기호품]\n이 아이템은 사용하거나 복용 시 스트레스나 기분과 같은 정신 상태 수치에 영향을 주는 데 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.AlcoholRippedSheets",
+      "sample_bucket": "Consumable",
+      "getTags": [
+        "Consumable.3-C",
+        "Consumable.3-D"
+      ],
+      "getTagsForItem_set": {
+        "Consumable.3-C": true,
+        "Consumable.3-D": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[소모품-의약품]\n이 아이템은 치료나 처치를 통해 상처, 질병, 감염, 통증과 같은 신체 상태에 영향을 주는 데 사용된다.",
+        "[소모품-기호품]\n이 아이템은 사용하거나 복용 시 스트레스나 기분과 같은 정신 상태 수치에 영향을 주는 데 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Aerosolbomb",
+      "sample_bucket": "Resource",
+      "getTags": [
+        "Resource.4-E"
+      ],
+      "getTagsForItem_set": {
+        "Resource.4-E": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[자원-전자부품]\n이 아이템은 전자기기나 전자 장치를 제작하거나 수리하는 데 사용되는 재료다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Add Crafted Trigger",
+          "recipe_id": "add_crafted_trigger"
+        },
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Add Motion Sensor V1",
+          "recipe_id": "add_motion_sensor_v1"
+        },
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Add Motion Sensor V2",
+          "recipe_id": "add_motion_sensor_v2"
+        },
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Add Motion Sensor V3",
+          "recipe_id": "add_motion_sensor_v3"
+        },
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Add Timer",
+          "recipe_id": "add_timer"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.AlarmClock2",
+      "sample_bucket": "Resource",
+      "getTags": [
+        "Resource.4-E"
+      ],
+      "getTagsForItem_set": {
+        "Resource.4-E": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[자원-전자부품]\n이 아이템은 전자기기나 전자 장치를 제작하거나 수리하는 데 사용되는 재료다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Make Timer",
+          "recipe_id": "make_timer"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Aluminum",
+      "sample_bucket": "Resource",
+      "getTags": [
+        "Resource.4-E"
+      ],
+      "getTagsForItem_set": {
+        "Resource.4-E": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[자원-전자부품]\n이 아이템은 전자기기나 전자 장치를 제작하거나 수리하는 데 사용되는 재료다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Craft Makeshift HAM Radio",
+          "recipe_id": "craft_makeshift_ham_radio"
+        },
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Craft Makeshift Radio",
+          "recipe_id": "craft_makeshift_radio"
+        },
+        {
+          "role": "input",
+          "category": "Electrical",
+          "recipe": "Craft Makeshift Walkie Talkie",
+          "recipe_id": "craft_makeshift_walkie_talkie"
+        },
+        {
+          "role": "input",
+          "category": "Engineer",
+          "recipe": "Make Aerosol bomb",
+          "recipe_id": "make_aerosol_bomb"
+        },
+        {
+          "role": "input",
+          "category": null,
+          "recipe": "Make Tin Foil Hat",
+          "recipe_id": "make_tin_foil_hat"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Book",
+      "sample_bucket": "Literature",
+      "getTags": [
+        "Literature.5-D"
+      ],
+      "getTagsForItem_set": {
+        "Literature.5-D": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[문헌-일반 서적]\n이 아이템은 읽어서 지루함과 같은 정신 상태 수치에 영향을 주는 데 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": "Survivalist",
+          "recipe": "Make Campfire Kit",
+          "recipe_id": "make_campfire_kit"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.BookBlacksmith1",
+      "sample_bucket": "Literature",
+      "getTags": [
+        "Literature.5-A"
+      ],
+      "getTagsForItem_set": {
+        "Literature.5-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[문헌-스킬북]\n이 아이템은 특정 기술과 관련된 서적으로,\n읽은 이후 해당 기술의 특정 레벨 구간에서 경험치 획득에 가속 효과를 적용하는 데 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.BookBlacksmith2",
+      "sample_bucket": "Literature",
+      "getTags": [
+        "Literature.5-A"
+      ],
+      "getTagsForItem_set": {
+        "Literature.5-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[문헌-스킬북]\n이 아이템은 특정 기술과 관련된 서적으로,\n읽은 이후 해당 기술의 특정 레벨 구간에서 경험치 획득에 가속 효과를 적용하는 데 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.AmmoStrap_Bullets",
+      "sample_bucket": "Wearable",
+      "getTags": [
+        "Wearable.6-G"
+      ],
+      "getTagsForItem_set": {
+        "Wearable.6-G": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[의류-액세서리]\n이 아이템은 신체의 특정 부위에 착용하여 장식하거나 기능을 보조하는 데 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.AmmoStrap_Shells",
+      "sample_bucket": "Wearable",
+      "getTags": [
+        "Wearable.6-G"
+      ],
+      "getTagsForItem_set": {
+        "Wearable.6-G": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[의류-액세서리]\n이 아이템은 신체의 특정 부위에 착용하여 장식하거나 기능을 보조하는 데 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Apron_Black",
+      "sample_bucket": "Wearable",
+      "getTags": [
+        "Wearable.6-B"
+      ],
+      "getTagsForItem_set": {
+        "Wearable.6-B": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[의류-상의]\n이 아이템은 상체에 착용하여 상체 부위 보호나 체온 유지나 외부 환경으로부터의 보호에 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Mattress",
+      "sample_bucket": "Furniture",
+      "getTags": [
+        "Furniture.7-A"
+      ],
+      "getTagsForItem_set": {
+        "Furniture.7-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[가구-탈착 가구]\n이 아이템은 월드에 설치된 상태에서 떼어내어 인벤토리에 담고\n다른 위치에 다시 배치할 수 있는 가구다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Mov_AirConditioner",
+      "sample_bucket": "Furniture",
+      "getTags": [
+        "Furniture.7-A"
+      ],
+      "getTagsForItem_set": {
+        "Furniture.7-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[가구-탈착 가구]\n이 아이템은 월드에 설치된 상태에서 떼어내어 인벤토리에 담고\n다른 위치에 다시 배치할 수 있는 가구다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.BigGasTank1",
+      "sample_bucket": "Vehicle",
+      "getTags": [
+        "Vehicle.8-A"
+      ],
+      "getTagsForItem_set": {
+        "Vehicle.8-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[차량-주행계]\n이 아이템은 차량의 주행 성능이나 운행 상태에 영향을 주는 주요 부품이다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.BigGasTank2",
+      "sample_bucket": "Vehicle",
+      "getTags": [
+        "Vehicle.8-A"
+      ],
+      "getTagsForItem_set": {
+        "Vehicle.8-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[차량-주행계]\n이 아이템은 차량의 주행 성능이나 운행 상태에 영향을 주는 주요 부품이다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.223Box",
+      "sample_bucket": "Misc",
+      "getTags": [
+        "Misc.9-A"
+      ],
+      "getTagsForItem_set": {
+        "Misc.9-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[기타-잡화]\n이 아이템은 다양한 용도나 기능을 가진 일반 물품으로,\n상황에 따라 사용되거나 보관되는 소형 아이템이다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": null,
+          "recipe": "Open Box of .223 Ammo",
+          "recipe_id": "open_box_of_223_ammo"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.223Clip",
+      "sample_bucket": "Misc",
+      "getTags": [
+        "Misc.9-A"
+      ],
+      "getTagsForItem_set": {
+        "Misc.9-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[기타-잡화]\n이 아이템은 다양한 용도나 기능을 가진 일반 물품으로,\n상황에 따라 사용되거나 보관되는 소형 아이템이다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Avocado",
+      "sample_bucket": "edge_case",
+      "getTags": [
+        "Consumable.3-A",
+        "Consumable.3-B",
+        "Resource.4-B"
+      ],
+      "getTagsForItem_set": {
+        "Consumable.3-A": true,
+        "Consumable.3-B": true,
+        "Resource.4-B": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[소모품-식품]\n이 아이템은 섭취하여 포만감이나 상태 수치에 영향을 주는 데 사용된다.",
+        "[소모품-음료]\n이 아이템은 복용 시 갈증이나 상타 수치에 영향을 주는 데 사용된다.",
+        "[자원-조리 재료]\n이 아이템은 음식을 만들거나 가공하는 조리 과정에 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "input",
+          "category": "Cooking",
+          "recipe": "Make Maki",
+          "recipe_id": "make_maki"
+        },
+        {
+          "role": "input",
+          "category": "Cooking",
+          "recipe": "Make Onigiri",
+          "recipe_id": "make_onigiri"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.Axe",
+      "sample_bucket": "edge_case",
+      "getTags": [
+        "Combat.2-A",
+        "Tool.1-D",
+        "Tool.1-E"
+      ],
+      "getTagsForItem_set": {
+        "Combat.2-A": true,
+        "Tool.1-D": true,
+        "Tool.1-E": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[도구-조리]\n이 아이템은 음식이나 음료를 만들고 다루는 조리 과정에 사용된다.",
+        "[도구-농업/채집]\n이 아이템은 자연 환경에서 자원을 얻거나 관리하는 작업에 사용된다.",
+        "[전투-도끼류]\n이 아이템은 도끼 전투 스킬 레벨에 따라 피해량이 달라지며\n근접 거리에서 베거나 찍는 공격에 사용된다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [
+        {
+          "role": "keep",
+          "category": "Cooking",
+          "recipe": "Slice Watermelon",
+          "recipe_id": "slice_watermelon"
+        }
+      ],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.brokenglass_1_0",
+      "sample_bucket": "edge_case",
+      "getTags": [
+        "Furniture.7-A"
+      ],
+      "getTagsForItem_set": {
+        "Furniture.7-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[가구-탈착 가구]\n이 아이템은 월드에 설치된 상태에서 떼어내어 인벤토리에 담고\n다른 위치에 다시 배치할 수 있는 가구다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    },
+    {
+      "fullType": "Base.CarBattery1",
+      "sample_bucket": "edge_case",
+      "getTags": [
+        "Vehicle.8-A"
+      ],
+      "getTagsForItem_set": {
+        "Vehicle.8-A": true
+      },
+      "getDescriptionBlocks_static_proxy": [
+        "[차량-주행계]\n이 아이템은 차량의 주행 성능이나 운행 상태에 영향을 주는 주요 부품이다."
+      ],
+      "getRecipeConnectionsForItem_offline_proxy": [],
+      "capabilities": [],
+      "context_outcomes": [],
+      "moveables_index_runtime_capture": "pending_in_game_runtime_capture",
+      "fixing_index_runtime_capture": "pending_in_game_runtime_capture"
+    }
+  ],
+  "source_hashes": {
+    "IrisClassifications.lua": "98d9ce3162703333b02dd48d62f8739e4606eada321a7731a35e2e586f033563",
+    "IrisCapabilities.lua": "e9b76536bd56b481aa4b0cb094f20010352d4ded3e10adf7e09b86c4239b04c0",
+    "IrisContextOutcomes.lua": "eff2b494e30a68c89c216f12813131a9c287f36e0fe97a8929dcb06b948bda47",
+    "Templates.lua": "d76061aaa683013eac478edfa0ac99ef99a9a1f93a813f2138f8840dc448427a",
+    "recipe_index.v2.4.json": "81eaab98d443fc33e23730fddbeae61dcb95e1239f78541c1fdf73f24aed995b"
+  }
+}

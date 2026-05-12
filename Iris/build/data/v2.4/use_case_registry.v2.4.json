@@ -1,0 +1,1140 @@
+{
+  "version": "v2.4",
+  "_comment": "rule_id → use_case_id 매핑. 통합 파이프라인에서 누락 rule_id는 즉시 FAIL. 네이밍: uc.<domain>.<verb>[_<object>]",
+  "rules": {
+    "rp.recipe.add_crafted_trigger": {
+      "use_case_id": "uc.recipe.add_crafted_trigger"
+    },
+    "rp.recipe.add_motion_sensor_v1": {
+      "use_case_id": "uc.recipe.add_motion_sensor_v1"
+    },
+    "rp.recipe.add_motion_sensor_v2": {
+      "use_case_id": "uc.recipe.add_motion_sensor_v2"
+    },
+    "rp.recipe.add_motion_sensor_v3": {
+      "use_case_id": "uc.recipe.add_motion_sensor_v3"
+    },
+    "rp.recipe.add_timer": {
+      "use_case_id": "uc.recipe.add_timer"
+    },
+    "rp.recipe.attach_bread_knife_to_spear": {
+      "use_case_id": "uc.recipe.attach_bread_knife_to_spear"
+    },
+    "rp.recipe.attach_butter_knife_to_spear": {
+      "use_case_id": "uc.recipe.attach_butter_knife_to_spear"
+    },
+    "rp.recipe.attach_fork_to_spear": {
+      "use_case_id": "uc.recipe.attach_fork_to_spear"
+    },
+    "rp.recipe.attach_hand_fork_to_spear": {
+      "use_case_id": "uc.recipe.attach_hand_fork_to_spear"
+    },
+    "rp.recipe.attach_hunting_knife_to_spear": {
+      "use_case_id": "uc.recipe.attach_hunting_knife_to_spear"
+    },
+    "rp.recipe.attach_ice_pick_to_spear": {
+      "use_case_id": "uc.recipe.attach_ice_pick_to_spear"
+    },
+    "rp.recipe.attach_kitchen_knife_to_spear": {
+      "use_case_id": "uc.recipe.attach_kitchen_knife_to_spear"
+    },
+    "rp.recipe.attach_letter_opener_to_spear": {
+      "use_case_id": "uc.recipe.attach_letter_opener_to_spear"
+    },
+    "rp.recipe.attach_machete_to_spear": {
+      "use_case_id": "uc.recipe.attach_machete_to_spear"
+    },
+    "rp.recipe.attach_scalpel_to_spear": {
+      "use_case_id": "uc.recipe.attach_scalpel_to_spear"
+    },
+    "rp.recipe.attach_scissors_to_spear": {
+      "use_case_id": "uc.recipe.attach_scissors_to_spear"
+    },
+    "rp.recipe.attach_screwdriver_to_spear": {
+      "use_case_id": "uc.recipe.attach_screwdriver_to_spear"
+    },
+    "rp.recipe.attach_spoon_to_spear": {
+      "use_case_id": "uc.recipe.attach_spoon_to_spear"
+    },
+    "rp.recipe.build_drawer": {
+      "use_case_id": "uc.recipe.build_drawer"
+    },
+    "rp.recipe.build_spiked_baseball_bat": {
+      "use_case_id": "uc.recipe.build_spiked_baseball_bat"
+    },
+    "rp.recipe.build_spiked_plank": {
+      "use_case_id": "uc.recipe.build_spiked_plank"
+    },
+    "rp.recipe.butcher_bird": {
+      "use_case_id": "uc.recipe.butcher_bird"
+    },
+    "rp.recipe.butcher_rabbit": {
+      "use_case_id": "uc.recipe.butcher_rabbit"
+    },
+    "rp.recipe.butcher_small_animal": {
+      "use_case_id": "uc.recipe.butcher_small_animal"
+    },
+    "rp.recipe.clean_bandage": {
+      "use_case_id": "uc.recipe.clean_bandage"
+    },
+    "rp.recipe.clean_denim_strips": {
+      "use_case_id": "uc.recipe.clean_denim_strips"
+    },
+    "rp.recipe.clean_leather_strips": {
+      "use_case_id": "uc.recipe.clean_leather_strips"
+    },
+    "rp.recipe.clean_rag": {
+      "use_case_id": "uc.recipe.clean_rag"
+    },
+    "rp.recipe.clean_tray": {
+      "use_case_id": "uc.recipe.clean_tray"
+    },
+    "rp.recipe.close_umbrella": {
+      "use_case_id": "uc.recipe.close_umbrella"
+    },
+    "rp.recipe.craft_makeshift_ham_radio": {
+      "use_case_id": "uc.recipe.craft_makeshift_ham_radio"
+    },
+    "rp.recipe.craft_makeshift_radio": {
+      "use_case_id": "uc.recipe.craft_makeshift_radio"
+    },
+    "rp.recipe.craft_makeshift_walkie_talkie": {
+      "use_case_id": "uc.recipe.craft_makeshift_walkie_talkie"
+    },
+    "rp.recipe.create_spear": {
+      "use_case_id": "uc.recipe.create_spear"
+    },
+    "rp.recipe.disinfect_bandage": {
+      "use_case_id": "uc.recipe.disinfect_bandage"
+    },
+    "rp.recipe.disinfect_rag": {
+      "use_case_id": "uc.recipe.disinfect_rag"
+    },
+    "rp.recipe.dismantle_cd_player": {
+      "use_case_id": "uc.recipe.dismantle_cd_player"
+    },
+    "rp.recipe.dismantle_cordless_phone": {
+      "use_case_id": "uc.recipe.dismantle_cordless_phone"
+    },
+    "rp.recipe.dismantle_earbuds": {
+      "use_case_id": "uc.recipe.dismantle_earbuds"
+    },
+    "rp.recipe.dismantle_flashlight": {
+      "use_case_id": "uc.recipe.dismantle_flashlight"
+    },
+    "rp.recipe.dismantle_ham_radio": {
+      "use_case_id": "uc.recipe.dismantle_ham_radio"
+    },
+    "rp.recipe.dismantle_headphones": {
+      "use_case_id": "uc.recipe.dismantle_headphones"
+    },
+    "rp.recipe.dismantle_home_alarm": {
+      "use_case_id": "uc.recipe.dismantle_home_alarm"
+    },
+    "rp.recipe.dismantle_radio": {
+      "use_case_id": "uc.recipe.dismantle_radio"
+    },
+    "rp.recipe.dismantle_speaker": {
+      "use_case_id": "uc.recipe.dismantle_speaker"
+    },
+    "rp.recipe.dismantle_television": {
+      "use_case_id": "uc.recipe.dismantle_television"
+    },
+    "rp.recipe.dismantle_tv_remote": {
+      "use_case_id": "uc.recipe.dismantle_tv_remote"
+    },
+    "rp.recipe.dismantle_two_way_radio": {
+      "use_case_id": "uc.recipe.dismantle_two_way_radio"
+    },
+    "rp.recipe.dismantle_video_game": {
+      "use_case_id": "uc.recipe.dismantle_video_game"
+    },
+    "rp.recipe.douse_cotton_in_alcohol": {
+      "use_case_id": "uc.recipe.douse_cotton_in_alcohol"
+    },
+    "rp.recipe.drill_plank": {
+      "use_case_id": "uc.recipe.drill_plank"
+    },
+    "rp.recipe.empty_baking_tray": {
+      "use_case_id": "uc.recipe.empty_baking_tray"
+    },
+    "rp.recipe.empty_frying_pan": {
+      "use_case_id": "uc.recipe.empty_frying_pan"
+    },
+    "rp.recipe.empty_griddle_pan": {
+      "use_case_id": "uc.recipe.empty_griddle_pan"
+    },
+    "rp.recipe.empty_roasting_pan": {
+      "use_case_id": "uc.recipe.empty_roasting_pan"
+    },
+    "rp.recipe.extinguish_candle": {
+      "use_case_id": "uc.recipe.extinguish_candle"
+    },
+    "rp.recipe.fix_fishing_rod": {
+      "use_case_id": "uc.recipe.fix_fishing_rod"
+    },
+    "rp.recipe.gather_gunpowder": {
+      "use_case_id": "uc.recipe.gather_gunpowder"
+    },
+    "rp.recipe.get_6_biscuits": {
+      "use_case_id": "uc.recipe.get_6_biscuits"
+    },
+    "rp.recipe.get_6_cookies": {
+      "use_case_id": "uc.recipe.get_6_cookies"
+    },
+    "rp.recipe.get_6_muffins": {
+      "use_case_id": "uc.recipe.get_6_muffins"
+    },
+    "rp.recipe.get_bacon_bits": {
+      "use_case_id": "uc.recipe.get_bacon_bits"
+    },
+    "rp.recipe.get_bacon_rashers": {
+      "use_case_id": "uc.recipe.get_bacon_rashers"
+    },
+    "rp.recipe.get_wire_back": {
+      "use_case_id": "uc.recipe.get_wire_back"
+    },
+    "rp.recipe.hockeymasksmashbottle": {
+      "use_case_id": "uc.recipe.hockeymasksmashbottle"
+    },
+    "rp.recipe.insert_battery_into_duck": {
+      "use_case_id": "uc.recipe.insert_battery_into_duck"
+    },
+    "rp.recipe.insert_battery_into_flashlight": {
+      "use_case_id": "uc.recipe.insert_battery_into_flashlight"
+    },
+    "rp.recipe.light_candle": {
+      "use_case_id": "uc.recipe.light_candle"
+    },
+    "rp.recipe.make_223_bullets": {
+      "use_case_id": "uc.recipe.make_223_bullets"
+    },
+    "rp.recipe.make_223_bullets_mold": {
+      "use_case_id": "uc.recipe.make_223_bullets_mold"
+    },
+    "rp.recipe.make_2_bowls_of_pasta": {
+      "use_case_id": "uc.recipe.make_2_bowls_of_pasta"
+    },
+    "rp.recipe.make_2_bowls_of_rice": {
+      "use_case_id": "uc.recipe.make_2_bowls_of_rice"
+    },
+    "rp.recipe.make_2_bowls_of_soup": {
+      "use_case_id": "uc.recipe.make_2_bowls_of_soup"
+    },
+    "rp.recipe.make_2_bowls_of_stew": {
+      "use_case_id": "uc.recipe.make_2_bowls_of_stew"
+    },
+    "rp.recipe.make_308_bullets": {
+      "use_case_id": "uc.recipe.make_308_bullets"
+    },
+    "rp.recipe.make_308_bullets_mold": {
+      "use_case_id": "uc.recipe.make_308_bullets_mold"
+    },
+    "rp.recipe.make_4_bowls_of_pasta": {
+      "use_case_id": "uc.recipe.make_4_bowls_of_pasta"
+    },
+    "rp.recipe.make_4_bowls_of_rice": {
+      "use_case_id": "uc.recipe.make_4_bowls_of_rice"
+    },
+    "rp.recipe.make_4_bowls_of_soup": {
+      "use_case_id": "uc.recipe.make_4_bowls_of_soup"
+    },
+    "rp.recipe.make_4_bowls_of_stew": {
+      "use_case_id": "uc.recipe.make_4_bowls_of_stew"
+    },
+    "rp.recipe.make_9mm_bullets": {
+      "use_case_id": "uc.recipe.make_9mm_bullets"
+    },
+    "rp.recipe.make_9mm_bullets_mold": {
+      "use_case_id": "uc.recipe.make_9mm_bullets_mold"
+    },
+    "rp.recipe.make_aerosol_bomb": {
+      "use_case_id": "uc.recipe.make_aerosol_bomb"
+    },
+    "rp.recipe.make_axe": {
+      "use_case_id": "uc.recipe.make_axe"
+    },
+    "rp.recipe.make_baking_pan": {
+      "use_case_id": "uc.recipe.make_baking_pan"
+    },
+    "rp.recipe.make_baking_tray": {
+      "use_case_id": "uc.recipe.make_baking_tray"
+    },
+    "rp.recipe.make_ball_peen_hammer": {
+      "use_case_id": "uc.recipe.make_ball_peen_hammer"
+    },
+    "rp.recipe.make_biscuits": {
+      "use_case_id": "uc.recipe.make_biscuits"
+    },
+    "rp.recipe.make_bowl_of_beans": {
+      "use_case_id": "uc.recipe.make_bowl_of_beans"
+    },
+    "rp.recipe.make_bowl_of_cereal": {
+      "use_case_id": "uc.recipe.make_bowl_of_cereal"
+    },
+    "rp.recipe.make_bowl_of_oatmeal": {
+      "use_case_id": "uc.recipe.make_bowl_of_oatmeal"
+    },
+    "rp.recipe.make_bread_dough": {
+      "use_case_id": "uc.recipe.make_bread_dough"
+    },
+    "rp.recipe.make_bucket_of_plaster": {
+      "use_case_id": "uc.recipe.make_bucket_of_plaster"
+    },
+    "rp.recipe.make_butter_knife": {
+      "use_case_id": "uc.recipe.make_butter_knife"
+    },
+    "rp.recipe.make_cage_trap": {
+      "use_case_id": "uc.recipe.make_cage_trap"
+    },
+    "rp.recipe.make_cake_batter": {
+      "use_case_id": "uc.recipe.make_cake_batter"
+    },
+    "rp.recipe.make_campfire_kit": {
+      "use_case_id": "uc.recipe.make_campfire_kit"
+    },
+    "rp.recipe.make_cheese_sandwich": {
+      "use_case_id": "uc.recipe.make_cheese_sandwich"
+    },
+    "rp.recipe.make_chocolate_chip_cookie_dough": {
+      "use_case_id": "uc.recipe.make_chocolate_chip_cookie_dough"
+    },
+    "rp.recipe.make_chocolate_cookie_dough": {
+      "use_case_id": "uc.recipe.make_chocolate_cookie_dough"
+    },
+    "rp.recipe.make_comfrey_poultice": {
+      "use_case_id": "uc.recipe.make_comfrey_poultice"
+    },
+    "rp.recipe.make_cooking_pot": {
+      "use_case_id": "uc.recipe.make_cooking_pot"
+    },
+    "rp.recipe.make_crowbar": {
+      "use_case_id": "uc.recipe.make_crowbar"
+    },
+    "rp.recipe.make_door_knob": {
+      "use_case_id": "uc.recipe.make_door_knob"
+    },
+    "rp.recipe.make_fishing_net": {
+      "use_case_id": "uc.recipe.make_fishing_net"
+    },
+    "rp.recipe.make_fishing_rod": {
+      "use_case_id": "uc.recipe.make_fishing_rod"
+    },
+    "rp.recipe.make_flame_bomb": {
+      "use_case_id": "uc.recipe.make_flame_bomb"
+    },
+    "rp.recipe.make_flies_cure": {
+      "use_case_id": "uc.recipe.make_flies_cure"
+    },
+    "rp.recipe.make_fork": {
+      "use_case_id": "uc.recipe.make_fork"
+    },
+    "rp.recipe.make_four_log_stack": {
+      "use_case_id": "uc.recipe.make_four_log_stack"
+    },
+    "rp.recipe.make_fried_onion_rings": {
+      "use_case_id": "uc.recipe.make_fried_onion_rings"
+    },
+    "rp.recipe.make_fried_shrimp": {
+      "use_case_id": "uc.recipe.make_fried_shrimp"
+    },
+    "rp.recipe.make_golfclub": {
+      "use_case_id": "uc.recipe.make_golfclub"
+    },
+    "rp.recipe.make_gravy": {
+      "use_case_id": "uc.recipe.make_gravy"
+    },
+    "rp.recipe.make_halloween_pumpkin": {
+      "use_case_id": "uc.recipe.make_halloween_pumpkin"
+    },
+    "rp.recipe.make_hammer": {
+      "use_case_id": "uc.recipe.make_hammer"
+    },
+    "rp.recipe.make_hand_shovel": {
+      "use_case_id": "uc.recipe.make_hand_shovel"
+    },
+    "rp.recipe.make_hinge": {
+      "use_case_id": "uc.recipe.make_hinge"
+    },
+    "rp.recipe.make_hunting_knife": {
+      "use_case_id": "uc.recipe.make_hunting_knife"
+    },
+    "rp.recipe.make_jar_of_bell_peppers": {
+      "use_case_id": "uc.recipe.make_jar_of_bell_peppers"
+    },
+    "rp.recipe.make_jar_of_broccoli": {
+      "use_case_id": "uc.recipe.make_jar_of_broccoli"
+    },
+    "rp.recipe.make_jar_of_cabbage": {
+      "use_case_id": "uc.recipe.make_jar_of_cabbage"
+    },
+    "rp.recipe.make_jar_of_carrots": {
+      "use_case_id": "uc.recipe.make_jar_of_carrots"
+    },
+    "rp.recipe.make_jar_of_eggplants": {
+      "use_case_id": "uc.recipe.make_jar_of_eggplants"
+    },
+    "rp.recipe.make_jar_of_leeks": {
+      "use_case_id": "uc.recipe.make_jar_of_leeks"
+    },
+    "rp.recipe.make_jar_of_potatoes": {
+      "use_case_id": "uc.recipe.make_jar_of_potatoes"
+    },
+    "rp.recipe.make_jar_of_red_radishes": {
+      "use_case_id": "uc.recipe.make_jar_of_red_radishes"
+    },
+    "rp.recipe.make_jar_of_tomatoes": {
+      "use_case_id": "uc.recipe.make_jar_of_tomatoes"
+    },
+    "rp.recipe.make_kitchen_knife": {
+      "use_case_id": "uc.recipe.make_kitchen_knife"
+    },
+    "rp.recipe.make_letter_opener": {
+      "use_case_id": "uc.recipe.make_letter_opener"
+    },
+    "rp.recipe.make_maki": {
+      "use_case_id": "uc.recipe.make_maki"
+    },
+    "rp.recipe.make_mattress": {
+      "use_case_id": "uc.recipe.make_mattress"
+    },
+    "rp.recipe.make_meat_patty": {
+      "use_case_id": "uc.recipe.make_meat_patty"
+    },
+    "rp.recipe.make_metal_bar": {
+      "use_case_id": "uc.recipe.make_metal_bar"
+    },
+    "rp.recipe.make_metal_drum": {
+      "use_case_id": "uc.recipe.make_metal_drum"
+    },
+    "rp.recipe.make_metal_pipe": {
+      "use_case_id": "uc.recipe.make_metal_pipe"
+    },
+    "rp.recipe.make_metal_sheet": {
+      "use_case_id": "uc.recipe.make_metal_sheet"
+    },
+    "rp.recipe.make_mildew_cure": {
+      "use_case_id": "uc.recipe.make_mildew_cure"
+    },
+    "rp.recipe.make_molotov_cocktail": {
+      "use_case_id": "uc.recipe.make_molotov_cocktail"
+    },
+    "rp.recipe.make_mortar_and_pestle": {
+      "use_case_id": "uc.recipe.make_mortar_and_pestle"
+    },
+    "rp.recipe.make_nails": {
+      "use_case_id": "uc.recipe.make_nails"
+    },
+    "rp.recipe.make_newspaper_hat": {
+      "use_case_id": "uc.recipe.make_newspaper_hat"
+    },
+    "rp.recipe.make_noise_maker": {
+      "use_case_id": "uc.recipe.make_noise_maker"
+    },
+    "rp.recipe.make_oatmeal_cookie_dough": {
+      "use_case_id": "uc.recipe.make_oatmeal_cookie_dough"
+    },
+    "rp.recipe.make_onigiri": {
+      "use_case_id": "uc.recipe.make_onigiri"
+    },
+    "rp.recipe.make_pan": {
+      "use_case_id": "uc.recipe.make_pan"
+    },
+    "rp.recipe.make_pancake": {
+      "use_case_id": "uc.recipe.make_pancake"
+    },
+    "rp.recipe.make_paperclips": {
+      "use_case_id": "uc.recipe.make_paperclips"
+    },
+    "rp.recipe.make_pie_dough": {
+      "use_case_id": "uc.recipe.make_pie_dough"
+    },
+    "rp.recipe.make_pipe_bomb": {
+      "use_case_id": "uc.recipe.make_pipe_bomb"
+    },
+    "rp.recipe.make_pizza": {
+      "use_case_id": "uc.recipe.make_pizza"
+    },
+    "rp.recipe.make_plantain_poultice": {
+      "use_case_id": "uc.recipe.make_plantain_poultice"
+    },
+    "rp.recipe.make_pot_of_soup": {
+      "use_case_id": "uc.recipe.make_pot_of_soup"
+    },
+    "rp.recipe.make_remote_controller_v1": {
+      "use_case_id": "uc.recipe.make_remote_controller_v1"
+    },
+    "rp.recipe.make_remote_controller_v2": {
+      "use_case_id": "uc.recipe.make_remote_controller_v2"
+    },
+    "rp.recipe.make_remote_controller_v3": {
+      "use_case_id": "uc.recipe.make_remote_controller_v3"
+    },
+    "rp.recipe.make_remote_trigger": {
+      "use_case_id": "uc.recipe.make_remote_trigger"
+    },
+    "rp.recipe.make_roasting_pan": {
+      "use_case_id": "uc.recipe.make_roasting_pan"
+    },
+    "rp.recipe.make_saucepan": {
+      "use_case_id": "uc.recipe.make_saucepan"
+    },
+    "rp.recipe.make_saw": {
+      "use_case_id": "uc.recipe.make_saw"
+    },
+    "rp.recipe.make_scissors": {
+      "use_case_id": "uc.recipe.make_scissors"
+    },
+    "rp.recipe.make_sheet_metal": {
+      "use_case_id": "uc.recipe.make_sheet_metal"
+    },
+    "rp.recipe.make_shortbread_cookie_dough": {
+      "use_case_id": "uc.recipe.make_shortbread_cookie_dough"
+    },
+    "rp.recipe.make_shotgun_shells": {
+      "use_case_id": "uc.recipe.make_shotgun_shells"
+    },
+    "rp.recipe.make_shotgun_shells_mold": {
+      "use_case_id": "uc.recipe.make_shotgun_shells_mold"
+    },
+    "rp.recipe.make_shovel": {
+      "use_case_id": "uc.recipe.make_shovel"
+    },
+    "rp.recipe.make_sledgehammer": {
+      "use_case_id": "uc.recipe.make_sledgehammer"
+    },
+    "rp.recipe.make_small_metal_sheet": {
+      "use_case_id": "uc.recipe.make_small_metal_sheet"
+    },
+    "rp.recipe.make_smoke_bomb": {
+      "use_case_id": "uc.recipe.make_smoke_bomb"
+    },
+    "rp.recipe.make_snare_trap": {
+      "use_case_id": "uc.recipe.make_snare_trap"
+    },
+    "rp.recipe.make_splint": {
+      "use_case_id": "uc.recipe.make_splint"
+    },
+    "rp.recipe.make_spoon": {
+      "use_case_id": "uc.recipe.make_spoon"
+    },
+    "rp.recipe.make_squid_calamari": {
+      "use_case_id": "uc.recipe.make_squid_calamari"
+    },
+    "rp.recipe.make_stake": {
+      "use_case_id": "uc.recipe.make_stake"
+    },
+    "rp.recipe.make_stick_trap": {
+      "use_case_id": "uc.recipe.make_stick_trap"
+    },
+    "rp.recipe.make_stone_axe": {
+      "use_case_id": "uc.recipe.make_stone_axe"
+    },
+    "rp.recipe.make_stone_hammer": {
+      "use_case_id": "uc.recipe.make_stone_hammer"
+    },
+    "rp.recipe.make_stone_knife": {
+      "use_case_id": "uc.recipe.make_stone_knife"
+    },
+    "rp.recipe.make_sturdy_stick": {
+      "use_case_id": "uc.recipe.make_sturdy_stick"
+    },
+    "rp.recipe.make_sugar_cookie_dough": {
+      "use_case_id": "uc.recipe.make_sugar_cookie_dough"
+    },
+    "rp.recipe.make_suture_needle": {
+      "use_case_id": "uc.recipe.make_suture_needle"
+    },
+    "rp.recipe.make_suture_needle_holder": {
+      "use_case_id": "uc.recipe.make_suture_needle_holder"
+    },
+    "rp.recipe.make_tent_kit": {
+      "use_case_id": "uc.recipe.make_tent_kit"
+    },
+    "rp.recipe.make_three_log_stack": {
+      "use_case_id": "uc.recipe.make_three_log_stack"
+    },
+    "rp.recipe.make_timer": {
+      "use_case_id": "uc.recipe.make_timer"
+    },
+    "rp.recipe.make_tin_foil_hat": {
+      "use_case_id": "uc.recipe.make_tin_foil_hat"
+    },
+    "rp.recipe.make_tongs": {
+      "use_case_id": "uc.recipe.make_tongs"
+    },
+    "rp.recipe.make_trap_box": {
+      "use_case_id": "uc.recipe.make_trap_box"
+    },
+    "rp.recipe.make_tweezers": {
+      "use_case_id": "uc.recipe.make_tweezers"
+    },
+    "rp.recipe.make_two_log_stack": {
+      "use_case_id": "uc.recipe.make_two_log_stack"
+    },
+    "rp.recipe.make_wild_garlic_poultice": {
+      "use_case_id": "uc.recipe.make_wild_garlic_poultice"
+    },
+    "rp.recipe.make_wooden_box_trap": {
+      "use_case_id": "uc.recipe.make_wooden_box_trap"
+    },
+    "rp.recipe.open_box_of_223_ammo": {
+      "use_case_id": "uc.recipe.open_box_of_223_ammo"
+    },
+    "rp.recipe.open_box_of_308_ammo": {
+      "use_case_id": "uc.recipe.open_box_of_308_ammo"
+    },
+    "rp.recipe.open_box_of_38_special_bullets": {
+      "use_case_id": "uc.recipe.open_box_of_38_special_bullets"
+    },
+    "rp.recipe.open_box_of_44_magnum_bullets": {
+      "use_case_id": "uc.recipe.open_box_of_44_magnum_bullets"
+    },
+    "rp.recipe.open_box_of_45_auto_bullets": {
+      "use_case_id": "uc.recipe.open_box_of_45_auto_bullets"
+    },
+    "rp.recipe.open_box_of_556_ammo": {
+      "use_case_id": "uc.recipe.open_box_of_556_ammo"
+    },
+    "rp.recipe.open_box_of_9mm_bullets": {
+      "use_case_id": "uc.recipe.open_box_of_9mm_bullets"
+    },
+    "rp.recipe.open_box_of_jars": {
+      "use_case_id": "uc.recipe.open_box_of_jars"
+    },
+    "rp.recipe.open_box_of_nails": {
+      "use_case_id": "uc.recipe.open_box_of_nails"
+    },
+    "rp.recipe.open_box_of_paperclip": {
+      "use_case_id": "uc.recipe.open_box_of_paperclip"
+    },
+    "rp.recipe.open_box_of_screws": {
+      "use_case_id": "uc.recipe.open_box_of_screws"
+    },
+    "rp.recipe.open_box_of_shotgun_shells": {
+      "use_case_id": "uc.recipe.open_box_of_shotgun_shells"
+    },
+    "rp.recipe.open_candy_package": {
+      "use_case_id": "uc.recipe.open_candy_package"
+    },
+    "rp.recipe.open_canned_beans": {
+      "use_case_id": "uc.recipe.open_canned_beans"
+    },
+    "rp.recipe.open_canned_bolognese": {
+      "use_case_id": "uc.recipe.open_canned_bolognese"
+    },
+    "rp.recipe.open_canned_carrots": {
+      "use_case_id": "uc.recipe.open_canned_carrots"
+    },
+    "rp.recipe.open_canned_chili": {
+      "use_case_id": "uc.recipe.open_canned_chili"
+    },
+    "rp.recipe.open_canned_corn": {
+      "use_case_id": "uc.recipe.open_canned_corn"
+    },
+    "rp.recipe.open_canned_corned_beef": {
+      "use_case_id": "uc.recipe.open_canned_corned_beef"
+    },
+    "rp.recipe.open_canned_fruit_beverage": {
+      "use_case_id": "uc.recipe.open_canned_fruit_beverage"
+    },
+    "rp.recipe.open_canned_fruit_cocktail": {
+      "use_case_id": "uc.recipe.open_canned_fruit_cocktail"
+    },
+    "rp.recipe.open_canned_mushroom_soup": {
+      "use_case_id": "uc.recipe.open_canned_mushroom_soup"
+    },
+    "rp.recipe.open_canned_peaches": {
+      "use_case_id": "uc.recipe.open_canned_peaches"
+    },
+    "rp.recipe.open_canned_peas": {
+      "use_case_id": "uc.recipe.open_canned_peas"
+    },
+    "rp.recipe.open_canned_pineapple": {
+      "use_case_id": "uc.recipe.open_canned_pineapple"
+    },
+    "rp.recipe.open_canned_potato": {
+      "use_case_id": "uc.recipe.open_canned_potato"
+    },
+    "rp.recipe.open_canned_sardines": {
+      "use_case_id": "uc.recipe.open_canned_sardines"
+    },
+    "rp.recipe.open_canned_soup": {
+      "use_case_id": "uc.recipe.open_canned_soup"
+    },
+    "rp.recipe.open_canned_tomato": {
+      "use_case_id": "uc.recipe.open_canned_tomato"
+    },
+    "rp.recipe.open_canned_tuna": {
+      "use_case_id": "uc.recipe.open_canned_tuna"
+    },
+    "rp.recipe.open_condensed_milk": {
+      "use_case_id": "uc.recipe.open_condensed_milk"
+    },
+    "rp.recipe.open_dog_food": {
+      "use_case_id": "uc.recipe.open_dog_food"
+    },
+    "rp.recipe.open_egg_carton": {
+      "use_case_id": "uc.recipe.open_egg_carton"
+    },
+    "rp.recipe.open_jar_of_bell_peppers": {
+      "use_case_id": "uc.recipe.open_jar_of_bell_peppers"
+    },
+    "rp.recipe.open_jar_of_broccoli": {
+      "use_case_id": "uc.recipe.open_jar_of_broccoli"
+    },
+    "rp.recipe.open_jar_of_cabbage": {
+      "use_case_id": "uc.recipe.open_jar_of_cabbage"
+    },
+    "rp.recipe.open_jar_of_carrots": {
+      "use_case_id": "uc.recipe.open_jar_of_carrots"
+    },
+    "rp.recipe.open_jar_of_eggplants": {
+      "use_case_id": "uc.recipe.open_jar_of_eggplants"
+    },
+    "rp.recipe.open_jar_of_leeks": {
+      "use_case_id": "uc.recipe.open_jar_of_leeks"
+    },
+    "rp.recipe.open_jar_of_potatoes": {
+      "use_case_id": "uc.recipe.open_jar_of_potatoes"
+    },
+    "rp.recipe.open_jar_of_red_radishes": {
+      "use_case_id": "uc.recipe.open_jar_of_red_radishes"
+    },
+    "rp.recipe.open_jar_of_tomatoes": {
+      "use_case_id": "uc.recipe.open_jar_of_tomatoes"
+    },
+    "rp.recipe.open_packet_of_broccoli_seeds": {
+      "use_case_id": "uc.recipe.open_packet_of_broccoli_seeds"
+    },
+    "rp.recipe.open_packet_of_cabbage_seeds": {
+      "use_case_id": "uc.recipe.open_packet_of_cabbage_seeds"
+    },
+    "rp.recipe.open_packet_of_carrot_seeds": {
+      "use_case_id": "uc.recipe.open_packet_of_carrot_seeds"
+    },
+    "rp.recipe.open_packet_of_potato_seeds": {
+      "use_case_id": "uc.recipe.open_packet_of_potato_seeds"
+    },
+    "rp.recipe.open_packet_of_radish_seeds": {
+      "use_case_id": "uc.recipe.open_packet_of_radish_seeds"
+    },
+    "rp.recipe.open_packet_of_strawberries_seeds": {
+      "use_case_id": "uc.recipe.open_packet_of_strawberries_seeds"
+    },
+    "rp.recipe.open_packet_of_tomato_seeds": {
+      "use_case_id": "uc.recipe.open_packet_of_tomato_seeds"
+    },
+    "rp.recipe.open_sack_of_apples": {
+      "use_case_id": "uc.recipe.open_sack_of_apples"
+    },
+    "rp.recipe.open_sack_of_bell_peppers": {
+      "use_case_id": "uc.recipe.open_sack_of_bell_peppers"
+    },
+    "rp.recipe.open_sack_of_broccoli": {
+      "use_case_id": "uc.recipe.open_sack_of_broccoli"
+    },
+    "rp.recipe.open_sack_of_cabbages": {
+      "use_case_id": "uc.recipe.open_sack_of_cabbages"
+    },
+    "rp.recipe.open_sack_of_carrots": {
+      "use_case_id": "uc.recipe.open_sack_of_carrots"
+    },
+    "rp.recipe.open_sack_of_cherries": {
+      "use_case_id": "uc.recipe.open_sack_of_cherries"
+    },
+    "rp.recipe.open_sack_of_corn": {
+      "use_case_id": "uc.recipe.open_sack_of_corn"
+    },
+    "rp.recipe.open_sack_of_eggplants": {
+      "use_case_id": "uc.recipe.open_sack_of_eggplants"
+    },
+    "rp.recipe.open_sack_of_grapes": {
+      "use_case_id": "uc.recipe.open_sack_of_grapes"
+    },
+    "rp.recipe.open_sack_of_leeks": {
+      "use_case_id": "uc.recipe.open_sack_of_leeks"
+    },
+    "rp.recipe.open_sack_of_lettuce": {
+      "use_case_id": "uc.recipe.open_sack_of_lettuce"
+    },
+    "rp.recipe.open_sack_of_onions": {
+      "use_case_id": "uc.recipe.open_sack_of_onions"
+    },
+    "rp.recipe.open_sack_of_peaches": {
+      "use_case_id": "uc.recipe.open_sack_of_peaches"
+    },
+    "rp.recipe.open_sack_of_pears": {
+      "use_case_id": "uc.recipe.open_sack_of_pears"
+    },
+    "rp.recipe.open_sack_of_potatoes": {
+      "use_case_id": "uc.recipe.open_sack_of_potatoes"
+    },
+    "rp.recipe.open_sack_of_radishes": {
+      "use_case_id": "uc.recipe.open_sack_of_radishes"
+    },
+    "rp.recipe.open_sack_of_strawberries": {
+      "use_case_id": "uc.recipe.open_sack_of_strawberries"
+    },
+    "rp.recipe.open_sack_of_tomatoes": {
+      "use_case_id": "uc.recipe.open_sack_of_tomatoes"
+    },
+    "rp.recipe.open_umbrella": {
+      "use_case_id": "uc.recipe.open_umbrella"
+    },
+    "rp.recipe.place_223_ammo_in_box": {
+      "use_case_id": "uc.recipe.place_223_ammo_in_box"
+    },
+    "rp.recipe.place_308_ammo_in_box": {
+      "use_case_id": "uc.recipe.place_308_ammo_in_box"
+    },
+    "rp.recipe.place_38_speciam_bullets_in_box": {
+      "use_case_id": "uc.recipe.place_38_speciam_bullets_in_box"
+    },
+    "rp.recipe.place_44_magnum_bullets_in_box": {
+      "use_case_id": "uc.recipe.place_44_magnum_bullets_in_box"
+    },
+    "rp.recipe.place_45_auto_bullets_in_box": {
+      "use_case_id": "uc.recipe.place_45_auto_bullets_in_box"
+    },
+    "rp.recipe.place_556_ammo_in_box": {
+      "use_case_id": "uc.recipe.place_556_ammo_in_box"
+    },
+    "rp.recipe.place_9mm_bullets_in_box": {
+      "use_case_id": "uc.recipe.place_9mm_bullets_in_box"
+    },
+    "rp.recipe.place_cake_in_baking_pan": {
+      "use_case_id": "uc.recipe.place_cake_in_baking_pan"
+    },
+    "rp.recipe.place_nails_in_box": {
+      "use_case_id": "uc.recipe.place_nails_in_box"
+    },
+    "rp.recipe.place_paperclips_in_box": {
+      "use_case_id": "uc.recipe.place_paperclips_in_box"
+    },
+    "rp.recipe.place_pasta_in_cooking_pot": {
+      "use_case_id": "uc.recipe.place_pasta_in_cooking_pot"
+    },
+    "rp.recipe.place_pasta_in_saucepan": {
+      "use_case_id": "uc.recipe.place_pasta_in_saucepan"
+    },
+    "rp.recipe.place_pie_in_baking_pan": {
+      "use_case_id": "uc.recipe.place_pie_in_baking_pan"
+    },
+    "rp.recipe.place_rice_in_cooking_pot": {
+      "use_case_id": "uc.recipe.place_rice_in_cooking_pot"
+    },
+    "rp.recipe.place_rice_in_saucepan": {
+      "use_case_id": "uc.recipe.place_rice_in_saucepan"
+    },
+    "rp.recipe.place_screws_in_box": {
+      "use_case_id": "uc.recipe.place_screws_in_box"
+    },
+    "rp.recipe.place_shotgun_shells_in_box": {
+      "use_case_id": "uc.recipe.place_shotgun_shells_in_box"
+    },
+    "rp.recipe.prepare_muffins": {
+      "use_case_id": "uc.recipe.prepare_muffins"
+    },
+    "rp.recipe.prepare_omelette": {
+      "use_case_id": "uc.recipe.prepare_omelette"
+    },
+    "rp.recipe.put_alcohol_on_cotton": {
+      "use_case_id": "uc.recipe.put_alcohol_on_cotton"
+    },
+    "rp.recipe.put_broccoli_seeds_in_packet": {
+      "use_case_id": "uc.recipe.put_broccoli_seeds_in_packet"
+    },
+    "rp.recipe.put_cabbage_seeds_in_packet": {
+      "use_case_id": "uc.recipe.put_cabbage_seeds_in_packet"
+    },
+    "rp.recipe.put_carrots_seeds_in_packet": {
+      "use_case_id": "uc.recipe.put_carrots_seeds_in_packet"
+    },
+    "rp.recipe.put_eggs_in_carton": {
+      "use_case_id": "uc.recipe.put_eggs_in_carton"
+    },
+    "rp.recipe.put_potato_seeds_in_packet": {
+      "use_case_id": "uc.recipe.put_potato_seeds_in_packet"
+    },
+    "rp.recipe.put_radish_seeds_in_packet": {
+      "use_case_id": "uc.recipe.put_radish_seeds_in_packet"
+    },
+    "rp.recipe.put_strawberry_seeds_in_packet": {
+      "use_case_id": "uc.recipe.put_strawberry_seeds_in_packet"
+    },
+    "rp.recipe.put_tomato_seeds_in_packet": {
+      "use_case_id": "uc.recipe.put_tomato_seeds_in_packet"
+    },
+    "rp.recipe.reclaim_bread_knife_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_bread_knife_from_spear"
+    },
+    "rp.recipe.reclaim_butter_knife_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_butter_knife_from_spear"
+    },
+    "rp.recipe.reclaim_fork_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_fork_from_spear"
+    },
+    "rp.recipe.reclaim_hand_fork_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_hand_fork_from_spear"
+    },
+    "rp.recipe.reclaim_hunting_knife_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_hunting_knife_from_spear"
+    },
+    "rp.recipe.reclaim_ice_pick_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_ice_pick_from_spear"
+    },
+    "rp.recipe.reclaim_kitchen_knife_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_kitchen_knife_from_spear"
+    },
+    "rp.recipe.reclaim_letter_opener_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_letter_opener_from_spear"
+    },
+    "rp.recipe.reclaim_machete_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_machete_from_spear"
+    },
+    "rp.recipe.reclaim_scalpel_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_scalpel_from_spear"
+    },
+    "rp.recipe.reclaim_scissors_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_scissors_from_spear"
+    },
+    "rp.recipe.reclaim_screwdriver_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_screwdriver_from_spear"
+    },
+    "rp.recipe.reclaim_spoon_from_spear": {
+      "use_case_id": "uc.recipe.reclaim_spoon_from_spear"
+    },
+    "rp.recipe.refill_blow_torch": {
+      "use_case_id": "uc.recipe.refill_blow_torch"
+    },
+    "rp.recipe.remove_battery": {
+      "use_case_id": "uc.recipe.remove_battery"
+    },
+    "rp.recipe.saw_logs": {
+      "use_case_id": "uc.recipe.saw_logs"
+    },
+    "rp.recipe.saw_logs2": {
+      "use_case_id": "uc.recipe.saw_logs2"
+    },
+    "rp.recipe.saw_off_double_barrel_shotgun": {
+      "use_case_id": "uc.recipe.saw_off_double_barrel_shotgun"
+    },
+    "rp.recipe.saw_off_shotgun": {
+      "use_case_id": "uc.recipe.saw_off_shotgun"
+    },
+    "rp.recipe.scoop_ice_cream": {
+      "use_case_id": "uc.recipe.scoop_ice_cream"
+    },
+    "rp.recipe.slice_baloney": {
+      "use_case_id": "uc.recipe.slice_baloney"
+    },
+    "rp.recipe.slice_bread": {
+      "use_case_id": "uc.recipe.slice_bread"
+    },
+    "rp.recipe.slice_cake": {
+      "use_case_id": "uc.recipe.slice_cake"
+    },
+    "rp.recipe.slice_fillet": {
+      "use_case_id": "uc.recipe.slice_fillet"
+    },
+    "rp.recipe.slice_frog": {
+      "use_case_id": "uc.recipe.slice_frog"
+    },
+    "rp.recipe.slice_ham": {
+      "use_case_id": "uc.recipe.slice_ham"
+    },
+    "rp.recipe.slice_onion": {
+      "use_case_id": "uc.recipe.slice_onion"
+    },
+    "rp.recipe.slice_pie": {
+      "use_case_id": "uc.recipe.slice_pie"
+    },
+    "rp.recipe.slice_pizza": {
+      "use_case_id": "uc.recipe.slice_pizza"
+    },
+    "rp.recipe.slice_salami": {
+      "use_case_id": "uc.recipe.slice_salami"
+    },
+    "rp.recipe.slice_watermelon": {
+      "use_case_id": "uc.recipe.slice_watermelon"
+    },
+    "rp.recipe.smash_bottle": {
+      "use_case_id": "uc.recipe.smash_bottle"
+    },
+    "rp.recipe.smash_watermelon": {
+      "use_case_id": "uc.recipe.smash_watermelon"
+    },
+    "rp.recipe.unstack_logs": {
+      "use_case_id": "uc.recipe.unstack_logs"
+    },
+    "rule_cm_surface_recipe_open_canned": {
+      "use_case_id": "uc.food.open_can",
+      "alias_of": "uc.action.open_can",
+      "decision": "PASS",
+      "strength": "STRONG",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_exclusion_consumption_displaycategory_food": {
+      "use_case_id": "uc.exclusion.consumption_displaycategory_food"
+    },
+    "rule_exclusion_consumption_food": {
+      "use_case_id": "uc.exclusion.consumption_food"
+    },
+    "rule_exclusion_consumption_literature": {
+      "use_case_id": "uc.exclusion.consumption_literature"
+    },
+    "rule_exclusion_equip_clothing": {
+      "use_case_id": "uc.exclusion.equip_clothing"
+    },
+    "rule_exclusion_inputmaterial_ammo": {
+      "use_case_id": "uc.exclusion.inputmaterial_ammo"
+    },
+    "rule_exclusion_inputmaterial_material": {
+      "use_case_id": "uc.exclusion.inputmaterial_material"
+    },
+    "rule_firefighting_isextinguisher": {
+      "use_case_id": "uc.firefighting.extinguish",
+      "alias_of": "uc.action.extinguish_fire",
+      "decision": "PASS",
+      "strength": "WEAK",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_healthpanel_hremovebullet": {
+      "use_case_id": "uc.medical.remove_bullet",
+      "alias_of": "uc.action.foreign_body_removal",
+      "decision": "PASS",
+      "strength": "STRONG",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_healthpanel_hremoveglass": {
+      "use_case_id": "uc.medical.remove_bullet",
+      "alias_of": "uc.action.foreign_body_removal",
+      "decision": "PASS",
+      "strength": "STRONG",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_healthpanel_hstitch": {
+      "use_case_id": "uc.medical.stitch",
+      "alias_of": "uc.action.wound_suturing",
+      "decision": "PASS",
+      "strength": "STRONG",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_inventorypane_category_food": {
+      "use_case_id": "uc.food.eat"
+    },
+    "rule_inventorypane_weaponpart": {
+      "use_case_id": "uc.weapon.attach_part",
+      "alias_of": "uc.action.attach_weapon_part",
+      "decision": "PASS",
+      "strength": "EXCLUDE",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_tooldef_blowtorch": {
+      "use_case_id": "uc.craft.blowtorch",
+      "alias_of": "uc.action.metal_cutting",
+      "decision": "PASS",
+      "strength": "STRONG",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_tooldef_hammer": {
+      "use_case_id": "uc.craft.hammer",
+      "alias_of": "uc.action.construction",
+      "decision": "PASS",
+      "strength": "STRONG",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_tooldef_saw": {
+      "use_case_id": "uc.craft.saw",
+      "alias_of": "uc.action.wood_cutting",
+      "decision": "PASS",
+      "strength": "STRONG",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_tooldef_screwdriver": {
+      "use_case_id": "uc.craft.screwdriver",
+      "alias_of": "uc.action.screw_disassembly",
+      "decision": "PASS",
+      "strength": "STRONG",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "rule_worldobject_predicatepetrol": {
+      "use_case_id": "uc.vehicle.fuel",
+      "alias_of": "uc.action.fuel",
+      "decision": "PASS",
+      "strength": "WEAK",
+      "override_reason_code": "HARDCODED_RULESET"
+    },
+    "virtual.rule.uc.action.blowtorch": {
+      "use_case_id": "uc.action.blowtorch",
+      "alias_of": "uc.action.metal_cutting",
+      "_comment": "Legacy target node, now aliased to capability ID"
+    },
+    "virtual.rule.uc.action.hammer": {
+      "use_case_id": "uc.action.hammer",
+      "alias_of": "uc.action.construction",
+      "_comment": "Legacy target node, now aliased to capability ID"
+    },
+    "virtual.rule.uc.action.saw": {
+      "use_case_id": "uc.action.saw",
+      "alias_of": "uc.action.wood_cutting",
+      "_comment": "Legacy target node, now aliased to capability ID"
+    },
+    "virtual.rule.uc.action.screwdriver": {
+      "use_case_id": "uc.action.screwdriver",
+      "alias_of": "uc.action.screw_disassembly",
+      "_comment": "Legacy target node, now aliased to capability ID"
+    },
+    "virtual.rule.uc.action.extinguish_fire": {
+      "use_case_id": "uc.action.extinguish_fire",
+      "_comment": "Explicit target node for aliasing (already capability-based)"
+    },
+    "virtual.rule.uc.action.open_can": {
+      "use_case_id": "uc.action.open_can",
+      "_comment": "Explicit target node for aliasing (already capability-based)"
+    },
+    "virtual.rule.uc.action.remove_bullet": {
+      "use_case_id": "uc.action.remove_bullet",
+      "alias_of": "uc.action.foreign_body_removal",
+      "_comment": "Legacy target node, now aliased to capability ID"
+    },
+    "virtual.rule.uc.action.stitch": {
+      "use_case_id": "uc.action.stitch",
+      "alias_of": "uc.action.wound_suturing",
+      "_comment": "Legacy target node, now aliased to capability ID"
+    },
+    "virtual.rule.uc.action.fuel": {
+      "use_case_id": "uc.action.fuel",
+      "_comment": "Explicit target node for aliasing (already capability-based)"
+    },
+    "virtual.rule.uc.action.attach_weapon_part": {
+      "use_case_id": "uc.action.attach_weapon_part",
+      "_comment": "Explicit target node for aliasing (already capability-based)"
+    },
+    "virtual.rule.uc.action.metal_cutting": {
+      "use_case_id": "uc.action.metal_cutting",
+      "_comment": "Capability ID target node (from uc.action.blowtorch)"
+    },
+    "virtual.rule.uc.action.construction": {
+      "use_case_id": "uc.action.construction",
+      "_comment": "Capability ID target node (from uc.action.hammer)"
+    },
+    "virtual.rule.uc.action.wood_cutting": {
+      "use_case_id": "uc.action.wood_cutting",
+      "_comment": "Capability ID target node (from uc.action.saw)"
+    },
+    "virtual.rule.uc.action.screw_disassembly": {
+      "use_case_id": "uc.action.screw_disassembly",
+      "_comment": "Capability ID target node (from uc.action.screwdriver)"
+    },
+    "virtual.rule.uc.action.wound_suturing": {
+      "use_case_id": "uc.action.wound_suturing",
+      "_comment": "Capability ID target node (from uc.action.stitch)"
+    },
+    "virtual.rule.uc.action.foreign_body_removal": {
+      "use_case_id": "uc.action.foreign_body_removal",
+      "_comment": "Capability ID target node (from uc.action.remove_bullet)"
+    }
+  }
+}

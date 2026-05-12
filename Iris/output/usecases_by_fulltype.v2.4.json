@@ -25076,6 +25076,27 @@
         }
       ]
     },
+    "Base.Lemongrass": {
+      "use_cases": [
+        {
+          "use_case_id": "uc.exclusion.consumption_displaycategory_food",
+          "surface": "context_menu",
+          "display_strength": null,
+          "evidence_sources": [
+            {
+              "source_type": "rightclick",
+              "rule_id": "rule_exclusion_consumption_displaycategory_food",
+              "decision": "NO",
+              "strength": null
+            }
+          ],
+          "uniqueness": {
+            "overlay": "none"
+          },
+          "line_kind": "exclusion"
+        }
+      ]
+    },
     "Base.LetterOpener": {
       "use_cases": [
         {

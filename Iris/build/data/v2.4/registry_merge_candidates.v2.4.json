@@ -1,0 +1,47 @@
+{
+  "version": "v2.4",
+  "round": 2,
+  "grade_criteria": {
+    "A": "subset + co_occurrence + delta<=2",
+    "B": "jaccard>=0.97 AND support>=20",
+    "C": "jaccard>=0.95 (observe only)"
+  },
+  "candidate_count": 1,
+  "grade_summary": {
+    "A": 1,
+    "B": 0,
+    "C": 0
+  },
+  "candidates": [
+    {
+      "group_id": "cand_000001",
+      "rule_ids": [
+        "rule_healthpanel_hremovebullet",
+        "rule_healthpanel_hremoveglass"
+      ],
+      "use_case_ids": [
+        "uc.medical.remove_bullet",
+        "uc.medical.remove_bullet"
+      ],
+      "stats": {
+        "support_a": 2,
+        "support_b": 2,
+        "intersection": 2,
+        "union": 2,
+        "jaccard": 1.0,
+        "subset_a_in_b": true,
+        "subset_b_in_a": true,
+        "delta": 0
+      },
+      "grade": "A",
+      "reason": [
+        "subset_a_in_b",
+        "subset_b_in_a",
+        "delta=0",
+        "co_occurrence_100%"
+      ],
+      "source_type": "rightclick",
+      "proposed_target_use_case_id": "uc.medical.remove_bullet"
+    }
+  ]
+}

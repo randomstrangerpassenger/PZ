@@ -4,6 +4,29 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !Iris/build/
 Iris/build/*
+!Iris/build/ENTRYPOINTS.md
+!Iris/build/build_import_contract.md
+!Iris/build/*.py
+!Iris/build/data/
+Iris/build/data/*
+!Iris/build/data/v2.4/
+Iris/build/data/v2.4/*
+!Iris/build/data/v2.4/*.json
+!Iris/build/tools/
+Iris/build/tools/*
+!Iris/build/tools/pipeline/
+Iris/build/tools/pipeline/*
+!Iris/build/tools/pipeline/*.py
+!Iris/build/tools/oneshots/
+Iris/build/tools/oneshots/*
+!Iris/build/tools/oneshots/*.py
+!Iris/build/tools/oneshots/README.md
+!Iris/build/tools/common/
+Iris/build/tools/common/*
+!Iris/build/tools/common/*.py
+!Iris/build/tests/
+Iris/build/tests/*
+!Iris/build/tests/*.py
 !Iris/build/description/
 Iris/build/description/*
 !Iris/build/description/v2/
@@ -22,6 +45,12 @@ Iris/build/description/v2/tools/*
 !Iris/build/description/v2/tools/build/
 Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/compose_layer3_text.py
+!Iris/build/description/v2/tools/build/compose_layer3_blocks.py
+!Iris/build/description/v2/tools/build/compose_layer3_io.py
+!Iris/build/description/v2/tools/build/compose_layer3_identity.py
+!Iris/build/description/v2/tools/build/compose_layer3_body_profile.py
+!Iris/build/description/v2/tools/build/compose_layer3_item.py
+!Iris/build/description/v2/tools/build/compose_layer3_render.py
 !Iris/build/description/v2/tools/build/migrate_dvf_3_3_facts_v2.py
 !Iris/build/description/v2/tools/build/enrich_dvf_3_3_hints_v2.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_v2.py
@@ -35,6 +64,10 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/report_phase3_candidate_state.py
 !Iris/build/description/v2/tools/build/validate_acquisition_coverage.py
 !Iris/build/description/v2/tools/build/validate_phase3_candidate_state.py
+!Iris/build/description/v2/tools/build/INVENTORY.md
+!Iris/build/description/v2/tools/build/build_iris_recipe_index_data.py
+!Iris/build/description/v2/tools/build/build_iris_moveables_index_data.py
+!Iris/build/description/v2/tools/build/build_iris_fixing_index_data.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_migrate_dvf_3_3_facts_v2.py
@@ -45,6 +78,7 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_merge_cpr39_into_v2.py
 !Iris/build/description/v2/tests/test_phase3_*.py
 !Iris/build/description/v2/tests/test_phase3_sync_queue.py
+!Iris/build/description/v2/tests/test_build_iris_index_data.py
 !Iris/build/description/v2/staging/
 Iris/build/description/v2/staging/*
 !Iris/build/description/v2/staging/reviews/
@@ -64,6 +98,9 @@ Iris/build/description/v2/staging/phase3/tmp/
 Iris/build/description/v2/staging/phase3/scratch/
 Iris/build/description/v2/**/__pycache__/
 Iris/build/description/v2/**/*.pyc
+!Iris/build/baseline/
+!Iris/build/baseline/golden/
+Iris/build/baseline/full/
 
 # IDE
 .idea/
@@ -81,9 +118,15 @@ Thumbs.db
 # Logs
 *.log
 
+# Iris temporary backups
+.tmp/iris_backup_*
+
 # Build outputs
 out/
 bin/
+
+# Iris historical archives
+Iris/_archive/
 
 # Class code
 Classcode/

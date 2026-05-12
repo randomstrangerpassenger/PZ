@@ -5,6 +5,10 @@ Iris = {
     Iris_UI_DetailLabel = "Details",
     Iris_UI_SearchPlaceholder = "Search...",
     Iris_UI_NoInfo = "No additional info",
+    Iris_UI_ItemInfoNotFound = "Item information not found",
+    Iris_UI_Recipe = "Recipe",
+    Iris_Nav_Go = "Go",
+    Iris_Menu_ViewMore = "Iris: View More",
 
     Iris_Detail_Weight = "Weight",
     Iris_Detail_Type = "Type",
@@ -26,6 +30,16 @@ Iris = {
     Iris_Detail_Light = "Light",
     Iris_Detail_Waterproof = "Waterproof",
     Iris_Detail_Insulation = "Insulation",
+    Iris_Detail_ClassificationID = "Classification ID",
+    Iris_Tooltip_Tags = "Tags",
+    Iris_Tooltip_None = "None",
+    Iris_Tooltip_Connections = "Connections",
+    Iris_Tooltip_More = "More",
+    Iris_Tooltip_RightClickHint = "Right-click > Iris",
+    Iris_Tooltip_ApiLoadFailed = "API load failed",
+    Iris_Tooltip_UseCase = "Use cases",
+    Iris_Tooltip_CountSuffix = "",
+    Iris_Requirement_Learned = "Learned",
 
     Iris_Cat_Tool = "Tool",
     Iris_Cat_Combat = "Combat",
@@ -44,8 +58,8 @@ Iris = {
     Iris_Sub_1H = "Light/Ignition",
     Iris_Sub_1I = "Communication",
     Iris_Sub_1J = "Electrical",
-    Iris_Sub_1K = "Security",
-    Iris_Sub_1L = "Storage Containers",
+    Iris_Sub_1K = "Storage Containers",
+    Iris_Sub_1L = "Bags",
 
     Iris_Sub_2A = "Axes",
     Iris_Sub_2B = "Long Blunt",
@@ -87,13 +101,27 @@ Iris = {
     Iris_Sub_6G = "Accessories",
 
     Iris_Cat_Furniture = "Furniture",
-    Iris_Sub_7A = "Detachable Furniture",
+    Iris_Sub_7A = "Moveables",
 
     Iris_Cat_Vehicle = "Vehicle",
     Iris_Sub_8A = "Drivetrain",
     Iris_Sub_8B = "Body/Parts",
 
     Iris_Cat_Misc = "Misc",
-    Iris_Sub_9A = "Sundries",
+    Iris_Sub_9A = "Miscellaneous",
+
+    -- Interaction Section
+    Iris_Detail_Interaction = "Interactions",
+    Iris_Prefix_Recipe = "[Recipe]",
+    Iris_Prefix_RightClick = "[Action]",
+
+    -- Right-Click Capability Labels
+    Iris_Cap_ExtinguishFire = "Extinguish Fire",
+    Iris_Cap_AddGeneratorFuel = "Add Generator Fuel",
+    Iris_Cap_ScrapMoveables = "Scrap Furniture",
+    Iris_Cap_OpenCannedFood = "Open Canned Food",
+    Iris_Cap_StitchWound = "Stitch Wound",
+    Iris_Cap_RemoveEmbeddedObject = "Remove Embedded Object",
+    Iris_Cap_AttachWeaponMod = "Attach Weapon Mod",
 }
 

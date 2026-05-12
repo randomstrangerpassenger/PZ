@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: 초안 v0.1 + addenda through 2026-04-24  
-> 기준일: 2026-04-24  
+> 상태: 초안 v0.1 + addenda through 2026-05-12
+> 기준일: 2026-05-12
 > 상위 기준: `Philosophy.md`  
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정들을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -3696,3 +3696,103 @@
     - invariant report `3e6472f94faa3b6153713d88c2e9532d823f6781ab19fbc2f197b37f4a5af942`
 - 이유: 현재 `internal_only 617`은 전부 `BODY_LACKS_ITEM_SPECIFIC_USE` 기반의 Case 1이며, `FUNCTION_NARROW` 또는 `ACQ_DOMINANT`만으로 publish가 격리된 Case 2 혼입이 없다. Round B confirmed count도 0이므로 Case 3 handoff도 없다.
 - 영향: residual `FUNCTION_NARROW 7`은 preview/report structural flag로만 남고 publish disposition delta는 0으로 닫힌다. 이번 closeout은 `FUNCTION_NARROW` 2차 rollout, source expansion, runtime-side compose/rewrite, deployed closeout, `quality_baseline_v4 -> v5` cutover를 선언하지 않는다.
+
+## 2026-05-08 — Iris refactor roadmap v2.0 closes as implemented code, not policy-only closeout
+
+- 상태: 채택 / 완료
+- 결정: `iris_refactor_roadmap_v2.0`은 코드 구현 기준으로 완료 상태로 읽는다.
+- 추가 결정:
+  - deferred 항목은 폐기/정책 결정으로 닫은 것이 아니라, 현재 runtime/build code에 반영된 구현으로 닫는다.
+  - direct runtime `pcall` boundary는 `Iris/Util/IrisProtectedCall.lua`로 중앙화한다.
+  - `Iris/Util/IrisRequire.safeRequire`는 `IrisProtectedCall.require`를 통해 optional module loading을 수행한다.
+  - generated use-case data는 runtime JSON parser가 아니라 Lua facade/chunk 구조로 externalize한다.
+  - public require contract `Iris/Data/IrisUseCaseDescriptions`는 유지하고, 실제 row payload는 `Iris/Data/UseCaseDescriptions/Chunk001..009.lua`가 소유한다.
+  - `IrisDesc` 구현 authority는 `Iris/Logic/IrisDesc/*`로 이동한다. old `Pulse/Iris/Logic/IrisDesc/*` 경로는 compatibility wrapper로만 남긴다.
+  - Browser recipe requirement 색상/텍스트 판단은 `Iris/UI/Browser/IrisRequirementPolicy.lua`가 소유한다.
+  - MapIcon 위치는 `IrisConfig.MAP_ICON_BUTTON`이 소유한다.
+  - root `Iris/build` Python surface는 `Iris/build/ENTRYPOINTS.md`의 documented entrypoint set으로 읽는다.
+- 비결정:
+  - runtime JSON parser 도입 아님.
+  - Pulse core dependency 추가 아님.
+  - Iris가 다른 spoke를 직접 참조하는 구조 아님.
+  - external mod expansion release 선언 아님.
+  - `ready_for_release` 선언 아님.
+- 검증:
+  - `python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_*.py"` 기준 `319 tests / OK`
+  - `python -B Iris\build\test_require_render.py`: PASS
+  - `python -B Iris\build\quality_gates.py`: PASS
+  - `.\Iris\tools\package_iris.ps1 -Clean`: PASS
+- 이유: 리팩토링 목적은 구조 미학이 아니라 실제 runtime/build boundary를 안전하게 좁히는 것이며, PZ runtime 제약상 generated fact를 JSON parser로 읽는 것보다 Lua facade/chunk 방식이 더 보수적이다.
+- 영향: 후속 Iris 변경은 현재 protected-call boundary, Lua chunk data contract, Iris namespace authority를 기준으로 작성한다.
+
+## 2026-05-08 — Iris item-selection regression fix is accepted as targeted smoke pass, not full release QA
+
+- 상태: 채택 / 완료
+- 결정: Iris 메뉴에서 item selection마다 error count가 누적되던 regression은 targeted smoke 기준 fixed로 읽는다.
+- 원인:
+  - 새 `Iris/Logic/IrisDesc/*.lua` 구현 파일들이 UTF-8 BOM으로 시작했다.
+  - PZ Kahlua compiler가 BOM을 첫 토큰으로 읽으면서 `Iris/Logic/IrisDesc/Generator.lua` require가 실패했다.
+  - item selection 경로가 description generator require를 반복하면서 error가 selection마다 누적됐다.
+- 조치:
+  - `Iris/Logic/IrisDesc/*.lua` 7개 파일의 BOM을 제거했다.
+  - `IrisAPI.lua`에 `IrisDescGeneratorLoadAttempted` guard를 추가해 generator load failure가 item selection마다 반복 require되지 않게 했다.
+  - 설치본 smoke에서 item selection error accumulation fixed를 확인했다.
+- 비결정:
+  - full release manual QA pass 아님.
+  - deployed closeout 또는 `ready_for_release` 선언 아님.
+  - description generator 기능 폐기 아님.
+- 영향: Iris runtime Lua 파일은 BOM-free를 유지해야 한다. PZ Kahlua compiler compatibility는 formatting preference가 아니라 runtime correctness 조건으로 취급한다.
+
+## 2026-05-08 — Iris final refactoring roadmap v1.4 closes at implementation/test/console-validation level
+
+- 상태: 채택 / 완료
+- 결정: `docs/Iris/iris-refactoring-final-roadmap-v1.md`는 Planning 문서가 아니라 구현 완료 및 closeout-recorded 문서로 읽는다.
+- 추가 결정:
+  - closeout authority는 `Iris/_docs/refactor/iris_refactoring_final_roadmap_closeout.md`다.
+  - 실행 범위는 Phase 1부터 Phase 5-9까지이며, 최종 구현 항목은 `Iris/Util/IrisModuleBootstrap.lua`를 도입한 Phase 5-9 module bootstrap 정리다.
+  - 최신 정적 검증 read는 `python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_*.py"` 기준 `376 tests / OK`다.
+  - 최신 런타임 smoke read는 KO console validation이며, `Iris/Util/IrisModuleBootstrap.lua` 로드, `[Iris] Bootstrap complete`, `TestHarness` 0건, Iris Lua error pattern 0건을 closeout 증거로 읽는다.
+  - Phase 5-8 BrowserDetail fallback은 KO console-validation level에서 닫고, English detail fallback validation은 optional follow-up evidence로만 남긴다.
+  - 이번 closeout은 code/test/runtime-smoke closeout이지 packaging, git commit, release note 작성, Workshop 배포 또는 `ready_for_release` 선언이 아니다.
+  - 현재 working tree가 dirty인 사실은 closeout 자체를 무효화하지 않지만, commit/package 단계에서는 의도한 Iris 파일만 별도 scope로 다시 확인해야 한다.
+- 비결정:
+  - deployed closeout 아님.
+  - full release manual QA pass 아님.
+  - external mod expansion release 선언 아님.
+  - `ready_for_release` 선언 아님.
+- 이유: v1.4 로드맵은 구조 리팩토링과 runtime smoke를 닫는 실행 문서이며, 릴리스 산출물 생성이나 배포 승인과 같은 운영 절차와 같은 상태로 읽으면 안 된다.
+- 영향: 후속 Iris 작업은 완료된 runtime/build boundary 위에서 열어야 하며, packaging/release는 별도 checklist와 산출물 검증으로 다룬다.
+
+## 2026-05-12 — Iris refactoring roadmap v4.1 closes with workspace-copy runtime validation
+
+- 상태: 채택 / 완료
+- 결정: `C:/Users/MW/Downloads/1.txt`의 `최종 리팩토링 로드맵 v4.1`은 implementation, static validation, and in-game console validation 기준으로 완료 상태로 읽는다.
+- 추가 결정:
+  - Pre-Gate 재측정 결과에 따라 T3-A Browser UI split과 T3-B Python build pipeline split은 stale/no-op으로 처리한다.
+  - T0-A/T0-B/T0-C, T1-A, T1-B 1단계, T2-A/T2-B/T2-C는 구현 완료 상태다.
+  - T3-C의 runtime 중복 로드 경계는 package output뿐 아니라 사용자의 실제 검증 방식인 workspace `Iris` folder copy path에서도 닫는다.
+  - Layer 3 runtime deployable data authority는 `Iris/Data/IrisLayer3DataChunks.lua` manifest와 `Iris/Data/IrisLayer3DataChunks/Chunk001..011.lua` chunk files다.
+  - Active workspace/runtime path의 `Iris/Data/IrisLayer3Data.lua` monolith는 deployable runtime authority가 아니며, PZ auto-load 대상에 남겨 두지 않는다.
+  - `Iris/Data/layer3_renderer.lua`는 chunk manifest를 기본 runtime source로 읽고, monolith require fallback을 열지 않는다.
+  - CheatMenu context-menu regression mitigation은 narrow compatibility guard로 받아들인다. 이는 CheatMenu dependency 추가나 external mod integration 선언이 아니다.
+  - P1 build script manifest화와 P2 ProtectedCall boundary policy는 원문 로드맵의 `보류 / 정책 결정 트랙`으로 남긴다. 이번 closeout의 미완료 항목이 아니라 별도 opening decision이 필요한 후속 트랙이다.
+- 비결정:
+  - packaging 완료 아님.
+  - git commit 완료 아님.
+  - release note 작성 완료 아님.
+  - Workshop 배포 완료 아님.
+  - full release manual QA pass 아님.
+  - `ready_for_release` 선언 아님.
+  - P1/P2 정책 결정 완료 선언 아님.
+- 검증:
+  - `python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_*.py"` 기준 `380 tests / OK`
+  - `python -B Iris\build\test_require_render.py`: PASS
+  - `python -B Iris\build\quality_gates.py`: PASS
+  - latest in-game console `C:/Users/MW/Zomboid/Console.txt` 기준 `2026-05-12 20:42:50`
+  - `Iris/Data/IrisLayer3Data.lua`: 0 loads
+  - `Iris/Data/IrisLayer3DataChunks.lua`: 1 load
+  - `Iris/Data/IrisLayer3DataChunks/Chunk*.lua`: 11 loads
+  - installed monolith path: absent
+  - `getWidthOrig`, `ISContextMenu.lua line # 475`, stack traces, thrown exceptions: 0 matches
+- 이유: 사용자의 실제 인게임 검증 절차는 package staging을 거치지 않고 workspace `Iris` folder를 직접 복사한다. 따라서 T3-C는 packaging exclusion만으로 닫을 수 없고, active workspace runtime layout 자체가 chunks-only여야 한다.
+- 영향: 후속 Iris runtime 작업은 chunk manifest를 Layer 3 deployable data entrypoint로 취급한다. Monolith restoration, monolith/chunk 동시 배포, or renderer monolith fallback 재도입은 별도 decision 없이 열지 않는다.

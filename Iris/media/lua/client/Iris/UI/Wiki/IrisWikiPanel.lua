@@ -9,6 +9,8 @@ local IrisWikiPanel = {}
 
 -- 의존성
 local IrisWikiSections = require "Iris/UI/Wiki/IrisWikiSections"
+local ItemKey = require("Iris/Util/ItemKey")
+local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 
 -- 패널 인스턴스
 IrisWikiPanel._panel = nil
@@ -61,7 +63,10 @@ function IrisWikiPanel.createPanel(item)
     panel.moveWithMouse = true
     
     -- 제목
-    local itemName = item:getDisplayName() or item:getFullType()
+    local nameOk, displayName = ProtectedCall.engine(function()
+        return item:getDisplayName()
+    end)
+    local itemName = (nameOk and displayName) or ItemKey.getFullTypeFromItem(item) or "Unknown"
     local titleLabel = ISLabel:new(10, 10, 25, "Iris: " .. itemName, 1, 1, 1, 1, UIFont.Medium, true)
     panel:addChild(titleLabel)
     

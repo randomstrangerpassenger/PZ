@@ -3,7 +3,7 @@
 
     설계 원칙 (호환성 봉인):
     - 전역 함수 override 금지 (ISUIHandler.toggleUI 등 덮어쓰지 않음)
-    - 독립 버튼을 "추가"만 함 (다른 모드와 충돌 없음)
+    - 독립 버튼 추가만 수행 (다른 모드와 충돌 없음)
     - UI 실패해도 Iris 데이터 기능은 정상 동작
 ]]
 
@@ -11,14 +11,37 @@ require "ISUI/ISButton"
 
 local IrisMapIcon = {}
 
+local bootstrap = require("Iris/Util/IrisModuleBootstrap").create()
+local safeRequire = bootstrap.safeRequire
+local ProtectedCall = require("Iris/Util/IrisProtectedCall")
+local debug = bootstrap.debug
+local warn = bootstrap.warn
+local logError = bootstrap.logError
+
 -- 의존성 (lazy load)
 local IrisBrowser = nil
+local IrisConfig = nil
 
 local function ensureDeps()
     if not IrisBrowser then
-        local ok, result = pcall(require, "Iris/UI/Browser/IrisBrowser")
+        local ok, result = safeRequire("Iris/UI/Browser/IrisBrowser")
         if ok then IrisBrowser = result end
     end
+    if not IrisConfig then
+        local ok, result = safeRequire("Iris/IrisConfig")
+        if ok then IrisConfig = result end
+    end
+end
+
+local function getButtonConfig()
+    ensureDeps()
+    local configured = IrisConfig and IrisConfig.MAP_ICON_BUTTON or {}
+    return {
+        x = configured.x or 18,
+        y = configured.y or 360,
+        width = configured.width or 32,
+        height = configured.height or 32,
+    }
 end
 
 -- 상태
@@ -27,14 +50,14 @@ IrisMapIcon._installed = false  -- UI 버튼 설치 여부 (재진입 방지)
 
 --- Iris 버튼 클릭 핸들러
 function IrisMapIcon.onIrisButtonClick()
-    print("[IrisMapIcon] Iris button clicked")
+    debug("[IrisMapIcon] Iris button clicked")
     
     ensureDeps()
     
     if IrisBrowser and IrisBrowser.openSearch then
         IrisBrowser.openSearch()
     else
-        print("[IrisMapIcon] ERROR: IrisBrowser.openSearch not available")
+        logError("[IrisMapIcon] IrisBrowser.openSearch not available")
     end
 end
 
@@ -46,7 +69,7 @@ function IrisMapIcon.createStandaloneButton()
     if IrisMapIcon._installed and IrisMapIcon._button then
         -- 버튼이 UIManager에 실제로 존재하는지 추가 확인
         if IrisMapIcon._button:getIsVisible() ~= nil then
-            print("[IrisMapIcon] Already installed, skipping")
+            debug("[IrisMapIcon] Already installed, skipping")
             return true
         end
         -- 버튼 객체가 무효화됨 - 재설치 필요
@@ -54,13 +77,13 @@ function IrisMapIcon.createStandaloneButton()
         IrisMapIcon._button = nil
     end
 
-    print("[IrisMapIcon] Creating standalone button...")
+    debug("[IrisMapIcon] Creating standalone button...")
 
-    -- 좌측 상단 아이콘 바 밑 (지도 아이콘 밑)
-    local btnWidth = 32
-    local btnHeight = 32
-    local x = 18  -- 좌측 아이콘들과 정렬
-    local y = 360  -- 지도 아이콘 밑 (조금 위로 조정)
+    local buttonConfig = getButtonConfig()
+    local btnWidth = buttonConfig.width
+    local btnHeight = buttonConfig.height
+    local x = buttonConfig.x
+    local y = buttonConfig.y
     
     local irisBtn = ISButton:new(x, y, btnWidth, btnHeight, "", nil, function()
         IrisMapIcon.onIrisButtonClick()
@@ -73,7 +96,7 @@ function IrisMapIcon.createStandaloneButton()
     if tex then
         irisBtn:setImage(tex)
     else
-        print("[IrisMapIcon] WARNING: Iris-logo_32px.png not found")
+        warn("[IrisMapIcon] Iris-logo_32px.png not found")
         irisBtn.title = "I"  -- 이미지 실패 시 텍스트 복구
     end
     
@@ -89,20 +112,20 @@ function IrisMapIcon.createStandaloneButton()
     
     IrisMapIcon._button = irisBtn
     IrisMapIcon._installed = true
-    print("[IrisMapIcon] Standalone Iris button created below map icon")
+    debug("[IrisMapIcon] Standalone Iris button created below map icon")
 end
 
 --- OnGameStart 이벤트 핸들러
 function IrisMapIcon.onGameStart()
-    print("[IrisMapIcon] OnGameStart fired")
+    debug("[IrisMapIcon] OnGameStart fired")
     IrisMapIcon.createStandaloneButton()
 end
 
 --- 게임 종료/메뉴 복귀 시 정리 (라이프사이클 안정성)
 function IrisMapIcon.onMainMenuEnter()
-    print("[IrisMapIcon] MainMenuEnter - cleaning up")
+    debug("[IrisMapIcon] MainMenuEnter - cleaning up")
     if IrisMapIcon._button then
-        pcall(function() IrisMapIcon._button:removeFromUIManager() end)
+        ProtectedCall.ui(function() IrisMapIcon._button:removeFromUIManager() end)
         IrisMapIcon._button = nil
     end
     IrisMapIcon._installed = false
@@ -110,23 +133,23 @@ end
 
 --- 초기화
 function IrisMapIcon.init()
-    print("[IrisMapIcon] Initializing...")
+    debug("[IrisMapIcon] Initializing...")
 
     -- OnGameStart 이벤트 등록
     if Events and Events.OnGameStart then
         Events.OnGameStart.Add(IrisMapIcon.onGameStart)
-        print("[IrisMapIcon] OnGameStart event registered")
+        debug("[IrisMapIcon] OnGameStart event registered")
     else
-        print("[IrisMapIcon] WARNING: Events.OnGameStart not available")
+        warn("[IrisMapIcon] Events.OnGameStart not available")
     end
 
     -- OnMainMenuEnter 이벤트 등록 (라이프사이클 정리)
     if Events and Events.OnMainMenuEnter then
         Events.OnMainMenuEnter.Add(IrisMapIcon.onMainMenuEnter)
-        print("[IrisMapIcon] OnMainMenuEnter event registered")
+        debug("[IrisMapIcon] OnMainMenuEnter event registered")
     end
 
-    print("[IrisMapIcon] Initialization complete")
+    debug("[IrisMapIcon] Initialization complete")
 end
 
 return IrisMapIcon

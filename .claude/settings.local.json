@@ -6,7 +6,29 @@
       "Bash(grep -r compose C:UsersMWDownloadscodingPZIris/_docs/*.md)",
       "Bash(python3 -c \":*)",
       "Bash(python3 Iris/lua/convert_layer3_to_lua.py)",
-      "Bash(python Iris/lua/convert_layer3_to_lua.py)"
+      "Bash(python Iris/lua/convert_layer3_to_lua.py)",
+      "Bash(xargs wc *)",
+      "Bash(git -C /c/Users/MW/Downloads/coding/PZ ls-files --error-unmatch Pulse_All_Source.txt)",
+      "Bash(xargs -n1 basename)",
+      "Bash(git -C /c/Users/MW/Downloads/coding/PZ check-ignore -v Iris/build/description/v2/tools/build/INVENTORY.md Iris/build/baseline/test.json Iris/build/baseline/golden/test.json Iris/_docs/refactor/cleanup_candidates.md)",
+      "Bash(git -C /c/Users/MW/Downloads/coding/PZ check-ignore -v Iris/_archive/test.lua Iris/_archive/p0-3/staging/foo.backup.lua)",
+      "Bash(grep -nE '_archive|^_|/\\\\*$' /c/Users/MW/Downloads/coding/PZ/.gitignore)",
+      "Bash(xargs grep *)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(xargs -I {} bash -c 'echo \"=== {} ===\" && grep -A3 \"def load_json\\\\|def load_jsonl\" {}')",
+      "Bash(awk '/^def / {if \\(start\\) print \"  Lines: \" NR-start; func=$0; start=NR} END {if \\(start\\) print \"  Lines: \" NR-start}' /c/Users/MW/Downloads/coding/PZ/Iris/build/description/v2/tools/build/compose_layer3_text.py)",
+      "Bash(awk -F: '{print $1 \" \" $2}')",
+      "Bash(read line *)",
+      "Bash(python3)",
+      "Bash(git show *)",
+      "Read(//tmp/**)",
+      "Bash(xxd)",
+      "PowerShell(\"---\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('Iris/build/description/v2/output/dvf_3_3_rendered.json',encoding='utf-8'\\)\\); print\\('keys:',list\\(d.keys\\(\\)\\)\\); print\\('entry_count:', len\\(d.get\\('entries',{}\\)\\)\\); print\\('meta:', json.dumps\\(d.get\\('meta',{}\\),ensure_ascii=False,indent=2\\)[:600]\\)\")",
+      "Bash(python -c \"import json; d=json.load\\(open\\('Iris/input/items_itemscript.json',encoding='utf-8'\\)\\); print\\(type\\(d\\).__name__, '— top-level keys:' if isinstance\\(d,dict\\) else '— length:', list\\(d.keys\\(\\)\\)[:5] if isinstance\\(d,dict\\) else len\\(d\\)\\)\")",
+      "Bash(python _tmp_analyze_iris.py)",
+      "Bash(python -m json.tool)",
+      "Bash(python -c \"import sys,json; print\\(json.dumps\\(json.loads\\(sys.stdin.read\\(\\)\\),ensure_ascii=False,indent=2\\)\\)\")"
     ]
   }
 }

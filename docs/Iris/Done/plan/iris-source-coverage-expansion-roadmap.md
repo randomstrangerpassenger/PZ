@@ -44,7 +44,7 @@ The current historical runtime path distribution from `dvf_3_3_facts.full.jsonl`
 
 However, the repo still has baseline drift that must be frozen before coverage math is treated as contractual:
 
-- `Iris/extraction_stats.json` says `items_total = 2281`
+- `Iris/output/legacy_root/extraction_stats.json` says `items_total = 2281`
 - a fresh read of `Iris/input/items_itemscript.json` currently yields `2285` `FullType` rows
 - `Iris/lua/IrisData.lua` currently contains `1360` classified rows
 
@@ -98,7 +98,7 @@ Block A rules:
 
 - Freeze the canonical item universe before any matrix or Tier decision.
 - Record the current baseline drift explicitly instead of hiding it:
-  - `2281` from `extraction_stats.json`
+  - `2281` from `output/legacy_root/extraction_stats.json`
   - `2285` from the current `items_itemscript.json` read
 - Build the uncovered set only after that freeze.
 - Project existing Iris classification onto the uncovered set before any phase ordering.

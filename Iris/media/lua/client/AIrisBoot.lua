@@ -5,15 +5,17 @@
     media/lua/client/ 바로 아래에 있어야 자동 실행됨.
 ]]
 
-print("!!!!! IRIS BOOTSTRAP: START LOAD !!!!!")
+print("[Iris] Bootstrap start")
+
+local ProtectedCall = require("Iris/Util/IrisProtectedCall")
 
 -- Iris 메인 모듈 로드 (에러 캐치)
-local success, errOrModule = pcall(require, "Iris/IrisMain")
+local success, errOrModule = ProtectedCall.require("Iris/IrisMain")
 
 if success then
-    print("!!!!! IRIS BOOTSTRAP: IrisMain loaded successfully !!!!!")
+    print("[Iris] IrisMain loaded")
 else
-    print("!!!!! IRIS BOOTSTRAP: FAILED to load IrisMain: " .. tostring(errOrModule) .. " !!!!!")
+    print("[Iris] IrisMain load failed: " .. tostring(errOrModule))
 end
 
 print("[Iris] Bootstrap complete")

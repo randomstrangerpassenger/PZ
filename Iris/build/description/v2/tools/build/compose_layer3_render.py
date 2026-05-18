@@ -10,9 +10,11 @@ from style.normalizer import StyleNormalizer
 
 try:
     from .compose_layer3_blocks import derive_requeue_reason
+    from .compose_layer3_body_profile import DEFAULT_RESOLVER_AUTHORITY_MODE
     from .compose_layer3_item import compose_item_legacy, compose_item_v2
 except ImportError:
     from compose_layer3_blocks import derive_requeue_reason
+    from compose_layer3_body_profile import DEFAULT_RESOLVER_AUTHORITY_MODE
     from compose_layer3_item import compose_item_legacy, compose_item_v2
 
 
@@ -69,6 +71,7 @@ def compose_all_v2(
     *,
     identity_hint_target_map: dict[str, str],
     precedence_rules: dict[str, Any],
+    resolver_authority_mode: str = DEFAULT_RESOLVER_AUTHORITY_MODE,
 ) -> tuple[dict[str, dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     facts_map = {entry["item_id"]: entry for entry in facts_list}
     decisions_map = {entry["item_id"]: entry for entry in decisions_list}
@@ -88,6 +91,7 @@ def compose_all_v2(
             normalizer,
             identity_hint_target_map=identity_hint_target_map,
             precedence_rules=precedence_rules,
+            resolver_authority_mode=resolver_authority_mode,
         )
         results[item_id] = entry
         if log_entry is not None:

@@ -29,6 +29,14 @@ LEGACY_PROFILE_FALLBACK = {
     "interaction_output": "output_body",
 }
 
+DEFAULT_RESOLVER_AUTHORITY_MODE = "default"
+DIAGNOSTIC_RESOLVER_AUTHORITY_MODE = "diagnostic"
+RESOLVER_AUTHORITY_MODES = (
+    DEFAULT_RESOLVER_AUTHORITY_MODE,
+    DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+)
+DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE = "DEFAULT_RESOLVER_REJECTED_LEGACY_COMPAT_LABEL"
+
 SELECTED_ROLE_TARGET = {
     "tool": "tool_body",
     "material": "material_body",
@@ -146,24 +154,46 @@ def load_profile_resolution_rules(
     return identity_hint_target_map, precedence_rules
 
 
+def is_legacy_compat_profile_label(value: Any) -> bool:
+    if value is None:
+        return False
+    profile_name = str(value)
+    return profile_name in LEGACY_PROFILE_FALLBACK or profile_name.startswith("interaction_")
+
+
+def build_default_legacy_compat_label_error(*, item_id: Any, compose_profile: Any) -> ValueError:
+    return ValueError(
+        f"{DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE}: item '{item_id or '?'}' "
+        f"cannot resolve default body_plan authority from legacy compose_profile "
+        f"'{compose_profile}'. Use diagnostic resolver mode for legacy compatibility mapping."
+    )
+
+
 def resolve_body_profile(
     *,
     facts: dict[str, Any],
     decision: dict[str, Any],
     identity_hint_target_map: dict[str, str],
     precedence_rules: dict[str, Any],
+    resolver_authority_mode: str = DEFAULT_RESOLVER_AUTHORITY_MODE,
 ) -> tuple[str, str, dict[str, Any]]:
+    if resolver_authority_mode not in RESOLVER_AUTHORITY_MODES:
+        raise ValueError(f"Unknown resolver authority mode: {resolver_authority_mode}")
+
     identity_hint = facts.get("identity_hint")
     selected_role = decision.get("selected_role")
-    legacy_fallback_target = LEGACY_PROFILE_FALLBACK.get(str(decision.get("compose_profile")))
+    compose_profile = decision.get("compose_profile")
+    legacy_fallback_target = LEGACY_PROFILE_FALLBACK.get(str(compose_profile))
     identity_family_target = identity_hint_target_map.get(str(identity_hint))
     selected_role_target = SELECTED_ROLE_TARGET.get(str(selected_role))
     trace = {
+        "resolver_authority_mode": resolver_authority_mode,
         "identity_hint": identity_hint,
         "identity_family_target": identity_family_target,
         "selected_role": selected_role,
         "selected_role_target": selected_role_target,
         "legacy_fallback_target": legacy_fallback_target,
+        "legacy_compat_profile_label_present": is_legacy_compat_profile_label(compose_profile),
     }
 
     if identity_family_target and selected_role_target:
@@ -185,6 +215,16 @@ def resolve_body_profile(
         return identity_family_target, "identity_family_target", trace
     if selected_role_target:
         return selected_role_target, "selected_role_target", trace
+
+    if (
+        resolver_authority_mode == DEFAULT_RESOLVER_AUTHORITY_MODE
+        and is_legacy_compat_profile_label(compose_profile)
+    ):
+        raise build_default_legacy_compat_label_error(
+            item_id=facts.get("item_id"),
+            compose_profile=compose_profile,
+        )
+
     if legacy_fallback_target:
         return legacy_fallback_target, "legacy_fallback_target", trace
 

@@ -4,6 +4,8 @@ import json
 import shutil
 import sys
 import unittest
+from contextlib import redirect_stderr
+from io import StringIO
 from pathlib import Path
 
 
@@ -14,11 +16,17 @@ if str(ROOT) not in sys.path:
 
 from tools.build.compose_layer3_text import (
     DEFAULT_MODE,
-    DIAGNOSTIC_LEGACY_MODE,
+    ENTRYPOINT_MODES,
+    DIAGNOSTIC_RESOLVER_MODE,
     build_rendered,
     main as compose_main,
     parse_args,
     resolve_entrypoint_paths,
+)
+from tools.build.compose_layer3_body_profile import (
+    DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE,
+    DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+    resolve_body_profile,
 )
 
 
@@ -315,16 +323,161 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
         self.assertIn("body_plan", entry)
         self.assertNotIn("quality_flag", entry)
 
-    def test_diagnostic_legacy_rejects_canonical_output_path(self) -> None:
+    def test_default_resolver_rejects_legacy_compat_fallback_labels(self) -> None:
+        for legacy_label in ("interaction_tool", "interaction_component", "interaction_output"):
+            with self.subTest(legacy_label=legacy_label):
+                with self.assertRaisesRegex(ValueError, DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE):
+                    resolve_body_profile(
+                        facts={"item_id": f"Base.{legacy_label}", "identity_hint": "미분류"},
+                        decision={
+                            "item_id": f"Base.{legacy_label}",
+                            "compose_profile": legacy_label,
+                            "selected_role": None,
+                        },
+                        identity_hint_target_map={},
+                        precedence_rules={},
+                    )
+
+    def test_default_resolver_rejects_malformed_legacy_compat_label(self) -> None:
+        with self.assertRaisesRegex(ValueError, DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE):
+            resolve_body_profile(
+                facts={"item_id": "Base.MalformedLegacy", "identity_hint": "미분류"},
+                decision={
+                    "item_id": "Base.MalformedLegacy",
+                    "compose_profile": "interaction_tool:malformed",
+                    "selected_role": None,
+                },
+                identity_hint_target_map={},
+                precedence_rules={},
+            )
+
+    def test_diagnostic_resolver_allows_explicit_legacy_mapping(self) -> None:
+        resolved_profile, resolution_source, trace = resolve_body_profile(
+            facts={"item_id": "Base.LegacyDiagnostic", "identity_hint": "미분류"},
+            decision={
+                "item_id": "Base.LegacyDiagnostic",
+                "compose_profile": "interaction_component",
+                "selected_role": None,
+            },
+            identity_hint_target_map={},
+            precedence_rules={},
+            resolver_authority_mode=DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+        )
+
+        self.assertEqual(resolved_profile, "material_body")
+        self.assertEqual(resolution_source, "legacy_fallback_target")
+        self.assertEqual(trace["legacy_fallback_target"], "material_body")
+
+    def test_default_entrypoint_rejects_legacy_fallback_row(self) -> None:
+        facts_path = self.tmp_dir / "legacy_fallback_facts.jsonl"
+        decisions_path = self.tmp_dir / "legacy_fallback_decisions.jsonl"
+        overlay_path = self.tmp_dir / "legacy_fallback_overlay.jsonl"
+        output_path = self.tmp_dir / "legacy_fallback_rendered.json"
+        style_log_path = self.tmp_dir / "legacy_fallback_style_log.jsonl"
+        profiles_path, identity_rules_path, precedence_rules_path = self.write_shared_inputs()
+
+        write_jsonl(
+            facts_path,
+            [
+                {
+                    "item_id": "Base.LegacyFallbackOnly",
+                    "identity_hint": "미분류",
+                    "primary_use": "legacy fallback probe",
+                    "acquisition_hint": None,
+                    "processing_hint": None,
+                    "special_context": None,
+                    "limitation_hint": None,
+                    "notes": None,
+                    "fact_origin": {"primary_use": ["test"]},
+                }
+            ],
+        )
+        write_jsonl(
+            decisions_path,
+            [
+                {
+                    "item_id": "Base.LegacyFallbackOnly",
+                    "state": "active",
+                    "compose_profile": "interaction_tool",
+                    "override_mode": "none",
+                    "selected_role": None,
+                    "selected_cluster": None,
+                }
+            ],
+        )
+        write_jsonl(
+            overlay_path,
+            [
+                {
+                    "item_id": "Base.LegacyFallbackOnly",
+                    "layer1_identity_hint": "미분류",
+                    "layer2_anchor_hint": None,
+                    "layer4_context_hint": None,
+                }
+            ],
+        )
+
+        with self.assertRaisesRegex(ValueError, DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE):
+            compose_main(
+                [
+                    "--facts-path",
+                    str(facts_path),
+                    "--decisions-path",
+                    str(decisions_path),
+                    "--profiles-path",
+                    str(profiles_path),
+                    "--output-path",
+                    str(output_path),
+                    "--overlay-path",
+                    str(overlay_path),
+                    "--style-log-path",
+                    str(style_log_path),
+                    "--identity-rules-path",
+                    str(identity_rules_path),
+                    "--precedence-rules-path",
+                    str(precedence_rules_path),
+                ]
+            )
+
+    def test_legacy_adapter_entrypoint_modes_are_removed(self) -> None:
+        self.assertNotIn("compat_legacy", ENTRYPOINT_MODES)
+        self.assertNotIn("diagnostic_legacy", ENTRYPOINT_MODES)
+        for legacy_mode in ("compat_legacy", "diagnostic_legacy"):
+            with self.subTest(legacy_mode=legacy_mode):
+                with self.assertRaises(SystemExit):
+                    with redirect_stderr(StringIO()):
+                        parse_args(["--mode", legacy_mode])
+
+    def test_diagnostic_resolver_rejects_canonical_output_path(self) -> None:
         args = [
             "--mode",
-            DIAGNOSTIC_LEGACY_MODE,
+            DIAGNOSTIC_RESOLVER_MODE,
             "--output-path",
-            str(self.tmp_dir / "diagnostic_legacy_rendered.json"),
+            str(self.tmp_dir / "diagnostic_resolver_rendered.json"),
         ]
 
-        with self.assertRaisesRegex(ValueError, "diagnostic_legacy output_path must stay under"):
+        with self.assertRaisesRegex(ValueError, "diagnostic_resolver output_path must stay under"):
             compose_main(args)
+
+    def test_direct_diagnostic_resolver_rejects_canonical_output_path(self) -> None:
+        profiles_path, identity_rules_path, precedence_rules_path = self.write_shared_inputs()
+
+        with self.assertRaisesRegex(
+            ValueError,
+            "diagnostic resolver output_path must not write under canonical",
+        ):
+            build_rendered(
+                self.tmp_dir / "facts.jsonl",
+                self.tmp_dir / "decisions.jsonl",
+                profiles_path,
+                ROOT / "output" / "diagnostic_resolver_rendered.json",
+                self.tmp_dir / "overlay.jsonl",
+                self.tmp_dir / "style_log.jsonl",
+                None,
+                identity_rules_path,
+                precedence_rules_path,
+                DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+            )
 
     def test_v2_missing_required_context_section_stays_weak_without_context_fallback(self) -> None:
         facts_path = self.tmp_dir / "facts.jsonl"

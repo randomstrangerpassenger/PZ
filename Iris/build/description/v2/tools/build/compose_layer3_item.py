@@ -16,6 +16,7 @@ try:
         render_blocks,
     )
     from .compose_layer3_body_profile import (
+        DEFAULT_RESOLVER_AUTHORITY_MODE,
         build_body_plan_sections,
         resolve_body_profile,
     )
@@ -27,6 +28,7 @@ except ImportError:
         render_blocks,
     )
     from compose_layer3_body_profile import (
+        DEFAULT_RESOLVER_AUTHORITY_MODE,
         build_body_plan_sections,
         resolve_body_profile,
     )
@@ -102,6 +104,7 @@ def compose_item_v2(
     *,
     identity_hint_target_map: dict[str, str],
     precedence_rules: dict[str, Any],
+    resolver_authority_mode: str = DEFAULT_RESOLVER_AUTHORITY_MODE,
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
     if decision["state"] == "silent":
         return {"text_ko": None, "source": "silent"}, None
@@ -133,6 +136,7 @@ def compose_item_v2(
         decision=decision,
         identity_hint_target_map=identity_hint_target_map,
         precedence_rules=precedence_rules,
+        resolver_authority_mode=resolver_authority_mode,
     )
 
     profile_spec = profiles["profiles"].get(resolved_profile)

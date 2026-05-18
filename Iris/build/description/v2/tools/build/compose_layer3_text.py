@@ -17,6 +17,8 @@ try:
         write_jsonl,
     )
     from .compose_layer3_body_profile import (
+        DEFAULT_RESOLVER_AUTHORITY_MODE,
+        DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
         is_body_plan_profiles_v2,
         load_profile_resolution_rules,
     )
@@ -31,6 +33,8 @@ except ImportError:
         write_jsonl,
     )
     from compose_layer3_body_profile import (
+        DEFAULT_RESOLVER_AUTHORITY_MODE,
+        DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
         is_body_plan_profiles_v2,
         load_profile_resolution_rules,
     )
@@ -47,13 +51,39 @@ OVERLAY_PATH = STAGING_DIR / "layer3_role_check_overlay.jsonl"
 BODY_SOURCE_OVERLAY_PATH = ROOT / "staging" / "compose_contract_migration" / "layer3_body_source_overlay.jsonl"
 IDENTITY_RULES_PATH = DATA_DIR / "compose_profile_identity_hint_rules.json"
 PRECEDENCE_RULES_PATH = DATA_DIR / "compose_profile_conflict_precedence_rules.json"
-LEGACY_PROFILES_PATH = DATA_DIR / "compose_profiles.json"
 BODY_PLAN_PROFILES_PATH = DATA_DIR / "compose_profiles_v2.json"
 
 DEFAULT_MODE = "default"
-COMPAT_LEGACY_MODE = "compat_legacy"
-DIAGNOSTIC_LEGACY_MODE = "diagnostic_legacy"
-ENTRYPOINT_MODES = (DEFAULT_MODE, COMPAT_LEGACY_MODE, DIAGNOSTIC_LEGACY_MODE)
+DIAGNOSTIC_RESOLVER_MODE = "diagnostic_resolver"
+ENTRYPOINT_MODES = (
+    DEFAULT_MODE,
+    DIAGNOSTIC_RESOLVER_MODE,
+)
+
+
+def is_under_path(path: Path, root: Path) -> bool:
+    resolved_path = path.resolve()
+    resolved_root = root.resolve()
+    return resolved_path == resolved_root or resolved_root in resolved_path.parents
+
+
+def enforce_resolver_authority_output_contract(
+    *,
+    resolver_authority_mode: str,
+    output_path: Path,
+    style_log_path: Path,
+    requeue_candidates_path: Path | None,
+) -> None:
+    if resolver_authority_mode != DIAGNOSTIC_RESOLVER_AUTHORITY_MODE:
+        return
+    for key, value in (
+        ("output_path", output_path),
+        ("style_log_path", style_log_path),
+        ("requeue_candidates_path", requeue_candidates_path),
+    ):
+        if value is not None and is_under_path(value, OUTPUT_DIR):
+            raise ValueError(f"diagnostic resolver {key} must not write under canonical {OUTPUT_DIR}")
+
 
 def build_rendered(
     facts_path: Path,
@@ -65,7 +95,14 @@ def build_rendered(
     requeue_candidates_path: Path | None = None,
     identity_rules_path: Path = IDENTITY_RULES_PATH,
     precedence_rules_path: Path = PRECEDENCE_RULES_PATH,
+    resolver_authority_mode: str = DEFAULT_RESOLVER_AUTHORITY_MODE,
 ) -> dict[str, Any]:
+    enforce_resolver_authority_output_contract(
+        resolver_authority_mode=resolver_authority_mode,
+        output_path=output_path,
+        style_log_path=style_log_path,
+        requeue_candidates_path=requeue_candidates_path,
+    )
     facts_list = load_jsonl(facts_path)
     decisions_list = load_jsonl(decisions_path)
     profiles = load_json(profiles_path)
@@ -84,6 +121,7 @@ def build_rendered(
             profiles,
             identity_hint_target_map=identity_hint_target_map,
             precedence_rules=precedence_rules,
+            resolver_authority_mode=resolver_authority_mode,
         )
     else:
         entries, normalization_logs, requeue_candidates = compose_all_legacy(
@@ -181,21 +219,13 @@ def default_entrypoint_paths(mode: str) -> dict[str, Path | None]:
             "style_log_path": STYLE_LOG_PATH,
             "requeue_candidates_path": None,
         }
-    if mode == COMPAT_LEGACY_MODE:
+    if mode == DIAGNOSTIC_RESOLVER_MODE:
         return {
-            "profiles_path": LEGACY_PROFILES_PATH,
-            "overlay_path": OVERLAY_PATH,
-            "output_path": OUTPUT_DIR / "dvf_3_3_rendered.json",
-            "style_log_path": STYLE_LOG_PATH,
-            "requeue_candidates_path": None,
-        }
-    if mode == DIAGNOSTIC_LEGACY_MODE:
-        return {
-            "profiles_path": LEGACY_PROFILES_PATH,
-            "overlay_path": OVERLAY_PATH,
-            "output_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_legacy_dvf_3_3_rendered.json",
-            "style_log_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_legacy_style_log.jsonl",
-            "requeue_candidates_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_legacy_requeue_candidates.jsonl",
+            "profiles_path": BODY_PLAN_PROFILES_PATH,
+            "overlay_path": BODY_SOURCE_OVERLAY_PATH,
+            "output_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_resolver_dvf_3_3_rendered.json",
+            "style_log_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_resolver_style_log.jsonl",
+            "requeue_candidates_path": EDPAS_DIAGNOSTIC_DIR / "diagnostic_resolver_requeue_candidates.jsonl",
         }
     raise ValueError(f"Unknown entrypoint mode: {mode}")
 
@@ -230,12 +260,6 @@ def resolve_entrypoint_paths(args: argparse.Namespace) -> dict[str, Path | None]
     }
 
 
-def is_under_path(path: Path, root: Path) -> bool:
-    resolved_path = path.resolve()
-    resolved_root = root.resolve()
-    return resolved_path == resolved_root or resolved_root in resolved_path.parents
-
-
 def enforce_entrypoint_mode_contract(mode: str, paths: dict[str, Path | None]) -> None:
     profiles_path = paths["profiles_path"]
     if profiles_path is None:
@@ -243,17 +267,20 @@ def enforce_entrypoint_mode_contract(mode: str, paths: dict[str, Path | None]) -
     profiles = load_json(profiles_path)
     is_v2 = is_body_plan_profiles_v2(profiles)
 
-    if mode == DEFAULT_MODE and not is_v2:
-        raise ValueError("default mode requires compose_profiles_v2.json / schema compose-profiles-v2")
+    if mode in {DEFAULT_MODE, DIAGNOSTIC_RESOLVER_MODE} and not is_v2:
+        raise ValueError(f"{mode} mode requires compose_profiles_v2.json / schema compose-profiles-v2")
 
-    if mode in {COMPAT_LEGACY_MODE, DIAGNOSTIC_LEGACY_MODE} and is_v2:
-        raise ValueError(f"{mode} mode requires an explicit legacy profile source")
-
-    if mode == DIAGNOSTIC_LEGACY_MODE:
+    if mode == DIAGNOSTIC_RESOLVER_MODE:
         for key in ("output_path", "style_log_path", "requeue_candidates_path"):
             value = paths.get(key)
             if value is not None and not is_under_path(value, EDPAS_DIAGNOSTIC_DIR):
-                raise ValueError(f"diagnostic_legacy {key} must stay under {EDPAS_DIAGNOSTIC_DIR}")
+                raise ValueError(f"{mode} {key} must stay under {EDPAS_DIAGNOSTIC_DIR}")
+
+
+def resolver_authority_mode_for_entrypoint(mode: str) -> str:
+    if mode == DIAGNOSTIC_RESOLVER_MODE:
+        return DIAGNOSTIC_RESOLVER_AUTHORITY_MODE
+    return DEFAULT_RESOLVER_AUTHORITY_MODE
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -270,6 +297,7 @@ def main(argv: list[str] | None = None) -> int:
         paths["requeue_candidates_path"],
         paths["identity_rules_path"],
         paths["precedence_rules_path"],
+        resolver_authority_mode_for_entrypoint(args.mode),
     )
     print("rendered written")
     return 0

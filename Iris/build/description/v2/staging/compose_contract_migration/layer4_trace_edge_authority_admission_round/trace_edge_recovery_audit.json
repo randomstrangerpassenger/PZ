@@ -1,0 +1,14 @@
+{
+  "candidate_count": 292,
+  "explicit_trace_edge_found": false,
+  "inspected_surfaces": [
+    "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+    "Iris/build/description/v2/staging/body_role/phase2/layer3_role_check_overlay.jsonl",
+    "Iris/build/description/v2/tools/style/rules/structural_rules.json",
+    "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+    "Iris/build/description/v2/data/compose_profiles_v2.json"
+  ],
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "trace-edge-recovery-audit-v1"
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "legacy-active-silent-allow-surface-manifest-v0",
+  "surfaces": [
+    {
+      "id": "historical_docs",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "code_identifier",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "docs/Iris/**",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/ROADMAP.md",
+        "Iris/_docs/**"
+      ],
+      "reason": "historical sealed body and planning text are preserved"
+    },
+    {
+      "id": "archive_historical_payload",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "code_identifier",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/_archive/**"
+      ],
+      "reason": "archived payloads are preserved historical evidence and not current output"
+    },
+    {
+      "id": "staging_evidence",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "code_identifier",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/staging/**"
+      ],
+      "reason": "staging evidence is diagnostic and not current writer output"
+    },
+    {
+      "id": "round_local_diagnostics",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "code_identifier",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/**"
+      ],
+      "reason": "round-local scanner/validator evidence may quote guarded tokens"
+    },
+    {
+      "id": "validator_and_tests",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "explicit_legacy_test_fixture",
+        "plain_text",
+        "code_identifier",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py",
+        "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
+        "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+      ],
+      "reason": "validator and explicit guard tests contain expected legacy-token fixtures"
+    },
+    {
+      "id": "historical_build_tool_source",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "code_identifier",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/tools/build/**/*.py"
+      ],
+      "reason": "build tool source may quote legacy fixtures but is not current output"
+    },
+    {
+      "id": "legacy_output_metric_keys",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "legacy_metric_key",
+        "plain_text",
+        "code_identifier"
+      ],
+      "path_globs": [
+        "Iris/output/**/*.json"
+      ],
+      "reason": "legacy metric keys are retained unless rendered as current labels"
+    }
+  ]
+}

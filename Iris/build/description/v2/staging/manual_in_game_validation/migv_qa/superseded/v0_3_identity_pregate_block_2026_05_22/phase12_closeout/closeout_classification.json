@@ -1,0 +1,62 @@
+{
+  "schema_version": "migv-qa-phase12-closeout-classification-v1",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-22T14:31:57+09:00",
+  "closeout_state": "blocked",
+  "closeout_branch": "blocked_with_identity_pregate_failure",
+  "branch_reason": "Current checkout lacks a sealed path/hash proving current chunk deployable authority content parity with, or derivation from, the sealed staged body_plan hash. The opening decision therefore selected mode_b, but the required prerequisite Deployable Authority Derivation Seal Round artifact is missing.",
+  "evidence": {
+    "phase1_identity_report": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase1_identity_pregate/deployable_authority_identity_report.json",
+    "phase1_opening_scope_note": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase1_identity_pregate/opening_scope_note.md",
+    "phase3_static_report": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase3_static_prerun/static_prerun_validation_report.json",
+    "phase10_hard_gate_report": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase10_hard_gate/phase10_hard_gate_report.json"
+  },
+  "branch_a_docs_written": false,
+  "manual_in_game_validation_started": false,
+  "canonical_mutation_count": 0,
+  "canonical_mutation_count_excludes_round_evidence_and_branch_a_top_doc_addenda": true,
+  "release_readiness_claim_count": 0,
+  "validation_ceiling": {
+    "validated": [
+      "Required top-level docs were read for this session.",
+      "Current chunk topology was observed: manifest present, 11 chunk refs, 11 chunk files, 2105 entries.",
+      "Monolith IrisLayer3Data.lua absence was observed in the deployable data directory.",
+      "Python unittest command exited 0 with 394 tests OK.",
+      "Lua syntax command exited 0 with 183 files OK.",
+      "Legacy active/silent current-surface guard command exited 0 with hard_fail_current_label_occurrence_count 0."
+    ],
+    "out_of_scope": [
+      "Workshop packaging.",
+      "B42 porting validation.",
+      "Tooltip system implementation or Alt tooltip validation.",
+      "Multiplayer validation.",
+      "Long-session validation.",
+      "2105-row exhaustive manual click-through."
+    ],
+    "unvalidated_but_in_scope": [
+      "Deployable authority derivation/content-parity seal for current chunks.",
+      "Manual Browser surface validation.",
+      "Manual Wiki/detail surface validation.",
+      "Manual default bounded baseline validation.",
+      "Manual publish visibility two-sided behavior.",
+      "Minimal and modded in-game environment observation.",
+      "In-game console/runtime error attribution."
+    ]
+  },
+  "non_claims": [
+    "No closed_with_dvf_3_3_deployed_closeout.",
+    "No manual in-game validation pass.",
+    "No deployed closeout.",
+    "No ready_for_release.",
+    "No Workshop readiness.",
+    "No B42 readiness.",
+    "No Tooltip completion.",
+    "No Tooltip system validation or completion claim.",
+    "No full Iris release QA completion.",
+    "No packaging, deployment, release note, or Workshop publish completion.",
+    "No complete-removal cleanup closure.",
+    "No adapter removal debt closure.",
+    "No quality_baseline_v4 to v5 cutover."
+  ],
+  "next_required_action": "Open or run the separate read-only Deployable Authority Derivation Seal Round, then reopen MIGV-QA Phase 1 with its sealed path/hash."
+}

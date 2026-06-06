@@ -1,0 +1,138 @@
+{
+  "all_gates_pass": true,
+  "branch_closeout": "EDGE_AUTHORITY_PRODUCED_AND_ADMITTED",
+  "contract_closeout_state": "complete",
+  "determinism": {
+    "first_digest": "44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca",
+    "pass": true,
+    "round_id": "layer4_trace_edge_authority_admission_round",
+    "schema_version": "layer4-trace-edge-determinism-report-v1",
+    "scope": [
+      "layer4_trace_edges.v1.jsonl"
+    ],
+    "second_digest": "44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca"
+  },
+  "final_file_parse_check": {
+    "errors": [],
+    "json_file_count": 20,
+    "jsonl_file_count": 4,
+    "jsonl_row_count": 608,
+    "pass": true
+  },
+  "generation_summary": {
+    "generated_edge_count": 24,
+    "generated_edge_count_interpretation": "artifact_shape_metric_only_not_confirmed_count"
+  },
+  "hard_gate_checks": {
+    "admission_manifest_count_allowed_false": true,
+    "candidate_field_classification_completeness": true,
+    "claim_ceiling_not_exceeded": true,
+    "current_locked_corpus_path_count_is_4": true,
+    "decision_gate_allowed": true,
+    "detector_readiness_dry_run_pass": true,
+    "edge_artifact_immutable_across_admission": true,
+    "edge_basis_allowed_enum_validation_pass": true,
+    "fallback_guard_pass": true,
+    "final_file_parse_pass": true,
+    "forbidden_basis_fail_loud_validation_pass": true,
+    "locked_corpus_path_set_equals_predecessor": true,
+    "no_count_guard_pass": true,
+    "non_mutation_hash_diff_pass": true,
+    "predecessor_manifest_sha256_match": true,
+    "referential_integrity_validation_pass": true,
+    "rejected_candidate_reason_coverage": true,
+    "schema_validation_pass": true,
+    "scope_manifest_json_parse_pass": true,
+    "two_run_determinism_pass": true,
+    "unknown_unclassified_candidate_count_zero": true
+  },
+  "non_claims": [
+    "no LAYER4_ABSORPTION_CONFIRMED current count",
+    "no live-corpus occurrence count",
+    "no confirmed count 0 declaration",
+    "no zero-occurrence closeout",
+    "no Layer4 absorption resolved claim",
+    "no Layer4 policy redesign",
+    "no SUSPECT tier coverage",
+    "no FUNCTION_NARROW second rollout",
+    "no ACQ_DOMINANT remeasurement",
+    "no publish mutation review",
+    "no source facts mutation",
+    "no source decisions mutation",
+    "no rendered text mutation",
+    "no runtime Lua mutation",
+    "no packaged Lua mutation",
+    "no quality_state mutation",
+    "no publish_state mutation",
+    "no runtime_state mutation",
+    "no runtime rollout",
+    "no manual in-game validation pass",
+    "no deployment",
+    "no Workshop readiness",
+    "no B42 readiness",
+    "no release readiness",
+    "no ready_for_release",
+    "no repository-wide machine-enforced preflight"
+  ],
+  "non_mutation_hash_diff": {
+    "changed_group_count": 0,
+    "changed_groups": [],
+    "non_mutation_hash_diff_pass": true
+  },
+  "recovery_summary": {
+    "candidate_classification_complete": true,
+    "candidate_count": 292,
+    "classification_counts": {
+      "body_slot_hint_only": 181,
+      "co_occurrence_only": 0,
+      "diagnostic_only": 1,
+      "explicit_trace_edge": 0,
+      "historical_only": 0,
+      "label_or_provenance_only": 54,
+      "rejected_non_edge": 38,
+      "source_object_hint_only": 18
+    },
+    "explicit_trace_edge_candidate_count": 0,
+    "recovery_result": "not_recoverable",
+    "rejected_candidate_reason_coverage": true,
+    "round_id": "layer4_trace_edge_authority_admission_round",
+    "schema_version": "trace-edge-recovery-classification-summary-v1",
+    "unclassified_candidate_count": 0,
+    "unknown_candidate_count": 0
+  },
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "layer4-trace-edge-authority-admission-validation-report-v1",
+  "validation_ceiling": {
+    "out_of_scope": [
+      "LAYER4_ABSORPTION_CONFIRMED current count",
+      "live-corpus occurrence count",
+      "zero-occurrence closeout",
+      "Layer4 absorption resolved validation",
+      "SUSPECT tier coverage",
+      "runtime rollout validation",
+      "manual in-game validation",
+      "deployment validation",
+      "release readiness validation",
+      "Browser/Wiki/Tooltip behavior validation",
+      "full external mod compatibility sweep",
+      "publish mutation review",
+      "full runtime equivalence beyond stated non-mutation evidence"
+    ],
+    "unvalidated_but_in_scope": [],
+    "validated": [
+      "predecessor corpus manifest hash and path lock",
+      "existing trace recovery candidate classification",
+      "layer4_trace_edge.v1 schema",
+      "edge_basis allowed enum and forbidden basis fail-loud behavior",
+      "source/destination/slot referential integrity",
+      "generation-time body_plan relation sidecar emission",
+      "two-run determinism for generated edge rows",
+      "current compose/body_plan provenance",
+      "authority admission manifest",
+      "detector readiness dry-run without count execution",
+      "fallback path absence",
+      "round-local JSON/JSONL parse",
+      "source/rendered/runtime/state non-mutation hash diff"
+    ]
+  }
+}

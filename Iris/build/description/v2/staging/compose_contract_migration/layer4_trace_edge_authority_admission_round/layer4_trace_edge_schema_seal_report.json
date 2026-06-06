@@ -1,0 +1,40 @@
+{
+  "additional_properties_allowed": false,
+  "admission_state_in_row_schema": false,
+  "allowed_edge_basis": [
+    "recovered_body_plan_relation_trace",
+    "recovered_compose_relation_trace",
+    "generated_body_plan_relation_trace",
+    "generated_compose_relation_trace"
+  ],
+  "authority_class_in_row_schema": false,
+  "edge_type": "placed_in_body_output",
+  "forbidden_basis_or_substitute_values": [
+    "text_similarity",
+    "expression_match",
+    "rendered_substring_only",
+    "cluster_label",
+    "provenance_label",
+    "row_co_occurrence",
+    "body_slot_hint_only",
+    "source_object_hint_only",
+    "diagnostic_report_label",
+    "historical_reference_only",
+    "preview_or_fixture_only"
+  ],
+  "malformed_edges_fail_loud": true,
+  "required_fields": [
+    "row_id",
+    "item_full_type",
+    "source_ref",
+    "source_cardinality",
+    "destination_ref",
+    "destination_slot",
+    "edge_type",
+    "edge_basis"
+  ],
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_name": "layer4_trace_edge.v1",
+  "schema_validation_pass": true,
+  "schema_version": "layer4-trace-edge-schema-seal-report-v1"
+}

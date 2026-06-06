@@ -1,0 +1,38 @@
+{
+  "schema_version": "migv-qa-implementation-manifest-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "updated_at": "2026-05-24T21:13:43+09:00",
+  "artifact_root": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa",
+  "superseded_v0_3_artifacts_preserved_at": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22",
+  "phase_status": {
+    "phase1_identity_pregate": "pass",
+    "phase2_harness": "pass_with_current_candidate_absence_proof",
+    "phase3_static_prerun": "pass",
+    "phase4_environment": "pass_project_default_playtest_baseline_accepted",
+    "phase5_surface": "pass_user_supplied_in_game_surface_evidence_revised_contract",
+    "phase6_publish": "pass_revised_all_item_browser_contract",
+    "phase7_baseline": "pass_no_runtime_source_mutation_after_manual_review_lua_syntax_ok",
+    "phase8_negative": "pass_static_only",
+    "phase9_evidence": "captured_user_supplied_in_game_validation_complete",
+    "phase10_hard_gate": "pass_manual_in_game_validation_complete_revised_contract",
+    "phase11_adversarial_review": "PASS_MANUAL_IN_GAME_VALIDATION_COMPLETE_REVISED_CONTRACT",
+    "phase12_closeout": "closed_with_manual_in_game_validation_complete_revised_contract"
+  },
+  "branch_a_docs_written": false,
+  "canonical_runtime_or_source_mutation_performed_by_generator": false,
+  "runtime_source_mutation_performed_after_evidence_review": false,
+  "post_evidence_contract_review": {
+    "reviewed_at": "2026-05-24T21:13:43+09:00",
+    "status": "revised_contract_accepted",
+    "summary": "The observed Browser visibility for Apron and Broom is accepted under Iris all-item Browser semantics. internal_only and nil text_ko describe sealed Layer 3 body/state quality, not item-entry suppression. A short-lived runtime hide-filter attempt was reverted.",
+    "reverted_hide_filter": true,
+    "required_next_action": "None for this manual in-game validation closeout. Future release readiness work should use the revised contract and keep Layer 3 body quality separate from item-entry visibility."
+  },
+  "manual_in_game_validation_started": true,
+  "manual_in_game_validation_passed": true,
+  "manual_in_game_validation_completed": true,
+  "manual_in_game_validation_pass_scope": "user_supplied_in_game_playtest_evidence_revised_all_item_contract",
+  "completion_mode": "user_directed_manual_in_game_validation_closeout",
+  "playtest_evidence_root": "Iris/Playtest"
+}

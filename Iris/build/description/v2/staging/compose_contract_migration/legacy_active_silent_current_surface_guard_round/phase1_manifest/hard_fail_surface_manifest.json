@@ -1,0 +1,58 @@
+{
+  "schema_version": "legacy-active-silent-hard-fail-surface-manifest-v0",
+  "surfaces": [
+    {
+      "id": "current_writer_output_decisions",
+      "occurrence_kinds": [
+        "runtime_state_value",
+        "source_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/data/**/*.jsonl"
+      ],
+      "primary_error_owner": "DEFAULT_RUNTIME_STATE_REJECTED_LEGACY_ENUM",
+      "surface": "current writer output"
+    },
+    {
+      "id": "current_generated_report_operator_output",
+      "occurrence_kinds": [
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/output/**/*.json",
+        "Iris/build/description/v2/output/**/*.jsonl"
+      ],
+      "primary_error_owner": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
+      "surface": "current generated report / operator output"
+    },
+    {
+      "id": "current_runtime_payload_lua",
+      "occurrence_kinds": [
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value"
+      ],
+      "path_globs": [
+        "Iris/media/lua/client/Iris/Data/**/*.lua"
+      ],
+      "primary_error_owner": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
+      "surface": "current runtime payload"
+    },
+    {
+      "id": "packaged_lua_data",
+      "occurrence_kinds": [
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/**/*.lua"
+      ],
+      "primary_error_owner": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
+      "surface": "packaged Lua data"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "migv-qa-manual-surface-result-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "updated_at": "2026-05-24T21:13:43+09:00",
+  "surface": "default bounded baseline",
+  "status": "accepted_not_separately_required_for_user_supplied_in_game_closeout",
+  "manual_in_game_validation_started": true,
+  "result": "accepted_project_default_playtest_baseline_scope",
+  "pass_claim_allowed": true,
+  "observed_evidence_note": "No Iris-disabled vanilla control screenshot and no right-click entrypoint/default bounded baseline observation were supplied.",
+  "manual_in_game_validation_completed": true,
+  "required_next_action": "None for this manual in-game validation closeout. Capture an Iris-disabled control only for future expanded release-readiness QA."
+}

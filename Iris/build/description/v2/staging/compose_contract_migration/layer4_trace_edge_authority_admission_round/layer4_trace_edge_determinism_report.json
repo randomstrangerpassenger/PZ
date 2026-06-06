@@ -1,0 +1,10 @@
+{
+  "first_digest": "44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca",
+  "pass": true,
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "layer4-trace-edge-determinism-report-v1",
+  "scope": [
+    "layer4_trace_edges.v1.jsonl"
+  ],
+  "second_digest": "44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca"
+}

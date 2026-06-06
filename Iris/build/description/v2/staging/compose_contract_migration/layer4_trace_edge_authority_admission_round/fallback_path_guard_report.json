@@ -1,0 +1,12 @@
+{
+  "body_text_substring_used": false,
+  "cluster_or_provenance_label_used": false,
+  "co_occurrence_used": false,
+  "diagnostic_report_only_fallback_used": false,
+  "fallback_guard_pass": true,
+  "fallback_path_reached": false,
+  "keyword_used": false,
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "fallback-path-guard-report-v1",
+  "text_similarity_used": false
+}

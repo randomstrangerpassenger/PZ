@@ -1,0 +1,7 @@
+{
+  "edge_count": 24,
+  "referential_integrity_status": "pass",
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "row_error_count": 0,
+  "schema_version": "trace-edge-generated-referential-integrity-appendix-v1"
+}

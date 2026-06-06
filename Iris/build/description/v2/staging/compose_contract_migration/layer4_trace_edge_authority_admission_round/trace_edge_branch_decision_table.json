@@ -1,0 +1,47 @@
+{
+  "blocked_conditions_evaluated_first": true,
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "rows": [
+    {
+      "admission_result": "admitted as current_detector_input",
+      "branch_closeout": "EDGE_AUTHORITY_RECOVERED_AND_ADMITTED",
+      "dry_run_result": "pass",
+      "recovery_or_production_gate": "RECOVERABLE"
+    },
+    {
+      "admission_result": "admitted as current_detector_input",
+      "branch_closeout": "EDGE_AUTHORITY_PRODUCED_AND_ADMITTED",
+      "dry_run_result": "pass",
+      "recovery_or_production_gate": "NOT_RECOVERABLE_PRODUCTION_APPROVED"
+    },
+    {
+      "admission_result": "no detector input",
+      "branch_closeout": "closed_rejected_non_authority_trace_candidates",
+      "dry_run_result": "not applicable",
+      "recovery_or_production_gate": "all inspected candidates are non-edge or non-authority"
+    },
+    {
+      "admission_result": "no artifact produced",
+      "branch_closeout": "EDGE_AUTHORITY_UNRECOVERABLE_NO_ARTIFACT_PRODUCED",
+      "dry_run_result": "not run",
+      "recovery_or_production_gate": "NOT_RECOVERABLE_PRODUCTION_DEFERRED"
+    }
+  ],
+  "schema_version": "trace-edge-branch-decision-table-v1",
+  "terminal_branch_taxonomy": [
+    "EDGE_AUTHORITY_RECOVERED_AND_ADMITTED",
+    "EDGE_AUTHORITY_PRODUCED_AND_ADMITTED",
+    "EDGE_AUTHORITY_UNRECOVERABLE_NO_ARTIFACT_PRODUCED",
+    "closed_rejected_non_authority_trace_candidates",
+    "blocked_trace_edge_authority_unavailable_no_detector_count",
+    "blocked_trace_edge_schema_invalid",
+    "blocked_trace_edge_referential_integrity_failed",
+    "blocked_trace_edge_provenance_failed",
+    "blocked_trace_edge_admission_rejected",
+    "blocked_detector_readiness_failed",
+    "blocked_production_approval_missing",
+    "blocked_no_count_guard_failed",
+    "blocked_non_mutation_invariant_failed",
+    "blocked_claim_overreach"
+  ]
+}

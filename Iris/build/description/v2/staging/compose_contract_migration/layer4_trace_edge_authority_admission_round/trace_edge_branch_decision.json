@@ -1,0 +1,23 @@
+{
+  "branch_decision": "NOT_RECOVERABLE_PRODUCTION_APPROVED",
+  "confirmed_count": "not_computed",
+  "confirmed_measurement_executed": false,
+  "decision_allowed": true,
+  "production_approval_basis": {
+    "approved_by_plan": true,
+    "approved_by_successor_instruction": true,
+    "generation_time_relation_evidence": {
+      "producer": "tools.build.compose_layer3_body_profile.build_body_plan_sections",
+      "relation_fields": [
+        "body_plan.emitted_sections[].source_fields[]",
+        "body_plan.emitted_sections[].section",
+        "entry item_id"
+      ],
+      "rendered_text_reverse_parser_used": false,
+      "text_similarity_used": false
+    },
+    "reason": "recovery found no explicit trace-edge; current compose/body_plan generation has explicit relation data"
+  },
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "trace-edge-branch-decision-v1"
+}

@@ -1,0 +1,54 @@
+{
+  "LAYER4_ABSORPTION_CONFIRMED_literal_status": "actual_literal",
+  "broad_context_tokens": [
+    "Layer4",
+    "layer4",
+    "Layer 4",
+    "absorption",
+    "hard_block",
+    "boundary",
+    "FUNCTION_NARROW",
+    "ACQ_DOMINANT"
+  ],
+  "canonical_reason_code": "LAYER4_ABSORPTION",
+  "canonical_variant_tokens": [
+    "layer4_absorption",
+    "layer4_absorption_confirmed",
+    "Layer4 Absorption",
+    "Layer 4 Absorption",
+    "absorption_confirmed"
+  ],
+  "count_measurement_allowed": false,
+  "literal_status_rationale": "The literal may occur in governance/report text, but the active body-role rule remains LAYER4_ABSORPTION; confirmed is a downstream measurement label, not a current count result.",
+  "primary_reason_code_tokens": [
+    "LAYER4_ABSORPTION",
+    "LAYER4_ABSORPTION_CONFIRMED",
+    "L4_ABSORPTION"
+  ],
+  "round_id": "layer4_boundary_current_corpus_lock_round",
+  "schema_version": "layer4-boundary-token-form-manifest-v1",
+  "token_tiers": {
+    "broad_context": [
+      "Layer4",
+      "layer4",
+      "Layer 4",
+      "absorption",
+      "hard_block",
+      "boundary",
+      "FUNCTION_NARROW",
+      "ACQ_DOMINANT"
+    ],
+    "canonical_variant": [
+      "layer4_absorption",
+      "layer4_absorption_confirmed",
+      "Layer4 Absorption",
+      "Layer 4 Absorption",
+      "absorption_confirmed"
+    ],
+    "primary_reason_code": [
+      "LAYER4_ABSORPTION",
+      "LAYER4_ABSORPTION_CONFIRMED",
+      "L4_ABSORPTION"
+    ]
+  }
+}

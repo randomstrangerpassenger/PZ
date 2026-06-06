@@ -1,0 +1,15 @@
+{
+  "acq_dominant_publish_candidate_count": 0,
+  "acq_dominant_publish_candidate_count_definition": "count rows where bucket = acq_dominant_residual_remeasurement AND publish_candidate_before_remeasurement = true",
+  "blanket_isolation_allowed": false,
+  "canonical_round_id": "structural_signal_scope_split_seal_round",
+  "cross_reference_primary_anchor": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/",
+  "current_round_performed_remeasurement": false,
+  "current_round_unique_identifier": "2026-05-29.structural_signal_scope_split_seal_round.reconstruction_based_re_seal",
+  "filesystem_alias": "structural_signal_scope_re_seal_round",
+  "future_round_does_not_auto_include_publish_mutation_review": true,
+  "future_round_required_for_acq_dominant_baseline": true,
+  "publish_candidate_before_remeasurement": false,
+  "round_name": "Iris DVF 3-3 Structural Signal Scope Split Seal Round",
+  "schema_version": "acq-dominant-current-baseline-remeasurement-round-pointer-v1"
+}

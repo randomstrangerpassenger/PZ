@@ -1,0 +1,109 @@
+{
+  "schema_version": "migv-qa-phase1-identity-pregate-v1",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-22T14:31:57+09:00",
+  "status": "blocked",
+  "identity_pregate": "blocked",
+  "failure_branch": "blocked_deployable_authority_derivation_seal_prerequisite_missing",
+  "identity_link_mode": "mode_b_prerequisite_deployable_authority_derivation_seal_round",
+  "opening_decision": {
+    "selected_mode": "mode_b_prerequisite_deployable_authority_derivation_seal_round",
+    "reason": "No existing sealed mode_a evidence was found that proves current chunk deployable authority content parity with, or derivation from, sealed staged body_plan hash 0390272b93a933d7e53bba996b322ffbdd9fc905585bec03fc78d338f469f062.",
+    "manual_qa_allowed_to_start": false
+  },
+  "mode_a_assessment": {
+    "mode_a_available": false,
+    "topology_only_evidence_rejected": true,
+    "existing_evidence_considered": [
+      {
+        "path": "docs/DECISIONS.md",
+        "evidence_kind": "historical_decision_text",
+        "summary": "2026-04-22 and 2026-04-23 entries record staged/static, diagnostic, and direct-entrypoint hash evidence, but do not provide a current chunk deployable content-parity seal for MIGV-QA mode_a."
+      },
+      {
+        "path": "Iris/build/description/v2/staging/compose_contract_migration/frozen_2105_baseline_reconstruction_round/",
+        "evidence_kind": "historical_or_reconstruction_artifacts",
+        "summary": "Artifacts reference the historical sealed staged hash but do not satisfy the MIGV-QA v0.3 requirement for an opening-selected current chunk deployable content-parity or derivation seal."
+      }
+    ],
+    "mode_b_prerequisite_present": false
+  },
+  "sealed_baseline_reference": {
+    "expected_staged_parity_hash": "0390272b93a933d7e53bba996b322ffbdd9fc905585bec03fc78d338f469f062",
+    "phase0_sealed_baseline_lua_hash": "9c5ceebea334277cb9b235e67fdfed8f2089d3eb1b7a2519ada424be11945ee9",
+    "current_full_runtime_staged_artifact_path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime/IrisLayer3Data.body_plan_v2.staged.lua",
+    "current_full_runtime_staged_artifact_sha256": "9412BCD2316C02F357D1196F6B80EE0FCAEDC0F7B06C962240C16B3276F85277",
+    "current_full_runtime_staged_artifact_matches_expected_staged_parity_hash": false
+  },
+  "current_deployable_authority_observation": {
+    "manifest_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "manifest_sha256": "FA9F74938023CC81A08E12BC271A22F65BEFB5DF36C0A18E85550882C82F6E2C",
+    "manifest_chunk_refs": 11,
+    "manifest_has_require_loop": true,
+    "manifest_has_global_assignment": true,
+    "chunk_directory": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/",
+    "chunk_file_count": 11,
+    "chunk_entry_count": 2105,
+    "chunk_source_distribution": {
+      "composed_v2_preview": 2084,
+      "unadopted": 21
+    },
+    "chunk_publish_state_distribution": {
+      "exposed": 1486,
+      "internal_only": 600,
+      "missing": 19
+    },
+    "expected_publish_state_distribution": {
+      "exposed": 1467,
+      "internal_only": 617
+    },
+    "publish_state_distribution_matches_plan_invariant": false,
+    "nil_text_entry_count": 19,
+    "monolith_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+    "monolith_exists": false,
+    "monolith_deployable_authority": false
+  },
+  "chunk_file_hashes": {
+    "Chunk001.lua": "08373C2A0E2F6FF572021F2F82D1B322316E7886A8876664D65F022CB764B7DD",
+    "Chunk002.lua": "37E72049CEB83D294F52D9BB86936A3A3E05942CDAA037865532338CFAEF4764",
+    "Chunk003.lua": "562C7C18AEF25538EF341764DA4A5635313352212F1BCE515B20C5DCCC90E0B9",
+    "Chunk004.lua": "42753E063661679583C3430ACC6BC52EC6F47D873CBF4685DACDB603A964E440",
+    "Chunk005.lua": "89C7D39902FF83166F4CFB8CEA4225359E86B62750703CFC7C4F15B44CCE5A5E",
+    "Chunk006.lua": "5942559C4927AB8ED948FED42F73E362B26E35D180E2206B745CAAA98ED20C09",
+    "Chunk007.lua": "19661A52A3418F413AD49C7DF474A2F221A0D5C751232F1B9B3083768074966B",
+    "Chunk008.lua": "0DF3875BD9CD109BF70B50B4C847C99E56437D1AB8183C1A814C797A754ED924",
+    "Chunk009.lua": "ABBE34D842D2D1162A5828E3F3E3147CB93F1E991F89DA3009D2BB81ADD82729",
+    "Chunk010.lua": "954ED61CA9F9A08FB9818A38C91925356901561B9D3CD3DD9DFD5D91BD359997",
+    "Chunk011.lua": "8E0311E7D6FB020056E9FB74FBC546DCE898668F4ED7C60561E7538F5BC9D179"
+  },
+  "phase1_validation": {
+    "identity_pregate": "blocked",
+    "row_count": 2105,
+    "row_count_matches_expected": true,
+    "publish_split": "1486/600 plus 19 missing publish_state entries",
+    "publish_split_matches_expected_1467_617": false,
+    "chunk_manifest_present": true,
+    "chunk_file_count": 11,
+    "sealed_staged_derivation_link": "not_confirmed",
+    "identity_link_evidence_path_hash_cited": false,
+    "identity_link_evidence_kind": null,
+    "topology_only_evidence_used_for_mode_a": false,
+    "monolith_deployable_authority": false,
+    "artifact_regeneration_count": 0
+  },
+  "dirty_worktree_disclosure": {
+    "preexisting_dirty_worktree_present": true,
+    "relevant_preexisting_dirty_paths_observed": [
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua"
+    ],
+    "canonical_mutation_performed_by_this_round": false
+  },
+  "next_required_action": "Run a separate read-only Deployable Authority Derivation Seal Round, or provide an existing sealed evidence path/hash that satisfies MIGV-QA v0.3 mode_a. Do not start manual in-game QA before that prerequisite exists."
+}

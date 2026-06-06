@@ -1,0 +1,26 @@
+{
+  "canonical_round_id": "structural_signal_scope_split_seal_round",
+  "cross_reference_primary_anchor": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/",
+  "current_round_unique_identifier": "2026-05-29.structural_signal_scope_split_seal_round.reconstruction_based_re_seal",
+  "default_compose_input": false,
+  "filesystem_alias": "structural_signal_scope_re_seal_round",
+  "forbidden_writer_field_usage_count": 0,
+  "forbidden_writer_fields": [
+    "quality_state",
+    "publish_state",
+    "rendered_text",
+    "runtime_state writer mutation",
+    "default compose writer input"
+  ],
+  "negative_default_compose_input_guard_check": {
+    "default_compose_data_root_guard_relaxed": false,
+    "reconstructed_authority_is_explicit_round_local_observer_input_only": true
+  },
+  "publish_authority": false,
+  "quality_authority": false,
+  "round_name": "Iris DVF 3-3 Structural Signal Scope Split Seal Round",
+  "runtime_authority": false,
+  "schema_version": "structural-signal-authority-consumption-contract-v1",
+  "writer_authority": false,
+  "writer_role": "observer_consumer_only"
+}

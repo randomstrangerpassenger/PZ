@@ -1,0 +1,24 @@
+{
+  "destination_ref_validation_pass": true,
+  "destination_slot_enum_source": "Iris/build/description/v2/data/compose_profiles_v2.json#section_names",
+  "destination_slot_validation_pass": true,
+  "edge_basis_allowed_enum_validation_pass": true,
+  "edge_count": 24,
+  "forbidden_basis_fail_loud_validation_pass": true,
+  "malformed_sample_errors": [
+    "row_id_not_in_locked_corpus_identity",
+    "edge_basis_invalid_or_forbidden",
+    "edge_basis_forbidden",
+    "source_ref_not_resolved",
+    "destination_slot_not_resolved"
+  ],
+  "overall_status": "pass",
+  "required_relation_field_missing_count": 0,
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "row_error_count": 0,
+  "row_errors": [],
+  "schema_version": "trace-edge-referential-integrity-report-v1",
+  "sealed_slot_identifier_source": null,
+  "source_ref_validation_pass": true,
+  "unknown_enum_count": 0
+}

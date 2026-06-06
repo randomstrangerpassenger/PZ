@@ -1,0 +1,7 @@
+{
+  "recovered_edge_count": 0,
+  "recovery_result": "not_recoverable",
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "trace-edge-recovered-referential-integrity-appendix-v1",
+  "validation_status": "not_applicable"
+}

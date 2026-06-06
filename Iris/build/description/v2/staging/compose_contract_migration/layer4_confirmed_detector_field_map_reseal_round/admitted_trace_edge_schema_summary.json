@@ -1,0 +1,32 @@
+{
+  "additional_field_paths": [],
+  "all_required_fields_present_on_all_rows": true,
+  "artifact_hash_sha256": "44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca",
+  "field_path_count": 8,
+  "field_paths": [
+    "destination_ref",
+    "destination_slot",
+    "edge_basis",
+    "edge_type",
+    "item_full_type",
+    "row_id",
+    "source_cardinality",
+    "source_ref"
+  ],
+  "malformed_row_count": 0,
+  "malformed_rows": [],
+  "required_field_paths": [
+    "row_id",
+    "item_full_type",
+    "source_ref",
+    "source_cardinality",
+    "destination_ref",
+    "destination_slot",
+    "edge_type",
+    "edge_basis"
+  ],
+  "round_id": "layer4_confirmed_detector_field_map_reseal_round",
+  "row_count": 24,
+  "row_count_interpretation": "artifact_shape_metric_only_not_confirmed_count",
+  "schema_version": "admitted-trace-edge-schema-summary-v1"
+}

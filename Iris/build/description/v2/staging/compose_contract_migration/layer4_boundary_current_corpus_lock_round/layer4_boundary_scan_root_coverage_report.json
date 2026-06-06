@@ -1,0 +1,20 @@
+{
+  "broad_context_policy": "bounded_to_substrate_or_known_surface_roots_or_requires_primary_token_cooccurrence",
+  "mandatory_root_coverage_count": 8,
+  "missing_required_root_count": 0,
+  "root_result_counts": {
+    "root.current_data": 1,
+    "root.current_docs_governance": 999,
+    "root.current_rendered_output": 1,
+    "root.current_runtime_deployable": 0,
+    "root.diagnostic_report_tools": 437,
+    "root.historical_staging_archive": 20261,
+    "root.round_local_staging": 0,
+    "root.style_rules": 9,
+    "root.test_fixture": 206
+  },
+  "round_id": "layer4_boundary_current_corpus_lock_round",
+  "scan_root_coverage_state": "complete",
+  "schema_version": "layer4-boundary-scan-root-coverage-report-v1",
+  "unjustified_excluded_root_count": 0
+}

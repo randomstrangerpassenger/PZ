@@ -1,0 +1,54 @@
+{
+  "checkout_ref": {
+    "dirty_tree_state": "dirty",
+    "git_commit_sha": "b904933654de795dca2b658e993350715ea15c1e",
+    "included_surface_content_digest": "047491850fde58620507d989c28214577ada32da27fc9c3b2ce6586b87592219"
+  },
+  "dirty_tree_handling": "explicit: current checkout already contains unrelated dirty/untracked work; this round pins included-surface content digests and writes only round-local artifacts",
+  "dirty_tree_state": "dirty",
+  "git_commit_sha": "b904933654de795dca2b658e993350715ea15c1e",
+  "git_rev_parse": {
+    "command": "git rev-parse HEAD",
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "b904933654de795dca2b658e993350715ea15c1e"
+  },
+  "git_status_short": {
+    "command": "git status --short",
+    "exit_code": 0,
+    "stderr": "warning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied\nwarning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied\nwarning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied\nwarning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied",
+    "stdout": "M .claude/settings.local.json\n m .claude/worktrees/loving-newton-6327e6\n M .gitignore\n M Iris/build/description/v2/data/dvf_3_3_decisions.jsonl\n M Iris/build/description/v2/tests/test_compose_layer3_text_v2.py\n M Iris/build/description/v2/tools/build/compose_layer3_body_profile.py\n M Iris/build/description/v2/tools/build/compose_layer3_item.py\n M Iris/build/description/v2/tools/build/compose_layer3_render.py\n M Iris/build/description/v2/tools/build/compose_layer3_text.py\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua\n M Iris/media/lua/client/Iris/UI/Wiki/IrisContextMenu.lua\n M Iris/media/lua/client/Iris/UI/Wiki/IrisWikiPanel.lua\n M docs/ARCHITECTURE.md\n M docs/DECISIONS.md\n D docs/Iris/iris-dvf-3-3-adapter-diagnostic-compatibility-final-disposition-round-plan.md\n D docs/Iris/iris-dvf-3-3-silent-21-replacement-authority-reconstruction-round-plan.md\n D docs/Iris/iris-dvf-3-3-silent-metadata-intake-cleanup-round-plan.md\n M docs/ROADMAP.md\n?? Iris/build/description/v2/staging/\n?? Iris/build/description/v2/tests/test_current_authority_source_path_guard.py\n?? Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py\n?? Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py\n?? Iris/build/description/v2/tools/build/build_static_report_label_cleanup_referent_recovery_round.py\n?? Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py\n?? docs/Iris/Done/Walkthrough/iris-dvf-3-3-current-runtime-baseline-seal-round-walkthrough.md\n?? docs/Iris/Done/Walkthrough/iris-dvf-3-3-structural-signal-scope-split-seal-round-walkthrough.md\n?? docs/Iris/Done/iris-dvf-3-3-acq-dominant-current-baseline-remeasurement-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-adapter-diagnostic-compatibility-final-disposition-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-current-runtime-baseline-seal-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-historical-runtime-vocabulary-readpoint-anchor-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-legacy-active-silent-current-surface-guard-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-manual-in-game-validation-minimal-playset-test-manual.md\n?? docs/Iris/Done/iris-dvf-3-3-manual-in-game-validation-qa-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-runtime-payload-enum-rename-scope-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-silent-21-replacement-authority-reconstruction-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-silent-metadata-intake-cleanup-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-static-report-label-cleanup-referent-recovery-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-static-report-label-cleanup-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-structural-signal-authority-classification-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-structural-signal-current-readpoint-seal-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-structural-signal-current-referent-inventory-anchor-recovery-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-structural-signal-missing-anchor-authority-resolution-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-structural-signal-scope-split-seal-round-plan.md\n?? docs/Iris/iris-dvf-3-3-layer4-boundary-current-corpus-lock-round-plan.md\n?? tools/check_lua_syntax.ps1"
+  },
+  "included_surface_content_digest_manifest": {
+    "digest": "047491850fde58620507d989c28214577ada32da27fc9c3b2ce6586b87592219",
+    "files": [
+      {
+        "bytes": 4051,
+        "exists": true,
+        "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+        "sha256": "0fbff43e932199ca36ba0c67fd683a53608ff56d0ed3373c654cdb2f67ff53e5"
+      },
+      {
+        "bytes": 2093,
+        "exists": true,
+        "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+        "sha256": "ea28b5715aefa95d62ebbc520183183eb20febb9a429047b22bf42e2c695a55c"
+      },
+      {
+        "bytes": 1835,
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/body_role/phase2/layer3_role_check_overlay.jsonl",
+        "sha256": "9eae0f7ddea8c1f0e04a5885dc02bcb82cd0d6545b966d2822bd47a66b5da130"
+      },
+      {
+        "bytes": 582,
+        "exists": true,
+        "path": "Iris/build/description/v2/tools/style/rules/structural_rules.json",
+        "sha256": "92c712145f55dfa45d51759d9026a72e3e316be1992baec8272f6769faf9acce"
+      }
+    ],
+    "hash_algorithm": "sha256"
+  },
+  "round_id": "layer4_boundary_current_corpus_lock_round",
+  "schema_version": "layer4-boundary-checkout-basis-manifest-v1"
+}

@@ -1,0 +1,21 @@
+{
+  "admission_scope": "trace_edge_authority_only",
+  "artifacts": [
+    {
+      "admission_state": "admitted",
+      "authority_class": "current_compose_body_plan_generated_trace_edge_authority",
+      "derives_from_current_compose_body_plan_authority": true,
+      "detector_input_partition": "current_detector_input",
+      "edge_count": 24,
+      "non_mutation_hash_diff_pass": true,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edges.v1.jsonl",
+      "schema_validation_pass": true,
+      "sha256": "44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca"
+    }
+  ],
+  "confirmed_count": "not_computed",
+  "confirmed_measurement_executed": false,
+  "count_allowed": false,
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "trace-edge-admission-manifest-v1"
+}

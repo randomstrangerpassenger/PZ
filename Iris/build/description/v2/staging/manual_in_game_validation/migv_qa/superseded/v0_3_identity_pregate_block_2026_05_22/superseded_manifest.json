@@ -1,0 +1,42 @@
+{
+  "schema_version": "migv-qa-superseded-artifact-manifest-v1",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "reason": "MIGV-QA v0.4 supersedes the v0.3 staged-derivation identity pre-gate with sealed current runtime baseline consumption.",
+  "preserved_files": [
+    {
+      "source": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase1_identity_pregate/deployable_authority_identity_report.json",
+      "backup": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22/phase1_identity_pregate/deployable_authority_identity_report.json",
+      "sha256": "32dcb07cf569c92838ac14be8850d7193189c153abf9f29772108b74ec7dbd21"
+    },
+    {
+      "source": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase1_identity_pregate/deployable_authority_identity_report.sha256",
+      "backup": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22/phase1_identity_pregate/deployable_authority_identity_report.sha256",
+      "sha256": "13f7192798fe249add83e9ec4bce2f65a45eb641c6e60df25486c1e719408583"
+    },
+    {
+      "source": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase1_identity_pregate/opening_scope_note.md",
+      "backup": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22/phase1_identity_pregate/opening_scope_note.md",
+      "sha256": "cb6523c82d61cb3a136cbb0cc17b5ae72413e1cae37002782c29ff92d2b6e191"
+    },
+    {
+      "source": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase3_static_prerun/static_prerun_validation_report.json",
+      "backup": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22/phase3_static_prerun/static_prerun_validation_report.json",
+      "sha256": "ee04afc9fcac5db02634867c0b9722ce8c1e4e8fe4a30c6c417daf736f5ae0b1"
+    },
+    {
+      "source": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase10_hard_gate/phase10_hard_gate_report.json",
+      "backup": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22/phase10_hard_gate/phase10_hard_gate_report.json",
+      "sha256": "99fd75fb53856612e2f3e863be06012cfa788a4482dc165f37f706f05101651f"
+    },
+    {
+      "source": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase12_closeout/closeout_classification.json",
+      "backup": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22/phase12_closeout/closeout_classification.json",
+      "sha256": "8a47c597ba157c5a7dd3ea46053f5eca2c37544e1ceb2e2ef15609bc693b06eb"
+    },
+    {
+      "source": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase12_closeout/closeout.md",
+      "backup": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22/phase12_closeout/closeout.md",
+      "sha256": "96e5b9243544c2facdedbfae891b86baf5bf513a1ee50701779c862d4e41945c"
+    }
+  ]
+}

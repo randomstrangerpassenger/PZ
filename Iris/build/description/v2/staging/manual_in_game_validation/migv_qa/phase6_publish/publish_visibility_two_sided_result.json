@@ -1,0 +1,77 @@
+{
+  "schema_version": "migv-qa-phase6-publish-visibility-result-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "updated_at": "2026-05-24T21:13:43+09:00",
+  "status": "pass_revised_all_item_browser_contract",
+  "manual_in_game_validation_started": true,
+  "environment_classification": "project_default_playtest_baseline_observed_vanilla_adjacent_not_provided",
+  "static_contract_context": {
+    "sealed_publish_split": "exposed 1486 / internal_only 600 / missing 19",
+    "browser_default_filter": "all Project Zomboid script item entries may be searchable/listed; sealed Layer 3 publish_state controls body/source quality, not Browser item-entry visibility",
+    "wiki_default_filter": "not separately required for this user-supplied manual in-game closeout",
+    "internal_only_default_visible_expected": true,
+    "missing_publish_state_behavior_expected": "item entry may be visible; raw nil/table/placeholder/state tokens must not be exposed",
+    "nil_text_ko_behavior_expected": "safe generated/tag-derived description may display; raw nil/table/placeholder exposure is forbidden"
+  },
+  "observations": [
+    {
+      "identity_key": "Base.223Box",
+      "display_name_ko": ".223 탄약 상자",
+      "publish_state": "exposed",
+      "text_ko_status": "present_non_empty",
+      "evidence_file": "Iris/Playtest/.223ammobox.jpg",
+      "expected": "visible on default user-facing Browser surface",
+      "observed": "visible with description text",
+      "result": "pass"
+    },
+    {
+      "identity_key": "Base.Apron_Black",
+      "display_name_ko": "앞치마",
+      "publish_state": "internal_only",
+      "text_ko_status": "present_non_empty",
+      "evidence_file": "Iris/Playtest/Apron.jpg",
+      "expected": "visible item entry is allowed; internal_only must not leak as a raw user-facing state token or broken placeholder",
+      "observed": "visible in Browser search results and detail pane with safe description text; no raw internal token was reported",
+      "result": "pass_revised_contract"
+    },
+    {
+      "identity_key": "Base.Broom",
+      "display_name_ko": "빗자루",
+      "publish_state": "missing",
+      "text_ko_status": "nil",
+      "source": "unadopted",
+      "evidence_file": "Iris/Playtest/Broom.jpg",
+      "expected": "visible item entry is allowed; nil Layer 3 text must not leak raw nil/table/placeholder/state tokens",
+      "observed": "visible in Browser search results and detail pane with safe generated/tag-derived description text; no raw nil/table/placeholder/state token was reported",
+      "result": "pass_revised_contract"
+    }
+  ],
+  "validation": {
+    "exposed_display_sample_pass": true,
+    "internal_only_item_entry_visible_count": 1,
+    "internal_only_raw_state_token_exposure_count": 0,
+    "missing_publish_state_finding_rows_classified": true,
+    "nil_text_ko_broken_placeholder_count": 0,
+    "unadopted_broken_exposure_count": 0,
+    "raw_state_token_exposure_count": 0,
+    "browser_wiki_visibility_consistent": "accepted_not_separately_required_for_user_supplied_in_game_closeout",
+    "item_entry_visibility_consistent_with_all_item_browser": true,
+    "product_contract_consistency_issue": "resolved_by_revised_contract"
+  },
+  "post_evidence_contract_review": {
+    "reviewed_at": "2026-05-24T19:33:31+09:00",
+    "status": "revised_contract_accepted",
+    "summary": "The original Phase 6 expectation treated default visibility as publish_state visibility. That conflicted with Iris menu semantics where all items, including junk/no-use items, can be browsed. The revised contract separates item listing from Layer 3 body quality/publish state.",
+    "expected_revised_contract": [
+      "Base.223Box / .223 탄약 상자 remains visible with Layer 3 description text.",
+      "Base.Apron_Black / 앞치마 may remain visible as an item entry; its Layer 3 body/source state should indicate identity_fallback/internal quality without suppressing the item.",
+      "Base.Broom / 빗자루 may remain visible as an item entry; nil Layer 3 text should not produce broken placeholders, but tag/classification-based use information may still be shown."
+    ]
+  },
+  "blocking_reason": null,
+  "pass_claim_allowed": true,
+  "manual_in_game_validation_completed": true,
+  "pass_scope": "user_supplied_in_game_playtest_evidence_revised_all_item_contract",
+  "required_next_action": "None for this manual in-game validation closeout."
+}

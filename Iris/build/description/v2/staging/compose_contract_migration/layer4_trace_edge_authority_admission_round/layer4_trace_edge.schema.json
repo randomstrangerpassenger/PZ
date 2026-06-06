@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "forbidden_basis_or_substitute_values": [
+    "text_similarity",
+    "expression_match",
+    "rendered_substring_only",
+    "cluster_label",
+    "provenance_label",
+    "row_co_occurrence",
+    "body_slot_hint_only",
+    "source_object_hint_only",
+    "diagnostic_report_label",
+    "historical_reference_only",
+    "preview_or_fixture_only"
+  ],
+  "properties": {
+    "destination_ref": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "destination_slot": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "edge_basis": {
+      "enum": [
+        "recovered_body_plan_relation_trace",
+        "recovered_compose_relation_trace",
+        "generated_body_plan_relation_trace",
+        "generated_compose_relation_trace"
+      ]
+    },
+    "edge_type": {
+      "const": "placed_in_body_output"
+    },
+    "item_full_type": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "row_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "source_cardinality": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "source_ref": {
+      "minLength": 1,
+      "type": "string"
+    }
+  },
+  "required": [
+    "row_id",
+    "item_full_type",
+    "source_ref",
+    "source_cardinality",
+    "destination_ref",
+    "destination_slot",
+    "edge_type",
+    "edge_basis"
+  ],
+  "title": "layer4_trace_edge.v1",
+  "type": "object"
+}

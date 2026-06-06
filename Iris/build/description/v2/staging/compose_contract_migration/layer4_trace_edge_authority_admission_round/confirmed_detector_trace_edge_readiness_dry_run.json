@@ -1,0 +1,24 @@
+{
+  "admission_manifest_read_success": true,
+  "admitted_edge_count_interpretation": "readiness_shape_metric_only_not_confirmed_count",
+  "admitted_edge_count_shape_metric": 24,
+  "confirmed_count": "not_computed",
+  "confirmed_measurement_executed": false,
+  "detector_count_output_exists": false,
+  "edge_schema_read_success": true,
+  "missing_required_field_fail_loud_test_pass": true,
+  "readiness_result": "pass",
+  "referential_integrity_failure_fail_loud_test_pass": true,
+  "required_field_coverage": {
+    "destination_ref": true,
+    "destination_slot": true,
+    "edge_basis": true,
+    "edge_type": true,
+    "item_full_type": true,
+    "row_id": true,
+    "source_cardinality": true,
+    "source_ref": true
+  },
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "confirmed-detector-trace-edge-readiness-dry-run-v1"
+}

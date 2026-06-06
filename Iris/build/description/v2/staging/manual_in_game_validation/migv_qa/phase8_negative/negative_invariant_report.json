@@ -1,0 +1,14 @@
+{
+  "schema_version": "migv-qa-phase8-negative-invariant-report-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "status": "pass_static_negative_invariants_only",
+  "monolith_absent": true,
+  "monolith_load_count": 0,
+  "sealed_current_runtime_hash_manifest_unchanged": true,
+  "historical_staged_hash_used_as_current_gate": false,
+  "legacy_enum_current_surface_reentry": 0,
+  "canonical_mutation_count": 0,
+  "canonical_mutation_count_excludes_round_evidence_and_branch_a_top_doc_addenda": true,
+  "baseline_round_negative_report_path": "Iris/build/description/v2/staging/dvf_3_3_current_runtime_baseline_seal_round/phase4_negative_invariant_report.json"
+}

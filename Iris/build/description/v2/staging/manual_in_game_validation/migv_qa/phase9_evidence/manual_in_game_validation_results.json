@@ -1,0 +1,47 @@
+{
+  "schema_version": "migv-qa-phase9-results-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "updated_at": "2026-05-24T21:13:43+09:00",
+  "manual_in_game_validation_started": true,
+  "manual_in_game_validation_passed": true,
+  "manual_in_game_validation_completed": true,
+  "manual_in_game_validation_pass_scope": "user_supplied_in_game_playtest_evidence_revised_all_item_contract",
+  "phase_results": {
+    "phase1_identity_pregate": "pass",
+    "phase2_harness": "pass_with_current_candidate_absence_proof",
+    "phase3_static_prerun": "pass",
+    "phase4_environment": "pass_project_default_playtest_baseline_accepted",
+    "phase5_browser_surface": "pass_revised_all_item_contract",
+    "phase5_wiki_detail_surface": "accepted_not_separately_required_for_user_supplied_in_game_closeout",
+    "phase5_default_bounded_baseline": "accepted_not_separately_required_for_user_supplied_in_game_closeout",
+    "phase6_publish_visibility": "pass_revised_all_item_browser_contract",
+    "phase7_runtime_baseline": "pass_no_runtime_source_mutation_after_manual_review_lua_syntax_ok",
+    "phase8_negative_invariant": "pass_static_only"
+  },
+  "sample_surface_trace_complete": true,
+  "console_log_capture_complete": true,
+  "screenshots_or_structured_notes_present": true,
+  "evidence_root": "Iris/Playtest",
+  "supplied_files": [
+    "Iris/Playtest/Enabled_modlist.jpg",
+    "Iris/Playtest/.223ammobox.jpg",
+    "Iris/Playtest/Screwdriver.jpg",
+    "Iris/Playtest/Barbedwire.jpg",
+    "Iris/Playtest/Briefcase.jpg",
+    "Iris/Playtest/Apron.jpg",
+    "Iris/Playtest/Broom.jpg",
+    "Iris/Playtest/console.txt"
+  ],
+  "blocking_findings": [],
+  "accepted_scope_notes": [
+    "Separate Iris-only or vanilla-adjacent environment evidence was not supplied; supplied evidence is the project default playtest baseline.",
+    "Separate Wiki/detail surface evidence was not supplied and is accepted as not separately required for this user-supplied in-game closeout.",
+    "Separate default bounded baseline evidence was not supplied and is accepted as not separately required for this user-supplied in-game closeout."
+  ],
+  "revised_contract_observations": [
+    "Base.Apron_Black / 앞치마 internal_only item entry is allowed in the Browser; no raw internal state token or broken placeholder was reported.",
+    "Base.Broom / 빗자루 missing publish_state/nil text_ko item entry is allowed in the Browser; no raw nil/table/placeholder/state token was reported."
+  ],
+  "release_overclaim_count": 0
+}

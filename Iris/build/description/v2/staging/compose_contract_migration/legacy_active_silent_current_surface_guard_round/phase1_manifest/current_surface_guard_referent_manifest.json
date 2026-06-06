@@ -1,0 +1,228 @@
+{
+  "allow_surfaces": [
+    {
+      "id": "historical_docs",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "code_identifier",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "docs/Iris/**",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/ROADMAP.md",
+        "Iris/_docs/**"
+      ],
+      "reason": "historical sealed body and planning text are preserved"
+    },
+    {
+      "id": "archive_historical_payload",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "code_identifier",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/_archive/**"
+      ],
+      "reason": "archived payloads are preserved historical evidence and not current output"
+    },
+    {
+      "id": "staging_evidence",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "code_identifier",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/staging/**"
+      ],
+      "reason": "staging evidence is diagnostic and not current writer output"
+    },
+    {
+      "id": "round_local_diagnostics",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "code_identifier",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/**"
+      ],
+      "reason": "round-local scanner/validator evidence may quote guarded tokens"
+    },
+    {
+      "id": "validator_and_tests",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "explicit_legacy_test_fixture",
+        "plain_text",
+        "code_identifier",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py",
+        "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
+        "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+      ],
+      "reason": "validator and explicit guard tests contain expected legacy-token fixtures"
+    },
+    {
+      "id": "historical_build_tool_source",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "historical_quote",
+        "plain_text",
+        "code_identifier",
+        "legacy_metric_key",
+        "diagnostic_alias",
+        "runtime_state_value",
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/tools/build/**/*.py"
+      ],
+      "reason": "build tool source may quote legacy fixtures but is not current output"
+    },
+    {
+      "id": "legacy_output_metric_keys",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "legacy_metric_key",
+        "plain_text",
+        "code_identifier"
+      ],
+      "path_globs": [
+        "Iris/output/**/*.json"
+      ],
+      "reason": "legacy metric keys are retained unless rendered as current labels"
+    }
+  ],
+  "canonical_runtime_state_enum": [
+    "adopted",
+    "unadopted"
+  ],
+  "classification_precedence": [
+    "round-local staging evidence wins over generic build/report path matching",
+    "hard-fail requires both a sealed hard-fail surface and a current-label occurrence",
+    "current-label candidacy is based on occurrence_kind, not lexical token alone",
+    "allow rules require path_glob, occurrence_kind, reason, and must_not_be_current_output",
+    "no allow rule may downgrade current output serialization of active/silent"
+  ],
+  "error_catalog": {
+    "ALLOWLIST_RULE_TOO_BROAD": "A manifest allow rule can cover current output too broadly.",
+    "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL": "Legacy active/silent appeared as a current generated/operator, writer, or packaged Lua label.",
+    "DEFAULT_RESOLVER_REJECTED_LEGACY_COMPAT_LABEL": "Existing resolver guard owns legacy compatibility compose_profile fallback rejection.",
+    "DEFAULT_RUNTIME_STATE_REJECTED_LEGACY_ENUM": "Existing runtime_state guard owns default-path active/silent runtime enum rejection.",
+    "DIAGNOSTIC_ALIAS_USED_OUTSIDE_EXPLICIT_DIAGNOSTIC_SURFACE": "A diagnostic/import alias occurrence appeared outside an explicit diagnostic/import surface.",
+    "LEGACY_METRIC_KEY_RENDERED_AS_CURRENT_LABEL": "A legacy metric key was rendered as a current label.",
+    "UNALLOWLISTED_LEGACY_ACTIVE_SILENT_OCCURRENCE": "Legacy active/silent occurrence did not match a hard-fail or allow rule."
+  },
+  "existing_guard_boundaries": {
+    "legacy resolver compatibility label occurrence": "DEFAULT_RESOLVER_REJECTED_LEGACY_COMPAT_LABEL",
+    "packaged Lua / generated operator / writer non-runtime label occurrence": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
+    "runtime_state writer/validator occurrence": "DEFAULT_RUNTIME_STATE_REJECTED_LEGACY_ENUM"
+  },
+  "generated_at": "2026-05-21T07:34:23.691755+00:00",
+  "hard_fail_surfaces": [
+    {
+      "id": "current_writer_output_decisions",
+      "occurrence_kinds": [
+        "runtime_state_value",
+        "source_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/data/**/*.jsonl"
+      ],
+      "primary_error_owner": "DEFAULT_RUNTIME_STATE_REJECTED_LEGACY_ENUM",
+      "surface": "current writer output"
+    },
+    {
+      "id": "current_generated_report_operator_output",
+      "occurrence_kinds": [
+        "operator_label_value",
+        "current_report_label_value",
+        "writer_output_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/output/**/*.json",
+        "Iris/build/description/v2/output/**/*.jsonl"
+      ],
+      "primary_error_owner": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
+      "surface": "current generated report / operator output"
+    },
+    {
+      "id": "current_runtime_payload_lua",
+      "occurrence_kinds": [
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value"
+      ],
+      "path_globs": [
+        "Iris/media/lua/client/Iris/Data/**/*.lua"
+      ],
+      "primary_error_owner": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
+      "surface": "current runtime payload"
+    },
+    {
+      "id": "packaged_lua_data",
+      "occurrence_kinds": [
+        "source_value",
+        "operator_label_value",
+        "current_report_label_value"
+      ],
+      "path_globs": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/**/*.lua"
+      ],
+      "primary_error_owner": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
+      "surface": "packaged Lua data"
+    }
+  ],
+  "legacy_alias_scope": "diagnostic/import/historical read-only only",
+  "round_name": "Legacy Active/Silent Current-Surface Guard Round",
+  "round_root": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round",
+  "schema_version": "legacy-active-silent-current-surface-guard-manifest-v0"
+}

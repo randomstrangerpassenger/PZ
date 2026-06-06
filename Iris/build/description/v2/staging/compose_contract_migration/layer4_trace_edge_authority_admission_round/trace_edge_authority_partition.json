@@ -1,0 +1,15 @@
+{
+  "count_allowed": false,
+  "partitions": {
+    "current_detector_input": [
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edges.v1.jsonl"
+    ],
+    "current_supporting_trace_only": [],
+    "diagnostic_only": [],
+    "historical_only": [],
+    "rejected_non_edge": []
+  },
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "trace-edge-authority-partition-v1",
+  "supporting_only_absent_from_detector_input": true
+}

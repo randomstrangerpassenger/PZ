@@ -1,0 +1,26 @@
+{
+  "schema_version": "migv-qa-phase10-hard-gate-report-v1",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-22T14:31:57+09:00",
+  "phase10_hard_gate": "blocked",
+  "blocking_phase": "phase1_identity_pregate",
+  "blocking_reason": "Missing prerequisite deployable authority derivation/content-parity seal for current chunk deployable authority.",
+  "gate_inputs": {
+    "phase1_identity_pregate": "blocked",
+    "phase2_axis_coverage": "not_run",
+    "phase3_static_prerun": "commands_executed_but_gate_not_reached",
+    "phase4_environment_manifest": "not_run",
+    "minimal_environment_validation": "not_run",
+    "modded_environment_observation": "not_run",
+    "phase5_browser_surface": "not_run",
+    "phase5_wiki_detail_surface": "not_run",
+    "phase5_default_bounded_baseline": "not_run",
+    "phase6_publish_contract": "not_run",
+    "phase7_runtime_baseline": "not_run",
+    "phase8_negative_invariant": "not_run"
+  },
+  "mutation_count": 0,
+  "release_overclaim_count": 0,
+  "manual_in_game_validation_started": false,
+  "hard_gate_pass_claim_allowed": false
+}

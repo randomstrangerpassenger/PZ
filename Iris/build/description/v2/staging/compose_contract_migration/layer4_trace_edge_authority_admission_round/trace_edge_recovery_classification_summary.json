@@ -1,0 +1,21 @@
+{
+  "candidate_classification_complete": true,
+  "candidate_count": 292,
+  "classification_counts": {
+    "body_slot_hint_only": 181,
+    "co_occurrence_only": 0,
+    "diagnostic_only": 1,
+    "explicit_trace_edge": 0,
+    "historical_only": 0,
+    "label_or_provenance_only": 54,
+    "rejected_non_edge": 38,
+    "source_object_hint_only": 18
+  },
+  "explicit_trace_edge_candidate_count": 0,
+  "recovery_result": "not_recoverable",
+  "rejected_candidate_reason_coverage": true,
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "trace-edge-recovery-classification-summary-v1",
+  "unclassified_candidate_count": 0,
+  "unknown_candidate_count": 0
+}

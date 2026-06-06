@@ -1,0 +1,166 @@
+{
+  "schema_version": "migv-qa-phase2-source-axis-candidate-inventory-v0_4",
+  "generated_at": "2026-05-24T16:05:44.727+09:00",
+  "source_path": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+  "total_rows": 2105,
+  "origin_counts": {
+    "seed": 4210,
+    "cluster_summary": 1275,
+    "identity_fallback": 718,
+    "direct_use": 12,
+    "role_fallback": 100
+  },
+  "field_counts": {
+    "acquisition_hint": 1050,
+    "limitation_hint": 0,
+    "notes": 0,
+    "special_context": 12,
+    "secondary_use": 0,
+    "processing_hint": 0
+  },
+  "selected_candidates": [
+    {
+      "purpose": "body_source:direct_use",
+      "identity_key": "Base.BarbedWire",
+      "field": "primary_use",
+      "field_value_present": true,
+      "fact_origin": {
+        "identity_hint": [
+          "seed"
+        ],
+        "acquisition_hint": [
+          "seed"
+        ],
+        "primary_use": [
+          "direct_use"
+        ]
+      },
+      "selected_cluster": null,
+      "selected_role": null,
+      "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+      "manual_status": "pending"
+    },
+    {
+      "purpose": "body_source:cluster_summary",
+      "identity_key": "Base.223Box",
+      "field": "primary_use",
+      "field_value_present": true,
+      "fact_origin": {
+        "identity_hint": [
+          "seed"
+        ],
+        "acquisition_hint": [
+          "seed"
+        ],
+        "primary_use": [
+          "cluster_summary"
+        ]
+      },
+      "selected_cluster": "ammo_loading",
+      "selected_role": "output",
+      "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+      "manual_status": "pending"
+    },
+    {
+      "purpose": "body_source:role_fallback",
+      "identity_key": "Base.Briefcase",
+      "field": "primary_use",
+      "field_value_present": true,
+      "fact_origin": {
+        "identity_hint": [
+          "seed"
+        ],
+        "acquisition_hint": [
+          "seed"
+        ],
+        "primary_use": [
+          "role_fallback"
+        ]
+      },
+      "selected_cluster": null,
+      "selected_role": null,
+      "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+      "manual_status": "pending"
+    },
+    {
+      "purpose": "body_source:identity_fallback",
+      "identity_key": "Base.Apron_Black",
+      "field": "primary_use",
+      "field_value_present": true,
+      "fact_origin": {
+        "identity_hint": [
+          "seed"
+        ],
+        "acquisition_hint": [
+          "seed"
+        ],
+        "primary_use": [
+          "identity_fallback"
+        ]
+      },
+      "selected_cluster": null,
+      "selected_role": null,
+      "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+      "manual_status": "pending"
+    },
+    {
+      "purpose": "body_section:acquisition_support",
+      "identity_key": "Base.223Box",
+      "field": "acquisition_hint",
+      "field_value_present": true,
+      "fact_origin": {
+        "identity_hint": [
+          "seed"
+        ],
+        "acquisition_hint": [
+          "seed"
+        ],
+        "primary_use": [
+          "cluster_summary"
+        ]
+      },
+      "selected_cluster": "ammo_loading",
+      "selected_role": "output",
+      "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+      "manual_status": "pending"
+    },
+    {
+      "purpose": "body_section:context_support_proxy",
+      "identity_key": "Base.BarbedWire",
+      "field": "special_context",
+      "field_value_present": true,
+      "fact_origin": {
+        "identity_hint": [
+          "seed"
+        ],
+        "acquisition_hint": [
+          "seed"
+        ],
+        "primary_use": [
+          "direct_use"
+        ]
+      },
+      "selected_cluster": null,
+      "selected_role": null,
+      "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+      "manual_status": "pending"
+    }
+  ],
+  "absent_axes": [
+    {
+      "purpose": "body_section:limitation_tail",
+      "status": "absent_in_current_integrated_facts",
+      "field": "limitation_hint",
+      "candidate_count": 0,
+      "manual_status": "not_applicable_without_new_authority"
+    },
+    {
+      "purpose": "body_section:meta_tail",
+      "status": "absent_in_current_integrated_facts",
+      "field": "notes",
+      "candidate_count": 0,
+      "manual_status": "not_applicable_without_new_authority"
+    }
+  ],
+  "conclusion": "phase2_source_axis_finalized_with_current_candidate_absence_proof_for_limitation_tail_and_meta_tail"
+}

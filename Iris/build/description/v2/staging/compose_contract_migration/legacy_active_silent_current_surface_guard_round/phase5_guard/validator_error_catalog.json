@@ -1,0 +1,9 @@
+{
+  "ALLOWLIST_RULE_TOO_BROAD": "A manifest allow rule can cover current output too broadly.",
+  "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL": "Legacy active/silent appeared as a current generated/operator, writer, or packaged Lua label.",
+  "DEFAULT_RESOLVER_REJECTED_LEGACY_COMPAT_LABEL": "Existing resolver guard owns legacy compatibility compose_profile fallback rejection.",
+  "DEFAULT_RUNTIME_STATE_REJECTED_LEGACY_ENUM": "Existing runtime_state guard owns default-path active/silent runtime enum rejection.",
+  "DIAGNOSTIC_ALIAS_USED_OUTSIDE_EXPLICIT_DIAGNOSTIC_SURFACE": "A diagnostic/import alias occurrence appeared outside an explicit diagnostic/import surface.",
+  "LEGACY_METRIC_KEY_RENDERED_AS_CURRENT_LABEL": "A legacy metric key was rendered as a current label.",
+  "UNALLOWLISTED_LEGACY_ACTIVE_SILENT_OCCURRENCE": "Legacy active/silent occurrence did not match a hard-fail or allow rule."
+}

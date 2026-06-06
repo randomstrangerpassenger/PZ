@@ -1,0 +1,115 @@
+{
+  "commands": {
+    "lua_syntax": {
+      "command": [
+        "powershell",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        ".\\tools\\check_lua_syntax.ps1"
+      ],
+      "exit_code": 0,
+      "missing_tool": false,
+      "stderr_line_count": 0,
+      "stderr_tail": [],
+      "stdout_line_count": 1,
+      "stdout_tail": [
+        "Lua syntax validation OK: 183 files"
+      ],
+      "timed_out": false
+    },
+    "python_unittest": {
+      "command": [
+        "python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "Iris\\build\\description\\v2\\tests",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "missing_tool": false,
+      "stderr_line_count": 5,
+      "stderr_tail": [
+        "..........................................................................................................................................................................................................................................................................................................................................................................................................",
+        "----------------------------------------------------------------------",
+        "Ran 394 tests in 4.416s",
+        "",
+        "OK"
+      ],
+      "stdout_line_count": 17,
+      "stdout_tail": [
+        "rendered written",
+        "interaction cluster rendered validation OK",
+        "{",
+        "  \"schema_version\": \"interaction-cluster-validation-report-v0\",",
+        "  \"hard_fail_count\": 0,",
+        "  \"warn_count\": 0,",
+        "  \"hard_fail_rows\": [],",
+        "  \"warn_rows\": [],",
+        "  \"rows\": [",
+        "    {",
+        "      \"item_id\": \"Base.Custom\",",
+        "      \"text_ko\": \"맞춤 도구. 수리 작업에 쓰는 도구다.\",",
+        "      \"hard_fail_reasons\": [],",
+        "      \"warnings\": []",
+        "    }",
+        "  ]",
+        "}"
+      ],
+      "timed_out": false
+    },
+    "standalone_validator": {
+      "command": [
+        "python",
+        "-B",
+        "Iris\\build\\description\\v2\\tools\\validate_legacy_active_silent_current_surface_guard.py",
+        "--manifest",
+        "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\compose_contract_migration\\legacy_active_silent_current_surface_guard_round\\phase1_manifest\\current_surface_guard_referent_manifest.json",
+        "--repo-root",
+        "."
+      ],
+      "exit_code": 0,
+      "missing_tool": false,
+      "stderr_line_count": 0,
+      "stderr_tail": [],
+      "stdout_line_count": 18,
+      "stdout_tail": [
+        "{",
+        "  \"status\": \"pass\",",
+        "  \"summary\": {",
+        "    \"manifest_error_count\": 0,",
+        "    \"occurrence_count\": 2881,",
+        "    \"hard_fail_current_label_occurrence_count\": 0,",
+        "    \"unclassified_occurrence_count\": 0,",
+        "    \"allowed_occurrence_count\": 2779,",
+        "    \"non_label_occurrence_count\": 102,",
+        "    \"covered_by_existing_guard_count\": 0,",
+        "    \"gate_a_pass\": true,",
+        "    \"negative_fixture_reach\": {",
+        "      \"runtime_state_default_guard\": false,",
+        "      \"current_surface_guard\": false,",
+        "      \"legacy_metric_rendered_guard\": false",
+        "    }",
+        "  }",
+        "}"
+      ],
+      "timed_out": false
+    }
+  },
+  "default_build_test_path_wiring": {
+    "evidence": "guard tests are included in unittest discovery under Iris\\build\\description\\v2\\tests",
+    "status": "pass"
+  },
+  "gate_a_allowlist_outside_current_label_occurrence_0": true,
+  "gate_b_negative_hard_fail_reach_verified_by_unittest": true,
+  "generated_at": "2026-05-21T07:34:36.061946+00:00",
+  "lua_syntax_exit_code": 0,
+  "overall_status": "pass",
+  "python_unittest_exit_code": 0,
+  "schema_version": "legacy-active-silent-phase6-hard-gate-v0",
+  "standalone_validator_exit_code": 0
+}

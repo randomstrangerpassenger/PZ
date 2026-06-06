@@ -1,0 +1,157 @@
+{
+  "artifact_count": 30,
+  "artifacts": [
+    {
+      "bytes": 280,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/confirmed_detector_readiness_summary.md",
+      "sha256": "764da26da9edfa2ef4b021bf8599a4fe03a270dd7ec9a9ad89a87bfacbe408c4"
+    },
+    {
+      "bytes": 861,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/confirmed_detector_trace_edge_readiness_dry_run.json",
+      "sha256": "17628aa58bfeb9813aeb5e7613351b8ae1e76d7f6da39b7f341c69099592addb"
+    },
+    {
+      "bytes": 537,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/docs_addendum_candidate.md",
+      "sha256": "581e9b1aa41e083bff2351d85f90d3a81d89e7065db69cae69adbff4516208f6"
+    },
+    {
+      "bytes": 402,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/fallback_path_guard_report.json",
+      "sha256": "78698c995a0c3eaed83fa198ea166167832e69395f886f3906c12f17bd3c70ce"
+    },
+    {
+      "bytes": 57911,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/generate_round_artifacts.py",
+      "sha256": "e390c2ed45506d12c469cc3dae01c8833da715259c31938cd47c785ffe50e20f"
+    },
+    {
+      "bytes": 1450,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edge.schema.json",
+      "sha256": "e02124dd8adc46366f62e89c2685be7ad089aa779fb6613183240732756ab419"
+    },
+    {
+      "bytes": 2371,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edge_authority_admission_closeout.md",
+      "sha256": "f38c30afb8256c80d43552701b73243708f7911bf0af754674b0b9303a31a6ba"
+    },
+    {
+      "bytes": 5092,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edge_authority_admission_validation_report.json",
+      "sha256": "086aebd43d2c62be5a6ea28e4db4d35447bc4355a8142e24e9769cac683371a6"
+    },
+    {
+      "bytes": 1879,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edge_authority_scope_manifest.json",
+      "sha256": "188f22f7d5116da308e83cb827b78fccd4f0b469401afbad647e7cdf4953d192"
+    },
+    {
+      "bytes": 368,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edge_determinism_report.json",
+      "sha256": "60df333ab832230a4554d9d1b84d140e488bfabe2cc5b4b9a4d28990515da517"
+    },
+    {
+      "bytes": 1384,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edge_generation_report.json",
+      "sha256": "a73394f262e42ac13f5edaeae05e9352618694d09a00263c85a01e85e3e2f8ad"
+    },
+    {
+      "bytes": 1137,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edge_schema_seal_report.json",
+      "sha256": "d5bafeec548136e95012020a538cd95a79ca8552535980e5ef8e8d04b3a757f9"
+    },
+    {
+      "bytes": 6708,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edges.v1.jsonl",
+      "sha256": "44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca"
+    },
+    {
+      "bytes": 4275,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/non_mutation_hash_report.json",
+      "sha256": "d69ac29ab375a3086e60950984d872af3c9c99417816fa2fd0ae764b81ba8e75"
+    },
+    {
+      "bytes": 0,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/recovered_trace_edges.v1.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 894,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_admission_manifest.json",
+      "sha256": "17734d6f630f7274cf831748a1723e3f054f06bd4c697b7ff1f5dcba85f31864"
+    },
+    {
+      "bytes": 668,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_admission_report.json",
+      "sha256": "801ed37fd3050ac97ab3a43e3345676e0a2c8fcca8f8366150c2e7e749e9398c"
+    },
+    {
+      "bytes": 527,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_authority_partition.json",
+      "sha256": "40b98e4e0bc29a83c0d1e0bc200920eca33c7d3537f008a7b86f00aaab323669"
+    },
+    {
+      "bytes": 905,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_branch_decision.json",
+      "sha256": "6f660da02edbdd84ce5041b6037a6f193753d3b67f59548b5e9f019fb3b20ff5"
+    },
+    {
+      "bytes": 1866,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_branch_decision_table.json",
+      "sha256": "50df351be0ff36d5ec271d2440b852b4b3bc7d257e6fac144fddb91f6ff6fffa"
+    },
+    {
+      "bytes": 145275,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_candidate_fields.jsonl",
+      "sha256": "ec41f7c2253b8eb15c9a97376f01e1057fae0f222eb3aab216c453ec23c5ab09"
+    },
+    {
+      "bytes": 228,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_generated_referential_integrity_appendix.json",
+      "sha256": "9689138f592aa999a0e2a8d00bad7f63626c2e6826e1d06b4305ee2663df0f77"
+    },
+    {
+      "bytes": 1739,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_provenance_report.json",
+      "sha256": "b17a2eb748a806556e284c5d43f89460ba7935f626beec6d9d30a4c145527c76"
+    },
+    {
+      "bytes": 252,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_recovered_referential_integrity_appendix.json",
+      "sha256": "ddf39573ce9b40a702fe9b288f5f44b6d46f4e9447a913064be06580b64a2a94"
+    },
+    {
+      "bytes": 618,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_recovery_audit.json",
+      "sha256": "00eb0a72a7d6f220c722d371da8090e7c81886becd6f839adef58c553b2263c1"
+    },
+    {
+      "bytes": 679,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_recovery_classification_summary.json",
+      "sha256": "8826d6b48d09c64e90c04db3b07c2b7d2c76ea3602dff3c7cbe66764eb172206"
+    },
+    {
+      "bytes": 1132,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_referential_integrity_contract.json",
+      "sha256": "a00f5b36a89d8e16235f2521df48de9d763e3b5f86e04828585c1111ce873a1c"
+    },
+    {
+      "bytes": 886,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_referential_integrity_report.json",
+      "sha256": "fe89421baa1d70c42eb62885e8fa4e325158274d884e61965acbc3fde059cde0"
+    },
+    {
+      "bytes": 237,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_reject_reason_contract.md",
+      "sha256": "322107203acb2adcb02afeeca4887f2f606f62b48d703d109b2b4592e97b3223"
+    },
+    {
+      "bytes": 75686,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/trace_edge_rejected_candidates.jsonl",
+      "sha256": "db5843efa817953c26ad5cc916bd8e0d6f86e3a0a27cbb181201fe7d3566b4d6"
+    }
+  ],
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "layer4-trace-edge-artifact-hash-manifest-v1"
+}

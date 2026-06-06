@@ -1,0 +1,83 @@
+{
+  "schema_version": "migv-qa-manual-surface-result-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "updated_at": "2026-05-24T21:13:43+09:00",
+  "surface": "Browser",
+  "status": "pass_revised_all_item_contract",
+  "manual_in_game_validation_started": true,
+  "environment_classification": "project_default_playtest_baseline_observed_vanilla_adjacent_not_provided",
+  "evidence_root": "Iris/Playtest",
+  "observed_samples": [
+    {
+      "identity_key": "Base.223Box",
+      "display_name_ko": ".223 탄약 상자",
+      "evidence_file": "Iris/Playtest/.223ammobox.jpg",
+      "browser_search_term": "223",
+      "observed": "Browser item list and detail pane display the selected item and DVF-style description text.",
+      "raw_token_exposure_observed": false,
+      "classification": "display_observed"
+    },
+    {
+      "identity_key": "Base.Screwdriver",
+      "display_name_ko": "스크류드라이버",
+      "evidence_file": "Iris/Playtest/Screwdriver.jpg",
+      "browser_search_term": "스크류",
+      "observed": "Browser item list and detail pane display the selected item and description text.",
+      "raw_token_exposure_observed": false,
+      "classification": "display_observed"
+    },
+    {
+      "identity_key": "Base.BarbedWire",
+      "display_name_ko": "철조망",
+      "evidence_file": "Iris/Playtest/Barbedwire.jpg",
+      "browser_search_term": "철조망",
+      "observed": "Browser item list and detail pane display the selected item and description text.",
+      "raw_token_exposure_observed": false,
+      "classification": "display_observed"
+    },
+    {
+      "identity_key": "Base.Briefcase",
+      "display_name_ko": "서류 가방",
+      "evidence_file": "Iris/Playtest/Briefcase.jpg",
+      "browser_search_term": "서류 가",
+      "observed": "Browser item list and detail pane display the selected item and description text.",
+      "raw_token_exposure_observed": false,
+      "classification": "display_observed"
+    },
+    {
+      "identity_key": "Base.Apron_Black",
+      "display_name_ko": "앞치마",
+      "evidence_file": "Iris/Playtest/Apron.jpg",
+      "browser_search_term": "앞치마",
+      "observed": "Browser item list and detail pane display the item entry and safe description text. Under the revised all-item Browser contract, internal_only is a Layer 3 body/state quality marker and does not suppress the item entry.",
+      "raw_token_exposure_observed": false,
+      "classification": "item_entry_visible_layer3_internal_status"
+    },
+    {
+      "identity_key": "Base.Broom",
+      "display_name_ko": "빗자루",
+      "evidence_file": "Iris/Playtest/Broom.jpg",
+      "browser_search_term": "빗자루",
+      "observed": "Browser item list and detail pane display the item entry and safe generated/tag-derived description text. Under the revised all-item Browser contract, nil Layer 3 text must not leak raw nil/table/placeholder tokens but does not suppress the item entry.",
+      "raw_token_exposure_observed": false,
+      "classification": "item_entry_visible_layer3_nil_text_status"
+    }
+  ],
+  "validation": {
+    "browser_ui_entered": true,
+    "sample_screenshots_present": true,
+    "stale_selection_artifact_count": null,
+    "layer_boundary_confusion_count": null,
+    "nil_placeholder_raw_token_exposure": 0,
+    "iris_browser_lua_stack_trace_count": 0,
+    "raw_state_token_exposure_count": 0,
+    "broken_placeholder_count": 0,
+    "publish_visibility_blocker_count": 0,
+    "item_entry_visibility_consistent_with_all_item_browser": true
+  },
+  "result": "pass_user_supplied_in_game_browser_surface_revised_all_item_contract",
+  "pass_claim_allowed": true,
+  "manual_in_game_validation_completed": true,
+  "required_next_action": "None for this manual in-game validation closeout. Future release readiness checks should use the revised contract."
+}

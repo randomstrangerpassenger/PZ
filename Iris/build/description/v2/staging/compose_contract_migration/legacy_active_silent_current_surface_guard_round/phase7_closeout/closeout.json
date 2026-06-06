@@ -1,0 +1,55 @@
+{
+  "adversarial_review": {
+    "critical_count": 0,
+    "important_count": 0,
+    "path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase7_adversarial_review.md",
+    "verdict": "PASS"
+  },
+  "branch": "GUARD-A",
+  "closeout_state": "closed_with_no_current_surface_residue_found_and_guarded",
+  "current_surface_residue_count": 0,
+  "evidence": {
+    "adversarial_review": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase7_adversarial_review.md",
+    "branch_decision": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase3_adjudication/branch_decision.json",
+    "guard_report": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase5_guard/current_surface_guard_report.json",
+    "inventory": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase2_inventory/legacy_active_silent_occurrence_inventory.jsonl",
+    "manifest": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase1_manifest/current_surface_guard_referent_manifest.json",
+    "phase6_hard_gate": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/phase6_validation/phase6_hard_gate_report.json"
+  },
+  "gate_a": "pass",
+  "gate_b": "pass",
+  "generated_at": "2026-05-21T07:34:36.064373+00:00",
+  "manifest_error_count": 0,
+  "mutation_performed": false,
+  "non_claims": [
+    "original artifact cleanup success = not_claimed",
+    "repo-wide active/silent zero = not_claimed",
+    "diagnostic/import/historical alias removal = not_claimed",
+    "runtime rollout = not_claimed",
+    "deployed closeout = not_claimed",
+    "manual in-game QA pass = not_claimed",
+    "Workshop readiness = not_claimed",
+    "ready_for_release = not_claimed"
+  ],
+  "phase6_hard_gate": "pass",
+  "schema_version": "legacy-active-silent-current-surface-guard-closeout-v0",
+  "unclassified_occurrence_count": 0,
+  "validation_ceiling": {
+    "out_of_scope": [
+      "runtime rollout",
+      "deployed closeout",
+      "manual in-game QA pass",
+      "Workshop release readiness",
+      "external mod compatibility sweep",
+      "original artifact referent recovery"
+    ],
+    "unvalidated_but_in_scope": [],
+    "validated": [
+      "manifest schema and allowlist broadness checks",
+      "current checkout active/silent occurrence inventory",
+      "standalone validator Gate A",
+      "unittest negative and positive fixture reach",
+      "Lua syntax command"
+    ]
+  }
+}

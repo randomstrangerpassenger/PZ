@@ -1,0 +1,16 @@
+{
+  "closeout_branch": "closed_with_layer4_boundary_current_corpus_locked_no_count_inheritance_design_preflight",
+  "design_preflight_requirements": [
+    "fail if manifest is missing",
+    "fail if manifest hash mismatches",
+    "fail if measurement reads a path absent from manifest or partition",
+    "fail if measurement reads excluded surface class as count input",
+    "fail if repo-wide lexical scan is used as count source"
+  ],
+  "machine_enforcement_claimed": false,
+  "machine_preflight_negative_tests_required": false,
+  "machine_preflight_negative_tests_status": "not_run_design_only",
+  "preflight_guard_state": "not_implemented",
+  "round_id": "layer4_boundary_current_corpus_lock_round",
+  "schema_version": "layer4-boundary-preflight-report-v1"
+}

@@ -1,0 +1,20 @@
+{
+  "confirmed_count": "not_computed",
+  "confirmed_measurement_executed": false,
+  "detector_count_output_exists": false,
+  "guard_pass": true,
+  "prohibited_count_like_values": [
+    {
+      "interpretation": "artifact_shape_metric_only_not_confirmed_count",
+      "name": "admitted_edge_row_count",
+      "value": 24
+    },
+    {
+      "interpretation": "traversal_coverage_only_not_confirmed_count",
+      "name": "traversal_coverage",
+      "value": 24
+    }
+  ],
+  "round_id": "layer4_confirmed_detector_field_map_reseal_round",
+  "schema_version": "no-count-guard-evidence-v1"
+}

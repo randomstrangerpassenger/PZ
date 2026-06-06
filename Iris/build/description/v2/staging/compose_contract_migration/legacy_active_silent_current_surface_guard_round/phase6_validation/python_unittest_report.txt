@@ -1,0 +1,31 @@
+command: python -B -m unittest discover -s Iris\build\description\v2\tests -p test_*.py
+exit_code: 0
+timed_out: False
+missing_tool: False
+
+stdout:
+rendered written
+interaction cluster rendered validation OK
+{
+  "schema_version": "interaction-cluster-validation-report-v0",
+  "hard_fail_count": 0,
+  "warn_count": 0,
+  "hard_fail_rows": [],
+  "warn_rows": [],
+  "rows": [
+    {
+      "item_id": "Base.Custom",
+      "text_ko": "맞춤 도구. 수리 작업에 쓰는 도구다.",
+      "hard_fail_reasons": [],
+      "warnings": []
+    }
+  ]
+}
+
+
+stderr:
+..........................................................................................................................................................................................................................................................................................................................................................................................................
+----------------------------------------------------------------------
+Ran 394 tests in 4.416s
+
+OK

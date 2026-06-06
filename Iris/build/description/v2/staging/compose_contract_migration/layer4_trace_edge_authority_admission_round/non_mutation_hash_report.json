@@ -1,0 +1,147 @@
+{
+  "after": {
+    "packaged_lua": [
+      {
+        "exists": true,
+        "file_count": 93,
+        "path": "Iris/build/package/Iris/media/lua",
+        "sha256": "d6d69e13b51affb5e75231c6048113576b9b0d7ec0bd49169dd14d65ce26a68c"
+      }
+    ],
+    "publish_state": [
+      {
+        "bytes": 2093,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+        "sha256": "ea28b5715aefa95d62ebbc520183183eb20febb9a429047b22bf42e2c695a55c"
+      }
+    ],
+    "quality_state": [
+      {
+        "bytes": 2093,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+        "sha256": "ea28b5715aefa95d62ebbc520183183eb20febb9a429047b22bf42e2c695a55c"
+      }
+    ],
+    "rendered_text": [
+      {
+        "bytes": 2093,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+        "sha256": "ea28b5715aefa95d62ebbc520183183eb20febb9a429047b22bf42e2c695a55c"
+      }
+    ],
+    "runtime_lua": [
+      {
+        "exists": true,
+        "file_count": 85,
+        "path": "Iris/media/lua/client/Iris",
+        "sha256": "836389260c862b3842b65290ff86e9ddb71cad2f328b4b1747fa74dc0666f414"
+      }
+    ],
+    "runtime_state": [
+      {
+        "exists": true,
+        "file_count": 36,
+        "path": "Iris/media/lua/client/Iris/Data",
+        "sha256": "36c6052fc7d331b3c19c7e28fa30cb29f391de8795024df126d467429752192d"
+      }
+    ],
+    "source_decisions": [
+      {
+        "bytes": 3980,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+        "sha256": "9fd0f6fa9250d8fde31e065f60b2cf24717a8194bbef2ee4a8065f7a35c3507f"
+      }
+    ],
+    "source_facts": [
+      {
+        "bytes": 4051,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+        "sha256": "0fbff43e932199ca36ba0c67fd683a53608ff56d0ed3373c654cdb2f67ff53e5"
+      }
+    ]
+  },
+  "before": {
+    "packaged_lua": [
+      {
+        "exists": true,
+        "file_count": 93,
+        "path": "Iris/build/package/Iris/media/lua",
+        "sha256": "d6d69e13b51affb5e75231c6048113576b9b0d7ec0bd49169dd14d65ce26a68c"
+      }
+    ],
+    "publish_state": [
+      {
+        "bytes": 2093,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+        "sha256": "ea28b5715aefa95d62ebbc520183183eb20febb9a429047b22bf42e2c695a55c"
+      }
+    ],
+    "quality_state": [
+      {
+        "bytes": 2093,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+        "sha256": "ea28b5715aefa95d62ebbc520183183eb20febb9a429047b22bf42e2c695a55c"
+      }
+    ],
+    "rendered_text": [
+      {
+        "bytes": 2093,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+        "sha256": "ea28b5715aefa95d62ebbc520183183eb20febb9a429047b22bf42e2c695a55c"
+      }
+    ],
+    "runtime_lua": [
+      {
+        "exists": true,
+        "file_count": 85,
+        "path": "Iris/media/lua/client/Iris",
+        "sha256": "836389260c862b3842b65290ff86e9ddb71cad2f328b4b1747fa74dc0666f414"
+      }
+    ],
+    "runtime_state": [
+      {
+        "exists": true,
+        "file_count": 36,
+        "path": "Iris/media/lua/client/Iris/Data",
+        "sha256": "36c6052fc7d331b3c19c7e28fa30cb29f391de8795024df126d467429752192d"
+      }
+    ],
+    "source_decisions": [
+      {
+        "bytes": 3980,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+        "sha256": "9fd0f6fa9250d8fde31e065f60b2cf24717a8194bbef2ee4a8065f7a35c3507f"
+      }
+    ],
+    "source_facts": [
+      {
+        "bytes": 4051,
+        "exists": true,
+        "file_count": 1,
+        "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+        "sha256": "0fbff43e932199ca36ba0c67fd683a53608ff56d0ed3373c654cdb2f67ff53e5"
+      }
+    ]
+  },
+  "changed_group_count": 0,
+  "changed_groups": [],
+  "non_mutation_hash_diff_pass": true
+}

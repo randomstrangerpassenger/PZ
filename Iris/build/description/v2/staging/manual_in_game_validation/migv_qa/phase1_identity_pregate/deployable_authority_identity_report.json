@@ -1,0 +1,193 @@
+{
+  "schema_version": "migv-qa-phase1-identity-pregate-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "status": "pass",
+  "identity_pregate": "pass",
+  "failure_branch": null,
+  "supersedes": {
+    "previous_artifact_set": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22",
+    "previous_closeout_branch": "blocked_with_identity_pregate_failure",
+    "reason": "v0.4 consumes the sealed current runtime baseline instead of the superseded v0.3 staged-derivation gate."
+  },
+  "identity_link_mode": "mode_current_runtime_baseline_seal_consume",
+  "opening_decision": {
+    "selected_mode": "mode_current_runtime_baseline_seal_consume",
+    "manual_qa_allowed_to_start_after_phase1": true,
+    "manual_qa_pass_claim_allowed_by_phase1_alone": false
+  },
+  "sealed_current_runtime_evidence": {
+    "current_runtime_hash_manifest": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_runtime_baseline_seal_round/reports/current_runtime_hash_manifest.json",
+      "sha256": "790b5689097a8856e6213074fda25b723060073206a7ca44bd26d9f6f08c9171",
+      "matches_expected_plan_hash": true
+    },
+    "current_runtime_chunk_identity_report": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_runtime_baseline_seal_round/reports/current_runtime_chunk_identity_report.json",
+      "sha256": "f0b500672b75445e123a4fd784998866565d4adb3df3b5ccdc97a22c532eed39"
+    },
+    "current_runtime_payload_inventory": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_runtime_baseline_seal_round/reports/current_runtime_payload_inventory.json",
+      "sha256": "865cc7ca444be5c875be30d0a1f5790b32a7ee350a1e08ca0bd0246d6a0cdd57"
+    },
+    "current_runtime_consumer_filtering_contract_report": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_runtime_baseline_seal_round/reports/current_runtime_consumer_filtering_contract_report.json",
+      "sha256": "b95db459c9c0c03fe4870511e1c0bbf1c62f056d1d6700df25762fbc47a25a3b"
+    },
+    "current_runtime_baseline_seal": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_runtime_baseline_seal_round/closeout/current_runtime_baseline_seal.json",
+      "sha256": "539b338bab5c4bc185d126c670b75d74eb38970690f717e1c3e4caee222621e3"
+    },
+    "migv_qa_phase1_handoff": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_runtime_baseline_seal_round/closeout/migv_qa_phase1_handoff.md",
+      "sha256": "486cfbd1f35da0a98d3ff8d07b8c4be0a56c7ad30d60fe87c70712aabc7f33f3"
+    }
+  },
+  "current_deployable_authority_observation": {
+    "manifest_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "manifest_present": true,
+    "manifest_chunk_count": 11,
+    "filesystem_chunk_count": 11,
+    "monolith_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+    "monolith_status": "absent",
+    "total_rows_measured": 2105,
+    "runtime_state_or_source_split": {
+      "adopted": 2084,
+      "unadopted": 21
+    },
+    "publish_state_split": {
+      "exposed": 1486,
+      "internal_only": 600,
+      "missing": 19
+    },
+    "text_ko_inventory": {
+      "present_non_empty": 2086,
+      "nil": 19
+    },
+    "quality_state_missing_count": 2105,
+    "missing_publish_state_inventory_count": 19,
+    "nil_or_missing_text_ko_inventory_count": 19,
+    "legacy_enum_residue_count": 0,
+    "duplicate_identity_key_count": 0
+  },
+  "current_file_hash_checks": [
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "exists": true,
+      "sealed_sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+      "current_sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+      "exists": true,
+      "sealed_sha256": "08373c2a0e2f6ff572021f2f82d1b322316e7886a8876664d65f022cb764b7dd",
+      "current_sha256": "08373c2a0e2f6ff572021f2f82d1b322316e7886a8876664d65f022cb764b7dd",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "exists": true,
+      "sealed_sha256": "37e72049ceb83d294f52d9bb86936a3a3e05942cdaa037865532338cfaef4764",
+      "current_sha256": "37e72049ceb83d294f52d9bb86936a3a3e05942cdaa037865532338cfaef4764",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "exists": true,
+      "sealed_sha256": "562c7c18aef25538ef341764da4a5635313352212f1bce515b20c5dccc90e0b9",
+      "current_sha256": "562c7c18aef25538ef341764da4a5635313352212f1bce515b20c5dccc90e0b9",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "exists": true,
+      "sealed_sha256": "42753e063661679583c3430acc6bc52ec6f47d873cbf4685dacdb603a964e440",
+      "current_sha256": "42753e063661679583c3430acc6bc52ec6f47d873cbf4685dacdb603a964e440",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "exists": true,
+      "sealed_sha256": "89c7d39902ff83166f4cfb8cea4225359e86b62750703cfc7c4f15b44cce5a5e",
+      "current_sha256": "89c7d39902ff83166f4cfb8cea4225359e86b62750703cfc7c4f15b44cce5a5e",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+      "exists": true,
+      "sealed_sha256": "5942559c4927ab8ed948fed42f73e362b26e35d180e2206b745caaa98ed20c09",
+      "current_sha256": "5942559c4927ab8ed948fed42f73e362b26e35d180e2206b745caaa98ed20c09",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "exists": true,
+      "sealed_sha256": "19661a52a3418f413ad49c7df474a2f221a0d5c751232f1b9b3083768074966b",
+      "current_sha256": "19661a52a3418f413ad49c7df474a2f221a0d5c751232f1b9b3083768074966b",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "exists": true,
+      "sealed_sha256": "0df3875bd9cd109bf70b50b4c847c99e56437d1ab8183c1a814c797a754ed924",
+      "current_sha256": "0df3875bd9cd109bf70b50b4c847c99e56437d1ab8183c1a814c797a754ed924",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+      "exists": true,
+      "sealed_sha256": "abbe34d842d2d1162a5828e3f3e3147cb93f1e991f89da3009d2bb81add82729",
+      "current_sha256": "abbe34d842d2d1162a5828e3f3e3147cb93f1e991f89da3009d2bb81add82729",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "exists": true,
+      "sealed_sha256": "954ed61ca9f9a08fb9818a38c91925356901561b9d3cd3dd9dfd5d91bd359997",
+      "current_sha256": "954ed61ca9f9a08fb9818a38c91925356901561b9d3cd3dd9dfd5d91bd359997",
+      "matches_sealed": true
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "exists": true,
+      "sealed_sha256": "8e0311e7d6fb020056e9fb74fbc546dce898668f4ed7c60561e7538f5bc9d179",
+      "current_sha256": "8e0311e7d6fb020056e9fb74fbc546dce898668f4ed7c60561e7538f5bc9d179",
+      "matches_sealed": true
+    }
+  ],
+  "phase1_validation": {
+    "identity_pregate": "pass",
+    "row_count": 2105,
+    "row_count_matches_expected": true,
+    "adopted_unadopted_count": "2084/21",
+    "publish_split": "exposed 1486 / internal_only 600 / missing 19",
+    "chunk_manifest_present": true,
+    "chunk_file_count": 11,
+    "sealed_current_runtime_baseline_link": "confirmed",
+    "identity_link_mode": "mode_current_runtime_baseline_seal_consume",
+    "sealed_current_runtime_evidence_path_hash_cited": true,
+    "sealed_current_runtime_hash_manifest_sha256": "790b5689097a8856e6213074fda25b723060073206a7ca44bd26d9f6f08c9171",
+    "sealed_current_runtime_hash_manifest_matches_expected": true,
+    "current_file_hash_mismatch_count": 0,
+    "missing_publish_state_count": 19,
+    "nil_text_ko_count": 19,
+    "quality_state_missing_count": 2105,
+    "historical_staged_hash_used_as_current_gate": false,
+    "topology_only_evidence_used_as_identity_gate": false,
+    "monolith_deployable_authority": false,
+    "artifact_regeneration_count": 0
+  },
+  "dirty_worktree_disclosure": {
+    "preexisting_dirty_worktree_present": true,
+    "git_status_short_at_generation": {
+      "command": "git status --short",
+      "exit_code": 0,
+      "stdout": " m .claude/worktrees/loving-newton-6327e6\n M .gitignore\n M Iris/build/description/v2/data/dvf_3_3_decisions.jsonl\n M Iris/build/description/v2/tests/test_compose_layer3_text_v2.py\n M Iris/build/description/v2/tools/build/compose_layer3_body_profile.py\n M Iris/build/description/v2/tools/build/compose_layer3_item.py\n M Iris/build/description/v2/tools/build/compose_layer3_render.py\n M Iris/build/description/v2/tools/build/compose_layer3_text.py\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua\n M Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua\n M docs/ARCHITECTURE.md\n M docs/DECISIONS.md\n D docs/Iris/iris-dvf-3-3-adapter-diagnostic-compatibility-final-disposition-round-plan.md\n D docs/Iris/iris-dvf-3-3-silent-21-replacement-authority-reconstruction-round-plan.md\n D docs/Iris/iris-dvf-3-3-silent-metadata-intake-cleanup-round-plan.md\n M docs/ROADMAP.md\n?? Iris/build/description/v2/staging/\n?? Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py\n?? Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py\n?? Iris/build/description/v2/tools/build/build_static_report_label_cleanup_referent_recovery_round.py\n?? Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py\n?? docs/Iris/Done/Walkthrough/iris-dvf-3-3-current-runtime-baseline-seal-round-walkthrough.md\n?? docs/Iris/Done/iris-dvf-3-3-adapter-diagnostic-compatibility-final-disposition-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-legacy-active-silent-current-surface-guard-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-runtime-payload-enum-rename-scope-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-silent-21-replacement-authority-reconstruction-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-silent-metadata-intake-cleanup-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-static-report-label-cleanup-referent-recovery-round-plan.md\n?? docs/Iris/Done/iris-dvf-3-3-static-report-label-cleanup-round-plan.md\n?? docs/Iris/iris-dvf-3-3-current-runtime-baseline-seal-round-plan.md\n?? docs/Iris/iris-dvf-3-3-manual-in-game-validation-qa-round-plan.md\n?? tools/check_lua_syntax.ps1\n",
+      "stderr": ""
+    },
+    "canonical_mutation_performed_by_this_round": false,
+    "round_local_evidence_mutation": true
+  },
+  "next_required_action": "Completed by the user-supplied manual in-game validation evidence closeout."
+}

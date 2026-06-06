@@ -1,0 +1,14 @@
+{
+  "all_four_buckets_have_anchor_or_separation_anchor": true,
+  "all_four_buckets_have_boundary": true,
+  "blocked_branch_if_false": "blocked_scope_separation_incomplete",
+  "canonical_round_id": "structural_signal_scope_split_seal_round",
+  "cross_reference_primary_anchor": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/",
+  "current_round_unique_identifier": "2026-05-29.structural_signal_scope_split_seal_round.reconstruction_based_re_seal",
+  "filesystem_alias": "structural_signal_scope_re_seal_round",
+  "observer_seal_authority_flags_all_false": true,
+  "phase3_scope_separation_manifest_schema_pass": true,
+  "phase3_unclassified_count_zero": true,
+  "round_name": "Iris DVF 3-3 Structural Signal Scope Split Seal Round",
+  "schema_version": "structural-signal-phase3-manifest-validation-v1"
+}

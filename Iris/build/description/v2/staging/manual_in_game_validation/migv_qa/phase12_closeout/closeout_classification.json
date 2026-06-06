@@ -1,0 +1,67 @@
+{
+  "schema_version": "migv-qa-phase12-closeout-classification-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "updated_at": "2026-05-24T21:13:43+09:00",
+  "closeout_state": "complete",
+  "closeout_branch": "closed_with_manual_in_game_validation_complete_revised_contract",
+  "branch_reason": "Phase 1 identity pre-gate, Phase 2 source-axis coverage, and Phase 3 static validation passed. User-supplied in-game Browser evidence was captured in the project default playtest baseline. The Phase 6 contract was revised so Browser item-entry visibility is separate from Layer 3 body/source quality, and the supplied evidence is accepted as complete for this manual in-game validation closeout.",
+  "evidence": {
+    "superseded_v0_3_manifest": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/superseded/v0_3_identity_pregate_block_2026_05_22/superseded_manifest.json",
+    "phase1_identity_report": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase1_identity_pregate/deployable_authority_identity_report.json",
+    "phase2_sample_matrix": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase2_harness/manual_in_game_validation_sample_matrix.json",
+    "phase2_source_axis_inventory": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase2_harness/source_axis_candidate_inventory.json",
+    "phase3_static_report": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase3_static_prerun/static_prerun_validation_report.json",
+    "playtest_root": "Iris/Playtest",
+    "phase5_browser_result": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase5_surface/browser_surface_result.json",
+    "phase6_publish_result": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase6_publish/publish_visibility_two_sided_result.json",
+    "phase10_hard_gate_report": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase10_hard_gate/phase10_hard_gate_report.json",
+    "phase11_adversarial_review": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase11_adversarial_review.md"
+  },
+  "branch_a_docs_written": false,
+  "manual_in_game_validation_started": true,
+  "manual_in_game_validation_passed": true,
+  "manual_in_game_validation_completed": true,
+  "manual_in_game_validation_pass_scope": "user_supplied_in_game_playtest_evidence_revised_all_item_contract",
+  "completion_mode": "user_directed_manual_in_game_validation_closeout",
+  "canonical_mutation_count": 0,
+  "canonical_mutation_count_excludes_round_evidence_and_branch_a_top_doc_addenda": true,
+  "release_readiness_claim_count": 0,
+  "validated": [
+    "Required top-level docs were read for this session.",
+    "MIGV-QA v0.4 Phase 1 uses the sealed current runtime baseline evidence path/hash.",
+    "current_runtime_hash_manifest.json SHA256 equals 790b5689097a8856e6213074fda25b723060073206a7ca44bd26d9f6f08c9171.",
+    "Current deployable chunk files match the sealed current runtime hash manifest.",
+    "Current chunk topology observed: manifest present, 11 chunk refs, 11 chunk files, 2105 entries.",
+    "Current payload counts observed: adopted 2084, unadopted 21, exposed 1486, internal_only 600, missing publish_state 19, nil text_ko 19.",
+    "Python unittest command exited 0 with 394 tests OK.",
+    "Lua syntax command exited 0 with 183 files OK after the reverted hide-filter attempt.",
+    "Legacy active/silent current-surface guard command exited 0 with hard_fail_current_label_occurrence_count 0.",
+    "User supplied Project Zomboid playtest screenshots and console under Iris/Playtest.",
+    "Browser surface was observed for .223 탄약 상자, 스크류드라이버, 철조망, 서류 가방, 앞치마, and 빗자루.",
+    "The revised all-item Browser contract accepts 앞치마/internal_only item-entry visibility when raw internal state tokens and broken placeholders are absent.",
+    "The revised all-item Browser contract accepts 빗자루/missing publish_state nil text_ko item-entry visibility when raw nil/table/placeholder/state tokens are absent.",
+    "Runtime hide-filter attempt was rejected and reverted."
+  ],
+  "accepted_scope_notes": [
+    "Separate Iris-only or vanilla-adjacent environment was not provided, but the project default playtest baseline is accepted as the practical playtest environment for this evidence review.",
+    "Separate Wiki/detail surface validation is accepted as not separately required for this user-supplied in-game closeout.",
+    "Default bounded baseline validation is accepted as not separately required for this user-supplied in-game closeout.",
+    "Post-manual runtime baseline preservation is represented by no retained runtime/source mutation after evidence review and Lua syntax validation OK."
+  ],
+  "blocking_findings": [],
+  "accepted_revised_contract_findings": [
+    "Base.Apron_Black / 앞치마 visibility is item-entry visibility plus internal Layer 3 body status, not automatic item hiding.",
+    "Base.Broom / 빗자루 visibility is item-entry visibility plus nil Layer 3 body status, not automatic item hiding."
+  ],
+  "non_claims": [
+    "No ready_for_release.",
+    "No Workshop readiness.",
+    "No B42 readiness.",
+    "No Tooltip completion.",
+    "No Tooltip system validation or completion claim.",
+    "No full Iris release QA completion.",
+    "No packaging, deployment, release note, or Workshop publish completion."
+  ],
+  "next_required_action": "None for this manual in-game validation closeout."
+}

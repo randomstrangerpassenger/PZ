@@ -1,0 +1,44 @@
+{
+  "direct_side_output_from_generation": true,
+  "edge_artifact": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edges.v1.jsonl",
+  "focal_role": "trace_edge_authority_sidecar",
+  "historical_report_preview_diagnostic_or_test_fixture_primary_purpose": false,
+  "predecessor_rationale": "successor to TRACE_EDGE_ABSENT_MEASUREMENT_UNAVAILABLE field-map seal",
+  "provenance_validation_pass": true,
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "trace-edge-provenance-report-v1",
+  "source_surface_checks": [
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "role": "current_default_compose_input"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "role": "current_default_compose_input"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/data/compose_profiles_v2.json",
+      "role": "current_default_compose_input"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
+      "role": "current_default_compose_input"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
+      "role": "current_default_compose_input"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/body_role/phase2/layer3_role_check_overlay.jsonl",
+      "role": "current_default_compose_input"
+    }
+  ],
+  "source_surface_consumed_by_current_default_compose_body_plan_generation": true,
+  "source_surface_exists_in_current_checkout": true
+}

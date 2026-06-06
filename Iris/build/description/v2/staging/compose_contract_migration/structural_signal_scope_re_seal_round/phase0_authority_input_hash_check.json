@@ -1,0 +1,117 @@
+{
+  "artifact_checks": [
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "ea784c65d2cfcd0e716a50fce8c1d1c6370b1d44e63b875372bb79e56ed54375",
+      "exists": true,
+      "expected_sha256": "ea784c65d2cfcd0e716a50fce8c1d1c6370b1d44e63b875372bb79e56ed54375",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": null,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/reconstruction_hash_manifest.json"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "5f101857e741d06ed12a02e1b27df87203374f1d802c52676660daadf118abd3",
+      "exists": true,
+      "expected_sha256": "5f101857e741d06ed12a02e1b27df87203374f1d802c52676660daadf118abd3",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "5f101857e741d06ed12a02e1b27df87203374f1d802c52676660daadf118abd3",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/surface_contract_signal.reconstructed.2105.jsonl"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "72c15f94917481226e328ed1f2f3c9e1100fc8515375410b8c4ac00ae5fb1b3c",
+      "exists": true,
+      "expected_sha256": "72c15f94917481226e328ed1f2f3c9e1100fc8515375410b8c4ac00ae5fb1b3c",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "72c15f94917481226e328ed1f2f3c9e1100fc8515375410b8c4ac00ae5fb1b3c",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/surface_contract_signal.reconstructed.summary.json"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "86b0fe4c7e8bc195734602e22dd7a06e89a45dec704e8d0462a1127300bd4094",
+      "exists": true,
+      "expected_sha256": "86b0fe4c7e8bc195734602e22dd7a06e89a45dec704e8d0462a1127300bd4094",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "86b0fe4c7e8bc195734602e22dd7a06e89a45dec704e8d0462a1127300bd4094",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/body_plan_structural_reclassification.reconstructed.2105.jsonl"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "c70f4f555462f6c43fe258e95afbd74a6f18073bfcf9f9adfa77a1ade663e9dc",
+      "exists": true,
+      "expected_sha256": "c70f4f555462f6c43fe258e95afbd74a6f18073bfcf9f9adfa77a1ade663e9dc",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "c70f4f555462f6c43fe258e95afbd74a6f18073bfcf9f9adfa77a1ade663e9dc",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/body_plan_structural_reclassification.reconstructed.summary.json"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "3548beac5e2aa915394598d2f1bc50f6b006a5f1b08a5580442ca255aaf85b1a",
+      "exists": true,
+      "expected_sha256": "3548beac5e2aa915394598d2f1bc50f6b006a5f1b08a5580442ca255aaf85b1a",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "3548beac5e2aa915394598d2f1bc50f6b006a5f1b08a5580442ca255aaf85b1a",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/reconstruction_input_manifest.json"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "bbe9f7a631060235b8cd7f23e2f3ff0c3d8c82f01b1b73b69d338eb39eb11535",
+      "exists": true,
+      "expected_sha256": "bbe9f7a631060235b8cd7f23e2f3ff0c3d8c82f01b1b73b69d338eb39eb11535",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "bbe9f7a631060235b8cd7f23e2f3ff0c3d8c82f01b1b73b69d338eb39eb11535",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/reconstruction_schema_report.json"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "44bfa522d34985f0382208cb0822e852a4d1fbde6c21373ac37ee8d5a5f5e7e4",
+      "exists": true,
+      "expected_sha256": "44bfa522d34985f0382208cb0822e852a4d1fbde6c21373ac37ee8d5a5f5e7e4",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "44bfa522d34985f0382208cb0822e852a4d1fbde6c21373ac37ee8d5a5f5e7e4",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/reconstruction_distribution_report.json"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "45adbeddae8835bf2c0e32164bef16dbfe065698851ae6447ba5f83634209600",
+      "exists": true,
+      "expected_sha256": "45adbeddae8835bf2c0e32164bef16dbfe065698851ae6447ba5f83634209600",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "45adbeddae8835bf2c0e32164bef16dbfe065698851ae6447ba5f83634209600",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/reconstruction_delta_report.json"
+    },
+    {
+      "actual_hash_match": true,
+      "actual_sha256": "f43ed70107fdedf8d02821f87675d69472d51e78725df108eb166f99ccfe4f07",
+      "exists": true,
+      "expected_sha256": "f43ed70107fdedf8d02821f87675d69472d51e78725df108eb166f99ccfe4f07",
+      "listed_in_reconstruction_manifest": true,
+      "listed_manifest_hash_match": true,
+      "listed_manifest_sha256": "f43ed70107fdedf8d02821f87675d69472d51e78725df108eb166f99ccfe4f07",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/phase3_branch_b_reconstruction_report.json"
+    }
+  ],
+  "blocked_branch_if_false": "blocked_authority_input_hash_mismatch",
+  "filesystem_alias": "structural_signal_scope_re_seal_round",
+  "hash_algorithm": "sha256",
+  "reconstruction_hash_manifest_self_hash": {
+    "actual_sha256": "ea784c65d2cfcd0e716a50fce8c1d1c6370b1d44e63b875372bb79e56ed54375",
+    "expected_sha256": "ea784c65d2cfcd0e716a50fce8c1d1c6370b1d44e63b875372bb79e56ed54375",
+    "pass": true,
+    "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction/reconstruction_hash_manifest.json"
+  },
+  "round_id": "structural_signal_scope_split_seal_round",
+  "schema_version": "structural-signal-scope-re-seal-authority-input-hash-check-v1",
+  "two_tier_authority_input_hash_check_pass": true,
+  "unique_execution_identifier": "2026-05-29.structural_signal_scope_split_seal_round.reconstruction_based_re_seal"
+}

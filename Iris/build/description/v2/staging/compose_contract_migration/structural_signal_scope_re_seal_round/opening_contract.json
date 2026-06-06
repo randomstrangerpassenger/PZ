@@ -1,0 +1,25 @@
+{
+  "allowed_mutation_scope": [
+    "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/"
+  ],
+  "canonical_round_id": "structural_signal_scope_split_seal_round",
+  "created_at_date": "2026-05-29",
+  "cross_reference_primary_anchor": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/",
+  "current_round_unique_identifier": "2026-05-29.structural_signal_scope_split_seal_round.reconstruction_based_re_seal",
+  "filesystem_alias": "structural_signal_scope_re_seal_round",
+  "forbidden_permissions": {
+    "acq_dominant_remeasurement_allowed": false,
+    "blanket_isolation_reopen_allowed": false,
+    "publish_mutation_allowed": false,
+    "sealed_body_modification_allowed": false
+  },
+  "round_classification": {
+    "measurement_round": false,
+    "observer_only": true,
+    "release_round": false,
+    "runtime_round": false,
+    "writer_round": false
+  },
+  "round_name": "Iris DVF 3-3 Structural Signal Scope Split Seal Round",
+  "schema_version": "structural-signal-scope-re-seal-opening-contract-v1"
+}

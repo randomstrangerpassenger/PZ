@@ -1,0 +1,38 @@
+{
+  "schema_version": "migv-qa-phase3-static-prerun-validation-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "status": "pass",
+  "blocking_context": null,
+  "commands": [
+    {
+      "command": "python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_*.py\"",
+      "exit_code": 0,
+      "summary": "Ran 394 tests in 9.213s / OK"
+    },
+    {
+      "command": "powershell -ExecutionPolicy Bypass -File .\\tools\\check_lua_syntax.ps1",
+      "exit_code": 0,
+      "summary": "Lua syntax validation OK: 183 files"
+    },
+    {
+      "command": "python -B Iris\\build\\description\\v2\\tools\\validate_legacy_active_silent_current_surface_guard.py --manifest Iris\\build\\description\\v2\\staging\\compose_contract_migration\\legacy_active_silent_current_surface_guard_round\\phase1_manifest\\current_surface_guard_referent_manifest.json --repo-root .",
+      "exit_code": 0,
+      "summary": "status pass; hard_fail_current_label_occurrence_count 0; unclassified_occurrence_count 0; occurrence_count 2923"
+    }
+  ],
+  "static_observations": {
+    "chunk_manifest_present": true,
+    "manifest_chunk_refs": 11,
+    "chunk_file_count": 11,
+    "chunk_entry_count": 2105,
+    "monolith_exists": false,
+    "legacy_active_silent_current_surface_reentry": 0,
+    "current_publish_split_matches_v0_4_plan_invariant": true,
+    "sealed_current_runtime_hash_manifest_matches_expected": true,
+    "current_file_hash_mismatch_count": 0
+  },
+  "phase3_gate_status": "pass",
+  "static_validation_is_not_manual_in_game_qa_pass": true,
+  "updated_at": "2026-05-24T16:06:55.689+09:00"
+}

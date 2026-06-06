@@ -1,0 +1,10 @@
+command: powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1
+exit_code: 0
+timed_out: False
+missing_tool: False
+
+stdout:
+Lua syntax validation OK: 183 files
+
+
+stderr:

@@ -1,0 +1,15 @@
+{
+  "accepted_ambiguous_count": 0,
+  "ambiguity_classes": [
+    "AMBIGUOUS_SOURCE_OBJECT",
+    "AMBIGUOUS_TARGET_IDENTITY",
+    "AMBIGUOUS_SLOT_SCOPE",
+    "AMBIGUOUS_EDGE_RELATION",
+    "AMBIGUOUS_RELATION_DIRECTION",
+    "FORBIDDEN_FALLBACK_ONLY"
+  ],
+  "ambiguous_candidate_count": 0,
+  "branch_c_available_if_ambiguity_found": true,
+  "round_id": "layer4_confirmed_detector_field_map_reseal_round",
+  "schema_version": "ambiguity-summary-v1"
+}

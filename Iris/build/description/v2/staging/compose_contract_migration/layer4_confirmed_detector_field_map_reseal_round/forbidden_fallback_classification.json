@@ -1,0 +1,91 @@
+{
+  "accepted_fallback_count": 0,
+  "fallback_classes": [
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "rendered_body_substring",
+      "field_path": null,
+      "reason": "rendered text is output surface, not detector input",
+      "role": "destination_body_slot"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "item_display_text",
+      "field_path": null,
+      "reason": "display text is presentation, not row identity authority",
+      "role": "target_layer3_row_or_item"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "korean_or_english_keyword",
+      "field_path": null,
+      "reason": "keyword matching is interpretation",
+      "role": "destination_body_slot"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "category_tag",
+      "field_path": null,
+      "reason": "category tags do not encode source-to-slot edge relation",
+      "role": "source_object"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "cluster_label",
+      "field_path": null,
+      "reason": "cluster labels are not detector trace fields",
+      "role": "destination_body_slot"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "provenance_label_only",
+      "field_path": null,
+      "reason": "provenance alone is not source object identity",
+      "role": "source_object"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "source_target_co_occurrence_only",
+      "field_path": null,
+      "reason": "same-row co-occurrence is not explicit edge semantics",
+      "role": "explicit_edge_relation"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "diagnostic_report_only_field",
+      "field_path": null,
+      "reason": "diagnostic/report-only fields are not current detector input",
+      "role": "explicit_edge_relation"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "historical_predecessor_count",
+      "field_path": null,
+      "reason": "historical predecessor counts do not transfer",
+      "role": "explicit_edge_relation"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "row_count_itself",
+      "field_path": null,
+      "reason": "row count 24 is artifact shape only",
+      "role": "explicit_edge_relation"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "predecessor_detector_readiness_dry_run_pass",
+      "field_path": null,
+      "reason": "2026-06-01 readiness dry-run is not this field map seal",
+      "role": "explicit_edge_relation"
+    },
+    {
+      "accepted_as_binding": false,
+      "fallback_class": "field_map_conditioned_readiness_dry_run_pass_as_edge_truth",
+      "field_path": null,
+      "reason": "this dry-run is shape/readiness only after independent field binding",
+      "role": "explicit_edge_relation"
+    }
+  ],
+  "round_id": "layer4_confirmed_detector_field_map_reseal_round",
+  "schema_version": "forbidden-fallback-classification-v1"
+}

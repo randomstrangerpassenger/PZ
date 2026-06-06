@@ -1,0 +1,144 @@
+{
+  "artifact_count": 20,
+  "artifacts": [
+    {
+      "bytes": 4121,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/admitted_trace_edge_artifact_inventory.json",
+      "sha256": "986c41fdab0bdc6fdead81007f71b2a96a1380d183910a04a8cf84f41c065858"
+    },
+    {
+      "bytes": 862,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/admitted_trace_edge_schema_summary.json",
+      "sha256": "61fd50b750218defb32e13a7168b9b873659373056b16521783b7074c2f95c63"
+    },
+    {
+      "bytes": 640,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/adversarial_review_report.md",
+      "sha256": "39302a4f573294a9f26305762632f6e5675f35dcd8f33781d94863666f4c85d0"
+    },
+    {
+      "bytes": 0,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/ambiguity_register.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 448,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/ambiguity_summary.json",
+      "sha256": "993ebc37a78c4220ee41cce85af955b9737e843b20ddb600460c1b10460d5c28"
+    },
+    {
+      "bytes": 1783,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/canonical_field_map_manifest.json",
+      "sha256": "2a84df71bbbf6af6853ce84102f1f2c99ecce4bf989775e77e5cbc8512a646da"
+    },
+    {
+      "bytes": 2802,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/detector_requirement_matrix.json",
+      "sha256": "fac9416696be4e35c086627c403bd91a14394c2647260893a1fafe8c17484bdd"
+    },
+    {
+      "bytes": 2167,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/docs_addendum_candidate.md",
+      "sha256": "7b1975fe3d65e342a3799b9195c6f0ffb4fb6b81d6a103042db352cde43d4fbc"
+    },
+    {
+      "bytes": 1174,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_conditioned_readiness_dry_run_report.json",
+      "sha256": "bf211b9ea9cf6b10419c3101e3c93994aed407b6e1ebf9b912accef558a722a0"
+    },
+    {
+      "bytes": 1742,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_authority_input_manifest.json",
+      "sha256": "f81839e251798a8f82d2ec4a63e82bd12df341894823320c4a210eb9c8220628"
+    },
+    {
+      "bytes": 599,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_branch_determination.md",
+      "sha256": "edb88b3f723a4fcff1b4fd2a0f52f4e97c02c4c5e58ef5086a84d6846920fb1e"
+    },
+    {
+      "bytes": 3004,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_closeout.md",
+      "sha256": "26b77ab2969e82b0d3647c407f61e3980a15ed538b7f623b8e302cb3f559ce68"
+    },
+    {
+      "bytes": 1099,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_scope_lock.md",
+      "sha256": "fed083fe9a9f7c43bf2ac0fcf1d38c337b5008fa780f653314fbadc8cfdc05af"
+    },
+    {
+      "bytes": 3034,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/forbidden_fallback_classification.json",
+      "sha256": "9af56688ac76cbad565206f44381db2792d5a4c51a721c3e21b507a84e342e8b"
+    },
+    {
+      "bytes": 610,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/forbidden_fallback_exclusion_list.json",
+      "sha256": "f46ee6876a491a72a15aa8239f0186413ba9a635eb83df2d62bedef178f364a0"
+    },
+    {
+      "bytes": 46272,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/generate_round_artifacts.py",
+      "sha256": "b9542ec09ee9a78f20e1cc3d48cde8fd55abf67cb14a3ea6f70ecdf0e622064f"
+    },
+    {
+      "bytes": 586,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/no_count_guard_evidence.json",
+      "sha256": "51617db6cc700e51ae092f68dae3b9c6fa0b26e1d791bab9c560ac0db391f82c"
+    },
+    {
+      "bytes": 9839,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/non_mutation_hash_report.json",
+      "sha256": "08470273bd66d7c27e15dbcff49bccfcd3afcaaebf4b3cd0d0b17b22e205d585"
+    },
+    {
+      "bytes": 2772,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/role_field_binding_table.json",
+      "sha256": "b6c893ee50ed3d0f44f6cac510805d5498a0c0602e1e469d211b779ee429cb7f"
+    },
+    {
+      "bytes": 10777,
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/source_slot_relation_traversal_report.json",
+      "sha256": "88333f843b350b00da734e0f49f1e38f9445a9621cf725104a96bdfb436d0449"
+    }
+  ],
+  "branch_closeout": "closed_with_layer4_confirmed_detector_field_map_resealed",
+  "confirmed_count": "not_computed",
+  "confirmed_measurement_executed": false,
+  "determinism": {
+    "first_digest": "28a3eb6f1c2fd93a6a48c8d39ea0735079be2c797e74217a0c5d2052facf1cdf",
+    "pass": true,
+    "scope": [
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/admitted_trace_edge_artifact_inventory.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/admitted_trace_edge_schema_summary.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/adversarial_review_report.md",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/ambiguity_register.jsonl",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/ambiguity_summary.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/canonical_field_map_manifest.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/detector_requirement_matrix.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/docs_addendum_candidate.md",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_conditioned_readiness_dry_run_report.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_authority_input_manifest.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_branch_determination.md",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_closeout.md",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_scope_lock.md",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/forbidden_fallback_classification.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/forbidden_fallback_exclusion_list.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/generate_round_artifacts.py",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/no_count_guard_evidence.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/non_mutation_hash_report.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/role_field_binding_table.json",
+      "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/source_slot_relation_traversal_report.json"
+    ],
+    "second_digest": "28a3eb6f1c2fd93a6a48c8d39ea0735079be2c797e74217a0c5d2052facf1cdf"
+  },
+  "final_file_parse_check": {
+    "errors": [],
+    "json_file_count": 14,
+    "jsonl_file_count": 1,
+    "jsonl_row_count": 0,
+    "pass": true
+  },
+  "round_id": "layer4_confirmed_detector_field_map_reseal_round",
+  "schema_version": "field-map-reseal-artifact-hash-manifest-v1"
+}

@@ -1,0 +1,8 @@
+{
+  "changed_file_count": 0,
+  "changed_files": [],
+  "generated_at": "2026-05-21T07:34:24.285668+00:00",
+  "mutation_performed": false,
+  "reason": "No confirmed hard-fail current-label residue in current checkout.",
+  "schema_version": "legacy-active-silent-phase4-mutation-report-v0"
+}

@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "destination_ref": "must equal row_id unless explicit linked destination row is added by successor design",
+    "destination_slot": "must resolve to compose_profiles_v2.section_names",
+    "edge_basis": "must be in allowed enum and not in forbidden substitutes",
+    "edge_type": "must equal placed_in_body_output",
+    "item_full_type": "must equal row_id",
+    "row_id": "must resolve to current locked corpus row identity",
+    "source_cardinality": "must be an integer >= 1",
+    "source_ref": "must resolve to facts.* or body_source_overlay.* generation-time source field"
+  },
+  "forbidden_evidence": [
+    "text_similarity",
+    "expression_match",
+    "rendered_substring_only",
+    "cluster_label",
+    "provenance_label",
+    "row_co_occurrence",
+    "body_slot_hint_only",
+    "source_object_hint_only",
+    "diagnostic_report_label",
+    "historical_reference_only",
+    "preview_or_fixture_only"
+  ],
+  "manual_review_role": "backstop_only_after_automated_validation",
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "schema_version": "trace-edge-referential-integrity-contract-v1"
+}

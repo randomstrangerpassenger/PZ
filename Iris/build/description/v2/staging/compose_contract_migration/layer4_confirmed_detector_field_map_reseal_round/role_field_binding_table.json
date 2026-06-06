@@ -1,0 +1,94 @@
+{
+  "accepted_binding_count": 4,
+  "ambiguous_binding_count": 0,
+  "binding_rows": [
+    {
+      "accepted_field_path": "source_ref",
+      "accepted_support_fields": [
+        "source_cardinality"
+      ],
+      "disposition": "sealed",
+      "fallback_rejected": [
+        "provenance_label_only",
+        "category_tag"
+      ],
+      "required_meaning": "Layer4 source object identity",
+      "requirement": "source_object",
+      "validation": {
+        "all_rows_present": true,
+        "all_values_non_empty_string": true,
+        "source_cardinality_minimum_one": true
+      }
+    },
+    {
+      "accepted_field_path": "row_id",
+      "accepted_support_fields": [
+        "item_full_type",
+        "destination_ref"
+      ],
+      "disposition": "sealed",
+      "fallback_rejected": [
+        "item_display_text",
+        "rendered_body_substring"
+      ],
+      "required_meaning": "Layer3 row/item identity anchor",
+      "requirement": "target_layer3_row_or_item",
+      "validation": {
+        "all_rows_present": true,
+        "all_values_non_empty_string": true,
+        "destination_ref_matches_row_id": true,
+        "item_full_type_matches_row_id": true
+      }
+    },
+    {
+      "accepted_field_path": "destination_slot",
+      "accepted_support_fields": [
+        "destination_ref"
+      ],
+      "disposition": "sealed",
+      "fallback_rejected": [
+        "rendered_body_substring",
+        "korean_or_english_keyword",
+        "cluster_label"
+      ],
+      "required_meaning": "Layer3 destination body slot",
+      "requirement": "destination_body_slot",
+      "validation": {
+        "all_rows_present": true,
+        "all_values_non_empty_string": true
+      }
+    },
+    {
+      "accepted_field_path": "edge_type",
+      "accepted_support_fields": [
+        "edge_basis",
+        "source_ref",
+        "destination_slot"
+      ],
+      "disposition": "sealed",
+      "fallback_rejected": [
+        "source_target_co_occurrence_only",
+        "predecessor_detector_readiness_dry_run_pass",
+        "field_map_conditioned_readiness_dry_run_pass_as_edge_truth"
+      ],
+      "relation_tuple_paths": [
+        "source_ref",
+        "edge_type",
+        "edge_basis",
+        "destination_slot"
+      ],
+      "required_meaning": "source object to destination body slot trace relation",
+      "requirement": "explicit_edge_relation",
+      "validation": {
+        "all_rows_present": true,
+        "edge_basis_allowed": true,
+        "edge_type_const_placed_in_body_output": true,
+        "relation_direction": "source_ref -> destination_slot",
+        "row_is_edge_record": true
+      }
+    }
+  ],
+  "fallback_binding_count": 0,
+  "round_id": "layer4_confirmed_detector_field_map_reseal_round",
+  "schema_version": "role-field-binding-table-v1"
+}

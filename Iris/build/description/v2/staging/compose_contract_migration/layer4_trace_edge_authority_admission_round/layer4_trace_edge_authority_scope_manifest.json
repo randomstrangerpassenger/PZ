@@ -1,0 +1,38 @@
+{
+  "confirmed_count": "not_computed",
+  "confirmed_measurement_executed": false,
+  "count_generation_allowed": false,
+  "current_locked_corpus_paths": [
+    "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+    "Iris/build/description/v2/staging/body_role/phase2/layer3_role_check_overlay.jsonl",
+    "Iris/build/description/v2/tools/style/rules/structural_rules.json"
+  ],
+  "current_locked_corpus_paths_manifest_confirmation": true,
+  "expected_predecessor_manifest_sha256": "d394f95f5f2a157679238e005a90929349eb807a8180824d8f0ed30240290402",
+  "field_map_predecessor": {
+    "detector_closeout_branch": "TRACE_EDGE_ABSENT_MEASUREMENT_UNAVAILABLE",
+    "measurement_unavailable": true,
+    "required_fields": {
+      "explicit_trace_edge_relation": "absent",
+      "layer3_body_slot": "readable",
+      "layer3_target_row_item": "readable",
+      "source_object_identity": "missing"
+    }
+  },
+  "predecessor_manifest_sha256": "d394f95f5f2a157679238e005a90929349eb807a8180824d8f0ed30240290402",
+  "predecessor_manifest_sha256_match": true,
+  "predecessor_readpoints": {
+    "layer4_boundary_current_corpus_lock": "closed_with_layer4_boundary_current_corpus_locked_no_count_inheritance_design_preflight",
+    "layer4_confirmed_detector_field_map_seal": "closed_with_confirmed_measurement_unavailable_trace_absent",
+    "layer4_policy_predecessor_zero_count": "historical_only_no_current_count_inheritance"
+  },
+  "prior_zero_count_inheritance_allowed": false,
+  "publish_review_opened": false,
+  "round_date": "2026-06-01",
+  "round_goal": "trace_edge_authority_and_admission_only",
+  "round_id": "layer4_trace_edge_authority_admission_round",
+  "runtime_mutation_allowed": false,
+  "schema_version": "layer4-trace-edge-authority-scope-manifest-v1",
+  "scope_qualifier": "trace_edge_authority_admission_only"
+}

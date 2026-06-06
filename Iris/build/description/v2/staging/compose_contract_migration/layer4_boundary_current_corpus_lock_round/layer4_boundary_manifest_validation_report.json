@@ -1,0 +1,18 @@
+{
+  "checkout_ref_reproducibility_validation": "pass",
+  "corpus_basis_hash_validation": "pass",
+  "dirty_tree_handling_validation": "pass",
+  "included_excluded_mutual_exclusivity": true,
+  "included_paths_exist": true,
+  "lint_substrate_anchor_ref_present": true,
+  "manifest_basis_uses_historical_staged_hashes_as_current_basis": false,
+  "manifest_hash_validation": "pass",
+  "manifest_schema_validation": "pass",
+  "manifest_sha256": "d394f95f5f2a157679238e005a90929349eb807a8180824d8f0ed30240290402",
+  "manifest_sha256_file_matches_manifest_content": true,
+  "manifest_validation_state": "pass",
+  "prohibited_classes_absent_from_included": true,
+  "round_id": "layer4_boundary_current_corpus_lock_round",
+  "scan_root_coverage_ref_present": true,
+  "schema_version": "layer4-boundary-manifest-validation-report-v1"
+}

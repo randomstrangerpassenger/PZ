@@ -1,0 +1,19 @@
+{
+  "schema_version": "migv-qa-phase5-surface-display-result-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "updated_at": "2026-05-24T21:13:43+09:00",
+  "status": "manual_in_game_surface_evidence_complete_revised_contract",
+  "manual_in_game_validation_started": true,
+  "browser_surface": "pass_revised_all_item_contract",
+  "wiki_detail_surface": "accepted_not_separately_required_for_user_supplied_in_game_closeout",
+  "default_bounded_baseline": "accepted_not_separately_required_for_user_supplied_in_game_closeout",
+  "blocking_findings": [],
+  "accepted_observations": [
+    "Base.Apron_Black / 앞치마 is visible in the Browser as an item entry; this is accepted because internal_only is treated as Layer 3 body/state quality, not item-entry suppression.",
+    "Base.Broom / 빗자루 is visible with safe generated/tag-derived description text; this is accepted because nil Layer 3 text did not leak raw nil/table/placeholder/state tokens."
+  ],
+  "pass_claim_allowed": true,
+  "manual_in_game_validation_completed": true,
+  "pass_scope": "user_supplied_in_game_playtest_evidence_revised_all_item_contract"
+}

@@ -1,0 +1,31 @@
+{
+  "branch_b_reconstruction": {
+    "authority_root": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase3_branch_b_reconstruction",
+    "classification": "current_execution_basis"
+  },
+  "branch_c_retirement_attempt": {
+    "classification": "superseded_invalid_execution_trace",
+    "consumed_as_current_authority": false
+  },
+  "canonical_round_id": "structural_signal_scope_split_seal_round",
+  "cross_reference_primary_anchor": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/",
+  "current_round_closeout_date": "phase7_only_not_set_in_phase0",
+  "current_round_opening_date": "2026-05-29",
+  "current_round_unique_identifier": "2026-05-29.structural_signal_scope_split_seal_round.reconstruction_based_re_seal",
+  "filesystem_alias": "structural_signal_scope_re_seal_round",
+  "pass": true,
+  "predecessor_closeout_date": "2026-05-27",
+  "predecessor_disposition": "blocked_missing_current_readpoint_inventory",
+  "predecessor_sources": [
+    {
+      "classification": "historical_blocked_predecessor_trace",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_split_seal_round/phase9_adversarial_review_closeout/closeout_report.json"
+    },
+    {
+      "classification": "current_reconstructed_authority_resolution_context",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round/phase7_closeout/closeout_classification.json"
+    }
+  ],
+  "round_name": "Iris DVF 3-3 Structural Signal Scope Split Seal Round",
+  "schema_version": "structural-signal-scope-re-seal-predecessor-verification-v1"
+}

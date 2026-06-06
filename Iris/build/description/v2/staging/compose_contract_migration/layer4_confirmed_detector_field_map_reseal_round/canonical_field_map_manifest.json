@@ -1,0 +1,48 @@
+{
+  "ambiguity_disposition": {
+    "accepted_ambiguous_count": 0,
+    "state": "none"
+  },
+  "branch_closeout": "closed_with_layer4_confirmed_detector_field_map_resealed",
+  "confirmed_count": "not_computed",
+  "confirmed_measurement_executed": false,
+  "contract_closeout_state": "complete",
+  "destination_body_slot_field": "destination_slot",
+  "edge_basis_field": "edge_basis",
+  "explicit_edge_relation_field": "edge_type",
+  "explicit_edge_relation_tuple_fields": [
+    "source_ref",
+    "edge_type",
+    "edge_basis",
+    "destination_slot"
+  ],
+  "field_map_sealed": true,
+  "field_map_version": "field_map.v1",
+  "forbidden_fallback_list": [
+    "rendered_body_substring",
+    "item_display_text",
+    "korean_or_english_keyword",
+    "category_tag",
+    "cluster_label",
+    "provenance_label_only",
+    "source_target_co_occurrence_only",
+    "diagnostic_report_only_field",
+    "historical_predecessor_count",
+    "row_count_itself",
+    "predecessor_detector_readiness_dry_run_pass",
+    "field_map_conditioned_readiness_dry_run_pass_as_edge_truth"
+  ],
+  "input_artifact_hash": "44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca",
+  "input_artifact_partition": "current_detector_input",
+  "input_artifact_path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edges.v1.jsonl",
+  "measurement_enabled": false,
+  "round_id": "layer4_confirmed_detector_field_map_reseal_round",
+  "schema_version": "canonical-layer4-confirmed-field-map-manifest-v1",
+  "source_cardinality_field": "source_cardinality",
+  "source_object_field": "source_ref",
+  "target_layer3_row_or_item_field": "row_id",
+  "target_layer3_row_or_item_support_fields": [
+    "item_full_type",
+    "destination_ref"
+  ]
+}

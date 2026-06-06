@@ -1,0 +1,413 @@
+{
+  "schema_version": "migv-qa-sample-matrix-v0_4",
+  "round": "Iris DVF 3-3 Manual In-Game Validation QA Round",
+  "generated_at": "2026-05-23T23:35:17.452+09:00",
+  "status": "prepared_for_manual_execution",
+  "axis_coverage_complete": true,
+  "manual_execution_complete": false,
+  "coverage_basis": [
+    "current runtime chunk inventory",
+    "sealed current runtime baseline reports",
+    "available dvf_3_3_decisions source-axis candidates",
+    "supporting style baseline source-axis candidates where current runtime omits item-level origin metadata"
+  ],
+  "axis_limitations": [
+    "Manual Browser/Wiki/default surface observation is not executed by this artifact generation.",
+    "limitation_tail and meta_tail have zero current candidates in the 2105-row integrated facts source; absence is recorded in source_axis_candidate_inventory.json."
+  ],
+  "samples": {
+    "runtime_state": [
+      {
+        "purpose": "runtime_state:adopted_control",
+        "identity_key": "Base.223Box",
+        "chunk": "Chunk001.lua",
+        "chunk_order": 1,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "runtime_state:unadopted",
+        "identity_key": "Base.Broom",
+        "chunk": "Chunk002.lua",
+        "chunk_order": 87,
+        "publish_state": "missing",
+        "source": "unadopted",
+        "text_ko_status": "nil",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      }
+    ],
+    "publish_visibility": [
+      {
+        "purpose": "publish_visibility:exposed",
+        "identity_key": "Base.223Box",
+        "chunk": "Chunk001.lua",
+        "chunk_order": 1,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "publish_visibility:internal_only",
+        "identity_key": "Base.Apron_Black",
+        "chunk": "Chunk001.lua",
+        "chunk_order": 38,
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "publish_visibility:missing_publish_state_finding",
+        "identity_key": "Base.Broom",
+        "chunk": "Chunk002.lua",
+        "chunk_order": 87,
+        "publish_state": "missing",
+        "source": "unadopted",
+        "text_ko_status": "nil",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      }
+    ],
+    "finding_shape": [
+      {
+        "purpose": "finding_shape:nil_text_ko",
+        "identity_key": "Base.Broom",
+        "chunk": "Chunk002.lua",
+        "chunk_order": 87,
+        "publish_state": "missing",
+        "source": "unadopted",
+        "text_ko_status": "nil",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "finding_shape:missing_publish_state",
+        "identity_key": "Base.Broom",
+        "chunk": "Chunk002.lua",
+        "chunk_order": 87,
+        "publish_state": "missing",
+        "source": "unadopted",
+        "text_ko_status": "nil",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "finding_shape:non_empty_control",
+        "identity_key": "Base.223Box",
+        "chunk": "Chunk001.lua",
+        "chunk_order": 1,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      }
+    ],
+    "text_shape": [
+      {
+        "purpose": "text_shape:short",
+        "identity_key": "Base.Beer",
+        "chunk": "Chunk001.lua",
+        "chunk_order": 119,
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "text_shape:long",
+        "identity_key": "Base.Screwdriver",
+        "chunk": "Chunk008.lua",
+        "chunk_order": 181,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "text_shape:sparse_or_nil",
+        "identity_key": "Base.Broom",
+        "chunk": "Chunk002.lua",
+        "chunk_order": 87,
+        "publish_state": "missing",
+        "source": "unadopted",
+        "text_ko_status": "nil",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      }
+    ],
+    "chunk_boundary": [
+      {
+        "purpose": "chunk_boundary:Chunk001.lua:first",
+        "identity_key": "Base.223Box",
+        "chunk": "Chunk001.lua",
+        "chunk_order": 1,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "chunk_boundary:Chunk001.lua:middle",
+        "identity_key": "Base.Bandaid",
+        "chunk": "Chunk001.lua",
+        "chunk_order": 101,
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "chunk_boundary:Chunk001.lua:last",
+        "identity_key": "Base.BookElectrician5",
+        "chunk": "Chunk001.lua",
+        "chunk_order": 200,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "chunk_boundary:Chunk006.lua:first",
+        "identity_key": "Base.MakeUp_CamoFullFace2",
+        "chunk": "Chunk006.lua",
+        "chunk_order": 1,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "chunk_boundary:Chunk006.lua:middle",
+        "identity_key": "Base.Mov_DegreeDoctor",
+        "chunk": "Chunk006.lua",
+        "chunk_order": 101,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "chunk_boundary:Chunk006.lua:last",
+        "identity_key": "Base.Mov_SmallTable",
+        "chunk": "Chunk006.lua",
+        "chunk_order": 200,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "chunk_boundary:Chunk011.lua:first",
+        "identity_key": "Base.WinePetrol",
+        "chunk": "Chunk011.lua",
+        "chunk_order": 1,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "chunk_boundary:Chunk011.lua:middle",
+        "identity_key": "Radio.TvBlack",
+        "chunk": "Chunk011.lua",
+        "chunk_order": 53,
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "chunk_boundary:Chunk011.lua:last",
+        "identity_key": "farming.WateredCanFull",
+        "chunk": "Chunk011.lua",
+        "chunk_order": 105,
+        "publish_state": "exposed",
+        "source": "unadopted",
+        "text_ko_status": "present_non_empty",
+        "source_basis": "current_runtime_chunk",
+        "manual_status": "pending"
+      }
+    ],
+    "body_source": [
+      {
+        "purpose": "body_source:direct_use",
+        "identity_key": "Base.BarbedWire",
+        "field": "primary_use",
+        "field_value_present": true,
+        "fact_origin": {
+          "identity_hint": [
+            "seed"
+          ],
+          "acquisition_hint": [
+            "seed"
+          ],
+          "primary_use": [
+            "direct_use"
+          ]
+        },
+        "selected_cluster": null,
+        "selected_role": null,
+        "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "body_source:cluster_summary",
+        "identity_key": "Base.223Box",
+        "field": "primary_use",
+        "field_value_present": true,
+        "fact_origin": {
+          "identity_hint": [
+            "seed"
+          ],
+          "acquisition_hint": [
+            "seed"
+          ],
+          "primary_use": [
+            "cluster_summary"
+          ]
+        },
+        "selected_cluster": "ammo_loading",
+        "selected_role": "output",
+        "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "body_source:role_fallback",
+        "identity_key": "Base.Briefcase",
+        "field": "primary_use",
+        "field_value_present": true,
+        "fact_origin": {
+          "identity_hint": [
+            "seed"
+          ],
+          "acquisition_hint": [
+            "seed"
+          ],
+          "primary_use": [
+            "role_fallback"
+          ]
+        },
+        "selected_cluster": null,
+        "selected_role": null,
+        "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "body_source:identity_fallback",
+        "identity_key": "Base.Apron_Black",
+        "field": "primary_use",
+        "field_value_present": true,
+        "fact_origin": {
+          "identity_hint": [
+            "seed"
+          ],
+          "acquisition_hint": [
+            "seed"
+          ],
+          "primary_use": [
+            "identity_fallback"
+          ]
+        },
+        "selected_cluster": null,
+        "selected_role": null,
+        "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "body_section:acquisition_support",
+        "identity_key": "Base.223Box",
+        "field": "acquisition_hint",
+        "field_value_present": true,
+        "fact_origin": {
+          "identity_hint": [
+            "seed"
+          ],
+          "acquisition_hint": [
+            "seed"
+          ],
+          "primary_use": [
+            "cluster_summary"
+          ]
+        },
+        "selected_cluster": "ammo_loading",
+        "selected_role": "output",
+        "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "body_section:context_support_proxy",
+        "identity_key": "Base.BarbedWire",
+        "field": "special_context",
+        "field_value_present": true,
+        "fact_origin": {
+          "identity_hint": [
+            "seed"
+          ],
+          "acquisition_hint": [
+            "seed"
+          ],
+          "primary_use": [
+            "direct_use"
+          ]
+        },
+        "selected_cluster": null,
+        "selected_role": null,
+        "source_basis": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+        "manual_status": "pending"
+      },
+      {
+        "purpose": "body_section:limitation_tail",
+        "status": "absent_in_current_integrated_facts",
+        "field": "limitation_hint",
+        "candidate_count": 0,
+        "manual_status": "not_applicable_without_new_authority"
+      },
+      {
+        "purpose": "body_section:meta_tail",
+        "status": "absent_in_current_integrated_facts",
+        "field": "notes",
+        "candidate_count": 0,
+        "manual_status": "not_applicable_without_new_authority"
+      }
+    ],
+    "consumer_surface": [
+      {
+        "surface": "Browser",
+        "manual_status": "pending"
+      },
+      {
+        "surface": "Wiki/detail",
+        "manual_status": "pending"
+      },
+      {
+        "surface": "default bounded baseline",
+        "manual_status": "pending"
+      },
+      {
+        "surface": "search-select-reselect",
+        "manual_status": "pending"
+      }
+    ]
+  },
+  "axis_coverage_status": "complete_with_current_candidate_absence_proof",
+  "source_axis_candidate_inventory": "Iris/build/description/v2/staging/manual_in_game_validation/migv_qa/phase2_harness/source_axis_candidate_inventory.json",
+  "updated_at": "2026-05-24T16:06:55.689+09:00"
+}

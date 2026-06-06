@@ -17,7 +17,9 @@ try:
     )
     from .compose_layer3_body_profile import (
         DEFAULT_RESOLVER_AUTHORITY_MODE,
+        UNADOPTED_RUNTIME_STATE,
         build_body_plan_sections,
+        normalize_runtime_state,
         resolve_body_profile,
     )
 except ImportError:
@@ -29,7 +31,9 @@ except ImportError:
     )
     from compose_layer3_body_profile import (
         DEFAULT_RESOLVER_AUTHORITY_MODE,
+        UNADOPTED_RUNTIME_STATE,
         build_body_plan_sections,
+        normalize_runtime_state,
         resolve_body_profile,
     )
 
@@ -40,9 +44,16 @@ def compose_item_legacy(
     role_overlay: dict[str, Any] | None,
     profiles: dict[str, Any],
     normalizer: StyleNormalizer,
+    *,
+    allow_legacy_runtime_state: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
-    if decision["state"] == "silent":
-        return {"text_ko": None, "source": "silent"}, None
+    runtime_state = normalize_runtime_state(
+        decision.get("state"),
+        allow_legacy=allow_legacy_runtime_state,
+        item_id=facts.get("item_id"),
+    )
+    if runtime_state == UNADOPTED_RUNTIME_STATE:
+        return {"text_ko": None, "source": UNADOPTED_RUNTIME_STATE}, None
 
     if decision.get("override_mode") == "text_ko":
         normalized = normalizer.normalize(
@@ -76,7 +87,7 @@ def compose_item_legacy(
     )
 
     if not repaired_blocks:
-        raise ValueError(f"No blocks rendered for active item '{facts.get('item_id', '?')}'")
+        raise ValueError(f"No blocks rendered for adopted item '{facts.get('item_id', '?')}'")
 
     normalized = normalizer.normalize(
         item_id=facts["item_id"],
@@ -105,13 +116,19 @@ def compose_item_v2(
     identity_hint_target_map: dict[str, str],
     precedence_rules: dict[str, Any],
     resolver_authority_mode: str = DEFAULT_RESOLVER_AUTHORITY_MODE,
+    allow_legacy_runtime_state: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any] | None]:
-    if decision["state"] == "silent":
-        return {"text_ko": None, "source": "silent"}, None
+    runtime_state = normalize_runtime_state(
+        decision.get("state"),
+        allow_legacy=allow_legacy_runtime_state,
+        item_id=facts.get("item_id"),
+    )
+    if runtime_state == UNADOPTED_RUNTIME_STATE:
+        return {"text_ko": None, "source": UNADOPTED_RUNTIME_STATE}, None
 
     if overlay_row is None:
         raise ValueError(
-            f"Missing body_source_overlay row for active item '{facts.get('item_id', '?')}'"
+            f"Missing body_source_overlay row for adopted item '{facts.get('item_id', '?')}'"
         )
 
     if decision.get("override_mode") == "text_ko":
@@ -152,7 +169,7 @@ def compose_item_v2(
         profile_spec=profile_spec,
     )
     if not body_plan["emitted_sections"]:
-        raise ValueError(f"No body_plan sections emitted for active item '{facts.get('item_id', '?')}'")
+        raise ValueError(f"No body_plan sections emitted for adopted item '{facts.get('item_id', '?')}'")
 
     render_rules = profiles.get("render_rules", {})
     paragraph_separator = str(render_rules.get("paragraph_separator", "\n\n"))

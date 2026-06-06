@@ -25,6 +25,7 @@ from tools.build.compose_layer3_text import (
 )
 from tools.build.compose_layer3_body_profile import (
     DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE,
+    DEFAULT_LEGACY_RUNTIME_STATE_ERROR_CODE,
     DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
     resolve_body_profile,
 )
@@ -162,7 +163,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             [
                 {
                     "item_id": "Base.ModKit",
-                    "state": "active",
+                    "state": "adopted",
                     "compose_profile": "interaction_component",
                     "override_mode": "none",
                     "selected_role": "material",
@@ -245,7 +246,113 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
                 ]
             )
 
-    def test_default_entrypoint_uses_body_plan_for_legacy_label_mapping(self) -> None:
+    def test_default_entrypoint_rejects_legacy_runtime_state(self) -> None:
+        facts_path = self.tmp_dir / "legacy_state_facts.jsonl"
+        decisions_path = self.tmp_dir / "legacy_state_decisions.jsonl"
+        overlay_path = self.tmp_dir / "legacy_state_overlay.jsonl"
+        output_path = self.tmp_dir / "legacy_state_rendered.json"
+        style_log_path = self.tmp_dir / "legacy_state_style_log.jsonl"
+        profiles_path, identity_rules_path, precedence_rules_path = self.write_shared_inputs()
+
+        write_jsonl(
+            facts_path,
+            [
+                {
+                    "item_id": "Base.LegacyState",
+                    "identity_hint": "도구",
+                    "primary_use": "테스트 도구다",
+                    "acquisition_hint": None,
+                    "processing_hint": None,
+                    "special_context": None,
+                    "limitation_hint": None,
+                    "notes": None,
+                    "fact_origin": {"primary_use": ["test"]},
+                }
+            ],
+        )
+        write_jsonl(
+            decisions_path,
+            [
+                {
+                    "item_id": "Base.LegacyState",
+                    "state": "active",
+                    "compose_profile": "tool_body",
+                    "override_mode": "none",
+                    "selected_role": "tool",
+                    "selected_cluster": None,
+                }
+            ],
+        )
+        write_jsonl(overlay_path, [])
+
+        with self.assertRaisesRegex(ValueError, DEFAULT_LEGACY_RUNTIME_STATE_ERROR_CODE):
+            build_rendered(
+                facts_path,
+                decisions_path,
+                profiles_path,
+                output_path,
+                overlay_path,
+                style_log_path,
+                None,
+                identity_rules_path,
+                precedence_rules_path,
+            )
+
+    def test_diagnostic_resolver_allows_legacy_runtime_state_alias(self) -> None:
+        facts_path = self.tmp_dir / "diagnostic_legacy_state_facts.jsonl"
+        decisions_path = self.tmp_dir / "diagnostic_legacy_state_decisions.jsonl"
+        overlay_path = self.tmp_dir / "diagnostic_legacy_state_overlay.jsonl"
+        output_path = self.tmp_dir / "diagnostic_legacy_state_rendered.json"
+        style_log_path = self.tmp_dir / "diagnostic_legacy_state_style_log.jsonl"
+        profiles_path, identity_rules_path, precedence_rules_path = self.write_shared_inputs()
+
+        write_jsonl(
+            facts_path,
+            [
+                {
+                    "item_id": "Base.LegacySilentState",
+                    "identity_hint": "재료",
+                    "primary_use": "진단용 재료다",
+                    "acquisition_hint": None,
+                    "processing_hint": None,
+                    "special_context": None,
+                    "limitation_hint": None,
+                    "notes": None,
+                    "fact_origin": {"primary_use": ["test"]},
+                }
+            ],
+        )
+        write_jsonl(
+            decisions_path,
+            [
+                {
+                    "item_id": "Base.LegacySilentState",
+                    "state": "silent",
+                    "compose_profile": "material_body",
+                    "override_mode": "none",
+                    "selected_role": "material",
+                    "selected_cluster": None,
+                }
+            ],
+        )
+        write_jsonl(overlay_path, [])
+
+        rendered = build_rendered(
+            facts_path,
+            decisions_path,
+            profiles_path,
+            output_path,
+            overlay_path,
+            style_log_path,
+            None,
+            identity_rules_path,
+            precedence_rules_path,
+            resolver_authority_mode=DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+        )
+
+        self.assertEqual(rendered["entries"]["Base.LegacySilentState"]["source"], "unadopted")
+
+    def test_default_resolver_uses_body_plan_for_legacy_label_mapping(self) -> None:
         facts_path = self.tmp_dir / "entrypoint_facts.jsonl"
         decisions_path = self.tmp_dir / "entrypoint_decisions.jsonl"
         overlay_path = self.tmp_dir / "entrypoint_overlay.jsonl"
@@ -274,7 +381,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             [
                 {
                     "item_id": "Base.LegacyMappedPart",
-                    "state": "active",
+                    "state": "adopted",
                     "compose_profile": "interaction_component",
                     "override_mode": "none",
                     "selected_role": None,
@@ -294,29 +401,18 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             ],
         )
 
-        result = compose_main(
-            [
-                "--facts-path",
-                str(facts_path),
-                "--decisions-path",
-                str(decisions_path),
-                "--profiles-path",
-                str(profiles_path),
-                "--output-path",
-                str(output_path),
-                "--overlay-path",
-                str(overlay_path),
-                "--style-log-path",
-                str(style_log_path),
-                "--identity-rules-path",
-                str(identity_rules_path),
-                "--precedence-rules-path",
-                str(precedence_rules_path),
-            ]
+        rendered = build_rendered(
+            facts_path,
+            decisions_path,
+            profiles_path,
+            output_path,
+            overlay_path,
+            style_log_path,
+            None,
+            identity_rules_path,
+            precedence_rules_path,
         )
 
-        self.assertEqual(result, 0)
-        rendered = json.loads(output_path.read_text(encoding="utf-8"))
         entry = rendered["entries"]["Base.LegacyMappedPart"]
         self.assertEqual(entry["source"], "composed_v2_preview")
         self.assertEqual(entry["resolved_profile"], "material_body")
@@ -397,7 +493,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             [
                 {
                     "item_id": "Base.LegacyFallbackOnly",
-                    "state": "active",
+                    "state": "adopted",
                     "compose_profile": "interaction_tool",
                     "override_mode": "none",
                     "selected_role": None,
@@ -418,25 +514,16 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
         )
 
         with self.assertRaisesRegex(ValueError, DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE):
-            compose_main(
-                [
-                    "--facts-path",
-                    str(facts_path),
-                    "--decisions-path",
-                    str(decisions_path),
-                    "--profiles-path",
-                    str(profiles_path),
-                    "--output-path",
-                    str(output_path),
-                    "--overlay-path",
-                    str(overlay_path),
-                    "--style-log-path",
-                    str(style_log_path),
-                    "--identity-rules-path",
-                    str(identity_rules_path),
-                    "--precedence-rules-path",
-                    str(precedence_rules_path),
-                ]
+            build_rendered(
+                facts_path,
+                decisions_path,
+                profiles_path,
+                output_path,
+                overlay_path,
+                style_log_path,
+                None,
+                identity_rules_path,
+                precedence_rules_path,
             )
 
     def test_legacy_adapter_entrypoint_modes_are_removed(self) -> None:
@@ -508,7 +595,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             [
                 {
                     "item_id": "Base.LoosePowder",
-                    "state": "active",
+                    "state": "adopted",
                     "compose_profile": "interaction_component",
                     "override_mode": "none",
                     "selected_role": None,
@@ -587,7 +674,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             [
                 {
                     "item_id": "Base.Tongs",
-                    "state": "active",
+                    "state": "adopted",
                     "compose_profile": "interaction_tool",
                     "override_mode": "none",
                     "selected_role": "tool",

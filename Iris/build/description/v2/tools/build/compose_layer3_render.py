@@ -10,11 +10,17 @@ from style.normalizer import StyleNormalizer
 
 try:
     from .compose_layer3_blocks import derive_requeue_reason
-    from .compose_layer3_body_profile import DEFAULT_RESOLVER_AUTHORITY_MODE
+    from .compose_layer3_body_profile import (
+        DEFAULT_RESOLVER_AUTHORITY_MODE,
+        DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+    )
     from .compose_layer3_item import compose_item_legacy, compose_item_v2
 except ImportError:
     from compose_layer3_blocks import derive_requeue_reason
-    from compose_layer3_body_profile import DEFAULT_RESOLVER_AUTHORITY_MODE
+    from compose_layer3_body_profile import (
+        DEFAULT_RESOLVER_AUTHORITY_MODE,
+        DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+    )
     from compose_layer3_item import compose_item_legacy, compose_item_v2
 
 
@@ -23,6 +29,8 @@ def compose_all_legacy(
     decisions_list: list[dict[str, Any]],
     overlay_map: dict[str, dict[str, Any]],
     profiles: dict[str, Any],
+    *,
+    allow_legacy_runtime_state: bool = False,
 ) -> tuple[dict[str, dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     facts_map = {entry["item_id"]: entry for entry in facts_list}
     decisions_map = {entry["item_id"]: entry for entry in decisions_list}
@@ -41,6 +49,7 @@ def compose_all_legacy(
             role_overlay,
             profiles,
             normalizer,
+            allow_legacy_runtime_state=allow_legacy_runtime_state,
         )
         results[item_id] = entry
         if log_entry is not None:
@@ -78,6 +87,7 @@ def compose_all_v2(
     results: dict[str, dict[str, Any]] = {}
     normalization_logs: list[dict[str, Any]] = []
     normalizer = StyleNormalizer()
+    allow_legacy_runtime_state = resolver_authority_mode == DIAGNOSTIC_RESOLVER_AUTHORITY_MODE
 
     for item_id, decision in decisions_map.items():
         facts = dict(facts_map.get(item_id, {}))
@@ -92,6 +102,7 @@ def compose_all_v2(
             identity_hint_target_map=identity_hint_target_map,
             precedence_rules=precedence_rules,
             resolver_authority_mode=resolver_authority_mode,
+            allow_legacy_runtime_state=allow_legacy_runtime_state,
         )
         results[item_id] = entry
         if log_entry is not None:

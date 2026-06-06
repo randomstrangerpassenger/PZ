@@ -19,6 +19,7 @@ try:
     from .compose_layer3_body_profile import (
         DEFAULT_RESOLVER_AUTHORITY_MODE,
         DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+        UNADOPTED_RUNTIME_STATE,
         is_body_plan_profiles_v2,
         load_profile_resolution_rules,
     )
@@ -35,6 +36,7 @@ except ImportError:
     from compose_layer3_body_profile import (
         DEFAULT_RESOLVER_AUTHORITY_MODE,
         DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+        UNADOPTED_RUNTIME_STATE,
         is_body_plan_profiles_v2,
         load_profile_resolution_rules,
     )
@@ -55,6 +57,14 @@ BODY_PLAN_PROFILES_PATH = DATA_DIR / "compose_profiles_v2.json"
 
 DEFAULT_MODE = "default"
 DIAGNOSTIC_RESOLVER_MODE = "diagnostic_resolver"
+DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE = "DEFAULT_CURRENT_AUTHORITY_INPUT_REJECTED_NON_DATA_SOURCE"
+CURRENT_AUTHORITY_INPUT_KEYS = (
+    "facts_path",
+    "decisions_path",
+    "profiles_path",
+    "identity_rules_path",
+    "precedence_rules_path",
+)
 ENTRYPOINT_MODES = (
     DEFAULT_MODE,
     DIAGNOSTIC_RESOLVER_MODE,
@@ -83,6 +93,20 @@ def enforce_resolver_authority_output_contract(
     ):
         if value is not None and is_under_path(value, OUTPUT_DIR):
             raise ValueError(f"diagnostic resolver {key} must not write under canonical {OUTPUT_DIR}")
+
+
+def enforce_current_authority_input_contract(mode: str, paths: dict[str, Path | None]) -> None:
+    if mode != DEFAULT_MODE:
+        return
+    for key in CURRENT_AUTHORITY_INPUT_KEYS:
+        value = paths.get(key)
+        if value is None:
+            raise ValueError(f"{DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE}: default mode {key} is required")
+        if not is_under_path(value, DATA_DIR):
+            raise ValueError(
+                f"{DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE}: "
+                f"default mode {key} must read current authority input from {DATA_DIR}, got {value}"
+            )
 
 
 def build_rendered(
@@ -129,12 +153,13 @@ def build_rendered(
             decisions_list,
             overlay_map,
             profiles,
+            allow_legacy_runtime_state=True,
         )
 
     stats = {
         "total": len(entries),
-        "active_override": sum(1 for entry in entries.values() if entry["source"] == "override"),
-        "silent": sum(1 for entry in entries.values() if entry["source"] == "silent"),
+        "adopted_override": sum(1 for entry in entries.values() if entry["source"] == "override"),
+        "unadopted": sum(1 for entry in entries.values() if entry["source"] == UNADOPTED_RUNTIME_STATE),
     }
     if is_v2:
         resolved_profile_counts = Counter(
@@ -158,7 +183,7 @@ def build_rendered(
                 missing_required_section_counts[str(section_name)] += 1
         stats.update(
             {
-                "active_composed_v2_preview": sum(
+                "adopted_composed_v2_preview": sum(
                     1 for entry in entries.values() if entry["source"] == "composed_v2_preview"
                 ),
                 "resolved_profile_counts": dict(resolved_profile_counts),
@@ -170,7 +195,7 @@ def build_rendered(
     else:
         stats.update(
             {
-                "active_composed": sum(
+                "adopted_composed": sum(
                     1 for entry in entries.values() if entry["source"] == "composed"
                 ),
                 "quality_flagged": sum(
@@ -269,6 +294,8 @@ def enforce_entrypoint_mode_contract(mode: str, paths: dict[str, Path | None]) -
 
     if mode in {DEFAULT_MODE, DIAGNOSTIC_RESOLVER_MODE} and not is_v2:
         raise ValueError(f"{mode} mode requires compose_profiles_v2.json / schema compose-profiles-v2")
+
+    enforce_current_authority_input_contract(mode, paths)
 
     if mode == DIAGNOSTIC_RESOLVER_MODE:
         for key in ("output_path", "style_log_path", "requeue_candidates_path"):

@@ -29,6 +29,17 @@ LEGACY_PROFILE_FALLBACK = {
     "interaction_output": "output_body",
 }
 
+ADOPTED_RUNTIME_STATE = "adopted"
+UNADOPTED_RUNTIME_STATE = "unadopted"
+CANONICAL_RUNTIME_STATES = frozenset({ADOPTED_RUNTIME_STATE, UNADOPTED_RUNTIME_STATE})
+LEGACY_RUNTIME_STATE_ALIASES = {
+    "active": ADOPTED_RUNTIME_STATE,
+    "silent": UNADOPTED_RUNTIME_STATE,
+}
+LEGACY_RUNTIME_STATES = frozenset(LEGACY_RUNTIME_STATE_ALIASES)
+DEFAULT_LEGACY_RUNTIME_STATE_ERROR_CODE = "DEFAULT_RUNTIME_STATE_REJECTED_LEGACY_ENUM"
+UNKNOWN_RUNTIME_STATE_ERROR_CODE = "UNKNOWN_RUNTIME_STATE_ENUM"
+
 DEFAULT_RESOLVER_AUTHORITY_MODE = "default"
 DIAGNOSTIC_RESOLVER_AUTHORITY_MODE = "diagnostic"
 RESOLVER_AUTHORITY_MODES = (
@@ -166,6 +177,29 @@ def build_default_legacy_compat_label_error(*, item_id: Any, compose_profile: An
         f"{DEFAULT_LEGACY_COMPAT_LABEL_ERROR_CODE}: item '{item_id or '?'}' "
         f"cannot resolve default body_plan authority from legacy compose_profile "
         f"'{compose_profile}'. Use diagnostic resolver mode for legacy compatibility mapping."
+    )
+
+
+def normalize_runtime_state(
+    value: Any,
+    *,
+    allow_legacy: bool = False,
+    item_id: Any = None,
+    field_name: str = "state",
+) -> str:
+    state = None if value is None else str(value)
+    if state in CANONICAL_RUNTIME_STATES:
+        return state
+    if state in LEGACY_RUNTIME_STATE_ALIASES:
+        if allow_legacy:
+            return LEGACY_RUNTIME_STATE_ALIASES[state]
+        raise ValueError(
+            f"{DEFAULT_LEGACY_RUNTIME_STATE_ERROR_CODE}: item '{item_id or '?'}' "
+            f"cannot use legacy {field_name} '{state}' on the default runtime_state path"
+        )
+    raise ValueError(
+        f"{UNKNOWN_RUNTIME_STATE_ERROR_CODE}: item '{item_id or '?'}' "
+        f"has unsupported {field_name} '{state}'"
     )
 
 

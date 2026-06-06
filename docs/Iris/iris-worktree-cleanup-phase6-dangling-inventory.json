@@ -25,14 +25,11 @@
     "rationale": "Plan §6 Phase 6 6단계 절차 의 external archive 단계는 file content 보존이 목적. 0 file 인 경우 archive 가 데이터를 보존할 게 없음. 사용자 승인 시 빈 디렉토리만 제거하면 됨."
   },
   "approval": {
-    "status": "PENDING_USER_DECISION",
-    "approved_at": null,
-    "approved_by": null,
-    "decision_options": [
-      "approve removal of empty dangling directory",
-      "preserve as-is (no action)",
-      "create archive even though empty (formal protocol compliance)"
-    ]
+    "status": "APPROVED_AND_REMOVED",
+    "approved_at": "2026-06-05",
+    "approved_by": "user (explicit: delete it)",
+    "removal_command": "rm -rf .claude/worktrees/sad-dewdney",
+    "archive_skipped_reason": "0 files / 0 bytes — nothing to archive"
   },
   "notes": [
     "sad-dewdney 는 .claude/worktrees/ 아래 dangling 디렉토리로 확인됨 (git worktree list 미등록).",

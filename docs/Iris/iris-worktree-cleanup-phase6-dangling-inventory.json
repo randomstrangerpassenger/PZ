@@ -1,0 +1,43 @@
+{
+  "schema_version": "iris-worktree-cleanup-phase6-dangling-inventory-v0",
+  "plan_version": "v0.9",
+  "plan_reference": "docs/Iris/iris-worktree-cleanup-plan.md",
+  "generated_at": "2026-06-05",
+  "target_path": ".claude/worktrees/sad-dewdney",
+  "guard_check": {
+    "command": "git -C .claude/worktrees/sad-dewdney rev-parse --show-toplevel",
+    "result": "C:/Users/MW/Downloads/coding/PZ",
+    "expected_if_worktree": "C:/Users/MW/Downloads/coding/PZ/.claude/worktrees/sad-dewdney",
+    "verdict": "dangling directory confirmed — guard returns parent repo path, NOT the directory itself; not a registered worktree"
+  },
+  "inventory": {
+    "file_count": 0,
+    "directory_count": 1,
+    "total_size_bytes": 0,
+    "total_size_mb": 0,
+    "structure": [
+      {"type": "directory", "path": ".claude/worktrees/sad-dewdney/Iris", "contents": "empty"}
+    ]
+  },
+  "per_file_sha256": [],
+  "external_archive": {
+    "creation_planned": "skipped — directory is effectively empty (0 files, 0 bytes); archive would contain only directory entries with no data payload",
+    "rationale": "Plan §6 Phase 6 6단계 절차 의 external archive 단계는 file content 보존이 목적. 0 file 인 경우 archive 가 데이터를 보존할 게 없음. 사용자 승인 시 빈 디렉토리만 제거하면 됨."
+  },
+  "approval": {
+    "status": "PENDING_USER_DECISION",
+    "approved_at": null,
+    "approved_by": null,
+    "decision_options": [
+      "approve removal of empty dangling directory",
+      "preserve as-is (no action)",
+      "create archive even though empty (formal protocol compliance)"
+    ]
+  },
+  "notes": [
+    "sad-dewdney 는 .claude/worktrees/ 아래 dangling 디렉토리로 확인됨 (git worktree list 미등록).",
+    "내부 inventory 결과: file 0개, empty Iris 하위 디렉토리 1개만 존재. total size 0 bytes.",
+    "plan §6 Phase 6 의 6단계 절차 (inventory → hash → manifest → archive → approval → removal) 중 1~3단계 완료, 4단계 (archive) 는 0-file 이라 skip 권장.",
+    "5단계 (사용자 명시 승인 gate) 통과 후 6단계 (Remove-Item -Recurse -Force .claude/worktrees/sad-dewdney) 실행 가능."
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": "iris-worktree-cleanup-phase4-disposition-manifest-v0",
+  "plan_version": "v0.9",
+  "plan_reference": "docs/Iris/iris-worktree-cleanup-plan.md",
+  "phase1_manifest_reference": "docs/Iris/iris-worktree-cleanup-phase1-manifest.json",
+  "executed_at": "2026-06-05",
+  "execution_environment": {
+    "main_worktree": "C:/Users/MW/Downloads/coding/PZ",
+    "current_branch": "main",
+    "main_head": "b904933",
+    "shell": "Git Bash (deletion) + PowerShell (archive creation)"
+  },
+  "external_archive": {
+    "path_at_creation": "C:/Users/MW/iris-staging-backup-2026-06-05.zip",
+    "archive_sha256": "8BA43F8E2919F8953B1279913703B12594EF95A45BD6BC149E14AC8FBFE18EAE",
+    "entry_count": 1628,
+    "compressed_size_mb": 14.6,
+    "uncompressed_size_mb_approx": 381,
+    "compression_ratio": "~26x",
+    "format": "zip (PowerShell Compress-Archive native, CompressionLevel Optimal)",
+    "creator_command": "Compress-Archive -Path <33-staging-paths> -DestinationPath $env:USERPROFILE\\iris-staging-backup-2026-06-05.zip -CompressionLevel Optimal",
+    "user_action_pending": "user will relocate archive to a separate external folder for long-term storage; SHA-256 should remain identical after relocation"
+  },
+  "summary": {
+    "before_phase4": {"staging_files": 1818, "staging_size_mb": 464},
+    "after_phase4": {"staging_files": 200, "staging_size_mb": 79},
+    "files_removed": 1618,
+    "size_freed_mb": 385,
+    "archived_staging_trees": 33,
+    "deleted_outright_no_archive": ["staging/recovery (0 MB empty)", "tools/build/build_static_report_label_cleanup_round.py (superseded by referent_recovery; self-ref only)"]
+  },
+  "importance_assessment_basis": "active reference search in Iris/build/description/v2/tools/ and Iris/build/description/v2/tests/ using grep for 'staging/<path>' or 'staging\\\\<path>' literal patterns. 0 matches = no active dependency.",
+  "bucket_C_archived_and_removed": [
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/acq_dominant_current_baseline_remeasurement_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-acq-dominant-current-baseline-remeasurement-round-plan.md", "active_refs": 0, "decision": "archived (sealed evidence with Done plan)"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/adapter_diagnostic_compatibility_final_disposition_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-adapter-diagnostic-compatibility-final-disposition-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/diagnostic_only_resolver_compatibility_guard_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-diagnostic-only-resolver-compatibility-guard-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/frozen_2105_baseline_reconstruction_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-frozen-2105-baseline-reconstruction-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/historical_runtime_vocabulary_readpoint_anchor_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-historical-runtime-vocabulary-readpoint-anchor-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_namespace_reseal_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-layer4-boundary-namespace-reseal-round-plan.md", "has_closeout": true, "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_current_count_remeasurement_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-current-count-remeasurement-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_seal_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-detector-field-map-seal-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/resolver_compatibility_mapping_cleanup_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-resolver-compatibility-mapping-cleanup-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/runtime_payload_enum_rename_scope_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-runtime-payload-enum-rename-scope-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/selected_role_bridge_impact_seal_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-selected-role-bridge-impact-seal-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/silent_21_replacement_authority_reconstruction_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-silent-21-replacement-authority-reconstruction-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/silent_metadata_intake_cleanup_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-silent-metadata-intake-cleanup-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/static_report_label_cleanup_referent_recovery_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-static-report-label-cleanup-referent-recovery-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_current_readpoint_seal_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-structural-signal-current-readpoint-seal-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_current_referent_inventory_anchor_recovery_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-structural-signal-current-referent-inventory-anchor-recovery-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_missing_anchor_authority_resolution_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-structural-signal-missing-anchor-authority-resolution-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_split_seal_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-structural-signal-scope-split-seal-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/acquisition_lexical_current_inventory_readpoint_audit_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-acquisition-lexical-current-inventory-readpoint-audit-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/dvf_3_3_current_runtime_baseline_seal_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-current-runtime-baseline-seal-round-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/identity_fallback_source_expansion", "matching_done_doc": "docs/Iris/Done/plan/iris-dvf-3-3-identity-fallback-source-expansion-execution-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/interaction_cluster", "matching_done_doc": "docs/Iris/Done/plan/iris-dvf-3-3-interaction-cluster-execution-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/post_cleanup_integrated_roadmap", "matching_done_doc": "docs/Iris/Done/plan/iris-post-cleanup-status-model-runtime-adoption-backlog-expansion-execution-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/second_pass_backlog_132", "matching_done_doc": "docs/Iris/Done/plan/iris-backlog-132-second-pass-execution-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/source_coverage", "matching_done_doc": "docs/Iris/Done/plan/iris-source-coverage-expansion-roadmap.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/source_expansion_distribution_remeasurement_gate", "matching_done_doc": "docs/Iris/Done/plan/iris-dvf-3-3-source-expansion-distribution-remeasurement-gate-final-integrated-execution-plan.md", "active_refs": 0, "decision": "archived"},
+    {"path": "Iris/build/description/v2/staging/weak_active_cleanup", "matching_done_doc": "docs/Iris/Done/plan/iris-weak-active-cleanup-execution-plan.md", "active_refs": 0, "decision": "archived"}
+  ],
+  "bucket_D_archived_and_removed": [
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/static_report_label_cleanup_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-static-report-label-cleanup-round-plan.md", "active_refs": 0, "large_files": ["phase1_inventory/phase1_occurrence_classification.json (55 MB)", "phase2_allowed_legacy_residue.json (55 MB)"], "decision": "archived (size-first review, no active dependency)"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_authority_classification_round", "matching_done_doc": "docs/Iris/Done/iris-dvf-3-3-structural-signal-authority-classification-round-plan.md", "active_refs": 0, "large_files": ["phase5_classification/authority_classification_ledger.jsonl (39 MB)", "phase6_remediation/post_remediation_writer_reachability_matrix.jsonl (33 MB)", "phase4_writer_reachability/writer_reachability_matrix.jsonl (33 MB)"], "decision": "archived (size-first review, no active dependency)"}
+  ],
+  "unclassified_archived_and_removed": [
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/full_runtime", "active_refs_in_code": 0, "decision": "archived (historical data dir, no current dependency confirmed by grep)"},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_m2_current_build_application_target_round", "active_refs_in_code": 0, "decision": "archived (no exact plan match; semantically related to docs/Iris/Done/iris-dvf-3-3-layer4-current-build-application-target-remeasurement-zero-reseal-round-plan.md)"},
+    {"path": "Iris/build/description/v2/staging/body_role", "active_refs_in_code": 0, "decision": "archived (no Done plan match; no active staging path reference)"},
+    {"path": "Iris/build/description/v2/staging/semantic_quality", "active_refs_in_code": 0, "decision": "archived (no Done plan match; no active staging path reference)"}
+  ],
+  "deleted_outright_no_archive": [
+    {"path": "Iris/build/description/v2/staging/recovery", "size_mb": 0, "decision": "deleted outright — empty directory"},
+    {"path": "Iris/build/description/v2/tools/build/build_static_report_label_cleanup_round.py", "active_refs_in_code": 1, "active_refs_note": "only self-reference (line 20); not imported by any other tool", "decision": "deleted outright — superseded by referent_recovery variant already in .gitignore whitelist"}
+  ],
+  "preserved_bucket_A_whitelist": [
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round", "verified_present_after_phase4": true},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round", "verified_present_after_phase4": true},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round", "verified_present_after_phase4": true},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round", "verified_present_after_phase4": true},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round", "verified_present_after_phase4": true},
+    {"path": "Iris/build/description/v2/staging/manual_in_game_validation", "verified_present_after_phase4": true},
+    {"path": "Iris/build/description/v2/staging/reviews/*.acquisition.jsonl", "verified_present_after_phase4": "n/a (no reviews glob match in current tree)"}
+  ],
+  "preserved_bucket_B_in_progress": [
+    {"path": "Iris/build/description/v2/staging/acquisition_lexical_current_readpoint_reconciliation_round", "verified_present_after_phase4": true}
+  ],
+  "preserved_unclassified_active_references": [
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/compose_profile_migration_inventory.jsonl", "active_refs": 4, "referenced_by": ["tools/build/INVENTORY.md", "tools/build/report_compose_profile_migration_inventory.py", "tools/build/report_compose_profile_precedence_draft.py", "tools/build/report_compose_profile_resolution_preview.py"]},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/compose_profile_migration_summary.json", "active_refs": 1, "referenced_by": ["tools/build/report_compose_profile_migration_inventory.py"]},
+    {"path": "Iris/build/description/v2/staging/compose_contract_migration/layer3_body_source_overlay.jsonl", "active_refs": 5, "referenced_by": ["tools/build/build_layer3_body_plan_v2_preview.py", "tools/build/build_layer3_body_source_overlay.py", "tools/build/build_layer3_structural_audit_v2_preview.py", "tools/build/build_role_fallback_hollow_c1b_reuse_promotion_preview.py", "tools/build/build_runtime_payload_enum_rename_scope_round.py"]}
+  ],
+  "validation": {
+    "bucket_A_preserved_check": "pass — all 5 new whitelisted compose_contract_migration rounds + manual_in_game_validation verified present after phase4",
+    "bucket_B_preserved_check": "pass — acquisition_lexical_current_readpoint_reconciliation_round intact",
+    "archive_sha256_post_creation": "8BA43F8E2919F8953B1279913703B12594EF95A45BD6BC149E14AC8FBFE18EAE (verified twice: post-creation and pre-deletion)",
+    "remaining_staging_state": {"files": 200, "size_mb": 79, "top_level": ["acquisition_lexical_current_readpoint_reconciliation_round", "compose_contract_migration", "manual_in_game_validation"]},
+    "preserved_loose_files_check": "pass — 3 referenced files verified present in compose_contract_migration/"
+  },
+  "notes": [
+    "Importance assessment via active reference grep: bare-word matches discarded; only literal 'staging/<path>' or 'staging\\\\<path>' patterns counted.",
+    "Bucket C archived despite 0 refs because sealed Done evidence has governance value (per plan non-goal: 'no broad historical evidence deletion without successor archive/disposition decision').",
+    "External archive currently at $env:USERPROFILE\\iris-staging-backup-2026-06-05.zip; user will relocate to a separate external folder for long-term storage. SHA-256 verification recommended after relocation.",
+    "build_static_report_label_cleanup_round.py deleted outright per user instruction (not important → delete) and verified by reference scan (only self-reference at line 20)."
+  ]
+}

@@ -106,3 +106,19 @@ migration must verify:
 - direct script execution
 - module execution if the script already supported it
 - relevant quality gate or focused test
+
+## Phase 1 readpoint update (2026-06-07)
+
+Amendment for `docs/Iris/Iris_Refactoring_Plan.md` (Draft v6.0) Change 1/Change 3.
+Additive; the contract above is unchanged.
+
+- Direct script execution from the repository root **remains the compatibility
+  baseline**. conflict 14.2 (standardize on `python -m` vs preserve direct
+  execution) is **deferred** to a user decision and is the Phase 3 entry gate.
+  Until 14.2 is resolved, compose `try/except ImportError` dance removal is
+  forbidden and Phase 3 is limited to introducing a leaf path helper.
+- Phase 3 cleanup targets (sealed baselines, see
+  `docs/Iris/phase1_baseline_metrics.md`): `sys.path.insert` occurrences = 134,
+  `ROOT =` bootstrap occurrences = 254, compose `except ImportError` = 5 — all
+  measured under `Iris/build/description/v2/tools/build/`.
+- Single readpoint: `docs/Iris/phase1_inventory_readpoint.md`.

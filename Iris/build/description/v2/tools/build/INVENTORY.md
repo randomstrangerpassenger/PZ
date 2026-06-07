@@ -266,3 +266,36 @@ is a manual release task:
 
 If this policy is not followed, Recipe/Moveables/Fixing data can become stale
 even when Lua code remains unchanged.
+
+## Phase 1 readpoint update (2026-06-07)
+
+Amendment for `docs/Iris/Iris_Refactoring_Plan.md` (Draft v6.0) Change 1. The
+counts above (2026-05-04, 269/264) are retained as historical inventory values;
+the values below are the current remeasurement.
+
+| Metric (2026-06-07) | Result |
+|---|---:|
+| Python scripts in this directory (`*.py`, excl `__pycache__`, recursive) | 281 |
+| `build_*.py` in this directory | 177 |
+| `report_*.py` in this directory | 57 |
+| git-tracked in this directory | 12 |
+| gitignored (reproduction) | 269 |
+
+- conflict 14.1 resolved: roadmap A(282)/B(269) were the same directory measured
+  at different times; the sealed canonical value is **281**
+  (`docs/Iris/phase1_baseline_metrics.md` metric #1).
+- Current tracked core (12): index generators
+  `build_iris_{recipe,moveables,fixing}_index_data.py`, guard/recovery rounds
+  `build_legacy_active_silent_current_surface_guard_round.py` +
+  `build_static_report_label_cleanup_referent_recovery_round.py`, and the
+  `compose_layer3_*.py` composer (7).
+- Disposition unchanged: every `*.py` here stays `reproduce-required`; no file is
+  archive/delete eligible by filename glob (conflict 14.3 resolved:
+  per-file/per-directory disposition only).
+- Phase 7a consolidation candidates (sibling families to verify with grep+diff
+  before any merge): `identity_fallback batch{2..9}`,
+  `source_coverage {b1..b4,c1a..c1e}`, `post_cleanup phase3_pkg3{a..j}`,
+  `role_fallback_hollow`, `freeze_quality_baseline_v{1..4}`,
+  `report_*_{draft,final}`.
+- Readpoint: `docs/Iris/phase1_inventory_readpoint.md`; active manifest:
+  `docs/Iris/phase1_active_script_manifest.txt`.

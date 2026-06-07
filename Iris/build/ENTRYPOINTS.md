@@ -132,3 +132,26 @@ Completed root artifact moves:
 - `subcategory_analysis.md` now lives under `Iris/evidence/analysis/`.
 - Historical `_archive/p0-2/` payloads are excluded from packaging by
   `Iris/tools/package_iris.ps1` and from git noise by `.gitignore`.
+
+## Phase 1 readpoint update (2026-06-07)
+
+Amendment for `docs/Iris/Iris_Refactoring_Roadmap.md` + `docs/Iris/Iris_Refactoring_Plan.md`
+(Draft v6.0) Change 1. This section is additive; the contract above remains valid.
+
+- Single readpoint: `docs/Iris/phase1_inventory_readpoint.md`. Baseline metrics:
+  `docs/Iris/phase1_baseline_metrics.md`.
+- Active build/generation manifest (38 scripts, repo-relative, single input for
+  "active-only" measurements such as the v2.4 hardcode count):
+  `docs/Iris/phase1_active_script_manifest.txt`.
+- Remeasured tracked Python under `Iris/build` = 73, decomposed as:
+  active build/generation 38 (root entrypoints 7 + `tools/pipeline` 13 +
+  `tools/common` 3 + `description/v2/tools/build` core 12 +
+  `description/v2/tools` 3), active-validation tests 16,
+  `tools/oneshots` legacy 15, tracked staging round generators 4.
+- `description/v2/tools/build/*.py` remeasured = 281 (excl `__pycache__`);
+  12 tracked core, 269 gitignored reproduction scripts. Filename-glob
+  archive/delete remains forbidden (conflict 14.3 resolved: per-file/per-directory
+  disposition only).
+- Direct script execution baseline is unchanged. conflict 14.2 (direct execution
+  vs package entrypoint) is **deferred** to a user decision and gates Phase 3;
+  until resolved, the direct-execution contract above is preserved verbatim.

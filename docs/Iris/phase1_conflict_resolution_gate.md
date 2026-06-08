@@ -11,13 +11,13 @@
 | conflict | status | decision_owner | downstream blocking | 한 줄 |
 |---|---|---|---|---|
 | 14.1 script count | **resolved** | 사용자(측정 기반) | Phase 1 baseline | A/B는 동일 디렉토리 다른 시점값. canonical = 281 |
-| 14.2 direct exec vs package entry | **deferred** | 사용자 | Phase 3 | 아키텍처 계약 결정 — 사용자 판정 필요. 현 계약은 direct-exec baseline |
+| 14.2 direct exec vs package entry | **resolved** (2026-06-07) | 사용자 | Phase 3 | **package form 채택** — `python -m`/패키지 import 표준화 (roadmap A) |
 | 14.3 archive/delete 정책 | **resolved** | 사용자(plan/roadmap) | Phase 7b | per-file/per-directory disposition only, glob 금지 |
 | 14.4 quality_gates split 상태 | **resolved** | 사용자(측정 기반) | Phase 4 | 1324 LOC 단일 파일 → 추가 split 필요 |
 | 14.5 compatibility surface | **resolved** | 사용자(governing docs) | Phase 9b | Pulse wrapper + IrisAPI + direct-exec = compat surface |
 | 14.6 runtime cleanup 범위 | **resolved** | 사용자(plan) | 9a/9b split | 두 축 모두, 위험도별 9a/9b 분리 |
 
-**미결(사용자 결정 대기): 14.2 한 건.** 나머지 5건은 기존 plan/roadmap/governing docs가 이미 확정한 사항을 측정으로 재확인했다.
+**6/6 전부 resolved** (2026-06-07: 14.2가 사용자 결정 "package form"으로 deferred → resolved 갱신). 14.1·14.3·14.4·14.5·14.6은 기존 plan/roadmap/governing docs가 이미 확정한 사항을 측정으로 재확인했고, 14.2는 사용자가 직접 판정했다.
 
 ---
 
@@ -35,13 +35,13 @@
 ## 14.2 Direct script execution vs package entrypoint
 
 - **conflict_id**: 14.2
-- **status**: `deferred`  ← **사용자 결정 필요**
-- **decision**: compose import dance 제거 방식(`python -m` 패키지 실행으로 표준화 vs direct script execution baseline 보존)은 아키텍처 계약 결정이며 본 계획이 의도적으로 Change 3 entry gate로 남긴 항목이다. 현행 계약(`Iris/build/build_import_contract.md`)은 "direct script execution remains the compatibility baseline"을 명시하고, 코드 실측상 active+reproduction 스크립트가 `sys.path.insert` 134회 / `ROOT =` bootstrap 254회로 direct-exec에 강하게 결합되어 있다. **권장안은 roadmap B(direct-exec baseline 보존)** 이며 이 경우 Change 3은 path helper 도입까지만 진행하고 compose dance 제거는 후속 round로 둔다. 단, 최종 판정은 사용자 몫이다.
-- **decision_owner**: 사용자
-- **minimum_evidence**: `Iris/build/build_import_contract.md` "Supported execution forms"/"direct script execution remains the compatibility baseline"; `phase1_baseline_metrics.md` `baseline_syspath_insert_count = 134`, `baseline_root_bootstrap_count = 254`, `baseline_compose_except_import_count = 5`.
-- **downstream_blocking_phase**: Phase 3 (Change 3) entry blocker.
-- **allowed_next_action**: 사용자가 (a) `python -m` 표준화 또는 (b) direct-exec 보존 중 택일하면 Change 3 entry gate 충족. `deferred` 유지 시에도 Change 3은 path helper 도입까지만 `partial` 진행 가능(계획 §6 Change 3 entry gate).
-- **blocked_next_action**: 14.2 미결정 상태에서 compose `try/except ImportError` dance 제거 또는 direct-exec baseline 변경(둘 다 금지). `compose_except_import_count == 0` 목표는 14.2 `resolved` 전까지 추구 금지.
+- **status**: `resolved` (2026-06-07 update: `deferred` → `resolved`, 계획 §10 gate amendment)
+- **decision**: **package form 채택** (roadmap A 방향). import 계약을 `python -m` 패키지 실행 + 패키지 import(`from tools...`)로 표준화한다. 이에 따라 direct script execution baseline은 더 이상 불변 계약이 아니며, Change 3에서 compose `try/except ImportError` dance 제거 + `ROOT`/`sys.path.insert` bootstrap 정리가 허용된다. Change 2의 helper 추출도 dual-compat shim 없이 패키지 import로 직접 진행한다. **불변 조건: 실행/import 방식 변경이 산출물 바이트(SHA)를 바꾸지 않을 것**(determinism gate — family smoke + Artifact SHA로 입증). 이는 기존 `build_import_contract.md`의 "direct script execution remains the compatibility baseline" 및 "Requiring every ... script to support `python -m`"(Not supported yet) 입장의 **명시적 반전**이며, 계약 문서는 Change 3에서 갱신한다.
+- **decision_owner**: 사용자 (2026-06-07 결정: "패키지 형태로 가자")
+- **minimum_evidence**: 사용자 결정(2026-06-07); `phase1_baseline_metrics.md` `baseline_syspath_insert_count = 134`, `baseline_root_bootstrap_count = 254`, `baseline_compose_except_import_count = 5`; `build_import_contract.md` "Common helper import rule"(이미 `from tools.common.io import`를 패키지 import로 규정 — package form과 정합).
+- **downstream_blocking_phase**: Phase 3 (Change 3) — 이제 full compose/bootstrap 정리로 진입 가능.
+- **allowed_next_action**: Change 2 = batch1 공통 helper를 `tools/common`으로 (패키지 import 기준) 추출 + 20 caller repoint → `batch1_import_count == 0`. Change 3 = `__init__.py`/패키지 마커 + `tools/common/paths.py` leaf helper + compose dance 제거 + bootstrap 정리, `python -m` 실행 계약으로 `build_import_contract.md`/`ENTRYPOINTS.md` 갱신.
+- **blocked_next_action**: 산출물 SHA drift를 동반하는 import 전환(approved diff 없이 금지). **적용 범위(active 한정 vs 269 reproduction 전수)** 는 Change 2/3 진입 시 확정 — 권장: active pipeline(38) + batch1 caller 우선 전환, reproduction 전수 bootstrap 제거는 별도 sub-round로 분리(대량 SHA 위험·minimal diff).
 
 ## 14.3 Archive/delete 정책
 
@@ -92,5 +92,5 @@
 ## Closeout 판정
 
 - schema field 충족: **6/6 conflict 전수 8 field 충족** → Phase 1 conflict gate completeness PASS.
-- 미결 1건(14.2 `deferred`)은 Phase 3 진입을 제한할 뿐 Phase 1 closeout을 막지 않는다(deferred도 field 전수 충족).
+- 2026-06-07 update: 14.2가 사용자 결정으로 `resolved`(package form) 갱신 → **6/6 resolved**. Phase 3 full 진입 가능.
 - 잘못 닫혔다고 판단되는 conflict는 해당 downstream Change 진입 **전에** 본 문서만 amendment하면 되며 코드 rollback 불필요(계획 §10).

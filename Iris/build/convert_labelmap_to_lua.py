@@ -24,9 +24,11 @@ SCRIPT_DIR = Path(__file__).parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
-DATA_DIR = SCRIPT_DIR / "data" / "v2.4"
+from tools.common.versions import BUILD_VERSION
+
+DATA_DIR = SCRIPT_DIR / "data" / BUILD_VERSION
 LABELMAP_JSON = DATA_DIR / "usecase_label_map.json"
-USECASES_JSON = SCRIPT_DIR.parent / "output" / "usecases_by_fulltype.v2.4.json"
+USECASES_JSON = SCRIPT_DIR.parent / "output" / f"usecases_by_fulltype.{BUILD_VERSION}.json"
 OUTPUT_LUA = SCRIPT_DIR.parent / "media" / "lua" / "client" / "Iris" / "Data" / "IrisUseCaseLabelMap.lua"
 
 from tools.common.io import load_json

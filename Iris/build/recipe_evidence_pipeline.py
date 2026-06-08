@@ -358,7 +358,7 @@ def phase_r1_recipe_index(recipes_data: dict) -> dict:
     recipe_name 기준으로 역변환.
 
     출력: {
-        "version": "v2.4",
+        "version": BUILD_VERSION,
         "recipes": {
             "<recipe_id>": {
                 "recipe_name": "...",

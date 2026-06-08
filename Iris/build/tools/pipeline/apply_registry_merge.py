@@ -22,11 +22,13 @@ BUILD_DIR = Path(__file__).resolve().parents[2]
 if str(BUILD_DIR) not in sys.path:
     sys.path.insert(0, str(BUILD_DIR))
 
+from tools.common.versions import BUILD_VERSION
+
 IRIS_DIR = BUILD_DIR.parent
-DATA_DIR = BUILD_DIR / "data" / "v2.4"
-ACCEPT_PATH = DATA_DIR / "registry_merge_accept.v2.4.json"
-REGISTRY_PATH = DATA_DIR / "use_case_registry.v2.4.json"
-USECASES_PATH = IRIS_DIR / "output" / "usecases_by_fulltype.v2.4.json"
+DATA_DIR = BUILD_DIR / "data" / BUILD_VERSION
+ACCEPT_PATH = DATA_DIR / f"registry_merge_accept.{BUILD_VERSION}.json"
+REGISTRY_PATH = DATA_DIR / f"use_case_registry.{BUILD_VERSION}.json"
+USECASES_PATH = IRIS_DIR / "output" / f"usecases_by_fulltype.{BUILD_VERSION}.json"
 
 from tools.common.io import load_json, write_json
 

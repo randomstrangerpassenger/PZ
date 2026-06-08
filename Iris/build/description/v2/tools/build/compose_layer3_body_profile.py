@@ -3,24 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-try:
-    from .compose_layer3_blocks import has_text
-    from .compose_layer3_identity import (
-        derive_context_from_primary_use,
-        ensure_sentence,
-        primary_use_covers_context,
-        render_identity_core_text,
-    )
-    from .compose_layer3_io import load_json
-except ImportError:
-    from compose_layer3_blocks import has_text
-    from compose_layer3_identity import (
-        derive_context_from_primary_use,
-        ensure_sentence,
-        primary_use_covers_context,
-        render_identity_core_text,
-    )
-    from compose_layer3_io import load_json
+from .compose_layer3_blocks import has_text
+from .compose_layer3_identity import (
+    derive_context_from_primary_use,
+    ensure_sentence,
+    primary_use_covers_context,
+    render_identity_core_text,
+)
+from .compose_layer3_io import load_json
 
 
 LEGACY_PROFILE_FALLBACK = {

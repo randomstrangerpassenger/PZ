@@ -7,43 +7,25 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-try:
-    from .compose_layer3_io import (
-        entries_sha256,
-        file_sha256,
-        load_json,
-        load_jsonl,
-        load_optional_jsonl_map,
-        write_jsonl,
-    )
-    from .compose_layer3_body_profile import (
-        DEFAULT_RESOLVER_AUTHORITY_MODE,
-        DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
-        UNADOPTED_RUNTIME_STATE,
-        is_body_plan_profiles_v2,
-        load_profile_resolution_rules,
-    )
-    from .compose_layer3_render import compose_all_legacy, compose_all_v2
-except ImportError:
-    from compose_layer3_io import (
-        entries_sha256,
-        file_sha256,
-        load_json,
-        load_jsonl,
-        load_optional_jsonl_map,
-        write_jsonl,
-    )
-    from compose_layer3_body_profile import (
-        DEFAULT_RESOLVER_AUTHORITY_MODE,
-        DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
-        UNADOPTED_RUNTIME_STATE,
-        is_body_plan_profiles_v2,
-        load_profile_resolution_rules,
-    )
-    from compose_layer3_render import compose_all_legacy, compose_all_v2
+from .compose_layer3_io import (
+    entries_sha256,
+    file_sha256,
+    load_json,
+    load_jsonl,
+    load_optional_jsonl_map,
+    write_jsonl,
+)
+from .compose_layer3_body_profile import (
+    DEFAULT_RESOLVER_AUTHORITY_MODE,
+    DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+    UNADOPTED_RUNTIME_STATE,
+    is_body_plan_profiles_v2,
+    load_profile_resolution_rules,
+)
+from .compose_layer3_render import compose_all_legacy, compose_all_v2
+from tools.common.paths import V2_ROOT as ROOT
 
 
-ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT / "data"
 OUTPUT_DIR = ROOT / "output"
 STAGING_DIR = ROOT / "staging" / "body_role" / "phase2"

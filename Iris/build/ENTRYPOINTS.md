@@ -155,3 +155,15 @@ Amendment for `docs/Iris/Iris_Refactoring_Roadmap.md` + `docs/Iris/Iris_Refactor
 - Direct script execution baseline is unchanged. conflict 14.2 (direct execution
   vs package entrypoint) is **deferred** to a user decision and gates Phase 3;
   until resolved, the direct-execution contract above is preserved verbatim.
+
+## Change 3 update (2026-06-07): compose package form
+
+conflict 14.2 is now **resolved = package form** (supersedes the 14.2-deferred
+note just above). The `compose_layer3_*.py` core uses package imports
+(relative internal + `tools.style` / `tools.common` absolute) with the
+`try/except ImportError` dance removed; run via
+`python -m tools.build.compose_layer3_text`. Leaf helper
+`Iris/build/description/v2/tools/common/paths.py` added. Four caller scripts'
+compose imports were updated to the package path. Frozen reproduction scripts
+retain their direct-execution bootstrap and migrate incrementally.
+See `docs/Iris/phase3_compose_import_contract_note.md`.

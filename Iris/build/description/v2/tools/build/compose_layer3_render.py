@@ -3,25 +3,14 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import sys
+from tools.style.normalizer import StyleNormalizer
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from style.normalizer import StyleNormalizer
-
-try:
-    from .compose_layer3_blocks import derive_requeue_reason
-    from .compose_layer3_body_profile import (
-        DEFAULT_RESOLVER_AUTHORITY_MODE,
-        DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
-    )
-    from .compose_layer3_item import compose_item_legacy, compose_item_v2
-except ImportError:
-    from compose_layer3_blocks import derive_requeue_reason
-    from compose_layer3_body_profile import (
-        DEFAULT_RESOLVER_AUTHORITY_MODE,
-        DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
-    )
-    from compose_layer3_item import compose_item_legacy, compose_item_v2
+from .compose_layer3_blocks import derive_requeue_reason
+from .compose_layer3_body_profile import (
+    DEFAULT_RESOLVER_AUTHORITY_MODE,
+    DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+)
+from .compose_layer3_item import compose_item_legacy, compose_item_v2
 
 
 def compose_all_legacy(

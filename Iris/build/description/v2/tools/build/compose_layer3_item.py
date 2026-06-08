@@ -3,39 +3,21 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import sys
+from tools.style.normalizer import StyleNormalizer, extract_primary_use_fact_origin
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from style.normalizer import StyleNormalizer, extract_primary_use_fact_origin
-
-try:
-    from .compose_layer3_blocks import (
-        apply_compose_repairs,
-        compose_facts_with_overlay_hints,
-        derive_quality_flag,
-        render_blocks,
-    )
-    from .compose_layer3_body_profile import (
-        DEFAULT_RESOLVER_AUTHORITY_MODE,
-        UNADOPTED_RUNTIME_STATE,
-        build_body_plan_sections,
-        normalize_runtime_state,
-        resolve_body_profile,
-    )
-except ImportError:
-    from compose_layer3_blocks import (
-        apply_compose_repairs,
-        compose_facts_with_overlay_hints,
-        derive_quality_flag,
-        render_blocks,
-    )
-    from compose_layer3_body_profile import (
-        DEFAULT_RESOLVER_AUTHORITY_MODE,
-        UNADOPTED_RUNTIME_STATE,
-        build_body_plan_sections,
-        normalize_runtime_state,
-        resolve_body_profile,
-    )
+from .compose_layer3_blocks import (
+    apply_compose_repairs,
+    compose_facts_with_overlay_hints,
+    derive_quality_flag,
+    render_blocks,
+)
+from .compose_layer3_body_profile import (
+    DEFAULT_RESOLVER_AUTHORITY_MODE,
+    UNADOPTED_RUNTIME_STATE,
+    build_body_plan_sections,
+    normalize_runtime_state,
+    resolve_body_profile,
+)
 
 
 def compose_item_legacy(

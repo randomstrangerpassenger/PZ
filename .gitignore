@@ -47,6 +47,9 @@ Iris/build/description/v2/schemas/*
 Iris/build/description/v2/tools/*
 !Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py
 !Iris/build/description/v2/tools/validate_layer4_absorption_current_surface_guard.py
+!Iris/build/description/v2/tools/common/
+Iris/build/description/v2/tools/common/*
+!Iris/build/description/v2/tools/common/*.py
 !Iris/build/description/v2/tools/build/
 Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/compose_layer3_text.py

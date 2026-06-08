@@ -122,3 +122,32 @@ Additive; the contract above is unchanged.
   `ROOT =` bootstrap occurrences = 254, compose `except ImportError` = 5 — all
   measured under `Iris/build/description/v2/tools/build/`.
 - Single readpoint: `docs/Iris/phase1_inventory_readpoint.md`.
+
+## Change 3 update (2026-06-07): package form adopted (compose core)
+
+conflict 14.2 is now **resolved = package form** — this supersedes the
+"deferred / direct-execution baseline" note just above **for the migrated
+surface**. Change 3 migrated the compose core:
+
+- `compose_layer3_*.py` use package-internal **relative imports**
+  (`from .compose_layer3_io import ...`); the `try/except ImportError` fallback
+  was removed (`compose_except_import_count == 0`). They load only inside the
+  `tools.build` package — `python -m tools.build.compose_layer3_text` or
+  `from tools.build.compose_layer3_text import ...`, no longer bare
+  `python compose_layer3_text.py`.
+- `style.normalizer` is now `from tools.style.normalizer import ...`
+  (the `sys.path.insert(parent.parent)` bootstrap was removed in item/render).
+- A leaf path helper `Iris/build/description/v2/tools/common/paths.py`
+  (description-v2 tree) exposes `V2_ROOT`/`BUILD_ROOT`; `compose_layer3_text`
+  imports `V2_ROOT as ROOT`.
+- Caller import lines updated to the package path in
+  `build_body_role_full_preview.py`, `build_layer3_body_plan_v2_preview.py`,
+  `build_adapter_native_body_plan_metadata_migration.py`,
+  `build_runtime_payload_enum_rename_scope_round.py`.
+
+Metrics: `compose_except_import_count` 5→0; `root_bootstrap_count` 254→253;
+`syspath_insert_count` 134→132. Legacy/frozen reproduction scripts retain their
+direct-execution bootstrap and migrate incrementally. Note the repository has
+**two distinct `tools` trees**: `Iris/build/tools` (root scripts: io, versions,
+pipeline) and `Iris/build/description/v2/tools` (description-v2: build, style,
+common). See `docs/Iris/phase3_compose_import_contract_note.md`.

@@ -3,10 +3,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
-try:
-    from .compose_layer3_blocks import has_text
-except ImportError:
-    from compose_layer3_blocks import has_text
+from .compose_layer3_blocks import has_text
 
 
 def ensure_sentence(text: str) -> str:

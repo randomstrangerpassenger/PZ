@@ -7,6 +7,9 @@ Iris/build/*
 !Iris/build/ENTRYPOINTS.md
 !Iris/build/build_import_contract.md
 !Iris/build/*.py
+!Iris/build/quality/
+Iris/build/quality/*
+!Iris/build/quality/*.py
 !Iris/build/data/
 Iris/build/data/*
 !Iris/build/data/v2.4/

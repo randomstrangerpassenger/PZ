@@ -47,6 +47,7 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 
 from tools.common.io import load_json
 from tools.common.stage_runner import StageRunner
+from tools.common.evidence_skeleton import pipeline_banner
 
 ITEMS_PATH = INPUT_DIR / "items_itemscript.json"
 SOURCE_INDEX_PATH = INPUT_DIR / "rightclick_source_index.json"
@@ -1218,9 +1219,7 @@ def main():
         SOURCE_INDEX_PATH = SOURCE_INDEX_V22_PATH
 
     version_label = "v2.4" if V24_MODE else ("v2.3" if V23_MODE else ("v2.2" if V22_MODE else "v2"))
-    print("=" * 70)
-    print(f"  Right-click Evidence Pipeline {version_label}")
-    print("=" * 70)
+    pipeline_banner(f"Right-click Evidence Pipeline {version_label}", 70)
 
     # ── Phase S ──
     runner = StageRunner()

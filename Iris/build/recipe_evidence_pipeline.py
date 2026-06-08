@@ -32,6 +32,7 @@ OUTPUT_DIR = IRIS_DIR / "output"
 
 from tools.common.io import load_json
 from tools.common.stage_runner import StageRunner
+from tools.common.evidence_skeleton import pipeline_banner, require_inputs
 from tools.common.versions import BUILD_VERSION, REQUIRE_FIELDS_VERSION, versioned_name
 
 RECIPES_PATH = INPUT_DIR / "recipes_index_full.json"
@@ -839,19 +840,15 @@ def phase_r4_review_queue(review_items: list) -> dict:
 # ══════════════════════════════════════════════════════════════════════════
 
 def main():
-    print("=" * 60)
-    print(f"  Recipe Evidence Pipeline (BUILD_VERSION={BUILD_VERSION})")
-    print("=" * 60)
+    pipeline_banner(f"Recipe Evidence Pipeline (BUILD_VERSION={BUILD_VERSION})", 60)
     runner = StageRunner()
 
     # ── Check prerequisites ──
-    for path, label in [
+    if not require_inputs([
         (RECIPES_PATH, "recipes_index_full"),
         (ITEMS_PATH, "items_itemscript"),
-    ]:
-        if not path.exists():
-            print(f"\n  ❌ {label} not found: {path}")
-            return 1
+    ]):
+        return 1
 
     # ── Load inputs ──
     print("\n  [Load] Loading inputs...")

@@ -55,3 +55,16 @@ $sameSha = ((git rev-parse a5054f3) -eq (git rev-parse $firstCodeCommit))
 - 모든 행 `verdict = PASS` + `$ancestorExit -eq 0` + baseline≠첫코드 SHA → Change 9b `complete`.
 - `regression`/`FAIL` 1건 → revert 또는 `implemented_only` (merge/behavior-preserving claim 불가).
 - manual QA 미수행 → `implemented_only`.
+
+## QA 결과 — 확인 완료 (2026-06-09) → `complete`
+
+`first_code_commit = cb0b85c`. `git merge-base --is-ancestor a5054f3 cb0b85c` → exit 0 (ancestor) + baseline≠첫코드 SHA ✓.
+사용자 재배포 + KO 부팅 후 `C:\Users\MW\Zomboid\console.txt` 검사 + 메뉴 육안:
+
+| surface | post_change_commit | comparison_result | verdict | 근거 |
+|---|---|---|---|---|
+| **Menu** | cb0b85c | **identical** (상세정보 탄산 동일; 좌측 열 빈 것은 검색"음료수" 필터 = expected_diff, 회귀 아님) | **PASS** | 사용자 스크린샷 비교 |
+| **Bootstrap** | cb0b85c | identical | **PASS** | `[Iris] Bootstrap complete` + 새 split 모듈 4개 로드 + Iris Lua error 0 |
+| **Tooltip** | cb0b85c | identical (lightweight) | **PASS** | 부팅 OK + 설명 렌더 정상(메뉴 상세정보가 동일 설명 소스); 9b가 툴팁/IrisMain 미변경 |
+
+→ 전 행 PASS + ancestor 충족 → **Change 9b = `complete`**.

@@ -2,7 +2,7 @@
 
 > 상위 계획: `docs/Iris/Iris_Refactoring_Plan.md` §6 Change 9b, §12.
 > 실행일: 2026-06-07. 브랜치: `iris-refactoring-phase6`. baseline_capture_commit `a5054f3`.
-> **Closeout State: `implemented_only` → `complete` 는 사용자 Menu QA 비교 PASS 시.**
+> **Closeout State: `complete`** (사용자 Menu QA 전 행 PASS, 2026-06-09; `phase9b_manual_qa_checklist.md` 참조).
 
 ## 분할 내역 (facade + verbatim, public 인터페이스·caller 불변)
 

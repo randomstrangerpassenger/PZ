@@ -1,2533 +1,1163 @@
 # DECISIONS.md
 
-> 상태: addendum trace-dedup compact v0.3 + addenda through 2026-06-05
+> 상태: current decision ledger / compact trace-dedup edition
 > 기준일: 2026-06-05
-> 상위 기준: `Philosophy.md`  
-> 목적: Pulse 생태계에서 이미 사실상 고정된 결정들을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
+> 상위 기준: `Philosophy.md`
+> 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
-> 편집 노트: 이 버전은 base decision ledger는 보존하고, 후행 ADDENDUM/closeout 항목은 heading·상태·핵심 결정·최소 결과 trace만 남기는 compact edition이다. 반복 evidence/hash/validation ceiling/non-decision 상세는 공통 앵커와 원본 archive read point로 흡수한다.
+> 편집 노트: 이 문서는 날짜순 회의록, closeout report, 실행 로그, ARCHITECTURE 대체물이 아니라 **current decision ledger**다. 기존 항목은 원래 heading 수를 보존하지 않고, 모듈별 decision family 중심으로 압축한다. 반복 evidence/hash/validation ceiling/non-decision 상세는 공통 앵커와 원본 archive read point로 흡수한다.
 
 ## 문서 규칙
 
-- 이 문서는 **할 일 목록**이 아니라 **이미 내려진 결정**을 기록한다.
-- 각 항목은 가능하면 `상태 / 결정 / 이유 / 영향`으로 적는다.
-- `Philosophy.md`와 충돌할 경우, 철학 문서가 우선한다.
-- 구현 세부 실험 로그는 여기 넣지 않고 별도 세션 노트로 분리한다.
-- 동일 쟁점에 후속 결정이 있으면, **가장 나중 날짜의 항목을 현재 authoritative read point** 로 읽는다. 이전 항목은 폐기 기록이 아니라 historical trace로 남긴다.
+* 이 문서는 **할 일 목록**이 아니라 **이미 내려진 결정**을 기록한다.
+* 이 문서의 기본 정렬 기준은 날짜가 아니라 **모듈 → decision family → current readpoint → predecessor trace**다.
+* 날짜는 삭제하지 않되, 항상 실제 결정일로 단정하지 않는다. 특히 2026-03-16 이후 문서화 과정에서 과거 판단이 한 날짜에 import되었을 수 있으므로, 날짜는 `origin / ledgered / imported / refined / sealed` 성격의 trace metadata로 읽는다.
+* 동일 decision family 안에서는 가장 나중 날짜가 아니라, 항목에 명시된 **current readpoint**를 authoritative 기준으로 읽는다.
+* 같은 round lifecycle은 하나로 합치고, 같은 날짜라도 decision family가 다르면 분리한다.
+* superseded / reopened / blocked / rejected 항목은 삭제하지 않고, current readpoint 아래의 **Predecessor trace**로 격하한다.
+* 각 항목은 가능하면 `상태 / 결정 / 현재 기준 / 영향 / Predecessor trace / Non-decision / Trace` 구조로 적는다. 필요 없는 필드는 생략할 수 있다.
+* 구현 세부 실험 로그, 반복 hash 목록, 전체 validation command, closeout 전문은 여기 넣지 않는다.
+* 검증 수치·hash·command는 current decision을 이해하는 데 필요한 **최소 결과 trace**로만 남긴다.
+* 후속 작업의 input이 되는 artifact path는 보존한다.
+* release readiness, runtime rollout, Workshop/public exposure, publish/runtime state mutation 오독 금지는 적극적으로 남긴다. 단, 반복 문구는 COMMON anchor로 흡수한다.
+* `Philosophy.md`와 충돌할 경우, `Philosophy.md`가 우선한다.
+
+## Compact Trace Anchors
+
+* 목적: 반복 evidence, validation ceiling, non-decision, hash/path 목록을 공통 앵커와 원본 archive read point로 흡수해 token cost를 낮춘다.
+* 보존: decision family heading / 날짜 trace / 상태 / 핵심 결정 / 현재 기준 / 최소 결과 trace / 후속 input artifact path / 특수 non-decision label.
+* 생략: 반복 artifact path/hash 목록, 전체 validation ceiling, 반복 비결정 문구, 세부 실행 로그, closeout 전문.
+* `COMMON-RELEASE-NONDECISION`: runtime rollout, deployed closeout, manual/in-game QA, Workshop/release readiness, public exposure, `ready_for_release` 선언 아님.
+* `COMMON-RUNTIME-SURFACE-NONMUTATION`: source facts/decisions, rendered text, runtime Lua, packaged Lua, bridge/runtime payload, `quality_state`, `publish_state`, `runtime_state` mutation 아님.
+* `COMMON-EVIDENCE-TRACE`: 상세 artifact/hash/validation command는 원본 `DECISIONS.md` archive read point에 보존된 것으로 읽는다.
+
+---
+## Pulse
+
+### Pulse Core — 얇고 중립적인 플랫폼
+
+* 상태: current readpoint / pre-ledger imported
+* 결정: Pulse Core는 **얇고 중립적인 모드로더 겸 플랫폼**으로 유지한다.
+* 현재 기준:
+
+  * Pulse는 특정 프로파일러, 최적화 모드, 킬러앱 전용 런처가 아니다.
+  * Pulse Core는 Echo, Fuse, Nerve, Iris, Frame, Cortex, Canvas 같은 하위 모듈을 참조하거나 의존하지 않는다.
+  * 하위 모듈 간 직접 참조도 금지한다.
+  * 하위 모듈 간 협력이 필요하면 Pulse capability 또는 SPI를 경유한다.
+  * Core는 공용 기반만 제공하고, 실제 관측/안정화/최적화/위키/팩 관리 로직은 각 모듈 내부에 둔다.
+  * Core에는 프로파일링, 엔진 최적화, Lua 최적화 로직을 넣지 않는다.
+* 영향: Pulse Core는 하위 모듈의 역할을 먹지 않고, 플랫폼 품질·호환성·진단 능력으로 1st-party 모드와 외부 모드를 받치는 기반층으로 남는다.
+* Trace:
+
+  * ledgered: 2026-03-16 documentation consolidation
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse — Hub & Spoke / SPI / 모듈 분리 원칙
+
+* 상태: current readpoint
+* 결정: Pulse 생태계의 기본 구조는 **Hub & Spoke + SPI 우선 구조**로 둔다.
+* 현재 기준:
+
+  * Pulse는 Hub이며, 하위 모듈은 Spoke다.
+  * 하위 모듈은 Pulse 기능을 참조할 수 있지만, Pulse는 하위 모듈을 참조하지 않는다.
+  * Echo는 관측, Fuse는 엔진 안정화, Nerve는 Lua 안정화, Iris는 위키형 정보 계층, Frame은 팩 상태 관리, Canvas는 리소스 적용 상태 관리로 분리한다.
+  * Core와 1st-party 모드는 `Pulse Core / pulse-profiler / pulse-engine-optim / pulse-lua-optim` 식으로 역할을 분리한다.
+  * 공용 확장 경로는 SPI 중심으로 설계한다.
+  * 구체 정책, helper, 편의 기능은 Core가 아니라 하위 모듈 또는 Cortex 같은 격리 구역으로 보낸다.
+* 영향: Pulse Core는 안정적인 surface를 제공하고, 구체 정책은 하위 모듈이나 외부 모드가 담당한다.
+* Trace:
+
+  * ledgered: 2026-03-16
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse — 호환성 / 성숙도 / Core 오염 방지
+
+* 상태: current readpoint
+* 결정: Pulse Core의 최우선 가치는 기능 수가 아니라 **호환성, 안정성, 진단 능력, 오염 방지**다.
+* 현재 기준:
+
+  * 타 모드와의 호환성을 1순위 원칙으로 둔다.
+  * Core 설계는 공격적인 정책/판단보다 충돌 완화, 진단, 안정성에 우선권을 둔다.
+  * 예외 격리, mixin 진단, API 안정성, DevMode/로깅은 상위 우선순위를 가진다.
+  * Pulse Core에는 helper/편의/가이드 성격 기능을 넣지 않는다.
+  * helper성 기능은 `Pulse에 있어도 되지 않나`라는 이유만으로 Core에 승격하지 않는다.
+  * 플랫폼 실패 회피의 핵심은 기능 수 보강이 아니라 **플랫폼 오염 방지와 설치·실행 마찰 제어**다.
+* 영향: Core는 끝까지 빈 기반에 가깝게 유지하고, 설치/실행 UX는 새 플랫폼을 강요하는 느낌보다 기존 플레이 흐름을 거의 바꾸지 않는 방향으로 설계한다.
+* Trace:
+
+  * ledgered: 2026-03-16
+  * refined: 2026-03-23 Core 오염 방지 재확정
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse — capability와 policy 분리
+
+* 상태: current readpoint
+* 결정: Pulse는 **측정값과 capability는 제공할 수 있지만, 정책·판단·편의 fast-path는 보유하지 않는다.**
+* 현재 기준:
+
+  * 허용: 거리, 상태, tick, phase, hook, state, DTO, observation event 같은 기반 surface.
+  * 금지: `근거리면 FULL`, `under pressure`, `이 모듈이 처리해야 함`, `이게 중요함` 같은 정책/판단.
+  * 실제 governor 정책은 Fuse/Nerve 같은 하위 모듈이 가진다.
+  * `IPulseDataBus`류의 범용 모드 간 실시간 중개 채널은 채택하지 않는다.
+  * 허용 가능한 것은 필요 시 observation event 표준화 수준까지다.
+* 영향: Pulse는 정책 주입이나 실시간 조정의 중심이 아니라, 모듈들이 자기 판단을 수행할 수 있게 하는 최소 기반 surface만 제공한다.
+* Trace:
+
+  * ledgered: 2026-03-17
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse — Primitive Data Sharing v3 / Echo-Fuse 경계
+
+* 상태: current readpoint
+* 결정: Primitive Data Sharing 리팩토링은 **객체 공유 제거 + Echo/Fuse 경계 고정**이라는 의미로 v3를 채택한다.
+* 현재 기준:
+
+  * `updateSnapshot()` 호출은 Echo 내부 tick 경로에서만 수행한다.
+  * 공용 계약은 raw observation 최소선으로 제한한다.
+  * `targetId`, `severity` 같은 snapshot 필드는 관측 계약으로만 사용한다.
+  * recommendation 생성과 실제 적용은 Fuse 내부 책임으로 남긴다.
+  * 기존 `OptimizationHint`류 경로가 남더라도 legacy 호환용이지 중심 경로가 되어서는 안 된다.
+* 영향: Echo는 관측자, Fuse는 판단자로 유지되며, Pulse는 양쪽을 실시간 정책 채널로 연결하지 않는다.
+* Trace:
+
+  * ledgered: 2026-03-17
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse — API 확장 원칙
+
+* 상태: current readpoint
+* 결정: Pulse API 확장은 API를 늘리기 위한 작업이 아니라, **바닐라의 기반 기능 후보 추출 → 진짜 기반인지 판정 → 중립적으로 노출 가능한 것만 API화**하는 순서로 진행한다.
+* 현재 기준:
+
+  * 초기 Pulse Core는 거대한 고레벨 정책 API보다 얇고 안정적인 공용 API를 우선한다.
+  * 기반 후보 추출 이전의 무차별 API 증설은 열지 않는다.
+  * API surface 평가는 언제나 `중립 노출 가능한가`를 마지막 게이트로 둔다.
+  * 구체 정책, 헬퍼, 편의 기능은 가능한 한 하위 모듈 또는 Cortex 격리 구역으로 미룬다.
+* 영향: Pulse API는 기반 capability로만 확장하며, 모듈별 정책이나 편의성 기능을 Core에 흡수하지 않는다.
+* Trace:
+
+  * ledgered: 2026-03-16
+  * refined: 2026-03-23
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse — 보수적 리팩토링 원칙
+
+* 상태: current readpoint
+* 결정: Pulse 생태계의 리팩토링은 아키텍처를 새로 그리는 작업이 아니라, **헌법·핫패스·외부 계약·실제 코드 상태를 깨지 않는 범위에서만 수행하는 보수적 정리 작업**으로 한정한다.
+* 현재 기준:
+
+  * 모든 리팩토링 로드맵은 `실제 코드 확인 후 축소/스킵 가능`을 전제로 한다.
+  * 핫패스·구조·DI·리포트 경계에 손대는 작업은 Phase 0 기준선 확보 없이는 착수하지 않는다.
+  * EchoProfiler는 `큰 클래스`라는 이유만으로 분해하지 않으며, hot-path field/method access 동등성이 증명될 때만 조건부로 연다.
+  * ReportDataCollector 계열은 외부 `Map<String, Object>` 반환 계약을 유지한다.
+  * FuseThrottleController는 이미 추출된 경계가 있으면 해당 stage를 스킵할 수 있으며, 추가 분해보다 실제 경계 확인을 우선한다.
+  * DI는 전면 전환 프로젝트가 아니라, 기존 `ServiceLocator / PulseServices / 생성자 주입 / fallback` 공존 현실을 규약화하고 누락을 정리하는 과제다.
+  * 새 GuardTest, 새 ServiceLocator, 새 snapshot infra, 성급한 BaseConfig 공통 모듈보다 기존 `HubSpokeBoundaryTest`, `PulseServiceLocator`, 하드코딩 기대값 테스트, 인터페이스 통일을 우선 강화한다.
+  * 경계 테스트는 실제 존재하고 현재 리팩토링 대상인 Echo, Fuse, Nerve 기준으로만 고정한다.
+* 영향: 과잉 구조 개편, `getInstance()` 전면 철거, fallback 전면 제거, 미래 모듈을 가정한 경계 규칙 확대는 기본값으로 금지한다.
+* Trace:
+
+  * sealed: 2026-03-20
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse EventBus — 3계층 현실 경로와 COW 등록 구조
+
+* 상태: current readpoint
+* 결정: EventBus 리팩토링은 이상적 타입 순수성을 목표로 하지 않고, **핫패스를 빠르게 만들면서도 ClassLoader/모드 호환성을 유지하는 현실 경로**로 진행한다.
+* 현재 기준:
+
+  * 호출 경로 우선순위는 `direct class lookup → FQCN O(1) fallback → 제한적 reflection/호환 호출` 순서다.
+  * FQCN/reflection 완전 제거는 현재 목표가 아니다.
+  * 리스너 저장 구조는 단일 `CopyOnWriteArrayList`를 유지한다.
+  * 정렬은 등록 시점 `add + sort`로 끝내는 방향을 우선한다.
+  * immutable list 교체, compute 내부 새 리스트 생성, 이진 삽입 중심 복잡 구현은 기본 노선으로 채택하지 않는다.
+* 영향: EventBus 작업은 기본 경로 비용 절감과 fallback 비용 제한을 우선하며, 기존 COW 성질을 깨는 구조 개편은 피한다.
+* Trace:
+
+  * sealed: 2026-03-20
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse — 공개 전략과 플랫폼 후노출
+
+* 상태: current readpoint
+* 결정: Pulse의 채택 전략은 플랫폼 선공개가 아니라, **제품이 먼저 가치를 입증하고 플랫폼은 그 기반으로 후노출되는 방식**으로 둔다.
+* 현재 기준:
+
+  * Pulse는 Leaf/Avrix/Storm류의 전면형 Java 로더 경쟁 구도로 자신을 정의하지 않는다.
+  * Pulse는 킬러앱이 먼저 가치를 입증한 뒤 나중에 기반으로 드러나는 **샌드박스형 공통 지반**으로 남는다.
+  * 플랫폼 서사는 제품보다 앞서지 않는다.
+  * 공개/README/배포 문구는 `새 표준 선언`보다 `기반 품질이 결과물을 받친다`는 방향으로 정리한다.
+  * 공개 전략은 **Iris → Nerve → Fuse → Pulse+Echo → Nerve+ / Fuse Pulse 의존 전환** 순의 역방향 공개를 기본선으로 둔다.
+  * `플랫폼 먼저 공개` 루트는 기본 전략에서 닫는다.
+* 영향: Pulse는 검증된 결과물 묶음의 공통 기반으로 소개하며, 플랫폼 자체를 먼저 홍보하거나 특정 킬러앱 전용 런처처럼 보이게 하지 않는다.
+* Trace:
+
+  * ledgered: 2026-03-16
+  * refined: 2026-03-23
+  * COMMON-RELEASE-NONDECISION.
+
+### Pulse — Philosophy.md와 공개 전략 문서 분리
+
+* 상태: current readpoint
+* 결정: `Philosophy.md`는 구조 원칙, 금지선, 역할 경계 중심의 **헌법 문서**로 유지하고, 킬러앱/가능 구역/홍보 문구 같은 공개 기대 관리 요소는 별도 `ReleaseStrategy` 계열 문서로 분리한다.
+* 영향: 향후 공개 메시지는 헌법 본문이 아니라 별도 전략 문서에서 관리하고, 헌법은 `무엇을 하지 않는가`를 더 또렷하게 유지한다.
+* Trace:
+
+  * ledgered: 2026-03-17
+  * COMMON-EVIDENCE-TRACE.
+
+### Pulse — 브랜드 후보
+
+* 상태: working name / unresolved legal-final
+* 결정: 브랜드 후보군 중 현재 기준 최우선 후보는 `Pulse`다.
+* 영향: 최종 확정 전까지는 Pulse를 작업명/우세 후보로 사용하되, 법적 검토나 최종 확정으로 취급하지 않는다.
+* Trace:
+
+  * ledgered: 2026-03-16
+  * COMMON-EVIDENCE-TRACE.
+
+---
+## Echo
+
+### Echo — 순수 관측자 원칙
+
+* 상태: current readpoint
+* 결정: Echo는 Fuse/Nerve를 움직이는 정책 엔진이 아니라, **시스템을 흔들지 않는 순수 관측자**로 둔다.
+* 현재 기준:
+
+  * Echo는 병목과 상태를 기록하지만, Fuse/Nerve의 행동을 실시간으로 유도하지 않는다.
+  * Echo가 `severity / top_target / insight / hint / recommendation`류 값을 통해 Fuse 행동을 실질적으로 유도하는 구조는 직접 추천 API가 아니더라도 금지한다.
+  * Echo 관측값은 사후 분석과 리포트 판독 자료로만 쓰며, Fuse/Nerve는 각자 자기 내부 pressure signal, governor, guard 판단으로 동작한다.
+* 영향: Echo는 사실을 기록하고, Fuse/Nerve는 자기 내부 정책만으로 행동을 결정한다.
+* Trace:
+
+  * ledgered: 2026-03-17
+  * COMMON-EVIDENCE-TRACE.
+
+### Echo — 핫패스 무해화 원칙
+
+* 상태: current readpoint / closed implementation round trace
+* 결정: 과거 Bundle A 라운드는 current 설계 단위가 아니라, Echo 핫패스에서 **No-Throw / Fast-Exit / Fail-Soft / Safe Default** 원칙을 회복한 무해화 라운드로만 보존한다.
+* 현재 기준:
+
+  * Echo 핫패스는 다음 4종으로 고정한다.
+
+    * tick 계측 entry/exit
+    * scope push/pop
+    * `SpikeLog.logSpike`
+    * deep analysis 훅 콜백 수신부
+  * 이 경로에서는 `PulseServices`, `EchoConfig` 직접 조회, ServiceLocator/DI, 파일/JSON/문자열 포매팅, `synchronized`/blocking queue, MXBean/Thread/StackWalker, throw/catch 남용을 금지한다.
+  * 핫패스는 외부 설정/서비스를 직접 읽지 않고, 느린 경로에서 갱신되는 `EchoConfigSnapshot` + `EchoRuntimeState` 구조를 사용한다.
+  * `volatile` 단일 스냅샷 참조를 기본으로 두며, `current()`는 null/throw를 허용하지 않는다.
+  * release 운영 경로는 완전 무음이어야 하며, debug mode에서만 세션당 1회 원샷 경고를 허용한다.
+  * Spike context capture는 옵션적 느린 경로로 격리하고, CAS 기반 rate-limit와 완전 무음 실패를 기본으로 둔다.
+* 영향: Echo 핫패스는 문서로 봉인된 감사 대상이며, Bundle A 이후 핫패스 변경은 PR 수준 사유 없이는 다시 열지 않는다.
+* Trace:
+
+  * closed round: 2026-03-17 Bundle A
+  * COMMON-EVIDENCE-TRACE.
+
+### Echo — 느린 경로 / 디버그 경로 격리
+
+* 상태: current readpoint
+* 결정: Echo의 운영 경로와 느린 진단 경로는 의식적으로 분리한다.
+* 현재 기준:
+
+  * 릴리즈에서는 운영 경로가 완전 무음이어야 한다.
+  * 디버그 모드에서만 제한적 원샷 경고를 허용한다.
+  * `safeContextCapture()`는 실패를 절대 전파하지 않는다.
+  * 느린 경로의 진단 기능은 핫패스 안정성을 침해하지 않는 범위에서만 허용한다.
+* 영향: 개발 단서는 제한적으로 제공하되, Echo가 관측 과정에서 게임 실행이나 Fuse/Nerve 동작을 흔들지 않도록 한다.
+* Trace: COMMON-EVIDENCE-TRACE.
+
+### Echo — provider 증명 파이프와 `0` 분해 규약
+
+* 상태: current readpoint / closed implementation round trace
+* 결정: 과거 Bundle B 라운드는 current 설계 단위가 아니라, **Fuse 개입 리포트에서 `0`의 의미를 구조적으로 분해 가능하게 만든 증명 파이프 복구 라운드**로만 보존한다.
+* 현재 기준:
+
+  * Echo 리포트는 Fuse가 실제로 동작했는지, 왜 동작했는지, 왜 아무 개입이 없었는지, `0`이 실제 무개입인지 provider/snapshot/read 실패인지 구분 가능해야 한다.
+  * 최소 증명 단위는 `present / active / snapshot_ok / total_interventions / reason_counts`로 고정한다.
+  * `0`은 단일 숫자가 아니라, 위 필드와 `error_code`를 통해 무개입 / 비활성 / 미등록 / 조회 실패 / snapshot 실패로 분해되어야 한다.
+  * `present`는 provider가 보고하지 않고, **Echo가 registry 조회 결과로만 결정**한다.
+  * `active`, `snapshot_ok`, `total_interventions`, `reason_counts`, `error_code`는 provider snapshot이 자기 상태로 보고한다.
+  * `providers` 섹션은 deep analysis 옵션과 무관하게 항상 기록한다.
+  * `echo_profilers` 같은 부가 분석은 옵션일 수 있지만, provider 증명 파이프는 옵션화하지 않는다.
+* 영향: Echo는 “부재의 증명은 관측자만 할 수 있다”는 원칙 아래, provider와 Echo의 책임을 리포트 필드 단위로 분리한다.
+* Trace:
+
+  * closed round: 2026-03-17 Bundle B
+  * COMMON-EVIDENCE-TRACE.
+
+### Echo — 과거 Bundle A/B/C 명칭 처리
+
+* 상태: closed lifecycle trace
+* 결정: Bundle A/B/C는 현재 Echo의 모듈 구조나 진행 중인 설계 단위가 아니라, **이미 끝난 구현·검증 라운드의 명칭**으로만 보존한다.
+* 현재 읽기:
+
+  * Bundle A는 Echo 핫패스 무해화 라운드였다.
+  * Bundle B는 Echo/Fuse 리포트 증명 파이프 복구 라운드였다.
+  * Bundle C는 Echo의 current 설계 단위가 아니라 Fuse 쪽 sustained overload 자기규제 라운드의 명칭으로만 읽는다.
+  * `A 다음 B`, `B 다음 C`, `C를 고도화` 같은 식으로 현재 작업 순서를 열지 않는다.
+* 영향: Echo 섹션에서 Bundle 명칭은 current heading이 아니라 predecessor trace로만 남기며, current readpoint는 순수 관측자 원칙과 핫패스/리포트 계약이다.
+* Trace:
+
+  * closed lifecycle: 2026-03-17 ~ 2026-03-20
+  * COMMON-EVIDENCE-TRACE.
 
 
-## Compact Addendum Trace Anchors
+---
+## Fuse
 
-- 목적: 후행 ADDENDUM/closeout 항목의 반복 evidence, validation ceiling, non-decision, hash/path 목록을 원본 archive read point로 흡수해 token cost를 낮춘다.
-- 보존: heading / 날짜 / 순서 / 상태 / 핵심 결정 / 최소 결과 trace / 특수 trace label.
-- 생략: 반복 artifact path/hash 목록, 전체 validation ceiling, 반복 비결정 목록, 세부 실행 로그.
-- `COMMON-RELEASE-NONDECISION`: runtime rollout, deployed closeout, manual/in-game QA, Workshop/release readiness, `ready_for_release` 선언 아님.
-- `COMMON-RUNTIME-SURFACE-NONMUTATION`: source facts/decisions, rendered text, runtime Lua, packaged Lua, bridge/runtime payload, `quality_state`, `publish_state`, `runtime_state` mutation 아님.
-- `COMMON-EVIDENCE-TRACE`: 상세 artifact/hash/validation command는 원본 `DECISIONS.md` archive read point에 보존된 것으로 읽는다.
+### Fuse — 엔진 안정성 레이어
+
+* 상태: current readpoint / frozen-mainline
+* 결정: Fuse는 `AI 최적화 모드`, `평균 FPS 향상 모드`, `정책 엔진`, `엔진 포크`가 아니라, **AI 부하 폭주로 인한 엔진 붕괴 상태를 차단하는 semantic-preserving 엔진 안정성 레이어**로 둔다.
+* 현재 기준:
+
+  * 기본 레인은 **semantic-preserving**이다. 즉, 동일 결과를 더 싸게 만들거나 붕괴 상태에서 빠져나오는 최소 안정화만 허용한다.
+  * 결과나 규칙이 달라질 수 있는 근사, 공격적 알고리즘 교체, 엔진 포크, AI 의미 변화는 기본 레인에서 제외한다.
+  * 외부 메시지는 `평균 FPS 상승`보다 `평균 FPS 방어`, `끊김 감소`, `프레임 붕괴 방지`, `더 안정적인 플레이`를 우선한다.
+  * Fuse는 PZ 전체 최적화기가 아니라, 비용 폭주가 확인된 구역에서 pressure signal, governor, backoff, cooldown, fail-soft를 이용해 붕괴 상태를 줄이는 모드다.
+* 영향: README, 공개 문구, 테스트 설명은 `AI를 최적화한다`보다 `붕괴 상태를 차단한다`, `계속 망가진 상태를 오래 끌지 않게 한다`는 방향으로 정리한다.
+* Trace:
+
+  * ledgered: 2026-03-17
+  * refined: 2026-03-20 실전 증명 이후 엔진 안정성 레이어로 재봉인
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — 현재 운영 상태: 확장보다 동결 / 회귀 검증 / 설명 정리
+
+* 상태: current readpoint
+* 결정: Fuse는 과거 구현 라운드와 tick duration 입력 버그 수정이 끝난 현재, **추가 기능을 키우는 개발축이 아니라 동결·회귀 검증·설명 정리의 대상**으로 본다.
+* 현재 기준:
+
+  * 후속 작업은 새 정책 추가보다 regression guard, 문서화, README/포지셔닝, 판독 규칙 고정에 집중한다.
+  * `autoOptimize` 같은 자동 판단 / 자동 적용 / 임계값 결정 경로는 남겨두지 않는다. 필요하면 `AUTO_OPTIMIZE_FROZEN`처럼 다시 켜기 어렵게 봉인한다.
+  * tick-local cache, dedup, early-out, 자료구조 정리 같은 합헌적 미세 최적화는 이론상 열려 있으나, 현 시점 메인라인 우선순위로 채택하지 않는다.
+  * Fuse 동결은 영구 폐쇄가 아니라 전략적 보류다. 필요하면 Area 1·7의 누락/봉인 상태 점검을 위한 **보수적 정산 작업**으로만 재진입할 수 있다.
+* 영향: Fuse는 `미지 탐사 재개`가 아니라 **이미 알고 있는 위험 지대의 봉인 상태 확인** 범위에서만 후속 재진입을 검토한다.
+* Trace:
+
+  * sealed: 2026-03-20
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — Echo와의 경계: 관측은 Echo, 판단은 Fuse
+
+* 상태: current readpoint
+* 결정: Echo는 병목의 **관측치만** 제공하고, Fuse는 임계값 판단 / recommendation 생성 / optimization 적용을 자기 내부에서만 수행한다.
+* 현재 기준:
+
+  * Echo는 category / targetId / severity 같은 raw observation에 머문다.
+  * Echo가 `severity / top_target / insight / hint / recommendation`류 값을 통해 Fuse 행동을 실질적으로 유도하는 구조는 직접 추천 API가 아니더라도 금지한다.
+  * Echo 관측값을 Fuse의 실시간 정책 입력으로 직접 사용하는 구조는 채택하지 않는다.
+  * Fuse는 자기 pressure signal과 내부 상태를 기준으로 동작한다.
+* 영향: Echo는 사실을 기록하고, Fuse는 자기 내부 정책만으로 행동을 결정한다.
+* Trace:
+
+  * ledgered: 2026-03-17
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — 과거 구현 라운드 A/B/C는 current 설계 단위가 아니라 closed lifecycle trace다
+
+* 상태: closed implementation round trace
+* 결정: 과거의 Bundle A/B/C 명칭은 현재 Fuse의 설계 단위가 아니라, **이미 끝난 구현·검증 라운드의 명칭**으로만 보존한다.
+* 현재 읽기:
+
+  * A/B/C는 새 작업 순서나 current architecture가 아니라, 과거에 `무해화 → 증명 파이프 복구 → sustained overload 자기규제`를 순차적으로 닫기 위해 사용한 라운드명이다.
+  * 이 명칭들은 후속 작업을 여는 근거가 아니라, 현재 Fuse가 왜 동결·회귀 검증·설명 정리 상태인지 설명하는 predecessor trace다.
+  * `A/B/C를 다시 연다`, `B 다음 C를 해야 한다`, `C를 고도화한다`는 식으로 읽지 않는다.
+* 영향: DECISIONS.md에서 Bundle A/B/C는 current readpoint heading으로 승격하지 않고, 닫힌 라운드의 최소 결과 trace로만 남긴다.
+* Trace:
+
+  * closed lifecycle: 2026-03-17 ~ 2026-03-20
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — 과거 증명 파이프 복구 라운드의 결과만 보존한다
+
+* 상태: predecessor trace / closed proof layer
+* 결정: 과거 증명 파이프 복구 라운드는 **Fuse가 실제로 동작했는지, 왜 동작했는지, 왜 아무 개입이 없었는지, `0`이 실제 무개입인지 provider/snapshot/read 실패인지**를 Echo 리포트로 구분 가능하게 만든 라운드로 닫는다.
+* 보존할 결과:
+
+  * 최소 증명 단위는 `present / active / snapshot_ok / total_interventions / reason_counts`였다.
+  * `0`은 단일 숫자가 아니라, `present / active / snapshot_ok / total_interventions / reason_counts / error_code`를 통해 무개입 / 비활성 / 미등록 / 조회 실패 / snapshot 실패로 분해되어야 한다는 규약을 남긴다.
+  * `providers` 섹션과 핵심 증명 필드(`present / active / snapshot_ok / error_code / reason_stats`)는 후속 행동 레이어가 재설계하지 않는 동결 계약으로 취급한다.
+* 현재 읽기:
+
+  * 이 라운드는 current 개발축이 아니라, Fuse 리포트 판독을 가능하게 만든 닫힌 증명 계층이다.
+  * 행동 정책 수정이나 새 개입 설계는 이 라운드의 current 의미가 아니다.
+* 영향: 이후 Fuse 리포트에서 `0`을 단정적으로 해석하지 않고, provider/snapshot/read 상태와 함께 판독한다.
+* Trace:
+
+  * closed: 2026-03-17
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — 과거 sustained overload 자기규제 라운드의 결과만 보존한다
+
+* 상태: predecessor trace / proven and sealed
+* 결정: 과거 sustained overload 자기규제 라운드는 Fuse가 ACTIVE에 너무 오래 붙어 지속 잔렉을 만들 수 있을 때, **더 강하게 개입하지 않고 손을 떼는 안전장치**를 닫은 라운드로 보존한다.
+* 보존할 결과:
+
+  * Fuse는 Burst stabilizer로 정의하고, sustained overload에서는 개입 강화가 아니라 **PASSTHROUGH / retreat**를 기본 정책으로 둔다.
+  * sustained overload 대응의 핵심은 `Sustained 감지 + Early Exit + ACTIVE 상한 + COOLDOWN + PASSTHROUGH 강제 복귀`였다.
+  * sustained 감지는 **ACTIVE 지속 시간 상한**과 **hard limit streak** 두 축으로만 본다.
+  * 좀비 수, AI 무게, 외부 원인 같은 해석 기반 신호는 v1 범위에서 제외했다.
+  * `isPassthrough()` 같은 기존 상태 의미는 재정의하지 않는다.
+  * COOLDOWN은 평시 상태가 아니라 **개입 금지 상태**로만 취급한다.
+  * ACTIVE / COOLDOWN / PASSTHROUGH 전이는 `transitionTo()` 같은 단일 관문에서만 수행한다.
+  * hard limit streak는 `beginTick reset → hard limit hit에서 set → endTick에서 hit가 없을 때만 miss`의 3점 규약으로 봉인한다.
+* 보존할 성공 판정:
+
+  * `ACTIVE 장시간 유지 감소`
+  * `PASSTHROUGH 강제 복귀 확인`
+  * `hard_limit 연속 발생 감소`
+  * `rolling stats 축적 → ACTIVE 진입 → 개입 기록 → Early Exit → COOLDOWN 복귀`의 관측
+  * `p50 / FPS / 평균 성능`은 참고 지표일 뿐 공식 판정 기준이 아니었다.
+* 현재 읽기:
+
+  * 이 라운드는 current 고도화 과제가 아니라 이미 증명·봉인된 predecessor trace다.
+  * 이후 Fuse 운영은 새 sustained 정책 추가가 아니라, 이 자기규제 결과가 회귀하지 않는지 확인하는 쪽이다.
+* Trace:
+
+  * proven: 2026-03-20 Stress 전장 관측
+  * input bug fixed: AdaptiveGate가 Fuse 내부 처리 시간에 가까운 값이 아니라 실제 tick duration을 보도록 수정 필요 판정
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — Area 1 / Area 7 중심축
+
+* 상태: current readpoint / conservative re-entry candidate
+* 결정: Fuse의 핵심 실전 가치와 보수적 재진입 후보는 **Area 1(좀비 AI / 업데이트 스텝)** 과 **Area 7(경로탐색 / 충돌 / 물리)** 축에 둔다.
+* 현재 기준:
+
+  * Area 7은 `guard / limit / defer / deduplicate / stabilize`만 허용하는 semantic-preserving 안정화 축으로 완료 판정한다.
+  * Area 7은 신규 탐색 축이 아니라 유지·회귀 관리 대상으로 전환한다.
+  * 경로 알고리즘 변경, 충돌 규칙 변경, 물리 결과 변경, AI 의미 변화는 기본 레인에서 제외한다.
+  * Area 7 1차 범위에서는 `IPathfindingPolicy`류의 Pulse 정책 인터페이스, `/fuse status` 같은 UX/명령 체계, `LOSThrottleGuard`, 결과 변화로 이어질 수 있는 `NavMeshQueryGuard` null 반환, TTL 2틱 이상의 collision memo를 채택하지 않는다.
+  * Pulse는 capability만 제공하고, Fuse Area 7은 defer-only / TTL=1 / fail-safe 중심의 안정화 설계로 고정한다.
+* 영향: Fuse 재진입이 필요하다면 미지 탐사가 아니라 Area 1·7의 봉인 상태 확인, 회귀 방지, 누락 정산으로 한정한다.
+* Trace:
+
+  * Area 7 completed: 2026-03-17
+  * Area 1/7 priority sealed: 2026-03-17
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — Area 8 / Area 10은 메인라인 Guard가 아니라 종료·계측 잔존 surface
+
+* 상태: current readpoint / completed then demoted
+* 결정: Fuse의 Area 8(Save / IO Stall Guard)과 Area 10(GC / Allocation Pressure)은 완료 흔적을 인정하되, **메인라인 핵심 Guard로 유지하지 않고 제거/동결 방향을 기본 방침**으로 둔다.
+* 현재 기준:
+
+  * Area 8은 `SaveEventMixin`, `PreSaveEvent / PostSaveEvent`, `SaveEventState`, mixin 등록까지 실배선이 닫힌 상태를 완료 기준으로 인정한다.
+  * Area 10은 GC를 제거하는 모드가 아니라, GC/heap pressure가 시스템을 무너뜨리는지 관측·판정·완충 가능한 상태를 만드는 것으로 완료 판정했다.
+  * 그러나 IO/GC Guard는 mainline 핵심 기능으로 유지하지 않는다.
+  * enum, reason, removed 표기, 리포트/로그용 계측·분류 흔적은 보수적으로 유지할 수 있다.
+  * 재도입은 실험 브랜치에서 좁은 조건을 충족할 때만 검토한다.
+* 영향: Area 8/10은 신규 구현 축이 아니라 책임 경계 확인 후 종료된 영역이며, mainline에서는 IO/GC 튜닝 반복보다 제거 실행과 계측 유지 범위 확정을 우선한다.
+* Closed validation trace:
+
+  * C 실전형 IO/GC OFF/ON 비교는 추가 반복 없이 종료한다.
+  * 종료 이유는 효과가 없어서 포기가 아니라, 무엇이 Fuse 책임 경계 밖인지 충분히 밝혀졌기 때문이다.
+* Trace:
+
+  * completed: 2026-03-17
+  * demoted: 2026-03-17 IO/GC Guard mainline 종료
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — 검증 시나리오는 current task가 아니라 closed validation trace다
+
+* 상태: closed validation trace
+* 결정: S1~S5, Golden, Stress/Baseline/MP, OFF/ON 쌍 검증은 현재 해야 할 작업 목록이 아니라, **Fuse의 성격과 책임 경계를 닫는 데 사용된 검증 프레임 / 증거 trace**로 읽는다.
+* 현재 읽기:
+
+  * S1~S4 싱글 시나리오는 단순 성능 측정이 아니라 구조 검증선으로 정의되었으나, 현재는 future task가 아니라 닫힌 검증 trace다.
+  * S1은 Fuse의 구조적 개입 증명, S2는 스트리밍/이동 경계 비개입 확인, S3는 바닐라 Lua 상시 병목 부정선, S4는 회귀/안정성 게이트로 쓰인 predecessor trace다.
+  * S5 중심 멀티 검증과 MP 데이터 수집/재잠금 순서는 현재 우선순위가 아니라, 당시 멀티 검증 범위 축소와 책임 경계 확인을 위한 닫힌 운영 trace다.
+  * Golden 검증은 실제 인게임 플레이로 재현·유지 가능한 시나리오만 인정한다는 기준으로 남긴다.
+  * 억지 치트 구성이나 플레이 불가능한 고정 병목은 Golden 증거로 채택하지 않는다.
+  * Stress / Baseline / MP의 2+1 체계는 현재 새 실험 계획이 아니라, 기존 A/B/C식 분류를 정리한 closed validation framework다.
+  * 약한 A 계열 OFF/ON 데이터는 공식 Stress 기준선이 아니라 Baseline / Non-Interference 참고 자료로 격하 보관한다.
+* 영향: 앞으로 DECISIONS.md에서 S1/S4/S5 같은 시나리오를 `다음에 해야 할 일`처럼 읽지 않는다. 필요한 경우 regression evidence나 historical validation trace로만 참조한다.
+* Trace:
+
+  * S1~S4 role sealed: 2026-03-17
+  * S5 / MP scope reduced: 2026-03-17
+  * 2+1 framework refined: 2026-03-20
+  * Stress proof completed: 2026-03-20
+  * COMMON-EVIDENCE-TRACE.
+
+### Fuse — 테스트 전략은 학술형 대규모 반복이 아니라 운영형 검증이었다
+
+* 상태: predecessor/current validation principle
+* 결정: Fuse 테스트 전략은 학술형 대규모 반복 실험이 아니라, **폭주 재현 가능성이 높은 소수 시나리오에서 OFF/ON 중심으로 개입 경로와 의미 보존을 확인하는 운영형 검증**으로 정리한다.
+* 현재 기준:
+
+  * 이 항목은 새 테스트 캠페인 지시가 아니라, 과거 검증을 해석하는 원칙으로 남긴다.
+  * 공식 판정은 평균 성능보다 구조 변화, 개입 경로 발동, 의미 보존, 회귀 여부에 둔다.
+  * 시나리오 수는 소수로 압축하고, 전체 테스트는 재현성과 회귀 감시에 초점을 둔다.
+* 영향: 이후 Fuse 검증을 다시 열더라도, 목적은 학술적 유의성 확보가 아니라 봉인된 guard가 의미 불변·회귀 없음·책임 경계 준수를 만족하는지 확인하는 것이다.
+* Trace: COMMON-EVIDENCE-TRACE.
+
+### Fuse / Nerve — 프리즈 책임 경계
+
+* 상태: current readpoint
+* 결정: `Fuse가 못한 프리즈를 Nerve가 대신 해결한다`는 식으로 역할을 잇지 않는다.
+* 현재 기준:
+
+  * Fuse는 엔진 측에서 분산 가능한 연쇄 폭주와 sustained overload 대응을 다룬다.
+  * Nerve는 Lua 이벤트 폭주 / 중첩 / 중복 트리거 조건을 줄일 수 있지만, IO/GC 자체를 직접 흡수하거나 Fuse의 실패를 대체하는 역할로 두지 않는다.
+  * 현재 Nerve의 `research / Failure Atlas` 프레이밍은 폐기되었으므로, Fuse/Nerve 경계 설명에서도 이를 current 근거로 쓰지 않는다.
+* 영향: Fuse와 Nerve는 서로의 실패를 메우는 관계가 아니라, 각자 다른 failure surface를 보수적으로 제한하는 별도 안정성 축으로 읽는다.
+* Trace:
+
+  * ledgered: 2026-03-17
+  * Nerve research framing rejected: later readpoint
+  * COMMON-EVIDENCE-TRACE.
+
+---
+## Nerve
+
+### Nerve — Lua 제어면 기반 선택적 안정성 Guard
+
+* 상태: current readpoint / pre-ledger imported + 2026-03-20 refinements
+* 결정: Nerve는 `Lua 병목 해결 모드`, `주력 성능 모듈`, `연구 장치`, `Failure Atlas 구축 프로젝트`가 아니라, **Lua를 제어면으로 사용해 이벤트 / 모드 상호작용 / 동기화 레이어의 스파이크와 작업 겹침을 완충하는 선택적 안정성 Guard**로 둔다.
+* 현재 기준:
+
+  * 목표는 Lua 자체를 깎는 것이 아니라, Lua 레벨에서 시스템적 지연·충돌·중첩 트리거를 줄이는 것이다.
+  * 평균 FPS 향상보다 멀티/모드팩 환경의 선택적 완충, fail-soft, guard, same-tick retreat, 의미 불변을 우선한다.
+  * 성공적인 S5가 나오더라도 필수 최적화 모듈로 승격하지 않으며, 조용한 환경에서는 dormant/selective 구조를 유지한다.
+  * `Fuse가 못한 프리즈를 Nerve가 대신 해결한다`는 식으로 역할을 잇지 않는다.
+  * Fuse는 엔진 측 분산 가능한 연쇄 폭주를 다루고, Nerve는 그런 프리즈를 유발할 수 있는 Lua 이벤트 폭주 / 중첩 / 중복의 트리거 조건을 줄이는 쪽으로 한정한다.
+* 영향: Nerve 로드맵과 공개 전략은 성능 약속이 아니라 선택적 안정성, 보수적 개입, 의미 불변, 비개입 기준, 멀티/모드팩 환경의 guard 성격에 맞춘다.
+* Rejected predecessor trace:
+
+  * 2026-03-17 ~ 2026-03-20: `Failure Atlas 구축`, `연구 단계`, `연구 장치`, `자연 발현 실패 수집`, `성공 기법이 아니라 실패 귀속` 계열 표현은 현재 Nerve의 목적성과 맞지 않으므로 current readpoint에서 폐기한다.
+  * `Nerve는 완전한 무의 공백지대가 아니라 직접 이식 가능한 답안이 없는 공백지대`라는 표현도 current 제품 정의가 아니라 폐기된 연구 프레이밍의 predecessor trace로만 남긴다.
+* Trace:
+
+  * origin: pre-ledger conversation, exact date unresolved
+  * ledgered: 2026-03-17 documentation consolidation
+  * refined: 2026-03-20 Area 5/6/9 sealing rounds
+  * COMMON-EVIDENCE-TRACE.
+
+### Nerve — 검증과 기준선 운용
+
+* 상태: current readpoint
+* 결정: Nerve의 검증은 실패 축적이나 연구 목적의 관측이 아니라, **봉인된 Area가 의미 불변 / fail-soft / 철수 조건 / 재현성을 만족하는지 확인하는 제품 검증**으로 둔다.
+* 현재 기준:
+
+  * 기본 기준선은 OFF다.
+  * `OFF가 더 안전`하다는 표현은 체감이 더 낫다는 뜻이 아니라, OFF가 더 단순하고 책임이 명확한 baseline이어야 한다는 뜻이다.
+  * Echo 로그는 실시간 정책 입력이 아니라 사후 확인 자료로만 쓴다.
+  * Echo 관측값을 Fuse/Nerve의 실시간 정책 입력으로 직접 사용하는 구조는 채택하지 않는다.
+  * Fuse/Nerve ON 비교는 새 연구 축을 여는 수단이 아니라, 봉인된 guard가 의도한 범위 안에서만 동작하는지 확인하는 검증 자료다.
+  * 멀티 세션 데이터는 Area 9를 연구 프로젝트로 키우기 위한 재료가 아니라, 유지/폐기 판단과 비개입 확인을 위한 운영 증거로만 쓴다.
+* 영향: Nerve의 산출물은 Failure Atlas가 아니라 `의미 불변 증명`, `발동 조건 증명`, `철수 조건 증명`, `비개입 증명`, `유지/폐기 판단`이다.
+* Rejected predecessor trace:
+
+  * 2026-03-17 ~ 2026-03-20: `Failure Atlas`, `연구 단계`, `자연 발현 실패 수집`, `실패 귀속 좌표계`는 current 목표에서 폐기한다.
+* Trace: COMMON-EVIDENCE-TRACE.
+
+### Nerve — 전장 개시 / 동결 / 고도화 규칙
+
+* 상태: current readpoint
+* 결정: Nerve는 Area 5 v0.1 Final 동결과 Area 6 v2.1 집행 기준을 중심으로 하며, 다음 전장은 자동으로 열지 않는다.
+* 현재 기준:
+
+  * 후속 전장은 반드시 `전장 판결 → 외부 조건 충족 확인 → 최소 스코프 정의 → v0.x 범위 결정` 순서로만 연다.
+  * 현재 단계의 `고도화`는 새 기능 추가가 아니라, 기존 Area 5/6 개입 경로가 실제로 트리거되고 의미 불변으로 동작하며 재현 가능한지를 증명하는 **증명 강화**다.
+  * Area 8(IO/Save)과 Area 10(GC/메모리)은 헌법을 지키며 안정화하기 어려운 전장으로 보아 현 시점 제품 전장에서 제외한다.
+  * Area 9는 네트워크 제어기가 아니라 same-tick scoped stability guard로만 열린다.
+  * 새 기능 제안보다 문법, 재현성, fail-soft, 소스 청결성, 검증 환경 확보를 우선한다.
+* 영향: Nerve의 메인라인은 기능 확장보다 Area 5/6/9의 봉인된 스코프 유지, 런타임 증명, 유지/폐기 판단에 집중한다.
+* Trace: COMMON-EVIDENCE-TRACE.
+
+### Nerve Area 5 — UI / 인벤토리 안정화 v0.1 Final
+
+* 상태: current readpoint / frozen
+* 결정: Area 5는 **`데이터 즉시 반영 + 같은 틱 안의 시각 갱신 coalescing + 의미 불변 + fail-soft bypass`** 를 만족하는 합헌적 최소 구현(v0.1 Final)으로 동결한다.
+* 현재 기준:
+
+  * 채택: weak registry, snapshot 순회, executeFn optional fail-soft, bypass 고정.
+  * 금지: `defer`, `drop`, `isVisible()`/visibility 기반 flush 판단, UI 상태 기반 정책 판단, Pulse로의 기능 상향 이동, 틱 넘김 캐시, 조기 `ItemTransferBatcher`, 공격적 batching.
+  * v0.1은 현재 틱 안에서만 중복을 접는 최소 안정화로 유지한다.
+* 영향: Area 5는 완료보다 **동결** 상태로 읽으며, 이후 확장은 별도 전장 판결과 v0.x 정의 없이는 열지 않는다.
+* Trace:
+
+  * ledgered: 2026-03-17
+  * COMMON-EVIDENCE-TRACE.
+
+### Nerve Area 6 — 이벤트 디스패치 / 모드 훅 폭주 안전 레이어
+
+* 상태: current readpoint / v2.1 execution constitution
+* 결정: Area 6은 이벤트를 더 똑똑하게 정리하는 최적화 기능이나 실패 축적용 연구 장치가 아니라, **문제 발생 시 리스너 단위로 격리하고 곧바로 철수하는 보수적 안전 레이어**로 둔다.
+* 현재 기준:
+
+  * 기본값은 `enabled = false`, `strict = false`이며, 설치만으로 `drop / delay / reorder / auto policy`가 발생해서는 안 된다.
+  * 기본 기준선은 **설치 전/후 의미 동일**이다.
+  * `EventDeduplicator` 계열은 폐기하고, 핵심 가드는 `EventRecursionGuard` 같은 재귀/폭주 방지용 최후 가드로 축소한다.
+  * 기본은 report-only이며, `strict` opt-in에서만 last-resort drop을 예외적으로 허용한다.
+  * `Events.Add` 래핑 충돌이 감지되면 공존 체인 고도화보다 즉시 Area 6을 OFF하는 back-off를 택한다.
+  * 위험한 예외는 숨기지 않는다. incident / passthrough / rate-limited 로그를 남기며, fail-soft는 무음 은폐가 아니라 격리 사실의 명시적 노출을 뜻한다.
+  * 실제 트리거는 same-tick self-recursion 또는 listener exception으로 한정한다.
+  * 깊이, fan-out, 동일성 반복 같은 신호는 상시 제어 트리거가 아니라 incident 이후 근거를 보강하는 제한적 forensic surface로만 쓴다.
+  * 행동은 `리스너 단위 격리 후 same-tick pass-through 철수` 하나로 봉인한다.
+* 금지선:
+
+  * `EventPriority`, `Governor`, `Throttler`, 의미 기반 allowlist/whitelist
+  * `coalesce + flush`, 지연/재정렬
+  * Echo/Fuse와 연결된 자동 제어
+  * 넓은 global fallback
+  * 래퍼 체인 고도화
+  * Echo 힌트 기반 동적 조정
+  * 자동 threshold 튜닝
+  * Java strong reference/GC 방어
+  * 같은 모듈 내부 공유까지 Pulse SPI로 강제하는 구조
+* 현재 구현 해석:
+
+  * Area 6 v2.1은 합헌이고 실행 가능하지만, 전수 래핑과 listener-unit 격리 비용을 의식적으로 감수한 고위험 설계다.
+  * 승인은 안전 인증이 아니라 **책임을 인지한 실행 허가**다.
+  * 현재 구현이 문제 리스너 오류를 Nerve 내부에 가두고 incident를 수집하는 임시 방파제 상태라면, 다음 단계는 `incident 리스너 특정 → 개별 수정 또는 정리 → enabled=false 복구 여부 판정`이다.
+* 영향: Area 6 검토의 질문은 `무엇을 더 연구할 것인가`가 아니라 `봉인된 안전 레이어가 의미 불변 / fail-soft / 철수 조건을 지키는가`다.
+* Rejected predecessor trace:
+
+  * 2026-03-20: `Area 6은 실패 축적용 연구 장치` 해석은 current 목적성과 맞지 않아 폐기한다.
+* Trace:
+
+  * refined: 2026-03-20 Area 6 v2.1 sealing
+  * COMMON-EVIDENCE-TRACE.
+
+### Nerve Area 5·6 — 구현 전 재현성 게이트와 집행 기준
+
+* 상태: current readpoint
+* 결정: Area 5·6 구현 착수 전에는 기능 로드맵과 별도로 **레포 신뢰성 / 재현성 게이트(P0~P2)** 를 먼저 통과해야 한다.
+* 현재 기준:
+
+  * P0: conflict marker 제거, `NerveUtils.lua` 실코드 문법 확인
+  * P1: `OnTickEven`이 의도인지 실수인지 문서/주석/코드 중 하나로 고정
+  * P2: fail-soft / 예외 전파 정책을 코드 주석과 문장 수준에서 통일
+  * Area 5·6 실행계획 v2.1은 구현·리뷰·핸드오버의 공통 기준서로 사용한다.
+* 영향: Area 5·6 논의는 새 방향 발명이 아니라 v2.1 구현 충실도, 런타임 재현성, 소스 청결성 검증으로 이동한다.
+* Trace:
+
+  * adopted: 2026-03-20 Nerve Area 5·6 execution plan v2.1
+  * COMMON-EVIDENCE-TRACE.
+
+### Nerve Area 9 — 네트워크 제어기가 아니라 same-tick 철수형 보험 장치
+
+* 상태: current readpoint
+* 결정: Area 9는 멀티/네트워크를 제어하는 기능이 아니라, **네트워크 경계에서 Lua가 자폭하려는 순간 같은 틱 안에서만 물러나는 100% Lua 안정성 레이어**로 둔다.
+* 현재 기준:
+
+  * Area 9가 상대할 수 있는 붕괴는 호출 순서/타이밍 붕괴, 데이터 형태(shape) 붕괴, 중복/재진입 붕괴의 세 갈래다.
+  * 핑, 패킷, 재전송, 큐잉, 우선순위, 병합, 재정렬, 서버 CPU, 엔진 동기화 수정을 다루지 않는다.
+  * 기본 OFF를 유지한다.
+  * `네트워크 경계 한정`, `대상 opt-in / 행동 opt-in 분리`, `동일 틱 한정 철수`, `다음 틱 자동 복귀`, `incident-gated pcall only`를 봉인선으로 둔다.
+  * 구현 순서는 `켜도 아무 일도 안 하는 스캐폴딩 → observe → guarded path → quarantine`이다.
+  * 재진입, 중복, shape, depth, guarded pcall, tick retreat, 최소 포렌식의 1~7 가드는 먼저 관측·표시·계수로만 연결한다.
+  * 실제 행동은 단일 `reasonCode`와 same-tick retreat 하나로만 귀결한다.
+  * `이상 징후 = 즉시 차단` 구조는 금지한다.
+* 안전핀:
+
+  * `tickId` 단일 진실의 소스
+  * endpoints 폐쇄 목록
+  * incident 조건 단일 플래그
+  * quarantine key 범위 강제
+* 금지선:
+
+  * 핑 개선, 패킷 최적화, 서버 부하 분산, 엔진 동기화 수정
+  * 전역 상시 `pcall`
+  * 중요도/우선순위 판단
+  * 자동 블랙리스트/화이트리스트
+  * 영구 차단
+  * 지연/병합/재정렬
+  * Duplicate early-skip
+  * Shape hard-fail 기본 차단
+  * 비율/빈도/가중치 incident 계산
+  * quarantine 지속시간 확장
+  * 일반 이벤트/OnTick/UI/렌더 확장
+* 영향: Area 9는 추가 고도화가 아니라 동결·실전 운용 판단 단계로 넘긴다. 이후 우선순위는 실제 멀티 세션 데이터 수집과 유지/폐기 판정이다.
+* Predecessor trace:
+
+  * 2026-03-20: `Area 9는 관측·분류 단계까지만 허용` 해석은 same-tick scoped stability guard 정의로 대체됨.
+  * 2026-03-20: `Area 9는 지금 개발하면 안 되는 영역` 해석은 멀티 협업·재현 인프라 없이 네트워크 제어기로 키우지 않는다는 금지선으로 격하.
+  * 2026-03-20: `Area 9는 연구 프로젝트가 아니라 기초공사형 방어 프로그래밍으로 시작`이라는 표현은 current에서 `same-tick scoped stability guard 구현 기준`으로 흡수하고, 연구 대비 표현은 current readpoint에서 제거한다.
+* Non-decision: Area 9 동결은 release readiness, runtime rollout, public exposure, Workshop readiness 선언이 아니다.
+* Trace: COMMON-EVIDENCE-TRACE.
+
+### Nerve — 내부 전장 독립성과 자기 제한 정책
+
+* 상태: current readpoint
+* 결정: Nerve 내부 전장은 개념적으로 연속될 수 있어도 코드 차원의 직접 의존을 만들지 않으며, Nerve가 가질 수 있는 정책은 **자기 자신을 제한하는 정책**뿐이다.
+* 현재 기준:
+
+  * Area 5와 Area 6은 tick 경계 같은 최소 공통 개념만 공유할 수 있다.
+  * 한 Area가 다른 Area의 존재를 가정하거나 직접 참조하는 구조는 채택하지 않는다.
+  * 내부 공유는 Nerve 내부에서 처리하고, 타 모듈 공유만 Pulse SPI 경계를 따른다.
+  * 허용되는 정책은 `개입 조건 / 철수 조건 / 이 상황에서는 아예 개입하지 않음` 같은 자기 제한 정책이다.
+  * 게임 행동을 바꾸는 정책, 중요도 판단, FPS 기반 동작 변경, 스킵/주기 증가 같은 정책은 허용하지 않는다.
+  * ON이 일부 구간에서 체감 개선을 보이더라도 문서와 검증의 기준선은 OFF에 둔다.
+* 영향: Nerve는 자기 제약과 철수 조건만 가질 수 있으며, 게임 의미나 행동을 바꾸는 판단 엔진으로 확장하지 않는다.
+* Trace: COMMON-EVIDENCE-TRACE.
+
+### Nerve / Nerve+ — 배포 경계
+
+* 상태: current readpoint
+* 결정: Nerve는 Pulse 비의존 **핵심 기능 스탠드얼론**으로 유지하고, Nerve+만 Pulse 의존 **핵심 + 편의 계열**로 둔다.
+* 영향: 문서/홍보/배포에서 Nerve는 core, Nerve+는 convenience overlay로 설명한다. Fuse의 Pulse 의존 전환도 이 배포 전략과 함께 정렬한다.
+* Non-decision: 이 배포 경계는 즉시 release readiness, Workshop readiness, public exposure 선언이 아니다.
+* Trace:
+
+  * ledgered: 2026-03-23
+  * COMMON-RELEASE-NONDECISION.
+
 
 ---
 
-## 2026-03-16 — Pulse Core 정체성
+## Iris
 
-- 결정: Pulse Core는 **얇고 중립적인 모드로더 겸 플랫폼**으로 유지한다.
-- 영향: Pulse Core는 하위 모듈의 역할을 먹지 않으며, 플랫폼 품질로 1st-party 모드가 잘 돌아가게 해야 한다.
+### Iris — 검증된 compiler-viewer형 위키 시스템
 
-## 2026-03-16 — Hub & Spoke / 의존 방향
+- 상태: current readpoint / pre-ledger imported + 2026-03-25 system seal
+- 결정: Iris는 단순 정보 모드나 웹/위키 수동 보강형 위키가 아니라, 오프라인 빌드가 증거·분류·상호작용·설명 산출물을 컴파일하고 런타임 Lua가 이를 재구성해 보여주는 검증된 위키형 지식 시스템으로 둔다.
+- 현재 기준:
+  - 런타임 모드는 100% Lua 기반 위키형 viewer로 유지한다.
+  - Iris는 실용 정보를 제공하되 해석·권장·비교는 금지한다.
+  - Iris는 전체 아이템 위키 표면 위에 Evidence / 분류 / 설명 / 상호작용 정보를 얹는 구조다.
+  - 장기 방향은 "compiler -> viewer" 순도를 높이는 쪽이다.
+  - QG는 증거 시스템과 파생 산출물의 운영 검문 체계, DVF는 Layer 3 본문 검증 체계로 분리한다.
+  - tooltip은 DVF와 동급의 독립 지식원이 아니라 메뉴 본문의 핵심 추출 요약본이다.
+  - 외부 모드 데이터는 "원본 mod file -> 정규화 adapter/compiler -> 내부 Iris 표준 산출물 -> QG/DVF 소비" 순서로만 들어온다.
+  - QG와 DVF는 raw mod file parser가 되지 않는다.
+  - 여러 모드가 같은 아이템을 수정하는 경우 Iris는 엔진 최종 적용값 기준으로 사실만 표시하며, 어떤 모드가 맞는지 중재하지 않는다.
+  - Iris의 1차 해자는 위키 대체가 아니라 인게임 접근성이다.
+  - 첫 공개는 vanilla-first로 두고, 모드 확장 시스템은 내부적으로 개발하더라도 전면 기능으로 홍보하지 않는다.
+- 영향: Iris는 AI식 해석 위키가 아니라, 정규화된 정적 산출물을 런타임에서 보여주는 compiler-viewer형 위키 시스템으로 유지한다.
+- Trace:
+  - ledgered: 2026-03-16 ~ 2026-03-25
+  - COMMON-EVIDENCE-TRACE.
 
-- 결정: Pulse는 Echo, Fuse, Nerve, Iris, Frame, Cortex, Canvas를 참조하거나 의존하지 않는다. 하위 모듈 간 직접 참조도 금지한다.
-- 영향: 하위 모듈 간 협력이 필요하면 Pulse capability 또는 SPI를 경유한다.
+### Iris — Evidence / Source / Outcome 모델
 
-## 2026-03-16 — SPI 우선 구조
+- 상태: current readpoint
+- 결정: Iris가 Rule에서 소비하는 Evidence는 행동이 아니라, 그 아이템이 없으면 존재할 수 없는 normalized outcome facts로 고정한다.
+- 현재 기준:
+  - Source는 Recipe / Right-click / Static capability로 분리한다.
+  - Evidence는 Source 자체가 아니라 Source에서 정규화된 outcome facts다.
+  - Recipe와 Right-click은 서로의 하위가 아니라 독립 Source다.
+  - Iris 분류기는 Source별 rule engine이 아니라 outcome 중심 단일 Evidence 프레임을 소비한다.
+  - "open_canned_food", "stitch_wound" 같은 행동 의미형 표현은 Evidence 기본형이 아니다.
+  - "equip_back", "toggle_activate", "place_world", "fill_container", "empty_container", "transform_replace" 같은 상태형 outcome을 중심으로 둔다.
+  - Equip effect / Use only / Passive function은 기본 evidence 축으로 승격하지 않고, 필요 시 개별 설명층의 후행 정보로 처리한다.
+  - "CustomContextMenu = "Smoke"" 같은 행동 문자열 / 메뉴 문자열 / 클릭 경로를 읽어 outcome을 자동 생성하지 않는다.
+- Context Outcome 추출기:
+  - Context Outcome 추출기는 의미 해석기나 분류기가 아니라, 동결 문서가 이미 허용한 outcome만 생성하는 오프라인 사실 테이블 생성기다.
+  - 파이프라인은 "스캐너 -> IR(signal only) -> 매퍼(Signal -> Outcome) -> 수동 주입기 -> 검증기 -> 진단기" 경계로 둔다.
+  - Context Outcome 추출기는 Iris Core 바깥의 외부 공급자이며, Iris Core와 Description은 동결된 결과만 소비한다.
+  - Fail-loud 사유는 Allowlist 밖 Outcome / 비결정성 / 출력 포맷 위반 세 가지로 제한한다.
+  - 금지 토큰 탐지, 문서 SHA 불일치, "smoke_item" 자동 경로 탐지 같은 위험 신호는 숨기지 않되 진단으로만 남긴다.
+  - "smoke_item"은 자동 추출기의 기본 산출 대상이 아니며, Option B 수동 주입 모듈만이 유일한 진입점이다.
+  - Fixing과 Moveables의 역인덱스·도구 정의는 기존 evidence / predicate 경로에 남기고 Context Outcome으로 승격하지 않는다.
+- 오독 금지:
+  - 이 항목은 행동명 기반 Evidence 생성, Right-click의 Recipe 하위화, Source별 Rule 이원화, Iris 내부 추론·재판정, 설명 엔진 고도화, 입력 스키마 전면 개편을 승인한 것이 아니다.
+- Trace:
+  - sealed: 2026-03-24 ~ 2026-03-25
+  - COMMON-EVIDENCE-TRACE.
 
-- 결정: Pulse 생태계의 공용 확장 경로는 SPI 중심으로 설계한다.
-- 영향: Core는 얇고 안정적인 surface를 제공하고, 구체 정책은 하위 모듈 또는 외부 모드가 담당한다.
+### Iris Right-click — Gate-0 v2.4 / PASS-then-uniqueness overlay
 
-## 2026-03-16 — 호환성 우선 원칙
+- 상태: current readpoint / code-output reconciled
+- 결정: Iris Right-click source의 current 기준은 Gate-0 v2.4 / PASS-then-uniqueness overlay / item-dependent state-change proof로 읽는다.
+- 현재 기준:
+  - Right-click source는 메뉴명이나 UI 구조가 아니라, 아이템 X를 보유했을 때만 수행 가능하고 그 수행 결과로 컨텍스트 대상의 상태 변화가 실제로 발생하는지를 본다.
+  - Gate-0의 핵심 proof는 "executing_tool + external_target + persistent_change"가 모두 성립하는가다.
+  - unknown proof는 REVIEW로 격리한다.
+  - PASS / NO / REVIEW가 primary decision이다.
+  - STRONG / WEAK는 PASS 이후 uniqueness overlay로 계산되는 보조 판정이다.
+  - Field Registry는 "decision == PASS"인 결과를 등록하며, STRONG_ONLY 필터로 WEAK를 제거하지 않는다.
+  - WEAK는 실패가 아니며, current output/runtime에 보존될 수 있다.
+  - Right-click pipeline은 "source_index_v2.4 -> evidence_candidates -> evidence_decisions -> uniqueness_overlay -> field_registry -> usecases/runtime" 계열로 읽는다.
+  - FullType 단위의 직접 실행 도구 Evidence를 기본 단위로 둔다.
+  - property-based / 조건 기반 필드는 item-by-item STRONG/WEAK 선별보다 먼저 필드 자체가 Gate-0 실행 도구 구조를 만족하는지 판정한다.
+  - 미매칭은 Evidence:NO가 아니라 scope 밖이다.
+  - REVIEW는 수동 승격 통로가 아니라 허용된 정적 근거만으로 닫히지 않은 자동 체계의 미확정 상태다.
+  - 웹/위키 기반 수동 검증은 채택하지 않고, 허용된 정적 근거와 automatic-only 결과를 사용한다.
+- Predecessor trace:
+  - "아이템이 없으면 타겟 우클릭 메뉴 항목 자체가 생성되는가"라는 좁은 메뉴 생성 기준은 강한 보수 모델이었으나 current canonical 기준이 아니다.
+  - "Strong만 canonical outcome fact 후보로 채택하고 Weak는 제외한다"는 과거 문구는 current code/output readpoint와 충돌하므로 current에서 격하한다.
+  - "can_*" capability-first 구조, 바닐라 5개 축소 구조, 메뉴명/행동명 중심 Evidence는 current 기준이 아니다.
+- 오독 금지:
+  - 이 항목은 Strong-only 파이프라인, Weak 실패 처리, capability-first 복귀, 웹/위키 수동 PASS 승격, scope 밖의 Evidence:NO 처리, 메뉴 문자열 기반 outcome 생성을 승인한 것이 아니다.
+- Trace:
+  - Gate-0 v2 predecessor: 2026-03-25
+  - current code/output readpoint: Gate-0 v2.4
+  - COMMON-EVIDENCE-TRACE.
 
-- 결정: 타 모드와의 호환성을 1순위 원칙으로 둔다.
-- 영향: Core 설계는 공격적인 정책/판단보다 충돌 완화, 진단, 안정성에 우선권을 둔다.
+### Iris — 자동 분류 / Taxonomy / Allowlist 경계
+
+- 상태: current readpoint
+- 결정: Iris 자동 분류는 Evidence Allowlist에 명시된 증거만 누적하는 인덱싱 시스템으로 둔다.
+- 현재 기준:
+  - Allowlist 밖 필드·문자열·연산·해석은 자동 분류 근거로 쓰지 않는다.
+  - 자동 분류의 근거 세계는 바닐라 scripts/client 선언 데이터까지다.
+  - Java 디컴파일로 엔진 내부 의미를 끌어와 자동 분류 근거로 쓰지 않는다.
+  - 이름 / 설명 / 표시카테고리 기반 추론, 수치 비교, 무제한 contains, 임의 태그 확장은 자동 분류 루트에 들어오지 못한다.
+  - 자동 분류가 바닐라 선언 증거로 닫히지 않으면 미분류 태그를 억지 생성하지 않고 침묵하거나 수동 오버라이드로 봉인한다.
+  - "MoveablesTag" 네임스페이스와 Item Script의 일반 "Tags"는 혼용하지 않는다.
+  - 대량 미분류 문제는 Evidence Table / DSL 부족이 아니라 대분류·소분류 설계와 phase2_rules 운영의 문제로 본다.
+  - Iris 대분류 아키텍처는 Tool / Combat / Consumable / Resource / Literature / Wearable / Furniture / Vehicle / Misc 9개 축과 경계 규칙을 기준선으로 둔다.
+  - Furniture는 Furniture.7-A 단일 소분류로 고정한다.
+  - Vehicle은 Vehicle.8-A / Vehicle.8-B 최소 2분할로 유지한다.
+  - Misc.9-A는 rule_executor가 아니라 output-stage fallback이다.
+  - Tool.1-K(Security)와 Tool.1-L(Storage)는 정식 소분류다.
+  - Tool.1-L(Storage)는 비착용 휴대 컨테이너, Wearable.6-F는 착용 가능한 배낭으로 분리한다.
+  - Consumable 3-B 음료 기준은 체감상 마시는가나 수치 비교가 아니라 Drink / Drainable 구조다.
+- 오독 금지:
+  - 이 항목은 Evidence 레이어 억지 확장, Java 내부 의미 기반 분류, 미분류 태그 생성, Furniture 재세분화, Vehicle 과분할, Resource 쓰레기통화, Wearable의 장착·휴대 확장을 승인한 것이 아니다.
+- Trace:
+  - sealed: 2026-03-23 ~ 2026-03-25
+  - COMMON-EVIDENCE-TRACE.
+
+### Iris — 설명 / 표시 / 브라우징 정책
+
+- 상태: current readpoint
+- 결정: Iris 설명층은 문장 생성기나 요약기가 아니라, 증거와 분류가 먼저 닫힌 뒤 정적 위키 문장을 조합·표시하는 계층으로 둔다.
+- 현재 기준:
+  - 설명 출력은 기본 정보 -> 의미(주 소분류) -> 활용(레시피/상호작용) -> 메타 순서의 정보 위계 기반 출력기다.
+  - 설명란의 각 계층은 선행 계층의 필터 결과물이 아니라 독립 정보층이다.
+  - Iris 분류 데이터는 유지하되, 기본 UI에서는 전면 노출하지 않고 메타 영역에 격리한다.
+  - "primary_subcategory"는 브라우징·탐색을 위한 주 anchor이지, 설명 문장의 자동 근거로 전면 승격하지 않는다.
+  - 주 소분류 설명 문장은 모든 아이템에 기본 적용되는 자동 설명이 아니라 조건이 맞을 때만 쓰는 후보 템플릿이다.
+  - 설명 왜곡이 보이면 우선 설명 엔진 고도화가 아니라 태그 생성 정합성, Rule/Recipe predicate, 구현 일치성을 의심한다.
+  - 개별 아이템 설명은 분류/증거/Source 검증 뒤에 온다.
+  - 문서화 담당자는 분류·규칙·증거 체계를 바꾸는 사람이 아니라 이미 확정된 사실을 위키식 정적 문장으로 풀어쓰는 후행 서술자다.
+  - 개별 설명은 소분류 설명이나 레시피만으로 충분히 드러나지 않고, 실제 구현된 특별 행동/기능이 초보자에게 놓치기 쉬울 때만 필요하다.
+  - 소분류 설명은 분류 안내문이나 분류명 재진술이 아니라 실제 용도·시스템적 의미·적용 범위를 자연스러운 한국어로 풀어쓴다.
+  - 추천·효율 평가·비교는 하지 않는다.
+- UI 접기:
+  - 중복 아이템 목록 문제는 빌드 타임의 전역 기능 동등성 그룹화가 아니라 UI 목록 단계의 DisplayName 중심 접기로 처리한다.
+  - 접힌 목록 항목에는 "(xN)" 수량 배지를 붙이지 않고 개념명만 표시한다.
+  - 변형 수나 실체 차이는 상세 패널에서만 확인한다.
+- 오독 금지:
+  - 이 항목은 설명 엔진의 의미 추론 강화, 개별 설명 전수 작성, 분류 ID 삭제, 기능 동등성 빌드 그룹화, 추천/효율 평가를 승인한 것이 아니다.
+- Trace:
+  - sealed: 2026-03-16 ~ 2026-03-25
+  - COMMON-EVIDENCE-TRACE.
+
+### Iris — Recipe / use_case / requirements / Right-click UI 통합
+
+- 상태: current readpoint
+- 결정: Iris의 상호작용 계층은 Recipe와 Right-click을 동급 Source로 보고, use_case 단위의 구조화된 오프라인 렌더링 위키 레이어로 둔다.
+- 현재 기준:
+  - Recipe와 Right-click은 잔여 필터 관계가 아니라 동급 2트랙 증거다.
+  - 같은 아이템이 두 트랙에 동시에 걸릴 수 있다.
+  - "classification_recipe"는 중심 경로에서 내리고, "rule_id" 중심 "recipe_evidence" 체계를 표준 경로로 사용한다.
+  - PASS evidence에는 input/output 참여만 올리고, keep/require는 행동 증거로 승격하지 않는다.
+  - consumed와 keep은 role 필드로 구분하고, "recipe_evidence" source에서만 필수 필드로 둔다.
+  - DescriptionGenerator는 정적 use_case 렌더러로만 동작한다.
+  - "use_case_label_map"은 FAIL-LOUD build contract다.
+  - dynamic_recipe_expr 잔여는 PERMANENT_REVIEW 정책으로 봉인한다.
+  - recipe requirements는 recipe 단위로만 붙으며 fulltype 전체 공유 정보가 아니다.
+  - recipe requirements color layer는 상호작용 탭 안에서 requirement atom 단위 상태표시만 수행한다.
+  - Python이 kind별 check 구조를 만들고, Lua는 이를 읽어 색상만 매핑한다.
+  - color layer 결과는 다른 탭·모듈·정렬·표시 정책으로 전파하지 않는다.
+  - Right-click 계열 라인은 "line_kind = evidence | exclusion"으로 구조 분리한다.
+  - "[우클릭]" 문자열을 기존 목록에 끼워 넣고 역파싱하지 않는다.
+  - Python이 구조화 블록에서 display_text를 만들고 Lua는 렌더만 한다.
+  - UI에는 능력 기반 use_case만 올라가고, exclusion 라인은 행동 블록 후보군에서 먼저 제거된다.
+  - Iris UI는 "ISUIHandler.toggleUI"를 override하지 않고 독립 버튼과 독립 블록 구조로 통합한다.
+- 오독 금지:
+  - 이 항목은 Recipe-only / RightClick-only 잔여 필터화, Lua role 기반 텍스트 보정, Requirements와 Actions 혼합, 레시피 전체 SAT/UNSAT 추천·정렬·숨김 UI, Right-click 문자열 역파싱, exclusion 라인의 UI 행동 근거화를 승인한 것이 아니다.
+- Trace:
+  - sealed: 2026-03-25
+  - COMMON-EVIDENCE-TRACE.
+
+### Iris DVF 3-3 — 오프라인 생산 파이프라인
+
+- 상태: current readpoint
+- 결정: Layer 3-3 DVF는 수동 문장 묶음이 아니라, "facts -> decisions -> compose -> rendered -> Lua bridge"로 이어지는 오프라인 생산 파이프라인으로 본다.
+- 현재 기준:
+  - "compose_layer3_text.py"는 본문 조합의 중심 경로다.
+  - "export_dvf_3_3_lua_bridge.py"는 rendered 산출물을 기존 Iris 소비자 표면으로 넘기는 정적 export 경로다.
+  - Layer 3은 한 줄 정의문이 아니라 아이템별 미니 본문층이다.
+  - Layer 3은 "facts -> decisions -> profiles -> rendered"의 정적 계약 위에서만 생성한다.
+  - 런타임 Lua는 본문 생성 논리를 맡지 않는다.
+  - facts와 decisions는 별도 JSONL 파일로 분리한다.
+  - 본문 조합은 sentence_plan 블록 단위로 수행한다.
+  - DVF 입력은 facts / decisions / profiles로 고정하고, 산출물은 rendered 계열로 둔다.
+  - 파이프라인은 입력 검증 -> 조합 실행 -> rendered 검증 -> 결정론 검증을 중심으로 한다.
+  - decisions validator는 rendered를 보지 않는다.
+  - "rendered ↔ Lua" 계약은 유지한다.
+  - 3계층 본문의 줄바꿈은 compose-time이나 Lua bridge 단계가 아니라 UI 표시 직전 render-time formatting으로만 처리한다.
+  - Phase D는 별도 stub UI가 아니라 기존 Iris 소비자("IrisWikiSections.lua", "IrisBrowser.lua", "IrisWikiPanel.lua")에 Layer 3를 연결하는 production runtime 통합 경로다.
+- 오독 금지:
+  - 이 항목은 runtime Lua 본문 생성, 수동 문장 저장소, 별도 데모/stub UI 중심 Phase D, Lua bridge payload 임의 변경, rendered-Lua 일치 기준 완화를 승인한 것이 아니다.
+- Trace:
+  - sealed: 2026-03-25 ~ 2026-03-28
+  - COMMON-EVIDENCE-TRACE.
+
+### Iris DVF 3-3 — acquisition / style / body-role 표면 처리
+
+- 상태: current readpoint / closed production rules
+- 결정: DVF 3-3의 acquisition, style, body-role 계열은 facts 재판정이 아니라 compose / post-compose / decisions overlay / validator-gated production flow 안에서 처리한다.
+- acquisition:
+  - "acquisition_hint"는 Layer 3의 선택 슬롯이 아니라 identity_hint / primary_use와 동급의 핵심 축이다.
+  - acquisition 검토는 active 아이템에 한정하지 않고 전 아이템을 대상으로 한다.
+  - "facts.acquisition_hint = null"의 허용 사유는 "decisions.acquisition_null_reason"으로만 구조 추적한다.
+  - 허용 enum은 "UBIQUITOUS_ITEM", "STANDARDIZATION_IMPOSSIBLE"로 고정한다.
+  - acquisition은 삭제되지 않지만 선두를 차지하지 않는다.
+  - 3-3의 중심은 "identity_hint + acquisition_hint" 나열이 아니라 아이템 자기 시점의 용도 본문이다.
+  - 기본 순서는 "item_subject -> 용도/use -> 자기 기준 변환·상호작용 -> acquisition"으로 둔다.
+- style:
+  - DVF 3-3 style normalization은 facts 재판정이 아니라 post-compose surface layer다.
+  - 본문 경로는 "facts -> decisions -> compose -> normalizer -> style linter -> rendered -> Lua bridge -> runtime"으로 읽는다.
+  - normalizer는 evidence, cluster, fact_origin, candidate_state를 다시 판정하지 않는다.
+  - style linter는 advisory layer이며, 기존 baseline-delta validation gate에 합류하지 않는다.
+  - production 승패는 기존 validator의 introduced hard fail / warn 기준으로 판정한다.
+  - style closeout packet은 summary inline / raw logs reference-only 구조로 둔다.
+  - style runtime closeout은 authoritative full rendered 기준으로 "Lua bridge -> deployed IrisLayer3Data.lua" 계약을 검증한다.
+- body-role:
+  - DVF 3-3 body-role 개편은 facts 슬롯 확장이 아니라 decisions overlay로 처리한다.
+  - repair 규칙은 별도 repair stage가 아니라 "compose_layer3_text.py" 내부 조합 흐름에만 둔다.
+  - "quality_flag"는 rendered 진단 메타데이터일 뿐 상태 축으로 승격하지 않는다.
+  - Lua bridge와 UI surface는 "quality_flag"를 소비하지 않는다.
+- 오독 금지:
+  - 이 항목은 acquisition 삭제, facts 재판정, postproc 기반 표면형 땜질, acquisition-led 본문화, style linter hard gate 승격, body-role facts 확장, runtime-side repair opening을 승인한 것이 아니다.
+- Trace:
+  - sealed: 2026-03-25 ~ 2026-04-05
+  - COMMON-EVIDENCE-TRACE.
+
+### Iris DVF 3-3 — runtime/status closeout trace
+
+- 상태: closeout trace / predecessor operational baseline
+- 결정: DVF 3-3의 runtime/status 계열은 새 설계 과제가 아니라, 이미 닫힌 production pass와 runtime readpoint의 최소 결과 trace로 보존한다.
+- 현재 읽기:
+  - historical runtime의 "active / silent"는 semantic quality가 아니라 최종적으로 "primary_use"가 채워졌는가를 기준으로 한 output availability다.
+  - "direct_use", "cluster_summary", "role_fallback", "identity_fallback" 중 하나라도 살아서 "primary_use"가 채워지면 active로 남는다.
+  - 끝까지 "primary_use"를 만들지 못한 경우에만 silent로 내린다.
+  - weak-active cleanup은 완료된 판정/분류 작업으로 닫고, candidate facts runtime adoption이나 backlog source expansion과 분리한다.
+  - post-cleanup 이후 공식 실행 순서는 "2-stage status model -> runtime adoption -> backlog expansion"이다.
+  - candidate-only artifact는 adoption 절차 전까지 공식 runtime facts로 취급하지 않는다.
+  - semantic strong/adequate/weak 품질 상태는 해당 round에서 UI에 노출하지 않는다.
+  - first operational pass와 second-pass는 열린 구현 로드맵이 아니라 닫힌 runtime/build closeout trace다.
+- 최소 결과 trace:
+  - first operational pass snapshot: "2105 rows / active 2060 / silent 45"
+  - first pass backlog: "178 -> promote 46 / residual 132"
+  - second-pass current runtime baseline: "2105 rows / active 2084 / silent 21"
+  - second-pass residual hold inventory: "34"
+  - second-pass manual validation: "pass_with_note"
+- 오독 금지:
+  - 이 항목은 semantic quality 완료, residual 전체 처리 완료, candidate facts 즉시 runtime adoption, release readiness, runtime rollout 선언이 아니다.
+- Trace:
+  - closed: 2026-03-28 ~ 2026-04-02
+  - COMMON-EVIDENCE-TRACE.
+
+### Iris DVF 3-3 — Layer4 / Structural Signal / ACQ_DOMINANT / Acquisition Lexical closeout chain
+
+- 상태: final current readpoint / subordinate DVF-system reconciliation chain
+- 결정: Layer4, Structural Signal, ACQ_DOMINANT, Acquisition Lexical은 독립 모듈 family가 아니라, Iris DVF 3-3 시스템 내부의 current readpoint / authority / stale artifact / docs-governance reconciliation 하위 문제로 묶는다.
+- 최종 readpoint:
+  - 최종 current readpoint는 **"Iris DVF 3-3 Acquisition Lexical inventory readpoint reconciled"**다.
+  - "Iris DVF 3-3 Acquisition Lexical Current Inventory / Readpoint Audit Round"는 Branch D input readpoint로 닫고, 이를 소비한 "Acquisition Lexical Current Readpoint Reconciliation Round"는 "closed_with_acquisition_lexical_current_readpoint_reconciled"로 닫는다.
+- Acquisition Lexical 현재 읽기:
+  - current checkout 기준 acquisition lexical schema / source / utility / validator / tool / test / doc / stale-plan surface는 분류 readpoint를 갖는다.
+  - 선행 inventory readpoint를 입력으로 top-doc closeout, lower/current plan, stale predecessor artifacts, validator/utility support의 current-vs-historical 읽기 방식이 하나의 read order로 정렬됐다.
+  - 과거 suppress 의존 문구는 current blocker가 아니라 historical/stale premise로 읽는다.
+  - live suppress validator surface "3"은 current blocker나 resolved state가 아니라 별도 "followup_disposition_candidate"로 남긴다.
+  - 기존 "acquisition lexical input contract 미완" 매핑은 current 기능 구현 미완이나 source contract expansion blocker가 아니라, 선행 inventory readpoint를 입력으로 current/stale/historical read order를 맞추는 docs/governance reconciliation 문제로 읽는다.
+- Structural Signal 현재 읽기:
+  - Structural Signal 계열은 observer-only scope separation, occurrence authority classification, docs-only readpoint absorption 순서로 닫힌다.
+  - Structural Signal은 current occurrence authority/readpoint를 가진 observer-only scope로 읽는다.
+  - runtime rollout, release readiness, runtime/source mutation으로 읽지 않는다.
+- ACQ_DOMINANT 현재 읽기:
+  - ACQ_DOMINANT current-baseline remeasurement debt는 measured no-candidate branch로 닫힌다.
+  - "writer_input_count = 0", "forbidden_writer_reach_count = 0", "publish_candidate_count = 0"이므로 이 측정 결과만으로 후속 publish review를 열지 않는다.
+  - ACQ_DOMINANT는 current readpoint 기준 publish writer input, runtime input, quality input, default compose input, source-row writer input, blanket isolation candidate가 아니다.
+- Layer4 현재 읽기:
+  - Layer4 current corpus lock과 confirmed measurement disposition은 current locked corpus 기준의 후속 측정 전제와 measurement disposition으로 닫는다.
+  - 과거 Layer4 zero-count는 historical predecessor readpoint일 뿐 current count로 직접 승계하지 않는다.
+  - "confirmed_count = 24"는 detector-execution measurement readpoint input으로만 소비한다.
+  - "confirmed_count = 24"는 Layer4 absorption resolved, publish mutation review opening, source/rendered/runtime/state mutation trigger, public exposure, runtime rollout, release readiness로 승격되지 않는다.
+  - "LAYER4_ABSORPTION_CONFIRMED"는 "FUNCTION_NARROW / ACQ_DOMINANT" disposition row가 아니라 independent "layer_boundary_hard_block_namespace"로 읽는다.
+  - M1 confirmed count와 M2 application target axis는 값 상속 관계를 갖지 않는다.
+  - M2 basis absence는 "application_target_measurement_unavailable"로 fail-loud 기록되며, current target value나 "0" reseal로 읽지 않는다.
+  - 승인되지 않은 source/rendered/runtime/package/build current surface 소비는 fail-fast 대상이다.
+- 최소 결과 trace:
+  - Acquisition Lexical logical surfaces / classified: "507 / 507"
+  - Acquisition Lexical raw occurrence total: "8828"
+  - Acquisition Lexical read-state coverage: "100%"
+  - Acquisition Lexical adversarial review verdict: "PASS"
+  - live suppress validator surface count: "3"
+  - ACQ_DOMINANT occurrence_count: "1283"
+  - ACQ_DOMINANT publish_candidate_count: "0"
+  - Layer4 confirmed_count: "24", readpoint-only
+- 오독 금지:
+  - 이 항목은 acquisition lexical wording improvement, suppress retirement/removal, current suppress validator surface disposition execution, acquisition contract expansion, "josa_adaptive" / phrasebook / array acquisition / runtime-side repair opening, Layer4 absorption resolved, semantic quality completion, publish mutation review opened, source/rendered/runtime/state mutation, Browser/Wiki/Tooltip public exposure, runtime rollout, manual in-game validation, deployment/Workshop/B42/release readiness, coverage/quality/completion remeasurement가 아니다.
+- Trace:
+  - Structural Signal sequence sealed: 2026-05-29
+  - ACQ_DOMINANT no-candidate closeout: 2026-05-30
+  - Layer4 corpus / measurement / namespace readpoint chain: 2026-05-31 ~ 2026-06-03
+  - Acquisition Lexical final readpoint reconciliation: 2026-06-05
+  - COMMON-EVIDENCE-TRACE.
+  - COMMON-RELEASE-NONDECISION.
+  - COMMON-RUNTIME-SURFACE-NONMUTATION.
 
 ---
-
-## 2026-03-16 — Pulse Core와 최적화/프로파일링 분리
-
-- 결정: Pulse Core에는 프로파일링, 엔진 최적화, Lua 최적화 로직을 넣지 않는다.
-- 영향: 계측/최적화는 전부 별도 하위 모듈로 분리한다.
-
-## 2026-03-16 — 1st-party 모듈 분리 원칙
-
-- 결정: 관찰, 엔진 안정화, Lua 안정화는 각각 Echo, Fuse, Nerve로 분리한다.
-- 영향: Core는 공용 기반만 제공하고, 실제 계측/안정화 로직은 각 모듈 내부에 남긴다.
-
-## 2026-03-16 — Iris 정체성
-
-- 결정: Iris는 100% Lua 기반의 위키형 모드로 유지하며, 실용 정보를 제공하되 해석·권장·비교는 금지한다.
-- 영향: 증거 시스템, 분류 시스템, 설명층은 위키적 태도로 유지한다.
-
-## 2026-03-16 — Iris 설명층 독립 원칙
-
-- 결정: Iris 설명란의 각 계층은 선행 계층의 필터 결과물이 아니라 독립 정보층으로 취급한다.
-- 영향: 1~2계층만으로 충분할 경우 3~4계층은 침묵할 수 있으나, 구조상 독립층 원칙은 유지한다.
-
-## 2026-03-23 — Iris 설명 출력 위계 고정
-
-- 결정: Iris 설명 출력은 기본 정보 → 의미(주 소분류) → 활용(레시피/상호작용) → 메타 순서의 **정보 위계 기반 출력기**로 고정한다.
-- 영향: 설명 계층은 문장 생성기나 요약기가 아니라 템플릿 조합형 출력기로 유지하며, 표현 계층의 책임은 출력 순서 제어에 한정한다.
-
-## 2026-03-23 — Iris 관측 데이터와 기본 UI 노출 분리
-
-- 결정: Iris 분류 데이터는 유지하되, 기본 UI에서는 이를 전면 노출하지 않고 메타 영역에 격리한다.
-- 영향: 분류 ID 삭제/분류 해석 없이도 기본 UI 가독성을 정리할 수 있으며, 기본 표시 정책은 Browser/표현 계층에서만 다룬다.
-
-## 2026-03-23 — Iris 다중 태그 교집합 문제의 해결 위치
-
-- 결정: 다중 태그/교집합 문제는 정렬만으로 해결하지 않고, **primary_subcategory 메타 anchor**를 통해 해결한다.
-- 영향: 분류 시스템 자체(Evidence/DSL)는 유지하고, 교집합 해소는 메타에 명시된 primary_subcategory를 소비하는 방식으로 닫는다.
-
-## 2026-03-23 — Consumable 3-B의 음료 기준
-
-- 결정: Consumable 3-B(음료)의 기준은 체감상 마시는가나 수치 비교가 아니라, **Drink / Drainable 구조를 가졌는가**로 고정한다.
-- 영향: 스프/알코올/기타 경계 사례도 구조 기준으로만 다루며, 수치 기반 분류·의미 기반 재해석·DSL 수정은 열지 않는다.
-
-## 2026-03-23 — Iris 설명 왜곡의 책임 위치
-
-- 결정: Iris 설명 왜곡 문제의 1차 책임 위치는 **설명 엔진**이 아니라 **태그 생성 단계(Core / Rule / predicate 계층)** 로 고정한다.
-- 영향: 설명 왜곡이 보이면 우선 `설명 엔진 고도화`가 아니라 태그 생성 정합성, Rule/Recipe predicate, Tool 분기 구현을 먼저 의심한다.
-
-## 2026-03-23 — Tool 1-A/1-B 문제의 본질은 tuple integrity
-
-- 결정: Tool 1-A/1-B 왜곡 이슈의 본질은 DSL 표현력 부족이나 `count==1` 같은 집합 판정이 아니라, **`recipe_matches(role, category)`의 relation tuple 정합성과 Tool 1-A 구현 일치성** 문제로 본다.
-- 영향: 이 계열 이슈의 디버깅 초점은 `rule_executor / predicates.py / tool_rules.py` 같은 구현 계층에 두며, DSL 확장이나 설명 승인제는 기본 해법으로 채택하지 않는다.
-
-## 2026-03-23 — Iris 이슈 해결 시 문서 수정보다 구현 정합성 복구를 우선
-
-- 결정: Evidence Table / DSL / pipeline-spec이 이미 정합한 상태라면, Iris 이슈 해결은 **문서 땜질**이 아니라 **구현을 문서 기준에 다시 맞추는 방식**을 우선한다.
-- 영향: Walkthrough·검증 절차는 구현 반영 후 최신화하되, 문서 수정 로드맵은 `기준 문서가 정말 틀렸을 때만` 연다.
-
-## 2026-03-23 — Iris 모드 확장도 structure-only 원칙 유지
-
-- 결정: Iris의 외부 모드 확장은 **표준 구조를 제공한 모드를 정규화해 렌더링하는 방식**으로만 연다. 모든 모드를 추론·텍스트 해석으로 이해하는 AI 위키 방향은 채택하지 않는다.
-- 영향: 모드 확장 논의는 `어떤 구조를 입력 계약으로 인정할 것인가` 중심으로 진행하며, 구조가 없는 모드를 설명 엔진이 지능적으로 보정하는 방향은 열지 않는다.
-
-## 2026-03-24 — Philosophy.md만이 유일한 헌법
-
-- 결정: Pulse 생태계의 유일한 헌법은 **`Philosophy.md` 하나**로 둔다. Allowlist, Evidence Table, DSL, 입력 계약, 설명 파이프라인, 구현 체크리스트는 모두 하위 명세다.
-- 영향: 충돌 시 `Philosophy.md`가 최우선이며, 하위 문서는 그 철학을 기계화하는 역할로만 해석한다.
-
-## 2026-03-24 — Iris는 행동이 아니라 결과만 안다
-
-- 결정: Iris는 우클릭 계열 정보를 **행동(Action)** 으로 다루지 않고, **항상 성립하는 아이템 단독 결과(Context Outcome)** 로만 수용한다.
-- 영향: 우클릭 계열 정보가 필요하더라도 허용되는 것은 `착용 변형 옵션 존재`, `사용 시 다른 아이템으로 교체`, `비소비 상태 전환 가능` 같은 outcome뿐이며, 클릭 방식·버튼·메뉴 문자열은 증거 자체가 아니다.
-
-## 2026-03-24 — 우클릭 계열 증거의 허용 형태는 정적 Outcome 동결물
-
-- 결정: 우클릭 계열 증거는 런타임 UI나 행동명에서 즉석 판정하지 않고, **오프라인 정적 추출 → 정적 산출물 동결**을 거친 Context Outcome으로만 Iris에 들어온다.
-- 영향: 바닐라 scripts / recipes / lua는 원천 데이터로만 다루고, Iris Core와 Description은 동결된 결과만 소비한다.
-
-## 2026-03-24 — 행동 문자열 기반 자동 Outcome 생성 금지
-
-- 결정: `CustomContextMenu = "Smoke"` 같은 **행동 문자열 / 메뉴 문자열 / 클릭 경로**를 읽어 자동으로 outcome을 생성하는 방식은 채택하지 않는다.
-- 영향: 구현 단계에서 이런 필드가 편해 보여도 기본 해법으로 승격하지 않으며, 허용 여부는 언제나 `행동이 아니라 결과인가`를 마지막 게이트로 둔다.
-
-## 2026-03-24 — Context Outcome 도입의 수정 범위
-
-- 결정: Context Outcome 도입으로 직접 수정하는 기준 문서는 **Allowlist / DSL / Evidence Table**에 한정하고, `iris-input-schema-v0.2-final`, `iris-description-pipeline-spec-v1.0`, `iris-implementation-checklist-v1.0`은 이 단계에서 갈아엎지 않는다.
-- 영향: 설명 엔진 고도화, 파이프라인 철학 수정, 입력 스키마 전면 개편은 기본 해법에서 제외하고, 증거 체계 확장과 실제 추출기 구현으로 다음 단계를 연다.
-
-## 2026-03-24 — Iris 문서화 담당자는 확정 사실의 후행 서술자다
-
-- 결정: Iris의 개별 아이템 정보 작업에서 문서화 담당자는 분류·규칙·증거 체계를 바꾸는 사람이 아니라, **이미 확정된 사실을 위키식 정적 문장으로 풀어쓰는 후행 서술자**로 둔다.
-- 영향: 설명 작업은 분류/증거/행동 검증을 선행 조건으로 삼으며, 문서화 단계가 증거를 새로 만들거나 규칙을 수정하는 경로는 닫는다.
-
-## 2026-03-24 — Iris 개별 설명은 Outcome source 검증 뒤에 온다
-
-- 결정: Iris의 개별 아이템 정보 작업은 **분류/증거 체계 고정 → Recipe·Right-click·Static capability source 검증 → 필요한 결과 상태(Outcome) 고정 → 필요 시 설명 문장화** 순서로 진행한다.
-- 영향: 현재 단계의 1차 작업은 개별 설명문 집필이 아니라 source 검증과 outcome fact table 정리이며, 설명은 그 결과를 바탕으로 후행 파생물처럼 작성한다.
-
-## 2026-03-24 — 개별 아이템 설명의 필요 기준은 구현된 특별 행동의 고정
-
-- 결정: 개별 아이템 설명은 소분류 설명이나 레시피만으로 충분히 드러나지 않고, **게임에 실제 구현되어 있지만 초보자가 놓치기 쉬운 특별 행동/기능**이 있을 때만 필요하다고 본다.
-- 영향: 설명 작성은 전수 기본값이 아니라 선별 작업이 되며, 우클릭 행동 검증 결과가 개별 설명의 필요성을 판정하는 주요 입력이 된다.
-
-## 2026-03-24 — 중복 아이템 문제는 기능 동등성 판정이 아니라 UI 접기로 푼다
-
-- 결정: 중복 아이템 목록 문제는 빌드 타임의 전역 기능 동등성 그룹화로 해결하지 않고, **UI 목록 단계에서만 DisplayName 중심 접기**로 처리한다. 다만 Type, 서브카테고리, 레시피/우클릭 존재 여부 같은 차단 가드는 둔다.
-- 영향: ItemGroups / equivalence_key 같은 빌드 산출물은 기본 해법에서 제외하고, 데이터·분류는 그대로 둔 채 표현 레이어에서만 목록을 정리한다.
-
-## 2026-03-24 — 접힌 목록은 개념만 보여주고 `(xN)` 표기는 두지 않는다
-
-- 결정: 접힌 목록 항목은 `감자칩 (x4)` 같은 수량 배지를 붙이지 않고, **개념명만** 표시한다. 변형 수나 실체 차이는 상세 패널에서만 확인한다.
-- 영향: 목록은 `개념`, 상세는 `실체`를 담당한다는 표현 원칙이 고정되며, 리스트 가독성 개선이 다시 통계·개수 UI로 미끄러지는 것을 막는다.
-
-## 2026-03-24 — Source 검증은 설명 이전의 사실 테이블 작업이다
-
-- 결정: Recipe / Right-click / Static capability source 검증은 개별 설명을 위한 참고 메모가 아니라, 설명 이전에 먼저 고정하는 **사실 테이블 작성 단계**로 둔다.
-- 영향: 출력은 우선 source 확인과 outcome fact 정리로 충분하며, 설명 작성은 이 테이블이 만들어진 뒤에만 시작한다.
-
-## 2026-03-24 — Right-click source 검증 범위는 소지 조건부 타겟 메뉴 출현으로 본다
-
-- 결정: Right-click source 검증에서는, `아이템 자체를 우클릭했을 때 메뉴가 뜨는가`를 묻지 않는다. 대신 해당 아이템을 **소지하고 있을 때만 다른 대상 우클릭 시 특정 메뉴 항목이 새로 출현하는가**를 본다. 핵심은 `그 아이템이 없으면 그 메뉴 항목 자체가 성립하지 않는가`이며, 섭취, 장착, 제작/조리 레시피, 일반 무기 사용, 추론은 제외한다.
-- 영향: Right-click source는 `보유 조건부 상호작용 해금`보다 더 좁게, **타겟 우클릭 메뉴 출현 조건**으로 운용한다. 이 기준은 outcome fact table과 개별 설명 필요성 판정의 입력을 안정화한다.
-
-## 2026-03-24 — 우클릭 행동은 도구 기능 백과사전이 아니라 메뉴 출현 조건 증거다
-
-- 결정: Iris에서 말하는 `우클릭 행동`은 아이템이 `유용하다`거나 `뭔가 할 수 있다`는 넓은 기능 분류가 아니라, **그 아이템을 소지해야만 다른 대상의 우클릭 메뉴에 특정 항목이 나타나는 경우**를 가리키는 기능적 용도 증거로 본다. 이 증거는 설명 레이어가 아니라 **사실/증거 레이어**에 속한다.
-- 영향: 범용 도구, 시스템 조건 도구, 조합 도구, 재료·부산물은 기본적으로 Right-click evidence에서 제외하고, 필요하면 개별 아이템 설명 또는 다른 evidence 경로에서 다룬다.
-
-## 2026-03-25 — Right-click evidence는 결과 상태보다 먼저 메뉴 생성 귀속을 본다
-
-- 결정: Iris의 Right-click evidence는 `결과 상태가 고유한가`만으로 통과시키지 않고, **해당 아이템이 없으면 타겟 우클릭 메뉴 항목 자체가 생성되지 않는가**를 먼저 본다. 즉, 결과 상태 검토는 언제나 **메뉴 생성 귀속성**을 통과한 뒤에만 수행한다.
-- 영향: Right-click evidence는 `메뉴 생성 조건 선행 → 결과 상태 단일성 후행`의 2단 게이트로 고정되며, 결과 상태 고유성만으로 capability를 승인하는 경로는 닫는다.
-
-## 2026-03-25 — OR / 조합 / 타입 / 시스템 메뉴 선택지는 Right-click evidence에서 제외한다
-
-- 결정: 다음 구조는 기본 Right-click evidence에서 제외한다. `A OR B` 대체 구조, `A + B` 조합 구조, `Gasoline container` 같은 타입 기반 구조, 그리고 `Attach/Upgrade`처럼 **시스템 메뉴가 먼저 있고 아이템은 그 내부 선택지로만 들어가는 구조**.
-- 영향: `can_remove_embedded_object`, `can_stitch_wound`, `can_add_generator_fuel`은 기본적으로 제거 방향으로 보고, `can_attach_weapon_mod`는 `결과 상태`가 아니라 **전용 메뉴 생성 여부** 기준으로 처음부터 다시 검증한다.
-
-## 2026-03-25 — 범용 도구와 재료/부산물은 Right-click evidence가 아니라 설명층 후보다
-
-- 결정: `Hammer` 같은 범용 도구, `BlowTorch + WeldingMask` 같은 조합 도구, `UnusableMetal / UnusableWood` 같은 재료·부산물은 기본 Right-click evidence 축에 올리지 않는다.
-- 영향: 이런 항목은 필요 시 개별 아이템 설명이나 다른 evidence 경로에서 다루며, Right-click evidence를 `도구 기능 백과사전`으로 확장하는 길은 닫는다.
-
-## 2026-03-25 — Right-click evidence의 좁은 메뉴 기준은 최종 헌법으로 확정하지 않는다
-
-- 결정: `아이템이 없으면 타겟 우클릭 메뉴 항목 자체가 생성되지 않는가`라는 **좁은 메뉴 생성 기준**은 Right-click evidence를 검증하는 강한 보수 모델로는 유지하되, 더 이상 **최종 헌법 판정**으로 고정하지 않는다. 이 기준은 `Philosophy.md` 4조(타 모드와의 호환성 1순위)와 충돌 가능성이 확인되어, **`메뉴 존재 기준`과 `행동 가능 기준` 사이의 상위 정의 재설계**를 별도 과제로 연다.
-- 영향: Right-click evidence의 canonical form이 outcome fact라는 점, Source 분리 / Evidence 통합이라는 점은 유지하지만, **어떤 Source coverage를 허용할지**는 재설계 전까지 유보 상태로 둔다.
-
-## 2026-03-25 — 좁은 메뉴 기준 위에서 내린 개별 Right-click 판정은 잠정 판정이다
-
-- 결정: `can_remove_embedded_object`, `can_stitch_wound`, `can_add_generator_fuel`, `can_attach_weapon_mod`, `can_extinguish_fire`, `BucketEmpty`류 등에 대한 최근 판정은 **좁은 메뉴 생성 기준** 위에서만 유효한 잠정 판정으로 본다.
-- 영향: 제거 방향이나 축소 결론을 즉시 최종 동결하지 않고, 다음 단계에서는 **상위 정의 확정 → 개별 capability 재검증** 순서로 다시 진행한다.
-
-## 2026-03-25 — Recipe와 Right-click의 구조 결정과 Source coverage 결정은 분리한다
-
-- 결정: 다음 두 가지는 분리해서 다룬다.
-  1. 이미 고정된 구조 결정: Recipe / Right-click / Static capability는 **독립 Source**이고, Iris 분류기는 **Outcome 중심 단일 Evidence 프레임**을 소비한다.
-  2. 아직 미정인 coverage 결정: Right-click source를 **메뉴 존재 기준**으로 볼지 **행동 가능 기준**으로 볼지.
-- 영향: `Source 분리 / Evidence 통합`은 계속 유지하되, 좁은 바닐라 5개 capability 구조나 attach/fuel/medical의 배제 여부는 coverage 설계가 닫히기 전까지 확정하지 않는다.
-
-## 2026-03-25 — 바닐라 5개 Right-click capability 구조는 최종안이 아니다
-
-- 결정: `can_open_canned_food`, `can_disassemble_devices`, `can_saw_logs`, `can_attach_sling`, `can_attach_ammo_straps` 같은 **바닐라 축소 구조**는 최종 capability 체계로 확정하지 않는다.
-- 영향: 이 묶음은 임시 축소 결과로만 남기고, 새 세션에서는 B42 + 모드 시장 기준의 범용 Action/Outcome field 재설계를 먼저 수행한다.
-
-## 2026-03-16 — Frame 비정책 원칙
-
-- 결정: Frame은 팩 상태를 기록·비교·되돌릴 수 있게 하는 레이어이며, 원인 지목·정답 추천·자동 해결을 하지 않는다.
-- 영향: 사실+행동 언어 중심 UI를 유지하고, 판단/권장 톤은 금지한다.
-
-## 2026-03-16 — Frame 월드 비포함 원칙
-
-- 결정: Frame은 월드(세이브)를 커버하지 않는다.
-- 영향: Frame은 모드 목록/순서/출처/설정/지문 기반 상태 비교에 집중한다.
-
-## 2026-03-25 — Frame은 PZ판 git 레이어다
-
-- 결정: Frame은 `모드팩 관리자`나 `문제 해결 도구`가 아니라, **Project Zomboid 모드팩 상태를 기록·비교·되돌리는 버전 관리 레이어**로 둔다.
-- 영향: Frame의 최소 단위는 개별 모드가 아니라 **팩 상태(pack state)** 이며, 제품 비유도 `CurseForge형 관리자`보다 **PZ판 git** 쪽으로 고정한다.
-
-## 2026-03-25 — Frame은 팩 상태를 1급 객체로 다룬다
-
-- 결정: Frame의 관리 단위는 개별 모드 ON/OFF가 아니라, **특정 시점의 팩 상태 전체**다.
-- 영향: Frame의 비교/복원/공유 UX는 `모드 A/B/C`보다 `정상 상태 A / 문제 상태 B` 같은 팩 상태 비교를 중심으로 설계한다.
-
-## 2026-03-25 — Frame 스냅샷의 위계는 수동 공식 기록 + 자동 안전망이다
-
-- 결정: Frame의 **공식 스냅샷은 수동**으로 만들고, **자동 스냅샷은 안전망**으로만 둔다.
-- 영향: UI와 데이터 모델은 수동 스냅샷과 자동 기록을 같은 위상으로 다루지 않으며, 자동 기록은 복구와 회귀 추적 보조선으로만 쓴다.
-
-## 2026-03-25 — Frame은 진단/추천 도구가 아니라 기록/복원 도구다
-
-- 결정: Frame은 차이 표시와 상태 기록은 하되, **문제 모드 지목 / 자동 추천 / 자동 정렬 / 자동 해결**은 하지 않는다.
-- 영향: Frame의 제품 가치는 `더 똑똑한 분석`이 아니라 **되돌림 가능한 기록**에 두고, UI도 판단보다 사실과 변화 표시를 우선한다.
-
-## 2026-03-25 — Frame 외부 툴화는 메인라인이 아니다
-
-- 결정: Frame을 외부 런처/관리자 툴로 빼는 방향은 현재 메인라인으로 채택하지 않는다.
-- 영향: 현 단계의 Frame은 **모드 내부 레이어**로 남기고, 외부 툴화는 장기 백로그/후순위 옵션으로만 둔다.
-
-## 2026-03-25 — 리소스팩 축은 Pulse의 핵심축이 아니라 별도 제품 축이다
-
-- 결정: 리소스팩 축은 Pulse의 핵심 킬러축이 아니라 **생태계 확장용 별도 제품 축**으로 둔다. 진행한다면 처음부터 **Canvas**로 시작하고, 진행하지 않으면 Pulse 생태계에서 해당 축을 제거한다.
-- 영향: Frame과 Pulse의 핵심 서사는 여전히 `모드팩 상태 기록·복원`에 두고, 리소스팩 검증/비교/설명은 Canvas 독립 축으로 다룬다. Cortex는 이 축의 임시 수용 경로가 아니다.
-
-## 2026-03-25 — Frame 범위는 환경 상태에 한정하고 월드/세이브는 제외한다
-
-- 결정: Frame은 **모드팩 환경 상태**만 다루고, 월드/세이브 상태는 범위에 넣지 않는다.
-- 영향: Frame의 기록 단위는 모드 목록/순서/출처/설정/지문 같은 **팩 상태**에 고정되며, 월드 문제는 다른 레이어나 별도 도구의 범위로 남긴다.
-
-## 2026-03-25 — Frame 설정은 원본 보존 + 오버라이드 레이어로 다룬다
-
-- 결정: Frame은 설정을 직접 편집하는 UI보다, **원본 설정 보존 + 사용자 오버라이드 파일(내 설정)** 구조를 우선한다.
-- 영향: 설정 변경 UX는 `원본을 복사해 오버라이드 레이어를 만든 뒤 외부 편집기로 수정`하는 흐름을 기본으로 삼고, Frame 본체는 레이어 관리와 diff/restore에 집중한다.
-
-## 2026-03-25 — Frame 재현성은 완전 복원이 아니라 재구성과 동일성 확인으로 본다
-
-- 결정: Frame은 모드 원본 파일을 저장·배포하는 방식으로 완전 복원을 보장하지 않고, **목록/순서/설정 재구성 + fingerprint 기반 동일성 확인**을 기본 재현성 모델로 둔다.
-- 영향: Frame은 `그때의 상태를 다시 맞출 수 있는가`와 `지금 상태가 그때와 같은가`를 다루며, 모드 원본 자체를 보관·전달하는 시스템으로는 가지 않는다.
-
-## 2026-03-25 — Frame의 언어는 사실+행동 언어로 봉인한다
-
-- 결정: Frame UI/문서/데이터는 **정상/비정상, 원인/범인, 권장/최적, 해결/진단** 같은 판단 언어를 피하고, **기준점, 자동 저장, 달라짐, 비교, 되돌리기, 계속** 같은 사실+행동 언어를 쓴다.
-- 영향: Frame의 용어 체계는 판단보다 기록, 처방보다 복원, 진단보다 비교를 우선하는 방향으로 고정된다.
-
-## 2026-03-25 — Frame 자동 저장은 고정 주기 안전망으로 두고 품질 차등을 두지 않는다
-
-- 결정: 자동 저장은 **5/10/30/60분 고정 주기 + 최근 10개 롤링 보관**을 기본으로 하며, `변화 없으면 저장 생략` 같은 해석적 스킵은 하지 않는다.
-- 영향: 자동 저장은 공식 스냅샷과 역할은 다르되 **기록 품질 자체는 낮지 않은 안전망**으로 유지하고, 저장 생략 로직은 기본 정책에서 배제한다.
-
-## 2026-03-25 — Frame 공개 공유 포맷은 ZIP+JSON, `.frame`은 내부 캐시 후보로 둔다
-
-- 결정: 외부 공유 표준은 **ZIP + JSON**으로 두고, `.frame`을 공개 표준으로 강제하지 않는다. 다만 import 단계의 보안/검증을 위해 ZIP을 내부 `.frame` 캐시로 변환하는 안은 유력한 내부 처리 전략으로 남긴다.
-- 영향: 외부 공유는 열린 포맷을 유지하고, `.frame`은 필요할 때 **내부 검증 캐시**나 런타임 최적화 수단으로만 다룬다.
-
-## 2026-03-25 — Frame은 런처/설치기/devkit로 키우지 않는다
-
-- 결정: Frame은 기록·비교·복원 레이어를 넘어 **런처, 설치기, 문제 진단기, 설정 에디터, devkit** 로 확장하지 않는다.
-- 영향: 팩 상태 기록/공유/복원과 직접 관련 없는 편의 기능은 기본적으로 Cortex나 별도 후순위 논의로 미루고, Frame 본체는 상태 관리 경험에 집중한다.
-
-## 2026-03-16 — Canvas 정체성
-
-- 결정: Canvas는 리소스 제작 툴이 아니라, 리소스팩의 최종 적용 상태를 검증·비교·설명하는 별도 모듈로 본다.
-- 영향: Canvas는 제작보다 인덱싱, 최종 상태 계산, 충돌 분석, 프리플라이트 검증, 차이 설명에 집중한다.
-
-## 2026-03-16 — Canvas 초기 진입 경로
-
-- 결정: 리소스팩 축을 진행한다면 처음부터 Canvas로 시작하며, `Cortex에서 임시 운영 후 이관` 같은 경로는 사용하지 않는다. 시작하지 않기로 결정하면 해당 축은 보류가 아니라 제거로 본다.
-- 영향: 리소스팩 제품 축은 Canvas에 직접 배치하고, Cortex는 이 축을 대신 수용하지 않는다.
-
-## 2026-03-25 — Canvas는 제작 툴이 아니라 검증·비교·설명 플랫폼이다
-
-- 결정: Canvas는 Photoshop, GIMP, Blender, TileZed 같은 외부 툴을 대체하는 **리소스 제작 툴**로 가지 않고, 외부 툴 산출물을 읽어 **최종 적용 상태 / 충돌 / 배포 불일치**를 검증·비교·설명하는 플랫폼으로 둔다.
-- 영향: Canvas는 인덱싱, 최종 상태 계산, 충돌 분석, 구조/경로/ID/패킹 검증, 로컬↔산출물/서버↔클라 비교, 설명형 리포트를 본업으로 삼고 제작 편집 기능은 기본 범위에서 제외한다.
-
-## 2026-03-25 — Canvas와 Frame은 협력하되 통합 설계를 피한다
-
-- 결정: Canvas와 Frame은 함께 쓰일 수 있어도, 처음부터 하나의 통합 제품처럼 설계하지 않는다. Frame은 **모드팩 상태**를, Canvas는 **리소스 적용 상태**를 다루는 별도 모듈로 둔다.
-- 영향: Frame은 시간축·스냅샷·롤백 중심으로, Canvas는 리소스팩 최종 상태 검증·비교·설명 중심으로 발전시키며, 상호 협력은 느슨한 연동 수준에 그친다.
-
-## 2026-03-25 — Canvas 공개 포맷은 ZIP+JSON(+.pack), `.canvas`는 내부 정규화 번들 후보다
-
-- 결정: Canvas의 외부 공유 기본값은 **ZIP + JSON(+ .pack)** 으로 두고, `.canvas`를 외부 공개 표준으로 강제하지 않는다. 다만 내부적으로는 정규화 캐시·분석 번들로 `.canvas`를 가질 수 있다.
-- 영향: Canvas는 열린 입력·공유 포맷을 유지하되, 내부 검증·캐시 전략은 독자 구조로 발전시킨다.
-
-## 2026-03-25 — Canvas의 pain point는 적용 결과, 제작 안전, 배포 불일치다
-
-- 결정: Canvas가 직접 겨냥하는 pain point는 세 가지로 고정한다. **최종 적용 결과/충돌/로드 순서 가시성 부족**, **패킹/경로/구조/ID 민감성으로 인한 제작 붕괴**, **버전/서버/배포 불일치**다.
-- 영향: Canvas v1은 세 pain point를 모두 기초 수준으로 덮되, 중심 가치는 `최종 적용 상태와 충돌 가시화`에 둔다.
-
-## 2026-03-25 — Frame은 특권 모듈이 아니라 하나의 별도 축이다
-
-- 결정: Frame은 중요한 제품 축이지만 다른 하위 모듈보다 우선하는 **특권 모듈**로 보지 않는다. 문서에서 Frame을 과도하게 생태계의 중심처럼 서술하지 않는다.
-- 영향: 문서 서술은 `Frame 중심 생태계`보다 `각 모듈이 자기 문제를 풀며 Pulse를 증명한다`는 톤을 유지한다.
+## Frame
+
+### Frame — PZ판 git형 팩 상태 버전 관리 레이어
+
+* 상태: current readpoint / pre-ledger imported + 2026-03-25 refinement
+* 결정: Frame은 `모드팩 관리자`, `문제 해결 도구`, `런처`, `설치기`, `devkit`가 아니라, **Project Zomboid 모드팩 상태를 기록·비교·되돌리는 버전 관리 레이어**로 둔다.
+* 현재 기준:
+
+  * Frame의 최소 관리 단위는 개별 모드가 아니라 **팩 상태(pack state)** 다.
+  * Frame은 특정 시점의 모드 목록 / 순서 / 출처 / 설정 / 지문을 묶은 **환경 상태**를 1급 객체로 다룬다.
+  * 제품 비유는 `CurseForge형 관리자`보다 **PZ판 git**에 가깝게 고정한다.
+  * Frame은 월드/세이브 상태를 커버하지 않는다.
+  * Frame은 성능 개입, 안정화, Lua 실행 제어, 런타임 정책 결정을 맡지 않는다.
+  * Frame은 Fuse/Nerve와 기능적으로 엮이지 않는 **비런타임 모드팩 운영 레이어**로 둔다.
+* 영향: Frame은 설치 전/운영 단계의 팩 구성·스냅샷·재현성 관리에 집중하고, 실제 실행 중 체감 변화나 안정화 개입은 Fuse/Nerve 같은 런타임 모듈의 책임으로 남긴다.
+* Trace:
+
+  * ledgered/imported: 2026-03-16 Frame 비정책 / 월드 비포함 원칙
+  * ledgered/imported: 2026-03-17 Frame 비런타임 / 비안정화 원칙
+  * refined: 2026-03-25 Frame은 PZ판 git 레이어 / 팩 상태 1급 객체 / 환경 상태 한정
+  * COMMON-EVIDENCE-TRACE.
+
+### Frame — 비정책 기록·비교·복원 원칙
+
+* 상태: current readpoint
+* 결정: Frame은 차이 표시와 상태 기록은 하되, **원인 지목 / 정답 추천 / 자동 해결 / 자동 정렬 / 문제 모드 지목**을 하지 않는다.
+* 현재 기준:
+
+  * Frame의 제품 가치는 `더 똑똑한 분석`이 아니라 **되돌림 가능한 기록**에 둔다.
+  * UI와 문서는 판단보다 사실과 변화 표시를 우선한다.
+  * Frame UI/문서/데이터는 `정상/비정상`, `원인/범인`, `권장/최적`, `해결/진단` 같은 판단 언어를 피한다.
+  * 기본 언어는 `기준점`, `자동 저장`, `달라짐`, `비교`, `되돌리기`, `계속` 같은 **사실+행동 언어**로 둔다.
+  * Frame은 진단 도구가 아니라 기록/복원 도구이며, 처방보다 복원, 진단보다 비교를 우선한다.
+* 영향: Frame은 사용자가 상태 차이를 보고 되돌릴 수 있게 하지만, 어떤 모드가 문제인지 판단하거나 최적 상태를 추천하는 도구로 확장하지 않는다.
+* Trace:
+
+  * ledgered/imported: 2026-03-16 Frame 비정책 원칙
+  * refined: 2026-03-25 Frame은 진단/추천 도구가 아니라 기록/복원 도구
+  * refined: 2026-03-25 Frame의 언어는 사실+행동 언어
+  * COMMON-EVIDENCE-TRACE.
+
+### Frame — 스냅샷 / 자동 저장 / 설정 / 재현성 모델
+
+* 상태: current readpoint
+* 결정: Frame은 **수동 공식 스냅샷 + 자동 안전망 + 원본 보존/오버라이드 설정 + fingerprint 기반 동일성 확인**을 기본 운영 모델로 둔다.
+* 현재 기준:
+
+  * Frame의 공식 스냅샷은 수동으로 만든다.
+  * 자동 스냅샷은 공식 기록과 같은 위상이 아니라, 복구와 회귀 추적을 위한 안전망으로만 둔다.
+  * 자동 저장은 **5/10/30/60분 고정 주기 + 최근 10개 롤링 보관**을 기본으로 한다.
+  * `변화 없으면 저장 생략` 같은 해석적 스킵은 기본 정책에서 배제한다.
+  * 자동 저장은 공식 스냅샷과 역할은 다르지만, 기록 품질 자체가 낮은 임시 로그로 취급하지 않는다.
+  * 설정은 직접 편집 UI보다 **원본 설정 보존 + 사용자 오버라이드 파일(내 설정)** 구조를 우선한다.
+  * 설정 변경 UX는 `원본을 복사해 오버라이드 레이어를 만든 뒤 외부 편집기로 수정`하는 흐름을 기본으로 삼는다.
+  * Frame 본체는 설정 편집기가 아니라 레이어 관리와 diff/restore에 집중한다.
+  * Frame은 모드 원본 파일을 저장·배포하는 방식으로 완전 복원을 보장하지 않는다.
+  * 재현성 모델은 **목록/순서/설정 재구성 + fingerprint 기반 동일성 확인**이다.
+* 영향: Frame은 `그때의 상태를 다시 맞출 수 있는가`와 `지금 상태가 그때와 같은가`를 다루며, 모드 원본 자체를 보관·전달하는 시스템으로 확장하지 않는다.
+* Trace:
+
+  * refined: 2026-03-25 Frame 스냅샷의 위계는 수동 공식 기록 + 자동 안전망
+  * refined: 2026-03-25 Frame 자동 저장은 고정 주기 안전망
+  * refined: 2026-03-25 Frame 설정은 원본 보존 + 오버라이드 레이어
+  * refined: 2026-03-25 Frame 재현성은 완전 복원이 아니라 재구성과 동일성 확인
+  * COMMON-EVIDENCE-TRACE.
+
+### Frame — 공유 포맷과 제품 경계
+
+* 상태: current readpoint / external-tooling deferred
+* 결정: Frame은 현재 메인라인에서 **모드 내부 레이어**로 남기고, 외부 공유 표준은 **ZIP + JSON**으로 둔다.
+* 현재 기준:
+
+  * Frame을 외부 런처/관리자 툴로 빼는 방향은 현재 메인라인으로 채택하지 않는다.
+  * 외부 툴화는 장기 백로그 또는 후순위 옵션으로만 둔다.
+  * 공개 공유 포맷은 열린 포맷인 **ZIP + JSON**을 기본으로 한다.
+  * `.frame`을 공개 표준으로 강제하지 않는다.
+  * 다만 import 단계의 보안/검증을 위해 ZIP을 내부 `.frame` 캐시로 변환하는 안은 유력한 내부 처리 전략으로 남긴다.
+  * Frame은 기록·비교·복원 레이어를 넘어 런처, 설치기, 문제 진단기, 설정 에디터, devkit로 확장하지 않는다.
+  * 팩 상태 기록/공유/복원과 직접 관련 없는 편의 기능은 기본적으로 Cortex나 별도 후순위 논의로 미룬다.
+* 영향: 외부 공유는 열린 포맷을 유지하고, `.frame`은 필요할 때 내부 검증 캐시나 런타임 최적화 수단으로만 다룬다. Frame 본체는 상태 관리 경험에 집중한다.
+* Non-decision:
+
+  * 이 항목은 Frame의 즉시 외부 툴화, 공개 표준 `.frame` 강제, 런처/설치기/devkit 전환, 문제 진단기화를 승인한 것이 아니다.
+* Trace:
+
+  * refined: 2026-03-25 Frame 외부 툴화는 메인라인이 아님
+  * refined: 2026-03-25 Frame 공개 공유 포맷은 ZIP+JSON, `.frame`은 내부 캐시 후보
+  * refined: 2026-03-25 Frame은 런처/설치기/devkit로 키우지 않음
+  * COMMON-EVIDENCE-TRACE.
 
 ---
-
-## 2026-03-16 — Mutagen/Pulse 플랫폼 철학
-
-- 결정: PZ 위 JVM 기반 로더/플랫폼은 존재 가능하며, 플랫폼은 킬러앱의 내부 런타임이 아니라 생태계 기반층으로 설계한다.
-- 영향: 플랫폼과 킬러앱을 구분하되, 공개 전략은 킬러앱 우선으로 가져간다.
-
-## 2026-03-16 — 킬러앱 우선 전략
-
-- 결정: 채택 전략은 `플랫폼 먼저 홍보`보다 `킬러앱 먼저 공개, 플랫폼은 그 기반으로 인식되게 하기`를 우선한다.
-- 영향: 1st-party 최적화 모드는 채택 레버리지이며, Core의 존재 이유 자체를 대체하지는 않는다.
-
-## 2026-03-16 — Pulse는 특정 킬러앱 전용 런처가 아님
-
-- 결정: Pulse는 특정 프로파일러나 최적화 모드 전용 플랫폼으로 만들지 않는다.
-- 영향: 외부 모드와 미래의 Pulse 기반 모드를 모두 받칠 수 있는 일반 플랫폼을 지향한다.
-
-## 2026-03-16 — 초기 플랫폼 API 범위
-
-- 결정: 초기 Pulse Core는 거대한 고레벨 정책 API보다 얇고 안정적인 공용 API를 우선한다.
-- 영향: 구체 정책, 헬퍼, 편의 기능은 가능한 한 하위 모듈 또는 Cortex 격리 구역으로 미룬다.
-
-## 2026-03-16 — 플랫폼 성숙도 우선
-
-- 결정: 생태계 기반층에서 중요한 것은 단순 기능 수보다 안정성, 호환성, 진단 능력이다.
-- 영향: 예외 격리, mixin 진단, API 안정성, DevMode/로깅은 상위 우선순위를 가진다.
-
-## 2026-03-16 — Core / profiler / engine / lua optim 모듈 분리
-
-- 결정: Core와 1st-party 모드는 `Pulse Core / pulse-profiler / pulse-engine-optim / pulse-lua-optim`으로 분리한다.
-- 영향: 계측, 엔진 최적화, Lua 완화 라이브러리는 Core가 아닌 별도 모드에서 구현한다.
-
-## 2026-03-23 — Pulse는 전면형 Java 로더 경쟁 전략을 채택하지 않음
-
-- 결정: Pulse는 Leaf/Avrix/Storm류와 같은 `새 Java 로더` 경쟁 구도로 자신을 정의하지 않는다. Pulse는 킬러앱이 먼저 가치를 입증한 뒤 나중에 기반으로 드러나는 **샌드박스형 공통 지반**으로 남는다.
-- 영향: 플랫폼 서사는 제품보다 앞서지 않으며, 공개/README/배포 문구도 `새 표준 선언`보다 `기반 품질이 결과물을 받친다`는 방향으로 정리한다.
-
-## 2026-03-23 — 플랫폼 실패 회피의 핵심은 오염 방지와 채택 마찰 제어
-
-- 결정: Pulse 생태계의 실패 회피 핵심은 기능 수 부족 보완보다 **플랫폼 오염 방지**와 **설치·실행 마찰 제어**에 둔다.
-- 영향: Core는 끝까지 빈 기반으로 유지하고, 설치/실행 UX는 `새 플랫폼 강요`가 아니라 `기존 플레이 흐름을 거의 바꾸지 않는 전제`처럼 느껴지게 설계한다.
-
-## 2026-03-23 — Pulse Core 오염 방지와 Cortex 격리 원칙 재확정
-
-- 결정: Pulse Core에는 helper/편의/가이드 성격 기능을 넣지 않으며, 이런 욕구는 Cortex 같은 격리 구역으로만 보낸다.
-- 영향: Core의 API 확장은 중립 surface에 한정하고, helper성 기능은 `Pulse에 있어도 되지 않나`라는 이유만으로 승격하지 않는다.
-
-## 2026-03-23 — 공개 전략은 제품 선공개 후 플랫폼 후노출
-
-- 결정: 공개 전략은 플랫폼 선공개가 아니라 **Iris → Nerve → Fuse → Pulse+Echo → Nerve+ / Fuse Pulse 의존 전환** 순의 역방향 공개를 기본선으로 둔다.
-- 영향: `플랫폼 먼저 공개` 루트는 기본 전략에서 닫고, Pulse는 검증된 결과물 묶음의 공통 기반으로 소개한다.
-
-## 2026-03-23 — Nerve와 Nerve+의 배포 경계
-
-- 결정: Nerve는 Pulse 비의존 **핵심 기능 스탠드얼론**으로 유지하고, Nerve+만 Pulse 의존 **핵심 + 편의 계열**로 둔다.
-- 영향: 문서/홍보/배포에서 Nerve는 코어, Nerve+는 convenience overlay로 설명하며, Fuse의 Pulse 의존 전환도 이 배포 전략과 함께 정렬한다.
-
-## 2026-03-23 — Pulse API 확장 순서는 후보 추출 → 기반 판정 → 중립 노출
-
-- 결정: Pulse API 확장은 `API를 더 만들기 위해 만드는 방식`이 아니라, **바닐라의 기반 기능 후보 추출 → 진짜 기반인지 판정 → 중립적으로 노출 가능한 것만 API화** 순서로 진행한다.
-- 영향: 기반 후보 추출 이전의 무차별 API 증설은 열지 않으며, API surface 평가는 언제나 `중립 노출 가능한가`를 마지막 게이트로 둔다.
-
-## 2026-03-17 — S1~S4 싱글 시나리오의 역할 고정
-
-- 결정: S1~S4 싱글 시나리오를 단순 성능 측정이 아니라 각기 다른 구조 검증선으로 취급한다. S1은 Fuse의 구조적 개입 증명, S2는 스트리밍/이동 경계 비개입 확인, S3는 바닐라 Lua 상시 병목 부정선, S4는 회귀/안정성 게이트다.
-- 영향: S1~S4는 모두 같은 종류의 벤치마크로 다루지 않으며, 특히 S4는 개발용 탐색 시나리오가 아니라 인증 게이트로 취급한다.
-
-## 2026-03-17 — Nerve 정체성 재정의
-
-- 결정: Nerve는 `Lua 병목 해결 모드`가 아니라, **Lua를 제어면으로 사용해 이벤트/모드 상호작용/동기화 레이어의 스파이크와 작업 겹침을 완충하는 안정화 모드**로 본다.
-- 영향: Nerve의 목표는 Lua 자체를 깎는 것이 아니라, Lua를 사용해 시스템적 지연과 충돌을 완화하는 방향으로 정리된다.
-
-## 2026-03-17 — Fuse 기본 레인의 허용 범위
-
-- 결정: Fuse의 기본 레인은 **semantic-preserving**, 즉 동일 결과를 더 싸게 만드는 최소 개입 안정화에 둔다. 결과나 규칙이 달라질 수 있는 근사/공격적 알고리즘 교체는 기본 레인에 넣지 않는다.
-- 영향: Fuse는 엔진 포크나 공격적 알고리즘 대수술보다, 안전하게 켜둘 수 있는 구조적 비용 절감과 프레임타임 안정화에 집중한다.
-
-## 2026-03-17 — 최적화 모드의 대외 메시지
-
-- 결정: Fuse/Nerve의 내부 정체성은 인프라/안정화 레이어로 유지하되, 외부 메시지는 `평균 FPS 상승` 약속보다 `평균 FPS 방어`, `끊김 감소`, `프레임 붕괴 방지`, `더 안정적인 플레이` 같은 체감 언어를 우선한다.
-- 영향: 공개 문구와 README 톤은 안정성 중심으로 정리하며, 특히 Fuse는 `평균 FPS 향상`보다 `무너지는 순간을 줄이는 모드`로 설명한다.
-
-## 2026-03-17 — MP 데이터 수집과 재잠금 순서
-
-- 결정: 다음 단계의 중심은 MP 데이터 수집이며, 이 단계는 인증이 아니라 패턴 발견·부작용 탐지·개입 타이밍 검증 단계로 본다. 인증용 재잠금은 그 뒤에 S4를 필수, S1을 권장으로 재계측하는 순서로 둔다.
-- 영향: 우선순위는 `MP 데이터 수집 → 튜닝 → S4 재잠금(필수) / S1 재잠금(권장)`으로 고정된다.
-
-## 2026-03-17 — Frame의 비런타임 / 비안정화 원칙
-
-- 결정: Frame은 **모드팩 운영 도구**이며, Fuse/Nerve와 기능적으로 엮이지 않는 **비런타임 레이어**로 둔다. Frame은 성능 개입, 안정화, Lua 실행 제어, 런타임 정책 결정을 맡지 않는다.
-- 영향: Frame은 설치 전/운영 단계의 팩 구성·스냅샷·재현성 관리에 집중하고, 실제 실행 중 체감 변화는 Fuse/Nerve 같은 런타임 모듈의 책임으로 남긴다.
-
-## 2026-03-17 — 멀티 검증 범위 축소와 S5 중심화
-
-- 결정: 현 단계의 멀티 검증은 **전면 완주 과제**가 아니라 **필요 최소한의 보조 검증**으로 다룬다. 필수 실험은 S5만 남기고, 멀티 S1/S2/S4 전면 완주는 현재 기준 필수 과제에서 제외한다.
-- 영향: 멀티 OFF 데이터는 계속 해석 가능한 기준선으로 남기고, MP 단계의 중심은 S5와 필요한 최소 보조 검증으로 재정렬한다.
-
-## 2026-03-17 — Nerve의 운영 포지션
-
-- 결정: Nerve는 **주력 성능 모듈**이 아니라 **멀티/모드팩 환경을 주 대상으로 하는 선택적 안정성 Guard**로 둔다. 성공적인 S5가 나와도 필수 최적화 모듈로 승격하지 않으며, S5가 조용하면 dormant/selective 구조로 유지한다.
-- 영향: Nerve 로드맵과 공개 전략은 평균 FPS 향상보다 선택적 완충, 가드, 멀티/모드팩 안정성에 맞춰 정리한다.
-
-## 2026-03-17 — Nerve 연구를 Failure Atlas 구축으로 고정
-
-- 결정: Nerve의 현재 연구 단계는 `실패를 고치는 실험 설계`가 아니라, **고정된 세계 상태에서 자연 발현한 실패를 수집하고 유한한 원인 축으로 귀속시키는 Failure Atlas 구축 단계**로 본다.
-- 영향: Nerve 연구의 출력은 최적화 아이디어보다 실패 분류/귀속 표가 우선하며, 이후 설계도 이 atlas를 기준으로 정리한다.
-
-## 2026-03-17 — Nerve 연구 단위와 관측 프로토콜
-
-- 결정: Nerve 연구의 기본 단위는 `세션 길이`가 아니라 **하나의 고정된 세이브 상태**이며, 운영 프로토콜은 **일반 플레이 / 세션 후 체감 태그 / Echo 로그 사후 복기**로 둔다. 새 시작 반복과 플레이 중 실시간 실패 캐치는 기본 방식으로 채택하지 않는다.
-- 영향: 플레이 시간은 관측 창으로만 취급하고, 연구 기록은 `정상/불편` 같은 최소 태그를 먼저 남긴 뒤 Echo 로그를 AI와 함께 복기하는 구조로 정리한다.
-
-## 2026-03-17 — Nerve 연구 단계의 기본 세팅
-
-- 결정: Failure Atlas 구축 단계의 기본 세팅은 **Echo ON / Fuse OFF / Nerve OFF**로 둔다. 멀티 플레이는 있으면 연구 가속 수단이지만, 현재 구조상 **옵션**이며 필수 전제가 아니다.
-- 영향: Nerve 연구용 리포트는 Echo 단독 관측 기준으로 쌓고, Fuse/Nerve ON 비교는 failure atlas가 충분히 축적된 뒤의 후속 단계로 미룬다.
-
-## 2026-03-17 — Nerve Area 5 v0.1 Final 합헌 동결
-
-- 결정: Nerve의 **Area 5(UI / 인벤토리 안정화)** 는 `데이터 즉시 반영 + 같은 틱 안의 시각 갱신 coalescing + 의미 불변 + fail-soft bypass`를 만족하는 **합헌적 최소 구현(v0.1 Final)** 으로 닫는다. weak registry, snapshot 순회, executeFn optional fail-soft, bypass 고정을 채택하고, `defer`, `drop`, `isVisible()` 기반 판단, 틱 넘김 캐시, 더 공격적인 batching은 v0.1 범위에서 채택하지 않는다.
-- 영향: Area 5는 `완료`보다 **동결** 상태로 본다. 이후 확장은 전장 판결 → 최소 스코프 → v0.x 정의 순서로만 연다.
-
-## 2026-03-17 — Nerve Area 5의 위헌 금지선
-
-- 결정: Area 5에서는 `defer`, `drop`, `isVisible()`/visibility 기반 flush 판단, UI 상태 기반 정책 판단, Pulse로의 기능 상향 이동, 조기 `ItemTransferBatcher` 투입을 채택하지 않는다.
-- 영향: v0.1은 현재 틱 안에서만 중복을 접는 최소 안정화로 유지하고, `ItemTransferBatcher` 같은 더 강한 batching은 v0.2 별도 논의 대상으로 이월한다.
-
-## 2026-03-20 — Nerve Area 6 재정의: 최적화가 아니라 보수적 안전 레이어
-
-- 결정: Nerve의 **Area 6(이벤트 디스패치 / 모드 훅 폭주)** 는 `이벤트를 더 똑똑하게 정리하는 최적화 기능`이 아니라, **문제 발생 시 리스너 단위로 격리하고 곧바로 철수하는 보수적 안정성 레이어**로 재정의한다. 기본 목표는 빈도 제어가 아니라 **위험한 개입 경로 제거와 이벤트 체인 붕괴 방지**다.
-- 영향: Area 6의 기본선은 `바닐라 동일성 + 충돌 시 철수 + incident 발생 시 리스너 단위 fail-soft 격리`가 되며, 성능 기능으로 소개하거나 확장하지 않는다.
-
-## 2026-03-20 — Nerve Area 6 기본값: Default = 바닐라 동일
-
-- 결정: Area 6은 `enabled = false`, `strict = false`를 기본값으로 두고, 기본 상태에서는 `drop / delay / reorder / auto policy`가 없어야 한다. 설치만으로 이벤트 의미가 바뀌어서는 안 된다.
-- 영향: 기본 기준선은 **설치 전/후 의미 동일**이며, 이 원칙은 설정 설명이 아니라 코드와 검증 시나리오(S1)로 강제한다.
-
-## 2026-03-20 — EventDeduplicator 폐기, EventRecursionGuard로 역할 축소
-
-- 결정: `EventDeduplicator` 계열 발상은 폐기하고, Area 6의 핵심 가드는 `EventRecursionGuard` 같은 **재귀/폭주 방지용 최후 가드**로 축소한다. 기본은 report-only이며, `strict` opt-in에서만 last-resort drop을 예외적으로 허용한다.
-- 영향: Area 6의 패러다임은 `dedup 개선`이 아니라 `dedup 폐기 + recursion guard 최소화`로 바뀐다.
-
-## 2026-03-20 — Area 6 충돌 처리 원칙: 해결보다 철수
-
-- 결정: `Events.Add` 래핑 충돌이 감지되면 Nerve는 더 정교한 체인이나 우회 복구를 시도하지 않고, **즉시 Area 6을 OFF하는 back-off**를 택한다. 감지가 완벽하지 않더라도 귀결이 철수라면 보수적 실패로 허용한다.
-- 영향: Area 6은 호환성 우선 레이어로 고정되며, 공존 전략보다 안전한 철수가 기본 행동이 된다.
-
-## 2026-03-20 — Area 6 침묵 금지와 정직한 에러 전파
-
-- 결정: Area 6은 위험한 예외를 숨기지 않는다. `strict` 차단은 `[!] LAST-RESORT DROP`처럼 노골적으로 표기하고, **현재 구현에서는 Kahlua 제약을 반영한 `pcall` 기반 리스너 단위 격리**를 허용하되 incident / passthrough / rate-limited 로그를 반드시 남긴다. invariant도 거짓 통과 장식을 두지 않는다.
-- 영향: report-only / warn / listener-unit fail-soft / back-off / strict drop 예외가 모두 로그와 검증 표면에 드러나야 하며, fail-soft는 무음 은폐가 아니라 **격리 사실의 명시적 노출**을 뜻한다.
-
-## 2026-03-20 — Nerve Area 6의 위헌 금지선
-
-- 결정: Area 6에서는 `EventPriority`, `Governor`, `Throttler`, 의미 기반 allowlist/whitelist, `coalesce + flush`, 지연/재정렬, Echo/Fuse와 연결된 자동 제어, 넓은 global fallback, 래퍼 체인 고도화를 채택하지 않는다.
-- 영향: Area 6은 관측·경고·철수·최후 가드 예외만 남기고, `더 똑똑한 이벤트 정리` 경쟁에는 들어가지 않는다.
-
-## 2026-03-20 — Area 6 트리거/행동 비대칭 봉인
-
-- 결정: Area 6에서 **실제 트리거는 same-tick self-recursion 또는 listener exception**으로 한정한다. 깊이, fan-out, 동일성 반복 같은 신호는 상시 제어 트리거가 아니라 **incident 발생 후 근거를 보강하는 포렌식 증거**로만 쓴다. 행동은 `리스너 단위 격리 후 same-tick pass-through 철수` 하나로 봉인한다.
-- 영향: 깊이/fan-out/반복/동일성은 lazy forensic surface로만 유지하며, 제어면은 단일 트리거·단일 행동 원칙을 따른다.
-
-## 2026-03-20 — Area 6 현재 구현 상태: 완성 기능이 아니라 임시 방파제
-
-- 결정: 현재 Area 6 구현은 `근본 원인 제거가 끝난 최종 기능`으로 보지 않고, **문제 리스너의 오류를 Nerve 내부에 가두고 incident를 수집하는 임시 방파제 / 기술적 부채 상태**로 해석한다. `enabled = true`는 디버그성 임시 운용이며, 원래 목표였던 `false 복귀`와 stale 주석 정리는 아직 남아 있다.
-- 영향: 문서 승인과 코드 승인을 동일시하지 않으며, 다음 단계는 `incident 리스너 특정 → 개별 수정 또는 정리 → enabled=false 복구 여부 판정`으로 본다.
-
-## 2026-03-20 — Area 6 현재 단계: 설계 재개방이 아니라 합헌 집행과 실행 가능 상태 복구
-
-- 결정: 현 시점의 Area 6 작업은 `무엇을 더 넣을까`를 다시 여는 기능 설계 단계가 아니라, **이미 봉인된 헌법과 실행계획을 코드에 맞추는 집행 단계**로 본다. 허용되는 작업은 `Lua vararg / 문자열 결합 오류`, `Java 문법 오류`, `OnTick 단일 진입점 정리` 같은 **실행 불가 상태 해소용 최소 정리**뿐이다.
-- 영향: 이후 Area 6 검토의 질문은 `더 좋은 전략인가`가 아니라 `이미 봉인된 전략을 어기고 있지 않은가 / 코드가 실제로 도는가`로 고정한다.
-
-## 2026-03-20 — 합헌과 무위험의 분리: Area 6 v2.1
-
-- 결정: Area 6 v2.1은 **합헌이고 실행 가능하지만, 전수 래핑과 listener-unit 격리 비용을 의식적으로 감수한 고위험 설계**로 본다. 승인과 무위험을 동일시하지 않는다.
-- 영향: v2.1 승인은 `안전 인증`이 아니라 `책임을 인지한 실행 허가`를 뜻하며, 운영·문서·가이드에서 이 구분을 숨기지 않는다.
-
-## 2026-03-17 — Nerve 내부 전장 간 코드 의존 금지
-
-- 결정: Area 5와 Area 6은 **개념적으로 연속될 수는 있어도 코드 차원의 직접 의존은 만들지 않는다.** 공유 가능한 것은 tick 경계 같은 최소 공통 개념뿐이며, 한 Area가 다른 Area의 존재를 가정하거나 참조하는 설계를 채택하지 않는다.
-- 영향: Area 5/6은 각각 독립적으로 fail-soft, meaning preserving, tick-local 원칙을 만족해야 하며, 이후 확장도 이 분리 원칙을 유지한다.
-
-## 2026-03-17 — Nerve 전장 개시 순서 고정
-
-- 결정: Nerve는 Area 6 완료, Area 5 v0.1 Final 동결 이후 **다음 전장을 자동으로 열지 않는다.** 후속 논의는 반드시 `전장 판결 → 최소 스코프 정의 → v0.x 범위 결정` 순서로만 진행한다.
-- 영향: 다음 후보 전장은 열려 있어도 미확정 상태로 두며, 현재 기준선은 Area 5/6의 안정적 동결이다.
-
-## 2026-03-17 — Fuse의 5구역 전담 범위
-
-- 결정: Fuse의 확장 범위는 PZ 전체 최적화가 아니라, 다음 5개 구역의 **비용 폭주 통제**에 둔다. (1) 좀비 AI / 업데이트 스텝, (2) 라이팅 / 가시성 / 렌더 스파이크, (3) 경로탐색 / 충돌 / 물리, (4) 세이브 / 로드 / IO 스톨, (5) GC / 할당 압력.
-- 영향: Fuse의 확장은 알고리즘 재작성보다 pressure signal 감지, governor, backoff, cooldown, fail-soft 같은 통제 전략 중심으로 진행한다.
-
-## 2026-03-20 — Nerve Area 6 연구 장치화와 OFF 기준선 봉인
-
-- 결정: Nerve Area 6은 `이벤트를 더 잘 다루는 기능`이 아니라 **실패 축적용 연구 장치**로 본다. 기본 상태에서는 OFF 기준선을 절대 넘지 못해야 하며, 목표는 체감 개선 약속보다 **실패 축적과 회복 시간 검증**에 둔다.
-- 영향: Area 6의 평가는 `더 잘 줄였는가`보다 `기본선과 동일한가 / 위험 시 철수하는가 / 회복 시간을 어떻게 기록하는가`를 기준으로 본다.
-
-## 2026-03-20 — Fuse 자동정책 경로 봉인
-
-- 결정: Fuse v1.x는 동결 전제로 두며, `autoOptimize` 같은 자동 판단 / 자동 적용 / 임계값 결정 경로는 남겨두지 않는다. 필요하면 `AUTO_OPTIMIZE_FROZEN`처럼 다시 켜기 어렵게 봉인한다.
-- 영향: Fuse는 더 이상 관리자나 정책 엔진으로 해석되지 않으며, 남는 자동화 흔적은 봉인 또는 정리 대상으로 본다.
-
-## 2026-03-17 — 엔진 포크 비채택
-
-- 결정: 엔진 포크는 메인 전략으로 채택하지 않으며, Pulse 생태계는 **모드로 남는다**.
-- 영향: Fuse 확장은 포크 전제가 아닌 모드 범위 내 안정화 전략으로만 검토한다.
-
-## 2026-03-17 — Fuse Area 8 완료 봉인
-
-- 결정: Fuse의 **Area 8 (Save / IO Stall Guard)** 는 완료로 본다. `SaveEventMixin`, `PreSaveEvent / PostSaveEvent`, `SaveEventState`, mixin 등록까지 실배선이 닫힌 상태를 완료 기준으로 인정한다.
-- 영향: Area 8은 신규 구현 축이 아니라 유지·회귀 관리 대상으로 전환한다.
-
-## 2026-03-17 — Fuse Area 10 완료 봉인
-
-- 결정: Fuse의 **Area 10 (GC / Allocation Pressure)** 는 완료로 본다. 목표는 GC를 제거하는 것이 아니라, GC/heap pressure가 시스템을 무너뜨리는지 관측·판정·완충 가능한 상태를 만드는 것이다.
-- 영향: Area 10은 `GC 감소 모드`가 아니라 `GC pressure 안정화 가드`로 문서화하며, 이후에는 유지·회귀 관리 대상으로 다룬다.
-
-## 2026-03-17 — Golden 검증의 현실적 재현성 기준
-
-- 결정: Fuse Golden 검증 시나리오는 **실제 인게임 플레이로 재현·유지 가능한 시나리오**만 인정한다. 억지 치트 구성이나 플레이 불가능한 고정 병목은 Golden 증거로 채택하지 않는다.
-- 영향: Scenario B처럼 플레이 유지가 불가능한 병목 실험은 스킵하거나 보조 자료로만 취급하고, 검증선은 현실적 OFF/ON 쌍 위주로 다시 짠다.
-
-## 2026-03-17 — Fuse 검증·고도화의 중심축은 Area 1 / Area 7
-
-- 결정: Golden 검증 기준뿐 아니라 **다음 고도화 축도 Area 1 / Area 7**에 둔다. Scenario A가 Golden B까지 충족한 이상, Fuse의 핵심 실전 가치와 이후 투자 우선순위는 이 축에서 계속 확장하는 것으로 본다.
-- 영향: Fuse의 정체성 서술, 테스트 우선순위, 후속 고도화는 AI/업데이트와 경로탐색/충돌/물리 축의 중복 제거, burst 완화, queue/coalescing, gate/hysteresis 교정 쪽을 중심으로 정리한다.
-
-## 2026-03-17 — IO/GC Guard 메인라인 종료와 계측 유지
-
-- 결정: Fuse의 **IO/GC Guard는 메인라인 핵심 기능으로 유지하지 않으며, 제거/동결 방향을 기본 방침으로 둔다.** 다만 enum, reason, removed 표기, 리포트/로그용 **계측·분류 흔적은 보수적으로 유지**한다.
-- 영향: Area 8/10은 `핵심 Guard`보다 `관측·분류·호환성 잔존 surface`로 재배치하고, mainline에서는 IO/GC 튜닝 반복보다 제거 실행과 계측 유지 범위 확정에 우선권을 둔다. 재도입은 실험 브랜치에서 좁은 조건을 충족할 때만 검토한다.
-
-## 2026-03-17 — C 실전형 IO/GC 검증 종료
-
-- 결정: C 실전형 OFF/ON 비교는 **추가 반복 없이 종료**한다. 종료 이유는 `효과가 없어서 포기`가 아니라, **무엇이 Fuse 책임 경계 밖인지 충분히 밝혀졌기 때문**이다.
-- 영향: C 실전형은 IO/GC Guard를 더 밀어붙이는 증명선이 아니라, Fuse의 책임 경계를 확인한 종료 게이트로 남긴다.
-
-## 2026-03-17 — Nerve 전장 최종 판결과 현재 동결
-
-- 결정: Nerve의 현재 승리 전장은 **Area 6 완료 / Area 5 v0.1 Final 동결**까지로 본다. Area 8(IO/Save)과 Area 10(GC/메모리)은 **헌법을 지키며 안정화하기 어려운 전장**으로 보아 현 시점의 제품 전장에서 제외하고, Area 9(네트워크/멀티)는 **이론상 다음 전장**이지만 멀티 협업·재현 인프라 없이 자동 개시하지 않는다. 따라서 지금 단계의 Nerve는 **기능 추가보다 동결이 더 강한 선택**으로 본다.
-- 영향: Nerve의 추가 개발은 `전장 판결 → 외부 조건 충족 확인 → 최소 스코프 정의 → v0.x` 순서가 아니면 열지 않으며, 현재 메인라인은 Area 5/6 이후 **전장 동결** 상태로 본다.
-
-## 2026-03-17 — Nerve 고도화의 의미 재정의
-
-- 결정: 현재 단계에서 Nerve의 `고도화`는 **새 기능 추가**가 아니라, 이미 존재하는 Area 5/6 개입 경로가 실제로 트리거되고 의미 불변으로 동작하며 재현 가능한지를 증명하는 **증명 강화**로 본다.
-- 영향: Nerve 테스트는 평균 FPS나 p-value 중심이 아니라, 개입 경로 발동 / 의미 불변 / 재현성 증명 테스트로 설계한다.
-
-## 2026-03-17 — Fuse와 Nerve의 프리즈 책임 경계
-
-- 결정: `Fuse가 못한 프리즈를 Nerve가 대신 해결한다`는 식으로 역할을 잇지 않는다. 대신 **Fuse는 엔진 측 분산 가능한 연쇄 폭주를 다루고, Nerve는 그런 프리즈를 유발하는 Lua 이벤트 폭주/중첩/중복의 트리거 조건을 줄일 수 있다**는 식으로 경계를 둔다.
-- 영향: 향후 Nerve 설계는 IO/GC 자체를 직접 흡수하는 방향이 아니라, 실패 atlas와 Lua profiling을 통해 상위 트리거 조건을 줄이는 방향으로 정리한다.
-
-## 2026-03-17 — Fuse Area 7 합헌 완료
-
-- 결정: Fuse의 **Area 7 (경로탐색 / 충돌 / 물리)** 는 `guard / limit / defer / deduplicate / stabilize`만 허용하는 **semantic-preserving 안정화 축**으로 구현 완료 판정한다.
-- 영향: Area 7은 신규 탐색 축이 아니라 유지·회귀 관리 대상으로 전환하며, 경로 알고리즘 변경, 충돌 규칙 변경, 물리 결과 변경, AI 의미 변화는 기본 레인에서 제외한다.
-
-## 2026-03-17 — Fuse Area 7 1차 금지선
-
-- 결정: Area 7 1차 범위에서는 `IPathfindingPolicy`류의 Pulse 정책 인터페이스, `/fuse status` 같은 UX/명령 체계, `LOSThrottleGuard`, 결과 변화로 이어질 수 있는 `NavMeshQueryGuard` null 반환, TTL 2틱 이상의 collision memo를 채택하지 않는다.
-- 영향: Pulse는 capability만 제공하고, Fuse Area 7은 defer-only / TTL=1 / fail-safe 중심의 안정화 설계로 고정된다.
-
-## 2026-03-17 — 범용 DataBus 비채택
-
-- 결정: `IPulseDataBus`류의 **범용 모드 간 실시간 중개 채널**은 현재 채택하지 않는다. 허용 가능한 것은 필요 시의 **observation event 표준화** 수준까지다.
-- 영향: Pulse는 hook/state/DTO/event 같은 기반 surface까지만 제공하고, 정책 주입·실시간 조정은 각 모듈 내부 책임으로 남긴다.
-
-## 2026-03-17 — Echo 관측값의 실시간 정책 입력 금지
-
-- 결정: Echo가 관측한 수치를 Fuse/Nerve의 **실시간 정책 입력**으로 직접 사용하는 구조는 채택하지 않는다. Echo는 관측자이고, Fuse/Nerve는 각자 자기 governor와 guard 판단으로 동작한다.
-- 영향: 관측과 개입의 책임은 계속 분리되며, Fuse/Nerve는 자기 pressure signal과 내부 상태를 기준으로 동작한다.
-
-## 2026-03-17 — Fuse 테스트 전략의 운영형 재정의
-
-- 결정: 현 단계 Fuse 테스트는 학술형 대규모 반복 실험이 아니라, **폭주 재현 가능성이 높은 소수 시나리오에서 OFF 1회 + ON 1회 중심으로 개입 경로와 의미 보존을 확인하는 운영형 검증**으로 수행한다.
-- 영향: 시나리오 수는 소수로 압축하고, 전체 테스트는 재현성과 회귀 감시에 초점을 둔다.
-
-## 2026-03-16 — 브랜드 우세 후보
-
-- 상태: 우세 후보 / 미확정
-- 결정: 브랜드 후보군 중 현재 기준 최우선 후보는 `Pulse`다.
-- 영향: 최종 확정 전까지는 Pulse를 작업명/우세 후보로 사용하되, 법적/최종 확정으로 취급하지는 않는다.
-
----
-
-## 2026-03-17 — 헌법의 최상위 기준 재확인
-
-- 결정: `Philosophy.md`를 Pulse 생태계의 **유일한 헌법이자 최상위 판정 기준**으로 다시 고정한다.
-- 영향: 후속 코드 검토, 실행계획 평가, 공개 전략 판단은 모두 헌법 기준으로 먼저 판정한다.
-
-## 2026-03-17 — 헌법 우선 판정 순서
-
-- 결정: 후속 설계·코드·공개 전략 판단은 **(1) 헌법 위반 여부 → (2) 아키텍처 정합성 → (3) 안정성/재현성 → (4) 기능성** 순서로 판정한다.
-- 영향: 실행계획 검토와 코드 감사에서 `좋아 보이는 기능`보다 `합헌성`을 먼저 본다.
-
-## 2026-03-17 — Echo는 관측, Fuse는 판단
-
-- 결정: Echo는 병목의 **관측치만** 제공하고, Fuse는 그 관측치를 어떻게 다룰지에 대한 **임계값 판단 / recommendation 생성 / optimization 적용**을 자기 내부에서만 수행한다.
-- 영향: Echo는 category / targetId / severity 같은 raw observation에 머물고, Fuse는 자기 governor 판단을 Echo 내부 해석 없이 독립적으로 수행한다. 같은 원칙은 Nerve에도 적용된다.
-
-## 2026-03-17 — Pulse capability 와 policy 분리
-
-- 결정: Pulse는 거리, 상태, tick, phase 같은 **측정값과 capability**는 제공할 수 있지만, `근거리면 FULL`, `under pressure`, `이 모듈이 처리해야 함`, `이게 중요함` 같은 **정책/판단/편의 fast-path**는 보유하지 않는다.
-- 영향: Core는 측정/노출만 담당하고, 실제 governor 정책은 Fuse/Nerve 같은 하위 모듈이 가진다.
-
-## 2026-03-17 — Primitive Data Sharing v3 채택
-
-- 결정: Primitive Data Sharing 리팩토링은 **객체 공유 제거 + Echo/Fuse 경계 고정**이라는 의미로 v3를 채택한다. `updateSnapshot()` 호출은 Echo 내부 tick 경로에서만 수행하고, 공용 계약은 raw observation 최소선으로 제한한다.
-- 영향: `targetId` / `severity` 같은 snapshot 필드는 관측 계약으로만 사용하고, recommendation 생성과 실제 적용은 Fuse 내부 책임으로 남긴다. 기존 `OptimizationHint`류 경로가 남더라도 legacy 호환용이지 중심 경로가 되어서는 안 된다.
-
-## 2026-03-20 — Fuse 검증 시나리오 2+1 체계로 재정의
-
-- 결정: Fuse의 실전 검증 시나리오는 기존 A/B/C식 분류를 계속 밀지 않고, **Stress / Baseline / MP의 2+1 체계**로 재정의한다. `Stress`는 sustained aggro와 burst가 섞인 극단 압박에서 Bundle C를 검증하는 전장이고, `Baseline`은 UI/컨테이너/저부하 구간에서 Fuse의 비개입과 비간섭을 확인하는 전장이며, `MP`는 2~3인 멀티의 혼합 부하 전장이다.
-- 영향: 기존 약한 A 계열 OFF/ON 데이터는 공식 Stress 기준선에서 내리고, Baseline 참고 자료로 격하 보관한다.
-
-## 2026-03-20 — 기존 약부하 OFF/ON 데이터의 위상 재분류
-
-- 결정: 과거 OFF/ON 데이터가 Stress 기준선으로 부적합하더라도, 이를 전면 폐기하지 않고 **Baseline / Non-Interference 참고 자료**로 유지한다.
-- 영향: 과거 데이터를 `실패 증거`로 다루지 않고, 검증 목적에 따라 `Stress 증거`와 `Baseline 참고선`으로 분리 보관한다.
-
-## 2026-03-20 — Bundle C 미발동의 최종 원인은 실제 tick time 입력 버그
-
-- 결정: Bundle C 미발동의 최종 원인은 기준이 높아서가 아니라, **AdaptiveGate가 실제 게임 tick time 대신 Fuse 내부 처리 시간에 가까운 값을 보고 있었던 입력 버그**로 판정한다. 수정 기준은 `governor.getLastTickMs()`가 아니라 **실제 tick duration을 반영하는 경로**를 사용해야 한다는 것이다.
-- 영향: `deep analysis 0 = Fuse 실패` 또는 `기준이 너무 높다`는 가설은 1차 원인에서 제외하고, 입력 경로/계측 경로의 신뢰성을 먼저 점검한다.
-
-## 2026-03-20 — Bundle C 실전 증명 완료
-
-- 결정: 실제 Stress 전장에서 Bundle C의 핵심 파이프라인(rolling stats 축적, ACTIVE 진입, 개입 기록, Early Exit, COOLDOWN 복귀)은 **실전 관측으로 증명된 상태**로 본다.
-- 영향: Bundle C 논의의 중심은 `작동하느냐`에서 `검증·동결·설명`으로 이동한다.
-
-## 2026-03-20 — Fuse 포지셔닝을 엔진 안정성 레이어로 재봉인
-
-- 결정: Fuse는 `AI 최적화 모드`나 `평균 FPS 향상 모드`가 아니라, **AI 부하 폭주로 인한 엔진 붕괴 상태를 차단하는 엔진 안정성 레이어**로 설명한다.
-- 영향: 공개 문구, README, 세일즈 언어는 `AI를 최적화한다`보다 `붕괴 상태를 차단한다`, `계속 망가진 상태를 오래 끌지 않게 한다`는 표현을 우선한다.
-
-## 2026-03-20 — Fuse 미세 최적화는 현 시점 우선순위에서 제외
-
-- 결정: tick-local cache, dedup, early-out, 자료구조 정리 같은 **합헌적 미세 최적화는 이론상 열어둘 수 있으나**, 현 시점의 메인라인 우선순위로 채택하지 않는다.
-- 영향: Fuse는 당분간 `더 파는 축`보다 `지키는 축`으로 운영하며, 미세 최적화는 별도 필요성과 ROI가 다시 입증되기 전까지 보류한다.
-
-## 2026-03-20 — 전략 우선순위는 Fuse 고도화보다 Nerve 확장
-
-- 결정: 현 단계의 전략 우선순위는 **추가 Fuse 고도화보다 Nerve 개발/확장**에 둔다.
-- 영향: Fuse는 동결·회귀 검증·설명 정리에 무게를 두고, 생태계의 다음 확장 축은 Nerve 쪽으로 이동한다.
-
-## 2026-03-20 — Fuse는 확장 대상이 아니라 동결 대상
-
-- 결정: Fuse는 Bundle A/B/C와 tick duration 입력 버그 수정까지 끝난 현재, **추가 기능을 키우는 개발축이 아니라 동결·회귀 검증·설명 정리의 대상**으로 본다.
-- 영향: Fuse의 후속 작업은 새 정책 추가보다 regression guard, 문서화, README/포지셔닝, 판독 규칙 고정에 집중한다.
-
-## 2026-03-20 — Nerve Area 5·6 설계 논쟁 종료 / v2.1 집행 헌법화
-
-- 결정: Nerve Area 5·6의 설계 논쟁은 **v2.1에서 종료**된 것으로 보고, 이 문서는 더 이상 `무엇을 만들까`를 토론하는 설계 표면이 아니라 **구현을 묶는 집행 헌법**으로 취급한다.
-- 영향: 이후 리뷰의 중심은 새 기능 발명이나 문장 수정이 아니라, v2.1 구현 충실도와 런타임 증명으로 이동한다.
-
-## 2026-03-20 — Nerve 구현 전 레포 신뢰성 / 재현성 게이트(P0~P2) 분리
-
-- 결정: Nerve Area 5·6 구현 착수 전에는 기능 로드맵과 별도로 **레포 신뢰성 / 재현성 게이트(P0~P2)** 를 먼저 통과해야 한다.
-- 영향:
-  - **P0**: conflict marker 제거, `NerveUtils.lua` 실코드 문법 확인
-  - **P1**: `OnTickEven`이 의도인지 실수인지 문서/주석/코드 중 하나로 고정
-  - **P2**: fail-soft / 예외 전파 정책을 코드 주석과 문장 수준에서 통일
-
-## 2026-03-20 — Nerve Area 5·6에서 폐기된 구현 대안 재봉인
-
-- 결정: Nerve Area 5·6 구현에서는 **Echo 힌트 기반 동적 조정, 이벤트 의미 기반 allowlist/AlwaysAllow, 자동 threshold 튜닝, Java strong reference/GC 방어, 같은 모듈 내부 공유까지 Pulse SPI로 강제하는 구조**를 채택하지 않는다.
-- 영향: 허용되는 안전선은 `첫 호출 불가침 + 동일 tick / 동일 contextKey 재진입 정리 + 내부 공유는 Nerve 내부, 타 모듈 공유만 Pulse SPI`로 고정된다.
-
-## 2026-03-20 — Nerve의 현재 실질 개발축은 Area 5·6에 한정
-
-- 결정: 현재 Nerve의 실질 개발축은 **Area 5·6의 구현/증명/안정화**에만 둔다.
-- 영향: 새 기능 제안보다 Area 5·6 발동 증명, 의미 불변 증명, 재현성, 코드 안정성 정리가 우선한다.
-
-## 2026-03-20 — Nerve는 완전한 무의 공백지대가 아니라 `직접 이식 가능한 답안이 없는 공백지대`
-
-- 결정: Nerve는 **완전한 무(無)에서 출발하는 영역**으로 보지 않는다. coalesce, dirty flag 병합, 읽기 전용 캐싱 같은 **기법의 조각**은 존재하지만, 이를 기존 사례처럼 곧바로 이식할 수 있는 전장으로 해석하지 않는다.
-- 영향: Nerve 연구는 `타 게임 기법을 가져와 붙이는 일`보다, 각 기법 조각을 **합헌/위헌·유효/무효**로 다시 판정하고 재조합 가능성만 보수적으로 검토하는 방식으로 진행한다.
-
-## 2026-03-20 — 안정화 연구는 성공 기법 탐색이 아니라 실패 귀속과 금지 규칙 축적
-
-- 결정: Nerve의 연구 방법은 **성공 사례 일반화**가 아니라, 실패를 관측하고 **Failure Atlas 좌표계에 귀속**시키며, 그 결과를 **금지 규칙 / 철수 조건 / 비개입 조건**으로 축적하는 방식으로 둔다.
-- 영향: 현재 단계의 산출물은 `더 좋은 기법 목록`보다 **실패 지도, 귀속 규칙, 금지선, 회복 시간 판독 기준**이 된다.
-
-## 2026-03-20 — Failure Atlas의 축은 제거 실험 대상이 아니라 분류 좌표계
-
-- 결정: Area 5·6에서 정리한 실패 축들은 `하나씩 지워갈 가설 목록`이 아니라, 자연 발현 실패를 빠르게 분류하기 위한 **분류 좌표계(axis)** 로 취급한다.
-- 영향: 이후 검증은 `축을 하나씩 없애는 실험`보다, 실패를 어느 축에 귀속할지 정리하고 그 축에 맞는 **금지 규칙 / 철수 조건 / 비개입 조건**을 늘려가는 방향으로 진행한다.
-
-## 2026-03-20 — Nerve에 허용되는 정책은 자기 제한 정책뿐
-
-- 결정: Pulse는 여전히 정책·판단을 절대 보유하지 않지만, Nerve는 **자기 자신을 제한하는 정책**만 제한적으로 가질 수 있다. 반대로 게임 행동을 바꾸는 정책, 중요도 판단, FPS 기반 동작 변경, 스킵/주기 증가 같은 정책은 허용하지 않는다.
-- 영향: 허용선은 `개입 조건 / 철수 조건 / 이 상황에서는 아예 개입하지 않음` 같은 자기 제한 정책으로 고정되고, 행동 변경 정책은 위헌 후보로 바로 분류한다.
-
-## 2026-03-20 — `OFF가 더 안전`하다는 말은 baseline safety를 뜻한다
-
-- 결정: `OFF가 항상 더 안전하다`는 표현은 **체감이 더 낫다**는 뜻이 아니라, OFF가 **더 단순하고 책임이 명확한 기준선(baseline)** 이어야 한다는 뜻으로 사용한다.
-- 영향: ON이 일부 구간에서 체감 개선을 보이더라도, 문서와 검증의 기준선은 OFF에 두며 `ON이 더 좋으니 ON을 기준으로 보자`는 해석은 채택하지 않는다.
-
-## 2026-03-20 — Fuse는 영구 동결이 아니라 전략적 보류이며 Area 1·7 보수 정산 재진입 가능
-
-- 결정: Fuse는 현재 메인라인에서 **동결·회귀 검증·설명 정리 중심**으로 다루지만, 이를 `영구 동결`로 해석하지는 않는다. 필요할 경우 **Area 1·7의 누락/봉인 상태 점검을 위한 보수적 정산 작업**으로는 재진입할 수 있다.
-- 영향: Fuse는 `미지 탐사 재개`가 아니라 **이미 알고 있는 위험 지대의 봉인 상태 확인**이라는 범위에서만 후속 재진입을 검토한다.
-
-## 2026-03-20 — Area 9는 관측 단계까지만 허용
-
-- 결정: Nerve의 Area 9(네트워크/멀티)는 **지금 개발하면 안 되는 영역**으로 다시 봉인하며, 현재는 관측·분류 단계까지만 허용한다.
-- 영향: 멀티 협업·재현 인프라와 최소 스코프가 먼저 닫히기 전까지 Area 9 구현은 열지 않는다.
-
-## 2026-03-20 — Nerve Area 5·6 실행계획 v2.1을 구현 기준서로 채택
-
-- 결정: Nerve Area 5·6 로드맵의 **v2.1**을 최종 승인본으로 보고, 이후 구현·리뷰·핸드오버의 공통 기준서로 사용한다.
-- 영향: 이후 논의는 새 방향 발명보다 v2.1 구현 충실도와 런타임 재현성 검증을 중심으로 진행한다.
-
-## 2026-03-20 — Nerve 구현 후 우선순위는 기능 추가보다 기초 안정성 결함 정리
-
-- 결정: Nerve Area 5·6 구현 이후의 최우선 과제는 새 기능 추가가 아니라 **문법/재현성/fail-soft/소스 청결성 같은 기초 안정성 결함 정리**다.
-- 영향: 구현 후 로드맵은 확장보다 기반 안정화, 코드 정리, 재실행 가능한 검증 환경 확보를 먼저 다룬다.
-
-## 2026-03-20 — Area 9 관측 전용 봉인 해제, same-tick 안정성 레이어로 재정의
-
-- 결정: 이전의 `Area 9는 관측·분류까지만 허용` 해석은 이 세션 기준으로 대체한다. Area 9는 **멀티를 빠르게 만드는 기능**이 아니라, **멀티/네트워크 경계에서 Lua 레벨 자폭을 동일 틱 한정으로 끊는 100% Lua 안정성 레이어**로 정의한다.
-- 영향: Area 9는 `멀티 최적화`나 `네트워크 엔진 수정`이 아니라 **same-tick scoped stability guard**로만 설계·검토한다.
-
-## 2026-03-20 — Area 9는 연구 프로젝트가 아니라 기초공사형 방어 프로그래밍으로 시작
-
-- 결정: Area 9는 Area 6처럼 장기간 Failure Atlas 연구부터 다시 여는 전장이 아니라, **기초공사/방어 프로그래밍 관점에서 최소 가드들을 조립하는 전장**으로 시작한다.
-- 영향: Area 9의 첫 산출물은 논문식 분류 체계보다 **좁은 스코프의 guarded path / tick retreat / shape guard / 최소 포렌식** 같은 구현 언어가 된다.
-
-## 2026-03-20 — Area 9의 합헌 스코프: 3가지 Lua 붕괴 형태
-
-- 결정: Area 9에서 Nerve가 실제로 상대할 수 있는 붕괴는 **호출 순서/타이밍 붕괴, 데이터 형태(shape) 붕괴, 중복/재진입 붕괴**의 세 갈래로 본다.
-- 영향: Area 9의 가드와 incident 분류는 이 세 축에 귀속되며, 핑/패킷/서버 CPU/엔진 버그 자체를 직접 해결하려는 방향은 배제한다.
-
-## 2026-03-20 — Area 9의 위헌 금지선
-
-- 결정: Area 9에서는 `핑 개선`, `패킷 최적화`, `서버 부하 분산`, `엔진 동기화 수정`, 전역 상시 `pcall`, 중요도/우선순위 판단, 자동 블랙리스트/화이트리스트, 영구 차단, 지연/병합/재정렬을 채택하지 않는다.
-- 영향: 허용되는 것은 **incident-gated guarded path, same-tick retreat, 최소 shape/chain/reentry guard, 최소 포렌식 세트**뿐이다.
-
-## 2026-03-20 — Philosophy.md 단일 헌법 재확인
-
-- 결정: Nerve Area 9를 포함한 후속 설계·판정의 최상위 기준은 **오직 `Philosophy.md` 하나**로 둔다. 이전 핸드오버 프롬프트와 세션 요약은 작업 문서일 뿐 헌법이 아니다.
-- 영향: 이후 Area 9 논쟁에서 `예전 합의`보다 `Philosophy.md와의 정합성`이 우선한다.
-
-## 2026-03-20 — Area 9 기본 동작 봉인선
-
-- 결정: Area 9는 **기본 OFF**로 두며, `네트워크 경계 한정`, `대상 opt-in / 행동 opt-in 분리`, `동일 틱 한정 철수`, `다음 틱 자동 복귀`, `incident-gated pcall only`를 기본 봉인선으로 삼는다.
-- 영향: 구현은 `켜도 아무 일도 안 하는 스캐폴딩 → observe → guarded path → quarantine` 순서로만 열며, 기본 상태에서 정상 멀티 의미 변화 0을 유지해야 한다.
-
-## 2026-03-20 — Area 9 구현 안전핀 4개
-
-- 결정: Area 9 구현 전에 반드시 문서에서 먼저 봉인해야 하는 안전핀은 `tickId 단일 진실의 소스`, `endpoints 폐쇄 목록`, `incident 조건 단일 플래그`, `quarantine key 범위 강제`의 네 가지다.
-- 영향: tick 컨텍스트, 네트워크 훅 목록, guarded path 진입 조건, quarantine 스코프는 각기 하나의 공식 정의만 허용하며, 이후 세부 기법은 이 안전핀을 넘지 않는 범위에서만 조립한다.
-
-## 2026-03-20 — Area 9 초기 단계 행동 금지선
-
-- 결정: Area 9 기초공사 단계에서는 `Duplicate early-skip`, `Shape hard-fail 기본 차단`, `전역 상시 guarded path`, `비율/빈도/가중치 incident 계산`, `quarantine 지속시간 확장`, `일반 이벤트/OnTick/UI/렌더 확장`을 채택하지 않는다.
-- 영향: Duplicate와 Shape는 우선 관측·증거 수집 용도로만 다루고, guard mode와 opt-in이 닫히기 전에는 제어 행동으로 승격하지 않는다.
-
-## 2026-03-16 — 재논쟁 가능성이 높은 축
-
-- 상태: 주의
-- 결정: 아래 항목들은 향후 반복 논쟁 가능성이 높으므로, 변경 시 반드시 근거와 영향을 함께 기록한다.
-- 대상:
-  - Core가 어디까지 얇아야 하는가
-  - pulse-engine-optim 과 pulse-lua-optim 의 경계
-  - stable API surface 범위
-  - 중립 플랫폼과 1st-party 생태계의 긴장
-  - Pulse 이름의 최종 확정 여부
-  - Nerve가 `Lua 병목 해결`인가 `Lua 기반 완충`인가
-  - Nerve를 다시 성능 모듈로 끌어올릴 것인가, 선택적 Guard로 둘 것인가
-  - 평균 FPS 포지셔닝과 안정성 포지셔닝 중 어디를 전면에 둘 것인가
-  - Fuse 기본 레인에 근사/공격적 최적화를 허용할 것인가
-  - Fuse를 더 큰 엔진 레벨 모드로 어디까지 확장할 것인가
-  - 안정화와 최적화의 경계를 어디에 둘 것인가
-  - MP 데이터 이전에 Nerve 세부 동작을 어디까지 고정할 것인가
-  - 일반 플레이 기반 Failure Atlas와 특화 테스트 시나리오 중 무엇을 우선할 것인가
-  - Echo ON / Fuse OFF / Nerve OFF 연구 세팅을 언제까지 유지할 것인가
-  - S4/S1 재잠금 시점을 언제로 둘 것인가
-  - 아이템/탄피/월드 오브젝트 누적 렉을 Fuse 확장 후보로 볼 것인가
-  - 범용 DataBus / shared state / pub-sub를 Pulse에 넣어야 하는가
-  - Echo 관측값을 Fuse/Nerve의 실시간 정책 입력으로 허용할 것인가
-  - `이 정도 판단은 Pulse에 넣어도 되지 않나`라는 fast-path 유혹을 어디까지 허용할 것인가
-  - Echo가 recommendation / priority / 처리 모듈 같은 해석 신호를 노출해도 되는가
-  - `primitive-only`를 얼마나 엄격하게 볼 것인가, 그리고 그 문제가 구조 경계보다 앞서는가
-  - legacy `OptimizationHint` 같은 구경로를 어디까지 남길 것인가
-  - Fuse가 LOS나 더 공격적인 path control까지 가져가도 되는가
-  - Fuse에 `/fuse status` 같은 상태창/명령/편의 기능을 넣어도 되는가
-  - Fuse 검증을 대규모 반복 실험으로 다시 키워야 하는가, 아니면 압축 운영 검증을 유지해야 하는가
-- 영향: 이 축들에 대한 변경은 DECISIONS.md에 반드시 재봉인한다.
-
-## 2026-03-17 — Echo Bundle A의 본질은 무해화
-- 결정: Echo의 Bundle A는 `기능 강화`나 `성능 과시`가 아니라, **핫패스에서 시스템을 절대 흔들지 않는 순수 관측자 원칙을 회복하는 무해화 수술**로 본다.
-- 영향: Bundle A의 성공 기준은 벤치마크 수치보다 **No-Throw / Fast-Exit / Fail-Soft / Safe Default / 10분 세션 무해성**에 둔다.
-
-## 2026-03-17 — Echo 핫패스 4종과 금지 API 봉인
-- 결정: Echo의 핫패스는 **(1) tick 계측 entry/exit, (2) scope push/pop, (3) SpikeLog.logSpike, (4) deep analysis 훅 콜백 수신부**로 고정한다. 이 경로들에서는 `PulseServices`, `EchoConfig` 직접 조회, ServiceLocator/DI, 파일/JSON/문자열 포매팅, `synchronized`/blocking queue, MXBean/Thread/StackWalker, throw/catch 남용을 금지한다.
-- 영향: Bundle A 이후 Echo 핫패스는 문서로 봉인된 감사 대상이 되며, 느린 경로와 운영 경로를 의식적으로 분리해야 한다.
-
-## 2026-03-17 — EchoConfigSnapshot + EchoRuntimeState 채택
-- 결정: Echo 핫패스는 외부 설정/서비스를 직접 읽지 않고, **느린 경로에서만 갱신되는 `EchoConfigSnapshot` + `EchoRuntimeState` 구조**를 사용한다. `volatile` 단일 스냅샷 참조를 기본으로 두고, `current()`는 null/throw를 허용하지 않는다.
-- 영향: IllegalStateException류 문제는 응급처치가 아니라 구조 수술로 제거하며, 핫패스는 safe default를 통해 무조건 빠르게 탈출할 수 있어야 한다.
-
-## 2026-03-17 — Echo 디버그 이중 모드와 옵션적 느린 경로
-- 결정: Echo는 **릴리즈에서는 완전 무음**, 디버그 모드에서만 **세션당 1회 원샷 경고**를 허용한다. Spike context capture는 항상 수행하지 않고, 옵션적 느린 경로로 격리하며 **CAS 기반 rate-limit(예: 1초 1회)** 과 완전 무음 실패를 기본으로 둔다.
-- 영향: 운영 경로는 계속 무음이고, 개발 단서는 제한적으로만 제공된다. `safeContextCapture()`는 실패를 절대 전파하지 않는다.
-
-## 2026-03-17 — Bundle A 범위는 Echo 내부 수술까지만
-- 결정: Bundle A는 **Echo 내부 핫패스 무해화**까지만 책임지며, Pulse SPI 계약 변경, ProfilerSink 등록 계약 개편, Bundle B/C 범위 선반영, 대규모 벤치마크를 필수 게이트로 올리는 일은 하지 않는다.
-- 영향: A 완료 후 핫패스 변경은 쉽게 열지 않고 동결 대상으로 다루며, Pulse 계약 변경은 별도 번들/단계에서만 다룬다.
-
-## 2026-03-17 — Bundle A 완료 후 Echo 핫패스 동결
-- 결정: Bundle A는 `핫패스 무해화` 목표가 코드 수준에서 달성되면 종료·동결 대상으로 본다. 이후 Echo 핫패스 변경은 PR 수준 사유 없이는 다시 열지 않는다.
-- 영향: Bundle A 이후의 Echo 고도화는 핫패스 기능 추가가 아니라, 별도 번들에서 필요한 증명 파이프나 리포트 해석을 복구하는 방향으로만 다룬다.
-
-## 2026-03-17 — Bundle B는 증명 파이프 복구만 담당
-- 결정: Bundle B의 책임은 **Fuse가 실제로 동작했는지, 왜 동작했는지, 왜 아무 개입이 없었는지, `0`이 실제 무개입인지 provider/snapshot/read 실패인지**를 Echo 리포트로 구분 가능하게 만드는 `증명 파이프 복구`에 한정한다.
-- 영향: Bundle B는 deep analysis / provider 상태 / no-intervention 이유 구분 같은 `증명` 영역까지만 다루며, Fuse 정책 수정은 Bundle C로 넘긴다.
-
-## 2026-03-17 — Bundle B의 0 분해 규약
-- 결정: Bundle B의 최소 증명 단위는 `present / active / snapshot_ok / total_interventions / reason_counts`로 고정한다. `0`은 더 이상 단일 숫자가 아니라, 이 다섯 축과 `error_code`를 통해 **무개입 / 비활성 / 미등록 / 조회 실패 / snapshot 실패**로 분해되어야 한다.
-- 영향: Bundle B의 성공 기준은 숫자를 더 화려하게 만드는 것이 아니라, `0`의 의미를 구조적으로 해석 가능하게 만드는 것이다.
-
-## 2026-03-17 — present는 Echo만 결정한다
-- 결정: `present`는 provider가 보고하지 않고 **Echo가 registry 조회 결과로만 결정**한다. 반대로 `active`, `snapshot_ok`, `total_interventions`, `reason_counts`, `error_code`는 provider snapshot이 자기 상태로 보고한다.
-- 영향: Bundle B는 `부재의 증명은 관측자만 할 수 있다`는 원칙 아래 설계되며, Echo와 provider의 책임이 보고서 필드 단위로 분리된다.
-
-## 2026-03-17 — providers 섹션은 옵션이 아니다
-- 결정: Bundle B의 `providers` 섹션은 deep analysis 옵션과 무관하게 **항상 기록**한다. `echo_profilers` 같은 부가 분석은 옵션일 수 있지만, provider 증명 파이프는 옵션화하지 않는다.
-- 영향: 향후 Echo 설정이 줄어들더라도 provider 상태 기록만큼은 기본 리포트의 필수 영역으로 유지한다.
-
-## 2026-03-17 — silent failure는 로그가 아니라 데이터로 남긴다
-- 결정: 등록 실패, registry 조회 실패, type mismatch, snapshot 예외, malformed snapshot, duplicate provider 등은 로그에만 남기지 않고 **`error_code`와 reason data로 리포트에 기록**한다.
-- 영향: Bundle B 이후 deep analysis `0`은 최소한 `왜 0처럼 보였는지`를 구조적으로 설명할 수 있어야 한다.
-
-## 2026-03-17 — Bundle B는 기존 인프라 최소 변경 원칙
-- 결정: Bundle B는 플랫폼 혁신이나 자동 로딩 체계 확장이 아니라, **기존 Pulse registry/SPI를 최대한 재사용하는 최소 변경 증명 파이프**로 구현한다. 등록/조회/snapshot은 `1회 등록 / 1회 조회 / 1회 snapshot`에 가깝게 유지하고, primitive/map 중심 계약을 우선한다.
-- 영향: Meta-INF/services 자동 로딩, 과한 registry API 확장, Echo 해석 로직 증설은 별도 단계 없이는 채택하지 않는다.
-
-## 2026-03-17 — Bundle A/B/C 순차·독립 원칙
-- 결정: Echo/Fuse 관련 번들은 **A(무해화) → B(증명 파이프 복구) → C(정책 고도화)** 순으로, 서로 원인과 책임을 섞지 않는 독립 단계로 다룬다.
-- 영향: 향후 번들 논의는 반드시 이 순서를 기준으로 열고, `B를 하면서 C도 조금` 같은 접근은 금지한다.
-
-## 2026-03-17 — Philosophy.md는 금지선 중심, 공개 기대 문구는 별도 전략 문서로 분리
-- 결정: `Philosophy.md`는 구조 원칙, 금지선, 역할 경계 중심의 **헌법 문서**로 유지하고, 킬러앱/가능 구역/홍보 문구 같은 공개 기대 관리 요소는 별도 `ReleaseStrategy` 계열 문서로 분리한다.
-- 영향: 향후 공개 메시지는 헌법 본문이 아니라 별도 전략 문서에서 관리하고, 헌법은 `무엇을 하지 않는가`를 더 또렷하게 유지한다.
-
-## 2026-03-17 — Fuse 현재 문제는 기능 부족이 아니라 정책/계측 실패
-- 결정: 현재 Fuse의 핵심 문제를 `기능이 약함`이 아니라, **관측 파이프가 고장난 상태에서 sustained overload에 잘못 개입하고 있는 것**으로 본다.
-- 영향: 후속 우선순위는 기능 추가가 아니라 **Bundle A/B/C 순서의 계측 복구와 정책 교정**으로 둔다. `deep analysis 0`만 보고 Fuse 미작동으로 단정하지 않는다.
-
-## 2026-03-17 — Fuse는 Burst stabilizer, Sustained overload에서는 retreat
-- 결정: Fuse는 **Burst stabilizer**로 정의하고, sustained overload에서는 개입을 강화하는 대신 **PASSTHROUGH / retreat** 방향을 기본 정책으로 둔다.
-- 영향: Bundle C는 `더 많이 개입`보다 `언제 물러날 것인가`를 먼저 푸는 정책 고도화로 설계한다. Governor는 gate보다 먼저 들어가고, ACTIVE 상태도 예산 상한을 넘기면 즉시 바닐라 경로로 복귀해야 한다.
-
-## 2026-03-17 — Bundle C는 Bundle B 이후에만 연다
-- 결정: Fuse 정책 고도화(Bundle C)는 **Bundle A의 무해화와 Bundle B의 증명 파이프 복구가 끝난 뒤에만** 연다.
-- 영향: `정책 먼저 손보기`는 현재 로드맵에서 허용되지 않으며, Bundle C 착수 조건은 `가시화 가능한 개입 증거` 확보로 둔다.
-
-## 2026-03-17 — Bundle B는 증명 레이어로 종료
-- 결정: Bundle B는 **Fuse deep analysis의 증명 파이프 복구**를 목표로 하며, `present / active / snapshot_ok / error_code / reason_stats`를 통해 `0`의 의미를 분해할 수 있게 되면 종료 대상으로 본다. 그 이후 행동 레이어를 같은 번들 안에서 계속 키우지 않는다.
-- 영향: Bundle B는 `증명 레이어`로 동결하고, 이후 정책 교정은 별도 Bundle C에서만 다룬다.
-
-## 2026-03-17 — Echo-driven control 금지
-- 결정: Echo가 `severity / top_target / insight / hint / recommendation`류 값을 통해 Fuse 행동을 실질적으로 유도하는 구조는 직접 추천 API가 아니더라도 금지한다.
-- 영향: Echo는 사실을 기록하고, Fuse는 자기 내부 정책만으로 행동을 결정한다. Bundle B 구현 안의 행동 유도 성격 코드는 Bundle B 범위로 인정하지 않는다.
-
-## 2026-03-17 — Bundle C는 Sustained 감지 + Early Exit만 허용
-- 결정: Bundle C의 기본 방향은 `더 강한 개입`이 아니라 **Sustained 감지 + Early Exit + ACTIVE 상한 + COOLDOWN + PASSTHROUGH 강제 복귀**다.
-- 영향: 적응형 threshold, target별 개입 비율, Echo-driven tuning 같은 공격적 정책 확대는 Bundle C의 기본선 밖으로 둔다.
-
-## 2026-03-17 — Bundle C 공식 성공 판정은 구조 변화
-- 결정: Bundle C의 공식 성공 판정은 `ACTIVE 장시간 유지 감소`, `PASSTHROUGH 강제 복귀 확인`, `hard_limit 연속 발생 감소` 같은 **리포트 기반 구조 변화**로 본다. `p50 / FPS / 평균 성능`은 참고 지표일 뿐 공식 판정 기준이 아니다.
-- 영향: Bundle C 검증은 Bundle B deep analysis 리포트를 전제로 한 구조 변화 증명 중심으로 설계한다.
-
-## 2026-03-17 — Bundle B 스키마는 동결 대상
-- 결정: Bundle B에서 확정한 `providers` 섹션과 핵심 증명 필드(`present / active / snapshot_ok / error_code / reason_stats`)는 Bundle C에서 재설계하지 않는다.
-- 영향: Bundle C는 Bundle B 위에 행동 계층을 추가하되, Bundle B의 본질과 필드 의미는 동결된 계약으로 취급한다.
-
-## 2026-03-17 — Bundle C는 자기규제형 안전장치로만 허용
-- 결정: Bundle C는 `성능 기능`이나 `더 강한 개입`이 아니라, **Fuse가 ACTIVE에 너무 오래 붙어 오히려 지속 잔렉을 만들 때 개입을 끊는 자기규제형 안전장치**로만 허용한다.
-- 영향: Bundle C의 기본 방향은 `개입 강화`가 아니라 `더 빨리 손 떼기`이며, sustained 상황에서 Fuse ON이 더 끊기는 구조를 차단하는 데만 집중한다.
-
-## 2026-03-17 — Bundle C의 sustained 판정은 최소 신호만 사용
-- 결정: Bundle C의 sustained 감지는 **ACTIVE 지속 시간 상한**과 **hard limit streak** 두 축으로만 본다. 좀비 수, AI 무게, 외부 원인 같은 해석 기반 신호는 v1 범위에 넣지 않는다.
-- 영향: Bundle C는 `자기 개입이 오래 지속되었다`는 사실과 `자기 상한을 연속으로 때렸다`는 사실만으로 탈출을 결정하는 최소 상태머신으로 유지된다.
-
-## 2026-03-17 — Bundle C는 기존 상태 의미를 재정의하지 않음
-- 결정: Bundle C는 `isPassthrough()` 같은 기존 상태 의미를 재정의하지 않는다. COOLDOWN은 `평시 상태`가 아니라 **개입 금지 상태**로만 취급하며, 필요하면 `isInterventionBlocked()` 같은 신규 의미를 도입한다.
-- 영향: Bundle C는 기존 Bundle B 상태 의미와 리포트 규약을 유지한 채, 별도 safety layer로만 올라간다.
-
-## 2026-03-17 — Bundle C 상태 전이는 단일 관문으로만 수행
-- 결정: ACTIVE / COOLDOWN / PASSTHROUGH 전이는 `transitionTo()` 같은 **단일 관문**에서만 수행하고, `triggerEscape()` 같은 보조 경로에서 직접 상태 대입을 허용하지 않는다.
-- 영향: Bundle C는 구현 편의보다 상태머신 불변식, 리포트 신뢰성, 회귀 저항성을 우선한다.
-
-## 2026-03-17 — hardLimitHitThisTick 3점 봉인
-- 결정: Bundle C의 hard limit streak는 `beginTick reset → hard limit hit에서 set → endTick에서 hit가 없을 때만 miss`의 3점 규약으로 봉인한다.
-- 영향: hard limit streak는 Bundle C의 보조 지표가 아니라 **성공 판정과 early-exit 증명의 핵심 지표**로 취급된다.
-
-## 2026-03-20 — 리팩토링은 보수적 정리 작업으로만 수행
-- 결정: Pulse 생태계의 리팩토링은 `아키텍처를 멋지게 다시 그리는 작업`이 아니라, **헌법·핫패스·외부 계약·실제 코드 상태를 깨지 않는 범위에서만 수행하는 보수적 정리 작업**으로 한정한다.
-- 영향: 모든 리팩토링 로드맵은 `실제 코드 확인 후 축소/스킵 가능`을 전제로 하며, 과잉 구조 개편은 기본값으로 금지한다.
-
-## 2026-03-20 — Phase 0 기준선 확보 없이는 고위험 리팩토링 금지
-- 결정: 핫패스·구조·DI·리포트 경계에 손대는 리팩토링은 **성능/스키마/행동 기준선 확보(Phase 0)** 없이는 착수하지 않는다.
-- 영향: EchoProfiler, ReportDataCollector, FuseThrottleController 같은 핵심 컴포넌트는 먼저 기준선을 고정한 뒤 조건부로만 연다.
-
-## 2026-03-20 — EchoProfiler는 조건부 대상이지 무조건 분해 대상이 아님
-- 결정: EchoProfiler는 **핫패스 접근 경로 동등성**이 증명되지 않으면 분해하지 않는다. `큰 클래스`라는 이유만으로 구조 분해를 강행하지 않는다.
-- 영향: EchoProfiler 리팩토링은 원칙적으로 열려 있으나, hot-path field/method access 동등성 증명이 선행되지 않으면 보류한다.
-
-## 2026-03-20 — ReportDataCollector 외부 계약은 Map 반환으로 고정
-- 결정: ReportDataCollector 계열 리팩토링은 외부 `Map<String, Object>` 반환 계약을 절대 깨지 않는다. 내부 DTO, 포맷터, 유틸 추출은 선택적으로만 허용한다.
-- 영향: 클래스 수 증가는 실익이 증명될 때만 허용하며, 최소 안전 개선은 유틸/포맷터 추출 수준에 둔다.
-
-## 2026-03-20 — FuseThrottleController는 실제 코드 기준으로 Stage 스킵 가능
-- 결정: FuseThrottleController 리팩토링은 `Stage 1부터 다시`를 기본으로 하지 않는다. 이미 추출된 메서드/경계가 있으면 해당 단계는 스킵 가능하다.
-- 영향: Fuse 쪽 리팩토링은 `추가 분해`보다 `이미 분리된 경계 확인 + 필요한 곳만 선택적 클래스 분리`로 운영한다.
-
-## 2026-03-20 — DI는 전환 프로젝트가 아니라 규약 정리 과제
-- 결정: 현재 Pulse 생태계의 DI는 `전면 전환` 대상이 아니라 **이미 존재하는 ServiceLocator / PulseServices / 생성자 주입 / fallback 공존 현실을 규약화하고 누락을 정리하는 과제**로 본다.
-- 영향: `getInstance()` 전면 철거, fallback 전면 제거, ServiceLocator 부정은 현재 리팩토링 범위에 넣지 않는다.
-
-## 2026-03-20 — EventBus는 3계층 현실 경로로 리팩토링
-- 결정: EventBus 리팩토링의 목표는 `이상적 타입 순수성`이 아니라 **핫패스를 빠르게 만들면서도 ClassLoader/모드 호환성을 유지하는 3계층 경로**를 고정하는 것이다. 우선순위는 **(1) direct class lookup, (2) FQCN O(1) fallback, (3) 제한적 reflection/호환 호출**이다.
-- 영향: FQCN/reflection의 `완전 제거`는 현재 목표가 아니며, 기본 경로 비용 절감과 fallback 비용 제한이 우선 과제가 된다.
-
-## 2026-03-20 — EventBus 등록 경로는 단일 COW 리스트 + add/sort 유지
-- 결정: EventBus 리스너 저장 구조는 **단일 `CopyOnWriteArrayList`를 유지한 채 등록 시점 `add + sort`** 로 정렬을 끝내는 방향을 우선한다. immutable list 교체, compute 내부 새 리스트 생성, 이진 삽입 중심 복잡 구현은 기본 노선으로 채택하지 않는다.
-- 영향: EventBus 리팩토링은 `리스트 객체 교체`가 아니라 `기존 COW 성질 유지 + 등록 비용 관리`를 중심으로 진행한다.
-
-## 2026-03-20 — 새 인프라보다 기존 인프라 확장을 우선
-- 결정: 리팩토링 Phase 0~1에서는 **새 GuardTest, 새 ServiceLocator, 새 snapshot infra, 성급한 BaseConfig 공통 모듈**을 기본으로 만들지 않는다. 우선순위는 기존 `HubSpokeBoundaryTest`, `PulseServiceLocator`, 하드코딩 기대값 테스트, 인터페이스 통일 같은 축을 강화하는 것이다.
-- 영향: `새로 만들기`보다 `있는 것을 강화하기`가 기본값이 되며, 공통 모듈 추출은 중복과 경계가 더 분명해진 뒤의 후순위 과제로 남긴다.
-
-## 2026-03-20 — 경계 테스트는 실존 모듈 기준으로만 고정
-- 결정: 리팩토링 과정의 경계 테스트와 구조 가드는 **실제로 존재하고 현재 리팩토링 대상인 모듈** 기준으로만 고정한다. 현 시점의 중심 대상은 Echo, Fuse, Nerve(Lua-only, `allowEmptyShould` 허용)이며, Iris/Frame/Cortex 같은 비대상·비실존 Java 축을 전제로 규칙을 늘리지 않는다.
-- 영향: 경계 테스트는 현실 코드 기반으로 유지하고, 미래 모듈을 가정한 규칙 확대는 별도 시점의 실제 코드 등장 후에만 연다.
-
-## 2026-03-20 — Area 9는 네트워크 제어기가 아니라 same-tick 철수형 보험 장치
-- 결정: Area 9는 `멀티/네트워크를 똑똑하게 제어하는 기능`으로 키우지 않고, **네트워크 경계에서 Lua가 자폭하려는 순간 같은 틱 안에서만 물러나는 보험 장치**로 고정한다.
-- 영향: 핑/패킷/재전송/큐잉/우선순위/병합/재정렬 같은 네트워크 제어 로직은 Area 9 범위에서 배제한다.
-
-## 2026-03-20 — Area 9의 1~7 가드는 관측과 행동을 분리한다
-- 결정: 재진입/중복/shape/depth/guarded pcall/틱 철수/최소 포렌식의 1~7 가드는 **먼저 관측·표시·계수로만 연결**하고, 실제 행동은 마지막의 **동일 틱 철수 하나**로만 연결한다.
-- 영향: Area 9에서 `이상 징후 = 곧바로 차단` 구조는 금지하고, 행동은 단일 reasonCode와 same-tick retreat로만 귀결되게 유지한다.
-
-## 2026-03-20 — Area 9는 구현·검진 후 동결하고 운영 검증 단계로 넘긴다
-- 결정: Area 9는 실행계획 v2 승인과 구현 후 코드 검진이 끝난 뒤, **추가 고도화보다 동결·실전 운용 판단** 단계로 넘긴다.
-- 영향: 이후 Nerve의 우선순위는 기능 확장보다 실제 멀티 세션 데이터 수집과 유지/폐기 판정으로 이동하며, 다음 생산적 이동은 Iris 쪽으로 둔다.
-
-## 2026-03-24 — Context Outcome 추출 로드맵은 판정문이 아니라 통합 문서로 유지
-- 결정: Context Outcome 추출기 로드맵은 ChatGPT안 / Gemini안 / Claude안 중 하나를 최종 정답으로 선포하는 문서가 아니라, **세 구현 제안의 공통분모와 차이를 병렬 보존하는 통합 실행 문서**로 유지한다.
-- 영향: 통합 요청에 대해 특정 안을 먼저 채택·배제하는 판정문 형태를 기본 응답으로 쓰지 않으며, 단일안 절대화는 별도 구현 판정 세션이 열리기 전까지 봉인한다.
-
-## 2026-03-24 — Context Outcome 추출기는 문서 1:1 기계화를 위한 사실 테이블 생성기로 봉인한다
-- 결정: Context Outcome 추출기는 의미 해석기나 분류기가 아니라, **동결 문서가 이미 허용한 outcome만 생성하는 오프라인 사실 테이블 생성기**로 둔다.
-- 영향: 추출 파이프라인은 `스캐너 → IR(signal only) → 매퍼(Signal → Outcome) → 수동 주입기 → 검증기 → 진단기` 경계로 설계하고, 구현 편의상 의미 해석기를 끼워 넣는 방향은 열지 않는다.
-
-## 2026-03-24 — Context Outcome 추출기는 외부 공급자이고 Iris는 소비자다
-- 결정: Context Outcome 추출기는 Iris Core 바깥에서 **정규화된 outcome 산출물**을 생성하는 외부 공급자이며, Iris 분류 엔진은 이를 기존 입력 소스에 추가로 소비하는 구조를 유지한다.
-- 영향: `has_outcome(...)` 같은 기존 소비 지점은 유지하고, Iris 엔진 내부를 뒤집거나 설명 계층에 추론·재판정을 넣지 않는다. 변경 지점은 입력 병합과 산출물 검증 계층으로 한정한다.
-
-## 2026-03-24 — Context Outcome Fail-loud는 3종만 허용한다
-- 결정: Context Outcome 추출기에서 즉시 중단(Fail-loud)할 수 있는 사유는 **Allowlist 밖 Outcome / 비결정성 / 출력 포맷 위반** 세 가지로 제한한다.
-- 영향: 검증기는 3종만 강제 중단하고, 그 밖의 위험 신호는 진단으로만 남긴다.
-
-## 2026-03-24 — Context Outcome에서 즉사와 진단을 분리한다
-- 결정: 금지 토큰 탐지, 문서 SHA 불일치, `smoke_item` 자동 경로 탐지 같은 신호는 **진단**으로만 기록하고, Fail-loud 사유로 승격하지 않는다.
-- 영향: 구현은 위험 징후를 숨기지 않고 보고하되, 즉사 범위는 늘리지 않는다.
-
-## 2026-03-24 — `smoke_item`은 Option B 수동 주입만 허용한다
-- 결정: `smoke_item`은 자동 추출기의 기본 산출 대상이 아니며, **Option B 수동 주입 모듈**만이 유일한 진입점이다.
-- 영향: 자동 경로에서 `smoke_item`이 감지돼도 진단만 남기고, 실제 outcome 생성은 수동 주입으로만 연다.
-
-## 2026-03-24 — Fixing / Moveables는 Context Outcome 소스가 아니다
-- 결정: Fixing과 Moveables의 역인덱스·도구 정의는 기존 evidence / predicate 경로에 남기고, Context Outcome로 승격하지 않는다.
-- 영향: `repair_item`, `disassemble` 같은 항목을 편의상 outcome으로 생성하는 루트는 닫고, Outcome과 다른 증거 계열의 경계를 유지한다.
-
-## 2026-03-24 — `equip_back`는 Wearable.6-F의 핵심 증거다
-- 결정: `equip_back`는 Wearable.6-F에서 보조가 아니라 **핵심 증거**로 취급한다.
-- 영향: Outcome의 위계는 일반론으로 확장하지 않고, 문서가 핵심으로 적은 항목만 핵심으로 반영한다.
-
-## 2026-03-24 — primary_subcategory는 설명의 자동 근거가 아니라 브라우징 anchor다
-- 결정: `primary_subcategory`는 Iris에서 **브라우징·탐색을 위한 주 anchor**로 사용하되, 설명 문장의 자동 근거로 전면 승격하지 않는다.
-- 영향: `primary_subcategory`는 Browser와 메타 노출을 안정화하는 데 우선 사용하고, Description은 이를 자동 기본 문장으로 소비하지 않는다.
-
-## 2026-03-24 — 주 소분류 설명 문장은 기본값이 아니라 후보 템플릿이다
-- 결정: 주 소분류 설명 문장은 폐기하지 않되, **모든 아이템에 기본 적용되는 자동 설명**이 아니라 조건이 맞을 때만 쓰는 **후보 템플릿**으로 강등한다.
-- 영향: 설명 품질 문제를 개별 예외 리스트로 봉합하지 않고, 템플릿 권한을 좁혀 구조적으로 관리한다.
-
-## 2026-03-24 — 연관 레시피 표시는 레시피명 단위를 기본으로 한다
-- 결정: Iris의 연관 레시피 표시는 `[레시피:n]` 같은 단순 개수 표기나 행동 문장 세분화보다, **레시피명 단위의 접기/펼치기 표시**를 기본 단위로 둔다.
-- 영향: Recipe UI는 정보 밀도와 탐색성을 우선하며, 설명 엔진이 행동 문장을 세분화해 의미를 덧붙이는 방향으로 확장하지 않는다.
-
-## 2026-03-24 — 행동 문자열은 관측치일 수 있어도 outcome 자동 생성 근거는 아니다
-- 결정: `CustomContextMenu="Smoke"` 같은 행동/메뉴 문자열은 필요하면 관측치로 표시할 수 있어도, **`smoke_item` 같은 결과 태그를 자동 생성하는 기본 근거**로 사용하지 않는다.
-- 영향: Smoke 계열뿐 아니라 Wear / Read / Rip / Drink 같은 유사 패턴도 동일 원칙으로 다루며, 문자열 기반 자동 추출은 보수적으로 봉인한다.
-
-## 2026-03-25 — Iris Evidence는 행동이 아니라 결과 상태다
-- 결정: Iris가 Rule에서 소비하는 Evidence는 `행동`이 아니라, **그 아이템이 없으면 존재할 수 없는 결과 상태(Outcome)** 로 고정한다.
-- 영향: `open_canned_food`, `stitch_wound` 같은 행동 의미형 표현은 현재 Evidence 모델의 기본형으로 채택하지 않고, `equip_back`, `toggle_activate`, `place_world`, `fill_container`, `empty_container`, `transform_replace` 같은 상태형 outcome을 중심으로 유지한다.
-
-## 2026-03-25 — Recipe와 Right-click은 Evidence가 아니라 Source다
-- 결정: Recipe와 Right-click은 서로 다른 **Outcome source**로 취급하고, 둘 자체를 Evidence 형태로 직접 소비하지 않는다.
-- 영향: 추출기는 Source별로 분리할 수 있어도, Evidence 모델과 Rule 소비 구조는 Outcome 중심으로 통합한다. `우클릭 행동`이라는 표현은 walkthrough/검증 용어로만 제한하고, 설계 문구의 기준어는 `Outcome source`로 정리한다.
-
-## 2026-03-25 — Static capability도 독립 Source로 인정한다
-- 결정: Iris의 outcome 생성 출처는 Recipe / Right-click뿐 아니라 **Static capability**까지 포함하는 다중 Source 구조로 본다.
-- 영향: `Evidence = Recipe + Right-click` 같은 단순 서술은 더 이상 정확하지 않다. 문서와 구현은 `Sources = Recipe / Right-click / Static capability`, `Evidence = normalized outcome facts` 구조를 기준으로 맞춘다.
-
-## 2026-03-25 — Right-click은 Recipe의 변주가 아니라 독립 Source다
-- 결정: Right-click source는 Recipe source의 하위 변형이나 부가 옵션이 아니라, **레시피로 잡히지 않는 기능적 용도**를 포착하는 독립 추출 트랙으로 취급한다.
-- 영향: `우클릭은 레시피의 변주`라는 표현은 쓰지 않는다. Source extractor는 병렬 2트랙 이상으로 둘 수 있지만, 이것이 곧 분류기 이원화를 뜻하지는 않는다.
-
-## 2026-03-25 — Source는 분리하되 Evidence 모델과 Rule 소비는 이원화하지 않는다
-- 결정: Recipe / Right-click / Static capability는 **추출 트랙만 분리**하고, Iris 분류기가 소비하는 Evidence 모델과 Rule 시스템은 **Outcome 중심 단일 프레임**으로 유지한다.
-- 영향: 별도 `right-click classifier`나 `right-click-only rule engine`은 열지 않는다. Source별 extractor는 달라도 최종 산출물은 normalized outcome facts로 수렴해야 한다.
-
-## 2026-03-25 — Equip / Use / Passive는 기본 증거축이 아니라 설명층 후행 정보다
-- 결정: Equip effect / Use only / Passive function은 현재 Iris의 기본 evidence 축으로 승격하지 않고, 필요할 경우 **개별 설명층의 후행 정보**로 처리한다.
-- 영향: Recipe / Right-click / Static capability가 outcome fact를 만들고, Equip / Use / Passive 같은 정보는 설명층에서 선별적으로 풀어쓴다.
-
-## 2026-03-25 — `can_scrap_moveables`와 `can_extinguish_fire`는 같은 문제가 아니다
-- 결정: `can_scrap_moveables`는 **구조 재검토 이슈**, `can_extinguish_fire`는 **범위 재검토 이슈**로 분리해 다룬다.
-- 영향: 후속 검토에서 둘을 같은 종류의 오류나 같은 수정 루트로 묶지 않는다.
-
-## 2026-03-25 — `can_scrap_moveables`는 현재 의미 그대로 유지하지 않는다
-- 결정: `can_scrap_moveables`는 현재 이름/범위 그대로는 유지하지 않는다. 이 필드는 범용 도구, 조합 도구, 재료·부산물이 섞인 상위 개념이므로, **단일 결과 상태 단위로 해체하거나 재정의**해야 한다.
-- 영향: 현 단계 검토에서는 `Saw`, `Screwdriver`만 적합 후보로 남고, `Hammer`, `BlowTorch`, `WeldingMask`, `UnusableMetal`, `UnusableWood`는 현재 정의 기준에서 제외한다.
-
-## 2026-03-25 — Right-click 트랙 적합성과 개별 Capability 동일성은 다르다
-- 결정: 어떤 아이템이 `Right-click evidence 트랙에 적합하다`는 사실만으로, 그 아이템들이 **같은 Capability / 같은 outcome fact**에 속한다고 보지 않는다.
-- 영향: Right-click source 아래 capability를 설계할 때는 `같은 트랙이냐`가 아니라 **같은 결과 상태를 여는가**를 기준으로 분리한다.
-
-## 2026-03-25 — Lua 스캐너는 Outcome 본체가 아니라 diagnostics/reference다
-- 결정: Context Outcome 파이프라인에서 Lua 스캐너는 outcome 생성의 중심 엔진이 아니라 **diagnostics / reference** 역할로 둔다.
-- 영향: 메인 경로는 정적 속성 → signal → outcome 정규화로 유지하고, Lua 스캐너는 coverage 확인과 진단 보조로 제한한다.
-
-## 2026-03-25 — Iris 자동 분류는 Evidence Allowlist 계약 안에서만 움직인다
-- 결정: Iris 자동 분류는 **Evidence Allowlist에 명시된 증거만** 누적하는 인덱싱 시스템으로 둔다. Allowlist 밖 필드·문자열·연산·해석은 자동 분류 근거로 쓰지 않는다.
-- 영향: `exists` 단독, 무제한 `contains`, 이름/설명/표시카테고리 기반 추론, 수치 비교, 임의 태그 확장은 자동 분류 루트에 들어오지 못한다.
-
-## 2026-03-25 — Iris 자동 분류의 세계는 바닐라 텍스트 선언 데이터까지다
-- 결정: Iris 자동 분류는 `media/scripts/*.txt`, `media/lua/client/*` 같은 **바닐라 텍스트 선언 데이터**까지만 근거로 인정하고, Java 디컴파일로 엔진 내부 의미를 끌어와 분류 근거로 쓰지 않는다.
-- 영향: `더 파면 자동화할 수 있는가`와 `Iris가 자동 분류해야 하는가`를 같은 질문으로 취급하지 않는다.
-
-## 2026-03-25 — Iris는 모르는 것을 태그로 만들지 않고 침묵한다
-- 결정: Iris는 `4-UNK` 같은 미분류 태그를 만들지 않는다. 자동 분류가 바닐라 선언 증거로 닫히지 않으면 **침묵하거나 수동 오버라이드로 봉인**한다.
-- 영향: Fuel / Herbs / Explosives / Generator / Ammo 같은 축은 억지 일반화 대신 silence 또는 manual override로 처리한다.
-
-## 2026-03-25 — MoveablesTag와 Item Script Tags는 혼용하지 않는다
-- 결정: `MoveablesTag` 네임스페이스와 Item Script의 일반 `Tags`는 같은 세계로 섞지 않는다.
-- 영향: Tag 허용은 allowlist된 필드·값 조합으로만 닫고, Moveables 관련 규칙은 별도 계약으로 다룬다.
-
-## 2026-03-25 — Iris 대분류 Evidence Table은 전 대분류 수준에서 동결한다
-- 결정: Tool / Combat / Consumable / Resource / Literature / Wearable의 대분류 Evidence Table은 **바닐라 scripts/client 실검증을 마친 계약 문서**로 보고 동결한다.
-- 영향: 이후 쟁점은 분류 철학 재개방이 아니라 Rule DSL 소비, UI/Tooltip, walkthrough 갱신, 수동 오버라이드 운영 같은 후속 단계로 넘긴다.
-
-## 2026-03-25 — Iris는 단순 정보 모드가 아니라 구조적 위키 시스템이다
-- 결정: Iris는 단순히 `레시피/우클릭 정보를 더 보여주는 모드`가 아니라, **게임 코드와 데이터에 숨어 있는 행동·용도·관계 의미를 유저 언어로 드러내는 구조적 위키 시스템**으로 본다.
-- 영향: Workshop의 부분 유사 기능만으로 Iris 전체 구조를 환원하지 않으며, 경쟁력 평가는 `부분 기능 중복`이 아니라 `전체 위키 구조`를 기준으로 본다.
-
-## 2026-03-25 — optional module 조항은 비필수 기반화를 뜻하지 런타임 기능 금지를 뜻하지 않는다
-- 결정: `Philosophy.md`의 `있으면 좋지만 없어도 상관없는` 조항은 Iris가 **게임을 바꾸는 필수 기반이 되어서는 안 된다**는 뜻이지, 정보 노출 기능이나 런타임 표시 기능 자체를 금지한다는 뜻으로 읽지 않는다.
-- 영향: Iris는 선택형 위키 계층이라는 정체성을 유지하되, 정보 노출·브라우징·설명 기능은 정체성 안쪽의 합헌 기능으로 본다.
-
-## 2026-03-25 — Right-click source의 canonical 정의는 item-dependence + state change다
-- 결정: Iris의 Right-click source는 더 이상 `아이템이 없으면 메뉴 항목이 생성되지 않는가`를 canonical 기준으로 삼지 않고, **아이템 X를 보유했을 때만 수행 가능하며 그 수행 결과로 컨텍스트 대상의 상태 변화가 실제로 발생하는가**를 기준으로 본다.
-- 영향: 메뉴 존재 여부, 메뉴명, UI 구조, 비활성 메뉴 표시는 보조 관찰 정보로만 남기고, Right-click source coverage의 핵심 기준은 `아이템 의존성 + 상태 변화`로 재설정한다.
-
-## 2026-03-25 — Right-click source는 Strong / Weak 이원 구조로 운용한다
-- 결정: Right-click source는 하나의 통과/탈락 체계로 밀어붙이지 않고, **Strong Evidence**와 **Weak Evidence**로 나눈다.
-- 영향: Strong은 `아이템 의존성 확실 + 상태 변화 유형 확실`, Weak는 `둘 중 하나 이상 불확실`한 경우로 운용한다. Weak는 canonical outcome fact로 즉시 승격하지 않고 검증·격리 대상이 된다.
-
-## 2026-03-25 — Right-click source 판정은 의미 분류가 아니라 상태 변화 유형만 다룬다
-- 결정: Right-click source를 `의료`, `수리`, `차량`, `발전기`, `요리` 같은 의미 기반 capability로 다시 세우지 않고, **State Add / State Remove / State Modify / Content Change / Item Consume / World Change** 같은 결과 상태 변화 유형으로만 다룬다.
-- 영향: `can_stitch`, `can_repair`, `can_attach_weapon_mod` 같은 의미 중심 상위 capability는 canonical 설계 언어로 채택하지 않는다.
-
-## 2026-03-25 — Right-click source 재설계의 1차 검증 범위는 기존 86개 candidate다
-- 결정: 개정된 Right-click source 정의는 전 아이템에 즉시 재적용하지 않고, 먼저 **기존 86개 candidate 집합**에 우선 적용해 Strong / Weak 구조와 coverage 안정성을 검증한다.
-- 영향: 전체 재적용은 후순위로 미루고, 현재 로드맵의 직접 검증 범위는 86개 candidate 우선 정산으로 고정한다.
-
-## 2026-03-25 — Recipe source는 현 단계에서 재설계 대상이 아니다
-- 결정: 현재 Iris의 재설계 초점은 Right-click source coverage이며, **Recipe 기반 증거 시스템은 현 단계에서 수정 대상이 아니다.**
-- 영향: 다음 논의와 구현 리소스는 Right-click source 검증과 Strong / Weak 정산에 우선 배분한다.
-
-## 2026-03-25 — Right-click Strong 판정은 직접 실행 주체와 비대체성을 함께 요구한다
-- 결정: Right-click Evidence의 Strong 판정은 단순히 `아이템 의존 + 상태 변화`만으로 끝내지 않고, **(1) 필수 의존성, (2) 외부 컨텍스트 대상 존재, (3) 지속 상태 변화, (4) 해당 아이템이 직접 실행 주체이며 대체 경로가 없음**을 함께 요구한다.
-- 영향: 소모 재료, 제작 재료, 조건 장비, 타입 기반 컨테이너, 대체 가능한 슬롯 파트는 기본적으로 Strong에서 제외하고 Weak 또는 설명층 후보로 남긴다.
-
-## 2026-03-25 — Strong / Weak는 표시 등급이 아니라 채택 / 제외 필터다
-- 결정: Right-click source의 Strong / Weak 구분은 UI 강조 차이가 아니라 **데이터셋 채택 여부**를 뜻한다. Strong만 정식 Evidence로 채택하고, Weak는 검토 기록은 남기되 출력/설명/Capability 등록에서는 제외한다.
-- 영향: Strong은 canonical outcome fact 후보, Weak는 내부 검토/보류 표식으로만 운용한다. `Strong이 적다`는 사실은 실패가 아니라 설계상 정상 상태로 본다.
-
-## 2026-03-25 — 기존 can_* Right-click 필드 검수는 개정 정의 기준으로 일단락됐다
-- 결정: 기존 등록된 `can_*` Right-click 필드에 대한 개정 정의 기준 재검수는 일단락된 것으로 본다.
-- 영향: 다음 단계는 기존 필드 재논의가 아니라 **전체 아이템 대상 Strong discovery**로 전환한다.
-
-## 2026-03-25 — can_attach_weapon_mod는 Bayonet만 Strong, 대체 슬롯 파트는 Weak다
-- 결정: `can_attach_weapon_mod` 계열에서는 현재 기준상 **Bayonet만 Strong**으로 두고, 나머지 파츠류는 기본적으로 Weak로 본다.
-- 영향: Weapon Mod 계열은 `무기 파트라서 전부 Evidence`가 아니라, 대체 불가능한 전용 실행 도구만 Strong 후보가 된다.
-
-## 2026-03-25 — can_extinguish_fire는 컨테이너 자체가 아니라 내용물/소화 로직 때문에 Weak 패턴으로 본다
-- 결정: `can_extinguish_fire` 필드는 샘플 검증 기준으로 **전반 Weak 패턴**으로 본다.
-- 영향: Bucket/물 용기 계열은 기본적으로 Strong 직행이 아니라 Weak/설명층 후보로 남긴다.
-
-## 2026-03-25 — Iris는 Evidence 전용 모드가 아니라 전체 아이템 위키 위의 관찰·분류 체계다
-- 결정: Iris는 `Evidence가 있는 아이템만 다루는 시스템`이 아니라, **전체 아이템 위키 표면 위에 Evidence/분류/설명을 얹는 관찰·분류 체계**로 둔다.
-- 영향: Evidence는 1차 기능 레이어로만 쓰고, 전체 아이템 수용과 미분류 해소는 Taxonomy/phase2_rules에서 해결한다.
-
-## 2026-03-25 — 미분류 906 문제의 책임 위치는 Evidence가 아니라 Taxonomy/phase2_rules다
-- 결정: Iris의 대량 미분류 문제는 **Evidence Table / DSL 부족**이 아니라, **대분류·소분류 설계와 phase2_rules 운영**의 문제로 본다.
-- 영향: Furniture / Vehicle / Misc / Container / Security / Sports 같은 잔여 아이템군을 해결하기 위해 Evidence 레이어를 억지 확장하지 않으며, Taxonomy tuning을 다음 단계 본체로 둔다.
-
-## 2026-03-25 — “게임플레이에 실질적인 도움이 되는 정보”는 설명 품질 규칙이지 포함 범위 규칙이 아니다
-- 결정: `게임플레이에 실질적인 도움이 되는 정보`라는 문구는 **Iris 전체 대상 범위를 제한하는 규칙이 아니라, 설명 단계에서 지켜야 하는 품질 규칙**으로 해석한다.
-- 영향: 전체 아이템은 Iris 대상이 될 수 있고, 실제 설명 문장만 실용성·비해석·비권장 규칙을 따른다.
-
-## 2026-03-25 — 내부 아이템만 blocklist 대상이며 Furniture는 범위 안에 둔다
-- 결정: 코드 내부 표현용 / 시스템용 아이템(`ZedDmg`, `Wound`, `Bandage`, `Appearance`, `MaleBody`, `Corpse`, `Hidden` 등)만 blocklist 대상으로 두고, **Furniture는 별도 대분류로 흡수하는 범위 안의 아이템군**으로 둔다.
-- 영향: blocklist는 `관찰 범위 밖`을 봉인하는 장치이지, 설명이 단조롭거나 사용 빈도가 낮은 그룹을 제거하는 수단이 아니다.
-
-## 2026-03-25 — Wearable 확장과 Resource 쓰레기통화를 금지한다
-- 결정: Container를 수용하기 위해 Wearable을 `장착·휴대`로 넓히지 않으며, 애매한 잔여군을 Resource에 몰아넣는 해법도 채택하지 않는다.
-- 영향: Storage는 별도 대분류 대신 Tool.Storage 하위로, Security도 Tool.Security 하위로 다루며, Vehicle / Furniture / Misc는 독립 대분류/경계 규칙 안에서 처리한다.
-
-## 2026-03-25 — Iris 대분류 아키텍처는 9개 축과 경계 규칙으로 사실상 종료됐다
-- 결정: Iris의 대분류 아키텍처는 **Tool / Combat / Consumable / Resource / Literature / Wearable / Furniture / Vehicle / Misc** 9개 축과 경계 규칙을 기준선으로 두고, 이 단계의 구조 논쟁은 사실상 종료한다.
-- 영향: 다음 단계는 Architecture 재개방보다 Taxonomy tuning / 운영 규칙 정리로 이동한다.
-
-## 2026-03-25 — 소분류 설명은 분류 안내문이 아니라 위키형 정적 설명이다
-- 결정: Iris의 소분류 설명은 `이 분류는 이런 분류다` 같은 분류 시스템 안내문이나 분류명 재진술이 아니라, **해당 소분류가 담고 있는 실제 용도·시스템적 의미·적용 범위를 자연스러운 한국어로 풀어쓰는 위키형 정적 설명**으로 둔다.
-- 영향: 소분류 설명은 번역체 추상문, 분류명 되풀이, 형식적 정의문을 피하고 실제 기능과 시스템 사실을 필요할 때 포함한다.
-
-## 2026-03-25 — 소분류 설명은 자연스러운 한국어 위키 문체를 표준으로 삼는다
-- 결정: Iris 소분류 설명의 기본 문체는 **짧고 단정한 한국어 위키 문장**으로 두고, `관여한다`, `관련된다`, `다루며`, `특성` 같은 번역체·추상어를 기본 표현으로 쓰지 않는다.
-- 영향: 설명은 가능하면 `~에 사용된다`, `~을 위한 도구다`, `~의 영향을 받는다`처럼 직접적 구조로 정리하고, 군더더기 정의문을 뒤에 덧붙이지 않는다.
-
-## 2026-03-25 — 소분류 설명은 바닐라에 맞되 모드에도 깨지지 않는 일반화로 작성한다
-- 결정: 소분류 설명은 바닐라를 기준으로 사실을 쓰되, 특정 바닐라 대상명이나 고정된 구현 세부에 과도하게 묶이지 않도록 **행위·기능 중심의 일반화 문장**으로 작성한다.
-- 영향: `가전제품을 분해한다`, `등에 착용한다`처럼 지나치게 좁은 문장은 피하고, 더 상위의 기능 설명으로 정리한다.
-
-## 2026-03-25 — 전투·총기 등 오해 가능성이 큰 소분류는 시스템 정보를 포함한다
-- 결정: 전투 대분류를 비롯해 사용자가 형태만 보고 오해하기 쉬운 소분류는, 단순 형상 설명이 아니라 **스킬 연동·탄약 소모·재장전 영향 같은 시스템적 사실**을 소분류 설명에 포함할 수 있다.
-- 영향: 근접 무기는 해당 전투 스킬과의 연동을, 총기는 탄약 소모와 조준/재장전 레벨 영향을 설명에 반영한다. 다만 추천·효율 평가는 여전히 금지한다.
-
-## 2026-03-25 — 기타/가구 문제는 우선 구조가 아니라 설명으로 해결한다
-- 결정: Furniture나 Misc 계열에서 `설명이 비슷하다`, `쓸모없어 보인다`는 이유만으로 소분류를 계속 쪼개지 않고, 우선 **설명 표현을 고쳐 처리하는 방향**을 기본값으로 둔다.
-- 영향: 기타/가구 계열은 구조 변경보다 설명 품질 개선을 먼저 시도하며, 새 소분류 추가는 실제 기능 경계가 분명할 때만 연다.
-
-## 2026-03-25 — 개별 아이템 설명은 소분류 설명 다음 단계로 분리한다
-- 결정: 개별 아이템 설명 작업은 소분류 설명 작업과 같은 세션에서 섞어 처리하지 않고, **별도 단계/별도 세션**으로 분리한다.
-- 영향: 현재 단계에서는 소분류 설명의 문체·정보 밀도·일반화 원칙을 먼저 동결하고, 개별 아이템 설명은 별도 핸드오버와 함께 후속 작업으로 넘긴다.
-
-## 2026-03-25 — Phase 2의 원칙은 Evidence 있는 분할만 남기는 것이다
-- 결정: Iris Phase 2의 핵심은 `새 대분류를 더 잘게 나누는 것`이 아니라, **Evidence가 있는 분할만 남기고 Evidence가 없는 분할은 제거해 구조를 닫는 것**으로 둔다.
-- 영향: Furniture / Vehicle / Misc 설계는 `탐색성이 좋아 보이는가`보다 `전용 Evidence 축이 존재하는가`를 먼저 본다.
-
-## 2026-03-25 — Furniture는 단일 소분류로 고정한다
-- 결정: Furniture는 **Furniture.7-A 단일 소분류**로 고정한다.
-- 영향: 가구 탐색성은 세분화보다 설명/브라우저 계층에서 보완하고, B42 이후 전용 Evidence 축이 생기기 전에는 Furniture 재세분화를 열지 않는다.
-
-## 2026-03-25 — Vehicle은 최소 2분할로 닫는다
-- 결정: Vehicle은 **Vehicle.8-A(Drivetrain) / Vehicle.8-B(Body)** 최소 2분할로 유지한다.
-- 영향: `ConditionAffectsCapacity`는 분류 근거에서 제거하고, 가스탱크/엔진 파츠는 수동 오버라이드로 봉인한다. Door / Window / Trunk / Seat 식 과분할은 현재 단계에서 닫는다.
-
-## 2026-03-25 — Misc.9-A는 규칙이 아니라 output-stage fallback이다
-- 결정: Misc.9-A는 `rule_executor`가 아니라 **`output_generator.py`에서 blocklist 제외 후 태그 0개 아이템에만 부여하는 output-stage fallback**으로 둔다.
-- 영향: `rule_executor`에는 일반 규칙과 대분류 가드가 있는 residual만 남기고, Misc 폴백은 최종 출력 계층에서만 수행한다.
-
-## 2026-03-25 — Tool.Security / Tool.Storage를 Phase 2에 정식 편입한다
-- 결정: Tool 내부에 **Tool.1-K(Security)** 와 **Tool.1-L(Storage)** 를 정식 소분류로 편입한다.
-- 영향: 설명 템플릿과 Allowlist도 이에 맞춰 확장하며, Storage를 10번째 대분류로 분리하는 방향은 보류한다.
-
-## 2026-03-25 — Tool.Storage와 Wearable.6-F의 경계는 착용 outcome으로 닫는다
-- 결정: Tool.1-L(Storage)는 **비착용 휴대 컨테이너**, Wearable.6-F는 **착용 가능한 배낭**으로 분리하고, `equip_back` outcome/BodyLocation 증거를 이용해 1-L에서 6-F를 배제한다.
-- 영향: `not_has_outcome("equip_back")` 같은 규칙 정제와 manual override를 함께 사용해 중복 0건을 유지한다. `Bag_JanitorToolbox` 같은 예외는 수동으로 정리한다.
-
-## 2026-03-25 — Phase 2 구조 설계는 동결 가능한 상태로 닫힌다
-- 결정: Furniture / Vehicle / Misc 최소 구조, Tool.Security / Tool.Storage 편입, Allowlist 확장, 설명 템플릿 확장, 구현 계획 최종 승인, walkthrough 정합성, Storage/Backpack 중복 0건이 모두 확인된 시점에서 **Phase 2 구조 설계는 사실상 종료**로 본다.
-- 영향: 이후 Phase 2는 대논쟁보다 구현 회귀 감시, manual override 유지, 분류 품질 유지에 집중한다.
-
-## 2026-03-25 — Gate-0 Right-click Evidence의 단위는 FullType 직접 실행 도구다
-- 결정: Iris Right-click Evidence의 Gate-0 단위는 `우클릭 메뉴/행동명`도, `기능 분야`도 아니라 **FullType 단위의 직접 실행 도구 Evidence**로 둔다. 즉 Gate-0에서는 `그 아이템이 없으면 실행할 수 없고`, `그 아이템이 직접 실행 주체로서`, `외부 대상의 지속 상태 변화를 일으키는가`를 본다.
-- 영향: Gate-0는 FullType 기준의 직접 실행 도구만 canonical 후보로 받으며, 그 밖의 조건/재료/속성 구조는 다른 층위나 후행 설명 대상으로 넘긴다.
-
-## 2026-03-25 — Property-gated 필드는 Gate-0 Right-click Evidence 대상이 아니다
-- 결정: 실제 실행 게이트가 특정 FullType이 아니라 `Tag / Property / Type / Drainable 상태` 같은 **property-based predicate**에 걸려 있는 필드는 Gate-0 Right-click Evidence 대상으로 보지 않는다.
-- 영향: `can_add_generator_fuel`류는 개별 Weak 누적 대상이 아니라 `Gate-0 부적합 필드` 후보로 먼저 다루며, 남은 Right-click 필드도 아이템 판정보다 먼저 `이 필드가 FullType 게이트인지`를 감사한다.
-
-## 2026-03-25 — Weak 다수는 정상 상태가 아니라 필드 단위 불일치 신호일 수 있다
-- 결정: 한 필드에서 Weak가 대량으로 발생하면, 이를 자동으로 `애매한 아이템이 많다`로 해석하지 않고 **필드 자체가 Gate-0 단위와 맞지 않는 신호**로 우선 본다.
-- 영향: 향후 Right-click 감사에서는 `Strong/Weak 선별` 이전에 `Gate-0 적합 필드인가`를 먼저 판정하고, 부적합 필드는 item-by-item Weak 적재 대신 다른 층위로 격리한다.
-
-## 2026-03-25 — 조건 장비·소모 재료·제작 재료·속성 컨테이너는 Gate-0 밖으로 뺀다
-- 결정: WeldingMask 같은 조건 장비, Thread 같은 소모/제작 재료, Petrol 계열처럼 속성 기반 컨테이너는 기본적으로 **Gate-0 Right-click Evidence 밖**으로 둔다.
-- 영향: Excluded와 Weak의 경계는 남아 있더라도, 적어도 위 네 부류는 `Gate-0 기본 수용 대상`으로 되돌리지 않는다.
-
-## 2026-03-25 — can_add_generator_fuel류는 개별 Weak 누적보다 Gate-0 부적합성 감사를 우선한다
-- 결정: `can_add_generator_fuel`처럼 실제 게이트가 Petrol tag / Drainable / container property에 더 가까운 필드는, 개별 FullType을 계속 Weak로 쌓기보다 **필드 자체가 Gate-0 Right-click Evidence 대상인지**를 먼저 판정한다.
-- 영향: 잔여 Right-click 감사는 `개별 아이템 Strong/Weak 선별`보다 `필드의 Gate-0 적합성` 판정을 먼저 수행한다.
-
-## 2026-03-25 — 잔여 67개 감사는 새 세션으로 넘기고 기준만 고정한다
-- 결정: 남은 67개 Right-click 관련 아이템의 개별 감사는 현재 세션에서 끝내지 않고, **Gate-0 기준을 고정한 뒤 새 세션에서 이어간다.**
-- 영향: 이번 세션의 산출물은 대량 판정 완료가 아니라 `FullType 직접 실행 도구 / property-gated 필드 제외`라는 Gate-0 기준 고정이며, 후속 감사는 이 기준을 그대로 적용한다.
-
-## 2026-03-25 — Gate-0 Right-click Evidence의 판정 순서는 실행 주체 → 외부 대상 → 지속 상태 변화다
-- 결정: Right-click Evidence의 Gate-0 판정은 `메뉴가 보이는가`나 `행동 의미가 무엇인가`보다 먼저, **(1) 해당 아이템이 직접 실행 주체인가, (2) 외부 대상이 존재하는가, (3) 지속 상태 변화가 발생하는가** 순서로 본다.
-- 영향: Strong / Weak는 Gate-0 통과 이후의 2차 판정으로 내리고, Gate-0를 통과하지 못하는 항목은 Weak 적재가 아니라 애초에 Evidence 밖으로 보낸다.
-
-## 2026-03-25 — Gate-0 밖 항목은 Weak로 남기지 말고 Evidence 밖으로 뺀다
-- 결정: 입력 재료, 소모 재료, 제작 재료, 조건 장비, 속성 기반 컨테이너, 그리고 self-only 변화는 **Gate-0 Right-click Evidence 대상이 아니다.**
-- 영향: 이 부류를 `일단 Weak`로 남겨두는 관행은 닫고, Weak는 Gate-0를 통과했지만 대체 FullType 문제 등으로 Strong에 오르지 못한 경우에만 사용한다.
-
-## 2026-03-25 — Weak는 Gate-0 통과 후의 비유일성 표식이다
-- 결정: Weak는 `애매하다`의 일반 표식이 아니라, **실행 주체 / 외부 대상 / 지속 상태 변화 조건은 통과했지만 대체 도구가 존재해 유일 의존성이 깨진 경우**에 한정한다.
-- 영향: Gate-0 통과 여부와 Strong / Weak 여부를 문서와 구현에서 분리해 기록하며, Weak 다수는 item ambiguity가 아니라 필드/게이트 단위 오류 신호로 우선 본다.
-
-## 2026-03-25 — Property-based / 조건 기반 필드는 Gate-0 이전에 필드 적합성부터 본다
-- 결정: 실제 게이트가 `Tag / Property / Type / Drainable / Container state`에 있는 필드는 item-by-item Strong / Weak 선별보다 먼저 **그 필드 자체가 Gate-0 FullType 실행 도구 구조를 만족하는지**부터 판정한다.
-- 영향: 향후 Right-click 감사는 `아이템 목록 전수 검수`보다 `필드 admissibility 감사`를 우선하며, 부적합 필드는 Gate-0 Evidence 트랙에서 제외하거나 다른 층위로 이동시킨다.
-
-## 2026-03-25 — Weapon mod / ammo / mold / petrol container류는 Gate-0 기본 수용 대상이 아니다
-- 결정: Weapon mod 입력 아이템, 탄약, 주형, Petrol container 같은 항목은 기본적으로 **직접 실행 도구**가 아니라 Attach / Reload / Craft / Fill 같은 상위 시스템의 입력 또는 속성 전달자이므로 Gate-0 기본 수용 대상으로 두지 않는다.
-- 영향: Bayonet / Sling / AmmoStraps 같은 과거 예외 Strong 판정도 최종 동결 대상으로 보지 않고, 실행 주체 구조가 확실히 증명될 때에만 다시 연다.
-
-## 2026-03-25 — 잔여 Right-click 감사는 아이템 전수보다 행동 소스 역매핑을 우선한다
-- 결정: 잔여 Right-click 감사는 1722개 전체 아이템을 수작업으로 순회하기보다, **행동 source → 조건 → 후보 FullType 역매핑** 방식으로 재시작한다.
-- 영향: 다음 세션의 핵심 과제는 전체 아이템 전수 검수가 아니라, source 기반 후보 추출 규칙과 Gate-0 admissibility 포맷을 먼저 고정하는 것이다.
-
-## 2026-03-25 — Gate-0 Right-click 파이프라인은 capability-first가 아니라 evidence-first다
-- 결정: Iris Gate-0 Right-click 파이프라인은 기존 `can_* capability` 축을 먼저 고정하고 아이템을 끼워 넣는 구조를 버리고, **evidence-first v2 파이프라인**으로 재설계한다.
-- 영향: Gate-0의 기본 흐름은 `source_index_v2 → evidence_candidates → evidence_decisions → field_registry_v2`로 고정하며, 필드는 사전 선언물이 아니라 Evidence 결과에서만 생성·갱신한다.
-
-## 2026-03-25 — source_index_v2와 field_registry_v2의 책임 분리
-- 결정: `source_index_v2`는 `can_*` 키 사전이 아니라 **source → candidate 추출 규칙**을 담당하고, `field_registry_v2`는 **확정된 Evidence 결과를 반영해 필드를 생성/갱신**하는 레지스트리로 둔다.
-- 영향: source 단계는 후보 발굴만, registry 단계는 결과 반영만 맡으며, 양쪽 책임을 문서와 구현에서 섞지 않는다.
-
-## 2026-03-25 — 미매칭은 Evidence:NO가 아니라 scope 밖이다
-- 결정: 자동 분류에서 `현재 rule에 안 걸린다`는 사실만으로 `Evidence 없음`이나 `NO`를 확정하지 않는다. 기본 해석은 **현재 rule로는 후보 추출 불가 = scope 밖**이다.
-- 영향: scope 밖은 NO와 구분되는 운영 상태로 유지하며, 다음 확장은 실행 결과의 `scope 밖 / REVIEW / PASS` 분포를 보고 결정한다.
-
-## 2026-03-25 — property_based는 NO가 아니라 REVIEW 격리로 둔다
-- 결정: `property_based` 패턴은 이 단계에서 즉시 `NO`로 고정하지 않고, **REVIEW 격리 상태**로 유지한다.
-- 영향: Fail / Review / No는 서로 다른 지위를 유지하며, property_based는 generic 불확실성 플래그로 남용하지 않고 `검토 보류`의 의미로만 쓴다.
-
-## 2026-03-25 — Gate-0 자동 분류는 후보 추출·증명·제외 라우팅까지만 맡는다
-- 결정: Gate-0 자동 분류는 `모든 용도 파악` 시스템이 아니라, **정적 근거로 결정 가능한 후보 추출 / 증명 / 제외 라우팅**까지만 담당한다.
-- 영향: Review·scope 밖·Excluded는 자동화의 실패가 아니라 역할 경계의 일부로 본다.
-
-## 2026-03-25 — Gate-0 문서 로드맵은 닫히고 다음 단계는 실행 결과 기반 운영이다
-- 결정: Gate-0 v2 문서 A~F, 실행계획 rev.3, walkthrough 1차 검증이 통과한 시점에서 **문서 수정 로드맵은 사실상 종료**하고, 다음 단계는 실행 결과 분포를 기반으로 한 운영·확장 판단으로 넘긴다.
-- 영향: 이후 의사결정 재료는 문서 초안보다 실행 결과와 분포 검증이 되며, `recipe exclusion 범위`, `positive rule 확장`, `scope 밖의 의미` 같은 남은 쟁점도 이 결과를 바탕으로 다시 다룬다.
-
-## 2026-03-25 — Gate-0 Right-click v2.1은 자동 분류 상한선까지 밀어붙인 baseline으로 봉인한다
-- 결정: Gate-0 Right-click v2.1은 허용된 정적 근거 타입 안에서 가능한 자동 분류를 사실상 끝까지 밀어본 baseline으로 취급하고, 이후 candidate-only 규칙과 Moveable prove rule은 **운영 기본값이 아닌 실험 artefact**로만 유지한다.
-- 영향: Gate-0 운영 기본값은 Run D / v2.1 baseline으로 고정하고, `더 많은 후보를 파이프라인 안으로 넣는 것`은 coverage 실험으로만 다룬다.
-
-## 2026-03-25 — candidate-only는 coverage 실험용이며 baseline 운영 규칙이 아니다
-- 결정: `Moveable+Furniture`, `Normal+VehicleMaintenance`, `Normal+Junk` 등 candidate-only 규칙은 baseline에 포함하지 않는다.
-- 영향: candidate-only는 운영 규칙이 아니라 `coverage 상한선 탐색용 실험 장치`로만 남기며, 기본 파이프라인에서는 disabled 상태를 유지한다.
-
-## 2026-03-25 — prove anchor는 A를 올리지 못하면 운영 승격 근거가 되지 않는다
-- 결정: Lua 정적 스캔으로 얻은 Moveable prove anchor처럼 B/C만 증명하는 규칙은, A(직접 실행 주체)를 올리지 못하는 한 baseline 승격 근거로 쓰지 않는다.
-- 영향: prove rule은 `앵커 발굴 실험`으로는 보존하되, 운영 채택 기준은 `A까지 결정 가능하게 만드는가`로 제한한다.
-
-## 2026-03-25 — REVIEW만 Right-click 수동 검증 대상이며 scope 밖은 다른 증거 축과 먼저 교차한다
-- 결정: Right-click 관점에서 수동 검증 대상은 REVIEW만으로 한정하고, scope 밖은 즉시 Right-click 수동 검증 대상으로 넘기지 않는다.
-- 영향: 운영 흐름은 `REVIEW -> Right-click 수동 검증`, `scope 밖 -> 다른 증거 축과 교차 -> 잔여만 별도 문제화`로 고정한다.
-
-## 2026-03-25 — 부재를 추론으로 정적 NO로 내리지 않는다
-- 결정: `우클릭 기능이 없다`는 결론은 menu builder 부재/제외 같은 정적 앵커가 없는 한 자동 NO로 확정하지 않는다.
-- 영향: `정적 NO`는 명시적 exclusion 근거가 있을 때만 허용하고, 그 밖의 부재 설명은 REVIEW 또는 scope 밖으로 남긴다.
-
-## 2026-03-25 — Recipe와 Right-click은 동급 증거 트랙이며 겹침을 허용한다
-- 결정: Iris 1단계 증거 시스템에서 Recipe 기반 증거와 Right-click 기반 증거는 **동급 2트랙**으로 유지하며, 같은 아이템이 두 트랙에 동시에 걸리는 것을 허용한다.
-- 영향: Right-click은 독립 축으로 유지하며, `Recipe UI only 제외 / context-menu surfaced recipe 허용` 같은 규칙은 이 동급·겹침 구조를 지키는 방향으로만 수정한다.
-
-## 2026-03-25 — Right-click 축 삭제 대신 재정의로 살린다
-- 결정: TinOpener 같은 상징 사례 때문에 Right-click 기반 증거 시스템 전체를 삭제하지 않고, **컨텍스트 메뉴에 surfaced 되는 행동/행동 결과를 포착하는 동급 증거 축**으로 재정의해 유지한다.
-- 영향: `RightClick = 비-Recipe 잔여`라는 해석은 폐기하고, Recipe와 겹치더라도 컨텍스트 메뉴에 surfaced 되는 경우는 Right-click 증거로 수용할 수 있다.
-
-## 2026-03-25 — 웹/위키 기반 수동 검증을 폐기하고 automatic-only 체계로 간다
-- 결정: 웹/위키를 뒤져 PASS/NO/REVIEW를 사람이 닫는 방식은 채택하지 않고, Iris Right-click / Recipe 판정은 **automatic-only 결과**를 최종 상태로 사용한다.
-- 영향: PASS/NO/REVIEW, Strong/Weak는 자동 산출물의 지위로 유지하며, REVIEW는 `웹 조사 후 승격 후보`가 아니라 자동 체계 안의 미확정 상태로 남긴다.
-
-## 2026-03-25 — REVIEW는 수동 승격 통로가 아니라 자동 체계의 미확정 상태다
-- 결정: REVIEW는 웹/위키 기반 수동 검증으로 PASS/NO로 밀어올리는 임시 버킷이 아니라, **허용된 정적 근거만으로는 닫히지 않은 자동 결과 상태**로 둔다.
-- 영향: REVIEW는 후속 rule 발굴 / 분포 분석 / 다른 증거 축과의 관계 검토 대상일 수는 있어도, Evidence 판정 자체를 사람 손으로 승격하는 통로가 되지 않는다.
-
-## 2026-03-25 — 자동-only 공신력은 Q1~Q5와 expected_diff 운영으로 보장한다
-- 결정: Iris의 automatic-only 공신력은 `Q1~Q5`, `expected_diff / allowed_changes`, `role_profile_by_rule_id`, `build_report` 같은 품질 게이트로 운영한다.
-- 영향: PASS 무결성, Strong 무결성, role-profile 기반 required_roles 검증, 결정성/회귀 통제가 운영 기준으로 올라가며, legacy 예외도 명시적 프로파일 파일로만 허용한다.
-
-## 2026-03-25 — Iris는 오프라인 컴파일러 + 런타임 뷰어형 지식베이스다
-- 결정: Iris는 `웹/위키 수동 보강형 위키`가 아니라, **오프라인 Python 빌드가 증거/행동/분류 산출물을 컴파일하고, 런타임 Lua가 이를 재구성해 보여주는 지식베이스**로 본다.
-- 영향: 장기 방향은 `컴파일러 -> 뷰어` 순도를 더 높이는 쪽이며, 현재 남아 있는 런타임 인덱스 빌드는 과도기 하이브리드로 본다.
-
-## 2026-03-25 — Gate-0 Right-click v2.1 이후의 남은 문제는 규칙 수가 아니라 증명 가능한 정적 근거의 한계다
-- 결정: Gate-0 Right-click v2.1에서 candidate-only 확장과 prove-anchor 실험까지 수행한 뒤, 남은 병목은 `어떤 규칙을 더 넣을까`가 아니라 **허용된 근거 타입 안에서 증명 가능한 정적 앵커가 더 없다는 사실**로 본다.
-- 영향: baseline은 v2.1 Run D로 봉인하고, 추가 실험 rule은 artefact로만 남긴다. 다음 단계는 `자동-only 운영`과 `다른 증거 축과의 교차`, `후속 positive rule 발굴의 가치 평가`로 이동한다.
-
-## 2026-03-25 — Recipe 요구사항 표시는 recipe_nav_ref와 분리된 별도 산출물로 다룬다
-- 결정: `recipe_requirements`는 `recipe_nav_ref` 안에 묶지 않고, **`recipe_requirements_index.<BUILD>` 별도 산출물**로 관리한다.
-- 영향: 런타임은 `recipe_nav_ref`와 `recipe_requirements`를 독립적으로 렌더하며, 오프라인 파이프라인은 `requirements_by_fulltype -> recipe_id pivot -> recipe_requirements_index` 흐름으로 별도 빌드한다.
-
-## 2026-03-25 — Recipe 요구사항 표시는 상호작용 층의 atom 단위 상태표시까지 포함한다
-- 결정: 레시피 라인에 붙는 요구사항은 **표시 전용 사실 데이터 + atom 단위 상태표시 입력(check)** 로 다루되, 레시피 전체의 추천·정렬·숨김·통합 SAT/UNSAT 판정으로 확장하지 않는다.
-- 영향: Lua는 `display`와 `check`를 읽어 atom 단위 색상만 적용할 수 있고, 레시피 라인 전체의 우선순위·추천·정렬 UI는 열지 않는다.
-
-## 2026-03-25 — Recipe 요구사항 kind allowlist와 출력 계약은 FAIL-LOUD로 봉인한다
-- 결정: `perk`, `near_item` 등 허용된 요구사항 kind만 recipe requirements 표시에 들어오게 하고, kind 위반·출력 계약 위반은 FAIL-LOUD로 처리한다.
-- 영향: `kind allowlist`, 정렬 규칙, 출력 스키마는 팀 규칙이 아니라 빌드 계약이 되며, 빈 배열은 불필요한 출력 비대와 패턴 불일치를 피하기 위해 산출물에서 생략한다.
-
-## 2026-03-25 — Recipe requirements 매핑 실패는 dangling과 suffix-drift를 분리해 추적한다
-- 결정: SHA-suffixed recipe 매핑 실패를 단일 상한으로 뭉개지 않고, **dangling**과 **suffix-drift**를 구분해 추적한다. 필요 시 base-slug fallback 2단계 검증을 둔다.
-- 영향: `req_base_slug_fallback_count` 같은 지표는 별도로 추적하되, 래칫 방향은 후속 사이클에서 결정한다. 현재 단계의 목표는 실패 원인을 가리는 것이 아니라 드러내는 데 있다.
-
-## 2026-03-25 — Iris use_case는 Recipe/Right-click 동급 2트랙을 행동 단위로 통합한다
-- 결정: Iris의 행동 블록은 `Recipe`와 `Right-click`을 잔여 필터 관계로 두지 않고, **동급 2트랙 증거를 `use_case` 단위로 통합**해 다룬다. `surface`는 `context_menu / recipe_ui / both`처럼 행위가 사용자에게 어떻게 드러나는지만 기록한다.
-- 영향: `use_case`는 분류 흉내가 아니라 실제 행동 근거 묶음이 되며, Recipe-only / RightClick-only / 겹침 케이스를 같은 프레임 안에서 렌더한다.
-
-## 2026-03-25 — classification_recipe를 recipe_evidence로 승격한다
-- 결정: `classification_recipe` 같은 연관성 표시는 중심 경로에서 내리고, **`rule_id` 중심 `recipe_evidence` 체계**를 표준 경로로 사용한다. PASS evidence에는 input/output 참여만 올리고, keep/require는 행동 증거로 승격하지 않는다.
-- 영향: Recipe 쪽은 `rule_id`를 중심으로 한 evidence source가 되고, 설명 계층에서는 행동 블록과 Requirements 블록이 분리된다.
-
-## 2026-03-25 — keep 재료도 uc.recipe.*에 연결하되 role로 분리한다
-- 결정: keep 재료는 소모되지 않더라도 `이 레시피에 필요하다`는 사실이 같으므로 `uc.recipe.*`에 연결한다. 다만 consumed와 keep은 **`role` 필드**로 구분하고, `recipe_evidence` source에서만 필수 필드로 둔다.
-- 영향: `by_fulltype` 스키마는 `{ "rule_ids": [{rule_id, role}, ...] }` 형태로 고정하며, 타 source에는 role 존재 자체를 허용하지 않는다.
-
-## 2026-03-25 — role 분기와 display_text 분화는 오프라인에서만 수행한다
-- 결정: consumed / keep에 따른 `display_text` 분화는 **오프라인 Python 파이프라인에서 완결**하고, 런타임 Lua가 `role` 값을 보고 텍스트를 덧붙이는 로직은 두지 않는다.
-- 영향: Lua는 이미 분화된 문자열을 그대로 출력만 하며, 역할별 문구 차이는 전부 오프라인 산출물에서 확정된다.
-
-## 2026-03-25 — DescriptionGenerator는 정적 use_case 렌더러로만 동작한다
-- 결정: DescriptionGenerator는 `증거 → 행동(use_case) → 설명`의 중간에서 **정적 산출물을 템플릿으로 조립하는 렌더러**로만 둔다. 설명 계층은 필터 체인이 아니라 독립 정보층이며, Actions / Requirements / Internal을 섞지 않는다.
-- 영향: 행동 블록과 Requirements 블록은 별개로 렌더되며, 설명층은 오프라인 결과를 보여주는 층으로만 유지된다.
-
-## 2026-03-25 — use_case_label_map은 FAIL-LOUD build contract다
-- 결정: 새 `use_case`가 생기면 해당 라벨이 `use_case_label_map`에 존재하지 않는 한 빌드를 통과시키지 않는다.
-- 영향: 라벨맵은 문자열 자원이 아니라 빌드 계약이 되며, `use_case` 추가는 곧 라벨맵 수정까지 동반해야 한다.
-
-## 2026-03-25 — dynamic_recipe_expr 잔여 5건은 PERMANENT_REVIEW로 봉인한다
-- 결정: `dynamic_recipe_expr`는 정적 필터·tag alias·resolved catalog 확장으로 줄일 수 있는 만큼 줄인 뒤, 남은 `group_def_dynamic` 5건은 **PERMANENT_REVIEW 정책**으로 봉인한다.
-- 영향: 해당 5건은 `나중에 사람 손으로 닫을 미결`이 아니라 정책+산출물+테스트로 고정된 예외가 된다.
-
-## 2026-03-25 — legacy 승격 면제는 0건으로 닫는다
-- 결정: `legacy=true` 승격 경로는 L1/L2/U1/U2를 거쳐 **legacy_count 0 / Q3 exempt 0** 상태까지 줄이는 것을 기준선으로 삼는다.
-- 영향: `legacy`는 임시 유예가 아니라 제거 대상 기술부채로 간주하며, 래칫은 `decrease_only` 패턴으로 유지한다.
-
-## 2026-03-25 — Recipe requirements color layer는 atom 단위 판정으로만 렌더한다
-- 결정: 상호작용 탭의 recipe requirements 색상 레이어는 `RecipeManager.getNumberOfTimesRecipeCanBeDone` 같은 **레시피 통합 SAT/UNSAT 판정**을 쓰지 않고, `perk / near_item / flag` 같은 requirement atom을 **개별 판정**해 렌더한다.
-- 영향: 상호작용 탭은 레시피 전체 가능 여부를 한 색으로 칠하지 않고, 각 atom의 상태만 색으로 표시한다. 레시피 라인 자체의 SAT/UNSAT 색상은 현재 스코프 밖으로 둔다.
-
-## 2026-03-25 — requirement check 구조는 Python이 만들고 Lua는 읽기만 한다
-- 결정: requirement atom의 `check` 필드는 **오프라인 Python 파이프라인이 kind별 스키마로 생성**하며, Lua는 이를 수정·생성·override하지 않는다.
-- 영향: check 생성/변형 권한은 Python에만 있고, Lua는 `check`를 읽어 엔진 API를 조회한 뒤 색상만 매핑한다. `recipe_role`이나 kind에 따라 Lua가 텍스트를 붙이거나 구조를 보정하는 경로는 열지 않는다.
-
-## 2026-03-25 — 지원 kind의 check 누락은 FAIL-LOUD다
-- 결정: color layer에서 지원하는 kind(`perk`, `near_item`, `flag` 등)는 **check 생성 성공이 필수**이며, 지원 kind인데 check가 없으면 회색 fallback으로 넘기지 않고 빌드를 실패시킨다.
-- 영향: `atoms_without_check = 0`은 보고용 통계가 아니라 품질 게이트가 된다. 미지원 kind만 의도적으로 비활성 상태를 가질 수 있다.
-
-## 2026-03-25 — near_item은 토큰-only 1단계 후 별도 커밋으로 활성화한다
-- 결정: `near_item`은 1단계에서 `{type: "near_item", near_token: ...}` 형태로만 산출하고, fulltype 해소와 Lua handler 활성화는 **엔진 API 확인 후 별도 커밋**으로 진행한다.
-- 영향: 1단계 Lua handler는 nil/unknown을 반환하는 비활성 상태를 유지하고, near_item의 실사용은 2단계 엔진 래퍼 확인 뒤에만 열린다.
-
-## 2026-03-25 — recipe requirements color layer는 상호작용 탭 안에만 둔다
-- 결정: requirement atom 색상 판정은 **상호작용 탭 전용 레이어**로 한정하며, 다른 탭·모듈·정렬·표시 정책으로 전파하지 않는다.
-- 영향: color layer 결과는 해당 블록의 렌더 범위 안에서만 소비하며, 다른 계층의 판정 근거로 재사용하지 않는다.
-
-## 2026-03-25 — evalRequirementColor는 단일 pcall과 호출부 player 주입만 허용한다
-- 결정: Lua 색상 평가 경로는 `evalRequirementColor(check, player)` 시그니처로 고정하고, pcall은 그 바깥에서 **한 번만** 감싼다. `getSpecificPlayer(0)` 하드코딩은 금지한다.
-- 영향: handler는 plain function으로 유지되고, 호출부에서 `self.playerNum or 0` 기준으로 player를 주입한다.
-
-## 2026-03-25 — 레시피 상호작용 층은 구조화된 위키 레이어다
-- 결정: Iris의 레시피 상호작용 층은 단순한 레시피 이름 표시 UI가 아니라, **recipe navigation + per-recipe requirements + keep 역할 연결 + atom 단위 상태표시**를 포함한 구조화된 위키 레이어로 본다.
-- 영향: recipe line은 문자열 한 줄이 아니라 구조화 산출물의 표면이 되며, recipe_nav_registry / recipe_requirements_index / requirement check는 모두 같은 상호작용 층 계약 아래서 운영된다.
-
-## 2026-03-25 — 레시피 요구사항은 반드시 레시피 단위로만 붙는다
-- 결정: 요구사항은 fulltype 전체 공유 정보가 아니라 **uc.recipe.* 각 라인에 대응하는 recipe 단위 정보**로만 붙인다.
-- 영향: requirements는 항상 `recipe_id` pivot을 거친 별도 인덱스에서 읽고, 같은 아이템이라도 레시피마다 다른 requirements를 가질 수 있다.
-
-## 2026-03-25 — keep 재료도 레시피 상호작용 층의 정당한 주체다
-- 결정: keep 재료는 소모되지 않더라도 레시피 참여 사실이 있으므로 recipe interaction layer의 정당한 주체로 포함한다. 단, consumed와는 `role=keep|consume`으로 명확히 분리한다.
-- 영향: keep-only 아이템도 `uc.recipe.*` 라인을 가지며, 이동·요구사항·색상 레이어를 동일하게 받을 수 있다.
-
-## 2026-03-25 — 레시피 파생 산출물도 Q4/Q5 운영 체계에 편입한다
-- 결정: `recipe_nav_registry`, `recipe_requirements_index`, `requirements.check`는 모두 기존 증거 파이프라인과 동일하게 Q4 결정성 / Q5 회귀 통제 안에 편입한다.
-- 영향: recipe interaction layer의 품질은 UI 성공 여부가 아니라 hash/count/gate로 관리되며, dangling·suffix-drift·keep_link·atoms_without_check 같은 수치가 운영 기준이 된다.
-
-## 2026-03-25 — Right-click 채널은 evidence와 exclusion을 같은 것으로 취급하지 않는다
-- 결정: Right-click 계열 라인은 단일 `use_case` 라인으로 뭉뚱그리지 않고, 최소한 `line_kind = evidence | exclusion`으로 구조 분리한다.
-- 영향: 이후 Right-click 집계, UI 노출, 품질 게이트는 `진짜 evidence 라인인가`를 먼저 본다. `우클릭 라인이 있다`는 사실만으로는 행동 근거가 되지 않는다.
-
-## 2026-03-25 — Strong / Weak / Exclude는 evidence 라인 내부의 2차 판정이다
-- 결정: Right-click `Strong / Weak / Exclude`는 채널 전체를 등급화하는 체계가 아니라, **`line_kind = evidence`로 남은 행위 후보 안에서만** 적용하는 2차 판정으로 둔다.
-- 영향: UI에는 `능력 기반 use_case`만 올라가고, exclusion 라인은 행동 블록 후보군에서 먼저 제거된다.
-
-## 2026-03-25 — uc.action ID는 도구명이 아니라 능력 중심으로 정리한다
-- 결정: `uc.action.hammer` 같은 도구명 중심 ID 대신, 가능한 범위에서 `uc.action.construction`처럼 **행동/능력 중심 ID**를 표준으로 둔다.
-- 영향: label map, use_case block, 브라우저 표면 모두 도구명이 아니라 능력 카탈로그 중심으로 정리한다.
-
-## 2026-03-25 — [우클릭]은 문자열이 아니라 구조화 블록으로만 UI에 올린다
-- 결정: `[우클릭] ...` 라인을 기존 문자열 목록에 끼워 넣고 regex나 역파싱으로 재해석하지 않는다. 대신 `items[] / debug_items[]` 같은 **구조화 블록 산출물**로 내려서, Python이 `display_text`를 만들고 Lua는 그대로 렌더만 한다.
-- 영향: Right-click UI 통합은 `구조 데이터 -> 렌더` 경로로만 간다. 런타임 Lua가 문자열을 다시 해석해 의미를 복원하는 경로는 닫는다.
-
-## 2026-03-25 — uc.action UI 노출은 registry policy override로만 복구한다
-- 결정: action_requirement_index가 비어 strength=None으로 떨어지는 문제는 evidence_decisions 상위 로직을 넓게 흔들지 않고, **`uc.action.*`에 한정된 registry policy override**로 복구한다. 단, `decision == PASS`이고 `override reason_code`가 있을 때만 허용하며, Q1/Q5 감시 대상으로 둔다.
-- 영향: override는 `근거 없는 승격`이 아니라, 빌드·정책·게이트가 감시하는 **협의된 정책 예외**로만 남는다.
-
-## 2026-03-25 — Iris UI는 독립 블록/독립 버튼 구조를 우선하고 toggleUI override를 제거한다
-- 결정: Iris UI는 `ISUIHandler.toggleUI`를 override하지 않고, 독립 버튼과 독립 블록 구조로 통합한다.
-- 영향: [우클릭] 블록은 기존 설명/상호작용 층 안에서 독립 렌더 블록으로 존재하며, 외부 UI 변경 모드와 기능적으로 더 독립적인 상태를 유지한다.
-
-## 2026-03-25 — Frame은 이번 단계에서도 상태/시간축 관리자 레이어로만 재확인한다
-- 상태: 재확인
-- 결정: Frame은 세이브 관리자나 자동 해결 도구가 아니라, **모드팩 환경 상태를 시간축 위에서 기록·비교·되돌리는 관리자 레이어**로만 본다.
-- 영향: Frame 쪽은 정체성 재확인 단계로 두고, 스냅샷 스키마나 v1 객체 모델 설계는 후속 세션 과제로 남긴다.
-
-## 2026-03-25 — Layer 3 DVF는 수동 완성문 저장소가 아니라 구조화 사실 기반 조합 파이프라인으로 전환한다
-- 결정: 3계층 개별 아이템 설명(DVF) 생성은 수동 완성문 저장소가 아니라 **입력 정규화 → 상태 결정 → 조합 규칙 → 조합 실행 → DVF 검증**의 5계층 파이프라인으로 운영한다.
-- 영향: Layer 3은 `facts -> decisions -> profiles -> rendered`의 정적 계약 위에서만 생성되며, 런타임 Lua가 본문 생성 논리를 맡지 않는다.
-
-## 2026-03-25 — facts와 decisions는 JSONL로 분리하고 build/description/v2 내부에 병렬 공존시킨다
-- 결정: DVF 파이프라인의 사실 데이터와 정책 결정을 **별도 JSONL 파일**로 분리한다. 신규 최상위 `pipeline/` 디렉토리를 만들지 않고 기존 `build/description/v2/` 내부에 병렬 공존시킨다.
-- 영향: 조합기와 검증기는 `facts`, `decisions`, `profiles`, `rendered`를 별도 계약으로 소비하며, 경로/CI/import를 불필요하게 이중화하지 않는다.
-
-## 2026-03-25 — sentence_plan 블록 단위 조합을 표준으로 하고 slot_sequence를 제거한다
-- 결정: Layer 3 본문 조합은 전역 connector fallback이 아니라 **sentence_plan 블록 단위**로 수행한다. `slot_sequence`는 제거하고, 블록 순서와 슬롯 순서는 `sentence_plan`이 모두 담당한다. v1 connector는 전부 literal로 두고, 블록 내 슬롯 수 상한은 3으로 묶는다.
-- 영향: 각 블록은 생성 여부를 독립적으로 결정하고, 블록 간 구분자는 `문장 종결 + 공백 1개`로만 연결한다. `josa_adaptive`는 v2 예약 사항으로 둔다.
-
-## 2026-03-25 — 슬롯 값은 전부 평문 string이고 메타는 slot_meta로 분리한다
-- 결정: DVF의 모든 슬롯 값은 템플릿에 바로 삽입 가능한 **평문 string**으로 통일하고, 메타데이터는 `slot_meta`로 분리한다.
-- 영향: 전역 필수는 `identity_hint` 하나만 두고, `primary_use` 등은 프로파일별 `required_any`로 제어한다. `required_any ∩ global_required != ∅`는 프로파일 설계 오류로 보고 HARD FAIL 처리한다.
-
-## 2026-03-25 — DVF는 3계층 본문 전용 엔진으로 다시 봉인한다
-- 결정: current DVF의 책임 범위는 **Layer 3 본문용 facts / decisions / profiles를 검증하고, compose profile에 따라 본문을 결정론적으로 조합해 `layer3_rendered`를 산출·검문하는 체계**로 한정한다. tooltip 관련 필드, 생성기, 검증기, 파이프라인 단계, 테스트 케이스는 current scope 밖으로 뺀다.
-- 영향: DVF는 **본문 전용 엔진**으로 다시 좁혀지고, tooltip은 훗날 `layer3_facts.jsonl` 또는 `layer3_rendered.json`을 읽는 **후속 별도 시스템**으로만 논의한다.
-
-## 2026-03-25 — DVF 입력·산출·검증 경계는 facts / decisions / profiles / rendered로만 닫는다
-- 결정: current DVF의 입력 범위는 `facts`, `decisions`, `profiles`로 고정하고, 산출물은 `layer3_rendered.json` 하나만 둔다. 파이프라인은 **입력 검증 → 조합 실행 → rendered 검증 → 결정론 검증**의 4단계만 남긴다. 검증기도 `facts`, `decisions`, `rendered` 3종만 유지하고, 결정론 해시 대상은 `layer3_rendered.entries` 하나만 본다.
-- 영향: `tooltip_template`, `manual_override_tooltip_ko`, `tooltip slot_priority` 같은 항목은 current DVF 계약에서 제거 대상으로 본다. tooltip 관련 테스트/파이프라인 단계도 `_archive/tooltip_v1/` 또는 후속 별도 체계로 이관한다.
-
-## 2026-03-25 — DVF 검증은 입력 검증과 산출물 검증의 계층을 섞지 않는다
-- 결정: `decisions validator`는 rendered를 보지 않는다. 결정론 검증은 entries만 대상으로 하는 SHA-256 비교를 DVF에서 1회만 수행한다. `facts에 없는 사실 -> FAIL` 같은 항목은 삭제하고, 대신 `decision 경로 ↔ rendered source` 교차 검증을 둔다.
-- 영향: E단계 계층 경계 검증은 v1에서 4·5계층만 수행하며, `max_sentences`도 런타임 마침표 카운트가 아니라 프로파일 template 정적 분석으로만 보장한다.
-
-## 2026-03-25 — v1 한국어 처리 계약은 조사 완료 슬롯 + 후처리 정리만 허용한다
-- 결정: v1에서 슬롯 값은 **조사까지 완료된 한국어 절/명사구**만 허용하고, `postproc_ko.py`는 이중공백/마침표/반복패턴 정리 같은 후처리만 담당한다. 종성 판별/조사 매핑 엔진과 `josa_adaptive`는 v2로 이연한다.
-- 영향: `{josa_xxx}` 같은 토큰 잔류는 비정상 데이터 방어용 탐지 규칙으로만 둔다. v1 정상 경로에서는 조사 토큰 생성 자체가 없어야 한다.
-
-## 2026-03-25 — DVF v1에서 죽은 필드를 제거하고 tooltip 관련 잔존 스캐폴딩도 current scope 밖으로 뺀다
-- 결정: `slot_version`, `decision_version`, `tooltip_extractable` 같은 검증 로직 없는 필드는 제거하고, tooltip 관련 스캐폴딩도 current DVF에서 빼서 `_archive/tooltip_v1/` 또는 후속 별도 시스템으로 이관한다. override 허용은 유지하되, override 비율은 초기 ≤30%, 안정화 ≤10%, 장기 ≤5%를 목표로 관리한다.
-- 영향: v1은 프로파일 6개부터 시작해 커버리지를 넓히고, override 비율이 안 줄어들면 override 확대가 아니라 슬롯/프로파일 품질 개선을 우선한다. tooltip은 current KPI 대상이 아니다.
-
-## 2026-03-25 — acquisition_hint는 3계층의 선택 슬롯이 아니라 identity_hint / primary_use와 동급의 핵심 축으로 격상한다
-- 결정: `acquisition_hint`는 3계층에서 `있으면 넣는 부가 슬롯`이 아니라, **정체성(identity)·용도(primary_use)와 동급으로 검토되는 핵심 축**으로 재정의한다.
-- 영향: 3계층 검토 기준은 `identity_hint + primary_use + acquisition_hint`의 3축을 기본으로 삼고, acquisition이 비어 있는 경우도 `그냥 비어 있음`이 아니라 구조적 사유를 추적해야 한다.
-
-## 2026-03-25 — acquisition 검토 대상은 active가 아니라 전 아이템이며, state와 무관하게 null 사유를 추적한다
-- 결정: `acquisition_hint` 검토는 active 아이템에 한정하지 않고 **전 아이템**을 대상으로 하며, active/silent와 무관하게 null 여부와 사유를 추적한다.
-- 영향: `acquisition_hint` 커버리지 검토는 state와 분리되며, silent라고 해서 acquisition 판단 자체를 생략하지 않는다.
-
-## 2026-03-25 — acquisition_hint null은 decisions.acquisition_null_reason으로만 구조 추적한다
-- 결정: `facts.acquisition_hint = null`의 허용 사유는 **`decisions.acquisition_null_reason`** 으로만 구조 추적한다. 허용 enum은 `UBIQUITOUS_ITEM`, `STANDARDIZATION_IMPOSSIBLE` 두 개로 고정한다.
-- 영향: `acquisition_hint`가 null이면 decisions 쪽 사유가 반드시 따라와야 하며, 이 규칙은 JSON Schema가 아니라 validator에서 강제한다.
-
-## 2026-03-25 — acquisition null의 조건부 필수와 silent facts 부재 예외는 validator 책임으로 둔다
-- 결정: `facts.acquisition_hint = null -> decisions.acquisition_null_reason 필수` 규칙과 `facts가 없는 silent 아이템은 교차 검증 skip` 규칙은 둘 다 **validator 책임**으로 둔다.
-- 영향: 스키마는 타입/enum만 담당하고, facts↔decisions 정합성은 `validate_layer3_decisions.py` 류의 교차 검증기로 봉인한다.
-
-## 2026-03-25 — acquisition은 limitation / processing보다 앞에 두고, 3계층이 4계층처럼 불어나지 않게 4문장 기준을 유지한다
-- 결정: acquisition 관련 블록은 limitation/processing보다 앞에 배치한다. 다만 3계층이 4계층처럼 과도하게 길어지는 것을 막기 위해, `medical_consumable` 같은 프로파일도 **4블록/4문장 수준**을 기준으로 유지한다.
-- 영향: acquisition을 넣기 위해 무제한 문장을 늘리지 않으며, limitation과 processing은 필요 시 2-슬롯 블록으로 합성해 문장 수를 통제한다.
-
-## 2026-03-25 — acquisition 격상 이후에도 슬롯 값은 단일 문자열을 유지하고 배열화는 v2 전까지 열지 않는다
-- 결정: `acquisition_hint`는 여전히 **단일 완성형 문자열**로 유지한다. 배열 기반 입력이나 자동 접속사 결합은 current v1 범위에서 도입하지 않는다.
-- 영향: 배열화 논쟁은 v2 이후로 이연하며, 현재는 문자열 + slot_meta 조합만 허용한다.
-
-## 2026-03-25 — acquisition_hint 슬롯의 마침표 검증은 비소수점 마침표 0개 원칙으로 강제한다
-- 결정: acquisition을 포함한 DVF 슬롯 값에는 **비소수점 마침표가 0개**여야 한다. 구현 기준은 `(?<!\d)\.(?!\d)` 정규식으로 둔다.
-- 영향: 슬롯 내부에 완결문이나 불필요한 문장 종결이 들어오면 HARD FAIL이며, 소수점 표기는 허용된다.
-
-## 2026-03-25 — Iris는 단순 정보 모드가 아니라 검증된 지식 생산 시스템으로 본다
-- 결정: Iris는 `좋은 정보를 보여주는 모드` 수준이 아니라, **오프라인에서 증거·행동·설명 산출물을 컴파일하고 런타임 Lua가 이를 재구성해 보여주는 검증된 지식 생산 시스템**으로 본다.
-- 영향: Iris의 해자 평가는 UI 편의성보다 `evidence compiler`, `QG/DVF 운영 계약`, `compile -> viewer 구조`, `정규화된 외부 모드 입력`, `자동-only 품질 운영`을 중심으로 기록한다.
-
-## 2026-03-25 — QG와 DVF는 서로 다른 층을 맡으며, tooltip은 독립 지식원이 아니라 본문 요약층이다
-- 결정: **QG는 증거 시스템과 그 파생 산출물의 운영 검문 체계**, **DVF는 Layer 3 본문 검증 체계**로 분리한다. tooltip은 DVF와 동급의 독립 지식원이 아니라 **메뉴 본문의 핵심 추출 요약본**으로 둔다.
-- 영향: QG 확장은 증거/파생 산출물 쪽에서만 논의하고, 3계층 본문 설계와 tooltip 추출 규칙은 DVF / 후처리 쪽에서만 다룬다. `3-1 / 3-4 / 3-5`를 tooltip에 그대로 밀어넣는 방향은 열지 않는다.
-
-## 2026-03-25 — 3계층은 한 줄 정의문이 아니라 아이템별 미니 본문층으로 본다
-- 결정: Layer 3은 짧은 정의문을 반복하는 층이 아니라, **파밍 장소 / 핵심 용도 / 가공 맥락 / 같은 군 안의 개별성**을 담는 아이템별 미니 본문층으로 본다. 반대로 Layer 2는 더 추상적이고 압축적인 공통 설명, Layer 4는 더 짧고 탐색형인 구조층으로 유지한다.
-- 영향: 3계층 설계·DVF·tooltip 논의는 모두 `본문은 더 깊고, tooltip은 더 얕은 추출본`이라는 UX 흐름을 기준으로 한다.
-
-## 2026-03-25 — 외부 모드 확장은 정규화 계층을 통해서만 QG/DVF에 들어간다
-- 결정: 외부 모드 데이터는 `원본 mod file -> 정규화 adapter/compiler -> 내부 Iris 표준 산출물 -> QG/DVF 소비` 순서로만 들어간다. QG와 DVF가 raw mod file parser가 되어서는 안 된다.
-- 영향: 외부에는 JSON / SQLite 같은 열린 형식을 허용하고, 내부에는 필요하면 `.Iris` 같은 정규화 포맷/캐시를 둘 수 있다. 그러나 QG/DVF는 정규화 산출물만 입력으로 받는다.
-
-## 2026-03-25 — 다중 모드 충돌은 엔진 최종 적용값만 보여주고 Iris가 중재하지 않는다
-- 결정: 여러 모드가 같은 아이템을 수정하는 경우, Iris는 **엔진 최종 적용값 기준으로 사실만 표시**하며 어떤 모드가 맞는지, 무엇을 숨길지, 어느 쪽을 우선해야 하는지 판단하지 않는다.
-- 영향: 충돌 표기는 가능하더라도, 표면 기본값은 항상 최종 적용 사실을 우선하고 `판단적 병합/숨김`은 금지한다.
-
-## 2026-03-25 — Frame과 Canvas는 결과론적 중요도와 무관하게 다른 하위 모듈과 동등한 spoke다
-- 결정: Frame과 Canvas는 Pulse 생태계에서 다른 하위 모듈보다 상위 지위를 갖지 않는다. 둘 다 **동등한 spoke 모듈**이며, 사후적으로 영향력이 커질 수 있어도 구조적 특권 모듈로 해석하지 않는다.
-- 영향: 문서 서술에서도 Frame/Canvas를 `중요할 수는 있지만 구조적으로는 peer spoke`로 표현하며, Pulse가 이 둘을 특별 취급하는 식의 문장을 피한다.
-
-## 2026-03-25 — DVF는 tooltip을 품는 설명 보조가 아니라 Layer 3 본문 전용 결정론 엔진으로 다시 봉인한다
-- 결정: current DVF의 책임은 `facts / decisions / compose_profiles / rendered / DVF 검증 / 결정론 검증`으로만 닫는다. tooltip 생성·tooltip 검증·tooltip profile은 current scope 밖으로 유지하고, tooltip은 후속 별도 체계에서만 논의한다.
-- 영향: current DVF의 목표는 `3계층 본문 생성과 검문`으로 한정되며, tooltip은 DVF 산출물을 소비하는 후행 표면으로만 다룬다.
-
-## 2026-03-25 — acquisition_hint는 선택적 보조가 아니라 Layer 3의 핵심 축이며, 정보 중요도 판단으로 숨기지 않는다
-- 결정: `acquisition_hint`는 `identity_hint`, `primary_use`와 동급의 Layer 3 핵심 축으로 유지한다. `중요해 보이는 아이템에만 붙이고 나머지는 생략`하는 운영은 금지한다.
-- 영향: Phase 2 review는 전 아이템을 공통 분모로 다루며, `있음/없음`보다 `왜 null인가`와 `어떤 수준으로 표준화 가능한가`를 구조적으로 추적한다.
-
-## 2026-03-25 — acquisition coverage(Phase 2)와 candidate_state 재평가(Phase 3)는 서로 다른 단계로 강하게 분리한다
-- 결정: Phase 2의 책임은 `획득성 review를 닫는 것`이고, Phase 3의 책임은 `그 결과를 근거로 silent -> active / keep_silent / manual_override_candidate를 재판정하는 것`이다. 두 단계를 같은 세션·같은 작업 흐름으로 섞지 않는다.
-- 영향: acquisition review 완료와 candidate_state 재판정 착수는 서로 다른 마일스톤으로 기록한다. `acquisition review 100%`가 곧바로 `PROMOTE_ACTIVE`를 뜻하지 않는다.
-
-## 2026-03-25 — acquisition review는 staging-first 인프라로 닫고 canon 갱신은 gate 이후에만 수행한다
-- 결정: acquisition coverage는 `master / review / gate / report`를 분리한 staging-first 인프라로 운영한다. disposition은 `UNREVIEWED / ACQ_HINT / ACQ_NULL / SYSTEM_EXCLUDED`로 고정하고, reviewable/system_blocklist/master 분모를 먼저 잠근다.
-- 영향: acquisition coverage의 품질 판정은 `review completion / remaining buckets / disposition counts` 같은 staging report를 통해 먼저 이뤄지고, canon은 gate 통과 이후에만 갱신한다.
-
-## 2026-03-25 — acquisition Phase 2는 100% review 완료 상태로 닫고, Phase 3는 미착수 상태로 넘긴다
-- 결정: Phase 2 acquisition coverage는 `closed 2285 / 2285`, `unreviewed 0`, `completion 100%`, `ACQ_HINT 2037`, `ACQ_NULL 42`, `SYSTEM_EXCLUDED 206`을 충족한 시점에서 종료로 본다. 동시에 Phase 3 candidate_state 재평가는 `promote_active_count = 0`, `keep_silent_count = 0`, `manual_override_candidate_count = 0`의 미착수 상태로 별도 세션에 넘긴다.
-- 영향: 이후 로드맵 문구에서 Phase 2는 `coverage closed`, Phase 3는 `reevaluation pending`으로 명시한다. 두 단계의 성공 기준과 산출물은 분리 관리한다.
-
-## 2026-03-25 — Phase 3 candidate_state는 approval과 분리된 staging 판정으로 닫는다
-- 결정: Phase 3의 `candidate_state`는 approval 완료 여부와 별개로 `KEEP_SILENT / PROMOTE_ACTIVE / MANUAL_OVERRIDE_CANDIDATE`를 부여하는 **staging 판정 축**으로 운영한다. acquisition review 완료나 approval closeout이 곧바로 active 승격을 뜻하지는 않는다.
-- 영향: closeout 보고에서는 approval backlog와 candidate_state disposition을 별도 표면으로 기록한다. `approval done`과 `candidate_state settled`는 같은 상태값이 아니다.
-
-## 2026-03-25 — approval backlog는 rule patch가 아니라 NO_RULE_CHANGE_BATCH_REVIEW와 cluster 운영으로 소진한다
-- 결정: Wave 3의 collision-heavy / manual concentration backlog는 규칙 수정이 아니라 **`NO_RULE_CHANGE_BATCH_REVIEW` + hotspot/cluster 운영**으로 처리한다. `NARROW_KEEP_DOWNGRADE`처럼 의미 체계를 바꿔 수치를 낮추는 방향은 채택하지 않는다.
-- 영향: manual/hotspot 수치 증가는 우선 cluster/HOLD 운영 문제로 해석한다. manual 수치를 예쁘게 만들기 위한 규칙 변경이나 강제 `KEEP_SILENT` 하향은 기본 해법에서 제외한다.
-
-## 2026-03-25 — hotspot은 자동 승격 규칙이 아니라 JSON 명시 등록형 cluster로 관리한다
-- 결정: hotspot/cluster는 자동 승격 규칙으로 다루지 않고, **JSON 명시 등록 + single source of truth** 방식으로 관리한다.
-- 영향: hotspot은 규칙 엔진의 암묵 판정이 아니라 운영 레이어의 명시 관리 대상이 된다. cluster 상태 변경은 data-driven하게 추적하고, 규칙 의미를 바꾸는 근거로 쓰지 않는다.
-
-## 2026-03-25 — approval backlog 수치는 evidence_decisions가 아니라 approval queue 계열 산출물에서 추적한다
-- 결정: `197 backlog` 같은 approval backlog 수치는 `evidence_decisions.v2.4.json`의 REVIEW 집계가 아니라, **Phase 3 approval queue / HOLD queue 계열 산출물**을 기준으로 추적한다.
-- 영향: 운영 현황 보고와 evidence 통계를 혼용하지 않는다. backlog 보고는 approval 산출물 기준으로만 작성한다.
-
-## 2026-03-25 — DVF 3-3 production batch는 demo layer3 파일과 분리된 별도 계열로 유지한다
-- 결정: production-grade 3-3 배치는 기존 `layer3_facts / layer3_decisions` demo 파일에 병합하지 않고, **`dvf_3_3_facts / dvf_3_3_decisions` 별도 계열**로 유지한다.
-- 영향: DVF 3-3 회귀, determinism, rendered 검증은 별도 배치 파일 기준으로 수행한다. demo 산출물은 실험 샘플로 남기고 production batch와 혼합하지 않는다.
-
-## 2026-03-25 — identity_hint는 규칙 기반 생성 + 소수 override 구조로 운영한다
-- 결정: `identity_hint`는 기존 한국어 원문을 전제하거나 전량 수동 작성하지 않고, **규칙 기반 자동 생성 + `identity_category_ko.json` 계열 + 소수 override** 구조로 운영한다.
-- 영향: identity 축의 기본 생산은 규칙 기반으로 유지하고, 예외 품질 보정만 override에 맡긴다. template 품질 문제는 facts 재판정이 아니라 표면형 개선 과제로 분리한다.
-
-## 2026-03-25 — DVF freeze는 오프라인 산출 완료와 실제 메뉴 소비자 연결을 모두 충족해야 한다
-- 결정: `facts / decisions / rendered + Lua bridge`만으로는 DVF freeze를 완료로 보지 않는다. **실제 메뉴 소비자(`IrisBrowser.lua`, `IrisWikiPanel.lua`)에서 3-3 본문이 표시되는 것**까지 확인되어야만 freeze 종료로 본다.
-- 영향: 이후 DVF 종료 체크리스트에는 consumer hookup, menu render 검증, dead hook 여부 점검이 필수로 들어간다. `offline complete != UI integrated`가 문서상 기준으로 고정된다.
-
-## 2026-03-25 — 템플릿 자연화 문제는 Phase 3 재판정이 아니라 표면형 개선 과제로 남긴다
-- 결정: `도구. ~에서 찾을 수 있다.` 같은 3-3 비문 문제는 candidate_state / approval / facts 재오픈 사유가 아니라, **compose template의 표면형 자연화 과제**로 다룬다.
-- 영향: 후속 작업은 template 수정 → 재빌드 → 검증 순으로 진행하며, Phase 2/3 판정 체계나 Layer 3 핵심 축 정의는 그대로 유지한다.
-
-## 2026-03-25 — ACQ_ONLY 표면형 수정은 compose-time subject 생성으로 닫는다
-- 결정: ACQ_ONLY 3-3 본문의 한국어 표면형 문제는 post-processing으로 때우지 않고, **compose-time에서 `identity_subject`를 생성하는 방식**으로 닫는다. postproc은 띄어쓰기·문장부호 정리만 맡는다.
-- 영향: ACQ_ONLY 표면형 수정은 facts 재판정이나 Phase 3 재오픈 사유가 아니다. 한국어 자연화는 compose/template 계층의 과제로 관리한다.
-
-## 2026-03-25 — Layer 3-3은 acquisition-led 문장이 아니라 item-centric 본문이어야 한다
-- 결정: 3-3의 중심은 `identity_hint + acquisition_hint` 나열이 아니라, **아이템 자기 시점의 용도 본문**으로 둔다. 기본 순서는 `item_subject → 용도/use → 자기 기준 변환·상호작용 → acquisition`으로 재정의한다.
-- 영향: acquisition은 삭제되지 않지만 선두를 차지하지 않는다. 이후 3-3 개편은 item_subject 생성 규칙, use 슬롯 정의, 3-4와의 경계 회귀 검증을 중심으로 진행한다.
-
-## 2026-03-25 — Iris의 1차 해자는 위키 대체가 아니라 인게임 접근성이다
-- 결정: Iris의 공개 해자는 `위키를 완전히 대체하는가`가 아니라, **게임 안에서 아이템의 용도를 더 빨리, 더 낮은 인지 비용으로 보여주는 접근성**에 둔다.
-- 영향: 소개 문구와 README는 `위키 대체물`보다 `인게임 실용 정보 / 접근성 / 즉시성`을 중심으로 쓴다. 사용자 검증도 이 축을 기준으로 본다.
-
-## 2026-03-25 — Iris 첫 공개는 vanilla-first로 두고 모드 확장 시스템은 후속 공개로 미룬다
-- 결정: Iris의 첫 공개는 **바닐라 중심**으로 두고, 모드 확장 시스템은 내부적으로 개발하더라도 전면 기능으로 홍보하지 않는다. 외부 모드 지원 범위 약속도 첫 공개 단계에서는 최소화한다.
-- 영향: 공개 순서는 GitHub 선공개 → 피드백 반영 → 워크숍 업로드의 좁은 바닐라 중심 경로를 유지한다. 모드 확장 시스템은 DVF/본문 체계가 더 단단해진 뒤의 후속 카드로 남긴다.
-
-## 2026-03-28 — DVF 3-3은 오프라인 생산 파이프라인으로 본다
-- 결정: Layer 3-3 DVF는 수동 문장 묶음이 아니라, **`facts -> decisions -> compose -> rendered -> Lua bridge`** 로 이어지는 오프라인 생산 파이프라인으로 본다. `compose_layer3_text.py`가 본문 조합의 중심 경로를 맡고, `export_dvf_3_3_lua_bridge.py`는 이를 기존 Iris 소비자 표면으로 넘기는 정적 export 경로를 맡는다.
-- 영향: 이후 3-3 작업은 문장 자체보다 `facts / decisions / compose_profiles / rendered / Lua bridge` 경로의 정합성과 재현성을 기준으로 관리한다.
-
-## 2026-03-28 — interaction cluster는 4계층 목록 복사가 아니라 3-3 대표 작업 맥락 요약층이다
-- 결정: interaction cluster는 4계층의 상세 상호작용 목록을 3계층으로 옮기는 장치가 아니라, **4계층이 담는 상세 구조에서 대표 작업 맥락만 추출해 3-3의 `primary_use`를 보강하는 요약층**으로 둔다.
-- 영향: cluster는 `direct_use -> cluster_summary -> role_fallback` 우선순위 안에서만 `primary_use` 후보로 소비하고, 목록/재료/조건/행동명은 계속 4계층에 남긴다.
-
-## 2026-03-28 — Phase C / D는 별도 데모가 아니라 production review와 기존 Iris 소비자 연결로 닫는다
-- 결정: Phase C는 `packet -> review.jsonl -> freeze / action queue`로 이어지는 **수동 검토 운영 경로**로 고정하고, Phase D는 별도 stub UI가 아니라 **기존 Iris 소비자(`IrisWikiSections.lua`, `IrisBrowser.lua`, `IrisWikiPanel.lua`)에 Layer 3를 연결하는 production runtime 통합 경로**로 둔다.
-- 영향: 이후 종료 판정은 오프라인 batch 생성만이 아니라 Phase C review 완료와 기존 Iris 소비자 표시 확인까지 포함한다.
-
-## 2026-03-28 — current historical runtime의 active/silent는 semantic quality가 아니라 최종 primary_use 존재 여부를 본다
-- 결정: current historical runtime 경로에서 `active / silent`는 **cluster 보유 여부**가 아니라, 최종적으로 `primary_use`가 채워졌는가를 기준으로 결정한다. `direct_use`, `cluster_summary`, `role_fallback`, `identity_fallback` 중 하나라도 살아서 `primary_use`가 채워지면 active로 남고, 끝까지 `primary_use`를 만들지 못한 경우에만 `demote_missing_primary_use_rows()`가 `state = silent`, `reason_code = MISSING_PRIMARY_USE`로 내린다.
-- 영향: `975 active / 75 silent` 같은 current runtime 수치는 semantic quality 완료 수치가 아니라 **runtime 출력 가능 수치**로 해석한다. 이후 남은 큰 과제는 (1) source 단계 확장으로 `primary_use`를 더 많이 만들고, (2) semantic active/silent 품질 축을 별도로 다시 세우는 것이다.
-
-## 2026-03-28 — 3계층 줄바꿈은 render-time formatting으로만 처리한다
-- 결정: 3계층 본문의 줄바꿈은 compose-time이나 Lua bridge 단계에서 산출물 원문을 바꾸지 않고, **UI 표시 직전 render-time formatting**으로만 처리한다. `rendered.json`과 `IrisLayer3Data.lua`는 원문을 유지하고, 실제 줄바꿈은 `IrisWikiSections.lua` / `IrisWikiPanel.lua` 등 소비자 표면에서만 적용한다.
-- 영향: current validation spec의 `rendered ↔ Lua` 일치 기준은 유지하고, 대신 UI formatter 존재 / panel 개행 렌더 회귀만 별도 테스트로 관리한다.
-
-## 2026-03-31 — Iris DVF 3-3 weak-active cleanup은 완료된 판정/분류 단계로 닫고 adoption·expansion과 분리한다
-- 결정: weak-active cleanup은 **완료된 판정/분류 작업**으로 본다. candidate facts runtime 반영이나 backlog source expansion이 남아 있더라도, 그것을 cleanup 미완료로 되돌려 해석하지 않는다.
-- 영향: 이후 논의는 `cleanup 재오픈`이 아니라 **status model / runtime adoption / backlog expansion**의 후속 운영 단계로만 진행한다.
-
-## 2026-03-31 — Iris DVF 3-3 post-cleanup 공식 순서는 status model → runtime adoption → backlog expansion이다
-- 결정: post-cleanup 이후의 공식 실행 순서는 **`2-stage status model -> runtime adoption -> backlog expansion`** 으로 고정한다.
-- 영향: model 없는 adoption 선행, model 이전 backlog 본실행은 기본 경로에서 제외한다. 탐색/분할은 일부 선행 가능해도 공식 실행 순서는 바꾸지 않는다.
-
-## 2026-03-31 — Iris DVF 3-3의 2-stage status model closure는 이번 세션에서 실제로 닫혔다
-- 결정: Phase 1의 2-stage status model은 열린 구조 과제가 아니라 **이번 세션에서 closure된 계약**으로 본다.
-- 영향: 이후 문서에서 2-stage model을 `아직 설계해야 하는 gap`으로 다시 서술하지 않고, residual backlog 운영과 future UI 논의를 이 닫힌 상태 모델 위에서만 이어간다.
-
-## 2026-03-31 — Iris DVF 3-3 status model의 5개 핵심 결정은 이번 round의 운영 계약이다
-- 결정: 이번 round의 status model 핵심 결정은 다음 5개로 고정한다.
-  - `generated::weak 133` → `keep_generated_no_indicator`
-- 영향: `generated::weak`, `missing::adequate`, semantic UI exposure는 장기 재논쟁 가능성은 남아 있어도, 현재 round의 운영 계약은 위 조합으로 본다.
-
-## 2026-03-31 — integrated_facts.post_cleanup_candidate.jsonl은 adoption 이전까지 candidate artifact로만 취급한다
-- 결정: `integrated_facts.post_cleanup_candidate.jsonl`은 adoption 이전까지 **candidate-only artifact** 로 남기고, 곧바로 공식 runtime facts로 취급하지 않는다.
-- 영향: `좋아 보이니 바로 runtime에 넣자`는 경로를 기본 루트로 인정하지 않고, status model과 adoption 절차를 먼저 통과시킨다.
-
-## 2026-03-31 — Iris DVF 3-3 post-cleanup integrated roadmap의 first operational pass는 완료 상태다
-- 결정: post-cleanup integrated roadmap는 `생각 정리용 계획`이 아니라, **Phase 0 입력 동결 → Phase 1 status model closure → Phase 2 runtime adoption / reflection / 인게임 검증 → Phase 3 backlog first pass package execution → Phase 3 runtime integration / reflection / 인게임 검증**까지 실제로 닫힌 **first operational pass**로 본다.
-- 영향: 이후 로드맵의 시작점은 `모델 정의`가 아니라 **residual backlog 132를 다루는 second pass expansion** 이 된다.
-
-## 2026-03-31 — Iris DVF 3-3 current runtime snapshot은 2105 rows / active 2060 / silent 45 기준으로 읽는다
-- 결정: 이번 세션 종료 기준 runtime snapshot은 `2105 rows`, `active 2060`, `silent 45`로 읽는다.
-- 영향: 이전의 `2051 / 54`는 Phase 2 adopted runtime snapshot으로 보관하고, 현재 operational baseline은 `2060 / 45` 기준으로 기록한다.
-
-## 2026-03-31 — Iris DVF 3-3 backlog expansion은 178 전체 종료가 아니라 46 promote / residual 132의 first pass 완료로 본다
-- 결정: backlog `178`은 이번 세션에서 **`46 promote / residual 132`** 상태의 first pass까지 완료된 것으로 본다.
-- 영향: 문서에서는 `backlog expansion 완료`가 아니라 **first pass 완료 + residual backlog carry-forward**로 기록한다.
-
-## 2026-03-31 — Phase 3 validation gate는 absolute gate가 아니라 baseline-delta gate로 교정한다
-- 결정: Phase 3 통합 검증은 절대값 hard gate가 아니라 **baseline-delta gate** 로 해석한다.
-- 영향: Phase 3 결과는 `introduced hard fail 0 / resolved hard fail 36 / introduced warn 0 / resolved warn 36` 기준으로 읽고, 이후 통합 검증도 baseline 대비 회귀 여부를 우선 본다.
-
-## 2026-03-31 — semantic quality는 이번 round에서 UI에 노출하지 않는다
-- 결정: semantic strong/adequate/weak 품질 상태는 이번 round에서 **UI에 노출하지 않는다**.
-- 영향: runtime contract와 UI contract를 계속 분리해서 관리하고, `semantic quality UI 노출`은 future decision으로 남긴다.
-
-## 2026-04-01 — Iris DVF 3-3 second-pass execution은 build/runtime 기준으로 closure됐다
-- 결정: residual backlog `132`에 대한 second-pass execution은 **Phase 0~7 build, baseline-delta validation, runtime reflection, final residual closure**까지 완료된 것으로 본다.
-- 영향: second pass를 다시 `열린 구현 로드맵`으로 다루지 않고, 이후 남은 일은 **수동 인게임 검증**과 **future hold-driven expansion**으로만 분리해서 다룬다.
-
-## 2026-04-01 — Iris DVF 3-3 current runtime baseline은 2105 rows / active 2084 / silent 21 기준으로 읽는다
-- 결정: second-pass closure 이후의 current runtime baseline은 `2105 rows`, `active 2084`, `silent 21`, `cluster_summary 1440`, `identity_fallback 617`, `role_fallback 48`로 읽는다.
-- 영향: 이후 회귀 검증과 future promote 검토는 이 수치를 baseline으로 사용한다. 이전 `2060 / 45`나 `2076 / 29`는 intermediate snapshot으로만 보관한다.
-
-## 2026-04-01 — final residual 34는 미처리 실행 큐가 아니라 hold inventory다
-- 결정: second-pass 종료 시점의 residual `34`는 **미완료 sprint queue**가 아니라, `HOLD_CLUSTER_DESIGN_PENDING / HOLD_DOMAIN_UNCLEAR / HOLD_STRUCTURAL` taxonomy와 `future_promote_condition`이 부여된 final hold inventory로 본다.
-- 영향: future round는 `남은 34건을 전부 다시 열기`가 아니라, hold condition이 충족된 소집합만 reopen하는 방식으로 진행한다.
-
-## 2026-04-01 — second-pass의 남은 runtime 과제는 인게임 연결이 아니라 manual in-game validation이다
-- 결정: second-pass 종료 후 남은 runtime 과제는 **인게임 연결 작업**이 아니라, 이미 반영된 current runtime을 대상으로 하는 **manual in-game validation** 으로 본다.
-- 영향: 이후 closeout check는 `연결 구현`이 아니라 `검증 샘플 실행` 중심으로 관리한다. 이 시점의 문서상 상태는 `build/runtime closed, manual validation pending`이었고, 이후 closeout note는 별도 결정으로 기록한다.
-
-## 2026-04-02 — Iris DVF 3-3 second-pass manual validation은 pass_with_note로 기록하고 roadmap을 종료한다
-- 결정: second-pass manual in-game validation은 **browser/wiki surface smoke check 기준 `pass_with_note`** 로 기록하고, second-pass roadmap은 이 상태로 종료된 것으로 본다.
-- 영향: second pass를 더 이상 `manual validation pending` 상태로 두지 않고, **closed roadmap with validation note** 로 읽는다. 이후 남은 일은 final residual `34`의 hold-driven subset reopen과 장기 semantic/UI 과제로만 관리한다.
-
-## 2026-04-03 — Iris DVF 3-3 style normalization은 facts 재판정이 아니라 post-compose surface layer다
-- 결정: DVF 3-3 본문 경로는 `facts -> decisions -> compose -> normalizer -> style linter -> rendered -> Lua bridge -> runtime`으로 읽는다. normalizer는 compose 뒤, rendered 앞에서만 동작한다.
-- 영향: normalizer는 evidence, cluster, fact_origin, candidate_state를 다시 판정하지 않으며, `rendered ↔ Lua` 계약은 계속 유지한다.
-
-## 2026-04-03 — family rule scope는 `fact_origin + selected_cluster_contains`로만 닫는다
-- 결정: style family rule의 바인딩 키는 새 semantic family 축 없이 **`fact_origin + selected_cluster_contains`** 로만 고정한다. `selected_cluster = null`은 매칭 시 `unknown` sentinel로 해석한다.
-- 영향: family rule 문서와 규칙 파일은 실제 바인딩 키만 사용하며, Phase 0 binding / Phase 1 activation / 이후 rule 추가도 같은 키 체계로만 기록한다.
-
-## 2026-04-03 — `manual_override_text_ko`는 style rule을 건너뛰고 legacy postproc만 탄다
-- 결정: `manual_override_text_ko`가 존재하는 row는 style lexical replacement 규칙을 적용하지 않고, **legacy postproc만 적용한 뒤** rendered로 내려보낸다.
-- 영향: manual override는 raw passthrough가 아니라 `style rules skip + legacy postproc only` 경로를 갖고, rule hit 통계나 family replacement 근거에는 포함되지 않는다.
-
-## 2026-04-03 — style linter는 advisory-only이며 baseline-delta gate에 합류하지 않는다
-- 결정: style linter는 `style_lint_report.json`으로만 출력되는 advisory layer이며, 기존 baseline-delta validation gate에 합류하지 않는다.
-- 영향: production 승패는 기존 validator의 introduced hard fail/warn 기준으로 계속 판정하고, style linter 경고는 `FIX_COMPOSE / ADD_RULE / ACCEPT / HOLD` 운영 판단 입력으로만 사용한다.
-
-## 2026-04-03 — style normalization 검증은 postproc 흡수 단계와 active-rule 단계로 분리한다
-- 결정: byte-identical 검증은 `style rules off + legacy postproc only` 단계에서만 적용한다. style rule 활성화 단계에서는 `changed rows are logged`와 `unchanged rows byte-identical`을 검증 기준으로 사용한다.
-- 영향: dry run은 `postproc absorption check`와 `active rules delta check`의 2단계로 운영하고, current first pass에서는 `G-01 / F-01`만 활성화한 상태로 introduced hard fail/warn `0`을 확인했다.
-
-## 2026-04-04 — style lint sample review는 deterministic stratified routine으로 고정한다
-- 결정: style lint dry run 수동 샘플 검토는 `min(total_warn_rows, max(30, ceil(total_warn_rows * 0.1)))` 공식으로 크기를 잡고, triggered `STYLE_WARN` rule당 최소 5건을 우선 배정한 뒤 `item_id` dedupe와 `warning_count desc / text_length desc / item_id asc` 순서로 채운다.
-- 영향: current baseline처럼 `warn_row_count = 0`인 경우 sample review는 빈 결과가 정상이며, 수동 검토 부재가 아니라 `review not required` 상태로 기록한다.
-
-## 2026-04-04 — style closeout packet은 summary inline, raw logs reference-only로 묶는다
-- 결정: style closeout packet은 `phase0 binding`, `dry run summaries`, `lint report`, `phase2 activation`, `phase6 triage`, `lint sample review` 같은 summary artifact만 inline summary로 포함하고, `dry_run_changes*.jsonl` 같은 raw change log/lint row dump는 path reference로만 남긴다.
-- 영향: current baseline closeout packet은 `staging/style/closeout/style_closeout_packet.json` / `.md`를 authority로 삼고, historical activation evidence는 `phase1_activation_summary.json`과 `dry_run_changed_review.g01_f01.md`로 보존한다.
-
-## 2026-04-04 — style runtime closeout은 sprint7 full rendered authority를 기준으로 닫는다
-- 결정: style normalization의 runtime closeout은 workspace fixture인 `output/dvf_3_3_rendered.json`이 아니라, `staging/second_pass_backlog_132/sprint7_residual_closure/sprint7_overlay_preview.rendered.json`을 authoritative full rendered로 삼아 `Lua bridge -> deployed IrisLayer3Data.lua` 계약을 검증한다.
-- 영향: style runtime closeout artifact는 `staging/style/runtime_closeout/style_runtime_closeout.json` / `.md`에 남기고, `output/dvf_3_3_rendered.json`은 테스트 fixture 역할을 계속 유지한다.
-
-## 2026-04-04 — style runtime manual validation pass가 확인되면 이번 round는 종료로 본다
-- 결정: style runtime static closeout 이후 browser/wiki/context-menu 표면에서 intended item set이 의도대로 표시된 것이 확인되면, 이번 style normalization round는 `runtime_closed_pass`로 종료된 것으로 본다.
-- 영향: `staging/style/runtime_closeout/style_runtime_in_game_validation_result.json` / `.md`를 수동 검증 결과 artifact로 남기고, 이후 roadmap은 reopen 조건이 생길 때만 다시 연다.
-
-## 2026-04-05 — Iris DVF 3-3 body-role 개편은 facts 확장이 아니라 decisions overlay + compose 내부 repair로 닫는다
-- 결정: DVF 3-3 body-role 개편은 facts 슬롯을 늘리지 않고, `layer3_role_check / representative_slot / body_slot_hints / representative_slot_override`를 **decisions overlay** 로 추가해 처리한다. repair 규칙은 `compose_layer3_text.py` 내부 조합 흐름에만 둔다. `quality_flag`는 rendered 진단 메타데이터일 뿐이며 상태 축으로 승격하지 않는다.
-- 영향: 이후 body-role 보정은 `facts 확장`이나 별도 repair stage가 아니라 overlay builder와 compose 내부 분기에서만 다룬다. Lua bridge와 UI surface는 `quality_flag`를 소비하지 않는다.
-
-## 2026-04-05 — Iris DVF 3-3 body-role structural lint와 semantic linkage는 현재 빌드를 소급 수정하지 않는 next-build feedback 경로다
-- 결정: body-role structural lint 결과는 현재 빌드 산출물을 다시 compose하지 않는다. `LAYER4_ABSORPTION`만 hard block으로 유지하고, 나머지 구조 패턴은 `body_role_lint_report.json`과 feedback artifact에 기록한 뒤 **다음 빌드 overlay 재판정 입력**으로만 사용한다. feedback은 매 빌드 fresh recompute 원칙을 따르며 누적 상태로 재사용하지 않는다. semantic weak 후보 목록도 자동 반영하지 않고 별도 `DECISIONS.md` 항목 이후에만 semantic axis에 반영한다.
-- 영향: current build의 실제 수정 경로는 Phase 2/3이고, Phase 4/6은 진단·피드백 경로로만 남는다. `semantic::weak` 재분류는 자동 갱신이 아니라 future decision이다.
-
-## 2026-04-05 — Iris DVF 3-3 body-role roadmap은 build/runtime/in-game pass로 종료하고 source expansion backlog와 분리한다
-- 결정: body-role roadmap은 `Phase 0~9` 범위가 실제로 닫힌 것으로 본다. full preview authority 기준으로 `agreement_rate = 1.0`, `golden_subset_count = 100`, `introduced_hard_fail_count = 0`, `regression_rejected_row_count = 0`, `in-game validation = pass`를 충족했으므로 이번 round는 **build/runtime/in-game closeout** 상태로 읽는다.
-- 영향: 이후 남은 일은 body-role round 재오픈이 아니라 `identity_fallback 617` source expansion과 future semantic decision으로 분리해 관리한다. 현재 backlog 중심 수치는 `bucket_1 11 / bucket_2 599 / bucket_3 7`이며, 이 lane들은 후속 expansion 입력으로만 읽는다.
-
-## 2026-04-05 — Iris DVF 3-3 problem 2 round의 출발점은 `active = runtime-adopted`, not `quality-pass` 다
-- 결정: current runtime에서 `active`는 **quality-pass가 아니라 runtime-adopted 상태**로 읽는다. 따라서 이번 round에서는 active/silent 외부 계약을 유지하고, 신규 runtime 상태 축을 만들지 않으며, `no_ui_exposure` 계약 실행, facts 슬롯 확장, Lua bridge 계약 변경을 열지 않는다.
-- 영향: 다음 round의 직접 목표는 active를 즉시 재정의하는 것이 아니라, `semantic_quality`를 decisions/compose/tracking/requeue 경로에 연결해 **active 내부 품질 피드백 루프**를 먼저 구축하는 것이다. active 의미 재정의 여부는 quality baseline과 `quality_ratio` 추세가 성숙한 뒤 별도 조건부 phase에서만 연다.
-
-## 2026-04-05 — Iris DVF 3-3 problem 2 precondition으로 `FUNCTION_NARROW`의 기본 semantic 판정을 고정한다
-- 결정: problem 2 round에서 `layer3_role_check = FUNCTION_NARROW`인 row는 **기본적으로 `semantic::weak`로 판정**한다. 단, 기존 semantic axis가 이미 `strong`인 row는 보호하여 `strong`을 유지한다.
-- 영향: 이 항목은 A-3 전체 매핑 규칙을 대신하는 것이 아니라, A-3 착수 전 고정해야 하는 **선행 guardrail** 이다. 이후 A-3에서 `layer3_role_check -> semantic_quality` 전체 매핑 규칙을 닫을 때도 이 precondition을 그대로 전제한다.
-
-## 2026-04-05 — Iris DVF 3-3 problem 2는 `layer3_role_check -> semantic_quality` 매핑 규칙을 채택한다
-- 결정: problem 2 round의 `semantic_quality`는 신규 runtime 축이 아니라 기존 semantic axis의 derived/cache field로만 다룬다. 매핑은 다음처럼 고정한다.
-  - `ADEQUATE` -> 기존 semantic 유지
-- 영향: overlay에는 `semantic_quality`를 기록하되, 이 값은 수동 수정 대상이 아니다. authority drift는 validator hard fail로 처리한다. current active audit 결과는 `active 2084`, `semantic strong 1316`, `semantic weak 768`, `strong + FUNCTION_NARROW protected 20`으로 고정됐다.
-
-## 2026-04-05 — Iris DVF 3-3 problem 2는 `no_ui_exposure` 재검토 의제만 등록하고 실행은 열지 않는다
-- 결정: `docs/semantic_quality_ui_exposure_agenda.md`를 future discussion agenda로 등록한다. 단, 이번 round에서는 `no_ui_exposure` 계약을 유지하고 user-facing execution은 열지 않는다.
-- 영향: UI 재검토는 future decision topic으로만 남고, current round의 산출물은 internal tracking, compose repair, requeue backlog 입력에 한정된다.
-
-## 2026-04-05 — Iris DVF 3-3 problem 2의 `quality baseline v1`을 동결한다
-- 결정: `Iris/build/description/v2/staging/semantic_quality/phaseC/quality_baseline_v1.json`과 `quality_baseline_v1.md`를 current operating baseline으로 동결한다.
-- 영향: baseline v1의 핵심 수치는 `total 2105 / active 2084 / silent 21`, `semantic strong 1316 / adequate 0 / weak 768`, `quality_ratio 0.6315`, `requeue 624`, `introduced hard fail 0`, `adequate + semantic strong changed 0`이다. 이 baseline은 future overwrite 대상이 아니며, Phase D는 아직 열리지 않는다.
-
-## 2026-04-06 — Iris DVF 3-3 problem 2 round는 Phase A~C closeout으로 읽고, Phase D는 closed 상태로 유지한다
-- 결정: problem 2 round는 **Phase A~C 구현/검증 완료 + Phase D closed** 상태로 읽는다. 현재 `quality_ratio`는 2회 연속 build에서 동일하게 관측되어 sustained 조건을 통과했지만, `requeue tolerability`와 `lane stability`는 아직 policy threshold가 채택되지 않았으므로 Phase D를 열지 않는다. current operating recommendation은 계속 **Scenario C (`active 유지, quality-pass 별도 추적`)** 다.
-- 영향: problem 2 round의 현재 종료 판정은 `A~C complete, D closed`다. `phase_d_readiness_report.json`과 `phase_d_gate_threshold_proposal.json`은 future decision 입력으로만 남기고, threshold가 별도 결정으로 채택되기 전에는 active/silent 재정의나 UI/validator staged migration을 시작하지 않는다.
-
-## 2026-04-06 — Iris DVF 3-3 problem 2 closeout은 추가 인게임 검증 없이 닫고, contract 변경 round에서만 다시 인게임 검증을 요구한다
-- 결정: problem 2 round의 closeout에는 **추가 manual in-game validation을 요구하지 않는다**. 이번 round는 internal tracking, compose repair, requeue, readiness/reporting layer를 추가한 것이며, `active/silent` 외부 계약, `no_ui_exposure`, Lua bridge 계약, user-facing surface를 바꾸지 않았기 때문이다.
-- 영향: current round는 build/validator/operating artifact closeout으로 끝난다. 이후 인게임 검증은 `Phase D`를 실제로 열어 active 의미를 재정의하거나, `no_ui_exposure`를 해제해 UI/validator/Lua runtime contract를 변경하는 future round에서 다시 요구한다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round는 `requeue_tolerability`를 path-aware gate로 채택한다
-- 결정: three-axis contract migration round의 `requeue_tolerability`는 단일 전역 ratio가 아니라 **path-aware gate** 로 채택한다.
-  - `A-path`: `requeue_candidate_ratio_vs_active <= 0.10`을 full active population 기준으로 만족해야 pass다.
-- 영향: current cycle에서 `B-path`를 선택하면 non-isolated exposed-candidate population은 `active 1467`, residual requeue `7`, requeue ratio `0.0048`로 읽는다. 반대로 `A-path`를 선택하는 future cycle에서는 full active ratio `0.2994`를 그대로 사용한다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round는 `lane_stability` threshold를 path-aware rule로 채택한다
-- 결정: three-axis contract migration round의 `lane_stability`는 다음 수치를 binding threshold로 채택한다.
-  - `lane_loss_ratio_max = 0.20`
-- 영향: current frozen baseline에서는 기존 Scenario A/B가 모두 fail이고 Scenario C만 zero-lane-loss를 만족한다는 사실이 유지된다. 이후 `A-path/B-path` 어느 쪽이든 lane loss는 더 이상 임의 해석이 아니라 위 수치 기준으로만 판정한다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round의 current execution path는 `B-path`로 고정한다
-- 결정: current contract migration cycle의 Phase 1 execution path는 `B-path`로 고정한다.
-  - `identity_fallback 617`은 Phase 2/3 gate 해석용 **명시적 policy-isolation lane** 으로 둔다.
-- 영향: current cycle의 Phase 2 authority는 `identity_fallback_policy_isolation_report.json` + non-isolated expansion 결과 + `quality_baseline_v2_partial.json` 조합으로 읽는다. Phase 3는 path-aware gate로 판정하고, contract migration scenario는 계속 `Scenario X`를 우선 검토한다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round는 B-path path-aware 5-gate pass 이후에만 Phase D를 재개방한다
-- 결정: current contract migration cycle에서 `B-path`의 path-aware 5-gate가 전부 pass한 경우에만 Phase D를 재개방한다. current cycle은 `quality_baseline_v2_partial` 2회 연속 deterministic observation과 `phase_d_reopen_iteration_report.json` 기준으로 아래를 충족했다.
-  - `baseline_v2_frozen = pass`
-- 영향: current cycle의 Phase D 상태는 `reopened_for_contract_migration`으로 읽는다. 단, 이는 곧바로 Phase 4 착수를 뜻하지 않는다. 다음 관문은 `Phase 3A` guardrail seal이며, single writer/validator scope/bridge semantics/reserved state가 봉인되기 전에는 contract design으로 넘어가지 않는다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round의 current migration scenario는 `Scenario X`로 고정한다
-- 결정: current contract migration cycle의 Phase D reopen 이후 migration strategy는 `Scenario X`로 고정한다.
-  - runtime_state는 유지한다.
-- 영향: `Scenario X`는 기존 comparative diagnostic `Scenario C`의 3축 발전형으로 읽는다. current cycle의 다음 실질 과제는 `Phase 3A` guardrail seal과 `Phase 4` contract design이며, `Scenario Y`는 active path가 아니라 future alternative로만 남는다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round는 post-compose `quality/publish decision stage`를 contract decision stage로만 허용하고, compose 외부 repair는 계속 금지한다
-- 결정: current contract migration cycle의 `compose 외부 repair 단계 금지`는 유지한다. 다만 적용 범위는 다음처럼 명시적으로 재정의한다.
-  - 계속 금지되는 것
-- 영향: Phase 4/5는 post-compose decision stage를 설계하고 구현할 수 있지만, compose 외부 repair 금지 원칙은 그대로 유지된다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round의 post-migration semantic contract는 single-writer 구조로 봉인하고, validator는 drift checker only로 한정한다
-- 결정: current contract migration cycle에서 post-migration semantic contract의 single writer는 `quality/publish decision stage` 하나뿐이다.
-  - single writer
-- 영향: Phase 4 이후의 `quality_state` 또는 재정의된 `semantic_quality`는 single-writer contract로만 읽고, validator는 hard fail을 내더라도 writer가 되지 않는다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round의 current `quality_state` 허용값은 `strong / adequate / weak`로 한정하고 `fail`은 reserved로 둔다
-- 결정: current contract migration cycle에서 실제 emit 가능한 `quality_state`는 `strong / adequate / weak` 셋으로만 한정한다.
-  - `fail`은 reserved 상태다.
-- 영향: Phase 4/5 구현은 `fail`을 reserved로만 다루고, actual contract state set은 3값 체계로 유지된다.
-
-## 2026-04-06 — Iris DVF 3-3 three-axis contract migration round의 `internal_only`는 bridge availability를 줄이지 않고 consumer visibility만 억제한다
-- 결정: current contract migration cycle에서 `publish_state = internal_only`는 bridge availability 감소가 아니라 consumer visibility suppression으로 읽는다.
-  - Lua bridge는 `internal_only` row를 제거하지 않는다.
-- 영향: Phase 4/5는 `publish_state`를 bridge와 consumer 사이의 유일한 visibility contract로 설계해야 하며, UI surface regression은 validator가 아니라 Phase 6 validation pack의 책임으로 남는다.
-
-## 2026-04-07 — Iris DVF 3-3 three-axis contract migration round의 Phase 6 in-game validation은 `pass`로 닫힌다
-- 결정: current contract migration cycle의 manual in-game validation 결과를 `pass`로 동결한다.
-  - Browser/Wiki default surface의 `internal_only` suppression은 pass다.
-- 영향: `in_game_validation_result.json` / `.md`는 `pass`로 동결되고, current cycle의 `Phase 6`은 더 이상 `Phase 7` closeout blocker가 아니다.
-
-## 2026-04-07 — Iris DVF 3-3 current runtime/user-facing contract는 three-axis model로 재봉인한다
-- 결정: current Iris DVF 3-3 runtime/user-facing contract는 다음 3축 모델로 재봉인한다.
-  - `runtime_state = active / silent`
-- 영향: `ARCHITECTURE.md`와 `ROADMAP.md`는 current state를 three-axis post-migration architecture로 읽어야 하며, 이후 남는 과제는 source expansion과 future `quality_exposed` round이지 current contract migration 미완료가 아니다.
-
-## 2026-04-07 — Echo는 당분간 soft-freeze 전략으로 운용한다
-- 결정: Echo는 기술적으로 더 확장할 여지가 크더라도, **당분간 메인 확장 전선으로 다시 열지 않고 soft-freeze 상태로 운용**한다.
-- 영향: Echo의 기본 운영은 유지보수 / 표면 보수 / 관측 품질 유지 중심으로 두고, **Iris 이후 실제 blind spot이 확인될 때만 국소적으로 재개방**한다.
-
-## 2026-04-07 — Fuse는 Area 9를 맡지 않고, Nerve launch 경계는 유지한다
-- 결정: Fuse는 자기 전장(1/4/7)에 남고 **Area 9를 공동 소유하거나 흡수하지 않는다.** Launch Nerve는 계속 **100% Lua / Pulse 비의존 standalone** 으로 둔다.
-- 영향: 멀티/네트워크 경계의 안정성 보험 장치는 Nerve가 맡고, Pulse capability 소비는 필요 시 **후속 Nerve+ 확장**에서만 검토한다.
-
-## 2026-04-07 — Pulse는 내부 기반으로 유지하고 공개 플랫폼 승격은 뒤로 미룬다
-- 결정: Pulse는 플랫폼 야망을 버리지 않되, **지금 당장 외부 공개 플랫폼으로 밀지 않고 내부 기반으로 유지**한다.
-- 영향: Pulse는 spoke들을 받치는 내부 허브로 유지하고, **외부 공개 플랫폼 승격은 나중에 별도 판단**한다.
-
-## 2026-04-07 — Pulse의 해법은 기능 확장이 아니라 공개 표면 다각화다
-- 결정: Pulse의 현재 채택 문제는 Core 기능 부족보다 **바깥에서 어떻게 시작해야 할지가 잘 안 보이는 문제**로 보고, 해법은 Core 확장이 아니라 **공개 표면 다각화**에 둔다.
-- 영향: 공개 표면은 최소한 `Product surface / Stable Core surface / Starter surface / Guided surface / Raw/Internal surface`로 나눠 설계하고, 편의/입문층은 Core 밖에서 제공한다.
-
-## 2026-04-07 — 바이브코딩 모더 대응은 사람 분류가 아니라 workflow lane 분류로 본다
-- 결정: Pulse 채택 전략에서 타깃은 `기존 모더 vs 바이브코더` 같은 사람 분류가 아니라, **Starter / Guided / Raw workflow lane** 으로 잡는다.
-- 영향: Starter lane은 입문과 바이브코딩, Guided lane은 구조 이해가 조금 필요한 사용자, Raw lane은 고급 사용자/기존 모더를 겨냥하는 구조로 문서와 표면을 설계한다.
-
-## 2026-04-07 — Iris MVP는 DVF + Tooltip vanilla-first 범위로 닫는다
-- 결정: Iris 첫 공개의 MVP 범위는 **DVF 시스템 완성 + 툴팁 시스템 완성**까지로 두고, **모드 시장 확장 시스템은 포함하지 않는다.**
-- 영향: 첫 공개는 **Iris 본체 검증 중심**으로 설계하고, 모드 확장은 후속 단계로 미룬다.
-
-## 2026-04-07 — B42 대응은 메인라인 전환이 아니라 별도 포트 브랜치 준비로 본다
-- 결정: B42 대응은 **지금 당장 메인 개발축을 갈아타는 방식**으로 하지 않고, 표면 충돌을 우선 보는 **별도 포트 브랜치 준비**로 다룬다.
-- 영향: Pulse → Echo/Fuse → Nerve 축은 구조 충돌 가능성이 높은 축으로, Iris는 tooltip / menu / browser 표면 중심 충돌 가능성이 높은 축으로 보고, 대응은 점진적으로 시작한다.
-
-## 2026-04-07 — Iris 이후 우선순위 판단 기준은 “덜 만든 모듈”이 아니라 전체 기대값이다
-- 결정: Iris 이후의 우선순위는 `어느 모듈이 덜 완성됐는가`가 아니라, **Iris 동결 이후 어떤 한 수가 전체 기대값을 가장 크게 올리는가**를 기준으로 판단한다.
-- 영향: `다음은 무조건 Nerve / Pulse` 같은 직선형 순번 논리는 닫고, spoke별 기대값과 채택 효과를 함께 보는 전략 판단을 우선한다.
-
-## 2026-04-07 — Pulse는 플랫폼을 포기하지 않고 개방 순서를 뒤집는다
-- 결정: Pulse는 라이브러리로 격하하지 않고 **내부 구조는 플랫폼으로 유지**하되, **Stage B 외부 모드 개방은 수요가 먼저 생긴 뒤에 연다.**
-- 영향: `플랫폼 유지 vs 라이브러리 격하`의 이분법을 닫고, **플랫폼 유지 + 개방 순서 역전**을 기본선으로 둔다.
-
-## 2026-04-07 — 외부 모더 채택의 병목은 설치 마찰보다 “왜 Pulse를 써야 하냐”다
-- 결정: 외부 모더 채택의 핵심 병목은 단순 설치 마찰보다, **이미 Lua에 익숙한 강한 모더에게 Pulse가 왜 필요한가를 보여주지 못하는 문제**로 본다.
-- 영향: 채택 전략은 설치 UX 최적화만이 아니라, **Echo / Frame / Canvas가 서로 다른 창작자 층을 실제로 끌어오는가**를 중심으로 평가한다.
-
-## 2026-04-07 — Pulse 공개는 대형 데뷔보다 spoke의 순차적 의미 확장으로 본다
-- 결정: Pulse는 `Pulse + Frame + Canvas`를 한 번에 크게 공개하는 방식보다, **spoke들이 순차적으로 Pulse의 의미를 넓히는 구조**로 드러나야 한다고 본다.
-- 영향: 공개 전략은 계속 `결과물 선공개 -> 기반 후노출`을 유지하되, 기반의 존재감은 spoke가 늘어날수록 천천히 드러나는 방향으로 정리한다.
-
-## 2026-04-07 — Iris의 경쟁 리스크는 기능 부족보다 인지/포지셔닝이다
-- 결정: Iris의 현실적 경쟁 리스크는 특정 기능의 부재보다, **유저가 Iris를 설명 위키로만 인식하고 실제 상호작용/재료 추적 도구로는 충분히 인식하지 못하는 문제**로 본다.
-- 영향: Iris의 후속 과제는 기능 복제보다, **무엇을 바로 할 수 있는 도구인지 더 선명하게 보여주는 인지 설계**를 포함하게 된다.
-
-## 2026-04-07 — 빈 플랫폼 선공개와 플랫폼 일괄 데뷔는 채택하지 않는다
-- 결정: **빈 플랫폼을 먼저 내고 외부 모더를 기다리는 방식**, 그리고 **Pulse + Frame + Canvas 동시 대형 공개**는 모두 현재 전략으로 채택하지 않는다.
-- 영향: 플랫폼 증명은 spoke의 실제 사용 가치로 먼저 만들고, 개방과 확대는 그 다음 단계로 밀어둔다.
-
-## 2026-04-08 — Iris DVF 3-3 surface contract authority migration round는 style 강화가 아니라 single-writer authority 명문화다
-- 결정: 이번 round는 **style linter 승격**이 아니라, 닫힌 runtime/bridge 계약 위에서 `surface_contract_signal.jsonl`을 분리하고 이를 `quality/publish decision stage` 하나만 읽어 `quality_state`와 `publish_state`에 반영하는 **surface contract authority migration** 으로 읽는다.
-- 영향: 이후 `style_lint_report.json`은 계속 advisory backlog 입력으로만 남고, structural contract 신호는 `surface_contract_signal.jsonl` 별도 artifact를 통해서만 decision stage에 들어간다.
-
-## 2026-04-08 — Iris DVF 3-3의 역할 위반은 style 문제가 아니라 layer boundary contract violation이다
-- 결정: 3계층 body가 3-1/3-2의 역할을 대체하거나 generic fallback을 재복제하는 문제는 **style issue** 가 아니라 **layer boundary contract violation** 으로 분류한다.
-- 영향: `internal_only`는 current cycle에서 3계층 역할 위반의 1차 visibility isolation 수단으로 읽고, blanket isolation이 아니라 rollout guardrail 아래서만 확장한다.
-
-## 2026-04-08 — Iris DVF 3-3 surface contract authority migration round의 fresh manual in-game validation은 pass다
-- 결정: `2026-04-08` 기준 surface contract authority migration round의 fresh manual in-game validation은 `pass`로 기록한다.
-- 영향: `surface_contract_rollout_result_report.json/.md`는 pending이 아니라 pass 상태로 닫고, current round는 더 이상 manual validation blocker를 남기지 않는다.
-
-## 2026-04-08 — Iris DVF 3-3 후속 source expansion은 current phaseE handoff artifact를 canonical input으로 쓴다
-- 결정: `identity_fallback 617` source expansion follow-up round는 old `staging/body_role/phase1_parallel/identity_fallback_expansion_plan.json` 단독 해석이 아니라, current `phaseE_contract_migration`의 `identity_fallback_source_expansion_backlog.json`을 **canonical handoff input** 으로 사용한다.
-- 영향: 이후 source expansion 설계와 실행은 current `phaseE` handoff artifact 기준으로 이어지고, `DECISIONS.md`, `ROADMAP.md`, `ARCHITECTURE.md`는 이 경로를 current canonical follow-up으로 읽는다.
-
-## 2026-04-09 — Iris DVF 3-3 acquisition lexical standardization round는 한국어 엔진 개발이 아니라 offline authority normalization closeout이다
-- 결정: current acquisition lexical round는 `acquisition_hint`를 위한 **offline authority normalization + validator + promotion + runtime reflection** 경로로 닫는다. 이 round는 한국어 엔진 개발, style gate 승격, active/silent 재판정 round로 읽지 않는다.
-- 영향: acquisition surface 수정의 single execution path는 `canonical/semantic cleanup -> validator -> sprint7 authority promotion -> runtime reflection`으로 고정되며, UI/runtime에서의 즉석 보정 경로는 열지 않는다.
-
-## 2026-04-09 — Iris DVF 3-3 acquisition lexical closeout은 facts null reason과 canonical trace를 함께 잠근다
-- 결정: current acquisition lexical closeout에서 `facts.acquisition_hint` 정화와 `decisions.acquisition_null_reason` 구조화는 같은 authority round로 잠근다. non-null acquisition은 canonical trace를 가져야 하고, null acquisition은 반드시 `UBIQUITOUS_ITEM` 또는 `STANDARDIZATION_IMPOSSIBLE`로 닫는다.
-- 영향: current sprint7 authority preview와 deployed runtime은 acquisition text와 null reason을 함께 읽는 구조로 동결되며, 이후 acquisition round 재개방도 facts-only 또는 decisions-only 경로로는 허용하지 않는다.
-
-## 2026-04-09 — Iris DVF 3-3 current Korean lexical cleanup은 item-native / effect-first phrasing을 우선한다
-- 결정: current Korean lexical cleanup은 `준비 작업`, `다루다`, 번역투 acquisition compound 같은 **추상 작업 맥락 문구**보다, 아이템이 실제로 하는 일이나 제공 효과를 직접 말하는 **item-native / effect-first phrasing**을 우선한다.
-- 영향: 이후 같은 계열의 lexical hardening은 새 문장 생성 엔진이 아니라 current offline cleanup authority 안에서만 처리하며, item-native / effect-first 원칙을 거스르는 새 fallback은 regressions로 본다.
-
-## 2026-04-11 — Iris DVF 3-3 role_fallback hollow follow-up lane는 current evidence round 기준으로 terminalized 상태다
-- 결정: `role_fallback hollow follow-up` lane는 current evidence round 기준으로 **`existing_cluster_reuse_preview_backed 20 / block_c_source_promoted 12 / policy_review_closed_maintain_exclusion 2 / carry_forward_hold 3`** 상태에서 terminalized된 것으로 본다. current lane의 `active_unresolved_count`는 `0`이다.
-- 영향: 이후 `role_fallback hollow` 관련 작업은 closed lane의 연장이 아니라 **새 라운드** 로만 연다. reopen이 필요하면 `future_new_source_discovery_hold`를 시작점으로 잡고, 그렇지 않으면 downstream runtime / in-game validation / remeasurement lane로 분기한다.
-
-## 2026-04-15 — Iris DVF 3-3 identity_fallback source expansion current cycle은 `600 promote / residual 17` 상태에서 닫는다
-- 결정: current `identity_fallback` source expansion cycle은 **`600 promoted / residual 17`** 상태의 executable subset closeout까지 완료된 것으로 본다.
-- 영향: 이후 `identity_fallback source expansion`은 더 이상 same-session unfinished queue로 읽지 않고, current residual inventory를 시작점으로 한 **후속 라운드 입력**으로만 읽는다.
-
-## 2026-04-15 — current source expansion cycle에서는 A-4-1 interaction cluster budget `30`을 재개방하지 않는다
-- 결정: current source expansion cycle 안에서는 `interaction_clusters.json`의 `cluster_count_limit = 30`을 frozen invariant로 유지한다. 현재 상태 `30 / 30`은 **same-cycle terminal budget edge** 이지, 추가 net-new cluster를 더 열 수 있다는 뜻이 아니다.
-- 영향: 이후 `ROADMAP.md`와 `ARCHITECTURE.md`는 `30-cap 유지 + 후속 residual round 분리`를 current authority path로 읽고, cap 변경은 source expansion의 연장이 아니라 **새 설계 결정** 으로만 다룬다.
-
-## 2026-04-16 — Iris DVF 3-3 identity_fallback residual round closeout 이후 기본 branch는 frozen-budget hold 유지다
-- 결정: `identity_fallback` residual round closeout 이후 current default branch는 `maintain_frozen_budget_hold`로 둔다.
-- 영향: current authority는 `residual round complete + frozen-budget hold maintained`로 읽고, 다음 reopen gate는 `future_new_source_discovery_hold` 또는 별도 `A-4-1 rework round`에서만 열린다.
-
-## 2026-04-16 — Iris DVF 3-3 identity_fallback closure policy 확장은 current residual round와 분리된 별도 policy round로 다룬다
-- 결정: `direct_use` admissibility, dominant/dual-context 허용, declared transform/build chain evidence boundary 같은 closure policy 수정은 current residual round execution 안에서 슬쩍 바꾸지 않고 **별도 closure policy round / amendment** 로만 다룬다.
-- 영향: future policy round에서는 `Sledgehammer`, `Sledgehammer2`, `Rope`, `WateredCan` 같은 row를 expanded closure policy 아래 다시 평가할 수 있지만, current residual round closeout artifact 자체는 그대로 유지한다.
-
-## 2026-04-16 — Iris DVF 3-3 identity_fallback closure policy round는 `carry_forward_hold 4`를 policy-level `direct_use 4`로 닫는다
-- 결정: separate closure policy round에서 current `carry_forward_hold 4`는 **policy-level `direct_use 4`** 로 재분류된 것으로 본다.
-- 영향: current active unresolved hold는 `0`으로 읽고, 이후 reopen target은 scope-policy hold 또는 별도 runtime adoption round에서만 다시 정의한다.
-
-## 2026-04-16 — Iris DVF 3-3 identity_fallback current-state consumer는 terminal status/handoff를 canonical read point로 사용한다
-- 결정: current `identity_fallback` lane의 current-state consumer는 round별 closeout artifact를 각각 따라가지 않고, root-level terminal snapshot인 `staging/identity_fallback_source_expansion/identity_fallback_terminal_status.json` / `.md`, `identity_fallback_terminal_handoff.json` / `.md`를 canonical read point로 사용한다.
-- 영향: 이후 `identity_fallback` 관련 status 판정, branch 설명, 후속 round opening 판단은 terminal snapshot을 기준으로 시작하고, round-specific artifact는 supporting provenance로만 참조한다.
-
-## 2026-04-16 — Iris DVF 3-3 identity_fallback scope policy round는 `bucket_3_scope_hold 7`을 policy-closed isolation으로 닫는다
-- 결정: separate scope policy round에서 current `bucket_3_scope_hold 7`은 **`policy_review_closed_maintain_identity_fallback_isolation 7`** 로 재분류된 것으로 본다.
-- 영향: 이후 `identity_fallback` lane는 unresolved hold 없이 terminalized된 current-state snapshot으로 읽고, future reopen은 `scope_policy_override_round` 또는 `runtime_adoption_round`에서만 시작한다.
-
-## 2026-04-17 — Iris DVF 3-3 identity_fallback current roadmap은 terminal policy authority 기준으로 완료 상태다
-- 결정: current `identity_fallback` roadmap은 separate residual round, closure policy round, scope policy round까지 모두 닫힌 **completed roadmap** 으로 읽는다.
-- 영향: 이후 `identity_fallback` 관련 work item은 current roadmap carry-over가 아니라, 명시적으로 열린 `scope_policy_override_round` 또는 `runtime_adoption_round`로만 취급한다.
-
-## 2026-04-19 — Iris DVF 3-3 source-expansion distribution remeasurement gate는 PASS observer authority로 닫는다
-- 결정: current `source-expansion distribution remeasurement gate(SDRG)` round는 source expansion closeout 이후 동작하는 **offline advisory observer gate** 로 읽고, current closeout은 `round_exit_status = PASS`로 고정한다.
-- 영향: 이후 SDRG consumer는 root manifest와 terminal status/handoff를 canonical read point로 사용한다. future reopen은 current PASS closeout의 연장이 아니라, 명시적 semantic decision 또는 future Group B source expansion closeout 뒤의 새 SDRG run으로만 시작한다.
-
-## 2026-04-19 — Iris DVF 3-3 semantic axis policy round는 weak-family carry를 explicit gated candidate policy로 닫는다
-- 결정: current SAPR는 weak signal을 단일 묶음으로 승격하지 않고 family별로 닫는다. `structural feedback weak candidate`와 `source-expansion post-round new weak`는 semantic axis candidate family로 인정하되, current round는 어떤 family도 `CARRY_TO_BASELINE_V5`로 닫지 않고 `quality_baseline_v4`를 유지한다.
-- 영향: downstream consumer는 structural/post-round weak family를 operating-rule candidate input으로만 읽고, current build의 `quality_state`/`publish_state`는 그대로 유지한다. actual carry implementation이 필요하면 별도 execution round가 decision-stage input wiring만 설계한다.
-
-## 2026-04-20 — future explicitly-opened A-4-1 / cluster-budget reopen round는 subset-bounded single-authority sizing rule을 따른다
-- 결정: future explicitly-opened `A-4-1 rework / cluster budget` reopen round는 one-shot big-bang reopen이 아니라, `subset-bounded single-authority sizing rule`을 따르는 bounded subset sequence로만 설계한다.
-- 영향: 이후 future explicitly-opened `A-4-1 / cluster-budget reopen`은 manifest 작성 시 이 sizing rule을 선행 제약으로 읽는다. current terminal snapshot, reopen gate 목록, runtime/publish contract, immediate next round 상태는 이 결정으로 바뀌지 않는다.
-
-## 2026-04-20 — Iris DVF 3-3 compose authority migration은 body-role closeout과 별도의 authority lane으로 운영한다
-- 결정: current DVF 3-3 compose authority migration은 body-role closeout round나 surface contract authority migration round의 재오픈이 아니라, `A + B + C` 범위의 **별도 authority lane** 으로 운영한다. `Phase D / E-0 / E`는 이번 round 종료 조건에 넣지 않는다.
-- 영향: 이후 compose authority migration consumer는 `body-role closure addendum`을 재오픈된 라운드로 읽지 않는다. structural violation redesign, full-runtime regression gate, runtime Lua consumer 변경은 별도 후속 round에서만 연다.
-
-## 2026-04-20 — sentence_plan 기반 legacy 3-profile 운용은 body_plan 기반 new 6-profile authority로 상위 교체한다
-- 결정: `sentence_plan` 기반 legacy 3-profile(`interaction_tool / interaction_component / interaction_output`) 운용을 `body_plan` 기반 new 6-profile(`tool_body / material_body / output_body / container_body / wearable_body / consumable_body`) authority로 상위 교체한다.
-- 영향: `2026-04-21` Phase C closeout 이후 `compose_profiles_v2` runtime current-state는 `body_plan` writer authority로 읽는다. `sentence_plan`은 폐기된 것이 아니라 legacy v1 baseline과 compatibility input으로만 남는다.
-
-## 2026-04-20 — Phase C compatibility adapter는 compose-internal non-writer bridge로만 운용한다
-- 결정: Phase C compatibility adapter는 legacy `sentence_plan` 필드를 `body_plan` section 자리에 배치하는 **compose-internal non-writer bridge** 로만 운용한다.
-- 영향: Phase C exit gate는 adapter 경유 row count를 threshold gate로 사용하지 않는다. future work는 row cap 도입이 아니라 native path 이전과 adapter 제거 조건 확정으로 이어진다.
-
-## 2026-04-20 — compose authority migration round의 structural signal과 legacy quality_flag family는 Phase C 동안 redesign하지 않는다
-- 결정: Phase C 실행 중 관측되는 structural signal은 Phase D semantic redesign 이전까지 **observer-only** 로 유지한다.
-- 영향: current `quality_state / publish_state` contract는 Phase C 동안 그대로 유지된다. body-plan migration validation에서 관측되는 structural signal은 next-build feedback 및 future Phase D input으로만 남는다.
-
-## 2026-04-21 — Iris DVF 3-3 compose authority migration round는 observed-quality constraint 아래 body_plan runtime authority로 close한다
-- 결정: `A + B + C` scope closeout 기준 `compose_profiles_v2` path의 runtime compose authority는 `compose_layer3_text.py` 내부 `body_plan` writer로 읽는다.
-- 영향: `ARCHITECTURE.md`와 `ROADMAP.md`는 current compose authority를 `body_plan` runtime authority로 읽는다. 이 결정은 Phase C closeout 결정이며, Phase D structural redesign, Phase E-0 full-runtime regression gate, Phase E runtime Lua consumer rollout은 별도 opening 없이는 current closeout으로 읽지 않는다. 같은 세션에서 생성된 D/E 산출물은 아래 quarantine 결정에 의해 non-canonical diagnostic artifact로만 남긴다.
-
-## 2026-04-21 — Iris DVF 3-3 same-session body_plan Phase D/E execution attempt는 quarantine한다
-- 상태: 무효화 / quarantine
-- 결정: 같은 세션에서 수행된 Phase D structural accounting / Phase E-0 regression gate / Phase E runtime rollout attempt는 current closeout으로 채택하지 않는다.
-- 영향: current Iris DVF 3-3 compose authority migration lane의 adopted closeout은 A/B/C까지다. Phase D/E-0/E는 다시 열려면 explicit `scope_policy_override_round` 또는 별도 후속 round에서 시작해야 하며, row count `2105`, publish split `internal_only 617 / exposed 1467`, quality split `strong 1316 / adequate 0 / weak 768`을 baseline invariant로 검증해야 한다.
-
-## 2026-04-22 — Iris DVF 3-3 Phase D/E staged rollout override round를 scope_policy_override_round로 연다
-- 결정: v0.2에서 Hold로 분리했던 Phase D / E-0 / E를 `Iris DVF 3-3 compose authority migration — Phase D / E-0 / E staged rollout override round`로 같은 세션 실행 범위에 포함한다.
-- 영향: Phase D/E-0/E는 다시 실행 가능하지만, `2105` sealed baseline과 `quality_baseline_v4`를 위반하는 산출물은 pass evidence가 될 수 없다.
-
-## 2026-04-22 — Phase D structural reclassification은 pure observer authority로만 수행한다
-- 결정: Phase D는 `body_plan` section trace를 읽어 structural signal을 재계상하는 observer/report authority로만 수행한다.
-- 영향: Phase D 결과는 Phase E-0의 hard-block / signal input이지만, quality/publish stage의 writer로 승격하지 않는다.
-
-## 2026-04-22 — Phase E는 staged/static rollout까지만 닫고 deployed closeout은 제외한다
-- 결정: Phase E는 E-0 regression gate pass 이후 staged Lua bridge export, `IrisLayer3Data.lua` 갱신, staged/workspace parity hash 확인, `ready_for_in_game_validation` 상태 생성까지만 닫는다.
-- 영향: 본 round가 성공하더라도 최종 상태는 `staged/static rollout closed` 및 `ready_for_in_game_validation`이며, user-facing deployed 검증은 별도 round로 남는다.
-
-## 2026-04-22 — Iris DVF 3-3 Phase D/E staged rollout override round는 ready_for_in_game_validation 상태로 닫는다
-- 결정: `Iris DVF 3-3 compose authority migration — Phase D / E-0 / E staged rollout override round`는 staged/static closeout으로 닫는다. 최종 상태는 `ready_for_in_game_validation`이며, manual in-game validation과 deployed closeout은 선언하지 않는다.
-- 영향: current body_plan migration 후속 검증은 staged/static lane에서 닫혔다. 다음 단계는 별도 manual in-game validation QA round이며, 그 pass 전에는 `deployed closeout`, `runtime rollout closeout`, `ready_for_release`로 읽지 않는다.
-
-## 2026-04-22 — Phase D/E staged rollout override walkthrough를 traceability read point로 둔다
-- 결정: `docs/Iris/iris-dvf-3-3-phase-d-e-staged-rollout-override-round-walkthrough.md`를 이번 staged/static closeout의 traceability read point로 둔다.
-- 영향: 현재 staged/static closeout 해석은 더 명확해지지만, in-game validation pending 상태와 `quality_baseline_v4` 유지 결정은 바뀌지 않는다.
-
-## 2026-04-23 — Iris DVF 3-3 CDPCR-AS는 Branch B로 닫고 seal 실행은 보류한다
-- 기준일: 2026-04-22
-- 결정: `Iris DVF 3-3 Compose Default Path Classification & Authority Seal Round`(`CDPCR-AS`)는 `implementation-drift verification + authority seal round`의 Tier 1 observer lane을 완료했고, classification 결과를 **Branch B: entrypoint implementation drift** 로 닫는다. 이 closeout은 **closed without seal** 이며 Tier 2 authority seal patch는 이번 round에서 실행하지 않는다.
-- 영향: 11-53/11-55/11-56은 자동 재오픈하지 않는다. current runtime/staged artifact state는 `ready_for_in_game_validation`까지 유지되며 deployed closeout은 여전히 선언하지 않는다. CDPCR-AS 산출물 authority는 `Iris/build/description/v2/staging/compose_default_path_classification_round/diagnostic/` 아래 diagnostic lane에 한정된다.
-
-## 2026-04-23 — Iris DVF 3-3 EDPAS는 default compose entrypoint authority seal을 실행 완료한다
-- 결정: `Iris DVF 3-3 Entrypoint Drift Patch & Authority Seal Round`(`EDPAS`)는 `closed_with_authority_seal_executed`로 닫는다. Direct default compose entrypoint는 이제 `compose_profiles_v2.json + body_plan` authority를 기본값으로 집행한다.
-- 영향: current runtime artifact state는 계속 `ready_for_in_game_validation`이다. EDPAS는 deployed closeout, ready_for_release, manual in-game validation을 선언하지 않는다. Legacy mapping cleanup은 별도 cleanup round가 명시적으로 열릴 때만 검토한다.
-
-## 2026-04-24 — Iris DVF 3-3 Phase D observer signal preservation patch round는 additive observer lane으로 닫는다
-- 결정: `Iris DVF 3-3 Phase D Observer Signal Preservation Patch Round`는 `closed_with_observer_patch_applied`로 닫는다. 이번 round는 `2026-04-22` staged/static closeout을 재개방하지 않고, 그 위에 additive observer artifact lane만 추가한다.
-- 영향: current runtime/staged state는 계속 `ready_for_in_game_validation`이다. 이번 round는 quality/publish/runtime writer authority를 바꾸지 않고, 후속 observer/decision round가 읽을 source distribution, section distribution, crosswalk, validation report, diagnostic packet만 추가한다.
-
-## 2026-04-24 — Iris DVF 3-3 Structural Reclassification Canonical Code-Path Convergence Round는 default observer authority를 dual-axis canonical path로 수렴시킨다
-- 결정: `Iris DVF 3-3 Structural Reclassification Canonical Code-Path Convergence Round`는 `closed_with_canonical_code_path_convergence_applied`로 닫는다.
-- 영향: old structural single-slot observer view는 더 이상 current authority가 아니다. writer/runtime authority는 reopen하지 않으며, additive lane closeout legitimacy도 유지된다. current runtime/staged state는 계속 `ready_for_in_game_validation`이다.
-
-## 2026-04-25 — Iris DVF 3-3 Adapter / Native Body Plan Readiness Round를 readiness-only inventory round로 연다
-- 기준일: 2026-04-24
-- 결정: `Iris DVF 3-3 Adapter / Native Body Plan Readiness Round`를 readiness-only, observer-only round로 연다. 내부 코드명은 `persisted_old_profile_and_legacy_fallback_inventory_readiness`다.
-- 영향: current runtime/staged state는 계속 `ready_for_in_game_validation`이다. 이번 opening은 legacy count reduction, native metadata rewrite, resolver fallback cleanup, deployed closeout, manual in-game validation을 선언하지 않는다.
-
-## 2026-04-25 — Iris DVF 3-3 Adapter / Native Body Plan Readiness Round를 readiness closeout으로 닫는다
-- 결정: `Iris DVF 3-3 Adapter / Native Body Plan Readiness Round`는 `closed_with_persisted_old_profile_and_legacy_fallback_inventory_ready`로 닫는다.
-- 영향: 이 closeout은 readiness closeout이다. Adapter removal execution, schema extension, resolver compatibility mapping cleanup, manual in-game validation QA, deployed closeout은 자동으로 열리지 않으며 각자 별도 opening decision이 필요하다. 이번 closeout은 legacy count reduction, adapter removal 완료, runtime QA pass, `ready_for_release`를 선언하지 않는다.
-
-## 2026-04-25 — Adapter / Native Body Plan Readiness Round walkthrough를 traceability read point로 둔다
-- 결정: `docs/Iris/iris-dvf-3-3-adapter-native-body-plan-readiness-round-walkthrough.md`를 이번 readiness closeout의 traceability read point로 둔다.
-- 영향: 이 walkthrough는 adapter removal, legacy count reduction, resolver cleanup, runtime QA pass, deployed closeout을 추가로 선언하지 않는다. 후속 execution round는 여전히 별도 opening decision과 별도 execution tooling이 필요하다.
-
-## 2026-04-25 — Adapter / Native Body Plan Metadata Migration Round closes active metadata migration only
-- 상태: 채택 / 완료
-- 결정: `Adapter / Native Body Plan Metadata Migration Round`는 active rendered-preview execution queue `2084` row의 persisted legacy `compose_profile` labels를 native `body_plan` metadata로 이전하고 `closed_with_active_metadata_migration_only`로 닫는다.
-- 영향: Resolver Compatibility Mapping Cleanup Round, Silent Metadata Intake / Cleanup Round, Manual In-Game Validation QA Round는 자동으로 열리지 않는다. 각각 별도 opening decision이 필요하다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-04-25 — Adapter / Native Body Plan Metadata Migration Round walkthrough를 traceability read point로 둔다
-- 결정: `docs/Iris/Done/Walkthrough/iris-dvf-3-3-adapter-native-body-plan-metadata-migration-round-walkthrough.md`를 이번 active metadata migration closeout의 traceability read point로 둔다.
-- 영향: 이 walkthrough는 adapter removal, resolver cleanup, runtime Lua rebaseline, manual QA pass, silent 21 cleanup, deployed closeout, `ready_for_release`를 추가로 선언하지 않는다.
-
-## 2026-04-26 — DVF 3-3 runtime_state vocabulary remapped to adopted/unadopted
-- 결정: DVF 3-3 current `runtime_state` vocabulary를 `active/silent`에서 `adopted/unadopted`로 remap한다.
-- 영향: count, quality_state semantics, publish_state semantics, runtime behavior, UI exposure policy, identity_fallback treatment, staged Lua payload는 변경하지 않는다.
-
-## 2026-04-29 — Layer4 Absorption Policy Round를 decision namespace round로 연다
-- 결정: `Iris DVF 3-3 Layer4 Absorption Policy Round`를 observer-only / decision namespace round로 연다.
-- 영향: Round A는 이 round의 observer-only detection output만 Case 3 판정 입력으로 읽는다.
-
-## 2026-04-29 — FUNCTION_NARROW Disposition Closure Round를 publish writer authority seal round로 연다
-- 결정: `FUNCTION_NARROW Disposition Closure and Publish Writer Authority Seal Round`를 열고 publish writer authority를 `semantic quality strength`가 아니라 `layer/position correctness`로 봉인한다.
-- 영향: 이번 round는 `FUNCTION_NARROW` 2차 rollout이 아니며, staged/workspace Lua, rendered text, bridge artifact, runtime state를 변경하지 않는다.
-
-## 2026-04-29 — Layer4 Absorption Policy Round closes with zero-count production-safe labeling
-- 상태: 채택 / 완료
-- 결정: `Iris DVF 3-3 Layer4 Absorption Policy Round`는 `closed_with_policy_sealed_zero_count_production_safe`로 닫는다.
-- 영향: Layer4 hard-block policy는 봉인됐지만 current build에는 적용 대상이 없다. Deployed closeout, runtime QA pass, `ready_for_release`는 선언하지 않는다.
-
-## 2026-04-29 — FUNCTION_NARROW Disposition Closure Round closes as delta 0
-- 상태: 채택 / 완료
-- 결정: `FUNCTION_NARROW Disposition Closure and Publish Writer Authority Seal Round`는 `closed_with_publish_writer_authority_sealed_delta_0`으로 닫는다.
-- 영향: residual `FUNCTION_NARROW 7`은 preview/report structural flag로만 남고 publish disposition delta는 0으로 닫힌다. 이번 closeout은 `FUNCTION_NARROW` 2차 rollout, source expansion, runtime-side compose/rewrite, deployed closeout, `quality_baseline_v4 -> v5` cutover를 선언하지 않는다.
-
-## 2026-05-08 — Iris refactor roadmap v2.0 closes as implemented code, not policy-only closeout
-- 상태: 채택 / 완료
-- 결정: `iris_refactor_roadmap_v2.0`은 코드 구현 기준으로 완료 상태로 읽는다.
-- 영향: 후속 Iris 변경은 현재 protected-call boundary, Lua chunk data contract, Iris namespace authority를 기준으로 작성한다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-08 — Iris item-selection regression fix is accepted as targeted smoke pass, not full release QA
-- 상태: 채택 / 완료
-- 결정: Iris 메뉴에서 item selection마다 error count가 누적되던 regression은 targeted smoke 기준 fixed로 읽는다.
-- 영향: Iris runtime Lua 파일은 BOM-free를 유지해야 한다. PZ Kahlua compiler compatibility는 formatting preference가 아니라 runtime correctness 조건으로 취급한다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-08 — Iris final refactoring roadmap v1.4 closes at implementation/test/console-validation level
-- 상태: 채택 / 완료
-- 결정: `docs/Iris/iris-refactoring-final-roadmap-v1.md`는 Planning 문서가 아니라 구현 완료 및 closeout-recorded 문서로 읽는다.
-- 영향: 후속 Iris 작업은 완료된 runtime/build boundary 위에서 열어야 하며, packaging/release는 별도 checklist와 산출물 검증으로 다룬다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-12 — Iris refactoring roadmap v4.1 closes with workspace-copy runtime validation
-- 상태: 채택 / 완료
-- 결정: `C:/Users/MW/Downloads/1.txt`의 `최종 리팩토링 로드맵 v4.1`은 implementation, static validation, and in-game console validation 기준으로 완료 상태로 읽는다.
-- 영향: 후속 Iris runtime 작업은 chunk manifest를 Layer 3 deployable data entrypoint로 취급한다. Monolith restoration, monolith/chunk 동시 배포, or renderer monolith fallback 재도입은 별도 decision 없이 열지 않는다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-15 — Frozen 2105 Baseline Reconstruction Round closes blocked for complete removal
-- 상태: 채택 / blocked closeout
-- 결정: `Iris DVF 3-3 Frozen 2105 Baseline Reconstruction Round`를 frozen-baseline prerequisite round로 열고, cleanup kind별 결론을 hybrid로 봉인한다.
-- 영향: Diagnostic-only isolation의 frozen-baseline prerequisite는 별도 byte reconstruction 없이 진행 가능하다고 읽을 수 있지만, cleanup 자체는 selected-role bridge impact seal이 닫히기 전까지 열리지 않는다. Complete removal은 missing byte-level baseline 복원 또는 별도 reconstruction/recovery round 전까지 blocked 상태다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-15 — Selected Role Bridge Impact Seal Round is required before diagnostic-only resolver cleanup
-- 상태: 채택 / gate 정의
-- 결정: `Selected Role Bridge Impact Seal Round`를 Resolver Compatibility Mapping Cleanup opening 전 필수 gate로 둔다.
-- 영향: Diagnostic-only Resolver Compatibility Mapping Cleanup은 이 gate가 닫히기 전까지 opening blocked 상태다. Complete removal cleanup은 이 gate와 별개로 frozen 2105 byte-level baseline 문제 때문에 blocked 상태를 유지한다.
-
-## 2026-05-16 — Selected Role Bridge Impact Seal Round closes inconclusive
-- 상태: 채택 / inconclusive closeout
-- 결정: `Iris DVF 3-3 Selected Role Bridge Impact Seal Round`를 실행했지만, selected-role bridge impact gate는 봉인하지 못한 상태로 닫는다.
-- 영향: Diagnostic-only Resolver Compatibility Mapping Cleanup은 계속 selected-role bridge impact seal 전까지 opening blocked 상태다. 후속으로는 valid post-migration 2105/2084 authority baseline을 복원하거나 재생성한 뒤 selected-role seal round를 다시 실행해야 한다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-16 — 2105 regeneration fallback attempt does not seal selected-role bridge impact
-- 상태: 채택 / fallback attempt blocked
-- 결정: "restore unavailable, regenerate fallback" path를 `Selected Role Bridge Impact Seal Round`의 격리된 Phase 6 attempt로 실행했지만, selected-role bridge impact gate는 여전히 봉인하지 않는다.
-- 영향: "2번 재생성 fallback"은 현재 checkout 내부 재료만으로는 cleanup-opening authority를 만들지 못한다. 다음 유효 경로는 missing artifact tree restore, or a separate authoritative reconstruction round that recovers row identity and post-migration metadata state rather than shape-only counts.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-16 — Selected Role Bridge Impact Seal Round closes with AI-trace non-zero finding
-- 상태: 채택 / superseding non-zero closeout
-- 결정: 사용자의 clarification에 따라 이전 작업을 human judgment가 아니라 AI-generated trace로 보고, 내부 AI trace chain을 재구성한 뒤 `Selected Role Bridge Impact Seal Round`를 `sealed_with_non_zero_finding` branch로 닫는다.
-- 영향: selected-role bridge impact는 unknown이 아니라 non-zero로 닫혔다. Diagnostic-only cleanup은 자동으로 열리지 않으며, 계속 진행하려면 이 non-zero evidence를 전제로 별도 resolver fencing/disposition round가 필요하다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-16 — Resolver cleanup closes Branch C on selected-role default dependency
-- 상태: 채택 / blocked closeout
-- 결정: selected-role non-zero evidence를 입력으로 `Resolver Compatibility Mapping Cleanup`의 safe fencing 가능성을 평가했고, full cleanup은 Branch C `closed_with_cleanup_blocked_by_hidden_default_dependency`로 닫는다.
-- 영향: 현재 cleanup 목표는 이 세션에서 성공 branch로 진행할 수 없다. 다음 선택지는 behavior-changing resolver redesign, selected-role pass blocker를 제거한 legacy-fallback-only guard round, 또는 cleanup blocked 유지다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-17 — Resolver cleanup framing is split by cleanup kind
-- 상태: 채택 / problem framing supersession
-- 결정: `Resolver Compatibility Mapping Cleanup` 문제를 `diagnostic_only_isolation` 범위와 `complete_removal` 범위로 분리해서 읽는다.
-- 영향: 2026-05-16의 AI-trace `264 / 642` 값은 selected-role이 native default authority임을 보여주는 evidence로 유지한다. 그러나 이 값은 원래 historical `288 / 894 / 039027...` frozen baseline을 대체하는 authority로 자동 승격되지 않는다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-17 — Selected role is adopted as native resolver design element
-- 상태: 채택 / debt redefinition
-- 결정: `selected_role`, `selected_role_precedence`, `selected_role_target`을 removal target이 아니라 Iris DVF 3-3 native resolver authority / trace로 채택한다.
-- 영향: current path는 historical frozen 2105 byte-level reconstruction이나 AI-trace authority supersession을 요구하지 않는다. Resolver debt의 본질은 selected-role removal이 아니라 legacy compatibility mapping default guard로 축소된다.
-
-## 2026-05-17 — Diagnostic-only Resolver Compatibility Guard Round closes
-- 상태: 채택 / diagnostic guard closeout
-- 결정: `Iris DVF 3-3 Diagnostic-only Resolver Compatibility Guard Round`를 `closed_with_diagnostic_only_resolver_guard`로 닫는다.
-- 영향: current diagnostic-only resolver guard debt는 default legacy fallback authority 방지 기준에서 닫혔다. Complete-removal / frozen 2105 byte-level recovery는 별도 미래 deletion/removal 목표가 명시적으로 열릴 때만 다시 검토한다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-17 — Residual resolver compatibility debt is adapter / diagnostic disposition, not active correctness debt
-- 상태: 채택 / residual debt redefinition
-- 결정: `Resolver Compatibility / Selected Role Bridge Cleanup Debt`의 active resolver correctness debt는 `Diagnostic-only Resolver Compatibility Guard Round` closeout으로 닫힌 것으로 읽는다. 남은 문제는 resolver correctness 문제가 아니라 `Residual Resolver Compatibility / Adapter Disposition Debt`로 분리한다.
-- 영향: current active resolver issue는 닫힌 상태로 유지한다. 남은 것은 managed diagnostic compatibility surface와 adapter surface의 장기 처분 문제이며, 이를 active correctness debt로 되돌리지 않는다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-18 — Adapter / Diagnostic Compatibility Final Disposition Round closes Option C
-- 상태: 채택 / final disposition closeout
-- 결정: `Adapter / Diagnostic Compatibility Final Disposition Round`를 `closed_with_adapter_removed_mapping_permanently_diagnostic_only`로 닫는다.
-- 영향: residual adapter / diagnostic compatibility disposition debt는 current active resolver correctness debt로 되돌리지 않는다. Mapping preservation은 unfinished cleanup이 아니라 permanent diagnostic-only fixture disposition이다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-18 — Silent 21 metadata cleanup requires replacement authority reconstruction before rewrite
-- 상태: 채택 / prerequisite redefinition
-- 결정: `Silent 21 Metadata Cleanup Debt` 자체는 재정의하지 않는다. 이 debt는 active 2084 migration 이후 남은 `persisted_old_profile_count = 21`을 silent/unadopted row 전용 deferred inventory로 처분하는 문제로 유지한다.
-- 영향: silent 21 cleanup은 잔여 봉인으로 남기는 방향이 아니라, replacement authority reconstruction PASS 후 cleanup round에서 완전히 닫을 수 있는 별도 metadata debt로 유지한다. 다만 original sealed artifact 부재는 historical provenance gap으로 보존한다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-18 — Silent 21 Replacement Authority Reconstruction Round closes with adopted replacement authority
-- 상태: 채택 / replacement authority reconstruction closeout
-- 결정: `Silent 21 Replacement Authority Reconstruction Round`를 `closed_with_replacement_authority_adopted`로 닫는다.
-- 영향: silent metadata cleanup rewrite는 이제 historical sealed authority 부재만으로 막히지 않는다. 다만 rewrite round는 adopted replacement authority를 cleanup input으로 명시적으로 소비하고, active 2084 / row_count 2105 / rendered output / staged-workspace Lua / runtime_state / quality_state / publish_state unchanged를 별도 검증해야 한다. 이 decision은 top-level authority state 갱신이며 cleanup rewrite closeout은 아니다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-18 — Silent Metadata Intake / Cleanup Round closes via Branch B
-- 상태: 채택 / metadata cleanup closeout
-- 결정: `Silent Metadata Intake / Cleanup Round`를 Branch B로 닫는다.
-- 영향: Silent 21 legacy `compose_profile` residue는 cleanup metadata scope에서 disposed로 읽는다. 이 closeout은 source metadata cleanup의 증거 한계 안에서만 complete이며, runtime deployment나 release readiness를 선언하지 않는다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-19 — Runtime Payload Enum Rename Scope Round closes as Branch B/B1
-- 상태: 채택 / payload enum rename closeout
-- 결정: DVF 3-3 current runtime payload enum vocabulary는 `adopted / unadopted`가 canonical이다. Legacy `active / silent`는 diagnostic / import / historical read-only alias로만 허용한다.
-- 영향: Earlier docs-only vocabulary remap is now implemented in current writer/runtime payload surfaces. The hard gate is pass for row count, enum counts, legacy source-token zero, rendered text invariance, Python tests, and Lua syntax.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-20 — Static Report Label Cleanup Round opens with Section 0 adopted
-- 상태: 채택 / static report label cleanup opening decision
-- 결정: `docs/Iris/iris-dvf-3-3-static-report-label-cleanup-round-plan.md` Section 0을 이번 `Iris DVF 3-3 Static Report Label Cleanup Round`의 opening decision으로 채택한다.
-- absorption: validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-20 — Static Report Label Cleanup Round closes with no current operator residue found
-- 상태: 채택 / static report label cleanup closeout
-- 결정: `Iris DVF 3-3 Static Report Label Cleanup Round`는 `closed_with_no_current_operator_residue_found`로 닫는다.
-- 결과:
-  - Phase 1/2 inventory and scope lock found no Surface C occurrence requiring rewrite disposition.
-- 영향: current generated report/operator-facing static surface에서 rewrite-disposition legacy runtime-state label residue는 발견되지 않았고, allowed historical/diagnostic/import alias residue는 preserve surface로 분리한다.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-20 — Generated report / operator label cleanup requires preflight scope lock before mutation
-- 상태: 채택 / problem redefinition
-- 재정의 trace:
-  - canonical readpoint는 `adopted / unadopted`로 바뀌었지만, generated report/operator artifact의 `active / silent` 표기가 current label처럼 보일 수 있다는 의심은 곧바로 치환 scope가 아니다.
-
-## 2026-05-20 — Static Report Label Cleanup no-residue closeout is insufficient for the original cleanup intent
-- 상태: 정정 / supersession
-- 결정: `closed_with_no_current_operator_residue_found`는 current checkout에 남아 있고 Surface C로 정의된 artifact 안에서 rewrite target이 없었다는 preflight 결과로만 읽는다. 이것은 원래 의도였던 "실제 남아 있던 generated report / operator label의 `active / silent` current-label 표기를 `adopted / unadopted` 중심으로 치환"했다는 closeout이 아니다.
-- 현재 닫힌 것 trace:
-  - current checkout 기준 lexical inventory.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-20 — Static Report Label Cleanup Referent Recovery Round closes as Branch A
-- 상태: 채택 / referent recovery closeout
-- 결정: `Iris DVF 3-3 Static Report Label Cleanup Referent Recovery Round`를 `closed_with_referent_confirmed_no_current_label_residue`로 닫는다.
-- 결과:
-  - 이전 `Static Report Label Cleanup Round`가 Surface C로 양성 분류했던 referent set을 회수했다.
-- 영향: 이전 정정에서 열린 referent recovery 요구는 현재 회수된 referent set 범위에서 닫혔다. 기존 concern은 실제 치환 대상이 아니라 diagnostic-only referent set의 no-current-label-residue로 정리하며, 새 generated/operator artifact residue 의심이 생기면 다시 preflight/scope-lock부터 연다.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-20 — Static Report Label Cleanup Referent Recovery Branch A closeout is reopened
-- 상태: 정정 / reopening
-- 결정: `closed_with_referent_confirmed_no_current_label_residue` closeout은 current 해결 readpoint로 사용하지 않는다. 이 closeout은 prior Surface C referent set 3개에 대한 좁은 사실만 증명했으며, approved plan이 요구한 original generated report / operator artifact referent recovery 또는 absence proof를 완성하지 못했다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-20 — Static Report Label Cleanup Referent Recovery closes as Branch D blocked
-- 상태: 채택 / blocked closeout
-- 결정: `Iris DVF 3-3 Static Report Label Cleanup Referent Recovery Round`를 `blocked_missing_original_operator_artifact_referent`로 닫는다.
-- 결과:
-  - four-lane discovery executed = `true`.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-21 — Legacy active/silent current-surface guard is split as follow-up hardening
-- 상태: 채택 / problem redefinition
-- 재정의 trace:
-  - 원래 generated report / operator artifact referent는 current checkout, staging/archive/backup, VCS trace, generation recipe scan에서 positive referent rule로 확정되지 않았다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-21 — Legacy Active/Silent Current-Surface Guard Round closes as GUARD-A
-- 상태: 채택 / guard hardening closeout
-- 결정: `Iris DVF 3-3 Legacy Active/Silent Current-Surface Guard Round`를 `closed_with_no_current_surface_residue_found_and_guarded`로 닫는다.
-- 결과:
-  - current-surface guard referent manifest를 새로 정의했다.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-23 — Iris DVF 3-3 Current Runtime Baseline Seal Round closes as finding-aware seal
-- 상태: 채택 / current-runtime baseline seal closeout
-- 결정: `Iris DVF 3-3 Current Runtime Baseline Seal Round`를 `sealed_with_inventory_findings`로 닫고, MIGV-QA Phase 1 identity pre-gate의 current runtime referent를 이번 round의 sealed evidence path/hash로 둔다.
-- 결과:
-  - manifest refs `11`, filesystem chunks `11`, monolith `absent`.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-24 — Iris DVF 3-3 Manual In-Game Validation QA Round closes under revised all-item Browser contract
-- 상태: 채택 / manual in-game validation closeout
-- 결정: `Iris DVF 3-3 Manual In-Game Validation QA Round`를 `closed_with_manual_in_game_validation_complete_revised_contract`로 닫는다.
-- 결과:
-  - project default playtest baseline을 practical in-game validation environment로 수용한다.
-- 영향: staged rollout과 in-game validation closeout은 분리된 상태로 정리됐다. Current deployed in-game validation scope는 이번 revised contract로 닫혔고, public release/readiness 계열은 별도 future scope로만 연다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-25 — Semantic UI Exposure / quality_exposed는 no-exposure disposition으로 닫는다
-- 상태: 채택 / UX-consumer contract disposition closeout
-- 결정:
-  - `quality_exposed`는 활성화하지 않고 reserved inactive로 유지한다.
-- 영향:
-  - `semantic_quality_ui_exposure_agenda.md`는 historical/future-question agenda로만 보존하고 current execution opening input으로 읽지 않는다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-26 - Iris DVF 3-3 Historical Runtime Vocabulary Readpoint Anchor Round closes
-- 상태: 채택 / historical runtime vocabulary readpoint anchor closeout
-- 결정: `Iris DVF 3-3 Historical Runtime Vocabulary Readpoint Anchor Round`를 `closed_with_historical_runtime_vocabulary_readpoint_anchor`로 닫는다.
-- 결과:
-  - occurrence_count `3968`, authority_relevant `3194`, bare_token_secondary_audit `774`.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-27 — Historical / Axis-External Active readpoint ambiguity is absorbed by the 2026-05-26 anchor
-- 상태: 채택 / problem mapping absorption
-- 결정:
-  - 이 문제는 2026-05-26 `closed_with_historical_runtime_vocabulary_readpoint_anchor` closeout에 흡수된 것으로 읽는다.
-- 재정의 trace:
-  - 3번 리팩토링 이후 current runtime vocabulary는 `adopted/unadopted`다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-27 — Default compose current authority input is data-root guarded
-- 상태: 채택 / current authority source-path guard
-- 결정:
-  - `compose_layer3_text.py` default mode는 current authority input인 `facts_path`, `decisions_path`, `profiles_path`, `identity_rules_path`, `precedence_rules_path`를 `Iris/build/description/v2/data/` 아래에서만 읽는다.
-- absorption: COMMON-EVIDENCE-TRACE; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-27 — Iris DVF 3-3 Structural Signal Current Referent Inventory and Anchor Recovery Round blocks on missing anchor
-- 상태: 채택 / current referent inventory and anchor recovery blocked closeout
-- 결정: `Iris DVF 3-3 Structural Signal Current Referent Inventory and Anchor Recovery Round`를 `blocked_missing_anchor`로 닫는다.
-- 결과:
-  - `anchor_disposition = blocked_missing_anchor`
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-28 — Iris DVF 3-3 Structural Signal Missing Anchor Authority Resolution Round adopts a reconstructed observer authority
-- 상태: 채택 / structural observer authority reconstruction closeout
-- 결정: `Iris DVF 3-3 Structural Signal Missing Anchor Authority Resolution Round`를 Branch B `closed_with_authoritative_reconstruction_adopted`로 닫는다.
-- 의미 trace:
-  - 문제 재정의: 이 이슈는 더 이상 단순 inventory 문제가 아니라, current structural reclassification readpoint authority가 물리적으로 없는 상태를 닫는 authority-resolution 문제로 읽는다.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-29 — Iris DVF 3-3 Structural Signal Scope Split Seal Round closes as observer-only scope separation
-- 상태: 채택 / structural signal observer scope split closeout
-- 결정: `Iris DVF 3-3 Structural Signal Scope Split Seal Round`를 `closed_with_structural_signal_scope_split_sealed_observer_only`로 닫는다.
-- 결과:
-  - closeout branch: `closed_with_structural_signal_scope_split_sealed_observer_only`
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-29 — Iris DVF 3-3 Structural Signal Authority Classification Round closes current occurrence authority classification
-- 상태: 채택 / structural signal occurrence authority classification closeout
-- 결정: `Iris DVF 3-3 Structural Signal Authority Classification Round`를 `closed_with_structural_signal_authority_classification_sealed`로 닫는다.
-- 결과:
-  - closeout branch: `closed_with_structural_signal_authority_classification_sealed`
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-29 — Iris DVF 3-3 Structural Signal Current Readpoint Seal Round closes as docs-only readpoint absorption
-- 상태: 채택 / structural signal current readpoint doc absorption closeout
-- 결정: `Iris DVF 3-3 Structural Signal Current Readpoint Seal Round`를 `closed_with_structural_signal_current_readpoint_doc_absorption_only`로 닫는다.
-- 결과:
-  - closeout branch: `closed_with_structural_signal_current_readpoint_doc_absorption_only`
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-29 — Iris DVF 3-3 ACQ_DOMINANT Current Baseline Remeasurement is deferred measurement debt
-- 상태: 채택 / ACQ_DOMINANT residual measurement problem mapping
-- 결정: `ACQ_DOMINANT Current Baseline Remeasurement`는 structural signal current readpoint seal과 분리된 deferred measurement debt로 읽는다.
-- 의미 trace:
-  - `ACQ_DOMINANT`는 current readpoint 기준 publish writer input, runtime input, quality input, default compose input, source-row writer input, blanket isolation candidate가 아니다.
-- 후속 trace: 이 항목은 2026-05-30 no-candidate closeout의 predecessor mapping으로 보존한다.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-30 — Iris DVF 3-3 ACQ_DOMINANT Current Baseline Remeasurement Round closes with no publish candidates
-- 상태: 채택 / ACQ_DOMINANT current-baseline measurement closeout
-- 결정: `Iris DVF 3-3 ACQ_DOMINANT Current Baseline Remeasurement Round`를 `closed_with_acq_dominant_current_baseline_sealed_no_publish_candidate`로 닫는다.
-- 결과:
-  - occurrence_count `1283`
-  - authority class counts: `diagnostic 936`, `historical 236`, `observer_only 94`, `test 17`
-  - `writer_input_count = 0`, `forbidden_writer_reach_count = 0`, `publish_candidate_count = 0`
-- 영향: `ACQ_DOMINANT` current-baseline remeasurement debt는 measured no-candidate branch로 닫혔다. 후속 publish review는 이번 측정 결과 기준으로 열지 않는다.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-31 — Iris DVF 3-3 Layer4 Boundary Current Corpus Lock Round closes as current corpus lock
-- 상태: 채택 / Layer4 boundary current corpus lock closeout
-- 결정: `Iris DVF 3-3 Layer4 Boundary Current Corpus Lock Round`를 `closed_with_layer4_boundary_current_corpus_locked_no_count_inheritance_design_preflight`로 닫는다.
-- 결과:
-  - `included_corpus_count = 4`
-  - `inventory_count = 21914`, `classified_count = 21914`, `excluded_surface_count = 460`
-  - `unknown_count = 0`, `unclassified_count = 0`, `excluded_unknown_count = 0`, `writer_input_class_count = 0`
-  - manifest sha256 `d394f95f5f2a157679238e005a90929349eb807a8180824d8f0ed30240290402`
-  - `preflight_guard_state = not_implemented`, `machine_enforcement_claimed = false`
-- 영향: `LAYER4_ABSORPTION_CONFIRMED` 후속 측정용 current artifact universe / current measurement corpus / excluded surface classes / no-inheritance rule은 잠긴 상태로 읽는다. 2026-04-29 Layer4 zero-count는 historical predecessor readpoint일 뿐 current count로 직접 승계하지 않는다.
-- 비주장: `LAYER4_ABSORPTION_CONFIRMED` current count 산출, Layer4 absorption resolved, Layer4 policy redesign, machine-enforced preflight, structural signal disposition completion, `FUNCTION_NARROW` second rollout, `ACQ_DOMINANT` publish review, publish mutation review, source/rendered/runtime/state mutation, runtime rollout, deployment/release readiness 아님.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-05-31 — Iris DVF 3-3 Layer4 Confirmed Detector Field Map Seal Round closes as trace-absent measurement unavailable
-- 상태: 채택 / detector field-map seal closeout
-- 결정: `Iris DVF 3-3 Layer4 Confirmed Detector Field Map Seal Round`를 `closed_with_confirmed_measurement_unavailable_trace_absent`로 닫는다.
-- 결과:
-  - detector closeout branch: `TRACE_EDGE_ABSENT_MEASUREMENT_UNAVAILABLE`
-  - contract closeout state: `complete`
-  - included corpus count `4`
-  - candidate field path count `188`
-  - explicit trace-edge field path count `0`
-  - ambiguous field path count `0`
-  - downstream count disposition: `not_applicable_under_current_corpus`
-- 영향: current locked corpus에는 target row/item 및 body-slot hint field는 있으나, sealed `LAYER4_ABSORPTION_CONFIRMED` 정의가 요구하는 Layer4 source object -> Layer3 body slot explicit trace-edge field가 없다. 따라서 confirmed measurement는 current corpus 기준 unavailable로 봉인되며, downstream count disposition은 `not_applicable_under_current_corpus`로 기록한다.
-- 비주장: `LAYER4_ABSORPTION_CONFIRMED` current count 산출, live-corpus occurrence count 산출, zero-occurrence closeout, Layer4 absorption resolved, Layer4 policy redesign, SUSPECT tier coverage, source/rendered/runtime/state mutation, publish mutation review, runtime rollout, deployment/release readiness 아님.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-06-01 — Iris DVF 3-3 Layer4 Trace-Edge Authority Admission Round closes as produced and admitted
-- 상태: 채택 / trace-edge authority admission closeout
-- 결정: `Iris DVF 3-3 Layer4 Trace-Edge Authority Admission Round`를 `EDGE_AUTHORITY_PRODUCED_AND_ADMITTED`로 닫는다.
-- 결과:
-  - contract closeout state: `complete`
-  - recovery explicit trace-edge candidate count `0`
-  - generated edge artifact rows `24`
-  - branch decision: `NOT_RECOVERABLE_PRODUCTION_APPROVED`
-  - produced artifact: `Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edges.v1.jsonl`
-  - admission partition: `current_detector_input`
-  - detector readiness dry-run result: `pass`
-  - `confirmed_measurement_executed = false`
-  - `confirmed_count = not_computed`
-  - hard gates: `all_gates_pass = true`
-- 영향: 2026-05-31 `TRACE_EDGE_ABSENT_MEASUREMENT_UNAVAILABLE` field-map readpoint 위에 additive successor authority가 생겼다. `LAYER4_ABSORPTION_CONFIRMED` 후속 count measurement는 이제 admitted trace-edge authority artifact와 dry-run pass를 전제 조건으로 별도 라운드에서 열 수 있다.
-- 비주장: `LAYER4_ABSORPTION_CONFIRMED` current count 산출, live-corpus occurrence count 산출, confirmed count `0` 선언, zero-occurrence closeout, Layer4 absorption resolved, Layer4 policy redesign, SUSPECT tier coverage, source facts/source decisions/rendered text/runtime Lua/packaged Lua/quality_state/publish_state/runtime_state mutation, publish mutation review, runtime rollout, manual in-game validation pass, deployment, Workshop/B42/release readiness 아님.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-06-02 — Iris DVF 3-3 Layer4 Confirmed Detector Field Map Reseal Round closes as field-map sealed
-- 상태: 채택 / detector field-map reseal closeout
-- 결정: `Iris DVF 3-3 Layer4 Confirmed Detector Field Map Reseal Round`를 `closed_with_layer4_confirmed_detector_field_map_resealed`로 닫는다.
-- 결과:
-  - contract closeout state: `complete`
-  - input artifact: `Iris/build/description/v2/staging/compose_contract_migration/layer4_trace_edge_authority_admission_round/layer4_trace_edges.v1.jsonl`
-  - input artifact sha256 `44a863a288bb1debf570a1d1b63a35f31a29661f09e3175003939d364496c1ca`
-  - admitted edge row count `24` as artifact shape metric only
-  - field_map_version `field_map.v1`
-  - sealed detector field roles: `source_ref / row_id / destination_slot / edge_type`
-  - `confirmed_measurement_executed = false`
-  - `confirmed_count = not_computed`
-- 영향: admitted trace-edge authority artifact 위에 future `LAYER4_ABSORPTION_CONFIRMED` count measurement가 읽을 detector field-map readpoint가 additive successor로 봉인됐다. 2026-05-31 Branch B field-map predecessor는 historical current-corpus limit으로 보존하며 rewrite하지 않는다.
-- 비주장: `LAYER4_ABSORPTION_CONFIRMED` current count 산출, live-corpus occurrence count 산출, confirmed count `0` 또는 `24` 선언, zero-occurrence closeout, Layer4 absorption resolved, Layer4 policy redesign, SUSPECT tier coverage, source facts/source decisions/rendered text/runtime Lua/packaged Lua/quality_state/publish_state/runtime_state mutation, publish mutation review, runtime rollout, manual in-game validation pass, deployment, Workshop/B42/release readiness 아님.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-06-02 — Iris DVF 3-3 Layer4 Confirmed Current Count Remeasurement Round closes as measured positive
-- 상태: 채택 / Layer4 confirmed current count measurement closeout
-- 결정: `Iris DVF 3-3 Layer4 Confirmed Current Count Remeasurement Round`를 `closed_with_layer4_confirmed_current_count_measured_positive`로 닫는다.
-- 결과:
-  - contract closeout state: `complete`
-  - confirmed_measurement_executed `true`
-  - confirmed_count `24` by detector execution
-  - input_edge_row_count `24` as artifact shape metric only
-  - confirmed_count_basis `detector_execution`
-  - confirmed_count_scope `row-level qualified admitted generated generation-time trace-edge rows`
-  - rejected_fallback / ambiguous / unavailable / malformed / out_of_corpus counts: `0 / 0 / 0 / 0 / 0`
-  - all gates: `all_gates_pass = true`
-- 영향: sealed current corpus lock, admitted trace-edge authority, and sealed detector field map을 소비해 additive `LAYER4_ABSORPTION_CONFIRMED` detector count readpoint를 생산했다. 이는 admitted row count shortcut이 아니라 row-level detector qualification 결과다.
-- 비주장: Layer4 absorption resolved, Layer4 policy redesign, SUSPECT tier coverage, source facts/source decisions/rendered text/runtime Lua/packaged Lua/quality_state/publish_state/runtime_state mutation, publish mutation review, runtime rollout, manual in-game validation pass, deployment, Workshop/B42/release readiness, prior zero-count inheritance, admitted row count shortcut 아님.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION.
-
-## 2026-06-03 — Iris DVF 3-3 Layer4 Confirmed Measurement Canonicalization Boundary Seal Round closes as readpoint-only boundary
-- 상태: 채택 / Layer4 confirmed measurement canonicalization boundary closeout
-- 결정: `Iris DVF 3-3 Layer4 Confirmed Measurement Canonicalization Boundary Seal Round`를 `closed_with_layer4_confirmed_measurement_canonicalized_as_readpoint_only`로 닫는다. `confirmed_count = 24`는 current canonical measurement readpoint only로 읽는다.
-- 결과:
-  - contract closeout state: `complete`
-  - input_confirmed_count `24`
-  - count_source `sealed_detector_execution`
-  - measurement_readpoint `true`
-  - canonical_resolved_state `false`
-  - layer4_absorption_resolved_claim `false`
-  - publish_mutation_review_opened `false`
-  - source facts/source decisions/rendered text/runtime Lua/packaged Lua/bridge runtime payload/quality_state/publish_state/runtime_state mutation flags `false`
-  - public_exposure_claim `false`
-  - release_readiness_claim `false`
-  - suspect_tier_scope `out_of_scope`
-  - validation_ceiling `docs_governance_boundary_only`
-  - hash_proof_scope `supports_non_mutation_claims_only_not_runtime_behavior_validation`
-- 영향: 2026-06-02 detector execution 결과인 `confirmed_count = 24`는 future Layer4 follow-up의 측정 readpoint input으로만 소비할 수 있다. 이 값은 Layer4 absorption resolved, publish mutation review opening, source/rendered/runtime/state mutation trigger, public exposure, runtime rollout, release readiness로 승격되지 않는다. Count basis는 계속 `detector_execution`이며 admitted row count shortcut이나 prior zero-count inheritance로 읽지 않는다.
-- 비주장: Layer4 absorption resolved, Layer4 policy redesign, SUSPECT tier coverage, source facts/source decisions/rendered text/runtime Lua/packaged Lua/bridge runtime payload/quality_state/publish_state/runtime_state mutation, publish mutation review opened, Browser/Wiki/Tooltip public exposure, runtime rollout, manual in-game validation pass, deployment, Workshop readiness, B42 readiness, release readiness, ready_for_release, prior zero-count inheritance, admitted row count shortcut 아님.
-- absorption: COMMON-EVIDENCE-TRACE; validation ceiling absorbed: docs_governance_boundary_only; COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION retained.
-
-## 2026-06-03 — Iris DVF 3-3 Layer4 Boundary Namespace Reseal Round closes as dual-axis namespace seal
-- 상태: 채택 / Layer4 boundary namespace reseal closeout
-- 결정: `Iris DVF 3-3 Layer4 Boundary Namespace Reseal Round`를 `closed_with_layer4_boundary_namespace_resealed_b3_dual_axis`로 닫는다. `LAYER4_ABSORPTION_CONFIRMED`는 `FUNCTION_NARROW / ACQ_DOMINANT` disposition row가 아니라 independent `layer_boundary_hard_block_namespace`로 읽는다.
-- 결과:
-  - contract closeout state: `complete`
-  - selected_branch `B3_dual_axis_explicit_seal`
-  - m2_basis_status `application_target_measurement_unavailable`
-  - M1 confirmed_count `24` remains `measurement_readpoint_only`
-  - M1 count_source `sealed_detector_execution`
-  - M2 current build application target axis is named separately but no current target value or `0` reseal is claimed
-  - relationship to `FUNCTION_NARROW`: `separated`
-  - relationship to `ACQ_DOMINANT`: `separated`
-  - predecessor sealed-artifact hash comparison pass with no mismatches
-  - protected surface aggregate hash delta `0`
-  - public exposure positive hit count `0`
-  - adversarial review verdict `PASS`
-  - validation_ceiling `docs_governance_boundary_only`
-- 영향: 2026-06-03 canonical measurement readpoint 위에 namespace placement와 M1/M2 boundary를 additive successor로 봉인했다. `confirmed_count = 24`는 계속 detector-execution measurement readpoint only이며, M2 application target axis와 값 상속 관계를 갖지 않는다. M2 basis absence는 `application_target_measurement_unavailable`로 fail-loud 기록한다.
-- 비주장: Layer4 absorption resolved, Layer4 policy redesign, semantic quality completion, publish mutation review opened, source facts/source decisions/rendered text/runtime Lua/packaged Lua/bridge runtime payload/quality_state/publish_state/runtime_state mutation, Browser/Wiki/Tooltip public exposure, `FUNCTION_NARROW` second rollout, `ACQ_DOMINANT` publish review, SUSPECT tier defined, runtime rollout, manual in-game validation pass, deployment, Workshop readiness, B42 readiness, release readiness, ready_for_release, admitted row count shortcut, prior zero-count inheritance, M2 current `0` reseal 아님.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION / COMMON-EVIDENCE-TRACE
-
-## 2026-06-03 — Layer4 current build application target count remains a separate follow-up
-- 상태: 채택 / problem mapping after namespace reseal
-- 결정: `Layer4 Boundary Namespace Reseal Round`의 `complete`는 namespace 분리와 M1/M2 boundary를 닫은 것이며, current checkout 기준 M2 build application target count를 재측정하거나 `0`으로 재봉인한 closeout으로 읽지 않는다.
-- 결과:
-  - namespace separation: closed
-  - SUSPECT non-authority boundary: closed
-  - M1 confirmed_count `24`: detector-execution measurement readpoint only
-  - M2 current build application target count: unsealed
-  - next execution scope: `Layer4 Current Build Application Target Remeasurement / Zero Reseal Round`
-- 영향: 후속 작업은 이미 분리된 `LAYER4_ABSORPTION_CONFIRMED` namespace 위에서 current checkout 기준 build 적용 대상이 있는지 관찰한다. 적용 대상이 있으면 current M2 target count로 봉인하고, 없으면 current build application target `0`으로 재봉인한다. 이 후속 작업은 `FUNCTION_NARROW / ACQ_DOMINANT` disposition 재개방이나 SUSPECT tier 정의가 아니다.
-- 비주장: current M2 target count 산출, current M2 target `0` 재봉인, SUSPECT detector/tier 도입, source/rendered/runtime/state mutation, publish mutation review, public exposure, runtime rollout, release readiness 아님.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION / COMMON-EVIDENCE-TRACE
-
-## 2026-06-03 — Iris DVF 3-3 Layer4 Current Build Application Target Remeasurement / Zero Reseal Round closes as current zero reseal
-- 상태: 채택 / M2 current build application target zero-reseal closeout
-- 결정: `Iris DVF 3-3 Layer4 Current Build Application Target Remeasurement / Zero Reseal Round`를 `closed_with_layer4_m2_current_build_application_target_zero_resealed`로 닫는다.
-- 결과:
-  - contract closeout state: `complete`
-  - basis_status `available_by_current_surface_absence_scan`
-  - zero_reseal_basis `no current production/build/runtime path consumes LAYER4_ABSORPTION_CONFIRMED`
-  - system-wide current production build consumer count `0`
-  - m2_current_build_application_target_count `0`
-  - m2_current_zero_reseal_claimed `true`
-  - M1 confirmed_count `24` remains `measurement_readpoint_only`
-  - protected payload non-mutation hash diff `pass`
-  - public exposure positive hit count `0`
-  - adversarial review verdict `PASS`
-- 영향: M2 current build application target axis는 current checkout 기준 production/build/runtime surface scan에서 `LAYER4_ABSORPTION_CONFIRMED` 적용 경로가 없음을 확인하고 current target `0`으로 재봉인됐다. 이는 M1 `24`, admitted edge row count, diagnostic residue count, prior zero-count, SUSPECT를 M2 target count로 상속한 것이 아니다.
-- 비주장: Layer4 absorption resolved, Layer4 policy redesign, semantic quality completion, M1 confirmed_count rewrite/remeasurement, `FUNCTION_NARROW` second rollout, `ACQ_DOMINANT` publish review, SUSPECT tier defined, publish mutation review opened, source facts/source decisions/rendered text/runtime Lua/packaged Lua/bridge runtime payload/quality_state/publish_state/runtime_state mutation, Browser/Wiki/Tooltip public exposure, runtime rollout, manual in-game validation pass, deployment, Workshop readiness, B42 readiness, release readiness, ready_for_release, M2 positive count 아님.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION / COMMON-EVIDENCE-TRACE
-
-## 2026-06-04 — Iris DVF 3-3 Layer4 Absorption Current Surface Guard adopted
-- 상태: 채택 / unauthorized current-surface consumption guard
-- 결정: `LAYER4_ABSORPTION_CONFIRMED` current zero-reseal readpoint를 조용히 깨는 소비 경로를 막기 위해 `UNAUTHORIZED_LAYER4_ABSORPTION_CONFIRMED_CURRENT_SURFACE_CONSUMPTION` guard를 추가한다.
-- 구현:
-  - validator: `Iris/build/description/v2/tools/validate_layer4_absorption_current_surface_guard.py`
-  - unittest: `Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py`
-  - tracked-file allow 예외: `.gitignore`
-- hard-fail surfaces:
-  - `Iris/build/description/v2/data/`
-  - `Iris/build/description/v2/output/`
-  - `Iris/build/description/v2/tools/build/`
-  - `Iris/build/description/v2/tools/style/rules/`
-  - `Iris/build/package/Iris/media/lua/`
-  - `Iris/media/lua/client/Iris/Data/`
-  - `Iris/media/lua/client/Iris/UI/`
-- 허용: docs/governance reference, staging evidence, tests/fixtures, historical `build_dvf_3_3_round_a_round_b_parallel_execution.py` predecessor reference.
-- 검증:
-  - `python -B -m unittest Iris.build.description.v2.tests.test_layer4_absorption_current_surface_guard` exit code `0`, observed `5` tests.
-  - `python -B Iris\build\description\v2\tools\validate_layer4_absorption_current_surface_guard.py --repo-root .` exit code `0`, status `pass`, rejected occurrence count `0`.
-  - `python -B -m py_compile Iris\build\description\v2\tools\validate_layer4_absorption_current_surface_guard.py Iris\build\description\v2\tests\test_layer4_absorption_current_surface_guard.py` exit code `0`.
-- 영향: 승인되지 않은 source/rendered/runtime/package/build current surface 소비를 fail-fast한다. 의도적인 future consumer는 별도 successor/correction readpoint로 열어야 하며, 현 `m2_current_build_application_target_count = 0` 봉인을 조용히 무효화할 수 없다.
-- 비주장: `LAYER4_ABSORPTION_CONFIRMED` 소비의 영구 금지, Layer4 absorption resolved, SUSPECT tier defined, publish mutation review opened, source/rendered/runtime/state mutation, Browser/Wiki/Tooltip public exposure, runtime rollout, release readiness 아님.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION / COMMON-EVIDENCE-TRACE
-
-## 2026-06-05 — Iris DVF 3-3 Acquisition Lexical Current Inventory / Readpoint Audit Round closes as Branch D readpoint
-- 상태: 채택 / acquisition lexical current inventory readpoint closeout
-- 결정: `Iris DVF 3-3 Acquisition Lexical Current Inventory / Readpoint Audit Round`를 `closed_with_followup_suppress_disposition_required`로 닫는다.
-- 결과:
-  - contract closeout state `complete`
-  - validation ceiling `static_inventory_and_governance_readpoint_only`
-  - logical surface count `507`
-  - raw occurrence total `8828`
-  - classified count `507`
-  - `UNCLASSIFIED_BLOCKED_count = 0`
-  - `writer_path_reachable_but_unindexed_count = 0`
-  - protected mutation count `0`
-  - current gate surface count `0`
-  - current validator surface count `3`
-  - JSON/JSONL parse: `20` JSON, `5` JSONL, `18961` JSONL rows, error count `0`
-  - helper py_compile exit code `0`
-- 영향: current checkout 기준 acquisition lexical schema/source/utility/validator/tool/test/doc/stale-plan surface는 분류 readpoint를 갖는다. 과거 suppress 의존 계획은 current blocker가 아니라 stale predecessor/historical premise로 읽고, 살아 있는 suppress 관련 surface는 current style validator surface 3개로 분리한다. 이는 후속 `Acquisition Lexical Current Readpoint Reconciliation`의 입력 readpoint다.
-- 비주장: acquisition lexical wording improvement, suppress retirement/removal, acquisition contract expansion, `josa_adaptive` / phrasebook / array acquisition / runtime-side repair opening, source facts/source decisions/rendered text/runtime Lua/packaged Lua/bridge payload/quality_state/publish_state/runtime_state mutation, runtime rollout, manual in-game validation, deployment/Workshop/release readiness, coverage/quality/completion remeasurement 아님.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION / COMMON-EVIDENCE-TRACE
-
-## 2026-06-05 — Iris DVF 3-3 Acquisition Lexical Current Readpoint Reconciliation Round closes as reconciled readpoint
-- 상태: 채택 / acquisition lexical current readpoint reconciliation closeout
-- 결정: `Iris DVF 3-3 Acquisition Lexical Current Readpoint Reconciliation Round`를 `closed_with_acquisition_lexical_current_readpoint_reconciled`로 닫는다.
-- 결과:
-  - contract closeout state `complete`
-  - validation ceiling `docs_governance_reconciliation_only`
-  - input branch `closed_with_followup_suppress_disposition_required`
-  - predecessor tuple matched: logical surfaces `507`, raw occurrences `8828`, classified `507`, `UNCLASSIFIED_BLOCKED_count = 0`, writer-path reachable unindexed `0`, protected mutation `0`, current gate surface count `0`, current suppress validator surface count `3`, JSON `20`, JSONL `5`, JSONL rows `18961`, parse error count `0`
-  - reconciliation document universe count `508`
-  - document / claim unclassified count `0 / 0`
-  - read-state coverage `100%`
-  - `blocked_ambiguous_count = 0`
-  - `current_vs_stale_contradiction_count = 0`
-  - `suppress_current_blocker_count = 0`
-  - `suppress_crosswalk_violation_count = 0`
-  - `live_suppress_surface_cross_manifest_mismatch_count = 0`
-  - live suppress validator surface count `3` retained as `followup_disposition_candidate`
-  - non-reopen boundary pass; forbidden reopen count `0`
-  - protected source/rendered/runtime/package/state mutation count `0`
-  - sealed predecessor body mutation count `0`
-  - adversarial review verdict `PASS`
-- 영향: 선행 acquisition lexical inventory readpoint를 입력으로 top-doc closeout, lower/current plan, stale predecessor artifacts, validator/utility support의 current-vs-historical 읽기 방식이 하나의 read order로 정렬됐다. 과거 suppress 의존 문구는 current blocker가 아니라 historical/stale premise로 읽고, live suppress validator surface `3`은 current blocker나 resolved state가 아니라 별도 follow-up disposition candidate로 남긴다.
-- 문제 재정의: 기존 `acquisition lexical input contract 미완` 매핑은 current 기능 구현 미완이나 source contract expansion blocker가 아니라, 선행 inventory readpoint를 입력으로 current/stale/historical read order를 맞추는 docs/governance reconciliation 문제로 읽는다.
-- 비주장: acquisition lexical wording improvement, suppress retirement/removal, current suppress validator surface disposition execution, acquisition contract expansion, `josa_adaptive` / phrasebook / array acquisition / runtime-side repair opening, source facts/source decisions/rendered text/runtime Lua/packaged Lua/bridge payload/quality_state/publish_state/runtime_state mutation, Browser/Wiki/Tooltip behavior change, runtime rollout, manual in-game validation, deployment/Workshop/B42/release readiness, coverage/quality/completion remeasurement 아님.
-- absorption: COMMON-RELEASE-NONDECISION / COMMON-RUNTIME-SURFACE-NONMUTATION / COMMON-EVIDENCE-TRACE
+## Canvas
+
+### Canvas — 리소스팩 별도 제품 축 / 검증·비교·설명 플랫폼
+
+* 상태: current readpoint / pre-ledger imported + 2026-03-25 refinement
+* 결정: 리소스팩 축은 Pulse의 핵심 킬러축이나 Frame의 하위 기능이 아니라, 진행한다면 처음부터 **Canvas**로 시작하는 **생태계 확장용 별도 제품 축**으로 둔다.
+* 현재 기준:
+
+  * Canvas는 리소스 제작 툴이 아니다.
+  * Canvas는 Photoshop, GIMP, Blender, TileZed 같은 외부 제작 툴을 대체하지 않는다.
+  * Canvas는 외부 툴이 만든 리소스팩 산출물을 읽어 **최종 적용 상태 / 충돌 / 배포 불일치**를 검증·비교·설명하는 플랫폼이다.
+  * 주요 작업은 인덱싱, 최종 상태 계산, 충돌 분석, 구조/경로/ID/패킹 검증, 프리플라이트 검증, 로컬↔산출물 비교, 서버↔클라 비교, 설명형 리포트다.
+  * 리소스팩 축을 진행한다면 `Cortex에서 임시 운영 후 이관` 같은 경로를 쓰지 않고 처음부터 Canvas로 시작한다.
+  * 시작하지 않기로 결정하면 해당 축은 보류가 아니라 Pulse 생태계에서 제거한 것으로 본다.
+* Pain point:
+
+  * 최종 적용 결과 / 충돌 / 로드 순서 가시성 부족
+  * 패킹 / 경로 / 구조 / ID 민감성으로 인한 제작 붕괴
+  * 버전 / 서버 / 배포 불일치
+* 영향: Frame과 Pulse의 핵심 서사는 계속 `모드팩 상태 기록·복원`에 두고, 리소스팩 검증/비교/설명은 Canvas 독립 축으로 다룬다.
+* Non-decision:
+
+  * 이 항목은 Canvas를 제작 툴, 리소스 편집기, Pulse 핵심 킬러축, Cortex 임시 수용 축으로 승인한 것이 아니다.
+* Trace:
+
+  * ledgered/imported: 2026-03-16 Canvas 정체성 / 초기 진입 경로
+  * refined: 2026-03-25 리소스팩 축은 Pulse 핵심축이 아니라 별도 제품 축
+  * refined: 2026-03-25 Canvas는 제작 툴이 아니라 검증·비교·설명 플랫폼
+  * refined: 2026-03-25 Canvas의 pain point는 적용 결과, 제작 안전, 배포 불일치
+  * COMMON-EVIDENCE-TRACE.
+
+### Canvas / Frame — 협력 가능하지만 통합 제품으로 설계하지 않는다
+
+* 상태: current readpoint
+* 결정: Canvas와 Frame은 함께 쓰일 수 있어도, 처음부터 하나의 통합 제품처럼 설계하지 않는다.
+* 현재 기준:
+
+  * Frame은 **모드팩 상태**를 다룬다.
+  * Canvas는 **리소스 적용 상태**를 다룬다.
+  * Frame은 시간축 / 스냅샷 / 롤백 중심으로 발전시킨다.
+  * Canvas는 리소스팩 최종 상태 검증 / 비교 / 설명 중심으로 발전시킨다.
+  * 두 모듈의 협력은 느슨한 연동 수준에 그치며, 서로의 정체성을 흡수하지 않는다.
+* 영향: Frame은 팩 상태 버전 관리 레이어로, Canvas는 리소스 적용 상태 검증 플랫폼으로 분리해 읽는다.
+* Non-decision:
+
+  * 이 항목은 Frame+Canvas 통합 제품화, Frame의 리소스팩 검증 흡수, Canvas의 모드팩 상태 관리 흡수를 승인한 것이 아니다.
+* Trace:
+
+  * refined: 2026-03-25 Canvas와 Frame은 협력하되 통합 설계를 피함
+  * COMMON-EVIDENCE-TRACE.
+
+### Canvas — 공개 포맷과 내부 정규화 번들
+
+* 상태: current readpoint
+* 결정: Canvas의 외부 공유 기본값은 **ZIP + JSON(+ .pack)** 으로 두고, `.canvas`를 외부 공개 표준으로 강제하지 않는다.
+* 현재 기준:
+
+  * Canvas는 열린 입력·공유 포맷을 유지한다.
+  * `.canvas`는 공개 표준이 아니라 내부 정규화 캐시 또는 분석 번들 후보로만 둔다.
+  * 내부 검증·캐시 전략은 Canvas 독자 구조로 발전시킬 수 있다.
+* 영향: 외부 공유는 접근 가능한 열린 포맷을 유지하고, 내부 처리에서는 필요 시 `.canvas`를 정규화 캐시·분석 번들로 사용할 수 있다.
+* Non-decision:
+
+  * 이 항목은 `.canvas` 공개 표준 강제, 폐쇄형 공유 포맷 전환, 외부 툴 산출물 직접 편집 기능을 승인한 것이 아니다.
+* Trace:
+
+  * refined: 2026-03-25 Canvas 공개 포맷은 ZIP+JSON(+.pack), `.canvas`는 내부 정규화 번들 후보
+  * COMMON-EVIDENCE-TRACE.

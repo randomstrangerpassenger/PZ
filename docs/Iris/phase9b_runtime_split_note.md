@@ -43,3 +43,5 @@
 
 ## 후속 메모
 - `IrisWikiSections`의 local `getRuntimeLangKey`는 usecase line 이관 후 미사용(dead) — 별도 정리 후보(본 round 보존).
+- **contract test 갱신(Phase 10 407 재실행이 포착)**: `test_wiki_fallback_contract.py::test_usecase_language_detection_uses_shared_helper`가 `local lang = getRuntimeLangKey()` 2회를 `IrisWikiSections`에서만 핀하던 것을, split 반영해 **combined(`IrisWikiSections`+`IrisWikiUseCaseLineRenderer`)** 검사로 수정. 사용 2회·EN 하드코드 0은 새 모듈에서 충족 — **동작 보존, 위치만 이동**.
+  - 단, 이 테스트는 `.gitignore`상 **미추적 로컬 fixture**(`Iris/build/description/v2/tests/*` ignore, curated allowlist 6개에 미포함). 따라서 수정은 **디스크에서 407 게이트를 green 유지**하는 것이고 commit 대상 아님. **추적 테스트 표면(6개)은 `IrisWikiSections` 미핀 → 9b 무영향**(grep 확인). (교훈: runtime Lua 변경도 Lua 소스를 핀하는 Python contract 테스트를 깰 수 있으므로 9b 직후 407을 돌렸어야 함.)

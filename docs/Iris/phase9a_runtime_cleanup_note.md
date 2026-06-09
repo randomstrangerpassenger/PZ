@@ -2,7 +2,7 @@
 
 > 상위 계획: `docs/Iris/Iris_Refactoring_Plan.md` §6 Change 9a, §12.
 > 실행일: 2026-06-07. 브랜치: `iris-refactoring-phase6`. cwd: repo root.
-> **Closeout State: `implemented_only` → `complete` 는 사용자 KO 부팅 smoke 확인 시.**
+> **Closeout State: `complete`** (KO 부팅 smoke 확인 완료 2026-06-09).
 > Entry Gate: Phase 1 complete + conflict 14.6 (9a/9b split) resolved ✓.
 > Manual QA Requirement: 면제(behavior-neutral). 단 "Runtime require smoke"(KO 부팅 console) 1건은 사용자 확인 필요.
 
@@ -52,12 +52,19 @@ raw `Logger.debug` count는 게이팅으로 **줄지 않는다**(Renderer 15 유
 | Test baseline | OK ≥407 | runtime Lua는 Python test scope 밖 → 불변(직전 407 OK) | ✅(N/A) |
 | **Runtime require smoke** | KO 부팅 → `[Iris] Bootstrap complete` | **사용자 확인 대기** | ⏳ |
 
-## 사용자 확인 요청 (closeout gate)
+## Runtime require smoke — 확인 완료 (2026-06-09)
 
-게임에서 **KO 모드 진입 → console에 `[Iris] Bootstrap complete` 출력 + 아이템 설명이 정상 렌더링**되는지
-확인해 주세요. 정상이면 Change 9a = `complete`. Lua error/메시지 부재면 즉시 revert(§10).
+사용자 재배포 + KO 부팅 후 `C:\Users\MW\Zomboid\console.txt` 검사 결과:
+- `[Iris] Bootstrap complete` 출력 ✅
+- Iris/IrisDesc/Renderer Lua error 0 (매치는 전부 benign "Loading:" 라인)
+- `[Renderer.renderBlock]` debug 라인 **0** (이전 로그엔 다수 → 게이팅 작동, debug-off 정상)
+- `[IrisDescGenerator.generate]` debug 라인 0 (Generator도 gated)
+- 전체 ERROR 25줄은 전부 **non-Iris**(Echo freeze warning 등 엔진/타 모드 노이즈)
+- 사용자 육안: 아이템 설명 정상 렌더링
+
+→ behavior-neutral + 회귀 없음 확인.
 
 ## §12 Quantitative Closeout (Change 9a)
 - [x] ungated debug noise 의도된 감소(Renderer 15→0; Generator 이미 0)
 - [x] §5 Generated Artifacts SHA 변동 0 (IrisMain 변경 없음 포함)
-- [ ] Runtime require smoke (사용자 KO 부팅) → 확인 시 `complete`
+- [x] Runtime require smoke (KO 부팅) 확인 → **`complete`**

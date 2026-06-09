@@ -17,44 +17,58 @@ local Logger = require("Iris/Logic/IrisDesc/Logger")
 ---@param template table TemplateBlock { header, lines }
 ---@return string 렌더링된 블록 문자열
 function IrisDescRenderer.renderBlock(template)
-    Logger.debug("[Renderer.renderBlock] ========== START ==========")
-    Logger.debug("[Renderer.renderBlock] template = " .. tostring(template))
-    
+    local debugEnabled = Logger.isDebugEnabled and Logger.isDebugEnabled()
+
+    if debugEnabled then
+        Logger.debug("[Renderer.renderBlock] ========== START ==========")
+        Logger.debug("[Renderer.renderBlock] template = " .. tostring(template))
+    end
+
     if not template then
-        Logger.debug("[Renderer.renderBlock] template is nil, returning empty string")
-        Logger.debug("[Renderer.renderBlock] ========== END ==========")
+        if debugEnabled then
+            Logger.debug("[Renderer.renderBlock] template is nil, returning empty string")
+            Logger.debug("[Renderer.renderBlock] ========== END ==========")
+        end
         return ""
     end
-    
-    Logger.debug("[Renderer.renderBlock] template.header = '" .. tostring(template.header) .. "'")
-    Logger.debug("[Renderer.renderBlock] template.lines type = " .. type(template.lines))
-    if template.lines then
-        Logger.debug("[Renderer.renderBlock] template.lines count = " .. #template.lines)
-        for i, line in ipairs(template.lines) do
-            Logger.debug("[Renderer.renderBlock] lines[" .. i .. "] = '" .. line .. "'")
-            -- 바이트 확인 (인코딩 문제 진단용)
-            local bytes = {}
-            for j = 1, math.min(20, #line) do
-                bytes[#bytes + 1] = string.byte(line, j)
+
+    if debugEnabled then
+        Logger.debug("[Renderer.renderBlock] template.header = '" .. tostring(template.header) .. "'")
+        Logger.debug("[Renderer.renderBlock] template.lines type = " .. type(template.lines))
+        if template.lines then
+            Logger.debug("[Renderer.renderBlock] template.lines count = " .. #template.lines)
+            for i, line in ipairs(template.lines) do
+                Logger.debug("[Renderer.renderBlock] lines[" .. i .. "] = '" .. line .. "'")
+                -- 바이트 확인 (인코딩 문제 진단용)
+                local bytes = {}
+                for j = 1, math.min(20, #line) do
+                    bytes[#bytes + 1] = string.byte(line, j)
+                end
+                Logger.debug("[Renderer.renderBlock] lines[" .. i .. "] bytes (first 20) = " .. table.concat(bytes, ", "))
             end
-            Logger.debug("[Renderer.renderBlock] lines[" .. i .. "] bytes (first 20) = " .. table.concat(bytes, ", "))
         end
     end
-    
+
     -- 헤더: [header]
     local header = "[" .. template.header .. "]"
-    Logger.debug("[Renderer.renderBlock] formatted header = '" .. header .. "'")
-    
+    if debugEnabled then
+        Logger.debug("[Renderer.renderBlock] formatted header = '" .. header .. "'")
+    end
+
     -- 본문: lines를 \n으로 결합
     local body = table.concat(template.lines, "\n")
-    Logger.debug("[Renderer.renderBlock] body length = " .. #body)
-    Logger.debug("[Renderer.renderBlock] body = [[" .. body:sub(1, 100) .. "]]")
-    
+    if debugEnabled then
+        Logger.debug("[Renderer.renderBlock] body length = " .. #body)
+        Logger.debug("[Renderer.renderBlock] body = [[" .. body:sub(1, 100) .. "]]")
+    end
+
     local result = header .. "\n" .. body
-    Logger.debug("[Renderer.renderBlock] result length = " .. #result)
-    Logger.debug("[Renderer.renderBlock] result = [[" .. result:sub(1, 150) .. "]]")
-    Logger.debug("[Renderer.renderBlock] ========== END ==========")
-    
+    if debugEnabled then
+        Logger.debug("[Renderer.renderBlock] result length = " .. #result)
+        Logger.debug("[Renderer.renderBlock] result = [[" .. result:sub(1, 150) .. "]]")
+        Logger.debug("[Renderer.renderBlock] ========== END ==========")
+    end
+
     return result
 end
 

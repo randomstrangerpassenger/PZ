@@ -34,8 +34,11 @@ However, direct script execution remains the compatibility baseline for Phase 3.
 - Adding package marker files solely to force dotted imports
 
 The root `Iris/build/tests` folder contains script-style tests that call
-`sys.exit()` at import time. Pytest/unittest discovery for that folder is a
-separate roadmap item.
+`sys.exit()` at import time. Phase 10 (Change 10) resolves this roadmap item:
+the discovery policy is consolidated in
+`docs/Iris/phase10_test_discovery_compatibility_note.md` and script-style
+conversion is deferred (low-risk-only). The full plan self-check lives in
+`docs/Iris/phase10_validation_matrix.md`.
 
 ## Pytest discovery contract
 

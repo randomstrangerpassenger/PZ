@@ -1,0 +1,2852 @@
+{
+  "generated_at": "2026-06-11T12:14:22+00:00",
+  "git_status_short": {
+    "command": "git status --short",
+    "exit_code": 0,
+    "stderr": "warning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied\nwarning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied\n",
+    "stdout": " M .gitignore\n M Iris/_docs/refactor/phase1_active_manifest.md\n M Iris/_docs/refactor/phase1_root_artifact_disposition.md\n M Iris/_docs/refactor/phase3_compose_layer3_text_split.md\n M Iris/_docs/refactor/phase3_json_io_common_migration.md\n M Iris/_docs/refactor/phase3_pytest_infra.md\n M Iris/_docs/refactor/phase3_quality_gates_q5_split.md\n M Iris/_docs/refactor/phase3_stage_runner_extraction.md\n M Iris/_docs/refactor/phase3_version_manifest.md\n M Iris/_docs/refactor/phase4_layer3_data_chunking_batch9.md\n M Iris/_docs/refactor/phase4_manual_qa.md\n M Iris/_docs/refactor/phase5_array_util_batch11.md\n M Iris/_docs/refactor/phase5_browser_detail_fallback_batch17.md\n M Iris/_docs/refactor/phase5_generator_debug_gate_batch10.md\n M Iris/_docs/refactor/phase5_iris_config_constants_batch16.md\n M Iris/_docs/refactor/phase5_iris_desc_logger_direct_require_batch15.md\n M Iris/_docs/refactor/phase5_iris_main_function_specs_batch14.md\n M Iris/_docs/refactor/phase5_module_bootstrap_batch18.md\n M Iris/_docs/refactor/phase5_ordering_single_pass_batch13.md\n M Iris/_docs/refactor/phase5_test_harness_dev_gate_batch12.md\n M Iris/build/ENTRYPOINTS.md\n M Iris/build/build_import_contract.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/artifact_hash_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/docs_addendum_candidate.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/generate_round_artifacts.py\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_checkout_basis_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_classification_summary.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_closeout_validation_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_corpus_basis_hash.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_artifact_inventory.jsonl\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_lock_closeout.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_current_corpus_manifest.sha256\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_deterministic_generation_rules.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_exclusion_ledger.jsonl\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_forbidden_reopen_list.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_inventory_summary.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_known_surface_checklist.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lexical_scan_diagnostic.txt\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_lint_substrate_anchor.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_manifest_update_procedure.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_manifest_validation_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_matching_semantics.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_no_inheritance_rule.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_predecessor_readpoints.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_preflight_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_scan_root_coverage_matrix.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_scan_root_coverage_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_scope_statement.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_surface_classification.jsonl\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_token_form_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_boundary_unclassified_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/layer4_corpus_partition_gate_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_boundary_current_corpus_lock_round/template_contract_attestation.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/admitted_trace_edge_artifact_inventory.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/admitted_trace_edge_schema_summary.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/adversarial_review_report.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/ambiguity_register.jsonl\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/ambiguity_summary.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/artifact_hash_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/canonical_field_map_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/detector_requirement_matrix.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/docs_addendum_candidate.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_conditioned_readiness_dry_run_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_authority_input_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_branch_determination.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_closeout.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/field_map_reseal_scope_lock.md\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/forbidden_fallback_classification.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/forbidden_fallback_exclusion_list.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/generate_round_artifacts.py\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/no_count_guard_evidence.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/non_mutation_hash_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/role_field_binding_table.json\n D Iris/build/description/v2/staging/compose_contract_migration/layer4_confirmed_detector_field_map_reseal_round/source_slot_relation_traversal_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/acq_dominant_current_baseline_remeasurement_round_pointer.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/acq_dominant_remeasurement_boundary.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/artifact_hash_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/authority_consumption_contract.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/authority_readpoint_reflection.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/closeout_pass.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/decisions_addendum_draft.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/generate_round_artifacts.py\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/hash_delta_summary.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/non_mutation_invariant_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/observer_readpoint_summary.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/opening_contract.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase0_authority_input_hash_check.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase0_baseline_hash_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase0_predecessor_verification_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase1_contract_validation_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase2_inventory_summary.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase2_scope_inventory.jsonl\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase3_manifest_validation_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase4_hash_diff_evidence.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase5_hard_gate_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase6_adversarial_review.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase7_closeout.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/phase7_closeout.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/rejected_authority_sources.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/roadmap_addendum_draft.md\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/scope_separation_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/separation_invariant_report.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/structural_signal_current_authority_manifest.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/structural_signal_observer_readpoint_seal.json\n D Iris/build/description/v2/staging/compose_contract_migration/structural_signal_scope_re_seal_round/structural_signal_scope_split_matrix.json\n M Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py\n M Iris/build/description/v2/tools/build/INVENTORY.md\n M Iris/build/description/v2/tools/validate_layer4_absorption_current_surface_guard.py\n M Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py\n D docs/Archived/LOGGING_CONVENTION.md\n D docs/Archived/iris-execution-plan.md\n D docs/Archived/nerve-area6-baseline.md\n D docs/CONCURRENCY_GUIDELINES.md\n D docs/DI_CONVENTION.md\n D docs/EXCEPTION_GUIDELINES.md\n D docs/FuseArea7.md\n D docs/Iris/Done/3_3_vs_3_4_boundary_examples.md\n D docs/Iris/Done/Walkthrough/iris-backlog-132-second-pass-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-adapter-native-body-plan-metadata-migration-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-adapter-native-body-plan-readiness-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-body-plan-migration-session-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-body-role-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-compose-authority-migration-round-closeout.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-current-runtime-baseline-seal-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-diagnostic-only-resolver-compatibility-guard-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-entrypoint-authority-seal-session-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-function-narrow-disposition-closure-and-publish-writer-authority-seal-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-identity-fallback-source-expansion-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-identity-fallback-terminalization-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-layer4-absorption-policy-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-phase-d-e-staged-rollout-override-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-phase-d-observer-signal-preservation-patch-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-problem-2-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-reopen-round-sizing-governance-closeout.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-role-fallback-hollow-followup-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-runtime-state-vocabulary-remap-and-readpoint-seal-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-runtime-state-vocabulary-remap-session-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-semantic-axis-policy-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-source-expansion-distribution-remeasurement-gate-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-structural-reclassification-canonical-code-path-convergence-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-structural-signal-scope-split-seal-round-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-style-normalization-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-surface-contract-authority-migration-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-dvf-3-3-three-axis-contract-migration-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-post-cleanup-integrated-roadmap-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-source-coverage-expansion-walkthrough.md\n D docs/Iris/Done/Walkthrough/iris-weak-active-cleanup-walkthrough.md\n D docs/Iris/Done/dvf_3_3_body_closeout.md\n D docs/Iris/Done/dvf_3_3_body_role_policy.md\n D docs/Iris/Done/dvf_3_3_compose_v2_spec.md\n D docs/Iris/Done/dvf_3_3_cross_layer_overlay_spec.md\n D docs/Iris/Done/dvf_3_3_information_type_contract.md\n D docs/Iris/Done/dvf_3_3_quality_contract_v2.md\n D docs/Iris/Done/false_positive_threshold_definition.md\n D docs/Iris/Done/forbidden_patterns.json\n D docs/Iris/Done/iris-dvf-3-3-acq-dominant-current-baseline-remeasurement-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-acquisition-lexical-current-inventory-readpoint-audit-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-acquisition-lexical-current-readpoint-reconciliation-round-closeout.md\n D docs/Iris/Done/iris-dvf-3-3-acquisition-lexical-current-readpoint-reconciliation-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-adapter-diagnostic-compatibility-final-disposition-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-current-runtime-baseline-seal-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-diagnostic-only-resolver-compatibility-guard-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-diagnostic-only-resolver-compatibility-guard-round-roadmap.md\n D docs/Iris/Done/iris-dvf-3-3-diagnostic-only-resolver-compatibility-guard-round-scope-lock.md\n D docs/Iris/Done/iris-dvf-3-3-frozen-2105-baseline-reconstruction-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-frozen-2105-baseline-recovery-analysis.md\n D docs/Iris/Done/iris-dvf-3-3-historical-runtime-vocabulary-readpoint-anchor-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-identity-fallback-closure-policy-expansion-amendment.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-boundary-current-corpus-lock-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-boundary-namespace-reseal-round-closeout.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-boundary-namespace-reseal-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-boundary-namespace-reseal-round-review.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-current-count-remeasurement-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-detector-field-map-reseal-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-detector-field-map-seal-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-measurement-canonicalization-boundary-seal-round-closeout.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-measurement-canonicalization-boundary-seal-round-non-mutation-hash-diff.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-measurement-canonicalization-boundary-seal-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-measurement-canonicalization-boundary-seal-round-protected-surface-hashes.after.json\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-measurement-canonicalization-boundary-seal-round-protected-surface-hashes.before.json\n D docs/Iris/Done/iris-dvf-3-3-layer4-confirmed-measurement-canonicalization-boundary-seal-round-review.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-current-build-application-target-remeasurement-zero-reseal-round-closeout.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-current-build-application-target-remeasurement-zero-reseal-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-current-build-application-target-remeasurement-zero-reseal-round-review.md\n D docs/Iris/Done/iris-dvf-3-3-layer4-trace-edge-authority-admission-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-legacy-active-silent-current-surface-guard-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-manual-in-game-validation-minimal-playset-test-manual.md\n D docs/Iris/Done/iris-dvf-3-3-manual-in-game-validation-qa-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-reopen-round-sizing-governance-consistency-review.md\n D docs/Iris/Done/iris-dvf-3-3-resolver-compatibility-mapping-cleanup-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-runtime-payload-enum-rename-scope-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-selected-role-bridge-impact-seal-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-silent-21-replacement-authority-reconstruction-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-silent-metadata-intake-cleanup-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-static-report-label-cleanup-referent-recovery-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-static-report-label-cleanup-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-structural-signal-authority-classification-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-structural-signal-current-readpoint-seal-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-structural-signal-current-referent-inventory-anchor-recovery-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-structural-signal-missing-anchor-authority-resolution-round-plan.md\n D docs/Iris/Done/iris-dvf-3-3-structural-signal-scope-split-seal-round-plan.md\n D docs/Iris/Done/iris-refactoring-final-roadmap-v1.md\n D docs/Iris/Done/layer3_structural_audit_spec.md\n D docs/Iris/Done/lua_bridge_publish_state_contract.md\n D docs/Iris/Done/phase4_entry_contract_guardrails.md\n D docs/Iris/Done/phase_c_adversarial_review.md\n D docs/Iris/Done/phase_c_exit_gate.md\n D docs/Iris/Done/philosophy_constitutionality_check.md\n D docs/Iris/Done/pipeline_execution_order_check.md\n D docs/Iris/Done/plan/dvf_3_3_body_role_execution_plan.md\n D docs/Iris/Done/plan/iris-backlog-132-second-pass-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-acquisition-hint-korean-standardization-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-acquisition-hint-scope-lock.md\n D docs/Iris/Done/plan/iris-dvf-3-3-adapter-native-body-plan-metadata-migration-round-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-adapter-native-body-plan-readiness-round-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-body-plan-runtime-rollout-round.md\n D docs/Iris/Done/plan/iris-dvf-3-3-body-plan-structural-violation-redesign-round.md\n D docs/Iris/Done/plan/iris-dvf-3-3-compose-authority-migration-round-final-integrated-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-compose-contract-migration-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-compose-default-path-classification-authority-seal-round-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-entrypoint-drift-patch-authority-seal-round-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-entrypoint-drift-patch-authority-seal-round-scope-lock.md\n D docs/Iris/Done/plan/iris-dvf-3-3-identity-fallback-closure-policy-round-final-integrated-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-identity-fallback-residual-round-final-integrated-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-identity-fallback-scope-policy-round-final-integrated-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-identity-fallback-source-expansion-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-identity-fallback-source-expansion-scope-lock.md\n D docs/Iris/Done/plan/iris-dvf-3-3-interaction-cluster-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-phase-d-e-staged-rollout-override-round-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-phase-d-observer-signal-preservation-patch-round-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-problem-2-final-integrated-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-reopen-round-sizing-governance-amendment-final-integrated-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-reopen-round-sizing-governance-scope-lock.md\n D docs/Iris/Done/plan/iris-dvf-3-3-reopen-round-sizing-governance.md\n D docs/Iris/Done/plan/iris-dvf-3-3-round-a-round-b-parallel-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-runtime-state-vocabulary-remap-and-three-axis-readpoint-seal-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-semantic-axis-policy-round-final-integrated-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-source-expansion-distribution-remeasurement-gate-final-integrated-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-structural-reclassification-canonical-code-path-convergence-round-final-integrated-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-style-normalization-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-surface-contract-authority-migration-execution-plan.md\n D docs/Iris/Done/plan/iris-dvf-3-3-three-axis-contract-migration-execution-plan.md\n D docs/Iris/Done/plan/iris-post-cleanup-status-model-runtime-adoption-backlog-expansion-execution-plan.md\n D docs/Iris/Done/plan/iris-source-coverage-expansion-roadmap.md\n D docs/Iris/Done/plan/iris-weak-active-cleanup-execution-plan.md\n D docs/Iris/Done/profile_migration_spec.md\n D docs/Iris/Done/publish_state_mapping_table.md\n D docs/Iris/Done/publish_state_spec.md\n D docs/Iris/Done/quality_state_ownership_spec.md\n D docs/Iris/Done/seam_legality_checklist.md\n D docs/Iris/Done/semantic_quality_ui_exposure_agenda.md\n D docs/Iris/Done/surface_contract_rollout_order.md\n D docs/Iris/Iris_Refactoring_Plan.md\n D docs/Iris/Iris_Refactoring_Plan_Review.md\n D docs/Iris/Iris_Refactoring_Plan_Review_v2.md\n D docs/Iris/Iris_Refactoring_Plan_Review_v3.md\n D docs/Iris/Iris_Refactoring_Plan_Review_v4.md\n D docs/Iris/Iris_Refactoring_Plan_Review_v5.md\n D docs/Iris/Iris_Refactoring_Roadmap.md\n D docs/Iris/approved_diff_log.md\n D docs/Iris/iris-worktree-cleanup-phase1-manifest.json\n D docs/Iris/iris-worktree-cleanup-phase4-disposition-manifest.json\n D docs/Iris/iris-worktree-cleanup-phase6-dangling-inventory.json\n D docs/Iris/iris-worktree-cleanup-plan.md\n D docs/Iris/iris-worktree-cleanup-roadmap.md\n D docs/Iris/phase10_test_discovery_compatibility_note.md\n D docs/Iris/phase10_validation_matrix.md\n D docs/Iris/phase1_active_script_manifest.txt\n D docs/Iris/phase1_artifact_source_classification.md\n D docs/Iris/phase1_baseline_metrics.md\n D docs/Iris/phase1_batch1_import_graph.md\n D docs/Iris/phase1_closeout_note.md\n D docs/Iris/phase1_conflict_resolution_gate.md\n D docs/Iris/phase1_inventory_readpoint.md\n D docs/Iris/phase1_pulse_wrapper_usage_inventory.md\n D docs/Iris/phase2_deferral_note.md\n D docs/Iris/phase3_compose_import_contract_note.md\n D docs/Iris/phase3_root_bootstrap_cleanup_batch.md\n D docs/Iris/phase4_quality_gates_split_note.md\n D docs/Iris/phase5_evidence_pipeline_skeleton_note.md\n D docs/Iris/phase6_version_path_manifest_note.md\n D docs/Iris/phase7a_deferral_note.md\n D docs/Iris/phase7b_archive_sweep_note.md\n D docs/Iris/phase7b_per_directory_disposition_table.md\n D docs/Iris/phase8_artifact_source_classification.md\n D docs/Iris/phase8_tracking_policy_note.md\n D docs/Iris/phase9a_runtime_cleanup_note.md\n D docs/Iris/phase9b_compat_wrapper_disposition_note.md\n D docs/Iris/phase9b_irismain_absorption_note.md\n D docs/Iris/phase9b_manual_qa_checklist.md\n D docs/Iris/phase9b_runtime_split_note.md\n?? .rgignore\n?? .tmp/round2_guard_flap_1.json\n?? .tmp/round2_guard_norg_1.json\n?? .tmp/round2_guard_norg_2.json\n?? .tmp/round2_guard_norg_r6.json\n?? .tmp/round2_review_guard_report.json\n?? Iris/_docs/authority/\n?? Iris/_docs/refactor/round3_tools_build_test_contract_roadmap.md\n?? Iris/_docs/round1a/\n?? Iris/_docs/round2/\n?? Iris/_docs/round3/\n?? Iris/build/description/v2/staging/README.md\n?? docs/iris-round1-authority-live-reference-reconciliation-plan.md\n?? docs/iris-round2-staging-artifact-disposition-plan-review.md\n?? docs/iris-round2-staging-artifact-disposition-plan.md\n?? docs/iris-round2-staging-artifact-disposition-roadmap.md\n?? docs/iris-round3-build-script-test-contract-disposition-plan-review.md\n?? docs/iris-round3-build-script-test-contract-disposition-plan.md\n?? docs/iris-round3-build-script-test-contract-disposition-roadmap.md\n?? docs/iris-round3-final-integrated-build-script-test-contract-disentanglement-plan.md\n",
+    "timeout": false
+  },
+  "head": {
+    "command": "git rev-parse HEAD",
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "7a163c24d50ec8a1c064f058f295f1f1978a599f\n",
+    "timeout": false
+  },
+  "root_pytest_ini": {
+    "exists": true,
+    "sha256": "cb94ea3d2c75851c35db760a40da8e206a9fdca667599dc75c252ba3cbb38494"
+  },
+  "schema_version": "round3-baseline-tree-snapshot-v1",
+  "tests": [
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_acquisition_lexical_utils.py",
+      "sha256": "459765b76e0e8ee6694a5e5e59a8e287cc3491e3286e859cde789a046dc7d0c6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_active_semantics_redefinition_simulation.py",
+      "sha256": "8c34c54196c9e65e74a977d72c3b12a892f81f6edbf0cac4c801f90b69ed88fe",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_apply_acquisition_sprint7_authority_reflection.py",
+      "sha256": "8b020ec57b8fcf635777778335028c505149450ea664b56e20f475336b7f1545",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_body_plan_phase_d_e.py",
+      "sha256": "807d06bc92efcab3780abbbd621ab368065da679fc804d3bf129aedaafda9729",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_body_role_lexical_cleanup.py",
+      "sha256": "90b4c0c4aeae51290453537f0a3f402f7cca53b7248ca63c4d443b6027e3b87f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_browser_common_base_contract.py",
+      "sha256": "a4605e38f80f6b180a469694f2d65020ded91a81b6fced776a754d5ae25da886",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_facts_semantic_draft.py",
+      "sha256": "a5f4e55f4c8751d4f22cd0d41ba0c8e8f3c8f213b01b7a634ccc5410d2fc47b7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_legacy_canonical_bootstrap.py",
+      "sha256": "0d619035960349e0811db674ce7baf2b1e7dfc9edf80c65ef514171a74eda102",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_inventory.py",
+      "sha256": "0921221e346a7578606ae2fbf3fd1fdf440f40d6759d9d47dc2aed20a2146d5c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_manual_review_queue.py",
+      "sha256": "a60eb164b851d53901e50262c4d538000276704fd24d052fa4b1850a09985181",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_semantic_draft.py",
+      "sha256": "b640041a9df9218fc6c24dd866790cbf6b4aa14c670239a8dfd5ee153987c08c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_suggestion_preview.py",
+      "sha256": "aef57e9fea79ccc619f48e6a1a724d75d2df395bab972cf3d63c1d66019eb590",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_suggestions.py",
+      "sha256": "95b6fcc80e896a21485f566b384758099c93e5ed6bf631d505269e838dd2da2f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_unresolved_bundle.py",
+      "sha256": "b9efbcc546ee1f2249aa54b83bea777396ecf61a9842104d3266b522470008a3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_partial_promotion_bundle.py",
+      "sha256": "c8ad971684c4d22847d35d036eb9b6ab1889d92c056d98d04d632bfa805ba741",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_phase2_design_bundle.py",
+      "sha256": "7ee380da21a9d319e10d2199597747a15b23df769ea6744542e383c795795567",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_phase3_review_staging.py",
+      "sha256": "ed587664eafbf6bb2c5f9020a5e085bee20a2f1c061a227f0d18e43943e773af",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_promotion_subset_preview.py",
+      "sha256": "adc3e150033fa207908aa4b23fb3af060517778b0bf2a6ff2275b780de72519e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_sprint7_authority_promotion.py",
+      "sha256": "19d1ed9df005b3902d01992b572e10185791a2c244f6afc50a3efd3dbed01838",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_full_preview.py",
+      "sha256": "5c09290ab89bea4407fac8304f18e0decc4e80f44607e43510e21803a802bc24",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_golden_subset.py",
+      "sha256": "5803863c4fd50ef0f33c6524e0acfc485df989e513f318a81290a150e1d5f94e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_lexical_cleanup_authority.py",
+      "sha256": "c79380330d245a71732b7048feddb68a93254e5b310c6e83b915ef2e0d1daf9b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_lint_feedback.py",
+      "sha256": "242068ae8b0fc7c07a9cdfadd215ce5338e28ed37264a9b00ad6fd385721459e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_regression_pack.py",
+      "sha256": "cefab4a4a42f8cff9f87351bf66668a2817c8b45a052d8f00a27fdc8d951d0e8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_closure_policy_round.py",
+      "sha256": "dd558bded01a9b977f4f88d9d43449675d9dc8064920984acbcc2097d3f20129",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_expansion_plan.py",
+      "sha256": "658bc215ac10f9f54edbee880076b15d479058cc800e85ca026e86ef72530426",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_residual_round.py",
+      "sha256": "0a7839b80a07cbe58005d3f3df72fb6b5f66e35bfdb2400bdb257cecc9f9e82d",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_residual_round_phase0_1.py",
+      "sha256": "61251c5d3ba16b491a21dfad7a5bca93806ce341cbbc7a82de61f3b2a1050f0a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_residual_round_phase2_5.py",
+      "sha256": "5b6aed178d4dcb4d2ed31b0bd9356cbe0da433fe9c61a8407e93a5c7d276f107",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_scope_policy_round.py",
+      "sha256": "cf27184b40952a30479ef01d6d2d0d5e1d00cee89d8a493d0362f44a7e5f55a0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_terminal_handoff.py",
+      "sha256": "5e8503598c32914d971d97a54abcdb0186165704cae949f3bc55c900858855cb",
+      "tracked": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tests/test_build_iris_index_data.py",
+      "sha256": "de136a927ace043be316fe0f68afcbb6cc43fa21525c5e03a263c952421e61db",
+      "tracked": true
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_quality_publish_phase6_in_game_result_template.py",
+      "sha256": "1abffc91129d41898b923d2232d5209b66aca0fd09804d76e4ef45a3f308509a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_quality_publish_phase6_validation_pack.py",
+      "sha256": "8a6f881784a5d15ddc3356c652ae2c03c7a39773f7d501282ad0110d21aa2767",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_second_pass_sprint7_closure_wording.py",
+      "sha256": "558146479c15bbd5e58a17b11324f8d19b2f5be741d6b730ff935fe3b8706039",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate.py",
+      "sha256": "29ea83b7831e4cb54cd66a7d8d4683a50e2d18a40a6aafc8eb52fd6b35623b54",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate_phase1_3.py",
+      "sha256": "2b5063ab28ec0341c28412d1c6f89dbdf53b2e07f7cd320dc93f7c464f970727",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate_phase4_5.py",
+      "sha256": "29f13885bb76144affa5a87183d65324051619e0e2412e863e9b1a2bce5ad80f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate_phase6_8.py",
+      "sha256": "92704e8a72dd291165896284de6f2e6f00b580515f7f7279ff57fc49ff990393",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
+      "sha256": "75a6b90883a6b566d323d52a650462ed06738f86a69e782341b697358bc1ae2b",
+      "tracked": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+      "sha256": "c7339d150bf0b073e427769695902822015c396a1a8ed0718508a9f9a9ca1d08",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
+      "sha256": "14aa57d036d8a18bcece6768895e7506f10b1b5a1689a5c68ddb66fde400cbfe",
+      "tracked": true
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_description_generator_usecase_labels.py",
+      "sha256": "04941cb89a6cb575d2c4fafb81d3672350f81b5b25979c9ed67c433cf9647f8c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_freeze_quality_baseline_v1.py",
+      "sha256": "4bfff8dd99f239447df79f968b85816b9ccbad7e6749c866c09673706a4323db",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_freeze_quality_baseline_v3.py",
+      "sha256": "e7ae36919579df3511838be9cd11a1a233549d2fba62b1c609dce0f74a24b270",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_freeze_quality_baseline_v4.py",
+      "sha256": "33fe5651129076deb992e0b4d6d8ffeeaa4807a696fe422b7f76aa8882dcd393",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_generated_weak_body_role_cross_analysis.py",
+      "sha256": "17c14728a74da03adec6156c44a15bead914e10f196d6d6add1c33a3de17e308",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_bootstrap.py",
+      "sha256": "efaa2e023ffadf21695f75053cfdaf4d60fa79f84e6c0aa1c8ef343305a0ddfc",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_gap_patterns.py",
+      "sha256": "44e9fd13d0a35ecaa46a81d31ac36fdb0c3721856d7575dce5b359b8b576988a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_historical_runtime.py",
+      "sha256": "8eb1529440429cce2abdcc6214856105e4781aa0ffdbcfde7ce77ad5f7763fb3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_historical_snapshot.py",
+      "sha256": "3037583d30209c8e9c937f567f9ab2b47f3ba18dfd96b76956f1bbb922dcc9a0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_importers.py",
+      "sha256": "91f1dc43ef63a1cda9e36c4b31e70feb0d03f7515a4183da74f7fb151c780ebe",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_manual_override.py",
+      "sha256": "15b40a9803d03e5ae2b7a9c756582799d1ca3d472c8e4ca7916eb78311956766",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_overlay_draft.py",
+      "sha256": "7253d67228b4b08af269877a5fe0779714a5fa19f7763bdc2034ff8c9f884beb",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_overlay_passthrough.py",
+      "sha256": "fb4e38d09eb32e81bb38560526ecca11f4e30b60ad7771a09f28aaa69791b570",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_freeze.py",
+      "sha256": "ad56a9eb0c6cd124f508d55740674549fe9e594df7b72a0a4a54e58bdf394158",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_pilot.py",
+      "sha256": "6ba9ffe506084012c917a3a3664191b4fef2eb4ea2e19d203ec075ffa28f95d2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review.py",
+      "sha256": "0745c2fd186204c906be6d98c8cdda580ef55ef478af0fb87f5ac2f0421822fa",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review_actions.py",
+      "sha256": "2e47b842e6ea12c5f4553085cd5f04dd86b4ac1afdfc400b2aa664bbb71e70e7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review_drafts.py",
+      "sha256": "5f4ddcb8d83b47a0222ec6a2038d398fcef52b82c1850fdb13cfa2eaf034f703",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review_packet.py",
+      "sha256": "86b3f8e9a7cb85faaeaa093badd6e052d6f7301d7fbe8b6bc63c091f5589f886",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_d_runtime.py",
+      "sha256": "e21b693adaeca5e7eb81a728579c21e91c0727370afba0262dcb57fbd524e96e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_pipeline.py",
+      "sha256": "8c29fc5678633c0bf040517f045e8f94bba51d0908c9f951a3567a3f0ef6ba07",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_policy_exclusion.py",
+      "sha256": "4e76aa5f9b4433545ef3170aae3a5ac8519ee261ddd30a8b5d3dcfbf49148c01",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_raw_source_roundtrip.py",
+      "sha256": "82d8c32421f5b513e8f7298e717899eb233d4b4068c28317c352d659ab57533f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_upstream_sync.py",
+      "sha256": "29b572cb4e4120e36d9eb8d92bbec92ba45b804bdc389023b78bac8314807206",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_usecase_import.py",
+      "sha256": "53565305c5c587652183ee477970b1f58f5522cbb2c45555ad5b4a5ad96b56db",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_layer3_active_quality_audit.py",
+      "sha256": "4ac1ed9c51ddffdebc56be078c6db1a49d3b49e65ae3a49a64385f03f36b4f85",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_layer3_data_chunking_contract.py",
+      "sha256": "cfc24db4f96e1dc210f339e711c603e784c6431ea2040acd3c11134434fc02b0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_layer3_presentation_formatting_contract.py",
+      "sha256": "afdb638e8bd23455bc527f25287a1c5b2f1ba1b7ccf8fde03a14400fd69f79b9",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_layer3_role_check_overlay.py",
+      "sha256": "a20b6030784704a0fd0bc257760867ad3f8e7d3df74edf9b26228876334753be",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_layer3_structural_audit.py",
+      "sha256": "82c21ae637bcf9a12db1611e6d253769a968e01d23d5193239ffba82589b9413",
+      "tracked": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
+      "sha256": "25a10175a17345bbf977ef06bb257a8ed8595c86c70cb49085dae4e88a5ccae3",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
+      "sha256": "b51d5a256e2c7a018842a04746e1260f36eb70eb17f66c3a26f6d43fbe08a4da",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "sha256": "9971b7e594ee83a58310f47c35fab5250570cbad5833c13abadda5d1937a2ccd",
+      "tracked": true
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_normalize_acquisition_hint.py",
+      "sha256": "ed74ff42f1a7c32dcd63d11513289cbb792e27ba354b84dfeef0f885f5b846f4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "sha256": "1befefc467936fd189ef0d88adb7f34713c04681fbc6f635ebe710d4fe86274b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_array_util_contract.py",
+      "sha256": "54d888e21e352767f4f5030ce6954b3cd4b8546d8d6a35bad7d4287a7b4a787d",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_browser_detail_fallback_contract.py",
+      "sha256": "4dd9d3a0c672b63e9206d952db99952d9bdb43bb06f82049f7d63c9dd9030536",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_generator_debug_gate_contract.py",
+      "sha256": "9b7cd92a22171753c42f40c396e045ce8dcd9477a08b4aa686bdfe4f65be99f9",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_iris_config_constants_contract.py",
+      "sha256": "9201c86329eaf074467490af8c64613da5c0a3b0ab0b6c7fab453312e59780a4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_iris_desc_logger_direct_require_contract.py",
+      "sha256": "b15b5136d9cf42fe4532da9c15bb35353eda9ed54cfca5f807d20ba1a1341710",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_iris_main_function_specs_contract.py",
+      "sha256": "5a51a1aec4fa051788684dbea4a982bf15a00aaa5564d2cecbeff7a0f378939b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_module_bootstrap_contract.py",
+      "sha256": "ce58c9744f3c35ce03de867cfa81cd596babf82354d113d4bdd2141c0c835887",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_ordering_single_pass_contract.py",
+      "sha256": "3729b12cdf469e407b1732b680b601191cde467c11320b2ce787c4108b9d05ce",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase5_test_harness_dev_gate_contract.py",
+      "sha256": "ec4099728506588c53a31fabc8e678a898935fb9f168974b1c4d1734f4ad2f36",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase_d_gate_threshold_proposal.py",
+      "sha256": "78c0a585d0c7ac814947716d9698eb5ccf75c55ffddc198be4830bca64542b0e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase_d_readiness_report.py",
+      "sha256": "e7f5f4a3c4690f63af5ee76de1bb7f6511eb1d9fc2917b393dab4beff8ffcbb4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_phase_d_signal_preservation_supporting_reports.py",
+      "sha256": "8b6cab460e4a1ed9f9692f47742a8090ccf7a66d77051342de60bffa6ba47db6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase0_input_freeze.py",
+      "sha256": "9807729ff9c4b2dcdacfe38eb2a619616fcbbe86e58a5a05146501c62000dc20",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase1_status_model_draft.py",
+      "sha256": "71b771dd4bcc45a6a3ddb66f3bb6abe57e99d94669ba672e31f874b000e33c8c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase1_status_model_final.py",
+      "sha256": "3c1b166ea67111fa69a1998b95398f36acd6214d518609dcc8154583e1163b34",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_scope.py",
+      "sha256": "b60779aecee5d897c93c8c5a50fe5e2189f89ca47507fdf57dc2f16d0a477602",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py",
+      "sha256": "96a22f89c834a1a6001626120b4b858e4dd0f4aedb6a43f06f788cb19df6f824",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "sha256": "c9cdce70ab422e8f657cecebcd6320b7721a400d026fed3b7208a3bc6beb7e93",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_reflection.py",
+      "sha256": "f087ffb5c9507254884be9a3d4a2055a9ea6d45aadaea9ef57521d951bf9fb84",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_backlog_exploration.py",
+      "sha256": "d581a879049b77a517d0d6b1bb4d91d3ea24a3858618ecee10b5b7715f92fbf3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_package_plan.py",
+      "sha256": "3d1afedc11734cd173155d7e4214db89a15735dc144e0b9fb4baf34fb86171b2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py",
+      "sha256": "8687f95e78af05519d2e54c579f25c239528a632972787a889a23ea936da6eec",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py",
+      "sha256": "45484ff98d146d1cbf19211fbc979b3cdd09c1862913ada59a503f6fe8177cc2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3_unclassified_triage.py",
+      "sha256": "f965cbc4cd6e66b94f0127c211f42a19c71b2bb9bc9d3bda12dbf16327c2de80",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py",
+      "sha256": "43b2fb02bb97122e8cc47a0c59db4c4bd571ec0c92c3587604dad517ade14782",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py",
+      "sha256": "cdc94c1bad7888bc2db452d33a85d087245c33401909c193ba0ea3ee49b31c98",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py",
+      "sha256": "b88e076188bf0442387b633aa99654bfd14bf37e540027ee9e53bae5fcb55644",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py",
+      "sha256": "5ed74b954071ab57ba4f255c0f36778b9b3e0b422e4f2aad388cc81b6f657c43",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3e_gardening_inputs_and_irrigation.py",
+      "sha256": "f9277335708b21933ffecfc6bd5b340306b860c2196ea7e0004ced498a5e780b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3f_photo_capture_supplies.py",
+      "sha256": "10d3d3aace93c4b608b4a5fc4ab816d3a705626841f88164deb72a9cfa103305",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py",
+      "sha256": "cf5e1ba3261bc9fe690f3862bccded103cb768c18bfbed1deaf9cfec8c251e39",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3h_fishing_small_gear.py",
+      "sha256": "5af38eb46a7744d528323101924b5eca8237386df2a0396f1bb617e0884ba96c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3i_textile_craft_inputs.py",
+      "sha256": "ca140581ab4e0c160085fac887f3581a0eb07e17ce69eccfe855fb1aa9960d3a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3j_painting_finish_tools.py",
+      "sha256": "b28660bf4b1cfbfd847eea1350d0ec4aecbc87dc125835c343b458edaef87498",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py",
+      "sha256": "e37d9c1f10752e107a0b8f55e9ce1fa3d4557789eb144c81de725fd174d9dcc1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py",
+      "sha256": "d532f3b2bfe5727e3994ce30df2df2750c0fc94c4025a555bbd440955c925f86",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py",
+      "sha256": "d3e31a38539ae57a2a6d474767e536e4443be0648d3704c01f682cff0e422554",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py",
+      "sha256": "77878f92717d66273bf0c3cc58e2cb39923ef9e6ee7280746bc1d8e3597e4584",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_reflection.py",
+      "sha256": "b08a053c213e14c7f4505b156e653be74cebf27102b35bb6a4fd20ab4be5d393",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_protected_call_boundary_contract.py",
+      "sha256": "7acd7eed4e319e119e338f3b5b9eb39d16b970d697b5fd000432432311e44ac8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_quality_publish_decision_preview.py",
+      "sha256": "4f44aa4ab9035a6d45bff111469833e0c66f20d35f3f86a942c81e9133abd990",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_quality_tracking_report.py",
+      "sha256": "c9d808cf70601f2c5e456812c166a12d70cfc8fd897c5130f681398f82bdf2fb",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_report_acquisition_surface_audit.py",
+      "sha256": "f522e124ae65d60ec12cd523548125ab78396e44583c862cdd23ca3931c23a2c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_report_body_role_regression.py",
+      "sha256": "4eb0368cc24751e784c0fafd303588599bcbc1d039d06d66793c07210ca3b120",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_report_identity_fallback_source_expansion_backlog.py",
+      "sha256": "ad224c44342d23141f2fed3d1a2d952fe62addcb3e4eeeb427fa45f34ac760e7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_report_layer3_body_adequacy_audit.py",
+      "sha256": "8311973b9245d57241edb6679f29fbd1c401423292ac26de937b07f1308b4203",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_report_layer3_body_plan_signal_preservation.py",
+      "sha256": "d763655c68d2e6dda0f55c6323daaf45acbb5865f787af90444bcdaed7bf68c1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_report_layer3_role_check_agreement.py",
+      "sha256": "2499ccb2cc12ef7bdffff027413c49f1cce2dce220124bcff5b7b557a01a253f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_report_semantic_axis_linkage.py",
+      "sha256": "1f40a117c938d79bd2105baec6ac6690999ae65ae5b5fb80c730ffdb304004fe",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_report_surface_contract_rollout_result.py",
+      "sha256": "56f13d72e524ef2dd8dd0aec904b888f8eb5046c59e1daa401c3737a4e657f3c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_policy_default_closeout.py",
+      "sha256": "ad77b189aa0ad5b1315a3ed23df550657d7a8605181da386b5c355f09ad5e5f3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_policy_outcome_projection.py",
+      "sha256": "053b5f7cef03df5fc1b9fc2136757efc2b176d51087474b6121ee512bf2b52e3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_policy_resolution_packet.py",
+      "sha256": "403d7b9bd04e67e811224c08a49f17b2d34ee21070d081856e8cbbd47340bd19",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_post_block_c_apply_status.py",
+      "sha256": "832695c0d64ecdad6ebccd2e2b078fc6a498f9fcf276770b95a62cf0aafb0855",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_c1f_discovery_pass.py",
+      "sha256": "43caa2a4f5f907cfe8d12b43ee3ac2547db11c2caa7138b9af4fa5e627b42920",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_c1g_discovery_pass.py",
+      "sha256": "6daa40b9bdc46fc13ddb0a9b6d08c140f134aaa3535ac9e1c60193002794fe74",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_handoff.py",
+      "sha256": "d59825bb6172a27d5376c5c0bf41c714085b4648092318e02df766ccc2054ef1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_round_closeout.py",
+      "sha256": "b4af27812e8b8a5585f09cb4e4ce1dacd6612276ac44aaa6a3fd750e7d9558b2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_source_discovery_round.py",
+      "sha256": "81f5ba92d10bab48362068f5fb5b8ce8e48c67702020bd0471ce96d64bb4d457",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_source_discovery_status.py",
+      "sha256": "ffe231c2f8337c9867f74d38c8ffe807455a626b477165ab22078245982d3b9b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_terminal_handoff.py",
+      "sha256": "deffa7711dfa32f1bc04e1023e633294084cfe4040f7f552fecfb89ac7b781ff",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_terminal_status.py",
+      "sha256": "8a0df07570559f31f5bf5f0e49fecb554c090a380e16a6afa7d810344f540a1e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_round_a_round_b_parallel_execution.py",
+      "sha256": "d19918f90d04dd9920fc6c7227894f740dbc94e202ade8d9c432154986158e16",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_b1_consumable_package.py",
+      "sha256": "f1bb1f8a11f2358fd99b6844142845b3700be8efff14a0762aca98bb1865301f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_b2_literature_package.py",
+      "sha256": "f7f59fa90a6394375b46977314dac511b87ca0dbc347e9ce02fe494b3a51722a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_b3_resource_package.py",
+      "sha256": "7ff1c36dc2e6b6966a75702102d9dd24ebc824028b12e56ddec8e5da95407315",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_b4_residual_package.py",
+      "sha256": "8b08fdc7caf257dd7cbabf632d9bd887c5acc716bee0144e2bc0c65c7a082add",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_block_a.py",
+      "sha256": "091d62b2a7f31d51744500447b7ca8bc6011012e3d404273603155c7ed39f247",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_bw_wearable_package.py",
+      "sha256": "7b9414b2e9ced364902f429db4d76bd8dd150b005b2b1ecb5f60a280268907ee",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1_scope.py",
+      "sha256": "2d2bed68e43f25c468204da92db62c5778e8ff61624cf19b04ed506e85523ec0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1a_vehicle_package.py",
+      "sha256": "8f73b30ebc9b45371c105bbf6602cd5ca248813fd113e767ea273531ef18bb7d",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1b_portable_storage_package.py",
+      "sha256": "585ba7fa746d95eb4b95bdda45cb3adb72f7af32f4d379c57ce1acacac9b63d7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1c_moveable_package.py",
+      "sha256": "c054edaac34a403b05b979fb4276e537adfda9f3f379c2c9b4da8e8112e85536",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1d_appearance_package.py",
+      "sha256": "929aa825e167ec115a6dd9b2a91270eb4ecbd6eae3632b58977971fb8bfb1152",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1e_security_package.py",
+      "sha256": "5d7e28c6d7cc4d2fee5fbb7b3081bf5ec4e883cea3fbc14c9969b95b497db5fd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1fg_post_apply_preview.py",
+      "sha256": "a84c4702fbc4589a171a308280409edb1be4cfa5a99a1ec309828193dfe7ba99",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1r_scope.py",
+      "sha256": "c824da87aefa54f8cba52f23caadc3c8cf1e3746ae450d33eda26c930ee90393",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1ra_desk_pocket_package.py",
+      "sha256": "c3eaf39936545202732e26c1825f08ce40fff58566cbb375f6d4027b814c097f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1rb_household_care_package.py",
+      "sha256": "0542782d40fce26931a7938f19b0a16659602c69e04e533debcef075596a7ee9",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1rc_play_media_package.py",
+      "sha256": "453250442dcab003a8ae4ac9867ddbef0480db988a05a7f5baf751dbe9847ca1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1rd_scrap_empty_package.py",
+      "sha256": "598ea0f5e3022d6ce2024074433b3ffb742b1701edf5c33c47f64b98fac5bfab",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1re_utility_misc_package.py",
+      "sha256": "f9e07c4c4dd382206031338d433fc22c8483f6f510348eb75ed2153448b8dd01",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py",
+      "sha256": "656f2ec8aa01cf81c35e2a9be30a6d047a9d32d3f7f2652cf55b5e4bfd55530c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_post_b.py",
+      "sha256": "3d9124dcb0b966b4523abf41de6b49919b4e5f19366ec0fbbdb6301738c097bb",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_post_c.py",
+      "sha256": "bade809375a27b6e2c9e318733bc132084522963b3cc14cb4aa2a67a0f5e4b7c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_runtime_builder.py",
+      "sha256": "8c3e25a9c22065955280ec1cbb79214a3b7d68c664b09e405f692596d8288220",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_structural_reclassification_code_path_convergence_supporting_reports.py",
+      "sha256": "6a178f46c4e11c7de13401db02ec9a6bb9406c1540b84fb77182c9ba47e62b86",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_structural_reclassification_entrypoint_surface_scan.py",
+      "sha256": "18189f1c656a5185240cfbd949655718fac3ae249f095b7e2a3d9a9a9573ef88",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_baseline_scan.py",
+      "sha256": "1facde2dfff451f8ba96e25d801a0bd873f3e781ae852ad079ea70230c484e55",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_closeout_packet.py",
+      "sha256": "1260ee2c99ec3791cc6512cad7aac1865fd8796cc2883b442f4b868ba0609c34",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_dry_run.py",
+      "sha256": "6280c0975d267427a466f5029a8c75ab5adcc9699418476b55c9db9fa8e55b86",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_lint_sample_review.py",
+      "sha256": "6bdc5d1805270b432428a1cb9fe68f7736a68fc2d9eec0c9d1c8b4b668b0d1cd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_linter.py",
+      "sha256": "7ad2c6dbd91bd68513d59e95965d31dd22d1feda1fd332650a5111ef16062fe8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_normalizer.py",
+      "sha256": "a850b8472c20c1a6c002ee75d89a4b8f22430f2970d922810d078f8f53996afd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_phase6_acquisition_phrase_breakdown.py",
+      "sha256": "4498686a6cfd1203b27cea6900eef877d03d2248aa34797d6b6a69e7c79a4910",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_phase6_triage.py",
+      "sha256": "c329a98f11d60dd4cd31ff5a34a0da8e22c5be6e5000f1a2d58a56db99528286",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_style_runtime_closeout.py",
+      "sha256": "1e0c35912009a07e7bb16c4788b183de3f9fe9a1c438aed1485d58c8a510c31a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_surface_contract_dry_run_delta.py",
+      "sha256": "944e95813088962905b77eb4f4cd3656d39ee81a8336758417df9d89b6f06503",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_t2a_item_access_contract.py",
+      "sha256": "db9fbb02753bd8c412a3910879434bf2a185d315d7783bb286380192c0b4aa6a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_translation_source_contract.py",
+      "sha256": "827f0db9b4e3ce318c0ddd3e1dfe1e8d51fc1620cdfc74943dd8145a8dfc5d0f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_validate_acquisition_canonical_alignment_precheck.py",
+      "sha256": "390fd0fadc1e1a6253a6b7aa41ade07463502e6bbcc843f87bce2d4be1ae0bb1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_validate_acquisition_lexicon_contract.py",
+      "sha256": "3fc6365b565c5f41d897f32d59b8b7430b0e4c55a01cfd20f3dacf352ade14c3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_validate_interaction_cluster_rendered.py",
+      "sha256": "de44db3a3b5ead375d27cf56dede59fcea8f2e69cbe706bb9e1b041a1cc9dd24",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_validate_layer3_decisions.py",
+      "sha256": "25d4a7725e49658f0c0c679f90b1c927a7854575d762adbbf3f52e88fb14a2a0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_validate_layer3_role_check.py",
+      "sha256": "f78b22a77844f4b4b09ced4a9757d1c42546700f1bc7198d5c0ed8e2499b7248",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w0.py",
+      "sha256": "edc7c06bb537ae3c456b3dc8ec462daac61866ea9affb0c7b28e0a0b6a7707b9",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w1_consumable_reverse_mapping.py",
+      "sha256": "21aebfde5ffb8e91c5475b5562d760375fab9ae854bc270141422feb9da4f895",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w2_existing_cluster_absorption.py",
+      "sha256": "40726eadd451f8172a7e5065fc2ac3f198555716191eece88b56543041d64205",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w3_unknown_classification.py",
+      "sha256": "eedba3e4a48aecd2e4e28d66158c3838636ce9b278b58bf877ee4154e347302e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w4_wearable_structural_decision.py",
+      "sha256": "a1091d67ecbc10b8e31a6bea00ab87b5b4fdb435f37b2d61156d0e0574b6b289",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w5_role_fallback_cleanup.py",
+      "sha256": "48f0a5fa23a5830a12f6892ef4a852f23d70e1e330c8d6a5bfc13f559e33a0ab",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w6_aggregate.py",
+      "sha256": "f87b849b502be315b121f1ad6f887795578d1e77772d052b5c3293a3f3ec259b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tests/test_wiki_fallback_contract.py",
+      "sha256": "f138ab56d9810da69e6fc876c5919c6032e51d77ded70b405c928e5e89384029",
+      "tracked": false
+    }
+  ],
+  "tools_build": [
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/acquisition_lexical_utils.py",
+      "sha256": "bc59a4f37d990a41f9ad9136b96f56d750ab5cbb5725a7892265f1486d0b58cd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/apply_acquisition_sprint7_authority_reflection.py",
+      "sha256": "b5fde256eed54582599f5e27fdfef34a6d53bc502a982d45cbfaed2c83ac98b5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/apply_manual_ingame_qa_polish_patch.py",
+      "sha256": "5e1b28cb627562e7ebd13bfe71b6f01d134f09510457c989169973da58827c10",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/apply_post_cleanup_phase2_runtime_reflection.py",
+      "sha256": "35c8b25275db4e89d5a02afeac271c462722023b1ef8d3a601c95671b5d9c92f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/apply_post_cleanup_phase3_runtime_reflection.py",
+      "sha256": "6e1a2f0f68539a1f3bb0678c288ab11fc3660a5df108c5fddc395d91e5e869b6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/apply_role_fallback_hollow_source_promotion.py",
+      "sha256": "40d68fa0b7ac0793f7140101bfe5992fbbc67497b7aa2e7d5f1678b14f1f210a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/apply_second_pass_sprint1_runtime_reflection.py",
+      "sha256": "2dde4c4ebd310629e7f2278e11c56a1e5eba0b92bf779d13099653545299a601",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/body_role_lexical_cleanup.py",
+      "sha256": "6a49f46d391c85bd764988c8359382dc9c24a4f00b36fb4d8107c0eeadbcd639",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/body_role_schema.py",
+      "sha256": "61aebb66922ca6a5a41a777524a5d3c7d17dc39dab67756ed61ce9177251c0b9",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/bootstrap_interaction_cluster_inputs.py",
+      "sha256": "de9c0e283d5ad3d7faa5fd9db1670b446edfe14f7ed0dcf6fe8e5fe1476099cb",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/bootstrap_interaction_cluster_phase_c_review_drafts.py",
+      "sha256": "520b9967aa536cdeb0d8f2171e17d8cb4959887452ebd515613456ded8d27032",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_facts_semantic_draft.py",
+      "sha256": "a69572732075fecb39be710f140cc08df37e9b215f0466029c79306f4c9ce42c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_legacy_canonical_bootstrap.py",
+      "sha256": "054484170fc3a004a93c050cb55da729929934b06922bdf29976b1b647d8351e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_null_reason_inventory.py",
+      "sha256": "0798c305dc7533ada885dd501ae618a2c5e48adbcc3bd794534ff00881cdc7f6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_null_reason_manual_review_queue.py",
+      "sha256": "4f022f7fb9a58b78b645141e887e2b802ae68bc428c8197120707f234d50009c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_null_reason_semantic_draft.py",
+      "sha256": "aa6d57a791e4da04ced516bec4ebf6be928e96f6069926b24fc1c90eb9fd7112",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_null_reason_suggestion_preview.py",
+      "sha256": "64ad41bea386008201aaa0e6469b012d1aa6e76275781fd43736c2d135fee7c2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_null_reason_suggestions.py",
+      "sha256": "a2503d38cdc46df8e1b672716ff29c786ce208d210350fe1b37c7726be9efc78",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_null_reason_unresolved_bundle.py",
+      "sha256": "00eb39648c62cb8f37fa31b501069acbfb224dd6fbaf74d78c3d8b734de12c02",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_partial_promotion_bundle.py",
+      "sha256": "eb37f4cecc9562706267f16dc4d6a1fecf6a45241322bd2ba2d5197c60551b2b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_phase2_design_bundle.py",
+      "sha256": "2153b1b4f9851110581bffc216b79cfdda49368cf7aea9b8849bdee55f4b38ea",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_phase3_review_staging.py",
+      "sha256": "3cc24d2e9737072b8602c13f9c7e262ff1f616f74cb6f48b981fa6730f7e1127",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_promotion_subset_preview.py",
+      "sha256": "14381305d71359cf75146bc16d11f8beec4c2ca5b3443234d417640d4ae64fb5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_acquisition_sprint7_authority_promotion.py",
+      "sha256": "fe410ac50d94224a9effe7be97d7e0a3abb7a7591049373d5912ed2d3f6745ec",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_adapter_native_body_plan_metadata_migration.py",
+      "sha256": "1ebb6dd99cb15775d37a6c7cbe3e4faa6d76ad0d2f055263c3596fb73472b9d7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_adapter_native_body_plan_readiness.py",
+      "sha256": "54ed577666d7891f6819a9913a495a987d2d0c9214a02881035d67ea674f95f5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_body_plan_v2_runtime_rollout.py",
+      "sha256": "0d91f5e3a99fca090fad269e8114c00a45b88c015ab8a03bc123ae7596bd37d7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_body_role_full_preview.py",
+      "sha256": "d83af392ad8c111cc4ae07c539dfd1f27607698f08cbf457cc0a8da1c6d3fe44",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_body_role_golden_subset.py",
+      "sha256": "14b30bdba5fd3358b97b5e7ca9e3b0274726decbd2f33826724571d761e0f0fb",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_body_role_lexical_cleanup_authority.py",
+      "sha256": "ad08b2bac184c0916a8e987911bdf14e072d80c8011a772040401ab968aac1d7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_body_role_lint_feedback.py",
+      "sha256": "01058cdb4bdb4ee74326517074b05893fa09c5a1e743e4653cb36d0357ba1725",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_body_role_regression_pack.py",
+      "sha256": "a26362f97a53fa0655ddbf631e2baabb285eb627077e9bcbb6ad57a95e8c6678",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_round_a_round_b_parallel_execution.py",
+      "sha256": "4d458f3d0d2e38509544413ac1af979e0325b128a313e22d41304894de62c691",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch1_authority_promotion.py",
+      "sha256": "786e77275275a28533ecadeaa44c0b8902b900400b7bd90ea0434cd3052b040c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch1_clothing_surface_reuse.py",
+      "sha256": "9d4c7fd4b4558e7d39371d3ade7c17047799edc6493b976aed40bff025fc264c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch2_accessory_headgear_reuse.py",
+      "sha256": "0a887d3cd2529783b52939ab72498993cddc2ae9334598b34e71bea3f40b6576",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch2_authority_promotion.py",
+      "sha256": "995cdad17bebf7765d7501d43e1eb37854d9b2062252d961407c3df4d286dce2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch3_authority_promotion.py",
+      "sha256": "49186517705e9a212548c21b323b2576178495adef259d78467cb41265d3366c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch3_food_storage_reference_reuse.py",
+      "sha256": "e21dfcb81a06331b06dacdc811a4cce35bc987b394ae159b909e468c00ed82d2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch4_authority_promotion.py",
+      "sha256": "92f4637ac52cdc265ff207265bd37ea7854a5d6e1dc49480d7e0a379ae5878a2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch4_medical_kitchen_explosive_reuse.py",
+      "sha256": "e8c6f184778bd2ca9242b8e797aa5118470e39262f664a7dbbe4835f49153f4e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch5_residual_taxonomy.py",
+      "sha256": "2fb43ced59b7096e9e3cf83bd6c9f8e806410e2bec662dd6ed409d56bdf847b1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch5a_authority_promotion.py",
+      "sha256": "5203f911d5b026ee66f0459c2b6d6b24878bfe409cd77c514fafd06c701a7d70",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch5a_electronics_partial_reuse.py",
+      "sha256": "6d82f98b01adcd29c0bff302605b0abb32c52730dc50b30266f279cf3cbdff70",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch6_residual_family_split_taxonomy.py",
+      "sha256": "f0ede59290143c760b5a48f657f69576119e39708856656406e68b61101766c0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch7_adhesive_repair_supply.py",
+      "sha256": "ad935bd85cc3a1b00718fb3266f46891aad366259bf12c00d3c1de565cd64111",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch7_authority_promotion.py",
+      "sha256": "8e1f4f406c934dc14a3257054bcd46fda47a7745bf1a1bc917bf9d9f002f338a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch8_authority_promotion.py",
+      "sha256": "afd96655d49dbbc2f0bdab80b168103b07eb07f29f0411d595d9fddf0d6c452c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch8_solid_fuel_material.py",
+      "sha256": "8507ec3aea045ae7198ec0fb3f0147b51cac1c8102f921411615858b333846de",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch9_authority_promotion.py",
+      "sha256": "d0a515c9886e732d461ded0aff4cc557bdebca6b0e67b537fc70f2a72c1fac98",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_batch9_metalworking_consumable_supply.py",
+      "sha256": "34fbf0ec1cee5d1dba42752248722a51d707261bd86ae623c6e2ca396277105e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_bucket1_crowbar_authority_promotion.py",
+      "sha256": "c557e8e30db4d84b14819f95245fd783ad42d4ff1e143202dca7c5cf4edfcdf2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_bucket1_crowbar_reuse.py",
+      "sha256": "1e3aa832445d2fb2a7ff71da9aacd89989eae5492a22f33197ff78143afd33fc",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_bucket1_residual_taxonomy.py",
+      "sha256": "50508d47f8a05c1e1a842311283db6831398765c3e6180906d00b446deebd569",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_bucket1_wrench_authority_promotion.py",
+      "sha256": "4299ab3baeed94190b301a635042aa287b37f0a7ee039ba0e1224140bc960be2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_bucket1_wrench_reuse.py",
+      "sha256": "95e588896d6a26b665efb0bf1cb900bedbf5744d3e49347f150a0b005c008e23",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_closure_policy_round.py",
+      "sha256": "ca6ba8c5d79e847b46fe30e75d78ec4530e156dd38eec7d3a636033a1af7f6c0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_expansion_plan.py",
+      "sha256": "40aeafec281413375e31e2e21c6b10a6e34186fd96b10442e186de0810ce3405",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_phase3_residual_taxonomy_manifest.py",
+      "sha256": "f5e8f2bc671d40fa2f907da7f46ae0c210764a3f6e3de32e98ae80555573ce3a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_phase6_executable_subset_rollout.py",
+      "sha256": "375b389a12315a752c5d2895bd44b77d5ab807848ff4a7c1e31bb246d5ba64b1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_phase6_subset_plus_bucket1_wrench.py",
+      "sha256": "a7893a8cd05c280a5a07f0078c2b50f671a039af3d88d0cb41107073396928a6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_phase6_subset_plus_bucket1_wrench_crowbar.py",
+      "sha256": "a2915249184b0afd1c2b729b1de3d08d07d7142c8661b704112c382ed0cb0729",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_phase6_subset_plus_bucket1_wrench_crowbar_batch7_adhesive.py",
+      "sha256": "066c40bd7729088c98f0040acdf89872d7e53413440f5af1403e15c7d279d6f6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_phase6_subset_plus_bucket1_wrench_crowbar_batch7_adhesive_batch8_charcoal.py",
+      "sha256": "ae68e1173a8c86a8f52279dec5af5e7ce6ba1c2828e54d0d3bf14a2530c63207",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_phase6_subset_plus_bucket1_wrench_crowbar_batch7_adhesive_batch8_charcoal_batch9_welding.py",
+      "sha256": "4502cae9081957d156ef89adb748431591c02d5be0905390ff209022d24add04",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_residual_round.py",
+      "sha256": "63f08812955389f759b9778e62613ba8cf47198837383c7641774afbb6a05cac",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_residual_round_phase0_1.py",
+      "sha256": "ce34a3ae5954bfacf824a0514593116a41797b5b2acd9fa3b2b78e1fbc53879d",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_residual_round_phase2_5.py",
+      "sha256": "17d0a7ec694e1b0676f247dae097f307e197c6290553266a0c81d8e547e33ddc",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_scope_policy_round.py",
+      "sha256": "fe38a91fa297a7a59fd89f6c26fbe5665cbc94ac6dfc488acfc5b8431956d4f3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_source_expansion_phase0_1.py",
+      "sha256": "0ac23f28348bb846413c940843633f72b61fa76fba9740dadcf50022787e5afc",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_terminal_handoff.py",
+      "sha256": "00d0595f2786a45b0dd85e177eadc5afc5d5ed32932cf759b116d3f013a68c0f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_terminal_status.py",
+      "sha256": "a0379639ffc1536d2d0c7f946e5cbeb79ee4fbec1f2b223bd90ad6c09ea20b67",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_candidates.py",
+      "sha256": "2973a56a0dbe36b69d19c7eb0bd6da35ef9a641308cb218b49d2f78f6052698f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_compose_input.py",
+      "sha256": "371bba35c890af0cfc78d6796cbba9405c16096411b69c7a916de58d37ff5373",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_historical_runtime.py",
+      "sha256": "c92c414c40df77b7d3ca05ae5176ad10801aec28acc1c7cb7962baaf0372bc08",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_historical_snapshot.py",
+      "sha256": "d15b96a7becc6080eed35a87463be7608a5aba444c1ecdf306d331451f0a4bf9",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_phase_c_pilot.py",
+      "sha256": "7e1767de93a9f17d7a4381fe50267ff27c30597d7a7e4ea1cde0f566700d6cba",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_phase_c_review_actions.py",
+      "sha256": "57fe24bba767201ea538c8899a2edec8304f21aff3a9b27969a54354e53080b7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_phase_d_runtime.py",
+      "sha256": "afd5f24702ebb6fb0c4cb8c75352ea061e1fcaa1496b9c06e1204166b4aee999",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_rework_queue.py",
+      "sha256": "3961bd4ad636af537fe06507511847648ff20ae397d6e4df98fd77b67798adcb",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_source_coverage_runtime.py",
+      "sha256": "031e71e50e636c00ea7c7bf1d619caef1b886c7c2cbe9f09110647f026961e89",
+      "tracked": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/build_iris_fixing_index_data.py",
+      "sha256": "19e2901c1126e678febc8a510ce5b7b44965363293d17aa07cac684cab3d8c2f",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/build_iris_moveables_index_data.py",
+      "sha256": "6a1fc478a8f1c75513cdba38e1607d6dc718839076333944bd5afed557bcb1b3",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/build_iris_recipe_index_data.py",
+      "sha256": "5084ce0dccf532d375dcee256345d0cacebb28add6177922710d828e2716acc7",
+      "tracked": true
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_layer3_body_plan_v2_closeout_artifacts.py",
+      "sha256": "0f990d6ef24fce88e288b590a3f854dc3908c1ea689388bf2e68baa737ae5099",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_layer3_body_plan_v2_pilot_corpus.py",
+      "sha256": "55a01f237080e83f3b9ed0dff5b845fe5be1e4d1875575ae72c6ce58f356f0c5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_layer3_body_plan_v2_preview.py",
+      "sha256": "297af1b2196bae752037cae33d4d9badc3c591763dcecead462282632fbbed92",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_layer3_body_source_overlay.py",
+      "sha256": "b12fcaae5232972d542d421c4eb3a205907dc50ae9f1d5cdfe1e51628f9ea59b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_layer3_role_check_overlay.py",
+      "sha256": "5fb7ab05bcf96c9ee2061b6be1bdba2290f275d86dde1021c3fe992a61bafdc4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_layer3_structural_audit_v2_preview.py",
+      "sha256": "c3e7e99f04c27b17050cef5f3d5510b5d0ebe8e542ff72be435bad54a6a92506",
+      "tracked": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
+      "sha256": "3c195170a6c16abc14399a224c0b48f9794684a66f6ce0c2f7b9789c1ce95c71",
+      "tracked": true
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_phase_d_signal_preservation_baseline.py",
+      "sha256": "ec82bee73138d3e8290adb9b819e79b7bf5a3c541b93d3da262820305e1b3120",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_phase_d_signal_preservation_diagnostic_packet.py",
+      "sha256": "3263de9b3f87f1b3f60afab74beaaff77b06caec0e4461bd415150379e2c0dc6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase2_runtime_adoption.py",
+      "sha256": "64ed5bfc4a91ae57c68dfc9b03821c963711ceed0364223e3cd94eb3830ff8e7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg1_resource4e.py",
+      "sha256": "d885e349203596b3b95f6ccd71a3eb8c335bcd95a251341845da51b4a6e4a0f5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg2_combat_reuse.py",
+      "sha256": "0ecec88fa9dd691159dcd8496ae2add1e34da02e59af89c3b7ed17705744d5f7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3_unclassified_triage.py",
+      "sha256": "fce700dc2bbdda19d9da2371c5a3f20e2a5530203fc896615a599181e8de5009",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3a_construction_repair_materials.py",
+      "sha256": "3c143ede71080bddf4510d85bcba467a22e7939ff7db8c164dc204e1ea56f8b3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3b_vehicle_service_utility.py",
+      "sha256": "dcb23e6f3de9f49d5e7627affa413d680ea397adacebc01c7b3838d45eced5b9",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py",
+      "sha256": "1ba93e6cb8171f64175ced2aa3e24b7f77e487faf6ec363264e13705091582b6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3d_water_and_container_handling.py",
+      "sha256": "50bba4a39ac77878add2bd84575ab7273930625c818412cba9d6aa103c371131",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3e_gardening_inputs_and_irrigation.py",
+      "sha256": "25de066a2b673a038a79b780dc61c3103e44898eaf2c3d34616e6fb559a1765c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3f_photo_capture_supplies.py",
+      "sha256": "72f71ee06fb28fd97de1aebaaa76545cda7ebc4b4a0723063defae725e9b4215",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3g_household_access_and_safety.py",
+      "sha256": "073dd05428282dca15fa8e27bd2a99c4c341a189ffcd284a85e733ac2fdb72e2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3h_fishing_small_gear.py",
+      "sha256": "c54495959b646d0b60acbdc96ea940220c0cad181a6debb13e1883cb63b6e113",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3i_textile_craft_inputs.py",
+      "sha256": "49c9fb9c473ce509f7906217d2c2d0026ed994c8f23019f746f0bd74d9acdf96",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3j_painting_finish_tools.py",
+      "sha256": "d6b43e54e8b975994ad3721eafe6306f8746d1df9de2f1a0179ab0d3b6c041b7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py",
+      "sha256": "b179c183a0bac2da8df29805416adbffec7224942c32b58e01a9a3c1d4d61084",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py",
+      "sha256": "da474cebcd2bf464b3dd68619b39cdb353c5f3dbdd8da5171c89f44101f4b6d0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg6_residual_tail.py",
+      "sha256": "13b555d7f796be6571db52f0dc6cc42fa72198a3ec6df87a0faad7c3e07a1898",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_runtime_integration.py",
+      "sha256": "1e2406dd7f8fe829c82f8976571c9e4a156be46b36d439bc0de43b6c48129023",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_quality_publish_decision_v2_preview.py",
+      "sha256": "16cc78b6b383e16018b5d813922767f13d002ba576cc0bc9514cdcf08f4b73c8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_quality_publish_phase5_runtime.py",
+      "sha256": "0a848f2d3874d8e1e2e79fb8fd08d34653bb3e02b8c2b914f4b3a8407dabfea8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_quality_publish_phase6_in_game_result_template.py",
+      "sha256": "a1a092fe551876bbe466612b3c3b55b90dd1fdff86c29b9f82f822c60d8c4853",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_quality_publish_phase6_validation_pack.py",
+      "sha256": "e6c94300a21f6a2e107de8dfe5cd644d92a15c599956e36c97fd9fdb67a995f5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_c1b_reuse_promotion_preview.py",
+      "sha256": "a4d2ceded1f3acedc7dadeca0ab523f34b1a7b05a90831bd380914a9cc0960cd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_followup_execution_inputs.py",
+      "sha256": "3a580aef5bece8b605f3f5c12928e80303833a2a14eeef8b6f01dff003b40a21",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_followup_packages.py",
+      "sha256": "81c5c3fe443970310f3e7f285561a2984a2141e0bfd3f77bcad833f23ce619b7",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_followup_runbook.py",
+      "sha256": "3fb85e6f88191e523f5bfda10fa35c953a775fb97254d3c32cd0a7ce5933734c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_manual_residual_blocker_memo.py",
+      "sha256": "0639f8bff83d46b70dd5412e3d0101761b7852f2f74ed09ca67e0ca541ed282c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_manual_search_pack.py",
+      "sha256": "2df433c8778d1d0ba00fe27f077e9a2667a0d76449a319559d2b941b36a42a23",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_manual_second_pass_upgrades.py",
+      "sha256": "95e1689fd21033a42403e2fba438232b67666ba6f2ef80a0a154ffe65ad12e73",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_net_new_work_packages.py",
+      "sha256": "998b985efd2a7e66b2b0b9d0a309619d7dfb49e0a7b606018e3492baded41a64",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_policy_default_closeout.py",
+      "sha256": "056be22c911f92dad7a3e21fa3a0d4347744840e29f6e158f05c005b6e206c7a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_policy_outcome_projection.py",
+      "sha256": "752c24d93bada03f4da9e208640fa7254a587afc290f8542589c00492336355b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_policy_resolution_packet.py",
+      "sha256": "6fe3210dc278419ba4931644557e6cf20dc9b03ab9b2886eb22318718906f615",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_post_block_c_apply_status.py",
+      "sha256": "9a97b2dfd3113c60a64ba91aec998ba03a2221687c694bc2633023e95813a09c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_residual_after_c1b_reuse.py",
+      "sha256": "7e2c69506fe5465f8c097200f8f96feb26eb7ce98418b04ff21e71ad63545ef4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_residual_tail_c1f_discovery_pass.py",
+      "sha256": "04eb5d50fc7171c008b77ecd18b96306017bb194937f734cfacf2e3badc24b3c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_residual_tail_c1g_discovery_pass.py",
+      "sha256": "ffda997be250682b6a08febee4049c9781affd5dd9fbeb8b7d037b6f6cbf4c4f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_residual_tail_handoff.py",
+      "sha256": "035417862ee75116dd10ac2362770aef8bd7b884c332b3dc2ea1e620b0ab1d7e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_residual_tail_round_closeout.py",
+      "sha256": "e554db307ea661df078b5b042f33b716b955f250405dc65875c0ecfb8a5f9775",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_residual_tail_source_discovery_round.py",
+      "sha256": "fa87fa05b7afe878fb1a7a89b3cb0aabff2ad4684bbc02d1e7fc224d09d018e8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_residual_tail_source_discovery_status.py",
+      "sha256": "96f98166265677e7035c9036daed436825b6e75605a8c333686ba6f0f01565f1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_seed_package_local_evidence.py",
+      "sha256": "d1d80a0f4b8af352c57301d99ed26266e71fe5b022e10e4ddaac94afc7fafdfa",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_source_authoring_queue.py",
+      "sha256": "243b66a769029ed7e73b734c5f51682c9d75c164577b4cd1694bff97c3f4e3fd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_source_expansion_seed_packages.py",
+      "sha256": "9ab0bd2aad0c2062ec21696eca7148c5842683c121787a4324f8d020cbd563ce",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_source_promotion_manifest.py",
+      "sha256": "b19f394df8f5d8ee6cc14efef275b5722787bd252c7b86c8013d84e06da637e4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_source_replacement_candidates.py",
+      "sha256": "b561ef8faa92026ab5b30c125f9b3f18205aa72711069752cbf6353c0addd596",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_source_replacement_delta_review.py",
+      "sha256": "2fe9ef886cff424afb15a54160b70fa035f4c063f405f9b4fa63beff831034bd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_targeted_authoring_drafts.py",
+      "sha256": "6f0e9751238dfbf23f48d8e4fdebb911d082cd1fcf58353f8e8120b5a6adb118",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_targeted_authoring_pack.py",
+      "sha256": "c3d7b78fbc7acb29d6407705b236fa92fb5aabfe0af501c97e2a54e25ac22cec",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_targeted_source_authority_candidates.py",
+      "sha256": "b7c4efaed6920c723bc6f1adc0765a0edc5176e58e2a413324a5059f52aa21cf",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_targeted_source_merge_previews.py",
+      "sha256": "d02b8e4cf25a3fb307e8a2a7055f3180b2a95522c1648034f1184ef919a47b79",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_targeted_source_promotion_drafts.py",
+      "sha256": "a78ce67728f9c14034ea47bb1433b83ce6d0ad08a79bcb06d05c8aa38b1e2f03",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_terminal_handoff.py",
+      "sha256": "87c5d37df98a04bfe65497b53205ab3e4b69be4cd5e56474f05c8373d0b3260f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_terminal_status.py",
+      "sha256": "e818e36fb0e51954abddb4b90fc95b84cf1c729a894bf75811bbba8d1da5def2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_runtime_payload_enum_rename_scope_round.py",
+      "sha256": "0f932c90f4d853714d30f00e3b6ba8590b85805f24bcab55098c396861d501a5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint1_runtime_integration.py",
+      "sha256": "bdf9da4b936a2c057f7bcc6dd8486d6af9ec402a89ac05c396f350f91a4c7b27",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint2a_music.py",
+      "sha256": "3a2d3479b7b0e5cdd340f9193f4b09e23e365fc077b45a2ff786d12e447dd0ac",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint2b_sports.py",
+      "sha256": "d2be080e1c8c4309fe0499910da69bfda470df857ceac19baf079fbec26387c0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint2c_gardening.py",
+      "sha256": "855a31a5bd734ab910b0f5c0557c832cece00f9b2b8776a73f507b422945e03c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint2d_fishing_fitness.py",
+      "sha256": "e4c5891f295107a9dfb5299277def1237379a291b7b48f319ad9ec84d73b8264",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint3_pkg4.py",
+      "sha256": "33db6346418bcd094c4ccd602cb932086cdf902affd458f2c80544f9f1e31361",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint4_followon.py",
+      "sha256": "b42e64bdfbb750c08d54439cfaecfd9e208fe9c657bd6815007cb81d164a343b",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint5_deferred.py",
+      "sha256": "af570d34b2a4ca070fed38d10ed017633404bf696d16004d7924d3adc70d6a46",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint6_selective_netnew.py",
+      "sha256": "3ba4c70f32b231e14fa8340c2e97e74a836b7e4b92b1f049822f7b819edbeea0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint7_closure.py",
+      "sha256": "936bf4c6abb8bbd37149bb9074b04849eeec1131d59e4cfae9b2b57b47b0d863",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_signal_preservation_crosscheck.py",
+      "sha256": "60b09eb1f678319da25f87a269e189fc2811b060d68feefbbb7a6efba47bb509",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_silent_21_replacement_authority_reconstruction_round.py",
+      "sha256": "d691bdfef8857d16859757fb4ae0ac8d9b53e3887e7074c6cb028aa10b448fa9",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_silent_metadata_intake_cleanup_round.py",
+      "sha256": "5a16f0af5d74b936a10ace1486c91ab6232d2a6d64d08fc6795ceec8767856b4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_b1_consumable_package.py",
+      "sha256": "102b15cc059e70e7cf1eb85b2d93305ba16e4cad844ae84af3bba803f156b8a4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_b2_literature_package.py",
+      "sha256": "7ed33c180b44c39cd932f34e78239a396c16f057bc28f7b47bd831e67ae069af",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_b3_resource_package.py",
+      "sha256": "ede292853a15aa4af781ae38e8a79a593fe8e16edb0ad61fcba8ec089f848815",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_b4_residual_package.py",
+      "sha256": "adedcd99542eb2b0970e8a67c171b306640c72b30c37299d15e81cf7ad75c3ad",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_bw_wearable_package.py",
+      "sha256": "561ace7acb668c2511136f2af2321f71fd2b892b6554e40f445d885ec3805504",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1a_vehicle_package.py",
+      "sha256": "765cf6f6ee0f0d810fd60ee11bc252f90a2910f459c761034493532a9600ce9e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1b_portable_storage_package.py",
+      "sha256": "21b222123fc13ef59b1934d7455c3475129a01f3be84282e2d00838a62b591d4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1c_moveable_package.py",
+      "sha256": "376b5c8ecd6f07f53b7b72ad6a6ea15ddd337d9699f86421b12fccb07d855c99",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1d_appearance_package.py",
+      "sha256": "80d6f20fa22a6cf0b1bd71c3ebf0224cc15e31476257f921fa123752658c8bca",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1e_security_package.py",
+      "sha256": "ab4ebd6e0e8671196fa6b3fcd1ed45e47e2ab8c221acb715077ec0321d5b02f2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1fg_post_apply_preview.py",
+      "sha256": "9a0fd10f95b20eede025c905cf30f7a3839a121410cd739a13e3467eda5dbf41",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1ra_desk_pocket_package.py",
+      "sha256": "baeae5916eefbbcfcf0ca7385d80a82771ba089661ad066e186d77c79ae78597",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1rb_household_care_package.py",
+      "sha256": "d6dc84c7504cfe915ad7070dd2ac09a4809d9445b1456fd84dff1201ffcbcac2",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1rc_play_media_package.py",
+      "sha256": "732c53c5ac447bf47c659ddf435eb09cec19f0ca6f76b13316cd38a3ab3bc9cd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1rd_scrap_empty_package.py",
+      "sha256": "13ba30ddbd43c41c53dd62fffcd2d89b418922829cd8b8f1f260242061a6d81f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_coverage_c1re_utility_misc_package.py",
+      "sha256": "d5ad0e98a384d000445c9e6779be26dc4834f01611bf8afa4aa052869b72b115",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_expansion_distribution_remeasurement_gate.py",
+      "sha256": "1a3f94555db00ca242a03c8eb0a364a58417e47e18dfdfbb76abcc557e88b456",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_expansion_distribution_remeasurement_gate_phase1_3.py",
+      "sha256": "86235c8a5cff694dea985e0c4f82b509c03c54e9e98f7814e8533806630f76e3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_expansion_distribution_remeasurement_gate_phase4_5.py",
+      "sha256": "0647420e0a00714bb632ba0b7815aed810758d3bfe190bf3af3b2c0c06131b88",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_source_expansion_distribution_remeasurement_gate_phase6_8.py",
+      "sha256": "efd0ed32512f3cbbf2e79c48be6339a6b4f047ee0811ae316b1e273c2929078d",
+      "tracked": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/build_static_report_label_cleanup_referent_recovery_round.py",
+      "sha256": "7bc9ef094bd687deb782d75902a74ca640687d9f1be59de9075595e95b69acbd",
+      "tracked": true
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_structural_reclassification_artifact_hash_guard.py",
+      "sha256": "c5b97159457aeab1487a44b47e596d134958e8d35b28b7e43e617d727037d58d",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_structural_reclassification_convergence_crosscheck.py",
+      "sha256": "036bce10c7daa97db3187f5f8799ac73982918cc95578b281583f871bbf7b354",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_structural_reclassification_diagnostic_packet.py",
+      "sha256": "7e27698abed551ff6e3cd43fa547a905cb171c89441c304c97a36b6a16fee4c6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_structural_reclassification_entrypoint_surface_guard.py",
+      "sha256": "d4cb62d12dbea3f0020b12adbc8c2b50fd0fae9842c0d1690c36d669cb888926",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_structural_reclassification_entrypoint_surface_scan.py",
+      "sha256": "9b945e8e86f5aae68e12a9b46ff53d6f4e508e6a5ca53204ccb6651768e30dbe",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/build_structural_signal_missing_anchor_authority_resolution_round.py",
+      "sha256": "aed35d55737f2b3746a1463cd337560e0168cd3a5347b2c20454287f81bdee31",
+      "tracked": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+      "sha256": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+      "sha256": "f9218ecde2afadbdc122f3e9a69654d6d586f9d98fbc3102efb5352de5521b1a",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "sha256": "f6a6bf7848a673f4069aaecfd58b55c9e9a31d3d88361ea962d38507b4e3c824",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+      "sha256": "12b98ea1de9e7eff87d1ba06cdf62e30f47e193b55070221dd5c0ace46494ed5",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "sha256": "68265a9a9611be201db25452afd43bbfb5b7544daea5b00a30f669427a7663af",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+      "sha256": "8ff755fbdd2718f07552f544c94eeacb0a1cdb482752ce455f8ac013bd0d3f02",
+      "tracked": true
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "sha256": "fecf4abf2be122fd60488bcccc402fe0925562e782b1458ad45440af4d589e32",
+      "tracked": true
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/draft_interaction_cluster_overlay.py",
+      "sha256": "f41823bddb8027cc9cdfec75b65754820d77c92974d912ece88ecc42a533a491",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "sha256": "4a79a901e6a0424f06a73158d0ccbf94e549498b5db33bfc6de4b50e61f266d0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/export_interaction_cluster_phase_c_review_packet.py",
+      "sha256": "dc719c71562043e8e452c882430dc9e60ca66e5825e1ccd72ad459b0b6d91126",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/export_interaction_cluster_raw_source.py",
+      "sha256": "43d98ae37548d9ce3dd76d59b3093e2c53ea3af20b6b12198d3a44337f0d0e03",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/export_interaction_cluster_smoke_sample.py",
+      "sha256": "31050c5577867e8847cae2ca4d5347ee419918a17b23ff4a175cc2f99b06309a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/freeze_quality_baseline_v1.py",
+      "sha256": "8fc65dff84689bea054b5fe1382bdfbd469ff523204a8210c741a99c4ef40092",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/freeze_quality_baseline_v2_partial.py",
+      "sha256": "cfc400983c05e05e4e389d2c286665ed205be8b13bac99a82ffa11267413ee08",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/freeze_quality_baseline_v3.py",
+      "sha256": "227cc62ffc59e23efd086ba775dae9e6992e4eeb419c40209996fed91ca73d8e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/freeze_quality_baseline_v4.py",
+      "sha256": "592e113bc0da25b41ffaf166046a140c81cc4d57ddfd226829c03a42b0089638",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/import_interaction_cluster_base_facts.py",
+      "sha256": "61c12110bda60f2235743bdda48e3ec4e0b5e184903574ef59541ae8f70738b5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/import_interaction_cluster_raw_source_from_usecases.py",
+      "sha256": "f09e3d6140e521ff4b4ff2b1c38c7ee494702da5377ed3bb287731d8a16d67a3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/layer3_structural_audit.py",
+      "sha256": "b85b395cc509962aaaa9081687b3b83b56799e6c8bbd8e53af812b23850c0310",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/normalize_interaction_cluster_overlay.py",
+      "sha256": "b3acd52bf06bc5600fb2adc6d77767bc152ba358ffaa9fb21d39c93ee34d2f03",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_acquisition_surface_audit.py",
+      "sha256": "83259bba580db72dc7b24218619a099a3aa0432805f3169462a0318b0ad15f45",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_active_semantics_redefinition_simulation.py",
+      "sha256": "2b0826f8ae8fc9467e8e81146395e2fb83acf608b4e1558496d68f819b9a41b6",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_adapter_diagnostic_compatibility_final_disposition_round.py",
+      "sha256": "69aba8acaf16c906f075f65ff9179aee4fa8a33571416f8ae2748f2842c3c8e8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_body_role_regression.py",
+      "sha256": "0a08d9bd35fe57591d53896e3cf67a82c460dce0bfe141a207e84a880777f230",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_compose_determinism.py",
+      "sha256": "8e107eae642f5e48e5d3d8c9e3f9e411b5ad73ae4b0ee735f622d9e99ef62897",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_compose_profile_migration_inventory.py",
+      "sha256": "378af20b749de9f32594b00f8b198812a915d4b75813a62ad370195fac72cb31",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_compose_profile_precedence_draft.py",
+      "sha256": "3e3150bb2e37b6eb6191af5835379b597044edcecc8ee753090dbbdab11e0e37",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_compose_profile_resolution_preview.py",
+      "sha256": "6644be436333d56c60221574694b64c877762926eaec78056678106f1d0a2d5a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_diagnostic_resolver_guard_round.py",
+      "sha256": "15dc6a07f7463258c2d6c3b51c186c746c070672cd5be5365d61a24a6481e359",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_generated_weak_body_role_cross_analysis.py",
+      "sha256": "89bec4001ec8811f7fd78ad3a0ae23c2a3b6d9db6d3c20ef896c196d6a393729",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_identity_fallback_source_expansion_backlog.py",
+      "sha256": "1f2c8e0a37fd482f68c2e46c2e2d824bf296262bae0ad88426d0dfbab7e7359a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_interaction_cluster_coverage.py",
+      "sha256": "be10e676f907d2e26f6f063e14d88865d70e5a28175baf2543ca3232c130e8f1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_interaction_cluster_gap_patterns.py",
+      "sha256": "6ff554878de8bcc5c96d0e6355e13441f9204848a42eabb95fdb42c11385f749",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_interaction_cluster_phase_c_review.py",
+      "sha256": "ee88c0fa822c1b2ee11570e51b6dc12d5aefce4e2126a4d9cd3b36fa21d0aceb",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_interaction_cluster_smoke_review.py",
+      "sha256": "45dc82756b98b4687824a968aafffd631cfbc573a3938239dd65a5de47c0919a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_layer3_active_quality_audit.py",
+      "sha256": "eb3836cbf2041855840473459304ad4153fc99716cce027892f195cb7d5ef558",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_layer3_body_adequacy_audit.py",
+      "sha256": "9400d0c1199e7421a7c467497b53e0156df45f805fe19583f5b695e744943677",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_layer3_body_plan_signal_preservation.py",
+      "sha256": "ae43c58f2d5179839519949afca5ed228b8a7c70994e1071d331430566288e96",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_layer3_body_plan_structural_reclassification.py",
+      "sha256": "3d5c37d8c083f22568d69defe875dadec18f237595920c27182ffbbd739e6297",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_layer3_body_plan_v2_blockers.py",
+      "sha256": "ceb48458f19d1c783607bbcbb8ac305e585d19347c86ce84a9e171b1c664edb1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_layer3_body_plan_v2_delta.py",
+      "sha256": "004bee373da29fabc25e416d327718413613a1d4c4d607cfe5229c8ae80ad96f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_layer3_role_check_agreement.py",
+      "sha256": "1d3e95db098b8ddf7d8b0229c877d68ee2c41af41b4d343d213fa353cb153ba8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_phase_d_gate_threshold_proposal.py",
+      "sha256": "2e263a85868e37579d7b9342a0c21a04ad0cb3a836398dcd55f375a7b5a30040",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_phase_d_readiness.py",
+      "sha256": "db156d2a1d59d4e24f923fcd75f6412d977a60458cc98c77bfa8aef930dc4825",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_phase_d_reopen_iteration.py",
+      "sha256": "25e9850c4da07fdc7f340128c4829dbd2d361585383a7cf911ef743a6212e562",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_post_cleanup_phase0_input_freeze.py",
+      "sha256": "3effbc062816b8778af86117b6ecd064fd01628fea74d9f1e39188a115b9c585",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_post_cleanup_phase1_status_model_draft.py",
+      "sha256": "070f49a263e253ae5893f7a14889b0816b6f33df817421c342eaaff3fa78897a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_post_cleanup_phase1_status_model_final.py",
+      "sha256": "f21c432b59f29d72b1aefcac7897520323462ba6100e4a15711977dddc2ae252",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_post_cleanup_phase2_adoption_scope.py",
+      "sha256": "04f13d0b6720f4ae827a45cdef7b0109dd2aae133b5d79943fa141b8c15a0bef",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_post_cleanup_phase2_adoption_validation.py",
+      "sha256": "ca945c645bf7b3136feb979c626ecd9b699f72915ce7568681a63cc08b19b425",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_post_cleanup_phase3_backlog_exploration.py",
+      "sha256": "da6038a8914254ed9649f877c45e61597d2f6492fdaef10152ab637f2f0d841e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_post_cleanup_phase3_package_plan.py",
+      "sha256": "25754a2437dafa862d12b8f8833e89a2fa165e990f0fe13e257d4f435f8c9493",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_quality_publish_decision_preview.py",
+      "sha256": "4dbc68219e1470532082ac526abbc51a0f0b1ed7464583ffd60b08947ea3b635",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_quality_tracking.py",
+      "sha256": "93ea01d22302d88bec14e25957e48955964f15d644cd89a511fd233df4dfbae3",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_role_fallback_hollow_followup_split.py",
+      "sha256": "b4194e08e6185ef52df073ed3f574b9c648c21db93eccb89264ce6b8902ea6df",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_role_fallback_hollow_source_expansion_backlog.py",
+      "sha256": "10cdc3a28df8c250bd2cde023edd82b6b6a277580ec673e18bb4b410ddcc121d",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_second_pass_phase0_infrastructure.py",
+      "sha256": "214adfa11849602b71987589f53b53fd472ffed45d16654f2edf08af84f47d5e",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_second_pass_sprint1_candidate_patch.py",
+      "sha256": "acaa1755642256f7793651d0089872c64b6f3f6ceffb1a98ffe830bb87589357",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_second_pass_sprint1_row_freeze.py",
+      "sha256": "093bdcd7ebdfdc84adc639f932bbbb9a83ca94bebbae1fb33f4bd5e6f2af7969",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_second_pass_sprint2_theme_split.py",
+      "sha256": "30a77d03ab4c8c8ce1780deec3ec0bc7041303bc68210d4b3a5e440a9cb37938",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_semantic_axis_linkage.py",
+      "sha256": "6313109df6c38d2107f27d11a693028ffdf00a8a1d43e9f7a33fdc5d771268c0",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_source_coverage_block_a.py",
+      "sha256": "b36db624701a60f6de42fb2027853a54360f88b96e5709e729e36cf0d41ef1bf",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_source_coverage_block_bc.py",
+      "sha256": "546c000dc2230eaa645bb3bdc448c297fe0d948a9cfd339439fbdbb74a241dd8",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_source_coverage_c1_scope.py",
+      "sha256": "ab1190f5fb40f8843a003cbf1b7736597f2d2c91385566985ffea601aa0b81dd",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_source_coverage_c1r_scope.py",
+      "sha256": "37acf594cdcedcbf464785a022f16d5c280813659223a41718babd0186c68925",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_source_coverage_hold_policy.py",
+      "sha256": "5a586a9939ac751ae08bdae98a6e93344c444de21d3d994a8cf6490226444bf4",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_source_coverage_post_b.py",
+      "sha256": "bbaaf3d93449a389e2a8fa0fe2ba1551f55864d521855b9563fcb23596bf1083",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_source_coverage_post_c.py",
+      "sha256": "7a8b0a22f2a45493623a57f3614012425d72ee02b269cdaaa397cf1afc93bf48",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_surface_contract_dry_run_delta.py",
+      "sha256": "81463e113d77248ced4f17e488fe7c0fbc670fcf2c6ee9e63862b72873ee3fed",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_surface_contract_rollout_result.py",
+      "sha256": "3b26034d7d8805c2d60d914b7f463c3bc3892f39838479bc1924239ef24c0471",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_weak_active_cleanup_w0.py",
+      "sha256": "192ecf2d077529bda2fbf1ce97f3534a0b1bdf200c10ab8ae873143b8ff6eeca",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_weak_active_cleanup_w1_consumable_reverse_mapping.py",
+      "sha256": "9240977c10c5e712d4fdbcbe88ea3ce5431d8f66f2604474c02a3e6db9e6d1f1",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_weak_active_cleanup_w2_existing_cluster_absorption.py",
+      "sha256": "94e4f4392971b8fe75c1e8708c00a062c6d1de6a41074d449581ce038182212f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_weak_active_cleanup_w3_unknown_classification.py",
+      "sha256": "519554d4b1cb3d681941195629675c63971e88d3d2baf7e404486ffba3989a33",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_weak_active_cleanup_w4_wearable_structural_decision.py",
+      "sha256": "5f8d19c78e77bf27e8474c6df888039276f9d9fbf89e0b2fa7fcfed726a3ed6a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_weak_active_cleanup_w5_role_fallback_cleanup.py",
+      "sha256": "a9e463c01434b74cd5f5f230c58e0b2690a283ee7263b758459a9a2069757d2c",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/report_weak_active_cleanup_w6_aggregate.py",
+      "sha256": "6bc5b838bea1d0ac5d0fbb0b073f2d6012f9663240b843035296612da3a28523",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/sync_interaction_cluster_upstream_sources.py",
+      "sha256": "17e470ad5797d57868b7fae1ff8576fe6153a03bb5d385417a90b9e56ef25823",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_acquisition_canonical_alignment_precheck.py",
+      "sha256": "df93d0269aad5e327ec56ea9285e799bb15232d7bfdd4bdc4d81b41799dbc342",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_acquisition_lexicon_contract.py",
+      "sha256": "1b8fe1a3e141a3dad99063a4dc219ff5c31fda5f24bef78217854d01871e213f",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "sha256": "0587b17522694f205da258c30b69543549a68f78e4aaacde50a53fa9fa4ee848",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_interaction_cluster_coverage.py",
+      "sha256": "9c55048df74c35686539b4e337d5e6aff6aed5a78dfd6cf4e1c8fa249f04faaf",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_interaction_cluster_phase_c_freeze.py",
+      "sha256": "3e5b3d21f7e50d89661b5cb1b7054c360aecc207df856949545b6209a421aec5",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_interaction_cluster_phase_d_runtime.py",
+      "sha256": "9158cac789f0c55f35575dd8665d11c9f81c7e13c6073e003b27f42dcd90778d",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_interaction_cluster_raw_source.py",
+      "sha256": "764d8d02adb5461ffbec780f1ae5353d41280b411222323cbebb69dad3bcf5be",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_interaction_cluster_rendered.py",
+      "sha256": "3d810b017700b17764777ba09561f2d2c57a0a42aff6ab8f66fbb54f73d74e57",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_interaction_cluster_seed.py",
+      "sha256": "fc0353e80441982806f6512fccf9168725d8966e5c20ca68094edbaab2ba6c38",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_layer3_body_source_overlay.py",
+      "sha256": "9258d350e5040a1fa8e8e322c4476c7e3553cf580fc0e6e2da0cd54072946121",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_layer3_decisions.py",
+      "sha256": "4c3efe34c01af14c9579d6586d899d0051dbdd452a4853b8a11afef91e44011a",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_layer3_role_check.py",
+      "sha256": "4a88d588d6b129adf2193ada54c55d5618bebaeefc18d0efc513683d7f808945",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "sha256": "d0faef489b533bc65c30a12a0403279fab3442f04b8ba37c6ebc6f4a3e883681",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_quality_publish_decision_preview.py",
+      "sha256": "fc964036b31455c745afbdc91da61410fa5a7ca122eaea7fde53380f65092cea",
+      "tracked": false
+    },
+    {
+      "ignored": true,
+      "path": "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py",
+      "sha256": "853751d35f7e3a6267df2e0203a8fb69bea8999a59badc6ae1e4feb1ce238116",
+      "tracked": false
+    }
+  ]
+}

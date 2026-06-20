@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-05
-> 기준일: 2026-06-05
+> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-21
+> 기준일: 2026-06-21
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 진행 방향과 다음 게이트를 짧게 고정한다.
 
@@ -315,227 +315,313 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 
 ## Done
 
-- Iris의 정보 표시 위계를 **기본 정보 → 의미(주 소분류) → 활용(레시피/상호작용) → 메타**로 고정했다.
-  - 분류 데이터는 기본 UI에 전면 노출하지 않고 메타 영역에 격리한다.
-  - `primary_subcategory`는 정렬 기준이 아니라 브라우징 anchor로 사용한다
-  - 주 소분류 설명 문장은 자동 기본값이 아니라 후보 템플릿으로 취급한다.
+* Iris의 정보 표시 위계를 **기본 정보 → 의미(주 소분류) → 활용(레시피/상호작용) → 메타**로 고정했다.
 
-- Iris의 최상위 기준을 `Philosophy.md` 하나로 재고정했다.
-  - 핸드오버 / 세션 요약 / 과거 작업 문서는 current authority가 아니라 작업 참고물로만 읽는다.
+  * 분류 데이터는 기본 UI 전면이 아니라 메타 영역에 격리한다.
+  * `primary_subcategory`는 정렬 기준이 아니라 브라우징 anchor로 사용한다.
+  * 주 소분류 설명 문장은 자동 기본값이 아니라 후보 템플릿으로 취급한다.
 
-- 설명 왜곡 문제의 책임 위치를 설명 엔진이 아니라 **태그 생성 단계(Core / Rule / predicate)와 tuple integrity**로 재판정했다.
-  - Tool 1-A / 1-B 왜곡 이슈는 DSL 부족이 아니라 tuple integrity 구현 버그로 정리했다.
-  - 코드 수정과 Walkthrough 최신화를 통해 문서 / 코드 / 설명 일치 상태를 복구했다.
+* Iris의 최상위 기준을 `Philosophy.md`로 재고정했다.
 
-- Evidence 모델을 행동 모델이 아니라 **결과 상태 모델**로 재정의했다.
-  - Recipe / Right-click / Static capability는 서로 다른 Source로 유지한다.
-  - 런타임은 의미를 추론하지 않고, 오프라인에서 봉인한 fact / outcome / source를 소비한다.
+  * 핸드오버 / 세션 요약 / 과거 작업 문서는 current authority가 아니라 작업 참고물로만 읽는다.
 
-- Context Outcome을 **문서 1:1 기계화용 오프라인 사실 테이블 생성기**로 고정했다.
-  - Iris 엔진과의 관계는 외부 공급자 / 내부 소비자로 분리한다.
-  - 내부 경계는 `스캐너 / IR(signal only) / 매퍼(Signal → Outcome) / 수동 주입기 / 검증기 / 진단기`로 정리했다.
-  - Fail-loud 범위는 Allowlist 밖 Outcome, 비결정성, 출력 포맷 위반으로 제한한다.
-  - `smoke_item`은 수동 주입 전용으로 격리하고, 자동 경로 탐지는 진단으로만 남긴다.
+* Evidence / Source / Description 책임 분리를 봉인했다.
 
-- Right-click 계열 정보는 행동 자체가 아니라 **item-dependence + state-change proof** 기준으로 재정리했다.
-  - Right-click은 Recipe의 변주나 잔여 필터가 아니라 독립 Source 트랙으로 유지한다.
-  - current canonical 기준은 메뉴 존재가 아니라 **executing_tool + external_target + persistent_change**다.
-  - PASS / NO / REVIEW가 primary decision이다. - STRONG / WEAK는 PASS 이후 uniqueness overlay이며, WEAK는 실패나 제외 필터가 아니다.
-  - Field Registry는 `decision == PASS`인 결과를 등록하며, STRONG_ONLY 필터로 WEAK를 제거하지 않는다.
-  - 메뉴명 / UI 구조 / 비활성 표시 여부는 보조 관찰 정보로 강등한다.
-  - 미매칭은 Evidence:NO가 아니라 scope 밖으로 읽는다.
-  - 웹/위키 기반 수동 PASS 승격은 채택하지 않고, 허용된 정적 근거와 automatic-only 결과를 사용한다.
+  * Evidence 모델은 행동 모델이 아니라 **결과 상태 모델**로 유지한다.
+  * Recipe / Right-click / Static capability는 서로 다른 Source로 유지한다.
+  * 런타임은 의미를 추론하지 않고, 오프라인에서 봉인한 fact / outcome / source를 소비한다.
+  * 설명 왜곡 문제는 설명 엔진이 아니라 태그 생성 단계와 tuple integrity 문제로 재판정했다.
 
-- 의미 기반 capability 확장을 중단하고, 상태 변화 유형 중심으로 재정리했다.
-  - `can_scrap_moveables` 같은 넓은 의미 필드는 단일 결과 상태 단위로 해체 / 재정의해야 한다.
-  - `can_stitch`, `can_repair`, `can_attach_weapon_mod` 같은 의미 기반 capability는 기본 evidence 축으로 확장하지 않는다.
-  - Equip / Use / Passive 정보는 기본 evidence 축이 아니라 개별 설명층 후행 정보로 남긴다.
+* Context Outcome을 **문서 1:1 기계화용 오프라인 사실 테이블 생성기**로 고정했다.
 
-- Recipe / 목록 UI 정책을 정리했다.
-  - Recipe 기반 evidence 시스템은 현 단계에서 안정적이다.
-  - 연관 레시피 표시 기본 단위는 행동 문장 묶음이 아니라 레시피명 단위 접기 / 펼치기로 둔다.
-  - 전역 기능 동등성 그룹화는 중단하고, UI 목록 단계에서만 DisplayName 중심 접기로 제한한다.
-  - 접힌 목록의 `(xN)` 표기는 제거하고, **목록은 개념 / 상세는 실체** 원칙을 유지한다.
+  * Iris 엔진과의 관계는 외부 공급자 / 내부 소비자로 분리한다.
+  * 런타임 분석, 자동 의미 추론, smoke/debug artifact의 authority 승격은 허용하지 않는다.
 
-- 개별 아이템 정보 작업 순서를 고정했다.
-  - `분류 / 증거 체계 고정 → Outcome source 검증 → 결과 상태 fact 고정 → 필요 시 설명 문장화`
-  - 1차 산출물은 개별 설명문이 아니라 source 확인과 outcome fact table이다.
-  - `우클릭 행동`은 walkthrough용 작업 용어로만 제한한다.
+* Right-click 계열 정보는 **item-dependence + state-change proof** 기준으로 재정리했다.
 
-- DVF 3-3 runtime authority를 current 기준으로 재봉인했다.
-  - current runtime baseline은 `2105 rows / adopted 2084 / unadopted 21` 기준으로 읽는다.
-  - legacy `active / silent`는 current runtime vocabulary가 아니라 historical / diagnostic / import alias로만 읽는다.
-  - three-axis contract와 `publish_state` visibility contract는 current user-facing 기준으로 정리했다.
+  * current canonical 기준은 메뉴 존재가 아니라 `executing_tool + external_target + persistent_change`다.
+  * PASS / NO / REVIEW가 primary decision이고, STRONG / WEAK는 PASS 이후 uniqueness overlay로만 읽는다.
+  * 메뉴명 / UI 구조 / 비활성 표시 여부는 보조 관찰 정보로 강등한다.
 
-- compose / resolver / compatibility authority를 current readpoint 기준으로 정리했다.
-  - default compose authority는 `compose_profiles_v2.json + body_plan`으로 유지한다.
-  - shipped body_plan artifact authority와 direct default compose entrypoint authority의 불일치를 해결했다.
-  - `selected_role`은 legacy fallback 제거 대상이 아니라 native resolver authority / trace로 채택했다.
-  - legacy compatibility mapping은 default authority가 아니라 diagnostic-only non-authority fixture로 격리했다.
-  - exposed legacy adapter entrypoint modes는 제거된 상태로 읽는다.
+* 의미 기반 capability 확장을 중단하고, 상태 변화 유형 중심으로 재정리했다.
 
-- Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다.
-  - missing original sealed artifacts는 provenance gap으로 봉인하고, replacement reconstruction authority를 silent 21 cleanup 전용으로 채택했다.
-  - silent 21 metadata cleanup은 Branch B 기준으로 닫혔고, old-profile residue는 current writer/runtime surface에서 제거된 상태로 읽는다.
-  - runtime payload enum은 `adopted / unadopted`가 canonical이며, `active / silent` 재유입은 current writer / validator path에서 fail-loud 처리한다.
-  - generated report / operator label cleanup은 repo-wide 문자열 삭제가 아니라 Surface C occurrence disposition 문제로 재정의했다.
-  - original operator artifact referent는 회수되지 않았으므로 cleanup success가 아니라 blocked / missing-referent closeout으로 읽는다.
-  - Legacy Active/Silent current-surface risk는 guard hardening으로 닫힌 상태로 유지한다.
+  * `can_scrap_moveables` 같은 넓은 의미 필드는 단일 결과 상태 단위로 해체 / 재정의해야 한다.
+  * `can_stitch`, `can_repair`, `can_attach_weapon_mod`, Equip / Use / Passive 정보는 기본 evidence 축으로 확장하지 않는다.
 
-- Iris refactor v2.0 / Final Roadmap v1.4 / 최종 리팩토링 v4.1 계열 구현을 current code 기준으로 완료했다.
-  - protected-call boundary를 `IrisProtectedCall`로 중앙화했다.
-  - UseCaseDescriptions를 facade + Lua chunk 구조로 외부화했다.
-  - `IrisDesc` 구현을 새 경로로 이동하고 compatibility wrapper를 유지했다.
-  - Browser requirement display policy, MapIcon 설정화, build entrypoint surface 정리를 완료했다.
-  - runtime은 monolith가 아니라 chunk manifest + chunk files를 deployable authority로 유지한다.
-  - item selection runtime regression은 BOM 제거와 generator load guard로 수정했다.
+* Recipe / 목록 UI 정책과 개별 아이템 정보 작업 순서를 고정했다.
 
-- Manual In-Game Validation QA를 revised contract 기준으로 닫았다.
-  - Iris Browser는 all-item Browser이며, item-entry visibility와 Layer 3 body/source quality는 분리한다.
-  - raw token / raw nil / table address / broken placeholder 노출이 없음을 기준으로 practical in-game validation을 통과한 상태로 읽는다.
-  - release readiness / Workshop readiness / tooltip completion은 이 closeout만으로 선언하지 않는다.
+  * Recipe 기반 evidence 시스템은 현 단계에서 안정적인 축으로 유지한다.
+  * 연관 레시피 표시 기본 단위는 행동 문장 묶음이 아니라 레시피명 단위 접기 / 펼치기다.
+  * 전역 기능 동등성 그룹화는 중단하고, UI 목록 단계의 DisplayName 중심 접기로 제한한다.
+  * 개별 아이템 정보 작업은 `분류 / 증거 체계 고정 → Outcome source 검증 → 결과 상태 fact 고정 → 필요 시 설명 문장화` 순서로 진행한다.
 
-- Semantic UI Exposure / `quality_exposed` 문제를 no-exposure disposition으로 닫았다.
-  - `quality_state`는 offline/internal authoritative signal로만 유지한다.
-  - `quality_exposed`는 reserved inactive로 둔다.
-  - Browser / Wiki / Tooltip은 quality 판정을 badge, copy, sorting, filtering, hiding, recommendation, trust/confidence 표시로 소비하지 않는다.
-  - raw quality token 또는 quality judgment wording의 user-facing 노출은 contract violation이다.
+* DVF 3-3 runtime authority를 current 기준으로 재봉인했다.
 
-- Structural signal / ACQ_DOMINANT 계열을 user-facing publish 후보가 아닌 current readpoint로 정리했다.
-  - `FUNCTION_NARROW` residual은 report / preview structural flag로만 읽는다.
-  - `ACQ_DOMINANT` current baseline remeasurement 결과 publish candidate는 `0`이며, 후속 publish review는 열지 않는다.
-  - structural signal은 publish / quality / runtime / Lua bridge / default compose / source-row writer input이 아니다.
+  * current runtime vocabulary는 `adopted / unadopted`로 유지한다.
+  * legacy `active / silent`는 current runtime vocabulary가 아니라 historical / diagnostic / import alias로만 읽는다.
+  * runtime deployable authority는 monolith가 아니라 Lua chunk manifest + chunk files 기준으로 유지한다.
 
-- Layer4 계열을 current readpoint-only 상태로 정리했다.
-  - `LAYER4_ABSORPTION_CONFIRMED`는 `FUNCTION_NARROW / ACQ_DOMINANT`와 분리된 independent `layer_boundary_hard_block_namespace`로 읽는다.
-  - M1 confirmed measurement는 `24`이며, current canonical measurement readpoint일 뿐 resolved state가 아니다.
-  - M2 current build application target은 `0`으로 재봉인됐다.
-  - current production / build / runtime surface는 `LAYER4_ABSORPTION_CONFIRMED`를 소비하지 않는다.
-  - 승인되지 않은 current surface consumption은 guard token으로 fail-loud 처리한다.
+* DVF 3-3 current authority reconciliation, vNext regeneration, rejected delta correction, current authority cutover, 2105 consumer migration을 완료했다.
 
-- Acquisition Lexical 계열을 current 기능 미완이 아니라 readpoint reconciliation 문제로 정리했다.
-  - current source / validator / utility와 historical / staging / diagnostic / test / stale-plan surface를 분리했다.
-  - 과거 suppress 의존 문구는 current blocker가 아니라 stale / historical premise로 읽는다.
-  - live suppress validator surface `3`은 current blocker나 resolved state가 아니라 follow-up disposition candidate로 유지한다.
-  - suppress retirement / removal, contract expansion, runtime-side repair는 별도 approved plan 없이는 열지 않는다.
+  * successor source / rendered / runtime chunk authority를 current로 승격했다.
+  * frozen 2105, prior staging, 6-entry fixture, legacy bridge, monolith output은 current authority가 아니라 historical / comparison / diagnostic / prerequisite trace로만 보존한다.
+  * 이 완료는 package release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game validation, semantic quality completion, public-facing text quality acceptance를 의미하지 않는다.
 
-- future reopen governance를 **subset-bounded single-authority rule**로 고정했다.
-  - closed readpoint를 재개방하려면 새 입력 authority, 명시적 successor/correction scope, 또는 별도 approved plan이 필요하다.
-  - 개별 closeout 근거만으로 release readiness / Workshop readiness / B42 readiness를 선언하지 않는다.
+* DVF 3-3 Live Migration Readiness Authorization을 봉인했다.
+
+  * `phase4_live_apply_allowed=true`, `downstream_predecessor_status=ready_for_phase4_live_apply`다.
+  * authorization row split은 `153 = 109 live_mutation_eligible + 44 evidence_only + 0 blocked`다.
+  * hard-forbidden runtime / package / Lua bridge surface는 live mutation target이 아니라 evidence-only proof로 닫았다.
+  * dirty target overlap은 committed baseline + isolated non-overlap proof 기준으로 row blocker에서 제거했다.
+  * 이 완료는 실제 Phase 4 live mutation 실행, live migration completion, release/package/Workshop readiness가 아니다.
+
+* DVF 3-3 Live Migration Readiness Execution evidence root를 구현했다.
+
+  * `docs/dvf_3_3_live_migration_readiness_execution_plan.md`가 요구한 `phase0`~`phase10` pre-apply gate artifacts를 `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/`에 materialize한다.
+  * execution runner는 authorization verdict를 live apply로 실행하지 않고, execution plan이 소비할 canonical evidence root / artifact names / validation surface로 투영한다.
+  * execution verdict도 `phase4_live_apply_allowed=true`, `downstream_predecessor_status=ready_for_phase4_live_apply`, `no_live_mutation_changed_count=0`이다.
+  * execution validation은 `run_dvf_3_3_live_migration_readiness_execution.py --mode all`, `validate_dvf_3_3_live_migration_readiness_execution.py --require-complete`, focused unittest 기준 PASS다.
+
+* compose / resolver / compatibility authority를 current readpoint 기준으로 정리했다.
+
+  * default compose authority는 `compose_profiles_v2.json + body_plan`으로 유지한다.
+  * `selected_role`은 legacy fallback 제거 대상이 아니라 native resolver authority / trace로 채택했다.
+  * legacy compatibility mapping은 default authority가 아니라 diagnostic-only non-authority fixture로 격리했다.
+
+* Lua bridge export와 build / test contract를 current route 기준으로 재정렬했다.
+
+  * Lua bridge exporter의 default route는 monolith가 아니라 chunk manifest + chunk files를 생성한다.
+  * monolith export는 explicit historical / diagnostic mode에서만 허용한다.
+  * current / historical / diagnostic test route를 분리하고, current route closure guard를 유지한다.
+
+* Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다.
+
+  * runtime payload enum은 `adopted / unadopted`가 canonical이다.
+  * `active / silent` 재유입은 current writer / validator path에서 fail-loud 처리한다.
+  * missing original sealed artifacts는 provenance gap으로 봉인하고, original authority 복원으로 표현하지 않는다.
+
+* Iris refactor v2.0 / Final Roadmap v1.4 / 최종 리팩토링 v4.1 계열 구현을 current code 기준으로 완료했다.
+
+  * protected-call boundary를 `IrisProtectedCall`로 중앙화했다.
+  * UseCaseDescriptions를 facade + Lua chunk 구조로 외부화했다.
+  * `IrisDesc` 구현을 새 경로로 이동하고 compatibility wrapper를 유지했다.
+  * Browser requirement display policy, MapIcon 설정화, build entrypoint surface 정리를 완료했다.
+  * item selection runtime regression은 BOM 제거와 generator load guard로 수정했다.
+
+* Manual In-Game Validation QA를 revised contract 기준으로 닫았다.
+
+  * Iris Browser는 all-item Browser이며, item-entry visibility와 Layer 3 body/source quality는 분리한다.
+  * raw token / raw nil / table address / broken placeholder 노출이 없음을 기준으로 practical in-game validation을 통과한 상태로 읽는다.
+  * release readiness / Workshop readiness / tooltip completion은 이 closeout만으로 선언하지 않는다.
+
+* Semantic UI Exposure / `quality_exposed` 문제를 no-exposure disposition으로 닫았다.
+
+  * `quality_state`는 offline / internal authoritative signal로만 유지한다.
+  * `quality_exposed`는 reserved inactive로 둔다.
+  * Browser / Wiki / Tooltip은 quality 판정을 badge, copy, sorting, filtering, hiding, recommendation, trust / confidence 표시로 소비하지 않는다.
+
+* Structural signal / Layer4 / Acquisition Lexical 계열을 current 기능 미완이 아니라 readpoint / follow-up disposition 문제로 정리했다.
+
+  * structural signal은 publish / quality / runtime / Lua bridge / default compose / source-row writer input이 아니다.
+  * Layer4 readpoint는 resolved state, production target, publish target으로 승격하지 않는다.
+  * Acquisition Lexical suppress 계열은 별도 approved plan 없이는 removal / contract expansion / runtime-side repair로 열지 않는다.
+
+* future reopen governance를 **subset-bounded single-authority rule**로 고정했다.
+
+  * closed readpoint를 재개방하려면 새 입력 authority, 명시적 successor / correction scope, 또는 별도 approved plan이 필요하다.
+  * 개별 closeout 근거만으로 release readiness / Workshop readiness / B42 readiness를 선언하지 않는다.
 
 ## Doing
 
-- Iris는 vanilla-first MVP를 **DVF + Tooltip 본체 검증** 중심으로 유지한다.
-- 런타임은 오프라인 authority에서 생성된 Lua facade / chunk를 소비하는 표시 계층으로 유지한다.
-  - public require contract는 유지한다.
-  - runtime JSON parser는 도입하지 않는다.
-  - Layer 3 runtime data는 chunk manifest + chunk files를 deployable authority로 유지한다.
-  - monolith / chunks 동시 배포는 금지한다.
+* Iris는 vanilla-first MVP를 **DVF + Tooltip / Browser 본체 검증** 중심으로 유지한다.
 
-- 설명 계층은 해석 / 권장 / 비교를 하지 않는다.
-  - Evidence / Source / Description layer의 책임 분리를 유지한다.
-  - 증거 시스템과 설명층은 독립적으로 운용한다.
-  - Browser item-entry visibility와 Layer 3 body/source quality는 분리해서 읽는다.
+* 런타임은 오프라인 authority에서 생성된 Lua facade / chunk를 소비하는 표시 계층으로 유지한다.
 
-- Semantic UI Exposure는 no-exposure disposition으로 유지한다.
-  - `quality_state`는 internal / offline 운영 신호다.
-  - `quality_exposed`는 reserved inactive다.
-  - Browser / Wiki / Tooltip은 quality 판정을 표시, 정렬, 필터, 숨김, 추천, 신뢰도 표시로 소비하지 않는다.
+  * public require contract는 유지한다.
+  * runtime JSON parser는 도입하지 않는다.
+  * Layer 3 runtime data는 chunk manifest + chunk files를 deployable authority로 유지한다.
+  * monolith / chunks 동시 배포는 금지한다.
+  * Lua bridge exporter의 default contract와 bridge report도 chunk authority 기준으로 유지한다.
 
-- compose default authority는 **`compose_profiles_v2.json + body_plan`** 으로 유지한다.
-  - legacy sentence_plan path는 historical / offline tooling fixture로만 남긴다.
-  - exposed legacy adapter entrypoint modes는 removed state로 읽는다.
+* 설명 계층은 해석 / 권장 / 비교 / 재작성을 하지 않는다.
 
-- Iris refactor 이후 runtime / build contract를 현재 shape로 유지한다.
-  - protected-call policy는 `IrisProtectedCall`을 통해서만 조정한다.
-  - logger / safeRequire / module bootstrap 공통화는 `IrisModuleBootstrap.lua`를 통해서만 다룬다.
+  * Evidence / Source / Description layer의 책임 분리를 유지한다.
+  * 증거 시스템과 설명층은 독립적으로 운용한다.
+  * Browser item-entry visibility와 Layer 3 body/source quality는 분리해서 읽는다.
 
-- closed readpoint는 현재 작업 대상으로 재개방하지 않는다.
-  - Resolver / Silent 21 / runtime enum / legacy active-silent guard는 닫힌 current readpoint로 유지한다.
-  - Structural Signal / ACQ_DOMINANT / Layer4 / Acquisition Lexical은 user-facing 기능 후보나 publish 후보로 승격하지 않는다.
-  - 각 readpoint의 count, hash, branch, validation 세부값은 ROADMAP 본문이 아니라 산출물 / ledger / DECISIONS에서 추적한다.
+* Semantic UI Exposure는 no-exposure disposition으로 유지한다.
 
-- future reopen round는 닫힌 readpoint를 되돌리는 방식이 아니라, 새 입력 authority나 명시적 successor / correction scope가 있을 때만 별도 scope로 연다.
+  * `quality_state`는 internal / offline 운영 신호다.
+  * `quality_exposed`는 reserved inactive다.
+  * Browser / Wiki / Tooltip은 quality 판정을 표시, 정렬, 필터, 숨김, 추천, 신뢰도 표시로 소비하지 않는다.
 
-- 외부 모드 확장은 **structure-only / normalization-first** 원칙으로만 검토한다.
-  - Iris를 AI 위키, 의미 추론기, 추천 엔진, 품질 판단 UI로 확장하지 않는다.
+* compose default authority는 **`compose_profiles_v2.json + body_plan`** 으로 유지한다.
+
+  * legacy sentence_plan path는 historical / offline tooling fixture로만 남긴다.
+  * exposed legacy adapter entrypoint modes는 removed state로 읽는다.
+  * `body-plan v2`는 이 구현 표면의 alias label로만 읽고, 별도 second authority로 승격하지 않는다.
+
+* current authority와 repository representation 경계를 분리해서 유지한다.
+
+  * current source / rendered / runtime chunk chain만 current authority로 읽는다.
+  * fixture / staging / generated / diagnostic output은 current authority가 아니다.
+  * tracked status는 current authority 승격이 아니다.
+  * ignored status는 삭제 가능성이나 비중요성의 증거가 아니다.
+  * current-route tooling allowlist는 current core 우회면이나 core surface 확장이 아니다.
+
+* legacy bridge / monolith / stale artifact 계열은 current runtime / package / compose path로 복귀시키지 않는다.
+
+  * stale bridge와 legacy 6-entry payload는 current fallback이나 package authority로 사용하지 않는다.
+  * monolith export는 explicit historical / diagnostic mode에서만 허용한다.
+  * package route는 legacy bridge / monolith / current-looking stale artifact 재유입을 fail-loud로 막는다.
+
+* Iris refactor 이후 runtime / build contract를 현재 shape로 유지한다.
+
+  * protected-call policy는 `IrisProtectedCall`을 통해서만 조정한다.
+  * logger / safeRequire / module bootstrap 공통화는 `IrisModuleBootstrap.lua`를 통해서만 다룬다.
+
+* closed readpoint는 현재 작업 대상으로 재개방하지 않는다.
+
+  * Resolver / Silent 21 / runtime enum / legacy active-silent guard는 닫힌 current readpoint로 유지한다.
+  * Structural Signal / ACQ_DOMINANT / Layer4 / Acquisition Lexical은 user-facing 기능 후보나 publish 후보로 승격하지 않는다.
+  * 각 readpoint의 count, hash, branch, validation 세부값은 ROADMAP 본문이 아니라 산출물 / DECISIONS에서 추적한다.
+
+* future reopen round는 닫힌 readpoint를 되돌리는 방식이 아니라, 새 입력 authority나 명시적 successor / correction scope가 있을 때만 별도 scope로 연다.
+
+* 외부 모드 확장은 **structure-only / normalization-first** 원칙으로만 검토한다.
+
+  * Iris를 AI 위키, 의미 추론기, 추천 엔진, 품질 판단 UI로 확장하지 않는다.
 
 ## Next
 
-- Iris refactoring v4.1 완료본을 packaging / release-note / commit 단계로 넘길지 별도 scope로 결정한다.
-  - package 검증 기준은 `Iris/tools/package_iris.ps1 -Clean -Zip`로 둔다.
-  - dirty working tree에서는 의도한 Iris refactor 파일만 stage한다.
+* Iris refactoring v4.1 완료본을 packaging / release-note / commit 단계로 넘길지 별도 scope로 결정한다.
 
-- release 전 추가 검증이 필요하면 targeted smoke가 아니라 **release checklist / full manual QA** 범위로 연다.
-  - item selection error accumulation regression은 fixed 상태로 읽고, 재검증은 release-readiness 범위에서만 다룬다.
+  * package 검증 기준은 `Iris/tools/package_iris.ps1 -Clean -Zip`로 둔다.
+  * dirty working tree에서는 의도한 Iris refactor 파일만 stage한다.
 
-- Walkthrough / 구현 체크리스트 / 검증 절차 문서 간 최신 상태 일치를 유지한다.
+* release 전 추가 검증이 필요하면 targeted smoke가 아니라 **release checklist / full manual QA** 범위로 연다.
+
+  * item selection error accumulation regression은 fixed 상태로 읽고, 재검증은 release-readiness 범위에서만 다룬다.
+  * practical in-game validation closeout만으로 release readiness / Workshop readiness / tooltip completion을 선언하지 않는다.
+
+* Walkthrough / 구현 체크리스트 / 검증 절차 문서 간 최신 상태 일치를 유지한다.
+
+* Runtime Payload State Integrity Residual Seal을 별도 round로 연다.
+
+  * 현재 current-like runtime collision은 guard와 payload shape로 닫혔으며, 남은 문제는 implementation blocker가 아니라 residual seal이다.
+  * 완료 조건은 author decision으로 current-like `unadopted + text_ko` / `unadopted + exposed` 금지를 확정하고, rollback / predecessor residue가 historical-only residue로 남는다는 경계를 independent review 또는 명시 external gate로 닫는 것이다.
+  * 이 residual seal은 새 runtime data mutation, enum 재정의, UI 노출, renderer policy 변경을 자동 승인하지 않는다.
+
+* Consumer Universe Denominator Lock과 Terminal Disposition Adjudication의 candidate current-route patch를 실제 required-validation manifest에 채택할지 별도 scope로 결정한다.
+
+  * denominator relock과 terminal disposition adjudication은 각각 닫힌 readpoint로 읽는다.
+  * live required-validation manifest adoption은 별도 승인 없이는 완료로 선언하지 않는다.
+  * 이 adoption 여부는 consumer migration execution, current authority cutover, runtime/source/rendered/package mutation, release/package/Workshop/B42 readiness를 자동으로 열지 않는다.
+
+* Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
+
+  * 입력은 `109` live mutation eligible row와 sealed dry-run patch bundle로 제한한다.
+  * `44` evidence-only row는 live writer 대상이 아니며, live execution ledger에서는 origin proof / evidence-only disposition으로만 소비한다.
+  * 실행 직전에는 execution evidence root의 `phase10/downstream_predecessor_status.json`, sealed dry-run patch bundle, baseline hash, dirty non-overlap, hard-forbidden surface, writer capability, dry-run/live input identity를 다시 fail-closed로 검증한다.
+  * readiness authorization의 sandbox/readiness mutation과 no-write probe는 live completion evidence가 아니다.
+  * readiness execution phase artifacts도 pre-apply evidence이며 live completion evidence가 아니다.
+
+* 이후 Iris 후속 작업은 rollback, correction, package/release readiness, manual QA, public text quality acceptance 중 하나로 명시해서 연다.
+
+  * 닫힌 vNext current authority implementation / 2105 consumer migration을 다시 여는 방식으로 후속 작업을 정의하지 않는다.
+  * historical-reference / diagnostic-only / false-positive / no-op row는 별도 승인 없이 변경 대상으로 승격하지 않는다.
 
 ### Conditional Reopen
 
-- Acquisition lexical follow-up은 live suppress validator surface `3`의 disposition 여부를 별도 approved plan으로 열 때만 진행한다.
-  - 이 follow-up은 suppress retirement / removal, contract expansion, `josa_adaptive`, phrasebook, array acquisition, runtime-side repair 권한을 자동 상속하지 않는다.
+* Acquisition Lexical follow-up은 live suppress validator surface의 disposition을 별도 approved plan으로 열 때만 진행한다.
 
-- Layer4 후속 작업은 별도 approved plan이 있을 때만 연다.
-  - publish mutation review, semantic quality interpretation, public-facing exposure, production build-consumer wiring, Layer4 policy redesign은 자동 후속 단계가 아니다.
+  * 이 follow-up은 suppress retirement / removal, contract expansion, phrasebook, array acquisition, runtime-side repair 권한을 자동 상속하지 않는다.
 
-- ProtectedCall boundary policy를 열 경우, `engine / ui / data / compat` 라벨별 복구·로그·fallback 정책표를 먼저 봉인한다.
+* Layer4 후속 작업은 별도 approved plan이 있을 때만 연다.
 
-- build script manifest화를 열 경우, PG-6 script count를 입력으로 manifest scope와 ownership rule을 먼저 정한다.
+  * publish mutation, semantic quality interpretation, public-facing exposure, production wiring, Layer4 policy redesign은 자동 후속 단계가 아니다.
 
-- Static Report Label Cleanup Referent Recovery를 다시 열려면 original generated report/operator artifact path, staged artifact, VCS commit/path trace, 또는 regeneration recipe를 새 입력으로 제공해야 한다.
-  - 새 referent input 없이 `active/silent` 문자열만으로 cleanup mutation을 열지 않는다.
+* ProtectedCall boundary policy를 다시 열 경우, `engine / ui / data / compat` 라벨별 복구 / 로그 / fallback 정책표를 먼저 봉인한다.
 
-- closed readpoint를 명시적으로 재개방해야 할 경우, current frozen authority를 깨지 않는 범위에서만 별도 scope lock으로 연다.
-  - 후보 범위는 isolated inventory reduction, subset-bounded source-expansion reopen, optional quality leak guard hardening 중 하나로 제한한다.
+* build script manifest화를 다시 열 경우, current / historical / diagnostic route와 non-destructive disposition boundary를 먼저 유지한다.
+
+* Static Report Label Cleanup Referent Recovery를 다시 열 경우, original generated report / operator artifact path, staged artifact, VCS trace, regeneration recipe 중 하나를 새 입력으로 제공해야 한다.
+
+  * 새 referent input 없이 `active / silent` 문자열만으로 cleanup mutation을 열지 않는다.
+
+* closed readpoint를 재개방해야 할 경우, current authority를 깨지 않는 별도 scope lock으로만 연다.
+
+  * 허용 후보는 isolated inventory reduction, subset-bounded source expansion, optional quality leak guard hardening처럼 범위가 닫힌 correction / guard hardening으로 제한한다.
 
 ## Hold
 
-- release / 배포 readiness를 과대 선언하는 것
-  - targeted smoke, manual in-game validation, roadmap closeout, refactor closeout을 release readiness / Workshop readiness / B42 readiness / tooltip completion / packaging 완료 / commit 완료 / 배포 완료로 확대 해석하지 않는다.
+* release / 배포 readiness를 과대 선언하는 것
 
-- current runtime authority를 과거 기준이나 임시 산출물로 되돌리는 것
-  - historical staged hash, monolith runtime, staged Lua hash delta, package-only exclusion, finding inventory를 current runtime identity / deployable authority / cleanup trigger / closeout 근거로 쓰지 않는다.
+  * targeted smoke, manual in-game validation, roadmap closeout, refactor closeout을 release readiness / Workshop readiness / B42 readiness / tooltip completion / packaging 완료 / commit 완료 / 배포 완료로 확대 해석하지 않는다.
 
-- quality / publish / runtime vocabulary를 혼동하는 것
-  - `adopted / unadopted`를 quality-pass, publish_state, deletion, suppression 의미로 읽지 않는다.
-  - `active / silent`를 current vocabulary로 되살리거나 sealed historical body를 직접 치환하지 않는다.
-  - 별도 product decision 없이 `quality_exposed`, semantic quality UI exposure, quality baseline cutover, runtime_state slot 추가를 열지 않는다.
+* generated / staging / diagnostic / fixture evidence를 current authority나 release state로 승격하는 것
 
-- 설명 계층을 해석 / 추천 / 비교 / 재작성 엔진으로 확장하는 것
-  - 수치 비교, 체감 의미 해석, 조건부 요약, 자동 설명문 확대, 예외 침묵 리스트 누적, 브라우저 정렬/숨김만으로 오분류를 봉합하는 접근을 금지한다.
+  * runtime chunks, runtime-derived seed, rendered-only output, bridge-only output, chunk-generation-only output을 source authority로 읽지 않는다.
+  * 숫자나 vocabulary를 기계적으로 치환해 authority migration으로 취급하지 않는다.
+  * candidate predicate, regeneration parity evidence, dry-run, sandbox ledger, review_pending artifact를 cutover approval이나 release readiness로 읽지 않는다.
 
-- Evidence / DSL / allowlist / pipeline-spec을 현재 닫힌 이슈 해결 명분으로 재개방하는 것
-  - `count==1`, property/tag/type gate, schema rewrite, 설명 파이프라인 재설계 같은 구조 변경을 직접 해법으로 승격하지 않는다.
+* current runtime authority를 과거 기준이나 임시 산출물로 되돌리는 것
 
-- Context Outcome을 런타임 추론 또는 단일 자동 경로로 축소하는 것
-  - 특정 구현안 단일 채택, Lua scanner main path 복귀, 메뉴 문자열 기반 자동 outcome 생성, runtime analysis, Fixing/Moveables 편의 승격, smoke/debug artifact의 fail-loud 승격을 금지한다.
+  * historical staged hash, monolith runtime, staged Lua hash delta, package-only exclusion, finding inventory를 current runtime identity / deployable authority / cleanup trigger / closeout 근거로 쓰지 않는다.
+  * legacy manual registry / T-Gate body를 current DVF contract로 되살리지 않는다.
+  * `IrisDvfBridgeData.lua` legacy bridge artifact, staging quarantine payload, monolith export를 current bridge fallback / runtime authority / package allowlist로 되살리지 않는다.
+  * old chunks와 successor chunks를 동시에 current로 두지 않는다.
 
-- Right-click source를 행동 의미 모델이나 느슨한 capability 모델로 되돌리는 것
-  - 메뉴 존재 / 메뉴명 / UI 구조 / 전용 메뉴 여부만으로 evidence를 채택하지 않는다.
-  - 반대로 “행동 가능하면 된다”는 식의 추천·의미 해석도 허용하지 않는다.
-  - `우클릭 행동`을 canonical evidence로 쓰거나, 조합/대체/타입 조건을 느슨하게 통과시키지 않는다.
+* legacy adapter / fallback / compose repair 경로를 되살리는 것
 
-- 의미 기반 capability를 기본 evidence 축으로 되살리는 것
-  - `can_scrap_moveables`, `open_canned_food`, `stitch_wound`, `disassemble_electronics`, Equip / Use / Passive, 범용 도구 기능 묶음, 바닐라 5개 capability 축소 모델을 현 체계의 기본 evidence로 확정하지 않는다.
+  * implicit legacy fallback, runtime-side compose rewrite, external repair, hidden adapter dependency, retained mapping의 default / writer 재진입을 별도 reopen 없이 허용하지 않는다.
+  * `selected_role`을 removal target / legacy residue로 읽지 않는다.
+  * diagnostic-only compatibility mapping을 default authority debt나 complete-removal debt로 확대하지 않는다.
 
-- Recipe / UI 목록 정책을 과거 방식으로 되돌리는 것
-  - 연관 레시피를 행동 문장 단위로 쪼개 기본 표시하지 않는다.
-  - 전역 기능 동등성 엔진, `(xN)` 수량 배지, 통계 힌트, 설명문 집필과 검증 동시 진행, 섭취/장착/레시피/무기 사용의 재혼합을 기본 해법으로 되살리지 않는다.
+* quality / publish / runtime vocabulary를 혼동하는 것
 
-- Layer4 readpoint를 resolved / publish / production target으로 확대 해석하는 것
-  - generated edge row count나 M1 confirmed_count를 Layer4 resolved, current production target, publish mutation, public exposure, semantic quality interpretation, policy redesign 근거로 쓰지 않는다.
+  * `adopted / unadopted`를 quality-pass, publish_state, deletion, suppression 의미로 읽지 않는다.
+  * `active / silent`를 current vocabulary로 되살리거나 sealed historical body를 직접 치환하지 않는다.
+  * 별도 product decision 없이 `quality_exposed`, semantic quality UI exposure, quality baseline cutover, runtime_state slot 추가를 열지 않는다.
 
-- resolver / selected_role / diagnostic compatibility를 complete-removal 문제로 되돌리는 것
-  - `selected_role`을 removal target / legacy residue로 읽지 않는다.
-  - diagnostic-only guard를 complete-removal debt, selected-role cleanup completion, frozen baseline recovery, default authority debt로 확대하지 않는다.
+* 설명 계층을 해석 / 추천 / 비교 / 재작성 엔진으로 확장하는 것
 
-- legacy adapter / fallback / compose repair 경로를 되살리는 것
-  - implicit legacy fallback, runtime-side compose rewrite, external repair, hidden adapter dependency, retained mapping의 default/writer 재진입을 별도 reopen 없이 허용하지 않는다.
+  * 수치 비교, 체감 의미 해석, 조건부 요약, 자동 설명문 확대, 예외 침묵 리스트 누적, 브라우저 정렬 / 숨김만으로 오분류를 봉합하는 접근을 금지한다.
+  * Iris를 AI 위키, 의미 추론기, 추천 엔진, 품질 판단 UI로 확장하지 않는다.
 
-- Silent 21 / replacement authority를 과대 해석하는 것
-  - AI-trace inventory, shape-only candidate, replacement reconstruction authority를 단독 authority나 original sealed authority 복원으로 표현하지 않는다.
-  - 승인된 reconstruction 없이 silent-only rewrite를 실행하지 않는다.
+* Evidence / Source / Outcome 모델을 과거 방식으로 되돌리는 것
+
+  * Evidence / DSL / allowlist / pipeline-spec을 닫힌 이슈 해결 명분으로 재개방하지 않는다.
+  * `count==1`, property / tag / type gate, schema rewrite, 설명 파이프라인 재설계를 직접 해법으로 승격하지 않는다.
+  * Context Outcome을 런타임 추론, 메뉴 문자열 기반 자동 outcome 생성, 단일 자동 경로, runtime analysis로 축소하지 않는다.
+  * smoke / debug artifact를 fail-loud authority로 승격하지 않는다.
+
+* Right-click source를 행동 의미 모델이나 느슨한 capability 모델로 되돌리는 것
+
+  * 메뉴 존재 / 메뉴명 / UI 구조 / 전용 메뉴 여부만으로 evidence를 채택하지 않는다.
+  * “행동 가능하면 된다”는 식의 추천 / 의미 해석을 허용하지 않는다.
+  * `우클릭 행동`을 canonical evidence로 쓰거나, 조합 / 대체 / 타입 조건을 느슨하게 통과시키지 않는다.
+
+* 의미 기반 capability를 기본 evidence 축으로 되살리는 것
+
+  * `can_scrap_moveables`, `open_canned_food`, `stitch_wound`, `disassemble_electronics`, Equip / Use / Passive, 범용 도구 기능 묶음, 바닐라 5개 capability 축소 모델을 현 체계의 기본 evidence로 확정하지 않는다.
+
+* Recipe / UI 목록 정책을 과거 방식으로 되돌리는 것
+
+  * 연관 레시피를 행동 문장 단위로 쪼개 기본 표시하지 않는다.
+  * 전역 기능 동등성 엔진, `(xN)` 수량 배지, 통계 힌트, 설명문 집필과 검증 동시 진행, 섭취 / 장착 / 레시피 / 무기 사용의 재혼합을 기본 해법으로 되살리지 않는다.
+
+* closed readpoint를 resolved / publish / production target으로 과대 해석하는 것
+
+  * Layer4 readpoint를 resolved state, current production target, publish mutation, public exposure, semantic quality interpretation, policy redesign 근거로 쓰지 않는다.
+  * Structural Signal / ACQ_DOMINANT / Acquisition Lexical을 user-facing 기능 후보나 publish 후보로 승격하지 않는다.
+  * Silent 21 / replacement reconstruction authority를 단독 authority나 original sealed authority 복원으로 표현하지 않는다.
+  * 승인된 reconstruction 없이 silent-only rewrite를 실행하지 않는다.
+
+* closed readpoint를 새 authority 없이 재개방하는 것
+
+  * 새 입력 authority, 명시적 successor / correction scope, 또는 별도 approved plan 없이 닫힌 readpoint를 다시 열지 않는다.
+  * isolated inventory reduction, subset-bounded source expansion, optional guard hardening을 넘어서는 재개방은 새 scope로 분리한다.
 
 ## Backlog
 - 모드 시장 확장 시스템

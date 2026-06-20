@@ -18,6 +18,8 @@ from tools.build.compose_layer3_text import (
     DEFAULT_MODE,
     ENTRYPOINT_MODES,
     DIAGNOSTIC_RESOLVER_MODE,
+    DIAGNOSTIC_COMPOSE_CONTEXT,
+    STAGING_COMPOSE_CONTEXT,
     build_rendered,
     main as compose_main,
     parse_args,
@@ -193,6 +195,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             None,
             identity_rules_path,
             precedence_rules_path,
+            compose_context=STAGING_COMPOSE_CONTEXT,
         )
 
         entry = rendered["entries"]["Base.ModKit"]
@@ -296,6 +299,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
                 None,
                 identity_rules_path,
                 precedence_rules_path,
+                compose_context=STAGING_COMPOSE_CONTEXT,
             )
 
     def test_diagnostic_resolver_allows_legacy_runtime_state_alias(self) -> None:
@@ -348,6 +352,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             identity_rules_path,
             precedence_rules_path,
             resolver_authority_mode=DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+            compose_context=DIAGNOSTIC_COMPOSE_CONTEXT,
         )
 
         self.assertEqual(rendered["entries"]["Base.LegacySilentState"]["source"], "unadopted")
@@ -411,6 +416,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             None,
             identity_rules_path,
             precedence_rules_path,
+            compose_context=STAGING_COMPOSE_CONTEXT,
         )
 
         entry = rendered["entries"]["Base.LegacyMappedPart"]
@@ -524,6 +530,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
                 None,
                 identity_rules_path,
                 precedence_rules_path,
+                compose_context=STAGING_COMPOSE_CONTEXT,
             )
 
     def test_legacy_adapter_entrypoint_modes_are_removed(self) -> None:
@@ -564,6 +571,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
                 identity_rules_path,
                 precedence_rules_path,
                 DIAGNOSTIC_RESOLVER_AUTHORITY_MODE,
+                compose_context=DIAGNOSTIC_COMPOSE_CONTEXT,
             )
 
     def test_v2_missing_required_context_section_stays_weak_without_context_fallback(self) -> None:
@@ -625,6 +633,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             None,
             identity_rules_path,
             precedence_rules_path,
+            compose_context=STAGING_COMPOSE_CONTEXT,
         )
 
         entry = rendered["entries"]["Base.LoosePowder"]
@@ -704,6 +713,7 @@ class ComposeLayer3TextV2Test(unittest.TestCase):
             None,
             identity_rules_path,
             precedence_rules_path,
+            compose_context=STAGING_COMPOSE_CONTEXT,
         )
 
         entry = rendered["entries"]["Base.Tongs"]

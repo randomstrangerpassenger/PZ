@@ -1,0 +1,7 @@
+{
+  "command": "uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-live-current-route-validation-report-v1",
+  "scope": "recorded only; broad current route is outside this local evidence seal and remains external-gate review material",
+  "status": "RECORDED_NOT_RUN_NOT_CONSUMED_AS_COMPLETION"
+}

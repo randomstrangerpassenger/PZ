@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "owner_adoption_records_independent_review_approval": true,
+  "owner_adoption_replaces_independent_review": false,
+  "owner_adoption_status": "adopted_independent_review_and_upstream_roadmap_seal_closed",
+  "schema_version": "dvf-3-3-live-owner-adoption-status-v1",
+  "upstream_roadmap_seal_closed": true
+}

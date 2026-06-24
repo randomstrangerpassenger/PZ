@@ -1,0 +1,10 @@
+{
+  "certification_ceiling": "build-time static reach only; not runtime execution proof",
+  "command": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_live_consumer_migration_execution.py --require-complete",
+  "false_positive_disposition": "record as blocked_build_time_execution_reach_graph_failed; do not claim runtime validation",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "graph_source": "terminal_disposition_ledger + current_route_contract_manifest + live patch target set",
+  "oracle": "zero residual live-required before anchors after successful Phase 4 apply",
+  "schema_version": "dvf-3-3-live-build-time-reach-graph-definition-v1",
+  "status": "PASS"
+}

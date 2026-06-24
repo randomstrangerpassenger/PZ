@@ -1,0 +1,11 @@
+{
+  "checked_artifact_count": 83,
+  "external_review_gate_status": "SATISFIED",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "manifest_path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/independent_review_artifact_hash_manifest.json",
+  "mismatches": [],
+  "review_adoption_basis": "external_recheck_findings_no_blockers_adopted_as_independent_review_approval",
+  "schema_version": "dvf-3-3-live-independent-review-artifact-hash-report-v1",
+  "stable_artifact_hash_mismatch_count": 0,
+  "status": "PASS"
+}

@@ -1,0 +1,15 @@
+{
+  "chunk_hash_basis": "manifest file hash plus ordered chunk content hashes",
+  "rendered_hash_basis": "entries object canonical hash",
+  "report_hash_basis": "canonicalized non-path semantic fields only",
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-determinism-canonicalization-v0",
+  "volatile_metadata": [
+    "generated_at",
+    "absolute_path",
+    "machine_local_temp_path",
+    "report_path",
+    "output_root",
+    "chunk_output_dir",
+    "chunk_manifest_path"
+  ]
+}

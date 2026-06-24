@@ -1,0 +1,69 @@
+{
+  "current_debt_predecessor_direct_use_count": 0,
+  "current_hard_gate_predecessor_direct_use_count": 0,
+  "dual_reentry_authority_count": 0,
+  "fixtures": [
+    {
+      "claim_hits": [],
+      "expected": "blocked_predecessor_reentry_detected",
+      "fixture_id": "fixture_predecessor_2105_as_current_hard_gate",
+      "observed": "blocked_predecessor_reentry_detected",
+      "predecessor_hits": [
+        "current_hard_gate_reentry"
+      ],
+      "status": "PASS",
+      "text": "2105 is current hard gate"
+    },
+    {
+      "claim_hits": [],
+      "expected": "blocked_predecessor_reentry_detected",
+      "fixture_id": "fixture_predecessor_2084_as_runtime_authority",
+      "observed": "blocked_predecessor_reentry_detected",
+      "predecessor_hits": [
+        "runtime_authority_reentry"
+      ],
+      "status": "PASS",
+      "text": "2084 is runtime authority"
+    },
+    {
+      "claim_hits": [],
+      "expected": "blocked_predecessor_reentry_detected",
+      "fixture_id": "fixture_predecessor_21_as_current_debt",
+      "observed": "blocked_predecessor_reentry_detected",
+      "predecessor_hits": [
+        "current_debt_reentry"
+      ],
+      "status": "PASS",
+      "text": "21 is current debt"
+    },
+    {
+      "claim_hits": [
+        "problem7_to_problem8_completion_promotion"
+      ],
+      "expected": "blocked_problem7_promotion_path_detected",
+      "fixture_id": "fixture_problem7_pass_as_problem8_complete",
+      "observed": "blocked_problem7_promotion_path_detected",
+      "predecessor_hits": [],
+      "status": "PASS",
+      "text": "Problem7 PASS makes Problem8 complete"
+    },
+    {
+      "claim_hits": [],
+      "expected": "allowed",
+      "fixture_id": "fixture_2105_as_historical_trace",
+      "observed": "allowed",
+      "predecessor_hits": [],
+      "status": "PASS",
+      "text": "2105 is historical predecessor trace and must not become current debt"
+    }
+  ],
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "guard_attribution_branch": "branch_b_new_closeout_reentry_guard_owner_route",
+  "guard_attribution_status": "resolved_by_current_owner_execution_request",
+  "positive_fixture_count": 5,
+  "positive_fixture_failure_count": 0,
+  "predecessor_reentry_violation_count": 0,
+  "runtime_authority_predecessor_direct_use_count": 0,
+  "schema_version": "dvf-3-3-predecessor-reentry-guard-report-v1",
+  "status": "PASS"
+}

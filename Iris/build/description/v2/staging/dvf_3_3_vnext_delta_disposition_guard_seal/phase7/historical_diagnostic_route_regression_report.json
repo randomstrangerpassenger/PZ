@@ -1,0 +1,7 @@
+{
+  "diagnostic_route_touched": false,
+  "explicit_non_current_context_required": true,
+  "historical_route_touched": false,
+  "schema_version": "dvf-3-3-vnext-historical-diagnostic-route-regression-v0",
+  "status": "PASS"
+}

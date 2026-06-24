@@ -1,0 +1,171 @@
+{
+  "allowed_claim_classes": [
+    {
+      "acceptable_surface_roles": [
+        "denominator_governance",
+        "future_closeout_guard_input"
+      ],
+      "allowed_denominator": "broad_consumer_universe",
+      "allowed_evidence_root": "Iris/build/description/v2/staging/consumer_universe_denominator_lock",
+      "claim_class": "broad_consumer_completion",
+      "forbidden_inference": [
+        "cutover_subset_completion",
+        "live_execution_completion"
+      ]
+    },
+    {
+      "acceptable_surface_roles": [
+        "cutover_specific_closeout"
+      ],
+      "allowed_denominator": "cutover_subset_rows",
+      "allowed_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover",
+      "claim_class": "cutover_subset_completion",
+      "forbidden_inference": [
+        "broad_consumer_completion",
+        "release_readiness"
+      ]
+    },
+    {
+      "acceptable_surface_roles": [
+        "historical_trace",
+        "predecessor_context"
+      ],
+      "allowed_denominator": "historical_or_predecessor_only",
+      "allowed_evidence_root": "historical_trace",
+      "claim_class": "historical_predecessor_trace",
+      "forbidden_inference": [
+        "current_hard_gate",
+        "current_debt",
+        "runtime_authority_current"
+      ]
+    },
+    {
+      "acceptable_surface_roles": [
+        "authorization_gate"
+      ],
+      "allowed_denominator": "live_mutation_eligible_rows",
+      "allowed_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution",
+      "claim_class": "phase4_live_apply_allowed",
+      "forbidden_inference": [
+        "live_mutation_complete",
+        "runtime_authority_current"
+      ]
+    },
+    {
+      "acceptable_surface_roles": [
+        "pre_apply_readiness"
+      ],
+      "allowed_denominator": "readiness_gate_rows",
+      "allowed_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution",
+      "claim_class": "pre_apply_readiness_complete",
+      "forbidden_inference": [
+        "live_migration_execution_complete",
+        "live_mutation_complete"
+      ]
+    },
+    {
+      "acceptable_surface_roles": [
+        "problem7_validation_readpoint"
+      ],
+      "allowed_denominator": "current_route_validation_tests",
+      "allowed_evidence_root": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "claim_class": "problem7_full_current_route_validation_pass",
+      "forbidden_inference": [
+        "closeout_reentry_guard_seal_complete",
+        "live_execution_complete"
+      ]
+    },
+    {
+      "acceptable_surface_roles": [
+        "governance_gate"
+      ],
+      "allowed_denominator": "current_route_required_validation_manifest",
+      "allowed_evidence_root": "Iris/_docs/round3/current_route_required_validations.json",
+      "claim_class": "required_validation_gate_adopted",
+      "forbidden_inference": [
+        "runtime_writer",
+        "source_writer",
+        "release_readiness"
+      ]
+    },
+    {
+      "acceptable_surface_roles": [
+        "problem7_current_route_validation_pass"
+      ],
+      "allowed_denominator": "current_route_validation_tests",
+      "allowed_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_baseline_source_overlay_repair",
+      "claim_class": "source_overlay_repair_current_route_validation_pass",
+      "forbidden_inference": [
+        "closeout_reentry_guard_seal_complete",
+        "problem8_complete"
+      ]
+    },
+    {
+      "acceptable_surface_roles": [
+        "terminal_disposition_closeout",
+        "terminal_ledger_packet"
+      ],
+      "allowed_denominator": "terminal_executing_consumer_member_rows",
+      "allowed_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication",
+      "claim_class": "terminal_disposition_complete",
+      "forbidden_inference": [
+        "live_migration_execution_complete",
+        "current_authority_cutover_complete",
+        "release_readiness"
+      ]
+    }
+  ],
+  "complete_suffix_policy": "_complete suffix requires owning closeout_state complete or canonical_complete",
+  "forbidden_overclaim_classes": [
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "deployment_readiness",
+      "violation_reason": "Deployment readiness is outside this governance seal."
+    },
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "live_migration_execution_complete_without_execution",
+      "violation_reason": "Live migration execution completion requires a separate execution round."
+    },
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "manual_qa_pass",
+      "violation_reason": "Manual QA is not performed by this round."
+    },
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "package_readiness",
+      "violation_reason": "Package readiness is outside this governance seal."
+    },
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "public_text_acceptance",
+      "violation_reason": "Public-facing text acceptance is outside this governance seal."
+    },
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "release_readiness",
+      "violation_reason": "Release readiness is outside this governance seal."
+    },
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "runtime_authority_current_without_runtime_authority_input",
+      "violation_reason": "Runtime authority cannot be declared from governance evidence."
+    },
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "semantic_quality_completion",
+      "violation_reason": "Semantic quality completion is not a claim class in this round."
+    },
+    {
+      "blocked_closeout_state": "blocked_forbidden_overclaim_detected",
+      "claim_class": "workshop_readiness",
+      "violation_reason": "Workshop readiness is outside this governance seal."
+    }
+  ],
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "schema_version": "dvf-3-3-closeout-claim-taxonomy-v1",
+  "standalone_complete_allowed": false,
+  "status": "PASS",
+  "unmatched_completion_bearing_token_policy": "blocked_unclassified"
+}

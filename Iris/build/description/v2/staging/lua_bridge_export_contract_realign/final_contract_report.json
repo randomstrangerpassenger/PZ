@@ -1,0 +1,80 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-final-report-v1",
+  "generated_at": "2026-06-14T17:43:08.604009+00:00",
+  "status": "PASS",
+  "default_contract_path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/default_invocation_contract.json",
+  "bridge_report_path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/bridge_export_report.json",
+  "chunk_integrity_report_path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/chunk_integrity_report.json",
+  "chunk_determinism_report_path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/chunk_determinism_report.json",
+  "package_monolith_guard_report_path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/package_monolith_guard_report.json",
+  "workspace_copy_disposition_path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/workspace_copy_surface_disposition.json",
+  "no_mutation_verdict_path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/no_mutation_verdict.json",
+  "validations": [
+    {
+      "command": "python -B -m py_compile Iris\\build\\description\\v2\\tools\\build\\export_dvf_3_3_lua_bridge.py Iris\\build\\description\\v2\\tools\\build\\build_body_plan_v2_runtime_rollout.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_lua_bridge_export_contract_realign.py\"",
+      "exit_code": 0,
+      "summary": "7 tests OK"
+    },
+    {
+      "command": "python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_layer3_data_chunking_contract.py\"",
+      "exit_code": 0,
+      "summary": "5 tests OK"
+    },
+    {
+      "command": "python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_interaction_cluster_phase_d_runtime.py\"",
+      "exit_code": 0,
+      "summary": "4 tests OK"
+    },
+    {
+      "command": "python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_body_plan_phase_d_e.py\"",
+      "exit_code": 0,
+      "summary": "4 tests OK"
+    },
+    {
+      "command": "python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_package_layer3_chunks_only_contract.py\"",
+      "exit_code": 0,
+      "summary": "2 tests OK"
+    },
+    {
+      "command": "python -B Iris\\build\\description\\v2\\tools\\build\\export_dvf_3_3_lua_bridge.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python -B Iris\\build\\description\\v2\\tools\\build\\export_dvf_3_3_lua_bridge.py --bridge-context staging --report-path Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\bridge_export_report.json --chunk-output-dir Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks --chunk-manifest-path Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks.lua",
+      "exit_code": 0
+    },
+    {
+      "command": "python -B Iris\\build\\description\\v2\\tools\\build\\export_dvf_3_3_lua_bridge.py --bridge-context staging --chunk-manifest-path Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks.lua --chunk-output-dir Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks; if ($LASTEXITCODE -eq 0) { exit 1 } else { exit 0 }",
+      "exit_code": 0,
+      "summary": "raw exporter rejected protected live chunk path as expected"
+    },
+    {
+      "command": "powershell -ExecutionPolicy Bypass -File .\\Iris\\tools\\package_iris.ps1 -Clean -Zip",
+      "exit_code": 0
+    },
+    {
+      "command": "Get-Command powershell",
+      "exit_code": 0
+    },
+    {
+      "command": "python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_*.py\"",
+      "exit_code": 0,
+      "summary": "423 tests OK"
+    },
+    {
+      "command": "python -B -m pytest -q",
+      "exit_code": 0,
+      "summary": "58 passed, 366 deselected, 5 subtests passed"
+    }
+  ],
+  "validation_limits": [
+    "No manual in-game QA.",
+    "No runtime cutover.",
+    "No release or Workshop readiness claim.",
+    "No executable workspace-copy guard PASS is claimed for historical monolith reflection scripts."
+  ]
+}

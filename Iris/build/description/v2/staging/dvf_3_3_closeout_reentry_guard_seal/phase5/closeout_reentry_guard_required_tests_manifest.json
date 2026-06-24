@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "required_test_count": 4,
+  "required_tests": [
+    {
+      "required": true,
+      "role": "closeout_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_claim_surface_scan_is_fail_closed_and_not_self_scanned"
+    },
+    {
+      "required": true,
+      "role": "closeout_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_generate_final_report_reflects_claim_scan_failure"
+    },
+    {
+      "required": true,
+      "role": "closeout_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_manifest_adoption_is_governance_only_and_runner_visible"
+    },
+    {
+      "required": true,
+      "role": "closeout_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_validator_requires_full_current_route_result_for_complete_contract"
+    }
+  ],
+  "schema_version": "dvf-3-3-closeout-reentry-required-tests-manifest-v1",
+  "status": "PASS"
+}

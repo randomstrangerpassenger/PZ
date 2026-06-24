@@ -1,0 +1,35 @@
+{
+  "allowed_terminal_dispositions": [
+    "migrated",
+    "no-op",
+    "diagnostic-only",
+    "historical-only"
+  ],
+  "raw_provenance_as_sealed_value_source_allowed": false,
+  "required_packet_fields": [
+    "schema_version",
+    "generated_at",
+    "status",
+    "review_status",
+    "owner_adoption_status",
+    "claim_boundary",
+    "sealed_value_sources",
+    "terminal_counts",
+    "row_count",
+    "rows",
+    "packet_sha256"
+  ],
+  "required_row_fields": [
+    "row_identity",
+    "terminal_disposition",
+    "denominator_axis",
+    "lifecycle_role",
+    "source_artifact_role",
+    "provenance_reference",
+    "readiness_reference",
+    "sealed_value_source",
+    "artifact_hash"
+  ],
+  "schema_version": "dvf-3-3-shared-disposition-packet-schema-v1",
+  "sealed_value_source_membership_required": true
+}

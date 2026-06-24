@@ -1,0 +1,74 @@
+{
+  "compose_inputs": [
+    {
+      "bytes": 5112,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/compose_profiles_v2.json",
+      "role": "compose_profile_body_plan_surface",
+      "sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14"
+    },
+    {
+      "bytes": 1809,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
+      "role": "compose_identity_rules",
+      "sha256": "254a088e885ec905680a8830e78ff6e761a272f9002afa9c55b9093118c32c97"
+    },
+    {
+      "bytes": 163,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
+      "role": "compose_precedence_rules",
+      "sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d"
+    }
+  ],
+  "forbidden_inputs_as_source_authority": [
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+    "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+    "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl"
+  ],
+  "read_only_comparison_reference": [
+    {
+      "bytes": 951,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "role": "predecessor_runtime_chunk_manifest",
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+    },
+    {
+      "bytes": null,
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "role": "predecessor_runtime_chunk_dir",
+      "sha256": null
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-allowed-inputs-v0",
+  "selected_input_manifest": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+  "source_inputs": [
+    {
+      "bytes": 1438689,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+      "role": "accepted_source_input",
+      "sha256": "5eb6742862a86ba0b75792f9097f09b44b736f4b4fb1ec905d23d960b997030b"
+    },
+    {
+      "bytes": 1425252,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_decisions.integrated.jsonl",
+      "role": "accepted_source_input_requires_vnext_normalization",
+      "sha256": "ba7bad43aac260e284ce16f88331e74a403e6727a7ffb01f3a4da25b9184661f"
+    }
+  ],
+  "staging_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity"
+}

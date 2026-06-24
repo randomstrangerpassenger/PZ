@@ -1,0 +1,11 @@
+{
+  "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+  "current_route_manifest_mutation_allowed": true,
+  "current_route_manifest_mutation_scope": "required_validation_manifest_only",
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "package_mutation_allowed": false,
+  "rendered_mutation_allowed": false,
+  "runtime_mutation_allowed": false,
+  "schema_version": "consumer-universe-denominator-no-runtime-mutation-v1",
+  "source_mutation_allowed": false
+}

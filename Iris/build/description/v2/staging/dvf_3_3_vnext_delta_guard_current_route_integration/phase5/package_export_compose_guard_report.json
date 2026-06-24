@@ -1,0 +1,37 @@
+{
+  "criteria_sha256": "f88c2b8cea2940391a31955edf088cda0d7cba3477cac30a9db563c39b9653b9",
+  "route_owner_equivalence_fingerprints": {
+    "compose": "07064f4f3488ed8c8c5b8bd61ff369800092034be70f9b3ed2b67558689712d0",
+    "export": "44bdedbcff5ff2a73e2b2aa5c2eec06f66ab6ce8d0739f82ea17475123fc800f",
+    "package": "f3e398e91b3fc3c2568d21539a24c3e92eb2a3065db4f68f572a73f0bb6d8a2a"
+  },
+  "routes": {
+    "compose": {
+      "exists": true,
+      "marker_count": 5,
+      "missing_marker_count": 0,
+      "missing_markers": [],
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "status": "PASS"
+    },
+    "export": {
+      "exists": true,
+      "marker_count": 5,
+      "missing_marker_count": 0,
+      "missing_markers": [],
+      "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "status": "PASS"
+    },
+    "package": {
+      "exists": true,
+      "marker_count": 4,
+      "missing_marker_count": 0,
+      "missing_markers": [],
+      "path": "Iris/tools/package_iris.ps1",
+      "status": "PASS"
+    }
+  },
+  "schema_version": "dvf-3-3-vnext-delta-guard-package-export-compose-v1",
+  "shared_forbidden_scan_criteria": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_guard_current_route_integration/phase2/forbidden_scan_criteria.json",
+  "status": "PASS"
+}

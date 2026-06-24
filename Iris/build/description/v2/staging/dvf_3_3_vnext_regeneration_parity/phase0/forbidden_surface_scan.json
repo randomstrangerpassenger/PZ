@@ -1,0 +1,66 @@
+{
+  "forbidden_mutation_allowed": false,
+  "records": [
+    {
+      "bytes": 4051,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "role": "protected_current_or_forbidden_surface",
+      "sha256": "0fbff43e932199ca36ba0c67fd683a53608ff56d0ed3373c654cdb2f67ff53e5"
+    },
+    {
+      "bytes": 3980,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "role": "protected_current_or_forbidden_surface",
+      "sha256": "9fd0f6fa9250d8fde31e065f60b2cf24717a8194bbef2ee4a8065f7a35c3507f"
+    },
+    {
+      "bytes": 2093,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "role": "protected_current_or_forbidden_surface",
+      "sha256": "5633c9fc2cbf2f2eb8708e49eb463f9b0e5d5b4af7fbf8f62a8d9f0258be92dd"
+    },
+    {
+      "bytes": 951,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "role": "protected_current_or_forbidden_surface",
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+    },
+    {
+      "bytes": null,
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "role": "protected_current_or_forbidden_surface",
+      "sha256": null
+    },
+    {
+      "bytes": null,
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": "protected_current_or_forbidden_surface",
+      "sha256": null
+    },
+    {
+      "bytes": null,
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "protected_current_or_forbidden_surface",
+      "sha256": null
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-forbidden-surface-scan-v0",
+  "staging_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity",
+  "status": "PASS",
+  "violation_count": 0,
+  "violations": []
+}

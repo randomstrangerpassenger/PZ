@@ -1,0 +1,28 @@
+{
+  "schema_version": "interaction-cluster-gate-report-v0",
+  "pass": true,
+  "errors": [],
+  "warnings": [
+    {
+      "code": "smoke_review_incomplete",
+      "message": "smoke review file exists but review fields are incomplete",
+      "missing_review_count": 6
+    },
+    {
+      "code": "smoke_sample_target_underfilled",
+      "message": "smoke sample count is below the target review size",
+      "actual": 6,
+      "target": 50
+    }
+  ],
+  "metrics": {
+    "assignment_rate": 0.8333333333333334,
+    "cluster_misaligned_rate_sample": 0.0,
+    "too_generic_use_rate_sample": 0.0,
+    "generic_fallback_ratio": 0.0,
+    "policy_excluded_count": 0,
+    "smoke_sample_count": 6,
+    "smoke_sample_target": 50,
+    "sample_source": "auto_expectation"
+  }
+}

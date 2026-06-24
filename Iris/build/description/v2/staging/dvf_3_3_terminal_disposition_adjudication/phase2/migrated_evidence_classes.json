@@ -1,0 +1,9 @@
+{
+  "values": [
+    "prior_current_cutover_row_evidence",
+    "prior_cutover_authority_role_migration_evidence",
+    "adopted_current_route_authority_migration_evidence",
+    "live_authority_role_migration_ledger",
+    "explicitly_validated_current_successor_consumer_update"
+  ]
+}

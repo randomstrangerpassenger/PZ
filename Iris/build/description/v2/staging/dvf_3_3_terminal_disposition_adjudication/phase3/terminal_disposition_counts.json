@@ -1,0 +1,11 @@
+{
+  "blocked_count": 0,
+  "conditional_count": 0,
+  "diagnostic_only_count": 3,
+  "historical_only_count": 638,
+  "migrated_count": 153,
+  "no_op_count": 268,
+  "pending_count": 0,
+  "terminal_rows_total": 1062,
+  "unknown_count": 0
+}

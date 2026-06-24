@@ -1,0 +1,28 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "forbidden_readiness_execution": true,
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "live_target_chunk_dir": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+  "live_target_manifest_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+  "mirror_validation_status": "PASS",
+  "required_apply_flags": [
+    "--apply",
+    "--target-kind live",
+    "--require-downstream-phase0-gates"
+  ],
+  "required_downstream_phase0_inputs": [
+    "phase0/command_surface_mapping.json",
+    "phase0/mutation_boundary.json",
+    "phase0/protected_surface_baseline_hashes.json"
+  ],
+  "required_precondition_reports": [
+    "phase4/runtime_switch_precondition_report.json",
+    "phase4/protected_surface_pre_apply_report.json"
+  ],
+  "required_snapshot_manifest": "phase4/predecessor_runtime_snapshot_manifest.json",
+  "restore_probe_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/restore_probe_report.json",
+  "schema_version": "dvf-3-3-vnext-runtime-cutover-live-command-template-v0",
+  "template_executed_in_readiness": false,
+  "tool_path": "Iris/build/description/v2/tools/build/manage_dvf_3_3_runtime_chunk_cutover.py",
+  "validated_mirror_apply_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/atomic_cutover_mirror_apply_report.json"
+}

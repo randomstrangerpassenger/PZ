@@ -1,0 +1,9 @@
+{
+  "allowed_non_current_residue_count": 2105,
+  "allowed_non_current_residue_disposition_complete": true,
+  "dynamic_forbidden_reach_count": 0,
+  "schema_version": "dvf-3-3-vnext-dual-zero-verification-v0",
+  "static_forbidden_current_surface_hit_count": 0,
+  "static_unclassified_residue_count": 0,
+  "status": "PASS"
+}

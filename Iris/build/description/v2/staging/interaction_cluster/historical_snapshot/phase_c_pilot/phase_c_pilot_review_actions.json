@@ -1,0 +1,50 @@
+{
+  "schema_version": "interaction-cluster-phase-c-review-actions-v0",
+  "summary": {
+    "cluster_misaligned_count": 2,
+    "too_generic_use_count": 0,
+    "direct_use_regression_count": 0,
+    "policy_exclusion_rejected_count": 0
+  },
+  "queues": {
+    "cluster_misaligned": [
+      {
+        "item_id": "Base.MuffinTray",
+        "review_source": "historical_snapshot",
+        "pilot_group": "role_fallback_excess",
+        "review_focus": [
+          "group:role_fallback_excess",
+          "cluster_absent_validation",
+          "role_fallback_residual",
+          "primary_use_gap"
+        ],
+        "actual_selected_cluster": null,
+        "candidate_clusters": [],
+        "primary_use": null,
+        "rendered_text_ko": null,
+        "review_notes": "조리 도구. cooking_prep cluster 필요. BakingPan/BakingTray와 동일 유형.",
+        "action": "rework_cluster_selection_or_rule"
+      },
+      {
+        "item_id": "Base.Pan",
+        "review_source": "historical_snapshot",
+        "pilot_group": "role_fallback_excess",
+        "review_focus": [
+          "group:role_fallback_excess",
+          "cluster_absent_validation",
+          "role_fallback_residual",
+          "primary_use_gap"
+        ],
+        "actual_selected_cluster": null,
+        "candidate_clusters": [],
+        "primary_use": null,
+        "rendered_text_ko": null,
+        "review_notes": "조리 도구. cooking_prep cluster 필요. 프라이팬은 조리 작업의 핵심 도구.",
+        "action": "rework_cluster_selection_or_rule"
+      }
+    ],
+    "too_generic_use": [],
+    "direct_use_regression": [],
+    "policy_exclusion_rejected": []
+  }
+}

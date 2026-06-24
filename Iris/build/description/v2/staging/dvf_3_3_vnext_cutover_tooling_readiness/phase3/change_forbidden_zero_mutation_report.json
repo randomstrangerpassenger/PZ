@@ -1,0 +1,8 @@
+{
+  "change_forbidden_occurrence_denominator": 27558,
+  "change_forbidden_occurrence_mutation_count": 0,
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "schema_version": "dvf-3-3-vnext-change-forbidden-zero-mutation-v0",
+  "status": "PASS"
+}

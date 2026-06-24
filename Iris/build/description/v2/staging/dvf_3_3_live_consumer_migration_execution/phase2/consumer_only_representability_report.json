@@ -1,0 +1,1081 @@
+{
+  "evidence_only_excluded_count": 44,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_mutation_required_count": 0,
+  "non_representable_live_required_count": 0,
+  "rows": [
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_artifact_dependency_manifest.json",
+      "row_identity_key": "ledger-3f695497b1924ab10abee408f9821fed"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-b557d05d0f75cd48ad1c0752fd9610c6"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-dcb967b728461d92b342e3e5812d0add"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-39c165e376247caa33292c82affc0b89"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-f7789c96964e23f5b365b0e63c5915f3"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-e5e8f7b18374b5884eebb8a0bafc4f71"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-90aac3ac904924b33b82ea702c868629"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-24a7902b14bfb2a06d902e0fec5cea81"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-9ae3732da8c88e514490d3a65f44d03b"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-dd402a4aa4886a4b2633526876abfe56"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-fd7cea7ecef1f967ae944f6773635264"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-3bb3405ed2ecab1ad55fc6ecd6d943d1"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-0be1cecbcbc5629472ed7c3911978004"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-4e026143e80eaea78f3f6e698bfefacb"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-d9bb0e264aba3a3c57fc7f482b1ca5bf"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-d4f243935babdc498793b9bb6d5c795a"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-9401d35b0c8db9901b1534849c3b7722"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-b0552fdd22b2ce6f0623cf628be7fa39"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-eaf1f1ea92b1f08e0c6e1b4f8ef37f00"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-c167989467500dcd95dfa4d17a82c877"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-0db367908a96495e026fd32c90b95885"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-e02f411661ee3b76b28e65c22d48120a"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-a5623b64d2bca78539c5c5515b545d8f"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-e435d0d66479127de9ea79a7aa517461"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-0edf992bf99b09da9f01a765c9efc448"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-2cba27de19713a7f9a31654890bd3056"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-446dfee190ca4eb870a4f2c4596cb0c3"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "row_identity_key": "ledger-272cab225fdb6d7c3145314bd745b6f9"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-c778d62a305abcf1e9ec43de886b0719"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-a24b30d314f488fe72786f2e8ed2fb55"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-bcb5bac22c2aef570f8915011a186646"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-87de2620ff76e61f8f2a13625c8473ff"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-f4c37362052e6598c4bd8e48fc2febb3"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-02c59b707f04b695727cdb453aa1721a"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-b163401c5f7de6485dc97365e89cbb6b"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-bed2f91e6bad4e8794eea7056d3a783c"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-732ae20a2aac24a4d01f63217e265f38"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-57b418b129b6324b1d684dabaaefe14c"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-8d865fc71b3c8bbee88f6b30d76e2810"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-4035c3c39ec1bbf1e0e7627f6b3194dc"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-331d20ee4d8a2781c689780741d75267"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-2b3da8efb856292330b8c4bb8696de9f"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-149b046727dfc4090bb61a50ceb5b4bd"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-0ef04cbbcf3957b030c6aafb5a777904"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-846ce9c93437a4c3991a7470d5c7a3a0"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-94e2ba3b6bbce3a8fd3a64f5f0f58e3e"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-a3e938bf37881b9de79316ac7f84f822"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-41b2e9dfb1a53aa10d9626174298f7e3"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-06f6befa33de93d072eb3e820f282f41"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-163cf4aa49163adde18e58f9c6d47ad4"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-bea1f95628a535c94538792c6fa3900e"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-80c9b11755f0860cadbb3e3f777b9c69"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-92620c6e4a1b127bb7ac235c395c012f"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "row_identity_key": "ledger-8c4da64698123b37d8636fa69fe6e395"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_disposition_candidates.json",
+      "row_identity_key": "ledger-e0991a48478503db96cea257b9c0439e"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_disposition_candidates.json",
+      "row_identity_key": "ledger-5cf543722d18e4f33f273380112ea2f2"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_disposition_manifest.json",
+      "row_identity_key": "ledger-9dddbb0aa4cf6e5eac7d7e9a4441abcd"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_disposition_manifest.json",
+      "row_identity_key": "ledger-54f3ff27efffcc8758b110142b65d835"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+      "row_identity_key": "ledger-52f78ae054ccf90f1cdfef842ed5399c"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+      "row_identity_key": "ledger-fdef41edb3f22bbc6d2e489d57eb3bb0"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+      "row_identity_key": "ledger-562d128166be6857f5b973f279cb0742"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+      "row_identity_key": "ledger-78575136ed010618887f5b8165aadc0b"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_retained_historical_manifest.json",
+      "row_identity_key": "ledger-75c69469046045ca27d845f3d1edfe4e"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_retained_historical_manifest.json",
+      "row_identity_key": "ledger-c8470bd8d000c59ec07f5df29096ac2d"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/_docs/round3/round3_retained_historical_manifest.json",
+      "row_identity_key": "ledger-b51afa6069165d3e3d7f052ee21153f7"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+      "row_identity_key": "ledger-c3141d75308dcae56d0e58d279669429"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py",
+      "row_identity_key": "ledger-7fef130945f605a93e1d84c8d48f7fc2"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py",
+      "row_identity_key": "ledger-c7c2d397895dd7cc9c3e0af761c2e4f7"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py",
+      "row_identity_key": "ledger-7c04a78cf259cdfaa5864ad89065e601"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "row_identity_key": "ledger-c99752b3ded3b5c1b7d96e009e10bd9c"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "row_identity_key": "ledger-68ce23b4e801e2c62ae3037621943b60"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "row_identity_key": "ledger-80e55aec0697fe4009b777b33b881b81"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py",
+      "row_identity_key": "ledger-59dca9e5d27835f7873b52fed0d917be"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py",
+      "row_identity_key": "ledger-af200262c865de689e351bad5e82eef3"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py",
+      "row_identity_key": "ledger-667cc6017448a701af7ad75d3e315a51"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py",
+      "row_identity_key": "ledger-9eea38faa713d3c99aed6661f871706e"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py",
+      "row_identity_key": "ledger-bc90772a80695c2de29f423d5caa14db"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py",
+      "row_identity_key": "ledger-75dd6c39324cec11d473f930226c614c"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py",
+      "row_identity_key": "ledger-769864ebf94b4c72c37b339d60f0da62"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py",
+      "row_identity_key": "ledger-97aad4ae2fc6273fe633f1869645ad2a"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py",
+      "row_identity_key": "ledger-59e16814924fd61f73d3c7c81cfaefb8"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py",
+      "row_identity_key": "ledger-85bfc2486399d58ef98ef6c1f89435e7"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py",
+      "row_identity_key": "ledger-b752e5e60a3d613a82c90f89df9358fb"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py",
+      "row_identity_key": "ledger-b66d73d33ba61fa5ac46fb93806fc252"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py",
+      "row_identity_key": "ledger-1fa581bc7b2f1065f074943843155b10"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py",
+      "row_identity_key": "ledger-2d5d2856ac75a05f136efe54cfb2be91"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py",
+      "row_identity_key": "ledger-b836df5994524da9a8d47c5f0348bc68"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py",
+      "row_identity_key": "ledger-7d770d13d84116139c9adaa0b9614dfd"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py",
+      "row_identity_key": "ledger-dd071bf24b05e93f3a1b091ae5a59103"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py",
+      "row_identity_key": "ledger-8d8be7d4c749faa7ba7cf2df2f0026c0"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py",
+      "row_identity_key": "ledger-e403d8b1a57cbb35c7f5f81a0568084b"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py",
+      "row_identity_key": "ledger-00ef7fe9a578dbbd4e716f868717bb43"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py",
+      "row_identity_key": "ledger-3db8a64aa44d99e66454b9c4d818c039"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py",
+      "row_identity_key": "ledger-ad7a8274ac2e909701b9fe13c5415b11"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py",
+      "row_identity_key": "ledger-17e9068ae556551cae8f8a37df32531a"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py",
+      "row_identity_key": "ledger-723ffb3786d7de30506cd844f277d2a5"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tests/test_source_coverage_post_c.py",
+      "row_identity_key": "ledger-5226d2288963ac77b31c95b9469ebde6"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "row_identity_key": "ledger-96f18502aee9d64196dbd23872a9af6b"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "row_identity_key": "ledger-f613f10e573175b7b39fa4ca00cd1d05"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "row_identity_key": "ledger-cc544d465ae83b3be43b64e30cc02839"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "row_identity_key": "ledger-ce54da4fd80c52d45e65605db4680ef8"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "row_identity_key": "ledger-dc1d11455c9464cb70a886dd401857c7"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "row_identity_key": "ledger-67e89d2716cbdb9cb1af54685cd64265"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "row_identity_key": "ledger-004fe41efccb9cffaaa6c22a605d9dab"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "row_identity_key": "ledger-61806c5bde359b91bef5807eb1b58551"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "row_identity_key": "ledger-9bb6d46026c6d9cac74f25365857f36e"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "row_identity_key": "ledger-87292b01a87cf88f73be18cc38c43602"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py",
+      "row_identity_key": "ledger-ae6f7c411fb7fdf19736919960d558e1"
+    },
+    {
+      "consumer_only_representable": true,
+      "hard_forbidden_authority_surface": false,
+      "live_status": "live_verified_already",
+      "path": "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py",
+      "row_identity_key": "ledger-cf8fab2f10cf34e57119fb93f2b2020a"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "row_identity_key": "ledger-07b045bc6cc0c967e0d81556aa08af7e"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "row_identity_key": "ledger-4ce770fade0003dded29f914e66e1eff"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "row_identity_key": "ledger-9ca95ab82d58e0e01c3ae9ee082d98dc"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "row_identity_key": "ledger-0b9716f6aaab87b0d6566eff2aebe621"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-63b30cfc21424f5dc86db79a0fef31a4"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-f861b56801050d80e7ecdc755903c425"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-ac0135d47766519cdfe3feb8e0e76c8e"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-788f1a492240338ad9967628469799dd"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-5e298b9c9ffeaa6d521b9428368d46ac"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-81c563fe39c6ed2c7191a4a157115713"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-9b1ff7c0bffcb9d2e05c8b763684a761"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "row_identity_key": "ledger-c3cde225a16f75e9dd91af59406eccb5"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "row_identity_key": "ledger-d114baca7c54c10ea275e9d71bb3e08c"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "row_identity_key": "ledger-b1887e8f4c5648309c68dff4a464dd45"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-6771e41185a6442fb2cbf83bd80f215e"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-b70976d65255d2ab9611319dda55b77d"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-a753ba2bc24a798211c7a37bce45df45"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-be6f1d0db751b4b17b72ab0b7ea2ae92"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-457e714a69e279f5e6a3f44d1c12a4f3"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-15c1f753bd6ce397dfacc4791977be19"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "row_identity_key": "ledger-7b4e4cf48ecc4d8d15bc5a4c26789194"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "row_identity_key": "ledger-17962ba93d0194b5989464a08f4600c6"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "row_identity_key": "ledger-98f0cfdeb6e1f0ab96ba4763e0ce409f"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "row_identity_key": "ledger-f47a4325075bd45f2fbe86fbcc7b558d"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "row_identity_key": "ledger-c3e08a1ae426c7c5725eb170518386c2"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "row_identity_key": "ledger-c6d2097b7386dc5dbcf342f2fc98ab92"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-69b04cab89d75370e5da9e7fa92d5a78"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-90ffecdfb3f7158f84aba9401f2aca3c"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-ee594dc9f08234f5be6731c11e1c55d4"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-1602617a534964bb0e677d2a9691a8d9"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-9a748393c36b0a65545b265f77067f49"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-027872984aaadf81533a6d6b80252446"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "row_identity_key": "ledger-03dbcca5f08521f5ac6d04956926e3df"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "row_identity_key": "ledger-fa43850f1effd6c09ed1c68c588c4cce"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "row_identity_key": "ledger-5b6c5401c499422db9bdc3840eb0d6fd"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "row_identity_key": "ledger-4dbde72d1ef9c5e80299f64f7c4aa45e"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-575f113d91df199d9d315696d4f7f9cb"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-d772ff30d921b012af4d251a25570ff3"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-691ae771766471c347affff2a622335b"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-3be803843b203e210655abe260add040"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-bb6653028623a03af0e4f2840d19f295"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "row_identity_key": "ledger-e6aade486c7209a98b5a0c561f3741d2"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "row_identity_key": "ledger-d58955794eb74d93c6149d348b0204a2"
+    },
+    {
+      "consumer_only_representable": false,
+      "hard_forbidden_authority_surface": true,
+      "live_status": "excluded_non_live_target",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "row_identity_key": "ledger-3f386a2308628a9c55177697db546d99"
+    }
+  ],
+  "schema_version": "dvf-3-3-live-consumer-only-representability-v1",
+  "status": "PASS"
+}

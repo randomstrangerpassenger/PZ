@@ -1,0 +1,38 @@
+{
+  "schema_version": "interaction-cluster-phase-d-lua-bridge-v0",
+  "rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\dvf_3_3_rendered.integrated.json",
+  "publish_preview_path": null,
+  "lua_output_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3Data.lua",
+  "source_entry_count": 2105,
+  "runtime_entry_count": 2105,
+  "entry_count": 2105,
+  "source_publish_state_counts": {
+    "internal_only": 0,
+    "exposed": 0
+  },
+  "runtime_publish_state_counts": {
+    "internal_only": 0,
+    "exposed": 0
+  },
+  "publish_state_entry_count": 0,
+  "applied_aliases": [],
+  "meta": {
+    "version": "interaction-cluster-rendered-v0",
+    "generated_at": "2026-04-30T13:26:56.574140+00:00",
+    "facts_sha256": "5eb6742862a86ba0b75792f9097f09b44b736f4b4fb1ec905d23d960b997030b",
+    "decisions_sha256": "ba7bad43aac260e284ce16f88331e74a403e6727a7ffb01f3a4da25b9184661f",
+    "profiles_sha256": "418ef196dbf97e8e4b2ab62e0dec4f721550aa19067374d3ab934cd553ed9348",
+    "overlay_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\body_role\\phase2\\layer3_role_check_overlay.jsonl",
+    "overlay_sha256": "9eae0f7ddea8c1f0e04a5885dc02bcb82cd0d6545b966d2822bd47a66b5da130",
+    "entries_sha256": "feab0657aed653d3142e8432cf5d4ac36f9aeaee61f38ea8d517b077149d353e",
+    "stats": {
+      "total": 2105,
+      "active_override": 0,
+      "silent": 75,
+      "active_composed": 2030,
+      "quality_flagged": 0,
+      "requeue_candidates": 0
+    }
+  },
+  "pass": true
+}

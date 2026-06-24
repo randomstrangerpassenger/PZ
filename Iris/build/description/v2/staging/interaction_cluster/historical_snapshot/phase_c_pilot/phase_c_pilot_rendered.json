@@ -1,0 +1,1054 @@
+{
+  "meta": {
+    "version": "interaction-cluster-rendered-v0",
+    "generated_at": "2026-03-27T05:49:18.705865+00:00",
+    "facts_sha256": "b8a9a03ed26e942335f64be65b63ea5e720bf1bce5b39f657889bfee646d9922",
+    "decisions_sha256": "70a4052fde57115f3a33f0a6714cf8c095eadc2c7a1fe4c091bf6f347e3d0b19",
+    "profiles_sha256": "6dea43cee3d84bf350f74d917ca95bb80318bc4fd245f27f921d4d5e689f70c5",
+    "entries_sha256": "97e6f426d6988d7980ad51622e33e1e5f441b3fb7c54ca3166a55b0ef3b7d7be",
+    "stats": {
+      "total": 259,
+      "active_composed": 259,
+      "active_override": 0,
+      "silent": 0
+    }
+  },
+  "entries": {
+    "Base.223Box": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.223Bullets": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.223BulletsMold": {
+      "text_ko": "탄약. 탄약 주조에 쓰는 틀이다. 모루 근처에서 철괴와 망치, 집게로 제작한다.",
+      "source": "composed"
+    },
+    "Base.223Clip": {
+      "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.308Box": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.308Bullets": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.308BulletsMold": {
+      "text_ko": "탄약. 탄약 주조에 쓰는 틀이다. 모루 근처에서 철괴와 망치, 집게로 제작한다.",
+      "source": "composed"
+    },
+    "Base.308Clip": {
+      "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.44Clip": {
+      "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.45Clip": {
+      "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.556Box": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.556Bullets": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열어 얻는다.",
+      "source": "composed"
+    },
+    "Base.556Clip": {
+      "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.9mmBulletsMold": {
+      "text_ko": "탄약. 탄약 주조에 쓰는 틀이다. 모루 근처에서 철괴와 망치, 집게로 제작한다.",
+      "source": "composed"
+    },
+    "Base.9mmClip": {
+      "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Aerosolbomb": {
+      "text_ko": "폭발물. 즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다. 헤어스프레이와 불꽃놀이 재료를 조합해 만든다.",
+      "source": "composed"
+    },
+    "Base.AerosolbombRemote": {
+      "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.AerosolbombSensorV1": {
+      "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.AerosolbombSensorV2": {
+      "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.AerosolbombSensorV3": {
+      "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.AerosolbombTriggered": {
+      "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.AlcoholBandage": {
+      "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 붕대를 소독하거나 끓여서 만든다.",
+      "source": "composed"
+    },
+    "Base.AlcoholRippedSheets": {
+      "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 헝겊을 소독하거나 끓여서 만든다.",
+      "source": "composed"
+    },
+    "Base.AlcoholWipes": {
+      "text_ko": "의료 소모품. 의료 처치에 쓰는 소모품이다. 의료 시설이나 구급 차량에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.AlcoholedCottonBalls": {
+      "text_ko": "의료 소모품. 의료 처치에 쓰는 소모품이다. 솜에 알코올을 묻혀 만든다.",
+      "source": "composed"
+    },
+    "Base.Aluminum": {
+      "text_ko": "재료. 전자 조립 작업에 들어가는 부품이다. 주방이나 전기 공구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.AmmoStrap_Bullets": {
+      "text_ko": "액세서리. 탄약 휴대에 쓰는 장비다. 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다.",
+      "source": "composed"
+    },
+    "Base.AmmoStrap_Shells": {
+      "text_ko": "액세서리. 탄약 휴대에 쓰는 장비다. 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다.",
+      "source": "composed"
+    },
+    "Base.AmmoStraps": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Amplifier": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 스피커를 분해해 구한다.",
+      "source": "composed"
+    },
+    "Base.Antibiotics": {
+      "text_ko": "의약품. 의료 처치에 쓰는 소모품이다. 가정집이나 의료 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.AssaultRifle": {
+      "text_ko": "근접 무기. 사격 전투에 쓰는 화기다. 군용 무기 보관 장소와 총기 보관 장소, 특수 총기 진열대에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.AssaultRifle2": {
+      "text_ko": "근접 무기. 사격 전투에 쓰는 화기다. 군용 무기 보관 장소와 총기 보관 장소, 특수 총기 진열대에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Axe": {
+      "text_ko": "무기 겸용 도구. 벌목 작업에서 나무를 찍거나 자를 때 쓴다. 작업 차량과 차고, 목공 공구 상자와 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.AxeStone": {
+      "text_ko": "무기 겸용 도구. 벌목 작업에서 나무를 찍거나 자를 때 쓴다. 나뭇가지와 깎인 돌, 천 조각으로 제작한다.",
+      "source": "composed"
+    },
+    "Base.BakingPan": {
+      "text_ko": "조리 도구. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 가정집이나 제과점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.BakingTray": {
+      "text_ko": "조리 도구. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 가정집이나 제과점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.BallPeenHammer": {
+      "text_ko": "무기 겸용 도구. 금속 단조에 쓰는 도구다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Bandage": {
+      "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 약국이나 병원에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.BarbedWire": {
+      "text_ko": "재료. 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.BaseballBat": {
+      "text_ko": "스포츠 용품. 근접 전투에 쓰는 무기다. 스포츠 매장과 야구 장비 보관 장소, 차량에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.BaseballBatNails": {
+      "text_ko": "제작 무기. 근접 전투에 쓰는 무기다. 야구 방망이와 못, 망치로 제작한다.",
+      "source": "composed"
+    },
+    "Base.Battery": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 전자제품 매장과 전자 부품 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Bayonnet": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 총기 매장과 차고 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.BlowTorch": {
+      "text_ko": "소모성 도구. 금속 접합에 쓰는 도구다. 철물점이나 금속 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.BoxOfJars": {
+      "text_ko": "재료. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.BreadKnife": {
+      "text_ko": "조리 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제과 작업 장소와 식기 보관 장소, 칼 제작 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Briefcase": {
+      "text_ko": "용기. 용기다. 사무 공간이나 전당포에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Bullets38": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열어 얻는다.",
+      "source": "composed"
+    },
+    "Base.Bullets38Box": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.Bullets44": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열어 얻는다.",
+      "source": "composed"
+    },
+    "Base.Bullets44Box": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.Bullets45": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열어 얻는다.",
+      "source": "composed"
+    },
+    "Base.Bullets45Box": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.Bullets9mm": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.Bullets9mmBox": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.ButterKnife": {
+      "text_ko": "조리 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 식기 보관 장소와 생활용품 매장, 칼 제작 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.CakeBatter": {
+      "text_ko": "식재료. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 제과점이나 카페에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.CandyPackage": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 식료품점이나 극장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.CannedCabbage": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 재료를 병조림해 만든다.",
+      "source": "composed"
+    },
+    "Base.CarBatteryCharger": {
+      "text_ko": "도구. 도구다. 차량 정비 장소와 차량 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ChokeTubeFull": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 총기 매장과 차고 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ChokeTubeImproved": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 총기 매장과 차고 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Coldpack": {
+      "text_ko": "의료 용품. 탄약 제작에 쓰는 도구다. 의료 물품 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ConcretePowder": {
+      "text_ko": "재료. 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Cooler": {
+      "text_ko": "용기. 용기다. 휴가용품 판매 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.CottonBalls": {
+      "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 의료 시설이나 구급 차량에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.DenimStrips": {
+      "text_ko": "재료. 탄약 제작에 쓰는 도구다. 데님 의류를 찢어 얻는다.",
+      "source": "composed"
+    },
+    "Base.Doorknob": {
+      "text_ko": "재료. 건축 준비 작업에서 자재를 가공하거나 맞출 때 쓴다. 금속 가공으로 만든다.",
+      "source": "composed"
+    },
+    "Base.DoubleBarrelShotgun": {
+      "text_ko": "근접 무기. 총기 개조 작업에 들어가는 부품이다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.DuctTape": {
+      "text_ko": "소모성 재료. 전자 조립 작업에 들어가는 부품이다. 공구 보관 장소나 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ElectronicsScrap": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 전자기기를 분해해 구한다.",
+      "source": "composed"
+    },
+    "Base.EmptySandbag": {
+      "text_ko": "용기. 용기다. 작업 차량이나 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.FiberglassStock": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.FirstAidKit": {
+      "text_ko": "용기. 용기다. 차량이나 의료 관련 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.FishingLine": {
+      "text_ko": "낚시 소모품. 분해와 간단 조립에 쓰는 도구다. 낚시 장비 취급 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.FlameTrap": {
+      "text_ko": "폭발물. 즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다. 휘발유와 천 조각과 빈 병을 조합해 만든다.",
+      "source": "composed"
+    },
+    "Base.Flightcase": {
+      "text_ko": "용기. 용기다. 악기 상점이나 전당포에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Fork": {
+      "text_ko": "조리 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 식기 보관 장소와 생활용품 매장, 칼 제작 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Garbagebag": {
+      "text_ko": "용기. 용기다. 폐기물 처리 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.GardenSaw": {
+      "text_ko": "도구. 건축 준비 작업에서 자재를 가공하거나 맞출 때 쓴다. 작업 차량과 차고, 농업 물품 상자와 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Guitarcase": {
+      "text_ko": "용기. 용기다. 악기 상점이나 전당포에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.GunLight": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 총기 매장과 차고 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.GunPowder": {
+      "text_ko": "소모성 재료. 탄약 제작에 쓰는 도구다. 탄약을 분해해 구한다.",
+      "source": "composed"
+    },
+    "Base.Hammer": {
+      "text_ko": "무기 겸용 도구. 건축 준비 작업에서 자재를 가공하거나 맞출 때 쓴다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.HammerStone": {
+      "text_ko": "무기 겸용 도구. 건축 준비 작업에서 자재를 가공하거나 맞출 때 쓴다. 나뭇가지와 돌, 천 조각으로 제작한다.",
+      "source": "composed"
+    },
+    "Base.HandAxe": {
+      "text_ko": "무기 겸용 도구. 벌목 작업에서 나무를 찍거나 자를 때 쓴다. 작업 차량과 차고, 목공 공구 상자와 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.HandFork": {
+      "text_ko": "무기 겸용 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 차고와 농업 물품 상자, 원예 상점과 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.HandTorch": {
+      "text_ko": "조명 기구. 전자 조립 작업에 들어가는 부품이다. 전자용품점이나 공구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Hinge": {
+      "text_ko": "재료. 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.HuntingKnife": {
+      "text_ko": "근접 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 군용 보관 장소와 사냥 장비 장소, 전당포에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.HuntingRifle": {
+      "text_ko": "근접 무기. 사격 전투에 쓰는 화기다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.IcePick": {
+      "text_ko": "조리 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 냉동 식품 보관 장소와 식기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.IronSight": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 총기 매장 진열대에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Jack": {
+      "text_ko": "도구. 도구다. 차량 정비 장소와 차량 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.KeyRing": {
+      "text_ko": "용기. 용기다. 시계 판매점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.KitchenKnife": {
+      "text_ko": "조리 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 도축 작업 장소와 식기 보관 장소, 칼 제작 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Laser": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 총기 매장과 차고 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.LeatherStrips": {
+      "text_ko": "재료. 재료다. 가죽 의류를 찢어 얻는다.",
+      "source": "composed"
+    },
+    "Base.LetterOpener": {
+      "text_ko": "생활 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 사무 공간과 우편 업무 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.LightBulb": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 전자용품점이나 공구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.LightBulbGreen": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 전자 공구 보관 장소나 전기 부품 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.LogStacks2": {
+      "text_ko": "재료. 건축 준비 작업에서 자재를 가공하거나 맞출 때 쓴다. 통나무를 묶어 만든다.",
+      "source": "composed"
+    },
+    "Base.LogStacks3": {
+      "text_ko": "재료. 건축 준비 작업에서 자재를 가공하거나 맞출 때 쓴다. 통나무를 묶어 만든다.",
+      "source": "composed"
+    },
+    "Base.LogStacks4": {
+      "text_ko": "재료. 건축 준비 작업에서 자재를 가공하거나 맞출 때 쓴다. 통나무를 묶어 만든다.",
+      "source": "composed"
+    },
+    "Base.LugWrench": {
+      "text_ko": "도구. 도구다. 차량 정비 장소와 차량 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.M14Clip": {
+      "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Machete": {
+      "text_ko": "근접 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 차고와 농업 물품 상자, 원예 상점과 전당포에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.MeatCleaver": {
+      "text_ko": "조리 도구. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 도축 작업 장소와 식기 보관 장소, 칼 제작 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.MetalBar": {
+      "text_ko": "근접 무기. 금속 단조에 쓰는 도구다. 금속 작업 장소와 정비 차량에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.MetalPipe": {
+      "text_ko": "근접 무기. 금속 접합에 쓰는 도구다. 금속 작업 장소와 정비 차량에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.MotionSensor": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 전자 공구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Nails": {
+      "text_ko": "재료. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 못 상자를 열어 구한다.",
+      "source": "composed"
+    },
+    "Base.NailsBox": {
+      "text_ko": "재료. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Needle": {
+      "text_ko": "도구. 의료 처치에 쓰는 소모품이다. 재봉 관련 장소나 의료 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.NoiseTrap": {
+      "text_ko": "폭발물. 즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다. 전자 부품과 증폭기를 조합해 만든다.",
+      "source": "composed"
+    },
+    "Base.Paintbrush": {
+      "text_ko": "도구. 도구다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.PaintbucketEmpty": {
+      "text_ko": "재료. 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.PastaPan": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 파스타를 끓여 만든다.",
+      "source": "composed"
+    },
+    "Base.PastaPot": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 파스타를 끓여 만든다.",
+      "source": "composed"
+    },
+    "Base.PetrolBleachBottle": {
+      "text_ko": "차량 정비 소모품. 연료 취급 작업에서 연료를 옮기거나 넣을 때 쓴다. 빈 표백제 병에 휘발유를 담아 만든다.",
+      "source": "composed"
+    },
+    "Base.PetrolCan": {
+      "text_ko": "차량 정비 소모품. 연료 취급 작업에서 연료를 옮기거나 넣을 때 쓴다. 빈 연료통에 휘발유를 담아 만든다.",
+      "source": "composed"
+    },
+    "Base.PetrolPopBottle": {
+      "text_ko": "차량 정비 소모품. 연료 취급 작업에서 연료를 옮기거나 넣을 때 쓴다. 빈 음료수 병에 휘발유를 담아 만든다.",
+      "source": "composed"
+    },
+    "Base.PickAxe": {
+      "text_ko": "무기 겸용 도구. 벌목 작업에서 나무를 찍거나 자를 때 쓴다. 작업 차량과 차고, 농업 물품 상자와 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.PieDough": {
+      "text_ko": "식재료. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 제과점이나 카페에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Pillow": {
+      "text_ko": "재료. 침구 제작 작업에서 속재를 맞추거나 꿰맬 때 쓴다. 침구 보관 장소나 숙박 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Pipe": {
+      "text_ko": "재료. 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.PipeBomb": {
+      "text_ko": "폭발물. 즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다. 전자 부품과 금속 파이프, 화약과 끈으로 제작한다.",
+      "source": "composed"
+    },
+    "Base.PistolCase1": {
+      "text_ko": "용기. 용기다. 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.PistolCase2": {
+      "text_ko": "용기. 용기다. 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.PistolCase3": {
+      "text_ko": "용기. 용기다. 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Plank": {
+      "text_ko": "재료. 금속 단조에 쓰는 도구다. 통나무를 톱으로 가공해 얻는다.",
+      "source": "composed"
+    },
+    "Base.PlasterPowder": {
+      "text_ko": "재료. 재료다. 건축 자재 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.PotOfSoup": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 그릇이나 냄비에 재료를 넣어 조리한다.",
+      "source": "composed"
+    },
+    "Base.PotOfSoupRecipe": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 그릇이나 냄비에 재료를 넣어 조리한다.",
+      "source": "composed"
+    },
+    "Base.PotOfStew": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 그릇이나 냄비에 재료를 넣어 조리한다.",
+      "source": "composed"
+    },
+    "Base.PropaneTank": {
+      "text_ko": "소모성 재료. 금속 접합에 쓰는 도구다. 철물점이나 금속 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RecoilPad": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 총기 매장과 차고 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RedDot": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 총기 매장과 차고 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RevolverCase1": {
+      "text_ko": "용기. 용기다. 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RevolverCase2": {
+      "text_ko": "용기. 용기다. 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RevolverCase3": {
+      "text_ko": "용기. 용기다. 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RicePan": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 쌀을 끓여 만든다.",
+      "source": "composed"
+    },
+    "Base.RicePot": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 쌀을 끓여 만든다.",
+      "source": "composed"
+    },
+    "Base.RifleCase1": {
+      "text_ko": "용기. 사격 전투에 쓰는 화기다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RifleCase2": {
+      "text_ko": "용기. 사격 전투에 쓰는 화기다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RifleCase3": {
+      "text_ko": "용기. 사격 전투에 쓰는 화기다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.RippedSheets": {
+      "text_ko": "생활용품. 탄약 제작에 쓰는 도구다. 천이나 의류를 찢어 얻는다.",
+      "source": "composed"
+    },
+    "Base.RollingPin": {
+      "text_ko": "조리 도구. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 주방용품 매장과 조리 도구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Apple": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_BellPepper": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Broccoli": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Cabbage": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Carrot": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Cherry": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Corn": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Eggplant": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Grapes": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Leek": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Lettuce": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Onion": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Peach": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Pear": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Potato": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_RedRadish": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Strawberry": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.SackProduce_Tomato": {
+      "text_ko": "식품. 수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다. 수확물을 포대에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.Saw": {
+      "text_ko": "도구. 총기 개조 작업에 들어가는 부품이다. 작업장과 공구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Scalpel": {
+      "text_ko": "의료 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 의료 보관 장소와 실험실, 검시 작업 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Scissors": {
+      "text_ko": "생활 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 사무용품과 학용품 보관 장소, 의료 작업 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Scotchtape": {
+      "text_ko": "재료. 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ScrapMetal": {
+      "text_ko": "재료. 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Screwdriver": {
+      "text_ko": "무기 겸용 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Screws": {
+      "text_ko": "재료. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ScrewsBox": {
+      "text_ko": "재료. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.SeedBag": {
+      "text_ko": "용기. 용기다. 농사용품 판매 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.SewingKit": {
+      "text_ko": "용기. 용기다. 재봉용품 판매 장소나 가정집에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Sheet": {
+      "text_ko": "재료. 침구 제작 작업에서 속재를 맞추거나 꿰맬 때 쓴다. 세탁물 보관 장소나 숙박 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.SheetMetal": {
+      "text_ko": "재료. 금속 접합에 쓰는 도구다. 금속 가공으로 만든다.",
+      "source": "composed"
+    },
+    "Base.SheetRope": {
+      "text_ko": "재료. 재료다. 시트나 면 의류를 찢어 만든다.",
+      "source": "composed"
+    },
+    "Base.Shotgun": {
+      "text_ko": "근접 무기. 총기 개조 작업에 들어가는 부품이다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ShotgunCase1": {
+      "text_ko": "용기. 용기다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ShotgunCase2": {
+      "text_ko": "용기. 용기다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.ShotgunShells": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다.",
+      "source": "composed"
+    },
+    "Base.ShotgunShellsBox": {
+      "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다.",
+      "source": "composed"
+    },
+    "Base.ShotgunShellsMold": {
+      "text_ko": "탄약. 탄약 주조에 쓰는 틀이다. 모루 근처에서 철괴와 망치, 집게로 제작한다.",
+      "source": "composed"
+    },
+    "Base.Sling": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.SmallSheetMetal": {
+      "text_ko": "재료. 금속 접합에 쓰는 도구다. 금속 가공으로 만든다.",
+      "source": "composed"
+    },
+    "Base.SmokeBomb": {
+      "text_ko": "폭발물. 즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다. 냉찜질팩과 천 조각, 신문으로 제작한다.",
+      "source": "composed"
+    },
+    "Base.Sparklers": {
+      "text_ko": "재료. 탄약 제작에 쓰는 도구다. 전기 공구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Spatula": {
+      "text_ko": "조리 도구. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 주방용품 매장과 조리 도구 진열대, 바비큐 용품 상자에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Speaker": {
+      "text_ko": "전자 기기. 분해와 간단 조립에 쓰는 도구다. 음향 기기 판매점이나 전자용품 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.SpearBreadKnife": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 식빵칼, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearButterKnife": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 버터칼, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearCrafted": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 판자나 나뭇가지와 칼날 도구로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearFork": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 포크, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearHandFork": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 손갈퀴, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearHuntingKnife": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 사냥칼, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearIcePick": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 얼음송곳, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearKnife": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 식칼, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearLetterOpener": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 편지칼, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearMachete": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 마체테, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearScalpel": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 메스, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearScissors": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 가위, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearScrewdriver": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 드라이버, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.SpearSpoon": {
+      "text_ko": "제작 무기. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 제작한 창과 숟가락, 덕트 테이프로 제작한다.",
+      "source": "composed"
+    },
+    "Base.Spoon": {
+      "text_ko": "조리 도구. 즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다. 식기 보관 장소와 생활용품 매장, 칼 제작 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Stake": {
+      "text_ko": "제작 무기. 야영 준비 작업에서 임시 거처를 설치할 때 쓴다. 나뭇가지를 칼날 도구로 깎아 만든다.",
+      "source": "composed"
+    },
+    "Base.Suitcase": {
+      "text_ko": "용기. 용기다. 가정집이나 전당포에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.SutureNeedle": {
+      "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 의료 시설이나 구급 차량에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.SutureNeedleHolder": {
+      "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 의료 시설이나 구급 차량에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Tarp": {
+      "text_ko": "재료. 야영 준비 작업에서 임시 거처를 설치할 때 쓴다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Thread": {
+      "text_ko": "소모성 재료. 침구 제작 작업에서 속재를 맞추거나 꿰맬 때 쓴다. 재봉 용품점이나 재봉 자재 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.TinOpener": {
+      "text_ko": "조리 도구. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 주거지 주방과 휴게 공간에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.TirePump": {
+      "text_ko": "도구. 도구다. 차량 정비 장소와 차량 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Tongs": {
+      "text_ko": "도구. 금속 단조에 쓰는 도구다. 모루 근처에서 철괴와 망치로 제작한다.",
+      "source": "composed"
+    },
+    "Base.Toolbox": {
+      "text_ko": "용기. 용기다. 정비 작업장이나 공구 판매 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Torch": {
+      "text_ko": "조명 기구. 전자 조립 작업에 들어가는 부품이다. 전자용품점이나 공구 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Tweezers": {
+      "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 가정집이나 의료 시설에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.Twine": {
+      "text_ko": "소모성 재료. 덫 및 어망 제작 작업에 들어가는 재료다. 공구 보관 장소나 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.VarmintRifle": {
+      "text_ko": "근접 무기. 사격 전투에 쓰는 화기다. 사냥 장비 보관 장소나 가정 총기 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.VideoGame": {
+      "text_ko": "전자 기기. 분해와 간단 조립에 쓰는 도구다. 장난감 판매점이나 주거지에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.WaterBottlePetrol": {
+      "text_ko": "차량 정비 소모품. 연료 취급 작업에서 연료를 옮기거나 넣을 때 쓴다. 빈 물병에 휘발유를 담아 만든다.",
+      "source": "composed"
+    },
+    "Base.WaterPotPasta": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 그릇이나 냄비에 재료를 넣어 조리한다.",
+      "source": "composed"
+    },
+    "Base.WaterPotRice": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 그릇이나 냄비에 재료를 넣어 조리한다.",
+      "source": "composed"
+    },
+    "Base.WaterSaucepanPasta": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 그릇이나 냄비에 재료를 넣어 조리한다.",
+      "source": "composed"
+    },
+    "Base.WaterSaucepanRice": {
+      "text_ko": "식품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 그릇이나 냄비에 재료를 넣어 조리한다.",
+      "source": "composed"
+    },
+    "Base.WhiskeyPetrol": {
+      "text_ko": "차량 정비 소모품. 연료 취급 작업에서 연료를 옮기거나 넣을 때 쓴다. 빈 위스키 병에 휘발유를 담아 만든다.",
+      "source": "composed"
+    },
+    "Base.WinePetrol": {
+      "text_ko": "차량 정비 소모품. 연료 취급 작업에서 연료를 옮기거나 넣을 때 쓴다. 빈 와인 병에 휘발유를 담아 만든다.",
+      "source": "composed"
+    },
+    "Base.Wire": {
+      "text_ko": "소모성 재료. 덫 및 어망 제작 작업에 들어가는 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.WoodAxe": {
+      "text_ko": "무기 겸용 도구. 벌목 작업에서 나무를 찍거나 자를 때 쓴다. 작업 차량과 차고, 목공 공구 상자와 공구점에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.WoodenStick": {
+      "text_ko": "재료. 야영 준비 작업에서 임시 거처를 설치할 때 쓴다. 판자를 톱질해 만든다.",
+      "source": "composed"
+    },
+    "Base.Yarn": {
+      "text_ko": "재료. 재료다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.x2Scope": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.x4Scope": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다.",
+      "source": "composed"
+    },
+    "Base.x8Scope": {
+      "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다.",
+      "source": "composed"
+    },
+    "Radio.ElectricWire": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 전기 부품 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Radio.HamRadio1": {
+      "text_ko": "무전기. 분해와 간단 조립에 쓰는 도구다. 전자용품점이나 전기 부품 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Radio.HamRadio2": {
+      "text_ko": "무전기. 분해와 간단 조립에 쓰는 도구다. 군용 전자 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Radio.RadioReceiver": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 전자 공구 보관 장소나 전기 부품 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Radio.RadioTransmitter": {
+      "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 전자 공구 보관 장소나 전기 부품 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Radio.WalkieTalkie4": {
+      "text_ko": "무전기. 전자 조립 작업에 들어가는 부품이다. 보안 장비 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "Radio.WalkieTalkie5": {
+      "text_ko": "무전기. 전자 조립 작업에 들어가는 부품이다. 군용 장비 보관 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "camping.SteelAndFlint": {
+      "text_ko": "도구. 도구다. 캠핑 장비 취급 장소에서 발견된다.",
+      "source": "composed"
+    },
+    "camping.TentPeg": {
+      "text_ko": "재료. 야영 준비 작업에서 임시 거처를 설치할 때 쓴다. 공사 자재 보관 장소와 작업장에서 발견된다.",
+      "source": "composed"
+    },
+    "farming.BroccoliBagSeed": {
+      "text_ko": "원예 용품. 농사 준비 작업에서 씨앗을 꺼내거나 나눌 때 쓴다. 씨앗을 봉투에 담아 얻는다.",
+      "source": "composed"
+    },
+    "farming.BroccoliSeed": {
+      "text_ko": "원예 용품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 씨앗 봉투를 열어 얻는다.",
+      "source": "composed"
+    },
+    "farming.CabbageBagSeed": {
+      "text_ko": "원예 용품. 농사 준비 작업에서 씨앗을 꺼내거나 나눌 때 쓴다. 씨앗을 봉투에 담아 얻는다.",
+      "source": "composed"
+    },
+    "farming.CabbageSeed": {
+      "text_ko": "원예 용품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 씨앗 봉투를 열어 얻는다.",
+      "source": "composed"
+    },
+    "farming.CarrotBagSeed": {
+      "text_ko": "원예 용품. 농사 준비 작업에서 씨앗을 꺼내거나 나눌 때 쓴다. 씨앗을 봉투에 담아 얻는다.",
+      "source": "composed"
+    },
+    "farming.CarrotSeed": {
+      "text_ko": "원예 용품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 씨앗 봉투를 열어 얻는다.",
+      "source": "composed"
+    },
+    "farming.PotatoBagSeed": {
+      "text_ko": "원예 용품. 농사 준비 작업에서 씨앗을 꺼내거나 나눌 때 쓴다. 씨앗을 봉투에 담아 얻는다.",
+      "source": "composed"
+    },
+    "farming.PotatoSeed": {
+      "text_ko": "원예 용품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 씨앗 봉투를 열어 얻는다.",
+      "source": "composed"
+    },
+    "farming.RedRadishBagSeed": {
+      "text_ko": "원예 용품. 농사 준비 작업에서 씨앗을 꺼내거나 나눌 때 쓴다. 씨앗을 봉투에 담아 얻는다.",
+      "source": "composed"
+    },
+    "farming.RedRadishSeed": {
+      "text_ko": "원예 용품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 씨앗 봉투를 열어 얻는다.",
+      "source": "composed"
+    },
+    "farming.StrewberrieBagSeed": {
+      "text_ko": "원예 용품. 농사 준비 작업에서 씨앗을 꺼내거나 나눌 때 쓴다. 씨앗을 봉투에 담아 얻는다.",
+      "source": "composed"
+    },
+    "farming.StrewberrieSeed": {
+      "text_ko": "원예 용품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 씨앗 봉투를 열어 얻는다.",
+      "source": "composed"
+    },
+    "farming.TomatoBagSeed": {
+      "text_ko": "원예 용품. 농사 준비 작업에서 씨앗을 꺼내거나 나눌 때 쓴다. 씨앗을 봉투에 담아 얻는다.",
+      "source": "composed"
+    },
+    "farming.TomatoSeed": {
+      "text_ko": "원예 용품. 보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다. 씨앗 봉투를 열어 얻는다.",
+      "source": "composed"
+    }
+  }
+}

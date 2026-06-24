@@ -2,7 +2,7 @@
 
 Date: 2026-05-06
 
-Source roadmap: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+Historical source roadmap label: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
 
 Phase 4 changes affect Lua runtime behavior. No Phase 4 runtime refactor batch
 is complete until this checklist is run against an in-game build and the result

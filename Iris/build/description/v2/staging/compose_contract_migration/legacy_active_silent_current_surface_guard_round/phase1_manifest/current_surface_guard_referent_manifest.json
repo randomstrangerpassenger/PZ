@@ -127,6 +127,18 @@
       "reason": "build tool source may quote legacy fixtures but is not current output"
     },
     {
+      "id": "current_input_manifest_diagnostic_metadata",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "diagnostic_alias",
+        "plain_text"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/data/dvf_3_3_input_manifest.json"
+      ],
+      "reason": "input manifest may document unavailable legacy source split as diagnostic metadata"
+    },
+    {
       "id": "legacy_output_metric_keys",
       "must_not_be_current_output": true,
       "occurrence_kinds": [
@@ -165,7 +177,7 @@
     "packaged Lua / generated operator / writer non-runtime label occurrence": "CURRENT_SURFACE_REJECTED_LEGACY_ACTIVE_SILENT_LABEL",
     "runtime_state writer/validator occurrence": "DEFAULT_RUNTIME_STATE_REJECTED_LEGACY_ENUM"
   },
-  "generated_at": "2026-05-21T07:34:23.691755+00:00",
+  "generated_at": "2026-06-13T00:50:43.944445+00:00",
   "hard_fail_surfaces": [
     {
       "id": "current_writer_output_decisions",

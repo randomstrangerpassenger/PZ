@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "identity_resolver_id": "dvf_3_3_terminal_disposition_adjudication_common.resolve_member_identity_v1",
+  "inputs": [
+    "occurrence_id",
+    "path",
+    "line",
+    "token",
+    "evidence_anchor"
+  ],
+  "outputs": [
+    "member_id",
+    "source_occurrence_id",
+    "source_row_identity"
+  ],
+  "schema_version": "dvf-3-3-terminal-identity-resolver-contract-v1",
+  "single_source_required": true
+}

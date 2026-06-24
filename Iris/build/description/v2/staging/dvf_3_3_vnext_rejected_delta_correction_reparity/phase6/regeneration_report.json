@@ -1,0 +1,12 @@
+{
+  "chunk_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge/IrisLayer3DataChunks",
+  "chunk_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge/IrisLayer3DataChunks.lua",
+  "compose_context": "staging",
+  "corrected_source_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_source_manifest.json",
+  "fixed_live_input_manifest_fallback_used": false,
+  "lineage": "fresh_corrected_regeneration",
+  "rendered_entry_count": 2105,
+  "rendered_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/rendered/dvf_3_3_rendered.vnext_corrected.json",
+  "schema_version": "dvf-3-3-vnext-rejected-correction-regeneration-report-v0",
+  "status": "PASS"
+}

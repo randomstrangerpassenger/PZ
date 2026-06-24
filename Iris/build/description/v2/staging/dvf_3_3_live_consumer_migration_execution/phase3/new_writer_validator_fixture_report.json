@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "negative_fixture_count": 7,
+  "negative_fixtures": [
+    "orphan diff",
+    "unmapped row",
+    "non-migrated mutation",
+    "hard-forbidden authority surface mutation",
+    "sandbox/live evidence mix-up",
+    "already-live row rewrite",
+    "invalid rollback packet"
+  ],
+  "positive_fixture_count": 2,
+  "schema_version": "dvf-3-3-live-new-writer-validator-fixture-report-v1",
+  "status": "PASS"
+}

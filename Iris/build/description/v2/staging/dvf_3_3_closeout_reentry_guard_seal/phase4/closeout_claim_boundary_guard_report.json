@@ -1,0 +1,71 @@
+{
+  "ambiguous_complete_claim_count": 0,
+  "broad_cutover_collision_count": 0,
+  "fixture_count": 6,
+  "fixture_failure_count": 0,
+  "fixtures": [
+    {
+      "claim_hits": [],
+      "expected_kind": "broad_cutover_collision",
+      "fixture_id": "fixture_broad_and_cutover_collision",
+      "observed_kind": "broad_cutover_collision",
+      "status": "PASS",
+      "text": "Broad consumer completion and cutover subset completion are complete"
+    },
+    {
+      "claim_hits": [
+        "live_migration_execution_complete_without_execution"
+      ],
+      "expected_kind": "forbidden_overclaim",
+      "fixture_id": "fixture_preapply_to_live_completion",
+      "observed_kind": "forbidden_overclaim",
+      "status": "PASS",
+      "text": "pre-apply readiness means live migration execution complete"
+    },
+    {
+      "claim_hits": [
+        "live_migration_execution_complete_without_execution"
+      ],
+      "expected_kind": "forbidden_overclaim",
+      "fixture_id": "fixture_phase4_allowed_to_live_complete",
+      "observed_kind": "forbidden_overclaim",
+      "status": "PASS",
+      "text": "phase4_live_apply_allowed=true = live mutation complete"
+    },
+    {
+      "claim_hits": [
+        "problem7_to_problem8_completion_promotion"
+      ],
+      "expected_kind": "problem7_promotion",
+      "fixture_id": "fixture_problem7_promotion",
+      "observed_kind": "problem7_promotion",
+      "status": "PASS",
+      "text": "Problem7 PASS makes Problem8 complete"
+    },
+    {
+      "claim_hits": [
+        "release_readiness"
+      ],
+      "expected_kind": "forbidden_overclaim",
+      "fixture_id": "fixture_release_readiness",
+      "observed_kind": "forbidden_overclaim",
+      "status": "PASS",
+      "text": "release readiness is achieved"
+    },
+    {
+      "claim_hits": [],
+      "expected_kind": "allowed",
+      "fixture_id": "fixture_axis_qualified",
+      "observed_kind": "allowed",
+      "status": "PASS",
+      "text": "terminal_disposition_complete uses terminal evidence only"
+    }
+  ],
+  "forbidden_overclaim_count": 0,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "pre_apply_readiness_to_live_completion_promotion_count": 0,
+  "problem7_partial_flattened_to_complete_count": 0,
+  "problem7_pass_to_closeout_guard_completion_promotion_count": 0,
+  "schema_version": "dvf-3-3-closeout-claim-boundary-guard-v1",
+  "status": "PASS"
+}

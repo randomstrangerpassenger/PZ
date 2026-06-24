@@ -1,0 +1,59 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "consumer_migration_execution_live_allowed": false,
+  "current_cutover_allowed": false,
+  "cutover_contract": {
+    "bytes": 4157,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/dvf_3_3_vnext_cutover_contract.md",
+    "role": "cutover_contract",
+    "sha256": "94b14434dd38e66a3bbe8fd9cc2e907f6e12f8c082c661bd67b60990ca841217"
+  },
+  "fixed_downstream_plan": {
+    "bytes": 57942,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration_plan.md",
+    "role": "fixed_downstream_implementation_plan",
+    "sha256": "c7bc129c42ce869c710c3079d6f9d829285462c67b9caad9ecdbf609df0eb78d"
+  },
+  "freshness_inputs": [
+    {
+      "bytes": 967,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase8/final_delta_disposition_guard_contract_report.json",
+      "role": "corrected_candidate_gate",
+      "sha256": "786c5ce4b719d2c173a566a889dcefd8bdb12b01840abf978766c432766ad610"
+    },
+    {
+      "bytes": 785,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase11/final_rejected_delta_correction_reparity_report.json",
+      "role": "corrected_candidate_gate",
+      "sha256": "7dae7187aa6cfc0b3459e1ab72136fa5dbc1d82e8e2453f64068bcff669ea53a"
+    }
+  ],
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "plan": {
+    "bytes": 68076,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/dvf_3_3_vnext_current_authority_cutover_tooling_readiness_plan.md",
+    "role": "plan_artifact",
+    "sha256": "09ab56fdf673c57d6c0749542ce72fec0040c43bc85edb8c40acf974648a19af"
+  },
+  "runtime_replacement_allowed": false,
+  "schema_version": "dvf-3-3-vnext-cutover-tooling-scope-lock-v0",
+  "status": "PASS",
+  "template": {
+    "bytes": 3068,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/PLAN_TEMPLATE.md",
+    "role": "plan_template",
+    "sha256": "38d70d4d624733db4d24f047e0b737a47c75522a967c84f06fe5aabc5ebd9ba1"
+  }
+}

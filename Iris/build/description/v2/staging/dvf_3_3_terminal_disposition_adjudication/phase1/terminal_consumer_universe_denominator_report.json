@@ -1,0 +1,19 @@
+{
+  "classified_join_count": 1062,
+  "denominator": 1062,
+  "expected_denominator": 1062,
+  "expected_source_predicate_split": {
+    "conditional": 111,
+    "no": 902,
+    "yes": 49
+  },
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "schema_version": "dvf-3-3-terminal-denominator-report-v1",
+  "source_predicate_split": {
+    "conditional": 111,
+    "no": 902,
+    "yes": 49
+  },
+  "status": "PASS",
+  "terminal_consumer_universe_id": "dvf_3_3_terminal_executing_consumer_member_rows_1062_v1"
+}

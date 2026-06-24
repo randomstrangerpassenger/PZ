@@ -1,0 +1,11 @@
+{
+  "adjacent_seed_occurrence_count": 6695,
+  "ambiguous_needs_adjudication": 0,
+  "change_forbidden_count": 27558,
+  "change_required_count": 311,
+  "core_occurrence_count": 21174,
+  "executing_consumer_count": 1062,
+  "gate_a": "PASS",
+  "gate_b": "PASS",
+  "status": "complete"
+}

@@ -2,7 +2,10 @@
 
 Date: 2026-05-04
 
-Source roadmap: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+Historical source roadmap label: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+
+Current readpoint for this active manifest is the inline content below plus
+`docs/DECISIONS.md` and `docs/ROADMAP.md`, not the archived Iris docs path.
 
 This manifest starts Phase 1 by recording the live build surface before any
 archive/delete action. The repository already contains earlier P0-P7 cleanup

@@ -1,0 +1,19 @@
+{
+  "compose_entrypoint_guard_hardening": {
+    "definition_role_retained": true,
+    "surface_owner_status": "sealed"
+  },
+  "dual_definition_conflict_count": 0,
+  "lua_bridge_export_contract_realign": {
+    "definition_role_retained": true,
+    "surface_owner_status": "sealed"
+  },
+  "schema_version": "dvf-3-3-vnext-delta-guard-authority-reconciliation-v1",
+  "shared_contract_replaces_existing_surfaces": false,
+  "stale_dvf_bridge_artifact_disposition": {
+    "dual_definition_verdict": "no_competing_definition_but_not_independently_sealed",
+    "shared_contract_role": "referenced_subordinate_package_guard_evidence",
+    "surface_owner_status": "implemented_review_pending"
+  },
+  "status": "PASS"
+}

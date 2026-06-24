@@ -1,0 +1,11 @@
+{
+  "block_reason": null,
+  "dirty_baseline_isolation": true,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "hard_forbidden_authority_surface_changed_count": 0,
+  "live_writer_sandbox_executor_separated": true,
+  "phase4_consumed_frozen_patch_bundle": true,
+  "phase4_recomputed_targets": false,
+  "schema_version": "dvf-3-3-live-apply-integrity-report-v1",
+  "status": "NOT_APPLICABLE_NO_LIVE_DIFF_REQUIRED"
+}

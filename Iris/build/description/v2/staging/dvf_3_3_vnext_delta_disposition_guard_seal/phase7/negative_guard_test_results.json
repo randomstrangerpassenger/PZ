@@ -1,0 +1,101 @@
+{
+  "case_count": 8,
+  "cases": [
+    {
+      "case_id": "invalid_disposition_enum",
+      "expected_fail_loud": true,
+      "fixture": {
+        "disposition": "accepted"
+      },
+      "guard_id": "disposition_coverage",
+      "observed_fail_loud": true,
+      "rationale_code": "NEGATIVE_CASE_EXPECTED_FAIL",
+      "status": "PASS"
+    },
+    {
+      "case_id": "rejected_runtime_eligible",
+      "expected_fail_loud": true,
+      "fixture": {
+        "disposition": "rejected",
+        "runtime_eligible": true
+      },
+      "guard_id": "unapproved_delta",
+      "observed_fail_loud": true,
+      "rationale_code": "NEGATIVE_CASE_EXPECTED_FAIL",
+      "status": "PASS"
+    },
+    {
+      "case_id": "missing_reviewer_identity",
+      "expected_fail_loud": true,
+      "fixture": {
+        "reviewer_identity": null
+      },
+      "guard_id": "disposition_coverage",
+      "observed_fail_loud": true,
+      "rationale_code": "NEGATIVE_CASE_EXPECTED_FAIL",
+      "status": "PASS"
+    },
+    {
+      "case_id": "publish_state_classified",
+      "expected_fail_loud": true,
+      "fixture": {
+        "axis": "publish_state"
+      },
+      "guard_id": "legacy_vocabulary",
+      "observed_fail_loud": true,
+      "rationale_code": "NEGATIVE_CASE_EXPECTED_FAIL",
+      "status": "PASS"
+    },
+    {
+      "case_id": "monolith_current_path",
+      "expected_fail_loud": true,
+      "fixture": {
+        "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua"
+      },
+      "guard_id": "monolith_re_entry",
+      "observed_fail_loud": true,
+      "rationale_code": "NEGATIVE_CASE_EXPECTED_FAIL",
+      "status": "PASS"
+    },
+    {
+      "case_id": "staging_direct_promotion",
+      "expected_fail_loud": true,
+      "fixture": {
+        "source": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity",
+        "target": "Iris/media/lua/client/Iris/Data"
+      },
+      "guard_id": "staging_direct_promotion",
+      "observed_fail_loud": true,
+      "rationale_code": "NEGATIVE_CASE_EXPECTED_FAIL",
+      "status": "PASS"
+    },
+    {
+      "case_id": "rejected_in_cutover_input",
+      "expected_fail_loud": true,
+      "fixture": {
+        "disposition": "rejected",
+        "in_manifest": true
+      },
+      "guard_id": "unapproved_delta",
+      "observed_fail_loud": true,
+      "rationale_code": "NEGATIVE_CASE_EXPECTED_FAIL",
+      "status": "PASS"
+    },
+    {
+      "case_id": "dual_current_authority",
+      "expected_fail_loud": true,
+      "fixture": {
+        "old_current": true,
+        "successor_current": true
+      },
+      "guard_id": "single_authority",
+      "observed_fail_loud": true,
+      "rationale_code": "NEGATIVE_CASE_EXPECTED_FAIL",
+      "status": "PASS"
+    }
+  ],
+  "expected_fail_loud_count": 8,
+  "observed_fail_loud_count": 8,
+  "schema_version": "dvf-3-3-vnext-delta-disposition-negative-case-results-v0",
+  "status": "PASS"
+}

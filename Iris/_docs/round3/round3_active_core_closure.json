@@ -1,0 +1,350 @@
+{
+  "blocked_or_not_executed": "scratch current-closure-only proof is deferred until D1/default-route selection",
+  "closure_authority": [
+    "Iris/build/description/v2/tools/build/INVENTORY.md",
+    "Iris/_docs/refactor/phase1_active_manifest.md"
+  ],
+  "closure_rows": [
+    {
+      "artifact_path_signal": true,
+      "doc_or_path_reference_count": 4,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [
+        "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+      ],
+      "imported_by_current_seed_tests": [
+        "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+      ],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 0,
+      "in_current_closure": true,
+      "main_work": true,
+      "module": "build_iris_fixing_index_data",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/build_iris_fixing_index_data.py",
+      "sha256": "19e2901c1126e678febc8a510ce5b7b44965363293d17aa07cac684cab3d8c2f",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "doc_or_path_reference_count": 4,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [
+        "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+      ],
+      "imported_by_current_seed_tests": [
+        "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+      ],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 0,
+      "in_current_closure": true,
+      "main_work": true,
+      "module": "build_iris_moveables_index_data",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/build_iris_moveables_index_data.py",
+      "sha256": "6a1fc478a8f1c75513cdba38e1607d6dc718839076333944bd5afed557bcb1b3",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "doc_or_path_reference_count": 4,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [
+        "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+      ],
+      "imported_by_current_seed_tests": [
+        "Iris/build/description/v2/tests/test_build_iris_index_data.py"
+      ],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 0,
+      "in_current_closure": true,
+      "main_work": true,
+      "module": "build_iris_recipe_index_data",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/build_iris_recipe_index_data.py",
+      "sha256": "5084ce0dccf532d375dcee256345d0cacebb28add6177922710d828e2716acc7",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "doc_or_path_reference_count": 217,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [],
+      "imported_by_current_seed_tests": [],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 0,
+      "in_current_closure": true,
+      "main_work": true,
+      "module": "build_legacy_active_silent_current_surface_guard_round",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py",
+      "sha256": "3c195170a6c16abc14399a224c0b48f9794684a66f6ce0c2f7b9789c1ce95c71",
+      "subprocess_execution": true,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "doc_or_path_reference_count": 245,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [],
+      "imported_by_current_seed_tests": [],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 0,
+      "in_current_closure": true,
+      "main_work": true,
+      "module": "build_static_report_label_cleanup_referent_recovery_round",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/build_static_report_label_cleanup_referent_recovery_round.py",
+      "sha256": "7bc9ef094bd687deb782d75902a74ca640687d9f1be59de9075595e95b69acbd",
+      "subprocess_execution": true,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": false,
+      "doc_or_path_reference_count": 15,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [],
+      "imported_by_current_seed_tests": [],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 4,
+      "in_current_closure": true,
+      "main_work": false,
+      "module": "compose_layer3_blocks",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+      "sha256": "82b041edb69ec2d959302ed54600fabcefc37e1b081f8023566ac0dab2cbe87c",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": false,
+      "doc_or_path_reference_count": 93,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [
+        "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+      ],
+      "imported_by_current_seed_tests": [
+        "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+      ],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 10,
+      "in_current_closure": true,
+      "main_work": false,
+      "module": "compose_layer3_body_profile",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+      "sha256": "f9218ecde2afadbdc122f3e9a69654d6d586f9d98fbc3102efb5352de5521b1a",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": false,
+      "doc_or_path_reference_count": 6,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [],
+      "imported_by_current_seed_tests": [],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 1,
+      "in_current_closure": true,
+      "main_work": false,
+      "module": "compose_layer3_identity",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "sha256": "f6a6bf7848a673f4069aaecfd58b55c9e9a31d3d88361ea962d38507b4e3c824",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": false,
+      "doc_or_path_reference_count": 6,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [],
+      "imported_by_current_seed_tests": [],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 2,
+      "in_current_closure": true,
+      "main_work": false,
+      "module": "compose_layer3_io",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+      "sha256": "12b98ea1de9e7eff87d1ba06cdf62e30f47e193b55070221dd5c0ace46494ed5",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": false,
+      "doc_or_path_reference_count": 60,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [],
+      "imported_by_current_seed_tests": [],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 1,
+      "in_current_closure": true,
+      "main_work": false,
+      "module": "compose_layer3_item",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "sha256": "68265a9a9611be201db25452afd43bbfb5b7544daea5b00a30f669427a7663af",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": false,
+      "doc_or_path_reference_count": 61,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [],
+      "imported_by_current_seed_tests": [],
+      "imported_by_non_current_tests_count": 0,
+      "imported_by_peer_scripts_count": 1,
+      "in_current_closure": true,
+      "main_work": false,
+      "module": "compose_layer3_render",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+      "sha256": "8ff755fbdd2718f07552f544c94eeacb0a1cdb482752ce455f8ac013bd0d3f02",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "doc_or_path_reference_count": 152,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "imported_by_current_contract_tests": [
+        "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
+        "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+        "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py"
+      ],
+      "imported_by_current_seed_tests": [
+        "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+        "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py"
+      ],
+      "imported_by_non_current_tests_count": 1,
+      "imported_by_peer_scripts_count": 67,
+      "in_current_closure": true,
+      "main_work": true,
+      "module": "compose_layer3_text",
+      "owner_class": "current_build_core",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "sha256": "fecf4abf2be122fd60488bcccc402fe0925562e782b1458ad45440af4d589e32",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    }
+  ],
+  "current_closure_count": 12,
+  "current_closure_modules": [
+    "build_iris_fixing_index_data",
+    "build_iris_moveables_index_data",
+    "build_iris_recipe_index_data",
+    "build_legacy_active_silent_current_surface_guard_round",
+    "build_static_report_label_cleanup_referent_recovery_round",
+    "compose_layer3_blocks",
+    "compose_layer3_body_profile",
+    "compose_layer3_identity",
+    "compose_layer3_io",
+    "compose_layer3_item",
+    "compose_layer3_render",
+    "compose_layer3_text"
+  ],
+  "current_route_allowed_tooling_modules": [
+    "export_dvf_3_3_lua_bridge"
+  ],
+  "current_route_allowed_tooling_policy": {
+    "allowed_owner_class": "current_regeneration_tooling",
+    "core_closure_count_must_remain": 12,
+    "expansion_requires": "separate reviewed scope; do not add modules here as a convenience bypass for current core closure",
+    "max_allowed_modules": 1,
+    "modules_are_not_current_core": true
+  },
+  "current_route_allowed_tooling_rows": [
+    {
+      "in_current_closure": false,
+      "import_allowed_for_current_route": true,
+      "module": "export_dvf_3_3_lua_bridge",
+      "owner_class": "current_regeneration_tooling",
+      "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "reason": "Current-route tests verify the default chunk bridge export contract, but the exporter is regeneration tooling rather than one of the 12 current core build modules."
+    }
+  ],
+  "current_contract_imports": [
+    "build_iris_fixing_index_data",
+    "build_iris_moveables_index_data",
+    "build_iris_recipe_index_data",
+    "compose_layer3_body_profile",
+    "compose_layer3_text"
+  ],
+  "current_contract_tests": [
+    "Iris/build/description/v2/tests/test_build_iris_index_data.py",
+    "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
+    "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+    "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
+    "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
+    "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
+    "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+  ],
+  "current_test_seeds": [
+    "Iris/build/description/v2/tests/test_build_iris_index_data.py",
+    "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+    "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
+    "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
+    "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
+    "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+  ],
+  "generated_at": "2026-06-11T12:14:22+00:00",
+  "manual_current_tests": {
+    "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py": "manual audit: imports only current closure module compose_layer3_text; asserts current compose overlay/render behavior; no ignored reproduction imports"
+  },
+  "schema_version": "round3-active-core-closure-v1",
+  "tracked_core_modules": [
+    "build_iris_fixing_index_data",
+    "build_iris_moveables_index_data",
+    "build_iris_recipe_index_data",
+    "build_legacy_active_silent_current_surface_guard_round",
+    "build_static_report_label_cleanup_referent_recovery_round",
+    "compose_layer3_blocks",
+    "compose_layer3_body_profile",
+    "compose_layer3_identity",
+    "compose_layer3_io",
+    "compose_layer3_item",
+    "compose_layer3_render",
+    "compose_layer3_text"
+  ]
+}

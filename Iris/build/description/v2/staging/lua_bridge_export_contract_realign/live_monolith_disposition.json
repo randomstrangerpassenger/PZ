@@ -1,0 +1,7 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-live-monolith-v1",
+  "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+  "disposition": "live_monolith_absent",
+  "exists": false,
+  "pass_closeout_requires_changed_count_zero": true
+}

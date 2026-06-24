@@ -1,0 +1,30 @@
+{
+  "not_payload_readiness_proof": true,
+  "predecessor_manifest": {
+    "bytes": 951,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "role": "predecessor_reference",
+    "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+  },
+  "reference_only": true,
+  "schema_version": "dvf-3-3-vnext-reference-fingerprint-report-v0",
+  "status": "PASS",
+  "vnext_delta_source": {
+    "bytes": 3498338,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_deltas.jsonl",
+    "role": "vnext_reference_delta_source",
+    "sha256": "8830fee1f6f877f73697899a887f82e70bbd9aa441af3aa415e0aefbc1dd9440"
+  },
+  "vnext_parity_report": {
+    "bytes": 50357,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_report.json",
+    "role": "vnext_reference_parity_report",
+    "sha256": "392f83d65eaaaf783655f743a8aecdced4fcf86c1f8f500f8e33c5bbcda6247c"
+  }
+}

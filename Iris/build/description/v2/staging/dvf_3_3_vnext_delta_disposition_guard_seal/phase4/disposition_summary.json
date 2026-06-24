@@ -1,0 +1,13 @@
+{
+  "ambiguous_count": 0,
+  "disposition_counts": {
+    "approved": 2017,
+    "rejected": 108
+  },
+  "reviewer_independence_limitation": "same automated tool identity supplies validator and closeout evidence",
+  "runtime_eligible_count": 2017,
+  "schema_version": "dvf-3-3-vnext-delta-disposition-summary-v0",
+  "status": "PASS",
+  "total_count": 2125,
+  "undispositioned_count": 0
+}

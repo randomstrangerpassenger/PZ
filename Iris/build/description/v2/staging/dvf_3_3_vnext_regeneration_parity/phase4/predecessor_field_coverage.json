@@ -1,0 +1,30 @@
+{
+  "entry_count": 2105,
+  "fields": {
+    "publish_state": {
+      "empty": 0,
+      "missing": 19,
+      "null": 0,
+      "present": 2086
+    },
+    "source": {
+      "empty": 0,
+      "missing": 0,
+      "null": 0,
+      "present": 2105
+    },
+    "state": {
+      "empty": 0,
+      "missing": 2105,
+      "null": 0,
+      "present": 0
+    },
+    "text_ko": {
+      "empty": 0,
+      "missing": 19,
+      "null": 0,
+      "present": 2086
+    }
+  },
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-predecessor-field-coverage-v0"
+}

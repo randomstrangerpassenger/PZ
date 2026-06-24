@@ -1,0 +1,17 @@
+{
+  "claim_boundary": "Shared disposition consumption contract only; not denominator adjudication, not terminal disposition re-adjudication, not Phase 4 live apply, not source/rendered/Lua-bridge/runtime/package authority mutation, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, and not public-facing text quality acceptance.",
+  "divergence_count": 0,
+  "finding_counts": {
+    "DENOMINATOR_AXIS_MISMATCH": 0,
+    "DUAL_AUTHORITY_READ": 0,
+    "LIFECYCLE_ROLE_MISMATCH": 0,
+    "PACKET_SCHEMA_ERROR": 0,
+    "PREDECESSOR_REENTRY": 0,
+    "RAW_AUTHORITY_READ": 0,
+    "UNCLASSIFIED_CONSUMPTION_SURFACE": 0,
+    "VALUE_DIVERGENCE": 0
+  },
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-shared-disposition-divergence-report-v1",
+  "status": "PASS"
+}

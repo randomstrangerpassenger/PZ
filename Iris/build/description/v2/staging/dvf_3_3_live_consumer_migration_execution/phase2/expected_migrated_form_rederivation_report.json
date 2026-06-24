@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "rederived_row_count": 109,
+  "schema_version": "dvf-3-3-live-expected-migrated-form-rederivation-v1",
+  "status": "PASS",
+  "unrederived_reason": "evidence-only excluded or ambiguous rows are not writer targets",
+  "unrederived_row_count": 44
+}

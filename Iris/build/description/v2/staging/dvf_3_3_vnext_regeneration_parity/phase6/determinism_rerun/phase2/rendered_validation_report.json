@@ -1,0 +1,9 @@
+{
+  "duplicate_key_count": 0,
+  "entry_count": 2105,
+  "expected_entry_count": 2105,
+  "hard_fail_count": 0,
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-rendered-validation-v0",
+  "status": "PASS",
+  "warn_count": 0
+}

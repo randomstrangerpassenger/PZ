@@ -1,0 +1,104 @@
+{
+  "aggregate_sha256": "245cee9aa504a82ed39f30b2adb9eecad6d1ccfbcae45b2e4653bf67fa6d9682",
+  "chunk_count": 11,
+  "chunk_manifest": {
+    "bytes": 951,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks.lua",
+    "role": "staging_successor_chunk_manifest",
+    "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+  },
+  "chunks": [
+    {
+      "bytes": 114149,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk001.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "57e810a600098fb7b1e0be124d6b2e146b57074ec98da63ad6a83f31d0ecfce0"
+    },
+    {
+      "bytes": 102569,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk002.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "1ece618aa70f479bff4d0c5275dd2ddf197eef963191c63d938c71a43f931e2b"
+    },
+    {
+      "bytes": 102608,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk003.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "384fd4695b0ab8864f70bc1e7b3bed5b8e947c5d0403e1bd0b32e8aa13f3ee5d"
+    },
+    {
+      "bytes": 109594,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk004.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "b56d85da82403098d810505e7441902e36d0684f1c64ae5bf995d30722f61ce8"
+    },
+    {
+      "bytes": 109079,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk005.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "7314cf542012ad37d3a74c82086a3b782d4faf6176583bd9cff300b78e770af2"
+    },
+    {
+      "bytes": 110843,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk006.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "c54df54b36874d20869d26c4346c2ac31dded8e01b0acf73f6e5d0f3517fb7a9"
+    },
+    {
+      "bytes": 114412,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk007.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "4063c1a4387904c385bee4406a3a6c4055620e7fbde9bd20d4549d36bf93375e"
+    },
+    {
+      "bytes": 111067,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk008.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "065a46fd5ef0574d72fe2311cc0e156dfefe001793133f0fdc11ebe4c71e9678"
+    },
+    {
+      "bytes": 113526,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk009.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "42690335a6c1f251155bc56c4794aabeaee899e3c8ce9b69e7c74798bb2e8697"
+    },
+    {
+      "bytes": 104644,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk010.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "0f684d8c983d80a46ebd9acdf288942b330c1d2e1885d946c9c67396bb93ae33"
+    },
+    {
+      "bytes": 54746,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks/Chunk011.lua",
+      "role": "staging_successor_chunk",
+      "sha256": "e2ada45c24d1f6cf60951228a47b6857330c899135958eb5329b283aea1d8447"
+    }
+  ],
+  "generated_at": "2026-06-15T13:08:17.908249+00:00",
+  "schema_version": "dvf-3-3-vnext-chunk-hashes-v0"
+}

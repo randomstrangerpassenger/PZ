@@ -1,0 +1,9 @@
+{
+  "closeout": "docs/layer3-current-authority-reconstruction-closeout.md",
+  "promoted_artifact_hash": null,
+  "round_id": "layer3-current-authority-reconstruction",
+  "schema_version": "layer3-explicit-author-seal-v0",
+  "single_write_authority": null,
+  "status": "NOT_RECORDED_PROMOTION_INELIGIBLE",
+  "target_path": "Iris/build/description/v2/output/dvf_3_3_rendered.json"
+}

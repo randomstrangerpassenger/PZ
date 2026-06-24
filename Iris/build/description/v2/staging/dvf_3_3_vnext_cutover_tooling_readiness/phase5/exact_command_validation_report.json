@@ -1,0 +1,44 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "commands": [
+    {
+      "command": "python -B Iris/build/description/v2/tools/build/generate_dvf_3_3_overlay_support_artifact.py",
+      "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase1/overlay_support_seal_report.json",
+      "expected_exit_code": 0,
+      "observed_exit_code": 0
+    },
+    {
+      "command": "python -B Iris/build/description/v2/tools/build/manage_dvf_3_3_runtime_chunk_cutover.py",
+      "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/atomic_cutover_mirror_apply_report.json",
+      "expected_exit_code": 0,
+      "observed_exit_code": 0
+    },
+    {
+      "command": "python -B Iris/build/description/v2/tools/build/apply_dvf_3_3_consumer_migration.py",
+      "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/consumer_migration_actual_report.json",
+      "expected_exit_code": 0,
+      "observed_exit_code": 0
+    },
+    {
+      "command": "python -B Iris/build/description/v2/tools/build/generate_dvf_3_3_row_level_migration_ledger.py",
+      "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+      "expected_exit_code": 0,
+      "observed_exit_code": 0
+    },
+    {
+      "command": "python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_actual_diff_to_ledger.py",
+      "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/actual_diff_to_ledger_report.json",
+      "expected_exit_code": 0,
+      "observed_exit_code": 0
+    },
+    {
+      "command": "python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_command_surface_mapping.py",
+      "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase5/command_surface_mapping_validation_report.json",
+      "expected_exit_code": 0,
+      "observed_exit_code": 0
+    }
+  ],
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "schema_version": "dvf-3-3-vnext-exact-command-validation-v0",
+  "status": "PASS"
+}

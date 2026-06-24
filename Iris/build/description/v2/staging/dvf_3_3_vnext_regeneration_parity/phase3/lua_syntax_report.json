@@ -1,0 +1,7 @@
+{
+  "chunk_integrity_pass": true,
+  "external_preferred_command_recorded": true,
+  "method": "static_chunk_bundle_integrity; preferred powershell check_lua_syntax route recorded in phase0 command matrix",
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-lua-syntax-report-v0",
+  "status": "PASS"
+}

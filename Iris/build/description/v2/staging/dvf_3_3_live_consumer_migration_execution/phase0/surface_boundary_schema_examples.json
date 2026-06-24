@@ -1,0 +1,51 @@
+{
+  "ambiguous_surface_disposition": {
+    "default_status": "live_ambiguous",
+    "hard_stop_status": "revised_plan_needed",
+    "rule": "do not infer consumer writability from count equality or sandbox mutation evidence"
+  },
+  "consumer_surface_examples": [
+    {
+      "path": "Iris/build/description/v2/tests/example.py",
+      "required_fields": [
+        "path",
+        "line",
+        "before_anchor",
+        "after_anchor"
+      ]
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/example_validator.py",
+      "required_fields": [
+        "path",
+        "line",
+        "operation_kind"
+      ]
+    },
+    {
+      "path": "Iris/_docs/round3/example_manifest.json",
+      "required_fields": [
+        "path",
+        "row_identity_key",
+        "positive_provenance"
+      ]
+    }
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "hard_forbidden_authority_surface_examples": [
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "reason": "runtime chunk authority"
+    },
+    {
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "reason": "package authority"
+    },
+    {
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "reason": "rendered output authority"
+    }
+  ],
+  "schema_version": "dvf-3-3-live-surface-boundary-examples-v1",
+  "status": "PASS"
+}

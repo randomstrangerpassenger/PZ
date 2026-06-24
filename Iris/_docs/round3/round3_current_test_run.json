@@ -1,0 +1,12 @@
+{
+  "closure_enforced": true,
+  "contract_class": "current",
+  "elapsed_seconds": 2.612,
+  "errors": [],
+  "failures": [],
+  "schema_version": "round3-contract-test-run-v1",
+  "selected_identity_count": 44,
+  "skipped": [],
+  "success": true,
+  "test_count": 44
+}

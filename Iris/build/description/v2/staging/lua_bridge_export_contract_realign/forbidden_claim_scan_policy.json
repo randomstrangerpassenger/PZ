@@ -1,0 +1,12 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-forbidden-claim-scan-v1",
+  "claims": [
+    "release readiness",
+    "package readiness",
+    "runtime rollout",
+    "current baseline replacement",
+    "live chunk replacement",
+    "Browser/Wiki/Tooltip behavior change",
+    "quality exposure"
+  ]
+}

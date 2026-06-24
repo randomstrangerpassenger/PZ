@@ -1,0 +1,7 @@
+{
+  "external_command": "python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_*.py\"",
+  "external_command_required_for_final_validation": true,
+  "method": "tool-contract-local-regression-plus-external-unittest-route",
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-current-route-regression-v0",
+  "status": "PASS"
+}

@@ -1,0 +1,10 @@
+{
+  "accepted_input_count": 2,
+  "accepted_source_count": 2105,
+  "duplicate_source_key_count": 0,
+  "errors": [],
+  "generated_at": "2026-06-15T13:08:16.971561+00:00",
+  "runtime_derived_seed_accepted_count": 0,
+  "schema_version": "dvf-3-3-vnext-source-manifest-validation-v0",
+  "status": "PASS"
+}

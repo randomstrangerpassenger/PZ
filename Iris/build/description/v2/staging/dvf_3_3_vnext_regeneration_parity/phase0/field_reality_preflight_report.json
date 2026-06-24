@@ -1,0 +1,76 @@
+{
+  "predecessor_runtime": {
+    "chunk_dir": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+    "entry_count": 2105,
+    "fields": {
+      "key": {
+        "location": "lua_table_key",
+        "resolution_mode": "direct_payload"
+      },
+      "publish_state": {
+        "coverage": {
+          "empty": 0,
+          "missing": 19,
+          "null": 0,
+          "present": 2086
+        },
+        "enum_counts": {
+          "exposed": 1486,
+          "internal_only": 600
+        },
+        "location": "runtime_chunk_entry.publish_state",
+        "resolution_mode": "legacy_predecessor_only_visibility"
+      },
+      "state": {
+        "coverage": {
+          "empty": 0,
+          "missing": 2105,
+          "null": 0,
+          "present": 0
+        },
+        "derived_from": "runtime_chunk_entry.source",
+        "location": null,
+        "resolution_mode": "governed_derived"
+      },
+      "text_ko": {
+        "coverage": {
+          "empty": 0,
+          "missing": 19,
+          "null": 0,
+          "present": 2086
+        },
+        "location": "runtime_chunk_entry.text_ko",
+        "resolution_mode": "direct_payload"
+      }
+    },
+    "manifest": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+  },
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-field-reality-preflight-v0",
+  "successor_candidate_expectation": {
+    "chunk_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks",
+    "chunk_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks.lua",
+    "fields": {
+      "key": {
+        "location": "lua_table_key",
+        "resolution_mode": "direct_payload"
+      },
+      "publish_state": {
+        "intentional_absence_rationale": "successor export route does not synthesize publish_state without an accepted publish preview input",
+        "location": "successor_chunk_entry.publish_state if publish preview input exists",
+        "publish_preview_exists": false,
+        "publish_preview_path": "Iris/build/description/v2/staging/semantic_quality/phaseE_contract_migration/quality_publish_decision_preview.jsonl",
+        "resolution_mode": "legacy_predecessor_only_visibility"
+      },
+      "state": {
+        "derived_from": "phase1 normalized decisions and successor chunk source field",
+        "location": null,
+        "resolution_mode": "governed_derived"
+      },
+      "text_ko": {
+        "location": "successor_chunk_entry.text_ko",
+        "resolution_mode": "direct_payload"
+      }
+    },
+    "rendered_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase2/rendered/dvf_3_3_rendered.vnext.json"
+  }
+}

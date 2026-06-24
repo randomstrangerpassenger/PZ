@@ -1,0 +1,19 @@
+{
+  "crosswalk": {
+    "current-hard-gate": "no-op",
+    "diagnostic-only": "diagnostic-only",
+    "historical-reference": "historical-only",
+    "no-op": "no-op",
+    "vNext-migration": "migrated"
+  },
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "positive_audit_evidence_required": [
+    "gate_a_pass",
+    "gate_b_pass",
+    "executing_route",
+    "classified_ledger_join",
+    "allowed_terminal_reason"
+  ],
+  "schema_version": "dvf-3-3-terminal-audit-classification-crosswalk-v1",
+  "status": "PASS"
+}

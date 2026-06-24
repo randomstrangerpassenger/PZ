@@ -3,7 +3,7 @@
   "closeout_state": "closed_with_no_current_surface_residue_found_and_guarded",
   "gate_a_pass": true,
   "gate_b_required": true,
-  "generated_at": "2026-05-21T07:34:24.273569+00:00",
+  "generated_at": "2026-06-13T00:52:02.637716+00:00",
   "hard_fail_current_label_occurrence_count": 0,
   "manifest_error_count": 0,
   "mutation_performed": false,

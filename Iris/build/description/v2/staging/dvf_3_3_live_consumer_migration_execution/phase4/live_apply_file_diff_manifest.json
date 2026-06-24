@@ -1,0 +1,8 @@
+{
+  "block_reason": null,
+  "changed_path_count": 0,
+  "changed_paths": [],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-live-apply-file-diff-manifest-v1",
+  "status": "NOT_APPLICABLE_NO_LIVE_DIFF_REQUIRED"
+}

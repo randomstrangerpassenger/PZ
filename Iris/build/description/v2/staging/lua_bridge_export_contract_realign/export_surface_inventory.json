@@ -1,0 +1,21 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-surface-inventory-v1",
+  "exporter_path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+  "package_script_path": "Iris/tools/package_iris.ps1",
+  "default_route": {
+    "bridge_context": "staging",
+    "format": "chunk"
+  },
+  "monolith_route": {
+    "allowed_contexts": [
+      "diagnostic",
+      "historical"
+    ],
+    "requires_explicit_lua_output_path": true
+  },
+  "live_chunk_destination_guarded": true,
+  "live_monolith_destination_guarded": true,
+  "package_monolith_guarded": true,
+  "workspace_copy_disposition": "copy_like_package_path_guarded",
+  "unresolved_current_occurrences": 0
+}

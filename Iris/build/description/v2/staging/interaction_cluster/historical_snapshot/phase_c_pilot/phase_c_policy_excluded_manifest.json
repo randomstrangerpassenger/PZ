@@ -1,0 +1,8 @@
+{
+  "schema_version": "interaction-cluster-phase-c-policy-excluded-manifest-v0",
+  "selected_count": 40,
+  "reason_breakdown": {
+    "action_only_not_representative": 39,
+    "niche_recipe_not_representative": 3
+  }
+}

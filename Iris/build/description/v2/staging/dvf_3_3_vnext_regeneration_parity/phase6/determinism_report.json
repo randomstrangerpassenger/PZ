@@ -1,0 +1,10 @@
+{
+  "chunk_content_hash_match": true,
+  "first_rendered_entries_sha256": "bf0dc5e0ba23e4f3ff795cebd9f0e37e423ba0388ade6ed49dd738b7f0ff9764",
+  "fresh_full_rerun_route": true,
+  "rendered_entries_hash_match": true,
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-determinism-report-v0",
+  "second_rendered_entries_sha256": "bf0dc5e0ba23e4f3ff795cebd9f0e37e423ba0388ade6ed49dd738b7f0ff9764",
+  "status": "PASS",
+  "volatile_metadata_canonicalization": "PASS"
+}

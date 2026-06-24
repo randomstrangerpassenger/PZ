@@ -1,0 +1,69 @@
+{
+  "schema_version": "interaction-cluster-phase-d-lua-bridge-chunks-from-monolith-v0",
+  "source_lua_path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3Data.lua",
+  "chunked": true,
+  "chunk_size": 200,
+  "chunk_count": 11,
+  "entry_count": 2105,
+  "runtime_entry_count": 2105,
+  "chunk_manifest_path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks.lua",
+  "chunk_output_dir": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks",
+  "chunk_modules": [
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk001",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk001.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk002",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk002.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk003",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk003.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk004",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk004.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk005",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk005.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk006",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk006.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk007",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk007.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk008",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk008.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk009",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk009.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk010",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk010.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk011",
+      "path": "Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3DataChunks\\Chunk011.lua",
+      "entry_count": 105
+    }
+  ],
+  "pass": true
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": "acquisition-hint-normalization-schema-v0",
+  "description": "Phase 2 normalization contract for acquisition_hint review, staging, and canon promotion.",
+  "null_reason_enum": [
+    "UBIQUITOUS_ITEM",
+    "STANDARDIZATION_IMPOSSIBLE"
+  ],
+  "mode_enum": [
+    "location",
+    "method",
+    "discovery",
+    "mixed",
+    "unknown"
+  ],
+  "review_status_enum": [
+    "MAPPED",
+    "REVIEW_REQUIRED",
+    "BLOCKED"
+  ],
+  "normalization_record": {
+    "required_fields": [
+      "raw_acquisition_hint",
+      "canonical_key",
+      "mode",
+      "normalization_status",
+      "source_origin"
+    ],
+    "optional_fields": [
+      "normalized_text_ko",
+      "disposition",
+      "review_notes",
+      "blocked_reason",
+      "slot_meta_patch"
+    ]
+  },
+  "lexicon_entry": {
+    "required_fields": [
+      "canonical_key",
+      "allowed_mode",
+      "normalized_text_ko",
+      "deprecated_aliases",
+      "blocked_raw_patterns"
+    ],
+    "optional_fields": [
+      "notes"
+    ]
+  },
+  "gate_contract": {
+    "non_null_facts_require_canonical_key": true,
+    "facts_null_requires_decisions_null_reason": true,
+    "slot_meta_alignment_required": true,
+    "direct_canon_write_without_staging_gate": false
+  }
+}

@@ -2,7 +2,7 @@
 
 Date: 2026-05-06
 
-Source roadmap: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+Historical source roadmap label: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
 
 This record starts Phase 3-2 after Phase 3-1 centralized the active
 root/pipeline JSON I/O call sites.

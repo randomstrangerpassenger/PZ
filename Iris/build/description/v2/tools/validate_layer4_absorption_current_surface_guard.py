@@ -100,6 +100,8 @@ def classify_surface(rel_path: str) -> tuple[str, str, str]:
         return "governance_docs", "allowed", "governance/reference text is not current runtime or build consumption"
     if rel_path.startswith("Iris/build/description/v2/staging/"):
         return "staging_evidence", "allowed", "round-local and staging evidence is not current runtime or build consumption"
+    if rel_path.startswith("Iris/_archive/"):
+        return "archive_evidence", "allowed", "archived historical evidence is not current runtime or build consumption"
     if rel_path.startswith("Iris/build/description/v2/tests/"):
         return "test_fixture", "allowed", "tests may name the namespace to guard it"
     if any(rel_path.startswith(prefix) for prefix in HARD_FAIL_PREFIXES):

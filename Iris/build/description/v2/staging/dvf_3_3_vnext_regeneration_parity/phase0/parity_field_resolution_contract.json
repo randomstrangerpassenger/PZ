@@ -1,0 +1,38 @@
+{
+  "blocked_unresolved_fields": [],
+  "complete_allowed": true,
+  "fields": {
+    "key": {
+      "comparison_claim": "exact_key_set_comparison",
+      "complete_allowed": true,
+      "direct_payload_path": "lua table key",
+      "resolution_mode": "direct_payload"
+    },
+    "publish_state": {
+      "blocked_reason": null,
+      "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+      "complete_allowed": true,
+      "derived_source_path": null,
+      "direct_payload_path": "predecessor entry.publish_state",
+      "intentional_absence_rationale": "successor candidate export intentionally does not create publish_state without an accepted publish preview input",
+      "mapping_table_path": null,
+      "resolution_mode": "legacy_predecessor_only_visibility"
+    },
+    "state": {
+      "blocked_reason": null,
+      "comparison_claim": "governed_derived_disposition",
+      "complete_allowed": true,
+      "derived_source_fingerprint": "26d0a1e08cb9793dc43302a5236d6f9a381f580b7f4dad8e9f97c86e8fabda81",
+      "derived_source_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase1/dvf_3_3_vnext_decisions.jsonl",
+      "direct_payload_path": null,
+      "resolution_mode": "governed_derived"
+    },
+    "text_ko": {
+      "comparison_claim": "raw_and_normalized_text_delta",
+      "complete_allowed": true,
+      "direct_payload_path": "entry.text_ko",
+      "resolution_mode": "direct_payload"
+    }
+  },
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-field-resolution-contract-v0"
+}

@@ -1,0 +1,390 @@
+{
+  "aggregate_sha256": "c18297da2b13fe3ca0eab67cef2768595c792f067ab7f4e00a7499aa39e71f85",
+  "protected_surface": {
+    "generated_at": "2026-06-15T13:08:16.451984+00:00",
+    "protected_paths": [
+      {
+        "kind": "file",
+        "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+        "role": "live_runtime_chunk_manifest"
+      },
+      {
+        "kind": "dir",
+        "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+        "role": "live_runtime_chunk_files"
+      },
+      {
+        "kind": "file",
+        "optional": true,
+        "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+        "role": "live_runtime_facade_loader"
+      },
+      {
+        "kind": "dir",
+        "path": "Iris/build/description/v2/data",
+        "role": "live_description_data"
+      },
+      {
+        "kind": "dir",
+        "path": "Iris/build/description/v2/output",
+        "role": "live_description_output"
+      },
+      {
+        "kind": "file",
+        "path": "docs/DECISIONS.md",
+        "role": "canon_docs"
+      },
+      {
+        "kind": "file",
+        "path": "docs/ARCHITECTURE.md",
+        "role": "canon_docs"
+      },
+      {
+        "kind": "file",
+        "path": "docs/ROADMAP.md",
+        "role": "canon_docs"
+      }
+    ],
+    "schema_version": "dvf-3-3-vnext-protected-surface-v0"
+  },
+  "record_count": 42,
+  "records": [
+    {
+      "bytes": 951,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "role": null,
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+    },
+    {
+      "bytes": 102745,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+      "role": null,
+      "sha256": "08373c2a0e2f6ff572021f2f82d1b322316e7886a8876664d65f022cb764b7dd"
+    },
+    {
+      "bytes": 93472,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "role": null,
+      "sha256": "37e72049ceb83d294f52d9bb86936a3a3e05942cdaa037865532338cfaef4764"
+    },
+    {
+      "bytes": 89927,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "role": null,
+      "sha256": "562c7c18aef25538ef341764da4a5635313352212f1bce515b20c5dccc90e0b9"
+    },
+    {
+      "bytes": 102589,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "role": null,
+      "sha256": "42753e063661679583c3430acc6bc52ec6f47d873cbf4685dacdb603a964e440"
+    },
+    {
+      "bytes": 92247,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "role": null,
+      "sha256": "89c7d39902ff83166f4cfb8cea4225359e86b62750703cfc7c4f15b44cce5a5e"
+    },
+    {
+      "bytes": 101600,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+      "role": null,
+      "sha256": "5942559c4927ab8ed948fed42f73e362b26e35d180e2206b745caaa98ed20c09"
+    },
+    {
+      "bytes": 96491,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "role": null,
+      "sha256": "19661a52a3418f413ad49c7df474a2f221a0d5c751232f1b9b3083768074966b"
+    },
+    {
+      "bytes": 104738,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "role": null,
+      "sha256": "0df3875bd9cd109bf70b50b4c847c99e56437d1ab8183c1a814c797a754ed924"
+    },
+    {
+      "bytes": 97142,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+      "role": null,
+      "sha256": "abbe34d842d2d1162a5828e3f3e3147cb93f1e991f89da3009d2bb81add82729"
+    },
+    {
+      "bytes": 91423,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "role": null,
+      "sha256": "954ed61ca9f9a08fb9818a38c91925356901561b9d3cd3dd9dfd5d91bd359997"
+    },
+    {
+      "bytes": 61528,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "role": null,
+      "sha256": "8e0311e7d6fb020056e9fb74fbc546dce898668f4ed7c60561e7538f5bc9d179"
+    },
+    {
+      "bytes": null,
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": null,
+      "sha256": null
+    },
+    {
+      "bytes": 1233,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/acquisition_hint_normalization_schema.json",
+      "role": null,
+      "sha256": "a1d03577dd52074c1f95650e8222d8b69c9cadc349125afa2ff0d043f8aecf4c"
+    },
+    {
+      "bytes": 11388,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/cluster_summary_templates.json",
+      "role": null,
+      "sha256": "495e52a9cc2e5a79586652176d91f680de78aea54c775f2b0f8e4c411a21dd0e"
+    },
+    {
+      "bytes": 163,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
+      "role": null,
+      "sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d"
+    },
+    {
+      "bytes": 1809,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
+      "role": null,
+      "sha256": "254a088e885ec905680a8830e78ff6e761a272f9002afa9c55b9093118c32c97"
+    },
+    {
+      "bytes": 2338,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/compose_profiles.json",
+      "role": null,
+      "sha256": "418ef196dbf97e8e4b2ab62e0dec4f721550aa19067374d3ab934cd553ed9348"
+    },
+    {
+      "bytes": 5112,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/compose_profiles_v2.json",
+      "role": null,
+      "sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14"
+    },
+    {
+      "bytes": 3980,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "role": null,
+      "sha256": "9fd0f6fa9250d8fde31e065f60b2cf24717a8194bbef2ee4a8065f7a35c3507f"
+    },
+    {
+      "bytes": 4051,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "role": null,
+      "sha256": "0fbff43e932199ca36ba0c67fd683a53608ff56d0ed3373c654cdb2f67ff53e5"
+    },
+    {
+      "bytes": 3289,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "role": null,
+      "sha256": "db27a2b60476fd24ec0f3f23e66c9093b05070c3f753c38f57f83298c59f4b46"
+    },
+    {
+      "bytes": 1760,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_cluster_base_facts.jsonl",
+      "role": null,
+      "sha256": "e43f18ea02e97777f0f25dedec0bb2e7fc18a28f8144ee71a93fbc6a2592fd18"
+    },
+    {
+      "bytes": 3647,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_cluster_candidates.jsonl",
+      "role": null,
+      "sha256": "55980b4dd846f68fa7895743b6f156a6458a28f614f76e83b60c2caa1eea5b5b"
+    },
+    {
+      "bytes": 1672,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_cluster_identity_primary_use_fallbacks.json",
+      "role": null,
+      "sha256": "ba2bde711487712a9ab3f35055730a97705a38163133766ff831f0d987f50e7d"
+    },
+    {
+      "bytes": 320,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_cluster_manual_overrides.json",
+      "role": null,
+      "sha256": "f4f5688ec4e916530c1e4c1d5626b1883c39c03758a9f157e9f5fa58131c4cf0"
+    },
+    {
+      "bytes": 2461,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_cluster_overlay.jsonl",
+      "role": null,
+      "sha256": "0f39c01fff153d7610a0e427482487cd0de72eb94ef6d5d2b772a40918e41cc6"
+    },
+    {
+      "bytes": 2659,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_cluster_source.raw.jsonl",
+      "role": null,
+      "sha256": "7770e5abb7bb89bc65bc1582e16afa68a9d23dc757e93a1b3ac09656e2102585"
+    },
+    {
+      "bytes": 1121,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_cluster_upstream_sync_manifest.json",
+      "role": null,
+      "sha256": "b16f8111d6063489dd53edccd9485718d5c49d74e6bd4b0ab92b7a31f9d1eba4"
+    },
+    {
+      "bytes": 8673,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_cluster_usecase_rules.json",
+      "role": null,
+      "sha256": "5e220ffe1f55511a68026e14ba07f076908aac8a571292ea246b40bcd95bbfce"
+    },
+    {
+      "bytes": 6580,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/interaction_clusters.json",
+      "role": null,
+      "sha256": "5bd894914b9aae60fe4dccd2fe588d828ae51f4769680dc1a06ae70b1ba492c6"
+    },
+    {
+      "bytes": 3834,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/upstream_dvf_3_3_facts.jsonl",
+      "role": null,
+      "sha256": "a4022dece88cf69cc73963c5ec24c84efeaec6af889925f6e6ce112e3314d55a"
+    },
+    {
+      "bytes": 84216,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/upstream_recipe_nav_registry.json",
+      "role": null,
+      "sha256": "8b659189ea4ebf90084ac9fae310bd2b41a4f7facf16853945523dc64e433160"
+    },
+    {
+      "bytes": 1530231,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/upstream_usecases_by_fulltype.json",
+      "role": null,
+      "sha256": "2af068b1ea898125e81e9103af79019a35a1c51b8fd7c74325906d26567ad43f"
+    },
+    {
+      "bytes": 2093,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "role": null,
+      "sha256": "5633c9fc2cbf2f2eb8708e49eb463f9b0e5d5b4af7fbf8f62a8d9f0258be92dd"
+    },
+    {
+      "bytes": 1547,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/interaction_cluster_validation_report.json",
+      "role": null,
+      "sha256": "09d4b3241097b537f181fd81fa25391b90bb107759c8c9770b42796f9c220a88"
+    },
+    {
+      "bytes": 13898,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/style_baseline_scan.json",
+      "role": null,
+      "sha256": "8a168bb56b1b84d8704388665a8693052d34d9d0135c5f2a2f7240e6552af72f"
+    },
+    {
+      "bytes": 1678,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/style_lint_report.json",
+      "role": null,
+      "sha256": "056fc60ae6a38b826620459c300a4ca59b031539dcb35adf11e1aeee3fb6e970"
+    },
+    {
+      "bytes": 2113,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/style_normalization_changes.jsonl",
+      "role": null,
+      "sha256": "b68d7b198c1a0a56a1b41c00bdad16faf872d92afbf2de77d0ddab85bbb29b8d"
+    },
+    {
+      "bytes": 116696,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/DECISIONS.md",
+      "role": null,
+      "sha256": "92e5e83c0a24c1068186543e99a77e6a852b8f7a97f5a86231f6a3a93a75f2ef"
+    },
+    {
+      "bytes": 45183,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ARCHITECTURE.md",
+      "role": null,
+      "sha256": "1debfb7fc1987c74f539d5d8819ce5e1531adb156131c4ce4dcca4d068b81ee0"
+    },
+    {
+      "bytes": 58543,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ROADMAP.md",
+      "role": null,
+      "sha256": "576d3f3e06ed31770c0b9ae6bc0587fb0ac945dba864c99e87a906183665d4b7"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-protected-surface-baseline-v0"
+}

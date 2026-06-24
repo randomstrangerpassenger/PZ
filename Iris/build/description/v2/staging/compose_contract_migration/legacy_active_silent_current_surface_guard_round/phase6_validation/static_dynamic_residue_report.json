@@ -1,7 +1,7 @@
 {
   "dynamic_runtime_gate": "not_applicable",
   "dynamic_runtime_gate_reason": "This is an offline build-time guard round; runtime rollout is out of scope.",
-  "generated_at": "2026-05-21T07:34:36.061925+00:00",
+  "generated_at": "2026-06-13T00:54:05.459090+00:00",
   "schema_version": "legacy-active-silent-static-dynamic-residue-report-v0",
   "standalone_validator": {
     "command": [
@@ -23,11 +23,11 @@
       "  \"status\": \"pass\",",
       "  \"summary\": {",
       "    \"manifest_error_count\": 0,",
-      "    \"occurrence_count\": 2881,",
+      "    \"occurrence_count\": 791096,",
       "    \"hard_fail_current_label_occurrence_count\": 0,",
       "    \"unclassified_occurrence_count\": 0,",
-      "    \"allowed_occurrence_count\": 2779,",
-      "    \"non_label_occurrence_count\": 102,",
+      "    \"allowed_occurrence_count\": 790476,",
+      "    \"non_label_occurrence_count\": 620,",
       "    \"covered_by_existing_guard_count\": 0,",
       "    \"gate_a_pass\": true,",
       "    \"negative_fixture_reach\": {",

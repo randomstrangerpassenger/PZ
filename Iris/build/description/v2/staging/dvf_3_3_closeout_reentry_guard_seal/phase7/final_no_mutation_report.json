@@ -1,0 +1,9 @@
+{
+  "changed": [],
+  "changed_count": 0,
+  "current_route_required_validation_manifest_excluded_as_governance_config": true,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "protected_surface_scope": "source_rendered_lua_bridge_runtime_package_only",
+  "schema_version": "dvf-3-3-closeout-reentry-final-no-mutation-report-v1",
+  "status": "PASS"
+}

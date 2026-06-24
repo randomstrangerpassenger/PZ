@@ -1,0 +1,7 @@
+{
+  "DUAL_AUTHORITY_READ": 0,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-shared-disposition-no-dual-authority-read-v1",
+  "status": "PASS",
+  "violation_count": 0
+}

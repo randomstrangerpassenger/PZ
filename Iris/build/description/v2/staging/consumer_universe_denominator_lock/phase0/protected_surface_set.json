@@ -1,0 +1,73 @@
+{
+  "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "protected_paths": [
+    {
+      "kind": "file",
+      "optional": false,
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "role": "current_input_manifest"
+    },
+    {
+      "kind": "file",
+      "optional": false,
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "role": "current_source_facts"
+    },
+    {
+      "kind": "file",
+      "optional": false,
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "role": "current_source_decisions"
+    },
+    {
+      "kind": "file",
+      "optional": false,
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "role": "current_rendered_output"
+    },
+    {
+      "kind": "file",
+      "optional": false,
+      "path": "Iris/build/description/v2/output/style_normalization_changes.jsonl",
+      "role": "current_style_side_output"
+    },
+    {
+      "kind": "file",
+      "optional": false,
+      "path": "Iris/build/description/v2/output/compose_requeue_candidates.jsonl",
+      "role": "current_requeue_side_output"
+    },
+    {
+      "kind": "file",
+      "optional": false,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "role": "live_runtime_chunk_manifest"
+    },
+    {
+      "kind": "dir",
+      "optional": false,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "role": "live_runtime_chunk_dir"
+    },
+    {
+      "kind": "file",
+      "optional": true,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": "forbidden_runtime_monolith_optional"
+    },
+    {
+      "kind": "dir",
+      "optional": false,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data",
+      "role": "package_peer_runtime_output"
+    },
+    {
+      "kind": "file",
+      "optional": false,
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "current_route_required_validation_manifest"
+    }
+  ],
+  "schema_version": "consumer-universe-denominator-protected-surface-v1"
+}

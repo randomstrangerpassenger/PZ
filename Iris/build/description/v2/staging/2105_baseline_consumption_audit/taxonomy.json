@@ -1,0 +1,92 @@
+{
+  "closeout_status_rule": {
+    "blocked": "required tool, unreadable file, or route unknown prevents completeness claim",
+    "complete": "Gate A PASS + Gate B PASS + ambiguous-needs-adjudication 0",
+    "partial": "Gate A/B incomplete or ambiguity remains with named follow-up/sign-off"
+  },
+  "consumer_type": [
+    "runtime-consumer",
+    "validator-gate",
+    "test-assertion",
+    "tool-generator",
+    "build-guard",
+    "document-authority",
+    "historical-trace",
+    "diagnostic-report",
+    "generated-report",
+    "comment-or-prose",
+    "migration-candidate",
+    "comparison-reference",
+    "false-positive"
+  ],
+  "current_baseline": {
+    "adopted": 2084,
+    "rows": 2105,
+    "unadopted": 21,
+    "vocabulary": [
+      "adopted",
+      "unadopted"
+    ]
+  },
+  "disposition": [
+    "current-hard-gate",
+    "historical-reference",
+    "diagnostic-only",
+    "vNext-migration",
+    "no-op",
+    "ambiguous-needs-adjudication"
+  ],
+  "legacy_alias": {
+    "meaning": "historical / diagnostic / import alias only",
+    "vocabulary": [
+      "active",
+      "silent"
+    ]
+  },
+  "migration_disposition": [
+    "preserve_as_current_gate",
+    "migrate_when_new_baseline_approved",
+    "preserve_as_historical_trace",
+    "preserve_as_diagnostic_reference",
+    "demote_to_historical_or_predecessor",
+    "rename_or_alias_cleanup_needed",
+    "guard_hardening_needed",
+    "no_change",
+    "remove_or_ignore_false_positive"
+  ],
+  "referent": [
+    "runtime-baseline-2105",
+    "source-universe-2105",
+    "frozen-recovery-2105",
+    "current-readpoint-triple",
+    "historical-pass-snapshot",
+    "current adopted/unadopted",
+    "historical active/silent",
+    "incidental-excluded"
+  ],
+  "surface_family": [
+    "runtime_payload",
+    "lua_bridge",
+    "build_pipeline",
+    "validator",
+    "test",
+    "tool",
+    "documentation_current",
+    "documentation_historical",
+    "closeout_trace",
+    "roadmap_or_decision_ledger",
+    "staging_artifact",
+    "diagnostic_report",
+    "migration_plan",
+    "generated_report",
+    "static_report_cleanup",
+    "selected_role_resolver",
+    "quality_publish_contract",
+    "silent_21_cleanup",
+    "structural_signal",
+    "layer4_corpus_or_measurement",
+    "acq_dominant",
+    "acquisition_lexical",
+    "no_dvf_context"
+  ]
+}

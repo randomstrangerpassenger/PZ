@@ -1,0 +1,11 @@
+{
+  "schema_version": "interaction-cluster-manual-overrides-v0",
+  "overrides": [
+    {
+      "item_id": "Base.ModKit",
+      "selected_cluster": "gun_modding",
+      "selected_role": "material",
+      "note": "Phase C pilot review: gun-modding context is more representative than ammo crafting for ModKit."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-protected-paths-v1",
+  "live_monolith_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+  "live_monolith_exists": false,
+  "live_chunk_manifest_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+  "live_chunk_dir": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+  "live_chunk_file_count": 11,
+  "current_rendered_path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+  "current_facts_path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+  "current_decisions_path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+  "package_monolith_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+  "package_chunk_manifest_path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+  "package_chunk_dir": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+  "classification_method": "resolved absolute path comparison in exporter/package guard; generated evidence paths are relative display only"
+}

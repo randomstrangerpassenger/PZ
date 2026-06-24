@@ -393,6 +393,21 @@ Live Migration Readiness Authorization / Execution Readiness는 이 경로 위�
 * readiness execution runner / validator는 authorization verdict를 execution plan이 소비할 artifact shape로 투영할 뿐, live writer sink를 열거나 current authority를 변경하지 않는다.
 * `ready_for_phase4_live_apply`는 downstream predecessor status이며, live completion state나 release/package/Workshop/B42 readiness가 아니다.
 
+Current-route required-validation manifest entries are governance gates, not runtime writers. A denominator guard can be adopted into `Iris/_docs/round3/current_route_required_validations.json` to fail-closed on denominator misuse in future closeouts. A shared disposition guard can also be adopted into the same manifest to make manifest / tools / docs / tests / validators consume the same disposition packet and to forbid raw audit / readiness / dry-run / predecessor artifacts as execution authority. These gates still leave runtime/source/rendered/package mutation, current authority cutover, release readiness, and canonical review status outside the manifest entry's authority.
+
+`adopted` has two separate meanings in this area.
+
+* `adopted_required_gate` is a governance manifest status for a required-validation gate.
+* compose / runtime `adopted` is current-route row vocabulary. A runtime-adopted current-route row requires `body_source_overlay` before composition.
+
+Neither meaning is QG quality pass / publish / delete / suppression semantics.
+
+Full current-route closure depends on the current source baseline and source-overlay contract. The previous `CURRENT_FACTS=6` vs `2105` and missing `body_source_overlay` blocker for a runtime-adopted row was a Current-Route Baseline / Source-Overlay Repair issue, not a denominator, terminal disposition, shared disposition, or live migration readiness failure.
+
+The repaired current-route contract uses `docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md` as the canonical `primary_problem7_plan`. The predecessor repair plan is a `predecessor_contract_plan` only; it has no execution authority. The current-route build surface consumes the vNext source / overlay / rendered / runtime evidence contract consistently across compose, current-authority, and Layer4 trace consumers. `CURRENT_FACTS=6` is not the full current-route universe expectation, and predecessor `2105 / 2084 / 21` values do not become current hard gates, runtime authority, or current debt through this repair.
+
+Closeout / Reentry Guard Seal is a governance-only current-route required gate. It keeps broad consumer completion, terminal disposition completion, cutover subset completion, pre-apply readiness, live apply authorization, and live migration execution completion as separate claim axes. Predecessor `2105 / 2084 / 21` may remain historical / comparison / provenance evidence, but cannot become current hard gate, runtime authority, current debt, package authority, release readiness, or raw predecessor direct execution authority. This gate does not mutate source, rendered, Lua bridge, runtime, or package authority surfaces. Its canonical seal is allowed after non-Claude independent review PASS and is represented by a hash-sealed primary review bundle that includes the final seal report, full current-route validation result, complete validation report, and claim-surface evidence. The live current-route manifest consumes this seal as a required validation gate rather than as runtime, package, release, or source authority.
+
 ## 2-6. Frame
 
 ### 정체성

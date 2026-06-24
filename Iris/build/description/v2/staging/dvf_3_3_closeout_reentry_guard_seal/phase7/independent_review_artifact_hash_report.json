@@ -1,0 +1,201 @@
+{
+  "aggregate_sha256": "6d5c40d8871b986f7ba3b2b2aba5830de1a8e4f5e8e205b387545c1c58b67162",
+  "artifacts": [
+    {
+      "bytes": 50152,
+      "exists": true,
+      "kind": "file",
+      "line_count": 976,
+      "path": "docs/dvf_3_3_closeout_reentry_guard_seal_plan.md",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "c45a9bee92ab9d2c4cfb255343cec316ae44e1b6d6a59a7dd8636ef7c8b444c5",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 1446,
+      "exists": true,
+      "kind": "file",
+      "line_count": 32,
+      "path": "docs/dvf_3_3_closeout_reentry_claim_boundary.md",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "ce091a494b28fa94596a78a9605c0c93538521920f06a5c05a9ee792018c06f2",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 1510,
+      "exists": true,
+      "kind": "file",
+      "line_count": 16,
+      "path": "docs/dvf_3_3_closeout_reentry_ledger_packet.md",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "ba3bb4b4fac3d02153e5585d8ad44f8d51e2f474d4814bdb61cbecf23b4e84ed",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 1503,
+      "exists": true,
+      "kind": "file",
+      "line_count": 37,
+      "path": "docs/completion_vocabulary_separation_policy.md",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "7fe70e8003b89655eed9a94e27790ade158e4c5b4966bd4a7f6298366a8ab82d",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 775,
+      "exists": true,
+      "kind": "file",
+      "line_count": 18,
+      "path": "docs/predecessor_reentry_guard_policy.md",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "894d6e59ec5a1cbf9388762fd79fd2682c3b19bab3bc97bd775c9448a87ea5ec",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 4644,
+      "exists": true,
+      "kind": "file",
+      "line_count": 80,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase1/claim_surface_scan_manifest.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "d1fe0445263d948b02309233a72a7ab3a87203978574543ab66cf8bc2d523210",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 12978,
+      "exists": true,
+      "kind": "file",
+      "line_count": 383,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase1/closeout_claim_surface_inventory.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "10ce4a8e3078d3a79eb6a64cb63f2d5feb2cdbb5778d996da7972f06014af6b9",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 6392,
+      "exists": true,
+      "kind": "file",
+      "line_count": 171,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase2/dvf_3_3_closeout_claim_taxonomy.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "6ac441401fc08f61e455a44b8ea9916cd3ddf8a26f5970ce8670915bd13f3203",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 339,
+      "exists": true,
+      "kind": "file",
+      "line_count": 10,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase2/completion_vocabulary_separation_report.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "093a5a393ddd5dda04d13e4a110728d39e775516923a474dd6fccb3b829e8d71",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 2375,
+      "exists": true,
+      "kind": "file",
+      "line_count": 69,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/predecessor_reentry_guard_report.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "4dc4186152b5209fe26632fc920c8734db5af8b62c81b6d32974d49040226130",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 2365,
+      "exists": true,
+      "kind": "file",
+      "line_count": 71,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase4/closeout_claim_boundary_guard_report.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "2e21c16009b4b9d466aab6b5613003cd3e5ead4d83cac481dd279655ad9b5806",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 999,
+      "exists": true,
+      "kind": "file",
+      "line_count": 21,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase5/closeout_reentry_guard_manifest_adoption_report.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "6b4baf29765cdf27019dc95d93361cad14d7954758cf45ac151d98670ded12c0",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 349,
+      "exists": true,
+      "kind": "file",
+      "line_count": 9,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_no_mutation_report.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "abd94cf6c3fefc083279868789754f0decf5b30cbd2fd3304a9ca7f5de8c2dd6",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 1823,
+      "exists": true,
+      "kind": "file",
+      "line_count": 35,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_pinned_command_manifest.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "ab887bc5d5851501fb91ad6fcb7adc3c4b86fec6943a876aa71a291b526cf885",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 3285,
+      "exists": true,
+      "kind": "file",
+      "line_count": 66,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "321c11a0e7ca807a809eddc46aa9514c3ce578e3a57f96185735aa5a5f0e791b",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 4886,
+      "exists": true,
+      "kind": "file",
+      "line_count": 50,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/full_current_route_validation_result.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "03e8c34c4f46e237dae1bc83a563ac7a1bbd3470adeaaec56e5f27ffd04d462a",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 223,
+      "exists": true,
+      "kind": "file",
+      "line_count": 9,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/validation_report.all.json",
+      "required": true,
+      "role": "primary_review_artifact",
+      "sha256": "2f625122ccb459b93c811fd7a32c44b43883b16b8c7597eefc91c1382863d25e",
+      "status": "PRESENT"
+    }
+  ],
+  "canonical_seal_allowed": true,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "independent_review_status": "PASS",
+  "primary_review_artifact_count": 17,
+  "primary_review_artifact_missing_count": 0,
+  "primary_review_missing_artifacts": [],
+  "reviewed_artifact_count": 17,
+  "schema_version": "dvf-3-3-closeout-reentry-independent-review-hash-report-v1",
+  "status": "PASS"
+}

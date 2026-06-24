@@ -1,0 +1,6 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-forbidden-claim-scan-result-v1",
+  "scanned_path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/bridge_export_report.json",
+  "matches": [],
+  "pass": true
+}

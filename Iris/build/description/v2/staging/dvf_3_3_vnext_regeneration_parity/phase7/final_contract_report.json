@@ -1,0 +1,33 @@
+{
+  "checks": {
+    "claim_boundary_fresh_regeneration": true,
+    "common_release_marker_included": true,
+    "common_runtime_surface_marker_included": true,
+    "determinism_pass": true,
+    "input_mode_fresh_full_rerun": true,
+    "parity_report_pass": true,
+    "protected_no_mutation_pass": true
+  },
+  "closeout_state": "complete",
+  "input_lineage": {
+    "claim_boundary": "fresh_regeneration",
+    "input_mode": "fresh_full_rerun"
+  },
+  "non_decision": [
+    "no_release_readiness",
+    "no_package_readiness",
+    "no_runtime_cutover",
+    "no_successor_baseline_identity_final_sealing",
+    "no_manual_in_game_validation"
+  ],
+  "parity_summary": {
+    "additional_in_vnext_count": 0,
+    "matching_key_count": 2105,
+    "missing_in_vnext_count": 0,
+    "publish_state_legacy_visibility_disposition_count": 2105,
+    "state_delta_count": 54,
+    "text_ko_delta_count": 2071
+  },
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-final-contract-report-v0",
+  "status": "PASS"
+}

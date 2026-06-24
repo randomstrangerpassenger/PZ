@@ -1,0 +1,54 @@
+{
+  "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
+  "generated_at": "2026-06-23T17:38:42.302788+00:00",
+  "protected_paths": [
+    {
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "role": "current_input_manifest"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "role": "current_facts"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "role": "current_decisions"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "role": "current_rendered"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "role": "live_runtime_chunk_manifest"
+    },
+    {
+      "kind": "dir",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "role": "live_runtime_chunk_dir"
+    },
+    {
+      "kind": "file",
+      "optional": true,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": "forbidden_monolith_current_reentry"
+    },
+    {
+      "kind": "dir",
+      "optional": true,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data",
+      "role": "package_peer_current_looking"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "current_route_required_validation_manifest"
+    }
+  ],
+  "schema_version": "runtime-payload-state-integrity-protected-surface-v1"
+}

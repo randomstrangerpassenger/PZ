@@ -1,0 +1,7 @@
+{
+  "current_runner_fail_closed": true,
+  "external_command_required": "python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
+  "required_validation_manifest": "Iris/_docs/round3/current_route_required_validations.json",
+  "schema_version": "dvf-3-3-vnext-rejected-correction-current-route-regression-v0",
+  "status": "PASS"
+}

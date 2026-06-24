@@ -2,7 +2,7 @@
 
 Date: 2026-05-05
 
-Source roadmap: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+Historical source roadmap label: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
 
 This record starts Phase 3-1 after the import/execution contract was sealed in
 `Iris/build/build_import_contract.md`.

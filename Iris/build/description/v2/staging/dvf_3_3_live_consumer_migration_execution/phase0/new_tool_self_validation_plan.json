@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "negative_fixtures": [
+    "orphan diff",
+    "unmapped row",
+    "non-migrated mutation",
+    "hard-forbidden authority surface mutation",
+    "sandbox/live evidence mix-up",
+    "already-live row rewrite",
+    "invalid rollback packet"
+  ],
+  "positive_fixtures": [
+    "mapped row applies to copied target material",
+    "restore packet round trip"
+  ],
+  "schema_version": "dvf-3-3-live-new-tool-self-validation-plan-v1",
+  "status": "PASS"
+}

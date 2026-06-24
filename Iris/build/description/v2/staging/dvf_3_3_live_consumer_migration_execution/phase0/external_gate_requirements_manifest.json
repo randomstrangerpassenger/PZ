@@ -1,0 +1,22 @@
+{
+  "gates": [
+    {
+      "gate": "independent_review",
+      "required_for_complete_seal": true,
+      "status": "satisfied"
+    },
+    {
+      "gate": "upstream_roadmap_seal",
+      "required_for_complete_seal": true,
+      "status": "satisfied"
+    },
+    {
+      "gate": "execution_contract_applicability",
+      "required_for_complete_seal": true,
+      "status": "satisfied"
+    }
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-live-external-gate-requirements-v1",
+  "status": "PASS"
+}

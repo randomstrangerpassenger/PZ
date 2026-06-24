@@ -1,0 +1,29 @@
+{
+  "dependencies": {
+    "current_route": {
+      "final_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_guard_current_route_integration/phase7/final_current_route_guard_integration_report.json",
+      "status": "PASS"
+    },
+    "denominator_lock": {
+      "final_report": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json",
+      "machine_status": "PASS",
+      "review_status": "review_pending"
+    },
+    "normalization": {
+      "handoff_usable": true,
+      "manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/consumer_migration_reconciled_input_manifest.json",
+      "status": "PASS"
+    },
+    "readiness": {
+      "actual_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/consumer_migration_actual_report.json",
+      "live_repo_mutated": false,
+      "status": "PASS"
+    },
+    "runtime_payload_state_integrity": {
+      "guard_report": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json",
+      "status": "PASS"
+    }
+  },
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "schema_version": "dvf-3-3-terminal-upstream-dependency-status-v1"
+}

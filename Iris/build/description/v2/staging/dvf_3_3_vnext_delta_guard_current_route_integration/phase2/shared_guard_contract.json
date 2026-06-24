@@ -1,0 +1,117 @@
+{
+  "contract_role": "admission_gate_aggregation_surface",
+  "criteria_sha256": "f88c2b8cea2940391a31955edf088cda0d7cba3477cac30a9db563c39b9653b9",
+  "forbidden_conditions": [
+    {
+      "definition_paths": [
+        "docs/compose_entrypoint_guard_hardening_closeout.md"
+      ],
+      "definition_source": "Compose Entrypoint Guard Hardening",
+      "guard_id": "fixture_as_authority",
+      "name": "Fixture-as-Authority Guard",
+      "shared_contract_role": "referenced_definition_owner",
+      "surface_owner_status": "sealed"
+    },
+    {
+      "definition_paths": [
+        "docs/lua_bridge_export_contract_realign_closeout.md"
+      ],
+      "definition_source": "Lua Bridge Export Contract Realignment",
+      "guard_id": "monolith_re_entry",
+      "name": "Monolith Re-entry Guard",
+      "shared_contract_role": "referenced_definition_owner",
+      "surface_owner_status": "sealed"
+    },
+    {
+      "definition_paths": [
+        "docs/lua_bridge_export_contract_realign_closeout.md"
+      ],
+      "definition_source": "Lua Bridge Export Contract Realignment",
+      "guard_id": "staging_direct_promotion",
+      "name": "Staging Direct Promotion Guard",
+      "shared_contract_role": "referenced_definition_owner",
+      "surface_owner_status": "sealed"
+    },
+    {
+      "definition_paths": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_report.json",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase7/final_contract_report.json"
+      ],
+      "definition_source": "Regeneration Parity Evidence",
+      "guard_id": "parity_missing",
+      "name": "Parity-Missing Guard",
+      "shared_contract_role": "referenced_definition_owner",
+      "surface_owner_status": "sealed"
+    },
+    {
+      "definition_paths": [
+        "docs/dvf_3_3_vnext_delta_disposition_policy.md",
+        "docs/dvf_3_3_vnext_delta_disposition_closeout.md",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal/phase10/final_delta_disposition_guard_contract_report.json"
+      ],
+      "definition_source": "Delta Disposition Policy and Guard Seal",
+      "guard_id": "disposition_coverage",
+      "name": "Disposition Coverage Guard",
+      "shared_contract_role": "referenced_definition_owner",
+      "surface_owner_status": "sealed"
+    },
+    {
+      "definition_paths": [
+        "docs/dvf_3_3_vnext_delta_disposition_policy.md",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal/phase9/approved_cutover_input_delta_manifest.json"
+      ],
+      "definition_source": "Approved Manifest Index-Only Contract",
+      "guard_id": "unapproved_delta",
+      "name": "Rejected/Deferred/Unapproved Delta Guard",
+      "shared_contract_role": "referenced_definition_owner",
+      "surface_owner_status": "sealed"
+    },
+    {
+      "definition_paths": [
+        "docs/dvf_3_3_vnext_cutover_contract.md",
+        "docs/dvf_3_3_vnext_current_authority_plan.md"
+      ],
+      "definition_source": "Current Authority and Cutover Contracts",
+      "guard_id": "single_authority",
+      "name": "Single-Authority Guard",
+      "shared_contract_role": "referenced_definition_owner",
+      "surface_owner_status": "sealed"
+    },
+    {
+      "definition_paths": [
+        "docs/dvf_3_3_vnext_guard_seal_contract.md",
+        "docs/dvf_3_3_vnext_delta_disposition_policy.md"
+      ],
+      "definition_source": "Guard Seal and Delta Disposition Vocabulary",
+      "guard_id": "legacy_vocabulary",
+      "name": "Legacy Vocabulary Guard",
+      "shared_contract_role": "referenced_definition_owner",
+      "surface_owner_status": "sealed"
+    }
+  ],
+  "non_claims": [
+    "no_successor_baseline_identity_final_seal",
+    "no_current_cutover",
+    "no_live_runtime_chunk_replacement",
+    "no_package_readiness",
+    "no_release_readiness",
+    "no_manual_in_game_validation"
+  ],
+  "not_canonical_authority_replacement": true,
+  "primary_forbidden_condition_count": 8,
+  "schema_version": "dvf-3-3-vnext-delta-guard-shared-contract-v1",
+  "status": "PASS",
+  "subordinate_references": [
+    {
+      "definition_paths": [
+        "docs/stale_dvf_bridge_artifact_disposition_closeout.md"
+      ],
+      "definition_source": "Stale DVF Bridge Artifact Disposition",
+      "dual_definition_verdict": "no_competing_definition_but_not_independently_sealed",
+      "guard_id": "stale_dvf_bridge_package_intrusion",
+      "name": "Stale DVF Bridge Package Intrusion Guard",
+      "shared_contract_role": "referenced_subordinate_package_guard_evidence",
+      "surface_owner_status": "implemented_review_pending"
+    }
+  ]
+}

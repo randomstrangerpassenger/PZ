@@ -4,7 +4,11 @@ Status: Phase 3 prerequisite
 
 Date: 2026-05-05
 
-Source roadmap: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+Historical source roadmap label:
+`docs/Iris/iris-refactoring-final-roadmap-v1.md`.
+
+Current readpoint for this contract is the inline content below plus
+`docs/DECISIONS.md` and `docs/ROADMAP.md`, not the archived Iris docs path.
 
 This contract is the gate before introducing shared build helpers under
 `Iris/build/tools/common`.
@@ -35,10 +39,13 @@ However, direct script execution remains the compatibility baseline for Phase 3.
 
 The root `Iris/build/tests` folder contains script-style tests that call
 `sys.exit()` at import time. Phase 10 (Change 10) resolves this roadmap item:
-the discovery policy is consolidated in
-`docs/Iris/phase10_test_discovery_compatibility_note.md` and script-style
-conversion is deferred (low-risk-only). The full plan self-check lives in
-`docs/Iris/phase10_validation_matrix.md`.
+the discovery policy is consolidated inline in this contract and script-style
+conversion is deferred (low-risk-only).
+
+Historical Phase 10 source note labels:
+
+- `docs/Iris/phase10_test_discovery_compatibility_note.md`
+- `docs/Iris/phase10_validation_matrix.md`
 
 ## Pytest discovery contract
 
@@ -112,7 +119,8 @@ migration must verify:
 
 ## Phase 1 readpoint update (2026-06-07)
 
-Amendment for `docs/Iris/Iris_Refactoring_Plan.md` (Draft v6.0) Change 1/Change 3.
+Historical amendment label:
+`docs/Iris/Iris_Refactoring_Plan.md` (Draft v6.0) Change 1/Change 3.
 Additive; the contract above is unchanged.
 
 - Direct script execution from the repository root **remains the compatibility
@@ -120,22 +128,23 @@ Additive; the contract above is unchanged.
   execution) is **deferred** to a user decision and is the Phase 3 entry gate.
   Until 14.2 is resolved, compose `try/except ImportError` dance removal is
   forbidden and Phase 3 is limited to introducing a leaf path helper.
-- Phase 3 cleanup targets (sealed baselines, see
+- Phase 3 cleanup targets (sealed baselines; historical baseline metrics label:
   `docs/Iris/phase1_baseline_metrics.md`): `sys.path.insert` occurrences = 134,
-  `ROOT =` bootstrap occurrences = 254, compose `except ImportError` = 5 — all
+  `ROOT =` bootstrap occurrences = 254, compose `except ImportError` = 5 - all
   measured under `Iris/build/description/v2/tools/build/`.
-- Single readpoint: `docs/Iris/phase1_inventory_readpoint.md`.
+- Historical single readpoint label:
+  `docs/Iris/phase1_inventory_readpoint.md`.
 
 ## Change 3 update (2026-06-07): package form adopted (compose core)
 
-conflict 14.2 is now **resolved = package form** — this supersedes the
+conflict 14.2 is now **resolved = package form** - this supersedes the
 "deferred / direct-execution baseline" note just above **for the migrated
 surface**. Change 3 migrated the compose core:
 
 - `compose_layer3_*.py` use package-internal **relative imports**
   (`from .compose_layer3_io import ...`); the `try/except ImportError` fallback
   was removed (`compose_except_import_count == 0`). They load only inside the
-  `tools.build` package — `python -m tools.build.compose_layer3_text` or
+  `tools.build` package - `python -m tools.build.compose_layer3_text` or
   `from tools.build.compose_layer3_text import ...`, no longer bare
   `python compose_layer3_text.py`.
 - `style.normalizer` is now `from tools.style.normalizer import ...`
@@ -148,9 +157,92 @@ surface**. Change 3 migrated the compose core:
   `build_adapter_native_body_plan_metadata_migration.py`,
   `build_runtime_payload_enum_rename_scope_round.py`.
 
-Metrics: `compose_except_import_count` 5→0; `root_bootstrap_count` 254→253;
-`syspath_insert_count` 134→132. Legacy/frozen reproduction scripts retain their
+Metrics: `compose_except_import_count` 5->0; `root_bootstrap_count` 254->253;
+`syspath_insert_count` 134->132. Legacy/frozen reproduction scripts retain their
 direct-execution bootstrap and migrate incrementally. Note the repository has
 **two distinct `tools` trees**: `Iris/build/tools` (root scripts: io, versions,
 pipeline) and `Iris/build/description/v2/tools` (description-v2: build, style,
-common). See `docs/Iris/phase3_compose_import_contract_note.md`.
+common).
+
+Historical compose import note label:
+`docs/Iris/phase3_compose_import_contract_note.md`.
+
+## Round 3 test-contract route (2026-06-11)
+
+Round 3 separates the description-v2 `tools.build` test contract from the
+historical reproduction test inventory without moving tests or changing pytest
+discovery. The default current route is the manifest runner below:
+
+```powershell
+python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure
+```
+
+Current-route constraints:
+
+- The current route contains 44 unittest cases.
+- `tools.build` imports are limited to the 12-module active core closure in
+  `Iris/_docs/round3/round3_active_core_closure.json`.
+- `test_compose_layer3_text_overlay.py` is current by manual audit promotion
+  because it imports only the active composer and validates current overlay
+  behavior.
+
+Historical reproduction and diagnostic tests remain runnable, but they are not
+the default current contract route:
+
+```powershell
+python -B Iris\_docs\round3\round3_run_contract_tests.py --class historical
+python -B Iris\_docs\round3\round3_run_contract_tests.py --class diagnostic
+```
+
+Boundary guard:
+
+```powershell
+python -B Iris\_docs\round3\round3_boundary_guard.py --self-test
+```
+
+This is a D1 routing decision only. It does not approve pytest routing changes,
+physical test moves, archive/delete disposition, or historical preservation
+policy. D2/D3 remain separate gates.
+
+## Round 3 disposition and closeout note (2026-06-11)
+
+D2 was approved only for non-destructive disposition evidence. The resulting
+manifest keeps all 281 measured `tools/build` scripts:
+
+- 12 `keep_current_core`
+- 173 `keep_historical_reproduction`
+- 95 `keep_diagnostic_advisory`
+- 1 `keep_manifest_only`
+- 0 archive/delete eligible
+
+D3 selected `pass_required` for the sealed historical route. The historical
+route currently passes with 284 unittest cases. This preserves the measured
+historical executable route, but it is not a claim of full historical artifact
+reproducibility, release readiness, runtime equivalence, pytest parity, or
+deletion safety.
+
+Closeout artifact:
+`Iris/_docs/round3/round3_closeout_report.md`.
+
+## Round 3 pytest default route update (2026-06-11)
+
+After pytest was installed and verified (`pytest 9.0.3`), the default pytest
+route was narrowed to the current contract:
+
+```powershell
+python -B -m pytest -q
+```
+
+Result: `45 passed, 363 deselected, 5 subtests passed`.
+
+The 45 default pytest cases are the 44 description-v2 current-contract tests
+plus `Iris/build/tests/test_evidence_pipeline_cross_track.py`. Historical and
+diagnostic description-v2 tests are explicit routes:
+
+```powershell
+python -B -m pytest -q --round3-contract=historical Iris\build\description\v2\tests
+python -B -m pytest -q --round3-contract=diagnostic Iris\build\description\v2\tests
+```
+
+Route evidence:
+`Iris/_docs/round3/round3_pytest_route_report.md`.

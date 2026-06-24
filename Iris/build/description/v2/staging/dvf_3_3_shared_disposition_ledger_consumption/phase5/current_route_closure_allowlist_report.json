@@ -1,0 +1,11 @@
+{
+  "current_core_closure_count": 12,
+  "current_route_allowed_tooling_cap": 1,
+  "current_route_allowed_tooling_count": 1,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "new_shared_disposition_tooling_silently_promoted": false,
+  "schema_version": "dvf-3-3-shared-disposition-current-route-closure-allowlist-v1",
+  "shared_disposition_modules_added_to_current_core": [],
+  "shared_disposition_modules_added_to_tooling_allowlist": [],
+  "status": "PASS"
+}

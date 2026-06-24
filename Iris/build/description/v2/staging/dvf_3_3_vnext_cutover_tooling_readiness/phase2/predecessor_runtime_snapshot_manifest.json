@@ -1,0 +1,108 @@
+{
+  "aggregate_sha256": "9a6f43bc063f3d5d2bdec8a716118dd3aaeae15486480b6255844d3ff09e2d10",
+  "chunk_count": 11,
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "records": [
+    {
+      "bytes": 951,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks.lua",
+      "role": "runtime_manifest",
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+    },
+    {
+      "bytes": 114348,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk001.lua",
+      "role": "runtime_chunk",
+      "sha256": "245df8b9e95cfd40a2ce76f322f1d40e9ecdf008e856e4a2ca909048efd934c2"
+    },
+    {
+      "bytes": 104115,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "role": "runtime_chunk",
+      "sha256": "033e55d550b75aa9456d0747d4e740be2865f6a00b23e73c15120eb09e99c0c0"
+    },
+    {
+      "bytes": 104561,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "role": "runtime_chunk",
+      "sha256": "5af32b0985c5e6969a888f55337267cc7d2db8085390469d261d2039cef9bb75"
+    },
+    {
+      "bytes": 112479,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "role": "runtime_chunk",
+      "sha256": "0a84e2413e333ed9945222f183559131a85b605537509cb11909a3e73f7276a0"
+    },
+    {
+      "bytes": 109426,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "role": "runtime_chunk",
+      "sha256": "9082d6503f38dc18db90ba484bc13fc003328837290369bf51217ff5753845fd"
+    },
+    {
+      "bytes": 111190,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk006.lua",
+      "role": "runtime_chunk",
+      "sha256": "0ff59831a19f34c521fe55383d054c98a1832dddd18b459e0f1dbf5384e88dda"
+    },
+    {
+      "bytes": 114958,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "role": "runtime_chunk",
+      "sha256": "b3e0e74d8bf93785bbcde0c3bdbf7ee5565d6b49ecc902aa8b2d37dd4561ac73"
+    },
+    {
+      "bytes": 111478,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "role": "runtime_chunk",
+      "sha256": "b73c0bff6b072170917c2bfce7c2473b8e19e75039604c2bc3785419cb068cb8"
+    },
+    {
+      "bytes": 113799,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk009.lua",
+      "role": "runtime_chunk",
+      "sha256": "e370958166c1f1670f070986b9470b464c68a7d1ee84aa973840d768e2f385e9"
+    },
+    {
+      "bytes": 106236,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "role": "runtime_chunk",
+      "sha256": "7e5d679a3d6489b8861f3dd20db8160d3a4e8bdb7be1b2ca9904180de1bfe2b9"
+    },
+    {
+      "bytes": 58929,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "role": "runtime_chunk",
+      "sha256": "ffee61bd96e0fd299e26d09b75da68330c100316ccfd1fd484795790d16c8be0"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-runtime-snapshot-manifest-v0",
+  "snapshot_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/predecessor_snapshot_payload",
+  "status": "PASS",
+  "target_data_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data"
+}

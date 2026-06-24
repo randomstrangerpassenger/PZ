@@ -1,0 +1,7 @@
+{
+  "approved_set_is_cutover_authorization": false,
+  "deferred_runtime_eligible_allowed": false,
+  "only_approved_rows_may_be_runtime_eligible": true,
+  "rejected_runtime_eligible_allowed": false,
+  "schema_version": "dvf-3-3-vnext-runtime-eligibility-rules-v0"
+}

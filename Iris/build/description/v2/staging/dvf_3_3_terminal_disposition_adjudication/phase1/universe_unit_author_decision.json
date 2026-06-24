@@ -1,0 +1,26 @@
+{
+  "author_governance_decision": true,
+  "decision_source": "docs/dvf_3_3_terminal_disposition_adjudication_plan.md",
+  "denominator": 1062,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "schema_version": "dvf-3-3-terminal-universe-author-decision-v1",
+  "status": "PASS",
+  "substitute_denominators_rejected": [
+    "2105",
+    "311",
+    "163",
+    "148",
+    "59",
+    "252"
+  ],
+  "substitute_units_rejected": [
+    "unique_file_path",
+    "semantic_consumer_object",
+    "source_entry",
+    "runtime_entry",
+    "accepted_occurrence_row",
+    "readiness_mutation_row"
+  ],
+  "terminal_consumer_universe_id": "dvf_3_3_terminal_executing_consumer_member_rows_1062_v1",
+  "unit": "executing_consumer_member_row"
+}

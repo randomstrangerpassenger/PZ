@@ -1,0 +1,436 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-06-10",
+  "round": "Iris Round 1: Current Authority Identification",
+  "status": "current",
+  "purpose": "Classify Iris authority and cleanup surfaces so future rounds can decide whether files are current, historical, reproduction, or stale before deleting or moving anything.",
+  "not_a_release_claim": true,
+  "top_authority": "docs/Philosophy.md",
+  "authority_order": [
+    "docs/Philosophy.md",
+    "docs/DECISIONS.md",
+    "docs/ARCHITECTURE.md",
+    "docs/ROADMAP.md",
+    "Iris/_docs/authority/iris_current_authority_manifest.json",
+    "Iris current contract files named in this manifest",
+    "historical closeouts, round ledgers, staging artifacts, generated output"
+  ],
+  "classification_definitions": {
+    "current": {
+      "meaning": "Live authority input for Iris contracts, source facts, runtime source, validation commands, or build/package baselines.",
+      "default_delete_move_policy": "protected; requires a focused approved plan and named validation."
+    },
+    "historical": {
+      "meaning": "Predecessor, closeout, provenance note, prior plan, or evidence record. It explains current state but is not current authority unless re-adopted by a current entry.",
+      "default_delete_move_policy": "archive/move only after references are ledgered and no current path depends on it."
+    },
+    "reproduction": {
+      "meaning": "Build input, generated output, staging packet, test fixture, package snapshot, baseline, log, or script family needed to recreate or verify a result.",
+      "default_delete_move_policy": "no filename-glob delete; requires import/path-execution/artifact/reproduction proof."
+    },
+    "stale": {
+      "meaning": "Superseded, deleted, or not a current authority input. Existence in git history is not restoration authority.",
+      "default_delete_move_policy": "may remain deleted or be cleaned only after manifest coverage and reference checks; restore requires explicit successor/correction scope."
+    }
+  },
+  "global_rules": [
+    "Specific path entries override broader glob entries.",
+    "If no entry matches, the path is unclassified and must not be deleted or moved.",
+    "docs/Iris/** is stale by default and is not restored as current authority.",
+    "Historical closeouts do not become current authority because they mention a deleted path.",
+    "Staging and generated artifacts are not current policy authority by existence alone.",
+    "Iris/build/description/v2/tools/build/*.py must not be archived or deleted by filename glob.",
+    "Runtime Lua, package output, and generated data must not be mutated by docs-only authority cleanup rounds.",
+    "Round artifacts and ledgers are successor-round inputs, not replacements for docs/DECISIONS.md or docs/ROADMAP.md."
+  ],
+  "round1_closeout": {
+    "round1a_reference_reconciliation": {
+      "scope_lock": "Iris/_docs/round1a/round1_scope_lock.md",
+      "reference_ledger": "Iris/_docs/round1a/round1_reference_disposition_ledger.jsonl",
+      "coverage": "41 exact live references ledgered after Group A contract restoration"
+    },
+    "unvalidated_but_in_scope": []
+  },
+  "docs_iris_policy": {
+    "path_glob": "docs/Iris/**",
+    "classification": "stale",
+    "working_tree_state": "deleted in current worktree",
+    "restore_policy": "do_not_restore_by_default",
+    "allowed_exception": "A future round may restore one concrete file only with new input authority, explicit successor/correction scope, and a reason current authority cannot cover the work.",
+    "delete_move_policy": "deletion can be accepted as stale cleanup only after live references remain reconciled.",
+    "notes": "Mentions of docs/Iris paths in current files are historical labels or inline provenance after Round 1-A."
+  },
+  "baselines": {
+    "build_contract": {
+      "classification": "current",
+      "paths": [
+        "Iris/build/ENTRYPOINTS.md",
+        "Iris/build/build_import_contract.md",
+        "Iris/_docs/refactor/phase1_active_manifest.md",
+        "Iris/build/description/v2/tools/build/INVENTORY.md"
+      ],
+      "delete_move_policy": "protected; update only with focused build-contract plan."
+    },
+    "runtime_source": {
+      "classification": "current",
+      "paths": [
+        "Iris/media/lua/client/Iris/**",
+        "Iris/media/lua/shared/translate/**",
+        "Iris/media/textures/**"
+      ],
+      "delete_move_policy": "protected; runtime validation required for behavioral changes."
+    },
+    "layer3_deployable_runtime_data": {
+      "classification": "current",
+      "paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/*.lua"
+      ],
+      "notes": "Current ROADMAP readpoint keeps Layer 3 runtime data as chunk manifest plus chunk files. Monolith/chunks dual deployment is not authorized."
+    },
+    "package_validation": {
+      "classification": "current",
+      "path": "Iris/tools/package_iris.ps1",
+      "command": "powershell -ExecutionPolicy Bypass -File .\\Iris\\tools\\package_iris.ps1 -Clean -Zip",
+      "notes": "This command is the package verification anchor when package/release scope is explicitly opened."
+    },
+    "package_output": {
+      "classification": "reproduction",
+      "path_glob": "Iris/build/package/**",
+      "notes": "Package output is a generated/package snapshot, not source authority by itself."
+    }
+  },
+  "entries": [
+    {
+      "path": "docs/Philosophy.md",
+      "classification": "current",
+      "authority_role": "constitutional_top_authority",
+      "delete_move_policy": "never in Iris cleanup rounds"
+    },
+    {
+      "path": "docs/DECISIONS.md",
+      "classification": "current",
+      "authority_role": "current decision ledger",
+      "delete_move_policy": "never in Iris cleanup rounds"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "classification": "current",
+      "authority_role": "current architecture map",
+      "delete_move_policy": "never in Iris cleanup rounds"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "classification": "current",
+      "authority_role": "current roadmap and gate ledger",
+      "delete_move_policy": "never in Iris cleanup rounds"
+    },
+    {
+      "path": "docs/dvf_contract_current_reseal.md",
+      "classification": "current",
+      "authority_role": "DVF 3-3 current authority authoring surface for the 2026-06-12 reconciliation round; subordinate to top project ledgers and not a canonical promotion by itself",
+      "delete_move_policy": "protected; update only through a focused DVF authority reconciliation or ledger-promotion plan"
+    },
+    {
+      "path_glob": "docs/dvf_current_*.md",
+      "classification": "historical",
+      "authority_role": "DVF authority reconciliation derived evidence and support documents unless an exact current entry overrides this glob",
+      "delete_move_policy": "preserve with reconciliation closeout until a successor readpoint consumes it"
+    },
+    {
+      "path_glob": "docs/dvf_*.json",
+      "classification": "historical",
+      "authority_role": "DVF authority reconciliation generated inventory or validation evidence",
+      "delete_move_policy": "preserve with reconciliation closeout until a successor readpoint consumes it"
+    },
+    {
+      "path": "docs/iris-round1-authority-live-reference-reconciliation-plan.md",
+      "classification": "historical",
+      "authority_role": "Round 1-A predecessor plan",
+      "delete_move_policy": "may be archived only after current authority manifest and reference ledger remain discoverable"
+    },
+    {
+      "path_glob": "docs/Iris/**",
+      "classification": "stale",
+      "authority_role": "deleted predecessor corpus",
+      "delete_move_policy": "do not restore by default; commit deletion only after live reference reconciliation remains valid"
+    },
+    {
+      "path": "Iris/_docs/authority/iris_authority_classification.md",
+      "classification": "current",
+      "authority_role": "human-readable Iris authority classification guide",
+      "delete_move_policy": "protected"
+    },
+    {
+      "path": "Iris/_docs/authority/iris_current_authority_manifest.json",
+      "classification": "current",
+      "authority_role": "machine-readable Iris authority manifest",
+      "delete_move_policy": "protected"
+    },
+    {
+      "path_glob": "Iris/_docs/round1a/**",
+      "classification": "historical",
+      "authority_role": "Round 1-A reference reconciliation evidence and successor input",
+      "delete_move_policy": "keep until at least one successor cleanup round consumes the manifest"
+    },
+    {
+      "path": "Iris/build/ENTRYPOINTS.md",
+      "classification": "current",
+      "authority_role": "active root build command and keep-list contract",
+      "delete_move_policy": "protected; no filename-glob cleanup"
+    },
+    {
+      "path": "Iris/build/build_import_contract.md",
+      "classification": "current",
+      "authority_role": "build import and execution contract",
+      "delete_move_policy": "protected"
+    },
+    {
+      "path": "Iris/_docs/refactor/phase1_active_manifest.md",
+      "classification": "current",
+      "authority_role": "active build/refactor manifest addendum",
+      "delete_move_policy": "protected"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/INVENTORY.md",
+      "classification": "current",
+      "authority_role": "local inventory guard for description v2 build tools",
+      "delete_move_policy": "protected; forbids filename-glob delete under tools/build"
+    },
+    {
+      "path_glob": "Iris/_docs/refactor/*.md",
+      "classification": "historical",
+      "authority_role": "refactor closeout, validation, and provenance records unless listed by exact current entry",
+      "delete_move_policy": "archive only after references are ledgered; not current authority by file existence"
+    },
+    {
+      "path_glob": "Iris/_docs/refactor/_done/**",
+      "classification": "historical",
+      "authority_role": "completed predecessor cleanup records",
+      "delete_move_policy": "archive/move only with reference check"
+    },
+    {
+      "path_glob": "Iris/_docs/refactor/playtest_evidence/**",
+      "classification": "reproduction",
+      "authority_role": "manual/playtest evidence logs",
+      "delete_move_policy": "do not delete unless a validation-evidence retention plan explicitly covers it"
+    },
+    {
+      "path": "Iris/_docs/description_validation_contract.md",
+      "classification": "historical",
+      "authority_role": "legacy DVF T-Gate/manual-registry predecessor contract; not current DVF 3-3 authority",
+      "delete_move_policy": "preserve as predecessor trace; do not cite as current writer, validator, runtime, or public-facing authority"
+    },
+    {
+      "path": "Iris/_docs/layer3_authoring_guide.md",
+      "classification": "historical",
+      "authority_role": "legacy manual layer3_registry authoring guide; not current DVF 3-3 authority",
+      "delete_move_policy": "preserve as predecessor trace; do not cite as current runtime payload vocabulary or writer authority"
+    },
+    {
+      "path_glob": "Iris/_docs/*.md",
+      "classification": "current",
+      "authority_role": "Iris domain specs and reference contracts unless overridden by exact entries",
+      "delete_move_policy": "protected unless exact entry or successor manifest downgrades it"
+    },
+    {
+      "path": "Iris/_docs/positive_rule_proposals.md",
+      "classification": "historical",
+      "authority_role": "proposal inventory, not adopted rule authority by existence",
+      "delete_move_policy": "archive only after rule references are checked"
+    },
+    {
+      "path": "Iris/_docs/prove_rule_proposals.md",
+      "classification": "historical",
+      "authority_role": "proposal inventory, not adopted rule authority by existence",
+      "delete_move_policy": "archive only after rule references are checked"
+    },
+    {
+      "path": "Iris/_docs/review_queue_breakdown.md",
+      "classification": "historical",
+      "authority_role": "review queue report",
+      "delete_move_policy": "archive only after references are checked"
+    },
+    {
+      "path": "Iris/_docs/top10_cluster_report.md",
+      "classification": "historical",
+      "authority_role": "static cluster report",
+      "delete_move_policy": "archive only after references are checked"
+    },
+    {
+      "path": "Iris/_docs/iris-implementation-checklist-v1.0.md",
+      "classification": "historical",
+      "authority_role": "pre-implementation checklist",
+      "delete_move_policy": "archive only after current checklist replacement exists or references are checked"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/*.md",
+      "classification": "current",
+      "authority_role": "description v2 policy/spec surface",
+      "delete_move_policy": "protected unless a successor policy manifest downgrades a file"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/data/**",
+      "classification": "current",
+      "authority_role": "description v2 source data",
+      "delete_move_policy": "protected; data validation required"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/acquisition/**",
+      "classification": "current",
+      "authority_role": "description v2 acquisition policy/data surface",
+      "delete_move_policy": "protected unless acquisition-specific plan downgrades it"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/tools/common/**",
+      "classification": "current",
+      "authority_role": "description v2 shared build helpers",
+      "delete_move_policy": "protected; import tests required"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/tools/style/**",
+      "classification": "current",
+      "authority_role": "description v2 style tooling",
+      "delete_move_policy": "protected; style validation required if changed"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/tools/build/*.py",
+      "classification": "reproduction",
+      "authority_role": "description v2 build/reproduction script universe; tracked core scripts may also be current implementation",
+      "delete_move_policy": "no filename-glob delete; per-file proof required"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/staging/**",
+      "classification": "reproduction",
+      "authority_role": "staging and sealed round artifacts",
+      "delete_move_policy": "no cleanup unless a staging-retention plan proves successor coverage"
+    },
+    {
+      "path_glob": "Iris/staging/**",
+      "classification": "reproduction",
+      "authority_role": "top-level Iris staging artifacts",
+      "delete_move_policy": "no cleanup unless a staging-retention plan proves successor coverage"
+    },
+    {
+      "path_glob": "Iris/output/**",
+      "classification": "reproduction",
+      "authority_role": "offline/generated output and legacy root output",
+      "delete_move_policy": "delete only via generator/output retention plan"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/output/**",
+      "classification": "reproduction",
+      "authority_role": "description v2 generated output",
+      "delete_move_policy": "delete only via generator/output retention plan"
+    },
+    {
+      "path_glob": "Iris/build/baseline/**",
+      "classification": "reproduction",
+      "authority_role": "baseline/golden validation artifacts",
+      "delete_move_policy": "protected unless baseline replacement and validation are provided"
+    },
+    {
+      "path_glob": "Iris/build/package/**",
+      "classification": "reproduction",
+      "authority_role": "package output snapshot",
+      "delete_move_policy": "clean only through package workflow; not current source authority"
+    },
+    {
+      "path_glob": "Iris/build/tests/**",
+      "classification": "current",
+      "authority_role": "current build validation tests",
+      "delete_move_policy": "protected; test migration plan required"
+    },
+    {
+      "path_glob": "Iris/build/description/v2/tests/**",
+      "classification": "current",
+      "authority_role": "current description v2 validation tests",
+      "delete_move_policy": "protected; test migration plan required"
+    },
+    {
+      "path_glob": "Iris/build/*.py",
+      "classification": "current",
+      "authority_role": "root build entrypoints",
+      "delete_move_policy": "protected by Iris/build/ENTRYPOINTS.md"
+    },
+    {
+      "path_glob": "Iris/build/tools/pipeline/**",
+      "classification": "current",
+      "authority_role": "active pipeline tools",
+      "delete_move_policy": "protected by Iris/build/ENTRYPOINTS.md"
+    },
+    {
+      "path_glob": "Iris/build/tools/common/**",
+      "classification": "current",
+      "authority_role": "root build shared helpers",
+      "delete_move_policy": "protected by build import contract"
+    },
+    {
+      "path_glob": "Iris/build/tools/oneshots/**",
+      "classification": "historical",
+      "authority_role": "archived one-shot reference set",
+      "delete_move_policy": "not active build contract; archive/delete only with explicit one-shot disposition"
+    },
+    {
+      "path_glob": "Iris/input/**",
+      "classification": "current",
+      "authority_role": "offline input/source facts",
+      "delete_move_policy": "protected; data provenance plan required"
+    },
+    {
+      "path_glob": "Iris/evidence/**",
+      "classification": "current",
+      "authority_role": "evidence tables and analysis inputs",
+      "delete_move_policy": "protected unless current evidence manifest downgrades it"
+    },
+    {
+      "path_glob": "Iris/media/lua/client/Iris/**",
+      "classification": "current",
+      "authority_role": "runtime Lua source and generated runtime data",
+      "delete_move_policy": "protected; Lua/runtime validation required"
+    },
+    {
+      "path_glob": "Iris/media/lua/shared/translate/**",
+      "classification": "current",
+      "authority_role": "runtime translation source",
+      "delete_move_policy": "protected; runtime/package validation required"
+    },
+    {
+      "path_glob": "Iris/media/textures/**",
+      "classification": "current",
+      "authority_role": "runtime texture source",
+      "delete_move_policy": "protected; package validation required"
+    },
+    {
+      "path_glob": "Iris/_dev/**",
+      "classification": "historical",
+      "authority_role": "development-only helper surface, not current user/runtime authority by existence",
+      "delete_move_policy": "requires dev-surface disposition before cleanup"
+    },
+    {
+      "path_glob": "Iris/test/**",
+      "classification": "current",
+      "authority_role": "current test support if present",
+      "delete_move_policy": "protected unless test migration plan covers it"
+    },
+    {
+      "path": "Iris/tools/package_iris.ps1",
+      "classification": "current",
+      "authority_role": "package workflow entrypoint",
+      "delete_move_policy": "protected"
+    }
+  ],
+  "validation": {
+    "manifest_json": "jq -c . Iris/_docs/authority/iris_current_authority_manifest.json",
+    "required_field_check": "jq -e '(.classification_definitions.current != null) and (.docs_iris_policy.classification == \"stale\") and ([.entries[] | select((.path == null and .path_glob == null) or .classification == null or .authority_role == null or .delete_move_policy == null)] | length == 0)' Iris/_docs/authority/iris_current_authority_manifest.json",
+    "round1a_ledger_json": "jq -c . Iris/_docs/round1a/round1_reference_disposition_ledger.jsonl",
+    "out_of_scope": [
+      "runtime behavior validation",
+      "build pipeline execution",
+      "package build",
+      "release readiness",
+      "in-game/manual QA",
+      "full archived docs/Iris content review"
+    ]
+  }
+}

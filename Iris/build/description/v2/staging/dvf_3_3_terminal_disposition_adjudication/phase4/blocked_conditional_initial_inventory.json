@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "initial_final_non_terminal_count": 0,
+  "note": "source predicate conditional is not final terminal conditional",
+  "schema_version": "dvf-3-3-terminal-residue-initial-inventory-v1",
+  "source_conditional_member_count": 111,
+  "source_no_member_count": 902,
+  "source_yes_member_count": 49
+}

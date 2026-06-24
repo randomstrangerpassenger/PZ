@@ -1,0 +1,4 @@
+{"artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl", "executable_instruction": false, "role": "live_state_reverification_input"}
+{"artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl", "executable_instruction": false, "role": "sealed_dry_run_patch_bundle_provenance"}
+{"artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/actual_diff_to_ledger_report.json", "executable_instruction": false, "role": "sandbox_diff_to_ledger_provenance"}
+{"artifact": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json", "executable_instruction": false, "role": "denominator_role_governance"}

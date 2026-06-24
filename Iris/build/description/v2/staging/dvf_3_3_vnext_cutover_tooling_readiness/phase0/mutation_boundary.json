@@ -1,0 +1,29 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "destructive_target_kinds_allowed_in_readiness": [
+    "mirrored",
+    "disposable",
+    "staging-copy"
+  ],
+  "explicit_apply_flag_required": true,
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "live_denylist": [
+    "Iris/media/lua/client/Iris/Data",
+    "Iris/build/description/v2/data",
+    "Iris/build/description/v2/output",
+    "Iris/build/package/Iris/media/lua/client/Iris/Data"
+  ],
+  "live_mutation_allowed_in_readiness": false,
+  "read_only_live_probe_allowed": true,
+  "runtime_live_command_template_only": true,
+  "schema_version": "dvf-3-3-vnext-cutover-tooling-mutation-boundary-v0",
+  "staging_allowlist": [
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness"
+  ],
+  "target_kinds": [
+    "live",
+    "mirrored",
+    "disposable",
+    "staging-copy"
+  ]
+}

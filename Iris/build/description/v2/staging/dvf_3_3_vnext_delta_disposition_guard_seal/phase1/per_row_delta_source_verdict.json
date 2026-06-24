@@ -1,0 +1,12 @@
+{
+  "axis_expanded_delta_row_count": 2125,
+  "axis_expanded_state_delta_count": 54,
+  "axis_expanded_text_ko_delta_count": 2071,
+  "blocked_reason": null,
+  "re_diff_used": false,
+  "schema_version": "dvf-3-3-vnext-per-row-delta-source-verdict-v0",
+  "sealed_2_4a_bound": true,
+  "source_exists": true,
+  "source_row_count": 2105,
+  "status": "PASS"
+}

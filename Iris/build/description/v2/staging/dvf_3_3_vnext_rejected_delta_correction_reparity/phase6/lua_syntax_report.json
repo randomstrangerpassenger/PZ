@@ -1,0 +1,6 @@
+{
+  "chunk_integrity_pass": true,
+  "method": "static_chunk_bundle_integrity; external check_lua_syntax remains preferred validation route",
+  "schema_version": "dvf-3-3-vnext-rejected-correction-lua-syntax-report-v0",
+  "status": "PASS"
+}

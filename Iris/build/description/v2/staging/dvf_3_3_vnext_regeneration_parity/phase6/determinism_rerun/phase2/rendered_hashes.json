@@ -1,0 +1,8 @@
+{
+  "entries_sha256": "bf0dc5e0ba23e4f3ff795cebd9f0e37e423ba0388ade6ed49dd738b7f0ff9764",
+  "entry_count": 2105,
+  "file_sha256": "dfc6cbeb8a7ee71ea8fa3b9bd549fd67f34816f9e74ab93db8f1c210955ee0c4",
+  "generated_at": "2026-06-15T13:08:18.828780+00:00",
+  "rendered_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase6/determinism_rerun/phase2/rendered/dvf_3_3_rendered.vnext.json",
+  "schema_version": "dvf-3-3-vnext-rendered-hash-v0"
+}

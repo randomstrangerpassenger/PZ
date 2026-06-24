@@ -1,0 +1,21 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "command_count": 6,
+  "errors": [],
+  "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "mapped_validation_families": [
+    "actual_diff_to_ledger",
+    "command_surface_mapping",
+    "consumer_migration_executor",
+    "overlay_support_generation",
+    "row_level_migration_ledger",
+    "runtime_chunk_cutover_readiness"
+  ],
+  "mapping_missing_count": 0,
+  "mapping_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase0/command_surface_mapping.json",
+  "mapping_surplus_count": 0,
+  "schema_version": "dvf-3-3-vnext-command-surface-mapping-validation-v0",
+  "status": "PASS",
+  "unmapped_validation_families": []
+}

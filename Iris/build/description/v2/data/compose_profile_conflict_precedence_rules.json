@@ -1,0 +1,8 @@
+{
+  "default_resolution": "identity_family_target",
+  "eligible_identity_family_targets": [
+    "consumable_body",
+    "wearable_body",
+    "container_body"
+  ]
+}

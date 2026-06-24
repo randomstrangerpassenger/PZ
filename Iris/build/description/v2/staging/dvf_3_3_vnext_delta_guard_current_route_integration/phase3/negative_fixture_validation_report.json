@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "expected_fail_loud": true,
+      "guard_id": "fixture_as_authority",
+      "observed_fail_loud": true
+    },
+    {
+      "expected_fail_loud": true,
+      "guard_id": "monolith_re_entry",
+      "observed_fail_loud": true
+    },
+    {
+      "expected_fail_loud": true,
+      "guard_id": "staging_direct_promotion",
+      "observed_fail_loud": true
+    },
+    {
+      "expected_fail_loud": true,
+      "guard_id": "parity_missing",
+      "observed_fail_loud": true
+    },
+    {
+      "expected_fail_loud": true,
+      "guard_id": "disposition_coverage",
+      "observed_fail_loud": true
+    },
+    {
+      "expected_fail_loud": true,
+      "guard_id": "unapproved_delta",
+      "observed_fail_loud": true
+    },
+    {
+      "expected_fail_loud": true,
+      "guard_id": "single_authority",
+      "observed_fail_loud": true
+    },
+    {
+      "expected_fail_loud": true,
+      "guard_id": "legacy_vocabulary",
+      "observed_fail_loud": true
+    }
+  ],
+  "expected_fail_loud_count": 8,
+  "fixture_isolation": "synthetic_manifest_and_staging_reports_only",
+  "observed_fail_loud_count": 8,
+  "protected_current_paths_used_for_fixture_injection": false,
+  "schema_version": "dvf-3-3-vnext-delta-guard-current-route-negative-fixture-v1",
+  "status": "PASS"
+}

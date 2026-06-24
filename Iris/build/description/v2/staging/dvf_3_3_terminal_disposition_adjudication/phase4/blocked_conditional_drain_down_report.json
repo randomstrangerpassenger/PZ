@@ -1,0 +1,16 @@
+{
+  "auto_drained_without_evidence_count": 0,
+  "blocked_count": 0,
+  "conditional_count": 0,
+  "diagnostic_only_count": 3,
+  "drained_source_conditional_count": 111,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "historical_only_count": 638,
+  "migrated_count": 153,
+  "no_op_count": 268,
+  "pending_count": 0,
+  "schema_version": "dvf-3-3-terminal-drain-down-report-v1",
+  "status": "PASS",
+  "terminal_rows_total": 1062,
+  "unknown_count": 0
+}

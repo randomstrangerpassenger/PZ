@@ -1,0 +1,12 @@
+{
+  "dirty_target_refusal": true,
+  "explicit_live_mode": true,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "hard_forbidden_surface_protection": true,
+  "restore_packet_support": true,
+  "sandbox_executor_reused": false,
+  "schema_version": "dvf-3-3-live-writer-capability-probe-v1",
+  "self_validation_hook": true,
+  "status": "PASS",
+  "writer_id": "dvf_3_3_live_consumer_migration_execution_common.apply_frozen_patch_bundle_v1"
+}

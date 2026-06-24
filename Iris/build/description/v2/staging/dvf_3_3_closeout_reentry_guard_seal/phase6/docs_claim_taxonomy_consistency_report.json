@@ -1,0 +1,19 @@
+{
+  "architecture_scope": "structural_boundary_level",
+  "checks": {
+    "architecture": true,
+    "claim_boundary": true,
+    "claim_boundary_has_axis_qualified": true,
+    "decisions": true,
+    "ledger_packet": true,
+    "ledger_packet_has_non_claims": true,
+    "roadmap": true
+  },
+  "decisions_scope": "current_readpoint_level",
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "historical_trace_promoted_to_current_claim_count": 0,
+  "per_doc_allowed_density_status": "PASS",
+  "roadmap_scope": "summary_level",
+  "schema_version": "dvf-3-3-closeout-docs-claim-taxonomy-consistency-v1",
+  "status": "PASS"
+}

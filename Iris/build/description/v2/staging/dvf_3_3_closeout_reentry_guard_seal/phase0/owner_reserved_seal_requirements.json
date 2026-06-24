@@ -1,0 +1,14 @@
+{
+  "branch_attribution": "branch_b_new_closeout_reentry_guard_owner_route",
+  "branch_attribution_status": "resolved_by_current_owner_execution_request",
+  "canonical_seal_allowed": true,
+  "completion_token_final_string": "closeout_reentry_guard_machine_contract_pass",
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "independent_review_status": "PASS",
+  "non_claude_independent_review_required": true,
+  "owner_adoption_replaces_independent_review": false,
+  "round_identifier": "dvf_3_3_closeout_reentry_guard_seal",
+  "schema_version": "dvf-3-3-closeout-reentry-owner-reserved-seal-v1",
+  "seal_gate_kind": "required_validation_gate_adopted_canonical_review_pass",
+  "status": "PASS"
+}

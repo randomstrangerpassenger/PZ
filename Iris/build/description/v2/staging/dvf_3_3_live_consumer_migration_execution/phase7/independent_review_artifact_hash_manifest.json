@@ -1,0 +1,518 @@
+{
+  "aggregate_sha256": "36b4e38de73209b0f08ebf5ca629075c05c769c74ba92d388ab267448c1bdf08",
+  "artifact_count": 83,
+  "artifacts": [
+    {
+      "bytes": 59112,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/authority_surface_dependency_preflight.json",
+      "seal_scope": "evidence_root",
+      "sha256": "7e1ceb6ce6687715b6bff1da5b5931818b82208b154265f960325c95a2e20ab2"
+    },
+    {
+      "bytes": 392,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/authority_surface_gate_policy.json",
+      "seal_scope": "evidence_root",
+      "sha256": "c7324a90532881217112127cbbdd58292effc49cd77470cea50a22f7cbfa6201"
+    },
+    {
+      "bytes": 697,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/build_time_execution_reach_graph_definition.json",
+      "seal_scope": "evidence_root",
+      "sha256": "0f42f5738aa798bd20dff251fb21a632c0ed8acf1c4fc8f70fa9136d2eea91e0"
+    },
+    {
+      "bytes": 527,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/claim_boundary.freeze.md",
+      "seal_scope": "evidence_root",
+      "sha256": "dcf2815f360217444214229cae48f3702e873f504008812ee656f94e584d7bbb"
+    },
+    {
+      "bytes": 11609,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/command_surface_mapping.json",
+      "seal_scope": "evidence_root",
+      "sha256": "ef18aa23c5b8f396b1d80585db133d069b6b7d1e66f721fe938283cb13be1e36"
+    },
+    {
+      "bytes": 1467,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/dirty_target_overlap_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "bf51eefe2ea6f977392219de23ebebe653b1ece9ee6205e87bcf00a4a2e242a4"
+    },
+    {
+      "bytes": 744,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/execution_contract_applicability_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "91d52fc5f23fdd474960b025c0b4a77be2c0052c63a3a417af8bcd38d380ba55"
+    },
+    {
+      "bytes": 527,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/external_gate_requirements_manifest.json",
+      "seal_scope": "evidence_root",
+      "sha256": "2ddfdfa52f78bfd779953df4050db6b8db5b17db87de44ff936b3f3ee4fd8e4d"
+    },
+    {
+      "bytes": 1846,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/hard_forbidden_authority_surface_manifest.json",
+      "seal_scope": "evidence_root",
+      "sha256": "ebe403c1c93e69da4253641fbfa8fc88b3d61f38b7e87232bab45ce97bf3af12"
+    },
+    {
+      "bytes": 6565,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/input_artifact_fingerprint_manifest.json",
+      "seal_scope": "evidence_root",
+      "sha256": "fcf7292e6aa7004d90460deac3c5326044470fbd30e17caccfed57a55741102a"
+    },
+    {
+      "bytes": 7270,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/live_migration_input_binding.json",
+      "seal_scope": "evidence_root",
+      "sha256": "c972642144569e0a15c1a5d7541cecdbb46286a961e31640a5c84b1eab086236"
+    },
+    {
+      "bytes": 691,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/live_surface_allowlist.json",
+      "seal_scope": "evidence_root",
+      "sha256": "755903d1245013694f64af0ec1ec07d396a8b4f8af29b05af2ef8e8495e11ed5"
+    },
+    {
+      "bytes": 438,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/live_writer_capability_probe_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "d9a5c43ace5060b78987b1655551410817c488a37850e34ae0b50d0dfd614ea3"
+    },
+    {
+      "bytes": 498,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/new_tool_self_validation_plan.json",
+      "seal_scope": "evidence_root",
+      "sha256": "0092a9e893aacc082949fbdb87027f1c98673a16f06e28156a352455f4a28e13"
+    },
+    {
+      "bytes": 370586,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/pre_existing_dirty_diff_manifest.json",
+      "seal_scope": "evidence_root",
+      "sha256": "fcbf54776a0a4d9754f8706506fb17b29ed6be5a9416d36ce7177c7aaec3dc42"
+    },
+    {
+      "bytes": 6904,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/scope_lock.json",
+      "seal_scope": "evidence_root",
+      "sha256": "b24882c9a5053dc0baf1d20db274d540c8af419ab1870ccf4f62e90566695209"
+    },
+    {
+      "bytes": 1408,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/surface_boundary_schema_examples.json",
+      "seal_scope": "evidence_root",
+      "sha256": "a85ac63453a81390ae5c2242692a1b18b96233e00027662ec1e6aafa7df6b2ac"
+    },
+    {
+      "bytes": 370543,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/working_tree_baseline.json",
+      "seal_scope": "evidence_root",
+      "sha256": "5225e72764aedc51323e3f7e3ea8bbd46fb4848a683ea9415449b3ab08090052"
+    },
+    {
+      "bytes": 839,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/artifact_role_binding_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "f1198f8a9b499e56a8f9eb19fc5815d01c68bfd2282a3b98da7a7b9ae5a8ab91"
+    },
+    {
+      "bytes": 1448,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/input_freshness_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "f7c913d3868784eff3830ad346d09db27008395fe2512c3f05f7be5974b7299e"
+    },
+    {
+      "bytes": 265,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/input_rejection_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "2d7ea338d3abef274941c088bf845a22c1fab6d8673fb21011084936b55ce365"
+    },
+    {
+      "bytes": 3002,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/migrated153_vs_sandbox163_reconciliation_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "5b0db2fcfc73064f1077e4bc57e2de81941dd639dab1cd264011a44b196c0c72"
+    },
+    {
+      "bytes": 2864,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/reconciliation_set_difference_disposition.json",
+      "seal_scope": "evidence_root",
+      "sha256": "1af015d3fe4211cbf7de7cf49e22b2e8ba55309cbea107a481eec99567eadb07"
+    },
+    {
+      "bytes": 139509,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/row_identity_crosswalk.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "c902f359a25b10a868d6dd7ecf156e6a51a72e312d307d9a57c6c4d49cacc31b"
+    },
+    {
+      "bytes": 776,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/row_identity_resolution_ladder_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "f7b5e2b80d3f31dfe9c5ca763931b7b39f17e3e2cda93c0a7015a72f30ba5b17"
+    },
+    {
+      "bytes": 0,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/unresolved_identity_worklist.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 697,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase1/which_163_source_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "205a3d09f0bb418528a65cfb152d50668e6704f565d41ca60571529b47f91fd1"
+    },
+    {
+      "bytes": 245,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/authority_surface_correction_seed_packet.md",
+      "seal_scope": "evidence_root",
+      "sha256": "4c513c8da219474cf4e52b6b00a7918a99be40b24e69ef00941c919450e554b7"
+    },
+    {
+      "bytes": 46866,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/consumer_only_representability_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "5b96f15d9c0733481b62128496b6c4fd3284cca5c9f1329f48f3e2458e220690"
+    },
+    {
+      "bytes": 3338,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/current_runtime_chunk_identity_input.json",
+      "seal_scope": "evidence_root",
+      "sha256": "1d7aa415c5e3bb7fac893978264177db176ead2d705ce57f4bf5799a19bb05b3"
+    },
+    {
+      "bytes": 398,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/current_sealed_authority_vocabulary_input.json",
+      "seal_scope": "evidence_root",
+      "sha256": "49fbe5e92c49b5c0207d1c4b94592373402ad60a77c49647adfcd3d3c006bd70"
+    },
+    {
+      "bytes": 74706,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/excluded_non_live_target_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "3f9f724035a77d7b0dbea43fa72156a80e7335b7c8fdb52736bdc7a4078c31b3"
+    },
+    {
+      "bytes": 559,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/expected_form_derivation_oracle.json",
+      "seal_scope": "evidence_root",
+      "sha256": "f9abc4c05ed798313478616d11139a5fa8b0ef34827e4adeb4c665eb1d5ab467"
+    },
+    {
+      "bytes": 402774,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/expected_form_drift_adjudication_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "4e29b6a54e8cefda4dddff9a8609119fb58ea12ec1de36fc03d7d10000bdb52b"
+    },
+    {
+      "bytes": 297,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/expected_migrated_form_rederivation_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "73544ee8443e21fbcd49b3bc8c60646e22a8e1d3caca8ce1b23689bdbf49cff8"
+    },
+    {
+      "bytes": 0,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/live_ambiguous_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/live_blocked_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/live_mutation_required_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 364,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/live_target_derivation_summary.json",
+      "seal_scope": "evidence_root",
+      "sha256": "a70734f674f8b809cc6de07f81c49702bc85159dd146c3103ebd3f9ee8575a50"
+    },
+    {
+      "bytes": 592434,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/live_verified_already_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "738a1d5ae55294198d009d314de4dc81191cabe2dcf1712808e7fb251e343d8c"
+    },
+    {
+      "bytes": 667140,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/migrated_live_state_classification_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "2ad6bac28c7fab6c003ddd6bd32e42d2c02255a7f695068339ebad6fbe4aa066"
+    },
+    {
+      "bytes": 249,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/runtime_payload_residual_dependency_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "2944dc0e7fac6faebe000cc8b3e65876b2333b5f0328b58e31d459bb7442c14b"
+    },
+    {
+      "bytes": 236,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/dirty_target_isolation_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "08da96d83aff29c4a0761f36028524d56c27469fc18e0d690a3482dd6377fc5a"
+    },
+    {
+      "bytes": 403,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/dry_run_apply_equivalence_probe_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "7655d8236c5ea336e4f656ce3c11500deb86388f5cfc0741e03c65be56a59be5"
+    },
+    {
+      "bytes": 371,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/frozen_patch_bundle.json",
+      "seal_scope": "evidence_root",
+      "sha256": "95dc8c8eaaf11d4690aec1a3bd54706f8726f8f564a187510e7b2165e523dc32"
+    },
+    {
+      "bytes": 199,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/hard_forbidden_authority_surface_pre_apply_verdict.json",
+      "seal_scope": "evidence_root",
+      "sha256": "c1f71d49df03ba689e1163ec73be136dfc74845e9e84af06889c7c21027322dc"
+    },
+    {
+      "bytes": 379,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/live_dry_run_diff.json",
+      "seal_scope": "evidence_root",
+      "sha256": "62240f84a5c4cdbd736f9912cfb78dfa650b72889b5450d2978e09dd647ea93b"
+    },
+    {
+      "bytes": 340,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/live_dry_run_to_ledger_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "452e7e8b37106e2a3e98d8575bafadcd474da7777220d9d6495d1958b09882ee"
+    },
+    {
+      "bytes": 241,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/live_surface_snapshot.before.json",
+      "seal_scope": "evidence_root",
+      "sha256": "cd3d57ee20de7643c8062851fdd413ec42b1635e4e3f586fbcb5b50cc7c53f78"
+    },
+    {
+      "bytes": 452,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/new_writer_validator_fixture_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "025792422e2f37cc42fb97a4bf662eb95a5a6d216f5860f1a823d89363c3c5a0"
+    },
+    {
+      "bytes": 481,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase3/pre_apply_gate_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "757e35ee47316966c6dd0bd79ed49d5dae66d9e2cd73039ee38577be856df4c7"
+    },
+    {
+      "bytes": 414,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase4/apply_integrity_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "838f1b3b004151169198683cc4d76d1d5c940c95a17c31fa9358b4a31b95b392"
+    },
+    {
+      "bytes": 240,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase4/live_apply_file_diff_manifest.json",
+      "seal_scope": "evidence_root",
+      "sha256": "5f6577e7d0304b8ca292e784d5cbfc1983c828fad35d21c8983f565721327953"
+    },
+    {
+      "bytes": 0,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase4/live_apply_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 240,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase4/live_surface_snapshot.after.json",
+      "seal_scope": "evidence_root",
+      "sha256": "02e3249461b5ae374d896c0564513c154b4620dd3909c64a21764b636b26b366"
+    },
+    {
+      "bytes": 210,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase4/restore_packet.json",
+      "seal_scope": "evidence_root",
+      "sha256": "e62220a56afecd50e891993d06b82ebc7decfaf5f0330cda5d62d06036bf464c"
+    },
+    {
+      "bytes": 421,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase5/build_time_execution_reach_graph_residue_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "f4f78e15028386c83a0e5d28918fa26acf9fbae18b2dcce9d772b507747b4f72"
+    },
+    {
+      "bytes": 266,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase5/hard_forbidden_authority_surface_no_mutation_verdict.json",
+      "seal_scope": "evidence_root",
+      "sha256": "92e626bc43a574be6a8c2b2dc39a019dedbcd1d5b2062f56374865a97fc9ace9"
+    },
+    {
+      "bytes": 294,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase5/live_actual_diff_to_ledger_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "951d00554f2fda30732f053d827c6983a47219e597898cea4a7557ca01264608"
+    },
+    {
+      "bytes": 53147,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase5/live_completion_ledger.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "70f1132ace745308b8b535165cd937d6bd29a0f9b1e68749929aa9a86481e458"
+    },
+    {
+      "bytes": 879,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase5/live_migration_completion_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "5142d3f32ce9537ca925ca65b945508152e81a97fd051acffe6378fbd1696986"
+    },
+    {
+      "bytes": 178,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase5/non_migrated_no_mutation_verdict.json",
+      "seal_scope": "evidence_root",
+      "sha256": "bda18cba2897c82eba50dd9baf1f1f7390dcc5bd0630240a66ed38e2014ef99b"
+    },
+    {
+      "bytes": 275,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase5/sandbox_live_separation_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "19bd9b9d3e4ba6f3c48d92aa1cf782af3a4b89f97b15a81280e03fd5b84c6229"
+    },
+    {
+      "bytes": 242,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase5/static_residue_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "b13ad80211efe21be6756e979c864d32ab4f14ce9c18ea74b4f92874602fce46"
+    },
+    {
+      "bytes": 570,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase6/current_core_closure_guard_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "3be2d80177898ca961adddf49087b05ad5016b43f2ff011162b7d93645d59188"
+    },
+    {
+      "bytes": 435,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase6/current_route_validation_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "dc75060934ceadad0f541e79d3a3997d30996a99626d2da735875f36fd2ca960"
+    },
+    {
+      "bytes": 191,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase6/focused_live_migration_validation_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "3d3205d6b074511441667e43568ac7ab2e20abbae60283b9ee7b211323a14434"
+    },
+    {
+      "bytes": 349,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase6/pre_existing_current_route_blocker_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "f407a9dc3f5e010b9e45ed0d1b19db05400c957c395b883cb8c2039c7bddd861"
+    },
+    {
+      "bytes": 262,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase6/required_validation_adoption_status.json",
+      "seal_scope": "evidence_root",
+      "sha256": "0f7c3a8b7c9b3cb40025c28ad870d1e5de06bf0378e093e74cca71527389e153"
+    },
+    {
+      "bytes": 352,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase6/required_validation_manifest.candidate_patch.json",
+      "seal_scope": "evidence_root",
+      "sha256": "134503bafc6c5ccf45ede1e3658f7d86767efc9b2958466f3b3da6dcd11a1ba4"
+    },
+    {
+      "bytes": 254,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase6/tooling_allowlist_guard_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "ce50e079af240387fb66105587485c6c37b4bdf087df292ce0568443406188c7"
+    },
+    {
+      "bytes": 851,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/completion_external_gate_readiness_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "f3c60987d4858249660ebbc9b3bef7eec1b7a0458a0c4da8f54429f158c91789"
+    },
+    {
+      "bytes": 583,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/independent_review_request_packet.md",
+      "seal_scope": "evidence_root",
+      "sha256": "76e978ceb716f40b49a470f1d3e07f08f01abcbfe8ea9224a209a769500b7787"
+    },
+    {
+      "bytes": 358,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/owner_adoption_status.json",
+      "seal_scope": "evidence_root",
+      "sha256": "d704bb0e0a24d8bef25b0e94e496922559089a979bb26842af66b55b168a29ea"
+    },
+    {
+      "bytes": 221,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/review_findings.jsonl",
+      "seal_scope": "evidence_root",
+      "sha256": "a4305ce8292817f16bf0e93433489ccffe978c5842fc26e2e867c09e2771c777"
+    },
+    {
+      "bytes": 369,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/review_scope_manifest.json",
+      "seal_scope": "evidence_root",
+      "sha256": "8da258171ba1401a96b7f4eb24f92d5bd831531edc942b204f71c619c5045327"
+    },
+    {
+      "bytes": 540,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/upstream_roadmap_seal_status.json",
+      "seal_scope": "evidence_root",
+      "sha256": "5194372eb8f37e87af27a836cba3c0d541faac9eaca04dc18e4ad1dda0867cc4"
+    },
+    {
+      "bytes": 1200,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase8/final_live_migration_execution_report.json",
+      "seal_scope": "evidence_root",
+      "sha256": "e9c1eb4766b83629fa79f388af3b65f3a373a7f36be54b34a84451a2192c6277"
+    },
+    {
+      "bytes": 683,
+      "path": "docs/DECISIONS.live_migration_execution.patch.md",
+      "seal_scope": "external_review_docs",
+      "sha256": "271d9ca940d34c5a18718f138d81fc4d6b6c0b74546adcb7cef31b960620d2d3"
+    },
+    {
+      "bytes": 681,
+      "path": "docs/ROADMAP.live_migration_execution.patch.md",
+      "seal_scope": "external_review_docs",
+      "sha256": "8a482285cd537bdb3bb23c763d76b25e88320e73b7a76b8debef9888ea340945"
+    },
+    {
+      "bytes": 876,
+      "path": "docs/dvf_3_3_live_consumer_migration_claim_boundary.md",
+      "seal_scope": "external_review_docs",
+      "sha256": "0a2ec46bf35bd4edf75cd05c0695c61bef9149586990906e8cb20e820742e2a5"
+    },
+    {
+      "bytes": 1079,
+      "path": "docs/dvf_3_3_live_consumer_migration_execution_closeout.md",
+      "seal_scope": "external_review_docs",
+      "sha256": "03ee9b6d99bef60467f89c8bcf68d56e9b0637e05e4f358993fb3f3aa325c1f1"
+    },
+    {
+      "bytes": 922,
+      "path": "docs/dvf_3_3_live_consumer_migration_ledger_packet.md",
+      "seal_scope": "external_review_docs",
+      "sha256": "a405147fac4141f37747572b35e8a7746cf3f16364d29aff28d0db339b52cfc3"
+    }
+  ],
+  "external_review_doc_paths": [
+    "docs/dvf_3_3_live_consumer_migration_execution_closeout.md",
+    "docs/dvf_3_3_live_consumer_migration_claim_boundary.md",
+    "docs/dvf_3_3_live_consumer_migration_ledger_packet.md",
+    "docs/DECISIONS.live_migration_execution.patch.md",
+    "docs/ROADMAP.live_migration_execution.patch.md"
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-live-independent-review-artifact-hash-manifest-v1",
+  "self_hash_exclusion": [
+    "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/independent_review_artifact_hash_manifest.json",
+    "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase7/independent_review_artifact_hash_report.json"
+  ],
+  "status": "PASS"
+}

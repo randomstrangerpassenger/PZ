@@ -1,0 +1,10 @@
+{
+  "actual_apply_eligible_count": 163,
+  "claim_boundary": "DVF 3-3 live consumer migration execution evidence only; not current authority recutover, not source/rendered/Lua-bridge/runtime-chunk/package authority mutation, not package readiness, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, not manual in-game QA, and not public-facing text quality acceptance.",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "readiness_sandbox_mutation_count": 163,
+  "schema_version": "dvf-3-3-live-which-163-source-v1",
+  "sets_reconciled_by_row_identity": true,
+  "status": "PASS",
+  "which_163": "both_actual_apply_eligible_and_readiness_sandbox_mutation"
+}

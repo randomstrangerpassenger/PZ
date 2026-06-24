@@ -20,7 +20,7 @@ PLAN_PATH = "docs/Iris/iris-dvf-3-3-layer4-trace-edge-authority-admission-round-
 LOCKED_CORPUS_PATHS = [
     "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
     "Iris/build/description/v2/output/dvf_3_3_rendered.json",
-    "Iris/build/description/v2/staging/body_role/phase2/layer3_role_check_overlay.jsonl",
+    "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
     "Iris/build/description/v2/tools/style/rules/structural_rules.json",
 ]
 PREDECESSOR_MANIFEST_PATH = (
@@ -45,7 +45,7 @@ DECISIONS_PATH = "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl"
 PROFILES_PATH = "Iris/build/description/v2/data/compose_profiles_v2.json"
 IDENTITY_RULES_PATH = "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json"
 PRECEDENCE_RULES_PATH = "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json"
-OVERLAY_PATH = "Iris/build/description/v2/staging/body_role/phase2/layer3_role_check_overlay.jsonl"
+OVERLAY_PATH = "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl"
 
 EDGE_TYPE = "placed_in_body_output"
 ALLOWED_EDGE_BASIS = [

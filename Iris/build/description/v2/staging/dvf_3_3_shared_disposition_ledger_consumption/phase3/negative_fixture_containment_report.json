@@ -1,0 +1,50 @@
+{
+  "fixture_count": 4,
+  "fixtures": [
+    {
+      "expected_findings": [
+        "DUAL_AUTHORITY_READ"
+      ],
+      "fixture_path": "Iris/build/description/v2/tests/fixtures/negative/shared_disposition/dual_authority_read.json",
+      "observed_findings": [
+        "DUAL_AUTHORITY_READ"
+      ],
+      "status": "PASS"
+    },
+    {
+      "expected_findings": [
+        "PREDECESSOR_REENTRY"
+      ],
+      "fixture_path": "Iris/build/description/v2/tests/fixtures/negative/shared_disposition/predecessor_reentry.json",
+      "observed_findings": [
+        "PREDECESSOR_REENTRY"
+      ],
+      "status": "PASS"
+    },
+    {
+      "expected_findings": [
+        "RAW_AUTHORITY_READ"
+      ],
+      "fixture_path": "Iris/build/description/v2/tests/fixtures/negative/shared_disposition/raw_authority_read.json",
+      "observed_findings": [
+        "RAW_AUTHORITY_READ"
+      ],
+      "status": "PASS"
+    },
+    {
+      "expected_findings": [
+        "VALUE_DIVERGENCE"
+      ],
+      "fixture_path": "Iris/build/description/v2/tests/fixtures/negative/shared_disposition/value_divergence.json",
+      "observed_findings": [
+        "VALUE_DIVERGENCE"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "leakage_count": 0,
+  "negative_fixture_root": "Iris/build/description/v2/tests/fixtures/negative/shared_disposition",
+  "schema_version": "dvf-3-3-shared-disposition-negative-fixture-containment-v1",
+  "status": "PASS"
+}

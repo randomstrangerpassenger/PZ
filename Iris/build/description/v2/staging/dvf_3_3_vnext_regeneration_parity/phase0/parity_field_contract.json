@@ -1,0 +1,27 @@
+{
+  "key": {
+    "comparison": "exact"
+  },
+  "legacy_active_silent_policy": "historical_alias_not_current_vocabulary",
+  "missing_empty_null_policy": "separate_categories",
+  "publish_state": {
+    "comparison": "legacy_visibility_disposition",
+    "enum_universe_verdict": "not_comparable",
+    "mapping_table_path": null,
+    "resolution_contract_path": "phase0/parity_field_resolution_contract.json"
+  },
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-field-contract-v0",
+  "state": {
+    "comparison": "governed_derived_disposition",
+    "enum_universe_verdict": "same",
+    "mapping_table_path": null,
+    "resolution_contract_path": "phase0/parity_field_resolution_contract.json"
+  },
+  "text_ko": {
+    "comparison": "exact_after_representation_normalization",
+    "normalization": [
+      "lua_escape_decode",
+      "line_ending_normalization"
+    ]
+  }
+}

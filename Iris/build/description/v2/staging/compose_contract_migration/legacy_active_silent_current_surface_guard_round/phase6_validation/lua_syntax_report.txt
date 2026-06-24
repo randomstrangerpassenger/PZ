@@ -4,7 +4,7 @@ timed_out: False
 missing_tool: False
 
 stdout:
-Lua syntax validation OK: 183 files
+Lua syntax validation OK: 188 files
 
 
 stderr:

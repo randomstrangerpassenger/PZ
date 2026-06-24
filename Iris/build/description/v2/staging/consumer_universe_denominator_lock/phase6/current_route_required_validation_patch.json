@@ -1,0 +1,53 @@
+{
+  "adoption_authorization": "user_explicit_2026-06-21",
+  "candidate_additions": {
+    "required_artifacts": [
+      {
+        "checks": [
+          {
+            "equals": "PASS",
+            "field": "machine_contract_status"
+          },
+          {
+            "equals": true,
+            "field": "candidate_guard_claim_allowed"
+          },
+          {
+            "equals": "adopted_required_gate",
+            "field": "required_gate_adoption_status"
+          },
+          {
+            "equals": true,
+            "field": "future_closeout_blocking_claim_allowed"
+          }
+        ],
+        "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json"
+      }
+    ],
+    "required_tests": [
+      {
+        "required": true,
+        "role": "consumer_universe_denominator_required_validation",
+        "test_id": "test_consumer_universe_denominator_lock.ConsumerUniverseDenominatorLockTest.test_final_report_records_live_required_gate_adoption_without_canonical_seal"
+      }
+    ]
+  },
+  "candidate_current_route_validation_status": "patch_schema_validated",
+  "candidate_manifest_preview": {
+    "required": true,
+    "required_artifact_count_after_patch": 28,
+    "required_test_count_after_patch": 28,
+    "route": "current",
+    "schema_version": "round3-current-route-required-validations-v1"
+  },
+  "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "live_manifest_contains_required_artifact": true,
+  "live_manifest_contains_required_test": true,
+  "live_manifest_mutated": true,
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "patch_schema_valid": true,
+  "required_gate_adoption_status": "adopted_required_gate",
+  "schema_version": "consumer-universe-denominator-current-route-candidate-patch-v1",
+  "status": "adopted_required_gate"
+}

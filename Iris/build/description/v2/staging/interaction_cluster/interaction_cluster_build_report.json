@@ -1,0 +1,24 @@
+{
+  "schema_version": "interaction-cluster-build-report-v0",
+  "candidate_count": 6,
+  "merge_case_counts": {
+    "direct_use_keep": 1,
+    "direct_use_replaced_by_cluster": 3,
+    "cluster_over_role_fallback": 1,
+    "cluster_absent_keep_direct_use": 1
+  },
+  "selection_path_counts": {
+    "frequency": 3,
+    "cluster_absent": 1,
+    "specificity": 1,
+    "manual_override_applied": 1
+  },
+  "v9_warn_rows": [],
+  "hard_fail_rows": [],
+  "tie_break_rows": [
+    "Base.ModKit"
+  ],
+  "manual_override_applied_rows": [
+    "Base.ModKit"
+  ]
+}

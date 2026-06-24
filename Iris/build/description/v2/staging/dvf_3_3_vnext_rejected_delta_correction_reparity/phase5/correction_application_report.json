@@ -1,0 +1,10 @@
+{
+  "applied_change_count": 54,
+  "live_input_manifest_overwritten": false,
+  "patch_count": 54,
+  "rejected_key_only_mutation": true,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-application-v0",
+  "silent_control_changed_count": 0,
+  "status": "PASS",
+  "unexpected_key_mutation_count": 0
+}

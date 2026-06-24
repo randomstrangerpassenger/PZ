@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "hard_forbidden_mutation_surfaces": [
+    "source facts",
+    "decisions",
+    "rendered output",
+    "Lua bridge",
+    "runtime chunks",
+    "package authority surfaces"
+  ],
+  "hard_forbidden_prefix_count": 9,
+  "row_level_override_allowed": false,
+  "schema_version": "dvf-3-3-live-authority-surface-gate-policy-v1",
+  "status": "PASS"
+}

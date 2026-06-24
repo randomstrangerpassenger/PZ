@@ -1,0 +1,63 @@
+{
+  "guard_count": 8,
+  "guards": [
+    {
+      "completion_gate_bound": true,
+      "current_context_required": true,
+      "guard_id": "fixture_as_authority",
+      "mode": "fail_loud",
+      "name": "Fixture-as-Authority Guard"
+    },
+    {
+      "completion_gate_bound": true,
+      "current_context_required": true,
+      "guard_id": "monolith_re_entry",
+      "mode": "fail_loud",
+      "name": "Monolith Re-entry Guard"
+    },
+    {
+      "completion_gate_bound": true,
+      "current_context_required": true,
+      "guard_id": "staging_direct_promotion",
+      "mode": "fail_loud",
+      "name": "Staging Direct Promotion Guard"
+    },
+    {
+      "completion_gate_bound": true,
+      "current_context_required": true,
+      "guard_id": "parity_missing",
+      "mode": "fail_loud",
+      "name": "Parity-Missing Guard"
+    },
+    {
+      "completion_gate_bound": true,
+      "current_context_required": true,
+      "guard_id": "disposition_coverage",
+      "mode": "fail_loud",
+      "name": "Disposition Coverage Guard"
+    },
+    {
+      "completion_gate_bound": true,
+      "current_context_required": true,
+      "guard_id": "unapproved_delta",
+      "mode": "fail_loud",
+      "name": "Unapproved Delta Guard"
+    },
+    {
+      "completion_gate_bound": true,
+      "current_context_required": true,
+      "guard_id": "single_authority",
+      "mode": "fail_loud",
+      "name": "Single-Authority Guard"
+    },
+    {
+      "completion_gate_bound": true,
+      "current_context_required": true,
+      "guard_id": "legacy_vocabulary",
+      "mode": "fail_loud",
+      "name": "Legacy Vocabulary Guard"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-guard-surface-matrix-v0",
+  "status": "PASS"
+}

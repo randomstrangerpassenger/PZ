@@ -1,0 +1,21 @@
+{
+  "schema_version": "interaction-cluster-phase-d-lua-bridge-v0",
+  "rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\output\\dvf_3_3_rendered.json",
+  "lua_output_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\shared\\Iris\\IrisDvfBridgeData.lua",
+  "entry_count": 6,
+  "meta": {
+    "version": "interaction-cluster-rendered-v0",
+    "generated_at": "2026-03-27T10:45:10.339742+00:00",
+    "facts_sha256": "0fbff43e932199ca36ba0c67fd683a53608ff56d0ed3373c654cdb2f67ff53e5",
+    "decisions_sha256": "7235a86c11a9e31936f0934c8dd54baa081fcf3f6208a4be35dede2e99448b9d",
+    "profiles_sha256": "6dea43cee3d84bf350f74d917ca95bb80318bc4fd245f27f921d4d5e689f70c5",
+    "entries_sha256": "b5df554d1efbbf3ef581ada59b5fe5ad1dbcc089589911eb3d9b69b1fad34bec",
+    "stats": {
+      "total": 6,
+      "active_composed": 6,
+      "active_override": 0,
+      "silent": 0
+    }
+  },
+  "pass": true
+}

@@ -1,0 +1,7 @@
+{
+  "schema_version": "dvf-3-3-vnext-delta-guard-current-route-executed-validation-v1",
+  "command": "python -B Iris\\_docs\\round3\\round3_run_contract_tests.py --class historical",
+  "exit_code": 0,
+  "test_count": 285,
+  "success": true
+}

@@ -1,0 +1,27 @@
+{
+  "candidate_path_count": 44,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "phase3_must_recompute_with_live_mutation_required_only": true,
+  "potential_overlap_count": 17,
+  "potential_overlaps": [
+    "Iris/_docs/round3/round3_artifact_dependency_manifest.json",
+    "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+    "Iris/_docs/round3/round3_contract_manifest.json",
+    "Iris/_docs/round3/round3_disposition_candidates.json",
+    "Iris/_docs/round3/round3_disposition_manifest.json",
+    "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+    "Iris/_docs/round3/round3_retained_historical_manifest.json",
+    "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+    "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua"
+  ],
+  "schema_version": "dvf-3-3-live-dirty-target-overlap-phase0-v1",
+  "status": "PASS"
+}

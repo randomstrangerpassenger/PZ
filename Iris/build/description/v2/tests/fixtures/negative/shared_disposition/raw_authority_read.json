@@ -1,0 +1,7 @@
+{
+  "authority_role": "current_execution_authority",
+  "expected_findings": [
+    "RAW_AUTHORITY_READ"
+  ],
+  "path": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl"
+}

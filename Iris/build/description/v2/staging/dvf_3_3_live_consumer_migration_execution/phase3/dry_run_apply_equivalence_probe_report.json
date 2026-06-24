@@ -1,0 +1,9 @@
+{
+  "dry_run_and_apply_share_patch_bundle": true,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "patch_bundle_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "phase4_must_not_recompute_targets": true,
+  "probe_method": "frozen_patch_bundle_identity_and_copied_target_fixture",
+  "schema_version": "dvf-3-3-live-dry-run-apply-equivalence-probe-v1",
+  "status": "PASS"
+}

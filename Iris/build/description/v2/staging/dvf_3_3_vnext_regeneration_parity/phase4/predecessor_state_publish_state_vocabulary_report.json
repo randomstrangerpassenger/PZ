@@ -1,0 +1,24 @@
+{
+  "invalid_publish_state_enum_counts": {},
+  "invalid_state_enum_counts": {},
+  "publish_state_enum_counts": {
+    "exposed": 1486,
+    "internal_only": 600
+  },
+  "publish_state_field_presence": {
+    "empty": 0,
+    "missing": 19,
+    "null": 0,
+    "present": 2086
+  },
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-predecessor-state-publish-vocabulary-v0",
+  "state_absence_disposition": "field_absent_requires_resolution",
+  "state_enum_counts": {},
+  "state_field_presence": {
+    "empty": 0,
+    "missing": 2105,
+    "null": 0,
+    "present": 0
+  },
+  "status": "PASS"
+}

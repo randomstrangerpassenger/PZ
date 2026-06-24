@@ -1,0 +1,10 @@
+{
+  "closeout_reentry_guard_status": "separate_guard_round",
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "problem7_closeout_state": "partial",
+  "problem7_partial_flattened_to_complete_count": 0,
+  "problem7_pass_to_closeout_guard_completion_promotion_count": 0,
+  "schema_version": "dvf-3-3-problem7-promotion-guard-v1",
+  "source_overlay_repair_status": "source_overlay_repair_current_route_validation_pass",
+  "status": "PASS"
+}

@@ -1,0 +1,32 @@
+{
+  "absent_count": 3,
+  "absent_paths": [
+    {
+      "allowed_absent": true,
+      "expected_producer": "package_or_validation_route_outside_terminal_round",
+      "hash_null_policy": "sha256_null_when_absent",
+      "optional": true,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": "live_runtime_monolith_facade"
+    },
+    {
+      "allowed_absent": true,
+      "expected_producer": "package_or_validation_route_outside_terminal_round",
+      "hash_null_policy": "sha256_null_when_absent",
+      "optional": true,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": "package_runtime_monolith"
+    },
+    {
+      "allowed_absent": true,
+      "expected_producer": "package_or_validation_route_outside_terminal_round",
+      "hash_null_policy": "sha256_null_when_absent",
+      "optional": true,
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "stale_bridge_surface"
+    }
+  ],
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "schema_version": "dvf-3-3-terminal-allowed-absent-path-policy-v1",
+  "status": "PASS"
+}

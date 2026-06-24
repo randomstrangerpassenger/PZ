@@ -1,0 +1,267 @@
+{
+  "schema_version": "interaction-cluster-usecase-rules-v0",
+  "policy_exclusions": [
+    {
+      "reason_code": "action_only_not_representative",
+      "text_any": ["extinguish_fire", "촛불 끄기"],
+      "require_text_match": true
+    },
+    {
+      "reason_code": "niche_recipe_not_representative",
+      "text_any": ["양동이에 석고 반죽 만들기"],
+      "require_text_match": true
+    }
+  ],
+  "fallback_rules": [
+    {
+      "cluster_id": "woodcutting",
+      "role": "tool",
+      "specificity_size": 5,
+      "identity_any": ["무기 겸용 도구"],
+      "item_id_any": ["axe"],
+      "require_item_id_match": true
+    },
+    {
+      "cluster_id": "melee_combat",
+      "role": "tool",
+      "specificity_size": 6,
+      "identity_any": ["스포츠 용품", "제작 무기"],
+      "item_id_any": ["baseballbat"],
+      "require_item_id_match": true
+    },
+    {
+      "cluster_id": "firearm_loading",
+      "role": "material",
+      "specificity_size": 7,
+      "identity_any": ["탄약"],
+      "item_id_any": ["clip"],
+      "require_item_id_match": true
+    },
+    {
+      "cluster_id": "explosive_devices",
+      "role": "output",
+      "specificity_size": 6,
+      "identity_any": ["폭발물"],
+      "item_id_any": ["aerosolbomb"],
+      "text_any": ["개조"],
+      "require_item_id_match": true
+    },
+    {
+      "cluster_id": "medical_treatment",
+      "role": "material",
+      "specificity_size": 13,
+      "identity_any": ["의료 용품", "의료 소모품", "의약품"],
+      "text_any": ["붕대", "소독", "알코올", "구급", "bandage", "wipes", "cotton", "antibiotics"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "ammo_storage_carry",
+      "role": "material",
+      "specificity_size": 7,
+      "identity_any": ["액세서리"],
+      "item_id_any": ["ammostrap"],
+      "require_item_id_match": true
+    },
+    {
+      "cluster_id": "ranged_firearm_combat",
+      "role": "tool",
+      "specificity_size": 6,
+      "item_id_any": ["rifle"],
+      "text_any": ["총기", "군용 무기"],
+      "require_item_id_match": true
+    }
+  ],
+  "rules": [
+    {
+      "cluster_id": "metalwork_anvil",
+      "role": "tool",
+      "specificity_size": 4,
+      "category_any": ["Smithing"],
+      "text_any": ["모루", "단조", "주조", "틀 만들기", "철괴", "smith"]
+    },
+    {
+      "cluster_id": "metalwork_welding",
+      "role": "tool",
+      "specificity_size": 10,
+      "category_any": ["Welding"],
+      "text_any": ["용접", "금속판", "금속 파이프", "금속 막대", "weld"]
+    },
+    {
+      "cluster_id": "electronics_assembly",
+      "role": "material",
+      "specificity_size": 12,
+      "exclude_identity_any": ["폭발물"],
+      "category_any": ["Electrical"],
+      "text_any": ["전자", "전기", "회로", "센서", "건전지", "배선", "electr"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "explosive_assembly",
+      "role": "material",
+      "specificity_size": 5,
+      "identity_any": ["폭발물"],
+      "category_any": ["Electrical"],
+      "text_any": ["격발기", "센서", "타이머", "개조"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "cooking_prep",
+      "role": "tool",
+      "specificity_size": 14,
+      "exclude_identity_any": ["무기 겸용 도구", "스포츠 용품", "제작 무기", "식품", "폭발물", "탄약"],
+      "category_any": ["Cooking"],
+      "text_any": ["조리", "요리", "끓이기", "굽기", "썰기", "팬", "냄비", "통조림", "open_can", "cook"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "medical_treatment",
+      "role": "material",
+      "specificity_size": 13,
+      "category_any": ["First Aid"],
+      "text_any": ["상처", "붕대", "소독", "봉합", "치료", "약품", "medical"]
+    },
+    {
+      "cluster_id": "medical_treatment",
+      "role": "material",
+      "specificity_size": 13,
+      "identity_any": ["의료 용품", "의료 소모품", "도구", "의약품"],
+      "category_any": [],
+      "text_any": ["wound_suturing", "foreign_body_removal", "infection_treatment"]
+    },
+    {
+      "cluster_id": "gun_modding",
+      "role": "material",
+      "specificity_size": 8,
+      "category_any": ["Aiming"],
+      "text_any": ["총기", "개조", "스코프", "조준", "총열", "리시버", "magazine", "gun"]
+    },
+    {
+      "cluster_id": "gun_modding",
+      "role": "material",
+      "specificity_size": 8,
+      "identity_any": ["무기 부품"],
+      "category_any": [],
+      "text_any": ["attach_weapon_part", "weapon_part"]
+    },
+    {
+      "cluster_id": "ammo_crafting",
+      "role": "tool",
+      "specificity_size": 8,
+      "category_any": ["Reloading"],
+      "exclude_text_any": ["상자 열기", "상자에", "open box", "in box"],
+      "text_any": ["화약", "gunpowder", "탄 만들기", "탄 틀", "bullets", "mold", "reload"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "ammo_loading",
+      "role": "output",
+      "specificity_size": 6,
+      "identity_any": ["탄약"],
+      "exclude_text_any": ["화약", "gunpowder", "탄 만들기", "탄 틀", "mold"],
+      "category_any": [],
+      "text_any": ["상자", "열기", "넣기", "box"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "ammo_molding",
+      "role": "tool",
+      "specificity_size": 4,
+      "identity_any": ["탄약"],
+      "category_any": ["Smithing"],
+      "text_any": ["탄 틀", "틀 만들기", "mold"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "fabric_repair",
+      "role": "tool",
+      "specificity_size": 11,
+      "category_any": ["Tailoring"],
+      "text_any": ["재봉", "천", "실", "옷", "꿰매", "패치", "tailor"]
+    },
+    {
+      "cluster_id": "container_storage",
+      "role": "output",
+      "specificity_size": 16,
+      "category_any": ["Storage"],
+      "text_any": ["상자", "가방", "보관", "휴대", "넣기", "담기", "용기", "box", "bag"]
+    },
+    {
+      "cluster_id": "disassembly_repair",
+      "role": "tool",
+      "specificity_size": 15,
+      "category_any": ["Mechanics"],
+      "text_any": ["분해", "수리", "조립", "회수", "고치기", "repair", "disassembl"]
+    },
+    {
+      "cluster_id": "improvised_weapon_assembly",
+      "role": "material",
+      "specificity_size": 6,
+      "identity_any": ["조리 도구", "무기 겸용 도구", "근접 무기", "생활 도구", "의료 도구", "제작 무기"],
+      "category_any": ["Survivalist"],
+      "text_any": ["창에", "to spear"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "fuel_handling",
+      "role": "tool",
+      "specificity_size": 7,
+      "identity_any": ["차량 정비 소모품", "차량 정비 용품"],
+      "category_any": [],
+      "text_any": ["uc.action.fuel", "fuel"]
+    },
+    {
+      "cluster_id": "construction_prep",
+      "role": "tool",
+      "specificity_size": 9,
+      "identity_any": ["도구", "무기 겸용 도구", "재료"],
+      "category_any": ["Carpentry"],
+      "text_any": ["서랍 만들기", "통나무 풀기", "통나무 자르기", "양동이에 석고 반죽 만들기", "uc.action.wood_cutting", "uc.action.construction"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "field_shelter_setup",
+      "role": "material",
+      "specificity_size": 7,
+      "identity_any": ["재료", "제작 무기"],
+      "category_any": ["Survivalist"],
+      "text_any": ["텐트 장비 만들기"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "seed_handling",
+      "role": "material",
+      "specificity_size": 8,
+      "identity_any": ["원예 용품"],
+      "category_any": ["Farming"],
+      "text_any": ["씨앗 봉투에서 꺼내기"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "bedding_assembly",
+      "role": "material",
+      "specificity_size": 8,
+      "identity_any": ["재료", "소모성 재료"],
+      "category_any": ["Carpentry"],
+      "text_any": ["매트리스 만들기"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "harvest_pack_handling",
+      "role": "material",
+      "specificity_size": 8,
+      "identity_any": ["식품"],
+      "category_any": [],
+      "text_any": ["포대 자루", "sack of"],
+      "require_text_match": true
+    },
+    {
+      "cluster_id": "trap_net_assembly",
+      "role": "material",
+      "specificity_size": 8,
+      "identity_any": ["소모성 재료"],
+      "category_any": ["Fishing", "Trapper"],
+      "text_any": ["어망 만들기", "철장 덫 만들기"],
+      "require_text_match": true
+    }
+  ]
+}

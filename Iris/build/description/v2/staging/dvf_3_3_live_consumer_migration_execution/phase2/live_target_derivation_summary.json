@@ -1,0 +1,13 @@
+{
+  "excluded_non_live_target_count": 44,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_mutation_required_count": 0,
+  "live_target_paths": [],
+  "schema_version": "dvf-3-3-live-target-derivation-summary-v1",
+  "status": "PASS",
+  "status_counts": {
+    "excluded_non_live_target": 44,
+    "live_verified_already": 109
+  },
+  "total_migrated_rows": 153
+}

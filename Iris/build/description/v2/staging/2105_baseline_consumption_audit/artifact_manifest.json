@@ -1,0 +1,267 @@
+{
+  "audit_id": "2105_baseline_consumption_audit",
+  "default_route_contamination_guard": "generate_2105_baseline_audit.py and validate_2105_baseline_audit.py are staging-only support artifacts and are not part of the default current build/test route.",
+  "files": [
+    {
+      "fingerprinted": true,
+      "path": "scope_lock.md",
+      "required": true,
+      "single_writer_phase": "0"
+    },
+    {
+      "fingerprinted": true,
+      "path": "taxonomy.json",
+      "required": true,
+      "single_writer_phase": "0"
+    },
+    {
+      "fingerprinted": true,
+      "path": "search_token_manifest.json",
+      "required": true,
+      "single_writer_phase": "0"
+    },
+    {
+      "fingerprinted": true,
+      "path": "artifact_manifest.json",
+      "required": true,
+      "single_writer_phase": "0"
+    },
+    {
+      "fingerprinted": true,
+      "path": "generate_2105_baseline_audit.py",
+      "required": true,
+      "single_writer_phase": "0"
+    },
+    {
+      "fingerprinted": true,
+      "path": "validate_2105_baseline_audit.py",
+      "required": true,
+      "single_writer_phase": "0"
+    },
+    {
+      "fingerprinted": true,
+      "path": "raw_occurrences.jsonl",
+      "required": true,
+      "single_writer_phase": "1"
+    },
+    {
+      "fingerprinted": true,
+      "path": "raw_occurrences.md",
+      "required": true,
+      "single_writer_phase": "1"
+    },
+    {
+      "fingerprinted": true,
+      "path": "raw_inventory_summary.md",
+      "required": true,
+      "single_writer_phase": "1"
+    },
+    {
+      "fingerprinted": true,
+      "path": "incidental_excluded_index.md",
+      "required": true,
+      "single_writer_phase": "1"
+    },
+    {
+      "fingerprinted": true,
+      "path": "referent_map.jsonl",
+      "required": true,
+      "single_writer_phase": "2"
+    },
+    {
+      "fingerprinted": true,
+      "path": "referent_map.md",
+      "required": true,
+      "single_writer_phase": "2"
+    },
+    {
+      "fingerprinted": true,
+      "path": "ambiguous_referent_queue.md",
+      "required": true,
+      "single_writer_phase": "2"
+    },
+    {
+      "fingerprinted": true,
+      "path": "surface_inventory.jsonl",
+      "required": true,
+      "single_writer_phase": "3"
+    },
+    {
+      "fingerprinted": true,
+      "path": "surface_classification.md",
+      "required": true,
+      "single_writer_phase": "3"
+    },
+    {
+      "fingerprinted": true,
+      "path": "ambiguous_surface_review.md",
+      "required": true,
+      "single_writer_phase": "3"
+    },
+    {
+      "fingerprinted": true,
+      "path": "consumer_type_map.jsonl",
+      "required": true,
+      "single_writer_phase": "4"
+    },
+    {
+      "fingerprinted": true,
+      "path": "consumer_type_map.md",
+      "required": true,
+      "single_writer_phase": "4"
+    },
+    {
+      "fingerprinted": true,
+      "path": "executing_consumers.jsonl",
+      "required": true,
+      "single_writer_phase": "4"
+    },
+    {
+      "fingerprinted": true,
+      "path": "executing_consumer_reach.md",
+      "required": true,
+      "single_writer_phase": "4"
+    },
+    {
+      "fingerprinted": true,
+      "path": "classified_ledger.jsonl",
+      "required": true,
+      "single_writer_phase": "5"
+    },
+    {
+      "fingerprinted": true,
+      "path": "classified_ledger.md",
+      "required": true,
+      "single_writer_phase": "5"
+    },
+    {
+      "fingerprinted": true,
+      "path": "authority_matrix.json",
+      "required": true,
+      "single_writer_phase": "5"
+    },
+    {
+      "fingerprinted": true,
+      "path": "migration_disposition.md",
+      "required": true,
+      "single_writer_phase": "5"
+    },
+    {
+      "fingerprinted": true,
+      "path": "ambiguous_disposition.md",
+      "required": true,
+      "single_writer_phase": "5"
+    },
+    {
+      "fingerprinted": true,
+      "path": "high_risk_consumer_review.md",
+      "required": true,
+      "single_writer_phase": "6"
+    },
+    {
+      "fingerprinted": true,
+      "path": "high_risk_consumer_decision_table.csv",
+      "required": true,
+      "single_writer_phase": "6"
+    },
+    {
+      "fingerprinted": true,
+      "path": "migration_precondition_list.md",
+      "required": true,
+      "single_writer_phase": "6"
+    },
+    {
+      "fingerprinted": true,
+      "path": "validator_test_tool_impact.md",
+      "required": true,
+      "single_writer_phase": "7"
+    },
+    {
+      "fingerprinted": true,
+      "path": "current_route_index.md",
+      "required": true,
+      "single_writer_phase": "7"
+    },
+    {
+      "fingerprinted": true,
+      "path": "historical_route_index.md",
+      "required": true,
+      "single_writer_phase": "7"
+    },
+    {
+      "fingerprinted": true,
+      "path": "diagnostic_route_index.md",
+      "required": true,
+      "single_writer_phase": "7"
+    },
+    {
+      "fingerprinted": true,
+      "path": "executing_consumer_impact.md",
+      "required": true,
+      "single_writer_phase": "7"
+    },
+    {
+      "fingerprinted": true,
+      "path": "change_set.md",
+      "required": true,
+      "single_writer_phase": "8"
+    },
+    {
+      "fingerprinted": true,
+      "path": "change_required_index.md",
+      "required": true,
+      "single_writer_phase": "8"
+    },
+    {
+      "fingerprinted": true,
+      "path": "change_forbidden_index.md",
+      "required": true,
+      "single_writer_phase": "8"
+    },
+    {
+      "fingerprinted": true,
+      "path": "dual_gate_result.json",
+      "required": true,
+      "single_writer_phase": "8"
+    },
+    {
+      "fingerprinted": true,
+      "path": "closeout_status.md",
+      "required": true,
+      "single_writer_phase": "8"
+    },
+    {
+      "fingerprinted": true,
+      "path": "audit_closeout.md",
+      "required": true,
+      "single_writer_phase": "9"
+    },
+    {
+      "fingerprinted": false,
+      "path": "artifact_fingerprint.txt",
+      "required": true,
+      "single_writer_phase": "9"
+    },
+    {
+      "fingerprinted": false,
+      "path": "validation_result.md",
+      "required": true,
+      "single_writer_phase": "9"
+    },
+    {
+      "fingerprinted": true,
+      "path": "consumption_inventory.jsonl",
+      "required": true,
+      "single_writer_phase": "9"
+    },
+    {
+      "fingerprinted": true,
+      "path": "consumer_matrix.csv",
+      "required": true,
+      "single_writer_phase": "9"
+    }
+  ],
+  "generated_at_utc": "2026-06-12T11:25:27+00:00",
+  "single_writer_assertion": "Each artifact has exactly one single_writer_phase; change_required_index.md and change_forbidden_index.md are Phase 8 only.",
+  "staging_root": "Iris/build/description/v2/staging/2105_baseline_consumption_audit"
+}

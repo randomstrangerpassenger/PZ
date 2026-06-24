@@ -1,0 +1,13 @@
+{
+  "binding_status": "rebound_to_direct_plan_artifact",
+  "claim_boundary": "DVF 3-3 closeout claim boundary is axis-qualified. Broad completion and cutover subset completion are separated. Predecessor 2105 / 2084 / 21 cannot reenter as current hard gate, runtime authority, current debt, package authority, or release readiness. Required-validation guard adoption is governance-only and does not mutate source, rendered, Lua bridge, runtime, or package authority surfaces.",
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "schema_version": "dvf-3-3-closeout-reentry-roadmap-input-binding-v1",
+  "source_attachment_path": "C:/Users/MW/.codex/attachments/b1594479-027f-40f2-b7fc-edaee92df52a/pasted-text.txt",
+  "source_attachment_readable_in_current_workspace": false,
+  "source_attachment_sha256": "AD5CEC639DA01B60E6E905FD1DBCC94702D2F604756DDE996A7E7417AEEBD6AA",
+  "stable_rebound_line_count": 976,
+  "stable_rebound_path": "docs/dvf_3_3_closeout_reentry_guard_seal_plan.md",
+  "stable_rebound_sha256": "c45a9bee92ab9d2c4cfb255343cec316ae44e1b6d6a59a7dd8636ef7c8b444c5",
+  "status": "PASS"
+}

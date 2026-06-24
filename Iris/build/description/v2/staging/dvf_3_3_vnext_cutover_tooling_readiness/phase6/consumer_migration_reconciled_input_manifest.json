@@ -1,0 +1,21 @@
+{
+  "accepted_row_count": 27869,
+  "actual_apply_eligible_row_count": 163,
+  "actual_diff_ledger_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/actual_diff_to_ledger_report.json",
+  "blocked_row_count": 0,
+  "change_forbidden_row_count": 27558,
+  "change_required_row_count": 311,
+  "claim_boundary": "candidate predicate only; not cutover authorization",
+  "diagnostic_preserved_row_count": 0,
+  "downstream_phase5_consumption_note": "consume readiness row ledger and diff-to-ledger report; not raw matrix",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "historical_preserved_row_count": 0,
+  "missing_apply_eligible_row_count": 0,
+  "no_op_row_count": 148,
+  "non_apply_reconciled_row_count": 148,
+  "row_disposition_ledger_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+  "schema_version": "dvf-3-3-vnext-cutover-tooling-consumer-migration-reconciled-input-v0",
+  "source_matrix_fingerprint": "633357da9b1a3919a69d509ec4d508ec8296e8706d1e703967187a8505d83d2c",
+  "source_matrix_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+  "verdict": "PASS"
+}

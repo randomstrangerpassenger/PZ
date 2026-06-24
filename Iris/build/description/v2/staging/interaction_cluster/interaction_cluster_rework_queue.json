@@ -1,0 +1,62 @@
+{
+  "schema_version": "interaction-cluster-rework-queue-v0",
+  "summary": {
+    "cluster_absent_review_count": 1,
+    "manual_override_required_count": 0,
+    "policy_excluded_review_count": 0,
+    "too_generic_use_count": 0,
+    "cluster_misaligned_count": 0,
+    "v9_warn_count": 0,
+    "tie_break_review_count": 1,
+    "hotspot_bucket_count": 1
+  },
+  "hotspot_buckets": [
+    {
+      "bucket_id": "layer4_rich_layer3_sparse",
+      "assignment_rate": 0.5,
+      "candidate_count": 2,
+      "reasons": [
+        "low_assignment_rate"
+      ],
+      "item_ids": [
+        "Base.GunpowderCan",
+        "Base.ModKit"
+      ]
+    }
+  ],
+  "queue": {
+    "cluster_absent_review": [
+      {
+        "item_id": "Base.GunpowderCan",
+        "analysis_bucket": "layer4_rich_layer3_sparse",
+        "cluster_policy_status": null,
+        "policy_excluded_reason_codes": [],
+        "reason": "cluster_absent",
+        "recommendation": "review cluster coverage for this item or confirm direct_use-only handling",
+        "selected_cluster": null,
+        "merge_case": "cluster_absent_keep_direct_use",
+        "selection_path": "cluster_absent",
+        "use_source": "direct_use"
+      }
+    ],
+    "manual_override_required": [],
+    "policy_excluded_review": [],
+    "too_generic_use": [],
+    "cluster_misaligned": [],
+    "v9_warn": [],
+    "tie_break_review": [
+      {
+        "item_id": "Base.ModKit",
+        "analysis_bucket": "layer4_rich_layer3_sparse",
+        "cluster_policy_status": null,
+        "policy_excluded_reason_codes": [],
+        "reason": "provisional_tie_break",
+        "recommendation": "review provisional role tie-break suitability during pilot",
+        "selected_cluster": "gun_modding",
+        "merge_case": "direct_use_replaced_by_cluster",
+        "selection_path": "manual_override_applied",
+        "use_source": "cluster_summary"
+      }
+    ]
+  }
+}

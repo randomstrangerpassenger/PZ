@@ -1,0 +1,11 @@
+{
+  "chunk_dir_exists": true,
+  "duplicate_key_count": 0,
+  "entry_count": 2105,
+  "manifest_exists": true,
+  "missing_chunk_count": 0,
+  "missing_chunks": [],
+  "referenced_chunk_count": 11,
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-predecessor-parse-report-v0",
+  "status": "PASS"
+}

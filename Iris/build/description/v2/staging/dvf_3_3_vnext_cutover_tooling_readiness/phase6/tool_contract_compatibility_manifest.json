@@ -1,0 +1,68 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "consumer_migration_contract": {
+    "diff_to_ledger": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/actual_diff_to_ledger_report.json",
+    "ledger": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+    "manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/consumer_migration_reconciled_input_manifest.json"
+  },
+  "downstream_required_validation_families": [
+    "overlay_support_generation",
+    "runtime_chunk_cutover_readiness",
+    "consumer_migration_executor",
+    "row_level_migration_ledger",
+    "actual_diff_to_ledger",
+    "command_surface_mapping"
+  ],
+  "fixed_downstream_plan_compatibility": "PASS",
+  "fixed_downstream_plan_fingerprint": "c7bc129c42ce869c710c3079d6f9d829285462c67b9caad9ecdbf609df0eb78d",
+  "fixed_downstream_plan_path": "docs/dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration_plan.md",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "mapped_validation_families": [
+    "actual_diff_to_ledger",
+    "command_surface_mapping",
+    "consumer_migration_executor",
+    "overlay_support_generation",
+    "row_level_migration_ledger",
+    "runtime_chunk_cutover_readiness"
+  ],
+  "phase0_command_surface_mapping_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase0/command_surface_mapping.json",
+  "readiness_to_downstream_artifact_map": [
+    {
+      "downstream_artifact": "Phase 0 overlay input lineage and support artifact",
+      "downstream_phase": "downstream_phase0",
+      "readiness_artifact": "phase1/overlay_support_seal_report.json"
+    },
+    {
+      "downstream_artifact": "Phase 4 runtime cutover guarded command template",
+      "downstream_phase": "downstream_phase4",
+      "readiness_artifact": "phase2/atomic_cutover_mirror_apply_report.json"
+    },
+    {
+      "downstream_artifact": "Phase 5 consumer migration executor evidence",
+      "downstream_phase": "downstream_phase5",
+      "readiness_artifact": "phase3/consumer_migration_actual_report.json"
+    },
+    {
+      "downstream_artifact": "Phase 5 row-level migration ledger",
+      "downstream_phase": "downstream_phase5",
+      "readiness_artifact": "phase3/row_level_migration_ledger.jsonl"
+    },
+    {
+      "downstream_artifact": "Phase 5 actual diff-to-ledger validation",
+      "downstream_phase": "downstream_phase5",
+      "readiness_artifact": "phase4/actual_diff_to_ledger_report.json"
+    },
+    {
+      "downstream_artifact": "Downstream Phase 0 command surface mapping",
+      "downstream_phase": "downstream_phase0",
+      "readiness_artifact": "phase5/command_surface_mapping_validation_report.json"
+    }
+  ],
+  "runtime_cutover_contract": {
+    "mirror_apply": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/atomic_cutover_mirror_apply_report.json",
+    "template": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/runtime_cutover_live_command_template.json"
+  },
+  "schema_version": "dvf-3-3-vnext-tool-contract-compatibility-manifest-v0",
+  "unmapped_validation_families": [],
+  "verdict": "PASS"
+}

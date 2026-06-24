@@ -1,0 +1,8 @@
+{
+  "dual_reentry_authority_count": 0,
+  "existing_shared_disposition_guard_role": "predecessor_required_gate_input",
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "new_closeout_reentry_guard_role": "owning_current_governance_route",
+  "schema_version": "dvf-3-3-dual-reentry-authority-report-v1",
+  "status": "PASS"
+}

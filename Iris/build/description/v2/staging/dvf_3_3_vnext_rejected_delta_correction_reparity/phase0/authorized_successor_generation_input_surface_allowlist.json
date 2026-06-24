@@ -1,0 +1,19 @@
+{
+  "authorized_source_files": [
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot/dvf_3_3_facts.corrected.jsonl",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot/dvf_3_3_decisions.corrected.jsonl",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_source_manifest.json"
+  ],
+  "authorized_write_roots": [
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot"
+  ],
+  "closed": true,
+  "forbidden_write_roots": [
+    "Iris/build/description/v2/data",
+    "Iris/build/description/v2/output",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks"
+  ],
+  "global_state_remap_allowed": false,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-authorized-input-surface-v0"
+}

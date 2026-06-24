@@ -1,0 +1,14 @@
+{
+  "schema_version": "lua-bridge-export-default-invocation-contract-v1",
+  "bridge_context": "staging",
+  "format": "chunk",
+  "default_input_rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\output\\dvf_3_3_rendered.json",
+  "input_scale": "fixture",
+  "input_authority_status": "fixture_non_authority",
+  "default_output_root": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\lua_bridge_export\\default",
+  "default_chunk_manifest_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\lua_bridge_export\\default\\IrisLayer3DataChunks.lua",
+  "default_chunk_dir": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\lua_bridge_export\\default\\IrisLayer3DataChunks",
+  "monolith_generated": false,
+  "live_destination": false,
+  "pass": true
+}

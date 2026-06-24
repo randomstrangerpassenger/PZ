@@ -1,0 +1,8 @@
+{
+  "compose_context": "staging",
+  "output_path_class": "staging",
+  "requeue_path_class": "staging",
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-compose-context-verdict-v0",
+  "status": "PASS",
+  "style_log_path_class": "staging"
+}

@@ -1,0 +1,22 @@
+{
+  "re_diff_used": false,
+  "runtime_parity_deltas": {
+    "bytes": 3498338,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_deltas.jsonl",
+    "role": "sealed_per_row_source",
+    "sha256": "8830fee1f6f877f73697899a887f82e70bbd9aa441af3aa415e0aefbc1dd9440"
+  },
+  "runtime_parity_report": {
+    "bytes": 50357,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_report.json",
+    "role": "bound_runtime_parity_report",
+    "sha256": "392f83d65eaaaf783655f743a8aecdced4fcf86c1f8f500f8e33c5bbcda6247c"
+  },
+  "schema_version": "dvf-3-3-vnext-runtime-parity-delta-source-authority-v0",
+  "source_authority": "sealed_2_4a_parity_evidence_only",
+  "status": "PASS"
+}

@@ -1,0 +1,85 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "protected_paths": [
+    {
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "role": "current_input_manifest"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "role": "current_facts"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "role": "current_decisions"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "role": "current_rendered"
+    },
+    {
+      "kind": "file",
+      "optional": true,
+      "path": "Iris/build/description/v2/output/style_normalization_changes.jsonl",
+      "role": "current_style_side_output"
+    },
+    {
+      "kind": "file",
+      "optional": true,
+      "path": "Iris/build/description/v2/output/compose_requeue_candidates.jsonl",
+      "role": "current_requeue_side_output"
+    },
+    {
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "role": "live_runtime_chunk_manifest"
+    },
+    {
+      "kind": "dir",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "role": "live_runtime_chunk_dir"
+    },
+    {
+      "kind": "file",
+      "optional": true,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": "live_runtime_monolith"
+    },
+    {
+      "kind": "dir",
+      "optional": true,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data",
+      "role": "canonical_package_output"
+    },
+    {
+      "kind": "dir",
+      "optional": true,
+      "path": "Iris/Iris/media/lua/client/Iris/Data",
+      "role": "legacy_looking_unresolved_package_candidate"
+    },
+    {
+      "kind": "file",
+      "optional": true,
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "stale_bridge_forbidden_path"
+    },
+    {
+      "kind": "file",
+      "optional": true,
+      "path": "Iris/Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "stale_bridge_forbidden_path"
+    },
+    {
+      "kind": "file",
+      "optional": true,
+      "path": "media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "stale_bridge_forbidden_path"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-cutover-tooling-protected-surface-v0"
+}

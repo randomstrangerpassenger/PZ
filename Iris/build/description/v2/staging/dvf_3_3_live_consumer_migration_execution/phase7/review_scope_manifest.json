@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "review_scope": [
+    "claim boundary",
+    "evidence role separation",
+    "sandbox/live separation",
+    "hard-forbidden authority surface mutation",
+    "release-readiness overclaim",
+    "current-authority-recutover overclaim"
+  ],
+  "schema_version": "dvf-3-3-live-review-scope-manifest-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,8 @@
+{
+  "blocked_policy_mutation_count": 0,
+  "deferred_count": 0,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-non-correction-isolation-v0",
+  "scope_exclusion_count": 0,
+  "status": "PASS",
+  "unresolved_policy_candidate_count": 0
+}

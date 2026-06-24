@@ -1,0 +1,28 @@
+{
+  "disposition_enum": [
+    "approved",
+    "deferred",
+    "rejected"
+  ],
+  "required_fields": [
+    "delta_id",
+    "key",
+    "axis",
+    "source_anchor",
+    "candidate_anchor",
+    "parity_report_anchor",
+    "consumer_migration_anchor",
+    "disposition",
+    "runtime_eligible",
+    "reviewer_role",
+    "reviewer_identity",
+    "rationale_code"
+  ],
+  "reviewer_role_enum": [
+    "author",
+    "maintainer",
+    "validator",
+    "closeout_owner"
+  ],
+  "schema_version": "dvf-3-3-vnext-delta-disposition-schema-v0"
+}

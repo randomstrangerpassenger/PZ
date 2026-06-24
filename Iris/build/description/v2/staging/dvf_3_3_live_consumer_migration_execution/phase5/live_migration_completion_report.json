@@ -1,0 +1,17 @@
+{
+  "claim_boundary": "DVF 3-3 live consumer migration execution evidence only; not current authority recutover, not source/rendered/Lua-bridge/runtime-chunk/package authority mutation, not package readiness, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, not manual in-game QA, and not public-facing text quality acceptance.",
+  "completion_state": "live_reflection_verified_no_live_mutation_required",
+  "excluded_non_live_target": 44,
+  "final_status_counts": {
+    "excluded_non_live_target": 44,
+    "live_verified_already": 109
+  },
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_ambiguous": 0,
+  "live_applied": 0,
+  "live_blocked": 0,
+  "live_verified_already": 109,
+  "sandbox_readiness_evidence_excluded_from_completion": true,
+  "schema_version": "dvf-3-3-live-migration-completion-report-v1",
+  "status": "PASS"
+}

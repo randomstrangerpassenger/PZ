@@ -1,0 +1,6 @@
+{
+  "deferred_count": 0,
+  "deferred_runtime_eligible_count": 0,
+  "schema_version": "dvf-3-3-vnext-deferred-delta-nonblocking-tracking-v0",
+  "status": "PASS"
+}

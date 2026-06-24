@@ -1,0 +1,29 @@
+{
+  "approved_manifest_index_only": true,
+  "cutover_input_usable": false,
+  "errors": [],
+  "objective": "current route guard integration",
+  "observed_disposition_counts": {
+    "approved": 2017,
+    "deferred": 0,
+    "rejected": 108,
+    "runtime_eligible": 2017,
+    "total": 2125
+  },
+  "observed_parity_counts": {
+    "publish_state_legacy_visibility": 2105,
+    "state": 54,
+    "text_ko": 2071
+  },
+  "prior_evidence_read_only": true,
+  "required_counts": {
+    "approved": 2017,
+    "deferred": 0,
+    "rejected": 108,
+    "state": 54,
+    "text_ko": 2071,
+    "total": 2125
+  },
+  "schema_version": "dvf-3-3-vnext-delta-guard-current-route-input-contract-v1",
+  "status": "PASS"
+}

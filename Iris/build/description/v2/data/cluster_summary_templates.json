@@ -1,0 +1,281 @@
+{
+  "schema_version": "cluster-summary-templates-v0",
+  "status": "seed",
+  "allowed_skeletons": [
+    "action_centered",
+    "role_centered",
+    "membership_centered"
+  ],
+  "templates": [
+    {
+      "cluster_id": "metalwork_anvil",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "금속 단조 작업에서 금속을 다루거나 모양을 잡을 때 쓴다",
+        "role_centered": "금속 단조에 쓰는 도구다",
+        "membership_centered": "금속 단조 작업에 들어가는 도구다"
+      }
+    },
+    {
+      "cluster_id": "metalwork_welding",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "금속 접합 작업에서 금속을 붙일 때 쓴다",
+        "role_centered": "금속 접합에 쓰는 도구다",
+        "membership_centered": "금속 접합 작업에 들어가는 도구다"
+      }
+    },
+    {
+      "cluster_id": "woodcutting",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "벌목 작업에서 나무를 찍거나 자를 때 쓴다",
+        "role_centered": "벌목에 쓰는 도구다",
+        "membership_centered": "벌목 작업에 들어가는 도구다"
+      }
+    },
+    {
+      "cluster_id": "melee_combat",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "근접 전투에서 타격하거나 밀어낼 때 쓴다",
+        "role_centered": "근접 전투에 쓰는 무기다",
+        "membership_centered": "근접 전투에 들어가는 무기다"
+      }
+    },
+    {
+      "cluster_id": "electronics_assembly",
+      "default_skeleton": "membership_centered",
+      "templates": {
+        "action_centered": "전자 조립 작업에서 부품을 맞출 때 들어간다",
+        "role_centered": "전자 조립에 쓰는 부품이다",
+        "membership_centered": "전자 조립 작업에 들어가는 부품이다"
+      }
+    },
+    {
+      "cluster_id": "explosive_assembly",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다",
+        "role_centered": "즉석 폭발물 조립에 쓰는 폭발물이다",
+        "membership_centered": "즉석 폭발물 조립 작업에 들어가는 폭발물이다"
+      }
+    },
+    {
+      "cluster_id": "explosive_devices",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다",
+        "role_centered": "폭발물 운용에 쓰는 장치다",
+        "membership_centered": "폭발물 운용 작업에 들어가는 장치다"
+      }
+    },
+    {
+      "cluster_id": "cooking_prep",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "조리 작업에서 재료를 익히거나 다룰 때 쓴다",
+        "role_centered": "조리에 쓰는 도구다",
+        "membership_centered": "조리 작업에 들어가는 도구다"
+      }
+    },
+    {
+      "cluster_id": "medical_treatment",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "의료 처치 작업에서 상처를 소독하거나 치료할 때 쓴다",
+        "role_centered": "의료 처치에 쓰는 소모품이다",
+        "membership_centered": "의료 처치 작업에 들어가는 소모품이다"
+      }
+    },
+    {
+      "cluster_id": "gun_modding",
+      "default_skeleton": "membership_centered",
+      "templates": {
+        "action_centered": "총기 개조 작업에서 부품을 맞출 때 들어간다",
+        "role_centered": "총기 개조에 쓰는 부품이다",
+        "membership_centered": "총기 개조 작업에 들어가는 부품이다"
+      }
+    },
+    {
+      "cluster_id": "ammo_crafting",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "탄약 제작 작업에서 탄약을 만들 때 쓴다",
+        "role_centered": "탄약 제작에 쓰는 도구다",
+        "membership_centered": "탄약 제작 작업에 들어가는 도구다"
+      }
+    },
+    {
+      "cluster_id": "ammo_loading",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다",
+        "role_centered": "장전 준비에 쓰는 탄약이다",
+        "membership_centered": "장전 준비 작업에 들어가는 탄약이다"
+      }
+    },
+    {
+      "cluster_id": "ammo_molding",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "탄약 주조 작업에서 탄 틀을 맞추거나 준비할 때 쓴다",
+        "role_centered": "탄약 주조에 쓰는 틀이다",
+        "membership_centered": "탄약 주조 작업에 들어가는 틀이다"
+      }
+    },
+    {
+      "cluster_id": "firearm_loading",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "총기 장전 작업에서 탄창을 끼우거나 탄약을 공급할 때 쓴다",
+        "role_centered": "총기 장전에 쓰는 탄창이다",
+        "membership_centered": "총기 장전 작업에 들어가는 탄창이다"
+      }
+    },
+    {
+      "cluster_id": "ammo_storage_carry",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "탄약 휴대 작업에서 탄약을 몸에 나눠 챙길 때 쓴다",
+        "role_centered": "탄약 휴대에 쓰는 장비다",
+        "membership_centered": "탄약 휴대 작업에 들어가는 장비다"
+      }
+    },
+    {
+      "cluster_id": "ranged_firearm_combat",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "사격 전투에서 멀리 있는 대상을 겨눠 쏠 때 쓴다",
+        "role_centered": "사격 전투에 쓰는 화기다",
+        "membership_centered": "사격 전투에 들어가는 화기다"
+      }
+    },
+    {
+      "cluster_id": "fabric_repair",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "천 재봉 작업에서 천을 꿰맬 때 쓴다",
+        "role_centered": "천 재봉에 쓰는 도구다",
+        "membership_centered": "천 재봉 작업에 들어가는 도구다"
+      }
+    },
+    {
+      "cluster_id": "adhesive_repair_supply",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "접착 수리 작업에서 손상된 물건의 이음부를 붙일 때 쓰는 자재다",
+        "role_centered": "접착 수리에 쓰는 자재다",
+        "membership_centered": "접착 수리 작업에 들어가는 자재다"
+      }
+    },
+    {
+      "cluster_id": "solid_fuel_material",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "불을 피우거나 화력을 유지할 때 넣는 고체 연료다",
+        "role_centered": "불을 피우는 데 쓰는 고체 연료다",
+        "membership_centered": "화력 유지 작업에 들어가는 고체 연료다"
+      }
+    },
+    {
+      "cluster_id": "metalworking_consumable_supply",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "금속 구조물을 이어 붙이거나 보강할 때 쓰는 소모성 자재다",
+        "role_centered": "금속 접합에 쓰는 소모성 자재다",
+        "membership_centered": "금속 접합 작업에 들어가는 소모성 자재다"
+      }
+    },
+    {
+      "cluster_id": "container_storage",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "보관 정리 작업에서 물건을 상자나 가방에 담아 옮길 때 쓴다",
+        "role_centered": "보관 정리에 쓰는 용기다",
+        "membership_centered": "보관 정리 작업에 들어가는 용기다"
+      }
+    },
+    {
+      "cluster_id": "disassembly_repair",
+      "default_skeleton": "role_centered",
+      "templates": {
+        "action_centered": "분해나 간단한 조립 작업에서 부품을 다룰 때 쓴다",
+        "role_centered": "분해와 간단 조립에 쓰는 도구다",
+        "membership_centered": "분해 및 간단 조립 작업에 들어가는 도구다"
+      }
+    },
+    {
+      "cluster_id": "improvised_weapon_assembly",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "즉석 무기 제작 작업에서 창 끝을 보강할 때 쓴다",
+        "role_centered": "즉석 무기 제작에 쓰는 재료다",
+        "membership_centered": "즉석 무기 제작 작업에 들어가는 재료다"
+      }
+    },
+    {
+      "cluster_id": "fuel_handling",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "연료 취급 작업에서 연료를 옮기거나 넣을 때 쓴다",
+        "role_centered": "연료 취급에 쓰는 용기다",
+        "membership_centered": "연료 취급 작업에 들어가는 용기다"
+      }
+    },
+    {
+      "cluster_id": "construction_prep",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "건축 준비 작업에서 자재를 가공하거나 맞출 때 쓴다",
+        "role_centered": "건축 준비에 쓰는 도구다",
+        "membership_centered": "건축 준비 작업에 들어가는 도구다"
+      }
+    },
+    {
+      "cluster_id": "field_shelter_setup",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "야영 준비 작업에서 임시 거처를 설치할 때 쓴다",
+        "role_centered": "야영 준비에 쓰는 재료다",
+        "membership_centered": "야영 준비 작업에 들어가는 재료다"
+      }
+    },
+    {
+      "cluster_id": "seed_handling",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "농사 준비 작업에서 씨앗을 꺼내거나 나눌 때 쓴다",
+        "role_centered": "농사 준비에 쓰는 재료다",
+        "membership_centered": "농사 준비 작업에 들어가는 재료다"
+      }
+    },
+    {
+      "cluster_id": "bedding_assembly",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "침구 제작 작업에서 속재를 맞추거나 꿰맬 때 쓴다",
+        "role_centered": "침구 제작에 쓰는 재료다",
+        "membership_centered": "침구 제작 작업에 들어가는 재료다"
+      }
+    },
+    {
+      "cluster_id": "harvest_pack_handling",
+      "default_skeleton": "action_centered",
+      "templates": {
+        "action_centered": "수확물 정리 작업에서 포대를 풀거나 나눌 때 쓴다",
+        "role_centered": "수확물 정리에 쓰는 재료다",
+        "membership_centered": "수확물 정리 작업에 들어가는 재료다"
+      }
+    },
+    {
+      "cluster_id": "trap_net_assembly",
+      "default_skeleton": "membership_centered",
+      "templates": {
+        "action_centered": "덫이나 어망 제작 작업에서 묶거나 엮을 때 들어간다",
+        "role_centered": "덫과 어망 제작에 쓰는 재료다",
+        "membership_centered": "덫 및 어망 제작 작업에 들어가는 재료다"
+      }
+    }
+  ]
+}

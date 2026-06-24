@@ -1,0 +1,10 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-workspace-copy-disposition-v1",
+  "disposition": "copy_like_package_path_guarded",
+  "current_executable_workspace_copy_surface": "package_iris.ps1 media copy path",
+  "guarded_by": "Iris/tools/package_iris.ps1",
+  "historical_monolith_reflection_scripts_found": true,
+  "historical_monolith_reflection_disposition": "historical_or_diagnostic_surface_not_current_default_export_route",
+  "validation_limit": "No executable workspace-copy guard PASS is claimed for historical monolith reflection scripts in this round.",
+  "pass_closeout_allowed": true
+}

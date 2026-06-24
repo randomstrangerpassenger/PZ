@@ -1,0 +1,22 @@
+{
+  "diagnostic-only": [
+    "diagnostic_validator_surface",
+    "diagnostic_report_surface",
+    "non_authority_test_tool_diagnostic_path"
+  ],
+  "historical-only": [
+    "predecessor_trace",
+    "archive_or_done_doc",
+    "historical_fixture",
+    "staging_predecessor_evidence",
+    "generated_historical_trace"
+  ],
+  "no-op": [
+    "already_current_successor_contract",
+    "false_positive_no_mutation",
+    "generated_no_mutation",
+    "non_apply_missing_path",
+    "denominator_role_not_apply_target",
+    "preserved_reference_no_behavior_change"
+  ]
+}

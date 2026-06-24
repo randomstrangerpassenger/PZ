@@ -1,0 +1,24 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-no-mutation-verdict-v1",
+  "status": "PASS",
+  "live_monolith_disposition": "live_monolith_absent",
+  "changed_count": 0,
+  "protected_surfaces": [
+    "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+    "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua"
+  ]
+}

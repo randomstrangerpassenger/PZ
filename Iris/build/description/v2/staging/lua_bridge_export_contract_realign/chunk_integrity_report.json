@@ -1,0 +1,24 @@
+{
+  "schema_version": "iris-lua-bridge-chunk-integrity-v1",
+  "chunk_manifest_path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks.lua",
+  "chunk_output_dir": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks",
+  "chunk_count": 1,
+  "manifest_modules": [
+    "Iris/Data/IrisLayer3DataChunks/Chunk001"
+  ],
+  "missing_chunks": [],
+  "orphan_chunks": [],
+  "duplicate_keys": [],
+  "manifest_hash": "7b5a260289a77b5a71e3f98d949c21f0fa048e8325256433268a00ddb1b1a5a0",
+  "chunk_hashes": [
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk001",
+      "path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks\\Chunk001.lua",
+      "sha256": "8667cc09d4fbd315e3ea48e16ce36ba6835b890eeb1c57d4800bff8ef716a533",
+      "bytes": 3397,
+      "entry_count": 7
+    }
+  ],
+  "pass": true,
+  "failures": []
+}

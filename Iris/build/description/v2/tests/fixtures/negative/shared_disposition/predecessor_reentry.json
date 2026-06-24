@@ -1,0 +1,7 @@
+{
+  "expected_findings": [
+    "PREDECESSOR_REENTRY"
+  ],
+  "lifecycle_role": "current_debt",
+  "token": "2105"
+}

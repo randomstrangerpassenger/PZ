@@ -1,0 +1,28 @@
+{
+  "candidate_data_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge",
+  "chunk_count": 11,
+  "chunk_dir": {
+    "bytes": null,
+    "exists": true,
+    "kind": "dir",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge/IrisLayer3DataChunks",
+    "role": "candidate_chunk_dir",
+    "sha256": null
+  },
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "manifest": {
+    "bytes": 951,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge/IrisLayer3DataChunks.lua",
+    "role": "candidate_chunk_manifest",
+    "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+  },
+  "missing_chunk_count": 0,
+  "monolith_is_authority": false,
+  "monolith_present": false,
+  "path_escape_count": 0,
+  "schema_version": "dvf-3-3-vnext-runtime-candidate-validation-v0",
+  "status": "PASS"
+}

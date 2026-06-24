@@ -1,0 +1,77 @@
+{
+  "canonical_fixture_summaries": {
+    "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl": {
+      "duplicate_key_count": 0,
+      "key_count": 6,
+      "row_count": 6,
+      "state_counts": {
+        "adopted": 6
+      },
+      "unique_key_count": 6
+    },
+    "Iris/build/description/v2/data/dvf_3_3_facts.jsonl": {
+      "duplicate_key_count": 0,
+      "key_count": 6,
+      "row_count": 6,
+      "state_counts": {},
+      "unique_key_count": 6
+    },
+    "Iris/build/description/v2/output/dvf_3_3_rendered.json": {
+      "duplicate_key_count": 0,
+      "entries_sha256": "8bbab2b96ac9334cd13f050b292eea2af3c3345631ca331448a8ee1617022d9d",
+      "entry_count": 6,
+      "meta_stats": {
+        "adopted_composed": 6,
+        "adopted_override": 0,
+        "quality_flagged": 1,
+        "requeue_candidates": 1,
+        "total": 6,
+        "unadopted": 0
+      },
+      "missing_text_count": 0,
+      "publish_state_counts": {},
+      "source_counts": {
+        "composed": 6
+      },
+      "unique_key_count": 6
+    },
+    "Iris/build/description/v2/staging/compose_contract_migration/layer3_body_source_overlay.jsonl": {
+      "duplicate_key_count": 0,
+      "key_count": 6,
+      "row_count": 6,
+      "state_counts": {},
+      "unique_key_count": 6
+    }
+  },
+  "direct_read_fixture_failures": [
+    {
+      "count": 6,
+      "guard": "DIRECT_PRODUCTION_READ_REJECTED_FIXTURE_CARDINALITY",
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+    },
+    {
+      "count": 6,
+      "guard": "DIRECT_PRODUCTION_READ_REJECTED_FIXTURE_CARDINALITY",
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl"
+    },
+    {
+      "count": 6,
+      "guard": "DIRECT_PRODUCTION_READ_REJECTED_FIXTURE_CARDINALITY",
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json"
+    },
+    {
+      "count": 6,
+      "guard": "DIRECT_PRODUCTION_READ_REJECTED_FIXTURE_CARDINALITY",
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer3_body_source_overlay.jsonl"
+    }
+  ],
+  "direct_read_fixture_guard_count": 4,
+  "generated_at": "2026-06-12T06:29:32.672028+00:00",
+  "production_manifest_contamination_count": 0,
+  "production_manifest_fixture_reference_count": 0,
+  "production_manifest_fixture_references": [],
+  "round_id": "layer3-current-authority-reconstruction",
+  "schema_version": "layer3-fixture-contamination-guard-report-v0",
+  "status": "PASS",
+  "test_mode_fixture_opt_in_required": true
+}

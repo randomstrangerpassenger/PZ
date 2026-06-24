@@ -1,0 +1,25 @@
+{
+  "after_authority_candidate_status": "parameterized_successor_authority_handle",
+  "authority_handle": "vnext_corrected_successor_candidate_manifest_authority",
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "live_current_authority_adopted": false,
+  "rendered_candidate": {
+    "bytes": 3814549,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/rendered/dvf_3_3_rendered.vnext_corrected.json",
+    "role": "successor_candidate_staging_only",
+    "sha256": "b44430584ac0f652f489d0688b55832de9fde4d2958bbe9ae5f28a9766e92067"
+  },
+  "schema_version": "dvf-3-3-vnext-after-target-authority-handle-v0",
+  "source_manifest": {
+    "bytes": 3871,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_source_manifest.json",
+    "role": "successor_candidate_staging_only",
+    "sha256": "171dc2751b1e8e28fce28d29ba92ee6bd4fda9a825fedc7b0db1f7c120f2028c"
+  },
+  "status": "PASS"
+}

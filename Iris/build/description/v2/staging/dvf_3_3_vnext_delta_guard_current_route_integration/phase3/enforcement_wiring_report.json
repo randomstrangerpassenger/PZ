@@ -1,0 +1,12 @@
+{
+  "criteria_sha256": "f88c2b8cea2940391a31955edf088cda0d7cba3477cac30a9db563c39b9653b9",
+  "current_core_closure_expanded": false,
+  "fail_closed_for_missing_manifest": true,
+  "fail_closed_for_missing_or_failed_required_artifact": true,
+  "fail_closed_for_missing_required_test": true,
+  "required_manifest": "Iris/_docs/round3/current_route_required_validations.json",
+  "runner": "Iris/_docs/round3/round3_run_contract_tests.py",
+  "schema_version": "dvf-3-3-vnext-delta-guard-current-route-enforcement-wiring-v1",
+  "status": "PASS",
+  "tooling_allowlist_expanded": false
+}

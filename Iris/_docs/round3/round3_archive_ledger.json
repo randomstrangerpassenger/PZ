@@ -1,0 +1,8 @@
+{
+  "archive_actions": [],
+  "archive_or_delete_executed": false,
+  "delete_actions": [],
+  "generated_at": "2026-06-11T12:51:00+00:00",
+  "restore_instructions": "No archive/delete action executed in Round 3 Change 5. Restore is not required.",
+  "schema_version": "round3-archive-ledger-v1"
+}

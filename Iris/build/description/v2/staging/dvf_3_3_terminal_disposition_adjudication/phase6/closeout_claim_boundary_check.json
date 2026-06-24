@@ -1,0 +1,10 @@
+{
+  "canonical_complete": true,
+  "forbidden_claim_hit_count": 0,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "independent_review_status": "review_pass",
+  "machine_complete_and_canonical_complete_collapsed": false,
+  "owner_adoption_satisfies_independent_review": false,
+  "schema_version": "dvf-3-3-terminal-closeout-claim-boundary-check-v1",
+  "status": "PASS"
+}

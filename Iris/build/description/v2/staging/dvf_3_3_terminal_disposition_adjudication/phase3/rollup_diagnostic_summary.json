@@ -1,0 +1,9 @@
+{
+  "diagnostic_only": true,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "member_row_count": 1062,
+  "path_count": 126,
+  "schema_version": "dvf-3-3-terminal-rollup-diagnostic-summary-v1",
+  "status": "PASS",
+  "success_denominator_allowed": false
+}

@@ -1,0 +1,9 @@
+{
+  "forbidden_changes_count": 0,
+  "full_consumer_migration_execution": false,
+  "input_anchor": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+  "matrix_row_count": 27869,
+  "mutation_performed": false,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-consumer-migration-dry-run-v0",
+  "status": "PASS"
+}

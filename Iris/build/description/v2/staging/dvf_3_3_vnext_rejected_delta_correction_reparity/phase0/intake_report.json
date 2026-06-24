@@ -1,0 +1,47 @@
+{
+  "command_surface": [
+    {
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_rejected_delta_correction_reparity.py",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "output_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity",
+      "phase": "all"
+    },
+    {
+      "command": "python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "output_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase9",
+      "phase": "current-route-validation"
+    },
+    {
+      "command": "python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_*.py\"",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "output_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase9",
+      "phase": "unittest-discovery"
+    },
+    {
+      "command": "powershell -ExecutionPolicy Bypass -File ./tools/check_lua_syntax.ps1",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "output_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase9",
+      "phase": "lua-syntax"
+    }
+  ],
+  "prior_counts": {
+    "approved_count": 2017,
+    "deferred_count": 0,
+    "rejected_count": 108,
+    "runtime_eligible_count": 2017,
+    "total_delta_count": 2125
+  },
+  "rationale_counts": {
+    "GOVERNED_STATE_DELTA_REJECTED_POLICY_NO_MUTATION": 54,
+    "TEXT_DELTA_REJECTED_BY_STATE_AXIS": 54
+  },
+  "rejected_key_bundle_count": 54,
+  "rejected_row_count": 108,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-intake-report-v0",
+  "status": "PASS"
+}

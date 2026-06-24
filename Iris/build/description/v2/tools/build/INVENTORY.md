@@ -8,10 +8,10 @@ P7-3 note: `compose_layer3_text.py` has been split into the core entrypoint plus
 `compose_layer3_item.py`, and `compose_layer3_render.py`. The P0.5 scan counts
 below are retained as historical inventory values.
 
-Phase 1 v1.4 note (2026-05-04): the current tree was remeasured for
-`docs/Iris/iris-refactoring-final-roadmap-v1.md`. The global roadmap candidate
-universe is `build_*.py` 178 plus `report_*.py` 55, total 233. This remains a
-candidate universe only and is not an archive rule.
+Phase 1 v1.4 note (2026-05-04): the current tree was remeasured for the
+historical roadmap label `docs/Iris/iris-refactoring-final-roadmap-v1.md`. The
+global roadmap candidate universe is `build_*.py` 178 plus `report_*.py` 55,
+total 233. This remains a candidate universe only and is not an archive rule.
 
 Current local count for this directory:
 
@@ -269,9 +269,9 @@ even when Lua code remains unchanged.
 
 ## Phase 1 readpoint update (2026-06-07)
 
-Amendment for `docs/Iris/Iris_Refactoring_Plan.md` (Draft v6.0) Change 1. The
-counts above (2026-05-04, 269/264) are retained as historical inventory values;
-the values below are the current remeasurement.
+Historical amendment label for `docs/Iris/Iris_Refactoring_Plan.md` (Draft v6.0)
+Change 1. The counts above (2026-05-04, 269/264) are retained as historical
+inventory values; the values below are the current remeasurement.
 
 | Metric (2026-06-07) | Result |
 |---|---:|
@@ -283,7 +283,8 @@ the values below are the current remeasurement.
 
 - conflict 14.1 resolved: roadmap A(282)/B(269) were the same directory measured
   at different times; the sealed canonical value is **281**
-  (`docs/Iris/phase1_baseline_metrics.md` metric #1).
+  (historical baseline metric source: `docs/Iris/phase1_baseline_metrics.md`
+  metric #1).
 - Current tracked core (12): index generators
   `build_iris_{recipe,moveables,fixing}_index_data.py`, guard/recovery rounds
   `build_legacy_active_silent_current_surface_guard_round.py` +
@@ -297,5 +298,51 @@ the values below are the current remeasurement.
   `source_coverage {b1..b4,c1a..c1e}`, `post_cleanup phase3_pkg3{a..j}`,
   `role_fallback_hollow`, `freeze_quality_baseline_v{1..4}`,
   `report_*_{draft,final}`.
-- Readpoint: `docs/Iris/phase1_inventory_readpoint.md`; active manifest:
-  `docs/Iris/phase1_active_script_manifest.txt`.
+- Historical readpoint label: `docs/Iris/phase1_inventory_readpoint.md`;
+  historical execution manifest label: `docs/Iris/phase1_active_script_manifest.txt`
+  (historical reference only; no filename-glob archive/delete authority).
+
+## Round 3 test-contract boundary update (2026-06-11)
+
+Round 3 remeasured this directory as part of the build script and test contract
+disentanglement work. The measured `tools/build` count remains 281 Python
+scripts: 12 git-tracked active core modules and 269 gitignored reproduction or
+historical modules.
+
+The current unittest contract is now routed through
+`Iris/_docs/round3/round3_run_contract_tests.py` instead of full discovery:
+
+| Route | Cases | Treatment |
+|---|---:|---|
+| current | 44 | Default contract route, closure-guarded |
+| historical | 284 | Reproduction route, explicit run |
+| diagnostic | 79 | Advisory route, explicit run |
+
+The active core closure remains the 12 tracked modules recorded in
+`Iris/_docs/round3/round3_active_core_closure.json`. The current route includes
+`test_compose_layer3_text_overlay.py` by manual audit promotion because it
+imports only active composer modules and validates current overlay behavior.
+
+No archive/delete eligibility changes are made by this update. D2 disposition
+and D3 historical preservation policy remain separate approval gates.
+
+Round 3 closeout result:
+
+| Final Disposition | Count |
+|---|---:|
+| keep_current_core | 12 |
+| keep_historical_reproduction | 173 |
+| keep_diagnostic_advisory | 95 |
+| keep_manifest_only | 1 |
+| archive/delete eligible | 0 |
+
+D2 was non-destructive only: no file movement, archive output, delete, or
+`.gitignore` disposition edit occurred. D3 selected `pass_required`; the
+historical route passed 284 unittest cases. Closeout evidence lives at
+`Iris/_docs/round3/round3_closeout_report.md`.
+
+Archive/delete execution is complete as a no-op: the proof-backed candidate set
+is empty. Full historical artifact byte reproducibility was audited and remains
+fail-loud unresolved because all production mappings are still static-signal
+only; historical executable reproduction is covered by the explicit 284-test
+route.

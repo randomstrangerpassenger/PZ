@@ -1,0 +1,8 @@
+{
+  "adapter_implemented": false,
+  "adapter_reason": "not required because divergence_count is 0",
+  "adapter_required": false,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-shared-disposition-adapter-contract-v1",
+  "status": "PASS"
+}

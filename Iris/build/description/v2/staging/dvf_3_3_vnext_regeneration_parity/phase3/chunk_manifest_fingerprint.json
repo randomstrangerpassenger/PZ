@@ -1,0 +1,21 @@
+{
+  "aggregate_sha256": "245cee9aa504a82ed39f30b2adb9eecad6d1ccfbcae45b2e4653bf67fa6d9682",
+  "chunk_count": 11,
+  "chunk_dir": {
+    "bytes": null,
+    "exists": true,
+    "kind": "dir",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks",
+    "role": "successor_candidate_chunk_dir",
+    "sha256": null
+  },
+  "manifest": {
+    "bytes": 951,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks.lua",
+    "role": "successor_candidate_chunk_manifest",
+    "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+  },
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-chunk-manifest-fingerprint-v0"
+}

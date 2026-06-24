@@ -1,0 +1,13 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "denominator": {
+    "existing_current_route_guard_denominator": "current_route_required_validations.json required_tests",
+    "readiness_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness"
+  },
+  "dynamic_forbidden_reach": 0,
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "schema_version": "dvf-3-3-vnext-cutover-tooling-dual-zero-v0",
+  "static_forbidden_current_surface_hits": 0,
+  "static_unclassified_residue": 0,
+  "status": "PASS"
+}

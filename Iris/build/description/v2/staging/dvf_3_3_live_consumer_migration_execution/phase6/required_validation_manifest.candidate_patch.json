@@ -1,0 +1,7 @@
+{
+  "adoption_status": "candidate_only",
+  "candidate_command": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_live_consumer_migration_execution.py --require-complete",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_manifest_mutated": false,
+  "schema_version": "dvf-3-3-live-required-validation-candidate-patch-v1"
+}

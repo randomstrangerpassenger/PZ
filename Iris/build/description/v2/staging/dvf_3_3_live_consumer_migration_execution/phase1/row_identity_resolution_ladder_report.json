@@ -1,0 +1,31 @@
+{
+  "fuzzy_matching_used": false,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-live-row-identity-resolution-ladder-v1",
+  "status": "PASS",
+  "steps": [
+    {
+      "matched_count": 153,
+      "step": "canonical row id",
+      "unmatched_count": 0
+    },
+    {
+      "matched_count": 0,
+      "skipped_reason": "canonical row id resolved all rows",
+      "step": "terminal ledger key",
+      "unmatched_count": 0
+    },
+    {
+      "matched_count": 0,
+      "skipped_reason": "fuzzy repair forbidden",
+      "step": "current live surface anchor",
+      "unmatched_count": 0
+    },
+    {
+      "matched_count": 0,
+      "skipped_reason": "fuzzy repair forbidden",
+      "step": "normalized evidence tuple",
+      "unmatched_count": 0
+    }
+  ]
+}

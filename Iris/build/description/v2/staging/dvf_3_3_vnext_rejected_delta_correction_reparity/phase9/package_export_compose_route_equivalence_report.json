@@ -1,0 +1,32 @@
+{
+  "criteria_sha256": "f88c2b8cea2940391a31955edf088cda0d7cba3477cac30a9db563c39b9653b9",
+  "routes": {
+    "compose": {
+      "exists": true,
+      "marker_count": 5,
+      "missing_marker_count": 0,
+      "missing_markers": [],
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "status": "PASS"
+    },
+    "export": {
+      "exists": true,
+      "marker_count": 5,
+      "missing_marker_count": 0,
+      "missing_markers": [],
+      "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "status": "PASS"
+    },
+    "package": {
+      "exists": true,
+      "marker_count": 4,
+      "missing_marker_count": 0,
+      "missing_markers": [],
+      "path": "Iris/tools/package_iris.ps1",
+      "status": "PASS"
+    }
+  },
+  "schema_version": "dvf-3-3-vnext-rejected-correction-route-equivalence-v0",
+  "source_anchor": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_guard_current_route_integration/phase5/package_export_compose_guard_report.json",
+  "status": "PASS"
+}

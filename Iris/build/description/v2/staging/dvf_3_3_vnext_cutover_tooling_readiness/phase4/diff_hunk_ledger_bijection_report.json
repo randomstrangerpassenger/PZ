@@ -1,0 +1,825 @@
+{
+  "ambiguous_hunk_mapping_count": 0,
+  "bijection_count": 163,
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "rows": [
+    {
+      "diff_hunk_id": "hunk-004fe41efccb9cffaaa6c22a605d9dab",
+      "ledger_row_id": "ledger-004fe41efccb9cffaaa6c22a605d9dab",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-00ef7fe9a578dbbd4e716f868717bb43",
+      "ledger_row_id": "ledger-00ef7fe9a578dbbd4e716f868717bb43",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-027872984aaadf81533a6d6b80252446",
+      "ledger_row_id": "ledger-027872984aaadf81533a6d6b80252446",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-02c59b707f04b695727cdb453aa1721a",
+      "ledger_row_id": "ledger-02c59b707f04b695727cdb453aa1721a",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-03dbcca5f08521f5ac6d04956926e3df",
+      "ledger_row_id": "ledger-03dbcca5f08521f5ac6d04956926e3df",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-06f6befa33de93d072eb3e820f282f41",
+      "ledger_row_id": "ledger-06f6befa33de93d072eb3e820f282f41",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-07b045bc6cc0c967e0d81556aa08af7e",
+      "ledger_row_id": "ledger-07b045bc6cc0c967e0d81556aa08af7e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-0b9716f6aaab87b0d6566eff2aebe621",
+      "ledger_row_id": "ledger-0b9716f6aaab87b0d6566eff2aebe621",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-0be1cecbcbc5629472ed7c3911978004",
+      "ledger_row_id": "ledger-0be1cecbcbc5629472ed7c3911978004",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-0db367908a96495e026fd32c90b95885",
+      "ledger_row_id": "ledger-0db367908a96495e026fd32c90b95885",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-0edf992bf99b09da9f01a765c9efc448",
+      "ledger_row_id": "ledger-0edf992bf99b09da9f01a765c9efc448",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-0ef04cbbcf3957b030c6aafb5a777904",
+      "ledger_row_id": "ledger-0ef04cbbcf3957b030c6aafb5a777904",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-149b046727dfc4090bb61a50ceb5b4bd",
+      "ledger_row_id": "ledger-149b046727dfc4090bb61a50ceb5b4bd",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-15c1f753bd6ce397dfacc4791977be19",
+      "ledger_row_id": "ledger-15c1f753bd6ce397dfacc4791977be19",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-1602617a534964bb0e677d2a9691a8d9",
+      "ledger_row_id": "ledger-1602617a534964bb0e677d2a9691a8d9",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-163cf4aa49163adde18e58f9c6d47ad4",
+      "ledger_row_id": "ledger-163cf4aa49163adde18e58f9c6d47ad4",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-17962ba93d0194b5989464a08f4600c6",
+      "ledger_row_id": "ledger-17962ba93d0194b5989464a08f4600c6",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-17e9068ae556551cae8f8a37df32531a",
+      "ledger_row_id": "ledger-17e9068ae556551cae8f8a37df32531a",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-1fa581bc7b2f1065f074943843155b10",
+      "ledger_row_id": "ledger-1fa581bc7b2f1065f074943843155b10",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-24a7902b14bfb2a06d902e0fec5cea81",
+      "ledger_row_id": "ledger-24a7902b14bfb2a06d902e0fec5cea81",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-272cab225fdb6d7c3145314bd745b6f9",
+      "ledger_row_id": "ledger-272cab225fdb6d7c3145314bd745b6f9",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-2b3da8efb856292330b8c4bb8696de9f",
+      "ledger_row_id": "ledger-2b3da8efb856292330b8c4bb8696de9f",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-2cba27de19713a7f9a31654890bd3056",
+      "ledger_row_id": "ledger-2cba27de19713a7f9a31654890bd3056",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-2d5d2856ac75a05f136efe54cfb2be91",
+      "ledger_row_id": "ledger-2d5d2856ac75a05f136efe54cfb2be91",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-331d20ee4d8a2781c689780741d75267",
+      "ledger_row_id": "ledger-331d20ee4d8a2781c689780741d75267",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-39c165e376247caa33292c82affc0b89",
+      "ledger_row_id": "ledger-39c165e376247caa33292c82affc0b89",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-3bb3405ed2ecab1ad55fc6ecd6d943d1",
+      "ledger_row_id": "ledger-3bb3405ed2ecab1ad55fc6ecd6d943d1",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-3be803843b203e210655abe260add040",
+      "ledger_row_id": "ledger-3be803843b203e210655abe260add040",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-3db8a64aa44d99e66454b9c4d818c039",
+      "ledger_row_id": "ledger-3db8a64aa44d99e66454b9c4d818c039",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-3f386a2308628a9c55177697db546d99",
+      "ledger_row_id": "ledger-3f386a2308628a9c55177697db546d99",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-3f695497b1924ab10abee408f9821fed",
+      "ledger_row_id": "ledger-3f695497b1924ab10abee408f9821fed",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-4035c3c39ec1bbf1e0e7627f6b3194dc",
+      "ledger_row_id": "ledger-4035c3c39ec1bbf1e0e7627f6b3194dc",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-41b2e9dfb1a53aa10d9626174298f7e3",
+      "ledger_row_id": "ledger-41b2e9dfb1a53aa10d9626174298f7e3",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-44565d8815eb2100632f20c9d47f41eb",
+      "ledger_row_id": "ledger-44565d8815eb2100632f20c9d47f41eb",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-446dfee190ca4eb870a4f2c4596cb0c3",
+      "ledger_row_id": "ledger-446dfee190ca4eb870a4f2c4596cb0c3",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-457e714a69e279f5e6a3f44d1c12a4f3",
+      "ledger_row_id": "ledger-457e714a69e279f5e6a3f44d1c12a4f3",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-4ce770fade0003dded29f914e66e1eff",
+      "ledger_row_id": "ledger-4ce770fade0003dded29f914e66e1eff",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-4dbde72d1ef9c5e80299f64f7c4aa45e",
+      "ledger_row_id": "ledger-4dbde72d1ef9c5e80299f64f7c4aa45e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-4e026143e80eaea78f3f6e698bfefacb",
+      "ledger_row_id": "ledger-4e026143e80eaea78f3f6e698bfefacb",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-5226d2288963ac77b31c95b9469ebde6",
+      "ledger_row_id": "ledger-5226d2288963ac77b31c95b9469ebde6",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-52f78ae054ccf90f1cdfef842ed5399c",
+      "ledger_row_id": "ledger-52f78ae054ccf90f1cdfef842ed5399c",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-54f3ff27efffcc8758b110142b65d835",
+      "ledger_row_id": "ledger-54f3ff27efffcc8758b110142b65d835",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-562d128166be6857f5b973f279cb0742",
+      "ledger_row_id": "ledger-562d128166be6857f5b973f279cb0742",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-575f113d91df199d9d315696d4f7f9cb",
+      "ledger_row_id": "ledger-575f113d91df199d9d315696d4f7f9cb",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-57b418b129b6324b1d684dabaaefe14c",
+      "ledger_row_id": "ledger-57b418b129b6324b1d684dabaaefe14c",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-59dca9e5d27835f7873b52fed0d917be",
+      "ledger_row_id": "ledger-59dca9e5d27835f7873b52fed0d917be",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-59e16814924fd61f73d3c7c81cfaefb8",
+      "ledger_row_id": "ledger-59e16814924fd61f73d3c7c81cfaefb8",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-5b6c5401c499422db9bdc3840eb0d6fd",
+      "ledger_row_id": "ledger-5b6c5401c499422db9bdc3840eb0d6fd",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-5c37531e8b17c4bdec87cfae0bcd595d",
+      "ledger_row_id": "ledger-5c37531e8b17c4bdec87cfae0bcd595d",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-5cf543722d18e4f33f273380112ea2f2",
+      "ledger_row_id": "ledger-5cf543722d18e4f33f273380112ea2f2",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-5e298b9c9ffeaa6d521b9428368d46ac",
+      "ledger_row_id": "ledger-5e298b9c9ffeaa6d521b9428368d46ac",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-61806c5bde359b91bef5807eb1b58551",
+      "ledger_row_id": "ledger-61806c5bde359b91bef5807eb1b58551",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-63b30cfc21424f5dc86db79a0fef31a4",
+      "ledger_row_id": "ledger-63b30cfc21424f5dc86db79a0fef31a4",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-667cc6017448a701af7ad75d3e315a51",
+      "ledger_row_id": "ledger-667cc6017448a701af7ad75d3e315a51",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-6771e41185a6442fb2cbf83bd80f215e",
+      "ledger_row_id": "ledger-6771e41185a6442fb2cbf83bd80f215e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-67e89d2716cbdb9cb1af54685cd64265",
+      "ledger_row_id": "ledger-67e89d2716cbdb9cb1af54685cd64265",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-68ce23b4e801e2c62ae3037621943b60",
+      "ledger_row_id": "ledger-68ce23b4e801e2c62ae3037621943b60",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-691ae771766471c347affff2a622335b",
+      "ledger_row_id": "ledger-691ae771766471c347affff2a622335b",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-69b04cab89d75370e5da9e7fa92d5a78",
+      "ledger_row_id": "ledger-69b04cab89d75370e5da9e7fa92d5a78",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-70ce1a04e2996d8a8ce27e5ea4d79e35",
+      "ledger_row_id": "ledger-70ce1a04e2996d8a8ce27e5ea4d79e35",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-723ffb3786d7de30506cd844f277d2a5",
+      "ledger_row_id": "ledger-723ffb3786d7de30506cd844f277d2a5",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-732ae20a2aac24a4d01f63217e265f38",
+      "ledger_row_id": "ledger-732ae20a2aac24a4d01f63217e265f38",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-75c69469046045ca27d845f3d1edfe4e",
+      "ledger_row_id": "ledger-75c69469046045ca27d845f3d1edfe4e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-75dd6c39324cec11d473f930226c614c",
+      "ledger_row_id": "ledger-75dd6c39324cec11d473f930226c614c",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-769864ebf94b4c72c37b339d60f0da62",
+      "ledger_row_id": "ledger-769864ebf94b4c72c37b339d60f0da62",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-78575136ed010618887f5b8165aadc0b",
+      "ledger_row_id": "ledger-78575136ed010618887f5b8165aadc0b",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-788f1a492240338ad9967628469799dd",
+      "ledger_row_id": "ledger-788f1a492240338ad9967628469799dd",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-7b4e4cf48ecc4d8d15bc5a4c26789194",
+      "ledger_row_id": "ledger-7b4e4cf48ecc4d8d15bc5a4c26789194",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-7c04a78cf259cdfaa5864ad89065e601",
+      "ledger_row_id": "ledger-7c04a78cf259cdfaa5864ad89065e601",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-7d770d13d84116139c9adaa0b9614dfd",
+      "ledger_row_id": "ledger-7d770d13d84116139c9adaa0b9614dfd",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-7fef130945f605a93e1d84c8d48f7fc2",
+      "ledger_row_id": "ledger-7fef130945f605a93e1d84c8d48f7fc2",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-80c9b11755f0860cadbb3e3f777b9c69",
+      "ledger_row_id": "ledger-80c9b11755f0860cadbb3e3f777b9c69",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-80e55aec0697fe4009b777b33b881b81",
+      "ledger_row_id": "ledger-80e55aec0697fe4009b777b33b881b81",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-81c563fe39c6ed2c7191a4a157115713",
+      "ledger_row_id": "ledger-81c563fe39c6ed2c7191a4a157115713",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-846ce9c93437a4c3991a7470d5c7a3a0",
+      "ledger_row_id": "ledger-846ce9c93437a4c3991a7470d5c7a3a0",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-85bfc2486399d58ef98ef6c1f89435e7",
+      "ledger_row_id": "ledger-85bfc2486399d58ef98ef6c1f89435e7",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-87292b01a87cf88f73be18cc38c43602",
+      "ledger_row_id": "ledger-87292b01a87cf88f73be18cc38c43602",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-87de2620ff76e61f8f2a13625c8473ff",
+      "ledger_row_id": "ledger-87de2620ff76e61f8f2a13625c8473ff",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-884cf6d0ddb6e311ca519087fd012653",
+      "ledger_row_id": "ledger-884cf6d0ddb6e311ca519087fd012653",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-8c4da64698123b37d8636fa69fe6e395",
+      "ledger_row_id": "ledger-8c4da64698123b37d8636fa69fe6e395",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-8d865fc71b3c8bbee88f6b30d76e2810",
+      "ledger_row_id": "ledger-8d865fc71b3c8bbee88f6b30d76e2810",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-8d8be7d4c749faa7ba7cf2df2f0026c0",
+      "ledger_row_id": "ledger-8d8be7d4c749faa7ba7cf2df2f0026c0",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-90aac3ac904924b33b82ea702c868629",
+      "ledger_row_id": "ledger-90aac3ac904924b33b82ea702c868629",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-90ffecdfb3f7158f84aba9401f2aca3c",
+      "ledger_row_id": "ledger-90ffecdfb3f7158f84aba9401f2aca3c",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-92620c6e4a1b127bb7ac235c395c012f",
+      "ledger_row_id": "ledger-92620c6e4a1b127bb7ac235c395c012f",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9401d35b0c8db9901b1534849c3b7722",
+      "ledger_row_id": "ledger-9401d35b0c8db9901b1534849c3b7722",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-94e2ba3b6bbce3a8fd3a64f5f0f58e3e",
+      "ledger_row_id": "ledger-94e2ba3b6bbce3a8fd3a64f5f0f58e3e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-96f18502aee9d64196dbd23872a9af6b",
+      "ledger_row_id": "ledger-96f18502aee9d64196dbd23872a9af6b",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-97aad4ae2fc6273fe633f1869645ad2a",
+      "ledger_row_id": "ledger-97aad4ae2fc6273fe633f1869645ad2a",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-98f0cfdeb6e1f0ab96ba4763e0ce409f",
+      "ledger_row_id": "ledger-98f0cfdeb6e1f0ab96ba4763e0ce409f",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9a748393c36b0a65545b265f77067f49",
+      "ledger_row_id": "ledger-9a748393c36b0a65545b265f77067f49",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9ae3732da8c88e514490d3a65f44d03b",
+      "ledger_row_id": "ledger-9ae3732da8c88e514490d3a65f44d03b",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9b1ff7c0bffcb9d2e05c8b763684a761",
+      "ledger_row_id": "ledger-9b1ff7c0bffcb9d2e05c8b763684a761",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9bb6d46026c6d9cac74f25365857f36e",
+      "ledger_row_id": "ledger-9bb6d46026c6d9cac74f25365857f36e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9ca95ab82d58e0e01c3ae9ee082d98dc",
+      "ledger_row_id": "ledger-9ca95ab82d58e0e01c3ae9ee082d98dc",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9dddbb0aa4cf6e5eac7d7e9a4441abcd",
+      "ledger_row_id": "ledger-9dddbb0aa4cf6e5eac7d7e9a4441abcd",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9eea38faa713d3c99aed6661f871706e",
+      "ledger_row_id": "ledger-9eea38faa713d3c99aed6661f871706e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9f0a3d2900217938de35504162f01d0a",
+      "ledger_row_id": "ledger-9f0a3d2900217938de35504162f01d0a",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-9ff6d00a905a2f0f174f6c7a1a857e51",
+      "ledger_row_id": "ledger-9ff6d00a905a2f0f174f6c7a1a857e51",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-a24b30d314f488fe72786f2e8ed2fb55",
+      "ledger_row_id": "ledger-a24b30d314f488fe72786f2e8ed2fb55",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-a3e938bf37881b9de79316ac7f84f822",
+      "ledger_row_id": "ledger-a3e938bf37881b9de79316ac7f84f822",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-a5623b64d2bca78539c5c5515b545d8f",
+      "ledger_row_id": "ledger-a5623b64d2bca78539c5c5515b545d8f",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-a753ba2bc24a798211c7a37bce45df45",
+      "ledger_row_id": "ledger-a753ba2bc24a798211c7a37bce45df45",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-ac0135d47766519cdfe3feb8e0e76c8e",
+      "ledger_row_id": "ledger-ac0135d47766519cdfe3feb8e0e76c8e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-ad7a8274ac2e909701b9fe13c5415b11",
+      "ledger_row_id": "ledger-ad7a8274ac2e909701b9fe13c5415b11",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-ae6f7c411fb7fdf19736919960d558e1",
+      "ledger_row_id": "ledger-ae6f7c411fb7fdf19736919960d558e1",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-af200262c865de689e351bad5e82eef3",
+      "ledger_row_id": "ledger-af200262c865de689e351bad5e82eef3",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b0552fdd22b2ce6f0623cf628be7fa39",
+      "ledger_row_id": "ledger-b0552fdd22b2ce6f0623cf628be7fa39",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b06ec50536c3b84b014997b0af257dc1",
+      "ledger_row_id": "ledger-b06ec50536c3b84b014997b0af257dc1",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b163401c5f7de6485dc97365e89cbb6b",
+      "ledger_row_id": "ledger-b163401c5f7de6485dc97365e89cbb6b",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b1887e8f4c5648309c68dff4a464dd45",
+      "ledger_row_id": "ledger-b1887e8f4c5648309c68dff4a464dd45",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b51afa6069165d3e3d7f052ee21153f7",
+      "ledger_row_id": "ledger-b51afa6069165d3e3d7f052ee21153f7",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b557d05d0f75cd48ad1c0752fd9610c6",
+      "ledger_row_id": "ledger-b557d05d0f75cd48ad1c0752fd9610c6",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b66d73d33ba61fa5ac46fb93806fc252",
+      "ledger_row_id": "ledger-b66d73d33ba61fa5ac46fb93806fc252",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b70976d65255d2ab9611319dda55b77d",
+      "ledger_row_id": "ledger-b70976d65255d2ab9611319dda55b77d",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b752e5e60a3d613a82c90f89df9358fb",
+      "ledger_row_id": "ledger-b752e5e60a3d613a82c90f89df9358fb",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-b836df5994524da9a8d47c5f0348bc68",
+      "ledger_row_id": "ledger-b836df5994524da9a8d47c5f0348bc68",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-bb6653028623a03af0e4f2840d19f295",
+      "ledger_row_id": "ledger-bb6653028623a03af0e4f2840d19f295",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-bc90772a80695c2de29f423d5caa14db",
+      "ledger_row_id": "ledger-bc90772a80695c2de29f423d5caa14db",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-bcb5bac22c2aef570f8915011a186646",
+      "ledger_row_id": "ledger-bcb5bac22c2aef570f8915011a186646",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-be6f1d0db751b4b17b72ab0b7ea2ae92",
+      "ledger_row_id": "ledger-be6f1d0db751b4b17b72ab0b7ea2ae92",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-bea1f95628a535c94538792c6fa3900e",
+      "ledger_row_id": "ledger-bea1f95628a535c94538792c6fa3900e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-bed2f91e6bad4e8794eea7056d3a783c",
+      "ledger_row_id": "ledger-bed2f91e6bad4e8794eea7056d3a783c",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c167989467500dcd95dfa4d17a82c877",
+      "ledger_row_id": "ledger-c167989467500dcd95dfa4d17a82c877",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c3141d75308dcae56d0e58d279669429",
+      "ledger_row_id": "ledger-c3141d75308dcae56d0e58d279669429",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c3cde225a16f75e9dd91af59406eccb5",
+      "ledger_row_id": "ledger-c3cde225a16f75e9dd91af59406eccb5",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c3e08a1ae426c7c5725eb170518386c2",
+      "ledger_row_id": "ledger-c3e08a1ae426c7c5725eb170518386c2",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c6d2097b7386dc5dbcf342f2fc98ab92",
+      "ledger_row_id": "ledger-c6d2097b7386dc5dbcf342f2fc98ab92",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c778d62a305abcf1e9ec43de886b0719",
+      "ledger_row_id": "ledger-c778d62a305abcf1e9ec43de886b0719",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c7c2d397895dd7cc9c3e0af761c2e4f7",
+      "ledger_row_id": "ledger-c7c2d397895dd7cc9c3e0af761c2e4f7",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c8470bd8d000c59ec07f5df29096ac2d",
+      "ledger_row_id": "ledger-c8470bd8d000c59ec07f5df29096ac2d",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-c99752b3ded3b5c1b7d96e009e10bd9c",
+      "ledger_row_id": "ledger-c99752b3ded3b5c1b7d96e009e10bd9c",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-cc544d465ae83b3be43b64e30cc02839",
+      "ledger_row_id": "ledger-cc544d465ae83b3be43b64e30cc02839",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-ce54da4fd80c52d45e65605db4680ef8",
+      "ledger_row_id": "ledger-ce54da4fd80c52d45e65605db4680ef8",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-cf8fab2f10cf34e57119fb93f2b2020a",
+      "ledger_row_id": "ledger-cf8fab2f10cf34e57119fb93f2b2020a",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-d114baca7c54c10ea275e9d71bb3e08c",
+      "ledger_row_id": "ledger-d114baca7c54c10ea275e9d71bb3e08c",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-d4f243935babdc498793b9bb6d5c795a",
+      "ledger_row_id": "ledger-d4f243935babdc498793b9bb6d5c795a",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-d58955794eb74d93c6149d348b0204a2",
+      "ledger_row_id": "ledger-d58955794eb74d93c6149d348b0204a2",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-d772ff30d921b012af4d251a25570ff3",
+      "ledger_row_id": "ledger-d772ff30d921b012af4d251a25570ff3",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-d9bb0e264aba3a3c57fc7f482b1ca5bf",
+      "ledger_row_id": "ledger-d9bb0e264aba3a3c57fc7f482b1ca5bf",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-dc1d11455c9464cb70a886dd401857c7",
+      "ledger_row_id": "ledger-dc1d11455c9464cb70a886dd401857c7",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-dcb967b728461d92b342e3e5812d0add",
+      "ledger_row_id": "ledger-dcb967b728461d92b342e3e5812d0add",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-dd071bf24b05e93f3a1b091ae5a59103",
+      "ledger_row_id": "ledger-dd071bf24b05e93f3a1b091ae5a59103",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-dd402a4aa4886a4b2633526876abfe56",
+      "ledger_row_id": "ledger-dd402a4aa4886a4b2633526876abfe56",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-e02f411661ee3b76b28e65c22d48120a",
+      "ledger_row_id": "ledger-e02f411661ee3b76b28e65c22d48120a",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-e0991a48478503db96cea257b9c0439e",
+      "ledger_row_id": "ledger-e0991a48478503db96cea257b9c0439e",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-e403d8b1a57cbb35c7f5f81a0568084b",
+      "ledger_row_id": "ledger-e403d8b1a57cbb35c7f5f81a0568084b",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-e435d0d66479127de9ea79a7aa517461",
+      "ledger_row_id": "ledger-e435d0d66479127de9ea79a7aa517461",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-e5e8f7b18374b5884eebb8a0bafc4f71",
+      "ledger_row_id": "ledger-e5e8f7b18374b5884eebb8a0bafc4f71",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-e610694694e319b1e929fa5f0acba251",
+      "ledger_row_id": "ledger-e610694694e319b1e929fa5f0acba251",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-e6aade486c7209a98b5a0c561f3741d2",
+      "ledger_row_id": "ledger-e6aade486c7209a98b5a0c561f3741d2",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-eaf1f1ea92b1f08e0c6e1b4f8ef37f00",
+      "ledger_row_id": "ledger-eaf1f1ea92b1f08e0c6e1b4f8ef37f00",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-ee594dc9f08234f5be6731c11e1c55d4",
+      "ledger_row_id": "ledger-ee594dc9f08234f5be6731c11e1c55d4",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-f47a4325075bd45f2fbe86fbcc7b558d",
+      "ledger_row_id": "ledger-f47a4325075bd45f2fbe86fbcc7b558d",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-f4c37362052e6598c4bd8e48fc2febb3",
+      "ledger_row_id": "ledger-f4c37362052e6598c4bd8e48fc2febb3",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-f51d31985e78f5aa9d51c8cfa30a77cb",
+      "ledger_row_id": "ledger-f51d31985e78f5aa9d51c8cfa30a77cb",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-f613f10e573175b7b39fa4ca00cd1d05",
+      "ledger_row_id": "ledger-f613f10e573175b7b39fa4ca00cd1d05",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-f7789c96964e23f5b365b0e63c5915f3",
+      "ledger_row_id": "ledger-f7789c96964e23f5b365b0e63c5915f3",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-f861b56801050d80e7ecdc755903c425",
+      "ledger_row_id": "ledger-f861b56801050d80e7ecdc755903c425",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-fa43850f1effd6c09ed1c68c588c4cce",
+      "ledger_row_id": "ledger-fa43850f1effd6c09ed1c68c588c4cce",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-fb3bb73386642005a8ddeec34ca7ad21",
+      "ledger_row_id": "ledger-fb3bb73386642005a8ddeec34ca7ad21",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-fd7cea7ecef1f967ae944f6773635264",
+      "ledger_row_id": "ledger-fd7cea7ecef1f967ae944f6773635264",
+      "status": "mapped"
+    },
+    {
+      "diff_hunk_id": "hunk-fdef41edb3f22bbc6d2e489d57eb3bb0",
+      "ledger_row_id": "ledger-fdef41edb3f22bbc6d2e489d57eb3bb0",
+      "status": "mapped"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-diff-hunk-ledger-bijection-v0",
+  "status": "PASS"
+}

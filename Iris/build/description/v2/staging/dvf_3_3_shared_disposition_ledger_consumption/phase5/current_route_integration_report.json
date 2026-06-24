@@ -1,0 +1,12 @@
+{
+  "adoption_state": "adopted_required_gate",
+  "artifact_report_consumption_route": true,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_manifest_contains_required_gate": true,
+  "live_manifest_mutated_by_generator": false,
+  "missing_artifacts": [],
+  "missing_tests": [],
+  "schema_version": "dvf-3-3-shared-disposition-current-route-integration-v1",
+  "status": "PASS",
+  "subprocess_only_fallback_used": false
+}

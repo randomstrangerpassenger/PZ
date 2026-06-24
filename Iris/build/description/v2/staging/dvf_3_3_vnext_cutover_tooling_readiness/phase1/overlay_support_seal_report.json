@@ -1,0 +1,12 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "fixture_as_authority_negative_guard": "PASS",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "input_manifest_fingerprint_match": true,
+  "rendered_meta_fingerprint_match": true,
+  "role_field_exact_match": true,
+  "same_input_deterministic": true,
+  "schema_version": "dvf-3-3-vnext-overlay-support-seal-v0",
+  "stale_overlay_direct_promotion_guard": "PASS",
+  "status": "PASS"
+}

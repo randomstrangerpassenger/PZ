@@ -1,0 +1,16 @@
+{
+  "expected_control_count": 21,
+  "rejected_pattern": {
+    "hard_fail_codes": [
+      "role_fallback_too_hollow"
+    ],
+    "merge_case": "cluster_absent_keep_existing",
+    "reason_code": "MISSING_PRIMARY_USE",
+    "state": "silent",
+    "use_source": "role_fallback"
+  },
+  "schema_version": "dvf-3-3-vnext-rejected-correction-source-pattern-v0",
+  "silent_non_rejected_control_count": 21,
+  "status": "PASS",
+  "uniform_pattern": true
+}

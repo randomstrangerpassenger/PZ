@@ -1,0 +1,17 @@
+{
+  "accepted_inputs": [
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot/dvf_3_3_facts.corrected.jsonl",
+      "row_count": 2105,
+      "sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot/dvf_3_3_decisions.corrected.jsonl",
+      "row_count": 2105,
+      "sha256": "3000db34a96c5f7075ff1711352c076a1f762052fba8d1223ff8ec813ef22d6d"
+    }
+  ],
+  "generated_at": "2026-06-23T17:37:38.316531+00:00",
+  "manifest_hash": "d56526d64402af1660d2a930cf43611c88c08b9aa55b2fe91a557891d4071007",
+  "schema_version": "dvf-3-3-vnext-source-manifest-fingerprint-v0"
+}

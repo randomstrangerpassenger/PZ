@@ -2,7 +2,7 @@
 
 Date: 2026-05-08
 
-Roadmap item: `docs/Iris/iris-refactoring-final-roadmap-v1.md` Phase 4-1
+Historical roadmap item label: `docs/Iris/iris-refactoring-final-roadmap-v1.md` Phase 4-1
 
 Status: closed at console-validation level. Korean and English chunk-path
 console validation passed.

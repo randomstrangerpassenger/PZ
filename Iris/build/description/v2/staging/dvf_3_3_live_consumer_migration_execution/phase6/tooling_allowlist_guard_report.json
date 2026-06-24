@@ -1,0 +1,9 @@
+{
+  "allowed_tooling_modules": [
+    "export_dvf_3_3_lua_bridge"
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-live-tooling-allowlist-guard-v1",
+  "status": "PASS",
+  "tooling_allowlist_expanded_by_this_round": false
+}

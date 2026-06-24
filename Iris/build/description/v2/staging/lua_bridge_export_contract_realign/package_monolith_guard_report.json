@@ -1,0 +1,12 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-package-guard-v1",
+  "package_command": "powershell -ExecutionPolicy Bypass -File .\\Iris\\tools\\package_iris.ps1 -Clean -Zip",
+  "source_monolith_path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+  "source_monolith_exists": false,
+  "package_manifest_path": "Iris/build/package/Iris.package_manifest.sha256.json",
+  "package_monolith_present": false,
+  "package_chunk_manifest_present": true,
+  "package_chunk_file_count": 11,
+  "guard_policy": "source monolith and package output monolith fail loud; package script no longer removes monolith silently",
+  "pass": true
+}

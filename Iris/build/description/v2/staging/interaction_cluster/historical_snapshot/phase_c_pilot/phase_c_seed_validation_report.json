@@ -1,0 +1,45 @@
+{
+  "schema_version": "interaction-cluster-validation-report-v0",
+  "hard_fail_count": 0,
+  "warn_count": 0,
+  "hard_fail_rows": [],
+  "warn_rows": [],
+  "rows": [
+    {
+      "item_id": "Base.CanOpener",
+      "text_ko": "도구. 통조림 개봉에 쓰는 도구다. 주방과 조리 도구 보관 장소에서 발견된다.",
+      "hard_fail_reasons": [],
+      "warnings": []
+    },
+    {
+      "item_id": "Base.WeldingTorch",
+      "text_ko": "도구. 금속 접합에 쓰는 도구다. 작업장과 차고에서 발견된다.",
+      "hard_fail_reasons": [],
+      "warnings": []
+    },
+    {
+      "item_id": "Base.ElectronicsScrap",
+      "text_ko": "부품. 전자 조립 작업에 들어가는 부품이다. 전자기기 분해 뒤에 남는 경우가 많다.",
+      "hard_fail_reasons": [],
+      "warnings": []
+    },
+    {
+      "item_id": "Base.GunpowderCan",
+      "text_ko": "재료. 탄약 제작 작업에 들어가는 화약 재료다. 재장전 관련 보관함에서 발견된다.",
+      "hard_fail_reasons": [],
+      "warnings": []
+    },
+    {
+      "item_id": "Base.Tongs",
+      "text_ko": "도구. 금속 단조에 쓰는 도구다. 대장간과 금속 작업장 주변에서 발견된다.",
+      "hard_fail_reasons": [],
+      "warnings": []
+    },
+    {
+      "item_id": "Base.ModKit",
+      "text_ko": "도구. 총기 개조 작업에 들어가는 부품이다. 총포상과 작업대 주변에서 발견된다.",
+      "hard_fail_reasons": [],
+      "warnings": []
+    }
+  ]
+}

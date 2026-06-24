@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "migrated_evidence_classes": [
+    "prior_current_cutover_row_evidence",
+    "prior_cutover_authority_role_migration_evidence",
+    "adopted_current_route_authority_migration_evidence",
+    "live_authority_role_migration_ledger",
+    "explicitly_validated_current_successor_consumer_update"
+  ],
+  "non_terminal_states": [
+    "blocked",
+    "conditional",
+    "pending",
+    "review",
+    "unknown",
+    "deferred",
+    "needs_adjudication"
+  ],
+  "schema_version": "dvf-3-3-terminal-disposition-schema-v1",
+  "terminal_dispositions": [
+    "migrated",
+    "no-op",
+    "diagnostic-only",
+    "historical-only"
+  ],
+  "terminal_reason_codes": {
+    "diagnostic-only": [
+      "diagnostic_validator_surface",
+      "diagnostic_report_surface",
+      "non_authority_test_tool_diagnostic_path"
+    ],
+    "historical-only": [
+      "predecessor_trace",
+      "archive_or_done_doc",
+      "historical_fixture",
+      "staging_predecessor_evidence",
+      "generated_historical_trace"
+    ],
+    "no-op": [
+      "already_current_successor_contract",
+      "false_positive_no_mutation",
+      "generated_no_mutation",
+      "non_apply_missing_path",
+      "denominator_role_not_apply_target",
+      "preserved_reference_no_behavior_change"
+    ]
+  }
+}

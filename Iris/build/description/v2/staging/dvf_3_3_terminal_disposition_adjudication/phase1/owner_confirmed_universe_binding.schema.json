@@ -1,0 +1,12 @@
+{
+  "required_fields": [
+    "denominator",
+    "unit",
+    "rollup_rule",
+    "accepted_claim_boundary",
+    "confirmer",
+    "timestamp",
+    "relation_to_author_governance_decision"
+  ],
+  "schema_version": "dvf-3-3-terminal-owner-binding-schema-v1"
+}

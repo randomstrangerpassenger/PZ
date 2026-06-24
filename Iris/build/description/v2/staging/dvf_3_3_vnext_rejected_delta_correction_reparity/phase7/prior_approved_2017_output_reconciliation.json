@@ -1,0 +1,8 @@
+{
+  "drift_count": 0,
+  "drift_rows": [],
+  "excluded_prior_rejected_key_count": 0,
+  "prior_approved_count": 2017,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-prior-approved-reconciliation-v0",
+  "status": "PASS"
+}

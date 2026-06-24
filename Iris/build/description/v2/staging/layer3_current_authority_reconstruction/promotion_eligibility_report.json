@@ -1,0 +1,26 @@
+{
+  "blockers": [
+    "provenance branch is B4_mixed_partial",
+    "full body-plan v2 overlay/source needed for deterministic regeneration is unavailable",
+    "required L0-L3 equivalence gate failed",
+    "canonical promotion not authorized"
+  ],
+  "canonical_target": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+  "canonical_write_completed": false,
+  "closeout_state": "partial",
+  "gates": {
+    "canonical_promotion_eligibility_gate": false,
+    "deterministic_regeneration_gate": false,
+    "explicit_author_seal_gate": false,
+    "fixture_contamination_gate": true,
+    "manifest_integrity_gate": true,
+    "post_execution_adversarial_review_gate": false,
+    "provenance_basis_gate": false,
+    "required_equivalence_gate": false,
+    "source_cardinality_gate": true
+  },
+  "generated_at": "2026-06-12T06:29:32.672044+00:00",
+  "round_id": "layer3-current-authority-reconstruction",
+  "schema_version": "layer3-canonical-promotion-eligibility-v0",
+  "status": "INELIGIBLE"
+}

@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "official": {
+    "denominator": 1062,
+    "unit": "executing_consumer_member_row"
+  },
+  "schema_version": "dvf-3-3-terminal-denominator-cross-reference-v1",
+  "separated_counts": {
+    "accepted_candidate_axis": {
+      "252": "global conditional predicate",
+      "311": "global accepted-candidate change-required subset",
+      "59": "global yes predicate"
+    },
+    "normalization_axis": {
+      "148": "no_op subset",
+      "163": "actual_apply_eligible subset"
+    },
+    "runtime_entry_axis": {
+      "2084": "adopted row context",
+      "21": "unadopted row context",
+      "2105": "runtime/source/sealed successor entry context"
+    }
+  },
+  "status": "PASS"
+}

@@ -1,0 +1,102 @@
+{
+  "chunk_count": 11,
+  "chunks": [
+    {
+      "bytes": 102745,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "08373c2a0e2f6ff572021f2f82d1b322316e7886a8876664d65f022cb764b7dd"
+    },
+    {
+      "bytes": 93472,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "37e72049ceb83d294f52d9bb86936a3a3e05942cdaa037865532338cfaef4764"
+    },
+    {
+      "bytes": 89927,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "562c7c18aef25538ef341764da4a5635313352212f1bce515b20c5dccc90e0b9"
+    },
+    {
+      "bytes": 102589,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "42753e063661679583c3430acc6bc52ec6f47d873cbf4685dacdb603a964e440"
+    },
+    {
+      "bytes": 92247,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "89c7d39902ff83166f4cfb8cea4225359e86b62750703cfc7c4f15b44cce5a5e"
+    },
+    {
+      "bytes": 101600,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "5942559c4927ab8ed948fed42f73e362b26e35d180e2206b745caaa98ed20c09"
+    },
+    {
+      "bytes": 96491,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "19661a52a3418f413ad49c7df474a2f221a0d5c751232f1b9b3083768074966b"
+    },
+    {
+      "bytes": 104738,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "0df3875bd9cd109bf70b50b4c847c99e56437d1ab8183c1a814c797a754ed924"
+    },
+    {
+      "bytes": 97142,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "abbe34d842d2d1162a5828e3f3e3147cb93f1e991f89da3009d2bb81add82729"
+    },
+    {
+      "bytes": 91423,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "954ed61ca9f9a08fb9818a38c91925356901561b9d3cd3dd9dfd5d91bd359997"
+    },
+    {
+      "bytes": 61528,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "role": "predecessor_runtime_chunk",
+      "sha256": "8e0311e7d6fb020056e9fb74fbc546dce898668f4ed7c60561e7538f5bc9d179"
+    }
+  ],
+  "manifest": {
+    "bytes": 951,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "role": "predecessor_runtime_manifest",
+    "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+  },
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-predecessor-hash-inventory-v0"
+}

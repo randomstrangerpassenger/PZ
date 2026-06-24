@@ -1,0 +1,11 @@
+{
+  "allowed_values": [
+    "adopted",
+    "unadopted"
+  ],
+  "comparison_claim": "governed_derived_disposition",
+  "policy_mutation": false,
+  "resolution_mode": "governed_derived",
+  "schema_version": "dvf-3-3-vnext-state-semantics-verification-v0",
+  "status": "PASS"
+}

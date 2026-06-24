@@ -1,0 +1,12 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "forbidden_row_mutation_count": 0,
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "ledger_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+  "ledger_row_count": 311,
+  "missing_mandatory_field_count": 0,
+  "mutation_row_count": 163,
+  "rule_id_missing_count": 0,
+  "schema_version": "dvf-3-3-vnext-row-level-ledger-generation-report-v0",
+  "status": "PASS"
+}

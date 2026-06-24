@@ -1,0 +1,7 @@
+{
+  "RAW_PREDECESSOR_AUTHORITY_READ": 0,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "raw_predecessor_artifact_direct_execution_authority_read_count": 0,
+  "schema_version": "dvf-3-3-raw-predecessor-authority-read-report-v1",
+  "status": "PASS"
+}

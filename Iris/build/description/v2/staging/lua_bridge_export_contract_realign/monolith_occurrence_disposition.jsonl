@@ -1,0 +1,5 @@
+{"surface": "exporter_default", "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py", "disposition": "current_default_replaced_by_chunk", "current_forbidden": true}
+{"surface": "exporter_historical_diagnostic", "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py", "disposition": "explicit_non_current_route_preserved", "current_forbidden": false}
+{"surface": "package_script", "path": "Iris/tools/package_iris.ps1", "disposition": "fail_loud_guard", "current_forbidden": true}
+{"surface": "live_runtime_monolith", "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua", "disposition": "live_monolith_absent", "current_forbidden": true}
+{"surface": "historical_reflection_scripts", "path": "Iris/build/description/v2/tools/build/apply_*runtime_reflection.py", "disposition": "historical_or_diagnostic_not_current_default_route", "current_forbidden": false}

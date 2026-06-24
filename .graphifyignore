@@ -1,0 +1,63 @@
+# Graphify output / generated artifacts
+
+graphify-out/
+.graphify/
+*.graphify.*
+
+# Build / distribution / cache
+
+build/
+dist/
+coverage/
+.cache/
+tmp/
+temp/
+
+# Python / tooling cache
+
+**pycache**/
+*.pyc
+.venv/
+venv/
+env/
+
+# Node / package cache
+
+node_modules/
+
+# Git / IDE noise
+
+.git/
+.idea/
+.vscode/
+
+# Logs / runtime dumps
+
+console_log.txt
+*.log
+*.trace
+*.jsonl
+logs/
+log/
+crash/
+crashes/
+
+# Large or noisy generated data
+
+*.tmp
+*.cache
+*.bak
+*.old
+
+# DVF / Iris generated evidence / staging / diagnostic surfaces
+
+Iris/build/description/v2/staging/
+Iris/build/description/v2/historical/
+Iris/build/description/v2/diagnostic/
+Iris/build/description/v2/audit/
+Iris/build/description/v2/reports/
+
+# Optional: rendered/generated payloads if they are too large or noisy
+
+Iris/build/description/v2/generated/
+Iris/build/description/v2/rendered/

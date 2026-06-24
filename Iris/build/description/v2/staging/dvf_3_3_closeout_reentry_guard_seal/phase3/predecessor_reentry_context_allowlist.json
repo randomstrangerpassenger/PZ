@@ -1,0 +1,22 @@
+{
+  "allowed_contexts": [
+    "historical_predecessor_trace",
+    "frozen_comparison_baseline",
+    "successor_evidence_contract_denominator",
+    "migration_provenance",
+    "terminal_disposition_provenance"
+  ],
+  "forbidden_contexts": [
+    "current_hard_gate",
+    "current_runtime_authority",
+    "package_authority",
+    "release_readiness",
+    "current_debt",
+    "required_migration_target_expansion",
+    "old_chunks_monolith_fallback",
+    "raw_predecessor_artifact_direct_execution_authority_read"
+  ],
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "schema_version": "dvf-3-3-predecessor-reentry-context-allowlist-v1",
+  "status": "PASS"
+}

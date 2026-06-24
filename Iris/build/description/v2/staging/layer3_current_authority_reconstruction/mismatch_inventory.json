@@ -1,0 +1,2412 @@
+{
+  "body_text_state_mismatches_sample": [
+    {
+      "item_id": "Base.223Box",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n장전 시 쓰인다.\n\n탄약을 상자나 클립에 담거나 꺼낼 때 쓴다.\n\n탄약을 상자에 담아 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.223Bullets",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n장전 시 쓰인다.\n\n탄약을 상자나 클립에 담거나 꺼낼 때 쓴다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.223BulletsMold",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 탄약 주조에 쓰는 틀이다. 모루 근처에서 철괴와 망치, 집게로 제작한다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+      }
+    },
+    {
+      "item_id": "Base.223Clip",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n총기 장전 시 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 코너 또는 경찰 시설에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.308Box",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n장전 시 쓰인다.\n\n탄약을 상자나 클립에 담거나 꺼낼 때 쓴다.\n\n탄약을 상자에 담아 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.308Bullets",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n장전 시 쓰인다.\n\n탄약을 상자나 클립에 담거나 꺼낼 때 쓴다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.308BulletsMold",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 탄약 주조에 쓰는 틀이다. 모루 근처에서 철괴와 망치, 집게로 제작한다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+      }
+    },
+    {
+      "item_id": "Base.308Clip",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n총기 장전 시 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 코너 또는 경찰 시설에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.44Clip",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n총기 장전 시 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 코너 또는 경찰 시설에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.45Clip",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n총기 장전 시 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 코너 또는 경찰 시설에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.556Box",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약을 상자에 담아 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n장전 시 쓰인다.\n\n탄약을 상자나 클립에 담거나 꺼낼 때 쓴다.\n\n탄약을 상자에 담아 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.556Bullets",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다. 탄약 상자를 열어 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n장전 시 쓰인다.\n\n탄약을 상자나 클립에 담거나 꺼낼 때 쓴다.\n\n탄약 상자를 열어 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.556Clip",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n총기 장전 시 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 코너 또는 경찰 시설에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.9mmBulletsMold",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 탄약 주조에 쓰는 틀이다. 모루 근처에서 철괴와 망치, 집게로 제작한다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+      }
+    },
+    {
+      "item_id": "Base.9mmClip",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "탄약. 총기 장전에 쓰는 탄창이다. 총기 취급 장소와 경찰 시설에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "탄약이다.\n\n총기 장전 시 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 코너 또는 경찰 시설에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.Acorn",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.Aerosolbomb",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "폭발물. 즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다. 헤어스프레이와 불꽃놀이 재료를 조합해 만든다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "폭발물이다.\n\n즉석 폭발물 조립 시 쓰인다.\n\n격발 장치를 붙여 즉석 폭발물을 완성할 때 쓴다.\n\n헤어스프레이와 불꽃놀이 재료를 조합해 만든다."
+      }
+    },
+    {
+      "item_id": "Base.AerosolbombRemote",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "폭발물이다.\n\n폭발물 운용 시 쓰인다.\n\n기폭 장치를 갖춘 폭발물을 설치할 때 쓴다.\n\n폭발물을 개조해 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.AerosolbombSensorV1",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "폭발물이다.\n\n폭발물 운용 시 쓰인다.\n\n기폭 장치를 갖춘 폭발물을 설치할 때 쓴다.\n\n폭발물을 개조해 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.AerosolbombSensorV2",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "폭발물이다.\n\n폭발물 운용 시 쓰인다.\n\n기폭 장치를 갖춘 폭발물을 설치할 때 쓴다.\n\n폭발물을 개조해 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.AerosolbombSensorV3",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "폭발물이다.\n\n폭발물 운용 시 쓰인다.\n\n기폭 장치를 갖춘 폭발물을 설치할 때 쓴다.\n\n폭발물을 개조해 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.AerosolbombTriggered",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "폭발물. 폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다. 폭발물을 개조해 얻는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "폭발물이다.\n\n폭발물 운용 시 쓰인다.\n\n기폭 장치를 갖춘 폭발물을 설치할 때 쓴다.\n\n폭발물을 개조해 얻는다."
+      }
+    },
+    {
+      "item_id": "Base.AlarmClock",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "알람 시계. 생활 작업에서 작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "알람 시계다.\n\n작은 소품이나 장식, 반려동물 물건을 곁에 두고 챙길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.AlarmClock2",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "전자 기기. 전자 작업에서 기기를 분해하거나 회로를 맞출 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "전자 기기다.\n\n전자 조립 시 쓰인다.\n\n기기를 분해하거나 회로를 맞출 때 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.AlcoholBandage",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 붕대를 소독하거나 끓여서 만든다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "의료 용품이다.\n\n의료 처치 시 쓰인다.\n\n의료 처치에 쓰는 소모품이다.\n\n붕대를 소독하거나 끓여서 만든다."
+      }
+    },
+    {
+      "item_id": "Base.AlcoholRippedSheets",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 헝겊을 소독하거나 끓여서 만든다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "의료 용품이다.\n\n의료 처치 시 쓰인다.\n\n의료 처치에 쓰는 소모품이다.\n\n헝겊을 소독하거나 끓여서 만든다."
+      }
+    },
+    {
+      "item_id": "Base.AlcoholWipes",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의료 소모품. 의료 처치에 쓰는 소모품이다. 의료 시설이나 구급 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "의료 소모품이다.\n\n의료 처치에 쓰는 소모품이다.\n\n의료 시설이나 구급 차량에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.AlcoholedCottonBalls",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의료 소모품. 의료 처치에 쓰는 소모품이다. 솜에 알코올을 묻혀 만든다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "의료 소모품이다.\n\n의료 처치에 쓰는 소모품이다.\n\n솜에 알코올을 묻혀 만든다."
+      }
+    },
+    {
+      "item_id": "Base.Allsorts",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.Aluminum",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "재료. 전자 조립 작업에 들어가는 부품이다. 주방이나 전기 공구 보관 장소에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "재료다.\n\n전자 조립 시 쓰인다.\n\n전자 조립에 들어가는 부품이다.\n\n주방 또는 전기 공구 코너에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.AmericanLadyCaterpillar",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.AmmoStrap_Bullets",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "액세서리. 탄약 휴대에 쓰는 장비다. 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "액세서리다.\n\n탄약 휴대 시 쓰인다.\n\n탄약 휴대에 쓰는 장비다.\n\n군경 총기 보관함에서 발견하거나 좀비에게서 파밍할 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.AmmoStrap_Shells",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "액세서리. 탄약 휴대에 쓰는 장비다. 군과 경찰 총기 보관 장소, 채집으로 구할 수 있다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "액세서리다.\n\n탄약 휴대 시 쓰인다.\n\n탄약 휴대에 쓰는 장비다.\n\n군경 총기 보관함에서 발견하거나 좀비에게서 파밍할 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.AmmoStraps",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "무기 부품. 총기 개조 작업에 들어가는 부품이다. 군과 경찰 무기 보관 장소, 총기 매장과 차고에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "무기 부품이다.\n\n총기 개조 작업 시 쓰인다.\n\n총기 개조에 들어가는 부품이다.\n\n군경 무기고, 총기 매장 또는 차고에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.Amplifier",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "전자 기기. 전자 조립 작업에 들어가는 부품이다. 스피커를 분해해 구한다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "전자 기기다.\n\n전자 조립 시 쓰인다.\n\n전자 조립에 들어가는 부품이다.\n\n스피커를 분해해 구한다."
+      }
+    },
+    {
+      "item_id": "Base.Antibiotics",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의약품. 의료 처치에 쓰는 소모품이다. 가정집이나 의료 시설에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "의약품이다.\n\n의료 처치에 쓰는 소모품이다.\n\n가정집이나 의료 시설에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.Apple",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.Apron_Black",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의류. 몸에 입거나 걸쳐 착용하는 의류다. 조리 도구 보관 장소에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "상의다.\n\n몸에 걸쳐 입어 차림을 갖출 때 입는다."
+      }
+    },
+    {
+      "item_id": "Base.Apron_IceCream",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의류. 몸에 입거나 걸쳐 착용하는 의류다. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "상의다.\n\n몸에 걸쳐 입어 차림을 갖출 때 입는다."
+      }
+    },
+    {
+      "item_id": "Base.Apron_Jay",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의류. 몸에 입거나 걸쳐 착용하는 의류다. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "상의다.\n\n몸에 걸쳐 입어 차림을 갖출 때 입는다."
+      }
+    },
+    {
+      "item_id": "Base.Apron_PileOCrepe",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "상의. 착용 작업에서 몸에 걸쳐 입고 활동 복장으로 갖출 때 입는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "상의다.\n\n몸에 걸쳐 입어 차림을 갖출 때 입는다."
+      }
+    },
+    {
+      "item_id": "Base.Apron_PizzaWhirled",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "상의. 착용 작업에서 몸에 걸쳐 입고 활동 복장으로 갖출 때 입는다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "상의다.\n\n몸에 걸쳐 입어 차림을 갖출 때 입는다."
+      }
+    },
+    {
+      "item_id": "Base.Apron_Spiffos",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의류. 몸에 입거나 걸쳐 착용하는 의류다. 스피포 주방과 스피포 상품 진열대, 스피포 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "상의다.\n\n몸에 걸쳐 입어 차림을 갖출 때 입는다."
+      }
+    },
+    {
+      "item_id": "Base.Apron_White",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의류. 몸에 입거나 걸쳐 착용하는 의류다. 주방과 조리 작업 장소에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "상의다.\n\n몸에 걸쳐 입어 차림을 갖출 때 입는다."
+      }
+    },
+    {
+      "item_id": "Base.Apron_WhiteTEXTURE",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의류. 몸에 입거나 걸쳐 착용하는 의류다. 시가지와 트레일러파크, 초목 지대 채집으로 구할 수 있다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "상의다.\n\n몸에 걸쳐 입어 차림을 갖출 때 입는다."
+      }
+    },
+    {
+      "item_id": "Base.AssaultRifle",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "근접 무기. 사격 전투에 쓰는 화기다. 군용 무기 보관 장소와 총기 보관 장소, 특수 총기 진열대에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "소총이다.\n\n사격 전투에 쓰는 화기다.\n\n군용 무기고, 총기 보관함 또는 특수 총기 진열대에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.AssaultRifle2",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "근접 무기. 사격 전투에 쓰는 화기다. 군용 무기 보관 장소와 총기 보관 장소, 특수 총기 진열대에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "소총이다.\n\n사격 전투에 쓰는 화기다.\n\n군용 무기고, 총기 보관함 또는 특수 총기 진열대에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.Avocado",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.Axe",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "무기 겸 도구. 벌목 작업에서 나무를 찍거나 자를 때 쓴다. 작업 차량과 차고, 목공 공구 상자와 공구점에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "무기 겸 도구다.\n\n나무를 찍거나 자를 때 쓴다.\n\n벌목 시 쓰인다.\n\n작업용 차량, 차고, 목공 공구 상자 또는 공구점에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.AxeStone",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "무기 겸 도구. 벌목 작업에서 나무를 찍거나 자를 때 쓴다. 나뭇가지와 깎인 돌, 천 조각으로 제작한다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "무기 겸 도구다.\n\n나무를 찍거나 자를 때 쓴다.\n\n벌목 시 쓰인다.\n\n나뭇가지와 깎인 돌, 천 조각으로 제작한다."
+      }
+    },
+    {
+      "item_id": "Base.BackgammonBoard",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "백개먼 판. 놀이 작업에서 판과 카드, 말, 작은 장난감을 꺼내 가볍게 즐길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "백개먼 판이다.\n\n판이나 카드, 말, 작은 장난감을 꺼내 즐길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.BadmintonRacket",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "스포츠 용품. 훈련이나 레저 활동에 쓰는 스포츠 용품이다. 스포츠 상자와 라켓 보관함에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "스포츠 용품이다.\n\n경기나 레저 활동에서 종목에 맞는 라켓이나 스틱, 패들로 쓴다.\n\n스포츠 상자와 라켓 보관함에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_ALICEpack",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 군용품점과 캠핑, 사냥 장비 보관 장소, 생존 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "가방이다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다.\n\n보관 및 휴대 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_ALICEpack_Army",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 군용 보관 장소와 군용품점에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "가방이다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다.\n\n보관 및 휴대 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_BigHikingBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 캠핑과 사냥 장비 보관 장소, 의류 보관 장소와 생존 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "가방이다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다.\n\n보관 및 휴대 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_BowlingBallBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "볼링 가방. 보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "볼링 가방이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_DoctorBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의료 가방. 보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "의료 가방이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_DuffelBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 군용품점과 캠핑 장비 보관 장소에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n소지품을 넣어 휴대하는 가방이다.\n\n착용하면 들고 다니는 물건을 한데 모아 관리할 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_DuffelBagTINT",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 사물함과 의류 보관 장소, 생존 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_FannyPackBack",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "허리 가방. 보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "허리 가방이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_FannyPackFront",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 사물함과 의류 보관 장소, 체육관과 경찰 보관 장소에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "허리 가방이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_FoodCanned",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 생존 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_FoodSnacks",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 생존 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_GolfBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 골프 보관함과 골프 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "가방이다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다.\n\n보관 및 휴대 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_InmateEscapedBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "더플백. 보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_JanitorToolbox",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "휴대 가방. 휴대 작업에서 메거나 들고 다니며 물건을 담아 옮길 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "휴대 가방이다.\n\n보관 및 휴대 시 쓰인다.\n\n메거나 들고 다니며 물건을 담아 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_MedicalBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 구급차와 의사 차량, 생존 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "가방이다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다.\n\n보관 및 휴대 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_Military",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 군용 보관 장소와 군용품점에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_MoneyBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "더플백. 보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_NormalHikingBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 캠핑과 사냥 장비 보관 장소, 의류 보관 장소와 생존 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "가방이다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다.\n\n보관 및 휴대 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_PistolCase",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "휴대 케이스. 휴대 작업에서 메거나 들고 다니며 물건을 담아 옮길 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "휴대 케이스다.\n\n보관 및 휴대 시 쓰인다.\n\n메거나 들고 다니며 물건을 담아 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_Satchel",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 서점 가방 진열대와 학교 물품 장소, 사물함에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "가방이다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다.\n\n보관 및 휴대 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_Schoolbag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 서점 가방 진열대와 학교 물품 장소, 학교 보관 장소에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "가방이다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다.\n\n보관 및 휴대 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_ShotgunBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 생존 차량과 생존자 은닉처에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_ShotgunDblBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 생존 차량과 생존자 은닉처에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_ShotgunDblSawnoffBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 생존 차량과 생존자 은닉처에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_ShotgunSawnoffBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 생존 차량과 생존자 은닉처에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_SurvivorBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "휴대 가방. 휴대 작업에서 메거나 들고 다니며 물건을 담아 옮길 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "휴대 가방이다.\n\n보관 및 휴대 시 쓰인다.\n\n메거나 들고 다니며 물건을 담아 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_ToolBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "가방. 물건을 담아 옮길 때 쓰는 가방이다. 작업 차량과 생존 차량에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "더플백이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_WeaponBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "장비 가방. 보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "장비 가방이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.Bag_WorkerBag",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "공구 가방. 보관 작업에서 소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 다룬다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "공구 가방이다.\n\n보관 및 휴대 시 쓰인다.\n\n소지품이나 내용물을 담아 휴대하거나 나눠 옮길 때 쓴다."
+      }
+    },
+    {
+      "item_id": "Base.BagelPlain",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BagelPoppy",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BagelSesame",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.Baguette",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BaguetteDough",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 식사 준비나 섭취에 쓰는 식품이다. 재료를 섞어 준비한다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BaguetteSandwich",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 식사 준비나 섭취에 쓰는 식품이다. 재료를 조합해 만든다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BaitFish",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BakingPan",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "조리 도구. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 가정집이나 제과점에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "조리 도구다.\n\n재료를 익히거나 조리할 때 쓴다.\n\n조리 작업 시 쓰인다.\n\n가정집이나 제과점에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.BakingSoda",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "조리 재료. 조리 준비 작업에서 재료를 담거나 섞고 익히기 전에 다룰 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "조리 재료다.\n\n재료를 담거나 섞어 조리할 때 쓴다.\n\n조리 작업 시 쓰인다."
+      }
+    },
+    {
+      "item_id": "Base.BakingTray",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "조리 도구. 조리 작업에서 재료를 익히거나 다룰 때 쓴다. 가정집이나 제과점에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "조리 도구다.\n\n재료를 익히거나 조리할 때 쓴다.\n\n조리 작업 시 쓰인다.\n\n가정집이나 제과점에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.BakingTrayBread",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 식사 준비나 섭취에 쓰는 식품이다. 반죽이나 재료를 조리해 만든다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BakingTray_Muffin",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 식사 준비나 섭취에 쓰는 식품이다. 반죽이나 재료를 조리해 만든다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BakingTray_Muffin_Recipe",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 식사 준비나 섭취에 쓰는 식품이다. 재료를 섞어 준비한다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BallPeenHammer",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "무기 겸 도구. 금속 단조에 쓰는 도구다. 작업 차량과 차고, 공구 상자와 공구점에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "무기 겸 도구다.\n\n금속 단조에 쓰는 도구다.\n\n작업용 차량, 차고, 공구 상자 또는 공구점에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.Baloney",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.BaloneySlice",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 식사 준비나 섭취에 쓰는 식품이다. 고기를 잘라 얻는다."
+      },
+      "runtime": {
+        "publish_state": "internal_only",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.Banana",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "식품. 조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "식품이다.\n\n섭취하여 포만감을 얻을 수 있다."
+      }
+    },
+    {
+      "item_id": "Base.Bandage",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의료 용품. 의료 처치에 쓰는 소모품이다. 약국이나 병원에서 발견된다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "의료 용품이다.\n\n의료 처치 시 쓰인다.\n\n의료 처치에 쓰는 소모품이다.\n\n약국이나 병원에서 발견된다."
+      }
+    },
+    {
+      "item_id": "Base.BandageDirty",
+      "rendered": {
+        "source": "composed",
+        "text_ko": "의료 소모품. 의료 처치에 쓰는 소모품이다."
+      },
+      "runtime": {
+        "publish_state": "exposed",
+        "source": "composed_v2_preview",
+        "text_ko": "의료 소모품이다.\n\n의료 처치에 쓰는 소모품이다."
+      }
+    }
+  ],
+  "missing_in_rendered": [],
+  "missing_in_runtime": [],
+  "publish_state_mismatch_count": 2086,
+  "schema_mismatches_sample": [
+    {
+      "item_id": "Base.223Box",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.223Bullets",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.223BulletsMold",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.223Clip",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.308Box",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.308Bullets",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.308BulletsMold",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.308Clip",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.44Clip",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.45Clip",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.556Box",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.556Bullets",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.556Clip",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.9mmBulletsMold",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.9mmClip",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Acorn",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Aerosolbomb",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AerosolbombRemote",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AerosolbombSensorV1",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AerosolbombSensorV2",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AerosolbombSensorV3",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AerosolbombTriggered",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AlarmClock",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AlarmClock2",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AlcoholBandage",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AlcoholRippedSheets",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AlcoholWipes",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AlcoholedCottonBalls",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Allsorts",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Aluminum",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AmericanLadyCaterpillar",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AmmoStrap_Bullets",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AmmoStrap_Shells",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AmmoStraps",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Amplifier",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Antibiotics",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apple",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apron_Black",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apron_IceCream",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apron_Jay",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apron_PileOCrepe",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apron_PizzaWhirled",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apron_Spiffos",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apron_White",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Apron_WhiteTEXTURE",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AssaultRifle",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AssaultRifle2",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Avocado",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Axe",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.AxeStone",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BackgammonBoard",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BadmintonRacket",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_ALICEpack",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_ALICEpack_Army",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_BigHikingBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_BowlingBallBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_DoctorBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_DuffelBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_DuffelBagTINT",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_FannyPackBack",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_FannyPackFront",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_FoodCanned",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_FoodSnacks",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_GolfBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_InmateEscapedBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_JanitorToolbox",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_MedicalBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_Military",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_MoneyBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_NormalHikingBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_PistolCase",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_Satchel",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_Schoolbag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_ShotgunBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_ShotgunDblBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_ShotgunDblSawnoffBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_ShotgunSawnoffBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_SurvivorBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_ToolBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_WeaponBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bag_WorkerBag",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BagelPlain",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BagelPoppy",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BagelSesame",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Baguette",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BaguetteDough",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BaguetteSandwich",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BaitFish",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BakingPan",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BakingSoda",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BakingTray",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BakingTrayBread",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BakingTray_Muffin",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BakingTray_Muffin_Recipe",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BallPeenHammer",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Baloney",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BaloneySlice",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Banana",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.Bandage",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    },
+    {
+      "item_id": "Base.BandageDirty",
+      "rendered_fields": [
+        "source",
+        "text_ko"
+      ],
+      "runtime_fields": [
+        "publish_state",
+        "source",
+        "text_ko"
+      ]
+    }
+  ],
+  "schema_version": "layer3-rendered-runtime-mismatch-inventory-v0",
+  "source_mismatch_count": 2105,
+  "text_mismatch_count": 2086
+}

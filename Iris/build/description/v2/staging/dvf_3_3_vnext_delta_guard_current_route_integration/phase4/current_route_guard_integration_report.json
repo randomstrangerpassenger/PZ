@@ -1,0 +1,10 @@
+{
+  "live_required_validation_manifest_mutated": false,
+  "official_current_completion_path_bound": true,
+  "required_artifact_count": 6,
+  "required_test_count": 13,
+  "required_validation_manifest_disposition": "phase_local_predecessor_trace_only",
+  "required_validation_manifest_written": false,
+  "schema_version": "dvf-3-3-vnext-delta-guard-current-route-integration-phase4-v1",
+  "status": "PASS"
+}

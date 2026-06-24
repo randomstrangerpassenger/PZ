@@ -1,0 +1,21 @@
+{
+  "claim_boundary": "candidate_recommended_gate_result_not_cutover_authorization",
+  "counts": {
+    "approved_count": 0,
+    "deferred_count": 0,
+    "rejected_count": 0,
+    "runtime_eligible_count": 0,
+    "scope_exclusion_count": 0,
+    "state_delta_count": 0,
+    "text_ko_delta_count": 0,
+    "total_delta_count": 0,
+    "unresolved_policy_candidate_count": 0
+  },
+  "cutover_input_usable": true,
+  "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity",
+  "not_cutover_authorization": true,
+  "parent_problem_unlock": true,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-final-report-v0",
+  "status": "PASS",
+  "terminal": "rejected delta correction / re-parity sealed; cutover_input_usable=true candidate established"
+}

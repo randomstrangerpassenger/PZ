@@ -1,0 +1,163 @@
+{
+  "claim_boundary": "DVF 3-3 live consumer migration execution evidence only; not current authority recutover, not source/rendered/Lua-bridge/runtime-chunk/package authority mutation, not package readiness, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, not manual in-game QA, and not public-facing text quality acceptance.",
+  "denominator_role_table": [
+    {
+      "axis": "change_required_occurrence",
+      "claim_boundary_role": "input_denominator_not_live_completion_count",
+      "completion_meaning": "change-required audit denominator",
+      "denominator_id": "DEN-AUDIT-CHANGE-REQUIRED",
+      "forbidden_claim_verbs": [
+        "migration_completion",
+        "current_authority_cutover",
+        "runtime_replacement",
+        "release_readiness",
+        "workshop_readiness",
+        "migrated_rows"
+      ],
+      "row_unit": "accepted_candidate_occurrence",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "value": 311
+    },
+    {
+      "axis": "executing_consumer_surface",
+      "claim_boundary_role": "input_denominator_not_live_completion_count",
+      "completion_meaning": "executing consumer reach/context denominator",
+      "denominator_id": "DEN-AUDIT-EXECUTING-CONSUMERS",
+      "forbidden_claim_verbs": [
+        "migration_completion",
+        "current_authority_cutover",
+        "runtime_replacement",
+        "release_readiness",
+        "workshop_readiness",
+        "applied_count"
+      ],
+      "row_unit": "consumer_surface",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "value": 1062
+    },
+    {
+      "axis": "actual_apply_eligible_row",
+      "claim_boundary_role": "input_denominator_not_live_completion_count",
+      "completion_meaning": "apply-eligible candidate denominator",
+      "denominator_id": "DEN-NORMALIZED-APPLY-ELIGIBLE",
+      "forbidden_claim_verbs": [
+        "migration_completion",
+        "current_authority_cutover",
+        "runtime_replacement",
+        "release_readiness",
+        "workshop_readiness",
+        "live_migration_completion"
+      ],
+      "row_unit": "normalized_row",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl",
+      "value": 163
+    },
+    {
+      "axis": "non_apply_reconciled_row",
+      "claim_boundary_role": "input_denominator_not_live_completion_count",
+      "completion_meaning": "non-apply reconciled denominator",
+      "denominator_id": "DEN-NORMALIZED-NO-OP",
+      "forbidden_claim_verbs": [
+        "migration_completion",
+        "current_authority_cutover",
+        "runtime_replacement",
+        "release_readiness",
+        "workshop_readiness",
+        "migrated_diff_denominator"
+      ],
+      "row_unit": "normalized_row",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl",
+      "value": 148
+    },
+    {
+      "axis": "readiness_sandbox_mutation_row",
+      "claim_boundary_role": "input_denominator_not_live_completion_count",
+      "completion_meaning": "readiness sandbox mutation denominator",
+      "denominator_id": "DEN-READINESS-SANDBOX-MUTATION",
+      "forbidden_claim_verbs": [
+        "migration_completion",
+        "current_authority_cutover",
+        "runtime_replacement",
+        "release_readiness",
+        "workshop_readiness",
+        "live_migration_completion"
+      ],
+      "row_unit": "readiness_ledger_row",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+      "value": 163
+    },
+    {
+      "axis": "runtime_payload_adopted_row",
+      "claim_boundary_role": "input_denominator_not_live_completion_count",
+      "completion_meaning": "runtime adopted row context",
+      "denominator_id": "DEN-RUNTIME-ADOPTED-ROWS",
+      "forbidden_claim_verbs": [
+        "migration_completion",
+        "current_authority_cutover",
+        "runtime_replacement",
+        "release_readiness",
+        "workshop_readiness",
+        "migration_completion"
+      ],
+      "row_unit": "runtime_payload_entry",
+      "source_artifact": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
+      "value": 2084
+    },
+    {
+      "axis": "runtime_payload_entry",
+      "claim_boundary_role": "input_denominator_not_live_completion_count",
+      "completion_meaning": "runtime context denominator",
+      "denominator_id": "DEN-RUNTIME-CURRENT-ENTRIES",
+      "forbidden_claim_verbs": [
+        "migration_completion",
+        "current_authority_cutover",
+        "runtime_replacement",
+        "release_readiness",
+        "workshop_readiness",
+        "migration_completion"
+      ],
+      "row_unit": "runtime_payload_entry",
+      "source_artifact": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
+      "value": 2105
+    },
+    {
+      "axis": "runtime_payload_unadopted_row",
+      "claim_boundary_role": "input_denominator_not_live_completion_count",
+      "completion_meaning": "runtime unadopted row context",
+      "denominator_id": "DEN-RUNTIME-UNADOPTED-ROWS",
+      "forbidden_claim_verbs": [
+        "migration_completion",
+        "current_authority_cutover",
+        "runtime_replacement",
+        "release_readiness",
+        "workshop_readiness",
+        "migration_completion"
+      ],
+      "row_unit": "runtime_payload_entry",
+      "source_artifact": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/unadopted_payload_rows.jsonl",
+      "value": 21
+    },
+    {
+      "axis": "terminal_projection_input",
+      "claim_boundary_role": "live_state_reverification_denominator",
+      "completion_meaning": "live execution input only",
+      "denominator_id": "DEN-TERMINAL-MIGRATED",
+      "forbidden_claim_verbs": [
+        "live_completion_count",
+        "release_readiness",
+        "current_authority_recutover"
+      ],
+      "row_unit": "terminal_migrated_member_row",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+      "value": 153
+    }
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_mutation_count_before_phase4": 0,
+  "objective": "terminal_migrated_153_live_consumer_surface_reverification_and_guarded_execution_evidence",
+  "phase4_live_apply_allowed_by_current_gate": false,
+  "phase4_live_apply_allowed_by_plan": true,
+  "round_id": "dvf_3_3_live_consumer_migration_execution",
+  "schema_version": "dvf-3-3-live-execution-scope-lock-v1",
+  "status": "PASS"
+}

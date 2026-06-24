@@ -1,0 +1,227 @@
+{
+  "schema_version": "interaction-clusters-v0",
+  "status": "seed",
+  "cluster_count_limit": 30,
+  "cluster_count_overflow_action": "rework_a4_1",
+  "role_tie_breaker": {
+    "order": [
+      "tool",
+      "material",
+      "output"
+    ],
+    "status": "provisional",
+    "freeze_after_phase_c": true
+  },
+  "clusters": [
+    {
+      "id": "metalwork_anvil",
+      "label_ko": "금속 단조 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "heated metal shaping on anvil"
+    },
+    {
+      "id": "metalwork_welding",
+      "label_ko": "금속 접합 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "metal joining and welding"
+    },
+    {
+      "id": "woodcutting",
+      "label_ko": "벌목 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "wood cutting and chopping"
+    },
+    {
+      "id": "melee_combat",
+      "label_ko": "근접 전투",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "close-range striking combat"
+    },
+    {
+      "id": "electronics_assembly",
+      "label_ko": "전자 조립 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "electronics assembly and repair"
+    },
+    {
+      "id": "explosive_assembly",
+      "label_ko": "즉석 폭발물 조립 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "improvised explosive assembly"
+    },
+    {
+      "id": "explosive_devices",
+      "label_ko": "폭발물 운용 작업",
+      "representative_role": "output",
+      "status": "seed",
+      "summary_focus": "explosive device setup and deployment"
+    },
+    {
+      "id": "cooking_prep",
+      "label_ko": "조리 준비 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "ingredient preparation and cooking"
+    },
+    {
+      "id": "medical_treatment",
+      "label_ko": "의료 처치 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "medical treatment and wound care"
+    },
+    {
+      "id": "gun_modding",
+      "label_ko": "총기 개조 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "firearm modification"
+    },
+    {
+      "id": "ammo_crafting",
+      "label_ko": "탄약 제작 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "ammunition crafting"
+    },
+    {
+      "id": "ammo_loading",
+      "label_ko": "장전 준비 작업",
+      "representative_role": "output",
+      "status": "seed",
+      "summary_focus": "ammo loading and boxing"
+    },
+    {
+      "id": "ammo_molding",
+      "label_ko": "탄약 주조 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "ammo mold preparation"
+    },
+    {
+      "id": "firearm_loading",
+      "label_ko": "총기 장전 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "firearm magazine loading and insertion"
+    },
+    {
+      "id": "ammo_storage_carry",
+      "label_ko": "탄약 휴대 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "ammo carry and ready access"
+    },
+    {
+      "id": "ranged_firearm_combat",
+      "label_ko": "사격 전투",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "ranged firearm combat"
+    },
+    {
+      "id": "fabric_repair",
+      "label_ko": "천 재봉 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "sewing and cloth repair"
+    },
+    {
+      "id": "adhesive_repair_supply",
+      "label_ko": "접착 수리 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "adhesive-backed repair and seam binding"
+    },
+    {
+      "id": "solid_fuel_material",
+      "label_ko": "고체 연료 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "solid fuel input for fire and heat maintenance"
+    },
+    {
+      "id": "metalworking_consumable_supply",
+      "label_ko": "금속 접합 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "consumable welding supply for metal joining"
+    },
+    {
+      "id": "container_storage",
+      "label_ko": "보관 및 휴대 작업",
+      "representative_role": "output",
+      "status": "seed",
+      "summary_focus": "storage and transport"
+    },
+    {
+      "id": "disassembly_repair",
+      "label_ko": "분해 및 간단 조립 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "disassembly and basic assembly"
+    },
+    {
+      "id": "improvised_weapon_assembly",
+      "label_ko": "즉석 무기 제작 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "improvised spear and melee weapon assembly"
+    },
+    {
+      "id": "fuel_handling",
+      "label_ko": "연료 취급 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "fuel transfer and fueling"
+    },
+    {
+      "id": "construction_prep",
+      "label_ko": "건축 준비 작업",
+      "representative_role": "tool",
+      "status": "seed",
+      "summary_focus": "construction prep and material shaping"
+    },
+    {
+      "id": "field_shelter_setup",
+      "label_ko": "야영 준비 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "field shelter setup and tent preparation"
+    },
+    {
+      "id": "seed_handling",
+      "label_ko": "농사 준비 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "seed packet handling and farming prep"
+    },
+    {
+      "id": "bedding_assembly",
+      "label_ko": "침구 제작 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "bedding assembly and stuffing"
+    },
+    {
+      "id": "harvest_pack_handling",
+      "label_ko": "수확물 정리 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "harvest sack opening and produce handling"
+    },
+    {
+      "id": "trap_net_assembly",
+      "label_ko": "덫 및 어망 제작 작업",
+      "representative_role": "material",
+      "status": "seed",
+      "summary_focus": "trap and fishing net assembly"
+    }
+  ]
+}

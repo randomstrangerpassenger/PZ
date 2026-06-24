@@ -1,0 +1,12 @@
+{
+  "candidate_current_route_validation_status": "patch_schema_validated",
+  "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "live_manifest_mutated": true,
+  "required_gate_adoption_status": "adopted_required_gate",
+  "restore_performed": false,
+  "restore_required": false,
+  "sandbox_validation_run": false,
+  "schema_version": "consumer-universe-denominator-current-route-sandbox-apply-restore-v1",
+  "status": "PASS"
+}

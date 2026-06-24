@@ -1,0 +1,12 @@
+{
+  "classification_scope_excluded": true,
+  "classified_delta_denominator": 2125,
+  "excluded_reason": "predecessor_only_legacy_visibility_axis",
+  "legacy_axis_disposition_count": 2105,
+  "payload_equality_reopened": false,
+  "policy_mutation": false,
+  "publish_state_branch": "B",
+  "schema_version": "dvf-3-3-vnext-publish-state-axis-disposition-v0",
+  "status": "PASS",
+  "unaccounted_parity_axis_count": 0
+}

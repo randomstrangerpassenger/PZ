@@ -2,7 +2,7 @@
 
 Date: 2026-05-06
 
-Source roadmap: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+Historical source roadmap label: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
 
 This record starts Phase 3-3. The goal is to split Q5 into collect, compare,
 and report helpers while preserving the existing command surface and fail

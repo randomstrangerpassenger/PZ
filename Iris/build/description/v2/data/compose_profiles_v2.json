@@ -1,0 +1,246 @@
+{
+  "schema_version": "compose-profiles-v2",
+  "section_names": [
+    "identity_core",
+    "use_core",
+    "context_support",
+    "acquisition_support",
+    "limitation_tail",
+    "meta_tail"
+  ],
+  "render_rules": {
+    "paragraph_separator": "\n\n",
+    "insert_when_emitted_section_count_at_least": 2
+  },
+  "profiles": {
+    "tool_body": {
+      "required_sections": [
+        "identity_core",
+        "use_core"
+      ],
+      "optional_sections": [
+        "context_support",
+        "acquisition_support",
+        "limitation_tail"
+      ],
+      "section_order": [
+        "identity_core",
+        "use_core",
+        "context_support",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core"
+        ]
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core",
+          "context_support"
+        ],
+        [
+          "identity_core",
+          "use_core",
+          "acquisition_support"
+        ],
+        [
+          "identity_core",
+          "use_core",
+          "limitation_tail"
+        ]
+      ]
+    },
+    "material_body": {
+      "required_sections": [
+        "identity_core",
+        "context_support"
+      ],
+      "optional_sections": [
+        "use_core",
+        "acquisition_support",
+        "limitation_tail"
+      ],
+      "section_order": [
+        "identity_core",
+        "context_support",
+        "use_core",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "context_support"
+        ]
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "context_support",
+          "use_core"
+        ],
+        [
+          "identity_core",
+          "context_support",
+          "acquisition_support"
+        ],
+        [
+          "identity_core",
+          "context_support",
+          "limitation_tail"
+        ]
+      ]
+    },
+    "consumable_body": {
+      "required_sections": [
+        "identity_core",
+        "use_core",
+        "limitation_tail"
+      ],
+      "optional_sections": [
+        "context_support",
+        "acquisition_support"
+      ],
+      "section_order": [
+        "identity_core",
+        "use_core",
+        "limitation_tail",
+        "context_support",
+        "acquisition_support"
+      ],
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core"
+        ]
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core",
+          "limitation_tail"
+        ]
+      ]
+    },
+    "wearable_body": {
+      "required_sections": [
+        "identity_core",
+        "limitation_tail"
+      ],
+      "optional_sections": [
+        "context_support",
+        "acquisition_support",
+        "use_core"
+      ],
+      "section_order": [
+        "identity_core",
+        "limitation_tail",
+        "context_support",
+        "use_core",
+        "acquisition_support"
+      ],
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "limitation_tail"
+        ],
+        [
+          "identity_core",
+          "context_support"
+        ]
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "limitation_tail"
+        ]
+      ]
+    },
+    "container_body": {
+      "required_sections": [
+        "identity_core",
+        "use_core"
+      ],
+      "optional_sections": [
+        "context_support",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "section_order": [
+        "identity_core",
+        "use_core",
+        "context_support",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core"
+        ]
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "use_core",
+          "context_support"
+        ],
+        [
+          "identity_core",
+          "use_core",
+          "limitation_tail"
+        ],
+        [
+          "identity_core",
+          "use_core",
+          "acquisition_support"
+        ]
+      ]
+    },
+    "output_body": {
+      "required_sections": [
+        "identity_core",
+        "context_support"
+      ],
+      "optional_sections": [
+        "use_core",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "section_order": [
+        "identity_core",
+        "context_support",
+        "use_core",
+        "limitation_tail",
+        "acquisition_support"
+      ],
+      "adequate_minimum_any_of": [
+        [
+          "identity_core",
+          "context_support"
+        ]
+      ],
+      "strong_minimum_any_of": [
+        [
+          "identity_core",
+          "context_support",
+          "use_core"
+        ],
+        [
+          "identity_core",
+          "context_support",
+          "limitation_tail"
+        ],
+        [
+          "identity_core",
+          "context_support",
+          "acquisition_support"
+        ]
+      ]
+    }
+  }
+}

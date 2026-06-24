@@ -1,0 +1,7 @@
+{
+  "blockers_relabelled_as_live_migration_failure": false,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "reason": "current route was recorded as external review material and not consumed as local live migration completion evidence",
+  "schema_version": "dvf-3-3-live-pre-existing-current-route-blocker-report-v1",
+  "status": "NOT_EVALUATED"
+}

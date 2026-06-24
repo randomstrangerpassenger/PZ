@@ -1,0 +1,113 @@
+{
+  "schema_version": "interaction-cluster-gap-patterns-v0",
+  "raw_source_path": "Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\historical_interaction_cluster_source.raw.jsonl",
+  "summary": {
+    "row_count": 1050,
+    "match_state_breakdown": {
+      "matched": 228,
+      "no_evidence": 782,
+      "policy_excluded": 40
+    },
+    "no_evidence_identity_top": [
+      {
+        "identity_hint": "의류",
+        "count": 254
+      },
+      {
+        "identity_hint": "액세서리",
+        "count": 196
+      },
+      {
+        "identity_hint": "식품",
+        "count": 61
+      },
+      {
+        "identity_hint": "폭발물",
+        "count": 26
+      },
+      {
+        "identity_hint": "용기",
+        "count": 23
+      },
+      {
+        "identity_hint": "가방",
+        "count": 19
+      },
+      {
+        "identity_hint": "근접 무기",
+        "count": 15
+      },
+      {
+        "identity_hint": "도료",
+        "count": 15
+      },
+      {
+        "identity_hint": "악기",
+        "count": 14
+      },
+      {
+        "identity_hint": "지도",
+        "count": 14
+      },
+      {
+        "identity_hint": "전자 기기",
+        "count": 12
+      },
+      {
+        "identity_hint": "스포츠 용품",
+        "count": 11
+      },
+      {
+        "identity_hint": "무기 겸용 도구",
+        "count": 10
+      },
+      {
+        "identity_hint": "재료",
+        "count": 9
+      },
+      {
+        "identity_hint": "의료 소모품",
+        "count": 8
+      }
+    ],
+    "policy_excluded_reason_top": [
+      {
+        "reason_code": "action_only_not_representative",
+        "count": 39
+      },
+      {
+        "reason_code": "niche_recipe_not_representative",
+        "count": 3
+      }
+    ],
+    "policy_excluded_text_top": [
+      {
+        "text": "uc.action.extinguish_fire",
+        "count": 38,
+        "examples": [
+          "Base.BeerWaterFull",
+          "Base.BucketEmpty",
+          "Base.BucketWaterFull"
+        ]
+      },
+      {
+        "text": "양동이에 석고 반죽 만들기",
+        "count": 3,
+        "examples": [
+          "Base.BucketEmpty",
+          "Base.BucketWaterFull",
+          "Base.PlasterPowder"
+        ]
+      },
+      {
+        "text": "촛불 끄기",
+        "count": 1,
+        "examples": [
+          "Base.CandleLit"
+        ]
+      }
+    ],
+    "unmatched_category_top": [],
+    "unmatched_text_top": []
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "hard_forbidden_authority_surface_mutation_count": 0,
+  "mapped_line_patch_count": 0,
+  "mapped_row_count": 0,
+  "orphan_diff_count": 0,
+  "sandbox_live_evidence_mixed": false,
+  "schema_version": "dvf-3-3-live-dry-run-to-ledger-report-v1",
+  "status": "PASS",
+  "unmapped_row_count": 0
+}

@@ -1,0 +1,35 @@
+{
+  "candidate_paths": [
+    {
+      "canonical": true,
+      "path": "Iris/media/lua/client/Iris/Data",
+      "resolved": true,
+      "target_kind": "live"
+    },
+    {
+      "canonical": true,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data",
+      "resolved": true,
+      "target_kind": "package-output"
+    },
+    {
+      "canonical": false,
+      "disposition": "unresolved_path_candidate",
+      "path": "Iris/Iris/media/lua/client/Iris/Data",
+      "resolved": false,
+      "target_kind": "legacy-looking-package-candidate"
+    },
+    {
+      "canonical": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data",
+      "resolved": true,
+      "target_kind": "mirrored"
+    }
+  ],
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "relative_escape_count": 0,
+  "reparse_or_symlink_count": 0,
+  "schema_version": "dvf-3-3-vnext-runtime-path-safety-v0",
+  "status": "PASS"
+}

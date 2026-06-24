@@ -1,0 +1,31 @@
+{
+  "allowed_contexts": [
+    "historical",
+    "diagnostic",
+    "staging"
+  ],
+  "criteria_sha256": "f88c2b8cea2940391a31955edf088cda0d7cba3477cac30a9db563c39b9653b9",
+  "current_context_fail_loud": true,
+  "forbidden_condition_count": 8,
+  "forbidden_conditions": [
+    "fixture_as_authority",
+    "monolith_re_entry",
+    "staging_direct_promotion",
+    "parity_missing",
+    "disposition_coverage",
+    "unapproved_delta",
+    "single_authority",
+    "legacy_vocabulary"
+  ],
+  "forbidden_patterns": [
+    "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+    "media/lua/shared/Iris/IrisDvfBridgeData.lua",
+    "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/",
+    "active",
+    "silent"
+  ],
+  "role": "shared_scan_criteria_or_route_owner_equivalence_fingerprint",
+  "schema_version": "dvf-3-3-vnext-delta-guard-forbidden-scan-criteria-v1"
+}

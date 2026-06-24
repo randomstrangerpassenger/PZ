@@ -1,0 +1,12 @@
+{
+  "patterns": [
+    "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+    "media/lua/shared/Iris/IrisDvfBridgeData.lua",
+    "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua"
+  ],
+  "schema_version": "dvf-3-3-vnext-forbidden-current-path-patterns-v0",
+  "staging_direct_promotion_roots": [
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_execution",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity"
+  ]
+}

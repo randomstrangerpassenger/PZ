@@ -1,0 +1,6 @@
+{
+  "external_command_required": "powershell -ExecutionPolicy Bypass -File ./tools/check_lua_syntax.ps1",
+  "method": "static chunk integrity plus external check_lua_syntax validation route",
+  "schema_version": "dvf-3-3-vnext-rejected-correction-lua-syntax-route-v0",
+  "status": "PASS"
+}

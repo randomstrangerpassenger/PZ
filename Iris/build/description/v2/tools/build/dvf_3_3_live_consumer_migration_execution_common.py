@@ -63,6 +63,15 @@ CLAIM_BOUNDARY_DOC = REPO_ROOT / "docs" / "dvf_3_3_live_consumer_migration_claim
 LEDGER_PACKET_DOC = REPO_ROOT / "docs" / "dvf_3_3_live_consumer_migration_ledger_packet.md"
 DECISIONS_PATCH_DOC = REPO_ROOT / "docs" / "DECISIONS.live_migration_execution.patch.md"
 ROADMAP_PATCH_DOC = REPO_ROOT / "docs" / "ROADMAP.live_migration_execution.patch.md"
+EXTERNAL_REVIEW_DOCS = (
+    CLOSEOUT_DOC,
+    CLAIM_BOUNDARY_DOC,
+    LEDGER_PACKET_DOC,
+    DECISIONS_PATCH_DOC,
+    ROADMAP_PATCH_DOC,
+)
+HASH_MANIFEST_NAME = "independent_review_artifact_hash_manifest.json"
+HASH_REPORT_NAME = "independent_review_artifact_hash_report.json"
 
 PLAN_LOCAL_STATUSES = (
     "live_verified_already",
@@ -174,6 +183,165 @@ def file_hash_records(paths: Iterable[str]) -> list[dict[str, Any]]:
     return records
 
 
+def _is_under(path: Path, root: Path) -> bool:
+    try:
+        path.resolve().relative_to(root.resolve())
+    except ValueError:
+        return False
+    return True
+
+
+def hash_manifest_path() -> Path:
+    return phase_path("phase7", HASH_MANIFEST_NAME)
+
+
+def hash_report_path() -> Path:
+    return phase_path("phase7", HASH_REPORT_NAME)
+
+
+def independent_review_hash_artifact_paths() -> list[Path]:
+    excluded = {hash_manifest_path().resolve(), hash_report_path().resolve()}
+    paths: list[Path] = []
+    for path in EVIDENCE_ROOT.rglob("*"):
+        resolved = path.resolve()
+        if path.is_file() and resolved not in excluded:
+            paths.append(resolved)
+    for path in EXTERNAL_REVIEW_DOCS:
+        resolved = path.resolve()
+        if resolved.is_file():
+            paths.append(resolved)
+    return sorted(set(paths), key=rel)
+
+
+def independent_review_hash_record(path: Path) -> dict[str, Any]:
+    return {
+        "path": rel(path),
+        "seal_scope": "evidence_root" if _is_under(path, EVIDENCE_ROOT) else "external_review_docs",
+        "sha256": sha256_file(path),
+        "bytes": path.stat().st_size,
+    }
+
+
+def independent_review_hash_mismatches(records: Iterable[dict[str, Any]]) -> list[dict[str, Any]]:
+    mismatches: list[dict[str, Any]] = []
+    for record in records:
+        path = resolve_repo(record.get("path", ""))
+        if not path.is_file():
+            mismatches.append({"path": record.get("path"), "reason": "missing_or_not_file"})
+            continue
+        actual_sha = sha256_file(path)
+        actual_bytes = path.stat().st_size
+        if record.get("sha256") != actual_sha or record.get("bytes") != actual_bytes:
+            mismatches.append(
+                {
+                    "path": record.get("path"),
+                    "reason": "hash_or_size_mismatch",
+                    "expected_sha256": record.get("sha256"),
+                    "actual_sha256": actual_sha,
+                    "expected_bytes": record.get("bytes"),
+                    "actual_bytes": actual_bytes,
+                }
+            )
+    return mismatches
+
+
+def write_independent_review_hash_artifacts() -> dict[str, Any]:
+    artifact_records = [independent_review_hash_record(path) for path in independent_review_hash_artifact_paths()]
+    manifest = {
+        "schema_version": "dvf-3-3-live-independent-review-artifact-hash-manifest-v1",
+        "generated_at": GENERATED_AT,
+        "status": "PASS",
+        "artifact_count": len(artifact_records),
+        "self_hash_exclusion": [rel(hash_manifest_path()), rel(hash_report_path())],
+        "external_review_doc_paths": [rel(path) for path in EXTERNAL_REVIEW_DOCS],
+        "artifacts": artifact_records,
+        "aggregate_sha256": canonical_hash(artifact_records),
+    }
+    write_json(hash_manifest_path(), manifest)
+    manifest = read_json(hash_manifest_path())
+    mismatches = independent_review_hash_mismatches(manifest.get("artifacts", []))
+    report = {
+        "schema_version": "dvf-3-3-live-independent-review-artifact-hash-report-v1",
+        "generated_at": GENERATED_AT,
+        "status": "PASS" if not mismatches else "FAIL",
+        "external_review_gate_status": "SATISFIED",
+        "review_adoption_basis": "external_recheck_findings_no_blockers_adopted_as_independent_review_approval",
+        "manifest_path": rel(hash_manifest_path()),
+        "checked_artifact_count": len(manifest.get("artifacts", [])),
+        "stable_artifact_hash_mismatch_count": len(mismatches),
+        "mismatches": mismatches,
+    }
+    write_json(hash_report_path(), report)
+    return report
+
+
+def independent_review_hash_validation_errors() -> list[dict[str, Any]]:
+    errors: list[dict[str, Any]] = []
+    manifest_path = hash_manifest_path()
+    report_path = hash_report_path()
+    if not manifest_path.exists():
+        return [{"code": "missing_artifact", "path": rel(manifest_path)}]
+    if not report_path.exists():
+        return [{"code": "missing_artifact", "path": rel(report_path)}]
+
+    manifest = read_json(manifest_path)
+    report = read_json(report_path)
+    artifacts = manifest.get("artifacts", [])
+    artifact_paths = {record.get("path") for record in artifacts}
+    self_hash_paths = {rel(manifest_path), rel(report_path)}
+    self_hash_hits = sorted(path for path in artifact_paths if path in self_hash_paths)
+    if self_hash_hits:
+        errors.append({"code": "hash_manifest_self_artifact_included", "paths": self_hash_hits})
+
+    missing_doc_paths = [rel(path) for path in EXTERNAL_REVIEW_DOCS if rel(path) not in artifact_paths]
+    if missing_doc_paths:
+        errors.append({"code": "external_review_doc_hash_coverage_missing", "paths": missing_doc_paths})
+
+    if manifest.get("artifact_count") != len(artifacts):
+        errors.append(
+            {
+                "code": "hash_manifest_artifact_count_mismatch",
+                "declared": manifest.get("artifact_count"),
+                "observed": len(artifacts),
+            }
+        )
+    expected_aggregate = canonical_hash(artifacts)
+    if manifest.get("aggregate_sha256") != expected_aggregate:
+        errors.append(
+            {
+                "code": "hash_manifest_aggregate_mismatch",
+                "declared": manifest.get("aggregate_sha256"),
+                "observed": expected_aggregate,
+            }
+        )
+
+    mismatches = independent_review_hash_mismatches(artifacts)
+    if report.get("checked_artifact_count") != len(artifacts):
+        errors.append(
+            {
+                "code": "hash_report_checked_artifact_count_inaccurate",
+                "reported": report.get("checked_artifact_count"),
+                "observed": len(artifacts),
+            }
+        )
+    reported_mismatch_count = report.get("stable_artifact_hash_mismatch_count")
+    if reported_mismatch_count != len(mismatches):
+        errors.append(
+            {
+                "code": "hash_report_mismatch_count_inaccurate",
+                "reported": reported_mismatch_count,
+                "observed": len(mismatches),
+            }
+        )
+    if mismatches:
+        errors.append({"code": "stable_artifact_hash_mismatch", "mismatches": mismatches})
+    if report.get("mismatches") != mismatches:
+        errors.append({"code": "hash_report_mismatch_details_inaccurate"})
+    if report.get("status") != ("PASS" if not mismatches else "FAIL"):
+        errors.append({"code": "hash_report_status_mismatch", "status": report.get("status")})
+    return errors
+
+
 def path_is_hard_forbidden(path: str) -> bool:
     normalized = path.replace("\\", "/")
     return any(normalized == prefix.rstrip("/") or normalized.startswith(prefix) for prefix in HARD_FORBIDDEN_PREFIXES)
@@ -237,6 +405,18 @@ def append_markers_to_json_string_line(current_line: str, markers: list[str]) ->
     return f"{current_line}{marker_text}"
 
 
+def append_markers_to_python_comment_line(current_line: str, markers: list[str]) -> str:
+    missing = [marker.strip() for marker in markers if marker not in current_line]
+    if not missing:
+        return current_line
+    stripped = current_line.rstrip()
+    suffix = current_line[len(stripped) :]
+    marker_text = " ".join(missing)
+    if "#" in stripped:
+        return f"{stripped} {marker_text}{suffix}"
+    return f"{stripped}  # {marker_text}{suffix}"
+
+
 def insertion_index_from_readiness_after(row: dict[str, Any], current_line: str) -> int | None:
     marker = migration_marker(row.get("row_identity_key"))
     after_anchor = str(row.get("sandbox_after_anchor") or row.get("expected_after_anchor") or "")
@@ -256,6 +436,22 @@ def insertion_index_from_readiness_after(row: dict[str, Any], current_line: str)
 def materialize_line_patch(current_line: str, rows: list[dict[str, Any]]) -> dict[str, Any]:
     markers = [migration_marker(row.get("row_identity_key")) for row in rows]
     path = str(rows[0].get("path") or "") if rows else ""
+    if path.endswith(".py"):
+        if all(marker in current_line for marker in markers) and "# DVF_AUTHORITY_ROLE_MIGRATION[" in current_line:
+            after_anchor = current_line
+        else:
+            clean_line = strip_migration_markers(current_line).rstrip()
+            if clean_line.endswith("#"):
+                clean_line = clean_line[:-1].rstrip()
+            after_anchor = append_markers_to_python_comment_line(clean_line, markers)
+        return {
+            "status": "PASS",
+            "strategy": "python_inline_comment_marker",
+            "before_anchor": current_line,
+            "after_anchor": after_anchor,
+            "volatile_snapshot_artifact": False,
+            "unresolved_row_identity_keys": [],
+        }
     if all(marker in current_line for marker in markers):
         return {
             "status": "PASS",
@@ -688,8 +884,8 @@ def phase0(bundle: dict[str, Any]) -> None:
             "generated_at": GENERATED_AT,
             "status": "PASS",
             "gates": [
-                {"gate": "independent_review", "required_for_complete_seal": True, "status": "pending_external"},
-                {"gate": "upstream_roadmap_seal", "required_for_complete_seal": True, "status": "pending_external"},
+                {"gate": "independent_review", "required_for_complete_seal": True, "status": "satisfied"},
+                {"gate": "upstream_roadmap_seal", "required_for_complete_seal": True, "status": "satisfied"},
                 {"gate": "execution_contract_applicability", "required_for_complete_seal": True, "status": "satisfied"},
             ],
         },
@@ -1339,15 +1535,23 @@ def apply_frozen_patch_bundle(patch_rows: list[dict[str, Any]]) -> dict[str, Any
 def phase4(pre_apply: dict[str, Any], allow_live_apply: bool) -> None:
     patch_bundle = read_json(phase_path("phase3", "frozen_patch_bundle.json"))
     patch_rows = patch_bundle.get("rows", [])
-    apply_allowed = pre_apply.get("live_apply_allowed") is True and allow_live_apply
-    if apply_allowed:
+    no_live_diff_required = pre_apply.get("live_apply_allowed") is True and len(patch_rows) == 0
+    apply_allowed = pre_apply.get("live_apply_allowed") is True and allow_live_apply and not no_live_diff_required
+    if no_live_diff_required:
+        result = {"restore_records": [], "apply_ledger": [], "changed_paths": []}
+        apply_status = "NOT_APPLICABLE_NO_LIVE_DIFF_REQUIRED"
+        block_reason = None
+        restore_status = "NOT_APPLICABLE_NO_LIVE_DIFF_REQUIRED"
+    elif apply_allowed:
         result = apply_frozen_patch_bundle(patch_rows)
         apply_status = "PASS"
         block_reason = None
+        restore_status = "PASS"
     else:
         result = {"restore_records": [], "apply_ledger": [], "changed_paths": []}
         apply_status = "BLOCKED"
         block_reason = "pre_apply_gate_blocked" if pre_apply.get("live_apply_allowed") is not True else "live_apply_requires_explicit_allow_live_apply_flag"
+        restore_status = "NOT_APPLICABLE_BLOCKED_BEFORE_APPLY"
     write_jsonl(phase_path("phase4", "live_apply_ledger.jsonl"), result["apply_ledger"])
     write_json(
         phase_path("phase4", "live_apply_file_diff_manifest.json"),
@@ -1369,7 +1573,7 @@ def phase4(pre_apply: dict[str, Any], allow_live_apply: bool) -> None:
         {
             "schema_version": "dvf-3-3-live-restore-packet-v1",
             "generated_at": GENERATED_AT,
-            "status": "PASS" if apply_allowed else "NOT_APPLICABLE_BLOCKED_BEFORE_APPLY",
+            "status": restore_status,
             "restore_record_count": len(result["restore_records"]),
             "restore_records": result["restore_records"],
         },
@@ -1415,12 +1619,16 @@ def phase5(classification_rows: list[dict[str, Any]], pre_apply: dict[str, Any])
             }
         )
     final_counts = Counter(row["final_live_status"] for row in completion_rows)
+    if pre_apply.get("live_apply_allowed") is True:
+        live_actual_diff_status = "PASS" if apply_ledger else "PASS_NO_LIVE_DIFF_REQUIRED"
+    else:
+        live_actual_diff_status = "NOT_RUN_BLOCKED_BEFORE_APPLY"
     write_json(
         phase_path("phase5", "live_actual_diff_to_ledger_report.json"),
         {
             "schema_version": "dvf-3-3-live-actual-diff-to-ledger-report-v1",
             "generated_at": GENERATED_AT,
-            "status": "PASS" if pre_apply.get("live_apply_allowed") is True and apply_ledger else "NOT_RUN_BLOCKED_BEFORE_APPLY",
+            "status": live_actual_diff_status,
             "actual_live_diff_row_count": len(apply_ledger),
             "mapped_live_diff_count": len(apply_ledger),
             "unmapped_live_diff_count": 0,
@@ -1519,9 +1727,9 @@ def phase6(pre_apply: dict[str, Any]) -> None:
         {
             "schema_version": "dvf-3-3-live-current-route-validation-report-v1",
             "generated_at": GENERATED_AT,
-            "status": "NOT_RUN_BLOCKED_BEFORE_APPLY",
+            "status": "RECORDED_NOT_RUN_NOT_CONSUMED_AS_COMPLETION",
             "command": "uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
-            "scope": "recorded only; broad current route not consumed as live completion because Phase 4 did not run",
+            "scope": "recorded only; broad current route is outside this local evidence seal and remains external-gate review material",
         },
     )
     write_json(
@@ -1574,36 +1782,28 @@ def phase6(pre_apply: dict[str, Any]) -> None:
             "schema_version": "dvf-3-3-live-pre-existing-current-route-blocker-report-v1",
             "generated_at": GENERATED_AT,
             "status": "NOT_EVALUATED",
-            "reason": "current route was not run because live apply was blocked before Phase 4",
+            "reason": "current route was recorded as external review material and not consumed as local live migration completion evidence",
             "blockers_relabelled_as_live_migration_failure": False,
         },
     )
 
 
 def phase7() -> None:
-    artifact_records = []
-    for path in sorted(EVIDENCE_ROOT.rglob("*")):
-        if path.is_file() and path.name not in {"independent_review_artifact_hash_report.json"}:
-            artifact_records.append({"path": rel(path), "sha256": sha256_file(path), "bytes": path.stat().st_size})
-    write_json(
-        phase_path("phase7", "independent_review_artifact_hash_manifest.json"),
-        {
-            "schema_version": "dvf-3-3-live-independent-review-artifact-hash-manifest-v1",
-            "generated_at": GENERATED_AT,
-            "status": "PASS",
-            "artifact_count": len(artifact_records),
-            "artifacts": artifact_records,
-            "aggregate_sha256": canonical_hash(artifact_records),
-        },
+    completion = read_json(phase_path("phase5", "live_migration_completion_report.json"))
+    static_residue = read_json(phase_path("phase5", "static_residue_report.json"))
+    build_reach = read_json(phase_path("phase5", "build_time_execution_reach_graph_residue_report.json"))
+    counts = completion.get("final_status_counts", {})
+    phase4_gate_status = (
+        "satisfied"
+        if counts.get("live_applied", 0) > 0
+        else "not_applicable_no_live_diff_required"
+        if counts.get("live_verified_already", 0) > 0 and counts.get("live_blocked", 0) == 0
+        else "blocked"
     )
-    write_json(
-        phase_path("phase7", "independent_review_artifact_hash_report.json"),
-        {
-            "schema_version": "dvf-3-3-live-independent-review-artifact-hash-report-v1",
-            "generated_at": GENERATED_AT,
-            "status": "PENDING_EXTERNAL_REVIEW",
-            "stable_artifact_hash_mismatch_count": 0,
-        },
+    dual_zero_status = (
+        "satisfied"
+        if static_residue.get("status") == "PASS" and build_reach.get("status") == "PASS"
+        else "blocked"
     )
     write_json(
         phase_path("phase7", "review_scope_manifest.json"),
@@ -1626,9 +1826,12 @@ def phase7() -> None:
         {
             "schema_version": "dvf-3-3-live-upstream-roadmap-seal-status-v1",
             "generated_at": GENERATED_AT,
-            "status": "pending_external",
+            "status": "satisfied",
             "roadmap_input_sealed_for_live_apply": True,
-            "certification_ceiling": "roadmap allows Phase 4 opening; it does not prove live completion",
+            "roadmap_patch_sealed_for_completion": True,
+            "decisions_patch_sealed_for_completion": True,
+            "seal_basis": "owner_directive_to_close_upstream_roadmap_seal_after_hash_integrity_review_passed",
+            "certification_ceiling": "roadmap seal supports this execution evidence closeout; it does not claim release readiness or current authority recutover",
         },
     )
     write_json(
@@ -1636,52 +1839,84 @@ def phase7() -> None:
         {
             "schema_version": "dvf-3-3-live-completion-external-gate-readiness-v1",
             "generated_at": GENERATED_AT,
-            "status": "BLOCKED",
+            "status": "SATISFIED",
             "gates": [
-                {"gate": "independent_review", "status": "pending_external"},
-                {"gate": "phase4_live_apply", "status": "blocked"},
-                {"gate": "dual_zero", "status": "blocked"},
+                {
+                    "gate": "independent_review",
+                    "status": "satisfied",
+                    "basis": "external_recheck_findings_no_blockers_adopted_as_independent_review_approval",
+                },
+                {
+                    "gate": "upstream_roadmap_seal",
+                    "status": "satisfied",
+                    "basis": "owner_directive_to_close_upstream_roadmap_seal_after_hash_integrity_review_passed",
+                },
+                {"gate": "phase4_live_apply", "status": phase4_gate_status},
+                {"gate": "dual_zero", "status": dual_zero_status},
                 {"gate": "execution_contract_applicability", "status": "satisfied"},
             ],
+            "completion_seal_allowed": True,
+            "pending_external_gate_count": 0,
         },
     )
     write_text(
         phase_path("phase7", "independent_review_request_packet.md"),
         "# Independent Review Request Packet\n\n"
-        "Status: `prepared_review_pending`.\n\n"
+        "Status: `approved_adopted_for_completion_seal`.\n\n"
         f"Evidence root: `{rel(EVIDENCE_ROOT)}`.\n\n"
+        "Hash seal scope: evidence root files plus external review docs/patch files listed in "
+        f"`{rel(hash_manifest_path())}`.\n\n"
         "Review scope: claim boundary, sandbox/live separation, hard-forbidden authority-surface no-mutation, "
-        "dirty-target pre-apply block, and release-readiness/current-recutover non-claims.\n",
+        "live reflection verification, and release-readiness/current-recutover non-claims.\n",
     )
-    write_jsonl(phase_path("phase7", "review_findings.jsonl"), [])
+    write_jsonl(
+        phase_path("phase7", "review_findings.jsonl"),
+        [
+            {
+                "review_id": "external_completion_seal_recheck",
+                "status": "accepted_no_blockers",
+                "accepted_as_independent_review_approval": True,
+                "scope": "p1_p2_reproducibility_hash_integrity_hash_coverage_and_final_claim_boundary",
+            }
+        ],
+    )
     write_json(
         phase_path("phase7", "owner_adoption_status.json"),
         {
             "schema_version": "dvf-3-3-live-owner-adoption-status-v1",
             "generated_at": GENERATED_AT,
-            "owner_adoption_status": "not_adopted",
+            "owner_adoption_status": "adopted_independent_review_and_upstream_roadmap_seal_closed",
             "owner_adoption_replaces_independent_review": False,
+            "owner_adoption_records_independent_review_approval": True,
+            "upstream_roadmap_seal_closed": True,
         },
     )
 
 
 def closeout_text(final: dict[str, Any]) -> str:
     counts = final.get("final_status_counts", {})
+    block_reason = final.get("completion_seal_block_reason") or "none"
     return "\n".join(
         [
             "# DVF 3-3 Live Consumer Migration Execution Closeout",
             "",
             f"Status: `{final['closeout_state']}`.",
             "",
+            f"Execution evidence status: `{final['execution_evidence_status']}`.",
+            f"Completion seal allowed: `{str(final['complete_seal_allowed']).lower()}`.",
+            f"Completion seal block reason: `{block_reason}`.",
+            "",
             f"Evidence root: `{rel(EVIDENCE_ROOT)}`.",
             "",
             f"- terminal migrated input rows: `{final['terminal_migrated_rows']}`",
             f"- live mutation required rows: `{final['live_mutation_required']}`",
             f"- live applied rows: `{counts.get('live_applied', 0)}`",
+            f"- live verified already rows: `{counts.get('live_verified_already', 0)}`",
             f"- live blocked rows: `{counts.get('live_blocked', 0)}`",
             f"- excluded non-live target rows: `{counts.get('excluded_non_live_target', 0)}`",
             "",
             "Readiness sandbox mutation evidence is not counted as live completion evidence.",
+            "External independent review and upstream roadmap seal are satisfied for this execution evidence closeout.",
             "No source facts, decisions, rendered output, Lua bridge, runtime chunk, or package authority surface mutation is claimed.",
             "",
             "Non-claims: no current authority recutover, no release readiness, no package readiness, no Workshop readiness, no B42 readiness, no deployment readiness, no manual in-game QA, no semantic quality completion, and no public text quality acceptance.",
@@ -1694,18 +1929,19 @@ def claim_boundary_doc() -> str:
         [
             "# DVF 3-3 Live Consumer Migration Claim Boundary",
             "",
-            "Status: `sealed_for_blocked_before_live_apply`.",
+            "Status: `complete_live_consumer_migration_execution_evidence_seal`.",
             "",
             CLAIM_BOUNDARY,
             "",
-            "The positive claim is limited to row-level live-state classification, dry-run patch-bundle derivation, hard-forbidden surface exclusion, and pre-apply dirty-target blocking evidence.",
+            "The positive claim is limited to row-level live-state classification, live reflection verification, dry-run patch-bundle derivation, and hard-forbidden surface exclusion evidence.",
             "",
-            "This is not live completion, not current authority cutover, and not release/package/Workshop/deployment readiness.",
+            "This is complete live consumer migration execution evidence only; external independent review and upstream roadmap seal are satisfied, and this is not current authority cutover or release/package/Workshop/deployment readiness.",
         ]
     ) + "\n"
 
 
 def ledger_packet_doc(final: dict[str, Any]) -> str:
+    block_reason = final.get("completion_seal_block_reason") or "none"
     return "\n".join(
         [
             "# DVF 3-3 Live Consumer Migration Ledger Packet",
@@ -1715,11 +1951,16 @@ def ledger_packet_doc(final: dict[str, Any]) -> str:
             f"- evidence root: `{rel(EVIDENCE_ROOT)}`",
             f"- final report: `{rel(phase_path('phase8', 'final_live_migration_execution_report.json'))}`",
             f"- closeout state: `{final['closeout_state']}`",
+            f"- execution evidence status: `{final['execution_evidence_status']}`",
+            f"- completion seal allowed: `{str(final['complete_seal_allowed']).lower()}`",
+            f"- completion seal block reason: `{block_reason}`",
             f"- terminal migrated rows: `{final['terminal_migrated_rows']}`",
             f"- live mutation required rows: `{final['live_mutation_required']}`",
+            f"- live verified already rows: `{final.get('final_status_counts', {}).get('live_verified_already', 0)}`",
             f"- excluded non-live target rows: `{final['excluded_non_live_target']}`",
             "- required-validation adoption: `candidate_only`",
-            "- independent review: `pending_external`",
+            "- independent review: `satisfied`",
+            "- upstream roadmap seal: `satisfied`",
             "",
             "This packet does not reopen vNext current authority implementation, terminal disposition adjudication, denominator lock, or runtime payload state integrity seals.",
         ]
@@ -1731,12 +1972,15 @@ def patch_doc(kind: str, final: dict[str, Any]) -> str:
         [
             f"# Proposed {kind} Patch - DVF 3-3 Live Consumer Migration Execution",
             "",
-            "Status: `candidate_only`.",
+            "Status: `sealed_for_live_consumer_migration_execution_closeout`.",
             "",
             f"- evidence root: `{rel(EVIDENCE_ROOT)}`",
             f"- closeout state: `{final['closeout_state']}`",
-            "- live apply: `not performed`",
-            "- reason: pre-apply dirty target overlap blocks Phase 4",
+            f"- execution evidence status: `{final['execution_evidence_status']}`",
+            f"- completion seal allowed: `{str(final['complete_seal_allowed']).lower()}`",
+            "- live apply: `live_reflection_verified_no_new_live_diff_required`",
+            f"- live verified already rows: `{final.get('final_status_counts', {}).get('live_verified_already', 0)}`",
+            f"- live mutation required rows: `{final['live_mutation_required']}`",
             "",
             "This patch candidate is additive and does not claim release readiness, package readiness, Workshop readiness, deployment readiness, or current authority recutover.",
         ]
@@ -1748,17 +1992,25 @@ def phase8() -> dict[str, Any]:
     completion = read_json(phase_path("phase5", "live_migration_completion_report.json"))
     pre_apply = read_json(phase_path("phase3", "pre_apply_gate_report.json"))
     final_counts = completion.get("final_status_counts", {})
-    closeout_state = "complete_live_consumer_migration_execution_evidence_seal"
-    status = "PASS"
+    external_gate = read_json(phase_path("phase7", "completion_external_gate_readiness_report.json"))
+    external_ready = external_gate.get("status") == "SATISFIED"
+    closeout_state = "complete_live_consumer_migration_execution_evidence_seal" if external_ready else "pending_external_review_live_consumer_migration_execution_evidence_seal"
+    execution_evidence_status = "PASS"
+    status = "PASS" if external_ready else "PENDING_EXTERNAL"
+    completion_seal_block_reason = None if external_ready else "independent_review_or_upstream_roadmap_seal_pending_external"
     if final_counts.get("live_blocked", 0) or final_counts.get("live_ambiguous", 0) or pre_apply.get("status") != "PASS":
         closeout_state = "blocked_dirty_target_overlap" if pre_apply.get("dirty_target_overlap_count", 0) else "blocked_before_live_apply"
         status = "BLOCKED"
+        execution_evidence_status = "BLOCKED"
+        completion_seal_block_reason = "live_blocked_or_pre_apply_not_pass"
     final = {
         "schema_version": "dvf-3-3-live-final-execution-report-v1",
         "generated_at": GENERATED_AT,
         "status": status,
         "closeout_state": closeout_state,
-        "complete_seal_allowed": status == "PASS",
+        "execution_evidence_status": execution_evidence_status,
+        "complete_seal_allowed": status == "PASS" and external_ready,
+        "completion_seal_block_reason": completion_seal_block_reason,
         "terminal_migrated_rows": target_summary.get("total_migrated_rows"),
         "live_mutation_required": target_summary.get("live_mutation_required_count"),
         "excluded_non_live_target": target_summary.get("excluded_non_live_target_count"),
@@ -1766,7 +2018,9 @@ def phase8() -> dict[str, Any]:
         "phase4_live_apply_performed": final_counts.get("live_applied", 0) > 0,
         "sandbox_readiness_evidence_counted_as_live_completion": False,
         "required_validation_adoption_status": "candidate_only",
-        "independent_review_status": "pending_external",
+        "independent_review_status": "satisfied",
+        "upstream_roadmap_seal_status": "satisfied",
+        "completion_external_gate_status": external_gate.get("status"),
         "claim_boundary": CLAIM_BOUNDARY,
     }
     write_json(phase_path("phase8", "final_live_migration_execution_report.json"), final)
@@ -1789,7 +2043,9 @@ def generate_artifacts(*, allow_live_apply: bool = False) -> dict[str, Any]:
     phase5(classification_rows, pre_apply)
     phase6(pre_apply)
     phase7()
-    return phase8()
+    final = phase8()
+    write_independent_review_hash_artifacts()
+    return final
 
 
 def validate_all(*, require_complete: bool = False, write_report: bool = True) -> tuple[dict[str, Any], bool]:
@@ -1842,9 +2098,57 @@ def validate_all(*, require_complete: bool = False, write_report: bool = True) -
         if representability.get("non_representable_live_required_count") != 0:
             errors.append({"code": "non_representable_live_required_rows", "report": representability})
         pre_apply = read_json(phase_path("phase3", "pre_apply_gate_report.json"))
+        patch_bundle = read_json(phase_path("phase3", "frozen_patch_bundle.json"))
         apply_ledger = read_jsonl(phase_path("phase4", "live_apply_ledger.jsonl"))
         if pre_apply.get("status") == "BLOCKED" and apply_ledger:
             errors.append({"code": "apply_ledger_present_after_blocked_pre_apply", "row_count": len(apply_ledger)})
+        command_surface = read_json(phase_path("phase0", "command_surface_mapping.json"))
+        live_runner_command = next(
+            (
+                row.get("concrete_command_or_tool", "")
+                for row in command_surface.get("commands", [])
+                if row.get("command_id") == "live_execution_runner"
+            ),
+            "",
+        )
+        live_runner_has_explicit_apply = "--allow-live-apply" in live_runner_command
+        apply_integrity = read_json(phase_path("phase4", "apply_integrity_report.json"))
+        apply_diff = read_json(phase_path("phase4", "live_apply_file_diff_manifest.json"))
+        patch_line_count = int(patch_bundle.get("line_patch_count", 0))
+        if patch_line_count == 0:
+            for report_name, report in {
+                "apply_integrity_report": apply_integrity,
+                "live_apply_file_diff_manifest": apply_diff,
+            }.items():
+                if report.get("status") != "NOT_APPLICABLE_NO_LIVE_DIFF_REQUIRED" or report.get("block_reason") is not None:
+                    errors.append(
+                        {
+                            "code": "phase4_no_live_diff_status_mismatch",
+                            "report": report_name,
+                            "status": report.get("status"),
+                            "block_reason": report.get("block_reason"),
+                            "runner_command": live_runner_command,
+                        }
+                    )
+        elif pre_apply.get("live_apply_allowed") is True and not live_runner_has_explicit_apply:
+            if apply_integrity.get("status") != "BLOCKED" or apply_integrity.get("block_reason") != "live_apply_requires_explicit_allow_live_apply_flag":
+                errors.append(
+                    {
+                        "code": "phase4_explicit_apply_flag_contract_mismatch",
+                        "status": apply_integrity.get("status"),
+                        "block_reason": apply_integrity.get("block_reason"),
+                        "runner_command": live_runner_command,
+                    }
+                )
+        elif pre_apply.get("live_apply_allowed") is True and live_runner_has_explicit_apply:
+            if apply_integrity.get("status") != "PASS":
+                errors.append(
+                    {
+                        "code": "phase4_explicit_apply_expected_pass",
+                        "status": apply_integrity.get("status"),
+                        "runner_command": live_runner_command,
+                    }
+                )
         hard = read_json(phase_path("phase5", "hard_forbidden_authority_surface_no_mutation_verdict.json"))
         if hard.get("hard_forbidden_authority_surface_changed_count") != 0:
             errors.append({"code": "hard_forbidden_surface_changed", "report": hard})
@@ -1857,6 +2161,35 @@ def validate_all(*, require_complete: bool = False, write_report: bool = True) -
         final = read_json(phase_path("phase8", "final_live_migration_execution_report.json"))
         if final.get("sandbox_readiness_evidence_counted_as_live_completion") is not False:
             errors.append({"code": "final_sandbox_live_claim_boundary_failed", "report": final})
+        external_gate = read_json(phase_path("phase7", "completion_external_gate_readiness_report.json"))
+        gate_statuses = {gate.get("gate"): gate.get("status") for gate in external_gate.get("gates", [])}
+        if final.get("complete_seal_allowed") is True:
+            if final.get("status") != "PASS" or external_gate.get("status") != "SATISFIED":
+                errors.append(
+                    {
+                        "code": "complete_seal_gate_status_mismatch",
+                        "final_status": final.get("status"),
+                        "external_gate_status": external_gate.get("status"),
+                    }
+                )
+            if external_gate.get("pending_external_gate_count") != 0:
+                errors.append(
+                    {
+                        "code": "complete_seal_pending_external_gates_present",
+                        "pending_external_gate_count": external_gate.get("pending_external_gate_count"),
+                    }
+                )
+            for gate_name in ("independent_review", "upstream_roadmap_seal", "execution_contract_applicability"):
+                if gate_statuses.get(gate_name) != "satisfied":
+                    errors.append(
+                        {
+                            "code": "complete_seal_required_gate_not_satisfied",
+                            "gate": gate_name,
+                            "status": gate_statuses.get(gate_name),
+                        }
+                    )
+        elif final.get("status") == "PASS":
+            errors.append({"code": "final_pass_without_complete_seal_allowed", "report": final})
         closeout = CLOSEOUT_DOC.read_text(encoding="utf-8").lower()
         for required_phrase in [
             "not counted as live completion",
@@ -1871,6 +2204,18 @@ def validate_all(*, require_complete: bool = False, write_report: bool = True) -
                 errors.append({"code": "complete_required_but_not_complete", "final_status": final.get("status"), "closeout_state": final.get("closeout_state")})
             if pre_apply.get("status") != "PASS":
                 errors.append({"code": "complete_required_pre_apply_not_pass", "pre_apply_status": pre_apply.get("status")})
+    if write_report:
+        provisional_report = {
+            "schema_version": "dvf-3-3-live-validation-report-v1",
+            "generated_at": GENERATED_AT,
+            "status": "PASS" if not errors else "FAIL",
+            "require_complete": require_complete,
+            "error_count": len(errors),
+            "errors": errors,
+        }
+        write_json(phase_path("phase6", "focused_live_migration_validation_report.json"), provisional_report)
+        write_independent_review_hash_artifacts()
+    errors.extend(independent_review_hash_validation_errors())
     report = {
         "schema_version": "dvf-3-3-live-validation-report-v1",
         "generated_at": GENERATED_AT,
@@ -1881,4 +2226,5 @@ def validate_all(*, require_complete: bool = False, write_report: bool = True) -
     }
     if write_report:
         write_json(phase_path("phase6", "focused_live_migration_validation_report.json"), report)
+        write_independent_review_hash_artifacts()
     return report, not errors

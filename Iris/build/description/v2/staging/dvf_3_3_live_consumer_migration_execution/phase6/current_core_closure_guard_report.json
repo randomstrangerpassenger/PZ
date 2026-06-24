@@ -1,0 +1,19 @@
+{
+  "closure_expanded_by_this_round": false,
+  "closure_file": {
+    "bytes": 14469,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/_docs/round3/round3_active_core_closure.json",
+    "read_only": true,
+    "required": false,
+    "role": "current_core_closure",
+    "row_count": null,
+    "sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0",
+    "status": "PRESENT"
+  },
+  "current_core_count": null,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-live-current-core-closure-guard-v1",
+  "status": "PASS"
+}

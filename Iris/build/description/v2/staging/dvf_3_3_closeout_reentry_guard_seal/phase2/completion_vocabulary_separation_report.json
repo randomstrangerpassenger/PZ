@@ -1,0 +1,10 @@
+{
+  "allowed_claim_class_count": 9,
+  "blocked_unclassified_token_count": 0,
+  "complete_suffix_violation_count": 0,
+  "forbidden_overclaim_class_count": 9,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "schema_version": "dvf-3-3-completion-vocabulary-separation-report-v1",
+  "standalone_complete_claim_count": 0,
+  "status": "PASS"
+}

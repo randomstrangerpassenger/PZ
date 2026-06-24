@@ -1,5 +1,12 @@
 # Description Validation Framework (DVF) — 계약 문서
 
+> Read-state: historical predecessor, not current DVF 3-3 authority.
+> This document preserves the legacy T-Gate/manual-registry contract for trace
+> value only. Current DVF 3-3 authority is the offline
+> facts -> decisions -> compose -> rendered -> Lua bridge contract sealed by
+> `docs/dvf_contract_current_reseal.md` and the current project ledgers. The
+> `FINAL` label below means legacy-final, not current-final.
+
 **버전**: 1.0
 **상태**: FINAL
 **적용 대상**: Iris 모듈 — 3계층 개별 아이템 설명 (Individual Item Description)

@@ -1,0 +1,177 @@
+{
+  "routes": [
+    {
+      "blocked_if_missing": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py"
+      ],
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py --phase phase0",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "docs/dvf_3_3_vnext_regeneration_parity_plan.md"
+      ],
+      "notes": "Run from repository root. All writable outputs stay inside the parity staging root.",
+      "outputs": [
+        "phase0/"
+      ],
+      "phase": "phase0",
+      "protected_preflight_required": true,
+      "route_role": "common_validation",
+      "validation_artifact": "phase0/"
+    },
+    {
+      "blocked_if_missing": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py"
+      ],
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py --phase phase1",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "phase0/input_lineage_verdict.json"
+      ],
+      "notes": "Run from repository root. All writable outputs stay inside the parity staging root.",
+      "outputs": [
+        "phase1/"
+      ],
+      "phase": "phase1",
+      "protected_preflight_required": true,
+      "route_role": "fresh_full_rerun",
+      "validation_artifact": "phase1/"
+    },
+    {
+      "blocked_if_missing": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py"
+      ],
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py --phase phase2",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "phase0/input_lineage_verdict.json"
+      ],
+      "notes": "Run from repository root. All writable outputs stay inside the parity staging root.",
+      "outputs": [
+        "phase2/"
+      ],
+      "phase": "phase2",
+      "protected_preflight_required": true,
+      "route_role": "fresh_full_rerun",
+      "validation_artifact": "phase2/"
+    },
+    {
+      "blocked_if_missing": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py"
+      ],
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py --phase phase3",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "phase0/input_lineage_verdict.json"
+      ],
+      "notes": "Run from repository root. All writable outputs stay inside the parity staging root.",
+      "outputs": [
+        "phase3/"
+      ],
+      "phase": "phase3",
+      "protected_preflight_required": true,
+      "route_role": "fresh_full_rerun",
+      "validation_artifact": "phase3/"
+    },
+    {
+      "blocked_if_missing": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py"
+      ],
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py --phase phase4",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "phase0/input_lineage_verdict.json"
+      ],
+      "notes": "Run from repository root. All writable outputs stay inside the parity staging root.",
+      "outputs": [
+        "phase4/"
+      ],
+      "phase": "phase4",
+      "protected_preflight_required": true,
+      "route_role": "common_validation",
+      "validation_artifact": "phase4/"
+    },
+    {
+      "blocked_if_missing": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py"
+      ],
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py --phase phase5",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "phase0/input_lineage_verdict.json"
+      ],
+      "notes": "Run from repository root. All writable outputs stay inside the parity staging root.",
+      "outputs": [
+        "phase5/"
+      ],
+      "phase": "phase5",
+      "protected_preflight_required": true,
+      "route_role": "common_validation",
+      "validation_artifact": "phase5/"
+    },
+    {
+      "blocked_if_missing": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py"
+      ],
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py --phase phase6",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "phase0/input_lineage_verdict.json"
+      ],
+      "notes": "Run from repository root. All writable outputs stay inside the parity staging root.",
+      "outputs": [
+        "phase6/"
+      ],
+      "phase": "phase6",
+      "protected_preflight_required": true,
+      "route_role": "fresh_full_rerun",
+      "validation_artifact": "phase6/"
+    },
+    {
+      "blocked_if_missing": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py"
+      ],
+      "command": "python -B Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py --phase phase7",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "phase0/input_lineage_verdict.json"
+      ],
+      "notes": "Run from repository root. All writable outputs stay inside the parity staging root.",
+      "outputs": [
+        "phase7/"
+      ],
+      "phase": "phase7",
+      "protected_preflight_required": true,
+      "route_role": "common_validation",
+      "validation_artifact": "phase7/final_contract_report.json"
+    },
+    {
+      "blocked_if_missing": [
+        "tools/check_lua_syntax.ps1",
+        "luac"
+      ],
+      "command": "powershell -ExecutionPolicy Bypass -File .\\tools\\check_lua_syntax.ps1 -Roots Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase3\\chunks",
+      "cwd": ".",
+      "expected_exit_code": 0,
+      "inputs": [
+        "phase3/chunks"
+      ],
+      "notes": "Preferred external Lua syntax route; script also writes a static chunk integrity report.",
+      "outputs": [
+        "phase3/lua_syntax_report.json"
+      ],
+      "phase": "validation",
+      "protected_preflight_required": false,
+      "route_role": "common_validation",
+      "validation_artifact": "phase3/lua_syntax_report.json"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-command-matrix-v0"
+}

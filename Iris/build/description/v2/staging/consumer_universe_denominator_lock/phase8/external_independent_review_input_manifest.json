@@ -1,0 +1,21 @@
+{
+  "certification_ceiling": "machine_pass_review_pending",
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "materialized_by_this_round": false,
+  "plan_template_checked": true,
+  "review_report_path": null,
+  "review_report_sha256": null,
+  "review_scope": [
+    "unique denominator role per count",
+    "59 and 252 source predicate",
+    "163 row identity mapping",
+    "current-route required gate adoption boundary",
+    "no runtime/source/rendered/package mutation"
+  ],
+  "review_state": "pending",
+  "reviewer_conflict_disclosure": null,
+  "reviewer_not_executor": null,
+  "reviewer_not_plan_author": null,
+  "schema_version": "consumer-universe-denominator-independent-review-input-v1",
+  "status": "PASS"
+}

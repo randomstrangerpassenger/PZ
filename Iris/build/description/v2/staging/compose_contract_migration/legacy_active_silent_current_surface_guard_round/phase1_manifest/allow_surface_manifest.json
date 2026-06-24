@@ -128,6 +128,18 @@
       "reason": "build tool source may quote legacy fixtures but is not current output"
     },
     {
+      "id": "current_input_manifest_diagnostic_metadata",
+      "must_not_be_current_output": true,
+      "occurrence_kinds": [
+        "diagnostic_alias",
+        "plain_text"
+      ],
+      "path_globs": [
+        "Iris/build/description/v2/data/dvf_3_3_input_manifest.json"
+      ],
+      "reason": "input manifest may document unavailable legacy source split as diagnostic metadata"
+    },
+    {
       "id": "legacy_output_metric_keys",
       "must_not_be_current_output": true,
       "occurrence_kinds": [

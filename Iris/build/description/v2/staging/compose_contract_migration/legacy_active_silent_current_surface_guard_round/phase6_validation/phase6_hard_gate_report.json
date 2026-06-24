@@ -14,7 +14,7 @@
       "stderr_tail": [],
       "stdout_line_count": 1,
       "stdout_tail": [
-        "Lua syntax validation OK: 183 files"
+        "Lua syntax validation OK: 188 files"
       ],
       "timed_out": false
     },
@@ -34,15 +34,14 @@
       "missing_tool": false,
       "stderr_line_count": 5,
       "stderr_tail": [
-        "..........................................................................................................................................................................................................................................................................................................................................................................................................",
+        ".........................................................................................................................................................................................................................................................................................................................................................................................................................",
         "----------------------------------------------------------------------",
-        "Ran 394 tests in 4.416s",
+        "Ran 409 tests in 38.023s",
         "",
         "OK"
       ],
-      "stdout_line_count": 17,
+      "stdout_line_count": 16,
       "stdout_tail": [
-        "rendered written",
         "interaction cluster rendered validation OK",
         "{",
         "  \"schema_version\": \"interaction-cluster-validation-report-v0\",",
@@ -82,11 +81,11 @@
         "  \"status\": \"pass\",",
         "  \"summary\": {",
         "    \"manifest_error_count\": 0,",
-        "    \"occurrence_count\": 2881,",
+        "    \"occurrence_count\": 791096,",
         "    \"hard_fail_current_label_occurrence_count\": 0,",
         "    \"unclassified_occurrence_count\": 0,",
-        "    \"allowed_occurrence_count\": 2779,",
-        "    \"non_label_occurrence_count\": 102,",
+        "    \"allowed_occurrence_count\": 790476,",
+        "    \"non_label_occurrence_count\": 620,",
         "    \"covered_by_existing_guard_count\": 0,",
         "    \"gate_a_pass\": true,",
         "    \"negative_fixture_reach\": {",
@@ -106,7 +105,7 @@
   },
   "gate_a_allowlist_outside_current_label_occurrence_0": true,
   "gate_b_negative_hard_fail_reach_verified_by_unittest": true,
-  "generated_at": "2026-05-21T07:34:36.061946+00:00",
+  "generated_at": "2026-06-13T00:54:05.459111+00:00",
   "lua_syntax_exit_code": 0,
   "overall_status": "pass",
   "python_unittest_exit_code": 0,

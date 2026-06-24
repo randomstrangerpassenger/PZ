@@ -1,0 +1,116 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "closure_and_allowlist_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase5/current_route_closure_report.json",
+  "command_surface_mapping_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase5/command_surface_mapping_validation_report.json",
+  "consumer_materialization_preflight_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/consumer_migration_materialization_preflight_report.json",
+  "consumer_migration_reconciled_input_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/consumer_migration_reconciled_input_manifest.json",
+  "current_cutover_phase0_handoff_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/current_cutover_phase0_handoff_manifest.json",
+  "dedicated_tooling_route_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase5/dedicated_cutover_tooling_route_report.json",
+  "dual_zero_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase5/dual_zero_report.json",
+  "exact_validation_commands": {
+    "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+    "commands": [
+      {
+        "command": "python -B Iris/build/description/v2/tools/build/generate_dvf_3_3_overlay_support_artifact.py",
+        "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase1/overlay_support_seal_report.json",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0
+      },
+      {
+        "command": "python -B Iris/build/description/v2/tools/build/manage_dvf_3_3_runtime_chunk_cutover.py",
+        "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/atomic_cutover_mirror_apply_report.json",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0
+      },
+      {
+        "command": "python -B Iris/build/description/v2/tools/build/apply_dvf_3_3_consumer_migration.py",
+        "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/consumer_migration_actual_report.json",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0
+      },
+      {
+        "command": "python -B Iris/build/description/v2/tools/build/generate_dvf_3_3_row_level_migration_ledger.py",
+        "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0
+      },
+      {
+        "command": "python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_actual_diff_to_ledger.py",
+        "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/actual_diff_to_ledger_report.json",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0
+      },
+      {
+        "command": "python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_command_surface_mapping.py",
+        "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase5/command_surface_mapping_validation_report.json",
+        "expected_exit_code": 0,
+        "observed_exit_code": 0
+      }
+    ],
+    "generated_at": "2026-06-18T00:00:00+09:00",
+    "schema_version": "dvf-3-3-vnext-exact-command-validation-v0",
+    "status": "PASS"
+  },
+  "existing_current_route_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase5/current_route_closure_report.json",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "independent_review_seal": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase0/roadmap_independent_review_seal.md",
+  "missing_required_path_disposition_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/missing_required_path_disposition_ledger.jsonl",
+  "non_claims": [
+    "no_cutover_authorization",
+    "no_successor_current_authority_baseline_adoption",
+    "no_live_runtime_chunk_replacement",
+    "no_2105_consumer_migration_live_or_main_repo_completion",
+    "no_package_readiness",
+    "no_release_readiness",
+    "no_workshop_readiness",
+    "no_manual_in_game_validation"
+  ],
+  "phase_reports": {
+    "phase0_scope_lock": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase0/tooling_readiness_scope_lock_report.json",
+      "sha256": "bf89cf2dc3435b3fee0d6db0110b84b97398499b8d203952a72f5a45b1fc96bf",
+      "status": "PASS"
+    },
+    "phase1_overlay": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase1/overlay_support_seal_report.json",
+      "sha256": "7848e392fdff30fedb493d1f4df9a7f79877389a8f311ec13596b978369745f1",
+      "status": "PASS"
+    },
+    "phase2_runtime": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/atomic_cutover_mirror_apply_report.json",
+      "sha256": "00982443326d9585c5723ff62edbadc5cc739b6c3aa437e43bd95e6a7f9c1a46",
+      "status": "PASS"
+    },
+    "phase3_consumer": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/consumer_migration_actual_report.json",
+      "sha256": "9e5d9b0507605601a78e2e5d66630a64cece239afe1620b9cd69b0bc0773c91f",
+      "status": "PASS"
+    },
+    "phase3_ledger": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger_generation_report.json",
+      "sha256": "7c709390ef0ae261d3d1887615c1f88b6b8c967358d0f720bb55471f853ac13d",
+      "status": "PASS"
+    },
+    "phase4_diff": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/actual_diff_to_ledger_report.json",
+      "sha256": "d9c1aeb99bcb55b4ed2452ebffe3481e3bfafce03973c14ea17c98be5dc6cd82",
+      "status": "PASS"
+    },
+    "phase4_no_mutation": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/protected_surface_no_mutation_verdict.json",
+      "sha256": "c3891ff180a57c30734afc97466526c508334d4986c2d10da818b4ff86c80884",
+      "status": "PASS"
+    },
+    "phase5_mapping": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase5/command_surface_mapping_validation_report.json",
+      "sha256": "6e2b14a421f359297255b56a9d81a842310ca205c01257e7bd9b9a7e23d46f64",
+      "status": "PASS"
+    }
+  },
+  "protected_surface_no_mutation_verdict": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/protected_surface_no_mutation_verdict.json",
+  "runtime_cutover_live_command_template": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/runtime_cutover_live_command_template.json",
+  "schema_version": "dvf-3-3-vnext-final-tooling-readiness-contract-v0",
+  "status": "PASS",
+  "template_execution_contract_compliance_review": "limited_to_plan_declared_review_inputs",
+  "tool_contract_compatibility_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/tool_contract_compatibility_manifest.json"
+}

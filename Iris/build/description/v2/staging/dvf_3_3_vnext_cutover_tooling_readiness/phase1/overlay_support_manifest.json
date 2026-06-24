@@ -1,0 +1,13 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "deterministic_payload_hash": "bf9cb0ca13a447974b87b7ac080f36085b08cd587421424a486a22d042486ecc",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "overlay_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase1/dvf_3_3_overlay_support.jsonl",
+  "overlay_row_count": 2105,
+  "overlay_sha256": "f2ca5df3a352df407599d9e4c659a69043301d51638556f84dba341dbdb35f43",
+  "rendered_sha256": "b44430584ac0f652f489d0688b55832de9fde4d2958bbe9ae5f28a9766e92067",
+  "role": "compose_support_not_source_authority",
+  "schema_version": "dvf-3-3-vnext-overlay-support-manifest-v0",
+  "source_manifest_sha256": "171dc2751b1e8e28fce28d29ba92ee6bd4fda9a825fedc7b0db1f7c120f2028c",
+  "status": "PASS"
+}

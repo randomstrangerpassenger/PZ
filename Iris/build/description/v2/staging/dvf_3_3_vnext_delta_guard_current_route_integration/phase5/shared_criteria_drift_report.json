@@ -1,0 +1,8 @@
+{
+  "advisory_only": false,
+  "criteria_mismatch_count": 0,
+  "criteria_sha256": "f88c2b8cea2940391a31955edf088cda0d7cba3477cac30a9db563c39b9653b9",
+  "route_count": 3,
+  "schema_version": "dvf-3-3-vnext-delta-guard-shared-criteria-drift-v1",
+  "status": "PASS"
+}

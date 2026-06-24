@@ -1,0 +1,9 @@
+{
+  "actual_live_diff_row_count": 0,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "mapped_live_diff_count": 0,
+  "orphan_live_mutation_count": 0,
+  "schema_version": "dvf-3-3-live-actual-diff-to-ledger-report-v1",
+  "status": "PASS_NO_LIVE_DIFF_REQUIRED",
+  "unmapped_live_diff_count": 0
+}

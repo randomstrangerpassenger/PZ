@@ -1,0 +1,9 @@
+{
+  "boundary": "candidate_recommended_gate_result_pending_independent_post_execution_review",
+  "not_consumer_migration_execution": true,
+  "not_cutover_authorization": true,
+  "not_parent_problem_completion": true,
+  "parent_problem_unlock": true,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-parent-unlock-gate-v0",
+  "status": "PASS"
+}

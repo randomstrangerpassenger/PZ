@@ -1,0 +1,10 @@
+{
+  "live_required_validation_manifest_mutated": false,
+  "old_evidence_only_pass_accepted": false,
+  "phase8_approved_manifest_referenced": true,
+  "phase8_cutover_usability_referenced": true,
+  "phase8_final_report_referenced": true,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-required-validation-freshness-v0",
+  "stale_prior_final_report_reference": false,
+  "status": "PASS"
+}

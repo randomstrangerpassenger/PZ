@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "residue_scope": "live mutation required rows not applied due pre-apply block",
+  "schema_version": "dvf-3-3-live-static-residue-report-v1",
+  "static_residue_count": 0,
+  "status": "PASS"
+}

@@ -1,5 +1,12 @@
 # 3계층 작성 가이드
 
+> Read-state: historical predecessor, not current DVF 3-3 authority.
+> This guide describes the legacy manual `layer3_registry.json` authoring
+> surface. Current DVF 3-3 authoring and runtime authority is the offline
+> facts -> decisions -> compose -> rendered -> Lua bridge contract sealed by
+> `docs/dvf_contract_current_reseal.md`; legacy `active` / `silent` labels here
+> are historical authoring examples, not current runtime vocabulary.
+
 **대상 파일**: `build/data/description/layer3_registry.json`
 
 ---

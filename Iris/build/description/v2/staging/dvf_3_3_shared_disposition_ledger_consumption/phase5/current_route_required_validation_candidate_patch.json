@@ -1,0 +1,12 @@
+{
+  "adoption_state": "adopted_required_gate",
+  "candidate_manifest_path": "Iris/_docs/round3/current_route_required_validations.shared_disposition_candidate.json",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_manifest_contains_required_gate": true,
+  "live_manifest_mutated_by_generator": false,
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "missing_artifacts": [],
+  "missing_tests": [],
+  "schema_version": "dvf-3-3-shared-disposition-current-route-candidate-patch-v1",
+  "status": "PASS"
+}

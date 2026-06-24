@@ -1,0 +1,10 @@
+{
+  "bridge_context": "staging",
+  "chunked": true,
+  "format": "chunk",
+  "monolith_generated": false,
+  "output_chunk_dir": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase3\\chunks\\IrisLayer3DataChunks",
+  "output_manifest_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase3\\chunks\\IrisLayer3DataChunks.lua",
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-bridge-export-contract-v0",
+  "status": "PASS"
+}

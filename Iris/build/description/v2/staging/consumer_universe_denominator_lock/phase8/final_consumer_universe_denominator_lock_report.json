@@ -1,0 +1,244 @@
+{
+  "adoption_authorization": "user_explicit_2026-06-21",
+  "candidate_current_route_validation_status": "patch_schema_validated",
+  "candidate_guard_claim_allowed": true,
+  "canonical_seal_allowed": false,
+  "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+  "complete_claim_allowed": true,
+  "future_closeout_blocking_claim_allowed": true,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "governance_closeout_status": "review_pending",
+  "live_manifest_contains_required_artifact": true,
+  "live_manifest_contains_required_test": true,
+  "live_manifest_mutated": true,
+  "machine_contract_status": "PASS",
+  "package_mutation_allowed": false,
+  "phase_reports": {
+    "claim_guard": {
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_guard_test_report.json",
+      "sha256": "b7a4133e4033945ddb752cddc87b3097332bc6713e659beb8f6be313bd589359",
+      "status": "PASS"
+    },
+    "crosswalk": {
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/denominator_crosswalk_validation_report.json",
+      "sha256": "d4a2066b0b408c0477e86de407bbd3c6075433f5a73d42673093a815a1a7e37f",
+      "status": "PASS"
+    },
+    "current_route_candidate": {
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase6/current_route_denominator_validation_report.json",
+      "sha256": "5b17db2d7e45863c433874cba190c96df97a8c2c2c38a7db5f0d141e22020f5c",
+      "status": "PASS"
+    },
+    "no_mutation": {
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase6/protected_surface_no_mutation_verdict.json",
+      "sha256": "b7f0432cd3c0d6cbbd4c7320a2b70e9f0bccb7aca6c44004459c910b58cb6e96",
+      "status": "PASS"
+    },
+    "registry": {
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json",
+      "sha256": "c7d0e03b72a25c1c37fe78cd94d7cc74be4d24a65ba72fa8e7e1b260d1db5e10",
+      "status": "PRESENT"
+    },
+    "review": {
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/independent_review_status.json",
+      "sha256": "38037bcd66b10702abce3045b6653b0ad97333818e4a3e12a9c6fbd41d6a2094",
+      "status": "review_pending"
+    },
+    "row_identity": {
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase3/row_identity_match_report.json",
+      "sha256": "12c5c7fe1b9e1603ccfecbdd005226e86124a6153178fd73fef17ee17a780d12",
+      "status": "PASS"
+    }
+  },
+  "regenerate_twice_fingerprint_comparison": {
+    "first": {
+      "aggregate_sha256": "231487f8883ba7a5ce88013ee8de2c24416f4231899917bed1590ed58844cd91",
+      "target_count": 17,
+      "targets": [
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase1/population_inventory.jsonl",
+          "sha256": "f1e1c5f9813a8b8d6883b1013ca8dc8250933c2fffc349e3869365fdfbca888f"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase2/axis_classified_inventory.jsonl",
+          "sha256": "f1e1c5f9813a8b8d6883b1013ca8dc8250933c2fffc349e3869365fdfbca888f"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase3/relationship_bound_inventory.jsonl",
+          "sha256": "7b30bbd6b51070c85842f9177b919e8f827a575dd7dd6fc142703b3038cb2ffa"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase3/denominator_relation_graph.json",
+          "sha256": "fb06462302a844f9e985b9a6a64666fae1ae9045228bbdeddc15f146ab56220b"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase3/cross_ledger_row_identity_mapping.jsonl",
+          "sha256": "2aabf14ec7e5611127b900a2f5f210d77b5509df20e2c8e294a7ee7d81d0b37d"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json",
+          "sha256": "c7d0e03b72a25c1c37fe78cd94d7cc74be4d24a65ba72fa8e7e1b260d1db5e10"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_crosswalk.jsonl",
+          "sha256": "f1d1e242a5749a388c78e0c2899f289e44c877ca496b8835f6e9b6bf56037de8"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_vocabulary.json",
+          "sha256": "e369c47c18af6fd75fb69848957006d0385923305073e032cc2a5a42dd05a9df"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_guard_contract.json",
+          "sha256": "1755d8119a1fee3962c171b5e7d771d0f2f5b2f7483455fb3f8f9cabfc90468a"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_guard_positive_fixtures.jsonl",
+          "sha256": "20ac2df052162a655be4305d19baa9b85756ac6d47744dcefc6389183277e098"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_guard_negative_fixtures.jsonl",
+          "sha256": "34ecca44b82dc058a291161e87bcf23a6136b7d10f4e8d781e859d5ecea89960"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase6/current_route_required_validation_patch.json",
+          "sha256": "f50b4d7b6bf99cfe6fc151296e9c87f876e04feef93e18035b0f6d717150c715"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase6/current_route_denominator_validation_report.json",
+          "sha256": "5b17db2d7e45863c433874cba190c96df97a8c2c2c38a7db5f0d141e22020f5c"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase7/consumer_universe_denominator_lock_ledger_packet.md",
+          "sha256": "297ddefa16d1be8458bead13fdaf6d7cec9fe476e760e81e954c3c0b9ca9c0cb"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase7/consumer_universe_denominator_lock_closeout.md",
+          "sha256": "658d6981fb7dd2bad315e2da0229912fc8c0bd97698fb7d084e1919b8545be48"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/external_independent_review_input_manifest.json",
+          "sha256": "d8d1938f9821d0bed9c835dc16706d2ccbfe0b2bcec844982b2c413ea9d4974a"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/independent_review_status.json",
+          "sha256": "38037bcd66b10702abce3045b6653b0ad97333818e4a3e12a9c6fbd41d6a2094"
+        }
+      ]
+    },
+    "second": {
+      "aggregate_sha256": "231487f8883ba7a5ce88013ee8de2c24416f4231899917bed1590ed58844cd91",
+      "target_count": 17,
+      "targets": [
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase1/population_inventory.jsonl",
+          "sha256": "f1e1c5f9813a8b8d6883b1013ca8dc8250933c2fffc349e3869365fdfbca888f"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase2/axis_classified_inventory.jsonl",
+          "sha256": "f1e1c5f9813a8b8d6883b1013ca8dc8250933c2fffc349e3869365fdfbca888f"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase3/relationship_bound_inventory.jsonl",
+          "sha256": "7b30bbd6b51070c85842f9177b919e8f827a575dd7dd6fc142703b3038cb2ffa"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase3/denominator_relation_graph.json",
+          "sha256": "fb06462302a844f9e985b9a6a64666fae1ae9045228bbdeddc15f146ab56220b"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase3/cross_ledger_row_identity_mapping.jsonl",
+          "sha256": "2aabf14ec7e5611127b900a2f5f210d77b5509df20e2c8e294a7ee7d81d0b37d"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json",
+          "sha256": "c7d0e03b72a25c1c37fe78cd94d7cc74be4d24a65ba72fa8e7e1b260d1db5e10"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_crosswalk.jsonl",
+          "sha256": "f1d1e242a5749a388c78e0c2899f289e44c877ca496b8835f6e9b6bf56037de8"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_vocabulary.json",
+          "sha256": "e369c47c18af6fd75fb69848957006d0385923305073e032cc2a5a42dd05a9df"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_guard_contract.json",
+          "sha256": "1755d8119a1fee3962c171b5e7d771d0f2f5b2f7483455fb3f8f9cabfc90468a"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_guard_positive_fixtures.jsonl",
+          "sha256": "20ac2df052162a655be4305d19baa9b85756ac6d47744dcefc6389183277e098"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase5/claim_guard_negative_fixtures.jsonl",
+          "sha256": "34ecca44b82dc058a291161e87bcf23a6136b7d10f4e8d781e859d5ecea89960"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase6/current_route_required_validation_patch.json",
+          "sha256": "f50b4d7b6bf99cfe6fc151296e9c87f876e04feef93e18035b0f6d717150c715"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase6/current_route_denominator_validation_report.json",
+          "sha256": "5b17db2d7e45863c433874cba190c96df97a8c2c2c38a7db5f0d141e22020f5c"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase7/consumer_universe_denominator_lock_ledger_packet.md",
+          "sha256": "297ddefa16d1be8458bead13fdaf6d7cec9fe476e760e81e954c3c0b9ca9c0cb"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase7/consumer_universe_denominator_lock_closeout.md",
+          "sha256": "658d6981fb7dd2bad315e2da0229912fc8c0bd97698fb7d084e1919b8545be48"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/external_independent_review_input_manifest.json",
+          "sha256": "d8d1938f9821d0bed9c835dc16706d2ccbfe0b2bcec844982b2c413ea9d4974a"
+        },
+        {
+          "exists": true,
+          "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/independent_review_status.json",
+          "sha256": "38037bcd66b10702abce3045b6653b0ad97333818e4a3e12a9c6fbd41d6a2094"
+        }
+      ]
+    },
+    "status": "PASS"
+  },
+  "rendered_mutation_allowed": false,
+  "required_gate_adoption_status": "adopted_required_gate",
+  "runtime_mutation_allowed": false,
+  "schema_version": "consumer-universe-denominator-final-report-v1",
+  "source_mutation_allowed": false,
+  "status": "PASS"
+}

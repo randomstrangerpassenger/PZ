@@ -1,0 +1,6 @@
+{
+  "package_readiness_claim": false,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-package-route-report-v0",
+  "source_anchor": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_guard_current_route_integration/phase5/package_export_compose_guard_report.json",
+  "status": "PASS"
+}

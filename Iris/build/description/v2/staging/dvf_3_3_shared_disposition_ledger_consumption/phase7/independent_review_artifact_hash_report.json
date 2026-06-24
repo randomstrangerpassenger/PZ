@@ -1,0 +1,145 @@
+{
+  "aggregate_sha256": "0a7ffe752e325370354ff6fe7c2eab6dda5c8b01fa195460dfc1c68b1e494801",
+  "artifacts": [
+    {
+      "bytes": 1444,
+      "exists": true,
+      "path": "docs/dvf_3_3_shared_disposition_consumption_policy.md",
+      "sha256": "353926e92c667dbf1e04df0341e31b4eafca35bce23b95c8f81ae81e0e4605ab"
+    },
+    {
+      "bytes": 996,
+      "exists": true,
+      "path": "docs/dvf_3_3_shared_disposition_ledger_packet.md",
+      "sha256": "c99c769c16f8b708186a689a391bb51bc34156fb26bb75957ac5f9fa2d442bd5"
+    },
+    {
+      "bytes": 535,
+      "exists": true,
+      "path": "docs/dvf_3_3_shared_disposition_claim_boundary.md",
+      "sha256": "1bade475b9b026d7b6e71b588e502e285075aa5b693fa5afc7867be274a7a136"
+    },
+    {
+      "bytes": 2917,
+      "exists": true,
+      "path": "Iris/_docs/round3/current_route_required_validations.shared_disposition_candidate.json",
+      "sha256": "a382c672ff085f8e19b3c044e3c6a13ae1573b27a57f1d672ec0925f50fc51f6"
+    },
+    {
+      "bytes": 6972,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase1/sealed_axis_token_set.json",
+      "sha256": "814121cd40df7a89728380bf3dae5adda76a6e983b517c8bcc0b71e103a4fb9c"
+    },
+    {
+      "bytes": 560,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase1/zero_token_promotion_report.json",
+      "sha256": "4bfac787333507b5d7ab42abffe694ec0952e500d4ad7f8a3b53931e5c4ff148"
+    },
+    {
+      "bytes": 1648735,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase2/shared_disposition_packet.json",
+      "sha256": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04"
+    },
+    {
+      "bytes": 4204,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase2/sealed_report_set.json",
+      "sha256": "0838e5a55c67464f7d289325e8725e06dafb21625303d5174b1f4020589028d2"
+    },
+    {
+      "bytes": 11456,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase2/value_resolution_table.json",
+      "sha256": "508772247d2e7bc5cb37868f0490a0b990d4c6a56a2dfcf48022f0243e3714db"
+    },
+    {
+      "bytes": 822,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/divergence_report.json",
+      "sha256": "f835cf361972dda7800e7f706e761e84cba462fa3cc3ff9e1015054b1ab45097"
+    },
+    {
+      "bytes": 190,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/raw_authority_read_report.json",
+      "sha256": "4f6e02a05ee3ca7fd451f6a3e7f4eac2951ae9dd53fbdab93e990728bfd1bcc5"
+    },
+    {
+      "bytes": 1467,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/negative_fixture_containment_report.json",
+      "sha256": "9c957bfcbbff015d8415a02ed6ac29fb2024d9ce1a6917b0082e481e60eb30f0"
+    },
+    {
+      "bytes": 228,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase4/no_op_realignment_report.json",
+      "sha256": "53814e1e6ed78b9cda9a50d299576f676ab00b4864571a5571a3200c7f7fba32"
+    },
+    {
+      "bytes": 563,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase4/protected_surface_no_mutation_report.json",
+      "sha256": "ee7af78b82a9707457885b7cd15a9e05785722b4c13b17a6332f10e499d34583"
+    },
+    {
+      "bytes": 3152,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase5/current_route_report_consumption_manifest.json",
+      "sha256": "8ef09e106453e40b835ac5097bcf3ef53ece3de3c72a5b15e612c0ecc89977a9"
+    },
+    {
+      "bytes": 426,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase5/current_route_integration_report.json",
+      "sha256": "4cf4d6dc155b4de016b5266732d84038a31d2c6e3a3f272bfebc99f117768cc7"
+    },
+    {
+      "bytes": 459,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase5/current_route_closure_allowlist_report.json",
+      "sha256": "4815630fb8a9effd6b04366dd995b4904fddddafbdc646fc49572c5fc4122f9e"
+    },
+    {
+      "bytes": 188,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase6/forbidden_claim_scan_report.json",
+      "sha256": "fd75054b601641fa9874a6a3431cfc7a31016f3d7460939be4a76bb24983f11c"
+    },
+    {
+      "bytes": 19094,
+      "exists": true,
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "sha256": "2546fb0fa394b1aef42b339327c67f7badd0cc9e7a84fddb20e383bf85f52ea8"
+    },
+    {
+      "bytes": 3580,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/shared_consumption_surface_matrix.json",
+      "sha256": "4b44a50716a194282aabd97d191bdaacc1428f1984ed680d5e933da79c580a3a"
+    },
+    {
+      "bytes": 506,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/row_coverage_report.json",
+      "sha256": "c0409f184194f44ab73363d278a6c24311090495babafa65f52e54fc88007922"
+    },
+    {
+      "bytes": 1347,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/direct_raw_read_negative_test_report.json",
+      "sha256": "73a0489a4d06b7c9dd1d0cf305fc27a366fd86567c8fd6b5bc60d6d3fce1f104"
+    }
+  ],
+  "errors": [],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "missing_artifact_count": 0,
+  "review_source_class": "artifact_generator_independent_validator_route",
+  "review_status": "review_pass",
+  "reviewed_artifact_count": 22,
+  "schema_version": "dvf-3-3-shared-disposition-independent-review-hash-report-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "mutation_performed": false,
+  "patch_bundle_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "projected_changed_path_count": 0,
+  "projected_changed_paths": [],
+  "projected_line_patch_count": 0,
+  "projected_row_count": 0,
+  "schema_version": "dvf-3-3-live-dry-run-diff-v1",
+  "status": "PASS"
+}

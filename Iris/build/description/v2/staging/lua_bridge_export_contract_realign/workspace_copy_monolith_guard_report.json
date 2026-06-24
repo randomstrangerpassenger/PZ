@@ -1,0 +1,7 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-workspace-copy-guard-v1",
+  "disposition": "copy_like_package_path_guarded",
+  "package_copy_like_guard_pass": true,
+  "executable_workspace_copy_guard_pass_claimed": false,
+  "validation_limit": "Historical monolith reflection scripts are inventoried but not promoted to current/default workspace-copy surface."
+}

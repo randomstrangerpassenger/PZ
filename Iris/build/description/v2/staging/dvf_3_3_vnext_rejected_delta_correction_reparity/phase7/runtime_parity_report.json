@@ -1,0 +1,1168 @@
+{
+  "claim_boundary": "fresh_corrected_regeneration",
+  "delta_samples": [
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다."
+          }
+        }
+      },
+      "key": "Base.223Box",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+          }
+        }
+      },
+      "key": "Base.223Bullets",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+          }
+        }
+      },
+      "key": "Base.223BulletsMold",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          }
+        }
+      },
+      "key": "Base.223Clip",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다."
+          }
+        }
+      },
+      "key": "Base.308Box",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열거나 모루 근처에서 주조해 얻는다."
+          }
+        }
+      },
+      "key": "Base.308Bullets",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+          }
+        }
+      },
+      "key": "Base.308BulletsMold",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          }
+        }
+      },
+      "key": "Base.308Clip",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          }
+        }
+      },
+      "key": "Base.44Clip",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          }
+        }
+      },
+      "key": "Base.45Clip",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약을 상자에 담아 얻는다."
+          }
+        }
+      },
+      "key": "Base.556Box",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열어 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열어 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열어 얻는다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n장전 준비 작업에서 탄약을 상자나 클립에 담거나 꺼낼 때 다룬다.\n\n탄약 상자를 열어 얻는다."
+          }
+        }
+      },
+      "key": "Base.556Bullets",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          }
+        }
+      },
+      "key": "Base.556Clip",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n탄약 주조에 쓰는 틀이다.\n\n탄약 주조 맥락에서 쓰인다.\n\n모루 근처에서 철괴와 망치, 집게로 제작한다."
+          }
+        }
+      },
+      "key": "Base.9mmBulletsMold",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다.",
+            "presence": "present",
+            "value": "탄약이다.\n\n총기 장전 맥락에서 쓰인다.\n\n총기 장전에 쓰는 탄창이다.\n\n총기 취급 장소와 경찰 시설에서 발견된다."
+          }
+        }
+      },
+      "key": "Base.9mmClip",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "식품이다.\n\n조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다.",
+            "presence": "present",
+            "value": "식품이다.\n\n조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "식품이다.\n\n조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다.",
+            "presence": "present",
+            "value": "식품이다.\n\n조리나 식사 준비 작업에서 먹거나 나눠 먹을 때 쓴다."
+          }
+        }
+      },
+      "key": "Base.Acorn",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "폭발물이다.\n\n즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다.\n\n헤어스프레이와 불꽃놀이 재료를 조합해 만든다.",
+            "presence": "present",
+            "value": "폭발물이다.\n\n즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다.\n\n헤어스프레이와 불꽃놀이 재료를 조합해 만든다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "폭발물이다.\n\n즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다.\n\n헤어스프레이와 불꽃놀이 재료를 조합해 만든다.",
+            "presence": "present",
+            "value": "폭발물이다.\n\n즉석 폭발물 조립 작업에서 격발 장치를 붙여 완성할 때 쓴다.\n\n헤어스프레이와 불꽃놀이 재료를 조합해 만든다."
+          }
+        }
+      },
+      "key": "Base.Aerosolbomb",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다.",
+            "presence": "present",
+            "value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다.",
+            "presence": "present",
+            "value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다."
+          }
+        }
+      },
+      "key": "Base.AerosolbombRemote",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다.",
+            "presence": "present",
+            "value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다.",
+            "presence": "present",
+            "value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다."
+          }
+        }
+      },
+      "key": "Base.AerosolbombSensorV1",
+      "row_status": "matching"
+    },
+    {
+      "fields": {
+        "publish_state": {
+          "comparison_claim": "predecessor_legacy_visibility_disposition_not_successor_equality",
+          "field": "publish_state",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "presence": "missing",
+            "value": null
+          },
+          "resolution_mode": "legacy_predecessor_only_visibility",
+          "status": "legacy_predecessor_visibility_successor_intentional_absence",
+          "vnext": {
+            "field_source": "intentional_absence",
+            "presence": "missing",
+            "value": null
+          }
+        },
+        "state": {
+          "comparison_claim": "governed_derived_disposition",
+          "field": "state",
+          "predecessor": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          },
+          "resolution_mode": "governed_derived",
+          "status": "exact",
+          "vnext": {
+            "field_source": "derived_from_runtime_source",
+            "presence": "missing",
+            "value": "adopted"
+          }
+        },
+        "text_ko": {
+          "comparison_claim": "raw_and_normalized_text_delta",
+          "field": "text_ko",
+          "predecessor": {
+            "field_source": "direct_payload",
+            "normalized_value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다.",
+            "presence": "present",
+            "value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다."
+          },
+          "resolution_mode": "direct_payload",
+          "status": "exact",
+          "vnext": {
+            "field_source": "direct_payload",
+            "normalized_value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다.",
+            "presence": "present",
+            "value": "폭발물이다.\n\n폭발물 운용 작업에서 기폭 장치를 갖춘 폭발물을 설치할 때 다룬다.\n\n폭발물을 개조해 얻는다."
+          }
+        }
+      },
+      "key": "Base.AerosolbombSensorV2",
+      "row_status": "matching"
+    }
+  ],
+  "field_parity": {
+    "exact_match_count": 2105,
+    "publish_state_delta_count": 0,
+    "publish_state_legacy_visibility_disposition_count": 2105,
+    "state_delta_count": 0,
+    "text_ko_delta_count": 0
+  },
+  "key_parity": {
+    "additional_in_vnext_count": 0,
+    "matching_key_count": 2105,
+    "missing_in_vnext_count": 0
+  },
+  "non_decision": [
+    "not_frozen_2105_recovery_proof",
+    "not_successor_current_authority",
+    "not_runtime_cutover",
+    "not_release_readiness",
+    "publish_state_legacy_visibility_disposition_is_not_policy_mutation"
+  ],
+  "predecessor": {
+    "authority_role": "deployable_runtime_authority_until_cutover_and_comparison_reference",
+    "chunk_dir": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+    "entry_count": 2105,
+    "manifest": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "source": "existing_runtime_chunk_bundle"
+  },
+  "report_type": "vnext_corrected_successor_predecessor_runtime_delta_measurement",
+  "schema_version": "dvf-3-3-vnext-rejected-correction-runtime-parity-report-v0",
+  "status": "PASS",
+  "validation_counts": {
+    "blocked_unresolved_count": 0,
+    "delta_row_count": 2105,
+    "duplicate_key_count": 0,
+    "invalid_enum_count": 0,
+    "parser_failure_count": 0
+  },
+  "vnext": {
+    "authority_role": "successor_candidate_evidence_not_live_runtime_authority",
+    "chunk_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge/IrisLayer3DataChunks",
+    "entry_count": 2105,
+    "manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge/IrisLayer3DataChunks.lua",
+    "source": "staging_corrected_successor_candidate"
+  }
+}

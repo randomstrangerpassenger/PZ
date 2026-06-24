@@ -1,0 +1,9 @@
+{
+  "all_predecessor_maintain_have_mechanism": true,
+  "coverage_count": 54,
+  "deferred_count": 0,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-state-adjudication-validation-v0",
+  "scope_exclusion_count": 0,
+  "status": "PASS",
+  "unresolved_policy_candidate_count": 0
+}

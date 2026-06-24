@@ -1,0 +1,9 @@
+{
+  "failure_count": 0,
+  "failures": [],
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "negative_fixture_count": 5,
+  "positive_fixture_count": 3,
+  "schema_version": "consumer-universe-denominator-claim-guard-test-v1",
+  "status": "PASS"
+}

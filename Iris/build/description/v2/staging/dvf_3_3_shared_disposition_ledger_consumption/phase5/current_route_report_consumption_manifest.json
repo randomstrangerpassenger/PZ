@@ -1,0 +1,81 @@
+{
+  "adoption_state": "adopted_required_gate",
+  "direct_import_of_shared_tooling": false,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "reports": [
+    {
+      "bytes": 1648735,
+      "exists": true,
+      "invariant_checks": [
+        "status_PASS_or_candidate",
+        "hash_current"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase2/shared_disposition_packet.json",
+      "schema_version": "dvf-3-3-shared-disposition-packet-v1",
+      "sha256": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+      "status_field": "candidate"
+    },
+    {
+      "bytes": 822,
+      "exists": true,
+      "invariant_checks": [
+        "status_PASS_or_candidate",
+        "hash_current"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/divergence_report.json",
+      "schema_version": "dvf-3-3-shared-disposition-divergence-report-v1",
+      "sha256": "f835cf361972dda7800e7f706e761e84cba462fa3cc3ff9e1015054b1ab45097",
+      "status_field": "PASS"
+    },
+    {
+      "bytes": 190,
+      "exists": true,
+      "invariant_checks": [
+        "status_PASS_or_candidate",
+        "hash_current"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/raw_authority_read_report.json",
+      "schema_version": "dvf-3-3-shared-disposition-raw-authority-read-report-v1",
+      "sha256": "4f6e02a05ee3ca7fd451f6a3e7f4eac2951ae9dd53fbdab93e990728bfd1bcc5",
+      "status_field": "PASS"
+    },
+    {
+      "bytes": 222,
+      "exists": true,
+      "invariant_checks": [
+        "status_PASS_or_candidate",
+        "hash_current"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/value_divergence_report.json",
+      "schema_version": "dvf-3-3-shared-disposition-value-divergence-report-v1",
+      "sha256": "888ffcd6519ddfe75c723261b982bf7c9c078cf97feff474bff7c2a6bc8a11af",
+      "status_field": "PASS"
+    },
+    {
+      "bytes": 192,
+      "exists": true,
+      "invariant_checks": [
+        "status_PASS_or_candidate",
+        "hash_current"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/predecessor_reentry_report.json",
+      "schema_version": "dvf-3-3-shared-disposition-predecessor-reentry-report-v1",
+      "sha256": "856174edf8096702b678fc73df26e5a387b6c464d555fa72cebf124fcc3ca1ef",
+      "status_field": "PASS"
+    },
+    {
+      "bytes": 563,
+      "exists": true,
+      "invariant_checks": [
+        "status_PASS_or_candidate",
+        "hash_current"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase4/protected_surface_no_mutation_report.json",
+      "schema_version": "dvf-3-3-shared-disposition-protected-surface-no-mutation-v1",
+      "sha256": "ee7af78b82a9707457885b7cd15a9e05785722b4c13b17a6332f10e499d34583",
+      "status_field": "PASS"
+    }
+  ],
+  "schema_version": "dvf-3-3-shared-disposition-current-route-report-consumption-manifest-v1",
+  "status": "PASS"
+}

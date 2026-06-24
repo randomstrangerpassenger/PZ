@@ -1,0 +1,8 @@
+{
+  "allowlist_control_disjoint": true,
+  "rejected_key_allowlist_count": 54,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-inventory-validation-v0",
+  "silent_non_rejected_control_count": 21,
+  "source_reference_presence": true,
+  "status": "PASS"
+}

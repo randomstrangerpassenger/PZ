@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "hard_forbidden_surfaces": [
+    {
+      "path_prefix": "Iris/build/description/v2/data/",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    },
+    {
+      "path_prefix": "Iris/build/description/v2/output/",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    },
+    {
+      "path_prefix": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    },
+    {
+      "path_prefix": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    },
+    {
+      "path_prefix": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    },
+    {
+      "path_prefix": "Iris/build/package/Iris/media/lua/client/Iris/Data/",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    },
+    {
+      "path_prefix": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    },
+    {
+      "path_prefix": "Iris/Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    },
+    {
+      "path_prefix": "media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "surface_role": "hard_forbidden_authority_surface",
+      "writable_in_this_round": false
+    }
+  ],
+  "row_level_allowlist_can_override": false,
+  "schema_version": "dvf-3-3-live-hard-forbidden-authority-surface-v1",
+  "status": "PASS"
+}

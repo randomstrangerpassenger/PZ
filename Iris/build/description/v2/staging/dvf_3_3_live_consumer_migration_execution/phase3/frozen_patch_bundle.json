@@ -1,0 +1,12 @@
+{
+  "aggregate_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "authorization_row_count": 0,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "line_grouped_patch_bundle": true,
+  "line_patch_count": 0,
+  "row_count": 0,
+  "rows": [],
+  "schema_version": "dvf-3-3-live-frozen-patch-bundle-v1",
+  "status": "PASS",
+  "target_path_count": 0
+}

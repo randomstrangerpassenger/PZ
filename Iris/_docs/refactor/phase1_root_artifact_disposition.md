@@ -2,7 +2,7 @@
 
 Date: 2026-05-05
 
-Source roadmap: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+Historical source roadmap label: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
 
 This record closes the Phase 1 root intermediate artifact move without
 overwriting active build outputs. Root artifacts that were historical snapshots

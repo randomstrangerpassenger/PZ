@@ -2,7 +2,7 @@
 
 Date: 2026-05-08
 
-Roadmap item: `docs/Iris/iris-refactoring-final-roadmap-v1.md` Phase 5-9
+Historical roadmap item label: `docs/Iris/iris-refactoring-final-roadmap-v1.md` Phase 5-9
 
 Status: implemented, static-verified, and KO runtime smoke-validated.
 

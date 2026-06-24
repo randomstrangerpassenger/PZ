@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+  "schema_version": "dvf-3-3-shared-disposition-surface-matrix-v1",
+  "status": "PASS",
+  "surface_count": 7,
+  "surfaces": [
+    {
+      "actual_consumption_route": "shared_packet_or_report_consumption",
+      "bytes": 879,
+      "consumer_id": "validator",
+      "exists": true,
+      "expected_packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase5/shared_disposition_consumption_validator_report.json",
+      "route_status": "PASS",
+      "sha256": "a4adbb5fdad10a762728a60a06338dc18c04548370e0a4b5292100f110fd9adc"
+    },
+    {
+      "actual_consumption_route": "shared_packet_or_report_consumption",
+      "bytes": 19094,
+      "consumer_id": "live_required_validation_manifest",
+      "exists": true,
+      "expected_packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "route_status": "PASS",
+      "sha256": "2546fb0fa394b1aef42b339327c67f7badd0cc9e7a84fddb20e383bf85f52ea8"
+    },
+    {
+      "actual_consumption_route": "shared_packet_or_report_consumption",
+      "bytes": 2917,
+      "consumer_id": "retained_candidate_manifest",
+      "exists": true,
+      "expected_packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+      "path": "Iris/_docs/round3/current_route_required_validations.shared_disposition_candidate.json",
+      "route_status": "PASS",
+      "sha256": "a382c672ff085f8e19b3c044e3c6a13ae1573b27a57f1d672ec0925f50fc51f6"
+    },
+    {
+      "actual_consumption_route": "shared_packet_or_report_consumption",
+      "bytes": 1444,
+      "consumer_id": "policy_doc",
+      "exists": true,
+      "expected_packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+      "path": "docs/dvf_3_3_shared_disposition_consumption_policy.md",
+      "route_status": "PASS",
+      "sha256": "353926e92c667dbf1e04df0341e31b4eafca35bce23b95c8f81ae81e0e4605ab"
+    },
+    {
+      "actual_consumption_route": "shared_packet_or_report_consumption",
+      "bytes": 996,
+      "consumer_id": "ledger_packet_doc",
+      "exists": true,
+      "expected_packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+      "path": "docs/dvf_3_3_shared_disposition_ledger_packet.md",
+      "route_status": "PASS",
+      "sha256": "c99c769c16f8b708186a689a391bb51bc34156fb26bb75957ac5f9fa2d442bd5"
+    },
+    {
+      "actual_consumption_route": "shared_packet_or_report_consumption",
+      "bytes": 535,
+      "consumer_id": "claim_boundary_doc",
+      "exists": true,
+      "expected_packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+      "path": "docs/dvf_3_3_shared_disposition_claim_boundary.md",
+      "route_status": "PASS",
+      "sha256": "1bade475b9b026d7b6e71b588e502e285075aa5b693fa5afc7867be274a7a136"
+    },
+    {
+      "actual_consumption_route": "shared_packet_or_report_consumption",
+      "bytes": 9705,
+      "consumer_id": "focused_test",
+      "exists": true,
+      "expected_packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_shared_disposition_consumption.py",
+      "route_status": "PASS",
+      "sha256": "835244fb11a5c07280009cf3378f1e08f1b526019fad7142bad94537060c64da"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "accepted_overlay_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase1/accepted_overlay.jsonl",
+  "accepted_overlay_role": "compose_support_not_source_authority",
+  "body_plan_role": "compose profile implementation surface / alias label, not second authority",
+  "errors": [],
+  "generated_at": "2026-06-15T13:08:17.170791+00:00",
+  "identity_rules_path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
+  "precedence_rules_path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
+  "profile_count": 6,
+  "profiles_path": "Iris/build/description/v2/data/compose_profiles_v2.json",
+  "schema_version": "dvf-3-3-vnext-compose-binding-v0",
+  "section_names": [
+    "identity_core",
+    "use_core",
+    "context_support",
+    "acquisition_support",
+    "limitation_tail",
+    "meta_tail"
+  ],
+  "status": "PASS"
+}

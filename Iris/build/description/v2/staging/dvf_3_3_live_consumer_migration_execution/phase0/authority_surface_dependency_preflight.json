@@ -1,0 +1,1236 @@
+{
+  "classification_counts": {
+    "authority_surface_dependent": 44,
+    "consumer_only_representable": 109
+  },
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "row_count": 153,
+  "rows": [
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-aeaff69cdc899b5ebdf439cf",
+      "path": "Iris/_docs/round3/round3_artifact_dependency_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-3f695497b1924ab10abee408f9821fed"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-be6e8eef370c026c3c9d64f8",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-b557d05d0f75cd48ad1c0752fd9610c6"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-46d57a958a9c86c10aea912f",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-dcb967b728461d92b342e3e5812d0add"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-4f82f4b6afd23a2c1568ef5d",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-39c165e376247caa33292c82affc0b89"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-bbd2ec9b23abd00763469e6b",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-f7789c96964e23f5b365b0e63c5915f3"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-d3e4d1ef2dc3a4c63e4b2838",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-e5e8f7b18374b5884eebb8a0bafc4f71"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-5693c6c2902ccebac2510f4f",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-90aac3ac904924b33b82ea702c868629"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-f1ecfbb1622d34e1467dc152",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-24a7902b14bfb2a06d902e0fec5cea81"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-447e4278e406744e18fdbadd",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-9ae3732da8c88e514490d3a65f44d03b"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-059ed666f10c4fb802ca3953",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-dd402a4aa4886a4b2633526876abfe56"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-5b7fe177310e03146f5bf2f8",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-fd7cea7ecef1f967ae944f6773635264"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-b902a6edbc67e548272922e7",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-3bb3405ed2ecab1ad55fc6ecd6d943d1"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-bb5df07e1442dfd710ece45a",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-0be1cecbcbc5629472ed7c3911978004"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-3a47db968c189dc9aba829be",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-4e026143e80eaea78f3f6e698bfefacb"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-c4dc557102041f7b4e4b8894",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-d9bb0e264aba3a3c57fc7f482b1ca5bf"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-8bcd649b5beab6b8e7298475",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-d4f243935babdc498793b9bb6d5c795a"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-b60a250d20368f44abd45057",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-9401d35b0c8db9901b1534849c3b7722"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-0250186d518a9a66064e3710",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-b0552fdd22b2ce6f0623cf628be7fa39"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-5375d136ce98e2d05c76d05b",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-eaf1f1ea92b1f08e0c6e1b4f8ef37f00"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-c0a0f2540d1c998158b5ab45",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-c167989467500dcd95dfa4d17a82c877"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-ea73c587dee42c881338c6d9",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-0db367908a96495e026fd32c90b95885"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-a494fc8d16f59cc3abaa93a6",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-e02f411661ee3b76b28e65c22d48120a"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-0e63dc2ef51e27a7e51ee4f7",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-a5623b64d2bca78539c5c5515b545d8f"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-b1ea11a81f775939140d881b",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-e435d0d66479127de9ea79a7aa517461"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-e7e6b27347107db5df7a743d",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-0edf992bf99b09da9f01a765c9efc448"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-2eb9a4523796161bcbafcc5f",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-2cba27de19713a7f9a31654890bd3056"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-007e246b7a71d4de36aa3817",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-446dfee190ca4eb870a4f2c4596cb0c3"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-d0cf6f47ae27f730185c8143",
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-272cab225fdb6d7c3145314bd745b6f9"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-64c273bc74052de1e8329a58",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-c778d62a305abcf1e9ec43de886b0719"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-88b27ea083b299ad5d63b04a",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-a24b30d314f488fe72786f2e8ed2fb55"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-3258851d28460a00c57a232b",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-bcb5bac22c2aef570f8915011a186646"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-0fe2485c3255a25f906c48f6",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-87de2620ff76e61f8f2a13625c8473ff"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-bafb4e7ab6275a74eb0cee4a",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-f4c37362052e6598c4bd8e48fc2febb3"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-96b560013a252e2aa66405a6",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-02c59b707f04b695727cdb453aa1721a"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-309ecacb7f863516a3235982",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-b163401c5f7de6485dc97365e89cbb6b"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-920477155c7427ef1f184e86",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-bed2f91e6bad4e8794eea7056d3a783c"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-772da3d4e0d03374849492cb",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-732ae20a2aac24a4d01f63217e265f38"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-ced923b5b77da1b520d50845",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-57b418b129b6324b1d684dabaaefe14c"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-f7196e5bfd63d05da5d166bd",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-8d865fc71b3c8bbee88f6b30d76e2810"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-78f56c60077679bdbf9d6b47",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-4035c3c39ec1bbf1e0e7627f6b3194dc"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-5a030e833458d4945165574d",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-331d20ee4d8a2781c689780741d75267"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-827a9c53676f77f1fc00b0ec",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-2b3da8efb856292330b8c4bb8696de9f"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-3902ef1e706ff6fe32243184",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-149b046727dfc4090bb61a50ceb5b4bd"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-079d7036b9fb8cc229b77054",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-0ef04cbbcf3957b030c6aafb5a777904"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-49a9671f125b10b47c17f0ca",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-846ce9c93437a4c3991a7470d5c7a3a0"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-f93c942787537209c0438a53",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-94e2ba3b6bbce3a8fd3a64f5f0f58e3e"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-18b88e9f07b117ba3f92d298",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-a3e938bf37881b9de79316ac7f84f822"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-b7b511af2c235f7440ed2ba1",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-41b2e9dfb1a53aa10d9626174298f7e3"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-9a85d613c00053e034faa540",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-06f6befa33de93d072eb3e820f282f41"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-23448930443a7b7a87d2d583",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-163cf4aa49163adde18e58f9c6d47ad4"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-013c85b256f2b32c85a22f4c",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-bea1f95628a535c94538792c6fa3900e"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-aeac19c6a6ce6b7cfb045a56",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-80c9b11755f0860cadbb3e3f777b9c69"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-a393cf3c02ad7d1099d4ba84",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-92620c6e4a1b127bb7ac235c395c012f"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-d9908cc3860020d1e1a9f89b",
+      "path": "Iris/_docs/round3/round3_contract_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-8c4da64698123b37d8636fa69fe6e395"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-768b51b03405a108c167b700",
+      "path": "Iris/_docs/round3/round3_disposition_candidates.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-e0991a48478503db96cea257b9c0439e"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-3a35a224b0533bde1a3b78a3",
+      "path": "Iris/_docs/round3/round3_disposition_candidates.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-5cf543722d18e4f33f273380112ea2f2"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-4b4ee99fe2c47da17536ff1e",
+      "path": "Iris/_docs/round3/round3_disposition_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-9dddbb0aa4cf6e5eac7d7e9a4441abcd"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-a105eb44410f0b6a487314c0",
+      "path": "Iris/_docs/round3/round3_disposition_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-54f3ff27efffcc8758b110142b65d835"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-fd22f6dc58d80d3efead2789",
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-52f78ae054ccf90f1cdfef842ed5399c"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-19825f60dee608dc8ba4905a",
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-fdef41edb3f22bbc6d2e489d57eb3bb0"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-b8da881e9336dd17eea093bb",
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-562d128166be6857f5b973f279cb0742"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-a4f83b54e535e7c46525e466",
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-78575136ed010618887f5b8165aadc0b"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-cf3537ddd62454e837500daa",
+      "path": "Iris/_docs/round3/round3_retained_historical_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-75c69469046045ca27d845f3d1edfe4e"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-77723158cf1fd38df08bc009",
+      "path": "Iris/_docs/round3/round3_retained_historical_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-c8470bd8d000c59ec07f5df29096ac2d"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-1a4089b87eed203ac904967e",
+      "path": "Iris/_docs/round3/round3_retained_historical_manifest.json",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-b51afa6069165d3e3d7f052ee21153f7"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-494f879bb1fbe07868aeedc0",
+      "path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-c3141d75308dcae56d0e58d279669429"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-17c3fe9897e2af2ec0507ff5",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-7fef130945f605a93e1d84c8d48f7fc2"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-ba9ab387c7ab9fa699cf4add",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-c7c2d397895dd7cc9c3e0af761c2e4f7"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-197649165cda567aa0bbd4ce",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-7c04a78cf259cdfaa5864ad89065e601"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-1ceb18c2e7221f8485550010",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-c99752b3ded3b5c1b7d96e009e10bd9c"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-4e2acebdf815d15bfd5ea569",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-68ce23b4e801e2c62ae3037621943b60"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-a8c172f7718dd6069de303f1",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-80e55aec0697fe4009b777b33b881b81"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-1d1e431efbce11a8ce243630",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-59dca9e5d27835f7873b52fed0d917be"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-fe80b3394645a5b8e8bfa2fc",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-af200262c865de689e351bad5e82eef3"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-73d448cd9e04d5f857b9d906",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-667cc6017448a701af7ad75d3e315a51"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-d97a60f4bfe336029c18adcc",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-9eea38faa713d3c99aed6661f871706e"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-7deb10c3a8cde7f7c1d96a8f",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-bc90772a80695c2de29f423d5caa14db"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-160107e79c168db69a033618",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-75dd6c39324cec11d473f930226c614c"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-6c743100143f140f63c1330e",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-769864ebf94b4c72c37b339d60f0da62"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-ab5b02adfbb2128d6c891f37",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-97aad4ae2fc6273fe633f1869645ad2a"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-2694adcd473995b3c14708c9",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-59e16814924fd61f73d3c7c81cfaefb8"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-8253b9ccccdb9dc8d1577deb",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-85bfc2486399d58ef98ef6c1f89435e7"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-055914bdf7b09dbd966897a0",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-b752e5e60a3d613a82c90f89df9358fb"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-e81407016a1e7f859ccfb5c8",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-b66d73d33ba61fa5ac46fb93806fc252"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-3b8c4f58fd7857700bc81f9a",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-1fa581bc7b2f1065f074943843155b10"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-b896c957f5c626608cbb347b",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-2d5d2856ac75a05f136efe54cfb2be91"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-97a412d6f4a8c1c326d13609",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-b836df5994524da9a8d47c5f0348bc68"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-58d2e0f60a683150f4a21d29",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-7d770d13d84116139c9adaa0b9614dfd"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-4db9504f332c632158aaee88",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-dd071bf24b05e93f3a1b091ae5a59103"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-212e6d0efefea38657f0db29",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-8d8be7d4c749faa7ba7cf2df2f0026c0"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-459da684b487fc49e830fea9",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-e403d8b1a57cbb35c7f5f81a0568084b"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-2e332aa2e4a391892bfb6ca5",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-00ef7fe9a578dbbd4e716f868717bb43"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-db7e3592a04a549ed3556594",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-3db8a64aa44d99e66454b9c4d818c039"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-762465d392444441864ab180",
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-ad7a8274ac2e909701b9fe13c5415b11"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-63f1cea87d383a4ac6ef9480",
+      "path": "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-17e9068ae556551cae8f8a37df32531a"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-b61f83ba8e8b7cffef5872b6",
+      "path": "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-723ffb3786d7de30506cd844f277d2a5"
+    },
+    {
+      "classified_surface_family": "test",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-0f0d917296fd4c0f67bf10ba",
+      "path": "Iris/build/description/v2/tests/test_source_coverage_post_c.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-5226d2288963ac77b31c95b9469ebde6"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-f65caed94e40b509356ffd5e",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-96f18502aee9d64196dbd23872a9af6b"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-d4f8f077cad4977da2f3977f",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-f613f10e573175b7b39fa4ca00cd1d05"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-795f6121e5195b2b43ec9d98",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-cc544d465ae83b3be43b64e30cc02839"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-bdd6b1726d45609214694162",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-ce54da4fd80c52d45e65605db4680ef8"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-ada85cf93d20b7584e641bd6",
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-dc1d11455c9464cb70a886dd401857c7"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-4ba4c66c29a20736c31b187c",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-67e89d2716cbdb9cb1af54685cd64265"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-18d81409ebfcbad91a859006",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-004fe41efccb9cffaaa6c22a605d9dab"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-36e91cc7bd999a91cfe5855f",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-61806c5bde359b91bef5807eb1b58551"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-b902b1d2d80ab6c22fd0f08c",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-9bb6d46026c6d9cac74f25365857f36e"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-d6ead532cc114a95a69907b6",
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-87292b01a87cf88f73be18cc38c43602"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-59822ceb74ec56abd18470b1",
+      "path": "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-ae6f7c411fb7fdf19736919960d558e1"
+    },
+    {
+      "classified_surface_family": "validator",
+      "live_apply_target_allowed": true,
+      "member_id": "terminal-member-4068e2660f75404ba6a6744c",
+      "path": "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py",
+      "preflight_classification": "consumer_only_representable",
+      "source_row_identity": "ledger-cf8fab2f10cf34e57119fb93f2b2020a"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-6f196229e09906a15cc55ccc",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-07b045bc6cc0c967e0d81556aa08af7e"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-e968c0e3b15ab78fb826290f",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-4ce770fade0003dded29f914e66e1eff"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-139f1f1ffd234150df6f3371",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-9ca95ab82d58e0e01c3ae9ee082d98dc"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-06edb03453e56a85f4805742",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-0b9716f6aaab87b0d6566eff2aebe621"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-51846ed7bc5e6c29d7a83c32",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-63b30cfc21424f5dc86db79a0fef31a4"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-aadb059d3e46c728f675064e",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-f861b56801050d80e7ecdc755903c425"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-11a43b20481c18b74ac45564",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-ac0135d47766519cdfe3feb8e0e76c8e"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-a6f3f9a44f14293bb4c8915c",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-788f1a492240338ad9967628469799dd"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-9e89b778dc3c08c3ab29f739",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-5e298b9c9ffeaa6d521b9428368d46ac"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-e36327a009f9559f7edd59e3",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-81c563fe39c6ed2c7191a4a157115713"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-d2a83274560512bde6158e00",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-9b1ff7c0bffcb9d2e05c8b763684a761"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-7937312fa9fea82482f1f5c3",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-c3cde225a16f75e9dd91af59406eccb5"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-66d446b324c185f949002742",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-d114baca7c54c10ea275e9d71bb3e08c"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-f3901ace303389afff37bbdf",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-b1887e8f4c5648309c68dff4a464dd45"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-4a0a00e408a3ca49f3a3c405",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-6771e41185a6442fb2cbf83bd80f215e"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-01c101b2cd3a48e8a72b40e0",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-b70976d65255d2ab9611319dda55b77d"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-d35d2efc0ca7b0fc8b9006eb",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-a753ba2bc24a798211c7a37bce45df45"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-e24b6a83782d75105174d244",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-be6f1d0db751b4b17b72ab0b7ea2ae92"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-bd7704e26b96fe79139268a3",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-457e714a69e279f5e6a3f44d1c12a4f3"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-6c936e23f225d1e24211583f",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-15c1f753bd6ce397dfacc4791977be19"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-b112d50be47d8eefb4adb668",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-7b4e4cf48ecc4d8d15bc5a4c26789194"
+    },
+    {
+      "classified_surface_family": "lua_bridge",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-42b6edaaedb9b0fa617757bb",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-17962ba93d0194b5989464a08f4600c6"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-2443250fa9e57a68ae61fb7a",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-98f0cfdeb6e1f0ab96ba4763e0ce409f"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-ea493b9adbffe73e748c1ae5",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-f47a4325075bd45f2fbe86fbcc7b558d"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-f54c6fe3cb736ecc3d44f06e",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-c3e08a1ae426c7c5725eb170518386c2"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-c88a26b824873acc4ba84c9c",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-c6d2097b7386dc5dbcf342f2fc98ab92"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-fc3aa9020ce871381b43bb40",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-69b04cab89d75370e5da9e7fa92d5a78"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-b75c2e3251b6f2a3d98b6b3c",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-90ffecdfb3f7158f84aba9401f2aca3c"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-b11ff2442fc252699286c29f",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-ee594dc9f08234f5be6731c11e1c55d4"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-edc5783288b06757df23e20b",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-1602617a534964bb0e677d2a9691a8d9"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-be7d30b17f98a46810452cf8",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-9a748393c36b0a65545b265f77067f49"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-bae85d89c0f9886dfb77a452",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-027872984aaadf81533a6d6b80252446"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-9518ac763c07fb9bdbcfffd1",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-03dbcca5f08521f5ac6d04956926e3df"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-c14a11e0ca19dba2c587fef6",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-fa43850f1effd6c09ed1c68c588c4cce"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-0464e932e98637ad713b3bd7",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-5b6c5401c499422db9bdc3840eb0d6fd"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-2120ac85b5abeba8a3a13004",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-4dbde72d1ef9c5e80299f64f7c4aa45e"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-392b0b0d2f2e924c4ed89f7b",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-575f113d91df199d9d315696d4f7f9cb"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-9d3d00b2bf345ed64c290abc",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-d772ff30d921b012af4d251a25570ff3"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-49e16025c3eaba3f2388485b",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-691ae771766471c347affff2a622335b"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-1d03ae884b4d0b2444daff19",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-3be803843b203e210655abe260add040"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-c7e183b97231ba83d6161d4b",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-bb6653028623a03af0e4f2840d19f295"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-8c9f56dd9ccccf4145d01d70",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-e6aade486c7209a98b5a0c561f3741d2"
+    },
+    {
+      "classified_surface_family": "runtime_payload",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-6345f45187824bd6fd81a693",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-d58955794eb74d93c6149d348b0204a2"
+    },
+    {
+      "classified_surface_family": "lua_bridge",
+      "live_apply_target_allowed": false,
+      "member_id": "terminal-member-d1cc3a0775b561e17986f7e9",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "preflight_classification": "authority_surface_dependent",
+      "source_row_identity": "ledger-3f386a2308628a9c55177697db546d99"
+    }
+  ],
+  "schema_version": "dvf-3-3-live-authority-surface-dependency-preflight-v1",
+  "status": "PASS"
+}

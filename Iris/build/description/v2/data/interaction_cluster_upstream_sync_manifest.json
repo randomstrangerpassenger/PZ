@@ -1,0 +1,25 @@
+{
+  "schema_version": "interaction-cluster-upstream-sync-manifest-v0",
+  "pass": true,
+  "errors": [],
+  "results": [
+    {
+      "key": "upstream_facts",
+      "status": "existing",
+      "source": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\upstream_dvf_3_3_facts.jsonl",
+      "target": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\upstream_dvf_3_3_facts.jsonl"
+    },
+    {
+      "key": "upstream_usecases",
+      "status": "existing",
+      "source": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\upstream_usecases_by_fulltype.json",
+      "target": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\upstream_usecases_by_fulltype.json"
+    },
+    {
+      "key": "upstream_recipe_nav",
+      "status": "existing",
+      "source": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\upstream_recipe_nav_registry.json",
+      "target": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\upstream_recipe_nav_registry.json"
+    }
+  ]
+}

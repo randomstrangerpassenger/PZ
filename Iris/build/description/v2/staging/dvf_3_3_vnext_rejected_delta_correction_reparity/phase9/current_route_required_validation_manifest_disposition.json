@@ -1,0 +1,8 @@
+{
+  "disposition": "phase_local_predecessor_trace_only",
+  "live_required_validation_manifest": "Iris/_docs/round3/current_route_required_validations.json",
+  "live_required_validation_manifest_mutated": false,
+  "phase_local_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase9/current_route_required_validation_report.json",
+  "schema_version": "dvf-3-3-vnext-rejected-correction-required-validation-disposition-v0",
+  "status": "PASS"
+}

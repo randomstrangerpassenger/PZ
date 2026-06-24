@@ -1,0 +1,44 @@
+{
+  "adoption_status": "not_adopted",
+  "claim_boundary": "Terminal disposition adjudication governance only; not release readiness, package readiness, Workshop readiness, manual QA, semantic quality completion, source/rendered/runtime/package mutation, runtime payload policy mutation, or new current authority cutover.",
+  "live_manifest_mutated": false,
+  "required_artifacts": [
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "PASS",
+          "field": "machine_contract_status"
+        },
+        {
+          "equals": 0,
+          "field": "blocked_count"
+        },
+        {
+          "equals": 0,
+          "field": "conditional_count"
+        },
+        {
+          "equals": 0,
+          "field": "unknown_count"
+        },
+        {
+          "equals": 0,
+          "field": "pending_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase5/final_terminal_disposition_machine_report.json"
+    }
+  ],
+  "required_tests": [
+    {
+      "required": true,
+      "test_id": "test_terminal_disposition_adjudication.TerminalDispositionAdjudicationTest.test_final_machine_report_is_complete_but_review_pending"
+    }
+  ],
+  "schema_version": "round3-current-route-required-validations-candidate-patch-v1",
+  "status": "candidate_only"
+}

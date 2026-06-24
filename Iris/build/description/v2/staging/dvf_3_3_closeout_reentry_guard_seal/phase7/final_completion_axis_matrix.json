@@ -1,0 +1,57 @@
+{
+  "axes": [
+    {
+      "axis": "terminal_disposition",
+      "completion_class": "terminal_disposition_complete",
+      "separate_from": [
+        "broad_consumer",
+        "cutover_subset",
+        "live_execution"
+      ]
+    },
+    {
+      "axis": "broad_consumer",
+      "completion_class": "broad_consumer_completion",
+      "separate_from": [
+        "cutover_subset",
+        "live_execution"
+      ]
+    },
+    {
+      "axis": "cutover_subset",
+      "completion_class": "cutover_subset_completion",
+      "separate_from": [
+        "broad_consumer",
+        "release_readiness"
+      ]
+    },
+    {
+      "axis": "pre_apply_readiness",
+      "completion_class": "pre_apply_readiness_complete",
+      "separate_from": [
+        "live_execution",
+        "live_mutation"
+      ]
+    },
+    {
+      "axis": "live_apply_authorization",
+      "completion_class": "phase4_live_apply_allowed",
+      "separate_from": [
+        "live_mutation_complete"
+      ]
+    },
+    {
+      "axis": "required_validation_gate",
+      "completion_class": "required_validation_gate_adopted",
+      "separate_from": [
+        "runtime_writer",
+        "source_writer"
+      ]
+    }
+  ],
+  "broad_cutover_collision_allowed": false,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "problem7_pass_to_closeout_guard_completion_allowed": false,
+  "schema_version": "dvf-3-3-closeout-completion-axis-matrix-v1",
+  "status": "PASS"
+}

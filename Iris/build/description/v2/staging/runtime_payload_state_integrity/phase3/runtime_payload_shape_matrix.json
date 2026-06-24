@@ -1,0 +1,65 @@
+{
+  "axis_definition": {
+    "adoption_axis": "derived from source/runtime_state/adoption_state identity resolution; current payload uses source value",
+    "publish_axis": "collapsed to missing for current/current-looking payload rows; predecessor publish_state is legacy residue",
+    "text_ko_axis": [
+      "missing",
+      "null_or_nil",
+      "non_nil_string"
+    ]
+  },
+  "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
+  "classified_current_like_row_count": 6315,
+  "current_like_row_count": 6315,
+  "forbidden_current_like_count": 0,
+  "generated_at": "2026-06-23T17:38:42.687871+00:00",
+  "rows": [
+    {
+      "classification": "allowed_current",
+      "count": 6252,
+      "derived_adoption_state": "adopted",
+      "publish_axis": "missing",
+      "sample_item_ids": [
+        "Base.223Box",
+        "Base.223Bullets",
+        "Base.223BulletsMold",
+        "Base.223Clip",
+        "Base.308Box",
+        "Base.308Bullets",
+        "Base.308BulletsMold",
+        "Base.308Clip"
+      ],
+      "surface_ids": [
+        "candidate_bridge_runtime",
+        "live_current_runtime",
+        "package_peer_runtime"
+      ],
+      "text_ko_value_state": "non_nil_string"
+    },
+    {
+      "classification": "allowed_current",
+      "count": 63,
+      "derived_adoption_state": "unadopted",
+      "publish_axis": "missing",
+      "sample_item_ids": [
+        "Base.Broom",
+        "Base.CameraFilm",
+        "Base.Extinguisher",
+        "Base.Gloves_Surgical",
+        "Base.Hat_SurgicalCap_Blue",
+        "Base.Hat_SurgicalCap_Green",
+        "Base.Hat_SurgicalMask_Blue",
+        "Base.Hat_SurgicalMask_Green"
+      ],
+      "surface_ids": [
+        "candidate_bridge_runtime",
+        "live_current_runtime",
+        "package_peer_runtime"
+      ],
+      "text_ko_value_state": "null_or_nil"
+    }
+  ],
+  "schema_version": "runtime-payload-shape-matrix-v1",
+  "status": "PASS",
+  "unclassified_current_like_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "candidate_manifest_path": "Iris/_docs/round3/current_route_required_validations.shared_disposition_candidate.json",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "independent_review_status": "review_pass",
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "live_required_validation_manifest_contains_required_gate": true,
+  "live_required_validation_manifest_mutated": true,
+  "live_required_validation_manifest_mutated_by_generator": false,
+  "missing_artifacts": [],
+  "missing_tests": [],
+  "owner_adoption_replaces_independent_review": false,
+  "owner_adoption_status": "adopted_required_gate",
+  "schema_version": "dvf-3-3-shared-disposition-adoption-decision-v1",
+  "status": "PASS"
+}

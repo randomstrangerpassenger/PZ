@@ -1,0 +1,50 @@
+{
+  "authority_status": "successor_candidate_staging_only",
+  "bridge_candidate": {
+    "bytes": null,
+    "exists": true,
+    "kind": "dir",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge",
+    "role": "successor_candidate_staging_only",
+    "sha256": null
+  },
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "decisions": {
+    "bytes": 2189811,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase1/lineage/dvf_3_3_vnext_decisions.jsonl",
+    "role": "readiness_copy_from_corrected_source_manifest",
+    "sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46"
+  },
+  "facts": {
+    "bytes": 1436584,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase1/lineage/dvf_3_3_vnext_facts.jsonl",
+    "role": "readiness_copy_from_corrected_source_manifest",
+    "sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8"
+  },
+  "fixture_as_authority_rejected": true,
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "output_role": "compose_support_not_source_authority",
+  "rendered_candidate": {
+    "bytes": 3814549,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/rendered/dvf_3_3_rendered.vnext_corrected.json",
+    "role": "successor_candidate_staging_only",
+    "sha256": "b44430584ac0f652f489d0688b55832de9fde4d2958bbe9ae5f28a9766e92067"
+  },
+  "schema_version": "dvf-3-3-vnext-overlay-input-lineage-v0",
+  "source_manifest": {
+    "bytes": 3871,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_source_manifest.json",
+    "role": "successor_candidate_staging_only",
+    "sha256": "171dc2751b1e8e28fce28d29ba92ee6bd4fda9a825fedc7b0db1f7c120f2028c"
+  },
+  "stale_overlay_direct_promotion_rejected": true,
+  "status": "PASS"
+}

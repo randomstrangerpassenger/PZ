@@ -1,0 +1,107 @@
+{
+  "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
+  "generated_at": "2026-06-23T17:38:42.611336+00:00",
+  "schema_version": "runtime-payload-state-surface-role-classification-v1",
+  "status": "PASS",
+  "surfaces": [
+    {
+      "adoption_counts": {
+        "adopted": 2084,
+        "unadopted": 21
+      },
+      "chunk_dir": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "chunk_dir_exists": true,
+      "classification_counts": {
+        "allowed_current": 2105
+      },
+      "current_like": true,
+      "entry_count": 2105,
+      "manifest": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "manifest_exists": true,
+      "publish_axis_counts": {
+        "missing": 2105
+      },
+      "surface_id": "live_current_runtime",
+      "surface_role": "current_runtime_authority",
+      "text_ko_value_state_counts": {
+        "non_nil_string": 2084,
+        "null_or_nil": 21
+      }
+    },
+    {
+      "adoption_counts": {
+        "adopted": 2084,
+        "unadopted": 21
+      },
+      "chunk_dir": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "chunk_dir_exists": true,
+      "classification_counts": {
+        "allowed_current": 2105
+      },
+      "current_like": true,
+      "entry_count": 2105,
+      "manifest": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "manifest_exists": true,
+      "publish_axis_counts": {
+        "missing": 2105
+      },
+      "surface_id": "package_peer_runtime",
+      "surface_role": "package_peer_current_looking",
+      "text_ko_value_state_counts": {
+        "non_nil_string": 2084,
+        "null_or_nil": 21
+      }
+    },
+    {
+      "adoption_counts": {
+        "adopted": 2084,
+        "unadopted": 21
+      },
+      "chunk_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/candidate_bridge/IrisLayer3DataChunks",
+      "chunk_dir_exists": true,
+      "classification_counts": {
+        "allowed_current": 2105
+      },
+      "current_like": true,
+      "entry_count": 2105,
+      "manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/candidate_bridge/IrisLayer3DataChunks.lua",
+      "manifest_exists": true,
+      "publish_axis_counts": {
+        "missing": 2105
+      },
+      "surface_id": "candidate_bridge_runtime",
+      "surface_role": "current_authority_candidate_snapshot",
+      "text_ko_value_state_counts": {
+        "non_nil_string": 2084,
+        "null_or_nil": 21
+      }
+    },
+    {
+      "adoption_counts": {
+        "adopted": 2084,
+        "unadopted": 21
+      },
+      "chunk_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "chunk_dir_exists": true,
+      "classification_counts": {
+        "legacy_only": 2103,
+        "legacy_only_predecessor_residue": 2
+      },
+      "current_like": false,
+      "entry_count": 2105,
+      "manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "manifest_exists": true,
+      "publish_axis_counts": {
+        "exposed": 1486,
+        "internal_only": 600,
+        "missing": 19
+      },
+      "surface_id": "rollback_snapshot_runtime",
+      "surface_role": "predecessor_rollback_snapshot",
+      "text_ko_value_state_counts": {
+        "non_nil_string": 2086,
+        "null_or_nil": 19
+      }
+    }
+  ]
+}

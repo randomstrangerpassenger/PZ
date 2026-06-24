@@ -1,0 +1,10 @@
+{
+  "artifact_origin": "fresh_full_rerun",
+  "bridge_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/bridge_report.json",
+  "chunk_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks",
+  "chunk_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/chunks/IrisLayer3DataChunks.lua",
+  "claim_boundary": "fresh_regeneration",
+  "prior_staging_artifact_reuse": false,
+  "rendered_input": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase2/rendered/dvf_3_3_rendered.vnext.json",
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-chunk-candidate-origin-v0"
+}

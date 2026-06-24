@@ -1,0 +1,33 @@
+{
+  "user_file": "C:\\Users\\MW\\Downloads\\phase_c_pilot_review.jsonl",
+  "current_file": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot.review.jsonl",
+  "backup_file": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot.review.before_user_round24_sync.jsonl",
+  "synced_count": 52,
+  "excluded_extra_count": 24,
+  "excluded_extra_item_ids": [
+    "Base.223Clip",
+    "Base.308Clip",
+    "Base.44Clip",
+    "Base.45Clip",
+    "Base.556Clip",
+    "Base.9mmClip",
+    "Base.AerosolbombRemote",
+    "Base.AerosolbombSensorV1",
+    "Base.AerosolbombSensorV2",
+    "Base.AerosolbombSensorV3",
+    "Base.AerosolbombTriggered",
+    "Base.AlcoholBandage",
+    "Base.AlcoholRippedSheets",
+    "Base.AlcoholWipes",
+    "Base.AlcoholedCottonBalls",
+    "Base.AmmoStrap_Bullets",
+    "Base.AmmoStrap_Shells",
+    "Base.Antibiotics",
+    "Base.AssaultRifle",
+    "Base.Axe",
+    "Base.AxeStone",
+    "Base.BaseballBat",
+    "Base.BaseballBatNails",
+    "Base.HandAxe"
+  ]
+}

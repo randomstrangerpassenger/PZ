@@ -1,0 +1,208 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-shared-disposition-sealed-axis-token-set-v1",
+  "status": "PASS",
+  "token_count": 20,
+  "tokens": [
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 39,
+      "role_bearing_disposition_occurrence_count": 39,
+      "sealed_axis_role": "terminal executing-consumer member-row denominator",
+      "sealed_value": 1062,
+      "token": "1062"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 38,
+      "role_bearing_disposition_occurrence_count": 38,
+      "sealed_axis_role": "audit change-required occurrence count",
+      "sealed_value": 311,
+      "token": "311"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 39,
+      "role_bearing_disposition_occurrence_count": 39,
+      "sealed_axis_role": "normalization apply-eligible and readiness sandbox row count",
+      "sealed_value": 163,
+      "token": "163"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 31,
+      "role_bearing_disposition_occurrence_count": 31,
+      "sealed_axis_role": "terminal migrated projection",
+      "sealed_value": 153,
+      "token": "153"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 17,
+      "role_bearing_disposition_occurrence_count": 17,
+      "sealed_axis_role": "normalization no-op row count",
+      "sealed_value": 148,
+      "token": "148"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 21,
+      "role_bearing_disposition_occurrence_count": 21,
+      "sealed_axis_role": "live mutation eligible / verified live rows",
+      "sealed_value": 109,
+      "token": "109"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 27,
+      "role_bearing_disposition_occurrence_count": 27,
+      "sealed_axis_role": "evidence-only hard-forbidden migrated rows",
+      "sealed_value": 44,
+      "token": "44"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 5,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 295,
+      "role_bearing_disposition_occurrence_count": 290,
+      "sealed_axis_role": "runtime current entry comparison count",
+      "sealed_value": 2105,
+      "token": "2105"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 132,
+      "role_bearing_disposition_occurrence_count": 132,
+      "sealed_axis_role": "runtime adopted row count",
+      "sealed_value": 2084,
+      "token": "2084"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 2,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 394,
+      "role_bearing_disposition_occurrence_count": 392,
+      "sealed_axis_role": "runtime unadopted row count",
+      "sealed_value": 21,
+      "token": "21"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 9,
+      "role_bearing_disposition_occurrence_count": 9,
+      "sealed_axis_role": "audit change-forbidden occurrence count",
+      "sealed_value": 27558,
+      "token": "27558"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 17,
+      "role_bearing_disposition_occurrence_count": 17,
+      "sealed_axis_role": "rebaseline yes predicate count",
+      "sealed_value": 59,
+      "token": "59"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 26,
+      "role_bearing_disposition_occurrence_count": 26,
+      "sealed_axis_role": "rebaseline conditional predicate count",
+      "sealed_value": 252,
+      "token": "252"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 13,
+      "role_bearing_disposition_occurrence_count": 13,
+      "sealed_axis_role": "terminal no-op projection",
+      "sealed_value": 268,
+      "token": "268"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 2543,
+      "role_bearing_disposition_occurrence_count": 2543,
+      "sealed_axis_role": "terminal diagnostic-only projection",
+      "sealed_value": 3,
+      "token": "3"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 13,
+      "role_bearing_disposition_occurrence_count": 13,
+      "sealed_axis_role": "terminal historical-only projection",
+      "sealed_value": 638,
+      "token": "638"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 10,
+      "role_bearing_disposition_occurrence_count": 10,
+      "sealed_axis_role": "terminal source predicate no count",
+      "sealed_value": 902,
+      "token": "902"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 16,
+      "role_bearing_disposition_occurrence_count": 16,
+      "sealed_axis_role": "terminal source predicate yes count",
+      "sealed_value": 49,
+      "token": "49"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 0,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 16,
+      "role_bearing_disposition_occurrence_count": 16,
+      "sealed_axis_role": "terminal source predicate conditional count",
+      "sealed_value": 111,
+      "token": "111"
+    },
+    {
+      "coverage_status": "COVERED",
+      "excluded_numeric_occurrence_count": 19,
+      "exclusion_reason": null,
+      "raw_numeric_occurrence_count": 286,
+      "role_bearing_disposition_occurrence_count": 267,
+      "sealed_axis_role": "blocked/unknown/pending/forbidden zero invariants",
+      "sealed_value": 0,
+      "token": "0"
+    }
+  ]
+}

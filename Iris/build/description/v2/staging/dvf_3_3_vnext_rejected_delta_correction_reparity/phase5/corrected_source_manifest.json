@@ -1,0 +1,86 @@
+{
+  "accepted_inputs": [
+    {
+      "authority_role": "accepted_source_input_staging_corrected_snapshot",
+      "condition": "corrected_round_staging_manifest_entry",
+      "id": "source_coverage_integrated_facts",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot/dvf_3_3_facts.corrected.jsonl",
+      "row_count": 2105,
+      "sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+      "source_type": "source_coverage_integrated_facts_corrected_round_snapshot"
+    },
+    {
+      "authority_role": "accepted_source_input_requires_vnext_normalization_staging_corrected_snapshot",
+      "condition": "corrected_round_staging_manifest_entry",
+      "id": "source_coverage_integrated_decisions",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot/dvf_3_3_decisions.corrected.jsonl",
+      "row_count": 2105,
+      "sha256": "3000db34a96c5f7075ff1711352c076a1f762052fba8d1223ff8ec813ef22d6d",
+      "source_type": "source_coverage_integrated_decisions_legacy_vocabulary_corrected_round_snapshot"
+    }
+  ],
+  "accepted_source_count": 2105,
+  "authority_label": "vNext-CAB",
+  "correction_round": {
+    "corrected_input_snapshot": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot",
+    "global_state_remap": false,
+    "live_input_manifest_overwritten": false,
+    "staging_root": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity"
+  },
+  "fixture_exclusion_rule": {
+    "excluded_paths": [
+      "Iris/build/description/v2/staging/compose_contract_migration/layer3_body_source_overlay.jsonl",
+      "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/accepted_overlay.jsonl"
+    ],
+    "fixture_threshold": 10,
+    "production_manifest_must_not_reference_fixture_paths": true
+  },
+  "generated_at": "2026-06-23T17:37:38.139204+00:00",
+  "partial_input_manifest": {
+    "bytes": 3362,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "role": "partial_readpoint_input",
+    "sha256": "8166257cf801c3b1bdb6131f2ade6b85e732c0b312552866cb9f40d28f71689d"
+  },
+  "runtime_seed": {
+    "accepted_source_authority": false,
+    "bytes": 752081,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_input_snapshot/runtime_derived_seed.jsonl",
+    "provenance": "derived-from-runtime-chunks",
+    "role": "non_authority_bootstrap_seed",
+    "sha256": "be1d50d3d20d4fed970515a79d4db851be76e4edb7e64af07dcb59a54b96c4b5"
+  },
+  "schema_version": "dvf-3-3-vnext-source-universe-manifest-v0",
+  "sealed_baseline_identity": null,
+  "source_root_list": [
+    "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime"
+  ],
+  "source_root_role": "sealed_source_coverage_integrated_input_not_live_current_manifest",
+  "status": "confirmed",
+  "tool_identity": "Iris/build/description/v2/tools/build/build_dvf_3_3_vnext_source_manifest.py",
+  "validation_result": null,
+  "vocabulary_normalization": {
+    "compose_profile": {
+      "consumable_body": "consumable_body",
+      "container_body": "container_body",
+      "interaction_component": "material_body",
+      "interaction_output": "output_body",
+      "interaction_tool": "tool_body",
+      "material_body": "material_body",
+      "output_body": "output_body",
+      "tool_body": "tool_body",
+      "wearable_body": "wearable_body"
+    },
+    "legacy_active_silent_current_writer_allowed": false,
+    "state": {
+      "active": "adopted",
+      "adopted": "adopted",
+      "silent": "unadopted",
+      "unadopted": "unadopted"
+    }
+  }
+}

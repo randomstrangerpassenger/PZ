@@ -40,6 +40,16 @@ ERROR_CATALOG = {
 
 TEXT_SUFFIXES = {".json", ".jsonl", ".lua", ".md", ".py", ".txt"}
 SKIP_DIR_NAMES = {".git", ".hg", ".svn", "__pycache__", ".pytest_cache", ".mypy_cache"}
+V2_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = V2_ROOT.parents[3]
+DEFAULT_MANIFEST = (
+    V2_ROOT
+    / "staging"
+    / "compose_contract_migration"
+    / "legacy_active_silent_current_surface_guard_round"
+    / "phase1_manifest"
+    / "current_surface_guard_referent_manifest.json"
+)
 TOKEN_RE = re.compile(r"(?<![A-Za-z0-9_])(active|silent)(?=_count\b|\b)", re.IGNORECASE)
 RUNTIME_STATE_VALUE_RE = re.compile(
     r'"(?:state|runtime_state)"\s*:\s*"(active|silent)"',
@@ -174,53 +184,54 @@ def iter_scan_files(repo_root: Path) -> list[Path]:
 
 
 def iter_scan_files_with_rg(repo_root: Path) -> list[Path] | None:
-    command = [
-        "rg",
-        "-l",
-        "-i",
-        r"active|silent|active_count|silent_count",
-        "--glob",
-        "*.json",
-        "--glob",
-        "*.jsonl",
-        "--glob",
-        "*.lua",
-        "--glob",
-        "*.md",
-        "--glob",
-        "*.py",
-        "--glob",
-        "*.txt",
-        "Iris",
-        "docs",
-    ]
-    try:
-        completed = subprocess.run(
-            command,
-            cwd=repo_root,
-            text=True,
-            encoding="utf-8",
-            errors="replace",
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            timeout=60,
-        )
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        return None
-    if completed.returncode not in {0, 1}:
-        return None
-    paths = []
-    for line in completed.stdout.splitlines():
-        if not line.strip():
-            continue
-        path = repo_root / line.strip()
-        if not path.is_file():
-            continue
-        if set(path.parts) & SKIP_DIR_NAMES:
-            continue
-        if path.suffix.lower() not in TEXT_SUFFIXES:
-            continue
-        paths.append(path)
+    paths: list[Path] = []
+    for root_name in ("Iris", "docs"):
+        command = [
+            "rg",
+            "-l",
+            "-i",
+            "--no-ignore",
+            r"active|silent|active_count|silent_count",
+            "--glob",
+            "*.json",
+            "--glob",
+            "*.jsonl",
+            "--glob",
+            "*.lua",
+            "--glob",
+            "*.md",
+            "--glob",
+            "*.py",
+            "--glob",
+            "*.txt",
+            root_name,
+        ]
+        try:
+            completed = subprocess.run(
+                command,
+                cwd=repo_root,
+                text=True,
+                encoding="utf-8",
+                errors="replace",
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=60,
+            )
+        except (FileNotFoundError, subprocess.TimeoutExpired):
+            return None
+        if completed.returncode not in {0, 1}:
+            return None
+        for line in completed.stdout.splitlines():
+            if not line.strip():
+                continue
+            path = repo_root / line.strip()
+            if not path.is_file():
+                continue
+            if set(path.parts) & SKIP_DIR_NAMES:
+                continue
+            if path.suffix.lower() not in TEXT_SUFFIXES:
+                continue
+            paths.append(path)
     return sorted(set(paths), key=lambda item: repo_rel(item, repo_root))
 
 
@@ -536,8 +547,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Validate that legacy active/silent does not re-enter current Iris output surfaces."
     )
-    parser.add_argument("--manifest", required=True)
-    parser.add_argument("--repo-root", required=True)
+    parser.add_argument("--manifest", default=None)
+    parser.add_argument("--repo-root", default=str(REPO_ROOT))
     parser.add_argument("--report", default=None)
     parser.add_argument("--inventory-root", default=None)
     return parser.parse_args(argv)
@@ -546,7 +557,15 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
     repo_root = Path(args.repo_root).resolve()
-    manifest = read_json(Path(args.manifest).resolve())
+    manifest_path = Path(args.manifest).resolve() if args.manifest else DEFAULT_MANIFEST
+    if not manifest_path.exists():
+        print(
+            f"default manifest not found: {manifest_path}. "
+            "Generate the guard round first or pass --manifest.",
+            file=sys.stderr,
+        )
+        return 2
+    manifest = read_json(manifest_path.resolve())
     report = validate_repo(repo_root, manifest)
     if args.report:
         write_json(Path(args.report), report)

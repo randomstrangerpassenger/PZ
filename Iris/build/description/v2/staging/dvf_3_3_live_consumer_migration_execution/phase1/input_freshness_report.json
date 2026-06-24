@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "inputs": [
+    {
+      "bytes": 2099179,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+      "read_only": true,
+      "required": true,
+      "role": "terminal_ledger",
+      "row_count": 1062,
+      "sha256": "57dc5dea9ba8ca6bcbb6934ece6151ad778465b7a279f1e74df35534d5cdb6cb",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 487305,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+      "read_only": true,
+      "required": true,
+      "role": "readiness_ledger",
+      "row_count": 311,
+      "sha256": "71f108024545c6c869ebf58d1950c04001226d65b32a1047ad28869c21ef8b64",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 22989,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json",
+      "read_only": true,
+      "required": true,
+      "role": "denominator_registry",
+      "row_count": null,
+      "sha256": "31df79c51432efb80bfd9deb1e9df320ba6ac1a0ce23be3f4d1e28ff30c4cdf1",
+      "status": "PRESENT"
+    }
+  ],
+  "schema_version": "dvf-3-3-live-input-freshness-report-v1",
+  "status": "PASS"
+}

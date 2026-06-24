@@ -1,0 +1,20 @@
+{
+  "corrected": {
+    "exact_match_count": 2105,
+    "publish_state_delta_count": 0,
+    "publish_state_legacy_visibility_disposition_count": 2105,
+    "state_delta_count": 0,
+    "text_ko_delta_count": 0
+  },
+  "prior": {
+    "exact_match_count": 34,
+    "not_comparable_count": 2105,
+    "publish_state_delta_count": 0,
+    "publish_state_legacy_visibility_disposition_count": 2105,
+    "state_delta_count": 54,
+    "text_ko_delta_count": 2071
+  },
+  "schema_version": "dvf-3-3-vnext-rejected-correction-prior-vs-corrected-delta-v0",
+  "state_delta_reduction": 54,
+  "status": "PASS"
+}

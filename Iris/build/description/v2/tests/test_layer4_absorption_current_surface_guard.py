@@ -50,6 +50,15 @@ class Layer4AbsorptionCurrentSurfaceGuardTest(unittest.TestCase):
         write_text(
             self.tmp_dir
             / "Iris"
+            / "_archive"
+            / "staging"
+            / "round"
+            / "evidence.json",
+            json.dumps({"namespace": NAMESPACE}, indent=2),
+        )
+        write_text(
+            self.tmp_dir
+            / "Iris"
             / "build"
             / "description"
             / "v2"

@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "hard_forbidden_authority_surface_changed_count": 0,
+  "row_level_allowlist_authorized_hard_forbidden_mutation": false,
+  "schema_version": "dvf-3-3-live-hard-forbidden-no-mutation-verdict-v1",
+  "status": "PASS"
+}

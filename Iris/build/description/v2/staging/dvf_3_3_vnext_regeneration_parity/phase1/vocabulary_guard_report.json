@@ -1,0 +1,14 @@
+{
+  "current_writer_vocabulary": [
+    "adopted",
+    "unadopted"
+  ],
+  "legacy_active_silent_count": 0,
+  "legacy_active_silent_samples": [],
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-vocabulary-guard-v0",
+  "state_counts": {
+    "adopted": 2030,
+    "unadopted": 75
+  },
+  "status": "PASS"
+}

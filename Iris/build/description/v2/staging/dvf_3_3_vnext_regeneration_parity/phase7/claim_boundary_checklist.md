@@ -1,0 +1,7 @@
+- [x] input_mode_fresh_full_rerun
+- [x] claim_boundary_fresh_regeneration
+- [x] parity_report_pass
+- [x] determinism_pass
+- [x] protected_no_mutation_pass
+- [x] common_release_marker_included
+- [x] common_runtime_surface_marker_included

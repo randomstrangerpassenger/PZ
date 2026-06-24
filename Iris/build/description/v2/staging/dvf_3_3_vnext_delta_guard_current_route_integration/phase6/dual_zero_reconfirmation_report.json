@@ -1,0 +1,8 @@
+{
+  "dynamic_forbidden_reach_count": 0,
+  "schema_version": "dvf-3-3-vnext-delta-guard-current-route-dual-zero-v1",
+  "source_anchor": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal/phase8/dual_zero_verification_report.json",
+  "static_forbidden_current_surface_hit_count": 0,
+  "static_unclassified_residue_count": 0,
+  "status": "PASS"
+}

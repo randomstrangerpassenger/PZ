@@ -1,0 +1,29 @@
+{
+  "applicable_sections": [
+    "claim_boundary",
+    "rollback",
+    "validation",
+    "closeout"
+  ],
+  "execution_contract": {
+    "bytes": 18004,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/EXECUTION_CONTRACT.md",
+    "read_only": true,
+    "required": true,
+    "role": "execution_contract_input",
+    "row_count": null,
+    "sha256": "a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493",
+    "status": "PRESENT"
+  },
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "not_applicable_with_reason": [
+    {
+      "reason": "release readiness is explicitly out of scope",
+      "section": "release_execution"
+    }
+  ],
+  "schema_version": "dvf-3-3-live-execution-contract-applicability-v1",
+  "status": "PASS"
+}

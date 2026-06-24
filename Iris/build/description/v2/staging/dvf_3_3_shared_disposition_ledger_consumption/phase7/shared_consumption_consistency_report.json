@@ -1,0 +1,10 @@
+{
+  "DUAL_AUTHORITY_READ": 0,
+  "PREDECESSOR_REENTRY": 0,
+  "RAW_AUTHORITY_READ": 0,
+  "VALUE_DIVERGENCE": 0,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "protected_surface_changed_count": 0,
+  "schema_version": "dvf-3-3-shared-disposition-consistency-report-v1",
+  "status": "PASS"
+}

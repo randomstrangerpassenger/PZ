@@ -1,0 +1,12 @@
+{
+  "covered_count": 3,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "inventory_only_count": 3,
+  "inventory_only_denominator_ids": [
+    "DEN-AUDIT-RAW-OCCURRENCES",
+    "DEN-AUDIT-CORE-OCCURRENCES",
+    "DEN-AUDIT-ADJACENT-SEED-OCCURRENCES"
+  ],
+  "schema_version": "consumer-universe-denominator-inventory-only-coverage-v1",
+  "status": "PASS"
+}

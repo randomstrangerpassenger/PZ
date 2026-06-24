@@ -1,0 +1,10 @@
+{
+  "artifact_origin": "fresh_full_rerun",
+  "claim_boundary": "fresh_regeneration",
+  "decisions": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase1/dvf_3_3_vnext_decisions.jsonl",
+  "facts": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase1/dvf_3_3_vnext_facts.jsonl",
+  "prior_staging_artifact_reuse": false,
+  "rendered_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase6/determinism_rerun/phase2/rendered/dvf_3_3_rendered.vnext.json",
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-rendered-candidate-origin-v0",
+  "source_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase1/source_universe_manifest.json"
+}

@@ -1,0 +1,106 @@
+{
+  "schema_version": "iris-lua-bridge-export-v1",
+  "authority_kind": "chunk_bridge_output",
+  "bridge_context": "staging",
+  "format": "chunk",
+  "report_path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\bridge_export_report.json",
+  "rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\output\\dvf_3_3_rendered.json",
+  "input_rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\output\\dvf_3_3_rendered.json",
+  "default_input_rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\output\\dvf_3_3_rendered.json",
+  "default_output_root": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\lua_bridge_export\\default",
+  "output_root": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\lua_bridge_export\\default",
+  "publish_preview_path": null,
+  "lua_output_path": null,
+  "legacy_lua_output_path_ignored": null,
+  "output_manifest_path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks.lua",
+  "output_chunk_dir": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks",
+  "source_entry_count": 6,
+  "runtime_entry_count": 7,
+  "entry_count": 7,
+  "adopted_count": 6,
+  "unadopted_count": 0,
+  "source_publish_state_counts": {
+    "internal_only": 0,
+    "exposed": 0
+  },
+  "runtime_publish_state_counts": {
+    "internal_only": 0,
+    "exposed": 0
+  },
+  "publish_state_entry_count": 0,
+  "applied_aliases": [
+    {
+      "source_full_type": "Base.CanOpener",
+      "alias_full_type": "Base.TinOpener"
+    }
+  ],
+  "meta": {
+    "version": "interaction-cluster-rendered-v0",
+    "generated_at": "2026-06-13T00:45:15.349569+00:00",
+    "facts_sha256": "0fbff43e932199ca36ba0c67fd683a53608ff56d0ed3373c654cdb2f67ff53e5",
+    "decisions_sha256": "9fd0f6fa9250d8fde31e065f60b2cf24717a8194bbef2ee4a8065f7a35c3507f",
+    "profiles_sha256": "418ef196dbf97e8e4b2ab62e0dec4f721550aa19067374d3ab934cd553ed9348",
+    "overlay_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\body_role\\phase2\\layer3_role_check_overlay.jsonl",
+    "overlay_sha256": "9eae0f7ddea8c1f0e04a5885dc02bcb82cd0d6545b966d2822bd47a66b5da130",
+    "entries_sha256": "8bbab2b96ac9334cd13f050b292eea2af3c3345631ca331448a8ee1617022d9d",
+    "stats": {
+      "total": 6,
+      "adopted_override": 0,
+      "unadopted": 0,
+      "adopted_composed": 6,
+      "quality_flagged": 1,
+      "requeue_candidates": 1
+    }
+  },
+  "monolith_generated": false,
+  "non_current": true,
+  "input_scale": "fixture",
+  "input_authority_status": "fixture_non_authority",
+  "pass": true,
+  "chunked": true,
+  "chunk_size": 200,
+  "chunk_count": 1,
+  "chunk_manifest_path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks.lua",
+  "chunk_output_dir": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks",
+  "chunk_modules": [
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk001",
+      "path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks\\Chunk001.lua",
+      "entry_count": 7
+    }
+  ],
+  "manifest_hash": "7b5a260289a77b5a71e3f98d949c21f0fa048e8325256433268a00ddb1b1a5a0",
+  "chunk_hashes": [
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk001",
+      "path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks\\Chunk001.lua",
+      "sha256": "8667cc09d4fbd315e3ea48e16ce36ba6835b890eeb1c57d4800bff8ef716a533",
+      "bytes": 3397,
+      "entry_count": 7
+    }
+  ],
+  "chunk_integrity": {
+    "schema_version": "iris-lua-bridge-chunk-integrity-v1",
+    "chunk_manifest_path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks.lua",
+    "chunk_output_dir": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks",
+    "chunk_count": 1,
+    "manifest_modules": [
+      "Iris/Data/IrisLayer3DataChunks/Chunk001"
+    ],
+    "missing_chunks": [],
+    "orphan_chunks": [],
+    "duplicate_keys": [],
+    "manifest_hash": "7b5a260289a77b5a71e3f98d949c21f0fa048e8325256433268a00ddb1b1a5a0",
+    "chunk_hashes": [
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk001",
+        "path": "Iris\\build\\description\\v2\\staging\\lua_bridge_export_contract_realign\\IrisLayer3DataChunks\\Chunk001.lua",
+        "sha256": "8667cc09d4fbd315e3ea48e16ce36ba6835b890eeb1c57d4800bff8ef716a533",
+        "bytes": 3397,
+        "entry_count": 7
+      }
+    ],
+    "pass": true,
+    "failures": []
+  }
+}

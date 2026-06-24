@@ -1,0 +1,9 @@
+{
+  "approved_deferred_rejected_sum_equals_denominator": true,
+  "coverage_percent": 100.0,
+  "denominator_source": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase7/runtime_parity_deltas.jsonl",
+  "no_blocked_only_rejected_positive_predicate": true,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-re-disposition-validation-v0",
+  "status": "PASS",
+  "successful_terminal_permits_rejected_zero": true
+}

@@ -1,0 +1,22 @@
+{
+  "excluded_fields": [
+    "meta.generated_at",
+    "formatting-only JSON whitespace"
+  ],
+  "hash_procedure": "sha256(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(',', ':')))",
+  "included_fields": [
+    "text_ko",
+    "source",
+    "publish_state"
+  ],
+  "normalization_rules": [
+    "sort item ids",
+    "sort object keys",
+    "preserve text_ko exactly after JSON decoding",
+    "do not normalize source or publish_state values"
+  ],
+  "ordering_rules": "entries sorted by item id; JSON object keys sorted",
+  "rendered_candidate_hash": "bbc06d60870ca31873386b493f9190b473a2f10bb5fcd08813e375342bd5f0e0",
+  "runtime_candidate_hash": "945b8efb3c0323dd90e7f098bb91eda82e14ee9509e74cd5bfb40be370ce5cc6",
+  "schema_version": "layer3-canonical-json-form-v0"
+}

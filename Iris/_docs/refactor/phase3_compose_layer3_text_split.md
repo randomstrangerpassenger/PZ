@@ -2,7 +2,7 @@
 
 Date: 2026-05-06
 
-Source roadmap: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
+Historical source roadmap label: `docs/Iris/iris-refactoring-final-roadmap-v1.md`
 
 This record starts Phase 3-4. The existing `compose_layer3_blocks.py` and
 `compose_layer3_io.py` boundaries remain the authority for block rendering and

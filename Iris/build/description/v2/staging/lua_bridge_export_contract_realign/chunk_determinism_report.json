@@ -1,0 +1,18 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-determinism-v1",
+  "compared_reports": [
+    "Iris/build/description/v2/staging/lua_bridge_export/default/bridge_export_report.json",
+    "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/bridge_export_report.json"
+  ],
+  "default_manifest_hash": "7b5a260289a77b5a71e3f98d949c21f0fa048e8325256433268a00ddb1b1a5a0",
+  "explicit_manifest_hash": "7b5a260289a77b5a71e3f98d949c21f0fa048e8325256433268a00ddb1b1a5a0",
+  "default_chunk_hashes": [
+    "8667cc09d4fbd315e3ea48e16ce36ba6835b890eeb1c57d4800bff8ef716a533"
+  ],
+  "explicit_chunk_hashes": [
+    "8667cc09d4fbd315e3ea48e16ce36ba6835b890eeb1c57d4800bff8ef716a533"
+  ],
+  "same_manifest_hash": true,
+  "same_chunk_hashes": true,
+  "pass": true
+}

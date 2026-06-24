@@ -1,0 +1,19 @@
+{
+  "coverage_complete": true,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "packet_row_count": 1062,
+  "schema_version": "dvf-3-3-shared-disposition-row-coverage-v1",
+  "status": "PASS",
+  "terminal_member_row_count": 1062,
+  "terminal_split": {
+    "blocked_count": 0,
+    "conditional_count": 0,
+    "diagnostic_only_count": 3,
+    "historical_only_count": 638,
+    "migrated_count": 153,
+    "no_op_count": 268,
+    "pending_count": 0,
+    "terminal_rows_total": 1062,
+    "unknown_count": 0
+  }
+}

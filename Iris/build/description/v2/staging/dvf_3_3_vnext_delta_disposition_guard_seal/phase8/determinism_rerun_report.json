@@ -1,0 +1,6 @@
+{
+  "determinism_basis": "sealed parity determinism PASS plus deterministic manifest/index generation",
+  "parity_determinism_anchor": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase6/determinism_report.json",
+  "schema_version": "dvf-3-3-vnext-delta-disposition-determinism-rerun-v0",
+  "status": "PASS"
+}

@@ -1,0 +1,7 @@
+{
+  "expected_findings": [
+    "DUAL_AUTHORITY_READ"
+  ],
+  "reads_raw_provenance_as_authority": true,
+  "reads_shared_packet": true
+}

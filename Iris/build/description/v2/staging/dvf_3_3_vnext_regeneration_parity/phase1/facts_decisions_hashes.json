@@ -1,0 +1,7 @@
+{
+  "decisions_count": 2105,
+  "decisions_rows_sha256": "f62b051cf724836d41c1eb00eb0eecd350860b1f2989948940d463cba2630964",
+  "facts_count": 2105,
+  "facts_rows_sha256": "42661158a2ed5ed1628b3c8ed6e81fe38941f1285b65a7fc95d92bedbcff990a",
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-facts-decisions-hashes-v0"
+}

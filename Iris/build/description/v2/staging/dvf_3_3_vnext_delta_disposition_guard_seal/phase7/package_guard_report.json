@@ -1,0 +1,9 @@
+{
+  "current_route_tooling_allowlist_expanded": false,
+  "guard_orchestrator": "build_dvf_3_3_vnext_delta_disposition_guard_seal.py",
+  "notes": "Existing route reports are consumed as evidence; no current core closure expansion is performed.",
+  "schema_version": "dvf-3-3-vnext-package-guard-report-v0",
+  "shared_forbidden_scan_criteria": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal/phase6/forbidden_current_path_patterns.json",
+  "single_writer_orchestrator": true,
+  "status": "PASS"
+}

@@ -1,0 +1,80 @@
+{
+  "blocked_claim_surface_count": 0,
+  "blocked_claim_surfaces": [],
+  "excluded_files": [
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase1/*",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/validation_report.*.json"
+  ],
+  "excluded_roots": [
+    "Iris/build/description/v2/staging/compose_contract_migration"
+  ],
+  "forbidden_overclaim_violation_count": 0,
+  "forbidden_predecessor_reentry_violation_count": 0,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "historical_trace_policy": "classify_as_historical_or_policy_trace_not_current_closeout_claim",
+  "included_files": [
+    "Iris/_docs/round3/current_route_required_validations.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase0/owner_reserved_seal_requirements.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase0/roadmap_input_binding.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase2/completion_vocabulary_separation_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase2/dvf_3_3_closeout_claim_taxonomy.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase2/final_completion_axis_matrix.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/current_debt_reentry_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/dual_reentry_authority_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/predecessor_reentry_context_allowlist.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/predecessor_reentry_guard_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/raw_predecessor_authority_read_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase4/closeout_claim_boundary_guard_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase4/problem7_to_closeout_guard_promotion_guard_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase5/closeout_reentry_guard_manifest_adoption_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase6/docs_claim_taxonomy_consistency_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_no_mutation_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_pinned_command_manifest.json",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/full_current_route_validation_result.json",
+    "Iris/build/description/v2/tests/test_dvf_3_3_closeout_reentry_guard_seal.py",
+    "Iris/build/description/v2/tools/build/dvf_3_3_closeout_reentry_guard_seal_common.py",
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_closeout_reentry_guard_seal.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_closeout_claim_boundary.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_closeout_claim_taxonomy.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_predecessor_reentry_guard.py",
+    "docs/ARCHITECTURE.md",
+    "docs/DECISIONS.md",
+    "docs/ROADMAP.md",
+    "docs/completion_vocabulary_separation_policy.md",
+    "docs/dvf_3_3_closeout_reentry_claim_boundary.md",
+    "docs/dvf_3_3_closeout_reentry_guard_seal_plan.md",
+    "docs/dvf_3_3_closeout_reentry_ledger_packet.md",
+    "docs/predecessor_reentry_guard_policy.md"
+  ],
+  "included_roots": [
+    "docs",
+    "Iris/_docs/round3",
+    "Iris/build/description/v2/tools/build",
+    "Iris/build/description/v2/tests",
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal"
+  ],
+  "missing_required_surface_families": [],
+  "missing_required_surface_family_count": 0,
+  "missing_required_surface_family_is_blocking": true,
+  "observed_surface_families": [
+    "docs",
+    "generated_evidence",
+    "ledger_packets",
+    "reports",
+    "required_validation_manifest",
+    "tests",
+    "validators"
+  ],
+  "required_surface_families": [
+    "docs",
+    "generated_evidence",
+    "ledger_packets",
+    "reports",
+    "required_validation_manifest",
+    "tests",
+    "validators"
+  ],
+  "schema_version": "dvf-3-3-closeout-claim-surface-scan-manifest-v1",
+  "status": "PASS"
+}

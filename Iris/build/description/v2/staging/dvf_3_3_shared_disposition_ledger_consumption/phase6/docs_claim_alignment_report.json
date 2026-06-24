@@ -1,0 +1,27 @@
+{
+  "claim_boundary": "Shared disposition consumption contract only; not denominator adjudication, not terminal disposition re-adjudication, not Phase 4 live apply, not source/rendered/Lua-bridge/runtime/package authority mutation, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, and not public-facing text quality acceptance.",
+  "docs": [
+    {
+      "bytes": 1444,
+      "exists": true,
+      "path": "docs/dvf_3_3_shared_disposition_consumption_policy.md",
+      "sha256": "353926e92c667dbf1e04df0341e31b4eafca35bce23b95c8f81ae81e0e4605ab"
+    },
+    {
+      "bytes": 996,
+      "exists": true,
+      "path": "docs/dvf_3_3_shared_disposition_ledger_packet.md",
+      "sha256": "c99c769c16f8b708186a689a391bb51bc34156fb26bb75957ac5f9fa2d442bd5"
+    },
+    {
+      "bytes": 535,
+      "exists": true,
+      "path": "docs/dvf_3_3_shared_disposition_claim_boundary.md",
+      "sha256": "1bade475b9b026d7b6e71b588e502e285075aa5b693fa5afc7867be274a7a136"
+    }
+  ],
+  "forbidden_claim_count": 0,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-shared-disposition-docs-claim-alignment-v1",
+  "status": "PASS"
+}

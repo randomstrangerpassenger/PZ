@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "require_complete_default": true,
+  "schema_version": "dvf-3-3-terminal-validation-core-contract-v1",
+  "single_source_required": true,
+  "validation_core_id": "dvf_3_3_terminal_disposition_adjudication_common.validate_terminal_records_v1"
+}

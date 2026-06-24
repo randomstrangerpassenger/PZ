@@ -1,0 +1,174 @@
+{
+  "commands": [
+    {
+      "blocking_condition": "missing_tool_or_artifact_blocks_claim",
+      "claim_boundary": "DVF 3-3 live consumer migration execution evidence only; not current authority recutover, not source/rendered/Lua-bridge/runtime-chunk/package authority mutation, not package readiness, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, not manual in-game QA, and not public-facing text quality acceptance.",
+      "command_id": "live_execution_runner",
+      "compatibility_status": "active",
+      "concrete_command_or_tool": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_live_consumer_migration_execution.py --mode all",
+      "downstream_artifact": "phase8/final_live_migration_execution_report.json",
+      "downstream_phase": "phase8",
+      "expected_artifact": "phase8/final_live_migration_execution_report.json",
+      "expected_exit_code": 0,
+      "forbidden_args": [
+        "sandbox-path-repoint"
+      ],
+      "freshness_inputs": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+        "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json"
+      ],
+      "input_artifacts": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl"
+      ],
+      "mode": "exact_command_or_recorded_scope",
+      "mutation_boundary": "no live mutation unless Phase 3 pre_apply_gate_report is PASS",
+      "output_artifacts": [
+        "phase8/final_live_migration_execution_report.json"
+      ],
+      "required_args": [],
+      "schema_refs": [],
+      "target_kind": "live_consumer_surface_or_recorded_predecessor",
+      "tool_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_live_consumer_migration_execution.py",
+      "validation_family": "execution_artifact_generation"
+    },
+    {
+      "blocking_condition": "missing_tool_or_artifact_blocks_claim",
+      "claim_boundary": "DVF 3-3 live consumer migration execution evidence only; not current authority recutover, not source/rendered/Lua-bridge/runtime-chunk/package authority mutation, not package readiness, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, not manual in-game QA, and not public-facing text quality acceptance.",
+      "command_id": "live_execution_validator",
+      "compatibility_status": "active",
+      "concrete_command_or_tool": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_live_consumer_migration_execution.py",
+      "downstream_artifact": "phase8/final_live_migration_execution_report.json",
+      "downstream_phase": "phase8",
+      "expected_artifact": "phase6/focused_live_migration_validation_report.json",
+      "expected_exit_code": 0,
+      "forbidden_args": [
+        "sandbox-path-repoint"
+      ],
+      "freshness_inputs": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+        "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json"
+      ],
+      "input_artifacts": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl"
+      ],
+      "mode": "exact_command_or_recorded_scope",
+      "mutation_boundary": "no live mutation unless Phase 3 pre_apply_gate_report is PASS",
+      "output_artifacts": [
+        "phase6/focused_live_migration_validation_report.json"
+      ],
+      "required_args": [],
+      "schema_refs": [],
+      "target_kind": "live_consumer_surface_or_recorded_predecessor",
+      "tool_path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_live_consumer_migration_execution.py",
+      "validation_family": "focused_live_migration_validation"
+    },
+    {
+      "blocking_condition": "missing_tool_or_artifact_blocks_claim",
+      "claim_boundary": "DVF 3-3 live consumer migration execution evidence only; not current authority recutover, not source/rendered/Lua-bridge/runtime-chunk/package authority mutation, not package readiness, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, not manual in-game QA, and not public-facing text quality acceptance.",
+      "command_id": "terminal_disposition_predecessor",
+      "compatibility_status": "active",
+      "concrete_command_or_tool": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_terminal_disposition_adjudication.py --mode all",
+      "downstream_artifact": "phase8/final_live_migration_execution_report.json",
+      "downstream_phase": "phase8",
+      "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+      "expected_exit_code": 0,
+      "forbidden_args": [
+        "sandbox-path-repoint"
+      ],
+      "freshness_inputs": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+        "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json"
+      ],
+      "input_artifacts": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl"
+      ],
+      "mode": "exact_command_or_recorded_scope",
+      "mutation_boundary": "no live mutation unless Phase 3 pre_apply_gate_report is PASS",
+      "output_artifacts": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl"
+      ],
+      "required_args": [],
+      "schema_refs": [],
+      "target_kind": "live_consumer_surface_or_recorded_predecessor",
+      "tool_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_terminal_disposition_adjudication.py",
+      "validation_family": "terminal_migrated_projection_validation"
+    },
+    {
+      "blocking_condition": "missing_tool_or_artifact_blocks_claim",
+      "claim_boundary": "DVF 3-3 live consumer migration execution evidence only; not current authority recutover, not source/rendered/Lua-bridge/runtime-chunk/package authority mutation, not package readiness, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, not manual in-game QA, and not public-facing text quality acceptance.",
+      "command_id": "readiness_row_ledger_predecessor",
+      "compatibility_status": "active",
+      "concrete_command_or_tool": "uv run python -B Iris/build/description/v2/tools/build/apply_dvf_3_3_consumer_migration.py",
+      "downstream_artifact": "phase8/final_live_migration_execution_report.json",
+      "downstream_phase": "phase8",
+      "expected_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+      "expected_exit_code": 0,
+      "forbidden_args": [
+        "sandbox-path-repoint"
+      ],
+      "freshness_inputs": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+        "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json"
+      ],
+      "input_artifacts": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl"
+      ],
+      "mode": "exact_command_or_recorded_scope",
+      "mutation_boundary": "no live mutation unless Phase 3 pre_apply_gate_report is PASS",
+      "output_artifacts": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl"
+      ],
+      "required_args": [],
+      "schema_refs": [],
+      "target_kind": "live_consumer_surface_or_recorded_predecessor",
+      "tool_path": "Iris/build/description/v2/tools/build/apply_dvf_3_3_consumer_migration.py",
+      "validation_family": "sandbox_live_separation_validation"
+    },
+    {
+      "blocking_condition": "missing_tool_or_artifact_blocks_claim",
+      "claim_boundary": "DVF 3-3 live consumer migration execution evidence only; not current authority recutover, not source/rendered/Lua-bridge/runtime-chunk/package authority mutation, not package readiness, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, not manual in-game QA, and not public-facing text quality acceptance.",
+      "command_id": "current_route_contract",
+      "compatibility_status": "active",
+      "concrete_command_or_tool": "uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
+      "downstream_artifact": "phase8/final_live_migration_execution_report.json",
+      "downstream_phase": "phase8",
+      "expected_artifact": "phase6/current_route_validation_report.json",
+      "expected_exit_code": 0,
+      "forbidden_args": [
+        "sandbox-path-repoint"
+      ],
+      "freshness_inputs": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+        "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json"
+      ],
+      "input_artifacts": [
+        "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl"
+      ],
+      "mode": "exact_command_or_recorded_scope",
+      "mutation_boundary": "no live mutation unless Phase 3 pre_apply_gate_report is PASS",
+      "output_artifacts": [
+        "phase6/current_route_validation_report.json"
+      ],
+      "required_args": [],
+      "schema_refs": [],
+      "target_kind": "live_consumer_surface_or_recorded_predecessor",
+      "tool_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "validation_family": "current_route_scope_recording"
+    }
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "mapping_owner": "dvf_3_3_live_consumer_migration_execution",
+  "sandbox_executor_silent_repointing": false,
+  "schema_version": "dvf-3-3-live-command-surface-mapping-v1",
+  "status": "PASS"
+}

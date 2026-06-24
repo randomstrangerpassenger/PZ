@@ -1,0 +1,18 @@
+{
+  "schema_version": "interaction-cluster-smoke-sample-manifest-v0",
+  "target": 50,
+  "selected_count": 6,
+  "bucket_counts": {
+    "high_abstraction": 3,
+    "layer4_rich_layer3_sparse": 2,
+    "role_fallback_excess": 1
+  },
+  "selected_item_ids": [
+    "Base.CanOpener",
+    "Base.ElectronicsScrap",
+    "Base.GunpowderCan",
+    "Base.ModKit",
+    "Base.Tongs",
+    "Base.WeldingTorch"
+  ]
+}

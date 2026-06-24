@@ -1,0 +1,95 @@
+{
+  "aggregate_sha256": "ae94ec84e839da92a8e29e0ed99f6913fbbaa298e7476d8452c7032c94f11250",
+  "records": [
+    {
+      "bytes": 65477,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_vnext_delta_disposition_guard_seal_plan.md",
+      "role": "approved_plan",
+      "sha256": "9cbaed1eba803c153f191abb41cabdd94692e05d7db20f136e67c8a7dd9f936c"
+    },
+    {
+      "bytes": 2136,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_vnext_delta_disposition_policy.md",
+      "role": "authoritative_disposition_policy",
+      "sha256": "70024ad86df653dda6944f53a6adc87ce26393b4d7c3180bf2edfb5cfdef5480"
+    },
+    {
+      "bytes": 1226,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_vnext_guard_seal_contract.md",
+      "role": "authoritative_guard_contract",
+      "sha256": "9e91e2d92514b9c12ea01c08335fda86f5a178606584db24c1c1e31390114fc7"
+    },
+    {
+      "bytes": 16175,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/final_execution_contract_report.json",
+      "role": "final_execution_contract_report",
+      "sha256": "f10b89e7d64582189bc13a0db45d93ac22b625ea44fc90e6be478bfafd5651c3"
+    },
+    {
+      "bytes": 994,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase7/final_contract_report.json",
+      "role": "final_regeneration_parity_contract_report",
+      "sha256": "50db42ce35f8ef22b316fe09dbeccb2cb74e3e8290f0bdaec5b3dfe4cdf7eb8c"
+    },
+    {
+      "bytes": 50357,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_report.json",
+      "role": "runtime_parity_report",
+      "sha256": "392f83d65eaaaf783655f743a8aecdced4fcf86c1f8f500f8e33c5bbcda6247c"
+    },
+    {
+      "bytes": 3498338,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_deltas.jsonl",
+      "role": "sealed_per_row_delta_source",
+      "sha256": "8830fee1f6f877f73697899a887f82e70bbd9aa441af3aa415e0aefbc1dd9440"
+    },
+    {
+      "bytes": 152,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase6/protected_surface_no_mutation_verdict.json",
+      "role": "parity_protected_surface_no_mutation_verdict",
+      "sha256": "6791a2c9624806c78ee60e24001826935c5a8a6e4f3cd8ea39f59d3d5c881c1d"
+    },
+    {
+      "bytes": 147,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase10/protected_surface_no_mutation_verdict.json",
+      "role": "execution_protected_surface_no_mutation_verdict",
+      "sha256": "a988bb2e71f354c4eae3554b6eb9d4cb99f03391e624a043b8ca136576f3ac88"
+    },
+    {
+      "bytes": 12165199,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+      "role": "consumer_migration_anchor",
+      "sha256": "633357da9b1a3919a69d509ec4d508ec8296e8706d1e703967187a8505d83d2c"
+    },
+    {
+      "bytes": 326,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_dry_run.json",
+      "role": "consumer_migration_dry_run_anchor",
+      "sha256": "f7099ab554ad2ad76b19349d1772bfa29a9b6eb6ccdb88d76b598e94032314dc"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-delta-disposition-input-fingerprint-v0",
+  "status": "PASS"
+}

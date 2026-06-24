@@ -1,0 +1,8 @@
+{
+  "aggregate_sha256": "e9818b1124fae2425d8bb02d8d12d54749d43f60ba892fb50508c00e155b450b",
+  "generated_at": "2026-06-15T13:08:17.171499+00:00",
+  "identity_rules_sha256": "254a088e885ec905680a8830e78ff6e761a272f9002afa9c55b9093118c32c97",
+  "precedence_rules_sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d",
+  "profiles_sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14",
+  "schema_version": "dvf-3-3-vnext-compose-fingerprint-v0"
+}

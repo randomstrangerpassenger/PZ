@@ -1,0 +1,25 @@
+{
+  "canonical_live_runtime_target": "Iris/media/lua/client/Iris/Data",
+  "chunk_dir": {
+    "bytes": null,
+    "exists": true,
+    "kind": "dir",
+    "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+    "role": "live_runtime_chunk_dir",
+    "sha256": null
+  },
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "live_runtime_mutated": false,
+  "manifest": {
+    "bytes": 951,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "role": "live_runtime_chunk_manifest",
+    "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+  },
+  "probe_mode": "read_only",
+  "schema_version": "dvf-3-3-vnext-runtime-exact-live-target-probe-v0",
+  "status": "PASS"
+}

@@ -1,0 +1,8 @@
+{
+  "build_time_execution_reach_graph_residue_count": 0,
+  "certification_ceiling": "build-time static reach only",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "graph_definition": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase0/build_time_execution_reach_graph_definition.json",
+  "schema_version": "dvf-3-3-live-build-time-execution-reach-graph-residue-v1",
+  "status": "PASS"
+}

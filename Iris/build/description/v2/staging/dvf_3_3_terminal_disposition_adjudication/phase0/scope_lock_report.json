@@ -1,0 +1,12 @@
+{
+  "chunk_mutation_allowed": false,
+  "claim_boundary": "Terminal disposition adjudication governance only; not release readiness, package readiness, Workshop readiness, manual QA, semantic quality completion, source/rendered/runtime/package mutation, runtime payload policy mutation, or new current authority cutover.",
+  "current_route_required_validation_adoption_in_scope": false,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "package_mutation_allowed": false,
+  "rendered_mutation_allowed": false,
+  "runtime_mutation_allowed": false,
+  "schema_version": "dvf-3-3-terminal-scope-lock-report-v1",
+  "source_mutation_allowed": false,
+  "status": "PASS"
+}

@@ -1,0 +1,12 @@
+{
+  "approved_count": 0,
+  "approved_set_is_cutover_authorization": false,
+  "cutover_input_usable": true,
+  "deferred_count": 0,
+  "manifest_index_only": true,
+  "manifest_only": true,
+  "payload_generated": false,
+  "rejected_count": 0,
+  "rows": [],
+  "schema_version": "dvf-3-3-vnext-rejected-correction-approved-delta-manifest-v0"
+}

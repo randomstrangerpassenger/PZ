@@ -1,0 +1,112 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-shared-disposition-sealed-report-set-v1",
+  "sealed_value_source_count": 8,
+  "sealed_value_sources": [
+    {
+      "bytes": 22989,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json",
+      "read_only": true,
+      "required": true,
+      "role": "denominator_axis_registry",
+      "row_count": null,
+      "sha256": "c7d0e03b72a25c1c37fe78cd94d7cc74be4d24a65ba72fa8e7e1b260d1db5e10",
+      "source_id": "denominator_registry",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 12604,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json",
+      "read_only": true,
+      "required": true,
+      "role": "denominator_lock_final_report",
+      "row_count": null,
+      "sha256": "65acb0f266c15a087e3287fe153674aeed2adcb20115328df9a8c27a29551ec6",
+      "source_id": "denominator_final_report",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 2099179,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+      "read_only": true,
+      "required": true,
+      "role": "terminal_member_row_disposition_ledger",
+      "row_count": 1062,
+      "sha256": "57dc5dea9ba8ca6bcbb6934ece6151ad778465b7a279f1e74df35534d5cdb6cb",
+      "source_id": "terminal_disposition_ledger",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 235,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_counts.json",
+      "read_only": true,
+      "required": true,
+      "role": "terminal_split_counts",
+      "row_count": null,
+      "sha256": "4ffc1bf89f22c71ec2dda513ad363d0a73169422008a7d19b74513084d95f886",
+      "source_id": "terminal_disposition_counts",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 31627,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase5/final_terminal_disposition_machine_report.json",
+      "read_only": true,
+      "required": true,
+      "role": "terminal_final_machine_report",
+      "row_count": null,
+      "sha256": "facef47ed3a09464bfc7d9ecd52812c6e33a4f671c399da0e6516712834d2ad1",
+      "source_id": "terminal_final_machine_report",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 364,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase2/live_target_derivation_summary.json",
+      "read_only": true,
+      "required": true,
+      "role": "live_readiness_projection_summary",
+      "row_count": null,
+      "sha256": "a70734f674f8b809cc6de07f81c49702bc85159dd146c3103ebd3f9ee8575a50",
+      "source_id": "live_execution_target_summary",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 1200,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_consumer_migration_execution/phase8/final_live_migration_execution_report.json",
+      "read_only": true,
+      "required": true,
+      "role": "live_execution_evidence_final_report",
+      "row_count": null,
+      "sha256": "e9c1eb4766b83629fa79f388af3b65f3a373a7f36be54b34a84451a2192c6277",
+      "source_id": "live_execution_final_report",
+      "status": "PRESENT"
+    },
+    {
+      "bytes": 232,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/phase10/downstream_predecessor_status.json",
+      "read_only": true,
+      "required": true,
+      "role": "pre_apply_readiness_status",
+      "row_count": null,
+      "sha256": "88a2726a6d5cb08fa8d296acf11a9395c7a289b682313888ecf218340f010b89",
+      "source_id": "readiness_execution_downstream_status",
+      "status": "PRESENT"
+    }
+  ],
+  "status": "PASS"
+}

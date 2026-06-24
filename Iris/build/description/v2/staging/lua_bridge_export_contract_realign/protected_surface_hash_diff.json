@@ -1,0 +1,10 @@
+{
+  "schema_version": "lua-bridge-export-contract-realign-protected-hash-diff-v1",
+  "changed_count": 0,
+  "missing_after_count": 0,
+  "added_after_count": 0,
+  "changed": [],
+  "missing_after": [],
+  "added_after": [],
+  "pass": true
+}

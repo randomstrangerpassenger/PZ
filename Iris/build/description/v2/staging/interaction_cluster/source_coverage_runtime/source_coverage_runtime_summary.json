@@ -1,0 +1,116 @@
+{
+  "schema_version": "interaction-cluster-source-coverage-runtime-v0",
+  "inputs": {
+    "historical_runtime_summary": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\full_runtime\\historical_runtime_summary.json",
+    "post_c_summary": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\source_coverage\\post_c\\post_c_projection_summary.json",
+    "replacement_index": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\source_coverage\\block_c\\role_fallback_hollow_post_apply_preview_index.json"
+  },
+  "package_group_ids": [
+    "B-1",
+    "B-2",
+    "B-3",
+    "B-W",
+    "B-4",
+    "C1-A",
+    "C1-C",
+    "C1-B",
+    "C1-E",
+    "C1-D",
+    "C1-RA",
+    "C1-RB",
+    "C1-RD",
+    "C1-RC",
+    "C1-RE"
+  ],
+  "package_count": 15,
+  "package_item_count": 1055,
+  "replacement_group_ids": [
+    "C1-F",
+    "C1-G"
+  ],
+  "replacement_package_count": 2,
+  "replacement_item_count": 12,
+  "historical_runtime_row_count": 1050,
+  "merged_runtime_row_count": 2105,
+  "merged_state_counts": {
+    "active": 2030,
+    "silent": 75
+  },
+  "decision_use_source_counts": {
+    "cluster_summary": 1275,
+    "direct_use": 12,
+    "identity_fallback": 2,
+    "role_fallback": 816
+  },
+  "merged_runtime_path_counts": {
+    "cluster_summary": 1275,
+    "direct_use": 12,
+    "identity_fallback": 718,
+    "role_fallback": 100
+  },
+  "projection_comparison": {
+    "checks": {
+      "runtime_row_count": {
+        "expected": 2105,
+        "actual": 2105
+      },
+      "active_count": {
+        "expected": 2030,
+        "actual": 2030
+      },
+      "silent_count": {
+        "expected": 75,
+        "actual": 75
+      },
+      "path_counts": {
+        "expected": {
+          "cluster_summary": 1275,
+          "identity_fallback": 718,
+          "role_fallback": 100,
+          "direct_use": 12
+        },
+        "actual": {
+          "cluster_summary": 1275,
+          "identity_fallback": 718,
+          "role_fallback": 100,
+          "direct_use": 12
+        }
+      }
+    },
+    "matches_projection": true,
+    "actual_path_counts": {
+      "cluster_summary": 1275,
+      "direct_use": 12,
+      "identity_fallback": 718,
+      "role_fallback": 100
+    }
+  },
+  "bridge_runtime_entry_count": 2105,
+  "bridge_alias_count": 0,
+  "runtime_status": "ready_for_in_game_validation",
+  "duplicate_item_ids": [],
+  "replacement_missing_item_ids": [],
+  "replacement_applied_item_ids": [
+    "Base.BarbedWire",
+    "Base.CarBatteryCharger",
+    "Base.Hinge",
+    "Base.Jack",
+    "Base.LeatherStrips",
+    "Base.LugWrench",
+    "Base.Paintbrush",
+    "Base.Pipe",
+    "Base.Scotchtape",
+    "Base.ScrapMetal",
+    "Base.TirePump",
+    "Base.Toolbox"
+  ],
+  "paths": {
+    "facts": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\dvf_3_3_facts.integrated.jsonl",
+    "decisions": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\dvf_3_3_decisions.integrated.jsonl",
+    "rendered": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\dvf_3_3_rendered.integrated.json",
+    "bridge_report": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\phase_d_lua_bridge_report.integrated.json",
+    "runtime_report": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\phase_d_runtime_report.integrated.json",
+    "workspace_layer3_data": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3Data.lua",
+    "workspace_layer3_backup": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\IrisLayer3Data.pre_source_coverage_runtime.backup.lua"
+  }
+}

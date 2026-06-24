@@ -1,0 +1,13 @@
+{
+  "derivation_inputs": [
+    "current sealed vocabulary input",
+    "current runtime chunk identity input",
+    "terminal migrated row identity",
+    "sealed readiness dry-run after_anchor for writable consumer surfaces"
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "oracle_id": "terminal_migrated_current_consumer_expected_anchor_v1",
+  "sandbox_after_anchor_role": "patch-bundle operand for writable consumer surfaces only; not authority surface proof",
+  "schema_version": "dvf-3-3-live-expected-form-derivation-oracle-v1",
+  "status": "PASS"
+}

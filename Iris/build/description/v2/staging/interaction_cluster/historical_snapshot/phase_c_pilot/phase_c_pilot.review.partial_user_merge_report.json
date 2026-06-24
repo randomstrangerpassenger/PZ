@@ -1,0 +1,112 @@
+{
+  "user_file": "C:\\Users\\MW\\Downloads\\phase_c_pilot_review.jsonl",
+  "current_file": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot.review.jsonl",
+  "backup_file": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot.review.before_partial_user_merge.jsonl",
+  "merged_count": 45,
+  "skipped_count": 7,
+  "merged_item_ids": [
+    "Base.BreadSlices",
+    "Base.CakeRaw",
+    "Base.CannedBellPepper",
+    "Base.CannedBroccoli",
+    "Base.CannedCarrots",
+    "Base.CannedEggplant",
+    "Base.CannedLeek",
+    "Base.CannedPotato",
+    "Base.CannedRedRadish",
+    "Base.CannedTomato",
+    "Base.CookieChocolateChipDough",
+    "Base.CookiesChocolateDough",
+    "Base.CookiesOatmealDough",
+    "Base.CookiesShortbreadDough",
+    "Base.CookiesSugarDough",
+    "Base.Dogfood",
+    "Base.Glue",
+    "Base.GriddlePanFriedVegetables",
+    "Base.HandAxe",
+    "Base.223Clip",
+    "Base.308Clip",
+    "Base.44Clip",
+    "Base.45Clip",
+    "Base.556Clip",
+    "Base.9mmClip",
+    "Base.AerosolbombRemote",
+    "Base.AerosolbombSensorV1",
+    "Base.AerosolbombSensorV2",
+    "Base.AerosolbombSensorV3",
+    "Base.AerosolbombTriggered",
+    "Base.AlcoholBandage",
+    "Base.AlcoholRippedSheets",
+    "Base.AlcoholWipes",
+    "Base.AlcoholedCottonBalls",
+    "Base.AmmoStrap_Bullets",
+    "Base.AmmoStrap_Shells",
+    "Base.Antibiotics",
+    "Base.Apron_Black",
+    "Base.Apron_IceCream",
+    "Base.Apron_Jay",
+    "Base.Apron_Spiffos",
+    "Base.Apron_White",
+    "Base.Apron_WhiteTEXTURE",
+    "Base.AssaultRifle",
+    "Base.CanOpener"
+  ],
+  "skipped_rows": [
+    {
+      "item_id": "Base.Axe",
+      "reason": "semantic_state_changed",
+      "current_cluster": null,
+      "user_cluster": "cooking_prep",
+      "current_merge_case": "cluster_absent_keep_existing",
+      "user_merge_case": "cluster_over_role_fallback"
+    },
+    {
+      "item_id": "Base.AxeStone",
+      "reason": "semantic_state_changed",
+      "current_cluster": null,
+      "user_cluster": "cooking_prep",
+      "current_merge_case": "cluster_absent_keep_existing",
+      "user_merge_case": "cluster_over_role_fallback"
+    },
+    {
+      "item_id": "Base.BakingTray_Muffin",
+      "reason": "semantic_state_changed",
+      "current_cluster": null,
+      "user_cluster": "cooking_prep",
+      "current_merge_case": "cluster_absent_keep_existing",
+      "user_merge_case": "cluster_over_role_fallback"
+    },
+    {
+      "item_id": "Base.BakingTray_Muffin_Recipe",
+      "reason": "semantic_state_changed",
+      "current_cluster": null,
+      "user_cluster": "cooking_prep",
+      "current_merge_case": "cluster_absent_keep_existing",
+      "user_merge_case": "cluster_over_role_fallback"
+    },
+    {
+      "item_id": "Base.BaseballBat",
+      "reason": "semantic_state_changed",
+      "current_cluster": null,
+      "user_cluster": "cooking_prep",
+      "current_merge_case": "cluster_absent_keep_existing",
+      "user_merge_case": "cluster_over_role_fallback"
+    },
+    {
+      "item_id": "Base.BaseballBatNails",
+      "reason": "semantic_state_changed",
+      "current_cluster": null,
+      "user_cluster": "cooking_prep",
+      "current_merge_case": "cluster_absent_keep_existing",
+      "user_merge_case": "cluster_over_role_fallback"
+    },
+    {
+      "item_id": "Base.ModKit",
+      "reason": "semantic_state_changed",
+      "current_cluster": "gun_modding",
+      "user_cluster": "ammo_crafting",
+      "current_merge_case": "direct_use_replaced_by_cluster",
+      "user_merge_case": "direct_use_replaced_by_cluster"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "candidate_boundary": "correction_round_usability_predicate_not_cutover_authorization",
+  "cutover_input_usable": true,
+  "deferred_count": 0,
+  "rejected_count": 0,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-cutover-usability-report-v0",
+  "scope_exclusion_count": 0,
+  "status": "PASS",
+  "unresolved_policy_candidate_count": 0
+}

@@ -1,0 +1,209 @@
+{
+  "all_inputs_under_repo_or_declared_external": true,
+  "evidence_root": "Iris/build/description/v2/staging/consumer_universe_denominator_lock",
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "resolved_inputs": [
+    {
+      "bytes": 62770,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/consumer_universe_denominator_lock_plan.md",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "plan",
+      "sha256": "0491225bf405f83d136b42dc7f8ae512539f08bc06974789b694db1da0fbc29b"
+    },
+    {
+      "bytes": 3068,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/PLAN_TEMPLATE.md",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "plan_template",
+      "sha256": "38d70d4d624733db4d24f047e0b737a47c75522a967c84f06fe5aabc5ebd9ba1"
+    },
+    {
+      "bytes": 294,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "audit_count_source",
+      "sha256": "cbcf38562f955a4d9b92c30c7efeecc3632778f6c631524af7803b6f7b8a0ba2"
+    },
+    {
+      "bytes": 96232241,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "audit_raw_occurrence_rows",
+      "sha256": "1a22a9408ce7faecc3f532c3871b23973e30a60d35f8e7e42715f268c0aa02ba"
+    },
+    {
+      "bytes": 24084549,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "audit_classified_rows",
+      "sha256": "80e3fc3d5188e61906712579f901f8c5bf689e082a8a2c9a68f30c0d8987081e"
+    },
+    {
+      "bytes": 7773,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/consumer_migration_reconciled_input_manifest.json",
+      "reported_generated_at": "2026-06-17T00:00:00+00:00",
+      "required": true,
+      "role": "normalization_manifest",
+      "sha256": "66a377afce42cecf48b6f50b59584fc8e551fc5488926eff63a537626252cd78"
+    },
+    {
+      "bytes": 304941,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "normalization_row_ledger",
+      "sha256": "8f2667eafcf59a460fd292d45357667dc17e9fd3a4a6fb73c58d6610e347c094"
+    },
+    {
+      "bytes": 1232,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/consumer_migration_reconciled_input_manifest.json",
+      "reported_generated_at": "2026-06-18T00:00:00+09:00",
+      "required": true,
+      "role": "readiness_manifest",
+      "sha256": "d6544b70e54622bf2054ce8c6749a81fe7dba8f8f4b63f27b35c7998d89b6d91"
+    },
+    {
+      "bytes": 500486,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "readiness_row_ledger",
+      "sha256": "3800c23f46929c6331ef550b94b3da65d7d00a24f18cbe3677271c5a286a41a8"
+    },
+    {
+      "bytes": 4221,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/consumer_migration_actual_report.json",
+      "reported_generated_at": "2026-06-18T00:00:00+09:00",
+      "required": true,
+      "role": "readiness_sandbox_apply_report",
+      "sha256": "9e5d9b0507605601a78e2e5d66630a64cece239afe1620b9cd69b0bc0773c91f"
+    },
+    {
+      "bytes": 31683,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/actual_diff_to_ledger_report.json",
+      "reported_generated_at": "2026-06-18T00:00:00+09:00",
+      "required": true,
+      "role": "readiness_diff_to_ledger_report",
+      "sha256": "d9c1aeb99bcb55b4ed2452ebffe3481e3bfafce03973c14ea17c98be5dc6cd82"
+    },
+    {
+      "bytes": 1745,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_guard_current_route_integration/phase7/final_current_route_guard_integration_report.json",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "current_route_integration_context",
+      "sha256": "b7878af3890b7850c1ac82959f1760bc01a3637653e4a92e396e9a3555cea922"
+    },
+    {
+      "bytes": 967,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase8/final_delta_disposition_guard_contract_report.json",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "rejected_delta_correction_context",
+      "sha256": "786c5ce4b719d2c173a566a889dcefd8bdb12b01840abf978766c432766ad610"
+    },
+    {
+      "bytes": 785,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase11/final_rejected_delta_correction_reparity_report.json",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "rejected_delta_correction_context",
+      "sha256": "7dae7187aa6cfc0b3459e1ab72136fa5dbc1d82e8e2453f64068bcff669ea53a"
+    },
+    {
+      "bytes": 489,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase9/current_route_required_validation_manifest_disposition.json",
+      "reported_generated_at": null,
+      "required": true,
+      "role": "required_manifest_disposition_context",
+      "sha256": "ebe81be9dfa34e39bfa6bcefdc78d4c7452c4e981ad5aaf7742bc3c2e13970ee"
+    },
+    {
+      "bytes": 4102,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
+      "reported_generated_at": "2026-06-23T16:57:09.165718+00:00",
+      "required": true,
+      "role": "runtime_denominator_context",
+      "sha256": "214b3d990bb8b0e580c9c1c40d494965b81ff2312fae094af32a7d9c2367b2a9"
+    },
+    {
+      "bytes": 711,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/publish_state_authority_resolution.json",
+      "reported_generated_at": "2026-06-23T16:57:09.174499+00:00",
+      "required": true,
+      "role": "runtime_publish_state_context",
+      "sha256": "64665676b34017260de24e2a734b98e0cb7549d9482df4ebf8043fac82e73459"
+    },
+    {
+      "bytes": 738,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json",
+      "reported_generated_at": "2026-06-23T16:57:09.232544+00:00",
+      "required": true,
+      "role": "runtime_guard_context",
+      "sha256": "7a7aab27518003832154c93e886a5adfc288f81886f5d754e4fe7f7a4899157a"
+    },
+    {
+      "bytes": 13091,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase5b/display_resolution_parity_report.json",
+      "reported_generated_at": "2026-06-23T16:57:09.244980+00:00",
+      "required": true,
+      "role": "runtime_display_context",
+      "sha256": "410c420fcbbb27c8e1b27faa381a048cb6e24bb99712fca4086c29b9b48be925"
+    },
+    {
+      "bytes": 19094,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "reported_generated_at": "2026-06-17T16:28:41.744038+00:00",
+      "required": true,
+      "role": "current_route_required_manifest",
+      "sha256": "2546fb0fa394b1aef42b339327c67f7badd0cc9e7a84fddb20e383bf85f52ea8"
+    }
+  ],
+  "schema_version": "consumer-universe-denominator-path-resolution-v1",
+  "status": "PASS"
+}

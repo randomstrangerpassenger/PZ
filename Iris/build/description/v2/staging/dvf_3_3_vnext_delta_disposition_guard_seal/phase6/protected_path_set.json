@@ -1,0 +1,50 @@
+{
+  "protected_surface": {
+    "generated_at": "2026-06-23T17:37:34.038179+00:00",
+    "protected_paths": [
+      {
+        "kind": "file",
+        "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+        "role": "live_runtime_chunk_manifest"
+      },
+      {
+        "kind": "dir",
+        "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+        "role": "live_runtime_chunk_files"
+      },
+      {
+        "kind": "file",
+        "optional": true,
+        "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+        "role": "live_runtime_facade_loader"
+      },
+      {
+        "kind": "dir",
+        "path": "Iris/build/description/v2/data",
+        "role": "live_description_data"
+      },
+      {
+        "kind": "dir",
+        "path": "Iris/build/description/v2/output",
+        "role": "live_description_output"
+      },
+      {
+        "kind": "file",
+        "path": "docs/DECISIONS.md",
+        "role": "canon_docs"
+      },
+      {
+        "kind": "file",
+        "path": "docs/ARCHITECTURE.md",
+        "role": "canon_docs"
+      },
+      {
+        "kind": "file",
+        "path": "docs/ROADMAP.md",
+        "role": "canon_docs"
+      }
+    ],
+    "schema_version": "dvf-3-3-vnext-protected-surface-v0"
+  },
+  "schema_version": "dvf-3-3-vnext-protected-path-set-v0"
+}

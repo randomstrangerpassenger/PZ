@@ -1,0 +1,17 @@
+{
+  "claim_boundary": "fresh_regeneration",
+  "not_equivalence_claim": true,
+  "not_recovery_claim": true,
+  "report_type": "vnext_successor_predecessor_runtime_delta_measurement",
+  "required_top_level_fields": [
+    "report_type",
+    "claim_boundary",
+    "predecessor",
+    "vnext",
+    "key_parity",
+    "field_parity",
+    "field_resolution",
+    "validation_counts"
+  ],
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-report-schema-contract-v0"
+}

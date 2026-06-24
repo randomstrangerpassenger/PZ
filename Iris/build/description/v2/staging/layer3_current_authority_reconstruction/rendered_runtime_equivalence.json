@@ -1,0 +1,51 @@
+{
+  "deployed_state_reference_measurement": {
+    "actual_chunk_count": 11,
+    "manifest_chunk_count": 11,
+    "manifest_entry_count": 2105,
+    "manifest_references_complete": true,
+    "monolith_chunk_dual_deployment": false
+  },
+  "generated_at": "2026-06-12T06:29:32.666107+00:00",
+  "rendered_count": 2105,
+  "rendered_path": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_rendered.integrated.json",
+  "required_L0_L3_gate": "FAIL",
+  "round_id": "layer3-current-authority-reconstruction",
+  "runtime_chunk_dir": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+  "runtime_count": 2105,
+  "runtime_manifest_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+  "runtime_parser_compose_repair": {
+    "runtime_compose_introduced": false,
+    "runtime_json_parser_introduced": false,
+    "runtime_repair_introduced": false
+  },
+  "schema_version": "layer3-rendered-runtime-equivalence-v0",
+  "tiers": {
+    "L0_entry_set_parity": {
+      "missing_in_rendered_count": 0,
+      "missing_in_runtime_count": 0,
+      "status": "PASS"
+    },
+    "L1_disposition_parity": {
+      "publish_state_mismatch_count": 2086,
+      "reason": "rendered candidate uses legacy active/silent-derived source fields; runtime uses publish_state exposed/internal_only",
+      "source_mismatch_count": 2105,
+      "status": "FAIL"
+    },
+    "L2_structural_schema_parity": {
+      "mismatch_count": 2105,
+      "status": "FAIL"
+    },
+    "L3_body_text_state_canonical_parity": {
+      "publish_state_mismatch_count": 2086,
+      "source_mismatch_count": 2105,
+      "status": "FAIL",
+      "text_mismatch_count": 2086
+    },
+    "L4_byte_parity": {
+      "rendered_file_sha256": "cb78e56b385a0ebc184ba2434803d81895a05a9e2580f063c7b0997ebf83fefb",
+      "runtime_manifest_sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+      "status": "MEASURED_NOT_REQUIRED"
+    }
+  }
+}

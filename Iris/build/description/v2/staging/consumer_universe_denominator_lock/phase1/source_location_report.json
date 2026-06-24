@@ -1,0 +1,111 @@
+{
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "located_count": 17,
+  "schema_version": "consumer-universe-denominator-source-location-v1",
+  "source_fields": [
+    {
+      "denominator_id": "DEN-AUDIT-RAW-OCCURRENCES",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/raw_occurrences.jsonl",
+      "source_field": "line_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-AUDIT-ACCEPTED-CANDIDATES",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+      "source_field": "line_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-AUDIT-CORE-OCCURRENCES",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "source_field": "core_occurrence_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-AUDIT-ADJACENT-SEED-OCCURRENCES",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "source_field": "adjacent_seed_occurrence_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-AUDIT-EXECUTING-CONSUMERS",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "source_field": "executing_consumer_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-AUDIT-CHANGE-REQUIRED",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "source_field": "change_required_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-REBASELINE-CHANGE-NEEDED",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+      "source_field": "change_needed_on_rebaseline == yes",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-REBASELINE-CONDITIONAL",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+      "source_field": "change_needed_on_rebaseline == conditional",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-NORMALIZED-APPLY-ELIGIBLE",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl",
+      "source_field": "apply_eligibility == true",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-READINESS-SANDBOX-MUTATION",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+      "source_field": "mutation_performed == true",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-NORMALIZED-NO-OP",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl",
+      "source_field": "normalized_disposition == no_op",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-NORMALIZED-MISSING-PATH",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase2/missing_path_disposition_summary.json",
+      "source_field": "missing_path_row_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-NORMALIZED-MISSING-APPLY-ELIGIBLE",
+      "source_artifact": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/consumer_migration_reconciled_input_manifest.json",
+      "source_field": "missing_apply_eligible_row_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-AUDIT-CHANGE-FORBIDDEN",
+      "source_artifact": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "source_field": "change_forbidden_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-RUNTIME-CURRENT-ENTRIES",
+      "source_artifact": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
+      "source_field": "current_runtime_entry_count",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-RUNTIME-ADOPTED-ROWS",
+      "source_artifact": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
+      "source_field": "surface_summaries[0].adoption_counts.adopted",
+      "status": "LOCKED"
+    },
+    {
+      "denominator_id": "DEN-RUNTIME-UNADOPTED-ROWS",
+      "source_artifact": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/unadopted_payload_rows.jsonl",
+      "source_field": "line_count",
+      "status": "LOCKED"
+    }
+  ],
+  "status": "PASS",
+  "unlocated_count": 0
+}

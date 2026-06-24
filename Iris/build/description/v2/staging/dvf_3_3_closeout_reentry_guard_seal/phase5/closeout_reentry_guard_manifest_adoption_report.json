@@ -1,0 +1,21 @@
+{
+  "candidate_manifest_replaces_live_authority": false,
+  "dual_reentry_authority_count": 0,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "governance_adopted_required_gate_is_runtime_adopted_row": false,
+  "guard_attribution_branch": "branch_b_new_closeout_reentry_guard_owner_route",
+  "guard_attribution_status": "resolved_by_current_owner_execution_request",
+  "independent_review_status": "PASS",
+  "live_manifest_contains_required_artifacts": true,
+  "live_manifest_contains_required_tests": true,
+  "manifest_adoption_creates_runtime_mutation_claim": false,
+  "missing_required_artifact_count": 0,
+  "missing_required_artifacts": [],
+  "missing_required_test_count": 0,
+  "missing_required_tests": [],
+  "owner_adoption_replaces_independent_review": false,
+  "owner_adoption_status": "resolved_by_current_owner_execution_request",
+  "required_gate_adoption_status": "adopted_required_gate",
+  "schema_version": "dvf-3-3-closeout-reentry-manifest-adoption-report-v1",
+  "status": "PASS"
+}

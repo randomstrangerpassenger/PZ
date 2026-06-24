@@ -1,0 +1,18 @@
+{
+  "commands": [
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_terminal_disposition_adjudication.py --mode generate",
+      "expected_exit_code": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_terminal_disposition_adjudication.py --require-complete",
+      "expected_exit_code": 0
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_terminal_disposition_adjudication.py\"",
+      "expected_exit_code": 0
+    }
+  ],
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "schema_version": "dvf-3-3-terminal-required-validation-commands-v1"
+}

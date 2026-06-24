@@ -1,0 +1,8 @@
+{
+  "changed": [],
+  "changed_count": 0,
+  "claim_boundary": "Shared disposition consumption contract only; not denominator adjudication, not terminal disposition re-adjudication, not Phase 4 live apply, not source/rendered/Lua-bridge/runtime/package authority mutation, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, and not public-facing text quality acceptance.",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "schema_version": "dvf-3-3-shared-disposition-protected-surface-no-mutation-v1",
+  "status": "PASS"
+}

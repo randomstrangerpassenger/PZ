@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "axis_expanded_delta_row_count": true,
+    "axis_expanded_state_delta_count": true,
+    "axis_expanded_text_ko_delta_count": true,
+    "final_execution_contract_pass": true,
+    "final_parity_contract_pass": true,
+    "key_parity_additional_zero": true,
+    "key_parity_matching": true,
+    "key_parity_missing_zero": true,
+    "protected_no_mutation_pass": true,
+    "runtime_parity_deltas_exists": true,
+    "runtime_parity_report_pass": true
+  },
+  "schema_version": "dvf-3-3-vnext-delta-disposition-precondition-v0",
+  "status": "PASS"
+}

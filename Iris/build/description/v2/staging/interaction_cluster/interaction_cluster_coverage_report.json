@@ -1,0 +1,173 @@
+{
+  "schema_version": "interaction-cluster-coverage-report-v0",
+  "candidate_count": 6,
+  "cluster_count": 30,
+  "cluster_count_limit": 30,
+  "cluster_assigned_count": 5,
+  "assignment_rate": 0.8333333333333334,
+  "reviewable_candidate_count": 6,
+  "policy_excluded_count": 0,
+  "policy_excluded_rate": 0.0,
+  "reviewable_assignment_rate": 0.8333333333333334,
+  "cluster_absent_count": 1,
+  "cluster_absent_rate": 0.16666666666666666,
+  "generic_fallback_count": 0,
+  "generic_fallback_ratio": 0.0,
+  "direct_use_candidate_count": 2,
+  "direct_use_preserved_count": 2,
+  "direct_use_preservation_rate": 1.0,
+  "manual_override_required_count": 0,
+  "manual_override_required_rate": 0.0,
+  "manual_override_applied_count": 1,
+  "manual_override_applied_rate": 0.16666666666666666,
+  "v9_warn_count": 0,
+  "v9_warn_rate": 0.0,
+  "smoke_sample_count": 6,
+  "smoke_sample_target": 50,
+  "cluster_misaligned_count_sample": 0,
+  "cluster_misaligned_rate_sample": 0.0,
+  "too_generic_use_count_sample": 0,
+  "too_generic_use_rate_sample": 0.0,
+  "merge_case_counts": {
+    "direct_use_keep": 1,
+    "direct_use_replaced_by_cluster": 3,
+    "cluster_over_role_fallback": 1,
+    "cluster_absent_keep_direct_use": 1
+  },
+  "selection_path_counts": {
+    "frequency": 3,
+    "cluster_absent": 1,
+    "specificity": 1,
+    "manual_override_applied": 1
+  },
+  "buckets": {
+    "cluster_absent_rows": [
+      "Base.GunpowderCan"
+    ],
+    "policy_excluded_rows": [],
+    "generic_fallback_rows": [],
+    "v9_warn_rows": [],
+    "manual_override_required_rows": [],
+    "manual_override_applied_rows": [
+      "Base.ModKit"
+    ],
+    "direct_use_preserved_rows": [
+      "Base.CanOpener",
+      "Base.GunpowderCan"
+    ],
+    "cluster_misaligned_rows": [],
+    "too_generic_use_rows": [],
+    "tie_break_rows": [
+      "Base.ModKit"
+    ]
+  },
+  "by_analysis_bucket": [
+    {
+      "bucket_id": "high_abstraction",
+      "candidate_count": 3,
+      "reviewable_candidate_count": 3,
+      "policy_excluded_count": 0,
+      "assigned_count": 3,
+      "assignment_rate": 1.0,
+      "reviewable_assignment_rate": 1.0,
+      "generic_fallback_count": 0,
+      "generic_fallback_ratio": 0.0,
+      "v9_warn_count": 0,
+      "manual_override_required_count": 0,
+      "cluster_misaligned_count_sample": 0,
+      "too_generic_use_count_sample": 0,
+      "item_ids": [
+        "Base.CanOpener",
+        "Base.WeldingTorch",
+        "Base.Tongs"
+      ]
+    },
+    {
+      "bucket_id": "layer4_rich_layer3_sparse",
+      "candidate_count": 2,
+      "reviewable_candidate_count": 2,
+      "policy_excluded_count": 0,
+      "assigned_count": 1,
+      "assignment_rate": 0.5,
+      "reviewable_assignment_rate": 0.5,
+      "generic_fallback_count": 0,
+      "generic_fallback_ratio": 0.0,
+      "v9_warn_count": 0,
+      "manual_override_required_count": 0,
+      "cluster_misaligned_count_sample": 0,
+      "too_generic_use_count_sample": 0,
+      "item_ids": [
+        "Base.GunpowderCan",
+        "Base.ModKit"
+      ]
+    },
+    {
+      "bucket_id": "role_fallback_excess",
+      "candidate_count": 1,
+      "reviewable_candidate_count": 1,
+      "policy_excluded_count": 0,
+      "assigned_count": 1,
+      "assignment_rate": 1.0,
+      "reviewable_assignment_rate": 1.0,
+      "generic_fallback_count": 0,
+      "generic_fallback_ratio": 0.0,
+      "v9_warn_count": 0,
+      "manual_override_required_count": 0,
+      "cluster_misaligned_count_sample": 0,
+      "too_generic_use_count_sample": 0,
+      "item_ids": [
+        "Base.ElectronicsScrap"
+      ]
+    }
+  ],
+  "smoke_rows": [
+    {
+      "item_id": "Base.CanOpener",
+      "analysis_bucket": "high_abstraction",
+      "expected_selected_cluster": "cooking_prep",
+      "actual_selected_cluster": "cooking_prep",
+      "cluster_misaligned": false,
+      "too_generic_use": false
+    },
+    {
+      "item_id": "Base.WeldingTorch",
+      "analysis_bucket": "high_abstraction",
+      "expected_selected_cluster": "metalwork_welding",
+      "actual_selected_cluster": "metalwork_welding",
+      "cluster_misaligned": false,
+      "too_generic_use": false
+    },
+    {
+      "item_id": "Base.ElectronicsScrap",
+      "analysis_bucket": "role_fallback_excess",
+      "expected_selected_cluster": "electronics_assembly",
+      "actual_selected_cluster": "electronics_assembly",
+      "cluster_misaligned": false,
+      "too_generic_use": false
+    },
+    {
+      "item_id": "Base.GunpowderCan",
+      "analysis_bucket": "layer4_rich_layer3_sparse",
+      "expected_selected_cluster": null,
+      "actual_selected_cluster": null,
+      "cluster_misaligned": false,
+      "too_generic_use": false
+    },
+    {
+      "item_id": "Base.Tongs",
+      "analysis_bucket": "high_abstraction",
+      "expected_selected_cluster": "metalwork_anvil",
+      "actual_selected_cluster": "metalwork_anvil",
+      "cluster_misaligned": false,
+      "too_generic_use": false
+    },
+    {
+      "item_id": "Base.ModKit",
+      "analysis_bucket": "layer4_rich_layer3_sparse",
+      "expected_selected_cluster": "gun_modding",
+      "actual_selected_cluster": "gun_modding",
+      "cluster_misaligned": false,
+      "too_generic_use": false
+    }
+  ]
+}

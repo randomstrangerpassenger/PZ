@@ -1,0 +1,72 @@
+{
+  "schema_version": "interaction-cluster-phase-c-freeze-report-v0",
+  "overall_status": "ready_for_phase_d",
+  "checks": [
+    {
+      "code": "pilot_review_complete",
+      "status": "pass",
+      "actual": 52,
+      "target": 52,
+      "message": "pilot review rows must be fully reviewed before Phase C freeze"
+    },
+    {
+      "code": "policy_excluded_review_complete",
+      "status": "pass",
+      "actual": 40,
+      "target": 40,
+      "message": "policy-excluded review rows must be confirmed before Phase C freeze"
+    },
+    {
+      "code": "cluster_misaligned_rate_sample",
+      "status": "pass",
+      "actual": 0.038461538461538464,
+      "ceiling": 0.1,
+      "message": "sampled cluster misalignment rate must stay at or below 10%"
+    },
+    {
+      "code": "too_generic_use_rate_sample",
+      "status": "pass",
+      "actual": 0.0,
+      "ceiling": 0.1,
+      "message": "sampled too-generic primary use rate must stay at or below 10%"
+    },
+    {
+      "code": "direct_use_preservation",
+      "status": "pass",
+      "actual": {
+        "applicable_count": 1,
+        "missing_review_count": 0,
+        "fail_count": 0
+      },
+      "message": "direct-use preservation rows must be reviewed and must not regress preserved direct use"
+    },
+    {
+      "code": "supplement_target_coverage",
+      "status": "pass",
+      "actual": [
+        "group:high_abstraction",
+        "slice:direct_use_preservation",
+        "slice:tie_break_validation"
+      ],
+      "missing": [],
+      "message": "missing pilot groups/special slices must be covered by the supplement bundle if absent from historical data"
+    }
+  ],
+  "historical_slice_warnings": [
+    {
+      "code": "pilot_group_unavailable",
+      "group": "high_abstraction",
+      "message": "required pilot group is unavailable in the current historical snapshot"
+    },
+    {
+      "code": "special_slice_unavailable",
+      "slice": "tie_break_validation",
+      "message": "required provisional/merge validation slice is unavailable in the current historical snapshot"
+    },
+    {
+      "code": "special_slice_unavailable",
+      "slice": "direct_use_preservation",
+      "message": "required provisional/merge validation slice is unavailable in the current historical snapshot"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
+  "current_like_publish_state_row_count": 0,
+  "generated_at": "2026-06-23T17:38:42.609720+00:00",
+  "predecessor_residue_count": 2,
+  "renderer_publish_state_read_hit_count": 6,
+  "resolution": "publish_state is not authoritative in current/current-looking runtime payload rows; predecessor exposed rows are legacy residue",
+  "schema_version": "runtime-payload-state-publish-state-authority-resolution-v1",
+  "status": "PASS"
+}

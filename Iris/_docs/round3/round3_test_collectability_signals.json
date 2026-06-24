@@ -1,0 +1,3216 @@
+{
+  "generated_at": "2026-06-11T12:14:22+00:00",
+  "legacy_command_exit_code": 0,
+  "legacy_result": {
+    "errors": 0,
+    "failures": 0,
+    "result": "OK",
+    "skips": 0,
+    "tests_run": 407
+  },
+  "schema_version": "round3-test-collectability-signals-v1",
+  "signals": [
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "acquisition_lexical_utils"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_acquisition_lexical_utils.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_active_semantics_redefinition_simulation"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_active_semantics_redefinition_simulation.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "apply_acquisition_sprint7_authority_reflection"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_apply_acquisition_sprint7_authority_reflection.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_body_plan_v2_runtime_rollout",
+        "report_layer3_body_plan_structural_reclassification",
+        "validate_body_plan_full_runtime_regression_gate"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_body_plan_phase_d_e.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "body_role_lexical_cleanup"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_body_role_lexical_cleanup.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_browser_common_base_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_facts_semantic_draft"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_facts_semantic_draft.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_legacy_canonical_bootstrap"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_legacy_canonical_bootstrap.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_null_reason_inventory"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_inventory.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_null_reason_manual_review_queue"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_manual_review_queue.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_null_reason_semantic_draft"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_semantic_draft.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_null_reason_suggestion_preview"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_suggestion_preview.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_null_reason_suggestions"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_suggestions.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_null_reason_unresolved_bundle"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_null_reason_unresolved_bundle.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_partial_promotion_bundle"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_partial_promotion_bundle.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_phase2_design_bundle"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_phase2_design_bundle.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_phase3_review_staging"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_phase3_review_staging.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_promotion_subset_preview"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_promotion_subset_preview.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_acquisition_sprint7_authority_promotion"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_acquisition_sprint7_authority_promotion.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_body_role_full_preview"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_full_preview.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_body_role_golden_subset"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_golden_subset.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_body_role_lexical_cleanup_authority"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_lexical_cleanup_authority.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_body_role_lint_feedback"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_lint_feedback.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_body_role_regression_pack"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_body_role_regression_pack.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_identity_fallback_closure_policy_round"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_closure_policy_round.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_identity_fallback_expansion_plan"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_expansion_plan.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_identity_fallback_residual_round"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_residual_round.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_identity_fallback_residual_round_phase0_1"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_residual_round_phase0_1.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_identity_fallback_residual_round_phase2_5"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_residual_round_phase2_5.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_identity_fallback_scope_policy_round"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_scope_policy_round.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_identity_fallback_terminal_handoff"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_identity_fallback_terminal_handoff.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_iris_fixing_index_data",
+        "build_iris_moveables_index_data",
+        "build_iris_recipe_index_data"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_iris_index_data.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_quality_publish_phase6_in_game_result_template"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_quality_publish_phase6_in_game_result_template.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_quality_publish_phase6_validation_pack"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_quality_publish_phase6_validation_pack.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_second_pass_sprint7_closure"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_second_pass_sprint7_closure_wording.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_expansion_distribution_remeasurement_gate"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_expansion_distribution_remeasurement_gate_phase1_3"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate_phase1_3.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_expansion_distribution_remeasurement_gate_phase4_5"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate_phase4_5.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_expansion_distribution_remeasurement_gate_phase6_8"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_build_source_expansion_distribution_remeasurement_gate_phase6_8.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "compose_layer3_text"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_compose_layer3_text_overlay.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "compose_layer3_body_profile",
+        "compose_layer3_text"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "compose_layer3_text"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_current_authority_source_path_guard.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": true,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_description_generator_usecase_labels.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "freeze_quality_baseline_v1"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_freeze_quality_baseline_v1.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "freeze_quality_baseline_v3"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_freeze_quality_baseline_v3.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "freeze_quality_baseline_v4"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_freeze_quality_baseline_v4.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_generated_weak_body_role_cross_analysis"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_generated_weak_body_role_cross_analysis.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "bootstrap_interaction_cluster_inputs"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_bootstrap.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_interaction_cluster_gap_patterns"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_gap_patterns.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_historical_runtime"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_historical_runtime.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_historical_snapshot"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_historical_snapshot.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "import_interaction_cluster_base_facts",
+        "normalize_interaction_cluster_overlay"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_importers.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_compose_input"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_manual_override.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "draft_interaction_cluster_overlay"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_overlay_draft.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_candidates",
+        "normalize_interaction_cluster_overlay"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_overlay_passthrough.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "validate_interaction_cluster_phase_c_freeze"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_freeze.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_phase_c_pilot"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_pilot.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_interaction_cluster_phase_c_review"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_phase_c_review_actions"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review_actions.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "bootstrap_interaction_cluster_phase_c_review_drafts"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review_drafts.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "export_interaction_cluster_phase_c_review_packet"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_c_review_packet.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_phase_d_runtime",
+        "export_dvf_3_3_lua_bridge",
+        "validate_interaction_cluster_phase_d_runtime"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_phase_d_runtime.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_candidates",
+        "build_interaction_cluster_compose_input",
+        "build_interaction_cluster_rework_queue",
+        "compose_layer3_text",
+        "export_interaction_cluster_smoke_sample",
+        "report_interaction_cluster_coverage",
+        "report_interaction_cluster_smoke_review",
+        "validate_interaction_cluster_coverage",
+        "validate_interaction_cluster_rendered"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_pipeline.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_rework_queue",
+        "report_interaction_cluster_coverage"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_policy_exclusion.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "export_interaction_cluster_raw_source",
+        "normalize_interaction_cluster_overlay",
+        "validate_interaction_cluster_raw_source"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_raw_source_roundtrip.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "sync_interaction_cluster_upstream_sources"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_upstream_sync.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "import_interaction_cluster_raw_source_from_usecases"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_interaction_cluster_usecase_import.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_layer3_active_quality_audit"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_layer3_active_quality_audit.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "export_dvf_3_3_lua_bridge"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_layer3_data_chunking_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_layer3_presentation_formatting_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_layer3_role_check_overlay"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_layer3_role_check_overlay.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "layer3_structural_audit"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_layer3_structural_audit.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": true,
+      "hang_risk": false,
+      "ignored": false,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": false,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": true
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_normalize_acquisition_hint.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_package_layer3_chunks_only_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_array_util_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_browser_detail_fallback_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_generator_debug_gate_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_iris_config_constants_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_iris_desc_logger_direct_require_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_iris_main_function_specs_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_module_bootstrap_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_ordering_single_pass_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase5_test_harness_dev_gate_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_phase_d_gate_threshold_proposal"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase_d_gate_threshold_proposal.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_phase_d_readiness"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase_d_readiness_report.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_phase_d_signal_preservation_baseline",
+        "build_phase_d_signal_preservation_diagnostic_packet",
+        "build_signal_preservation_crosscheck",
+        "validate_phase_d_signal_preservation"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_phase_d_signal_preservation_supporting_reports.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_post_cleanup_phase0_input_freeze"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase0_input_freeze.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_post_cleanup_phase1_status_model_draft"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase1_status_model_draft.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_post_cleanup_phase1_status_model_final"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase1_status_model_final.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_post_cleanup_phase2_adoption_scope"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_scope.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase2_runtime_adoption",
+        "report_post_cleanup_phase2_adoption_validation"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase2_runtime_adoption"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "apply_post_cleanup_phase2_runtime_reflection"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_reflection.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_post_cleanup_phase3_backlog_exploration"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_backlog_exploration.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_post_cleanup_phase3_package_plan"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_package_plan.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg1_resource4e"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg2_combat_reuse"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3_unclassified_triage"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3_unclassified_triage.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3a_construction_repair_materials"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3b_vehicle_service_utility"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3c_camping_and_fire_setup"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3d_water_and_container_handling"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3e_gardening_inputs_and_irrigation"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3e_gardening_inputs_and_irrigation.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3f_photo_capture_supplies"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3f_photo_capture_supplies.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3g_household_access_and_safety"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3h_fishing_small_gear"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3h_fishing_small_gear.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3i_textile_craft_inputs"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3i_textile_craft_inputs.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg3j_painting_finish_tools"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3j_painting_finish_tools.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg4_combat_devices_and_firearms"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_pkg6_residual_tail"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_post_cleanup_phase3_runtime_integration"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "apply_post_cleanup_phase3_runtime_reflection"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_reflection.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_protected_call_boundary_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_quality_publish_decision_preview",
+        "validate_quality_publish_decision_preview"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_quality_publish_decision_preview.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_quality_tracking"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_quality_tracking_report.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_acquisition_surface_audit"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_report_acquisition_surface_audit.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_body_role_regression"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_report_body_role_regression.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_identity_fallback_source_expansion_backlog"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_report_identity_fallback_source_expansion_backlog.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": false,
+      "imported_build_modules": [
+        "report_layer3_body_adequacy_audit"
+      ],
+      "main_work": false,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_report_layer3_body_adequacy_audit.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_layer3_body_plan_signal_preservation"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_report_layer3_body_plan_signal_preservation.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_layer3_role_check_agreement"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_report_layer3_role_check_agreement.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_semantic_axis_linkage"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_report_semantic_axis_linkage.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_surface_contract_rollout_result"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_report_surface_contract_rollout_result.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_policy_default_closeout"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_policy_default_closeout.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_followup_runbook",
+        "build_role_fallback_hollow_policy_outcome_projection"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_policy_outcome_projection.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_policy_resolution_packet"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_policy_resolution_packet.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_post_block_c_apply_status"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_post_block_c_apply_status.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_residual_tail_c1f_discovery_pass"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_c1f_discovery_pass.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_residual_tail_c1g_discovery_pass"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_c1g_discovery_pass.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_residual_tail_handoff"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_handoff.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_residual_tail_round_closeout"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_round_closeout.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_residual_tail_source_discovery_round"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_source_discovery_round.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_residual_tail_source_discovery_status"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_residual_tail_source_discovery_status.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_terminal_handoff"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_terminal_handoff.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_role_fallback_hollow_terminal_status"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_role_fallback_hollow_terminal_status.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_dvf_3_3_round_a_round_b_parallel_execution"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_round_a_round_b_parallel_execution.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_b1_consumable_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_b1_consumable_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_b2_literature_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_b2_literature_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_b3_resource_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_b3_resource_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_b4_residual_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_b4_residual_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_source_coverage_block_a"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_block_a.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_bw_wearable_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_bw_wearable_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_source_coverage_c1_scope"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1_scope.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1a_vehicle_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1a_vehicle_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1b_portable_storage_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1b_portable_storage_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1c_moveable_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1c_moveable_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1d_appearance_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1d_appearance_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1e_security_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1e_security_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1fg_post_apply_preview"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1fg_post_apply_preview.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_source_coverage_c1r_scope"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1r_scope.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1ra_desk_pocket_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1ra_desk_pocket_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1rb_household_care_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1rb_household_care_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1rc_play_media_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1rc_play_media_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1rd_scrap_empty_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1rd_scrap_empty_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_source_coverage_c1re_utility_misc_package"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_c1re_utility_misc_package.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_source_coverage_hold_policy"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_source_coverage_post_b"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_post_b.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_source_coverage_post_c"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_post_c.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": false,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_interaction_cluster_source_coverage_runtime",
+        "report_source_coverage_post_c"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_runtime_builder.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_structural_reclassification_artifact_hash_guard",
+        "build_structural_reclassification_convergence_crosscheck",
+        "build_structural_reclassification_diagnostic_packet",
+        "build_structural_reclassification_entrypoint_surface_guard",
+        "validate_structural_reclassification_convergence"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_structural_reclassification_code_path_convergence_supporting_reports.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "build_structural_reclassification_entrypoint_surface_scan",
+        "report_layer3_body_plan_structural_reclassification"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_structural_reclassification_entrypoint_surface_scan.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_baseline_scan.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_closeout_packet.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_dry_run.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_lint_sample_review.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_linter.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_normalizer.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_phase6_acquisition_phrase_breakdown.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_phase6_triage.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_style_runtime_closeout.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_surface_contract_dry_run_delta"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_surface_contract_dry_run_delta.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_t2a_item_access_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": true,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_translation_source_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "validate_acquisition_canonical_alignment_precheck"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_validate_acquisition_canonical_alignment_precheck.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "validate_acquisition_lexicon_contract"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_validate_acquisition_lexicon_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "validate_interaction_cluster_rendered"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_validate_interaction_cluster_rendered.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "validate_layer3_decisions"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_validate_layer3_decisions.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "validate_layer3_role_check"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_validate_layer3_role_check.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_weak_active_cleanup_w0"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w0.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_weak_active_cleanup_w1_consumable_reverse_mapping"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w1_consumable_reverse_mapping.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_weak_active_cleanup_w2_existing_cluster_absorption"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w2_existing_cluster_absorption.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_weak_active_cleanup_w3_unknown_classification"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w3_unknown_classification.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_weak_active_cleanup_w4_wearable_structural_decision"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w4_wearable_structural_decision.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_weak_active_cleanup_w5_role_fallback_cleanup"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w5_role_fallback_cleanup.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [
+        "report_weak_active_cleanup_w6_aggregate"
+      ],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w6_aggregate.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    },
+    {
+      "artifact_path_signal": true,
+      "dynamic_import_signal": false,
+      "hang_risk": false,
+      "ignored": true,
+      "import_time_side_effect": true,
+      "imported_build_modules": [],
+      "main_work": true,
+      "non_collectable": false,
+      "non_passing": false,
+      "path": "Iris/build/description/v2/tests/test_wiki_fallback_contract.py",
+      "subprocess_execution": false,
+      "sys_exit": false,
+      "tracked": false
+    }
+  ]
+}

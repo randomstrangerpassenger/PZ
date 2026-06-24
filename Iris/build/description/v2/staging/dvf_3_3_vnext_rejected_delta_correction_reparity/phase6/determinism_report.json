@@ -1,0 +1,9 @@
+{
+  "bridge_report_semantic_hash_match": true,
+  "chunk_content_hash_match": true,
+  "first_rendered_entries_sha256": "7297fcb7d91c8d97e7915ce99cc3af504ebf7f07d12e370ec35aaa5685432a4d",
+  "rendered_entries_hash_match": true,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-determinism-report-v0",
+  "second_rendered_entries_sha256": "7297fcb7d91c8d97e7915ce99cc3af504ebf7f07d12e370ec35aaa5685432a4d",
+  "status": "PASS"
+}

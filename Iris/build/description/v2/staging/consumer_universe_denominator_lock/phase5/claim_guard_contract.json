@@ -1,0 +1,39 @@
+{
+  "candidate_guard_claim_allowed": true,
+  "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+  "forbidden_patterns": [
+    {
+      "code": "311_cannot_mean_migrated",
+      "pattern": "\\b311\\b.*\\bmigrat(?:ed|ion|e)\\b"
+    },
+    {
+      "code": "1062_broad_count_not_completion",
+      "pattern": "\\b1062\\b.*\\b(?:applied|migrat(?:ed|ion|e)|cutover)\\b"
+    },
+    {
+      "code": "sandbox_163_not_live_completion",
+      "pattern": "\\b163\\b.*\\bsandbox\\b.*\\b(?:live|completion|cutover|migrat(?:ed|ion|e))\\b"
+    },
+    {
+      "code": "59_252_not_completion",
+      "pattern": "\\b(?:59|252)\\b.*\\b(?:completion|migrat(?:ed|ion|e)|cutover|does not matter|no longer matters)\\b"
+    },
+    {
+      "code": "27558_is_mutation_zero_protection",
+      "pattern": "\\b27558\\b.*\\b(?:no[- ]?op|handled|migrat(?:ed|ion|e))\\b"
+    },
+    {
+      "code": "runtime_context_counts_not_migration_completion",
+      "pattern": "\\b(?:2105|2084|21)\\b.*\\b(?:migrat(?:ed|ion|e)|cutover completion|release readiness)\\b"
+    },
+    {
+      "code": "future_blocking_requires_adopted_gate",
+      "pattern": "future closeouts cannot|future closeout blocking"
+    }
+  ],
+  "future_closeout_blocking_claim_allowed": true,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "required_gate_adoption_status": "adopted_required_gate",
+  "schema_version": "consumer-universe-denominator-claim-guard-contract-v1",
+  "status": "PASS"
+}

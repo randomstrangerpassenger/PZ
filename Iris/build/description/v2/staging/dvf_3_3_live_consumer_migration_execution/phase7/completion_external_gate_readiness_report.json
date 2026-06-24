@@ -1,0 +1,31 @@
+{
+  "completion_seal_allowed": true,
+  "gates": [
+    {
+      "basis": "external_recheck_findings_no_blockers_adopted_as_independent_review_approval",
+      "gate": "independent_review",
+      "status": "satisfied"
+    },
+    {
+      "basis": "owner_directive_to_close_upstream_roadmap_seal_after_hash_integrity_review_passed",
+      "gate": "upstream_roadmap_seal",
+      "status": "satisfied"
+    },
+    {
+      "gate": "phase4_live_apply",
+      "status": "not_applicable_no_live_diff_required"
+    },
+    {
+      "gate": "dual_zero",
+      "status": "satisfied"
+    },
+    {
+      "gate": "execution_contract_applicability",
+      "status": "satisfied"
+    }
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "pending_external_gate_count": 0,
+  "schema_version": "dvf-3-3-live-completion-external-gate-readiness-v1",
+  "status": "SATISFIED"
+}

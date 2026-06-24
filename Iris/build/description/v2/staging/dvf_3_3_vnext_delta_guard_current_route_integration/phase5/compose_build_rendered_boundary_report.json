@@ -1,0 +1,8 @@
+{
+  "build_rendered_boundary_bound": true,
+  "compose_route_guard_target": "compose_layer3_text.py::build_rendered()",
+  "definition_owner_retained": "Compose Entrypoint Guard Hardening",
+  "external_compose_helpers_are_supplementary_only": true,
+  "schema_version": "dvf-3-3-vnext-delta-guard-compose-build-rendered-boundary-v1",
+  "status": "PASS"
+}

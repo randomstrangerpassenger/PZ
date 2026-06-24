@@ -1,0 +1,7 @@
+{
+  "all_approved_rows_have_consumer_migration_anchor": true,
+  "all_approved_rows_have_source_anchor": true,
+  "approved_count": 2017,
+  "schema_version": "dvf-3-3-vnext-approved-delta-traceability-v0",
+  "status": "PASS"
+}

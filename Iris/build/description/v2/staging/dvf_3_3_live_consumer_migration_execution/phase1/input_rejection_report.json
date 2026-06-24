@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "raw_dry_run_direct_execution_rejected": true,
+  "rejected_input_count": 0,
+  "schema_version": "dvf-3-3-live-input-rejection-report-v1",
+  "staging_artifact_current_promotion_rejected": true,
+  "status": "PASS"
+}

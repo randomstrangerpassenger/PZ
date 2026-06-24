@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "local_validation_core_forks_detected": false,
+  "schema_version": "dvf-3-3-terminal-validation-core-conformance-v1",
+  "status": "PASS",
+  "validation_core_id": "dvf_3_3_terminal_disposition_adjudication_common.validate_terminal_records_v1"
+}

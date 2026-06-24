@@ -1,0 +1,225 @@
+{
+  "claim": "current route guard integrated with rejected delta correction/re-parity evidence",
+  "enforcement": "fail_closed",
+  "non_claims": [
+    "no_successor_baseline_identity_final_seal",
+    "no_current_cutover",
+    "no_live_runtime_chunk_replacement",
+    "no_package_readiness",
+    "no_release_readiness",
+    "no_manual_in_game_validation"
+  ],
+  "required": true,
+  "required_artifacts": [
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "cutover_input_usable"
+        },
+        {
+          "equals": true,
+          "field": "parent_problem_unlock"
+        },
+        {
+          "equals": 0,
+          "field": "counts.rejected_count"
+        },
+        {
+          "equals": 0,
+          "field": "counts.deferred_count"
+        },
+        {
+          "equals": 0,
+          "field": "counts.scope_exclusion_count"
+        },
+        {
+          "equals": 0,
+          "field": "counts.unresolved_policy_candidate_count"
+        },
+        {
+          "equals": 0,
+          "field": "counts.state_delta_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase8/final_delta_disposition_guard_contract_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": true,
+          "field": "manifest_index_only"
+        },
+        {
+          "equals": false,
+          "field": "payload_generated"
+        },
+        {
+          "equals": true,
+          "field": "cutover_input_usable"
+        },
+        {
+          "equals": 0,
+          "field": "rejected_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase8/approved_cutover_input_delta_manifest.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "cutover_input_usable"
+        },
+        {
+          "equals": 0,
+          "field": "rejected_count"
+        },
+        {
+          "equals": 0,
+          "field": "deferred_count"
+        },
+        {
+          "equals": 0,
+          "field": "scope_exclusion_count"
+        },
+        {
+          "equals": 0,
+          "field": "unresolved_policy_candidate_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase8/cutover_input_usability_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "changed_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase9/protected_surface_no_mutation_verdict.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "cutover_input_usable"
+        },
+        {
+          "equals": true,
+          "field": "parent_problem_unlock"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase11/final_rejected_delta_correction_reparity_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "forbidden_claim_hit_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase11/claim_boundary_check.json"
+    }
+  ],
+  "required_tests": [
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_compose_entrypoint_guard_hardening.ComposeEntrypointGuardHardeningTest.test_legacy_profile_cannot_write_current_output_and_leaves_hash_unchanged"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_compose_entrypoint_guard_hardening.ComposeEntrypointGuardHardeningTest.test_staging_context_cannot_target_current_equivalent_output"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_delta_disposition_guard_seal.DvfVnextDeltaDispositionGuardSealTest.test_final_contract_separates_guard_completion_from_cutover_usability"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_delta_disposition_guard_seal.DvfVnextDeltaDispositionGuardSealTest.test_guard_matrix_dual_zero_and_negative_cases_pass"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_final_report_preserves_claim_boundary"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_guard_coverage_matrix_keeps_single_status_aware_definition"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_package_export_compose_routes_share_criteria_by_equivalence"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_parent_handoff_keeps_cutover_and_release_out_of_scope"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_delta_guard_current_route_integration.DvfVnextDeltaGuardCurrentRouteIntegrationTest.test_required_validation_manifest_is_fail_closed_and_runner_visible"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_rejected_delta_correction_reparity.DvfVnextRejectedDeltaCorrectionReparityTest.test_corrected_reparity_removes_state_rejections_and_preserves_control_set"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_dvf_3_3_vnext_rejected_delta_correction_reparity.DvfVnextRejectedDeltaCorrectionReparityTest.test_final_report_establishes_candidate_unlock_without_cutover_claim"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_current_context_and_current_monolith_destination_are_rejected"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_lua_bridge_export_contract_realign.LuaBridgeExportContractRealignTest.test_protected_live_chunk_destination_is_rejected_before_write"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_excludes_layer3_monolith"
+    },
+    {
+      "required": true,
+      "role": "current_route_guard_required_validation",
+      "test_id": "test_package_layer3_chunks_only_contract.PackageLayer3ChunksOnlyContractTest.test_package_script_fails_loud_on_stale_dvf_bridge_surface"
+    }
+  ],
+  "route": "current",
+  "schema_version": "round3-current-route-required-validations-v1",
+  "status": "PASS"
+}

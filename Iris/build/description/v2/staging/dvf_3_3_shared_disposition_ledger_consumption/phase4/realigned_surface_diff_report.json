@@ -1,0 +1,8 @@
+{
+  "diffs": [],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "realigned_surface_count": 0,
+  "reason": "phase3 divergence_count was 0",
+  "schema_version": "dvf-3-3-shared-disposition-realigned-surface-diff-v1",
+  "status": "PASS"
+}

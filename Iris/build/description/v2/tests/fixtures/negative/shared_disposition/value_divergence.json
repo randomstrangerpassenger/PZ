@@ -1,0 +1,7 @@
+{
+  "denominator_id": "DEN-AUDIT-EXECUTING-CONSUMERS",
+  "expected_findings": [
+    "VALUE_DIVERGENCE"
+  ],
+  "value": 1063
+}

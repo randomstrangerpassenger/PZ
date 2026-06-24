@@ -1,0 +1,8 @@
+{
+  "current_hard_gate_change_requires_later_scope": true,
+  "dry_run_only": true,
+  "forbidden_changes_count": 0,
+  "mutation_performed": false,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-migration-validation-v0",
+  "status": "PASS"
+}

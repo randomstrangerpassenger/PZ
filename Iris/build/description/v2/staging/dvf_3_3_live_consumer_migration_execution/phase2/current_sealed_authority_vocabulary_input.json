@@ -1,0 +1,18 @@
+{
+  "allowed_current_runtime_states": [
+    "adopted",
+    "unadopted"
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "legacy_aliases_are_provenance_only": [
+    "active",
+    "silent"
+  ],
+  "readpoint_counts": {
+    "adopted": 2084,
+    "runtime_entries": 2105,
+    "unadopted": 21
+  },
+  "schema_version": "dvf-3-3-live-current-sealed-authority-vocabulary-input-v1",
+  "status": "PASS"
+}

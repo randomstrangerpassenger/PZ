@@ -1,0 +1,28 @@
+{
+  "approved_by": "user in current Codex chat",
+  "blocked_scope": [
+    "runtime equivalence",
+    "full historical artifact reproducibility",
+    "archive/delete safety",
+    "in-game manual QA",
+    "Workshop publication readiness"
+  ],
+  "decision": "approved",
+  "evidence_artifacts": [
+    "Iris/_docs/round3/round3_historical_test_run.json",
+    "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json",
+    "Iris/_docs/round3/round3_disposition_log.md"
+  ],
+  "gate_id": "D3",
+  "historical_route": {
+    "class": "historical",
+    "exit_code": 0,
+    "policy_result": "pass",
+    "success": true,
+    "test_count": 284
+  },
+  "policy": "pass_required",
+  "schema_version": "round3-d3-historical-preservation-policy-v1",
+  "status": "approved",
+  "timestamp": "2026-06-11T21:30:09+09:00"
+}

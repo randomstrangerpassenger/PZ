@@ -1,0 +1,18 @@
+{
+  "excluded_numeric_count": 19,
+  "excluded_ratio": 0.066434,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "promoted_ratio": 0.933566,
+  "promoted_role_bearing_count": 267,
+  "raw_numeric_occurrence_count": 286,
+  "schema_version": "dvf-3-3-shared-disposition-zero-token-promotion-v1",
+  "status": "PASS",
+  "token": "0",
+  "top_exclusion_reasons": [
+    {
+      "count": 26,
+      "reason": "bounded_predicate_not_satisfied"
+    }
+  ],
+  "zero_role_boundary": "only field/context-bounded zeros can assert blocked/unknown/pending/forbidden invariants"
+}

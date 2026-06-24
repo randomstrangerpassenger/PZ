@@ -1,0 +1,70 @@
+{
+  "records": [
+    {
+      "bytes": 60393,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_vnext_delta_guard_current_route_integration_plan.md",
+      "role": "approved_execution_plan",
+      "sha256": "aa7e3c73454169401dc73d8f14d6713bd739c49387fb1ab85ab544a1de152af2"
+    },
+    {
+      "bytes": 697,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_vnext_delta_disposition_closeout.md",
+      "role": "prior_disposition_closeout",
+      "sha256": "d26afe01cfbeaa59b425bd4bf462a71717a2f628b98f6ff1643dfe471fcc1aec"
+    },
+    {
+      "bytes": 1365,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal/phase10/final_delta_disposition_guard_contract_report.json",
+      "role": "prior_final_delta_disposition_guard_contract_report",
+      "sha256": "d11f315459fd22ce85c2154a851b9d9911bba9c7087163be05abad48874146ee"
+    },
+    {
+      "bytes": 1180568,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal/phase9/approved_cutover_input_delta_manifest.json",
+      "role": "approved_manifest_index_only",
+      "sha256": "57d92cb1aa1736184eab9f40076c4fa8aa16a241bed1042b5902282774b79e55"
+    },
+    {
+      "bytes": 50357,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_report.json",
+      "role": "runtime_parity_report",
+      "sha256": "392f83d65eaaaf783655f743a8aecdced4fcf86c1f8f500f8e33c5bbcda6247c"
+    },
+    {
+      "bytes": 3498338,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_deltas.jsonl",
+      "role": "runtime_parity_deltas",
+      "sha256": "8830fee1f6f877f73697899a887f82e70bbd9aa441af3aa415e0aefbc1dd9440"
+    },
+    {
+      "bytes": 3068,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/PLAN_TEMPLATE.md",
+      "role": "plan_template",
+      "sha256": "38d70d4d624733db4d24f047e0b737a47c75522a967c84f06fe5aabc5ebd9ba1"
+    },
+    {
+      "bytes": 18004,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/EXECUTION_CONTRACT.md",
+      "role": "execution_contract",
+      "sha256": "a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-delta-guard-current-route-input-fingerprints-v1",
+  "status": "PASS"
+}

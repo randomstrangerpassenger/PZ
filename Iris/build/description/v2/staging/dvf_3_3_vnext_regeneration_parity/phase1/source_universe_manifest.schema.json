@@ -1,0 +1,10 @@
+{
+  "required": [
+    "schema_version",
+    "authority_label",
+    "accepted_inputs",
+    "accepted_source_count"
+  ],
+  "schema_path_role": "embedded_minimum_schema_marker",
+  "schema_version": "dvf-3-3-vnext-source-manifest-schema-record-v0"
+}

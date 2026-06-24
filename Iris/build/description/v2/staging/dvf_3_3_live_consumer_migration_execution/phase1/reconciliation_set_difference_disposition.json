@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "migrated153_minus_sandbox163": [],
+  "no_row_silently_dropped": true,
+  "sandbox163_minus_migrated153": [
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-44565d8815eb2100632f20c9d47f41eb",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-5c37531e8b17c4bdec87cfae0bcd595d",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-70ce1a04e2996d8a8ce27e5ea4d79e35",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-884cf6d0ddb6e311ca519087fd012653",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-9f0a3d2900217938de35504162f01d0a",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-9ff6d00a905a2f0f174f6c7a1a857e51",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-b06ec50536c3b84b014997b0af257dc1",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-e610694694e319b1e929fa5f0acba251",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-f51d31985e78f5aa9d51c8cfa30a77cb",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    },
+    {
+      "disposition_basis": "non-migrated terminal disposition",
+      "forbidden_for_live_mutation": true,
+      "row_identity_key": "ledger-fb3bb73386642005a8ddeec34ca7ad21",
+      "terminal_disposition": null,
+      "terminal_reason_code": null
+    }
+  ],
+  "schema_version": "dvf-3-3-live-reconciliation-set-difference-disposition-v1",
+  "status": "PASS"
+}

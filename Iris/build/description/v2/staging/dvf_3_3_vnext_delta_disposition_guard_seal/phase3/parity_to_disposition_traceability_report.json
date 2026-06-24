@@ -1,0 +1,9 @@
+{
+  "delta_source": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_deltas.jsonl",
+  "normalized_inventory": "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_disposition_guard_seal/phase3/normalized_delta_inventory.jsonl",
+  "parity_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase5/runtime_parity_report.json",
+  "re_diff_used": false,
+  "row_count": 2125,
+  "schema_version": "dvf-3-3-vnext-parity-to-disposition-traceability-v0",
+  "status": "PASS"
+}

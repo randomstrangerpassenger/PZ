@@ -1,0 +1,10 @@
+{
+  "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+  "current_closure_count": 12,
+  "current_route_allowed_tooling_count": 1,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "schema_version": "consumer-universe-denominator-current-route-closure-regression-v1",
+  "status": "PASS",
+  "this_round_tools_added_to_current_closure": false,
+  "this_round_tools_added_to_tooling_allowlist": false
+}

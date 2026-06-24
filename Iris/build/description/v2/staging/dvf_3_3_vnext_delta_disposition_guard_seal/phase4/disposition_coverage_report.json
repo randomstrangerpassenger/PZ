@@ -1,0 +1,23 @@
+{
+  "ambiguous_count": 0,
+  "classified_delta_denominator": 2125,
+  "coverage_percent": 100.0,
+  "dispositioned_count": 2125,
+  "missing_consumer_migration_anchor_count": 0,
+  "missing_evidence_anchor_count": 0,
+  "missing_reviewer_identity_count": 0,
+  "missing_reviewer_role_count": 0,
+  "missing_source_anchor_count": 0,
+  "schema_version": "dvf-3-3-vnext-disposition-coverage-report-v0",
+  "status": "PASS",
+  "undispositioned_count": 0,
+  "validation_error_report": {
+    "duplicate_delta_count": 0,
+    "errors": [],
+    "impossible_combination_count": 0,
+    "invalid_disposition_count": 0,
+    "missing_required_field_count": 0,
+    "schema_version": "dvf-3-3-vnext-delta-disposition-validation-error-report-v0",
+    "status": "PASS"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "blocked_count": 0,
+  "canonical_complete": true,
+  "claim_boundary": "Terminal disposition adjudication governance only; not release readiness, package readiness, Workshop readiness, manual QA, semantic quality completion, source/rendered/runtime/package mutation, runtime payload policy mutation, or new current authority cutover.",
+  "closeout_state": "canonical_complete",
+  "conditional_count": 0,
+  "diagnostic_only_count": 3,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "historical_only_count": 638,
+  "independent_review_status": "review_pass",
+  "migrated_count": 153,
+  "no_op_count": 268,
+  "owner_adoption_status": "not_adopted",
+  "pending_count": 0,
+  "required_validation_status": "candidate_only",
+  "schema_version": "dvf-3-3-terminal-closeout-report-v1",
+  "status": "PASS",
+  "terminal_consumer_universe_id": "dvf_3_3_terminal_executing_consumer_member_rows_1062_v1",
+  "terminal_rows_total": 1062,
+  "unknown_count": 0
+}

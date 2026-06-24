@@ -1,0 +1,411 @@
+{
+  "conflict_count": 80,
+  "conflicts": [
+    {
+      "diagnostic_only": true,
+      "member_row_count": 85,
+      "path": "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 84,
+      "path": "Iris/_docs/round3/round3_contract_manifest.json"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 14,
+      "path": "Iris/_docs/round3/round3_disposition_candidates.json"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 14,
+      "path": "Iris/_docs/round3/round3_disposition_manifest.json"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 10,
+      "path": "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 3,
+      "path": "Iris/_docs/round3/round3_retained_historical_manifest.json"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 9,
+      "path": "Iris/build/description/v2/tests/test_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase0_input_freeze.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 3,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 3,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 3,
+      "path": "Iris/build/description/v2/tests/test_quality_publish_decision_preview.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_source_coverage_runtime_builder.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tests/test_weak_active_cleanup_w4_wearable_structural_decision.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 33,
+      "path": "Iris/build/description/v2/tools/build/build_adapter_native_body_plan_metadata_migration.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 37,
+      "path": "Iris/build/description/v2/tools/build/build_adapter_native_body_plan_readiness.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 8,
+      "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_round_a_round_b_parallel_execution.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 3,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_phase6_executable_subset_rollout.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_identity_fallback_source_expansion_phase0_1.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 3,
+      "path": "Iris/build/description/v2/tools/build/build_interaction_cluster_source_coverage_runtime.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 52,
+      "path": "Iris/build/description/v2/tools/build/build_legacy_active_silent_current_surface_guard_round.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 8,
+      "path": "Iris/build/description/v2/tools/build/build_phase_d_signal_preservation_baseline.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 5,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase2_runtime_adoption.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg1_resource4e.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 5,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg2_combat_reuse.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3a_construction_repair_materials.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3b_vehicle_service_utility.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3d_water_and_container_handling.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3e_gardening_inputs_and_irrigation.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3f_photo_capture_supplies.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3g_household_access_and_safety.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3h_fishing_small_gear.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3i_textile_craft_inputs.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg3j_painting_finish_tools.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 5,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_pkg6_residual_tail.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 3,
+      "path": "Iris/build/description/v2/tools/build/build_post_cleanup_phase3_runtime_integration.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_quality_publish_decision_v2_preview.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_followup_packages.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_role_fallback_hollow_net_new_work_packages.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 50,
+      "path": "Iris/build/description/v2/tools/build/build_runtime_payload_enum_rename_scope_round.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint2d_fishing_fitness.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint4_followon.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint5_deferred.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_second_pass_sprint7_closure.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 144,
+      "path": "Iris/build/description/v2/tools/build/build_silent_21_replacement_authority_reconstruction_round.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 104,
+      "path": "Iris/build/description/v2/tools/build/build_silent_metadata_intake_cleanup_round.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 3,
+      "path": "Iris/build/description/v2/tools/build/build_source_expansion_distribution_remeasurement_gate_phase6_8.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 81,
+      "path": "Iris/build/description/v2/tools/build/build_static_report_label_cleanup_referent_recovery_round.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/build_structural_reclassification_artifact_hash_guard.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 48,
+      "path": "Iris/build/description/v2/tools/build/build_structural_signal_missing_anchor_authority_resolution_round.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 4,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/description/v2/tools/build/freeze_quality_baseline_v2_partial.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 8,
+      "path": "Iris/build/description/v2/tools/build/report_diagnostic_resolver_guard_round.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 10,
+      "path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 9,
+      "path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 6,
+      "path": "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 31,
+      "path": "Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 7,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 6,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 7,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 2,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+    },
+    {
+      "diagnostic_only": true,
+      "member_row_count": 6,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+    }
+  ],
+  "diagnostic_only": true,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "schema_version": "dvf-3-3-terminal-path-rollup-diagnostic-v1",
+  "status": "PASS",
+  "success_denominator_allowed": false,
+  "truncated": 0
+}

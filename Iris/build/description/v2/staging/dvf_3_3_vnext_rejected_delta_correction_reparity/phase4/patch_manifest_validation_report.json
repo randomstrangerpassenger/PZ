@@ -1,0 +1,14 @@
+{
+  "approved_policy_mutation_count": 0,
+  "deferred_row_count": 0,
+  "global_state_remap_operation_count": 0,
+  "operation_counts": {
+    "predecessor_maintain_alignment": 54
+  },
+  "patch_row_count": 54,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-patch-manifest-validation-v0",
+  "silent_control_target_overlap_count": 0,
+  "status": "PASS",
+  "target_subset_of_rejected_allowlist": true,
+  "unresolved_policy_mutation_row_count": 0
+}

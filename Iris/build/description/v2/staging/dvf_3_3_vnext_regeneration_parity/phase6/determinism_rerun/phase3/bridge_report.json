@@ -1,0 +1,322 @@
+{
+  "schema_version": "iris-lua-bridge-export-v1",
+  "authority_kind": "chunk_bridge_output",
+  "bridge_context": "staging",
+  "format": "chunk",
+  "report_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\bridge_report.json",
+  "rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase2\\rendered\\dvf_3_3_rendered.vnext.json",
+  "input_rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase2\\rendered\\dvf_3_3_rendered.vnext.json",
+  "default_input_rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\output\\dvf_3_3_rendered.json",
+  "default_output_root": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\lua_bridge_export\\default",
+  "output_root": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks",
+  "publish_preview_path": null,
+  "lua_output_path": null,
+  "legacy_lua_output_path_ignored": null,
+  "output_manifest_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks.lua",
+  "output_chunk_dir": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks",
+  "source_entry_count": 2105,
+  "runtime_entry_count": 2105,
+  "entry_count": 2105,
+  "adopted_count": 0,
+  "unadopted_count": 75,
+  "source_publish_state_counts": {
+    "internal_only": 0,
+    "exposed": 0
+  },
+  "runtime_publish_state_counts": {
+    "internal_only": 0,
+    "exposed": 0
+  },
+  "publish_state_entry_count": 0,
+  "applied_aliases": [],
+  "meta": {
+    "version": "dvf-3-3-body-plan-v2-preview-v0",
+    "generated_at": "2026-06-15T13:08:18.629398+00:00",
+    "facts_sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+    "decisions_sha256": "26d0a1e08cb9793dc43302a5236d6f9a381f580b7f4dad8e9f97c86e8fabda81",
+    "profiles_sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14",
+    "overlay_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase1\\accepted_overlay.jsonl",
+    "overlay_sha256": "d4c598313ea88b0bc81ebd3d01d19b7a8d1926b23e99abeaeb432f9a910c41e6",
+    "entries_sha256": "3d7773fbb12316d40c885e89cdd5c45245d7dbc4d7df2884c3e448f45b9b29bb",
+    "stats": {
+      "total": 2105,
+      "adopted_override": 0,
+      "unadopted": 75,
+      "adopted_composed_v2_preview": 2030,
+      "resolved_profile_counts": {
+        "output_body": 374,
+        "tool_body": 485,
+        "material_body": 213,
+        "consumable_body": 465,
+        "wearable_body": 451,
+        "container_body": 42
+      },
+      "resolution_source_counts": {
+        "selected_role_target": 615,
+        "identity_family_precedence": 958,
+        "selected_role_precedence": 231,
+        "identity_role_aligned": 226
+      },
+      "coverage_quality_candidate_counts": {
+        "weak": 986,
+        "strong": 315,
+        "adequate": 729
+      },
+      "missing_required_section_counts": {
+        "context_support": 537,
+        "limitation_tail": 916
+      }
+    }
+  },
+  "monolith_generated": false,
+  "non_current": true,
+  "input_scale": "full",
+  "input_authority_status": "full_authority_input",
+  "pass": true,
+  "chunked": true,
+  "chunk_size": 200,
+  "chunk_count": 11,
+  "chunk_manifest_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks.lua",
+  "chunk_output_dir": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks",
+  "chunk_modules": [
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk001",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk001.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk002",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk002.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk003",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk003.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk004",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk004.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk005",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk005.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk006",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk006.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk007",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk007.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk008",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk008.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk009",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk009.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk010",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk010.lua",
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk011",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk011.lua",
+      "entry_count": 105
+    }
+  ],
+  "manifest_hash": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+  "chunk_hashes": [
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk001",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk001.lua",
+      "sha256": "57e810a600098fb7b1e0be124d6b2e146b57074ec98da63ad6a83f31d0ecfce0",
+      "bytes": 114149,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk002",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk002.lua",
+      "sha256": "1ece618aa70f479bff4d0c5275dd2ddf197eef963191c63d938c71a43f931e2b",
+      "bytes": 102569,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk003",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk003.lua",
+      "sha256": "384fd4695b0ab8864f70bc1e7b3bed5b8e947c5d0403e1bd0b32e8aa13f3ee5d",
+      "bytes": 102608,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk004",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk004.lua",
+      "sha256": "b56d85da82403098d810505e7441902e36d0684f1c64ae5bf995d30722f61ce8",
+      "bytes": 109594,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk005",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk005.lua",
+      "sha256": "7314cf542012ad37d3a74c82086a3b782d4faf6176583bd9cff300b78e770af2",
+      "bytes": 109079,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk006",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk006.lua",
+      "sha256": "c54df54b36874d20869d26c4346c2ac31dded8e01b0acf73f6e5d0f3517fb7a9",
+      "bytes": 110843,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk007",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk007.lua",
+      "sha256": "4063c1a4387904c385bee4406a3a6c4055620e7fbde9bd20d4549d36bf93375e",
+      "bytes": 114412,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk008",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk008.lua",
+      "sha256": "065a46fd5ef0574d72fe2311cc0e156dfefe001793133f0fdc11ebe4c71e9678",
+      "bytes": 111067,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk009",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk009.lua",
+      "sha256": "42690335a6c1f251155bc56c4794aabeaee899e3c8ce9b69e7c74798bb2e8697",
+      "bytes": 113526,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk010",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk010.lua",
+      "sha256": "0f684d8c983d80a46ebd9acdf288942b330c1d2e1885d946c9c67396bb93ae33",
+      "bytes": 104644,
+      "entry_count": 200
+    },
+    {
+      "module": "Iris/Data/IrisLayer3DataChunks/Chunk011",
+      "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk011.lua",
+      "sha256": "e2ada45c24d1f6cf60951228a47b6857330c899135958eb5329b283aea1d8447",
+      "bytes": 54746,
+      "entry_count": 105
+    }
+  ],
+  "chunk_integrity": {
+    "schema_version": "iris-lua-bridge-chunk-integrity-v1",
+    "chunk_manifest_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks.lua",
+    "chunk_output_dir": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks",
+    "chunk_count": 11,
+    "manifest_modules": [
+      "Iris/Data/IrisLayer3DataChunks/Chunk001",
+      "Iris/Data/IrisLayer3DataChunks/Chunk002",
+      "Iris/Data/IrisLayer3DataChunks/Chunk003",
+      "Iris/Data/IrisLayer3DataChunks/Chunk004",
+      "Iris/Data/IrisLayer3DataChunks/Chunk005",
+      "Iris/Data/IrisLayer3DataChunks/Chunk006",
+      "Iris/Data/IrisLayer3DataChunks/Chunk007",
+      "Iris/Data/IrisLayer3DataChunks/Chunk008",
+      "Iris/Data/IrisLayer3DataChunks/Chunk009",
+      "Iris/Data/IrisLayer3DataChunks/Chunk010",
+      "Iris/Data/IrisLayer3DataChunks/Chunk011"
+    ],
+    "missing_chunks": [],
+    "orphan_chunks": [],
+    "duplicate_keys": [],
+    "manifest_hash": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+    "chunk_hashes": [
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk001",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk001.lua",
+        "sha256": "57e810a600098fb7b1e0be124d6b2e146b57074ec98da63ad6a83f31d0ecfce0",
+        "bytes": 114149,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk002",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk002.lua",
+        "sha256": "1ece618aa70f479bff4d0c5275dd2ddf197eef963191c63d938c71a43f931e2b",
+        "bytes": 102569,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk003",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk003.lua",
+        "sha256": "384fd4695b0ab8864f70bc1e7b3bed5b8e947c5d0403e1bd0b32e8aa13f3ee5d",
+        "bytes": 102608,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk004",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk004.lua",
+        "sha256": "b56d85da82403098d810505e7441902e36d0684f1c64ae5bf995d30722f61ce8",
+        "bytes": 109594,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk005",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk005.lua",
+        "sha256": "7314cf542012ad37d3a74c82086a3b782d4faf6176583bd9cff300b78e770af2",
+        "bytes": 109079,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk006",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk006.lua",
+        "sha256": "c54df54b36874d20869d26c4346c2ac31dded8e01b0acf73f6e5d0f3517fb7a9",
+        "bytes": 110843,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk007",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk007.lua",
+        "sha256": "4063c1a4387904c385bee4406a3a6c4055620e7fbde9bd20d4549d36bf93375e",
+        "bytes": 114412,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk008",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk008.lua",
+        "sha256": "065a46fd5ef0574d72fe2311cc0e156dfefe001793133f0fdc11ebe4c71e9678",
+        "bytes": 111067,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk009",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk009.lua",
+        "sha256": "42690335a6c1f251155bc56c4794aabeaee899e3c8ce9b69e7c74798bb2e8697",
+        "bytes": 113526,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk010",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk010.lua",
+        "sha256": "0f684d8c983d80a46ebd9acdf288942b330c1d2e1885d946c9c67396bb93ae33",
+        "bytes": 104644,
+        "entry_count": 200
+      },
+      {
+        "module": "Iris/Data/IrisLayer3DataChunks/Chunk011",
+        "path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_vnext_regeneration_parity\\phase6\\determinism_rerun\\phase3\\chunks\\IrisLayer3DataChunks\\Chunk011.lua",
+        "sha256": "e2ada45c24d1f6cf60951228a47b6857330c899135958eb5329b283aea1d8447",
+        "bytes": 54746,
+        "entry_count": 105
+      }
+    ],
+    "pass": true,
+    "failures": []
+  }
+}

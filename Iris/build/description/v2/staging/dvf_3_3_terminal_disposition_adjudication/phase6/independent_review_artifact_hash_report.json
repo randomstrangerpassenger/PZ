@@ -1,0 +1,205 @@
+{
+  "artifact_count": 19,
+  "error_count": 0,
+  "errors": [],
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "promotion_rewritten_count": 5,
+  "review_verdict": "review_pass",
+  "rows": [
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "docs/dvf_3_3_terminal_disposition_adjudication_plan.md",
+      "current_sha256": "ccdfb61d14e0a30d94793e45748b655e3ca94f028bf797d6c89134b114dacfc1",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "docs/dvf_3_3_terminal_disposition_adjudication_plan.md",
+      "reviewed_sha256": "ccdfb61d14e0a30d94793e45748b655e3ca94f028bf797d6c89134b114dacfc1",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": true,
+      "artifact": "docs/dvf_3_3_terminal_disposition_adjudication_closeout.md",
+      "current_sha256": "181d17a26c4a951b1f5bdecaa4f5ce759e989137114b517b4ba9a5d11bce97f6",
+      "hash_relation": "promotion_rewritten",
+      "mutation_reason": "canonical_promotion_rewrites_closeout_or_review_attestation_surface",
+      "normalized_artifact": "docs/dvf_3_3_terminal_disposition_adjudication_closeout.md",
+      "reviewed_sha256": "0a685401c58f666bef09102ed3f7b92ff38a7ad183d62a5dc84343211bc5c6f9",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "docs/dvf_3_3_terminal_disposition_claim_boundary.md",
+      "current_sha256": "851f0fa5ff2836af32c30ecf284a3a570ff32366e20ee2bd4fe004697b66c723",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "docs/dvf_3_3_terminal_disposition_claim_boundary.md",
+      "reviewed_sha256": "851f0fa5ff2836af32c30ecf284a3a570ff32366e20ee2bd4fe004697b66c723",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "docs/dvf_3_3_terminal_disposition_policy.md",
+      "current_sha256": "80aa0f29a8d411813c1e523625ff24b2010f5c99f5042ff100d68ae97d3a6972",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "docs/dvf_3_3_terminal_disposition_policy.md",
+      "reviewed_sha256": "80aa0f29a8d411813c1e523625ff24b2010f5c99f5042ff100d68ae97d3a6972",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": true,
+      "artifact": "docs/dvf_3_3_terminal_disposition_ledger_packet.md",
+      "current_sha256": "d725aa411c45e7a9692c0da3689f025c8595b392c893e2c967ed09d257e5c851",
+      "hash_relation": "promotion_rewritten",
+      "mutation_reason": "canonical_promotion_rewrites_closeout_or_review_attestation_surface",
+      "normalized_artifact": "docs/dvf_3_3_terminal_disposition_ledger_packet.md",
+      "reviewed_sha256": "41e61eb3444e63308843ec9edc74d1cdad6b0b9eeaa2c760c9861069553d1c06",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase0/required_validation_commands.json",
+      "current_sha256": "0de9980cbf8b17c26ecc9a12ea2db391f6823f88054db2e0226452656245ce65",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase0/required_validation_commands.json",
+      "reviewed_sha256": "0de9980cbf8b17c26ecc9a12ea2db391f6823f88054db2e0226452656245ce65",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase1/terminal_consumer_universe_manifest.json",
+      "current_sha256": "7051c3d7ed4e12fb2c5768d9ac8bcf9065ce50d35ddf102730c22016979cfb12",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase1/terminal_consumer_universe_manifest.json",
+      "reviewed_sha256": "7051c3d7ed4e12fb2c5768d9ac8bcf9065ce50d35ddf102730c22016979cfb12",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase1/terminal_consumer_universe_denominator_report.json",
+      "current_sha256": "e4c987ca5d724b39cf341896d442b9ec246fbaebc803ca8aceec6a41d8e2931d",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase1/terminal_consumer_universe_denominator_report.json",
+      "reviewed_sha256": "e4c987ca5d724b39cf341896d442b9ec246fbaebc803ca8aceec6a41d8e2931d",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_counts.json",
+      "current_sha256": "4ffc1bf89f22c71ec2dda513ad363d0a73169422008a7d19b74513084d95f886",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_counts.json",
+      "reviewed_sha256": "4ffc1bf89f22c71ec2dda513ad363d0a73169422008a7d19b74513084d95f886",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+      "current_sha256": "57dc5dea9ba8ca6bcbb6934ece6151ad778465b7a279f1e74df35534d5cdb6cb",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase3/terminal_disposition_ledger.jsonl",
+      "reviewed_sha256": "57dc5dea9ba8ca6bcbb6934ece6151ad778465b7a279f1e74df35534d5cdb6cb",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": true,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase5/final_terminal_disposition_machine_report.json",
+      "current_sha256": "facef47ed3a09464bfc7d9ecd52812c6e33a4f671c399da0e6516712834d2ad1",
+      "hash_relation": "promotion_rewritten",
+      "mutation_reason": "canonical_promotion_rewrites_closeout_or_review_attestation_surface",
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase5/final_terminal_disposition_machine_report.json",
+      "reviewed_sha256": "79f278cb68e59f88a0b74af14811951f35f2771f67426cbffcadd2d955a1c4b9",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "allowed_validation_rewrite": true,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase5/terminal_disposition_validation_report.json",
+      "current_sha256": null,
+      "hash_relation": "validation_rewritten_attestation",
+      "mutation_reason": "validator_rewrites_validation_report_surface",
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase5/terminal_disposition_validation_report.json",
+      "reviewed_sha256": "c97b61f966963caab5fb435622385a3267dca6c35ac01ce3b28fe66e0d2afd02",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": true,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase6/independent_review_status.json",
+      "current_sha256": "44a15b77049097b5b91ce1cdabfc94783ce0dda7d0314631421785bc543f5ec5",
+      "hash_relation": "promotion_rewritten",
+      "mutation_reason": "canonical_promotion_rewrites_closeout_or_review_attestation_surface",
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase6/independent_review_status.json",
+      "reviewed_sha256": "355301b1716e285725e243449368a2a56242066bab69b1d49576b91cda8b3a6b",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": true,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase6/independent_review_artifact_hash_report.json",
+      "current_sha256": null,
+      "hash_relation": "self_referential_attestation",
+      "mutation_reason": "self_referential_hash_report_excluded_from_hash_closure",
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase6/independent_review_artifact_hash_report.json",
+      "reviewed_sha256": "acda950ef6214a9194ab9ff1dc5619be573dd7333f39ea25305c7b5ce87393aa",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": true,
+      "artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase6/final_terminal_disposition_closeout_report.json",
+      "current_sha256": "f6c337d1ae843407aa73fec7a9c6277ade4fd9bd737391710a95610764d4b49d",
+      "hash_relation": "promotion_rewritten",
+      "mutation_reason": "canonical_promotion_rewrites_closeout_or_review_attestation_surface",
+      "normalized_artifact": "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase6/final_terminal_disposition_closeout_report.json",
+      "reviewed_sha256": "33dce9381c942eef6f5f446a0355046c2e8570614bc67c7cbed71601127fac0d",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "Iris/build/description/v2/tools/build/dvf_3_3_terminal_disposition_adjudication_common.py",
+      "current_sha256": "d04213310f5938ab9f4ec6a7627b85e111ba9463dd3a854ea9554cc1733788aa",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "Iris/build/description/v2/tools/build/dvf_3_3_terminal_disposition_adjudication_common.py",
+      "reviewed_sha256": "d04213310f5938ab9f4ec6a7627b85e111ba9463dd3a854ea9554cc1733788aa",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "Iris/build/description/v2/tests/test_terminal_disposition_adjudication.py",
+      "current_sha256": "ed8e5897c94dcb24ea2093340728b108eda719bd0ada7379813dabf0db664b25",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "Iris/build/description/v2/tests/test_terminal_disposition_adjudication.py",
+      "reviewed_sha256": "ed8e5897c94dcb24ea2093340728b108eda719bd0ada7379813dabf0db664b25",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": "uv.toml",
+      "current_sha256": "a208a173503fce5eeaa85f81745bad553dd3e82876b6f8435387b3bb60749a70",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": "uv.toml",
+      "reviewed_sha256": "a208a173503fce5eeaa85f81745bad553dd3e82876b6f8435387b3bb60749a70",
+      "status": "PASS"
+    },
+    {
+      "allowed_promotion_rewrite": false,
+      "artifact": ".gitignore",
+      "current_sha256": "fcd8d28ff2c60a43857171f35c41f8a345cc87ef6774567fcff726726ccc7778",
+      "hash_relation": "unchanged",
+      "mutation_reason": null,
+      "normalized_artifact": ".gitignore",
+      "reviewed_sha256": "fcd8d28ff2c60a43857171f35c41f8a345cc87ef6774567fcff726726ccc7778",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "dvf-3-3-terminal-independent-review-artifact-hash-report-v1",
+  "self_referential_attestation_count": 1,
+  "status": "PASS",
+  "validation_rewritten_attestation_count": 1
+}

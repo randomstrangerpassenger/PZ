@@ -1,0 +1,11 @@
+{
+  "axis_counts": {
+    "state": 54,
+    "text_ko": 2071
+  },
+  "duplicate_delta_count": 0,
+  "expected_row_count": 2125,
+  "normalized_row_count": 2125,
+  "schema_version": "dvf-3-3-vnext-delta-axis-count-report-v0",
+  "status": "PASS"
+}

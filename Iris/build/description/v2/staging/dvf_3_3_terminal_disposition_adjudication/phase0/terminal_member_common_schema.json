@@ -1,0 +1,30 @@
+{
+  "member_schema_version": "dvf-3-3-terminal-member-v1",
+  "non_terminal_states": [
+    "blocked",
+    "conditional",
+    "pending",
+    "review",
+    "unknown",
+    "deferred",
+    "needs_adjudication"
+  ],
+  "required_fields": [
+    "schema_version",
+    "terminal_consumer_universe_id",
+    "member_id",
+    "source_occurrence_id",
+    "terminal_disposition",
+    "evidence_anchor",
+    "used_identity_resolver",
+    "used_validation_core"
+  ],
+  "schema_version": "dvf-3-3-terminal-member-common-schema-v1",
+  "terminal_consumer_universe_id": "dvf_3_3_terminal_executing_consumer_member_rows_1062_v1",
+  "terminal_dispositions": [
+    "migrated",
+    "no-op",
+    "diagnostic-only",
+    "historical-only"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
+  "generated_at": "2026-06-23T17:38:42.612758+00:00",
+  "predecessor_residue_count": 2,
+  "rows": [
+    {
+      "adoption_state": null,
+      "chunk_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "classification": "legacy_only_predecessor_residue",
+      "current_like": false,
+      "derived_adoption_state": "unadopted",
+      "entry_line": 907,
+      "item_id": "Base.WeldingMask",
+      "publish_axis": "exposed",
+      "publish_state": "exposed",
+      "runtime_state": null,
+      "source": "unadopted",
+      "surface_id": "rollback_snapshot_runtime",
+      "surface_role": "predecessor_rollback_snapshot",
+      "text_ko_length": 87,
+      "text_ko_value_state": "non_nil_string"
+    },
+    {
+      "adoption_state": null,
+      "chunk_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "classification": "legacy_only_predecessor_residue",
+      "current_like": false,
+      "derived_adoption_state": "unadopted",
+      "entry_line": 527,
+      "item_id": "farming.WateredCanFull",
+      "publish_axis": "exposed",
+      "publish_state": "exposed",
+      "runtime_state": null,
+      "source": "unadopted",
+      "surface_id": "rollback_snapshot_runtime",
+      "surface_role": "predecessor_rollback_snapshot",
+      "text_ko_length": 36,
+      "text_ko_value_state": "non_nil_string"
+    }
+  ],
+  "schema_version": "runtime-payload-state-rollback-residue-scan-v1",
+  "status": "PASS"
+}

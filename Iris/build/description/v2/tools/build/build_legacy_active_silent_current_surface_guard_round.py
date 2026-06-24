@@ -222,6 +222,31 @@ def runtime_records() -> list[dict[str, Any]]:
     return records
 
 
+def protected_validation_paths() -> list[Path]:
+    paths = [SOURCE_DECISIONS, RENDERED_OUTPUT, *RUNTIME_MANIFESTS]
+    for chunk_dir in RUNTIME_CHUNK_DIRS:
+        if chunk_dir.exists():
+            paths.extend(sorted(chunk_dir.glob("Chunk*.lua")))
+    return sorted(set(paths), key=lambda item: rel(item))
+
+
+def snapshot_files(paths: list[Path]) -> dict[Path, bytes | None]:
+    snapshot: dict[Path, bytes | None] = {}
+    for path in paths:
+        snapshot[path] = path.read_bytes() if path.exists() and path.is_file() else None
+    return snapshot
+
+
+def restore_files(snapshot: dict[Path, bytes | None]) -> None:
+    for path, content in snapshot.items():
+        if content is None:
+            if path.exists():
+                path.unlink()
+            continue
+        ensure_parent(path)
+        path.write_bytes(content)
+
+
 def build_manifest() -> dict[str, Any]:
     return {
         "schema_version": "legacy-active-silent-current-surface-guard-manifest-v0",
@@ -384,6 +409,13 @@ def build_manifest() -> dict[str, Any]:
                     "writer_output_label_value",
                 ],
                 "reason": "build tool source may quote legacy fixtures but is not current output",
+                "must_not_be_current_output": True,
+            },
+            {
+                "id": "current_input_manifest_diagnostic_metadata",
+                "path_globs": ["Iris/build/description/v2/data/dvf_3_3_input_manifest.json"],
+                "occurrence_kinds": ["diagnostic_alias", "plain_text"],
+                "reason": "input manifest may document unavailable legacy source split as diagnostic metadata",
                 "must_not_be_current_output": True,
             },
             {
@@ -583,14 +615,18 @@ def run_validations(manifest_path: Path, run_tests: bool) -> dict[str, Any]:
     python_unittest = {"command": ["not_run"], "exit_code": None, "stdout": "", "stderr": "", "timed_out": False, "missing_tool": False}
     lua_syntax = {"command": ["not_run"], "exit_code": None, "stdout": "", "stderr": "", "timed_out": False, "missing_tool": False}
     if run_tests:
-        python_unittest = run_command(
-            ["python", "-B", "-m", "unittest", "discover", "-s", "Iris\\build\\description\\v2\\tests", "-p", "test_*.py"],
-            timeout=600,
-        )
-        lua_syntax = run_command(
-            ["powershell", "-ExecutionPolicy", "Bypass", "-File", ".\\tools\\check_lua_syntax.ps1"],
-            timeout=600,
-        )
+        snapshot = snapshot_files(protected_validation_paths())
+        try:
+            python_unittest = run_command(
+                ["python", "-B", "-m", "unittest", "discover", "-s", "Iris\\build\\description\\v2\\tests", "-p", "test_*.py"],
+                timeout=600,
+            )
+            lua_syntax = run_command(
+                ["powershell", "-ExecutionPolicy", "Bypass", "-File", ".\\tools\\check_lua_syntax.ps1"],
+                timeout=600,
+            )
+        finally:
+            restore_files(snapshot)
     phase = ROUND_ROOT / "phase6_validation"
     write_validation_report(phase / "python_unittest_report.txt", python_unittest)
     write_validation_report(phase / "lua_syntax_report.txt", lua_syntax)

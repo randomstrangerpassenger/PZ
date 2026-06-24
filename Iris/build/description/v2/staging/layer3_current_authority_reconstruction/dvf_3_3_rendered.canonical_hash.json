@@ -1,0 +1,8 @@
+{
+  "canonical_hash": "bbc06d60870ca31873386b493f9190b473a2f10bb5fcd08813e375342bd5f0e0",
+  "canonical_json_form_path": "Iris/build/description/v2/staging/layer3_current_authority_reconstruction/canonical_json_form.json",
+  "reason": "deterministic full-scale regeneration not executed because full body-plan v2 overlay/source is unavailable",
+  "rendered_path": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_rendered.integrated.json",
+  "repeated_regeneration_hash_identical": false,
+  "schema_version": "layer3-rendered-canonical-hash-v0"
+}

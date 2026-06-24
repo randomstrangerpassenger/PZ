@@ -1,0 +1,8 @@
+{
+  "VALUE_DIVERGENCE": 0,
+  "errors": [],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "packet_schema_error_count": 0,
+  "schema_version": "dvf-3-3-shared-disposition-value-divergence-report-v1",
+  "status": "PASS"
+}

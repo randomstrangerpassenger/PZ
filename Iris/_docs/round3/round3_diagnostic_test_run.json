@@ -1,0 +1,12 @@
+{
+  "closure_enforced": false,
+  "contract_class": "diagnostic",
+  "elapsed_seconds": 0.388,
+  "errors": [],
+  "failures": [],
+  "schema_version": "round3-contract-test-run-v1",
+  "selected_identity_count": 79,
+  "skipped": [],
+  "success": true,
+  "test_count": 79
+}

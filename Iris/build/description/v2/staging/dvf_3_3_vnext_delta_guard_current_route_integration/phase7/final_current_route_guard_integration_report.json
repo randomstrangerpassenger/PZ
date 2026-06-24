@@ -1,0 +1,57 @@
+{
+  "approved_manifest_index_only": true,
+  "checks": {
+    "current_route_pass": true,
+    "dual_zero_pass": true,
+    "dynamic_reach_pass": true,
+    "enforcement_wiring_pass": true,
+    "guard_coverage_pass": true,
+    "input_contract_pass": true,
+    "no_mutation_pass": true,
+    "required_manifest_written": true,
+    "route_guard_pass": true,
+    "shared_contract_pass": true,
+    "tool_path_existence_pass": true
+  },
+  "claim": "current route guard integrated",
+  "counts": {
+    "approved": 2017,
+    "deferred": 0,
+    "rejected": 108,
+    "runtime_eligible": 2017,
+    "total": 2125
+  },
+  "current_core_closure_expanded": false,
+  "current_route_guard_integrated": true,
+  "cutover_input_usable": false,
+  "non_claims": [
+    "no_successor_baseline_identity_final_seal",
+    "no_current_cutover",
+    "no_live_runtime_chunk_replacement",
+    "no_package_readiness",
+    "no_release_readiness",
+    "no_manual_in_game_validation"
+  ],
+  "runtime_surface_mutated": false,
+  "schema_version": "dvf-3-3-vnext-delta-guard-current-route-final-integration-v1",
+  "status": "PASS",
+  "tooling_allowlist_expanded": false,
+  "validation_ceiling": {
+    "out_of_scope": [
+      "successor baseline identity final seal",
+      "runtime chunk cutover",
+      "package readiness",
+      "release readiness",
+      "manual in-game QA"
+    ],
+    "unvalidated_but_in_scope": [],
+    "validated": [
+      "current runner required-validation manifest wiring",
+      "prior disposition denominator and approved/rejected counts",
+      "shared guard contract coverage",
+      "package/export/compose route-owner equivalence fingerprints",
+      "protected current surface no-mutation",
+      "dual-zero and dynamic forbidden reach count 0"
+    ]
+  }
+}

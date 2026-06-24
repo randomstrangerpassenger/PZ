@@ -1,0 +1,81 @@
+{
+  "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+  "edge_count": 6,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "node_count": 10,
+  "relationships": [
+    {
+      "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+      "evidence_basis": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/dual_gate_result.json",
+      "left_denominator_id": "DEN-AUDIT-CORE-OCCURRENCES",
+      "relation_id": "REL-AUDIT-CORE-PLUS-ADJACENT-EQUALS-ACCEPTED",
+      "relation_type": "arithmetic_component_sum",
+      "result_denominator_id": "DEN-AUDIT-ACCEPTED-CANDIDATES",
+      "right_denominator_id": "DEN-AUDIT-ADJACENT-SEED-OCCURRENCES",
+      "row_identity_match_status": null,
+      "status": "LOCKED_AGGREGATE",
+      "value_expression": "21174 + 6695 == 27869"
+    },
+    {
+      "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+      "evidence_basis": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
+      "left_denominator_id": "DEN-REBASELINE-CHANGE-NEEDED",
+      "relation_id": "REL-REBASELINE-YES-PLUS-CONDITIONAL-EQUALS-CHANGE-REQUIRED",
+      "relation_type": "arithmetic_component_sum",
+      "result_denominator_id": "DEN-AUDIT-CHANGE-REQUIRED",
+      "right_denominator_id": "DEN-REBASELINE-CONDITIONAL",
+      "row_identity_match_status": null,
+      "status": "LOCKED_ROW_ENUMERATED",
+      "value_expression": "59 + 252 == 311"
+    },
+    {
+      "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+      "evidence_basis": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl",
+      "left_denominator_id": "DEN-NORMALIZED-APPLY-ELIGIBLE",
+      "relation_id": "REL-NORMALIZED-APPLY-PLUS-NOOP-EQUALS-311",
+      "relation_type": "arithmetic_component_sum",
+      "result_denominator_id": "DEN-AUDIT-CHANGE-REQUIRED",
+      "right_denominator_id": "DEN-NORMALIZED-NO-OP",
+      "row_identity_match_status": null,
+      "status": "LOCKED_ROW_ENUMERATED",
+      "value_expression": "163 + 148 == 311"
+    },
+    {
+      "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+      "evidence_basis": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase2/missing_path_disposition_summary.json",
+      "left_denominator_id": "DEN-NORMALIZED-MISSING-PATH",
+      "relation_id": "REL-MISSING-PATH-SUBSET-NOOP",
+      "relation_type": "subset",
+      "result_denominator_id": null,
+      "right_denominator_id": "DEN-NORMALIZED-NO-OP",
+      "row_identity_match_status": null,
+      "status": "LOCKED_ROW_ENUMERATED",
+      "value_expression": "125 <= 148"
+    },
+    {
+      "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+      "evidence_basis": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
+      "left_denominator_id": "DEN-NORMALIZED-APPLY-ELIGIBLE",
+      "relation_id": "REL-NORMALIZED-APPLY-TO-READINESS-SANDBOX-MUTATION",
+      "relation_type": "row_identity_mapping",
+      "result_denominator_id": null,
+      "right_denominator_id": "DEN-READINESS-SANDBOX-MUTATION",
+      "row_identity_match_status": "MATCHED",
+      "status": "LOCKED",
+      "value_expression": "163 == 163"
+    },
+    {
+      "claim_boundary": "Consumer universe denominator governance only; not consumer migration execution, current authority cutover, runtime payload replacement, source/rendered/runtime/package mutation, release readiness, Workshop readiness, or public-facing behavior acceptance.",
+      "evidence_basis": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
+      "left_denominator_id": "DEN-RUNTIME-ADOPTED-ROWS",
+      "relation_id": "REL-RUNTIME-ADOPTED-PLUS-UNADOPTED-EQUALS-CURRENT",
+      "relation_type": "arithmetic_component_sum",
+      "result_denominator_id": "DEN-RUNTIME-CURRENT-ENTRIES",
+      "right_denominator_id": "DEN-RUNTIME-UNADOPTED-ROWS",
+      "row_identity_match_status": null,
+      "status": "LOCKED_AGGREGATE",
+      "value_expression": "2084 + 21 == 2105"
+    }
+  ],
+  "schema_version": "consumer-universe-denominator-relation-graph-v1"
+}

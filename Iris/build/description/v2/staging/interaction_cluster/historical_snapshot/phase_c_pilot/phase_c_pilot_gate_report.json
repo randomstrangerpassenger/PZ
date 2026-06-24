@@ -1,0 +1,30 @@
+{
+  "schema_version": "interaction-cluster-gate-report-v0",
+  "pass": false,
+  "errors": [
+    {
+      "code": "assignment_rate_below_floor",
+      "message": "assignment_rate is below the smoke-test floor",
+      "actual": 0.2198019801980198,
+      "floor": 0.8
+    }
+  ],
+  "warnings": [
+    {
+      "code": "generic_fallback_ratio_above_soft_ceiling",
+      "message": "generic_fallback_ratio exceeded the V8 soft ceiling",
+      "actual": 0.7885714285714286,
+      "ceiling": 0.05
+    }
+  ],
+  "metrics": {
+    "assignment_rate": 0.2198019801980198,
+    "cluster_misaligned_rate_sample": 0.038461538461538464,
+    "too_generic_use_rate_sample": 0.0,
+    "generic_fallback_ratio": 0.7885714285714286,
+    "policy_excluded_count": 40,
+    "smoke_sample_count": 52,
+    "smoke_sample_target": 50,
+    "sample_source": "manual_review"
+  }
+}

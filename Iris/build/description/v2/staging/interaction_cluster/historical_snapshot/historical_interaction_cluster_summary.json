@@ -1,0 +1,72 @@
+{
+  "schema_version": "interaction-cluster-historical-snapshot-summary-v0",
+  "historical_sources": {
+    "facts_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\.claude\\worktrees\\sad-dewdney\\Iris\\build\\description\\v2\\data\\dvf_3_3_facts.jsonl",
+    "usecases_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\.claude\\worktrees\\sad-dewdney\\Iris\\output\\usecases_by_fulltype.v2.4.json",
+    "recipe_nav_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\.claude\\worktrees\\sad-dewdney\\Iris\\output\\recipe_nav_registry.v2.4.json"
+  },
+  "validation": {
+    "schema_version": "interaction-cluster-raw-source-validation-v0",
+    "pass": true,
+    "row_count": 6,
+    "errors": [],
+    "warnings": []
+  },
+  "summary": {
+    "row_count": 6,
+    "with_cluster_count": 2,
+    "without_cluster_count": 4,
+    "cluster_coverage_rate": 0.3333333333333333,
+    "match_state_breakdown": {
+      "no_evidence": 4,
+      "matched": 2
+    },
+    "policy_excluded_count": 0,
+    "review_status_breakdown": {
+      "draft": 6
+    },
+    "interaction_bucket_breakdown": {
+      "layer4_rich_layer3_sparse": 4,
+      "role_fallback_excess": 2
+    },
+    "top_clusters": [
+      {
+        "cluster_id": "gun_modding",
+        "item_count": 2
+      },
+      {
+        "cluster_id": "ammo_crafting",
+        "item_count": 2
+      },
+      {
+        "cluster_id": "electronics_assembly",
+        "item_count": 1
+      },
+      {
+        "cluster_id": "container_storage",
+        "item_count": 1
+      },
+      {
+        "cluster_id": "metalwork_anvil",
+        "item_count": 1
+      },
+      {
+        "cluster_id": "cooking_prep",
+        "item_count": 1
+      },
+      {
+        "cluster_id": "medical_treatment",
+        "item_count": 1
+      },
+      {
+        "cluster_id": "metalwork_welding",
+        "item_count": 1
+      }
+    ]
+  },
+  "outputs": {
+    "base_facts": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\historical_base_facts.jsonl",
+    "raw_source": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\historical_interaction_cluster_source.raw.jsonl",
+    "overlay": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\historical_interaction_cluster_overlay.jsonl"
+  }
+}

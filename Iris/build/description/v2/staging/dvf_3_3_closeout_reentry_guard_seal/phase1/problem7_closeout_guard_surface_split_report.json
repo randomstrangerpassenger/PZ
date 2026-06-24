@@ -1,0 +1,9 @@
+{
+  "closeout_guard_artifact_role": "closeout_reentry_guard_machine_contract_pass",
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "problem7_artifact_role": "source_overlay_repair_current_route_validation_pass",
+  "problem7_pass_promoted_to_closeout_guard_count": 0,
+  "role_collision_count": 0,
+  "schema_version": "dvf-3-3-problem7-closeout-guard-split-v1",
+  "status": "PASS"
+}

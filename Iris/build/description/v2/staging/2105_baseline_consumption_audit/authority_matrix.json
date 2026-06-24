@@ -1,0 +1,64 @@
+{
+  "by_consumer_type": {
+    "comment-or-prose": 6645,
+    "diagnostic-report": 5337,
+    "document-authority": 65,
+    "generated-report": 14521,
+    "historical-trace": 70,
+    "migration-candidate": 169,
+    "runtime-consumer": 44,
+    "test-assertion": 263,
+    "tool-generator": 698,
+    "validator-gate": 57
+  },
+  "by_disposition": {
+    "current-hard-gate": 82,
+    "diagnostic-only": 3329,
+    "historical-reference": 23169,
+    "no-op": 1060,
+    "vNext-migration": 229
+  },
+  "by_migration_disposition": {
+    "migrate_when_new_baseline_approved": 163,
+    "no_change": 1185,
+    "preserve_as_current_gate": 23,
+    "preserve_as_diagnostic_reference": 3329,
+    "preserve_as_historical_trace": 23169
+  },
+  "by_referent": {
+    "current adopted/unadopted": 1316,
+    "current-readpoint-triple": 2345,
+    "frozen-recovery-2105": 9,
+    "historical active/silent": 23137,
+    "historical-pass-snapshot": 37,
+    "runtime-baseline-2105": 1018,
+    "source-universe-2105": 7
+  },
+  "by_surface_family": {
+    "acquisition_lexical": 77,
+    "build_pipeline": 381,
+    "closeout_trace": 61,
+    "documentation_current": 7,
+    "documentation_historical": 9,
+    "generated_report": 1737,
+    "layer4_corpus_or_measurement": 4467,
+    "lua_bridge": 2,
+    "migration_plan": 169,
+    "quality_publish_contract": 7,
+    "roadmap_or_decision_ledger": 58,
+    "runtime_payload": 42,
+    "selected_role_resolver": 126,
+    "silent_21_cleanup": 812,
+    "staging_artifact": 12784,
+    "static_report_cleanup": 81,
+    "structural_signal": 84,
+    "test": 263,
+    "tool": 6645,
+    "validator": 57
+  },
+  "current_authority": {
+    "conditional": 104,
+    "no": 27683,
+    "yes": 82
+  }
+}

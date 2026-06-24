@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "required_artifact_count": 7,
+  "required_artifacts": [
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": false,
+          "field": "standalone_complete_allowed"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase2/dvf_3_3_closeout_claim_taxonomy.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "predecessor_reentry_violation_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/predecessor_reentry_guard_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "ambiguous_complete_claim_count"
+        },
+        {
+          "equals": 0,
+          "field": "broad_cutover_collision_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase4/closeout_claim_boundary_guard_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "adopted_required_gate",
+          "field": "required_gate_adoption_status"
+        },
+        {
+          "equals": 0,
+          "field": "dual_reentry_authority_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase5/closeout_reentry_guard_manifest_adoption_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "changed_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_no_mutation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "PASS",
+          "field": "machine_contract_status"
+        },
+        {
+          "equals": "canonical_complete",
+          "field": "closeout_state"
+        },
+        {
+          "equals": true,
+          "field": "canonical_seal_allowed"
+        },
+        {
+          "equals": "PASS",
+          "field": "independent_review_status"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "PASS",
+          "field": "independent_review_status"
+        },
+        {
+          "equals": true,
+          "field": "canonical_seal_allowed"
+        },
+        {
+          "equals": 0,
+          "field": "primary_review_artifact_missing_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+    }
+  ],
+  "schema_version": "dvf-3-3-closeout-reentry-required-artifacts-manifest-v1",
+  "status": "PASS"
+}

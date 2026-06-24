@@ -1,0 +1,35 @@
+{
+  "approved_successor_pinned_baseline": {
+    "approving_artifact_path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase0/owner_reserved_seal_requirements.json",
+    "baseline_id": "current_route_required_validation_with_closeout_reentry_guard_v1",
+    "command": "uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
+    "expected_test_count": 107,
+    "owner_approval_status": "resolved_by_current_owner_execution_request",
+    "replacement_reason": "Adds Closeout / Reentry Guard Seal focused tests to the previous current route baseline."
+  },
+  "commands": [
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_closeout_claim_taxonomy.py --require-complete",
+      "id": "taxonomy"
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_closeout_claim_boundary.py --require-complete",
+      "id": "claim_boundary"
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_predecessor_reentry_guard.py --require-complete",
+      "id": "predecessor_reentry"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_closeout*.py\"",
+      "id": "focused_unittest"
+    },
+    {
+      "command": "uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/full_current_route_validation_result.json",
+      "id": "full_current_route"
+    }
+  ],
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "schema_version": "dvf-3-3-closeout-reentry-final-pinned-command-manifest-v1",
+  "status": "PASS"
+}

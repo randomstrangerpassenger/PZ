@@ -1,0 +1,17 @@
+{
+  "non_success_terminal": {
+    "cutover_input_usable": false,
+    "failed_evidence_quarantined": true,
+    "parent_problem_unlock": false,
+    "prior_blocked_readpoint_remains_authoritative": true
+  },
+  "schema_version": "dvf-3-3-vnext-rejected-correction-cutover-usability-predicate-v0",
+  "successful_terminal": {
+    "cutover_input_usable": true,
+    "deferred": 0,
+    "parent_problem_unlock": true,
+    "rejected": 0,
+    "scope_exclusion": 0,
+    "unresolved_policy_candidate": 0
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "claim_boundary": "Shared disposition consumption contract only; not denominator adjudication, not terminal disposition re-adjudication, not Phase 4 live apply, not source/rendered/Lua-bridge/runtime/package authority mutation, not release readiness, not Workshop readiness, not B42 readiness, not deployment readiness, and not public-facing text quality acceptance.",
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_required_validation_adoption": "adopted_required_gate",
+  "objective": "shared disposition ledger consumption only",
+  "round_id": "dvf_3_3_shared_disposition_ledger_consumption",
+  "schema_version": "dvf-3-3-shared-disposition-scope-lock-v1",
+  "source_rendered_lua_runtime_package_mutation_allowed": false,
+  "status": "PASS"
+}

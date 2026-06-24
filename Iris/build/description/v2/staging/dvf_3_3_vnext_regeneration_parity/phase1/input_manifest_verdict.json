@@ -1,0 +1,12 @@
+{
+  "blocked_reason": null,
+  "facts_decisions_ok": true,
+  "input_lineage_mode": "fresh_full_rerun",
+  "runtime_derived_seed_source_authority": false,
+  "schema_version": "dvf-3-3-vnext-regeneration-parity-input-manifest-verdict-v0",
+  "seed_only": false,
+  "source_manifest_ok": true,
+  "source_status": "confirmed",
+  "status": "PASS",
+  "vocabulary_guard_status": "PASS"
+}

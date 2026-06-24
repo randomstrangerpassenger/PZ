@@ -1,0 +1,114 @@
+{
+  "schema_version": "interaction-cluster-phase-d-runtime-v0",
+  "overall_status": "ready_for_in_game_validation",
+  "rendered_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\dvf_3_3_rendered.integrated.json",
+  "rendered_entry_count": 2105,
+  "checks": [
+    {
+      "code": "layer3_data_exists",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\Data\\IrisLayer3Data.lua"
+    },
+    {
+      "code": "bridge_report_exists",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\source_coverage_runtime\\phase_d_lua_bridge_report.integrated.json"
+    },
+    {
+      "code": "layer3_source_entry_count_matches_rendered",
+      "status": "pass",
+      "details": {
+        "rendered_count": 2105,
+        "bridge_source_count": 2105
+      }
+    },
+    {
+      "code": "layer3_runtime_entry_count_covers_rendered",
+      "status": "pass",
+      "details": {
+        "rendered_count": 2105,
+        "bridge_runtime_count": 2105
+      }
+    },
+    {
+      "code": "layer3_renderer_present",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\Data\\layer3_renderer.lua"
+    },
+    {
+      "code": "consumer_files_present",
+      "status": "pass",
+      "details": {
+        "boot_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\AIrisBoot.lua",
+        "context_menu_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Wiki\\IrisContextMenu.lua",
+        "main_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\IrisMain.lua",
+        "browser_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Browser\\IrisBrowser.lua",
+        "panel_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Wiki\\IrisWikiPanel.lua",
+        "wiki_sections_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Wiki\\IrisWikiSections.lua"
+      }
+    },
+    {
+      "code": "boot_loads_iris_main",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\AIrisBoot.lua"
+    },
+    {
+      "code": "main_loads_and_hooks_context_menu",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\IrisMain.lua"
+    },
+    {
+      "code": "context_menu_hooks_inventory_context_menu",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Wiki\\IrisContextMenu.lua"
+    },
+    {
+      "code": "context_menu_resolves_stack_wrapped_items",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Wiki\\IrisContextMenu.lua"
+    },
+    {
+      "code": "context_menu_guards_vanilla_bullet_reload_menu",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Wiki\\IrisContextMenu.lua"
+    },
+    {
+      "code": "wiki_sections_render_layer3_section",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Wiki\\IrisWikiSections.lua"
+    },
+    {
+      "code": "panel_uses_layer3_section",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Wiki\\IrisWikiPanel.lua"
+    },
+    {
+      "code": "browser_uses_layer3_section",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\UI\\Browser\\IrisBrowser.lua"
+    },
+    {
+      "code": "layer3_renderer_loads_generated_data",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\Data\\layer3_renderer.lua"
+    },
+    {
+      "code": "bridge_report_tracks_publish_state_counts",
+      "status": "pass",
+      "details": {
+        "internal_only": 0,
+        "exposed": 0
+      }
+    },
+    {
+      "code": "layer3_renderer_honors_publish_state_visibility",
+      "status": "pass",
+      "details": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\media\\lua\\client\\Iris\\Data\\layer3_renderer.lua"
+    }
+  ],
+  "failures": [],
+  "in_game_validation": {
+    "status": "pending",
+    "reason": "Requires manual runtime verification inside Project Zomboid."
+  }
+}

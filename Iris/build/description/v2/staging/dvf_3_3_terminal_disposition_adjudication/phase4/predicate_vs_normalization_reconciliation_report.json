@@ -1,0 +1,25 @@
+{
+  "axis_substitution_allowed": false,
+  "bound_universe_axis": {
+    "49_plus_111_plus_902_equals_1062": true,
+    "conditional": 111,
+    "no": 902,
+    "total": 1062,
+    "yes": 49
+  },
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "global_predicate_axis": {
+    "59_plus_252_equals_311": true,
+    "conditional": 252,
+    "total": 311,
+    "yes": 59
+  },
+  "normalization_axis": {
+    "163_plus_148_equals_311": true,
+    "actual_apply_eligible": 163,
+    "no_op": 148,
+    "total": 311
+  },
+  "schema_version": "dvf-3-3-terminal-predicate-normalization-reconciliation-v1",
+  "status": "PASS"
+}

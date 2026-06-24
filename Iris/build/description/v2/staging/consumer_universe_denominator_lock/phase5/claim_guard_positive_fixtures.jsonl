@@ -1,0 +1,3 @@
+{"expected_verdict": "ALLOW", "fixture_id": "positive_candidate_boundary", "hits": [], "observed_verdict": "ALLOW", "status": "PASS", "text": "DEN-AUDIT-CHANGE-REQUIRED is a 311 change-required occurrence denominator for governance context only."}
+{"expected_verdict": "ALLOW", "fixture_id": "positive_sandbox_boundary", "hits": [], "observed_verdict": "ALLOW", "status": "PASS", "text": "DEN-READINESS-SANDBOX-MUTATION records 163 readiness sandbox rows for sandbox evidence only."}
+{"expected_verdict": "ALLOW", "fixture_id": "positive_runtime_context", "hits": [], "observed_verdict": "ALLOW", "status": "PASS", "text": "DEN-RUNTIME-CURRENT-ENTRIES is runtime context only: adopted and unadopted runtime rows sum to the current runtime entry count."}

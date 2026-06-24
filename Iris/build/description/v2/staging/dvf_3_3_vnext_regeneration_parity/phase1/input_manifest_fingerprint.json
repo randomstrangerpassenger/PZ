@@ -1,0 +1,17 @@
+{
+  "accepted_inputs": [
+    {
+      "path": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_facts.integrated.jsonl",
+      "row_count": 2105,
+      "sha256": "5eb6742862a86ba0b75792f9097f09b44b736f4b4fb1ec905d23d960b997030b"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/interaction_cluster/source_coverage_runtime/dvf_3_3_decisions.integrated.jsonl",
+      "row_count": 2105,
+      "sha256": "ba7bad43aac260e284ce16f88331e74a403e6727a7ffb01f3a4da25b9184661f"
+    }
+  ],
+  "generated_at": "2026-06-15T13:08:16.971582+00:00",
+  "manifest_hash": "2f4105aff51dbfe8c0637ba923126cb86c66238cfe0bfcc48e4bd3aefbc80eae",
+  "schema_version": "dvf-3-3-vnext-source-manifest-fingerprint-v0"
+}

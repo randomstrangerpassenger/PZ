@@ -1,0 +1,29 @@
+{
+  "claim_boundary": "candidate_recommended_gate_result_not_cutover_authorization",
+  "counts": {
+    "approved_count": 0,
+    "deferred_count": 0,
+    "rejected_count": 0,
+    "runtime_eligible_count": 0,
+    "scope_exclusion_count": 0,
+    "state_delta_count": 0,
+    "text_ko_delta_count": 0,
+    "total_delta_count": 0,
+    "unresolved_policy_candidate_count": 0
+  },
+  "cutover_input_usable": true,
+  "non_claims": [
+    "no_parent_2_4_completion",
+    "no_successor_baseline_identity_final_seal",
+    "no_current_cutover",
+    "no_live_runtime_chunk_replacement",
+    "no_package_readiness",
+    "no_release_readiness",
+    "no_manual_in_game_validation",
+    "no_public_facing_text_quality_acceptance"
+  ],
+  "parent_problem_unlock": true,
+  "schema_version": "dvf-3-3-vnext-rejected-correction-final-disposition-contract-v0",
+  "status": "PASS",
+  "terminal": "rejected delta correction / re-parity sealed; cutover_input_usable=true candidate established"
+}

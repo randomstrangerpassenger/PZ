@@ -1,0 +1,25 @@
+{
+  "error_count": 0,
+  "errors": [],
+  "evidence_family_counts": {
+    "audit_classification_terminal_crosswalk": 902,
+    "normalization_no_op_positive_row": 7,
+    "readiness_cutover_row_level_ledger_plus_actual_diff_mapping": 153
+  },
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "migrated_evidence_class_counts": {
+    "prior_cutover_authority_role_migration_evidence": 153
+  },
+  "record_count": 1062,
+  "schema_version": "dvf-3-3-terminal-evidence-binding-report-v1",
+  "status": "PASS",
+  "terminal_consumer_universe_id": "dvf_3_3_terminal_executing_consumer_member_rows_1062_v1",
+  "terminal_reason_code_counts": {
+    "already_current_successor_contract": 7,
+    "diagnostic_report_surface": 3,
+    "generated_no_mutation": 159,
+    "historical_fixture": 166,
+    "predecessor_trace": 472,
+    "preserved_reference_no_behavior_change": 102
+  }
+}

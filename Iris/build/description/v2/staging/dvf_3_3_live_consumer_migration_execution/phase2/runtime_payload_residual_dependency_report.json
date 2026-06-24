@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "live_mutation_required_dependency_count": 0,
+  "runtime_payload_rows_excluded_as_evidence_only": 42,
+  "schema_version": "dvf-3-3-live-runtime-payload-residual-dependency-v1",
+  "status": "PASS"
+}

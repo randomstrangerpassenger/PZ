@@ -1,0 +1,7 @@
+{
+  "CURRENT_DEBT_REENTRY": 0,
+  "current_debt_predecessor_direct_use_count": 0,
+  "generated_at": "2026-06-23T00:00:00+09:00",
+  "schema_version": "dvf-3-3-current-debt-reentry-report-v1",
+  "status": "PASS"
+}

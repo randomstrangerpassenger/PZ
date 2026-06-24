@@ -1,0 +1,7 @@
+{
+  "adopted": false,
+  "explicit_adoption_approval_present": false,
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "required_validation_status": "candidate_only",
+  "schema_version": "dvf-3-3-terminal-current-route-adoption-approval-v1"
+}

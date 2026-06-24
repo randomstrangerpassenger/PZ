@@ -1,0 +1,22 @@
+{
+  "allowed_current_closure_modules": [
+    "build_iris_fixing_index_data",
+    "build_iris_moveables_index_data",
+    "build_iris_recipe_index_data",
+    "build_legacy_active_silent_current_surface_guard_round",
+    "build_static_report_label_cleanup_referent_recovery_round",
+    "compose_layer3_blocks",
+    "compose_layer3_body_profile",
+    "compose_layer3_identity",
+    "compose_layer3_io",
+    "compose_layer3_item",
+    "compose_layer3_render",
+    "compose_layer3_text"
+  ],
+  "schema_version": "round3-boundary-guard-v1",
+  "self_test_enabled": true,
+  "success": true,
+  "synthetic_violation_detected": true,
+  "violation_count": 0,
+  "violations": []
+}

@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-06-19T00:00:00+09:00",
+  "mixed_child_residue_hides_success": false,
+  "official_unit": "executing_consumer_member_row",
+  "path_rollup_allowed": true,
+  "path_rollup_success_denominator_allowed": false,
+  "schema_version": "dvf-3-3-terminal-rollup-policy-v1",
+  "semantic_object_rollup_success_denominator_allowed": false
+}

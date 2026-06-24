@@ -1,0 +1,374 @@
+{
+  "schema_version": "interaction-cluster-phase-c-pilot-summary-v0",
+  "validation": {
+    "rendered_hard_fail_count": 57,
+    "rendered_warn_count": 57,
+    "renderable_count": 259,
+    "non_renderable_count": 791,
+    "coverage_gate_pass": false,
+    "coverage_gate_warnings": [
+      {
+        "code": "generic_fallback_ratio_above_soft_ceiling",
+        "message": "generic_fallback_ratio exceeded the V8 soft ceiling",
+        "actual": 0.7885714285714286,
+        "ceiling": 0.05
+      }
+    ]
+  },
+  "manifest": {
+    "schema_version": "interaction-cluster-phase-c-pilot-manifest-v0",
+    "target": 50,
+    "selected_count": 52,
+    "historical_selected_count": 50,
+    "supplement_selected_count": 2,
+    "reviewable_count": 1010,
+    "group_targets": {
+      "high_abstraction": 0,
+      "role_fallback_excess": 25,
+      "layer4_rich_layer3_sparse": 25
+    },
+    "group_counts": {
+      "high_abstraction": 0,
+      "role_fallback_excess": 25,
+      "layer4_rich_layer3_sparse": 25
+    },
+    "selected_item_ids": [
+      "Base.BakingTray_Muffin",
+      "Base.BakingTray_Muffin_Recipe",
+      "Base.BreadSlices",
+      "Base.CakeRaw",
+      "Base.CannedBellPepper",
+      "Base.CannedBroccoli",
+      "Base.CannedCarrots",
+      "Base.CannedEggplant",
+      "Base.CannedLeek",
+      "Base.CannedPotato",
+      "Base.CannedRedRadish",
+      "Base.CannedTomato",
+      "Base.CookieChocolateChipDough",
+      "Base.CookiesChocolateDough",
+      "Base.CookiesOatmealDough",
+      "Base.CookiesShortbreadDough",
+      "Base.CookiesSugarDough",
+      "Base.Dogfood",
+      "Base.Glue",
+      "Base.GriddlePanFriedVegetables",
+      "Base.MuffinTray",
+      "Base.Muffintray_Biscuit",
+      "Base.OmeletteRecipe",
+      "Base.OnionRings",
+      "Base.Pan",
+      "Base.Apron_Black",
+      "Base.Apron_IceCream",
+      "Base.Apron_Jay",
+      "Base.Apron_Spiffos",
+      "Base.Apron_White",
+      "Base.Apron_WhiteTEXTURE",
+      "Base.BadmintonRacket",
+      "Base.Bag_ALICEpack",
+      "Base.Bag_ALICEpack_Army",
+      "Base.Bag_BigHikingBag",
+      "Base.Bag_DuffelBag",
+      "Base.Bag_DuffelBagTINT",
+      "Base.Bag_FannyPackFront",
+      "Base.Bag_FoodCanned",
+      "Base.Bag_FoodSnacks",
+      "Base.Bag_GolfBag",
+      "Base.Bag_MedicalBag",
+      "Base.Bag_Military",
+      "Base.Bag_NormalHikingBag",
+      "Base.Bag_Satchel",
+      "Base.Bag_Schoolbag",
+      "Base.Bag_ShotgunBag",
+      "Base.Bag_ShotgunDblBag",
+      "Base.Bag_ShotgunDblSawnoffBag",
+      "Base.Bag_ShotgunSawnoffBag"
+    ],
+    "coverage_summary": {
+      "assignment_rate": 0.21142857142857144,
+      "reviewable_assignment_rate": 0.2198019801980198,
+      "policy_excluded_count": 40,
+      "cluster_absent_count": 788,
+      "manual_override_required_count": 0,
+      "v9_warn_count": 848
+    },
+    "slice_summary": {
+      "pilot_group_counts": {
+        "high_abstraction": {
+          "available_count": 0,
+          "selected_count": 0
+        },
+        "role_fallback_excess": {
+          "available_count": 152,
+          "selected_count": 25
+        },
+        "layer4_rich_layer3_sparse": {
+          "available_count": 858,
+          "selected_count": 25
+        }
+      },
+      "special_slice_counts": {
+        "tie_break_validation": {
+          "available_count": 0,
+          "selected_count": 0
+        },
+        "direct_use_preservation": {
+          "available_count": 0,
+          "selected_count": 0
+        },
+        "hard_fail_review": {
+          "available_count": 808,
+          "selected_count": 50
+        },
+        "primary_use_gap": {
+          "available_count": 753,
+          "selected_count": 50
+        },
+        "cluster_absent_validation": {
+          "available_count": 788,
+          "selected_count": 50
+        },
+        "renderable_review": {
+          "available_count": 257,
+          "selected_count": 0
+        }
+      },
+      "warnings": [
+        {
+          "code": "pilot_group_unavailable",
+          "group": "high_abstraction",
+          "message": "required pilot group is unavailable in the current historical snapshot"
+        },
+        {
+          "code": "special_slice_unavailable",
+          "slice": "tie_break_validation",
+          "message": "required provisional/merge validation slice is unavailable in the current historical snapshot"
+        },
+        {
+          "code": "special_slice_unavailable",
+          "slice": "direct_use_preservation",
+          "message": "required provisional/merge validation slice is unavailable in the current historical snapshot"
+        }
+      ]
+    },
+    "supplement_summary": {
+      "selected_count": 2,
+      "selected_item_ids": [
+        "Base.CanOpener",
+        "Base.ModKit"
+      ],
+      "covered_targets": [
+        "group:high_abstraction",
+        "slice:direct_use_preservation",
+        "slice:tie_break_validation"
+      ],
+      "uncovered_targets": [],
+      "seed_paths": {
+        "facts": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_facts.jsonl",
+        "decisions": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_decisions.jsonl",
+        "compose_input": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_compose_input.jsonl",
+        "rendered": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_rendered.json",
+        "build_report": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_build_report.json"
+      }
+    }
+  },
+  "review_summary": {
+    "schema_version": "interaction-cluster-phase-c-review-summary-v0",
+    "pilot_review": {
+      "review_present": true,
+      "selected_count": 52,
+      "review_complete": true,
+      "reviewed_core_count": 52,
+      "missing_core_review_count": 0,
+      "missing_core_review_rows": [],
+      "direct_use_preservation_applicable_count": 1,
+      "direct_use_preservation_reviewed_count": 1,
+      "missing_direct_use_review_count": 0,
+      "missing_direct_use_review_rows": [],
+      "cluster_misaligned_count": 2,
+      "cluster_misaligned_rate": 0.038461538461538464,
+      "too_generic_use_count": 0,
+      "too_generic_use_rate": 0.0,
+      "direct_use_preservation_fail_count": 0,
+      "renderable_count": 2,
+      "non_renderable_count": 50,
+      "tie_break_row_count": 0,
+      "manual_override_row_count": 0,
+      "primary_use_gap_count": 50,
+      "suggestion_counts": {
+        "cluster_misaligned_true_count": 0,
+        "cluster_misaligned_false_count": 2,
+        "too_generic_use_true_count": 0,
+        "too_generic_use_false_count": 2,
+        "direct_use_preserved_true_count": 1,
+        "direct_use_preserved_false_count": 0
+      },
+      "review_source_counts": {
+        "historical_snapshot": 50,
+        "seed_supplement": 2
+      },
+      "group_counts": {
+        "role_fallback_excess": 25,
+        "layer4_rich_layer3_sparse": 26,
+        "high_abstraction": 1
+      },
+      "focus_counts": {
+        "group:role_fallback_excess": 25,
+        "cluster_absent_validation": 50,
+        "role_fallback_residual": 50,
+        "primary_use_gap": 50,
+        "group:layer4_rich_layer3_sparse": 26,
+        "group:high_abstraction": 1,
+        "direct_use_preservation": 1,
+        "tie_break_validation": 1,
+        "direct_use_replacement": 1
+      }
+    },
+    "policy_excluded_review": {
+      "review_present": true,
+      "selected_count": 40,
+      "review_complete": true,
+      "reviewed_count": 40,
+      "missing_review_count": 0,
+      "missing_review_rows": [],
+      "confirmed_excluded_count": 40,
+      "rejected_excluded_count": 0,
+      "suggestion_counts": {
+        "confirm_excluded_true_count": 40,
+        "confirm_excluded_false_count": 0
+      },
+      "reason_breakdown": {
+        "action_only_not_representative": 39,
+        "niche_recipe_not_representative": 3
+      }
+    }
+  },
+  "policy_excluded_manifest": {
+    "schema_version": "interaction-cluster-phase-c-policy-excluded-manifest-v0",
+    "selected_count": 40,
+    "reason_breakdown": {
+      "action_only_not_representative": 39,
+      "niche_recipe_not_representative": 3
+    }
+  },
+  "rework_queue_summary": {
+    "cluster_absent_review_count": 788,
+    "manual_override_required_count": 0,
+    "policy_excluded_review_count": 40,
+    "too_generic_use_count": 0,
+    "cluster_misaligned_count": 0,
+    "v9_warn_count": 848,
+    "tie_break_review_count": 0,
+    "hotspot_bucket_count": 2
+  },
+  "outputs": {
+    "candidates": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_candidates.jsonl",
+    "facts": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_facts.jsonl",
+    "decisions": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_decisions.jsonl",
+    "compose_input": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_compose_input.jsonl",
+    "rendered": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_rendered.json",
+    "coverage_report": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_coverage_report.json",
+    "gate_report": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_gate_report.json",
+    "review": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot.review.jsonl",
+    "review_report": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_review_report.json",
+    "review_summary": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_review_summary.json",
+    "policy_excluded_review": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_policy_excluded.review.jsonl",
+    "rework_queue": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_rework_queue.json",
+    "freeze_report": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_freeze_report.json",
+    "review_actions": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_review_actions.json",
+    "pilot_review_draft": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot.review.draft.jsonl",
+    "policy_review_draft": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_policy_excluded.review.draft.jsonl",
+    "pilot_review_packet": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_review_packet.md",
+    "policy_review_packet": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_policy_excluded_review_packet.md"
+  },
+  "freeze_report": {
+    "schema_version": "interaction-cluster-phase-c-freeze-report-v0",
+    "overall_status": "ready_for_phase_d",
+    "checks": [
+      {
+        "code": "pilot_review_complete",
+        "status": "pass",
+        "actual": 52,
+        "target": 52,
+        "message": "pilot review rows must be fully reviewed before Phase C freeze"
+      },
+      {
+        "code": "policy_excluded_review_complete",
+        "status": "pass",
+        "actual": 40,
+        "target": 40,
+        "message": "policy-excluded review rows must be confirmed before Phase C freeze"
+      },
+      {
+        "code": "cluster_misaligned_rate_sample",
+        "status": "pass",
+        "actual": 0.038461538461538464,
+        "ceiling": 0.1,
+        "message": "sampled cluster misalignment rate must stay at or below 10%"
+      },
+      {
+        "code": "too_generic_use_rate_sample",
+        "status": "pass",
+        "actual": 0.0,
+        "ceiling": 0.1,
+        "message": "sampled too-generic primary use rate must stay at or below 10%"
+      },
+      {
+        "code": "direct_use_preservation",
+        "status": "pass",
+        "actual": {
+          "applicable_count": 1,
+          "missing_review_count": 0,
+          "fail_count": 0
+        },
+        "message": "direct-use preservation rows must be reviewed and must not regress preserved direct use"
+      },
+      {
+        "code": "supplement_target_coverage",
+        "status": "pass",
+        "actual": [
+          "group:high_abstraction",
+          "slice:direct_use_preservation",
+          "slice:tie_break_validation"
+        ],
+        "missing": [],
+        "message": "missing pilot groups/special slices must be covered by the supplement bundle if absent from historical data"
+      }
+    ],
+    "historical_slice_warnings": [
+      {
+        "code": "pilot_group_unavailable",
+        "group": "high_abstraction",
+        "message": "required pilot group is unavailable in the current historical snapshot"
+      },
+      {
+        "code": "special_slice_unavailable",
+        "slice": "tie_break_validation",
+        "message": "required provisional/merge validation slice is unavailable in the current historical snapshot"
+      },
+      {
+        "code": "special_slice_unavailable",
+        "slice": "direct_use_preservation",
+        "message": "required provisional/merge validation slice is unavailable in the current historical snapshot"
+      }
+    ]
+  },
+  "review_actions": {
+    "cluster_misaligned_count": 2,
+    "too_generic_use_count": 0,
+    "direct_use_regression_count": 0,
+    "policy_exclusion_rejected_count": 0
+  },
+  "review_drafts": {
+    "pilot_draft_count": 52,
+    "policy_draft_count": 40,
+    "pilot_draft_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot.review.draft.jsonl",
+    "policy_draft_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_policy_excluded.review.draft.jsonl"
+  },
+  "review_packets": {
+    "pilot_packet_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_pilot_review_packet.md",
+    "policy_packet_path": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_policy_excluded_review_packet.md",
+    "pilot_row_count": 52,
+    "policy_row_count": 40
+  }
+}

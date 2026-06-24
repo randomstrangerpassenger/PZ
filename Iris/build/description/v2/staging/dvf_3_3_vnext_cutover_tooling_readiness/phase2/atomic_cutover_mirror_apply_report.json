@@ -1,0 +1,15 @@
+{
+  "actual_atomic_replace": true,
+  "actual_restore_probe": true,
+  "actual_stale_deletion": true,
+  "candidate_data_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/bridge",
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "exact_target_verification_status": "PASS",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "live_runtime_mutated": false,
+  "restore_hash_equal_to_predecessor": true,
+  "schema_version": "dvf-3-3-vnext-runtime-atomic-cutover-mirror-apply-v0",
+  "status": "PASS",
+  "target_data_dir": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/mirror_target/Data",
+  "target_kind": "mirrored"
+}

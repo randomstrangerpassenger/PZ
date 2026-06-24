@@ -1,0 +1,12 @@
+{
+  "checked_forbidden_claims": [
+    "release readiness",
+    "runtime rollout",
+    "manual in-game validation",
+    "successor baseline identity final seal",
+    "cutover authorization"
+  ],
+  "forbidden_claim_hit_count": 0,
+  "schema_version": "dvf-3-3-vnext-claim-boundary-lint-v0",
+  "status": "PASS"
+}

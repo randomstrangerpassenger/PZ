@@ -1,0 +1,16 @@
+{
+  "anchor_drift_row_count": 0,
+  "anchor_drift_rows": [],
+  "block_codes": [],
+  "dirty_target_overlap_count": 0,
+  "excluded_non_live_target_count": 44,
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "hard_forbidden_live_required_count": 0,
+  "line_grouped_patch_bundle": true,
+  "line_patch_count": 0,
+  "live_apply_allowed": true,
+  "live_mutation_required_count": 0,
+  "path_allowlist": [],
+  "schema_version": "dvf-3-3-live-pre-apply-gate-report-v1",
+  "status": "PASS"
+}

@@ -512,11 +512,41 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * 완료 조건은 author decision으로 current-like `unadopted + text_ko` / `unadopted + exposed` 금지를 확정하고, rollback / predecessor residue가 historical-only residue로 남는다는 경계를 independent review 또는 명시 external gate로 닫는 것이다.
   * 이 residual seal은 새 runtime data mutation, enum 재정의, UI 노출, renderer policy 변경을 자동 승인하지 않는다.
 
-* Consumer Universe Denominator Lock과 Terminal Disposition Adjudication의 candidate current-route patch를 실제 required-validation manifest에 채택할지 별도 scope로 결정한다.
+* Consumer Universe Denominator Lock의 current-route denominator guard는 live required-validation manifest에 채택된 상태로 읽는다.
 
-  * denominator relock과 terminal disposition adjudication은 각각 닫힌 readpoint로 읽는다.
-  * live required-validation manifest adoption은 별도 승인 없이는 완료로 선언하지 않는다.
-  * 이 adoption 여부는 consumer migration execution, current authority cutover, runtime/source/rendered/package mutation, release/package/Workshop/B42 readiness를 자동으로 열지 않는다.
+  * live manifest는 denominator final report를 required artifact로, denominator focused unittest를 required test로 요구한다.
+  * denominator gate status는 `adopted_required_gate`이고 future closeout에서 denominator misuse를 fail-closed로 막는 guard다.
+  * Terminal Disposition Adjudication은 terminal content와 hash seal이 닫힌 상태로 읽는다.
+  * 이 adoption은 consumer migration execution, current authority cutover, runtime/source/rendered/package mutation, release/package/Workshop/B42 readiness를 자동으로 열지 않는다.
+  * broad current-route runner의 이전 `CURRENT_FACTS=6` vs `2105` 및 `Base.CanOpener` overlay blocker는 Current-Route Baseline / Source-Overlay Repair에서 별도로 닫혔다. Denominator adoption PASS는 여전히 terminal/shared/current-route repair completion을 대체하지 않는다.
+
+* Shared Disposition Ledger Consumption은 live required-validation manifest에 채택된 상태로 읽는다.
+
+  * live manifest는 shared final report, divergence report, raw authority read report, value divergence report, predecessor reentry report, no-dual-authority-read report, protected-surface no-mutation report를 required artifact로 요구한다.
+  * live manifest는 focused shared disposition unittest를 required test로 요구한다.
+  * final shared report는 `complete_adopted`, `adopted_required_gate`, `RAW_AUTHORITY_READ=0`, `VALUE_DIVERGENCE=0`, `PREDECESSOR_REENTRY=0`, `DUAL_AUTHORITY_READ=0`, protected mutation `changed_count=0`으로 닫힌 상태다.
+  * candidate manifest는 `superseded_by_live_required_gate`로 보관하며 execution authority가 아니다.
+  * 이 adoption은 live migration execution, current authority cutover, runtime/source/rendered/package mutation, release/package/Workshop/B42 readiness, #7 Closeout / Reentry Guard Seal을 자동으로 열지 않는다.
+
+* Current-Route Baseline / Source-Overlay Repair는 Problem 7 repair round로 닫힌 상태로 읽는다.
+
+  * full current-route validation은 `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` 기준 `PASS / 103 tests`다.
+  * repair runner는 `status=PASS`이며 final repair report는 `closeout_state=partial`, `implementation_plan_ready=true`, `stable_plan_provenance=true`다.
+  * `docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md`는 canonical `primary_problem7_plan`이고, 기존 `docs/dvf_3_3_current_route_baseline_source_overlay_repair_plan.md`는 execution authority 없는 `predecessor_contract_plan`이다.
+  * `CURRENT_FACTS=6`은 full current-route universe expectation으로 쓰지 않는다. vNext `2105` row universe는 source / overlay / rendered / runtime evidence contract로 소비하지만 old predecessor authority 복구나 current debt로 재진입하지 않는다.
+  * runtime-adopted current-route compose 대상 row의 `body_source_overlay` requirement, compose / current-authority / Layer4 trace shared contract, normalization stale anchor, cutover diff-to-ledger bijection은 focused tests와 full current-route validation으로 닫혔다.
+  * 이 repair는 Terminal Disposition, Denominator Lock, Shared Disposition Consumption의 재개나 재채택이 아니다.
+
+* Closeout / Reentry Guard Seal은 governance required gate로 채택된 상태로 읽는다.
+
+  * broad consumer migration completion과 cutover subset completion의 문구를 분리한다.
+  * predecessor `2105 / 2084 / 21`이 current hard gate, runtime authority, current debt로 재진입하지 못하도록 guard를 봉인한다.
+  * Problem 7 full current-route PASS를 Problem 8 closeout completion으로 읽지 않는다.
+  * final guard report는 `machine_contract_status=PASS`, `required_validation_gate_adoption_status=adopted_required_gate`, `closeout_state=canonical_complete`, `canonical_seal_allowed=true`, protected source / rendered / Lua bridge / runtime / package mutation `0`으로 닫힌다.
+  * live required manifest는 Closeout / Reentry Guard artifacts/tests를 `required_artifacts=28`, `required_tests=28`로 요구하며, full current-route validation은 `PASS / 107 tests / closure_enforced true`로 읽는다.
+  * independent review artifact hash report는 `17`개 primary review artifacts를 hash-seal하며, final report / full current-route result / complete validation report / claim scan evidence를 포함한다.
+  * canonical seal은 non-Claude independent review PASS에 따라 `canonical_complete`로 닫힌다.
+  * 이 gate는 live migration execution, live mutation, current authority cutover, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
 
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 

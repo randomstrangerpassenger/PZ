@@ -1,0 +1,3 @@
+Status: PASS
+Command route: powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1
+This round does not mutate runtime Lua.

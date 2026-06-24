@@ -1,7 +1,12 @@
 # Iris Build Active Manifest
 
-Status: Phase 1 active manifest for
+Status: Phase 1 active manifest.
+
+Historical source roadmap label:
 `docs/Iris/iris-refactoring-final-roadmap-v1.md`.
+
+Current readpoint for this active manifest is the inline content below plus
+`docs/DECISIONS.md` and `docs/ROADMAP.md`, not the archived Iris docs path.
 
 Date: 2026-05-04
 
@@ -135,13 +140,16 @@ Completed root artifact moves:
 
 ## Phase 1 readpoint update (2026-06-07)
 
-Amendment for `docs/Iris/Iris_Refactoring_Roadmap.md` + `docs/Iris/Iris_Refactoring_Plan.md`
-(Draft v6.0) Change 1. This section is additive; the contract above remains valid.
+Historical amendment labels:
+`docs/Iris/Iris_Refactoring_Roadmap.md` and
+`docs/Iris/Iris_Refactoring_Plan.md` (Draft v6.0) Change 1. This section is
+additive; the contract above remains valid.
 
-- Single readpoint: `docs/Iris/phase1_inventory_readpoint.md`. Baseline metrics:
+- Historical single readpoint label:
+  `docs/Iris/phase1_inventory_readpoint.md`. Historical baseline metrics label:
   `docs/Iris/phase1_baseline_metrics.md`.
-- Active build/generation manifest (38 scripts, repo-relative, single input for
-  "active-only" measurements such as the v2.4 hardcode count):
+- Historical execution build/generation manifest label (38 scripts, repo-relative,
+  single input for "active-only" measurements such as the v2.4 hardcode count):
   `docs/Iris/phase1_active_script_manifest.txt`.
 - Remeasured tracked Python under `Iris/build` = 73, decomposed as:
   active build/generation 38 (root entrypoints 7 + `tools/pipeline` 13 +
@@ -166,4 +174,5 @@ note just above). The `compose_layer3_*.py` core uses package imports
 `Iris/build/description/v2/tools/common/paths.py` added. Four caller scripts'
 compose imports were updated to the package path. Frozen reproduction scripts
 retain their direct-execution bootstrap and migrate incrementally.
-See `docs/Iris/phase3_compose_import_contract_note.md`.
+Historical compose import note label:
+`docs/Iris/phase3_compose_import_contract_note.md`.

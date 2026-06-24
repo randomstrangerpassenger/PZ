@@ -1,0 +1,70 @@
+{
+  "archive_eligible_count": 0,
+  "delete_eligible_count": 0,
+  "generated_at": "2026-06-11T12:51:00+00:00",
+  "retained_non_current_count": 269,
+  "route_evidence": {
+    "boundary_guard": {
+      "allowed_current_closure_modules": [
+        "build_iris_fixing_index_data",
+        "build_iris_moveables_index_data",
+        "build_iris_recipe_index_data",
+        "build_legacy_active_silent_current_surface_guard_round",
+        "build_static_report_label_cleanup_referent_recovery_round",
+        "compose_layer3_blocks",
+        "compose_layer3_body_profile",
+        "compose_layer3_identity",
+        "compose_layer3_io",
+        "compose_layer3_item",
+        "compose_layer3_render",
+        "compose_layer3_text"
+      ],
+      "schema_version": "round3-boundary-guard-v1",
+      "self_test_enabled": true,
+      "success": true,
+      "synthetic_violation_detected": true,
+      "violation_count": 0,
+      "violations": []
+    },
+    "current": {
+      "closure_enforced": true,
+      "contract_class": "current",
+      "elapsed_seconds": 2.612,
+      "errors": [],
+      "failures": [],
+      "schema_version": "round3-contract-test-run-v1",
+      "selected_identity_count": 44,
+      "skipped": [],
+      "success": true,
+      "test_count": 44
+    },
+    "diagnostic": {
+      "closure_enforced": false,
+      "contract_class": "diagnostic",
+      "elapsed_seconds": 0.388,
+      "errors": [],
+      "failures": [],
+      "schema_version": "round3-contract-test-run-v1",
+      "selected_identity_count": 79,
+      "skipped": [],
+      "success": true,
+      "test_count": 79
+    },
+    "historical": {
+      "closure_enforced": false,
+      "contract_class": "historical",
+      "elapsed_seconds": 3.958,
+      "errors": [],
+      "failures": [],
+      "schema_version": "round3-contract-test-run-v1",
+      "selected_identity_count": 284,
+      "skipped": [],
+      "success": true,
+      "test_count": 284
+    }
+  },
+  "row_count": 281,
+  "schema_version": "round3-d2-invariant-report-v1",
+  "success": true,
+  "violations": []
+}

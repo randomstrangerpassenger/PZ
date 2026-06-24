@@ -1,0 +1,157 @@
+{
+  "schema_version": "interaction-cluster-phase-c-pilot-manifest-v0",
+  "target": 50,
+  "selected_count": 52,
+  "historical_selected_count": 50,
+  "supplement_selected_count": 2,
+  "reviewable_count": 1010,
+  "group_targets": {
+    "high_abstraction": 0,
+    "role_fallback_excess": 25,
+    "layer4_rich_layer3_sparse": 25
+  },
+  "group_counts": {
+    "high_abstraction": 0,
+    "role_fallback_excess": 25,
+    "layer4_rich_layer3_sparse": 25
+  },
+  "selected_item_ids": [
+    "Base.BakingTray_Muffin",
+    "Base.BakingTray_Muffin_Recipe",
+    "Base.BreadSlices",
+    "Base.CakeRaw",
+    "Base.CannedBellPepper",
+    "Base.CannedBroccoli",
+    "Base.CannedCarrots",
+    "Base.CannedEggplant",
+    "Base.CannedLeek",
+    "Base.CannedPotato",
+    "Base.CannedRedRadish",
+    "Base.CannedTomato",
+    "Base.CookieChocolateChipDough",
+    "Base.CookiesChocolateDough",
+    "Base.CookiesOatmealDough",
+    "Base.CookiesShortbreadDough",
+    "Base.CookiesSugarDough",
+    "Base.Dogfood",
+    "Base.Glue",
+    "Base.GriddlePanFriedVegetables",
+    "Base.MuffinTray",
+    "Base.Muffintray_Biscuit",
+    "Base.OmeletteRecipe",
+    "Base.OnionRings",
+    "Base.Pan",
+    "Base.Apron_Black",
+    "Base.Apron_IceCream",
+    "Base.Apron_Jay",
+    "Base.Apron_Spiffos",
+    "Base.Apron_White",
+    "Base.Apron_WhiteTEXTURE",
+    "Base.BadmintonRacket",
+    "Base.Bag_ALICEpack",
+    "Base.Bag_ALICEpack_Army",
+    "Base.Bag_BigHikingBag",
+    "Base.Bag_DuffelBag",
+    "Base.Bag_DuffelBagTINT",
+    "Base.Bag_FannyPackFront",
+    "Base.Bag_FoodCanned",
+    "Base.Bag_FoodSnacks",
+    "Base.Bag_GolfBag",
+    "Base.Bag_MedicalBag",
+    "Base.Bag_Military",
+    "Base.Bag_NormalHikingBag",
+    "Base.Bag_Satchel",
+    "Base.Bag_Schoolbag",
+    "Base.Bag_ShotgunBag",
+    "Base.Bag_ShotgunDblBag",
+    "Base.Bag_ShotgunDblSawnoffBag",
+    "Base.Bag_ShotgunSawnoffBag"
+  ],
+  "coverage_summary": {
+    "assignment_rate": 0.21142857142857144,
+    "reviewable_assignment_rate": 0.2198019801980198,
+    "policy_excluded_count": 40,
+    "cluster_absent_count": 788,
+    "manual_override_required_count": 0,
+    "v9_warn_count": 848
+  },
+  "slice_summary": {
+    "pilot_group_counts": {
+      "high_abstraction": {
+        "available_count": 0,
+        "selected_count": 0
+      },
+      "role_fallback_excess": {
+        "available_count": 152,
+        "selected_count": 25
+      },
+      "layer4_rich_layer3_sparse": {
+        "available_count": 858,
+        "selected_count": 25
+      }
+    },
+    "special_slice_counts": {
+      "tie_break_validation": {
+        "available_count": 0,
+        "selected_count": 0
+      },
+      "direct_use_preservation": {
+        "available_count": 0,
+        "selected_count": 0
+      },
+      "hard_fail_review": {
+        "available_count": 808,
+        "selected_count": 50
+      },
+      "primary_use_gap": {
+        "available_count": 753,
+        "selected_count": 50
+      },
+      "cluster_absent_validation": {
+        "available_count": 788,
+        "selected_count": 50
+      },
+      "renderable_review": {
+        "available_count": 257,
+        "selected_count": 0
+      }
+    },
+    "warnings": [
+      {
+        "code": "pilot_group_unavailable",
+        "group": "high_abstraction",
+        "message": "required pilot group is unavailable in the current historical snapshot"
+      },
+      {
+        "code": "special_slice_unavailable",
+        "slice": "tie_break_validation",
+        "message": "required provisional/merge validation slice is unavailable in the current historical snapshot"
+      },
+      {
+        "code": "special_slice_unavailable",
+        "slice": "direct_use_preservation",
+        "message": "required provisional/merge validation slice is unavailable in the current historical snapshot"
+      }
+    ]
+  },
+  "supplement_summary": {
+    "selected_count": 2,
+    "selected_item_ids": [
+      "Base.CanOpener",
+      "Base.ModKit"
+    ],
+    "covered_targets": [
+      "group:high_abstraction",
+      "slice:direct_use_preservation",
+      "slice:tie_break_validation"
+    ],
+    "uncovered_targets": [],
+    "seed_paths": {
+      "facts": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_facts.jsonl",
+      "decisions": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_decisions.jsonl",
+      "compose_input": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_compose_input.jsonl",
+      "rendered": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_rendered.json",
+      "build_report": "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\interaction_cluster\\historical_snapshot\\phase_c_pilot\\phase_c_seed_build_report.json"
+    }
+  }
+}

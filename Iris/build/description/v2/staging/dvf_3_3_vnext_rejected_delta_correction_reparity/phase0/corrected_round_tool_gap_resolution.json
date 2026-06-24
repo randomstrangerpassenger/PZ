@@ -1,0 +1,7 @@
+{
+  "disposition_gap": "resolved_by_corrected_round_runner_with_success_terminal_contract",
+  "prior_blocked_builder_reused_as_success_contract": false,
+  "regeneration_gap": "resolved_by_corrected_round_runner_with_staging_source_manifest",
+  "schema_version": "dvf-3-3-vnext-rejected-correction-tool-gap-resolution-v0",
+  "status": "PASS"
+}

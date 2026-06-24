@@ -1,0 +1,4084 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
+  "generated_at": "2026-06-18T00:00:00+09:00",
+  "rule_count": 163,
+  "rules": [
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "004fe41efccb9cffaaa6c22a605d9dab",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_004fe41efccb9cff",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "00ef7fe9a578dbbd4e716f868717bb43",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_00ef7fe9a578dbbd",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "027872984aaadf81533a6d6b80252446",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_027872984aaadf81",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "02c59b707f04b695727cdb453aa1721a",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_02c59b707f04b695",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "03dbcca5f08521f5ac6d04956926e3df",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_03dbcca5f08521f5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "06f6befa33de93d072eb3e820f282f41",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_06f6befa33de93d0",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "07b045bc6cc0c967e0d81556aa08af7e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_07b045bc6cc0c967",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "0b9716f6aaab87b0d6566eff2aebe621",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_0b9716f6aaab87b0",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "0be1cecbcbc5629472ed7c3911978004",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_0be1cecbcbc56294",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "0db367908a96495e026fd32c90b95885",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_0db367908a96495e",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "0edf992bf99b09da9f01a765c9efc448",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_0edf992bf99b09da",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "0ef04cbbcf3957b030c6aafb5a777904",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_0ef04cbbcf3957b0",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "149b046727dfc4090bb61a50ceb5b4bd",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_149b046727dfc409",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "15c1f753bd6ce397dfacc4791977be19",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_15c1f753bd6ce397",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "1602617a534964bb0e677d2a9691a8d9",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_1602617a534964bb",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "163cf4aa49163adde18e58f9c6d47ad4",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_163cf4aa49163add",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "17962ba93d0194b5989464a08f4600c6",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_17962ba93d0194b5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "17e9068ae556551cae8f8a37df32531a",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_17e9068ae556551c",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "1fa581bc7b2f1065f074943843155b10",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_1fa581bc7b2f1065",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "24a7902b14bfb2a06d902e0fec5cea81",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_24a7902b14bfb2a0",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "272cab225fdb6d7c3145314bd745b6f9",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_272cab225fdb6d7c",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "2b3da8efb856292330b8c4bb8696de9f",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_2b3da8efb8562923",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "2cba27de19713a7f9a31654890bd3056",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_2cba27de19713a7f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "2d5d2856ac75a05f136efe54cfb2be91",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_2d5d2856ac75a05f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "331d20ee4d8a2781c689780741d75267",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_331d20ee4d8a2781",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "39c165e376247caa33292c82affc0b89",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_39c165e376247caa",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "3bb3405ed2ecab1ad55fc6ecd6d943d1",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_3bb3405ed2ecab1a",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "3be803843b203e210655abe260add040",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_3be803843b203e21",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "3db8a64aa44d99e66454b9c4d818c039",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_3db8a64aa44d99e6",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "3f386a2308628a9c55177697db546d99",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_3f386a2308628a9c",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_artifact_dependency_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "3f695497b1924ab10abee408f9821fed",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_3f695497b1924ab1",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "4035c3c39ec1bbf1e0e7627f6b3194dc",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_4035c3c39ec1bbf1",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "41b2e9dfb1a53aa10d9626174298f7e3",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_41b2e9dfb1a53aa1",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/ROADMAP.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "44565d8815eb2100632f20c9d47f41eb",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_44565d8815eb2100",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "446dfee190ca4eb870a4f2c4596cb0c3",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_446dfee190ca4eb8",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "457e714a69e279f5e6a3f44d1c12a4f3",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_457e714a69e279f5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "4ce770fade0003dded29f914e66e1eff",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_4ce770fade0003dd",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "4dbde72d1ef9c5e80299f64f7c4aa45e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_4dbde72d1ef9c5e8",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "4e026143e80eaea78f3f6e698bfefacb",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_4e026143e80eaea7",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_source_coverage_post_c.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "5226d2288963ac77b31c95b9469ebde6",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_5226d2288963ac77",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "52f78ae054ccf90f1cdfef842ed5399c",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_52f78ae054ccf90f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_disposition_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "54f3ff27efffcc8758b110142b65d835",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_54f3ff27efffcc87",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "562d128166be6857f5b973f279cb0742",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_562d128166be6857",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "575f113d91df199d9d315696d4f7f9cb",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_575f113d91df199d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "57b418b129b6324b1d684dabaaefe14c",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_57b418b129b6324b",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "59dca9e5d27835f7873b52fed0d917be",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_59dca9e5d27835f7",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "59e16814924fd61f73d3c7c81cfaefb8",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_59e16814924fd61f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "5b6c5401c499422db9bdc3840eb0d6fd",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_5b6c5401c499422d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/ROADMAP.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "5c37531e8b17c4bdec87cfae0bcd595d",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_5c37531e8b17c4bd",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_disposition_candidates.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "5cf543722d18e4f33f273380112ea2f2",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_5cf543722d18e4f3",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "5e298b9c9ffeaa6d521b9428368d46ac",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_5e298b9c9ffeaa6d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "61806c5bde359b91bef5807eb1b58551",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_61806c5bde359b91",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "63b30cfc21424f5dc86db79a0fef31a4",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_63b30cfc21424f5d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "667cc6017448a701af7ad75d3e315a51",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_667cc6017448a701",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "6771e41185a6442fb2cbf83bd80f215e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_6771e41185a6442f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "67e89d2716cbdb9cb1af54685cd64265",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_67e89d2716cbdb9c",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "68ce23b4e801e2c62ae3037621943b60",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_68ce23b4e801e2c6",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "691ae771766471c347affff2a622335b",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_691ae771766471c3",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "69b04cab89d75370e5da9e7fa92d5a78",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_69b04cab89d75370",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/DECISIONS.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "70ce1a04e2996d8a8ce27e5ea4d79e35",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_70ce1a04e2996d8a",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "723ffb3786d7de30506cd844f277d2a5",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_723ffb3786d7de30",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "732ae20a2aac24a4d01f63217e265f38",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_732ae20a2aac24a4",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_retained_historical_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "75c69469046045ca27d845f3d1edfe4e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_75c69469046045ca",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "75dd6c39324cec11d473f930226c614c",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_75dd6c39324cec11",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "769864ebf94b4c72c37b339d60f0da62",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_769864ebf94b4c72",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "78575136ed010618887f5b8165aadc0b",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_78575136ed010618",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "788f1a492240338ad9967628469799dd",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_788f1a492240338a",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "7b4e4cf48ecc4d8d15bc5a4c26789194",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_7b4e4cf48ecc4d8d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "7c04a78cf259cdfaa5864ad89065e601",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_7c04a78cf259cdfa",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "7d770d13d84116139c9adaa0b9614dfd",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_7d770d13d8411613",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "7fef130945f605a93e1d84c8d48f7fc2",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_7fef130945f605a9",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "80c9b11755f0860cadbb3e3f777b9c69",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_80c9b11755f0860c",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "80e55aec0697fe4009b777b33b881b81",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_80e55aec0697fe40",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "81c563fe39c6ed2c7191a4a157115713",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_81c563fe39c6ed2c",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "846ce9c93437a4c3991a7470d5c7a3a0",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_846ce9c93437a4c3",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "85bfc2486399d58ef98ef6c1f89435e7",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_85bfc2486399d58e",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "87292b01a87cf88f73be18cc38c43602",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_87292b01a87cf88f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "87de2620ff76e61f8f2a13625c8473ff",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_87de2620ff76e61f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/DECISIONS.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "884cf6d0ddb6e311ca519087fd012653",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_884cf6d0ddb6e311",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "8c4da64698123b37d8636fa69fe6e395",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_8c4da64698123b37",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "8d865fc71b3c8bbee88f6b30d76e2810",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_8d865fc71b3c8bbe",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "8d8be7d4c749faa7ba7cf2df2f0026c0",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_8d8be7d4c749faa7",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "90aac3ac904924b33b82ea702c868629",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_90aac3ac904924b3",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "90ffecdfb3f7158f84aba9401f2aca3c",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_90ffecdfb3f7158f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "92620c6e4a1b127bb7ac235c395c012f",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_92620c6e4a1b127b",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9401d35b0c8db9901b1534849c3b7722",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9401d35b0c8db990",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "94e2ba3b6bbce3a8fd3a64f5f0f58e3e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_94e2ba3b6bbce3a8",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "96f18502aee9d64196dbd23872a9af6b",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_96f18502aee9d641",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "97aad4ae2fc6273fe633f1869645ad2a",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_97aad4ae2fc6273f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "98f0cfdeb6e1f0ab96ba4763e0ce409f",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_98f0cfdeb6e1f0ab",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9a748393c36b0a65545b265f77067f49",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9a748393c36b0a65",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9ae3732da8c88e514490d3a65f44d03b",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9ae3732da8c88e51",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9b1ff7c0bffcb9d2e05c8b763684a761",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9b1ff7c0bffcb9d2",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9bb6d46026c6d9cac74f25365857f36e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9bb6d46026c6d9ca",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9ca95ab82d58e0e01c3ae9ee082d98dc",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9ca95ab82d58e0e0",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_disposition_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9dddbb0aa4cf6e5eac7d7e9a4441abcd",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9dddbb0aa4cf6e5e",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9eea38faa713d3c99aed6661f871706e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9eea38faa713d3c9",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/ROADMAP.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9f0a3d2900217938de35504162f01d0a",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9f0a3d2900217938",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "9ff6d00a905a2f0f174f6c7a1a857e51",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_9ff6d00a905a2f0f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "a24b30d314f488fe72786f2e8ed2fb55",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_a24b30d314f488fe",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "a3e938bf37881b9de79316ac7f84f822",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_a3e938bf37881b9d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "a5623b64d2bca78539c5c5515b545d8f",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_a5623b64d2bca785",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "a753ba2bc24a798211c7a37bce45df45",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_a753ba2bc24a7982",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "ac0135d47766519cdfe3feb8e0e76c8e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_ac0135d47766519c",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "ad7a8274ac2e909701b9fe13c5415b11",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_ad7a8274ac2e9097",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "ae6f7c411fb7fdf19736919960d558e1",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_ae6f7c411fb7fdf1",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "af200262c865de689e351bad5e82eef3",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_af200262c865de68",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b0552fdd22b2ce6f0623cf628be7fa39",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b0552fdd22b2ce6f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/ROADMAP.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b06ec50536c3b84b014997b0af257dc1",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b06ec50536c3b84b",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b163401c5f7de6485dc97365e89cbb6b",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b163401c5f7de648",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b1887e8f4c5648309c68dff4a464dd45",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b1887e8f4c564830",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_retained_historical_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b51afa6069165d3e3d7f052ee21153f7",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b51afa6069165d3e",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b557d05d0f75cd48ad1c0752fd9610c6",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b557d05d0f75cd48",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b66d73d33ba61fa5ac46fb93806fc252",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b66d73d33ba61fa5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b70976d65255d2ab9611319dda55b77d",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b70976d65255d2ab",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b752e5e60a3d613a82c90f89df9358fb",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b752e5e60a3d613a",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "b836df5994524da9a8d47c5f0348bc68",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_b836df5994524da9",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "bb6653028623a03af0e4f2840d19f295",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_bb6653028623a03a",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "bc90772a80695c2de29f423d5caa14db",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_bc90772a80695c2d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "bcb5bac22c2aef570f8915011a186646",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_bcb5bac22c2aef57",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "be6f1d0db751b4b17b72ab0b7ea2ae92",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_be6f1d0db751b4b1",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "bea1f95628a535c94538792c6fa3900e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_bea1f95628a535c9",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "bed2f91e6bad4e8794eea7056d3a783c",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_bed2f91e6bad4e87",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c167989467500dcd95dfa4d17a82c877",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c167989467500dcd",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_compose_layer3_text_v2.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c3141d75308dcae56d0e58d279669429",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c3141d75308dcae5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c3cde225a16f75e9dd91af59406eccb5",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c3cde225a16f75e9",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c3e08a1ae426c7c5725eb170518386c2",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c3e08a1ae426c7c5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c6d2097b7386dc5dbcf342f2fc98ab92",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c6d2097b7386dc5d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c778d62a305abcf1e9ec43de886b0719",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c778d62a305abcf1",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c7c2d397895dd7cc9c3e0af761c2e4f7",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c7c2d397895dd7cc",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_retained_historical_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c8470bd8d000c59ec07f5df29096ac2d",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c8470bd8d000c59e",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase2_runtime_adoption.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "c99752b3ded3b5c1b7d96e009e10bd9c",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_c99752b3ded3b5c1",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "cc544d465ae83b3be43b64e30cc02839",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_cc544d465ae83b3b",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "ce54da4fd80c52d45e65605db4680ef8",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_ce54da4fd80c52d4",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "cf8fab2f10cf34e57119fb93f2b2020a",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_cf8fab2f10cf34e5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "d114baca7c54c10ea275e9d71bb3e08c",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_d114baca7c54c10e",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "d4f243935babdc498793b9bb6d5c795a",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_d4f243935babdc49",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "d58955794eb74d93c6149d348b0204a2",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_d58955794eb74d93",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "d772ff30d921b012af4d251a25570ff3",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_d772ff30d921b012",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "d9bb0e264aba3a3c57fc7f482b1ca5bf",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_d9bb0e264aba3a3c",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "dc1d11455c9464cb70a886dd401857c7",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_dc1d11455c9464cb",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "dcb967b728461d92b342e3e5812d0add",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_dcb967b728461d92",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "dd071bf24b05e93f3a1b091ae5a59103",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_dd071bf24b05e93f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "dd402a4aa4886a4b2633526876abfe56",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_dd402a4aa4886a4b",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "e02f411661ee3b76b28e65c22d48120a",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_e02f411661ee3b76",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_disposition_candidates.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "e0991a48478503db96cea257b9c0439e",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_e0991a48478503db",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "e403d8b1a57cbb35c7f5f81a0568084b",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_e403d8b1a57cbb35",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "e435d0d66479127de9ea79a7aa517461",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_e435d0d66479127d",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "e5e8f7b18374b5884eebb8a0bafc4f71",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_e5e8f7b18374b588",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/DECISIONS.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "e610694694e319b1e929fa5f0acba251",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_e610694694e319b1",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "e6aade486c7209a98b5a0c561f3741d2",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_e6aade486c7209a9",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "eaf1f1ea92b1f08e0c6e1b4f8ef37f00",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_eaf1f1ea92b1f08e",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "ee594dc9f08234f5be6731c11e1c55d4",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_ee594dc9f08234f5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "f47a4325075bd45f2fbe86fbcc7b558d",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_f47a4325075bd45f",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_contract_manifest.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "f4c37362052e6598c4bd8e48fc2febb3",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_f4c37362052e6598",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/DECISIONS.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "f51d31985e78f5aa9d51c8cfa30a77cb",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_f51d31985e78f5aa",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "validator-gate",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "f613f10e573175b7b39fa4ca00cd1d05",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_f613f10e573175b7",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "f7789c96964e23f5b365b0e63c5915f3",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_f7789c96964e23f5",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "f861b56801050d80e7ecdc755903c425",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_f861b56801050d80",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "runtime-consumer",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "fa43850f1effd6c09ed1c68c588c4cce",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_fa43850f1effd6c0",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "docs/ROADMAP.md"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "document-authority",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "fb3bb73386642005a8ddeec34ca7ad21",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_fb3bb73386642005",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_baseline_tree_snapshot.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "fd7cea7ecef1f967ae944f6773635264",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_fd7cea7ecef1f967",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    },
+    {
+      "after_pattern_policy": "successor_authority_handle_marker",
+      "allowed_migration_disposition": [
+        "migrated_to_manifest_authority"
+      ],
+      "allowed_paths": [
+        "Iris/_docs/round3/round3_legacy_full_discovery_baseline.json"
+      ],
+      "before_pattern_policy": "line_token_bounded_context",
+      "forbidden_paths": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output"
+      ],
+      "input_consumer_type": "test-assertion",
+      "input_current_authority_role": "predecessor_current_authority_reference",
+      "legacy_vocabulary_reintroduction_allowed": false,
+      "numeric_replacement_allowed": false,
+      "operation_kind": "authority_role_migration",
+      "required_after_anchor_policy": "row_id_marker_must_exist_in_sandbox_diff",
+      "required_before_context_hash": "fdef41edb3f22bbc6d2e489d57eb3bb0",
+      "requires_evidence_anchor": true,
+      "rule_id": "authority_role_fdef41edb3f22bbc",
+      "target_authority_handle": "phase3/after_target_authority_handle.json",
+      "target_authority_role": "successor_candidate_manifest_authority"
+    }
+  ],
+  "schema_version": "dvf-3-3-vnext-authority-role-migration-rules-v0",
+  "status": "PASS"
+}

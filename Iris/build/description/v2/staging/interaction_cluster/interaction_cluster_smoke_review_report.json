@@ -1,0 +1,19 @@
+{
+  "schema_version": "interaction-cluster-smoke-review-report-v0",
+  "review_present": true,
+  "review_complete": false,
+  "reviewed_count": 0,
+  "missing_review_count": 6,
+  "cluster_misaligned_count": 0,
+  "cluster_misaligned_rate": 0.0,
+  "too_generic_use_count": 0,
+  "too_generic_use_rate": 0.0,
+  "missing_review_rows": [
+    "Base.CanOpener",
+    "Base.ElectronicsScrap",
+    "Base.GunpowderCan",
+    "Base.ModKit",
+    "Base.Tongs",
+    "Base.WeldingTorch"
+  ]
+}

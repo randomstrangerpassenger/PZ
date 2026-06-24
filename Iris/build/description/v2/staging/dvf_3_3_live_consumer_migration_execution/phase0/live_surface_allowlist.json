@@ -1,0 +1,23 @@
+{
+  "allowlist": [
+    {
+      "path_prefix": "Iris/_docs/round3/",
+      "surface_role": "current_route_test_index_consumer",
+      "writable_in_this_round": true
+    },
+    {
+      "path_prefix": "Iris/build/description/v2/tests/",
+      "surface_role": "test_assertion_consumer",
+      "writable_in_this_round": true
+    },
+    {
+      "path_prefix": "Iris/build/description/v2/tools/build/",
+      "surface_role": "validator_gate_consumer",
+      "writable_in_this_round": true
+    }
+  ],
+  "generated_at": "2026-06-21T00:00:00+09:00",
+  "non_allowlist_default": "live_ambiguous_or_excluded_non_live_target",
+  "schema_version": "dvf-3-3-live-surface-allowlist-v1",
+  "status": "PASS"
+}

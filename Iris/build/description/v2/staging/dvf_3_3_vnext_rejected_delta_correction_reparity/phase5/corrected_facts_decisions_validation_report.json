@@ -1,0 +1,20 @@
+{
+  "compose_profile_counts": {
+    "material_body": 240,
+    "output_body": 721,
+    "tool_body": 1144
+  },
+  "decisions_count": 2105,
+  "errors": [],
+  "facts_count": 2105,
+  "generated_at": "2026-06-23T17:37:38.559399+00:00",
+  "key_parity": true,
+  "legacy_current_vocabulary_count": 0,
+  "predecessor_hard_fail_deferred_count": 836,
+  "schema_version": "dvf-3-3-vnext-facts-decisions-validation-v0",
+  "state_counts": {
+    "adopted": 2084,
+    "unadopted": 21
+  },
+  "status": "PASS"
+}

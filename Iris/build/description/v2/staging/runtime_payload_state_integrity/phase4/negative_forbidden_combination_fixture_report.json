@@ -1,0 +1,43 @@
+{
+  "allowed_fixture_count": 1,
+  "forbidden_fixture_count": 1,
+  "generated_at": "2026-06-23T17:38:42.706895+00:00",
+  "rows": [
+    {
+      "adoption_state": null,
+      "chunk_path": "<fixture>",
+      "classification": "forbidden_current",
+      "current_like": true,
+      "derived_adoption_state": "unadopted",
+      "entry_line": 1,
+      "item_id": "Fixture.UnadoptedExposedText",
+      "publish_axis": "exposed",
+      "publish_state": "exposed",
+      "runtime_state": null,
+      "source": "unadopted",
+      "surface_id": "negative_fixture",
+      "surface_role": "negative_fixture",
+      "text_ko_length": 13,
+      "text_ko_value_state": "non_nil_string"
+    },
+    {
+      "adoption_state": null,
+      "chunk_path": "<fixture>",
+      "classification": "allowed_current",
+      "current_like": true,
+      "derived_adoption_state": "unadopted",
+      "entry_line": 2,
+      "item_id": "Fixture.UnadoptedNil",
+      "publish_axis": "missing",
+      "publish_state": null,
+      "runtime_state": null,
+      "source": "unadopted",
+      "surface_id": "negative_fixture",
+      "surface_role": "negative_fixture",
+      "text_ko_length": 0,
+      "text_ko_value_state": "null_or_nil"
+    }
+  ],
+  "schema_version": "runtime-payload-state-negative-fixture-report-v1",
+  "status": "PASS"
+}

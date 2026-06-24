@@ -1,0 +1,114 @@
+{
+  "active_silent_forbidden_scan": {
+    "active_silent_hit_count": 0,
+    "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
+    "generated_at": "2026-06-23T17:38:42.718441+00:00",
+    "hits": [],
+    "schema_version": "runtime-payload-state-forbidden-vocabulary-scan-v1",
+    "status": "PASS"
+  },
+  "allowed_combination_count": 2,
+  "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
+  "forbidden_rows": [],
+  "generated_at": "2026-06-23T17:38:42.706869+00:00",
+  "matrix_status": "PASS",
+  "negative_fixture": {
+    "allowed_fixture_count": 1,
+    "forbidden_fixture_count": 1,
+    "generated_at": "2026-06-23T17:38:42.706895+00:00",
+    "rows": [
+      {
+        "adoption_state": null,
+        "chunk_path": "<fixture>",
+        "classification": "forbidden_current",
+        "current_like": true,
+        "derived_adoption_state": "unadopted",
+        "entry_line": 1,
+        "item_id": "Fixture.UnadoptedExposedText",
+        "publish_axis": "exposed",
+        "publish_state": "exposed",
+        "runtime_state": null,
+        "source": "unadopted",
+        "surface_id": "negative_fixture",
+        "surface_role": "negative_fixture",
+        "text_ko_length": 13,
+        "text_ko_value_state": "non_nil_string"
+      },
+      {
+        "adoption_state": null,
+        "chunk_path": "<fixture>",
+        "classification": "allowed_current",
+        "current_like": true,
+        "derived_adoption_state": "unadopted",
+        "entry_line": 2,
+        "item_id": "Fixture.UnadoptedNil",
+        "publish_axis": "missing",
+        "publish_state": null,
+        "runtime_state": null,
+        "source": "unadopted",
+        "surface_id": "negative_fixture",
+        "surface_role": "negative_fixture",
+        "text_ko_length": 0,
+        "text_ko_value_state": "null_or_nil"
+      }
+    ],
+    "schema_version": "runtime-payload-state-negative-fixture-report-v1",
+    "status": "PASS"
+  },
+  "renderer_scan": {
+    "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
+    "generated_at": "2026-06-23T17:38:42.703522+00:00",
+    "publish_state_interpretation": "renderer fallback branch only; current payload has no publish_state authority",
+    "publish_state_read_hit_count": 6,
+    "renderer_files": [
+      {
+        "exists": true,
+        "hits": [
+          {
+            "line": 84,
+            "text": "if entry and entry.publish_state then",
+            "token": "publish_state"
+          },
+          {
+            "line": 85,
+            "text": "return entry.publish_state",
+            "token": "publish_state"
+          },
+          {
+            "line": 104,
+            "text": "local publishState = entry.publish_state",
+            "token": "publish_state"
+          }
+        ],
+        "path": "Iris/media/lua/client/Iris/Data/layer3_renderer.lua"
+      },
+      {
+        "exists": true,
+        "hits": [
+          {
+            "line": 84,
+            "text": "if entry and entry.publish_state then",
+            "token": "publish_state"
+          },
+          {
+            "line": 85,
+            "text": "return entry.publish_state",
+            "token": "publish_state"
+          },
+          {
+            "line": 104,
+            "text": "local publishState = entry.publish_state",
+            "token": "publish_state"
+          }
+        ],
+        "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/layer3_renderer.lua"
+      }
+    ],
+    "schema_version": "runtime-payload-state-renderer-scan-v1",
+    "source_or_quality_policy_hit_count": 0,
+    "status": "PASS"
+  },
+  "schema_version": "runtime-payload-shape-validation-report-v1",
+  "status": "PASS",
+  "unclassified_rows": []
+}

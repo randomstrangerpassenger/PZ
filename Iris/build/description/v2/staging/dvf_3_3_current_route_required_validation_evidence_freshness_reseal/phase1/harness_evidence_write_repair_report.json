@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-06-25T07:53:02.385547+00:00",
+  "pass_predicate_change_count": 0,
+  "path_handling_change_count": 0,
+  "repair_applied": false,
+  "repair_scope": "none_required",
+  "required_set_change_count": 0,
+  "schema_version": "dvf-3-3-current-route-required-validation-harness-repair-v1",
+  "status": "PASS",
+  "validation_semantic_change_count": 0
+}

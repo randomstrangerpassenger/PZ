@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "drift_closeout_state_canonical": true,
+    "drift_final_status_pass": true,
+    "drift_has_no_live_required_validation_manifest_adoption_claim": true,
+    "drift_integration_is_candidate_only": true,
+    "drift_machine_contract_pass": true,
+    "drift_matrix_pass": true,
+    "recorded_decisions_count_matches": true,
+    "recorded_decisions_hash_matches": true,
+    "recorded_facts_count_matches": true,
+    "recorded_facts_hash_matches": true,
+    "recorded_overlay_count_matches": true,
+    "recorded_overlay_hash_matches": true,
+    "source_redrive_pass": true
+  },
+  "current_redrive_status": "PASS",
+  "drift_evidence_role": "read_only_governance_evidence",
+  "drift_final_report": {
+    "bytes": 2463,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json",
+    "role": "drift_final_report",
+    "sha256": "dd9c86b7ab6a3a9136b6120aa91d6c45e43ea0dca32e7f47c378b91ed0884c4b"
+  },
+  "drift_source_matrix": {
+    "bytes": 1790,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase1/source_hash_count_matrix.json",
+    "role": "drift_recorded_source_hash_count_matrix",
+    "sha256": "c04bfb71ac21994d43943ca1b0712dcf3dac80ca69b94d346f320965d07209dc"
+  },
+  "generated_at": "2026-06-25T07:51:23.682034+00:00",
+  "mismatch_count": 0,
+  "mismatches": [],
+  "schema_version": "dvf-3-3-current-route-required-validation-drift-field-check-v1",
+  "status": "PASS"
+}

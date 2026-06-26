@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-06-26T14:32:44.654616+00:00",
+  "minimal_runner_write_sink_fix_used": true,
+  "pass_interpretation_change_count": 0,
+  "repair_applied": true,
+  "repair_scope": "jsonl_write_sink_errno_22_retry_and_atomic_temp_fallback",
+  "required_set_change_count": 0,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-minimal-runner-write-sink-fix-v1",
+  "status": "PASS",
+  "validation_predicate_change_count": 0
+}

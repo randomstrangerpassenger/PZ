@@ -1,0 +1,8 @@
+{
+  "changed": [],
+  "changed_count": 0,
+  "protected_surface_scope": "source_rendered_lua_bridge_runtime_package",
+  "schema_version": "dvf-3-3-current-source-authority-drift-final-no-mutation-v1",
+  "status": "PASS",
+  "surface_class": "all"
+}

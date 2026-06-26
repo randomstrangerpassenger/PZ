@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-06-25T07:53:02.385552+00:00",
+  "runner_exit_code": 0,
+  "runner_result_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase4/current_route_validation_result.json",
+  "schema_version": "dvf-3-3-current-route-required-validation-terminal-reachability-v1",
+  "status": "PASS",
+  "terminal_verdict_reached": true
+}

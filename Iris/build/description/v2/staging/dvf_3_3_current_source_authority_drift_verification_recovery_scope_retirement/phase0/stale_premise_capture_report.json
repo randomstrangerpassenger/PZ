@@ -1,0 +1,171 @@
+{
+  "current_decisions_count": 2105,
+  "current_facts_6_is_stale_premise": true,
+  "current_facts_count": 2105,
+  "schema_version": "dvf-3-3-current-source-authority-drift-stale-premise-capture-v1",
+  "six_not_equal_2105_is_stale_recovery_premise": true,
+  "stale_candidate_occurrences": [
+    {
+      "line": 405,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Full current-route closure depends on the current source baseline and source-overlay contract. The previous `CURRENT_FACTS=6` vs `2105` and missing `body_source_overlay` blocker for a runtime-adopted row was a Current-Route Baseline / Source-Overlay Repair issue, not a denominator, terminal disposition, shared disposition, or live migration readiness failure."
+    },
+    {
+      "line": 407,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "The repaired current-route contract uses `docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md` as the canonical `primary_problem7_plan`. The predecessor repair plan is a `predecessor_contract_plan` only; it has no execution authority. The current-route build surface consumes the vNext source / overlay / rendered / runtime evidence contract consistently across compose, current-authority, and Layer4 trace consumers. `CURRENT_FACTS=6` is not the full current-route universe ex"
+    },
+    {
+      "line": 30,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "No current-looking 6-entry fixture payload or predecessor current-authority"
+    },
+    {
+      "line": 55,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* stale premise capture for `CURRENT_FACTS=6` / `6 != 2105`"
+    },
+    {
+      "line": 64,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* current-looking 6-entry fixture payload scan"
+    },
+    {
+      "line": 73,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* content-derived 6-entry signature generation and determinism check"
+    },
+    {
+      "line": 112,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* 6-entry fixture current source 재승격"
+    },
+    {
+      "line": 127,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* using a hard-coded item ID list as authoritative 6-entry fixture signature"
+    },
+    {
+      "line": 138,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* `CURRENT_FACTS=6`을 current universe expectation으로 되살리지 않는다."
+    },
+    {
+      "line": 163,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* `CURRENT_FACTS=6`과 6-entry fixture payload는 current universe expectation이 아니라 predecessor / fixture / diagnostic trace로만 허용된다."
+    },
+    {
+      "line": 172,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* 6-entry predecessor fixture membership은 실행 시점에 sealed predecessor fixture artifact에서 content-derived로 도출한다."
+    },
+    {
+      "line": 323,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* Capture `6 != 2105` and `CURRENT_FACTS=6` as stale premise candidates unless current live data proves otherwise."
+    },
+    {
+      "line": 389,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "Confirm current-route consumers resolve to successor current source paths and direct current compose no longer depends on stale 6-entry predecessor fixtures or missing overlay blockers."
+    },
+    {
+      "line": 456,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "Prove current-looking paths do not contain 6-entry fixture payloads and predecessor `2105 / 2084 / 21` cannot reenter as current hard gate, runtime authority, package authority, release readiness, or current debt."
+    },
+    {
+      "line": 461,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* Read: docs and tooling claims containing `2105`, `2084`, `21`, `CURRENT_FACTS=6`, and 6-entry signatures"
+    },
+    {
+      "line": 472,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* Second, read prior repair evidence that classifies 6-row fixtures, especially `current_facts_6_disposition_lock.md`, `source_baseline_role_classification_report.json`, and `base_canopener_fixture_leak_report.json` when present."
+    },
+    {
+      "line": 475,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* If multiple sealed predecessor fixture candidates exist, apply this deterministic selection rule before signature derivation: first prefer an existing candidate explicitly classified by prior repair evidence as `fixture_non_authority` / 6-row predecessor fixture with row count `<= fixture_threshold`; then prefer manifest-excluded candidates with row count `<= fixture_threshold` if the manifest exclusion points at a concrete fixture payload; then prefer stale bridge quarantine evidence only whe"
+    },
+    {
+      "line": 477,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* Derive the 6-entry membership from sealed predecessor fixture artifact content and write `content_derived_six_entry_signature.json`."
+    },
+    {
+      "line": 490,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* `current_looking_fixture_payload_scan.json` reports content-derived 6-entry current-looking payload count `0`."
+    },
+    {
+      "line": 592,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* content-derived 6-entry fixture signature derivation check"
+    },
+    {
+      "line": 593,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* 6-entry fixture signature determinism check"
+    },
+    {
+      "line": 594,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* 6-entry fixture non-reentry check using the content-derived signature"
+    },
+    {
+      "line": 681,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* A stale 6-entry current-looking runtime payload could be missed if scan signatures are too narrow. This is mitigated by deriving the signature from sealed predecessor fixture content."
+    },
+    {
+      "line": 729,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* `CURRENT_FACTS=6` cannot return as current universe expectation."
+    },
+    {
+      "line": 734,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* 6-entry fixture scan must use a content-derived signature from sealed predecessor fixture artifacts. Hard-coded IDs are cross-checks only."
+    },
+    {
+      "line": 768,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* 6-entry fixture signature is content-derived from selected sealed predecessor fixture artifact content with deterministic candidate discovery, `fixture_threshold`, `threshold_source`, selection rule, rejected candidate reasons, selected artifact hash, and derivation determinism PASS"
+    },
+    {
+      "line": 769,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "* current-looking path contains no content-derived 6-entry fixture payload"
+    },
+    {
+      "line": 779,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "text": "If any source identity mismatch, consumer path drift, missing overlay blocker, rendered identity drift, 6-entry fixture reentry, predecessor authority reentry, or protected mutation is found, expected closeout becomes `blocked_authorized_repair_or_correction_scope_required`."
+    },
+    {
+      "line": 367,
+      "path": "docs/ROADMAP.md",
+      "text": "* frozen 2105, prior staging, 6-entry fixture, legacy bridge, monolith output은 current authority가 아니라 historical / comparison / diagnostic / prerequisite trace로만 보존한다."
+    },
+    {
+      "line": 474,
+      "path": "docs/ROADMAP.md",
+      "text": "* stale bridge와 legacy 6-entry payload는 current fallback이나 package authority로 사용하지 않는다."
+    },
+    {
+      "line": 521,
+      "path": "docs/ROADMAP.md",
+      "text": "* broad current-route runner의 이전 `CURRENT_FACTS=6` vs `2105` 및 `Base.CanOpener` overlay blocker는 Current-Route Baseline / Source-Overlay Repair에서 별도로 닫혔다. Denominator adoption PASS는 여전히 terminal/shared/current-route repair completion을 대체하지 않는다."
+    },
+    {
+      "line": 536,
+      "path": "docs/ROADMAP.md",
+      "text": "* `CURRENT_FACTS=6`은 full current-route universe expectation으로 쓰지 않는다. vNext `2105` row universe는 source / overlay / rendered / runtime evidence contract로 소비하지만 old predecessor authority 복구나 current debt로 재진입하지 않는다."
+    }
+  ],
+  "status": "PASS",
+  "successor_universe_count": 2105
+}

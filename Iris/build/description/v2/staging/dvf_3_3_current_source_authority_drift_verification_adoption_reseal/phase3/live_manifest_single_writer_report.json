@@ -1,0 +1,10 @@
+{
+  "concurrent_writer_detected": false,
+  "generated_at": "2026-06-26T14:32:45.822580+00:00",
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "manual_edit_required": false,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-live-manifest-single-writer-v1",
+  "single_writer_model": "adoption_reseal_tool_is_single_writer_for_round_entries",
+  "status": "PASS",
+  "writer": "Iris/build/description/v2/tools/build/dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py"
+}

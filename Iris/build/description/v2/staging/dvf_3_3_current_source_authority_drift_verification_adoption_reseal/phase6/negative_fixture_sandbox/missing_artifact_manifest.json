@@ -1,0 +1,19 @@
+{
+  "claim": "negative_fixture::missing_artifact",
+  "required": true,
+  "required_artifacts": [
+    {
+      "path": "missing.json"
+    }
+  ],
+  "required_tests": [
+    {
+      "required": true,
+      "role": "negative_fixture_only",
+      "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.negative_fixture_synthetic_pass"
+    }
+  ],
+  "route": "current",
+  "schema_version": "round3-current-route-required-validations-v1",
+  "status": "PASS"
+}

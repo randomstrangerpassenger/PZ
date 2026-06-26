@@ -1,0 +1,13 @@
+{
+  "conditions": [
+    "new_read_only_evidence_of_manifest_live_hash_or_count_mismatch",
+    "new_read_only_evidence_of_current_route_consumer_path_drift",
+    "new_read_only_evidence_of_rendered_input_identity_drift",
+    "new_read_only_evidence_of_missing_overlay_regression",
+    "new_read_only_evidence_of_predecessor_reentry",
+    "protected_surface_mutation_detected_during_no_write_verification"
+  ],
+  "default_state_without_new_evidence": "do_not_reopen_recovery_scope",
+  "schema_version": "dvf-3-3-current-source-authority-drift-future-contingency-v1",
+  "status": "PASS"
+}

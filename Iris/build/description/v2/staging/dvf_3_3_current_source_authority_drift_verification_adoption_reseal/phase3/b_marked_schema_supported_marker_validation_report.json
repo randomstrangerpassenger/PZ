@@ -1,0 +1,9 @@
+{
+  "applicability": "not_applicable_selected_branch_a",
+  "b_marked_live_manifest_marker_written": false,
+  "generated_at": "2026-06-26T14:32:45.824376+00:00",
+  "marker_role": "not_applicable",
+  "schema_supported_marker_required": false,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-b-marked-marker-schema-v1",
+  "status": "PASS"
+}

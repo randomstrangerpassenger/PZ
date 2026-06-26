@@ -3,13 +3,19 @@
   "enforcement": "fail_closed",
   "generated_at": "2026-06-17T16:28:41.744038+00:00",
   "non_claims": [
-    "no_package_release_readiness",
-    "no_workshop_readiness",
     "no_b42_readiness",
+    "no_lua_bridge_export",
     "no_manual_in_game_validation",
+    "no_package_payload_mutation",
+    "no_package_release_readiness",
     "no_public_facing_text_quality_acceptance",
+    "no_release_readiness",
+    "no_rendered_regeneration",
+    "no_runtime_chunk_replacement",
+    "no_runtime_payload_state_integrity_complete_closeout",
     "no_runtime_policy_mutation",
-    "no_runtime_payload_state_integrity_complete_closeout"
+    "no_source_restoration",
+    "no_workshop_readiness"
   ],
   "required": true,
   "required_artifacts": [
@@ -424,6 +430,366 @@
         }
       ],
       "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "validation/governance surface impact only",
+          "field": "authority_surface"
+        },
+        {
+          "equals": true,
+          "field": "external_validation_bundle_reseal_required"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_consumption_contract.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "successor_current_source_authority",
+          "field": "authority_role"
+        },
+        {
+          "equals": 2105,
+          "field": "successor_universe_count"
+        },
+        {
+          "equals": true,
+          "field": "checks.facts_match_manifest"
+        },
+        {
+          "equals": true,
+          "field": "checks.decisions_match_manifest"
+        },
+        {
+          "equals": true,
+          "field": "checks.overlay_match_manifest"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "mismatch_count"
+        },
+        {
+          "equals": "PASS",
+          "field": "current_redrive_status"
+        },
+        {
+          "equals": "read_only_governance_evidence",
+          "field": "drift_evidence_role"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_field_check_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "removed_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "modified_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "duplicate_entries"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/live_required_manifest_update_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": false,
+          "field": "runtime_authority_mutation"
+        },
+        {
+          "equals": "wrapper_final_validation",
+          "field": "external_bundle_reseal_requirement_surface"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/taxonomy_separation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "removed_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "modified_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "duplicate_entries"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/additive_diff_bijection_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "implementation_token_parity"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/plan_token_parity_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "live_manifest_consumes_drift_via_evidence_freshness_reseal"
+        },
+        {
+          "equals": false,
+          "field": "sealed_live_divergence_detected"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/sealed_reseal_record_live_manifest_rederivation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "substring_only_match_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/required_manifest_presence_structured_match_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "non_writer_required_manifest_union",
+          "field": "taxonomy_writer_mode"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/taxonomy_presence_structured_match_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "successor_current_source_authority",
+          "field": "authority_role"
+        },
+        {
+          "equals": 2105,
+          "field": "successor_universe_count"
+        },
+        {
+          "equals": true,
+          "field": "checks.facts_match_manifest"
+        },
+        {
+          "equals": true,
+          "field": "checks.decisions_match_manifest"
+        },
+        {
+          "equals": true,
+          "field": "checks.overlay_match_manifest"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/current_source_identity_redrive_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "missing_blocks_validation_count"
+        },
+        {
+          "equals": true,
+          "field": "classification_enum_matches_plan"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/tracking_reproducibility_classification_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "branch_a_required_gate_adopted",
+          "field": "selected_branch"
+        },
+        {
+          "equals": true,
+          "field": "owner_decision_after_machine_predicates"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/branch_selection_contract_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "adopted_required_gate",
+          "field": "required_gate_adoption_status"
+        },
+        {
+          "equals": 0,
+          "field": "removed_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "modified_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "duplicate_entries"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/live_manifest_adoption_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "adoption_reseal_tool_is_single_writer_for_round_entries",
+          "field": "single_writer_model"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/live_manifest_single_writer_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "non_writer_required_manifest_union",
+          "field": "taxonomy_writer_mode"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/taxonomy_single_writer_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "evidence_freshness_reseal_taxonomy_separation_preserved"
+        },
+        {
+          "equals": false,
+          "field": "runtime_authority_mutation"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/taxonomy_separation_additive_compatibility_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "branch_a_required_gate_adopted",
+          "field": "selected_branch"
+        },
+        {
+          "equals": 0,
+          "field": "removed_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "modified_existing_entries"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/required_validation_count_delta_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "not_applicable_selected_branch_a",
+          "field": "applicability"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/b_marked_schema_supported_marker_validation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": false,
+          "field": "live_manifest_mutated"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_matrix_report.json"
     }
   ],
   "required_tests": [
@@ -566,6 +932,36 @@
       "required": true,
       "role": "closeout_reentry_guard_required_validation",
       "test_id": "test_dvf_3_3_closeout_reentry_guard_seal.DvfCloseoutReentryGuardSealTest.test_validator_requires_full_current_route_result_for_complete_contract"
+    },
+    {
+      "required": true,
+      "role": "current_route_required_validation_evidence_freshness_reseal_required_validation",
+      "test_id": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_current_source_identity_redrive_and_drift_field_check_pass"
+    },
+    {
+      "required": true,
+      "role": "current_route_required_validation_evidence_freshness_reseal_required_validation",
+      "test_id": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_live_manifest_update_is_additive_and_governance_only"
+    },
+    {
+      "required": true,
+      "role": "current_route_required_validation_evidence_freshness_reseal_required_validation",
+      "test_id": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_negative_fixtures_remain_fail_closed_without_live_mutation"
+    },
+    {
+      "required": true,
+      "role": "current_source_authority_drift_adoption_reseal_required_validation",
+      "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_branch_selection_contract_and_rederivation_pass"
+    },
+    {
+      "required": true,
+      "role": "current_source_authority_drift_adoption_reseal_required_validation",
+      "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_live_manifest_adoption_is_additive_and_governance_only"
+    },
+    {
+      "required": true,
+      "role": "current_source_authority_drift_adoption_reseal_required_validation",
+      "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_negative_fixture_matrix_passes_without_live_mutation"
     }
   ],
   "route": "current",

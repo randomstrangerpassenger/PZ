@@ -1,0 +1,46 @@
+{
+  "plan": {
+    "bytes": 66199,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+    "role": "direct_plan_artifact",
+    "sha256": "a124bb867d573767059f57c118dd0a8fdcd8ba33c2a60b82600c6d7c2b197ea3"
+  },
+  "repo_docs_rebind": [
+    {
+      "bytes": 20251,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/Philosophy.md",
+      "role": "top_authority",
+      "sha256": "938c52e9090c36af00dac18b64905e12a4f2390ac238a26121a63a14f81f44b2"
+    },
+    {
+      "bytes": 135956,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/DECISIONS.md",
+      "role": "current_readpoint",
+      "sha256": "f6f86931215fa6a4752555ee5a7f6d1c1bdeb802b38df941322b00e9d073b63d"
+    },
+    {
+      "bytes": 44409,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ARCHITECTURE.md",
+      "role": "current_readpoint",
+      "sha256": "e46e21a65d3dfa288308e44f117b5251821e37e64bd4b79b05ff0fd1be2af511"
+    },
+    {
+      "bytes": 56111,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ROADMAP.md",
+      "role": "current_readpoint",
+      "sha256": "3b1326ac8b2d3f2e9ce160a31906004fe3de69cdbabe77e5c39b7ff918e2a92c"
+    }
+  ],
+  "schema_version": "dvf-3-3-current-route-required-validation-provenance-rebind-v1",
+  "status": "PASS"
+}

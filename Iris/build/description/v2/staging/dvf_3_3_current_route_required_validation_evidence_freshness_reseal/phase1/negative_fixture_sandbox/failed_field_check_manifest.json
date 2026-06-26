@@ -1,0 +1,25 @@
+{
+  "claim": "negative_fixture::failed_field_check",
+  "required": true,
+  "required_artifacts": [
+    {
+      "checks": [
+        {
+          "equals": "INTENTIONAL_FAIL",
+          "field": "status"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/stale_external_validation_bundle_manifest.json"
+    }
+  ],
+  "required_tests": [
+    {
+      "required": true,
+      "role": "negative_fixture_only",
+      "test_id": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.negative_fixture_synthetic_pass"
+    }
+  ],
+  "route": "current",
+  "schema_version": "round3-current-route-required-validations-v1",
+  "status": "PASS"
+}

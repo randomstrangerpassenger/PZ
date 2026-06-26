@@ -1,0 +1,351 @@
+{
+  "artifact_hashes": [
+    {
+      "actual_sha256": "095002e4ed8ed9e9bf647f3d9fd1ca6f9154a802e0aa4e8372e80acf6f0ba713",
+      "exists": true,
+      "expected_sha256": "095002e4ed8ed9e9bf647f3d9fd1ca6f9154a802e0aa4e8372e80acf6f0ba713",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/readpoint_inventory.json",
+      "root_relative_path": "phase0/readpoint_inventory.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "6c763a0e4a003c3f4e539f1c533a43c8f82806ac64382e1a00ed9c37af0bf76c",
+      "exists": true,
+      "expected_sha256": "6c763a0e4a003c3f4e539f1c533a43c8f82806ac64382e1a00ed9c37af0bf76c",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/plan_token_parity_report.json",
+      "root_relative_path": "phase0/plan_token_parity_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "1fd4d04d5dae0d2616ff2e679a524c313ff7b1d7c79b7354278aac0056720e51",
+      "exists": true,
+      "expected_sha256": "1fd4d04d5dae0d2616ff2e679a524c313ff7b1d7c79b7354278aac0056720e51",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/sealed_reseal_record_live_manifest_rederivation_report.json",
+      "root_relative_path": "phase0/sealed_reseal_record_live_manifest_rederivation_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "75756cc0c0e6f561ec7b566d6f23130fa9d60b1f0e7a4ad74f31592c31bb2c90",
+      "exists": true,
+      "expected_sha256": "75756cc0c0e6f561ec7b566d6f23130fa9d60b1f0e7a4ad74f31592c31bb2c90",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/required_manifest_presence_structured_match_report.json",
+      "root_relative_path": "phase0/required_manifest_presence_structured_match_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "79c3246d617105e036db430a32bff08a9fcdc0c470d3f0953c1ade0ff4de8894",
+      "exists": true,
+      "expected_sha256": "79c3246d617105e036db430a32bff08a9fcdc0c470d3f0953c1ade0ff4de8894",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/taxonomy_presence_structured_match_report.json",
+      "root_relative_path": "phase0/taxonomy_presence_structured_match_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "f527333476385fbc63e9a025a13d0e4af8b6df90f43f4aa09065ac79ea6e0c7e",
+      "exists": true,
+      "expected_sha256": "f527333476385fbc63e9a025a13d0e4af8b6df90f43f4aa09065ac79ea6e0c7e",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/protected_surface_baseline_hash_report.json",
+      "root_relative_path": "phase0/protected_surface_baseline_hash_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "6e88fecacdc089abb1194172f80c41200172437cd603ce88808e77139d175b78",
+      "exists": true,
+      "expected_sha256": "6e88fecacdc089abb1194172f80c41200172437cd603ce88808e77139d175b78",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/blocker_triage_report.json",
+      "root_relative_path": "phase1/blocker_triage_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "8e49302f88fe8d145ab9f27d6add6a7c98ea6c2a592c21b8f05c51af7f7e90f9",
+      "exists": true,
+      "expected_sha256": "8e49302f88fe8d145ab9f27d6add6a7c98ea6c2a592c21b8f05c51af7f7e90f9",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/minimal_runner_write_sink_fix_report.json",
+      "root_relative_path": "phase1/minimal_runner_write_sink_fix_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "e5039e746f47a36a4dc9f4c3720242931d154c0b3ea6acdbca64b9c96fd0b78f",
+      "exists": true,
+      "expected_sha256": "e5039e746f47a36a4dc9f4c3720242931d154c0b3ea6acdbca64b9c96fd0b78f",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/runner_write_sink_diff_scope_report.json",
+      "root_relative_path": "phase1/runner_write_sink_diff_scope_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "107a3277694aefc72d78e65a496edd4d6f4e746bc1e40761580305a5e4dde79b",
+      "exists": true,
+      "expected_sha256": "107a3277694aefc72d78e65a496edd4d6f4e746bc1e40761580305a5e4dde79b",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/current_source_identity_redrive_report.json",
+      "root_relative_path": "phase2/current_source_identity_redrive_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "f03f86d608b83ac9fa0bc8c4f46dc0b74d5cd421959aaf2dac86e73949fd1b23",
+      "exists": true,
+      "expected_sha256": "f03f86d608b83ac9fa0bc8c4f46dc0b74d5cd421959aaf2dac86e73949fd1b23",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/tracking_reproducibility_classification_report.json",
+      "root_relative_path": "phase2/tracking_reproducibility_classification_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "18771ab0b694dde0c04394893910c14a1c517d1597af6a5807012cebdf8c3b35",
+      "exists": true,
+      "expected_sha256": "18771ab0b694dde0c04394893910c14a1c517d1597af6a5807012cebdf8c3b35",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/raw_staging_direct_authority_read_report.json",
+      "root_relative_path": "phase2/raw_staging_direct_authority_read_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "20356ee43d1b9f79e76e3be923289b9404590fdd7974cf6bdde99e63a0582e5f",
+      "exists": true,
+      "expected_sha256": "20356ee43d1b9f79e76e3be923289b9404590fdd7974cf6bdde99e63a0582e5f",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/artifact_field_schema_report.json",
+      "root_relative_path": "phase2/artifact_field_schema_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "d0ea3419ea52ccf2f32751183ce38d54b784fc3fb061de2cff187bd3e4a3aeef",
+      "exists": true,
+      "expected_sha256": "d0ea3419ea52ccf2f32751183ce38d54b784fc3fb061de2cff187bd3e4a3aeef",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/branch_selection_contract_report.json",
+      "root_relative_path": "phase3/branch_selection_contract_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "fd203aaf2a85bc51872c037f632265c57de404603427822b0ad197bfd5301cca",
+      "exists": true,
+      "expected_sha256": "fd203aaf2a85bc51872c037f632265c57de404603427822b0ad197bfd5301cca",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/live_manifest_adoption_report.json",
+      "root_relative_path": "phase3/live_manifest_adoption_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "fda236a75f5e6c1342e3c3dc450cd90cf3e03846f1e922fd0d48837eb3b477b5",
+      "exists": true,
+      "expected_sha256": "fda236a75f5e6c1342e3c3dc450cd90cf3e03846f1e922fd0d48837eb3b477b5",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/live_manifest_single_writer_report.json",
+      "root_relative_path": "phase3/live_manifest_single_writer_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "4e8771ba77a23ddc667d42b277515e84826704a5e33b8d2be8054d32382d87a5",
+      "exists": true,
+      "expected_sha256": "4e8771ba77a23ddc667d42b277515e84826704a5e33b8d2be8054d32382d87a5",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/taxonomy_single_writer_report.json",
+      "root_relative_path": "phase3/taxonomy_single_writer_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "568f6b9f051b157ac2d94b80e0211a58373e89c3ec4b175902cfe73ccbec1c9e",
+      "exists": true,
+      "expected_sha256": "568f6b9f051b157ac2d94b80e0211a58373e89c3ec4b175902cfe73ccbec1c9e",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/taxonomy_separation_additive_compatibility_report.json",
+      "root_relative_path": "phase3/taxonomy_separation_additive_compatibility_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "89a79852ef512e50418ced50e7ff415899679310b3985205f571b37fcba0e94d",
+      "exists": true,
+      "expected_sha256": "89a79852ef512e50418ced50e7ff415899679310b3985205f571b37fcba0e94d",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/required_validation_count_delta_report.json",
+      "root_relative_path": "phase3/required_validation_count_delta_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "0db450f4186a3e5f1f9701aef0e3b53d972daed3f271db203579b896ac90bf02",
+      "exists": true,
+      "expected_sha256": "0db450f4186a3e5f1f9701aef0e3b53d972daed3f271db203579b896ac90bf02",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/b_marked_schema_supported_marker_validation_report.json",
+      "root_relative_path": "phase3/b_marked_schema_supported_marker_validation_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "ee520664950bcfaec4eec36dbeda585271e9a28d77cce7a21983f5eda632eb0c",
+      "exists": true,
+      "expected_sha256": "ee520664950bcfaec4eec36dbeda585271e9a28d77cce7a21983f5eda632eb0c",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase4/current_route_validation_result.branch_a.json",
+      "root_relative_path": "phase4/current_route_validation_result.branch_a.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "edbcdc8dd810a2c0b3195eac4e67517a1e6546ef4cdfb9eb77e970a48b05c373",
+      "exists": true,
+      "expected_sha256": "edbcdc8dd810a2c0b3195eac4e67517a1e6546ef4cdfb9eb77e970a48b05c373",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase4/current_route_validation_result.branch_b.json",
+      "root_relative_path": "phase4/current_route_validation_result.branch_b.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "ab4685bbabfe1e3c40f0c6d0c33cb126172ca29d901eebcd352acd7e69d537be",
+      "exists": true,
+      "expected_sha256": "ab4685bbabfe1e3c40f0c6d0c33cb126172ca29d901eebcd352acd7e69d537be",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase4/current_route_required_validation_freshness_report.json",
+      "root_relative_path": "phase4/current_route_required_validation_freshness_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "edbcdc8dd810a2c0b3195eac4e67517a1e6546ef4cdfb9eb77e970a48b05c373",
+      "exists": true,
+      "expected_sha256": "edbcdc8dd810a2c0b3195eac4e67517a1e6546ef4cdfb9eb77e970a48b05c373",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase4/branch_b_fresh_current_route_pass_report.json",
+      "root_relative_path": "phase4/branch_b_fresh_current_route_pass_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "f3b87e7d205329761202895a5ebb91c9486060bf273a4e4675749908d6d650c4",
+      "exists": true,
+      "expected_sha256": "f3b87e7d205329761202895a5ebb91c9486060bf273a4e4675749908d6d650c4",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase5/docs_claim_boundary_scan_report.json",
+      "root_relative_path": "phase5/docs_claim_boundary_scan_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "916b6eeaad8cf9826bf136292df6b21a634cc565e78fa736e72fb41710c48c23",
+      "exists": true,
+      "expected_sha256": "916b6eeaad8cf9826bf136292df6b21a634cc565e78fa736e72fb41710c48c23",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase5/implementation_compression_guard_checklist.json",
+      "root_relative_path": "phase5/implementation_compression_guard_checklist.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "2522c4b8e5ce046b1d3832cef191510d1beb357869167abb1ced5ff904a48d84",
+      "exists": true,
+      "expected_sha256": "2522c4b8e5ce046b1d3832cef191510d1beb357869167abb1ced5ff904a48d84",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_matrix_report.json",
+      "root_relative_path": "phase6/negative_fixture_matrix_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "b2ba192c329d80bef7cf57fd5fd3088479a1c55abffe6947cef6c0137b939f12",
+      "exists": true,
+      "expected_sha256": "b2ba192c329d80bef7cf57fd5fd3088479a1c55abffe6947cef6c0137b939f12",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/co_readpoint_identity_token.json",
+      "root_relative_path": "phase6/co_readpoint_identity_token.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "bb6c380d17bc7defd3b477faf0d308fb230a89eed0ec6a9af2c23d9489f940eb",
+      "exists": true,
+      "expected_sha256": "bb6c380d17bc7defd3b477faf0d308fb230a89eed0ec6a9af2c23d9489f940eb",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/no_intervening_write_report.json",
+      "root_relative_path": "phase6/no_intervening_write_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "6fc1f28c9ecb1ecdab9fd5c285bf09a92bfde22d96142453627c2fe56eb9e42a",
+      "exists": true,
+      "expected_sha256": "6fc1f28c9ecb1ecdab9fd5c285bf09a92bfde22d96142453627c2fe56eb9e42a",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/no_protected_mutation_verdict.json",
+      "root_relative_path": "phase6/no_protected_mutation_verdict.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "c32d40d65f1d74ff21a30835f948a5bf5843d73276875066603f22199e69cfaa",
+      "exists": true,
+      "expected_sha256": "c32d40d65f1d74ff21a30835f948a5bf5843d73276875066603f22199e69cfaa",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/final_claim_boundary_report.md",
+      "root_relative_path": "phase6/final_claim_boundary_report.md",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "5a465f6f0384b32d1ae45c8fdc8a0ac8599154533d08717647aa8228a531075d",
+      "exists": true,
+      "expected_sha256": "5a465f6f0384b32d1ae45c8fdc8a0ac8599154533d08717647aa8228a531075d",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/final_current_source_authority_drift_verification_adoption_reseal_report.json",
+      "root_relative_path": "phase6/final_current_source_authority_drift_verification_adoption_reseal_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "1950baa544863436d2864bba4d453e73d10436ce9a80ddf7daf69a8f4aa176ee",
+      "exists": true,
+      "expected_sha256": "1950baa544863436d2864bba4d453e73d10436ce9a80ddf7daf69a8f4aa176ee",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/owner_seal_report.json",
+      "root_relative_path": "phase6/owner_seal_report.json",
+      "sha256_matches": true
+    },
+    {
+      "actual_sha256": "6022f22af87d5971074db081a369a5e44f63c05cab63722e885418af7312376b",
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/validation_report.all.json",
+      "root_relative_path": "phase6/validation_report.all.json",
+      "sha256_matches": null
+    },
+    {
+      "actual_sha256": "20af9933551a249ff7789b0b6496bbddf89b33298bc24da1009ee83edd1a4058",
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/validation_report.require_complete.json",
+      "root_relative_path": "phase6/validation_report.require_complete.json",
+      "sha256_matches": null
+    },
+    {
+      "actual_sha256": "309df4eae066e094b5db94d809aa219db90ce409da417e2376729b254712b616",
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/primary_review_artifact_manifest.json",
+      "root_relative_path": "phase6/primary_review_artifact_manifest.json",
+      "sha256_matches": null
+    },
+    {
+      "actual_sha256": "5a739a71d67b068667cdd6521eaeeffdef8c0a70a8b4cde18988c80109c63fba",
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/independent_review_artifact_hash_report.json",
+      "root_relative_path": "phase6/independent_review_artifact_hash_report.json",
+      "sha256_matches": null
+    }
+  ],
+  "canonical_complete_allowed": true,
+  "comparison_checked_count": 33,
+  "comparison_exempt_count": 4,
+  "generated_at": "2026-06-26T14:37:35.052020+00:00",
+  "independent_review_basis": "non_claude_independent_review_reported_no_blocking_actionable_findings",
+  "independent_review_status": "PASS",
+  "mismatch_count": 0,
+  "owner_seal_status": "PASS",
+  "primary_review_artifact_manifest_artifact_count": 37,
+  "primary_review_artifact_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/primary_review_artifact_manifest.json",
+  "primary_review_artifact_manifest_sha256": "309df4eae066e094b5db94d809aa219db90ce409da417e2376729b254712b616",
+  "primary_review_artifact_missing_count": 0,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-independent-review-hash-v1",
+  "status": "PASS"
+}

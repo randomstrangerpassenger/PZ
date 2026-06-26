@@ -1,0 +1,11 @@
+{
+  "classification": "not_applicable_absent_from_selected_target",
+  "in_overlay_support": false,
+  "in_rendered": false,
+  "in_selected_successor_source": false,
+  "item_id": "Base.CanOpener",
+  "missing_overlay_blocker_count": 0,
+  "not_pass_by_exception": true,
+  "schema_version": "dvf-3-3-current-source-authority-drift-base-canopener-applicability-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,105 @@
+{
+  "fixtures": [
+    {
+      "expected_error_code": "required_artifact_field_mismatch",
+      "expected_failure_preserved": true,
+      "fixture": "known_stale_bundle",
+      "live_mutation_performed": false,
+      "observed_runner": {
+        "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --taxonomy C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\known_stale_bundle_taxonomy.json --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\known_stale_bundle_manifest.json --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\known_stale_bundle_runner_result.json",
+        "exit_code": 1,
+        "observed_error_codes": [
+          "required_artifact_field_mismatch"
+        ],
+        "required_validation_success": false,
+        "result_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/known_stale_bundle_runner_result.json",
+        "runner_success": false,
+        "stderr_tail": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+        "stdout_tail": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 1, \"success\": false, \"elapsed_seconds\": 0.0}\n"
+      },
+      "observed_wrapper_guard": null,
+      "sandbox_manifest": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/known_stale_bundle_manifest.json",
+      "sandbox_taxonomy": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/known_stale_bundle_taxonomy.json",
+      "status": "PASS"
+    },
+    {
+      "expected_error_code": "candidate_manifest_override_surface_absent",
+      "expected_failure_preserved": true,
+      "fixture": "candidate_manifest_reference",
+      "live_mutation_performed": false,
+      "observed_runner": {
+        "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --taxonomy C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\candidate_manifest_reference_taxonomy.json --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\candidate_manifest_reference_manifest.json --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\candidate_manifest_reference_runner_result.json",
+        "exit_code": 0,
+        "observed_error_codes": [],
+        "required_validation_success": true,
+        "result_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/candidate_manifest_reference_runner_result.json",
+        "runner_success": true,
+        "stderr_tail": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+        "stdout_tail": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 1, \"success\": true, \"elapsed_seconds\": 0.0}\n"
+      },
+      "observed_wrapper_guard": {
+        "actual_wrapper_command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tools\\build\\run_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py --mode validate --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\candidate_manifest_reference.json",
+        "actual_wrapper_exit_code": 2,
+        "actual_wrapper_stderr_tail": "usage: run_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py\n       [-h] [--mode {generate,validate,all,machine-pass,manifest-only}]\n       [--root ROOT] [--require-complete]\nrun_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py: error: unrecognized arguments: --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\candidate_manifest_reference.json\n",
+        "candidate_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/candidate_manifest_reference.json",
+        "guard": "wrapper_has_no_required_validations_override_surface",
+        "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+        "observed_error_code": "candidate_manifest_override_surface_absent",
+        "observed_status": "FAIL",
+        "runner_exit_code_on_sandbox_copy": 0,
+        "runner_result_path_on_sandbox_copy": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/candidate_manifest_reference_runner_result.json"
+      },
+      "status": "PASS"
+    },
+    {
+      "expected_error_code": "skipped_required_test",
+      "expected_failure_preserved": true,
+      "fixture": "skipped_required_test",
+      "live_mutation_performed": false,
+      "observed_runner": {
+        "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --taxonomy C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\skipped_required_test_taxonomy.json --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\skipped_required_test_manifest.json --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\skipped_required_test_runner_result.json",
+        "exit_code": 1,
+        "observed_error_codes": [
+          "skipped_required_test"
+        ],
+        "required_validation_success": false,
+        "result_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/skipped_required_test_runner_result.json",
+        "runner_success": false,
+        "stderr_tail": "s\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK (skipped=1)\n",
+        "stdout_tail": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 1, \"success\": false, \"elapsed_seconds\": 0.0}\n"
+      },
+      "observed_wrapper_guard": null,
+      "sandbox_manifest": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/skipped_required_test_manifest.json",
+      "sandbox_taxonomy": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/skipped_required_test_taxonomy.json",
+      "status": "PASS"
+    },
+    {
+      "expected_error_code": "required_artifact_field_mismatch",
+      "expected_failure_preserved": true,
+      "fixture": "failed_field_check",
+      "live_mutation_performed": false,
+      "observed_runner": {
+        "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --taxonomy C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\failed_field_check_taxonomy.json --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\failed_field_check_manifest.json --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase1\\negative_fixture_sandbox\\failed_field_check_runner_result.json",
+        "exit_code": 1,
+        "observed_error_codes": [
+          "required_artifact_field_mismatch"
+        ],
+        "required_validation_success": false,
+        "result_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/failed_field_check_runner_result.json",
+        "runner_success": false,
+        "stderr_tail": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+        "stdout_tail": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 1, \"success\": false, \"elapsed_seconds\": 0.0}\n"
+      },
+      "observed_wrapper_guard": null,
+      "sandbox_manifest": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/failed_field_check_manifest.json",
+      "sandbox_taxonomy": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox/failed_field_check_taxonomy.json",
+      "status": "PASS"
+    }
+  ],
+  "generated_at": "2026-06-25T07:51:24.480764+00:00",
+  "live_manifest_mutated": false,
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "sandbox_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/negative_fixture_sandbox",
+  "schema_version": "dvf-3-3-current-route-required-validation-negative-fixture-matrix-v1",
+  "status": "PASS"
+}

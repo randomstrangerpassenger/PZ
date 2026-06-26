@@ -1,0 +1,6 @@
+{
+  "downstream_live_write_instruction_remaining_count": 0,
+  "recovery_scope_demoted_to": "future_drift_contingency",
+  "schema_version": "dvf-3-3-current-source-authority-drift-downstream-plan-scan-v1",
+  "status": "PASS"
+}

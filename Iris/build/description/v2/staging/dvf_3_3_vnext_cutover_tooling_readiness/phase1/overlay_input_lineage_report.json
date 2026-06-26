@@ -34,7 +34,7 @@
     "kind": "file",
     "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/rendered/dvf_3_3_rendered.vnext_corrected.json",
     "role": "successor_candidate_staging_only",
-    "sha256": "b44430584ac0f652f489d0688b55832de9fde4d2958bbe9ae5f28a9766e92067"
+    "sha256": "12b1ebb0cd72ed88f8d611c23ad232962246186ebd8e212961a0f82b28466b91"
   },
   "schema_version": "dvf-3-3-vnext-overlay-input-lineage-v0",
   "source_manifest": {
@@ -43,7 +43,7 @@
     "kind": "file",
     "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_source_manifest.json",
     "role": "successor_candidate_staging_only",
-    "sha256": "171dc2751b1e8e28fce28d29ba92ee6bd4fda9a825fedc7b0db1f7c120f2028c"
+    "sha256": "46480440c3f7712102a3caf3cb8c38ba06ab9beda505a22502f59b5aefd1bd56"
   },
   "stale_overlay_direct_promotion_rejected": true,
   "status": "PASS"

@@ -1,0 +1,8 @@
+{
+  "new_canonical_bundle_route_required": true,
+  "old_target_adoption_allowed": false,
+  "previous_bundle_readpoint_count": 0,
+  "previous_bundle_readpoints": [],
+  "schema_version": "dvf-3-3-current-route-required-validation-external-bundle-inventory-v1",
+  "status": "PASS"
+}

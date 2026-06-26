@@ -1,0 +1,314 @@
+{
+  "aggregate_sha256": "09b537958b9ff1ef7d8fda746d2cff7e7d952c0b21fd400d5de4af541fda56c6",
+  "record_count": 34,
+  "records": [
+    {
+      "bytes": 3362,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "role": "current_source_manifest",
+      "sha256": "8166257cf801c3b1bdb6131f2ade6b85e732c0b312552866cb9f40d28f71689d",
+      "surface_class": "source"
+    },
+    {
+      "bytes": 1436584,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "role": "current_source_facts",
+      "sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+      "surface_class": "source"
+    },
+    {
+      "bytes": 2189811,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "role": "current_source_decisions",
+      "sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",
+      "surface_class": "source"
+    },
+    {
+      "bytes": 986861,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
+      "role": "current_compose_support",
+      "sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464",
+      "surface_class": "source"
+    },
+    {
+      "bytes": 3814457,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "role": "current_rendered_output",
+      "sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d",
+      "surface_class": "rendered"
+    },
+    {
+      "bytes": 1224404,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/style_normalization_changes.jsonl",
+      "role": "current_style_side_output",
+      "sha256": "321e8b0e64b501508c282c86ea7eebb39a395fd7db9fd5d2cbe7f5cf1bb9a99d",
+      "surface_class": "rendered"
+    },
+    {
+      "bytes": 0,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/output/compose_requeue_candidates.jsonl",
+      "role": "current_requeue_side_output",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_class": "rendered"
+    },
+    {
+      "bytes": null,
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "legacy_lua_bridge_surface_optional",
+      "sha256": null,
+      "surface_class": "lua_bridge"
+    },
+    {
+      "bytes": 951,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "role": "live_runtime_chunk_manifest",
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 114348,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "245df8b9e95cfd40a2ce76f322f1d40e9ecdf008e856e4a2ca909048efd934c2",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 104115,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "033e55d550b75aa9456d0747d4e740be2865f6a00b23e73c15120eb09e99c0c0",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 104561,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "5af32b0985c5e6969a888f55337267cc7d2db8085390469d261d2039cef9bb75",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 112479,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "0a84e2413e333ed9945222f183559131a85b605537509cb11909a3e73f7276a0",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 109426,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "9082d6503f38dc18db90ba484bc13fc003328837290369bf51217ff5753845fd",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 111190,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "0ff59831a19f34c521fe55383d054c98a1832dddd18b459e0f1dbf5384e88dda",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 114958,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "b3e0e74d8bf93785bbcde0c3bdbf7ee5565d6b49ecc902aa8b2d37dd4561ac73",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 111478,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "b73c0bff6b072170917c2bfce7c2473b8e19e75039604c2bc3785419cb068cb8",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 113799,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "e370958166c1f1670f070986b9470b464c68a7d1ee84aa973840d768e2f385e9",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 106236,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "7e5d679a3d6489b8861f3dd20db8160d3a4e8bdb7be1b2ca9904180de1bfe2b9",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 58929,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "role": "live_runtime_chunk_dir",
+      "sha256": "ffee61bd96e0fd299e26d09b75da68330c100316ccfd1fd484795790d16c8be0",
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": null,
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": "live_runtime_monolith_optional",
+      "sha256": null,
+      "surface_class": "runtime"
+    },
+    {
+      "bytes": 951,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "role": "package_chunk_manifest",
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 114348,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+      "role": "package_chunk_dir",
+      "sha256": "245df8b9e95cfd40a2ce76f322f1d40e9ecdf008e856e4a2ca909048efd934c2",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 104115,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "role": "package_chunk_dir",
+      "sha256": "033e55d550b75aa9456d0747d4e740be2865f6a00b23e73c15120eb09e99c0c0",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 104561,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "role": "package_chunk_dir",
+      "sha256": "5af32b0985c5e6969a888f55337267cc7d2db8085390469d261d2039cef9bb75",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 112479,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "role": "package_chunk_dir",
+      "sha256": "0a84e2413e333ed9945222f183559131a85b605537509cb11909a3e73f7276a0",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 109426,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "role": "package_chunk_dir",
+      "sha256": "9082d6503f38dc18db90ba484bc13fc003328837290369bf51217ff5753845fd",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 111190,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+      "role": "package_chunk_dir",
+      "sha256": "0ff59831a19f34c521fe55383d054c98a1832dddd18b459e0f1dbf5384e88dda",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 114958,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "role": "package_chunk_dir",
+      "sha256": "b3e0e74d8bf93785bbcde0c3bdbf7ee5565d6b49ecc902aa8b2d37dd4561ac73",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 111478,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "role": "package_chunk_dir",
+      "sha256": "b73c0bff6b072170917c2bfce7c2473b8e19e75039604c2bc3785419cb068cb8",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 113799,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+      "role": "package_chunk_dir",
+      "sha256": "e370958166c1f1670f070986b9470b464c68a7d1ee84aa973840d768e2f385e9",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 106236,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "role": "package_chunk_dir",
+      "sha256": "7e5d679a3d6489b8861f3dd20db8160d3a4e8bdb7be1b2ca9904180de1bfe2b9",
+      "surface_class": "package"
+    },
+    {
+      "bytes": 58929,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "role": "package_chunk_dir",
+      "sha256": "ffee61bd96e0fd299e26d09b75da68330c100316ccfd1fd484795790d16c8be0",
+      "surface_class": "package"
+    },
+    {
+      "bytes": null,
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "role": "package_monolith_optional",
+      "sha256": null,
+      "surface_class": "package"
+    }
+  ],
+  "round_id": "dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement",
+  "schema_version": "dvf-3-3-current-source-authority-drift-protected-hashes-v1"
+}

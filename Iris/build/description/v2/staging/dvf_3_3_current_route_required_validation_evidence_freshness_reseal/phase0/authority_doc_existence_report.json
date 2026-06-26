@@ -1,0 +1,103 @@
+{
+  "execution_contract_classification": "present_authority_doc",
+  "records": [
+    {
+      "bytes": 20251,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/Philosophy.md",
+      "role": "authority_or_context_input",
+      "sha256": "938c52e9090c36af00dac18b64905e12a4f2390ac238a26121a63a14f81f44b2"
+    },
+    {
+      "bytes": 135956,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/DECISIONS.md",
+      "role": "authority_or_context_input",
+      "sha256": "f6f86931215fa6a4752555ee5a7f6d1c1bdeb802b38df941322b00e9d073b63d"
+    },
+    {
+      "bytes": 44409,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ARCHITECTURE.md",
+      "role": "authority_or_context_input",
+      "sha256": "e46e21a65d3dfa288308e44f117b5251821e37e64bd4b79b05ff0fd1be2af511"
+    },
+    {
+      "bytes": 56111,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ROADMAP.md",
+      "role": "authority_or_context_input",
+      "sha256": "3b1326ac8b2d3f2e9ce160a31906004fe3de69cdbabe77e5c39b7ff918e2a92c"
+    },
+    {
+      "bytes": 18004,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/EXECUTION_CONTRACT.md",
+      "role": "authority_or_context_input",
+      "sha256": "a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493"
+    },
+    {
+      "bytes": 3068,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/PLAN_TEMPLATE.md",
+      "role": "authority_or_context_input",
+      "sha256": "38d70d4d624733db4d24f047e0b737a47c75522a967c84f06fe5aabc5ebd9ba1"
+    },
+    {
+      "bytes": 53547,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "role": "authority_or_context_input",
+      "sha256": "e678276096be005a3efc65b00ecbcf85fd33858939611b0be56c35cc079f0fef"
+    },
+    {
+      "bytes": 1390,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_claim_boundary.md",
+      "role": "authority_or_context_input",
+      "sha256": "84a2698d0482eee66f3d87b0f8be6bbd61c5f54c4f2e3f47ec36bb7cd43d6dac"
+    },
+    {
+      "bytes": 723,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_ledger_packet.md",
+      "role": "authority_or_context_input",
+      "sha256": "1edeafa63af7ec20245e677886ec3a5bc451c66edbf205a953da6bfcb589dbb3"
+    },
+    {
+      "bytes": 50152,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_closeout_reentry_guard_seal_plan.md",
+      "role": "authority_or_context_input",
+      "sha256": "c45a9bee92ab9d2c4cfb255343cec316ae44e1b6d6a59a7dd8636ef7c8b444c5"
+    },
+    {
+      "bytes": 1446,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_closeout_reentry_claim_boundary.md",
+      "role": "authority_or_context_input",
+      "sha256": "ce091a494b28fa94596a78a9605c0c93538521920f06a5c05a9ee792018c06f2"
+    },
+    {
+      "bytes": 83790,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md",
+      "role": "authority_or_context_input",
+      "sha256": "606c6fd8a6859ee474edd4cf8d151be7c1339404e58de90ddd2de83d3376e2e9"
+    }
+  ],
+  "schema_version": "dvf-3-3-current-route-required-validation-authority-docs-v1",
+  "status": "PASS"
+}

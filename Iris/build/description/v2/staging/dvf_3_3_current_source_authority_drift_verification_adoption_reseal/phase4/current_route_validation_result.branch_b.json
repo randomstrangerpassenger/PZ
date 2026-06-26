@@ -1,0 +1,9 @@
+{
+  "applicability": "not_applicable_selected_branch_a",
+  "branch_a_current_route_result_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase4/current_route_validation_result.branch_a.json",
+  "branch_b_fresh_current_route_pass_required": false,
+  "branch_b_selected": false,
+  "generated_at": "2026-06-26T14:35:00.195825+00:00",
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-branch-b-result-v1",
+  "status": "PASS"
+}

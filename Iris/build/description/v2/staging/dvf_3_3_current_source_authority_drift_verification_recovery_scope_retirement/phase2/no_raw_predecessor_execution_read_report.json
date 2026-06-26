@@ -1,0 +1,7 @@
+{
+  "claim_boundary": "raw audit/readiness/dry-run/predecessor/fixture artifacts are not direct current execution authority",
+  "forbidden_direct_execution_read_count": 0,
+  "raw_audit_readiness_dry_run_predecessor_fixture_direct_authority_reads": [],
+  "schema_version": "dvf-3-3-current-source-authority-drift-no-raw-predecessor-execution-read-v1",
+  "status": "PASS"
+}

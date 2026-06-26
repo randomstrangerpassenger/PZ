@@ -1,0 +1,23 @@
+{
+  "content_signature_extra_vs_sample": [],
+  "content_signature_members": [
+    "Base.CanOpener",
+    "Base.ElectronicsScrap",
+    "Base.GunpowderCan",
+    "Base.ModKit",
+    "Base.Tongs",
+    "Base.WeldingTorch"
+  ],
+  "hard_coded_sample": [
+    "Base.CanOpener",
+    "Base.ElectronicsScrap",
+    "Base.GunpowderCan",
+    "Base.ModKit",
+    "Base.Tongs",
+    "Base.WeldingTorch"
+  ],
+  "hard_coded_sample_role": "non_authoritative_cross_check_only",
+  "sample_missing_from_content_signature": [],
+  "schema_version": "dvf-3-3-current-source-authority-drift-six-entry-cross-check-v1",
+  "status": "PASS"
+}

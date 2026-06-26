@@ -1,0 +1,18 @@
+{
+  "fresh_current_evidence": [
+    "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase4/current_route_validation_result.json",
+    "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase5/external_validation_bundle_manifest.json"
+  ],
+  "historical_or_rejected": [
+    "Iris/_docs/round3/current_route_required_validations.shared_disposition_candidate.json"
+  ],
+  "mismatch_downgrade_to_provenance_only_allowed": false,
+  "provenance_only_fallback_used": false,
+  "schema_version": "dvf-3-3-current-route-required-validation-evidence-freshness-taxonomy-v1",
+  "status": "PASS",
+  "supporting_trace": [
+    "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement",
+    "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json"
+  ]
+}

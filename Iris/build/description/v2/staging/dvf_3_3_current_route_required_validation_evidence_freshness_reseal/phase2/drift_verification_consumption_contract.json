@@ -1,0 +1,18 @@
+{
+  "authority_surface": "validation/governance surface impact only",
+  "candidate_manifest_is_authority": false,
+  "drift_evidence_role": "read_only_governance_evidence",
+  "external_validation_bundle_reseal_required": true,
+  "generated_at": "2026-06-25T07:51:23.684731+00:00",
+  "required_field_families": [
+    "drift final status",
+    "source manifest identity",
+    "facts decisions overlay hash parity",
+    "successor 2105 identity",
+    "candidate manifest non-authority",
+    "non-claim boundary"
+  ],
+  "schema_version": "dvf-3-3-current-route-required-validation-drift-consumption-contract-v1",
+  "source_runtime_package_writer_authority": false,
+  "status": "PASS"
+}

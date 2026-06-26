@@ -1,0 +1,14 @@
+{
+  "direct_compose_result_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/direct_current_compose_result.json",
+  "rendered_meta": {
+    "decisions_sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",
+    "entries_sha256": "6ef48bcf84183ea6700b3768431cbbcf77340aef224f4f45ac4e7195b426cfed",
+    "facts_sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+    "overlay_path": "Iris\\build\\description\\v2\\data\\dvf_3_3_overlay_support.jsonl",
+    "overlay_sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464"
+  },
+  "rendered_path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+  "schema_version": "dvf-3-3-current-source-authority-drift-rendered-input-contract-inventory-v1",
+  "source_manifest_path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+  "status": "PASS"
+}

@@ -1,0 +1,12 @@
+{
+  "canonical_complete_allowed": true,
+  "generated_at": "2026-06-26T14:35:00.990496+00:00",
+  "independent_review_status_accepted": "PASS",
+  "owner_decision_after_machine_predicates": true,
+  "owner_seal_decision": "approve_current_source_authority_drift_required_gate_adoption_reseal_complete",
+  "owner_seal_source": "owner_chat_instruction_2026-06-26",
+  "owner_seal_status": "PASS",
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-owner-seal-v1",
+  "selected_branch": "branch_a_required_gate_adopted",
+  "status": "PASS"
+}

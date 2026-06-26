@@ -1,0 +1,17 @@
+{
+  "authority_role": "successor_current_source_authority",
+  "baseline_identity": "dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration",
+  "checks": {
+    "authority_role_successor": true,
+    "decisions_match_manifest": true,
+    "facts_decisions_key_parity": true,
+    "facts_match_manifest": true,
+    "overlay_match_manifest": true,
+    "successor_universe_count_2105": true
+  },
+  "overlay_support_role": "compose_support_not_source_authority",
+  "schema_version": "dvf-3-3-current-source-authority-drift-source-chain-identity-v1",
+  "status": "PASS",
+  "successor_count_not_predecessor_recovery_target": true,
+  "successor_universe_count": 2105
+}

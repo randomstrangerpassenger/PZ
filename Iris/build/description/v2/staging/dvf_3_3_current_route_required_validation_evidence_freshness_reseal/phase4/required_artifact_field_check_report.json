@@ -1,0 +1,8 @@
+{
+  "errors": [],
+  "failed_required_artifact_field_check_count": 0,
+  "generated_at": "2026-06-25T07:53:02.983373+00:00",
+  "missing_required_artifact_count": 0,
+  "schema_version": "dvf-3-3-current-route-required-validation-artifact-field-check-v1",
+  "status": "PASS"
+}

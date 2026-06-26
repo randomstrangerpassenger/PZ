@@ -1,0 +1,12 @@
+{
+  "bundle_evidence_root_matches_final_current_route_result": true,
+  "bundle_manifest_hash_matches_live_manifest_hash": true,
+  "bundle_readpoint_matches_runner_output": true,
+  "candidate_manifest_used_as_authority": false,
+  "external_bundle_target_matches_phase0_pin": true,
+  "external_bundle_target_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase5/external_validation_bundle_manifest.json",
+  "generated_at": "2026-06-25T07:53:03.012506+00:00",
+  "old_external_bundle_used_as_current_success_evidence": false,
+  "schema_version": "dvf-3-3-current-route-required-validation-external-bundle-freshness-v1",
+  "status": "PASS"
+}

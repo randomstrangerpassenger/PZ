@@ -1,0 +1,89 @@
+{
+  "added": [
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_consumption_contract.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_field_check_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/additive_diff_bijection_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/live_required_manifest_update_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/taxonomy_separation_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_current_source_identity_redrive_and_drift_field_check_pass",
+      "kind": "test"
+    },
+    {
+      "key": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_live_manifest_update_is_additive_and_governance_only",
+      "kind": "test"
+    },
+    {
+      "key": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_negative_fixtures_remain_fail_closed_without_live_mutation",
+      "kind": "test"
+    }
+  ],
+  "added_entries": 9,
+  "added_entries_detail": [
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_consumption_contract.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_field_check_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/additive_diff_bijection_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/live_required_manifest_update_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/taxonomy_separation_report.json",
+      "kind": "artifact"
+    },
+    {
+      "key": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_current_source_identity_redrive_and_drift_field_check_pass",
+      "kind": "test"
+    },
+    {
+      "key": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_live_manifest_update_is_additive_and_governance_only",
+      "kind": "test"
+    },
+    {
+      "key": "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_negative_fixtures_remain_fail_closed_without_live_mutation",
+      "kind": "test"
+    }
+  ],
+  "duplicate_artifact_paths": 0,
+  "duplicate_entries": 0,
+  "duplicate_test_ids": 0,
+  "generated_at": "2026-06-25T07:51:23.706201+00:00",
+  "modified": [],
+  "modified_existing_entries": 0,
+  "removed": [],
+  "removed_existing_entries": 0,
+  "schema_version": "dvf-3-3-current-route-required-validation-additive-diff-v1",
+  "status": "PASS"
+}

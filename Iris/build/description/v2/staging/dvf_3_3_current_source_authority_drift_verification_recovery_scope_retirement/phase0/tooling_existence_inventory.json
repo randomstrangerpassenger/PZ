@@ -1,0 +1,54 @@
+{
+  "allowed_statuses": [
+    "existing_ok",
+    "missing_blocks_validation",
+    "missing_requires_preimplementation",
+    "new_tool_required",
+    "optional_missing",
+    "not_applicable",
+    "invalid_reference"
+  ],
+  "schema_version": "dvf-3-3-current-source-authority-drift-tooling-existence-inventory-v1",
+  "status": "PASS",
+  "summary_counts": {
+    "existing_ok": 2,
+    "new_tool_required": 3
+  },
+  "tools": [
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_current_source_authority_drift_verification.py",
+      "role": "runner",
+      "status": "new_tool_required",
+      "validation_blocking": false
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_current_source_authority_drift_verification.py",
+      "role": "validator",
+      "status": "new_tool_required",
+      "validation_blocking": false
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_current_source_authority_drift_verification.py",
+      "role": "implementation_common",
+      "status": "new_tool_required",
+      "validation_blocking": false
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "role": "compose_entrypoint",
+      "status": "existing_ok",
+      "validation_blocking": false
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "role": "round3_current_runner",
+      "status": "existing_ok",
+      "validation_blocking": false
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "candidate_manifest_exists": true,
+  "candidate_manifest_is_live_authority": false,
+  "candidate_manifest_path": "Iris/_docs/round3/current_route_required_validations.shared_disposition_candidate.json",
+  "path": "Iris/_docs/round3/current_route_required_validations.json",
+  "required_artifact_count": 34,
+  "required_test_count": 31,
+  "schema_version": "dvf-3-3-current-route-required-validation-live-manifest-hash-v1",
+  "sha256": "9a14e75ade4df9b83904e74f9d189479189187b6199ad3add90144cf8b503325",
+  "status": "PASS"
+}

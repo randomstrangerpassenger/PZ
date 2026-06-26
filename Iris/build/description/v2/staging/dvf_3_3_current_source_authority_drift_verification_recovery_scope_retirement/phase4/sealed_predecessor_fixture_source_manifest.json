@@ -1,0 +1,67 @@
+{
+  "candidate_selection_rule": "prefer historical/staging overlay fixture <= threshold, then stale bridge quarantine <= threshold; tie by normalized path and sha256",
+  "candidates": [
+    {
+      "candidate_role": "historical_or_staging_overlay_fixture",
+      "eligible": true,
+      "exists": true,
+      "keys": [
+        "Base.CanOpener",
+        "Base.ElectronicsScrap",
+        "Base.GunpowderCan",
+        "Base.ModKit",
+        "Base.Tongs",
+        "Base.WeldingTorch"
+      ],
+      "path": "Iris/build/description/v2/staging/compose_contract_migration/layer3_body_source_overlay.jsonl",
+      "row_count": 6,
+      "sha256": "b9af509335d46982e795aeced76d6133f1309ce45ffaf1e66d0b3b113ac02eb1",
+      "source": "manifest_excluded_path"
+    },
+    {
+      "candidate_role": "historical_fixture_non_authority",
+      "eligible": true,
+      "exists": true,
+      "keys": [
+        "Base.CanOpener",
+        "Base.ElectronicsScrap",
+        "Base.GunpowderCan",
+        "Base.ModKit",
+        "Base.Tongs",
+        "Base.WeldingTorch"
+      ],
+      "path": "Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition/quarantine/IrisDvfBridgeData.legacy_6_entry.lua",
+      "row_count": 6,
+      "sha256": "c5ec93914f4a13c227bf1b3958908b860af768113700cecb4c4496b46ad411aa",
+      "source": "stale_bridge_quarantine"
+    }
+  ],
+  "fixture_threshold": 10,
+  "rejected_candidates": [
+    {
+      "eligible": true,
+      "path": "Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition/quarantine/IrisDvfBridgeData.legacy_6_entry.lua",
+      "reason": "not_selected_lower_priority"
+    }
+  ],
+  "schema_version": "dvf-3-3-current-source-authority-drift-sealed-predecessor-fixture-manifest-v1",
+  "selected_artifact": {
+    "candidate_role": "historical_or_staging_overlay_fixture",
+    "eligible": true,
+    "exists": true,
+    "keys": [
+      "Base.CanOpener",
+      "Base.ElectronicsScrap",
+      "Base.GunpowderCan",
+      "Base.ModKit",
+      "Base.Tongs",
+      "Base.WeldingTorch"
+    ],
+    "path": "Iris/build/description/v2/staging/compose_contract_migration/layer3_body_source_overlay.jsonl",
+    "row_count": 6,
+    "sha256": "b9af509335d46982e795aeced76d6133f1309ce45ffaf1e66d0b3b113ac02eb1",
+    "source": "manifest_excluded_path"
+  },
+  "status": "PASS",
+  "threshold_source": "manifest"
+}

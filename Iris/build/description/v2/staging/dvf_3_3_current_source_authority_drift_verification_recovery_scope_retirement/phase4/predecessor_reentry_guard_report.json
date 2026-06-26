@@ -1,0 +1,11 @@
+{
+  "current_hard_gate_reentry_count": 0,
+  "predecessor_reentry_violation_count": 0,
+  "predecessor_values": [
+    "2105",
+    "2084",
+    "21"
+  ],
+  "schema_version": "dvf-3-3-current-source-authority-drift-predecessor-reentry-guard-v1",
+  "status": "PASS"
+}

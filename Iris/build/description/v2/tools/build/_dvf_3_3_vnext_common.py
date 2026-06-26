@@ -2,10 +2,13 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import datetime, timezone
+import errno
 import hashlib
 import json
+import os
 import re
 from pathlib import Path
+import time
 from typing import Any, Iterable
 
 
@@ -237,10 +240,30 @@ def read_jsonl(path: str | Path) -> list[dict[str, Any]]:
 
 def write_jsonl(path: str | Path, rows: Iterable[dict[str, Any]]) -> None:
     path = ensure_parent(path)
-    with path.open("w", encoding="utf-8", newline="\n") as handle:
-        for row in rows:
-            handle.write(json.dumps(row, ensure_ascii=False, sort_keys=True))
-            handle.write("\n")
+    serialized = [json.dumps(row, ensure_ascii=False, sort_keys=True) for row in rows]
+    last_error: OSError | None = None
+    for attempt in range(8):
+        target = path if attempt == 0 else path.with_name(f".{path.name}.{os.getpid()}.{attempt}.tmp")
+        try:
+            with target.open("w", encoding="utf-8", newline="\n") as handle:
+                for line in serialized:
+                    handle.write(line)
+                    handle.write("\n")
+            if target != path:
+                target.replace(path)
+            return
+        except OSError as exc:
+            last_error = exc
+            if target != path:
+                try:
+                    target.unlink(missing_ok=True)
+                except OSError:
+                    pass
+            if exc.errno != errno.EINVAL or attempt == 7:
+                raise
+            time.sleep(0.05 * (attempt + 1))
+    if last_error is not None:
+        raise last_error
 
 
 def sha256_file(path: str | Path) -> str | None:

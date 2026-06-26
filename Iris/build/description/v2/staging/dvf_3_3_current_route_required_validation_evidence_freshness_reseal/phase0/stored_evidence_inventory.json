@@ -1,0 +1,38 @@
+{
+  "evidence_roots": [
+    {
+      "bytes": null,
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement",
+      "role": "consumed_current_evidence",
+      "sha256": null
+    },
+    {
+      "bytes": null,
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal",
+      "role": "supporting_trace",
+      "sha256": null
+    },
+    {
+      "bytes": null,
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption",
+      "role": "supporting_trace",
+      "sha256": null
+    },
+    {
+      "bytes": null,
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_baseline_source_overlay_repair",
+      "role": "historical_evidence",
+      "sha256": null
+    }
+  ],
+  "schema_version": "dvf-3-3-current-route-required-validation-stored-evidence-inventory-v1",
+  "status": "PASS"
+}

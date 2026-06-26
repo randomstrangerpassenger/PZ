@@ -76,9 +76,9 @@
     },
     {
       "coverage_status": "COVERED",
-      "excluded_numeric_occurrence_count": 5,
+      "excluded_numeric_occurrence_count": 7,
       "exclusion_reason": null,
-      "raw_numeric_occurrence_count": 295,
+      "raw_numeric_occurrence_count": 297,
       "role_bearing_disposition_occurrence_count": 290,
       "sealed_axis_role": "runtime current entry comparison count",
       "sealed_value": 2105,
@@ -196,9 +196,9 @@
     },
     {
       "coverage_status": "COVERED",
-      "excluded_numeric_occurrence_count": 19,
+      "excluded_numeric_occurrence_count": 33,
       "exclusion_reason": null,
-      "raw_numeric_occurrence_count": 286,
+      "raw_numeric_occurrence_count": 300,
       "role_bearing_disposition_occurrence_count": 267,
       "sealed_axis_role": "blocked/unknown/pending/forbidden zero invariants",
       "sealed_value": 0,

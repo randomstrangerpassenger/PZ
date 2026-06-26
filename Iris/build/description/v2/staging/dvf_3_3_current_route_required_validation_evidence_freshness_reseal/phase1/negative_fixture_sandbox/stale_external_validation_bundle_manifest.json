@@ -1,0 +1,7 @@
+{
+  "evidence_root": "historical",
+  "live_manifest_sha256": "stale",
+  "runner_manifest_sha256": "different",
+  "schema_version": "dvf-3-3-current-route-required-validation-external-bundle-v1",
+  "status": "PASS"
+}

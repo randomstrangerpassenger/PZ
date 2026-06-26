@@ -1284,6 +1284,112 @@
   * required-validation guard adoption은 governance-only이며 source / rendered / Lua bridge / runtime / package writer가 아니다.
   * owner adoption status는 independent review를 대체하지 않는다. 이 round의 canonical seal은 non-Claude independent review PASS와 hash-sealed primary review bundle을 근거로만 선언한다.
 
+### Iris DVF 3-3 — current source authority drift verification / recovery scope retirement
+
+* 상태: read-only verification sealed / recovery live-write scope retired / independent review PASS / owner seal PASS / canonical retirement seal PASS
+* 결정: Current Source Authority Drift Verification / Recovery Scope Retirement round는 stale `CURRENT_FACTS=6 != 2105` premise를 현재 checkout 기준으로 폐기하고, source restoration이 아니라 successor current source authority 소비 경로 검증과 stale Recovery live-write scope retirement로 닫는다.
+* 현재 기준:
+
+  * vNext successor source manifest는 `successor_current_source_authority`를 선언하며, current baseline identity는 `dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration`이다.
+  * current `facts / decisions / overlay_support`는 모두 successor `2105` row identity와 count/hash가 일치한다. 여기서 `2105`는 old predecessor recovery target이 아니라 vNext successor universe count다.
+  * direct current compose는 sandbox output sink에서 실행되며 live rendered/source/runtime/package writer sink를 열지 않는다.
+  * direct current compose evidence는 `2105` entries, live rendered hash parity, missing overlay `0`으로 읽는다.
+  * `Base.CanOpener` 같은 6-entry predecessor fixture/source payload는 current-looking source / rendered / runtime / package path로 재진입하지 않는다.
+  * predecessor `2105 / 2084 / 21`은 historical / diagnostic / fixture trace로만 남으며 current authority, current hard gate, runtime authority, package authority, current debt로 승격하지 않는다.
+  * 기존 Current Source Authority Drift Recovery live-write plan은 현재 실행 근거가 아니라 future drift가 새로 증명될 때만 열 수 있는 contingency로 격하한다.
+  * primary review artifact manifest는 full evidence inventory `49` artifacts를 포함하며 missing count는 `0`이다.
+  * independent review artifact hash report는 frozen hash 비교 `45`, comparison-exempt artifact `4`, mismatch `0`으로 닫힌다. self hash row는 `self_hash_not_representable_presence_only`로 분리한다.
+  * final report는 `closeout_state=current_source_authority_drift_verification_recovery_scope_retirement_canonical_pass`, `canonical_retirement_seal_allowed=true`, `independent_review_status=PASS`, `owner_seal_status=PASS`로 읽는다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/`
+  * plan: `docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md`
+  * claim boundary: `docs/dvf_3_3_current_source_authority_drift_verification_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_current_source_authority_drift_verification_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json`
+  * primary review manifest: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/primary_review_artifact_manifest.json`
+  * independent review hash report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/independent_review_artifact_hash_report.json`
+  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_source_authority_drift_verification.py --mode all --require-complete` / `PASS`
+  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_source_authority_drift_verification.py --require-complete` / `PASS`
+  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_source_authority_drift_verification*.py"` / `9 tests OK`
+  * successor Adoption Reseal round의 latest broad current-route rerun은 `_dvf_3_3_vnext_common.write_jsonl` write-sink mechanics 보정 이후 `PASS / 113 tests / closure_enforced true`다. 이전 Windows `OSError 22` write failure는 source-authority drift evidence가 아니라 runner sink mechanics blocker로 읽는다.
+* 오독 금지:
+
+  * 이 항목은 facts / decisions / overlay / rendered live write, source restoration, old predecessor recovery, current authority cutover, live migration execution completion, Lua bridge export, runtime chunk replacement, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
+  * current-route required-validation candidate는 live manifest adoption이 아니라 candidate / governance-only trace다.
+  * Recovery plan retirement은 future drift contingency를 보존하는 것이며, 새 drift evidence 없이 live-write recovery scope를 다시 여는 근거가 아니다.
+
+### Iris DVF 3-3 — current-route required validation / evidence freshness reseal
+
+* 상태: required-validation evidence freshness resealed / live manifest consumed / external bundle fresh / independent review PASS / owner seal PASS / canonical complete
+* 결정: Current-Route Required Validation / Evidence Freshness Reseal round는 current checkout의 runner, live `Iris/_docs/round3/current_route_required_validations.json`, stored drift evidence, and round-local external validation bundle을 하나의 fresh readpoint로 다시 묶는 governance-only validation seal로 채택한다.
+* 현재 기준:
+
+  * final report는 `required_validation_gate_adopted=true`, `evidence_freshness_reseal_closeout_state=complete`, `machine_contract_status=PASS`, `canonical_complete_allowed=true`, `independent_review_status=PASS`, `owner_seal_status=PASS`로 읽는다.
+  * current-route command는 `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` 기준 `PASS / 110 tests / closure_enforced true`다.
+  * live required-validation manifest는 reseal round의 fresh drift-consumption, current source identity redrive, live manifest additive update, taxonomy separation, current-route freshness, external bundle freshness, and final seal evidence를 required artifacts로 소비한다.
+  * live manifest의 reseal required tests는 pre-phase5/phase6 current-route surfaces only로 제한한다. post-run external bundle / final report checks는 wrapper final validation과 focused unittest surface에서 검증하며 current-route PASS test count로 과장하지 않는다.
+  * external validation bundle은 fresh current-route run, live manifest hash, evidence root, and normalized content hash contract를 반영하며 `bundle_normalized_hash_matches_manifest=true`다.
+  * negative fixture matrix는 stale bundle, skipped required test, failed artifact field check를 sandbox runner로 fail-closed 검증하고, candidate manifest override는 official reseal wrapper CLI surface에서 거부한다.
+  * primary review artifact manifest는 `45` artifacts를 포함하며 missing count는 `0`이다. independent review artifact hash report는 frozen hash comparison `43`, comparison-exempt artifact `2`, mismatch `0`, `canonical_complete_allowed=true`로 닫힌다.
+  * owner seal report는 `owner_seal_status=PASS`, `owner_seal_decision=approve_required_validation_gate_adopted_evidence_freshness_reseal_complete`, `direct_runner_candidate_rejection_requirement=not_required_for_this_seal`로 읽는다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/`
+  * plan: `docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md`
+  * claim boundary: `docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/final_current_route_required_validation_evidence_freshness_reseal_report.json`
+  * owner seal report: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/owner_seal_report.json`
+  * primary review manifest: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/primary_review_artifact_manifest.json`
+  * independent review hash report: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/independent_review_artifact_hash_report.json`
+  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py --mode all` / `PASS`
+  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py --require-complete` / `PASS`
+  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py"` / `5 tests OK`
+* 오독 금지:
+
+  * 이 항목은 release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance, live migration execution, source restoration, rendered regeneration, Lua bridge export, runtime chunk replacement, or package payload mutation을 승인한 것이 아니다.
+  * required-validation reseal은 governance-only validation seal이며 source / rendered / Lua bridge / runtime / package writer authority가 아니다.
+  * direct `round3_run_contract_tests.py --required-validations` override surface는 sandbox fail-closed fixture용 harness 기능이다. 이번 seal의 candidate manifest guard는 official reseal wrapper가 required-validation manifest override를 받지 않는다는 보증으로 한정한다.
+
+### Iris DVF 3-3 — current source authority drift verification / adoption reseal
+
+* 상태: Branch A required gate adopted / governance-only adoption reseal complete / independent review PASS / owner seal PASS / canonical complete
+* 결정: Current Source Authority Drift Verification / Adoption Reseal round는 sealed drift verification PASS와 Evidence Freshness Reseal의 live-manifest consumption을 current-route required-validation governance chain의 하나의 fresh readpoint로 재봉인한다.
+* 현재 기준:
+
+  * selected branch는 `branch_a_required_gate_adopted`이며, final closeout은 `current_source_authority_drift_adoption_reseal_complete`다.
+  * sealed-reseal/live-manifest re-derivation은 PASS이며, live manifest는 drift evidence를 Evidence Freshness Reseal required gate를 통해 소비한다.
+  * direct drift adoption과 evidence-freshness drift-consumption은 구분되어 있고, Branch B / B-marked marker path는 `not_applicable_selected_branch_a`로 닫힌다.
+  * taxonomy는 live required manifest union surface를 통해 소비하며, 이번 round에서는 `non_writer_required_manifest_union`으로 기록한다.
+  * live required-validation manifest는 adoption reseal artifacts/tests를 additive로 채택했고, 기존 required artifact/test removal 또는 modification은 `0`이다.
+  * runner write-sink 보정은 `_dvf_3_3_vnext_common.write_jsonl`의 Windows `OSError 22` retry / atomic temp fallback에 한정한다. 이 보정은 required set, validation predicate, PASS interpretation, source authority, rendered authority, runtime/package authority를 변경하지 않는다.
+  * current-route validation은 `PASS / 113 tests / closure_enforced true`로 읽는다.
+  * final report는 `status=PASS`, `machine_contract_status=PASS`, `canonical_complete_allowed=true`, `independent_review_status=PASS`, `owner_seal_status=PASS`로 닫힌다.
+  * primary review artifact manifest는 `37` artifacts를 포함하며 missing count는 `0`이다. independent review artifact hash report는 frozen hash comparison `33`, comparison-exempt artifact `4`, mismatch `0`으로 닫힌다.
+  * final report는 `clean_checkout_reproducibility_proof_status=out_of_scope_not_claimed`, `original_required_evidence_reproducibility_preflight_status=not_closed_by_this_plan`을 보존한다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/`
+  * plan: `docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md`
+  * claim boundary: `docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/final_current_source_authority_drift_verification_adoption_reseal_report.json`
+  * owner seal report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/owner_seal_report.json`
+  * primary review manifest: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/primary_review_artifact_manifest.json`
+  * independent review hash report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/independent_review_artifact_hash_report.json`
+  * minimal runner write-sink fix report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/minimal_runner_write_sink_fix_report.json`
+  * runner write-sink diff scope report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/runner_write_sink_diff_scope_report.json`
+  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py --mode all` / `PASS`
+  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py --require-complete` / `PASS`
+  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py"` / `4 tests OK`
+  * full current route: `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` / `PASS / 113 tests / closure_enforced true`
+* 오독 금지:
+
+  * 이 항목은 source restoration, old predecessor recovery, current authority cutover, live migration execution, rendered regeneration, Lua bridge export, runtime chunk replacement, package payload mutation, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
+  * 이 adoption reseal은 plan-structure PASS만으로 empirical verification을 대체하지 않는다. current-route manifest adoption과 write-sink scope는 evidence로 기록됐지만, VCS tracking preservation은 관련 tool/test/docs/evidence와 manifest diff가 commit에 포함될 때 clean-checkout boundary로 봉인된다.
+  * clean-checkout required evidence reproducibility / taxonomy disposition preflight는 이 round에서 닫지 않는다.
+
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 
 * 상태: pre-apply authorization sealed / execution readiness evidence sealed / Phase 4 live apply allowed / no live mutation executed

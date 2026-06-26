@@ -1,0 +1,37 @@
+{
+  "final_report_required_fields": [
+    "status",
+    "machine_contract_status",
+    "selected_branch",
+    "closeout_state",
+    "clean_checkout_reproducibility_proof_status",
+    "original_required_evidence_reproducibility_preflight_status"
+  ],
+  "generated_at": "2026-06-26T14:32:45.106226+00:00",
+  "manifest_mutation_required_fields": [
+    "status",
+    "removed_existing_entries",
+    "modified_existing_entries"
+  ],
+  "no_mutation_required_fields": [
+    "status",
+    "changed_count"
+  ],
+  "required_field_schema_fixed_before_branch_a_mutation": true,
+  "review_manifest_required_fields": [
+    "status",
+    "artifact_count",
+    "missing_count"
+  ],
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-artifact-field-schema-v1",
+  "source_identity_required_fields": [
+    "status",
+    "authority_role",
+    "successor_universe_count"
+  ],
+  "status": "PASS",
+  "taxonomy_adoption_required_fields": [
+    "status",
+    "taxonomy_writer_mode"
+  ]
+}

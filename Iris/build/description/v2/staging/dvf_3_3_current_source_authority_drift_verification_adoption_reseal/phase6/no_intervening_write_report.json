@@ -1,0 +1,9 @@
+{
+  "co_readpoint_token_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/co_readpoint_identity_token.json",
+  "generated_at": "2026-06-26T14:35:00.984425+00:00",
+  "intervening_protected_write_count": 0,
+  "no_intervening_write_check_scope": "post_current_route_to_final_seal_governance_artifacts_only",
+  "protected_source_rendered_lua_runtime_package_changed_count": 0,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-no-intervening-write-v1",
+  "status": "PASS"
+}

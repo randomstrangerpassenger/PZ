@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-06-26T14:35:00.200938+00:00",
+  "guards": {
+    "b_marked_schema_supported_marker_validation": "not_applicable_selected_branch_a",
+    "branch_b_fresh_current_route_pass": "not_applicable_selected_branch_a",
+    "branch_selection_contract_validator": "PASS",
+    "co_readpoint_token": "PASS",
+    "minimal_runner_write_sink_fix": "PASS",
+    "negative_fixture_matrix": "PASS",
+    "no_intervening_write_report": "PASS",
+    "runner_write_sink_diff_scope": "PASS",
+    "sealed_reseal_live_manifest_rederivation": "PASS",
+    "taxonomy_single_writer_report": "PASS"
+  },
+  "omitted_required_guard_count": 0,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-implementation-compression-checklist-v1",
+  "selected_branch": "branch_a_required_gate_adopted",
+  "status": "PASS",
+  "warn_or_fail_required": false
+}

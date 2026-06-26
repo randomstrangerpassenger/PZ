@@ -1,0 +1,83 @@
+{
+  "baseline_hash_report": {
+    "aggregate_sha256": "1e1935ef8cd62cde3bacfb86043dbb7578c93fe63342a9c682adc94dd604213b",
+    "generated_at": "2026-06-25T07:51:22.724397+00:00",
+    "record_count": 4,
+    "records": [
+      {
+        "bytes": null,
+        "exists": false,
+        "kind": "missing",
+        "optional": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/shared_disposition_packet.json",
+        "role": "broad_run_regenerable_or_required_validation_input",
+        "sha256": null,
+        "surface_class": "sealed_round_evidence"
+      },
+      {
+        "bytes": 3285,
+        "exists": true,
+        "kind": "file",
+        "optional": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json",
+        "role": "broad_run_regenerable_or_required_validation_input",
+        "sha256": "321c11a0e7ca807a809eddc46aa9514c3ce578e3a57f96185735aa5a5f0e791b",
+        "surface_class": "sealed_round_evidence"
+      },
+      {
+        "bytes": 7115,
+        "exists": true,
+        "kind": "file",
+        "optional": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
+        "role": "broad_run_regenerable_or_required_validation_input",
+        "sha256": "2aa3815f755f5b549c8bea5083dd45603a35f3d9524c78751f1da9811470fff0",
+        "surface_class": "sealed_round_evidence"
+      },
+      {
+        "bytes": 2463,
+        "exists": true,
+        "kind": "file",
+        "optional": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json",
+        "role": "broad_run_regenerable_or_required_validation_input",
+        "sha256": "dd9c86b7ab6a3a9136b6120aa91d6c45e43ea0dca32e7f47c378b91ed0884c4b",
+        "surface_class": "sealed_round_evidence"
+      }
+    ],
+    "schema_version": "dvf-3-3-current-route-required-validation-sealed-evidence-baseline-v1"
+  },
+  "entries": [
+    {
+      "exists": false,
+      "optional": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/shared_disposition_packet.json",
+      "role": "broad_run_regenerable_or_required_validation_input",
+      "surface_class": "sealed_round_evidence"
+    },
+    {
+      "exists": true,
+      "optional": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json",
+      "role": "broad_run_regenerable_or_required_validation_input",
+      "surface_class": "sealed_round_evidence"
+    },
+    {
+      "exists": true,
+      "optional": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
+      "role": "broad_run_regenerable_or_required_validation_input",
+      "surface_class": "sealed_round_evidence"
+    },
+    {
+      "exists": true,
+      "optional": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json",
+      "role": "broad_run_regenerable_or_required_validation_input",
+      "surface_class": "sealed_round_evidence"
+    }
+  ],
+  "protection_policy": "pre_post_content_hash_must_remain_unchanged_without_owner_approved_regeneration_scope",
+  "schema_version": "dvf-3-3-current-route-required-validation-sealed-evidence-protected-set-v1",
+  "status": "PASS"
+}

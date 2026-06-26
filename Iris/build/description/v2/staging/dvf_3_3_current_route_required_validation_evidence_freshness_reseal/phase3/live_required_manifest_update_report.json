@@ -1,0 +1,19 @@
+{
+  "added_entries": 9,
+  "candidate_manifest_adopted": false,
+  "duplicate_entries": 0,
+  "generated_at": "2026-06-25T07:51:23.703659+00:00",
+  "immediate_new_entries_added": 0,
+  "immediate_superseded_post_run_required_tests_removed": 0,
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "live_manifest_sha256_after": "9a14e75ade4df9b83904e74f9d189479189187b6199ad3add90144cf8b503325",
+  "modified_existing_entries": 0,
+  "post_run_surface_tests_are_current_route_required": false,
+  "removed_existing_entries": 0,
+  "round_required_artifact_count": 6,
+  "round_required_test_count": 3,
+  "schema_version": "dvf-3-3-current-route-required-validation-live-manifest-update-v1",
+  "source_runtime_package_authority_mutated": false,
+  "status": "PASS",
+  "superseded_post_run_required_test_ids_removed": []
+}

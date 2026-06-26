@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "decisions_meta_matches_live": true,
+    "direct_compose_pass": true,
+    "facts_meta_matches_live": true,
+    "overlay_meta_matches_live": true,
+    "source_manifest_successor": true
+  },
+  "continuity": "source_manifest -> facts/decisions/overlay_support -> direct_compose -> rendered_input_contract",
+  "schema_version": "dvf-3-3-current-source-authority-drift-successor-continuity-v1",
+  "status": "PASS"
+}

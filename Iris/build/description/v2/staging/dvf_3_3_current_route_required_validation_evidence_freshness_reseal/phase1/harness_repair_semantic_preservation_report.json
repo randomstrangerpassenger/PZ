@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-06-25T07:53:02.385549+00:00",
+  "pass_predicate_changed_count": 0,
+  "repair_applied": false,
+  "required_set_changed_count": 0,
+  "schema_version": "dvf-3-3-current-route-required-validation-harness-semantic-preservation-v1",
+  "semantic_touch_count": 0,
+  "status": "PASS",
+  "validation_rule_changed_count": 0
+}

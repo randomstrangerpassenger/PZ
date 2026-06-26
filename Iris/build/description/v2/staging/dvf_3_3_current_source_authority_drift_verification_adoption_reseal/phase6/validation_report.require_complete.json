@@ -1,0 +1,11 @@
+{
+  "canonical_complete_allowed": true,
+  "canonical_complete_claimed": true,
+  "error_count": 0,
+  "errors": [],
+  "generated_at": "2026-06-26T14:37:34.979808+00:00",
+  "require_complete": true,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-validation-report-v1",
+  "status": "PASS",
+  "validation_report_scope": "machine_pass_artifact_set_and_owner_sealed_canonical_closeout"
+}

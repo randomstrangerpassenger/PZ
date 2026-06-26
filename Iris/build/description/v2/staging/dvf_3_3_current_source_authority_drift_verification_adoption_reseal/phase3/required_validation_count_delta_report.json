@@ -1,0 +1,15 @@
+{
+  "added_entries": 0,
+  "generated_at": "2026-06-26T14:32:45.824366+00:00",
+  "modified_existing_entries": 0,
+  "removed_existing_entries": 0,
+  "required_artifact_count_after": 48,
+  "required_artifact_count_before": 48,
+  "required_test_count_after": 34,
+  "required_test_count_before": 34,
+  "round_required_artifact_count": 14,
+  "round_required_test_count": 3,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-required-validation-count-delta-v1",
+  "selected_branch": "branch_a_required_gate_adopted",
+  "status": "PASS"
+}

@@ -1,0 +1,25 @@
+{
+  "claim": "negative_fixture::field_mismatch",
+  "required": true,
+  "required_artifacts": [
+    {
+      "checks": [
+        {
+          "equals": "INTENTIONAL_FAIL",
+          "field": "status"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_sandbox/field_mismatch_fixture.json"
+    }
+  ],
+  "required_tests": [
+    {
+      "required": true,
+      "role": "negative_fixture_only",
+      "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.negative_fixture_synthetic_pass"
+    }
+  ],
+  "route": "current",
+  "schema_version": "round3-current-route-required-validations-v1",
+  "status": "PASS"
+}

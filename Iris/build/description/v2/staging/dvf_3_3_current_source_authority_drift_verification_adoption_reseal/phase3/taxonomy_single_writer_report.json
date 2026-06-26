@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-06-26T14:32:45.823722+00:00",
+  "non_writer_rationale": "round3 runner unions live required tests with taxonomy-selected current tests",
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-taxonomy-single-writer-v1",
+  "status": "PASS",
+  "taxonomy_mutated": false,
+  "taxonomy_path": "Iris/_docs/round3/round3_test_taxonomy.json",
+  "taxonomy_writer_mode": "non_writer_required_manifest_union"
+}

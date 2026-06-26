@@ -1,0 +1,16 @@
+{
+  "candidate_manifest_authority_guard_surface": "wrapper_required_validations_override_absent",
+  "canonical_complete_allowed": true,
+  "direct_runner_candidate_rejection_requirement": "not_required_for_this_seal",
+  "generated_at": "2026-06-25T07:53:03.093731+00:00",
+  "independent_review_artifact_hash_report_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/independent_review_artifact_hash_report.json",
+  "independent_review_basis": "non_claude_independent_review_reported_no_blocking_actionable_findings",
+  "independent_review_status_accepted": "PASS",
+  "machine_pass_report_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/final_current_route_required_validation_evidence_freshness_reseal_report.json",
+  "owner_seal_decision": "approve_required_validation_gate_adopted_evidence_freshness_reseal_complete",
+  "owner_seal_source": "owner_chat_instruction_2026-06-25",
+  "owner_seal_status": "PASS",
+  "primary_review_artifact_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/primary_review_artifact_manifest.json",
+  "schema_version": "dvf-3-3-current-route-required-validation-owner-seal-v1",
+  "status": "PASS"
+}

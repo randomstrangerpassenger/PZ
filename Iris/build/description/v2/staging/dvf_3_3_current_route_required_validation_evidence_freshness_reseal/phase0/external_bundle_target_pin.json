@@ -1,0 +1,31 @@
+{
+  "external_bundle_content_contract": {
+    "deterministic_after_normalization": true,
+    "host_local_absolute_paths_forbidden": true,
+    "normalization_excludes_keys": [
+      "duration_seconds",
+      "elapsed_seconds",
+      "finished_at",
+      "generated_at",
+      "manifest_payload_sha256_excluding_self_hash",
+      "normalized_content_sha256",
+      "raw_stderr",
+      "raw_stdout",
+      "started_at",
+      "stderr",
+      "stdout"
+    ],
+    "unordered_maps_must_be_sorted": true
+  },
+  "external_bundle_current_target_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase5/external_validation_bundle_manifest.json",
+  "external_bundle_existing_target_adoption_status": "old_target_not_adopted_new_canonical_route",
+  "external_bundle_generator_command": "uv run python -B Iris\\build\\description\\v2\\tools\\build\\run_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py --mode machine-pass",
+  "external_bundle_previous_readpoint": null,
+  "external_bundle_previous_readpoint_count": 0,
+  "external_bundle_reseal_required": true,
+  "external_bundle_role": "round_local_canonical_external_validation_bundle",
+  "external_bundle_stale_reference_policy": "old_bundle_is_historical_trace_only",
+  "external_bundle_update_allowed": true,
+  "schema_version": "dvf-3-3-current-route-required-validation-external-bundle-target-pin-v1",
+  "status": "PASS"
+}

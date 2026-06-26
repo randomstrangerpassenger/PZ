@@ -1,0 +1,17 @@
+{
+  "preserves_transient_and_stable_provenance": true,
+  "schema_version": "dvf-3-3-current-source-authority-drift-roadmap-provenance-rebind-v1",
+  "stable_canonical_artifact": {
+    "line_count": 779,
+    "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+    "role": "primary_stable_artifact_for_execution",
+    "sha256": "e678276096be005a3efc65b00ecbcf85fd33858939611b0be56c35cc079f0fef"
+  },
+  "status": "PASS",
+  "transient_attachment": {
+    "line_count": 474,
+    "path": "C:/Users/MW/.codex/attachments/fd3e068d-4576-4e34-9040-31c3f5838a18/pasted-text.txt",
+    "role": "consumed_planning_input_provenance",
+    "sha256": "F880F8DD64F5123C57F7FD3798B676019A28D3000EAD05006899C201E40AC9DC"
+  }
+}

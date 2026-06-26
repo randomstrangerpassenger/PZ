@@ -367,6 +367,16 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * frozen 2105, prior staging, 6-entry fixture, legacy bridge, monolith output은 current authority가 아니라 historical / comparison / diagnostic / prerequisite trace로만 보존한다.
   * 이 완료는 package release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game validation, semantic quality completion, public-facing text quality acceptance를 의미하지 않는다.
 
+* DVF 3-3 Current Source Authority Drift Verification / Recovery Scope Retirement를 canonical PASS로 닫았다.
+
+  * stale premise였던 live `facts / decisions` `6 != 2105` 복구 문제는 현재 checkout 기준에서 폐기한다.
+  * current `facts / decisions / overlay_support`는 successor `2105` row identity와 count/hash가 일치한다.
+  * direct current compose는 sandbox output sink 기준 `2105` entries / live rendered hash parity / missing overlay `0`으로 통과한다.
+  * `Base.CanOpener` 등 6-entry predecessor fixture/source payload는 current-looking path로 재진입하지 않는다.
+  * 기존 Current Source Authority Drift Recovery live-write scope는 future drift가 새로 증명될 때만 여는 contingency로 격하한다.
+  * independent review와 owner seal을 거쳐 `closeout_state=current_source_authority_drift_verification_recovery_scope_retirement_canonical_pass`, `canonical_retirement_seal_allowed=true`로 닫았다.
+  * 이 완료는 source restoration, current authority cutover, rendered live regeneration, Lua bridge export, runtime chunk replacement, live migration execution, package/release/Workshop/B42 readiness, manual QA를 의미하지 않는다. DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]
+
 * DVF 3-3 Live Migration Readiness Authorization을 봉인했다.
 
   * `phase4_live_apply_allowed=true`, `downstream_predecessor_status=ready_for_phase4_live_apply`다.
@@ -375,12 +385,12 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * dirty target overlap은 committed baseline + isolated non-overlap proof 기준으로 row blocker에서 제거했다.
   * 이 완료는 실제 Phase 4 live mutation 실행, live migration completion, release/package/Workshop readiness가 아니다.
 
-* DVF 3-3 Live Migration Readiness Execution evidence root를 구현했다. DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]
+* DVF 3-3 Live Migration Readiness Execution evidence root를 구현했다.
 
   * `docs/dvf_3_3_live_migration_readiness_execution_plan.md`가 요구한 `phase0`~`phase10` pre-apply gate artifacts를 `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/`에 materialize한다.
   * execution runner는 authorization verdict를 live apply로 실행하지 않고, execution plan이 소비할 canonical evidence root / artifact names / validation surface로 투영한다.
   * execution verdict도 `phase4_live_apply_allowed=true`, `downstream_predecessor_status=ready_for_phase4_live_apply`, `no_live_mutation_changed_count=0`이다.
-  * execution validation은 `run_dvf_3_3_live_migration_readiness_execution.py --mode all`, `validate_dvf_3_3_live_migration_readiness_execution.py --require-complete`, focused unittest 기준 PASS다.
+  * execution validation은 `run_dvf_3_3_live_migration_readiness_execution.py --mode all`, `validate_dvf_3_3_live_migration_readiness_execution.py --require-complete`, focused unittest 기준 PASS다. DVF_AUTHORITY_ROLE_MIGRATION[b06ec50536c3b84b014997b0af257dc1]
 
 * compose / resolver / compatibility authority를 current readpoint 기준으로 정리했다.
 
@@ -390,7 +400,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 
 * Lua bridge export와 build / test contract를 current route 기준으로 재정렬했다.
 
-  * Lua bridge exporter의 default route는 monolith가 아니라 chunk manifest + chunk files를 생성한다. DVF_AUTHORITY_ROLE_MIGRATION[b06ec50536c3b84b014997b0af257dc1]
+  * Lua bridge exporter의 default route는 monolith가 아니라 chunk manifest + chunk files를 생성한다.
   * monolith export는 explicit historical / diagnostic mode에서만 허용한다.
   * current / historical / diagnostic test route를 분리하고, current route closure guard를 유지한다.
 
@@ -542,9 +552,38 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * broad consumer migration completion과 cutover subset completion의 문구를 분리한다.
   * predecessor `2105 / 2084 / 21`이 current hard gate, runtime authority, current debt로 재진입하지 못하도록 guard를 봉인한다.
   * Problem 7 full current-route PASS를 Problem 8 closeout completion으로 읽지 않는다.
-  * final guard report는 `machine_contract_status=PASS`, `required_validation_gate_adoption_status=adopted_required_gate`, protected source / rendered / Lua bridge / runtime / package mutation `0`으로 닫힌다.
+  * final guard report는 `machine_contract_status=PASS`, `required_validation_gate_adoption_status=adopted_required_gate`, `closeout_state=canonical_complete`, `canonical_seal_allowed=true`, protected source / rendered / Lua bridge / runtime / package mutation `0`으로 닫힌다.
+  * live required manifest는 Closeout / Reentry Guard artifacts/tests를 `required_artifacts=28`, `required_tests=28`로 요구하며, full current-route validation은 `PASS / 107 tests / closure_enforced true`로 읽는다.
+  * independent review artifact hash report는 `17`개 primary review artifacts를 hash-seal하며, final report / full current-route result / complete validation report / claim scan evidence를 포함한다.
   * canonical seal은 non-Claude independent review PASS에 따라 `canonical_complete`로 닫힌다.
   * 이 gate는 live migration execution, live mutation, current authority cutover, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+
+* Current Source Authority Drift Verification / Recovery Scope Retirement는 canonical PASS 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/`다.
+  * focused generator / validator / unittest는 `--require-complete` 포함 PASS이며, primary review inventory는 `49`, frozen hash comparison은 `45`, comparison-exempt artifact는 `4`, hash mismatch는 `0`이다.
+  * Recovery live-write 계획은 현재 writer authority가 아니라 future drift contingency다.
+  * latest broad current-route rerun은 unrelated shared-disposition packet write `OSError 22`로 blocked 상태였으므로, 이 round의 canonical PASS 근거로 과장하지 않는다.
+
+* Current-Route Required Validation / Evidence Freshness Reseal은 canonical complete 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/`다.
+  * current-route validation은 `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` 기준 `PASS / 110 tests / closure_enforced true`다.
+  * reseal final report는 `evidence_freshness_reseal_closeout_state=complete`, `machine_contract_status=PASS`, `canonical_complete_allowed=true`, `independent_review_status=PASS`, `owner_seal_status=PASS`다.
+  * live required-validation manifest는 latest source drift verification evidence를 consumed current evidence로 묶고, required artifact field checks / current source identity redrive / external validation bundle freshness / final seal evidence를 fail-closed로 요구한다.
+  * post-run external bundle / final report checks는 current-route required test count로 과장하지 않고 wrapper final validation과 focused unittest로 검증한다.
+  * primary review inventory는 `45`, frozen hash comparison은 `43`, comparison-exempt artifact는 `2`, hash mismatch는 `0`이다.
+  * 이 reseal은 source / rendered / Lua bridge / runtime / package writer authority, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+
+* Current Source Authority Drift Verification / Adoption Reseal은 canonical complete 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/`다.
+  * selected branch는 `branch_a_required_gate_adopted`이며 final closeout은 `current_source_authority_drift_adoption_reseal_complete`다.
+  * current-route validation은 `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` 기준 `PASS / 113 tests / closure_enforced true`다.
+  * live required-validation manifest는 adoption reseal required artifacts/tests를 additive로 소비하며 required artifact/test removal 또는 modification은 `0`이다.
+  * primary review inventory는 `37`, frozen hash comparison은 `33`, comparison-exempt artifact는 `4`, hash mismatch는 `0`이다.
+  * 이 adoption reseal은 source / rendered / Lua bridge / runtime / package writer authority, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+  * clean-checkout required evidence reproducibility / taxonomy disposition preflight는 이 round에서 닫지 않는다.
 
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 

@@ -1,0 +1,16 @@
+{
+  "pre_execution_decisions": {
+    "authority_surface_label": "validation/governance surface impact only",
+    "decision_status": "resolved_by_plan_fixed_label"
+  },
+  "pre_final_seal_decisions": {
+    "canonical_complete_vocabulary": "pending_owner_and_independent_review",
+    "validation_depth_label": "owner_reserved_display_label_not_used_for_machine_pass"
+  },
+  "pre_manifest_update_decisions": {
+    "decision_status": "resolved_conservatively_no_live_manifest_self_reference",
+    "validator_complete_manifest_status": "supporting"
+  },
+  "schema_version": "dvf-3-3-current-route-required-validation-owner-gates-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,9 @@
+{
+  "adopted_row_count": 2084,
+  "full_peer_missing_overlay_inventory_performed": true,
+  "missing_overlay_item_ids": [],
+  "overlay_row_count": 2105,
+  "runtime_adopted_missing_overlay_count": 0,
+  "schema_version": "dvf-3-3-current-source-authority-drift-body-source-overlay-requirement-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,17 @@
+{
+  "branch_predicates": {
+    "branch_a_owner_selected": true,
+    "manifest_additive": true,
+    "sealed_reseal_live_manifest_rederivation_pass": true,
+    "source_identity_redrive_pass": true,
+    "taxonomy_non_writer_recorded": true
+  },
+  "forbidden_branch_closeout_state": null,
+  "generated_at": "2026-06-26T14:32:45.821870+00:00",
+  "owner_decision_after_machine_predicates": true,
+  "owner_seal_source": "owner_chat_instruction_2026-06-26",
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-branch-selection-contract-v1",
+  "selected_branch": "branch_a_required_gate_adopted",
+  "selected_branch_closeout_token": "current_source_authority_drift_required_gate_adopted",
+  "status": "PASS"
+}

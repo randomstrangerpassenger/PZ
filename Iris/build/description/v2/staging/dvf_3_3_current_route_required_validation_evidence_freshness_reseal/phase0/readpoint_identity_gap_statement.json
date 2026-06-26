@@ -1,0 +1,8 @@
+{
+  "candidate_manifest_authority_allowed": false,
+  "gap_statement": "Predecessor PASS evidence is not reused as fresh current-route PASS until this round binds the live manifest, current checkout source identity, runner result, and new external bundle.",
+  "latest_drift_root_selection_by_mtime_allowed": false,
+  "schema_version": "dvf-3-3-current-route-required-validation-readpoint-gap-v1",
+  "stale_pass_reuse_allowed": false,
+  "status": "PASS"
+}

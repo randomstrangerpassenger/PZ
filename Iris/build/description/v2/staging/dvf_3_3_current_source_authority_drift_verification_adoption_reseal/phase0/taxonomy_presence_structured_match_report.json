@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-06-26T14:32:43.871941+00:00",
+  "new_round_required_manifest_test_count": 3,
+  "new_round_taxonomy_exact_match_count": 0,
+  "required_manifest_union_is_current_route_execution_surface": true,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-taxonomy-presence-v1",
+  "status": "PASS",
+  "substring_only_match_count": 0,
+  "taxonomy_mutation_required": false,
+  "taxonomy_path": "Iris/_docs/round3/round3_test_taxonomy.json",
+  "taxonomy_writer_mode": "non_writer_required_manifest_union"
+}

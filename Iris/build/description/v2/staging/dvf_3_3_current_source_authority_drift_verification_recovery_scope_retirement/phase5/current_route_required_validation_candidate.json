@@ -1,0 +1,9 @@
+{
+  "candidate_only": true,
+  "gate_role_if_adopted_later": "governance_only_not_writer_authority",
+  "live_manifest_mutation_authorized": false,
+  "round_id": "dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement",
+  "runner": "Iris/build/description/v2/tools/build/run_dvf_3_3_current_source_authority_drift_verification.py",
+  "schema_version": "round3-current-route-required-validation-candidate-v1",
+  "validator": "Iris/build/description/v2/tools/build/validate_dvf_3_3_current_source_authority_drift_verification.py"
+}

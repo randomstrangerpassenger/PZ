@@ -1,0 +1,145 @@
+{
+  "current_route_required_tests_scope": "pre_phase5_phase6_surfaces_only",
+  "post_run_surface_tests": [
+    "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_external_bundle_and_final_report_are_fresh_when_not_in_inner_runner",
+    "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_final_state_keeps_machine_pass_separate_from_canonical_complete"
+  ],
+  "post_run_surface_tests_are_live_current_route_required": false,
+  "post_run_surface_validation_surface": "wrapper_final_validation_and_focused_unittest",
+  "required_artifacts": [
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "validation/governance surface impact only",
+          "field": "authority_surface"
+        },
+        {
+          "equals": true,
+          "field": "external_validation_bundle_reseal_required"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_consumption_contract.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "successor_current_source_authority",
+          "field": "authority_role"
+        },
+        {
+          "equals": 2105,
+          "field": "successor_universe_count"
+        },
+        {
+          "equals": true,
+          "field": "checks.facts_match_manifest"
+        },
+        {
+          "equals": true,
+          "field": "checks.decisions_match_manifest"
+        },
+        {
+          "equals": true,
+          "field": "checks.overlay_match_manifest"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "mismatch_count"
+        },
+        {
+          "equals": "PASS",
+          "field": "current_redrive_status"
+        },
+        {
+          "equals": "read_only_governance_evidence",
+          "field": "drift_evidence_role"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_field_check_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "removed_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "modified_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "duplicate_entries"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/live_required_manifest_update_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": false,
+          "field": "runtime_authority_mutation"
+        },
+        {
+          "equals": "wrapper_final_validation",
+          "field": "external_bundle_reseal_requirement_surface"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/taxonomy_separation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "removed_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "modified_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "duplicate_entries"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/additive_diff_bijection_report.json"
+    }
+  ],
+  "required_tests": [
+    "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_current_source_identity_redrive_and_drift_field_check_pass",
+    "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_live_manifest_update_is_additive_and_governance_only",
+    "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.DvfCurrentRouteRequiredValidationEvidenceFreshnessResealTest.test_negative_fixtures_remain_fail_closed_without_live_mutation"
+  ],
+  "schema_version": "dvf-3-3-current-route-required-validation-artifact-field-spec-v1",
+  "status": "PASS",
+  "validator_complete_status": "supporting_evidence_for_machine_pass_not_live_manifest_required_artifact"
+}

@@ -1,0 +1,29 @@
+{
+  "bundle_file_sha256": "595ea401742c67865b136fb20c52866c2991956e5c979e91cca6892a66ae8e80",
+  "bundle_manifest_stored_normalized_content_sha256": "e0fa326c4b65af0e70da32c2b3d629ad5327bbb51b4b597740f5647320bf673e",
+  "bundle_normalized_content_sha256": "e0fa326c4b65af0e70da32c2b3d629ad5327bbb51b4b597740f5647320bf673e",
+  "bundle_normalized_hash_matches_manifest": true,
+  "bundle_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase5/external_validation_bundle_manifest.json",
+  "generated_at": "2026-06-25T07:53:03.004515+00:00",
+  "normalization_contract": {
+    "deterministic_after_normalization": true,
+    "host_local_absolute_paths_forbidden": true,
+    "normalization_excludes_keys": [
+      "duration_seconds",
+      "elapsed_seconds",
+      "finished_at",
+      "generated_at",
+      "manifest_payload_sha256_excluding_self_hash",
+      "normalized_content_sha256",
+      "raw_stderr",
+      "raw_stdout",
+      "started_at",
+      "stderr",
+      "stdout"
+    ],
+    "unordered_maps_must_be_sorted": true
+  },
+  "schema_version": "dvf-3-3-current-route-required-validation-external-bundle-hash-v1",
+  "status": "PASS",
+  "target_pin_path_matches": true
+}

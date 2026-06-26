@@ -1,0 +1,16 @@
+{
+  "member_count": 6,
+  "members": [
+    "Base.CanOpener",
+    "Base.ElectronicsScrap",
+    "Base.GunpowderCan",
+    "Base.ModKit",
+    "Base.Tongs",
+    "Base.WeldingTorch"
+  ],
+  "membership_derivation": "content_derived_from_selected_sealed_predecessor_fixture",
+  "schema_version": "dvf-3-3-current-source-authority-drift-six-entry-signature-v1",
+  "selected_artifact_path": "Iris/build/description/v2/staging/compose_contract_migration/layer3_body_source_overlay.jsonl",
+  "selected_artifact_sha256": "b9af509335d46982e795aeced76d6133f1309ce45ffaf1e66d0b3b113ac02eb1",
+  "status": "PASS"
+}

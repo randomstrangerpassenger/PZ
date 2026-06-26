@@ -1,0 +1,10 @@
+{
+  "current_route_class_diff_count": 0,
+  "generated_at": "2026-06-26T14:32:44.655610+00:00",
+  "minimal_runner_write_sink_fix_used": true,
+  "repair_scope": "write_sink_mechanics_only_no_required_set_or_predicate_change",
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-runner-diff-scope-v1",
+  "sealed_baseline_expectation_diff_count": 0,
+  "shared_runner_predicate_diff_count": 0,
+  "status": "PASS"
+}

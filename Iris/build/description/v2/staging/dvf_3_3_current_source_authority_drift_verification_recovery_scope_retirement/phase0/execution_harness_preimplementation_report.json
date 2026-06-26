@@ -1,0 +1,25 @@
+{
+  "allowed_write_roots": [
+    "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement",
+    "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification/direct_compose",
+    "docs/dvf_3_3_current_source_authority_drift_verification_claim_boundary.md",
+    "docs/dvf_3_3_current_source_authority_drift_verification_ledger_packet.md"
+  ],
+  "created_or_reused_helpers": [
+    "Iris/build/description/v2/tools/build/dvf_3_3_current_source_authority_drift_verification.py",
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_current_source_authority_drift_verification.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_current_source_authority_drift_verification.py"
+  ],
+  "evidence_bundle_writer_only": true,
+  "forbidden_write_roots": [
+    "Iris/build/description/v2/data",
+    "Iris/build/description/v2/output",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+    "Iris/build/package/Iris/media/lua/client/Iris/Data",
+    "Iris/_docs/round3/current_route_required_validations.json"
+  ],
+  "introduced_live_writer_capability": false,
+  "planned_helpers_initially_missing": true,
+  "schema_version": "dvf-3-3-current-source-authority-drift-harness-preimplementation-v1",
+  "status": "PASS"
+}

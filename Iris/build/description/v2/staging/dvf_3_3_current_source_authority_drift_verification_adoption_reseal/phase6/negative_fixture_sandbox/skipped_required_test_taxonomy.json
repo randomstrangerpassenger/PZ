@@ -1,0 +1,10 @@
+{
+  "rows": [
+    {
+      "contract_class": "current",
+      "state": "ok",
+      "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.negative_fixture_synthetic_skip"
+    }
+  ],
+  "schema_version": "round3-negative-fixture-taxonomy-v1"
+}

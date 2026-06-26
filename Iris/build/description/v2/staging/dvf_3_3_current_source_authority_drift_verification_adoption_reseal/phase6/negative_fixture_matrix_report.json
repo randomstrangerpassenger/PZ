@@ -1,0 +1,67 @@
+{
+  "fixtures": [
+    {
+      "expected_error_code": "missing_required_artifact",
+      "expected_failure_preserved": true,
+      "fixture": "missing_artifact",
+      "live_mutation_performed": false,
+      "observed_runner": {
+        "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --taxonomy C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\missing_artifact_taxonomy.json --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\missing_artifact_manifest.json --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\missing_artifact_runner_result.json",
+        "exit_code": 1,
+        "observed_error_codes": [
+          "missing_required_artifact"
+        ],
+        "required_validation_success": false,
+        "result_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_sandbox/missing_artifact_runner_result.json",
+        "runner_success": false,
+        "stderr_tail": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+        "stdout_tail": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 1, \"success\": false, \"elapsed_seconds\": 0.0}\n"
+      },
+      "status": "PASS"
+    },
+    {
+      "expected_error_code": "required_artifact_field_mismatch",
+      "expected_failure_preserved": true,
+      "fixture": "field_mismatch",
+      "live_mutation_performed": false,
+      "observed_runner": {
+        "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --taxonomy C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\field_mismatch_taxonomy.json --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\field_mismatch_manifest.json --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\field_mismatch_runner_result.json",
+        "exit_code": 1,
+        "observed_error_codes": [
+          "required_artifact_field_mismatch"
+        ],
+        "required_validation_success": false,
+        "result_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_sandbox/field_mismatch_runner_result.json",
+        "runner_success": false,
+        "stderr_tail": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+        "stdout_tail": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 1, \"success\": false, \"elapsed_seconds\": 0.0}\n"
+      },
+      "status": "PASS"
+    },
+    {
+      "expected_error_code": "skipped_required_test",
+      "expected_failure_preserved": true,
+      "fixture": "skipped_required_test",
+      "live_mutation_performed": false,
+      "observed_runner": {
+        "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --taxonomy C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\skipped_required_test_taxonomy.json --required-validations C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\skipped_required_test_manifest.json --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_source_authority_drift_verification_adoption_reseal\\phase6\\negative_fixture_sandbox\\skipped_required_test_runner_result.json",
+        "exit_code": 1,
+        "observed_error_codes": [
+          "skipped_required_test"
+        ],
+        "required_validation_success": false,
+        "result_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_sandbox/skipped_required_test_runner_result.json",
+        "runner_success": false,
+        "stderr_tail": "s\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK (skipped=1)\n",
+        "stdout_tail": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 1, \"success\": false, \"elapsed_seconds\": 0.0}\n"
+      },
+      "status": "PASS"
+    }
+  ],
+  "generated_at": "2026-06-26T14:32:45.779253+00:00",
+  "live_manifest_mutated": false,
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "sandbox_root": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_sandbox",
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-negative-fixture-matrix-v1",
+  "status": "PASS"
+}

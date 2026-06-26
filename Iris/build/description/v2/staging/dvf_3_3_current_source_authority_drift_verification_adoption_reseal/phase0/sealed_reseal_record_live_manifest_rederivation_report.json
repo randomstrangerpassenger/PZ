@@ -1,0 +1,26 @@
+{
+  "checks": {
+    "drift_final_pass": true,
+    "drift_final_read_only": true,
+    "evidence_freshness_adopted": true,
+    "evidence_freshness_final_pass": true,
+    "live_manifest_has_freshness_drift_artifacts": true,
+    "live_manifest_has_freshness_required_tests": true
+  },
+  "direct_drift_adoption_distinguished_from_evidence_freshness_consumption": true,
+  "drift_final_report": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json",
+  "evidence_freshness_final_report": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/final_current_route_required_validation_evidence_freshness_reseal_report.json",
+  "generated_at": "2026-06-26T14:32:43.869618+00:00",
+  "live_manifest_consumes_drift_via_evidence_freshness_reseal": true,
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "matched_previous_evidence_paths": [
+    "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_consumption_contract.json",
+    "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_field_check_report.json"
+  ],
+  "matched_previous_required_test_count": 3,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-sealed-live-rederivation-v1",
+  "sealed_live_divergence_detected": false,
+  "status": "PASS",
+  "terminal_if_failed": "blocked_sealed_reseal_live_divergence_resolution_required"
+}

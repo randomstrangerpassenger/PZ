@@ -1,0 +1,23 @@
+{
+  "added": [],
+  "added_entries": 0,
+  "duplicate_artifact_paths": 0,
+  "duplicate_entries": 0,
+  "duplicate_test_ids": 0,
+  "generated_at": "2026-06-26T14:32:45.821887+00:00",
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "live_manifest_sha256_after": "5fe1c4c0391f192a5f0b103be934f7ff4fc7638103ad25d1b9379be3eb917f3b",
+  "live_manifest_sha256_before": "5fe1c4c0391f192a5f0b103be934f7ff4fc7638103ad25d1b9379be3eb917f3b",
+  "modified": [],
+  "modified_existing_entries": 0,
+  "post_run_surface_tests_are_current_route_required": false,
+  "removed": [],
+  "removed_existing_entries": 0,
+  "required_gate_adoption_status": "adopted_required_gate",
+  "round_required_artifact_count": 14,
+  "round_required_test_count": 3,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-live-manifest-adoption-v1",
+  "selected_branch": "branch_a_required_gate_adopted",
+  "source_runtime_package_authority_mutated": false,
+  "status": "PASS"
+}

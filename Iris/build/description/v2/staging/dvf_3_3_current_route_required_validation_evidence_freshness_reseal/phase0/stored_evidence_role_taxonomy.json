@@ -1,0 +1,19 @@
+{
+  "roles": {
+    "consumed_current_evidence": [
+      "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement"
+    ],
+    "historical_evidence": [
+      "Iris/build/description/v2/staging/dvf_3_3_current_route_baseline_source_overlay_repair"
+    ],
+    "stale_or_rejected_evidence": [
+      "Iris/_docs/round3/current_route_required_validations.shared_disposition_candidate.json"
+    ],
+    "supporting_trace": [
+      "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal",
+      "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption"
+    ]
+  },
+  "schema_version": "dvf-3-3-current-route-required-validation-stored-evidence-taxonomy-v1",
+  "status": "PASS"
+}

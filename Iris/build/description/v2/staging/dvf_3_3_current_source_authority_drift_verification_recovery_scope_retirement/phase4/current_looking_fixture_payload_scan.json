@@ -1,0 +1,50 @@
+{
+  "content_derived_signature_member_count": 6,
+  "current_looking_six_entry_payload_count": 0,
+  "rows": [
+    {
+      "contains_all_signature_members": false,
+      "is_current_looking_six_entry_payload": false,
+      "key_count": 2105,
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "payload_role": "current_source_facts"
+    },
+    {
+      "contains_all_signature_members": false,
+      "is_current_looking_six_entry_payload": false,
+      "key_count": 2105,
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "payload_role": "current_source_decisions"
+    },
+    {
+      "contains_all_signature_members": false,
+      "is_current_looking_six_entry_payload": false,
+      "key_count": 2105,
+      "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
+      "payload_role": "current_compose_support"
+    },
+    {
+      "contains_all_signature_members": false,
+      "is_current_looking_six_entry_payload": false,
+      "key_count": 2105,
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "payload_role": "current_rendered_output"
+    },
+    {
+      "contains_all_signature_members": false,
+      "is_current_looking_six_entry_payload": false,
+      "key_count": 2105,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "payload_role": "live_runtime_chunks"
+    },
+    {
+      "contains_all_signature_members": false,
+      "is_current_looking_six_entry_payload": false,
+      "key_count": 2105,
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "payload_role": "package_runtime_chunks"
+    }
+  ],
+  "schema_version": "dvf-3-3-current-source-authority-drift-current-looking-fixture-scan-v1",
+  "status": "PASS"
+}

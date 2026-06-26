@@ -1,0 +1,72 @@
+{
+  "readpoints": [
+    {
+      "exists": true,
+      "path": "docs/Philosophy.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/DECISIONS.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/ARCHITECTURE.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/ROADMAP.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/PLAN_TEMPLATE.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/dvf_3_3_closeout_reentry_guard_seal_plan.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/predecessor_reentry_guard_policy.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/dvf_3_3_current_route_baseline_source_overlay_repair_plan.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/dvf_3_3_closeout_reentry_claim_boundary.md",
+      "status": "present"
+    },
+    {
+      "exists": true,
+      "path": "docs/dvf_3_3_shared_disposition_consumption_policy.md",
+      "status": "present"
+    }
+  ],
+  "schema_version": "dvf-3-3-current-source-authority-drift-supporting-readpoint-inventory-v1",
+  "status": "PASS",
+  "summary_counts": {
+    "missing_blocks_validation": 0,
+    "missing_optional": 0,
+    "not_applicable": 0,
+    "present": 12
+  }
+}

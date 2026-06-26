@@ -1,0 +1,41 @@
+{
+  "blocked_tokens": [
+    "blocked_sealed_reseal_live_divergence_resolution_required",
+    "blocked_fresh_readpoint_validation_required",
+    "blocked_branch_selection_predicate_unsatisfied",
+    "blocked_owner_branch_decision_required",
+    "warn_or_fail_implementation_guard_omitted"
+  ],
+  "branch_tokens": [
+    "current_source_authority_drift_required_gate_adopted",
+    "current_source_authority_drift_candidate_isolated",
+    "current_source_authority_drift_historical_only",
+    "current_source_authority_drift_diagnostic_only",
+    "current_source_authority_drift_non_current_contingency",
+    "current_source_authority_drift_adoption_reseal_complete"
+  ],
+  "generated_at": "2026-06-26T14:32:43.871553+00:00",
+  "implementation_token_parity": true,
+  "mandatory_guard_tokens": [
+    "branch_selection_contract_validator",
+    "sealed_reseal_live_manifest_rederivation",
+    "branch_b_fresh_current_route_pass",
+    "b_marked_schema_supported_marker_validation",
+    "taxonomy_single_writer_report",
+    "co_readpoint_token",
+    "no_intervening_write_report",
+    "negative_fixture_matrix"
+  ],
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-token-parity-v1",
+  "status": "PASS",
+  "tracking_enum": [
+    "tracked_required",
+    "generated_reproducible",
+    "raw_staging_ignored",
+    "historical_only",
+    "diagnostic_only",
+    "forbidden_current_consumption",
+    "missing_blocks_validation",
+    "not_applicable"
+  ]
+}

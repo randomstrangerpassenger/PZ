@@ -1,0 +1,12 @@
+{
+  "candidate_manifest_role": "supporting_or_rejected_trace_not_live_authority",
+  "external_bundle_reseal_requirement_surface": "wrapper_final_validation",
+  "generated_at": "2026-06-25T07:51:23.706198+00:00",
+  "owning_axis": "required_validation_gate_adopted/evidence_freshness_reseal",
+  "post_run_surface_validation_surface": "wrapper_final_validation_and_focused_unittest_not_current_route_required",
+  "required_gate_vocabulary_is_runtime_row_vocabulary": false,
+  "runtime_authority_mutation": false,
+  "schema_version": "dvf-3-3-current-route-required-validation-taxonomy-separation-v1",
+  "source_rendered_lua_runtime_package_mutation": false,
+  "status": "PASS"
+}

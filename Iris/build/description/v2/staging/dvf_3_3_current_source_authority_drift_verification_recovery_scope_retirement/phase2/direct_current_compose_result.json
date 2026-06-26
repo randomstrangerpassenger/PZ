@@ -1,0 +1,22 @@
+{
+  "checks": {
+    "entries_sha256_matches_live": true,
+    "entry_count_2105": true,
+    "live_rendered_key_parity": true,
+    "output_exists": true,
+    "process_exit_zero": true,
+    "source_key_parity": true
+  },
+  "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tools\\build\\compose_layer3_text.py --compose-context current --facts-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\dvf_3_3_facts.jsonl --decisions-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\dvf_3_3_decisions.jsonl --profiles-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\compose_profiles_v2.json --overlay-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\dvf_3_3_overlay_support.jsonl --output-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\.tmp_tests\\dvf_3_3_current_source_authority_drift_verification\\direct_compose\\dvf_3_3_rendered.json --style-log-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\.tmp_tests\\dvf_3_3_current_source_authority_drift_verification\\direct_compose\\style_normalization_changes.jsonl --requeue-candidates-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\.tmp_tests\\dvf_3_3_current_source_authority_drift_verification\\direct_compose\\compose_requeue_candidates.jsonl --identity-rules-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\compose_profile_identity_hint_rules.json --precedence-rules-path C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\data\\compose_profile_conflict_precedence_rules.json",
+  "entry_count": 2105,
+  "live_rendered_key_count": 2105,
+  "returncode": 0,
+  "sandbox_output_path": "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification/direct_compose/dvf_3_3_rendered.json",
+  "sandbox_requeue_candidates_path": "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification/direct_compose/compose_requeue_candidates.jsonl",
+  "sandbox_style_log_path": "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification/direct_compose/style_normalization_changes.jsonl",
+  "schema_version": "dvf-3-3-current-source-authority-drift-direct-compose-result-v1",
+  "source_key_count": 2105,
+  "status": "PASS",
+  "stderr": "",
+  "stdout": "rendered written\n"
+}

@@ -1,0 +1,419 @@
+{
+  "artifact_count": 45,
+  "artifacts": [
+    {
+      "bytes": 13062,
+      "exists": true,
+      "expected_sha256": "8bf20b936bb0c9dfe926dc915b36d1c15e53d8ab92bcc48f306fad9ae0ba8743",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/readpoint_inventory.json",
+      "root_relative_path": "phase0/readpoint_inventory.json",
+      "sha256_at_manifest_generation": "8bf20b936bb0c9dfe926dc915b36d1c15e53d8ab92bcc48f306fad9ae0ba8743"
+    },
+    {
+      "bytes": 1354,
+      "exists": true,
+      "expected_sha256": "5d5d6a133f0a045eadf08520fa94100b97bf8fa4e78a46da2d23d0b4c26d69ba",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/roadmap_input_provenance_rebind.json",
+      "root_relative_path": "phase0/roadmap_input_provenance_rebind.json",
+      "sha256_at_manifest_generation": "5d5d6a133f0a045eadf08520fa94100b97bf8fa4e78a46da2d23d0b4c26d69ba"
+    },
+    {
+      "bytes": 528,
+      "exists": true,
+      "expected_sha256": "f80159f5e99b63c5cc87c0b6c5f518cf9b88c9ce54cf9dcb45a5f9ac099b1839",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/live_manifest_hash_report.json",
+      "root_relative_path": "phase0/live_manifest_hash_report.json",
+      "sha256_at_manifest_generation": "f80159f5e99b63c5cc87c0b6c5f518cf9b88c9ce54cf9dcb45a5f9ac099b1839"
+    },
+    {
+      "bytes": 19094,
+      "exists": true,
+      "expected_sha256": "2546fb0fa394b1aef42b339327c67f7badd0cc9e7a84fddb20e383bf85f52ea8",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/live_required_manifest_rollback_snapshot.json",
+      "root_relative_path": "phase0/live_required_manifest_rollback_snapshot.json",
+      "sha256_at_manifest_generation": "2546fb0fa394b1aef42b339327c67f7badd0cc9e7a84fddb20e383bf85f52ea8"
+    },
+    {
+      "bytes": 1100,
+      "exists": true,
+      "expected_sha256": "0afe3ddc9a1750abb7fd519ac522bdd77e1db2ff649963ecee5c4d53182b5561",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/stored_evidence_inventory.json",
+      "root_relative_path": "phase0/stored_evidence_inventory.json",
+      "sha256_at_manifest_generation": "0afe3ddc9a1750abb7fd519ac522bdd77e1db2ff649963ecee5c4d53182b5561"
+    },
+    {
+      "bytes": 764,
+      "exists": true,
+      "expected_sha256": "3a0ca1588944d4ad4ef2539c7c46ec60e52de753046a1a093d25adaaf761bb4f",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/stored_evidence_role_taxonomy.json",
+      "root_relative_path": "phase0/stored_evidence_role_taxonomy.json",
+      "sha256_at_manifest_generation": "3a0ca1588944d4ad4ef2539c7c46ec60e52de753046a1a093d25adaaf761bb4f"
+    },
+    {
+      "bytes": 280,
+      "exists": true,
+      "expected_sha256": "1b1f0a2d4b0072dadd939fdc8873464762358042974263929c4724bd4a999cd7",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/external_bundle_inventory.json",
+      "root_relative_path": "phase0/external_bundle_inventory.json",
+      "sha256_at_manifest_generation": "1b1f0a2d4b0072dadd939fdc8873464762358042974263929c4724bd4a999cd7"
+    },
+    {
+      "bytes": 1450,
+      "exists": true,
+      "expected_sha256": "70c9e9692e524921000f4e98476efcbed8b55eba06e6770f056ceee842de5f41",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/external_bundle_target_pin.json",
+      "root_relative_path": "phase0/external_bundle_target_pin.json",
+      "sha256_at_manifest_generation": "70c9e9692e524921000f4e98476efcbed8b55eba06e6770f056ceee842de5f41"
+    },
+    {
+      "bytes": 319,
+      "exists": true,
+      "expected_sha256": "016f5eaad840bfb179e33b1af3e1bf252221d5d2c752b0382ace9c0f65ad106b",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/external_bundle_rollback_snapshot.json",
+      "root_relative_path": "phase0/external_bundle_rollback_snapshot.json",
+      "sha256_at_manifest_generation": "016f5eaad840bfb179e33b1af3e1bf252221d5d2c752b0382ace9c0f65ad106b"
+    },
+    {
+      "bytes": 11937,
+      "exists": true,
+      "expected_sha256": "afb1d99367a37cde596de9e821e57b46eb9c653e50064ec87784b26580db4eb6",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/protected_surface_baseline_hash_report.json",
+      "root_relative_path": "phase0/protected_surface_baseline_hash_report.json",
+      "sha256_at_manifest_generation": "afb1d99367a37cde596de9e821e57b46eb9c653e50064ec87784b26580db4eb6"
+    },
+    {
+      "bytes": 3726,
+      "exists": true,
+      "expected_sha256": "208dd437f0863f9b675deec6e1b9734e7f87cc7a45e9ef4e21e4e5138fc096bb",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/sealed_round_evidence_protected_set.json",
+      "root_relative_path": "phase0/sealed_round_evidence_protected_set.json",
+      "sha256_at_manifest_generation": "208dd437f0863f9b675deec6e1b9734e7f87cc7a45e9ef4e21e4e5138fc096bb"
+    },
+    {
+      "bytes": 3396,
+      "exists": true,
+      "expected_sha256": "8dea8e64ad4ff9abd593f8db1ab37095f0bd3407f0e9cfa97b724c4087249608",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/authority_doc_existence_report.json",
+      "root_relative_path": "phase0/authority_doc_existence_report.json",
+      "sha256_at_manifest_generation": "8dea8e64ad4ff9abd593f8db1ab37095f0bd3407f0e9cfa97b724c4087249608"
+    },
+    {
+      "bytes": 454,
+      "exists": true,
+      "expected_sha256": "01be2795c3d83306c2c1a340fb5e0978c6f3530fa2728cb5fd480b07ad59fcd5",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase0/readpoint_identity_gap_statement.json",
+      "root_relative_path": "phase0/readpoint_identity_gap_statement.json",
+      "sha256_at_manifest_generation": "01be2795c3d83306c2c1a340fb5e0978c6f3530fa2728cb5fd480b07ad59fcd5"
+    },
+    {
+      "bytes": 1115,
+      "exists": true,
+      "expected_sha256": "f6b006a5445f4e97e11de5bfee0886f9c5ac038109d6f796f960f2e7a6bf5a9a",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/blocker_triage_report.json",
+      "root_relative_path": "phase1/blocker_triage_report.json",
+      "sha256_at_manifest_generation": "f6b006a5445f4e97e11de5bfee0886f9c5ac038109d6f796f960f2e7a6bf5a9a"
+    },
+    {
+      "bytes": 368,
+      "exists": true,
+      "expected_sha256": "d8451045b0b6a5fd552f59d882f3e6e35900650260a63c0933248f34438f55f9",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/harness_evidence_write_repair_report.json",
+      "root_relative_path": "phase1/harness_evidence_write_repair_report.json",
+      "sha256_at_manifest_generation": "d8451045b0b6a5fd552f59d882f3e6e35900650260a63c0933248f34438f55f9"
+    },
+    {
+      "bytes": 341,
+      "exists": true,
+      "expected_sha256": "168ad201c78f63838a5ac92ec66285992540af58e5ddd69f33c7d2be06990552",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/harness_repair_semantic_preservation_report.json",
+      "root_relative_path": "phase1/harness_repair_semantic_preservation_report.json",
+      "sha256_at_manifest_generation": "168ad201c78f63838a5ac92ec66285992540af58e5ddd69f33c7d2be06990552"
+    },
+    {
+      "bytes": 11036,
+      "exists": true,
+      "expected_sha256": "34f3bd853a250e0f704b3f09a1f1df78c1fdad0f48de19ef94db1a914178f906",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/harness_negative_fixture_matrix.json",
+      "root_relative_path": "phase1/harness_negative_fixture_matrix.json",
+      "sha256_at_manifest_generation": "34f3bd853a250e0f704b3f09a1f1df78c1fdad0f48de19ef94db1a914178f906"
+    },
+    {
+      "bytes": 266,
+      "exists": true,
+      "expected_sha256": "e5e12ba24f49ed238b351f5ebcbc78029633d0037aadd99e6555de5538388952",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/validation_rule_diff_classifier.json",
+      "root_relative_path": "phase1/validation_rule_diff_classifier.json",
+      "sha256_at_manifest_generation": "e5e12ba24f49ed238b351f5ebcbc78029633d0037aadd99e6555de5538388952"
+    },
+    {
+      "bytes": 401,
+      "exists": true,
+      "expected_sha256": "624867d72f0f157e345e39911aab605e4ff6ea080ede9934f5a0a9a773e5ef8a",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/terminal_reachability_report.json",
+      "root_relative_path": "phase1/terminal_reachability_report.json",
+      "sha256_at_manifest_generation": "624867d72f0f157e345e39911aab605e4ff6ea080ede9934f5a0a9a773e5ef8a"
+    },
+    {
+      "bytes": 166,
+      "exists": true,
+      "expected_sha256": "6fc1f28c9ecb1ecdab9fd5c285bf09a92bfde22d96142453627c2fe56eb9e42a",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase1/protected_surface_no_mutation_report.json",
+      "root_relative_path": "phase1/protected_surface_no_mutation_report.json",
+      "sha256_at_manifest_generation": "6fc1f28c9ecb1ecdab9fd5c285bf09a92bfde22d96142453627c2fe56eb9e42a"
+    },
+    {
+      "bytes": 681,
+      "exists": true,
+      "expected_sha256": "373a5c89b12ecee427ff1e7791c0d6d30c48482b11e78064ff6c3a7f74e6b6b3",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_consumption_contract.json",
+      "root_relative_path": "phase2/drift_verification_consumption_contract.json",
+      "sha256_at_manifest_generation": "373a5c89b12ecee427ff1e7791c0d6d30c48482b11e78064ff6c3a7f74e6b6b3"
+    },
+    {
+      "bytes": 5053,
+      "exists": true,
+      "expected_sha256": "3f1789e5ecd5d25f099e49911450812db5a59ea82a78d837cc4a918ae3d2d135",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/required_artifact_field_spec.json",
+      "root_relative_path": "phase2/required_artifact_field_spec.json",
+      "sha256_at_manifest_generation": "3f1789e5ecd5d25f099e49911450812db5a59ea82a78d837cc4a918ae3d2d135"
+    },
+    {
+      "bytes": 1195,
+      "exists": true,
+      "expected_sha256": "a427609f1fe8dcba4cdd7e204430c1e0995bf3ef449c8b01150403b430e10626",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/evidence_freshness_taxonomy.json",
+      "root_relative_path": "phase2/evidence_freshness_taxonomy.json",
+      "sha256_at_manifest_generation": "a427609f1fe8dcba4cdd7e204430c1e0995bf3ef449c8b01150403b430e10626"
+    },
+    {
+      "bytes": 1742,
+      "exists": true,
+      "expected_sha256": "3877ef6263d21208d25d66f2b78959482f600f0adbfc6e995b2caec673e132df",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json",
+      "root_relative_path": "phase2/current_checkout_source_identity_redrive_report.json",
+      "sha256_at_manifest_generation": "3877ef6263d21208d25d66f2b78959482f600f0adbfc6e995b2caec673e132df"
+    },
+    {
+      "bytes": 1681,
+      "exists": true,
+      "expected_sha256": "bb988097adb3a122a77ed815670b0c65e87bd5f73db35450c0f1a5c8555a0dd5",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_field_check_report.json",
+      "root_relative_path": "phase2/drift_verification_field_check_report.json",
+      "sha256_at_manifest_generation": "bb988097adb3a122a77ed815670b0c65e87bd5f73db35450c0f1a5c8555a0dd5"
+    },
+    {
+      "bytes": 649,
+      "exists": true,
+      "expected_sha256": "1cc2bbf497c6ec4d8429a806d7fe9a4d8bc36adcbd7c8b27e780672b52233f9a",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/owner_reserved_decision_gate_report.json",
+      "root_relative_path": "phase2/owner_reserved_decision_gate_report.json",
+      "sha256_at_manifest_generation": "1cc2bbf497c6ec4d8429a806d7fe9a4d8bc36adcbd7c8b27e780672b52233f9a"
+    },
+    {
+      "bytes": 844,
+      "exists": true,
+      "expected_sha256": "74f1c7b8c5ab1cdb100f36f5d0a5c6555db55c652dc34d0d9ca9f920b4bab23d",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/live_required_manifest_update_report.json",
+      "root_relative_path": "phase3/live_required_manifest_update_report.json",
+      "sha256_at_manifest_generation": "74f1c7b8c5ab1cdb100f36f5d0a5c6555db55c652dc34d0d9ca9f920b4bab23d"
+    },
+    {
+      "bytes": 440,
+      "exists": true,
+      "expected_sha256": "231792b3ba52ae9688a0012d78b173ccebadea5525df4629acc42991a6738f3e",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/live_manifest_single_writer_report.json",
+      "root_relative_path": "phase3/live_manifest_single_writer_report.json",
+      "sha256_at_manifest_generation": "231792b3ba52ae9688a0012d78b173ccebadea5525df4629acc42991a6738f3e"
+    },
+    {
+      "bytes": 432,
+      "exists": true,
+      "expected_sha256": "8768c3f01c58cafe05c55000c9c74a37618a397681f66a78130c58b6adec3481",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/manifest_count_report.json",
+      "root_relative_path": "phase3/manifest_count_report.json",
+      "sha256_at_manifest_generation": "8768c3f01c58cafe05c55000c9c74a37618a397681f66a78130c58b6adec3481"
+    },
+    {
+      "bytes": 676,
+      "exists": true,
+      "expected_sha256": "c2e6b32d8fd15962d1fb30f2c1d18b7ddecec453af87fa9eea79a94ff7608fe6",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/taxonomy_separation_report.json",
+      "root_relative_path": "phase3/taxonomy_separation_report.json",
+      "sha256_at_manifest_generation": "c2e6b32d8fd15962d1fb30f2c1d18b7ddecec453af87fa9eea79a94ff7608fe6"
+    },
+    {
+      "bytes": 4352,
+      "exists": true,
+      "expected_sha256": "063778aeac56e4fb8d51f0c309b5c6101eeaa0feabfeaf2d00fdea55aa0bf263",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/additive_diff_bijection_report.json",
+      "root_relative_path": "phase3/additive_diff_bijection_report.json",
+      "sha256_at_manifest_generation": "063778aeac56e4fb8d51f0c309b5c6101eeaa0feabfeaf2d00fdea55aa0bf263"
+    },
+    {
+      "bytes": 12586,
+      "exists": true,
+      "expected_sha256": "0d02c4cfb3da06f0f4c830c4ee5ad89c3b3d95f828d5c916a57d1e5e94ed4c47",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase4/current_route_required_validation_freshness_report.json",
+      "root_relative_path": "phase4/current_route_required_validation_freshness_report.json",
+      "sha256_at_manifest_generation": "0d02c4cfb3da06f0f4c830c4ee5ad89c3b3d95f828d5c916a57d1e5e94ed4c47"
+    },
+    {
+      "bytes": 610,
+      "exists": true,
+      "expected_sha256": "19cae147e254e562732d60dee171820d0a24a60613ff28f202ddf0297ed69a9d",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase4/source_identity_reverification_linkage_report.json",
+      "root_relative_path": "phase4/source_identity_reverification_linkage_report.json",
+      "sha256_at_manifest_generation": "19cae147e254e562732d60dee171820d0a24a60613ff28f202ddf0297ed69a9d"
+    },
+    {
+      "bytes": 5503,
+      "exists": true,
+      "expected_sha256": "56b095e58a139fae4b9d7f5e44f6040efa7b185263752866b57a2b640486bae6",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase4/current_route_validation_result.json",
+      "root_relative_path": "phase4/current_route_validation_result.json",
+      "sha256_at_manifest_generation": "56b095e58a139fae4b9d7f5e44f6040efa7b185263752866b57a2b640486bae6"
+    },
+    {
+      "bytes": 200,
+      "exists": true,
+      "expected_sha256": "69cba599ee3ab42b1dedc05ecc3f9a3323f8babc90a1f8345be29db49529c970",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase4/validation_report.all.json",
+      "root_relative_path": "phase4/validation_report.all.json",
+      "sha256_at_manifest_generation": "69cba599ee3ab42b1dedc05ecc3f9a3323f8babc90a1f8345be29db49529c970"
+    },
+    {
+      "bytes": 7011,
+      "exists": true,
+      "expected_sha256": "781816a0214079f760d5e7b80654089a13c527dff13e4c36ad26615a94fcb1d7",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase4/required_test_execution_matrix.json",
+      "root_relative_path": "phase4/required_test_execution_matrix.json",
+      "sha256_at_manifest_generation": "781816a0214079f760d5e7b80654089a13c527dff13e4c36ad26615a94fcb1d7"
+    },
+    {
+      "bytes": 273,
+      "exists": true,
+      "expected_sha256": "00649c40d10bd86571784d5247c227e1553962a4046476bcf3dc23256efa745d",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase4/required_artifact_field_check_report.json",
+      "root_relative_path": "phase4/required_artifact_field_check_report.json",
+      "sha256_at_manifest_generation": "00649c40d10bd86571784d5247c227e1553962a4046476bcf3dc23256efa745d"
+    },
+    {
+      "bytes": 1788,
+      "exists": true,
+      "expected_sha256": "595ea401742c67865b136fb20c52866c2991956e5c979e91cca6892a66ae8e80",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase5/external_validation_bundle_manifest.json",
+      "root_relative_path": "phase5/external_validation_bundle_manifest.json",
+      "sha256_at_manifest_generation": "595ea401742c67865b136fb20c52866c2991956e5c979e91cca6892a66ae8e80"
+    },
+    {
+      "bytes": 1232,
+      "exists": true,
+      "expected_sha256": "f265130c049b0f30830c64313f6fe887a44e5d2ae728193027bce6a17545e524",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase5/external_validation_bundle_hash_report.json",
+      "root_relative_path": "phase5/external_validation_bundle_hash_report.json",
+      "sha256_at_manifest_generation": "f265130c049b0f30830c64313f6fe887a44e5d2ae728193027bce6a17545e524"
+    },
+    {
+      "bytes": 700,
+      "exists": true,
+      "expected_sha256": "0af66766ffe56f94a4d603ba7fc9189fdf30b587ccc635f07587008d5ed3ccd5",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase5/external_validation_bundle_freshness_report.json",
+      "root_relative_path": "phase5/external_validation_bundle_freshness_report.json",
+      "sha256_at_manifest_generation": "0af66766ffe56f94a4d603ba7fc9189fdf30b587ccc635f07587008d5ed3ccd5"
+    },
+    {
+      "bytes": 14124,
+      "exists": true,
+      "expected_sha256": "af0838d2b3f01ce406420faab271cda80ee26504867ec5df6fdb169bfc38f65a",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/final_current_route_required_validation_evidence_freshness_reseal_report.json",
+      "root_relative_path": "phase6/final_current_route_required_validation_evidence_freshness_reseal_report.json",
+      "sha256_at_manifest_generation": "af0838d2b3f01ce406420faab271cda80ee26504867ec5df6fdb169bfc38f65a"
+    },
+    {
+      "bytes": 25438,
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/primary_review_artifact_manifest.json",
+      "root_relative_path": "phase6/primary_review_artifact_manifest.json",
+      "sha256_at_manifest_generation": "30b744ffc63946290c2b8052311e80e00f42c78f053aa6f7c58701aaa50cc22f"
+    },
+    {
+      "bytes": 25518,
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/independent_review_artifact_hash_report.json",
+      "root_relative_path": "phase6/independent_review_artifact_hash_report.json",
+      "sha256_at_manifest_generation": "d1bd41cd0ac242a6254ef42e59b0bdeea673b7d56b41ec49bc2d58a38320d415"
+    },
+    {
+      "bytes": 1338,
+      "exists": true,
+      "expected_sha256": "9026508ab8596e64974519c79e1e797bae5090761235735dbcee3a4ba4a150f6",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/owner_seal_report.json",
+      "root_relative_path": "phase6/owner_seal_report.json",
+      "sha256_at_manifest_generation": "9026508ab8596e64974519c79e1e797bae5090761235735dbcee3a4ba4a150f6"
+    },
+    {
+      "bytes": 166,
+      "exists": true,
+      "expected_sha256": "6fc1f28c9ecb1ecdab9fd5c285bf09a92bfde22d96142453627c2fe56eb9e42a",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/no_protected_mutation_verdict.json",
+      "root_relative_path": "phase6/no_protected_mutation_verdict.json",
+      "sha256_at_manifest_generation": "6fc1f28c9ecb1ecdab9fd5c285bf09a92bfde22d96142453627c2fe56eb9e42a"
+    }
+  ],
+  "comparison_exempt_artifact_count": 2,
+  "frozen_expected_hash_count": 43,
+  "generated_at": "2026-06-25T07:53:03.389825+00:00",
+  "inventory_file_count": 45,
+  "manifest_payload_sha256_excluding_self_hash": "d388d348fe1a04cd2ff20d615eccde28234b8cc967c6cc5a584d513e663761b6",
+  "manifest_scope": "complete_machine_pass_evidence_inventory",
+  "missing_count": 0,
+  "schema_version": "dvf-3-3-current-route-required-validation-primary-review-manifest-v1",
+  "status": "PASS"
+}

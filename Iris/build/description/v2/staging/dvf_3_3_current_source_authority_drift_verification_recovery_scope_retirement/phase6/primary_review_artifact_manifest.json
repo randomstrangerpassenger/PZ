@@ -1,0 +1,515 @@
+{
+  "artifact_count": 49,
+  "artifacts": [
+    {
+      "bytes": 2069,
+      "exists": true,
+      "expected_sha256": "d788d04eb56623785a8a19e71430fa15680b437dd54b28c69f4a74bc5279dc23",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/baseline_fingerprint.json",
+      "root_relative_path": "phase0/baseline_fingerprint.json",
+      "sha256": "d788d04eb56623785a8a19e71430fa15680b437dd54b28c69f4a74bc5279dc23",
+      "sha256_at_manifest_generation": "d788d04eb56623785a8a19e71430fa15680b437dd54b28c69f4a74bc5279dc23"
+    },
+    {
+      "bytes": 3169,
+      "exists": true,
+      "expected_sha256": "9363224997e976456a37700fa403123903eb2935e2a511a25026c5aeb36fcaad",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/protected_surface_manifest.json",
+      "root_relative_path": "phase0/protected_surface_manifest.json",
+      "sha256": "9363224997e976456a37700fa403123903eb2935e2a511a25026c5aeb36fcaad",
+      "sha256_at_manifest_generation": "9363224997e976456a37700fa403123903eb2935e2a511a25026c5aeb36fcaad"
+    },
+    {
+      "bytes": 10183,
+      "exists": true,
+      "expected_sha256": "224bfae35fd4cbba76588efd69b4efdd63d00c48f8714a38b3e3172fe965195c",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/stale_premise_capture_report.json",
+      "root_relative_path": "phase0/stale_premise_capture_report.json",
+      "sha256": "224bfae35fd4cbba76588efd69b4efdd63d00c48f8714a38b3e3172fe965195c",
+      "sha256_at_manifest_generation": "224bfae35fd4cbba76588efd69b4efdd63d00c48f8714a38b3e3172fe965195c"
+    },
+    {
+      "bytes": 71537,
+      "exists": true,
+      "expected_sha256": "b0abe97b1776022eeee151ef9daf498abe57f241bdfbdcd12c8f73316ef2e55e",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/recovery_plan_authority_scan_report.json",
+      "root_relative_path": "phase0/recovery_plan_authority_scan_report.json",
+      "sha256": "b0abe97b1776022eeee151ef9daf498abe57f241bdfbdcd12c8f73316ef2e55e",
+      "sha256_at_manifest_generation": "b0abe97b1776022eeee151ef9daf498abe57f241bdfbdcd12c8f73316ef2e55e"
+    },
+    {
+      "bytes": 11120,
+      "exists": true,
+      "expected_sha256": "04c8c5011a39f0ee4408c43d01d7d78d768c78a6186b81c89a7793f0683208ac",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/no_mutation_baseline_hashes.json",
+      "root_relative_path": "phase0/no_mutation_baseline_hashes.json",
+      "sha256": "04c8c5011a39f0ee4408c43d01d7d78d768c78a6186b81c89a7793f0683208ac",
+      "sha256_at_manifest_generation": "04c8c5011a39f0ee4408c43d01d7d78d768c78a6186b81c89a7793f0683208ac"
+    },
+    {
+      "bytes": 1600,
+      "exists": true,
+      "expected_sha256": "0e3c73d670b0aff573d7a4633d583a160b11993b3fbe4f05c5b9a9cc24aae0c4",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/tooling_existence_inventory.json",
+      "root_relative_path": "phase0/tooling_existence_inventory.json",
+      "sha256": "0e3c73d670b0aff573d7a4633d583a160b11993b3fbe4f05c5b9a9cc24aae0c4",
+      "sha256_at_manifest_generation": "0e3c73d670b0aff573d7a4633d583a160b11993b3fbe4f05c5b9a9cc24aae0c4"
+    },
+    {
+      "bytes": 1730,
+      "exists": true,
+      "expected_sha256": "d644a704df2ea3e02001e12abc25fae59abad34bba2760e29d9fabd2bdae64ec",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/supporting_readpoint_existence_inventory.json",
+      "root_relative_path": "phase0/supporting_readpoint_existence_inventory.json",
+      "sha256": "d644a704df2ea3e02001e12abc25fae59abad34bba2760e29d9fabd2bdae64ec",
+      "sha256_at_manifest_generation": "d644a704df2ea3e02001e12abc25fae59abad34bba2760e29d9fabd2bdae64ec"
+    },
+    {
+      "bytes": 1312,
+      "exists": true,
+      "expected_sha256": "2972efda38e7fde3b3df7085dd161dd2de89fe7696de7cf7c3f151933c4c5a87",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/execution_harness_preimplementation_report.json",
+      "root_relative_path": "phase0/execution_harness_preimplementation_report.json",
+      "sha256": "2972efda38e7fde3b3df7085dd161dd2de89fe7696de7cf7c3f151933c4c5a87",
+      "sha256_at_manifest_generation": "2972efda38e7fde3b3df7085dd161dd2de89fe7696de7cf7c3f151933c4c5a87"
+    },
+    {
+      "bytes": 4296,
+      "exists": true,
+      "expected_sha256": "63d7c338a5ec2b26c16d5a9b4a20edf249212cc4dad40273aa22339ba2aa0862",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/existing_evidence_reuse_map.json",
+      "root_relative_path": "phase0/existing_evidence_reuse_map.json",
+      "sha256": "63d7c338a5ec2b26c16d5a9b4a20edf249212cc4dad40273aa22339ba2aa0862",
+      "sha256_at_manifest_generation": "63d7c338a5ec2b26c16d5a9b4a20edf249212cc4dad40273aa22339ba2aa0862"
+    },
+    {
+      "bytes": 754,
+      "exists": true,
+      "expected_sha256": "827923045cf34329555e8e131f350b8c89bf9441ba7ef09cbeb99b945b9eb01c",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/roadmap_provenance_rebind_report.json",
+      "root_relative_path": "phase0/roadmap_provenance_rebind_report.json",
+      "sha256": "827923045cf34329555e8e131f350b8c89bf9441ba7ef09cbeb99b945b9eb01c",
+      "sha256_at_manifest_generation": "827923045cf34329555e8e131f350b8c89bf9441ba7ef09cbeb99b945b9eb01c"
+    },
+    {
+      "bytes": 673,
+      "exists": true,
+      "expected_sha256": "372200cace4ab2281f9f33c5b677018e74a40d790bfac71c34971a056fccacb3",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase1/source_chain_identity_report.json",
+      "root_relative_path": "phase1/source_chain_identity_report.json",
+      "sha256": "372200cace4ab2281f9f33c5b677018e74a40d790bfac71c34971a056fccacb3",
+      "sha256_at_manifest_generation": "372200cace4ab2281f9f33c5b677018e74a40d790bfac71c34971a056fccacb3"
+    },
+    {
+      "bytes": 1790,
+      "exists": true,
+      "expected_sha256": "c04bfb71ac21994d43943ca1b0712dcf3dac80ca69b94d346f320965d07209dc",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase1/source_hash_count_matrix.json",
+      "root_relative_path": "phase1/source_hash_count_matrix.json",
+      "sha256": "c04bfb71ac21994d43943ca1b0712dcf3dac80ca69b94d346f320965d07209dc",
+      "sha256_at_manifest_generation": "c04bfb71ac21994d43943ca1b0712dcf3dac80ca69b94d346f320965d07209dc"
+    },
+    {
+      "bytes": 1354,
+      "exists": true,
+      "expected_sha256": "a4a85f692ae3d1d85607b1f86dd76495d0dcf7bf6fd2bfe54bb23a68d277989f",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase1/manifest_live_hash_comparison.json",
+      "root_relative_path": "phase1/manifest_live_hash_comparison.json",
+      "sha256": "a4a85f692ae3d1d85607b1f86dd76495d0dcf7bf6fd2bfe54bb23a68d277989f",
+      "sha256_at_manifest_generation": "a4a85f692ae3d1d85607b1f86dd76495d0dcf7bf6fd2bfe54bb23a68d277989f"
+    },
+    {
+      "bytes": 175,
+      "exists": true,
+      "expected_sha256": "a7343a927ffa567e004a4cef354215d41ed6552965b07b7dca32c00a3cf4e631",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase1/source_identity_no_mutation_verdict.json",
+      "root_relative_path": "phase1/source_identity_no_mutation_verdict.json",
+      "sha256": "a7343a927ffa567e004a4cef354215d41ed6552965b07b7dca32c00a3cf4e631",
+      "sha256_at_manifest_generation": "a7343a927ffa567e004a4cef354215d41ed6552965b07b7dca32c00a3cf4e631"
+    },
+    {
+      "bytes": 1204,
+      "exists": true,
+      "expected_sha256": "2888428a4e4243c8b02f09531f5e8d5d93bb1b0a06b138228b9f2ea9cf30d070",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/consumer_path_identity_report.json",
+      "root_relative_path": "phase2/consumer_path_identity_report.json",
+      "sha256": "2888428a4e4243c8b02f09531f5e8d5d93bb1b0a06b138228b9f2ea9cf30d070",
+      "sha256_at_manifest_generation": "2888428a4e4243c8b02f09531f5e8d5d93bb1b0a06b138228b9f2ea9cf30d070"
+    },
+    {
+      "bytes": 1208,
+      "exists": true,
+      "expected_sha256": "59b281db2b89a23b66cefddc2c8c564691b30f5fd8ce1f5ce3222583c7f3b25f",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/source_path_classification_report.json",
+      "root_relative_path": "phase2/source_path_classification_report.json",
+      "sha256": "59b281db2b89a23b66cefddc2c8c564691b30f5fd8ce1f5ce3222583c7f3b25f",
+      "sha256_at_manifest_generation": "59b281db2b89a23b66cefddc2c8c564691b30f5fd8ce1f5ce3222583c7f3b25f"
+    },
+    {
+      "bytes": 372,
+      "exists": true,
+      "expected_sha256": "8a556dedbf158b9b9fa4e79cc90d4070ab7983eafc6072eea40b2199cf6a491d",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/no_raw_predecessor_execution_read_report.json",
+      "root_relative_path": "phase2/no_raw_predecessor_execution_read_report.json",
+      "sha256": "8a556dedbf158b9b9fa4e79cc90d4070ab7983eafc6072eea40b2199cf6a491d",
+      "sha256_at_manifest_generation": "8a556dedbf158b9b9fa4e79cc90d4070ab7983eafc6072eea40b2199cf6a491d"
+    },
+    {
+      "bytes": 1737,
+      "exists": true,
+      "expected_sha256": "84c17b938c9becc11808cf7dd0864c48fdbfb3c95172dc129bd2d67c7c398691",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/direct_compose_writer_sink_preflight_report.json",
+      "root_relative_path": "phase2/direct_compose_writer_sink_preflight_report.json",
+      "sha256": "84c17b938c9becc11808cf7dd0864c48fdbfb3c95172dc129bd2d67c7c398691",
+      "sha256_at_manifest_generation": "84c17b938c9becc11808cf7dd0864c48fdbfb3c95172dc129bd2d67c7c398691"
+    },
+    {
+      "bytes": 2518,
+      "exists": true,
+      "expected_sha256": "3415e8fd05570e44335eb67c929a357552bfa9534b8db8d2798625eccf5b9fd0",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/direct_current_compose_result.json",
+      "root_relative_path": "phase2/direct_current_compose_result.json",
+      "sha256": "3415e8fd05570e44335eb67c929a357552bfa9534b8db8d2798625eccf5b9fd0",
+      "sha256_at_manifest_generation": "3415e8fd05570e44335eb67c929a357552bfa9534b8db8d2798625eccf5b9fd0"
+    },
+    {
+      "bytes": 707,
+      "exists": true,
+      "expected_sha256": "95776148756f70ced4134d3433dc03b2900f3fb4d11fb5397f4e1627417b6767",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/known_overlay_blocker_regression_report.json",
+      "root_relative_path": "phase2/known_overlay_blocker_regression_report.json",
+      "sha256": "95776148756f70ced4134d3433dc03b2900f3fb4d11fb5397f4e1627417b6767",
+      "sha256_at_manifest_generation": "95776148756f70ced4134d3433dc03b2900f3fb4d11fb5397f4e1627417b6767"
+    },
+    {
+      "bytes": 381,
+      "exists": true,
+      "expected_sha256": "780495f55545810a77f9e223f265734703f2a008586a7e3c53a26669c2266310",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/base_canopener_applicability_report.json",
+      "root_relative_path": "phase2/base_canopener_applicability_report.json",
+      "sha256": "780495f55545810a77f9e223f265734703f2a008586a7e3c53a26669c2266310",
+      "sha256_at_manifest_generation": "780495f55545810a77f9e223f265734703f2a008586a7e3c53a26669c2266310"
+    },
+    {
+      "bytes": 315,
+      "exists": true,
+      "expected_sha256": "188401e39224740868ebc075d69683e66b9c56f446df6d5583cab0d89880068f",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/body_source_overlay_requirement_report.json",
+      "root_relative_path": "phase2/body_source_overlay_requirement_report.json",
+      "sha256": "188401e39224740868ebc075d69683e66b9c56f446df6d5583cab0d89880068f",
+      "sha256_at_manifest_generation": "188401e39224740868ebc075d69683e66b9c56f446df6d5583cab0d89880068f"
+    },
+    {
+      "bytes": 179,
+      "exists": true,
+      "expected_sha256": "59332f05c7fb4d310e082cedb25158bc45a5f427525022e63909700f4470283e",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase2/protected_rendered_no_mutation_verdict.json",
+      "root_relative_path": "phase2/protected_rendered_no_mutation_verdict.json",
+      "sha256": "59332f05c7fb4d310e082cedb25158bc45a5f427525022e63909700f4470283e",
+      "sha256_at_manifest_generation": "59332f05c7fb4d310e082cedb25158bc45a5f427525022e63909700f4470283e"
+    },
+    {
+      "bytes": 950,
+      "exists": true,
+      "expected_sha256": "059700ce069830d6083d43a9010e7bc03fd938cb8300cbec18f5c3b4505ecb51",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase3/rendered_input_contract_inventory.json",
+      "root_relative_path": "phase3/rendered_input_contract_inventory.json",
+      "sha256": "059700ce069830d6083d43a9010e7bc03fd938cb8300cbec18f5c3b4505ecb51",
+      "sha256_at_manifest_generation": "059700ce069830d6083d43a9010e7bc03fd938cb8300cbec18f5c3b4505ecb51"
+    },
+    {
+      "bytes": 431,
+      "exists": true,
+      "expected_sha256": "f395f2509758d03efa161402f944b07a6925c1ad2a10bcb5c6b0ec54ef42255a",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase3/successor_identity_continuity_report.json",
+      "root_relative_path": "phase3/successor_identity_continuity_report.json",
+      "sha256": "f395f2509758d03efa161402f944b07a6925c1ad2a10bcb5c6b0ec54ef42255a",
+      "sha256_at_manifest_generation": "f395f2509758d03efa161402f944b07a6925c1ad2a10bcb5c6b0ec54ef42255a"
+    },
+    {
+      "bytes": 320,
+      "exists": true,
+      "expected_sha256": "63d6a2b0da053017bc1c22e846bd84475721f76d385f72c661a41158d8e32ebb",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase3/rendered_provenance_alignment_report.json",
+      "root_relative_path": "phase3/rendered_provenance_alignment_report.json",
+      "sha256": "63d6a2b0da053017bc1c22e846bd84475721f76d385f72c661a41158d8e32ebb",
+      "sha256_at_manifest_generation": "63d6a2b0da053017bc1c22e846bd84475721f76d385f72c661a41158d8e32ebb"
+    },
+    {
+      "bytes": 179,
+      "exists": true,
+      "expected_sha256": "59332f05c7fb4d310e082cedb25158bc45a5f427525022e63909700f4470283e",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase3/rendered_no_mutation_verdict.json",
+      "root_relative_path": "phase3/rendered_no_mutation_verdict.json",
+      "sha256": "59332f05c7fb4d310e082cedb25158bc45a5f427525022e63909700f4470283e",
+      "sha256_at_manifest_generation": "59332f05c7fb4d310e082cedb25158bc45a5f427525022e63909700f4470283e"
+    },
+    {
+      "bytes": 2337,
+      "exists": true,
+      "expected_sha256": "c227e861cd82555162081c9683f8242f3813fb207a31244f8ab909bd4e1d3704",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/sealed_predecessor_fixture_source_manifest.json",
+      "root_relative_path": "phase4/sealed_predecessor_fixture_source_manifest.json",
+      "sha256": "c227e861cd82555162081c9683f8242f3813fb207a31244f8ab909bd4e1d3704",
+      "sha256_at_manifest_generation": "c227e861cd82555162081c9683f8242f3813fb207a31244f8ab909bd4e1d3704"
+    },
+    {
+      "bytes": 596,
+      "exists": true,
+      "expected_sha256": "b65789fb8c050427c75139b549375b193d88afc306f8bfe7a93b8b25ba85c152",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/content_derived_six_entry_signature.json",
+      "root_relative_path": "phase4/content_derived_six_entry_signature.json",
+      "sha256": "b65789fb8c050427c75139b549375b193d88afc306f8bfe7a93b8b25ba85c152",
+      "sha256_at_manifest_generation": "b65789fb8c050427c75139b549375b193d88afc306f8bfe7a93b8b25ba85c152"
+    },
+    {
+      "bytes": 468,
+      "exists": true,
+      "expected_sha256": "ebeb2f6a95bd7d57745fcce2b3c3542584d5fbbe0604eff86bbf5d99bf64e987",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/six_entry_signature_determinism_report.json",
+      "root_relative_path": "phase4/six_entry_signature_determinism_report.json",
+      "sha256": "ebeb2f6a95bd7d57745fcce2b3c3542584d5fbbe0604eff86bbf5d99bf64e987",
+      "sha256_at_manifest_generation": "ebeb2f6a95bd7d57745fcce2b3c3542584d5fbbe0604eff86bbf5d99bf64e987"
+    },
+    {
+      "bytes": 608,
+      "exists": true,
+      "expected_sha256": "c35ab3e728deec0555e4a0f31f81fdf366df50c8746f2dc499169bbbf598325d",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/six_entry_signature_cross_check_report.json",
+      "root_relative_path": "phase4/six_entry_signature_cross_check_report.json",
+      "sha256": "c35ab3e728deec0555e4a0f31f81fdf366df50c8746f2dc499169bbbf598325d",
+      "sha256_at_manifest_generation": "c35ab3e728deec0555e4a0f31f81fdf366df50c8746f2dc499169bbbf598325d"
+    },
+    {
+      "bytes": 158,
+      "exists": true,
+      "expected_sha256": "48acae4639216345fe3268026113b7b1e1b09bd94b4d3d6a0a5cbbafdbe4e827",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/six_entry_non_reentry_report.json",
+      "root_relative_path": "phase4/six_entry_non_reentry_report.json",
+      "sha256": "48acae4639216345fe3268026113b7b1e1b09bd94b4d3d6a0a5cbbafdbe4e827",
+      "sha256_at_manifest_generation": "48acae4639216345fe3268026113b7b1e1b09bd94b4d3d6a0a5cbbafdbe4e827"
+    },
+    {
+      "bytes": 1786,
+      "exists": true,
+      "expected_sha256": "940b7e3740f41274f9d90b28db41d63a1f0820ab85c730f7366e57d643809f67",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/current_looking_fixture_payload_scan.json",
+      "root_relative_path": "phase4/current_looking_fixture_payload_scan.json",
+      "sha256": "940b7e3740f41274f9d90b28db41d63a1f0820ab85c730f7366e57d643809f67",
+      "sha256_at_manifest_generation": "940b7e3740f41274f9d90b28db41d63a1f0820ab85c730f7366e57d643809f67"
+    },
+    {
+      "bytes": 262,
+      "exists": true,
+      "expected_sha256": "d9636717a23fa71cf8455a777b06287b86eb5896b3e1534df2fce96cc01a260d",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/predecessor_reentry_guard_report.json",
+      "root_relative_path": "phase4/predecessor_reentry_guard_report.json",
+      "sha256": "d9636717a23fa71cf8455a777b06287b86eb5896b3e1534df2fce96cc01a260d",
+      "sha256_at_manifest_generation": "d9636717a23fa71cf8455a777b06287b86eb5896b3e1534df2fce96cc01a260d"
+    },
+    {
+      "bytes": 21264,
+      "exists": true,
+      "expected_sha256": "b958734c13a91e193a729163463f912fa6b1cf8c7a58288f078451a5fafb45a5",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/allowed_historical_trace_inventory.jsonl",
+      "root_relative_path": "phase4/allowed_historical_trace_inventory.jsonl",
+      "sha256": "b958734c13a91e193a729163463f912fa6b1cf8c7a58288f078451a5fafb45a5",
+      "sha256_at_manifest_generation": "b958734c13a91e193a729163463f912fa6b1cf8c7a58288f078451a5fafb45a5"
+    },
+    {
+      "bytes": 189,
+      "exists": true,
+      "expected_sha256": "15f2eb8dbdbc48edd431c5e55f267d757951ac33659512d4b31c26b0e5e07fc1",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/forbidden_predecessor_authority_claim_report.json",
+      "root_relative_path": "phase4/forbidden_predecessor_authority_claim_report.json",
+      "sha256": "15f2eb8dbdbc48edd431c5e55f267d757951ac33659512d4b31c26b0e5e07fc1",
+      "sha256_at_manifest_generation": "15f2eb8dbdbc48edd431c5e55f267d757951ac33659512d4b31c26b0e5e07fc1"
+    },
+    {
+      "bytes": 183,
+      "exists": true,
+      "expected_sha256": "d5ef85153b32d520e4f549885d366842e7a54afb36ae431ac382c89eb35eabdc",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/predecessor_guard_no_mutation_verdict.json",
+      "root_relative_path": "phase4/predecessor_guard_no_mutation_verdict.json",
+      "sha256": "d5ef85153b32d520e4f549885d366842e7a54afb36ae431ac382c89eb35eabdc",
+      "sha256_at_manifest_generation": "d5ef85153b32d520e4f549885d366842e7a54afb36ae431ac382c89eb35eabdc"
+    },
+    {
+      "bytes": 297,
+      "exists": true,
+      "expected_sha256": "5969894a98563d10f3413dea1697366f8b3a58aa9580bb9a7d2f7f6525ae8bf1",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase5/recovery_scope_retirement_report.json",
+      "root_relative_path": "phase5/recovery_scope_retirement_report.json",
+      "sha256": "5969894a98563d10f3413dea1697366f8b3a58aa9580bb9a7d2f7f6525ae8bf1",
+      "sha256_at_manifest_generation": "5969894a98563d10f3413dea1697366f8b3a58aa9580bb9a7d2f7f6525ae8bf1"
+    },
+    {
+      "bytes": 586,
+      "exists": true,
+      "expected_sha256": "ac53153c1fec00da79f6f82589627636a021ad55da0e93ab69365106fe70d2d1",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase5/future_drift_contingency_open_conditions.json",
+      "root_relative_path": "phase5/future_drift_contingency_open_conditions.json",
+      "sha256": "ac53153c1fec00da79f6f82589627636a021ad55da0e93ab69365106fe70d2d1",
+      "sha256_at_manifest_generation": "ac53153c1fec00da79f6f82589627636a021ad55da0e93ab69365106fe70d2d1"
+    },
+    {
+      "bytes": 226,
+      "exists": true,
+      "expected_sha256": "b88f5dccc5f362cb015fed9c4bd3e686d19aeffc8968e3d65684e3fe0fa162cd",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase5/downstream_plan_authority_scan_report.json",
+      "root_relative_path": "phase5/downstream_plan_authority_scan_report.json",
+      "sha256": "b88f5dccc5f362cb015fed9c4bd3e686d19aeffc8968e3d65684e3fe0fa162cd",
+      "sha256_at_manifest_generation": "b88f5dccc5f362cb015fed9c4bd3e686d19aeffc8968e3d65684e3fe0fa162cd"
+    },
+    {
+      "bytes": 551,
+      "exists": true,
+      "expected_sha256": "57c1a0a0765c418e928d36138217c92785dfa44a520471d66f7abc72d0ded24f",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase5/current_route_required_validation_candidate.json",
+      "root_relative_path": "phase5/current_route_required_validation_candidate.json",
+      "sha256": "57c1a0a0765c418e928d36138217c92785dfa44a520471d66f7abc72d0ded24f",
+      "sha256_at_manifest_generation": "57c1a0a0765c418e928d36138217c92785dfa44a520471d66f7abc72d0ded24f"
+    },
+    {
+      "bytes": 574,
+      "exists": true,
+      "expected_sha256": "225df5050cf9defd24b2b1048d9e1a19bd7cd901f75a1f007415b10d406aa27c",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase5/required_validation_integration_report.json",
+      "root_relative_path": "phase5/required_validation_integration_report.json",
+      "sha256": "225df5050cf9defd24b2b1048d9e1a19bd7cd901f75a1f007415b10d406aa27c",
+      "sha256_at_manifest_generation": "225df5050cf9defd24b2b1048d9e1a19bd7cd901f75a1f007415b10d406aa27c"
+    },
+    {
+      "bytes": 2463,
+      "exists": true,
+      "expected_sha256": "dd9c86b7ab6a3a9136b6120aa91d6c45e43ea0dca32e7f47c378b91ed0884c4b",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json",
+      "root_relative_path": "phase6/final_current_source_authority_drift_verification_report.json",
+      "sha256": "dd9c86b7ab6a3a9136b6120aa91d6c45e43ea0dca32e7f47c378b91ed0884c4b",
+      "sha256_at_manifest_generation": "dd9c86b7ab6a3a9136b6120aa91d6c45e43ea0dca32e7f47c378b91ed0884c4b"
+    },
+    {
+      "bytes": 1390,
+      "exists": true,
+      "expected_sha256": "84a2698d0482eee66f3d87b0f8be6bbd61c5f54c4f2e3f47ec36bb7cd43d6dac",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_claim_boundary_report.md",
+      "root_relative_path": "phase6/final_claim_boundary_report.md",
+      "sha256": "84a2698d0482eee66f3d87b0f8be6bbd61c5f54c4f2e3f47ec36bb7cd43d6dac",
+      "sha256_at_manifest_generation": "84a2698d0482eee66f3d87b0f8be6bbd61c5f54c4f2e3f47ec36bb7cd43d6dac"
+    },
+    {
+      "bytes": 246,
+      "exists": true,
+      "expected_sha256": "5f3488188e6a49759b5e2e24ee17f2963a08ed861fea8c5509653c8f7e6ebc26",
+      "hash_comparison_policy": "frozen_expected_sha256",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_no_mutation_report.json",
+      "root_relative_path": "phase6/final_no_mutation_report.json",
+      "sha256": "5f3488188e6a49759b5e2e24ee17f2963a08ed861fea8c5509653c8f7e6ebc26",
+      "sha256_at_manifest_generation": "5f3488188e6a49759b5e2e24ee17f2963a08ed861fea8c5509653c8f7e6ebc26"
+    },
+    {
+      "bytes": 33054,
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/primary_review_artifact_manifest.json",
+      "root_relative_path": "phase6/primary_review_artifact_manifest.json",
+      "sha256": "afba994c69a4d5b64a11dc70376443a9dfb58687b8d28b595918e0743ac73b65",
+      "sha256_at_manifest_generation": "afba994c69a4d5b64a11dc70376443a9dfb58687b8d28b595918e0743ac73b65"
+    },
+    {
+      "bytes": 36708,
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "self_hash_not_representable_presence_only",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/independent_review_artifact_hash_report.json",
+      "root_relative_path": "phase6/independent_review_artifact_hash_report.json",
+      "sha256": "f039ea3b2bf5e768a3987f80a5faae9c70c7246e71e3a00ac470a520403330f1",
+      "sha256_at_manifest_generation": "f039ea3b2bf5e768a3987f80a5faae9c70c7246e71e3a00ac470a520403330f1"
+    },
+    {
+      "bytes": 216,
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/validation_report.all.json",
+      "root_relative_path": "phase6/validation_report.all.json",
+      "sha256": "cd73156f93cff6ba0295a7fa5c5e28f24481d3c6bafad25a85bc44e4887c4ebd",
+      "sha256_at_manifest_generation": "cd73156f93cff6ba0295a7fa5c5e28f24481d3c6bafad25a85bc44e4887c4ebd"
+    },
+    {
+      "bytes": 215,
+      "exists": true,
+      "expected_sha256": null,
+      "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/validation_report.require_complete.json",
+      "root_relative_path": "phase6/validation_report.require_complete.json",
+      "sha256": "72827e043f52c1f4331b41a35fbae68f4841f86b7ca43cf67e15aeee81ec2004",
+      "sha256_at_manifest_generation": "72827e043f52c1f4331b41a35fbae68f4841f86b7ca43cf67e15aeee81ec2004"
+    }
+  ],
+  "comparison_exempt_artifact_count": 4,
+  "frozen_expected_hash_count": 45,
+  "generated_after_artifact_generation": true,
+  "generated_before_review": true,
+  "hash_comparison_policy": {
+    "frozen_expected_sha256": "compare expected_sha256 from this manifest to the current artifact hash",
+    "post_manifest_hash_observation_no_expected_comparison": "include in review inventory and record a post-manifest observed hash in the independent hash report, but do not compare to a frozen expected hash",
+    "self_hash_not_representable_presence_only": "include in review inventory and require presence, but do not claim a self-contained current hash for the hash report itself"
+  },
+  "inventory_file_count": 49,
+  "manifest_payload_sha256_excluding_self_hash": "92580a8a5dcab35a7a4633acf3c948b5296d424b6d1d1e0d818a3a1eec651f73",
+  "manifest_scope": "complete_evidence_inventory",
+  "missing_artifact_hard_fail": true,
+  "missing_count": 0,
+  "review_mode_metadata_required": true,
+  "review_not_started_at_generation": true,
+  "reviewer_identity_metadata_required": true,
+  "schema_version": "dvf-3-3-current-source-authority-drift-primary-review-manifest-v1",
+  "stable_run_id": "da17729bb57a24d6181f33add18b6fba6bf00199165ca65184bb832903268f18",
+  "status": "PASS"
+}

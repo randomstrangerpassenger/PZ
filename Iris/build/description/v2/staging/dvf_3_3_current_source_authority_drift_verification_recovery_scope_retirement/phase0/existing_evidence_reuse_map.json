@@ -1,0 +1,89 @@
+{
+  "artifacts": [
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_baseline_source_overlay_repair/phase7/final_current_route_baseline_source_overlay_repair_predecessor_report.json",
+      "reused_as_input_only": true,
+      "role": "problem7_final_report",
+      "role_in_this_round": "input_context_only",
+      "sha256": "0ed9b2cd184fb0011555777ebfe7cb3541fb533fb2ae3039e1e37235d43ddbdb"
+    },
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_baseline_source_overlay_repair/phase4/body_source_overlay_coverage_report.json",
+      "reused_as_input_only": true,
+      "role": "problem7_body_source_overlay_coverage",
+      "role_in_this_round": "input_context_only",
+      "sha256": "75a4906a0d7f3360f7101676e12743d814831e160850e88a5e2e81ad8193d307"
+    },
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_baseline_source_overlay_repair/phase2/base_canopener_fixture_leak_report.json",
+      "reused_as_input_only": true,
+      "role": "problem7_base_canopener_classification",
+      "role_in_this_round": "input_context_only",
+      "sha256": "a727455fce2e763e4b4f9fca4395ce9101c27580eba334acc78d6103ca440d4a"
+    },
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_baseline_source_overlay_repair/phase2/source_baseline_role_classification_report.json",
+      "reused_as_input_only": true,
+      "role": "problem7_source_baseline_role_classification",
+      "role_in_this_round": "input_context_only",
+      "sha256": "64b686fcf684b0e8bdec1bbc34da24f9edaeb612e4450593f653aceee851c0de"
+    },
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_baseline_source_overlay_repair/phase1/protected_surface_no_mutation_report.json",
+      "reused_as_input_only": true,
+      "role": "problem7_no_mutation",
+      "role_in_this_round": "input_context_only",
+      "sha256": "db6f9a24a1ff33830bde8e9da8ef4e1969edb4b913a054ed357b40fc05531404"
+    },
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json",
+      "reused_as_input_only": true,
+      "role": "closeout_final_report",
+      "role_in_this_round": "input_context_only",
+      "sha256": "321c11a0e7ca807a809eddc46aa9514c3ce578e3a57f96185735aa5a5f0e791b"
+    },
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/full_current_route_validation_result.json",
+      "reused_as_input_only": true,
+      "role": "closeout_full_current_route_validation_result",
+      "role_in_this_round": "input_context_only",
+      "sha256": "03e8c34c4f46e237dae1bc83a563ac7a1bbd3470adeaaec56e5f27ffd04d462a"
+    },
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
+      "reused_as_input_only": true,
+      "role": "closeout_independent_review_hash_report",
+      "role_in_this_round": "input_context_only",
+      "sha256": "49bc3547028d78b0a2c0911cd7238cee07b041418b06b4e9adabfc4b5b86b225"
+    },
+    {
+      "does_not_satisfy_final_claim_by_itself": true,
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_no_mutation_report.json",
+      "reused_as_input_only": true,
+      "role": "closeout_final_no_mutation",
+      "role_in_this_round": "input_context_only",
+      "sha256": "abd94cf6c3fefc083279868789754f0decf5b30cbd2fd3304a9ca7f5de8c2dd6"
+    }
+  ],
+  "missing_count": 0,
+  "present_count": 9,
+  "schema_version": "dvf-3-3-current-source-authority-drift-existing-evidence-reuse-map-v1",
+  "status": "PASS"
+}

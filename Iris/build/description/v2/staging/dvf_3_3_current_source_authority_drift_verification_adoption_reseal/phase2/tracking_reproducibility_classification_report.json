@@ -1,0 +1,56 @@
+{
+  "classification_enum": [
+    "tracked_required",
+    "generated_reproducible",
+    "raw_staging_ignored",
+    "historical_only",
+    "diagnostic_only",
+    "forbidden_current_consumption",
+    "missing_blocks_validation",
+    "not_applicable"
+  ],
+  "classification_enum_matches_plan": true,
+  "clean_checkout_reproducibility_proof_status": "out_of_scope_not_claimed",
+  "generated_at": "2026-06-26T14:32:45.106207+00:00",
+  "missing_blocks_validation_count": 0,
+  "original_required_evidence_reproducibility_preflight_status": "not_closed_by_this_plan",
+  "rows": [
+    {
+      "classification": "generated_reproducible",
+      "clean_checkout_reproducibility_basis": "explicit_forward_dependency_to_required_evidence_reproducibility_preflight",
+      "exists": true,
+      "git_tracked_now": false,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py"
+    },
+    {
+      "classification": "generated_reproducible",
+      "clean_checkout_reproducibility_basis": "explicit_forward_dependency_to_required_evidence_reproducibility_preflight",
+      "exists": true,
+      "git_tracked_now": false,
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py"
+    },
+    {
+      "classification": "generated_reproducible",
+      "clean_checkout_reproducibility_basis": "explicit_forward_dependency_to_required_evidence_reproducibility_preflight",
+      "exists": true,
+      "git_tracked_now": false,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py"
+    },
+    {
+      "classification": "generated_reproducible",
+      "clean_checkout_reproducibility_basis": "explicit_forward_dependency_to_required_evidence_reproducibility_preflight",
+      "exists": true,
+      "git_tracked_now": false,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py"
+    },
+    {
+      "classification": "generated_reproducible",
+      "clean_checkout_reproducibility_basis": "explicit_forward_dependency_to_required_evidence_reproducibility_preflight",
+      "exists": true,
+      "git_tracked_now": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md"
+    }
+  ],
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-tracking-reproducibility-v1",
+  "status": "PASS"
+}

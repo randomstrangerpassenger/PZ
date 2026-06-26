@@ -1,0 +1,9 @@
+{
+  "concurrent_writer_detected": false,
+  "generated_at": "2026-06-25T07:51:23.705566+00:00",
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "manual_edit_required": false,
+  "schema_version": "dvf-3-3-current-route-required-validation-single-writer-v1",
+  "status": "PASS",
+  "writer": "Iris/build/description/v2/tools/build/dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py"
+}

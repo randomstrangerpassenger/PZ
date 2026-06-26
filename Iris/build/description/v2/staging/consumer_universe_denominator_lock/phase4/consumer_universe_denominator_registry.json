@@ -287,7 +287,7 @@
         "workshop_readiness",
         "live_migration_completion"
       ],
-      "freshness_marker": "sha256:3800c23f46929c6331ef550b94b3da65d7d00a24f18cbe3677271c5a286a41a8#mutation_performed == true",
+      "freshness_marker": "sha256:2f8182477f0774e8b64d59711bdd371a934969c3fd99ab1984b0a1d9f6d28054#mutation_performed == true",
       "inclusion_predicate": "readiness sandbox ledger rows with mutation_performed true",
       "non_completion_boundary": "not live repo migration completion",
       "owning_round": "dvf_3_3_vnext_cutover_tooling_readiness",
@@ -437,7 +437,7 @@
         "workshop_readiness",
         "migration_completion"
       ],
-      "freshness_marker": "sha256:214b3d990bb8b0e580c9c1c40d494965b81ff2312fae094af32a7d9c2367b2a9#current_runtime_entry_count",
+      "freshness_marker": "sha256:42f5a0e959ab4cc78130477ad446ba3e25af4f1c1ceba923a9b3b96e191684cd#current_runtime_entry_count",
       "inclusion_predicate": "live current runtime payload entries",
       "non_completion_boundary": "not migration completion",
       "owning_round": "runtime_payload_state_integrity",
@@ -467,7 +467,7 @@
         "workshop_readiness",
         "migration_completion"
       ],
-      "freshness_marker": "sha256:214b3d990bb8b0e580c9c1c40d494965b81ff2312fae094af32a7d9c2367b2a9#surface_summaries[0].adoption_counts.adopted",
+      "freshness_marker": "sha256:42f5a0e959ab4cc78130477ad446ba3e25af4f1c1ceba923a9b3b96e191684cd#surface_summaries[0].adoption_counts.adopted",
       "inclusion_predicate": "live current runtime payload entries classified adopted",
       "non_completion_boundary": "not migration completion",
       "owning_round": "runtime_payload_state_integrity",

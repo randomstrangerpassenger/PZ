@@ -1,0 +1,10 @@
+{
+  "alignment_checks": {
+    "decisions_manifest_to_rendered": true,
+    "facts_manifest_to_rendered": true,
+    "overlay_manifest_to_rendered": true
+  },
+  "rendered_output_is_source_authority": false,
+  "schema_version": "dvf-3-3-current-source-authority-drift-rendered-provenance-alignment-v1",
+  "status": "PASS"
+}

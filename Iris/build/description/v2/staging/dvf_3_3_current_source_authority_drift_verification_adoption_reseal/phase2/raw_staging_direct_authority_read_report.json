@@ -1,0 +1,12 @@
+{
+  "allowed_reads": [
+    "sealed final reports by path",
+    "live required-validation manifest",
+    "successor current source identity files by current manifest"
+  ],
+  "generated_at": "2026-06-26T14:32:45.106222+00:00",
+  "raw_predecessor_direct_execution_authority_read_count": 0,
+  "raw_staging_direct_authority_read_count": 0,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-raw-staging-direct-authority-read-v1",
+  "status": "PASS"
+}

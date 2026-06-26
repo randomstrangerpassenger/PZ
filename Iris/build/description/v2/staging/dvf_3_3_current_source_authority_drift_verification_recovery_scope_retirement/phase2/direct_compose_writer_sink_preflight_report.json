@@ -1,0 +1,28 @@
+{
+  "compose_context": "current",
+  "current_input_paths": {
+    "decisions_path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+    "facts_path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "identity_rules_path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
+    "overlay_path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
+    "precedence_rules_path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
+    "profiles_path": "Iris/build/description/v2/data/compose_profiles_v2.json"
+  },
+  "errors": [],
+  "expected_sandbox_output_files": [
+    "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification/direct_compose/dvf_3_3_rendered.json",
+    "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification/direct_compose/style_normalization_changes.jsonl",
+    "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification/direct_compose/compose_requeue_candidates.jsonl"
+  ],
+  "live_rendered_output_paths_blocked": true,
+  "path_separator_normalization_mode": "Path.resolve().as_posix()",
+  "protected_rendered_baseline_sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d",
+  "sandbox_output_root": "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification/direct_compose",
+  "schema_version": "dvf-3-3-current-source-authority-drift-direct-compose-preflight-v1",
+  "status": "PASS",
+  "write_path_classifications": {
+    "output_path": "current-equivalent-fixture",
+    "requeue_candidates_path": "current-equivalent-fixture",
+    "style_log_path": "current-equivalent-fixture"
+  }
+}

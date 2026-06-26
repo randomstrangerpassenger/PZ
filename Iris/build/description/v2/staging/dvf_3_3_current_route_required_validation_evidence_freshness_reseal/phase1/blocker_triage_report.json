@@ -1,0 +1,12 @@
+{
+  "artifact_sink_write_failure_detected": false,
+  "blocker_reproduced": false,
+  "current_route_command_text": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_required_validation_evidence_freshness_reseal\\phase4\\current_route_validation_result.json",
+  "generated_at": "2026-06-25T07:53:02.385541+00:00",
+  "os_error_22_detected": false,
+  "runner_exit_code": 0,
+  "schema_version": "dvf-3-3-current-route-required-validation-blocker-triage-v1",
+  "status": "PASS",
+  "stderr_tail": "..............................................................................................................\n----------------------------------------------------------------------\nRan 110 tests in 97.420s\n\nOK\n",
+  "stdout_tail": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 110, \"success\": true, \"elapsed_seconds\": 97.421}\n"
+}

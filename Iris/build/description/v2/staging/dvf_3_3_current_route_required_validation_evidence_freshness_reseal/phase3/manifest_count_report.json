@@ -1,0 +1,12 @@
+{
+  "counts_are_derived_from_live_manifest": true,
+  "generated_at": "2026-06-25T07:51:23.706185+00:00",
+  "old_107_test_count_is_baseline_trace_only": true,
+  "post_run_surface_test_count": 2,
+  "required_artifact_count": 34,
+  "required_test_count": 31,
+  "round_required_artifact_count": 6,
+  "round_required_test_count": 3,
+  "schema_version": "dvf-3-3-current-route-required-validation-manifest-count-v1",
+  "status": "PASS"
+}

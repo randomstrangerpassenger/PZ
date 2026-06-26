@@ -1,0 +1,10 @@
+{
+  "evidence_freshness_reseal_taxonomy_separation_preserved": true,
+  "generated_at": "2026-06-26T14:32:45.824356+00:00",
+  "required_manifest_union_surface": true,
+  "runtime_authority_mutation": false,
+  "schema_version": "dvf-3-3-current-source-authority-drift-adoption-taxonomy-separation-v1",
+  "source_rendered_lua_runtime_package_mutation": false,
+  "status": "PASS",
+  "taxonomy_mutated": false
+}

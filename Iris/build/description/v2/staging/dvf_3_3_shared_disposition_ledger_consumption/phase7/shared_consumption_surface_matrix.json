@@ -17,13 +17,13 @@
     },
     {
       "actual_consumption_route": "shared_packet_or_report_consumption",
-      "bytes": 19094,
+      "bytes": 31620,
       "consumer_id": "live_required_validation_manifest",
       "exists": true,
       "expected_packet_hash": "c7aaf052c47456c53b191fc33ab109b9ef4f951d42ba032779907c8b0ca4aa04",
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "route_status": "PASS",
-      "sha256": "2546fb0fa394b1aef42b339327c67f7badd0cc9e7a84fddb20e383bf85f52ea8"
+      "sha256": "5fe1c4c0391f192a5f0b103be934f7ff4fc7638103ad25d1b9379be3eb917f3b"
     },
     {
       "actual_consumption_route": "shared_packet_or_report_consumption",

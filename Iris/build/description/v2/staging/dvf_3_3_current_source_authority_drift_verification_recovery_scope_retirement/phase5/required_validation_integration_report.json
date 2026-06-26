@@ -1,0 +1,9 @@
+{
+  "adoption_requires_separate_authorization": true,
+  "candidate_only_config_path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase5/current_route_required_validation_candidate.json",
+  "if_adopted_role": "governance_gate_only_not_source_rendered_runtime_writer",
+  "live_manifest_mutated": false,
+  "live_manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "schema_version": "dvf-3-3-current-source-authority-drift-required-validation-integration-v1",
+  "status": "PASS"
+}

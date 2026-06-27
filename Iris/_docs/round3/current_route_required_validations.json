@@ -4,6 +4,7 @@
   "generated_at": "2026-06-17T16:28:41.744038+00:00",
   "non_claims": [
     "no_b42_readiness",
+    "no_deployment_readiness",
     "no_lua_bridge_export",
     "no_manual_in_game_validation",
     "no_package_payload_mutation",
@@ -790,6 +791,178 @@
         }
       ],
       "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_matrix_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "round3-current-route-required-validations-v1",
+          "field": "schema_version_observed"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase1/manifest_schema_header_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "post_reconciliation_untracked_ignored_required_artifact_count"
+        },
+        {
+          "equals": 0,
+          "field": "governance_backbone_problem_count"
+        },
+        {
+          "equals": 0,
+          "field": "essential_guard_problem_count"
+        },
+        {
+          "equals": 0,
+          "field": "runtime_chunk_problem_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/vcs_durability_guard_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "unallowlisted_import_count"
+        },
+        {
+          "equals": true,
+          "field": "current_route_tooling_allowlist_unchanged"
+        },
+        {
+          "equals": true,
+          "field": "current_core_closure_count_unchanged"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/current_route_import_boundary_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "post_reconciliation_untracked_ignored_required_artifact_count"
+        },
+        {
+          "equals": false,
+          "field": "broad_staging_root_unignored"
+        },
+        {
+          "equals": false,
+          "field": "non_required_staging_byproduct_tracking_requirement"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/current_required_evidence_reconciliation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "adopted_required_gate",
+          "field": "required_gate_adoption_status"
+        },
+        {
+          "equals": 0,
+          "field": "removed_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "modified_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "duplicate_entries"
+        },
+        {
+          "equals": false,
+          "field": "source_rendered_lua_runtime_package_authority_mutated"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase5/live_manifest_adoption_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "source_changed_count"
+        },
+        {
+          "equals": 0,
+          "field": "rendered_changed_count"
+        },
+        {
+          "equals": 0,
+          "field": "lua_bridge_changed_count"
+        },
+        {
+          "equals": 0,
+          "field": "runtime_changed_count"
+        },
+        {
+          "equals": 0,
+          "field": "package_changed_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/protected_surface_no_mutation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": false,
+          "field": "authority_claim"
+        },
+        {
+          "equals": 0,
+          "field": "unresolved_review_required_disposition_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/rendered_output_disposition_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "PASS",
+          "field": "bounded_durable_surface_sufficiency"
+        },
+        {
+          "equals": 0,
+          "field": "required_manifest_classification_missing_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase7/durable_surface_sufficiency_report.json"
     }
   ],
   "required_tests": [
@@ -962,6 +1135,21 @@
       "required": true,
       "role": "current_source_authority_drift_adoption_reseal_required_validation",
       "test_id": "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.DvfCurrentSourceAuthorityDriftVerificationAdoptionResealTest.test_negative_fixture_matrix_passes_without_live_mutation"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_durable_current_authority_surface_alignment_required_validation",
+      "test_id": "test_dvf_3_3_durable_current_authority_surface_alignment.DvfDurableCurrentAuthoritySurfaceAlignmentTest.test_inventory_tracking_and_import_boundary_pass"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_durable_current_authority_surface_alignment_required_validation",
+      "test_id": "test_dvf_3_3_durable_current_authority_surface_alignment.DvfDurableCurrentAuthoritySurfaceAlignmentTest.test_live_manifest_adoption_is_additive_and_governance_only"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_durable_current_authority_surface_alignment_required_validation",
+      "test_id": "test_dvf_3_3_durable_current_authority_surface_alignment.DvfDurableCurrentAuthoritySurfaceAlignmentTest.test_final_report_preserves_non_claims_and_bounded_sufficiency"
     }
   ],
   "route": "current",

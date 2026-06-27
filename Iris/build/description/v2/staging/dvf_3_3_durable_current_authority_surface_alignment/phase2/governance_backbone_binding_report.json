@@ -1,0 +1,335 @@
+{
+  "durable_required_rows": [
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "M  Iris/_docs/round3/current_route_required_validations.json"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/_docs/round3/current_route_required_validations.json"
+      ],
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "primary_role": "live_required_validation_manifest",
+      "sha256": "ccfa9cb8c17dcd6f9d37486b095f89c4144a3175bb75b443c630b83a1e944123",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/_docs/round3/round3_active_core_closure.json"
+      ],
+      "path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/_docs/round3/round3_run_contract_tests.py"
+      ],
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "c4ddf8849c6c0f426b8f9cfb1a13cae58258041c8039d627781ec0dac8faad16",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/_docs/round3/round3_test_taxonomy.json"
+      ],
+      "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "fd1ef2a82cbda1d746f54a176d2c1dc6afcde70a950822376bb727951a526562",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "cebc37fb0eb0fc9cb6d93763472deab21ac211b6563f8737437c9e69591cc39e",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py"
+      ],
+      "path": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "4b732e8b8a3e38864dcfe5265738b17a686005285ed8e00092524ffd71032f4d",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tools/build/dvf_vcs_tracking_policy.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tools/build/dvf_vcs_tracking_policy.py"
+      ],
+      "path": "Iris/build/description/v2/tools/build/dvf_vcs_tracking_policy.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "1eca4d2841c851fd9a5edba893ee24ddee5dd1dfa7d0816b217ffddaa1ffbb1d",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py"
+      ],
+      "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "1e01f90433820dd4c469fbbe3808ae4f30753432e0670481ce496df1d1de3f25",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/tools/build/run_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tools/build/run_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "1fb2c2b27be3eb396350eafd39b761e13c8b7d760c39fffcf41f5aea499b15f8",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/tools/build/validate_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tools/build/validate_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tools/build/validate_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "2a9f4831025487795577be827e5d116b241a08dc0430b53c30ed0c5c12ac1cdb",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md"
+      ],
+      "path": "docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "c07a894bda38d300a673bd3ac48f909d16b518ad1e249e03c32035769f37a507",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md"
+      ],
+      "path": "docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "90e5bf2a0630d4911abddd17b0348d9a6c5a5b08f0ff00ad74ca2026249f1a49",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md"
+      ],
+      "path": "docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "2868912f5ff7789f643f7ba76474714afd7780687f69bd3851f3b79fd2401b51",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  docs/dvf_3_3_durable_surface_policy.md"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "docs/dvf_3_3_durable_surface_policy.md"
+      ],
+      "path": "docs/dvf_3_3_durable_surface_policy.md",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "09b61a8186aa6db6ffcfc9ba76700522015d9b3b1f079fa57cc7c2d0b373e3c0",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    }
+  ],
+  "essential_guard_count": 6,
+  "essential_guard_problem_count": 0,
+  "generated_at": "2026-06-27T04:54:01.596353+00:00",
+  "governance_backbone_count": 8,
+  "governance_backbone_problem_count": 0,
+  "schema_version": "dvf-3-3-governance-backbone-binding-report-v1",
+  "status": "PASS"
+}

@@ -1,7 +1,7 @@
 {
   "corrected_decisions_sha256": "3000db34a96c5f7075ff1711352c076a1f762052fba8d1223ff8ec813ef22d6d",
   "corrected_facts_sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
-  "corrected_source_manifest_sha256": "1c49d31ad47c27e0eb55666f91bd850d8bb1e4ed358e8de73e5eb1b83c711569",
+  "corrected_source_manifest_sha256": "05d1f94e79c58a10098cc552c8fda3074b5aa74e43b80913a9ea2c3894796f22",
   "facts_decisions_validation_status": "PASS",
   "normalized_decisions_rows_sha256": "2e93962054aec02d1c9eaf128a01dc4233cadfe0571aa19c49da7eb7b082a8ad",
   "normalized_decisions_sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",

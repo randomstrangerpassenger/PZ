@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-06-27T04:54:01.596371+00:00",
+  "ignored_status_is_not_deletable_status": true,
+  "non_required_staging_artifacts_default_to_non_durable": true,
+  "rendered_output_final_required_before_pass": true,
+  "rendered_output_initial_disposition": "protected_no_mutation_review_required",
+  "runtime_chunk_count_hardcoded": false,
+  "runtime_chunk_current_readpoint_count": 11,
+  "schema_version": "dvf-3-3-durability-rule-report-v1",
+  "single_primary_role_required": true,
+  "status": "PASS",
+  "tracked_status_is_not_authority_status": true
+}

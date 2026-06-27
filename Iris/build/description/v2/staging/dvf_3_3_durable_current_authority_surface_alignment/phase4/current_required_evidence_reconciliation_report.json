@@ -1,0 +1,13 @@
+{
+  "broad_staging_root_unignored": false,
+  "generated_at": "2026-06-27T04:54:01.774455+00:00",
+  "missing_required_artifact_count": 0,
+  "non_required_staging_byproduct_tracking_requirement": false,
+  "post_reconciliation_untracked_ignored_required_artifact_count": 0,
+  "pre_reconciliation_target_count": 0,
+  "reconciliation_targets": [],
+  "remaining_problem_paths": [],
+  "required_artifact_count": 56,
+  "schema_version": "dvf-3-3-current-required-evidence-reconciliation-report-v1",
+  "status": "PASS"
+}

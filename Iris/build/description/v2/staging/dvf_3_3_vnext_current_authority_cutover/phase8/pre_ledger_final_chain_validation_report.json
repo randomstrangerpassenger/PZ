@@ -1,0 +1,26 @@
+{
+  "baseline_identity": "dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration",
+  "checks": {
+    "decisions_count": true,
+    "docs_present": true,
+    "facts_count": true,
+    "manifest_status_current": true,
+    "overlay_count": true,
+    "rendered_count": true,
+    "rendered_runtime_key_parity": true,
+    "required_manifest_exists": true,
+    "runtime_count": true
+  },
+  "claim_boundary": "DVF 3-3 vNext current authority cutover and 2105 consumer migration only; not package release readiness, Workshop readiness, B42 readiness, manual in-game validation, semantic quality completion, or public-facing text quality acceptance",
+  "decisions_sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",
+  "entry_count": 2105,
+  "facts_sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+  "generated_at": "2026-06-17T16:28:40.938098+00:00",
+  "overlay_sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464",
+  "rendered_sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d",
+  "runtime_entry_count": 2105,
+  "runtime_manifest_sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+  "schema_version": "dvf-3-3-vnext-current-authority-final-chain-validation-v0",
+  "source_manifest_sha256": "8166257cf801c3b1bdb6131f2ade6b85e732c0b312552866cb9f40d28f71689d",
+  "status": "PASS"
+}

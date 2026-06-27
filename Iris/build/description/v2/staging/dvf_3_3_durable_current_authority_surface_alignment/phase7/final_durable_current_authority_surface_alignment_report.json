@@ -1,0 +1,49 @@
+{
+  "bounded_durable_surface_sufficiency": "PASS",
+  "canonical_seal_state": "sealed",
+  "closeout_state": "complete_governance_only",
+  "current_core_closure_count_unchanged": true,
+  "current_route_tooling_allowlist_unchanged": true,
+  "deferred_reason_non_empty": true,
+  "durable_boundary_empirical_reproduction": "deferred",
+  "generated_at": "2026-06-27T04:54:01.884623+00:00",
+  "independent_review_status": "PASS",
+  "machine_checks": {
+    "bounded_sufficiency_pass": true,
+    "claim_scan_pass": true,
+    "current_route_pass": true,
+    "manifest_adoption_pass": true,
+    "protected_no_mutation_pass": true,
+    "rendered_output_disposition_pass": true,
+    "vcs_guard_pass": true
+  },
+  "machine_plan_pass": true,
+  "non_claims": [
+    "no_source_restoration",
+    "no_rendered_regeneration",
+    "no_lua_bridge_export_mutation",
+    "no_runtime_chunk_replacement",
+    "no_package_payload_mutation",
+    "no_live_migration_execution",
+    "no_release_readiness",
+    "no_workshop_readiness",
+    "no_b42_readiness",
+    "no_deployment_readiness",
+    "no_manual_in_game_qa_completion",
+    "no_semantic_quality_completion",
+    "no_public_facing_text_acceptance",
+    "no_full_clean_checkout_required_evidence_reproducibility",
+    "no_full_historical_artifact_byte_reproducibility"
+  ],
+  "owner_complete_governance_only": true,
+  "owner_seal_status": "PASS",
+  "post_reconciliation_untracked_ignored_required_artifact_count": 0,
+  "required_artifact_count_by_readpoint": {
+    "post_adoption": 56,
+    "pre_adoption": 56
+  },
+  "schema_version": "dvf-3-3-durable-current-authority-surface-alignment-final-report-v1",
+  "status": "PASS",
+  "unallowlisted_import_count": 0,
+  "unresolved_review_required_disposition_count": 0
+}

@@ -1,0 +1,11 @@
+{
+  "essential_guard_problem_count": 0,
+  "existing_vcs_policy_guard_still_required": true,
+  "forbidden_current_looking_problem_count": 0,
+  "generated_at": "2026-06-27T04:54:01.774471+00:00",
+  "governance_backbone_problem_count": 0,
+  "post_reconciliation_untracked_ignored_required_artifact_count": 0,
+  "runtime_chunk_problem_count": 0,
+  "schema_version": "dvf-3-3-vcs-durability-guard-report-v1",
+  "status": "PASS"
+}

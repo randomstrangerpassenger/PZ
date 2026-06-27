@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-06-27T04:54:01.587645+00:00",
+  "manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "schema_header_checked_from_live_manifest": true,
+  "schema_version": "dvf-3-3-durable-manifest-schema-header-report-v1",
+  "schema_version_expected": "round3-current-route-required-validations-v1",
+  "schema_version_observed": "round3-current-route-required-validations-v1",
+  "status": "PASS"
+}

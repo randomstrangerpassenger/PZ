@@ -1,0 +1,8 @@
+{
+  "axis_qualified_completion": "complete_governance_only",
+  "bare_complete_claim_count": 0,
+  "complete_is_axis_qualified_not_release_readiness": true,
+  "generated_at": "2026-06-27T04:54:01.782350+00:00",
+  "schema_version": "dvf-3-3-completion-vocabulary-scan-report-v1",
+  "status": "PASS"
+}

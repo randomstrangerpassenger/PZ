@@ -1,0 +1,8 @@
+{
+  "adoption_reseal_taxonomy_disposition_preflight_gate_closed_by_this_round": true,
+  "adoption_reseal_vcs_preservation_gate_closed_by_this_round": true,
+  "cross_referenced_predecessor": "dvf_3_3_current_source_authority_drift_verification_adoption_reseal",
+  "generated_at": "2026-06-27T04:54:01.878308+00:00",
+  "schema_version": "dvf-3-3-deferred-gate-cross-reference-report-v1",
+  "status": "PASS"
+}

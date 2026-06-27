@@ -1,0 +1,29 @@
+{
+  "chunk_count": 11,
+  "chunk_dir": {
+    "bytes": null,
+    "exists": true,
+    "kind": "dir",
+    "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+    "role": "live_runtime_chunk_dir",
+    "sha256": null
+  },
+  "claim_boundary": "DVF 3-3 vNext current authority cutover and 2105 consumer migration only; not package release readiness, Workshop readiness, B42 readiness, manual in-game validation, semantic quality completion, or public-facing text quality acceptance",
+  "entry_count": 2105,
+  "generated_at": "2026-06-17T16:24:07.080539+00:00",
+  "live_runtime_replaced": true,
+  "manifest": {
+    "bytes": 951,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "role": "live_runtime_chunk_manifest",
+    "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+  },
+  "monolith_present": false,
+  "monolith_runtime_authority": false,
+  "schema_version": "dvf-3-3-vnext-current-authority-runtime-atomic-replace-v0",
+  "single_successor_authority": true,
+  "status": "PASS",
+  "target_data_dir": "Iris/media/lua/client/Iris/Data"
+}

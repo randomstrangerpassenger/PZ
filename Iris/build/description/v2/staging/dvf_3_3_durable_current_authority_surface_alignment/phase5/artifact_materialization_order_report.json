@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-06-27T04:52:01.651553+00:00",
+  "manifest_adoption_before_current_route_validation": true,
+  "order": [
+    "additive_manifest_update",
+    "required_artifact_materialization",
+    "current_route_validation"
+  ],
+  "required_artifacts_materialized_before_current_route_validation": true,
+  "schema_version": "dvf-3-3-artifact-materialization-order-report-v1",
+  "status": "PASS"
+}

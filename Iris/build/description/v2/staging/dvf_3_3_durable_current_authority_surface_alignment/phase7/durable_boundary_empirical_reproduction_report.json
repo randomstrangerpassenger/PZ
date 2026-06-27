@@ -1,0 +1,8 @@
+{
+  "deferred_reason": "No temp worktree or temp clone bounded reproduction check was requested for this governance-only execution.",
+  "deferred_reason_non_empty": true,
+  "durable_boundary_empirical_reproduction": "deferred",
+  "generated_at": "2026-06-27T04:54:01.878306+00:00",
+  "schema_version": "dvf-3-3-durable-boundary-empirical-reproduction-report-v1",
+  "status": "PASS"
+}

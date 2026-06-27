@@ -1,0 +1,17 @@
+{
+  "bounded_durable_surface_sufficiency": "PASS",
+  "durable_class_coverage": {
+    "current_route_governance_surface": true,
+    "current_source_authority_chain": true,
+    "deployable_runtime_chunk_authority": true,
+    "essential_guard_and_regeneration_tooling": true,
+    "live_required_validation_manifest": true,
+    "required_adopted_evidence": true
+  },
+  "generated_at": "2026-06-27T04:54:01.878284+00:00",
+  "not_full_clean_checkout_reproducibility": true,
+  "not_full_historical_byte_reproducibility": true,
+  "required_manifest_classification_missing_count": 0,
+  "schema_version": "dvf-3-3-durable-surface-sufficiency-report-v1",
+  "status": "PASS"
+}

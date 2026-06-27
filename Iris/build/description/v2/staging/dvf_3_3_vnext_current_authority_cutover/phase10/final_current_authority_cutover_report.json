@@ -1,0 +1,32 @@
+{
+  "baseline_identity": "dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration",
+  "chain_validation": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase8/pre_ledger_final_chain_validation_report.json",
+  "claim_boundary": "DVF 3-3 vNext current authority cutover and 2105 consumer migration only; not package release readiness, Workshop readiness, B42 readiness, manual in-game validation, semantic quality completion, or public-facing text quality acceptance",
+  "closeout_state": "complete_current_authority_cutover_and_consumer_migration",
+  "decisions_sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",
+  "entry_count": 2105,
+  "external_validation": {
+    "all_pass": true,
+    "command_count": 4,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase8/external_validation_command_results.json",
+    "status": "PASS"
+  },
+  "facts_sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+  "generated_at": "2026-06-17T16:28:41.686734+00:00",
+  "ledger_consistency": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase9/ledger_consistency_report.json",
+  "non_claims": [
+    "no_package_release_readiness",
+    "no_workshop_readiness",
+    "no_b42_readiness",
+    "no_manual_in_game_validation",
+    "no_semantic_quality_completion",
+    "no_public_facing_text_quality_acceptance"
+  ],
+  "overlay_sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464",
+  "rendered_sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d",
+  "runtime_entry_count": 2105,
+  "runtime_manifest_sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+  "schema_version": "dvf-3-3-vnext-current-authority-final-cutover-v0",
+  "source_manifest_sha256": "8166257cf801c3b1bdb6131f2ade6b85e732c0b312552866cb9f40d28f71689d",
+  "status": "PASS"
+}

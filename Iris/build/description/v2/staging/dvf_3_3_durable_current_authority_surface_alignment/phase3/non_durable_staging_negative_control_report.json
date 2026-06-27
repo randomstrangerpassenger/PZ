@@ -1,0 +1,24 @@
+{
+  "authority_claim": false,
+  "durability": "non-durable",
+  "generated_at": "2026-06-27T04:54:01.768084+00:00",
+  "path": "Iris/build/description/v2/staging/dvf_vcs_tracking_policy/vcs_tracking_summary.md",
+  "schema_version": "dvf-3-3-non-durable-staging-negative-control-v1",
+  "state": {
+    "exists": true,
+    "git_status": [
+      "!! Iris/build/description/v2/staging/dvf_vcs_tracking_policy/"
+    ],
+    "ignore_matched": true,
+    "ignore_pattern": "Iris/build/description/v2/staging/*",
+    "ignored": true,
+    "index_entries": [],
+    "path": "Iris/build/description/v2/staging/dvf_vcs_tracking_policy/vcs_tracking_summary.md",
+    "sha256": "65e9c2c0f0f65f6d0042b6c88469cd8b193716be783174afc32de77a11cf7312",
+    "tracked": false,
+    "tracking_state": "ignored-present"
+  },
+  "status": "PASS",
+  "untracked_or_ignored_allowed": true,
+  "vcs_requirement": "no_tracking_required"
+}

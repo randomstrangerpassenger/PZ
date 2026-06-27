@@ -1,0 +1,2202 @@
+{
+  "generated_at": "2026-06-27T04:54:01.774473+00:00",
+  "ignored_count": 2,
+  "missing_count": 3,
+  "rows": [
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "M  Iris/_docs/round3/current_route_required_validations.json"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/_docs/round3/current_route_required_validations.json"
+      ],
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "primary_role": "live_required_validation_manifest",
+      "sha256": "ccfa9cb8c17dcd6f9d37486b095f89c4144a3175bb75b443c630b83a1e944123",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/_docs/round3/round3_active_core_closure.json"
+      ],
+      "path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/_docs/round3/round3_run_contract_tests.py"
+      ],
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "c4ddf8849c6c0f426b8f9cfb1a13cae58258041c8039d627781ec0dac8faad16",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/_docs/round3/round3_test_taxonomy.json"
+      ],
+      "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "fd1ef2a82cbda1d746f54a176d2c1dc6afcde70a950822376bb727951a526562",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl"
+      ],
+      "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+      "primary_role": "current_source_authority_chain",
+      "sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+      ],
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "primary_role": "current_source_authority_chain",
+      "sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "current_regeneration_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/data/dvf_3_3_input_manifest.json"
+      ],
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "primary_role": "current_source_authority_chain",
+      "sha256": "8166257cf801c3b1bdb6131f2ade6b85e732c0b312552866cb9f40d28f71689d",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl"
+      ],
+      "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
+      "primary_role": "current_source_authority_chain",
+      "sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "exists": true,
+      "git_status": [
+        "!! Iris/build/description/v2/output/"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "Iris/build/description/v2/*",
+      "ignored": true,
+      "index_entries": [],
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "primary_role": "protected_rendered_non_writer",
+      "sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d",
+      "tracked": false,
+      "tracking_state": "ignored-present",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        " M Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/consumer_universe_denominator_lock/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "009b7c918f67b25e9e480942975518c6112acaaccd66691cf9ea3d5fb4d66b6c",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase2/dvf_3_3_closeout_claim_taxonomy.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase2/dvf_3_3_closeout_claim_taxonomy.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "6ac441401fc08f61e455a44b8ea9916cd3ddf8a26f5970ce8670915bd13f3203",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/predecessor_reentry_guard_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase3/predecessor_reentry_guard_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "4dc4186152b5209fe26632fc920c8734db5af8b62c81b6d32974d49040226130",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase4/closeout_claim_boundary_guard_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase4/closeout_claim_boundary_guard_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "2e21c16009b4b9d466aab6b5613003cd3e5ead4d83cac481dd279655ad9b5806",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase5/closeout_reentry_guard_manifest_adoption_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase5/closeout_reentry_guard_manifest_adoption_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "6b4baf29765cdf27019dc95d93361cad14d7954758cf45ac151d98670ded12c0",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "321c11a0e7ca807a809eddc46aa9514c3ce578e3a57f96185735aa5a5f0e791b",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_no_mutation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_no_mutation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "abd94cf6c3fefc083279868789754f0decf5b30cbd2fd3304a9ca7f5de8c2dd6",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        " M Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "832098d1d75216c6c4a0fc2d6080973c0da38917ed9bee969e6c14cbbb54c259",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/current_checkout_source_identity_redrive_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "3877ef6263d21208d25d66f2b78959482f600f0adbfc6e995b2caec673e132df",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_consumption_contract.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_consumption_contract.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "373a5c89b12ecee427ff1e7791c0d6d30c48482b11e78064ff6c3a7f74e6b6b3",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_field_check_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase2/drift_verification_field_check_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "bb988097adb3a122a77ed815670b0c65e87bd5f73db35450c0f1a5c8555a0dd5",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/additive_diff_bijection_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/additive_diff_bijection_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "063778aeac56e4fb8d51f0c309b5c6101eeaa0feabfeaf2d00fdea55aa0bf263",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/live_required_manifest_update_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/live_required_manifest_update_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "74f1c7b8c5ab1cdb100f36f5d0a5c6555db55c652dc34d0d9ca9f920b4bab23d",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/taxonomy_separation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase3/taxonomy_separation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "c2e6b32d8fd15962d1fb30f2c1d18b7ddecec453af87fa9eea79a94ff7608fe6",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/plan_token_parity_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/plan_token_parity_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "6c763a0e4a003c3f4e539f1c533a43c8f82806ac64382e1a00ed9c37af0bf76c",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/required_manifest_presence_structured_match_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/required_manifest_presence_structured_match_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "75756cc0c0e6f561ec7b566d6f23130fa9d60b1f0e7a4ad74f31592c31bb2c90",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/sealed_reseal_record_live_manifest_rederivation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/sealed_reseal_record_live_manifest_rederivation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "1fd4d04d5dae0d2616ff2e679a524c313ff7b1d7c79b7354278aac0056720e51",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/taxonomy_presence_structured_match_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase0/taxonomy_presence_structured_match_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "79c3246d617105e036db430a32bff08a9fcdc0c470d3f0953c1ade0ff4de8894",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/current_source_identity_redrive_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/current_source_identity_redrive_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "107a3277694aefc72d78e65a496edd4d6f4e746bc1e40761580305a5e4dde79b",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/tracking_reproducibility_classification_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase2/tracking_reproducibility_classification_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "f03f86d608b83ac9fa0bc8c4f46dc0b74d5cd421959aaf2dac86e73949fd1b23",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/b_marked_schema_supported_marker_validation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/b_marked_schema_supported_marker_validation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "0db450f4186a3e5f1f9701aef0e3b53d972daed3f271db203579b896ac90bf02",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/branch_selection_contract_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/branch_selection_contract_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "d0ea3419ea52ccf2f32751183ce38d54b784fc3fb061de2cff187bd3e4a3aeef",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/live_manifest_adoption_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/live_manifest_adoption_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "fd203aaf2a85bc51872c037f632265c57de404603427822b0ad197bfd5301cca",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/live_manifest_single_writer_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/live_manifest_single_writer_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "fda236a75f5e6c1342e3c3dc450cd90cf3e03846f1e922fd0d48837eb3b477b5",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/required_validation_count_delta_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/required_validation_count_delta_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "89a79852ef512e50418ced50e7ff415899679310b3985205f571b37fcba0e94d",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/taxonomy_separation_additive_compatibility_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/taxonomy_separation_additive_compatibility_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "568f6b9f051b157ac2d94b80e0211a58373e89c3ec4b175902cfe73ccbec1c9e",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/taxonomy_single_writer_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase3/taxonomy_single_writer_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "4e8771ba77a23ddc667d42b277515e84826704a5e33b8d2be8054d32382d87a5",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_matrix_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/negative_fixture_matrix_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "2522c4b8e5ce046b1d3832cef191510d1beb357869167abb1ced5ff904a48d84",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "AM Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase1/manifest_schema_header_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase1/*.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase1/manifest_schema_header_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase1/manifest_schema_header_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "adf88d905f1c9fa86505cc18fa7f833fb8e7feb53fe2df845e9cd0a41ac940b1",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "AM Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/current_required_evidence_reconciliation_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/*.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/current_required_evidence_reconciliation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/current_required_evidence_reconciliation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "0aa6b1f411a84251c747f83f69dbb64f032fb9636890ea36fec54c88ced24dd9",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "AM Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/current_route_import_boundary_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/*.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/current_route_import_boundary_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/current_route_import_boundary_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "bb6c20df1cf4b0a575ac81821743eeb06d6de2c4a0fbfe56902513648918f44d",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "AM Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/vcs_durability_guard_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/*.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/vcs_durability_guard_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase4/vcs_durability_guard_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "ebbd4c6b36022125dda87f2db5ecac0317b37a577102554d5a2f8ae88ebfc819",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "AM Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase5/live_manifest_adoption_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase5/*.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase5/live_manifest_adoption_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase5/live_manifest_adoption_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "0973b194ec27e82e75739d448d2898e25e0f18e9af87375082bc2c14fe248428",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "AM Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/protected_surface_no_mutation_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/*.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/protected_surface_no_mutation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/protected_surface_no_mutation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "d3c3b088524391f5e6be34ee71bb9400d6fc112768fecb99472eccfa2b916f36",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "AM Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/rendered_output_disposition_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/*.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/rendered_output_disposition_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase6/rendered_output_disposition_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "e8ed7f8deae52927e40736d591eb70f83cf8525d41481e528187d785b21ff6a8",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "AM Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase7/durable_surface_sufficiency_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase7/*.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase7/durable_surface_sufficiency_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase7/durable_surface_sufficiency_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "0dd64d1fd47b786d21018ff21a4733f6034dbd59b08cbefe4fcf8fbab9f3f9e8",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/divergence_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/divergence_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "f835cf361972dda7800e7f706e761e84cba462fa3cc3ff9e1015054b1ab45097",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/predecessor_reentry_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/predecessor_reentry_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "856174edf8096702b678fc73df26e5a387b6c464d555fa72cebf124fcc3ca1ef",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/raw_authority_read_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/raw_authority_read_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "4f6e02a05ee3ca7fd451f6a3e7f4eac2951ae9dd53fbdab93e990728bfd1bcc5",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/value_divergence_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase3/value_divergence_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "888ffcd6519ddfe75c723261b982bf7c9c078cf97feff474bff7c2a6bc8a11af",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase4/no_dual_authority_read_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase4/no_dual_authority_read_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "1dd1be02d82606b0d63f46629d89ac7ab8751eb20e359863da0c7f27e5e67344",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase4/protected_surface_no_mutation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase4/protected_surface_no_mutation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "ee7af78b82a9707457885b7cd15a9e05785722b4c13b17a6332f10e499d34583",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/final_shared_disposition_consumption_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/final_shared_disposition_consumption_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "bde39843487f3265ae9faf7030142a3650b28b9ffcadbe265d247ec2bce13271",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/final_current_authority_cutover_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/final_current_authority_cutover_report.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/final_current_authority_cutover_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/final_current_authority_cutover_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "0f5fe3a515b6ff57eeff354cc99f7d94c613d3a526cab1860f5531995f85995f",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase2/source_promotion_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase2/source_promotion_report.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase2/source_promotion_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase2/source_promotion_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "c1bd2ca548f49d4ea73bcb69e66bc8d1e78fe3c2e8a160ac61a5e76dc15b5276",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase3/rendered_regeneration_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase3/rendered_regeneration_report.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase3/rendered_regeneration_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase3/rendered_regeneration_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "28a082e5121ddea19af31339ba0de269a843d5510306924450603931d5fbac34",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/runtime_atomic_replace_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/runtime_atomic_replace_report.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/runtime_atomic_replace_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/runtime_atomic_replace_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "43246463845ad3907c7db673b18994201934cd933794f54310b9cd878cc776d7",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase5/manifest_driven_consumer_validation_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase5/manifest_driven_consumer_validation_report.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase5/manifest_driven_consumer_validation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase5/manifest_driven_consumer_validation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "607c184b1798201021b1a00c1aa49362ef1c058ba37f1a73e25ca66879c1e948",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase8/pre_ledger_final_chain_validation_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase8/pre_ledger_final_chain_validation_report.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase8/pre_ledger_final_chain_validation_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase8/pre_ledger_final_chain_validation_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "b5d2fd69146589b71ac7d2381eba7c6de4f92a96b6a351d9ce71cab1255f0490",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase9/ledger_consistency_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase9/ledger_consistency_report.json",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase9/ledger_consistency_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase9/ledger_consistency_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "0e597e05eb6ec0c951db83417010c61e2d90f69e634bf2343ff38cbb6c302e69",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase11/final_rejected_delta_correction_reparity_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase11/final_rejected_delta_correction_reparity_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "7dae7187aa6cfc0b3459e1ab72136fa5dbc1d82e8e2453f64068bcff669ea53a",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase8/final_delta_disposition_guard_contract_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase8/final_delta_disposition_guard_contract_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "786c5ce4b719d2c173a566a889dcefd8bdb12b01840abf978766c432766ad610",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "exists": true,
+      "git_status": [
+        "!! Iris/build/description/v2/staging/dvf_vcs_tracking_policy/"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "Iris/build/description/v2/staging/*",
+      "ignored": true,
+      "index_entries": [],
+      "path": "Iris/build/description/v2/staging/dvf_vcs_tracking_policy/vcs_tracking_summary.md",
+      "primary_role": "generated_staging_evidence",
+      "sha256": "65e9c2c0f0f65f6d0042b6c88469cd8b193716be783174afc32de77a11cf7312",
+      "tracked": false,
+      "tracking_state": "ignored-present",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        " M Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/publish_state_authority_resolution.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/runtime_payload_state_integrity/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/publish_state_authority_resolution.json"
+      ],
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/publish_state_authority_resolution.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "2c9265cc40299cf94ca0853277e918544dbe4d47c7aa83366a801c61a49ddd2e",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        " M Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/runtime_payload_state_integrity/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json"
+      ],
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "b712c5a9c94767915867c078de97e1183411d5f9c069d077ec61498e731a41b2",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        " M Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/runtime_payload_state_integrity/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "5530976b55c1be8bb1acd9d5f059df19a0960489916c5ad0efb20c1060c1665c",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "required-adopted",
+      "attributes": {
+        "manifest_adoption": "required-adopted"
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        " M Iris/build/description/v2/staging/runtime_payload_state_integrity/phase5b/display_resolution_parity_report.json"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/staging/runtime_payload_state_integrity/**",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase5b/display_resolution_parity_report.json"
+      ],
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase5b/display_resolution_parity_report.json",
+      "primary_role": "required_adopted_evidence",
+      "sha256": "6b76771ff338b0439497635c5eb2a9427c49c64e0292724197a0477ce2653174",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "cebc37fb0eb0fc9cb6d93763472deab21ac211b6563f8737437c9e69591cc39e",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py"
+      ],
+      "path": "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "4b732e8b8a3e38864dcfe5265738b17a686005285ed8e00092524ffd71032f4d",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tools/build/dvf_vcs_tracking_policy.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tools/build/dvf_vcs_tracking_policy.py"
+      ],
+      "path": "Iris/build/description/v2/tools/build/dvf_vcs_tracking_policy.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "1eca4d2841c851fd9a5edba893ee24ddee5dd1dfa7d0816b217ffddaa1ffbb1d",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py"
+      ],
+      "path": "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "1e01f90433820dd4c469fbbe3808ae4f30753432e0670481ce496df1d1de3f25",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/tools/build/run_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tools/build/run_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "1fb2c2b27be3eb396350eafd39b761e13c8b7d760c39fffcf41f5aea499b15f8",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  Iris/build/description/v2/tools/build/validate_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "ignore_matched": true,
+      "ignore_pattern": "!Iris/build/description/v2/tools/build/validate_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "ignored": false,
+      "index_entries": [
+        "Iris/build/description/v2/tools/build/validate_dvf_3_3_durable_current_authority_surface_alignment.py"
+      ],
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_durable_current_authority_surface_alignment.py",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "sha256": "2a9f4831025487795577be827e5d116b241a08dc0430b53c30ed0c5c12ac1cdb",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "exists": false,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "primary_role": "forbidden_current_looking_stale",
+      "sha256": null,
+      "tracked": false,
+      "tracking_state": "missing",
+      "vcs_requirement": "forbidden_current_looking",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "245df8b9e95cfd40a2ce76f322f1d40e9ecdf008e856e4a2ca909048efd934c2",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "033e55d550b75aa9456d0747d4e740be2865f6a00b23e73c15120eb09e99c0c0",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "5af32b0985c5e6969a888f55337267cc7d2db8085390469d261d2039cef9bb75",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "0a84e2413e333ed9945222f183559131a85b605537509cb11909a3e73f7276a0",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "9082d6503f38dc18db90ba484bc13fc003328837290369bf51217ff5753845fd",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "0ff59831a19f34c521fe55383d054c98a1832dddd18b459e0f1dbf5384e88dda",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "b3e0e74d8bf93785bbcde0c3bdbf7ee5565d6b49ecc902aa8b2d37dd4561ac73",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "b73c0bff6b072170917c2bfce7c2473b8e19e75039604c2bc3785419cb068cb8",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "e370958166c1f1670f070986b9470b464c68a7d1ee84aa973840d768e2f385e9",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "7e5d679a3d6489b8861f3dd20db8160d3a4e8bdb7be1b2ca9904180de1bfe2b9",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {
+        "derived_from_runtime_chunk_manifest": true
+      },
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua"
+      ],
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "sha256": "ffee61bd96e0fd299e26d09b75da68330c100316ccfd1fd484795790d16c8be0",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "exists": false,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [],
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "primary_role": "forbidden_current_looking_stale",
+      "sha256": null,
+      "tracked": false,
+      "tracking_state": "missing",
+      "vcs_requirement": "forbidden_current_looking",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md"
+      ],
+      "path": "docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "c07a894bda38d300a673bd3ac48f909d16b518ad1e249e03c32035769f37a507",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md"
+      ],
+      "path": "docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "90e5bf2a0630d4911abddd17b0348d9a6c5a5b08f0ff00ad74ca2026249f1a49",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md"
+      ],
+      "path": "docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "2868912f5ff7789f643f7ba76474714afd7780687f69bd3851f3b79fd2401b51",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "exists": true,
+      "git_status": [
+        "A  docs/dvf_3_3_durable_surface_policy.md"
+      ],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [
+        "docs/dvf_3_3_durable_surface_policy.md"
+      ],
+      "path": "docs/dvf_3_3_durable_surface_policy.md",
+      "primary_role": "current_route_governance_surface",
+      "sha256": "09b61a8186aa6db6ffcfc9ba76700522015d9b3b1f079fa57cc7c2d0b373e3c0",
+      "tracked": true,
+      "tracking_state": "tracked",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "adoption": "not-adopted",
+      "attributes": {},
+      "authority_claim": false,
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "exists": false,
+      "git_status": [],
+      "ignore_matched": false,
+      "ignore_pattern": null,
+      "ignored": false,
+      "index_entries": [],
+      "path": "media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "primary_role": "forbidden_current_looking_stale",
+      "sha256": null,
+      "tracked": false,
+      "tracking_state": "missing",
+      "vcs_requirement": "forbidden_current_looking",
+      "writer_authority_opened": false
+    }
+  ],
+  "schema_version": "dvf-3-3-git-tracking-status-report-v1",
+  "status": "PASS",
+  "tracked_count": 86
+}

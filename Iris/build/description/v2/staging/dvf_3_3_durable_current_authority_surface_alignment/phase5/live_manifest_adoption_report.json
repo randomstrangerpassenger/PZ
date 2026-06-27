@@ -1,0 +1,16 @@
+{
+  "added_entries": 0,
+  "candidate_manifest_consumed": false,
+  "duplicate_entries": 0,
+  "generated_at": "2026-06-27T04:52:01.651540+00:00",
+  "modified_existing_entries": 0,
+  "removed_existing_entries": 0,
+  "required_artifact_count_after": 56,
+  "required_artifact_count_before": 56,
+  "required_gate_adoption_status": "adopted_required_gate",
+  "required_test_count_after": 37,
+  "required_test_count_before": 37,
+  "schema_version": "dvf-3-3-durable-live-manifest-adoption-report-v1",
+  "source_rendered_lua_runtime_package_authority_mutated": false,
+  "status": "PASS"
+}

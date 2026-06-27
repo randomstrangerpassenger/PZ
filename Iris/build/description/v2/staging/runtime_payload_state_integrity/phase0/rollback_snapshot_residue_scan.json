@@ -1,6 +1,6 @@
 {
   "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
-  "generated_at": "2026-06-26T14:37:26.206616+00:00",
+  "generated_at": "2026-06-27T04:55:58.226198+00:00",
   "predecessor_residue_count": 2,
   "rows": [
     {

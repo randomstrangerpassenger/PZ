@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-06-17T16:28:40.244286+00:00",
+  "live_manifest_mutated_by_predecessor_scripts": false,
+  "predecessor_phase_local_manifest_writers": [
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_rejected_delta_correction_reparity.py",
+    "Iris/build/description/v2/tools/build/dvf_3_3_vnext_delta_guard_current_route_integration.py"
+  ],
+  "required_validation_manifest": {
+    "bytes": 9155,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "role": "manifest_driven_current_consumer",
+    "sha256": "b61f1ac5971b5fd1e95508e5911a7b93cf6de0f25076ad6f807539bc1f002f74"
+  },
+  "required_validation_manifest_claim": "current authority cutover and 2105 consumer migration sealed",
+  "schema_version": "dvf-3-3-vnext-current-authority-manifest-driven-consumer-validation-v0",
+  "status": "PASS"
+}

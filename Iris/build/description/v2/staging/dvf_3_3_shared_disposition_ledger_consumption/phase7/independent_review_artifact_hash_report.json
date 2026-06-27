@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "4c039fba95e0b7c015d200710833e08d59113fc2e61b9bed3a141343f123f93c",
+  "aggregate_sha256": "bcc29c98a0606238eafba2ea461319f2680ba85946ecad451578c33e20bc967f",
   "artifacts": [
     {
       "bytes": 1444,
@@ -29,13 +29,13 @@
       "bytes": 6972,
       "exists": true,
       "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase1/sealed_axis_token_set.json",
-      "sha256": "3a092b943e91d37c9337799413cafa9782d69f2f39d25da2bfdb72c44569f0ca"
+      "sha256": "383998ebdf928a56cb8dc5326d3559be1badd34f6457d47cb244a484263b3d45"
     },
     {
-      "bytes": 552,
+      "bytes": 560,
       "exists": true,
       "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase1/zero_token_promotion_report.json",
-      "sha256": "b37ff4e1b68dd918cb25eacc5a9eb1c1513fc6b632b95732748ccd8c5be0def8"
+      "sha256": "25c80b2eafc379211d369641a188d6accaa780c161d07fc37e2153fc8a92e360"
     },
     {
       "bytes": 1648735,
@@ -47,7 +47,7 @@
       "bytes": 4204,
       "exists": true,
       "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase2/sealed_report_set.json",
-      "sha256": "b020281e8e6a0513b1f54afa4b18b61e7e49e408b79bf7aeea7f93c67efcc131"
+      "sha256": "694e5e6950bb338e74de53cfc277c017cde5b5349c36eb86d80b130f3f10e4f7"
     },
     {
       "bytes": 11456,
@@ -110,16 +110,16 @@
       "sha256": "fd75054b601641fa9874a6a3431cfc7a31016f3d7460939be4a76bb24983f11c"
     },
     {
-      "bytes": 31620,
+      "bytes": 37246,
       "exists": true,
       "path": "Iris/_docs/round3/current_route_required_validations.json",
-      "sha256": "5fe1c4c0391f192a5f0b103be934f7ff4fc7638103ad25d1b9379be3eb917f3b"
+      "sha256": "ccfa9cb8c17dcd6f9d37486b095f89c4144a3175bb75b443c630b83a1e944123"
     },
     {
       "bytes": 3580,
       "exists": true,
       "path": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/shared_consumption_surface_matrix.json",
-      "sha256": "e6e41688a4476dbffc742b1888253548ede46a741369f09272d340d7496e0cba"
+      "sha256": "4b0e9c627192d8ddd32266d3ca89dead9698644eda37158f0ee5c8896ed6a8bb"
     },
     {
       "bytes": 506,

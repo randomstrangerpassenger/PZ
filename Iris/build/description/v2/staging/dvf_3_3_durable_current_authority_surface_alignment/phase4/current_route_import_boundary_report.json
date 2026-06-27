@@ -1,0 +1,12 @@
+{
+  "current_core_closure_count": 12,
+  "current_core_closure_count_unchanged": true,
+  "current_route_tooling_allowlist_cap_unchanged": true,
+  "current_route_tooling_allowlist_unchanged": true,
+  "direct_tools_build_imports": [],
+  "generated_at": "2026-06-27T04:54:01.774439+00:00",
+  "schema_version": "dvf-3-3-current-route-import-boundary-v1",
+  "status": "PASS",
+  "unallowlisted_import_count": 0,
+  "unallowlisted_imports": []
+}

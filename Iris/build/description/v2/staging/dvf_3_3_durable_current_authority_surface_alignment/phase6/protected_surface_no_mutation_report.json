@@ -1,0 +1,18 @@
+{
+  "changed_count": 0,
+  "diff": {
+    "changed": [],
+    "changed_count": 0,
+    "schema_version": "dvf-3-3-current-route-required-validation-hash-diff-v1",
+    "status": "PASS",
+    "surface_class": "all"
+  },
+  "generated_at": "2026-06-27T04:54:01.839075+00:00",
+  "lua_bridge_changed_count": 0,
+  "package_changed_count": 0,
+  "rendered_changed_count": 0,
+  "runtime_changed_count": 0,
+  "schema_version": "dvf-3-3-durable-protected-surface-no-mutation-report-v1",
+  "source_changed_count": 0,
+  "status": "PASS"
+}

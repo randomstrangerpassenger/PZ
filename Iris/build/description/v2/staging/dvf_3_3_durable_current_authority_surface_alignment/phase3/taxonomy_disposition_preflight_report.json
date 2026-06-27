@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-06-27T04:54:01.605354+00:00",
+  "non_claim_wording_present": true,
+  "required_adopted_artifact_missing_count": 0,
+  "required_manifest_artifact_count": 56,
+  "required_manifest_test_count": 37,
+  "schema_version": "dvf-3-3-taxonomy-disposition-preflight-v1",
+  "status": "PASS"
+}

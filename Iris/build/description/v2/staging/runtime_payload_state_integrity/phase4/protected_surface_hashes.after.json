@@ -1,6 +1,6 @@
 {
-  "aggregate_sha256": "a0ab68742e5e46502dabf2c5ab854bb1b409d8b1b4b629bcc11066b7d18cfc21",
-  "generated_at": "2026-06-26T14:37:26.369617+00:00",
+  "aggregate_sha256": "4498ae02287088119021023e30e7e0821619894c03c2fef198887ba140175cb6",
+  "generated_at": "2026-06-27T04:55:58.354697+00:00",
   "record_count": 54,
   "records": [
     {
@@ -428,12 +428,12 @@
       "sha256": "9e2368bf50093dfec028ccf7a52d4ac0ee9b4407ff3cfbfc9715955f295ca696"
     },
     {
-      "bytes": 31620,
+      "bytes": 37246,
       "exists": true,
       "kind": "file",
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "role": null,
-      "sha256": "5fe1c4c0391f192a5f0b103be934f7ff4fc7638103ad25d1b9379be3eb917f3b"
+      "sha256": "ccfa9cb8c17dcd6f9d37486b095f89c4144a3175bb75b443c630b83a1e944123"
     }
   ],
   "schema_version": "dvf-3-3-vnext-protected-surface-hashes-v0",

@@ -563,7 +563,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/`다.
   * focused generator / validator / unittest는 `--require-complete` 포함 PASS이며, primary review inventory는 `49`, frozen hash comparison은 `45`, comparison-exempt artifact는 `4`, hash mismatch는 `0`이다.
   * Recovery live-write 계획은 현재 writer authority가 아니라 future drift contingency다.
-  * latest broad current-route rerun은 unrelated shared-disposition packet write `OSError 22`로 blocked 상태였으므로, 이 round의 canonical PASS 근거로 과장하지 않는다.
+  * successor Adoption Reseal의 latest broad current-route rerun은 `_dvf_3_3_vnext_common.write_jsonl` write-sink mechanics 보정 이후 `PASS / 113 tests / closure_enforced true`다. 이전 `OSError 22` write failure는 source-authority drift evidence가 아니라 runner sink blocker였던 것으로 읽는다.
 
 * Current-Route Required Validation / Evidence Freshness Reseal은 canonical complete 상태로 읽는다.
 
@@ -581,8 +581,10 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * selected branch는 `branch_a_required_gate_adopted`이며 final closeout은 `current_source_authority_drift_adoption_reseal_complete`다.
   * current-route validation은 `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` 기준 `PASS / 113 tests / closure_enforced true`다.
   * live required-validation manifest는 adoption reseal required artifacts/tests를 additive로 소비하며 required artifact/test removal 또는 modification은 `0`이다.
+  * Windows `OSError 22` runner blocker는 `_dvf_3_3_vnext_common.write_jsonl` retry / atomic temp fallback으로 보정했으며, required set / validation predicate / PASS interpretation change는 `0`이다.
   * primary review inventory는 `37`, frozen hash comparison은 `33`, comparison-exempt artifact는 `4`, hash mismatch는 `0`이다.
   * 이 adoption reseal은 source / rendered / Lua bridge / runtime / package writer authority, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+  * 관련 tool/test/docs/evidence와 live required-validation manifest diff는 VCS commit에 함께 포함되어야 clean-checkout tracking boundary에서 이 closeout을 보존한다.
   * clean-checkout required evidence reproducibility / taxonomy disposition preflight는 이 round에서 닫지 않는다.
 
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.

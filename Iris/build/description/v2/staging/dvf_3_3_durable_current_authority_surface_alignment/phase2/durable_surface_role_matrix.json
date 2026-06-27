@@ -1,0 +1,147 @@
+{
+  "authoritative_claim_boundary_doc": "docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md",
+  "duplicate_claim_boundary_doc_emitted": false,
+  "durable_classes": [
+    "current_source_authority_chain",
+    "live_required_validation_manifest",
+    "current_route_governance_surface",
+    "essential_guard_and_regeneration_tooling",
+    "deployable_runtime_chunk_authority",
+    "required_adopted_evidence"
+  ],
+  "generated_at": "2026-06-27T04:54:01.595559+00:00",
+  "ignored_status_is_not_deletable_status": true,
+  "input_manifest_current_regeneration_manifest_is_attribute": true,
+  "input_manifest_primary_role": "current_source_authority_chain",
+  "non_durable_default_classes": [
+    "generated_staging_evidence",
+    "sandbox_output",
+    "candidate_manifest",
+    "raw_audit_artifact",
+    "readiness_or_dry_run_byproduct",
+    "diagnostic_only_artifact",
+    "historical_reproduction_artifact",
+    "quarantine_copy",
+    "round_local_scratch_artifact",
+    "package_or_release_intermediate"
+  ],
+  "required_gate_is_not_writer": true,
+  "role_rows": [
+    {
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "primary_role": "current_source_authority_chain",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "primary_role": "live_required_validation_manifest",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "primary_role": "current_route_governance_surface",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "primary_role": "essential_guard_and_regeneration_tooling",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "primary_role": "deployable_runtime_chunk_authority",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "preservation-only",
+      "durability": "durable",
+      "primary_role": "required_adopted_evidence",
+      "vcs_requirement": "tracked_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "generated_staging_evidence",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "sandbox_output",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "candidate_manifest",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "raw_audit_artifact",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "readiness_or_dry_run_byproduct",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "diagnostic_only_artifact",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "historical_reproduction_artifact",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "quarantine_copy",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "round_local_scratch_artifact",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    },
+    {
+      "claim_status": "non-authority",
+      "durability": "non-durable",
+      "primary_role": "package_or_release_intermediate",
+      "vcs_requirement": "no_tracking_required",
+      "writer_authority_opened": false
+    }
+  ],
+  "runtime_chunk_membership_source": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+  "schema_version": "dvf-3-3-durable-surface-role-matrix-v1",
+  "status": "PASS",
+  "tracked_status_is_not_authority_status": true
+}

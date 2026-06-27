@@ -1312,7 +1312,7 @@
   * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_source_authority_drift_verification.py --mode all --require-complete` / `PASS`
   * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_source_authority_drift_verification.py --require-complete` / `PASS`
   * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_source_authority_drift_verification*.py"` / `9 tests OK`
-  * latest broad current-route rerun note: `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` was blocked by an unrelated `dvf_3_3_shared_disposition_ledger_consumption/phase2/shared_disposition_packet.json` Windows `OSError 22` write failure; this is not treated as source-authority drift evidence.
+  * successor Adoption Reseal round의 latest broad current-route rerun은 `_dvf_3_3_vnext_common.write_jsonl` write-sink mechanics 보정 이후 `PASS / 113 tests / closure_enforced true`다. 이전 Windows `OSError 22` write failure는 source-authority drift evidence가 아니라 runner sink mechanics blocker로 읽는다.
 * 오독 금지:
 
   * 이 항목은 facts / decisions / overlay / rendered live write, source restoration, old predecessor recovery, current authority cutover, live migration execution completion, Lua bridge export, runtime chunk replacement, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
@@ -1363,6 +1363,7 @@
   * direct drift adoption과 evidence-freshness drift-consumption은 구분되어 있고, Branch B / B-marked marker path는 `not_applicable_selected_branch_a`로 닫힌다.
   * taxonomy는 live required manifest union surface를 통해 소비하며, 이번 round에서는 `non_writer_required_manifest_union`으로 기록한다.
   * live required-validation manifest는 adoption reseal artifacts/tests를 additive로 채택했고, 기존 required artifact/test removal 또는 modification은 `0`이다.
+  * runner write-sink 보정은 `_dvf_3_3_vnext_common.write_jsonl`의 Windows `OSError 22` retry / atomic temp fallback에 한정한다. 이 보정은 required set, validation predicate, PASS interpretation, source authority, rendered authority, runtime/package authority를 변경하지 않는다.
   * current-route validation은 `PASS / 113 tests / closure_enforced true`로 읽는다.
   * final report는 `status=PASS`, `machine_contract_status=PASS`, `canonical_complete_allowed=true`, `independent_review_status=PASS`, `owner_seal_status=PASS`로 닫힌다.
   * primary review artifact manifest는 `37` artifacts를 포함하며 missing count는 `0`이다. independent review artifact hash report는 frozen hash comparison `33`, comparison-exempt artifact `4`, mismatch `0`으로 닫힌다.
@@ -1377,6 +1378,8 @@
   * owner seal report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/owner_seal_report.json`
   * primary review manifest: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/primary_review_artifact_manifest.json`
   * independent review hash report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/independent_review_artifact_hash_report.json`
+  * minimal runner write-sink fix report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/minimal_runner_write_sink_fix_report.json`
+  * runner write-sink diff scope report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/runner_write_sink_diff_scope_report.json`
   * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py --mode all` / `PASS`
   * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py --require-complete` / `PASS`
   * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py"` / `4 tests OK`
@@ -1384,7 +1387,7 @@
 * 오독 금지:
 
   * 이 항목은 source restoration, old predecessor recovery, current authority cutover, live migration execution, rendered regeneration, Lua bridge export, runtime chunk replacement, package payload mutation, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
-  * 이 adoption reseal은 plan-structure PASS를 empirical verification of manifest / taxonomy / tracking / `2105` / `OSError 22` state로 과장하지 않는다.
+  * 이 adoption reseal은 plan-structure PASS만으로 empirical verification을 대체하지 않는다. current-route manifest adoption과 write-sink scope는 evidence로 기록됐지만, VCS tracking preservation은 관련 tool/test/docs/evidence와 manifest diff가 commit에 포함될 때 clean-checkout boundary로 봉인된다.
   * clean-checkout required evidence reproducibility / taxonomy disposition preflight는 이 round에서 닫지 않는다.
 
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal

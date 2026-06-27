@@ -1,0 +1,32 @@
+{
+  "fixtures": [
+    {
+      "expected": "PASS",
+      "fixture": "required_durable_path_tracked_and_not_ignored",
+      "observed": "PASS"
+    },
+    {
+      "expected": "FAIL",
+      "fixture": "required_durable_path_missing",
+      "observed_error_code": "missing_required_durable_path"
+    },
+    {
+      "expected": "FAIL",
+      "fixture": "required_durable_path_untracked",
+      "observed_error_code": "untracked_required_durable_path"
+    },
+    {
+      "expected": "FAIL_UNLESS_FINAL_PREDICATE_NOT_IGNORED",
+      "fixture": "required_durable_path_ignore_matched",
+      "observed_error_code": "ignored_required_durable_path"
+    },
+    {
+      "expected": "PASS",
+      "fixture": "non_required_staging_artifact_untracked",
+      "observed": "PASS"
+    }
+  ],
+  "generated_at": "2026-06-27T04:54:01.774451+00:00",
+  "schema_version": "dvf-3-3-ignore-predicate-fixture-report-v1",
+  "status": "PASS"
+}

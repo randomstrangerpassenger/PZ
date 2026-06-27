@@ -1,0 +1,13 @@
+{
+  "authority_claim": false,
+  "durability_requirement": "no_tracking_required",
+  "exists": true,
+  "final_disposition": "protected_no_mutation_non_writer",
+  "generated_at": "2026-06-27T04:54:01.839081+00:00",
+  "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+  "review_required": false,
+  "schema_version": "dvf-3-3-rendered-output-disposition-report-v1",
+  "status": "PASS",
+  "unresolved_review_required_disposition_count": 0,
+  "writer_authority_opened": false
+}

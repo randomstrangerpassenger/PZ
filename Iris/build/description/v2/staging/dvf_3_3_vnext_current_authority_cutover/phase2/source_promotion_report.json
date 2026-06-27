@@ -1,0 +1,44 @@
+{
+  "baseline_identity": "dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration",
+  "claim_boundary": "DVF 3-3 vNext current authority cutover and 2105 consumer migration only; not package release readiness, Workshop readiness, B42 readiness, manual in-game validation, semantic quality completion, or public-facing text quality acceptance",
+  "current_decisions": {
+    "bytes": 2189811,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+    "role": "current_decision_authority",
+    "sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46"
+  },
+  "current_facts": {
+    "bytes": 1436584,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "role": "current_source_authority",
+    "sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8"
+  },
+  "current_input_manifest": {
+    "bytes": 3362,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "role": "current_source_manifest",
+    "sha256": "8166257cf801c3b1bdb6131f2ade6b85e732c0b312552866cb9f40d28f71689d"
+  },
+  "current_overlay": {
+    "bytes": 986861,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
+    "role": "compose_support_not_source_authority",
+    "sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464"
+  },
+  "decisions_count": 2105,
+  "facts_count": 2105,
+  "fixture_replaced": true,
+  "generated_at": "2026-06-17T16:24:05.907310+00:00",
+  "legacy_active_silent_current_writer_allowed": false,
+  "overlay_count": 2105,
+  "schema_version": "dvf-3-3-vnext-current-authority-source-promotion-v0",
+  "status": "PASS"
+}

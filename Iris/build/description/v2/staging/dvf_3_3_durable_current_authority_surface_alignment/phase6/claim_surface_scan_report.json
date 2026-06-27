@@ -1,0 +1,17 @@
+{
+  "bare_complete_claim_blocked_or_axis_qualified": true,
+  "generated_at": "2026-06-27T04:54:01.782334+00:00",
+  "hits": [],
+  "overclaim_count": 0,
+  "required_non_claim_presence": {
+    "complete_is_axis_qualified_not_release_readiness": true,
+    "durable_surface_is_preservation_scope_not_writer_scope": true,
+    "ignored_status_is_not_deletable_status": true,
+    "required_artifact_adoption_is_governance_only": true,
+    "required_gate_is_not_writer": true,
+    "staging_evidence_root_is_not_current_authority": true,
+    "tracked_status_is_not_authority_status": true
+  },
+  "schema_version": "dvf-3-3-claim-surface-scan-report-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,21 @@
+{
+  "decision_owner": "MW",
+  "decision_owner_role": "project_author",
+  "decision_readpoint": "user_authorized_residual_seal_closing_decision_2026-06-27",
+  "decision_record_generated_by_executor": false,
+  "decision_source": "user_instruction_author_decision_and_external_review_pass",
+  "decision_timestamp": "2026-06-27T00:00:00+09:00",
+  "decision_value_not_generated_by_executor": true,
+  "decision_value_not_inferred_by_validator": true,
+  "pending_author_selection": false,
+  "policy_confirmations": {
+    "current_compatible_unadopted_publish_state_forbidden": true,
+    "current_compatible_unadopted_text_ko_forbidden": true,
+    "predecessor_residue_historical_only": true,
+    "unadopted_display_body_missing_or_explicit_nil": true
+  },
+  "schema_version": "runtime-payload-residual-author-decision-record-v1",
+  "selected_option_id": "explicit_no_branch_mutation_required",
+  "selected_option_is_seal_closing": true,
+  "status": "PASS"
+}

@@ -1,0 +1,39 @@
+{
+  "enumerable_option_space_present": true,
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "not_selected_by_executor": true,
+  "option_count": 4,
+  "option_space_source": [
+    "docs/runtime_payload_state_integrity_plan.md",
+    "docs/runtime_payload_state_integrity_closeout.md",
+    "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase2/author_reserved_branch_decision_record.md"
+  ],
+  "options": [
+    {
+      "option_id": "branch_a_guard_only_forbid_policy",
+      "requires_runtime_mutation": false,
+      "selected_option_is_seal_closing_if_author_selected": true,
+      "source": "docs/runtime_payload_state_integrity_plan.md Branch A FORBID path"
+    },
+    {
+      "option_id": "branch_b_contract_redefinition",
+      "requires_runtime_mutation": false,
+      "selected_option_is_seal_closing_if_author_selected": false,
+      "source": "docs/runtime_payload_state_integrity_plan.md Branch B ALLOW + REDEFINE path"
+    },
+    {
+      "option_id": "explicit_no_branch_mutation_required",
+      "requires_runtime_mutation": false,
+      "selected_option_is_seal_closing_if_author_selected": true,
+      "source": "docs/runtime_payload_state_integrity_closeout.md explicit no-branch mutation decision"
+    },
+    {
+      "option_id": "defer_residual_seal",
+      "requires_runtime_mutation": false,
+      "selected_option_is_seal_closing_if_author_selected": false,
+      "source": "residual seal blocker inventory"
+    }
+  ],
+  "schema_version": "runtime-payload-residual-author-option-enumeration-v1",
+  "status": "PASS"
+}

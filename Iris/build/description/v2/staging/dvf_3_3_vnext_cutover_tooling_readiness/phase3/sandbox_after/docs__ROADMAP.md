@@ -587,6 +587,18 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * 관련 tool/test/docs/evidence와 live required-validation manifest diff는 VCS commit에 함께 포함되어야 clean-checkout tracking boundary에서 이 closeout을 보존한다.
   * clean-checkout required evidence reproducibility / taxonomy disposition preflight는 이 round에서 닫지 않는다.
 
+* Durable Current Authority Surface Alignment는 canonical sealed / complete governance-only 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/`다.
+  * durable surface는 `current_source_authority_chain`, `live_required_validation_manifest`, `current_route_governance_surface`, `essential_guard_and_regeneration_tooling`, `deployable_runtime_chunk_authority`, `required_adopted_evidence`로 좁게 제한한다.
+  * generated staging evidence는 required artifact로 live manifest에 채택된 경우에만 durability requirement를 받는다.
+  * current-required paths는 tracked / not ignored 상태이며, broad staging root unignore는 열지 않는다.
+  * live required-validation manifest는 `required_artifact_count=56`, `required_test_count=37`로 읽고, current-route validation은 `PASS / 116 tests / closure_enforced true`다.
+  * final report는 `machine_plan_pass=true`, `owner_complete_governance_only=true`, `canonical_seal_state=sealed`, `bounded_durable_surface_sufficiency=PASS`, `post_reconciliation_untracked_ignored_required_artifact_count=0`로 닫힌다.
+  * Adoption Reseal의 VCS-preservation gate와 taxonomy disposition preflight gate는 bounded durable-surface 기준으로 닫힌다.
+  * `durable_boundary_empirical_reproduction=deferred`이므로 full clean-checkout required-evidence reproducibility나 full historical byte reproducibility는 여전히 non-claim이다.
+  * 이 alignment는 source / rendered / Lua bridge / runtime / package writer authority, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 
   * 입력은 `109` live mutation eligible row와 sealed dry-run patch bundle로 제한한다.

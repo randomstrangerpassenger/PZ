@@ -1,0 +1,21 @@
+{
+  "claim_boundary": "Runtime Payload State Integrity Residual Seal is a governance-only residual seal. It may confirm payload-shape guard evidence and historical-only predecessor residue confinement, but it does not mutate source, rendered, Lua bridge, runtime chunk, package payload, or predecessor residue surfaces and does not claim release readiness.",
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "residual_manifest_adoption_performed": false,
+  "runtime_payload_required_artifact_count": 4,
+  "runtime_payload_required_artifacts": [
+    "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
+    "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/publish_state_authority_resolution.json",
+    "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json",
+    "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase5b/display_resolution_parity_report.json"
+  ],
+  "runtime_payload_required_test_count": 3,
+  "runtime_payload_required_tests": [
+    "test_runtime_payload_state_integrity.RuntimePayloadStateIntegrityTest.test_phase0_inventory_resolves_current_payload_shape",
+    "test_runtime_payload_state_integrity.RuntimePayloadStateIntegrityTest.test_matrix_and_validator_fail_closed_without_runtime_mutation",
+    "test_runtime_payload_state_integrity.RuntimePayloadStateIntegrityTest.test_runtime_consumer_and_closeout_preserve_governance_gates"
+  ],
+  "schema_version": "runtime-payload-residual-existing-gate-consumption-v1",
+  "status": "PASS"
+}

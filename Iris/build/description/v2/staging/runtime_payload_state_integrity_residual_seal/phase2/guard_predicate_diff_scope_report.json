@@ -1,0 +1,19 @@
+{
+  "allowed_change_scope": "wrapper_only_and_additive_residual_reports",
+  "current_like_surface_selection_changed": false,
+  "denominator_changed": false,
+  "expected_counts_changed": false,
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "guard_test": {
+    "path": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py",
+    "sha256": "0024166409f8ff42e936186f645e1ca1ba1c36554f6029a30aed17b398202d47"
+  },
+  "guard_tool": {
+    "path": "Iris/build/description/v2/tools/build/runtime_payload_state_integrity.py",
+    "sha256": "d8dce55740775388854db783795eb56fd98085de36dcc9bf89fdec2a20ebbefd"
+  },
+  "pass_fail_predicate_changed": false,
+  "predicate_surface_frozen": true,
+  "schema_version": "runtime-payload-residual-guard-predicate-freeze-v1",
+  "status": "PASS"
+}

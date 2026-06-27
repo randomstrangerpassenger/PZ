@@ -1,0 +1,19 @@
+{
+  "canonical_residual_seal_allowed": true,
+  "comparison_exempt_count": 0,
+  "comparison_exemptions": [],
+  "external_review_admissibility_state": "PASS",
+  "external_review_missing": false,
+  "external_review_rejected": false,
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "hash_comparison_pass": true,
+  "hash_mismatch_count": 0,
+  "independent_review_pass": true,
+  "internal_artifact_hash_report": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase5/artifact_hash_report.json",
+  "mismatches": [],
+  "missing": [],
+  "missing_count": 0,
+  "primary_review_artifact_count": 21,
+  "schema_version": "runtime-payload-residual-independent-review-artifact-hash-report-v1",
+  "status": "PASS"
+}

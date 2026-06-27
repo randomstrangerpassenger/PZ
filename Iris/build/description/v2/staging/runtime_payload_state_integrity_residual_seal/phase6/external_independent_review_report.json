@@ -1,0 +1,19 @@
+{
+  "canonical_residual_seal_allowed": true,
+  "comparison_exempt_count": 0,
+  "comparison_exemptions": [],
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "hash_mismatch_count": 0,
+  "missing_count": 0,
+  "not_same_authorship_chain": true,
+  "not_self_review": true,
+  "primary_review_artifact_count": 21,
+  "review_independence_basis": "user-supplied independent external review decision outside the executor-generated validator decision path",
+  "review_verdict": "PASS",
+  "reviewed_artifact_manifest_hash": "5816b6ff6143049ac6d25be2d837475823bb82c33d8859b7cc0eab9c59799fcf",
+  "reviewer_identity": "MW-declared-external-review-pass",
+  "reviewer_kind": "user_supplied_independent_external_review",
+  "same_authorship_chain_basis": "declared independent of executor evidence generation and validator implementation authorship chain",
+  "schema_version": "runtime-payload-residual-external-independent-review-report-v1",
+  "status": "PASS"
+}

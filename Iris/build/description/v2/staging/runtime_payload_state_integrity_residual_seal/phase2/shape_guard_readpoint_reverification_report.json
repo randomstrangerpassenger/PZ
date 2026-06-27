@@ -1,0 +1,19 @@
+{
+  "claim_boundary": "Runtime Payload State Integrity Residual Seal is a governance-only residual seal. It may confirm payload-shape guard evidence and historical-only predecessor residue confinement, but it does not mutate source, rendered, Lua bridge, runtime chunk, package payload, or predecessor residue surfaces and does not claim release readiness.",
+  "current_like_forbidden_count": 0,
+  "current_like_publish_state_row_count": 0,
+  "current_like_unclassified_count": 0,
+  "current_runtime_entry_count": 2105,
+  "current_runtime_unadopted_count": 21,
+  "display_body_present_count": 0,
+  "existing_display_status": "PASS",
+  "existing_guard_status": "PASS",
+  "existing_inventory_status": "PASS",
+  "expected_current_runtime_entry_count": 2105,
+  "expected_current_runtime_unadopted_count": 21,
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "predecessor_residue_count": 2,
+  "schema_version": "runtime-payload-residual-shape-guard-reverification-v1",
+  "source_runtime_package_authority_mutated": false,
+  "status": "PASS"
+}

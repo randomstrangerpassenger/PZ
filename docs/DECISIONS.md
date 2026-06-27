@@ -1390,6 +1390,44 @@
   * 이 adoption reseal은 plan-structure PASS만으로 empirical verification을 대체하지 않는다. current-route manifest adoption과 write-sink scope는 evidence로 기록됐지만, VCS tracking preservation은 관련 tool/test/docs/evidence와 manifest diff가 commit에 포함될 때 clean-checkout boundary로 봉인된다.
   * clean-checkout required evidence reproducibility / taxonomy disposition preflight는 이 round에서 닫지 않는다.
 
+### Iris DVF 3-3 — durable current authority surface alignment
+
+* 상태: durable current authority surface aligned / governance-only / bounded durable sufficiency PASS / independent review PASS / owner seal PASS / canonical sealed
+* 결정: Durable Current Authority Surface Alignment round는 DVF 3-3 current-route governance chain에서 장기 보존되어야 하는 durable tracked surface를 좁게 재정의하고, generated staging evidence와 current-required evidence를 분리한다.
+* 현재 기준:
+
+  * durable class set은 `current_source_authority_chain`, `live_required_validation_manifest`, `current_route_governance_surface`, `essential_guard_and_regeneration_tooling`, `deployable_runtime_chunk_authority`, `required_adopted_evidence`로 제한한다.
+  * generated staging evidence는 staging root에 있다는 이유만으로 durable surface가 되지 않는다. live `current_route_required_validations.json`의 required artifact로 채택된 경우에만 durability requirement를 가진다.
+  * current-required durable paths는 present / tracked / not ignored여야 하며, broad `Iris/build/description/v2/staging/**` unignore는 금지한다.
+  * 기존 VCS policy guard는 대체하지 않고 유지한다. 새 durable-surface guard는 required-adopted evidence와 durable role taxonomy를 보강한다.
+  * `dvf_3_3_input_manifest.json`의 primary role은 `current_source_authority_chain`이며, `current_regeneration_manifest`는 second role이 아니라 attribute/tag다.
+  * runtime chunk durable set은 `IrisLayer3DataChunks.lua`에서 파생한다. 현재 `Chunk001` through `Chunk011`은 readpoint result이지 hardcoded taxonomy rule이 아니다.
+  * rendered output `Iris/build/description/v2/output/dvf_3_3_rendered.json`은 explicit non-writer disposition으로 닫혔고, `authority_claim=false`, `unresolved_review_required_disposition_count=0`이다.
+  * live required-validation manifest는 durable-surface required artifacts/tests를 additive로 소비하며 existing required artifact/test removal 또는 modification은 `0`이다.
+  * Adoption Reseal의 deferred VCS-preservation gate와 taxonomy disposition preflight gate는 이 bounded durable-surface round에서 cross-reference되어 닫힌다.
+  * bounded durable-set sufficiency는 PASS지만, full clean-checkout required-evidence reproducibility나 full historical byte reproducibility가 아니다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/`
+  * plan: `docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md`
+  * policy: `docs/dvf_3_3_durable_surface_policy.md`
+  * claim boundary: `docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase7/final_durable_current_authority_surface_alignment_report.json`
+  * final axes: `machine_plan_pass=true`, `owner_complete_governance_only=true`, `canonical_seal_state=sealed`, `bounded_durable_surface_sufficiency=PASS`, `durable_boundary_empirical_reproduction=deferred`
+  * required manifest readpoint: `required_artifact_count=56`, `required_test_count=37`
+  * current-route validation: `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` / `PASS / 116 tests / closure_enforced true`
+  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_durable_current_authority_surface_alignment.py --mode all` / `PASS`
+  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_durable_current_authority_surface_alignment.py --require-complete` / `PASS`
+  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_durable_current_authority_surface_alignment.py"` / `3 tests OK`
+  * existing VCS policy unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_vcs_tracking_policy.py"` / `5 tests OK`
+* 오독 금지:
+
+  * tracked status는 authority status가 아니다.
+  * ignored status는 deletable status가 아니다.
+  * required artifact adoption은 governance-only gate이며 source / rendered / Lua bridge / runtime / package writer authority가 아니다.
+  * 이 항목은 source restoration, rendered regeneration, Lua bridge export mutation, runtime chunk replacement, package payload mutation, live migration execution, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance, full clean-checkout required-evidence reproducibility, full historical artifact byte reproducibility를 승인한 것이 아니다.
+
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 
 * 상태: pre-apply authorization sealed / execution readiness evidence sealed / Phase 4 live apply allowed / no live mutation executed

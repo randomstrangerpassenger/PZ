@@ -1,0 +1,10 @@
+{
+  "current_like_forbidden_count": 0,
+  "current_like_row_count": 6315,
+  "current_like_unclassified_count": 0,
+  "forbidden_rows": [],
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "schema_version": "runtime-payload-residual-current-looking-forbidden-scan-v1",
+  "status": "PASS",
+  "unclassified_rows": []
+}

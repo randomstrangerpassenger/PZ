@@ -97,6 +97,7 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_command_surface_mapping.py
 !Iris/build/description/v2/tools/build/layer3_current_authority_reconstruction.py
 !Iris/build/description/v2/tools/build/runtime_payload_state_integrity.py
+!Iris/build/description/v2/tools/build/runtime_payload_state_integrity_residual_seal.py
 !Iris/build/description/v2/tools/build/consumer_universe_denominator_lock_common.py
 !Iris/build/description/v2/tools/build/generate_consumer_universe_denominator_lock_artifacts.py
 !Iris/build/description/v2/tools/build/validate_consumer_universe_denominator_lock.py
@@ -164,6 +165,7 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_dvf_3_3_vnext_rejected_delta_correction_reparity.py
 !Iris/build/description/v2/tests/test_dvf_3_3_cutover_tooling_readiness.py
 !Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py
+!Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py
 !Iris/build/description/v2/tests/test_consumer_universe_denominator_lock.py
 !Iris/build/description/v2/tests/test_terminal_disposition_adjudication.py
 !Iris/build/description/v2/tests/test_live_consumer_migration_execution.py
@@ -209,6 +211,8 @@ Iris/build/description/v2/staging/*
 !Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/**
 !Iris/build/description/v2/staging/runtime_payload_state_integrity/
 !Iris/build/description/v2/staging/runtime_payload_state_integrity/**
+!Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/
+!Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/**
 !Iris/build/description/v2/staging/consumer_universe_denominator_lock/
 !Iris/build/description/v2/staging/consumer_universe_denominator_lock/**
 !Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/

@@ -1,0 +1,20 @@
+{
+  "author_decision_value_not_generated_by_executor": true,
+  "author_decision_value_not_inferred_by_validator": true,
+  "author_policy_confirmation_present": true,
+  "blocked_reason": null,
+  "current_compatible_unadopted_publish_state_forbidden_confirmed": true,
+  "current_compatible_unadopted_text_ko_forbidden_confirmed": true,
+  "decision_record_source": "author_supplied_existing_record",
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "guard_policy_consistent_with_forbid_option": true,
+  "predecessor_residue_historical_only_confirmed_by_author": true,
+  "schema_version": "runtime-payload-residual-policy-consistency-v1",
+  "selected_option_in_enumerated_option_space": true,
+  "selected_option_metadata_consistent_with_decision": true,
+  "selected_option_metadata_seal_closing_if_author_selected": true,
+  "selected_option_requires_runtime_mutation": false,
+  "selected_option_seal_flag_matches_metadata": true,
+  "selected_seal_closing_option_present": true,
+  "status": "PASS"
+}

@@ -1,0 +1,19 @@
+{
+  "existing_guard_test": {
+    "path": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py",
+    "sha256": "0024166409f8ff42e936186f645e1ca1ba1c36554f6029a30aed17b398202d47"
+  },
+  "existing_guard_tool": {
+    "path": "Iris/build/description/v2/tools/build/runtime_payload_state_integrity.py",
+    "sha256": "d8dce55740775388854db783795eb56fd98085de36dcc9bf89fdec2a20ebbefd"
+  },
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "plan": {
+    "path": "docs/runtime_payload_state_integrity_residual_seal_plan.md",
+    "sha256": "c80ae583e24925a9107dc86c5127f29aa03fe9667eff75c558e43d0d8f91c3aa"
+  },
+  "protected_surface_manifest_hash": "ccfc9411afff7fb9ab9b3286fe13c61e2550da1a3974dd684621fdd3032cddca",
+  "schema_version": "runtime-payload-residual-input-fingerprint-v1",
+  "status": "PASS",
+  "surface_summary_count": 4
+}

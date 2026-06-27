@@ -157,40 +157,40 @@
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
-      "reported_generated_at": "2026-06-27T04:53:34.872020+00:00",
+      "reported_generated_at": "2026-06-27T11:16:27.639026+00:00",
       "required": true,
       "role": "runtime_denominator_context",
-      "sha256": "b712c5a9c94767915867c078de97e1183411d5f9c069d077ec61498e731a41b2"
+      "sha256": "2ded69f7bbd4fcd16a533a022f5ceb93d9eab76890b7bb97f0aa2ea25aa3b9f3"
     },
     {
       "bytes": 711,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/publish_state_authority_resolution.json",
-      "reported_generated_at": "2026-06-27T04:53:34.878602+00:00",
+      "reported_generated_at": "2026-06-27T11:16:27.645897+00:00",
       "required": true,
       "role": "runtime_publish_state_context",
-      "sha256": "2c9265cc40299cf94ca0853277e918544dbe4d47c7aa83366a801c61a49ddd2e"
+      "sha256": "f3229ad3aded836a7c9ce112847619dc90cf5a06f0c003af954ac8fc4b1ff095"
     },
     {
       "bytes": 738,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json",
-      "reported_generated_at": "2026-06-27T04:53:34.924297+00:00",
+      "reported_generated_at": "2026-06-27T11:16:27.693973+00:00",
       "required": true,
       "role": "runtime_guard_context",
-      "sha256": "5530976b55c1be8bb1acd9d5f059df19a0960489916c5ad0efb20c1060c1665c"
+      "sha256": "a78b201f478271b62219cd8edc9416f0f3029b168461aab3be30d82d8503d456"
     },
     {
       "bytes": 13091,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase5b/display_resolution_parity_report.json",
-      "reported_generated_at": "2026-06-27T04:53:34.934745+00:00",
+      "reported_generated_at": "2026-06-27T11:16:27.705502+00:00",
       "required": true,
       "role": "runtime_display_context",
-      "sha256": "6b76771ff338b0439497635c5eb2a9427c49c64e0292724197a0477ce2653174"
+      "sha256": "f7a2b93483033b212cb80e394c854b047d4953435aa6c4c41e66debbb2621f99"
     },
     {
       "bytes": 37246,

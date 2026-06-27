@@ -1,0 +1,160 @@
+{
+  "artifact_count": 21,
+  "artifacts": [
+    {
+      "bytes": 1410,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase1/scope_separation_and_no_mutation_declaration.json",
+      "sha256": "db657ee7a02338562f6b701d6d3953871e57d4885693422a148e29e2c988d7f6"
+    },
+    {
+      "bytes": 847,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase1/input_fingerprint_manifest.json",
+      "sha256": "9115b7a3e70827988e648dbe08f9fa70b414acaa5934ebaa77debc7794994f09"
+    },
+    {
+      "bytes": 44903,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase1/protected_surface_manifest.json",
+      "sha256": "bd7da157c3e9b1b2787da5a4630f4e948ac65ae7468c90c54b76adf245251aa2"
+    },
+    {
+      "bytes": 1094,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase1/blocker_inventory.json",
+      "sha256": "3f39ff06038e869a9707b2c373a4f5513550488fdbb34474adc1e224ce3679ca"
+    },
+    {
+      "bytes": 1703,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase1/runtime_payload_existing_gate_consumption_report.json",
+      "sha256": "967f9e9c8221e18c4486d2ef0e7e99665baf0c5decaef3b9e88163e44f7ceaa5"
+    },
+    {
+      "bytes": 1038,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase2/shape_guard_readpoint_reverification_report.json",
+      "sha256": "2ccb0088eebc7feaeeb190d4945befe5eb47daed1521aad6ec0e984a9461d895"
+    },
+    {
+      "bytes": 314,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase2/current_looking_forbidden_scan_report.json",
+      "sha256": "602702908504ad762aa659248c910c294fe0ed8277715106870287f5a74ada13"
+    },
+    {
+      "bytes": 794,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase2/guard_predicate_diff_scope_report.json",
+      "sha256": "ae5f267b2fa841c2b033d47396ed71b8d63d83b29aa60c17f96d5859c6f3b181"
+    },
+    {
+      "bytes": 435,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase2/denominator_disjointness_report.json",
+      "sha256": "ac21835361e53ab33d56e4121de008c5a84795409457cdfc92434b9c19d51cf2"
+    },
+    {
+      "bytes": 1900,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase3/residual_historical_only_confinement_report.json",
+      "sha256": "932543a67c6a4669a4cb0d8c659a7aa05775a2355f9a8a38a410b709d1f3b9c4"
+    },
+    {
+      "bytes": 694,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase3/predecessor_residue_non_reentry_report.json",
+      "sha256": "5c47996131ac4d5b46159db17a33491132279fa8e3e090b8ee1047f176e90718"
+    },
+    {
+      "bytes": 1555,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase4/author_reserved_selection_option_enumeration.json",
+      "sha256": "c27b122d89af6cfcdb802292817f185251c82cbb999f85674caf0acfcbc284dd"
+    },
+    {
+      "bytes": 972,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase4/author_reserved_selection_decision_record.json",
+      "sha256": "25028f91552c50b2f1cd5a079c0bae9ab01277c96955eb003149a1a15472deb5"
+    },
+    {
+      "bytes": 995,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase4/policy_consistency_report.json",
+      "sha256": "a961ae0e90b03b7afb6338839b6d93142398c6d8844813b9a1d58358b94b5794"
+    },
+    {
+      "bytes": 694,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase5/no_mutation_report.json",
+      "sha256": "cf8d07682328fee533934fee25f55812a441dfe1a29afa9e02dea064713d90a7"
+    },
+    {
+      "bytes": 81910,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/tools/build/runtime_payload_state_integrity_residual_seal.py",
+      "sha256": "7fa620d08d6ced8dcc2215ae38fa6a0119285adb495a950fc619347d12ca5d92"
+    },
+    {
+      "bytes": 28310,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py",
+      "sha256": "3f6bfed92527d0a3c5a7c079c15f3035f8a2fce9f1768a5adadbbe9eed1dcb61"
+    },
+    {
+      "bytes": 45009,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/tools/build/runtime_payload_state_integrity.py",
+      "sha256": "d8dce55740775388854db783795eb56fd98085de36dcc9bf89fdec2a20ebbefd"
+    },
+    {
+      "bytes": 5397,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/tests/test_runtime_payload_state_integrity.py",
+      "sha256": "0024166409f8ff42e936186f645e1ca1ba1c36554f6029a30aed17b398202d47"
+    },
+    {
+      "bytes": 39230,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/runtime_payload_state_integrity_residual_seal_plan.md",
+      "sha256": "c80ae583e24925a9107dc86c5127f29aa03fe9667eff75c558e43d0d8f91c3aa"
+    },
+    {
+      "bytes": 773,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/runtime_payload_state_integrity_author_decision.md",
+      "sha256": "9ae0402348edeebc105a1233a520f175c888def9da51a197fde6dc62c485810b"
+    }
+  ],
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "guard_test_hash_covered": true,
+  "guard_tool_hash_covered": true,
+  "primary_review_artifact_manifest_hash": "5816b6ff6143049ac6d25be2d837475823bb82c33d8859b7cc0eab9c59799fcf",
+  "residual_test_hash_covered": true,
+  "residual_tool_hash_covered": true,
+  "schema_version": "runtime-payload-residual-artifact-hash-report-v1",
+  "status": "PASS"
+}

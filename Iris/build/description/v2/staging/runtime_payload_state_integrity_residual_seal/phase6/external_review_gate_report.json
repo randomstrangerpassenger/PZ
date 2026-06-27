@@ -1,0 +1,13 @@
+{
+  "blocked_external_gate": false,
+  "blocked_reason": null,
+  "canonical_residual_seal_allowed": true,
+  "claim_boundary": "Runtime Payload State Integrity Residual Seal is a governance-only residual seal. It may confirm payload-shape guard evidence and historical-only predecessor residue confinement, but it does not mutate source, rendered, Lua bridge, runtime chunk, package payload, or predecessor residue surfaces and does not claim release readiness.",
+  "external_independent_review_status": "PASS",
+  "external_review_missing": false,
+  "external_review_rejected": false,
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "review_report_source": "external_supplied_existing_record",
+  "schema_version": "runtime-payload-residual-external-review-gate-v1",
+  "status": "PASS"
+}

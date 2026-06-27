@@ -1,0 +1,16 @@
+{
+  "additive_only_diff": true,
+  "blocked_reason": null,
+  "duplicate_entries": 0,
+  "duplicate_paths": [],
+  "existing_runtime_payload_guard_entries_present": true,
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "governance_adoption_status": "not_required_traceable",
+  "live_manifest_mutated": false,
+  "manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
+  "modified_existing_entries": 0,
+  "removed_existing_entries": 0,
+  "schema_version": "runtime-payload-residual-current-route-governance-adoption-v1",
+  "source_rendered_lua_runtime_package_authority_mutated": false,
+  "status": "PASS"
+}

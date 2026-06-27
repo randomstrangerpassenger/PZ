@@ -1,0 +1,11 @@
+{
+  "current_like_denominator_role": "current_like_runtime_package_candidate_surfaces",
+  "current_like_row_count": 6315,
+  "generated_at": "2026-06-27T00:00:00+09:00",
+  "overlap_rows": [],
+  "predecessor_residue_count": 2,
+  "predecessor_residue_role": "predecessor_rollback_snapshot_only",
+  "residue_in_current_denominator_count": 0,
+  "schema_version": "runtime-payload-residual-denominator-disjointness-v1",
+  "status": "PASS"
+}

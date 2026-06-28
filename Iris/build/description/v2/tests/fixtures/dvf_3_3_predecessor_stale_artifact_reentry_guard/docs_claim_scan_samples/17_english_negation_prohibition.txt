@@ -1,0 +1,1 @@
+Old bridge package readiness is explicitly forbidden.

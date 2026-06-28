@@ -1,0 +1,9 @@
+{
+  "existing_required_artifact_removal_count": 0,
+  "existing_required_artifact_test_weakening_count": 0,
+  "existing_required_test_removal_count": 0,
+  "generated_at": "2026-06-28T18:31:37.254367+00:00",
+  "replaces_existing_closeout_reentry_guard": false,
+  "schema_version": "dvf-3-3-predecessor-stale-additive-invariant-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "default_export_route_command": {
+    "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tools\\build\\export_dvf_3_3_lua_bridge.py --output-root C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_predecessor_stale_artifact_reentry_guard\\phase3\\export_probe --format chunk --bridge-context staging",
+    "command_sha256": "1ceb78ba85f7ac4b130886f2b190817d0b2fa0cce190a54e9e3e8af1485c2861",
+    "exit_code": 0,
+    "finished_at": "2026-06-28T18:31:37.865318+00:00",
+    "started_at": "2026-06-28T18:31:37.419943+00:00",
+    "stderr": "",
+    "stdout": "lua bridge chunk export: 2105 entries, 11 chunks -> C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_predecessor_stale_artifact_reentry_guard\\phase3\\export_probe\\IrisLayer3DataChunks.lua\n"
+  },
+  "default_export_route_generates_chunk_authority": true,
+  "default_export_route_generates_current_staging_monolith": false,
+  "generated_at": "2026-06-28T18:31:37.865630+00:00",
+  "schema_version": "dvf-3-3-predecessor-stale-export-route-guard-v1",
+  "status": "PASS"
+}

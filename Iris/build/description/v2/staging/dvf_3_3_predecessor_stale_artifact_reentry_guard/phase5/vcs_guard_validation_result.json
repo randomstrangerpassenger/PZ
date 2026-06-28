@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-06-28T18:31:48.397911+00:00",
+  "ignored_status_is_not_deletion_safety": true,
+  "schema_version": "dvf-3-3-predecessor-stale-vcs-guard-validation-v1",
+  "status": "PASS",
+  "tracked_status_is_not_authority_status": true
+}

@@ -1,0 +1,10 @@
+{
+  "final_report_required_only_after_materialized": true,
+  "generated_at": "2026-06-28T18:31:43.734758+00:00",
+  "pre_final_required_artifacts_adopted": true,
+  "pre_final_required_tests_adopted": true,
+  "required_manifest_mutation_additive_only": true,
+  "schema_version": "dvf-3-3-predecessor-stale-manifest-adoption-sequence-v1",
+  "self_reference_cycle_detected": false,
+  "status": "PASS"
+}

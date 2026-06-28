@@ -136,6 +136,9 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py
 !Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py
+!Iris/build/description/v2/tools/build/dvf_3_3_predecessor_stale_artifact_reentry_guard_common.py
+!Iris/build/description/v2/tools/build/run_dvf_3_3_predecessor_stale_artifact_reentry_guard.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_predecessor_stale_artifact_reentry_guard.py
 !Iris/build/description/v2/tools/build/migrate_dvf_3_3_facts_v2.py
 !Iris/build/description/v2/tools/build/enrich_dvf_3_3_hints_v2.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_v2.py
@@ -180,7 +183,10 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py
 !Iris/build/description/v2/tests/test_dvf_3_3_durable_current_authority_surface_alignment.py
 !Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py
+!Iris/build/description/v2/tests/test_dvf_3_3_predecessor_stale_artifact_reentry_guard.py
 !Iris/build/description/v2/tests/fixtures/
+!Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/
+!Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/**
 !Iris/build/description/v2/tests/fixtures/negative/
 !Iris/build/description/v2/tests/fixtures/negative/shared_disposition/
 !Iris/build/description/v2/tests/fixtures/negative/shared_disposition/*.json
@@ -233,6 +239,8 @@ Iris/build/description/v2/staging/*
 !Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/**
 !Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/
 !Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**
+!Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/
+!Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/**
 !Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/
 !Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase1/
 !Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase1/*.json

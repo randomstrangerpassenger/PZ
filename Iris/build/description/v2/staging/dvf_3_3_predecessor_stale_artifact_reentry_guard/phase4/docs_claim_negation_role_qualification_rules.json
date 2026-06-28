@@ -1,0 +1,11 @@
+{
+  "claim_boundary_statements_allowed": true,
+  "english_negation_and_prohibition_supported": true,
+  "generated_at": "2026-06-28T18:31:43.725307+00:00",
+  "korean_negation_and_prohibition_supported": true,
+  "non_claim_lists_allowed": true,
+  "quoted_prior_claims_allowed_as_non_current": true,
+  "role_qualified_historical_diagnostic_fixture_text_allowed": true,
+  "schema_version": "dvf-3-3-predecessor-stale-docs-claim-rules-v1",
+  "status": "PASS"
+}

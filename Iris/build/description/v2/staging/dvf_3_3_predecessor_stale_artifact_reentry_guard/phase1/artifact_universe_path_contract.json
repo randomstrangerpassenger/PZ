@@ -1,0 +1,67 @@
+{
+  "coverage_not_discovered_rows_only": true,
+  "denominator_id": "DEN-PREDECESSOR-STALE-ARTIFACT-UNIVERSE-339535efbb068e4f",
+  "excluded_roots": [
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard",
+      "reason": "round-local generated evidence is not part of predecessor/stale artifact universe"
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+      "reason": "current runtime chunk authority, not predecessor/stale universe"
+    }
+  ],
+  "generated_at": "2026-06-28T18:31:34.790727+00:00",
+  "included_roots": [
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload",
+      "root_role": "rollback_snapshot"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/predecessor_snapshot_payload",
+      "root_role": "predecessor_fixture"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase2/restore_probe_snapshot_payload",
+      "root_role": "rollback_snapshot"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_baseline",
+      "root_role": "rollback_snapshot"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_after",
+      "root_role": "rollback_snapshot"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5",
+      "root_role": "historical_staging_evidence"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/lua_bridge_export",
+      "root_role": "monolith_historical_diagnostic_side_output"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/lua_bridge_export_contract_realign",
+      "root_role": "monolith_historical_diagnostic_side_output"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity",
+      "root_role": "historical_staging_evidence"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity",
+      "root_role": "historical_staging_evidence"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition",
+      "root_role": "stale_bridge"
+    },
+    {
+      "path": "Iris/build/package",
+      "root_role": "old_package_adjacent_path"
+    }
+  ],
+  "schema_version": "dvf-3-3-predecessor-stale-artifact-path-contract-v1",
+  "status": "PASS"
+}

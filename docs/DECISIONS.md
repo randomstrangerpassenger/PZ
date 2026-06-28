@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition through 2026-06-27
-> 기준일: 2026-06-27
+> 상태: current decision ledger / compact trace-dedup edition through 2026-06-29
+> 기준일: 2026-06-29
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1504,6 +1504,66 @@
   * 이전 drift-verification / runtime-payload residual 산출물에 남아 있는 code-generated PASS나 blocked external gate pattern은 이 round의 canonical review completion 기준을 대체하지 않는다.
   * `owner_decision=approved` 또는 `owner_seal_state=sealed`는 independent review artifact, reviewer identity/scope, hash-sealed bundle, rerun result 없이 canonical external review를 닫을 수 없다.
   * 이 항목은 source / rendered / Lua bridge / runtime / package writer authority, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance, live migration execution을 승인한 것이 아니다.
+
+### Iris DVF 3-3 — current authority chain successor readpoint seal
+
+* 상태: successor readpoint vocabulary sealed / VCS preservation PASS / independent review PASS / owner seal sealed / final token sign-off signed / canonical complete governance-only
+* 결정: Current Authority Chain Successor Readpoint Seal round는 `2105 / 2084 / 21` current-looking claims를 단일 completion claim으로 읽지 않고, successor current row identity, predecessor historical trace, migration consumer denominator, runtime deployable entry count의 네 축으로만 봉인한다. 이 round는 predecessor `2105 / 2084 / 21`이 current hard gate, runtime authority, package authority, current debt, raw predecessor direct execution authority로 재진입하지 못하게 하는 governance-only seal이다.
+* 현재 기준:
+
+  * final report는 `status=PASS`, `machine_contract_status=PASS`, `canonical_seal_allowed=true`, `closeout_state=successor_readpoint_governance_seal_complete`, `canonical_seal_status=canonical_seal_allowed`, `canonical_seal_blocker_count=0`으로 읽는다.
+  * VCS gate는 `canonical_preservation_satisfied=true`, `unpreserved_minimum_path_count=0`, `ignored_minimum_path_count=0`, `vcs_preservation_proof_status=PASS`로 닫힌다.
+  * independent review, owner decision, owner seal, final token sign-off는 각각 `PASS / approved / sealed / signed`이며 서로 대체 관계가 아니다.
+  * live current-route required-validation adoption은 `adopted_required_gate`로 유지하되, candidate patch sequence evidence는 `already_adopted_revalidation`으로 낮춰 읽는다. 이 round는 first-adoption sequencing을 주장하지 않는다.
+  * current-route validation은 `PASS / 122 tests / closure_enforced true`로 읽는다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/`
+  * plan: `docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md`
+  * claim boundary: `docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_successor_readpoint_governance_seal_report.json`
+  * VCS gate report: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/vcs_preservation_gate_report.json`
+  * independent review input: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/non_author_independent_review_input.json`
+  * owner decision input: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/owner_canonical_seal_decision_input.json`
+  * final token sign-off input: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_token_signoff_input.json`
+  * focused runner / validator / unittest: `PASS`; current-route contract: `PASS / 122 tests / closure_enforced true`
+* 오독 금지:
+
+  * `2105 / 2084 / 21`은 axis-qualified vocabulary로만 읽으며 standalone PASS, standalone current seal, predecessor restoration target, or hard gate count로 쓰지 않는다.
+  * VCS tracked/staged state는 canonical evidence preservation proof이지 source / rendered / runtime / package authority 승격이 아니다.
+  * 이 항목은 source facts, decisions, overlay support, rendered output, Lua bridge output, runtime chunks, package payload, live migration execution, release/package/Workshop/B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
+
+### Iris DVF 3-3 — predecessor / stale artifact reentry guard
+
+* 상태: predecessor / stale artifact reentry guard PASS / package guard PASS / live required-validation gate adopted / governance-only
+* 결정: Predecessor / Stale Artifact Reentry Guard round는 stale bridge, monolith runtime path, current-looking stale path, predecessor fixture, old 6-entry bridge, rollback snapshot, historical staging evidence를 historical / diagnostic / fixture / provenance trace로만 유지하고, current source / rendered / runtime / package / export / required-manifest / raw-authority / docs-claim surface로 재진입하지 못하게 한다.
+* 현재 기준:
+
+  * stale bridge / monolith runtime path / current-looking predecessor path violation은 `0`이다.
+  * package guard와 package zip forbidden scan은 `PASS`이며 forbidden hit count는 `0`이다.
+  * predecessor evidence는 comparison / provenance / diagnostic / fixture trace로만 소비하며 current route, release readiness, package authority, source authority, runtime authority 근거로 승격하지 않는다.
+  * live `Iris/_docs/round3/current_route_required_validations.json`은 이 guard의 phase1 / phase3 / phase4 / phase5 / phase6 required artifacts와 focused unittest를 additive required gate로 소비한다.
+  * package probe는 `Iris/tools/package_iris.ps1 -OutputRoot` 기반 isolated output root에서만 수행하며 live package payload mutation을 만들지 않는다.
+  * docs claim scan은 negation, role-qualified historical/provenance mentions, quoted prior claims를 허용하되 actual current-authority overclaim은 fail-closed로 막는다.
+  * current-route validation은 `PASS / 127 tests / closure_enforced true`로 읽는다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/`
+  * plan: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_plan.md`
+  * policy: `docs/dvf_3_3_predecessor_stale_artifact_reentry_policy.md`
+  * claim boundary: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_predecessor_stale_artifact_reentry_guard_report.json`
+  * package equivalence report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_probe_equivalence_report.json`
+  * required manifest reentry report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase4/required_manifest_reentry_report.json`
+  * focused runner / validator / unittest: `PASS`; current-route contract: `PASS / 127 tests / closure_enforced true`
+* 오독 금지:
+
+  * 이 guard는 stale / predecessor artifacts를 삭제하거나 historical staging evidence를 current authority로 승격하지 않는다.
+  * live required-validation adoption은 governance gate adoption이지 source / rendered / Lua bridge / runtime / package writer authority가 아니다.
+  * package probe PASS는 isolated package route guard proof이며 live package mutation, package readiness, release readiness, Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 뜻하지 않는다.
+  * 이 항목은 independent review complete seal이나 canonical seal을 새로 주장하지 않는다.
 
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 

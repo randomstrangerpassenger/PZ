@@ -1,0 +1,1 @@
+Rollback snapshots do not provide runtime authority.

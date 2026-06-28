@@ -1,0 +1,9 @@
+{
+  "dual_owning_authority_count": 0,
+  "existing_predecessor_reentry_guard_axis": "value_denominator_axis_guard_for_2105_2084_21",
+  "generated_at": "2026-06-28T18:31:37.253134+00:00",
+  "overlap_assigned_to_exactly_one_authoritative_axis": true,
+  "schema_version": "dvf-3-3-predecessor-stale-dual-guard-responsibility-split-v1",
+  "status": "PASS",
+  "this_round_axis": "artifact_class_path_package_export_manifest_raw_read_axis_guard"
+}

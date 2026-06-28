@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-06-28T18:31:37.261662+00:00",
+  "old_6_entry_bridge_current_package_reentry_count": 0,
+  "schema_version": "dvf-3-3-predecessor-stale-bridge-reentry-v1",
+  "stale_bridge_current_path_violation_count": 0,
+  "status": "PASS",
+  "violations": []
+}

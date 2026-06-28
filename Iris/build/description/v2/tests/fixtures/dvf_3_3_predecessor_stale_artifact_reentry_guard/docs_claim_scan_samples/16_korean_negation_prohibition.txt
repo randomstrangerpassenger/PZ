@@ -1,0 +1,1 @@
+rollback snapshot의 현재 authority 재진입은 금지된다.

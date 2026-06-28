@@ -1,0 +1,29 @@
+{
+  "excluded_files": [
+    {
+      "path": "docs/DECISIONS.md",
+      "reason": "large historical ledger; current readpoint consumed via direct policy docs"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "reason": "large architecture ledger; no direct stale artifact claim surface"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "reason": "large roadmap ledger; no direct stale artifact claim surface"
+    }
+  ],
+  "generated_at": "2026-06-28T18:31:43.724334+00:00",
+  "included_files": [
+    "docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_plan.md",
+    "docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_claim_boundary.md",
+    "docs/dvf_3_3_predecessor_stale_artifact_reentry_policy.md",
+    "docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_ledger_packet.md",
+    "docs/predecessor_reentry_guard_policy.md",
+    "docs/dvf_3_3_closeout_reentry_claim_boundary.md",
+    "docs/dvf_3_3_closeout_reentry_ledger_packet.md"
+  ],
+  "scan_scope_hash": "99dbc1995062c6f10ce140228e557328fab86262b0de4c2bd477e7839adfbb87",
+  "schema_version": "dvf-3-3-predecessor-stale-docs-claim-scan-scope-v1",
+  "status": "PASS"
+}

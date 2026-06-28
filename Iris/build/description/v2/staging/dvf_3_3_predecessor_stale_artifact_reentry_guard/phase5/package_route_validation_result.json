@@ -1,0 +1,19 @@
+{
+  "generated_at": "2026-06-28T18:31:48.389830+00:00",
+  "live_package_payload_mutated": false,
+  "output_root": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_probe",
+  "package_command": {
+    "command": "powershell -ExecutionPolicy Bypass -File C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\tools\\package_iris.ps1 -OutputRoot C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_predecessor_stale_artifact_reentry_guard\\phase5\\package_probe -Clean -Zip",
+    "command_sha256": "c1bebd44b587e6ec3486634f06ccdc25f24f3302499be25c8ccd8b98a49b0455",
+    "exit_code": 0,
+    "finished_at": "2026-06-28T18:31:48.232801+00:00",
+    "started_at": "2026-06-28T18:31:43.904809+00:00",
+    "stderr": "",
+    "stdout": "Iris package staged: C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_predecessor_stale_artifact_reentry_guard\\phase5\\package_probe\\Iris\nManifest written: C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_predecessor_stale_artifact_reentry_guard\\phase5\\package_probe\\Iris.package_manifest.sha256.json\nZip written: C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_predecessor_stale_artifact_reentry_guard\\phase5\\package_probe\\Iris.zip\n"
+  },
+  "package_forbidden_hit_count": 0,
+  "package_zip_forbidden_hit_count": 0,
+  "schema_version": "dvf-3-3-predecessor-stale-package-route-validation-v1",
+  "status": "PASS",
+  "zip_scan_executed": true
+}

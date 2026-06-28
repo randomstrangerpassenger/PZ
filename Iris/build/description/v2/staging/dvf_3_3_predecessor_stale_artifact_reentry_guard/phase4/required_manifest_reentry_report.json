@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-06-28T18:31:43.718577+00:00",
+  "required_manifest_predecessor_reentry_count": 0,
+  "schema_version": "dvf-3-3-predecessor-stale-required-manifest-reentry-v1",
+  "status": "PASS",
+  "structured_json_scan": true,
+  "violations": []
+}

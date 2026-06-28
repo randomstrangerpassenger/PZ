@@ -1,0 +1,1 @@
+Stale bridge cannot become current authority.

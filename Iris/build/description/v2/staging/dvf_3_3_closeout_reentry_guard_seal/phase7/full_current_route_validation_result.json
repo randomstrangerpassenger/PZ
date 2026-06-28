@@ -7,8 +7,8 @@
     "errors": [],
     "manifest_path": "Iris\\_docs\\round3\\current_route_required_validations.json",
     "required": true,
-    "required_artifact_count": 87,
-    "required_test_count": 43,
+    "required_artifact_count": 93,
+    "required_test_count": 48,
     "required_tests": [
       "test_compose_entrypoint_guard_hardening.ComposeEntrypointGuardHardeningTest.test_legacy_profile_cannot_write_current_output_and_leaves_hash_unchanged",
       "test_compose_entrypoint_guard_hardening.ComposeEntrypointGuardHardeningTest.test_staging_context_cannot_target_current_equivalent_output",
@@ -52,7 +52,12 @@
       "test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.DvfCompletionVocabularyExternalGateVocabularySplitTest.test_final_report_blocks_canonical_external_review_without_external_artifacts",
       "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_phase0_preflight_and_axis_contract_pass",
       "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_rowkey_and_package_binding_pass",
-      "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_live_manifest_adoption_is_additive_and_governance_only"
+      "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_live_manifest_adoption_is_additive_and_governance_only",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_preflight_denominator_and_taxonomy_pass",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_negative_fixture_matrix_fails_closed",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_package_manifest_and_export_guards_pass",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_required_manifest_claim_scan_and_adoption_are_governance_only",
+      "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_final_report_preserves_non_claims_and_review_boundary"
     ],
     "success": true
   },

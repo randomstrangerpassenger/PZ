@@ -1,0 +1,1 @@
+선행 fixture를 runtime authority로 읽지 않는다.

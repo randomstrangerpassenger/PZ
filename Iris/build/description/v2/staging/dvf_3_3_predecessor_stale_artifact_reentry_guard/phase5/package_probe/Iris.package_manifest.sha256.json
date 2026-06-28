@@ -1,0 +1,528 @@
+﻿{
+    "schema_version":  "iris-package-manifest-v1",
+    "source_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris",
+    "package_root":  "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_predecessor_stale_artifact_reentry_guard\\phase5\\package_probe\\Iris",
+    "copied_roots":  [
+                         "mod.info",
+                         "poster.png if present",
+                         "media/"
+                     ],
+    "excluded_roots":  [
+                           "_archive",
+                           "_docs",
+                           "build",
+                           "evidence",
+                           "input",
+                           "output",
+                           "test",
+                           "lua",
+                           "Iris"
+                       ],
+    "forbidden_files":  [
+                            "media\\lua\\client\\Iris\\Data\\IrisLayer3Data.lua",
+                            "media\\lua\\shared\\Iris\\IrisDvfBridgeData.lua"
+                        ],
+    "file_count":  100,
+    "files":  [
+                  {
+                      "path":  "media/lua/client/AIrisBoot.lua",
+                      "sha256":  "7173568adaa30f463d7d1e057b29a4efe97f994fa1b947618b14ff4a710ef11c",
+                      "bytes":  571
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/API/Description.lua",
+                      "sha256":  "36a6f99b555ff29aa5fc0baf03f7358b0256d9a374c5bedb6de79e8157ca282c",
+                      "bytes":  5903
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/API/Index.lua",
+                      "sha256":  "04354ff7364cb71d22191480ecf5a16f83f3698f4c47ab7848f195d59d860fe9",
+                      "bytes":  2544
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/API/StaticData.lua",
+                      "sha256":  "94800af3fded0cc49fcefd520a0d25f9b212e63e5801378db966cab941f1bb82",
+                      "bytes":  1672
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/API/Tags.lua",
+                      "sha256":  "7924a711f0940acf693d6111ca1d6d43504e1046914777ded84e8cceed1e3be1",
+                      "bytes":  1675
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/API/UseCases.lua",
+                      "sha256":  "22cf665361db92a80c2d3e0ec9de6f9655f0e046a7c14034ed53042a73dd83b8",
+                      "bytes":  2317
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Compat/IrisBulletReloadCompat.lua",
+                      "sha256":  "0097fbd96ec2e8ca38b3cd87345c508cc6c8099ff2022b473a27a6958178fce2",
+                      "bytes":  4493
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Compat/IrisContextMenuTextureCompat.lua",
+                      "sha256":  "ad63b351196ff5d0fc79c17d741baba6424354f00154cfbbe259a826b9185ad3",
+                      "bytes":  2051
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisCapabilities.lua",
+                      "sha256":  "e9b76536bd56b481aa4b0cb094f20010352d4ded3e10adf7e09b86c4239b04c0",
+                      "bytes":  5916
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisClassifications.lua",
+                      "sha256":  "98d9ce3162703333b02dd48d62f8739e4606eada321a7731a35e2e586f033563",
+                      "bytes":  111083
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisContextOutcomes.lua",
+                      "sha256":  "eff2b494e30a68c89c216f12813131a9c287f36e0fe97a8929dcb06b948bda47",
+                      "bytes":  8688
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisData.lua",
+                      "sha256":  "17ed88f3fb1ed5b6ab96b021442dfb8e34b757d34b0c0ea05508876f855296b1",
+                      "bytes":  75143
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisFixingIndex.lua",
+                      "sha256":  "51390a0b7221e12ecda021453762d739ef06833d676d3924ef077cc49fb8be6b",
+                      "bytes":  1186
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisFixingIndexData.lua",
+                      "sha256":  "19e7046f993bfc8e42758eb168b7fdc0fd857d8acf7ec3e287c9ac6849801fb3",
+                      "bytes":  841
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+                      "sha256":  "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+                      "bytes":  951
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+                      "sha256":  "245df8b9e95cfd40a2ce76f322f1d40e9ecdf008e856e4a2ca909048efd934c2",
+                      "bytes":  114348
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+                      "sha256":  "033e55d550b75aa9456d0747d4e740be2865f6a00b23e73c15120eb09e99c0c0",
+                      "bytes":  104115
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+                      "sha256":  "5af32b0985c5e6969a888f55337267cc7d2db8085390469d261d2039cef9bb75",
+                      "bytes":  104561
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+                      "sha256":  "0a84e2413e333ed9945222f183559131a85b605537509cb11909a3e73f7276a0",
+                      "bytes":  112479
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+                      "sha256":  "9082d6503f38dc18db90ba484bc13fc003328837290369bf51217ff5753845fd",
+                      "bytes":  109426
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+                      "sha256":  "0ff59831a19f34c521fe55383d054c98a1832dddd18b459e0f1dbf5384e88dda",
+                      "bytes":  111190
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+                      "sha256":  "b3e0e74d8bf93785bbcde0c3bdbf7ee5565d6b49ecc902aa8b2d37dd4561ac73",
+                      "bytes":  114958
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+                      "sha256":  "b73c0bff6b072170917c2bfce7c2473b8e19e75039604c2bc3785419cb068cb8",
+                      "bytes":  111478
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+                      "sha256":  "e370958166c1f1670f070986b9470b464c68a7d1ee84aa973840d768e2f385e9",
+                      "bytes":  113799
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+                      "sha256":  "7e5d679a3d6489b8861f3dd20db8160d3a4e8bdb7be1b2ca9904180de1bfe2b9",
+                      "bytes":  106236
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+                      "sha256":  "ffee61bd96e0fd299e26d09b75da68330c100316ccfd1fd484795790d16c8be0",
+                      "bytes":  58929
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisMoveablesIndex.lua",
+                      "sha256":  "bac7ffd2a73e73cad560ad9e84d1f007765d28d9e641daca51a2883a50ee5e3a",
+                      "bytes":  1660
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisMoveablesIndexData.lua",
+                      "sha256":  "fe1b18d98cf9d6da6d46536b60cf0242492079867321ac821800a9a9ed5447a8",
+                      "bytes":  1443
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisRecipeIndex.lua",
+                      "sha256":  "b83e67d52ef5f73f84c901b1448ee480138b3d65b4abe651940fa82883a97daa",
+                      "bytes":  1983
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisRecipeIndexData.lua",
+                      "sha256":  "4c88231a8ccb6b5ba6e3c35661d9ce80770a63ae071dcb4a4df397e0c2a806e9",
+                      "bytes":  78265
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisTranslationData.lua",
+                      "sha256":  "19689d95e951f6fc296d7b5c92deff7870d462659d713939b4223d4c78e2694b",
+                      "bytes":  11965
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisUseCaseDescriptions.lua",
+                      "sha256":  "a2bfbbb2091bc7955e2c89a65afba456c9350fc3f93df81ac3eb5cda805f2d44",
+                      "bytes":  1036
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/IrisUseCaseLabelMap.lua",
+                      "sha256":  "32edc34cbe06f0a1f7346ab05581f3da67697d16985a48912151958dc482bf42",
+                      "bytes":  4402
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/layer3_renderer.lua",
+                      "sha256":  "7f50f16d34abe7af4f4c192bcfc9e8251b33108b9e6cbc06c69124fe60b897dd",
+                      "bytes":  3121
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk001.lua",
+                      "sha256":  "422c80416abd233c6dd09a15e47d8198ec5512d601ae05b50cf11bfb2def6257",
+                      "bytes":  167670
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk002.lua",
+                      "sha256":  "d49a56428605d03f721de83953fed2ddbe4a6199a3260fad6d86af5b7747f6fc",
+                      "bytes":  159213
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk003.lua",
+                      "sha256":  "113c0b2518cb6dce26e51cf2da737fc8ea693dca53b5c04a885cbc0dcdf65db1",
+                      "bytes":  167785
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk004.lua",
+                      "sha256":  "6d7ced5c826a5cf694f68d1dec0d82c102b3f592c0605d9e762cefaeb4464e95",
+                      "bytes":  142363
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk005.lua",
+                      "sha256":  "f5c0879084a24572926b829b5f16cae058c6af372cd0609f3e9a538496b9880b",
+                      "bytes":  174544
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk006.lua",
+                      "sha256":  "ea5eaa52bc642a1aafbdd115c72fe1ee3ea3c936077c29a5804c1396d1685533",
+                      "bytes":  170915
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk007.lua",
+                      "sha256":  "7624d40e2ad363ef460bed8f6f01e622f4e3cc92bf4f43fbfae83a6676007683",
+                      "bytes":  153651
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk008.lua",
+                      "sha256":  "dd325ef435f7a19bdd48f6c07d8c6c37de3bd1ee361a5536dbd7610e01540c27",
+                      "bytes":  111040
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/Chunk009.lua",
+                      "sha256":  "2c135c55fe7b1b1344ee3092ee902479d02be4f5acbe7d163a953514f73124e8",
+                      "bytes":  22702
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Data/UseCaseDescriptions/RequirementsLookup.lua",
+                      "sha256":  "9e2368bf50093dfec028ccf7a52d4ac0ee9b4407ff3cfbfc9715955f295ca696",
+                      "bytes":  29443
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/IrisAPI.lua",
+                      "sha256":  "b7a3d465f7cfc53baa51476144e48f96443a5ec29c0cd3a849c91ef153d6ba50",
+                      "bytes":  4456
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/IrisConfig.lua",
+                      "sha256":  "121da8af63949d1108c552a88a634ad1b9f3f54a5c4626941e680b65e198bf8d",
+                      "bytes":  1525
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/IrisMain.lua",
+                      "sha256":  "2b60570b01bd535afdbb68cda7ced065c0064f3fad16c05097ffe77f1d7e74c5",
+                      "bytes":  8856
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/IrisTranslationLoader.lua",
+                      "sha256":  "876b73de353720c2873c36dcfc7be4e12ecdde1d43609b90afc75e018f04f1f6",
+                      "bytes":  3236
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Logic/IrisDesc/Generator.lua",
+                      "sha256":  "ef6127bdb3e4204debdd1abac46d10e6674dc084a726387c0410414cd6043954",
+                      "bytes":  6232
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Logic/IrisDesc/Logger.lua",
+                      "sha256":  "a4af75e97f8f4b561fe1cae137cadc9a2f1efd4a925eb2e03fcbf314683b6d22",
+                      "bytes":  636
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Logic/IrisDesc/Ordering.lua",
+                      "sha256":  "c3e521494d7ab094e89d9c0ad4762aa4cb824fe3a7e6547754a8bdad878603f4",
+                      "bytes":  7993
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Logic/IrisDesc/Renderer.lua",
+                      "sha256":  "aa3ede1a393636c26517a26894e1f27bb15b5a81a19d7ac2e243ec6752d0e251",
+                      "bytes":  3023
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Logic/IrisDesc/TagParser.lua",
+                      "sha256":  "7bf0a431e9694832a7b83ec554f8f4cbe3118e3b49b8ead5b11acc38fd254079",
+                      "bytes":  3179
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Logic/IrisDesc/Templates.lua",
+                      "sha256":  "0b482c975885b76e71bd53174e669291d06d7114cdd97f36d7c28cdebb428ee7",
+                      "bytes":  32634
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowser.lua",
+                      "sha256":  "25335f1f41a029c1b424e759dd86058fa9788ba66d1d57419b826ad20796bf56",
+                      "bytes":  3852
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserBase.lua",
+                      "sha256":  "bc570fc611db1376473374b0f9b39baa1df741a5461e9d02a034f5d8a3f3c703",
+                      "bytes":  2200
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserCategoryIndex.lua",
+                      "sha256":  "6efcc7d7f0a21d3feaf57faf9105f2d06cd3f22c7dc07da179d28ceff59d0ed9",
+                      "bytes":  6666
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserClassificationIndex.lua",
+                      "sha256":  "ecbfe253960290cd72525d926e8950e865e2096db830fe47245b5b8cf63635c1",
+                      "bytes":  3246
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserData.lua",
+                      "sha256":  "945c4a437cf8083c18ca9e2a3c6856ba3049eb9b0f46502ebcf6fe18141f00a9",
+                      "bytes":  9768
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserDetail.lua",
+                      "sha256":  "c0e45d975933907bf13c63501cc041f0c1fb70eb94a2e81ce1d17b8dd2f1ed7c",
+                      "bytes":  9379
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserFilters.lua",
+                      "sha256":  "0a66e8cf3e2417f6b17e0127140618f8dd2dd8037fb077a7236d649f0762cfce",
+                      "bytes":  2706
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserInteractionCollector.lua",
+                      "sha256":  "9af07dee055a13d910650d678844a54f60d7353bcbba7ea00ee2c73961c211c2",
+                      "bytes":  4789
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserInteractionRenderer.lua",
+                      "sha256":  "44c8ae00abb0b6480b174737669480a65ceeff44b6423b60196d3829fa5f1ac4",
+                      "bytes":  5094
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserItemIndex.lua",
+                      "sha256":  "a9820320f8e37e59343fe1091a308064d1b3ee30f650c2d5b670cc9dbc12f479",
+                      "bytes":  2331
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserLayout.lua",
+                      "sha256":  "1fc278f7dc80ce20c7d428e7b769711404a7fe8caf22245e1aa4df1dace1bf67",
+                      "bytes":  7369
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserListController.lua",
+                      "sha256":  "ca567030b8b05eba7b2b70e6a41fc02aa3fb4f5e860779fee0394b08c8ba9b2e",
+                      "bytes":  10659
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserQuery.lua",
+                      "sha256":  "8d47e58e8e21028da9ffa44b3cdb3b25d9c25ac96167fefd47584f1dbdf2cdb0",
+                      "bytes":  2455
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserRecipeNav.lua",
+                      "sha256":  "6575b399f25f533dc494b0263c51080a588e341afd3fa29ff508485fd14d23a2",
+                      "bytes":  1694
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserTheme.lua",
+                      "sha256":  "abf466f8239b762b781decf41c1813398a39034517fe9e3375b041d62534a674",
+                      "bytes":  1503
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisBrowserVariantIndex.lua",
+                      "sha256":  "8ec8b2dabcbe9a350eca1bc26330bc110e4248b1526c548e0dfbdd5e3a9e648d",
+                      "bytes":  6551
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisMapIcon.lua",
+                      "sha256":  "8762e900bd6a9a3ff331232c488447fd4324c401691455e1bae5fa8d26a939cf",
+                      "bytes":  5182
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Browser/IrisRequirementPolicy.lua",
+                      "sha256":  "edc73b5dcf40c4a82a114ee52918303286b68a02558920b2a45ade4dd0344802",
+                      "bytes":  1869
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Layer3/IrisLayer3DisplayFormatter.lua",
+                      "sha256":  "1d7898174eaf9a617657d0986a7232cef545c4c2bf2c7b48ba4682ab3b3c6b46",
+                      "bytes":  2415
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Tooltip/IrisAltTooltip.lua",
+                      "sha256":  "271a27254de947606e56bc8cc6f7df818398385e436fed1d76578ccb5d655593",
+                      "bytes":  6421
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Tooltip/IrisTooltipSummary.lua",
+                      "sha256":  "7f3c61a10dcc482f33d5f55ec8d9ce9f8008d221574b9e0e6e83bfa6938b7424",
+                      "bytes":  3453
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Wiki/IrisContextMenu.lua",
+                      "sha256":  "bae43511d62a4ce18743fad081d085398baf4f58193f8951db04116eb2412a4a",
+                      "bytes":  4712
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Wiki/IrisWikiPanel.lua",
+                      "sha256":  "6a93b1c328f95642ef06c887c848be0a3d2c55e43a73b7bff15f41bc5fbfdcde",
+                      "bytes":  4601
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Wiki/IrisWikiSections.lua",
+                      "sha256":  "5b6ff48f196ee033e9c269aea8414e9c70ad76314470271ebc6c8146e2f57ab7",
+                      "bytes":  19035
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/UI/Wiki/IrisWikiUseCaseLineRenderer.lua",
+                      "sha256":  "cfe9d8619f31f2f74b615ed20f957f2fdcebf3a63e8142ff503e8867290d789f",
+                      "bytes":  3571
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/Array.lua",
+                      "sha256":  "685ee419e916e0770e82a3a84ab2667f7e7849f4658bb157a9745d0e09934e75",
+                      "bytes":  317
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/IrisItemAccess.lua",
+                      "sha256":  "8966e60185951ff41a4772e76733a0a20f25c57a72c66c6816f10e04f8f3719a",
+                      "bytes":  988
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/IrisLogger.lua",
+                      "sha256":  "1b3d4808ea1f75a13b1894f4a1c0630d7d47d13c032ab040c585ef9e248a82a6",
+                      "bytes":  1187
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/IrisModuleBootstrap.lua",
+                      "sha256":  "8037359f9797d50aa56dfa49c00d73383007ed2c4e7f8037b50740bf6951ceb7",
+                      "bytes":  1328
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/IrisObjectAccess.lua",
+                      "sha256":  "6926cb6d501e5c49c848f8727935e4e4114c97490a4ffc75430749091ae5451c",
+                      "bytes":  1059
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/IrisProtectedCall.lua",
+                      "sha256":  "7f3673022907a8a5f028ffba7ef92f20498233868b22b3bbaa6c24b9d39f7ea3",
+                      "bytes":  1479
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/IrisRequire.lua",
+                      "sha256":  "5dcc5da4209c59736ba7a4a5832e56f55542e84c87bd686d68eb318bb80e5e8f",
+                      "bytes":  258
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/IrisTranslationResolver.lua",
+                      "sha256":  "907dcfeec88edd23b298bd00c22c5ade8f20bacb3111080963ac10ce361ced12",
+                      "bytes":  1454
+                  },
+                  {
+                      "path":  "media/lua/client/Iris/Util/ItemKey.lua",
+                      "sha256":  "29d67dc69c56f08965c6535d3ffbdd069d348034363928baa367fb391e7e7b45",
+                      "bytes":  1597
+                  },
+                  {
+                      "path":  "media/lua/client/Pulse/Iris/Logic/IrisDesc/Generator.lua",
+                      "sha256":  "925577f7bb8816ddeaf6cadaa22d14128f1f0fbefc4ceb68b2d03761b0f6fc2b",
+                      "bytes":  48
+                  },
+                  {
+                      "path":  "media/lua/client/Pulse/Iris/Logic/IrisDesc/Logger.lua",
+                      "sha256":  "e5f7869c0edb0fa1622604239d40b382e8873466c5a9bf41855d63aacfa2ba80",
+                      "bytes":  45
+                  },
+                  {
+                      "path":  "media/lua/client/Pulse/Iris/Logic/IrisDesc/Ordering.lua",
+                      "sha256":  "eee02608de357e2cd1c5efa374137fb7459ed54947bc9ff6cde1d0279ec1ca17",
+                      "bytes":  47
+                  },
+                  {
+                      "path":  "media/lua/client/Pulse/Iris/Logic/IrisDesc/Renderer.lua",
+                      "sha256":  "7036dbe8e64069b1437137552078bee7a5c8ec5b493c6305f39af48d370bf7e4",
+                      "bytes":  47
+                  },
+                  {
+                      "path":  "media/lua/client/Pulse/Iris/Logic/IrisDesc/TagParser.lua",
+                      "sha256":  "f61cbeb07dab0520957b96e562af44fac345ebbf8293b6d2b458a10a76d4f805",
+                      "bytes":  48
+                  },
+                  {
+                      "path":  "media/lua/client/Pulse/Iris/Logic/IrisDesc/Templates.lua",
+                      "sha256":  "58764b4e5749c011c9e07fb1c42e562a7e63ae15c8c0c699f71ee12587bd7bd6",
+                      "bytes":  48
+                  },
+                  {
+                      "path":  "media/lua/shared/translate/en/Iris_en.txt",
+                      "sha256":  "9ca683f16afa1f04f39e8ef824aa8592041460b514ff0452873e8613ef1a9ae8",
+                      "bytes":  4133
+                  },
+                  {
+                      "path":  "media/lua/shared/translate/ko/Iris_ko.txt",
+                      "sha256":  "47a4293538c837d44202c0588050e3ae2d2361415fd28ed4078347fe2dff9992",
+                      "bytes":  4148
+                  },
+                  {
+                      "path":  "media/textures/Iris-logo_16px.png",
+                      "sha256":  "d11fcbfa74fb23dc05d9b6c8e2f36fdd65a4b25e8b9b9b29b1b11d16dfca653b",
+                      "bytes":  188
+                  },
+                  {
+                      "path":  "media/textures/Iris-logo_24px.png",
+                      "sha256":  "d1b05ce9ed8795070b85720c0e457dd489c2eb6426c30603a20b80204edc54a9",
+                      "bytes":  472
+                  },
+                  {
+                      "path":  "media/textures/Iris-logo_32px.png",
+                      "sha256":  "8b9bb453ac4793819fbaa3afe38b5df45f8870429ea23e31d553e44b5a80ddd9",
+                      "bytes":  552
+                  },
+                  {
+                      "path":  "mod.info",
+                      "sha256":  "c484929a3894021c1b8db17910de0baba8ef8660f00718eccd80ca469221e91e",
+                      "bytes":  166
+                  }
+              ]
+}

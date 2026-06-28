@@ -1,0 +1,8 @@
+{
+  "comparison_and_provenance_reads_allowed": true,
+  "generated_at": "2026-06-28T18:31:43.719592+00:00",
+  "raw_predecessor_direct_authority_read_count": 0,
+  "scan_scope": "required manifest, package guard, export guard, focused negative fixtures",
+  "schema_version": "dvf-3-3-predecessor-stale-raw-direct-read-v1",
+  "status": "PASS"
+}

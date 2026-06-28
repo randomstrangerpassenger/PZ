@@ -1,0 +1,9 @@
+{
+  "denominator_lock_status": "PASS",
+  "docs_claim_scan_sample_adjudication_status": "PASS",
+  "existing_pattern_reuse_status": "PASS",
+  "generated_at": "2026-06-28T18:31:34.916554+00:00",
+  "go_no_go_decision": "GO",
+  "schema_version": "dvf-3-3-predecessor-stale-preflight-exit-decision-v1",
+  "status": "PASS"
+}

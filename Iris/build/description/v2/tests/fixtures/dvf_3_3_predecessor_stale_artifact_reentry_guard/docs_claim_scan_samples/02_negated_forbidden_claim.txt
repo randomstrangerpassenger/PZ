@@ -1,0 +1,1 @@
+The monolith must not be package authority.

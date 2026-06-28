@@ -1,0 +1,130 @@
+{
+  "fixture_count": 10,
+  "fixtures": [
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "renamed_legacy_bridge_payload",
+      "path": "tmp/BridgePayloadRenamed.lua",
+      "reasons": [
+        "legacy_6_entry_bridge_payload"
+      ],
+      "role": "historical_trace_only",
+      "status": "PASS",
+      "surface": "current_source"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "stale_bridge_current_path",
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "reasons": [
+        "current_looking_path"
+      ],
+      "role": "historical_trace_only",
+      "status": "PASS",
+      "surface": "runtime_bridge"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "old_bridge_package_path",
+      "path": "Iris/build/package/Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "reasons": [
+        "current_looking_path",
+        "package_forbidden_path"
+      ],
+      "role": "historical_trace_only",
+      "status": "PASS",
+      "surface": "package_staging"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "monolith_export",
+      "path": "Iris/build/description/v2/staging/export/IrisLayer3Data.lua",
+      "reasons": [
+        "layer3_monolith_payload"
+      ],
+      "role": "diagnostic_trace_only",
+      "status": "PASS",
+      "surface": "export_output"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "nonstandard_monolith_filename",
+      "path": "Iris/build/description/v2/staging/export/Layer3RuntimePayload.lua",
+      "reasons": [
+        "layer3_monolith_payload"
+      ],
+      "role": "diagnostic_trace_only",
+      "status": "PASS",
+      "surface": "export_output"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "rollback_snapshot_package_inclusion",
+      "path": "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "reasons": [
+        "current_looking_path",
+        "package_forbidden_path"
+      ],
+      "role": "rollback_snapshot_only",
+      "status": "PASS",
+      "surface": "package_staging"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "relocated_predecessor_fixture",
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "reasons": [
+        "current_looking_path"
+      ],
+      "role": "fixture_only",
+      "status": "PASS",
+      "surface": "current_source"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "predecessor_fixture_required_manifest",
+      "path": "Iris/build/description/v2/staging/foo/predecessor_snapshot_payload/raw.json",
+      "reasons": [
+        "role_metadata_conflict"
+      ],
+      "role": "current_authority",
+      "status": "PASS",
+      "surface": "required_validation_manifest"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "payload_marker_conflict",
+      "path": "Iris/build/description/v2/staging/foo/trace.lua",
+      "reasons": [
+        "legacy_6_entry_bridge_payload"
+      ],
+      "role": "historical_trace_only",
+      "status": "PASS",
+      "surface": "raw_execution_authority"
+    },
+    {
+      "actual_blocked": true,
+      "expected_blocked": true,
+      "fixture_id": "role_metadata_conflict",
+      "path": "Iris/build/description/v2/staging/foo/history.json",
+      "reasons": [
+        "role_metadata_conflict"
+      ],
+      "role": "runtime_authority",
+      "status": "PASS",
+      "surface": "runtime_fallback"
+    }
+  ],
+  "generated_at": "2026-06-28T18:31:37.257799+00:00",
+  "schema_version": "dvf-3-3-predecessor-stale-negative-fixture-contract-v1",
+  "status": "PASS"
+}

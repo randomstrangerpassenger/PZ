@@ -1,0 +1,7 @@
+{
+  "generated_at": "2026-06-28T18:31:37.418032+00:00",
+  "package_iris_output_root_supported": true,
+  "schema_version": "dvf-3-3-predecessor-stale-package-guard-v1",
+  "status": "PASS",
+  "uses_real_package_script_for_probe": true
+}

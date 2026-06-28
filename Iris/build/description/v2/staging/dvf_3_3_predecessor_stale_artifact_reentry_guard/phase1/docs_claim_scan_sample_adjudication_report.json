@@ -1,0 +1,188 @@
+{
+  "category_counts": {
+    "actual_current_authority_overclaim": 4,
+    "english_negation_prohibition": 4,
+    "historical_role_qualified": 4,
+    "korean_negation_prohibition": 4,
+    "negated_forbidden_claim": 4,
+    "quoted_prior_claim_not_current": 4
+  },
+  "classifier_source_file": "Iris/build/description/v2/tools/build/dvf_3_3_predecessor_stale_artifact_reentry_guard_common.py",
+  "classifier_source_hash": "57c0b1d62a3528e2ce624a10015464883172d1fb905d98a5132003a95049b402",
+  "false_negative_count": 0,
+  "false_positive_count": 0,
+  "generated_at": "2026-06-28T18:31:34.912695+00:00",
+  "results": [
+    {
+      "actual_classification": "allowed",
+      "category": "negated_forbidden_claim",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/01_negated_forbidden_claim.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "negated_forbidden_claim",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/02_negated_forbidden_claim.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "negated_forbidden_claim",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/03_negated_forbidden_claim.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "negated_forbidden_claim",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/04_negated_forbidden_claim.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "historical_role_qualified",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/05_historical_role_qualified.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "historical_role_qualified",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/06_historical_role_qualified.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "historical_role_qualified",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/07_historical_role_qualified.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "historical_role_qualified",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/08_historical_role_qualified.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "blocked",
+      "category": "actual_current_authority_overclaim",
+      "expected_classification": "blocked",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/09_actual_current_authority_overclaim.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "blocked",
+      "category": "actual_current_authority_overclaim",
+      "expected_classification": "blocked",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/10_actual_current_authority_overclaim.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "blocked",
+      "category": "actual_current_authority_overclaim",
+      "expected_classification": "blocked",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/11_actual_current_authority_overclaim.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "blocked",
+      "category": "actual_current_authority_overclaim",
+      "expected_classification": "blocked",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/12_actual_current_authority_overclaim.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "korean_negation_prohibition",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/13_korean_negation_prohibition.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "korean_negation_prohibition",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/14_korean_negation_prohibition.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "korean_negation_prohibition",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/15_korean_negation_prohibition.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "korean_negation_prohibition",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/16_korean_negation_prohibition.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "english_negation_prohibition",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/17_english_negation_prohibition.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "english_negation_prohibition",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/18_english_negation_prohibition.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "english_negation_prohibition",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/19_english_negation_prohibition.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "english_negation_prohibition",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/20_english_negation_prohibition.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "quoted_prior_claim_not_current",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/21_quoted_prior_claim_not_current.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "quoted_prior_claim_not_current",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/22_quoted_prior_claim_not_current.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "quoted_prior_claim_not_current",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/23_quoted_prior_claim_not_current.txt",
+      "status": "PASS"
+    },
+    {
+      "actual_classification": "allowed",
+      "category": "quoted_prior_claim_not_current",
+      "expected_classification": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/24_quoted_prior_claim_not_current.txt",
+      "status": "PASS"
+    }
+  ],
+  "sample_fixture_count": 24,
+  "schema_version": "dvf-3-3-predecessor-stale-docs-claim-sample-adjudication-v1",
+  "status": "PASS"
+}

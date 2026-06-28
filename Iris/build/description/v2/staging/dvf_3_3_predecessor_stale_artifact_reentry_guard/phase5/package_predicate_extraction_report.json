@@ -1,0 +1,77 @@
+{
+  "extraction_command": "static regex extraction from Iris/tools/package_iris.ps1",
+  "extraction_command_hash": "9390168d24403f72867e13393b1217cbcdbfcc4b3ffd0a7abd34aad960bc8ce9",
+  "extraction_coverage": "complete",
+  "generated_at": "2026-06-28T18:31:43.902127+00:00",
+  "missing_predicate_count": 0,
+  "package_script_path": "Iris/tools/package_iris.ps1",
+  "package_script_sha256": "5a33510822e5d4f10a9e0818a34cd8e5db6e7c4a21c3d2214e1f0349aa94ad7e",
+  "predicate_count": 6,
+  "predicate_source_paths": [
+    "Iris/tools/package_iris.ps1"
+  ],
+  "predicate_source_sha256": "5b46bd7fc92e10b7b2716f017d1259db1aaaecf980ff7f57f15ac0ea0e7aacd2",
+  "predicates": [
+    {
+      "line_numbers": [
+        3
+      ],
+      "normalized_predicate_sha256": "f1561fb8ff55ff781cb6646b07fe6ebe53e088365de8a83a0f9b51e0a5cb0389",
+      "predicate_id": "output_root_parameter",
+      "source_path": "Iris/tools/package_iris.ps1",
+      "source_present": true
+    },
+    {
+      "line_numbers": [
+        39
+      ],
+      "normalized_predicate_sha256": "4a8765fadd948b2aea9112d6a6ec899ba78b76f5d23b1e36039798ee5397c79e",
+      "predicate_id": "stale_bridge_payload_function",
+      "source_path": "Iris/tools/package_iris.ps1",
+      "source_present": true
+    },
+    {
+      "line_numbers": [
+        74
+      ],
+      "normalized_predicate_sha256": "80d0ddbcccd4039b3e13bcb7fae4291a9fc58830bf3cb52fcc6b639d7f12a671",
+      "predicate_id": "stale_bridge_surface_assertion",
+      "source_path": "Iris/tools/package_iris.ps1",
+      "source_present": true
+    },
+    {
+      "line_numbers": [
+        137,
+        138,
+        173,
+        180
+      ],
+      "normalized_predicate_sha256": "55492c9aaf82935ad0bbf07ceeb1d58bb1a13686b7224aace4ab7eba759b99c4",
+      "predicate_id": "layer3_monolith_source_guard",
+      "source_path": "Iris/tools/package_iris.ps1",
+      "source_present": true
+    },
+    {
+      "line_numbers": [
+        172,
+        177,
+        230
+      ],
+      "normalized_predicate_sha256": "c86de47e788a6733dd1b7059b22b1cfa3d2fe6007a11c9317ecdc08374392cb7",
+      "predicate_id": "forbidden_package_files",
+      "source_path": "Iris/tools/package_iris.ps1",
+      "source_present": true
+    },
+    {
+      "line_numbers": [
+        187
+      ],
+      "normalized_predicate_sha256": "2c36ee39252dee98e33f02063ab1389e5103a0247e28e63cfc79b18ac73bc5c5",
+      "predicate_id": "package_output_surface_assertion",
+      "source_path": "Iris/tools/package_iris.ps1",
+      "source_present": true
+    }
+  ],
+  "schema_version": "dvf-3-3-predecessor-stale-package-predicate-extraction-v1",
+  "status": "PASS"
+}

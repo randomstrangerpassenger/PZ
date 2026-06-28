@@ -1,0 +1,20 @@
+{
+  "generated_at": "2026-06-28T18:31:48.391522+00:00",
+  "input_root_identity": "Iris",
+  "live_package_payload_mutated": false,
+  "output_root_isolated": true,
+  "package_script_path": "Iris/tools/package_iris.ps1",
+  "package_script_sha256": "5a33510822e5d4f10a9e0818a34cd8e5db6e7c4a21c3d2214e1f0349aa94ad7e",
+  "predicate_source_paths": [
+    "Iris/tools/package_iris.ps1"
+  ],
+  "predicate_source_sha256": "5b46bd7fc92e10b7b2716f017d1259db1aaaecf980ff7f57f15ac0ea0e7aacd2",
+  "probe_command": "powershell -ExecutionPolicy Bypass -File C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\tools\\package_iris.ps1 -OutputRoot C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_predecessor_stale_artifact_reentry_guard\\phase5\\package_probe -Clean -Zip",
+  "probe_command_sha256": "c1bebd44b587e6ec3486634f06ccdc25f24f3302499be25c8ccd8b98a49b0455",
+  "probe_vs_real_route_drift_count": 0,
+  "same_forbidden_predicates_as_package_iris": true,
+  "same_forbidden_predicates_evidence": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_predicate_extraction_report.json",
+  "schema_version": "dvf-3-3-predecessor-stale-package-probe-equivalence-v1",
+  "status": "PASS",
+  "zip_scan_executed": true
+}

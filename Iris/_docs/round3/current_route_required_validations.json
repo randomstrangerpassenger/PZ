@@ -25,7 +25,10 @@
     "no_semantic_quality_completion",
     "no_source_mutation",
     "no_source_restoration",
-    "no_workshop_readiness"
+    "no_workshop_readiness",
+    "no_current_authority_cutover",
+    "no_independent_review_pass",
+    "no_canonical_seal"
   ],
   "required": true,
   "required_artifacts": [
@@ -1491,6 +1494,120 @@
         }
       ],
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/recursion_avoidance_validation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 100,
+          "field": "coverage_percent"
+        },
+        {
+          "equals": 0,
+          "field": "unknown_blocked_count"
+        },
+        {
+          "equals": 0,
+          "field": "bare_review_input_only_disposition_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase1/artifact_disposition_coverage_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "package_forbidden_hit_count"
+        },
+        {
+          "equals": 0,
+          "field": "package_zip_forbidden_hit_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase3/package_forbidden_artifact_scan_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "required_manifest_predecessor_reentry_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase4/required_manifest_reentry_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "same_forbidden_predicates_as_package_iris"
+        },
+        {
+          "equals": true,
+          "field": "output_root_isolated"
+        },
+        {
+          "equals": false,
+          "field": "live_package_payload_mutated"
+        },
+        {
+          "equals": 0,
+          "field": "probe_vs_real_route_drift_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_probe_equivalence_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "machine_contract_status"
+        },
+        {
+          "equals": true,
+          "field": "governance_guard_only"
+        },
+        {
+          "equals": false,
+          "field": "source_authority_mutated"
+        },
+        {
+          "equals": false,
+          "field": "runtime_authority_mutated"
+        },
+        {
+          "equals": false,
+          "field": "package_authority_mutated"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_predecessor_stale_artifact_reentry_guard_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "go_no_go_phase_drift_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_go_no_go_phase_consistency_report.json"
     }
   ],
   "required_tests": [
@@ -1708,6 +1825,31 @@
       "required": true,
       "role": "successor_readpoint_required_validation",
       "test_id": "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_live_manifest_adoption_is_additive_and_governance_only"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_predecessor_stale_artifact_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_preflight_denominator_and_taxonomy_pass"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_predecessor_stale_artifact_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_negative_fixture_matrix_fails_closed"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_predecessor_stale_artifact_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_package_manifest_and_export_guards_pass"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_predecessor_stale_artifact_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_required_manifest_claim_scan_and_adoption_are_governance_only"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_predecessor_stale_artifact_reentry_guard_required_validation",
+      "test_id": "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_final_report_preserves_non_claims_and_review_boundary"
     }
   ],
   "route": "current",

@@ -1,0 +1,11 @@
+{
+  "consumer_universe_count_reused": false,
+  "consumer_universe_denominator_id_reused": false,
+  "consumer_universe_membership_reused": false,
+  "denominator_axis_distinct_from_consumer_universe": true,
+  "denominator_pattern_reuse_status": "usable",
+  "generated_at": "2026-06-28T18:31:34.792486+00:00",
+  "mechanism_reuse_only": true,
+  "schema_version": "dvf-3-3-predecessor-stale-denominator-pattern-reuse-v1",
+  "status": "PASS"
+}

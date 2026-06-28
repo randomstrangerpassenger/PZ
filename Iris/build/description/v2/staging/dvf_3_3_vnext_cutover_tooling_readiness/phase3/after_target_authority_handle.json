@@ -10,7 +10,7 @@
     "kind": "file",
     "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase6/rendered/dvf_3_3_rendered.vnext_corrected.json",
     "role": "successor_candidate_staging_only",
-    "sha256": "9afc3ae780b1f71df2eff33657499ab3b4b96e1ae016d19a2f872e94b2d93da8"
+    "sha256": "07415c84d8c7024dea6a04dfcc6b28f3a17fe8926d6e35cbae05018f4f18ed34"
   },
   "schema_version": "dvf-3-3-vnext-after-target-authority-handle-v0",
   "source_manifest": {
@@ -19,7 +19,7 @@
     "kind": "file",
     "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_source_manifest.json",
     "role": "successor_candidate_staging_only",
-    "sha256": "9441dd1a7f9b0ffe9005fb21c6b6509e8425820d67433f512eb0aff1c6d10afc"
+    "sha256": "63220ff98eaa7e54063b50271c1995c4950a92c1b4039552b1b5a03f0c7bfbf9"
   },
   "status": "PASS"
 }

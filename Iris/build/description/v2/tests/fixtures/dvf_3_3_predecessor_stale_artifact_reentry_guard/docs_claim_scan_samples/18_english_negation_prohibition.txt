@@ -1,0 +1,1 @@
+Stale predecessor current debt claims are blocked.

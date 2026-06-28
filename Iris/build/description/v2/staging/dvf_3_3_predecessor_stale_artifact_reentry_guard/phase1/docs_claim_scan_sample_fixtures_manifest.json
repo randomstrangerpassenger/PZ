@@ -1,0 +1,163 @@
+{
+  "category_counts": {
+    "actual_current_authority_overclaim": 4,
+    "english_negation_prohibition": 4,
+    "historical_role_qualified": 4,
+    "korean_negation_prohibition": 4,
+    "negated_forbidden_claim": 4,
+    "quoted_prior_claim_not_current": 4
+  },
+  "fixture_root": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples",
+  "fixtures": [
+    {
+      "category": "negated_forbidden_claim",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/01_negated_forbidden_claim.txt",
+      "sha256": "cdba18d72319143e0c3299f23366f2017e3105a76a54cda25b898e19018aae38"
+    },
+    {
+      "category": "negated_forbidden_claim",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/02_negated_forbidden_claim.txt",
+      "sha256": "6d3cb678f252da505d269872a93efd4b512005a285711bf6e9815206fb2c9ccb"
+    },
+    {
+      "category": "negated_forbidden_claim",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/03_negated_forbidden_claim.txt",
+      "sha256": "867f84603443f4b5f52bd206e89e377f588f3f5076a2b298b67808e52bcbbd8e"
+    },
+    {
+      "category": "negated_forbidden_claim",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/04_negated_forbidden_claim.txt",
+      "sha256": "0270189a81cae84f2608bf24f51ef5ec9ff626c7001d823962ae8cf342acc502"
+    },
+    {
+      "category": "historical_role_qualified",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/05_historical_role_qualified.txt",
+      "sha256": "6c1724dd7fc0c9ef74866d5378894e5c60d09a54f218e7f72a18331fad33084b"
+    },
+    {
+      "category": "historical_role_qualified",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/06_historical_role_qualified.txt",
+      "sha256": "1bdb7db92097a9f224567048a65a28abff54cb64ff90a8566758507f3acb962b"
+    },
+    {
+      "category": "historical_role_qualified",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/07_historical_role_qualified.txt",
+      "sha256": "96d56fbffc37095bcc53cc63fc3bb70dd003ecc8f88b18b26290ac08806a4c5f"
+    },
+    {
+      "category": "historical_role_qualified",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/08_historical_role_qualified.txt",
+      "sha256": "94191993acd6ef8576ad6a1c4e3097055f588480a3c36b80d961ceef9124a7b4"
+    },
+    {
+      "category": "actual_current_authority_overclaim",
+      "expected": "blocked",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/09_actual_current_authority_overclaim.txt",
+      "sha256": "dbb787c57bf6b1e581f2bedb35dc9670f59fed6dcc0e3ba76cb1f941c41cf589"
+    },
+    {
+      "category": "actual_current_authority_overclaim",
+      "expected": "blocked",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/10_actual_current_authority_overclaim.txt",
+      "sha256": "8680dfd8b8d0c56aac93154194b248c5ee9220cd727dfb9783f4feee715a7992"
+    },
+    {
+      "category": "actual_current_authority_overclaim",
+      "expected": "blocked",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/11_actual_current_authority_overclaim.txt",
+      "sha256": "a3c13c27b3770b3ed8e64c0c61e3a58bd9af10b78b4d4a75d5fdcfa04d79728c"
+    },
+    {
+      "category": "actual_current_authority_overclaim",
+      "expected": "blocked",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/12_actual_current_authority_overclaim.txt",
+      "sha256": "fef8c16f015146a1a556944509bdcc9fdd4c012c34a346c4bd7f4c9f9cce6257"
+    },
+    {
+      "category": "korean_negation_prohibition",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/13_korean_negation_prohibition.txt",
+      "sha256": "6d241903844abe28c14e35d28795c48c63cdb9283df99bde99cbb63f26f117ea"
+    },
+    {
+      "category": "korean_negation_prohibition",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/14_korean_negation_prohibition.txt",
+      "sha256": "7223199f0c2be79ad4435d04ca0f0e4ad6eba1371e2fc16c3ebbd97b8a98d508"
+    },
+    {
+      "category": "korean_negation_prohibition",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/15_korean_negation_prohibition.txt",
+      "sha256": "93dc6fae6d765a4c49bc0def7119cfa97f5bf3374568df194911936a2fb355fd"
+    },
+    {
+      "category": "korean_negation_prohibition",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/16_korean_negation_prohibition.txt",
+      "sha256": "62dc34b7ab89b7ba0c8e7f54c3cb98831b431c9c9b827de3302340d7d159980d"
+    },
+    {
+      "category": "english_negation_prohibition",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/17_english_negation_prohibition.txt",
+      "sha256": "6a8560bc82458d349f2082474850b19751ac7b79d5b8e0eadb1496cc9da6fa32"
+    },
+    {
+      "category": "english_negation_prohibition",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/18_english_negation_prohibition.txt",
+      "sha256": "18802711ed2356264878fdc9f863d500abeaf5ba537e1a363918610248af1978"
+    },
+    {
+      "category": "english_negation_prohibition",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/19_english_negation_prohibition.txt",
+      "sha256": "d061674f98d7b5e16d3a1fc4c8451944e4f279b592773bcb5d5c5a9ced11530c"
+    },
+    {
+      "category": "english_negation_prohibition",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/20_english_negation_prohibition.txt",
+      "sha256": "fde3a71070b0fc4eb302746e16936c1b6f9778fd0731699b8fd6e0c3fee86a2b"
+    },
+    {
+      "category": "quoted_prior_claim_not_current",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/21_quoted_prior_claim_not_current.txt",
+      "sha256": "43e0ad84302c10c758ded66d6a915c841c86679e5c5740eadc7120d1597af6b7"
+    },
+    {
+      "category": "quoted_prior_claim_not_current",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/22_quoted_prior_claim_not_current.txt",
+      "sha256": "686601c8226368771c6986439bac0ced18d3133549890242e5ba457b34da4129"
+    },
+    {
+      "category": "quoted_prior_claim_not_current",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/23_quoted_prior_claim_not_current.txt",
+      "sha256": "254ef1001b757de11236f3f45cac2bfc709a650f6b97d7cf14bf2d421833a511"
+    },
+    {
+      "category": "quoted_prior_claim_not_current",
+      "expected": "allowed",
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/docs_claim_scan_samples/24_quoted_prior_claim_not_current.txt",
+      "sha256": "1540cfc06fa07c88db6bb726005f6b5296b5aabb321486466a9dbf5bc6685b33"
+    }
+  ],
+  "generated_at": "2026-06-28T18:31:34.912167+00:00",
+  "minimum_fixture_count": 24,
+  "minimum_per_category": 4,
+  "sample_fixture_count": 24,
+  "schema_version": "dvf-3-3-predecessor-stale-docs-claim-sample-fixtures-v1",
+  "status": "PASS"
+}

@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-27
-> 기준일: 2026-06-27
+> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-28
+> 기준일: 2026-06-28
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 진행 방향과 다음 게이트를 짧게 고정한다.
 
@@ -613,6 +613,17 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * current-route validation은 `PASS / 119 tests / closure_enforced true`이며, focused validator `--require-complete`, runner `--mode machine-pass`, focused unittest `3 tests OK`가 통과했다.
   * 이 split은 prior drift-verification self-record PASS pattern과 runtime payload residual blocked pattern을 재해석하지 않는다. 앞으로 canonical external review claim은 이 split의 artifact-bound 기준을 따른다.
   * 이 split은 source / rendered / Lua bridge / runtime / package writer authority, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+
+* Current Authority Chain Successor Readpoint Seal은 canonical complete governance-only 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/`다.
+  * final report는 `canonical_seal_allowed=true`, `closeout_state=successor_readpoint_governance_seal_complete`, `canonical_seal_status=canonical_seal_allowed`, `canonical_seal_blocker_count=0`으로 닫힌다.
+  * VCS preservation proof는 `canonical_preservation_satisfied=true`, `unpreserved_minimum_path_count=0`, `ignored_minimum_path_count=0`, `vcs_preservation_proof_status=PASS`로 읽는다.
+  * non-author independent review, owner decision, owner seal, final token sign-off는 `PASS / approved / sealed / signed`로 닫히며 서로 대체하지 않는다.
+  * `2105 / 2084 / 21`은 successor current row identity, predecessor historical trace, migration consumer denominator, runtime deployable entry count의 네 축으로만 읽는다.
+  * adoption evidence는 `already_adopted_revalidation`으로 읽으며 first-adoption sequencing을 주장하지 않는다.
+  * current-route contract는 `PASS / 122 tests / closure_enforced true`이며, focused runner / validator / unittest가 통과했다.
+  * 이 seal은 source / rendered / Lua bridge / runtime chunk / package payload mutation, live migration execution, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
 
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 

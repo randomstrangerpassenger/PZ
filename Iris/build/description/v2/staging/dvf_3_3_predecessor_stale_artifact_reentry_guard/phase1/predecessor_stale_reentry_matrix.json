@@ -1,0 +1,360 @@
+{
+  "artifact_class_count": 7,
+  "coverage_percent": 100,
+  "generated_at": "2026-06-28T18:31:34.802625+00:00",
+  "reentry_surface_count": 10,
+  "rows": [
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "current_source"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "rendered_output"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "runtime_bridge"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "runtime_fallback"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "package_staging"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "package_zip"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "export_output"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "required_validation_manifest"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny",
+      "reentry_surface": "raw_execution_authority"
+    },
+    {
+      "artifact_class": "historical_staging_evidence",
+      "policy": "deny_unnegated_overclaim",
+      "reentry_surface": "docs_release_claim"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "current_source"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "rendered_output"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "runtime_bridge"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "runtime_fallback"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "package_staging"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "package_zip"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "export_output"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "required_validation_manifest"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny",
+      "reentry_surface": "raw_execution_authority"
+    },
+    {
+      "artifact_class": "monolith_historical_diagnostic_side_output",
+      "policy": "deny_unnegated_overclaim",
+      "reentry_surface": "docs_release_claim"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "current_source"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "rendered_output"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "runtime_bridge"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "runtime_fallback"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "package_staging"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "package_zip"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "export_output"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "required_validation_manifest"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny",
+      "reentry_surface": "raw_execution_authority"
+    },
+    {
+      "artifact_class": "old_6_entry_bridge",
+      "policy": "deny_unnegated_overclaim",
+      "reentry_surface": "docs_release_claim"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "current_source"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "rendered_output"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "runtime_bridge"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "runtime_fallback"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "package_staging"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "package_zip"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "export_output"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "required_validation_manifest"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny",
+      "reentry_surface": "raw_execution_authority"
+    },
+    {
+      "artifact_class": "predecessor_fixture",
+      "policy": "deny_unnegated_overclaim",
+      "reentry_surface": "docs_release_claim"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "current_source"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "rendered_output"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "runtime_bridge"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "runtime_fallback"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "package_staging"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "package_zip"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "export_output"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "required_validation_manifest"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny",
+      "reentry_surface": "raw_execution_authority"
+    },
+    {
+      "artifact_class": "rollback_snapshot",
+      "policy": "deny_unnegated_overclaim",
+      "reentry_surface": "docs_release_claim"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "current_source"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "rendered_output"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "runtime_bridge"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "runtime_fallback"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "package_staging"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "package_zip"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "export_output"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "required_validation_manifest"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny",
+      "reentry_surface": "raw_execution_authority"
+    },
+    {
+      "artifact_class": "stale_bridge",
+      "policy": "deny_unnegated_overclaim",
+      "reentry_surface": "docs_release_claim"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "current_source"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "rendered_output"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "runtime_bridge"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "runtime_fallback"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "package_staging"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "package_zip"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "export_output"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "required_validation_manifest"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny",
+      "reentry_surface": "raw_execution_authority"
+    },
+    {
+      "artifact_class": "synthetic_negative_fixture",
+      "policy": "deny_unnegated_overclaim",
+      "reentry_surface": "docs_release_claim"
+    }
+  ],
+  "schema_version": "dvf-3-3-predecessor-stale-reentry-matrix-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "allowlist_expansion_required": false,
+  "allowlist_expansion_review_status": "not_required",
+  "current_core_module_count": 12,
+  "current_core_module_count_changed": false,
+  "current_route_import_required": false,
+  "generated_at": "2026-06-28T18:31:48.395810+00:00",
+  "new_tooling_modules": [
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_predecessor_stale_artifact_reentry_guard.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_predecessor_stale_artifact_reentry_guard.py",
+    "Iris/build/description/v2/tools/build/dvf_3_3_predecessor_stale_artifact_reentry_guard_common.py"
+  ],
+  "schema_version": "dvf-3-3-predecessor-stale-current-route-tooling-allowlist-impact-v1",
+  "status": "PASS",
+  "tooling_allowlist_cap_bypassed": false
+}

@@ -11,7 +11,7 @@
       "sha256": "3000db34a96c5f7075ff1711352c076a1f762052fba8d1223ff8ec813ef22d6d"
     }
   ],
-  "generated_at": "2026-06-28T14:18:31.476024+00:00",
-  "manifest_hash": "2130135a1f8329055fca6b6b3684202f51b73ba166f6c6a74bbf4fe26f319a3a",
+  "generated_at": "2026-06-28T18:32:57.967251+00:00",
+  "manifest_hash": "c664b59a9a7462a05c0c72a52ba13147f8564d60643aa8af8e25f97fc0923ac6",
   "schema_version": "dvf-3-3-vnext-source-manifest-fingerprint-v0"
 }

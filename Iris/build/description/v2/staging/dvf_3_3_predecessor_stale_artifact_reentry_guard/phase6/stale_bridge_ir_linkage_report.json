@@ -1,0 +1,8 @@
+{
+  "closed_by_this_round": false,
+  "generated_at": "2026-06-28T18:33:30.039347+00:00",
+  "prior_stale_bridge_review_pending_disposition": "separate_carry",
+  "requires_bound_external_review_to_close": true,
+  "schema_version": "dvf-3-3-predecessor-stale-ir-linkage-v1",
+  "status": "PASS"
+}

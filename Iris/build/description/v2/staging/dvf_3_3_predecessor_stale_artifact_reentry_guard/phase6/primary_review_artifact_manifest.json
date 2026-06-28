@@ -1,0 +1,110 @@
+{
+  "artifact_count": 20,
+  "artifacts": [
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase0/scope_lock_report.json",
+      "sha256": "c2d4f65dd6cee4399f5fb239fe4a56eb69f86ff5d2754f8426119279951066cf"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase0/go_no_go_preflight_report.json",
+      "sha256": "8a86aea158d9a5a64f60a0ba24a26192b7c3fecbbf68039e8db2228bb6bcb1eb"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase1/artifact_universe_denominator_lock.json",
+      "sha256": "bbc62848ee6df55d04da64b3c6c52fe705ef505eda4e40d7edc672db4e4175b5"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase1/predecessor_stale_artifact_inventory.jsonl",
+      "sha256": "e790d6d2f029af18a398851d37a486f7a1a7cf7865fdf3700f7f5da6167eb40e"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase1/artifact_disposition_coverage_report.json",
+      "sha256": "98878f899836af61f0195670fd5d65ebda58bbd4c96afb37fc71b4af1b993894"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase1/docs_claim_scan_sample_adjudication_report.json",
+      "sha256": "ce5263f3492aa50b1b523d437c7244b5cd6c4802ae130178224ef97a3f01f8b3"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase2/unified_standing_guard_contract.json",
+      "sha256": "a4512afdfbb17e13aebfc57f2ddd95580c9b8d889420e1a1c0a9dc9edcd05fac"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase3/adversarial_negative_fixture_contract.json",
+      "sha256": "033e5e7b7fd171d1a281811299f2c16544bc48549b5da68f727855fdd52001f3"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase3/package_forbidden_artifact_scan_report.json",
+      "sha256": "f07dc023a0c44126630795406bd3162b938a2a343944effe96ceae506d8971d0"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase4/required_manifest_reentry_report.json",
+      "sha256": "5a34df14e57d7ab2a49250bbbc851c3292095c97201346af597e069cf13123bf"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase4/claim_surface_scan_report.json",
+      "sha256": "951bb8ed43034c9c562a06208573c1cadd6231331fcc869fe7db901ab1c91dd4"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase4/manifest_adoption_report.json",
+      "sha256": "a3a806acc8f8de546d948513256a5069b864cc75a59b88e0ce2bc049c004adf2"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_predicate_extraction_report.json",
+      "sha256": "c1bf81037011523e53df7b938bdb16c7a97287b1e65fc073e03493df25b4f1a6"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_probe_equivalence_report.json",
+      "sha256": "54d7690dc79540fdd0058c639f67a3a74dde1c6ba782861e7dd88104c90c6fb1"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/current_route_tooling_allowlist_impact_report.json",
+      "sha256": "515949614055a12c65e0da0c785403535bc9bae2ad71a4807f99c23e59f3fb64"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_predecessor_stale_artifact_reentry_guard_report.json",
+      "sha256": "52441b2237000b3b2ddab4f96c5e6079559b4e4c321e7b43c200d1030891afaf"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_go_no_go_phase_consistency_report.json",
+      "sha256": "e56e68ecee34ac8ff99ca9b1e2095ca26d5d7760f5f350990bdbc063855984f5"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/independent_review_input.json",
+      "sha256": "4b9f56001ba7841753bda841d0485cad2b992e03f2a07046426d0a3bb3f958b1"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/stale_bridge_ir_linkage_report.json",
+      "sha256": "cd88ef240ca8e91aa3ca36d4ac93e91f7503ccbe50f2960a39dae18f95ec740a"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/artifact_hash_report.json",
+      "sha256": "9e3b30a3c408ea28c834e7227d02a7225aeb83b5e418727fbe92a75ad27a3e8f"
+    }
+  ],
+  "generated_at": "2026-06-28T18:33:30.076519+00:00",
+  "missing": [],
+  "missing_count": 0,
+  "schema_version": "dvf-3-3-predecessor-stale-primary-review-artifact-manifest-v1",
+  "status": "PASS"
+}

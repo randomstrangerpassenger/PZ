@@ -1,0 +1,46 @@
+{
+  "authority_surface": "governance_boundary_additive_impact_only",
+  "generated_at": "2026-06-28T18:31:31.778398+00:00",
+  "non_claims": [
+    "no_source_restoration",
+    "no_current_authority_cutover",
+    "no_rendered_regeneration",
+    "no_lua_bridge_export_mutation",
+    "no_runtime_chunk_replacement",
+    "no_package_payload_mutation",
+    "no_live_migration_execution",
+    "no_release_readiness",
+    "no_package_readiness",
+    "no_workshop_readiness",
+    "no_b42_readiness",
+    "no_deployment_readiness",
+    "no_manual_in_game_qa",
+    "no_semantic_quality_completion",
+    "no_public_facing_text_acceptance",
+    "no_independent_review_pass",
+    "no_canonical_seal"
+  ],
+  "package_payload_mutation_allowed": false,
+  "plan": {
+    "bytes": 76214,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_plan.md",
+    "required": true,
+    "role": "direct_plan_artifact",
+    "sha256": "e23f3e732edebc56355f243c1b03c89f49ba6d84bb74d41cecf8dbc823c54d76"
+  },
+  "round_id": "dvf_3_3_predecessor_stale_artifact_reentry_guard",
+  "runtime_behavior_surface": "none",
+  "schema_version": "dvf-3-3-predecessor-stale-scope-lock-v1",
+  "status": "PASS",
+  "top_authority": {
+    "bytes": 20251,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/Philosophy.md",
+    "required": true,
+    "role": "top_authority",
+    "sha256": "938c52e9090c36af00dac18b64905e12a4f2390ac238a26121a63a14f81f44b2"
+  }
+}

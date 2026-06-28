@@ -1,0 +1,8 @@
+{
+  "dual_authority_read_count": 0,
+  "generated_at": "2026-06-28T18:31:43.720774+00:00",
+  "runtime_chunk_manifest_exists": true,
+  "runtime_monolith_exists": false,
+  "schema_version": "dvf-3-3-predecessor-stale-no-dual-authority-read-v1",
+  "status": "PASS"
+}

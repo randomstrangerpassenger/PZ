@@ -1,0 +1,20 @@
+{
+  "ambiguous_count": 0,
+  "bare_review_input_only_disposition_count": 0,
+  "classified_row_count": 468,
+  "coverage_percent": 100,
+  "denominator_id": "DEN-PREDECESSOR-STALE-ARTIFACT-UNIVERSE-339535efbb068e4f",
+  "denominator_row_count": 468,
+  "disposition_counts": {
+    "diagnostic_trace_only": 27,
+    "fixture_only": 25,
+    "historical_trace_only": 259,
+    "review_input_only_non_authority": 28,
+    "rollback_snapshot_only": 129
+  },
+  "generated_at": "2026-06-28T18:31:34.803779+00:00",
+  "schema_version": "dvf-3-3-predecessor-stale-disposition-coverage-v1",
+  "single_disposition_per_artifact": true,
+  "status": "PASS",
+  "unknown_blocked_count": 0
+}

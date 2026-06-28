@@ -1,0 +1,26 @@
+{
+  "bad_rows": [],
+  "final": true,
+  "generated_at": "2026-06-28T18:33:30.037498+00:00",
+  "go_no_go_phase_drift_count": 0,
+  "rows": [
+    {
+      "field": "go_no_go_decision",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase0/go_no_go_preflight_report.json",
+      "value": "GO"
+    },
+    {
+      "field": "go_no_go_decision",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase1/preflight_exit_decision.json",
+      "value": "GO"
+    },
+    {
+      "field": "preflight_go_no_go_decision",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_predecessor_stale_artifact_reentry_guard_report.json",
+      "value": "GO"
+    }
+  ],
+  "scanned_go_no_go_field_count": 3,
+  "schema_version": "dvf-3-3-predecessor-stale-go-no-go-consistency-v1",
+  "status": "PASS"
+}

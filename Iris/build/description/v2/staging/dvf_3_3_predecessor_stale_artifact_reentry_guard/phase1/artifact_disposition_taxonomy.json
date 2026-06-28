@@ -1,0 +1,20 @@
+{
+  "accepted_aliases": [],
+  "bare_review_input_only_accepted": false,
+  "enum": [
+    "historical_trace_only",
+    "diagnostic_trace_only",
+    "fixture_only",
+    "comparison_only",
+    "rollback_snapshot_only",
+    "provenance_trace_only",
+    "review_input_only_non_authority",
+    "package_forbidden",
+    "current_authority_forbidden",
+    "unknown_blocked"
+  ],
+  "generated_at": "2026-06-28T18:31:34.800900+00:00",
+  "review_input_only_non_authority_is_canonical": true,
+  "schema_version": "dvf-3-3-predecessor-stale-artifact-disposition-taxonomy-v1",
+  "status": "PASS"
+}

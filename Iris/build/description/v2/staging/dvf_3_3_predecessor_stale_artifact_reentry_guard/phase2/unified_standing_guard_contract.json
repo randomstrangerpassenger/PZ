@@ -1,0 +1,41 @@
+{
+  "additive": true,
+  "allowlists": {
+    "runtime_chunk_dir": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+    "runtime_chunk_manifest": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+  },
+  "authority_surface": "governance_boundary_additive_impact_only",
+  "classification_precedence": [
+    "protected_current_authority_allowlist_exact_match",
+    "package_export_deployable_allowlist_exact_match",
+    "current_looking_path_deny_rule",
+    "payload_marker_deny_rule",
+    "artifact_role_metadata",
+    "historical_diagnostic_fixture_disposition",
+    "unknown_blocked"
+  ],
+  "count_values_axis_qualified_only": [
+    "2105",
+    "2084",
+    "21",
+    "6"
+  ],
+  "denylists": {
+    "current_looking_paths": [
+      "iris/media/lua/client/iris/data/irislayer3data.lua",
+      "iris/media/lua/shared/iris/irisdvfbridgedata.lua",
+      "media/lua/shared/iris/irisdvfbridgedata.lua"
+    ],
+    "package_forbidden_relative_paths": [
+      "media/lua/client/iris/data/irislayer3data.lua",
+      "media/lua/shared/iris/irisdvfbridgedata.lua"
+    ],
+    "payload_markers": [
+      "legacy_6_entry_bridge_payload",
+      "layer3_monolith_payload"
+    ]
+  },
+  "generated_at": "2026-06-28T18:31:37.249586+00:00",
+  "schema_version": "dvf-3-3-predecessor-stale-unified-standing-guard-contract-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,8 @@
+{
+  "classification_precedence_validation": "PASS",
+  "conservative_conflict_resolution_fixture_status": "PASS",
+  "deny_rule_wins_after_allowlist_conflict": true,
+  "generated_at": "2026-06-28T18:31:37.251960+00:00",
+  "schema_version": "dvf-3-3-predecessor-stale-classification-precedence-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-06-28T18:33:30.038525+00:00",
+  "machine_pass_does_not_satisfy_independent_review": true,
+  "review_input_disposition": "review_input_only_non_authority",
+  "review_scope": [
+    "denominator lock",
+    "taxonomy enum spelling",
+    "package predicate extraction",
+    "manifest adoption boundary",
+    "docs claim scan rules",
+    "no protected source/runtime/package mutation"
+  ],
+  "review_state": "pending",
+  "reviewer_must_be_external_non_roadmap_author": true,
+  "schema_version": "dvf-3-3-predecessor-stale-independent-review-input-v1",
+  "status": "PASS"
+}

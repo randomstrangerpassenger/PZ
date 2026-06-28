@@ -1,0 +1,12 @@
+{
+  "forbidden_rows": [],
+  "generated_at": "2026-06-28T14:15:06.566974+00:00",
+  "historical_trace_preservation_count": 612,
+  "old_chunks_or_monolith_fallback_count": 0,
+  "predecessor_current_debt_count": 0,
+  "predecessor_current_hard_gate_count": 0,
+  "predecessor_package_authority_count": 0,
+  "predecessor_runtime_authority_count": 0,
+  "schema_version": "dvf-3-3-successor-readpoint-predecessor-reentry-axis-guard-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,21 @@
+{
+  "ambiguous_path_count": 0,
+  "forbidden_generated_package_surfaces": [
+    "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+    "Iris/build/package/Iris/media/lua/client/Iris/Data/IrisDvfBridgeData.lua"
+  ],
+  "generated_at": "2026-06-28T14:15:05.256130+00:00",
+  "generated_package_peer_scan_output_roots": [
+    "Iris/build/package/Iris",
+    "Iris/build/package/Iris.package_manifest.sha256.json",
+    "Iris/build/package/Iris.zip"
+  ],
+  "package_peer_scope_status": "in_scope_scanned",
+  "protected_package_payload_input_roots": [
+    "Iris/Iris/mod.info",
+    "Iris/Iris/poster.png",
+    "Iris/Iris/media"
+  ],
+  "schema_version": "dvf-3-3-successor-readpoint-package-surface-boundary-v1",
+  "status": "PASS"
+}

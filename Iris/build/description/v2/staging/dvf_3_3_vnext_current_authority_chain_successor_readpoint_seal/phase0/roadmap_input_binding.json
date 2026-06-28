@@ -1,0 +1,9 @@
+{
+  "direct_plan_artifact": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md",
+  "generated_at": "2026-06-28T14:15:02.823736+00:00",
+  "roadmap_attachment_path": "C:/Users/MW/.codex/attachments/5c39b2e7-1365-4a10-afdc-e639799b6c9f/pasted-text.txt",
+  "roadmap_line_count": 584,
+  "roadmap_sha256": "A42B3B00C5B3F196E43542681C680000C401A4D1C2FB5834049EF0E8EFD46CB8",
+  "schema_version": "dvf-3-3-successor-readpoint-roadmap-input-binding-v1",
+  "status": "PASS"
+}

@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition
-> 기준일: 2026-06-21
+> 상태: current decision ledger / compact trace-dedup edition through 2026-06-27
+> 기준일: 2026-06-27
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1134,6 +1134,49 @@
   * runtime payload state integrity guard sealed: later current guard pass
   * closeout, full command matrix, focused test details는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
 
+### Iris DVF 3-3 — runtime payload state integrity residual seal
+
+* 상태: canonical residual seal complete / author decision PASS / external review PASS / governance-only / no runtime mutation
+* 결정: Runtime Payload State Integrity Residual Seal은 payload shape guard PASS와 final residual seal PASS를 분리해서 소비하되, 현재 readpoint에서는 author-owned seal-closing decision과 external review PASS가 모두 기록되어 canonical residual seal을 닫은 것으로 본다.
+* 현재 기준:
+
+  * current-like payload guard는 live current runtime, package peer, candidate bridge에서 `2105` rows / current unadopted `21` rows / current-like `publish_state` rows `0` / forbidden or unclassified rows `0`을 검증한다.
+  * `unadopted + text_ko` 및 `unadopted + publish_state`는 current-compatible payload shape에서 금지한다.
+  * predecessor rollback snapshot의 `unadopted + exposed + non_nil text_ko` residue `2`건은 historical-only residue로 남기며 current debt, cleanup target, runtime mutation 근거가 아니다.
+  * selected author option은 `explicit_no_branch_mutation_required`이며, option metadata상 seal-closing 가능하고 runtime mutation이 필요 없다.
+  * final report는 `status=PASS`, `canonical_residual_seal_allowed=true`, `pending_author_selection=false`, `blocked_external_gate=false`, `author_seal_closing_decision_complete=true`, `external_review_complete=true`로 읽는다.
+  * external review PASS는 round-local `external_independent_review_report.json`의 user-supplied external review declaration과 primary review artifact hash coverage에 근거한다.
+* 최소 결과 trace:
+
+  * residual seal focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\runtime_payload_state_integrity_residual_seal.py --mode all --require-complete` / `PASS`
+  * residual seal focused validator: `uv run python -B Iris\build\description\v2\tools\build\runtime_payload_state_integrity_residual_seal.py --mode validate --require-complete` / `PASS`
+  * residual seal focused unittest: `uv run python -B -m unittest Iris.build.description.v2.tests.test_runtime_payload_state_integrity_residual_seal` / `10 tests OK`
+  * existing runtime payload guard validation / focused unittest: `PASS`
+  * current-route closure: `PASS / 116 tests / closure_enforced true`
+* 후속 input artifact:
+
+  * residual seal plan: `docs/runtime_payload_state_integrity_residual_seal_plan.md`
+  * residual seal tool: `Iris/build/description/v2/tools/build/runtime_payload_state_integrity_residual_seal.py`
+  * residual seal focused test: `Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py`
+  * residual evidence root: `Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/`
+  * author decision doc: `docs/runtime_payload_state_integrity_author_decision.md`
+  * claim boundary: `docs/runtime_payload_state_integrity_residual_claim_boundary.md`
+  * ledger packet: `docs/runtime_payload_state_integrity_residual_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase7/final_runtime_payload_residual_seal_report.json`
+  * validation report: `Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase7/validation_report.require_complete.json`
+* 오독 금지:
+
+  * 이 residual seal은 source facts / decisions, rendered output, Lua bridge, runtime chunk, package payload, predecessor residue를 mutate하지 않는다.
+  * 이 residual seal은 release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인하지 않는다.
+  * `adopted / unadopted`는 current runtime vocabulary이며 quality-pass, publish, deletion, suppression 의미가 아니다.
+  * `canonical_residual_seal_allowed=true`는 governance-only residual seal PASS이지 current authority cutover, live migration execution, runtime regeneration, package export authority가 아니다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+* Trace:
+
+  * residual seal implemented / validated / sealed: 2026-06-27
+  * closeout, full command matrix, review iterations, focused test details는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
+
 ### Iris DVF 3-3 — consumer denominator / terminal disposition governance
 
 * 상태: denominator live required-validation adopted / terminal canonical complete / independent review pass
@@ -1427,6 +1470,40 @@
   * ignored status는 deletable status가 아니다.
   * required artifact adoption은 governance-only gate이며 source / rendered / Lua bridge / runtime / package writer authority가 아니다.
   * 이 항목은 source restoration, rendered regeneration, Lua bridge export mutation, runtime chunk replacement, package payload mutation, live migration execution, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance, full clean-checkout required-evidence reproducibility, full historical artifact byte reproducibility를 승인한 것이 아니다.
+
+### Iris DVF 3-3 — completion vocabulary external gate split
+
+* 상태: completion vocabulary split implemented / external gate satisfied / owner seal sealed / token sign-off signed / canonical complete governance-only
+* 결정: Completion Vocabulary External Gate Split round는 machine validation, external validation bundle, independent review verdict, owner decision, owner seal, external gate state, canonical external review state, token rename author sign-off를 별도 축으로 분리한다. Self-generated PASS, owner approval, owner seal, external bundle presence는 independent review를 대체하지 않는다.
+* 현재 기준:
+
+  * final report는 `machine_contract_validation=PASS`, `external_validation_bundle_result=PASS`, `external_gate_state=satisfied`, `canonical_external_review_state=satisfied`, `canonical_seal_allowed=true`, `closeout_state=canonical_complete_governance_only`로 읽는다.
+  * canonical external review는 `phase9/current_session_independent_review_artifact.json`의 repo-relative `path + sha256` binding을 통해서만 닫힌다. 이 artifact는 reviewer identity / role / scope / independence declaration, reviewed artifact list, rerun/current-route result binding, hash-sealed bundle reference를 포함한다.
+  * hash-sealed review bundle은 `phase9/current_session_independent_review_bundle.json`이며, review artifact full hash를 다시 물지 않고 review artifact path만 기록해 hash cycle을 피한다.
+  * owner seal은 `phase9/current_session_owner_seal_record.json`의 별도 owner-supplied record로 닫힌다. 이 record는 review artifact와 review bundle binding을 실제 sealed artifact hashes에 포함해야 하며, owner seal은 independent review를 대체하지 않는다.
+  * token rename author sign-off는 `phase9/token_rename_author_signoff_report.json`에서 `token_rename_author_signoff_state=signed`, `canonical_closeout_blocked_without_signoff=false`로 읽는다.
+  * live `current_route_required_validations.json`는 순환을 피하기 위해 final report의 stable machine/governance fields만 current-route required artifact로 요구한다. Actual complete claim은 `validation_report.require_complete.json`에서 `canonical_complete_claimed=true`, `error_count=0`으로 검증한다.
+  * current-route validation은 `PASS / 119 tests / closure_enforced true`로 읽는다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/`
+  * plan: `docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_plan.md`
+  * policy: `docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_policy.md`
+  * claim boundary: `docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/final_completion_vocabulary_external_gate_split_report.json`
+  * independent review artifact: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_independent_review_artifact.json`
+  * independent review bundle: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_independent_review_bundle.json`
+  * owner seal record: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_owner_seal_record.json`
+  * token sign-off report: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/token_rename_author_signoff_report.json`
+  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py --mode machine-pass` / `PASS`
+  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py --require-complete` / `PASS`
+  * focused unittest: `uv run python -B -m unittest Iris.build.description.v2.tests.test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split` / `3 tests OK`
+* 오독 금지:
+
+  * 이전 drift-verification / runtime-payload residual 산출물에 남아 있는 code-generated PASS나 blocked external gate pattern은 이 round의 canonical review completion 기준을 대체하지 않는다.
+  * `owner_decision=approved` 또는 `owner_seal_state=sealed`는 independent review artifact, reviewer identity/scope, hash-sealed bundle, rerun result 없이 canonical external review를 닫을 수 없다.
+  * 이 항목은 source / rendered / Lua bridge / runtime / package writer authority, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance, live migration execution을 승인한 것이 아니다.
 
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 

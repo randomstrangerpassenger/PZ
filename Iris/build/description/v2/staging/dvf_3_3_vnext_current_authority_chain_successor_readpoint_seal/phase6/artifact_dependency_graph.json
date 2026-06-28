@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-06-28T14:15:09.117253+00:00",
+  "nodes": [
+    {
+      "artifact": "phase0/report_field_contract.json",
+      "depends_on": []
+    },
+    {
+      "artifact": "phase1/axis_occurrence_inventory.jsonl",
+      "depends_on": [
+        "phase1/scan_root_manifest.json"
+      ]
+    },
+    {
+      "artifact": "phase2/axis_exhaustiveness_report.json",
+      "depends_on": [
+        "phase1/axis_occurrence_inventory.jsonl"
+      ]
+    },
+    {
+      "artifact": "phase3/chain_rowkey_identity_report.json",
+      "depends_on": [
+        "phase0/preflight_current_checkout_readiness_report.json"
+      ]
+    },
+    {
+      "artifact": "phase4/evidence_role_taxonomy_report.json",
+      "depends_on": [
+        "phase2/occurrence_axis_map.json"
+      ]
+    },
+    {
+      "artifact": "phase5/predecessor_reentry_axis_guard_report.json",
+      "depends_on": [
+        "phase1/axis_occurrence_inventory.jsonl"
+      ]
+    },
+    {
+      "artifact": "phase6/live_required_manifest_adoption_report.json",
+      "depends_on": [
+        "phase6/current_route_required_validation_candidate_patch.json"
+      ]
+    }
+  ],
+  "phase6_requires_phase7_final_artifacts": false,
+  "schema_version": "dvf-3-3-successor-readpoint-artifact-dependency-graph-v1",
+  "self_referential_cycle_count": 0,
+  "status": "PASS"
+}

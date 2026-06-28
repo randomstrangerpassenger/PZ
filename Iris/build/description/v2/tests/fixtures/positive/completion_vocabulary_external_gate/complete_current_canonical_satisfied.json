@@ -1,0 +1,37 @@
+{
+  "canonical_complete_ledger_update_allowed": true,
+  "canonical_external_review_state": "satisfied",
+  "canonical_seal_allowed": true,
+  "decision_authority": "owner",
+  "external_gate_state": "satisfied",
+  "external_validation_bundle_result": "PASS",
+  "external_validation_bundle_state": "present",
+  "gate_requirement_scope_id": "final_canonical_external_gate_seal",
+  "independent_review_artifact_binding": {
+    "path": "Iris/build/description/v2/tests/fixtures/positive/completion_vocabulary_external_gate/support/independent_review_artifact.json",
+    "sha256": "3667a0cd1a55bb6846b23991c8845f8a66e6f58df1efc5ac51169c4f266af43b"
+  },
+  "independent_review_artifact_present": true,
+  "independent_review_state": "present",
+  "independent_review_verdict": "PASS",
+  "legacy_projection_consumed_for_current_gate": false,
+  "machine_contract_validation": "PASS",
+  "owner_decision": "approved",
+  "owner_decision_basis": "complete current positive fixture",
+  "owner_decision_captured_by": "fixture",
+  "owner_decision_readpoint": "complete-current-positive-fixture",
+  "owner_decision_scope": "final_canonical_external_gate_seal",
+  "owner_decision_source_kind": "owner_supplied",
+  "owner_identity": "owner fixture",
+  "owner_seal_basis": "complete current positive fixture with bound independent review artifact and hash bundle",
+  "owner_seal_captured_by": "fixture",
+  "owner_seal_does_not_replace_review": true,
+  "owner_seal_hash_binding": {
+    "path": "Iris/build/description/v2/tests/fixtures/positive/completion_vocabulary_external_gate/support/owner_seal_record.json",
+    "sha256": "f169973dbd0bd8482fa8084f77be1e55433140fc7d5320c7f5056f32b9e63682"
+  },
+  "owner_seal_readpoint": "complete-current-positive-fixture",
+  "owner_seal_scope": "final_canonical_external_gate_seal",
+  "owner_seal_source_kind": "owner_supplied",
+  "owner_seal_state": "sealed"
+}

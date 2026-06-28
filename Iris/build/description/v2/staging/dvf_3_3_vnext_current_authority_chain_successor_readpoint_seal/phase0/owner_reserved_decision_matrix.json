@@ -1,0 +1,15 @@
+{
+  "canonical_seal_closeout_state": "blocked_until_vcs_preservation_independent_review_owner_seal_and_final_token_signoff",
+  "canonical_vcs_preservation_required": true,
+  "default_execution_posture": "machine_governance_packet_possible",
+  "final_axis_token_strings": "owner_signed",
+  "final_token_signoff_status": "signed",
+  "generated_at": "2026-06-28T14:15:02.827290+00:00",
+  "independent_review_gate_status": "PASS",
+  "owner_decision_cannot_replace_independent_review": true,
+  "owner_decision_status": "approved",
+  "owner_seal_status": "sealed",
+  "package_peer_binding_scope": "in_scope_scanned",
+  "schema_version": "dvf-3-3-successor-readpoint-owner-reserved-decision-matrix-v1",
+  "status": "PASS"
+}

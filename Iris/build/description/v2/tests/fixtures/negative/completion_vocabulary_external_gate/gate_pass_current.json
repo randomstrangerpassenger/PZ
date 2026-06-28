@@ -1,0 +1,5 @@
+{
+  "canonical_external_review_state": "blocked",
+  "external_gate_state": "PASS",
+  "machine_contract_validation": "PASS"
+}

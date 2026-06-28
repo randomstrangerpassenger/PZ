@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "c5ff04a91334b909115cb266ae7a3f2447ed8d36523906a007c67435662a785f",
+  "aggregate_sha256": "228e31f98fca4819b0c8333f6487bb71a84feb3b58ae97eb3c33a05ae5fb52b9",
   "generated_at": "2026-06-19T00:00:00+09:00",
   "record_count": 56,
   "records": [
@@ -444,12 +444,12 @@
       "sha256": "9e2368bf50093dfec028ccf7a52d4ac0ee9b4407ff3cfbfc9715955f295ca696"
     },
     {
-      "bytes": 37246,
+      "bytes": 53957,
       "exists": true,
       "kind": "file",
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "role": "protected_surface_file",
-      "sha256": "ccfa9cb8c17dcd6f9d37486b095f89c4144a3175bb75b443c630b83a1e944123"
+      "sha256": "da7c3caacad3ac834d7009c383ea0d2ee9b8c66026f9832a517956888367e032"
     }
   ],
   "schema_version": "consumer-universe-denominator-protected-surface-hashes-v1"

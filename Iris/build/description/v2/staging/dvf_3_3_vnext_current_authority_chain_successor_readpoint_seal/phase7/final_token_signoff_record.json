@@ -1,0 +1,25 @@
+{
+  "final_token_signoff_input": {
+    "exists": true,
+    "ignored": false,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_token_signoff_input.json",
+    "role": "final_token_signoff_input",
+    "sha256": "5580f7e3a1faa660f0c5a84262025c2b0b28727b52c7d5f697337342dc02c6bc",
+    "tracked": true
+  },
+  "final_token_signoff_status": "signed",
+  "generated_at": "2026-06-28T14:16:45.342950+00:00",
+  "schema_version": "dvf-3-3-successor-readpoint-final-token-signoff-record-v1",
+  "signed_axis_values": [
+    "successor_current_row_identity",
+    "predecessor_historical_trace",
+    "migration_consumer_denominator",
+    "runtime_deployable_entry_count"
+  ],
+  "signed_value_tokens": [
+    "2105",
+    "2084",
+    "21"
+  ],
+  "status": "PASS"
+}

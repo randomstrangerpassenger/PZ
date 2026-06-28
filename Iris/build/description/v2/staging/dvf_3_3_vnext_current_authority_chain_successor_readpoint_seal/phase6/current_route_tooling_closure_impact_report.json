@@ -1,0 +1,11 @@
+{
+  "active_core_count": 12,
+  "active_core_unchanged": true,
+  "current_route_allowed_tooling_cap": 1,
+  "current_route_allowed_tooling_count": 1,
+  "generated_at": "2026-06-28T14:15:06.747459+00:00",
+  "new_tooling_added_to_allowlist": false,
+  "new_tooling_promoted_to_current_core": false,
+  "schema_version": "dvf-3-3-successor-readpoint-current-route-tooling-closure-impact-v1",
+  "status": "PASS"
+}

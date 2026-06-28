@@ -1,0 +1,14 @@
+{
+  "forbidden_monolith_absent": true,
+  "generated_at": "2026-06-28T14:15:05.848008+00:00",
+  "generated_package_output_root": "Iris/build/package",
+  "package_chunk_key_set_hash": "845de3300c5e528b8dbf2718a2cf3fbcb0b68789236869c88356b3886c356d1a",
+  "package_chunk_manifest_hash": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+  "package_readiness_claimed": false,
+  "package_scope_status": "in_scope_scanned",
+  "package_zip_preservation_required_for_canonical": false,
+  "schema_version": "dvf-3-3-successor-readpoint-package-peer-scan-canonical-minimum-v1",
+  "source_runtime_package_keyset_equality": true,
+  "stale_bridge_absent": true,
+  "status": "PASS"
+}

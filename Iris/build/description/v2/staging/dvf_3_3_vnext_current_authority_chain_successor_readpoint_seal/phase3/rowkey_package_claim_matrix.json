@@ -1,0 +1,12 @@
+{
+  "allowed_limitation_demotes_full_chain": true,
+  "claim_ceiling_matrix_status": "PASS",
+  "full_chain_canonical_candidate_allowed": true,
+  "generated_at": "2026-06-28T14:15:05.842510+00:00",
+  "machine_packet_review_blocked_allowed": true,
+  "package_scope_status": "in_scope_scanned",
+  "rowkey_identity_status": "pass",
+  "schema_version": "dvf-3-3-successor-readpoint-rowkey-package-claim-matrix-v1",
+  "source_rendered_runtime_only_noncanonical_allowed": true,
+  "status": "PASS"
+}

@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-21
-> 기준일: 2026-06-21
+> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-27
+> 기준일: 2026-06-27
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 진행 방향과 다음 게이트를 짧게 고정한다.
 
@@ -516,11 +516,14 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 
 * Walkthrough / 구현 체크리스트 / 검증 절차 문서 간 최신 상태 일치를 유지한다.
 
-* Runtime Payload State Integrity Residual Seal을 별도 round로 연다.
+* Runtime Payload State Integrity Residual Seal은 별도 governance-only round로 완료된 상태로 읽는다.
 
-  * 현재 current-like runtime collision은 guard와 payload shape로 닫혔으며, 남은 문제는 implementation blocker가 아니라 residual seal이다.
-  * 완료 조건은 author decision으로 current-like `unadopted + text_ko` / `unadopted + exposed` 금지를 확정하고, rollback / predecessor residue가 historical-only residue로 남는다는 경계를 independent review 또는 명시 external gate로 닫는 것이다.
-  * 이 residual seal은 새 runtime data mutation, enum 재정의, UI 노출, renderer policy 변경을 자동 승인하지 않는다.
+  * current-like runtime collision은 guard와 payload shape로 닫혔고, final residual seal도 author decision PASS 및 external review PASS로 닫혔다.
+  * current-compatible payload shape에서는 `unadopted + text_ko` 및 `unadopted + publish_state`를 금지한다.
+  * predecessor rollback residue `2`건은 historical-only residue로 남으며 current debt, cleanup target, runtime mutation 근거가 아니다.
+  * final residual seal report는 `status=PASS`, `canonical_residual_seal_allowed=true`, `pending_author_selection=false`, `blocked_external_gate=false`로 읽는다.
+  * evidence root는 `Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/`다.
+  * 이 residual seal은 새 runtime data mutation, enum 재정의, UI 노출, renderer policy 변경, release/package/Workshop/B42 readiness, manual QA, semantic quality completion을 자동 승인하지 않는다.
 
 * Consumer Universe Denominator Lock의 current-route denominator guard는 live required-validation manifest에 채택된 상태로 읽는다.
 
@@ -598,6 +601,18 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * Adoption Reseal의 VCS-preservation gate와 taxonomy disposition preflight gate는 bounded durable-surface 기준으로 닫힌다.
   * `durable_boundary_empirical_reproduction=deferred`이므로 full clean-checkout required-evidence reproducibility나 full historical byte reproducibility는 여전히 non-claim이다.
   * 이 alignment는 source / rendered / Lua bridge / runtime / package writer authority, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+
+* Completion Vocabulary External Gate Split은 canonical complete governance-only 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/`다.
+  * final report는 `external_gate_state=satisfied`, `canonical_external_review_state=satisfied`, `canonical_seal_allowed=true`, `owner_decision=approved`, `owner_seal_state=sealed`, `token_rename_author_signoff_state=signed`, `closeout_state=canonical_complete_governance_only`로 닫힌다.
+  * independent review 인정 조건은 repo-relative `path + sha256`로 bound 된 `current_session_independent_review_artifact.json`, reviewer identity / role / scope / independence declaration, reviewed artifact list, current-route rerun result, and hash-sealed bundle reference를 요구한다.
+  * owner seal은 `current_session_owner_seal_record.json`의 owner-supplied record로 별도 검증하며, review artifact와 review bundle binding을 실제 sealed artifact hashes에 포함해야 한다.
+  * external validation bundle, independent review artifact, owner seal, token sign-off는 서로 다른 축이다. Self-generated PASS, owner approval, or owner seal alone cannot close canonical external review.
+  * live required-validation manifest는 final completion 값을 직접 요구하지 않는다. Current-route recursion을 피하기 위해 stable final fields만 요구하고, actual complete state는 `validation_report.require_complete.json`에서 `canonical_complete_claimed=true`, `error_count=0`으로 검증한다.
+  * current-route validation은 `PASS / 119 tests / closure_enforced true`이며, focused validator `--require-complete`, runner `--mode machine-pass`, focused unittest `3 tests OK`가 통과했다.
+  * 이 split은 prior drift-verification self-record PASS pattern과 runtime payload residual blocked pattern을 재해석하지 않는다. 앞으로 canonical external review claim은 이 split의 artifact-bound 기준을 따른다.
+  * 이 split은 source / rendered / Lua bridge / runtime / package writer authority, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
 
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 

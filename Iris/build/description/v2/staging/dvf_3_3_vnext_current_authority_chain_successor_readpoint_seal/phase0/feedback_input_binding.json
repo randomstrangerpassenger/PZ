@@ -1,0 +1,28 @@
+{
+  "feedback": [
+    {
+      "cycle": 1,
+      "line_count": 450,
+      "required_revisions_incorporated": true,
+      "sha256": "BD35584CE795010FCECEDE34F1ABDFF226B9C74CE92866E6E1FD136C6EB8D96F",
+      "verdict": "WARN"
+    },
+    {
+      "cycle": 2,
+      "incorporated_items": [
+        "C6",
+        "C7",
+        "C8",
+        "N6",
+        "N7"
+      ],
+      "line_count": 312,
+      "required_revisions_incorporated": true,
+      "sha256": "2B7E41B50B06C2ED724506CF8F80D31D934AF9F642CBF1B3B3F3A2EA347B6D8E",
+      "verdict": "WARN - PASS near"
+    }
+  ],
+  "generated_at": "2026-06-28T14:15:02.825795+00:00",
+  "schema_version": "dvf-3-3-successor-readpoint-feedback-input-binding-v1",
+  "status": "PASS"
+}

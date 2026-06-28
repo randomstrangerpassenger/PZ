@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-06-28T14:15:05.837288+00:00",
+  "item_id_to_package_key": "identity",
+  "item_id_to_rendered_key": "identity",
+  "item_id_to_runtime_key": "identity",
+  "non_identity_transform_discovered": false,
+  "schema_version": "dvf-3-3-successor-readpoint-key-transform-rule-v1",
+  "status": "PASS",
+  "transform": "identity"
+}

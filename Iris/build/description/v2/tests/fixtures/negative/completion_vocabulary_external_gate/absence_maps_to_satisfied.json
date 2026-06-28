@@ -1,0 +1,15 @@
+{
+  "gate_requirement_matrix": [
+    {
+      "absence_maps_to": "satisfied",
+      "allowed_absence_reason": "invalid",
+      "canonical_external_review_required": true,
+      "external_validation_bundle_required": true,
+      "independent_review_required": true,
+      "machine_contract_validation_required": true,
+      "owner_decision_required": true,
+      "owner_seal_required": true,
+      "scope_id": "final_canonical_external_gate_seal"
+    }
+  ]
+}

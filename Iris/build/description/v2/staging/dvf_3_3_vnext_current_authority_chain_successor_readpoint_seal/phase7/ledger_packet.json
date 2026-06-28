@@ -1,0 +1,13 @@
+{
+  "canonical_seal_allowed": true,
+  "canonical_seal_blocker_count": 0,
+  "canonical_seal_status": "canonical_seal_allowed",
+  "claim_boundary_doc": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_claim_boundary.md",
+  "closeout_state": "successor_readpoint_governance_seal_complete",
+  "final_report": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_successor_readpoint_governance_seal_report.json",
+  "generated_at": "2026-06-28T14:16:45.343744+00:00",
+  "ledger_packet_doc": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_ledger_packet.md",
+  "round_id": "dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal",
+  "schema_version": "dvf-3-3-successor-readpoint-ledger-packet-v1",
+  "status": "PASS"
+}

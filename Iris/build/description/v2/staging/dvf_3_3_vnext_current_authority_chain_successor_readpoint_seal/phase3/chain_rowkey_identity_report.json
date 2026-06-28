@@ -1,0 +1,14 @@
+{
+  "allowed_limitation_count": 0,
+  "generated_at": "2026-06-28T14:15:05.838152+00:00",
+  "package_key_count": 2105,
+  "rendered_key_count": 2105,
+  "rowkey_identity_status": "pass",
+  "runtime_key_count": 2105,
+  "schema_version": "dvf-3-3-successor-readpoint-chain-rowkey-identity-v1",
+  "source_key_count": 2105,
+  "source_package_missing_count": 0,
+  "source_rendered_missing_count": 0,
+  "source_runtime_missing_count": 0,
+  "status": "PASS"
+}

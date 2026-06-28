@@ -1,0 +1,10 @@
+{
+  "correspondence_role": "key_correspondence_only_not_authority_equality",
+  "generated_at": "2026-06-28T14:15:05.840613+00:00",
+  "missing_or_extra_key_count": 0,
+  "schema_version": "dvf-3-3-successor-readpoint-cross-surface-correspondence-v1",
+  "source_package_match": true,
+  "source_rendered_match": true,
+  "source_runtime_match": true,
+  "status": "PASS"
+}

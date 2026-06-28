@@ -1,0 +1,21 @@
+{
+  "fixture_count": 3,
+  "fixtures": [
+    {
+      "name": "successor_2105_axis_qualified",
+      "status": "PASS"
+    },
+    {
+      "name": "predecessor_2105_same_value_blocked",
+      "status": "PASS"
+    },
+    {
+      "name": "unqualified_2105_current_blocked",
+      "status": "PASS"
+    }
+  ],
+  "generated_at": "2026-06-28T14:15:09.116346+00:00",
+  "schema_version": "dvf-3-3-successor-readpoint-guard-negative-fixture-v1",
+  "status": "PASS",
+  "unexpected_pass_count": 0
+}

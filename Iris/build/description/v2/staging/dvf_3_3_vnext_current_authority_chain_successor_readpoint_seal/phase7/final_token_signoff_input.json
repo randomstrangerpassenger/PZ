@@ -1,0 +1,21 @@
+{
+  "schema_version": "dvf-3-3-successor-readpoint-final-token-signoff-input-v1",
+  "recorded_at": "2026-06-28T23:07:44.7949171+09:00",
+  "status": "PASS",
+  "round_id": "dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal",
+  "final_token_signoff_status": "signed",
+  "owner_identity": "project_owner_current_thread_user",
+  "signed_axis_values": [
+    "successor_current_row_identity",
+    "predecessor_historical_trace",
+    "migration_consumer_denominator",
+    "runtime_deployable_entry_count"
+  ],
+  "signed_value_tokens": [
+    "2105",
+    "2084",
+    "21"
+  ],
+  "token_signoff_scope": "successor readpoint vocabulary and evidence-role binding only",
+  "token_signoff_non_claim": "does not mutate source facts, rendered output, Lua bridge output, runtime chunks, or package payloads"
+}

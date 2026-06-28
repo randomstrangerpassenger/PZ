@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "1f361f715bb2b64fa7d82f9ea348e657040bd407f36863e736695fe03efcad2a",
+  "aggregate_sha256": "1b60aec0b39e4cea8a49e1e32869d02256c42bab7724cf1be4e6e9a4f29c1976",
   "generated_at": "2026-06-19T00:00:00+09:00",
   "input_count": 20,
   "inputs": [
@@ -158,50 +158,50 @@
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/runtime_payload_state_inventory.json",
-      "reported_generated_at": "2026-06-27T11:16:27.639026+00:00",
+      "reported_generated_at": "2026-06-28T14:16:44.557868+00:00",
       "required": true,
       "role": "runtime_denominator_context",
-      "sha256": "2ded69f7bbd4fcd16a533a022f5ceb93d9eab76890b7bb97f0aa2ea25aa3b9f3"
+      "sha256": "dc22aab7ccab0ffb61f447d820ee5146d7ed31b95396f26d37692ee2c69fc2cc"
     },
     {
       "bytes": 711,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase0/publish_state_authority_resolution.json",
-      "reported_generated_at": "2026-06-27T11:16:27.645897+00:00",
+      "reported_generated_at": "2026-06-28T14:16:44.562860+00:00",
       "required": true,
       "role": "runtime_publish_state_context",
-      "sha256": "f3229ad3aded836a7c9ce112847619dc90cf5a06f0c003af954ac8fc4b1ff095"
+      "sha256": "f6b990b336d4ae37aa38e2ee1d7dd0b2ebcec3047fa4e5709714ae8e55a8a02d"
     },
     {
       "bytes": 738,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json",
-      "reported_generated_at": "2026-06-27T11:16:27.693973+00:00",
+      "reported_generated_at": "2026-06-28T14:16:44.604141+00:00",
       "required": true,
       "role": "runtime_guard_context",
-      "sha256": "a78b201f478271b62219cd8edc9416f0f3029b168461aab3be30d82d8503d456"
+      "sha256": "a006afec9974ce0e19dadf4b07dc6ec221ffad3b33d742e6f1176253cf17e312"
     },
     {
       "bytes": 13091,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase5b/display_resolution_parity_report.json",
-      "reported_generated_at": "2026-06-27T11:16:27.705502+00:00",
+      "reported_generated_at": "2026-06-28T14:16:44.618996+00:00",
       "required": true,
       "role": "runtime_display_context",
-      "sha256": "f7a2b93483033b212cb80e394c854b047d4953435aa6c4c41e66debbb2621f99"
+      "sha256": "aa773ff86e769d645bfe495f5fd1b287814529837938ee9cee5bc2a8e5699eeb"
     },
     {
-      "bytes": 37246,
+      "bytes": 53957,
       "exists": true,
       "kind": "file",
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "reported_generated_at": "2026-06-17T16:28:41.744038+00:00",
       "required": true,
       "role": "current_route_required_manifest",
-      "sha256": "ccfa9cb8c17dcd6f9d37486b095f89c4144a3175bb75b443c630b83a1e944123"
+      "sha256": "da7c3caacad3ac834d7009c383ea0d2ee9b8c66026f9832a517956888367e032"
     }
   ],
   "missing_required_count": 0,

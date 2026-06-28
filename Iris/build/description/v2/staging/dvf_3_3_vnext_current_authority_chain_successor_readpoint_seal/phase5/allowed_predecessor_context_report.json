@@ -1,0 +1,13 @@
+{
+  "allowed_contexts": [
+    "historical predecessor trace",
+    "frozen comparison baseline",
+    "migration provenance",
+    "terminal disposition provenance",
+    "diagnostic fixture trace"
+  ],
+  "allowed_occurrence_count": 612,
+  "generated_at": "2026-06-28T14:15:06.567813+00:00",
+  "schema_version": "dvf-3-3-successor-readpoint-allowed-predecessor-context-v1",
+  "status": "PASS"
+}

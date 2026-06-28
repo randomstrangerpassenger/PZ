@@ -12,7 +12,7 @@
       "required": true,
       "role": "denominator_axis_registry",
       "row_count": null,
-      "sha256": "7d5a6197cd7582ee6d1c24e7220c07f731914b83c1a9b4653fb8da65fce0284b",
+      "sha256": "b87cb6a94d26722e0044428d68121cb7390be537dae86098a7077f9d6a232f62",
       "source_id": "denominator_registry",
       "status": "PRESENT"
     },
@@ -25,7 +25,7 @@
       "required": true,
       "role": "denominator_lock_final_report",
       "row_count": null,
-      "sha256": "d9bb755b1360e93e6277d3be18a0d33a312111d169cfc737a4f906c76a9c800e",
+      "sha256": "adaba5553ea6fada3dd2d3c2338e15f932ca17e98141b5b6230b0e210faa59b3",
       "source_id": "denominator_final_report",
       "status": "PRESENT"
     },

@@ -1,0 +1,50 @@
+{
+  "blocked_ambiguous_preservation_path_count": 0,
+  "blocked_ambiguous_preservation_paths": [],
+  "canonical_preservation_minimum_candidates": [
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md",
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_claim_boundary.md",
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_ledger_packet.md",
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_decisions_update_draft.md",
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_roadmap_update_draft.md",
+    "Iris/build/description/v2/tools/build/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    "Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    "Iris/_docs/round3/current_route_required_validations.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase0/report_field_contract.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/current_route_required_validation_candidate_patch.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/manifest_additive_diff_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/validation_report.require_complete.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/non_author_independent_review_input.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/owner_canonical_seal_decision_input.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_token_signoff_input.json"
+  ],
+  "generated_at": "2026-06-28T14:15:09.112125+00:00",
+  "generated_package_scan_output_paths": [
+    "Iris/build/package/Iris/media/lua/client/Iris/Data"
+  ],
+  "ignored_but_hash_preserved_local_evidence_paths": [],
+  "noncanonical_local_only_evidence_paths": [],
+  "schema_version": "dvf-3-3-successor-readpoint-vcs-preservation-preflight-v1",
+  "status": "PASS",
+  "tracked_or_force_stage_candidate_paths": [
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md",
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_claim_boundary.md",
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_ledger_packet.md",
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_decisions_update_draft.md",
+    "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_roadmap_update_draft.md",
+    "Iris/build/description/v2/tools/build/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    "Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    "Iris/_docs/round3/current_route_required_validations.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase0/report_field_contract.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/current_route_required_validation_candidate_patch.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/manifest_additive_diff_report.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/validation_report.require_complete.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/non_author_independent_review_input.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/owner_canonical_seal_decision_input.json",
+    "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_token_signoff_input.json"
+  ]
+}

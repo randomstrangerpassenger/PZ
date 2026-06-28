@@ -1,0 +1,14 @@
+{
+  "axis_labels_supersede_sealed_tokens": false,
+  "closed_axis_set": [
+    "successor_current_row_identity",
+    "predecessor_historical_trace",
+    "migration_consumer_denominator",
+    "runtime_deployable_entry_count"
+  ],
+  "fifth_axis_candidate_policy": "blocked_axis_set_incomplete",
+  "generated_at": "2026-06-28T14:15:05.277584+00:00",
+  "schema_version": "dvf-3-3-successor-readpoint-axis-policy-v1",
+  "seal_vs_prerequisite_is_axis": false,
+  "status": "PASS"
+}

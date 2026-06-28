@@ -2,10 +2,13 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+import errno
 import json
 from datetime import datetime, timezone
+import os
 from pathlib import Path
 import sys
+import time
 from typing import Any
 
 if __package__ in {None, ""}:
@@ -99,6 +102,56 @@ ENTRYPOINT_MODES = (
     DEFAULT_MODE,
     DIAGNOSTIC_RESOLVER_MODE,
 )
+
+
+def write_json_retry(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    serialized = json.dumps(payload, ensure_ascii=False, indent=2)
+    last_error: OSError | None = None
+    for attempt in range(8):
+        target = path if attempt == 0 else path.with_name(f".{path.name}.{os.getpid()}.{attempt}.tmp")
+        try:
+            target.write_text(serialized, encoding="utf-8")
+            if target != path:
+                target.replace(path)
+            return
+        except OSError as exc:
+            last_error = exc
+            if target != path:
+                try:
+                    target.unlink(missing_ok=True)
+                except OSError:
+                    pass
+            if exc.errno != errno.EINVAL or attempt == 7:
+                raise
+            time.sleep(0.05 * (attempt + 1))
+    if last_error is not None:
+        raise last_error
+
+
+def write_lines_retry(path: Path, lines: list[str]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    text = "".join(lines)
+    last_error: OSError | None = None
+    for attempt in range(8):
+        target = path if attempt == 0 else path.with_name(f".{path.name}.{os.getpid()}.{attempt}.tmp")
+        try:
+            target.write_text(text, encoding="utf-8")
+            if target != path:
+                target.replace(path)
+            return
+        except OSError as exc:
+            last_error = exc
+            if target != path:
+                try:
+                    target.unlink(missing_ok=True)
+                except OSError:
+                    pass
+            if exc.errno != errno.EINVAL or attempt == 7:
+                raise
+            time.sleep(0.05 * (attempt + 1))
+    if last_error is not None:
+        raise last_error
 
 
 class ComposeEntrypointGuardError(ValueError):
@@ -506,15 +559,11 @@ def build_rendered(
         "entries": entries,
     }
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    with output_path.open("w", encoding="utf-8") as handle:
-        json.dump(rendered, handle, ensure_ascii=False, indent=2)
-
-    style_log_path.parent.mkdir(parents=True, exist_ok=True)
-    with style_log_path.open("w", encoding="utf-8") as handle:
-        for log_entry in normalization_logs:
-            handle.write(json.dumps(log_entry, ensure_ascii=False))
-            handle.write("\n")
+    write_json_retry(output_path, rendered)
+    write_lines_retry(
+        style_log_path,
+        [json.dumps(log_entry, ensure_ascii=False) + "\n" for log_entry in normalization_logs],
+    )
 
     if requeue_candidates_path is not None:
         write_jsonl(requeue_candidates_path, requeue_candidates)

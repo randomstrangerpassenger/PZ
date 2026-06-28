@@ -1,0 +1,39 @@
+{
+  "closure_enforced": true,
+  "current_route_success": true,
+  "generated_at": "2026-06-28T14:16:44.888235+00:00",
+  "required_test_count": 43,
+  "rows": [
+    {
+      "executed": true,
+      "expected_by_this_round": true,
+      "failed": false,
+      "missing": false,
+      "selected_by_current_route": true,
+      "skipped": false,
+      "test_id": "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_phase0_preflight_and_axis_contract_pass"
+    },
+    {
+      "executed": true,
+      "expected_by_this_round": true,
+      "failed": false,
+      "missing": false,
+      "selected_by_current_route": true,
+      "skipped": false,
+      "test_id": "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_rowkey_and_package_binding_pass"
+    },
+    {
+      "executed": true,
+      "expected_by_this_round": true,
+      "failed": false,
+      "missing": false,
+      "selected_by_current_route": true,
+      "skipped": false,
+      "test_id": "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest.test_live_manifest_adoption_is_additive_and_governance_only"
+    }
+  ],
+  "schema_version": "dvf-3-3-successor-readpoint-current-route-executed-test-inventory-v1",
+  "selected_identity_count": 122,
+  "status": "PASS",
+  "test_count": 122
+}

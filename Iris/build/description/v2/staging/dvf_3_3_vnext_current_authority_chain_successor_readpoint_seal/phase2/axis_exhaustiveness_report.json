@@ -1,0 +1,16 @@
+{
+  "ambiguous_count": 0,
+  "axis_counts": {
+    "migration_consumer_denominator": 521,
+    "predecessor_historical_trace": 91,
+    "runtime_deployable_entry_count": 390,
+    "successor_current_row_identity": 154
+  },
+  "generated_at": "2026-06-28T14:15:05.260620+00:00",
+  "mutual_exclusivity": "PASS",
+  "occurrence_count": 1156,
+  "schema_version": "dvf-3-3-successor-readpoint-axis-exhaustiveness-v1",
+  "status": "PASS",
+  "terminal_state_count": 0,
+  "unclassified_count": 0
+}

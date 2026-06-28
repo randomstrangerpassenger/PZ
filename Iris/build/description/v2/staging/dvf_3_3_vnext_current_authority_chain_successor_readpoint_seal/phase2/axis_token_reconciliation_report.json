@@ -1,0 +1,28 @@
+{
+  "existing_sealed_tokens_remain_canonical": true,
+  "generated_at": "2026-06-28T14:15:05.261477+00:00",
+  "reconciliations": [
+    {
+      "axis": "successor_current_row_identity",
+      "relationship": "subordinate_classification_label",
+      "sealed_token": "successor_current_source_authority"
+    },
+    {
+      "axis": "runtime_deployable_entry_count",
+      "relationship": "count_binding_label",
+      "sealed_token": "deployable_runtime_chunk_authority"
+    },
+    {
+      "axis": "migration_consumer_denominator",
+      "relationship": "governance_denominator_label",
+      "sealed_token": "consumer_migration_denominator"
+    },
+    {
+      "axis": "predecessor_historical_trace",
+      "relationship": "historical_trace_label",
+      "sealed_token": "historical_predecessor_trace"
+    }
+  ],
+  "schema_version": "dvf-3-3-successor-readpoint-axis-token-reconciliation-v1",
+  "status": "PASS"
+}

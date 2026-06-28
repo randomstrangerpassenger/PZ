@@ -437,7 +437,7 @@
         "workshop_readiness",
         "migration_completion"
       ],
-      "freshness_marker": "sha256:2ded69f7bbd4fcd16a533a022f5ceb93d9eab76890b7bb97f0aa2ea25aa3b9f3#current_runtime_entry_count",
+      "freshness_marker": "sha256:dc22aab7ccab0ffb61f447d820ee5146d7ed31b95396f26d37692ee2c69fc2cc#current_runtime_entry_count",
       "inclusion_predicate": "live current runtime payload entries",
       "non_completion_boundary": "not migration completion",
       "owning_round": "runtime_payload_state_integrity",
@@ -467,7 +467,7 @@
         "workshop_readiness",
         "migration_completion"
       ],
-      "freshness_marker": "sha256:2ded69f7bbd4fcd16a533a022f5ceb93d9eab76890b7bb97f0aa2ea25aa3b9f3#surface_summaries[0].adoption_counts.adopted",
+      "freshness_marker": "sha256:dc22aab7ccab0ffb61f447d820ee5146d7ed31b95396f26d37692ee2c69fc2cc#surface_summaries[0].adoption_counts.adopted",
       "inclusion_predicate": "live current runtime payload entries classified adopted",
       "non_completion_boundary": "not migration completion",
       "owning_round": "runtime_payload_state_integrity",

@@ -1,0 +1,15 @@
+{
+  "decisions_facts_ref_replaces_item_id": false,
+  "generated_at": "2026-06-28T14:15:05.832563+00:00",
+  "package_row_key": "package_peer_lua_table_key",
+  "rendered_row_key": "rendered_entry_full_type_key",
+  "runtime_row_key": "lua_table_key",
+  "schema_version": "dvf-3-3-successor-readpoint-rowkey-definition-v1",
+  "source_files": [
+    "facts",
+    "decisions",
+    "overlay_support"
+  ],
+  "source_row_key": "item_id",
+  "status": "PASS"
+}

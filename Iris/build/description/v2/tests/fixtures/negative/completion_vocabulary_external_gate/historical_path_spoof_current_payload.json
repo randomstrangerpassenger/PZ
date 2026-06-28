@@ -1,0 +1,8 @@
+{
+  "canonical_external_review_state": "pending",
+  "external_gate_state": "PASS",
+  "lifecycle": "historical_trace",
+  "mode": "historical",
+  "owner_decision": "PASS",
+  "path": "Iris/build/description/v2/staging/historical/forged-current-payload.json"
+}

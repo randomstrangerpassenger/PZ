@@ -1,0 +1,18 @@
+{
+  "forbidden_context_count": 0,
+  "forbidden_contexts": [
+    "current hard gate",
+    "current runtime authority",
+    "package authority",
+    "release readiness",
+    "current debt",
+    "required migration target expansion",
+    "old chunks fallback",
+    "monolith fallback",
+    "raw predecessor artifact direct execution authority"
+  ],
+  "generated_at": "2026-06-28T14:15:06.569066+00:00",
+  "rows": [],
+  "schema_version": "dvf-3-3-successor-readpoint-forbidden-predecessor-context-v1",
+  "status": "PASS"
+}

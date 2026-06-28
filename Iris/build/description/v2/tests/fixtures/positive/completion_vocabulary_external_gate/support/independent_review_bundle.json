@@ -1,0 +1,17 @@
+{
+  "bundle_kind": "independent_review_hash_bundle",
+  "generated_for_fixture": "complete_current_canonical_satisfied",
+  "independent_review_artifact_path": "Iris/build/description/v2/tests/fixtures/positive/completion_vocabulary_external_gate/support/independent_review_artifact.json",
+  "reviewed_artifact_list": [
+    {
+      "path": "Iris/build/description/v2/tests/fixtures/positive/completion_vocabulary_external_gate/support/reviewed_artifact.json",
+      "sha256": "632ea2548ae2085f19bea475872158336cb0a3a9cf16051ad010c0440305bfcd"
+    }
+  ],
+  "reviewed_validation_result_or_rerun_result": {
+    "path": "Iris/build/description/v2/tests/fixtures/positive/completion_vocabulary_external_gate/support/validation_result_pass.json",
+    "sha256": "6847b860b5c2c132ad13d11c8247b947f0b2bc28a2050079b3eeafc87cfa28b2"
+  },
+  "schema_version": "dvf-3-3-independent-review-hash-bundle-v1",
+  "self_generated_artifact_flag": false
+}

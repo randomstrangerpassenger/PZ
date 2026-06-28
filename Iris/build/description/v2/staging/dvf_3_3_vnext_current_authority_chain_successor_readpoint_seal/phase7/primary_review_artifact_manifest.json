@@ -1,0 +1,89 @@
+{
+  "artifact_count": 10,
+  "artifacts": [
+    {
+      "bytes": 2532,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase0/report_field_contract.json",
+      "role": "primary_review_artifact",
+      "sha256": "54fc410e937fdbbc978966cc3ef4ed11caf13c2a264e66e0d6707a12e270addf"
+    },
+    {
+      "bytes": 598787,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase1/axis_occurrence_inventory.jsonl",
+      "role": "primary_review_artifact",
+      "sha256": "8b143b9cfcd3c66a7591871aaf53868d953aaa423d0c3c4ffa6679e37666f59e"
+    },
+    {
+      "bytes": 483,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase2/axis_exhaustiveness_report.json",
+      "role": "primary_review_artifact",
+      "sha256": "1b6cf2252840d29e14d21a489f070bff2bf384de36de1e15bac6526dad9dd130"
+    },
+    {
+      "bytes": 450,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase3/chain_rowkey_identity_report.json",
+      "role": "primary_review_artifact",
+      "sha256": "9fee2294df479208219d9adadffb969078b8c6a5e517421115e38b6e63c62ac9"
+    },
+    {
+      "bytes": 3266,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase4/evidence_role_taxonomy_report.json",
+      "role": "primary_review_artifact",
+      "sha256": "0ab950b783d53b6467b5a3074bad47c95a5f4298966d84b1153ded76c74a2dbf"
+    },
+    {
+      "bytes": 449,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase5/predecessor_reentry_axis_guard_report.json",
+      "role": "primary_review_artifact",
+      "sha256": "4b3618f94787371652b0302f5d802ea93930faf6e514bf3c4a5d8b17cbd1034b"
+    },
+    {
+      "bytes": 959,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/live_required_manifest_adoption_report.json",
+      "role": "primary_review_artifact",
+      "sha256": "ca88b2531aa8c1cc6351427235f6b174d06b32c465e750d462aa88b29fc56689"
+    },
+    {
+      "bytes": 3856,
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_successor_readpoint_governance_seal_report.json",
+      "role": "primary_review_artifact",
+      "sha256": "69fb6d0d885f4a89636ddd10f9c17ec2f699c4cebc1a62b17bf4db19a21e8aca"
+    },
+    {
+      "bytes": 1310,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_claim_boundary.md",
+      "role": "primary_review_artifact",
+      "sha256": "d93886809909944be39fa35455903f2bb221df129a4f618fd586611a6ed19dfd"
+    },
+    {
+      "bytes": 939,
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_ledger_packet.md",
+      "role": "primary_review_artifact",
+      "sha256": "84650d931644e7873ed137575671c706b69adef9bcb2b9c146088d7259c24c9f"
+    }
+  ],
+  "generated_at": "2026-06-28T14:16:45.339638+00:00",
+  "missing_count": 0,
+  "schema_version": "dvf-3-3-successor-readpoint-primary-review-artifact-manifest-v1",
+  "status": "PASS"
+}

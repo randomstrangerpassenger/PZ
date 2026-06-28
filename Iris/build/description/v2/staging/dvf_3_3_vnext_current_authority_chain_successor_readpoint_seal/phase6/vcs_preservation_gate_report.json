@@ -1,0 +1,148 @@
+{
+  "canonical_preservation_satisfied": true,
+  "canonical_seal_disallowed_if_unsatisfied": true,
+  "generated_at": "2026-06-28T14:15:09.114729+00:00",
+  "ignored_minimum_path_count": 0,
+  "paths": [
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md",
+      "role": "canonical_minimum_candidate",
+      "sha256": "e5920129d86135a0fdec9eabad25cb36f414e3bd523c21ed7b9507bcaf983e5c",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_claim_boundary.md",
+      "role": "canonical_minimum_candidate",
+      "sha256": "d93886809909944be39fa35455903f2bb221df129a4f618fd586611a6ed19dfd",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_ledger_packet.md",
+      "role": "canonical_minimum_candidate",
+      "sha256": "84650d931644e7873ed137575671c706b69adef9bcb2b9c146088d7259c24c9f",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_decisions_update_draft.md",
+      "role": "canonical_minimum_candidate",
+      "sha256": "26eeda27d7d9f7beea6ccdb63e15d149c272f595695f6b8d9fd490bd6bcae875",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_roadmap_update_draft.md",
+      "role": "canonical_minimum_candidate",
+      "sha256": "89fb029cf76ff7be20b97f311d940b01681dd7bd91141cd75957fd1e8a4573b6",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+      "role": "canonical_minimum_candidate",
+      "sha256": "18e92cadbcf362b888a4acff5f724e7e97e70b48da444ceebf15d8260b003585",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+      "role": "canonical_minimum_candidate",
+      "sha256": "3a4fcbf0b1d3d8a8d779d3fd607861eef6801810a309b50f603f700f0b77a65f",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+      "role": "canonical_minimum_candidate",
+      "sha256": "654efa7edfbaf81201fb77c90703258b7afb1c8cfd228c2575d1ed1481bff372",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+      "role": "canonical_minimum_candidate",
+      "sha256": "87aee995cfaddbd6b322ef8bd7776e67a89fc6798adf1bfcc7687cc315b28aed",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "canonical_minimum_candidate",
+      "sha256": "da7c3caacad3ac834d7009c383ea0d2ee9b8c66026f9832a517956888367e032",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase0/report_field_contract.json",
+      "role": "canonical_minimum_candidate",
+      "sha256": "54fc410e937fdbbc978966cc3ef4ed11caf13c2a264e66e0d6707a12e270addf",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/current_route_required_validation_candidate_patch.json",
+      "role": "canonical_minimum_candidate",
+      "sha256": "40b4ab0c49570bcf8f2cb1a4956172e63dc5d35680d074b9e609c4f8795516f3",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/manifest_additive_diff_report.json",
+      "role": "canonical_minimum_candidate",
+      "sha256": "34a6b810c5b98be75b2fe75b99eb15aec6985278cedea2b1da03cefa73e1d0bd",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/validation_report.require_complete.json",
+      "role": "canonical_minimum_candidate",
+      "sha256": "e388b488ffc9713be5836138da25314af4031fc36437f807bff282c4747637da",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/non_author_independent_review_input.json",
+      "role": "canonical_minimum_candidate",
+      "sha256": "faeadd59da431287abcef0eb3e3d2103323b5143b7b89e926cb85869a8dc08c0",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/owner_canonical_seal_decision_input.json",
+      "role": "canonical_minimum_candidate",
+      "sha256": "8dba3e2c590f49e1a4a1cb4f6da80190067c6387dfe56def8c087b624d8fb8b4",
+      "tracked": true
+    },
+    {
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_token_signoff_input.json",
+      "role": "canonical_minimum_candidate",
+      "sha256": "5580f7e3a1faa660f0c5a84262025c2b0b28727b52c7d5f697337342dc02c6bc",
+      "tracked": true
+    }
+  ],
+  "schema_version": "dvf-3-3-successor-readpoint-vcs-preservation-gate-v1",
+  "status": "PASS",
+  "unpreserved_minimum_path_count": 0,
+  "vcs_preservation_proof_status": "PASS"
+}

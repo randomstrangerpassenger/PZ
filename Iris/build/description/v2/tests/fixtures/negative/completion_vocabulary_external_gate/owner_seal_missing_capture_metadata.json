@@ -1,0 +1,7 @@
+{
+  "canonical_external_review_state": "blocked",
+  "external_gate_state": "blocked",
+  "owner_seal_does_not_replace_review": true,
+  "owner_seal_source_kind": "owner_supplied",
+  "owner_seal_state": "sealed"
+}

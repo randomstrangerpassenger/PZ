@@ -1,0 +1,11 @@
+{
+  "decisions_only_count": 0,
+  "facts_decisions_overlay_equal": true,
+  "facts_only_count": 0,
+  "generated_at": "2026-06-28T14:15:05.835224+00:00",
+  "key_set_sha256": "845de3300c5e528b8dbf2718a2cf3fbcb0b68789236869c88356b3886c356d1a",
+  "mismatch_count": 0,
+  "overlay_only_count": 0,
+  "schema_version": "dvf-3-3-successor-readpoint-intra-source-keyset-v1",
+  "status": "PASS"
+}

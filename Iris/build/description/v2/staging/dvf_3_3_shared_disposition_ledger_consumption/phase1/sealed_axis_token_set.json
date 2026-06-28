@@ -76,9 +76,9 @@
     },
     {
       "coverage_status": "COVERED",
-      "excluded_numeric_occurrence_count": 7,
+      "excluded_numeric_occurrence_count": 10,
       "exclusion_reason": null,
-      "raw_numeric_occurrence_count": 297,
+      "raw_numeric_occurrence_count": 300,
       "role_bearing_disposition_occurrence_count": 290,
       "sealed_axis_role": "runtime current entry comparison count",
       "sealed_value": 2105,
@@ -146,10 +146,10 @@
     },
     {
       "coverage_status": "COVERED",
-      "excluded_numeric_occurrence_count": 0,
+      "excluded_numeric_occurrence_count": 1,
       "exclusion_reason": null,
-      "raw_numeric_occurrence_count": 2543,
-      "role_bearing_disposition_occurrence_count": 2543,
+      "raw_numeric_occurrence_count": 2546,
+      "role_bearing_disposition_occurrence_count": 2545,
       "sealed_axis_role": "terminal diagnostic-only projection",
       "sealed_value": 3,
       "token": "3"
@@ -196,9 +196,9 @@
     },
     {
       "coverage_status": "COVERED",
-      "excluded_numeric_occurrence_count": 49,
+      "excluded_numeric_occurrence_count": 66,
       "exclusion_reason": null,
-      "raw_numeric_occurrence_count": 316,
+      "raw_numeric_occurrence_count": 333,
       "role_bearing_disposition_occurrence_count": 267,
       "sealed_axis_role": "blocked/unknown/pending/forbidden zero invariants",
       "sealed_value": 0,

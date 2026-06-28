@@ -1,0 +1,36 @@
+{
+  "artifact_kind": "independent_review_artifact",
+  "hash_sealed_review_bundle_reference": {
+    "path": "Iris/build/description/v2/tests/fixtures/positive/completion_vocabulary_external_gate/support/independent_review_bundle.json",
+    "sha256": "ce0533d02e422ceee2dce62fe8bb16993d89781df7866c51a78c608340348f70"
+  },
+  "pass_with_notes_gate_effect": "satisfied_candidate",
+  "readpoint": "complete-current-positive-fixture",
+  "review_bundle_hash_sealed": true,
+  "review_notes_blocking": false,
+  "review_timestamp": "2026-06-28T00:00:00Z",
+  "review_verdict": "PASS",
+  "reviewed_artifact_list": [
+    {
+      "path": "Iris/build/description/v2/tests/fixtures/positive/completion_vocabulary_external_gate/support/reviewed_artifact.json",
+      "sha256": "632ea2548ae2085f19bea475872158336cb0a3a9cf16051ad010c0440305bfcd"
+    }
+  ],
+  "reviewed_validation_result_or_rerun_result": {
+    "path": "Iris/build/description/v2/tests/fixtures/positive/completion_vocabulary_external_gate/support/validation_result_pass.json",
+    "sha256": "6847b860b5c2c132ad13d11c8247b947f0b2bc28a2050079b3eeafc87cfa28b2"
+  },
+  "reviewed_validation_result_present": true,
+  "reviewer_identity": "external independent reviewer fixture",
+  "reviewer_independence_declaration": "independent from author, executor, self-record generator, roadmap author, and upstream governance-chain artifact authors",
+  "reviewer_independent_from_author": true,
+  "reviewer_independent_from_executor": true,
+  "reviewer_independent_from_roadmap_author": true,
+  "reviewer_independent_from_self_record_generator": true,
+  "reviewer_independent_from_upstream_governance_chain_artifact_author": true,
+  "reviewer_role": "independent_reviewer",
+  "reviewer_scope": "final_canonical_external_gate_seal",
+  "schema_version": "dvf-3-3-independent-review-artifact-v1",
+  "self_generated_artifact_flag": false,
+  "structured_notes": []
+}

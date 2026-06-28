@@ -1,0 +1,12 @@
+{
+  "banned_unqualified_claim_count": 0,
+  "generated_at": "2026-06-28T14:15:05.279928+00:00",
+  "patterns": [
+    "2105 PASS",
+    "standalone complete",
+    "standalone current seal",
+    "unqualified 2105 current"
+  ],
+  "schema_version": "dvf-3-3-successor-readpoint-banned-claim-patterns-v1",
+  "status": "PASS"
+}

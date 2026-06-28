@@ -1,0 +1,91 @@
+{
+  "candidate_promoted_to_current_authority_count": 0,
+  "generated_at": "2026-06-28T14:15:05.854660+00:00",
+  "minimum_roles": [
+    "sealed_current_authority",
+    "prerequisite_evidence",
+    "candidate_evidence",
+    "staging_evidence",
+    "historical_trace",
+    "governance_required_gate",
+    "pre_apply_readiness",
+    "non_authority_fixture"
+  ],
+  "prerequisite_direct_execution_authority_count": 0,
+  "raw_audit_as_execution_authority_count": 0,
+  "rows": [
+    {
+      "direct_current_authority": true,
+      "evidence_role": "sealed_current_authority",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "prerequisite_evidence",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "pre_apply_readiness",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "governance_required_gate",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "governance_required_gate",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "governance_required_gate",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "prerequisite_evidence",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/runtime_payload_state_integrity",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "governance_required_gate",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "governance_required_gate",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal",
+      "writer_authority_opened": false
+    },
+    {
+      "direct_current_authority": false,
+      "evidence_role": "governance_required_gate",
+      "exists": true,
+      "root": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split",
+      "writer_authority_opened": false
+    }
+  ],
+  "schema_version": "dvf-3-3-successor-readpoint-evidence-role-taxonomy-v1",
+  "staging_as_current_authority_count": 0,
+  "status": "PASS"
+}

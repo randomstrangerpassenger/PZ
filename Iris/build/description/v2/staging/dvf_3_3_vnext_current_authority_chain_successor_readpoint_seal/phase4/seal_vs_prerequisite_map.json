@@ -1,0 +1,8 @@
+{
+  "adds_new_axis_token": false,
+  "generated_at": "2026-06-28T14:15:05.857015+00:00",
+  "phase2_axis_map_consumed": true,
+  "schema_version": "dvf-3-3-successor-readpoint-seal-vs-prerequisite-map-v1",
+  "seal_vs_prerequisite_is_fifth_axis": false,
+  "status": "PASS"
+}

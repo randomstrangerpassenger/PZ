@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-06-28T14:15:05.255053+00:00",
+  "missing_required_surface_families": [],
+  "missing_required_surface_family_count": 0,
+  "required_surface_families": [
+    "docs",
+    "live_required_validation_manifest",
+    "package_peer",
+    "rendered_output",
+    "runtime_lua",
+    "source_data",
+    "staging_evidence"
+  ],
+  "schema_version": "dvf-3-3-successor-readpoint-surface-coverage-v1",
+  "status": "PASS",
+  "surface_family_counts": {
+    "docs": 137,
+    "live_required_validation_manifest": 12,
+    "package_peer": 1,
+    "rendered_output": 3,
+    "runtime_lua": 1,
+    "source_data": 7,
+    "staging_evidence": 995
+  }
+}

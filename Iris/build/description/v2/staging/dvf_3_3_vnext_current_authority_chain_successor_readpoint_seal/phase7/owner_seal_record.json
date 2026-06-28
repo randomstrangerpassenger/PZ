@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-06-28T14:16:45.341809+00:00",
+  "owner_decision_input": {
+    "exists": true,
+    "ignored": false,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/owner_canonical_seal_decision_input.json",
+    "role": "owner_canonical_seal_decision_input",
+    "sha256": "8dba3e2c590f49e1a4a1cb4f6da80190067c6387dfe56def8c087b624d8fb8b4",
+    "tracked": true
+  },
+  "owner_decision_status": "approved",
+  "owner_seal_replaces_independent_review": false,
+  "owner_seal_status": "sealed",
+  "schema_version": "dvf-3-3-successor-readpoint-owner-seal-record-v1",
+  "status": "PASS"
+}

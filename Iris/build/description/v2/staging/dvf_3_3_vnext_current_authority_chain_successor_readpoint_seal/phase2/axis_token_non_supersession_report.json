@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-06-28T14:15:05.262576+00:00",
+  "owner_supersession_plan_present": false,
+  "schema_version": "dvf-3-3-successor-readpoint-axis-token-non-supersession-v1",
+  "sealed_token_supersession_claim": false,
+  "sealed_tokens_replaced": [],
+  "status": "PASS",
+  "this_round_maps_tokens_only": true
+}

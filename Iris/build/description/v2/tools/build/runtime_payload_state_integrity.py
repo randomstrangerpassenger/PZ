@@ -79,6 +79,21 @@ def phase_path(phase: str, name: str) -> Path:
     return phase_dir(phase) / name
 
 
+def write_json_preserving_generated_at(path: Path, payload: dict[str, Any]) -> None:
+    if path.exists() and "generated_at" in payload:
+        try:
+            existing = read_json(path)
+        except (OSError, ValueError):
+            existing = None
+        if isinstance(existing, dict) and existing.get("generated_at"):
+            old_without_time = {key: value for key, value in existing.items() if key != "generated_at"}
+            new_without_time = {key: value for key, value in payload.items() if key != "generated_at"}
+            if old_without_time == new_without_time:
+                payload = dict(payload)
+                payload["generated_at"] = existing["generated_at"]
+    write_json(path, payload)
+
+
 def surfaces() -> list[dict[str, Any]]:
     return [
         {
@@ -456,7 +471,7 @@ def write_phase0(rows: list[dict[str, Any]], summaries: list[dict[str, Any]]) ->
         "runtime_extra_key_count": len(live_keys - rendered),
         "claim_boundary": CLAIM_BOUNDARY,
     }
-    write_json(phase_path("phase0", "runtime_payload_state_inventory.json"), inventory)
+    write_json_preserving_generated_at(phase_path("phase0", "runtime_payload_state_inventory.json"), inventory)
     write_jsonl(phase_path("phase0", "unadopted_payload_rows.jsonl"), unadopted_current)
 
     source_counts = Counter(row["source"] for row in current_rows)
@@ -487,7 +502,7 @@ def write_phase0(rows: list[dict[str, Any]], summaries: list[dict[str, Any]]) ->
         "resolution": "publish_state is not authoritative in current/current-looking runtime payload rows; predecessor exposed rows are legacy residue",
         "claim_boundary": CLAIM_BOUNDARY,
     }
-    write_json(phase_path("phase0", "publish_state_authority_resolution.json"), publish_resolution)
+    write_json_preserving_generated_at(phase_path("phase0", "publish_state_authority_resolution.json"), publish_resolution)
     write_json(phase_path("phase0", "surface_role_classification.json"), {"schema_version": "runtime-payload-state-surface-role-classification-v1", "generated_at": now_iso(), "status": "PASS", "surfaces": summaries, "claim_boundary": CLAIM_BOUNDARY})
     write_json(phase_path("phase0", "rollback_snapshot_residue_scan.json"), {"schema_version": "runtime-payload-state-rollback-residue-scan-v1", "generated_at": now_iso(), "status": "PASS", "predecessor_residue_count": len(predecessor_residue), "rows": predecessor_residue, "claim_boundary": CLAIM_BOUNDARY})
     write_matrix_markdown(phase_path("phase0", "payload_state_combination_matrix.preview.md"), matrix_rows(rows), "Runtime Payload State Combination Matrix Preview")
@@ -616,7 +631,7 @@ def write_phase4(rows: list[dict[str, Any]], matrix: dict[str, Any]) -> dict[str
         "claim_boundary": CLAIM_BOUNDARY,
     }
     write_json(phase_path("phase4", "payload_shape_validation_report.json"), validation)
-    write_json(phase_path("phase4", "current_route_payload_state_guard_report.json"), guard)
+    write_json_preserving_generated_at(phase_path("phase4", "current_route_payload_state_guard_report.json"), guard)
     write_json(phase_path("phase4", "dual_zero_payload_shape_guard_report.json"), dual_zero)
     write_json(phase_path("phase4", "negative_forbidden_combination_fixture_report.json"), validation["negative_fixture"])
     return guard
@@ -639,7 +654,7 @@ def write_phase5b(rows: list[dict[str, Any]]) -> None:
         "branch_selection_status": "not_author_selected",
         "claim_boundary": CLAIM_BOUNDARY,
     }
-    write_json(phase_path("phase5b", "display_resolution_parity_report.json"), display)
+    write_json_preserving_generated_at(phase_path("phase5b", "display_resolution_parity_report.json"), display)
     write_json(
         phase_path("phase5b", "strict_no_mutation_verdict.json"),
         {

@@ -1,0 +1,19 @@
+{
+  "canonical_closeout_blocked_without_signoff": false,
+  "generated_at": "2026-06-28T08:21:30.007320+00:00",
+  "recorded_token_split": {
+    "external_validation_bundle": [
+      "external_validation_bundle_result",
+      "external_validation_bundle_state"
+    ]
+  },
+  "schema_version": "dvf-3-3-token-rename-author-signoff-report-v1",
+  "signed_at": "2026-06-28T08:21:30.007332+00:00",
+  "signoff_basis": "current session owner direction: external review, owner seal, and token sign-off processed",
+  "signoff_captured_by": "codex_current_session_transcription",
+  "signoff_scope": "final_canonical_external_gate_seal",
+  "signoff_source_kind": "owner_supplied_current_session",
+  "status": "PASS",
+  "token_rename_author_signoff_required_before_final_canonical_closeout": true,
+  "token_rename_author_signoff_state": "signed"
+}

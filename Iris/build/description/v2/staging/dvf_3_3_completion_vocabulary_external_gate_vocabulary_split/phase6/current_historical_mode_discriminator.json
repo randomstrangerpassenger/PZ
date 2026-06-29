@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-06-28T08:19:40.962054+00:00",
+  "mode_discriminator_machine_readable": true,
+  "rules": [
+    {
+      "axis": "lifecycle",
+      "current_values": [
+        "current"
+      ],
+      "historical_values": [
+        "historical",
+        "historical_trace",
+        "sealed_historical"
+      ]
+    },
+    {
+      "axis": "path_prefix",
+      "current_prefixes": [
+        "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/"
+      ],
+      "historical_prefixes": [
+        "Iris/build/description/v2/staging/"
+      ]
+    },
+    {
+      "axis": "manifest_membership",
+      "current_required_manifest_path": "Iris/_docs/round3/current_route_required_validations.json"
+    }
+  ],
+  "schema_version": "dvf-3-3-current-historical-mode-discriminator-v1",
+  "status": "PASS"
+}

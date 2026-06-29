@@ -1,0 +1,158 @@
+{
+  "absence_maps_to": "blocked",
+  "allowed_absence_reason": "no required external review, owner seal, or token sign-off evidence is absent",
+  "blocking_note_count": 0,
+  "blocking_note_ids": [],
+  "canonical_complete_ledger_update_allowed": true,
+  "canonical_external_review_required": true,
+  "canonical_external_review_state": "satisfied",
+  "canonical_seal_allowed": true,
+  "closeout_state": "canonical_complete_governance_only",
+  "current_historical_mode_discriminator_status": "PASS",
+  "current_route_validation_status": "PASS",
+  "current_route_validation_success": true,
+  "decision_authority": "owner",
+  "dual_field_relocation_invariant_status": "PASS",
+  "external_gate_state": "satisfied",
+  "external_validation_bundle_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_external_validation_bundle_result.json",
+    "sha256": "9ae1f76eb8c799fcde026d0dc5d61e0d7d41a7acec91dd4e2044e57cd5556038"
+  },
+  "external_validation_bundle_does_not_replace_review": true,
+  "external_validation_bundle_required": true,
+  "external_validation_bundle_result": "PASS",
+  "external_validation_bundle_state": "present",
+  "gate_requirement_scope_id": "final_canonical_external_gate_seal",
+  "generated_at": "2026-06-28T08:21:30.216354+00:00",
+  "hash_sealed_review_bundle_reference": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_independent_review_bundle.json",
+    "sha256": "7a0e9aebe4dae6aa9f273f368c749110683b76c148e2b406419e6b208b2e52be"
+  },
+  "historical_frozen_evidence_hash_mismatch_count": 0,
+  "independent_review_artifact_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_independent_review_artifact.json",
+    "sha256": "a7463e56c01fd8a20ceab91fdf68851acc7602fc52a70f9cdff255ee1dc74522"
+  },
+  "independent_review_artifact_present": true,
+  "independent_review_required": true,
+  "independent_review_state": "present",
+  "independent_review_verdict": "PASS",
+  "legacy_projection_cleanup_requires_separate_owner_approved_plan": true,
+  "legacy_projection_consumed_for_current_gate": false,
+  "machine_checks": {
+    "canonical_schema_pass": true,
+    "claim_boundary_scan_deferred_until_final_report_write": true,
+    "current_route_validation_pass": true,
+    "gate_requirement_matrix_pass": true,
+    "legacy_inventory_classified": true,
+    "manifest_adoption_pass": true,
+    "mode_discriminator_pass": true,
+    "negative_fixture_matrix_pass": true,
+    "owner_substitution_guard_pass": true,
+    "protected_surface_no_mutation_pass": true,
+    "review_contract_guard_pass": true,
+    "sealed_evidence_no_mutation_pass": true
+  },
+  "machine_contract_validation": "PASS",
+  "machine_contract_validation_required": true,
+  "machine_pass_does_not_replace_review": true,
+  "non_claims": [
+    "no_source_mutation",
+    "no_rendered_regeneration",
+    "no_lua_bridge_export",
+    "no_runtime_chunk_replacement",
+    "no_package_payload_mutation",
+    "no_release_readiness",
+    "no_package_readiness",
+    "no_workshop_readiness",
+    "no_b42_readiness",
+    "no_deployment_readiness",
+    "no_manual_in_game_qa",
+    "no_semantic_quality_completion",
+    "no_public_facing_text_acceptance",
+    "no_live_migration_execution",
+    "no_full_clean_checkout_required_evidence_reproducibility",
+    "no_full_historical_byte_reproducibility"
+  ],
+  "nonblocking_note_count": 0,
+  "owner_approval_does_not_replace_review": true,
+  "owner_decision": "approved",
+  "owner_decision_basis": "owner supplied current-session completion approval after external review and token sign-off",
+  "owner_decision_captured_by": "codex_current_session_transcription",
+  "owner_decision_readpoint": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase8/current_route_validation_result.json",
+  "owner_decision_required": true,
+  "owner_decision_scope": "final_canonical_external_gate_seal",
+  "owner_decision_source_kind": "owner_supplied",
+  "owner_identity": "project_owner_current_session",
+  "owner_seal_basis": "owner supplied current-session completion approval after external review and token sign-off",
+  "owner_seal_captured_by": "codex_current_session_transcription",
+  "owner_seal_does_not_replace_review": true,
+  "owner_seal_hash_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_owner_seal_record.json",
+    "sha256": "aa834f0b8ff4d6dccb1cb0e1818e26543650869752dd3d68577ff9e665b9a363"
+  },
+  "owner_seal_readpoint": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase8/current_route_validation_result.json",
+  "owner_seal_required": true,
+  "owner_seal_scope": "final_canonical_external_gate_seal",
+  "owner_seal_source_kind": "owner_supplied",
+  "owner_seal_state": "sealed",
+  "pass_with_notes_gate_effect": "not_applicable",
+  "plan_level_pass_does_not_satisfy_independent_review_gate": true,
+  "plan_level_review_verdict": "PASS_WITH_NOTES",
+  "readpoint": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase8/current_route_validation_result.json",
+  "review_bundle_hash_sealed": true,
+  "review_notes_blocking": false,
+  "review_notes_present": false,
+  "review_timestamp": "2026-06-28T08:21:30.041704+00:00",
+  "reviewed_artifact_list": [
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase2/canonical_vocabulary_schema.json",
+      "sha256": "adb5ce3a8be80f0a0644227a9af1a51d5d0fc4cbaa85858353d8fe674b0c0b99"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase3/gate_requirement_by_scope.json",
+      "sha256": "8772590c8a382d692d53a2c8589ad04ccbec81c05426a98e2a73b9714f80d80e"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase4/independent_review_artifact_contract.json",
+      "sha256": "53153e51f15ccf90cd2181bd9f0520fbc73a12ea5072c6b0b533cfb66b918ca3"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase5/owner_decision_owner_seal_schema.json",
+      "sha256": "9c5eb0ef889b204e06fb51c4ffa529f493e1978024482e8ff23da9fd5d73add5"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase7/negative_fixture_matrix_report.json",
+      "sha256": "9fda16368ee3826fa24e0228c8f930d6928d81cd6933e0537539e52a69b28d59"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase8/current_route_validation_result.json",
+      "sha256": "44d9cdb447a516ea2eb570b49423e52a64172ef67ddde7bdd29f9af402eee142"
+    }
+  ],
+  "reviewed_validation_result_or_rerun_result": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase8/current_route_validation_result.json",
+    "sha256": "44d9cdb447a516ea2eb570b49423e52a64172ef67ddde7bdd29f9af402eee142"
+  },
+  "reviewed_validation_result_present": true,
+  "reviewer_identity": "current_session_external_reviewer",
+  "reviewer_identity_present": true,
+  "reviewer_independence_declaration": "reviewer is independent from author, executor, self record generator, roadmap author, and upstream governance chain artifact author",
+  "reviewer_independence_proven": true,
+  "reviewer_independent_from_author": true,
+  "reviewer_independent_from_executor": true,
+  "reviewer_independent_from_roadmap_author": true,
+  "reviewer_independent_from_self_record_generator": true,
+  "reviewer_independent_from_upstream_governance_chain_artifact_author": true,
+  "reviewer_role": "independent_external_review",
+  "reviewer_role_present": true,
+  "reviewer_scope": "final_canonical_external_gate_seal",
+  "reviewer_scope_present": true,
+  "schema_version": "dvf-3-3-completion-vocabulary-external-gate-split-final-report-v1",
+  "self_generated_pass_substitution_blocked": true,
+  "self_validation_error_count": 0,
+  "self_validation_errors": [],
+  "status": "PASS",
+  "token_rename_author_signoff_required_before_final_canonical_closeout": true,
+  "token_rename_author_signoff_state": "signed"
+}

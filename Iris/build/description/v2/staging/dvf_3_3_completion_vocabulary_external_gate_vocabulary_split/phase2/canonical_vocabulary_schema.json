@@ -1,0 +1,69 @@
+{
+  "bare_pass_forbidden_on": [
+    "owner_decision",
+    "owner_seal_state",
+    "external_gate_state",
+    "canonical_external_review_state"
+  ],
+  "fields": {
+    "canonical_external_review_state": [
+      "blocked",
+      "satisfied"
+    ],
+    "external_gate_state": [
+      "blocked",
+      "pending",
+      "satisfied"
+    ],
+    "external_validation_bundle_result": [
+      "PASS",
+      "FAIL",
+      null
+    ],
+    "external_validation_bundle_state": [
+      "missing",
+      "not_required",
+      "pending",
+      "present",
+      "required_missing"
+    ],
+    "independent_review_state": [
+      "invalid",
+      "missing",
+      "pending",
+      "present"
+    ],
+    "independent_review_verdict": [
+      "PASS",
+      "FAIL",
+      "PASS_WITH_NOTES",
+      null
+    ],
+    "machine_contract_validation": [
+      "FAIL",
+      "PASS"
+    ],
+    "note_severity_allowed_values": [
+      "blocking",
+      "info",
+      "minor"
+    ],
+    "owner_decision": [
+      "approved",
+      "pending",
+      "rejected"
+    ],
+    "owner_seal_state": [
+      "blocked",
+      "pending",
+      "sealed"
+    ]
+  },
+  "pass_allowed_only_on": [
+    "machine_contract_validation",
+    "external_validation_bundle_result",
+    "independent_review_verdict"
+  ],
+  "schema_version": "dvf-3-3-completion-vocabulary-external-gate-schema-v1",
+  "status": "PASS"
+}

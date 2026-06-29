@@ -1,7 +1,7 @@
 # ROADMAP.md
 
-> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-28
-> 기준일: 2026-06-28
+> 상태: canonical summary + deduplicated consolidated addendum ledger through 2026-06-29
+> 기준일: 2026-06-29
 > 상위 기준: `Philosophy.md`, `DECISIONS.md`  
 > 목적: Pulse 생태계의 현재 진행 방향과 다음 게이트를 짧게 고정한다.
 
@@ -482,8 +482,10 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 * legacy bridge / monolith / stale artifact 계열은 current runtime / package / compose path로 복귀시키지 않는다.
 
   * stale bridge와 legacy 6-entry payload는 current fallback이나 package authority로 사용하지 않는다.
+  * predecessor fixture, old 6-entry bridge, rollback snapshot, historical staging evidence는 historical / diagnostic / fixture / provenance trace로만 유지한다.
   * monolith export는 explicit historical / diagnostic mode에서만 허용한다.
   * package route는 legacy bridge / monolith / current-looking stale artifact 재유입을 fail-loud로 막는다.
+  * current-looking path, package path, required manifest path, raw authority read, docs current-authority claim으로의 stale/predecessor artifact 재진입은 guard 대상이다.
 
 * Iris refactor 이후 runtime / build contract를 현재 shape로 유지한다.
 
@@ -624,6 +626,15 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * adoption evidence는 `already_adopted_revalidation`으로 읽으며 first-adoption sequencing을 주장하지 않는다.
   * current-route contract는 `PASS / 122 tests / closure_enforced true`이며, focused runner / validator / unittest가 통과했다.
   * 이 seal은 source / rendered / Lua bridge / runtime chunk / package payload mutation, live migration execution, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+
+* Predecessor / Stale Artifact Reentry Guard는 governance-only required gate로 채택된 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/`다.
+  * stale bridge / monolith runtime path / current-looking predecessor path violation은 `0`으로 닫힌다.
+  * package guard와 package zip forbidden scan은 `PASS / forbidden_hit_count 0`으로 읽는다.
+  * predecessor fixture, old 6-entry bridge, rollback snapshot, historical staging evidence는 comparison / provenance / diagnostic / fixture trace로만 유지한다.
+  * live required-validation manifest는 이 guard의 required artifacts/tests를 additive로 소비하며, current-route contract는 `PASS / 127 tests / closure_enforced true`다.
+  * 이 guard는 stale/predecessor artifact 삭제, source / rendered / Lua bridge / runtime / package mutation, current authority cutover, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance, canonical independent-review seal을 열지 않는다.
 
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 

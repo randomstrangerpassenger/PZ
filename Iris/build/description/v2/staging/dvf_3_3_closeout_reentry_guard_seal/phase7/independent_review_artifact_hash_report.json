@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "df05b0f87495f5756a844d2f9f917a0697efc03e4b48d52df1b179124b29a6ab",
+  "aggregate_sha256": "bd86bdb08089f56019cd0fc2818728784efafbd443112380e4beec3721736841",
   "artifacts": [
     {
       "bytes": 50152,
@@ -75,7 +75,7 @@
       "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase1/closeout_claim_surface_inventory.json",
       "required": true,
       "role": "primary_review_artifact",
-      "sha256": "70b5fa64d7b70e84970dc02534a0341b64966e508fa9ae10a1236464e00f516d",
+      "sha256": "5f33542e96461b2d269b7f90fa169caf43caf38e794c9076ef90558deedfed0f",
       "status": "PRESENT"
     },
     {
@@ -156,14 +156,14 @@
       "status": "PRESENT"
     },
     {
-      "bytes": 3285,
+      "bytes": 3300,
       "exists": true,
       "kind": "file",
       "line_count": 66,
       "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json",
       "required": true,
       "role": "primary_review_artifact",
-      "sha256": "321c11a0e7ca807a809eddc46aa9514c3ce578e3a57f96185735aa5a5f0e791b",
+      "sha256": "a17352d16398697a5d7cdb31824f1e70a1dca00a7bf131f5c640e52bbda47acb",
       "status": "PRESENT"
     },
     {

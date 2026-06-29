@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-06-28T08:21:30.206806+00:00",
+  "overclaim_count": 0,
+  "overclaims": [],
+  "scanned": [
+    "docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_policy.md",
+    "docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_claim_boundary.md",
+    "docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_ledger_packet.md",
+    "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/final_completion_vocabulary_external_gate_split_report.json"
+  ],
+  "schema_version": "dvf-3-3-completion-vocabulary-claim-boundary-scan-v1",
+  "status": "PASS"
+}

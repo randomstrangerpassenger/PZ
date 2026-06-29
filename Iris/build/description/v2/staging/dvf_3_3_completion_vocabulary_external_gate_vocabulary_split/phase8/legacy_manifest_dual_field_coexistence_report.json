@@ -1,0 +1,9 @@
+{
+  "canonical_checks_added": true,
+  "dual_field_coexistence": true,
+  "generated_at": "2026-06-28T08:19:41.069946+00:00",
+  "legacy_check_predicate_modification_count": 0,
+  "legacy_checks_retired": false,
+  "schema_version": "dvf-3-3-legacy-manifest-dual-field-coexistence-report-v1",
+  "status": "PASS"
+}

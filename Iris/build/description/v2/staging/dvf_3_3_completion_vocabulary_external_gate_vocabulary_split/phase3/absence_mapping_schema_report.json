@@ -1,0 +1,12 @@
+{
+  "absence_maps_to_satisfied_allowed": false,
+  "absence_maps_to_satisfied_fixture_rejected": true,
+  "allowed_absence_value_count": 2,
+  "allowed_absence_values": [
+    "blocked",
+    "pending"
+  ],
+  "generated_at": "2026-06-28T08:19:40.943653+00:00",
+  "schema_version": "dvf-3-3-absence-mapping-schema-report-v1",
+  "status": "PASS"
+}

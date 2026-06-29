@@ -1,0 +1,47 @@
+{
+  "absolute_or_out_of_repo_owner_seal_binding_paths_allowed": false,
+  "generated_at": "2026-06-28T08:19:40.954521+00:00",
+  "owner_decision_values": [
+    "approved",
+    "rejected",
+    "pending"
+  ],
+  "owner_pass_allowed": false,
+  "owner_seal_hash_binding_requires_existing_file_and_sha256_match": true,
+  "owner_seal_hash_binding_shape": {
+    "path": "repository-relative file path",
+    "sha256": "64 hex chars"
+  },
+  "owner_seal_record_kind": "owner_seal_record",
+  "owner_seal_record_must_include_review_artifact_and_bundle_hashes": true,
+  "owner_seal_record_schema_version": "dvf-3-3-owner-seal-record-v1",
+  "owner_seal_record_sealed_artifact_hashes_require_hash_match": true,
+  "owner_seal_requires_scope_readpoint_hash_binding": true,
+  "owner_seal_state_values": [
+    "sealed",
+    "pending",
+    "blocked"
+  ],
+  "required_owner_supplied_fields_for_approval": [
+    "decision_authority",
+    "owner_identity",
+    "owner_decision_scope",
+    "owner_decision_readpoint",
+    "owner_decision_basis",
+    "owner_decision_source_kind",
+    "owner_decision_captured_by"
+  ],
+  "required_owner_supplied_fields_for_seal": [
+    "owner_identity",
+    "owner_seal_scope",
+    "owner_seal_readpoint",
+    "owner_seal_hash_binding",
+    "owner_seal_basis",
+    "owner_seal_source_kind",
+    "owner_seal_captured_by"
+  ],
+  "schema_version": "dvf-3-3-owner-decision-owner-seal-schema-v1",
+  "status": "PASS",
+  "tool_generated_owner_approval_allowed": false,
+  "tool_generated_owner_seal_allowed": false
+}

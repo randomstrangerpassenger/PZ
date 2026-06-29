@@ -1,0 +1,15 @@
+{
+  "after_record_count": 4,
+  "baseline_record_count": 4,
+  "diff": {
+    "changed": [],
+    "changed_count": 0,
+    "schema_version": "dvf-3-3-current-route-required-validation-hash-diff-v1",
+    "status": "PASS",
+    "surface_class": "sealed_round_evidence"
+  },
+  "generated_at": "2026-06-28T08:19:40.962409+00:00",
+  "mismatch_count": 0,
+  "schema_version": "dvf-3-3-historical-frozen-evidence-hash-report-v1",
+  "status": "PASS"
+}

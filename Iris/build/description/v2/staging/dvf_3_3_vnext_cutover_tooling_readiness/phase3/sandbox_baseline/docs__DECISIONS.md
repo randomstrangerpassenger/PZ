@@ -1,7 +1,7 @@
 # DECISIONS.md
 
-> 상태: current decision ledger / compact trace-dedup edition through 2026-06-28
-> 기준일: 2026-06-28
+> 상태: current decision ledger / compact trace-dedup edition through 2026-06-29
+> 기준일: 2026-06-29
 > 상위 기준: `Philosophy.md`
 > 목적: Pulse 생태계에서 이미 사실상 고정된 결정을 짧게 봉인하고, 같은 논쟁의 반복을 줄인다.
 
@@ -1533,6 +1533,37 @@
   * `2105 / 2084 / 21`은 axis-qualified vocabulary로만 읽으며 standalone PASS, standalone current seal, predecessor restoration target, or hard gate count로 쓰지 않는다.
   * VCS tracked/staged state는 canonical evidence preservation proof이지 source / rendered / runtime / package authority 승격이 아니다.
   * 이 항목은 source facts, decisions, overlay support, rendered output, Lua bridge output, runtime chunks, package payload, live migration execution, release/package/Workshop/B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
+
+### Iris DVF 3-3 — predecessor / stale artifact reentry guard
+
+* 상태: predecessor / stale artifact reentry guard PASS / package guard PASS / live required-validation gate adopted / governance-only
+* 결정: Predecessor / Stale Artifact Reentry Guard round는 stale bridge, monolith runtime path, current-looking stale path, predecessor fixture, old 6-entry bridge, rollback snapshot, historical staging evidence를 historical / diagnostic / fixture / provenance trace로만 유지하고, current source / rendered / runtime / package / export / required-manifest / raw-authority / docs-claim surface로 재진입하지 못하게 한다.
+* 현재 기준:
+
+  * stale bridge / monolith runtime path / current-looking predecessor path violation은 `0`이다.
+  * package guard와 package zip forbidden scan은 `PASS`이며 forbidden hit count는 `0`이다.
+  * predecessor evidence는 comparison / provenance / diagnostic / fixture trace로만 소비하며 current route, release readiness, package authority, source authority, runtime authority 근거로 승격하지 않는다.
+  * live `Iris/_docs/round3/current_route_required_validations.json`은 이 guard의 phase1 / phase3 / phase4 / phase5 / phase6 required artifacts와 focused unittest를 additive required gate로 소비한다.
+  * package probe는 `Iris/tools/package_iris.ps1 -OutputRoot` 기반 isolated output root에서만 수행하며 live package payload mutation을 만들지 않는다.
+  * docs claim scan은 negation, role-qualified historical/provenance mentions, quoted prior claims를 허용하되 actual current-authority overclaim은 fail-closed로 막는다.
+  * current-route validation은 `PASS / 127 tests / closure_enforced true`로 읽는다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/`
+  * plan: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_plan.md`
+  * policy: `docs/dvf_3_3_predecessor_stale_artifact_reentry_policy.md`
+  * claim boundary: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_ledger_packet.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_predecessor_stale_artifact_reentry_guard_report.json`
+  * package equivalence report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_probe_equivalence_report.json`
+  * required manifest reentry report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase4/required_manifest_reentry_report.json`
+  * focused runner / validator / unittest: `PASS`; current-route contract: `PASS / 127 tests / closure_enforced true`
+* 오독 금지:
+
+  * 이 guard는 stale / predecessor artifacts를 삭제하거나 historical staging evidence를 current authority로 승격하지 않는다.
+  * live required-validation adoption은 governance gate adoption이지 source / rendered / Lua bridge / runtime / package writer authority가 아니다.
+  * package probe PASS는 isolated package route guard proof이며 live package mutation, package readiness, release readiness, Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 뜻하지 않는다.
+  * 이 항목은 independent review complete seal이나 canonical seal을 새로 주장하지 않는다.
 
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 

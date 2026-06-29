@@ -1,0 +1,22 @@
+{
+  "added_entries": [],
+  "added_entry_count": 0,
+  "duplicate_entries": 0,
+  "generated_at": "2026-06-28T08:19:41.069932+00:00",
+  "governance_only": true,
+  "modified_entries": [],
+  "modified_existing_entries": 0,
+  "modified_existing_entries_allowed": true,
+  "modified_existing_entries_are_current_round_completion_updates": true,
+  "owner_approved_completion_expectation_update": true,
+  "planned_added_entry_count": 0,
+  "removed_existing_entries": 0,
+  "required_artifact_count_after": 75,
+  "required_artifact_count_before": 75,
+  "required_gate_adoption_status": "adopted_required_gate",
+  "required_test_count_after": 40,
+  "required_test_count_before": 40,
+  "schema_version": "dvf-3-3-completion-vocabulary-required-validation-manifest-adoption-v1",
+  "source_rendered_lua_runtime_package_authority_mutated": false,
+  "status": "PASS"
+}

@@ -1,0 +1,58 @@
+{
+  "errors": [],
+  "final_scope": {
+    "absence_maps_to": "blocked",
+    "allowed_absence_reason": "none_for_final_canonical_external_gate_seal",
+    "canonical_external_review_required": true,
+    "external_validation_bundle_required": true,
+    "independent_review_required": true,
+    "machine_contract_validation_required": true,
+    "owner_decision_required": true,
+    "owner_seal_required": true,
+    "scope_id": "final_canonical_external_gate_seal"
+  },
+  "generated_at": "2026-06-28T08:19:40.943638+00:00",
+  "schema_version": "dvf-3-3-gate-requirement-by-scope-v1",
+  "scope_count": 3,
+  "scopes": [
+    {
+      "absence_maps_to": "blocked",
+      "allowed_absence_reason": "none_for_final_canonical_external_gate_seal",
+      "canonical_external_review_required": true,
+      "external_validation_bundle_required": true,
+      "independent_review_required": true,
+      "machine_contract_validation_required": true,
+      "owner_decision_required": true,
+      "owner_seal_required": true,
+      "scope_id": "final_canonical_external_gate_seal"
+    },
+    {
+      "absence_maps_to": "pending",
+      "allowed_absence_reason": "implemented_only_machine_validation_scope",
+      "canonical_external_review_required": false,
+      "external_validation_bundle_required": false,
+      "independent_review_required": false,
+      "machine_contract_validation_required": true,
+      "owner_decision_required": false,
+      "owner_seal_required": false,
+      "scope_id": "machine_only_partial"
+    },
+    {
+      "absence_maps_to": "blocked",
+      "allowed_absence_reason": "external_or_owner_evidence_pending",
+      "canonical_external_review_required": true,
+      "external_validation_bundle_required": true,
+      "independent_review_required": true,
+      "machine_contract_validation_required": true,
+      "owner_decision_required": true,
+      "owner_seal_required": true,
+      "scope_id": "review_pending_partial"
+    }
+  ],
+  "stable_scope_ids": [
+    "final_canonical_external_gate_seal",
+    "machine_only_partial",
+    "review_pending_partial"
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,11 @@
+{
+  "external_validation_bundle_does_not_replace_review": true,
+  "generated_at": "2026-06-28T08:19:40.954569+00:00",
+  "machine_pass_does_not_replace_review": true,
+  "owner_approval_does_not_replace_review": true,
+  "owner_approved_without_independent_review_keeps_external_gate_blocked": true,
+  "owner_seal_does_not_replace_review": true,
+  "schema_version": "dvf-3-3-owner-review-substitution-guard-v1",
+  "self_generated_pass_substitution_blocked": true,
+  "status": "PASS"
+}

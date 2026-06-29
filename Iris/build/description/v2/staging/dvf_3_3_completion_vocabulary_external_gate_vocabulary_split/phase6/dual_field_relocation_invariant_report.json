@@ -1,0 +1,9 @@
+{
+  "canonical_checks_added": true,
+  "generated_at": "2026-06-28T08:19:40.962050+00:00",
+  "legacy_checks_retired": false,
+  "legacy_projection_consumed_for_current_gate": false,
+  "schema_version": "dvf-3-3-dual-field-relocation-invariant-report-v1",
+  "selected_invariant": "retained_legacy_check_target_artifacts_keep_legacy_fields_at_existing_checked_path",
+  "status": "PASS"
+}

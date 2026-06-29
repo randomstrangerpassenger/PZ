@@ -1,0 +1,20 @@
+{
+  "canonical_external_review_state": "blocked",
+  "gate_closure_allowed": false,
+  "generated_at": "2026-06-28T08:19:40.949495+00:00",
+  "independent_review_artifact_present": false,
+  "missing_review_is_fail_loud": true,
+  "review_bundle_hash_sealed": false,
+  "reviewed_validation_result_present": false,
+  "reviewer_identity_present": false,
+  "reviewer_independence_proven": false,
+  "reviewer_independent_from_author": false,
+  "reviewer_independent_from_executor": false,
+  "reviewer_independent_from_roadmap_author": false,
+  "reviewer_independent_from_self_record_generator": false,
+  "reviewer_independent_from_upstream_governance_chain_artifact_author": false,
+  "reviewer_role_present": false,
+  "reviewer_scope_present": false,
+  "schema_version": "dvf-3-3-review-independence-validation-report-v1",
+  "status": "PASS"
+}

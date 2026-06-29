@@ -36,7 +36,7 @@
     },
     "registry": {
       "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json",
-      "sha256": "799ab417ca49058bfb0975c300f4630571ea45cdcda4139a25655ab3c25b1897",
+      "sha256": "583e7921905683cd3b0fc212123b0db00823474be378e2f55933fdf871be4550",
       "status": "PRESENT"
     },
     "review": {
@@ -52,18 +52,18 @@
   },
   "regenerate_twice_fingerprint_comparison": {
     "first": {
-      "aggregate_sha256": "09c46579e2a849b879bd035c90b2eec5496d9d52d96d58d1b51c43f4002e14d9",
+      "aggregate_sha256": "0300a89494a9fc3acf5e22cfdf3f1d0229555b643d562d62bc2b7920ff97c166",
       "target_count": 17,
       "targets": [
         {
           "exists": true,
           "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase1/population_inventory.jsonl",
-          "sha256": "7477944817381be838870cdb013610b82d9e3b7adfdd3ee33340cf78fabdecea"
+          "sha256": "d2ee63a4ddfb1dbc89b55dad760d16f900cbd55e34a1704c431c221334de45df"
         },
         {
           "exists": true,
           "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase2/axis_classified_inventory.jsonl",
-          "sha256": "7477944817381be838870cdb013610b82d9e3b7adfdd3ee33340cf78fabdecea"
+          "sha256": "d2ee63a4ddfb1dbc89b55dad760d16f900cbd55e34a1704c431c221334de45df"
         },
         {
           "exists": true,
@@ -83,7 +83,7 @@
         {
           "exists": true,
           "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json",
-          "sha256": "799ab417ca49058bfb0975c300f4630571ea45cdcda4139a25655ab3c25b1897"
+          "sha256": "583e7921905683cd3b0fc212123b0db00823474be378e2f55933fdf871be4550"
         },
         {
           "exists": true,
@@ -143,18 +143,18 @@
       ]
     },
     "second": {
-      "aggregate_sha256": "09c46579e2a849b879bd035c90b2eec5496d9d52d96d58d1b51c43f4002e14d9",
+      "aggregate_sha256": "0300a89494a9fc3acf5e22cfdf3f1d0229555b643d562d62bc2b7920ff97c166",
       "target_count": 17,
       "targets": [
         {
           "exists": true,
           "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase1/population_inventory.jsonl",
-          "sha256": "7477944817381be838870cdb013610b82d9e3b7adfdd3ee33340cf78fabdecea"
+          "sha256": "d2ee63a4ddfb1dbc89b55dad760d16f900cbd55e34a1704c431c221334de45df"
         },
         {
           "exists": true,
           "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase2/axis_classified_inventory.jsonl",
-          "sha256": "7477944817381be838870cdb013610b82d9e3b7adfdd3ee33340cf78fabdecea"
+          "sha256": "d2ee63a4ddfb1dbc89b55dad760d16f900cbd55e34a1704c431c221334de45df"
         },
         {
           "exists": true,
@@ -174,7 +174,7 @@
         {
           "exists": true,
           "path": "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase4/consumer_universe_denominator_registry.json",
-          "sha256": "799ab417ca49058bfb0975c300f4630571ea45cdcda4139a25655ab3c25b1897"
+          "sha256": "583e7921905683cd3b0fc212123b0db00823474be378e2f55933fdf871be4550"
         },
         {
           "exists": true,

@@ -1,0 +1,30 @@
+{
+  "external_validation_bundle_alone_satisfies_review": false,
+  "generated_at": "2026-06-28T08:19:40.943655+00:00",
+  "machine_pass_alone_satisfies_external_gate": false,
+  "owner_approval_alone_satisfies_review": false,
+  "rows": [
+    {
+      "canonical_external_review_state": "blocked",
+      "canonical_seal_allowed": false,
+      "case": "machine_pass_only",
+      "external_gate_state": "blocked",
+      "machine_contract_validation": "PASS"
+    },
+    {
+      "blocking_note_count": 1,
+      "canonical_external_review_state": "blocked",
+      "case": "pass_with_blocking_notes",
+      "external_gate_state": "blocked",
+      "independent_review_verdict": "PASS_WITH_NOTES"
+    },
+    {
+      "canonical_external_review_state": "satisfied",
+      "canonical_seal_allowed": true,
+      "case": "complete_independent_external_owner_evidence",
+      "external_gate_state": "satisfied"
+    }
+  ],
+  "schema_version": "dvf-3-3-external-gate-transition-matrix-v1",
+  "status": "PASS"
+}

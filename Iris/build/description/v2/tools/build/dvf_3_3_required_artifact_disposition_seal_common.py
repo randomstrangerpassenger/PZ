@@ -55,6 +55,7 @@ EVIDENCE_ROOT = configured_repo_path(
 OWNER_INPUT_ROOT = V2_ROOT / "owner_inputs" / ROUND_ID
 OWNER_DECISION_DIR = OWNER_INPUT_ROOT / "owner_decision_records"
 OWNER_RULE_DIR = OWNER_INPUT_ROOT / "owner_rule_ratifications"
+OWNER_SEAL_DIR = OWNER_INPUT_ROOT / "owner_seals"
 
 DOC_ROOT = configured_repo_path("DVF_REQUIRED_ARTIFACT_DISPOSITION_DOC_ROOT", REPO_ROOT / "docs")
 PLAN_DOC = REPO_ROOT / "docs" / "dvf_3_3_required_artifact_disposition_seal_plan.md"
@@ -101,6 +102,11 @@ AUTO_SEAL_DECISION_TOKEN = "ratify_tracked_negative_exception_auto_seal"
 INDEPENDENT_REVIEW_PHASE = "phase7_independent_review_gate"
 INDEPENDENT_REVIEW_ARTIFACT_NAME = "current_session_independent_review_artifact.json"
 INDEPENDENT_REVIEW_ARTIFACT_SCHEMA = "dvf-3-3-required-artifact-disposition-independent-review-artifact-v1"
+OWNER_CANONICAL_SEAL_PHASE = "phase8_owner_canonical_seal"
+OWNER_CANONICAL_SEAL_RECORD_NAME = "current_session_owner_canonical_seal_record.json"
+OWNER_CANONICAL_SEAL_RECORD_SCHEMA = "dvf-3-3-required-artifact-disposition-owner-canonical-seal-record-v1"
+OWNER_CANONICAL_SEAL_DECISION_TOKEN = "seal_required_artifact_disposition_owner_and_canonical_pass"
+OWNER_CANONICAL_SEAL_SCOPE = "required_artifact_disposition_seal_governance_only"
 
 NON_CLAIMS = [
     "no_source_mutation",
@@ -125,10 +131,19 @@ NON_CLAIMS = [
 ]
 
 
-def non_claims_for_review_gate(independent_review_gate: str) -> list[str]:
+def non_claims_for_seal_gates(
+    independent_review_gate: str,
+    owner_seal_status: str,
+    canonical_seal_status: str,
+) -> list[str]:
+    pass_claims = set()
     if independent_review_gate == "PASS":
-        return [claim for claim in NON_CLAIMS if claim != "no_independent_review_pass"]
-    return list(NON_CLAIMS)
+        pass_claims.add("no_independent_review_pass")
+    if owner_seal_status == "PASS":
+        pass_claims.add("no_owner_seal")
+    if canonical_seal_status == "PASS":
+        pass_claims.add("no_canonical_seal")
+    return [claim for claim in NON_CLAIMS if claim not in pass_claims]
 
 
 def phase_dir(name: str) -> Path:
@@ -334,6 +349,83 @@ def validate_owner_decision_records() -> dict[str, Any]:
         "valid_records": valid_records,
         "invalid_records": invalid_records,
         "valid_by_artifact_path": valid_by_path,
+    }
+
+
+def validate_owner_canonical_seal_records() -> dict[str, Any]:
+    records = load_owner_record_files(OWNER_SEAL_DIR)
+    valid_records: list[dict[str, Any]] = []
+    invalid_records: list[dict[str, Any]] = []
+    required_true_fields = [
+        "claim_boundary_acknowledgement",
+        "does_not_claim_parent_machine_pass",
+        "does_not_claim_source_mutation",
+        "does_not_claim_runtime_readiness",
+        "does_not_claim_package_readiness",
+        "does_not_claim_release_readiness",
+        "does_not_claim_workshop_readiness",
+        "does_not_claim_b42_readiness",
+        "does_not_claim_deployment_readiness",
+        "does_not_claim_manual_in_game_qa",
+        "does_not_claim_semantic_quality_completion",
+    ]
+    expected = {
+        "schema_version": OWNER_CANONICAL_SEAL_RECORD_SCHEMA,
+        "artifact_kind": "owner_canonical_seal_record",
+        "record_source": "owner_supplied_current_session_instruction",
+        "decision_token": OWNER_CANONICAL_SEAL_DECISION_TOKEN,
+        "canonical_claim_scope": OWNER_CANONICAL_SEAL_SCOPE,
+        "owner_seal_status": "PASS",
+        "canonical_seal_status": "PASS",
+        "final_signoff_status": "PASS",
+    }
+    for record in records:
+        payload = record["payload"]
+        errors: list[str] = []
+        if not record["parse_ok"]:
+            errors.append("invalid_json")
+        for field, value in expected.items():
+            if payload.get(field) != value:
+                errors.append(f"{field}_mismatch")
+        for field in ["owner_identity", "owner_role", "sequence_id", "predecessor_commit_reviewed"]:
+            if not payload.get(field):
+                errors.append(f"{field}_missing")
+        for field in required_true_fields:
+            if payload.get(field) is not True:
+                errors.append(f"{field}_not_true")
+        if path_is_under(record["path"], EVIDENCE_ROOT):
+            errors.append("staging_record_not_allowed")
+        next_record = {
+            "path": record["path"],
+            "sha256": record["sha256"],
+            "owner_identity": payload.get("owner_identity"),
+            "owner_role": payload.get("owner_role"),
+            "decision_token": payload.get("decision_token"),
+            "owner_seal_status": payload.get("owner_seal_status"),
+            "canonical_seal_status": payload.get("canonical_seal_status"),
+            "final_signoff_status": payload.get("final_signoff_status"),
+            "errors": errors,
+        }
+        if errors:
+            invalid_records.append(next_record)
+        else:
+            valid_records.append(next_record)
+    binding_status = "PASS" if valid_records and not invalid_records else "OWNER_PENDING" if not records else "FAIL"
+    return {
+        "schema_version": "dvf-3-3-required-artifact-disposition-owner-canonical-seal-record-validation-v1",
+        "generated_at": now_iso(),
+        "status": "PASS" if binding_status == "PASS" else "PENDING" if binding_status == "OWNER_PENDING" else "FAIL",
+        "owner_canonical_seal_record_binding_status": binding_status,
+        "owner_seal_status": "PASS" if binding_status == "PASS" else "PENDING" if binding_status == "OWNER_PENDING" else "FAIL",
+        "canonical_seal_status": "PASS" if binding_status == "PASS" else "PENDING" if binding_status == "OWNER_PENDING" else "FAIL",
+        "final_signoff_status": "PASS" if binding_status == "PASS" else "PENDING" if binding_status == "OWNER_PENDING" else "FAIL",
+        "record_root": rel(OWNER_SEAL_DIR),
+        "record_root_exists": OWNER_SEAL_DIR.exists(),
+        "valid_record_count": len(valid_records),
+        "invalid_record_count": len(invalid_records),
+        "valid_records": valid_records,
+        "invalid_records": invalid_records,
+        "records": [*valid_records, *invalid_records],
     }
 
 
@@ -613,9 +705,9 @@ Allowed axis dispositions: `{', '.join(ALLOWED_AXIS_DISPOSITION)}`.
 Allowed preservation results: `{', '.join(ALLOWED_PRESERVATION_RESULT)}`.
 Allowed passability values: `{', '.join(ALLOWED_PASSABILITY)}`.
 
-Owner decisions and owner rule ratifications must be supplied under `Iris/build/description/v2/owner_inputs/{ROUND_ID}/`. Staging artifacts may validate and reference those records but cannot create or replace them.
+Owner decisions, owner rule ratifications, and owner/canonical seal records must be supplied under `Iris/build/description/v2/owner_inputs/{ROUND_ID}/`. Staging artifacts may validate and reference those records but cannot create or replace them.
 
-This policy does not authorize source, rendered, Lua bridge, runtime, package, release, manual QA, semantic quality, public-facing text, owner seal, or canonical seal mutation.
+This policy does not authorize source, rendered, Lua bridge, runtime, package, release, manual QA, semantic quality, or public-facing text mutation.
 """,
     )
 
@@ -946,7 +1038,11 @@ def write_phase3_ignored(
     )
 
 
-def referenced_owner_record_paths(disposition_rows: list[dict[str, Any]], owner_rule_report: dict[str, Any]) -> list[str]:
+def referenced_owner_record_paths(
+    disposition_rows: list[dict[str, Any]],
+    owner_rule_report: dict[str, Any],
+    owner_seal_record_report: dict[str, Any] | None = None,
+) -> list[str]:
     paths: set[str] = set()
     for row in disposition_rows:
         for key in ["owner_decision_record", "owner_rule_ratification_record"]:
@@ -956,6 +1052,10 @@ def referenced_owner_record_paths(disposition_rows: list[dict[str, Any]], owner_
     if owner_rule_report.get("owner_rule_ratification_binding_status") == "PASS":
         for record in owner_rule_report.get("valid_records", []):
             paths.add(str(record["path"]))
+    if owner_seal_record_report:
+        for record in owner_seal_record_report.get("records", []):
+            if isinstance(record, dict) and record.get("path"):
+                paths.add(str(record["path"]))
     return sorted(paths)
 
 
@@ -1553,12 +1653,115 @@ def write_independent_review_gate_report() -> dict[str, Any]:
     return report
 
 
+def owner_canonical_seal_record_path() -> Path:
+    return OWNER_SEAL_DIR / OWNER_CANONICAL_SEAL_RECORD_NAME
+
+
+def first_valid_owner_canonical_seal_record(owner_seal_record_report: dict[str, Any]) -> dict[str, Any]:
+    records = owner_seal_record_report.get("valid_records", [])
+    if isinstance(records, list) and records:
+        record = records[0]
+        return record if isinstance(record, dict) else {}
+    return {}
+
+
+def write_owner_canonical_seal_gate_report(
+    *,
+    owner_seal_record_report: dict[str, Any],
+    independent_review: dict[str, Any],
+    owner_vcs_report: dict[str, Any],
+    owner_rule_report: dict[str, Any],
+    fail_closed: dict[str, Any],
+    no_mutation: dict[str, Any],
+    current_route: dict[str, Any],
+    final_vcs_ready: bool,
+    bare_count: int,
+    blocker_count: int,
+    owner_pending_count: int,
+) -> dict[str, Any]:
+    errors: list[dict[str, Any]] = []
+    record = first_valid_owner_canonical_seal_record(owner_seal_record_report)
+    if owner_seal_record_report.get("owner_canonical_seal_record_binding_status") != "PASS":
+        errors.append(
+            {
+                "code": "owner_canonical_seal_record_not_pass",
+                "observed": owner_seal_record_report.get("owner_canonical_seal_record_binding_status"),
+            }
+        )
+    if not record:
+        errors.append({"code": "missing_valid_owner_canonical_seal_record", "path": rel(owner_canonical_seal_record_path())})
+    if independent_review.get("independent_review_gate") != "PASS":
+        errors.append({"code": "independent_review_gate_not_pass", "observed": independent_review.get("independent_review_gate")})
+    if not owner_input_vcs_preserved(owner_vcs_report):
+        errors.append({"code": "owner_input_record_vcs_preservation_not_pass"})
+    if owner_rule_report.get("owner_rule_ratification_binding_status") != "PASS":
+        errors.append(
+            {
+                "code": "owner_rule_ratification_not_pass",
+                "observed": owner_rule_report.get("owner_rule_ratification_binding_status"),
+            }
+        )
+    if fail_closed.get("status") != "PASS":
+        errors.append({"code": "fail_closed_validation_not_pass", "observed": fail_closed.get("status")})
+    if no_mutation.get("changed_count") != 0:
+        errors.append({"code": "protected_surface_mutation_detected", "observed": no_mutation.get("changed_count")})
+    if current_route.get("status") != "PASS":
+        errors.append({"code": "current_route_validation_not_pass", "observed": current_route.get("status")})
+    if not final_vcs_ready:
+        errors.append({"code": "final_vcs_preservation_not_pass"})
+    if bare_count != 0:
+        errors.append({"code": "bare_diagnostic_rows_present", "observed": bare_count})
+    if blocker_count != 0:
+        errors.append({"code": "disposition_blockers_present", "observed": blocker_count})
+    if owner_pending_count != 0:
+        errors.append({"code": "owner_pending_rows_present", "observed": owner_pending_count})
+    status = "PASS" if not errors else "BLOCKED"
+    report = {
+        "schema_version": "dvf-3-3-required-artifact-disposition-owner-canonical-seal-gate-report-v1",
+        "generated_at": now_iso(),
+        "status": status,
+        "owner_seal_status": "PASS" if status == "PASS" else "BLOCKED",
+        "canonical_seal_status": "PASS" if status == "PASS" else "BLOCKED",
+        "canonical_seal_allowed": status == "PASS",
+        "final_signoff_status": "PASS" if status == "PASS" else "BLOCKED",
+        "canonical_claim_scope": OWNER_CANONICAL_SEAL_SCOPE,
+        "owner_canonical_seal_record": {
+            "path": record.get("path") or rel(owner_canonical_seal_record_path()),
+            "sha256": record.get("sha256"),
+        },
+        "owner_canonical_seal_record_binding_status": owner_seal_record_report.get(
+            "owner_canonical_seal_record_binding_status"
+        ),
+        "independent_review_gate": independent_review.get("independent_review_gate"),
+        "owner_input_record_vcs_preservation_status": owner_vcs_report.get("owner_input_record_vcs_preservation_status"),
+        "owner_rule_ratification_binding_status": owner_rule_report.get("owner_rule_ratification_binding_status"),
+        "current_route_validation_state": current_route.get("status"),
+        "final_vcs_preservation_status": "PASS" if final_vcs_ready else "FAIL",
+        "bare_diagnostic_count": bare_count,
+        "blocker_count": blocker_count,
+        "owner_pending_count": owner_pending_count,
+        "does_not_claim_parent_machine_pass": True,
+        "does_not_claim_release_readiness": True,
+        "does_not_claim_package_readiness": True,
+        "does_not_claim_runtime_readiness": True,
+        "errors": errors,
+        "error_count": len(errors),
+    }
+    write_json(
+        phase_path(OWNER_CANONICAL_SEAL_PHASE, "owner_canonical_seal_record_validation_report.json"),
+        owner_seal_record_report,
+    )
+    write_json(phase_path(OWNER_CANONICAL_SEAL_PHASE, "owner_canonical_seal_gate_report.json"), report)
+    return report
+
+
 def write_phase6_closeout(
     context: dict[str, Any],
     schema_hash: str,
     disposition_rows: list[dict[str, Any]],
     owner_decision_report: dict[str, Any],
     owner_rule_report: dict[str, Any],
+    owner_seal_record_report: dict[str, Any],
     owner_vcs_report: dict[str, Any],
     fail_closed: dict[str, Any],
     no_mutation: dict[str, Any],
@@ -1623,7 +1826,29 @@ def write_phase6_closeout(
     independent_review = write_independent_review_gate_report()
     independent_review_gate = str(independent_review.get("independent_review_gate"))
     independent_review_ready = independent_review_gate == "PASS"
-    non_claims = non_claims_for_review_gate(independent_review_gate)
+    owner_canonical_seal = write_owner_canonical_seal_gate_report(
+        owner_seal_record_report=owner_seal_record_report,
+        independent_review=independent_review,
+        owner_vcs_report=owner_vcs_report,
+        owner_rule_report=owner_rule_report,
+        fail_closed=fail_closed,
+        no_mutation=no_mutation,
+        current_route=current_route,
+        final_vcs_ready=final_vcs_ready,
+        bare_count=bare_count,
+        blocker_count=blocker_count,
+        owner_pending_count=owner_pending_count,
+    )
+    owner_seal_ready = owner_canonical_seal.get("owner_seal_status") == "PASS"
+    canonical_seal_ready = (
+        owner_canonical_seal.get("canonical_seal_status") == "PASS"
+        and owner_canonical_seal.get("canonical_seal_allowed") is True
+    )
+    non_claims = non_claims_for_seal_gates(
+        independent_review_gate,
+        str(owner_canonical_seal.get("owner_seal_status")),
+        str(owner_canonical_seal.get("canonical_seal_status")),
+    )
     validation_failed = (
         fail_closed.get("status") != "PASS"
         or no_mutation.get("changed_count") != 0
@@ -1633,6 +1858,8 @@ def write_phase6_closeout(
         or not final_vcs_ready
         or not owner_input_preserved
         or not independent_review_ready
+        or not owner_seal_ready
+        or not canonical_seal_ready
     )
     ready_conditions_met = (
         not validation_failed
@@ -1643,6 +1870,8 @@ def write_phase6_closeout(
         and bare_count == 0
         and owner_input_preserved
         and independent_review_ready
+        and owner_seal_ready
+        and canonical_seal_ready
         and owner_rule_report.get("owner_rule_ratification_binding_status") in {"PASS", "NOT_APPLICABLE"}
     )
     terminal_state, problem_status, artifact_state, machine_pass_blocked = terminal_from_state(
@@ -1659,6 +1888,8 @@ def write_phase6_closeout(
         and final_vcs_ready
         and owner_input_preserved
         and independent_review_ready
+        and owner_seal_ready
+        and canonical_seal_ready
         and owner_rule_report.get("owner_rule_ratification_binding_status") == "PASS"
     )
     dirty_axis_verdict = "ready_clean" if final_summary.get("dirty_required_artifact_count") == 0 else "blocked_dirty_not_preserved"
@@ -1728,8 +1959,15 @@ def write_phase6_closeout(
         "independent_review_gate_report_sha256": sha256_file(
             phase_path(INDEPENDENT_REVIEW_PHASE, "independent_review_gate_report.json")
         ),
-        "owner_seal_status": "not_claimed",
-        "canonical_seal_status": "not_claimed",
+        "owner_seal_status": owner_canonical_seal.get("owner_seal_status"),
+        "owner_canonical_seal_record_path": owner_canonical_seal.get("owner_canonical_seal_record", {}).get("path"),
+        "owner_canonical_seal_record_sha256": owner_canonical_seal.get("owner_canonical_seal_record", {}).get("sha256"),
+        "owner_canonical_seal_gate_report_sha256": sha256_file(
+            phase_path(OWNER_CANONICAL_SEAL_PHASE, "owner_canonical_seal_gate_report.json")
+        ),
+        "canonical_seal_status": owner_canonical_seal.get("canonical_seal_status"),
+        "canonical_seal_allowed": owner_canonical_seal.get("canonical_seal_allowed"),
+        "final_signoff_status": owner_canonical_seal.get("final_signoff_status"),
         "non_claims": non_claims,
         "validation_errors": final_row_errors,
     }
@@ -1768,12 +2006,18 @@ def write_phase6_closeout(
         "independent_review_gate_report_sha256": sha256_file(
             phase_path(INDEPENDENT_REVIEW_PHASE, "independent_review_gate_report.json")
         ),
+        "owner_canonical_seal_record_sha256": owner_canonical_seal.get("owner_canonical_seal_record", {}).get("sha256"),
+        "owner_canonical_seal_gate_report_sha256": sha256_file(
+            phase_path(OWNER_CANONICAL_SEAL_PHASE, "owner_canonical_seal_gate_report.json")
+        ),
         "terminal_state": terminal_state,
         "required_artifact_disposition_problem_status": problem_status,
         "machine_pass_blocked": machine_pass_blocked,
         "parent_rerun_required": True,
         "does_not_claim_parent_machine_pass": True,
-        "does_not_claim_canonical_seal": True,
+        "owner_seal_status": owner_canonical_seal.get("owner_seal_status"),
+        "canonical_seal_status": owner_canonical_seal.get("canonical_seal_status"),
+        "canonical_seal_allowed": owner_canonical_seal.get("canonical_seal_allowed"),
     }
     write_json(phase_path("phase6_closeout_claim_boundary", "parent_closure_input_packet.json"), parent_packet)
     compatibility = {
@@ -1797,10 +2041,17 @@ def write_phase6_closeout(
         "independent_review_gate_report_sha256": sha256_file(
             phase_path(INDEPENDENT_REVIEW_PHASE, "independent_review_gate_report.json")
         ),
+        "owner_canonical_seal_record_sha256": owner_canonical_seal.get("owner_canonical_seal_record", {}).get("sha256"),
+        "owner_canonical_seal_gate_report_sha256": sha256_file(
+            phase_path(OWNER_CANONICAL_SEAL_PHASE, "owner_canonical_seal_gate_report.json")
+        ),
         "protected_surface_derivation_report_sha256": sha256_file(
             phase_path("phase0_readpoint_freeze", "protected_surface_derivation_report.json")
         ),
         "terminal_state": terminal_state,
+        "owner_seal_status": owner_canonical_seal.get("owner_seal_status"),
+        "canonical_seal_status": owner_canonical_seal.get("canonical_seal_status"),
+        "canonical_seal_allowed": owner_canonical_seal.get("canonical_seal_allowed"),
         "parent_rerun_required": True,
         "ready_does_not_map_to_parent_machine_pass": True,
     }
@@ -1838,6 +2089,16 @@ def write_closeout_docs(final_report: dict[str, Any], parent_packet: dict[str, A
         if final_report.get("independent_review_gate") == "PASS"
         else "Independent review remains a non-claim."
     )
+    owner_clause = (
+        "Owner seal is owner-record-bound and PASS for this disposition seal."
+        if final_report.get("owner_seal_status") == "PASS"
+        else "Owner seal remains a non-claim."
+    )
+    canonical_clause = (
+        "Canonical seal is PASS for this disposition seal governance scope."
+        if final_report.get("canonical_seal_status") == "PASS"
+        else "Canonical seal remains a non-claim."
+    )
     non_claims = "\n".join(f"- `{item}`" for item in final_report.get("non_claims", NON_CLAIMS))
     write_text(
         CLAIM_BOUNDARY_DOC,
@@ -1872,7 +2133,7 @@ Non-claims:
 
 If `complete_with_blockers` appears in this packet, it means classification-complete only and must be read with `machine_pass_blocked=true` and `ready=false`. Owner pending rows require owner-supplied input records; staging evidence cannot replace them.
 
-{review_clause} Owner seal, canonical seal, runtime readiness, package readiness, release readiness, manual QA, semantic quality completion, and public-facing text acceptance remain non-claims.
+{review_clause} {owner_clause} {canonical_clause} Runtime readiness, package readiness, release readiness, manual QA, semantic quality completion, and public-facing text acceptance remain non-claims.
 """,
     )
     write_text(
@@ -1893,6 +2154,7 @@ def generate_artifacts(*, run_current_route: bool = False) -> dict[str, Any]:
     owner_rule_report = validate_owner_rule_ratifications(schema_hash)
     write_phase1_policy_schema(schema_hash, owner_rule_report)
     owner_decision_report = validate_owner_decision_records()
+    owner_seal_record_report = validate_owner_canonical_seal_records()
     dirty_rows = build_dirty_dispositions(context["vcs_rows"], owner_decision_report)
     write_phase2_dirty(dirty_rows)
     ignored_rows = build_ignored_dispositions(context["ignored_coverage_rows"], owner_rule_report)
@@ -1900,7 +2162,7 @@ def generate_artifacts(*, run_current_route: bool = False) -> dict[str, Any]:
     untracked_rows = build_untracked_dispositions(context["vcs_rows"], disposed_paths)
     write_phase3_ignored(ignored_rows, untracked_rows, context["ignored_coverage_rows"], context["problem_rows"], context["vcs_summary"])
     disposition_rows = [*dirty_rows, *ignored_rows, *untracked_rows]
-    owner_paths = referenced_owner_record_paths(disposition_rows, owner_rule_report)
+    owner_paths = referenced_owner_record_paths(disposition_rows, owner_rule_report, owner_seal_record_report)
     owner_vcs_report = owner_input_vcs_report(owner_paths)
     write_phase4_manifest_guard(disposition_rows, owner_decision_report, owner_rule_report, owner_vcs_report)
     fail_closed, no_mutation, current_route = write_phase5_validation(
@@ -1916,6 +2178,7 @@ def generate_artifacts(*, run_current_route: bool = False) -> dict[str, Any]:
         disposition_rows,
         owner_decision_report,
         owner_rule_report,
+        owner_seal_record_report,
         owner_vcs_report,
         fail_closed,
         no_mutation,
@@ -1949,12 +2212,23 @@ def required_report_checks(require_complete: bool) -> list[tuple[str, dict[str, 
         ("phase5_fail_closed_validation/protected_surface_no_mutation_report.json", {"status": "PASS", "changed_count": 0}),
         ("phase6_closeout_claim_boundary/final_recensus_report.json", {"status": "PASS"}),
         ("phase6_closeout_claim_boundary/owner_input_record_vcs_preservation_report.json", {"status": "PASS"}),
-        ("phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json", {"independent_review_gate": "PASS"}),
+        (
+            "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json",
+            {"independent_review_gate": "PASS", "owner_seal_status": "PASS", "canonical_seal_status": "PASS"},
+        ),
         ("phase6_closeout_claim_boundary/closure_readiness_verdict.json", {"parent_rerun_required": True}),
         ("phase6_closeout_claim_boundary/parent_closure_input_packet.json", {"parent_round_id": PARENT_ROUND_ID, "predecessor_round_id": ROUND_ID, "parent_rerun_required": True}),
         ("phase6_closeout_claim_boundary/parent_compatibility_contract.json", {"parent_round_id": PARENT_ROUND_ID, "predecessor_round_id": ROUND_ID, "parent_rerun_required": True}),
         ("phase6_closeout_claim_boundary/parent_terminal_state_mapping.json", {"parent_machine_pass_claimed": False}),
         (f"{INDEPENDENT_REVIEW_PHASE}/independent_review_gate_report.json", {"status": "PASS", "independent_review_gate": "PASS"}),
+        (
+            f"{OWNER_CANONICAL_SEAL_PHASE}/owner_canonical_seal_record_validation_report.json",
+            {"status": "PASS", "owner_canonical_seal_record_binding_status": "PASS"},
+        ),
+        (
+            f"{OWNER_CANONICAL_SEAL_PHASE}/owner_canonical_seal_gate_report.json",
+            {"status": "PASS", "owner_seal_status": "PASS", "canonical_seal_status": "PASS", "canonical_seal_allowed": True},
+        ),
     ]
     if require_complete:
         checks.append(("phase5_fail_closed_validation/current_route_validation_result.json", {"status": "PASS", "success": True, "closure_enforced": True}))
@@ -1996,6 +2270,9 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
     final = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "final_required_artifact_disposition_report.json")
     owner_vcs_report = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "owner_input_record_vcs_preservation_report.json")
     independent_review_report = read_json_object(EVIDENCE_ROOT / INDEPENDENT_REVIEW_PHASE / "independent_review_gate_report.json")
+    owner_canonical_seal_report = read_json_object(
+        EVIDENCE_ROOT / OWNER_CANONICAL_SEAL_PHASE / "owner_canonical_seal_gate_report.json"
+    )
     parent_packet = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "parent_closure_input_packet.json")
     compatibility = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "parent_compatibility_contract.json")
     if denominator and vcs_summary:
@@ -2051,6 +2328,26 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 )
         if independent_review_report.get("reviewed_artifact_hash_mismatch_count") != 0:
             errors.append({"code": "independent_review_reviewed_artifact_hash_mismatch"})
+    if owner_canonical_seal_report:
+        if (
+            owner_canonical_seal_report.get("status") != "PASS"
+            or owner_canonical_seal_report.get("owner_seal_status") != "PASS"
+            or owner_canonical_seal_report.get("canonical_seal_status") != "PASS"
+            or owner_canonical_seal_report.get("canonical_seal_allowed") is not True
+        ):
+            errors.append({"code": "owner_canonical_seal_gate_not_pass", "report": owner_canonical_seal_report})
+        record = owner_canonical_seal_report.get("owner_canonical_seal_record", {})
+        if isinstance(record, dict):
+            observed_owner_seal_sha = sha256_file(str(record.get("path", "")))
+            if record.get("sha256") != observed_owner_seal_sha:
+                errors.append(
+                    {
+                        "code": "owner_canonical_seal_record_hash_mismatch",
+                        "path": record.get("path"),
+                        "expected": record.get("sha256"),
+                        "observed": observed_owner_seal_sha,
+                    }
+                )
     if final:
         terminal = final.get("terminal_state")
         problem_status = final.get("required_artifact_disposition_problem_status")
@@ -2069,6 +2366,10 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 errors.append({"code": "ready_without_owner_input_vcs_preservation_pass"})
             if final.get("independent_review_gate") != "PASS":
                 errors.append({"code": "ready_without_independent_review_gate_pass"})
+            if final.get("owner_seal_status") != "PASS":
+                errors.append({"code": "ready_without_owner_seal_pass"})
+            if final.get("canonical_seal_status") != "PASS" or final.get("canonical_seal_allowed") is not True:
+                errors.append({"code": "ready_without_canonical_seal_pass"})
             if final.get("bare_diagnostic_count") != 0:
                 errors.append({"code": "ready_with_bare_diagnostics"})
             for field in [
@@ -2084,13 +2385,24 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
             errors.append({"code": "complete_with_blockers_missing_machine_block"})
         if terminal == "owner_pending" and problem_status != "OWNER_PENDING":
             errors.append({"code": "owner_pending_problem_status_mismatch"})
-        for forbidden in ["release_readiness", "package_readiness", "runtime_readiness", "canonical_seal_allowed"]:
+        for forbidden in ["release_readiness", "package_readiness", "runtime_readiness"]:
             if final.get(forbidden) is True:
                 errors.append({"code": "forbidden_claim", "field": forbidden})
+        if final.get("canonical_seal_allowed") is True and (
+            final.get("owner_seal_status") != "PASS"
+            or final.get("canonical_seal_status") != "PASS"
+            or final.get("final_signoff_status") != "PASS"
+            or final.get("independent_review_gate") != "PASS"
+        ):
+            errors.append({"code": "canonical_seal_allowed_without_required_gates"})
         if require_complete and final.get("terminal_state") == "ready" and final.get("current_route_validation_state") != "PASS":
             errors.append({"code": "ready_without_current_route_pass"})
         if final.get("independent_review_gate") == "PASS" and "no_independent_review_pass" in final.get("non_claims", []):
             errors.append({"code": "independent_review_pass_still_non_claimed"})
+        if final.get("owner_seal_status") == "PASS" and "no_owner_seal" in final.get("non_claims", []):
+            errors.append({"code": "owner_seal_pass_still_non_claimed"})
+        if final.get("canonical_seal_status") == "PASS" and "no_canonical_seal" in final.get("non_claims", []):
+            errors.append({"code": "canonical_seal_pass_still_non_claimed"})
         if final.get("fast_path_used") is True:
             if final.get("current_readpoint_fast_path_status") != "ELIGIBLE":
                 errors.append({"code": "fast_path_used_when_not_eligible"})
@@ -2100,6 +2412,10 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 errors.append({"code": "fast_path_used_without_owner_input_vcs_preservation"})
             if final.get("independent_review_gate") != "PASS":
                 errors.append({"code": "fast_path_used_without_independent_review_gate_pass"})
+            if final.get("owner_seal_status") != "PASS":
+                errors.append({"code": "fast_path_used_without_owner_seal_pass"})
+            if final.get("canonical_seal_status") != "PASS" or final.get("canonical_seal_allowed") is not True:
+                errors.append({"code": "fast_path_used_without_canonical_seal_pass"})
             if final.get("bare_diagnostic_count") != 0:
                 errors.append({"code": "fast_path_used_with_bare_diagnostics"})
             for field in [
@@ -2118,6 +2434,8 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
             "final_recensus_report_sha256",
             "disposition_ledger_sha256",
             "independent_review_gate_report_sha256",
+            "owner_canonical_seal_record_sha256",
+            "owner_canonical_seal_gate_report_sha256",
         ]:
             if parent_packet.get(field) != compatibility.get(field):
                 errors.append({"code": "parent_hash_binding_mismatch", "field": field})
@@ -2128,6 +2446,10 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
         owner_input_vcs_report_path = EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "owner_input_record_vcs_preservation_report.json"
         independent_review_gate_report_path = EVIDENCE_ROOT / INDEPENDENT_REVIEW_PHASE / "independent_review_gate_report.json"
         independent_review_input_path = independent_review_artifact_path()
+        owner_canonical_seal_gate_report_path = (
+            EVIDENCE_ROOT / OWNER_CANONICAL_SEAL_PHASE / "owner_canonical_seal_gate_report.json"
+        )
+        owner_canonical_seal_input_path = owner_canonical_seal_record_path()
         protected_surface_derivation_path = EVIDENCE_ROOT / "phase0_readpoint_freeze" / "protected_surface_derivation_report.json"
         shared_hash_bindings: list[tuple[str, str | None, str]] = [
             ("current_route_manifest_sha256", sha256_file(LIVE_REQUIRED_MANIFEST), rel(LIVE_REQUIRED_MANIFEST)),
@@ -2142,6 +2464,16 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 "independent_review_gate_report_sha256",
                 sha256_file(independent_review_gate_report_path),
                 rel(independent_review_gate_report_path),
+            ),
+            (
+                "owner_canonical_seal_record_sha256",
+                sha256_file(owner_canonical_seal_input_path),
+                rel(owner_canonical_seal_input_path),
+            ),
+            (
+                "owner_canonical_seal_gate_report_sha256",
+                sha256_file(owner_canonical_seal_gate_report_path),
+                rel(owner_canonical_seal_gate_report_path),
             ),
         ]
         for field, expected, source in shared_hash_bindings:

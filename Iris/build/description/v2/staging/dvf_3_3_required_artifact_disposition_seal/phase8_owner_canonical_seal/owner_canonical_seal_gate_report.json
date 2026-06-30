@@ -1,0 +1,29 @@
+{
+  "bare_diagnostic_count": 0,
+  "blocker_count": 0,
+  "canonical_claim_scope": "required_artifact_disposition_seal_governance_only",
+  "canonical_seal_allowed": true,
+  "canonical_seal_status": "PASS",
+  "current_route_validation_state": "PASS",
+  "does_not_claim_package_readiness": true,
+  "does_not_claim_parent_machine_pass": true,
+  "does_not_claim_release_readiness": true,
+  "does_not_claim_runtime_readiness": true,
+  "error_count": 0,
+  "errors": [],
+  "final_signoff_status": "PASS",
+  "final_vcs_preservation_status": "PASS",
+  "generated_at": "2026-06-30T08:44:09.944693+00:00",
+  "independent_review_gate": "PASS",
+  "owner_canonical_seal_record": {
+    "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_seals/current_session_owner_canonical_seal_record.json",
+    "sha256": "0eb7b8aeeb518c236bf7ff4cbfe57c7e8061472cc892cbd293e857687da2b112"
+  },
+  "owner_canonical_seal_record_binding_status": "PASS",
+  "owner_input_record_vcs_preservation_status": "PASS",
+  "owner_pending_count": 0,
+  "owner_rule_ratification_binding_status": "PASS",
+  "owner_seal_status": "PASS",
+  "schema_version": "dvf-3-3-required-artifact-disposition-owner-canonical-seal-gate-report-v1",
+  "status": "PASS"
+}

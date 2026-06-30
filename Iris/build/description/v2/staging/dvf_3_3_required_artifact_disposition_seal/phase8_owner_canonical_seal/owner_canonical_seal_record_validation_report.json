@@ -1,0 +1,40 @@
+{
+  "canonical_seal_status": "PASS",
+  "final_signoff_status": "PASS",
+  "generated_at": "2026-06-30T08:41:49.222788+00:00",
+  "invalid_record_count": 0,
+  "invalid_records": [],
+  "owner_canonical_seal_record_binding_status": "PASS",
+  "owner_seal_status": "PASS",
+  "record_root": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_seals",
+  "record_root_exists": true,
+  "records": [
+    {
+      "canonical_seal_status": "PASS",
+      "decision_token": "seal_required_artifact_disposition_owner_and_canonical_pass",
+      "errors": [],
+      "final_signoff_status": "PASS",
+      "owner_identity": "MW",
+      "owner_role": "project_owner",
+      "owner_seal_status": "PASS",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_seals/current_session_owner_canonical_seal_record.json",
+      "sha256": "0eb7b8aeeb518c236bf7ff4cbfe57c7e8061472cc892cbd293e857687da2b112"
+    }
+  ],
+  "schema_version": "dvf-3-3-required-artifact-disposition-owner-canonical-seal-record-validation-v1",
+  "status": "PASS",
+  "valid_record_count": 1,
+  "valid_records": [
+    {
+      "canonical_seal_status": "PASS",
+      "decision_token": "seal_required_artifact_disposition_owner_and_canonical_pass",
+      "errors": [],
+      "final_signoff_status": "PASS",
+      "owner_identity": "MW",
+      "owner_role": "project_owner",
+      "owner_seal_status": "PASS",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_seals/current_session_owner_canonical_seal_record.json",
+      "sha256": "0eb7b8aeeb518c236bf7ff4cbfe57c7e8061472cc892cbd293e857687da2b112"
+    }
+  ]
+}

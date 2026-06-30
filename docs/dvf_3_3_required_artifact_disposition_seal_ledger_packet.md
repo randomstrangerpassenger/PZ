@@ -10,4 +10,4 @@
 
 If `complete_with_blockers` appears in this packet, it means classification-complete only and must be read with `machine_pass_blocked=true` and `ready=false`. Owner pending rows require owner-supplied input records; staging evidence cannot replace them.
 
-Independent review is artifact-bound and PASS for this disposition seal. Owner seal, canonical seal, runtime readiness, package readiness, release readiness, manual QA, semantic quality completion, and public-facing text acceptance remain non-claims.
+Independent review is artifact-bound and PASS for this disposition seal. Owner seal is owner-record-bound and PASS for this disposition seal. Canonical seal is PASS for this disposition seal governance scope. Runtime readiness, package readiness, release readiness, manual QA, semantic quality completion, and public-facing text acceptance remain non-claims.

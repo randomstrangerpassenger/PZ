@@ -28,5 +28,3 @@ Non-claims:
 - `no_manual_in_game_qa`
 - `no_semantic_quality_completion`
 - `no_public_facing_text_acceptance`
-- `no_owner_seal`
-- `no_canonical_seal`

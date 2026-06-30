@@ -2,10 +2,10 @@
   "blocking_note_count": 0,
   "error_count": 0,
   "errors": [],
-  "generated_at": "2026-06-30T08:18:35.664829+00:00",
+  "generated_at": "2026-06-30T08:44:09.943339+00:00",
   "independent_review_artifact": {
     "path": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase7_independent_review_gate/current_session_independent_review_artifact.json",
-    "sha256": "32caeb255b9d3f0a98d2c2040e112d16cb91c902cea60ee4db73d781d1668a97"
+    "sha256": "6f36656600c2b4fbfd14399eeb9d96953ffa85ef26535117e67e2196a27d5826"
   },
   "independent_review_artifact_present": true,
   "independent_review_gate": "PASS",
@@ -21,14 +21,14 @@
       "status": "PASS"
     },
     {
-      "actual_sha256": "831de07ddd033580a4146cee323c4011950cda61d20f781d235ae599b8115796",
-      "expected_sha256": "831de07ddd033580a4146cee323c4011950cda61d20f781d235ae599b8115796",
+      "actual_sha256": "ddd00c89b822d4aa25f80d492a727ddccb0fb67816a3a15b81e2a83a79f94c90",
+      "expected_sha256": "ddd00c89b822d4aa25f80d492a727ddccb0fb67816a3a15b81e2a83a79f94c90",
       "path": "docs/dvf_3_3_required_artifact_disposition_seal_policy.md",
       "status": "PASS"
     },
     {
-      "actual_sha256": "7b0c0a963f5d3b66fc1dbb95de2f7b80755d38b96553e55e1e4d67370fb778a5",
-      "expected_sha256": "7b0c0a963f5d3b66fc1dbb95de2f7b80755d38b96553e55e1e4d67370fb778a5",
+      "actual_sha256": "a625c6d2080150f31c0c12d7963d1f23194656ed6555b1b2ec1e6efdd0b559f8",
+      "expected_sha256": "a625c6d2080150f31c0c12d7963d1f23194656ed6555b1b2ec1e6efdd0b559f8",
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_required_artifact_disposition_seal_common.py",
       "status": "PASS"
     },
@@ -45,8 +45,8 @@
       "status": "PASS"
     },
     {
-      "actual_sha256": "6ee1ea412b5e627b9100998c518cc328dddf4c5cf410af57987066657bf055c0",
-      "expected_sha256": "6ee1ea412b5e627b9100998c518cc328dddf4c5cf410af57987066657bf055c0",
+      "actual_sha256": "8769718a9e6894e4bd5bf6b3c9bfa84d362a10f3261e717e1c2622f1b83bfed8",
+      "expected_sha256": "8769718a9e6894e4bd5bf6b3c9bfa84d362a10f3261e717e1c2622f1b83bfed8",
       "path": "Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py",
       "status": "PASS"
     },

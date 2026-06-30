@@ -11,6 +11,6 @@ Allowed axis dispositions: `owner_adopted_evidence_update, stale_local_mutation,
 Allowed preservation results: `tracked_original_preservation, tracked_hash_surrogate, explicit_non_hash_exception, none`.
 Allowed passability values: `passable, owner_pending, blocked, validation_failed`.
 
-Owner decisions and owner rule ratifications must be supplied under `Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/`. Staging artifacts may validate and reference those records but cannot create or replace them.
+Owner decisions, owner rule ratifications, and owner/canonical seal records must be supplied under `Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/`. Staging artifacts may validate and reference those records but cannot create or replace them.
 
-This policy does not authorize source, rendered, Lua bridge, runtime, package, release, manual QA, semantic quality, public-facing text, owner seal, or canonical seal mutation.
+This policy does not authorize source, rendered, Lua bridge, runtime, package, release, manual QA, semantic quality, or public-facing text mutation.

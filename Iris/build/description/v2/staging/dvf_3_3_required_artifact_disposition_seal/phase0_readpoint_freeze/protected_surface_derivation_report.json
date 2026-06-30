@@ -1,6 +1,6 @@
 {
   "derived_from_preflight_census_protected_surface": true,
-  "generated_at": "2026-06-30T08:16:11.759657+00:00",
+  "generated_at": "2026-06-30T08:41:48.623714+00:00",
   "generated_evidence_artifacts_excluded_from_protected_rendered_authority": true,
   "protected_paths": [
     "Iris/_docs/round3/current_route_required_validations.json",

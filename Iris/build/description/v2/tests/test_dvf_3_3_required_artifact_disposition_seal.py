@@ -59,7 +59,7 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
         cls.runner_env["DVF_REQUIRED_ARTIFACT_DISPOSITION_EVIDENCE_ROOT"] = str(cls.root)
         cls.runner_env["DVF_REQUIRED_ARTIFACT_DISPOSITION_DOC_ROOT"] = str(cls.doc_root)
         result = subprocess.run(
-            [sys.executable, "-B", str(RUNNER), "--mode", "census"],
+            [sys.executable, "-B", str(RUNNER), "--mode", "all"],
             cwd=REPO,
             env=cls.runner_env,
             text=True,
@@ -234,6 +234,36 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
                 {error["code"] for error in report["errors"]},
             )
 
+    def test_validator_rejects_tampered_owner_canonical_seal_binding(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="dvf_required_artifact_disposition_owner_seal_tamper_") as temp:
+            temp_root = Path(temp)
+            tampered_evidence = temp_root / "evidence"
+            tampered_docs = temp_root / "docs"
+            shutil.copytree(self.root, tampered_evidence)
+            shutil.copytree(self.doc_root, tampered_docs)
+            seal_report = tampered_evidence / "phase8_owner_canonical_seal/owner_canonical_seal_gate_report.json"
+            payload = load_json(seal_report)
+            payload["owner_canonical_seal_record"]["sha256"] = "0" * 64
+            seal_report.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            env = os.environ.copy()
+            env["DVF_REQUIRED_ARTIFACT_DISPOSITION_EVIDENCE_ROOT"] = str(tampered_evidence)
+            env["DVF_REQUIRED_ARTIFACT_DISPOSITION_DOC_ROOT"] = str(tampered_docs)
+            result = subprocess.run(
+                [sys.executable, "-B", str(VALIDATOR)],
+                cwd=REPO,
+                env=env,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+            report = load_json(tampered_evidence / "phase5_fail_closed_validation/validation_report.json")
+            self.assertIn(
+                "owner_canonical_seal_record_hash_mismatch",
+                {error["code"] for error in report["errors"]},
+            )
+
     def test_parent_packet_is_hash_bound_and_non_authoritative(self) -> None:
         final = load_json(self.root / "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json")
         packet = load_json(self.root / "phase6_closeout_claim_boundary/parent_closure_input_packet.json")
@@ -249,12 +279,19 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
             "required_artifact_denominator_sha256",
             "final_recensus_report_sha256",
             "disposition_ledger_sha256",
+            "owner_canonical_seal_record_sha256",
+            "owner_canonical_seal_gate_report_sha256",
         ]:
             self.assertEqual(packet[field], compatibility[field])
         self.assertFalse(mapping["parent_machine_pass_claimed"])
         self.assertIn(final["terminal_state"], mapping["mappings"])
         self.assertEqual(final["independent_review_gate"], "PASS")
+        self.assertEqual(final["owner_seal_status"], "PASS")
+        self.assertEqual(final["canonical_seal_status"], "PASS")
+        self.assertTrue(final["canonical_seal_allowed"])
         self.assertNotIn("no_independent_review_pass", final["non_claims"])
+        self.assertNotIn("no_owner_seal", final["non_claims"])
+        self.assertNotIn("no_canonical_seal", final["non_claims"])
         self.assertIn("no_release_readiness", final["non_claims"])
         self.assertIn("no_runtime_chunk_replacement", final["non_claims"])
 

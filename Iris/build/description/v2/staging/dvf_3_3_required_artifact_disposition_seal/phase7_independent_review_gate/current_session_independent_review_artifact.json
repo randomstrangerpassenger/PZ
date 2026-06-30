@@ -23,11 +23,11 @@
     },
     {
       "path": "docs/dvf_3_3_required_artifact_disposition_seal_policy.md",
-      "sha256": "831de07ddd033580a4146cee323c4011950cda61d20f781d235ae599b8115796"
+      "sha256": "ddd00c89b822d4aa25f80d492a727ddccb0fb67816a3a15b81e2a83a79f94c90"
     },
     {
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_required_artifact_disposition_seal_common.py",
-      "sha256": "7b0c0a963f5d3b66fc1dbb95de2f7b80755d38b96553e55e1e4d67370fb778a5"
+      "sha256": "a625c6d2080150f31c0c12d7963d1f23194656ed6555b1b2ec1e6efdd0b559f8"
     },
     {
       "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_disposition_seal.py",
@@ -39,7 +39,7 @@
     },
     {
       "path": "Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py",
-      "sha256": "6ee1ea412b5e627b9100998c518cc328dddf4c5cf410af57987066657bf055c0"
+      "sha256": "8769718a9e6894e4bd5bf6b3c9bfa84d362a10f3261e717e1c2622f1b83bfed8"
     },
     {
       "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_rule_ratifications/tracked_negative_exception_preserved_by_tracking.owner_ratification.json",
@@ -49,7 +49,7 @@
   "reviewed_validation_commands": [
     {
       "command": "uv run python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_dvf_3_3_required_artifact_disposition_seal.py\"",
-      "observed": "PASS, Ran 7 tests"
+      "observed": "PASS, Ran 8 tests"
     },
     {
       "command": "uv run python -B Iris\\build\\description\\v2\\tools\\build\\validate_dvf_3_3_required_artifact_disposition_seal.py --require-complete",

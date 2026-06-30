@@ -97,7 +97,7 @@
   "denominator_source": "live_current_route_required_validations_manifest",
   "expected_required_artifact_count_is_planning_observation": 93,
   "expected_required_test_count_is_planning_observation": 48,
-  "generated_at": "2026-06-30T08:16:11.572531+00:00",
+  "generated_at": "2026-06-30T08:41:48.417359+00:00",
   "manifest_path": "Iris/_docs/round3/current_route_required_validations.json",
   "manifest_route": "current",
   "manifest_schema": "round3-current-route-required-validations-v1",

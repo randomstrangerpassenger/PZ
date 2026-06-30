@@ -1,10 +1,8 @@
 {
-  "dirty_required_artifact_count": 1,
+  "dirty_required_artifact_count": 0,
   "dirty_uses_content_diff_only": true,
-  "generated_at": "2026-06-29T19:09:01.563918+00:00",
-  "paths": [
-    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
-  ],
+  "generated_at": "2026-06-30T07:06:13.245396+00:00",
+  "paths": [],
   "schema_version": "dvf-3-3-required-artifact-disposition-dirty-diff-report-v1",
   "status": "PASS"
 }

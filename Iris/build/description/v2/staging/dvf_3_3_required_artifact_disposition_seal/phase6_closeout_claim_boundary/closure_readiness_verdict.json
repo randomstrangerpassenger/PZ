@@ -1,11 +1,11 @@
 {
   "classification_complete": true,
-  "generated_at": "2026-06-29T19:11:25.467063+00:00",
-  "machine_pass_blocked": true,
+  "generated_at": "2026-06-30T07:08:26.501076+00:00",
+  "machine_pass_blocked": false,
   "parent_rerun_required": true,
-  "ready": false,
-  "required_artifact_disposition_problem_status": "SOLVED_WITH_MACHINE_BLOCKERS",
+  "ready": true,
+  "required_artifact_disposition_problem_status": "SOLVED",
   "schema_version": "dvf-3-3-required-artifact-disposition-closure-readiness-verdict-v1",
   "status": "PASS",
-  "terminal_state": "complete_with_blockers"
+  "terminal_state": "ready"
 }

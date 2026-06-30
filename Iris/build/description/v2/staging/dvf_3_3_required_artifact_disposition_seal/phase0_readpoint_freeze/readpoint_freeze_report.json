@@ -1,9 +1,9 @@
 {
-  "current_readpoint_fast_path_status": "NOT_ELIGIBLE",
+  "current_readpoint_fast_path_status": "ELIGIBLE",
   "dirty_uses_content_diff_only": true,
   "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal",
   "existing_untracked_required_artifacts_enter_disposition_route": true,
-  "generated_at": "2026-06-29T19:09:01.542202+00:00",
+  "generated_at": "2026-06-30T07:06:13.228971+00:00",
   "ignore_rule_match_and_effectively_ignored_are_separate": true,
   "ignored_diagnostic_coverage_denominator_count": 93,
   "manifest": {
@@ -31,8 +31,8 @@
     "role": "direct_plan_artifact",
     "sha256": "3f47c5ffdce522ba9a308ae82fb5b0f3aecebdd018903f45b40832aad402f95a"
   },
-  "problem_closure_denominator_count": 1,
-  "readpoint_id": "5e2e30b7601b9ff189f3a482f6701f180223350d2a1dd054f8d2f730f1032114",
+  "problem_closure_denominator_count": 0,
+  "readpoint_id": "fd86eabfbb905825847dbc4fd1b9f2299a4542fcd0fdc1af5ae03b592d4c2738",
   "required_artifact_count": 93,
   "required_test_count": 48,
   "round_id": "dvf_3_3_required_artifact_disposition_seal",

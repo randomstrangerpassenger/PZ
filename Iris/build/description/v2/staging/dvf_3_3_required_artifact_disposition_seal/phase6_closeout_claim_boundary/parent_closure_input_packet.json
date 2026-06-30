@@ -1,19 +1,19 @@
 {
   "current_route_manifest_sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343",
-  "disposition_ledger_sha256": "5e63bcf7274d0333edfadcd72947df2ce8e3fa67e4dcded63552bb3e1a525d99",
+  "disposition_ledger_sha256": "2748e8fb62c7d6d55857d9c4bf0f7f4d367938a34d5e77d25d8c3ae0d67030ae",
   "does_not_claim_canonical_seal": true,
   "does_not_claim_parent_machine_pass": true,
-  "final_disposition_report_sha256": "3ee8bb716d09d974fa7588842f0f364649981b0ea594702ac51d315c2edba551",
-  "final_recensus_report_sha256": "49783856c3ed09422be89d984944c40963e93cbcd60861bde1ace2f239c1cd06",
-  "generated_at": "2026-06-29T19:11:25.469124+00:00",
-  "machine_pass_blocked": true,
+  "final_disposition_report_sha256": "eee7a66ce8f735188010385347e07e1441ee5f1755e09447e3ebb766d10b5e11",
+  "final_recensus_report_sha256": "b7cb380f06ff417934ea05d6d38b7225ba1e5ac81878fc29950d6c819c5c41e1",
+  "generated_at": "2026-06-30T07:08:26.503816+00:00",
+  "machine_pass_blocked": false,
   "parent_rerun_required": true,
   "parent_round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
   "predecessor_round_id": "dvf_3_3_required_artifact_disposition_seal",
-  "readpoint_id": "5e2e30b7601b9ff189f3a482f6701f180223350d2a1dd054f8d2f730f1032114",
+  "readpoint_id": "fd86eabfbb905825847dbc4fd1b9f2299a4542fcd0fdc1af5ae03b592d4c2738",
   "required_artifact_denominator_sha256": "e6b731bc99d26ff4872758ddab6fe7bf86e2b1c09fb82226a36803844b8624d6",
-  "required_artifact_disposition_problem_status": "SOLVED_WITH_MACHINE_BLOCKERS",
+  "required_artifact_disposition_problem_status": "SOLVED",
   "schema_version": "dvf-3-3-required-artifact-disposition-parent-input-packet-v1",
   "status": "PASS",
-  "terminal_state": "complete_with_blockers"
+  "terminal_state": "ready"
 }

@@ -1,14 +1,23 @@
 {
-  "auto_seal_rule_ratification_status": "owner-ratification-pending",
-  "generated_at": "2026-06-29T19:09:01.556011+00:00",
+  "auto_seal_rule_ratification_status": "ratified",
+  "generated_at": "2026-06-30T07:06:13.239951+00:00",
   "invalid_record_count": 0,
   "invalid_records": [],
-  "owner_rule_ratification_binding_status": "OWNER_PENDING",
+  "owner_rule_ratification_binding_status": "PASS",
   "record_root": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_rule_ratifications",
-  "record_root_exists": false,
+  "record_root_exists": true,
   "schema_sha256": "2387d882894a80625f9684349913066c05c7b426b1afebdfd7b5329c91f266ef",
   "schema_version": "dvf-3-3-required-artifact-disposition-owner-rule-ratification-validation-v1",
   "status": "PASS",
-  "valid_record_count": 0,
-  "valid_records": []
+  "valid_record_count": 1,
+  "valid_records": [
+    {
+      "decision_token": "ratify_tracked_negative_exception_auto_seal",
+      "errors": [],
+      "owner_identity": "MW",
+      "owner_role": "project_owner",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_rule_ratifications/tracked_negative_exception_preserved_by_tracking.owner_ratification.json",
+      "sha256": "5cf054bdc3772b4141cba92cf2477999b0e3d67b24780569265a5adb41f5a53b"
+    }
+  ]
 }

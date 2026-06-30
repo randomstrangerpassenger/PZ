@@ -1,18 +1,18 @@
 {
   "current_route_manifest_sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343",
-  "disposition_ledger_sha256": "5e63bcf7274d0333edfadcd72947df2ce8e3fa67e4dcded63552bb3e1a525d99",
-  "final_recensus_report_sha256": "49783856c3ed09422be89d984944c40963e93cbcd60861bde1ace2f239c1cd06",
-  "generated_at": "2026-06-29T19:11:25.499663+00:00",
-  "owner_input_record_vcs_preservation_report_sha256": "1180b94f02d6eba3350fe01d8eb9d1b04bb1a873197c76a8689c6bb3a2430e26",
-  "owner_rule_ratification_validation_report_sha256": "95c9a569d74cbc880ffcf0bba81cda2d676a3166570407960c7ab871a73d09ad",
+  "disposition_ledger_sha256": "2748e8fb62c7d6d55857d9c4bf0f7f4d367938a34d5e77d25d8c3ae0d67030ae",
+  "final_recensus_report_sha256": "b7cb380f06ff417934ea05d6d38b7225ba1e5ac81878fc29950d6c819c5c41e1",
+  "generated_at": "2026-06-30T07:08:26.533184+00:00",
+  "owner_input_record_vcs_preservation_report_sha256": "6fe0e9f2153c002cfad7b630ae6ba091c42fb3ba7495f597d590898d1fbc014a",
+  "owner_rule_ratification_validation_report_sha256": "d4ef6305018106c30edcc9c2147a21c071cc4cb829a750dbb9b3e9bac7344f1e",
   "parent_rerun_required": true,
   "parent_round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
   "predecessor_round_id": "dvf_3_3_required_artifact_disposition_seal",
-  "protected_surface_derivation_report_sha256": "0ba81cf347c1e9335fe3cfec8f020531b93cea6ef5b9faa563d2741e2a8d60a5",
-  "readpoint_id": "5e2e30b7601b9ff189f3a482f6701f180223350d2a1dd054f8d2f730f1032114",
+  "protected_surface_derivation_report_sha256": "85518fa9569d43a5a9381f422bf3e763dfae9d4ef87721adfc42c7e643a78f35",
+  "readpoint_id": "fd86eabfbb905825847dbc4fd1b9f2299a4542fcd0fdc1af5ae03b592d4c2738",
   "ready_does_not_map_to_parent_machine_pass": true,
   "required_artifact_denominator_sha256": "e6b731bc99d26ff4872758ddab6fe7bf86e2b1c09fb82226a36803844b8624d6",
   "schema_version": "dvf-3-3-required-artifact-disposition-parent-compatibility-contract-v1",
   "status": "PASS",
-  "terminal_state": "complete_with_blockers"
+  "terminal_state": "ready"
 }

@@ -1,14 +1,14 @@
 # DVF 3-3 Required Artifact Disposition Seal Claim Boundary
 
-Status: `complete_with_blockers`.
+Status: `ready`.
 
 This round is governance-only. It derives the required artifact denominator from the live current-route required-validation manifest, assigns disposition rows for dirty / ignored / untracked required-artifact surfaces, and emits a parent closure input packet.
 
 `ready` means only `parent_required_surface_disposition_ready_for_rerun`. It does not claim parent machine PASS. `complete_with_blockers` means classification-complete with `machine_pass_blocked=true` and `ready=false`; it is not closeout-complete.
 
-Current terminal state: `complete_with_blockers`.
-Required artifact disposition problem status: `SOLVED_WITH_MACHINE_BLOCKERS`.
-Machine pass blocked: `True`.
+Current terminal state: `ready`.
+Required artifact disposition problem status: `SOLVED`.
+Machine pass blocked: `False`.
 
 Non-claims:
 

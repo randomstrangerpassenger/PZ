@@ -1,34 +1,7 @@
 {
-  "generated_at": "2026-06-29T19:09:01.594154+00:00",
-  "ignored_or_untracked_blocker_count": 1,
-  "rows": [
-    {
-      "artifact_sha256": "67f23d6f1a8af06e4ecdbcac55a7fa22fd57506c8c40021f03affd2df06742d6",
-      "auto_seal_rule_ratification_status": "not_applicable",
-      "auto_seal_rule_state": "not_applicable",
-      "axis": "ignored",
-      "axis_disposition": "blocker",
-      "manifest_index": 27,
-      "passability": "blocked",
-      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
-      "preservation_result": "none",
-      "rationale": "ignored required artifact is not safely preserved by tracking at this readpoint",
-      "row_id": "ignored-0008",
-      "vcs_tuple": {
-        "dirty": true,
-        "dirty_staged": false,
-        "dirty_unstaged": true,
-        "effectively_ignored": false,
-        "git_ignore_source": ".gitignore:246",
-        "ignore_active": false,
-        "ignore_match_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
-        "ignore_rule_is_negative_exception": true,
-        "ignore_rule_match": true,
-        "tracked": true,
-        "untracked": false
-      }
-    }
-  ],
+  "generated_at": "2026-06-30T07:06:13.269922+00:00",
+  "ignored_or_untracked_blocker_count": 0,
+  "rows": [],
   "schema_version": "dvf-3-3-required-artifact-disposition-ignored-blocker-report-v1",
   "status": "PASS"
 }

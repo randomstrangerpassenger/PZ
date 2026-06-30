@@ -7,7 +7,7 @@
     "exists": false,
     "path": "C:\\Users\\MW\\.config\\git\\ignore"
   },
-  "generated_at": "2026-06-29T19:09:01.537159+00:00",
+  "generated_at": "2026-06-30T07:06:13.225136+00:00",
   "git_info_exclude": {
     "exists": true,
     "path": ".git/info/exclude",
@@ -16,12 +16,12 @@
   "git_version": "git version 2.51.0.windows.2",
   "global_ignore_permission_warning_classification": "advisory",
   "repo_gitignore": {
-    "bytes": 31732,
+    "bytes": 32378,
     "exists": true,
     "kind": "file",
     "path": ".gitignore",
     "role": "repository_gitignore",
-    "sha256": "de0a257290b88dd789d16843864da69240761cc48f2f1570819c18ea13625983"
+    "sha256": "dc5b7afb8c586af1988fbf9b8ae5d198ecad4845dbea532d2cca0c4788930475"
   },
   "schema_version": "dvf-3-3-required-surface-git-environment-v1",
   "status": "PASS",

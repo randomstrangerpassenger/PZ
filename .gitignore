@@ -37,6 +37,13 @@ Iris/build/description/v2/*
 !Iris/build/description/v2/data/
 !Iris/build/description/v2/data/dvf_3_3_input_manifest.json
 !Iris/build/description/v2/*.md
+!Iris/build/description/v2/owner_inputs/
+Iris/build/description/v2/owner_inputs/*
+!Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/
+Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/*
+!Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_rule_ratifications/
+Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_rule_ratifications/*
+!Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_rule_ratifications/tracked_negative_exception_preserved_by_tracking.owner_ratification.json
 !Iris/build/description/v2/dvf_3_3_facts_schema_v2.json
 !Iris/build/description/v2/compose_profiles_v2.json
 !Iris/build/description/v2/forbidden_patterns.json

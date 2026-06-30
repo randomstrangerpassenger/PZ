@@ -1,0 +1,11 @@
+{
+  "decision_token": "ratify_tracked_negative_exception_auto_seal",
+  "owner_identity": "MW",
+  "owner_role": "project_owner",
+  "predicate_version": "tracked-negative-exception-v1",
+  "record_source": "owner_supplied",
+  "rule_id": "tracked_negative_exception_preserved_by_tracking",
+  "schema_sha256": "2387d882894a80625f9684349913066c05c7b426b1afebdfd7b5329c91f266ef",
+  "sequence_id": "2026-06-30-owner-ratification-001",
+  "timestamp": "2026-06-30T16:03:50.8895292+09:00"
+}

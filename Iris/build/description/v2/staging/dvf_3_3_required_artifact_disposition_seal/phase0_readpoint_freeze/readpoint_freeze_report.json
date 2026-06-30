@@ -3,7 +3,7 @@
   "dirty_uses_content_diff_only": true,
   "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal",
   "existing_untracked_required_artifacts_enter_disposition_route": true,
-  "generated_at": "2026-06-30T07:31:08.261036+00:00",
+  "generated_at": "2026-06-30T07:44:13.426839+00:00",
   "ignore_rule_match_and_effectively_ignored_are_separate": true,
   "ignored_diagnostic_coverage_denominator_count": 93,
   "manifest": {

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T07:33:33.834783+00:00",
+  "generated_at": "2026-06-30T07:46:41.510162+00:00",
   "mappings": {
     "complete_with_blockers": "blocked_with_required_surface_disposition_packet / no-authority-mutation",
     "machine_pass_blocked": "blocked_with_required_surface_disposition_packet / no-authority-mutation",

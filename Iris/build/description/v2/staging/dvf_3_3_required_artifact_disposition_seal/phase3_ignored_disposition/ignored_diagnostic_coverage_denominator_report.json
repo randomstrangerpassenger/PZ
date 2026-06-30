@@ -1,7 +1,7 @@
 {
   "bare_diagnostic_count": 0,
   "disposed_coverage_row_count": 93,
-  "generated_at": "2026-06-30T07:31:08.295902+00:00",
+  "generated_at": "2026-06-30T07:44:13.456821+00:00",
   "ignored_diagnostic_coverage_denominator_count": 93,
   "paths": [
     "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json",

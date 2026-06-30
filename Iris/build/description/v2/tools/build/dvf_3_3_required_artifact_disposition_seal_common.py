@@ -1433,6 +1433,29 @@ def axis_for_final_preservation_regression(row: dict[str, Any]) -> str:
     return "ignored"
 
 
+def append_hash_binding_error(
+    errors: list[dict[str, Any]],
+    *,
+    payload_name: str,
+    payload: dict[str, Any],
+    field: str,
+    expected: str | None,
+    expected_source: str,
+) -> None:
+    observed = payload.get(field)
+    if observed != expected:
+        errors.append(
+            {
+                "code": "hash_binding_mismatch",
+                "payload": payload_name,
+                "field": field,
+                "expected": expected,
+                "expected_source": expected_source,
+                "observed": observed,
+            }
+        )
+
+
 def write_phase6_closeout(
     context: dict[str, Any],
     schema_hash: str,
@@ -1945,6 +1968,60 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
         for field in ["current_route_manifest_sha256", "required_artifact_denominator_sha256", "final_recensus_report_sha256", "disposition_ledger_sha256"]:
             if parent_packet.get(field) != compatibility.get(field):
                 errors.append({"code": "parent_hash_binding_mismatch", "field": field})
+        final_report_path = EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "final_required_artifact_disposition_report.json"
+        final_recensus_path = EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "final_recensus_report.json"
+        disposition_ledger_path = EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "disposition_ledger.jsonl"
+        owner_rule_report_path = EVIDENCE_ROOT / "phase1_policy_schema" / "auto_seal_rule_ratification_validation_report.json"
+        owner_input_vcs_report_path = EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "owner_input_record_vcs_preservation_report.json"
+        protected_surface_derivation_path = EVIDENCE_ROOT / "phase0_readpoint_freeze" / "protected_surface_derivation_report.json"
+        shared_hash_bindings: list[tuple[str, str | None, str]] = [
+            ("current_route_manifest_sha256", sha256_file(LIVE_REQUIRED_MANIFEST), rel(LIVE_REQUIRED_MANIFEST)),
+            (
+                "required_artifact_denominator_sha256",
+                denominator.get("required_artifact_denominator_sha256"),
+                "phase0_readpoint_freeze/required_artifact_denominator.json:required_artifact_denominator_sha256",
+            ),
+            ("final_recensus_report_sha256", sha256_file(final_recensus_path), rel(final_recensus_path)),
+            ("disposition_ledger_sha256", sha256_file(disposition_ledger_path), rel(disposition_ledger_path)),
+        ]
+        for field, expected, source in shared_hash_bindings:
+            append_hash_binding_error(
+                errors,
+                payload_name="parent_closure_input_packet",
+                payload=parent_packet,
+                field=field,
+                expected=expected,
+                expected_source=source,
+            )
+            append_hash_binding_error(
+                errors,
+                payload_name="parent_compatibility_contract",
+                payload=compatibility,
+                field=field,
+                expected=expected,
+                expected_source=source,
+            )
+        append_hash_binding_error(
+            errors,
+            payload_name="parent_closure_input_packet",
+            payload=parent_packet,
+            field="final_disposition_report_sha256",
+            expected=sha256_file(final_report_path),
+            expected_source=rel(final_report_path),
+        )
+        for field, path in [
+            ("owner_rule_ratification_validation_report_sha256", owner_rule_report_path),
+            ("owner_input_record_vcs_preservation_report_sha256", owner_input_vcs_report_path),
+            ("protected_surface_derivation_report_sha256", protected_surface_derivation_path),
+        ]:
+            append_hash_binding_error(
+                errors,
+                payload_name="parent_compatibility_contract",
+                payload=compatibility,
+                field=field,
+                expected=sha256_file(path),
+                expected_source=rel(path),
+            )
         if parent_packet.get("does_not_claim_parent_machine_pass") is not True:
             errors.append({"code": "parent_machine_pass_claimed"})
     for doc in [POLICY_DOC, CLAIM_BOUNDARY_DOC, LEDGER_PACKET_DOC, CLOSEOUT_DOC]:

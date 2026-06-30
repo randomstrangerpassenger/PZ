@@ -197,6 +197,36 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
             self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
             self.assertIn("FAIL", result.stdout + result.stderr)
 
+    def test_validator_rejects_tampered_parent_compatibility_hash_binding(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="dvf_required_artifact_disposition_hash_tamper_") as temp:
+            temp_root = Path(temp)
+            tampered_evidence = temp_root / "evidence"
+            tampered_docs = temp_root / "docs"
+            shutil.copytree(self.root, tampered_evidence)
+            shutil.copytree(self.doc_root, tampered_docs)
+            compatibility = tampered_evidence / "phase6_closeout_claim_boundary/parent_compatibility_contract.json"
+            payload = load_json(compatibility)
+            payload["protected_surface_derivation_report_sha256"] = "0" * 64
+            compatibility.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            env = os.environ.copy()
+            env["DVF_REQUIRED_ARTIFACT_DISPOSITION_EVIDENCE_ROOT"] = str(tampered_evidence)
+            env["DVF_REQUIRED_ARTIFACT_DISPOSITION_DOC_ROOT"] = str(tampered_docs)
+            result = subprocess.run(
+                [sys.executable, "-B", str(VALIDATOR)],
+                cwd=REPO,
+                env=env,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+            report = load_json(tampered_evidence / "phase5_fail_closed_validation/validation_report.json")
+            self.assertIn(
+                "hash_binding_mismatch",
+                {error["code"] for error in report["errors"]},
+            )
+
     def test_parent_packet_is_hash_bound_and_non_authoritative(self) -> None:
         final = load_json(self.root / "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json")
         packet = load_json(self.root / "phase6_closeout_claim_boundary/parent_closure_input_packet.json")

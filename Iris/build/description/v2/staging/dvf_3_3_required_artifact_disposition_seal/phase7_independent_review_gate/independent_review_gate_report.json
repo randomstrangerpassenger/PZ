@@ -1,0 +1,64 @@
+{
+  "blocking_note_count": 0,
+  "error_count": 0,
+  "errors": [],
+  "generated_at": "2026-06-30T08:18:35.664829+00:00",
+  "independent_review_artifact": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase7_independent_review_gate/current_session_independent_review_artifact.json",
+    "sha256": "32caeb255b9d3f0a98d2c2040e112d16cb91c902cea60ee4db73d781d1668a97"
+  },
+  "independent_review_artifact_present": true,
+  "independent_review_gate": "PASS",
+  "independent_review_status": "PASS",
+  "review_verdict": "PASS",
+  "reviewed_artifact_count": 7,
+  "reviewed_artifact_hash_mismatch_count": 0,
+  "reviewed_artifacts": [
+    {
+      "actual_sha256": "3f47c5ffdce522ba9a308ae82fb5b0f3aecebdd018903f45b40832aad402f95a",
+      "expected_sha256": "3f47c5ffdce522ba9a308ae82fb5b0f3aecebdd018903f45b40832aad402f95a",
+      "path": "docs/dvf_3_3_required_artifact_disposition_seal_plan.md",
+      "status": "PASS"
+    },
+    {
+      "actual_sha256": "831de07ddd033580a4146cee323c4011950cda61d20f781d235ae599b8115796",
+      "expected_sha256": "831de07ddd033580a4146cee323c4011950cda61d20f781d235ae599b8115796",
+      "path": "docs/dvf_3_3_required_artifact_disposition_seal_policy.md",
+      "status": "PASS"
+    },
+    {
+      "actual_sha256": "7b0c0a963f5d3b66fc1dbb95de2f7b80755d38b96553e55e1e4d67370fb778a5",
+      "expected_sha256": "7b0c0a963f5d3b66fc1dbb95de2f7b80755d38b96553e55e1e4d67370fb778a5",
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_required_artifact_disposition_seal_common.py",
+      "status": "PASS"
+    },
+    {
+      "actual_sha256": "628a11991b2a358d934e4909e61851fbc960a38c266014c1fc956a585d8b7cab",
+      "expected_sha256": "628a11991b2a358d934e4909e61851fbc960a38c266014c1fc956a585d8b7cab",
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_disposition_seal.py",
+      "status": "PASS"
+    },
+    {
+      "actual_sha256": "9fb11c0ab254567b322402b2bf850f97ef969a5392a4fd68638eebb2a91795b4",
+      "expected_sha256": "9fb11c0ab254567b322402b2bf850f97ef969a5392a4fd68638eebb2a91795b4",
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_required_artifact_disposition_seal.py",
+      "status": "PASS"
+    },
+    {
+      "actual_sha256": "6ee1ea412b5e627b9100998c518cc328dddf4c5cf410af57987066657bf055c0",
+      "expected_sha256": "6ee1ea412b5e627b9100998c518cc328dddf4c5cf410af57987066657bf055c0",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py",
+      "status": "PASS"
+    },
+    {
+      "actual_sha256": "5cf054bdc3772b4141cba92cf2477999b0e3d67b24780569265a5adb41f5a53b",
+      "expected_sha256": "5cf054bdc3772b4141cba92cf2477999b0e3d67b24780569265a5adb41f5a53b",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_rule_ratifications/tracked_negative_exception_preserved_by_tracking.owner_ratification.json",
+      "status": "PASS"
+    }
+  ],
+  "reviewer_identity": "MW",
+  "reviewer_role": "human_project_owner_independent_reviewer",
+  "schema_version": "dvf-3-3-required-artifact-disposition-independent-review-gate-report-v1",
+  "status": "PASS"
+}

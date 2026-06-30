@@ -98,6 +98,10 @@ AUTO_SEAL_RULE_ID = "tracked_negative_exception_preserved_by_tracking"
 AUTO_SEAL_PREDICATE_VERSION = "tracked-negative-exception-v1"
 AUTO_SEAL_DECISION_TOKEN = "ratify_tracked_negative_exception_auto_seal"
 
+INDEPENDENT_REVIEW_PHASE = "phase7_independent_review_gate"
+INDEPENDENT_REVIEW_ARTIFACT_NAME = "current_session_independent_review_artifact.json"
+INDEPENDENT_REVIEW_ARTIFACT_SCHEMA = "dvf-3-3-required-artifact-disposition-independent-review-artifact-v1"
+
 NON_CLAIMS = [
     "no_source_mutation",
     "no_source_restoration",
@@ -119,6 +123,12 @@ NON_CLAIMS = [
     "no_owner_seal",
     "no_canonical_seal",
 ]
+
+
+def non_claims_for_review_gate(independent_review_gate: str) -> list[str]:
+    if independent_review_gate == "PASS":
+        return [claim for claim in NON_CLAIMS if claim != "no_independent_review_pass"]
+    return list(NON_CLAIMS)
 
 
 def phase_dir(name: str) -> Path:
@@ -1456,6 +1466,93 @@ def append_hash_binding_error(
         )
 
 
+def independent_review_artifact_path() -> Path:
+    return EVIDENCE_ROOT / INDEPENDENT_REVIEW_PHASE / INDEPENDENT_REVIEW_ARTIFACT_NAME
+
+
+def validate_reviewed_artifact_hashes(rows: list[Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    normalized_rows: list[dict[str, Any]] = []
+    errors: list[dict[str, Any]] = []
+    for index, row in enumerate(rows, 1):
+        if not isinstance(row, dict):
+            errors.append({"code": "reviewed_artifact_row_not_object", "index": index})
+            continue
+        path = str(row.get("path", ""))
+        expected = row.get("sha256")
+        if not path or not isinstance(expected, str):
+            errors.append({"code": "reviewed_artifact_missing_path_or_sha256", "index": index, "path": path})
+            continue
+        actual = sha256_file(path)
+        record = {"path": path, "expected_sha256": expected, "actual_sha256": actual, "status": "PASS" if actual == expected else "FAIL"}
+        normalized_rows.append(record)
+        if actual != expected:
+            errors.append(
+                {
+                    "code": "reviewed_artifact_hash_mismatch",
+                    "index": index,
+                    "path": path,
+                    "expected": expected,
+                    "observed": actual,
+                }
+            )
+    return normalized_rows, errors
+
+
+def write_independent_review_gate_report() -> dict[str, Any]:
+    path = independent_review_artifact_path()
+    errors: list[dict[str, Any]] = []
+    payload = read_json_object(path)
+    artifact_sha256 = sha256_file(path)
+    if not payload:
+        errors.append({"code": "missing_independent_review_artifact", "path": rel(path)})
+    else:
+        if payload.get("schema_version") != INDEPENDENT_REVIEW_ARTIFACT_SCHEMA:
+            errors.append({"code": "independent_review_schema_mismatch", "observed": payload.get("schema_version")})
+        if payload.get("artifact_kind") != "independent_review_artifact":
+            errors.append({"code": "independent_review_artifact_kind_mismatch", "observed": payload.get("artifact_kind")})
+        if payload.get("self_generated_artifact_flag") is not False:
+            errors.append({"code": "independent_review_self_generated_or_unspecified"})
+        if payload.get("review_verdict") not in {"PASS", "PASS_WITH_NOTES"}:
+            errors.append({"code": "independent_review_verdict_not_pass", "observed": payload.get("review_verdict")})
+        if payload.get("blocking_note_count", 0) != 0 or payload.get("review_notes_blocking") is True:
+            errors.append({"code": "independent_review_has_blocking_notes"})
+        if payload.get("reviewer_identity") in {None, "", "Claude", "Codex"}:
+            errors.append({"code": "independent_review_reviewer_identity_invalid", "observed": payload.get("reviewer_identity")})
+        for field in [
+            "reviewer_independent_from_executor",
+            "reviewer_independent_from_roadmap_author",
+            "reviewer_independent_from_self_record_generator",
+        ]:
+            if payload.get(field) is not True:
+                errors.append({"code": "independent_review_independence_field_not_true", "field": field, "observed": payload.get(field)})
+        if payload.get("claim_boundary_acknowledgement") is not True:
+            errors.append({"code": "independent_review_missing_claim_boundary_acknowledgement"})
+    reviewed_rows, hash_errors = validate_reviewed_artifact_hashes(payload.get("reviewed_artifact_list", []))
+    errors.extend(hash_errors)
+    if not reviewed_rows:
+        errors.append({"code": "independent_review_missing_reviewed_artifact_hashes"})
+    report = {
+        "schema_version": "dvf-3-3-required-artifact-disposition-independent-review-gate-report-v1",
+        "generated_at": now_iso(),
+        "status": "PASS" if not errors else "BLOCKED",
+        "independent_review_gate": "PASS" if not errors else "BLOCKED",
+        "independent_review_status": "PASS" if not errors else "BLOCKED",
+        "independent_review_artifact_present": bool(payload),
+        "independent_review_artifact": {"path": rel(path), "sha256": artifact_sha256},
+        "reviewer_identity": payload.get("reviewer_identity"),
+        "reviewer_role": payload.get("reviewer_role"),
+        "review_verdict": payload.get("review_verdict"),
+        "blocking_note_count": payload.get("blocking_note_count"),
+        "reviewed_artifact_count": len(reviewed_rows),
+        "reviewed_artifact_hash_mismatch_count": len(hash_errors),
+        "reviewed_artifacts": reviewed_rows,
+        "errors": errors,
+        "error_count": len(errors),
+    }
+    write_json(phase_path(INDEPENDENT_REVIEW_PHASE, "independent_review_gate_report.json"), report)
+    return report
+
+
 def write_phase6_closeout(
     context: dict[str, Any],
     schema_hash: str,
@@ -1523,6 +1620,10 @@ def write_phase6_closeout(
     current_route_required_complete = current_route.get("status") == "PASS"
     final_vcs_ready = final_vcs_preservation_ready(final_summary)
     owner_input_preserved = owner_input_vcs_preserved(owner_vcs_report)
+    independent_review = write_independent_review_gate_report()
+    independent_review_gate = str(independent_review.get("independent_review_gate"))
+    independent_review_ready = independent_review_gate == "PASS"
+    non_claims = non_claims_for_review_gate(independent_review_gate)
     validation_failed = (
         fail_closed.get("status") != "PASS"
         or no_mutation.get("changed_count") != 0
@@ -1531,6 +1632,7 @@ def write_phase6_closeout(
         or broad_staging_unignore_count() != 0
         or not final_vcs_ready
         or not owner_input_preserved
+        or not independent_review_ready
     )
     ready_conditions_met = (
         not validation_failed
@@ -1540,6 +1642,7 @@ def write_phase6_closeout(
         and final_vcs_ready
         and bare_count == 0
         and owner_input_preserved
+        and independent_review_ready
         and owner_rule_report.get("owner_rule_ratification_binding_status") in {"PASS", "NOT_APPLICABLE"}
     )
     terminal_state, problem_status, artifact_state, machine_pass_blocked = terminal_from_state(
@@ -1555,6 +1658,7 @@ def write_phase6_closeout(
         and bare_count == 0
         and final_vcs_ready
         and owner_input_preserved
+        and independent_review_ready
         and owner_rule_report.get("owner_rule_ratification_binding_status") == "PASS"
     )
     dirty_axis_verdict = "ready_clean" if final_summary.get("dirty_required_artifact_count") == 0 else "blocked_dirty_not_preserved"
@@ -1617,10 +1721,16 @@ def write_phase6_closeout(
         "final_dirty_blocker_rows": [row.get("path") for row in late_preservation_blocker_rows if row.get("dirty")],
         "current_route_validation_state": current_route.get("status"),
         "current_route_regression_required_for_ready": True,
-        "independent_review_gate": "BLOCKED",
+        "independent_review_gate": independent_review_gate,
+        "independent_review_status": independent_review.get("independent_review_status"),
+        "independent_review_artifact_path": independent_review.get("independent_review_artifact", {}).get("path"),
+        "independent_review_artifact_sha256": independent_review.get("independent_review_artifact", {}).get("sha256"),
+        "independent_review_gate_report_sha256": sha256_file(
+            phase_path(INDEPENDENT_REVIEW_PHASE, "independent_review_gate_report.json")
+        ),
         "owner_seal_status": "not_claimed",
         "canonical_seal_status": "not_claimed",
-        "non_claims": NON_CLAIMS,
+        "non_claims": non_claims,
         "validation_errors": final_row_errors,
     }
     final_path = phase_path("phase6_closeout_claim_boundary", "final_required_artifact_disposition_report.json")
@@ -1655,6 +1765,9 @@ def write_phase6_closeout(
         "final_recensus_report_sha256": sha256_file(final_recensus_path),
         "disposition_ledger_sha256": sha256_file(ledger_path),
         "final_disposition_report_sha256": sha256_file(final_path),
+        "independent_review_gate_report_sha256": sha256_file(
+            phase_path(INDEPENDENT_REVIEW_PHASE, "independent_review_gate_report.json")
+        ),
         "terminal_state": terminal_state,
         "required_artifact_disposition_problem_status": problem_status,
         "machine_pass_blocked": machine_pass_blocked,
@@ -1679,6 +1792,10 @@ def write_phase6_closeout(
         ),
         "owner_input_record_vcs_preservation_report_sha256": sha256_file(
             phase_path("phase6_closeout_claim_boundary", "owner_input_record_vcs_preservation_report.json")
+        ),
+        "independent_review_artifact_sha256": independent_review.get("independent_review_artifact", {}).get("sha256"),
+        "independent_review_gate_report_sha256": sha256_file(
+            phase_path(INDEPENDENT_REVIEW_PHASE, "independent_review_gate_report.json")
         ),
         "protected_surface_derivation_report_sha256": sha256_file(
             phase_path("phase0_readpoint_freeze", "protected_surface_derivation_report.json")
@@ -1715,8 +1832,13 @@ def write_phase6_closeout(
 
 
 def write_closeout_docs(final_report: dict[str, Any], parent_packet: dict[str, Any]) -> None:
-    non_claims = "\n".join(f"- `{item}`" for item in NON_CLAIMS)
     terminal = final_report.get("terminal_state")
+    review_clause = (
+        "Independent review is artifact-bound and PASS for this disposition seal."
+        if final_report.get("independent_review_gate") == "PASS"
+        else "Independent review remains a non-claim."
+    )
+    non_claims = "\n".join(f"- `{item}`" for item in final_report.get("non_claims", NON_CLAIMS))
     write_text(
         CLAIM_BOUNDARY_DOC,
         f"""# DVF 3-3 Required Artifact Disposition Seal Claim Boundary
@@ -1750,7 +1872,7 @@ Non-claims:
 
 If `complete_with_blockers` appears in this packet, it means classification-complete only and must be read with `machine_pass_blocked=true` and `ready=false`. Owner pending rows require owner-supplied input records; staging evidence cannot replace them.
 
-Independent review, owner seal, canonical seal, runtime readiness, package readiness, release readiness, manual QA, semantic quality completion, and public-facing text acceptance remain non-claims.
+{review_clause} Owner seal, canonical seal, runtime readiness, package readiness, release readiness, manual QA, semantic quality completion, and public-facing text acceptance remain non-claims.
 """,
     )
     write_text(
@@ -1827,11 +1949,12 @@ def required_report_checks(require_complete: bool) -> list[tuple[str, dict[str, 
         ("phase5_fail_closed_validation/protected_surface_no_mutation_report.json", {"status": "PASS", "changed_count": 0}),
         ("phase6_closeout_claim_boundary/final_recensus_report.json", {"status": "PASS"}),
         ("phase6_closeout_claim_boundary/owner_input_record_vcs_preservation_report.json", {"status": "PASS"}),
-        ("phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json", {"independent_review_gate": "BLOCKED"}),
+        ("phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json", {"independent_review_gate": "PASS"}),
         ("phase6_closeout_claim_boundary/closure_readiness_verdict.json", {"parent_rerun_required": True}),
         ("phase6_closeout_claim_boundary/parent_closure_input_packet.json", {"parent_round_id": PARENT_ROUND_ID, "predecessor_round_id": ROUND_ID, "parent_rerun_required": True}),
         ("phase6_closeout_claim_boundary/parent_compatibility_contract.json", {"parent_round_id": PARENT_ROUND_ID, "predecessor_round_id": ROUND_ID, "parent_rerun_required": True}),
         ("phase6_closeout_claim_boundary/parent_terminal_state_mapping.json", {"parent_machine_pass_claimed": False}),
+        (f"{INDEPENDENT_REVIEW_PHASE}/independent_review_gate_report.json", {"status": "PASS", "independent_review_gate": "PASS"}),
     ]
     if require_complete:
         checks.append(("phase5_fail_closed_validation/current_route_validation_result.json", {"status": "PASS", "success": True, "closure_enforced": True}))
@@ -1872,6 +1995,7 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
     ignored_coverage = read_json_object(EVIDENCE_ROOT / "phase3_ignored_disposition" / "ignored_diagnostic_coverage_denominator_report.json")
     final = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "final_required_artifact_disposition_report.json")
     owner_vcs_report = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "owner_input_record_vcs_preservation_report.json")
+    independent_review_report = read_json_object(EVIDENCE_ROOT / INDEPENDENT_REVIEW_PHASE / "independent_review_gate_report.json")
     parent_packet = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "parent_closure_input_packet.json")
     compatibility = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "parent_compatibility_contract.json")
     if denominator and vcs_summary:
@@ -1910,6 +2034,23 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
             errors.append({"code": "owner_input_record_vcs_preservation_not_pass"})
         if final and final.get("owner_input_record_vcs_preservation_status") != owner_vcs_report.get("owner_input_record_vcs_preservation_status"):
             errors.append({"code": "owner_input_record_vcs_preservation_status_mismatch"})
+    if independent_review_report:
+        if independent_review_report.get("status") != "PASS" or independent_review_report.get("independent_review_gate") != "PASS":
+            errors.append({"code": "independent_review_gate_not_pass", "report": independent_review_report})
+        artifact = independent_review_report.get("independent_review_artifact", {})
+        if isinstance(artifact, dict):
+            observed_review_sha = sha256_file(str(artifact.get("path", "")))
+            if artifact.get("sha256") != observed_review_sha:
+                errors.append(
+                    {
+                        "code": "independent_review_artifact_hash_mismatch",
+                        "path": artifact.get("path"),
+                        "expected": artifact.get("sha256"),
+                        "observed": observed_review_sha,
+                    }
+                )
+        if independent_review_report.get("reviewed_artifact_hash_mismatch_count") != 0:
+            errors.append({"code": "independent_review_reviewed_artifact_hash_mismatch"})
     if final:
         terminal = final.get("terminal_state")
         problem_status = final.get("required_artifact_disposition_problem_status")
@@ -1926,6 +2067,8 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 errors.append({"code": "ready_without_owner_rule_ratification_pass"})
             if final.get("owner_input_record_vcs_preservation_status") not in {"PASS", "NOT_APPLICABLE"}:
                 errors.append({"code": "ready_without_owner_input_vcs_preservation_pass"})
+            if final.get("independent_review_gate") != "PASS":
+                errors.append({"code": "ready_without_independent_review_gate_pass"})
             if final.get("bare_diagnostic_count") != 0:
                 errors.append({"code": "ready_with_bare_diagnostics"})
             for field in [
@@ -1946,6 +2089,8 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 errors.append({"code": "forbidden_claim", "field": forbidden})
         if require_complete and final.get("terminal_state") == "ready" and final.get("current_route_validation_state") != "PASS":
             errors.append({"code": "ready_without_current_route_pass"})
+        if final.get("independent_review_gate") == "PASS" and "no_independent_review_pass" in final.get("non_claims", []):
+            errors.append({"code": "independent_review_pass_still_non_claimed"})
         if final.get("fast_path_used") is True:
             if final.get("current_readpoint_fast_path_status") != "ELIGIBLE":
                 errors.append({"code": "fast_path_used_when_not_eligible"})
@@ -1953,6 +2098,8 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 errors.append({"code": "fast_path_used_without_owner_rule_pass"})
             if final.get("owner_input_record_vcs_preservation_status") not in {"PASS", "NOT_APPLICABLE"}:
                 errors.append({"code": "fast_path_used_without_owner_input_vcs_preservation"})
+            if final.get("independent_review_gate") != "PASS":
+                errors.append({"code": "fast_path_used_without_independent_review_gate_pass"})
             if final.get("bare_diagnostic_count") != 0:
                 errors.append({"code": "fast_path_used_with_bare_diagnostics"})
             for field in [
@@ -1965,7 +2112,13 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 if final.get(field) != 0:
                     errors.append({"code": "fast_path_used_with_final_vcs_regression", "field": field, "observed": final.get(field)})
     if parent_packet and compatibility:
-        for field in ["current_route_manifest_sha256", "required_artifact_denominator_sha256", "final_recensus_report_sha256", "disposition_ledger_sha256"]:
+        for field in [
+            "current_route_manifest_sha256",
+            "required_artifact_denominator_sha256",
+            "final_recensus_report_sha256",
+            "disposition_ledger_sha256",
+            "independent_review_gate_report_sha256",
+        ]:
             if parent_packet.get(field) != compatibility.get(field):
                 errors.append({"code": "parent_hash_binding_mismatch", "field": field})
         final_report_path = EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "final_required_artifact_disposition_report.json"
@@ -1973,6 +2126,8 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
         disposition_ledger_path = EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "disposition_ledger.jsonl"
         owner_rule_report_path = EVIDENCE_ROOT / "phase1_policy_schema" / "auto_seal_rule_ratification_validation_report.json"
         owner_input_vcs_report_path = EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "owner_input_record_vcs_preservation_report.json"
+        independent_review_gate_report_path = EVIDENCE_ROOT / INDEPENDENT_REVIEW_PHASE / "independent_review_gate_report.json"
+        independent_review_input_path = independent_review_artifact_path()
         protected_surface_derivation_path = EVIDENCE_ROOT / "phase0_readpoint_freeze" / "protected_surface_derivation_report.json"
         shared_hash_bindings: list[tuple[str, str | None, str]] = [
             ("current_route_manifest_sha256", sha256_file(LIVE_REQUIRED_MANIFEST), rel(LIVE_REQUIRED_MANIFEST)),
@@ -1983,6 +2138,11 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
             ),
             ("final_recensus_report_sha256", sha256_file(final_recensus_path), rel(final_recensus_path)),
             ("disposition_ledger_sha256", sha256_file(disposition_ledger_path), rel(disposition_ledger_path)),
+            (
+                "independent_review_gate_report_sha256",
+                sha256_file(independent_review_gate_report_path),
+                rel(independent_review_gate_report_path),
+            ),
         ]
         for field, expected, source in shared_hash_bindings:
             append_hash_binding_error(
@@ -2012,6 +2172,7 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
         for field, path in [
             ("owner_rule_ratification_validation_report_sha256", owner_rule_report_path),
             ("owner_input_record_vcs_preservation_report_sha256", owner_input_vcs_report_path),
+            ("independent_review_artifact_sha256", independent_review_input_path),
             ("protected_surface_derivation_report_sha256", protected_surface_derivation_path),
         ]:
             append_hash_binding_error(

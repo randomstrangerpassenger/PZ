@@ -15,6 +15,8 @@ TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal"
 RUNNER = TOOLS / "run_dvf_3_3_required_artifact_disposition_seal.py"
 VALIDATOR = TOOLS / "validate_dvf_3_3_required_artifact_disposition_seal.py"
+REVIEW_PHASE = "phase7_independent_review_gate"
+REVIEW_ARTIFACT = "current_session_independent_review_artifact.json"
 
 sys.path.insert(0, str(TOOLS))
 
@@ -48,6 +50,11 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
         temp_root = Path(cls._tempdir.name)
         cls.root = temp_root / "evidence"
         cls.doc_root = temp_root / "docs"
+        source_review = ROOT / REVIEW_PHASE / REVIEW_ARTIFACT
+        if source_review.exists():
+            target_review = cls.root / REVIEW_PHASE / REVIEW_ARTIFACT
+            target_review.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source_review, target_review)
         cls.runner_env = os.environ.copy()
         cls.runner_env["DVF_REQUIRED_ARTIFACT_DISPOSITION_EVIDENCE_ROOT"] = str(cls.root)
         cls.runner_env["DVF_REQUIRED_ARTIFACT_DISPOSITION_DOC_ROOT"] = str(cls.doc_root)
@@ -246,6 +253,8 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
             self.assertEqual(packet[field], compatibility[field])
         self.assertFalse(mapping["parent_machine_pass_claimed"])
         self.assertIn(final["terminal_state"], mapping["mappings"])
+        self.assertEqual(final["independent_review_gate"], "PASS")
+        self.assertNotIn("no_independent_review_pass", final["non_claims"])
         self.assertIn("no_release_readiness", final["non_claims"])
         self.assertIn("no_runtime_chunk_replacement", final["non_claims"])
 

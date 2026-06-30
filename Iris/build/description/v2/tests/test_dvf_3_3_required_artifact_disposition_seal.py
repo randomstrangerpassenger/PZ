@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import os
+import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -41,29 +44,49 @@ def load_jsonl(path: Path) -> list[dict]:
 class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        final = ROOT / "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json"
-        if final.exists():
-            payload = load_json(final)
-            if payload.get("terminal_state") in {"ready", "owner_pending", "complete_with_blockers"}:
-                return
+        cls._tempdir = tempfile.TemporaryDirectory(prefix="dvf_required_artifact_disposition_")
+        temp_root = Path(cls._tempdir.name)
+        cls.root = temp_root / "evidence"
+        cls.doc_root = temp_root / "docs"
+        cls.runner_env = os.environ.copy()
+        cls.runner_env["DVF_REQUIRED_ARTIFACT_DISPOSITION_EVIDENCE_ROOT"] = str(cls.root)
+        cls.runner_env["DVF_REQUIRED_ARTIFACT_DISPOSITION_DOC_ROOT"] = str(cls.doc_root)
         result = subprocess.run(
             [sys.executable, "-B", str(RUNNER), "--mode", "census"],
             cwd=REPO,
+            env=cls.runner_env,
             text=True,
             capture_output=True,
             check=False,
         )
-        if result.returncode != 0:
+        final = cls.root / "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json"
+        if not final.exists():
             raise AssertionError(
-                "required artifact disposition seal census generation failed\n"
+                "required artifact disposition seal generation did not create a final report\n"
+                f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+            )
+        payload = load_json(final)
+        census_skip_terminal = (
+            payload.get("terminal_state") == "validation_failed"
+            and payload.get("current_route_validation_state") == "SKIPPED"
+        )
+        if result.returncode != 0 and not census_skip_terminal:
+            raise AssertionError(
+                "required artifact disposition seal census generation failed unexpectedly\n"
                 f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
             )
 
+    @classmethod
+    def tearDownClass(cls) -> None:
+        tempdir = getattr(cls, "_tempdir", None)
+        if tempdir is not None:
+            tempdir.cleanup()
+
     def test_live_manifest_denominator_and_ignored_coverage_are_separate(self) -> None:
-        denominator = load_json(ROOT / "phase0_readpoint_freeze/required_artifact_denominator.json")
-        summary = load_json(ROOT / "phase0_readpoint_freeze/required_artifact_vcs_summary.json")
-        problem = load_json(ROOT / "phase0_readpoint_freeze/problem_closure_denominator.json")
-        ignored = load_json(ROOT / "phase0_readpoint_freeze/ignored_diagnostic_coverage_denominator.json")
+        denominator = load_json(self.root / "phase0_readpoint_freeze/required_artifact_denominator.json")
+        summary = load_json(self.root / "phase0_readpoint_freeze/required_artifact_vcs_summary.json")
+        problem = load_json(self.root / "phase0_readpoint_freeze/problem_closure_denominator.json")
+        ignored = load_json(self.root / "phase0_readpoint_freeze/ignored_diagnostic_coverage_denominator.json")
 
         self.assertEqual(denominator["status"], "PASS")
         self.assertEqual(denominator["required_artifact_count"], summary["vcs_tuple_count"])
@@ -76,8 +99,8 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
         self.assertTrue(summary["roadmap_premise_reconciliation"]["effectively_ignored_reported_as_separate_blocker_axis"])
 
     def test_schema_is_source_of_truth_and_rows_keep_fields_separate(self) -> None:
-        schema = load_json(ROOT / "phase1_policy_schema/disposition_schema.json")
-        rows = load_jsonl(ROOT / "phase6_closeout_claim_boundary/disposition_ledger.jsonl")
+        schema = load_json(self.root / "phase1_policy_schema/disposition_schema.json")
+        rows = load_jsonl(self.root / "phase6_closeout_claim_boundary/disposition_ledger.jsonl")
 
         self.assertEqual(schema["axis"], ALLOWED_AXIS)
         self.assertEqual(schema["axis_disposition"], ALLOWED_AXIS_DISPOSITION)
@@ -93,10 +116,10 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
             self.assertNotIn(row["axis_disposition"], schema["preservation_result"])
 
     def test_owner_rule_gate_controls_negative_exception_auto_disposition(self) -> None:
-        owner_rule = load_json(ROOT / "phase1_policy_schema/auto_seal_rule_ratification_validation_report.json")
-        auto_report = load_json(ROOT / "phase3_ignored_disposition/negative_exception_auto_disposition_report.json")
-        final = load_json(ROOT / "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json")
-        rows = load_jsonl(ROOT / "phase3_ignored_disposition/ignored_required_artifact_disposition_ledger.jsonl")
+        owner_rule = load_json(self.root / "phase1_policy_schema/auto_seal_rule_ratification_validation_report.json")
+        auto_report = load_json(self.root / "phase3_ignored_disposition/negative_exception_auto_disposition_report.json")
+        final = load_json(self.root / "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json")
+        rows = load_jsonl(self.root / "phase3_ignored_disposition/ignored_required_artifact_disposition_ledger.jsonl")
         candidates = [row for row in rows if row.get("auto_seal_rule_id") == AUTO_SEAL_RULE_ID]
 
         self.assertEqual(auto_report["negative_exception_candidate_count"], len(candidates))
@@ -114,8 +137,8 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
             self.assertTrue(all(row["passability"] == "owner_pending" for row in candidates))
 
     def test_negative_fixtures_and_validator_fail_closed(self) -> None:
-        schema = load_json(ROOT / "phase1_policy_schema/disposition_schema.json")
-        matrix = load_json(ROOT / "phase5_fail_closed_validation/negative_fixture_matrix.json")
+        schema = load_json(self.root / "phase1_policy_schema/disposition_schema.json")
+        matrix = load_json(self.root / "phase5_fail_closed_validation/negative_fixture_matrix.json")
         self.assertEqual(matrix["status"], "PASS")
         self.assertEqual(negative_fixture_matrix(schema)["status"], "PASS")
 
@@ -140,17 +163,45 @@ class DvfRequiredArtifactDispositionSealTest(unittest.TestCase):
         result = subprocess.run(
             [sys.executable, "-B", str(VALIDATOR)],
             cwd=REPO,
+            env=self.runner_env,
             text=True,
             capture_output=True,
             check=False,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_validator_rejects_tampered_owner_input_vcs_preservation(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="dvf_required_artifact_disposition_tamper_") as temp:
+            temp_root = Path(temp)
+            tampered_evidence = temp_root / "evidence"
+            tampered_docs = temp_root / "docs"
+            shutil.copytree(self.root, tampered_evidence)
+            shutil.copytree(self.doc_root, tampered_docs)
+            owner_report = tampered_evidence / "phase6_closeout_claim_boundary/owner_input_record_vcs_preservation_report.json"
+            payload = load_json(owner_report)
+            payload["status"] = "FAIL"
+            payload["owner_input_record_vcs_preservation_status"] = "FAIL"
+            owner_report.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            env = os.environ.copy()
+            env["DVF_REQUIRED_ARTIFACT_DISPOSITION_EVIDENCE_ROOT"] = str(tampered_evidence)
+            env["DVF_REQUIRED_ARTIFACT_DISPOSITION_DOC_ROOT"] = str(tampered_docs)
+            result = subprocess.run(
+                [sys.executable, "-B", str(VALIDATOR)],
+                cwd=REPO,
+                env=env,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertNotEqual(result.returncode, 0, result.stdout + result.stderr)
+            self.assertIn("FAIL", result.stdout + result.stderr)
+
     def test_parent_packet_is_hash_bound_and_non_authoritative(self) -> None:
-        final = load_json(ROOT / "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json")
-        packet = load_json(ROOT / "phase6_closeout_claim_boundary/parent_closure_input_packet.json")
-        compatibility = load_json(ROOT / "phase6_closeout_claim_boundary/parent_compatibility_contract.json")
-        mapping = load_json(ROOT / "phase6_closeout_claim_boundary/parent_terminal_state_mapping.json")
+        final = load_json(self.root / "phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json")
+        packet = load_json(self.root / "phase6_closeout_claim_boundary/parent_closure_input_packet.json")
+        compatibility = load_json(self.root / "phase6_closeout_claim_boundary/parent_compatibility_contract.json")
+        mapping = load_json(self.root / "phase6_closeout_claim_boundary/parent_terminal_state_mapping.json")
 
         self.assertEqual(packet["parent_round_id"], "dvf_3_3_current_route_authority_required_evidence_integrity_closure")
         self.assertEqual(packet["predecessor_round_id"], "dvf_3_3_required_artifact_disposition_seal")

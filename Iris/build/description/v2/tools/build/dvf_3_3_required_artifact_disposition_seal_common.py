@@ -41,16 +41,27 @@ from dvf_3_3_required_artifact_surface_preflight_census_common import (
 
 ROUND_ID = "dvf_3_3_required_artifact_disposition_seal"
 PARENT_ROUND_ID = "dvf_3_3_current_route_authority_required_evidence_integrity_closure"
-EVIDENCE_ROOT = V2_ROOT / "staging" / ROUND_ID
+
+
+def configured_repo_path(env_name: str, default: Path) -> Path:
+    override = os.environ.get(env_name)
+    return resolve_repo(override) if override else default
+
+
+EVIDENCE_ROOT = configured_repo_path(
+    "DVF_REQUIRED_ARTIFACT_DISPOSITION_EVIDENCE_ROOT",
+    V2_ROOT / "staging" / ROUND_ID,
+)
 OWNER_INPUT_ROOT = V2_ROOT / "owner_inputs" / ROUND_ID
 OWNER_DECISION_DIR = OWNER_INPUT_ROOT / "owner_decision_records"
 OWNER_RULE_DIR = OWNER_INPUT_ROOT / "owner_rule_ratifications"
 
+DOC_ROOT = configured_repo_path("DVF_REQUIRED_ARTIFACT_DISPOSITION_DOC_ROOT", REPO_ROOT / "docs")
 PLAN_DOC = REPO_ROOT / "docs" / "dvf_3_3_required_artifact_disposition_seal_plan.md"
-POLICY_DOC = REPO_ROOT / "docs" / "dvf_3_3_required_artifact_disposition_seal_policy.md"
-CLAIM_BOUNDARY_DOC = REPO_ROOT / "docs" / "dvf_3_3_required_artifact_disposition_seal_claim_boundary.md"
-LEDGER_PACKET_DOC = REPO_ROOT / "docs" / "dvf_3_3_required_artifact_disposition_seal_ledger_packet.md"
-CLOSEOUT_DOC = REPO_ROOT / "docs" / "dvf_3_3_required_artifact_disposition_seal_closeout.md"
+POLICY_DOC = DOC_ROOT / "dvf_3_3_required_artifact_disposition_seal_policy.md"
+CLAIM_BOUNDARY_DOC = DOC_ROOT / "dvf_3_3_required_artifact_disposition_seal_claim_boundary.md"
+LEDGER_PACKET_DOC = DOC_ROOT / "dvf_3_3_required_artifact_disposition_seal_ledger_packet.md"
+CLOSEOUT_DOC = DOC_ROOT / "dvf_3_3_required_artifact_disposition_seal_closeout.md"
 PARENT_PLAN_DOC = REPO_ROOT / "docs" / "dvf_3_3_current_route_authority_required_evidence_integrity_closure_plan.md"
 
 EXPECTED_REQUIRED_ARTIFACT_COUNT = 93
@@ -1098,6 +1109,7 @@ def validate_rows(
                 errors.append({"code": "owner_adopted_dirty_still_dirty", "row_id": row_id})
         if row.get("axis_disposition") == "diagnostic_only_preserved_by_tracking":
             predicate = row.get("vcs_tuple", {})
+            final_vcs = final_vcs_by_path.get(str(row.get("path")), {})
             predicate_ok = (
                 predicate.get("tracked") is True
                 and predicate.get("ignore_rule_match") is True
@@ -1112,6 +1124,8 @@ def validate_rows(
                     errors.append({"code": "auto_seal_passable_without_owner_rule_ratification", "row_id": row_id})
                 if not predicate_ok:
                     errors.append({"code": "auto_seal_predicate_not_satisfied", "row_id": row_id})
+                if final_vcs and row_has_final_preservation_regression(final_vcs):
+                    errors.append({"code": "auto_seal_final_vcs_not_preserved", "row_id": row_id})
             if row.get("auto_seal_rule_state") == "owner-ratification-pending" and row.get("passability") != "owner_pending":
                 errors.append({"code": "pending_auto_seal_not_owner_pending", "row_id": row_id})
         if row.get("axis") == "untracked" and not row.get("axis_disposition"):
@@ -1379,6 +1393,46 @@ def final_recensus(artifact_rows: list[dict[str, Any]]) -> tuple[list[dict[str, 
     return rows, summary
 
 
+FINAL_PRESERVATION_ZERO_FIELDS = [
+    "dirty_required_artifact_count",
+    "untracked_required_artifact_count",
+    "active_ignore_required_artifact_count",
+    "effectively_ignored_required_artifact_count",
+]
+
+
+def int_field(payload: dict[str, Any], field: str) -> int:
+    value = payload.get(field, 0)
+    return value if isinstance(value, int) else 0
+
+
+def final_vcs_preservation_ready(summary: dict[str, Any]) -> bool:
+    return all(int_field(summary, field) == 0 for field in FINAL_PRESERVATION_ZERO_FIELDS)
+
+
+def final_vcs_preservation_regression_count(summary: dict[str, Any]) -> int:
+    return sum(int_field(summary, field) for field in FINAL_PRESERVATION_ZERO_FIELDS)
+
+
+def owner_input_vcs_preserved(owner_vcs_report: dict[str, Any]) -> bool:
+    return (
+        owner_vcs_report.get("status") == "PASS"
+        and owner_vcs_report.get("owner_input_record_vcs_preservation_status") in {"PASS", "NOT_APPLICABLE"}
+    )
+
+
+def row_has_final_preservation_regression(row: dict[str, Any]) -> bool:
+    return bool(row.get("dirty") or row.get("untracked") or row.get("ignore_active") or row.get("effectively_ignored"))
+
+
+def axis_for_final_preservation_regression(row: dict[str, Any]) -> str:
+    if row.get("dirty"):
+        return "dirty"
+    if row.get("untracked"):
+        return "untracked"
+    return "ignored"
+
+
 def write_phase6_closeout(
     context: dict[str, Any],
     schema_hash: str,
@@ -1392,27 +1446,28 @@ def write_phase6_closeout(
 ) -> dict[str, Any]:
     final_rows, final_summary = final_recensus(context["artifact_rows"])
     final_vcs_by_path = {str(row["path"]): row for row in final_rows}
-    existing_dirty_paths = {
+    existing_disposition_paths = {
         str(row.get("path"))
         for row in disposition_rows
-        if row.get("axis") == "dirty"
+        if row.get("path")
     }
-    late_dirty_rows = [
+    late_preservation_blocker_rows = [
         row
         for row in final_rows
-        if row.get("dirty") and str(row.get("path")) not in existing_dirty_paths
+        if row_has_final_preservation_regression(row) and str(row.get("path")) not in existing_disposition_paths
     ]
-    for index, row in enumerate(late_dirty_rows, 1):
-        next_row = base_disposition_row("dirty", row, index + len(existing_dirty_paths))
+    for index, row in enumerate(late_preservation_blocker_rows, 1):
+        axis = axis_for_final_preservation_regression(row)
+        next_row = base_disposition_row(axis, row, index)
         next_row.update(
             {
-                "row_id": f"dirty-final-{index:04d}",
+                "row_id": f"{axis}-final-{index:04d}",
                 "axis_disposition": "blocker",
                 "preservation_result": "none",
                 "passability": "blocked",
                 "owner_decision_status": "missing",
                 "owner_adoption_dirty_clean_status": "FAIL",
-                "rationale": "final recensus found a content-dirty required artifact after the initial disposition pass; machine PASS remains blocked until a clean recensus or owner-approved preservation route exists",
+                "rationale": "final recensus found a required artifact VCS preservation regression after the initial disposition pass; machine PASS remains blocked until a clean recensus or owner-approved preservation route exists",
             }
         )
         disposition_rows.append(next_row)
@@ -1443,20 +1498,25 @@ def write_phase6_closeout(
         phase_path("phase3_ignored_disposition", "negative_exception_auto_disposition_report.json")
     )
     current_route_required_complete = current_route.get("status") == "PASS"
+    final_vcs_ready = final_vcs_preservation_ready(final_summary)
+    owner_input_preserved = owner_input_vcs_preserved(owner_vcs_report)
     validation_failed = (
         fail_closed.get("status") != "PASS"
         or no_mutation.get("changed_count") != 0
         or bool(final_row_errors)
         or bare_count != 0
         or broad_staging_unignore_count() != 0
+        or not final_vcs_ready
+        or not owner_input_preserved
     )
     ready_conditions_met = (
         not validation_failed
         and blocker_count == 0
         and owner_pending_count == 0
         and current_route_required_complete
-        and final_summary.get("dirty_required_artifact_count") == 0
+        and final_vcs_ready
         and bare_count == 0
+        and owner_input_preserved
         and owner_rule_report.get("owner_rule_ratification_binding_status") in {"PASS", "NOT_APPLICABLE"}
     )
     terminal_state, problem_status, artifact_state, machine_pass_blocked = terminal_from_state(
@@ -1470,6 +1530,8 @@ def write_phase6_closeout(
         terminal_state == "ready"
         and fast_path == "ELIGIBLE"
         and bare_count == 0
+        and final_vcs_ready
+        and owner_input_preserved
         and owner_rule_report.get("owner_rule_ratification_binding_status") == "PASS"
     )
     dirty_axis_verdict = "ready_clean" if final_summary.get("dirty_required_artifact_count") == 0 else "blocked_dirty_not_preserved"
@@ -1477,6 +1539,8 @@ def write_phase6_closeout(
         dirty_axis_verdict = "owner_pending"
     ignored_axis_verdict = "ready_preserved"
     if any(row.get("axis") in {"ignored", "untracked"} and row.get("passability") == "blocked" for row in disposition_rows):
+        ignored_axis_verdict = "blocked_not_preserved"
+    if not final_vcs_ready:
         ignored_axis_verdict = "blocked_not_preserved"
     if any(row.get("axis") in {"ignored", "untracked"} and row.get("passability") == "owner_pending" for row in disposition_rows):
         ignored_axis_verdict = "owner_pending"
@@ -1519,8 +1583,15 @@ def write_phase6_closeout(
         "surrogate_regeneration_mismatch_count": 0,
         "machine_pass_blocked": machine_pass_blocked,
         "final_dirty_required_artifact_count": final_summary.get("dirty_required_artifact_count"),
-        "final_dirty_blocker_count": len(late_dirty_rows),
-        "final_dirty_blocker_rows": [row.get("path") for row in late_dirty_rows],
+        "final_untracked_required_artifact_count": final_summary.get("untracked_required_artifact_count"),
+        "final_active_ignore_required_artifact_count": final_summary.get("active_ignore_required_artifact_count"),
+        "final_effectively_ignored_required_artifact_count": final_summary.get("effectively_ignored_required_artifact_count"),
+        "final_vcs_preservation_status": "PASS" if final_vcs_ready else "FAIL",
+        "final_vcs_preservation_regression_count": final_vcs_preservation_regression_count(final_summary),
+        "final_vcs_preservation_blocker_count": len(late_preservation_blocker_rows),
+        "final_vcs_preservation_blocker_rows": [row.get("path") for row in late_preservation_blocker_rows],
+        "final_dirty_blocker_count": len([row for row in late_preservation_blocker_rows if row.get("dirty")]),
+        "final_dirty_blocker_rows": [row.get("path") for row in late_preservation_blocker_rows if row.get("dirty")],
         "current_route_validation_state": current_route.get("status"),
         "current_route_regression_required_for_ready": True,
         "independent_review_gate": "BLOCKED",
@@ -1727,10 +1798,12 @@ def required_report_checks(require_complete: bool) -> list[tuple[str, dict[str, 
         ("phase4_manifest_guard_integration/blocker_propagation_report.json", {"status": "PASS"}),
         ("phase4_manifest_guard_integration/new_required_artifact_preservation_report.json", {"status": "PASS"}),
         ("phase4_manifest_guard_integration/owner_decision_record_validation_report.json", {"status": "PASS"}),
+        ("phase4_manifest_guard_integration/owner_input_record_vcs_preservation_report.json", {"status": "PASS"}),
         ("phase5_fail_closed_validation/negative_fixture_matrix.json", {"status": "PASS"}),
         ("phase5_fail_closed_validation/fail_closed_validation_report.json", {"status": "PASS"}),
         ("phase5_fail_closed_validation/protected_surface_no_mutation_report.json", {"status": "PASS", "changed_count": 0}),
         ("phase6_closeout_claim_boundary/final_recensus_report.json", {"status": "PASS"}),
+        ("phase6_closeout_claim_boundary/owner_input_record_vcs_preservation_report.json", {"status": "PASS"}),
         ("phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json", {"independent_review_gate": "BLOCKED"}),
         ("phase6_closeout_claim_boundary/closure_readiness_verdict.json", {"parent_rerun_required": True}),
         ("phase6_closeout_claim_boundary/parent_closure_input_packet.json", {"parent_round_id": PARENT_ROUND_ID, "predecessor_round_id": ROUND_ID, "parent_rerun_required": True}),
@@ -1757,16 +1830,25 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
     schema = read_json_object(EVIDENCE_ROOT / "phase1_policy_schema" / "disposition_schema.json")
     disposition_rows = read_jsonl_objects(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "disposition_ledger.jsonl")
     owner_rule_report = read_json_object(EVIDENCE_ROOT / "phase1_policy_schema" / "auto_seal_rule_ratification_validation_report.json")
+    final_recensus_report = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "final_recensus_report.json")
+    final_recensus_rows = final_recensus_report.get("rows", []) if isinstance(final_recensus_report.get("rows"), list) else []
+    final_vcs_by_path = {
+        str(row.get("path")): row
+        for row in final_recensus_rows
+        if isinstance(row, dict) and row.get("path")
+    }
     row_errors = validate_rows(
         disposition_rows,
         schema=schema or disposition_schema_payload(),
         owner_rule_binding_status=str(owner_rule_report.get("owner_rule_ratification_binding_status")),
+        final_vcs_by_path=final_vcs_by_path,
     )
     errors.extend(row_errors)
     denominator = read_json_object(EVIDENCE_ROOT / "phase0_readpoint_freeze" / "required_artifact_denominator.json")
     vcs_summary = read_json_object(EVIDENCE_ROOT / "phase0_readpoint_freeze" / "required_artifact_vcs_summary.json")
     ignored_coverage = read_json_object(EVIDENCE_ROOT / "phase3_ignored_disposition" / "ignored_diagnostic_coverage_denominator_report.json")
     final = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "final_required_artifact_disposition_report.json")
+    owner_vcs_report = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "owner_input_record_vcs_preservation_report.json")
     parent_packet = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "parent_closure_input_packet.json")
     compatibility = read_json_object(EVIDENCE_ROOT / "phase6_closeout_claim_boundary" / "parent_compatibility_contract.json")
     if denominator and vcs_summary:
@@ -1778,6 +1860,33 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
             errors.append({"code": "ignored_coverage_disposition_mismatch", "disposed": disposed, "coverage": ignored_coverage.get("ignored_diagnostic_coverage_denominator_count")})
         if ignored_coverage.get("bare_diagnostic_count") != 0:
             errors.append({"code": "bare_diagnostic_rows_present"})
+    final_summary = final_recensus_report.get("summary", {}) if isinstance(final_recensus_report.get("summary"), dict) else {}
+    if final_summary:
+        if not final_vcs_preservation_ready(final_summary) and final.get("terminal_state") == "ready":
+            errors.append({"code": "ready_with_final_vcs_preservation_regression"})
+        for summary_field, final_field in [
+            ("dirty_required_artifact_count", "final_dirty_required_artifact_count"),
+            ("untracked_required_artifact_count", "final_untracked_required_artifact_count"),
+            ("active_ignore_required_artifact_count", "final_active_ignore_required_artifact_count"),
+            ("effectively_ignored_required_artifact_count", "final_effectively_ignored_required_artifact_count"),
+        ]:
+            if final and final.get(final_field) != final_summary.get(summary_field):
+                errors.append(
+                    {
+                        "code": "final_report_recensus_count_mismatch",
+                        "summary_field": summary_field,
+                        "final_field": final_field,
+                        "summary": final_summary.get(summary_field),
+                        "final": final.get(final_field),
+                    }
+                )
+        if final and final.get("final_vcs_preservation_status") != ("PASS" if final_vcs_preservation_ready(final_summary) else "FAIL"):
+            errors.append({"code": "final_vcs_preservation_status_mismatch"})
+    if owner_vcs_report:
+        if not owner_input_vcs_preserved(owner_vcs_report):
+            errors.append({"code": "owner_input_record_vcs_preservation_not_pass"})
+        if final and final.get("owner_input_record_vcs_preservation_status") != owner_vcs_report.get("owner_input_record_vcs_preservation_status"):
+            errors.append({"code": "owner_input_record_vcs_preservation_status_mismatch"})
     if final:
         terminal = final.get("terminal_state")
         problem_status = final.get("required_artifact_disposition_problem_status")
@@ -1787,6 +1896,24 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
             errors.append({"code": "unknown_problem_status", "observed": problem_status})
         if terminal == "ready" and problem_status != "SOLVED":
             errors.append({"code": "ready_without_solved_problem_status"})
+        if terminal == "ready":
+            if final.get("ready") is not True or final.get("machine_pass_blocked") is not False or final.get("status") != "PASS":
+                errors.append({"code": "ready_state_contract_mismatch"})
+            if final.get("owner_rule_ratification_binding_status") != "PASS":
+                errors.append({"code": "ready_without_owner_rule_ratification_pass"})
+            if final.get("owner_input_record_vcs_preservation_status") not in {"PASS", "NOT_APPLICABLE"}:
+                errors.append({"code": "ready_without_owner_input_vcs_preservation_pass"})
+            if final.get("bare_diagnostic_count") != 0:
+                errors.append({"code": "ready_with_bare_diagnostics"})
+            for field in [
+                "final_dirty_required_artifact_count",
+                "final_untracked_required_artifact_count",
+                "final_active_ignore_required_artifact_count",
+                "final_effectively_ignored_required_artifact_count",
+                "final_vcs_preservation_regression_count",
+            ]:
+                if final.get(field) != 0:
+                    errors.append({"code": "ready_with_final_vcs_regression_count", "field": field, "observed": final.get(field)})
         if terminal == "complete_with_blockers" and (final.get("machine_pass_blocked") is not True or final.get("ready") is not False):
             errors.append({"code": "complete_with_blockers_missing_machine_block"})
         if terminal == "owner_pending" and problem_status != "OWNER_PENDING":
@@ -1796,6 +1923,24 @@ def validate_artifacts(*, require_complete: bool = False) -> tuple[dict[str, Any
                 errors.append({"code": "forbidden_claim", "field": forbidden})
         if require_complete and final.get("terminal_state") == "ready" and final.get("current_route_validation_state") != "PASS":
             errors.append({"code": "ready_without_current_route_pass"})
+        if final.get("fast_path_used") is True:
+            if final.get("current_readpoint_fast_path_status") != "ELIGIBLE":
+                errors.append({"code": "fast_path_used_when_not_eligible"})
+            if final.get("owner_rule_ratification_binding_status") != "PASS":
+                errors.append({"code": "fast_path_used_without_owner_rule_pass"})
+            if final.get("owner_input_record_vcs_preservation_status") not in {"PASS", "NOT_APPLICABLE"}:
+                errors.append({"code": "fast_path_used_without_owner_input_vcs_preservation"})
+            if final.get("bare_diagnostic_count") != 0:
+                errors.append({"code": "fast_path_used_with_bare_diagnostics"})
+            for field in [
+                "final_dirty_required_artifact_count",
+                "final_untracked_required_artifact_count",
+                "final_active_ignore_required_artifact_count",
+                "final_effectively_ignored_required_artifact_count",
+                "final_vcs_preservation_regression_count",
+            ]:
+                if final.get(field) != 0:
+                    errors.append({"code": "fast_path_used_with_final_vcs_regression", "field": field, "observed": final.get(field)})
     if parent_packet and compatibility:
         for field in ["current_route_manifest_sha256", "required_artifact_denominator_sha256", "final_recensus_report_sha256", "disposition_ledger_sha256"]:
             if parent_packet.get(field) != compatibility.get(field):

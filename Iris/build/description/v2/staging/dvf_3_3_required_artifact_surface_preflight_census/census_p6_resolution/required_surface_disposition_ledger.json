@@ -1,0 +1,87 @@
+{
+  "rows": [
+    {
+      "allowed_action_type": "owner_adjudication_required",
+      "blocker_class": "dirty_required_artifact",
+      "blocker_classes": [
+        "dirty_required_artifact"
+      ],
+      "expected_post_resolution_predicate": "required surface rerun clears blocker without source/rendered/runtime/package mutation",
+      "hash_candidate_status": {
+        "canonical_candidate_hash": null,
+        "hash_candidate": false,
+        "hash_vocabulary_separated": true,
+        "local_provenance_hash": "67f23d6f1a8af06e4ecdbcac55a7fa22fd57506c8c40021f03affd2df06742d6",
+        "non_hash_candidate": true,
+        "non_hash_reasons": [
+          "dirty local artifact blocks canonical candidate hash"
+        ],
+        "partition": "non_hash_candidate",
+        "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
+        "sealed_hash": null
+      },
+      "owner_review_requirement": "required",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
+      "pre_resolution_vcs_tuple": {
+        "cached_diff_names": [],
+        "check_ignore_no_index_is_diagnostic_only": true,
+        "diff_names": [
+          "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+        ],
+        "dirty": true,
+        "dirty_index": [
+          " M"
+        ],
+        "dirty_staged": false,
+        "dirty_unstaged": true,
+        "dirty_uses_content_diff_only": true,
+        "effectively_ignored": false,
+        "exists": true,
+        "file_mode": "-rw-rw-rw-",
+        "git_ignore_source": ".gitignore:246",
+        "git_ignore_warning": "warning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied",
+        "git_status": [
+          " M Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+        ],
+        "git_status_code": [
+          " M"
+        ],
+        "ignore_active": false,
+        "ignore_match_pattern": "!Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/**",
+        "ignore_match_source": ".gitignore:246",
+        "ignore_rule_is_negative_exception": true,
+        "ignore_rule_match": true,
+        "ignored_blocker_reason": "none",
+        "index_entries": [
+          "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+        ],
+        "is_directory": false,
+        "is_symlink": false,
+        "missing": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
+        "size_bytes": 7115,
+        "status_dirty_staged_diagnostic": false,
+        "status_dirty_unstaged_diagnostic": true,
+        "tracked": true,
+        "tracked_but_ignore_matched": false,
+        "untracked": false,
+        "untracked_ignored": false,
+        "vcs_query_error": false,
+        "vcs_query_errors": []
+      },
+      "proposed_disposition": "owner_adjudication_required",
+      "required_field_status": {
+        "check_count": 4,
+        "errors": [],
+        "field_mismatch_count": 0,
+        "field_not_allowed_count": 0,
+        "field_pass": true,
+        "invalid_json": false,
+        "json_parse_state": "valid",
+        "missing_required_field_count": 0,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+      },
+      "rerun_evidence_path": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p6_resolution/post_remediation_required_surface_rerun_report.json"
+    }
+  ]
+}

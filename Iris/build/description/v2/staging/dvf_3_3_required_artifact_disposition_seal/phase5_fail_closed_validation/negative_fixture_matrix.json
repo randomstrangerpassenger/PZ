@@ -1,0 +1,150 @@
+{
+  "case_count": 10,
+  "generated_at": "2026-06-29T19:09:01.606146+00:00",
+  "rows": [
+    {
+      "case_id": "unknown_axis_disposition",
+      "errors": [
+        {
+          "code": "enum_mismatch",
+          "field": "axis_disposition",
+          "observed": "tracked_hash_surrogate",
+          "row_id": "fixture-001"
+        },
+        {
+          "code": "preservation_result_used_as_axis_disposition",
+          "row_id": "fixture-001"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "missing_surrogate_binding",
+      "errors": [
+        {
+          "code": "missing_surrogate_binding",
+          "row_id": "fixture-002"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "stale_surrogate_freshness",
+      "errors": [
+        {
+          "code": "surrogate_freshness_not_pass",
+          "row_id": "fixture-003"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "owner_adopted_still_dirty",
+      "errors": [
+        {
+          "code": "owner_adopted_dirty_still_dirty",
+          "row_id": "fixture-004"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "exception_without_claim_boundary",
+      "errors": [
+        {
+          "code": "missing_exception_claim_boundary",
+          "row_id": "fixture-005"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "auto_seal_missing_owner_rule",
+      "errors": [
+        {
+          "code": "auto_seal_passable_without_owner_rule_ratification",
+          "row_id": "fixture-006"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "near_miss_auto_seal_dirty",
+      "errors": [
+        {
+          "code": "auto_seal_passable_without_owner_rule_ratification",
+          "row_id": "fixture-007"
+        },
+        {
+          "code": "auto_seal_predicate_not_satisfied",
+          "row_id": "fixture-007"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "near_miss_auto_seal_untracked",
+      "errors": [
+        {
+          "code": "auto_seal_passable_without_owner_rule_ratification",
+          "row_id": "fixture-008"
+        },
+        {
+          "code": "auto_seal_predicate_not_satisfied",
+          "row_id": "fixture-008"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "near_miss_auto_seal_active_ignore",
+      "errors": [
+        {
+          "code": "auto_seal_passable_without_owner_rule_ratification",
+          "row_id": "fixture-009"
+        },
+        {
+          "code": "auto_seal_predicate_not_satisfied",
+          "row_id": "fixture-009"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    },
+    {
+      "case_id": "near_miss_auto_seal_non_negative",
+      "errors": [
+        {
+          "code": "auto_seal_passable_without_owner_rule_ratification",
+          "row_id": "fixture-010"
+        },
+        {
+          "code": "auto_seal_predicate_not_satisfied",
+          "row_id": "fixture-010"
+        }
+      ],
+      "expected": "FAIL_CLOSED",
+      "observed": "FAIL_CLOSED",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "dvf-3-3-required-artifact-disposition-negative-fixture-matrix-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,13 @@
+{
+  "bounded_durable_denominator": 56,
+  "bounded_durable_zero_does_not_override_full_manifest_preflight": true,
+  "durable_claim_remains_bounded": true,
+  "durable_root": "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment",
+  "durable_seal_body_mutation_count": 0,
+  "full_manifest_denominator": 93,
+  "generated_at": "2026-06-29T19:05:39.613847+00:00",
+  "schema_version": "dvf-3-3-required-surface-bounded-durable-reconciliation-v1",
+  "status": "PASS",
+  "strict_fail_closed_policy_retained": true,
+  "verdict_override_from_bounded_split": false
+}

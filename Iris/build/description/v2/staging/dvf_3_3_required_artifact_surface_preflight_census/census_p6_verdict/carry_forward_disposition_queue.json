@@ -1,0 +1,10 @@
+[
+  {
+    "blocker_classes": [
+      "dirty_required_artifact"
+    ],
+    "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json",
+    "reason": "no automatic remediation is applied by this governance-only census round",
+    "required_owner_action": "owner_adjudication_required"
+  }
+]

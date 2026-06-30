@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> Status: revised plan / roadmap-derived / codebase-inspected / final-review WARN required revisions incorporated / Cycle 2 top-doc sync-state fix incorporated / DVF 3-3 current-route authority and required-evidence integrity closure / governance-only / no source-rendered-runtime-package mutation planned / execution readiness requires re-review
+> Status: revised plan / roadmap-derived / codebase-inspected / final-review WARN required revisions incorporated / Cycle 2 top-doc sync-state fix incorporated / required-artifact-disposition predecessor compatibility incorporated / DVF 3-3 current-route authority and required-evidence integrity closure / governance-only / no source-rendered-runtime-package mutation planned / execution readiness requires re-review
 > 작성일: 2026-06-29
 > Roadmap input: `C:/Users/MW/.codex/attachments/4f46d21f-f28f-403e-b0a5-854bee5438cc/pasted-text.txt` / sha256 `A73FE26F706F8DA962D10A2CFF12CDBC10E501C14260EDB2ABD00FA4E20DA8DD` / lines `604`
 > Feedback input: `C:/Users/MW/.codex/attachments/df1ff22d-61d0-4b13-ba48-49b3b3b7321d/pasted-text.txt` / sha256 `447F394C11E09186C76CB6BFD7159018C5D558B97D0315AE6EA7CB244BC30CDE` / lines `277` / verdict `WARN` / required revisions incorporated
@@ -10,6 +10,8 @@
 > Current ecosystem readpoints: `docs/DECISIONS.md`, `docs/ARCHITECTURE.md`, `docs/ROADMAP.md`
 > Direct plan artifact: `docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_plan.md`
 > Compatible predecessor preflight artifact: `docs/dvf_3_3_required_artifact_surface_preflight_census_plan.md`
+> Compatible predecessor disposition artifact: `docs/dvf_3_3_required_artifact_disposition_seal_plan.md`
+> Compatible predecessor disposition evidence root: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/`
 > Working round identifier: `dvf_3_3_current_route_authority_required_evidence_integrity_closure`
 > Primary evidence root target: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/`
 > Phase granularity decision for this plan: 9-phase split. This keeps package-guard probing and final seal/review state separate from baseline inventory, integrity hardening, and integrated route validation.
@@ -49,6 +51,7 @@ completion.
 * Independent review 상태 토큰은 기본값을 `independent_review_gate=BLOCKED`로 둔다. `canonical_review_pending`은 이 BLOCKED 상태의 하위 sub-state일 뿐이며, 대체 표현이 아니다.
 * Independent review gate 해제 조건은 non-Claude 및 non-roadmap-author reviewer가 생성한 artifact-bound review record다. Machine PASS, owner approval, owner seal, or this plan text cannot satisfy this gate.
 * `preflight_blocked_required_dirty_surface` is a closure-entry blocker, not a prohibition on remediation. It blocks seal progression until the required surface is dispositioned and the relevant preflight / VCS checks are rerun at a bound readpoint.
+* `dvf_3_3_required_artifact_disposition_seal` is a compatible predecessor lane for that required-surface disposition. Its `parent_closure_input_packet.json` may clear the disposition queue only when parent Phase 0 / Phase 5 accept the same readpoint, manifest hash, denominator hash, final recensus hash, and rerun binding. It never substitutes for this parent plan's final current-route PASS, independent review, owner seal, or canonical seal gates.
 * Optional isolated package guard probe는 기본적으로 보류한다. 별도 owner 승인 없이는 protected package surface no-mutation proof까지만 수행하며, isolated package guard probe와 package readiness는 모두 non-claim이다.
 * Owner seal / token sign-off는 final canonical seal claim의 별도 축이다.
 * Top-doc sync claim은 `top_doc_sync_state`로만 표현한다.
@@ -74,6 +77,7 @@ completion.
 * pre-existing dirty required artifact intersection blocker
 * required dirty / ignored / untracked surface disposition lane and rerun gate
 * optional predecessor required artifact surface preflight resolution handoff intake, if generated at the same readpoint
+* optional predecessor required artifact disposition seal packet intake, if generated at the same readpoint and mapped to this parent round
 * deterministic rebuild output의 stable hash / field drift 판정
 * tool inventory, active closure count, current-route tooling allowlist reconciliation
 * tracked / ignored / dirty required surface 검사
@@ -115,6 +119,7 @@ Read-only authority / context inputs:
 * `docs/PLAN_TEMPLATE.md`
 * `docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md`
 * `docs/dvf_3_3_required_artifact_surface_preflight_census_plan.md`
+* `docs/dvf_3_3_required_artifact_disposition_seal_plan.md`
 * `docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md`
 * `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_plan.md`
 * `docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md`
@@ -293,6 +298,8 @@ Implementation Notes:
 * Capture pre-existing dirty files separately from round-owned outputs.
 * If a predecessor required artifact surface preflight packet exists, consume its early blocker input for diagnosis and its resolved input for parent entry when available. Parent Phase 0 still recomputes the dirty required artifact intersection at the same checkout readpoint.
 * If predecessor packet readpoint, manifest hash, or required artifact denominator differs from parent Phase 0 recomputation, fail loud and treat the predecessor packet as advisory only.
+* If a predecessor required artifact disposition seal packet exists, consume it only as `required_surface_disposition_predecessor_packet`. It must bind `predecessor_round_id=dvf_3_3_required_artifact_disposition_seal`, `parent_round_id=dvf_3_3_current_route_authority_required_evidence_integrity_closure`, readpoint id, manifest sha256, required artifact denominator sha256, final recensus report sha256, and `parent_rerun_required=true`.
+* A predecessor disposition terminal state of `ready` means only that the parent may continue to Phase 0 / Phase 5 rerun validation. A predecessor terminal state of `complete_with_blockers`, `machine_pass_blocked`, `owner_pending`, or `validation_failed` keeps parent seal progression blocked and maps to `blocked_with_required_surface_disposition_packet` or `blocked / no-authority-mutation`.
 * Intersect pre-existing dirty files with the current required artifact set. Any overlap blocks seal progression as `preflight_blocked_required_dirty_surface` and emits a disposition queue instead of abandoning the closure problem.
 * Required-surface disposition mode may classify each blocker as owner-intended artifact update, generated evidence drift, ignore/tracking policy mismatch, stale required artifact, missing authority reference, or unrelated checkout drift. It must not mutate source/rendered/runtime/package surfaces without a later approved action.
 * After disposition actions are completed or owner-adjudicated, rerun Phase 0 and Phase 5 VCS checks before any Phase 7 current-route PASS can be claimed.
@@ -307,6 +314,7 @@ Validation:
 * Protected surface pre-hash report exists.
 * Pre-existing dirty required artifact intersection count is 0, or a required-surface disposition queue exists and seal progression is explicitly held.
 * Any consumed predecessor census packet matches the parent readpoint, manifest hash, and required artifact denominator, or is explicitly rejected as advisory-only.
+* Any consumed predecessor disposition seal packet matches parent readpoint, manifest hash, denominator hash, final recensus hash, parent round id, and terminal-state mapping, or is explicitly rejected as advisory-only.
 * Required authority input path validation is PASS or explicitly blocked.
 * Change-to-phase mapping manifest exists.
 * Repo-relative plan artifact hash binding exists.
@@ -472,10 +480,13 @@ Implementation Notes:
 * Classify new tools as current required validation helper, regeneration tooling, historical reproduction, diagnostic advisory, fixture, or archive/delete eligible.
 * Required path checks cover missing, ignored, untracked, dirty without exception, top-doc required reference dirty, current route runner dirty, and current-required manifest dirty.
 * If predecessor preflight VCS outputs exist, reconcile dirty / ignored / tracked / untracked / field-pass / hash-candidate / non-hash-candidate counts against parent recomputation. Prefer post-resolution predecessor outputs when present, but predecessor outputs cannot override parent fail-closed checks.
+* If predecessor disposition seal outputs exist, reconcile `axis`, `axis_disposition`, `preservation_result`, `passability`, `machine_pass_blocked`, `bare_diagnostic_count`, owner decision binding, protected surface derivation status, and final recensus hashes against parent recomputation. Prefer compatible predecessor disposition rows as the parent disposition ledger input, but they cannot override parent VCS / current-route / protected no-mutation checks.
 * Pre-existing dirty required artifact overlap is a seal-progression blocker, not a preservation exception and not an instruction to leave the problem unsolved.
 * Generate a required-surface disposition ledger for every dirty, ignored, untracked, missing, stale, or hash-ineligible required artifact that prevents closure.
 * Each disposition row must choose one owner-reviewable path: accept as intentional required artifact update with hash/freshness rebinding, move to generated evidence drift remediation, adjust ignore/tracking policy with minimum-scope diff, classify as non-hash exception with deterministic substitute checks, reject as unrelated checkout drift, or escalate for owner adjudication.
 * Dirty exceptions target final count `0` for machine PASS. Any remaining dirty required exception holds seal progression as `blocked / no-authority-mutation`; it does not mean the remediation plan must stop.
+* A predecessor disposition `ready` state still requires parent Phase 5 VCS required surface PASS and parent Phase 7 current-route PASS before this plan may claim `machine_pass_governance_only`.
+* A predecessor disposition `complete_with_blockers`, `machine_pass_blocked`, `owner_pending`, or `validation_failed` state must surface as parent `blocked_with_required_surface_disposition_packet` or `blocked / no-authority-mutation`; it must not be normalized into PASS.
 * After any accepted disposition action, rerun the required-surface census and parent VCS surface report before current-route PASS can be used as closure evidence.
 * Do not broaden staging unignore as a convenience fix.
 
@@ -487,6 +498,7 @@ Validation:
 * Unexpected tool reentry scan.
 * VCS required surface report.
 * Predecessor census VCS surface reconciliation report, if predecessor outputs are consumed.
+* Predecessor required artifact disposition seal reconciliation report, if disposition outputs are consumed.
 * Required-surface disposition ledger and rerun binding report, if any blocker was found.
 * Pre-existing dirty required surface blocker report.
 * Broad staging unignore guard.
@@ -607,6 +619,8 @@ Implementation Notes:
 * If `top_doc_sync_state=owner_applied_and_validated`, final machine claim must include owner-applied doc hashes, additive-only diff validation, and post-application current-route rerun binding.
 * If an optional isolated package guard probe is owner-opened, record output root, artifact retention policy, package zip hash disposition, and non-readiness claim boundary in Phase 8. Artifact names must identify the result as isolated guard evidence, not package readiness.
 * Bind non-hash exception class ceilings in the final machine report with allowed artifact roles and substitute validation conditions.
+* Record `required_artifact_disposition_predecessor_state` when a disposition seal packet was consumed, including predecessor terminal state, `machine_pass_blocked`, readpoint compatibility, denominator compatibility, owner-pending count, blocker count, and parent rerun status.
+* Parent `machine_pass_governance_only` requires either no required-surface disposition blocker at Phase 0 / Phase 5, or a consumed predecessor disposition packet with terminal state `ready`, `machine_pass_blocked=false`, `bare_diagnostic_count=0`, compatible readpoint / denominator hashes, and parent rerun-bound VCS / current-route validation PASS.
 * Record independent review and owner seal as separate axes.
 * Record `independent_review_gate=BLOCKED` unless a non-Claude / non-roadmap-author artifact-bound review is present.
 * `canonical_review_pending` may appear only as a sub-state under `independent_review_gate=BLOCKED`.
@@ -615,6 +629,7 @@ Implementation Notes:
 Validation:
 
 * Final machine report validation.
+* Required artifact disposition predecessor state validation, if a predecessor packet was consumed.
 * Primary review artifact hash validation.
 * Primary review artifact manifest includes `phase_change_mapping_manifest.json`.
 * Self-hash cycle guard.
@@ -832,7 +847,8 @@ Expected closeout for a future execution of this plan:
 * `machine_pass_governance_only / top_doc_sync_state=draft_prepared_owner_application_pending / independent_review_gate=BLOCKED / canonical_review_pending` if machine validation passes, top-doc drafts are prepared, and no owner-applied top-doc validation or artifact-bound non-Claude / non-roadmap-author independent review exists.
 * `machine_pass_governance_only / top_doc_sync_state=owner_applied_and_validated / independent_review_gate=BLOCKED / canonical_review_pending` if machine validation passes after owner-applied top-doc changes are hash-bound, additive-only validated, and rerun-bound, but no artifact-bound non-Claude / non-roadmap-author independent review exists.
 * `machine_pass_governance_only / top_doc_sync_state=not_claimed / independent_review_gate=BLOCKED / canonical_review_pending` if machine validation passes and the round intentionally omits top-doc draft preparation and owner-applied validation from the machine packet.
-* `blocked_with_required_surface_disposition_packet / no-authority-mutation` if dirty / ignored / untracked / stale required surface is found, disposition evidence is produced, but owner-approved remediation or rerun-bound clean evidence is not complete yet.
+* `blocked_with_required_surface_disposition_packet / no-authority-mutation` if dirty / ignored / untracked / stale required surface is found, disposition evidence is produced, but owner-approved remediation or rerun-bound clean evidence is not complete yet. A consumed `dvf_3_3_required_artifact_disposition_seal` packet with `complete_with_blockers`, `machine_pass_blocked`, or unresolved blocker maps here.
+* `blocked_with_required_surface_disposition_packet / owner_adjudication_required` if a consumed `dvf_3_3_required_artifact_disposition_seal` packet is `owner_pending`.
 * `blocked / no-authority-mutation` if required artifact integrity, deterministic rebuild, VCS required surface, `top_doc_sync_state` validation, current route, Lua syntax, or protected no-mutation checks fail.
 * `canonical_seal_allowed` only if machine PASS, artifact-bound independent review PASS, owner seal, and final token sign-off are all present and bound to the same readpoint.
 

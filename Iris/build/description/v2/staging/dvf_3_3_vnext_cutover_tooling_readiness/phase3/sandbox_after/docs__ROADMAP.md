@@ -636,6 +636,16 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * live required-validation manifest는 이 guard의 required artifacts/tests를 additive로 소비하며, current-route contract는 `PASS / 127 tests / closure_enforced true`다.
   * 이 guard는 stale/predecessor artifact 삭제, source / rendered / Lua bridge / runtime / package mutation, current authority cutover, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance, canonical independent-review seal을 열지 않는다.
 
+* Required Artifact Surface Preflight Census는 current closure entry input으로 `ready` 상태다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/`다.
+  * live required-validation manifest denominator는 `required_artifact_count=93`, `required_test_count=48`로 읽는다.
+  * required surface post-resolution state는 `missing=0`, `dirty=0`, `effectively_ignored=0`, `untracked=0`, `tracked=93`, `invalid_json=0`, `field_mismatch=0`, `vcs_query_error=0`이다.
+  * final report는 `semantic_verdict=ready`, `artifact_disposition_state=not_needed`, `unresolved_owner_queue_count=0`, `protected_surface_changed_count=0`으로 닫힌다.
+  * current-route contract는 `PASS / 127 tests / closure_enforced true`이며, focused unittest, standard runner, `--require-complete` validator가 통과했다.
+  * `ignore_rule_match`는 diagnostic으로 남기되 closure blocker는 `effectively_ignored`로 판정한다. Windows line-ending/stat 기반 `git status` signal은 diagnostic으로 보존하고, dirty blocker는 content diff 기준으로 닫는다.
+  * 이 preflight ready는 parent closure entry input readiness이며 source / rendered / Lua bridge / runtime / package mutation, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance, independent-review seal, canonical seal을 열지 않는다.
+
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 
   * 입력은 `109` live mutation eligible row와 sealed dry-run patch bundle로 제한한다.

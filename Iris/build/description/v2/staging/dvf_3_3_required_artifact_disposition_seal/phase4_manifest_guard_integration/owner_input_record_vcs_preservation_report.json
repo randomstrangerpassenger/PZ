@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-06-29T19:09:01.595156+00:00",
+  "owner_input_record_count": 0,
+  "owner_input_record_dirty_count": 0,
+  "owner_input_record_effectively_ignored_count": 0,
+  "owner_input_record_tracked_count": 0,
+  "owner_input_record_untracked_count": 0,
+  "owner_input_record_vcs_preservation_status": "NOT_APPLICABLE",
+  "rows": [],
+  "schema_version": "dvf-3-3-required-artifact-disposition-owner-input-vcs-preservation-v1",
+  "status": "PASS"
+}

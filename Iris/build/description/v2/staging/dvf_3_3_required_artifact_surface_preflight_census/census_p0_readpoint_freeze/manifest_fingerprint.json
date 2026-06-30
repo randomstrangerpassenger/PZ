@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-06-29T19:05:07.479255+00:00",
+  "manifest": {
+    "bytes": 58561,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "role": "live_current_route_required_validation_manifest",
+    "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+  },
+  "manifest_required": true,
+  "manifest_schema": "round3-current-route-required-validations-v1",
+  "manifest_status": "PASS",
+  "required_artifact_count": 93,
+  "required_test_count": 48,
+  "required_test_module_count": 17,
+  "schema_version": "dvf-3-3-required-surface-manifest-fingerprint-v1"
+}

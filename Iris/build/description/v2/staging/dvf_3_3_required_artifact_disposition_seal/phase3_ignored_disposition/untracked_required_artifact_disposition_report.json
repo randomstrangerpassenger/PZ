@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-06-29T19:09:01.589382+00:00",
+  "rows": [],
+  "schema_version": "dvf-3-3-required-artifact-disposition-untracked-report-v1",
+  "status": "PASS",
+  "untracked_disposition_row_count": 0,
+  "untracked_required_artifact_count": 0
+}

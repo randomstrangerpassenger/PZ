@@ -1,0 +1,15 @@
+{
+  "generated_at": "2026-06-29T19:11:25.507710+00:00",
+  "mappings": {
+    "complete_with_blockers": "blocked_with_required_surface_disposition_packet / no-authority-mutation",
+    "machine_pass_blocked": "blocked_with_required_surface_disposition_packet / no-authority-mutation",
+    "owner_pending": "blocked_with_required_surface_disposition_packet / owner_adjudication_required",
+    "ready": "parent_required_surface_disposition_ready_for_rerun",
+    "validation_failed": "blocked / no-authority-mutation"
+  },
+  "observed_parent_mapping": "blocked_with_required_surface_disposition_packet / no-authority-mutation",
+  "observed_terminal_state": "complete_with_blockers",
+  "parent_machine_pass_claimed": false,
+  "schema_version": "dvf-3-3-required-artifact-disposition-parent-terminal-state-mapping-v1",
+  "status": "PASS"
+}

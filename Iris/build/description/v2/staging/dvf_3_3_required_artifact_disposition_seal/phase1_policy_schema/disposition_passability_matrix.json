@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-06-29T19:09:01.556843+00:00",
+  "rows": [
+    {
+      "axis_disposition": "diagnostic_only_preserved_by_tracking",
+      "passability": "passable",
+      "preservation_result": "tracked_original_preservation",
+      "requires_owner_rule_ratification": true,
+      "requires_per_artifact_owner_decision": false
+    },
+    {
+      "axis_disposition": "owner_adopted_evidence_update",
+      "passability": "passable",
+      "preservation_result": "tracked_original_preservation",
+      "requires_final_content_dirty_zero": true,
+      "requires_owner_decision": true
+    },
+    {
+      "axis_disposition": "regeneration_required",
+      "passability": "passable",
+      "preservation_result": "tracked_hash_surrogate",
+      "requires_protected_surface_intersection_zero": true,
+      "requires_surrogate_freshness": true
+    },
+    {
+      "axis_disposition": "preservation_exception_requested",
+      "passability": "owner_pending",
+      "preservation_result": "explicit_non_hash_exception",
+      "requires_claim_boundary": true,
+      "requires_owner_decision": true
+    },
+    {
+      "axis_disposition": "blocker",
+      "passability": "blocked",
+      "preservation_result": "none",
+      "prevents_machine_pass": true
+    }
+  ],
+  "schema_version": "dvf-3-3-required-artifact-disposition-passability-matrix-v1",
+  "status": "PASS"
+}

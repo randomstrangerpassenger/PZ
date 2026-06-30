@@ -1,0 +1,32 @@
+{
+  "active_ignore_required_artifact_count": 0,
+  "check_ignore_no_index_is_diagnostic_only": true,
+  "dirty_paths": [
+    "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/independent_review_artifact_hash_report.json"
+  ],
+  "dirty_required_artifact_count": 1,
+  "dirty_staged_required_artifact_count": 0,
+  "dirty_unstaged_required_artifact_count": 1,
+  "effectively_ignored_paths": [],
+  "effectively_ignored_required_artifact_count": 0,
+  "generated_at": "2026-06-29T19:08:09.241923+00:00",
+  "ignore_rule_match_required_artifact_count": 93,
+  "missing_paths": [],
+  "missing_required_artifact_count": 0,
+  "roadmap_premise_reconciliation": {
+    "execution_dirty_required_artifact_count": 1,
+    "execution_effectively_ignored_required_artifact_count": 0,
+    "planning_dirty_required_artifact_count": 6,
+    "planning_ignored_required_artifact_count": 19,
+    "readpoint_drift_recorded": true
+  },
+  "schema_version": "dvf-3-3-required-surface-vcs-summary-v1",
+  "status": "PASS",
+  "tracked_but_ignore_matched_blocker_count": 0,
+  "tracked_required_artifact_count": 93,
+  "untracked_ignored_blocker_count": 0,
+  "untracked_paths": [],
+  "untracked_required_artifact_count": 0,
+  "vcs_query_error_count": 0,
+  "vcs_tuple_count": 93
+}

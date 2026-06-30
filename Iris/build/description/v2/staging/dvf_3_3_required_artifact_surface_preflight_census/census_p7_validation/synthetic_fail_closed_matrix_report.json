@@ -1,0 +1,113 @@
+{
+  "case_count": 13,
+  "generated_at": "2026-06-29T19:08:09.590442+00:00",
+  "rows": [
+    {
+      "blocker_reasons": [
+        "post_missing"
+      ],
+      "case_id": "post_missing_gt_zero",
+      "expected": "blocked",
+      "observed": "blocked",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [
+        "post_dirty"
+      ],
+      "case_id": "post_dirty_gt_zero",
+      "expected": "blocked",
+      "observed": "blocked",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [
+        "post_effectively_ignored"
+      ],
+      "case_id": "post_effectively_ignored_without_accepted_tracked_preserved",
+      "expected": "blocked",
+      "observed": "blocked",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [
+        "post_invalid_json"
+      ],
+      "case_id": "post_invalid_json_gt_zero",
+      "expected": "blocked",
+      "observed": "blocked",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [
+        "post_field_mismatch"
+      ],
+      "case_id": "post_field_mismatch_gt_zero",
+      "expected": "blocked",
+      "observed": "blocked",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [
+        "post_vcs_query_error"
+      ],
+      "case_id": "post_vcs_query_error_gt_zero",
+      "expected": "blocked",
+      "observed": "blocked",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [
+        "post_protected_mutation"
+      ],
+      "case_id": "post_protected_mutation_gt_zero",
+      "expected": "blocked",
+      "observed": "blocked",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [],
+      "case_id": "owner_disposition_pending_gt_zero",
+      "expected": "disposition_required",
+      "observed": "disposition_required",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [],
+      "case_id": "post_all_clear",
+      "expected": "ready",
+      "observed": "ready",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [],
+      "case_id": "post_all_clear_with_accepted_tracked_rule_match",
+      "expected": "ready",
+      "observed": "ready",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [],
+      "case_id": "pre_dirty_gt_zero_requires_disposition_ledger",
+      "expected": "disposition_ledger_required",
+      "observed": "disposition_ledger_required",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [],
+      "case_id": "pre_effectively_ignored_gt_zero_requires_disposition_ledger",
+      "expected": "disposition_ledger_required",
+      "observed": "disposition_ledger_required",
+      "status": "PASS"
+    },
+    {
+      "blocker_reasons": [],
+      "case_id": "pre_untracked_only_requires_disposition_ledger",
+      "expected": "disposition_ledger_required",
+      "observed": "disposition_ledger_required",
+      "status": "PASS"
+    }
+  ],
+  "schema_version": "dvf-3-3-required-surface-synthetic-fail-closed-matrix-v1",
+  "status": "PASS"
+}

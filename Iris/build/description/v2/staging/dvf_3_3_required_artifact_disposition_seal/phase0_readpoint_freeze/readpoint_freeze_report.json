@@ -1,0 +1,41 @@
+{
+  "current_readpoint_fast_path_status": "NOT_ELIGIBLE",
+  "dirty_uses_content_diff_only": true,
+  "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal",
+  "existing_untracked_required_artifacts_enter_disposition_route": true,
+  "generated_at": "2026-06-29T19:09:01.542202+00:00",
+  "ignore_rule_match_and_effectively_ignored_are_separate": true,
+  "ignored_diagnostic_coverage_denominator_count": 93,
+  "manifest": {
+    "bytes": 58561,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "role": "live_current_route_required_validation_manifest",
+    "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+  },
+  "output_root_disjoint_from_required_artifacts": true,
+  "parent_plan": {
+    "bytes": 58961,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_plan.md",
+    "role": "parent_closure_plan",
+    "sha256": "24a22f12a1730747f07d4d1dbf20be784eb9ce1e9de02794fdd48931e5936d75"
+  },
+  "plan": {
+    "bytes": 83379,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/dvf_3_3_required_artifact_disposition_seal_plan.md",
+    "role": "direct_plan_artifact",
+    "sha256": "3f47c5ffdce522ba9a308ae82fb5b0f3aecebdd018903f45b40832aad402f95a"
+  },
+  "problem_closure_denominator_count": 1,
+  "readpoint_id": "5e2e30b7601b9ff189f3a482f6701f180223350d2a1dd054f8d2f730f1032114",
+  "required_artifact_count": 93,
+  "required_test_count": 48,
+  "round_id": "dvf_3_3_required_artifact_disposition_seal",
+  "schema_version": "dvf-3-3-required-artifact-disposition-readpoint-freeze-v1",
+  "status": "PASS"
+}

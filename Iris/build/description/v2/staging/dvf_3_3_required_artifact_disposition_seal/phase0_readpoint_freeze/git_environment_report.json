@@ -1,0 +1,29 @@
+{
+  "core_excludesFile": null,
+  "core_excludesFile_query_exit_code": 1,
+  "default_global_ignore": {
+    "accessible": true,
+    "error": null,
+    "exists": false,
+    "path": "C:\\Users\\MW\\.config\\git\\ignore"
+  },
+  "generated_at": "2026-06-29T19:09:01.537159+00:00",
+  "git_info_exclude": {
+    "exists": true,
+    "path": ".git/info/exclude",
+    "sha256": "6671fe83b7a07c8932ee89164d1f2793b2318058eb8b98dc5c06ee0a5a3b0ec1"
+  },
+  "git_version": "git version 2.51.0.windows.2",
+  "global_ignore_permission_warning_classification": "advisory",
+  "repo_gitignore": {
+    "bytes": 31732,
+    "exists": true,
+    "kind": "file",
+    "path": ".gitignore",
+    "role": "repository_gitignore",
+    "sha256": "de0a257290b88dd789d16843864da69240761cc48f2f1570819c18ea13625983"
+  },
+  "schema_version": "dvf-3-3-required-surface-git-environment-v1",
+  "status": "PASS",
+  "status_stderr": "warning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied\nwarning: unable to access 'C:\\Users\\MW/.config/git/ignore': Permission denied\n"
+}

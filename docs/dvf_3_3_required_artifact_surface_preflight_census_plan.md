@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> Status: planned / roadmap-derived / codebase-inspected / WARN feedback incorporated / Cycle 2 PASS advisory revisions incorporated / DVF 3-3 required artifact surface preflight-resolution / governance-only / census + disposition + rerun required / scope revised by owner intent
+> Status: planned / roadmap-derived / codebase-inspected / WARN feedback incorporated / Cycle 2 PASS advisory revisions incorporated / DVF 3-3 required artifact surface preflight-resolution / governance-only / committed-surface fast path added / census + conditional disposition + rerun required / scope revised by owner intent
 > 작성일: 2026-06-29
 > Roadmap input: `C:/Users/MW/.codex/attachments/1f416f24-8b87-4275-a4b4-7d0376635999/pasted-text.txt` / sha256 `207B472B1D944C2DD92727E5D81C527574A46284716C7289018D34891ED5BA64` / lines `623`
 > Review input: `C:/Users/MW/.codex/attachments/163aeb76-6849-4f42-9782-34af301b332b/pasted-text.txt` / sha256 `A43F17FA964472C05FE8FB524BEAC89A8636B048C9D2AEDE81370EF5209D1C01` / lines `433` / verdict `WARN` / required revisions incorporated
@@ -18,6 +18,8 @@
 > Parent compatibility role: predecessor required-surface preflight resolution input for parent Change 1 / `parent_closure_preflight_phase0` baseline census and parent Change 6 / `parent_closure_phase5_vcs_surface` reconciliation.
 > Live manifest inspected: `Iris/_docs/round3/current_route_required_validations.json` / sha256 `7773F58CB6D7650539AB16DD887F8CCB0FF031AB7357B0AD851072B362578343`
 > Live manifest current read: schema `round3-current-route-required-validations-v1`, route `current`, status `PASS`, `required_artifacts=93`, `required_tests=48`
+> Post-commit readiness observation: after owner commit/push at `288d5b61`, required artifacts measured `missing=0`, `dirty=0`, `tracked=93`, `untracked=0`, `ignored=0`; required test modules measured `missing=0`, `tracked=17`, `untracked=0`, `ignored=0`.
+> Current-route timing observation: `python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` completed `PASS / 127 tests / closure_enforced=true` in `253.254s`; validation timeout budgets must be at least `360s`.
 > Validation depth decision for this plan: `standard census + disposition + rerun validation + mandatory synthetic fail-closed predicate matrix`. Heavy live Git fixtures remain isolated because source/rendered/runtime/package mutation is still out of scope.
 > Ignored-artifact verdict rule for this plan: strict fail-closed before disposition. `effectively_ignored_required_artifact_count > 0` blocks immediate parent closure entry, then must be resolved through this plan's disposition lane or explicitly carried as unresolved.
 > Canonical verdict token: author-reserved. Final reports must record semantic verdict and `canonical_verdict_token=author_reserved/not_claimed` together; this plan does not pre-seal a canonical blocker token.
@@ -55,6 +57,8 @@ The closeout target is a fail-closed resolved preflight verdict:
 * `disposition_required`
 
 `blocked` is valid only when the plan has produced a disposition ledger and either an allowed remediation failed validation, an owner-only decision remains unresolved, or the current checkout cannot be made closure-safe without leaving the approved scope.
+
+If the initial census at execution readpoint matches the post-commit readiness observation (`missing=0`, `dirty=0`, `tracked=93`, `untracked=0`, `ignored=0` for required artifacts and all required test modules tracked/not ignored), the plan must use the committed-surface fast path: skip remediation, record `artifact_disposition_state=not_needed`, run validation/rerun binding, and emit `ready` only after the post-census validation confirms the same counts.
 
 The maximum allowed claim is:
 
@@ -97,6 +101,7 @@ Included scope:
 * required-surface disposition ledger
 * minimum-scope governance remediation for dirty / ignored / untracked / missing required surface when allowed by disposition
 * post-remediation preflight rerun and readpoint binding
+* committed-surface fast path when no required-surface blocker remains
 * closure-entry verdict predicate and machine report
 * parent closure plan compatibility packet
 * parent `parent_closure_preflight_phase0` / `parent_closure_phase5_vcs_surface` input mapping
@@ -395,9 +400,11 @@ Implementation Notes:
 * Record branch, HEAD, pinned `git status --porcelain=v1 --ignored=matching`, manifest path, manifest SHA-256, and manifest schema.
 * Record parent closure plan path, SHA-256, round identifier, and evidence root target.
 * Record Git version, `core.excludesFile`, `.git/info/exclude` presence/hash when accessible, repository `.gitignore` hash, and whether global ignore files are inaccessible.
+* Treat user/global ignore permission warnings as environment warnings, not automatic blockers, when repository `.gitignore`, per-path `git status --ignored=matching`, and final `git check-ignore --no-index -v` predicates are available for every required path.
 * Record source / rendered / Lua bridge / runtime chunk / package protected path hashes before generation.
 * Record the pre-implementation current-route collection baseline: current route list/count, current route PASS status when runnable, and whether discovery is explicit manifest-based or glob-based.
-* Treat existing dirty files as facts to capture, not as cleanup targets.
+* Treat existing dirty files as facts to capture, not as cleanup targets. Only dirty paths intersecting required artifacts, required tests, live required manifest, parent/child plan docs, or protected source/rendered/Lua/runtime/package surfaces can block this preflight.
+* Record unrelated dirty paths, including transient build locks or non-required staging drift, in an advisory bucket so they do not reduce `ready` probability for the required surface.
 * Write only under the selected staging evidence root.
 * If the output root already exists, write a superseding run record or fail-closed rather than silently mixing readpoints.
 * Refer to the parent closure blocker only as `parent_closure_preflight_phase0`; do not use bare `Phase 0` in generated reports.
@@ -411,6 +418,8 @@ Validation:
 * Census output root is the only planned write root.
 * Census output root is disjoint from the parent closure evidence root.
 * Git environment and ignore configuration are captured.
+* Global ignore permission warning is classified as advisory when all required-path repo-local predicates succeeded.
+* Unrelated dirty paths are separated from required-surface blockers.
 * Current-route collection baseline is captured before new focused tests are introduced.
 * Protected surface changed count is `0` at final no-mutation check.
 
@@ -666,6 +675,13 @@ Initial blocker conditions:
 * VCS query error count > 0
 * protected surface mutation detected
 
+Committed-surface fast path:
+
+* If initial required artifact counts are `missing=0`, `dirty=0`, `tracked=93`, `untracked=0`, `ignored=0`, and required test module counts are `missing=0`, `tracked=17`, `untracked=0`, `ignored=0`, write an empty disposition ledger with `artifact_disposition_state="not_needed"`.
+* In the fast path, do not apply `.gitignore`, `git add`, regeneration, or remediation actions.
+* The fast path still requires post-census validation, protected no-mutation verification, parent compatibility packet generation, and current-route timeout-budgeted regression validation before final `ready`.
+* If validation commands create non-required staging drift, record it as `validation_induced_non_required_staging_drift` and rerun the required-surface census. It blocks final `ready` only if the drift intersects required artifacts/tests, live required manifest, protected surfaces, or parent/child plan docs.
+
 For every initial blocker, write one ledger row with:
 
 * artifact path
@@ -709,6 +725,8 @@ Final blocked conditions:
 * effectively ignored required artifact count > 0 after remediation, unless classified as tracked-preserved with an accepted minimum-scope disposition
 * invalid JSON, field mismatch, missing required field, VCS query error, or protected mutation count > 0 after remediation
 * non-hash exception lacks deterministic substitute checks, role ceiling, or parent compatibility impact
+* current-route regression validation fails when run with a timeout budget of at least `360s`
+* validation-induced drift intersects required artifacts, required tests, live required manifest, protected surfaces, or parent/child plan docs
 
 Final disposition-required conditions:
 
@@ -723,6 +741,8 @@ Default ready conditions:
 * untracked artifacts are `0` or have an accepted tracked/non-tracked preservation disposition
 * every artifact has accepted hash-candidate or non-hash-candidate classification after remediation
 * required-surface disposition ledger has no unresolved blocker row
+* current-route regression validation is PASS with `closure_enforced=true` and `test_count=127` or a recorded same-readpoint count update
+* unrelated dirty paths, if any, are explicitly outside required/protected surfaces
 
 Parent ready-input mapping:
 
@@ -896,7 +916,7 @@ Validation:
 
 ### Automated Validation
 
-Default standard census validation commands for the eventual implementation:
+Default standard resolution validation commands for the eventual implementation:
 
 ```powershell
 uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_required_artifact_surface_preflight_census.py --mode standard
@@ -910,7 +930,7 @@ uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_required
 uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_required_artifact_surface_preflight_census.py"
 ```
 
-The focused unittest must include the mandatory synthetic fail-closed predicate matrix. This matrix is part of standard validation, not a heavy optional fixture campaign.
+The focused unittest must include the mandatory synthetic fail-closed predicate matrix, committed-surface fast path fixture, and validation-induced non-required staging drift fixture. This matrix is part of standard validation, not a heavy optional fixture campaign.
 
 Regression check against the existing current route:
 
@@ -918,7 +938,11 @@ Regression check against the existing current route:
 uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure
 ```
 
+This command must be run with a timeout budget of at least `360s`; planning-time observation on this workstation was `253.254s` for `PASS / 127 tests / closure_enforced=true`. A shorter timeout is a harness failure, not a current-route failure.
+
 The regression report must classify any failure as `pre_existing`, `round_introduced_import_regression`, `round_introduced_collection_regression`, or `unrelated_checkout_drift`. It must also compare current-route test list/count before and after the focused census test file exists.
+
+After the current-route regression command, rerun the required-surface VCS census. If non-required staging artifacts became dirty, record `validation_induced_non_required_staging_drift`; if required artifacts/tests, the live manifest, plan docs, or protected source/rendered/Lua/runtime/package surfaces became dirty, final `ready` is blocked.
 
 Existing VCS policy guard should remain compatible:
 
@@ -944,6 +968,8 @@ Manual review should inspect:
 * field-pass / VCS-state join report
 * hash-candidate and non-hash-candidate summaries
 * durable denominator split report
+* committed-surface fast path report, when initial counts are already clean
+* validation-induced drift classification
 * closure-entry verdict
 * diagnostic-only `check-ignore --no-index` assertion
 * required-surface disposition ledger
@@ -1049,9 +1075,10 @@ README, Workshop text, user-facing Iris descriptions, public UI text, and public
 
 * Existing current route may fail after new tooling if imports violate current closure. Mitigation: focused tests should avoid unallowlisted current-route imports and use subprocess / report validation where necessary.
 * Output generation may dirty staging paths and confuse the census. Mitigation: `census_output_root ∩ required_artifact_paths = ∅` is asserted in `census_p1_denominator_lock`.
-* Local dirty working tree may cause a `blocked` verdict. That is expected fail-closed behavior, not an implementation failure.
+* Local dirty working tree may cause a `blocked` verdict only when it intersects required/protected surfaces. Mitigation: unrelated dirty paths are advisory and separated from required-surface blockers.
 * `git check-ignore` warnings or user-level ignore permission issues can appear on this workstation. The tool must record query errors and fail-loud rather than treating warnings as pass.
 * Tracked-but-rule-matching artifacts could be over-reported as ignored if `--no-index` output is consumed directly. Mitigation: `--no-index` populates only `ignore_rule_match`; verdict consumes `effectively_ignored`.
+* Current-route validation can take more than two minutes and may create non-required staging drift. Mitigation: timeout budget is at least `360s`; required-surface census is rerun afterward; non-required staging drift is advisory unless it intersects required/protected surfaces.
 
 ---
 
@@ -1124,6 +1151,7 @@ Expected closeout target: `required_surface_preflight_resolution_state=ready`, `
 * post-resolution rerun was performed
 * post-resolution missing / dirty / invalid JSON / field mismatch / VCS query error / protected mutation counts are `0`
 * post-resolution effectively ignored count is `0`, or every remaining tracked-rule-match row has accepted preservation disposition
+* committed-surface fast path was used with `artifact_disposition_state=not_needed`, or disposition/remediation was performed and rerun-bound
 * Durable `0` and full census residuals were reconciled by denominator scope
 * protected no-mutation report passed
 * synthetic fail-closed predicate matrix passed
@@ -1134,6 +1162,8 @@ Expected closeout target: `required_surface_preflight_resolution_state=ready`, `
 * `package_probe_performed=false` was recorded
 * tracked-but-rule-matched and untracked-ignored blocker counts were separately reported
 * semantic verdict was emitted as `ready`
+* current-route regression validation PASS was recorded with timeout budget at least `360s`
+* unrelated dirty paths, if present, were classified outside required/protected surfaces
 * semantic verdict and `canonical_verdict_token=author_reserved/not_claimed` were recorded together
 * `main_plan_compatibility_packet.json` was emitted
 * `parent_phase0_entry_state` and `parent_phase5_vcs_surface_state` were recorded

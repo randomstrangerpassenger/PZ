@@ -1565,6 +1565,36 @@
   * package probe PASS는 isolated package route guard proof이며 live package mutation, package readiness, release readiness, Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 뜻하지 않는다.
   * 이 항목은 independent review complete seal이나 canonical seal을 새로 주장하지 않는다.
 
+### Iris DVF 3-3 — required artifact surface preflight census
+
+* 상태: required artifact surface preflight `ready` / current route `PASS / 127 tests / closure_enforced true` / governance-only
+* 결정: Required Artifact Surface Preflight Census round는 live `Iris/_docs/round3/current_route_required_validations.json`의 required artifact `93`개를 current closure entry preflight denominator로 삼고, field-check PASS와 실제 VCS preservation state를 분리해서 계량한다. 이 round는 source / rendered / Lua bridge / runtime / package writer authority가 아니라, parent closure Phase 0 / Phase 5가 소비할 required-surface readiness input이다.
+* 현재 기준:
+
+  * live manifest readpoint는 `required_artifact_count=93`, `required_test_count=48`로 읽는다.
+  * current route validation은 `PASS / 127 tests / closure_enforced true`다.
+  * final preflight verdict는 `semantic_verdict=ready`, `artifact_disposition_state=not_needed`, `unresolved_owner_queue_count=0`, `protected_surface_changed_count=0`이다.
+  * post-resolution required-surface counts는 `missing=0`, `dirty=0`, `effectively_ignored=0`, `untracked=0`, `tracked=93`, `invalid_json=0`, `field_mismatch=0`, `vcs_query_error=0`이다.
+  * ignored surface는 `ignore_rule_match` diagnostic과 closure blocker인 `effectively_ignored`로 분리한다. Negative exception / tracked preservation이 적용된 rule match는 required artifact preservation blocker가 아니다.
+  * dirty 판단은 canonical closure blocker로서 `git diff` / `git diff --cached` content diff 기준으로 닫고, Windows line-ending/stat 기반 `git status` signal은 diagnostic field로만 보존한다.
+  * initial closeout blocker였던 dirty required artifact surface는 owner disposition / baseline adoption과 timestamp-only runtime payload evidence churn stabilization을 통해 해소됐다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/`
+  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_surface_preflight_census.py`
+  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_required_artifact_surface_preflight_census.py`
+  * common logic: `Iris/build/description/v2/tools/build/dvf_3_3_required_artifact_surface_preflight_census_common.py`
+  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_surface_preflight_census.py`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p8_closeout_no_mutation/final_preflight_census_report.json`
+  * claim boundary: `docs/dvf_3_3_required_artifact_surface_preflight_census_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_required_artifact_surface_preflight_census_ledger_packet.md`
+* 오독 금지:
+
+  * `semantic_verdict=ready`는 parent closure entry input readiness일 뿐, independent review PASS, owner seal, canonical seal, release/package/Workshop/B42 readiness, deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 뜻하지 않는다.
+  * Required artifact VCS preservation은 source / rendered / Lua bridge / runtime / package payload authority 승격이 아니다.
+  * Content-diff-only dirty criterion은 evidence content preservation blocker를 정의하기 위한 것이며, `git status` diagnostics를 삭제하거나 숨기는 것이 아니다.
+  * 이 round는 current-route required manifest denominator를 대체하지 않고 live manifest에서 재도출한다.
+
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 
 * 상태: pre-apply authorization sealed / execution readiness evidence sealed / Phase 4 live apply allowed / no live mutation executed

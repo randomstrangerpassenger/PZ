@@ -1,0 +1,11 @@
+{
+  "current_route_regression_separate_from_disposition_validator": true,
+  "current_route_validation_state": "PASS",
+  "disposition_validation_error_count": 0,
+  "disposition_validation_errors": [],
+  "generated_at": "2026-06-29T19:10:51.464546+00:00",
+  "negative_fixture_matrix_status": "PASS",
+  "protected_surface_changed_count": 0,
+  "schema_version": "dvf-3-3-required-artifact-disposition-fail-closed-validation-v1",
+  "status": "PASS"
+}

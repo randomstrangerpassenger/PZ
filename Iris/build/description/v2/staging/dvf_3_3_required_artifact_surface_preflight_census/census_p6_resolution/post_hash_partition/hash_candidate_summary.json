@@ -1,0 +1,10 @@
+{
+  "artifact_count": 93,
+  "generated_at": "2026-06-29T19:08:09.380758+00:00",
+  "hash_candidate_count": 92,
+  "partition_coverage_percent": 100,
+  "reproducibility_claimed": false,
+  "schema_version": "dvf-3-3-required-surface-hash-candidate-summary-v1",
+  "sealed_hash_produced": false,
+  "status": "PASS"
+}

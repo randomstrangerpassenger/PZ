@@ -1,0 +1,8 @@
+{
+  "census_output_root": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census",
+  "generated_at": "2026-06-29T19:05:07.826699+00:00",
+  "intersections": [],
+  "required_artifact_intersection_count": 0,
+  "schema_version": "dvf-3-3-required-surface-output-root-disjointness-v1",
+  "status": "PASS"
+}

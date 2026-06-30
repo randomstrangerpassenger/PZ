@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-06-29T19:09:01.561938+00:00",
+  "invalid_record_count": 0,
+  "invalid_records": [],
+  "owner_decision_record_binding_status": "NOT_APPLICABLE",
+  "record_root": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_decision_records",
+  "record_root_exists": false,
+  "schema_version": "dvf-3-3-required-artifact-disposition-owner-decision-validation-v1",
+  "status": "PASS",
+  "valid_by_artifact_path": {},
+  "valid_record_count": 0,
+  "valid_records": []
+}

@@ -1,0 +1,8 @@
+{
+  "artifact_disposition_state": "owner_pending",
+  "disposition_row_count": 1,
+  "generated_at": "2026-06-29T19:08:09.730643+00:00",
+  "owner_pending_count": 1,
+  "schema_version": "dvf-3-3-required-surface-disposition-required-summary-v1",
+  "status": "PASS"
+}

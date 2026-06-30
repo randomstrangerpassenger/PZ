@@ -1,0 +1,80 @@
+{
+  "auto_seal_rule_ratification_status": [
+    "ratified",
+    "owner-ratification-pending",
+    "not_applicable",
+    "invalid"
+  ],
+  "axis": [
+    "dirty",
+    "ignored",
+    "untracked"
+  ],
+  "axis_disposition": [
+    "owner_adopted_evidence_update",
+    "stale_local_mutation",
+    "regeneration_required",
+    "track_narrowly",
+    "preservation_exception_requested",
+    "manifest_removal_candidate",
+    "diagnostic_only_preserved_by_tracking",
+    "not_preservation_relevant_with_rationale",
+    "not_required_candidate",
+    "blocker"
+  ],
+  "current_readpoint_fast_path_status": [
+    "ELIGIBLE",
+    "NOT_ELIGIBLE",
+    "NOT_USED"
+  ],
+  "field_separation_required": [
+    "axis",
+    "axis_disposition",
+    "preservation_result",
+    "passability"
+  ],
+  "owner_reserved_auto_seal_rule": {
+    "decision_token": "ratify_tracked_negative_exception_auto_seal",
+    "predicate_version": "tracked-negative-exception-v1",
+    "record_root": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_rule_ratifications",
+    "required_fields": [
+      "rule_id",
+      "predicate_version",
+      "schema_sha256",
+      "owner_identity",
+      "owner_role",
+      "decision_token",
+      "record_source"
+    ],
+    "rule_id": "tracked_negative_exception_preserved_by_tracking",
+    "timestamp_or_sequence_required": true
+  },
+  "passability": [
+    "passable",
+    "owner_pending",
+    "blocked",
+    "validation_failed"
+  ],
+  "preservation_result": [
+    "tracked_original_preservation",
+    "tracked_hash_surrogate",
+    "explicit_non_hash_exception",
+    "none"
+  ],
+  "preservation_results_are_not_axis_dispositions": true,
+  "required_artifact_disposition_problem_status": [
+    "SOLVED",
+    "SOLVED_WITH_MACHINE_BLOCKERS",
+    "OWNER_PENDING",
+    "VALIDATION_FAILED"
+  ],
+  "round_id": "dvf_3_3_required_artifact_disposition_seal",
+  "schema_version": "dvf-3-3-required-artifact-disposition-schema-v1",
+  "terminal_state": [
+    "ready",
+    "complete_with_blockers",
+    "machine_pass_blocked",
+    "owner_pending",
+    "validation_failed"
+  ]
+}

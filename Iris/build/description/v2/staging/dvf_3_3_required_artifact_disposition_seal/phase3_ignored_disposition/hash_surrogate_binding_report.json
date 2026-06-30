@@ -1,0 +1,8 @@
+{
+  "generated_at": "2026-06-29T19:09:01.592282+00:00",
+  "schema_version": "dvf-3-3-required-artifact-disposition-hash-surrogate-binding-report-v1",
+  "status": "PASS",
+  "surrogate_freshness_status": "NOT_APPLICABLE",
+  "surrogate_regeneration_mismatch_count": 0,
+  "tracked_hash_surrogate_count": 0
+}

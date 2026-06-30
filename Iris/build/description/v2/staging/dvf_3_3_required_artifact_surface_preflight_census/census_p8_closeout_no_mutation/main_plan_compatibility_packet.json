@@ -1,0 +1,35 @@
+{
+  "advisory_unless_parent_recomputes_same_readpoint": true,
+  "does_not_claim_canonical_seal": true,
+  "does_not_claim_owner_seal": true,
+  "does_not_claim_package_readiness": true,
+  "does_not_claim_parent_independent_review": true,
+  "does_not_claim_parent_machine_pass": true,
+  "does_not_claim_release_readiness": true,
+  "does_not_claim_runtime_readiness": true,
+  "generated_at": "2026-06-29T19:08:09.740668+00:00",
+  "live_manifest": {
+    "bytes": 58561,
+    "exists": true,
+    "kind": "file",
+    "path": "Iris/_docs/round3/current_route_required_validations.json",
+    "role": "live_required_manifest",
+    "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+  },
+  "parent_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "parent_phase0_entry_state": "blocked_input",
+  "parent_phase5_vcs_surface_state": "blocked_input",
+  "parent_plan": {
+    "bytes": 58961,
+    "exists": true,
+    "kind": "file",
+    "path": "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_plan.md",
+    "role": "parent_closure_plan",
+    "sha256": "24a22f12a1730747f07d4d1dbf20be784eb9ce1e9de02794fdd48931e5936d75"
+  },
+  "predecessor_evidence_root": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census",
+  "predecessor_round_id": "dvf_3_3_required_artifact_surface_preflight_census",
+  "schema_version": "dvf-3-3-required-surface-parent-compatibility-packet-v1",
+  "semantic_verdict": "blocked",
+  "status": "PASS"
+}

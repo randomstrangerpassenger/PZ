@@ -1,0 +1,11 @@
+{
+  "duplicate_logical_check_count": 0,
+  "duplicate_path_count": 0,
+  "duplicate_paths": [],
+  "generated_at": "2026-06-29T19:05:07.826392+00:00",
+  "normalization_roundtrip_ok": true,
+  "path_error_count": 0,
+  "path_errors": [],
+  "schema_version": "dvf-3-3-required-surface-path-normalization-v1",
+  "status": "PASS"
+}

@@ -139,6 +139,12 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/dvf_3_3_predecessor_stale_artifact_reentry_guard_common.py
 !Iris/build/description/v2/tools/build/run_dvf_3_3_predecessor_stale_artifact_reentry_guard.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_predecessor_stale_artifact_reentry_guard.py
+!Iris/build/description/v2/tools/build/dvf_3_3_required_artifact_surface_preflight_census_common.py
+!Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_surface_preflight_census.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_required_artifact_surface_preflight_census.py
+!Iris/build/description/v2/tools/build/dvf_3_3_required_artifact_disposition_seal_common.py
+!Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_disposition_seal.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_required_artifact_disposition_seal.py
 !Iris/build/description/v2/tools/build/migrate_dvf_3_3_facts_v2.py
 !Iris/build/description/v2/tools/build/enrich_dvf_3_3_hints_v2.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_v2.py
@@ -187,6 +193,8 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_cutover.py
 !Iris/build/description/v2/tests/test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py
 !Iris/build/description/v2/tests/test_dvf_3_3_predecessor_stale_artifact_reentry_guard.py
+!Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_surface_preflight_census.py
+!Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py
 !Iris/build/description/v2/tests/fixtures/
 !Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/
 !Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/**
@@ -244,6 +252,10 @@ Iris/build/description/v2/staging/*
 !Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/**
 !Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/
 !Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/**
+!Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/
+!Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/**
+!Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/
+!Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/**
 !Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/
 Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/*
 !Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase2/

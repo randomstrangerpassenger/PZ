@@ -1,0 +1,23 @@
+{
+  "denominator_axis": "live_current_route_required_artifacts",
+  "denominator_mismatch_recorded": false,
+  "denominator_source": "Iris/_docs/round3/current_route_required_validations.json",
+  "denominator_substitution_rejected": true,
+  "derived_required_artifact_count": 93,
+  "expected_current_readpoint_required_artifact_count": 93,
+  "generated_at": "2026-06-29T19:05:07.826433+00:00",
+  "rejected_denominator_substitutes": [
+    56,
+    28,
+    2105,
+    2084,
+    21,
+    1062,
+    311,
+    163,
+    148
+  ],
+  "required_tests_count_recorded_separately": 48,
+  "schema_version": "dvf-3-3-required-surface-denominator-declaration-v1",
+  "status": "PASS"
+}

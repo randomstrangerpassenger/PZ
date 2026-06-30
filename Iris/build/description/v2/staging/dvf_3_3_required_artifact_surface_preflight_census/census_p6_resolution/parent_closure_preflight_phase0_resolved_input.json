@@ -1,0 +1,23 @@
+{
+  "entry_state": "blocked_input",
+  "generated_at": "2026-06-29T19:08:09.738846+00:00",
+  "post_resolution_counts": {
+    "denominator_mismatch": false,
+    "dirty": 1,
+    "effectively_ignored": 0,
+    "field_fail": 0,
+    "field_mismatch": 0,
+    "invalid_json": 0,
+    "missing": 0,
+    "missing_required_field": 0,
+    "non_hash_candidate": 1,
+    "required_artifact_count": 93,
+    "tracked": 93,
+    "tracked_but_ignore_matched": 0,
+    "untracked": 0,
+    "untracked_ignored": 0,
+    "vcs_query_error": 0
+  },
+  "schema_version": "dvf-3-3-required-surface-parent-phase0-resolved-input-v1",
+  "semantic_verdict": "blocked"
+}

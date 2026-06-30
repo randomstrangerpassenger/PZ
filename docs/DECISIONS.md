@@ -1607,6 +1607,7 @@
   * independent review gate는 artifact-bound `current_session_independent_review_artifact.json`과 `independent_review_gate_report.json`으로 `PASS`다.
   * owner/canonical seal은 owner-supplied `current_session_owner_canonical_seal_record.json`을 `owner_canonical_seal_gate_report.json`에 hash-bound해서 `owner_seal_status=PASS`, `canonical_seal_status=PASS`, `canonical_seal_allowed=true`, `final_signoff_status=PASS`로 닫는다.
   * owner input record VCS preservation은 tracked / not ignored / clean 상태로 `PASS`이며, owner rule ratification record와 owner canonical seal record가 preservation 대상에 포함된다.
+  * current-route validation이 생성하는 tracked staging/doc side effect는 workspace hygiene를 위해 clean tracked snapshot에서 복구하되, restore 전에 protected surface hash diff를 별도 캡처한다. `pre_restore_protected_surface_changed_count > 0`이면 restore 여부와 무관하게 fail-closed다.
   * parent closure input packet과 compatibility contract는 final report, final recensus, disposition ledger, independent review gate report, owner canonical seal record, owner canonical seal gate report hash를 바인딩한다.
 * 최소 결과 trace:
 
@@ -1628,6 +1629,43 @@
   * 이 canonical seal은 `required_artifact_disposition_seal_governance_only` 범위다. Parent `dvf_3_3_current_route_authority_required_evidence_integrity_closure` machine PASS는 parent Phase 0 / Phase 5 / Phase 7 rerun-bound validation 이후에만 주장할 수 있다.
   * 이 seal은 source / rendered / Lua bridge / runtime / package mutation, package/release/Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
   * owner seal은 independent review를 대체하지 않는다. Independent review artifact, owner seal record, canonical seal allowed, final sign-off는 별도 gate로 검증된다.
+
+### Iris DVF 3-3 — current-route authority required-evidence closure final reconciliation
+
+* 상태: final implementation plan `plan_document_complete` / parent intake ready / disposition supersession consumed / post-machine governance gate separated
+* 결정: Current-Route Authority Required-Evidence Closure Final Reconciliation round는 preflight와 required artifact disposition seal 결과를 parent closure 계획서에 반영하는 predecessor-plan closure round다. 이 round는 parent `dvf_3_3_current_route_authority_required_evidence_integrity_closure`의 Phase 0 / Phase 5 / Phase 7 rerun을 대체하지 않고, parent가 소비할 final implementation plan, intake packet, review artifact manifest, claim boundary를 봉인한다.
+* 현재 기준:
+
+  * final report는 `status=PASS`, `predecessor_plan_document_complete=true`, `parent_intake_ready=true`로 닫힌다.
+  * preflight 결과는 `preflight_consumption_state=consumed_with_disposition_supersession`로 읽는다. Preflight의 previous blocked/disposition-needed signal은 disposition seal의 ready result로 supersede되며 silently downgrade되지 않는다.
+  * disposition 결과는 `disposition_consumption_state=consumed_ready_for_parent_rerun`로 읽는다.
+  * required manifest adoption은 `required_manifest_adoption_state=no_live_change_required`, `removed_required_artifact_count=0`, `removed_required_test_count=0`, `blocked_manifest_adoption_count=0`, `predicate_meaning_change_count=0`이다.
+  * non-hash exception floor는 class ceiling을 통해 검증하며 `unclassified_non_hash_exception_count=0`, `non_hash_exception_enum_violation_count=0`, `review_exempt_non_hash_exception_count=0`이다.
+  * top-doc state는 `top_doc_sync_state=draft_prepared_owner_application_pending`이다. 이는 owner-applied top-doc patch 대기 상태이며 machine blocker나 live mutation claim이 아니다.
+  * primary review artifact manifest는 `status=PASS`, `missing_primary_review_artifact_count=0`, `role_coverage_missing_count=0`, `hash_cycle_detected=false`다.
+  * final report는 `parent_machine_pass_claimed=false`, `parent_independent_review_claimed=false`, `owner_seal_claimed=false`, `canonical_seal_claimed=false`를 고정한다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/`
+  * final implementation plan: `docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_implementation_plan.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/final_predecessor_plan_document_complete_report.json`
+  * parent intake packet: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/parent_intake_packet.json`
+  * primary review artifact manifest: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase8/primary_review_artifact_manifest.json`
+  * post-machine governance boundary: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/post_machine_governance_gate_boundary.md`
+  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py`
+  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py`
+  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py`
+* 검증:
+
+  * `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py --mode all`: `PASS`
+  * `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py --require-complete`: `PASS / error_count=0`
+  * `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py"`: `PASS / Ran 9 tests`
+* 오독 금지:
+
+  * 이 round의 `parent_intake_ready=true`는 parent machine PASS가 아니다. Parent machine PASS는 parent main plan rerun-bound validation에서만 주장할 수 있다.
+  * 이 round의 plan-document-complete는 independent review, owner seal, canonical seal을 구현 성공 조건으로 요구하지 않는다. 이 세 gate는 post-machine governance gate로 분리한다.
+  * `top_doc_sync_state=draft_prepared_owner_application_pending`은 owner가 top-level docs patch를 적용할 수 있는 draft state이며, source / rendered / Lua bridge / runtime / package mutation authority가 아니다.
+  * final-reconciliation tooling은 second authority가 아니다. Parent consumption authority는 `parent_main_plan_only`다.
 
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 

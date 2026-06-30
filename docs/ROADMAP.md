@@ -653,9 +653,24 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * final required-artifact VCS preservation regression은 `dirty=0`, `untracked=0`, `active_ignore=0`, `effectively_ignored=0`이다.
   * ignored / untracked required artifact disposition은 tracked negative exception preservation과 owner-ratified auto-seal rule을 통해 `bare_diagnostic_count=0`, `negative_exception_auto_disposition_count=93`으로 봉인된다.
   * independent review gate는 artifact-bound review record로 `PASS`이며, owner/canonical seal은 owner-supplied `current_session_owner_canonical_seal_record.json`으로 `owner_seal_status=PASS`, `canonical_seal_status=PASS`, `canonical_seal_allowed=true`, `final_signoff_status=PASS`다.
+  * current-route validation side effect는 workspace hygiene를 위해 복구하되, protected-surface mutation은 restore 전에 캡처한다. `pre_restore_protected_surface_changed_count > 0`이면 fail-closed로 남는다.
   * parent closure input packet과 compatibility contract는 final report, final recensus, disposition ledger, independent review gate report, owner canonical seal record, owner canonical seal gate report hash를 바인딩한다.
   * validation은 runner `--mode all`, validator `--require-complete`, focused unittest `Ran 8 tests`가 모두 PASS다.
   * 이 canonical seal은 required artifact disposition governance scope에 한정된다. Parent closure machine PASS, source / rendered / Lua bridge / runtime / package mutation, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance는 열지 않는다.
+
+* Current-Route Authority Required-Evidence Closure Final Reconciliation은 final implementation plan을 `plan_document_complete`로 닫았다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/`다.
+  * final implementation plan은 `docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_implementation_plan.md`다.
+  * final report는 `status=PASS`, `predecessor_plan_document_complete=true`, `parent_intake_ready=true`다.
+  * preflight는 `preflight_consumption_state=consumed_with_disposition_supersession`로 소비되고, disposition은 `disposition_consumption_state=consumed_ready_for_parent_rerun`로 소비된다.
+  * required manifest adoption은 `no_live_change_required`이며, required artifact/test removal, blocked adoption, predicate meaning change는 모두 `0`이다.
+  * non-hash exception class ceiling은 enum / unclassified / review-exempt violation `0`으로 닫힌다.
+  * top-doc 상태는 `draft_prepared_owner_application_pending`이다. 이는 owner-applied top-doc patch 대기이지 machine blocker가 아니다.
+  * primary review artifact manifest는 `PASS`, `missing_primary_review_artifact_count=0`, `role_coverage_missing_count=0`, `hash_cycle_detected=false`다.
+  * `parent_machine_pass_claimed=false`, `parent_independent_review_claimed=false`, `owner_seal_claimed=false`, `canonical_seal_claimed=false`를 고정한다.
+  * runner `--mode all`, validator `--require-complete`, focused unittest `Ran 9 tests`가 모두 PASS다.
+  * 이 round는 parent main plan rerun을 대체하지 않는다. Parent closure machine PASS와 post-machine independent review / owner seal / canonical seal은 parent rerun 이후 별도 gate로 유지한다.
 
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 

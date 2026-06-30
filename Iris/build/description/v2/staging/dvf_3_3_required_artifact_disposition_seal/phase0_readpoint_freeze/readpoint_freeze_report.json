@@ -3,7 +3,7 @@
   "dirty_uses_content_diff_only": true,
   "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal",
   "existing_untracked_required_artifacts_enter_disposition_route": true,
-  "generated_at": "2026-06-30T08:41:49.203213+00:00",
+  "generated_at": "2026-06-30T15:34:55.025136+00:00",
   "ignore_rule_match_and_effectively_ignored_are_separate": true,
   "ignored_diagnostic_coverage_denominator_count": 93,
   "manifest": {
@@ -16,12 +16,12 @@
   },
   "output_root_disjoint_from_required_artifacts": true,
   "parent_plan": {
-    "bytes": 58961,
+    "bytes": 61986,
     "exists": true,
     "kind": "file",
     "path": "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_plan.md",
     "role": "parent_closure_plan",
-    "sha256": "24a22f12a1730747f07d4d1dbf20be784eb9ce1e9de02794fdd48931e5936d75"
+    "sha256": "69c3994bfec11297fd50640ef55f6d788d47c00e210148f1a0062bd9ef4451be"
   },
   "plan": {
     "bytes": 83379,

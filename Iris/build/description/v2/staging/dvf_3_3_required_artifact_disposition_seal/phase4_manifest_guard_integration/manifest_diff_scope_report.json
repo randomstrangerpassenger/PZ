@@ -2,7 +2,7 @@
   "candidate_live_manifest_separation": true,
   "existing_required_artifact_removed_count": 0,
   "existing_required_test_removed_count": 0,
-  "generated_at": "2026-06-30T08:41:49.888178+00:00",
+  "generated_at": "2026-06-30T15:34:56.335163+00:00",
   "schema_version": "dvf-3-3-required-artifact-disposition-manifest-diff-scope-v1",
   "status": "PASS"
 }

@@ -13,7 +13,7 @@
   "errors": [],
   "final_signoff_status": "PASS",
   "final_vcs_preservation_status": "PASS",
-  "generated_at": "2026-06-30T08:44:09.944693+00:00",
+  "generated_at": "2026-06-30T15:48:20.777365+00:00",
   "independent_review_gate": "PASS",
   "owner_canonical_seal_record": {
     "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_seals/current_session_owner_canonical_seal_record.json",

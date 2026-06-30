@@ -172,6 +172,9 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/build_iris_recipe_index_data.py
 !Iris/build/description/v2/tools/build/build_iris_moveables_index_data.py
 !Iris/build/description/v2/tools/build/build_iris_fixing_index_data.py
+!Iris/build/description/v2/tools/build/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py
+!Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_migrate_dvf_3_3_facts_v2.py
@@ -181,6 +184,7 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_layer4_trace_edge_authority_admission_round.py
 !Iris/build/description/v2/tests/test_layer4_absorption_current_surface_guard.py
 !Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py
+!Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py
 !Iris/build/description/v2/tests/test_layer3_current_authority_reconstruction.py
 !Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_disposition_guard_seal.py
 !Iris/build/description/v2/tests/test_dvf_3_3_vnext_delta_guard_current_route_integration.py

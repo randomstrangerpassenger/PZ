@@ -3,8 +3,9 @@
   "current_route_validation_state": "PASS",
   "disposition_validation_error_count": 0,
   "disposition_validation_errors": [],
-  "generated_at": "2026-06-30T08:43:32.778084+00:00",
+  "generated_at": "2026-06-30T15:47:43.447117+00:00",
   "negative_fixture_matrix_status": "PASS",
+  "pre_restore_protected_surface_changed_count": 0,
   "protected_surface_changed_count": 0,
   "schema_version": "dvf-3-3-required-artifact-disposition-fail-closed-validation-v1",
   "status": "PASS"

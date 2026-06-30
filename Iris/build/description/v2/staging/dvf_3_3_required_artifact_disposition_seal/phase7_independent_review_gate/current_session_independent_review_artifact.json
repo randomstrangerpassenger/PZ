@@ -27,7 +27,7 @@
     },
     {
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_required_artifact_disposition_seal_common.py",
-      "sha256": "a625c6d2080150f31c0c12d7963d1f23194656ed6555b1b2ec1e6efdd0b559f8"
+      "sha256": "59af0a337c3018062e3fcdba0dd4bbf48005c83fe390bbb72efaeedd50071a06"
     },
     {
       "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_disposition_seal.py",

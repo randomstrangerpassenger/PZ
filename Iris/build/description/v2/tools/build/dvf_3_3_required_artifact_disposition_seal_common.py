@@ -1398,7 +1398,70 @@ def negative_fixture_matrix(schema: dict[str, Any]) -> dict[str, Any]:
     return report
 
 
-def run_current_route_validation(run: bool) -> dict[str, Any]:
+def current_route_side_effect_snapshot(paths: Iterable[str]) -> dict[str, dict[str, Any]]:
+    snapshot: dict[str, dict[str, Any]] = {}
+    for path in sorted({normalize_path(str(item)) for item in paths if item}):
+        resolved = resolve_repo(path)
+        state = vcs_state(path)
+        if not resolved.exists() or not resolved.is_file() or not state.get("tracked") or state.get("dirty"):
+            continue
+        snapshot[path] = {
+            "sha256": sha256_file(path),
+            "bytes": resolved.read_bytes(),
+        }
+    return snapshot
+
+
+def current_route_restore_candidate_paths(seed_paths: Iterable[str]) -> list[str]:
+    candidates = {normalize_path(str(path)) for path in seed_paths if path}
+    for root in ["Iris/build/description/v2/staging", "docs"]:
+        result = git(["ls-files", "--", root])
+        if result.get("exit_code") == 0:
+            candidates.update(normalize_path(line) for line in command_lines(result))
+    evidence_prefix = normalize_path(rel(EVIDENCE_ROOT))
+    if not evidence_prefix.startswith("C:/") and not evidence_prefix.startswith("/"):
+        evidence_prefix = evidence_prefix.rstrip("/") + "/"
+        candidates = {path for path in candidates if not path.startswith(evidence_prefix)}
+    return sorted(candidates)
+
+
+def restore_current_route_side_effects(snapshot: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    restored_count = 0
+    for path, record in snapshot.items():
+        resolved = resolve_repo(path)
+        before_sha = record.get("sha256")
+        after_sha = sha256_file(path)
+        changed = after_sha != before_sha
+        if changed:
+            resolved.write_bytes(record["bytes"])
+            restored_count += 1
+        rows.append(
+            {
+                "path": path,
+                "before_sha256": before_sha,
+                "after_sha256": after_sha,
+                "changed_by_current_route": changed,
+                "restored": changed,
+            }
+        )
+    report = {
+        "schema_version": "dvf-3-3-required-artifact-disposition-current-route-side-effect-restore-v1",
+        "generated_at": now_iso(),
+        "status": "PASS",
+        "snapshot_count": len(snapshot),
+        "changed_by_current_route_count": sum(1 for row in rows if row["changed_by_current_route"]),
+        "restored_count": restored_count,
+        "rows": rows,
+    }
+    return report
+
+
+def run_current_route_validation(
+    run: bool,
+    restore_paths: Iterable[str] | None = None,
+    protected_before: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     out_path = phase_path("phase5_fail_closed_validation", "current_route_validation_result.json")
     if not run:
         payload = {
@@ -1411,6 +1474,7 @@ def run_current_route_validation(run: bool) -> dict[str, Any]:
         }
         write_json(out_path, payload)
         return payload
+    snapshot = current_route_side_effect_snapshot(restore_paths or [])
     env = os.environ.copy()
     env["DVF_REQUIRED_ARTIFACT_DISPOSITION_INNER_CURRENT_ROUTE"] = "1"
     result = run_command(
@@ -1440,6 +1504,17 @@ def run_current_route_validation(run: bool) -> dict[str, Any]:
         payload["failure_classification"] = "current_route_regression_or_preexisting_failure"
     else:
         payload["failure_classification"] = "none"
+    if protected_before is not None:
+        protected_pre_restore_after = protected_surface_hash_report(
+            "dvf-3-3-required-artifact-disposition-protected-after-current-route-pre-restore-v1"
+        )
+        protected_pre_restore_no_mutation = diff_hash_reports(protected_before, protected_pre_restore_after)
+        payload["protected_surface_pre_restore_no_mutation"] = protected_pre_restore_no_mutation
+        payload["protected_surface_pre_restore_changed_count"] = protected_pre_restore_no_mutation.get("changed_count")
+    write_json(out_path, payload)
+    restore_report = restore_current_route_side_effects(snapshot)
+    payload["side_effect_restore"] = restore_report
+    payload["side_effect_restored_count"] = restore_report.get("restored_count")
     write_json(out_path, payload)
     return payload
 
@@ -1450,14 +1525,22 @@ def write_phase5_validation(
     owner_rule_report: dict[str, Any],
     protected_before: dict[str, Any],
     run_current_route: bool,
+    current_route_restore_paths: Iterable[str] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     negative = negative_fixture_matrix(schema)
     write_json(phase_path("phase5_fail_closed_validation", "negative_fixture_matrix.json"), negative)
-    current_route = run_current_route_validation(run_current_route)
+    current_route = run_current_route_validation(run_current_route, current_route_restore_paths, protected_before)
     protected_after = protected_surface_hash_report(
         "dvf-3-3-required-artifact-disposition-protected-after-v1"
     )
     no_mutation = diff_hash_reports(protected_before, protected_after)
+    pre_restore_protected_changed_count = int(current_route.get("protected_surface_pre_restore_changed_count") or 0)
+    no_mutation["pre_restore_protected_surface_changed_count"] = pre_restore_protected_changed_count
+    no_mutation["pre_restore_protected_surface_no_mutation"] = current_route.get(
+        "protected_surface_pre_restore_no_mutation"
+    )
+    if pre_restore_protected_changed_count != 0:
+        no_mutation["status"] = "FAIL"
     write_json(phase_path("phase5_fail_closed_validation", "protected_surface_no_mutation_report.json"), no_mutation)
     validation_errors = validate_rows(
         disposition_rows,
@@ -1467,11 +1550,19 @@ def write_phase5_validation(
     fail_closed = {
         "schema_version": "dvf-3-3-required-artifact-disposition-fail-closed-validation-v1",
         "generated_at": now_iso(),
-        "status": "PASS" if not validation_errors and negative.get("status") == "PASS" and no_mutation.get("changed_count") == 0 else "FAIL",
+        "status": (
+            "PASS"
+            if not validation_errors
+            and negative.get("status") == "PASS"
+            and no_mutation.get("changed_count") == 0
+            and pre_restore_protected_changed_count == 0
+            else "FAIL"
+        ),
         "disposition_validation_error_count": len(validation_errors),
         "disposition_validation_errors": validation_errors,
         "negative_fixture_matrix_status": negative.get("status"),
         "protected_surface_changed_count": no_mutation.get("changed_count"),
+        "pre_restore_protected_surface_changed_count": pre_restore_protected_changed_count,
         "current_route_validation_state": current_route.get("status"),
         "current_route_regression_separate_from_disposition_validator": True,
     }
@@ -2171,6 +2262,9 @@ def generate_artifacts(*, run_current_route: bool = False) -> dict[str, Any]:
         owner_rule_report,
         context["protected_before"],
         run_current_route,
+        current_route_restore_candidate_paths(
+            str(row.get("path")) for row in context["artifact_rows"] if row.get("path")
+        ),
     )
     final = write_phase6_closeout(
         context,

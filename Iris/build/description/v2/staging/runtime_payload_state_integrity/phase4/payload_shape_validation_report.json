@@ -2,7 +2,7 @@
   "active_silent_forbidden_scan": {
     "active_silent_hit_count": 0,
     "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
-    "generated_at": "2026-06-29T19:10:51.004268+00:00",
+    "generated_at": "2026-06-30T08:46:44.281758+00:00",
     "hits": [],
     "schema_version": "runtime-payload-state-forbidden-vocabulary-scan-v1",
     "status": "PASS"
@@ -10,12 +10,12 @@
   "allowed_combination_count": 2,
   "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
   "forbidden_rows": [],
-  "generated_at": "2026-06-29T19:10:50.999576+00:00",
+  "generated_at": "2026-06-30T08:46:44.277326+00:00",
   "matrix_status": "PASS",
   "negative_fixture": {
     "allowed_fixture_count": 1,
     "forbidden_fixture_count": 1,
-    "generated_at": "2026-06-29T19:10:50.999588+00:00",
+    "generated_at": "2026-06-30T08:46:44.277337+00:00",
     "rows": [
       {
         "adoption_state": null,
@@ -57,7 +57,7 @@
   },
   "renderer_scan": {
     "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
-    "generated_at": "2026-06-29T19:10:50.999123+00:00",
+    "generated_at": "2026-06-30T08:46:44.276942+00:00",
     "publish_state_interpretation": "renderer fallback branch only; current payload has no publish_state authority",
     "publish_state_read_hit_count": 6,
     "renderer_files": [

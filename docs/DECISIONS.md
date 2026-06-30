@@ -1595,6 +1595,40 @@
   * Content-diff-only dirty criterion은 evidence content preservation blocker를 정의하기 위한 것이며, `git status` diagnostics를 삭제하거나 숨기는 것이 아니다.
   * 이 round는 current-route required manifest denominator를 대체하지 않고 live manifest에서 재도출한다.
 
+### Iris DVF 3-3 — required artifact disposition seal
+
+* 상태: required artifact disposition seal `ready` / independent review PASS / owner seal PASS / canonical seal PASS / current route `PASS / 127 tests / closure_enforced true` / governance-only
+* 결정: Required Artifact Disposition Seal round는 preflight가 계량한 required artifact VCS surface를 기반으로 dirty / ignored / untracked required-artifact disposition을 봉인한다. Dirty required artifact final count는 `0`이고, ignored / untracked required artifact preservation regression도 `0`이다. 이 seal은 parent closure가 required-surface disposition queue를 추측 없이 다시 소비할 수 있게 하는 governance packet이며, parent machine PASS를 직접 주장하지 않는다.
+* 현재 기준:
+
+  * final report는 `terminal_state=ready`, `required_artifact_disposition_problem_status=SOLVED`, `machine_pass_blocked=false`, `fast_path_used=true`로 닫힌다.
+  * final VCS preservation은 `dirty=0`, `untracked=0`, `active_ignore=0`, `effectively_ignored=0`, `final_vcs_preservation_regression_count=0`이다.
+  * ignored required artifact disposition은 tracked negative exception preservation route와 owner-ratified auto-seal rule을 통해 `bare_diagnostic_count=0`, `negative_exception_auto_disposition_count=93`으로 닫힌다.
+  * independent review gate는 artifact-bound `current_session_independent_review_artifact.json`과 `independent_review_gate_report.json`으로 `PASS`다.
+  * owner/canonical seal은 owner-supplied `current_session_owner_canonical_seal_record.json`을 `owner_canonical_seal_gate_report.json`에 hash-bound해서 `owner_seal_status=PASS`, `canonical_seal_status=PASS`, `canonical_seal_allowed=true`, `final_signoff_status=PASS`로 닫는다.
+  * owner input record VCS preservation은 tracked / not ignored / clean 상태로 `PASS`이며, owner rule ratification record와 owner canonical seal record가 preservation 대상에 포함된다.
+  * parent closure input packet과 compatibility contract는 final report, final recensus, disposition ledger, independent review gate report, owner canonical seal record, owner canonical seal gate report hash를 바인딩한다.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/`
+  * owner seal input: `Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_seals/current_session_owner_canonical_seal_record.json`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json`
+  * independent review gate report: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase7_independent_review_gate/independent_review_gate_report.json`
+  * owner canonical seal gate report: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase8_owner_canonical_seal/owner_canonical_seal_gate_report.json`
+  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_disposition_seal.py`
+  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_required_artifact_disposition_seal.py`
+  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py`
+* 검증:
+
+  * `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_required_artifact_disposition_seal.py --mode all`: `PASS`
+  * `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_required_artifact_disposition_seal.py --require-complete`: `PASS / error_count=0`
+  * `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_required_artifact_disposition_seal.py"`: `PASS / Ran 8 tests`
+* 오독 금지:
+
+  * 이 canonical seal은 `required_artifact_disposition_seal_governance_only` 범위다. Parent `dvf_3_3_current_route_authority_required_evidence_integrity_closure` machine PASS는 parent Phase 0 / Phase 5 / Phase 7 rerun-bound validation 이후에만 주장할 수 있다.
+  * 이 seal은 source / rendered / Lua bridge / runtime / package mutation, package/release/Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
+  * owner seal은 independent review를 대체하지 않는다. Independent review artifact, owner seal record, canonical seal allowed, final sign-off는 별도 gate로 검증된다.
+
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 
 * 상태: pre-apply authorization sealed / execution readiness evidence sealed / Phase 4 live apply allowed / no live mutation executed

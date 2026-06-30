@@ -646,6 +646,17 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * `ignore_rule_match`는 diagnostic으로 남기되 closure blocker는 `effectively_ignored`로 판정한다. Windows line-ending/stat 기반 `git status` signal은 diagnostic으로 보존하고, dirty blocker는 content diff 기준으로 닫는다.
   * 이 preflight ready는 parent closure entry input readiness이며 source / rendered / Lua bridge / runtime / package mutation, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance, independent-review seal, canonical seal을 열지 않는다.
 
+* Required Artifact Disposition Seal은 canonical governance seal까지 닫힌 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/`다.
+  * final report는 `terminal_state=ready`, `required_artifact_disposition_problem_status=SOLVED`, `machine_pass_blocked=false`, `fast_path_used=true`로 닫힌다.
+  * final required-artifact VCS preservation regression은 `dirty=0`, `untracked=0`, `active_ignore=0`, `effectively_ignored=0`이다.
+  * ignored / untracked required artifact disposition은 tracked negative exception preservation과 owner-ratified auto-seal rule을 통해 `bare_diagnostic_count=0`, `negative_exception_auto_disposition_count=93`으로 봉인된다.
+  * independent review gate는 artifact-bound review record로 `PASS`이며, owner/canonical seal은 owner-supplied `current_session_owner_canonical_seal_record.json`으로 `owner_seal_status=PASS`, `canonical_seal_status=PASS`, `canonical_seal_allowed=true`, `final_signoff_status=PASS`다.
+  * parent closure input packet과 compatibility contract는 final report, final recensus, disposition ledger, independent review gate report, owner canonical seal record, owner canonical seal gate report hash를 바인딩한다.
+  * validation은 runner `--mode all`, validator `--require-complete`, focused unittest `Ran 8 tests`가 모두 PASS다.
+  * 이 canonical seal은 required artifact disposition governance scope에 한정된다. Parent closure machine PASS, source / rendered / Lua bridge / runtime / package mutation, release/package/Workshop/B42 readiness, manual QA, semantic quality completion, public-facing text acceptance는 열지 않는다.
+
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 
   * 입력은 `109` live mutation eligible row와 sealed dry-run patch bundle로 제한한다.

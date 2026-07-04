@@ -1,0 +1,230 @@
+{
+  "executed_fixture_count": 20,
+  "fixtures": [
+    {
+      "expected_code": "missing_primary_axis",
+      "fixture": "missing_primary_axis",
+      "fixture_passed": true,
+      "observed_code": "missing_primary_axis",
+      "observed_codes": [
+        "missing_primary_axis"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "unknown_axis",
+      "fixture": "unknown_axis",
+      "fixture_passed": true,
+      "observed_code": "invalid_axis_enum",
+      "observed_codes": [
+        "invalid_axis_enum",
+        "unknown_axis"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "invalid_axis_enum",
+      "fixture": "invalid_axis",
+      "fixture_passed": true,
+      "observed_code": "invalid_axis_enum",
+      "observed_codes": [
+        "invalid_axis_enum"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "multiple_primary_axes",
+      "fixture": "multiple_primary_axes",
+      "fixture_passed": true,
+      "observed_code": "multiple_primary_axes",
+      "observed_codes": [
+        "multiple_primary_axes"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "governance_route_core_pass_authority_claim",
+      "fixture": "governance_core_pass_claim",
+      "fixture_passed": true,
+      "observed_code": "governance_route_core_pass_authority_claim",
+      "observed_codes": [
+        "governance_route_core_pass_authority_claim"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "historical_current_runtime_authority_claim",
+      "fixture": "historical_runtime_claim",
+      "fixture_passed": true,
+      "observed_code": "historical_current_runtime_authority_claim",
+      "observed_codes": [
+        "historical_current_runtime_authority_claim"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "diagnostic_fixture_source_authority_claim",
+      "fixture": "diagnostic_source_claim",
+      "fixture_passed": true,
+      "observed_code": "diagnostic_fixture_source_authority_claim",
+      "observed_codes": [
+        "diagnostic_fixture_source_authority_claim"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "publish_boundary_package_release_ready_claim",
+      "fixture": "publish_release_claim",
+      "fixture_passed": true,
+      "observed_code": "publish_boundary_package_release_ready_claim",
+      "observed_codes": [
+        "publish_boundary_package_release_ready_claim"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "manifest_split_required",
+      "fixture": "manifest_split_required",
+      "fixture_passed": true,
+      "observed_code": "manifest_split_required",
+      "observed_codes": [
+        "manifest_split_required",
+        "protected_surface_changed",
+        "required_manifest_changed",
+        "runner_structure_changed"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "runner_structure_changed",
+      "fixture": "runner_structure_changed",
+      "fixture_passed": true,
+      "observed_code": "manifest_split_required",
+      "observed_codes": [
+        "manifest_split_required",
+        "protected_surface_changed",
+        "required_manifest_changed",
+        "runner_structure_changed"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "required_manifest_changed",
+      "fixture": "required_manifest_changed",
+      "fixture_passed": true,
+      "observed_code": "manifest_split_required",
+      "observed_codes": [
+        "manifest_split_required",
+        "protected_surface_changed",
+        "required_manifest_changed",
+        "runner_structure_changed"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "protected_surface_changed",
+      "fixture": "protected_surface_changed",
+      "fixture_passed": true,
+      "observed_code": "manifest_split_required",
+      "observed_codes": [
+        "manifest_split_required",
+        "protected_surface_changed",
+        "required_manifest_changed",
+        "runner_structure_changed"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "ready_with_blockers",
+      "fixture": "ready_with_blockers",
+      "fixture_passed": true,
+      "observed_code": "manifest_split_required",
+      "observed_codes": [
+        "manifest_split_required",
+        "protected_surface_changed",
+        "ready_with_blockers",
+        "required_manifest_changed",
+        "runner_structure_changed"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "ready_with_ambiguity_queue",
+      "fixture": "ready_with_ambiguity",
+      "fixture_passed": true,
+      "observed_code": "manifest_split_required",
+      "observed_codes": [
+        "manifest_split_required",
+        "protected_surface_changed",
+        "ready_with_ambiguity_queue",
+        "required_manifest_changed",
+        "runner_structure_changed"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "missing_positive_evidence",
+      "fixture": "missing_positive_evidence",
+      "fixture_passed": true,
+      "observed_code": "missing_positive_evidence",
+      "observed_codes": [
+        "missing_positive_evidence"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "missing_excluded_axes",
+      "fixture": "missing_excluded_axes",
+      "fixture_passed": true,
+      "observed_code": "missing_excluded_axes",
+      "observed_codes": [
+        "missing_excluded_axes"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "legacy_required_item_missing_route_reason",
+      "fixture": "legacy_required_without_reason",
+      "fixture_passed": true,
+      "observed_code": "legacy_required_item_missing_route_reason",
+      "observed_codes": [
+        "legacy_required_item_missing_route_reason"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "seed_map_authoritative_final_classification",
+      "fixture": "seed_authoritative_final",
+      "fixture_passed": true,
+      "observed_code": "seed_map_authoritative_final_classification",
+      "observed_codes": [
+        "seed_map_authoritative_final_classification"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "deduplication_record_missing_field",
+      "fixture": "dedup_missing_field",
+      "fixture_passed": true,
+      "observed_code": "deduplication_record_missing_field",
+      "observed_codes": [
+        "deduplication_record_missing_field"
+      ],
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "owner_adjudication_packet_claims_seal",
+      "fixture": "owner_packet_claims_seal",
+      "fixture_passed": true,
+      "observed_code": "owner_adjudication_packet_claims_seal",
+      "observed_codes": [
+        "owner_adjudication_packet_claims_seal"
+      ],
+      "validator_exit_code": 1
+    }
+  ],
+  "generated_at": "2026-07-03T10:30:44.075883+00:00",
+  "round_id": "dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight",
+  "schema_version": "dvf-3-3-legacy-combined-route-negative-axis-fixtures-v1",
+  "status": "PASS"
+}

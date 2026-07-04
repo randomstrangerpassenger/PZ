@@ -1,0 +1,16 @@
+{
+  "closure_enforced": true,
+  "current_route_success": true,
+  "generated_at": "2026-07-01T09:19:39.941952+00:00",
+  "lua_syntax_exit_code": 0,
+  "lua_syntax_status": "PASS",
+  "observed_current_route_test_count": 127,
+  "parent_rerun_bound_validation": true,
+  "predecessor_final_reconciliation_substitution_allowed": false,
+  "protected_package_surface_no_mutation_status": "PASS",
+  "protected_surface_no_mutation_status": "PASS",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-integrated-current-route-lua-validation-v1",
+  "status": "PASS",
+  "top_doc_sync_state": "owner_applied_and_validated"
+}

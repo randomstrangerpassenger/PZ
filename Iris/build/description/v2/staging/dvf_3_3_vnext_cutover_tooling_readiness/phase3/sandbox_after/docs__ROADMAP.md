@@ -672,6 +672,32 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * runner `--mode all`, validator `--require-complete`, focused unittest `Ran 9 tests`가 모두 PASS다.
   * 이 round는 parent main plan rerun을 대체하지 않는다. Parent closure machine PASS와 post-machine independent review / owner seal / canonical seal은 parent rerun 이후 별도 gate로 유지한다.
 
+* Current-Route Authority Required-Evidence Integrity Closure parent round는 machine closure와 canonical governance seal까지 닫힌 상태로 읽는다.
+
+  * evidence root는 `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/`다.
+  * final machine report는 `status=machine_pass_governance_only`, `parent_machine_pass_claimed=true`, `claim_scope=governance_only`로 닫힌다.
+  * current route는 `PASS / 127 tests / closure_enforced=true`이고 Lua syntax validation은 `PASS / 188 files`다.
+  * authority reference inventory는 missing/stale/ambiguous canonical reference `0`이며, required artifact live VCS recensus는 required `93`, dirty/untracked/ignored/missing `0`이다.
+  * required artifact identity/freshness, non-hash exception final binding, deterministic rebuild, tool inventory, closure count, broad unignore guard, and dirty required-artifact rejection은 same-readpoint evidence로 묶인다.
+  * final command matrix는 exact command rows `1-7`을 모두 `actual_exit_code=0`으로 기록하고 final machine report가 command sequence와 exit-code vector를 직접 바인딩한다.
+  * negative fixture execution report는 6개 fixture의 observed code / validator exit code / fixture pass state를 기록하며 모두 PASS다.
+  * independent review gate는 current-session user-supplied review artifact로 `PASS / reviewed artifacts 19 / hash mismatch 0`이다.
+  * owner/canonical seal은 owner-supplied `current_session_owner_canonical_seal_record.json`으로 `owner_seal_status=PASS`, `canonical_seal_status=PASS`, `canonical_seal_allowed=true`, `final_signoff_status=PASS`, blocker `0`으로 닫는다.
+  * top-doc sync는 owner-applied DECISIONS / ROADMAP / ARCHITECTURE update가 hash-bound, additive-only validated, rerun-bound일 때 `owner_applied_and_validated`로 읽는다.
+  * validation은 runner `--mode all`, validator `--require-complete`, focused unittest `Ran 12 tests`, Lua syntax check가 모두 PASS다.
+  * 이 canonical seal은 `current_route_authority_required_evidence_integrity_closure_governance_only` scope에 한정된다. Source / rendered / Lua bridge / runtime / package mutation, release/package/Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance는 열지 않는다.
+
+* DVF Core Boundary Separation Preflight / Legacy Combined Route Axis Inventory는 독립 boundary-separation 선행 readpoint로 닫혔다.
+
+  * 이 항목은 current-route authority required-evidence integrity closure의 하위 보강이 아니라, 오염된 combined DVF governance route에서 `DVF Core = 3계층 설명 블록 조합 시스템`을 순수하게 분리하기 위한 별도 선행 작업이다.
+  * current combined route는 보존한다: `current_route_required_validations.json = legacy_combined_governance_route != DVF Core PASS authority`.
+  * 축 enum은 `dvf_core_body_compiler`, `registry_authority`, `registry_runtime_compatibility`, `publish_boundary`, `legacy_combined_governance_route`, `historical_predecessor_trace`, `diagnostic_or_fixture` 7개로 고정한다.
+  * required tests `48`, required artifacts `93`, current-route union tests `127`이 machine-readable axis inventory로 분류됐다.
+  * final report는 `routing_preflight_ready`, `blocker_count=0`, `ambiguity_queue_count=0`, `legacy_combined_required_item_without_route_reason_count=0`, `protected_surface_changed_count=0`으로 닫힌다.
+  * 산출물은 `legacy_combined_route_axis_inventory.json`, `legacy_combined_route_axis_inventory.md`, `routing_preflight_report.json`, `docs/dvf_3_3_legacy_combined_route_axis_policy.md`다.
+  * validation은 runner `--mode all`, validator `--require-complete`, focused unittest `Ran 6 tests`, current route `127 tests / closure_enforced=true`가 모두 PASS다.
+  * 이 readpoint는 DVF Core boundary closure 자체, manifest physical split, required test/artifact migration, Registry Authority PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality closure, runtime / bridge / package mutation, package/release readiness를 열지 않는다.
+
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 
   * 입력은 `109` live mutation eligible row와 sealed dry-run patch bundle로 제한한다.

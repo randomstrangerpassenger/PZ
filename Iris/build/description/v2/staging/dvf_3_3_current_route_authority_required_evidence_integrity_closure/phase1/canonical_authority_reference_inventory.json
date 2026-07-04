@@ -1,0 +1,67 @@
+{
+  "ambiguous_canonical_reference_role_count": 0,
+  "generated_at": "2026-07-01T09:16:08.884830+00:00",
+  "missing_canonical_authority_reference_count": 0,
+  "records": [
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/Philosophy.md",
+      "role": "top_authority",
+      "sha256": "938c52e9090c36af00dac18b64905e12a4f2390ac238a26121a63a14f81f44b2"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/DECISIONS.md",
+      "role": "current_readpoint",
+      "sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/ARCHITECTURE.md",
+      "role": "current_readpoint",
+      "sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/ROADMAP.md",
+      "role": "current_readpoint",
+      "sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/_docs/authority/iris_current_authority_manifest.json",
+      "role": "candidate_authority_index_inventory_input",
+      "sha256": "f82f660a67ededa116f0b0c7569437320735dc14c6d87553479201a4cd13bdca"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "current_required_gate",
+      "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "role": "current_route_runner",
+      "sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "role": "current_route_active_core_closure",
+      "sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0"
+    }
+  ],
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-canonical-authority-reference-inventory-v1",
+  "stale_canonical_authority_reference_count": 0,
+  "status": "PASS"
+}

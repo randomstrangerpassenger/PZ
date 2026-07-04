@@ -1,0 +1,23 @@
+{
+  "final_reconciliation_parent_machine_pass_claimed": false,
+  "final_reconciliation_parent_recompute_substitution_allowed": false,
+  "final_reconciliation_predecessor_packet": "present",
+  "final_reconciliation_predecessor_state": "parent_intake_ready",
+  "generated_at": "2026-07-01T09:16:08.837769+00:00",
+  "parent_pass_substitution_forbidden": true,
+  "parent_rerun_required": true,
+  "predecessor_packets_are_parent_authority": false,
+  "preflight_consumption_state": "diagnostic_only",
+  "preflight_packet_state": "present",
+  "required_artifact_disposition_bare_diagnostic_count": 0,
+  "required_artifact_disposition_machine_pass_blocked": false,
+  "required_artifact_disposition_parent_rerun_required": true,
+  "required_artifact_disposition_parent_round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "required_artifact_disposition_predecessor_round_id": "dvf_3_3_required_artifact_disposition_seal",
+  "required_artifact_disposition_predecessor_state": "ready",
+  "required_artifact_disposition_problem_status": "SOLVED",
+  "required_surface_disposition_predecessor_packet": "present",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-predecessor-packet-intake-report-v1",
+  "status": "PASS"
+}

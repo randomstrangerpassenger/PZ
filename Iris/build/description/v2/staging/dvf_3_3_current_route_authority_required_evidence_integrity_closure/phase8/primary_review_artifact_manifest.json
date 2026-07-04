@@ -1,0 +1,103 @@
+{
+  "artifacts": [
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase_change_mapping_manifest.json",
+      "role": "final_review_artifact",
+      "sha256": "9de4e9a7f3d3731789e9b053920fdd6d163ca479ea0a42ffe1c67db96a36e20f"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_machine_report.json",
+      "role": "final_review_artifact",
+      "sha256": "1a6b13515129fd7db1da333996762cdfb661e16cd5da10b36bc111140d92cbfe"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_command_matrix_report.json",
+      "role": "final_review_artifact",
+      "sha256": "3e6bd77896826977ee2e5f4c7da1fab39b7eb389982f113b3e381e756aed8bf1"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/owner_reserved_interface_token_list.json",
+      "role": "final_review_artifact",
+      "sha256": "2f7bee9bac24530f24400596833ba1453012274826bcca5b7180a61ba93a3b6b"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/handoff_state_rendering_report.json",
+      "role": "final_review_artifact",
+      "sha256": "870f8749450573c2bc80afacc6aa6aac40664d81c747ba29efb28eba9b7e5cbc"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/non_hash_exception_final_binding_report.json",
+      "role": "final_review_artifact",
+      "sha256": "3d0790c39e7f220588bdf0a5f6046056402f2dbd169efd08c624b72ab5227a22"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/integrated_current_route_lua_validation_report.json",
+      "role": "final_review_artifact",
+      "sha256": "70195e771287337b8b737473ac8fd1686e9059451a79a725bd92b9a586d06351"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase3/negative_fixture_execution_report.json",
+      "role": "final_review_artifact",
+      "sha256": "f73633b3358db420a0c7abbd3dcbdd99157a6cc18073d4cff7d3e0234ed9e380"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase5/vcs_required_surface_report.json",
+      "role": "final_review_artifact",
+      "sha256": "b96b80b4bb3f7938a1d194b8ac2341a168e8db34e02a0720608a81c48fa8b440"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_ledger_packet.md",
+      "role": "final_review_artifact",
+      "sha256": "c9ee9d43d4a40f17ce232220a7a3fa8125f34f5a5f822bf2814a5c124311f1b9"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/live_vcs_required_surface_recensus_report.json",
+      "role": "final_review_artifact",
+      "sha256": "7de03c0dd6afc45d57e9d95c1f5f75d51199a040f2c916176285d7ff030e793f"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/validation_report.require_complete.json",
+      "role": "final_review_artifact",
+      "sha256": "4896c71ac2ba2edc3ec20fbb6c3b66cf21a8df4c35b354c56804f5e77ee61413"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/focused_unittest_result.json",
+      "role": "final_review_artifact",
+      "sha256": "9562487fc261e78e98abf88f15a135d3f2ffd14655d9cb59d1fb666c40a040b7"
+    }
+  ],
+  "generated_at": "2026-07-01T09:20:40.621899+00:00",
+  "hash_cycle_detected": false,
+  "missing_primary_review_artifact_count": 0,
+  "phase_change_mapping_manifest_included": true,
+  "role_coverage_missing_count": 0,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-primary-review-artifact-manifest-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,13 @@
+{
+  "broad_staging_unignore_allowed": false,
+  "generated_at": "2026-07-01T09:16:08.839130+00:00",
+  "minimum_preserved_artifacts": [
+    "phase8/final_machine_report.json",
+    "phase8/primary_review_artifact_manifest.json",
+    "phase8/final_artifact_hash_bundle.json",
+    "phase_change_mapping_manifest.json"
+  ],
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-evidence-root-preservation-policy-v1",
+  "status": "PASS"
+}

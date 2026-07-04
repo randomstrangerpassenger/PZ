@@ -1,0 +1,9 @@
+{
+  "blocker_count": 0,
+  "generated_at": "2026-07-01T09:16:11.362798+00:00",
+  "machine_pass_blocked": false,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "rows": [],
+  "schema_version": "dvf-3-3-required-surface-disposition-ledger-v1",
+  "status": "PASS"
+}

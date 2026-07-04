@@ -1,0 +1,9 @@
+{
+  "command": "uv run python -B -m unittest discover -s C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tests -p test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py",
+  "exit_code": 0,
+  "finished_at": "2026-07-01T09:20:39.732783+00:00",
+  "started_at": "2026-07-01T09:20:37.293377+00:00",
+  "stderr": "............\n----------------------------------------------------------------------\nRan 12 tests in 1.980s\n\nOK\n",
+  "stdout": "",
+  "timed_out": false
+}

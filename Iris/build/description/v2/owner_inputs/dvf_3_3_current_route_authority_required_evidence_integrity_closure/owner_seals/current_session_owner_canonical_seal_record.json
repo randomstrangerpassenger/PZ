@@ -1,0 +1,46 @@
+{
+  "artifact_kind": "owner_canonical_seal_record",
+  "canonical_claim_scope": "current_route_authority_required_evidence_integrity_closure_governance_only",
+  "canonical_seal_allowed": true,
+  "canonical_seal_status": "PASS",
+  "complete_validation_report": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/validation_report.require_complete.json",
+    "sha256": "4896c71ac2ba2edc3ec20fbb6c3b66cf21a8df4c35b354c56804f5e77ee61413"
+  },
+  "does_not_claim_manual_qa": true,
+  "does_not_claim_package_readiness": true,
+  "does_not_claim_public_text_acceptance": true,
+  "does_not_claim_release_readiness": true,
+  "does_not_claim_source_rendered_lua_runtime_package_mutation": true,
+  "does_not_claim_workshop_readiness": true,
+  "final_command_matrix_report": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_command_matrix_report.json",
+    "sha256": "3e6bd77896826977ee2e5f4c7da1fab39b7eb389982f113b3e381e756aed8bf1"
+  },
+  "final_signoff_status": "PASS",
+  "generated_at": "2026-07-01T09:20:40.208394+00:00",
+  "independent_review_artifact": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/current_session_independent_review_artifact.json",
+    "sha256": "89cd21337a7901a339d0ee4decb573c44be24effed34c735a87b38d070238b39"
+  },
+  "independent_review_gate": "PASS",
+  "independent_review_gate_report": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/independent_review_gate_report.json",
+    "sha256": "cd54a7f1eb910f1abb62859fab9e86da75887874c3e9d6fbbf4f7f8b1ed17abc"
+  },
+  "owner_decision": "approved",
+  "owner_identity": "current_session_owner",
+  "owner_instruction_basis": [
+    "독립 리뷰와 owner seal을 통과시키고 문제를 통과 판정내자",
+    "방금 우리가 진행한게 독립 리뷰잖아."
+  ],
+  "owner_seal_status": "PASS",
+  "record_content_origin": "user_supplied_current_session_owner_instruction",
+  "record_materialization": "codex_recorded_owner_instruction",
+  "reviewed_artifact_bundle": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/primary_review_artifact_manifest.json",
+    "sha256": "85beaa62af3b88c3e3e74f8945c9103f84ca2c90c6e0b7a15949331df401699d"
+  },
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-owner-canonical-seal-record-v1"
+}

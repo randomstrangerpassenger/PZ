@@ -1,0 +1,16 @@
+{
+  "item_kind_distribution": {
+    "active_core_closure_container": 1,
+    "current_route_union_test": 12,
+    "governance_closeout_claim_surface": 775,
+    "manifest_container": 1,
+    "required_artifact": 79,
+    "runner_claim_surface": 9
+  },
+  "legacy_combined_axis_distribution_guard_passed": true,
+  "legacy_combined_required_item_without_route_reason_count": 0,
+  "legacy_combined_row_count": 877,
+  "required_artifact_count_using_axis": 79,
+  "required_test_count_using_axis": 11,
+  "status": "PASS"
+}

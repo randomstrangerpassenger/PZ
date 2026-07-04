@@ -1,0 +1,9 @@
+{
+  "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --enforce-current-build-closure --out C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_current_route_authority_required_evidence_integrity_closure\\phase7\\full_current_route_validation_result.json",
+  "exit_code": 0,
+  "finished_at": "2026-07-01T09:19:30.577320+00:00",
+  "started_at": "2026-07-01T09:16:11.420786+00:00",
+  "stderr": "...............................................................................................................................\n----------------------------------------------------------------------\nRan 127 tests in 198.275s\n\nOK\n",
+  "stdout": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 127, \"success\": true, \"elapsed_seconds\": 198.275}\n",
+  "timed_out": false
+}

@@ -1,0 +1,13 @@
+{
+  "allowlist_roles": [
+    "quoted",
+    "negated",
+    "historical_trace",
+    "provenance_only"
+  ],
+  "generated_at": "2026-07-01T09:16:08.889085+00:00",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-authority-reference-false-positive-allowlist-v1",
+  "status": "PASS",
+  "unclassified_reference_count": 0
+}

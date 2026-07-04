@@ -1,0 +1,13 @@
+{
+  "current_core_count": 0,
+  "current_route_allowed_tooling_module_count": 1,
+  "current_route_allowed_tooling_modules": [
+    "export_dvf_3_3_lua_bridge"
+  ],
+  "expected_current_core_count": 12,
+  "generated_at": "2026-07-01T09:16:10.080884+00:00",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-active-closure-count-report-v1",
+  "status": "PASS",
+  "tooling_allowlist_cap": 1
+}

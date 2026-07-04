@@ -1,0 +1,11 @@
+{
+  "authority_manifest_path": "Iris/_docs/authority/iris_current_authority_manifest.json",
+  "authority_manifest_role": "candidate_authority_index_inventory_input",
+  "authority_manifest_sha256": "f82f660a67ededa116f0b0c7569437320735dc14c6d87553479201a4cd13bdca",
+  "current_authority_layer_claimed": false,
+  "generated_at": "2026-07-01T09:16:08.886128+00:00",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-authority-manifest-role-adoption-report-v1",
+  "source_rendered_runtime_authority_replaced": false,
+  "status": "PASS"
+}

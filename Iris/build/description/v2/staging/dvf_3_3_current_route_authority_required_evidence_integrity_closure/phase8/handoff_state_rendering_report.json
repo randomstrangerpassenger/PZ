@@ -1,0 +1,14 @@
+{
+  "blocked_with_required_surface_disposition_packet": {
+    "failure": false,
+    "is_failure": false,
+    "machine_pass_claimed": false,
+    "state_class": "diagnostic_remediation_handoff",
+    "ui_state_class": "diagnostic_remediation_handoff"
+  },
+  "generated_at": "2026-07-01T09:19:39.995070+00:00",
+  "generic_failed_closure_rendering_count": 0,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-handoff-state-rendering-report-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,47 @@
+{
+  "change_mapping_role": "not_part_of_change_mapping",
+  "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+  "commands": [
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --mode scaffold",
+      "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+      "index": 1
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --require-scaffold",
+      "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+      "index": 2
+    },
+    {
+      "command": "uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/full_current_route_validation_result.json",
+      "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+      "index": 3
+    },
+    {
+      "command": "powershell -ExecutionPolicy Bypass -File .\\tools\\check_lua_syntax.ps1",
+      "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+      "index": 4
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --mode all",
+      "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+      "index": 5
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --require-complete",
+      "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+      "index": 6
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py\"",
+      "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+      "index": 7
+    }
+  ],
+  "generated_at": "2026-07-01T09:16:07.428513+00:00",
+  "phase_minus1_not_in_change_mapping": true,
+  "phase_minus1_role": "pre-phase gate",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-command-matrix-v1",
+  "status": "PASS"
+}

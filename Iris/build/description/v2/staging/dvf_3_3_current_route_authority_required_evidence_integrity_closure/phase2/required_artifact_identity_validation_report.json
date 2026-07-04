@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-07-01T09:16:10.036043+00:00",
+  "hash_mode_validation": "PASS",
+  "manifest_schema_valid": true,
+  "non_hash_exception_class_ceiling_count": 0,
+  "non_hash_exception_validation": "PASS",
+  "producer_consumer_resolution_status": "PASS",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-required-artifact-identity-validation-report-v1",
+  "self_reference_cycle_detected": false,
+  "status": "PASS"
+}

@@ -1,0 +1,14 @@
+{
+  "blocker_required_artifact_count": 0,
+  "blocker_required_test_count": 0,
+  "classified_required_artifact_count": 93,
+  "classified_required_test_count": 48,
+  "duplicate_item_id_count": 0,
+  "forbidden_core_pass_claim_count": 0,
+  "invalid_axis_count": 0,
+  "manifest_mutation_count": 0,
+  "required_artifact_count": 93,
+  "required_test_count": 48,
+  "status": "PASS",
+  "unknown_count": 0
+}

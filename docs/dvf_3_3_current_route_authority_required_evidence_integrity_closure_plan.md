@@ -80,6 +80,7 @@ completion.
 
 포함 범위:
 
+* pre-Phase 0 tooling scaffold / dry-run contract gate
 * current route baseline census
 * authority manifest와 top-doc canonical reference inventory
 * authority manifest role adoption report
@@ -210,7 +211,7 @@ Read-only authority / context inputs:
 * The final-reconciliation predecessor's `top_doc_sync_state` is `draft_prepared_owner_application_pending`; parent execution should treat `not_claimed` as fallback only when it records a new explicit omission rationale.
 * The final-reconciliation predecessor's primary review artifact manifest does not satisfy this parent plan's `phase_change_mapping_manifest.json` requirement. Parent Phase 8 must generate and include the parent `phase_change_mapping_manifest.json` in the parent primary review artifact manifest.
 * Any predecessor-local `canonical_seal_allowed=true`, independent review PASS, or owner seal PASS is local to that predecessor lane. This parent plan must not promote those values into parent implementation success, parent independent review, owner seal, or parent canonical seal.
-* New or inherited interface tokens such as `blocked_with_required_surface_disposition_packet`, `required_surface_disposition_predecessor_packet`, `final_reconciliation_predecessor_state=parent_intake_ready`, `required_artifact_disposition_problem_status=SOLVED`, and `bare_diagnostic_count` must be reconciled 1:1 against sealed predecessor vocabulary. Any coined token without sealed vocabulary backing is owner-reserved and cannot become a silent PASS predicate.
+* New or inherited interface tokens such as `advisory_only`, `phase0_entry_allowed`, `parent_recompute_required`, `blocked / tooling-scaffold-incomplete`, `state_class=diagnostic_remediation_handoff`, `blocked_with_required_surface_disposition_packet`, `required_surface_disposition_predecessor_packet`, `final_reconciliation_predecessor_state=parent_intake_ready`, `required_artifact_disposition_problem_status=SOLVED`, and `bare_diagnostic_count` must be reconciled 1:1 against sealed predecessor vocabulary. Any coined token without sealed vocabulary backing is owner-reserved, must be listed in the final owner-reserved interface token artifact, and cannot become a silent PASS predicate.
 * Optional package guard probe는 package readiness가 아니다. 별도 승인 없이는 package publication, package payload mutation, package output adoption을 열지 않는다.
 * Protected package surface no-mutation hashing and isolated package guard probing are separate checks. The former is required; the latter is owner-gated and optional.
 * `docs/EXECUTION_CONTRACT.md` and `docs/PLAN_TEMPLATE.md` compliance must be checked as part of plan and execution validation. If either authority input is missing or not applicable in a future checkout, Phase 0 records a fail-loud rationale.
@@ -283,6 +284,7 @@ Primary future evidence root:
 
 Expected phase subroots:
 
+* `phase_minus1/` for tooling scaffold / dry-run contract evidence before Phase 0. This is a pre-phase gate and is not part of the Change 1~9 mapping; the final report must repeat this as `pre-phase gate / not part of change mapping`.
 * `phase0/` for scope lock and baseline census
 * `phase1/` for authority reference inventory
 * `phase2/` for candidate required artifact identity manifest
@@ -296,9 +298,53 @@ Expected phase subroots:
 
 Generated artifacts are evidence outputs, not runtime payloads.
 
+Parent evidence-root preservation policy:
+
+* Phase 0 must write `phase0/evidence_root_preservation_policy.json` before producing mutable evidence.
+* The policy must classify each parent evidence output as tracked artifact, ignored diagnostic evidence, or hash-surrogate-only evidence.
+* `phase8/final_machine_report.json`, `phase8/primary_review_artifact_manifest.json`, `phase8/final_artifact_hash_bundle.json`, and `phase_change_mapping_manifest.json` must be preserved directly or via an explicit hash-surrogate record named in the final machine report.
+* Broad unignore of the staging tree is forbidden. Any `.gitignore` edit must be minimum-scope and recorded in the preservation policy.
+
 ---
 
 ## 6. Planned Changes
+
+### Pre-Phase Gate - Tooling Scaffold / Dry-Run Contract
+
+Purpose:
+
+Reduce implementation risk before Phase 0 by proving the parent closure tool surface exists, has stable modes, and cannot claim parent PASS from skeleton execution.
+
+Files:
+
+* `Iris/build/description/v2/tools/build/dvf_3_3_current_route_authority_required_evidence_integrity_closure.py`
+* `Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py`
+* `Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py`
+* `Iris/build/description/v2/tools/build/dvf_3_3_current_route_authority_required_evidence_integrity_closure_runner_order.md`
+* `Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py`
+* `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase_minus1/*`
+
+Implementation Notes:
+
+* Implement the parent common module, runner, validator, and focused test skeleton before Phase 0 evidence generation.
+* Runner modes must include at least `scaffold`, `census`, `validate`, and `all`.
+* Runner documentation must pin the exact command order from scaffold through final focused unittest. Execution may not reorder commands without updating the runner-order document, scaffold ordered command matrix, final command matrix, and validator expectations in the same change.
+* `--mode scaffold` writes only `phase_minus1/tooling_scaffold_report.json`, `phase_minus1/validator_contract_report.json`, `phase_minus1/scaffold_negative_fixture_matrix.json`, `phase_minus1/ordered_command_matrix.json`, and `phase_minus1/runner_command_sequence.md`.
+* Scaffold mode must record `parent_machine_pass_claimed=false`, `parent_recompute_required=true`, and `phase0_entry_allowed=true` only when the skeleton, validator, and negative-fixture registration are present.
+* Scaffold mode must record `phase_minus1_role=pre-phase gate`, `change_mapping_role=not_part_of_change_mapping`, and `phase_minus1_not_in_change_mapping=true`.
+* The scaffold ordered command matrix and runner command sequence must use a stable `command_sequence_id`; Phase 8 must reuse the same id when it emits the final command matrix.
+* The validator must support `--require-scaffold` and fail if scaffold reports are missing, if unsupported runner modes are absent, or if any scaffold report claims parent machine PASS.
+* The validator must fail with `command_order_violation` if the runner-order document, scaffold matrix, expected command list, or final matrix disagree.
+* Scaffold mode must not mutate source, rendered, Lua bridge, runtime, package, top docs, live required manifest, or predecessor evidence roots.
+
+Validation:
+
+* `uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --mode scaffold`
+* `uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --require-scaffold`
+* Focused unittest confirms unsupported mode rejection, scaffold no-PASS behavior, and scaffold output root isolation.
+* Phase 0 may not start until scaffold validation exits `0`.
+
+---
 
 ### Change 1 - Scope Lock / Baseline Census
 
@@ -336,6 +382,7 @@ Validation:
 * Scope lock report has no source/rendered/runtime/package mutation claim.
 * Baseline census is read-only.
 * Protected surface pre-hash report exists.
+* `phase0/evidence_root_preservation_policy.json` exists and classifies final reports, primary review manifest, hash bundle, and `phase_change_mapping_manifest.json`.
 * Pre-existing dirty required artifact intersection count is 0, or a required-surface disposition queue exists and seal progression is explicitly held.
 * Any consumed predecessor census packet matches the parent readpoint, manifest hash, and required artifact denominator, or is explicitly rejected as `advisory_only`.
 * Any consumed predecessor disposition seal packet matches parent readpoint, manifest hash, denominator hash, final recensus hash, parent round id, and terminal-state mapping, or is explicitly rejected as `advisory_only`.
@@ -438,6 +485,7 @@ Implementation Notes:
 * Candidate-to-live sequence is fixed: candidate generation -> sandbox focused validator and negative fixtures -> additive live manifest adoption diff -> live manifest hash pinning -> final current route rerun.
 * Final current route consumes the live `Iris/_docs/round3/current_route_required_validations.json` only. Official wrapper candidate override is forbidden; candidate override is allowed only inside sandbox fixture tests.
 * Negative fixtures must use sandbox copies, not live manifest or sealed evidence roots.
+* The negative fixture matrix is required, not advisory. It must include predecessor packet-only parent PASS substitution, missing parent `phase_change_mapping_manifest.json`, injected dirty required artifact, `top_doc_sync_state=not_claimed` without omission rationale, and generated evidence hash hard-coded into the parent plan.
 
 Validation:
 
@@ -452,6 +500,10 @@ Validation:
 * Existing live required artifact removal count `0` and required test removal count `0`.
 * Existing live required artifact/test modification count `0`, except additive identity/freshness metadata under the approved adoption diff.
 * Live manifest hash pinning report.
+* Predecessor-only parent PASS substitution fails with `parent_pass_substitution_forbidden`.
+* Missing parent `phase_change_mapping_manifest.json` fails validation.
+* `top_doc_sync_state=not_claimed` without `omission_rationale_recorded` fails final report validation.
+* Parent plan hard-coded generated evidence hash fails self-reference / hash-cycle validation.
 
 ---
 
@@ -644,8 +696,12 @@ Implementation Notes:
 * Generate final machine report.
 * Generate primary review artifact manifest.
 * Generate final artifact hash bundle.
+* Generate `phase8/final_command_matrix_report.json`, reusing the scaffold `command_sequence_id`, preserving the exact command order, and recording every command path, expected index, actual exit code, and output artifact path.
+* Generate `phase8/owner_reserved_interface_token_list.json` with every token that remained owner-reserved after predecessor vocabulary reconciliation. Each row must include token, source phase, source artifact, predecessor vocabulary match state, owner confirmation required, `plan_level_pass_blocking=false`, and the reason it cannot become a silent PASS predicate.
+* Generate `phase8/handoff_state_rendering_report.json` proving ledger and UI-facing closeout records preserve diagnostic/remediation handoff semantics for `blocked_with_required_surface_disposition_packet`.
 * Include `phase_change_mapping_manifest.json` in the primary review artifact manifest. Missing this manifest blocks machine PASS because the review packet loses Change-to-phase traceability.
 * Run no-new-defect self-scan.
+* Final machine report must emit `phase_minus1_role=pre-phase gate`, `phase_minus1_change_mapping_role=not_part_of_change_mapping`, and the literal phrase `pre-phase gate / not part of change mapping`.
 * Require final report to read and emit `top_doc_sync_state`.
 * If `top_doc_sync_state=draft_prepared_owner_application_pending`, final machine claim must use that exact state and must not say `top-doc sync PASS`.
 * If `top_doc_sync_state=owner_applied_and_validated`, final machine claim must include owner-applied doc hashes, additive-only diff validation, and post-application current-route rerun binding.
@@ -654,8 +710,8 @@ Implementation Notes:
 * Record `required_artifact_disposition_predecessor_state` when a disposition seal packet was consumed, including predecessor terminal state, `machine_pass_blocked`, readpoint compatibility, denominator compatibility, owner-pending count, blocker count, and parent rerun status.
 * Record `final_reconciliation_predecessor_state` when a final-reconciliation packet was consumed, including predecessor terminal state, `parent_intake_ready`, parent round id compatibility, parent evidence root compatibility, required manifest adoption state, top-doc sync state, second-authority count, parent-rerun citation count, and `parent_machine_pass_claimed`.
 * In the resealed path, expected predecessor states are `required_artifact_disposition_predecessor_state=ready`, `final_reconciliation_predecessor_state=parent_intake_ready`, `required_manifest_adoption_state=no_live_change_required`, and `top_doc_sync_state=draft_prepared_owner_application_pending`.
-* Validator error/status codes for predecessor compatibility must be stable and machine-readable: `advisory_only`, `parent_rerun_required`, `parent_pass_substitution_forbidden`, `predecessor_seal_ir_missing`, and `owner_reserved_interface_token`.
-* Ledger and UI closeout records for `blocked_with_required_surface_disposition_packet` must mark it as `state_class=diagnostic_remediation_handoff`, `failure=false`, and `machine_pass_claimed=false`.
+* Validator error/status codes for predecessor compatibility must be stable and machine-readable: `advisory_only`, `parent_rerun_required`, `parent_pass_substitution_forbidden`, `predecessor_seal_ir_missing`, `owner_reserved_interface_token`, and `command_order_violation`.
+* Ledger and UI closeout records for `blocked_with_required_surface_disposition_packet` must mark it as `state_class=diagnostic_remediation_handoff`, `ui_state_class=diagnostic_remediation_handoff`, `failure=false`, `is_failure=false`, and `machine_pass_claimed=false`. They must not render the status as a generic failed closure.
 * Parent `machine_pass_governance_only` requires either no required-surface disposition blocker at Phase 0 / Phase 5, or a consumed predecessor disposition packet with terminal state `ready`, `machine_pass_blocked=false`, `bare_diagnostic_count=0`, compatible readpoint / denominator hashes, and parent rerun-bound VCS / current-route validation PASS.
 * Parent `machine_pass_governance_only` cannot be claimed from a predecessor final-reconciliation packet alone. Even when `final_reconciliation_predecessor_state=parent_intake_ready`, Phase 0 / Phase 5 / Phase 7 parent rerun-bound validation must pass in this parent round.
 * Record independent review and owner seal as separate axes.
@@ -670,6 +726,9 @@ Validation:
 * Final-reconciliation predecessor state validation, if a predecessor packet was consumed.
 * Stable predecessor compatibility error/status code validation.
 * `blocked_with_required_surface_disposition_packet` handoff classification validation.
+* Owner-reserved interface token list validation.
+* Final report pre-phase gate / not-part-of-change-mapping validation.
+* Command sequence id and command-order validation.
 * Primary review artifact hash validation.
 * Primary review artifact manifest includes `phase_change_mapping_manifest.json`.
 * Self-hash cycle guard.
@@ -687,13 +746,27 @@ Validation:
 
 ### Automated Validation
 
-Expected commands for future execution:
+Expected commands for future execution, in fixed order:
 
-* `uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/full_current_route_validation_result.json`
-* `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`
-* `uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --mode all`
-* `uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --require-complete`
-* `uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py"`
+1. `uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --mode scaffold`
+2. `uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --require-scaffold`
+3. `uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/full_current_route_validation_result.json`
+4. `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`
+5. `uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --mode all`
+6. `uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --require-complete`
+7. `uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py"`
+
+Closeout command matrix requirements:
+
+* Scaffold command and `--require-scaffold` validator must pass before Phase 0 evidence is accepted.
+* The runner-order document, `phase_minus1/ordered_command_matrix.json`, and `phase8/final_command_matrix_report.json` must preserve the fixed command order above with the same `command_sequence_id`. Any reorder, omission, duplicate index, or command text mismatch emits `command_order_violation`.
+* Current route command must report `success=true`, `closure_enforced=true`, and the observed test count.
+* Lua syntax command must exit `0`.
+* Parent runner `--mode all` must produce parent evidence under the parent evidence root only.
+* Parent validator `--require-complete` must exit `0` and must not infer PASS from predecessor packets.
+* Focused unittest must include positive path, negative fixtures, scaffold isolation, non-substitution, top-doc state, and phase-change manifest tests.
+* Phase 5 VCS required-surface report must record required artifact dirty / ignored / untracked intersection `0` for machine PASS.
+* Final machine report must cite the exact command matrix result artifact paths, fixed order, `command_sequence_id`, and exit codes.
 
 Additional automated checks:
 
@@ -718,6 +791,9 @@ Additional automated checks:
 * sealed-body additive-only draft validation
 * roadmap provenance repo-relative path + hash validation
 * change-to-phase mapping validation
+* final report repeats `pre-phase gate / not part of change mapping`
+* owner-reserved interface token list and carry-forward validation
+* command-order invariant validation with `command_order_violation`
 * `top_doc_sync_state` validation
 * final report `top-doc sync PASS` prohibition in draft or not-claimed states
 * top-doc overclaim and non-claim scan
@@ -725,6 +801,7 @@ Additional automated checks:
 * protected package surface no-mutation report separated from optional isolated package guard probe
 * optional isolated package guard evidence artifact naming validation, if opened
 * primary review artifact manifest includes `phase_change_mapping_manifest.json`
+* exact closeout command matrix artifact and exit-code validation
 
 ### Manual Validation
 
@@ -732,7 +809,9 @@ Additional automated checks:
 * Review non-hash exception justifications.
 * Review false-positive allowlist entries for historical/provenance mentions.
 * Review ambiguous reference-role adjudication records.
+* Review owner-reserved interface token list for carry-forward vocabulary reconciliation.
 * Review final ledger packet to ensure machine PASS, independent review, owner seal, and canonical seal remain separate.
+* Review final ledger and UI-facing closeout fields to ensure `blocked_with_required_surface_disposition_packet` is diagnostic/remediation handoff, not a failed closure rendering.
 
 ### Validation Limits
 
@@ -880,8 +959,9 @@ Executor absolute non-substitution checklist:
 * Phase 0 - Predecessor packets are never parent authority. If readpoint / manifest / denominator / parent round / parent evidence root / predecessor seal-IR gates do not bind, emit `advisory_only` and continue from parent recomputation. If a consumed packet is compatible, still emit `parent_rerun_required`; do not clear the parent route by packet intake alone.
 * Phase 5 - Parent VCS required-surface report is the sole pass/fail authority for dirty / ignored / untracked required artifacts. A predecessor `ready` packet may route the work, but cannot replace parent required-surface recensus or parent dirty-state rejection. Remaining required-surface blockers map to `blocked_with_required_surface_disposition_packet` as diagnostic/remediation handoff, not as a generic failure label.
 * Phase 7 - Parent current-route PASS, Lua syntax PASS, and same-readpoint binding must be rerun or freshly bound in the parent round. Final-reconciliation predecessor evidence, plan-doc-scoped sanity reruns, owner seal, and independent review cannot substitute for parent machine closure.
-* Phase 8 - The parent primary review artifact manifest must include the parent `phase_change_mapping_manifest.json`; predecessor manifests cannot satisfy this. Final machine reports must bind non-hash exception class ceilings with allowed role lists and substitute validation conditions. Post-machine review / owner / canonical-seal fields stay annotations, not implementation success predicates.
-* Interface vocabulary - Tokens introduced or consumed at the predecessor boundary must either match sealed predecessor vocabulary 1:1 or be marked `owner_reserved_interface_token`. Stable validator codes are `advisory_only`, `parent_rerun_required`, `parent_pass_substitution_forbidden`, `predecessor_seal_ir_missing`, and `owner_reserved_interface_token`.
+* Phase 8 - The parent primary review artifact manifest must include the parent `phase_change_mapping_manifest.json`; predecessor manifests cannot satisfy this. Final machine reports must bind non-hash exception class ceilings with allowed role lists and substitute validation conditions. Final reports must repeat `pre-phase gate / not part of change mapping` for `phase_minus1`. Post-machine review / owner / canonical-seal fields stay annotations, not implementation success predicates.
+* Command order - The scaffold commands, final command matrix, and runner-order document are one fixed sequence. Execution may not reorder scaffold, current-route, Lua, parent runner, parent validator, and focused unittest commands; mismatch emits `command_order_violation`.
+* Interface vocabulary - Tokens introduced or consumed at the predecessor boundary must either match sealed predecessor vocabulary 1:1 or be marked `owner_reserved_interface_token` and listed in `phase8/owner_reserved_interface_token_list.json`. Stable validator codes are `advisory_only`, `parent_rerun_required`, `parent_pass_substitution_forbidden`, `predecessor_seal_ir_missing`, `owner_reserved_interface_token`, and `command_order_violation`. Owner-reserved carry-forward tokens do not block plan-level PASS when they are listed, non-silent, and not used as PASS predicates.
 
 ---
 
@@ -896,7 +976,8 @@ Expected implementation closeout for a future execution of this parent plan:
 * `machine_pass_governance_only / top_doc_sync_state=draft_prepared_owner_application_pending` if parent machine validation passes, parent top-doc drafts are prepared, and no owner-applied top-doc validation is claimed. This is the resealed normal path.
 * `machine_pass_governance_only / top_doc_sync_state=owner_applied_and_validated` if parent machine validation passes after owner-applied top-doc changes are hash-bound, additive-only validated, and rerun-bound.
 * `machine_pass_governance_only / top_doc_sync_state=not_claimed / omission_rationale_recorded` only if parent machine validation passes and the round intentionally omits top-doc draft preparation and owner-applied validation from the machine packet with an explicit omission rationale.
-* `blocked_with_required_surface_disposition_packet / no-authority-mutation` if dirty / ignored / untracked / stale required surface is found, disposition evidence is produced, but owner-approved remediation or rerun-bound clean evidence is not complete yet. Ledger/UI must read this as `state_class=diagnostic_remediation_handoff`, `failure=false`, and `machine_pass_claimed=false`; it is not a generic failure label. A consumed `dvf_3_3_required_artifact_disposition_seal` packet with `complete_with_blockers`, `machine_pass_blocked`, or unresolved blocker maps here.
+* `blocked / tooling-scaffold-incomplete` if the pre-Phase 0 scaffold runner, validator, focused test skeleton, scaffold reports, or `--require-scaffold` validation fail before parent Phase 0.
+* `blocked_with_required_surface_disposition_packet / no-authority-mutation` if dirty / ignored / untracked / stale required surface is found, disposition evidence is produced, but owner-approved remediation or rerun-bound clean evidence is not complete yet. Ledger/UI must read this as `state_class=diagnostic_remediation_handoff`, `ui_state_class=diagnostic_remediation_handoff`, `failure=false`, `is_failure=false`, and `machine_pass_claimed=false`; it is not a generic failure label. A consumed `dvf_3_3_required_artifact_disposition_seal` packet with `complete_with_blockers`, `machine_pass_blocked`, or unresolved blocker maps here.
 * `blocked_with_required_surface_disposition_packet / owner_adjudication_required` if a consumed `dvf_3_3_required_artifact_disposition_seal` packet is `owner_pending`.
 * `blocked / no-authority-mutation` if required artifact integrity, deterministic rebuild, VCS required surface, `top_doc_sync_state` validation, current route, Lua syntax, protected no-mutation checks, parent `phase_change_mapping_manifest.json` inclusion, or parent-rerun binding checks fail.
 
@@ -907,4 +988,4 @@ Post-machine governance annotations, recorded separately and not counted as impl
 * `owner_seal_pending` remains the default owner axis unless a bound owner seal record exists for this parent readpoint.
 * `canonical_seal_allowed` may be recorded only after parent machine PASS, artifact-bound independent review PASS, owner seal, and final token sign-off are all present and bound to the same readpoint.
 
-The expected implementation closeout is not unconditional `complete` because implementation machine closure and post-machine governance gates are separate axes. Bare `complete` is not a valid closeout token for this round. In `draft_prepared_owner_application_pending` and `not_claimed` states, `top-doc sync PASS` is explicitly forbidden. `blocked_with_required_surface_disposition_packet` is a successful diagnostic/remediation handoff state, not a claim that the DVF current-route / authority / seal closure problem should remain unresolved.
+The expected implementation closeout is not unconditional `complete` because implementation machine closure and post-machine governance gates are separate axes. Bare `complete` is not a valid closeout token for this round. In `draft_prepared_owner_application_pending` and `not_claimed` states, `top-doc sync PASS` is explicitly forbidden. `blocked_with_required_surface_disposition_packet` is a successful diagnostic/remediation handoff state, not a failed closure rendering and not a claim that the DVF current-route / authority / seal closure problem should remain unresolved.

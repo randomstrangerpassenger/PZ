@@ -1,0 +1,79 @@
+{
+  "fail_loud_not_applicable_rationale": null,
+  "generated_at": "2026-07-01T09:16:08.806405+00:00",
+  "records": [
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/Philosophy.md",
+      "role": "required_authority_input",
+      "sha256": "938c52e9090c36af00dac18b64905e12a4f2390ac238a26121a63a14f81f44b2"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/DECISIONS.md",
+      "role": "required_authority_input",
+      "sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/ARCHITECTURE.md",
+      "role": "required_authority_input",
+      "sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/ROADMAP.md",
+      "role": "required_authority_input",
+      "sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/EXECUTION_CONTRACT.md",
+      "role": "required_authority_input",
+      "sha256": "a185bbd78eb849b0310d9aadc9102cb156b892513266fac0ec7903eb3d3a9493"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "docs/PLAN_TEMPLATE.md",
+      "role": "required_authority_input",
+      "sha256": "38d70d4d624733db4d24f047e0b737a47c75522a967c84f06fe5aabc5ebd9ba1"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "required_authority_input",
+      "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "role": "required_authority_input",
+      "sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "Iris/_docs/authority/iris_current_authority_manifest.json",
+      "role": "required_authority_input",
+      "sha256": "f82f660a67ededa116f0b0c7569437320735dc14c6d87553479201a4cd13bdca"
+    },
+    {
+      "exists": true,
+      "is_dir": false,
+      "path": "tools/check_lua_syntax.ps1",
+      "role": "required_authority_input",
+      "sha256": "dfc45ef45727d3a71906448666111e915faa8b667928e9009d04ebd449bc66dd"
+    }
+  ],
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-authority-input-path-validation-v1",
+  "status": "PASS"
+}

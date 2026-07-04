@@ -1,0 +1,127 @@
+{
+  "b42_readiness_claimed": false,
+  "canonical_claim_scope": "current_route_authority_required_evidence_integrity_closure_governance_only",
+  "canonical_review_pending": false,
+  "canonical_seal_allowed": true,
+  "canonical_seal_blocker_count": 0,
+  "canonical_seal_status": "PASS",
+  "claim_scope": "governance_only",
+  "closure_enforced": true,
+  "command_matrix_bound": true,
+  "command_sequence_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure_command_sequence_v1",
+  "current_route_success": true,
+  "deployment_readiness_claimed": false,
+  "dirty_required_artifact_count": 0,
+  "final_command_matrix_artifact": "phase8/final_command_matrix_report.json",
+  "final_command_matrix_exit_codes": [
+    {
+      "actual_exit_code": 0,
+      "index": 1
+    },
+    {
+      "actual_exit_code": 0,
+      "index": 2
+    },
+    {
+      "actual_exit_code": 0,
+      "index": 3
+    },
+    {
+      "actual_exit_code": 0,
+      "index": 4
+    },
+    {
+      "actual_exit_code": 0,
+      "index": 5
+    },
+    {
+      "actual_exit_code": 0,
+      "index": 6
+    },
+    {
+      "actual_exit_code": 0,
+      "index": 7
+    }
+  ],
+  "final_reconciliation_parent_machine_pass_claimed": false,
+  "final_reconciliation_parent_recompute_substitution_allowed": false,
+  "final_reconciliation_predecessor_state": "parent_intake_ready",
+  "final_signoff_status": "PASS",
+  "generated_at": "2026-07-01T09:19:39.997695+00:00",
+  "ignored_required_artifact_count": 0,
+  "independent_review_artifact_path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/current_session_independent_review_artifact.json",
+  "independent_review_artifact_sha256": "89cd21337a7901a339d0ee4decb573c44be24effed34c735a87b38d070238b39",
+  "independent_review_gate": "PASS",
+  "independent_review_gate_report_sha256": "cd54a7f1eb910f1abb62859fab9e86da75887874c3e9d6fbbf4f7f8b1ed17abc",
+  "independent_review_status": "PASS",
+  "literal_boundary_phrase": "pre-phase gate / not part of change mapping",
+  "lua_syntax_exit_code": 0,
+  "machine_pass_governance_only": true,
+  "manual_qa_claimed": false,
+  "owner_applied_and_validated_claimed": true,
+  "owner_applied_doc_hashes": [
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/DECISIONS.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38"
+    },
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/ROADMAP.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a"
+    },
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/ARCHITECTURE.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc"
+    }
+  ],
+  "owner_applied_rerun_binding_required": true,
+  "owner_canonical_seal_gate_report_sha256": "3b3fe2453587257c477ad280edd6aeda610651e800b5b19650cf57fbfdf95987",
+  "owner_canonical_seal_record_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_current_route_authority_required_evidence_integrity_closure/owner_seals/current_session_owner_canonical_seal_record.json",
+  "owner_canonical_seal_record_sha256": "9ad58c7993790847c1db820f1f39911aa63094f04255a5b627a63ebea1140162",
+  "owner_seal_pending": false,
+  "owner_seal_status": "PASS",
+  "package_readiness_claimed": false,
+  "parent_machine_pass_claimed": true,
+  "parent_pass_substitution_forbidden": true,
+  "parent_rerun_bound_validation": true,
+  "phase_minus1_change_mapping_role": "not_part_of_change_mapping",
+  "phase_minus1_role": "pre-phase gate",
+  "public_facing_text_acceptance_claimed": false,
+  "release_readiness_claimed": false,
+  "required_artifact_disposition_bare_diagnostic_count": 0,
+  "required_artifact_disposition_machine_pass_blocked": false,
+  "required_artifact_disposition_predecessor_state": "ready",
+  "required_artifact_disposition_problem_status": "SOLVED",
+  "required_manifest_adoption_state": "no_live_change_required",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-final-machine-report-v1",
+  "semantic_quality_completion_claimed": false,
+  "source_rendered_lua_bridge_runtime_package_mutation_count": 0,
+  "status": "machine_pass_governance_only",
+  "top_doc_live_mutation_target_count": 3,
+  "top_doc_sync_pass_claimed": true,
+  "top_doc_sync_state": "owner_applied_and_validated",
+  "untracked_required_artifact_count": 0,
+  "vcs_required_surface_status": "PASS",
+  "workshop_readiness_claimed": false
+}

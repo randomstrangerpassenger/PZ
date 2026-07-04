@@ -1,0 +1,553 @@
+{
+  "rows": [
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::closure_blocker_allowed_modules",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 262,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "closure_blocker_allowed_modules",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::current_only_required_manifest_loading",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 54,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "current_only_required_manifest_loading",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::default_active_core_closure_path",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 20,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "default_active_core_closure_path",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::default_required_manifest_path",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 21,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "default_required_manifest_path",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::default_taxonomy_path",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 19,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "default_taxonomy_path",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::required_artifact_field_check",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 89,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "required_artifact_field_check",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::required_manifest_schema_check",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 59,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "required_manifest_schema_check",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::result_payload_required_validations",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 212,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "result_payload_required_validations",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "runner_claim::taxonomy_required_union",
+      "item_kind": "runner_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 75,
+      "matched_source_kind": "runner_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_run_contract_tests.py"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "taxonomy_required_union",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    }
+  ]
+}

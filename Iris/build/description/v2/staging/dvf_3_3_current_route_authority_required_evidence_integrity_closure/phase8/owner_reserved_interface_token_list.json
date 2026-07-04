@@ -1,0 +1,143 @@
+{
+  "generated_at": "2026-07-01T09:19:39.993245+00:00",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "rows": [
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "advisory_only"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "parent_rerun_required"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "parent_pass_substitution_forbidden"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "predecessor_seal_ir_missing"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "owner_reserved_interface_token"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "command_order_violation"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "phase0_entry_allowed"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "parent_recompute_required"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "blocked / tooling-scaffold-incomplete"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "state_class=diagnostic_remediation_handoff"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "blocked_with_required_surface_disposition_packet"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "required_surface_disposition_predecessor_packet"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "final_reconciliation_predecessor_state=parent_intake_ready"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "required_artifact_disposition_problem_status=SOLVED"
+    },
+    {
+      "owner_confirmation_required": true,
+      "plan_level_pass_blocking": false,
+      "predecessor_vocabulary_match_state": "owner_reserved_interface_token",
+      "reason": "The token is explicit, non-silent, and not used as a standalone PASS predicate.",
+      "source_artifact": "predecessor_packet_intake_report.json",
+      "source_phase": "phase0/phase8",
+      "token": "bare_diagnostic_count"
+    }
+  ],
+  "schema_version": "dvf-3-3-owner-reserved-interface-token-list-v1",
+  "status": "PASS"
+}

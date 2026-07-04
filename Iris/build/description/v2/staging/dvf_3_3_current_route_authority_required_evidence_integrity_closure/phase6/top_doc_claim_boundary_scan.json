@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-07-01T09:16:11.388240+00:00",
+  "overclaim_count": 0,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-top-doc-overclaim-scan-v1",
+  "stale_predecessor_doc_reentry_count": 0,
+  "standalone_complete_without_axis_count": 0,
+  "status": "PASS",
+  "top_doc_sync_pass_phrase_count": 0
+}

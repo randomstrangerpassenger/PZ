@@ -1,0 +1,21 @@
+{
+  "candidate_override_forbidden_for_final_route": true,
+  "existing_required_artifact_modification_count": 0,
+  "existing_required_test_modification_count": 0,
+  "generated_at": "2026-07-01T09:16:10.056123+00:00",
+  "hash_cycle_self_reference_guard_enabled": true,
+  "live_manifest_only_for_final_route": true,
+  "live_manifest_sha256_after": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343",
+  "live_manifest_sha256_before": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343",
+  "missing_parent_phase_change_mapping_manifest_fails": true,
+  "negative_fixture_count": 6,
+  "negative_fixture_matrix_required": true,
+  "parent_pass_substitution_forbidden": true,
+  "removed_required_artifact_count": 0,
+  "removed_required_test_count": 0,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-required-evidence-integrity-gate-report-v1",
+  "status": "PASS",
+  "top_doc_not_claimed_without_omission_fails": true,
+  "wrapper_preserves_runner_exit_code": true
+}

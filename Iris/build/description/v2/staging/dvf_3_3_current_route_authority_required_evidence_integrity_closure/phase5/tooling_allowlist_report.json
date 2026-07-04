@@ -1,0 +1,10 @@
+{
+  "broad_staging_unignore_detected": false,
+  "current_core_module_expansion_count": 0,
+  "generated_at": "2026-07-01T09:16:10.083241+00:00",
+  "new_tools_classification": "current_required_validation_helper",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-tooling-allowlist-report-v1",
+  "status": "PASS",
+  "unexpected_tool_reentry_count": 0
+}

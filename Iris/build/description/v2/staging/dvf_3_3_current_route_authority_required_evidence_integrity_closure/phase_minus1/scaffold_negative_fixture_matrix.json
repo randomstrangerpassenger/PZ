@@ -1,0 +1,33 @@
+{
+  "fixtures": [
+    {
+      "expected_code": "parent_pass_substitution_forbidden",
+      "id": "predecessor_packet_only_parent_pass_substitution"
+    },
+    {
+      "expected_code": "missing_required_artifact",
+      "id": "missing_parent_phase_change_mapping_manifest"
+    },
+    {
+      "expected_code": "dirty_required_artifact",
+      "id": "injected_dirty_required_artifact"
+    },
+    {
+      "expected_code": "top_doc_state_violation",
+      "id": "top_doc_sync_state_not_claimed_without_omission_rationale"
+    },
+    {
+      "expected_code": "hash_cycle_self_reference",
+      "id": "generated_evidence_hash_hard_coded_into_parent_plan"
+    },
+    {
+      "expected_code": "command_order_violation",
+      "id": "command_order_mismatch"
+    }
+  ],
+  "generated_at": "2026-07-01T09:16:07.428508+00:00",
+  "required": true,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-negative-fixtures-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,66 @@
+{
+  "generated_at": "2026-07-01T09:16:08.798584+00:00",
+  "literal_boundary_phrase": "pre-phase gate / not part of change mapping",
+  "mappings": [
+    {
+      "change_id": "Change 1",
+      "change_title": "Scope Lock / Baseline Census",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase0",
+      "phase": "phase0"
+    },
+    {
+      "change_id": "Change 2",
+      "change_title": "Canonical Authority Reference Inventory",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase1",
+      "phase": "phase1"
+    },
+    {
+      "change_id": "Change 3",
+      "change_title": "Required Artifact Identity Manifest",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase2",
+      "phase": "phase2"
+    },
+    {
+      "change_id": "Change 4",
+      "change_title": "Required Evidence Integrity Gate",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase3",
+      "phase": "phase3"
+    },
+    {
+      "change_id": "Change 5",
+      "change_title": "Deterministic Evidence Rebuild / Drift Disposition",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase4",
+      "phase": "phase4"
+    },
+    {
+      "change_id": "Change 6",
+      "change_title": "Tool Inventory / VCS / Closure Count Reconciliation",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase5",
+      "phase": "phase5"
+    },
+    {
+      "change_id": "Change 7",
+      "change_title": "Top-Doc Sync / Claim Boundary Reconciliation",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase6",
+      "phase": "phase6"
+    },
+    {
+      "change_id": "Change 8",
+      "change_title": "Integrated Current Route / Lua Syntax / Protected Surface Proof",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7",
+      "phase": "phase7"
+    },
+    {
+      "change_id": "Change 9",
+      "change_title": "Final Machine Seal Bundle / Review Gate / Ledger Packet",
+      "evidence_root": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8",
+      "phase": "phase8"
+    }
+  ],
+  "phase_minus1_change_mapping_role": "not_part_of_change_mapping",
+  "phase_minus1_not_in_change_mapping": true,
+  "phase_minus1_role": "pre-phase gate",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-phase-map-v1",
+  "status": "PASS"
+}

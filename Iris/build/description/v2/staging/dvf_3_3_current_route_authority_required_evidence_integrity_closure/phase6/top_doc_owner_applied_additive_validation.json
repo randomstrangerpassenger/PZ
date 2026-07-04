@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-07-01T09:16:11.381176+00:00",
+  "missing_top_doc_count": 0,
+  "owner_applied_doc_count": 3,
+  "owner_applied_doc_hashes": [
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/DECISIONS.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38"
+    },
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/ROADMAP.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a"
+    },
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/ARCHITECTURE.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc"
+    }
+  ],
+  "required_phrase_missing_doc_count": 0,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "rows": [
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/DECISIONS.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38"
+    },
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/ROADMAP.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a"
+    },
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/ARCHITECTURE.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc"
+    }
+  ],
+  "schema_version": "dvf-3-3-top-doc-owner-applied-additive-validation-v1",
+  "status": "PASS",
+  "top_doc_additive_only_validated": true,
+  "top_doc_owner_applied": true
+}

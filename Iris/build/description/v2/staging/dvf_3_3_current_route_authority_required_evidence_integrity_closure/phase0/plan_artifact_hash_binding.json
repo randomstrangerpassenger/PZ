@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-07-01T09:16:08.860019+00:00",
+  "plan_artifact": "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_plan.md",
+  "plan_artifact_sha256": "f7e6be6da5299b6376fa20d8071848a4fe7f66c34db5c44cba7498278905e6cf",
+  "repo_relative": true,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-plan-artifact-hash-binding-v1",
+  "status": "PASS"
+}

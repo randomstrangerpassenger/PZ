@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-07-01T09:16:10.057826+00:00",
+  "required_fail_propagated": true,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-wrapper-failure-propagation-fixture-v1",
+  "status": "PASS",
+  "synthetic_runner_nonzero_preserved": true,
+  "wrapper_pass_reinterpretation_count": 0
+}

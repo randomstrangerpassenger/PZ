@@ -382,6 +382,32 @@ source -> facts -> decisions -> rendered -> Lua bridge -> runtime chunks
 * 런타임은 배포 산출물을 표시할 뿐, source 검증이나 설명 재생성을 수행하지 않는다.
 * current authority는 하나의 경로로만 유지하며, 생산 경로와 런타임 경로를 서로 대체하지 않는다.
 
+#### DVF Core / Legacy Combined Route Boundary
+
+DVF Core는 3계층, 특히 3-3 개별 아이템 본문을 구성하는 **설명 블록 조합 시스템**으로만 분리한다. 현재 DVF current route는 이 순수 DVF Core만 담고 있지 않다. `current_route_required_validations.json`과 `round3_run_contract_tests.py`가 만드는 combined governance route에는 body compiler, registry authority, runtime payload compatibility, publish/package guard, historical/stale artifact guard, diagnostic fixture, completion vocabulary gate가 함께 들어 있다.
+
+따라서 current combined route의 존재나 PASS는 DVF Core PASS authority가 아니다. 이 route container는 `legacy_combined_governance_route`로 보존하고, 그 안의 각 test/artifact responsibility는 별도 axis로 분류한다.
+
+```text
+current_route_required_validations.json
+= legacy_combined_governance_route
+!= DVF Core PASS authority
+```
+
+DVF Core boundary separation preflight는 다음 7축을 사용한다.
+
+```text
+dvf_core_body_compiler
+registry_authority
+registry_runtime_compatibility
+publish_boundary
+legacy_combined_governance_route
+historical_predecessor_trace
+diagnostic_or_fixture
+```
+
+이 preflight의 산출물인 `legacy_combined_route_axis_inventory.json`은 future DVF Core / Registry boundary closure가 소비할 routing evidence다. 이것은 manifest physical split, required test/artifact 이동, runner 구조 변경, Registry Authority PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality closure, runtime / bridge / package mutation, release readiness를 열지 않는다.
+
 Live Migration Readiness Authorization / Execution Readiness는 이 경로 위에 놓인 pre-apply gate이며, runtime mutation 계층이 아니다.
 
 * `phase4_live_apply_allowed=true`는 Phase 4 live apply 실행 라운드를 열 수 있다는 뜻이다.
@@ -429,6 +455,8 @@ Required Artifact Surface Preflight Census is the current closure entry prefligh
 Required Artifact Disposition Seal is the governance seal that converts the preflight required-artifact VCS surface into parent-consumable disposition evidence. It derives from the live current-route required-validation manifest and records dirty / ignored / untracked required-artifact disposition without mutating source, rendered, Lua bridge, runtime, package, or release surfaces. Its final `ready` state requires zero final VCS preservation regression across dirty, untracked, active-ignore, and effectively-ignored counts; zero bare ignored diagnostics; owner-ratified tracked-negative-exception handling; owner input record VCS preservation; current-route validation PASS; protected no-mutation PASS; artifact-bound independent review PASS; owner seal PASS; and canonical seal allowed. Current-route validation may regenerate tracked staging/doc evidence while proving the current route; the seal treats restore as workspace hygiene only and records protected-surface hashes before restore, so a restored protected mutation still fails closed. The owner/canonical seal is an owner-supplied record under `Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/` and is validated through hash-bound gate reports, separate from independent review. The parent closure input packet and compatibility contract bind the final report, final recensus, disposition ledger, independent review gate report, owner canonical seal record, and owner canonical seal gate report hashes. This canonical seal is limited to `required_artifact_disposition_seal_governance_only`: it does not claim parent machine PASS, package/release/Workshop/B42/deployment readiness, runtime deployability, manual QA, semantic quality completion, public-facing text acceptance, or any writer authority.
 
 Current-Route Authority Required-Evidence Closure Final Reconciliation is the predecessor-plan closure layer that consumes the preflight and disposition seals into a parent-intake-ready final implementation plan. It does not become a second parent authority: parent consumption authority remains `parent_main_plan_only`, and this round's sanity rerun is plan-doc scoped rather than a substitute for the parent closure rerun. The layer fixes required manifest adoption as `no_live_change_required`, binds the dirty/ignored disposition results, enforces the non-hash exception class ceiling, keeps top-doc synchronization in `draft_prepared_owner_application_pending`, and provides a primary review artifact manifest with no missing artifacts or role coverage gaps. Its `plan_document_complete` state means the predecessor final implementation plan is ready for parent intake; it explicitly keeps `parent_machine_pass_claimed=false`, `parent_independent_review_claimed=false`, `owner_seal_claimed=false`, and `canonical_seal_claimed=false`, leaving independent review, owner seal, and canonical seal as post-machine governance gates.
+
+Current-Route Authority Required-Evidence Integrity Closure (`dvf_3_3_current_route_authority_required_evidence_integrity_closure`) is the parent governance closure that binds current authority references, required artifact identity/freshness, deterministic rebuild evidence, tool/VCS inventory, dirty required-artifact rejection, top-doc sync state, current-route validation, and Lua syntax validation to one readpoint. It derives required-artifact preservation from the live current-route required-validation manifest and records live VCS recensus, artifact identity hashes, non-hash exception count, deterministic rebuild parity, command ordering, and negative fixture execution as machine-readable evidence. The final command matrix is an exact-command matrix, not an inferred matrix: rows `1-7` must carry the observed exit code from the exact command surface. Post-machine canonical governance is separate but now satisfied for this round through an artifact-bound current-session independent review record, a hash-bound owner canonical seal record, and an owner canonical seal gate report. The resulting `canonical_seal_allowed=true` is limited to `current_route_authority_required_evidence_integrity_closure_governance_only`; it does not mutate or authorize source facts, decisions, overlay support, rendered output, Lua bridge output, runtime chunks, package payloads, live migration execution, release/package/Workshop/B42/deployment readiness, manual QA, semantic quality completion, or public-facing text acceptance.
 
 ## 2-6. Frame
 

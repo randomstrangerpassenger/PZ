@@ -1,0 +1,30 @@
+{
+  "change_mapping_role": "not_part_of_change_mapping",
+  "common_module_exists": true,
+  "dedicated_tooling_state": "implemented",
+  "focused_test_exists": true,
+  "generated_at": "2026-07-01T09:16:07.428175+00:00",
+  "parent_machine_pass_claimed": false,
+  "parent_recompute_required": true,
+  "phase0_entry_allowed": true,
+  "phase_minus1_not_in_change_mapping": true,
+  "phase_minus1_role": "pre-phase gate",
+  "protected_surface_mutation_claimed": false,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "runner_exists": true,
+  "runner_mode_all_supported": true,
+  "runner_mode_census_supported": true,
+  "runner_mode_scaffold_supported": true,
+  "runner_mode_validate_supported": true,
+  "runner_order_doc_exists": true,
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-scaffold-v1",
+  "source_rendered_lua_bridge_runtime_package_mutation_count": 0,
+  "status": "PASS",
+  "supported_runner_modes": [
+    "scaffold",
+    "census",
+    "validate",
+    "all"
+  ],
+  "validator_exists": true
+}

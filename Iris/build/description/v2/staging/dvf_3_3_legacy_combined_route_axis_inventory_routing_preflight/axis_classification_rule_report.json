@@ -1,0 +1,77 @@
+{
+  "axis_enum": [
+    "dvf_core_body_compiler",
+    "registry_authority",
+    "registry_runtime_compatibility",
+    "publish_boundary",
+    "legacy_combined_governance_route",
+    "historical_predecessor_trace",
+    "diagnostic_or_fixture"
+  ],
+  "exactly_one_primary_axis_required": true,
+  "rule_count": 6,
+  "rules": [
+    {
+      "axis": "dvf_core_body_compiler",
+      "patterns": [
+        "compose_",
+        "build_iris_"
+      ],
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_compose"
+    },
+    {
+      "axis": "registry_runtime_compatibility",
+      "patterns": [
+        "runtime_payload_state_integrity",
+        "consumer_universe_denominator"
+      ],
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_runtime_payload"
+    },
+    {
+      "axis": "publish_boundary",
+      "patterns": [
+        "package",
+        "lua_bridge_export",
+        "publish"
+      ],
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_publish_package_bridge"
+    },
+    {
+      "axis": "historical_predecessor_trace",
+      "patterns": [
+        "predecessor_stale_artifact_reentry_guard",
+        "historical",
+        "stale artifact"
+      ],
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_predecessor_stale"
+    },
+    {
+      "axis": "legacy_combined_governance_route",
+      "patterns": [
+        "runner",
+        "manifest container",
+        "current-route pass",
+        "closeout",
+        "completion_vocabulary"
+      ],
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_container"
+    },
+    {
+      "axis": "diagnostic_or_fixture",
+      "patterns": [
+        "negative_fixture",
+        "diagnostic",
+        "fixture"
+      ],
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_diagnostic_fixture"
+    }
+  ],
+  "status": "PASS",
+  "unknown_allowed": false
+}

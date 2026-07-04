@@ -280,7 +280,9 @@ def main() -> int:
     success = result.wasSuccessful() and required_payload["success"]
     payload["success"] = success
     if args.out:
-        Path(args.out).write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        out_path = Path(args.out)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({k: payload[k] for k in ["contract_class", "closure_enforced", "test_count", "success", "elapsed_seconds"]}, ensure_ascii=False))
     return 0 if success else 1
 

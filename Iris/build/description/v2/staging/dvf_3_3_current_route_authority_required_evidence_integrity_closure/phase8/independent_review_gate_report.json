@@ -1,0 +1,154 @@
+{
+  "error_count": 0,
+  "errors": [],
+  "generated_at": "2026-07-01T09:20:40.184075+00:00",
+  "independent_review_artifact": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/current_session_independent_review_artifact.json",
+    "sha256": "89cd21337a7901a339d0ee4decb573c44be24effed34c735a87b38d070238b39"
+  },
+  "independent_review_gate": "PASS",
+  "independent_review_status": "PASS",
+  "review_verdict": "PASS",
+  "reviewed_artifact_count": 19,
+  "reviewed_artifact_hash_mismatch_count": 0,
+  "reviewed_artifacts": [
+    {
+      "exists": true,
+      "expected_sha256": "1a369adf13feb486fbbfc628ea684261cfb272c9f5b1ce52a8336761324a117a",
+      "hash_match": true,
+      "observed_sha256": "1a369adf13feb486fbbfc628ea684261cfb272c9f5b1ce52a8336761324a117a",
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_current_route_authority_required_evidence_integrity_closure.py"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "5d32b4dbd842612d6d708c842ca11f1ad4e88816b52c2c974aee42dfa176d6c8",
+      "hash_match": true,
+      "observed_sha256": "5d32b4dbd842612d6d708c842ca11f1ad4e88816b52c2c974aee42dfa176d6c8",
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "e04c18c03681ae9694076088a164e7eb0949d784374117bcb3b8c4b9243d8234",
+      "hash_match": true,
+      "observed_sha256": "e04c18c03681ae9694076088a164e7eb0949d784374117bcb3b8c4b9243d8234",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "50132fa198998c7a78fcd94453a7970f09023e49bc1c5454cb6d716a905f150f",
+      "hash_match": true,
+      "observed_sha256": "50132fa198998c7a78fcd94453a7970f09023e49bc1c5454cb6d716a905f150f",
+      "path": ".gitignore"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50",
+      "hash_match": true,
+      "observed_sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50",
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "f73633b3358db420a0c7abbd3dcbdd99157a6cc18073d4cff7d3e0234ed9e380",
+      "hash_match": true,
+      "observed_sha256": "f73633b3358db420a0c7abbd3dcbdd99157a6cc18073d4cff7d3e0234ed9e380",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase3/negative_fixture_execution_report.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "b96b80b4bb3f7938a1d194b8ac2341a168e8db34e02a0720608a81c48fa8b440",
+      "hash_match": true,
+      "observed_sha256": "b96b80b4bb3f7938a1d194b8ac2341a168e8db34e02a0720608a81c48fa8b440",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase5/vcs_required_surface_report.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "b843109a2d09abb27f44135cff982cb4ea01442a47e15d1354b32f5eaad56603",
+      "hash_match": true,
+      "observed_sha256": "b843109a2d09abb27f44135cff982cb4ea01442a47e15d1354b32f5eaad56603",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/full_current_route_validation_result.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "cfaebd183f227cc74f64de65df942923564fbbeaaa8c7830cf058e41dfdb15ea",
+      "hash_match": true,
+      "observed_sha256": "cfaebd183f227cc74f64de65df942923564fbbeaaa8c7830cf058e41dfdb15ea",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/lua_syntax_validation_result.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "70195e771287337b8b737473ac8fd1686e9059451a79a725bd92b9a586d06351",
+      "hash_match": true,
+      "observed_sha256": "70195e771287337b8b737473ac8fd1686e9059451a79a725bd92b9a586d06351",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/integrated_current_route_lua_validation_report.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "3e6bd77896826977ee2e5f4c7da1fab39b7eb389982f113b3e381e756aed8bf1",
+      "hash_match": true,
+      "observed_sha256": "3e6bd77896826977ee2e5f4c7da1fab39b7eb389982f113b3e381e756aed8bf1",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_command_matrix_report.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "4896c71ac2ba2edc3ec20fbb6c3b66cf21a8df4c35b354c56804f5e77ee61413",
+      "hash_match": true,
+      "observed_sha256": "4896c71ac2ba2edc3ec20fbb6c3b66cf21a8df4c35b354c56804f5e77ee61413",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/validation_report.require_complete.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "9562487fc261e78e98abf88f15a135d3f2ffd14655d9cb59d1fb666c40a040b7",
+      "hash_match": true,
+      "observed_sha256": "9562487fc261e78e98abf88f15a135d3f2ffd14655d9cb59d1fb666c40a040b7",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/focused_unittest_result.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "7de03c0dd6afc45d57e9d95c1f5f75d51199a040f2c916176285d7ff030e793f",
+      "hash_match": true,
+      "observed_sha256": "7de03c0dd6afc45d57e9d95c1f5f75d51199a040f2c916176285d7ff030e793f",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/live_vcs_required_surface_recensus_report.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "2f7bee9bac24530f24400596833ba1453012274826bcca5b7180a61ba93a3b6b",
+      "hash_match": true,
+      "observed_sha256": "2f7bee9bac24530f24400596833ba1453012274826bcca5b7180a61ba93a3b6b",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/owner_reserved_interface_token_list.json"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "11a164908071c1789fda731f5c7a576eb35038c1f4d14377b56be036e69d72da",
+      "hash_match": true,
+      "observed_sha256": "11a164908071c1789fda731f5c7a576eb35038c1f4d14377b56be036e69d72da",
+      "path": "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_claim_boundary.md"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38",
+      "hash_match": true,
+      "observed_sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38",
+      "path": "docs/DECISIONS.md"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a",
+      "hash_match": true,
+      "observed_sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a",
+      "path": "docs/ROADMAP.md"
+    },
+    {
+      "exists": true,
+      "expected_sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc",
+      "hash_match": true,
+      "observed_sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc",
+      "path": "docs/ARCHITECTURE.md"
+    }
+  ],
+  "reviewer_identity": "current_session_user_reviewer",
+  "reviewer_role": "user_supplied_non_codex_review",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-independent-review-gate-report-v1",
+  "status": "PASS"
+}

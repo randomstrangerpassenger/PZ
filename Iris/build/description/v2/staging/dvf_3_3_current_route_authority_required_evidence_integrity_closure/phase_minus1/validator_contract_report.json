@@ -1,0 +1,20 @@
+{
+  "command_order_guard_supported": true,
+  "generated_at": "2026-07-01T09:16:07.428498+00:00",
+  "parent_machine_pass_claimed": false,
+  "parent_pass_substitution_forbidden": true,
+  "require_complete_supported": true,
+  "require_scaffold_supported": true,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-validator-contract-v1",
+  "stable_validator_codes": [
+    "advisory_only",
+    "parent_rerun_required",
+    "parent_pass_substitution_forbidden",
+    "predecessor_seal_ir_missing",
+    "owner_reserved_interface_token",
+    "command_order_violation"
+  ],
+  "status": "PASS",
+  "unsupported_mode_rejection_expected": true
+}

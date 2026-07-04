@@ -1,0 +1,8 @@
+{
+  "actual_overclaim_count": 0,
+  "claim_count": 775,
+  "negated_quoted_historical_excluded_from_overclaim_count": 452,
+  "sealed_ledger_edit_candidates_generated": false,
+  "status": "PASS",
+  "top_doc_scan_purpose": "freeze_contradiction_read_only_consistency_check"
+}

@@ -1,0 +1,10 @@
+{
+  "command": "powershell -ExecutionPolicy Bypass -File .\\tools\\check_lua_syntax.ps1",
+  "exit_code": 0,
+  "finished_at": "2026-07-01T09:19:39.720978+00:00",
+  "started_at": "2026-07-01T09:19:30.610706+00:00",
+  "status": "PASS",
+  "stderr": "",
+  "stdout": "Lua syntax validation OK: 188 files\n",
+  "timed_out": false
+}

@@ -1,0 +1,88 @@
+{
+  "executed_fixture_count": 6,
+  "execution_deferred_until_phase8": false,
+  "fixture_count": 6,
+  "fixtures": [
+    {
+      "expected_code": "parent_pass_substitution_forbidden",
+      "fixture_passed": true,
+      "guard_surface": "append_negative_fixture_guard_errors",
+      "id": "predecessor_packet_only_parent_pass_substitution",
+      "observed_code": "parent_pass_substitution_forbidden",
+      "observed_codes": [
+        "parent_pass_substitution_forbidden"
+      ],
+      "tamper_applied": true,
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "missing_required_artifact",
+      "fixture_passed": true,
+      "guard_surface": "append_phase_change_mapping_errors",
+      "id": "missing_parent_phase_change_mapping_manifest",
+      "observed_code": "missing_required_artifact",
+      "observed_codes": [
+        "missing_required_artifact"
+      ],
+      "tamper_applied": true,
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "dirty_required_artifact",
+      "fixture_passed": true,
+      "guard_surface": "append_live_required_surface_errors",
+      "id": "injected_dirty_required_artifact",
+      "observed_code": "dirty_required_artifact",
+      "observed_codes": [
+        "live_required_surface_recensus_mismatch",
+        "live_required_surface_recensus_mismatch",
+        "dirty_required_artifact"
+      ],
+      "tamper_applied": true,
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "top_doc_state_violation",
+      "fixture_passed": true,
+      "guard_surface": "append_no_overclaim_errors",
+      "id": "top_doc_sync_state_not_claimed_without_omission_rationale",
+      "observed_code": "top_doc_state_violation",
+      "observed_codes": [
+        "top_doc_state_violation",
+        "top_doc_state_violation",
+        "top_doc_state_violation"
+      ],
+      "tamper_applied": true,
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "hash_cycle_self_reference",
+      "fixture_passed": true,
+      "guard_surface": "append_hash_cycle_errors",
+      "id": "generated_evidence_hash_hard_coded_into_parent_plan",
+      "observed_code": "hash_cycle_self_reference",
+      "observed_codes": [
+        "hash_cycle_self_reference"
+      ],
+      "tamper_applied": true,
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "command_order_violation",
+      "fixture_passed": true,
+      "guard_surface": "append_command_order_errors",
+      "id": "command_order_mismatch",
+      "observed_code": "command_order_violation",
+      "observed_codes": [
+        "command_order_violation"
+      ],
+      "tamper_applied": true,
+      "validator_exit_code": 1
+    }
+  ],
+  "generated_at": "2026-07-01T09:19:41.641892+00:00",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-negative-fixture-execution-report-v1",
+  "status": "PASS",
+  "validator_guard_backed": true
+}

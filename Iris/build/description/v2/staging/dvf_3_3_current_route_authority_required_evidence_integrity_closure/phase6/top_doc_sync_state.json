@@ -1,0 +1,53 @@
+{
+  "draft_paths": [
+    "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_roadmap_update_draft.md",
+    "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_decisions_update_draft.md",
+    "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_architecture_update_draft.md",
+    "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_claim_boundary.md"
+  ],
+  "generated_at": "2026-07-01T09:16:11.384432+00:00",
+  "omission_rationale_recorded": false,
+  "owner_applied_and_validated_claimed": true,
+  "owner_applied_doc_hashes": [
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/DECISIONS.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38"
+    },
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/ROADMAP.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a"
+    },
+    {
+      "all_required_phrases_present": true,
+      "exists": true,
+      "path": "docs/ARCHITECTURE.md",
+      "required_phrase_presence": {
+        "Current-Route Authority Required-Evidence": true,
+        "current_route_authority_required_evidence_integrity_closure_governance_only": true,
+        "dvf_3_3_current_route_authority_required_evidence_integrity_closure": true
+      },
+      "sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc"
+    }
+  ],
+  "owner_applied_rerun_binding_required": true,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-top-doc-sync-state-v1",
+  "status": "PASS",
+  "top_doc_live_mutation_target_count": 3,
+  "top_doc_sync_pass_claimed": true,
+  "top_doc_sync_state": "owner_applied_and_validated"
+}

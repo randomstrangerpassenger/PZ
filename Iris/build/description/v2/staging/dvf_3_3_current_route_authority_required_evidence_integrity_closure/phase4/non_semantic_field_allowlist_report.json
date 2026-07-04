@@ -1,0 +1,15 @@
+{
+  "allowed_non_semantic_fields": [
+    "generated_at",
+    "started_at",
+    "finished_at",
+    "stdout",
+    "stderr",
+    "host_local_absolute_path"
+  ],
+  "generated_at": "2026-07-01T09:16:10.077729+00:00",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-non-semantic-field-allowlist-v1",
+  "semantic_field_drift_count": 0,
+  "status": "PASS"
+}

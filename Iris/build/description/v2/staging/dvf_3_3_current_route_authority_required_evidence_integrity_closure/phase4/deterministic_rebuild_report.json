@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-07-01T09:16:10.076588+00:00",
+  "live_mutation_count": 0,
+  "normalized_hash_parity": true,
+  "raw_drift_classification_count": 0,
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "run_a_normalized_hash": "82d9624d8971e95a412974397784d5eb033f68191ef8915dd0675c20f9fedd6f",
+  "run_b_normalized_hash": "82d9624d8971e95a412974397784d5eb033f68191ef8915dd0675c20f9fedd6f",
+  "sandbox_only": true,
+  "schema_version": "dvf-3-3-deterministic-evidence-rebuild-report-v1",
+  "semantic_field_drift_count": 0,
+  "status": "PASS"
+}

@@ -1,0 +1,147 @@
+{
+  "artifact_kind": "independent_review_artifact",
+  "blocking_note_count": 0,
+  "claim_boundary_acknowledgement": true,
+  "current_route_rerun_binding": {
+    "closure_enforced": true,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/full_current_route_validation_result.json",
+    "sha256": "b843109a2d09abb27f44135cff982cb4ea01442a47e15d1354b32f5eaad56603",
+    "success": true,
+    "test_count": 127
+  },
+  "generated_at": "2026-07-01T09:20:40.062123+00:00",
+  "hash_sealed_bundle_reference": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/primary_review_artifact_manifest.json",
+    "sha256": "85beaa62af3b88c3e3e74f8945c9103f84ca2c90c6e0b7a15949331df401699d"
+  },
+  "record_materialization": "codex_recorded_user_review_and_postfix_verdict",
+  "review_content_origin": "user_supplied_current_session_review",
+  "review_notes_blocking": false,
+  "review_scope": "DVF current route / authority / required-evidence integrity closure P0/P1/P2 findings and post-fix validation",
+  "review_verdict": "PASS",
+  "reviewed_artifact_list": [
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_current_route_authority_required_evidence_integrity_closure.py",
+      "sha256": "1a369adf13feb486fbbfc628ea684261cfb272c9f5b1ce52a8336761324a117a"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py",
+      "sha256": "5d32b4dbd842612d6d708c842ca11f1ad4e88816b52c2c974aee42dfa176d6c8"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py",
+      "sha256": "e04c18c03681ae9694076088a164e7eb0949d784374117bcb3b8c4b9243d8234"
+    },
+    {
+      "exists": true,
+      "path": ".gitignore",
+      "sha256": "50132fa198998c7a78fcd94453a7970f09023e49bc1c5454cb6d716a905f150f"
+    },
+    {
+      "exists": true,
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase3/negative_fixture_execution_report.json",
+      "sha256": "f73633b3358db420a0c7abbd3dcbdd99157a6cc18073d4cff7d3e0234ed9e380"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase5/vcs_required_surface_report.json",
+      "sha256": "b96b80b4bb3f7938a1d194b8ac2341a168e8db34e02a0720608a81c48fa8b440"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/full_current_route_validation_result.json",
+      "sha256": "b843109a2d09abb27f44135cff982cb4ea01442a47e15d1354b32f5eaad56603"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/lua_syntax_validation_result.json",
+      "sha256": "cfaebd183f227cc74f64de65df942923564fbbeaaa8c7830cf058e41dfdb15ea"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase7/integrated_current_route_lua_validation_report.json",
+      "sha256": "70195e771287337b8b737473ac8fd1686e9059451a79a725bd92b9a586d06351"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_command_matrix_report.json",
+      "sha256": "3e6bd77896826977ee2e5f4c7da1fab39b7eb389982f113b3e381e756aed8bf1"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/validation_report.require_complete.json",
+      "sha256": "4896c71ac2ba2edc3ec20fbb6c3b66cf21a8df4c35b354c56804f5e77ee61413"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/focused_unittest_result.json",
+      "sha256": "9562487fc261e78e98abf88f15a135d3f2ffd14655d9cb59d1fb666c40a040b7"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/live_vcs_required_surface_recensus_report.json",
+      "sha256": "7de03c0dd6afc45d57e9d95c1f5f75d51199a040f2c916176285d7ff030e793f"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/owner_reserved_interface_token_list.json",
+      "sha256": "2f7bee9bac24530f24400596833ba1453012274826bcca5b7180a61ba93a3b6b"
+    },
+    {
+      "exists": true,
+      "path": "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_claim_boundary.md",
+      "sha256": "11a164908071c1789fda731f5c7a576eb35038c1f4d14377b56be036e69d72da"
+    },
+    {
+      "exists": true,
+      "path": "docs/DECISIONS.md",
+      "sha256": "0c8535d86eaf18f039ed58a261ffd2b77649214aba50109df2237c78f8f77f38"
+    },
+    {
+      "exists": true,
+      "path": "docs/ROADMAP.md",
+      "sha256": "bdba2d6d125dafbfc2784872e5809354c2c22ddbc4d6d9c0804c3b46f574ff4a"
+    },
+    {
+      "exists": true,
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "bbc012b5e557c6d59166b36e830bbe1c6181a6669d564fedf28d8d3c8d973abc"
+    }
+  ],
+  "reviewed_findings_resolution": [
+    {
+      "finding": "final command matrix recorded non-exact env-skipped validation as exact success",
+      "postfix_status": "closed",
+      "resolution": "matrix row 6/7 recording moved to exact validator wrapper only; exact commands rerun successfully",
+      "severity": "P0"
+    },
+    {
+      "finding": "complete validator and focused unittest recursed into slow nested complete validation",
+      "postfix_status": "closed",
+      "resolution": "focused tests now use in-process guard checks and exact complete validation completes within seconds",
+      "severity": "P1"
+    },
+    {
+      "finding": "negative fixture execution report only mapped guard surfaces",
+      "postfix_status": "closed",
+      "resolution": "report now records fixture tamper execution, observed codes, validator exit code, and fixture pass state",
+      "severity": "P2"
+    }
+  ],
+  "reviewer_identity": "current_session_user_reviewer",
+  "reviewer_independent_from_executor": true,
+  "reviewer_independent_from_roadmap_author": true,
+  "reviewer_independent_from_self_record_generator": true,
+  "reviewer_role": "user_supplied_non_codex_review",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-independent-review-artifact-v1",
+  "self_generated_artifact_flag": false
+}

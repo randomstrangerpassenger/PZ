@@ -1,0 +1,13 @@
+{
+  "error_count": 0,
+  "errors": [],
+  "generated_at": "2026-07-01T09:20:40.241278+00:00",
+  "owner_canonical_seal_record": {
+    "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_current_route_authority_required_evidence_integrity_closure/owner_seals/current_session_owner_canonical_seal_record.json",
+    "sha256": "9ad58c7993790847c1db820f1f39911aa63094f04255a5b627a63ebea1140162"
+  },
+  "owner_canonical_seal_record_binding_status": "PASS",
+  "round_id": "dvf_3_3_current_route_authority_required_evidence_integrity_closure",
+  "schema_version": "dvf-3-3-current-route-authority-required-evidence-integrity-closure-owner-canonical-seal-record-validation-report-v1",
+  "status": "PASS"
+}

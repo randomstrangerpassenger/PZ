@@ -486,6 +486,45 @@ def tokenize_claim_terms(text: str) -> list[str]:
     return terms
 
 
+def is_top_doc_boundary_routing_definition(path: Path, line: str) -> bool:
+    normalized = rel(path).replace("\\", "/")
+    if normalized not in {"docs/ARCHITECTURE.md", "docs/DECISIONS.md", "docs/ROADMAP.md"}:
+        return False
+    lowered = line.lower()
+    if "-> publish boundary closure" in lowered or "→ publish boundary closure" in lowered:
+        return True
+    if (
+        normalized == "docs/ARCHITECTURE.md"
+        and "public text quality" in lowered
+        and "public acceptance" in lowered
+        and "release readiness" in lowered
+    ):
+        return True
+    if "publish boundary" not in lowered:
+        return False
+    boundary_definition_markers = (
+        "separate",
+        "separat",
+        "axis",
+        "responsib",
+        "책임",
+        "별도",
+        "축",
+    )
+    readiness_markers = (
+        "public text acceptance",
+        "public acceptance",
+        "semantic quality acceptance",
+        "package publication",
+        "release",
+        "workshop",
+        "manual qa",
+    )
+    return any(marker in lowered for marker in boundary_definition_markers) and any(
+        marker in lowered for marker in readiness_markers
+    )
+
+
 def is_allowed_claim_scan_definition_context(path: Path, line: str) -> bool:
     normalized = rel(path).replace("\\", "/")
     evidence_root = rel(EVIDENCE_ROOT).replace("\\", "/")
@@ -505,6 +544,8 @@ def is_allowed_claim_scan_definition_context(path: Path, line: str) -> bool:
         f"{evidence_root}/phase7/full_current_route_validation_result.json",
     }
     if is_negated_or_policy_definition(line):
+        return True
+    if is_top_doc_boundary_routing_definition(path, line):
         return True
     if normalized in policy_definition_docs:
         return True

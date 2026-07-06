@@ -65,6 +65,22 @@ future_current_route_blocking_scope=post_final_universe
 
 첫 broad current route는 `pre_route_scan_universe`를 검증한다. Final report / closeout / walkthrough를 작성한 뒤 두 번째 broad current route를 실행하고, 최종 성공은 `post_final_current_route_rerun_success=true`일 때만 주장한다. 따라서 final docs overclaim도 current-route required gate가 검증하는 표면에 포함된다.
 
+The two broad current-route commands are intentionally identical at the shell-command layer. Their semantic role is derived from phase state and must be recorded in each route result:
+
+```text
+first pass:
+current_route_pass_sequence_id=first
+current_route_scan_universe_mode=pre_route
+current_route_scan_universe_mode_source=phase_state_derived
+final_doc_scan_universe_enabled=false
+
+second pass:
+current_route_pass_sequence_id=second
+current_route_scan_universe_mode=post_final
+current_route_scan_universe_mode_source=phase_state_derived
+final_doc_scan_universe_enabled=true
+```
+
 Codebase inspection read:
 
 * Live required manifest: `Iris/_docs/round3/current_route_required_validations.json`
@@ -399,10 +415,24 @@ owner_disposition_required_for_dirty_overlap=false
 ```text
 broad_staging_unignore=false
 round_root_exception_only=true
+gitignore_expected_round_local_rule_count=<derived_expected_count>
 gitignore_added_rule_count=<derived_count>
 gitignore_broad_unignore_rule_count=0
 gitignore_round_local_rule_count=<derived_count>
 ```
+
+* `.gitignore` allowance cannot be accepted by visual diff alone. Phase0 must emit an expected-rule manifest that enumerates every planned rule and computes:
+
+```text
+gitignore_expected_rule_manifest_status=PASS
+gitignore_expected_round_local_rule_count=<derived_expected_count>
+gitignore_added_rule_count=<same_count>
+gitignore_round_local_rule_count=<same_count>
+gitignore_added_rule_count_matches_expected=true
+gitignore_broad_unignore_rule_count=0
+```
+
+* Any mismatch between expected and observed `.gitignore` count is fail-closed before live manifest adoption.
 
 Validation:
 
@@ -413,6 +443,7 @@ Validation:
 * Any missing/stale predecessor required field blocks Change 2.
 * `phase0_dirty_target_overlap_report.json` must satisfy all zero/false guard fields before Change 2.
 * `.gitignore` diff report must show `gitignore_broad_unignore_rule_count=0`.
+* `.gitignore` expected-rule manifest must show `gitignore_added_rule_count_matches_expected=true`.
 
 ---
 
@@ -610,6 +641,25 @@ final_doc_scan_universe_missing_count=0
 
 * Out-of-universe paths must be counted with exclusion reasons.
 * Allowed boundary fixtures must include both English and Korean claim sentences so Korean governance docs are covered.
+* Scanner exceptions cannot be accepted by prose. Every accepted exception must be represented as a hash-bound row with:
+
+```text
+exception_scope
+source_path
+line_hash
+claim_text_hash
+owner_adjudication_scope
+owner_adjudication_does_not_generalize=true
+```
+
+* This round may carry only the already bounded predecessor non-claim false-positive adjudication. Any other scanner exception blocks adoption:
+
+```text
+unknown_claim_scanner_exception_count=0
+hash_bound_false_positive_exception_count<=1
+unhash_bound_scanner_exception_count=0
+scanner_exception_prose_only_count=0
+```
 
 Validation:
 
@@ -618,6 +668,7 @@ Validation:
 * Scan universe count must be `> 0` and `claim_scan_minimum_universe_satisfied=true`.
 * Live re-scan test must fail when a forbidden claim is injected into an in-universe temporary surface.
 * Second-pass live re-scan must fail if final docs contain a forbidden claim.
+* Validator rejects any scanner exception that is not hash-bound or is outside the single bounded predecessor false-positive scope.
 
 ---
 
@@ -639,6 +690,17 @@ Implementation Notes:
 * Do not rename, reclassify, or change predicate meaning of existing entries.
 * Change 4 cannot start until `pre_adoption_loadability_passed=true`.
 * Pre-adoption loadability must run with live manifest unchanged, using sandbox/override manifest or dry-run selection to prove that the new focused test imports and executes under `--enforce-current-build-closure`.
+* Pre-adoption loadability must include an import-closure probe for the new focused test and adoption tooling:
+
+```text
+current_route_import_closure_probe_status=PASS
+current_route_import_closure_probe_live_manifest_mutated=false
+tools_build_package_import_attempt_count=0
+bare_tool_module_import_used=true
+build_closure_blocker_triggered_for_forbidden_fixture=true
+```
+
+* The focused test must follow the existing closure-test pattern: insert `Iris/build/description/v2/tools/build` on `sys.path` and import the round module as a bare module name. Importing `tools.build.<round_module>` from a current-route required test is forbidden because the current-route build-closure blocker intercepts that package prefix.
 * If pre-adoption loadability fails, do not mutate live manifest. Emit blocked-state report:
 
 ```text
@@ -679,6 +741,7 @@ Validation:
 * live manifest JSON validity check.
 * pre/post normalized diff report.
 * `phase3_bootstrap_sufficiency_report.json` PASS before broad current route.
+* `phase3_current_route_import_closure_probe_report.json` PASS before live manifest mutation.
 
 ---
 
@@ -733,6 +796,15 @@ Implementation Notes:
 * Focused runner/validator/unittest must pass first.
 * First broad current route must then pass with current build closure enforcement.
 * The first broad current route must consume the live re-scan required test over `pre_route_scan_universe`.
+* The first broad current-route result must identify the phase-derived pass mode:
+
+```text
+current_route_pass_sequence_id=first
+current_route_scan_universe_mode=pre_route
+current_route_scan_universe_mode_source=phase_state_derived
+final_doc_scan_universe_enabled=false
+```
+
 * The first broad current route is necessary but not sufficient for `machine_required_gate_adoption_complete=true`.
 * If the new required test cannot be loaded under the current closure import guard during pre-adoption dry-run, stop before live manifest mutation and record:
 
@@ -767,6 +839,9 @@ Validation:
 * focused validator `--require-complete` PASS
 * focused unittest PASS
 * first broad current route PASS
+* first route result records `current_route_pass_sequence_id=first`
+* first route result records `current_route_scan_universe_mode=pre_route`
+* first route result records `final_doc_scan_universe_enabled=false`
 * closure_enforced true
 * required gate artifact consumed
 * required gate test consumed
@@ -794,6 +869,15 @@ Implementation Notes:
 * Final report must bind live re-scan enforcement evidence separately from replayed artifact evidence.
 * Final report / closeout / walkthrough must be written before the second broad current route.
 * Second broad current route must live re-scan `pre_route_scan_universe + final_doc_scan_universe`.
+* The second broad current-route result must identify the phase-derived pass mode:
+
+```text
+current_route_pass_sequence_id=second
+current_route_scan_universe_mode=post_final
+current_route_scan_universe_mode_source=phase_state_derived
+final_doc_scan_universe_enabled=true
+```
+
 * If live re-scan was not consumed by the second broad current route, `future_current_route_blocking_claimed` must be `false`.
 * Final no-mutation summary fields are fixed after the second route and post-final recapture:
 
@@ -814,6 +898,10 @@ post_final_report_update_allowed_fields=[
   "post_final_required_artifact_dirty_count",
   "post_final_required_artifact_untracked_count",
   "post_final_required_artifact_ignored_count",
+  "post_final_report_update_contract_status",
+  "post_final_report_freeform_text_mutation_detected",
+  "post_final_report_updated_field_count",
+  "post_final_report_updated_field_set_matches_allowlist",
   "protected_surface_changed_count",
   "source_rendered_lua_runtime_package_mutation",
   "machine_required_gate_adoption_complete",
@@ -822,6 +910,9 @@ post_final_report_update_allowed_fields=[
   "blocked_phase"
 ]
 post_final_report_freeform_text_mutation_allowed=false
+post_final_report_freeform_text_mutation_detected=false
+post_final_report_updated_field_count=<derived_count>
+post_final_report_updated_field_set_matches_allowlist=true
 ```
 
 * Final report must explicitly preserve non-claims:
@@ -861,17 +952,29 @@ owner_adjudication_does_not_generalize=true
 current_route_closure_mode=two_pass
 future_current_route_blocking_scope=post_final_universe
 final_docs_overclaim_checked_by=second_current_route_live_rescan
+first_current_route_pass_sequence_id=first
+first_current_route_scan_universe_mode=pre_route
+first_current_route_scan_universe_mode_source=phase_state_derived
+first_final_doc_scan_universe_enabled=false
+post_final_current_route_pass_sequence_id=second
+post_final_current_route_scan_universe_mode=post_final
+post_final_current_route_scan_universe_mode_source=phase_state_derived
+post_final_doc_scan_universe_enabled=true
 post_final_current_route_rerun_success=true
 ```
 
 * Add implementation absorption fields:
 
 ```text
-implementation_evidence=not_yet_produced until execution artifacts exist
+plan_level=PASS
+execution_artifacts_present=true
+implementation_evidence_status=produced
 independent_review_gate=BLOCKED
 phase_execution_mapping_status=PASS
 post_final_report_update_contract_status=PASS
 ```
+
+`implementation_evidence=not_yet_produced until execution artifacts exist` is a planning/review-stage statement only. It must not be copied into the execution final report after artifacts have been generated.
 
 * Ledger packet must bind roadmap/review provenance through repo-durable copied path and SHA256, not only volatile attachment paths.
 * Ledger packet must record the plan self-fingerprint at freeze time.
@@ -884,14 +987,38 @@ blocked_reason=null
 blocked_phase=null
 ```
 
+* The final validator must fail unless all execution-risk closure gates below are true:
+
+```text
+gitignore_added_rule_count_matches_expected=true
+gitignore_broad_unignore_rule_count=0
+pre_existing_dirty_target_overlap_count=0
+pre_existing_dirty_live_manifest=false
+unknown_claim_scanner_exception_count=0
+unhash_bound_scanner_exception_count=0
+hash_bound_false_positive_exception_count<=1
+current_route_import_closure_probe_status=PASS
+post_adoption_current_route_rerun_success=true
+post_final_current_route_rerun_success=true
+post_final_report_freeform_text_mutation_detected=false
+post_final_report_updated_field_set_matches_allowlist=true
+live_manifest_rollback_required=false
+```
+
 Validation:
 
 * final require-complete validator PASS.
 * no forbidden overclaim in final docs.
 * second broad current route PASS.
+* second route result records `current_route_pass_sequence_id=second`
+* second route result records `current_route_scan_universe_mode=post_final`
+* second route result records `final_doc_scan_universe_enabled=true`
 * post-final live re-scan required test consumed.
 * post-final report update contract PASS.
+* post-final report update field set matches allowlist.
+* post-final free-form text mutation detection is false.
 * no top-doc mutation unless owner-applied state is present.
+* final validator hard-fails if any execution-risk closure gate is missing, false, or weaker than the exact expected value.
 
 ---
 
@@ -914,7 +1041,15 @@ The two identical current-route commands are intentional:
 
 ```text
 first route = post-adoption / pre-final-doc universe
+  current_route_pass_sequence_id=first
+  current_route_scan_universe_mode=pre_route
+  current_route_scan_universe_mode_source=phase_state_derived
+  final_doc_scan_universe_enabled=false
 second route = post-final-doc universe
+  current_route_pass_sequence_id=second
+  current_route_scan_universe_mode=post_final
+  current_route_scan_universe_mode_source=phase_state_derived
+  final_doc_scan_universe_enabled=true
 ```
 
 Additional automated checks:
@@ -935,6 +1070,7 @@ Additional automated checks:
 * scan universe drift/reduction report
 * pre-route scan universe validation
 * final-doc scan universe validation
+* first/second route pass sequence and scan universe mode validation
 * current-route execution-time live re-scan validation
 * negative fixture execution
 * allowed boundary fixture execution
@@ -946,8 +1082,13 @@ Additional automated checks:
 * post-final protected-surface recapture
 * post-final final-doc overclaim live re-scan validation
 * post-final report update allowed-field validation
+* post-final report updated-field count and allowlist-set validation
+* post-final final-report free-form text mutation detection
 * post-adoption loadability failure auto-revert and route restoration validation, only if that failure path occurs
 * `.gitignore` narrow visibility check if new generated evidence would otherwise be ignored
+* `.gitignore` expected-rule manifest and count equality validation
+* current-route import-closure probe for the new focused test and adoption tooling
+* scanner exception hash-binding validation
 * manifest diff axis check that new entries do not assign Registry / Publish responsibility to `dvf_core`
 * final report non-claim field validation
 
@@ -1156,7 +1297,10 @@ Rollback after canonical seal:
 * Manifest physical split is forbidden.
 * Tooling allowlist expansion is out of scope.
 * Pre-adoption loadability under current build closure is mandatory before live manifest mutation.
+* New current-route required tests must use the bare-module tooling import pattern and must not import `tools.build.<round_module>`.
+* Current-route import closure probe PASS is mandatory before live manifest mutation.
 * Broad staging unignore is forbidden.
+* `.gitignore` expected-rule count must match observed round-local count; otherwise adoption is blocked.
 * Required field adoption must use stable machine/governance fields only.
 * Required field adoption must have a field-host-phase mapping.
 * Route result fields cannot be manifest-required predicates.
@@ -1164,6 +1308,7 @@ Rollback after canonical seal:
 * `PASS` vocabulary must remain axis-qualified.
 * Claim scan universe must satisfy the mandatory minimum surface set and record drift/reduction.
 * Claim scan universe must be phase-tiered into `pre_route_scan_universe` and `final_doc_scan_universe`.
+* Claim scanner exceptions must be hash-bound. Prose-only exceptions and unknown exception rows are forbidden.
 * `future_current_route_blocking_claimed=true` requires current-route execution-time live re-scan.
 * `future_current_route_blocking_claimed=true` requires second-pass current-route live re-scan when the scope is `post_final_universe`.
 * Replay-only gate validation cannot claim future current-route blocking.
@@ -1189,12 +1334,21 @@ Expected final state:
 ```text
 machine_required_gate_adoption_complete=true
 plan_level=PASS
-implementation_evidence=not_yet_produced until execution artifacts exist
+execution_artifacts_present=true
+implementation_evidence_status=produced
 independent_review_gate=BLOCKED
 current_route_closure_mode=two_pass
 required_gate_adopted=true
 future_current_route_blocking_claimed=true
 future_current_route_blocking_scope=post_final_universe
+first_current_route_pass_sequence_id=first
+first_current_route_scan_universe_mode=pre_route
+first_current_route_scan_universe_mode_source=phase_state_derived
+first_final_doc_scan_universe_enabled=false
+post_final_current_route_pass_sequence_id=second
+post_final_current_route_scan_universe_mode=post_final
+post_final_current_route_scan_universe_mode_source=phase_state_derived
+post_final_doc_scan_universe_enabled=true
 post_final_current_route_rerun_success=true
 final_docs_overclaim_checked_by=second_current_route_live_rescan
 legacy_combined_route_pass_is_dvf_core_pass=false
@@ -1214,9 +1368,12 @@ pre_adoption_loadability_passed=true
 predecessor_rerun_root_override_supported=true
 predecessor_rerun_output_root_observed=Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase0/predecessor_rerun/
 predecessor_default_staging_root_write_count=0
+gitignore_expected_rule_manifest_status=PASS
+gitignore_expected_round_local_rule_count=<derived_expected_count>
 gitignore_added_rule_count=<derived_count>
 gitignore_broad_unignore_rule_count=0
 gitignore_round_local_rule_count=<derived_count>
+gitignore_added_rule_count_matches_expected=true
 removed_required_artifact_count=0
 removed_required_test_count=0
 predicate_meaning_change_count=0
@@ -1229,6 +1386,10 @@ field_host_phase_mapping_status=PASS
 phase_execution_mapping_status=PASS
 forbidden_overclaim_count=0
 allowed_boundary_statement_false_positive_count=0
+unknown_claim_scanner_exception_count=0
+hash_bound_false_positive_exception_count<=1
+unhash_bound_scanner_exception_count=0
+scanner_exception_prose_only_count=0
 claim_scan_minimum_universe_satisfied=true
 claim_scan_universe_derivation_mode=explicit_rule_derived
 claim_scan_required_surface_missing_count=0
@@ -1240,13 +1401,23 @@ pre_route_scan_universe_missing_count=0
 final_doc_scan_universe_missing_count=0
 live_rescan_required_test_consumed=true
 post_final_live_rescan_required_test_consumed=true
+current_route_import_closure_probe_status=PASS
+current_route_import_closure_probe_live_manifest_mutated=false
+tools_build_package_import_attempt_count=0
+bare_tool_module_import_used=true
+build_closure_blocker_triggered_for_forbidden_fixture=true
+post_adoption_current_route_rerun_success=true
 current_route_success=true
 closure_enforced=true
+live_manifest_rollback_required=false
 post_route_required_artifact_dirty_count=0
 post_route_required_artifact_untracked_count=0
 post_route_required_artifact_ignored_count=0
 post_final_report_update_contract_status=PASS
 post_final_report_freeform_text_mutation_allowed=false
+post_final_report_freeform_text_mutation_detected=false
+post_final_report_updated_field_count=<derived_count>
+post_final_report_updated_field_set_matches_allowlist=true
 owner_adjudication_scope=single_bounded_predecessor_non_claim_false_positive_row_only
 owner_adjudication_does_not_generalize=true
 canonical_complete_claimed=false
@@ -1295,13 +1466,21 @@ blocked_phase=<phase>
 Expected blocked conditions include:
 
 ```text
+gitignore_expected_rule_count_mismatch
+gitignore_broad_unignore_detected
 pre_existing_dirty_live_manifest=true
 pre_existing_dirty_target_overlap_count>0 without owner disposition
+unknown_claim_scanner_exception_count>0
+unhash_bound_scanner_exception_count>0
+scanner_exception_prose_only_count>0
+current_route_import_closure_probe_status!=PASS
 pre_adoption_loadability_passed=false
 claim_scan_minimum_universe_satisfied=false
 claim_scan_required_surface_missing_count>0
 field_host_phase_mapping_status!=PASS
 self_reference_cycle_count>0
+post_adoption_current_route_rerun_success=false
+live_manifest_rollback_required=true
 post_route_protected_surface_changed_count>0
 post_final_protected_surface_changed_count>0
 post_route_required_artifact_dirty_count>0

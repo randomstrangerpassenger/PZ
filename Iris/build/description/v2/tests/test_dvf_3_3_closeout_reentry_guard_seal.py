@@ -128,6 +128,42 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
             )
         )
 
+    def test_top_doc_publish_boundary_definitions_do_not_overclaim_readiness(self) -> None:
+        allowed_rows = [
+            (
+                common.ARCHITECTURE_DOC,
+                "Publish Boundary는 public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA를 별도 축으로 둔다.",
+            ),
+            (
+                common.DECISIONS_DOC,
+                "  * Publish Boundary 책임은 public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA다.",
+            ),
+            (
+                common.ARCHITECTURE_DOC,
+                "Public Text Quality / public acceptance / release readiness",
+            ),
+            (
+                common.ROADMAP_DOC,
+                "  * 후속 라우팅은 public acceptance / release readiness -> Publish Boundary Closure로 고정한다.",
+            ),
+        ]
+        for path, line in allowed_rows:
+            with self.subTest(path=path.name):
+                row = common.classify_surface_line(path, line)
+                self.assertIsNotNone(row)
+                self.assertEqual(row["role"], "forbidden_overclaim_definition")
+                self.assertTrue(row["definition_context"])
+                self.assertEqual(row["classification"], "classified")
+
+        blocked = common.classify_surface_line(
+            common.ARCHITECTURE_DOC,
+            "Release readiness is achieved by this closeout.",
+        )
+        self.assertIsNotNone(blocked)
+        self.assertEqual(blocked["role"], "forbidden_overclaim_violation")
+        self.assertFalse(blocked["definition_context"])
+        self.assertEqual(blocked["classification"], "blocked")
+
     def test_predecessor_reentry_negative_fixtures_fail_closed(self) -> None:
         guard = load_json(ROOT / "phase3/predecessor_reentry_guard_report.json")
         raw = load_json(ROOT / "phase3/raw_predecessor_authority_read_report.json")

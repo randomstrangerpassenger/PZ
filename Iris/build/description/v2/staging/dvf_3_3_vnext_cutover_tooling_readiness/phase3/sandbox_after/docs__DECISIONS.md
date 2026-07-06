@@ -1757,6 +1757,59 @@
   * 이 readpoint는 Registry Authority PASS, Registry Runtime Compatibility PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality closure, package / release / Workshop / B42 / deployment readiness를 주장하지 않는다.
   * 이 readpoint는 source facts / decisions / overlay support, rendered output, Lua bridge, runtime chunks, package payload mutation authority를 열지 않는다.
 
+### Iris DVF 3-3 — Core / Registry boundary claim contract closure
+
+* 상태: claim boundary split complete / machine PASS governance-only / required gate not adopted / no runtime-source-package mutation
+* 결정: `dvf_3_3_core_registry_boundary_claim_contract_closure` round는 선행 `legacy_combined_route_axis_inventory` readpoint를 소비해서 DVF Core, Iris Artifact Registry, Registry Runtime Compatibility, Publish Boundary, Legacy Combined Current Route의 claim vocabulary를 공식 contract로 분리한다.
+* 현재 기준:
+
+  * DVF Core 책임은 `facts / decisions / profile / body_plan -> rendered 3-3 body`로 한정한다.
+  * Iris Artifact Registry 책임은 artifact authority, artifact role classification, source / rendered / runtime / package identity, staging evidence, required validation, seal, cutover, stale / predecessor reentry guard, runtime consumer compatibility다.
+  * Publish Boundary 책임은 public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA다.
+  * `DVF Core PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined Current Route PASS`는 서로 대체하지 않는 claim class다.
+  * 단독 `DVF PASS` current claim은 금지한다. 기본 disposition은 `dvf_pass_disposition=forbidden_standalone_current_claim`, `dvf_pass_standalone_current_claim_allowed=false`다.
+  * `Legacy Combined Current Route PASS`는 DVF Core PASS의 정의 권한이 아니다.
+  * `Publish Boundary PASS`는 conjunctive-all-components claim으로만 읽고, partial publish component의 bare PASS로 축약하지 않는다.
+  * 이 round는 current-route required gate를 채택하지 않았다: `required_gate_adopted=false`, `future_current_route_blocking_claimed=false`.
+* 최소 결과 trace:
+
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/`
+  * claim contract: `docs/dvf_3_3_core_registry_boundary_claim_contract.md`
+  * claim boundary: `docs/dvf_3_3_core_registry_boundary_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_core_registry_boundary_claim_contract_ledger_packet.md`
+  * closeout: `docs/dvf_3_3_core_registry_boundary_claim_contract_closure_closeout.md`
+  * walkthrough: `docs/dvf_3_3_core_registry_boundary_claim_contract_closure_walkthrough.md`
+  * final report: `Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase6/final_boundary_split_closure_report.json`
+  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_core_registry_boundary_claim_contract_closure.py`
+  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_core_registry_boundary_claim_contract_closure.py`
+  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py`
+* 최소 결과:
+
+  * final status: `machine_pass_governance_only`
+  * claim_boundary_split_complete: `true`
+  * forbidden_overclaim_count: `0`
+  * scan_universe_count: `175`
+  * predecessor_inventory_freshness_status: `PASS`
+  * predecessor_structural_freshness_status: `PASS`
+  * predecessor_known_non_claim_false_positive_status: `PASS`
+  * protected_surface_changed_count: `0`
+  * undeclared_write_target_mutation_count: `0`
+  * independent_review_gate_status: `not_claimed`
+  * owner_seal_status: `not_claimed`
+  * canonical_seal_status: `not_claimed`
+* 검증:
+
+  * `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_core_registry_boundary_claim_contract_closure.py --mode all`: `PASS`
+  * `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_core_registry_boundary_claim_contract_closure.py --require-complete`: `PASS / error_count=0`
+  * `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_core_registry_boundary_claim_contract_closure.py"`: `PASS / Ran 6 tests`
+* 오독 금지:
+
+  * `DVF Core PASS`는 runtime compatible, package safe, public accepted, release ready를 뜻하지 않는다.
+  * `Registry Authority PASS`는 public text acceptance나 release readiness를 뜻하지 않는다.
+  * `Registry Runtime Compatibility PASS`는 source authority mutation이나 text quality acceptance를 뜻하지 않는다.
+  * `Publish Boundary PASS`는 DVF Core compiler 성공을 뜻하지 않는다.
+  * 이 round는 Registry 전체 구현 완료, manifest 전면 물리 분해, current route runner 재작성, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance, package publication, manual QA, runtime chunk 변경, bridge export 변경, text rewrite를 주장하지 않는다.
+
 ### Iris DVF 3-3 — live migration readiness authorization / execution seal
 
 * 상태: pre-apply authorization sealed / execution readiness evidence sealed / Phase 4 live apply allowed / no live mutation executed

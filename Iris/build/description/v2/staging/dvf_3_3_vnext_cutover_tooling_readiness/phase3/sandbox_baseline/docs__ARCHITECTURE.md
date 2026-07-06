@@ -408,6 +408,48 @@ diagnostic_or_fixture
 
 이 preflight의 산출물인 `legacy_combined_route_axis_inventory.json`은 future DVF Core / Registry boundary closure가 소비할 routing evidence다. 이것은 manifest physical split, required test/artifact 이동, runner 구조 변경, Registry Authority PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality closure, runtime / bridge / package mutation, release readiness를 열지 않는다.
 
+#### DVF Core / Iris Artifact Registry Claim Contract Boundary
+
+DVF Core / Registry boundary closure는 위 preflight inventory를 소비해 claim vocabulary를 공식 분리한다. DVF Core의 responsibility는 다음 경로에 한정된다.
+
+```text
+facts / decisions / profile / body_plan -> rendered 3-3 body
+```
+
+Iris Artifact Registry는 artifact authority, artifact role classification, source / rendered / runtime / package identity, staging evidence, required validation, seal, cutover, stale / predecessor reentry guard, runtime consumer compatibility를 맡는다.
+
+Publish Boundary는 public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA를 별도 축으로 둔다.
+
+The current claim vocabulary is axis-qualified:
+
+```text
+DVF Core PASS
+Registry Authority PASS
+Registry Runtime Compatibility PASS
+Publish Boundary PASS
+Legacy Combined Current Route PASS
+```
+
+These claim classes are not aliases. `Legacy Combined Current Route PASS` is not the definition authority for `DVF Core PASS`, and the bare `DVF PASS` current claim is forbidden under the default disposition.
+
+The routing rule after the closure is:
+
+```text
+Runtime Payload Consumer Compatibility
+-> Registry Runtime Compatibility Closure
+
+Current authority / required validation / seal / stale artifact
+-> Registry Authority Closure
+
+Public Text Quality / public acceptance / release readiness
+-> Publish Boundary Closure
+
+Body compiler determinism / body_plan / rendered body shape
+-> DVF Core Closure
+```
+
+The closure is governance-only. It does not adopt a current-route required gate, split the manifest physically, rewrite the current route runner, mutate source facts / decisions / overlay support, mutate rendered output, mutate Lua bridge exports, mutate runtime chunks, mutate package payloads, or claim package / release / Workshop readiness, manual QA, semantic quality completion, or public text acceptance.
+
 Live Migration Readiness Authorization / Execution Readiness는 이 경로 위에 놓인 pre-apply gate이며, runtime mutation 계층이 아니다.
 
 * `phase4_live_apply_allowed=true`는 Phase 4 live apply 실행 라운드를 열 수 있다는 뜻이다.

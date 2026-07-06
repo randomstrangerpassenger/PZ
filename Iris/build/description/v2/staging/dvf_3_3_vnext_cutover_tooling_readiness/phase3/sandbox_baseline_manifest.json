@@ -364,28 +364,28 @@
       "sha256": "ffee61bd96e0fd299e26d09b75da68330c100316ccfd1fd484795790d16c8be0"
     },
     {
-      "bytes": 60304,
+      "bytes": 62259,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_baseline/docs__ARCHITECTURE.md",
       "role": "sandbox_baseline_copy",
-      "sha256": "826691b997868553d07aa61966c4dfb595933d04a7194b2b10cc0cba61f78e8e"
+      "sha256": "c0d4940cd1c64de049bea6995628a1403d961dfb837efe3e218146a495383c58"
     },
     {
-      "bytes": 192779,
+      "bytes": 197454,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_baseline/docs__DECISIONS.md",
       "role": "sandbox_baseline_copy",
-      "sha256": "5bf5dc53830163c039ac10d4f08798ee85817cc14bb4648bed25fb87f1029c4f"
+      "sha256": "544c3206965fee2d00d4d005363c57a92da7aef7b7c39f2a94fed9d843038932"
     },
     {
-      "bytes": 75836,
+      "bytes": 77798,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_baseline/docs__ROADMAP.md",
       "role": "sandbox_baseline_copy",
-      "sha256": "fd1222d3e7182dee81b1288706c802a5b999fab73c02ecd49ed294c965135939"
+      "sha256": "9d51ddef3e3292dc411562f92e9f0df2de40ed0335a4a1d52293287d7653e5f1"
     }
   ],
   "generated_at": "2026-06-18T00:00:00+09:00",

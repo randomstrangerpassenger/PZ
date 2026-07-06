@@ -698,6 +698,18 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * validation은 runner `--mode all`, validator `--require-complete`, focused unittest `Ran 6 tests`, current route `127 tests / closure_enforced=true`가 모두 PASS다.
   * 이 readpoint는 DVF Core boundary closure 자체, manifest physical split, required test/artifact migration, Registry Authority PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality closure, runtime / bridge / package mutation, package/release readiness를 열지 않는다.
 
+* DVF Core / Iris Artifact Registry Boundary Claim Contract Closure는 governance-only claim split으로 닫혔다.
+
+  * DVF Core는 `facts / decisions / profile / body_plan -> rendered 3-3 body` 책임으로만 읽는다.
+  * Iris Artifact Registry는 artifact authority, artifact role classification, source / rendered / runtime / package identity, staging evidence, required validation, seal, cutover, stale / predecessor reentry guard, runtime consumer compatibility 책임 축으로 분리한다.
+  * Publish Boundary는 public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 축으로 별도 유지한다.
+  * `DVF Core PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined Current Route PASS`는 서로 대체하지 않는다.
+  * 단독 `DVF PASS` current claim은 금지하며, legacy alias는 owner-record-bound 별도 disposition 없이는 활성화하지 않는다.
+  * final report는 `machine_pass_governance_only`, `claim_boundary_split_complete=true`, `forbidden_overclaim_count=0`, `scan_universe_count=175`, `protected_surface_changed_count=0`, `required_gate_adopted=false`로 닫힌다.
+  * validation은 runner `--mode all`, validator `--require-complete`, focused unittest `Ran 6 tests`가 모두 PASS다.
+  * 이 closure는 current-route required gate adoption, Registry Authority closure, Registry Runtime Compatibility closure, Publish Boundary closure, package/release readiness, manual QA, runtime/bridge/package mutation, text rewrite를 열지 않는다.
+  * 후속 라우팅은 Runtime Payload Consumer Compatibility -> Registry Runtime Compatibility Closure, authority / required validation / seal / stale artifact -> Registry Authority Closure, public acceptance / release readiness -> Publish Boundary Closure, body compiler determinism / body_plan / rendered body shape -> DVF Core Closure로 고정한다.
+
 * Phase 4 Live Migration Execution을 열 경우 sealed readiness authorization / execution evidence를 입력으로 삼는다.
 
   * 입력은 `109` live mutation eligible row와 sealed dry-run patch bundle로 제한한다.

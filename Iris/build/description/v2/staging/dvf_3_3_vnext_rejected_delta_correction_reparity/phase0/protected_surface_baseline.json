@@ -1,7 +1,7 @@
 {
-  "aggregate_sha256": "f9356d64f3157d73ca1da589ce876a3bcce86d53142aae456f549146ddc47f0d",
+  "aggregate_sha256": "8711f82550a238a527508029c220174fa72412b30728f708b191e4d917128b76",
   "protected_surface": {
-    "generated_at": "2026-07-04T17:11:22.810450+00:00",
+    "generated_at": "2026-07-06T17:36:59.896084+00:00",
     "protected_paths": [
       {
         "kind": "file",
@@ -378,28 +378,28 @@
       "sha256": "321e8b0e64b501508c282c86ea7eebb39a395fd7db9fd5d2cbe7f5cf1bb9a99d"
     },
     {
-      "bytes": 192779,
+      "bytes": 197454,
       "exists": true,
       "kind": "file",
       "path": "docs/DECISIONS.md",
       "role": null,
-      "sha256": "5bf5dc53830163c039ac10d4f08798ee85817cc14bb4648bed25fb87f1029c4f"
+      "sha256": "544c3206965fee2d00d4d005363c57a92da7aef7b7c39f2a94fed9d843038932"
     },
     {
-      "bytes": 60304,
+      "bytes": 62259,
       "exists": true,
       "kind": "file",
       "path": "docs/ARCHITECTURE.md",
       "role": null,
-      "sha256": "826691b997868553d07aa61966c4dfb595933d04a7194b2b10cc0cba61f78e8e"
+      "sha256": "c0d4940cd1c64de049bea6995628a1403d961dfb837efe3e218146a495383c58"
     },
     {
-      "bytes": 75836,
+      "bytes": 77798,
       "exists": true,
       "kind": "file",
       "path": "docs/ROADMAP.md",
       "role": null,
-      "sha256": "fd1222d3e7182dee81b1288706c802a5b999fab73c02ecd49ed294c965135939"
+      "sha256": "9d51ddef3e3292dc411562f92e9f0df2de40ed0335a4a1d52293287d7653e5f1"
     }
   ],
   "schema_version": "dvf-3-3-vnext-regeneration-parity-protected-surface-baseline-v0"

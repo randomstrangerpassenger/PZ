@@ -1,0 +1,18 @@
+{
+  "blocked_pending_owner_decision_count": 0,
+  "excluded_file_count": 4,
+  "forbidden_overclaim_count": 0,
+  "generated_at": "2026-07-04T17:23:03.632921+00:00",
+  "inactive_exception_class_match_count": 0,
+  "overclaim_scanner_class": "lexical_token_level",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "rows": [],
+  "scan_exception_count": 0,
+  "scan_universe_count": 175,
+  "scan_universe_deduplication_status": "PASS",
+  "scan_universe_duplicate_match_count": 24,
+  "scan_universe_unique_path_count": 175,
+  "schema_version": "dvf-3-3-core-registry-boundary-forbidden-overclaim-scan-v1",
+  "semantic_overclaim_detection_scope": "manual_review_or_independent_review_scope",
+  "status": "PASS"
+}

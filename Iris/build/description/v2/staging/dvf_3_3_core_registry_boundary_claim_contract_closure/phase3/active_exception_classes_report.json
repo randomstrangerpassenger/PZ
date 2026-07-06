@@ -1,0 +1,21 @@
+{
+  "active_exception_classes": [
+    "historical_quote",
+    "negated_claim",
+    "forbidden_example",
+    "predecessor_trace"
+  ],
+  "active_exception_classes_source": "disposition_derived",
+  "dvf_pass_disposition": "forbidden_standalone_current_claim",
+  "generated_at": "2026-07-04T17:23:02.187493+00:00",
+  "legacy_alias_role_qualified_active": false,
+  "recognized_exception_classes": [
+    "historical_quote",
+    "negated_claim",
+    "forbidden_example",
+    "predecessor_trace",
+    "legacy_alias_role_qualified"
+  ],
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-active-exception-classes-v1"
+}

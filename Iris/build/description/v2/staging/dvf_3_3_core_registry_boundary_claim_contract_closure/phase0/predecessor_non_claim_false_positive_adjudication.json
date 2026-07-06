@@ -1,0 +1,23 @@
+{
+  "actual_line_number": 188,
+  "adjudication_class": "predecessor_non_claim_bullet_lexical_false_positive",
+  "adjudication_status": "PASS",
+  "expected_line_sha256": "1A0E5DA88493412786420C4B67FCA6A6CE27E9F4BF22E84DFECED886E9BB8437",
+  "expected_section_context_hash": "F5A82CD00D94CC15F88205AB5CEE9CA176ACEFE5FB759459C074F4499A9A478B",
+  "generated_at": "2026-07-04T17:23:01.427482+00:00",
+  "line_sha256": "1A0E5DA88493412786420C4B67FCA6A6CE27E9F4BF22E84DFECED886E9BB8437",
+  "line_text": "- package or release readiness",
+  "observed_scanner_row": null,
+  "owner_adjudication_binding": "plan_adoption_single_bounded_row_only",
+  "owner_adjudication_does_not_generalize": true,
+  "owner_adjudication_scope": "single_bounded_predecessor_non_claim_false_positive_row_only",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-predecessor-non-claim-false-positive-v1",
+  "section_context_hash": "F5A82CD00D94CC15F88205AB5CEE9CA176ACEFE5FB759459C074F4499A9A478B",
+  "section_end_line": 192,
+  "section_heading": "## 9. Non-Claims",
+  "section_start_line": 175,
+  "source_line_count": 195,
+  "source_path": "docs/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight_walkthrough.md",
+  "source_sha256": "530ec1511397065e4fb598f93866fbe194b9f2ed49a3dc16808973b5f940827b"
+}

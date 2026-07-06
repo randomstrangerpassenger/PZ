@@ -1,0 +1,103 @@
+{
+  "closure_surface_count": 14,
+  "rows": [
+    {
+      "claim_surface_role": "current_core_and_tooling_allowlist_container",
+      "item_id": "active_core_closure::container",
+      "item_kind": "active_core_closure_container",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "surface_id": "active_core_closure_container"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::build_iris_fixing_index_data",
+      "item_kind": "active_core_module",
+      "module": "build_iris_fixing_index_data",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::build_iris_moveables_index_data",
+      "item_kind": "active_core_module",
+      "module": "build_iris_moveables_index_data",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::build_iris_recipe_index_data",
+      "item_kind": "active_core_module",
+      "module": "build_iris_recipe_index_data",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::build_legacy_active_silent_current_surface_guard_round",
+      "item_kind": "active_core_module",
+      "module": "build_legacy_active_silent_current_surface_guard_round",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::build_static_report_label_cleanup_referent_recovery_round",
+      "item_kind": "active_core_module",
+      "module": "build_static_report_label_cleanup_referent_recovery_round",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::compose_layer3_blocks",
+      "item_kind": "active_core_module",
+      "module": "compose_layer3_blocks",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::compose_layer3_body_profile",
+      "item_kind": "active_core_module",
+      "module": "compose_layer3_body_profile",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::compose_layer3_identity",
+      "item_kind": "active_core_module",
+      "module": "compose_layer3_identity",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::compose_layer3_io",
+      "item_kind": "active_core_module",
+      "module": "compose_layer3_io",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::compose_layer3_item",
+      "item_kind": "active_core_module",
+      "module": "compose_layer3_item",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::compose_layer3_render",
+      "item_kind": "active_core_module",
+      "module": "compose_layer3_render",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_core_module",
+      "item_id": "active_core_module::compose_layer3_text",
+      "item_kind": "active_core_module",
+      "module": "compose_layer3_text",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "claim_surface_role": "current_regeneration_tooling_not_current_core",
+      "item_id": "current_route_tooling::export_dvf_3_3_lua_bridge",
+      "item_kind": "current_route_allowed_tooling_module",
+      "module": "export_dvf_3_3_lua_bridge",
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json"
+    }
+  ]
+}

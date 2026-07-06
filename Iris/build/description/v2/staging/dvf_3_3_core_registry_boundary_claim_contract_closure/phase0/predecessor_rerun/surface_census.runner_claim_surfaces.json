@@ -1,0 +1,77 @@
+{
+  "rows": [
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::default_taxonomy_path",
+      "item_kind": "runner_claim_surface",
+      "line": 19,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "default_taxonomy_path"
+    },
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::default_active_core_closure_path",
+      "item_kind": "runner_claim_surface",
+      "line": 20,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "default_active_core_closure_path"
+    },
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::default_required_manifest_path",
+      "item_kind": "runner_claim_surface",
+      "line": 21,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "default_required_manifest_path"
+    },
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::required_manifest_schema_check",
+      "item_kind": "runner_claim_surface",
+      "line": 59,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "required_manifest_schema_check"
+    },
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::current_only_required_manifest_loading",
+      "item_kind": "runner_claim_surface",
+      "line": 54,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "current_only_required_manifest_loading"
+    },
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::taxonomy_required_union",
+      "item_kind": "runner_claim_surface",
+      "line": 75,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "taxonomy_required_union"
+    },
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::required_artifact_field_check",
+      "item_kind": "runner_claim_surface",
+      "line": 89,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "required_artifact_field_check"
+    },
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::closure_blocker_allowed_modules",
+      "item_kind": "runner_claim_surface",
+      "line": 262,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "closure_blocker_allowed_modules"
+    },
+    {
+      "claim_surface_role": "legacy_combined_route_runner_scaffold",
+      "item_id": "runner_claim::result_payload_required_validations",
+      "item_kind": "runner_claim_surface",
+      "line": 212,
+      "source_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "surface_id": "result_payload_required_validations"
+    }
+  ],
+  "runner_claim_surface_count": 9
+}

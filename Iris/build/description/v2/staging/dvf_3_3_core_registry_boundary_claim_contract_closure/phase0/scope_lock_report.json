@@ -1,0 +1,29 @@
+{
+  "axis_enum": [
+    "dvf_core_body_compiler",
+    "registry_authority",
+    "registry_runtime_compatibility",
+    "publish_boundary",
+    "legacy_combined_governance_route",
+    "historical_predecessor_trace",
+    "diagnostic_or_fixture"
+  ],
+  "claim_classes": [
+    "DVF Core PASS",
+    "Registry Authority PASS",
+    "Registry Runtime Compatibility PASS",
+    "Publish Boundary PASS",
+    "Legacy Combined Current Route PASS"
+  ],
+  "current_route_runner_rewrite_performed": false,
+  "generated_at": "2026-07-04T17:22:57.825293+00:00",
+  "legacy_combined_route_preserved": true,
+  "manifest_physical_split_performed": false,
+  "maximum_success_claim": "DVF Core / Iris Artifact Registry / Registry Runtime Compatibility / Publish Boundary / Legacy Combined Current Route claim vocabulary and routing boundary are separated and machine-guarded.",
+  "predecessor_preflight_consumed_readonly": true,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-scope-lock-v1",
+  "source_rendered_lua_bridge_runtime_package_mutation_planned": false,
+  "status": "PASS",
+  "top_authority": "docs/Philosophy.md"
+}

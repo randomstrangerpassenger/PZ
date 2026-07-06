@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-07-04T17:22:57.826512+00:00",
+  "inputs": [
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/Philosophy.md",
+      "role": "top_authority",
+      "sha256": "938c52e9090c36af00dac18b64905e12a4f2390ac238a26121a63a14f81f44b2"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/DECISIONS.md",
+      "role": "current_ecosystem_readpoint",
+      "sha256": "544c3206965fee2d00d4d005363c57a92da7aef7b7c39f2a94fed9d843038932"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ARCHITECTURE.md",
+      "role": "current_ecosystem_readpoint",
+      "sha256": "c0d4940cd1c64de049bea6995628a1403d961dfb837efe3e218146a495383c58"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ROADMAP.md",
+      "role": "current_ecosystem_readpoint",
+      "sha256": "9d51ddef3e3292dc411562f92e9f0df2de40ed0335a4a1d52293287d7653e5f1"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract_closure_plan.md",
+      "role": "direct_plan_artifact",
+      "sha256": "bd2d5b11808efd6663074c55a7de577d4357db1b2ae121ec02df758a9bb4bd38"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/routing_preflight_report.json",
+      "role": "predecessor_readonly_input",
+      "sha256": "ce17466d3e00e0f63aa13ec9b555466edec1d23db04781cae945531812fa94fa"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/legacy_combined_route_axis_inventory.json",
+      "role": "predecessor_readonly_input",
+      "sha256": "c8b5dcfd110473a46f717af7fc86fd6b0254872fbc7afb4ba5c3b2d838a8b40e"
+    }
+  ],
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-input-readpoint-binding-v1"
+}

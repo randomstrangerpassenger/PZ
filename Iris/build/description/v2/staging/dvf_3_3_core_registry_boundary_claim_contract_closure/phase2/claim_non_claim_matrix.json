@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-07-04T17:23:01.676915+00:00",
+  "release_package_workshop_b42_deployment_manual_qa_public_quality_claimed": false,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "rows": [
+    {
+      "allowed_meaning": [
+        "body compiler determinism",
+        "facts / decisions / profile / body_plan consumption",
+        "rendered 3-3 body shape inside DVF Core scope",
+        "protected-output no-mutation inside the body compiler scope"
+      ],
+      "claim_class": "DVF Core PASS",
+      "forbidden_meaning": [
+        "Registry Authority PASS",
+        "Registry Runtime Compatibility PASS",
+        "Publish Boundary PASS",
+        "package safety",
+        "release readiness",
+        "public text acceptance",
+        "runtime compatibility closure"
+      ],
+      "owner_axis": "dvf_core_body_compiler"
+    },
+    {
+      "allowed_meaning": [
+        "artifact authority classification",
+        "identity and role classification",
+        "staging evidence and required-validation consumption boundary",
+        "stale artifact and predecessor reentry guard"
+      ],
+      "claim_class": "Registry Authority PASS",
+      "forbidden_meaning": [
+        "runtime consumer compatibility",
+        "public text acceptance",
+        "release readiness",
+        "package readiness"
+      ],
+      "owner_axis": "registry_authority"
+    },
+    {
+      "allowed_meaning": [
+        "runtime consumer compatibility with the current Registry artifact shape",
+        "no source authority mutation"
+      ],
+      "claim_class": "Registry Runtime Compatibility PASS",
+      "forbidden_meaning": [
+        "source mutation authority",
+        "rendered text quality acceptance",
+        "public text acceptance",
+        "Registry Authority PASS"
+      ],
+      "owner_axis": "registry_runtime_compatibility"
+    },
+    {
+      "allowed_meaning": [
+        "conjunctive closure over public text acceptance",
+        "semantic quality acceptance",
+        "package publication readiness",
+        "release / Workshop readiness",
+        "manual QA components"
+      ],
+      "claim_class": "Publish Boundary PASS",
+      "forbidden_meaning": [
+        "compiler success alone",
+        "Registry success alone",
+        "any partial component success expressed as bare Publish Boundary PASS"
+      ],
+      "owner_axis": "publish_boundary"
+    },
+    {
+      "allowed_meaning": [
+        "legacy combined governance route container passes at a readpoint",
+        "current_route_required_validations remains legacy combined governance route"
+      ],
+      "claim_class": "Legacy Combined Current Route PASS",
+      "forbidden_meaning": [
+        "DVF Core PASS",
+        "Registry Authority PASS",
+        "Registry Runtime Compatibility PASS",
+        "Publish Boundary PASS"
+      ],
+      "owner_axis": "legacy_combined_governance_route"
+    }
+  ],
+  "schema_version": "dvf-3-3-core-registry-boundary-claim-non-claim-matrix-v1"
+}

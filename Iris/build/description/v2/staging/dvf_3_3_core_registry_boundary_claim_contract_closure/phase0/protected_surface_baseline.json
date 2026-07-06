@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-07-04T17:22:58.004800+00:00",
+  "records": [
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/data",
+      "role": "protected_no_mutation_surface",
+      "sha256": "9a5df25ce3824f61da6dd57dd4791c137a4374c630548a34a5f86850afd68900"
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/output",
+      "role": "protected_no_mutation_surface",
+      "sha256": "c3e81933df5a156351dbaf418c8e254c23edd2b539406335ba4d7e33787f0a6c"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/Iris/media/lua/client/Iris/Data",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/package/Iris",
+      "role": "protected_no_mutation_surface",
+      "sha256": "9bf3624827dde121d695c85679f167be792ad887b2ae67864ea6b69852eea08d"
+    }
+  ],
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-protected-surface-baseline-v1"
+}

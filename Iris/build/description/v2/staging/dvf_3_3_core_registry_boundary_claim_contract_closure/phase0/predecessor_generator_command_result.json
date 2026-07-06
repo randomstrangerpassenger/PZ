@@ -1,0 +1,9 @@
+{
+  "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tools\\build\\run_dvf_3_3_legacy_combined_route_axis_inventory.py --mode all",
+  "exit_code": 0,
+  "finished_at": "2026-07-04T17:23:00.376811+00:00",
+  "started_at": "2026-07-04T17:22:58.061541+00:00",
+  "stderr": "",
+  "stdout": "{\"blocker_count\": 1, \"legacy_combined_route_pass_is_dvf_core_pass\": false, \"round_id\": \"dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight\", \"semantic_verdict\": \"routing_preflight_blocked_pending_owner_adjudication\", \"status\": \"BLOCKED\"}\n{\"error_count\": 0, \"status\": \"PASS\"}\n",
+  "timed_out": false
+}

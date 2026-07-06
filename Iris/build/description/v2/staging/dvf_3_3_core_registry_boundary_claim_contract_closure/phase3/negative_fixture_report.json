@@ -1,0 +1,97 @@
+{
+  "executed_fixture_count": 12,
+  "fixtures": [
+    {
+      "expected_code": "standalone_current_dvf_pass",
+      "fixture_id": "standalone_current_dvf_pass",
+      "fixture_passed": true,
+      "observed_code": "standalone_current_dvf_pass",
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "legacy_combined_route_pass_as_dvf_core_pass",
+      "fixture_id": "legacy_combined_equals_core",
+      "fixture_passed": true,
+      "observed_code": "legacy_combined_route_pass_as_dvf_core_pass",
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "publish_boundary_partial_bare_pass",
+      "fixture_id": "partial_publish_boundary",
+      "fixture_passed": true,
+      "observed_code": "publish_boundary_partial_bare_pass",
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "inactive_legacy_alias_role_qualified",
+      "fixture_id": "default_legacy_alias",
+      "fixture_passed": true,
+      "observed_code": "inactive_legacy_alias_role_qualified",
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "registry_runtime_compatibility_pass_source_mutation",
+      "fixture_id": "registry_runtime_source_mutation",
+      "fixture_passed": true,
+      "observed_code": "registry_runtime_compatibility_pass_source_mutation",
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": "dvf_core_pass_runtime_compatible",
+      "fixture_id": "dvf_core_runtime_compatible",
+      "fixture_passed": true,
+      "observed_code": "dvf_core_pass_runtime_compatible",
+      "validator_exit_code": 1
+    },
+    {
+      "expected_code": null,
+      "fixture_id": "positive_historical_quote",
+      "fixture_passed": true,
+      "observed_code": null,
+      "observed_disposition": "historical_quote",
+      "validator_exit_code": 0
+    },
+    {
+      "expected_code": null,
+      "fixture_id": "positive_negated_claim",
+      "fixture_passed": true,
+      "observed_code": null,
+      "observed_disposition": "negated_claim",
+      "validator_exit_code": 0
+    },
+    {
+      "expected_code": null,
+      "fixture_id": "positive_forbidden_example",
+      "fixture_passed": true,
+      "observed_code": null,
+      "observed_disposition": "forbidden_example",
+      "validator_exit_code": 0
+    },
+    {
+      "expected_code": null,
+      "fixture_id": "positive_predecessor_trace",
+      "fixture_passed": true,
+      "observed_code": null,
+      "observed_disposition": "predecessor_trace",
+      "validator_exit_code": 0
+    },
+    {
+      "expected_code": null,
+      "fixture_id": "legacy_alias_only_hash_bound_owner_record",
+      "fixture_passed": true,
+      "observed_code": null,
+      "observed_disposition": "legacy_alias_role_qualified",
+      "validator_exit_code": 0
+    },
+    {
+      "exclusion_reason": "excluded_root",
+      "fixture_id": "out_of_universe_counted_exclusion",
+      "fixture_passed": true,
+      "path": "Iris/build/description/v2/data/out_of_universe_fixture.json"
+    }
+  ],
+  "generated_at": "2026-07-04T17:23:03.634912+00:00",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-negative-fixture-report-v1",
+  "status": "PASS"
+}

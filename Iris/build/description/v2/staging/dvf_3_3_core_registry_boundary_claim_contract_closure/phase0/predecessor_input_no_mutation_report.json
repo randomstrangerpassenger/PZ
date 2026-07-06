@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-07-04T17:23:01.409401+00:00",
+  "post_hash_set_artifact": "phase0/predecessor_input_post_hash_set.json",
+  "pre_hash_set_artifact": "phase0/predecessor_input_pre_hash_set.json",
+  "predecessor_input_artifact_mutation_count": 0,
+  "predecessor_staging_pre_hash_set_equals_post_hash_set": true,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-predecessor-input-no-mutation-v1",
+  "status": "PASS"
+}

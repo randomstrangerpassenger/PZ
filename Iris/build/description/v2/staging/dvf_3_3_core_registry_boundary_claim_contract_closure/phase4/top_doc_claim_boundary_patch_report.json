@@ -1,0 +1,34 @@
+{
+  "contract_hash_referenced": "fb693a4b5ec1bebb7b99a59648b4c48c7d229143226d1c0b34b364b56a523001",
+  "direct_top_doc_mutation_performed": false,
+  "draft_artifact": "phase4/top_doc_additive_sync_draft.md",
+  "generated_at": "2026-07-04T17:23:03.648731+00:00",
+  "owner_go_record_exists": false,
+  "owner_go_record_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_core_registry_boundary_claim_contract_closure/top_doc_application_go_record.json",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-top-doc-patch-report-v1",
+  "top_doc_additive_only": true,
+  "top_doc_current_session_update_detected": true,
+  "top_doc_records": [
+    {
+      "marker": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+      "marker_present": true,
+      "path": "docs/DECISIONS.md",
+      "sha256": "3d393ae8864c034b9a3271b77c331341b30bab1b31416452be5c259fbcc67d04"
+    },
+    {
+      "marker": "DVF Core / Iris Artifact Registry Claim Contract Boundary",
+      "marker_present": true,
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "7a2b841fcdd0e2d14772283ea628413be131a3d28be75a1334d92689d05fd556"
+    },
+    {
+      "marker": "DVF Core / Iris Artifact Registry Boundary Claim Contract Closure",
+      "marker_present": true,
+      "path": "docs/ROADMAP.md",
+      "sha256": "2fa766b644e3401cca888a1c74702e31da2f42adbeb5c87bdc92a667bfc626fb"
+    }
+  ],
+  "top_doc_reference_coverage_status": "PASS",
+  "top_doc_sync_state": "top_docs_updated_current_session_request_validated"
+}

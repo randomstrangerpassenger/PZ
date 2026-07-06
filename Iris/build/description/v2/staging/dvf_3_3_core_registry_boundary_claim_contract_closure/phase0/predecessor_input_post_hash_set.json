@@ -1,0 +1,45 @@
+{
+  "default_staging_root": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight",
+  "default_staging_root_sha256": "b9eb81337882640b2c0c5499ae2c0b4f8e1f87044d91aa54fbb2fb87395684a6",
+  "generated_at": "2026-07-04T17:23:01.352605+00:00",
+  "predecessor_round_id": "dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight",
+  "records": [
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/routing_preflight_report.json",
+      "role": "predecessor_readonly_input",
+      "sha256": "ce17466d3e00e0f63aa13ec9b555466edec1d23db04781cae945531812fa94fa"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/legacy_combined_route_axis_inventory.json",
+      "role": "predecessor_readonly_input",
+      "sha256": "c8b5dcfd110473a46f717af7fc86fd6b0254872fbc7afb4ba5c3b2d838a8b40e"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/legacy_combined_route_axis_inventory.md",
+      "role": "predecessor_readonly_input",
+      "sha256": "a6ea8ebe1f9b3c3706b4d2bf32d78604a151409fc079427d13f9e0614f552277"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "role": "predecessor_readonly_input",
+      "sha256": "acabd9b979678cb44ea6e4d67f8981cf48adec9237021a0f07ae2e435a4c2c72"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight_walkthrough.md",
+      "role": "predecessor_readonly_input",
+      "sha256": "530ec1511397065e4fb598f93866fbe194b9f2ed49a3dc16808973b5f940827b"
+    }
+  ],
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-predecessor-input-hash-set-v1"
+}

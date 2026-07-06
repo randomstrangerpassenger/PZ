@@ -1,0 +1,14 @@
+{
+  "blocked_pending_owner_decision_blocks_completion": false,
+  "blocked_pending_owner_decision_count": 0,
+  "dvf_pass_disposition": "forbidden_standalone_current_claim",
+  "dvf_pass_disposition_owner_record_status": "not_required_default_disposition",
+  "dvf_pass_standalone_current_claim_allowed": false,
+  "generated_at": "2026-07-04T17:23:01.675099+00:00",
+  "legacy_alias_exception_owner_record_status": "not_required_default_disposition",
+  "owner_input_record_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_core_registry_boundary_claim_contract_closure/dvf_pass_disposition_owner_record.json",
+  "owner_input_record_required": false,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-dvf-pass-owner-record-verdict-v1",
+  "status": "PASS"
+}

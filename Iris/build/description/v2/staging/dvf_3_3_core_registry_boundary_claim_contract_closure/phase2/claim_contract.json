@@ -1,0 +1,130 @@
+{
+  "active_exception_classes": [
+    "historical_quote",
+    "negated_claim",
+    "forbidden_example",
+    "predecessor_trace"
+  ],
+  "active_exception_classes_source": "disposition_derived",
+  "axis_enum": [
+    "dvf_core_body_compiler",
+    "registry_authority",
+    "registry_runtime_compatibility",
+    "publish_boundary",
+    "legacy_combined_governance_route",
+    "historical_predecessor_trace",
+    "diagnostic_or_fixture"
+  ],
+  "claim_meaning_authority_path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+  "claim_meaning_authority_sha256": "fb693a4b5ec1bebb7b99a59648b4c48c7d229143226d1c0b34b364b56a523001",
+  "claims": [
+    {
+      "allowed_meaning": [
+        "body compiler determinism",
+        "facts / decisions / profile / body_plan consumption",
+        "rendered 3-3 body shape inside DVF Core scope",
+        "protected-output no-mutation inside the body compiler scope"
+      ],
+      "claim_class": "DVF Core PASS",
+      "forbidden_meaning": [
+        "Registry Authority PASS",
+        "Registry Runtime Compatibility PASS",
+        "Publish Boundary PASS",
+        "package safety",
+        "release readiness",
+        "public text acceptance",
+        "runtime compatibility closure"
+      ],
+      "owner_axis": "dvf_core_body_compiler",
+      "package_safe": false,
+      "public_accepted": false,
+      "release_ready": false,
+      "runtime_compatible": false
+    },
+    {
+      "allowed_meaning": [
+        "artifact authority classification",
+        "identity and role classification",
+        "staging evidence and required-validation consumption boundary",
+        "stale artifact and predecessor reentry guard"
+      ],
+      "claim_class": "Registry Authority PASS",
+      "forbidden_meaning": [
+        "runtime consumer compatibility",
+        "public text acceptance",
+        "release readiness",
+        "package readiness"
+      ],
+      "owner_axis": "registry_authority",
+      "public_accepted": false,
+      "release_ready": false
+    },
+    {
+      "allowed_meaning": [
+        "runtime consumer compatibility with the current Registry artifact shape",
+        "no source authority mutation"
+      ],
+      "claim_class": "Registry Runtime Compatibility PASS",
+      "forbidden_meaning": [
+        "source mutation authority",
+        "rendered text quality acceptance",
+        "public text acceptance",
+        "Registry Authority PASS"
+      ],
+      "owner_axis": "registry_runtime_compatibility",
+      "source_mutation": false,
+      "text_quality_acceptance": false
+    },
+    {
+      "allowed_meaning": [
+        "conjunctive closure over public text acceptance",
+        "semantic quality acceptance",
+        "package publication readiness",
+        "release / Workshop readiness",
+        "manual QA components"
+      ],
+      "claim_class": "Publish Boundary PASS",
+      "forbidden_meaning": [
+        "compiler success alone",
+        "Registry success alone",
+        "any partial component success expressed as bare Publish Boundary PASS"
+      ],
+      "owner_axis": "publish_boundary",
+      "partial_publish_boundary_bare_pass_allowed": false,
+      "publish_boundary_pass_composition": "conjunctive_all_components"
+    },
+    {
+      "allowed_meaning": [
+        "legacy combined governance route container passes at a readpoint",
+        "current_route_required_validations remains legacy combined governance route"
+      ],
+      "claim_class": "Legacy Combined Current Route PASS",
+      "forbidden_meaning": [
+        "DVF Core PASS",
+        "Registry Authority PASS",
+        "Registry Runtime Compatibility PASS",
+        "Publish Boundary PASS"
+      ],
+      "legacy_combined_route_pass_is_dvf_core_pass": false,
+      "owner_axis": "legacy_combined_governance_route"
+    }
+  ],
+  "dvf_pass_disposition": "forbidden_standalone_current_claim",
+  "dvf_pass_disposition_enum": [
+    "forbidden_standalone_current_claim",
+    "legacy_alias_only",
+    "blocked_owner_decision_pending"
+  ],
+  "dvf_pass_standalone_current_claim_allowed": false,
+  "generated_at": "2026-07-04T17:23:01.676268+00:00",
+  "inactive_exception_class_match_count": 0,
+  "legacy_alias_exception_owner_record_status": "not_required_default_disposition",
+  "overclaim_scanner_class": "lexical_token_level",
+  "owner_input_record_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_core_registry_boundary_claim_contract_closure/dvf_pass_disposition_owner_record.json",
+  "owner_input_record_required": false,
+  "partial_publish_boundary_bare_pass_allowed": false,
+  "publish_boundary_pass_composition": "conjunctive_all_components",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-claim-contract-v1",
+  "semantic_overclaim_detection_scope": "manual_review_or_independent_review_scope"
+}

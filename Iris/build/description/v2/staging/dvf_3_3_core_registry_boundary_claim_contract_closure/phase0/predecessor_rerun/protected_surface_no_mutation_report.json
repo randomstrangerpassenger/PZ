@@ -1,0 +1,255 @@
+{
+  "after": [
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "protected_no_mutation_surface",
+      "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+      "role": "protected_no_mutation_surface",
+      "sha256": "fd1ef2a82cbda1d746f54a176d2c1dc6afcde70a950822376bb727951a526562"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "role": "protected_no_mutation_surface",
+      "sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "role": "protected_no_mutation_surface",
+      "sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50"
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/data",
+      "role": "protected_no_mutation_surface",
+      "sha256": "9a5df25ce3824f61da6dd57dd4791c137a4374c630548a34a5f86850afd68900"
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/output",
+      "role": "protected_no_mutation_surface",
+      "sha256": "c3e81933df5a156351dbaf418c8e254c23edd2b539406335ba4d7e33787f0a6c"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/Iris/media/lua/client/Iris/Data",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/media",
+      "role": "protected_no_mutation_surface",
+      "sha256": "d5dd1d80cab82b0c68208fee911fe9dc68e86460bcd5805ca6294c837428a4ef"
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/package",
+      "role": "protected_no_mutation_surface",
+      "sha256": "2e1e8d3a9ce829ca72dbc4a5e1acee0c5900269ada9fb3c44232595ade76916c"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    }
+  ],
+  "before": [
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "protected_no_mutation_surface",
+      "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+      "role": "protected_no_mutation_surface",
+      "sha256": "fd1ef2a82cbda1d746f54a176d2c1dc6afcde70a950822376bb727951a526562"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "role": "protected_no_mutation_surface",
+      "sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "role": "protected_no_mutation_surface",
+      "sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50"
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/data",
+      "role": "protected_no_mutation_surface",
+      "sha256": "9a5df25ce3824f61da6dd57dd4791c137a4374c630548a34a5f86850afd68900"
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/description/v2/output",
+      "role": "protected_no_mutation_surface",
+      "sha256": "c3e81933df5a156351dbaf418c8e254c23edd2b539406335ba4d7e33787f0a6c"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/Iris/media/lua/client/Iris/Data",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/media",
+      "role": "protected_no_mutation_surface",
+      "sha256": "d5dd1d80cab82b0c68208fee911fe9dc68e86460bcd5805ca6294c837428a4ef"
+    },
+    {
+      "exists": true,
+      "kind": "dir",
+      "path": "Iris/build/package",
+      "role": "protected_no_mutation_surface",
+      "sha256": "2e1e8d3a9ce829ca72dbc4a5e1acee0c5900269ada9fb3c44232595ade76916c"
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    },
+    {
+      "exists": false,
+      "kind": "missing",
+      "path": "media/lua/shared/Iris/IrisDvfBridgeData.lua",
+      "role": "protected_no_mutation_surface",
+      "sha256": null
+    }
+  ],
+  "diffs": [
+    {
+      "after_exists": true,
+      "after_sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343",
+      "before_exists": true,
+      "before_sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343",
+      "changed": false,
+      "path": "Iris/_docs/round3/current_route_required_validations.json"
+    },
+    {
+      "after_exists": true,
+      "after_sha256": "fd1ef2a82cbda1d746f54a176d2c1dc6afcde70a950822376bb727951a526562",
+      "before_exists": true,
+      "before_sha256": "fd1ef2a82cbda1d746f54a176d2c1dc6afcde70a950822376bb727951a526562",
+      "changed": false,
+      "path": "Iris/_docs/round3/round3_test_taxonomy.json"
+    },
+    {
+      "after_exists": true,
+      "after_sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0",
+      "before_exists": true,
+      "before_sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0",
+      "changed": false,
+      "path": "Iris/_docs/round3/round3_active_core_closure.json"
+    },
+    {
+      "after_exists": true,
+      "after_sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50",
+      "before_exists": true,
+      "before_sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50",
+      "changed": false,
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py"
+    },
+    {
+      "after_exists": true,
+      "after_sha256": "9a5df25ce3824f61da6dd57dd4791c137a4374c630548a34a5f86850afd68900",
+      "before_exists": true,
+      "before_sha256": "9a5df25ce3824f61da6dd57dd4791c137a4374c630548a34a5f86850afd68900",
+      "changed": false,
+      "path": "Iris/build/description/v2/data"
+    },
+    {
+      "after_exists": true,
+      "after_sha256": "c3e81933df5a156351dbaf418c8e254c23edd2b539406335ba4d7e33787f0a6c",
+      "before_exists": true,
+      "before_sha256": "c3e81933df5a156351dbaf418c8e254c23edd2b539406335ba4d7e33787f0a6c",
+      "changed": false,
+      "path": "Iris/build/description/v2/output"
+    },
+    {
+      "after_exists": false,
+      "after_sha256": null,
+      "before_exists": false,
+      "before_sha256": null,
+      "changed": false,
+      "path": "Iris/Iris/media/lua/client/Iris/Data"
+    },
+    {
+      "after_exists": true,
+      "after_sha256": "d5dd1d80cab82b0c68208fee911fe9dc68e86460bcd5805ca6294c837428a4ef",
+      "before_exists": true,
+      "before_sha256": "d5dd1d80cab82b0c68208fee911fe9dc68e86460bcd5805ca6294c837428a4ef",
+      "changed": false,
+      "path": "Iris/media"
+    },
+    {
+      "after_exists": true,
+      "after_sha256": "2e1e8d3a9ce829ca72dbc4a5e1acee0c5900269ada9fb3c44232595ade76916c",
+      "before_exists": true,
+      "before_sha256": "2e1e8d3a9ce829ca72dbc4a5e1acee0c5900269ada9fb3c44232595ade76916c",
+      "changed": false,
+      "path": "Iris/build/package"
+    },
+    {
+      "after_exists": false,
+      "after_sha256": null,
+      "before_exists": false,
+      "before_sha256": null,
+      "changed": false,
+      "path": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua"
+    },
+    {
+      "after_exists": false,
+      "after_sha256": null,
+      "before_exists": false,
+      "before_sha256": null,
+      "changed": false,
+      "path": "media/lua/shared/Iris/IrisDvfBridgeData.lua"
+    }
+  ],
+  "generated_at": "2026-07-04T17:22:59.525416+00:00",
+  "protected_surface_changed_count": 0,
+  "schema_version": "dvf-3-3-legacy-combined-route-protected-no-mutation-report-v1",
+  "source_rendered_runtime_package_mutation_count": 0,
+  "status": "PASS"
+}

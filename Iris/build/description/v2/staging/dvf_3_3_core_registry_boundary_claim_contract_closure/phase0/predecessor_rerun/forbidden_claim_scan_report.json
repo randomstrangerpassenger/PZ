@@ -1,0 +1,66 @@
+{
+  "forbidden_claim_count": 1,
+  "rows": [
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "actual_current_claim",
+      "claim_text": "- package or release readiness",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "forbidden_overclaim": true,
+      "item_id": "doc_claim::docs/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight_walkthrough.md::L188",
+      "item_kind": "governance_closeout_claim_surface",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "line": 188,
+      "matched_source_kind": "governance_closeout_claim_surface",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "docs/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight_walkthrough.md"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "docs/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight_walkthrough.md",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    }
+  ]
+}

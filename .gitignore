@@ -187,6 +187,9 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/dvf_3_3_legacy_combined_route_axis_inventory.py
 !Iris/build/description/v2/tools/build/run_dvf_3_3_legacy_combined_route_axis_inventory.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_legacy_combined_route_axis_inventory.py
+!Iris/build/description/v2/tools/build/dvf_3_3_core_registry_boundary_claim_contract_closure.py
+!Iris/build/description/v2/tools/build/run_dvf_3_3_core_registry_boundary_claim_contract_closure.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_core_registry_boundary_claim_contract_closure.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_migrate_dvf_3_3_facts_v2.py
@@ -223,6 +226,7 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py
 !Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py
 !Iris/build/description/v2/tests/test_dvf_3_3_legacy_combined_route_axis_inventory.py
+!Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py
 !Iris/build/description/v2/tests/fixtures/
 !Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/
 !Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/**
@@ -286,6 +290,8 @@ Iris/build/description/v2/staging/*
 !Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/**
 !Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/
 !Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/**
+!Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/
+!Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/**
 !Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/
 Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/*
 !Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase_change_mapping_manifest.json

@@ -1,0 +1,10 @@
+{
+  "adoption_skipped_claim_downgrade_validated": true,
+  "current_route_required_validation_manifest_adoption_performed": false,
+  "future_current_route_blocking_claimed": false,
+  "generated_at": "2026-07-04T17:23:03.654032+00:00",
+  "required_gate_adopted": false,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-current-route-boundary-gate-v1",
+  "status": "PASS"
+}

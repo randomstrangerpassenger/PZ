@@ -1,0 +1,846 @@
+{
+  "current_core_module_count": 12,
+  "rows": [
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "route_container_or_claim_surface",
+      "claim_surface_role": "current_core_and_tooling_allowlist_container",
+      "classification_rule_id": "rule_legacy_route_scaffold",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not publish_boundary"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as legacy_combined_governance_route, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_closure::container",
+      "item_kind": "active_core_closure_container",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_closure_container",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "legacy_combined_governance_route",
+      "reason_code": "route_scaffold_or_claim_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": "route_container_or_claim_surface",
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "legacy_combined_governance_route",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_legacy_route_scaffold",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "surface_id": "active_core_closure_container",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "not excluded; route-scaffolding rationale is recorded"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::build_iris_fixing_index_data",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "build_iris_fixing_index_data",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::build_iris_moveables_index_data",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "build_iris_moveables_index_data",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::build_iris_recipe_index_data",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "build_iris_recipe_index_data",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_registry_authority_fallback",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as registry_authority, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as registry_authority, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as registry_authority, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as registry_authority, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as registry_authority, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as registry_authority, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::build_legacy_active_silent_current_surface_guard_round",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "build_legacy_active_silent_current_surface_guard_round",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "registry_authority",
+      "reason_code": "registry_authority_by_default_content",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "registry_authority",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_registry_authority_fallback",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_registry_authority_fallback",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as registry_authority, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as registry_authority, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as registry_authority, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as registry_authority, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as registry_authority, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as registry_authority, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::build_static_report_label_cleanup_referent_recovery_round",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "build_static_report_label_cleanup_referent_recovery_round",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "registry_authority",
+      "reason_code": "registry_authority_by_default_content",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "registry_authority",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_registry_authority_fallback",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::compose_layer3_blocks",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "compose_layer3_blocks",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::compose_layer3_body_profile",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "compose_layer3_body_profile",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::compose_layer3_identity",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "compose_layer3_identity",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::compose_layer3_io",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "compose_layer3_io",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::compose_layer3_item",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "compose_layer3_item",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::compose_layer3_render",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "compose_layer3_render",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_core_module",
+      "classification_rule_id": "rule_body_compiler_surface",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "registry_authority",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_authority"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as dvf_core_body_compiler, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "active_core_module::compose_layer3_text",
+      "item_kind": "active_core_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "active_core_module",
+      "module": "compose_layer3_text",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "dvf_core_body_compiler",
+      "reason_code": "compose_or_body_compiler_surface",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "dvf_core_body_compiler",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_body_compiler_surface",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "not excluded; body compiler evidence is primary",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    },
+    {
+      "adjudication_required": false,
+      "candidate_confidence": "high",
+      "candidate_state": "single_axis_candidate",
+      "claim_disposition_kind": "axis_content_responsibility",
+      "claim_surface_role": "current_regeneration_tooling_not_current_core",
+      "classification_rule_id": "rule_registry_authority_fallback",
+      "dvf_core_pass_authority": false,
+      "excluded_axes": [
+        {
+          "axis": "dvf_core_body_compiler",
+          "reason": "primary evidence is classified as registry_authority, not dvf_core_body_compiler"
+        },
+        {
+          "axis": "registry_runtime_compatibility",
+          "reason": "primary evidence is classified as registry_authority, not registry_runtime_compatibility"
+        },
+        {
+          "axis": "publish_boundary",
+          "reason": "primary evidence is classified as registry_authority, not publish_boundary"
+        },
+        {
+          "axis": "legacy_combined_governance_route",
+          "reason": "primary evidence is classified as registry_authority, not legacy_combined_governance_route"
+        },
+        {
+          "axis": "historical_predecessor_trace",
+          "reason": "primary evidence is classified as registry_authority, not historical_predecessor_trace"
+        },
+        {
+          "axis": "diagnostic_or_fixture",
+          "reason": "primary evidence is classified as registry_authority, not diagnostic_or_fixture"
+        }
+      ],
+      "item_id": "current_route_tooling::export_dvf_3_3_lua_bridge",
+      "item_kind": "current_route_allowed_tooling_module",
+      "lifecycle_disposition": "orthogonal_metadata_only",
+      "matched_source_kind": "current_route_allowed_tooling_module",
+      "module": "export_dvf_3_3_lua_bridge",
+      "package_release_claim": false,
+      "positive_evidence": [
+        {
+          "kind": "source_path_or_identifier_pattern",
+          "value": "Iris/_docs/round3/round3_active_core_closure.json"
+        }
+      ],
+      "primary_axis": "registry_authority",
+      "reason_code": "registry_authority_by_default_content",
+      "registry_authority_claim": false,
+      "required_manifest_member": false,
+      "route_container_or_claim_surface_reason_code": null,
+      "runtime_writer_claim": false,
+      "seed_axis_candidate": "registry_authority",
+      "seed_is_authoritative": false,
+      "seed_rule_id": "seed_registry_authority_fallback",
+      "source_mutation_claim": false,
+      "source_path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "why_not_dvf_core_body_compiler": "item does not own DVF body compiler output responsibility",
+      "why_not_legacy_combined_governance_route": "combined-route execution is not responsibility ownership for this item"
+    }
+  ],
+  "tooling_allowlist_count": 1
+}

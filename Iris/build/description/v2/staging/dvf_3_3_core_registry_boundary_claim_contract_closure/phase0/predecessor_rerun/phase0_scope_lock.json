@@ -1,0 +1,52 @@
+{
+  "axis_enum": [
+    "dvf_core_body_compiler",
+    "registry_authority",
+    "registry_runtime_compatibility",
+    "publish_boundary",
+    "legacy_combined_governance_route",
+    "historical_predecessor_trace",
+    "diagnostic_or_fixture"
+  ],
+  "freeze_sentence": "current_route_required_validations.json = legacy_combined_governance_route != DVF Core PASS authority",
+  "generated_at": "2026-07-04T17:22:59.247118+00:00",
+  "live_manifest_adoption_forbidden_this_round": true,
+  "manifest_split_forbidden_this_round": true,
+  "non_claims": [
+    "no_dvf_core_pass",
+    "no_registry_authority_pass",
+    "no_runtime_compatibility_closure",
+    "no_package_readiness",
+    "no_release_readiness",
+    "no_workshop_readiness",
+    "no_b42_readiness",
+    "no_deployment_readiness",
+    "no_source_rendered_lua_bridge_runtime_package_mutation",
+    "no_independent_review",
+    "no_owner_seal",
+    "no_canonical_seal"
+  ],
+  "owner_adjudication_required_only_when_blockers_exist": true,
+  "owner_or_external_gate_adoption_claimed": false,
+  "owner_reserved_non_execution_decision_placeholders": true,
+  "protected_surfaces": [
+    "Iris/_docs/round3/current_route_required_validations.json",
+    "Iris/_docs/round3/round3_test_taxonomy.json",
+    "Iris/_docs/round3/round3_active_core_closure.json",
+    "Iris/_docs/round3/round3_run_contract_tests.py",
+    "Iris/build/description/v2/data",
+    "Iris/build/description/v2/output",
+    "Iris/Iris/media/lua/client/Iris/Data",
+    "Iris/media",
+    "Iris/build/package",
+    "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+    "media/lua/shared/Iris/IrisDvfBridgeData.lua"
+  ],
+  "read_only_contract": true,
+  "required_artifact_movement_forbidden": true,
+  "required_test_movement_forbidden": true,
+  "round_id": "dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight",
+  "runner_structure_change_forbidden": true,
+  "schema_version": "dvf-3-3-legacy-combined-route-axis-scope-lock-v1",
+  "status": "PASS"
+}

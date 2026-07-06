@@ -1,0 +1,79 @@
+{
+  "closeout_claim_surface_count": 803,
+  "closure_surface_count": 14,
+  "current_core_closure_count": 12,
+  "current_route_union_test_count": 127,
+  "generated_at": "2026-07-04T17:22:59.265878+00:00",
+  "guard_test_census_universe": "current_route_union",
+  "new_round_local_tests_do_not_enter_current_route_union": true,
+  "pre_round_current_route_union_test_count": 127,
+  "required_artifact_count": 93,
+  "required_test_count": 48,
+  "round_id": "dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight",
+  "runner_claim_surface_count": 9,
+  "schema_version": "dvf-3-3-legacy-combined-route-surface-census-report-v1",
+  "sealed_readpoint_counts_are_not_denominator_substitutions": true,
+  "source_hashes": [
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "live_required_validation_manifest",
+      "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_test_taxonomy.json",
+      "role": "live_round3_taxonomy",
+      "sha256": "fd1ef2a82cbda1d746f54a176d2c1dc6afcde70a950822376bb727951a526562"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_active_core_closure.json",
+      "role": "live_active_core_closure",
+      "sha256": "5e4de026f16dad89b06327a0b6a008127bf1c2c8df618fd6462c5456b0e455f0"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "Iris/_docs/round3/round3_run_contract_tests.py",
+      "role": "live_combined_route_runner",
+      "sha256": "6109dddbcf1ffde4bffe5c6bf1e40b234f4188e97987f89ca271d40db59bbc50"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight_plan.md",
+      "role": "execution_plan",
+      "sha256": "7d1dadb480a769b78cdf150c2c6543301609d43fa0f602259096dfdc7d48965b"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/DECISIONS.md",
+      "role": "top_doc_freeze_scan_input",
+      "sha256": "544c3206965fee2d00d4d005363c57a92da7aef7b7c39f2a94fed9d843038932"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ARCHITECTURE.md",
+      "role": "top_doc_freeze_scan_input",
+      "sha256": "c0d4940cd1c64de049bea6995628a1403d961dfb837efe3e218146a495383c58"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/ROADMAP.md",
+      "role": "top_doc_freeze_scan_input",
+      "sha256": "9d51ddef3e3292dc411562f92e9f0df2de40ed0335a4a1d52293287d7653e5f1"
+    }
+  ],
+  "status": "PASS",
+  "taxonomy_current_ok_count": 99,
+  "tooling_allowlist_count": 1,
+  "top_doc_hash_basis": "as_tracked_bytes",
+  "uncovered_current_route_test_count": 0
+}

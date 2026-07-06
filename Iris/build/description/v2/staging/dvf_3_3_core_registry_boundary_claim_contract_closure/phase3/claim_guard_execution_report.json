@@ -1,0 +1,13 @@
+{
+  "default_disposition_legacy_alias_fixture_fails": true,
+  "generated_at": "2026-07-04T17:23:03.634928+00:00",
+  "in_universe_overclaim_fixture_detected": true,
+  "legacy_alias_only_hash_bound_owner_record_fixture_passes": true,
+  "negative_fixtures_fail_with_expected_codes": true,
+  "out_of_universe_fixture_counted": true,
+  "partial_publish_boundary_pass_fixture_fails": true,
+  "positive_fixtures_pass": true,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-claim-guard-execution-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,28 @@
+{
+  "generated_at": "2026-07-04T17:23:01.676927+00:00",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "rows": [
+    {
+      "owner_axis": "registry_runtime_compatibility",
+      "route_to": "Registry Runtime Compatibility Closure",
+      "work_class": "Runtime Payload Consumer Compatibility"
+    },
+    {
+      "owner_axis": "registry_authority",
+      "route_to": "Registry Authority Closure",
+      "work_class": "Current authority / required validation / seal / stale artifact"
+    },
+    {
+      "owner_axis": "publish_boundary",
+      "route_to": "Publish Boundary Closure",
+      "work_class": "Public Text Quality / public acceptance / release readiness"
+    },
+    {
+      "owner_axis": "dvf_core_body_compiler",
+      "route_to": "DVF Core Closure",
+      "work_class": "Body compiler determinism / body_plan / rendered body shape"
+    }
+  ],
+  "schema_version": "dvf-3-3-core-registry-boundary-future-work-routing-matrix-v1",
+  "unknown_todo_tbd_unclear_route_count": 0
+}

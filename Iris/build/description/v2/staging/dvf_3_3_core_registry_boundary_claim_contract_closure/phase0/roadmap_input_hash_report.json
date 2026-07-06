@@ -1,0 +1,15 @@
+{
+  "attachment_path_after_materialization_is_provenance_only": true,
+  "byte_length": 36967,
+  "generated_at": "2026-07-04T17:22:57.853567+00:00",
+  "hash_equality_status": "PASS",
+  "line_count": 973,
+  "materialized_path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase0/roadmap_input_bound.md",
+  "materialized_sha256": "45b540bbb03e63b4e5f7ccea9650ae33e2d6a751fb8567484e7bd0a1ab54b01a",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-roadmap-input-hash-report-v1",
+  "source_attachment_exists": true,
+  "source_attachment_expected_sha256": "45b540bbb03e63b4e5f7ccea9650ae33e2d6a751fb8567484e7bd0a1ab54b01a",
+  "source_attachment_path": "C:/Users/MW/.codex/attachments/78f36bb4-6918-40fb-aeab-c5b4054d1ca3/pasted-text.txt",
+  "source_attachment_sha256": "45b540bbb03e63b4e5f7ccea9650ae33e2d6a751fb8567484e7bd0a1ab54b01a"
+}

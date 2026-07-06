@@ -1,0 +1,66 @@
+{
+  "frozen_counts": {
+    "frozen_current_route_union_test_count": 127,
+    "frozen_required_artifact_count": 93,
+    "frozen_required_test_count": 48
+  },
+  "frozen_predecessor_readpoint_assertions": {
+    "blocker_count": true,
+    "legacy_combined_route_pass_is_dvf_core_pass": true,
+    "manifest_split_required": true,
+    "semantic_verdict": true
+  },
+  "generated_at": "2026-07-04T17:23:01.429606+00:00",
+  "live_counts": {
+    "required_artifact_count": 93,
+    "required_test_count": 48
+  },
+  "owner_adjudication_does_not_generalize": true,
+  "owner_adjudication_scope": "single_bounded_predecessor_non_claim_false_positive_row_only",
+  "predecessor_blocker_count_observed": 1,
+  "predecessor_default_staging_root_write_count": 0,
+  "predecessor_generator_command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tools\\build\\run_dvf_3_3_legacy_combined_route_axis_inventory.py --mode all",
+  "predecessor_generator_exit_code": 0,
+  "predecessor_input_artifact_mutation_count": 0,
+  "predecessor_inventory_freshness_status": "PASS",
+  "predecessor_known_non_claim_false_positive_count": 1,
+  "predecessor_known_non_claim_false_positive_status": "PASS",
+  "predecessor_preflight_is_input_not_closure_authority": true,
+  "predecessor_rerun_axis_inventory_sha256": "90ec673523089586b377037353bc55465d64e2a2f12a9e713cfa4dc0358e9820",
+  "predecessor_rerun_output_isolated": true,
+  "predecessor_rerun_output_root_observed": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase0/predecessor_rerun/",
+  "predecessor_rerun_root_override_supported": true,
+  "predecessor_rerun_routing_preflight_report_sha256": "4465ce5a85d5bddf2c5d70bb8667ac47068d5bdcf9d438b814a7066b8b87d2a1",
+  "predecessor_round_id": "dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight",
+  "predecessor_semantic_verdict_observed": "routing_preflight_blocked_pending_owner_adjudication",
+  "predecessor_staging_pre_hash_set_equals_post_hash_set": true,
+  "predecessor_structural_checks": {
+    "ambiguity_queue_count_zero": true,
+    "default_staging_root_write_count_zero": true,
+    "frozen_assertions_pass": true,
+    "generator_exit_code_zero": true,
+    "legacy_route_not_core_pass": true,
+    "manifest_split_not_required": true,
+    "predecessor_input_artifact_mutation_count_zero": true,
+    "protected_surface_changed_count_zero": true,
+    "record_validation_error_count_zero": true,
+    "required_artifact_count_match": true,
+    "required_test_count_match": true,
+    "rerun_inventory_exists": true,
+    "rerun_output_isolated": true,
+    "root_override_supported": true,
+    "validator_exit_code_zero": true
+  },
+  "predecessor_structural_freshness_status": "PASS",
+  "predecessor_validator_command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tools\\build\\validate_dvf_3_3_legacy_combined_route_axis_inventory.py --require-complete",
+  "predecessor_validator_exit_code": 0,
+  "predecessor_validator_exit_code_expected": 0,
+  "predecessor_validator_exit_code_matches_expected": true,
+  "rerun_counts": {
+    "rerun_current_route_union_test_count": 127,
+    "rerun_required_artifact_count": 93,
+    "rerun_required_test_count": 48
+  },
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-predecessor-freshness-v1"
+}

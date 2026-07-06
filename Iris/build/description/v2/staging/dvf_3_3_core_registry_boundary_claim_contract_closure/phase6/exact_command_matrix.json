@@ -1,0 +1,60 @@
+{
+  "commands": [
+    {
+      "command": "$env:DVF_LEGACY_COMBINED_ROUTE_AXIS_INVENTORY_ROOT = \"Iris\\build\\description\\v2\\staging\\dvf_3_3_core_registry_boundary_claim_contract_closure\\phase0\\predecessor_rerun\"",
+      "expected_exit_code": 0,
+      "index": 1
+    },
+    {
+      "command": "uv run python -B Iris\\build\\description\\v2\\tools\\build\\run_dvf_3_3_legacy_combined_route_axis_inventory.py --mode all",
+      "expected_exit_code": 0,
+      "index": 2
+    },
+    {
+      "command": "uv run python -B Iris\\build\\description\\v2\\tools\\build\\validate_dvf_3_3_legacy_combined_route_axis_inventory.py --require-complete",
+      "expected_exit_code": 0,
+      "index": 3
+    },
+    {
+      "command": "Remove-Item Env:\\DVF_LEGACY_COMBINED_ROUTE_AXIS_INVENTORY_ROOT",
+      "expected_exit_code": 0,
+      "index": 4
+    },
+    {
+      "command": "uv run python -B Iris\\build\\description\\v2\\tools\\build\\run_dvf_3_3_core_registry_boundary_claim_contract_closure.py --mode all",
+      "expected_exit_code": 0,
+      "index": 5
+    },
+    {
+      "command": "uv run python -B Iris\\build\\description\\v2\\tools\\build\\validate_dvf_3_3_core_registry_boundary_claim_contract_closure.py --require-complete",
+      "expected_exit_code": 0,
+      "index": 6
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris\\build\\description\\v2\\tests -p \"test_dvf_3_3_core_registry_boundary_claim_contract_closure.py\"",
+      "expected_exit_code": 0,
+      "index": 7
+    },
+    {
+      "command": "negative fixture execution",
+      "expected_exit_code": 1,
+      "expected_non_zero_exit_code": true,
+      "index": 8,
+      "observed_exit_code": 1
+    },
+    {
+      "command": "uv run python -B Iris\\_docs\\round3\\round3_run_contract_tests.py --class current --enforce-current-build-closure",
+      "expected_exit_code": 0,
+      "index": 9
+    },
+    {
+      "command": "powershell -ExecutionPolicy Bypass -File .\\tools\\check_lua_syntax.ps1",
+      "expected_exit_code": 0,
+      "index": 10
+    }
+  ],
+  "generated_at": "2026-07-04T17:23:03.807931+00:00",
+  "negative_fixture_expected_nonzero_exit_code_row_present": true,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-exact-command-matrix-v1"
+}

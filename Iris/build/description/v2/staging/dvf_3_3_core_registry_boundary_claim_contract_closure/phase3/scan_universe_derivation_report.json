@@ -1,0 +1,94 @@
+{
+  "excluded_by_reason": {
+    "scanner_output_self_reference": 4
+  },
+  "excluded_file_count": 4,
+  "excluded_files": [
+    {
+      "exclusion_reason": "scanner_output_self_reference",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase3/claim_guard_execution_report.json"
+    },
+    {
+      "exclusion_reason": "scanner_output_self_reference",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase3/claim_surface_inventory.json"
+    },
+    {
+      "exclusion_reason": "scanner_output_self_reference",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase3/forbidden_overclaim_scan_report.json"
+    },
+    {
+      "exclusion_reason": "scanner_output_self_reference",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase3/negative_fixture_report.json"
+    }
+  ],
+  "generated_at": "2026-07-04T17:23:02.140053+00:00",
+  "include_source_counts": [
+    {
+      "candidate_count": 1,
+      "include_root": "docs/ARCHITECTURE.md"
+    },
+    {
+      "candidate_count": 1,
+      "include_root": "docs/DECISIONS.md"
+    },
+    {
+      "candidate_count": 1,
+      "include_root": "docs/ROADMAP.md"
+    },
+    {
+      "candidate_count": 21,
+      "include_root": "docs/dvf_3_3_*claim*.md"
+    },
+    {
+      "candidate_count": 21,
+      "include_root": "docs/dvf_3_3_*boundary*.md"
+    },
+    {
+      "candidate_count": 30,
+      "include_root": "docs/dvf_3_3_*plan.md"
+    },
+    {
+      "candidate_count": 20,
+      "include_root": "docs/dvf_3_3_*ledger_packet.md"
+    },
+    {
+      "candidate_count": 9,
+      "include_root": "docs/dvf_3_3_*policy.md"
+    },
+    {
+      "candidate_count": 2,
+      "include_root": "docs/dvf_3_3_*walkthrough*.md"
+    },
+    {
+      "candidate_count": 1,
+      "include_root": "Iris/_docs/round3/current_route_required_validations.json"
+    },
+    {
+      "candidate_count": 12,
+      "include_root": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/**/*.md"
+    },
+    {
+      "candidate_count": 64,
+      "include_root": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/**/*.json"
+    },
+    {
+      "candidate_count": 13,
+      "include_root": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/*report.json"
+    },
+    {
+      "candidate_count": 6,
+      "include_root": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/*inventory.json"
+    },
+    {
+      "candidate_count": 1,
+      "include_root": "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/*policy.md"
+    }
+  ],
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "scan_exception_count": 0,
+  "scan_universe_count": 175,
+  "scan_universe_deduplication_status": "PASS",
+  "scan_universe_duplicate_match_count": 24,
+  "scan_universe_unique_path_count": 175,
+  "schema_version": "dvf-3-3-core-registry-boundary-scan-universe-derivation-v1"
+}

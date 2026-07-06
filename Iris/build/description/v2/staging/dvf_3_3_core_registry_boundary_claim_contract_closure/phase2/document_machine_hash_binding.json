@@ -1,0 +1,12 @@
+{
+  "document_authority_path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+  "document_authority_sha256": "fb693a4b5ec1bebb7b99a59648b4c48c7d229143226d1c0b34b364b56a523001",
+  "generated_at": "2026-07-04T17:23:01.680522+00:00",
+  "hash_binding_status": "PASS",
+  "machine_contract_claim_meaning_authority_sha256": "fb693a4b5ec1bebb7b99a59648b4c48c7d229143226d1c0b34b364b56a523001",
+  "machine_contract_path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase2/claim_contract.json",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-document-machine-hash-binding-v1",
+  "staged_mirror_path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase1/claim_contract.md",
+  "staged_mirror_records_document_hash": true
+}

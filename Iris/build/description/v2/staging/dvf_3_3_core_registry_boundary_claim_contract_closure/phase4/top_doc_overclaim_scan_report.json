@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-07-04T17:23:03.649353+00:00",
+  "release_package_public_runtime_overclaim_count": 0,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-top-doc-overclaim-scan-v1",
+  "source_rendered_runtime_package_mutation_count": 0,
+  "status": "PASS",
+  "top_doc_current_session_update_detected": true,
+  "top_doc_reference_coverage_status": "PASS",
+  "top_doc_sync_state": "top_docs_updated_current_session_request_validated"
+}

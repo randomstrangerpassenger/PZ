@@ -1,0 +1,9 @@
+{
+  "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tools\\build\\validate_dvf_3_3_legacy_combined_route_axis_inventory.py --require-complete",
+  "exit_code": 0,
+  "finished_at": "2026-07-04T17:23:01.350546+00:00",
+  "started_at": "2026-07-04T17:23:00.376891+00:00",
+  "stderr": "",
+  "stdout": "{\"error_count\": 0, \"status\": \"PASS\"}\n",
+  "timed_out": false
+}

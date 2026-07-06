@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-07-04T17:23:01.667607+00:00",
+  "git_global_ignore_warning_is_environment_noise_only": true,
+  "gitignore_added_rule_count": 6,
+  "gitignore_broad_unignore_rule_count": 0,
+  "gitignore_round_local_rule_count": 6,
+  "planned_artifact_rows": [
+    {
+      "git_check_ignore_exit_code": 1,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+      "visible_rule_is_round_local_allowlist": true,
+      "visible_to_git": true
+    },
+    {
+      "git_check_ignore_exit_code": 1,
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+      "visible_rule_is_round_local_allowlist": true,
+      "visible_to_git": true
+    },
+    {
+      "git_check_ignore_exit_code": 1,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+      "visible_rule_is_round_local_allowlist": true,
+      "visible_to_git": true
+    },
+    {
+      "git_check_ignore_exit_code": 1,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+      "visible_rule_is_round_local_allowlist": true,
+      "visible_to_git": true
+    },
+    {
+      "git_check_ignore_exit_code": 1,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure",
+      "visible_rule_is_round_local_allowlist": true,
+      "visible_to_git": true
+    }
+  ],
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-vcs-visibility-allowlist-v1",
+  "status": "PASS",
+  "vcs_visibility_allowlist_status": "PASS"
+}

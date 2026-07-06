@@ -1,0 +1,25 @@
+{
+  "current_route_runner_rewrite_performed": false,
+  "declared_mutation_paths": [
+    ".gitignore",
+    "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/",
+    "Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+    "Iris/build/description/v2/tools/build/dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_core_registry_boundary_claim_contract_closure.py",
+    "docs/ARCHITECTURE.md",
+    "docs/DECISIONS.md",
+    "docs/ROADMAP.md",
+    "docs/dvf_3_3_core_registry_boundary_claim_boundary.md",
+    "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+    "docs/dvf_3_3_core_registry_boundary_claim_contract_closure_closeout.md",
+    "docs/dvf_3_3_core_registry_boundary_claim_contract_closure_walkthrough.md",
+    "docs/dvf_3_3_core_registry_boundary_claim_contract_ledger_packet.md"
+  ],
+  "declared_write_target_count": 14,
+  "generated_at": "2026-07-04T17:23:03.807098+00:00",
+  "manifest_physical_split_performed": false,
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-final-write-target-recensus-v1",
+  "undeclared_write_target_mutation_count": 0
+}

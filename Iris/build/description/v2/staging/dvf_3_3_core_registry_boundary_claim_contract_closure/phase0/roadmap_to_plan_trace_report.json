@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-07-04T17:22:57.855545+00:00",
+  "plan_artifact": "docs/dvf_3_3_core_registry_boundary_claim_contract_closure_plan.md",
+  "roadmap_input_artifact": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase0/roadmap_input_bound.md",
+  "round_id": "dvf_3_3_core_registry_boundary_claim_contract_closure",
+  "schema_version": "dvf-3-3-core-registry-boundary-roadmap-to-plan-trace-v1",
+  "status": "PASS",
+  "trace_rows": [
+    {
+      "generated_artifacts": [
+        "phase1/claim_contract.md",
+        "phase2/claim_contract.json"
+      ],
+      "plan_sections": [
+        "Objective",
+        "Scope",
+        "Planned Changes 2-4"
+      ],
+      "roadmap_topic": "claim vocabulary and routing boundary separation"
+    },
+    {
+      "generated_artifacts": [
+        "phase0/predecessor_inventory_freshness_report.json"
+      ],
+      "plan_sections": [
+        "Change 1",
+        "Validation Plan"
+      ],
+      "roadmap_topic": "predecessor freshness before consumption"
+    },
+    {
+      "generated_artifacts": [
+        "phase6/protected_surface_no_mutation_report.json"
+      ],
+      "plan_sections": [
+        "Risk Surface Touch",
+        "Expected Closeout State"
+      ],
+      "roadmap_topic": "no runtime/package/public mutation"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "error_count": 0,
+  "errors": [],
+  "generated_at": "2026-07-04T17:23:01.335562+00:00",
+  "require_complete": true,
+  "round_id": "dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight",
+  "schema_version": "dvf-3-3-legacy-combined-route-routing-preflight-validation-v1",
+  "status": "PASS"
+}

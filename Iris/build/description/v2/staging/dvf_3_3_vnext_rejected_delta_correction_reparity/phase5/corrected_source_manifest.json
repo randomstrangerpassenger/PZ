@@ -35,7 +35,7 @@
     "fixture_threshold": 10,
     "production_manifest_must_not_reference_fixture_paths": true
   },
-  "generated_at": "2026-07-09T08:14:43.391912+00:00",
+  "generated_at": "2026-07-09T10:46:46.927696+00:00",
   "partial_input_manifest": {
     "bytes": 3362,
     "exists": true,

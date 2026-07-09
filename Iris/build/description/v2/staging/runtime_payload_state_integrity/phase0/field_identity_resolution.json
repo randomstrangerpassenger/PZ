@@ -3,7 +3,7 @@
   "axis_mode": "source_value_collapsed_to_adoption_axis_for_current_payload",
   "claim_boundary": "Runtime payload state shape guard only; not release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, public-facing Korean text quality acceptance, current cutover reopen, or runtime policy mutation.",
   "current_entry_count": 2105,
-  "generated_at": "2026-07-09T08:15:44.575972+00:00",
+  "generated_at": "2026-07-09T10:47:37.045686+00:00",
   "resolution": "current chunks carry state through source value; source='unadopted' is the current unadopted marker, runtime_state/adoption_state are absent",
   "runtime_state_present_count": 0,
   "schema_version": "runtime-payload-state-field-identity-resolution-v1",

@@ -5,9 +5,9 @@
   "overlay_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase1/dvf_3_3_overlay_support.jsonl",
   "overlay_row_count": 2105,
   "overlay_sha256": "f2ca5df3a352df407599d9e4c659a69043301d51638556f84dba341dbdb35f43",
-  "rendered_sha256": "bb50be75a211c87942e474450ba410fe6a71249c55fdaf5fc7fca3fca925fdc2",
+  "rendered_sha256": "5bd2e26eb0931376b464176711fbb6145bd477944b8f360722f40c0ad1b68add",
   "role": "compose_support_not_source_authority",
   "schema_version": "dvf-3-3-vnext-overlay-support-manifest-v0",
-  "source_manifest_sha256": "ae4a2b81e6dc7d04eb569cbb8d53859fb95563ac3c278eef8c8f8e527709796d",
+  "source_manifest_sha256": "1659a11dd1d852011aace493b0b84452fd91dc8bc8df4a07dd44b695812a3746",
   "status": "PASS"
 }

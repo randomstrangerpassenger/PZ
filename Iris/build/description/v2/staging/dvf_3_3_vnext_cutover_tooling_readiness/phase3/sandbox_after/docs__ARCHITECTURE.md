@@ -385,10 +385,10 @@ DVF Core는 다음 책임을 소유하지 않는다.
 - stale / predecessor reentry guard
 - runtime consumer compatibility
 - package safety
-- public text acceptance
+- not DVF-owned: public text acceptance
 - semantic quality acceptance
 - package publication
-- release / Workshop readiness
+- not DVF-owned: release / Workshop readiness
 - manual QA
 
 기존 통합 검증 경로가 body compiler, registry authority, runtime compatibility, publish / package guard, stale artifact guard, diagnostic fixture, completion vocabulary gate를 함께 검사했더라도, 그것은 DVF Core의 아키텍처 책임을 넓히는 근거가 아니다.

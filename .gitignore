@@ -97,6 +97,7 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/classify_dvf_3_3_vnext_delta.py
 !Iris/build/description/v2/tools/build/build_dvf_3_3_vnext_consumer_migration_matrix.py
 !Iris/build/description/v2/tools/build/dry_run_dvf_3_3_vnext_consumer_migration.py
+!Iris/build/description/v2/tools/build/dvf_3_3_consumer_migration_normalization_common.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_execution_contract.py
 !Iris/build/description/v2/tools/build/write_dvf_3_3_vnext_ledger_packet.py
 !Iris/build/description/v2/tools/build/run_dvf_3_3_vnext_regeneration_parity.py

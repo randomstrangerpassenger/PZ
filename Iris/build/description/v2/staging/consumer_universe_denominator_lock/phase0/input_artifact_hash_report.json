@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "b70123dbac355701f2b988e188fe604f334e99e2b6bdee9a8c45bb8f8ab8abed",
+  "aggregate_sha256": "16bb854f1f9e0165687e5223b4526e5aea445227dcddf1446baf7e49ea4bc46a",
   "generated_at": "2026-06-19T00:00:00+09:00",
   "input_count": 20,
   "inputs": [
@@ -61,7 +61,7 @@
       "reported_generated_at": "2026-06-17T00:00:00+00:00",
       "required": true,
       "role": "normalization_manifest",
-      "sha256": "66a377afce42cecf48b6f50b59584fc8e551fc5488926eff63a537626252cd78"
+      "sha256": "c05c9c670f0cba98ac88ef7c9c68c10866cc67eefb282e7f6fd4f4e4c6860386"
     },
     {
       "bytes": 304941,
@@ -84,14 +84,14 @@
       "sha256": "d6544b70e54622bf2054ce8c6749a81fe7dba8f8f4b63f27b35c7998d89b6d91"
     },
     {
-      "bytes": 500998,
+      "bytes": 500603,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
       "reported_generated_at": null,
       "required": true,
       "role": "readiness_row_ledger",
-      "sha256": "2f8182477f0774e8b64d59711bdd371a934969c3fd99ab1984b0a1d9f6d28054"
+      "sha256": "77a29108ef180605f7c1ecda70a666a18ac465cbdc759b1ce4b06b030329e57f"
     },
     {
       "bytes": 4221,

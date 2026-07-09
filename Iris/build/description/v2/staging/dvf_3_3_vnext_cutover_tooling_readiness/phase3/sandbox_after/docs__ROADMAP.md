@@ -538,7 +538,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 
   * body compiler determinism / `body_plan` / rendered body shape 문제는 DVF Core scope로 연다.
   * source / rendered / runtime / package identity, required validation, seal, cutover, stale reentry guard, runtime compatibility 문제는 Iris Artifact Registry scope로 연다.
-  * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 Publish Boundary scope로 연다.
+  * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 DVF scope가 아니라 Publish Boundary 범위에서만 연다.
   * 단독 `DVF PASS`나 legacy combined route PASS로 후속 작업을 열지 않는다.
 
 * 이후 Iris 후속 작업은 rollback, correction, package/release readiness, manual QA, public text quality acceptance 중 하나로 명시해서 연다.
@@ -567,7 +567,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * 단독 `DVF PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.
   * body compiler determinism / `body_plan` / rendered body shape 문제는 DVF Core scope로만 연다.
   * source / rendered / runtime / package identity, required validation, seal, cutover, stale reentry guard, runtime compatibility 문제는 Iris Artifact Registry scope로만 연다.
-  * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 Publish Boundary scope로만 연다.
+  * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 DVF scope가 아니라 Publish Boundary 범위에서만 연다.
 
 * current runtime authority를 과거 기준이나 임시 산출물로 되돌리는 것
 

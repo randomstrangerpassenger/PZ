@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-07-06T17:54:42.076510+00:00",
+  "predecessor_claim_boundary_split_complete": true,
+  "predecessor_dvf_pass_standalone_current_claim_allowed": false,
+  "predecessor_final_report": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase6/final_boundary_split_closure_report.json",
+  "predecessor_future_current_route_blocking_claimed": false,
+  "predecessor_legacy_combined_route_pass_is_dvf_core_pass": false,
+  "predecessor_protected_surface_changed_count": 0,
+  "predecessor_required_gate_adopted": false,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-adoption-preflight-v1",
+  "status": "PASS"
+}

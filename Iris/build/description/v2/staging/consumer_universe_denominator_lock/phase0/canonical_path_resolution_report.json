@@ -194,14 +194,14 @@
       "sha256": "712d78257254bde27ea5ac3336970aaa6a2523510e90f1aaa24863b491d95302"
     },
     {
-      "bytes": 58561,
+      "bytes": 65557,
       "exists": true,
       "kind": "file",
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "reported_generated_at": "2026-06-17T16:28:41.744038+00:00",
       "required": true,
       "role": "current_route_required_manifest",
-      "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343"
+      "sha256": "bbedf8ea10b4ca2e31ce4e587d7ac081d4ab9dbc4bbdc8e22de286148f677cc5"
     }
   ],
   "schema_version": "consumer-universe-denominator-path-resolution-v1",

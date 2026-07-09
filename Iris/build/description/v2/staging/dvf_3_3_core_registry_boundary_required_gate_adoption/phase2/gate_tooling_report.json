@@ -1,0 +1,20 @@
+{
+  "bare_tool_module_import_used": true,
+  "build_closure_blocker_triggered_for_forbidden_fixture": true,
+  "current_route_import_closure_probe_live_manifest_mutated": false,
+  "current_route_import_closure_probe_status": "PASS",
+  "generated_at": "2026-07-06T17:54:43.032560+00:00",
+  "probe_command": {
+    "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B -c import importlib.abc, sys\nclass B(importlib.abc.MetaPathFinder):\n    def find_spec(self, fullname, path=None, target=None):\n        if fullname.startswith('tools.build.'):\n            raise ImportError('blocked')\n        return None\nsys.meta_path.insert(0, B())\nsys.path.insert(0, 'C:\\\\Users\\\\MW\\\\Downloads\\\\coding\\\\PZ\\\\Iris\\\\build\\\\description\\\\v2\\\\tools\\\\build')\nimport dvf_3_3_core_registry_boundary_required_gate_adoption as m\nassert m.ROUND_ID\nprint('bare-import-ok')\n",
+    "exit_code": 0,
+    "finished_at": "2026-07-06T17:54:43.032548+00:00",
+    "started_at": "2026-07-06T17:54:42.923022+00:00",
+    "stderr": "",
+    "stdout": "bare-import-ok\n",
+    "timed_out": false
+  },
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-tooling-probe-v1",
+  "status": "PASS",
+  "tools_build_package_import_attempt_count": 0
+}

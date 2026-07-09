@@ -1,0 +1,30 @@
+{
+  "allowed_boundary_statement_false_positive_count": 0,
+  "fixtures": [
+    {
+      "false_positive": false,
+      "fixture": "english_non_claim",
+      "violation_count": 0
+    },
+    {
+      "false_positive": false,
+      "fixture": "english_boundary",
+      "violation_count": 0
+    },
+    {
+      "false_positive": false,
+      "fixture": "korean_non_claim",
+      "violation_count": 0
+    },
+    {
+      "false_positive": false,
+      "fixture": "korean_boundary",
+      "violation_count": 0
+    }
+  ],
+  "generated_at": "2026-07-06T17:54:42.921909+00:00",
+  "korean_fixture_coverage": true,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-allowed-fixture-v1",
+  "status": "PASS"
+}

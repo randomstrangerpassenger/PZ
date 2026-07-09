@@ -1,29 +1,89 @@
 {
-  "blocked_claim_surface_count": 0,
-  "blocked_claim_surfaces": [],
+  "blocked_claim_surface_count": 4,
+  "blocked_claim_surfaces": [
+    {
+      "claim_hits": [
+        "public_text_acceptance"
+      ],
+      "classification": "blocked",
+      "definition_context": false,
+      "line": 388,
+      "line_text": "- public text acceptance",
+      "path": "docs/ARCHITECTURE.md",
+      "predecessor_hits": [],
+      "role": "forbidden_overclaim_violation",
+      "surface_family": "docs",
+      "terms": []
+    },
+    {
+      "claim_hits": [
+        "workshop_readiness"
+      ],
+      "classification": "blocked",
+      "definition_context": false,
+      "line": 391,
+      "line_text": "- release / Workshop readiness",
+      "path": "docs/ARCHITECTURE.md",
+      "predecessor_hits": [],
+      "role": "forbidden_overclaim_violation",
+      "surface_family": "docs",
+      "terms": []
+    },
+    {
+      "claim_hits": [
+        "public_text_acceptance",
+        "workshop_readiness"
+      ],
+      "classification": "blocked",
+      "definition_context": false,
+      "line": 541,
+      "line_text": "  * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 Publish Boundary scope로 연다.",
+      "path": "docs/ROADMAP.md",
+      "predecessor_hits": [],
+      "role": "forbidden_overclaim_violation",
+      "surface_family": "docs",
+      "terms": []
+    },
+    {
+      "claim_hits": [
+        "public_text_acceptance",
+        "workshop_readiness"
+      ],
+      "classification": "blocked",
+      "definition_context": false,
+      "line": 570,
+      "line_text": "  * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 Publish Boundary scope로만 연다.",
+      "path": "docs/ROADMAP.md",
+      "predecessor_hits": [],
+      "role": "forbidden_overclaim_violation",
+      "surface_family": "docs",
+      "terms": []
+    }
+  ],
   "claim_role_counts": {
-    "claim_surface": 758,
-    "forbidden_overclaim_definition": 99,
+    "claim_surface": 650,
+    "forbidden_overclaim_definition": 98,
+    "forbidden_overclaim_violation": 4,
     "forbidden_predecessor_reentry_definition": 13,
-    "historical_or_policy_trace": 346
+    "historical_or_policy_trace": 308
   },
-  "claim_token_occurrence_count": 1216,
-  "forbidden_overclaim_violation_count": 0,
+  "claim_token_occurrence_count": 1073,
+  "forbidden_overclaim_violation_count": 4,
   "forbidden_predecessor_reentry_violation_count": 0,
   "generated_at": "2026-06-23T00:00:00+09:00",
   "schema_version": "dvf-3-3-closeout-claim-surface-inventory-v1",
-  "status": "PASS",
+  "status": "FAIL",
   "surface_count": 33,
   "surfaces": [
     {
-      "bytes": 58561,
+      "bytes": 65557,
       "exists": true,
       "kind": "file",
-      "line_count": 1858,
+      "line_count": 2094,
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "required": false,
       "role": "required_validation_manifest",
-      "sha256": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343",
+      "sha256": "bbedf8ea10b4ca2e31ce4e587d7ac081d4ab9dbc4bbdc8e22de286148f677cc5",
       "status": "PRESENT"
     },
     {
@@ -170,14 +230,14 @@
       "status": "PRESENT"
     },
     {
-      "bytes": 615,
+      "bytes": 616,
       "exists": true,
       "kind": "file",
       "line_count": 19,
       "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase6/docs_claim_taxonomy_consistency_report.json",
       "required": false,
       "role": "generated_evidence",
-      "sha256": "af7b34ec4012770f96ebd621b8d33041073eb48a4de109bbd4a8f2243d3a32bd",
+      "sha256": "2995a40b363d640f29d3a6a3fa5382906b728fa3f4141af63ad56ad453072451",
       "status": "PRESENT"
     },
     {
@@ -188,7 +248,7 @@
       "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/final_closeout_reentry_guard_seal_report.json",
       "required": false,
       "role": "generated_evidence",
-      "sha256": "321c11a0e7ca807a809eddc46aa9514c3ce578e3a57f96185735aa5a5f0e791b",
+      "sha256": "96fa28fc154b737f6e1ce145494e1c0dafa04e01d7d8e6021a518ee5d2aaf63f",
       "status": "PRESENT"
     },
     {
@@ -214,14 +274,14 @@
       "status": "PRESENT"
     },
     {
-      "bytes": 8512,
+      "bytes": 9010,
       "exists": true,
       "kind": "file",
-      "line_count": 69,
+      "line_count": 72,
       "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/full_current_route_validation_result.json",
       "required": false,
       "role": "generated_evidence",
-      "sha256": "427686d4b0eb28be6058c4cd0fe63ffa139d396672d24499c16bd8d815bf8a32",
+      "sha256": "ef42c5e98f77c812ea73d2f5b29be9c87680ca7cdec59b0b00044929fe5eae71",
       "status": "PRESENT"
     },
     {
@@ -291,36 +351,36 @@
       "status": "PRESENT"
     },
     {
-      "bytes": 62259,
+      "bytes": 44518,
       "exists": true,
       "kind": "file",
-      "line_count": 841,
+      "line_count": 835,
       "path": "docs/ARCHITECTURE.md",
       "required": false,
       "role": "docs",
-      "sha256": "c0d4940cd1c64de049bea6995628a1403d961dfb837efe3e218146a495383c58",
+      "sha256": "fff017b6dfbecee602b2c092cf7041e329f04be47113f8ae1a8a97d901304da8",
       "status": "PRESENT"
     },
     {
-      "bytes": 197454,
+      "bytes": 174380,
       "exists": true,
       "kind": "file",
-      "line_count": 2091,
+      "line_count": 1980,
       "path": "docs/DECISIONS.md",
       "required": false,
       "role": "docs",
-      "sha256": "544c3206965fee2d00d4d005363c57a92da7aef7b7c39f2a94fed9d843038932",
+      "sha256": "678eb5e2a5aca54f040f556c802ae6ad97669abb56938414771ea5f91767c3bf",
       "status": "PRESENT"
     },
     {
-      "bytes": 77798,
+      "bytes": 54244,
       "exists": true,
       "kind": "file",
-      "line_count": 979,
+      "line_count": 811,
       "path": "docs/ROADMAP.md",
       "required": false,
       "role": "docs",
-      "sha256": "9d51ddef3e3292dc411562f92e9f0df2de40ed0335a4a1d52293287d7653e5f1",
+      "sha256": "3b1e84e53e59f9e56eb26e96af8379967293390d1f93598305a124ea76143410",
       "status": "PRESENT"
     },
     {

@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-07-06T17:54:42.081563+00:00",
+  "predecessor_default_staging_root_write_count": 0,
+  "predecessor_rerun_output_isolated": true,
+  "predecessor_rerun_output_root_observed": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase0/predecessor_rerun/",
+  "predecessor_rerun_root_override_supported": true,
+  "rerun_not_replayed_as_current_gate": true,
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-predecessor-rerun-root-v1",
+  "status": "PASS"
+}

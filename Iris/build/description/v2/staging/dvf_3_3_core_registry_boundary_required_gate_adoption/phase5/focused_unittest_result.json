@@ -1,0 +1,9 @@
+{
+  "command": "C:\\Users\\MW\\scoop\\apps\\python\\current\\python.exe -B -m unittest discover -s C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\tests -p test_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+  "exit_code": 0,
+  "finished_at": "2026-07-06T17:54:44.124195+00:00",
+  "started_at": "2026-07-06T17:54:43.735042+00:00",
+  "stderr": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.123s\n\nOK\n",
+  "stdout": "",
+  "timed_out": false
+}

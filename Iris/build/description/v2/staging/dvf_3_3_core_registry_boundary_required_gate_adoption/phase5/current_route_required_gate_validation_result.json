@@ -1,0 +1,18 @@
+{
+  "closure_enforced": true,
+  "current_route_success": true,
+  "focused_runner_passed": true,
+  "focused_validator_passed": true,
+  "generated_at": "2026-07-06T17:56:37.033814+00:00",
+  "live_manifest_rollback_required": false,
+  "live_rescan_required_test_consumed": true,
+  "post_adoption_current_route_rerun_success": true,
+  "post_route_protected_surface_changed_count": 0,
+  "post_route_required_artifact_dirty_count": 0,
+  "post_route_required_artifact_ignored_count": 0,
+  "post_route_required_artifact_untracked_count": 0,
+  "pre_restore_protected_surface_changed_count": 0,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-phase5-summary-v1",
+  "status": "PASS"
+}

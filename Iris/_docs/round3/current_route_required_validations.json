@@ -28,7 +28,11 @@
     "no_workshop_readiness",
     "no_current_authority_cutover",
     "no_independent_review_pass",
-    "no_canonical_seal"
+    "no_canonical_seal",
+    "no_required_gate_adoption_release_readiness_claim",
+    "no_registry_authority_pass_claim",
+    "no_publish_boundary_pass_claim",
+    "no_runtime_payload_consumer_compatibility_closure"
   ],
   "required": true,
   "required_artifacts": [
@@ -1608,6 +1612,223 @@
         }
       ],
       "path": "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_go_no_go_phase_consistency_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "required_gate_adopted"
+        },
+        {
+          "equals": true,
+          "field": "future_current_route_blocking_claimed"
+        },
+        {
+          "equals": false,
+          "field": "predecessor_claim_contract_redefined"
+        },
+        {
+          "equals": 0,
+          "field": "self_reference_cycle_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/required_gate_contract_definition_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "PASS",
+          "field": "field_host_phase_mapping_status"
+        },
+        {
+          "equals": 0,
+          "field": "manifest_required_route_result_field_count"
+        },
+        {
+          "equals": false,
+          "field": "final_no_mutation_summary_manifest_required_allowed"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/field_host_phase_mapping.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "forbidden_overclaim_count"
+        },
+        {
+          "equals": true,
+          "field": "claim_scan_minimum_universe_satisfied"
+        },
+        {
+          "equals": 0,
+          "field": "pre_route_scan_universe_missing_count"
+        },
+        {
+          "equals": 0,
+          "field": "unknown_claim_scanner_exception_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/claim_surface_scan_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 4,
+          "field": "forbidden_fixture_failure_count"
+        },
+        {
+          "equals": false,
+          "field": "live_manifest_mutated"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/negative_fixture_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "allowed_boundary_statement_false_positive_count"
+        },
+        {
+          "equals": true,
+          "field": "korean_fixture_coverage"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/allowed_boundary_fixture_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "PASS",
+          "field": "current_route_import_closure_probe_status"
+        },
+        {
+          "equals": false,
+          "field": "current_route_import_closure_probe_live_manifest_mutated"
+        },
+        {
+          "equals": 0,
+          "field": "tools_build_package_import_attempt_count"
+        },
+        {
+          "equals": true,
+          "field": "bare_tool_module_import_used"
+        },
+        {
+          "equals": true,
+          "field": "build_closure_blocker_triggered_for_forbidden_fixture"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/gate_tooling_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "required_gate_adopted"
+        },
+        {
+          "equals": "additive_only",
+          "field": "required_manifest_adoption_mode"
+        },
+        {
+          "equals": 0,
+          "field": "removed_required_artifact_count"
+        },
+        {
+          "equals": 0,
+          "field": "removed_required_test_count"
+        },
+        {
+          "equals": 0,
+          "field": "modified_existing_entries"
+        },
+        {
+          "equals": 0,
+          "field": "predicate_meaning_change_count"
+        },
+        {
+          "equals": 0,
+          "field": "existing_entry_reclassified_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase3/required_manifest_adoption_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "all_manifest_required_artifacts_exist_before_post_adoption_route"
+        },
+        {
+          "equals": true,
+          "field": "all_manifest_required_artifacts_have_final_values_before_post_adoption_route"
+        },
+        {
+          "equals": 0,
+          "field": "manifest_required_route_result_field_count"
+        },
+        {
+          "equals": 0,
+          "field": "self_reference_cycle_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase3/bootstrap_sufficiency_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "pre_route_protected_surface_changed_count"
+        },
+        {
+          "equals": true,
+          "field": "required_gate_artifacts_present"
+        },
+        {
+          "equals": true,
+          "field": "no_broad_staging_unignore"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase4/protected_surface_no_mutation_report.json"
     }
   ],
   "required_tests": [
@@ -1850,6 +2071,21 @@
       "required": true,
       "role": "dvf_3_3_predecessor_stale_artifact_reentry_guard_required_validation",
       "test_id": "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.DvfPredecessorStaleArtifactReentryGuardTest.test_final_report_preserves_non_claims_and_review_boundary"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_core_registry_boundary_required_gate_adoption_required_validation",
+      "test_id": "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_live_rescan_enforces_claim_boundary"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_core_registry_boundary_required_gate_adoption_required_validation",
+      "test_id": "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_manifest_adoption_is_additive_and_governance_only"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_core_registry_boundary_required_gate_adoption_required_validation",
+      "test_id": "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_bootstrap_and_pre_route_no_mutation_are_pass"
     }
   ],
   "route": "current",

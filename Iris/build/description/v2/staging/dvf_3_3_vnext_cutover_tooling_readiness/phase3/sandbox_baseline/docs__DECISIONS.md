@@ -713,313 +713,347 @@
 
 ---
 
-## Iris
+Iris
 
-### Iris — 검증된 compiler-viewer형 위키 시스템
+Iris — compiler-viewer형 위키 시스템
 
-- 상태: current readpoint / pre-ledger imported + 2026-03-25 system seal
-- 결정: Iris는 단순 정보 모드나 웹/위키 수동 보강형 위키가 아니라, 오프라인 빌드가 증거·분류·상호작용·설명 산출물을 컴파일하고 런타임 Lua가 이를 재구성해 보여주는 검증된 위키형 지식 시스템으로 둔다.
-- 현재 기준:
-  - 런타임 모드는 100% Lua 기반 위키형 viewer로 유지한다.
-  - Iris는 실용 정보를 제공하되 해석·권장·비교는 금지한다.
-  - Iris는 전체 아이템 위키 표면 위에 Evidence / 분류 / 설명 / 상호작용 정보를 얹는 구조다.
-  - 장기 방향은 "compiler -> viewer" 순도를 높이는 쪽이다.
-  - QG는 증거 시스템과 파생 산출물의 운영 검문 체계, DVF는 Layer 3 본문 검증 체계로 분리한다.
-  - tooltip은 DVF와 동급의 독립 지식원이 아니라 메뉴 본문의 핵심 추출 요약본이다.
-  - 외부 모드 데이터는 "원본 mod file -> 정규화 adapter/compiler -> 내부 Iris 표준 산출물 -> QG/DVF 소비" 순서로만 들어온다.
-  - QG와 DVF는 raw mod file parser가 되지 않는다.
-  - 여러 모드가 같은 아이템을 수정하는 경우 Iris는 엔진 최종 적용값 기준으로 사실만 표시하며, 어떤 모드가 맞는지 중재하지 않는다.
-  - Iris의 1차 해자는 위키 대체가 아니라 인게임 접근성이다.
-  - 첫 공개는 vanilla-first로 두고, 모드 확장 시스템은 내부적으로 개발하더라도 전면 기능으로 홍보하지 않는다.
-- 영향: Iris는 AI식 해석 위키가 아니라, 정규화된 정적 산출물을 런타임에서 보여주는 compiler-viewer형 위키 시스템으로 유지한다.
-- Trace:
-  - ledgered: 2026-03-16 ~ 2026-03-25
-  - COMMON-EVIDENCE-TRACE.
+* 상태: current readpoint / pre-ledger imported + 2026-03-25 system seal
 
-### Iris — Evidence / Source / Outcome 모델
+* 결정: Iris는 단순 정보 모드나 웹/위키 수동 보강형 위키가 아니라, 오프라인 빌드가 증거·분류·상호작용·설명 산출물을 컴파일하고 런타임 Lua가 이를 표시·탐색 가능한 형태로 재구성해 보여주는 위키형 지식 시스템으로 둔다.
 
-- 상태: current readpoint
-- 결정: Iris가 Rule에서 소비하는 Evidence는 행동이 아니라, 그 아이템이 없으면 존재할 수 없는 normalized outcome facts로 고정한다.
-- 현재 기준:
-  - Source는 Recipe / Right-click / Static capability로 분리한다.
-  - Evidence는 Source 자체가 아니라 Source에서 정규화된 outcome facts다.
-  - Recipe와 Right-click은 서로의 하위가 아니라 독립 Source다.
-  - Iris 분류기는 Source별 rule engine이 아니라 outcome 중심 단일 Evidence 프레임을 소비한다.
-  - "open_canned_food", "stitch_wound" 같은 행동 의미형 표현은 Evidence 기본형이 아니다.
-  - "equip_back", "toggle_activate", "place_world", "fill_container", "empty_container", "transform_replace" 같은 상태형 outcome을 중심으로 둔다.
-  - Equip effect / Use only / Passive function은 기본 evidence 축으로 승격하지 않고, 필요 시 개별 설명층의 후행 정보로 처리한다.
-  - "CustomContextMenu = "Smoke"" 같은 행동 문자열 / 메뉴 문자열 / 클릭 경로를 읽어 outcome을 자동 생성하지 않는다.
-- Context Outcome 추출기:
-  - Context Outcome 추출기는 의미 해석기나 분류기가 아니라, 동결 문서가 이미 허용한 outcome만 생성하는 오프라인 사실 테이블 생성기다.
-  - 파이프라인은 "스캐너 -> IR(signal only) -> 매퍼(Signal -> Outcome) -> 수동 주입기 -> 검증기 -> 진단기" 경계로 둔다.
-  - Context Outcome 추출기는 Iris Core 바깥의 외부 공급자이며, Iris Core와 Description은 동결된 결과만 소비한다.
-  - Fail-loud 사유는 Allowlist 밖 Outcome / 비결정성 / 출력 포맷 위반 세 가지로 제한한다.
-  - 금지 토큰 탐지, 문서 SHA 불일치, "smoke_item" 자동 경로 탐지 같은 위험 신호는 숨기지 않되 진단으로만 남긴다.
-  - "smoke_item"은 자동 추출기의 기본 산출 대상이 아니며, Option B 수동 주입 모듈만이 유일한 진입점이다.
-  - Fixing과 Moveables의 역인덱스·도구 정의는 기존 evidence / predicate 경로에 남기고 Context Outcome으로 승격하지 않는다.
-- 오독 금지:
-  - 이 항목은 행동명 기반 Evidence 생성, Right-click의 Recipe 하위화, Source별 Rule 이원화, Iris 내부 추론·재판정, 설명 엔진 고도화, 입력 스키마 전면 개편을 승인한 것이 아니다.
-- Trace:
-  - sealed: 2026-03-24 ~ 2026-03-25
-  - COMMON-EVIDENCE-TRACE.
+* 현재 기준:
+  
+  * 런타임 모드는 100% Lua 기반 위키형 viewer로 유지한다.
+  * 런타임 Lua는 생성·판단·수정이 아니라 표시·탐색을 담당한다.
+  * Iris는 실용 정보를 제공하되 해석·권장·비교는 금지한다.
+  * Iris는 전체 아이템 위키 표면 위에 Evidence / 분류 / 설명 / 상호작용 정보를 얹는 구조다.
+  * 장기 방향은 "compiler -> viewer" 순도를 높이는 쪽이다.
+  * QG는 증거 시스템과 파생 산출물의 운영 검문 체계, DVF는 Layer 3 본문 검증 체계로 분리한다.
+  * tooltip은 DVF와 동급의 독립 지식원이 아니라 메뉴 본문의 핵심 추출 요약본이다.
+  * 외부 모드 데이터는 "원본 mod file -> 정규화 adapter/compiler -> 내부 Iris 표준 산출물 -> QG/DVF 소비" 순서로만 들어온다.
+  * QG와 DVF는 raw mod file parser가 되지 않는다.
+  * 여러 모드가 같은 아이템을 수정하는 경우 Iris는 엔진 최종 적용값 기준으로 사실만 표시하며, 어떤 모드가 맞는지 중재하지 않는다.
+  * Iris의 1차 해자는 위키 대체가 아니라 인게임 접근성이다.
+  * 첫 공개는 vanilla-first로 두고, 모드 확장 시스템은 내부적으로 개발하더라도 전면 기능으로 홍보하지 않는다.
 
-### Iris Right-click — Gate-0 v2.4 / PASS-then-uniqueness overlay
+* 영향: Iris는 AI식 해석 위키가 아니라, 정규화된 정적 산출물을 런타임에서 보여주는 compiler-viewer형 위키 시스템으로 유지한다.
 
-- 상태: current readpoint / code-output reconciled
-- 결정: Iris Right-click source의 current 기준은 Gate-0 v2.4 / PASS-then-uniqueness overlay / item-dependent state-change proof로 읽는다.
-- 현재 기준:
-  - Right-click source는 메뉴명이나 UI 구조가 아니라, 아이템 X를 보유했을 때만 수행 가능하고 그 수행 결과로 컨텍스트 대상의 상태 변화가 실제로 발생하는지를 본다.
-  - Gate-0의 핵심 proof는 "executing_tool + external_target + persistent_change"가 모두 성립하는가다.
-  - unknown proof는 REVIEW로 격리한다.
-  - PASS / NO / REVIEW가 primary decision이다.
-  - STRONG / WEAK는 PASS 이후 uniqueness overlay로 계산되는 보조 판정이다.
-  - Field Registry는 "decision == PASS"인 결과를 등록하며, STRONG_ONLY 필터로 WEAK를 제거하지 않는다.
-  - WEAK는 실패가 아니며, current output/runtime에 보존될 수 있다.
-  - Right-click pipeline은 "source_index_v2.4 -> evidence_candidates -> evidence_decisions -> uniqueness_overlay -> field_registry -> usecases/runtime" 계열로 읽는다.
-  - FullType 단위의 직접 실행 도구 Evidence를 기본 단위로 둔다.
-  - property-based / 조건 기반 필드는 item-by-item STRONG/WEAK 선별보다 먼저 필드 자체가 Gate-0 실행 도구 구조를 만족하는지 판정한다.
-  - 미매칭은 Evidence:NO가 아니라 scope 밖이다.
-  - REVIEW는 수동 승격 통로가 아니라 허용된 정적 근거만으로 닫히지 않은 자동 체계의 미확정 상태다.
-  - 웹/위키 기반 수동 검증은 채택하지 않고, 허용된 정적 근거와 automatic-only 결과를 사용한다.
-- Predecessor trace:
-  - "아이템이 없으면 타겟 우클릭 메뉴 항목 자체가 생성되는가"라는 좁은 메뉴 생성 기준은 강한 보수 모델이었으나 current canonical 기준이 아니다.
-  - "Strong만 canonical outcome fact 후보로 채택하고 Weak는 제외한다"는 과거 문구는 current code/output readpoint와 충돌하므로 current에서 격하한다.
-  - "can_*" capability-first 구조, 바닐라 5개 축소 구조, 메뉴명/행동명 중심 Evidence는 current 기준이 아니다.
-- 오독 금지:
-  - 이 항목은 Strong-only 파이프라인, Weak 실패 처리, capability-first 복귀, 웹/위키 수동 PASS 승격, scope 밖의 Evidence:NO 처리, 메뉴 문자열 기반 outcome 생성을 승인한 것이 아니다.
-- Trace:
-  - Gate-0 v2 predecessor: 2026-03-25
-  - current code/output readpoint: Gate-0 v2.4
-  - COMMON-EVIDENCE-TRACE.
+* 오독 금지:
+  
+  * 이 항목은 release readiness, Workshop/public exposure, public text quality acceptance, manual in-game QA, runtime mutation을 선언한 것이 아니다.
+  * 이 항목은 QG/DVF의 raw mod file parser화, 런타임 생성/판단/수정, 해석·권장·비교 기능을 승인한 것이 아니다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
-### Iris — 자동 분류 / Taxonomy / Allowlist 경계
+* Trace:
+  
+  * ledgered: 2026-03-16 ~ 2026-03-25
+  * COMMON-EVIDENCE-TRACE.
 
-- 상태: current readpoint
-- 결정: Iris 자동 분류는 Evidence Allowlist에 명시된 증거만 누적하는 인덱싱 시스템으로 둔다.
-- 현재 기준:
-  - Allowlist 밖 필드·문자열·연산·해석은 자동 분류 근거로 쓰지 않는다.
-  - 자동 분류의 근거 세계는 바닐라 scripts/client 선언 데이터까지다.
-  - Java 디컴파일로 엔진 내부 의미를 끌어와 자동 분류 근거로 쓰지 않는다.
-  - 이름 / 설명 / 표시카테고리 기반 추론, 수치 비교, 무제한 contains, 임의 태그 확장은 자동 분류 루트에 들어오지 못한다.
-  - 자동 분류가 바닐라 선언 증거로 닫히지 않으면 미분류 태그를 억지 생성하지 않고 침묵하거나 수동 오버라이드로 봉인한다.
-  - "MoveablesTag" 네임스페이스와 Item Script의 일반 "Tags"는 혼용하지 않는다.
-  - 대량 미분류 문제는 Evidence Table / DSL 부족이 아니라 대분류·소분류 설계와 phase2_rules 운영의 문제로 본다.
-  - Iris 대분류 아키텍처는 Tool / Combat / Consumable / Resource / Literature / Wearable / Furniture / Vehicle / Misc 9개 축과 경계 규칙을 기준선으로 둔다.
-  - Furniture는 Furniture.7-A 단일 소분류로 고정한다.
-  - Vehicle은 Vehicle.8-A / Vehicle.8-B 최소 2분할로 유지한다.
-  - Misc.9-A는 rule_executor가 아니라 output-stage fallback이다.
-  - Tool.1-K(Security)와 Tool.1-L(Storage)는 정식 소분류다.
-  - Tool.1-L(Storage)는 비착용 휴대 컨테이너, Wearable.6-F는 착용 가능한 배낭으로 분리한다.
-  - Consumable 3-B 음료 기준은 체감상 마시는가나 수치 비교가 아니라 Drink / Drainable 구조다.
-- 오독 금지:
-  - 이 항목은 Evidence 레이어 억지 확장, Java 내부 의미 기반 분류, 미분류 태그 생성, Furniture 재세분화, Vehicle 과분할, Resource 쓰레기통화, Wearable의 장착·휴대 확장을 승인한 것이 아니다.
-- Trace:
-  - sealed: 2026-03-23 ~ 2026-03-25
-  - COMMON-EVIDENCE-TRACE.
+Iris — Evidence / Source / Outcome 모델
 
-### Iris — 설명 / 표시 / 브라우징 정책
+* 상태: current readpoint
 
-- 상태: current readpoint
-- 결정: Iris 설명층은 문장 생성기나 요약기가 아니라, 증거와 분류가 먼저 닫힌 뒤 정적 위키 문장을 조합·표시하는 계층으로 둔다.
-- 현재 기준:
-  - 설명 출력은 기본 정보 -> 의미(주 소분류) -> 활용(레시피/상호작용) -> 메타 순서의 정보 위계 기반 출력기다.
-  - 설명란의 각 계층은 선행 계층의 필터 결과물이 아니라 독립 정보층이다.
-  - Iris 분류 데이터는 유지하되, 기본 UI에서는 전면 노출하지 않고 메타 영역에 격리한다.
-  - "primary_subcategory"는 브라우징·탐색을 위한 주 anchor이지, 설명 문장의 자동 근거로 전면 승격하지 않는다.
-  - 주 소분류 설명 문장은 모든 아이템에 기본 적용되는 자동 설명이 아니라 조건이 맞을 때만 쓰는 후보 템플릿이다.
-  - 설명 왜곡이 보이면 우선 설명 엔진 고도화가 아니라 태그 생성 정합성, Rule/Recipe predicate, 구현 일치성을 의심한다.
-  - 개별 아이템 설명은 분류/증거/Source 검증 뒤에 온다.
-  - 문서화 담당자는 분류·규칙·증거 체계를 바꾸는 사람이 아니라 이미 확정된 사실을 위키식 정적 문장으로 풀어쓰는 후행 서술자다.
-  - 개별 설명은 소분류 설명이나 레시피만으로 충분히 드러나지 않고, 실제 구현된 특별 행동/기능이 초보자에게 놓치기 쉬울 때만 필요하다.
-  - 소분류 설명은 분류 안내문이나 분류명 재진술이 아니라 실제 용도·시스템적 의미·적용 범위를 자연스러운 한국어로 풀어쓴다.
-  - 추천·효율 평가·비교는 하지 않는다.
-- UI 접기:
-  - 중복 아이템 목록 문제는 빌드 타임의 전역 기능 동등성 그룹화가 아니라 UI 목록 단계의 DisplayName 중심 접기로 처리한다.
-  - 접힌 목록 항목에는 "(xN)" 수량 배지를 붙이지 않고 개념명만 표시한다.
-  - 변형 수나 실체 차이는 상세 패널에서만 확인한다.
-- 오독 금지:
-  - 이 항목은 설명 엔진의 의미 추론 강화, 개별 설명 전수 작성, 분류 ID 삭제, 기능 동등성 빌드 그룹화, 추천/효율 평가를 승인한 것이 아니다.
-- Trace:
-  - sealed: 2026-03-16 ~ 2026-03-25
-  - COMMON-EVIDENCE-TRACE.
+* 결정: Iris가 Rule에서 소비하는 Evidence는 행동이 아니라, 그 아이템이 없으면 존재할 수 없는 normalized outcome facts로 고정한다.
 
-### Iris — Recipe / use_case / requirements / Right-click UI 통합
+* 현재 기준:
+  
+  * Evidence는 Source 자체가 아니라 Source에서 정규화된 outcome facts다.
+  * Recipe와 Right-click은 서로의 하위가 아니라 독립 Source이며, Philosophy 기준의 동급 2트랙 증거 시스템으로 유지한다.
+  * Static capability는 Recipe / Right-click과 동급인 제3 interaction track이 아니라, 비상호작용 정적 사실을 정규화하는 보조 source family로만 둔다.
+  * Iris 분류기는 Source별 rule engine이 아니라 outcome 중심 단일 Evidence 프레임을 소비한다.
+  * "open_canned_food", "stitch_wound" 같은 행동 의미형 표현은 Evidence 기본형이 아니다.
+  * "equip_back", "toggle_activate", "place_world", "fill_container", "empty_container", "transform_replace" 같은 상태형 outcome을 중심으로 둔다.
+  * Equip effect / Use only / Passive function은 기본 evidence 축으로 승격하지 않고, 필요 시 개별 설명층의 후행 정보로 처리한다.
+  * "CustomContextMenu = "Smoke"" 같은 행동 문자열 / 메뉴 문자열 / 클릭 경로를 읽어 outcome을 자동 생성하지 않는다.
 
-- 상태: current readpoint
-- 결정: Iris의 상호작용 계층은 Recipe와 Right-click을 동급 Source로 보고, use_case 단위의 구조화된 오프라인 렌더링 위키 레이어로 둔다.
-- 현재 기준:
-  - Recipe와 Right-click은 잔여 필터 관계가 아니라 동급 2트랙 증거다.
-  - 같은 아이템이 두 트랙에 동시에 걸릴 수 있다.
-  - "classification_recipe"는 중심 경로에서 내리고, "rule_id" 중심 "recipe_evidence" 체계를 표준 경로로 사용한다.
-  - PASS evidence에는 input/output 참여만 올리고, keep/require는 행동 증거로 승격하지 않는다.
-  - consumed와 keep은 role 필드로 구분하고, "recipe_evidence" source에서만 필수 필드로 둔다.
-  - DescriptionGenerator는 정적 use_case 렌더러로만 동작한다.
-  - "use_case_label_map"은 FAIL-LOUD build contract다.
-  - dynamic_recipe_expr 잔여는 PERMANENT_REVIEW 정책으로 봉인한다.
-  - recipe requirements는 recipe 단위로만 붙으며 fulltype 전체 공유 정보가 아니다.
-  - recipe requirements color layer는 상호작용 탭 안에서 requirement atom 단위 상태표시만 수행한다.
-  - Python이 kind별 check 구조를 만들고, Lua는 이를 읽어 색상만 매핑한다.
-  - color layer 결과는 다른 탭·모듈·정렬·표시 정책으로 전파하지 않는다.
-  - Right-click 계열 라인은 "line_kind = evidence | exclusion"으로 구조 분리한다.
-  - "[우클릭]" 문자열을 기존 목록에 끼워 넣고 역파싱하지 않는다.
-  - Python이 구조화 블록에서 display_text를 만들고 Lua는 렌더만 한다.
-  - UI에는 능력 기반 use_case만 올라가고, exclusion 라인은 행동 블록 후보군에서 먼저 제거된다.
-  - Iris UI는 "ISUIHandler.toggleUI"를 override하지 않고 독립 버튼과 독립 블록 구조로 통합한다.
-- 오독 금지:
-  - 이 항목은 Recipe-only / RightClick-only 잔여 필터화, Lua role 기반 텍스트 보정, Requirements와 Actions 혼합, 레시피 전체 SAT/UNSAT 추천·정렬·숨김 UI, Right-click 문자열 역파싱, exclusion 라인의 UI 행동 근거화를 승인한 것이 아니다.
-- Trace:
-  - sealed: 2026-03-25
-  - COMMON-EVIDENCE-TRACE.
+* Context Outcome 추출기:
+  
+  * Context Outcome 추출기는 의미 해석기나 분류기가 아니라, 동결된 outcome contract가 이미 허용한 outcome만 생성하는 오프라인 사실 테이블 생성기다.
+  * 파이프라인은 "스캐너 -> IR(signal only) -> 매퍼(Signal -> Outcome) -> 수동 주입기 -> 검증기 -> 진단기" 경계로 둔다.
+  * Context Outcome 추출기는 Iris Core 바깥의 외부 공급자이며, Iris Core와 Description은 동결된 결과만 소비한다.
+  * Fail-loud 사유는 Allowlist 밖 Outcome / 비결정성 / 출력 포맷 위반 / authority outcome contract identity mismatch로 제한한다.
+  * 금지 토큰 탐지, 비권한 보조 문서 SHA 불일치, "smoke_item" 자동 경로 탐지 같은 위험 신호는 숨기지 않되 진단으로만 남긴다.
+  * "smoke_item"은 자동 추출기의 기본 산출 대상이 아니며, 지정된 수동 주입 모듈만이 유일한 진입점이다.
+  * Fixing과 Moveables의 역인덱스·도구 정의는 기존 evidence / predicate 경로에 남기고 Context Outcome으로 승격하지 않는다.
 
-### Iris DVF 3-3 — current authority / production contract
+* 오독 금지:
+  
+  * 이 항목은 행동명 기반 Evidence 생성, 메뉴 문자열 기반 outcome 생성, Right-click의 Recipe 하위화, Static capability의 제3 동급 interaction track화, Source별 Rule 이원화, Iris 내부 추론·재판정, 설명 엔진 고도화, 입력 스키마 전면 개편을 승인한 것이 아니다.
+  * 이 항목은 런타임 Lua 생성·판단·수정, source / rendered / runtime / package mutation, release readiness, public exposure를 승인한 것이 아니다.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
+* Trace:
+  
+  * sealed: 2026-03-24 ~ 2026-03-25
+  * COMMON-EVIDENCE-TRACE.
+
+Iris Right-click — Gate-0 v2.4 / PASS-then-uniqueness overlay
+
+* 상태: current readpoint / code-output reconciled
+
+* 결정: Iris Right-click source의 current 기준은 Gate-0 v2.4 / PASS-then-uniqueness overlay / item-dependent state-change proof로 읽는다.
+
+* 현재 기준:
+  
+  * Right-click source는 메뉴명이나 UI 구조가 아니라, 아이템 X가 실행 도구로 결합될 때만 수행 가능하고 그 수행 결과로 컨텍스트 대상의 상태 변화가 실제로 발생하는지를 본다.
+  * Gate-0의 핵심 proof는 "executing_tool + external_target + persistent_change"가 모두 성립하는가다.
+  * 여기서 "persistent_change"는 메뉴 표시나 클릭 경로가 아니라 target / world / container / character 쪽의 관찰 가능한 outcome state change로 읽는다.
+  * PASS / NO / REVIEW가 primary decision이다.
+  * STRONG / WEAK는 PASS 이후 uniqueness overlay로 계산되는 보조 판정이다.
+  * WEAK는 실패가 아니며, PASS evidence의 uniqueness가 약하다는 뜻으로만 읽는다.
+  * Field Registry는 "decision == PASS"인 결과를 등록하며, STRONG_ONLY 필터로 WEAK를 제거하지 않는다.
+  * WEAK는 current compiled output과 sealed runtime-consumer payload surface에 보존될 수 있다.
+  * FullType 단위의 직접 실행 도구 Evidence를 기본 단위로 둔다.
+  * property-based / 조건 기반 필드는 item-by-item STRONG/WEAK 선별보다 먼저 필드 자체가 Gate-0 실행 도구 구조를 만족하는지 판정한다.
+  * 미매칭은 Evidence:NO가 아니라 scope 밖이다.
+  * REVIEW는 수동 승격 통로가 아니라 허용된 정적 근거만으로 닫히지 않은 자동 체계의 미확정 상태다.
+  * 웹/위키 기반 수동 검증은 채택하지 않고, 허용된 정적 근거와 automatic-only 결과를 사용한다.
+
+* Predecessor trace:
+  
+  * 2026-03-25 Gate-0 v2 predecessor: “아이템이 없으면 타겟 우클릭 메뉴 항목 자체가 생성되는가”라는 좁은 메뉴 생성 기준은 강한 보수 모델이었으나 current canonical 기준이 아니다.
+  * “Strong만 canonical outcome fact 후보로 채택하고 Weak는 제외한다”는 과거 문구는 current code/output readpoint와 충돌하므로 current에서 격하한다.
+  * "can_*" capability-first 구조, 바닐라 5개 축소 구조, 메뉴명/행동명 중심 Evidence는 current 기준이 아니다.
+
+* 오독 금지:
+  
+  * 이 항목은 Strong-only 파이프라인, Weak 실패 처리, capability-first 복귀, 웹/위키 수동 PASS 승격, scope 밖의 Evidence:NO 처리, 메뉴 문자열 기반 outcome 생성을 승인한 것이 아니다.
+  * 이 항목은 runtime Lua 재판정, runtime proof generation, source / rendered / runtime / package mutation, release readiness, public exposure를 승인한 것이 아니다.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
+* Trace: COMMON-EVIDENCE-TRACE.
+
+Iris — 자동 분류 / Taxonomy / Allowlist 경계
+
+* 상태: current readpoint
+
+* 결정: Iris 자동 분류는 Evidence Allowlist에 명시된 normalized evidence만 누적하는 인덱싱 시스템으로 둔다.
+
+* 현재 기준:
+  
+  * Allowlist 밖 필드·문자열·연산·해석은 자동 분류 근거로 쓰지 않는다.
+  * vanilla-first current baseline에서 자동 분류의 근거 세계는 바닐라 scripts/client 선언 데이터와 그로부터 허용된 정규화 Evidence까지다.
+  * 외부 모드 데이터는 별도 adapter/compiler를 거쳐 내부 Iris 표준 산출물로 정규화된 뒤에만 소비할 수 있으며, raw mod file이나 임의 문자열을 자동 분류 근거로 직접 소비하지 않는다.
+  * Java 디컴파일로 엔진 내부 의미를 끌어와 자동 분류 근거로 쓰지 않는다.
+  * 이름 / 설명 / 표시카테고리 기반 추론, 수치 비교, 무제한 contains, 임의 태그 확장은 자동 분류 루트에 들어오지 못한다.
+  * 자동 분류가 허용된 선언 증거로 닫히지 않으면 미분류 태그를 억지 생성하지 않고 침묵하거나 수동 오버라이드로 봉인한다.
+  * "MoveablesTag" 네임스페이스와 Item Script의 일반 "Tags"는 혼용하지 않는다.
+  * current readpoint에서 대량 미분류 문제는 Evidence Table / DSL 부족을 먼저 의심하지 않고, 대분류·소분류 설계와 "phase2_rules" 운영 문제로 우선 판독한다.
+  * Iris 대분류 아키텍처는 Tool / Combat / Consumable / Resource / Literature / Wearable / Furniture / Vehicle / Misc 9개 축과 경계 규칙을 기준선으로 둔다.
+  * Furniture는 "Furniture.7-A" 단일 소분류로 고정한다.
+  * Vehicle은 "Vehicle.8-A / Vehicle.8-B" 2분할 기준선으로 유지하며, 별도 decision 없이 추가 과분할하지 않는다.
+  * "Misc.9-A"는 "rule_executor"가 아니라 output-stage fallback이다.
+  * "Tool.1-K(Security)"와 "Tool.1-L(Storage)"는 정식 소분류다.
+  * "Tool.1-L(Storage)"는 비착용 휴대 컨테이너, "Wearable.6-F"는 착용 가능한 배낭으로 분리한다.
+  * "Consumable.3-B" 음료 기준은 체감상 마시는가나 수치 비교가 아니라 Drink / Drainable 선언 구조다.
+
+* 오독 금지:
+  
+  * 이 항목은 Evidence 레이어 억지 확장, Java 내부 의미 기반 분류, 이름/설명/표시카테고리 기반 추론, 미분류 태그 생성, raw mod file 직접 분류, Furniture 재세분화, Vehicle 과분할, Resource 쓰레기통화, Wearable의 장착·휴대 확장을 승인한 것이 아니다.
+  * 이 항목은 runtime Lua 추론·재판정, source / rendered / runtime / package mutation, release readiness, public exposure를 승인한 것이 아니다.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
+* Trace:
+  
+  * sealed: 2026-03-23 ~ 2026-03-25
+  * COMMON-EVIDENCE-TRACE.
+
+Iris — 설명 / 표시 / 브라우징 정책
+
+* 상태: current readpoint
+
+* 결정: Iris 설명층은 문장 생성기나 요약기가 아니라, 증거와 분류가 먼저 닫힌 뒤 정적 위키 문장을 조합·표시하는 계층으로 둔다.
+
+* 현재 기준:
+  
+  * 설명 출력은 기본 정보 -> 의미(주 소분류) -> 개별 설명(조건부) -> 활용(레시피/상호작용) -> 메타 순서의 정보 위계 기반 출력기다.
+  * 설명란의 각 계층은 선행 계층의 필터 결과물이 아니라 독립 정보층이다.
+  * 대분류 / 소분류 / 아이템 목록은 브라우징 anchor로 유지한다.
+  * 분류 ID, predicate, 내부 판정 근거, debug성 taxonomy metadata는 기본 설명 UI에 전면 노출하지 않고 메타 영역에 격리한다.
+  * "primary_subcategory"는 브라우징·탐색을 위한 주 anchor이지, 설명 문장의 자동 근거로 전면 승격하지 않는다.
+  * 주 소분류 설명 문장은 모든 아이템에 기본 적용되는 자동 설명이 아니라 조건이 맞을 때만 쓰는 후보 템플릿이다.
+  * 설명 왜곡이 보이면 우선 설명 엔진 고도화가 아니라 태그 생성 정합성, Rule / Recipe / Right-click predicate, Source 검증, 구현 일치성을 의심한다.
+  * 개별 아이템 설명은 분류 / 증거 / Source 검증 뒤에 온다.
+  * 문서화 담당자는 분류·규칙·증거 체계를 바꾸는 사람이 아니라 이미 확정된 사실을 위키식 정적 문장으로 풀어쓰는 후행 서술자다.
+  * 개별 설명은 소분류 설명이나 레시피 / 상호작용 정보만으로 충분히 드러나지 않고, 실제 구현된 특별 행동이나 기능이 초보자에게 놓치기 쉬울 때만 필요하다.
+  * 소분류 설명은 분류 안내문이나 분류명 재진술이 아니라 실제 용도·시스템적 의미·적용 범위를 자연스러운 한국어로 풀어쓴다.
+  * 추천·효율 평가·비교는 하지 않는다.
+
+* UI 접기:
+  
+  * 중복 아이템 목록 문제는 빌드 타임의 전역 기능 동등성 그룹화가 아니라 UI 목록 단계의 DisplayName 중심 접기로 처리한다.
+  * DisplayName 접기는 presentation-only folding이며, FullType identity, Source evidence, rendered authority, runtime payload identity를 병합하지 않는다.
+  * 접힌 목록 항목에는 "(xN)" 수량 배지를 붙이지 않고 개념명만 표시한다.
+  * 변형 수, FullType 차이, 실제 기능 차이는 상세 패널에서만 확인한다.
+
+* 오독 금지:
+  
+  * 이 항목은 설명 엔진의 의미 추론 강화, 개별 설명 전수 작성, 분류 ID 삭제, 기능 동등성 빌드 그룹화, FullType 병합, Source / Evidence 병합, 추천/효율 평가/비교를 승인한 것이 아니다.
+  * 이 항목은 runtime Lua의 설명 재판정, source / rendered / runtime / package mutation, public-facing text quality acceptance, release readiness, public exposure를 승인한 것이 아니다.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
+* Trace:
+  
+  * sealed: 2026-03-16 ~ 2026-03-25
+  * COMMON-EVIDENCE-TRACE.
+
+Iris — Recipe / use_case / requirements / Right-click UI 통합
+
+* 상태: current readpoint
+
+* 결정: Iris의 상호작용 계층은 Recipe와 Right-click을 동급 Source로 보고, use_case 단위의 구조화된 오프라인 렌더링 위키 레이어로 둔다.
+
+* 현재 기준:
+  
+  * Recipe와 Right-click은 잔여 필터 관계가 아니라 동급 2트랙 증거다.
+  * 같은 아이템이 두 트랙에 동시에 걸릴 수 있다.
+  * "classification_recipe"는 중심 경로에서 내리고, "rule_id" 중심 "recipe_evidence" 체계를 표준 경로로 사용한다.
+  * PASS evidence에는 input / output 참여만 올리고, keep / require는 행동 Evidence로 승격하지 않는다.
+  * keep / require는 행동 증거가 아니라 recipe 단위 requirement / role 표시 정보로만 소비한다.
+  * consumed와 keep은 role 필드로 구분하고, "recipe_evidence" source에서만 필수 필드로 둔다.
+  * DescriptionGenerator는 런타임 문장 생성기나 의미 보정기가 아니라, 오프라인에서 닫힌 구조화 use_case block을 정적 표시문으로 렌더링하는 계층이다.
+  * "use_case_label_map"은 FAIL-LOUD build contract다.
+  * dynamic_recipe_expr 잔여는 PERMANENT_REVIEW 정책으로 봉인한다.
+  * recipe requirements는 recipe 단위로만 붙으며 fulltype 전체 공유 정보가 아니다.
+  * recipe requirements color layer는 상호작용 탭 안에서 requirement atom 단위 상태표시만 수행한다.
+  * Python이 kind별 check 구조를 만들고, Lua는 이를 읽어 색상만 매핑한다.
+  * color layer 결과는 다른 탭·모듈·정렬·표시 정책으로 전파하지 않는다.
+  * Right-click 계열 라인은 "line_kind = evidence | exclusion"으로 구조 분리한다.
+  * "[우클릭]" 문자열을 기존 목록에 끼워 넣고 역파싱하지 않는다.
+  * Python이 구조화 블록에서 "display_text"를 만들고 Lua는 렌더만 한다.
+  * UI에는 PASS evidence 기반 use_case만 올라가고, exclusion 라인은 행동 블록 후보군에서 먼저 제거된다.
+  * Iris UI는 "ISUIHandler.toggleUI"를 override하지 않고, 기존 UI 핸들러 전역 변경 없이 독립 버튼과 독립 블록 구조로 통합한다.
+
+* 오독 금지:
+  
+  * 이 항목은 Recipe-only / RightClick-only 잔여 필터화, capability-first 복귀, Lua role 기반 텍스트 보정, Requirements와 Actions 혼합, keep / require의 행동 Evidence 승격, 레시피 전체 SAT/UNSAT 추천·정렬·숨김 UI, Right-click 문자열 역파싱, exclusion 라인의 UI 행동 근거화를 승인한 것이 아니다.
+  * 이 항목은 runtime Lua의 use_case 재판정, 런타임 문장 생성, source / rendered / runtime / package mutation, release readiness, public exposure를 승인한 것이 아니다.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
+* Trace:
+  
+  * sealed: 2026-03-25
+  * COMMON-EVIDENCE-TRACE.
+
+Iris DVF 3-3 — current authority / production contract
 
 * 상태: current readpoint / successor current authority sealed / production contract consolidated
-* 결정: DVF 3-3의 current authority는 legacy manual registry / T-Gate / active-silent 모델이 아니라, `facts -> decisions -> compose -> rendered -> Lua bridge -> chunk runtime data`로 이어지는 successor chain으로 고정한다.
+
+* 결정: DVF 3-3의 current authority는 legacy manual registry / T-Gate / active-silent 모델이 아니라, "facts -> decisions -> compose -> rendered -> Lua bridge -> chunk runtime data"로 이어지는 successor chain으로 고정한다.
+
 * 현재 기준:
+  
+  * DVF 3-3은 runtime Lua에서 본문을 생성하거나 판단하는 시스템이 아니라, approved facts / decisions / profile / body_plan을 소비해 오프라인에서 3-3 item body를 결정론적으로 생성·검증하는 production contract로 읽는다.
+  * current source authority는 successor facts / decisions / overlay / input manifest 계열을 통해 소비한다.
+  * rendered authority는 오프라인 compose 결과이며, 런타임 Lua의 판단 결과가 아니다.
+  * runtime consumer payload authority는 "IrisLayer3DataChunks.lua" manifest와 "IrisLayer3DataChunks/*.lua" chunk files 단일 bundle이다.
+  * legacy manual registry / T-Gate / active-silent vocabulary는 current writer / validator / runtime vocabulary가 아니라 historical / diagnostic / import alias로만 남긴다.
+  * "adopted / unadopted"는 current runtime vocabulary일 뿐 quality-pass, publish_state, deletion, suppression 의미가 아니다.
+  * manifest-derived "2105"는 sealed successor entry count로만 허용되며, predecessor hard gate 숫자 치환으로 읽지 않는다.
+  * 이 seal 이후 prior current readpoint 복원은 새 additive rollback 또는 correction plan 없이는 허용하지 않는다.
+  * later required-validation gate, runtime payload residual seal, denominator / terminal disposition governance, Core / Registry boundary gate, live migration readiness authorization은 이 current authority seal에 흡수되지 않는 별도 decision family다.
 
-  * current source chain은 `data/dvf_3_3_input_manifest.json -> data/dvf_3_3_facts.jsonl -> data/dvf_3_3_decisions.jsonl -> data/dvf_3_3_overlay_support.jsonl`이다.
-  * `data/dvf_3_3_overlay_support.jsonl`은 `compose_support_not_source_authority` 역할이며 source authority가 아니다.
-  * current rendered authority는 `output/dvf_3_3_rendered.json`이다.
-  * runtime deployable authority는 `IrisLayer3DataChunks.lua` manifest와 `IrisLayer3DataChunks/*.lua` chunk files 단일 bundle이다.
-  * `IrisLayer3Data.lua` monolith는 current runtime authority로 복귀하지 않는다.
-  * current DVF 3-3 계약 표면은 `docs/dvf_contract_current_reseal.md`다.
-  * `body-plan v2`는 별도 권한면이 아니라 `compose_profiles_v2.json + body_plan` 구현 표면의 alias label이다.
-  * current runtime vocabulary는 `adopted / unadopted`이며, legacy `active / silent`는 historical / diagnostic / import alias로만 남긴다.
-  * runtime은 sealed Lua payload를 렌더링만 하며, compose / repair / source validation / semantic quality judgment / publish policy 판단을 수행하지 않는다.
-  * Browser / Wiki / Tooltip은 quality 판단을 badge, copy, sorting, filtering, hiding, recommendation, trust/confidence 표시로 소비하지 않는다.
-  * Layer 3-3 DVF는 수동 문장 묶음이 아니라 `facts -> decisions -> compose -> rendered -> Lua bridge -> chunk manifest + chunk files`로 이어지는 오프라인 생산 파이프라인이다.
-  * `compose_layer3_text.py`는 본문 조합의 중심 경로다.
-  * `export_dvf_3_3_lua_bridge.py`는 rendered 산출물을 Iris 소비자 표면으로 넘기는 정적 export 경로다.
-  * 런타임 Lua는 본문 생성 논리를 맡지 않는다.
-  * facts와 decisions는 별도 JSONL 파일로 분리한다.
-  * 본문 조합은 sentence_plan 블록 단위로 수행한다.
-  * DVF 입력은 facts / decisions / profiles로 고정하고, 산출물은 rendered 계열로 둔다.
-  * decisions validator는 rendered를 보지 않는다.
-  * 3계층 본문의 줄바꿈은 compose-time이나 Lua bridge 단계가 아니라 UI 표시 직전 render-time formatting으로만 처리한다.
-  * Phase D는 별도 stub UI가 아니라 기존 Iris 소비자(`IrisWikiSections.lua`, `IrisBrowser.lua`, `IrisWikiPanel.lua`)에 Layer 3를 연결하는 production runtime 통합 경로다.
-  * acquisition / style / body-role 계열은 facts 재판정이 아니라 compose / post-compose / decisions overlay / validator-gated production flow 안에서 처리한다.
-  * `acquisition_hint`는 삭제되지 않지만 선두를 차지하지 않으며, 3-3의 중심은 아이템 자기 시점의 용도 본문이다.
-  * style normalization은 facts 재판정이 아니라 post-compose surface layer다.
-  * body-role 개편은 facts 슬롯 확장이 아니라 decisions overlay로 처리한다.
-  * `quality_flag`는 rendered 진단 메타데이터일 뿐 상태 축으로 승격하지 않는다.
-  * historical runtime의 `active / silent`는 semantic quality가 아니라 `primary_use` output availability 기준의 predecessor vocabulary로만 읽는다.
 * 최소 결과 trace:
+  
+  * authority-surface promotion / rendered regeneration / successor runtime payload replacement / consumer migration evidence / final chain validation: "PASS"
+  * sealed successor count: "2105 entries"
+  * runtime successor bundle: "11 chunks"
+  * cutover-seal route contract: "98 tests / closure_enforced true / required validations PASS"
+  * later current-route test counts는 별도 required-validation / boundary gate readpoint에서 읽는다.
 
-  * current authority reconciliation inventory: `50 surfaces / classified 50 / unclassified 0`
-  * stale current-FINAL surfaces: `0`
-  * lexical disposition coverage: `T-Gate 112/112, manual registry 95/95, active-silent 876/876`
-  * legacy active/silent current-surface guard: `pass / hard_fail 0 / unclassified 0`
-  * source promotion / rendered regeneration / runtime replacement / consumer migration / final chain validation / current route contract: `PASS`
-  * sealed successor count: `2105 entries`
-  * runtime successor bundle: `11 chunks`
-  * current route contract at cutover seal: `98 tests / closure_enforced true / required validations PASS`
-  * full pytest / package route / Lua syntax / external validation bundle: `PASS`
-  * predecessor runtime/status trace: `2105 rows / active 2084 / silent 21 / residual hold inventory 34 / manual validation pass_with_note`
-  * 세부 command와 산출물은 `COMMON-EVIDENCE-TRACE`로 흡수한다.
 * 후속 input artifact:
+  
+  * runtime consumer payload authority: "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+  * runtime chunk directory: "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/*.lua"
+  * current regeneration manifest: "Iris/build/description/v2/data/dvf_3_3_input_manifest.json"
+  * live required-validation manifest: "Iris/_docs/round3/current_route_required_validations.json"
 
-  * current surface: `docs/dvf_contract_current_reseal.md`
-  * inventory: `docs/dvf_current_authority_inventory.json`
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/`
-  * plan: `docs/dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration_plan.md`
-  * ledger packet: `docs/dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/final_current_authority_cutover_report.json`
 * 오독 금지:
-
+  
   * 이 항목은 runtime Lua 본문 생성, 수동 문장 저장소, separate demo/stub UI, Lua bridge payload 임의 변경, rendered-Lua 일치 기준 완화를 승인한 것이 아니다.
   * 이 항목은 acquisition 삭제, facts 재판정, postproc 기반 표면형 땜질, acquisition-led 본문화, style linter hard gate 승격, body-role facts 확장, runtime-side repair opening을 승인한 것이 아니다.
   * 이 항목은 package release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game validation, semantic quality completion, public-facing text quality acceptance를 승인한 것이 아니다.
-  * manifest-derived `2105`는 sealed successor entry count로만 허용되며, predecessor hard gate 숫자 치환으로 읽지 않는다.
-  * 이 seal 이후 prior current readpoint 복원은 새 additive rollback 또는 correction plan 없이는 허용하지 않는다.
   * COMMON-RELEASE-NONDECISION.
   * COMMON-RUNTIME-SURFACE-NONMUTATION.
-* Predecessor trace:
 
-  * production pipeline sealed: 2026-03-25 ~ 2026-03-28
-  * acquisition / style / body-role rules sealed: 2026-03-25 ~ 2026-04-05
-  * runtime/status closeout trace closed: 2026-03-28 ~ 2026-04-02
-  * current authority reconciliation sealed: 2026-06-12
-  * successor current authority cutover sealed: 2026-06-19
-  * predecessor `2105 / 2084 / 21` baseline은 복구 대상 current authority가 아니라 historical / comparison / migration input이다.
+* Trace: COMMON-EVIDENCE-TRACE.
 
-### Iris DVF 3-3 — predecessor / prerequisite evidence chain
+Iris DVF 3-3 — predecessor / prerequisite evidence chain
 
-* 상태: predecessor evidence chain / consumed by current authority cutover seal
+* 상태: predecessor evidence chain / consumed by successor current authority cutover seal
+
 * 결정: Layer3 reconstruction, 2105 baseline consumption audit, vNext pre-cutover authority evidence, consumer migration input normalization, cutover tooling readiness는 current authority 자체가 아니라 successor current authority seal을 가능하게 한 prerequisite / predecessor chain으로 보존한다.
-* 현재 기준:
 
-  * 2026-06-12 reconstruction checkout은 2105-key source universe 일부를 제공했지만, sealed full body-plan v2 source path에서 current runtime chunk text를 결정론적으로 재생성할 수 있는 current 입력 세트를 제공하지 못했다.
+* 현재 기준:
+  
+  * 이 항목의 산출물은 successor current authority의 source / rendered / runtime / package authority가 아니다.
+  * 2026-06-12 reconstruction checkout은 2105-key source universe 일부를 제공했지만, sealed full body-plan v2 source path에서 current runtime chunk text를 결정론적으로 재생성할 current 입력 세트를 제공하지 못했다.
   * reconstruction readpoint는 current source authority가 아니라 후속 vNext current authority 작업의 predecessor failure / scope boundary trace로 읽는다.
-  * 6-entry `data/dvf_3_3_facts.jsonl`, `data/dvf_3_3_decisions.jsonl`, `output/dvf_3_3_rendered.json`은 full-scale reconstruction authority가 아니라 fixture / non-authority로 남긴다.
-  * `canonical rendered output promotion status = INELIGIBLE`은 partial reconstruction output의 current 승격 금지 근거로 유지한다.
-  * `2105 / 2084 / 21` 및 legacy/current vocabulary 소비처는 2105 baseline consumption audit에서 occurrence 단위로 분류됐으며, 후속 vNext migration / denominator lock / terminal disposition 계열은 이 audit ledger를 read-only 입력으로 삼는다.
-  * `active / silent`는 current writer / validator / runtime payload vocabulary가 아니라 historical / diagnostic / import alias로만 읽는다.
-  * `adopted / unadopted`는 current runtime vocabulary일 뿐 quality-pass, publish_state, deletion, suppression 의미로 승격하지 않는다.
-  * vNext는 frozen `2105 / 2084 / 21` 복구가 아니라 successor authority model이다.
-  * `vNext-CAB`는 cutover 전 roadmap / authority-model label이며 actual sealed baseline identity가 아니다.
+  * 6-entry "data/dvf_3_3_facts.jsonl", "data/dvf_3_3_decisions.jsonl", "output/dvf_3_3_rendered.json"은 full-scale reconstruction authority가 아니라 fixture / non-authority로 남긴다.
+  * "canonical rendered output promotion status = INELIGIBLE"은 partial reconstruction output의 current 승격 금지 근거로 유지한다.
+  * "2105 / 2084 / 21" 및 legacy/current vocabulary 소비처는 2105 baseline consumption audit에서 occurrence 단위로 분류됐으며, 후속 vNext migration / denominator lock / terminal disposition 계열은 이 audit ledger를 read-only input으로 삼는다.
+  * vNext는 frozen "2105 / 2084 / 21" 복구가 아니라 successor authority model이다.
+  * "vNext-CAB"는 cutover 전 roadmap / authority-model label이며 actual sealed baseline identity가 아니다.
   * runtime-derived seed는 non-authority bootstrap material이며 source / facts / decisions / rendered / bridge / chunks / ledger authority가 될 수 없다.
   * staging execution Phase 0-11 산출물은 staging evidence이며 canonical current data / output / runtime payload가 아니다.
+  * approved delta manifest, corrected approved manifest, staging rendered output, staging Lua bridge, staging chunks, dry-run output은 bootstrap / staging / provenance evidence이며 deployable current authority가 아니다.
   * regeneration parity는 frozen 2105 복구 증명이 아니라 vNext successor candidate와 predecessor runtime의 delta 측정이다.
-  * rejected delta correction / re-parity는 `108 rejected` blocker를 `54` key의 state alignment 문제로 해소하고, corrected staging input에서 cutover input usability를 회복한 prerequisite gate다.
-  * raw audit index, raw migration matrix, dry-run output은 read-only provenance이며 downstream direct entrypoint는 `phase6/consumer_migration_reconciled_input_manifest.json`이다.
-  * `change-required 311`은 executor-safe input contract 안에서 `actual_apply_eligible 163 / no_op 148`로 정규화됐다.
+  * rejected delta correction / re-parity는 "108 rejected" blocker를 "54" key의 state alignment 문제로 해소하고, corrected staging input에서 cutover input usability를 회복한 prerequisite gate다.
+  * raw audit index, raw migration matrix, dry-run output은 read-only provenance이며 downstream direct entrypoint는 "phase6/consumer_migration_reconciled_input_manifest.json"이다.
+  * "change-required 311"은 executor-safe input contract 안에서 "actual_apply_eligible 163 / no_op 148"로 정규화됐다.
   * consumer migration executor는 sandbox copy에서만 apply evidence를 만들고, main repo / live current authority surface를 변경하지 않는다.
-  * current-route tooling allowlist cap은 `1`, current core closure는 `12`로 유지하며 새 tools는 자동 allowlist 편입 대상이 아니다.
+  * current-route tooling allowlist cap은 "1", current core closure는 "12"로 유지하며 새 tools는 자동 allowlist 편입 대상이 아니다.
+
 * 최소 결과 trace:
+  
+  * reconstruction: "B4_mixed_partial / partial / L0 PASS / L1-L3 FAIL"
+  * 2105 audit: "198815 raw occurrence rows / 27869 accepted / executing consumers 1062 / Gate A PASS / Gate B PASS / validation PASS"
+  * migration disposition input: "311 change-required / 27558 change-forbidden / ambiguous 0"
+  * vNext staging / parity: "PASS / predecessor 2105 / vNext 2105 / missing 0 / additional 0 / determinism PASS / Lua bridge 2105 entries / 11 chunks / protected surface changed_count 0"
+  * initial delta disposition: "2125 total / 2017 approved / 0 deferred / 108 rejected / cutover_input_usable=false"
+  * rejected correction / re-parity: "54 rejected keys corrected / state deltas 0 / approved 2071 / rejected 0 / cutover_input_usable=true"
+  * normalization: "PASS / 311 rows / actual_apply_eligible 163 / no_op 148 / missing path rows 125 / missing apply-eligible 0"
+  * tooling readiness: "PASS / mapped families 6 / unmapped 0 / mirror apply-restore probe PASS"
+  * sandbox diff-to-ledger: "311 rows / 163 sandbox apply-eligible rows / 148 non-apply rows / mapped 163 / unmapped 0 / orphan 0"
+  * protected surface no-mutation: "PASS / changed_count 0"
 
-  * reconstruction provenance branch: `B4_mixed_partial`
-  * reconstruction closeout state: `partial`
-  * reconstruction parity: `L0 PASS / L1 FAIL / L2 FAIL / L3 FAIL`
-  * 2105 audit occurrence rows: `198815 raw / 27869 accepted`
-  * 2105 audit executing consumer count: `1062`
-  * 2105 audit migration disposition input: `311 change-required / 27558 change-forbidden / ambiguous 0`
-  * 2105 audit validation: `Gate A PASS / Gate B PASS / validation PASS`
-  * vNext staging execution contract: `PASS / Lua bridge 2105 entries / 11 chunks / protected surface changed_count 0`
-  * vNext regeneration parity: `predecessor 2105 / vNext 2105 / missing 0 / additional 0 / determinism PASS`
-  * initial delta disposition: `2125 total / 2017 approved / 0 deferred / 108 rejected / cutover_input_usable=false`
-  * rejected correction / re-parity: `54 rejected keys corrected / state deltas 0 / approved 2071 / rejected 0 / cutover_input_usable=true`
-  * normalization contract: `PASS / 311 rows / actual_apply_eligible 163 / no_op 148`
-  * missing path rows / missing apply-eligible: `125 / 0`
-  * tooling readiness contract: `PASS`
-  * command surface mapping: `PASS / mapped families 6 / unmapped 0`
-  * runtime mirror apply / restore probe: `PASS`
-  * row-level migration ledger: `311 rows / 163 mutation rows / 148 non-apply rows`
-  * actual diff-to-ledger: `PASS / mapped 163 / unmapped 0 / orphan 0`
-  * protected surface no-mutation: `PASS / changed_count 0`
-  * 세부 command matrix, focused tests, package route, Lua syntax route는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
 * 후속 input artifact:
+  
+  * required validation manifest: "Iris/_docs/round3/current_route_required_validations.json"
+  * reconciled manifest: "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/consumer_migration_reconciled_input_manifest.json"
+  * row disposition bridge: "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl"
+  * tooling compatibility manifest: "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/tool_contract_compatibility_manifest.json"
+  * tooling final report: "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/final_tooling_readiness_contract_report.json"
+  * reconstruction scope: "docs/layer3-current-authority-reconstruction-scope-lock.md"
+  * reconstruction provenance: "docs/layer3_current_authority_reconstruction_provenance.json"
+  * reconstruction parity: "Iris/build/description/v2/staging/layer3_current_authority_reconstruction/rendered_runtime_equivalence.json"
+  * 2105 audit plan: "docs/2105_baseline_consumption_audit_plan.md"
+  * 2105 audit ledger: "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl"
+  * 2105 migration input: "Iris/build/description/v2/staging/2105_baseline_consumption_audit/change_required_index.md"
+  * vNext roadmap: "docs/dvf_3_3_vnext_current_authority_roadmap.md"
+  * vNext authority plan: "docs/dvf_3_3_vnext_current_authority_plan.md"
+  * vNext execution plan: "docs/dvf_3_3_vnext_execution_plan.md"
+  * regeneration parity plan: "docs/dvf_3_3_vnext_regeneration_parity_plan.md"
+  * delta disposition policy: "docs/dvf_3_3_vnext_delta_disposition_policy.md"
+  * guard contract: "docs/dvf_3_3_vnext_guard_seal_contract.md"
+  * current-route integration handoff: "docs/dvf_3_3_vnext_current_authority_handoff_packet.md"
+  * correction / re-parity ledger packet: "docs/dvf_3_3_vnext_rejected_delta_correction_reparity_ledger_packet.md"
 
-  * reconstruction scope: `docs/layer3-current-authority-reconstruction-scope-lock.md`
-  * reconstruction provenance: `docs/layer3_current_authority_reconstruction_provenance.json`
-  * reconstruction parity: `Iris/build/description/v2/staging/layer3_current_authority_reconstruction/rendered_runtime_equivalence.json`
-  * 2105 audit plan: `docs/2105_baseline_consumption_audit_plan.md`
-  * 2105 audit ledger: `Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl`
-  * 2105 migration input: `Iris/build/description/v2/staging/2105_baseline_consumption_audit/change_required_index.md`
-  * vNext roadmap: `docs/dvf_3_3_vnext_current_authority_roadmap.md`
-  * vNext authority plan: `docs/dvf_3_3_vnext_current_authority_plan.md`
-  * vNext execution plan: `docs/dvf_3_3_vnext_execution_plan.md`
-  * regeneration parity plan: `docs/dvf_3_3_vnext_regeneration_parity_plan.md`
-  * delta disposition policy: `docs/dvf_3_3_vnext_delta_disposition_policy.md`
-  * guard contract: `docs/dvf_3_3_vnext_guard_seal_contract.md`
-  * current-route integration handoff: `docs/dvf_3_3_vnext_current_authority_handoff_packet.md`
-  * correction / re-parity ledger packet: `docs/dvf_3_3_vnext_rejected_delta_correction_reparity_ledger_packet.md`
-  * required validation manifest: `Iris/_docs/round3/current_route_required_validations.json`
-  * reconciled manifest: `Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/consumer_migration_reconciled_input_manifest.json`
-  * row disposition bridge: `Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl`
-  * tooling compatibility manifest: `Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/tool_contract_compatibility_manifest.json`
-  * tooling final report: `Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase6/final_tooling_readiness_contract_report.json`
 * 오독 금지:
-
+  
   * 이 항목은 frozen 2105 byte-level recovery, current source authority 복원, canonical rendered promotion, successor baseline identity final seal, current cutover, live runtime chunk replacement, old chunks replacement, package readiness, release readiness, Workshop readiness, deployment readiness, manual in-game validation, public-facing text quality acceptance를 승인한 것이 아니다.
   * staging rendered output, staging Lua bridge, staging chunks, approved delta manifest, corrected approved manifest는 deployable current authority가 아니다.
-  * `parent_problem_unlock=true`는 후속 cutover 실행을 여는 prerequisite gate 값이지 parent problem 완료나 live migration execution이 아니다.
-  * `handoff_usable=true`는 downstream tooling-readiness input usability predicate이며 cutover authorization이나 migration completion이 아니다.
+  * "parent_problem_unlock=true"는 후속 cutover 실행을 여는 prerequisite gate 값이지 parent problem 완료나 live migration execution이 아니다.
+  * "handoff_usable=true"는 downstream tooling-readiness input usability predicate이며 cutover authorization이나 migration completion이 아니다.
   * consumer migration sandbox diff는 row-level tooling evidence이지 current consumer migration completion이나 live source / runtime mutation이 아니다.
   * historical / diagnostic / generated / false-positive / no-op rows는 별도 승인 없이 current migration 대상으로 승격하지 않는다.
+  * 이 항목은 successor current authority cutover seal의 prerequisite chain일 뿐, denominator / terminal disposition governance, shared disposition guard, closeout / reentry guard, required-evidence integrity closure, Core / Registry boundary gate를 대체하지 않는다.
   * COMMON-RELEASE-NONDECISION.
   * COMMON-RUNTIME-SURFACE-NONMUTATION.
-* Predecessor trace:
 
+* Predecessor trace:
+  
   * current authority reconstruction negative readpoint: 2026-06-12
   * 2105 baseline consumption audit ledger sealed: 2026-06-12
   * vNext authority model definition: 2026-06-13
@@ -1031,903 +1065,758 @@
   * consumer migration input normalization: 2026-06-18
   * cutover tooling readiness: 2026-06-18
   * actual current authority adoption, live runtime replacement, old chunk replacement, 2105 consumer migration completion은 successor current authority cutover seal이 우선한다.
+  * COMMON-EVIDENCE-TRACE.
 
-### Iris DVF 3-3 — runtime payload / write / export / artifact boundary
+Iris DVF 3-3 — runtime payload / write / export / artifact boundary
 
-* 상태: current guard family / write-export-artifact boundary sealed where specified / stale bridge review pending
-* 결정: DVF 3-3 current authority 표면은 runtime payload shape, compose write boundary, Lua bridge export contract, stale artifact quarantine, VCS tracking policy를 통해 historical / staging / diagnostic / stale artifact가 current source / rendered / runtime / package authority로 재유입하지 못하게 한다.
+* 상태: current guard family / runtime payload residual seal complete / write-export-artifact boundary sealed / predecessor-stale reentry guard adopted / governance-only
+
+* 결정: DVF 3-3 current authority 표면은 runtime payload shape, residual seal, compose write boundary, Lua bridge export contract, stale artifact quarantine, VCS tracking policy, predecessor / stale artifact reentry guard를 통해 historical / staging / diagnostic / stale artifact가 current source / rendered / runtime / package authority로 재유입하지 못하게 한다.
+
 * 현재 기준:
-
+  
   * current-like runtime surfaces는 live current runtime, package peer, candidate bridge를 함께 검사한다.
-  * current-compatible payload shape는 `2105` rows / unadopted `21` rows / current-like `publish_state` rows `0` / current-like forbidden or unclassified state rows `0`이다.
-  * unadopted current rows의 display text fields는 `missing` 또는 explicit `nil`이어야 한다.
-  * current-like surfaces에서는 renderer-visible `text_ko`가 모든 `unadopted` rows에서 absent이며, `publish_state`도 모든 current-like rows에서 absent다.
-  * predecessor rollback snapshot의 `unadopted + exposed + non_nil text_ko` residues `2`는 legacy-only residue로 보존하며 current runtime mutation 근거가 아니다.
-  * compose current rendered output 보호 경계는 CLI entrypoint가 아니라 `build_rendered()` shared write boundary다.
-  * direct `build_rendered()` 호출과 `python -m tools.build.compose_layer3_text` CLI 호출은 같은 guard를 통과해야 한다.
-  * 모든 direct `build_rendered()` write는 `compose_context`를 명시해야 하며 허용값은 `current`, `staging`, `historical`, `diagnostic`이다.
-  * current write는 `profile_class=v2_current`, current data input contract, closed protected current-output set을 모두 통과해야 한다.
-  * closed protected current-output set은 `output/dvf_3_3_rendered.json`, `output/style_normalization_changes.jsonl`, `output/compose_requeue_candidates.jsonl`이다.
+  * current-compatible payload shape는 "2105" rows / unadopted "21" rows / current-like "publish_state" rows "0" / current-like forbidden or unclassified state rows "0"이다.
+  * unadopted current rows의 display text fields는 "missing" 또는 explicit "nil"이어야 한다.
+  * current-like surfaces에서는 renderer-visible "text_ko"가 모든 "unadopted" rows에서 absent이며, "publish_state"도 모든 current-like rows에서 absent다.
+  * predecessor rollback snapshot의 "unadopted + exposed + non_nil text_ko" residue "2"건은 historical-only residue로 남기며 current debt, cleanup target, runtime mutation 근거가 아니다.
+  * Runtime Payload State Integrity Residual Seal은 payload shape guard PASS와 final residual seal PASS를 분리해서 소비하되, author-owned seal-closing decision과 round-local external review PASS가 기록되어 canonical residual seal을 닫은 것으로 본다.
+  * residual seal의 selected author option은 "explicit_no_branch_mutation_required"이며 runtime mutation이 필요 없다.
+  * compose current rendered output 보호 경계는 CLI entrypoint가 아니라 "build_rendered()" shared write boundary다.
+  * direct "build_rendered()" 호출과 "python -m tools.build.compose_layer3_text" CLI 호출은 같은 guard를 통과해야 한다.
+  * 모든 direct "build_rendered()" write는 "compose_context"를 명시해야 하며 허용값은 "current", "staging", "historical", "diagnostic"이다.
+  * current write는 "profile_class=v2_current", current data input contract, closed protected current-output set을 모두 통과해야 한다.
+  * closed protected current-output set은 "output/dvf_3_3_rendered.json", "output/style_normalization_changes.jsonl", "output/compose_requeue_candidates.jsonl"이다.
   * output root 아래의 unlisted current-equivalent write target은 fail-loud reject 대상이다.
   * legacy / partial / ambiguous / unknown compose profile은 current-equivalent output write에 사용할 수 없다.
-  * `export_dvf_3_3_lua_bridge.py`의 기본 export 계약은 monolith `IrisLayer3Data.lua`가 아니라 current chunk runtime authority를 직접 생성하는 계약으로 재정렬한다.
-  * no-arg / default exporter route는 staging output root에 `IrisLayer3DataChunks.lua` manifest, `IrisLayer3DataChunks/*.lua` chunk files, chunk-authority 기반 bridge report를 생성한다.
-  * default bridge context는 `staging`, default output format은 `chunk`다.
-  * `IrisLayer3Data.lua` monolith export는 explicit `historical` / `diagnostic` context와 explicit output path를 요구하는 side-output mode로만 남긴다.
-  * `current` / `staging` monolith export는 fail-loud reject 대상이다.
-  * root `media/lua/shared/Iris/IrisDvfBridgeData.lua` 6-entry legacy bridge artifact는 current DVF bridge authority가 아니라 `stale` artifact로 분류한다.
-  * 동일 6-entry legacy payload는 `Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition/quarantine/IrisDvfBridgeData.legacy_6_entry.lua`로만 보존한다.
-  * quarantine payload는 source authority, runtime authority, package / runtime allowlist, deployable payload가 아니다.
+  * "export_dvf_3_3_lua_bridge.py"의 기본 export 계약은 monolith "IrisLayer3Data.lua"가 아니라 chunk runtime payload shape를 생성하는 계약으로 재정렬한다.
+  * no-arg / default exporter route는 staging output root에 "IrisLayer3DataChunks.lua" manifest, "IrisLayer3DataChunks/*.lua" chunk files, chunk-authority 기반 bridge report를 생성한다.
+  * default bridge context는 "staging", default output format은 "chunk"다.
+  * default route 산출물은 current-compatible chunk-shaped staging output이며, 그 자체로 live current authority adoption / cutover / package readiness를 뜻하지 않는다.
+  * "IrisLayer3Data.lua" monolith export는 explicit "historical" / "diagnostic" context와 explicit output path를 요구하는 side-output mode로만 남긴다.
+  * "current" / "staging" monolith export는 fail-loud reject 대상이다.
+  * root "media/lua/shared/Iris/IrisDvfBridgeData.lua" 6-entry legacy bridge artifact는 current DVF bridge authority가 아니라 "stale" artifact로 분류한다.
+  * 동일 6-entry legacy payload는 "Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition/quarantine/IrisDvfBridgeData.legacy_6_entry.lua"로만 보존한다.
+  * quarantine payload는 source authority, runtime authority, package / runtime allowlist, runtime payload authority가 아니다.
   * DVF 3-3 artifact의 VCS tracking 지위는 artifact authority와 독립된 role-based policy로 관리한다.
   * tracked 여부는 authority 승격이 아니며, ignored 여부는 삭제 가능성이나 비중요성을 뜻하지 않는다.
-  * current runtime deployable authority는 `Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua` 및 `IrisLayer3DataChunks/*.lua`다.
-  * `Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py`는 `regeneration-tooling / tracked_required`로 둔다.
-  * `Iris/build/description/v2/data/dvf_3_3_input_manifest.json`은 `current_regeneration_manifest / tracked_required`로 둔다.
-  * generated output, fixture, runtime deployable output, staging evidence, historical reproduction, diagnostic advisory, stale quarantine, forbidden current-looking stale surface는 `docs/dvf_vcs_tracking_policy.md`의 artifact class / expected VCS state matrix를 따른다.
-  * Round 3 current core는 `12` modules로 유지한다.
-  * `export_dvf_3_3_lua_bridge`는 current-route bridge export 검증을 위해서만 `current_regeneration_tooling` allowlist에 들어가며, current core module로 세지 않는다.
-  * current-route tooling allowlist는 `1` module로 capped 상태이며, 확장은 별도 reviewed scope가 필요하다.
+  * current runtime consumer payload authority는 "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua" 및 "IrisLayer3DataChunks/*.lua"다.
+  * "Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py"는 "regeneration-tooling / tracked_required"로 둔다.
+  * "Iris/build/description/v2/data/dvf_3_3_input_manifest.json"은 "current_regeneration_manifest / tracked_required"로 둔다.
+  * generated output, fixture, runtime payload output, staging evidence, historical reproduction, diagnostic advisory, stale quarantine, forbidden current-looking stale surface는 "docs/dvf_vcs_tracking_policy.md"의 artifact class / expected VCS state matrix를 따른다.
+  * Round 3 current core는 "12" modules로 유지한다.
+  * "export_dvf_3_3_lua_bridge"는 current-route bridge export 검증을 위해서만 "current_regeneration_tooling" allowlist에 들어가며, current core module로 세지 않는다.
+  * current-route tooling allowlist는 "1" module로 capped 상태이며, 확장은 별도 reviewed scope가 필요하다.
+  * Predecessor / Stale Artifact Reentry Guard는 stale bridge, monolith runtime path, current-looking stale path, predecessor fixture, old 6-entry bridge, rollback snapshot, historical staging evidence를 historical / diagnostic / fixture / provenance trace로만 유지한다.
+  * predecessor evidence를 current route, release readiness, package authority, source authority, runtime authority 근거로 승격하지 않는다.
+  * package probe는 isolated output root에서만 수행하며 live package payload mutation을 만들지 않는다.
+  * docs claim scan은 negation, role-qualified historical / provenance mention, quoted prior claim을 허용하되 actual current-authority overclaim은 fail-closed로 막는다.
+
 * 최소 결과 trace:
+  
+  * current-like payload guard: "PASS / rows 2105 / unadopted 21 / publish_state rows 0 / forbidden or unclassified state rows 0"
+  * rollback residue inventory: "legacy-only / unadopted + exposed + non_nil text_ko residues 2"
+  * residual seal: "PASS / canonical_residual_seal_allowed=true / author_seal_closing_decision_complete=true / external_review_complete=true"
+  * residual seal focused unittest: "10 tests OK"
+  * current runtime collision: "closed for current-like surfaces"
+  * compose write boundary: "compose_context omissions 0 / default canonical style_log_path dependency 0 / current-historical-diagnostic route validation PASS"
+  * protected current compose set no-mutation: "PASS / unchanged"
+  * bridge export contract: "PASS / default chunk route PASS / package monolith-forbidden gate PASS"
+  * protected surface no-mutation: "PASS / changed_count 0"
+  * stale bridge disposition: "stale / quarantined_outside_current_looking_path"
+  * VCS policy focused guard: "PASS"
+  * VCS-addendum readpoint current-route closure: "PASS / 57 tests / closure_enforced true"
+  * package-route guard: "PASS"
+  * stale current-looking presence report: "PASS / violation_count 0"
+  * predecessor / stale reentry guard: "PASS"
+  * stale bridge / monolith runtime path / current-looking predecessor path violation: "0"
+  * package guard / package zip forbidden scan: "PASS / forbidden_hit_count 0"
+  * docs claim scan: "PASS / actual current-authority overclaim 0"
+  * later current-route counts는 별도 required-validation / boundary gate readpoint에서 읽는다.
 
-  * current-like payload guard: `PASS / rows 2105 / unadopted 21 / publish_state rows 0 / forbidden or unclassified state rows 0`
-  * rollback residue inventory: `legacy-only / unadopted + exposed + non_nil text_ko residues 2`
-  * current runtime collision: `closed for current-like surfaces`
-  * production / tool `compose_context` omissions: `0`
-  * default canonical `style_log_path` 의존 call: `0`
-  * current / historical / diagnostic compose route validation: `PASS`
-  * protected current compose set no-mutation: `PASS / unchanged`
-  * bridge export contract validation: `PASS`
-  * default / chunk route validation: `PASS`
-  * package monolith-forbidden gate: `PASS`
-  * protected surface no-mutation: `PASS / changed_count 0`
-  * stale bridge classification: `stale`
-  * stale bridge disposition: `quarantined_outside_current_looking_path`
-  * stale bridge independent review gate: `review_pending`
-  * VCS policy focused guard: `PASS`
-  * current route closure after VCS addendum: `PASS / 57 tests / closure_enforced true`
-  * package route: `PASS`
-  * stale current-looking presence report: `PASS / violation_count 0`
-  * package zip forbidden scan: `PASS / forbidden_hit_count 0`
-  * 세부 command matrix는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
 * 후속 input artifact:
+  
+  * runtime payload evidence root: "Iris/build/description/v2/staging/runtime_payload_state_integrity/"
+  * runtime payload plan: "docs/runtime_payload_state_integrity_plan.md"
+  * runtime payload policy: "docs/runtime_payload_state_policy.md"
+  * runtime payload shape contract: "docs/runtime_payload_shape_contract.md"
+  * runtime payload guard report: "Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json"
+  * residual seal plan: "docs/runtime_payload_state_integrity_residual_seal_plan.md"
+  * residual seal tool: "Iris/build/description/v2/tools/build/runtime_payload_state_integrity_residual_seal.py"
+  * residual seal focused test: "Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py"
+  * residual evidence root: "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/"
+  * author decision doc: "docs/runtime_payload_state_integrity_author_decision.md"
+  * residual final report: "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase7/final_runtime_payload_residual_seal_report.json"
+  * residual validation report: "Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase7/validation_report.require_complete.json"
+  * compose plan: "docs/compose_entrypoint_guard_hardening_plan.md"
+  * compose evidence root: "Iris/build/description/v2/staging/compose_entrypoint_guard_hardening/"
+  * compose protected set: "Iris/build/description/v2/staging/compose_entrypoint_guard_hardening/compose_protected_output_paths.json"
+  * compose no-mutation verdict: "Iris/build/description/v2/staging/compose_entrypoint_guard_hardening/compose_entrypoint_guard_no_mutation_verdict.json"
+  * bridge plan: "docs/lua_bridge_export_contract_realign_plan.md"
+  * bridge evidence root: "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/"
+  * bridge final contract: "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/final_contract_report.json"
+  * bridge no-mutation verdict: "Iris/build/description/v2/staging/lua_bridge_export_contract_realign/no_mutation_verdict.json"
+  * stale bridge plan: "docs/stale_dvf_bridge_artifact_disposition_plan.md"
+  * stale bridge evidence root: "Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition/"
+  * stale bridge classification verdict: "Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition/classification_verdict.json"
+  * VCS policy plan: "docs/dvf_vcs_tracking_policy_plan.md"
+  * VCS policy: "docs/dvf_vcs_tracking_policy.md"
+  * VCS evidence root: "Iris/build/description/v2/staging/dvf_vcs_tracking_policy/"
+  * VCS guard: "Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py"
+  * closure addendum: "Iris/_docs/round3/round3_active_core_closure.json"
+  * predecessor / stale reentry evidence root: "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/"
+  * predecessor / stale reentry plan: "docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_plan.md"
+  * predecessor / stale reentry policy: "docs/dvf_3_3_predecessor_stale_artifact_reentry_policy.md"
+  * predecessor / stale reentry final report: "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_predecessor_stale_artifact_reentry_guard_report.json"
+  * package equivalence report: "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_probe_equivalence_report.json"
+  * required manifest reentry report: "Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase4/required_manifest_reentry_report.json"
 
-  * runtime payload evidence root: `Iris/build/description/v2/staging/runtime_payload_state_integrity/`
-  * runtime payload plan: `docs/runtime_payload_state_integrity_plan.md`
-  * runtime payload policy: `docs/runtime_payload_state_policy.md`
-  * runtime payload shape contract: `docs/runtime_payload_shape_contract.md`
-  * runtime payload guard report: `Iris/build/description/v2/staging/runtime_payload_state_integrity/phase4/current_route_payload_state_guard_report.json`
-  * compose plan: `docs/compose_entrypoint_guard_hardening_plan.md`
-  * compose evidence root: `Iris/build/description/v2/staging/compose_entrypoint_guard_hardening/`
-  * compose protected set: `Iris/build/description/v2/staging/compose_entrypoint_guard_hardening/compose_protected_output_paths.json`
-  * compose no-mutation verdict: `Iris/build/description/v2/staging/compose_entrypoint_guard_hardening/compose_entrypoint_guard_no_mutation_verdict.json`
-  * bridge plan: `docs/lua_bridge_export_contract_realign_plan.md`
-  * bridge evidence root: `Iris/build/description/v2/staging/lua_bridge_export_contract_realign/`
-  * bridge final contract: `Iris/build/description/v2/staging/lua_bridge_export_contract_realign/final_contract_report.json`
-  * bridge no-mutation verdict: `Iris/build/description/v2/staging/lua_bridge_export_contract_realign/no_mutation_verdict.json`
-  * stale bridge plan: `docs/stale_dvf_bridge_artifact_disposition_plan.md`
-  * stale bridge evidence root: `Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition/`
-  * stale bridge classification verdict: `Iris/build/description/v2/staging/stale_dvf_bridge_artifact_disposition/classification_verdict.json`
-  * VCS policy plan: `docs/dvf_vcs_tracking_policy_plan.md`
-  * VCS policy: `docs/dvf_vcs_tracking_policy.md`
-  * VCS evidence root: `Iris/build/description/v2/staging/dvf_vcs_tracking_policy/`
-  * VCS guard: `Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py`
-  * closure addendum: `Iris/_docs/round3/round3_active_core_closure.json`
 * 오독 금지:
-
+  
   * 이 항목은 source facts / decisions / rendered / runtime / package mutation을 승인한 것이 아니다.
   * 이 항목은 successor baseline cutover, live runtime chunk replacement, canonical rendered output promotion, Lua bridge mutation을 승인한 것이 아니다.
-  * 이 항목은 package readiness, Workshop readiness, release readiness, manual in-game QA, Browser / Wiki / Tooltip behavior change를 승인한 것이 아니다.
-  * `implemented guard pass`는 independent review complete seal이나 current-route 전체 재봉인이 아니다.
+  * residual seal은 source facts / decisions, rendered output, Lua bridge, runtime chunk, package payload, predecessor residue를 mutate하지 않는다.
+  * "canonical_residual_seal_allowed=true"는 governance-only residual seal PASS이지 current authority cutover, live migration execution, runtime regeneration, package export authority가 아니다.
+  * 이 guard는 stale / predecessor artifacts를 삭제하지 않는다.
+  * 이 guard는 historical staging evidence를 current authority로 승격하지 않는다.
+  * package probe PASS는 isolated package route guard proof이지 live package mutation, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness를 뜻하지 않는다.
+  * package zip forbidden scan PASS는 package publication이나 deployable release seal이 아니다.
+  * docs claim scan PASS는 public-facing text acceptance나 semantic quality completion이 아니다.
+  * "implemented guard pass"는 independent review complete seal이나 current-route 전체 재봉인이 아니다.
   * stale bridge 항목은 independent review gate를 통과한 sealed PASS가 아니다.
-  * `IrisDvfBridgeData.legacy_6_entry.lua` quarantine retention은 historical evidence 보존이지 current bridge fallback 복구가 아니다.
-  * default chunk export는 exporter behavior와 current authority contract의 정렬이지 새 baseline identity나 live deployable payload mutation이 아니다.
+  * "IrisDvfBridgeData.legacy_6_entry.lua" quarantine retention은 historical evidence 보존이지 current bridge fallback 복구가 아니다.
+  * default chunk export는 exporter behavior와 current authority contract의 정렬이지 새 baseline identity나 live current authority adoption / cutover / live payload mutation이 아니다.
+  * staging chunk output은 current-compatible export shape evidence일 수 있지만, current authority adoption / cutover / live payload replacement 자체가 아니다.
   * current-route tooling allowlist는 current core list의 우회 확장면이 아니다.
+  * 이 항목은 required-evidence integrity closure, Core / Registry boundary gate, live migration readiness authorization을 대체하지 않는다.
   * COMMON-RELEASE-NONDECISION.
   * COMMON-RUNTIME-SURFACE-NONMUTATION.
-* Trace:
 
+* Trace:
+  
   * compose guard implemented / validated: 2026-06-13
   * compose guard ledgered: 2026-06-15
   * Lua bridge export contract implemented / validated: 2026-06-15
   * stale bridge disposition implemented: 2026-06-15
   * Artifact VCS Tracking Policy implemented / validated: 2026-06-15
-  * runtime payload state integrity guard sealed: later current guard pass
-  * closeout, full command matrix, focused test details는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
-
-### Iris DVF 3-3 — runtime payload state integrity residual seal
-
-* 상태: canonical residual seal complete / author decision PASS / external review PASS / governance-only / no runtime mutation
-* 결정: Runtime Payload State Integrity Residual Seal은 payload shape guard PASS와 final residual seal PASS를 분리해서 소비하되, 현재 readpoint에서는 author-owned seal-closing decision과 external review PASS가 모두 기록되어 canonical residual seal을 닫은 것으로 본다.
-* 현재 기준:
-
-  * current-like payload guard는 live current runtime, package peer, candidate bridge에서 `2105` rows / current unadopted `21` rows / current-like `publish_state` rows `0` / forbidden or unclassified rows `0`을 검증한다.
-  * `unadopted + text_ko` 및 `unadopted + publish_state`는 current-compatible payload shape에서 금지한다.
-  * predecessor rollback snapshot의 `unadopted + exposed + non_nil text_ko` residue `2`건은 historical-only residue로 남기며 current debt, cleanup target, runtime mutation 근거가 아니다.
-  * selected author option은 `explicit_no_branch_mutation_required`이며, option metadata상 seal-closing 가능하고 runtime mutation이 필요 없다.
-  * final report는 `status=PASS`, `canonical_residual_seal_allowed=true`, `pending_author_selection=false`, `blocked_external_gate=false`, `author_seal_closing_decision_complete=true`, `external_review_complete=true`로 읽는다.
-  * external review PASS는 round-local `external_independent_review_report.json`의 user-supplied external review declaration과 primary review artifact hash coverage에 근거한다.
-* 최소 결과 trace:
-
-  * residual seal focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\runtime_payload_state_integrity_residual_seal.py --mode all --require-complete` / `PASS`
-  * residual seal focused validator: `uv run python -B Iris\build\description\v2\tools\build\runtime_payload_state_integrity_residual_seal.py --mode validate --require-complete` / `PASS`
-  * residual seal focused unittest: `uv run python -B -m unittest Iris.build.description.v2.tests.test_runtime_payload_state_integrity_residual_seal` / `10 tests OK`
-  * existing runtime payload guard validation / focused unittest: `PASS`
-  * current-route closure: `PASS / 116 tests / closure_enforced true`
-* 후속 input artifact:
-
-  * residual seal plan: `docs/runtime_payload_state_integrity_residual_seal_plan.md`
-  * residual seal tool: `Iris/build/description/v2/tools/build/runtime_payload_state_integrity_residual_seal.py`
-  * residual seal focused test: `Iris/build/description/v2/tests/test_runtime_payload_state_integrity_residual_seal.py`
-  * residual evidence root: `Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/`
-  * author decision doc: `docs/runtime_payload_state_integrity_author_decision.md`
-  * claim boundary: `docs/runtime_payload_state_integrity_residual_claim_boundary.md`
-  * ledger packet: `docs/runtime_payload_state_integrity_residual_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase7/final_runtime_payload_residual_seal_report.json`
-  * validation report: `Iris/build/description/v2/staging/runtime_payload_state_integrity_residual_seal/phase7/validation_report.require_complete.json`
-* 오독 금지:
-
-  * 이 residual seal은 source facts / decisions, rendered output, Lua bridge, runtime chunk, package payload, predecessor residue를 mutate하지 않는다.
-  * 이 residual seal은 release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인하지 않는다.
-  * `adopted / unadopted`는 current runtime vocabulary이며 quality-pass, publish, deletion, suppression 의미가 아니다.
-  * `canonical_residual_seal_allowed=true`는 governance-only residual seal PASS이지 current authority cutover, live migration execution, runtime regeneration, package export authority가 아니다.
-  * COMMON-RELEASE-NONDECISION.
-  * COMMON-RUNTIME-SURFACE-NONMUTATION.
-* Trace:
-
   * residual seal implemented / validated / sealed: 2026-06-27
-  * closeout, full command matrix, review iterations, focused test details는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
+  * predecessor / stale artifacts are preserved as historical / diagnostic / fixture / provenance trace
+  * COMMON-EVIDENCE-TRACE.
 
-### Iris DVF 3-3 — consumer denominator / terminal disposition governance
+Iris DVF 3-3 — consumer denominator / terminal / shared disposition governance
 
-* 상태: denominator live required-validation adopted / terminal canonical complete / independent review pass
-* 결정: Denominator Governance가 분리한 `1062` executing-consumer member-row universe를 Terminal Disposition Adjudication의 공식 completion denominator로 소비하고, 모든 member row를 `migrated`, `no-op`, `diagnostic-only`, `historical-only` 중 정확히 하나의 evidence-backed terminal disposition으로 귀속한다.
+* 상태: denominator required gate adopted / terminal canonical complete / shared disposition guard complete adopted / governance-only
+
+* 결정: Consumer Denominator, Terminal Disposition, Shared Disposition Ledger Consumption은 consumer universe / terminal completion / provenance-readiness role을 분리해서 봉인한다. "1062" executing-consumer member-row universe는 terminal disposition의 공식 denominator이며, raw audit / readiness / dry-run / predecessor artifacts는 provenance evidence일 뿐 실행 authority가 아니다.
+
 * 현재 기준:
-
-  * 공식 completion unit은 `executing_consumer_member_row`다.
-  * unique path / semantic consumer object / source entry / runtime entry / accepted occurrence row / readiness mutation row는 completion unit이 아니다.
+  
+  * 공식 completion unit은 "executing_consumer_member_row"다.
+  * unique path / semantic consumer object / source entry / runtime entry / accepted occurrence row / readiness apply-evidence row는 completion unit이 아니다.
   * broad consumer universe, current cutover subset, readiness / sandbox subset은 서로 다른 denominator / lifecycle role로 남는다.
-  * `1062`는 executing consumer universe denominator이고, `311`은 change-required audit subset이며, `163`은 readiness / sandbox actual mutation subset이다. 이 숫자들은 completion denominator로 서로 대체할 수 없다.
-  * `59` / `252`는 `classified_ledger.jsonl`의 `change_needed_on_rebaseline == yes / conditional` predicate에 source-grounded된 값이며 terminal completion counts가 아니다.
-  * `163 actual_apply_eligible`와 `163 readiness sandbox mutation`은 서로 다른 denominator IDs다. 둘의 관계는 row-identity match로만 잠그며 count-equality inference로 읽지 않는다.
-  * bound universe는 `1062`이며 source predicate split은 `49 yes / 111 conditional / 902 no == 1062`로 고정한다.
-  * terminal split은 `migrated=153`, `no-op=268`, `diagnostic-only=3`, `historical-only=638`, `blocked=0`, `conditional=0`, `unknown=0`, `pending=0`이다.
-  * `153 migrated`는 readiness / cutover row evidence와 actual diff-to-ledger mapping을 가진 terminal projection이며, live migration completion이나 new cutover authorization이 아니다.
-  * `actual_apply_eligible`와 readiness sandbox mutation은 그 자체만으로 `migrated` evidence가 아니며, positive row-level evidence class를 필요로 한다.
-  * `902` audit-only bound members는 migration evidence 부재가 아니라 Gate A/B classification, executing route, classified ledger join, allowed audit terminal reason으로 terminalized된다.
-  * Consumer Universe Denominator Lock은 live `Iris/_docs/round3/current_route_required_validations.json`에 required artifact / required test로 채택됐다.
-  * denominator required gate status는 `adopted_required_gate`이며, denominator final report는 `complete_claim_allowed=true`, `future_closeout_blocking_claim_allowed=true`, `canonical_seal_allowed=false`, `governance_closeout_status=review_pending`으로 읽는다.
+  * "1062"는 executing consumer universe denominator이고, "311"은 change-required audit subset이며, "163"은 readiness / sandbox apply-evidence subset이다. 이 숫자들은 completion denominator로 서로 대체할 수 없다.
+  * "59" / "252"는 "classified_ledger.jsonl"의 "change_needed_on_rebaseline == yes / conditional" predicate에 source-grounded된 값이며 terminal completion counts가 아니다.
+  * bound universe의 source predicate split은 "49 yes / 111 conditional / 902 no == 1062"로 고정한다.
+  * "59 / 252"와 "49 / 111 / 902"는 같은 label vocabulary를 공유할 수 있어도 같은 predicate / denominator가 아니며, count correction 관계로 읽지 않는다.
+  * "163 actual_apply_eligible"와 "163 readiness sandbox apply-evidence rows"는 서로 다른 denominator IDs다. 둘의 관계는 row-identity match로만 잠그며 count-equality inference로 읽지 않는다.
+  * terminal split은 "migrated=153", "no-op=268", "diagnostic-only=3", "historical-only=638", "blocked=0", "conditional=0", "unknown=0", "pending=0"이며 합계는 "1062"다.
+  * "153 migrated"는 readiness / cutover row evidence와 actual diff-to-ledger mapping을 가진 terminal projection이며, live migration completion이나 new cutover authorization이 아니다.
+  * "902" audit-only bound members는 migration evidence 부재가 아니라 Gate A/B classification, executing route, classified ledger join, allowed audit terminal reason으로 terminalized된다.
+  * Consumer Universe Denominator Lock은 live "Iris/_docs/round3/current_route_required_validations.json"에 required artifact / required test로 채택됐다.
   * denominator required gate adoption은 future closeout에서 denominator misuse를 fail-closed로 막기 위한 live current-route validation이며, independent review나 canonical seal을 대체하지 않는다.
-  * closeout state는 `canonical_complete`이고 independent review status는 `review_pass`다.
-  * owner adoption status와 independent review status는 별도 필드이며, owner adoption은 independent review를 대체하지 않는다.
+  * terminal closeout state는 "canonical_complete"이고 terminal independent review status는 "review_pass"다.
+  * Shared Disposition Ledger Consumption은 terminal disposition, denominator identity, lifecycle role, provenance / readiness role을 하나의 shared disposition packet / report surface로 소비하는 live required-validation guard로 채택한다.
+  * live manifest는 shared disposition final report, divergence report, raw authority read report, value divergence report, predecessor reentry report, no-dual-authority-read report, protected-surface no-mutation report, focused shared disposition unittest를 required surface로 소비한다.
+  * raw audit / readiness / dry-run / predecessor artifact를 직접 실행 authority로 읽는 surface는 "RAW_AUTHORITY_READ=0", "DUAL_AUTHORITY_READ=0"이어야 한다.
+  * shared guard는 "VALUE_DIVERGENCE=0", "PREDECESSOR_REENTRY=0", protected source / rendered / Lua / runtime / package mutation "changed_count=0"을 요구한다.
+  * "adopted_required_gate"는 governance manifest adoption 상태다. compose / runtime failure의 "adopted item"은 current runtime row vocabulary이며 QG 용어가 아니다.
+  * 이전 full current-route 실패인 "CURRENT_FACTS=6" vs "2105" 및 runtime-adopted "Base.CanOpener" missing "body_source_overlay"는 shared disposition 실패가 아니라 Current-Route Baseline / Source-Overlay Repair 문제로 분리해 읽는다.
+  * Source-overlay repair PASS는 shared disposition re-adoption, terminal re-adjudication, denominator redefinition, closeout / reentry guard completion으로 승격하지 않는다.
+
 * 최소 결과 trace:
+  
+  * denominator required gate: "adopted_required_gate / future_closeout_blocking_claim_allowed=true"
+  * denominator final report: "complete_claim_allowed=true / canonical_seal_allowed=false / governance_closeout_status=review_pending"
+  * predecessor broad-route attempt: "FAIL / existing source-overlay route blocker"
+  * predecessor broad-route blocker: "CURRENT_FACTS=6" vs "2105" 및 "Base.CanOpener" missing "body_source_overlay"
+  * terminal adjudication: "PASS"
+  * terminal focused unittest: "PASS / 12 tests"
+  * terminal split: "153 migrated / 268 no-op / 3 diagnostic-only / 638 historical-only / 0 blocked / total 1062"
+  * terminal independent review: "PASS / reviewed artifacts 19 / hash seal PASS"
+  * shared guard final state: "PASS / complete_adopted / adopted_required_gate"
+  * raw authority read / dual authority read: "0 / 0"
+  * value divergence / predecessor reentry: "0 / 0"
+  * protected source / rendered / Lua / runtime / package mutation: "PASS / changed_count 0"
+  * shared focused unittest: "PASS / 7 tests"
+  * shared live gate contribution: "required_artifacts=7 / required_tests=1"
+  * source-overlay boundary classification: previous full current-route failure routed outside shared disposition
 
-  * denominator generator / validator / claim guard validator / focused unittest: `PASS`
-  * denominator live required manifest: `required_artifacts=14`, `required_tests=23`, denominator artifact/test present
-  * denominator required gate: `adopted_required_gate / future_closeout_blocking_claim_allowed=true`
-  * denominator broad current-route validation: `FAIL / existing source-overlay route blocker`
-  * denominator broad current-route failure는 `CURRENT_FACTS=6` vs `2105` 및 `Base.CanOpener`의 missing `body_source_overlay` 문제이며, denominator-scope widening 근거가 아니다.
-  * terminal adjudication generation / complete validator / focused unittest: `PASS`
-  * terminal focused unittest: `PASS / 12 tests`
-  * protected surface no-mutation: `PASS / changed_count 0`
-  * independent review: `PASS / reviewed artifacts 19 / hash seal PASS / stable artifact hash mismatch hard-fail maintained`
-  * terminal hash closure: `promotion_rewritten_count=5`, `self_referential_attestation_count=1`, `validation_rewritten_attestation_count=1`, `error_count=0`
 * 후속 input artifact:
+  
+  * denominator evidence root: "Iris/build/description/v2/staging/consumer_universe_denominator_lock/"
+  * denominator plan: "docs/consumer_universe_denominator_lock_plan.md"
+  * denominator ledger packet: "docs/consumer_universe_denominator_lock_ledger_packet.md"
+  * denominator final report: "Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json"
+  * terminal evidence root: "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/"
+  * terminal plan: "docs/dvf_3_3_terminal_disposition_adjudication_plan.md"
+  * terminal policy: "docs/dvf_3_3_terminal_disposition_policy.md"
+  * terminal claim boundary: "docs/dvf_3_3_terminal_disposition_claim_boundary.md"
+  * terminal ledger packet: "docs/dvf_3_3_terminal_disposition_ledger_packet.md"
+  * terminal final report: "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase5/final_terminal_disposition_machine_report.json"
+  * terminal independent review report: "Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase6/independent_review_artifact_hash_report.json"
+  * shared evidence root: "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/"
+  * shared final report: "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/final_shared_disposition_consumption_report.json"
+  * shared policy: "docs/dvf_3_3_shared_disposition_consumption_policy.md"
+  * shared claim boundary: "docs/dvf_3_3_shared_disposition_claim_boundary.md"
+  * shared ledger packet: "docs/dvf_3_3_shared_disposition_ledger_packet.md"
+  * live required-validation manifest: "Iris/_docs/round3/current_route_required_validations.json"
 
-  * denominator evidence root: `Iris/build/description/v2/staging/consumer_universe_denominator_lock/`
-  * denominator plan: `docs/consumer_universe_denominator_lock_plan.md`
-  * denominator ledger packet: `docs/consumer_universe_denominator_lock_ledger_packet.md`
-  * denominator final report: `Iris/build/description/v2/staging/consumer_universe_denominator_lock/phase8/final_consumer_universe_denominator_lock_report.json`
-  * terminal evidence root: `Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/`
-  * terminal plan: `docs/dvf_3_3_terminal_disposition_adjudication_plan.md`
-  * terminal policy: `docs/dvf_3_3_terminal_disposition_policy.md`
-  * terminal claim boundary: `docs/dvf_3_3_terminal_disposition_claim_boundary.md`
-  * terminal ledger packet: `docs/dvf_3_3_terminal_disposition_ledger_packet.md`
-  * terminal final report: `Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase5/final_terminal_disposition_machine_report.json`
-  * terminal independent review report: `Iris/build/description/v2/staging/dvf_3_3_terminal_disposition_adjudication/phase6/independent_review_artifact_hash_report.json`
 * 오독 금지:
-
-  * 이 항목은 terminal disposition adjudication의 canonical completion만 승인한다.
-  * 이 항목은 consumer migration, current authority cutover, runtime / source / rendered / package mutation을 승인한 것이 아니다.
-  * 이 항목은 release readiness, package release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion을 승인한 것이 아니다.
-  * `153 migrated`를 live migration execution count나 new cutover authorization으로 읽지 않는다.
+  
+  * 이 항목은 terminal disposition adjudication의 canonical completion과 shared disposition guard adoption만 승인한다.
+  * 이 항목은 consumer migration, current authority cutover, live migration execution, runtime / source / rendered / package mutation을 승인한 것이 아니다.
+  * "153 migrated"를 live migration execution count나 new cutover authorization으로 읽지 않는다.
   * denominator required-validation adoption은 live required validation gate 채택으로 읽되, 그 효과는 denominator misuse 방지와 future closeout blocking에 한정한다.
   * denominator required-validation adoption을 terminal disposition, consumer migration execution, current authority cutover, runtime mutation, release readiness로 읽지 않는다.
-  * `311`, `1062`, `163`, `148`, `27558`, `59`, `252`, `2105`, `2084`, `21`은 서로 다른 denominator / axis / lifecycle role로만 읽는다.
+  * "311", "1062", "163", "148", "27558", "59", "252", "49", "111", "902", "153", "2105", "2084", "21"은 서로 다른 denominator / axis / lifecycle role로만 읽는다.
   * broad current-route failure를 denominator lock 실패나 denominator 확장 근거로 읽지 않는다.
-  * COMMON-RELEASE-NONDECISION.
-  * COMMON-RUNTIME-SURFACE-NONMUTATION.
-* Predecessor trace:
-
-  * Denominator Governance staged: prior denominator lock round
-  * Terminal Disposition Adjudication consumed Denominator Governance의 `1062` executing-consumer member-row universe
-  * `311`, `163`, readiness sandbox mutation, actual_apply_eligible, audit-only counts는 terminal completion denominator를 대체하지 않는다.
-  * closeout, focused test, command 전문, 세부 hash report는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
-
-### Iris DVF 3-3 — shared disposition consumption / current-route source-overlay boundary
-
-* 상태: shared disposition guard complete adopted / live required-validation gate adopted / current-route baseline-source-overlay repair PASS / closeout-reentry guard pending
-* 결정: Shared Disposition Ledger Consumption은 terminal disposition, denominator identity, lifecycle role, provenance / readiness role을 하나의 shared disposition packet / report surface로 소비하는 live required-validation guard로 채택한다. Raw audit / readiness / dry-run / predecessor artifacts는 provenance evidence일 뿐 실행 authority가 아니다.
-* 현재 기준:
-
-  * live `Iris/_docs/round3/current_route_required_validations.json`은 shared disposition final report, divergence report, raw authority read report, value divergence report, predecessor reentry report, no-dual-authority-read report, protected-surface no-mutation report를 required artifact로 요구한다.
-  * live manifest는 focused shared disposition unittest를 required test로 요구한다.
-  * shared final report는 `status=PASS`, `closeout_state=complete_adopted`, `current_route_required_validation_adoption_state=adopted_required_gate`, `owner_adoption_status=adopted_required_gate`로 읽는다.
-  * candidate manifest는 `superseded_by_live_required_gate`로 남기며, live manifest를 대체하는 authority가 아니다.
-  * raw audit / readiness / dry-run / predecessor artifact를 직접 실행 authority로 읽는 surface는 `RAW_AUTHORITY_READ=0`, `DUAL_AUTHORITY_READ=0`이어야 한다.
-  * shared guard는 `VALUE_DIVERGENCE=0`, `PREDECESSOR_REENTRY=0`, protected source / rendered / Lua / runtime / package mutation `changed_count=0`을 요구한다.
-  * `adopted_required_gate`는 governance manifest adoption 상태다. compose / runtime failure의 `adopted item`은 current runtime row vocabulary이며 QG 용어가 아니다.
-  * 이전 full current-route 실패인 `CURRENT_FACTS=6` vs `2105` 및 runtime-adopted `Base.CanOpener` missing `body_source_overlay`는 shared disposition 실패가 아니라 별도 Current-Route Baseline / Source-Overlay Repair 문제였으며, 해당 repair는 별도 evidence packet과 full current-route validation PASS로 닫혔다.
-* 최소 결과 trace:
-
-  * shared evidence root: `Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/`
-  * shared final report: `Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption/phase7/final_shared_disposition_consumption_report.json`
-  * shared policy: `docs/dvf_3_3_shared_disposition_consumption_policy.md`
-  * shared claim boundary: `docs/dvf_3_3_shared_disposition_claim_boundary.md`
-  * shared ledger packet: `docs/dvf_3_3_shared_disposition_ledger_packet.md`
-  * focused generation / validation: `PASS`
-  * focused unittest: `PASS / 7 tests`
-  * shared live gate contribution: `required_artifacts=7`, `required_tests=1`
-* 오독 금지:
-
-  * 이 항목은 terminal re-adjudication, denominator redefinition, live migration execution, current authority cutover, runtime / source / rendered / package mutation을 승인하지 않는다.
-  * 이 항목은 release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness를 선언하지 않는다.
   * sandbox / readiness evidence를 live completion으로 세지 않는다.
   * raw audit / readiness / dry-run / predecessor artifact를 실행 authority로 승격하지 않는다.
-  * 이전 full current-route runner 실패를 shared disposition incompletion이나 old 2105 baseline 재채택 근거로 읽지 않는다.
-* 후속 문제:
+  * 이전 full current-route runner failure를 shared disposition incompletion이나 old "2105 / 2084 / 21" baseline 재채택 근거로 읽지 않는다.
+  * Source-overlay repair PASS를 shared disposition 재채택, terminal disposition completion, denominator lock completion, closeout / reentry guard completion으로 읽지 않는다.
+  * "adopted_required_gate"를 current runtime row vocabulary의 "adopted"와 혼용하지 않는다.
+  * 이 항목은 closeout / reentry guard, required-evidence integrity closure, live migration readiness authorization을 대체하지 않는다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
-  * Current-Route Baseline / Source-Overlay Repair는 닫혔지만 Closeout / Reentry Guard Seal은 별도 문제로 남는다.
-  * Closeout / Reentry Guard Seal의 범위는 broad completion과 cutover subset completion 문구 분리, predecessor `2105 / 2084 / 21`의 current hard gate / runtime authority / current debt 재진입 방지다.
+* Predecessor trace:
+  
+  * Denominator Governance staged: prior denominator lock round
+  * Terminal Disposition Adjudication consumed Denominator Governance의 "1062" executing-consumer member-row universe
+  * Shared Disposition Ledger Consumption은 terminal disposition / denominator / lifecycle / provenance role을 shared packet으로 소비하는 required-validation guard로 닫혔다.
+  * Current-Route Baseline / Source-Overlay Repair는 shared disposition 실패가 아니라 별도 Problem 7 repair readpoint로 분리된다.
+  * COMMON-EVIDENCE-TRACE.
 
-### Iris DVF 3-3 — current-route baseline / source-overlay repair
+Iris DVF 3-3 — current-route baseline / source-overlay / closeout-reentry guard
 
-* 상태: Problem 7 repair sealed / full current-route validation PASS / Problem 8 closeout-reentry guard pending
-* 결정: Current-Route Baseline / Source-Overlay Repair는 `docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md`를 canonical `primary_problem7_plan`으로, 기존 `docs/dvf_3_3_current_route_baseline_source_overlay_repair_plan.md`를 execution authority가 없는 `predecessor_contract_plan`으로 분리해 소비한다. 이 repair는 terminal disposition 재판정, denominator 재정의, shared disposition 재채택이 아니라 current-route build surface가 vNext baseline / source-overlay contract를 일관되게 소비하도록 정렬한 것이다.
+* 상태: Problem 7 repair PASS / source-overlay boundary aligned / closeout-reentry guard canonical complete / governance-only
+
+* 결정: Current-Route Baseline / Source-Overlay Repair와 Closeout / Reentry Guard Seal은 "CURRENT_FACTS=6" vs "2105" 및 missing "body_source_overlay" 문제를 source-overlay contract alignment 문제로 분리하고, broad completion / terminal completion / cutover subset completion / pre-apply readiness / live apply authorization / live migration execution completion을 axis-qualified claim class로 봉인한다.
+
 * 현재 기준:
-
-  * `primary_problem7_plan`만 본 문제의 canonical plan이며 `predecessor_contract_plan`은 supporting contract / predecessor context로만 읽는다.
-  * `CURRENT_FACTS=6`은 full current-route universe expectation으로 쓰지 않는다. vNext `2105` row universe는 current-route build validation의 source / overlay / rendered / runtime evidence contract로 소비하되 old predecessor authority 복구나 current debt로 재진입하지 않는다.
-  * runtime-adopted current-route compose 대상 row는 `body_source_overlay`를 요구하며, source / overlay / compose / current-authority / Layer4 trace 계열은 같은 baseline/source-overlay contract를 소비한다.
+  
+  * "docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md"만 Problem 7의 canonical "primary_problem7_plan"이다.
+  * 기존 "docs/dvf_3_3_current_route_baseline_source_overlay_repair_plan.md"는 execution authority가 없는 "predecessor_contract_plan"으로만 소비한다.
+  * "CURRENT_FACTS=6"은 full current-route universe expectation으로 쓰지 않는다.
+  * vNext "2105" row universe는 current-route build validation의 source / overlay / rendered / runtime evidence contract로 소비하되 old predecessor authority 복구나 current debt로 재진입하지 않는다.
+  * runtime-adopted current-route compose 대상 row는 "body_source_overlay"를 요구하며, source / overlay / compose / current-authority / Layer4 trace 계열은 같은 baseline/source-overlay contract를 소비한다.
   * stale predecessor anchor는 successor authority context 또는 stable non-apply context로 재바인딩한다. 이것은 row 재판정이 아니라 current checkout에서 anchor freshness를 유지하기 위한 downstream contract alignment다.
-  * cutover tooling readiness의 actual diff-to-ledger mapping은 `163` mutation rows, mapped `163`, unmapped `0`, orphan `0`으로 닫힌다.
-  * Layer4 trace는 diagnostic/readpoint/support role이며 current build/runtime hard namespace authority로 소비하지 않는다.
+  * cutover tooling readiness의 actual diff-to-ledger mapping은 "163" sandbox apply-evidence rows, mapped "163", unmapped "0", orphan "0"으로 닫힌다.
+  * Layer4 trace는 diagnostic / readpoint / support role이며 current build/runtime hard namespace authority로 소비하지 않는다.
+  * 단독 "complete" claim은 허용하지 않는다.
+  * 모든 completion-bearing claim은 "terminal_disposition_complete", "broad_consumer_completion", "cutover_subset_completion", "pre_apply_readiness_complete", "phase4_live_apply_allowed", "required_validation_gate_adopted", "historical_predecessor_trace", "source_overlay_repair_current_route_validation_pass", "problem7_full_current_route_validation_pass" 같은 class로 축을 가져야 한다.
+  * predecessor "2105 / 2084 / 21"은 historical predecessor trace, frozen comparison baseline, successor evidence contract denominator, migration provenance, terminal disposition provenance context에서만 허용한다.
+  * predecessor "2105 / 2084 / 21"은 current hard gate, current runtime authority, package authority, release readiness, current debt, required migration target expansion, old chunks / monolith fallback, raw predecessor artifact direct execution authority read로 재진입할 수 없다.
+  * Problem 7 full current-route validation PASS는 Closeout / Reentry Guard completion으로 자동 승격되지 않는다.
+  * final guard report는 "machine_contract_status=PASS", "closeout_state=canonical_complete", "canonical_seal_allowed=true", "independent_review_status=PASS"로 읽는다.
+  * 이 guard의 canonical seal은 non-Claude independent review PASS와 hash-sealed primary review bundle을 근거로만 선언한다.
+  * owner adoption status와 independent review status는 별도 축이며, owner adoption은 independent review를 대체하지 않는다.
+  * protected source / rendered / Lua bridge / runtime / package mutation count는 "0"이다.
+
 * 최소 결과 trace:
+  
+  * Problem 7 repair runner: "PASS"
+  * Problem 7 full current-route validation: "PASS / 103 tests"
+  * current-route repair focused unittest: "PASS / 7 tests"
+  * consumer migration input normalization focused unittest: "PASS / 9 tests"
+  * cutover tooling readiness focused unittest: "PASS / 6 tests"
+  * Layer4 absorption current-surface guard: "PASS"
+  * repair final report: "closeout_state=partial / implementation_plan_ready=true / stable_plan_provenance=true"
+  * closeout / reentry required-validation gate: "adopted"
+  * closeout / reentry machine contract: "PASS"
+  * final guard report: "machine_contract_status=PASS / closeout_state=canonical_complete / canonical_seal_allowed=true / independent_review_status=PASS"
+  * independent review hash report: "PASS / primary_review_artifact_count=17 / missing_count=0 / canonical_seal_allowed=true"
+  * protected source / rendered / Lua bridge / runtime / package mutation: "0"
+  * current-route required gate: "required_artifacts=28 / required_tests=28"
+  * approved successor pinned baseline: "107 tests"
 
-  * repair runner: `uv run python -B Iris\build\description\v2\tools\build\dvf_3_3_current_route_baseline_source_overlay_repair.py` / `PASS`
-  * full current-route validation: `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` / `PASS / 103 tests`
-  * current-route repair focused unittest: `PASS / 7 tests`
-  * consumer migration input normalization focused unittest: `PASS / 9 tests`
-  * cutover tooling readiness focused unittest: `PASS / 6 tests`
-  * Layer4 absorption current-surface guard: `PASS`
-  * repair final report: `closeout_state=partial`, `implementation_plan_ready=true`, `stable_plan_provenance=true`
+* 후속 input artifact:
+  
+  * primary problem7 plan: "docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md"
+  * predecessor contract plan: "docs/dvf_3_3_current_route_baseline_source_overlay_repair_plan.md"
+  * repair tool: "Iris/build/description/v2/tools/build/dvf_3_3_current_route_baseline_source_overlay_repair.py"
+  * live required-validation manifest: "Iris/_docs/round3/current_route_required_validations.json"
+
 * 오독 금지:
-
-  * 이 항목은 live runtime / source / rendered / package mutation, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA를 승인하지 않는다.
+  
+  * 이 항목은 live runtime / source / rendered / package mutation, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인하지 않는다.
   * 이 항목은 Terminal Disposition, Denominator Lock, Shared Disposition Ledger Consumption을 재개하거나 재채택하지 않는다.
-  * 이 항목은 Closeout / Reentry Guard Seal 완료가 아니다. broad completion과 cutover subset completion 문구 분리, predecessor `2105` 재진입 guard 봉인은 별도 후속 문제로 남는다.
-
-### Iris DVF 3-3 — closeout / reentry guard seal
-
-* 상태: required-validation gate adopted / machine contract PASS / canonical seal PASS / closeout canonical complete
-* 결정: Closeout / Reentry Guard Seal은 broad consumer completion, terminal disposition completion, cutover subset completion, pre-apply readiness, live apply authorization, live migration execution completion을 axis-qualified claim class로 분리하는 governance gate로 채택한다.
-* 현재 기준:
-
-  * 단독 `complete` claim은 허용하지 않는다. 모든 completion-bearing claim은 `terminal_disposition_complete`, `broad_consumer_completion`, `cutover_subset_completion`, `pre_apply_readiness_complete`, `phase4_live_apply_allowed`, `required_validation_gate_adopted`, `historical_predecessor_trace`, `source_overlay_repair_current_route_validation_pass`, `problem7_full_current_route_validation_pass` 같은 class로 축을 가져야 한다.
-  * predecessor `2105 / 2084 / 21`은 historical predecessor trace, frozen comparison baseline, successor evidence contract denominator, migration provenance, terminal disposition provenance context에서만 허용한다.
-  * predecessor `2105 / 2084 / 21`은 current hard gate, current runtime authority, package authority, release readiness, current debt, required migration target expansion, old chunks / monolith fallback, raw predecessor artifact direct execution authority read로 재진입할 수 없다.
-  * Problem 7 full current-route validation PASS는 Problem 8 / Closeout Guard completion으로 승격되지 않는다.
-  * live current-route required-validation manifest는 Closeout / Reentry Guard Seal의 taxonomy, predecessor guard, boundary guard, manifest adoption report, final no-mutation report, final seal report, independent review artifact hash report, focused unittest를 요구한다.
-  * final guard report는 `machine_contract_status=PASS`, `closeout_state=canonical_complete`, `canonical_seal_allowed=true`, `independent_review_status=PASS`로 읽는다.
-  * independent review artifact hash report는 `primary_review_artifact_count=17`, `primary_review_artifact_missing_count=0`, `status=PASS`, `canonical_seal_allowed=true`로 읽으며, final report / full current-route validation result / `validation_report.all.json` / claim surface scan manifest / claim surface inventory를 primary review bundle에 포함한다.
-  * protected source / rendered / Lua bridge / runtime / package mutation count는 `0`이다.
-  * current-route required gate는 `required_artifacts=28`, `required_tests=28`이며, approved successor pinned baseline은 `107` tests로 읽는다.
-* 오독 금지:
-
-  * 이 항목은 live migration execution, live mutation completion, current authority cutover, terminal disposition re-adjudication, denominator redefinition, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
+  * 이 항목은 current authority cutover, live migration execution, runtime chunk replacement, old predecessor authority 복구, old "2105 / 2084 / 21" baseline 재채택을 승인하지 않는다.
+  * 이 항목은 terminal disposition re-adjudication, denominator redefinition, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
   * required-validation guard adoption은 governance-only이며 source / rendered / Lua bridge / runtime / package writer가 아니다.
-  * owner adoption status는 independent review를 대체하지 않는다. 이 round의 canonical seal은 non-Claude independent review PASS와 hash-sealed primary review bundle을 근거로만 선언한다.
+  * Problem 7 full current-route validation PASS를 Closeout / Reentry Guard completion으로 승격하지 않는다.
+  * predecessor "2105 / 2084 / 21"을 current hard gate, runtime authority, package authority, current debt, required migration target expansion, old chunk fallback, monolith fallback, raw predecessor direct execution authority로 읽지 않는다.
+  * owner adoption status는 independent review를 대체하지 않는다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
-### Iris DVF 3-3 — current source authority drift verification / recovery scope retirement
+* Boundary / Predecessor trace:
+  
+  * Problem 7 repair는 이전 full current-route failure인 "CURRENT_FACTS=6" vs "2105" 및 runtime-adopted "Base.CanOpener" missing "body_source_overlay"를 shared disposition failure가 아니라 source-overlay contract alignment 문제로 분리했다.
+  * Problem 7 source-overlay repair PASS는 closeout / reentry guard completion으로 자동 승격되지 않는다.
+  * Closeout / Reentry Guard는 broad completion, cutover subset completion, pre-apply readiness, live apply authorization, live migration execution completion의 claim vocabulary를 분리하기 위해 채택됐다.
+  * COMMON-EVIDENCE-TRACE.
 
-* 상태: read-only verification sealed / recovery live-write scope retired / independent review PASS / owner seal PASS / canonical retirement seal PASS
-* 결정: Current Source Authority Drift Verification / Recovery Scope Retirement round는 stale `CURRENT_FACTS=6 != 2105` premise를 현재 checkout 기준으로 폐기하고, source restoration이 아니라 successor current source authority 소비 경로 검증과 stale Recovery live-write scope retirement로 닫는다.
+Iris DVF 3-3 — current source authority / required-validation / durable evidence integrity governance
+
+* 상태: current readpoint / source authority drift verification sealed / required-validation freshness resealed / adoption reseal complete / durable surface bounded / completion vocabulary split sealed / successor readpoint sealed / required-evidence integrity closure canonical PASS / governance-only
+
+* 결정: Current source authority, required-validation freshness, durable current authority surface, completion vocabulary, successor readpoint, required artifact disposition, required-evidence integrity closure는 모두 source / rendered / runtime / package writer authority가 아니라 current-route governance chain의 evidence integrity와 claim-boundary를 봉인하는 decision family로 읽는다.
+
 * 현재 기준:
-
-  * vNext successor source manifest는 `successor_current_source_authority`를 선언하며, current baseline identity는 `dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration`이다.
-  * current `facts / decisions / overlay_support`는 모두 successor `2105` row identity와 count/hash가 일치한다. 여기서 `2105`는 old predecessor recovery target이 아니라 vNext successor universe count다.
-  * direct current compose는 sandbox output sink에서 실행되며 live rendered/source/runtime/package writer sink를 열지 않는다.
-  * direct current compose evidence는 `2105` entries, live rendered hash parity, missing overlay `0`으로 읽는다.
-  * `Base.CanOpener` 같은 6-entry predecessor fixture/source payload는 current-looking source / rendered / runtime / package path로 재진입하지 않는다.
-  * predecessor `2105 / 2084 / 21`은 historical / diagnostic / fixture trace로만 남으며 current authority, current hard gate, runtime authority, package authority, current debt로 승격하지 않는다.
+  
+  * Current Source Authority Drift Verification / Recovery Scope Retirement는 stale "CURRENT_FACTS=6 != 2105" premise를 현재 checkout 기준으로 폐기하고, source restoration이 아니라 successor current source authority 소비 경로 검증과 stale Recovery live-write scope retirement로 닫는다.
+  * current "facts / decisions / overlay_support"는 모두 successor "2105" row identity와 count/hash가 일치한다. 여기서 "2105"는 old predecessor recovery target이 아니라 vNext successor universe count다.
+  * direct current compose는 sandbox output sink에서 실행되며 live rendered / source / runtime / package writer sink를 열지 않는다.
   * 기존 Current Source Authority Drift Recovery live-write plan은 현재 실행 근거가 아니라 future drift가 새로 증명될 때만 열 수 있는 contingency로 격하한다.
-  * primary review artifact manifest는 full evidence inventory `49` artifacts를 포함하며 missing count는 `0`이다.
-  * independent review artifact hash report는 frozen hash 비교 `45`, comparison-exempt artifact `4`, mismatch `0`으로 닫힌다. self hash row는 `self_hash_not_representable_presence_only`로 분리한다.
-  * final report는 `closeout_state=current_source_authority_drift_verification_recovery_scope_retirement_canonical_pass`, `canonical_retirement_seal_allowed=true`, `independent_review_status=PASS`, `owner_seal_status=PASS`로 읽는다.
+  * Evidence Freshness Reseal은 current checkout의 runner, live "Iris/_docs/round3/current_route_required_validations.json", stored drift evidence, round-local external validation bundle을 하나의 fresh readpoint로 다시 묶는 governance-only validation seal로 채택한다.
+  * Adoption Reseal은 sealed drift verification PASS와 Evidence Freshness Reseal의 live-manifest consumption을 current-route required-validation governance chain의 하나의 fresh readpoint로 재봉인한다.
+  * selected branch는 "branch_a_required_gate_adopted"이며, Branch B / B-marked marker path는 "not_applicable_selected_branch_a"로 닫힌다.
+  * runner write-sink 보정은 "_dvf_3_3_vnext_common.write_jsonl"의 Windows "OSError 22" retry / atomic temp fallback에 한정한다.
+  * runner write-sink 보정은 required set, validation predicate, PASS interpretation, source authority, rendered authority, runtime / package authority를 변경하지 않는다.
+  * Durable Current Authority Surface Alignment는 long-term tracked durable surface를 좁게 재정의하고, generated staging evidence와 current-required durable evidence를 분리한다.
+  * durable class set은 "current_source_authority_chain", "live_required_validation_manifest", "current_route_governance_surface", "essential_guard_and_regeneration_tooling", "deployable_runtime_chunk_authority", "required_adopted_evidence"로 제한한다.
+  * generated staging evidence는 staging root에 있다는 이유만으로 durable surface가 되지 않는다.
+  * generated staging evidence는 live "current_route_required_validations.json"의 required artifact로 채택된 경우에만 durability requirement를 가진다.
+  * current-required durable paths는 "present / tracked / not ignored" 상태여야 한다.
+  * broad "Iris/build/description/v2/staging/**" unignore는 금지한다.
+  * "dvf_3_3_input_manifest.json"의 primary role은 "current_source_authority_chain"이다.
+  * "current_regeneration_manifest"는 second role이 아니라 attribute / tag로 읽는다.
+  * runtime chunk durable set은 "IrisLayer3DataChunks.lua" manifest에서 파생한다.
+  * 현재 "Chunk001" through "Chunk011"은 readpoint result이지 hardcoded taxonomy rule이 아니다.
+  * rendered output "Iris/build/description/v2/output/dvf_3_3_rendered.json"은 explicit non-writer disposition으로 닫혔고, "authority_claim=false", "unresolved_review_required_disposition_count=0"으로 읽는다.
+  * Completion Vocabulary External Gate Split은 machine validation, external validation bundle, independent review verdict, owner decision, owner seal, external gate state, canonical external review state, token rename author sign-off를 별도 축으로 분리한다.
+  * self-generated PASS, owner approval, owner seal, external validation bundle presence는 independent review를 대체하지 않는다.
+  * canonical external review는 "current_session_independent_review_artifact.json"의 repo-relative "path + sha256" binding을 통해서만 닫힌다.
+  * Current Authority Chain Successor Readpoint Seal은 "2105 / 2084 / 21" current-looking claims를 단일 completion claim으로 읽지 않고, successor current row identity, predecessor historical trace, migration consumer denominator, runtime deployable entry count의 네 축으로만 봉인한다.
+  * predecessor "2105 / 2084 / 21"은 current hard gate, runtime authority, package authority, current debt, raw predecessor direct execution authority로 재진입할 수 없다.
+  * Required Artifact Surface Preflight Census는 live required artifact "93"개를 current closure entry preflight denominator로 삼고, field-check PASS와 실제 VCS preservation state를 분리해서 계량한다.
+  * Required Artifact Disposition Seal은 preflight가 계량한 required artifact VCS surface를 기반으로 dirty / ignored / untracked required-artifact disposition을 봉인한다.
+  * Required Artifact Disposition Seal은 parent closure가 required-surface disposition queue를 추측 없이 다시 소비할 수 있게 하는 governance packet이며, parent machine PASS를 직접 주장하지 않는다.
+  * Current-Route Authority Required-Evidence Closure Final Reconciliation은 preflight와 required artifact disposition seal 결과를 parent closure 계획서에 반영하는 predecessor-plan closure round다.
+  * final reconciliation의 "parent_intake_ready=true"는 parent machine PASS가 아니다.
+  * Parent "dvf_3_3_current_route_authority_required_evidence_integrity_closure"는 current authority reference, required artifact identity / freshness, deterministic rebuild, tool / VCS inventory, dirty required-artifact rejection, top-doc sync state, current-route validation, Lua syntax validation을 같은 readpoint에서 hash-bound evidence로 재정렬한다.
+  * Parent closure는 source / rendered / Lua bridge / runtime / package writer authority를 열지 않고, required evidence integrity와 current-route governance closure만 봉인한다.
+  * top-doc sync state는 owner-applied docs가 additive-only validated and rerun-bound일 때 "owner_applied_and_validated"로 읽는다.
+  * owner seal은 independent review를 대체하지 않는다.
+  * final command matrix는 execution evidence binding이지 second authority가 아니다.
+
 * 최소 결과 trace:
+  
+  * source authority drift premise: stale "CURRENT_FACTS=6 != 2105" 폐기
+  * successor source identity: "2105" rows / count-hash identity match
+  * direct current compose sandbox evidence: "2105 entries / live rendered hash parity / missing overlay 0"
+  * recovery live-write scope: "retired"
+  * drift verification independent review: "PASS / frozen comparison 45 / comparison-exempt 4 / mismatch 0"
+  * evidence freshness reseal: "PASS / 110 tests / closure_enforced true / bundle_normalized_hash_matches_manifest=true / candidate manifest override rejected"
+  * adoption reseal: "branch_a_required_gate_adopted / PASS / 113 tests / closure_enforced true / artifact-test removal 0 / modification 0"
+  * runner write-sink mechanics fix: "Windows OSError 22 retry / atomic temp fallback only"
+  * durable surface: "bounded_durable_surface_sufficiency=PASS / durable_boundary_empirical_reproduction=deferred"
+  * durable required manifest readpoint: "required_artifact_count=56 / required_test_count=37"
+  * durable current-route validation: "PASS / 116 tests / closure_enforced true"
+  * completion vocabulary split: "external_gate_state=satisfied / canonical_external_review_state=satisfied / token rename author sign-off=signed"
+  * completion vocabulary current-route validation: "PASS / 119 tests / closure_enforced true"
+  * successor readpoint seal: "PASS / canonical_seal_allowed=true / blocker_count=0"
+  * successor readpoint VCS preservation: "PASS / canonical_preservation_satisfied=true / unpreserved_minimum_path_count=0 / ignored_minimum_path_count=0"
+  * successor readpoint current-route validation: "PASS / 122 tests / closure_enforced true"
+  * required artifact preflight readpoint: "required_artifact_count=93 / required_test_count=48"
+  * preflight verdict: "semantic_verdict=ready / artifact_disposition_state=not_needed / unresolved_owner_queue_count=0 / protected_surface_changed_count=0"
+  * required-surface counts: "missing=0 / dirty=0 / effectively_ignored=0 / untracked=0 / tracked=93 / invalid_json=0 / field_mismatch=0 / vcs_query_error=0"
+  * required artifact disposition: "terminal_state=ready / required_artifact_disposition_problem_status=SOLVED / machine_pass_blocked=false / fast_path_used=true"
+  * final VCS preservation: "dirty=0 / untracked=0 / active_ignore=0 / effectively_ignored=0 / final_vcs_preservation_regression_count=0"
+  * ignored disposition: "bare_diagnostic_count=0 / negative_exception_auto_disposition_count=93"
+  * final reconciliation: "status=PASS / predecessor_plan_document_complete=true / parent_intake_ready=true"
+  * final reconciliation parent claim flags: "parent_machine_pass_claimed=false / parent_independent_review_claimed=false / owner_seal_claimed=false / canonical_seal_claimed=false"
+  * parent final machine report: "status=machine_pass_governance_only / parent_machine_pass_claimed=true / claim_scope=governance_only"
+  * parent current-route validation: "PASS / 127 tests / closure_enforced=true"
+  * Lua syntax validation: "PASS / 188 files OK"
+  * authority reference inventory: "missing=0 / stale=0 / ambiguous=0"
+  * required current artifact recensus: "denominator=93 / dirty=0 / untracked=0 / ignored=0 / missing=0"
+  * non-hash exception final binding: "non_hash_exception_count=0 / unclassified_non_hash_exception_count=0 / review_exempt_non_hash_exception_count=0"
+  * deterministic rebuild: "normalized_hash_parity=true / semantic_field_drift_count=0 / live_mutation_count=0"
+  * final command matrix: "ordered commands 1-7 / actual_exit_code=0"
+  * negative fixture execution: "6 fixtures PASS"
+  * parent independent review gate: "PASS / reviewed_artifacts=19 / hash_mismatch=0"
+  * parent owner / canonical seal: "owner_seal_status=PASS / canonical_seal_status=PASS / canonical_seal_allowed=true / final_signoff_status=PASS / blocker=0"
 
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/`
-  * plan: `docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md`
-  * claim boundary: `docs/dvf_3_3_current_source_authority_drift_verification_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_current_source_authority_drift_verification_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json`
-  * primary review manifest: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/primary_review_artifact_manifest.json`
-  * independent review hash report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/independent_review_artifact_hash_report.json`
-  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_source_authority_drift_verification.py --mode all --require-complete` / `PASS`
-  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_source_authority_drift_verification.py --require-complete` / `PASS`
-  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_source_authority_drift_verification*.py"` / `9 tests OK`
-  * successor Adoption Reseal round의 latest broad current-route rerun은 `_dvf_3_3_vnext_common.write_jsonl` write-sink mechanics 보정 이후 `PASS / 113 tests / closure_enforced true`다. 이전 Windows `OSError 22` write failure는 source-authority drift evidence가 아니라 runner sink mechanics blocker로 읽는다.
+* 후속 input artifact:
+  
+  * live required-validation manifest: "Iris/_docs/round3/current_route_required_validations.json"
+  * drift verification evidence root: "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/"
+  * drift verification plan: "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md"
+  * drift verification claim boundary: "docs/dvf_3_3_current_source_authority_drift_verification_claim_boundary.md"
+  * drift verification ledger packet: "docs/dvf_3_3_current_source_authority_drift_verification_ledger_packet.md"
+  * drift verification final report: "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/final_current_source_authority_drift_verification_report.json"
+  * evidence freshness evidence root: "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/"
+  * evidence freshness plan: "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md"
+  * evidence freshness final report: "Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/final_current_route_required_validation_evidence_freshness_reseal_report.json"
+  * adoption reseal evidence root: "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/"
+  * adoption reseal plan: "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md"
+  * adoption reseal final report: "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/final_current_source_authority_drift_verification_adoption_reseal_report.json"
+  * minimal runner write-sink fix report: "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/minimal_runner_write_sink_fix_report.json"
+  * runner write-sink diff scope report: "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/runner_write_sink_diff_scope_report.json"
+  * durable evidence root: "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/"
+  * durable plan: "docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md"
+  * durable policy: "docs/dvf_3_3_durable_surface_policy.md"
+  * durable claim boundary: "docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md"
+  * durable ledger packet: "docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md"
+  * durable final report: "Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase7/final_durable_current_authority_surface_alignment_report.json"
+  * completion vocabulary evidence root: "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/"
+  * completion vocabulary policy: "docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_policy.md"
+  * completion vocabulary final report: "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/final_completion_vocabulary_external_gate_split_report.json"
+  * independent review artifact: "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_independent_review_artifact.json"
+  * independent review bundle: "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_independent_review_bundle.json"
+  * owner seal record: "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_owner_seal_record.json"
+  * token sign-off report: "Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/token_rename_author_signoff_report.json"
+  * successor readpoint evidence root: "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/"
+  * successor readpoint plan: "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md"
+  * successor readpoint final report: "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_successor_readpoint_governance_seal_report.json"
+  * successor VCS gate report: "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/vcs_preservation_gate_report.json"
+  * required preflight evidence root: "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/"
+  * required preflight final report: "Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p8_closeout_no_mutation/final_preflight_census_report.json"
+  * required preflight claim boundary: "docs/dvf_3_3_required_artifact_surface_preflight_census_claim_boundary.md"
+  * required preflight ledger packet: "docs/dvf_3_3_required_artifact_surface_preflight_census_ledger_packet.md"
+  * required disposition evidence root: "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/"
+  * required disposition owner seal input: "Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_seals/current_session_owner_canonical_seal_record.json"
+  * required disposition final report: "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json"
+  * required disposition independent review gate report: "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase7_independent_review_gate/independent_review_gate_report.json"
+  * required disposition owner canonical seal gate report: "Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase8_owner_canonical_seal/owner_canonical_seal_gate_report.json"
+  * final reconciliation evidence root: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/"
+  * final implementation plan: "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_implementation_plan.md"
+  * final reconciliation report: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/final_predecessor_plan_document_complete_report.json"
+  * parent intake packet: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/parent_intake_packet.json"
+  * post-machine governance boundary: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/post_machine_governance_gate_boundary.md"
+  * parent closure evidence root: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/"
+  * parent owner seal input: "Iris/build/description/v2/owner_inputs/dvf_3_3_current_route_authority_required_evidence_integrity_closure/owner_seals/current_session_owner_canonical_seal_record.json"
+  * parent final machine report: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_machine_report.json"
+  * parent independent review gate report: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/independent_review_gate_report.json"
+  * parent owner canonical seal gate report: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/owner_canonical_seal_gate_report.json"
+  * parent final command matrix: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_command_matrix_report.json"
+  * parent live VCS recensus: "Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/live_vcs_required_surface_recensus_report.json"
+
 * 오독 금지:
-
-  * 이 항목은 facts / decisions / overlay / rendered live write, source restoration, old predecessor recovery, current authority cutover, live migration execution completion, Lua bridge export, runtime chunk replacement, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
+  
+  * 이 family는 required evidence integrity와 current-route governance closure만 봉인한다.
+  * 이 family는 source facts / decisions / overlay support, rendered output, Lua bridge, runtime chunks, package payload mutation authority를 열지 않는다.
+  * current-route validation PASS는 runtime rollout, package publication, public exposure, manual in-game validation을 뜻하지 않는다.
+  * Lua syntax PASS는 manual QA나 public-facing text quality acceptance가 아니다.
+  * "canonical_seal_allowed=true"는 각 governance-only family 범위 안에서만 읽는다.
   * current-route required-validation candidate는 live manifest adoption이 아니라 candidate / governance-only trace다.
   * Recovery plan retirement은 future drift contingency를 보존하는 것이며, 새 drift evidence 없이 live-write recovery scope를 다시 여는 근거가 아니다.
-
-### Iris DVF 3-3 — current-route required validation / evidence freshness reseal
-
-* 상태: required-validation evidence freshness resealed / live manifest consumed / external bundle fresh / independent review PASS / owner seal PASS / canonical complete
-* 결정: Current-Route Required Validation / Evidence Freshness Reseal round는 current checkout의 runner, live `Iris/_docs/round3/current_route_required_validations.json`, stored drift evidence, and round-local external validation bundle을 하나의 fresh readpoint로 다시 묶는 governance-only validation seal로 채택한다.
-* 현재 기준:
-
-  * final report는 `required_validation_gate_adopted=true`, `evidence_freshness_reseal_closeout_state=complete`, `machine_contract_status=PASS`, `canonical_complete_allowed=true`, `independent_review_status=PASS`, `owner_seal_status=PASS`로 읽는다.
-  * current-route command는 `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` 기준 `PASS / 110 tests / closure_enforced true`다.
-  * live required-validation manifest는 reseal round의 fresh drift-consumption, current source identity redrive, live manifest additive update, taxonomy separation, current-route freshness, external bundle freshness, and final seal evidence를 required artifacts로 소비한다.
-  * live manifest의 reseal required tests는 pre-phase5/phase6 current-route surfaces only로 제한한다. post-run external bundle / final report checks는 wrapper final validation과 focused unittest surface에서 검증하며 current-route PASS test count로 과장하지 않는다.
-  * external validation bundle은 fresh current-route run, live manifest hash, evidence root, and normalized content hash contract를 반영하며 `bundle_normalized_hash_matches_manifest=true`다.
-  * negative fixture matrix는 stale bundle, skipped required test, failed artifact field check를 sandbox runner로 fail-closed 검증하고, candidate manifest override는 official reseal wrapper CLI surface에서 거부한다.
-  * primary review artifact manifest는 `45` artifacts를 포함하며 missing count는 `0`이다. independent review artifact hash report는 frozen hash comparison `43`, comparison-exempt artifact `2`, mismatch `0`, `canonical_complete_allowed=true`로 닫힌다.
-  * owner seal report는 `owner_seal_status=PASS`, `owner_seal_decision=approve_required_validation_gate_adopted_evidence_freshness_reseal_complete`, `direct_runner_candidate_rejection_requirement=not_required_for_this_seal`로 읽는다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/`
-  * plan: `docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md`
-  * claim boundary: `docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/final_current_route_required_validation_evidence_freshness_reseal_report.json`
-  * owner seal report: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/owner_seal_report.json`
-  * primary review manifest: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/primary_review_artifact_manifest.json`
-  * independent review hash report: `Iris/build/description/v2/staging/dvf_3_3_current_route_required_validation_evidence_freshness_reseal/phase6/independent_review_artifact_hash_report.json`
-  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py --mode all` / `PASS`
-  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py --require-complete` / `PASS`
-  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_route_required_validation_evidence_freshness_reseal.py"` / `5 tests OK`
-* 오독 금지:
-
-  * 이 항목은 release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance, live migration execution, source restoration, rendered regeneration, Lua bridge export, runtime chunk replacement, or package payload mutation을 승인한 것이 아니다.
+  * "2105"는 successor current source universe count로만 읽으며, predecessor "2105 / 2084 / 21" recovery target이나 current debt로 읽지 않는다.
+  * sandbox compose evidence는 source authority consumption proof이지 live writer authority나 rendered/runtime/package mutation proof가 아니다.
   * required-validation reseal은 governance-only validation seal이며 source / rendered / Lua bridge / runtime / package writer authority가 아니다.
-  * direct `round3_run_contract_tests.py --required-validations` override surface는 sandbox fail-closed fixture용 harness 기능이다. 이번 seal의 candidate manifest guard는 official reseal wrapper가 required-validation manifest override를 받지 않는다는 보증으로 한정한다.
-
-### Iris DVF 3-3 — current source authority drift verification / adoption reseal
-
-* 상태: Branch A required gate adopted / governance-only adoption reseal complete / independent review PASS / owner seal PASS / canonical complete
-* 결정: Current Source Authority Drift Verification / Adoption Reseal round는 sealed drift verification PASS와 Evidence Freshness Reseal의 live-manifest consumption을 current-route required-validation governance chain의 하나의 fresh readpoint로 재봉인한다.
-* 현재 기준:
-
-  * selected branch는 `branch_a_required_gate_adopted`이며, final closeout은 `current_source_authority_drift_adoption_reseal_complete`다.
-  * sealed-reseal/live-manifest re-derivation은 PASS이며, live manifest는 drift evidence를 Evidence Freshness Reseal required gate를 통해 소비한다.
-  * direct drift adoption과 evidence-freshness drift-consumption은 구분되어 있고, Branch B / B-marked marker path는 `not_applicable_selected_branch_a`로 닫힌다.
-  * taxonomy는 live required manifest union surface를 통해 소비하며, 이번 round에서는 `non_writer_required_manifest_union`으로 기록한다.
-  * live required-validation manifest는 adoption reseal artifacts/tests를 additive로 채택했고, 기존 required artifact/test removal 또는 modification은 `0`이다.
-  * runner write-sink 보정은 `_dvf_3_3_vnext_common.write_jsonl`의 Windows `OSError 22` retry / atomic temp fallback에 한정한다. 이 보정은 required set, validation predicate, PASS interpretation, source authority, rendered authority, runtime/package authority를 변경하지 않는다.
-  * current-route validation은 `PASS / 113 tests / closure_enforced true`로 읽는다.
-  * final report는 `status=PASS`, `machine_contract_status=PASS`, `canonical_complete_allowed=true`, `independent_review_status=PASS`, `owner_seal_status=PASS`로 닫힌다.
-  * primary review artifact manifest는 `37` artifacts를 포함하며 missing count는 `0`이다. independent review artifact hash report는 frozen hash comparison `33`, comparison-exempt artifact `4`, mismatch `0`으로 닫힌다.
-  * final report는 `clean_checkout_reproducibility_proof_status=out_of_scope_not_claimed`, `original_required_evidence_reproducibility_preflight_status=not_closed_by_this_plan`을 보존한다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/`
-  * plan: `docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md`
-  * claim boundary: `docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/final_current_source_authority_drift_verification_adoption_reseal_report.json`
-  * owner seal report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/owner_seal_report.json`
-  * primary review manifest: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/primary_review_artifact_manifest.json`
-  * independent review hash report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase6/independent_review_artifact_hash_report.json`
-  * minimal runner write-sink fix report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/minimal_runner_write_sink_fix_report.json`
-  * runner write-sink diff scope report: `Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_adoption_reseal/phase1/runner_write_sink_diff_scope_report.json`
-  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py --mode all` / `PASS`
-  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py --require-complete` / `PASS`
-  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_source_authority_drift_verification_adoption_reseal.py"` / `4 tests OK`
-  * full current route: `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` / `PASS / 113 tests / closure_enforced true`
-* 오독 금지:
-
-  * 이 항목은 source restoration, old predecessor recovery, current authority cutover, live migration execution, rendered regeneration, Lua bridge export, runtime chunk replacement, package payload mutation, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
-  * 이 adoption reseal은 plan-structure PASS만으로 empirical verification을 대체하지 않는다. current-route manifest adoption과 write-sink scope는 evidence로 기록됐지만, VCS tracking preservation은 관련 tool/test/docs/evidence와 manifest diff가 commit에 포함될 때 clean-checkout boundary로 봉인된다.
-  * clean-checkout required evidence reproducibility / taxonomy disposition preflight는 이 round에서 닫지 않는다.
-
-### Iris DVF 3-3 — durable current authority surface alignment
-
-* 상태: durable current authority surface aligned / governance-only / bounded durable sufficiency PASS / independent review PASS / owner seal PASS / canonical sealed
-* 결정: Durable Current Authority Surface Alignment round는 DVF 3-3 current-route governance chain에서 장기 보존되어야 하는 durable tracked surface를 좁게 재정의하고, generated staging evidence와 current-required evidence를 분리한다.
-* 현재 기준:
-
-  * durable class set은 `current_source_authority_chain`, `live_required_validation_manifest`, `current_route_governance_surface`, `essential_guard_and_regeneration_tooling`, `deployable_runtime_chunk_authority`, `required_adopted_evidence`로 제한한다.
-  * generated staging evidence는 staging root에 있다는 이유만으로 durable surface가 되지 않는다. live `current_route_required_validations.json`의 required artifact로 채택된 경우에만 durability requirement를 가진다.
-  * current-required durable paths는 present / tracked / not ignored여야 하며, broad `Iris/build/description/v2/staging/**` unignore는 금지한다.
-  * 기존 VCS policy guard는 대체하지 않고 유지한다. 새 durable-surface guard는 required-adopted evidence와 durable role taxonomy를 보강한다.
-  * `dvf_3_3_input_manifest.json`의 primary role은 `current_source_authority_chain`이며, `current_regeneration_manifest`는 second role이 아니라 attribute/tag다.
-  * runtime chunk durable set은 `IrisLayer3DataChunks.lua`에서 파생한다. 현재 `Chunk001` through `Chunk011`은 readpoint result이지 hardcoded taxonomy rule이 아니다.
-  * rendered output `Iris/build/description/v2/output/dvf_3_3_rendered.json`은 explicit non-writer disposition으로 닫혔고, `authority_claim=false`, `unresolved_review_required_disposition_count=0`이다.
-  * live required-validation manifest는 durable-surface required artifacts/tests를 additive로 소비하며 existing required artifact/test removal 또는 modification은 `0`이다.
-  * Adoption Reseal의 deferred VCS-preservation gate와 taxonomy disposition preflight gate는 이 bounded durable-surface round에서 cross-reference되어 닫힌다.
-  * bounded durable-set sufficiency는 PASS지만, full clean-checkout required-evidence reproducibility나 full historical byte reproducibility가 아니다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/`
-  * plan: `docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md`
-  * policy: `docs/dvf_3_3_durable_surface_policy.md`
-  * claim boundary: `docs/dvf_3_3_durable_current_authority_surface_alignment_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_durable_current_authority_surface_alignment_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_durable_current_authority_surface_alignment/phase7/final_durable_current_authority_surface_alignment_report.json`
-  * final axes: `machine_plan_pass=true`, `owner_complete_governance_only=true`, `canonical_seal_state=sealed`, `bounded_durable_surface_sufficiency=PASS`, `durable_boundary_empirical_reproduction=deferred`
-  * required manifest readpoint: `required_artifact_count=56`, `required_test_count=37`
-  * current-route validation: `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure` / `PASS / 116 tests / closure_enforced true`
-  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_durable_current_authority_surface_alignment.py --mode all` / `PASS`
-  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_durable_current_authority_surface_alignment.py --require-complete` / `PASS`
-  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_durable_current_authority_surface_alignment.py"` / `3 tests OK`
-  * existing VCS policy unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_vcs_tracking_policy.py"` / `5 tests OK`
-* 오독 금지:
-
+  * external validation bundle freshness나 presence는 independent review를 대체하지 않는다.
+  * code-generated PASS는 canonical external review completion 기준이 아니다.
+  * owner decision 또는 owner seal은 independent review artifact, reviewer identity / scope, hash-sealed bundle, rerun result 없이 canonical external review를 닫을 수 없다.
+  * runner write-sink 보정은 runner sink mechanics 보정일 뿐, required set, validation predicate, PASS interpretation, source authority, rendered authority, runtime / package authority 변경이 아니다.
+  * bounded durable-set sufficiency PASS는 full clean-checkout required-evidence reproducibility나 full historical artifact byte reproducibility를 닫은 것이 아니다.
   * tracked status는 authority status가 아니다.
   * ignored status는 deletable status가 아니다.
-  * required artifact adoption은 governance-only gate이며 source / rendered / Lua bridge / runtime / package writer authority가 아니다.
-  * 이 항목은 source restoration, rendered regeneration, Lua bridge export mutation, runtime chunk replacement, package payload mutation, live migration execution, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance, full clean-checkout required-evidence reproducibility, full historical artifact byte reproducibility를 승인한 것이 아니다.
-
-### Iris DVF 3-3 — completion vocabulary external gate split
-
-* 상태: completion vocabulary split implemented / external gate satisfied / owner seal sealed / token sign-off signed / canonical complete governance-only
-* 결정: Completion Vocabulary External Gate Split round는 machine validation, external validation bundle, independent review verdict, owner decision, owner seal, external gate state, canonical external review state, token rename author sign-off를 별도 축으로 분리한다. Self-generated PASS, owner approval, owner seal, external bundle presence는 independent review를 대체하지 않는다.
-* 현재 기준:
-
-  * final report는 `machine_contract_validation=PASS`, `external_validation_bundle_result=PASS`, `external_gate_state=satisfied`, `canonical_external_review_state=satisfied`, `canonical_seal_allowed=true`, `closeout_state=canonical_complete_governance_only`로 읽는다.
-  * canonical external review는 `phase9/current_session_independent_review_artifact.json`의 repo-relative `path + sha256` binding을 통해서만 닫힌다. 이 artifact는 reviewer identity / role / scope / independence declaration, reviewed artifact list, rerun/current-route result binding, hash-sealed bundle reference를 포함한다.
-  * hash-sealed review bundle은 `phase9/current_session_independent_review_bundle.json`이며, review artifact full hash를 다시 물지 않고 review artifact path만 기록해 hash cycle을 피한다.
-  * owner seal은 `phase9/current_session_owner_seal_record.json`의 별도 owner-supplied record로 닫힌다. 이 record는 review artifact와 review bundle binding을 실제 sealed artifact hashes에 포함해야 하며, owner seal은 independent review를 대체하지 않는다.
-  * token rename author sign-off는 `phase9/token_rename_author_signoff_report.json`에서 `token_rename_author_signoff_state=signed`, `canonical_closeout_blocked_without_signoff=false`로 읽는다.
-  * live `current_route_required_validations.json`는 순환을 피하기 위해 final report의 stable machine/governance fields만 current-route required artifact로 요구한다. Actual complete claim은 `validation_report.require_complete.json`에서 `canonical_complete_claimed=true`, `error_count=0`으로 검증한다.
-  * current-route validation은 `PASS / 119 tests / closure_enforced true`로 읽는다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/`
-  * plan: `docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_plan.md`
-  * policy: `docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_policy.md`
-  * claim boundary: `docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/final_completion_vocabulary_external_gate_split_report.json`
-  * independent review artifact: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_independent_review_artifact.json`
-  * independent review bundle: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_independent_review_bundle.json`
-  * owner seal record: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/current_session_owner_seal_record.json`
-  * token sign-off report: `Iris/build/description/v2/staging/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split/phase9/token_rename_author_signoff_report.json`
-  * focused generation/validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py --mode machine-pass` / `PASS`
-  * focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py --require-complete` / `PASS`
-  * focused unittest: `uv run python -B -m unittest Iris.build.description.v2.tests.test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split` / `3 tests OK`
-* 오독 금지:
-
-  * 이전 drift-verification / runtime-payload residual 산출물에 남아 있는 code-generated PASS나 blocked external gate pattern은 이 round의 canonical review completion 기준을 대체하지 않는다.
-  * `owner_decision=approved` 또는 `owner_seal_state=sealed`는 independent review artifact, reviewer identity/scope, hash-sealed bundle, rerun result 없이 canonical external review를 닫을 수 없다.
-  * 이 항목은 source / rendered / Lua bridge / runtime / package writer authority, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance, live migration execution을 승인한 것이 아니다.
-
-### Iris DVF 3-3 — current authority chain successor readpoint seal
-
-* 상태: successor readpoint vocabulary sealed / VCS preservation PASS / independent review PASS / owner seal sealed / final token sign-off signed / canonical complete governance-only
-* 결정: Current Authority Chain Successor Readpoint Seal round는 `2105 / 2084 / 21` current-looking claims를 단일 completion claim으로 읽지 않고, successor current row identity, predecessor historical trace, migration consumer denominator, runtime deployable entry count의 네 축으로만 봉인한다. 이 round는 predecessor `2105 / 2084 / 21`이 current hard gate, runtime authority, package authority, current debt, raw predecessor direct execution authority로 재진입하지 못하게 하는 governance-only seal이다.
-* 현재 기준:
-
-  * final report는 `status=PASS`, `machine_contract_status=PASS`, `canonical_seal_allowed=true`, `closeout_state=successor_readpoint_governance_seal_complete`, `canonical_seal_status=canonical_seal_allowed`, `canonical_seal_blocker_count=0`으로 읽는다.
-  * VCS gate는 `canonical_preservation_satisfied=true`, `unpreserved_minimum_path_count=0`, `ignored_minimum_path_count=0`, `vcs_preservation_proof_status=PASS`로 닫힌다.
-  * independent review, owner decision, owner seal, final token sign-off는 각각 `PASS / approved / sealed / signed`이며 서로 대체 관계가 아니다.
-  * live current-route required-validation adoption은 `adopted_required_gate`로 유지하되, candidate patch sequence evidence는 `already_adopted_revalidation`으로 낮춰 읽는다. 이 round는 first-adoption sequencing을 주장하지 않는다.
-  * current-route validation은 `PASS / 122 tests / closure_enforced true`로 읽는다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/`
-  * plan: `docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md`
-  * claim boundary: `docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_successor_readpoint_governance_seal_report.json`
-  * VCS gate report: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase6/vcs_preservation_gate_report.json`
-  * independent review input: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/non_author_independent_review_input.json`
-  * owner decision input: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/owner_canonical_seal_decision_input.json`
-  * final token sign-off input: `Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal/phase7/final_token_signoff_input.json`
-  * focused runner / validator / unittest: `PASS`; current-route contract: `PASS / 122 tests / closure_enforced true`
-* 오독 금지:
-
-  * `2105 / 2084 / 21`은 axis-qualified vocabulary로만 읽으며 standalone PASS, standalone current seal, predecessor restoration target, or hard gate count로 쓰지 않는다.
-  * VCS tracked/staged state는 canonical evidence preservation proof이지 source / rendered / runtime / package authority 승격이 아니다.
-  * 이 항목은 source facts, decisions, overlay support, rendered output, Lua bridge output, runtime chunks, package payload, live migration execution, release/package/Workshop/B42 readiness, deployment readiness, manual in-game QA, semantic quality completion, public-facing text acceptance를 승인한 것이 아니다.
-
-### Iris DVF 3-3 — predecessor / stale artifact reentry guard
-
-* 상태: predecessor / stale artifact reentry guard PASS / package guard PASS / live required-validation gate adopted / governance-only
-* 결정: Predecessor / Stale Artifact Reentry Guard round는 stale bridge, monolith runtime path, current-looking stale path, predecessor fixture, old 6-entry bridge, rollback snapshot, historical staging evidence를 historical / diagnostic / fixture / provenance trace로만 유지하고, current source / rendered / runtime / package / export / required-manifest / raw-authority / docs-claim surface로 재진입하지 못하게 한다.
-* 현재 기준:
-
-  * stale bridge / monolith runtime path / current-looking predecessor path violation은 `0`이다.
-  * package guard와 package zip forbidden scan은 `PASS`이며 forbidden hit count는 `0`이다.
-  * predecessor evidence는 comparison / provenance / diagnostic / fixture trace로만 소비하며 current route, release readiness, package authority, source authority, runtime authority 근거로 승격하지 않는다.
-  * live `Iris/_docs/round3/current_route_required_validations.json`은 이 guard의 phase1 / phase3 / phase4 / phase5 / phase6 required artifacts와 focused unittest를 additive required gate로 소비한다.
-  * package probe는 `Iris/tools/package_iris.ps1 -OutputRoot` 기반 isolated output root에서만 수행하며 live package payload mutation을 만들지 않는다.
-  * docs claim scan은 negation, role-qualified historical/provenance mentions, quoted prior claims를 허용하되 actual current-authority overclaim은 fail-closed로 막는다.
-  * current-route validation은 `PASS / 127 tests / closure_enforced true`로 읽는다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/`
-  * plan: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_plan.md`
-  * policy: `docs/dvf_3_3_predecessor_stale_artifact_reentry_policy.md`
-  * claim boundary: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_ledger_packet.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase6/final_predecessor_stale_artifact_reentry_guard_report.json`
-  * package equivalence report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase5/package_probe_equivalence_report.json`
-  * required manifest reentry report: `Iris/build/description/v2/staging/dvf_3_3_predecessor_stale_artifact_reentry_guard/phase4/required_manifest_reentry_report.json`
-  * focused runner / validator / unittest: `PASS`; current-route contract: `PASS / 127 tests / closure_enforced true`
-* 오독 금지:
-
-  * 이 guard는 stale / predecessor artifacts를 삭제하거나 historical staging evidence를 current authority로 승격하지 않는다.
-  * live required-validation adoption은 governance gate adoption이지 source / rendered / Lua bridge / runtime / package writer authority가 아니다.
-  * package probe PASS는 isolated package route guard proof이며 live package mutation, package readiness, release readiness, Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 뜻하지 않는다.
-  * 이 항목은 independent review complete seal이나 canonical seal을 새로 주장하지 않는다.
-
-### Iris DVF 3-3 — required artifact surface preflight census
-
-* 상태: required artifact surface preflight `ready` / current route `PASS / 127 tests / closure_enforced true` / governance-only
-* 결정: Required Artifact Surface Preflight Census round는 live `Iris/_docs/round3/current_route_required_validations.json`의 required artifact `93`개를 current closure entry preflight denominator로 삼고, field-check PASS와 실제 VCS preservation state를 분리해서 계량한다. 이 round는 source / rendered / Lua bridge / runtime / package writer authority가 아니라, parent closure Phase 0 / Phase 5가 소비할 required-surface readiness input이다.
-* 현재 기준:
-
-  * live manifest readpoint는 `required_artifact_count=93`, `required_test_count=48`로 읽는다.
-  * current route validation은 `PASS / 127 tests / closure_enforced true`다.
-  * final preflight verdict는 `semantic_verdict=ready`, `artifact_disposition_state=not_needed`, `unresolved_owner_queue_count=0`, `protected_surface_changed_count=0`이다.
-  * post-resolution required-surface counts는 `missing=0`, `dirty=0`, `effectively_ignored=0`, `untracked=0`, `tracked=93`, `invalid_json=0`, `field_mismatch=0`, `vcs_query_error=0`이다.
-  * ignored surface는 `ignore_rule_match` diagnostic과 closure blocker인 `effectively_ignored`로 분리한다. Negative exception / tracked preservation이 적용된 rule match는 required artifact preservation blocker가 아니다.
-  * dirty 판단은 canonical closure blocker로서 `git diff` / `git diff --cached` content diff 기준으로 닫고, Windows line-ending/stat 기반 `git status` signal은 diagnostic field로만 보존한다.
-  * initial closeout blocker였던 dirty required artifact surface는 owner disposition / baseline adoption과 timestamp-only runtime payload evidence churn stabilization을 통해 해소됐다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/`
-  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_surface_preflight_census.py`
-  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_required_artifact_surface_preflight_census.py`
-  * common logic: `Iris/build/description/v2/tools/build/dvf_3_3_required_artifact_surface_preflight_census_common.py`
-  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_surface_preflight_census.py`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_surface_preflight_census/census_p8_closeout_no_mutation/final_preflight_census_report.json`
-  * claim boundary: `docs/dvf_3_3_required_artifact_surface_preflight_census_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_required_artifact_surface_preflight_census_ledger_packet.md`
-* 오독 금지:
-
-  * `semantic_verdict=ready`는 parent closure entry input readiness일 뿐, independent review PASS, owner seal, canonical seal, release/package/Workshop/B42 readiness, deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 뜻하지 않는다.
+  * generated staging evidence를 current-required durable evidence로 승격하지 않는다.
+  * "Chunk001" through "Chunk011"은 현재 readpoint result이지 영구 hardcoded taxonomy rule이 아니다.
+  * "semantic_verdict=ready"는 parent closure entry input readiness일 뿐, independent review PASS, owner seal, canonical seal, release readiness가 아니다.
   * Required artifact VCS preservation은 source / rendered / Lua bridge / runtime / package payload authority 승격이 아니다.
-  * Content-diff-only dirty criterion은 evidence content preservation blocker를 정의하기 위한 것이며, `git status` diagnostics를 삭제하거나 숨기는 것이 아니다.
-  * 이 round는 current-route required manifest denominator를 대체하지 않고 live manifest에서 재도출한다.
+  * workspace hygiene restore는 protected surface mutation을 무효화하거나 숨기는 절차가 아니다.
+  * "pre_restore_protected_surface_changed_count > 0"이면 restore 여부와 무관하게 fail-closed다.
+  * final-reconciliation tooling은 second authority가 아니다.
+  * Parent consumption authority는 "parent_main_plan_only"다.
+  * final reconciliation의 "parent_intake_ready=true"는 parent machine PASS가 아니다.
+  * parent machine PASS는 parent main plan rerun-bound validation에서만 주장할 수 있다.
+  * 이 family는 release readiness, package publication / readiness, Workshop readiness, B42 readiness, deployment readiness, manual QA, semantic quality completion, public-facing text acceptance, live migration execution을 승인하지 않는다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
-### Iris DVF 3-3 — required artifact disposition seal
+* Predecessor trace:
+  
+  * Drift Verification / Recovery Scope Retirement: read-only verification round / stale recovery premise 폐기 / recovery live-write scope retirement.
+  * Evidence Freshness Reseal: stored drift evidence를 fresh current-route readpoint와 다시 묶은 validation freshness reseal.
+  * Adoption Reseal: Drift Verification PASS와 Evidence Freshness Reseal의 live-manifest consumption을 하나의 required-validation governance chain readpoint로 재봉인.
+  * Durable Current Authority Surface Alignment: Adoption Reseal의 deferred VCS-preservation gate와 taxonomy disposition preflight gate를 bounded durable-surface round에서 cross-reference하여 닫음.
+  * Completion Vocabulary External Gate Split: 이전 drift-verification / runtime-payload residual 산출물의 code-generated PASS나 blocked external gate pattern을 predecessor pattern으로 격하.
+  * Current Authority Chain Successor Readpoint Seal: candidate patch sequence evidence는 first-adoption sequencing이 아니라 "already_adopted_revalidation" predecessor trace.
+  * Required Artifact Surface Preflight Census: initial dirty required artifact surface blocker는 owner disposition / baseline adoption과 timestamp-only runtime payload evidence churn stabilization을 통해 해소된 predecessor blocker.
+  * Required Artifact Disposition Seal: Preflight가 계량한 required artifact VCS surface를 소비한 후속 disposition seal이며, preflight denominator 자체를 대체하지 않는다.
+  * Final Reconciliation: Preflight의 previous blocked / disposition-needed signal은 disposition seal의 ready result로 supersede되며, silent downgrade로 읽지 않는다.
+  * Parent Required-Evidence Integrity Closure: final reconciliation round가 준비한 final implementation plan과 parent intake packet을 소비한 후속 parent readpoint다.
+  * COMMON-EVIDENCE-TRACE.
 
-* 상태: required artifact disposition seal `ready` / independent review PASS / owner seal PASS / canonical seal PASS / current route `PASS / 127 tests / closure_enforced true` / governance-only
-* 결정: Required Artifact Disposition Seal round는 preflight가 계량한 required artifact VCS surface를 기반으로 dirty / ignored / untracked required-artifact disposition을 봉인한다. Dirty required artifact final count는 `0`이고, ignored / untracked required artifact preservation regression도 `0`이다. 이 seal은 parent closure가 required-surface disposition queue를 추측 없이 다시 소비할 수 있게 하는 governance packet이며, parent machine PASS를 직접 주장하지 않는다.
+Iris DVF 3-3 — Core / Registry / Publish boundary claim gate
+
+* 상태: current readpoint / boundary claim contract split complete / current-route required-validation gate adopted / future current-route overclaim fail-closed / governance-only
+
+* 결정: Core / Registry / Publish boundary chain은 혼합·오염된 current DVF governance route에서 DVF Core를 3계층 설명 블록 조합 시스템으로 순수 분리하고, Iris-side Artifact Registry / Registry Runtime Compatibility / Publish Boundary / Legacy Combined Current Route의 claim vocabulary를 공식 contract로 분리한 뒤, live "current_route_required_validations.json"이 소비하는 additive required-validation gate로 채택한다.
+
 * 현재 기준:
-
-  * final report는 `terminal_state=ready`, `required_artifact_disposition_problem_status=SOLVED`, `machine_pass_blocked=false`, `fast_path_used=true`로 닫힌다.
-  * final VCS preservation은 `dirty=0`, `untracked=0`, `active_ignore=0`, `effectively_ignored=0`, `final_vcs_preservation_regression_count=0`이다.
-  * ignored required artifact disposition은 tracked negative exception preservation route와 owner-ratified auto-seal rule을 통해 `bare_diagnostic_count=0`, `negative_exception_auto_disposition_count=93`으로 닫힌다.
-  * independent review gate는 artifact-bound `current_session_independent_review_artifact.json`과 `independent_review_gate_report.json`으로 `PASS`다.
-  * owner/canonical seal은 owner-supplied `current_session_owner_canonical_seal_record.json`을 `owner_canonical_seal_gate_report.json`에 hash-bound해서 `owner_seal_status=PASS`, `canonical_seal_status=PASS`, `canonical_seal_allowed=true`, `final_signoff_status=PASS`로 닫는다.
-  * owner input record VCS preservation은 tracked / not ignored / clean 상태로 `PASS`이며, owner rule ratification record와 owner canonical seal record가 preservation 대상에 포함된다.
-  * current-route validation이 생성하는 tracked staging/doc side effect는 workspace hygiene를 위해 clean tracked snapshot에서 복구하되, restore 전에 protected surface hash diff를 별도 캡처한다. `pre_restore_protected_surface_changed_count > 0`이면 restore 여부와 무관하게 fail-closed다.
-  * parent closure input packet과 compatibility contract는 final report, final recensus, disposition ledger, independent review gate report, owner canonical seal record, owner canonical seal gate report hash를 바인딩한다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/`
-  * owner seal input: `Iris/build/description/v2/owner_inputs/dvf_3_3_required_artifact_disposition_seal/owner_seals/current_session_owner_canonical_seal_record.json`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase6_closeout_claim_boundary/final_required_artifact_disposition_report.json`
-  * independent review gate report: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase7_independent_review_gate/independent_review_gate_report.json`
-  * owner canonical seal gate report: `Iris/build/description/v2/staging/dvf_3_3_required_artifact_disposition_seal/phase8_owner_canonical_seal/owner_canonical_seal_gate_report.json`
-  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_required_artifact_disposition_seal.py`
-  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_required_artifact_disposition_seal.py`
-  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_required_artifact_disposition_seal.py`
-* 검증:
-
-  * `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_required_artifact_disposition_seal.py --mode all`: `PASS`
-  * `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_required_artifact_disposition_seal.py --require-complete`: `PASS / error_count=0`
-  * `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_required_artifact_disposition_seal.py"`: `PASS / Ran 8 tests`
-* 오독 금지:
-
-  * 이 canonical seal은 `required_artifact_disposition_seal_governance_only` 범위다. Parent `dvf_3_3_current_route_authority_required_evidence_integrity_closure` machine PASS는 parent Phase 0 / Phase 5 / Phase 7 rerun-bound validation 이후에만 주장할 수 있다.
-  * 이 seal은 source / rendered / Lua bridge / runtime / package mutation, package/release/Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 열지 않는다.
-  * owner seal은 independent review를 대체하지 않는다. Independent review artifact, owner seal record, canonical seal allowed, final sign-off는 별도 gate로 검증된다.
-
-### Iris DVF 3-3 — current-route authority required-evidence closure final reconciliation
-
-* 상태: final implementation plan `plan_document_complete` / parent intake ready / disposition supersession consumed / post-machine governance gate separated
-* 결정: Current-Route Authority Required-Evidence Closure Final Reconciliation round는 preflight와 required artifact disposition seal 결과를 parent closure 계획서에 반영하는 predecessor-plan closure round다. 이 round는 parent `dvf_3_3_current_route_authority_required_evidence_integrity_closure`의 Phase 0 / Phase 5 / Phase 7 rerun을 대체하지 않고, parent가 소비할 final implementation plan, intake packet, review artifact manifest, claim boundary를 봉인한다.
-* 현재 기준:
-
-  * final report는 `status=PASS`, `predecessor_plan_document_complete=true`, `parent_intake_ready=true`로 닫힌다.
-  * preflight 결과는 `preflight_consumption_state=consumed_with_disposition_supersession`로 읽는다. Preflight의 previous blocked/disposition-needed signal은 disposition seal의 ready result로 supersede되며 silently downgrade되지 않는다.
-  * disposition 결과는 `disposition_consumption_state=consumed_ready_for_parent_rerun`로 읽는다.
-  * required manifest adoption은 `required_manifest_adoption_state=no_live_change_required`, `removed_required_artifact_count=0`, `removed_required_test_count=0`, `blocked_manifest_adoption_count=0`, `predicate_meaning_change_count=0`이다.
-  * non-hash exception floor는 class ceiling을 통해 검증하며 `unclassified_non_hash_exception_count=0`, `non_hash_exception_enum_violation_count=0`, `review_exempt_non_hash_exception_count=0`이다.
-  * top-doc state는 `top_doc_sync_state=draft_prepared_owner_application_pending`이다. 이는 owner-applied top-doc patch 대기 상태이며 machine blocker나 live mutation claim이 아니다.
-  * primary review artifact manifest는 `status=PASS`, `missing_primary_review_artifact_count=0`, `role_coverage_missing_count=0`, `hash_cycle_detected=false`다.
-  * final report는 `parent_machine_pass_claimed=false`, `parent_independent_review_claimed=false`, `owner_seal_claimed=false`, `canonical_seal_claimed=false`를 고정한다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/`
-  * final implementation plan: `docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_implementation_plan.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/final_predecessor_plan_document_complete_report.json`
-  * parent intake packet: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/parent_intake_packet.json`
-  * primary review artifact manifest: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase8/primary_review_artifact_manifest.json`
-  * post-machine governance boundary: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation/phase10/post_machine_governance_gate_boundary.md`
-  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py`
-  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py`
-  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py`
-* 검증:
-
-  * `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py --mode all`: `PASS`
-  * `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py --require-complete`: `PASS / error_count=0`
-  * `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_route_authority_required_evidence_integrity_closure_final_reconciliation.py"`: `PASS / Ran 9 tests`
-* 오독 금지:
-
-  * 이 round의 `parent_intake_ready=true`는 parent machine PASS가 아니다. Parent machine PASS는 parent main plan rerun-bound validation에서만 주장할 수 있다.
-  * 이 round의 plan-document-complete는 independent review, owner seal, canonical seal을 구현 성공 조건으로 요구하지 않는다. 이 세 gate는 post-machine governance gate로 분리한다.
-  * `top_doc_sync_state=draft_prepared_owner_application_pending`은 owner가 top-level docs patch를 적용할 수 있는 draft state이며, source / rendered / Lua bridge / runtime / package mutation authority가 아니다.
-  * final-reconciliation tooling은 second authority가 아니다. Parent consumption authority는 `parent_main_plan_only`다.
-
-### Iris DVF 3-3 — current-route authority required-evidence integrity closure
-
-* 상태: parent closure machine PASS / independent review PASS / owner seal PASS / canonical governance seal PASS / current route `PASS / 127 tests / closure_enforced true` / Lua syntax PASS / governance-only
-* 결정: `dvf_3_3_current_route_authority_required_evidence_integrity_closure` parent round는 current authority reference, required artifact identity/freshness, deterministic rebuild, tool/VCS inventory, dirty required-artifact rejection, top-doc sync state, current-route validation, and Lua syntax validation을 같은 readpoint에서 hash-bound evidence로 재정렬한다. 이 round는 source / rendered / Lua bridge / runtime / package writer authority를 열지 않고, required evidence integrity와 current route governance closure만 봉인한다.
-* 현재 기준:
-
-  * final machine report는 `status=machine_pass_governance_only`, `machine_pass_governance_only=true`, `parent_machine_pass_claimed=true`, `claim_scope=governance_only`로 닫힌다.
-  * current route는 `PASS / 127 tests / closure_enforced=true`이며, Lua syntax validation은 `188 files OK`다.
-  * authority reference inventory는 missing/stale/ambiguous canonical authority reference `0`으로 닫힌다.
-  * required current artifacts는 live manifest denominator `93`에서 `dirty=0`, `untracked=0`, `ignored=0`, `missing=0`으로 재검산된다.
-  * required artifact identity/freshness는 candidate identity manifest와 validation report로 hash-bound되며, non-hash exception final binding은 `non_hash_exception_count=0`, `unclassified_non_hash_exception_count=0`, `review_exempt_non_hash_exception_count=0`이다.
-  * deterministic rebuild report는 `normalized_hash_parity=true`, `semantic_field_drift_count=0`, `live_mutation_count=0`으로 닫힌다.
-  * final command matrix는 ordered exact commands `1-7`을 모두 `actual_exit_code=0`으로 기록하고, final machine report가 `command_sequence_id`와 exit-code vector를 직접 바인딩한다.
-  * negative fixture execution report는 6개 fixture의 `observed_code`, `validator_exit_code`, `fixture_passed`를 기록하며 모두 PASS다.
-  * independent review gate는 user-supplied current-session review artifact와 `independent_review_gate_report.json`으로 `PASS`, reviewed artifacts `19`, hash mismatch `0`이다.
-  * owner/canonical seal은 owner-supplied `current_session_owner_canonical_seal_record.json`을 `owner_canonical_seal_gate_report.json`에 hash-bound해서 `owner_seal_status=PASS`, `canonical_seal_status=PASS`, `canonical_seal_allowed=true`, `final_signoff_status=PASS`, blocker `0`으로 닫는다.
-  * top-doc sync state는 owner-applied docs가 additive-only validated and rerun-bound일 때 `owner_applied_and_validated`로 읽는다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/`
-  * owner seal input: `Iris/build/description/v2/owner_inputs/dvf_3_3_current_route_authority_required_evidence_integrity_closure/owner_seals/current_session_owner_canonical_seal_record.json`
-  * final machine report: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_machine_report.json`
-  * independent review gate report: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/independent_review_gate_report.json`
-  * owner canonical seal gate report: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/owner_canonical_seal_gate_report.json`
-  * final command matrix: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/final_command_matrix_report.json`
-  * live VCS recensus: `Iris/build/description/v2/staging/dvf_3_3_current_route_authority_required_evidence_integrity_closure/phase8/live_vcs_required_surface_recensus_report.json`
-  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py`
-  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py`
-  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py`
-* 검증:
-
-  * `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --mode all`: `PASS`
-  * `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py --require-complete`: `PASS / error_count=0`
-  * `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_current_route_authority_required_evidence_integrity_closure.py"`: `PASS / Ran 12 tests`
-  * `powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1`: `PASS / 188 files`
-* 오독 금지:
-
-  * `canonical_seal_allowed=true`는 `current_route_authority_required_evidence_integrity_closure_governance_only` 범위다.
-  * 이 closure는 release readiness, package publication/readiness, Workshop/B42/deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 주장하지 않는다.
-  * source facts / decisions / overlay support, rendered output, Lua bridge, runtime chunks, package payload mutation authority를 열지 않는다.
-  * owner seal은 independent review를 대체하지 않는다. Independent review artifact, owner seal record, command matrix, complete validator report, live VCS recensus, and final machine report는 별도 hash-bound gate로 검증된다.
-
-### Iris DVF 3-3 — DVF Core boundary separation preflight / legacy combined route axis inventory
-
-* 상태: independent boundary-separation readpoint / routing preflight ready / current route `PASS / 127 tests / closure_enforced true` / blocker `0` / governance-only
-* 결정: `dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight` round는 current-route authority required-evidence integrity closure의 하위 보강이 아니라, 혼합·오염된 current DVF governance route에서 **DVF Core = 3계층 설명 블록 조합 시스템**을 순수하게 분리하기 위한 독립 선행 readpoint다.
-* 현재 기준:
-
+  
   * 현재 DVF current route는 body compiler / current authority / runtime payload compatibility / publish boundary / stale predecessor guard / diagnostic fixture / completion vocabulary gate를 하나의 combined governance route에서 함께 실행한다.
-  * 이 combined route 자체는 `legacy_combined_governance_route`로 보존한다.
-  * `current_route_required_validations.json = legacy_combined_governance_route != DVF Core PASS authority`를 freeze sentence로 고정한다.
+  * 이 combined route 자체는 "legacy_combined_governance_route"로 보존한다.
+  * boundary separation의 원인은 DVF Core가 본래 registry authority / runtime compatibility / publish boundary 책임을 가져야 해서가 아니다.
+  * 실제 원인은 Iris Integration 책임이 비어 있었고, DVF가 3-3 current authority 전환의 중심 경로였기 때문에 authority / registry / runtime compatibility / publish-boundary 책임이 DVF current route에 흡착됐기 때문이다.
+  * 따라서 이 분리는 DVF 시스템 내부를 더 잘게 쪼개는 작업이 아니라, DVF Core를 본래 역할인 "approved facts / decisions / profile / body_plan -> deterministic 3-3 item body compiler / verifier"로 되돌리고, 흡착된 Iris-side authority / artifact / runtime / publish 책임을 별도 claim boundary로 되돌리는 작업이다.
+  * "current_route_required_validations.json = legacy_combined_governance_route != DVF Core PASS authority"를 freeze sentence로 고정한다.
   * required-validation manifest에 포함된 사실은 current-route governance gating 사실이지 DVF Core 책임 귀속 사실이 아니다.
-  * DVF Core로 순수 분리될 대상은 3계층 설명 블록 조합 시스템이며, registry authority, registry runtime compatibility, publish boundary, historical predecessor trace, diagnostic / fixture surface는 DVF Core 책임으로 흡수하지 않는다.
-  * 분류 축은 `dvf_core_body_compiler`, `registry_authority`, `registry_runtime_compatibility`, `publish_boundary`, `legacy_combined_governance_route`, `historical_predecessor_trace`, `diagnostic_or_fixture` 7개로 고정한다.
-  * 모든 classified item은 정확히 하나의 `primary_axis`를 가져야 하며, `unknown` / `todo` / `tbd` / `unclear`는 통과값이 아니라 blocker다.
-  * `legacy_combined_governance_route` axis는 route runner / manifest container / taxonomy-required-validation governance chain / current route PASS claim surface / claim-boundary scaffold에 한정한다. Routed-through combined route는 responsibility-of combined route가 아니다.
-  * final report는 `manifest_split_required=false`, `legacy_combined_route_preserved=true`, `legacy_combined_route_pass_is_dvf_core_pass=false`, `consumer_freshness_responsibility=true`를 기록한다.
-* 최소 결과 trace:
-
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/`
-  * policy doc: `docs/dvf_3_3_legacy_combined_route_axis_policy.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/routing_preflight_report.json`
-  * inventory: `Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/legacy_combined_route_axis_inventory.json`
-  * markdown inventory: `Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/legacy_combined_route_axis_inventory.md`
-  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_legacy_combined_route_axis_inventory.py`
-  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_legacy_combined_route_axis_inventory.py`
-  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_legacy_combined_route_axis_inventory.py`
-* 최소 결과:
-
-  * semantic verdict: `routing_preflight_ready`
-  * blocker_count: `0`
-  * current_route_union_test_count: `127`
-  * required_test_count: `48`
-  * required_artifact_count: `93`
-  * ambiguity_queue_count: `0`
-  * legacy_combined_required_item_without_route_reason_count: `0`
-  * protected_surface_changed_count: `0`
-* 검증:
-
-  * `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_legacy_combined_route_axis_inventory.py --mode all`: `PASS`
-  * `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_legacy_combined_route_axis_inventory.py --require-complete`: `PASS / error_count=0`
-  * `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_legacy_combined_route_axis_inventory.py"`: `PASS / Ran 6 tests`
-  * `uv run python -B Iris\_docs\round3\round3_run_contract_tests.py --class current --enforce-current-build-closure`: `PASS / 127 tests`
-* 오독 금지:
-
-  * 이 readpoint는 DVF Core boundary closure 자체가 아니다. DVF Core / Registry boundary closure가 소비할 수 있는 axis inventory를 준비한 선행 작업이다.
-  * 이 readpoint는 required-validation manifest 물리 분해, required test 이동, required artifact 이동, current-route runner 구조 변경을 승인하지 않는다.
-  * 이 readpoint는 Registry Authority PASS, Registry Runtime Compatibility PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality closure, package / release / Workshop / B42 / deployment readiness를 주장하지 않는다.
-  * 이 readpoint는 source facts / decisions / overlay support, rendered output, Lua bridge, runtime chunks, package payload mutation authority를 열지 않는다.
-
-### Iris DVF 3-3 — Core / Registry boundary claim contract closure
-
-* 상태: claim boundary split complete / machine PASS governance-only / required gate not adopted / no runtime-source-package mutation
-* 결정: `dvf_3_3_core_registry_boundary_claim_contract_closure` round는 선행 `legacy_combined_route_axis_inventory` readpoint를 소비해서 DVF Core, Iris Artifact Registry, Registry Runtime Compatibility, Publish Boundary, Legacy Combined Current Route의 claim vocabulary를 공식 contract로 분리한다.
-* 현재 기준:
-
-  * DVF Core 책임은 `facts / decisions / profile / body_plan -> rendered 3-3 body`로 한정한다.
-  * Iris Artifact Registry 책임은 artifact authority, artifact role classification, source / rendered / runtime / package identity, staging evidence, required validation, seal, cutover, stale / predecessor reentry guard, runtime consumer compatibility다.
+  * DVF Core 책임은 "facts / decisions / profile / body_plan -> rendered 3-3 body"로 한정한다.
+  * 이 책임 한정은 DVF Core를 본래 역할인 Iris 3-3 개별 아이템 본문용 offline deterministic body compiler / verifier로 되돌리는 것이다.
+  * Iris-side Artifact Registry는 DVF Core 내부 하위 시스템이 아니라, 과거 Iris Integration 공백으로 DVF current-authority transition path에 흡착됐던 authority / artifact / runtime compatibility 책임을 분리해 수용하는 Iris-side responsibility boundary다.
+  * Iris-side Artifact Registry 책임은 artifact authority, artifact role classification, source / rendered / runtime / package identity, staging evidence, required validation, seal, cutover, stale / predecessor reentry guard, runtime consumer compatibility다.
+  * Registry Runtime Compatibility 책임은 runtime consumer가 current registry / payload identity를 안전하게 소비할 수 있는지에 한정한다.
   * Publish Boundary 책임은 public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA다.
-  * `DVF Core PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined Current Route PASS`는 서로 대체하지 않는 claim class다.
-  * 단독 `DVF PASS` current claim은 금지한다. 기본 disposition은 `dvf_pass_disposition=forbidden_standalone_current_claim`, `dvf_pass_standalone_current_claim_allowed=false`다.
-  * `Legacy Combined Current Route PASS`는 DVF Core PASS의 정의 권한이 아니다.
-  * `Publish Boundary PASS`는 conjunctive-all-components claim으로만 읽고, partial publish component의 bare PASS로 축약하지 않는다.
-  * 이 round는 current-route required gate를 채택하지 않았다: `required_gate_adopted=false`, `future_current_route_blocking_claimed=false`.
+  * "DVF Core PASS", "Registry Authority PASS", "Registry Runtime Compatibility PASS", "Publish Boundary PASS", "Legacy Combined Current Route PASS"는 서로 대체하지 않는 claim class다.
+  * 단독 "DVF PASS" current claim은 금지한다.
+  * 기본 disposition은 "dvf_pass_disposition=forbidden_standalone_current_claim", "dvf_pass_standalone_current_claim_allowed=false"다.
+  * "Legacy Combined Current Route PASS"는 DVF Core PASS의 정의 권한이 아니다.
+  * "Publish Boundary PASS"는 conjunctive-all-components claim으로만 읽고, partial publish component의 bare PASS로 축약하지 않는다.
+  * 선행 claim contract closure의 "required_gate_adopted=false", "future_current_route_blocking_claimed=false"는 predecessor readpoint로만 남는다.
+  * current readpoint는 "required_gate_adopted=true", "future_current_route_blocking_claimed=true", "future_current_route_blocking_scope=post_final_universe"다.
+  * "current_route_required_validations.json"은 여전히 "legacy_combined_governance_route" container다.
+  * 다만 live manifest는 boundary claim contract gate를 "dvf_3_3_core_registry_boundary_required_gate_adoption_required_validation" role로 additive 소비한다.
+  * gate는 단독 "DVF PASS" current claim을 막는다.
+  * gate는 "Legacy Combined Current Route PASS"를 "DVF Core PASS"로 읽는 claim을 막는다.
+  * gate는 "DVF Core PASS"를 runtime compatible / package safe / public accepted / release ready로 읽는 claim을 막는다.
+  * gate는 Registry Authority / Runtime Compatibility / Publish Boundary 책임을 DVF Core에 다시 붙이는 claim을 막는다.
+  * gate는 Runtime Payload Consumer Compatibility 또는 Public Text Quality 문제를 DVF Core closure로 라우팅하는 claim을 막는다.
+  * scanner는 lexical / token-level governance gate이며 semantic review engine이나 public text acceptance gate가 아니다.
+  * broad current-route rerun은 기존 staging evidence를 재생성할 수 있지만, 이 round의 protected-surface verdict는 "protected_surface_changed_count=0", "source_rendered_lua_runtime_package_mutation=false"다.
+  * 이 closure 뒤의 새 DVF Core 작업은 current authority, staging evidence, required-validation manifest ownership, seal / cutover, runtime / package guard, runtime consumer compatibility, public text acceptance, release readiness 책임을 Core에 추가할 수 없다.
+
 * 최소 결과 trace:
+  
+  * routing preflight semantic verdict: "routing_preflight_ready"
+  * routing preflight blocker count: "0"
+  * preflight current-route validation: "PASS / 127 tests / closure_enforced true"
+  * preflight required manifest readpoint: "required_artifact_count=93 / required_test_count=48"
+  * preflight final report axes: "manifest_split_required=false / legacy_combined_route_preserved=true / legacy_combined_route_pass_is_dvf_core_pass=false / consumer_freshness_responsibility=true"
+  * claim contract closure: "machine_pass_governance_only / claim_boundary_split_complete=true"
+  * claim contract forbidden overclaim count: "0"
+  * claim contract scan universe count: "175"
+  * predecessor claim contract required gate adoption: "required_gate_adopted=false / future_current_route_blocking_claimed=false"
+  * boundary adoption final status: "machine_pass_governance_only"
+  * machine_required_gate_adoption_complete: "true"
+  * required_gate_adopted: "true"
+  * future_current_route_blocking_claimed: "true"
+  * future_current_route_blocking_scope: "post_final_universe"
+  * legacy_combined_route_pass_is_dvf_core_pass: "false"
+  * dvf_pass_standalone_current_claim_allowed: "false"
+  * live rescan / post-final live rescan required test consumed: "true / true"
+  * post-adoption current-route rerun / post-final current-route rerun: "PASS / PASS"
+  * current-route validation: "PASS / 130 tests / closure_enforced=true"
+  * Lua syntax validation: "PASS / 188 files"
+  * protected surface mutation: "protected_surface_changed_count=0 / post_final_protected_surface_changed_count=0 / source_rendered_lua_runtime_package_mutation=false"
 
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/`
-  * claim contract: `docs/dvf_3_3_core_registry_boundary_claim_contract.md`
-  * claim boundary: `docs/dvf_3_3_core_registry_boundary_claim_boundary.md`
-  * ledger packet: `docs/dvf_3_3_core_registry_boundary_claim_contract_ledger_packet.md`
-  * closeout: `docs/dvf_3_3_core_registry_boundary_claim_contract_closure_closeout.md`
-  * walkthrough: `docs/dvf_3_3_core_registry_boundary_claim_contract_closure_walkthrough.md`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase6/final_boundary_split_closure_report.json`
-  * runner: `Iris/build/description/v2/tools/build/run_dvf_3_3_core_registry_boundary_claim_contract_closure.py`
-  * validator: `Iris/build/description/v2/tools/build/validate_dvf_3_3_core_registry_boundary_claim_contract_closure.py`
-  * focused unittest: `Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py`
-* 최소 결과:
+* 후속 input artifact:
+  
+  * live required-validation manifest: "Iris/_docs/round3/current_route_required_validations.json"
+  * routing preflight evidence root: "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/"
+  * routing preflight policy doc: "docs/dvf_3_3_legacy_combined_route_axis_policy.md"
+  * routing preflight final report: "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/routing_preflight_report.json"
+  * routing preflight inventory: "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/legacy_combined_route_axis_inventory.json"
+  * routing preflight markdown inventory: "Iris/build/description/v2/staging/dvf_3_3_legacy_combined_route_axis_inventory_routing_preflight/legacy_combined_route_axis_inventory.md"
+  * claim contract evidence root: "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/"
+  * claim contract: "docs/dvf_3_3_core_registry_boundary_claim_contract.md"
+  * claim boundary: "docs/dvf_3_3_core_registry_boundary_claim_boundary.md"
+  * claim contract ledger packet: "docs/dvf_3_3_core_registry_boundary_claim_contract_ledger_packet.md"
+  * claim contract final report: "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase6/final_boundary_split_closure_report.json"
+  * adoption evidence root: "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/"
+  * adoption contract: "docs/dvf_3_3_core_registry_boundary_required_gate_adoption_contract.md"
+  * adoption claim boundary: "docs/dvf_3_3_core_registry_boundary_required_gate_adoption_claim_boundary.md"
+  * adoption ledger packet: "docs/dvf_3_3_core_registry_boundary_required_gate_adoption_ledger_packet.md"
+  * adoption final report: "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/final_boundary_required_gate_adoption_report.json"
 
-  * final status: `machine_pass_governance_only`
-  * claim_boundary_split_complete: `true`
-  * forbidden_overclaim_count: `0`
-  * scan_universe_count: `175`
-  * predecessor_inventory_freshness_status: `PASS`
-  * predecessor_structural_freshness_status: `PASS`
-  * predecessor_known_non_claim_false_positive_status: `PASS`
-  * protected_surface_changed_count: `0`
-  * undeclared_write_target_mutation_count: `0`
-  * independent_review_gate_status: `not_claimed`
-  * owner_seal_status: `not_claimed`
-  * canonical_seal_status: `not_claimed`
-* 검증:
-
-  * `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_core_registry_boundary_claim_contract_closure.py --mode all`: `PASS`
-  * `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_core_registry_boundary_claim_contract_closure.py --require-complete`: `PASS / error_count=0`
-  * `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_dvf_3_3_core_registry_boundary_claim_contract_closure.py"`: `PASS / Ran 6 tests`
 * 오독 금지:
+  
+  * "DVF Core PASS"는 runtime compatible, package safe, public accepted, release ready를 뜻하지 않는다.
+  * "Registry Authority PASS"는 public text acceptance나 release readiness를 뜻하지 않는다.
+  * "Registry Runtime Compatibility PASS"는 source authority mutation이나 text quality acceptance를 뜻하지 않는다.
+  * "Publish Boundary PASS"는 DVF Core compiler 성공을 뜻하지 않는다.
+  * "Legacy Combined Current Route PASS"는 DVF Core PASS의 정의 권한이 아니다.
+  * Iris-side Artifact Registry 책임은 DVF Core 내부 책임이 아니며, DVF Core가 registry authority / runtime compatibility / publish responsibility를 흡수한다는 뜻이 아니다.
+  * Iris-side Artifact Registry는 Iris Integration 공백으로 DVF current route에 흡착됐던 책임을 분리해 수용하는 responsibility boundary이지, DVF Core 내부 확장면이 아니다.
+  * 이 readpoint는 DVF 시스템 내부에 별도 Registry 하위 모듈을 새로 만든다는 뜻이 아니다.
+  * 이 readpoint는 Iris Integration 공백으로 DVF current route에 흡착됐던 authority / registry / runtime / publish 책임을 DVF Core의 본래 책임으로 인정하지 않는다.
+  * live manifest adoption은 "legacy_combined_governance_route" container 안에서 additive required-validation gate로 소비되는 것이며, required-validation manifest ownership transfer가 아니다.
+  * scanner는 lexical / token-level governance gate이지 semantic review engine, public text acceptance gate, public-facing quality judgment가 아니다.
+  * 이 closure는 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.
+  * 이 closure는 seal / cutover authority, current authority mutation, runtime / package guard completion, package publication, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual QA를 주장하지 않는다.
+  * 이 closure는 source facts / decisions / overlay support, rendered output, Lua bridge, runtime chunk, package payload를 변경하거나 변경 권한을 열지 않는다.
+  * current-route validation PASS와 Lua syntax PASS는 release readiness, manual QA, semantic quality completion, public-facing text acceptance가 아니다.
+  * 이 closure 뒤의 새 DVF Core 작업은 current authority, staging evidence, required-validation manifest ownership, seal / cutover, runtime / package guard, runtime consumer compatibility, public text acceptance, release readiness 책임을 Core에 추가할 수 없다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
-  * `DVF Core PASS`는 runtime compatible, package safe, public accepted, release ready를 뜻하지 않는다.
-  * `Registry Authority PASS`는 public text acceptance나 release readiness를 뜻하지 않는다.
-  * `Registry Runtime Compatibility PASS`는 source authority mutation이나 text quality acceptance를 뜻하지 않는다.
-  * `Publish Boundary PASS`는 DVF Core compiler 성공을 뜻하지 않는다.
-  * 이 round는 Registry 전체 구현 완료, manifest 전면 물리 분해, current route runner 재작성, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance, package publication, manual QA, runtime chunk 변경, bridge export 변경, text rewrite를 주장하지 않는다.
+* Predecessor trace:
+  
+  * boundary separation preflight는 current-route authority required-evidence integrity closure의 하위 보강이 아니라, Core / Registry boundary claim contract closure가 소비하는 independent boundary-separation readpoint다.
+  * claim contract closure는 "legacy_combined_route_axis_inventory" readpoint를 소비한 claim vocabulary split이며, later required-gate adoption closure의 predecessor readpoint다.
+  * 선행 claim contract closure의 "required_gate_adopted=false", "future_current_route_blocking_claimed=false"는 required-gate adoption round에서 superseded된 predecessor readpoint로만 읽는다.
+  * 선행 claim contract closure의 vocabulary split 자체는 유지되며, adoption round는 그 의미를 바꾸지 않고 live required-validation gate로 채택했다.
+  * COMMON-EVIDENCE-TRACE.
 
-### Iris DVF 3-3 — live migration readiness authorization / execution seal
+Iris DVF 3-3 — live migration readiness authorization
 
-* 상태: pre-apply authorization sealed / execution readiness evidence sealed / Phase 4 live apply allowed / no live mutation executed
-* 결정: Terminal Disposition Adjudication의 `migrated=153` consumer projection은 live migration completion이 아니라 Phase 4 live apply 실행 라운드를 열 수 있는 pre-apply authorization / execution-readiness input으로만 소비한다.
+* 상태: current readpoint / pre-apply authorization sealed / Phase 4 live apply allowed / live apply not executed / governance-only
+
+* 결정: Terminal Disposition Adjudication의 "migrated=153" consumer projection은 live migration completion이 아니라, Phase 4 live apply 실행 라운드를 열 수 있는 pre-apply authorization / execution-readiness input으로만 소비한다.
+
 * 현재 기준:
-
-  * final verdict는 `phase4_live_apply_allowed=true`, `downstream_predecessor_status=ready_for_phase4_live_apply`, `closeout_state=complete`다.
-  * row taxonomy는 `153 = 109 live_mutation_eligible + 44 evidence_only + 0 blocked`로 봉인한다.
-  * dry-run patch bundle은 `109` live mutation eligible row와 정확히 일치하며, `44` hard-forbidden runtime / package / Lua bridge row는 successor source / rendered / authority proof가 있는 evidence-only row로 내린다.
-  * dirty target overlap은 VCS baseline commit과 isolation proof로 fail-closed blocker에서 해소했다. 남은 dirty overlap은 `dirty_isolated_non_overlap=true`인 isolated non-overlap으로만 허용한다.
-  * live writer capability는 no-write probe 기준 `changed_count=0`, `live_repo_mutated=false`를 요구한다.
-  * execution-readiness evidence는 `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/` 아래 `phase0`부터 `phase10`까지의 pre-apply gate artifacts로 materialize한다.
-  * execution runner는 authorization verdict를 재해석하거나 live apply를 수행하지 않고, execution plan이 요구한 canonical evidence root / artifact names / validation surface로 투영한다.
-  * execution writer identity contract는 dry-run mode와 mirror apply mode가 sink-only 차이를 가진다는 전제를 봉인하며, 이 round의 `live_apply_mode`는 `disabled`다.
-  * final authorization은 execution plan seal과 review gate를 함께 요구하며, 현재 seal은 `execution_plan_review_status=sealed`, `review_gate_kind=external_gate`, `review_gate_pass=true`, `reviewed_artifact_hash_coverage=complete`다.
+  
+  * final verdict는 "phase4_live_apply_allowed=true", "downstream_predecessor_status=ready_for_phase4_live_apply", "closeout_state=complete"로 읽는다.
+  * row taxonomy는 "153 = 109 live_mutation_eligible + 44 evidence_only + 0 blocked"로 봉인한다.
+  * dry-run patch bundle은 "109" live mutation eligible row와 정확히 일치해야 한다.
+  * "44" hard-forbidden runtime / package / Lua bridge row는 successor source / rendered / authority proof가 있는 evidence-only row로만 내린다.
+  * dirty target overlap은 VCS baseline commit과 isolation proof로 fail-closed blocker에서 해소됐다.
+  * 남은 dirty overlap은 "dirty_isolated_non_overlap=true"인 isolated non-overlap으로만 허용한다.
+  * live writer capability는 no-write probe 기준 "changed_count=0", "live_repo_mutated=false"를 요구한다.
+  * execution-readiness evidence는 canonical execution evidence root 아래의 pre-apply gate artifacts로 materialize한다.
+  * execution runner는 authorization verdict를 재해석하지 않는다.
+  * execution runner는 live apply를 수행하지 않고, execution plan이 요구한 canonical evidence root / artifact names / validation surface로 투영한다.
+  * execution writer identity contract는 dry-run mode와 mirror apply mode가 sink-only 차이를 가진다는 전제를 봉인한다.
+  * 이 round의 "live_apply_mode"는 "disabled"다.
+  * final authorization은 execution plan seal과 review gate를 함께 요구한다.
+  * 현재 seal은 "execution_plan_review_status=sealed", "review_gate_kind=external_gate", "review_gate_pass=true", "reviewed_artifact_hash_coverage=complete"로 읽는다.
   * roadmap provenance SHA 비교는 hex case-insensitive normalization으로 판정한다.
+
 * 최소 결과 trace:
+  
+  * final verdict: "phase4_live_apply_allowed=true / downstream_predecessor_status=ready_for_phase4_live_apply / closeout_state=complete"
+  * row taxonomy: "153 = 109 live_mutation_eligible + 44 evidence_only + 0 blocked"
+  * dry-run patch bundle: "109 live_mutation_eligible rows matched"
+  * live writer capability no-write probe: "changed_count=0 / live_repo_mutated=false"
+  * execution mode: "live_apply_mode=disabled"
+  * execution plan review: "sealed"
+  * review gate: "external_gate / PASS / reviewed_artifact_hash_coverage=complete"
+  * dirty baseline trace: commit "1a29a00"
+  * authorization focused validation / unittest: "PASS / 7 tests OK"
+  * execution focused validation / validator / unittest: "PASS / 5 tests OK"
 
-  * canonical plan: `docs/dvf_3_3_live_migration_readiness_authorization_plan.md`
-  * canonical execution plan: `docs/dvf_3_3_live_migration_readiness_execution_plan.md`
-  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_authorization/`
-  * execution evidence root: `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/`
-  * final report: `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_authorization/phase10_final_authorization/final_live_migration_readiness_authorization_report.json`
-  * execution final report: `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/phase10/final_live_migration_readiness_report.json`
-  * execution final authorization verdict: `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/phase10/final_live_apply_authorization_verdict.json`
-  * evidence manifest: `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_authorization/phase10_final_authorization/pre_apply_authorization_evidence_manifest.json`
-  * execution evidence manifest: `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/phase10/pre_apply_authorization_evidence_manifest.json`
-  * focused validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_live_migration_readiness_authorization.py --mode all` / `PASS`
-  * focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_live_migration_readiness_authorization.py"` / `7 tests OK`
-  * execution focused validation: `uv run python -B Iris\build\description\v2\tools\build\run_dvf_3_3_live_migration_readiness_execution.py --mode all` / `PASS`
-  * execution focused validator: `uv run python -B Iris\build\description\v2\tools\build\validate_dvf_3_3_live_migration_readiness_execution.py --require-complete` / `PASS`
-  * execution focused unittest: `uv run python -B -m unittest discover -s Iris\build\description\v2\tests -p "test_live_migration_readiness_execution.py"` / `5 tests OK`
-  * execution direct docs: `docs/dvf_3_3_live_migration_readiness_policy.md`, `docs/dvf_3_3_live_migration_readiness_claim_boundary.md`, `docs/dvf_3_3_live_migration_readiness_ledger_packet.md`
-  * dirty baseline trace: commit `1a29a00 Track round3 evidence baseline files`
+* 후속 input artifact:
+  
+  * canonical plan: "docs/dvf_3_3_live_migration_readiness_authorization_plan.md"
+  * canonical execution plan: "docs/dvf_3_3_live_migration_readiness_execution_plan.md"
+  * policy: "docs/dvf_3_3_live_migration_readiness_policy.md"
+  * claim boundary: "docs/dvf_3_3_live_migration_readiness_claim_boundary.md"
+  * ledger packet: "docs/dvf_3_3_live_migration_readiness_ledger_packet.md"
+  * evidence root: "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_authorization/"
+  * execution evidence root: "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/"
+  * final report: "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_authorization/phase10_final_authorization/final_live_migration_readiness_authorization_report.json"
+  * execution final report: "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/phase10/final_live_migration_readiness_report.json"
+  * execution final authorization verdict: "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/phase10/final_live_apply_authorization_verdict.json"
+  * evidence manifest: "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_authorization/phase10_final_authorization/pre_apply_authorization_evidence_manifest.json"
+  * execution evidence manifest: "Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/phase10/pre_apply_authorization_evidence_manifest.json"
+
 * 오독 금지:
-
+  
   * 이 항목은 Phase 4 live apply 실행 허가만 봉인한다.
-  * 이 항목은 live migration execution, live mutation completion, release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness를 선언하지 않는다.
-  * sandbox/readiness mutation, dry-run patch bundle, no-write probe, evidence-only proof는 live completion으로 세지 않는다.
+  * 이 항목은 live migration execution이 아니다.
+  * 이 항목은 live mutation completion이 아니다.
+  * "phase4_live_apply_allowed=true"는 live apply가 실행됐다는 뜻이 아니다.
+  * "live_apply_mode=disabled"인 이 round에서 live repo mutation은 수행되지 않았다.
+  * sandbox / readiness mutation, dry-run patch bundle, no-write probe, evidence-only proof는 live completion으로 세지 않는다.
+  * "migrated=153" consumer projection은 live migration completion count가 아니다.
+  * "109 live_mutation_eligible"은 mutation executed count가 아니다.
+  * "44 evidence_only" row는 live mutation target이 아니다.
   * hard-forbidden surface는 live mutation target이 아니며, origin proof가 없으면 evidence-only로도 내릴 수 없다.
-  * execution evidence root의 phase artifacts는 pre-apply readiness evidence이며 source / rendered / Lua bridge / runtime / package authority가 아니다.
+  * execution evidence root의 artifacts는 pre-apply readiness evidence이며 source / rendered / Lua bridge / runtime / package authority가 아니다.
+  * 이 항목은 source / rendered / Lua bridge / runtime / package writer authority를 열지 않는다.
+  * 이 항목은 release readiness, package readiness, Workshop readiness, B42 readiness, deployment readiness, manual QA, semantic quality completion, public-facing text acceptance를 선언하지 않는다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
-### Iris DVF 3-3 — subordinate readpoint / current-vs-historical contract split
+* Predecessor trace:
+  
+  * Terminal Disposition Adjudication의 "migrated=153"은 이 round에서 pre-apply authorization / execution-readiness input으로만 소비된다.
+  * 이 round는 live apply execution round의 predecessor authorization seal이지 live execution completion seal이 아니다.
+  * COMMON-EVIDENCE-TRACE.
 
-* 상태: final current readpoint / subordinate DVF-system reconciliation chain / closed current test contract split
-* 결정: Layer4, Structural Signal, ACQ_DOMINANT, Acquisition Lexical은 독립 모듈 family가 아니라 Iris DVF 3-3 시스템 내부의 subordinate current readpoint / authority / stale artifact / docs-governance reconciliation 문제로 묶는다. description-v2 `tools.build`의 current test contract는 historical reproduction / diagnostic surface와 분리한다.
-* 최종 current readpoint:
+Iris DVF 3-3 — subordinate readpoint / current-vs-historical contract split
 
-  * 최종 subordinate readpoint는 `Iris DVF 3-3 Acquisition Lexical inventory readpoint reconciled`다.
-  * `Iris DVF 3-3 Acquisition Lexical Current Inventory / Readpoint Audit Round`는 Branch D input readpoint로 닫고, 이를 소비한 `Acquisition Lexical Current Readpoint Reconciliation Round`는 `closed_with_acquisition_lexical_current_readpoint_reconciled`로 닫는다.
-  * 선행 inventory readpoint를 입력으로 top-doc closeout, lower / current plan, stale predecessor artifacts, validator / utility support의 current-vs-historical read order를 하나로 정렬한다.
+* 상태: current readpoint / subordinate DVF-system reconciliation chain closed / current-vs-historical test contract split sealed
+
+* 결정: Layer4, Structural Signal, ACQ_DOMINANT, Acquisition Lexical은 독립 모듈 family가 아니라 Iris DVF 3-3 시스템 내부의 subordinate current readpoint / authority / stale artifact / docs-governance reconciliation 문제로 묶는다. description-v2 "tools.build"의 current test contract는 historical reproduction / diagnostic surface와 분리한다.
+
 * 현재 기준:
-
+  
+  * 최종 subordinate readpoint는 "Iris DVF 3-3 Acquisition Lexical inventory readpoint reconciled"다.
+  * "Iris DVF 3-3 Acquisition Lexical Current Inventory / Readpoint Audit Round"는 Branch D input readpoint로 닫는다.
+  * 이를 소비한 "Acquisition Lexical Current Readpoint Reconciliation Round"는 "closed_with_acquisition_lexical_current_readpoint_reconciled"로 닫는다.
+  * 선행 inventory readpoint를 입력으로 top-doc closeout, lower / current plan, stale predecessor artifacts, validator / utility support의 current-vs-historical read order를 하나로 정렬한다.
   * Acquisition Lexical의 schema / source / utility / validator / tool / test / doc / stale-plan surface는 current checkout 기준 분류 readpoint를 가진다.
   * 과거 suppress 의존 문구는 current blocker가 아니라 historical / stale premise로 읽는다.
-  * live suppress validator surface `3`은 current blocker나 resolved state가 아니라 별도 `followup_disposition_candidate`로 남긴다.
+  * live suppress validator surface "3"은 current blocker나 resolved state가 아니라 별도 "followup_disposition_candidate"로 남긴다.
   * Structural Signal 계열은 observer-only scope separation, occurrence authority classification, docs-only readpoint absorption 순서로 닫힌 subordinate observer-only readpoint다.
   * ACQ_DOMINANT는 current readpoint 기준 publish writer input, runtime input, quality input, default compose input, source-row writer input, blanket isolation candidate가 아니다.
   * Layer4 current corpus lock과 confirmed measurement disposition은 current locked corpus 기준의 후속 측정 전제와 measurement disposition으로만 읽는다.
   * 과거 Layer4 zero-count는 historical predecessor readpoint이며 current count로 직접 승계하지 않는다.
-  * `confirmed_count = 24`는 detector-execution measurement readpoint input으로만 소비한다.
-  * `LAYER4_ABSORPTION_CONFIRMED`는 `FUNCTION_NARROW / ACQ_DOMINANT` disposition row가 아니라 independent `layer_boundary_hard_block_namespace`로 읽는다.
+  * "confirmed_count=24"는 detector-execution measurement readpoint input으로만 소비한다.
+  * "LAYER4_ABSORPTION_CONFIRMED"는 "FUNCTION_NARROW / ACQ_DOMINANT" disposition row가 아니라 independent "layer_boundary_hard_block_namespace"로 읽는다.
   * M1 confirmed count와 M2 application target axis는 값 상속 관계를 갖지 않는다.
-  * M2 basis absence는 `application_target_measurement_unavailable`로 fail-loud 기록되며, current target value나 `0` reseal로 읽지 않는다.
-  * default current contract route는 `python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure`다.
+  * M2 basis absence는 "application_target_measurement_unavailable"로 fail-loud 기록되며, current target value나 "0" reseal로 읽지 않는다.
   * current route는 12-module active build closure로 guard된다.
-  * DVF VCS Tracking Policy addendum 이후 current route는 `57 tests / OK / closure_enforced true`이며, 12-module active build closure는 유지된다.
-  * `current_route_allowed_tooling_modules`는 current core와 분리된 regeneration tooling import allowlist다.
-  * 해당 allowlist는 현재 `export_dvf_3_3_lua_bridge` 1개 module만 허용하며, current core count `12`와 tooling allowlist cap `1`을 guard한다.
-  * `test_compose_layer3_text_overlay.py`는 current composer 동작 검증으로 manual audit promotion 처리한다.
-  * `test_compose_entrypoint_guard_hardening.py`는 compose current write-boundary guard 검증으로 current / historical taxonomy에 반영한다.
+  * DVF VCS Tracking Policy addendum 이후 current route는 "57 tests / closure_enforced true"로 읽으며, 12-module active build closure는 유지된다.
+  * "current_route_allowed_tooling_modules"는 current core와 분리된 regeneration tooling import allowlist다.
+  * 해당 allowlist는 현재 "export_dvf_3_3_lua_bridge" 1개 module만 허용하며, current core count "12"와 tooling allowlist cap "1"을 guard한다.
+  * current composer 동작 검증과 compose current write-boundary guard 검증은 current / historical taxonomy에 반영한다.
   * historical route와 diagnostic route는 current route와 별도 실행·판정한다.
-  * disposition은 non-destructive only다: `12 current core`, `173 historical reproduction`, `95 diagnostic advisory`, `1 manifest-only retained`, `archive/delete eligible 0`.
-  * D3 historical preservation policy는 `pass_required`이며, sealed historical route는 현재 pass 상태다.
+  * disposition은 non-destructive only다: "12 current core", "173 historical reproduction", "95 diagnostic advisory", "1 manifest-only retained", "archive/delete eligible 0".
+  * D3 historical preservation policy는 "pass_required"이며, sealed historical route는 현재 pass 상태다.
   * full historical artifact byte reproducibility는 fail-loud unresolved 상태이며, current route completion으로 대체하지 않는다.
+
 * 최소 결과 trace:
+  
+  * Acquisition Lexical logical surfaces classified: "507 / 507"
+  * Acquisition Lexical raw occurrence total: "8828"
+  * Acquisition Lexical read-state coverage: "100%"
+  * Acquisition Lexical adversarial review: "PASS"
+  * live suppress validator surface count: "3 / followup_disposition_candidate"
+  * ACQ_DOMINANT occurrence count / publish candidate count: "1283 / 0"
+  * Layer4 confirmed count: "24 / readpoint-only"
+  * current route: "PASS / 57 tests / closure_enforced true / 12-module active build closure"
+  * historical route: "PASS / separated route"
+  * diagnostic route: "PASS / separated route"
+  * package gate: "PASS"
+  * non-destructive disposition: "12 current core / 173 historical reproduction / 95 diagnostic advisory / 1 manifest-only retained / archive-delete eligible 0"
+  * full historical byte reproducibility: "unresolved / fail-loud"
 
-  * Acquisition Lexical logical surfaces classified: `507 / 507`
-  * Acquisition Lexical raw occurrence total: `8828`
-  * Acquisition Lexical read-state coverage: `100%`
-  * Acquisition Lexical adversarial review: `PASS`
-  * live suppress validator surface count: `3 / followup_disposition_candidate`
-  * ACQ_DOMINANT occurrence_count: `1283`
-  * ACQ_DOMINANT publish_candidate_count: `0`
-  * Layer4 confirmed_count: `24 / readpoint-only`
-  * current route: `PASS / 57 tests / closure_enforced true / 12-module active build closure`
-  * historical route: `PASS / separated route`
-  * diagnostic route: `PASS / separated route`
-  * package gate: `PASS`
-  * archive/delete execution: `no-op / archive-delete eligible 0`
-  * non-destructive disposition: `archive/delete eligible 0`
-  * full historical byte reproducibility: `unresolved / fail-loud`
 * 후속 input artifact:
+  
+  * current route closeout: "Iris/_docs/round3/round3_closeout_report.md"
+  * closure addendum: "Iris/_docs/round3/round3_active_core_closure.json"
+  * related policy: "docs/dvf_vcs_tracking_policy.md"
 
-  * current route closeout: `Iris/_docs/round3/round3_closeout_report.md`
-  * closure addendum: `Iris/_docs/round3/round3_active_core_closure.json`
-  * related policy: `docs/dvf_vcs_tracking_policy.md`
 * 오독 금지:
-
+  
   * 이 항목은 acquisition lexical wording improvement, suppress retirement / removal, current suppress validator surface disposition execution, acquisition contract expansion을 승인한 것이 아니다.
-  * 이 항목은 `josa_adaptive`, phrasebook, array acquisition, runtime-side repair opening을 승인한 것이 아니다.
+  * 이 항목은 "josa_adaptive", phrasebook, array acquisition, runtime-side repair opening을 승인한 것이 아니다.
   * 이 항목은 Layer4 absorption resolved, semantic quality completion, publish mutation review opened, source / rendered / runtime / state mutation을 승인한 것이 아니다.
-  * 이 항목은 Browser / Wiki / Tooltip public exposure, runtime rollout, manual in-game validation, deployment / Workshop / B42 / release readiness, coverage / quality / completion remeasurement를 승인한 것이 아니다.
+  * current route PASS는 historical route PASS, diagnostic route PASS, package gate PASS, full historical byte reproducibility를 대체하지 않는다.
+  * full historical artifact byte reproducibility는 unresolved / fail-loud 상태이며 current route completion으로 닫히지 않는다.
   * 승인되지 않은 source / rendered / runtime / package / build current surface 소비는 fail-fast 대상이다.
-  * 이 항목은 test move, destructive archive/delete, runtime equivalence, in-game manual QA, Workshop publication readiness를 승인한 것이 아니다.
-  * 이 항목은 full historical artifact byte reproducibility, universal deletion safety, reviewed scope 없는 current-route tooling allowlist 확장을 승인한 것이 아니다.
-  * `current_route_allowed_tooling_modules`는 current core list의 우회 확장면이 아니다.
+  * "current_route_allowed_tooling_modules"는 current core list의 우회 확장면이 아니다.
+  * reviewed scope 없는 current-route tooling allowlist 확장을 승인하지 않는다.
+  * 이 항목은 test move, destructive archive / delete, runtime equivalence, in-game manual QA, Workshop publication readiness를 승인한 것이 아니다.
+  * 이 항목은 Browser / Wiki / Tooltip public exposure, runtime rollout, manual in-game validation, deployment readiness, Workshop readiness, B42 readiness, release readiness, coverage / quality / completion remeasurement를 승인한 것이 아니다.
   * COMMON-RELEASE-NONDECISION.
   * COMMON-RUNTIME-SURFACE-NONMUTATION.
-* Predecessor trace:
 
+* Predecessor trace:
+  
   * Structural Signal sequence sealed: 2026-05-29
   * ACQ_DOMINANT no-candidate closeout: 2026-05-30
   * Layer4 corpus / measurement / namespace readpoint chain: 2026-05-31 ~ 2026-06-03
   * Acquisition Lexical final readpoint reconciliation: 2026-06-05
   * Current / Historical / Diagnostic Test Contract Split closed: 2026-06-11
-  * DVF VCS Tracking Policy addendum 이후 current route count는 `50`에서 `57`로 갱신해 읽는다.
-  * 라운드별 closeout, command, hash, 세부 artifact path는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
+  * DVF VCS Tracking Policy addendum 이후 current route count는 "50"에서 "57"로 갱신해 읽는다.
+  * COMMON-EVIDENCE-TRACE.
 
 ---
 ## Frame

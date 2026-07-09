@@ -1,0 +1,71 @@
+{
+  "field_host_phase_mapping_status": "PASS",
+  "final_no_mutation_summary_manifest_required_allowed": false,
+  "generated_at": "2026-07-06T17:54:42.786546+00:00",
+  "manifest_required_route_result_field_count": 0,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "rows": [
+    {
+      "field": "required_gate_adopted",
+      "fixed_phase": "phase3",
+      "host_artifact": "phase3/required_manifest_adoption_report.json",
+      "manifest_required_allowed": true
+    },
+    {
+      "field": "future_current_route_blocking_claimed",
+      "fixed_phase": "phase2",
+      "host_artifact": "phase2/claim_surface_scan_report.json",
+      "manifest_required_allowed": true
+    },
+    {
+      "field": "legacy_combined_route_pass_is_dvf_core_pass",
+      "fixed_phase": "phase1",
+      "host_artifact": "phase1/required_gate_contract_definition_report.json",
+      "manifest_required_allowed": true
+    },
+    {
+      "field": "dvf_pass_standalone_current_claim_allowed",
+      "fixed_phase": "phase1",
+      "host_artifact": "phase1/required_gate_contract_definition_report.json",
+      "manifest_required_allowed": true
+    },
+    {
+      "field": "pre_route_protected_surface_changed_count",
+      "fixed_phase": "phase4",
+      "host_artifact": "phase4/protected_surface_no_mutation_report.json",
+      "manifest_required_allowed": true
+    },
+    {
+      "field": "post_route_protected_surface_changed_count",
+      "fixed_phase": "phase5_after_first_route",
+      "host_artifact": "phase5/post_route_protected_surface_recapture_report.json",
+      "manifest_required_allowed": false
+    },
+    {
+      "field": "post_final_protected_surface_changed_count",
+      "fixed_phase": "phase6_after_second_route",
+      "host_artifact": "phase6/post_final_protected_surface_recapture_report.json",
+      "manifest_required_allowed": false
+    },
+    {
+      "field": "protected_surface_changed_count",
+      "fixed_phase": "final",
+      "host_artifact": "final_boundary_required_gate_adoption_report.json",
+      "manifest_required_allowed": false
+    },
+    {
+      "field": "source_rendered_lua_runtime_package_mutation",
+      "fixed_phase": "final",
+      "host_artifact": "final_boundary_required_gate_adoption_report.json",
+      "manifest_required_allowed": false
+    },
+    {
+      "field": "post_final_current_route_rerun_success",
+      "fixed_phase": "phase6_after_second_route",
+      "host_artifact": "phase6/post_final_current_route_result.json",
+      "manifest_required_allowed": false
+    }
+  ],
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-field-host-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-07-06T17:54:42.774459+00:00",
+  "pre_existing_dirty_live_manifest": true,
+  "pre_existing_dirty_planned_required_artifact_count": 0,
+  "pre_existing_dirty_target_overlap_count": 0,
+  "pre_existing_ignored_required_target_count": 0,
+  "pre_existing_untracked_required_target_count": 0,
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-dirty-overlap-v1",
+  "status": "BLOCKED"
+}

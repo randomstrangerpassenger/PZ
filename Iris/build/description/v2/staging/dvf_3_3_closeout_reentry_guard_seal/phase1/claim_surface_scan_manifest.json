@@ -1,6 +1,65 @@
 {
-  "blocked_claim_surface_count": 0,
-  "blocked_claim_surfaces": [],
+  "blocked_claim_surface_count": 4,
+  "blocked_claim_surfaces": [
+    {
+      "claim_hits": [
+        "public_text_acceptance"
+      ],
+      "classification": "blocked",
+      "definition_context": false,
+      "line": 388,
+      "line_text": "- public text acceptance",
+      "path": "docs/ARCHITECTURE.md",
+      "predecessor_hits": [],
+      "role": "forbidden_overclaim_violation",
+      "surface_family": "docs",
+      "terms": []
+    },
+    {
+      "claim_hits": [
+        "workshop_readiness"
+      ],
+      "classification": "blocked",
+      "definition_context": false,
+      "line": 391,
+      "line_text": "- release / Workshop readiness",
+      "path": "docs/ARCHITECTURE.md",
+      "predecessor_hits": [],
+      "role": "forbidden_overclaim_violation",
+      "surface_family": "docs",
+      "terms": []
+    },
+    {
+      "claim_hits": [
+        "public_text_acceptance",
+        "workshop_readiness"
+      ],
+      "classification": "blocked",
+      "definition_context": false,
+      "line": 541,
+      "line_text": "  * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 Publish Boundary scope로 연다.",
+      "path": "docs/ROADMAP.md",
+      "predecessor_hits": [],
+      "role": "forbidden_overclaim_violation",
+      "surface_family": "docs",
+      "terms": []
+    },
+    {
+      "claim_hits": [
+        "public_text_acceptance",
+        "workshop_readiness"
+      ],
+      "classification": "blocked",
+      "definition_context": false,
+      "line": 570,
+      "line_text": "  * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 Publish Boundary scope로만 연다.",
+      "path": "docs/ROADMAP.md",
+      "predecessor_hits": [],
+      "role": "forbidden_overclaim_violation",
+      "surface_family": "docs",
+      "terms": []
+    }
+  ],
   "excluded_files": [
     "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase1/*",
     "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/validation_report.*.json"
@@ -8,7 +67,7 @@
   "excluded_roots": [
     "Iris/build/description/v2/staging/compose_contract_migration"
   ],
-  "forbidden_overclaim_violation_count": 0,
+  "forbidden_overclaim_violation_count": 4,
   "forbidden_predecessor_reentry_violation_count": 0,
   "generated_at": "2026-06-23T00:00:00+09:00",
   "historical_trace_policy": "classify_as_historical_or_policy_trace_not_current_closeout_claim",
@@ -76,5 +135,5 @@
     "validators"
   ],
   "schema_version": "dvf-3-3-closeout-claim-surface-scan-manifest-v1",
-  "status": "PASS"
+  "status": "FAIL"
 }

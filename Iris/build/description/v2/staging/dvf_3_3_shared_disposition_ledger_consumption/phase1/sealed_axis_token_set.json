@@ -196,9 +196,9 @@
     },
     {
       "coverage_status": "COVERED",
-      "excluded_numeric_occurrence_count": 73,
+      "excluded_numeric_occurrence_count": 88,
       "exclusion_reason": null,
-      "raw_numeric_occurrence_count": 340,
+      "raw_numeric_occurrence_count": 355,
       "role_bearing_disposition_occurrence_count": 267,
       "sealed_axis_role": "blocked/unknown/pending/forbidden zero invariants",
       "sealed_value": 0,

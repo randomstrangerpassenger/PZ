@@ -1,0 +1,18 @@
+{
+  "added_entries": [],
+  "added_entries_count": 0,
+  "duplicate_artifact_count": 0,
+  "duplicate_entries": 0,
+  "duplicate_test_count": 0,
+  "generated_at": "2026-07-06T17:54:43.053400+00:00",
+  "modified_current_round_entries": 0,
+  "modified_entries": [],
+  "modified_existing_entries": 0,
+  "removed_artifacts": [],
+  "removed_required_artifact_count": 0,
+  "removed_required_test_count": 0,
+  "removed_tests": [],
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-manifest-diff-v1",
+  "status": "PASS"
+}

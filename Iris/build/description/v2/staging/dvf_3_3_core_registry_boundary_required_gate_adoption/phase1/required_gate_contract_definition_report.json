@@ -1,0 +1,18 @@
+{
+  "dvf_pass_standalone_current_claim_allowed": false,
+  "future_current_route_blocking_claimed": true,
+  "future_current_route_blocking_scope": "post_final_universe",
+  "generated_at": "2026-07-06T17:54:42.784262+00:00",
+  "legacy_combined_route_pass_is_dvf_core_pass": false,
+  "manifest_required_route_result_field_count": 0,
+  "predecessor_claim_contract_path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+  "predecessor_claim_contract_redefined": false,
+  "predecessor_claim_contract_sha256": "fb693a4b5ec1bebb7b99a59648b4c48c7d229143226d1c0b34b364b56a523001",
+  "required_gate_adopted": true,
+  "required_manifest_adoption_mode": "additive_only",
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-contract-definition-v1",
+  "self_reference_cycle_count": 0,
+  "source_rendered_lua_runtime_package_mutation": false,
+  "status": "PASS"
+}

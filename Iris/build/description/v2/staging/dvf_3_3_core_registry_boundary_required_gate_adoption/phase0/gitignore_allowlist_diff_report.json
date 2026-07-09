@@ -1,0 +1,27 @@
+{
+  "expected_rules": [
+    "!Iris/build/description/v2/tools/build/dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    "!Iris/build/description/v2/tools/build/run_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    "!Iris/build/description/v2/tools/build/validate_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    "!Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    "!Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/",
+    "!Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/**"
+  ],
+  "generated_at": "2026-07-06T17:54:42.777503+00:00",
+  "gitignore_added_rule_count": 6,
+  "gitignore_added_rule_count_matches_expected": true,
+  "gitignore_broad_unignore_rule_count": 0,
+  "gitignore_expected_round_local_rule_count": 6,
+  "gitignore_expected_rule_manifest_status": "PASS",
+  "gitignore_round_local_rule_count": 6,
+  "observed_rules": [
+    "!Iris/build/description/v2/tools/build/dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    "!Iris/build/description/v2/tools/build/run_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    "!Iris/build/description/v2/tools/build/validate_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    "!Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    "!Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/",
+    "!Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/**"
+  ],
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-gitignore-v1",
+  "status": "PASS"
+}

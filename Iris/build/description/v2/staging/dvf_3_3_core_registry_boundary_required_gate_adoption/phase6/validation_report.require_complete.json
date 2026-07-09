@@ -1,0 +1,10 @@
+{
+  "error_count": 0,
+  "errors": [],
+  "generated_at": "2026-07-06T18:15:10.886842+00:00",
+  "require_complete": true,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-validation-v1",
+  "skip_route_requirements": false,
+  "status": "PASS"
+}

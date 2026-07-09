@@ -1,0 +1,10 @@
+{
+  "generated_at": "2026-07-06T17:54:42.078728+00:00",
+  "predecessor_claim_contract_path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+  "predecessor_claim_contract_redefined": false,
+  "predecessor_claim_contract_sha256": "fb693a4b5ec1bebb7b99a59648b4c48c7d229143226d1c0b34b364b56a523001",
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-predecessor-consumption-v1",
+  "source_rendered_runtime_package_mutation_allowed_observed": false,
+  "status": "PASS"
+}

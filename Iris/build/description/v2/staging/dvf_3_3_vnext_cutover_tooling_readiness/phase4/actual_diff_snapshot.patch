@@ -1193,59 +1193,60 @@
 --- a/docs/ARCHITECTURE.md
 +++ b/docs/ARCHITECTURE.md
 @@ -377,7 +377,7 @@
- ```
+ DVF Core는 다음 책임을 소유하지 않는다.
  
- * source / facts / decisions는 정보 판단의 근거가 되는 생산 입력이다.
--* rendered output은 확정된 정보를 사용자 문장으로 변환한 정적 산출물이다.
-+* rendered output은 확정된 정보를 사용자 문장으로 변환한 정적 산출물이다. DVF_AUTHORITY_ROLE_MIGRATION[9ff6d00a905a2f0f174f6c7a1a857e51]
- * Lua bridge와 runtime chunks는 런타임 표시를 위한 배포 산출물이다.
- * 런타임은 배포 산출물을 표시할 뿐, source 검증이나 설명 재생성을 수행하지 않는다.
- * current authority는 하나의 경로로만 유지하며, 생산 경로와 런타임 경로를 서로 대체하지 않는다.
+ - artifact authority
+-- artifact role classification
++- artifact role classification DVF_AUTHORITY_ROLE_MIGRATION[9ff6d00a905a2f0f174f6c7a1a857e51]
+ - source / rendered / runtime / package identity
+ - staging evidence
+ - required validation
 --- a/docs/DECISIONS.md
 +++ b/docs/DECISIONS.md
 @@ -942,7 +942,7 @@
-   * successor current authority cutover sealed: 2026-06-19
-   * predecessor `2105 / 2084 / 21` baseline은 복구 대상 current authority가 아니라 historical / comparison / migration input이다.
  
--### Iris DVF 3-3 — predecessor / prerequisite evidence chain
-+### Iris DVF 3-3 — predecessor / prerequisite evidence chain DVF_AUTHORITY_ROLE_MIGRATION[70ce1a04e2996d8a8ce27e5ea4d79e35] DVF_AUTHORITY_ROLE_MIGRATION[884cf6d0ddb6e311ca519087fd012653] DVF_AUTHORITY_ROLE_MIGRATION[f51d31985e78f5aa9d51c8cfa30a77cb]
+ * 결정: DVF 3-3의 current authority는 legacy manual registry / T-Gate / active-silent 모델이 아니라, "facts -> decisions -> compose -> rendered -> Lua bridge -> chunk runtime data"로 이어지는 successor chain으로 고정한다.
  
- * 상태: predecessor evidence chain / consumed by current authority cutover seal
- * 결정: Layer3 reconstruction, 2105 baseline consumption audit, vNext pre-cutover authority evidence, consumer migration input normalization, cutover tooling readiness는 current authority 자체가 아니라 successor current authority seal을 가능하게 한 prerequisite / predecessor chain으로 보존한다.
+-* 현재 기준:
++* 현재 기준: DVF_AUTHORITY_ROLE_MIGRATION[70ce1a04e2996d8a8ce27e5ea4d79e35] DVF_AUTHORITY_ROLE_MIGRATION[884cf6d0ddb6e311ca519087fd012653] DVF_AUTHORITY_ROLE_MIGRATION[f51d31985e78f5aa9d51c8cfa30a77cb]
+   
+   * DVF 3-3은 runtime Lua에서 본문을 생성하거나 판단하는 시스템이 아니라, approved facts / decisions / profile / body_plan을 소비해 오프라인에서 3-3 item body를 결정론적으로 생성·검증하는 production contract로 읽는다.
+   * current source authority는 successor facts / decisions / overlay / input manifest 계열을 통해 소비한다.
 @@ -983,7 +983,7 @@
-   * tooling readiness contract: `PASS`
-   * command surface mapping: `PASS / mapped families 6 / unmapped 0`
-   * runtime mirror apply / restore probe: `PASS`
--  * row-level migration ledger: `311 rows / 163 mutation rows / 148 non-apply rows`
-+  * row-level migration ledger: `311 rows / 163 mutation rows / 148 non-apply rows` DVF_AUTHORITY_ROLE_MIGRATION[e610694694e319b1e929fa5f0acba251]
-   * actual diff-to-ledger: `PASS / mapped 163 / unmapped 0 / orphan 0`
-   * protected surface no-mutation: `PASS / changed_count 0`
-   * 세부 command matrix, focused tests, package route, Lua syntax route는 `COMMON-EVIDENCE-TRACE`로 흡수한다.
+ 
+ * 상태: predecessor evidence chain / consumed by successor current authority cutover seal
+ 
+-* 결정: Layer3 reconstruction, 2105 baseline consumption audit, vNext pre-cutover authority evidence, consumer migration input normalization, cutover tooling readiness는 current authority 자체가 아니라 successor current authority seal을 가능하게 한 prerequisite / predecessor chain으로 보존한다.
++* 결정: Layer3 reconstruction, 2105 baseline consumption audit, vNext pre-cutover authority evidence, consumer migration input normalization, cutover tooling readiness는 current authority 자체가 아니라 successor current authority seal을 가능하게 한 prerequisite / predecessor chain으로 보존한다. DVF_AUTHORITY_ROLE_MIGRATION[e610694694e319b1e929fa5f0acba251]
+ 
+ * 현재 기준:
+   
 --- a/docs/ROADMAP.md
 +++ b/docs/ROADMAP.md
 @@ -363,7 +363,7 @@
+   * legacy `active / silent`는 historical / diagnostic / import alias로만 읽는다.
+   * current source / rendered / runtime chunk chain만 current authority로 읽는다.
+   * runtime deployable authority는 monolith가 아니라 Lua chunk manifest + chunk files 기준으로 유지한다.
+-  * successor source / rendered / runtime chunk authority와 2105 consumer migration은 current로 승격했다.
++  * successor source / rendered / runtime chunk authority와 2105 consumer migration은 current로 승격했다. DVF_AUTHORITY_ROLE_MIGRATION[44565d8815eb2100632f20c9d47f41eb] DVF_AUTHORITY_ROLE_MIGRATION[9f0a3d2900217938de35504162f01d0a] DVF_AUTHORITY_ROLE_MIGRATION[fb3bb73386642005a8ddeec34ca7ad21]
+   * predecessor fixture / prior staging / legacy bridge / monolith output은 current path로 재진입시키지 않는다.
  
- * DVF 3-3 current authority reconciliation, vNext regeneration, rejected delta correction, current authority cutover, 2105 consumer migration을 완료했다.
- 
--  * successor source / rendered / runtime chunk authority를 current로 승격했다.
-+  * successor source / rendered / runtime chunk authority를 current로 승격했다. DVF_AUTHORITY_ROLE_MIGRATION[44565d8815eb2100632f20c9d47f41eb] DVF_AUTHORITY_ROLE_MIGRATION[9f0a3d2900217938de35504162f01d0a] DVF_AUTHORITY_ROLE_MIGRATION[fb3bb73386642005a8ddeec34ca7ad21]
-   * frozen 2105, prior staging, 6-entry fixture, legacy bridge, monolith output은 current authority가 아니라 historical / comparison / diagnostic / prerequisite trace로만 보존한다.
-   * 이 완료는 package release readiness, Workshop readiness, B42 readiness, deployment readiness, manual in-game validation, semantic quality completion, public-facing text quality acceptance를 의미하지 않는다.
- 
+ * DVF Core / Iris Artifact Registry / Publish Boundary 책임 경계를 분리했다.
 @@ -375,7 +375,7 @@
-   * `Base.CanOpener` 등 6-entry predecessor fixture/source payload는 current-looking path로 재진입하지 않는다.
-   * 기존 Current Source Authority Drift Recovery live-write scope는 future drift가 새로 증명될 때만 여는 contingency로 격하한다.
-   * independent review와 owner seal을 거쳐 `closeout_state=current_source_authority_drift_verification_recovery_scope_retirement_canonical_pass`, `canonical_retirement_seal_allowed=true`로 닫았다.
--  * 이 완료는 source restoration, current authority cutover, rendered live regeneration, Lua bridge export, runtime chunk replacement, live migration execution, package/release/Workshop/B42 readiness, manual QA를 의미하지 않는다.
-+  * 이 완료는 source restoration, current authority cutover, rendered live regeneration, Lua bridge export, runtime chunk replacement, live migration execution, package/release/Workshop/B42 readiness, manual QA를 의미하지 않는다. DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]
+   * 단독 `DVF PASS` current claim은 금지한다.
+   * legacy combined route에 흡착됐던 Registry / Runtime Compatibility / Publish Boundary 책임은 DVF Core current claim으로 되돌리지 않는다.
  
- * DVF 3-3 Live Migration Readiness Authorization을 봉인했다.
+-* Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다.
++* Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다. DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]
  
+   * sealed authorization과 execution evidence는 Phase 4 live apply의 입력 증거로만 읽는다.
+   * hard-forbidden runtime / package / Lua bridge surface는 live mutation target이 아니라 evidence-only proof로 닫았다.
 @@ -390,7 +390,7 @@
-   * `docs/dvf_3_3_live_migration_readiness_execution_plan.md`가 요구한 `phase0`~`phase10` pre-apply gate artifacts를 `Iris/build/description/v2/staging/dvf_3_3_live_migration_readiness_execution/`에 materialize한다.
-   * execution runner는 authorization verdict를 live apply로 실행하지 않고, execution plan이 소비할 canonical evidence root / artifact names / validation surface로 투영한다.
-   * execution verdict도 `phase4_live_apply_allowed=true`, `downstream_predecessor_status=ready_for_phase4_live_apply`, `no_live_mutation_changed_count=0`이다.
--  * execution validation은 `run_dvf_3_3_live_migration_readiness_execution.py --mode all`, `validate_dvf_3_3_live_migration_readiness_execution.py --require-complete`, focused unittest 기준 PASS다.
-+  * execution validation은 `run_dvf_3_3_live_migration_readiness_execution.py --mode all`, `validate_dvf_3_3_live_migration_readiness_execution.py --require-complete`, focused unittest 기준 PASS다. DVF_AUTHORITY_ROLE_MIGRATION[b06ec50536c3b84b014997b0af257dc1]
+   * monolith export는 explicit historical / diagnostic mode에서만 허용한다.
+   * current / historical / diagnostic test route를 분리하고, current route closure guard를 유지한다.
  
- * compose / resolver / compatibility authority를 current readpoint 기준으로 정리했다.
+-* Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다.
++* Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다. DVF_AUTHORITY_ROLE_MIGRATION[b06ec50536c3b84b014997b0af257dc1]
+ 
+   * runtime payload enum은 `adopted / unadopted`가 canonical이다.
+   * `active / silent` 재유입은 current writer / validator path에서 fail-loud 처리한다.

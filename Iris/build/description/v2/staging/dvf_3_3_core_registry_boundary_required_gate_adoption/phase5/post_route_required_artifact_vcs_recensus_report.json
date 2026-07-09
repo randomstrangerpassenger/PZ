@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-07-06T17:56:37.022427+00:00",
+  "post_route_required_artifact_dirty_count": 0,
+  "post_route_required_artifact_ignored_count": 0,
+  "post_route_required_artifact_untracked_count": 0,
+  "required_artifact_rows": [
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/required_gate_contract_definition_report.json",
+      "sha256": "62a25f6d21451abdb743f354221a76198a25b71679d8dd3fbac0c6c1e4b5d6f7",
+      "untracked": false
+    },
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/field_host_phase_mapping.json",
+      "sha256": "1f2dc1cf8df3b7cf4ff1c9d698917911c6ca9cd51a4cd1ed550dc5cf83433c8e",
+      "untracked": false
+    },
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/claim_surface_scan_report.json",
+      "sha256": "5bb255165ce4becab8d0c26dbeb850fd80718b827b7fd677407644ffb86768fe",
+      "untracked": false
+    },
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/negative_fixture_report.json",
+      "sha256": "770d22a61319a86f788674d607b75416403ad98285b71bf08ba32194621a6b17",
+      "untracked": false
+    },
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/allowed_boundary_fixture_report.json",
+      "sha256": "fe462c43449811f1dca33937ede32d7382d4d22a0087835f6f52b199b7905ab4",
+      "untracked": false
+    },
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/gate_tooling_report.json",
+      "sha256": "33f434868399aed005a0293d260d76b8c713c3f7893fb3b56b9774f19ba4d195",
+      "untracked": false
+    },
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase3/required_manifest_adoption_report.json",
+      "sha256": "d151a866764330721f6f68941bff8979df1dd90848c535a239869302f8e1c16e",
+      "untracked": false
+    },
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase3/bootstrap_sufficiency_report.json",
+      "sha256": "2fd1d769b5a7eba27cc106b91b77dab832f6a721b3de929b626326ea8c5c5bc3",
+      "untracked": false
+    },
+    {
+      "dirty": false,
+      "exists": true,
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase4/protected_surface_no_mutation_report.json",
+      "sha256": "2702bf2d23d729ae2888b7dc90f4cc762ee0f492e57c27334135802df881fe46",
+      "untracked": false
+    }
+  ],
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-required-artifact-vcs-v1",
+  "status": "PASS"
+}

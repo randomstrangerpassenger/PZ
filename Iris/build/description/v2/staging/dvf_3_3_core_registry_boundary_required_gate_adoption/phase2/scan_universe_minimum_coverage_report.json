@@ -1,0 +1,10 @@
+{
+  "claim_scan_minimum_universe_satisfied": true,
+  "claim_scan_required_surface_missing_count": 0,
+  "final_doc_scan_universe_missing_count": 0,
+  "generated_at": "2026-07-06T17:54:42.920104+00:00",
+  "pre_route_scan_universe_missing_count": 0,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-scan-minimum-v1",
+  "status": "PASS"
+}

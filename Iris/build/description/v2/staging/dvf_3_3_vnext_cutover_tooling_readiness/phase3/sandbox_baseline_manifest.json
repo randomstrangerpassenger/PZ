@@ -1,7 +1,7 @@
 {
   "audit_matrix_fingerprint": "633357da9b1a3919a69d509ec4d508ec8296e8706d1e703967187a8505d83d2c",
   "claim_boundary": "DVF 3-3 vNext current authority cutover tooling readiness only; not current authority adoption, live runtime replacement, consumer migration completion, package readiness, or release readiness",
-  "current_route_validation_manifest_fingerprint": "7773f58cb6d7650539ab16dd887f8ccb0ff031ab7357b0ad851072b362578343",
+  "current_route_validation_manifest_fingerprint": "bbedf8ea10b4ca2e31ce4e587d7ac081d4ab9dbc4bbdc8e22de286148f677cc5",
   "file_hashes": [
     {
       "bytes": 130074,
@@ -364,28 +364,28 @@
       "sha256": "ffee61bd96e0fd299e26d09b75da68330c100316ccfd1fd484795790d16c8be0"
     },
     {
-      "bytes": 62259,
+      "bytes": 44518,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_baseline/docs__ARCHITECTURE.md",
       "role": "sandbox_baseline_copy",
-      "sha256": "c0d4940cd1c64de049bea6995628a1403d961dfb837efe3e218146a495383c58"
+      "sha256": "fff017b6dfbecee602b2c092cf7041e329f04be47113f8ae1a8a97d901304da8"
     },
     {
-      "bytes": 197454,
+      "bytes": 174380,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_baseline/docs__DECISIONS.md",
       "role": "sandbox_baseline_copy",
-      "sha256": "544c3206965fee2d00d4d005363c57a92da7aef7b7c39f2a94fed9d843038932"
+      "sha256": "678eb5e2a5aca54f040f556c802ae6ad97669abb56938414771ea5f91767c3bf"
     },
     {
-      "bytes": 77798,
+      "bytes": 54244,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/sandbox_baseline/docs__ROADMAP.md",
       "role": "sandbox_baseline_copy",
-      "sha256": "9d51ddef3e3292dc411562f92e9f0df2de40ed0335a4a1d52293287d7653e5f1"
+      "sha256": "3b1e84e53e59f9e56eb26e96af8379967293390d1f93598305a124ea76143410"
     }
   ],
   "generated_at": "2026-06-18T00:00:00+09:00",

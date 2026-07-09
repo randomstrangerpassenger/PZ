@@ -1,0 +1,57 @@
+{
+  "all_manifest_required_artifacts_exist_before_post_adoption_route": true,
+  "all_manifest_required_artifacts_have_final_values_before_post_adoption_route": true,
+  "artifact_rows": [
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/required_gate_contract_definition_report.json"
+    },
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/field_host_phase_mapping.json"
+    },
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/claim_surface_scan_report.json"
+    },
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/negative_fixture_report.json"
+    },
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/allowed_boundary_fixture_report.json"
+    },
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/gate_tooling_report.json"
+    },
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase3/required_manifest_adoption_report.json"
+    },
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase3/bootstrap_sufficiency_report.json"
+    },
+    {
+      "exists": true,
+      "field_checks_pass": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase4/protected_surface_no_mutation_report.json"
+    }
+  ],
+  "generated_at": "2026-07-06T17:54:43.733971+00:00",
+  "manifest_required_route_result_field_count": 0,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-bootstrap-sufficiency-v1",
+  "self_reference_cycle_count": 0,
+  "status": "PASS"
+}

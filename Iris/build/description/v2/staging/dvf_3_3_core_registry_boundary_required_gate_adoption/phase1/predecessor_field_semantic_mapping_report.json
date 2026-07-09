@@ -1,0 +1,16 @@
+{
+  "generated_at": "2026-07-06T17:54:42.787522+00:00",
+  "predecessor_field_names_mutated": false,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "rows": [
+    {
+      "mapping_role": "semantic_target_rename_without_predecessor_mutation",
+      "predecessor_expected_value": false,
+      "predecessor_field": "source_rendered_runtime_package_mutation_allowed",
+      "target_field": "source_rendered_lua_runtime_package_mutation",
+      "target_value": false
+    }
+  ],
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-predecessor-field-map-v1",
+  "status": "PASS"
+}

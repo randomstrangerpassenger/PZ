@@ -1,0 +1,8 @@
+{
+  "counts_derived_from_live_manifest": true,
+  "generated_at": "2026-07-06T17:54:42.083880+00:00",
+  "required_artifact_count": 102,
+  "required_test_count": 51,
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-live-denominator-v1",
+  "status": "PASS"
+}

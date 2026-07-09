@@ -1,7 +1,7 @@
 {
   "architecture_scope": "structural_boundary_level",
   "checks": {
-    "architecture": true,
+    "architecture": false,
     "claim_boundary": true,
     "claim_boundary_has_axis_qualified": true,
     "decisions": true,
@@ -15,5 +15,5 @@
   "per_doc_allowed_density_status": "PASS",
   "roadmap_scope": "summary_level",
   "schema_version": "dvf-3-3-closeout-docs-claim-taxonomy-consistency-v1",
-  "status": "PASS"
+  "status": "FAIL"
 }

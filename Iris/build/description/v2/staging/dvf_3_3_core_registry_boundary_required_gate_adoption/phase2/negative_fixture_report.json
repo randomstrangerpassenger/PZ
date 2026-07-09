@@ -1,0 +1,38 @@
+{
+  "fixtures": [
+    {
+      "expected_failure_preserved": true,
+      "fixture": "standalone",
+      "violation_codes": [
+        "standalone_current_dvf_pass"
+      ]
+    },
+    {
+      "expected_failure_preserved": true,
+      "fixture": "legacy_recast",
+      "violation_codes": [
+        "legacy_combined_route_pass_recast_as_dvf_core_pass"
+      ]
+    },
+    {
+      "expected_failure_preserved": true,
+      "fixture": "runtime_overclaim",
+      "violation_codes": [
+        "dvf_core_pass_overclaims_downstream_surface"
+      ]
+    },
+    {
+      "expected_failure_preserved": true,
+      "fixture": "publish_overclaim",
+      "violation_codes": [
+        "dvf_core_pass_overclaims_downstream_surface"
+      ]
+    }
+  ],
+  "forbidden_fixture_failure_count": 4,
+  "generated_at": "2026-07-06T17:54:42.920964+00:00",
+  "live_manifest_mutated": false,
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-negative-fixture-v1",
+  "status": "PASS"
+}

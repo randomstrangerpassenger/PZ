@@ -1,0 +1,136 @@
+{
+  "claim_match_count": 32,
+  "claim_scan_excluded_path_without_reason_count": 0,
+  "claim_scan_minimum_universe_satisfied": true,
+  "claim_scan_required_surface_missing_count": 0,
+  "claim_scan_universe_count": 21,
+  "claim_scan_universe_derivation_mode": "explicit_rule_derived",
+  "current_route_pass_sequence_id": "second",
+  "current_route_scan_universe_mode": "post_final",
+  "current_route_scan_universe_mode_source": "phase_state_derived",
+  "excluded_paths": [],
+  "final_doc_scan_universe_enabled": true,
+  "final_doc_scan_universe_missing_count": 0,
+  "forbidden_overclaim_count": 0,
+  "generated_at": "2026-07-06T17:56:37.186889+00:00",
+  "hash_bound_false_positive_exception_count": 0,
+  "pre_route_scan_universe_missing_count": 0,
+  "predecessor_scan_universe_reference": "predecessor_claim_contract_closure_rule_v1",
+  "round_id": "dvf_3_3_core_registry_boundary_required_gate_adoption",
+  "scan_universe": [
+    {
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "role": "scan_surface",
+      "sha256": "bbedf8ea10b4ca2e31ce4e587d7ac081d4ab9dbc4bbdc8e22de286148f677cc5"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_required_gate_adoption_contract.md",
+      "role": "scan_surface",
+      "sha256": "e5b7b54c533c9776f994d1371cc644c93bd195eb7a23d3a964410d77adcea8d4"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_required_gate_adoption_claim_boundary.md",
+      "role": "scan_surface",
+      "sha256": "610a0d571dde51bb4dad348724dc70a407a6a2c4cc669e3f3c926c72941d81dc"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_required_gate_adoption_ledger_packet.md",
+      "role": "scan_surface",
+      "sha256": "2bb1f72a7dcaded0957a4a1a7a9492813951a8d3c1a544f42279cfbc0aa78904"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_claim_contract_closure/phase6/final_boundary_split_closure_report.json",
+      "role": "scan_surface",
+      "sha256": "0717e0369d99ffe76b285837a811721266f636ad1cf67bc058fae84320f12211"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "role": "scan_surface",
+      "sha256": "fb693a4b5ec1bebb7b99a59648b4c48c7d229143226d1c0b34b364b56a523001"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_boundary.md",
+      "role": "scan_surface",
+      "sha256": "148b233e86eb4e88afe7328b6bdcfcce00c50c19ea78705ff6fc91e2154742be"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract_ledger_packet.md",
+      "role": "scan_surface",
+      "sha256": "9eb483e25f3dd17c25f4f77d39d28b29330f02a53ee0319e6f573045de6d6c93"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract_closure_closeout.md",
+      "role": "scan_surface",
+      "sha256": "2309c0fc8e5176db0574c1fadb9d70426171472eafec32e7baef9ce45b60b421"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract_closure_walkthrough.md",
+      "role": "scan_surface",
+      "sha256": "0a98931d4026dcac05eea74d6be8f1f4dd98bdab93ba6a81d126abb03eb622a8"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/required_gate_contract_definition_report.json",
+      "role": "scan_surface",
+      "sha256": "62a25f6d21451abdb743f354221a76198a25b71679d8dd3fbac0c6c1e4b5d6f7"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/field_host_phase_mapping.json",
+      "role": "scan_surface",
+      "sha256": "1f2dc1cf8df3b7cf4ff1c9d698917911c6ca9cd51a4cd1ed550dc5cf83433c8e"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase1/predecessor_field_semantic_mapping_report.json",
+      "role": "scan_surface",
+      "sha256": "e9ed7afe28449215ca8510bcff14ad45451679152410971a3c795331ead731e6"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/negative_fixture_report.json",
+      "role": "scan_surface",
+      "sha256": "770d22a61319a86f788674d607b75416403ad98285b71bf08ba32194621a6b17"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/allowed_boundary_fixture_report.json",
+      "role": "scan_surface",
+      "sha256": "fe462c43449811f1dca33937ede32d7382d4d22a0087835f6f52b199b7905ab4"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase2/gate_tooling_report.json",
+      "role": "scan_surface",
+      "sha256": "33f434868399aed005a0293d260d76b8c713c3f7893fb3b56b9774f19ba4d195"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase3/required_manifest_adoption_report.json",
+      "role": "scan_surface",
+      "sha256": "d151a866764330721f6f68941bff8979df1dd90848c535a239869302f8e1c16e"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase3/bootstrap_sufficiency_report.json",
+      "role": "scan_surface",
+      "sha256": "2fd1d769b5a7eba27cc106b91b77dab832f6a721b3de929b626326ea8c5c5bc3"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/final_boundary_required_gate_adoption_report.json",
+      "role": "scan_surface",
+      "sha256": "8168758cd087b711c46a5eaaa037cf8f7f2a9bc8c3b898cd1afe07b0c7da75d3"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_required_gate_adoption_closeout.md",
+      "role": "scan_surface",
+      "sha256": "31044126b572584662a6264d5975ff6fbbff726ff7f724237d137144df0869c1"
+    },
+    {
+      "path": "docs/dvf_3_3_core_registry_boundary_required_gate_adoption_walkthrough.md",
+      "role": "scan_surface",
+      "sha256": "4eac8ae49716f11ef0c4addad3f2ddbb795143a7323a873c22bac22118d47f0f"
+    }
+  ],
+  "scan_universe_count": 21,
+  "scan_universe_drift_recorded": true,
+  "scan_universe_reduction_without_reason_count": 0,
+  "scanner_exception_prose_only_count": 0,
+  "schema_version": "dvf-3-3-core-registry-boundary-required-gate-live-claim-rescan-v1",
+  "status": "PASS",
+  "unhash_bound_scanner_exception_count": 0,
+  "unknown_claim_scanner_exception_count": 0,
+  "violations": []
+}

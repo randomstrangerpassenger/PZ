@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-07-09T18:13:44.273348+00:00",
+  "mappings": {
+    "roadmap_D1": [
+      "plan_D1",
+      "plan_D2"
+    ],
+    "roadmap_D2": [
+      "plan_D3"
+    ],
+    "roadmap_D3": [
+      "plan_D5"
+    ],
+    "roadmap_D4": "observed_only_adjacent_token_drift",
+    "roadmap_D5": "fixed_bare_dvf_system_pass_ban",
+    "roadmap_D6": [
+      "round_metadata",
+      "independent_review_schema",
+      "plan_D6"
+    ]
+  },
+  "schema_version": "dvf-system-naming-roadmap-plan-decision-provenance-map-v1",
+  "status": "PASS"
+}

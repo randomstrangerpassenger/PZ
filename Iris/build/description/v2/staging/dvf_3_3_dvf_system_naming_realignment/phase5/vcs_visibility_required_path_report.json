@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-07-09T18:13:44.508697+00:00",
+  "required_paths": [
+    "Iris/build/description/v2/tools/build/dvf_3_3_dvf_system_naming_realignment.py",
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_dvf_system_naming_realignment.py",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_dvf_system_naming_realignment.py",
+    "Iris/build/description/v2/tests/test_dvf_3_3_dvf_system_naming_realignment.py",
+    "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+    "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+    "docs/dvf_3_3_dvf_system_naming_realignment_ledger_packet.md",
+    "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+    "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/"
+  ],
+  "schema_version": "dvf-system-naming-vcs-visibility-required-path-v1",
+  "status": "PASS",
+  "vcs_visibility_required_paths_tracked": true
+}

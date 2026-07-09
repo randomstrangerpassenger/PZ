@@ -32,7 +32,10 @@
     "no_required_gate_adoption_release_readiness_claim",
     "no_registry_authority_pass_claim",
     "no_publish_boundary_pass_claim",
-    "no_runtime_payload_consumer_compatibility_closure"
+    "no_runtime_payload_consumer_compatibility_closure",
+    "no_dvf_body_compiler_pass_achievement_claim",
+    "no_dvf_system_pass_bare_claim",
+    "no_source_rendered_lua_runtime_package_mutation"
   ],
   "required": true,
   "required_artifacts": [
@@ -1829,6 +1832,212 @@
         }
       ],
       "path": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/phase4/protected_surface_no_mutation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "DVF System",
+          "field": "current_canonical_body_system"
+        },
+        {
+          "equals": "DVF Body Compiler",
+          "field": "current_canonical_body_compiler"
+        },
+        {
+          "equals": false,
+          "field": "bare_dvf_system_pass_allowed"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase1/canonical_vocabulary_policy.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 6,
+          "field": "owner_decision_queue_entry_count"
+        },
+        {
+          "equals": false,
+          "field": "owner_required_decision_missing"
+        },
+        {
+          "equals": false,
+          "field": "default_value_projected_without_owner_ratification"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase1/owner_decision_queue.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "dvf_body_compiler_pass_token_meaning_defined"
+        },
+        {
+          "equals": false,
+          "field": "dvf_body_compiler_pass_achievement_claimed"
+        },
+        {
+          "equals": false,
+          "field": "dvf_system_includes_registry_authority"
+        },
+        {
+          "equals": false,
+          "field": "dvf_system_includes_publish_boundary"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase2/claim_boundary_contract.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "resolved_current_canonical_dvf_core_usage_count"
+        },
+        {
+          "equals": true,
+          "field": "all_literal_dvf_core_occurrences_disposition_classified"
+        },
+        {
+          "equals": 0,
+          "field": "unclassifiable_blocker_count"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase3/literal_vs_resolved_usage_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "forbidden_current_claim_count"
+        },
+        {
+          "equals": true,
+          "field": "claim_scan_minimum_universe_satisfied"
+        },
+        {
+          "equals": "lexical_token_level",
+          "field": "overclaim_scanner_class"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase4/forbidden_claim_scan_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": "PASS",
+          "field": "korean_mixed_language_fixture_status"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase4/korean_mixed_language_fixture_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "protected_surface_changed_count"
+        },
+        {
+          "equals": false,
+          "field": "source_rendered_lua_runtime_package_mutation"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase4/protected_surface_no_mutation_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "required_gate_adopted"
+        },
+        {
+          "equals": true,
+          "field": "future_current_route_blocking_claimed"
+        },
+        {
+          "equals": "additive_only",
+          "field": "required_manifest_adoption_mode"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase5/required_gate_adoption_decision_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": 0,
+          "field": "tools_build_package_import_attempt_count"
+        },
+        {
+          "equals": true,
+          "field": "bare_tool_module_import_used"
+        },
+        {
+          "equals": false,
+          "field": "round3_active_core_closure_expansion_required"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase5/import_closure_compatible_test_design_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "machine_pass_governance_only",
+          "field": "status"
+        },
+        {
+          "equals": "required_gate_adopted_complete",
+          "field": "dvf_system_naming_realignment_state"
+        },
+        {
+          "equals": false,
+          "field": "owner_required_decision_missing"
+        },
+        {
+          "equals": 0,
+          "field": "protected_surface_changed_count"
+        },
+        {
+          "equals": false,
+          "field": "source_rendered_lua_runtime_package_mutation"
+        }
+      ],
+      "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase6/final_naming_realignment_machine_report.json"
     }
   ],
   "required_tests": [
@@ -2086,6 +2295,11 @@
       "required": true,
       "role": "dvf_3_3_core_registry_boundary_required_gate_adoption_required_validation",
       "test_id": "test_dvf_3_3_core_registry_boundary_required_gate_adoption.DvfCoreRegistryBoundaryRequiredGateAdoptionTest.test_bootstrap_and_pre_route_no_mutation_are_pass"
+    },
+    {
+      "required": true,
+      "role": "dvf_3_3_dvf_system_naming_realignment_required_validation",
+      "test_id": "test_dvf_3_3_dvf_system_naming_realignment.DvfSystemNamingRealignmentCurrentRouteTest.test_required_gate_evidence_is_subprocess_generated_and_governance_only"
     }
   ],
   "route": "current",

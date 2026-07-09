@@ -1,10 +1,12 @@
 # Implementation Plan
 
-> Status: planned / roadmap-derived / codebase-inspected / final-review-required-revisions-incorporated / governance-only terminology retirement plan / not execution-approved without owner ratification
+> Status: planned / roadmap-derived / codebase-inspected / review-required-revisions-incorporated-through-NR3 / governance-only terminology retirement plan / not execution-approved without owner ratification
 > 작성일: 2026-07-09
 > Round candidate: `dvf_3_3_dvf_system_naming_realignment`
 > Roadmap input: `C:/Users/MW/.codex/attachments/9ea7f7f2-b4be-4224-8da1-439bb741dedc/pasted-text.txt` / sha256 `DC3A6104B091758B6FE41E7A1265708610DBA22C02CB270AB1A5CADF7A766181` / lines `817`
-> Review input: `C:/Users/MW/.codex/attachments/b18ea1eb-644b-46af-8e09-1db444c38404/pasted-text.txt` / sha256 `C05852F645FB9C3DB2A5900C50B3A17A7C5BD3511DC0425312272E8D4CB12CE2` / lines `743` / verdict `FAIL` / Required Revisions 1-18 incorporated
+> Review input cycle 1 consolidated: `C:/Users/MW/.codex/attachments/b18ea1eb-644b-46af-8e09-1db444c38404/pasted-text.txt` / sha256 `C05852F645FB9C3DB2A5900C50B3A17A7C5BD3511DC0425312272E8D4CB12CE2` / lines `743` / verdict `FAIL` / Required Revisions 1-18 incorporated
+> Review input cycle 2 delta: current thread prompt beginning `DVF System Naming Realignment PASS positive fixture` / planned materialization target `Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase0/review_input_cycle2_delta.md` / sha256 to be recorded by `phase0/input_materialization_report.json` before execution / verdict `review-delta` / NR2-M1, NR2-M2, NR2-M3, NR2-M4, NR-I7 incorporated
+> Review input cycle 3 delta: current thread prompt dated 2026-07-10 beginning `NR3-I1 - closeout-guard wording cleanup` / planned materialization target `Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase0/review_input_cycle3_NR3.md` / sha256 to be recorded by `phase0/input_materialization_report.json` before execution / verdict `FAIL` / NR3-I1, NR3-M1, NR3-M2, NR3-M3 incorporated
 > Template input: `docs/PLAN_TEMPLATE.md` / sha256 `38D70D4D624733DB4D24F047E0B737A47C75522A967C84F06FE5AABC5EBD9BA1`
 > Top authority: `docs/Philosophy.md` / sha256 `938C52E9090C36AF00DAC18B64905E12A4F2390AC238A26121A63A14F81F44B2`
 > Current ecosystem readpoints: `docs/DECISIONS.md` / sha256 `678EB5E2A5ACA54F040F556C802AE6AD97669ABB56938414771EA5F91767C3BF`; `docs/ARCHITECTURE.md` / sha256 `FFF017B6DFBECEE602B2C092CF7041E329F04BE47113F8AE1A8A97D901304DA8`; `docs/ROADMAP.md` / sha256 `3B1E84E53E59F9E56EB26E96AF8379967293390D1F93598305A124EA76143410`
@@ -230,7 +232,7 @@ D6: canonical seal eligibility condition
 * D6 allowed values are restricted to:
 
 ```text
-no_canonical_seal_without_required_gate
+canonical_seal_deferred_this_round
 doc_normative_canonical_seal_allowed
 required_gate_only_canonical_seal
 ```
@@ -332,6 +334,7 @@ Expected generated artifacts include:
 * `phase0/top_doc_dirty_overlap_report.json`
 * `phase0/execution_contract_check_report.json`
 * `phase0/input_materialization_report.json`
+* `phase0/top_doc_closeout_guard_pre_census.json`
 * `phase1/canonical_vocabulary_policy.json`
 * `phase1/canonical_vocabulary_policy.md`
 * `phase1/retired_label_allowance_matrix.json`
@@ -389,7 +392,7 @@ Files:
 Implementation Notes:
 
 * Emit `execution_contract_checked=true` with the checked document hash and no-known-conflict verdict.
-* Materialize the roadmap input bytes and review input bytes, or hash-bound provenance copies of both, under the evidence root so later validation does not depend only on transient attachment paths.
+* Materialize the roadmap input bytes and all review input bytes named in the header, or hash-bound provenance copies of them, under the evidence root so later validation does not depend only on transient attachment paths. Conversation-sourced review deltas must be copied into their planned materialization targets and assigned concrete sha256 values before execution may proceed beyond Phase 0.
 * Emit `phase0/current_route_baseline_precondition_report.json` before any Option B adoption decision. The report classifies the live current-route baseline as:
 
 ```text
@@ -403,6 +406,7 @@ blocked
 * Emit `phase0/vcs_visibility_preflight.json` with `git ls-files`, ignore status, and planned required path coverage for new tools, tests, docs, and evidence roots. Preflight may report planned allowlist edits, but it must not count untracked required paths as VCS-visible.
 * Emit `phase0/top_doc_baseline_hashes.json` with pre-edit hashes for `ARCHITECTURE.md`, `ROADMAP.md`, and `DECISIONS.md`.
 * Emit `phase0/top_doc_dirty_overlap_report.json`.
+* Emit `phase0/top_doc_closeout_guard_pre_census.json` before top-doc mutation. The closeout-guard rule source is `docs/completion_vocabulary_separation_policy.md` at sha256 `7FE70E8003B89655EED9A94E27790ADE158E4C5B4966BD4A7F6298366A8AB82D`, plus only the rule rows explicitly referenced by this plan. The census must distinguish this round's planned patch regions from preexisting doc-wide surfaces.
 * If a top-doc target is already dirty and the dirty region overlaps the planned edit region, set:
 
 ```text
@@ -439,9 +443,17 @@ missing
 * `owner_decision_ratification_schema.json` must define `D6.allowed_values` exactly as:
 
 ```text
-no_canonical_seal_without_required_gate
+canonical_seal_deferred_this_round
 doc_normative_canonical_seal_allowed
 required_gate_only_canonical_seal
+```
+
+* D6 values mean:
+
+```text
+canonical_seal_deferred_this_round = no canonical seal is claimed in this round
+doc_normative_canonical_seal_allowed = owner permits doc-normative canonical seal without required-gate adoption
+required_gate_only_canonical_seal = canonical seal requires Option B required-gate adoption
 ```
 
 * Emit `phase1/roadmap_plan_decision_provenance_map.json` so owner decision IDs cannot be misread against the roadmap D-numbering:
@@ -453,6 +465,7 @@ roadmap D3 enforcement depth -> plan D5 Option A vs Option B enforcement selecti
 roadmap D4 adjacent token drift -> observed-only report unless owner adds a new decision
 roadmap D5 bare DVF System PASS ban -> fixed conservative constraint, not a plan decision
 roadmap D6 round identifier / independent review identity constraint -> round metadata, independent review schema, and plan D6 seal eligibility boundary
+plan-added scope top-doc closeout-guard wording cleanup -> patch-region-only compatibility cleanup sourced from docs/completion_vocabulary_separation_policy.md; doc-wide absorption requires owner ratification or blocks as preexisting_closeout_guard_surfaces
 ```
 
 * The round identifier is fixed as `round_id=dvf_3_3_dvf_system_naming_realignment` by plan ratification or by the owner-ratified D6 record.
@@ -462,12 +475,15 @@ Validation:
 * `execution_contract_checked=true`
 * `roadmap_input_materialized=true`
 * `review_input_materialized=true`
+* `review_input_cycle2_delta_materialized=true`
+* `review_input_cycle3_NR3_materialized=true`
 * `current_route_baseline_state` is recorded before D5 projection
 * `preexisting_current_route_baseline_failed` blocks Option B only
 * `predecessor_required_gate_readpoint_freshness_status` is recorded
 * `vcs_visibility_preflight_status=PASS`
 * `top_doc_baseline_hashes_present=true`
 * `top_doc_dirty_overlap_detected=false`
+* `top_doc_closeout_guard_pre_census_recorded=true`
 * `owner_decision_queue_entry_count=6`
 * `d6_allowed_values_schema_valid=true`
 * `default_value_projected_without_owner_ratification=false`
@@ -743,13 +759,40 @@ DVF System / DVF Body Compiler terminology.
 
 * `DECISIONS.md` append entry must be owner-authored or owner-ratified under D4.
 * `ROADMAP.md` current canonical summary must not be classified as historical merely because it is a top doc. Current summary blocks are patch candidates unless an explicit predecessor / historical disposition applies.
-* Top-doc patching must include closeout-guard-compatible wording cleanup for existing forbidden-claim surfaces observed in current docs. This is not a goal change: it preserves the same non-claim meaning while rewriting ambiguous current prose into axis-qualified non-claim or Publish Boundary scope wording.
+* Top-doc patching must include closeout-guard-compatible wording cleanup only inside this round's planned patch regions by default. This is not a goal change: it preserves the same non-claim meaning while rewriting ambiguous current prose into axis-qualified non-claim or Publish Boundary scope wording.
+* The closeout-guard rule source is `docs/completion_vocabulary_separation_policy.md` at sha256 `7FE70E8003B89655EED9A94E27790ADE158E4C5B4966BD4A7F6298366A8AB82D`. A new rule may be used only if it is named in the policy section snapshot recorded by `phase0/top_doc_closeout_guard_pre_census.json`.
+* Allowed cleanup forms are limited to:
+
+```text
+ambiguous current prose -> axis-qualified non-claim
+release / Workshop / public text wording -> Publish Boundary scope wording
+```
+
+* Forbidden cleanup expansion:
+
+```text
+public text rewrite
+semantic quality rewrite
+release strategy rewrite
+architecture section redesign
+```
+
+* If `phase0/top_doc_closeout_guard_pre_census.json` reports `closeout_guard_blocked_surface_count_before=0`, the Change 4 closeout-guard cleanup is a recorded no-op.
+* If doc-wide scan finds preexisting closeout-guard surfaces outside this round's patch regions, tooling must not absorb them automatically. It must halt with `blocked_reason=preexisting_closeout_guard_surfaces` unless the owner ratifies either a separate prerequisite scope or explicit in-round inclusion.
+* Disposition class exemptions apply before after-count evaluation. `sealed_historical`, `frozen_machine_token`, `historical_path_or_root`, `quoted_prior_claim`, and `predecessor_trace` are not unresolved blocked surfaces if their disposition proof is present. `closeout_guard_blocked_surface_count_after=0` means zero unresolved blocked surfaces after disposition, not zero literal occurrences.
 * `phase3/top_doc_closeout_guard_compatibility_report.json` must record:
 
 ```text
+closeout_guard_rule_source_path=docs/completion_vocabulary_separation_policy.md
+closeout_guard_rule_source_sha256=7FE70E8003B89655EED9A94E27790ADE158E4C5B4966BD4A7F6298366A8AB82D
+closeout_guard_rule_source_actual_sha256=<runtime sha256>
+closeout_guard_rule_source_hash_mismatch=false
+closeout_guard_scan_boundary=patch_region_default
 closeout_guard_blocked_surface_count_before
+closeout_guard_preexisting_out_of_patch_surface_count
+closeout_guard_disposition_exempt_surface_count
 closeout_guard_blocked_surface_count_after
-public_text_workshop_release_terms_axis_qualified=true
+public_text_workshop_release_terms_axis_qualified_for_patch_region=true
 top_doc_closeout_guard_compatibility_status=PASS
 ```
 
@@ -773,7 +816,9 @@ Validation:
 * no forbidden phrase such as `DVF = DVF Core + Iris Artifact Registry`
 * no claim that Registry is a DVF System submodule
 * `top_doc_closeout_guard_compatibility_status=PASS`
+* `closeout_guard_rule_source_hash_mismatch=false`
 * `closeout_guard_blocked_surface_count_after=0`
+* `closeout_guard_preexisting_out_of_patch_surface_count=0` unless owner ratifies in-round inclusion or separate scope handling
 * `top_doc_dirty_overlap_detected=false` before any top-doc mutation
 
 ---
@@ -888,10 +933,14 @@ dvf_system_naming_realignment_state=doc_normative_complete
 required_gate_adopted=false
 future_current_route_blocking_claimed=false
 machine_gate_deferred=true
-current_route_baseline_state=not_required_for_option_a
-predecessor_required_gate_readpoint_freshness_status=not_required_for_option_a
-option_b_current_route_test_design=not_required_for_option_a
+current_route_baseline_state=<phase0 recorded value>
+current_route_baseline_dependency=waived
+predecessor_required_gate_readpoint_freshness_status=<phase0 recorded value>
+predecessor_required_gate_dependency=waived
+option_b_current_route_test_design=<phase5 recorded value or not_evaluated>
+option_b_current_route_test_design_dependency=waived
 canonical_seal_allowed=true only if D6=doc_normative_canonical_seal_allowed; otherwise false
+canonical_seal_scope=doc_normative_governance_only if canonical_seal_allowed=true; otherwise not_claimed
 ```
 
 * Option B closeout ceiling:
@@ -902,11 +951,16 @@ required_gate_adopted=true
 future_current_route_blocking_claimed=true
 current_route_rerun_success=true
 current_route_baseline_state=green
+current_route_baseline_dependency=required
 predecessor_required_gate_readpoint_freshness_status=PASS
+predecessor_required_gate_dependency=required
 option_b_current_route_test_design=closure_compatible_subprocess_or_bare_module_import
+option_b_current_route_test_design_dependency=required
 vcs_visibility_required_paths_tracked=true
 canonical_seal_allowed=true only within governance-only naming boundary and only if D6=doc_normative_canonical_seal_allowed or D6=required_gate_only_canonical_seal
 ```
+
+If Option B is too heavy, blocked by import closure, or not owner-ratified, executing Option A first is a valid successful closeout path. It must close as `doc_normative_complete`, with `required_gate_adopted=false`, `future_current_route_blocking_claimed=false`, and `machine_gate_deferred=true`.
 
 Default implementation preference is Option B only if all of the following pass:
 
@@ -933,6 +987,15 @@ import closure probe MUST run before manifest patch
 round3_active_core_closure.json expansion required => blocked, not auto-downgraded
 ```
 
+If the Option B required current-route test uses a subprocess runner, the same current-route test must consume the emitted evidence manifest and validate at least these fields rather than trusting subprocess exit code alone:
+
+```text
+forbidden_current_claim_count=0
+resolved_current_canonical_dvf_core_usage_count=0
+protected_surface_changed_count=0
+overclaim_scanner_class=lexical_token_level
+```
+
 `phase5/import_closure_compatible_test_design_report.json` must record:
 
 ```text
@@ -940,6 +1003,8 @@ option_b_current_route_test_design=closure_compatible_subprocess_or_bare_module_
 tools_build_package_import_attempt_count=0
 bare_tool_module_import_used=<true|false>
 subprocess_runner_used=<true|false>
+subprocess_evidence_manifest_fields_validated=<true|false|not_applicable>
+subprocess_evidence_manifest_minimum_fields=forbidden_current_claim_count,resolved_current_canonical_dvf_core_usage_count,protected_surface_changed_count,overclaim_scanner_class
 round3_active_core_closure_expansion_required=false
 ```
 
@@ -955,6 +1020,7 @@ Validation:
 * preexisting current-route baseline failure is reported as prerequisite failure, not naming failure
 * predecessor required-gate readpoint freshness is PASS before successor projection into Option B
 * Option B required-test design avoids `tools.build.*` imports under current-route closure
+* if `subprocess_runner_used=true`, `subprocess_evidence_manifest_fields_validated=true`
 * `vcs_visibility_required_paths_tracked=true`
 * Option B manifest patch is additive-only
 * existing required gate meanings unchanged
@@ -1273,7 +1339,7 @@ blocked
 D6 closeout projection must use one of these exact enum values:
 
 ```text
-no_canonical_seal_without_required_gate
+canonical_seal_deferred_this_round
 doc_normative_canonical_seal_allowed
 required_gate_only_canonical_seal
 ```
@@ -1327,14 +1393,24 @@ korean_mixed_language_fixture_status=PASS
 dvf_system_naming_realignment_pass_positive_fixture_status=PASS
 overclaim_scanner_class=lexical_token_level
 execution_contract_checked=true
-current_route_baseline_state=<green|not_required_for_option_a>
-predecessor_required_gate_readpoint_freshness_status=<PASS|not_required_for_option_a>
+current_route_baseline_state=<green|required_prework|blocked>
+current_route_baseline_dependency=<waived|required>
+predecessor_required_gate_readpoint_freshness_status=<PASS|stale|blocked>
+predecessor_required_gate_dependency=<waived|required>
 top_doc_closeout_guard_compatibility_status=PASS
+closeout_guard_rule_source_sha256=7FE70E8003B89655EED9A94E27790ADE158E4C5B4966BD4A7F6298366A8AB82D
+closeout_guard_rule_source_actual_sha256=<runtime sha256>
+closeout_guard_rule_source_hash_mismatch=false
+closeout_guard_scan_boundary=patch_region_default
+closeout_guard_blocked_surface_count_after=0
+closeout_guard_preexisting_out_of_patch_surface_count=0 unless owner-ratified inclusion exists
 vcs_visibility_required_paths_tracked=true
-option_b_current_route_test_design=<closure_compatible_subprocess_or_bare_module_import|not_required_for_option_a>
+option_b_current_route_test_design=<closure_compatible_subprocess_or_bare_module_import|not_evaluated>
+option_b_current_route_test_design_dependency=<waived|required>
 round3_active_core_closure_expansion_required=false
 independent_review_gate_eligible=<validated or not_claimed>
 owner_seal_source=owner_supplied_or_not_claimed
+canonical_seal_scope=<doc_normative_governance_only|required_gate_governance_only|not_claimed>
 ```
 
 If Option A is owner-ratified and succeeds:
@@ -1344,10 +1420,14 @@ dvf_system_naming_realignment_state=doc_normative_complete
 required_gate_adopted=false
 future_current_route_blocking_claimed=false
 machine_gate_deferred=true
-current_route_baseline_state=not_required_for_option_a
-predecessor_required_gate_readpoint_freshness_status=not_required_for_option_a
-option_b_current_route_test_design=not_required_for_option_a
+current_route_baseline_state=<phase0 recorded value>
+current_route_baseline_dependency=waived
+predecessor_required_gate_readpoint_freshness_status=<phase0 recorded value>
+predecessor_required_gate_dependency=waived
+option_b_current_route_test_design=<phase5 recorded value or not_evaluated>
+option_b_current_route_test_design_dependency=waived
 canonical_seal_allowed=true only if D6=doc_normative_canonical_seal_allowed; otherwise false
+canonical_seal_scope=doc_normative_governance_only if canonical_seal_allowed=true; otherwise not_claimed
 ```
 
 If Option B is owner-ratified and succeeds:
@@ -1358,14 +1438,18 @@ required_gate_adopted=true
 future_current_route_blocking_claimed=true
 current_route_rerun_success=true
 current_route_baseline_state=green
+current_route_baseline_dependency=required
 predecessor_required_gate_readpoint_freshness_status=PASS
+predecessor_required_gate_dependency=required
 option_b_current_route_test_design=closure_compatible_subprocess_or_bare_module_import
+option_b_current_route_test_design_dependency=required
 vcs_visibility_required_paths_tracked=true
 existing_required_test_removed_count=0
 existing_required_artifact_removed_count=0
 manifest_physical_split_performed=false
 current_route_runner_rewrite_performed=false
 canonical_seal_allowed=true only within governance-only naming boundary and only if D6=doc_normative_canonical_seal_allowed or D6=required_gate_only_canonical_seal
+canonical_seal_scope=required_gate_governance_only if canonical_seal_allowed=true; otherwise not_claimed
 ```
 
 If owner decisions are missing or validation cannot pass:
@@ -1410,6 +1494,9 @@ protected_surface_changed_count>0
 decisions_append_only_proof!=PASS
 top_doc_dirty_overlap_detected=true
 top_doc_closeout_guard_compatibility_status!=PASS
+closeout_guard_rule_source_hash_mismatch=true
+blocked_reason=closeout_guard_rule_source_stale when closeout_guard_rule_source_hash_mismatch=true
+closeout_guard_preexisting_out_of_patch_surface_count>0 without owner-ratified inclusion or separate scope
 scan_universe_count=0
 required_gate_adoption_claimed_without_current_route_consumption=true
 current_route_import_closure_probe_failed=true

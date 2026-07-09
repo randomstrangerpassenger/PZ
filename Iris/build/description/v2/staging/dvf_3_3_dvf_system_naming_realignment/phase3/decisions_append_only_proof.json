@@ -1,0 +1,8 @@
+{
+  "decisions_append_only_proof": "PASS",
+  "generated_at": "2026-07-09T18:13:44.322396+00:00",
+  "schema_version": "dvf-system-naming-decisions-append-only-proof-v1",
+  "sealed_predecessor_body_rewrite_detected": false,
+  "status": "PASS",
+  "successor_entry_present": true
+}

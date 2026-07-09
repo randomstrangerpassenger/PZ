@@ -1,0 +1,890 @@
+{
+  "claim_match_count": 125,
+  "claim_scan_minimum_universe_satisfied": true,
+  "forbidden_current_claim_count": 0,
+  "forbidden_overclaim_count": 0,
+  "generated_at": "2026-07-09T18:13:44.367025+00:00",
+  "matches": [
+    {
+      "allowed_context": false,
+      "line": 425,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF Body Compiler PASS",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 426,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF System Body Compiler PASS",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 427,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Registry Authority PASS",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 428,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Runtime Compatibility PASS",
+      "token": "Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 429,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Publish Boundary PASS",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 430,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Legacy Combined Governance Route PASS",
+      "token": "Legacy Combined Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 436,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Legacy Combined Governance Route PASS",
+      "token": "Legacy Combined Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 437,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "!= DVF Body Compiler PASS definition authority",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 440,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "따라서 bare `DVF PASS`와 bare `DVF System PASS`는 기본적으로 금지한다. 어떤 PASS를 말하는지 반드시 축을 붙여야 한다.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 440,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "따라서 bare `DVF PASS`와 bare `DVF System PASS`는 기본적으로 금지한다. 어떤 PASS를 말하는지 반드시 축을 붙여야 한다.",
+      "token": "DVF System PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 444,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF Body Compiler PASS",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 445,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF System Body Compiler PASS",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 446,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Registry Authority PASS",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 447,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Runtime Compatibility PASS",
+      "token": "Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 448,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Publish Boundary PASS",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 449,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "Legacy Combined Governance Route PASS",
+      "token": "Legacy Combined Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 452,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF PASS (bare current claim forbidden)",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 453,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF System PASS (bare current claim forbidden)",
+      "token": "DVF System PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 475,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "역사적 통합 검증 경로가 여러 책임을 한 번에 검사했더라도, 그 경로의 존재나 PASS는 DVF Body Compiler PASS의 정의 권위가 아니다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1567,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"current_route_required_validations.json = legacy_combined_governance_route != DVF Core PASS authority\"를 freeze sentence로 고정한다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1575,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"DVF Core PASS\", \"Registry Authority PASS\", \"Registry Runtime Compatibility PASS\", \"Publish Boundary PASS\", \"Legacy Combined Current Route PASS\"는 서로 대체하지 않는 claim class다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1575,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"DVF Core PASS\", \"Registry Authority PASS\", \"Registry Runtime Compatibility PASS\", \"Publish Boundary PASS\", \"Legacy Combined Current Route PASS\"는 서로 대체하지 않는 claim class다.",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1575,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"DVF Core PASS\", \"Registry Authority PASS\", \"Registry Runtime Compatibility PASS\", \"Publish Boundary PASS\", \"Legacy Combined Current Route PASS\"는 서로 대체하지 않는 claim class다.",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1575,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"DVF Core PASS\", \"Registry Authority PASS\", \"Registry Runtime Compatibility PASS\", \"Publish Boundary PASS\", \"Legacy Combined Current Route PASS\"는 서로 대체하지 않는 claim class다.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1575,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"DVF Core PASS\", \"Registry Authority PASS\", \"Registry Runtime Compatibility PASS\", \"Publish Boundary PASS\", \"Legacy Combined Current Route PASS\"는 서로 대체하지 않는 claim class다.",
+      "token": "Legacy Combined Current Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1576,
+      "path": "docs/DECISIONS.md",
+      "text": "* 단독 \"DVF PASS\" current claim은 금지한다.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1578,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Legacy Combined Current Route PASS\"는 DVF Core PASS의 정의 권한이 아니다.",
+      "token": "Legacy Combined Current Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1578,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Legacy Combined Current Route PASS\"는 DVF Core PASS의 정의 권한이 아니다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1579,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Publish Boundary PASS\"는 conjunctive-all-components claim으로만 읽고, partial publish component의 bare PASS로 축약하지 않는다.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1584,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 단독 \"DVF PASS\" current claim을 막는다.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1585,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 \"Legacy Combined Current Route PASS\"를 \"DVF Core PASS\"로 읽는 claim을 막는다.",
+      "token": "Legacy Combined Current Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1585,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 \"Legacy Combined Current Route PASS\"를 \"DVF Core PASS\"로 읽는 claim을 막는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1586,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 \"DVF Core PASS\"를 runtime compatible / package safe / public accepted / release ready로 읽는 claim을 막는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1638,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"DVF Core PASS\"는 runtime compatible, package safe, public accepted, release ready를 뜻하지 않는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1639,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Registry Authority PASS\"는 public text acceptance나 release readiness를 뜻하지 않는다.",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1640,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Registry Runtime Compatibility PASS\"는 source authority mutation이나 text quality acceptance를 뜻하지 않는다.",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1641,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Publish Boundary PASS\"는 DVF Core compiler 성공을 뜻하지 않는다.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1642,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Legacy Combined Current Route PASS\"는 DVF Core PASS의 정의 권한이 아니다.",
+      "token": "Legacy Combined Current Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1642,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Legacy Combined Current Route PASS\"는 DVF Core PASS의 정의 권한이 아니다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1649,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 closure는 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1649,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 closure는 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1649,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 closure는 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1675,
+      "path": "docs/DECISIONS.md",
+      "text": "* `DVF Body Compiler PASS`는 successor primary PASS token의 의미 정의이며, 이 naming round 자체가 해당 PASS achievement를 주장하지 않는다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1676,
+      "path": "docs/DECISIONS.md",
+      "text": "* `DVF System Body Compiler PASS`는 같은 body compiler axis의 expanded alias이며 별도 system-state claim이 아니다.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1677,
+      "path": "docs/DECISIONS.md",
+      "text": "* `Legacy Combined DVF Governance Route PASS`는 route-container label이다. Route-level PASS는 body compiler authority가 아니다.",
+      "token": "Legacy Combined DVF Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1678,
+      "path": "docs/DECISIONS.md",
+      "text": "* bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1678,
+      "path": "docs/DECISIONS.md",
+      "text": "* bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.",
+      "token": "DVF System PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1679,
+      "path": "docs/DECISIONS.md",
+      "text": "* retired predecessor `DVF Core PASS` label은 sealed predecessor claim meaning을 보존하지만 current canonical successor token으로 쓰지 않는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 1691,
+      "path": "docs/DECISIONS.md",
+      "text": "* canonical body compiler PASS token: `DVF Body Compiler PASS`",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 1692,
+      "path": "docs/DECISIONS.md",
+      "text": "* expanded body compiler PASS token: `DVF System Body Compiler PASS`",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1693,
+      "path": "docs/DECISIONS.md",
+      "text": "* route label: `Legacy Combined DVF Governance Route PASS`",
+      "token": "Legacy Combined DVF Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1713,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 항목은 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1713,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 항목은 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 1713,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 항목은 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 5,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_boundary.md",
+      "text": "Machine-guarded separation covers DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, and Legacy Combined Current Route PASS. This boundary does not claim runtime compatibility closure, package readiness, release readiness, public text acceptance, source mutation, rendered mutation, Lua bridge mutation, runtime chunk mutation, or package payload mutation.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 5,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_boundary.md",
+      "text": "Machine-guarded separation covers DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, and Legacy Combined Current Route PASS. This boundary does not claim runtime compatibility closure, package readiness, release readiness, public text acceptance, source mutation, rendered mutation, Lua bridge mutation, runtime chunk mutation, or package payload mutation.",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 5,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_boundary.md",
+      "text": "Machine-guarded separation covers DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, and Legacy Combined Current Route PASS. This boundary does not claim runtime compatibility closure, package readiness, release readiness, public text acceptance, source mutation, rendered mutation, Lua bridge mutation, runtime chunk mutation, or package payload mutation.",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 5,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_boundary.md",
+      "text": "Machine-guarded separation covers DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, and Legacy Combined Current Route PASS. This boundary does not claim runtime compatibility closure, package readiness, release readiness, public text acceptance, source mutation, rendered mutation, Lua bridge mutation, runtime chunk mutation, or package payload mutation.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 5,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_boundary.md",
+      "text": "Machine-guarded separation covers DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, and Legacy Combined Current Route PASS. This boundary does not claim runtime compatibility closure, package readiness, release readiness, public text acceptance, source mutation, rendered mutation, Lua bridge mutation, runtime chunk mutation, or package payload mutation.",
+      "token": "Legacy Combined Current Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 9,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "### DVF Core PASS",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 20,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- Registry Authority PASS",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 21,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- Registry Runtime Compatibility PASS",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 22,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- Publish Boundary PASS",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 28,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "### Registry Authority PASS",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 44,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "### Registry Runtime Compatibility PASS",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 56,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- Registry Authority PASS",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 58,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "### Publish Boundary PASS",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 72,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- any partial component success expressed as bare Publish Boundary PASS",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 74,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "### Legacy Combined Current Route PASS",
+      "token": "Legacy Combined Current Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 83,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- DVF Core PASS",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 84,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- Registry Authority PASS",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 85,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- Registry Runtime Compatibility PASS",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 86,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- Publish Boundary PASS",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 88,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "## DVF PASS Disposition",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 90,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "Standalone current `DVF PASS` is forbidden in this closure.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 102,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "`publish_boundary_pass_composition=conjunctive_all_components`. Bare `Publish Boundary PASS` is allowed only when public text acceptance, semantic quality acceptance, package publication readiness, release / Workshop readiness, and manual QA components are all separately validated inside a Publish Boundary closure. Partial component success must use sub-qualified tokens and is forbidden as bare `Publish Boundary PASS`.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 102,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "`publish_boundary_pass_composition=conjunctive_all_components`. Bare `Publish Boundary PASS` is allowed only when public text acceptance, semantic quality acceptance, package publication readiness, release / Workshop readiness, and manual QA components are all separately validated inside a Publish Boundary closure. Partial component success must use sub-qualified tokens and is forbidden as bare `Publish Boundary PASS`.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 9,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`DVF Body Compiler PASS` means only:",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 16,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`DVF System Body Compiler PASS` is an expanded alias for the same body compiler axis. It is not a broader system-state claim.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 18,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`DVF System Naming Realignment PASS` is allowed only as this round-scoped governance naming claim. It is not `DVF Body Compiler PASS` achievement.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 24,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`Legacy Combined DVF Governance Route PASS` remains a route-container label. A route-level pass is not `DVF Body Compiler PASS` authority.",
+      "token": "Legacy Combined DVF Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 24,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`Legacy Combined DVF Governance Route PASS` remains a route-container label. A route-level pass is not `DVF Body Compiler PASS` authority.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 11,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- bare `DVF PASS` and bare `DVF System PASS` current claims are forbidden",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 11,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- bare `DVF PASS` and bare `DVF System PASS` current claims are forbidden",
+      "token": "DVF System PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 17,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- no `DVF Body Compiler PASS` achievement claim",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 18,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- no Registry Authority PASS",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 19,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- no Registry Runtime Compatibility PASS",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 20,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- no Publish Boundary PASS",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 9,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_ledger_packet.md",
+      "text": "- canonical_body_compiler_pass_token: `DVF Body Compiler PASS`",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 10,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_ledger_packet.md",
+      "text": "- expanded_body_compiler_pass_token: `DVF System Body Compiler PASS`",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 11,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_ledger_packet.md",
+      "text": "- route_label: `Legacy Combined DVF Governance Route PASS`",
+      "token": "Legacy Combined DVF Governance Route PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 9,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- `DVF Body Compiler PASS`: primary successor PASS token meaning definition only.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": false,
+      "line": 10,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- `DVF System Body Compiler PASS`: expanded alias for the same body compiler axis.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 11,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- `Legacy Combined DVF Governance Route PASS`: current prose label for the legacy combined governance route container.",
+      "token": "Legacy Combined DVF Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 17,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- forbidden: bare `DVF PASS`",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 18,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- forbidden: bare `DVF System PASS`",
+      "token": "DVF System PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 19,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- forbidden: using `DVF Core PASS` as a current successor claim",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 24,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- This policy does not claim `DVF Body Compiler PASS` achievement.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 25,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- This policy does not claim Registry Authority PASS.",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 26,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- This policy does not claim Registry Runtime Compatibility PASS.",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 27,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- This policy does not claim Publish Boundary PASS.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 8,
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "text": "current_route_required_validations.json = legacy_combined_governance_route != DVF Core PASS authority",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 11,
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "text": "The current combined governance route remains preserved. A route-level PASS is not DVF Core PASS authority.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 39,
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "text": "This policy does not claim DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, public text quality acceptance, runtime mutation, bridge export mutation, source mutation, rendered mutation, package mutation, independent review, owner seal, or canonical seal.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 39,
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "text": "This policy does not claim DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, public text quality acceptance, runtime mutation, bridge export mutation, source mutation, rendered mutation, package mutation, independent review, owner seal, or canonical seal.",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 39,
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "text": "This policy does not claim DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, public text quality acceptance, runtime mutation, bridge export mutation, source mutation, rendered mutation, package mutation, independent review, owner seal, or canonical seal.",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 374,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 374,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 374,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
+      "token": "Registry Authority PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 374,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
+      "token": "Registry Runtime Compatibility PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 374,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 374,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
+      "token": "Legacy Combined DVF Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 375,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 375,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.",
+      "token": "DVF System PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 450,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 450,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 450,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 451,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 451,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.",
+      "token": "DVF System PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 542,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`나 legacy combined route PASS로 후속 작업을 열지 않는다.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 566,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 566,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 566,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
+      "token": "Publish Boundary PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 567,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "token": "DVF PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 567,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "token": "DVF System PASS"
+    }
+  ],
+  "overclaim_scanner_class": "lexical_token_level",
+  "round_id": "dvf_3_3_dvf_system_naming_realignment",
+  "scan_universe_count": 12,
+  "schema_version": "dvf-system-naming-forbidden-claim-scan-v1",
+  "status": "PASS",
+  "violations": []
+}

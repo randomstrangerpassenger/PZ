@@ -1,0 +1,13 @@
+{
+  "bare_tool_module_import_used": true,
+  "generated_at": "2026-07-09T18:13:44.507285+00:00",
+  "option_b_current_route_test_design": "closure_compatible_subprocess_or_bare_module_import",
+  "option_b_current_route_test_design_dependency": "required",
+  "required_test_ids": [
+    "test_dvf_3_3_dvf_system_naming_realignment.DvfSystemNamingRealignmentCurrentRouteTest.test_required_gate_evidence_is_subprocess_generated_and_governance_only"
+  ],
+  "round3_active_core_closure_expansion_required": false,
+  "schema_version": "dvf-system-naming-import-closure-compatible-test-design-v1",
+  "status": "PASS",
+  "tools_build_package_import_attempt_count": 0
+}

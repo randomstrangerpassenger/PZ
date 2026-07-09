@@ -1,16 +1,16 @@
 {
-  "excluded_numeric_count": 88,
-  "excluded_ratio": 0.247887,
+  "excluded_numeric_count": 94,
+  "excluded_ratio": 0.260388,
   "generated_at": "2026-06-21T00:00:00+09:00",
-  "promoted_ratio": 0.752113,
+  "promoted_ratio": 0.739612,
   "promoted_role_bearing_count": 267,
-  "raw_numeric_occurrence_count": 355,
+  "raw_numeric_occurrence_count": 361,
   "schema_version": "dvf-3-3-shared-disposition-zero-token-promotion-v1",
   "status": "PASS",
   "token": "0",
   "top_exclusion_reasons": [
     {
-      "count": 101,
+      "count": 107,
       "reason": "bounded_predicate_not_satisfied"
     }
   ],

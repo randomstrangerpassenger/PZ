@@ -1,0 +1,19 @@
+{
+  "diff": {
+    "added_entries_count": 0,
+    "duplicate_entries": 0,
+    "modified_current_round_entries": 0,
+    "modified_existing_entries": 0,
+    "removed_required_artifact_count": 0,
+    "removed_required_test_count": 0
+  },
+  "duplicate_entries": 0,
+  "existing_entry_reclassified_count": 0,
+  "generated_at": "2026-07-09T18:13:44.507968+00:00",
+  "modified_existing_entries": 0,
+  "predicate_meaning_change_count": 0,
+  "removed_existing_entries": 0,
+  "required_gate_adopted": true,
+  "schema_version": "dvf-system-naming-current-route-required-validation-patch-v1",
+  "status": "PASS"
+}

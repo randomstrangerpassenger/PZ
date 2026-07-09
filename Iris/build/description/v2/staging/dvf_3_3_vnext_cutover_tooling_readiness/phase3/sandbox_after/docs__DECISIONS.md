@@ -1662,6 +1662,67 @@ Iris DVF 3-3 — Core / Registry / Publish boundary claim gate
   * 선행 claim contract closure의 vocabulary split 자체는 유지되며, adoption round는 그 의미를 바꾸지 않고 live required-validation gate로 채택했다.
   * COMMON-EVIDENCE-TRACE.
 
+Iris DVF 3-3 -- DVF System naming realignment successor readpoint
+
+* 상태: current readpoint / governance-only terminology retirement / required-gate adoption successor / source-runtime-package no-mutation
+
+* 결정: Iris 3-3 body production의 current canonical terminology는 `DVF System` / `DVF Body Compiler`로 읽고, retired predecessor `DVF Core` label은 sealed historical text, predecessor contract, compatibility token, path, quoted prior claim, explicit retirement self-mention에서만 허용한다.
+
+* 현재 기준:
+  
+  * `DVF System`은 `facts / decisions / profile / body_plan -> rendered 3-3 body` 생산 경로로 책임 상한을 둔다.
+  * `DVF Body Compiler`는 같은 body-production responsibility를 claim vocabulary와 validation routing에서 더 좁게 부르는 role-granularity name이다.
+  * `DVF Body Compiler PASS`는 successor primary PASS token의 의미 정의이며, 이 naming round 자체가 해당 PASS achievement를 주장하지 않는다.
+  * `DVF System Body Compiler PASS`는 같은 body compiler axis의 expanded alias이며 별도 system-state claim이 아니다.
+  * `Legacy Combined DVF Governance Route PASS`는 route-container label이다. Route-level PASS는 body compiler authority가 아니다.
+  * bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.
+  * retired predecessor `DVF Core PASS` label은 sealed predecessor claim meaning을 보존하지만 current canonical successor token으로 쓰지 않는다.
+  * Iris Artifact Registry는 DVF System 하위 모듈이 아니며, source / rendered / runtime / package identity, required validation, seal, cutover, stale / predecessor guard, runtime compatibility responsibility를 별도 Iris-side boundary로 유지한다.
+  * Registry Authority, Registry Runtime Compatibility, Publish Boundary, Runtime Payload Consumer Compatibility, Public Text Quality, release / package / Workshop readiness, semantic quality acceptance, manual QA는 DVF System closure가 아니다.
+  * live `current_route_required_validations.json`은 legacy combined governance route container로 유지하되, this naming realignment gate를 additive required-validation으로 소비한다.
+  * scanner는 lexical / token-level governance gate이며 semantic review engine, public text acceptance gate, public-facing quality judgment가 아니다.
+  * source facts / decisions / overlay support, rendered output, Lua bridge, runtime chunk, package payload는 이 naming round의 writer surface가 아니다.
+  * user prompt `C:/Users/MW/Downloads/coding/PZ/docs/dvf_3_3_dvf_system_naming_realignment_plan.md를 구현하자`를 plan default D1-D6 owner-ratification source로 기록한다.
+
+* 최소 결과 trace:
+  
+  * current canonical body system: `DVF System`
+  * current canonical body compiler: `DVF Body Compiler`
+  * canonical body compiler PASS token: `DVF Body Compiler PASS`
+  * expanded body compiler PASS token: `DVF System Body Compiler PASS`
+  * route label: `Legacy Combined DVF Governance Route PASS`
+  * enforcement mode: `option_b_required_gate_adoption`
+  * canonical seal eligibility: `required_gate_only_canonical_seal`
+  * resolved current canonical retired predecessor label usage: `0`
+  * forbidden current claim count: `0`
+  * protected source / rendered / Lua bridge / runtime / package mutation: `0`
+
+* 후속 input artifact:
+  
+  * plan: `docs/dvf_3_3_dvf_system_naming_realignment_plan.md`
+  * policy: `docs/dvf_3_3_dvf_system_naming_realignment_policy.md`
+  * claim boundary: `docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md`
+  * ledger packet: `docs/dvf_3_3_dvf_system_naming_realignment_ledger_packet.md`
+  * closeout: `docs/dvf_3_3_dvf_system_naming_realignment_closeout.md`
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/`
+  * live required-validation manifest: `Iris/_docs/round3/current_route_required_validations.json`
+
+* 오독 금지:
+  
+  * 이 항목은 body compiler output regeneration, source mutation, rendered mutation, Lua bridge export, runtime chunk replacement, package payload mutation을 승인하지 않는다.
+  * 이 항목은 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.
+  * 이 항목은 package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual QA, semantic quality acceptance를 선언하지 않는다.
+  * 이 항목은 retired predecessor `DVF Core` wording을 current canonical terminology로 되살리지 않는다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
+* Predecessor trace:
+  
+  * Core / Registry / Publish boundary claim gate는 predecessor meaning authority로 보존한다.
+  * required-gate adoption readpoint는 live manifest consumption predecessor로 보존한다.
+  * retired predecessor `DVF Core` literal occurrences are historical / predecessor / compatibility read surfaces, not current canonical prose.
+  * COMMON-EVIDENCE-TRACE.
+
 Iris DVF 3-3 — live migration readiness authorization
 
 * 상태: current readpoint / pre-apply authorization sealed / Phase 4 live apply allowed / live apply not executed / governance-only

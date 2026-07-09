@@ -1,0 +1,11 @@
+{
+  "closeout_guard_preexisting_out_of_patch_surface_count": 0,
+  "closeout_guard_rule_source": "docs/completion_vocabulary_separation_policy.md",
+  "closeout_guard_rule_source_actual_sha256": "7fe70e8003b89655eed9a94e27790ade158e4c5b4966bd4a7f6298366a8ab82d",
+  "closeout_guard_rule_source_hash_mismatch": false,
+  "closeout_guard_rule_source_sha256": "7FE70E8003B89655EED9A94E27790ADE158E4C5B4966BD4A7F6298366A8AB82D",
+  "closeout_guard_scan_boundary": "patch_region_default",
+  "generated_at": "2026-07-09T18:13:44.218640+00:00",
+  "schema_version": "dvf-system-naming-top-doc-closeout-guard-pre-census-v1",
+  "status": "PASS"
+}

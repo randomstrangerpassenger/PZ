@@ -1,0 +1,17 @@
+{
+  "allowed_dispositions": [
+    "retirement_self_mention",
+    "sealed_historical",
+    "quoted_prior_claim",
+    "predecessor_trace",
+    "historical_path_or_root",
+    "frozen_machine_token",
+    "machine_schema_compatibility",
+    "template_or_example"
+  ],
+  "default_current_prose": "deny",
+  "generated_at": "2026-07-09T18:13:44.269484+00:00",
+  "retired_label": "DVF Core",
+  "schema_version": "dvf-system-naming-retired-label-allowance-matrix-v1",
+  "status": "PASS"
+}

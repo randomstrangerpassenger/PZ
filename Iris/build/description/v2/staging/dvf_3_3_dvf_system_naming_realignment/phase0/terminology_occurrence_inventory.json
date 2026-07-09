@@ -1,0 +1,642 @@
+{
+  "all_literal_dvf_core_occurrences_disposition_classified": true,
+  "disposition_counts": {
+    "current_canonical_prose": 25,
+    "forbidden_current_claim": 1,
+    "retirement_self_mention": 32,
+    "sealed_historical": 31
+  },
+  "generated_at": "2026-07-09T18:13:44.314991+00:00",
+  "literal_dvf_core_occurrence_count": 43,
+  "resolved_current_canonical_dvf_core_usage_count": 0,
+  "round_id": "dvf_3_3_dvf_system_naming_realignment",
+  "rows": [
+    {
+      "disposition": "retirement_self_mention",
+      "line": 399,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "따라서 Architecture 기준에서 current canonical 이름은 DVF System / DVF Body Compiler이며, retired predecessor label인 `DVF Core`는 sealed historical text와 compatibility token에서만 읽는다. 나머지 authority, registry, runtime compatibility, publish, stale / predecessor guard 책임은 각자의 Iris authority axis로 되돌린다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 425,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF Body Compiler PASS",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 426,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF System Body Compiler PASS",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 437,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "!= DVF Body Compiler PASS definition authority",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 440,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "따라서 bare `DVF PASS`와 bare `DVF System PASS`는 기본적으로 금지한다. 어떤 PASS를 말하는지 반드시 축을 붙여야 한다.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 440,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "따라서 bare `DVF PASS`와 bare `DVF System PASS`는 기본적으로 금지한다. 어떤 PASS를 말하는지 반드시 축을 붙여야 한다.",
+      "token": "DVF System PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 444,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF Body Compiler PASS",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 445,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF System Body Compiler PASS",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 452,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF PASS (bare current claim forbidden)",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 453,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "DVF System PASS (bare current claim forbidden)",
+      "token": "DVF System PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 475,
+      "path": "docs/ARCHITECTURE.md",
+      "text": "역사적 통합 검증 경로가 여러 책임을 한 번에 검사했더라도, 그 경로의 존재나 PASS는 DVF Body Compiler PASS의 정의 권위가 아니다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1558,
+      "path": "docs/DECISIONS.md",
+      "text": "* 결정: Core / Registry / Publish boundary chain은 혼합·오염된 current DVF governance route에서 DVF Core를 3계층 설명 블록 조합 시스템으로 순수 분리하고, Iris-side Artifact Registry / Registry Runtime Compatibility / Publish Boundary / Legacy Combined Current Route의 claim vocabulary를 공식 contract로 분리한 뒤, live \"current_route_required_validations.json\"이 소비하는 additive required-validation gate로 채택한다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1564,
+      "path": "docs/DECISIONS.md",
+      "text": "* boundary separation의 원인은 DVF Core가 본래 registry authority / runtime compatibility / publish boundary 책임을 가져야 해서가 아니다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1566,
+      "path": "docs/DECISIONS.md",
+      "text": "* 따라서 이 분리는 DVF 시스템 내부를 더 잘게 쪼개는 작업이 아니라, DVF Core를 본래 역할인 \"approved facts / decisions / profile / body_plan -> deterministic 3-3 item body compiler / verifier\"로 되돌리고, 흡착된 Iris-side authority / artifact / runtime / publish 책임을 별도 claim boundary로 되돌리는 작업이다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1567,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"current_route_required_validations.json = legacy_combined_governance_route != DVF Core PASS authority\"를 freeze sentence로 고정한다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1568,
+      "path": "docs/DECISIONS.md",
+      "text": "* required-validation manifest에 포함된 사실은 current-route governance gating 사실이지 DVF Core 책임 귀속 사실이 아니다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1569,
+      "path": "docs/DECISIONS.md",
+      "text": "* DVF Core 책임은 \"facts / decisions / profile / body_plan -> rendered 3-3 body\"로 한정한다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1570,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 책임 한정은 DVF Core를 본래 역할인 Iris 3-3 개별 아이템 본문용 offline deterministic body compiler / verifier로 되돌리는 것이다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1571,
+      "path": "docs/DECISIONS.md",
+      "text": "* Iris-side Artifact Registry는 DVF Core 내부 하위 시스템이 아니라, 과거 Iris Integration 공백으로 DVF current-authority transition path에 흡착됐던 authority / artifact / runtime compatibility 책임을 분리해 수용하는 Iris-side responsibility boundary다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1575,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"DVF Core PASS\", \"Registry Authority PASS\", \"Registry Runtime Compatibility PASS\", \"Publish Boundary PASS\", \"Legacy Combined Current Route PASS\"는 서로 대체하지 않는 claim class다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1576,
+      "path": "docs/DECISIONS.md",
+      "text": "* 단독 \"DVF PASS\" current claim은 금지한다.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1578,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Legacy Combined Current Route PASS\"는 DVF Core PASS의 정의 권한이 아니다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1584,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 단독 \"DVF PASS\" current claim을 막는다.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1585,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 \"Legacy Combined Current Route PASS\"를 \"DVF Core PASS\"로 읽는 claim을 막는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1586,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 \"DVF Core PASS\"를 runtime compatible / package safe / public accepted / release ready로 읽는 claim을 막는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1587,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 Registry Authority / Runtime Compatibility / Publish Boundary 책임을 DVF Core에 다시 붙이는 claim을 막는다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1588,
+      "path": "docs/DECISIONS.md",
+      "text": "* gate는 Runtime Payload Consumer Compatibility 또는 Public Text Quality 문제를 DVF Core closure로 라우팅하는 claim을 막는다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1591,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 closure 뒤의 새 DVF Core 작업은 current authority, staging evidence, required-validation manifest ownership, seal / cutover, runtime / package guard, runtime consumer compatibility, public text acceptance, release readiness 책임을 Core에 추가할 수 없다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1638,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"DVF Core PASS\"는 runtime compatible, package safe, public accepted, release ready를 뜻하지 않는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1641,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Publish Boundary PASS\"는 DVF Core compiler 성공을 뜻하지 않는다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1642,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"Legacy Combined Current Route PASS\"는 DVF Core PASS의 정의 권한이 아니다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1643,
+      "path": "docs/DECISIONS.md",
+      "text": "* Iris-side Artifact Registry 책임은 DVF Core 내부 책임이 아니며, DVF Core가 registry authority / runtime compatibility / publish responsibility를 흡수한다는 뜻이 아니다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1643,
+      "path": "docs/DECISIONS.md",
+      "text": "* Iris-side Artifact Registry 책임은 DVF Core 내부 책임이 아니며, DVF Core가 registry authority / runtime compatibility / publish responsibility를 흡수한다는 뜻이 아니다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1644,
+      "path": "docs/DECISIONS.md",
+      "text": "* Iris-side Artifact Registry는 Iris Integration 공백으로 DVF current route에 흡착됐던 책임을 분리해 수용하는 responsibility boundary이지, DVF Core 내부 확장면이 아니다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1646,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 readpoint는 Iris Integration 공백으로 DVF current route에 흡착됐던 authority / registry / runtime / publish 책임을 DVF Core의 본래 책임으로 인정하지 않는다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 1653,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 closure 뒤의 새 DVF Core 작업은 current authority, staging evidence, required-validation manifest ownership, seal / cutover, runtime / package guard, runtime consumer compatibility, public text acceptance, release readiness 책임을 Core에 추가할 수 없다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1669,
+      "path": "docs/DECISIONS.md",
+      "text": "* 결정: Iris 3-3 body production의 current canonical terminology는 `DVF System` / `DVF Body Compiler`로 읽고, retired predecessor `DVF Core` label은 sealed historical text, predecessor contract, compatibility token, path, quoted prior claim, explicit retirement self-mention에서만 허용한다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 1675,
+      "path": "docs/DECISIONS.md",
+      "text": "* `DVF Body Compiler PASS`는 successor primary PASS token의 의미 정의이며, 이 naming round 자체가 해당 PASS achievement를 주장하지 않는다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 1676,
+      "path": "docs/DECISIONS.md",
+      "text": "* `DVF System Body Compiler PASS`는 같은 body compiler axis의 expanded alias이며 별도 system-state claim이 아니다.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1678,
+      "path": "docs/DECISIONS.md",
+      "text": "* bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1678,
+      "path": "docs/DECISIONS.md",
+      "text": "* bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.",
+      "token": "DVF System PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1679,
+      "path": "docs/DECISIONS.md",
+      "text": "* retired predecessor `DVF Core PASS` label은 sealed predecessor claim meaning을 보존하지만 current canonical successor token으로 쓰지 않는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 1691,
+      "path": "docs/DECISIONS.md",
+      "text": "* canonical body compiler PASS token: `DVF Body Compiler PASS`",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 1692,
+      "path": "docs/DECISIONS.md",
+      "text": "* expanded body compiler PASS token: `DVF System Body Compiler PASS`",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1715,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 항목은 retired predecessor `DVF Core` wording을 current canonical terminology로 되살리지 않는다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1723,
+      "path": "docs/DECISIONS.md",
+      "text": "* retired predecessor `DVF Core` literal occurrences are historical / predecessor / compatibility read surfaces, not current canonical prose.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 5,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_boundary.md",
+      "text": "Machine-guarded separation covers DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, and Legacy Combined Current Route PASS. This boundary does not claim runtime compatibility closure, package readiness, release readiness, public text acceptance, source mutation, rendered mutation, Lua bridge mutation, runtime chunk mutation, or package payload mutation.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 5,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "This document is the single claim meaning authority for the DVF Core, Iris Artifact Registry, Registry Runtime Compatibility, Publish Boundary, and Legacy Combined Current Route claim classes. Derivative boundary docs, ledger packets, final reports, and top-doc drafts must cite this document hash instead of redefining claim meanings.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 9,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "### DVF Core PASS",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 16,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- rendered 3-3 body shape inside DVF Core scope",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 83,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "- DVF Core PASS",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "forbidden_current_claim",
+      "line": 88,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "## DVF PASS Disposition",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 90,
+      "path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+      "text": "Standalone current `DVF PASS` is forbidden in this closure.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 9,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`DVF Body Compiler PASS` means only:",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 16,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`DVF System Body Compiler PASS` is an expanded alias for the same body compiler axis. It is not a broader system-state claim.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 18,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`DVF System Naming Realignment PASS` is allowed only as this round-scoped governance naming claim. It is not `DVF Body Compiler PASS` achievement.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 24,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+      "text": "`Legacy Combined DVF Governance Route PASS` remains a route-container label. A route-level pass is not `DVF Body Compiler PASS` authority.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 5,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "This closeout records `DVF System Naming Realignment PASS` as a round-scoped terminology governance result. It defines successor vocabulary and retires `DVF Core` from current canonical prose.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 10,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- resolved current canonical `DVF Core` usage is zero",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 11,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- bare `DVF PASS` and bare `DVF System PASS` current claims are forbidden",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 11,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- bare `DVF PASS` and bare `DVF System PASS` current claims are forbidden",
+      "token": "DVF System PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 17,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_closeout.md",
+      "text": "- no `DVF Body Compiler PASS` achievement claim",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 9,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_ledger_packet.md",
+      "text": "- canonical_body_compiler_pass_token: `DVF Body Compiler PASS`",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 10,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_ledger_packet.md",
+      "text": "- expanded_body_compiler_pass_token: `DVF System Body Compiler PASS`",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 5,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "This policy retires `DVF Core` as current canonical terminology for Iris 3-3 body production. The current canonical names are:",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 9,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- `DVF Body Compiler PASS`: primary successor PASS token meaning definition only.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 10,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- `DVF System Body Compiler PASS`: expanded alias for the same body compiler axis.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 13,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "The retired label `DVF Core` may remain in sealed historical text, predecessor contracts, quoted prior claims, compatibility machine tokens, historical paths, and explicit retirement self-mentions. It is default-deny in current canonical prose.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 17,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- forbidden: bare `DVF PASS`",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 18,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- forbidden: bare `DVF System PASS`",
+      "token": "DVF System PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 19,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- forbidden: using `DVF Core PASS` as a current successor claim",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 24,
+      "path": "docs/dvf_3_3_dvf_system_naming_realignment_policy.md",
+      "text": "- This policy does not claim `DVF Body Compiler PASS` achievement.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 8,
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "text": "current_route_required_validations.json = legacy_combined_governance_route != DVF Core PASS authority",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 11,
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "text": "The current combined governance route remains preserved. A route-level PASS is not DVF Core PASS authority.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "sealed_historical",
+      "line": 39,
+      "path": "docs/dvf_3_3_legacy_combined_route_axis_policy.md",
+      "text": "This policy does not claim DVF Core PASS, Registry Authority PASS, Registry Runtime Compatibility PASS, package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, public text quality acceptance, runtime mutation, bridge export mutation, source mutation, rendered mutation, package mutation, independent review, owner seal, or canonical seal.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 369,
+      "path": "docs/ROADMAP.md",
+      "text": "* DVF System / Iris Artifact Registry / Publish Boundary 책임 경계를 분리했고, `DVF Core`는 retired predecessor label로 격하했다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 374,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 374,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 375,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 375,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.",
+      "token": "DVF System PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 450,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 450,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
+      "token": "DVF System Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 451,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 451,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.",
+      "token": "DVF System PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 542,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`나 legacy combined route PASS로 후속 작업을 열지 않는다.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "current_canonical_prose",
+      "line": 566,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
+      "token": "DVF Body Compiler PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 566,
+      "path": "docs/ROADMAP.md",
+      "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
+      "token": "DVF Core PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 567,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "token": "DVF PASS"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 567,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "token": "DVF System PASS"
+    }
+  ],
+  "scan_universe_count": 12,
+  "schema_version": "dvf-system-naming-terminology-occurrence-inventory-v1",
+  "status": "PASS",
+  "unclassifiable_blocker_count": 0
+}

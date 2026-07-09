@@ -1,0 +1,64 @@
+{
+  "decisions": [
+    {
+      "decision_id": "D1",
+      "default_value_projected_without_owner_ratification": false,
+      "name": "canonical body compiler PASS token selection",
+      "owner_decision_state": "owner_ratified",
+      "owner_source": "current_user_prompt_2026-07-10_implement_plan_defaults",
+      "owner_value": "DVF Body Compiler PASS",
+      "proposed_default": "DVF Body Compiler PASS"
+    },
+    {
+      "decision_id": "D2",
+      "default_value_projected_without_owner_ratification": false,
+      "name": "expanded alias allowance and primary/expanded token split",
+      "owner_decision_state": "owner_ratified",
+      "owner_source": "current_user_prompt_2026-07-10_implement_plan_defaults",
+      "owner_value": "DVF System Body Compiler PASS",
+      "proposed_default": "DVF System Body Compiler PASS"
+    },
+    {
+      "decision_id": "D3",
+      "default_value_projected_without_owner_ratification": false,
+      "name": "Legacy Combined route prose label selection",
+      "owner_decision_state": "owner_ratified",
+      "owner_source": "current_user_prompt_2026-07-10_implement_plan_defaults",
+      "owner_value": "Legacy Combined DVF Governance Route PASS",
+      "proposed_default": "Legacy Combined DVF Governance Route PASS"
+    },
+    {
+      "decision_id": "D4",
+      "default_value_projected_without_owner_ratification": false,
+      "name": "DECISIONS append-only supersession / predecessor handling",
+      "owner_decision_state": "owner_ratified",
+      "owner_source": "current_user_prompt_2026-07-10_implement_plan_defaults",
+      "owner_value": "append_only_successor_supersedes_prior_current_label",
+      "proposed_default": "append_only_successor_supersedes_prior_current_label"
+    },
+    {
+      "decision_id": "D5",
+      "default_value_projected_without_owner_ratification": false,
+      "name": "Option A vs Option B enforcement selection",
+      "owner_decision_state": "owner_ratified",
+      "owner_source": "current_user_prompt_2026-07-10_implement_plan_defaults",
+      "owner_value": "option_b_required_gate_adoption",
+      "proposed_default": "option_b_required_gate_adoption"
+    },
+    {
+      "decision_id": "D6",
+      "default_value_projected_without_owner_ratification": false,
+      "name": "canonical seal eligibility condition",
+      "owner_decision_state": "owner_ratified",
+      "owner_source": "current_user_prompt_2026-07-10_implement_plan_defaults",
+      "owner_value": "required_gate_only_canonical_seal",
+      "proposed_default": "required_gate_only_canonical_seal"
+    }
+  ],
+  "default_value_projected_without_owner_ratification": false,
+  "generated_at": "2026-07-09T18:13:44.271389+00:00",
+  "owner_decision_queue_entry_count": 6,
+  "owner_required_decision_missing": false,
+  "schema_version": "dvf-system-naming-owner-decision-queue-v1",
+  "status": "PASS"
+}

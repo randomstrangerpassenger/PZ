@@ -1,0 +1,12 @@
+{
+  "generated_at": "2026-07-09T18:13:44.317974+00:00",
+  "patch_mode": "targeted_current_wording_plus_append_only_decisions",
+  "schema_version": "dvf-system-naming-top-doc-patch-plan-v1",
+  "sealed_decision_body_rewrite": false,
+  "status": "PASS",
+  "top_doc_targets": [
+    "docs/ARCHITECTURE.md",
+    "docs/ROADMAP.md",
+    "docs/DECISIONS.md"
+  ]
+}

@@ -35,8 +35,8 @@
   "candidate_current_route_validation_status": "patch_schema_validated",
   "candidate_manifest_preview": {
     "required": true,
-    "required_artifact_count_after_patch": 102,
-    "required_test_count_after_patch": 51,
+    "required_artifact_count_after_patch": 112,
+    "required_test_count_after_patch": 52,
     "route": "current",
     "schema_version": "round3-current-route-required-validations-v1"
   },

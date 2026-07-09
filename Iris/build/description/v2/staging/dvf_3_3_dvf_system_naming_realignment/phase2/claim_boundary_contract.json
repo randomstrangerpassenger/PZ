@@ -1,0 +1,21 @@
+{
+  "dvf_body_compiler_pass_achievement_claimed": false,
+  "dvf_body_compiler_pass_token_meaning_defined": true,
+  "dvf_system_includes_publish_boundary": false,
+  "dvf_system_includes_registry_authority": false,
+  "dvf_system_includes_runtime_compatibility": false,
+  "generated_at": "2026-07-09T18:13:44.275332+00:00",
+  "iris_artifact_registry_is_dvf_submodule": false,
+  "legacy_combined_dvf_governance_route_pass_is_body_compiler_pass": false,
+  "predecessor_claim_contract_path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",
+  "predecessor_claim_contract_sha256": "fb693a4b5ec1bebb7b99a59648b4c48c7d229143226d1c0b34b364b56a523001",
+  "public_text_quality_acceptance_claimed": false,
+  "publish_boundary_pass_claimed": false,
+  "registry_authority_pass_claimed": false,
+  "registry_runtime_compatibility_pass_claimed": false,
+  "runtime_payload_consumer_compatibility_closure_claimed": false,
+  "schema_version": "dvf-system-naming-claim-boundary-contract-v1",
+  "status": "PASS",
+  "successor_claim_boundary_path": "docs/dvf_3_3_dvf_system_naming_realignment_claim_boundary.md",
+  "successor_claim_boundary_sha256": "bae3fdf4979ec63f5d7df9cf61239f9bab8e42d9a7fe3b44c046970c1afa2a76"
+}

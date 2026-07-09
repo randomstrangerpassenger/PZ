@@ -1,0 +1,26 @@
+{
+  "D6": {
+    "allowed_values": [
+      "canonical_seal_deferred_this_round",
+      "doc_normative_canonical_seal_allowed",
+      "required_gate_only_canonical_seal"
+    ]
+  },
+  "allowed_states": [
+    "proposed_default",
+    "owner_ratified",
+    "owner_overridden",
+    "missing"
+  ],
+  "generated_at": "2026-07-09T18:13:44.270416+00:00",
+  "required_decision_ids": [
+    "D1",
+    "D2",
+    "D3",
+    "D4",
+    "D5",
+    "D6"
+  ],
+  "schema_version": "dvf-system-naming-owner-decision-ratification-schema-v1",
+  "status": "PASS"
+}

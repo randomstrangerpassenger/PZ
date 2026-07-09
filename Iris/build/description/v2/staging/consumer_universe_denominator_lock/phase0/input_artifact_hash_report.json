@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "16bb854f1f9e0165687e5223b4526e5aea445227dcddf1446baf7e49ea4bc46a",
+  "aggregate_sha256": "72bc1e75b6482e0fa9e8be707dad3fd35ee7f0675f967917f8b06d15795f4c56",
   "generated_at": "2026-06-19T00:00:00+09:00",
   "input_count": 20,
   "inputs": [
@@ -84,14 +84,14 @@
       "sha256": "d6544b70e54622bf2054ce8c6749a81fe7dba8f8f4b63f27b35c7998d89b6d91"
     },
     {
-      "bytes": 500603,
+      "bytes": 500583,
       "exists": true,
       "kind": "file",
       "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase3/row_level_migration_ledger.jsonl",
       "reported_generated_at": null,
       "required": true,
       "role": "readiness_row_ledger",
-      "sha256": "77a29108ef180605f7c1ecda70a666a18ac465cbdc759b1ce4b06b030329e57f"
+      "sha256": "dfa1cc592c17b5df9bc8ed1d58e3b6c55ced889579889952fa7d6fc321ff548b"
     },
     {
       "bytes": 4221,
@@ -194,14 +194,14 @@
       "sha256": "712d78257254bde27ea5ac3336970aaa6a2523510e90f1aaa24863b491d95302"
     },
     {
-      "bytes": 65557,
+      "bytes": 71610,
       "exists": true,
       "kind": "file",
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "reported_generated_at": "2026-06-17T16:28:41.744038+00:00",
       "required": true,
       "role": "current_route_required_manifest",
-      "sha256": "bbedf8ea10b4ca2e31ce4e587d7ac081d4ab9dbc4bbdc8e22de286148f677cc5"
+      "sha256": "d43c2f639093b01a4b58586295fb38500754f42a0f82cde861329b8f7396b725"
     }
   ],
   "missing_required_count": 0,

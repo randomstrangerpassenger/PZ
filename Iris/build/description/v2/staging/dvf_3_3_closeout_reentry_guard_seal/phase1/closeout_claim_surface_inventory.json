@@ -2,12 +2,12 @@
   "blocked_claim_surface_count": 0,
   "blocked_claim_surfaces": [],
   "claim_role_counts": {
-    "claim_surface": 653,
+    "claim_surface": 673,
     "forbidden_overclaim_definition": 98,
     "forbidden_predecessor_reentry_definition": 13,
-    "historical_or_policy_trace": 308
+    "historical_or_policy_trace": 319
   },
-  "claim_token_occurrence_count": 1072,
+  "claim_token_occurrence_count": 1103,
   "forbidden_overclaim_violation_count": 0,
   "forbidden_predecessor_reentry_violation_count": 0,
   "generated_at": "2026-06-23T00:00:00+09:00",
@@ -16,14 +16,14 @@
   "surface_count": 33,
   "surfaces": [
     {
-      "bytes": 65557,
+      "bytes": 71610,
       "exists": true,
       "kind": "file",
-      "line_count": 2094,
+      "line_count": 2308,
       "path": "Iris/_docs/round3/current_route_required_validations.json",
       "required": false,
       "role": "required_validation_manifest",
-      "sha256": "bbedf8ea10b4ca2e31ce4e587d7ac081d4ab9dbc4bbdc8e22de286148f677cc5",
+      "sha256": "d43c2f639093b01a4b58586295fb38500754f42a0f82cde861329b8f7396b725",
       "status": "PRESENT"
     },
     {
@@ -214,14 +214,14 @@
       "status": "PRESENT"
     },
     {
-      "bytes": 9010,
+      "bytes": 9178,
       "exists": true,
       "kind": "file",
-      "line_count": 72,
+      "line_count": 73,
       "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/full_current_route_validation_result.json",
       "required": false,
       "role": "generated_evidence",
-      "sha256": "ef42c5e98f77c812ea73d2f5b29be9c87680ca7cdec59b0b00044929fe5eae71",
+      "sha256": "7426ab64f2946ee4389485c92213c2d5da0a03488bd64a43f40d74ab7d194ef7",
       "status": "PRESENT"
     },
     {
@@ -291,36 +291,36 @@
       "status": "PRESENT"
     },
     {
-      "bytes": 44546,
+      "bytes": 45011,
       "exists": true,
       "kind": "file",
-      "line_count": 835,
+      "line_count": 839,
       "path": "docs/ARCHITECTURE.md",
       "required": false,
       "role": "docs",
-      "sha256": "8a4d7bdcd332acdcada79152398efed5aa4e758528f709f0026d62928553d61b",
+      "sha256": "72e96300757170222e35233e08560be1492e95d23cfac6e835337274213470aa",
       "status": "PRESENT"
     },
     {
-      "bytes": 174380,
+      "bytes": 179470,
       "exists": true,
       "kind": "file",
-      "line_count": 1980,
+      "line_count": 2041,
       "path": "docs/DECISIONS.md",
       "required": false,
       "role": "docs",
-      "sha256": "678eb5e2a5aca54f040f556c802ae6ad97669abb56938414771ea5f91767c3bf",
+      "sha256": "e0d9e4881da4eee6e467eaedbeb683196ea46060b92868f30e2de25bd779f6ab",
       "status": "PRESENT"
     },
     {
-      "bytes": 54299,
+      "bytes": 54695,
       "exists": true,
       "kind": "file",
       "line_count": 811,
       "path": "docs/ROADMAP.md",
       "required": false,
       "role": "docs",
-      "sha256": "094479a2393332c9327678d973b3cbaef79d6280812f7e0986d7574333e950a3",
+      "sha256": "293d0175c42141d02305fbf760b09f80f46080689e10cc96e1f6c8598c093bb9",
       "status": "PRESENT"
     },
     {

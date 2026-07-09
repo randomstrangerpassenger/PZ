@@ -1,0 +1,9 @@
+{
+  "changed": [],
+  "changed_count": 0,
+  "generated_at": "2026-07-09T18:13:44.500821+00:00",
+  "protected_surface_changed_count": 0,
+  "schema_version": "dvf-system-naming-protected-surface-no-mutation-v1",
+  "source_rendered_lua_runtime_package_mutation": false,
+  "status": "PASS"
+}

@@ -1,0 +1,11 @@
+{
+  "future_current_route_blocking_claimed": true,
+  "generated_at": "2026-07-09T18:13:44.505781+00:00",
+  "machine_gate_deferred": false,
+  "owner_required_decision_missing": false,
+  "required_gate_adopted": true,
+  "required_manifest_adoption_mode": "additive_only",
+  "schema_version": "dvf-system-naming-required-gate-adoption-decision-v1",
+  "selected_enforcement_mode": "option_b_required_gate_adoption",
+  "status": "PASS"
+}

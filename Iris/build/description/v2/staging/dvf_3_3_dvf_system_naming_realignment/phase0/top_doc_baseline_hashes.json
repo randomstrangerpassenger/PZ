@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-07-09T18:13:44.201410+00:00",
+  "records": [
+    {
+      "exists": true,
+      "path": "docs/ARCHITECTURE.md",
+      "sha256": "72e96300757170222e35233e08560be1492e95d23cfac6e835337274213470aa"
+    },
+    {
+      "exists": true,
+      "path": "docs/ROADMAP.md",
+      "sha256": "293d0175c42141d02305fbf760b09f80f46080689e10cc96e1f6c8598c093bb9"
+    },
+    {
+      "exists": true,
+      "path": "docs/DECISIONS.md",
+      "sha256": "e0d9e4881da4eee6e467eaedbeb683196ea46060b92868f30e2de25bd779f6ab"
+    }
+  ],
+  "schema_version": "dvf-system-naming-top-doc-baseline-v1"
+}

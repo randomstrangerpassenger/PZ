@@ -1,0 +1,13 @@
+{
+  "adjacent_drift_observed_only": true,
+  "generated_at": "2026-07-09T18:13:44.281022+00:00",
+  "observed_pairs": [
+    {
+      "normalized_by_this_round": false,
+      "preferred": "Registry Runtime Compatibility PASS",
+      "variant": "Runtime Compatibility PASS"
+    }
+  ],
+  "schema_version": "dvf-system-naming-adjacent-token-drift-v1",
+  "status": "PASS"
+}

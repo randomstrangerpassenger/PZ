@@ -1193,14 +1193,14 @@
 --- a/docs/ARCHITECTURE.md
 +++ b/docs/ARCHITECTURE.md
 @@ -377,7 +377,7 @@
- DVF Core는 다음 책임을 소유하지 않는다.
  
- - artifact authority
--- artifact role classification
-+- artifact role classification DVF_AUTHORITY_ROLE_MIGRATION[9ff6d00a905a2f0f174f6c7a1a857e51]
+ DVF System / DVF Body Compiler는 다음 책임을 소유하지 않는다.
+ 
+-- artifact authority
++- artifact authority DVF_AUTHORITY_ROLE_MIGRATION[9ff6d00a905a2f0f174f6c7a1a857e51]
+ - artifact role classification
  - source / rendered / runtime / package identity
  - staging evidence
- - required validation
 --- a/docs/DECISIONS.md
 +++ b/docs/DECISIONS.md
 @@ -942,7 +942,7 @@
@@ -1231,10 +1231,10 @@
 +  * successor source / rendered / runtime chunk authority와 2105 consumer migration은 current로 승격했다. DVF_AUTHORITY_ROLE_MIGRATION[44565d8815eb2100632f20c9d47f41eb] DVF_AUTHORITY_ROLE_MIGRATION[9f0a3d2900217938de35504162f01d0a] DVF_AUTHORITY_ROLE_MIGRATION[fb3bb73386642005a8ddeec34ca7ad21]
    * predecessor fixture / prior staging / legacy bridge / monolith output은 current path로 재진입시키지 않는다.
  
- * DVF Core / Iris Artifact Registry / Publish Boundary 책임 경계를 분리했다.
+ * DVF System / Iris Artifact Registry / Publish Boundary 책임 경계를 분리했고, `DVF Core`는 retired predecessor label로 격하했다.
 @@ -375,7 +375,7 @@
-   * 단독 `DVF PASS` current claim은 금지한다.
-   * legacy combined route에 흡착됐던 Registry / Runtime Compatibility / Publish Boundary 책임은 DVF Core current claim으로 되돌리지 않는다.
+   * 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.
+   * legacy combined route에 흡착됐던 Registry / Runtime Compatibility / Publish Boundary 책임은 DVF System / DVF Body Compiler current claim으로 되돌리지 않는다.
  
 -* Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다.
 +* Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다. DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]

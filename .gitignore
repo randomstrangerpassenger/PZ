@@ -194,6 +194,9 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/dvf_3_3_core_registry_boundary_required_gate_adoption.py
 !Iris/build/description/v2/tools/build/run_dvf_3_3_core_registry_boundary_required_gate_adoption.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_core_registry_boundary_required_gate_adoption.py
+!Iris/build/description/v2/tools/build/dvf_3_3_dvf_system_naming_realignment.py
+!Iris/build/description/v2/tools/build/run_dvf_3_3_dvf_system_naming_realignment.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_dvf_system_naming_realignment.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_migrate_dvf_3_3_facts_v2.py
@@ -232,6 +235,7 @@ Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_dvf_3_3_legacy_combined_route_axis_inventory.py
 !Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_claim_contract_closure.py
 !Iris/build/description/v2/tests/test_dvf_3_3_core_registry_boundary_required_gate_adoption.py
+!Iris/build/description/v2/tests/test_dvf_3_3_dvf_system_naming_realignment.py
 !Iris/build/description/v2/tests/fixtures/
 !Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/
 !Iris/build/description/v2/tests/fixtures/dvf_3_3_predecessor_stale_artifact_reentry_guard/**
@@ -474,6 +478,8 @@ Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase1
 !Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/final_current_authority_cutover_report.json
 !Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/
 !Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/**
+!Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/
+!Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/**
 !Iris/build/description/v2/staging/compose_contract_migration/
 Iris/build/description/v2/staging/compose_contract_migration/*
 !Iris/build/description/v2/staging/compose_contract_migration/legacy_active_silent_current_surface_guard_round/

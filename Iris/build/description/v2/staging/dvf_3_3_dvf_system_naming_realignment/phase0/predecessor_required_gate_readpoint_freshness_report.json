@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-07-09T18:13:44.212429+00:00",
+  "predecessor_final_report": "Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/final_boundary_required_gate_adoption_report.json",
+  "predecessor_machine_required_gate_adoption_complete": true,
+  "predecessor_protected_surface_changed_count": 0,
+  "predecessor_required_gate_adopted": true,
+  "predecessor_required_gate_dependency": "required",
+  "predecessor_required_gate_readpoint_freshness_status": "PASS",
+  "schema_version": "dvf-system-naming-predecessor-readpoint-freshness-v1",
+  "status": "PASS"
+}

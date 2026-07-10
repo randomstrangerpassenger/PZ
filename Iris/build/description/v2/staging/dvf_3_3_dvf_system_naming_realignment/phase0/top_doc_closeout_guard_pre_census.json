@@ -5,7 +5,7 @@
   "closeout_guard_rule_source_hash_mismatch": false,
   "closeout_guard_rule_source_sha256": "7FE70E8003B89655EED9A94E27790ADE158E4C5B4966BD4A7F6298366A8AB82D",
   "closeout_guard_scan_boundary": "patch_region_default",
-  "generated_at": "2026-07-09T18:13:44.218640+00:00",
+  "generated_at": "2026-07-09T18:25:57.298938+00:00",
   "schema_version": "dvf-system-naming-top-doc-closeout-guard-pre-census-v1",
   "status": "PASS"
 }

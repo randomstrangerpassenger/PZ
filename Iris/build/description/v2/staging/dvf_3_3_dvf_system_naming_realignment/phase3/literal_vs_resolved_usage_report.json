@@ -1,7 +1,7 @@
 {
   "all_literal_dvf_core_occurrences_disposition_classified": true,
-  "generated_at": "2026-07-09T18:13:44.320813+00:00",
-  "literal_dvf_core_occurrence_count": 43,
+  "generated_at": "2026-07-09T18:25:57.395025+00:00",
+  "literal_dvf_core_occurrence_count": 45,
   "resolved_current_canonical_dvf_core_usage_count": 0,
   "schema_version": "dvf-system-naming-literal-vs-resolved-usage-v1",
   "status": "PASS",

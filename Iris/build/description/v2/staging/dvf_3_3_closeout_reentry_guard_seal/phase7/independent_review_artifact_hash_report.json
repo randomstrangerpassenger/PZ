@@ -1,5 +1,5 @@
 {
-  "aggregate_sha256": "82a46461c6a6a84b10ec3c09c79f3b2906ae920ee2d78bb888f2ffeaf84df219",
+  "aggregate_sha256": "eea410ed1290af04ef49b869c52cb5d14b838a394ade855587255b44c81845f2",
   "artifacts": [
     {
       "bytes": 50152,
@@ -75,7 +75,7 @@
       "path": "Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase1/closeout_claim_surface_inventory.json",
       "required": true,
       "role": "primary_review_artifact",
-      "sha256": "05c28a61ccfc223390679c8349c8784e5ac14b4a8578ad2e4c9e3fc0075bbab7",
+      "sha256": "595c12823f662614087c49dafadee0f878c6bb035aae2ab0f6083b181fe729cb",
       "status": "PRESENT"
     },
     {

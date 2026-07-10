@@ -3,11 +3,11 @@
   "disposition_counts": {
     "current_canonical_prose": 25,
     "forbidden_current_claim": 1,
-    "retirement_self_mention": 32,
+    "retirement_self_mention": 34,
     "sealed_historical": 31
   },
-  "generated_at": "2026-07-09T18:13:44.314991+00:00",
-  "literal_dvf_core_occurrence_count": 43,
+  "generated_at": "2026-07-09T18:25:57.387840+00:00",
+  "literal_dvf_core_occurrence_count": 45,
   "resolved_current_canonical_dvf_core_usage_count": 0,
   "round_id": "dvf_3_3_dvf_system_naming_realignment",
   "rows": [
@@ -20,70 +20,70 @@
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 425,
+      "line": 440,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF Body Compiler PASS",
       "token": "DVF Body Compiler PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 426,
+      "line": 441,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF System Body Compiler PASS",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 437,
+      "line": 452,
       "path": "docs/ARCHITECTURE.md",
       "text": "!= DVF Body Compiler PASS definition authority",
       "token": "DVF Body Compiler PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 440,
+      "line": 455,
       "path": "docs/ARCHITECTURE.md",
       "text": "따라서 bare `DVF PASS`와 bare `DVF System PASS`는 기본적으로 금지한다. 어떤 PASS를 말하는지 반드시 축을 붙여야 한다.",
       "token": "DVF PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 440,
+      "line": 455,
       "path": "docs/ARCHITECTURE.md",
       "text": "따라서 bare `DVF PASS`와 bare `DVF System PASS`는 기본적으로 금지한다. 어떤 PASS를 말하는지 반드시 축을 붙여야 한다.",
       "token": "DVF System PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 444,
+      "line": 459,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF Body Compiler PASS",
       "token": "DVF Body Compiler PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 445,
+      "line": 460,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF System Body Compiler PASS",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 452,
+      "line": 467,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF PASS (bare current claim forbidden)",
       "token": "DVF PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 453,
+      "line": 468,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF System PASS (bare current claim forbidden)",
       "token": "DVF System PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 475,
+      "line": 490,
       "path": "docs/ARCHITECTURE.md",
       "text": "역사적 통합 검증 경로가 여러 책임을 한 번에 검사했더라도, 그 경로의 존재나 PASS는 DVF Body Compiler PASS의 정의 권위가 아니다.",
       "token": "DVF Body Compiler PASS"
@@ -272,63 +272,77 @@
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 1675,
+      "line": 1676,
       "path": "docs/DECISIONS.md",
       "text": "* `DVF Body Compiler PASS`는 successor primary PASS token의 의미 정의이며, 이 naming round 자체가 해당 PASS achievement를 주장하지 않는다.",
       "token": "DVF Body Compiler PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 1676,
+      "line": 1677,
       "path": "docs/DECISIONS.md",
       "text": "* `DVF System Body Compiler PASS`는 같은 body compiler axis의 expanded alias이며 별도 system-state claim이 아니다.",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 1678,
+      "line": 1679,
       "path": "docs/DECISIONS.md",
       "text": "* bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.",
       "token": "DVF PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 1678,
+      "line": 1679,
       "path": "docs/DECISIONS.md",
       "text": "* bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.",
       "token": "DVF System PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 1679,
+      "line": 1680,
       "path": "docs/DECISIONS.md",
       "text": "* retired predecessor `DVF Core PASS` label은 sealed predecessor claim meaning을 보존하지만 current canonical successor token으로 쓰지 않는다.",
       "token": "DVF Core PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 1691,
+      "line": 1693,
       "path": "docs/DECISIONS.md",
       "text": "* canonical body compiler PASS token: `DVF Body Compiler PASS`",
       "token": "DVF Body Compiler PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 1692,
+      "line": 1694,
       "path": "docs/DECISIONS.md",
       "text": "* expanded body compiler PASS token: `DVF System Body Compiler PASS`",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 1715,
+      "line": 1717,
       "path": "docs/DECISIONS.md",
       "text": "* 이 항목은 retired predecessor `DVF Core` wording을 current canonical terminology로 되살리지 않는다.",
       "token": "DVF Core"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 1723,
+      "line": 1718,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 항목 이후 새 문서나 successor round는 `DVF Core`를 새 current canonical 용어로 사용할 수 없으며, 필요한 경우 `retired label: DVF Core` 또는 historical / predecessor label로만 언급한다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1718,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 항목 이후 새 문서나 successor round는 `DVF Core`를 새 current canonical 용어로 사용할 수 없으며, 필요한 경우 `retired label: DVF Core` 또는 historical / predecessor label로만 언급한다.",
+      "token": "DVF Core"
+    },
+    {
+      "disposition": "retirement_self_mention",
+      "line": 1726,
       "path": "docs/DECISIONS.md",
       "text": "* retired predecessor `DVF Core` literal occurrences are historical / predecessor / compatibility read surfaces, not current canonical prose.",
       "token": "DVF Core"
@@ -545,93 +559,93 @@
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 374,
+      "line": 375,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
       "token": "DVF Body Compiler PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 374,
+      "line": 375,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 375,
+      "line": 376,
       "path": "docs/ROADMAP.md",
       "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.",
       "token": "DVF PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 375,
+      "line": 376,
       "path": "docs/ROADMAP.md",
       "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.",
       "token": "DVF System PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 450,
+      "line": 451,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
       "token": "DVF Body Compiler PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 450,
+      "line": 451,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 451,
+      "line": 452,
       "path": "docs/ROADMAP.md",
       "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.",
       "token": "DVF PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 451,
+      "line": 452,
       "path": "docs/ROADMAP.md",
       "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.",
       "token": "DVF System PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 542,
+      "line": 543,
       "path": "docs/ROADMAP.md",
-      "text": "* 단독 `DVF PASS`나 legacy combined route PASS로 후속 작업을 열지 않는다.",
+      "text": "* 단독 `DVF PASS`나 Legacy Combined DVF Governance Route PASS로 후속 작업을 열지 않는다.",
       "token": "DVF PASS"
     },
     {
       "disposition": "current_canonical_prose",
-      "line": 566,
+      "line": 567,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
       "token": "DVF Body Compiler PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 566,
+      "line": 567,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
       "token": "DVF Core PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 567,
+      "line": 568,
       "path": "docs/ROADMAP.md",
-      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 Legacy Combined DVF Governance Route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
       "token": "DVF PASS"
     },
     {
       "disposition": "retirement_self_mention",
-      "line": 567,
+      "line": 568,
       "path": "docs/ROADMAP.md",
-      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 Legacy Combined DVF Governance Route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
       "token": "DVF System PASS"
     }
   ],

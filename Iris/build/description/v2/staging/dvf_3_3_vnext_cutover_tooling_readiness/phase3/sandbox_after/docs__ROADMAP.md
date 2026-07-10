@@ -369,13 +369,14 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 * DVF System / Iris Artifact Registry / Publish Boundary 책임 경계를 분리했고, `DVF Core`는 retired predecessor label로 격하했다.
 
   * DVF System / DVF Body Compiler는 승인된 `facts / decisions / profile / body_plan`에서 Iris 3-3 개별 아이템 본문을 결정론적으로 생성·검증하는 오프라인 body compiler 책임으로 제한한다.
-  * Iris Artifact Registry는 artifact authority, artifact role classification, source / rendered / runtime / package identity, staging evidence, required validation, seal, cutover, stale / predecessor reentry guard, runtime consumer compatibility 책임 축으로 분리한다.
+  * Iris Artifact Registry는 DVF System에서 분리된 하위 구성요소가 아니라, DVF 산출물을 포함한 Iris artifact lifecycle / authority / runtime-package identity pipeline이다.
+  * Registry 책임 축은 artifact authority, artifact role classification, source / rendered / runtime / package identity, staging evidence, required validation, seal, cutover, stale / predecessor reentry guard, runtime consumer compatibility로 분리한다.
   * Publish Boundary는 public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 축으로 별도 유지한다.
   * `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.
   * 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.
-  * legacy combined route에 흡착됐던 Registry / Runtime Compatibility / Publish Boundary 책임은 DVF System / DVF Body Compiler current claim으로 되돌리지 않는다.
-
-* Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다. DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]
+  * Legacy Combined DVF Governance Route에 오염되어 함께 실렸던 Registry / Runtime Compatibility / Publish Boundary 책임은 DVF System / DVF Body Compiler current claim으로 되돌리지 않는다.
+ DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]
+* Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다.
 
   * sealed authorization과 execution evidence는 Phase 4 live apply의 입력 증거로만 읽는다.
   * hard-forbidden runtime / package / Lua bridge surface는 live mutation target이 아니라 evidence-only proof로 닫았다.
@@ -389,8 +390,8 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * Lua bridge exporter의 default route는 chunk manifest + chunk files를 생성한다.
   * monolith export는 explicit historical / diagnostic mode에서만 허용한다.
   * current / historical / diagnostic test route를 분리하고, current route closure guard를 유지한다.
-
-* Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다. DVF_AUTHORITY_ROLE_MIGRATION[b06ec50536c3b84b014997b0af257dc1]
+ DVF_AUTHORITY_ROLE_MIGRATION[b06ec50536c3b84b014997b0af257dc1]
+* Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다.
 
   * runtime payload enum은 `adopted / unadopted`가 canonical이다.
   * `active / silent` 재유입은 current writer / validator path에서 fail-loud 처리한다.
@@ -445,7 +446,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 * DVF System / Iris Artifact Registry / Publish Boundary 책임 분리를 current-route 해석 기준으로 유지한다.
 
   * DVF System / DVF Body Compiler는 승인된 `facts / decisions / profile / body_plan`에서 rendered 3-3 body를 결정론적으로 생성·검증하는 오프라인 body compiler로만 읽는다.
-  * Iris Artifact Registry는 source / rendered / runtime / package identity, required validation, seal, cutover, stale / predecessor reentry guard, runtime compatibility 책임 축으로 읽는다.
+  * Iris Artifact Registry는 DVF System의 내부 모듈이 아니라 source / rendered / runtime / package identity, required validation, seal, cutover, stale / predecessor reentry guard, runtime compatibility 책임을 관리하는 Iris-side lifecycle boundary로 읽는다.
   * Publish Boundary는 public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 축으로 별도 유지한다.
   * `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.
   * 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.
@@ -539,7 +540,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * body compiler determinism / `body_plan` / rendered body shape 문제는 DVF Body Compiler scope로 연다.
   * source / rendered / runtime / package identity, required validation, seal, cutover, stale reentry guard, runtime compatibility 문제는 Iris Artifact Registry scope로 연다.
   * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 DVF scope가 아니라 Publish Boundary 범위에서만 연다.
-  * 단독 `DVF PASS`나 legacy combined route PASS로 후속 작업을 열지 않는다.
+  * 단독 `DVF PASS`나 Legacy Combined DVF Governance Route PASS로 후속 작업을 열지 않는다.
 
 * 이후 Iris 후속 작업은 rollback, correction, package/release readiness, manual QA, public text quality acceptance 중 하나로 명시해서 연다.
 
@@ -564,7 +565,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 * DVF System / Iris Artifact Registry / Publish Boundary 책임 경계를 다시 합치는 것
 
   * `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.
-  * 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.
+  * 단독 `DVF PASS`나 단독 `DVF System PASS`나 Legacy Combined DVF Governance Route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.
   * body compiler determinism / `body_plan` / rendered body shape 문제는 DVF Body Compiler scope로만 연다.
   * source / rendered / runtime / package identity, required validation, seal, cutover, stale reentry guard, runtime compatibility 문제는 Iris Artifact Registry scope로만 연다.
   * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 DVF scope가 아니라 Publish Boundary 범위에서만 연다.

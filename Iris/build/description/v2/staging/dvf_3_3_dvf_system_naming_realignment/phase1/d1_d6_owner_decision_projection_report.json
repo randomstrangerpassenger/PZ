@@ -4,7 +4,7 @@
   "decisions_append_precedence": "append_only_successor_supersedes_prior_current_label",
   "enforcement_mode": "option_b_required_gate_adoption",
   "expanded_body_compiler_pass_token_allowed": "DVF System Body Compiler PASS",
-  "generated_at": "2026-07-09T18:13:44.272397+00:00",
+  "generated_at": "2026-07-09T18:25:57.347249+00:00",
   "owner_required_decision_missing": false,
   "route_label": "Legacy Combined DVF Governance Route PASS",
   "schema_version": "dvf-system-naming-d1-d6-projection-v1",

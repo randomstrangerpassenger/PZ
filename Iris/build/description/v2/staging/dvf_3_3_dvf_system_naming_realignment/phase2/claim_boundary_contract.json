@@ -4,7 +4,7 @@
   "dvf_system_includes_publish_boundary": false,
   "dvf_system_includes_registry_authority": false,
   "dvf_system_includes_runtime_compatibility": false,
-  "generated_at": "2026-07-09T18:13:44.275332+00:00",
+  "generated_at": "2026-07-09T18:25:57.349741+00:00",
   "iris_artifact_registry_is_dvf_submodule": false,
   "legacy_combined_dvf_governance_route_pass_is_body_compiler_pass": false,
   "predecessor_claim_contract_path": "docs/dvf_3_3_core_registry_boundary_claim_contract.md",

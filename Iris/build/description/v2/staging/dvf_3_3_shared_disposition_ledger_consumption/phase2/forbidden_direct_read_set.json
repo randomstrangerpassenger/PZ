@@ -31,7 +31,7 @@
     },
     {
       "allowed_reference_role": "provenance_reference_only",
-      "bytes": 500583,
+      "bytes": 500229,
       "direct_current_authority_read_allowed": false,
       "exists": true,
       "kind": "file",
@@ -40,7 +40,7 @@
       "required": false,
       "role": "readiness_sandbox_row_ledger",
       "row_count": 311,
-      "sha256": "dfa1cc592c17b5df9bc8ed1d58e3b6c55ced889579889952fa7d6fc321ff548b",
+      "sha256": "d110746252e11aa42ce4f662fa17e0f5ae88a8239e22d533112c23f8c38a6d15",
       "status": "PRESENT"
     },
     {

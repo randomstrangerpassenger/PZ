@@ -398,6 +398,21 @@ DVF System / DVF Body Compiler는 다음 책임을 소유하지 않는다.
 
 따라서 Architecture 기준에서 current canonical 이름은 DVF System / DVF Body Compiler이며, retired predecessor label인 `DVF Core`는 sealed historical text와 compatibility token에서만 읽는다. 나머지 authority, registry, runtime compatibility, publish, stale / predecessor guard 책임은 각자의 Iris authority axis로 되돌린다.
 
+canonical read는 다음처럼 고정한다.
+
+```text
+DVF System
+= facts / decisions / profile / body_plan -> rendered 3-3 body
+
+Iris Artifact Registry
+= artifact lifecycle / authority / runtime-package identity pipeline
+
+Legacy Combined DVF Governance Route
+= historical polluted governance surface
+```
+
+Iris Artifact Registry는 DVF System에서 분리된 하위 구성요소가 아니라, DVF 산출물을 포함한 Iris artifact lifecycle / authority / runtime-package identity pipeline이다.
+
 DVF와 QG는 런타임에서 즉석 설명을 생성하는 장치가 아니다. 런타임은 봉인된 정보를 표시하는 역할에 머문다.
 
 ### DVF 3-3 생산 / 런타임 경계
@@ -427,13 +442,13 @@ DVF System Body Compiler PASS
 Registry Authority PASS
 Runtime Compatibility PASS
 Publish Boundary PASS
-Legacy Combined Governance Route PASS
+Legacy Combined DVF Governance Route PASS
 ```
 
 이 claim들은 alias가 아니다.
 
 ```text
-Legacy Combined Governance Route PASS
+Legacy Combined DVF Governance Route PASS
 != DVF Body Compiler PASS definition authority
 ```
 
@@ -446,7 +461,7 @@ DVF System Body Compiler PASS
 Registry Authority PASS
 Runtime Compatibility PASS
 Publish Boundary PASS
-Legacy Combined Governance Route PASS
+Legacy Combined DVF Governance Route PASS
 
 금지:
 DVF PASS (bare current claim forbidden)

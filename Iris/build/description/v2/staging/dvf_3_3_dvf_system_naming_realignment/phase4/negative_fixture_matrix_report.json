@@ -6,7 +6,7 @@
     "registry_overclaim"
   ],
   "forbidden_fixture_failure_count": 4,
-  "generated_at": "2026-07-09T18:13:44.384459+00:00",
+  "generated_at": "2026-07-09T18:25:57.454418+00:00",
   "negative_fixture_count": 4,
   "schema_version": "dvf-system-naming-negative-fixture-matrix-v1",
   "status": "PASS"

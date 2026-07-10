@@ -1672,12 +1672,14 @@ Iris DVF 3-3 -- DVF System naming realignment successor readpoint
   
   * `DVF System`은 `facts / decisions / profile / body_plan -> rendered 3-3 body` 생산 경로로 책임 상한을 둔다.
   * `DVF Body Compiler`는 같은 body-production responsibility를 claim vocabulary와 validation routing에서 더 좁게 부르는 role-granularity name이다.
+  * canonical read는 `DVF System = facts / decisions / profile / body_plan -> rendered 3-3 body`, `Iris Artifact Registry = artifact lifecycle / authority / runtime-package identity pipeline`, `Legacy Combined DVF Governance Route = historical polluted governance surface`로 고정한다.
   * `DVF Body Compiler PASS`는 successor primary PASS token의 의미 정의이며, 이 naming round 자체가 해당 PASS achievement를 주장하지 않는다.
   * `DVF System Body Compiler PASS`는 같은 body compiler axis의 expanded alias이며 별도 system-state claim이 아니다.
   * `Legacy Combined DVF Governance Route PASS`는 route-container label이다. Route-level PASS는 body compiler authority가 아니다.
   * bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.
   * retired predecessor `DVF Core PASS` label은 sealed predecessor claim meaning을 보존하지만 current canonical successor token으로 쓰지 않는다.
-  * Iris Artifact Registry는 DVF System 하위 모듈이 아니며, source / rendered / runtime / package identity, required validation, seal, cutover, stale / predecessor guard, runtime compatibility responsibility를 별도 Iris-side boundary로 유지한다.
+  * Iris Artifact Registry는 DVF System에서 분리된 하위 구성요소가 아니며, source / rendered / runtime / package identity, required validation, seal, cutover, stale / predecessor guard, runtime compatibility responsibility를 별도 Iris-side boundary로 유지한다.
+  * Legacy Combined DVF Governance Route는 DVF body compiler responsibility와 Registry governance responsibility가 오염되어 함께 실렸던 historical governance surface이며, current canonical system architecture가 아니다.
   * Registry Authority, Registry Runtime Compatibility, Publish Boundary, Runtime Payload Consumer Compatibility, Public Text Quality, release / package / Workshop readiness, semantic quality acceptance, manual QA는 DVF System closure가 아니다.
   * live `current_route_required_validations.json`은 legacy combined governance route container로 유지하되, this naming realignment gate를 additive required-validation으로 소비한다.
   * scanner는 lexical / token-level governance gate이며 semantic review engine, public text acceptance gate, public-facing quality judgment가 아니다.
@@ -1713,6 +1715,7 @@ Iris DVF 3-3 -- DVF System naming realignment successor readpoint
   * 이 항목은 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.
   * 이 항목은 package readiness, release readiness, Workshop readiness, B42 readiness, deployment readiness, manual QA, semantic quality acceptance를 선언하지 않는다.
   * 이 항목은 retired predecessor `DVF Core` wording을 current canonical terminology로 되살리지 않는다.
+  * 이 항목 이후 새 문서나 successor round는 `DVF Core`를 새 current canonical 용어로 사용할 수 없으며, 필요한 경우 `retired label: DVF Core` 또는 historical / predecessor label로만 언급한다.
   * COMMON-RELEASE-NONDECISION.
   * COMMON-RUNTIME-SURFACE-NONMUTATION.
 

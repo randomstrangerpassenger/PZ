@@ -12,12 +12,12 @@
       "C:\\Users\\MW\\Downloads\\coding\\PZ\\Iris\\build\\description\\v2\\staging\\dvf_3_3_dvf_system_naming_realignment\\phase5\\current_route_validation_result.json"
     ],
     "returncode": 0,
-    "stderr": "...................................................................................................................................\n----------------------------------------------------------------------\nRan 131 tests in 112.162s\n\nOK\n",
-    "stdout": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 131, \"success\": true, \"elapsed_seconds\": 112.162}\n",
+    "stderr": "...................................................................................................................................\n----------------------------------------------------------------------\nRan 131 tests in 99.340s\n\nOK\n",
+    "stdout": "{\"contract_class\": \"current\", \"closure_enforced\": true, \"test_count\": 131, \"success\": true, \"elapsed_seconds\": 99.34}\n",
     "success": true
   },
   "current_route_success": true,
-  "generated_at": "2026-07-09T18:15:37.501479+00:00",
+  "generated_at": "2026-07-09T18:27:37.396114+00:00",
   "live_rescan_required_test_consumed": true,
   "post_adoption_current_route_rerun_success": true,
   "required_validation_payload": {

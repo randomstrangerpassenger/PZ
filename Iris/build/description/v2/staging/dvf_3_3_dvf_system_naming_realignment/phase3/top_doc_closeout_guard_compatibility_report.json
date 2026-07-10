@@ -1,7 +1,7 @@
 {
   "closeout_guard_blocked_surface_count_after": 0,
   "closeout_guard_preexisting_out_of_patch_surface_count": 0,
-  "generated_at": "2026-07-09T18:13:44.319339+00:00",
+  "generated_at": "2026-07-09T18:25:57.393196+00:00",
   "schema_version": "dvf-system-naming-top-doc-closeout-guard-compat-v1",
   "status": "PASS",
   "top_doc_closeout_guard_compatibility_status": "PASS"

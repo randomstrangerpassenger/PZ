@@ -1,139 +1,139 @@
 {
-  "claim_match_count": 125,
+  "claim_match_count": 127,
   "claim_scan_minimum_universe_satisfied": true,
   "forbidden_current_claim_count": 0,
   "forbidden_overclaim_count": 0,
-  "generated_at": "2026-07-09T18:13:44.367025+00:00",
+  "generated_at": "2026-07-09T18:25:57.439083+00:00",
   "matches": [
     {
       "allowed_context": false,
-      "line": 425,
+      "line": 440,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF Body Compiler PASS",
       "token": "DVF Body Compiler PASS"
     },
     {
       "allowed_context": false,
-      "line": 426,
+      "line": 441,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF System Body Compiler PASS",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "allowed_context": false,
-      "line": 427,
+      "line": 442,
       "path": "docs/ARCHITECTURE.md",
       "text": "Registry Authority PASS",
       "token": "Registry Authority PASS"
     },
     {
       "allowed_context": true,
-      "line": 428,
+      "line": 443,
       "path": "docs/ARCHITECTURE.md",
       "text": "Runtime Compatibility PASS",
       "token": "Runtime Compatibility PASS"
     },
     {
       "allowed_context": false,
-      "line": 429,
+      "line": 444,
       "path": "docs/ARCHITECTURE.md",
       "text": "Publish Boundary PASS",
       "token": "Publish Boundary PASS"
     },
     {
       "allowed_context": true,
-      "line": 430,
+      "line": 445,
       "path": "docs/ARCHITECTURE.md",
-      "text": "Legacy Combined Governance Route PASS",
-      "token": "Legacy Combined Governance Route PASS"
+      "text": "Legacy Combined DVF Governance Route PASS",
+      "token": "Legacy Combined DVF Governance Route PASS"
     },
     {
       "allowed_context": true,
-      "line": 436,
+      "line": 451,
       "path": "docs/ARCHITECTURE.md",
-      "text": "Legacy Combined Governance Route PASS",
-      "token": "Legacy Combined Governance Route PASS"
+      "text": "Legacy Combined DVF Governance Route PASS",
+      "token": "Legacy Combined DVF Governance Route PASS"
     },
     {
       "allowed_context": true,
-      "line": 437,
+      "line": 452,
       "path": "docs/ARCHITECTURE.md",
       "text": "!= DVF Body Compiler PASS definition authority",
       "token": "DVF Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 440,
+      "line": 455,
       "path": "docs/ARCHITECTURE.md",
       "text": "따라서 bare `DVF PASS`와 bare `DVF System PASS`는 기본적으로 금지한다. 어떤 PASS를 말하는지 반드시 축을 붙여야 한다.",
       "token": "DVF PASS"
     },
     {
       "allowed_context": true,
-      "line": 440,
+      "line": 455,
       "path": "docs/ARCHITECTURE.md",
       "text": "따라서 bare `DVF PASS`와 bare `DVF System PASS`는 기본적으로 금지한다. 어떤 PASS를 말하는지 반드시 축을 붙여야 한다.",
       "token": "DVF System PASS"
     },
     {
       "allowed_context": false,
-      "line": 444,
+      "line": 459,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF Body Compiler PASS",
       "token": "DVF Body Compiler PASS"
     },
     {
       "allowed_context": false,
-      "line": 445,
+      "line": 460,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF System Body Compiler PASS",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "allowed_context": false,
-      "line": 446,
+      "line": 461,
       "path": "docs/ARCHITECTURE.md",
       "text": "Registry Authority PASS",
       "token": "Registry Authority PASS"
     },
     {
       "allowed_context": true,
-      "line": 447,
+      "line": 462,
       "path": "docs/ARCHITECTURE.md",
       "text": "Runtime Compatibility PASS",
       "token": "Runtime Compatibility PASS"
     },
     {
       "allowed_context": false,
-      "line": 448,
+      "line": 463,
       "path": "docs/ARCHITECTURE.md",
       "text": "Publish Boundary PASS",
       "token": "Publish Boundary PASS"
     },
     {
       "allowed_context": true,
-      "line": 449,
+      "line": 464,
       "path": "docs/ARCHITECTURE.md",
-      "text": "Legacy Combined Governance Route PASS",
-      "token": "Legacy Combined Governance Route PASS"
+      "text": "Legacy Combined DVF Governance Route PASS",
+      "token": "Legacy Combined DVF Governance Route PASS"
     },
     {
       "allowed_context": true,
-      "line": 452,
+      "line": 467,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF PASS (bare current claim forbidden)",
       "token": "DVF PASS"
     },
     {
       "allowed_context": true,
-      "line": 453,
+      "line": 468,
       "path": "docs/ARCHITECTURE.md",
       "text": "DVF System PASS (bare current claim forbidden)",
       "token": "DVF System PASS"
     },
     {
       "allowed_context": true,
-      "line": 475,
+      "line": 490,
       "path": "docs/ARCHITECTURE.md",
       "text": "역사적 통합 검증 경로가 여러 책임을 한 번에 검사했더라도, 그 경로의 존재나 PASS는 DVF Body Compiler PASS의 정의 권위가 아니다.",
       "token": "DVF Body Compiler PASS"
@@ -301,84 +301,84 @@
     },
     {
       "allowed_context": true,
-      "line": 1675,
+      "line": 1676,
       "path": "docs/DECISIONS.md",
       "text": "* `DVF Body Compiler PASS`는 successor primary PASS token의 의미 정의이며, 이 naming round 자체가 해당 PASS achievement를 주장하지 않는다.",
       "token": "DVF Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 1676,
+      "line": 1677,
       "path": "docs/DECISIONS.md",
       "text": "* `DVF System Body Compiler PASS`는 같은 body compiler axis의 expanded alias이며 별도 system-state claim이 아니다.",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 1677,
+      "line": 1678,
       "path": "docs/DECISIONS.md",
       "text": "* `Legacy Combined DVF Governance Route PASS`는 route-container label이다. Route-level PASS는 body compiler authority가 아니다.",
       "token": "Legacy Combined DVF Governance Route PASS"
     },
     {
       "allowed_context": true,
-      "line": 1678,
+      "line": 1679,
       "path": "docs/DECISIONS.md",
       "text": "* bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.",
       "token": "DVF PASS"
     },
     {
       "allowed_context": true,
-      "line": 1678,
+      "line": 1679,
       "path": "docs/DECISIONS.md",
       "text": "* bare `DVF PASS`와 bare `DVF System PASS` current claim은 금지한다.",
       "token": "DVF System PASS"
     },
     {
       "allowed_context": true,
-      "line": 1679,
+      "line": 1680,
       "path": "docs/DECISIONS.md",
       "text": "* retired predecessor `DVF Core PASS` label은 sealed predecessor claim meaning을 보존하지만 current canonical successor token으로 쓰지 않는다.",
       "token": "DVF Core PASS"
     },
     {
       "allowed_context": false,
-      "line": 1691,
+      "line": 1693,
       "path": "docs/DECISIONS.md",
       "text": "* canonical body compiler PASS token: `DVF Body Compiler PASS`",
       "token": "DVF Body Compiler PASS"
     },
     {
       "allowed_context": false,
-      "line": 1692,
+      "line": 1694,
       "path": "docs/DECISIONS.md",
       "text": "* expanded body compiler PASS token: `DVF System Body Compiler PASS`",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 1693,
+      "line": 1695,
       "path": "docs/DECISIONS.md",
       "text": "* route label: `Legacy Combined DVF Governance Route PASS`",
       "token": "Legacy Combined DVF Governance Route PASS"
     },
     {
       "allowed_context": true,
-      "line": 1713,
+      "line": 1715,
       "path": "docs/DECISIONS.md",
       "text": "* 이 항목은 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
       "token": "Registry Authority PASS"
     },
     {
       "allowed_context": true,
-      "line": 1713,
+      "line": 1715,
       "path": "docs/DECISIONS.md",
       "text": "* 이 항목은 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
       "token": "Registry Runtime Compatibility PASS"
     },
     {
       "allowed_context": true,
-      "line": 1713,
+      "line": 1715,
       "path": "docs/DECISIONS.md",
       "text": "* 이 항목은 Registry Authority PASS, Registry Runtime Compatibility PASS, Publish Boundary PASS, Runtime Payload Consumer Compatibility closure, Public Text Quality acceptance를 닫지 않는다.",
       "token": "Publish Boundary PASS"
@@ -749,136 +749,150 @@
     },
     {
       "allowed_context": true,
-      "line": 374,
+      "line": 375,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
       "token": "DVF Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 374,
+      "line": 375,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 374,
+      "line": 375,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
       "token": "Registry Authority PASS"
     },
     {
       "allowed_context": true,
-      "line": 374,
+      "line": 375,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
       "token": "Registry Runtime Compatibility PASS"
     },
     {
       "allowed_context": true,
-      "line": 374,
+      "line": 375,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
       "token": "Publish Boundary PASS"
     },
     {
       "allowed_context": true,
-      "line": 374,
+      "line": 375,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.",
       "token": "Legacy Combined DVF Governance Route PASS"
     },
     {
       "allowed_context": true,
-      "line": 375,
+      "line": 376,
       "path": "docs/ROADMAP.md",
       "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.",
       "token": "DVF PASS"
     },
     {
       "allowed_context": true,
-      "line": 375,
+      "line": 376,
       "path": "docs/ROADMAP.md",
       "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.",
       "token": "DVF System PASS"
     },
     {
       "allowed_context": true,
-      "line": 450,
+      "line": 451,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
       "token": "DVF Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 450,
+      "line": 451,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
       "token": "DVF System Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 450,
+      "line": 451,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.",
       "token": "Publish Boundary PASS"
     },
     {
       "allowed_context": true,
-      "line": 451,
+      "line": 452,
       "path": "docs/ROADMAP.md",
       "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.",
       "token": "DVF PASS"
     },
     {
       "allowed_context": true,
-      "line": 451,
+      "line": 452,
       "path": "docs/ROADMAP.md",
       "text": "* 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.",
       "token": "DVF System PASS"
     },
     {
       "allowed_context": true,
-      "line": 542,
+      "line": 543,
       "path": "docs/ROADMAP.md",
-      "text": "* 단독 `DVF PASS`나 legacy combined route PASS로 후속 작업을 열지 않는다.",
+      "text": "* 단독 `DVF PASS`나 Legacy Combined DVF Governance Route PASS로 후속 작업을 열지 않는다.",
       "token": "DVF PASS"
     },
     {
       "allowed_context": true,
-      "line": 566,
+      "line": 543,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`나 Legacy Combined DVF Governance Route PASS로 후속 작업을 열지 않는다.",
+      "token": "Legacy Combined DVF Governance Route PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 567,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
       "token": "DVF Body Compiler PASS"
     },
     {
       "allowed_context": true,
-      "line": 566,
+      "line": 567,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
       "token": "DVF Core PASS"
     },
     {
       "allowed_context": true,
-      "line": 566,
+      "line": 567,
       "path": "docs/ROADMAP.md",
       "text": "* `DVF Body Compiler PASS`나 retired historical `DVF Core PASS` predecessor label을 Registry Authority / Registry Runtime Compatibility / Publish Boundary PASS로 대체하지 않는다.",
       "token": "Publish Boundary PASS"
     },
     {
       "allowed_context": true,
-      "line": 567,
+      "line": 568,
       "path": "docs/ROADMAP.md",
-      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 Legacy Combined DVF Governance Route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
       "token": "DVF PASS"
     },
     {
       "allowed_context": true,
-      "line": 567,
+      "line": 568,
       "path": "docs/ROADMAP.md",
-      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 legacy combined route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 Legacy Combined DVF Governance Route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
       "token": "DVF System PASS"
+    },
+    {
+      "allowed_context": true,
+      "line": 568,
+      "path": "docs/ROADMAP.md",
+      "text": "* 단독 `DVF PASS`나 단독 `DVF System PASS`나 Legacy Combined DVF Governance Route PASS를 current authority, runtime compatibility, package readiness, public text acceptance, release readiness 근거로 쓰지 않는다.",
+      "token": "Legacy Combined DVF Governance Route PASS"
     }
   ],
   "overclaim_scanner_class": "lexical_token_level",

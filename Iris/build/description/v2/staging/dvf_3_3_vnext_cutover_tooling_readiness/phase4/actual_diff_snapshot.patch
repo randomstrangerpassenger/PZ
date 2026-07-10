@@ -1233,20 +1233,20 @@
  
  * DVF System / Iris Artifact Registry / Publish Boundary 책임 경계를 분리했고, `DVF Core`는 retired predecessor label로 격하했다.
 @@ -375,7 +375,7 @@
+   * `DVF Body Compiler PASS`, `DVF System Body Compiler PASS`, `Registry Authority PASS`, `Registry Runtime Compatibility PASS`, `Publish Boundary PASS`, `Legacy Combined DVF Governance Route PASS`는 서로 대체하지 않는다.
    * 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 금지한다.
-   * legacy combined route에 흡착됐던 Registry / Runtime Compatibility / Publish Boundary 책임은 DVF System / DVF Body Compiler current claim으로 되돌리지 않는다.
- 
--* Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다.
-+* Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다. DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]
+   * Legacy Combined DVF Governance Route에 오염되어 함께 실렸던 Registry / Runtime Compatibility / Publish Boundary 책임은 DVF System / DVF Body Compiler current claim으로 되돌리지 않는다.
+-
++ DVF_AUTHORITY_ROLE_MIGRATION[5c37531e8b17c4bdec87cfae0bcd595d]
+ * Phase 4 Live Migration Readiness는 pre-apply readiness로 봉인했다.
  
    * sealed authorization과 execution evidence는 Phase 4 live apply의 입력 증거로만 읽는다.
-   * hard-forbidden runtime / package / Lua bridge surface는 live mutation target이 아니라 evidence-only proof로 닫았다.
 @@ -390,7 +390,7 @@
+   * Lua bridge exporter의 default route는 chunk manifest + chunk files를 생성한다.
    * monolith export는 explicit historical / diagnostic mode에서만 허용한다.
    * current / historical / diagnostic test route를 분리하고, current route closure guard를 유지한다.
- 
--* Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다.
-+* Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다. DVF_AUTHORITY_ROLE_MIGRATION[b06ec50536c3b84b014997b0af257dc1]
+-
++ DVF_AUTHORITY_ROLE_MIGRATION[b06ec50536c3b84b014997b0af257dc1]
+ * Silent 21 / runtime enum / legacy label 계열 부채를 current readpoint 기준으로 정리했다.
  
    * runtime payload enum은 `adopted / unadopted`가 canonical이다.
-   * `active / silent` 재유입은 current writer / validator path에서 fail-loud 처리한다.

@@ -187,6 +187,20 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
             self.assertFalse(report["independent_review_claimed"])
             self.assertEqual(review["status"], "BLOCKED")
             self.assertFalse(review["tool_may_author_review_verdict"])
+            entry = run_script(
+                VALIDATOR,
+                "--require-execution-entry",
+                "--attempt-id",
+                root.name,
+                "--evidence-root",
+                str(root),
+                "--no-write",
+            )
+            self.assertNotEqual(entry.returncode, 0)
+            entry_payload = json.loads(entry.stdout.strip())
+            self.assertNotIn(
+                "entry_lua_environment_drift", entry_payload.get("blockers", [])
+            )
         finally:
             if root.exists():
                 resolved = root.resolve()

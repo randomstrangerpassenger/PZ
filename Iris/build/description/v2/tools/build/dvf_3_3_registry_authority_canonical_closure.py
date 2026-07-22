@@ -541,6 +541,14 @@ def lua_environment_report() -> dict[str, Any]:
     }
 
 
+def lua_environment_identity(payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        key: value
+        for key, value in payload.items()
+        if key not in {"cycle_id", "attempt_id"}
+    }
+
+
 def decision_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     decisions = payload.get("decisions", [])
     if not isinstance(decisions, list):
@@ -1001,7 +1009,7 @@ def run_preflight(
         "execution_base_commit": head,
         "inputs": input_hash_rows,
         "protected_surface_hash": canonical_hash(protected_rows),
-        "lua_environment_hash": canonical_hash(lua),
+        "lua_environment_hash": canonical_hash(lua_environment_identity(lua)),
         "preflight_status": "PASS" if not blockers else "FAIL",
     }
     reviewed_bundle_hash = canonical_hash(reviewed_bundle)
@@ -1812,12 +1820,22 @@ def validate_execution_entry(
         blockers.append("entry_protected_surface_plan_member_missing")
     stored_lua = read_json_object(phase0 / "lua_syntax_environment_preflight.json")
     current_lua = lua_environment_report()
-    if stored_lua.get("status") != "PASS" or canonical_hash(stored_lua) != canonical_hash(current_lua):
+    stored_lua_identity = lua_environment_identity(stored_lua)
+    current_lua_identity = lua_environment_identity(current_lua)
+    if (
+        stored_lua.get("cycle_id") != CYCLE_ID
+        or stored_lua.get("attempt_id") != normalized_attempt_id
+    ):
+        blockers.append("entry_lua_environment_evidence_binding_mismatch")
+    if (
+        stored_lua.get("status") != "PASS"
+        or canonical_hash(stored_lua_identity) != canonical_hash(current_lua_identity)
+    ):
         blockers.append("entry_lua_environment_drift")
     reviewed_lua_hash = review_manifest.get("reviewed_bundle", {}).get(
         "lua_environment_hash"
     )
-    if canonical_hash(current_lua) != reviewed_lua_hash:
+    if canonical_hash(current_lua_identity) != reviewed_lua_hash:
         blockers.append("entry_lua_environment_review_bundle_hash_mismatch")
 
     report = read_json_object(

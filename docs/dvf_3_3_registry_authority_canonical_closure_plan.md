@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> Status: implementation-authorized / retry-semantics-corrected / cycle-id-attempt-id-separated / write-once-attempt-evidence / failure-laundering-prohibited / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / attempt-0006-review-required / execution-blocked-before-WP
+> Status: implementation-authorized / retry-semantics-corrected / cycle-id-attempt-id-separated / write-once-attempt-evidence / failure-laundering-prohibited / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / attempt-0007-review-required / execution-blocked-before-WP
 > 작성일: 2026-07-10
 > Round candidate: dvf_3_3_registry_authority_canonical_closure
 > Roadmap input: C:/Users/MW/.codex/attachments/8d0d9746-0c56-482c-a7ed-e5aca9fedebf/pasted-text.txt / consumed_roadmap_hash=sha256:17C41198E4D35A15743FD6C9F869CA545C5363A3A32EB005DB1E94BC16530ECD / 1482 lines
@@ -10,7 +10,8 @@
 > Phase 3 attempt-0003 bundle: sha256:F92DD854BB0785AE581E815B7DEBED1F5426A7578D9842829F443BAA2712D11A / superseded before final review after primary fixed-path audit / byte-preserved
 > Phase 3 attempt-0004 bundle: sha256:EBC2A1831A3F10ED295FA9C72D64160F25827AFB8879DFC6B325F65E4665B47D / superseded before final review after retry-semantics correction / byte-preserved
 > Phase 3 attempt-0005 bundle: sha256:5BADA09896EF6A6699E950AE7C6B66450D21036DC425735CA76E79CC2A9F8885 / preflight FAIL / D10 plan-hash transcription mismatch / terminal report sha256:3D2DD029091F14932120E30F0793EF2D65E02B4EA0FE95919760DF283E8F9F4B / byte-preserved
-> Execution entry status: blocked until attempt-0006-entry receives fresh external reviews with Critical=0 and Important=0
+> Phase 3 attempt-0006 bundle: sha256:13290EABFAA5A9321B806FF11A6CCCC1E7046ED89A79489DCDCBF043077EA3F8 / Codex Reviewer PASS 0/0/0 / Execution Entry FAIL entry_lua_environment_drift / execution-metadata normalization defect / byte-preserved
+> Execution entry status: blocked until attempt-0007-entry receives fresh external reviews with Critical=0 and Important=0
 > Template input: docs/PLAN_TEMPLATE.md / sha256 38D70D4D624733DB4D24F047E0B737A47C75522A967C84F06FE5AABC5EBD9BA1
 > Top authority: docs/Philosophy.md / sha256 938C52E9090C36AF00DAC18B64905E12A4F2390AC238A26121A63A14F81F44B2
 > Planning readpoints: docs/DECISIONS.md / sha256 E57C4D3BC21BB2DFA10791E41EF7440358C3DAF66D11AD05A06E8158090C40D3; docs/ARCHITECTURE.md / sha256 8B2CA298EF75FE1C85C7E44B81E6536EE6343E0FC5227F662142398EE1636C89; docs/ROADMAP.md / sha256 9D3A74DA7B54FD6392FD44F5D7A2ED1ABA35CA29AB83D3EB914CD64AAC6C0A12
@@ -650,6 +651,7 @@ Implementation Notes:
 * Consolidate Critical, Important, Minor findings. Critical/Important must be zero; every Minor needs owner_resolved or owner_accepted disposition.
 * require-execution-entry must freshly recompute every plan-mapped protected/identity-bearing row and aggregate, require byte equality with phase0/protected_surface_hashes.before.json and hash equality with the reviewed bundle, and reject missing/drifted members. Git status is not a substitute because protected output/package paths may be ignored.
 * require-execution-entry likewise freshly recomputes the Lua checker/luac/version/hash/input-set report and requires equality with both the Phase 0 bytes and reviewed-bundle lua_environment_hash. An ignored Phase 0 report cannot authorize capability drift.
+* Lua environment identity excludes only cycle_id and attempt_id execution metadata from the environment hash. Those fields remain separately required on the stored report; checker, luac, version, executable hash, input count/set, and every Lua input row remain hash-bearing. This prevents false drift from evidence labeling without weakening capability freshness.
 * A roadmap/plan/execution author is not eligible as final independent reviewer.
 * Enforce the Execution Entry Gate checklist in Section 4 as a single fail-closed predicate before any wp* mode. The validator must report every failed checklist row rather than short-circuiting after the first.
 * Every command-result row must carry validation_class, wp_owner, command_id, exact argv, input/output paths, exit_code, failure_category, first_failing_predicate, stderr/stdout digest, and blocked_downstream command IDs. final_validation_failure_attribution_report.json groups failures by preimplementation_review, WP-1..WP-7, adjacent regression, external review, owner seal, post_external, and finalize; a single undifferentiated overall failure is invalid.
@@ -673,6 +675,7 @@ Validation:
 * entry_fresh_protected_surface_rows_equal_preflight_rows = true
 * entry_fresh_protected_surface_hash_equals_reviewed_bundle_hash = true
 * entry_fresh_lua_environment_hash_equals_reviewed_bundle_hash = true
+* entry_lua_execution_metadata_false_drift_count = 0
 * entry_external_review_sources_freshly_reparsed = true
 * derived_blocker_zero_used_as_authority_count = 0
 * forged_derived_pass_external_fail_bypass_count = 0

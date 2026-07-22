@@ -7,10 +7,11 @@ import sys
 from dvf_3_3_registry_authority_canonical_closure import (
     ALL_RUNNER_MODES,
     CYCLE_ID,
-    IMPLEMENTED_SCAFFOLD_MODES,
+    IMPLEMENTED_RUNNER_MODES,
     ROUND_ID,
     materialize_preimplementation_reviews,
     record_attempt_failure_once,
+    run_implementation,
     run_preflight,
 )
 
@@ -21,9 +22,9 @@ NOT_IMPLEMENTED_EXIT = 3
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(
         description=(
-            "Registry Authority Canonical Closure bounded Entry runner. "
-            "The approved bootstrap implements preflight and byte-identical "
-            "Phase 3 review materialization only."
+            "Registry Authority Canonical Closure write-once attempt runner. "
+            "Implemented modes cover Entry, byte-identical Phase 3 review "
+            "materialization, and WP-1 through WP-7 implementation evidence."
         )
     )
     value.add_argument("--mode", required=True, choices=ALL_RUNNER_MODES)
@@ -38,7 +39,7 @@ def emit(payload: dict[str, object], *, stream: object = sys.stdout) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
-    if args.mode not in IMPLEMENTED_SCAFFOLD_MODES:
+    if args.mode not in IMPLEMENTED_RUNNER_MODES:
         emit(
             {
                 "round_id": ROUND_ID,
@@ -60,8 +61,12 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.mode == "preflight":
             result = run_preflight(args.evidence_root, attempt_id=args.attempt_id)
-        else:
+        elif args.mode == "materialize-preimplementation-reviews":
             result = materialize_preimplementation_reviews(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        else:
+            result = run_implementation(
                 args.evidence_root, attempt_id=args.attempt_id
             )
     except Exception as exc:  # fail closed before any positive claim

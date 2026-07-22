@@ -231,6 +231,9 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py
 !Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py
+!Iris/build/description/v2/tools/build/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py
+!Iris/build/description/v2/tools/build/run_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py
+!Iris/build/description/v2/tools/build/validate_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py
 !Iris/build/description/v2/tests/
 Iris/build/description/v2/tests/*
 !Iris/build/description/v2/tests/test_migrate_dvf_3_3_facts_v2.py

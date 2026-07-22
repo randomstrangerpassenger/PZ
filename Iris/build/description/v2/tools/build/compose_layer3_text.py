@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 import errno
+import hashlib
 import json
 from datetime import datetime, timezone
 import os
@@ -82,6 +83,10 @@ COMPOSE_CONTEXT_OUTPUT_CLASS_ERROR_CODE = "COMPOSE_CONTEXT_OUTPUT_CLASS_REJECTED
 COMPOSE_PROFILE_CLASS_ERROR_CODE = "COMPOSE_PROFILE_CLASS_REJECTED"
 COMPOSE_CURRENT_UNLISTED_OUTPUT_ERROR_CODE = "COMPOSE_CURRENT_UNLISTED_OUTPUT_REJECTED"
 COMPOSE_INVALID_CONTEXT_ERROR_CODE = "COMPOSE_CONTEXT_INVALID"
+REGISTRY_REAL_CURRENT_WRITE_DISABLED_ERROR_CODE = "REGISTRY_REAL_CURRENT_PROTECTED_WRITE_DISABLED"
+REGISTRY_FIXTURE_RECEIPT_INVALID_ERROR_CODE = "REGISTRY_FIXTURE_RECEIPT_INVALID"
+REGISTRY_FIXTURE_RECEIPT_REPLAY_ERROR_CODE = "REGISTRY_FIXTURE_RECEIPT_REPLAY"
+REGISTRY_FIXTURE_RECEIPT_SCHEMA = "dvf-3-3-registry-authority-fixture-current-write-receipt-v1"
 CURRENT_AUTHORITY_INPUT_KEYS = (
     "facts_path",
     "decisions_path",
@@ -95,6 +100,9 @@ CLOSED_CURRENT_PROTECTED_PATHS = {
     "style_log": STYLE_LOG_PATH,
     "requeue_candidates": OUTPUT_DIR / "compose_requeue_candidates.jsonl",
 }
+REAL_CLOSED_CURRENT_PROTECTED_PATHS = frozenset(
+    path.resolve() for path in CLOSED_CURRENT_PROTECTED_PATHS.values()
+)
 CURRENT_PROTECTED_BASENAMES = frozenset(
     path.name for path in CLOSED_CURRENT_PROTECTED_PATHS.values()
 )
@@ -154,6 +162,12 @@ def write_lines_retry(path: Path, lines: list[str]) -> None:
         raise last_error
 
 
+def text_mode_write_bytes(text: str) -> bytes:
+    if os.linesep != "\n":
+        text = text.replace("\n", os.linesep)
+    return text.encode("utf-8")
+
+
 class ComposeEntrypointGuardError(ValueError):
     def __init__(
         self,
@@ -210,6 +224,252 @@ def has_test_tmp_segment(path: Path) -> bool:
 def is_known_current_protected_path(path: Path) -> bool:
     target = resolved(path)
     return any(target == resolved(protected) for protected in CLOSED_CURRENT_PROTECTED_PATHS.values())
+
+
+def is_real_current_protected_path(path: Path) -> bool:
+    return resolved(path) in REAL_CLOSED_CURRENT_PROTECTED_PATHS
+
+
+def sha256_path(path: Path) -> str | None:
+    if not path.is_file():
+        return None
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def canonical_sha256(payload: Any) -> str:
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
+
+
+def normalized_body_plan_authority(profiles: dict[str, Any]) -> dict[str, Any]:
+    normalized_profiles: dict[str, Any] = {}
+    raw_profiles = profiles.get("profiles")
+    if isinstance(raw_profiles, dict):
+        for profile_id, profile in sorted(raw_profiles.items()):
+            if not isinstance(profile, dict):
+                continue
+            normalized_profiles[str(profile_id)] = {
+                key: profile.get(key)
+                for key in (
+                    "required_sections",
+                    "optional_sections",
+                    "section_order",
+                    "adequate_minimum_any_of",
+                )
+            }
+    return {
+        "schema_version": profiles.get("schema_version"),
+        "section_names": profiles.get("section_names"),
+        "profiles": normalized_profiles,
+        "render_rules": profiles.get("render_rules"),
+    }
+
+
+def read_registry_fixture_receipt(path: Path) -> dict[str, Any]:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8-sig"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise ComposeEntrypointGuardError(
+            f"{REGISTRY_FIXTURE_RECEIPT_INVALID_ERROR_CODE}: unreadable receipt",
+            compose_context=CURRENT_COMPOSE_CONTEXT,
+            path=path,
+        ) from exc
+    if not isinstance(payload, dict):
+        raise ComposeEntrypointGuardError(
+            f"{REGISTRY_FIXTURE_RECEIPT_INVALID_ERROR_CODE}: receipt must be an object",
+            compose_context=CURRENT_COMPOSE_CONTEXT,
+            path=path,
+        )
+    return payload
+
+
+def receipt_fixture_root(payload: dict[str, Any]) -> Path:
+    value = payload.get("fixture_transaction_root")
+    if not isinstance(value, str):
+        raise ValueError("fixture_transaction_root missing")
+    root = Path(value).resolve()
+    normalized = root.as_posix().lower()
+    required_parts = (
+        "/staging/dvf_3_3_registry_authority_canonical_closure/attempts/",
+        "/phase4/wp5",
+    )
+    if not all(part in normalized for part in required_parts):
+        raise ValueError("fixture transaction root is outside phase4/wp5 attempt evidence")
+    return root
+
+
+def receipt_output_paths(payload: dict[str, Any]) -> dict[str, Path]:
+    raw = payload.get("allowed_output_paths")
+    if not isinstance(raw, dict) or set(raw) != {
+        "output_path",
+        "style_log_path",
+        "requeue_candidates_path",
+    }:
+        raise ValueError("allowed_output_paths must name the exact three compose targets")
+    if not all(isinstance(value, str) for value in raw.values()):
+        raise ValueError("allowed_output_paths values must be strings")
+    return {key: Path(value).resolve() for key, value in raw.items()}
+
+
+def validate_registry_fixture_receipt(
+    receipt_path: Path,
+    *,
+    paths: dict[str, Path | None],
+    profiles: dict[str, Any],
+    rendered: dict[str, Any] | None = None,
+    computed_postwrite_hashes: dict[str, str] | None = None,
+    consume: bool = False,
+) -> dict[str, Any]:
+    payload = read_registry_fixture_receipt(receipt_path)
+    required_fields = {
+        "schema_version",
+        "round_id",
+        "fixture_only",
+        "fixture_transaction_root",
+        "allowed_output_paths",
+        "input_bindings",
+        "normalized_body_plan_authority_sha256",
+        "candidate_raw_sha256",
+        "candidate_canonical_entries_sha256",
+        "expected_target_preimages",
+        "expected_postwrite_hashes",
+        "rendered_generated_at",
+        "fixture_decision_sha256",
+        "issued_at",
+        "expires_at",
+        "nonce",
+        "receipt_consumption_state_path",
+    }
+    forbidden_fields = {
+        "owner_authorization",
+        "owner_approved",
+        "production",
+        "live",
+        "live_write_allowed",
+    }
+    errors: list[str] = []
+    if set(payload) != required_fields:
+        errors.append("receipt_field_set_mismatch")
+    if forbidden_fields.intersection(payload):
+        errors.append("receipt_forbidden_authority_field_present")
+    if payload.get("schema_version") != REGISTRY_FIXTURE_RECEIPT_SCHEMA:
+        errors.append("receipt_schema_mismatch")
+    if payload.get("round_id") != "dvf_3_3_registry_authority_canonical_closure":
+        errors.append("receipt_round_mismatch")
+    if payload.get("fixture_only") is not True:
+        errors.append("receipt_not_fixture_only")
+    try:
+        root = receipt_fixture_root(payload)
+        allowed_paths = receipt_output_paths(payload)
+    except (TypeError, ValueError) as exc:
+        root = Path()
+        allowed_paths = {}
+        errors.append(str(exc))
+    actual_paths = {
+        key: value.resolve()
+        for key, value in paths.items()
+        if key in {"output_path", "style_log_path", "requeue_candidates_path"}
+        and value is not None
+    }
+    if allowed_paths != actual_paths:
+        errors.append("receipt_target_set_mismatch")
+    if any(
+        not is_under_path(path, root) or is_real_current_protected_path(path)
+        for path in allowed_paths.values()
+    ):
+        errors.append("receipt_target_outside_fixture_or_real_protected")
+    if not is_under_path(receipt_path, root / "fixture_receipts"):
+        errors.append("receipt_path_outside_fixture_receipt_root")
+    binding_rows = payload.get("input_bindings")
+    supplied_bindings: dict[str, dict[str, Any]] = {}
+    if isinstance(binding_rows, list):
+        for row in binding_rows:
+            if not isinstance(row, dict):
+                continue
+            key = row.get("key")
+            path_value = row.get("path")
+            if isinstance(key, str) and isinstance(path_value, str):
+                supplied_bindings[key] = {
+                    "path": str(Path(path_value).resolve()),
+                    "sha256": row.get("sha256"),
+                }
+    observed_bindings = {
+        key: {"path": str(value.resolve()), "sha256": sha256_path(value)}
+        for key, value in paths.items()
+        if key in CURRENT_AUTHORITY_INPUT_KEYS and value is not None
+    }
+    if supplied_bindings != observed_bindings or len(observed_bindings) != 6:
+        errors.append("receipt_input_binding_mismatch")
+    if payload.get("normalized_body_plan_authority_sha256") != canonical_sha256(
+        normalized_body_plan_authority(profiles)
+    ):
+        errors.append("receipt_body_plan_authority_mismatch")
+    now = datetime.now(timezone.utc)
+    try:
+        issued = datetime.fromisoformat(str(payload.get("issued_at")).replace("Z", "+00:00"))
+        expires = datetime.fromisoformat(str(payload.get("expires_at")).replace("Z", "+00:00"))
+        if issued > now or expires <= now or expires <= issued:
+            errors.append("receipt_time_window_invalid")
+    except ValueError:
+        errors.append("receipt_time_invalid")
+    preimages = payload.get("expected_target_preimages")
+    observed_preimages = {key: sha256_path(path) for key, path in allowed_paths.items()}
+    if not isinstance(preimages, dict) or preimages != observed_preimages:
+        errors.append("receipt_target_preimage_mismatch")
+    state_value = payload.get("receipt_consumption_state_path")
+    state_path = Path(state_value).resolve() if isinstance(state_value, str) else Path()
+    if not is_under_path(state_path, root / "receipt_consumption"):
+        errors.append("receipt_consumption_path_outside_fixture_root")
+    if state_path.exists():
+        errors.append("receipt_nonce_already_consumed")
+    if rendered is not None:
+        if payload.get("candidate_canonical_entries_sha256") != entries_sha256(
+            rendered.get("entries", {})
+        ):
+            errors.append("receipt_candidate_entries_mismatch")
+        if not isinstance(computed_postwrite_hashes, dict):
+            errors.append("receipt_expected_postwrite_hashes_missing")
+        elif payload.get("expected_postwrite_hashes") != computed_postwrite_hashes:
+            errors.append("receipt_expected_postwrite_hashes_mismatch")
+        elif payload.get("candidate_raw_sha256") != computed_postwrite_hashes.get(
+            "output_path"
+        ):
+            errors.append("receipt_candidate_raw_mismatch")
+    if errors:
+        reason = (
+            REGISTRY_FIXTURE_RECEIPT_REPLAY_ERROR_CODE
+            if "receipt_nonce_already_consumed" in errors
+            else REGISTRY_FIXTURE_RECEIPT_INVALID_ERROR_CODE
+        )
+        raise ComposeEntrypointGuardError(
+            f"{reason}: {','.join(sorted(set(errors)))}",
+            compose_context=CURRENT_COMPOSE_CONTEXT,
+            path=receipt_path,
+        )
+    if consume:
+        state_path.parent.mkdir(parents=True, exist_ok=True)
+        with state_path.open("x", encoding="utf-8") as handle:
+            json.dump(
+                {
+                    "schema_version": "dvf-3-3-registry-authority-fixture-receipt-consumption-v1",
+                    "nonce": payload.get("nonce"),
+                    "receipt_sha256": sha256_path(receipt_path),
+                    "consumed_at": datetime.now(timezone.utc).isoformat(),
+                },
+                handle,
+                ensure_ascii=False,
+                indent=2,
+            )
+    return payload
 
 
 def is_current_equivalent_name(path: Path) -> bool:
@@ -330,15 +590,43 @@ def enforce_compose_write_contract(
     compose_context: str | None,
     paths: dict[str, Path | None],
     profiles: dict[str, Any],
+    registry_current_write_authorization_receipt: Path | None = None,
 ) -> None:
     require_compose_context(compose_context)
     assert compose_context is not None
     profile_class = classify_compose_profile(profiles)
+    raw_targets = [
+        value
+        for key, value in paths.items()
+        if key in {"output_path", "style_log_path", "requeue_candidates_path"}
+        and value is not None
+    ]
+    for target in raw_targets:
+        if is_real_current_protected_path(target):
+            raise ComposeEntrypointGuardError(
+                REGISTRY_REAL_CURRENT_WRITE_DISABLED_ERROR_CODE,
+                compose_context=compose_context,
+                output_path_class="real-current-protected",
+                profile_class=profile_class,
+                path=target,
+            )
+    fixture_receipt_targets: set[Path] = set()
+    if registry_current_write_authorization_receipt is not None:
+        receipt = validate_registry_fixture_receipt(
+            registry_current_write_authorization_receipt,
+            paths=paths,
+            profiles=profiles,
+        )
+        fixture_receipt_targets = set(receipt_output_paths(receipt).values())
     path_records = [
         {
             "role": key,
             "path": value,
-            "path_class": classify_compose_write_path(value),
+            "path_class": (
+                "current-equivalent-fixture"
+                if value.resolve() in fixture_receipt_targets
+                else classify_compose_write_path(value)
+            ),
         }
         for key, value in (
             ("output_path", paths["output_path"]),
@@ -443,6 +731,7 @@ def build_rendered(
     precedence_rules_path: Path = PRECEDENCE_RULES_PATH,
     resolver_authority_mode: str = DEFAULT_RESOLVER_AUTHORITY_MODE,
     compose_context: str | None = None,
+    registry_current_write_authorization_receipt: Path | None = None,
 ) -> dict[str, Any]:
     require_compose_context(compose_context)
     enforce_resolver_authority_output_contract(
@@ -466,6 +755,9 @@ def build_rendered(
             "precedence_rules_path": precedence_rules_path,
         },
         profiles=profiles,
+        registry_current_write_authorization_receipt=(
+            registry_current_write_authorization_receipt
+        ),
     )
     facts_list = load_jsonl(facts_path)
     decisions_list = load_jsonl(decisions_path)
@@ -544,10 +836,19 @@ def build_rendered(
             }
         )
 
+    receipt_payload = (
+        read_registry_fixture_receipt(registry_current_write_authorization_receipt)
+        if registry_current_write_authorization_receipt is not None
+        else None
+    )
     rendered = {
         "meta": {
             "version": "dvf-3-3-body-plan-v2-preview-v0" if is_v2 else "interaction-cluster-rendered-v0",
-            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "generated_at": (
+                receipt_payload["rendered_generated_at"]
+                if receipt_payload is not None
+                else datetime.now(timezone.utc).isoformat()
+            ),
             "facts_sha256": file_sha256(facts_path),
             "decisions_sha256": file_sha256(decisions_path),
             "profiles_sha256": file_sha256(profiles_path),
@@ -558,6 +859,45 @@ def build_rendered(
         },
         "entries": entries,
     }
+
+    rendered_text = json.dumps(rendered, ensure_ascii=False, indent=2)
+    style_text = "".join(
+        json.dumps(log_entry, ensure_ascii=False) + "\n"
+        for log_entry in normalization_logs
+    )
+    requeue_text = "".join(
+        json.dumps(row, ensure_ascii=False) + "\n"
+        for row in requeue_candidates
+    )
+    if registry_current_write_authorization_receipt is not None:
+        validate_registry_fixture_receipt(
+            registry_current_write_authorization_receipt,
+            paths={
+                "facts_path": facts_path,
+                "decisions_path": decisions_path,
+                "profiles_path": profiles_path,
+                "output_path": output_path,
+                "overlay_path": overlay_path,
+                "style_log_path": style_log_path,
+                "requeue_candidates_path": requeue_candidates_path,
+                "identity_rules_path": identity_rules_path,
+                "precedence_rules_path": precedence_rules_path,
+            },
+            profiles=profiles,
+            rendered=rendered,
+            computed_postwrite_hashes={
+                "output_path": hashlib.sha256(
+                    text_mode_write_bytes(rendered_text)
+                ).hexdigest(),
+                "style_log_path": hashlib.sha256(
+                    text_mode_write_bytes(style_text)
+                ).hexdigest(),
+                "requeue_candidates_path": hashlib.sha256(
+                    text_mode_write_bytes(requeue_text)
+                ).hexdigest(),
+            },
+            consume=True,
+        )
 
     write_json_retry(output_path, rendered)
     write_lines_retry(
@@ -603,6 +943,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--requeue-candidates-path", type=Path, default=None)
     parser.add_argument("--identity-rules-path", type=Path, default=IDENTITY_RULES_PATH)
     parser.add_argument("--precedence-rules-path", type=Path, default=PRECEDENCE_RULES_PATH)
+    parser.add_argument("--registry-current-write-authorization-receipt", type=Path, default=None)
     return parser.parse_args(argv)
 
 
@@ -687,6 +1028,9 @@ def main(argv: list[str] | None = None) -> int:
         paths["precedence_rules_path"],
         resolver_authority_mode_for_entrypoint(args.mode),
         compose_context=compose_context,
+        registry_current_write_authorization_receipt=(
+            args.registry_current_write_authorization_receipt
+        ),
     )
     print("rendered written")
     return 0

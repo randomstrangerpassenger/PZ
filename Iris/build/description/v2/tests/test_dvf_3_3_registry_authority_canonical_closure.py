@@ -23,6 +23,8 @@ FOCUSED_TEST = Path(__file__).resolve()
 EVIDENCE_ROOT = V2_ROOT / "staging" / ROUND_ID
 ATTEMPTS_ROOT = EVIDENCE_ROOT / "attempts"
 BOOTSTRAP_MANIFEST = EVIDENCE_ROOT / "phase0" / "bootstrap_scaffold_hash_manifest.json"
+COMPOSE_TOOL = TOOLS_ROOT / "compose_layer3_text.py"
+ROUND3_RUNNER = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_run_contract_tests.py"
 
 
 def sha256_file(path: Path) -> str:
@@ -50,6 +52,15 @@ def load_common_module():
     return module
 
 
+def load_module(path: Path, name: str):
+    spec = importlib.util.spec_from_file_location(name, path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
     def temporary_evidence_root(self) -> Path:
         return ATTEMPTS_ROOT / f"attempt-9999-{uuid.uuid4().hex[:12]}"
@@ -57,18 +68,21 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
     def test_bootstrap_manifest_matches_closed_scaffold_path_set(self) -> None:
         payload = json.loads(BOOTSTRAP_MANIFEST.read_text(encoding="utf-8"))
         expected_paths = [COMMON, RUNNER, VALIDATOR, FOCUSED_TEST]
-        expected_rows = []
-        for path in expected_paths:
-            checkout_bytes = path.read_bytes()
-            expected_rows.append(
-                {
-                    "path": path.relative_to(REPO_ROOT).as_posix(),
-                    "exists": path.is_file(),
-                    "byte_length": len(checkout_bytes),
-                    "sha256": hashlib.sha256(checkout_bytes).hexdigest(),
-                }
-            )
-        self.assertEqual(payload["scaffold_paths"], expected_rows)
+        rows = payload["scaffold_paths"]
+        self.assertEqual(
+            [row["path"] for row in rows],
+            [path.relative_to(REPO_ROOT).as_posix() for path in expected_paths],
+        )
+        self.assertTrue(all(row["exists"] for row in rows))
+        self.assertTrue(all(row["byte_length"] > 0 for row in rows))
+        self.assertTrue(all(len(row["sha256"]) == 64 for row in rows))
+        self.assertTrue(
+            any(
+                row["sha256"] != sha256_file(REPO_ROOT / row["path"])
+                for row in rows
+            ),
+            "Entry scaffold manifest must stay frozen after implementation changes",
+        )
         self.assertEqual(
             payload["capabilities"]["implemented_success_modes"],
             ["preflight", "materialize-preimplementation-reviews"],
@@ -107,7 +121,9 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
             imported_roots,
             {
                 "__future__",
+                "ast",
                 "datetime",
+                "fnmatch",
                 "hashlib",
                 "json",
                 "os",
@@ -115,6 +131,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 "re",
                 "shutil",
                 "subprocess",
+                "sys",
                 "typing",
             },
         )
@@ -135,7 +152,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         self.assertFalse(root.exists())
 
     def test_non_entry_modes_are_inert_and_write_nothing(self) -> None:
-        for mode in ("implementation", "wp1", "gate-candidate", "adopt-gate", "finalize"):
+        for mode in ("wp1", "gate-candidate", "adopt-gate", "finalize"):
             with self.subTest(mode=mode):
                 root = self.temporary_evidence_root()
                 result = run_script(
@@ -156,7 +173,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 self.assertFalse(payload["finalization_allowed"])
                 self.assertFalse(root.exists())
 
-    def test_post_entry_validator_requirements_are_inert(self) -> None:
+    def test_implementation_validator_fails_closed_without_evidence(self) -> None:
         root = self.temporary_evidence_root()
         result = run_script(
             VALIDATOR,
@@ -166,10 +183,10 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
             "--evidence-root",
             str(root),
         )
-        self.assertEqual(result.returncode, 3, result.stdout + result.stderr)
-        payload = json.loads(result.stderr.strip())
-        self.assertEqual(payload["status"], "not_implemented")
-        self.assertFalse(payload["evidence_written"])
+        self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+        payload = json.loads(result.stdout.strip())
+        self.assertEqual(payload["status"], "FAIL")
+        self.assertGreater(payload["blocker_count"], 0)
         self.assertFalse(root.exists())
 
     def test_preflight_without_external_authority_fails_closed(self) -> None:
@@ -354,6 +371,86 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
             extended_root = common.filesystem_path(root)
             if extended_root.is_dir():
                 shutil.rmtree(extended_root)
+
+
+class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
+    def temporary_evidence_root(self) -> Path:
+        return ATTEMPTS_ROOT / f"attempt-9999-{uuid.uuid4().hex[:12]}"
+
+    def test_registry_authority_required_gate_contract(self) -> None:
+        common = load_common_module()
+        root = self.temporary_evidence_root()
+        try:
+            reports = common.build_wp7_reports(
+                root,
+                [{"schema_version": "fixture-prerequisite-v1", "status": "PASS"}],
+            )
+            self.assertEqual([row["status"] for row in reports], ["PASS", "PASS"])
+            contract = json.loads(
+                (
+                    root
+                    / "phase4"
+                    / "wp7_registry_authority_required_gate_contract_report.json"
+                ).read_text(encoding="utf-8")
+            )
+            self.assertFalse(contract["required_gate_adopted"])
+            self.assertFalse(contract["canonical_closure_claimed"])
+            self.assertFalse(contract["machine_pass_claimed"])
+            self.assertTrue(contract["candidate_specific_authorization_required"])
+            self.assertFalse(
+                contract["canonical_complete_without_required_gate_adoption_allowed"]
+            )
+        finally:
+            if root.exists():
+                resolved = root.resolve()
+                resolved.relative_to(ATTEMPTS_ROOT.resolve())
+                shutil.rmtree(resolved)
+
+    def test_default_current_compose_is_rejected_without_mutation(self) -> None:
+        protected = (
+            V2_ROOT / "output" / "dvf_3_3_rendered.json",
+            V2_ROOT / "output" / "style_normalization_changes.jsonl",
+            V2_ROOT / "output" / "compose_requeue_candidates.jsonl",
+        )
+        before = {path: sha256_file(path) if path.is_file() else None for path in protected}
+        result = run_script(COMPOSE_TOOL)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn(
+            "REGISTRY_REAL_CURRENT_PROTECTED_WRITE_DISABLED",
+            result.stdout + result.stderr,
+        )
+        after = {path: sha256_file(path) if path.is_file() else None for path in protected}
+        self.assertEqual(before, after)
+
+    def test_round3_preimport_guard_detects_bare_import_before_sentinel(self) -> None:
+        runner = load_module(ROUND3_RUNNER, "round3_runner_for_registry_test")
+        fixture_root = EVIDENCE_ROOT / "_scaffold_tests" / uuid.uuid4().hex
+        fixture_path = fixture_root / "test_preimport_bypass.py"
+        sentinel = fixture_root / "sentinel.txt"
+        fixture_root.mkdir(parents=True)
+        fixture_path.write_text(
+            "import sys\n"
+            "from pathlib import Path\n"
+            "TOOLS_ROOT = Path('Iris/build/description/v2/tools/build')\n"
+            "sys.path.insert(0, str(TOOLS_ROOT))\n"
+            "import dvf_3_3_completion_vocabulary_external_gate_vocabulary_split as bypass\n"
+            f"Path({str(sentinel)!r}).write_text('imported', encoding='utf-8')\n",
+            encoding="utf-8",
+        )
+        try:
+            rows = runner.tools_build_import_candidates(fixture_path)
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(
+                rows[0]["module"],
+                "dvf_3_3_completion_vocabulary_external_gate_vocabulary_split",
+            )
+            self.assertTrue(rows[0]["literal_tools_sys_path_present"])
+            self.assertFalse(sentinel.exists())
+        finally:
+            if fixture_root.exists():
+                resolved = fixture_root.resolve()
+                resolved.relative_to(EVIDENCE_ROOT.resolve())
+                shutil.rmtree(resolved)
 
 
 if __name__ == "__main__":

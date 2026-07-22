@@ -6,9 +6,10 @@ import sys
 
 from dvf_3_3_registry_authority_canonical_closure import (
     CYCLE_ID,
-    IMPLEMENTED_SCAFFOLD_VALIDATIONS,
+    IMPLEMENTED_VALIDATIONS,
     ROUND_ID,
     validate_execution_entry,
+    validate_implementation,
     validate_preflight,
     validate_preimplementation_reviews,
 )
@@ -34,9 +35,9 @@ ALL_REQUIRE_FLAGS = (
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(
         description=(
-            "Registry Authority Canonical Closure bounded Entry validator. "
-            "The approved bootstrap validates preflight, review materialization, "
-            "and Execution Entry only."
+            "Registry Authority Canonical Closure attempt validator. "
+            "Implemented requirements cover Entry, review materialization, "
+            "Execution Entry, and WP-1 through WP-7 implementation evidence."
         )
     )
     group = value.add_mutually_exclusive_group(required=True)
@@ -65,7 +66,7 @@ def selected_requirement(args: argparse.Namespace) -> str:
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     requirement = selected_requirement(args)
-    if requirement not in IMPLEMENTED_SCAFFOLD_VALIDATIONS:
+    if requirement not in IMPLEMENTED_VALIDATIONS:
         emit(
             {
                 "round_id": ROUND_ID,
@@ -91,8 +92,12 @@ def main(argv: list[str] | None = None) -> int:
             result = validate_preimplementation_reviews(
                 args.evidence_root, attempt_id=args.attempt_id
             )
-        else:
+        elif requirement == "require-execution-entry":
             result = validate_execution_entry(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        else:
+            result = validate_implementation(
                 args.evidence_root, attempt_id=args.attempt_id
             )
     except Exception as exc:

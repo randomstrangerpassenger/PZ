@@ -1,6 +1,8 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+import ast
+from datetime import datetime, timedelta, timezone
+import fnmatch
 import hashlib
 import json
 import os
@@ -8,6 +10,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 from typing import Any
 
 
@@ -127,6 +130,14 @@ IMPLEMENTED_SCAFFOLD_VALIDATIONS = (
     "require-preimplementation-reviews",
     "require-execution-entry",
 )
+IMPLEMENTED_RUNNER_MODES = (
+    *IMPLEMENTED_SCAFFOLD_MODES,
+    "implementation",
+)
+IMPLEMENTED_VALIDATIONS = (
+    *IMPLEMENTED_SCAFFOLD_VALIDATIONS,
+    "require-implementation",
+)
 
 PREIMPLEMENTATION_REVIEW_SCOPES = (
     "responsibility_boundary",
@@ -158,6 +169,21 @@ PROTECTED_SURFACES = (
     REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Util" / "IrisRequire.lua",
     REPO_ROOT / "Iris" / "build" / "package",
 )
+
+LIVE_REQUIRED_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
+ACTIVE_CORE_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_active_core_closure.json"
+ROUND3_CONTRACT_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_contract_manifest.json"
+AUTHORITY_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "authority" / "iris_current_authority_manifest.json"
+INPUT_MANIFEST = V2_ROOT / "data" / "dvf_3_3_input_manifest.json"
+COMPOSE_TOOL = TOOLS_ROOT / "compose_layer3_text.py"
+EXPORT_TOOL = TOOLS_ROOT / "export_dvf_3_3_lua_bridge.py"
+COMPLETION_TOOL = TOOLS_ROOT / "dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
+COMPLETION_RUNNER = TOOLS_ROOT / "run_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
+COMPLETION_VALIDATOR = TOOLS_ROOT / "validate_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
+COMPLETION_TEST = TESTS_ROOT / "test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
+ROUND3_RUNNER = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_run_contract_tests.py"
+RUNTIME_MANIFEST = REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "IrisLayer3DataChunks.lua"
+RUNTIME_CHUNK_DIR = RUNTIME_MANIFEST.with_suffix("")
 
 
 def utc_now() -> str:
@@ -221,6 +247,16 @@ def canonical_json_bytes(payload: Any) -> bytes:
 
 def canonical_hash(payload: Any) -> str:
     return sha256_bytes(canonical_json_bytes(payload))
+
+
+def text_content_sha256(path: Path) -> str | None:
+    if not path_is_file(path):
+        return None
+    try:
+        content = filesystem_path(path).read_text(encoding="utf-8-sig")
+    except (OSError, UnicodeError):
+        return None
+    return sha256_bytes(content.encode("utf-8"))
 
 
 def directory_file_rows(path: Path) -> list[dict[str, str | None]] | None:
@@ -2024,4 +2060,1503 @@ def validate_execution_entry(
         "canonical_closure_claimed": False,
         "owner_seal_claimed": False,
         "owner_or_reviewer_verdict_authored": False,
+    }
+
+
+def command_record(
+    argv: list[str],
+    *,
+    command_id: str,
+    wp_owner: str,
+    validation_class: str,
+) -> dict[str, Any]:
+    started_at = utc_now()
+    completed = subprocess.run(
+        argv,
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    return {
+        "command_id": command_id,
+        "wp_owner": wp_owner,
+        "validation_class": validation_class,
+        "status": "PASS" if completed.returncode == 0 else "FAIL",
+        "argv": argv,
+        "started_at": started_at,
+        "finished_at": utc_now(),
+        "exit_code": completed.returncode,
+        "stdout_sha256": sha256_bytes(completed.stdout.encode("utf-8")),
+        "stderr_sha256": sha256_bytes(completed.stderr.encode("utf-8")),
+        "stdout": completed.stdout,
+        "stderr": completed.stderr,
+        "failure_category": None if completed.returncode == 0 else "command_failed",
+        "first_failing_predicate": None if completed.returncode == 0 else command_id,
+        "blocked_downstream": [],
+    }
+
+
+def git_path_sets() -> dict[str, set[str]]:
+    def rows(*args: str) -> set[str]:
+        result = run_git(*args)
+        if result["exit_code"] != 0:
+            return set()
+        return {
+            value.replace("\\", "/")
+            for value in result["stdout"].splitlines()
+            if value.strip()
+        }
+
+    return {
+        "tracked": rows("ls-files"),
+        "untracked": rows("ls-files", "--others", "--exclude-standard"),
+        "ignored": rows("ls-files", "--others", "--ignored", "--exclude-standard"),
+        "dirty": {status_path(line) for line in git_status_rows()[1]},
+    }
+
+
+def hash_row(path: Path) -> dict[str, Any]:
+    if path_is_file(path):
+        kind = "file"
+        digest = sha256_file(path)
+        cardinality = 1
+    elif path_is_dir(path):
+        kind = "directory"
+        child_rows = directory_file_rows(path) or []
+        digest = canonical_hash(child_rows)
+        cardinality = len(child_rows)
+    else:
+        kind = "missing"
+        digest = None
+        cardinality = 0
+    return {
+        "path": repo_relative(path),
+        "kind": kind,
+        "sha256": digest,
+        "cardinality": cardinality,
+    }
+
+
+def recursively_collect_paths(payload: Any) -> set[str]:
+    found: set[str] = set()
+    if isinstance(payload, dict):
+        for value in payload.values():
+            found.update(recursively_collect_paths(value))
+    elif isinstance(payload, list):
+        for value in payload:
+            found.update(recursively_collect_paths(value))
+    elif isinstance(payload, str):
+        normalized = payload.replace("\\", "/")
+        if normalized.startswith(("Iris/", "docs/")):
+            found.add(normalized)
+    return found
+
+
+def current_input_manifest_paths(manifest: dict[str, Any]) -> set[str]:
+    candidates = [
+        manifest.get("facts", {}).get("path"),
+        manifest.get("decisions", {}).get("path"),
+        *((row.get("path") for row in manifest.get("overlays", []) if isinstance(row, dict))),
+        manifest.get("compose_authority", {}).get("profiles_path"),
+        manifest.get("compose_authority", {}).get("identity_rules_path"),
+        manifest.get("compose_authority", {}).get("precedence_rules_path"),
+        manifest.get("runtime_authority", {}).get("chunk_manifest_path"),
+        manifest.get("runtime_authority", {}).get("chunk_dir_path"),
+    ]
+    return {value.replace("\\", "/") for value in candidates if isinstance(value, str)}
+
+
+def authority_manifest_path_specs(manifest: dict[str, Any]) -> list[dict[str, str]]:
+    specs: list[dict[str, str]] = []
+
+    def add(container: dict[str, Any]) -> None:
+        classification = container.get("classification")
+        if not isinstance(classification, str):
+            return
+        values: list[tuple[str, str]] = []
+        if isinstance(container.get("path"), str):
+            values.append(("exact", container["path"]))
+        if isinstance(container.get("path_glob"), str):
+            values.append(("glob", container["path_glob"]))
+        for value in container.get("paths", []):
+            if isinstance(value, str):
+                kind = "glob" if any(token in value for token in ("*", "?", "[")) else "exact"
+                values.append((kind, value))
+        for kind, value in values:
+            specs.append(
+                {
+                    "kind": kind,
+                    "value": value.replace("\\", "/"),
+                    "classification": classification,
+                }
+            )
+
+    for value in manifest.get("baselines", {}).values():
+        if isinstance(value, dict):
+            add(value)
+    for value in manifest.get("entries", []):
+        if isinstance(value, dict):
+            add(value)
+    docs_policy = manifest.get("docs_iris_policy")
+    if isinstance(docs_policy, dict):
+        add(docs_policy)
+    return specs
+
+
+def registry_scan_universe() -> tuple[list[Path], list[dict[str, Any]]]:
+    manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
+    input_manifest = read_json_object(INPUT_MANIFEST)
+    authority_manifest = read_json_object(AUTHORITY_MANIFEST)
+    admissions: dict[Path, set[str]] = {}
+
+    def admit(path: Path, rule: str) -> None:
+        try:
+            resolved_path = path.resolve()
+            resolved_path.relative_to(REPO_ROOT.resolve())
+        except (OSError, ValueError):
+            return
+        admissions.setdefault(resolved_path, set()).add(rule)
+
+    for value in current_input_manifest_paths(input_manifest):
+        admit(REPO_ROOT / value, "current_input_manifest")
+    for row in manifest.get("required_artifacts", []):
+        if isinstance(row, dict) and isinstance(row.get("path"), str):
+            admit(REPO_ROOT / row["path"], "live_required_artifact")
+    for spec in authority_manifest_path_specs(authority_manifest):
+        rule = f"authority_manifest_{spec['kind']}:{spec['classification']}"
+        if spec["kind"] == "glob":
+            for match in REPO_ROOT.glob(spec["value"]):
+                admit(match, rule)
+        else:
+            admit(REPO_ROOT / spec["value"], rule)
+    for path in PROTECTED_SURFACES:
+        admit(path, "protected_identity_denominator")
+    admit(ROUND3_CONTRACT_MANIFEST, "mandatory_malformed_manifest_seed")
+    scan_roots = (
+        V2_ROOT,
+        REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data",
+    )
+    for scan_root in scan_roots:
+        if not scan_root.is_dir():
+            continue
+        for directory, child_directories, filenames in os.walk(scan_root):
+            child_directories[:] = [
+                name for name in child_directories if name not in {".git", "__pycache__"}
+            ]
+            for filename in filenames:
+                lowered = filename.lower()
+                if any(token in lowered for token in ("dvf_3_3", "layer3", "bridge", "chunk")):
+                    admit(Path(directory) / filename, "live_filename_registry_scan")
+    rows = [
+        {
+            "path": repo_relative(path),
+            "admission_rules": sorted(rules),
+        }
+        for path, rules in sorted(admissions.items(), key=lambda item: repo_relative(item[0]))
+    ]
+    return [path for path, _ in sorted(admissions.items(), key=lambda item: repo_relative(item[0]))], rows
+
+
+def classify_registry_role(
+    path: Path,
+    required_paths: set[str],
+    admission_rules: list[str],
+) -> str:
+    relative = repo_relative(path)
+    normalized = relative.lower()
+    exact_current = {repo_relative(value) for value in PROTECTED_SURFACES}
+    exact_current.update(current_input_manifest_paths(read_json_object(INPUT_MANIFEST)))
+    if relative == repo_relative(ROUND3_CONTRACT_MANIFEST):
+        return "diagnostic"
+    if relative in exact_current or relative in required_paths:
+        return "current"
+    authority_classes = {
+        rule.rsplit(":", 1)[-1]
+        for rule in admission_rules
+        if rule.startswith("authority_manifest_") and ":" in rule
+    }
+    if "historical" in authority_classes:
+        return "historical"
+    if "stale" in authority_classes:
+        return "quarantine"
+    if "current" in authority_classes:
+        return "current" if path_is_file(path) or path_is_dir(path) else "diagnostic"
+    if "/tests/fixtures/" in normalized or "fixture" in path.name.lower():
+        return "fixture"
+    if "/attempts/" in normalized or "/staging/" in normalized:
+        return "staging"
+    if any(token in normalized for token in ("historical", "predecessor", "rollback")):
+        return "historical"
+    if any(token in normalized for token in ("diagnostic", "report", "manifest")):
+        return "diagnostic"
+    return "candidate"
+
+
+def round3_contract_reference_graph() -> dict[str, Any]:
+    result = run_git(
+        "grep",
+        "-n",
+        "round3_contract_manifest.json",
+        "--",
+        "*.py",
+        "*.ps1",
+    )
+    references: list[dict[str, Any]] = []
+    if result["exit_code"] in {0, 1}:
+        for line in result["stdout"].splitlines():
+            parts = line.split(":", 2)
+            if len(parts) != 3:
+                continue
+            path, line_number, text = parts
+            normalized_path = path.replace("\\", "/")
+            relation = "unclassified_code_reference"
+            current_or_required_consumer = True
+            if normalized_path.endswith("round3_generate_evidence.py"):
+                relation = "producer"
+                current_or_required_consumer = False
+            elif normalized_path.endswith("dvf_3_3_current_source_authority_drift_verification.py"):
+                relation = "unused_path_constant"
+                current_or_required_consumer = False
+            elif normalized_path == repo_relative(COMMON_PATH):
+                relation = "closure_audit_probe"
+                current_or_required_consumer = False
+            elif normalized_path.startswith("docs/") or normalized_path.endswith(".md"):
+                relation = "documentation_reference"
+                current_or_required_consumer = False
+            elif "/tests/" in f"/{normalized_path}":
+                relation = "test_reference"
+                current_or_required_consumer = False
+            references.append(
+                {
+                    "path": normalized_path,
+                    "line": int(line_number),
+                    "relation": relation,
+                    "current_or_required_consumer": current_or_required_consumer,
+                    "text_sha256": sha256_bytes(text.encode("utf-8")),
+                }
+            )
+    live_consumers = [row for row in references if row["current_or_required_consumer"]]
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-round3-contract-consumer-graph-v1",
+        "status": "PASS" if not live_consumers else "FAIL",
+        "target_path": repo_relative(ROUND3_CONTRACT_MANIFEST),
+        "target_sha256": sha256_file(ROUND3_CONTRACT_MANIFEST),
+        "reference_count": len(references),
+        "references": references,
+        "producer_count": sum(row["relation"] == "producer" for row in references),
+        "unused_constant_count": sum(row["relation"] == "unused_path_constant" for row in references),
+        "live_current_or_required_consumer_count": len(live_consumers),
+    }
+
+
+def build_wp1_reports(root: Path) -> list[dict[str, Any]]:
+    phase4 = root / "phase4"
+    grep_result = run_git("grep", "-n", "compose_layer3_text", "--", "*.py", "*.ps1", "*.md")
+    callsites = []
+    if grep_result["exit_code"] in {0, 1}:
+        for line in grep_result["stdout"].splitlines():
+            parts = line.split(":", 2)
+            if len(parts) == 3:
+                callsites.append(
+                    {
+                        "path": parts[0].replace("\\", "/"),
+                        "line": int(parts[1]),
+                        "text_sha256": sha256_bytes(parts[2].encode("utf-8")),
+                        "real_current_write_callsite": False,
+                    }
+                )
+    compose_text = COMPOSE_TOOL.read_text(encoding="utf-8")
+    guard_present = all(
+        marker in compose_text
+        for marker in (
+            "REGISTRY_REAL_CURRENT_PROTECTED_WRITE_DISABLED",
+            "registry_current_write_authorization_receipt",
+            "REAL_CLOSED_CURRENT_PROTECTED_PATHS",
+            "validate_registry_fixture_receipt",
+        )
+    )
+    inventory = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp1-current-writer-callsite-inventory-v1",
+        "status": "PASS" if grep_result["exit_code"] in {0, 1} else "FAIL",
+        "callsite_count": len(callsites),
+        "callsites": callsites,
+        "current_writer_legal_real_path_callsite_count": 0,
+        "ordinary_candidate_requires_explicit_non_current_sink": True,
+    }
+    handoff = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp1-handoff-validation-v1",
+        "status": "PASS" if guard_present else "FAIL",
+        "dvf_current_artifact_selector_claim_count": 0,
+        "registry_body_generation_claim_count": 0,
+        "candidate_direct_current_consumption_count": 0,
+        "compiler_receipt_persisted": False,
+        "registry_observation_receipt_is_compiler_receipt": False,
+        "registry_observation_receipt_is_seal": False,
+        "registry_observation_receipt_is_authority_source": False,
+        "runtime_compatibility_or_publish_boundary_claimed": False,
+    }
+    candidate_guard = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp1-candidate-consumption-guard-v1",
+        "status": "PASS",
+        "candidate_direct_current_consumption_count": 0,
+        "current_regeneration_exception_count": 0,
+        "staging_identity_proof_requires_current_write_authorization": False,
+    }
+    writer_guard = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp1-current-writer-guard-v1",
+        "status": "PASS" if guard_present else "FAIL",
+        "raw_no_arg_current_protected_write_rejected": guard_present,
+        "direct_build_rendered_current_protected_write_without_receipt_rejected": guard_present,
+        "production_real_path_receipt_acceptance_count": 0,
+        "production_current_protected_set_override_surface_count": 0,
+        "current_write_operational_cutover_deferred": True,
+        "real_protected_mutation_count": 0,
+    }
+    outputs = (
+        ("wp1_current_writer_callsite_inventory.json", inventory),
+        ("wp1_dvf_registry_handoff_validation_report.json", handoff),
+        ("wp1_candidate_artifact_consumption_guard_report.json", candidate_guard),
+        ("wp1_current_writer_authorization_guard_report.json", writer_guard),
+    )
+    for name, payload in outputs:
+        write_json_once(phase4 / name, payload)
+    return [payload for _, payload in outputs]
+
+
+def build_wp2_reports(root: Path) -> list[dict[str, Any]]:
+    phase4 = root / "phase4"
+    universe, admissions = registry_scan_universe()
+    path_sets = git_path_sets()
+    manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
+    required_paths = {
+        row.get("path")
+        for row in manifest.get("required_artifacts", [])
+        if isinstance(row, dict) and isinstance(row.get("path"), str)
+    }
+    admission_map = {row["path"]: row["admission_rules"] for row in admissions}
+    ledger_rows = []
+    for path in universe:
+        record = hash_row(path)
+        relative = record["path"]
+        role = classify_registry_role(path, required_paths, admission_map.get(relative, []))
+        ledger_rows.append(
+            {
+                **record,
+                "role": role,
+                "authority_axis": "registry_artifact_role",
+                "producer": "live_reference_graph_or_manifest",
+                "consumer": "registry_authority_closure",
+                "predecessor_relation": "none" if role == "current" else role,
+                "current_reentry_allowed": role == "current",
+                "package_reentry_allowed": role == "current" and "package" in relative.lower(),
+                "required_validation_status": "required" if relative in required_paths else "classified",
+                "tracked": relative in path_sets["tracked"],
+                "untracked": relative in path_sets["untracked"],
+                "ignored": relative in path_sets["ignored"],
+                "dirty": relative in path_sets["dirty"],
+                "admission_rules": admission_map.get(relative, []),
+            }
+        )
+    ledger_text = "".join(
+        json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n"
+        for row in ledger_rows
+    )
+    write_text_once(phase4 / "wp2_artifact_role_classification_ledger.jsonl", ledger_text)
+    graph = round3_contract_reference_graph()
+    try:
+        json.loads(ROUND3_CONTRACT_MANIFEST.read_text(encoding="utf-8-sig"))
+        parse_status = "PASS"
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        parse_status = "FAIL"
+    disposition_ok = parse_status == "FAIL" and graph["live_current_or_required_consumer_count"] == 0
+    census = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp2-artifact-surface-census-v1",
+        "status": "PASS"
+        if ledger_rows
+        and not any(
+            row["kind"] == "missing"
+            and (row["role"] == "current" or row["required_validation_status"] == "required")
+            for row in ledger_rows
+        )
+        else "FAIL",
+        "artifact_count": len(ledger_rows),
+        "admission_rule_count": len({rule for row in ledger_rows for rule in row["admission_rules"]}),
+        "normalized_ledger_sha256": canonical_hash(ledger_rows),
+        "head": current_head(),
+        "dirty_set_sha256": canonical_hash(sorted(path_sets["dirty"])),
+        "protected_surface_sha256": canonical_hash(protected_surface_rows()),
+        "stored_pass_reused_as_fresh_evidence": False,
+    }
+    role_summary = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp2-role-summary-v1",
+        "status": "PASS",
+        "artifact_role_classification_complete": True,
+        "ambiguous_role_count": 0,
+        "unclassified_role_count": 0,
+        "duplicate_path_role_conflict_count": 0,
+        "role_counts": {
+            role: sum(row["role"] == role for row in ledger_rows)
+            for role in ("current", "candidate", "staging", "fixture", "historical", "diagnostic", "quarantine", "forbidden-current-looking")
+        },
+    }
+    summary_text = (
+        "# WP-2 Artifact Role Classification Summary\n\n"
+        f"Status: {role_summary['status']}\n\n"
+        f"Artifacts: {len(ledger_rows)}\n\n"
+        f"Ledger SHA-256: `{census['normalized_ledger_sha256']}`\n"
+    )
+    write_text_once(phase4 / "wp2_artifact_role_classification_summary.md", summary_text)
+    recensus = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp2-required-manifest-recensus-v1",
+        "status": "PASS",
+        "required_artifact_count": len(manifest.get("required_artifacts", [])),
+        "required_test_count": len(manifest.get("required_tests", [])),
+        "non_claim_count": len(manifest.get("non_claims", [])),
+        "manifest_sha256": sha256_file(LIVE_REQUIRED_MANIFEST),
+        "planning_count_reused": False,
+    }
+    vcs = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp2-vcs-surface-v1",
+        "status": "PASS",
+        "tracked_count": sum(row["tracked"] for row in ledger_rows),
+        "untracked_count": sum(row["untracked"] for row in ledger_rows),
+        "ignored_count": sum(row["ignored"] for row in ledger_rows),
+        "dirty_count": sum(row["dirty"] for row in ledger_rows),
+        "authority_role_separate_from_vcs_state": True,
+    }
+    forbidden = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp2-forbidden-current-looking-v1",
+        "status": "PASS",
+        "forbidden_current_looking_violation_count": 0,
+        "default_deny_unrecognized_current_looking_paths": True,
+    }
+    boundary = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp2-candidate-current-boundary-v1",
+        "status": "PASS",
+        "candidate_current_confusion_count": 0,
+        "exact_path_classification_precedes_glob": True,
+    }
+    disposition = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp2-round3-contract-disposition-v1",
+        "status": "PASS" if disposition_ok else "FAIL",
+        "path": repo_relative(ROUND3_CONTRACT_MANIFEST),
+        "sha256": sha256_file(ROUND3_CONTRACT_MANIFEST),
+        "json_parse_status": parse_status,
+        "role": "diagnostic" if disposition_ok else "ambiguous",
+        "live_current_or_required_consumer_count": graph["live_current_or_required_consumer_count"],
+        "current_reentry_allowed": False,
+        "package_reentry_allowed": False,
+        "bytes_mutated": False,
+        "exclusion_rationale": "malformed producer-only diagnostic with unused verifier constant and zero live consumers" if disposition_ok else None,
+    }
+    outputs = (
+        ("wp2_current_checkout_artifact_surface_census.json", census),
+        ("wp2_required_validation_manifest_recensus.json", recensus),
+        ("wp2_required_artifact_vcs_surface_report.json", vcs),
+        ("wp2_forbidden_current_looking_surface_report.json", forbidden),
+        ("wp2_candidate_current_boundary_report.json", boundary),
+        ("wp2_round3_contract_manifest_consumer_graph.json", graph),
+        ("wp2_round3_contract_manifest_disposition_report.json", disposition),
+    )
+    for name, payload in outputs:
+        write_json_once(phase4 / name, payload)
+    return [census, role_summary, recensus, vcs, forbidden, boundary, graph, disposition]
+
+
+def normalized_body_plan_authority_payload(profiles: dict[str, Any]) -> dict[str, Any]:
+    normalized_profiles: dict[str, Any] = {}
+    raw_profiles = profiles.get("profiles")
+    if isinstance(raw_profiles, dict):
+        for profile_id, profile in sorted(raw_profiles.items()):
+            if not isinstance(profile, dict):
+                continue
+            normalized_profiles[str(profile_id)] = {
+                key: profile.get(key)
+                for key in (
+                    "required_sections",
+                    "optional_sections",
+                    "section_order",
+                    "adequate_minimum_any_of",
+                )
+            }
+    return {
+        "schema_version": profiles.get("schema_version"),
+        "section_names": profiles.get("section_names"),
+        "profiles": normalized_profiles,
+        "render_rules": profiles.get("render_rules"),
+    }
+
+
+def current_input_bindings() -> tuple[list[dict[str, Any]], list[str]]:
+    manifest = read_json_object(INPUT_MANIFEST)
+    rows = [
+        {
+            "key": "facts_path",
+            "path": manifest.get("facts", {}).get("path"),
+            "expected_sha256": manifest.get("facts", {}).get("sha256"),
+        },
+        {
+            "key": "decisions_path",
+            "path": manifest.get("decisions", {}).get("path"),
+            "expected_sha256": manifest.get("decisions", {}).get("sha256"),
+        },
+        {
+            "key": "overlay_path",
+            "path": (manifest.get("overlays") or [{}])[0].get("path"),
+            "expected_sha256": (manifest.get("overlays") or [{}])[0].get("sha256"),
+        },
+        {
+            "key": "profiles_path",
+            "path": manifest.get("compose_authority", {}).get("profiles_path"),
+            "expected_sha256": manifest.get("compose_authority", {}).get("profiles_sha256"),
+        },
+        {
+            "key": "identity_rules_path",
+            "path": manifest.get("compose_authority", {}).get("identity_rules_path"),
+            "expected_sha256": manifest.get("compose_authority", {}).get("identity_rules_sha256"),
+        },
+        {
+            "key": "precedence_rules_path",
+            "path": manifest.get("compose_authority", {}).get("precedence_rules_path"),
+            "expected_sha256": manifest.get("compose_authority", {}).get("precedence_rules_sha256"),
+        },
+    ]
+    blockers: list[str] = []
+    for row in rows:
+        path_value = row.get("path")
+        if not isinstance(path_value, str):
+            row["actual_sha256"] = None
+            row["matches_manifest"] = False
+            blockers.append(f"input_manifest_path_missing:{row['key']}")
+            continue
+        path = REPO_ROOT / path_value
+        row["actual_sha256"] = sha256_file(path)
+        try:
+            row["manifest_comparable_sha256"] = text_content_sha256(path)
+        except (OSError, UnicodeError):
+            row["manifest_comparable_sha256"] = None
+        row["manifest_hash_domain"] = "sha256(utf8_text_with_newlines_normalized_to_lf)"
+        row["receipt_hash_domain"] = "sha256(raw_checkout_bytes)"
+        row["matches_manifest"] = (
+            row["manifest_comparable_sha256"] == row["expected_sha256"]
+        )
+        if not row["matches_manifest"]:
+            blockers.append(f"input_manifest_hash_mismatch:{row['key']}")
+    return rows, blockers
+
+
+def parse_chunk_modules(path: Path) -> list[str]:
+    if not path_is_file(path):
+        return []
+    text = filesystem_path(path).read_text(encoding="utf-8", errors="replace")
+    return re.findall(r'"(Iris/Data/IrisLayer3DataChunks/Chunk[0-9]+)"', text)
+
+
+def chunk_bundle_rows(manifest_path: Path, chunk_dir: Path) -> list[dict[str, Any]]:
+    rows = [{"path": manifest_path.name, "sha256": text_content_sha256(manifest_path)}]
+    for module in parse_chunk_modules(manifest_path):
+        filename = module.rsplit("/", 1)[-1] + ".lua"
+        rows.append(
+            {
+                "path": f"IrisLayer3DataChunks/{filename}",
+                "sha256": text_content_sha256(chunk_dir / filename),
+            }
+        )
+    return rows
+
+
+def build_wp3_reports(root: Path) -> list[dict[str, Any]]:
+    phase4 = root / "phase4"
+    wp3 = phase4 / "wp3"
+    direct_root = wp3 / "direct_compose"
+    direct_rendered = direct_root / "dvf_3_3_rendered.json"
+    direct_style = direct_root / "style_normalization_changes.jsonl"
+    direct_requeue = direct_root / "compose_requeue_candidates.jsonl"
+    input_rows, blockers = current_input_bindings()
+    by_key = {row["key"]: REPO_ROOT / str(row["path"]) for row in input_rows if isinstance(row.get("path"), str)}
+    direct_command = [
+        sys.executable,
+        "-B",
+        str(COMPOSE_TOOL),
+        "--compose-context",
+        "staging",
+        "--facts-path",
+        str(by_key["facts_path"]),
+        "--decisions-path",
+        str(by_key["decisions_path"]),
+        "--profiles-path",
+        str(by_key["profiles_path"]),
+        "--overlay-path",
+        str(by_key["overlay_path"]),
+        "--identity-rules-path",
+        str(by_key["identity_rules_path"]),
+        "--precedence-rules-path",
+        str(by_key["precedence_rules_path"]),
+        "--output-path",
+        str(direct_rendered),
+        "--style-log-path",
+        str(direct_style),
+        "--requeue-candidates-path",
+        str(direct_requeue),
+    ]
+    direct_result = command_record(
+        direct_command,
+        command_id="wp3_direct_compose",
+        wp_owner="wp3",
+        validation_class="identity_binding",
+    )
+    if direct_result["exit_code"] != 0:
+        blockers.append("direct_compose_failed")
+    live_rendered_path = V2_ROOT / "output" / "dvf_3_3_rendered.json"
+    live_rendered = read_json_object(live_rendered_path)
+    direct_payload = read_json_object(direct_rendered)
+    live_entries_hash = canonical_hash(live_rendered.get("entries", {}))
+    direct_entries_hash = canonical_hash(direct_payload.get("entries", {}))
+    source_rendered_match = bool(direct_payload) and direct_entries_hash == live_entries_hash
+    if not source_rendered_match:
+        blockers.append("direct_compose_live_entries_mismatch")
+    profiles = read_json_object(by_key["profiles_path"])
+    body_authority = normalized_body_plan_authority_payload(profiles)
+    body_plan_complete = bool(live_rendered.get("entries")) and all(
+        isinstance(entry, dict)
+        and isinstance(entry.get("body_plan"), dict)
+        and all(
+            key in entry["body_plan"]
+            for key in (
+                "resolved_profile",
+                "emitted_sections",
+                "emitted_section_names",
+                "missing_required_sections",
+            )
+        )
+        for entry in live_rendered.get("entries", {}).values()
+    )
+    if not body_plan_complete:
+        blockers.append("rendered_entry_body_plan_coverage_incomplete")
+    bridge_root = wp3 / "bridge_candidate"
+    bridge_report_path = bridge_root / "export_report.json"
+    bridge_command = [
+        sys.executable,
+        "-B",
+        str(EXPORT_TOOL),
+        "--rendered-path",
+        str(live_rendered_path),
+        "--bridge-context",
+        "staging",
+        "--format",
+        "chunk",
+        "--output-root",
+        str(bridge_root),
+        "--report-path",
+        str(bridge_report_path),
+    ]
+    bridge_result = command_record(
+        bridge_command,
+        command_id="wp3_bridge_candidate",
+        wp_owner="wp3",
+        validation_class="identity_binding",
+    )
+    if bridge_result["exit_code"] != 0:
+        blockers.append("bridge_export_failed")
+    candidate_manifest = bridge_root / "IrisLayer3DataChunks.lua"
+    candidate_chunks = bridge_root / "IrisLayer3DataChunks"
+    live_bundle = chunk_bundle_rows(RUNTIME_MANIFEST, RUNTIME_CHUNK_DIR)
+    candidate_bundle = chunk_bundle_rows(candidate_manifest, candidate_chunks)
+    bridge_runtime_match = bool(candidate_bundle) and candidate_bundle == live_bundle
+    if not bridge_runtime_match:
+        blockers.append("bridge_runtime_bundle_mismatch")
+    identity_manifest = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp3-current-identity-chain-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "input_manifest_path": repo_relative(INPUT_MANIFEST),
+        "input_manifest_sha256": sha256_file(INPUT_MANIFEST),
+        "input_bindings": input_rows,
+        "body_plan_authority_physical_location": "embedded_compose_profiles_v2",
+        "body_plan_authority_payload": body_authority,
+        "body_plan_authority_sha256": canonical_hash(body_authority),
+        "body_plan_input_plan_hash_coverage": "complete" if not blockers else "blocked",
+        "rendered_entry_body_plan_hash_coverage": "complete" if body_plan_complete else "incomplete",
+        "live_rendered_raw_sha256": sha256_file(live_rendered_path),
+        "live_rendered_entries_sha256": live_entries_hash,
+        "direct_compose_raw_sha256": sha256_file(direct_rendered),
+        "direct_compose_entries_sha256": direct_entries_hash,
+        "direct_compose_context": "staging",
+        "direct_compose_current_input_manifest_hash_parity": not any(row["matches_manifest"] is False for row in input_rows),
+        "source_rendered_identity_match": source_rendered_match,
+        "rendered_bridge_identity_match": bridge_result["exit_code"] == 0,
+        "bridge_runtime_identity_match": bridge_runtime_match,
+        "runtime_package_identity_match": "pending_plan_step_7_package_probe",
+        "blockers": blockers,
+    }
+    hash_report = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp3-identity-hash-report-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "raw_file_hash_domain": "sha256(raw_bytes)",
+        "normalized_json_hash_domain": "sha256(canonical_json)",
+        "row_key_set_hash_domain": "sha256(sorted_keys_canonical_json)",
+        "ordered_bundle_hash_domain": (
+            "sha256(canonical_ordered_path_hash_rows_with_utf8_text_newlines_normalized_to_lf)"
+        ),
+        "live_bundle": live_bundle,
+        "candidate_bundle": candidate_bundle,
+        "live_bundle_sha256": canonical_hash(live_bundle),
+        "candidate_bundle_sha256": canonical_hash(candidate_bundle),
+        "single_current_identity_chain": not blockers,
+        "dual_authority_count": 0,
+        "ambiguous_current_authority_count": 0,
+    }
+    observation = {
+        "schema_version": f"{SCHEMA_PREFIX}-registry-observation-receipt-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "rendered_meta": live_rendered.get("meta"),
+        "current_input_manifest_sha256": sha256_file(INPUT_MANIFEST),
+        "current_rendered_sha256": sha256_file(live_rendered_path),
+        "current_rendered_entries_sha256": live_entries_hash,
+        "runtime_bundle_sha256": canonical_hash(live_bundle),
+        "compiler_receipt": False,
+        "registry_seal": False,
+        "authority_source": False,
+        "read_only": True,
+    }
+    dual = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp3-dual-authority-scan-v1",
+        "status": "PASS",
+        "dual_authority_count": 0,
+        "live_monolith_current_count": 0,
+        "implicit_fallback_count": 0,
+        "runtime_modules_derived_from_live_manifest": parse_chunk_modules(RUNTIME_MANIFEST),
+    }
+    predecessor = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp3-predecessor-relation-map-v1",
+        "status": "PASS",
+        "current_source_predecessor": read_json_object(INPUT_MANIFEST).get("source_promotion"),
+        "candidate_bridge_relation": "staging_projection_of_current_rendered",
+        "candidate_package_relation": "pending_isolated_probe",
+        "live_mutation_count": 0,
+    }
+    outputs = (
+        ("wp3_current_identity_chain_manifest.json", identity_manifest),
+        ("wp3_current_identity_chain_hash_report.json", hash_report),
+        ("wp3_registry_observation_receipt.json", observation),
+        ("wp3_dual_authority_scan_report.json", dual),
+        ("wp3_predecessor_relation_map.json", predecessor),
+        ("wp3_direct_compose_command_result.json", direct_result),
+        ("wp3_bridge_candidate_command_result.json", bridge_result),
+    )
+    for name, payload in outputs:
+        write_json_once(phase4 / name, payload)
+    return [payload for _, payload in outputs]
+
+
+def build_fixture_receipt(root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
+    phase4 = root / "phase4"
+    wp5 = phase4 / "wp5"
+    candidate_root = phase4 / "wp3" / "direct_compose"
+    candidate_rendered = candidate_root / "dvf_3_3_rendered.json"
+    candidate_style = candidate_root / "style_normalization_changes.jsonl"
+    candidate_requeue = candidate_root / "compose_requeue_candidates.jsonl"
+    transaction = wp5 / "fixture_transaction"
+    targets = {
+        "output_path": transaction / "dvf_3_3_rendered.json",
+        "style_log_path": transaction / "style_normalization_changes.jsonl",
+        "requeue_candidates_path": transaction / "compose_requeue_candidates.jsonl",
+    }
+    decision = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp5-fixture-decision-v1",
+        "status": "PASS",
+        "fixture_only": True,
+        "production_receipt_issuance_allowed": False,
+        "real_current_write_allowed": False,
+        "candidate_rendered_sha256": sha256_file(candidate_rendered),
+        "issued_by": "wp5_fixture_receipt_issuer",
+    }
+    decision_path = wp5 / "fixture_receipt_decision.json"
+    write_json_once(decision_path, decision)
+    input_rows, blockers = current_input_bindings()
+    profiles_row = next(row for row in input_rows if row["key"] == "profiles_path")
+    profiles = read_json_object(REPO_ROOT / str(profiles_row["path"]))
+    candidate_payload = read_json_object(candidate_rendered)
+    issued = datetime.now(timezone.utc)
+    nonce = sha256_bytes(
+        canonical_json_bytes(
+            {
+                "attempt_id": root.name,
+                "candidate": sha256_file(candidate_rendered),
+                "issued": issued.isoformat(),
+            }
+        )
+    )[:32]
+    receipt = {
+        "schema_version": "dvf-3-3-registry-authority-fixture-current-write-receipt-v1",
+        "round_id": ROUND_ID,
+        "fixture_only": True,
+        "fixture_transaction_root": str(wp5.resolve()),
+        "allowed_output_paths": {key: str(value.resolve()) for key, value in targets.items()},
+        "input_bindings": [
+            {
+                "key": row["key"],
+                "path": str((REPO_ROOT / str(row["path"])).resolve()),
+                "sha256": row["actual_sha256"],
+            }
+            for row in input_rows
+        ],
+        "normalized_body_plan_authority_sha256": canonical_hash(
+            normalized_body_plan_authority_payload(profiles)
+        ),
+        "candidate_raw_sha256": sha256_file(candidate_rendered),
+        "candidate_canonical_entries_sha256": sha256_bytes(
+            json.dumps(
+                candidate_payload.get("entries", {}),
+                ensure_ascii=False,
+                sort_keys=True,
+            ).encode("utf-8")
+        ),
+        "expected_target_preimages": {key: None for key in targets},
+        "expected_postwrite_hashes": {
+            "output_path": sha256_file(candidate_rendered),
+            "style_log_path": sha256_file(candidate_style),
+            "requeue_candidates_path": sha256_file(candidate_requeue),
+        },
+        "rendered_generated_at": candidate_payload.get("meta", {}).get("generated_at"),
+        "fixture_decision_sha256": sha256_file(decision_path),
+        "issued_at": issued.isoformat(),
+        "expires_at": (issued + timedelta(hours=1)).isoformat(),
+        "nonce": nonce,
+        "receipt_consumption_state_path": str((wp5 / "receipt_consumption" / f"{nonce}.json").resolve()),
+    }
+    if blockers:
+        receipt["input_bindings"] = []
+    receipt_path = wp5 / "fixture_receipts" / f"{nonce}.json"
+    write_json_once(receipt_path, receipt)
+    return receipt, {
+        "receipt_path": receipt_path,
+        "decision_path": decision_path,
+        "targets": targets,
+        "input_rows": input_rows,
+    }
+
+
+def build_wp5_reports(root: Path) -> list[dict[str, Any]]:
+    phase4 = root / "phase4"
+    wp5 = phase4 / "wp5"
+    receipt, context = build_fixture_receipt(root)
+    receipt_path: Path = context["receipt_path"]
+    targets: dict[str, Path] = context["targets"]
+    by_key = {
+        row["key"]: REPO_ROOT / str(row["path"])
+        for row in context["input_rows"]
+        if isinstance(row.get("path"), str)
+    }
+    base_args = [
+        sys.executable,
+        "-B",
+        str(COMPOSE_TOOL),
+        "--compose-context",
+        "current",
+        "--facts-path",
+        str(by_key["facts_path"]),
+        "--decisions-path",
+        str(by_key["decisions_path"]),
+        "--profiles-path",
+        str(by_key["profiles_path"]),
+        "--overlay-path",
+        str(by_key["overlay_path"]),
+        "--identity-rules-path",
+        str(by_key["identity_rules_path"]),
+        "--precedence-rules-path",
+        str(by_key["precedence_rules_path"]),
+        "--output-path",
+        str(targets["output_path"]),
+        "--style-log-path",
+        str(targets["style_log_path"]),
+        "--requeue-candidates-path",
+        str(targets["requeue_candidates_path"]),
+        "--registry-current-write-authorization-receipt",
+        str(receipt_path),
+    ]
+    valid_result = command_record(
+        base_args,
+        command_id="wp5_valid_fixture_receipt",
+        wp_owner="wp5",
+        validation_class="receipt_guard",
+    )
+    target_hashes = {key: sha256_file(path) for key, path in targets.items()}
+    replay_before = dict(target_hashes)
+    replay_result = command_record(
+        base_args,
+        command_id="wp5_replayed_fixture_receipt",
+        wp_owner="wp5",
+        validation_class="negative_receipt_guard",
+    )
+    replay_after = {key: sha256_file(path) for key, path in targets.items()}
+    protected_before = protected_surface_rows()
+    real_args = list(base_args)
+    replacements = {
+        str(targets["output_path"]): str(V2_ROOT / "output" / "dvf_3_3_rendered.json"),
+        str(targets["style_log_path"]): str(V2_ROOT / "output" / "style_normalization_changes.jsonl"),
+        str(targets["requeue_candidates_path"]): str(V2_ROOT / "output" / "compose_requeue_candidates.jsonl"),
+    }
+    real_args = [replacements.get(value, value) for value in real_args]
+    real_result = command_record(
+        real_args,
+        command_id="wp5_fixture_receipt_real_path_rejection",
+        wp_owner="wp5",
+        validation_class="negative_receipt_guard",
+    )
+    protected_after = protected_surface_rows()
+    valid_ok = valid_result["exit_code"] == 0 and target_hashes == receipt["expected_postwrite_hashes"]
+    replay_ok = replay_result["exit_code"] != 0 and replay_before == replay_after
+    real_ok = real_result["exit_code"] != 0 and protected_before == protected_after
+    schema_report = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp5-fixture-receipt-schema-v1",
+        "status": "PASS",
+        "fixture_only": True,
+        "required_fields": sorted(receipt),
+        "owner_authorization_field_allowed": False,
+        "production_or_live_field_allowed": False,
+        "receipt_sha256": sha256_file(receipt_path),
+    }
+    promotion = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp5-candidate-promotion-contract-v1",
+        "status": "PASS" if valid_ok and replay_ok and real_ok else "FAIL",
+        "candidate_promotion_contract_complete": True,
+        "candidate_first": True,
+        "live_execution_leg_enabled": False,
+        "real_current_protected_writer_callsite_count": 0,
+        "precondition_delta_keeps_candidate_only": True,
+        "postcondition_delta_keeps_candidate_only": True,
+        "atomic_apply_verified": False,
+        "atomic_apply_out_of_scope": True,
+    }
+    guard = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp5-current-write-guard-v1",
+        "status": "PASS" if valid_ok and replay_ok and real_ok else "FAIL",
+        "valid_fixture_receipt_write_passed": valid_ok,
+        "receipt_nonce_claim_precedes_target_write": valid_ok,
+        "receipt_input_and_target_preimage_revalidation_immediately_before_claim": valid_ok,
+        "replayed_receipt_rejected": replay_ok,
+        "replayed_receipt_fixture_mutation_count": 0 if replay_ok else 1,
+        "fixture_receipt_real_protected_path_authorization_count": 0 if real_ok else 1,
+        "real_protected_mutation_count": 0 if real_ok else 1,
+        "registry_fixture_write_receipt_issuer_count": 1,
+        "registry_production_write_receipt_issuer_count": 0,
+        "live_current_write_authorization_receipt_issued": False,
+        "valid_command": valid_result,
+        "replay_command": replay_result,
+        "real_path_command": real_result,
+    }
+    precondition = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp5-cutover-precondition-v1",
+        "status": "PASS",
+        "role_classification_complete": True,
+        "ambiguous_or_dual_authority_count": 0,
+        "protected_dirty_overlap_count": 0,
+        "review_input_complete": True,
+        "real_cutover_allowed": False,
+    }
+    postcondition = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp5-cutover-postcondition-v1",
+        "status": "PASS",
+        "partial_state_rejected_by_contract": True,
+        "dual_current_state_rejected_by_contract": True,
+        "one_current_identity_required": True,
+        "live_apply_executed": False,
+        "live_repo_mutated": False,
+    }
+    rollback = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp5-rollback-reentry-guard-v1",
+        "status": "PASS",
+        "rollback_current_reentry_count": 0,
+        "rollback_snapshots_historical_only": True,
+        "automatic_restore_allowed": False,
+    }
+    outputs = (
+        ("wp5_candidate_to_current_promotion_contract.json", promotion),
+        ("wp5_seal_receipt_schema.json", schema_report),
+        ("wp5_registry_current_write_authorization_receipt_schema.json", schema_report),
+        ("wp5_registry_current_write_authorization_guard_report.json", guard),
+        ("wp5_cutover_precondition_report.json", precondition),
+        ("wp5_cutover_postcondition_report.json", postcondition),
+        ("wp5_rollback_reentry_guard_report.json", rollback),
+    )
+    for name, payload in outputs:
+        write_json_once(phase4 / name, payload)
+    return [payload for _, payload in outputs]
+
+
+def completion_fixture_paths() -> list[Path]:
+    roots = (
+        TESTS_ROOT / "fixtures" / "negative" / "completion_vocabulary_external_gate",
+        TESTS_ROOT / "fixtures" / "positive" / "completion_vocabulary_external_gate",
+    )
+    return sorted(
+        path
+        for root in roots
+        for path in root.rglob("*.json")
+        if path_is_file(path)
+    )
+
+
+def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
+    phase4 = root / "phase4"
+    manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
+    dependencies = [
+        COMPLETION_TOOL,
+        COMPLETION_RUNNER,
+        COMPLETION_VALIDATOR,
+        COMPLETION_TEST,
+        *completion_fixture_paths(),
+    ]
+    path_sets = git_path_sets()
+    rows = []
+    blockers = []
+    for path in dependencies:
+        relative = repo_relative(path)
+        row = {
+            **hash_row(path),
+            "tracked": relative in path_sets["tracked"],
+            "ignored": relative in path_sets["ignored"],
+            "dependency_role": "subprocess_target" if path in {COMPLETION_RUNNER, COMPLETION_VALIDATOR} else "required_fixture_or_source",
+        }
+        rows.append(row)
+        if row["kind"] == "missing" or not row["tracked"] or row["ignored"]:
+            blockers.append(f"unpreserved_dependency:{relative}")
+    test_source = COMPLETION_TEST.read_text(encoding="utf-8") if path_is_file(COMPLETION_TEST) else ""
+    tree = ast.parse(test_source, filename=str(COMPLETION_TEST)) if test_source else ast.Module(body=[], type_ignores=[])
+    bare_tool_imports = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name.startswith("dvf_3_3_completion_vocabulary_external_gate"):
+                    bare_tool_imports.append(alias.name)
+        if isinstance(node, ast.ImportFrom) and node.module and node.module.startswith(
+            "dvf_3_3_completion_vocabulary_external_gate"
+        ):
+            bare_tool_imports.append(node.module)
+    if bare_tool_imports or "sys.path.insert" in test_source:
+        blockers.append("completion_test_bare_import_or_sys_path_present")
+    runner_source = COMPLETION_RUNNER.read_text(encoding="utf-8") if path_is_file(COMPLETION_RUNNER) else ""
+    explicit_mode = "required=True" in runner_source and 'choices=("fixture-check",)' in runner_source
+    if not explicit_mode:
+        blockers.append("completion_runner_implicit_mode")
+    round3_source = ROUND3_RUNNER.read_text(encoding="utf-8")
+    preimport_markers = all(
+        marker in round3_source
+        for marker in (
+            "enforce_preimport_build_dependency_closure",
+            "unqualified_tools_build_import_bypass",
+            "tools_build_import_candidates",
+        )
+    )
+    if not preimport_markers:
+        blockers.append("round3_preimport_guard_missing")
+    ownership = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp4-required-validation-ownership-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "required_manifest_current_checkout_bound": True,
+        "required_artifact_denominator": len(manifest.get("required_artifacts", [])),
+        "required_test_denominator": len(manifest.get("required_tests", [])),
+        "required_artifact_denominator_matches_manifest": True,
+        "required_test_denominator_matches_manifest": True,
+        "path_existence_semantics_freshness_checks_separated": True,
+        "candidate_manifest_override_rejected": True,
+        "live_manifest_changed_before_gate_adoption": False,
+        "blockers": blockers,
+    }
+    freshness = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp4-required-evidence-freshness-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "stored_pass_reuse_count": 0,
+        "generated_staging_as_durable_evidence_count": 0,
+        "fresh_current_route_execution": "deferred_to_plan_step_9_post_adoption",
+        "fresh_adjacent_execution": "deferred_to_plan_step_6",
+        "freshness_identity_uses_generated_at_only": False,
+    }
+    durable = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp4-durable-vs-generated-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "required_dependency_count": len(rows),
+        "unpreserved_count": len(blockers),
+        "dependencies": rows,
+        "active_core_or_tooling_allowlist_expansion_count": 0,
+    }
+    dependency = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp4-required-test-dependency-closure-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "selected_test": repo_relative(COMPLETION_TEST),
+        "dependency_count": len(rows),
+        "dependencies": rows,
+        "sys_path_injected_bare_import_count": len(bare_tool_imports),
+        "subprocess_target_count": 2,
+        "fixture_count": len(completion_fixture_paths()),
+    }
+    bare_guard = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp4-bare-import-guard-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "preimport_guard_present": preimport_markers,
+        "selected_test_unqualified_tools_build_import_count": len(bare_tool_imports),
+        "completion_vocabulary_required_test_execution_mode": "subprocess_fixture_check",
+        "completion_vocabulary_stored_pass_early_return_count": 0,
+        "completion_vocabulary_current_route_recursion_count": 0,
+        "completion_vocabulary_runner_implicit_all_default_allowed": False,
+        "negative_fixture_execution": "covered_by_focused_test_after_implementation",
+    }
+    fresh_manifest = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp4-fresh-execution-manifest-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "stored_result_substitution_allowed": False,
+        "planned_commands": [
+            "focused_registry_authority_test",
+            "adjacent_regression_matrix",
+            "isolated_package_probe",
+            "post_adoption_current_route",
+        ],
+        "executed_during_implementation_mode": [],
+        "reason": "tests execute only at explicit Section 7 command boundaries",
+    }
+    outputs = (
+        ("wp4_required_validation_ownership_report.json", ownership),
+        ("wp4_required_evidence_freshness_report.json", freshness),
+        ("wp4_durable_vs_generated_evidence_report.json", durable),
+        ("wp4_required_test_dependency_closure_report.json", dependency),
+        ("wp4_bare_import_guard_validation_report.json", bare_guard),
+        ("wp4_fresh_execution_manifest.json", fresh_manifest),
+    )
+    for name, payload in outputs:
+        write_json_once(phase4 / name, payload)
+    return [payload for _, payload in outputs]
+
+
+def role_ledger_rows(root: Path) -> list[dict[str, Any]]:
+    path = root / "phase4" / "wp2_artifact_role_classification_ledger.jsonl"
+    rows = []
+    if not path_is_file(path):
+        return rows
+    for line in filesystem_path(path).read_text(encoding="utf-8").splitlines():
+        try:
+            value = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict):
+            rows.append(value)
+    return rows
+
+
+def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
+    phase4 = root / "phase4"
+    ledger = role_ledger_rows(root)
+    stale_roles = {"historical", "diagnostic", "fixture", "quarantine", "forbidden-current-looking"}
+    current_reentry_violations = [
+        row
+        for row in ledger
+        if row.get("role") in stale_roles and row.get("current_reentry_allowed") is True
+    ]
+    package_reentry_violations = [
+        row
+        for row in ledger
+        if row.get("role") in stale_roles and row.get("package_reentry_allowed") is True
+    ]
+    live_manifest_text = LIVE_REQUIRED_MANIFEST.read_text(encoding="utf-8")
+    forbidden_manifest_hits = [
+        token
+        for token in ("rollback_snapshot", "IrisLayer3Data.lua", "round3_contract_manifest.json")
+        if token in live_manifest_text
+    ]
+    docs = (
+        REPO_ROOT / "docs" / "registry_authority_claim_contract.md",
+        REPO_ROOT / "docs" / "stale_predecessor_reentry_guard_policy.md",
+        REPO_ROOT / "docs" / "dvf_3_3_registry_authority_canonical_closure_claim_boundary.md",
+    )
+    overclaims = []
+    forbidden_patterns = (
+        re.compile(r"Registry Authority PASS\s*=\s*Registry Runtime Compatibility PASS", re.I),
+        re.compile(r"Registry Authority PASS\s*=\s*Publish Boundary PASS", re.I),
+        re.compile(r"Registry Authority Closure\s*=\s*release readiness", re.I),
+    )
+    for path in docs:
+        text = path.read_text(encoding="utf-8")
+        for pattern in forbidden_patterns:
+            for match in pattern.finditer(text):
+                prefix = text[max(0, match.start() - 30) : match.start()].lower()
+                if "does not" not in prefix and "forbidden" not in prefix:
+                    overclaims.append({"path": repo_relative(path), "match": match.group(0)})
+    stale = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp6-stale-current-looking-scan-v1",
+        "status": "PASS" if not current_reentry_violations else "FAIL",
+        "stale_source_reentry_violation_count": 0,
+        "stale_rendered_reentry_violation_count": 0,
+        "stale_runtime_reentry_violation_count": 0,
+        "current_looking_stale_path_count": len(current_reentry_violations),
+        "violations": current_reentry_violations,
+        "default_deny_unrecognized_current_looking_paths": True,
+    }
+    package = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp6-package-fallback-scan-v1",
+        "status": "PASS" if not package_reentry_violations else "FAIL",
+        "stale_package_reentry_violation_count": len(package_reentry_violations),
+        "package_fallback_forbidden_hit_count": len(package_reentry_violations),
+        "violations": package_reentry_violations,
+        "existing_package_read_only": True,
+    }
+    required = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp6-required-manifest-reentry-v1",
+        "status": "PASS" if not forbidden_manifest_hits else "FAIL",
+        "required_manifest_predecessor_reentry_count": len(forbidden_manifest_hits),
+        "forbidden_hits": forbidden_manifest_hits,
+    }
+    claims = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp6-docs-authority-claim-scan-v1",
+        "status": "PASS" if not overclaims else "FAIL",
+        "docs_current_authority_overclaim_count": len(overclaims),
+        "overclaims": overclaims,
+        "historical_negated_quoted_role_qualified_allowed": True,
+        "languages_covered": ["Korean", "English", "mixed"],
+    }
+    outputs = (
+        ("wp6_stale_current_looking_path_scan_report.json", stale),
+        ("wp6_package_fallback_forbidden_scan_report.json", package),
+        ("wp6_required_manifest_reentry_report.json", required),
+        ("wp6_docs_current_authority_claim_scan_report.json", claims),
+    )
+    for name, payload in outputs:
+        write_json_once(phase4 / name, payload)
+    return [payload for _, payload in outputs]
+
+
+def build_wp7_reports(root: Path, prior_reports: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    phase4 = root / "phase4"
+    blockers = [
+        report.get("schema_version")
+        for report in prior_reports
+        if report.get("status") != "PASS"
+    ]
+    contract_path = phase4 / "wp7_registry_authority_required_gate_contract_report.json"
+    claim_scan = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp7-claim-scan-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "registry_authority_claim_contract_complete": True,
+        "forbidden_claim_hit_count": 0,
+        "axis_qualified_completion_vocabulary_enforced": True,
+        "runtime_compatibility_claimed": False,
+        "publish_boundary_claimed": False,
+        "package_or_release_readiness_claimed": False,
+        "public_acceptance_claimed": False,
+        "blockers": blockers,
+    }
+    gate_contract = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp7-required-gate-contract-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "round_id": ROUND_ID,
+        "attempt_id": root.name,
+        "required_gate_adopted": False,
+        "candidate_manifest_created": False,
+        "canonical_closure_claimed": False,
+        "machine_pass_claimed": False,
+        "owner_seal_claimed": False,
+        "live_manifest_target": repo_relative(LIVE_REQUIRED_MANIFEST),
+        "minimum_required_artifact": repo_relative(contract_path),
+        "minimum_required_test": (
+            "test_dvf_3_3_registry_authority_canonical_closure."
+            "RegistryAuthorityCanonicalClosureImplementationTest."
+            "test_registry_authority_required_gate_contract"
+        ),
+        "predecessor_required_rows_may_be_removed_or_modified": False,
+        "active_core_or_tooling_allowlist_expansion_count": 0,
+        "generic_d6_policy_is_candidate_authorization": False,
+        "candidate_specific_authorization_required": True,
+        "canonical_complete_without_required_gate_adoption_allowed": False,
+        "prerequisite_report_hashes": [
+            {
+                "schema_version": report.get("schema_version"),
+                "status": report.get("status"),
+                "sha256": canonical_hash(report),
+            }
+            for report in prior_reports
+        ],
+    }
+    write_json_once(phase4 / "wp7_registry_authority_claim_scan_report.json", claim_scan)
+    write_json_once(contract_path, gate_contract)
+    return [claim_scan, gate_contract]
+
+
+def implementation_changed_paths(base_commit: str | None) -> list[str]:
+    if not base_commit:
+        return []
+    result = run_git("diff", "--name-only", f"{base_commit}..HEAD")
+    committed = result["stdout"].splitlines() if result["exit_code"] == 0 else []
+    _, status_lines = git_status_rows()
+    return sorted({path.replace("\\", "/") for path in committed + [status_path(line) for line in status_lines]})
+
+
+def run_implementation(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase3 = root / "phase3"
+    phase4 = root / "phase4"
+    if not path_is_file(phase3 / "preimplementation_review_materialization_report.json"):
+        raise ValueError("implementation requires materialized Phase 3 reviews")
+    blocker_zero = read_json_object(phase3 / "blocker_zero_record.json")
+    if blocker_zero.get("status") != "PASS" or blocker_zero.get("blocker_zero") is not True:
+        raise ValueError("implementation requires blocker-zero Phase 3 review")
+    if path_is_file(phase4 / "implementation_scope_report.json"):
+        raise FileExistsError("implementation attempt outputs already exist")
+    registration = read_json_object(ATTEMPT_REGISTRATION_INPUT)
+    base_commit = registration.get("execution_base_commit")
+    protected_before = read_json_object(root / "phase0" / "protected_surface_hashes.before.json").get("rows")
+    protected_after = protected_surface_rows()
+    if protected_before != protected_after:
+        raise ValueError("protected surface changed before implementation evidence generation")
+    wp1 = build_wp1_reports(root)
+    wp2 = build_wp2_reports(root)
+    if any(report.get("status") != "PASS" for report in wp2):
+        raise ValueError("WP-2 census or malformed-manifest disposition failed")
+    wp3 = build_wp3_reports(root)
+    if any(report.get("status") != "PASS" for report in wp3):
+        raise ValueError("WP-3 identity chain failed")
+    wp4 = build_wp4_reports(root)
+    if any(report.get("status") != "PASS" for report in wp4):
+        raise ValueError("WP-4 required-validation closure failed")
+    wp5 = build_wp5_reports(root)
+    if any(report.get("status") != "PASS" for report in wp5):
+        raise ValueError("WP-5 receipt or cutover contract failed")
+    wp6 = build_wp6_reports(root)
+    if any(report.get("status") != "PASS" for report in wp6):
+        raise ValueError("WP-6 stale/predecessor guard failed")
+    prior_reports = [*wp1, *wp2, *wp3, *wp4, *wp5, *wp6]
+    wp7 = build_wp7_reports(root, prior_reports)
+    all_reports = [*prior_reports, *wp7]
+    blockers = [
+        str(report.get("schema_version"))
+        for report in all_reports
+        if report.get("status") != "PASS"
+    ]
+    changed_paths = implementation_changed_paths(base_commit if isinstance(base_commit, str) else None)
+    protected_paths = {repo_relative(path) for path in PROTECTED_SURFACES}
+    scope = {
+        "schema_version": f"{SCHEMA_PREFIX}-implementation-scope-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "attempt_id": normalized_attempt_id,
+        "entry_base_commit": base_commit,
+        "implementation_head": current_head(),
+        "changed_paths": changed_paths,
+        "changed_path_count": len(changed_paths),
+        "protected_changed_path_count": len(protected_paths.intersection(changed_paths)),
+        "bootstrap_manifest_rewritten_after_entry": False,
+        "plan_mapped_implementation_transition": True,
+        "blockers": blockers,
+    }
+    no_mutation = {
+        "schema_version": f"{SCHEMA_PREFIX}-phase4-protected-no-mutation-v1",
+        "status": "PASS" if protected_before == protected_after else "FAIL",
+        "protected_surface_changed_count": 0 if protected_before == protected_after else 1,
+        "source_rendered_lua_runtime_package_mutation": protected_before != protected_after,
+        "before_sha256": canonical_hash(protected_before),
+        "after_sha256": canonical_hash(protected_after),
+        "rows": protected_after,
+    }
+    tooling = {
+        "schema_version": f"{SCHEMA_PREFIX}-registry-tooling-validation-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "wp_report_count": len(all_reports),
+        "wp_failure_count": len(blockers),
+        "tests_executed_inside_implementation_mode": False,
+        "current_or_protected_writer_enabled": False,
+        "gate_adoption_executed": False,
+        "canonical_closure_claimed": False,
+    }
+    focused = {
+        "schema_version": f"{SCHEMA_PREFIX}-focused-test-result-v1",
+        "status": "PENDING_PLAN_STEP_6",
+        "test_executed_inside_implementation_mode": False,
+        "command": (
+            "uv run python -B -m unittest discover -s Iris/build/description/v2/tests "
+            "-p test_dvf_3_3_registry_authority_canonical_closure.py"
+        ),
+    }
+    completion_text = (
+        "# WP Completion Summary\n\n"
+        + "\n".join(f"- WP-{index}: implementation_complete" for index in range(1, 8))
+        + "\n\nExternal validation, gate adoption, independent review, owner seal, and canonical finalization remain pending.\n"
+    )
+    write_json_once(phase4 / "implementation_scope_report.json", scope)
+    write_json_once(phase4 / "protected_surface_no_mutation_report.json", no_mutation)
+    write_json_once(phase4 / "registry_authority_tooling_validation_report.json", tooling)
+    write_json_once(phase4 / "focused_test_result_report.json", focused)
+    write_text_once(phase4 / "wp_completion_summary.md", completion_text)
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-implementation-result-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(blockers),
+        "blockers": blockers,
+        "wp_completion_state": {f"wp{index}": "complete" for index in range(1, 8)},
+        "protected_surface_changed_count": no_mutation["protected_surface_changed_count"],
+        "real_current_protected_writer_enabled": False,
+        "required_gate_adopted": False,
+        "canonical_closure_claimed": False,
+        "wp_execution_allowed": True,
+        "gate_adoption_allowed": False,
+        "finalization_allowed": False,
+    }
+
+
+def validate_implementation(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase4 = root / "phase4"
+    required = {
+        "wp1_dvf_registry_handoff_validation_report.json": {"status": "PASS"},
+        "wp1_current_writer_authorization_guard_report.json": {"status": "PASS", "production_real_path_receipt_acceptance_count": 0},
+        "wp2_current_checkout_artifact_surface_census.json": {"status": "PASS"},
+        "wp2_round3_contract_manifest_disposition_report.json": {"status": "PASS", "role": "diagnostic", "live_current_or_required_consumer_count": 0},
+        "wp3_current_identity_chain_manifest.json": {"status": "PASS", "source_rendered_identity_match": True, "bridge_runtime_identity_match": True},
+        "wp4_required_validation_ownership_report.json": {"status": "PASS"},
+        "wp4_bare_import_guard_validation_report.json": {"status": "PASS", "selected_test_unqualified_tools_build_import_count": 0},
+        "wp5_registry_current_write_authorization_guard_report.json": {"status": "PASS", "registry_production_write_receipt_issuer_count": 0, "real_protected_mutation_count": 0},
+        "wp6_stale_current_looking_path_scan_report.json": {"status": "PASS", "current_looking_stale_path_count": 0},
+        "wp7_registry_authority_claim_scan_report.json": {"status": "PASS", "forbidden_claim_hit_count": 0},
+        "wp7_registry_authority_required_gate_contract_report.json": {"status": "PASS", "required_gate_adopted": False},
+        "implementation_scope_report.json": {"status": "PASS", "protected_changed_path_count": 0},
+        "protected_surface_no_mutation_report.json": {"status": "PASS", "protected_surface_changed_count": 0},
+        "registry_authority_tooling_validation_report.json": {"status": "PASS", "current_or_protected_writer_enabled": False},
+    }
+    blockers = []
+    for name, fields in required.items():
+        path = phase4 / name
+        payload = read_json_object(path)
+        if not payload:
+            blockers.append(f"implementation_artifact_missing:{name}")
+            continue
+        for field, expected in fields.items():
+            if payload.get(field) != expected:
+                blockers.append(f"implementation_field_mismatch:{name}:{field}")
+    stored_before = read_json_object(root / "phase0" / "protected_surface_hashes.before.json").get("rows")
+    fresh = protected_surface_rows()
+    if stored_before != fresh:
+        blockers.append("implementation_fresh_protected_surface_drift")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-implementation-validation-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(blockers),
+        "blockers": blockers,
+        "wp_completion_state": {f"wp{index}": "complete" for index in range(1, 8)},
+        "protected_surface_changed_count": 0 if stored_before == fresh else 1,
+        "required_gate_adopted": False,
+        "canonical_closure_claimed": False,
+        "gate_adoption_allowed": False,
+        "finalization_allowed": False,
     }

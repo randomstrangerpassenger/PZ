@@ -4,8 +4,10 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import importlib.abc
 import json
+import subprocess
 import sys
 import time
 import unittest
@@ -19,6 +21,7 @@ V2_ROOT = REPO / "Iris" / "build" / "description" / "v2"
 DEFAULT_TAXONOMY = ROUND_DIR / "round3_test_taxonomy.json"
 DEFAULT_CLOSURE = ROUND_DIR / "round3_active_core_closure.json"
 DEFAULT_REQUIRED_VALIDATIONS = ROUND_DIR / "current_route_required_validations.json"
+TOOLS_BUILD_ROOT = V2_ROOT / "tools" / "build"
 
 
 class BuildClosureBlocker(importlib.abc.MetaPathFinder):
@@ -33,6 +36,130 @@ class BuildClosureBlocker(importlib.abc.MetaPathFinder):
         if module and module not in self.allowed_modules:
             raise ImportError(f"Round 3 current closure blocks import of {fullname}")
         return None
+
+
+def git_path_is_tracked(path: Path) -> bool:
+    relative = path.resolve().relative_to(REPO.resolve()).as_posix()
+    result = subprocess.run(
+        ["git", "ls-files", "--error-unmatch", "--", relative],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    return result.returncode == 0
+
+
+def git_path_is_ignored(path: Path) -> bool:
+    relative = path.resolve().relative_to(REPO.resolve()).as_posix()
+    result = subprocess.run(
+        ["git", "check-ignore", "-q", "--", relative],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    return result.returncode == 0
+
+
+def selected_test_module_paths(test_ids: list[str]) -> list[Path]:
+    paths = []
+    for test_id in test_ids:
+        module = test_id.split(".", 1)[0]
+        path = TEST_ROOT / f"{module}.py"
+        if path not in paths:
+            paths.append(path)
+    return paths
+
+
+def tools_build_import_candidates(path: Path) -> list[dict]:
+    source = path.read_text(encoding="utf-8")
+    tree = ast.parse(source, filename=str(path))
+    literal_tools_path_added = "sys.path" in source and (
+        "tools/build" in source.replace("\\", "/")
+        or "TOOLS" in source
+        or "TOOLS_ROOT" in source
+    )
+    rows = []
+    for node in ast.walk(tree):
+        names: list[tuple[str, str]] = []
+        if isinstance(node, ast.Import):
+            names.extend((alias.name, "import") for alias in node.names)
+        elif isinstance(node, ast.ImportFrom) and node.module:
+            names.append((node.module, "from_import"))
+        for imported, syntax in names:
+            module = None
+            if imported.startswith("tools.build."):
+                module = imported[len("tools.build.") :].split(".", 1)[0]
+            elif "." not in imported:
+                candidate = TOOLS_BUILD_ROOT / f"{imported}.py"
+                if candidate.is_file() or literal_tools_path_added:
+                    module = imported
+            if module:
+                rows.append(
+                    {
+                        "selected_test": path.relative_to(REPO).as_posix(),
+                        "module": module,
+                        "syntax": syntax,
+                        "line": getattr(node, "lineno", None),
+                        "resolved_path": (TOOLS_BUILD_ROOT / f"{module}.py").resolve(),
+                        "literal_tools_sys_path_present": literal_tools_path_added,
+                    }
+                )
+    return rows
+
+
+def enforce_preimport_build_dependency_closure(
+    test_ids: list[str], allowed_modules: set[str]
+) -> dict:
+    rows = []
+    violations = []
+    for test_path in selected_test_module_paths(test_ids):
+        if not test_path.is_file():
+            violations.append(
+                {
+                    "code": "selected_test_module_missing",
+                    "selected_test": test_path.relative_to(REPO).as_posix(),
+                }
+            )
+            continue
+        for row in tools_build_import_candidates(test_path):
+            target = row.pop("resolved_path")
+            exists = target.is_file()
+            tracked = exists and git_path_is_tracked(target)
+            ignored = exists and git_path_is_ignored(target)
+            allowed = row["module"] in allowed_modules
+            observed = {
+                **row,
+                "resolved_path": target.relative_to(REPO).as_posix(),
+                "exists": exists,
+                "tracked": tracked,
+                "ignored": ignored,
+                "allowed_by_current_closure": allowed,
+            }
+            rows.append(observed)
+            if not exists or not tracked or ignored or not allowed:
+                violations.append(
+                    {
+                        "code": "unqualified_tools_build_import_bypass",
+                        **observed,
+                    }
+                )
+    if violations:
+        first = violations[0]
+        raise ImportError(
+            "unqualified_tools_build_import_bypass: "
+            f"selected_test={first.get('selected_test')} "
+            f"resolved_target={first.get('resolved_path')}"
+        )
+    return {
+        "status": "PASS",
+        "selected_test_count": len(selected_test_module_paths(test_ids)),
+        "tools_build_dependency_count": len(rows),
+        "unqualified_tools_build_import_count": 0,
+        "dependencies": rows,
+        "preimport_enforced": True,
+    }
 
 
 def load_json(path: Path) -> dict:
@@ -260,6 +387,11 @@ def main() -> int:
         closure = load_json(Path(args.closure))
         allowed = set(closure["current_closure_modules"])
         allowed.update(closure.get("current_route_allowed_tooling_modules", []))
+        try:
+            enforce_preimport_build_dependency_closure(test_ids, allowed)
+        except (ImportError, OSError, SyntaxError, ValueError) as exc:
+            print(str(exc), file=sys.stderr)
+            return 2
         sys.meta_path.insert(0, BuildClosureBlocker(allowed))
         closure_enforced = True
 

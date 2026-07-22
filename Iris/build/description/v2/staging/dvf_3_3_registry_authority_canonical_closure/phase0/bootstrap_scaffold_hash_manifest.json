@@ -42,10 +42,10 @@
   "round_id": "dvf_3_3_registry_authority_canonical_closure",
   "scaffold_paths": [
     {
-      "byte_length": 59175,
+      "byte_length": 62513,
       "exists": true,
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "8d2348450896e56b5d28d561f94ee9ed57f82bf8f53c49a7fe59beaf3a49f039"
+      "sha256": "dd33f3d60171b22adca03b2358cdd781e66c64d72deda5d1d514e0994a197e6c"
     },
     {
       "byte_length": 2446,

@@ -1291,6 +1291,9 @@ def validate_preimplementation_reviews(
 ) -> dict[str, Any]:
     root = resolve_evidence_root(evidence_root)
     phase3 = root / "phase3"
+    manifest_path = phase3 / "preimplementation_review_input_manifest.json"
+    manifest = read_json_object(manifest_path)
+    designation = read_json_object(REVIEWER_DESIGNATION_INPUT)
     report = read_json_object(
         phase3 / "preimplementation_review_materialization_report.json"
     )
@@ -1305,22 +1308,81 @@ def validate_preimplementation_reviews(
     expected_scopes = set(PREIMPLEMENTATION_REVIEW_SCOPES)
     if {row.get("scope") for row in rows if isinstance(row, dict)} != expected_scopes:
         blockers.append("review_materialization_scope_set_mismatch")
-    for row in rows:
-        if not isinstance(row, dict):
-            blockers.append("review_materialization_row_invalid")
-            continue
-        source = REPO_ROOT / str(row.get("source_path", ""))
-        target = REPO_ROOT / str(row.get("target_path", ""))
+    stored_by_scope = {
+        row.get("scope"): row for row in rows if isinstance(row, dict)
+    }
+    fresh_rows = []
+    for source, output_name, scope in zip(
+        PREIMPLEMENTATION_REVIEW_INPUTS,
+        PREIMPLEMENTATION_REVIEW_OUTPUTS,
+        PREIMPLEMENTATION_REVIEW_SCOPES,
+    ):
+        target = phase3 / output_name
+        fresh = review_materialization_row(
+            source,
+            target,
+            expected_scope=scope,
+            manifest=manifest,
+            manifest_path=manifest_path,
+            designation=designation,
+        )
+        fresh["target_sha256"] = sha256_file(target)
+        fresh["byte_identical"] = bool(
+            fresh["source_sha256"]
+            and fresh["source_sha256"] == fresh["target_sha256"]
+        )
+        fresh_rows.append(fresh)
+        row = stored_by_scope.get(scope, {})
+        if not row:
+            blockers.append(f"review_materialization_row_missing:{scope}")
         source_hash = sha256_file(source)
         target_hash = sha256_file(target)
         if not source_hash or source_hash != row.get("source_sha256"):
-            blockers.append(f"review_source_hash_mismatch:{row.get('scope')}")
+            blockers.append(f"review_source_hash_mismatch:{scope}")
         if not target_hash or target_hash != row.get("target_sha256"):
-            blockers.append(f"review_target_hash_mismatch:{row.get('scope')}")
+            blockers.append(f"review_target_hash_mismatch:{scope}")
         if source_hash != target_hash or row.get("byte_identical") is not True:
-            blockers.append(f"review_byte_identity_mismatch:{row.get('scope')}")
-        if row.get("schema_valid") is not True:
-            blockers.append(f"review_schema_invalid:{row.get('scope')}")
+            blockers.append(f"review_byte_identity_mismatch:{scope}")
+        if fresh["blockers"] or fresh["schema_valid"] is not True:
+            blockers.extend(f"fresh_review_invalid:{scope}:{item}" for item in fresh["blockers"])
+        for field in (
+            "reviewer_identity",
+            "verdict",
+            "critical_count",
+            "important_count",
+            "minor_count",
+            "unresolved_minor_count",
+        ):
+            if row.get(field) != fresh.get(field):
+                blockers.append(f"stored_review_projection_mismatch:{scope}:{field}")
+
+    fresh_totals = {
+        key: sum(int(row[key]) for row in fresh_rows)
+        for key in (
+            "critical_count",
+            "important_count",
+            "minor_count",
+            "unresolved_minor_count",
+        )
+    }
+    fresh_all_pass = all(row.get("verdict") == "PASS" for row in fresh_rows)
+    fresh_blocker_zero = (
+        fresh_all_pass
+        and fresh_totals["critical_count"] == 0
+        and fresh_totals["important_count"] == 0
+        and fresh_totals["unresolved_minor_count"] == 0
+    )
+    expected_zero_projection = {
+        "status": "PASS" if fresh_blocker_zero else "FAIL",
+        "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
+        "critical_count": fresh_totals["critical_count"],
+        "important_count": fresh_totals["important_count"],
+        "unresolved_minor_count": fresh_totals["unresolved_minor_count"],
+        "all_reviewer_verdicts_pass": fresh_all_pass,
+    }
+    for field, expected in expected_zero_projection.items():
+        if zero.get(field) != expected:
+            blockers.append(f"derived_blocker_zero_projection_mismatch:{field}")
     return {
         "schema_version": f"{SCHEMA_PREFIX}-preimplementation-review-validation-v1",
         "round_id": ROUND_ID,
@@ -1328,11 +1390,13 @@ def validate_preimplementation_reviews(
         "blocker_count": len(blockers),
         "blockers": blockers,
         "reviewed_bundle_hash": report.get("reviewed_bundle_hash"),
-        "critical_count": zero.get("critical_count"),
-        "important_count": zero.get("important_count"),
-        "unresolved_minor_count": zero.get("unresolved_minor_count"),
-        "review_verdicts_pass": zero.get("all_reviewer_verdicts_pass"),
-        "blocker_zero_status": zero.get("status"),
+        "critical_count": fresh_totals["critical_count"],
+        "important_count": fresh_totals["important_count"],
+        "minor_count": fresh_totals["minor_count"],
+        "unresolved_minor_count": fresh_totals["unresolved_minor_count"],
+        "review_verdicts_pass": fresh_all_pass,
+        "blocker_zero_status": "PASS" if fresh_blocker_zero else "FAIL",
+        "fresh_review_blocker_zero": fresh_blocker_zero,
         "owner_or_reviewer_verdict_authored": False,
         "wp_execution_allowed": False,
     }
@@ -1346,7 +1410,6 @@ def validate_execution_entry(
     phase3 = root / "phase3"
     preflight = validate_preflight(root)
     reviews = validate_preimplementation_reviews(root)
-    zero = read_json_object(phase3 / "blocker_zero_record.json")
     scaffold = validate_bootstrap_manifest()
     checkpoint = read_json_object(CLEAN_CHECKPOINT_INPUT)
     approval = read_json_object(PLAN_APPROVAL_INPUT)
@@ -1357,7 +1420,7 @@ def validate_execution_entry(
         blockers.append("entry_preflight_not_pass")
     if reviews.get("status") != "PASS":
         blockers.append("entry_review_materialization_not_pass")
-    if zero.get("status") != "PASS":
+    if reviews.get("fresh_review_blocker_zero") is not True:
         blockers.append("entry_review_blocker_zero_not_pass")
     if scaffold.get("status") != "PASS":
         blockers.append("entry_bootstrap_scaffold_mismatch")
@@ -1382,6 +1445,22 @@ def validate_execution_entry(
     )
     if protected_mapping.get("status") != "PASS" or protected_mapping.get("set_equality") is not True:
         blockers.append("entry_protected_surface_plan_denominator_mismatch")
+    stored_protected = read_json_object(
+        phase0 / "protected_surface_hashes.before.json"
+    ).get("rows")
+    fresh_protected = protected_surface_rows()
+    review_manifest = read_json_object(
+        phase3 / "preimplementation_review_input_manifest.json"
+    )
+    reviewed_protected_hash = review_manifest.get("reviewed_bundle", {}).get(
+        "protected_surface_hash"
+    )
+    if not isinstance(stored_protected, list) or fresh_protected != stored_protected:
+        blockers.append("entry_protected_surface_drift_since_preflight")
+    if canonical_hash(fresh_protected) != reviewed_protected_hash:
+        blockers.append("entry_protected_surface_review_bundle_hash_mismatch")
+    if any(row.get("kind") == "missing" for row in fresh_protected):
+        blockers.append("entry_protected_surface_plan_member_missing")
     stored_lua = read_json_object(phase0 / "lua_syntax_environment_preflight.json")
     current_lua = lua_environment_report()
     if stored_lua.get("status") != "PASS" or canonical_hash(stored_lua) != canonical_hash(current_lua):
@@ -1427,9 +1506,10 @@ def validate_execution_entry(
         "blockers": sorted(set(blockers)),
         "execution_base_commit": head,
         "reviewed_bundle_hash": reviews.get("reviewed_bundle_hash"),
-        "critical_count": zero.get("critical_count"),
-        "important_count": zero.get("important_count"),
-        "unresolved_minor_count": zero.get("unresolved_minor_count"),
+        "critical_count": reviews.get("critical_count"),
+        "important_count": reviews.get("important_count"),
+        "unresolved_minor_count": reviews.get("unresolved_minor_count"),
+        "protected_surface_hash": canonical_hash(fresh_protected),
         "status_rows": status_rows,
         "wp_execution_allowed": entry_allowed,
         "gate_adoption_allowed": False,

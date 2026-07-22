@@ -3792,7 +3792,7 @@ def join_symbolic_path(left: str, right: str) -> str:
     return left.rstrip("/\\") + "/" + right.lstrip("/\\")
 
 
-SymbolicState = tuple[frozenset[str], bool, bool]
+SymbolicState = tuple[frozenset[str], bool, bool, bool]
 
 
 def symbolic_state(
@@ -3800,6 +3800,7 @@ def symbolic_state(
     *,
     complete: bool,
     tainted: bool | None = None,
+    contained_fixture: bool = False,
 ) -> SymbolicState:
     frozen = frozenset(values)
     return (
@@ -3810,6 +3811,7 @@ def symbolic_state(
             if tainted is None
             else tainted
         ),
+        contained_fixture,
     )
 
 
@@ -3828,10 +3830,10 @@ def python_symbolic_state(
             ),
         )
     if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Div)):
-        left_values, left_complete, left_tainted = python_symbolic_state(
+        left_values, left_complete, left_tainted, left_contained = python_symbolic_state(
             node.left, symbols
         )
-        right_values, right_complete, right_tainted = python_symbolic_state(
+        right_values, right_complete, right_tainted, right_contained = python_symbolic_state(
             node.right, symbols
         )
         if left_complete and right_complete and left_values and right_values:
@@ -3851,28 +3853,32 @@ def python_symbolic_state(
                 tainted=left_tainted
                 or right_tainted
                 or any(registry_path_taint_present(value) for value in values),
+                contained_fixture=left_contained or right_contained,
             )
         return symbolic_state(
             complete=False,
             tainted=left_tainted or right_tainted,
+            contained_fixture=left_contained or right_contained,
         )
     if isinstance(node, ast.JoinedStr):
         parts = [
             python_symbolic_state(value, symbols)
             for value in node.values
         ]
-        if parts and all(complete and values for values, complete, _ in parts):
+        if parts and all(complete and values for values, complete, _, _ in parts):
             combined = {""}
-            for values, _, _ in parts:
+            for values, _, _, _ in parts:
                 combined = {left + right for left in combined for right in values}
             return symbolic_state(
                 combined,
                 complete=True,
-                tainted=any(tainted for _, _, tainted in parts),
+                tainted=any(tainted for _, _, tainted, _ in parts),
+                contained_fixture=any(contained for _, _, _, contained in parts),
             )
         return symbolic_state(
             complete=False,
-            tainted=any(tainted for _, _, tainted in parts),
+            tainted=any(tainted for _, _, tainted, _ in parts),
+            contained_fixture=any(contained for _, _, _, contained in parts),
         )
     if isinstance(node, ast.FormattedValue):
         return python_symbolic_state(node.value, symbols)
@@ -3894,22 +3900,82 @@ def python_symbolic_state(
             if not components:
                 return symbolic_state(complete=False, tainted=False)
             tainted = any(state[2] for state in components)
+            contained = any(state[3] for state in components)
             if not all(state[1] and state[0] for state in components):
-                return symbolic_state(complete=False, tainted=tainted)
+                return symbolic_state(
+                    complete=False,
+                    tainted=tainted,
+                    contained_fixture=contained,
+                )
             values = set(components[0][0])
-            for component_values, _, _ in components[1:]:
+            for component_values, _, _, _ in components[1:]:
                 values = {
                     join_symbolic_path(left, right)
                     for left in values
                     for right in component_values
                 }
-            return symbolic_state(values, complete=True, tainted=tainted)
+            return symbolic_state(
+                values,
+                complete=True,
+                tainted=tainted,
+                contained_fixture=contained,
+            )
         argument_states = [
             python_symbolic_state(argument, symbols) for argument in node.args
         ]
         return symbolic_state(
             complete=False,
             tainted=any(state[2] for state in argument_states),
+            contained_fixture=any(state[3] for state in argument_states),
+        )
+    if isinstance(node, ast.Subscript) and isinstance(node.value, ast.Attribute):
+        if node.value.attr == "parents":
+            base_values, base_complete, base_tainted, base_contained = python_symbolic_state(
+                node.value.value, symbols
+            )
+            index = (
+                node.slice.value
+                if isinstance(node.slice, ast.Constant)
+                and isinstance(node.slice.value, int)
+                else None
+            )
+            if base_complete and base_values and index is not None and index >= 0:
+                parents: set[str] = set()
+                try:
+                    for value in base_values:
+                        parents.add(str(Path(value).parents[index]))
+                except IndexError:
+                    return symbolic_state(
+                        complete=False,
+                        tainted=base_tainted,
+                        contained_fixture=base_contained,
+                    )
+                return symbolic_state(
+                    parents,
+                    complete=True,
+                    tainted=base_tainted,
+                    contained_fixture=base_contained,
+                )
+            return symbolic_state(
+                complete=False,
+                tainted=base_tainted,
+                contained_fixture=base_contained,
+            )
+    if isinstance(node, ast.Attribute):
+        base_values, base_complete, base_tainted, base_contained = python_symbolic_state(
+            node.value, symbols
+        )
+        if node.attr == "parent" and base_complete and base_values:
+            return symbolic_state(
+                {str(Path(value).parent) for value in base_values},
+                complete=True,
+                tainted=base_tainted,
+                contained_fixture=base_contained,
+            )
+        return symbolic_state(
+            complete=False,
+            tainted=base_tainted,
+            contained_fixture=base_contained,
         )
     return symbolic_state(complete=False, tainted=False)
 
@@ -3924,7 +3990,41 @@ def python_structural_registry_reads(
         tree = ast.parse(source_text, filename=str(source))
     except SyntaxError as exc:
         return [], [f"python_registry_scan_parse_error:{repo_relative(source)}:{exc.lineno}"]
-    symbols: dict[str, SymbolicState] = {}
+    symbols: dict[str, SymbolicState] = {
+        "__file__": symbolic_state(
+            {str(source.resolve())},
+            complete=True,
+            contained_fixture=False,
+        )
+    }
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            for argument in [*node.args.posonlyargs, *node.args.args, *node.args.kwonlyargs]:
+                if argument.arg in {"tmp_path", "tmpdir", "temp_dir", "temporary_dir"}:
+                    symbols[argument.arg] = symbolic_state(
+                        complete=False,
+                        tainted=False,
+                        contained_fixture=True,
+                    )
+        if isinstance(node, (ast.With, ast.AsyncWith)):
+            for item in node.items:
+                function_name = (
+                    item.context_expr.func.id
+                    if isinstance(item.context_expr, ast.Call)
+                    and isinstance(item.context_expr.func, ast.Name)
+                    else item.context_expr.func.attr
+                    if isinstance(item.context_expr, ast.Call)
+                    and isinstance(item.context_expr.func, ast.Attribute)
+                    else ""
+                )
+                if function_name == "TemporaryDirectory" and isinstance(
+                    item.optional_vars, ast.Name
+                ):
+                    symbols[item.optional_vars.id] = symbolic_state(
+                        complete=False,
+                        tainted=False,
+                        contained_fixture=True,
+                    )
     loader_aliases = set(REGISTRY_LOADER_NAMES)
     assignments = [
         node for node in ast.walk(tree) if isinstance(node, (ast.Assign, ast.AnnAssign))
@@ -3973,7 +4073,7 @@ def python_structural_registry_reads(
             path_nodes.append(node.args[0])
         path_states = [python_symbolic_state(path_node, symbols) for path_node in path_nodes]
         values = {
-            value for state_values, _, _ in path_states for value in state_values
+            value for state_values, _, _, _ in path_states for value in state_values
         }
         targets = {
             target
@@ -3990,7 +4090,12 @@ def python_structural_registry_reads(
         raw_call = ast.get_source_segment(source_text, node) or ""
         complete = bool(path_states) and all(state[1] for state in path_states)
         tainted = any(state[2] for state in path_states)
-        if (not complete and tainted) or not targets and (
+        contained_fixture = any(state[3] for state in path_states)
+        if not complete and tainted and contained_fixture:
+            blockers.append(
+                f"contained_fixture_registry_reference:{repo_relative(source)}:{getattr(node, 'lineno', 0)}"
+            )
+        elif (not complete and tainted) or not targets and (
             registry_path_taint_present(raw_call) or tainted
         ):
             blockers.append(
@@ -4012,6 +4117,7 @@ def simple_symbolic_state(
     )
     parts: list[frozenset[str]] = []
     tainted = registry_path_taint_present(expression)
+    contained_fixture = False
     unknown = False
     ignored_lua_names = {
         "local",
@@ -4034,8 +4140,9 @@ def simple_symbolic_state(
         if not name:
             continue
         if name in symbols:
-            values, complete, state_tainted = symbols[name]
+            values, complete, state_tainted, state_contained = symbols[name]
             tainted = tainted or state_tainted
+            contained_fixture = contained_fixture or state_contained
             if complete and values:
                 parts.append(values)
             else:
@@ -4052,9 +4159,17 @@ def simple_symbolic_state(
         residual = re.sub(r"\$[A-Za-z_][A-Za-z0-9_]*", "", residual)
         unknown = unknown or bool(residual)
     if not parts:
-        return symbolic_state(complete=False, tainted=tainted)
+        return symbolic_state(
+            complete=False,
+            tainted=tainted,
+            contained_fixture=contained_fixture,
+        )
     if unknown:
-        return symbolic_state(complete=False, tainted=tainted)
+        return symbolic_state(
+            complete=False,
+            tainted=tainted,
+            contained_fixture=contained_fixture,
+        )
     combined = {""}
     join_with_slash = language == "powershell" and re.search(
         r"(?i)\bJoin-Path\b", expression
@@ -4067,7 +4182,12 @@ def simple_symbolic_state(
             for left in combined
             for right in values
         }
-    return symbolic_state(combined, complete=True, tainted=tainted)
+    return symbolic_state(
+        combined,
+        complete=True,
+        tainted=tainted,
+        contained_fixture=contained_fixture,
+    )
 
 
 def balanced_call_arguments(
@@ -4146,7 +4266,7 @@ def lua_structural_registry_reads(
     for loader, argument, line_number in balanced_call_arguments(
         source_text, loader_aliases
     ):
-        values, complete, tainted = simple_symbolic_state(
+        values, complete, tainted, _ = simple_symbolic_state(
             argument,
             symbols,
             language="lua",
@@ -4193,7 +4313,7 @@ def powershell_structural_registry_reads(
                 symbols,
                 language="powershell",
             )
-            values, _, _ = state
+            values, _, _, _ = state
             before = symbols.get(name)
             symbols[name] = state
             changed = changed or before != state
@@ -4243,7 +4363,7 @@ def powershell_structural_registry_reads(
                     tail,
                 )
                 expression = argument_match.group(1) if argument_match else tail
-        values, complete, tainted = simple_symbolic_state(
+        values, complete, tainted, _ = simple_symbolic_state(
             expression,
             symbols,
             language="powershell",
@@ -4280,6 +4400,7 @@ def discover_registry_readpoints(
     package_script = REPO_ROOT / "Iris" / "tools" / "package_iris.ps1"
     rows: list[dict[str, Any]] = []
     blockers: list[str] = []
+    contained_fixture_references: list[str] = []
     literal_pattern = re.compile(r"([\"'])(.*?)\1")
     consumer_markers = (
         "require(",
@@ -4427,7 +4548,16 @@ def discover_registry_readpoints(
                 source_text,
                 input_path_by_name=input_path_by_name,
             )
-        blockers.extend(structural_blockers)
+        contained_fixture_references.extend(
+            blocker
+            for blocker in structural_blockers
+            if blocker.startswith("contained_fixture_registry_reference:")
+        )
+        blockers.extend(
+            blocker
+            for blocker in structural_blockers
+            if not blocker.startswith("contained_fixture_registry_reference:")
+        )
         source_relative = repo_relative(source)
         source_lines = source_text.splitlines()
         for target, line_number, discovery_kind in structural_reads:
@@ -4473,6 +4603,11 @@ def discover_registry_readpoints(
                     "observed_fresh": True,
                 }
             )
+    denominator = {
+        **denominator,
+        "contained_fixture_reference_count": len(set(contained_fixture_references)),
+        "contained_fixture_references": sorted(set(contained_fixture_references)),
+    }
     return rows, sorted(set(blockers)), denominator
 
 
@@ -4541,12 +4676,18 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
     python_consumer = fixture_root / "current_route" / "split_reader.py"
     lua_consumer = fixture_root / "runtime_shared" / "alias_reader.lua"
     powershell_consumer = fixture_root / "required_tests" / "copy_reader.ps1"
+    repo_parent_index = next(
+        index
+        for index, parent in enumerate(python_consumer.resolve().parents)
+        if parent == REPO_ROOT.resolve()
+    )
     fixture_bytes = "return { registry_authority_fixture_stale = true }\n"
     write_text_once(stale_path, fixture_bytes)
     write_text_once(renamed_path, fixture_bytes)
     write_text_once(
         python_consumer,
         "from pathlib import Path\n"
+        + "from tempfile import TemporaryDirectory\n"
         + f"prefix = {Path(repo_relative(renamed_path)).parent.as_posix()!r}\n"
         + "leaf = 'registry_' + 'payload.lua'\n"
         + "target = Path(prefix) / leaf\n"
@@ -4555,7 +4696,13 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "    observed = handle.read(1)\n"
         + "dynamic_leaf = dynamic_registry_leaf()\n"
         + "uncertain = Path('Iris/media/lua/client/Iris/Data') / dynamic_leaf\n"
-        + "loader(uncertain, 'rb')\n",
+        + "loader(uncertain, 'rb')\n"
+        + f"repo = Path(__file__).resolve().parents[{repo_parent_index}]\n"
+        + "required_current = repo / 'Iris/build/description/v2/output/dvf_3_3_rendered.json'\n"
+        + "loader(required_current, 'rb')\n"
+        + "with TemporaryDirectory() as tmp:\n"
+        + "    generated = Path(tmp) / 'IrisLayer3DataChunks.lua'\n"
+        + "    loader(generated, 'rb')\n",
     )
     write_text_once(
         lua_consumer,
@@ -4635,6 +4782,22 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         if not blocker.startswith("unresolved_registry_loader_reference:")
         or blocker.split(":", 2)[1] not in required_unresolved_sources
     ]
+    required_current_path = repo_relative(V2_ROOT / "output" / "dvf_3_3_rendered.json")
+    repo_anchor_current_edge_detected = any(
+        row.get("path") == required_current_path
+        and row.get("consumer") == repo_relative(python_consumer)
+        and row.get("discovery_kind") == "python_ast_dataflow"
+        for row in readpoints
+    )
+    contained_fixture_references = denominator.get(
+        "contained_fixture_references", []
+    )
+    contained_python_fixture_classified = any(
+        str(reference).startswith(
+            f"contained_fixture_registry_reference:{repo_relative(python_consumer)}:"
+        )
+        for reference in contained_fixture_references
+    )
     return {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-negative-fixture-v1",
         "status": (
@@ -4644,6 +4807,8 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             and observed_unresolved_sources == required_unresolved_sources
             and not unexpected_discovery_blockers
             and denominator.get("complete") is True
+            and repo_anchor_current_edge_detected
+            and contained_python_fixture_classified
             else "FAIL"
         ),
         "expected_violation_kinds": sorted(expected),
@@ -4656,6 +4821,9 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         "observed_unresolved_taint_sources": sorted(observed_unresolved_sources),
         "unexpected_discovery_blockers": unexpected_discovery_blockers,
         "fixture_executable_denominator": denominator,
+        "repo_anchor_required_current_path": required_current_path,
+        "repo_anchor_current_edge_detected": repo_anchor_current_edge_detected,
+        "contained_python_fixture_classified": contained_python_fixture_classified,
         "same_raw_discovery_path_as_live_graph": True,
         "negative_consumer_roots": [
             "current_route",
@@ -4669,6 +4837,8 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "python_unresolved_taint_loader_fail_closed",
             "lua_unresolved_taint_loader_fail_closed",
             "powershell_unresolved_taint_copy_fail_closed",
+            "python_repo_anchor_required_current_exact_edge",
+            "python_contained_generated_fixture_classified_non_live",
         ],
         "recognized_current_set_derived_from_observed_rows": False,
         "violations": violations,

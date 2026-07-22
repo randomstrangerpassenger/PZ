@@ -493,6 +493,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                     "python_unresolved_taint_loader_fail_closed",
                     "lua_unresolved_taint_loader_fail_closed",
                     "powershell_unresolved_taint_copy_fail_closed",
+                    "python_repo_anchor_required_current_exact_edge",
+                    "python_contained_generated_fixture_classified_non_live",
                 },
             )
             self.assertEqual(
@@ -511,6 +513,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             self.assertEqual(len(report["expected_unresolved_taint_sources"]), 3)
             self.assertEqual(report["unexpected_discovery_blockers"], [])
             self.assertTrue(report["fixture_executable_denominator"]["complete"])
+            self.assertTrue(report["repo_anchor_current_edge_detected"])
+            self.assertTrue(report["contained_python_fixture_classified"])
             self.assertEqual(report["real_current_or_package_mutation_count"], 0)
         finally:
             if root.exists():

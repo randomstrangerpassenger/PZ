@@ -1301,6 +1301,16 @@ def validate_preimplementation_reviews(
     blockers: list[str] = []
     if report.get("status") != "PASS":
         blockers.append("review_materialization_report_not_pass")
+    if report.get("reviewed_bundle_hash") != manifest.get("reviewed_bundle_hash"):
+        blockers.append("review_materialization_bundle_hash_mismatch")
+    if report.get("reviewed_manifest_path") != repo_relative(manifest_path):
+        blockers.append("review_materialization_manifest_path_mismatch")
+    if report.get("reviewed_manifest_sha256") != sha256_file(manifest_path):
+        blockers.append("review_materialization_manifest_hash_mismatch")
+    if report.get("tool_authored_review_verdict") is not False:
+        blockers.append("review_materialization_tool_verdict_claim")
+    if report.get("three_independent_reviewers_claimed") is not False:
+        blockers.append("review_materialization_false_independence_claim")
     rows = report.get("rows")
     if not isinstance(rows, list) or len(rows) != len(PREIMPLEMENTATION_REVIEW_INPUTS):
         blockers.append("review_materialization_row_count_mismatch")
@@ -1346,6 +1356,12 @@ def validate_preimplementation_reviews(
         if fresh["blockers"] or fresh["schema_valid"] is not True:
             blockers.extend(f"fresh_review_invalid:{scope}:{item}" for item in fresh["blockers"])
         for field in (
+            "source_path",
+            "target_path",
+            "source_sha256",
+            "target_sha256",
+            "byte_identical",
+            "schema_valid",
             "reviewer_identity",
             "verdict",
             "critical_count",
@@ -1465,6 +1481,11 @@ def validate_execution_entry(
     current_lua = lua_environment_report()
     if stored_lua.get("status") != "PASS" or canonical_hash(stored_lua) != canonical_hash(current_lua):
         blockers.append("entry_lua_environment_drift")
+    reviewed_lua_hash = review_manifest.get("reviewed_bundle", {}).get(
+        "lua_environment_hash"
+    )
+    if canonical_hash(current_lua) != reviewed_lua_hash:
+        blockers.append("entry_lua_environment_review_bundle_hash_mismatch")
 
     report = read_json_object(
         phase3 / "preimplementation_review_materialization_report.json"
@@ -1475,9 +1496,8 @@ def validate_execution_entry(
         if isinstance(row, dict)
     }
     allowed_hashes[repo_relative(PLAN_APPROVAL_INPUT)] = sha256_file(PLAN_APPROVAL_INPUT)
-    for row in report.get("rows", []):
-        if isinstance(row, dict):
-            allowed_hashes[str(row.get("source_path", ""))] = row.get("source_sha256")
+    for source in PREIMPLEMENTATION_REVIEW_INPUTS:
+        allowed_hashes[repo_relative(source)] = sha256_file(source)
     _, status_lines = git_status_rows()
     status_rows = []
     for line in status_lines:

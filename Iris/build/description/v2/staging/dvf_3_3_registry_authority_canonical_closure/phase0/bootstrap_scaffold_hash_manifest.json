@@ -1,0 +1,63 @@
+{
+  "capabilities": {
+    "aggregate_mode_present": false,
+    "current_or_protected_writer_present": false,
+    "declared_future_modes": [
+      "preflight",
+      "materialize-preimplementation-reviews",
+      "implementation",
+      "wp1",
+      "wp2",
+      "wp3",
+      "wp4",
+      "wp5",
+      "wp6",
+      "wp7",
+      "gate-candidate",
+      "adopt-gate",
+      "final-rerun",
+      "materialize-independent-review",
+      "materialize-owner-seal",
+      "prepare-top-docs",
+      "post-external",
+      "finalize"
+    ],
+    "finalization_producer_present": false,
+    "gate_adoption_present": false,
+    "implemented_success_modes": [
+      "preflight"
+    ],
+    "owner_or_reviewer_verdict_authoring_present": false,
+    "wp_implementation_present": false
+  },
+  "commit_hash_excluded": true,
+  "round_id": "dvf_3_3_registry_authority_canonical_closure",
+  "scaffold_paths": [
+    {
+      "byte_length": 36362,
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py",
+      "sha256": "2b0852a2d418c20046ef34e1e48e6ef96128c2cca05edfef4da41dfcc46efc34"
+    },
+    {
+      "byte_length": 2207,
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py",
+      "sha256": "65deace667ed8ca23a488f5c1567b09bfdea109411a3a93851cd96d1653dd4de"
+    },
+    {
+      "byte_length": 2763,
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py",
+      "sha256": "e1e0e9e166781184106c5fd9d4ec9ebb0f53b0fdba7a189935aa5eadb1cf276d"
+    },
+    {
+      "byte_length": 7758,
+      "exists": true,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
+      "sha256": "ae89e9d94abedbb8d4b023f3c2427f93b3bc64603da3b4db2e251f121b0769bb"
+    }
+  ],
+  "schema_version": "dvf-3-3-registry-authority-canonical-closure-bootstrap-scaffold-manifest-v1",
+  "self_hash_excluded": true
+}

@@ -20,6 +20,7 @@ RUNNER = TOOLS_ROOT / f"run_{ROUND_ID}.py"
 VALIDATOR = TOOLS_ROOT / f"validate_{ROUND_ID}.py"
 FOCUSED_TEST = Path(__file__).resolve()
 EVIDENCE_ROOT = V2_ROOT / "staging" / ROUND_ID
+ATTEMPTS_ROOT = EVIDENCE_ROOT / "attempts"
 BOOTSTRAP_MANIFEST = EVIDENCE_ROOT / "phase0" / "bootstrap_scaffold_hash_manifest.json"
 
 
@@ -39,7 +40,7 @@ def run_script(path: Path, *args: str) -> subprocess.CompletedProcess[str]:
 
 class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
     def temporary_evidence_root(self) -> Path:
-        return EVIDENCE_ROOT / "_scaffold_tests" / uuid.uuid4().hex
+        return ATTEMPTS_ROOT / f"attempt-9999-{uuid.uuid4().hex[:12]}"
 
     def test_bootstrap_manifest_matches_closed_scaffold_path_set(self) -> None:
         payload = json.loads(BOOTSTRAP_MANIFEST.read_text(encoding="utf-8"))
@@ -76,6 +77,8 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         self.assertFalse(payload["capabilities"]["finalization_producer_present"])
         self.assertFalse(payload["capabilities"]["owner_or_reviewer_verdict_authoring_present"])
         self.assertFalse(payload["capabilities"]["current_or_protected_writer_present"])
+        self.assertTrue(payload["capabilities"]["attempt_evidence_write_once_present"])
+        self.assertTrue(payload["capabilities"]["failure_history_write_once_present"])
 
     def test_scaffold_sources_parse_and_common_uses_stdlib_only(self) -> None:
         for path in (COMMON, RUNNER, VALIDATOR, FOCUSED_TEST):
@@ -107,7 +110,15 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
     def test_aggregate_all_mode_is_rejected_before_writes(self) -> None:
         root = self.temporary_evidence_root()
         self.assertFalse(root.exists())
-        result = run_script(RUNNER, "--mode", "all", "--evidence-root", str(root))
+        result = run_script(
+            RUNNER,
+            "--mode",
+            "all",
+            "--attempt-id",
+            root.name,
+            "--evidence-root",
+            str(root),
+        )
         self.assertNotEqual(result.returncode, 0)
         self.assertFalse(root.exists())
 
@@ -115,7 +126,15 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         for mode in ("implementation", "wp1", "gate-candidate", "adopt-gate", "finalize"):
             with self.subTest(mode=mode):
                 root = self.temporary_evidence_root()
-                result = run_script(RUNNER, "--mode", mode, "--evidence-root", str(root))
+                result = run_script(
+                    RUNNER,
+                    "--mode",
+                    mode,
+                    "--attempt-id",
+                    root.name,
+                    "--evidence-root",
+                    str(root),
+                )
                 self.assertEqual(result.returncode, 3, result.stdout + result.stderr)
                 payload = json.loads(result.stderr.strip())
                 self.assertEqual(payload["status"], "not_implemented")
@@ -130,6 +149,8 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         result = run_script(
             VALIDATOR,
             "--require-implementation",
+            "--attempt-id",
+            root.name,
             "--evidence-root",
             str(root),
         )
@@ -142,7 +163,15 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
     def test_preflight_without_external_authority_fails_closed(self) -> None:
         root = self.temporary_evidence_root()
         try:
-            result = run_script(RUNNER, "--mode", "preflight", "--evidence-root", str(root))
+            result = run_script(
+                RUNNER,
+                "--mode",
+                "preflight",
+                "--attempt-id",
+                root.name,
+                "--evidence-root",
+                str(root),
+            )
             self.assertNotEqual(result.returncode, 0)
             report_path = root / "phase0" / "preflight_report.json"
             review_path = root / "phase3" / "preimplementation_review_input_manifest.json"
@@ -161,7 +190,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         finally:
             if root.exists():
                 resolved = root.resolve()
-                resolved.relative_to(EVIDENCE_ROOT.resolve())
+                resolved.relative_to(ATTEMPTS_ROOT.resolve())
                 shutil.rmtree(resolved)
 
     def test_validator_rejects_missing_preflight_evidence(self) -> None:
@@ -169,6 +198,8 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         result = run_script(
             VALIDATOR,
             "--require-preflight",
+            "--attempt-id",
+            root.name,
             "--evidence-root",
             str(root),
             "--no-write",
@@ -180,6 +211,64 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         self.assertFalse(payload["canonical_closure_claimed"])
         self.assertFalse(payload["owner_seal_claimed"])
         self.assertFalse(root.exists())
+
+    def test_same_attempt_cannot_overwrite_failed_preflight_evidence(self) -> None:
+        root = self.temporary_evidence_root()
+        args = (
+            "--mode",
+            "preflight",
+            "--attempt-id",
+            root.name,
+            "--evidence-root",
+            str(root),
+        )
+        try:
+            first = run_script(RUNNER, *args)
+            self.assertNotEqual(first.returncode, 0)
+            report = root / "phase0" / "preflight_report.json"
+            self.assertTrue(report.is_file())
+            before_hash = sha256_file(report)
+            second = run_script(RUNNER, *args)
+            self.assertNotEqual(second.returncode, 0)
+            self.assertEqual(sha256_file(report), before_hash)
+            self.assertIn("write-once", second.stderr)
+        finally:
+            if root.exists():
+                resolved = root.resolve()
+                resolved.relative_to(ATTEMPTS_ROOT.resolve())
+                shutil.rmtree(resolved)
+
+    def test_pre_entry_exception_record_is_write_once(self) -> None:
+        root = self.temporary_evidence_root()
+        root.mkdir(parents=True)
+        (root / "partial.marker").write_text("partial\n", encoding="utf-8")
+        args = (
+            "--mode",
+            "preflight",
+            "--attempt-id",
+            root.name,
+            "--evidence-root",
+            str(root),
+        )
+        try:
+            first = run_script(RUNNER, *args)
+            self.assertNotEqual(first.returncode, 0)
+            failure = root / "attempt_failures" / "preflight.json"
+            self.assertTrue(failure.is_file())
+            before_hash = sha256_file(failure)
+            second = run_script(RUNNER, *args)
+            self.assertNotEqual(second.returncode, 0)
+            self.assertEqual(sha256_file(failure), before_hash)
+            payload = json.loads(second.stderr.strip())
+            self.assertEqual(
+                payload["failure_record"]["reason"],
+                "failure_record_already_preserved",
+            )
+        finally:
+            if root.exists():
+                resolved = root.resolve()
+                resolved.relative_to(ATTEMPTS_ROOT.resolve())
+                shutil.rmtree(resolved)
 
 
 if __name__ == "__main__":

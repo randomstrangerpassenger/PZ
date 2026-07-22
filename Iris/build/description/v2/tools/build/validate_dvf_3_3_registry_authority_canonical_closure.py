@@ -5,6 +5,7 @@ import json
 import sys
 
 from dvf_3_3_registry_authority_canonical_closure import (
+    CYCLE_ID,
     IMPLEMENTED_SCAFFOLD_VALIDATIONS,
     ROUND_ID,
     validate_execution_entry,
@@ -43,6 +44,7 @@ def parser() -> argparse.ArgumentParser:
     for flag in ALL_REQUIRE_FLAGS:
         group.add_argument(f"--{flag}", action="store_true")
     value.add_argument("--evidence-root")
+    value.add_argument("--attempt-id", required=True)
     value.add_argument("--no-write", action="store_true")
     return value
 
@@ -67,6 +69,8 @@ def main(argv: list[str] | None = None) -> int:
         emit(
             {
                 "round_id": ROUND_ID,
+                "cycle_id": CYCLE_ID,
+                "attempt_id": args.attempt_id,
                 "requirement": requirement,
                 "status": "not_implemented",
                 "exit_code": NOT_IMPLEMENTED_EXIT,
@@ -80,15 +84,23 @@ def main(argv: list[str] | None = None) -> int:
 
     try:
         if requirement == "require-preflight":
-            result = validate_preflight(args.evidence_root)
+            result = validate_preflight(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
         elif requirement == "require-preimplementation-reviews":
-            result = validate_preimplementation_reviews(args.evidence_root)
+            result = validate_preimplementation_reviews(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
         else:
-            result = validate_execution_entry(args.evidence_root)
+            result = validate_execution_entry(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
     except Exception as exc:
         emit(
             {
                 "round_id": ROUND_ID,
+                "cycle_id": CYCLE_ID,
+                "attempt_id": args.attempt_id,
                 "requirement": requirement,
                 "status": "FAIL",
                 "error_type": type(exc).__name__,

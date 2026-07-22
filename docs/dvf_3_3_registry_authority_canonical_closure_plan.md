@@ -1,20 +1,22 @@
 # Implementation Plan
 
-> Status: implementation-authorized / revised-after-cycle-3-pre-review-fixed-path-audit / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / cycle-4-review-required / execution-blocked-before-WP
+> Status: implementation-authorized / retry-semantics-corrected / cycle-id-attempt-id-separated / write-once-attempt-evidence / failure-laundering-prohibited / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / attempt-0005-review-required / execution-blocked-before-WP
 > 작성일: 2026-07-10
 > Round candidate: dvf_3_3_registry_authority_canonical_closure
 > Roadmap input: C:/Users/MW/.codex/attachments/8d0d9746-0c56-482c-a7ed-e5aca9fedebf/pasted-text.txt / consumed_roadmap_hash=sha256:17C41198E4D35A15743FD6C9F869CA545C5363A3A32EB005DB1E94BC16530ECD / 1482 lines
 > Roadmap canonical authority: owner-approved repo-local payload / sha256:17C41198E4D35A15743FD6C9F869CA545C5363A3A32EB005DB1E94BC16530ECD
-> Phase 3 cycle-1 reviewed bundle: sha256:908862D0E58D9B96FA9F77B01F0204A2AE4E9C4C2111E1AEFE938EC46A306E8F / verdict FAIL / Critical 1 / Important 3 / superseded but byte-preserved
-> Phase 3 cycle-2 reviewed bundle: sha256:8A77019F38EFA265BA2A34767A53FE3EBCCF85CA28910BECDF86F9617E4D0EF3 / verdict FAIL / Critical 1 / Important 1 / superseded but byte-preserved
-> Phase 3 cycle-3 bundle: sha256:F92DD854BB0785AE581E815B7DEBED1F5426A7578D9842829F443BAA2712D11A / superseded before final review after primary fixed-path audit / byte-preserved
-> Execution entry status: blocked until this cycle-4 plan/scaffold receives fresh external reviews with Critical=0 and Important=0
+> Phase 3 attempt-0001 reviewed bundle: sha256:908862D0E58D9B96FA9F77B01F0204A2AE4E9C4C2111E1AEFE938EC46A306E8F / verdict FAIL / Critical 1 / Important 3 / superseded but byte-preserved
+> Phase 3 attempt-0002 reviewed bundle: sha256:8A77019F38EFA265BA2A34767A53FE3EBCCF85CA28910BECDF86F9617E4D0EF3 / verdict FAIL / Critical 1 / Important 1 / superseded but byte-preserved
+> Phase 3 attempt-0003 bundle: sha256:F92DD854BB0785AE581E815B7DEBED1F5426A7578D9842829F443BAA2712D11A / superseded before final review after primary fixed-path audit / byte-preserved
+> Phase 3 attempt-0004 bundle: sha256:EBC2A1831A3F10ED295FA9C72D64160F25827AFB8879DFC6B325F65E4665B47D / superseded before final review after retry-semantics correction / byte-preserved
+> Execution entry status: blocked until attempt-0005-entry receives fresh external reviews with Critical=0 and Important=0
 > Template input: docs/PLAN_TEMPLATE.md / sha256 38D70D4D624733DB4D24F047E0B737A47C75522A967C84F06FE5AABC5EBD9BA1
 > Top authority: docs/Philosophy.md / sha256 938C52E9090C36AF00DAC18B64905E12A4F2390AC238A26121A63A14F81F44B2
 > Planning readpoints: docs/DECISIONS.md / sha256 E57C4D3BC21BB2DFA10791E41EF7440358C3DAF66D11AD05A06E8158090C40D3; docs/ARCHITECTURE.md / sha256 8B2CA298EF75FE1C85C7E44B81E6536EE6343E0FC5227F662142398EE1636C89; docs/ROADMAP.md / sha256 9D3A74DA7B54FD6392FD44F5D7A2ED1ABA35CA29AB83D3EB914CD64AAC6C0A12
 > Execution obligations: docs/EXECUTION_CONTRACT.md / sha256 A185BBD78EB849B0310D9AADC9102CB156B892513266FAC0EC7903EB3D3A9493
 > Direct plan artifact: docs/dvf_3_3_registry_authority_canonical_closure_plan.md
-> Proposed evidence root: Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/
+> Cycle evidence root: Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/
+> Attempt evidence root contract: Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/ (write-once; never reused or overwritten)
 > Maximum future execution claim: Registry Authority Closure = canonical_complete
 > Review boundary: machine PASS, independent review PASS, owner seal, and canonical seal are separate non-substitutable axes
 > Execution authorization: 현재 사용자는 이 revised implementation round와 Codex Reviewer 사용을 승인했다. 테스트는 Section 7의 명시된 command boundary에서만 실행한다. candidate-specific required-gate adoption, top-doc 반영, independent review verdict, owner seal, canonical seal은 각각 명시된 외부 입력/검증 경계를 통과해야 한다.
@@ -193,15 +195,15 @@ Legacy Combined DVF Governance Route 아래 분산되어 있는 current authorit
 |---|---|---|---|
 | D0 | Durable approved roadmap payload | docs/dvf_3_3_registry_authority_canonical_closure_roadmap.md materialized from the attached draft | owner-approved repo-local path+hash; approved/consumed hash parity 또는 no-material-effect diff-scope approval |
 | D1 | Round identifier | dvf_3_3_registry_authority_canonical_closure | owner_ratified 또는 owner_overridden |
-| D2 | Evidence root | Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/ | owner_ratified 또는 owner_overridden |
+| D2 | Evidence root | cycle root Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/ plus registered write-once attempts/<attempt_id>/ | owner_ratified cycle root and exact attempt root |
 | D3 | Final vocabulary | Registry Authority Closure / Registry Authority PASS | owner_ratified 또는 owner_overridden |
 | D4 | Per-artifact disposition authority | live recensus; malformed round3_contract_manifest.json은 no-live-consumer가 재증명되면 diagnostic-only/no-reentry | ambiguous/unclassified 0, damaged manifest outcome evidence-bound |
 | D5 | Independent reviewer designation | pending | eligible reviewer 지정 및 PASS |
 | D6 | Required-gate adoption | entry-time mandatory-adoption policy plus post-candidate exact one-use authorization | canonical_complete이면 candidate/base/diff hashes를 결속한 별도 owner authorization 후 adopted and rerun-bound; non-canonical outcome에만 optional |
 | D7 | Top-doc application | Option B: owner seal 뒤 post_external_gate에서 additive DECISIONS/ROADMAP/ARCHITECTURE update | owner_applied_and_validated_post_external |
 | D8 | Owner/canonical seal | pending external owner input | PASS |
-| D9 | Branch/worktree selection | owner-approved bounded Entry-scaffold commit 기반 dedicated clean worktree; current dirty checkout execution 금지 | base commit/path/branch ratified, byte-identical clean checkpoint, initial dirty count 0 |
-| D10 | Implementation plan approval | external owner approval over this repo-local plan path/hash, bounded Entry bootstrap scaffold manifest/hash, clean-checkpoint hash, execution base commit, and approved roadmap hash | approved plan/scaffold/checkpoint/base parity; byte-identical phase0 materialization |
+| D9 | Branch/worktree/attempt selection | owner-approved bounded Entry-scaffold commit 기반 dedicated clean worktree and new attempt_id; current dirty checkout execution 금지 | base commit/path/branch/attempt ratified, byte-identical clean checkpoint, initial dirty count 0, predecessor failure records preserved |
+| D10 | Implementation plan approval | external owner approval over this repo-local plan path/hash, bounded Entry bootstrap scaffold manifest/hash, clean-checkpoint hash, attempt-registration hash/root, execution base commit, and approved roadmap hash | approved plan/scaffold/checkpoint/attempt/base parity; byte-identical phase0 materialization |
 
 owner decision 상태는 proposed_default, owner_ratified, owner_overridden, missing 중 하나로 기록한다. D0-D10 중 closeout에 필요한 항목이 proposed_default 또는 missing이면 canonical_complete를 주장하지 않는다. Required-gate adoption is optional only for implemented_only, partial, or blocked outcomes. It is mandatory for Registry Authority Closure = canonical_complete.
 
@@ -218,9 +220,9 @@ owner decision 상태는 proposed_default, owner_ratified, owner_overridden, mis
 * D6 required-gate adoption policy present; exact candidate authorization은 gate-candidate 이후 별도 외부 input으로만 허용
 * D7 Option B post-owner-seal top-doc application policy present
 * D8 external owner/canonical seal path reserved
-* D9 owner-approved scaffold-bearing base commit/branch and dedicated worktree selected; byte-identical clean checkpoint records initial dirty count = 0
+* D9 owner-approved scaffold-bearing base commit/branch, dedicated worktree, and new attempt_id/root selected; byte-identical clean checkpoint records initial dirty count = 0 and attempt registration preserves every predecessor failure record
 * D10 external implementation-plan approval present and byte-identically materialized
-* D10 approved_plan_hash equals the exact plan bytes being executed and binds the D0 approved roadmap hash plus D9 clean-checkpoint hash
+* D10 approved_plan_hash equals the exact plan bytes being executed and binds the D0 approved roadmap hash plus D9 clean-checkpoint and attempt-registration hashes
 * D10 approved bootstrap scaffold manifest/hash equals the bounded Entry scaffold in the execution base. 구현 성공 capability는 preflight와 byte-identical Phase 3 review materialization뿐이고 validator success capability는 require-preflight, require-preimplementation-reviews, require-execution-entry뿐이다. WP, current/protected write, gate adoption, owner/reviewer verdict authoring, machine/final/canonical producer capability는 0이며 post-checkpoint unapproved delta count = 0
 * original dirty checkout preserved; execution-worktree dirty protected/required/planned-mutation overlap = 0
 * pre-implementation Critical_count = 0
@@ -369,15 +371,22 @@ Owner/reviewer-provided external inputs:
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/preimplementation_reviews/current_session_authority_evidence_integrity_review.md
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/preimplementation_reviews/current_session_adversarial_failure_mode_review.md
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/reviewer_designations/current_session_independent_reviewer_designation.json
+* Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/attempt_registrations/current_session_attempt_record.json
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/gate_adoptions/current_session_required_gate_adoption_authorization_record.json
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/independent_reviews/current_session_independent_closeout_review.md
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/owner_seals/current_session_owner_canonical_seal_record.json
 
 ### Generated Artifacts
 
-Primary proposed evidence root:
+Cycle evidence root and immutable bootstrap location:
 
 * Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/
+
+Every execution attempt writes only below its registered immutable root:
+
+* Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/
+
+The phase0/* through phase5/* paths below are relative to that attempt root unless explicitly identified as the cycle-level tracked bootstrap manifest. An existing attempt root or claim-bearing output is never overwritten; retry uses a new attempt_id and new root while preserving predecessor failure records.
 
 Phase 0 / plan binding:
 
@@ -389,6 +398,7 @@ Phase 0 / plan binding:
 * phase0/implementation_plan_fingerprint_report.json
 * phase0/bootstrap_scaffold_hash_manifest.json
 * phase0/implementation_plan_approval_record.json
+* phase0/attempt_registration_record.json
 * phase0/implementation_plan_approval_validation_report.json
 * phase0/owner_reserved_decision_register.json
 * phase0/current_checkout_baseline.json
@@ -401,6 +411,8 @@ Phase 0 / plan binding:
 * phase0/vcs_visibility_preflight.json
 * phase0/evidence_root_preservation_policy.json
 * phase0/lua_syntax_environment_preflight.json
+* phase0/preflight_report.json
+* attempt_failures/<mode>.json (conditional, exclusive-create exception record)
 
 Phase 3 / pre-implementation review:
 
@@ -620,6 +632,10 @@ Implementation Notes:
 * Require the dedicated execution worktree created from the scaffold-bearing base commit to have zero modified, deleted, renamed, or untracked paths and zero ignored planned-output paths at an owner-recorded clean checkpoint. current_session_clean_worktree_checkpoint_record.json binds the empty status output, command, base HEAD, worktree identity/path, timestamp, and scaffold manifest hash; tooling may validate/materialize but never author or backdate it.
 * After that clean checkpoint and before preflight, only the exact reserved external owner/reviewer input files named in Section 5 may be introduced. D10 lists each present input path/hash and binds the clean-checkpoint hash. Preflight rejects any code/docs/config/evidence delta, unlisted input, ignored input, or changed checkpoint/approval hash before its own evidence writes. Later gates recompute expected round-owned deltas separately; the planning observation of 99 modified paths is provenance only, never an execution predicate.
 * Resolve every path before hashing or writing. Evidence writes must remain under the ratified evidence root.
+* Separate cycle_id from attempt_id. cycle_id remains dvf_3_3_registry_authority_canonical_closure; each execution uses an owner-registered attempt_id matching attempt-NNNN-lowercase-label and the exact root cycle_root/attempts/<attempt_id>/. Preflight rejects a missing/mismatched registration, path traversal, a reused attempt root, or any existing attempt output before writes.
+* A pre-adoption retry is legal only with a new attempt_id and new output root while protected_mutation_count=0, live_gate_adopted=false, and top_docs_applied=false. The registration lists every predecessor attempt, its preserved failure/archive path, and the canonical tree SHA-256 of that archive. Preflight and Entry recompute every predecessor tree hash and require its terminal preflight report or write-once preflight exception record. The tool must not delete, truncate, replace, rename-away, or rewrite a predecessor failure record.
+* All attempt claim-bearing outputs are exclusive-create/write-once. A failed or partial attempt remains immutable evidence; it may be superseded by a later attempt but never converted in place from FAIL to PASS. preflight_report.json and preimplementation_review_materialization_report.json are their modes' terminal outputs and are written only after every preceding mode output succeeds. Before Entry, the runner records an otherwise-unmaterialized mode exception once under attempt_failures/<mode>.json; it never rewrites that record and never appends one after the mode's terminal output already exists. materialize-preimplementation-reviews prechecks its entire output set and refuses a same-attempt rerun if any target already exists.
+* Receipt nonce consumption is scoped to one attempt and never reset. A consumed nonce cannot be retried; a later legal attempt requires a newly authorized receipt and nonce. Candidate/fixture generation failures may discard or supersede only the candidate/fixture inside their attempt, then continue only in a new attempt root.
 * Use one closed plan-mapped protected/identity-bearing denominator resolver for preflight, Entry, implementation freeze, final no-mutation, and reviewed-bundle hashing. It includes the six DVF current inputs, compose_profiles_v2.json, compose_profile_identity_hint_rules.json, compose_profile_conflict_precedence_rules.json, dvf_3_3_rendered.json, style_normalization_changes.jsonl, compose_requeue_candidates.jsonl, layer3_renderer.lua, IrisWikiSections.lua, IrisModuleBootstrap.lua, IrisRequire.lua, the verified runtime chunk manifest/directory, and Iris/build/package. Build runtime paths from _dvf_3_3_vnext_common.RUNTIME_CHUNK_MANIFEST, RUNTIME_CHUNK_DIR, RUNTIME_MONOLITH or equally verified actual repo-root paths. Emit one explicit row per exact file/directory and require set equality with this plan-mapped denominator; assert required members exist and reject omissions, extras, and duplicate-root forms such as Iris/Iris/media/....
 * Record exact .gitignore visibility for tool, test, fixture, owner input, and minimum durable evidence paths.
 * Do not broad-unignore Iris/build/description/v2/staging/** or tools/build/**.
@@ -646,6 +662,12 @@ Validation:
 * bootstrap_scaffold_validator_success_requirements = [require-preflight, require-preimplementation-reviews, require-execution-entry]
 * bootstrap_scaffold_non_entry_mode_success_count = 0
 * bootstrap_scaffold_claim_or_finalization_capability_count = 0
+* cycle_id_attempt_id_separation = true
+* same_attempt_claim_output_overwrite_count = 0
+* predecessor_failure_record_deletion_or_rewrite_count = 0
+* attempt_registration_materialization_byte_identity = true
+* uncaptured_pre_entry_mode_exception_count = 0
+* pre_adoption_new_attempt_retry_allowed = true
 * protected_surface_plan_denominator_set_equality = true
 * entry_fresh_protected_surface_rows_equal_preflight_rows = true
 * entry_fresh_protected_surface_hash_equals_reviewed_bundle_hash = true
@@ -1245,7 +1267,7 @@ Validation:
 
 The future execution command order is part of the contract. Every command below runs from the repository root of the D9 owner-approved dedicated clean execution worktree; running the matrix from the original dirty checkout is invalid evidence.
 
-Before command 1, the bounded Entry scaffold, final roadmap/plan, and owner-accepted pre-existing state are committed without any WP/current-writer/gate-adoption/finalization implementation. The scaffold implements only preflight, byte-identical Phase 3 review materialization, and the three read-only Entry validators listed in steps 1-2. The owner designates that commit, creates the dedicated worktree, records its empty status in the external clean-worktree checkpoint, then authors D10 over the exact plan/scaffold/checkpoint/roadmap hashes and base commit. Only the exact reserved external inputs may be placed in the worktree after that checkpoint. These are owner actions, not runner automation. Preflight must reject any other post-checkpoint delta before writing evidence.
+Before command 1, the bounded Entry scaffold, final roadmap/plan, and owner-accepted pre-existing state are committed without any WP/current-writer/gate-adoption/finalization implementation. The scaffold implements only preflight, byte-identical Phase 3 review materialization, and the three read-only Entry validators listed in steps 1-2. The owner designates that commit, creates the dedicated worktree, records its empty status in the external clean-worktree checkpoint, registers a new attempt_id/root with predecessor failure preservation, then authors D10 over the exact plan/scaffold/checkpoint/attempt/roadmap hashes and base commit. Only the exact reserved external inputs may be placed in the worktree after that checkpoint. These are owner actions, not runner automation. Preflight must reject any other post-checkpoint delta, reused attempt_id, or existing attempt output before writing evidence.
 
 ### Validation Triage
 
@@ -1260,8 +1282,8 @@ Every validation report uses the same attribution vocabulary: preimplementation_
 
 1. Scaffold/preflight:
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode preflight
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-preflight
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode preflight
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-preflight
 
    Preflight now publishes the immutable reviewed-bundle hash and stops:
 
@@ -1271,9 +1293,9 @@ Every validation report uses the same attribution vocabulary: preimplementation_
 
 2. Materialize the three reviews and validate the Execution Entry Gate. This must confirm byte-identical review/checkpoint/D10 materializations, plan/entry-scaffold/checkpoint/base-commit parity, no unapproved post-checkpoint delta, clean-worktree isolation, Critical=0 and Important=0 in the fresh consolidated Phase 3 review, and resolved/hashed tools/check_lua_syntax.ps1 plus luac and its non-empty input set before any WP mode:
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode materialize-preimplementation-reviews
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-preimplementation-reviews
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-execution-entry
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode materialize-preimplementation-reviews
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-preimplementation-reviews
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-execution-entry
 
 3. Focused test before implementation:
 
@@ -1281,11 +1303,11 @@ Every validation report uses the same attribution vocabulary: preimplementation_
 
 4. WP implementation only; this mode must not adopt the live gate or emit final/machine/canonical closure:
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode implementation
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode implementation
 
 5. Implementation validation:
 
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-implementation
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-implementation
 
 6. Preliminary adjacent regression matrix:
 
@@ -1305,12 +1327,12 @@ Every validation report uses the same attribution vocabulary: preimplementation_
 
 7. Preliminary isolated package identity probe, only after runner containment proof:
 
-       powershell -ExecutionPolicy Bypass -File ./Iris/tools/package_iris.ps1 -OutputRoot ./Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/phase4/wp3/package_probe -Clean
+       powershell -ExecutionPolicy Bypass -File ./Iris/tools/package_iris.ps1 -OutputRoot ./Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/phase4/wp3/package_probe -Clean
 
 8. Build and validate the non-self-referential gate candidate:
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode gate-candidate
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-gate-candidate
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode gate-candidate
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-gate-candidate
 
 9. After gate-candidate validation, stop for the candidate-specific external D6 authorization. The owner-authored record must bind the exact candidate/base/diff/contract hashes; the entry-time generic D6 policy value is insufficient. Only then apply the additive gate and run the current route immediately:
 
@@ -1318,42 +1340,42 @@ Every validation report uses the same attribution vocabulary: preimplementation_
        The owner authors only Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/gate_adoptions/current_session_required_gate_adoption_authorization_record.json.
        [RESUME ONLY AFTER THE RECORD BINDS THE VALIDATED CANDIDATE/BASE/DIFF/CONTRACT HASHES]
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode adopt-gate
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode adopt-gate
 
-       uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/phase4/wp7_post_adoption_current_route_validation_result.json
+       uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/phase4/wp7_post_adoption_current_route_validation_result.json
 
 10. After the last code/config mutation, create the implementation freeze with actual top docs excluded under Option B. The final-rerun mode must execute WP-1..WP-7 focused checks, both gate-candidate commands from step 8, the post-adoption/current-route check, every exact adjacent-test command from step 6, deterministic census under its same-state predicate, and the protected/VCS checks into fresh phase5 evidence. Missing command-matrix rows are blocking:
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode final-rerun
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-gate-candidate
-       powershell -ExecutionPolicy Bypass -File ./Iris/tools/package_iris.ps1 -OutputRoot ./Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/phase5/package_probe -Clean
-       uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/phase5/current_route_validation_result.json
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode final-rerun
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-gate-candidate
+       powershell -ExecutionPolicy Bypass -File ./Iris/tools/package_iris.ps1 -OutputRoot ./Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/phase5/package_probe -Clean
+       uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/phase5/current_route_validation_result.json
        uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_registry_authority_canonical_closure.py"
        powershell -ExecutionPolicy Bypass -File ./tools/check_lua_syntax.ps1
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-machine-complete
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-machine-complete
 
 11. Obtain and materialize the external independent review, then obtain and materialize the external owner seal. The reviewer writes only the reserved independent_reviews input; the owner writes only the reserved owner_seals input. Materialization must be byte-identical and no tool may synthesize, summarize, default, or alter either verdict:
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode materialize-independent-review
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-independent-review
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode materialize-owner-seal
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-final-inputs
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode materialize-independent-review
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-independent-review
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode materialize-owner-seal
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-final-inputs
 
 12. Only after owner seal validation, prepare the final additive top-doc draft from already validated facts, obtain owner authorship/ratification and application, then rerun all top-doc-dependent consumers inside post_external_gate:
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode prepare-top-docs
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode prepare-top-docs
        [STOP — OWNER ACTION REQUIRED; THIS IS NOT A SHELL COMMAND]
        Owner authors/ratifies and applies the three additive top-doc drafts.
        [RESUME ONLY AFTER OWNER APPLICATION IS PRESENT IN THE WORKTREE]
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-top-doc-owner-application --no-write
-       uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/phase5/post_external_current_route_validation_result.json
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode post-external
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-post-external
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-top-doc-owner-application --no-write
+       uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/phase5/post_external_current_route_validation_result.json
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode post-external
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-post-external
 
 13. Finalize the closure DAG. finalize must produce final_registry_authority_closure_report.json, ledger packet, closeout, final_artifact_hash_manifest.json, and terminal_hash_seal.json in that order; then perform a read-only terminal verification:
 
-       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode finalize
-       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-terminal-seal --no-write
+       uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --mode finalize
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-terminal-seal --no-write
 
 Additional machine checks:
 
@@ -1552,19 +1574,31 @@ Mitigation:
 
 Rollback is governance-scoped containment, not destructive cleanup.
 
-1. Before live required-gate adoption, remove or supersede only round-owned tool/test/docs/evidence changes and leave all protected source/rendered/runtime/package surfaces untouched.
-2. Verify every recursive cleanup target resolves inside the round evidence root before deletion. Never compute a broad staging path and delete without containment proof.
+The governing retry rule is:
+
+> 같은 cycle의 새 attempt는 허용하되, 같은 attempt의 claim-bearing 산출물 덮어쓰기, 실패 이력 삭제, receipt 재사용은 금지한다.
+
+| State | Same-cycle retry | Required boundary |
+|---|---|---|
+| gate 채택 전, protected mutation 없음 | 허용 | 새 attempt_id, 새 attempt output root, 이전 실패 기록 보존 |
+| candidate/fixture 생성 실패 | 허용 | candidate 폐기 또는 supersede, 새 attempt_id와 새 nonce 사용 |
+| receipt nonce 소비 후 | 동일 attempt 재시도 금지 | 새 receipt, 새 nonce, 새 attempt 필요 |
+| live gate 채택 또는 top-doc 반영 후 | 단순 재시도 금지 | additive correction/supersession 기록과 affected consumer 재실행 |
+| plan/roadmap/base/checkpoint/scaffold 변경 후 | 기존 attempt 증거 재사용 금지 | 새 clean checkpoint, 새 attempt registration, D10 재승인, 필요한 fresh review |
+
+1. Before live required-gate adoption, supersede or remove only unsealed round-owned candidate/fixture/draft bytes inside the active attempt and leave every protected source/rendered/runtime/package surface untouched. Attempt logs, failure JSON, materialized reviews, command receipts, and other claim-bearing outputs are never removed or rewritten.
+2. Verify every candidate/fixture cleanup target resolves inside the active attempt root before deletion. The attempt root itself and predecessor attempt roots are immutable audit records and are never recursive-cleanup targets.
 3. Remove only the round-specific exact .gitignore entries when their corresponding artifacts are removed. Do not alter unrelated ignore rules.
-4. If a candidate manifest patch fails, discard the candidate and keep the live manifest unchanged.
+4. If a candidate manifest patch fails, record the failure, discard or supersede only that candidate, keep the live manifest unchanged, and use a new attempt_id for another candidate.
 5. After a live required gate has been adopted, silent removal is forbidden. Use an additive correction/supersession record, preserve predecessor trace, and rerun the current route.
 6. Before owner application, top-doc drafts may be superseded. After the Option B post-external append, owner-applied DECISIONS entries are never deleted; append a correction entry and reopen only through the correction contract.
 7. Stale/predecessor/quarantine artifacts are not deleted as rollback. Their current-reentry prohibition remains.
-8. Isolated bridge/package/cutover fixtures may be regenerated or removed only inside the verified evidence root.
+8. Isolated bridge/package/cutover fixtures may be regenerated or removed only inside their verified attempt root before claim sealing; retry uses a new attempt_id and preserves the failed attempt record.
 9. Restore no old monolith, stale bridge, predecessor chunks, or rollback snapshot as current authority.
 10. Preserve the original dirty checkout byte-for-byte. Abandoning or removing a failed dedicated worktree must not reset, clean, stash, commit, or merge the original checkout automatically.
-11. A plan/roadmap/checkpoint/base change or pre-Entry scaffold drift invalidates D10 and every downstream Phase 3/4/5 artifact; establish a new clean checkpoint, reapprove, and rerun rather than patching recorded hashes. A post-Entry implementation rollback keeps the approved scaffold baseline immutable and records a new before/after implementation diff.
+11. A plan/roadmap/checkpoint/base change or pre-Entry scaffold drift invalidates D10 and every downstream artifact of that attempt; preserve that attempt, establish a new clean checkpoint and attempt registration, reapprove, and rerun in a new attempt root rather than patching recorded hashes. A post-Entry implementation rollback keeps the approved scaffold baseline immutable and records a new before/after implementation diff in the new attempt.
 12. Preserve the malformed round3 contract manifest bytes during rollback. Its diagnostic/no-reentry disposition remains in force unless a separately authorized correction proves and repairs a live consumer.
-13. Revoke unused fixture receipt nonces after a failed run. Never reuse a receipt or treat a fixture receipt as a recovery or real-current-path authorization.
+13. Revoke unused fixture receipt nonces after a failed attempt. Once a nonce is consumed, the same attempt may not retry that action; a new attempt requires a newly issued receipt and nonce. Never reuse a receipt or treat a fixture receipt as recovery or real-current-path authorization.
 14. If protected surface mutation, dual current state, partial cutover, stored PASS reuse, stale promotion, unpreserved dependency, or non-Registry blocker is detected, stop with partial/blocked and document the evidence.
 15. A failed Registry closure does not return Registry responsibility to DVF System.
 
@@ -1575,6 +1609,9 @@ Rollback success conditions:
 * no dual current authority
 * no stale/predecessor promotion
 * round failure and ceiling documented
+* cycle_id and attempt_id separately recorded
+* predecessor attempt failure records preserved and hash-addressable
+* same-attempt claim-bearing overwrite count 0
 * original dirty checkout preserved and runner mutation count 0
 * no authorization receipt replay or real-path fixture authorization
 

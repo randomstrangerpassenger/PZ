@@ -12,6 +12,7 @@ from typing import Any
 
 
 ROUND_ID = "dvf_3_3_registry_authority_canonical_closure"
+CYCLE_ID = ROUND_ID
 SCHEMA_PREFIX = "dvf-3-3-registry-authority-canonical-closure"
 CONSUMED_ROADMAP_SHA256 = "17c41198e4d35a15743fd6c9f869ca545c5363a3a32eb005db1e94bc16530ecd"
 
@@ -20,6 +21,7 @@ V2_ROOT = REPO_ROOT / "Iris" / "build" / "description" / "v2"
 TOOLS_ROOT = V2_ROOT / "tools" / "build"
 TESTS_ROOT = V2_ROOT / "tests"
 DEFAULT_EVIDENCE_ROOT = V2_ROOT / "staging" / ROUND_ID
+ATTEMPTS_ROOT = DEFAULT_EVIDENCE_ROOT / "attempts"
 
 PLAN_PATH = REPO_ROOT / "docs" / f"{ROUND_ID}_plan.md"
 ROADMAP_PATH = REPO_ROOT / "docs" / f"{ROUND_ID}_roadmap.md"
@@ -49,6 +51,11 @@ PLAN_APPROVAL_INPUT = (
 REVIEWER_DESIGNATION_INPUT = (
     OWNER_INPUT_ROOT / "reviewer_designations" / "current_session_independent_reviewer_designation.json"
 )
+ATTEMPT_REGISTRATION_INPUT = (
+    OWNER_INPUT_ROOT
+    / "attempt_registrations"
+    / "current_session_attempt_record.json"
+)
 GATE_ADOPTION_INPUT = (
     OWNER_INPUT_ROOT
     / "gate_adoptions"
@@ -77,6 +84,7 @@ RESERVED_EXTERNAL_INPUTS = (
     OWNER_DECISION_INPUT,
     PLAN_APPROVAL_INPUT,
     REVIEWER_DESIGNATION_INPUT,
+    ATTEMPT_REGISTRATION_INPUT,
     *PREIMPLEMENTATION_REVIEW_INPUTS,
     GATE_ADOPTION_INPUT,
     INDEPENDENT_REVIEW_INPUT,
@@ -170,6 +178,14 @@ def sha256_file(path: Path) -> str | None:
     return digest.hexdigest()
 
 
+def files_byte_identical(left: Path, right: Path) -> bool:
+    return (
+        left.is_file()
+        and right.is_file()
+        and left.read_bytes() == right.read_bytes()
+    )
+
+
 def canonical_json_bytes(payload: Any) -> bytes:
     return json.dumps(
         payload,
@@ -181,6 +197,19 @@ def canonical_json_bytes(payload: Any) -> bytes:
 
 def canonical_hash(payload: Any) -> str:
     return sha256_bytes(canonical_json_bytes(payload))
+
+
+def directory_tree_hash(path: Path) -> str | None:
+    if not path.is_dir():
+        return None
+    rows = [
+        {
+            "path": child.relative_to(path).as_posix(),
+            "sha256": sha256_file(child),
+        }
+        for child in sorted(item for item in path.rglob("*") if item.is_file())
+    ]
+    return canonical_hash(rows)
 
 
 def repo_relative(path: Path) -> str:
@@ -195,16 +224,28 @@ def is_within(path: Path, root: Path) -> bool:
         return False
 
 
-def resolve_evidence_root(value: str | Path | None = None) -> Path:
-    candidate = Path(
-        value
-        or os.environ.get("DVF_3_3_REGISTRY_AUTHORITY_EVIDENCE_ROOT", "")
-        or DEFAULT_EVIDENCE_ROOT
-    ).resolve()
-    if not is_within(candidate, DEFAULT_EVIDENCE_ROOT):
+def validate_attempt_id(attempt_id: str | None) -> str:
+    if not isinstance(attempt_id, str) or not re.fullmatch(
+        r"attempt-[0-9]{4,}-[a-z0-9][a-z0-9-]{0,47}", attempt_id
+    ):
         raise ValueError(
-            "evidence root must resolve inside "
-            f"{repo_relative(DEFAULT_EVIDENCE_ROOT)}"
+            "attempt_id must match attempt-NNNN-lowercase-label"
+        )
+    return attempt_id
+
+
+def resolve_evidence_root(
+    value: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> Path:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    expected = (ATTEMPTS_ROOT / normalized_attempt_id).resolve()
+    candidate = Path(value or expected).resolve()
+    if candidate != expected or not is_within(candidate, ATTEMPTS_ROOT):
+        raise ValueError(
+            "evidence root must equal the registered attempt root "
+            f"{repo_relative(expected)}"
         )
     return candidate
 
@@ -220,34 +261,86 @@ def read_json_object(path: Path) -> dict[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
-def write_json(path: Path, payload: Any) -> None:
-    if not is_within(path, DEFAULT_EVIDENCE_ROOT):
-        raise ValueError(f"refusing out-of-root evidence write: {path}")
+def write_json_once(path: Path, payload: Any) -> None:
+    if not is_within(path, ATTEMPTS_ROOT):
+        raise ValueError(f"refusing out-of-attempt evidence write: {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
     serialized = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
-    temporary = path.with_name(f".{path.name}.tmp")
-    temporary.write_text(serialized, encoding="utf-8", newline="\n")
-    temporary.replace(path)
+    with path.open("x", encoding="utf-8", newline="\n") as handle:
+        handle.write(serialized)
 
 
-def write_text(path: Path, payload: str) -> None:
-    if not is_within(path, DEFAULT_EVIDENCE_ROOT):
-        raise ValueError(f"refusing out-of-root evidence write: {path}")
+def write_text_once(path: Path, payload: str) -> None:
+    if not is_within(path, ATTEMPTS_ROOT):
+        raise ValueError(f"refusing out-of-attempt evidence write: {path}")
     path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = path.with_name(f".{path.name}.tmp")
-    temporary.write_text(payload, encoding="utf-8", newline="\n")
-    temporary.replace(path)
+    with path.open("x", encoding="utf-8", newline="\n") as handle:
+        handle.write(payload)
 
 
-def copy_external_bytes(source: Path, target: Path) -> None:
+def copy_external_bytes_once(source: Path, target: Path) -> None:
     if not source.is_file():
         raise FileNotFoundError(source)
-    if not is_within(target, DEFAULT_EVIDENCE_ROOT):
-        raise ValueError(f"refusing out-of-root materialization: {target}")
+    if not is_within(target, ATTEMPTS_ROOT):
+        raise ValueError(f"refusing out-of-attempt materialization: {target}")
     target.parent.mkdir(parents=True, exist_ok=True)
-    temporary = target.with_name(f".{target.name}.tmp")
-    temporary.write_bytes(source.read_bytes())
-    temporary.replace(target)
+    with target.open("xb") as handle:
+        handle.write(source.read_bytes())
+
+
+def record_attempt_failure_once(
+    evidence_root: str | Path | None,
+    *,
+    attempt_id: str | None,
+    mode: str,
+    error_type: str,
+    error: str,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    terminal_by_mode = {
+        "preflight": root / "phase0" / "preflight_report.json",
+        "materialize-preimplementation-reviews": (
+            root / "phase3" / "preimplementation_review_materialization_report.json"
+        ),
+    }
+    terminal = terminal_by_mode.get(mode)
+    failure_path = root / "attempt_failures" / f"{mode}.json"
+    if terminal is not None and terminal.is_file():
+        return {
+            "written": False,
+            "reason": "terminal_claim_output_already_exists",
+            "path": None,
+            "sha256": None,
+        }
+    if failure_path.is_file():
+        return {
+            "written": False,
+            "reason": "failure_record_already_preserved",
+            "path": repo_relative(failure_path),
+            "sha256": sha256_file(failure_path),
+        }
+    payload = {
+        "schema_version": f"{SCHEMA_PREFIX}-attempt-failure-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "mode": mode,
+        "recorded_at": utc_now(),
+        "status": "FAIL",
+        "error_type": error_type,
+        "error": error,
+        "claim_output_overwritten": False,
+        "failure_record_write_once": True,
+        "wp_execution_allowed": False,
+    }
+    write_json_once(failure_path, payload)
+    return {
+        "written": True,
+        "reason": "new_failure_record",
+        "path": repo_relative(failure_path),
+        "sha256": sha256_file(failure_path),
+    }
 
 
 def run_git(*args: str) -> dict[str, Any]:
@@ -311,6 +404,8 @@ def scaffold_capabilities() -> dict[str, Any]:
         "finalization_producer_present": False,
         "owner_or_reviewer_verdict_authoring_present": False,
         "current_or_protected_writer_present": False,
+        "attempt_evidence_write_once_present": True,
+        "failure_history_write_once_present": True,
     }
 
 
@@ -485,6 +580,33 @@ def approved_decisions_report(payload: dict[str, Any]) -> dict[str, Any]:
 
 def preflight_external_contract() -> dict[str, Any]:
     return {
+        "attempt_registration": {
+            "path": repo_relative(ATTEMPT_REGISTRATION_INPUT),
+            "required_fields": [
+                "cycle_id",
+                "attempt_id",
+                "owner_identity",
+                "registered_at",
+                "execution_base_commit",
+                "clean_worktree_checkpoint_path",
+                "clean_worktree_checkpoint_sha256",
+                "evidence_root",
+                "retry_class",
+                "predecessor_attempts",
+                "prior_failure_records_preserved",
+                "overwrite_existing_attempt_outputs_allowed",
+                "receipt_nonce_reuse_allowed",
+                "live_gate_adopted",
+                "top_docs_applied",
+                "protected_mutation_count",
+            ],
+            "predecessor_required_fields": [
+                "attempt_id",
+                "preserved_evidence_path",
+                "preserved_evidence_tree_sha256",
+                "failure_record_preserved",
+            ],
+        },
         "clean_checkpoint": {
             "path": repo_relative(CLEAN_CHECKPOINT_INPUT),
             "required_fields": [
@@ -520,6 +642,10 @@ def preflight_external_contract() -> dict[str, Any]:
                 "approved_clean_worktree_checkpoint_path",
                 "approved_clean_worktree_checkpoint_sha256",
                 "approved_execution_base_commit",
+                "approved_attempt_id",
+                "approved_attempt_registration_path",
+                "approved_attempt_registration_sha256",
+                "approved_evidence_root",
                 "reserved_external_inputs",
             ],
         },
@@ -563,12 +689,104 @@ def validate_checkpoint(payload: dict[str, Any], scaffold: dict[str, Any], head:
     return blockers
 
 
+def validate_attempt_registration(
+    payload: dict[str, Any],
+    *,
+    attempt_id: str,
+    evidence_root: Path,
+    head: str | None,
+    checkpoint_hash: str | None,
+) -> list[str]:
+    blockers: list[str] = []
+    if not payload:
+        return ["attempt_registration_missing_or_invalid"]
+    expected = {
+        "cycle_id": CYCLE_ID,
+        "attempt_id": attempt_id,
+        "execution_base_commit": head,
+        "clean_worktree_checkpoint_path": repo_relative(CLEAN_CHECKPOINT_INPUT),
+        "clean_worktree_checkpoint_sha256": checkpoint_hash,
+        "evidence_root": repo_relative(evidence_root),
+        "retry_class": "pre_adoption_no_protected_mutation",
+        "prior_failure_records_preserved": True,
+        "overwrite_existing_attempt_outputs_allowed": False,
+        "receipt_nonce_reuse_allowed": False,
+        "live_gate_adopted": False,
+        "top_docs_applied": False,
+        "protected_mutation_count": 0,
+    }
+    for field, value in expected.items():
+        if payload.get(field) != value:
+            blockers.append(f"attempt_registration_{field}_mismatch")
+    if not payload.get("owner_identity") or not payload.get("registered_at"):
+        blockers.append("attempt_registration_author_or_time_missing")
+    predecessors = payload.get("predecessor_attempts")
+    if not isinstance(predecessors, list):
+        blockers.append("attempt_registration_predecessors_invalid")
+        return blockers
+    seen_ids: set[str] = set()
+    seen_archives: set[Path] = set()
+    for index, row in enumerate(predecessors):
+        if not isinstance(row, dict):
+            blockers.append(f"attempt_registration_predecessor_row_invalid:{index}")
+            continue
+        predecessor_id = row.get("attempt_id")
+        archive_path = row.get("preserved_evidence_path")
+        if (
+            not isinstance(predecessor_id, str)
+            or not re.fullmatch(
+                r"attempt-[0-9]{4,}-[a-z0-9][a-z0-9-]{0,47}", predecessor_id
+            )
+            or predecessor_id == attempt_id
+            or predecessor_id in seen_ids
+            or not isinstance(archive_path, str)
+        ):
+            blockers.append(f"attempt_registration_predecessor_identity_invalid:{index}")
+            continue
+        seen_ids.add(predecessor_id)
+        archive = (REPO_ROOT / archive_path).resolve()
+        if archive in seen_archives:
+            blockers.append(f"attempt_registration_predecessor_archive_duplicate:{predecessor_id}")
+        seen_archives.add(archive)
+        if (
+            not is_within(archive, DEFAULT_EVIDENCE_ROOT)
+            or not archive.is_dir()
+            or archive_path.replace("\\", "/") != repo_relative(archive)
+        ):
+            blockers.append(f"attempt_registration_predecessor_not_preserved:{predecessor_id}")
+        elif row.get("preserved_evidence_tree_sha256") != directory_tree_hash(archive):
+            blockers.append(f"attempt_registration_predecessor_hash_mismatch:{predecessor_id}")
+        terminal_records = (
+            archive / "preflight_report.json",
+            archive / "phase0" / "preflight_report.json",
+            archive / "attempt_failures" / "preflight.json",
+        )
+        if not any(path.is_file() for path in terminal_records):
+            blockers.append(f"attempt_registration_predecessor_terminal_record_missing:{predecessor_id}")
+        if row.get("failure_record_preserved") is not True:
+            blockers.append(f"attempt_registration_predecessor_failure_not_preserved:{predecessor_id}")
+    legacy_root = DEFAULT_EVIDENCE_ROOT / "superseded_review_rounds"
+    expected_archives = {
+        path.resolve()
+        for root in (legacy_root, ATTEMPTS_ROOT)
+        if root.is_dir()
+        for path in root.iterdir()
+        if path.is_dir() and path.resolve() != evidence_root.resolve()
+    }
+    if seen_archives != expected_archives:
+        blockers.append("attempt_registration_predecessor_archive_set_mismatch")
+    return blockers
+
+
 def validate_plan_approval(
     payload: dict[str, Any],
     *,
     head: str | None,
     checkpoint_hash: str | None,
     scaffold: dict[str, Any],
+    attempt_id: str,
+    evidence_root: Path,
+    attempt_registration_hash: str | None,
     enforce_present_input_set: bool = True,
 ) -> list[str]:
     blockers: list[str] = []
@@ -587,6 +805,10 @@ def validate_plan_approval(
         "approved_clean_worktree_checkpoint_path": repo_relative(CLEAN_CHECKPOINT_INPUT),
         "approved_clean_worktree_checkpoint_sha256": checkpoint_hash,
         "approved_execution_base_commit": head,
+        "approved_attempt_id": attempt_id,
+        "approved_attempt_registration_path": repo_relative(ATTEMPT_REGISTRATION_INPUT),
+        "approved_attempt_registration_sha256": attempt_registration_hash,
+        "approved_evidence_root": repo_relative(evidence_root),
     }
     for field, value in expected.items():
         if payload.get(field) != value:
@@ -683,8 +905,17 @@ def validate_preflight_status(
     return rows, blockers
 
 
-def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
-    root = resolve_evidence_root(evidence_root)
+def run_preflight(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    if root.exists() and any(root.iterdir()):
+        raise FileExistsError(
+            f"attempt evidence is write-once and already exists: {repo_relative(root)}"
+        )
     started_at = utc_now()
     head = current_head()
     status_output, status_lines = git_status_rows()
@@ -694,6 +925,7 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
     checkpoint = read_json_object(CLEAN_CHECKPOINT_INPUT)
     approval = read_json_object(PLAN_APPROVAL_INPUT)
     designation = read_json_object(REVIEWER_DESIGNATION_INPUT)
+    attempt_registration = read_json_object(ATTEMPT_REGISTRATION_INPUT)
     lua = lua_environment_report()
     protected_rows = protected_surface_rows()
     protected_paths = [row["path"] for row in protected_rows]
@@ -708,13 +940,24 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
         blockers.append("owner_reserved_decisions_unresolved")
     blockers.extend(validate_checkpoint(checkpoint, scaffold, head))
     blockers.extend(
-        validate_plan_approval(
-            approval,
+        validate_attempt_registration(
+            attempt_registration,
+            attempt_id=normalized_attempt_id,
+            evidence_root=root,
             head=head,
             checkpoint_hash=sha256_file(CLEAN_CHECKPOINT_INPUT),
-            scaffold=scaffold,
         )
     )
+    plan_approval_blockers = validate_plan_approval(
+        approval,
+        head=head,
+        checkpoint_hash=sha256_file(CLEAN_CHECKPOINT_INPUT),
+        scaffold=scaffold,
+        attempt_id=normalized_attempt_id,
+        evidence_root=root,
+        attempt_registration_hash=sha256_file(ATTEMPT_REGISTRATION_INPUT),
+    )
+    blockers.extend(plan_approval_blockers)
     blockers.extend(validate_reviewer_designation(designation))
     status_rows, status_blockers = validate_preflight_status(status_lines, approval)
     blockers.extend(status_blockers)
@@ -748,9 +991,12 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
             OWNER_DECISION_INPUT,
             PLAN_APPROVAL_INPUT,
             REVIEWER_DESIGNATION_INPUT,
+            ATTEMPT_REGISTRATION_INPUT,
         )
     ]
     reviewed_bundle = {
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "execution_base_commit": head,
         "inputs": input_hash_rows,
@@ -825,8 +1071,8 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
         "implementation_plan_approval_validation_report.json": {
             "schema_version": f"{SCHEMA_PREFIX}-plan-approval-validation-v1",
             "round_id": ROUND_ID,
-            "status": "PASS" if not validate_plan_approval(approval, head=head, checkpoint_hash=sha256_file(CLEAN_CHECKPOINT_INPUT), scaffold=scaffold) else "FAIL",
-            "blockers": validate_plan_approval(approval, head=head, checkpoint_hash=sha256_file(CLEAN_CHECKPOINT_INPUT), scaffold=scaffold),
+            "status": "PASS" if not plan_approval_blockers else "FAIL",
+            "blockers": plan_approval_blockers,
             "external_input_path": repo_relative(PLAN_APPROVAL_INPUT),
             "external_input_sha256": sha256_file(PLAN_APPROVAL_INPUT),
         },
@@ -909,6 +1155,8 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
         "preflight_report.json": {
             "schema_version": f"{SCHEMA_PREFIX}-preflight-report-v1",
             "round_id": ROUND_ID,
+            "cycle_id": CYCLE_ID,
+            "attempt_id": normalized_attempt_id,
             "started_at": started_at,
             "finished_at": utc_now(),
             "status": "PASS" if not blockers else "FAIL",
@@ -925,15 +1173,23 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
     }
 
     for name, payload in reports.items():
-        write_json(phase0 / name, payload)
+        if name == "preflight_report.json":
+            continue
+        payload.setdefault("cycle_id", CYCLE_ID)
+        payload.setdefault("attempt_id", normalized_attempt_id)
+        write_json_once(phase0 / name, payload)
     if CLEAN_CHECKPOINT_INPUT.is_file():
-        copy_external_bytes(CLEAN_CHECKPOINT_INPUT, phase0 / "clean_worktree_checkpoint_record.json")
+        copy_external_bytes_once(CLEAN_CHECKPOINT_INPUT, phase0 / "clean_worktree_checkpoint_record.json")
     if PLAN_APPROVAL_INPUT.is_file():
-        copy_external_bytes(PLAN_APPROVAL_INPUT, phase0 / "implementation_plan_approval_record.json")
+        copy_external_bytes_once(PLAN_APPROVAL_INPUT, phase0 / "implementation_plan_approval_record.json")
+    if ATTEMPT_REGISTRATION_INPUT.is_file():
+        copy_external_bytes_once(ATTEMPT_REGISTRATION_INPUT, phase0 / "attempt_registration_record.json")
 
     review_manifest = {
         "schema_version": f"{SCHEMA_PREFIX}-preimplementation-review-input-v1",
         "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "status": "READY_FOR_EXTERNAL_REVIEW" if not blockers else "BLOCKED",
         "reviewed_bundle": reviewed_bundle,
         "reviewed_bundle_hash": reviewed_bundle_hash,
@@ -941,18 +1197,27 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
         "tool_may_author_review_verdict": False,
         "wp_execution_allowed": False,
     }
-    write_json(phase3 / "preimplementation_review_input_manifest.json", review_manifest)
+    write_json_once(phase3 / "preimplementation_review_input_manifest.json", review_manifest)
+    reports["preflight_report.json"]["finished_at"] = utc_now()
+    write_json_once(phase0 / "preflight_report.json", reports["preflight_report.json"])
 
     return reports["preflight_report.json"]
 
 
-def validate_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
-    root = resolve_evidence_root(evidence_root)
+def validate_preflight(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
     report = read_json_object(root / "phase0" / "preflight_report.json")
     review = read_json_object(root / "phase3" / "preimplementation_review_input_manifest.json")
     blockers = []
     if report.get("status") != "PASS":
         blockers.append("preflight_report_not_pass")
+    if report.get("cycle_id") != CYCLE_ID or report.get("attempt_id") != normalized_attempt_id:
+        blockers.append("preflight_cycle_or_attempt_mismatch")
     if report.get("blocker_count") != 0 or report.get("blockers") not in ([], None):
         blockers.append("preflight_blockers_present")
     if report.get("wp_execution_allowed") is not False:
@@ -966,12 +1231,16 @@ def validate_preflight(evidence_root: str | Path | None = None) -> dict[str, Any
             blockers.append(f"preflight_{field}_not_false")
     if review.get("status") != "READY_FOR_EXTERNAL_REVIEW":
         blockers.append("review_bundle_not_ready")
+    if review.get("cycle_id") != CYCLE_ID or review.get("attempt_id") != normalized_attempt_id:
+        blockers.append("review_bundle_cycle_or_attempt_mismatch")
     if not review.get("reviewed_bundle_hash"):
         blockers.append("reviewed_bundle_hash_missing")
     if review.get("tool_may_author_review_verdict") is not False:
         blockers.append("tool_review_authoring_not_forbidden")
     return {
         "schema_version": f"{SCHEMA_PREFIX}-preflight-validation-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "status": "PASS" if not blockers else "FAIL",
         "blocker_count": len(blockers),
@@ -1042,6 +1311,8 @@ def review_materialization_row(
     blockers: list[str] = []
     required_fields = (
         "schema_version",
+        "cycle_id",
+        "attempt_id",
         "round_id",
         "review_scope",
         "reviewer_identity",
@@ -1063,6 +1334,8 @@ def review_materialization_row(
             blockers.append(f"review_field_missing:{field}")
     expected_fields = {
         "schema_version": "dvf-3-3-registry-authority-phase3-review-v1",
+        "cycle_id": manifest.get("cycle_id"),
+        "attempt_id": manifest.get("attempt_id"),
         "round_id": ROUND_ID,
         "review_scope": expected_scope,
         "reviewer_identity": designation.get("reviewer_identity"),
@@ -1133,13 +1406,30 @@ def review_materialization_row(
 
 def materialize_preimplementation_reviews(
     evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
 ) -> dict[str, Any]:
-    root = resolve_evidence_root(evidence_root)
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
     phase3 = root / "phase3"
+    materialization_outputs = [
+        *(phase3 / name for name in PREIMPLEMENTATION_REVIEW_OUTPUTS),
+        phase3 / "preimplementation_review_materialization_report.json",
+        phase3 / "carry_forward_findings_table.json",
+        phase3 / "pre_implementation_blocker_resolution_report.json",
+        phase3 / "blocker_zero_record.json",
+        phase3 / "consolidated_review.md",
+    ]
+    existing_outputs = [path for path in materialization_outputs if path.exists()]
+    if existing_outputs:
+        raise FileExistsError(
+            "attempt review materialization is write-once; existing outputs: "
+            + ", ".join(repo_relative(path) for path in existing_outputs)
+        )
     manifest_path = phase3 / "preimplementation_review_input_manifest.json"
     manifest = read_json_object(manifest_path)
     designation = read_json_object(REVIEWER_DESIGNATION_INPUT)
-    preflight = validate_preflight(root)
+    preflight = validate_preflight(root, attempt_id=normalized_attempt_id)
     rows = []
     for source, output_name, scope in zip(
         PREIMPLEMENTATION_REVIEW_INPUTS,
@@ -1156,7 +1446,7 @@ def materialize_preimplementation_reviews(
             designation=designation,
         )
         if source.is_file():
-            copy_external_bytes(source, target)
+            copy_external_bytes_once(source, target)
         row["target_sha256"] = sha256_file(target)
         row["byte_identical"] = bool(
             row["source_sha256"]
@@ -1198,6 +1488,8 @@ def materialize_preimplementation_reviews(
     )
     materialization_report = {
         "schema_version": f"{SCHEMA_PREFIX}-preimplementation-review-materialization-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "status": "PASS" if not materialization_blockers else "FAIL",
         "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
@@ -1214,6 +1506,8 @@ def materialize_preimplementation_reviews(
     }
     carry_forward = {
         "schema_version": f"{SCHEMA_PREFIX}-carry-forward-findings-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
         "findings": [
@@ -1225,6 +1519,8 @@ def materialize_preimplementation_reviews(
     }
     resolution = {
         "schema_version": f"{SCHEMA_PREFIX}-preimplementation-blocker-resolution-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "status": "PASS" if blocker_zero else "FAIL",
         "all_reviewer_verdicts_pass": all_reviewer_pass,
@@ -1232,6 +1528,8 @@ def materialize_preimplementation_reviews(
     }
     zero_record = {
         "schema_version": f"{SCHEMA_PREFIX}-blocker-zero-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "status": "PASS" if blocker_zero else "FAIL",
         "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
@@ -1264,13 +1562,15 @@ def materialize_preimplementation_reviews(
                 "",
             ]
         )
-    write_json(phase3 / "preimplementation_review_materialization_report.json", materialization_report)
-    write_json(phase3 / "carry_forward_findings_table.json", carry_forward)
-    write_json(phase3 / "pre_implementation_blocker_resolution_report.json", resolution)
-    write_json(phase3 / "blocker_zero_record.json", zero_record)
-    write_text(phase3 / "consolidated_review.md", "\n".join(consolidated_lines))
+    write_json_once(phase3 / "carry_forward_findings_table.json", carry_forward)
+    write_json_once(phase3 / "pre_implementation_blocker_resolution_report.json", resolution)
+    write_json_once(phase3 / "blocker_zero_record.json", zero_record)
+    write_text_once(phase3 / "consolidated_review.md", "\n".join(consolidated_lines))
+    write_json_once(phase3 / "preimplementation_review_materialization_report.json", materialization_report)
     return {
         "schema_version": f"{SCHEMA_PREFIX}-preimplementation-review-materialization-result-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "status": materialization_report["status"],
         "blocker_count": materialization_report["blocker_count"],
@@ -1288,8 +1588,11 @@ def materialize_preimplementation_reviews(
 
 def validate_preimplementation_reviews(
     evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
 ) -> dict[str, Any]:
-    root = resolve_evidence_root(evidence_root)
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
     phase3 = root / "phase3"
     manifest_path = phase3 / "preimplementation_review_input_manifest.json"
     manifest = read_json_object(manifest_path)
@@ -1299,6 +1602,10 @@ def validate_preimplementation_reviews(
     )
     zero = read_json_object(phase3 / "blocker_zero_record.json")
     blockers: list[str] = []
+    if manifest.get("cycle_id") != CYCLE_ID or manifest.get("attempt_id") != normalized_attempt_id:
+        blockers.append("review_manifest_cycle_or_attempt_mismatch")
+    if report.get("cycle_id") != CYCLE_ID or report.get("attempt_id") != normalized_attempt_id:
+        blockers.append("review_materialization_cycle_or_attempt_mismatch")
     if report.get("status") != "PASS":
         blockers.append("review_materialization_report_not_pass")
     if report.get("reviewed_bundle_hash") != manifest.get("reviewed_bundle_hash"):
@@ -1401,6 +1708,8 @@ def validate_preimplementation_reviews(
             blockers.append(f"derived_blocker_zero_projection_mismatch:{field}")
     return {
         "schema_version": f"{SCHEMA_PREFIX}-preimplementation-review-validation-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "status": "PASS" if not blockers else "FAIL",
         "blocker_count": len(blockers),
@@ -1420,16 +1729,20 @@ def validate_preimplementation_reviews(
 
 def validate_execution_entry(
     evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
 ) -> dict[str, Any]:
-    root = resolve_evidence_root(evidence_root)
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
     phase0 = root / "phase0"
     phase3 = root / "phase3"
-    preflight = validate_preflight(root)
-    reviews = validate_preimplementation_reviews(root)
+    preflight = validate_preflight(root, attempt_id=normalized_attempt_id)
+    reviews = validate_preimplementation_reviews(root, attempt_id=normalized_attempt_id)
     scaffold = validate_bootstrap_manifest()
     checkpoint = read_json_object(CLEAN_CHECKPOINT_INPUT)
     approval = read_json_object(PLAN_APPROVAL_INPUT)
     designation = read_json_object(REVIEWER_DESIGNATION_INPUT)
+    attempt_registration = read_json_object(ATTEMPT_REGISTRATION_INPUT)
     head = current_head()
     blockers: list[str] = []
     if preflight.get("status") != "PASS":
@@ -1442,19 +1755,39 @@ def validate_execution_entry(
         blockers.append("entry_bootstrap_scaffold_mismatch")
     blockers.extend(validate_checkpoint(checkpoint, scaffold, head))
     blockers.extend(
+        validate_attempt_registration(
+            attempt_registration,
+            attempt_id=normalized_attempt_id,
+            evidence_root=root,
+            head=head,
+            checkpoint_hash=sha256_file(CLEAN_CHECKPOINT_INPUT),
+        )
+    )
+    blockers.extend(
         validate_plan_approval(
             approval,
             head=head,
             checkpoint_hash=sha256_file(CLEAN_CHECKPOINT_INPUT),
             scaffold=scaffold,
+            attempt_id=normalized_attempt_id,
+            evidence_root=root,
+            attempt_registration_hash=sha256_file(ATTEMPT_REGISTRATION_INPUT),
             enforce_present_input_set=False,
         )
     )
     blockers.extend(validate_reviewer_designation(designation))
-    if (phase0 / "clean_worktree_checkpoint_record.json").read_bytes() != CLEAN_CHECKPOINT_INPUT.read_bytes():
+    if not files_byte_identical(
+        phase0 / "clean_worktree_checkpoint_record.json", CLEAN_CHECKPOINT_INPUT
+    ):
         blockers.append("entry_checkpoint_materialization_not_byte_identical")
-    if (phase0 / "implementation_plan_approval_record.json").read_bytes() != PLAN_APPROVAL_INPUT.read_bytes():
+    if not files_byte_identical(
+        phase0 / "implementation_plan_approval_record.json", PLAN_APPROVAL_INPUT
+    ):
         blockers.append("entry_plan_approval_materialization_not_byte_identical")
+    if not files_byte_identical(
+        phase0 / "attempt_registration_record.json", ATTEMPT_REGISTRATION_INPUT
+    ):
+        blockers.append("entry_attempt_registration_materialization_not_byte_identical")
 
     protected_mapping = read_json_object(
         phase0 / "protected_surface_plan_mapping_report.json"
@@ -1520,6 +1853,8 @@ def validate_execution_entry(
     entry_allowed = not blockers
     return {
         "schema_version": f"{SCHEMA_PREFIX}-execution-entry-validation-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
         "round_id": ROUND_ID,
         "status": "PASS" if entry_allowed else "FAIL",
         "blocker_count": len(set(blockers)),

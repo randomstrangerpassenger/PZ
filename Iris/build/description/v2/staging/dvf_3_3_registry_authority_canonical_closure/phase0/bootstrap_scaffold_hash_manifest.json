@@ -1,6 +1,7 @@
 {
   "capabilities": {
     "aggregate_mode_present": false,
+    "attempt_evidence_write_once_present": true,
     "current_or_protected_writer_present": false,
     "declared_future_modes": [
       "preflight",
@@ -23,6 +24,7 @@
       "finalize"
     ],
     "execution_entry_validation_present": true,
+    "failure_history_write_once_present": true,
     "finalization_producer_present": false,
     "gate_adoption_present": false,
     "implemented_success_modes": [
@@ -42,28 +44,28 @@
   "round_id": "dvf_3_3_registry_authority_canonical_closure",
   "scaffold_paths": [
     {
-      "byte_length": 63618,
+      "byte_length": 76901,
       "exists": true,
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "031305b9b1266b5f46b27ce5b4c7174401225c51c058dc4fea08c2a2211891ed"
+      "sha256": "719cfa7fb5d6c00fd95d9fe8f6e2d54b901d4e066b11977420cf466fc3559b42"
     },
     {
-      "byte_length": 2446,
+      "byte_length": 3418,
       "exists": true,
       "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "0836d759643218c7ceb966e209832fde7c833272dfa0d45753ae96aaebbb99fa"
+      "sha256": "7fbd3d3b3603685f0f4aab3a5e4557cd17d4dd9109157575496dd61369082729"
     },
     {
-      "byte_length": 3321,
+      "byte_length": 3731,
       "exists": true,
       "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "caec6177d405b1297062545b1cc1d6876dabdc2bc2c7b4c1dddb6d1bbcef05fb"
+      "sha256": "668f675e536966b1b68be5be6bbcd4d22c4357ccab4a9059606c84e1ac341a83"
     },
     {
-      "byte_length": 8074,
+      "byte_length": 11068,
       "exists": true,
       "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "a0f61a068f378ecfcaa40b2abf37f4f3ec0e70c067a67f17d6bd374df43265e0"
+      "sha256": "6f1f31bff74d969ea4fded74a996b7ed94a6125710b5e090313653ad3a563ebd"
     }
   ],
   "schema_version": "dvf-3-3-registry-authority-canonical-closure-bootstrap-scaffold-manifest-v2",

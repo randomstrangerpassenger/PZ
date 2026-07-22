@@ -3401,7 +3401,14 @@ def run_implementation(
     if not path_is_file(phase3 / "preimplementation_review_materialization_report.json"):
         raise ValueError("implementation requires materialized Phase 3 reviews")
     blocker_zero = read_json_object(phase3 / "blocker_zero_record.json")
-    if blocker_zero.get("status") != "PASS" or blocker_zero.get("blocker_zero") is not True:
+    blocker_zero_valid = (
+        blocker_zero.get("status") == "PASS"
+        and blocker_zero.get("all_reviewer_verdicts_pass") is True
+        and blocker_zero.get("critical_count") == 0
+        and blocker_zero.get("important_count") == 0
+        and blocker_zero.get("unresolved_minor_count") == 0
+    )
+    if not blocker_zero_valid:
         raise ValueError("implementation requires blocker-zero Phase 3 review")
     if path_is_file(phase4 / "implementation_scope_report.json"):
         raise FileExistsError("implementation attempt outputs already exist")

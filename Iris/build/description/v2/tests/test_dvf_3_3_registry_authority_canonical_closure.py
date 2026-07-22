@@ -490,6 +490,9 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                     "python_split_concatenation_and_loader_alias",
                     "lua_concatenation_and_loader_alias",
                     "powershell_join_path_and_copy_alias",
+                    "python_unresolved_taint_loader_fail_closed",
+                    "lua_unresolved_taint_loader_fail_closed",
+                    "powershell_unresolved_taint_copy_fail_closed",
                 },
             )
             self.assertEqual(
@@ -501,6 +504,13 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 set(report["required_structural_discovery_kinds"]),
                 set(report["observed_discovery_kinds"]),
             )
+            self.assertEqual(
+                set(report["expected_unresolved_taint_sources"]),
+                set(report["observed_unresolved_taint_sources"]),
+            )
+            self.assertEqual(len(report["expected_unresolved_taint_sources"]), 3)
+            self.assertEqual(report["unexpected_discovery_blockers"], [])
+            self.assertTrue(report["fixture_executable_denominator"]["complete"])
             self.assertEqual(report["real_current_or_package_mutation_count"], 0)
         finally:
             if root.exists():

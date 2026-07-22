@@ -3586,25 +3586,123 @@ def registry_reference_scan_files(
     *,
     extra_files: tuple[Path, ...] = (),
     include_live: bool = True,
-) -> list[Path]:
-    paths: set[Path] = set(extra_files)
+) -> tuple[list[Path], list[str], dict[str, Any]]:
+    executable_suffixes = {".py", ".lua", ".ps1"}
+    paths: set[Path] = set()
+    blockers: list[str] = []
+    required_executable_paths: set[Path] = set()
+    required_test_ids: set[str] = set()
+    tracked_executable_paths: set[Path] = set()
+    tracked_enumeration_succeeded = not include_live
+    for path in extra_files:
+        if path.suffix.lower() not in executable_suffixes:
+            blockers.append(
+                f"registry_reference_extra_file_not_executable:{repo_relative(path)}"
+            )
+        elif not path_is_file(path):
+            blockers.append(
+                f"registry_reference_extra_file_missing:{repo_relative(path)}"
+            )
+        else:
+            paths.add(path)
     if include_live:
-        executable_suffixes = {".py", ".lua", ".ps1"}
-        paths.update(
-            REPO_ROOT / relative
-            for relative in git_path_sets()["tracked"]
-            if Path(relative).suffix.lower() in executable_suffixes
-        )
+        tracked_result = run_git("ls-files")
+        tracked_rows: set[str] = set()
+        tracked_enumeration_succeeded = tracked_result["exit_code"] == 0
+        if tracked_result["exit_code"] != 0:
+            blockers.append(
+                "registry_reference_git_tracked_enumeration_failed:"
+                + str(tracked_result["exit_code"])
+            )
+        else:
+            tracked_rows = {
+                value.replace("\\", "/")
+                for value in tracked_result["stdout"].splitlines()
+                if value.strip()
+            }
+        for relative in sorted(tracked_rows):
+            if Path(relative).suffix.lower() not in executable_suffixes:
+                continue
+            path = REPO_ROOT / relative
+            tracked_executable_paths.add(path)
+            if path_is_file(path):
+                paths.add(path)
+            else:
+                blockers.append(f"tracked_executable_missing:{relative}")
         required_manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
-        paths.update(
-            REPO_ROOT / str(row["path"])
-            for row in required_manifest.get("required_artifacts", [])
-            if isinstance(row, dict)
-            and isinstance(row.get("path"), str)
-            and Path(str(row["path"])).suffix.lower() in executable_suffixes
-        )
-        paths = {path for path in paths if path_is_file(path)}
-    return sorted(paths, key=repo_relative)
+        required_artifacts = required_manifest.get("required_artifacts")
+        required_tests = required_manifest.get("required_tests")
+        if not isinstance(required_artifacts, list):
+            blockers.append("required_manifest_artifacts_not_list")
+            required_artifacts = []
+        if not isinstance(required_tests, list):
+            blockers.append("required_manifest_tests_not_list")
+            required_tests = []
+        for index, row in enumerate(required_artifacts):
+            if not isinstance(row, dict) or not isinstance(row.get("path"), str):
+                blockers.append(f"required_artifact_path_invalid:{index}")
+                continue
+            relative = str(row["path"]).replace("\\", "/")
+            if Path(relative).suffix.lower() in executable_suffixes:
+                required_executable_paths.add(REPO_ROOT / relative)
+        for index, row in enumerate(required_tests):
+            if not isinstance(row, dict) or row.get("required") is not True:
+                continue
+            test_id = row.get("test_id")
+            if not isinstance(test_id, str) or not test_id.strip():
+                blockers.append(f"required_test_id_invalid:{index}")
+                continue
+            required_test_ids.add(test_id)
+            module_name = test_id.split(".", 1)[0]
+            if not re.fullmatch(r"test_[A-Za-z0-9_]+", module_name):
+                blockers.append(f"required_test_module_invalid:{test_id}")
+                continue
+            required_executable_paths.add(TESTS_ROOT / f"{module_name}.py")
+        for path in sorted(required_executable_paths, key=repo_relative):
+            relative = repo_relative(path)
+            if not path_is_file(path):
+                blockers.append(f"required_executable_missing:{relative}")
+                continue
+            paths.add(path)
+            if relative not in tracked_rows:
+                blockers.append(f"required_executable_not_tracked:{relative}")
+        omitted_required = required_executable_paths - paths
+        for path in sorted(omitted_required, key=repo_relative):
+            relative = repo_relative(path)
+            marker = f"required_executable_not_admitted:{relative}"
+            if marker not in blockers:
+                blockers.append(marker)
+    denominator_paths = sorted(paths, key=repo_relative)
+    required_executable_inclusion_complete = required_executable_paths.issubset(paths)
+    completeness = {
+        "scope": (
+            "full_tracked_and_required_manifest_python_lua_powershell"
+            if include_live
+            else "explicit_fixture_python_lua_powershell"
+        ),
+        "complete": (
+            not blockers
+            and tracked_enumeration_succeeded
+            and required_executable_inclusion_complete
+        ),
+        "tracked_enumeration_succeeded": tracked_enumeration_succeeded,
+        "tracked_executable_count": len(tracked_executable_paths),
+        "tracked_executable_paths_sha256": canonical_hash(
+            sorted(repo_relative(path) for path in tracked_executable_paths)
+        ),
+        "required_test_id_count": len(required_test_ids),
+        "required_executable_count": len(required_executable_paths),
+        "required_executable_paths": sorted(
+            repo_relative(path) for path in required_executable_paths
+        ),
+        "required_executable_inclusion_complete": required_executable_inclusion_complete,
+        "admitted_executable_count": len(denominator_paths),
+        "admitted_paths_sha256": canonical_hash(
+            [repo_relative(path) for path in denominator_paths]
+        ),
+        "blockers": sorted(set(blockers)),
+    }
+    return denominator_paths, sorted(set(blockers)), completeness
 
 
 def registry_reference_targets(
@@ -3676,23 +3774,108 @@ def registry_identifier_present(value: str) -> bool:
     )
 
 
+def registry_path_taint_present(value: str) -> bool:
+    lowered = normalized_registry_path(value)
+    return registry_identifier_present(value) or any(
+        marker in lowered
+        for marker in (
+            "/build/description/v2/data",
+            "/build/description/v2/output",
+            "/media/lua/client/iris/data",
+            "/media/lua/shared/iris",
+            "iris/data",
+        )
+    )
+
+
 def join_symbolic_path(left: str, right: str) -> str:
     return left.rstrip("/\\") + "/" + right.lstrip("/\\")
 
 
-def python_symbolic_values(node: ast.AST, symbols: dict[str, set[str]]) -> set[str]:
+SymbolicState = tuple[frozenset[str], bool, bool]
+
+
+def symbolic_state(
+    values: set[str] | frozenset[str] = frozenset(),
+    *,
+    complete: bool,
+    tainted: bool | None = None,
+) -> SymbolicState:
+    frozen = frozenset(values)
+    return (
+        frozen if complete else frozenset(),
+        complete,
+        (
+            any(registry_path_taint_present(value) for value in frozen)
+            if tainted is None
+            else tainted
+        ),
+    )
+
+
+def python_symbolic_state(
+    node: ast.AST,
+    symbols: dict[str, SymbolicState],
+) -> SymbolicState:
     if isinstance(node, ast.Constant) and isinstance(node.value, str):
-        return {node.value}
+        return symbolic_state({node.value}, complete=True)
     if isinstance(node, ast.Name):
-        return set(symbols.get(node.id, set()))
+        return symbols.get(
+            node.id,
+            symbolic_state(
+                complete=False,
+                tainted=registry_path_taint_present(node.id),
+            ),
+        )
     if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Div)):
-        left = python_symbolic_values(node.left, symbols)
-        right = python_symbolic_values(node.right, symbols)
-        if left and right:
+        left_values, left_complete, left_tainted = python_symbolic_state(
+            node.left, symbols
+        )
+        right_values, right_complete, right_tainted = python_symbolic_state(
+            node.right, symbols
+        )
+        if left_complete and right_complete and left_values and right_values:
             if isinstance(node.op, ast.Div):
-                return {join_symbolic_path(lhs, rhs) for lhs in left for rhs in right}
-            return {lhs + rhs for lhs in left for rhs in right}
-        return left or right
+                values = {
+                    join_symbolic_path(lhs, rhs)
+                    for lhs in left_values
+                    for rhs in right_values
+                }
+            else:
+                values = {
+                    lhs + rhs for lhs in left_values for rhs in right_values
+                }
+            return symbolic_state(
+                values,
+                complete=True,
+                tainted=left_tainted
+                or right_tainted
+                or any(registry_path_taint_present(value) for value in values),
+            )
+        return symbolic_state(
+            complete=False,
+            tainted=left_tainted or right_tainted,
+        )
+    if isinstance(node, ast.JoinedStr):
+        parts = [
+            python_symbolic_state(value, symbols)
+            for value in node.values
+        ]
+        if parts and all(complete and values for values, complete, _ in parts):
+            combined = {""}
+            for values, _, _ in parts:
+                combined = {left + right for left in combined for right in values}
+            return symbolic_state(
+                combined,
+                complete=True,
+                tainted=any(tainted for _, _, tainted in parts),
+            )
+        return symbolic_state(
+            complete=False,
+            tainted=any(tainted for _, _, tainted in parts),
+        )
+    if isinstance(node, ast.FormattedValue):
+        return python_symbolic_state(node.value, symbols)
     if isinstance(node, ast.Call):
         function_name = (
             node.func.id
@@ -3702,21 +3885,33 @@ def python_symbolic_values(node: ast.AST, symbols: dict[str, set[str]]) -> set[s
             else ""
         )
         if function_name in {"Path", "PurePath", "resolve", "joinpath"}:
-            values: set[str] = set()
+            components: list[SymbolicState] = []
             if isinstance(node.func, ast.Attribute):
-                values.update(python_symbolic_values(node.func.value, symbols))
-            for argument in node.args:
-                argument_values = python_symbolic_values(argument, symbols)
-                if values and argument_values:
-                    values = {
-                        join_symbolic_path(left, right)
-                        for left in values
-                        for right in argument_values
-                    }
-                elif argument_values:
-                    values = argument_values
-            return values
-    return set()
+                components.append(python_symbolic_state(node.func.value, symbols))
+            components.extend(
+                python_symbolic_state(argument, symbols) for argument in node.args
+            )
+            if not components:
+                return symbolic_state(complete=False, tainted=False)
+            tainted = any(state[2] for state in components)
+            if not all(state[1] and state[0] for state in components):
+                return symbolic_state(complete=False, tainted=tainted)
+            values = set(components[0][0])
+            for component_values, _, _ in components[1:]:
+                values = {
+                    join_symbolic_path(left, right)
+                    for left in values
+                    for right in component_values
+                }
+            return symbolic_state(values, complete=True, tainted=tainted)
+        argument_states = [
+            python_symbolic_state(argument, symbols) for argument in node.args
+        ]
+        return symbolic_state(
+            complete=False,
+            tainted=any(state[2] for state in argument_states),
+        )
+    return symbolic_state(complete=False, tainted=False)
 
 
 def python_structural_registry_reads(
@@ -3729,7 +3924,7 @@ def python_structural_registry_reads(
         tree = ast.parse(source_text, filename=str(source))
     except SyntaxError as exc:
         return [], [f"python_registry_scan_parse_error:{repo_relative(source)}:{exc.lineno}"]
-    symbols: dict[str, set[str]] = {}
+    symbols: dict[str, SymbolicState] = {}
     loader_aliases = set(REGISTRY_LOADER_NAMES)
     assignments = [
         node for node in ast.walk(tree) if isinstance(node, (ast.Assign, ast.AnnAssign))
@@ -3738,14 +3933,14 @@ def python_structural_registry_reads(
         changed = False
         for node in assignments:
             value_node = node.value
-            values = python_symbolic_values(value_node, symbols)
+            state = python_symbolic_state(value_node, symbols)
             targets = node.targets if isinstance(node, ast.Assign) else [node.target]
             for target in targets:
                 if not isinstance(target, ast.Name):
                     continue
-                before = set(symbols.get(target.id, set()))
-                symbols.setdefault(target.id, set()).update(values)
-                changed = changed or before != symbols[target.id]
+                before = symbols.get(target.id)
+                symbols[target.id] = state
+                changed = changed or before != state
                 alias_name = (
                     value_node.id
                     if isinstance(value_node, ast.Name)
@@ -3776,10 +3971,9 @@ def python_structural_registry_reads(
             path_nodes.append(node.func.value)
         elif node.args:
             path_nodes.append(node.args[0])
+        path_states = [python_symbolic_state(path_node, symbols) for path_node in path_nodes]
         values = {
-            value
-            for path_node in path_nodes
-            for value in python_symbolic_values(path_node, symbols)
+            value for state_values, _, _ in path_states for value in state_values
         }
         targets = {
             target
@@ -3794,31 +3988,128 @@ def python_structural_registry_reads(
             for target in sorted(targets)
         )
         raw_call = ast.get_source_segment(source_text, node) or ""
-        tainted_values = any(registry_identifier_present(value) for value in values)
-        if not targets and (registry_identifier_present(raw_call) or tainted_values):
+        complete = bool(path_states) and all(state[1] for state in path_states)
+        tainted = any(state[2] for state in path_states)
+        if (not complete and tainted) or not targets and (
+            registry_path_taint_present(raw_call) or tainted
+        ):
             blockers.append(
                 f"unresolved_registry_loader_reference:{repo_relative(source)}:{getattr(node, 'lineno', 0)}"
             )
     return reads, blockers
 
 
-def simple_symbolic_values(expression: str, symbols: dict[str, set[str]]) -> set[str]:
-    quoted = [match[1] for match in re.findall(r"([\"'])(.*?)\1", expression)]
-    names = re.findall(r"[$]?([A-Za-z_][A-Za-z0-9_]*)", expression)
-    parts: list[set[str]] = [{value} for value in quoted]
-    parts.extend(symbols[name] for name in names if name in symbols)
+def simple_symbolic_state(
+    expression: str,
+    symbols: dict[str, SymbolicState],
+    *,
+    language: str,
+) -> SymbolicState:
+    token_pattern = (
+        re.compile(r"(?P<quote>[\"'])(?P<literal>.*?)(?P=quote)|\$(?P<psname>[A-Za-z_][A-Za-z0-9_]*)")
+        if language == "powershell"
+        else re.compile(r"(?P<quote>[\"'])(?P<literal>.*?)(?P=quote)|(?P<name>[A-Za-z_][A-Za-z0-9_]*)")
+    )
+    parts: list[frozenset[str]] = []
+    tainted = registry_path_taint_present(expression)
+    unknown = False
+    ignored_lua_names = {
+        "local",
+        "true",
+        "false",
+        "nil",
+        "require",
+        "safeRequire",
+        "dofile",
+        "loadfile",
+    }
+    for match in token_pattern.finditer(expression):
+        literal = match.groupdict().get("literal")
+        if literal is not None:
+            values = frozenset({literal})
+            parts.append(values)
+            tainted = tainted or registry_path_taint_present(literal)
+            continue
+        name = match.groupdict().get("psname") or match.groupdict().get("name")
+        if not name:
+            continue
+        if name in symbols:
+            values, complete, state_tainted = symbols[name]
+            tainted = tainted or state_tainted
+            if complete and values:
+                parts.append(values)
+            else:
+                unknown = True
+        elif language == "lua" and name in ignored_lua_names:
+            continue
+        else:
+            unknown = True
+            tainted = tainted or registry_path_taint_present(name)
+    if language == "powershell":
+        residual = re.sub(r"(?i)\bJoin-Path\b", "", expression)
+        residual = re.sub(r"[\s+(),.-]+", "", residual)
+        residual = re.sub(r"[\"'][^\"']*[\"']", "", residual)
+        residual = re.sub(r"\$[A-Za-z_][A-Za-z0-9_]*", "", residual)
+        unknown = unknown or bool(residual)
     if not parts:
-        return set()
-    concatenated = {""}
-    slash_joined = {""}
+        return symbolic_state(complete=False, tainted=tainted)
+    if unknown:
+        return symbolic_state(complete=False, tainted=tainted)
+    combined = {""}
+    join_with_slash = language == "powershell" and re.search(
+        r"(?i)\bJoin-Path\b", expression
+    )
     for values in parts:
-        concatenated = {left + right for left in concatenated for right in values}
-        slash_joined = {
-            right if not left else join_symbolic_path(left, right)
-            for left in slash_joined
+        combined = {
+            join_symbolic_path(left, right)
+            if join_with_slash and left
+            else left + right
+            for left in combined
             for right in values
         }
-    return set().union(*parts, concatenated, slash_joined)
+    return symbolic_state(combined, complete=True, tainted=tainted)
+
+
+def balanced_call_arguments(
+    source_text: str,
+    loader_aliases: set[str],
+) -> list[tuple[str, str, int]]:
+    calls: list[tuple[str, str, int]] = []
+    pattern = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\s*\(")
+    for match in pattern.finditer(source_text):
+        loader = match.group(1)
+        if loader not in loader_aliases:
+            continue
+        open_index = source_text.find("(", match.start(), match.end())
+        depth = 0
+        quote = ""
+        escape = False
+        for index in range(open_index, len(source_text)):
+            character = source_text[index]
+            if escape:
+                escape = False
+                continue
+            if character == "\\" and quote:
+                escape = True
+                continue
+            if quote:
+                if character == quote:
+                    quote = ""
+                continue
+            if character in {"'", '"'}:
+                quote = character
+                continue
+            if character == "(":
+                depth += 1
+            elif character == ")":
+                depth -= 1
+                if depth == 0:
+                    line_number = source_text.count("\n", 0, match.start()) + 1
+                    calls.append(
+                        (loader, source_text[open_index + 1 : index], line_number)
+                    )
+                    break
+    return calls
 
 
 def lua_structural_registry_reads(
@@ -3827,7 +4118,7 @@ def lua_structural_registry_reads(
     *,
     input_path_by_name: dict[str, str],
 ) -> tuple[list[tuple[str, int, str]], list[str]]:
-    symbols: dict[str, set[str]] = {}
+    symbols: dict[str, SymbolicState] = {}
     loader_aliases = {"require", "safeRequire", "dofile", "loadfile"}
     lines = source_text.splitlines()
     for _ in range(6):
@@ -3837,9 +4128,14 @@ def lua_structural_registry_reads(
             if not match:
                 continue
             name, expression = match.groups()
-            before = set(symbols.get(name, set()))
-            symbols.setdefault(name, set()).update(simple_symbolic_values(expression, symbols))
-            changed = changed or before != symbols[name]
+            state = simple_symbolic_state(
+                expression,
+                symbols,
+                language="lua",
+            )
+            before = symbols.get(name)
+            symbols[name] = state
+            changed = changed or before != state
             alias = expression.strip()
             if alias in loader_aliases:
                 loader_aliases.add(name)
@@ -3847,16 +4143,14 @@ def lua_structural_registry_reads(
             break
     reads: list[tuple[str, int, str]] = []
     blockers: list[str] = []
-    call_pattern = re.compile(
-        r"(?P<loader>[A-Za-z_][A-Za-z0-9_]*)\s*\((?P<argument>[^()]*)\)",
-        re.MULTILINE,
-    )
-    for match in call_pattern.finditer(source_text):
-        loader = match.group("loader")
-        if loader not in loader_aliases:
-            continue
-        argument = match.group("argument")
-        values = simple_symbolic_values(argument, symbols)
+    for loader, argument, line_number in balanced_call_arguments(
+        source_text, loader_aliases
+    ):
+        values, complete, tainted = simple_symbolic_state(
+            argument,
+            symbols,
+            language="lua",
+        )
         targets = {
             target
             for value in values
@@ -3865,14 +4159,12 @@ def lua_structural_registry_reads(
                 input_path_by_name=input_path_by_name,
             )
         }
-        line_number = source_text.count("\n", 0, match.start()) + 1
         reads.extend(
             (target, line_number, "lua_symbol_alias_dataflow")
             for target in sorted(targets)
         )
-        if not targets and (
-            registry_identifier_present(argument)
-            or any(registry_identifier_present(value) for value in values)
+        if (not complete and tainted) or not targets and (
+            registry_path_taint_present(argument) or tainted
         ):
             blockers.append(
                 f"unresolved_registry_loader_reference:{repo_relative(source)}:{line_number}"
@@ -3886,7 +4178,7 @@ def powershell_structural_registry_reads(
     *,
     input_path_by_name: dict[str, str],
 ) -> tuple[list[tuple[str, int, str]], list[str]]:
-    symbols: dict[str, set[str]] = {}
+    symbols: dict[str, SymbolicState] = {}
     command_aliases = {"get-content", "copy-item"}
     lines = source_text.splitlines()
     for _ in range(8):
@@ -3896,10 +4188,15 @@ def powershell_structural_registry_reads(
             if not match:
                 continue
             name, expression = match.groups()
-            before = set(symbols.get(name, set()))
-            values = simple_symbolic_values(expression, symbols)
-            symbols.setdefault(name, set()).update(values)
-            changed = changed or before != symbols[name]
+            state = simple_symbolic_state(
+                expression,
+                symbols,
+                language="powershell",
+            )
+            values, _, _ = state
+            before = symbols.get(name)
+            symbols[name] = state
+            changed = changed or before != state
             if any(value.lower() in command_aliases for value in values):
                 command_aliases.add(name.lower())
         if not changed:
@@ -3927,8 +4224,30 @@ def powershell_structural_registry_reads(
             expression = source_expression_match.group(1)
         else:
             tail = line[(direct.end() if direct else invoked.end()) :].strip()
-            expression = tail.split()[0] if tail else ""
-        values = simple_symbolic_values(expression, symbols)
+            if tail.startswith("("):
+                depth = 0
+                expression = ""
+                for index, character in enumerate(tail):
+                    if character == "(":
+                        depth += 1
+                    elif character == ")":
+                        depth -= 1
+                        if depth == 0:
+                            expression = tail[: index + 1]
+                            break
+                if not expression:
+                    expression = tail
+            else:
+                argument_match = re.match(
+                    r"(\$[A-Za-z_][A-Za-z0-9_]*|'[^']*'|\"[^\"]*\")",
+                    tail,
+                )
+                expression = argument_match.group(1) if argument_match else tail
+        values, complete, tainted = simple_symbolic_state(
+            expression,
+            symbols,
+            language="powershell",
+        )
         targets = {
             target
             for value in values
@@ -3941,9 +4260,8 @@ def powershell_structural_registry_reads(
             (target, line_number, "powershell_join_alias_copy_dataflow")
             for target in sorted(targets)
         )
-        if not targets and (
-            registry_identifier_present(expression)
-            or any(registry_identifier_present(value) for value in values)
+        if (not complete and tainted) or not targets and (
+            registry_path_taint_present(expression) or tainted
         ):
             blockers.append(
                 f"unresolved_registry_loader_reference:{repo_relative(source)}:{line_number}"
@@ -3955,7 +4273,7 @@ def discover_registry_readpoints(
     *,
     extra_files: tuple[Path, ...] = (),
     include_live: bool = True,
-) -> tuple[list[dict[str, Any]], list[str]]:
+) -> tuple[list[dict[str, Any]], list[str], dict[str, Any]]:
     input_manifest = read_json_object(INPUT_MANIFEST)
     input_paths = current_input_manifest_paths(input_manifest)
     input_path_by_name = {Path(value).name: value for value in input_paths}
@@ -3975,10 +4293,12 @@ def discover_registry_readpoints(
         "get-content",
     )
     seen: set[tuple[str, str, int, str]] = set()
-    for source in registry_reference_scan_files(
+    scan_files, denominator_blockers, denominator = registry_reference_scan_files(
         extra_files=extra_files,
         include_live=include_live,
-    ):
+    )
+    blockers.extend(denominator_blockers)
+    for source in scan_files:
         try:
             source_text = filesystem_path(source).read_text(
                 encoding="utf-8-sig",
@@ -4153,15 +4473,20 @@ def discover_registry_readpoints(
                     "observed_fresh": True,
                 }
             )
-    return rows, blockers
+    return rows, sorted(set(blockers)), denominator
 
 
-def registry_live_readpoint_graph() -> tuple[list[dict[str, Any]], set[str], list[str]]:
+def registry_live_readpoint_graph() -> tuple[
+    list[dict[str, Any]],
+    set[str],
+    list[str],
+    dict[str, Any],
+]:
     input_manifest = read_json_object(INPUT_MANIFEST)
     rendered_path = V2_ROOT / "output" / "dvf_3_3_rendered.json"
     rendered = read_json_object(rendered_path)
     package_script = REPO_ROOT / "Iris" / "tools" / "package_iris.ps1"
-    rows, blockers = discover_registry_readpoints()
+    rows, blockers, denominator = discover_registry_readpoints()
     recognized = independent_current_registry_paths()
     expected_readpoints = {
         path
@@ -4206,7 +4531,7 @@ def registry_live_readpoint_graph() -> tuple[list[dict[str, Any]], set[str], lis
     ):
         if marker not in package_text:
             blockers.append(f"package_guard_marker_missing:{marker}")
-    return rows, recognized, blockers
+    return rows, recognized, sorted(set(blockers)), denominator
 
 
 def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
@@ -4227,7 +4552,10 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "target = Path(prefix) / leaf\n"
         + "loader = open\n"
         + "with loader(target, 'rb') as handle:\n"
-        + "    observed = handle.read(1)\n",
+        + "    observed = handle.read(1)\n"
+        + "dynamic_leaf = dynamic_registry_leaf()\n"
+        + "uncertain = Path('Iris/media/lua/client/Iris/Data') / dynamic_leaf\n"
+        + "loader(uncertain, 'rb')\n",
     )
     write_text_once(
         lua_consumer,
@@ -4238,7 +4566,9 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "local loader = dofile\n"
         + "local stale = loader(stalePrefix .. '/' .. staleLeaf)\n"
         + "local renamed = loader(renamedPrefix .. '/' .. renamedLeaf)\n"
-        + "return stale or renamed\n",
+        + "local runtimeLeaf = resolveRuntimeLeaf()\n"
+        + "local unresolved = loader('Iris/media/lua/client/Iris/Data/' .. runtimeLeaf)\n"
+        + "return stale or renamed or unresolved\n",
     )
     write_text_once(
         powershell_consumer,
@@ -4247,7 +4577,9 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "$source = Join-Path $prefix $name\n"
         + "$copyCommand = 'Copy-Item'\n"
         + f"$destination = {repo_relative(fixture_root / 'copy_sink.lua')!r}\n"
-        + "& $copyCommand -LiteralPath $source -Destination $destination\n",
+        + "& $copyCommand -LiteralPath $source -Destination $destination\n"
+        + "$runtimeLeaf = Get-RuntimeLeaf\n"
+        + "& $copyCommand (Join-Path 'Iris/media/lua/client/Iris/Data' $runtimeLeaf) $destination\n",
     )
     stale_rows = [
         {
@@ -4256,7 +4588,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "sha256": sha256_file(stale_path),
         }
     ]
-    readpoints, discovery_blockers = discover_registry_readpoints(
+    readpoints, discovery_blockers, denominator = discover_registry_readpoints(
         extra_files=(python_consumer, lua_consumer, powershell_consumer),
         include_live=False,
     )
@@ -4286,15 +4618,44 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         "lua_symbol_alias_dataflow",
         "powershell_join_alias_copy_dataflow",
     }
+    required_unresolved_sources = {
+        repo_relative(python_consumer),
+        repo_relative(lua_consumer),
+        repo_relative(powershell_consumer),
+    }
+    observed_unresolved_sources = {
+        blocker.split(":", 2)[1]
+        for blocker in discovery_blockers
+        if blocker.startswith("unresolved_registry_loader_reference:")
+        and len(blocker.split(":", 2)) == 3
+    }
+    unexpected_discovery_blockers = [
+        blocker
+        for blocker in discovery_blockers
+        if not blocker.startswith("unresolved_registry_loader_reference:")
+        or blocker.split(":", 2)[1] not in required_unresolved_sources
+    ]
     return {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-negative-fixture-v1",
-        "status": "PASS" if expected.issubset(kinds) and required_discovery_kinds.issubset(discovery_kinds) and not discovery_blockers else "FAIL",
+        "status": (
+            "PASS"
+            if expected.issubset(kinds)
+            and required_discovery_kinds.issubset(discovery_kinds)
+            and observed_unresolved_sources == required_unresolved_sources
+            and not unexpected_discovery_blockers
+            and denominator.get("complete") is True
+            else "FAIL"
+        ),
         "expected_violation_kinds": sorted(expected),
         "observed_violation_kinds": sorted(kinds),
         "required_structural_discovery_kinds": sorted(required_discovery_kinds),
         "observed_discovery_kinds": sorted(discovery_kinds),
         "discovered_readpoints": readpoints,
         "discovery_blockers": discovery_blockers,
+        "expected_unresolved_taint_sources": sorted(required_unresolved_sources),
+        "observed_unresolved_taint_sources": sorted(observed_unresolved_sources),
+        "unexpected_discovery_blockers": unexpected_discovery_blockers,
+        "fixture_executable_denominator": denominator,
         "same_raw_discovery_path_as_live_graph": True,
         "negative_consumer_roots": [
             "current_route",
@@ -4305,6 +4666,9 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "python_split_concatenation_and_loader_alias",
             "lua_concatenation_and_loader_alias",
             "powershell_join_path_and_copy_alias",
+            "python_unresolved_taint_loader_fail_closed",
+            "lua_unresolved_taint_loader_fail_closed",
+            "powershell_unresolved_taint_copy_fail_closed",
         ],
         "recognized_current_set_derived_from_observed_rows": False,
         "violations": violations,
@@ -4315,8 +4679,12 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
 def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
     phase4 = root / "phase4"
     ledger = role_ledger_rows(root)
-    readpoints, recognized_current_paths, graph_blockers = registry_live_readpoint_graph()
-    executable_denominator = registry_reference_scan_files()
+    (
+        readpoints,
+        recognized_current_paths,
+        graph_blockers,
+        executable_denominator,
+    ) = registry_live_readpoint_graph()
     package_members, package_blockers = package_content_rows()
     live_violations = evaluate_stale_reentry(
         readpoints,
@@ -4395,15 +4763,21 @@ def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
         "producer_consumer_edges": readpoints,
         "package_directory_and_archive_member_count": len(package_members),
         "readpoint_discovery": "fresh_raw_executable_string_and_copy_reference_scan",
-        "full_tracked_python_lua_powershell_denominator": True,
-        "executable_denominator_count": len(executable_denominator),
-        "executable_denominator_sha256": canonical_hash(
-            [repo_relative(path) for path in executable_denominator]
+        "full_tracked_python_lua_powershell_denominator": executable_denominator.get(
+            "complete"
+        )
+        is True,
+        "executable_denominator_count": executable_denominator.get(
+            "admitted_executable_count", 0
         ),
+        "executable_denominator_sha256": executable_denominator.get(
+            "admitted_paths_sha256"
+        ),
+        "executable_denominator_admission": executable_denominator,
         "structural_analyzers": [
-            "python_ast_constant_concatenation_path_and_loader_alias_dataflow",
-            "lua_constant_concatenation_and_loader_alias_dataflow",
-            "powershell_join_path_and_copy_alias_dataflow",
+            "python_ast_complete_unknown_tainted_path_and_loader_alias_dataflow",
+            "lua_balanced_call_complete_unknown_tainted_loader_alias_dataflow",
+            "powershell_join_path_complete_unknown_tainted_copy_alias_dataflow",
         ],
         "recognized_current_denominator_source": "independent_current_input_and_exact_registry_runtime_boundary",
         "recognized_current_path_count": len(recognized_current_paths),

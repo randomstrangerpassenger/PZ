@@ -133,6 +133,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 "subprocess",
                 "sys",
                 "typing",
+                "zipfile",
             },
         )
 
@@ -400,6 +401,46 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             self.assertFalse(
                 contract["canonical_complete_without_required_gate_adoption_allowed"]
             )
+        finally:
+            if root.exists():
+                resolved = root.resolve()
+                resolved.relative_to(ATTEMPTS_ROOT.resolve())
+                shutil.rmtree(resolved)
+
+    def test_successful_implementation_attempt_cannot_gain_late_failure_record(self) -> None:
+        common = load_common_module()
+        root = self.temporary_evidence_root()
+        terminal = root / "phase4" / "implementation_scope_report.json"
+        try:
+            terminal.parent.mkdir(parents=True)
+            terminal.write_text('{"status":"PASS"}\n', encoding="utf-8")
+            result = common.record_attempt_failure_once(
+                root,
+                attempt_id=root.name,
+                mode="implementation",
+                error_type="FileExistsError",
+                error="write-once replay",
+            )
+            self.assertFalse(result["written"])
+            self.assertEqual(result["reason"], "terminal_claim_output_already_exists")
+            self.assertFalse((root / "attempt_failures" / "implementation.json").exists())
+        finally:
+            if root.exists():
+                resolved = root.resolve()
+                resolved.relative_to(ATTEMPTS_ROOT.resolve())
+                shutil.rmtree(resolved)
+
+    def test_wp6_negative_fixtures_detect_path_hash_and_package_reentry(self) -> None:
+        common = load_common_module()
+        root = self.temporary_evidence_root()
+        try:
+            report = common.build_wp6_negative_fixture_report(root)
+            self.assertEqual(report["status"], "PASS")
+            self.assertEqual(
+                set(report["expected_violation_kinds"]),
+                set(report["observed_violation_kinds"]),
+            )
+            self.assertEqual(report["real_current_or_package_mutation_count"], 0)
         finally:
             if root.exists():
                 resolved = root.resolve()

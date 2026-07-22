@@ -12,6 +12,7 @@ import shutil
 import subprocess
 import sys
 from typing import Any
+import zipfile
 
 
 ROUND_ID = "dvf_3_3_registry_authority_canonical_closure"
@@ -388,6 +389,7 @@ def record_attempt_failure_once(
         "materialize-preimplementation-reviews": (
             root / "phase3" / "preimplementation_review_materialization_report.json"
         ),
+        "implementation": root / "phase4" / "implementation_scope_report.json",
     }
     terminal = terminal_by_mode.get(mode)
     failure_path = root / "attempt_failures" / f"{mode}.json"
@@ -2950,34 +2952,15 @@ def build_fixture_receipt(root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
         "style_log_path": transaction / "style_normalization_changes.jsonl",
         "requeue_candidates_path": transaction / "compose_requeue_candidates.jsonl",
     }
-    decision = {
-        "schema_version": f"{SCHEMA_PREFIX}-wp5-fixture-decision-v1",
-        "status": "PASS",
-        "fixture_only": True,
-        "production_receipt_issuance_allowed": False,
-        "real_current_write_allowed": False,
-        "candidate_rendered_sha256": sha256_file(candidate_rendered),
-        "issued_by": "wp5_fixture_receipt_issuer",
-    }
-    decision_path = wp5 / "fixture_receipt_decision.json"
-    write_json_once(decision_path, decision)
     input_rows, blockers = current_input_bindings()
     profiles_row = next(row for row in input_rows if row["key"] == "profiles_path")
     profiles = read_json_object(REPO_ROOT / str(profiles_row["path"]))
     candidate_payload = read_json_object(candidate_rendered)
     issued = datetime.now(timezone.utc)
-    nonce = sha256_bytes(
-        canonical_json_bytes(
-            {
-                "attempt_id": root.name,
-                "candidate": sha256_file(candidate_rendered),
-                "issued": issued.isoformat(),
-            }
-        )
-    )[:32]
     receipt = {
         "schema_version": "dvf-3-3-registry-authority-fixture-current-write-receipt-v1",
         "round_id": ROUND_ID,
+        "attempt_id": root.name,
         "fixture_only": True,
         "fixture_transaction_root": str(wp5.resolve()),
         "allowed_output_paths": {key: str(value.resolve()) for key, value in targets.items()},
@@ -3007,14 +2990,60 @@ def build_fixture_receipt(root: Path) -> tuple[dict[str, Any], dict[str, Any]]:
             "requeue_candidates_path": sha256_file(candidate_requeue),
         },
         "rendered_generated_at": candidate_payload.get("meta", {}).get("generated_at"),
-        "fixture_decision_sha256": sha256_file(decision_path),
         "issued_at": issued.isoformat(),
         "expires_at": (issued + timedelta(hours=1)).isoformat(),
-        "nonce": nonce,
-        "receipt_consumption_state_path": str((wp5 / "receipt_consumption" / f"{nonce}.json").resolve()),
     }
     if blockers:
         receipt["input_bindings"] = []
+    binding_keys = (
+        "round_id",
+        "attempt_id",
+        "fixture_only",
+        "fixture_transaction_root",
+        "allowed_output_paths",
+        "input_bindings",
+        "normalized_body_plan_authority_sha256",
+        "candidate_raw_sha256",
+        "candidate_canonical_entries_sha256",
+        "expected_target_preimages",
+        "expected_postwrite_hashes",
+        "rendered_generated_at",
+        "issued_at",
+        "expires_at",
+    )
+    binding_sha256 = canonical_hash({key: receipt.get(key) for key in binding_keys})
+    nonce = binding_sha256[:32]
+    decision = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp5-fixture-decision-v1",
+        "status": "PASS",
+        "fixture_only": True,
+        "production_receipt_issuance_allowed": False,
+        "real_current_write_allowed": False,
+        "attempt_id": root.name,
+        "nonce": nonce,
+        "receipt_binding_sha256": binding_sha256,
+        "allowed_output_paths": receipt["allowed_output_paths"],
+        "input_bindings_sha256": canonical_hash(receipt["input_bindings"]),
+        "candidate_raw_sha256": receipt["candidate_raw_sha256"],
+        "candidate_canonical_entries_sha256": receipt[
+            "candidate_canonical_entries_sha256"
+        ],
+        "issued_at": receipt["issued_at"],
+        "expires_at": receipt["expires_at"],
+        "issued_by": "wp5_fixture_receipt_issuer",
+    }
+    decision_path = wp5 / "fixture_receipt_decision.json"
+    write_json_once(decision_path, decision)
+    receipt.update(
+        {
+            "fixture_decision_path": str(decision_path.resolve()),
+            "fixture_decision_sha256": sha256_file(decision_path),
+            "nonce": nonce,
+            "receipt_consumption_state_path": str(
+                (wp5 / "receipt_consumption" / f"{nonce}.json").resolve()
+            ),
+        }
+    )
     receipt_path = wp5 / "fixture_receipts" / f"{nonce}.json"
     write_json_once(receipt_path, receipt)
     return receipt, {
@@ -3078,6 +3107,26 @@ def build_wp5_reports(root: Path) -> list[dict[str, Any]]:
         validation_class="negative_receipt_guard",
     )
     replay_after = {key: sha256_file(path) for key, path in targets.items()}
+    forged_receipt = dict(receipt)
+    forged_receipt["receipt_consumption_state_path"] = str(
+        (wp5 / "receipt_consumption" / f"forged-{receipt['nonce']}.json").resolve()
+    )
+    forged_receipt_path = (
+        wp5 / "fixture_receipts" / f"forged-same-nonce-{receipt['nonce']}.json"
+    )
+    write_json_once(forged_receipt_path, forged_receipt)
+    forged_args = [
+        str(forged_receipt_path) if value == str(receipt_path) else value
+        for value in base_args
+    ]
+    forged_before = {key: sha256_file(path) for key, path in targets.items()}
+    forged_result = command_record(
+        forged_args,
+        command_id="wp5_same_nonce_new_state_path_rejection",
+        wp_owner="wp5",
+        validation_class="negative_receipt_guard",
+    )
+    forged_after = {key: sha256_file(path) for key, path in targets.items()}
     protected_before = protected_surface_rows()
     real_args = list(base_args)
     replacements = {
@@ -3095,6 +3144,12 @@ def build_wp5_reports(root: Path) -> list[dict[str, Any]]:
     protected_after = protected_surface_rows()
     valid_ok = valid_result["exit_code"] == 0 and target_hashes == receipt["expected_postwrite_hashes"]
     replay_ok = replay_result["exit_code"] != 0 and replay_before == replay_after
+    forged_ok = (
+        forged_result["exit_code"] != 0
+        and forged_before == forged_after
+        and "receipt_consumption_path_not_canonical_for_nonce"
+        in str(forged_result.get("stderr", ""))
+    )
     real_ok = real_result["exit_code"] != 0 and protected_before == protected_after
     schema_report = {
         "schema_version": f"{SCHEMA_PREFIX}-wp5-fixture-receipt-schema-v1",
@@ -3107,7 +3162,7 @@ def build_wp5_reports(root: Path) -> list[dict[str, Any]]:
     }
     promotion = {
         "schema_version": f"{SCHEMA_PREFIX}-wp5-candidate-promotion-contract-v1",
-        "status": "PASS" if valid_ok and replay_ok and real_ok else "FAIL",
+        "status": "PASS" if valid_ok and replay_ok and forged_ok and real_ok else "FAIL",
         "candidate_promotion_contract_complete": True,
         "candidate_first": True,
         "live_execution_leg_enabled": False,
@@ -3119,12 +3174,14 @@ def build_wp5_reports(root: Path) -> list[dict[str, Any]]:
     }
     guard = {
         "schema_version": f"{SCHEMA_PREFIX}-wp5-current-write-guard-v1",
-        "status": "PASS" if valid_ok and replay_ok and real_ok else "FAIL",
+        "status": "PASS" if valid_ok and replay_ok and forged_ok and real_ok else "FAIL",
         "valid_fixture_receipt_write_passed": valid_ok,
         "receipt_nonce_claim_precedes_target_write": valid_ok,
         "receipt_input_and_target_preimage_revalidation_immediately_before_claim": valid_ok,
         "replayed_receipt_rejected": replay_ok,
         "replayed_receipt_fixture_mutation_count": 0 if replay_ok else 1,
+        "same_nonce_new_state_path_rejected": forged_ok,
+        "same_nonce_new_state_path_fixture_mutation_count": 0 if forged_ok else 1,
         "fixture_receipt_real_protected_path_authorization_count": 0 if real_ok else 1,
         "real_protected_mutation_count": 0 if real_ok else 1,
         "registry_fixture_write_receipt_issuer_count": 1,
@@ -3132,6 +3189,7 @@ def build_wp5_reports(root: Path) -> list[dict[str, Any]]:
         "live_current_write_authorization_receipt_issued": False,
         "valid_command": valid_result,
         "replay_command": replay_result,
+        "same_nonce_new_state_path_command": forged_result,
         "real_path_command": real_result,
     }
     precondition = {
@@ -3332,25 +3390,375 @@ def role_ledger_rows(root: Path) -> list[dict[str, Any]]:
     return rows
 
 
+STALE_REGISTRY_ROLES = {
+    "historical",
+    "diagnostic",
+    "fixture",
+    "quarantine",
+    "forbidden-current-looking",
+}
+FORBIDDEN_STALE_PATH_SUFFIXES = (
+    "irislayer3data.lua",
+    "irisdvfbridgedata.lua",
+    "iris/_docs/round3/round3_contract_manifest.json",
+)
+FORBIDDEN_PACKAGE_PATH_SUFFIXES = (
+    "media/lua/client/iris/data/irislayer3data.lua",
+    "media/lua/shared/iris/irisdvfbridgedata.lua",
+)
+
+
+def normalized_registry_path(value: str) -> str:
+    return value.replace("\\", "/").lstrip("./").lower()
+
+
+def stale_path_reason(value: str, *, package_member: bool = False) -> str | None:
+    normalized = normalized_registry_path(value)
+    suffixes = (
+        FORBIDDEN_PACKAGE_PATH_SUFFIXES
+        if package_member
+        else FORBIDDEN_STALE_PATH_SUFFIXES
+    )
+    for suffix in suffixes:
+        if normalized.endswith(suffix):
+            return suffix
+    if "rollback_snapshot" in normalized:
+        return "rollback_snapshot"
+    return None
+
+
+def current_looking_registry_path(value: str) -> bool:
+    lowered = Path(value.replace("\\", "/")).name.lower()
+    return any(
+        token in lowered
+        for token in (
+            "dvf_3_3_rendered",
+            "irislayer3data",
+            "irisdvfbridgedata",
+            "round3_contract_manifest",
+        )
+    )
+
+
+def evaluate_stale_reentry(
+    readpoints: list[dict[str, Any]],
+    stale_rows: list[dict[str, Any]],
+    package_members: list[dict[str, Any]],
+    recognized_current_paths: set[str],
+) -> list[dict[str, Any]]:
+    stale_by_path = {
+        normalized_registry_path(str(row["path"])): row
+        for row in stale_rows
+        if row.get("role") in STALE_REGISTRY_ROLES and isinstance(row.get("path"), str)
+    }
+    stale_hashes: dict[str, list[str]] = {}
+    for row in stale_rows:
+        path = row.get("path")
+        digest = row.get("sha256")
+        if (
+            row.get("role") in STALE_REGISTRY_ROLES
+            and isinstance(path, str)
+            and isinstance(digest, str)
+            and stale_path_reason(path) is not None
+        ):
+            stale_hashes.setdefault(digest, []).append(path)
+    recognized = {normalized_registry_path(path) for path in recognized_current_paths}
+    violations: list[dict[str, Any]] = []
+    for row in readpoints:
+        raw_path = row.get("path")
+        if not isinstance(raw_path, str):
+            continue
+        path = normalized_registry_path(raw_path)
+        if path in stale_by_path:
+            violations.append(
+                {
+                    "kind": "stale_path_readpoint",
+                    "surface": row.get("surface"),
+                    "path": raw_path,
+                    "stale_role": stale_by_path[path].get("role"),
+                }
+            )
+        digest = row.get("sha256")
+        if isinstance(digest, str) and digest in stale_hashes:
+            violations.append(
+                {
+                    "kind": "renamed_stale_payload",
+                    "surface": row.get("surface"),
+                    "path": raw_path,
+                    "sha256": digest,
+                    "stale_sources": sorted(stale_hashes[digest]),
+                }
+            )
+        if current_looking_registry_path(raw_path) and path not in recognized:
+            violations.append(
+                {
+                    "kind": "unrecognized_current_looking_path",
+                    "surface": row.get("surface"),
+                    "path": raw_path,
+                }
+            )
+    for member in package_members:
+        raw_path = member.get("member")
+        if not isinstance(raw_path, str):
+            continue
+        reason = stale_path_reason(raw_path, package_member=True)
+        if reason is not None:
+            violations.append(
+                {
+                    "kind": "forbidden_package_member",
+                    "surface": "package",
+                    "path": raw_path,
+                    "origin": member.get("origin"),
+                    "reason": reason,
+                }
+            )
+        digest = member.get("sha256")
+        if isinstance(digest, str) and digest in stale_hashes:
+            violations.append(
+                {
+                    "kind": "renamed_stale_payload",
+                    "surface": "package",
+                    "path": raw_path,
+                    "origin": member.get("origin"),
+                    "sha256": digest,
+                    "stale_sources": sorted(stale_hashes[digest]),
+                }
+            )
+    return violations
+
+
+def package_content_rows() -> tuple[list[dict[str, Any]], list[str]]:
+    package_root = REPO_ROOT / "Iris" / "build" / "package"
+    rows: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    if not path_is_dir(package_root):
+        return rows, blockers
+    for directory, child_directories, filenames in os.walk(filesystem_path(package_root)):
+        child_directories.sort()
+        for filename in sorted(filenames):
+            path = Path(directory) / filename
+            relative = path.relative_to(filesystem_path(package_root)).as_posix()
+            rows.append(
+                {
+                    "origin": "package_directory",
+                    "member": relative,
+                    "sha256": sha256_file(path),
+                }
+            )
+    for archive in sorted(filesystem_path(package_root).glob("*.zip")):
+        try:
+            with zipfile.ZipFile(archive) as handle:
+                for info in sorted(handle.infolist(), key=lambda item: item.filename):
+                    if info.is_dir():
+                        continue
+                    rows.append(
+                        {
+                            "origin": f"package_archive:{archive.name}",
+                            "member": info.filename,
+                            "sha256": sha256_bytes(handle.read(info)),
+                        }
+                    )
+        except (OSError, zipfile.BadZipFile, RuntimeError) as exc:
+            blockers.append(f"package_archive_unreadable:{archive.name}:{type(exc).__name__}")
+    return rows, blockers
+
+
+def registry_live_readpoint_graph() -> tuple[list[dict[str, Any]], set[str], list[str]]:
+    input_manifest = read_json_object(INPUT_MANIFEST)
+    rendered_path = V2_ROOT / "output" / "dvf_3_3_rendered.json"
+    rendered = read_json_object(rendered_path)
+    required_manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
+    package_script = REPO_ROOT / "Iris" / "tools" / "package_iris.ps1"
+    renderer = REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "layer3_renderer.lua"
+    rows: list[dict[str, Any]] = []
+    blockers: list[str] = []
+
+    def add(path: Path, *, surface: str, producer: str, consumer: str) -> None:
+        record = hash_row(path)
+        rows.append(
+            {
+                **record,
+                "surface": surface,
+                "producer": producer,
+                "consumer": consumer,
+                "observed_fresh": True,
+            }
+        )
+        if record["kind"] == "missing":
+            blockers.append(f"live_readpoint_missing:{record['path']}")
+
+    for value in sorted(current_input_manifest_paths(input_manifest)):
+        surface = "runtime" if "/media/lua/" in value.lower() else "source"
+        add(
+            REPO_ROOT / value,
+            surface=surface,
+            producer="dvf_3_3_input_manifest.json",
+            consumer="compose_or_runtime_manifest_read",
+        )
+    add(
+        rendered_path,
+        surface="rendered",
+        producer="compose_layer3_text.py",
+        consumer="export_dvf_3_3_lua_bridge.py",
+    )
+    add(
+        renderer,
+        surface="runtime",
+        producer="tracked_runtime_source",
+        consumer="Iris Layer 3 UI readpoint",
+    )
+    add(
+        package_script,
+        surface="package",
+        producer="tracked_package_workflow",
+        consumer="isolated package build",
+    )
+    modules = parse_chunk_modules(RUNTIME_MANIFEST)
+    for module in modules:
+        add(
+            REPO_ROOT / "Iris" / "media" / "lua" / "client" / f"{module}.lua",
+            surface="runtime",
+            producer="export_dvf_3_3_lua_bridge.py",
+            consumer="IrisLayer3DataChunks.lua require loop",
+        )
+    required_paths = sorted(
+        {
+            str(row["path"]).replace("\\", "/")
+            for row in required_manifest.get("required_artifacts", [])
+            if isinstance(row, dict) and isinstance(row.get("path"), str)
+        }
+    )
+    for value in required_paths:
+        lowered = value.lower()
+        if "/data/" in lowered and "staging/" not in lowered:
+            surface = "source"
+        elif "/output/" in lowered and "staging/" not in lowered:
+            surface = "rendered"
+        elif "/media/lua/" in lowered:
+            surface = "runtime"
+        elif "/build/package/" in lowered:
+            surface = "package"
+        else:
+            surface = "validation"
+        add(
+            REPO_ROOT / value,
+            surface=surface,
+            producer="current_route_required_validations.json",
+            consumer="required validation readpoint",
+        )
+    meta = rendered.get("meta") if isinstance(rendered.get("meta"), dict) else {}
+    expected_meta_hashes = {
+        "facts_sha256": input_manifest.get("facts", {}).get("sha256"),
+        "decisions_sha256": input_manifest.get("decisions", {}).get("sha256"),
+        "profiles_sha256": input_manifest.get("compose_authority", {}).get("profiles_sha256"),
+        "overlay_sha256": next(
+            (
+                row.get("sha256")
+                for row in input_manifest.get("overlays", [])
+                if isinstance(row, dict)
+            ),
+            None,
+        ),
+    }
+    for field, expected in expected_meta_hashes.items():
+        if meta.get(field) != expected:
+            blockers.append(f"rendered_meta_binding_mismatch:{field}")
+    renderer_text = filesystem_path(renderer).read_text(encoding="utf-8", errors="replace")
+    if 'safeRequire("Iris/Data/IrisLayer3DataChunks")' not in renderer_text:
+        blockers.append("runtime_renderer_chunk_manifest_readpoint_missing")
+    package_text = filesystem_path(package_script).read_text(encoding="utf-8", errors="replace")
+    for marker in (
+        "Forbidden Iris package monolith output detected",
+        "Forbidden stale Iris DVF bridge package output detected",
+        "Assert-NoForbiddenIrisDvfBridgeSurface",
+    ):
+        if marker not in package_text:
+            blockers.append(f"package_guard_marker_missing:{marker}")
+    recognized = {str(row["path"]) for row in rows}
+    return rows, recognized, blockers
+
+
+def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
+    fixture_root = root / "phase4" / "wp6" / "fixtures"
+    stale_path = fixture_root / "stale" / "IrisLayer3Data.lua"
+    renamed_path = fixture_root / "active" / "registry_payload.lua"
+    ambiguous_path = fixture_root / "active" / "IrisLayer3Data-current-copy.lua"
+    fixture_bytes = "return { registry_authority_fixture_stale = true }\n"
+    write_text_once(stale_path, fixture_bytes)
+    write_text_once(renamed_path, fixture_bytes)
+    write_text_once(ambiguous_path, "return { ambiguous_current_looking = true }\n")
+    stale_rows = [
+        {
+            "path": repo_relative(stale_path),
+            "role": "historical",
+            "sha256": sha256_file(stale_path),
+        }
+    ]
+    readpoints = [
+        {
+            "path": repo_relative(stale_path),
+            "surface": "source",
+            "sha256": sha256_file(stale_path),
+        },
+        {
+            "path": repo_relative(renamed_path),
+            "surface": "rendered",
+            "sha256": sha256_file(renamed_path),
+        },
+        {
+            "path": repo_relative(ambiguous_path),
+            "surface": "runtime",
+            "sha256": sha256_file(ambiguous_path),
+        },
+    ]
+    package_members = [
+        {
+            "origin": "negative_fixture_archive",
+            "member": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+            "sha256": sha256_file(stale_path),
+        }
+    ]
+    violations = evaluate_stale_reentry(readpoints, stale_rows, package_members, set())
+    kinds = {str(row.get("kind")) for row in violations}
+    expected = {
+        "stale_path_readpoint",
+        "renamed_stale_payload",
+        "unrecognized_current_looking_path",
+        "forbidden_package_member",
+    }
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-wp6-negative-fixture-v1",
+        "status": "PASS" if expected.issubset(kinds) else "FAIL",
+        "expected_violation_kinds": sorted(expected),
+        "observed_violation_kinds": sorted(kinds),
+        "violations": violations,
+        "real_current_or_package_mutation_count": 0,
+    }
+
+
 def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
     phase4 = root / "phase4"
     ledger = role_ledger_rows(root)
-    stale_roles = {"historical", "diagnostic", "fixture", "quarantine", "forbidden-current-looking"}
+    readpoints, recognized_current_paths, graph_blockers = registry_live_readpoint_graph()
+    package_members, package_blockers = package_content_rows()
+    live_violations = evaluate_stale_reentry(
+        readpoints,
+        ledger,
+        package_members,
+        recognized_current_paths,
+    )
+    negative_fixture = build_wp6_negative_fixture_report(root)
     current_reentry_violations = [
-        row
-        for row in ledger
-        if row.get("role") in stale_roles and row.get("current_reentry_allowed") is True
+        row for row in live_violations if row.get("surface") != "package"
     ]
     package_reentry_violations = [
-        row
-        for row in ledger
-        if row.get("role") in stale_roles and row.get("package_reentry_allowed") is True
+        row for row in live_violations if row.get("surface") == "package"
     ]
-    live_manifest_text = LIVE_REQUIRED_MANIFEST.read_text(encoding="utf-8")
+    manifest_paths = recursively_collect_paths(read_json_object(LIVE_REQUIRED_MANIFEST))
     forbidden_manifest_hits = [
-        token
-        for token in ("rollback_snapshot", "IrisLayer3Data.lua", "round3_contract_manifest.json")
-        if token in live_manifest_text
+        {"path": path, "reason": stale_path_reason(path)}
+        for path in sorted(manifest_paths)
+        if stale_path_reason(path) is not None
     ]
     docs = (
         REPO_ROOT / "docs" / "registry_authority_claim_contract.md",
@@ -3372,27 +3780,46 @@ def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
                     overclaims.append({"path": repo_relative(path), "match": match.group(0)})
     stale = {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-stale-current-looking-scan-v1",
-        "status": "PASS" if not current_reentry_violations else "FAIL",
-        "stale_source_reentry_violation_count": 0,
-        "stale_rendered_reentry_violation_count": 0,
-        "stale_runtime_reentry_violation_count": 0,
+        "status": "PASS" if not current_reentry_violations and negative_fixture["status"] == "PASS" and not graph_blockers else "FAIL",
+        "stale_source_reentry_violation_count": sum(row.get("surface") == "source" for row in current_reentry_violations),
+        "stale_rendered_reentry_violation_count": sum(row.get("surface") == "rendered" for row in current_reentry_violations),
+        "stale_runtime_reentry_violation_count": sum(row.get("surface") == "runtime" for row in current_reentry_violations),
         "current_looking_stale_path_count": len(current_reentry_violations),
         "violations": current_reentry_violations,
         "default_deny_unrecognized_current_looking_paths": True,
+        "fresh_readpoint_graph_blockers": graph_blockers,
+        "negative_fixture_status": negative_fixture["status"],
     }
     package = {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-package-fallback-scan-v1",
-        "status": "PASS" if not package_reentry_violations else "FAIL",
+        "status": "PASS" if not package_reentry_violations and not package_blockers and negative_fixture["status"] == "PASS" else "FAIL",
         "stale_package_reentry_violation_count": len(package_reentry_violations),
         "package_fallback_forbidden_hit_count": len(package_reentry_violations),
         "violations": package_reentry_violations,
         "existing_package_read_only": True,
+        "package_directory_and_archive_member_count": len(package_members),
+        "package_scan_blockers": package_blockers,
+        "negative_fixture_status": negative_fixture["status"],
     }
     required = {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-required-manifest-reentry-v1",
         "status": "PASS" if not forbidden_manifest_hits else "FAIL",
         "required_manifest_predecessor_reentry_count": len(forbidden_manifest_hits),
         "forbidden_hits": forbidden_manifest_hits,
+    }
+    graph = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp6-live-readpoint-graph-v1",
+        "status": "PASS" if not graph_blockers and not package_blockers and not live_violations else "FAIL",
+        "readpoint_count": len(readpoints),
+        "source_readpoint_count": sum(row.get("surface") == "source" for row in readpoints),
+        "rendered_readpoint_count": sum(row.get("surface") == "rendered" for row in readpoints),
+        "runtime_readpoint_count": sum(row.get("surface") == "runtime" for row in readpoints),
+        "package_readpoint_count": sum(row.get("surface") == "package" for row in readpoints),
+        "producer_consumer_edges": readpoints,
+        "package_directory_and_archive_member_count": len(package_members),
+        "violations": live_violations,
+        "blockers": [*graph_blockers, *package_blockers],
+        "ledger_self_authored_reentry_flags_used_for_verdict": False,
     }
     claims = {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-docs-authority-claim-scan-v1",
@@ -3406,6 +3833,8 @@ def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
         ("wp6_stale_current_looking_path_scan_report.json", stale),
         ("wp6_package_fallback_forbidden_scan_report.json", package),
         ("wp6_required_manifest_reentry_report.json", required),
+        ("wp6_stale_predecessor_readpoint_graph.json", graph),
+        ("wp6_negative_reentry_fixture_report.json", negative_fixture),
         ("wp6_docs_current_authority_claim_scan_report.json", claims),
     )
     for name, payload in outputs:
@@ -3619,8 +4048,10 @@ def validate_implementation(
         "wp3_current_identity_chain_manifest.json": {"status": "PASS", "source_rendered_identity_match": True, "bridge_runtime_identity_match": True},
         "wp4_required_validation_ownership_report.json": {"status": "PASS"},
         "wp4_bare_import_guard_validation_report.json": {"status": "PASS", "selected_test_unqualified_tools_build_import_count": 0},
-        "wp5_registry_current_write_authorization_guard_report.json": {"status": "PASS", "registry_production_write_receipt_issuer_count": 0, "real_protected_mutation_count": 0},
+        "wp5_registry_current_write_authorization_guard_report.json": {"status": "PASS", "registry_production_write_receipt_issuer_count": 0, "real_protected_mutation_count": 0, "same_nonce_new_state_path_rejected": True},
         "wp6_stale_current_looking_path_scan_report.json": {"status": "PASS", "current_looking_stale_path_count": 0},
+        "wp6_stale_predecessor_readpoint_graph.json": {"status": "PASS", "ledger_self_authored_reentry_flags_used_for_verdict": False},
+        "wp6_negative_reentry_fixture_report.json": {"status": "PASS", "real_current_or_package_mutation_count": 0},
         "wp7_registry_authority_claim_scan_report.json": {"status": "PASS", "forbidden_claim_hit_count": 0},
         "wp7_registry_authority_required_gate_contract_report.json": {"status": "PASS", "required_gate_adopted": False},
         "implementation_scope_report.json": {"status": "PASS", "protected_changed_path_count": 0},

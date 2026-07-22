@@ -8,6 +8,7 @@ import json
 from datetime import datetime, timezone
 import os
 from pathlib import Path
+import re
 import sys
 import time
 from typing import Any
@@ -87,6 +88,9 @@ REGISTRY_REAL_CURRENT_WRITE_DISABLED_ERROR_CODE = "REGISTRY_REAL_CURRENT_PROTECT
 REGISTRY_FIXTURE_RECEIPT_INVALID_ERROR_CODE = "REGISTRY_FIXTURE_RECEIPT_INVALID"
 REGISTRY_FIXTURE_RECEIPT_REPLAY_ERROR_CODE = "REGISTRY_FIXTURE_RECEIPT_REPLAY"
 REGISTRY_FIXTURE_RECEIPT_SCHEMA = "dvf-3-3-registry-authority-fixture-current-write-receipt-v1"
+REGISTRY_FIXTURE_DECISION_SCHEMA = (
+    "dvf-3-3-registry-authority-canonical-closure-wp5-fixture-decision-v1"
+)
 CURRENT_AUTHORITY_INPUT_KEYS = (
     "facts_path",
     "decisions_path",
@@ -320,6 +324,28 @@ def receipt_output_paths(payload: dict[str, Any]) -> dict[str, Path]:
     return {key: Path(value).resolve() for key, value in raw.items()}
 
 
+def registry_fixture_receipt_binding(payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        key: payload.get(key)
+        for key in (
+            "round_id",
+            "attempt_id",
+            "fixture_only",
+            "fixture_transaction_root",
+            "allowed_output_paths",
+            "input_bindings",
+            "normalized_body_plan_authority_sha256",
+            "candidate_raw_sha256",
+            "candidate_canonical_entries_sha256",
+            "expected_target_preimages",
+            "expected_postwrite_hashes",
+            "rendered_generated_at",
+            "issued_at",
+            "expires_at",
+        )
+    }
+
+
 def validate_registry_fixture_receipt(
     receipt_path: Path,
     *,
@@ -333,6 +359,7 @@ def validate_registry_fixture_receipt(
     required_fields = {
         "schema_version",
         "round_id",
+        "attempt_id",
         "fixture_only",
         "fixture_transaction_root",
         "allowed_output_paths",
@@ -343,6 +370,7 @@ def validate_registry_fixture_receipt(
         "expected_target_preimages",
         "expected_postwrite_hashes",
         "rendered_generated_at",
+        "fixture_decision_path",
         "fixture_decision_sha256",
         "issued_at",
         "expires_at",
@@ -374,6 +402,13 @@ def validate_registry_fixture_receipt(
         root = Path()
         allowed_paths = {}
         errors.append(str(exc))
+    attempt_id = payload.get("attempt_id")
+    if (
+        not isinstance(attempt_id, str)
+        or not re.fullmatch(r"attempt-[0-9]{4,}-[a-z0-9][a-z0-9-]{0,47}", attempt_id)
+        or root.parent.parent.name != attempt_id
+    ):
+        errors.append("receipt_attempt_binding_mismatch")
     actual_paths = {
         key: value.resolve()
         for key, value in paths.items()
@@ -421,14 +456,85 @@ def validate_registry_fixture_receipt(
             errors.append("receipt_time_window_invalid")
     except ValueError:
         errors.append("receipt_time_invalid")
+    nonce = payload.get("nonce")
+    binding_sha256 = canonical_sha256(registry_fixture_receipt_binding(payload))
+    if not isinstance(nonce, str) or not re.fullmatch(r"[0-9a-f]{32}", nonce):
+        errors.append("receipt_nonce_schema_mismatch")
+        nonce = "invalid"
+    elif nonce != binding_sha256[:32]:
+        errors.append("receipt_nonce_binding_mismatch")
+    expected_receipt_path = (root / "fixture_receipts" / f"{nonce}.json").resolve()
+    if receipt_path.resolve() != expected_receipt_path:
+        errors.append("receipt_path_not_canonical_for_nonce")
+    decision_value = payload.get("fixture_decision_path")
+    decision_path = Path(decision_value).resolve() if isinstance(decision_value, str) else Path()
+    expected_decision_path = (root / "fixture_receipt_decision.json").resolve()
+    if decision_path != expected_decision_path:
+        errors.append("receipt_decision_path_mismatch")
+    decision: dict[str, Any] = {}
+    if decision_path.is_file():
+        try:
+            loaded_decision = json.loads(decision_path.read_text(encoding="utf-8-sig"))
+            if isinstance(loaded_decision, dict):
+                decision = loaded_decision
+            else:
+                errors.append("receipt_decision_not_object")
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            errors.append("receipt_decision_unreadable")
+    else:
+        errors.append("receipt_decision_missing")
+    if payload.get("fixture_decision_sha256") != sha256_path(decision_path):
+        errors.append("receipt_decision_hash_mismatch")
+    expected_decision_fields = {
+        "schema_version",
+        "status",
+        "fixture_only",
+        "production_receipt_issuance_allowed",
+        "real_current_write_allowed",
+        "attempt_id",
+        "nonce",
+        "receipt_binding_sha256",
+        "allowed_output_paths",
+        "input_bindings_sha256",
+        "candidate_raw_sha256",
+        "candidate_canonical_entries_sha256",
+        "issued_at",
+        "expires_at",
+        "issued_by",
+    }
+    if set(decision) != expected_decision_fields:
+        errors.append("receipt_decision_field_set_mismatch")
+    if any(
+        (
+            decision.get("schema_version") != REGISTRY_FIXTURE_DECISION_SCHEMA,
+            decision.get("status") != "PASS",
+            decision.get("fixture_only") is not True,
+            decision.get("production_receipt_issuance_allowed") is not False,
+            decision.get("real_current_write_allowed") is not False,
+            decision.get("attempt_id") != attempt_id,
+            decision.get("nonce") != nonce,
+            decision.get("receipt_binding_sha256") != binding_sha256,
+            decision.get("allowed_output_paths") != payload.get("allowed_output_paths"),
+            decision.get("input_bindings_sha256")
+            != canonical_sha256(payload.get("input_bindings")),
+            decision.get("candidate_raw_sha256") != payload.get("candidate_raw_sha256"),
+            decision.get("candidate_canonical_entries_sha256")
+            != payload.get("candidate_canonical_entries_sha256"),
+            decision.get("issued_at") != payload.get("issued_at"),
+            decision.get("expires_at") != payload.get("expires_at"),
+            decision.get("issued_by") != "wp5_fixture_receipt_issuer",
+        )
+    ):
+        errors.append("receipt_decision_binding_mismatch")
     preimages = payload.get("expected_target_preimages")
     observed_preimages = {key: sha256_path(path) for key, path in allowed_paths.items()}
     if not isinstance(preimages, dict) or preimages != observed_preimages:
         errors.append("receipt_target_preimage_mismatch")
     state_value = payload.get("receipt_consumption_state_path")
     state_path = Path(state_value).resolve() if isinstance(state_value, str) else Path()
-    if not is_under_path(state_path, root / "receipt_consumption"):
-        errors.append("receipt_consumption_path_outside_fixture_root")
+    expected_state_path = (root / "receipt_consumption" / f"{nonce}.json").resolve()
+    if state_path != expected_state_path:
+        errors.append("receipt_consumption_path_not_canonical_for_nonce")
     if state_path.exists():
         errors.append("receipt_nonce_already_consumed")
     if rendered is not None:

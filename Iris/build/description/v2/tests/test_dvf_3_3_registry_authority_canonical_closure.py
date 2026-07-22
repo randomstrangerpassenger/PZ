@@ -430,6 +430,50 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
                 shutil.rmtree(resolved)
 
+    def test_partial_terminal_write_records_one_immutable_implementation_failure(self) -> None:
+        common = load_common_module()
+        root = self.temporary_evidence_root()
+        phase4 = root / "phase4"
+        completion = phase4 / "wp_completion_summary.md"
+        try:
+            completion.parent.mkdir(parents=True)
+            completion.write_text("preexisting fault fixture\n", encoding="utf-8")
+            with self.assertRaises(FileExistsError):
+                common.write_implementation_terminal_outputs(
+                    phase4,
+                    scope={"status": "PASS"},
+                    no_mutation={"status": "PASS"},
+                    tooling={"status": "PASS"},
+                    focused={"status": "PENDING_PLAN_STEP_6"},
+                    completion_text="new completion\n",
+                )
+            self.assertFalse((phase4 / "implementation_scope_report.json").exists())
+            first = common.record_attempt_failure_once(
+                root,
+                attempt_id=root.name,
+                mode="implementation",
+                error_type="FileExistsError",
+                error="penultimate write fault",
+            )
+            self.assertTrue(first["written"])
+            failure = root / "attempt_failures" / "implementation.json"
+            before = sha256_file(failure)
+            second = common.record_attempt_failure_once(
+                root,
+                attempt_id=root.name,
+                mode="implementation",
+                error_type="FileExistsError",
+                error="same attempt replay",
+            )
+            self.assertFalse(second["written"])
+            self.assertEqual(second["reason"], "failure_record_already_preserved")
+            self.assertEqual(sha256_file(failure), before)
+        finally:
+            if root.exists():
+                resolved = root.resolve()
+                resolved.relative_to(ATTEMPTS_ROOT.resolve())
+                shutil.rmtree(resolved)
+
     def test_wp6_negative_fixtures_detect_path_hash_and_package_reentry(self) -> None:
         common = load_common_module()
         root = self.temporary_evidence_root()

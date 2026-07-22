@@ -3563,89 +3563,246 @@ def package_content_rows() -> tuple[list[dict[str, Any]], list[str]]:
     return rows, blockers
 
 
+def independent_current_registry_paths() -> set[str]:
+    input_manifest = read_json_object(INPUT_MANIFEST)
+    recognized = set(current_input_manifest_paths(input_manifest))
+    exact_paths = {
+        V2_ROOT / "output" / "dvf_3_3_rendered.json",
+        RUNTIME_MANIFEST,
+        RUNTIME_CHUNK_DIR,
+        REPO_ROOT / "Iris" / "media",
+        REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "layer3_renderer.lua",
+        REPO_ROOT / "Iris" / "tools" / "package_iris.ps1",
+    }
+    exact_paths.update(
+        REPO_ROOT / "Iris" / "media" / "lua" / "client" / f"{module}.lua"
+        for module in parse_chunk_modules(RUNTIME_MANIFEST)
+    )
+    recognized.update(repo_relative(path) for path in exact_paths)
+    return recognized
+
+
+def registry_reference_scan_files(
+    *,
+    extra_files: tuple[Path, ...] = (),
+    include_live: bool = True,
+) -> list[Path]:
+    paths: set[Path] = set(extra_files)
+    if include_live:
+        roots = (
+            (TOOLS_ROOT, "*.py"),
+            (REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris", "*.lua"),
+            (REPO_ROOT / "Iris" / "tools", "*.ps1"),
+        )
+        for scan_root, pattern in roots:
+            if path_is_dir(scan_root):
+                paths.update(
+                    path for path in scan_root.rglob(pattern) if path_is_file(path)
+                )
+    return sorted(paths, key=repo_relative)
+
+
+def registry_reference_targets(
+    literal: str,
+    *,
+    input_path_by_name: dict[str, str],
+) -> list[str]:
+    normalized_literal = literal.replace("\\", "/")
+    candidates = re.findall(
+        r"(?:Iris|media)/[A-Za-z0-9_.\-/]+",
+        normalized_literal,
+    )
+    stripped = normalized_literal.strip().rstrip(".,;:)")
+    if re.fullmatch(r"[A-Za-z0-9_.\-/]+", stripped):
+        candidates.append(stripped)
+    resolved: set[str] = set()
+    filename_map = {
+        **input_path_by_name,
+        "dvf_3_3_rendered.json": repo_relative(
+            V2_ROOT / "output" / "dvf_3_3_rendered.json"
+        ),
+        "IrisLayer3DataChunks.lua": repo_relative(RUNTIME_MANIFEST),
+        "IrisLayer3Data.lua": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+        "IrisDvfBridgeData.lua": "Iris/media/lua/shared/Iris/IrisDvfBridgeData.lua",
+        "round3_contract_manifest.json": repo_relative(ROUND3_CONTRACT_MANIFEST),
+    }
+    for candidate in candidates:
+        value = candidate.strip().rstrip(".,;:)")
+        if value.startswith("Iris/Data/"):
+            suffix = value if value.endswith(".lua") else f"{value}.lua"
+            resolved.add(f"Iris/media/lua/client/{suffix}")
+        elif value.startswith("Iris/"):
+            resolved.add(value)
+        elif value.startswith("media/"):
+            resolved.add(f"Iris/{value}")
+        elif value in filename_map:
+            resolved.add(filename_map[value])
+    return sorted(resolved)
+
+
+def discover_registry_readpoints(
+    *,
+    extra_files: tuple[Path, ...] = (),
+    include_live: bool = True,
+) -> tuple[list[dict[str, Any]], list[str]]:
+    input_manifest = read_json_object(INPUT_MANIFEST)
+    input_paths = current_input_manifest_paths(input_manifest)
+    input_path_by_name = {Path(value).name: value for value in input_paths}
+    package_script = REPO_ROOT / "Iris" / "tools" / "package_iris.ps1"
+    rows: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    literal_pattern = re.compile(r"([\"'])(.*?)\1")
+    consumer_markers = (
+        "require(",
+        "saferequire(",
+        "dofile(",
+        "loadfile(",
+        "load_json(",
+        "load_jsonl(",
+        "read_text(",
+        "read_bytes(",
+        "get-content",
+    )
+    seen: set[tuple[str, str, int, str]] = set()
+    for source in registry_reference_scan_files(
+        extra_files=extra_files,
+        include_live=include_live,
+    ):
+        try:
+            source_text = filesystem_path(source).read_text(
+                encoding="utf-8-sig",
+                errors="replace",
+            )
+        except OSError as exc:
+            blockers.append(
+                f"registry_reference_source_unreadable:{repo_relative(source)}:{type(exc).__name__}"
+            )
+            continue
+        for line_number, line in enumerate(source_text.splitlines(), start=1):
+            lowered = line.lower()
+            if (
+                source.resolve() == package_script.resolve()
+                and "copy-item" in lowered
+                and "sourceroot" in lowered
+                and "media" in lowered
+            ):
+                target = "Iris/media"
+                key = (target, repo_relative(source), line_number, "consumer_read")
+                if key not in seen:
+                    seen.add(key)
+                    record = hash_row(REPO_ROOT / target)
+                    rows.append(
+                        {
+                            **record,
+                            "surface": "package",
+                            "producer": "tracked Iris media source",
+                            "consumer": repo_relative(source),
+                            "reference_source": repo_relative(source),
+                            "reference_line": line_number,
+                            "reference_role": "consumer_read",
+                            "discovery_kind": "raw_powershell_copy_reference",
+                            "raw_reference_sha256": sha256_bytes(line.encode("utf-8")),
+                            "observed_fresh": True,
+                        }
+                    )
+            for match in literal_pattern.finditer(line):
+                literal = match.group(2)
+                targets = registry_reference_targets(
+                    literal,
+                    input_path_by_name=input_path_by_name,
+                )
+                for target in targets:
+                    target_lower = normalized_registry_path(target)
+                    guard_reference = (
+                        source.resolve() == package_script.resolve()
+                        and stale_path_reason(target) is not None
+                    ) or any(
+                        marker in lowered
+                        for marker in ("forbidden", "guard", "monolithrelativepath")
+                    )
+                    consumer_read = any(marker in lowered for marker in consumer_markers)
+                    if source.resolve() == COMPOSE_TOOL.resolve() and target in input_paths:
+                        consumer_read = True
+                    if (
+                        source.resolve() == EXPORT_TOOL.resolve()
+                        and target_lower
+                        == normalized_registry_path(
+                            repo_relative(V2_ROOT / "output" / "dvf_3_3_rendered.json")
+                        )
+                    ):
+                        consumer_read = True
+                    if source.resolve() == RUNTIME_MANIFEST.resolve() and target.startswith(
+                        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/"
+                    ):
+                        consumer_read = True
+                    role = (
+                        "guard_reference"
+                        if guard_reference
+                        else "consumer_read"
+                        if consumer_read
+                        else "producer_or_descriptive_reference"
+                    )
+                    if role != "consumer_read":
+                        continue
+                    key = (target, repo_relative(source), line_number, role)
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    path = REPO_ROOT / target
+                    record = hash_row(path)
+                    lowered_target = target_lower
+                    if "/build/description/v2/data/" in lowered_target:
+                        surface = "source"
+                    elif "/build/description/v2/output/" in lowered_target:
+                        surface = "rendered"
+                    elif "/media/lua/" in lowered_target:
+                        surface = "runtime"
+                    elif lowered_target.startswith("iris/media"):
+                        surface = "package"
+                    else:
+                        surface = "validation"
+                    rows.append(
+                        {
+                            **record,
+                            "surface": surface,
+                            "producer": "authority path resolved from raw reference",
+                            "consumer": repo_relative(source),
+                            "reference_source": repo_relative(source),
+                            "reference_line": line_number,
+                            "reference_role": role,
+                            "discovery_kind": "raw_executable_string_reference",
+                            "raw_reference_sha256": sha256_bytes(line.encode("utf-8")),
+                            "observed_fresh": True,
+                        }
+                    )
+    return rows, blockers
+
+
 def registry_live_readpoint_graph() -> tuple[list[dict[str, Any]], set[str], list[str]]:
     input_manifest = read_json_object(INPUT_MANIFEST)
     rendered_path = V2_ROOT / "output" / "dvf_3_3_rendered.json"
     rendered = read_json_object(rendered_path)
-    required_manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
     package_script = REPO_ROOT / "Iris" / "tools" / "package_iris.ps1"
-    renderer = REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "layer3_renderer.lua"
-    rows: list[dict[str, Any]] = []
-    blockers: list[str] = []
-
-    def add(path: Path, *, surface: str, producer: str, consumer: str) -> None:
-        record = hash_row(path)
-        rows.append(
-            {
-                **record,
-                "surface": surface,
-                "producer": producer,
-                "consumer": consumer,
-                "observed_fresh": True,
-            }
+    rows, blockers = discover_registry_readpoints()
+    recognized = independent_current_registry_paths()
+    expected_readpoints = {
+        path
+        for path in current_input_manifest_paths(input_manifest)
+        if normalized_registry_path(path)
+        != normalized_registry_path(repo_relative(RUNTIME_CHUNK_DIR))
+    }
+    expected_readpoints.add(repo_relative(rendered_path))
+    expected_readpoints.add(repo_relative(RUNTIME_MANIFEST))
+    expected_readpoints.add(repo_relative(REPO_ROOT / "Iris" / "media"))
+    expected_readpoints.update(
+        repo_relative(
+            REPO_ROOT / "Iris" / "media" / "lua" / "client" / f"{module}.lua"
         )
-        if record["kind"] == "missing":
-            blockers.append(f"live_readpoint_missing:{record['path']}")
-
-    for value in sorted(current_input_manifest_paths(input_manifest)):
-        surface = "runtime" if "/media/lua/" in value.lower() else "source"
-        add(
-            REPO_ROOT / value,
-            surface=surface,
-            producer="dvf_3_3_input_manifest.json",
-            consumer="compose_or_runtime_manifest_read",
-        )
-    add(
-        rendered_path,
-        surface="rendered",
-        producer="compose_layer3_text.py",
-        consumer="export_dvf_3_3_lua_bridge.py",
+        for module in parse_chunk_modules(RUNTIME_MANIFEST)
     )
-    add(
-        renderer,
-        surface="runtime",
-        producer="tracked_runtime_source",
-        consumer="Iris Layer 3 UI readpoint",
-    )
-    add(
-        package_script,
-        surface="package",
-        producer="tracked_package_workflow",
-        consumer="isolated package build",
-    )
-    modules = parse_chunk_modules(RUNTIME_MANIFEST)
-    for module in modules:
-        add(
-            REPO_ROOT / "Iris" / "media" / "lua" / "client" / f"{module}.lua",
-            surface="runtime",
-            producer="export_dvf_3_3_lua_bridge.py",
-            consumer="IrisLayer3DataChunks.lua require loop",
-        )
-    required_paths = sorted(
-        {
-            str(row["path"]).replace("\\", "/")
-            for row in required_manifest.get("required_artifacts", [])
-            if isinstance(row, dict) and isinstance(row.get("path"), str)
-        }
-    )
-    for value in required_paths:
-        lowered = value.lower()
-        if "/data/" in lowered and "staging/" not in lowered:
-            surface = "source"
-        elif "/output/" in lowered and "staging/" not in lowered:
-            surface = "rendered"
-        elif "/media/lua/" in lowered:
-            surface = "runtime"
-        elif "/build/package/" in lowered:
-            surface = "package"
-        else:
-            surface = "validation"
-        add(
-            REPO_ROOT / value,
-            surface=surface,
-            producer="current_route_required_validations.json",
-            consumer="required validation readpoint",
-        )
+    observed_paths = {str(row.get("path")) for row in rows}
+    for missing in sorted(expected_readpoints - observed_paths):
+        blockers.append(f"raw_live_readpoint_not_discovered:{missing}")
     meta = rendered.get("meta") if isinstance(rendered.get("meta"), dict) else {}
     expected_meta_hashes = {
         "facts_sha256": input_manifest.get("facts", {}).get("sha256"),
@@ -3663,9 +3820,6 @@ def registry_live_readpoint_graph() -> tuple[list[dict[str, Any]], set[str], lis
     for field, expected in expected_meta_hashes.items():
         if meta.get(field) != expected:
             blockers.append(f"rendered_meta_binding_mismatch:{field}")
-    renderer_text = filesystem_path(renderer).read_text(encoding="utf-8", errors="replace")
-    if 'safeRequire("Iris/Data/IrisLayer3DataChunks")' not in renderer_text:
-        blockers.append("runtime_renderer_chunk_manifest_readpoint_missing")
     package_text = filesystem_path(package_script).read_text(encoding="utf-8", errors="replace")
     for marker in (
         "Forbidden Iris package monolith output detected",
@@ -3674,7 +3828,6 @@ def registry_live_readpoint_graph() -> tuple[list[dict[str, Any]], set[str], lis
     ):
         if marker not in package_text:
             blockers.append(f"package_guard_marker_missing:{marker}")
-    recognized = {str(row["path"]) for row in rows}
     return rows, recognized, blockers
 
 
@@ -3682,11 +3835,19 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
     fixture_root = root / "phase4" / "wp6" / "fixtures"
     stale_path = fixture_root / "stale" / "IrisLayer3Data.lua"
     renamed_path = fixture_root / "active" / "registry_payload.lua"
-    ambiguous_path = fixture_root / "active" / "IrisLayer3Data-current-copy.lua"
+    consumer_path = fixture_root / "consumer" / "unapproved_registry_reader.lua"
     fixture_bytes = "return { registry_authority_fixture_stale = true }\n"
     write_text_once(stale_path, fixture_bytes)
     write_text_once(renamed_path, fixture_bytes)
-    write_text_once(ambiguous_path, "return { ambiguous_current_looking = true }\n")
+    write_text_once(
+        consumer_path,
+        "local stale = dofile(\""
+        + repo_relative(stale_path)
+        + "\")\nlocal renamed = dofile(\""
+        + repo_relative(renamed_path)
+        + "\")\nlocal ambiguous = require(\"Iris/Data/IrisLayer3Data-current-copy\")\n"
+        + "return stale or renamed or ambiguous\n",
+    )
     stale_rows = [
         {
             "path": repo_relative(stale_path),
@@ -3694,23 +3855,10 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "sha256": sha256_file(stale_path),
         }
     ]
-    readpoints = [
-        {
-            "path": repo_relative(stale_path),
-            "surface": "source",
-            "sha256": sha256_file(stale_path),
-        },
-        {
-            "path": repo_relative(renamed_path),
-            "surface": "rendered",
-            "sha256": sha256_file(renamed_path),
-        },
-        {
-            "path": repo_relative(ambiguous_path),
-            "surface": "runtime",
-            "sha256": sha256_file(ambiguous_path),
-        },
-    ]
+    readpoints, discovery_blockers = discover_registry_readpoints(
+        extra_files=(consumer_path,),
+        include_live=False,
+    )
     package_members = [
         {
             "origin": "negative_fixture_archive",
@@ -3718,7 +3866,12 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "sha256": sha256_file(stale_path),
         }
     ]
-    violations = evaluate_stale_reentry(readpoints, stale_rows, package_members, set())
+    violations = evaluate_stale_reentry(
+        readpoints,
+        stale_rows,
+        package_members,
+        independent_current_registry_paths(),
+    )
     kinds = {str(row.get("kind")) for row in violations}
     expected = {
         "stale_path_readpoint",
@@ -3728,9 +3881,13 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
     }
     return {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-negative-fixture-v1",
-        "status": "PASS" if expected.issubset(kinds) else "FAIL",
+        "status": "PASS" if expected.issubset(kinds) and not discovery_blockers else "FAIL",
         "expected_violation_kinds": sorted(expected),
         "observed_violation_kinds": sorted(kinds),
+        "discovered_readpoints": readpoints,
+        "discovery_blockers": discovery_blockers,
+        "same_raw_discovery_path_as_live_graph": True,
+        "recognized_current_set_derived_from_observed_rows": False,
         "violations": violations,
         "real_current_or_package_mutation_count": 0,
     }
@@ -3817,6 +3974,13 @@ def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
         "package_readpoint_count": sum(row.get("surface") == "package" for row in readpoints),
         "producer_consumer_edges": readpoints,
         "package_directory_and_archive_member_count": len(package_members),
+        "readpoint_discovery": "fresh_raw_executable_string_and_copy_reference_scan",
+        "recognized_current_denominator_source": "independent_current_input_and_exact_registry_runtime_boundary",
+        "recognized_current_path_count": len(recognized_current_paths),
+        "recognized_current_paths_sha256": canonical_hash(
+            sorted(normalized_registry_path(path) for path in recognized_current_paths)
+        ),
+        "recognized_current_set_derived_from_observed_rows": False,
         "violations": live_violations,
         "blockers": [*graph_blockers, *package_blockers],
         "ledger_self_authored_reentry_flags_used_for_verdict": False,
@@ -3905,6 +4069,25 @@ def implementation_changed_paths(base_commit: str | None) -> list[str]:
     committed = result["stdout"].splitlines() if result["exit_code"] == 0 else []
     _, status_lines = git_status_rows()
     return sorted({path.replace("\\", "/") for path in committed + [status_path(line) for line in status_lines]})
+
+
+def write_implementation_terminal_outputs(
+    phase4: Path,
+    *,
+    scope: dict[str, Any],
+    no_mutation: dict[str, Any],
+    tooling: dict[str, Any],
+    focused: dict[str, Any],
+    completion_text: str,
+) -> None:
+    write_json_once(phase4 / "protected_surface_no_mutation_report.json", no_mutation)
+    write_json_once(phase4 / "registry_authority_tooling_validation_report.json", tooling)
+    write_json_once(phase4 / "focused_test_result_report.json", focused)
+    write_text_once(phase4 / "wp_completion_summary.md", completion_text)
+    # This is the implementation mode terminal sentinel. It must be exclusive-created
+    # only after every other mode output succeeds so a partial write can still record
+    # one immutable attempt_failures/implementation.json record.
+    write_json_once(phase4 / "implementation_scope_report.json", scope)
 
 
 def run_implementation(
@@ -4008,11 +4191,14 @@ def run_implementation(
         + "\n".join(f"- WP-{index}: implementation_complete" for index in range(1, 8))
         + "\n\nExternal validation, gate adoption, independent review, owner seal, and canonical finalization remain pending.\n"
     )
-    write_json_once(phase4 / "implementation_scope_report.json", scope)
-    write_json_once(phase4 / "protected_surface_no_mutation_report.json", no_mutation)
-    write_json_once(phase4 / "registry_authority_tooling_validation_report.json", tooling)
-    write_json_once(phase4 / "focused_test_result_report.json", focused)
-    write_text_once(phase4 / "wp_completion_summary.md", completion_text)
+    write_implementation_terminal_outputs(
+        phase4,
+        scope=scope,
+        no_mutation=no_mutation,
+        tooling=tooling,
+        focused=focused,
+        completion_text=completion_text,
+    )
     return {
         "schema_version": f"{SCHEMA_PREFIX}-implementation-result-v1",
         "round_id": ROUND_ID,
@@ -4050,8 +4236,8 @@ def validate_implementation(
         "wp4_bare_import_guard_validation_report.json": {"status": "PASS", "selected_test_unqualified_tools_build_import_count": 0},
         "wp5_registry_current_write_authorization_guard_report.json": {"status": "PASS", "registry_production_write_receipt_issuer_count": 0, "real_protected_mutation_count": 0, "same_nonce_new_state_path_rejected": True},
         "wp6_stale_current_looking_path_scan_report.json": {"status": "PASS", "current_looking_stale_path_count": 0},
-        "wp6_stale_predecessor_readpoint_graph.json": {"status": "PASS", "ledger_self_authored_reentry_flags_used_for_verdict": False},
-        "wp6_negative_reentry_fixture_report.json": {"status": "PASS", "real_current_or_package_mutation_count": 0},
+        "wp6_stale_predecessor_readpoint_graph.json": {"status": "PASS", "ledger_self_authored_reentry_flags_used_for_verdict": False, "recognized_current_set_derived_from_observed_rows": False},
+        "wp6_negative_reentry_fixture_report.json": {"status": "PASS", "real_current_or_package_mutation_count": 0, "same_raw_discovery_path_as_live_graph": True, "recognized_current_set_derived_from_observed_rows": False},
         "wp7_registry_authority_claim_scan_report.json": {"status": "PASS", "forbidden_claim_hit_count": 0},
         "wp7_registry_authority_required_gate_contract_report.json": {"status": "PASS", "required_gate_adopted": False},
         "implementation_scope_report.json": {"status": "PASS", "protected_changed_path_count": 0},

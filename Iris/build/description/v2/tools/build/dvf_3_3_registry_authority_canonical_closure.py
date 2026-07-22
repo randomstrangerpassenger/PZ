@@ -168,21 +168,45 @@ def sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def filesystem_path(path: Path) -> Path:
+    raw = str(path)
+    if os.name == "nt" and raw.startswith("\\\\?\\"):
+        return path
+    resolved = path.resolve()
+    if os.name != "nt":
+        return resolved
+    raw = str(resolved)
+    if raw.startswith("\\\\"):
+        return Path("\\\\?\\UNC\\" + raw[2:])
+    return Path("\\\\?\\" + raw)
+
+
+def path_is_file(path: Path) -> bool:
+    return filesystem_path(path).is_file()
+
+
+def path_is_dir(path: Path) -> bool:
+    return filesystem_path(path).is_dir()
+
+
 def sha256_file(path: Path) -> str | None:
-    if not path.is_file():
+    source = filesystem_path(path)
+    if not source.is_file():
         return None
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
+    with source.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
 
 
 def files_byte_identical(left: Path, right: Path) -> bool:
+    left_source = filesystem_path(left)
+    right_source = filesystem_path(right)
     return (
-        left.is_file()
-        and right.is_file()
-        and left.read_bytes() == right.read_bytes()
+        left_source.is_file()
+        and right_source.is_file()
+        and left_source.read_bytes() == right_source.read_bytes()
     )
 
 
@@ -199,16 +223,28 @@ def canonical_hash(payload: Any) -> str:
     return sha256_bytes(canonical_json_bytes(payload))
 
 
-def directory_tree_hash(path: Path) -> str | None:
-    if not path.is_dir():
+def directory_file_rows(path: Path) -> list[dict[str, str | None]] | None:
+    source = filesystem_path(path)
+    if not source.is_dir():
         return None
-    rows = [
-        {
-            "path": child.relative_to(path).as_posix(),
-            "sha256": sha256_file(child),
-        }
-        for child in sorted(item for item in path.rglob("*") if item.is_file())
-    ]
+    rows: list[dict[str, str | None]] = []
+    for directory, child_directories, filenames in os.walk(source):
+        child_directories.sort()
+        for filename in sorted(filenames):
+            child = Path(directory) / filename
+            rows.append(
+                {
+                    "path": child.relative_to(source).as_posix(),
+                    "sha256": sha256_file(child),
+                }
+            )
+    return rows
+
+
+def directory_tree_hash(path: Path) -> str | None:
+    rows = directory_file_rows(path)
+    if rows is None:
+        return None
     return canonical_hash(rows)
 
 
@@ -251,10 +287,11 @@ def resolve_evidence_root(
 
 
 def read_json_object(path: Path) -> dict[str, Any]:
-    if not path.is_file():
+    source = filesystem_path(path)
+    if not source.is_file():
         return {}
     try:
-        with path.open("r", encoding="utf-8-sig") as handle:
+        with source.open("r", encoding="utf-8-sig") as handle:
             value = json.load(handle)
     except (OSError, UnicodeError, json.JSONDecodeError):
         return {}
@@ -449,17 +486,13 @@ def validate_bootstrap_manifest() -> dict[str, Any]:
 def protected_surface_rows() -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for path in PROTECTED_SURFACES:
-        if path.is_file():
+        if path_is_file(path):
             digest = sha256_file(path)
             kind = "file"
-        elif path.is_dir():
-            child_rows = [
-                {
-                    "path": child.relative_to(path).as_posix(),
-                    "sha256": sha256_file(child),
-                }
-                for child in sorted(item for item in path.rglob("*") if item.is_file())
-            ]
+        elif path_is_dir(path):
+            child_rows = directory_file_rows(path)
+            if child_rows is None:
+                raise RuntimeError(f"protected directory disappeared: {path}")
             digest = canonical_hash(child_rows)
             kind = "directory"
         else:
@@ -721,7 +754,7 @@ def validate_preserved_owner_input_archive(
     if (
         archive != expected_archive
         or not is_within(archive, DEFAULT_EVIDENCE_ROOT / "superseded_owner_inputs")
-        or not archive.is_dir()
+        or not path_is_dir(archive)
         or path_value.replace("\\", "/") != repo_relative(archive)
     ):
         blockers.append(
@@ -731,7 +764,7 @@ def validate_preserved_owner_input_archive(
         blockers.append(
             f"attempt_registration_predecessor_owner_inputs_hash_mismatch:{predecessor_id}"
         )
-    elif not any(path.is_file() for path in archive.rglob("*")):
+    elif not directory_file_rows(archive):
         blockers.append(
             f"attempt_registration_predecessor_owner_inputs_empty:{predecessor_id}"
         )
@@ -743,7 +776,7 @@ def validate_preserved_owner_input_archive(
         "plan_approvals/current_session_implementation_plan_approval_record.json",
     )
     for relative in required_inputs:
-        if not (archive / relative).is_file():
+        if not path_is_file(archive / relative):
             blockers.append(
                 f"attempt_registration_predecessor_owner_input_missing:{predecessor_id}:{relative}"
             )
@@ -756,7 +789,9 @@ def validate_preserved_owner_input_archive(
             "current_session_authority_evidence_integrity_review.md",
             "current_session_adversarial_failure_mode_review.md",
         ):
-            if not (archive / "preimplementation_reviews" / review_name).is_file():
+            if not path_is_file(
+                archive / "preimplementation_reviews" / review_name
+            ):
                 blockers.append(
                     f"attempt_registration_predecessor_review_input_missing:{predecessor_id}:{review_name}"
                 )

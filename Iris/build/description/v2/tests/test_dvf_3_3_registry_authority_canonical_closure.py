@@ -326,6 +326,35 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
             blockers,
         )
 
+    def test_directory_tree_hash_includes_extended_length_file(self) -> None:
+        common = load_common_module()
+        root = self.temporary_evidence_root()
+        relative = (
+            Path("extended-" + "d" * 80)
+            / ("review-" + "f" * 120 + ".md")
+        )
+        target = common.filesystem_path(root / relative)
+        try:
+            target.parent.mkdir(parents=True)
+            target.write_bytes(b"long-path-review-evidence\n")
+            self.assertEqual(
+                common.directory_tree_hash(root),
+                common.canonical_hash(
+                    [
+                        {
+                            "path": relative.as_posix(),
+                            "sha256": hashlib.sha256(
+                                b"long-path-review-evidence\n"
+                            ).hexdigest(),
+                        }
+                    ]
+                ),
+            )
+        finally:
+            extended_root = common.filesystem_path(root)
+            if extended_root.is_dir():
+                shutil.rmtree(extended_root)
+
 
 if __name__ == "__main__":
     unittest.main()

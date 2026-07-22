@@ -44,10 +44,10 @@
   "round_id": "dvf_3_3_registry_authority_canonical_closure",
   "scaffold_paths": [
     {
-      "byte_length": 81891,
+      "byte_length": 82889,
       "exists": true,
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "0ac122c6af9d6fc8e933646c8098bb3c4a4558580c9e1e6c2bc6206615819af1"
+      "sha256": "591ba92c1cef51df90b0c82ad3fae87399b7a1eb5bd486f2831cc0002c15ceba"
     },
     {
       "byte_length": 3418,
@@ -62,10 +62,10 @@
       "sha256": "668f675e536966b1b68be5be6bbcd4d22c4357ccab4a9059606c84e1ac341a83"
     },
     {
-      "byte_length": 13213,
+      "byte_length": 14293,
       "exists": true,
       "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "09a4e3ba007624ca55e04e2cbf70e296ba6ec80d0dc1f5af51f172cebaf92681"
+      "sha256": "a73a75cbdfc462257c0d266819a0e2a939f274c5c027e62baadb7691f74f106e"
     }
   ],
   "schema_version": "dvf-3-3-registry-authority-canonical-closure-bootstrap-scaffold-manifest-v2",

@@ -93,6 +93,14 @@ Iris/build/description/v2/schemas/*
 !Iris/build/description/v2/schemas/phase3_*.json
 !Iris/build/description/v2/tools/
 Iris/build/description/v2/tools/*
+!Iris/build/description/v2/tools/style/
+Iris/build/description/v2/tools/style/*
+!Iris/build/description/v2/tools/style/__init__.py
+!Iris/build/description/v2/tools/style/normalizer.py
+!Iris/build/description/v2/tools/style/rules/
+Iris/build/description/v2/tools/style/rules/*
+!Iris/build/description/v2/tools/style/rules/global_rules.json
+!Iris/build/description/v2/tools/style/rules/family_rules.json
 !Iris/build/description/v2/tools/validate_legacy_active_silent_current_surface_guard.py
 !Iris/build/description/v2/tools/validate_layer4_absorption_current_surface_guard.py
 !Iris/build/description/v2/tools/common/

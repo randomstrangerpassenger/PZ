@@ -177,6 +177,18 @@ AUTHORITY_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "authority" / "iris_current_
 INPUT_MANIFEST = V2_ROOT / "data" / "dvf_3_3_input_manifest.json"
 COMPOSE_TOOL = TOOLS_ROOT / "compose_layer3_text.py"
 EXPORT_TOOL = TOOLS_ROOT / "export_dvf_3_3_lua_bridge.py"
+COMPOSE_DEPENDENCIES = (
+    COMPOSE_TOOL,
+    TOOLS_ROOT / "compose_layer3_io.py",
+    TOOLS_ROOT / "compose_layer3_body_profile.py",
+    TOOLS_ROOT / "compose_layer3_item.py",
+    TOOLS_ROOT / "compose_layer3_render.py",
+    V2_ROOT / "tools" / "postproc_ko.py",
+    V2_ROOT / "tools" / "style" / "__init__.py",
+    V2_ROOT / "tools" / "style" / "normalizer.py",
+    V2_ROOT / "tools" / "style" / "rules" / "global_rules.json",
+    V2_ROOT / "tools" / "style" / "rules" / "family_rules.json",
+)
 COMPLETION_TOOL = TOOLS_ROOT / "dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
 COMPLETION_RUNNER = TOOLS_ROOT / "run_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
 COMPLETION_VALIDATOR = TOOLS_ROOT / "validate_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
@@ -833,14 +845,27 @@ def validate_preserved_owner_input_archive(
                 )
     if zero_record.get("status") == "PASS":
         entry_failure = read_json_object(archive / "execution_entry_failure_record.json")
-        if (
-            entry_failure.get("cycle_id") != CYCLE_ID
-            or entry_failure.get("attempt_id") != predecessor_id
-            or entry_failure.get("status") != "FAIL"
-            or entry_failure.get("wp_execution_allowed") is not False
-        ):
+        implementation_failure = read_json_object(
+            attempt_archive / "attempt_failures" / "implementation.json"
+        )
+        entry_failure_valid = (
+            entry_failure.get("cycle_id") == CYCLE_ID
+            and entry_failure.get("attempt_id") == predecessor_id
+            and entry_failure.get("status") == "FAIL"
+            and entry_failure.get("wp_execution_allowed") is False
+        )
+        implementation_failure_valid = (
+            implementation_failure.get("cycle_id") == CYCLE_ID
+            and implementation_failure.get("attempt_id") == predecessor_id
+            and implementation_failure.get("mode") == "implementation"
+            and implementation_failure.get("status") == "FAIL"
+            and implementation_failure.get("failure_record_write_once") is True
+            and implementation_failure.get("claim_output_overwritten") is False
+            and implementation_failure.get("wp_execution_allowed") is False
+        )
+        if not entry_failure_valid and not implementation_failure_valid:
             blockers.append(
-                f"attempt_registration_predecessor_entry_failure_record_invalid:{predecessor_id}"
+                f"attempt_registration_predecessor_post_review_failure_record_invalid:{predecessor_id}"
             )
     return (archive if not blockers else None), blockers
 
@@ -2718,7 +2743,15 @@ def build_wp3_reports(root: Path) -> list[dict[str, Any]]:
         blockers.append("direct_compose_live_entries_mismatch")
     profiles = read_json_object(by_key["profiles_path"])
     body_authority = normalized_body_plan_authority_payload(profiles)
-    body_plan_complete = bool(live_rendered.get("entries")) and all(
+    live_entry_values = [
+        entry
+        for entry in live_rendered.get("entries", {}).values()
+        if isinstance(entry, dict)
+    ]
+    body_plan_entries = [
+        entry for entry in live_entry_values if entry.get("source") != "unadopted"
+    ]
+    body_plan_complete = bool(body_plan_entries) and all(
         isinstance(entry, dict)
         and isinstance(entry.get("body_plan"), dict)
         and all(
@@ -2730,7 +2763,7 @@ def build_wp3_reports(root: Path) -> list[dict[str, Any]]:
                 "missing_required_sections",
             )
         )
-        for entry in live_rendered.get("entries", {}).values()
+        for entry in body_plan_entries
     )
     if not body_plan_complete:
         blockers.append("rendered_entry_body_plan_coverage_incomplete")
@@ -2777,6 +2810,11 @@ def build_wp3_reports(root: Path) -> list[dict[str, Any]]:
         "body_plan_authority_sha256": canonical_hash(body_authority),
         "body_plan_input_plan_hash_coverage": "complete" if not blockers else "blocked",
         "rendered_entry_body_plan_hash_coverage": "complete" if body_plan_complete else "incomplete",
+        "rendered_entry_body_plan_covered_count": len(body_plan_entries),
+        "rendered_entry_unadopted_without_body_plan_count": (
+            len(live_entry_values) - len(body_plan_entries)
+        ),
+        "unadopted_entries_bound_by_canonical_entries_hash": True,
         "live_rendered_raw_sha256": sha256_file(live_rendered_path),
         "live_rendered_entries_sha256": live_entries_hash,
         "direct_compose_raw_sha256": sha256_file(direct_rendered),
@@ -3102,6 +3140,7 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
     phase4 = root / "phase4"
     manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
     dependencies = [
+        *COMPOSE_DEPENDENCIES,
         COMPLETION_TOOL,
         COMPLETION_RUNNER,
         COMPLETION_VALIDATOR,

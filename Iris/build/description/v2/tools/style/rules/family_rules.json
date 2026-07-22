@@ -1,0 +1,15 @@
+{
+  "version": "0.2-phase1",
+  "rules": [
+    {
+      "id": "F-01",
+      "active": true,
+      "phase0_status": "FAMILY_CANDIDATE",
+      "phase1_status": "ACTIVATED",
+      "type": "literal",
+      "match": "근접 전투나 작업에 함께 쓰는 도구",
+      "replace": "전투나 작업에 쓰는 도구",
+      "condition": {"fact_origin": "identity_fallback", "selected_cluster_contains": ["unknown"]}
+    }
+  ]
+}

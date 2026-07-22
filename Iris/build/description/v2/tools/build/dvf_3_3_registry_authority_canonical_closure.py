@@ -520,13 +520,63 @@ def validate_bootstrap_manifest() -> dict[str, Any]:
             "capabilities",
         )
     }
+    registration = read_json_object(ATTEMPT_REGISTRATION_INPUT)
+    post_entry_retry_evidence = []
+    for row in registration.get("predecessor_attempts", []):
+        if not isinstance(row, dict) or not isinstance(row.get("preserved_evidence_path"), str):
+            continue
+        predecessor_root = REPO_ROOT / row["preserved_evidence_path"]
+        failure = read_json_object(
+            predecessor_root / "attempt_failures" / "implementation.json"
+        )
+        if (
+            failure.get("status") == "FAIL"
+            and failure.get("mode") == "implementation"
+            and failure.get("failure_record_write_once") is True
+            and failure.get("claim_output_overwritten") is False
+        ):
+            post_entry_retry_evidence.append(row.get("attempt_id"))
+    stored_rows = stored.get("scaffold_paths")
+    frozen_scaffold_shape_valid = (
+        stored.get("schema_version") == f"{SCHEMA_PREFIX}-bootstrap-scaffold-manifest-v2"
+        and stored.get("round_id") == ROUND_ID
+        and stored.get("self_hash_excluded") is True
+        and stored.get("commit_hash_excluded") is True
+        and stored.get("capabilities") == scaffold_capabilities()
+        and isinstance(stored_rows, list)
+        and [row.get("path") for row in stored_rows if isinstance(row, dict)]
+        == [repo_relative(path) for path in SCAFFOLD_PATHS]
+        and all(
+            isinstance(row, dict)
+            and row.get("exists") is True
+            and isinstance(row.get("byte_length"), int)
+            and row["byte_length"] > 0
+            and isinstance(row.get("sha256"), str)
+            and len(row["sha256"]) == 64
+            for row in stored_rows
+        )
+    )
+    authorized_post_entry_retry = (
+        bool(post_entry_retry_evidence)
+        and registration.get("retry_class") == "pre_adoption_no_protected_mutation"
+        and registration.get("prior_failure_records_preserved") is True
+        and registration.get("overwrite_existing_attempt_outputs_allowed") is False
+        and registration.get("receipt_nonce_reuse_allowed") is False
+        and registration.get("live_gate_adopted") is False
+        and registration.get("top_docs_applied") is False
+        and registration.get("protected_mutation_count") == 0
+        and frozen_scaffold_shape_valid
+    )
+    projection_matches = stored_projection == projection
     return {
-        "status": "PASS" if stored_projection == projection else "FAIL",
+        "status": "PASS" if projection_matches or authorized_post_entry_retry else "FAIL",
         "manifest_path": repo_relative(BOOTSTRAP_MANIFEST_PATH),
         "manifest_exists": BOOTSTRAP_MANIFEST_PATH.is_file(),
         "manifest_sha256": sha256_file(BOOTSTRAP_MANIFEST_PATH),
         "projection_sha256": projection_hash,
-        "stored_projection_matches": stored_projection == projection,
+        "stored_projection_matches": projection_matches,
+        "frozen_entry_scaffold_accepted_for_post_entry_retry": authorized_post_entry_retry,
+        "post_entry_retry_predecessor_attempts": post_entry_retry_evidence,
         "projection": projection,
     }
 

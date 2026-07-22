@@ -484,6 +484,23 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 set(report["expected_violation_kinds"]),
                 set(report["observed_violation_kinds"]),
             )
+            self.assertEqual(
+                set(report["negative_dataflow_cases"]),
+                {
+                    "python_split_concatenation_and_loader_alias",
+                    "lua_concatenation_and_loader_alias",
+                    "powershell_join_path_and_copy_alias",
+                },
+            )
+            self.assertEqual(
+                set(report["negative_consumer_roots"]),
+                {"current_route", "runtime_shared", "required_tests"},
+            )
+            self.assertTrue(report["same_raw_discovery_path_as_live_graph"])
+            self.assertEqual(
+                set(report["required_structural_discovery_kinds"]),
+                set(report["observed_discovery_kinds"]),
+            )
             self.assertEqual(report["real_current_or_package_mutation_count"], 0)
         finally:
             if root.exists():

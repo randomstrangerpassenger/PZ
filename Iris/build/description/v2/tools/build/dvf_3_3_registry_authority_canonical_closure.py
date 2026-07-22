@@ -3589,16 +3589,21 @@ def registry_reference_scan_files(
 ) -> list[Path]:
     paths: set[Path] = set(extra_files)
     if include_live:
-        roots = (
-            (TOOLS_ROOT, "*.py"),
-            (REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris", "*.lua"),
-            (REPO_ROOT / "Iris" / "tools", "*.ps1"),
+        executable_suffixes = {".py", ".lua", ".ps1"}
+        paths.update(
+            REPO_ROOT / relative
+            for relative in git_path_sets()["tracked"]
+            if Path(relative).suffix.lower() in executable_suffixes
         )
-        for scan_root, pattern in roots:
-            if path_is_dir(scan_root):
-                paths.update(
-                    path for path in scan_root.rglob(pattern) if path_is_file(path)
-                )
+        required_manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
+        paths.update(
+            REPO_ROOT / str(row["path"])
+            for row in required_manifest.get("required_artifacts", [])
+            if isinstance(row, dict)
+            and isinstance(row.get("path"), str)
+            and Path(str(row["path"])).suffix.lower() in executable_suffixes
+        )
+        paths = {path for path in paths if path_is_file(path)}
     return sorted(paths, key=repo_relative)
 
 
@@ -3637,7 +3642,313 @@ def registry_reference_targets(
             resolved.add(f"Iris/{value}")
         elif value in filename_map:
             resolved.add(filename_map[value])
+        elif Path(value).name in filename_map:
+            resolved.add(filename_map[Path(value).name])
     return sorted(resolved)
+
+
+REGISTRY_LOADER_NAMES = {
+    "open",
+    "read_text",
+    "read_bytes",
+    "load_json",
+    "load_jsonl",
+    "load_optional_jsonl_map",
+    "require",
+    "safeRequire",
+    "dofile",
+    "loadfile",
+    "Get-Content",
+    "Copy-Item",
+}
+
+
+def registry_identifier_present(value: str) -> bool:
+    lowered = value.lower()
+    return any(
+        token in lowered
+        for token in (
+            "dvf_3_3",
+            "layer3data",
+            "irisdvfbridge",
+            "round3_contract_manifest",
+        )
+    )
+
+
+def join_symbolic_path(left: str, right: str) -> str:
+    return left.rstrip("/\\") + "/" + right.lstrip("/\\")
+
+
+def python_symbolic_values(node: ast.AST, symbols: dict[str, set[str]]) -> set[str]:
+    if isinstance(node, ast.Constant) and isinstance(node.value, str):
+        return {node.value}
+    if isinstance(node, ast.Name):
+        return set(symbols.get(node.id, set()))
+    if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Div)):
+        left = python_symbolic_values(node.left, symbols)
+        right = python_symbolic_values(node.right, symbols)
+        if left and right:
+            if isinstance(node.op, ast.Div):
+                return {join_symbolic_path(lhs, rhs) for lhs in left for rhs in right}
+            return {lhs + rhs for lhs in left for rhs in right}
+        return left or right
+    if isinstance(node, ast.Call):
+        function_name = (
+            node.func.id
+            if isinstance(node.func, ast.Name)
+            else node.func.attr
+            if isinstance(node.func, ast.Attribute)
+            else ""
+        )
+        if function_name in {"Path", "PurePath", "resolve", "joinpath"}:
+            values: set[str] = set()
+            if isinstance(node.func, ast.Attribute):
+                values.update(python_symbolic_values(node.func.value, symbols))
+            for argument in node.args:
+                argument_values = python_symbolic_values(argument, symbols)
+                if values and argument_values:
+                    values = {
+                        join_symbolic_path(left, right)
+                        for left in values
+                        for right in argument_values
+                    }
+                elif argument_values:
+                    values = argument_values
+            return values
+    return set()
+
+
+def python_structural_registry_reads(
+    source: Path,
+    source_text: str,
+    *,
+    input_path_by_name: dict[str, str],
+) -> tuple[list[tuple[str, int, str]], list[str]]:
+    try:
+        tree = ast.parse(source_text, filename=str(source))
+    except SyntaxError as exc:
+        return [], [f"python_registry_scan_parse_error:{repo_relative(source)}:{exc.lineno}"]
+    symbols: dict[str, set[str]] = {}
+    loader_aliases = set(REGISTRY_LOADER_NAMES)
+    assignments = [
+        node for node in ast.walk(tree) if isinstance(node, (ast.Assign, ast.AnnAssign))
+    ]
+    for _ in range(6):
+        changed = False
+        for node in assignments:
+            value_node = node.value
+            values = python_symbolic_values(value_node, symbols)
+            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+            for target in targets:
+                if not isinstance(target, ast.Name):
+                    continue
+                before = set(symbols.get(target.id, set()))
+                symbols.setdefault(target.id, set()).update(values)
+                changed = changed or before != symbols[target.id]
+                alias_name = (
+                    value_node.id
+                    if isinstance(value_node, ast.Name)
+                    else value_node.attr
+                    if isinstance(value_node, ast.Attribute)
+                    else ""
+                )
+                if alias_name in loader_aliases:
+                    loader_aliases.add(target.id)
+        if not changed:
+            break
+    reads: list[tuple[str, int, str]] = []
+    blockers: list[str] = []
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+        function_name = (
+            node.func.id
+            if isinstance(node.func, ast.Name)
+            else node.func.attr
+            if isinstance(node.func, ast.Attribute)
+            else ""
+        )
+        if function_name not in loader_aliases:
+            continue
+        path_nodes: list[ast.AST] = []
+        if isinstance(node.func, ast.Attribute) and function_name in {"read_text", "read_bytes"}:
+            path_nodes.append(node.func.value)
+        elif node.args:
+            path_nodes.append(node.args[0])
+        values = {
+            value
+            for path_node in path_nodes
+            for value in python_symbolic_values(path_node, symbols)
+        }
+        targets = {
+            target
+            for value in values
+            for target in registry_reference_targets(
+                value,
+                input_path_by_name=input_path_by_name,
+            )
+        }
+        reads.extend(
+            (target, int(getattr(node, "lineno", 0)), "python_ast_dataflow")
+            for target in sorted(targets)
+        )
+        raw_call = ast.get_source_segment(source_text, node) or ""
+        tainted_values = any(registry_identifier_present(value) for value in values)
+        if not targets and (registry_identifier_present(raw_call) or tainted_values):
+            blockers.append(
+                f"unresolved_registry_loader_reference:{repo_relative(source)}:{getattr(node, 'lineno', 0)}"
+            )
+    return reads, blockers
+
+
+def simple_symbolic_values(expression: str, symbols: dict[str, set[str]]) -> set[str]:
+    quoted = [match[1] for match in re.findall(r"([\"'])(.*?)\1", expression)]
+    names = re.findall(r"[$]?([A-Za-z_][A-Za-z0-9_]*)", expression)
+    parts: list[set[str]] = [{value} for value in quoted]
+    parts.extend(symbols[name] for name in names if name in symbols)
+    if not parts:
+        return set()
+    concatenated = {""}
+    slash_joined = {""}
+    for values in parts:
+        concatenated = {left + right for left in concatenated for right in values}
+        slash_joined = {
+            right if not left else join_symbolic_path(left, right)
+            for left in slash_joined
+            for right in values
+        }
+    return set().union(*parts, concatenated, slash_joined)
+
+
+def lua_structural_registry_reads(
+    source: Path,
+    source_text: str,
+    *,
+    input_path_by_name: dict[str, str],
+) -> tuple[list[tuple[str, int, str]], list[str]]:
+    symbols: dict[str, set[str]] = {}
+    loader_aliases = {"require", "safeRequire", "dofile", "loadfile"}
+    lines = source_text.splitlines()
+    for _ in range(6):
+        changed = False
+        for line in lines:
+            match = re.match(r"\s*(?:local\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+)", line)
+            if not match:
+                continue
+            name, expression = match.groups()
+            before = set(symbols.get(name, set()))
+            symbols.setdefault(name, set()).update(simple_symbolic_values(expression, symbols))
+            changed = changed or before != symbols[name]
+            alias = expression.strip()
+            if alias in loader_aliases:
+                loader_aliases.add(name)
+        if not changed:
+            break
+    reads: list[tuple[str, int, str]] = []
+    blockers: list[str] = []
+    call_pattern = re.compile(
+        r"(?P<loader>[A-Za-z_][A-Za-z0-9_]*)\s*\((?P<argument>[^()]*)\)",
+        re.MULTILINE,
+    )
+    for match in call_pattern.finditer(source_text):
+        loader = match.group("loader")
+        if loader not in loader_aliases:
+            continue
+        argument = match.group("argument")
+        values = simple_symbolic_values(argument, symbols)
+        targets = {
+            target
+            for value in values
+            for target in registry_reference_targets(
+                value,
+                input_path_by_name=input_path_by_name,
+            )
+        }
+        line_number = source_text.count("\n", 0, match.start()) + 1
+        reads.extend(
+            (target, line_number, "lua_symbol_alias_dataflow")
+            for target in sorted(targets)
+        )
+        if not targets and (
+            registry_identifier_present(argument)
+            or any(registry_identifier_present(value) for value in values)
+        ):
+            blockers.append(
+                f"unresolved_registry_loader_reference:{repo_relative(source)}:{line_number}"
+            )
+    return reads, blockers
+
+
+def powershell_structural_registry_reads(
+    source: Path,
+    source_text: str,
+    *,
+    input_path_by_name: dict[str, str],
+) -> tuple[list[tuple[str, int, str]], list[str]]:
+    symbols: dict[str, set[str]] = {}
+    command_aliases = {"get-content", "copy-item"}
+    lines = source_text.splitlines()
+    for _ in range(8):
+        changed = False
+        for line in lines:
+            match = re.match(r"\s*\$([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+)", line)
+            if not match:
+                continue
+            name, expression = match.groups()
+            before = set(symbols.get(name, set()))
+            values = simple_symbolic_values(expression, symbols)
+            symbols.setdefault(name, set()).update(values)
+            changed = changed or before != symbols[name]
+            if any(value.lower() in command_aliases for value in values):
+                command_aliases.add(name.lower())
+        if not changed:
+            break
+    reads: list[tuple[str, int, str]] = []
+    blockers: list[str] = []
+    for line_number, line in enumerate(lines, start=1):
+        direct = re.search(r"\b(Get-Content|Copy-Item)\b", line, re.I)
+        invoked = re.search(r"&\s*\$([A-Za-z_][A-Za-z0-9_]*)", line)
+        command = (
+            direct.group(1).lower()
+            if direct
+            else invoked.group(1).lower()
+            if invoked and invoked.group(1).lower() in command_aliases
+            else ""
+        )
+        if not command:
+            continue
+        source_expression_match = re.search(
+            r"-(?:Literal)?Path\s+(\$[A-Za-z_][A-Za-z0-9_]*|'[^']*'|\"[^\"]*\"|\([^)]*\))",
+            line,
+            re.I,
+        )
+        if source_expression_match:
+            expression = source_expression_match.group(1)
+        else:
+            tail = line[(direct.end() if direct else invoked.end()) :].strip()
+            expression = tail.split()[0] if tail else ""
+        values = simple_symbolic_values(expression, symbols)
+        targets = {
+            target
+            for value in values
+            for target in registry_reference_targets(
+                value,
+                input_path_by_name=input_path_by_name,
+            )
+        }
+        reads.extend(
+            (target, line_number, "powershell_join_alias_copy_dataflow")
+            for target in sorted(targets)
+        )
+        if not targets and (
+            registry_identifier_present(expression)
+            or any(registry_identifier_present(value) for value in values)
+        ):
+            blockers.append(
+                f"unresolved_registry_loader_reference:{repo_relative(source)}:{line_number}"
+            )
+    return reads, blockers
 
 
 def discover_registry_readpoints(
@@ -3775,6 +4086,73 @@ def discover_registry_readpoints(
                             "observed_fresh": True,
                         }
                     )
+        structural_reads: list[tuple[str, int, str]] = []
+        structural_blockers: list[str] = []
+        suffix = source.suffix.lower()
+        if suffix == ".py":
+            structural_reads, structural_blockers = python_structural_registry_reads(
+                source,
+                source_text,
+                input_path_by_name=input_path_by_name,
+            )
+        elif suffix == ".lua":
+            structural_reads, structural_blockers = lua_structural_registry_reads(
+                source,
+                source_text,
+                input_path_by_name=input_path_by_name,
+            )
+        elif suffix == ".ps1":
+            structural_reads, structural_blockers = powershell_structural_registry_reads(
+                source,
+                source_text,
+                input_path_by_name=input_path_by_name,
+            )
+        blockers.extend(structural_blockers)
+        source_relative = repo_relative(source)
+        source_lines = source_text.splitlines()
+        for target, line_number, discovery_kind in structural_reads:
+            normalized_target = normalized_registry_path(target)
+            if (
+                "/tests/fixtures/" in normalized_target
+                or source.resolve() == package_script.resolve()
+                and stale_path_reason(target) is not None
+            ):
+                continue
+            key = (target, source_relative, line_number, "consumer_read")
+            if key in seen:
+                continue
+            seen.add(key)
+            path = REPO_ROOT / target
+            record = hash_row(path)
+            if "/build/description/v2/data/" in normalized_target:
+                surface = "source"
+            elif "/build/description/v2/output/" in normalized_target:
+                surface = "rendered"
+            elif "/media/lua/" in normalized_target:
+                surface = "runtime"
+            elif normalized_target.startswith("iris/media"):
+                surface = "package"
+            else:
+                surface = "validation"
+            raw_line = (
+                source_lines[line_number - 1]
+                if 0 < line_number <= len(source_lines)
+                else ""
+            )
+            rows.append(
+                {
+                    **record,
+                    "surface": surface,
+                    "producer": "authority path resolved through structural dataflow",
+                    "consumer": source_relative,
+                    "reference_source": source_relative,
+                    "reference_line": line_number,
+                    "reference_role": "consumer_read",
+                    "discovery_kind": discovery_kind,
+                    "raw_reference_sha256": sha256_bytes(raw_line.encode("utf-8")),
+                    "observed_fresh": True,
+                }
+            )
     return rows, blockers
 
 
@@ -3835,18 +4213,41 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
     fixture_root = root / "phase4" / "wp6" / "fixtures"
     stale_path = fixture_root / "stale" / "IrisLayer3Data.lua"
     renamed_path = fixture_root / "active" / "registry_payload.lua"
-    consumer_path = fixture_root / "consumer" / "unapproved_registry_reader.lua"
+    python_consumer = fixture_root / "current_route" / "split_reader.py"
+    lua_consumer = fixture_root / "runtime_shared" / "alias_reader.lua"
+    powershell_consumer = fixture_root / "required_tests" / "copy_reader.ps1"
     fixture_bytes = "return { registry_authority_fixture_stale = true }\n"
     write_text_once(stale_path, fixture_bytes)
     write_text_once(renamed_path, fixture_bytes)
     write_text_once(
-        consumer_path,
-        "local stale = dofile(\""
-        + repo_relative(stale_path)
-        + "\")\nlocal renamed = dofile(\""
-        + repo_relative(renamed_path)
-        + "\")\nlocal ambiguous = require(\"Iris/Data/IrisLayer3Data-current-copy\")\n"
-        + "return stale or renamed or ambiguous\n",
+        python_consumer,
+        "from pathlib import Path\n"
+        + f"prefix = {Path(repo_relative(renamed_path)).parent.as_posix()!r}\n"
+        + "leaf = 'registry_' + 'payload.lua'\n"
+        + "target = Path(prefix) / leaf\n"
+        + "loader = open\n"
+        + "with loader(target, 'rb') as handle:\n"
+        + "    observed = handle.read(1)\n",
+    )
+    write_text_once(
+        lua_consumer,
+        f"local stalePrefix = {Path(repo_relative(stale_path)).parent.as_posix()!r}\n"
+        + "local staleLeaf = 'IrisLayer3' .. 'Data.lua'\n"
+        + f"local renamedPrefix = {Path(repo_relative(renamed_path)).parent.as_posix()!r}\n"
+        + "local renamedLeaf = 'registry_' .. 'payload.lua'\n"
+        + "local loader = dofile\n"
+        + "local stale = loader(stalePrefix .. '/' .. staleLeaf)\n"
+        + "local renamed = loader(renamedPrefix .. '/' .. renamedLeaf)\n"
+        + "return stale or renamed\n",
+    )
+    write_text_once(
+        powershell_consumer,
+        "$prefix = 'Iris/media/lua/client/Iris/Data'\n"
+        + "$name = 'IrisLayer3' + 'Data-current-copy.lua'\n"
+        + "$source = Join-Path $prefix $name\n"
+        + "$copyCommand = 'Copy-Item'\n"
+        + f"$destination = {repo_relative(fixture_root / 'copy_sink.lua')!r}\n"
+        + "& $copyCommand -LiteralPath $source -Destination $destination\n",
     )
     stale_rows = [
         {
@@ -3856,7 +4257,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         }
     ]
     readpoints, discovery_blockers = discover_registry_readpoints(
-        extra_files=(consumer_path,),
+        extra_files=(python_consumer, lua_consumer, powershell_consumer),
         include_live=False,
     )
     package_members = [
@@ -3873,20 +4274,38 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         independent_current_registry_paths(),
     )
     kinds = {str(row.get("kind")) for row in violations}
+    discovery_kinds = {str(row.get("discovery_kind")) for row in readpoints}
     expected = {
         "stale_path_readpoint",
         "renamed_stale_payload",
         "unrecognized_current_looking_path",
         "forbidden_package_member",
     }
+    required_discovery_kinds = {
+        "python_ast_dataflow",
+        "lua_symbol_alias_dataflow",
+        "powershell_join_alias_copy_dataflow",
+    }
     return {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-negative-fixture-v1",
-        "status": "PASS" if expected.issubset(kinds) and not discovery_blockers else "FAIL",
+        "status": "PASS" if expected.issubset(kinds) and required_discovery_kinds.issubset(discovery_kinds) and not discovery_blockers else "FAIL",
         "expected_violation_kinds": sorted(expected),
         "observed_violation_kinds": sorted(kinds),
+        "required_structural_discovery_kinds": sorted(required_discovery_kinds),
+        "observed_discovery_kinds": sorted(discovery_kinds),
         "discovered_readpoints": readpoints,
         "discovery_blockers": discovery_blockers,
         "same_raw_discovery_path_as_live_graph": True,
+        "negative_consumer_roots": [
+            "current_route",
+            "runtime_shared",
+            "required_tests",
+        ],
+        "negative_dataflow_cases": [
+            "python_split_concatenation_and_loader_alias",
+            "lua_concatenation_and_loader_alias",
+            "powershell_join_path_and_copy_alias",
+        ],
         "recognized_current_set_derived_from_observed_rows": False,
         "violations": violations,
         "real_current_or_package_mutation_count": 0,
@@ -3897,6 +4316,7 @@ def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
     phase4 = root / "phase4"
     ledger = role_ledger_rows(root)
     readpoints, recognized_current_paths, graph_blockers = registry_live_readpoint_graph()
+    executable_denominator = registry_reference_scan_files()
     package_members, package_blockers = package_content_rows()
     live_violations = evaluate_stale_reentry(
         readpoints,
@@ -3975,6 +4395,16 @@ def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
         "producer_consumer_edges": readpoints,
         "package_directory_and_archive_member_count": len(package_members),
         "readpoint_discovery": "fresh_raw_executable_string_and_copy_reference_scan",
+        "full_tracked_python_lua_powershell_denominator": True,
+        "executable_denominator_count": len(executable_denominator),
+        "executable_denominator_sha256": canonical_hash(
+            [repo_relative(path) for path in executable_denominator]
+        ),
+        "structural_analyzers": [
+            "python_ast_constant_concatenation_path_and_loader_alias_dataflow",
+            "lua_constant_concatenation_and_loader_alias_dataflow",
+            "powershell_join_path_and_copy_alias_dataflow",
+        ],
         "recognized_current_denominator_source": "independent_current_input_and_exact_registry_runtime_boundary",
         "recognized_current_path_count": len(recognized_current_paths),
         "recognized_current_paths_sha256": canonical_hash(
@@ -4236,7 +4666,7 @@ def validate_implementation(
         "wp4_bare_import_guard_validation_report.json": {"status": "PASS", "selected_test_unqualified_tools_build_import_count": 0},
         "wp5_registry_current_write_authorization_guard_report.json": {"status": "PASS", "registry_production_write_receipt_issuer_count": 0, "real_protected_mutation_count": 0, "same_nonce_new_state_path_rejected": True},
         "wp6_stale_current_looking_path_scan_report.json": {"status": "PASS", "current_looking_stale_path_count": 0},
-        "wp6_stale_predecessor_readpoint_graph.json": {"status": "PASS", "ledger_self_authored_reentry_flags_used_for_verdict": False, "recognized_current_set_derived_from_observed_rows": False},
+        "wp6_stale_predecessor_readpoint_graph.json": {"status": "PASS", "ledger_self_authored_reentry_flags_used_for_verdict": False, "recognized_current_set_derived_from_observed_rows": False, "full_tracked_python_lua_powershell_denominator": True},
         "wp6_negative_reentry_fixture_report.json": {"status": "PASS", "real_current_or_package_mutation_count": 0, "same_raw_discovery_path_as_live_graph": True, "recognized_current_set_derived_from_observed_rows": False},
         "wp7_registry_authority_claim_scan_report.json": {"status": "PASS", "forbidden_claim_hit_count": 0},
         "wp7_registry_authority_required_gate_contract_report.json": {"status": "PASS", "required_gate_adopted": False},

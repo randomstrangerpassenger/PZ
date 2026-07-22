@@ -5,15 +5,18 @@ import json
 import sys
 
 from dvf_3_3_registry_authority_canonical_closure import (
+    IMPLEMENTED_SCAFFOLD_VALIDATIONS,
     ROUND_ID,
+    validate_execution_entry,
     validate_preflight,
+    validate_preimplementation_reviews,
 )
 
 
 NOT_IMPLEMENTED_EXIT = 3
 
 
-FUTURE_REQUIRE_FLAGS = (
+ALL_REQUIRE_FLAGS = (
     "require-preimplementation-reviews",
     "require-execution-entry",
     "require-implementation",
@@ -30,13 +33,14 @@ FUTURE_REQUIRE_FLAGS = (
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(
         description=(
-            "Registry Authority Canonical Closure bootstrap validator. "
-            "The approved bootstrap validates preflight only."
+            "Registry Authority Canonical Closure bounded Entry validator. "
+            "The approved bootstrap validates preflight, review materialization, "
+            "and Execution Entry only."
         )
     )
     group = value.add_mutually_exclusive_group(required=True)
     group.add_argument("--require-preflight", action="store_true")
-    for flag in FUTURE_REQUIRE_FLAGS:
+    for flag in ALL_REQUIRE_FLAGS:
         group.add_argument(f"--{flag}", action="store_true")
     value.add_argument("--evidence-root")
     value.add_argument("--no-write", action="store_true")
@@ -47,21 +51,23 @@ def emit(payload: dict[str, object], *, stream: object = sys.stdout) -> None:
     print(json.dumps(payload, ensure_ascii=False, sort_keys=True), file=stream)
 
 
-def selected_future_flag(args: argparse.Namespace) -> str | None:
-    for flag in FUTURE_REQUIRE_FLAGS:
+def selected_requirement(args: argparse.Namespace) -> str:
+    if args.require_preflight:
+        return "require-preflight"
+    for flag in ALL_REQUIRE_FLAGS:
         if getattr(args, flag.replace("-", "_")):
             return flag
-    return None
+    raise ValueError("no validation requirement selected")
 
 
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
-    future = selected_future_flag(args)
-    if future is not None:
+    requirement = selected_requirement(args)
+    if requirement not in IMPLEMENTED_SCAFFOLD_VALIDATIONS:
         emit(
             {
                 "round_id": ROUND_ID,
-                "requirement": future,
+                "requirement": requirement,
                 "status": "not_implemented",
                 "exit_code": NOT_IMPLEMENTED_EXIT,
                 "evidence_written": False,
@@ -73,12 +79,17 @@ def main(argv: list[str] | None = None) -> int:
         return NOT_IMPLEMENTED_EXIT
 
     try:
-        result = validate_preflight(args.evidence_root)
+        if requirement == "require-preflight":
+            result = validate_preflight(args.evidence_root)
+        elif requirement == "require-preimplementation-reviews":
+            result = validate_preimplementation_reviews(args.evidence_root)
+        else:
+            result = validate_execution_entry(args.evidence_root)
     except Exception as exc:
         emit(
             {
                 "round_id": ROUND_ID,
-                "requirement": "preflight",
+                "requirement": requirement,
                 "status": "FAIL",
                 "error_type": type(exc).__name__,
                 "error": str(exc),

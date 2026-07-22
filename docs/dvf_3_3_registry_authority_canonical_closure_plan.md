@@ -1,12 +1,12 @@
 # Implementation Plan
 
-> Status: planned / revised-after-final-synthesized-review-and-RAC-M6-M7 / success-probability-hardened / operator-risk-hardened / roadmap-derived / codebase-inspected / cycle-2-review-required / execution-blocked / no execution performed
+> Status: implementation-authorized / revised-after-phase3-cycle-1-fail / entry-deadlock-removed / protected-denominator-closed / candidate-specific-D6-required / real-current-write-disabled / cycle-2-review-required / execution-blocked-before-WP
 > 작성일: 2026-07-10
 > Round candidate: dvf_3_3_registry_authority_canonical_closure
 > Roadmap input: C:/Users/MW/.codex/attachments/8d0d9746-0c56-482c-a7ed-e5aca9fedebf/pasted-text.txt / consumed_roadmap_hash=sha256:17C41198E4D35A15743FD6C9F869CA545C5363A3A32EB005DB1E94BC16530ECD / 1482 lines
-> Roadmap canonical authority: owner approval pending
-> Revision review input: C:/Users/MW/.codex/attachments/2599971e-061b-4dd7-8142-8e01ca25e88f/pasted-text.txt / sha256 B8386A7C1A3EA79771022A2829C73D8D3DF86A70D959DCD3C603A30CDEF008C4 / 1118 lines / verdict FAIL
-> Execution entry status: blocked until this revised plan receives a fresh review with Critical=0 and Important=0
+> Roadmap canonical authority: owner-approved repo-local payload / sha256:17C41198E4D35A15743FD6C9F869CA545C5363A3A32EB005DB1E94BC16530ECD
+> Phase 3 cycle-1 reviewed bundle: sha256:908862D0E58D9B96FA9F77B01F0204A2AE4E9C4C2111E1AEFE938EC46A306E8F / verdict FAIL / Critical 1 / Important 3 / superseded but byte-preserved
+> Execution entry status: blocked until this cycle-2 plan/scaffold receives fresh external reviews with Critical=0 and Important=0
 > Template input: docs/PLAN_TEMPLATE.md / sha256 38D70D4D624733DB4D24F047E0B737A47C75522A967C84F06FE5AABC5EBD9BA1
 > Top authority: docs/Philosophy.md / sha256 938C52E9090C36AF00DAC18B64905E12A4F2390AC238A26121A63A14F81F44B2
 > Planning readpoints: docs/DECISIONS.md / sha256 E57C4D3BC21BB2DFA10791E41EF7440358C3DAF66D11AD05A06E8158090C40D3; docs/ARCHITECTURE.md / sha256 8B2CA298EF75FE1C85C7E44B81E6536EE6343E0FC5227F662142398EE1636C89; docs/ROADMAP.md / sha256 9D3A74DA7B54FD6392FD44F5D7A2ED1ABA35CA29AB83D3EB914CD64AAC6C0A12
@@ -15,7 +15,7 @@
 > Proposed evidence root: Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/
 > Maximum future execution claim: Registry Authority Closure = canonical_complete
 > Review boundary: machine PASS, independent review PASS, owner seal, and canonical seal are separate non-substitutable axes
-> Planning authorization: 현재 사용자 요청은 이 plan 작성만 승인한다. 구현, required-gate 채택, top-doc 반영, independent review verdict, owner seal, canonical seal은 별도 실행·승인 대상이다.
+> Execution authorization: 현재 사용자는 이 revised implementation round와 Codex Reviewer 사용을 승인했다. 테스트는 Section 7의 명시된 command boundary에서만 실행한다. candidate-specific required-gate adoption, top-doc 반영, independent review verdict, owner seal, canonical seal은 각각 명시된 외부 입력/검증 경계를 통과해야 한다.
 
 ---
 
@@ -88,7 +88,7 @@ Legacy Combined DVF Governance Route 아래 분산되어 있는 current authorit
 포함 범위:
 
 * roadmap/plan provenance, owner-reserved decision register, plan fingerprint, owner-approved implementation-plan hash binding
-* pre-existing dirty worktree disposition, inert-scaffold owner-approved commit, external empty-status checkpoint 기반 전용 execution worktree
+* pre-existing dirty worktree disposition, bounded Entry-scaffold owner-approved commit, external empty-status checkpoint 기반 전용 execution worktree
 * Responsibility Boundary Review
 * Authority/Evidence Integrity Review
 * Adversarial/Failure-Mode Review
@@ -179,8 +179,8 @@ Legacy Combined DVF Governance Route 아래 분산되어 있는 current authorit
 * isolated package probe는 round evidence root 아래로 resolve된 OutputRoot에서만 허용한다. containment check 전에는 -Clean을 실행하지 않는다.
 * execution이 top-doc을 직접 편집하려면 pre-existing dirty overlap을 owner가 먼저 disposition하고 additive-only diff guard를 통과해야 한다. 이 계획은 Option B를 채택하여 final top-doc application을 owner seal 뒤 post_external_gate 안에서 수행한다.
 * DECISIONS.md의 기존 sealed body는 immutable이며, 새 decision은 owner-authored 또는 owner-ratified append로만 추가한다.
-* owner-approved implementation plan은 repo-relative path, raw SHA-256, approved roadmap hash, inert bootstrap scaffold manifest, clean-worktree checkpoint, execution base commit, approval identity/time을 외부 input과 phase0 materialization에 결속한다. plan/roadmap/checkpoint/base drift와 pre-Entry scaffold drift는 approval을 즉시 stale로 만들며, post-Entry plan-mapped implementation transition은 별도 before/after hash evidence가 필요하다.
-* execution은 현재 dirty checkout에서 시작하지 않는다. Owner가 채택한 기존 변경과 이 plan/roadmap 및 inert preflight scaffold를 포함하는 approved commit을 먼저 지정하고, 그 commit에서 만든 dedicated worktree의 empty-status checkpoint를 승인한다. 현재 checkout의 uncommitted 변경은 자동 stash/reset/commit하지 않는다.
+* owner-approved implementation plan은 repo-relative path, raw SHA-256, approved roadmap hash, bounded Entry bootstrap scaffold manifest, clean-worktree checkpoint, execution base commit, approval identity/time을 외부 input과 phase0 materialization에 결속한다. plan/roadmap/checkpoint/base drift와 pre-Entry scaffold drift는 approval을 즉시 stale로 만들며, post-Entry plan-mapped implementation transition은 별도 before/after hash evidence가 필요하다.
+* execution은 현재 dirty checkout에서 시작하지 않는다. Owner가 채택한 기존 변경과 이 plan/roadmap 및 bounded Entry scaffold를 포함하는 approved commit을 먼저 지정하고, 그 commit에서 만든 dedicated worktree의 empty-status checkpoint를 승인한다. 현재 checkout의 uncommitted 변경은 자동 stash/reset/commit하지 않는다.
 * final closeout은 machine evidence, eligible independent review, owner seal, canonical seal을 별도 축으로 가진다.
 
 ### Owner-Reserved Decisions
@@ -195,11 +195,11 @@ Legacy Combined DVF Governance Route 아래 분산되어 있는 current authorit
 | D3 | Final vocabulary | Registry Authority Closure / Registry Authority PASS | owner_ratified 또는 owner_overridden |
 | D4 | Per-artifact disposition authority | live recensus; malformed round3_contract_manifest.json은 no-live-consumer가 재증명되면 diagnostic-only/no-reentry | ambiguous/unclassified 0, damaged manifest outcome evidence-bound |
 | D5 | Independent reviewer designation | pending | eligible reviewer 지정 및 PASS |
-| D6 | Required-gate adoption | conditional additive live-manifest gate | canonical_complete이면 adopted and rerun-bound; non-canonical outcome에만 optional |
+| D6 | Required-gate adoption | entry-time mandatory-adoption policy plus post-candidate exact one-use authorization | canonical_complete이면 candidate/base/diff hashes를 결속한 별도 owner authorization 후 adopted and rerun-bound; non-canonical outcome에만 optional |
 | D7 | Top-doc application | Option B: owner seal 뒤 post_external_gate에서 additive DECISIONS/ROADMAP/ARCHITECTURE update | owner_applied_and_validated_post_external |
 | D8 | Owner/canonical seal | pending external owner input | PASS |
-| D9 | Branch/worktree selection | owner-approved inert-scaffold commit 기반 dedicated clean worktree; current dirty checkout execution 금지 | base commit/path/branch ratified, byte-identical clean checkpoint, initial dirty count 0 |
-| D10 | Implementation plan approval | external owner approval over this repo-local plan path/hash, inert bootstrap scaffold manifest/hash, clean-checkpoint hash, execution base commit, and approved roadmap hash | approved plan/scaffold/checkpoint/base parity; byte-identical phase0 materialization |
+| D9 | Branch/worktree selection | owner-approved bounded Entry-scaffold commit 기반 dedicated clean worktree; current dirty checkout execution 금지 | base commit/path/branch ratified, byte-identical clean checkpoint, initial dirty count 0 |
+| D10 | Implementation plan approval | external owner approval over this repo-local plan path/hash, bounded Entry bootstrap scaffold manifest/hash, clean-checkpoint hash, execution base commit, and approved roadmap hash | approved plan/scaffold/checkpoint/base parity; byte-identical phase0 materialization |
 
 owner decision 상태는 proposed_default, owner_ratified, owner_overridden, missing 중 하나로 기록한다. D0-D10 중 closeout에 필요한 항목이 proposed_default 또는 missing이면 canonical_complete를 주장하지 않는다. Required-gate adoption is optional only for implemented_only, partial, or blocked outcomes. It is mandatory for Registry Authority Closure = canonical_complete.
 
@@ -213,13 +213,13 @@ owner decision 상태는 proposed_default, owner_ratified, owner_overridden, mis
 * D2 evidence root owner_ratified 또는 owner_overridden
 * D3 final vocabulary owner_ratified 또는 owner_overridden
 * D5 eligible independent reviewer designation present
-* D6 required-gate adoption decision present; canonical_complete target이면 mandatory adoption으로 ratified
+* D6 required-gate adoption policy present; exact candidate authorization은 gate-candidate 이후 별도 외부 input으로만 허용
 * D7 Option B post-owner-seal top-doc application policy present
 * D8 external owner/canonical seal path reserved
 * D9 owner-approved scaffold-bearing base commit/branch and dedicated worktree selected; byte-identical clean checkpoint records initial dirty count = 0
 * D10 external implementation-plan approval present and byte-identically materialized
 * D10 approved_plan_hash equals the exact plan bytes being executed and binds the D0 approved roadmap hash plus D9 clean-checkpoint hash
-* D10 approved bootstrap scaffold manifest/hash equals the inert scaffold in the execution base, with no WP or finalization capability; post-checkpoint unapproved delta count = 0
+* D10 approved bootstrap scaffold manifest/hash equals the bounded Entry scaffold in the execution base. 구현 성공 capability는 preflight와 byte-identical Phase 3 review materialization뿐이고 validator success capability는 require-preflight, require-preimplementation-reviews, require-execution-entry뿐이다. WP, current/protected write, gate adoption, owner/reviewer verdict authoring, machine/final/canonical producer capability는 0이며 post-checkpoint unapproved delta count = 0
 * original dirty checkout preserved; execution-worktree dirty protected/required/planned-mutation overlap = 0
 * pre-implementation Critical_count = 0
 * pre-implementation Important_count = 0
@@ -315,7 +315,7 @@ Planned execution docs:
 * docs/dvf_3_3_registry_authority_canonical_closure_ledger_packet.md
 * docs/dvf_3_3_registry_authority_canonical_closure_closeout.md
 
-The repo-local roadmap, implementation plan, inert bootstrap scaffold manifest, and clean-worktree checkpoint are owner-approved immutable execution inputs, not artifacts this planning task silently approves. Their path/hashes/base commit must be bound by D0/D9/D10 and external approvals before Phase 3 or any WP begins.
+The repo-local roadmap, implementation plan, bounded Entry bootstrap scaffold manifest, and clean-worktree checkpoint are owner-approved immutable execution inputs, not artifacts this planning task silently approves. Their path/hashes/base commit must be bound by D0/D9/D10 and external approvals before Phase 3 or any WP begins.
 
 Planned post-owner-seal owner-application drafts, generated only inside Option B post_external_gate:
 
@@ -367,6 +367,7 @@ Owner/reviewer-provided external inputs:
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/preimplementation_reviews/current_session_authority_evidence_integrity_review.md
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/preimplementation_reviews/current_session_adversarial_failure_mode_review.md
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/reviewer_designations/current_session_independent_reviewer_designation.json
+* Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/gate_adoptions/current_session_required_gate_adoption_authorization_record.json
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/independent_reviews/current_session_independent_closeout_review.md
 * Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/owner_seals/current_session_owner_canonical_seal_record.json
 
@@ -394,6 +395,7 @@ Phase 0 / plan binding:
 * phase0/worktree_isolation_report.json
 * phase0/protected_surface_policy.json
 * phase0/protected_surface_hashes.before.json
+* phase0/protected_surface_plan_mapping_report.json
 * phase0/vcs_visibility_preflight.json
 * phase0/evidence_root_preservation_policy.json
 * phase0/lua_syntax_environment_preflight.json
@@ -452,6 +454,7 @@ Phase 4 / work packages:
 * phase4/wp6_docs_current_authority_claim_scan_report.json
 * phase4/wp7_registry_authority_claim_scan_report.json
 * phase4/wp7_registry_authority_required_gate_contract_report.json
+* phase4/wp7_required_gate_adoption_authorization_record.json
 * phase4/wp7_required_validation_additive_gate_record.json
 * phase4/implementation_scope_report.json
 * phase4/protected_surface_no_mutation_report.json
@@ -554,7 +557,7 @@ Generated evidence is not source, rendered, runtime, package, public, or release
 | Roadmap unit | Plan change | Primary output |
 |---|---|---|
 | Phase 1 roadmap approval | D0 / Change 0 entry gate | repo-local approved roadmap + approval/scope records |
-| Phase 2 roadmap-derived plan | D9/D10 / current plan artifact / inert bootstrap / Change 0 binding | owner-approved plan/scaffold/checkpoint/base hashes + byte-identical records + fingerprint + traceability/evidence-root manifests |
+| Phase 2 roadmap-derived plan | D9/D10 / current plan artifact / bounded Entry bootstrap / Change 0 binding | owner-approved plan/scaffold/checkpoint/base hashes + byte-identical records + fingerprint + traceability/evidence-root manifests |
 | Phase 3 reviews | Change 0 | phase3 blocker-zero evidence |
 | WP-1 | Change 1 | DVF/Registry handoff contract |
 | WP-2 | Change 2 | live census and role ledger |
@@ -589,7 +592,7 @@ This table records plan revision coverage only. It does not convert the attached
 
 Purpose:
 
-Freeze the plan-derived execution boundary, prove the new tool surface cannot claim completion from a scaffold run, capture the live dirty/protected baseline, and complete the three roadmap-mandated pre-implementation reviews before WP execution.
+Freeze the plan-derived execution boundary, provide only the minimum non-circular review-materialization/Entry-validation bridge, prove that bridge cannot execute a WP or claim completion, capture the live dirty/protected baseline, and complete the three roadmap-mandated pre-implementation reviews before WP execution.
 
 Files:
 
@@ -602,10 +605,10 @@ Implementation Notes:
 
 * Runner modes are limited to preflight, materialize-preimplementation-reviews, implementation, wp1, wp2, wp3, wp4, wp5, wp6, wp7, gate-candidate, adopt-gate, final-rerun, materialize-independent-review, materialize-owner-seal, prepare-top-docs, post-external, and finalize. Do not implement all mode. --mode all and any unlisted stage-aggregating alias must exit nonzero before writes, external-input reads, gate adoption, or finalization; a negative fixture proves zero mutation/evidence emission.
 * preflight mode may create census/provenance evidence but must set canonical_closure_claimed=false and owner_seal_claimed=false.
-* Resolve the clean-worktree/preflight bootstrap dependency explicitly: before D10, the only new executable change allowed into the proposed execution-base commit is an inert scaffold consisting of the new common/runner/validator/focused-test files, with every non-preflight mode returning not_implemented nonzero and no Registry PASS/canonical/finalization producer. The same commit contains the final plan/roadmap bytes and only the exact .gitignore visibility rules needed for the scaffold and reserved external inputs. No WP logic, compose/current-runner hardening, broad unignore, gate adoption logic, or final producer is allowed in this bootstrap.
+* Resolve the clean-worktree/review/Entry dependency explicitly: before D10, the only new executable change allowed into the proposed execution-base commit is a bounded Entry scaffold consisting of the new common/runner/validator/focused-test files. Its only runner success modes are preflight and materialize-preimplementation-reviews; its only validator success requirements are require-preflight, require-preimplementation-reviews, and require-execution-entry. The materializer may only parse/validate/copy the three reserved review inputs byte-for-byte and emit mechanical counts/provenance under phase3. The Entry validator is read-only and may only return the checklist result. Every WP, implementation, gate-candidate/adoption, current/protected writer, machine/final/canonical producer, owner/reviewer verdict authoring, and post-external mode remains not_implemented nonzero. The same commit contains the final plan/roadmap bytes and only the exact .gitignore visibility rules needed for the scaffold and reserved external inputs. No WP logic, compose/current-runner hardening, broad unignore, gate adoption logic, or final producer is allowed in this bootstrap.
 * Before creating the base commit, derive and commit phase0/bootstrap_scaffold_hash_manifest.json from the closed scaffold path set. It hashes only scaffold paths/bytes and AST/command capabilities, excludes its own bytes and the not-yet-created commit hash to avoid self-reference, and is immutable after commit. D10 approves this manifest hash and the resulting base commit together with the plan hash; Entry recomputes the manifest in memory and compares without overwriting it. Any bootstrap byte or capability change between approval and successful Execution Entry invalidates D10 and requires a fresh clean base, owner approval, and Phase 3 review. After Entry, only plan-mapped implementation transitions are legal; bind their before/after hashes in phase4/implementation_scope_report.json and the final freeze rather than rewriting the approved bootstrap baseline.
 * Materialize and owner-approve the roadmap at docs/dvf_3_3_registry_authority_canonical_closure_roadmap.md, then bind its repo-relative path and SHA-256 together with the adopted plan path/hash. The attachment path remains provenance only and must not become an execution dependency.
-* Before any WP/domain implementation beyond the inert scaffold, materialize the externally authored current_session_implementation_plan_approval_record.json byte-for-byte into phase0/implementation_plan_approval_record.json. Validate that it names the repo-local plan path, binds the exact plan SHA-256, entry-time bootstrap scaffold manifest, clean-worktree checkpoint hash, and approved roadmap hash consumed by the runner, identifies the owner and approval time, and approves the execution base commit. Any plan/roadmap/checkpoint/base change, or any pre-Entry scaffold byte/capability change, makes the approval stale and forces owner reapproval plus a fresh Phase 3 review before any wp* mode.
+* Before any WP/domain implementation beyond the bounded Entry scaffold, materialize the externally authored current_session_implementation_plan_approval_record.json byte-for-byte into phase0/implementation_plan_approval_record.json. Validate that it names the repo-local plan path, binds the exact plan SHA-256, entry-time bootstrap scaffold manifest, clean-worktree checkpoint hash, and approved roadmap hash consumed by the runner, identifies the owner and approval time, and approves the execution base commit. Any plan/roadmap/checkpoint/base change, or any pre-Entry scaffold byte/capability change, makes the approval stale and forces owner reapproval plus a fresh Phase 3 review before any wp* mode.
 * Materialize registry_authority_plan_traceability_matrix.json and registry_authority_evidence_root_manifest.json before WP execution; every roadmap deliverable must map to one planned producer and one validation consumer.
 * Require a roadmap_approval_record and roadmap_scope_boundary_record that bind the repo-local roadmap payload before implementation. The current request authorizes this plan document, not a synthetic owner approval record.
 * Compare roadmap_approval_record.approved_payload_hash with this plan header's consumed_roadmap_hash. A mismatch fails closed, requires re-deriving the plan from the approved roadmap, and requires a fresh Phase 3 review. The sole exception is an owner-authored diff-scope approval that binds both hashes, the canonical diff SHA-256, every changed section/hunk, and a per-hunk no-material-effect rationale. Wildcards, whole-document approval, unexplained changes, and phrases equivalent to “all changes are non-material” are invalid. Any hunk touching objective, scope/out-of-scope, WP deliverables, authority ownership, required gates, validation denominator/ceiling, closeout vocabulary, top-doc policy, or seal DAG makes the exception ineligible and forces re-derivation/re-review.
@@ -615,7 +618,7 @@ Implementation Notes:
 * Require the dedicated execution worktree created from the scaffold-bearing base commit to have zero modified, deleted, renamed, or untracked paths and zero ignored planned-output paths at an owner-recorded clean checkpoint. current_session_clean_worktree_checkpoint_record.json binds the empty status output, command, base HEAD, worktree identity/path, timestamp, and scaffold manifest hash; tooling may validate/materialize but never author or backdate it.
 * After that clean checkpoint and before preflight, only the exact reserved external owner/reviewer input files named in Section 5 may be introduced. D10 lists each present input path/hash and binds the clean-checkpoint hash. Preflight rejects any code/docs/config/evidence delta, unlisted input, ignored input, or changed checkpoint/approval hash before its own evidence writes. Later gates recompute expected round-owned deltas separately; the planning observation of 99 modified paths is provenance only, never an execution predicate.
 * Resolve every path before hashing or writing. Evidence writes must remain under the ratified evidence root.
-* Build protected runtime paths from _dvf_3_3_vnext_common.RUNTIME_CHUNK_MANIFEST, RUNTIME_CHUNK_DIR, RUNTIME_MONOLITH or equally verified actual repo-root paths. Assert the manifest/directory exists and reject duplicate-root forms such as Iris/Iris/media/... with a negative fixture.
+* Use one closed plan-mapped protected/identity-bearing denominator resolver for preflight, Entry, implementation freeze, final no-mutation, and reviewed-bundle hashing. It includes the six DVF current inputs, compose_profiles_v2.json, compose_profile_identity_hint_rules.json, compose_profile_conflict_precedence_rules.json, dvf_3_3_rendered.json, style_normalization_changes.jsonl, compose_requeue_candidates.jsonl, layer3_renderer.lua, IrisWikiSections.lua, IrisModuleBootstrap.lua, IrisRequire.lua, the verified runtime chunk manifest/directory, and Iris/build/package. Build runtime paths from _dvf_3_3_vnext_common.RUNTIME_CHUNK_MANIFEST, RUNTIME_CHUNK_DIR, RUNTIME_MONOLITH or equally verified actual repo-root paths. Emit one explicit row per exact file/directory and require set equality with this plan-mapped denominator; assert required members exist and reject omissions, extras, and duplicate-root forms such as Iris/Iris/media/....
 * Record exact .gitignore visibility for tool, test, fixture, owner input, and minimum durable evidence paths.
 * Do not broad-unignore Iris/build/description/v2/staging/** or tools/build/**.
 * Add exact-path visibility rules for the existing completion-vocabulary main/runner/validator trio, the existing focused test, and only the positive/negative fixtures that the refactored test actually consumes. Prove each selected path is tracked and not ignored/effectively ignored; a directory wildcard or broad tools/build/** exception is invalid.
@@ -633,8 +636,11 @@ Validation:
 
 * plan-only claim additions = 0
 * pre_entry_non_scaffold_implementation_path_count = 0
-* bootstrap_scaffold_non_preflight_mode_success_count = 0
+* bootstrap_scaffold_success_modes = [preflight, materialize-preimplementation-reviews]
+* bootstrap_scaffold_validator_success_requirements = [require-preflight, require-preimplementation-reviews, require-execution-entry]
+* bootstrap_scaffold_non_entry_mode_success_count = 0
 * bootstrap_scaffold_claim_or_finalization_capability_count = 0
+* protected_surface_plan_denominator_set_equality = true
 * pre_implementation_blocker_count = 0
 * Critical_count = 0
 * Important_count = 0
@@ -711,14 +717,13 @@ The contract must encode:
     = candidate -> current promotion
       only through Registry Authority contract
 
-* Preserve compose_layer3_text.py body-generation and body_plan resolution semantics, but make one narrow write-contract hardening change: a resolved output path in CLOSED_CURRENT_PROTECTED_PATHS requires an explicit Registry current-write authorization receipt. Enforce this in the shared enforce_compose_write_contract/build_rendered boundary as well as main(), so an imported direct call cannot bypass the CLI. Validation must prove identical staged output bytes for identical inputs before and after this guard change.
-* Add the explicit CLI option --registry-current-write-authorization-receipt and a default-None propagated function parameter. Receipt absence remains legal for staging, diagnostic, historical, and current-equivalent fixture sinks, but not for any real CLOSED_CURRENT_PROTECTED_PATHS member. Key the decision on all resolved target paths, not compose_context or basename alone.
+* Preserve compose_layer3_text.py body-generation and body_plan resolution semantics, but make one narrow write-contract hardening change: every resolved real CLOSED_CURRENT_PROTECTED_PATHS target is unconditionally rejected in this governance-only closure, before directory creation or writes, even when a receipt is supplied. Enforce this in the shared enforce_compose_write_contract/build_rendered boundary as well as main(), so an imported direct call cannot bypass the CLI. Validation must prove identical staged output bytes for identical inputs before and after this guard change.
+* Add the explicit CLI option --registry-current-write-authorization-receipt and a default-None propagated function parameter only for contained fixture-contract validation. Receipt absence remains legal for staging, diagnostic, historical, and contained current-equivalent fixture sinks. No receipt accepted by this round can authorize any real CLOSED_CURRENT_PROTECTED_PATHS member. Key the decision on all resolved target paths, not compose_context or basename alone.
 * The existing default/no-arg compose_context=current path must therefore fail nonzero before directory creation or writes when no authorization receipt is supplied. A prose prohibition or caller convention is insufficient. WP-3 uses compose_context=staging, supplies every current input explicitly, and binds those hashes to the live input manifest; its isolated staging proof must not require a current-write receipt.
-* Define a closed, versioned receipt schema containing round/schema ID, exact one-use allowed output paths, six input path/hash bindings, normalized body_plan authority hash, isolated candidate raw/canonical entries hashes, pre-write current hashes, expected post-write hashes, WP-5 promotion-decision hash, owner-authorization hash, issue time, expiry, nonce, and the contained receipt-consumption state path. Bind the receipt itself by SHA-256 in the Registry evidence root.
-* Validate the receipt before any target/output filesystem mutation, then rehash all input/target preimages immediately before authorization consumption to close the generation-to-write TOCTOU window. After revalidation and before the first target write, atomically claim the nonce with exclusive-create semantics under the bound Registry evidence root; an existing/inaccessible/out-of-root claim is a replay/blocker and remains consumed even if the later operation fails. Missing, malformed, forged, stale, replayed, wrong-path, wrong-input, wrong-candidate, wrong-preimage, or non-WP-5 receipts must fail closed with zero protected-path mutations. The entrypoint may consume a receipt only through the WP-5 Registry procedure; it must not mint, repair, default, or reinterpret one.
-* Inventory every compose_layer3_text.py callsite. Migrate ordinary candidate and proof invocations to explicit non-current sinks. The only permitted current-protected callsite is the WP-5 Registry promotion procedure, and this closure defines/tests that route on isolated fixtures without performing a live current write or cutover.
-* Before any future Registry-controlled current-path invocation, WP-5 must (1) prove the six pinned current inputs and body_plan authority coverage match the adopted current input manifest, (2) render to an isolated candidate sink, (3) prove raw/canonical entry and body_plan identity parity with the adopted current rendered artifact, and (4) issue the one-use receipt only after owner authorization. Any delta leaves output candidate-only and produces no receipt.
-* After a future authorized invocation, the procedure must prove canonical identity parity and protected-path postcondition hashes again. Any postcondition delta fails closed, cannot be relabeled current, and opens a correction scope; the Registry closure tooling may never normalize or waive the delta.
+* Define a closed, versioned fixture_only receipt schema containing round/schema ID, exact one-use allowed output paths, six input path/hash bindings, normalized body_plan authority hash, isolated candidate raw/canonical entries hashes, pre-write fixture hashes, expected post-write fixture hashes, WP-5 fixture-decision hash, issue time, expiry, nonce, and the contained receipt-consumption state path. Bind the receipt itself by SHA-256 in the Registry evidence root. An owner-authorization field or production/live flag is forbidden in receipts issued by this closure.
+* Validate a fixture receipt before any fixture target/output filesystem mutation, then rehash all input/target preimages immediately before exclusive nonce consumption. The full allowed target set must resolve under one contained phase4/wp5 fixture transaction root. Missing, malformed, forged, stale, replayed, wrong-path, wrong-input, wrong-candidate, wrong-preimage, non-fixture, or real-path receipts fail closed with zero protected-path mutations. This fixture seam is evidence for guard semantics only; it is not an operational authorization mechanism.
+* Inventory every compose_layer3_text.py callsite. Migrate ordinary candidate and proof invocations to explicit non-current sinks. The permitted real current-protected callsite count in this closure is zero. Any future Registry-controlled current write requires a separately reviewed operational-cutover plan that defines an enforceable Registry-owned lock or equivalent exclusive state transition across the full target set, revalidates preimages while holding it, writes contained temporary outputs, and specifies atomic replacement/rollback semantics and their platform limits.
+* WP-5 must (1) prove the six pinned current inputs and body_plan authority coverage match the adopted current input manifest, (2) render to an isolated candidate sink, and (3) prove raw/canonical entry and body_plan identity parity with the adopted current rendered artifact. It records that production receipt issuance and live invocation are disabled. Any delta leaves output candidate-only.
 * Add negative fixtures for no-arg/default current writes, drifted source, forged/stale/replayed receipts, mismatched paths/hashes, and receipt reuse. Each must be rejected before current-path mutation. Add positive isolated-fixture coverage for explicit staging output and a valid one-use Registry receipt without touching the real protected surface.
 * Exercise the positive receipt/write path through a subprocess-only test harness that substitutes CLOSED_CURRENT_PROTECTED_PATHS in process with contained phase4/wp5 fixture paths and uses fixture_only=true. Production CLI/config/environment must expose no protected-set override; a fixture receipt or substituted fixture set can never authorize the real constants. This test seam is not a legal production callsite.
 * Require every ordinary DVF candidate output to use an explicit non-current output sink/context. Do not invoke the no-arg current writer to create a candidate.
@@ -741,8 +746,10 @@ Validation:
 * receipt_input_and_target_preimage_revalidation_immediately_before_claim = true
 * receipt_nonce_claim_precedes_target_write = true
 * failed_receipt_nonce_reuse_allowed = false
-* current_writer_legal_callsite_count = 1
+* current_writer_legal_real_path_callsite_count = 0
 * production_current_protected_set_override_surface_count = 0
+* production_real_path_receipt_acceptance_count = 0
+* current_write_operational_cutover_deferred = true
 * entrypoint_guard_body_semantics_delta_count = 0
 * staging_identity_proof_requires_current_write_authorization = false
 * drifted_source_current_context_attempt_rejected = true
@@ -964,10 +971,10 @@ Implementation Notes:
 
 * Define candidate identity as a closed set of source/rendered/export receipt/runtime candidate/package projection hashes.
 * Define promotion preconditions: role classification complete, no ambiguous/dual authority, fresh required evidence, candidate/live expected identity relation, protected dirty overlap zero, stale guard PASS, review input complete.
-* Own the sole legal current-context regeneration procedure that may target current protected output paths. No free-standing current-regeneration exception exists. The procedure requires Registry-controlled invocation, owner authorization, pre/post identity parity, staged candidate-first output, and fail-closed handling described in Change 1.
-* Define WP-5 as the only production issuer and consumer of the one-use Registry current-write authorization receipt. Issuance is downstream of every promotion precondition and the external owner authorization; the receipt's exact path set and preimage hashes prevent it from authorizing any broader write. compose_layer3_text.py only verifies/consumes the receipt and cannot issue it.
-* Bind each receipt nonce to an exclusive consumption marker under the verified evidence root. The marker is never cleared for retry; retry requires a newly owner-authorized receipt over freshly recaptured preimages. Receipt/marker creation outside the evidence root or after a target write is a contract violation.
-* This governance-only closure must not issue a live receipt for real current paths. Positive tests use fixture_only=true receipts whose allowed roots are contained under phase4/wp5; the guard must reject fixture receipts against real protected paths. Record live_current_write_authorization_receipt_issued=false.
+* Define the candidate-first promotion contract but keep its real current-context execution leg disabled. No free-standing current-regeneration exception exists, and this governance-only closure has no legal real current-protected writer callsite.
+* Define WP-5 as the only fixture receipt issuer/consumer for contained guard tests. compose_layer3_text.py only verifies/consumes the fixture receipt and cannot issue it. Production/live receipt issuance is absent, and any future enablement requires the separately reviewed serialized operational cutover described in Change 1.
+* Bind each fixture receipt nonce to an exclusive consumption marker under the verified evidence root. The marker is never cleared for retry; retry requires a new fixture receipt over freshly recaptured fixture preimages. Receipt/marker creation outside the evidence root or after a fixture target write is a contract violation.
+* Positive tests use fixture_only=true receipts whose allowed roots are contained under phase4/wp5; the guard must reject every receipt against real protected paths. Record live_current_write_authorization_receipt_issued=false and production_real_path_receipt_acceptance_count=0.
 * A precondition or postcondition delta keeps all delta bytes candidate-only and forbids current promotion outside this WP-5 seal/cutover contract. The contract must reject drifted-source current-context attempts before any live current-path write.
 * Define seal receipt fields from roadmap-approved vocabulary only. Owner identity/sign-off fields must come from owner input, never generated defaults.
 * Define cutover postconditions: one current identity, no partial current state, no live monolith, no old/new dual current, predecessor relation recorded, rollback snapshot historical-only.
@@ -991,8 +998,9 @@ Validation:
 * atomic_apply_verified = false / out_of_scope
 * live_apply_executed = false
 * live_repo_mutated = false
-* current_context_route_exclusive_to_registry_wp5 = true
-* registry_current_write_receipt_issuer_count = 1
+* current_context_real_path_route_enabled = false
+* registry_fixture_write_receipt_issuer_count = 1
+* registry_production_write_receipt_issuer_count = 0
 * live_current_write_authorization_receipt_issued = false
 * fixture_receipt_real_protected_path_authorization_count = 0
 * drifted_source_current_context_promotion_allowed = false
@@ -1091,7 +1099,8 @@ Forbidden claims:
 * Generate phase4/wp7_registry_authority_required_gate_contract_report.json before adoption. It is an immutable, non-self-referential machine contract report and must not contain a live-adoption or canonical-seal claim.
 * Add only that minimum phase4 gate contract report and the subprocess-based focused test needed to block future overclaim/reentry/freshness regression.
 * Do not add the phase5 self-dependent final closure report to the live manifest.
-* Produce a candidate manifest patch, validate it against a copy, obtain owner D6 ratification, then apply an additive-only diff.
+* Produce a candidate manifest patch and validate it against a copy before requesting adoption authority. Entry-time D6 ratifies only the mandatory-adoption policy; it is not authorization for an unknown future diff. The owner must then author current_session_required_gate_adoption_authorization_record.json at the reserved gate_adoptions path. That one-use record binds owner identity/time, decision=adopt_exact_candidate_once, allowed target path, candidate artifact path/hash, base live-manifest hash, canonical additive diff hash, and the gate contract report path/hash. It is intentionally downstream of Phase 3 and does not rewrite D0-D10 or the reviewed bundle.
+* adopt-gate must validate and byte-identically materialize that record as phase4/wp7_required_gate_adoption_authorization_record.json, rehash the live base, candidate, canonical diff, and contract immediately before writing, and require exact parity. Any absent/stale/replayed/wrong-target/wrong-hash record fails before mutation. Successful adoption consumes the authorization once and records its hash in wp7_required_validation_additive_gate_record.json.
 * Required-gate adoption is conditional across execution outcomes: it may remain unapplied only when the final outcome is implemented_only, partial, or blocked. It is mandatory, freshly rerun-bound, and non-waivable for Registry Authority Closure = canonical_complete.
 * Manifest removal/modification of predecessor required rows is forbidden.
 * Add exact .gitignore rules only for the new tool/test/fixture and the minimum required evidence adopted by the live manifest.
@@ -1104,6 +1113,10 @@ Validation:
 * forbidden_claim_hit_count = 0
 * axis_qualified_completion_vocabulary_enforced = true
 * live manifest diff is additive-only
+* candidate_specific_gate_adoption_authorization_valid = true
+* generic_D6_policy_used_as_candidate_authorization_count = 0
+* gate_adoption_authorization_materialization_byte_identity = true
+* gate_adoption_authorization_replay_count = 0
 * predecessor required artifact/test removal count = 0
 * round3 active core count unchanged
 * current-route tooling allowlist unchanged
@@ -1218,7 +1231,7 @@ Validation:
 
 The future execution command order is part of the contract. Every command below runs from the repository root of the D9 owner-approved dedicated clean execution worktree; running the matrix from the original dirty checkout is invalid evidence.
 
-Before command 1, the inert preflight scaffold, final roadmap/plan, and owner-accepted pre-existing state are committed without any WP/finalization implementation. The owner designates that commit, creates the dedicated worktree, records its empty status in the external clean-worktree checkpoint, then authors D10 over the exact plan/scaffold/checkpoint/roadmap hashes and base commit. Only the exact reserved external inputs may be placed in the worktree after that checkpoint. These are owner actions, not runner automation. Preflight must reject any other post-checkpoint delta before writing evidence.
+Before command 1, the bounded Entry scaffold, final roadmap/plan, and owner-accepted pre-existing state are committed without any WP/current-writer/gate-adoption/finalization implementation. The scaffold implements only preflight, byte-identical Phase 3 review materialization, and the three read-only Entry validators listed in steps 1-2. The owner designates that commit, creates the dedicated worktree, records its empty status in the external clean-worktree checkpoint, then authors D10 over the exact plan/scaffold/checkpoint/roadmap hashes and base commit. Only the exact reserved external inputs may be placed in the worktree after that checkpoint. These are owner actions, not runner automation. Preflight must reject any other post-checkpoint delta before writing evidence.
 
 ### Validation Triage
 
@@ -1285,7 +1298,11 @@ Every validation report uses the same attribution vocabulary: preimplementation_
        uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode gate-candidate
        uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --require-gate-candidate
 
-9. After owner D6 ratification, apply the additive gate and run the current route immediately:
+9. After gate-candidate validation, stop for the candidate-specific external D6 authorization. The owner-authored record must bind the exact candidate/base/diff/contract hashes; the entry-time generic D6 policy value is insufficient. Only then apply the additive gate and run the current route immediately:
+
+       [STOP — EXACT REQUIRED-GATE CANDIDATE AUTHORIZATION REQUIRED; THIS IS NOT A SHELL COMMAND]
+       The owner authors only Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/gate_adoptions/current_session_required_gate_adoption_authorization_record.json.
+       [RESUME ONLY AFTER THE RECORD BINDS THE VALIDATED CANDIDATE/BASE/DIFF/CONTRACT HASHES]
 
        uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py --mode adopt-gate
 
@@ -1336,12 +1353,14 @@ Additional machine checks:
 * execution-worktree checkpoint cleanliness, post-checkpoint external-input-only delta, and original dirty-checkout no-tool-mutation proof
 * one-to-one original dirty-path disposition, accepted-row tree-hash parity, and excluded-row no-leak proof with no broad waiver
 * pre/post SHA-256 comparison for protected source/rendered/Lua/runtime/package-source surfaces
+* exact set equality between the plan-mapped protected/identity-bearing denominator and preflight/Entry/final no-mutation rows
 * additive-only diff scan for current_route_required_validations.json
+* candidate-specific gate-adoption authorization byte identity, base/candidate/diff/contract hash parity, allowed target, and one-use consumption
 * additive-only/sealed-body immutability scan for DECISIONS.md
 * exact current core/tooling allowlist comparison
 * completion-vocabulary fresh subprocess fixture-check, no stored-PASS/recursive route, explicit-mode/no-repository-write, dependency closure, and exact selective-tracking proof
 * current-route pre-import negative fixtures for sys.path/bare/aliased tools/build imports, including zero sentinel writes
-* no-arg/default current writer, invalid/replayed receipt, fixture-receipt/live-path, and staging-output guard fixtures with zero real protected mutations
+* no-arg/default current writer, any receipt against a real protected path, invalid/replayed fixture receipt, fixture-receipt/live-path, and staging-output guard fixtures with zero real protected mutations
 * WP-3 staging-context direct-compose current-input manifest parity; current-context plus ordinary staging path remains rejected
 * round3_contract_manifest.json producer/consumer graph, diagnostic exclusion, no-reentry fields, malformed-byte hash, and no-mutation proof
 * approved roadmap payload hash versus consumed_roadmap_hash comparison, including strict diff-scope approval validation
@@ -1372,7 +1391,8 @@ No validation is reported as PASS unless the exact command exits with code 0.
 * Inspect final command/failure-attribution reports and confirm every failed/not-run row identifies one WP/phase owner and first failing predicate.
 * Confirm round3_active_core_closure.json and tooling allowlist are unchanged.
 * Inspect the completion-vocabulary test/runner and current-route loader to confirm the known bare-import, stored-PASS early return, implicit all default, and recursive current-route path were removed from required execution; verify fixture-check is contained/fresh and all subprocess targets/fixtures are selectively tracked.
-* Inspect the compose entrypoint guard and WP-5 receipt contract to confirm a no-arg/default current-path call cannot write and fixture receipts cannot authorize real protected paths.
+* Inspect the compose entrypoint guard and WP-5 receipt contract to confirm a no-arg/default current-path call cannot write, every real-path receipt is rejected, fixture receipts cannot authorize real protected paths, and operational current-write enablement is deferred to a separately reviewed serialized cutover.
+* Confirm the D6 post-candidate authorization record is externally owner-authored, byte-identically materialized, and binds the exact candidate/base/diff/contract hashes and one allowed target before adopt-gate.
 * Confirm round3_contract_manifest.json remains byte-identical, has a proven zero-consumer graph, is diagnostic-only, and is excluded from authority/current/package input denominators; otherwise require blocker status.
 * Inspect Korean/English/mixed-language claim fixtures for false positive/negative behavior.
 * Confirm Option B ordering: owner seal validated before top-doc application, top-doc changes additive, affected consumers rerun afterward, and terminal seal binds final hashes without overwriting pre-existing dirty work.
@@ -1479,7 +1499,7 @@ Mitigation:
 
 Mitigation:
 
-* resolved-path containment checks, staging-only bridge output, no live apply, protected hashes, entrypoint-enforced one-use WP-5 receipts, pre-write path/input/preimage validation, no-arg/forged/replay negative fixtures, and stale/package fail-closed scans.
+* resolved-path containment checks, staging-only bridge output, no live apply, plan-complete protected hashes, unconditional real-current-path rejection, contained fixture-only receipts, no-arg/forged/replay/real-path negative fixtures, and stale/package fail-closed scans.
 
 ### Compatibility Risk
 
@@ -1528,7 +1548,7 @@ Rollback is governance-scoped containment, not destructive cleanup.
 10. Preserve the original dirty checkout byte-for-byte. Abandoning or removing a failed dedicated worktree must not reset, clean, stash, commit, or merge the original checkout automatically.
 11. A plan/roadmap/checkpoint/base change or pre-Entry scaffold drift invalidates D10 and every downstream Phase 3/4/5 artifact; establish a new clean checkpoint, reapprove, and rerun rather than patching recorded hashes. A post-Entry implementation rollback keeps the approved scaffold baseline immutable and records a new before/after implementation diff.
 12. Preserve the malformed round3 contract manifest bytes during rollback. Its diagnostic/no-reentry disposition remains in force unless a separately authorized correction proves and repairs a live consumer.
-13. Revoke unused fixture/current-write receipt nonces after a failed run. Never reuse a receipt or treat a fixture receipt as a recovery authorization.
+13. Revoke unused fixture receipt nonces after a failed run. Never reuse a receipt or treat a fixture receipt as a recovery or real-current-path authorization.
 14. If protected surface mutation, dual current state, partial cutover, stored PASS reuse, stale promotion, unpreserved dependency, or non-Registry blocker is detected, stop with partial/blocked and document the evidence.
 15. A failed Registry closure does not return Registry responsibility to DVF System.
 
@@ -1554,7 +1574,7 @@ Rollback success conditions:
 * Runtime/build-time separation is mandatory.
 * Runtime Lua does not validate source or regenerate descriptions.
 * Source facts/decisions/overlay, rendered content, live bridge/runtime chunks, and live package payload are protected read-only surfaces.
-* No free-standing current-regeneration exception exists. compose_layer3_text.py must reject an unauthenticated resolved current-protected output before writes; any future legal regeneration is WP-5 Registry-controlled, candidate-first, parity-gated, owner-authorized, and bound to a one-use receipt.
+* No free-standing current-regeneration exception exists. compose_layer3_text.py must reject every resolved real current-protected output before writes in this closure, regardless of receipt. Any future legal regeneration requires a separately reviewed Registry operational-cutover scope with candidate-first parity, exact owner authorization, full-target serialization, under-lock preimage revalidation, and explicit atomic-replacement/rollback limits.
 * Existing infrastructure is reused before new infrastructure is added.
 * run_dvf_3_3_registry_authority_canonical_closure.py --mode all and equivalent closure-stage aggregate aliases are forbidden; each owner/reviewer/post_external transition is an explicit operator-visible boundary. The pre-existing round3_run_contract_tests.py --class all taxonomy selector is not a closure-stage mode, is never used for current authority evidence here, and its selection semantics remain unchanged.
 * The preserved completion-vocabulary predecessor runner requires an explicit mode; its legacy all/machine-pass modes are never invoked or accepted as fresh evidence by this closure. The required test uses only contained fixture-check and cannot recurse into the current route.
@@ -1568,7 +1588,7 @@ Rollback success conditions:
 * Generated staging evidence is not durable unless explicitly adopted and preserved.
 * Tracked is not authority; ignored is not deletable.
 * Broad staging/tools/tests unignore is forbidden.
-* Execution occurs only in the D9 owner-approved inert-scaffold commit-based dedicated worktree, proven clean by an external checkpoint; after that checkpoint only exact reserved external inputs may precede preflight. Tooling does not normalize the original dirty checkout.
+* Execution occurs only in the D9 owner-approved bounded Entry-scaffold commit-based dedicated worktree, proven clean by an external checkpoint; after that checkpoint only exact reserved external inputs may precede preflight. Tooling does not normalize the original dirty checkout.
 * The D10 externally authored approval must bind the exact plan, entry-time bootstrap scaffold, clean-checkpoint, roadmap hashes, and execution base commit. Plan/roadmap/checkpoint/base drift always invalidates approval; bootstrap drift invalidates Entry, while post-Entry plan-mapped implementation changes must retain the approved baseline and bind before/after hashes through implementation/freeze evidence.
 * round3_contract_manifest.json is diagnostic/no-reentry only while its zero live-consumer graph is freshly proven; its malformed bytes are not silently repaired or consumed.
 * Dirty required/protected overlap is fail-closed.
@@ -1603,7 +1623,7 @@ The closeout_state=complete token is allowed only inside this plan's validation 
 * all three Phase 3 reviews externally authored, exact-bundle-bound, byte-identically materialized, and consolidated with Critical/Important count 0
 * fresh current-checkout census/identity/freshness/guard validation PASS
 * final validation command matrix complete with unattributed failure count 0
-* unauthenticated current-protected writer rejection and WP-5 one-use receipt guard PASS with real protected mutation count 0
+* unconditional real current-protected writer rejection and WP-5 contained fixture receipt guard PASS with real protected mutation count 0
 * completion-vocabulary fresh contained fixture-check/no stored-PASS recursion/selective tracking and current-route bare-import pre-load guard PASS without active-core/tooling allowlist expansion
 * malformed round3 contract manifest diagnostic-only/zero-live-consumer/no-reentry predicate PASS with bytes unchanged
 * body_plan physical authority location and input/output hash coverage PASS

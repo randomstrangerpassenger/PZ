@@ -8,6 +8,7 @@ from dvf_3_3_registry_authority_canonical_closure import (
     ALL_RUNNER_MODES,
     IMPLEMENTED_SCAFFOLD_MODES,
     ROUND_ID,
+    materialize_preimplementation_reviews,
     run_preflight,
 )
 
@@ -18,8 +19,9 @@ NOT_IMPLEMENTED_EXIT = 3
 def parser() -> argparse.ArgumentParser:
     value = argparse.ArgumentParser(
         description=(
-            "Registry Authority Canonical Closure bootstrap runner. "
-            "The approved bootstrap implements preflight only."
+            "Registry Authority Canonical Closure bounded Entry runner. "
+            "The approved bootstrap implements preflight and byte-identical "
+            "Phase 3 review materialization only."
         )
     )
     value.add_argument("--mode", required=True, choices=ALL_RUNNER_MODES)
@@ -51,7 +53,10 @@ def main(argv: list[str] | None = None) -> int:
         return NOT_IMPLEMENTED_EXIT
 
     try:
-        result = run_preflight(args.evidence_root)
+        if args.mode == "preflight":
+            result = run_preflight(args.evidence_root)
+        else:
+            result = materialize_preimplementation_reviews(args.evidence_root)
     except Exception as exc:  # fail closed before any positive claim
         emit(
             {

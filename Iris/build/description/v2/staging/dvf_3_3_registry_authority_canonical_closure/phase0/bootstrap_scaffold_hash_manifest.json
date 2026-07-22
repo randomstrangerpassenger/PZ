@@ -22,42 +22,50 @@
       "post-external",
       "finalize"
     ],
+    "execution_entry_validation_present": true,
     "finalization_producer_present": false,
     "gate_adoption_present": false,
     "implemented_success_modes": [
-      "preflight"
+      "preflight",
+      "materialize-preimplementation-reviews"
+    ],
+    "implemented_success_validations": [
+      "require-preflight",
+      "require-preimplementation-reviews",
+      "require-execution-entry"
     ],
     "owner_or_reviewer_verdict_authoring_present": false,
+    "review_materialization_present": true,
     "wp_implementation_present": false
   },
   "commit_hash_excluded": true,
   "round_id": "dvf_3_3_registry_authority_canonical_closure",
   "scaffold_paths": [
     {
-      "byte_length": 36362,
+      "byte_length": 59175,
       "exists": true,
       "path": "Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "2b0852a2d418c20046ef34e1e48e6ef96128c2cca05edfef4da41dfcc46efc34"
+      "sha256": "8d2348450896e56b5d28d561f94ee9ed57f82bf8f53c49a7fe59beaf3a49f039"
     },
     {
-      "byte_length": 2207,
+      "byte_length": 2446,
       "exists": true,
       "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "65deace667ed8ca23a488f5c1567b09bfdea109411a3a93851cd96d1653dd4de"
+      "sha256": "0836d759643218c7ceb966e209832fde7c833272dfa0d45753ae96aaebbb99fa"
     },
     {
-      "byte_length": 2763,
+      "byte_length": 3321,
       "exists": true,
       "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "e1e0e9e166781184106c5fd9d4ec9ebb0f53b0fdba7a189935aa5eadb1cf276d"
+      "sha256": "caec6177d405b1297062545b1cc1d6876dabdc2bc2c7b4c1dddb6d1bbcef05fb"
     },
     {
-      "byte_length": 7758,
+      "byte_length": 8074,
       "exists": true,
       "path": "Iris/build/description/v2/tests/test_dvf_3_3_registry_authority_canonical_closure.py",
-      "sha256": "ae89e9d94abedbb8d4b023f3c2427f93b3bc64603da3b4db2e251f121b0769bb"
+      "sha256": "a0f61a068f378ecfcaa40b2abf37f4f3ec0e70c067a67f17d6bd374df43265e0"
     }
   ],
-  "schema_version": "dvf-3-3-registry-authority-canonical-closure-bootstrap-scaffold-manifest-v1",
+  "schema_version": "dvf-3-3-registry-authority-canonical-closure-bootstrap-scaffold-manifest-v2",
   "self_hash_excluded": true
 }

@@ -27,11 +27,6 @@ def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def expected_windows_checkout_bytes(path: Path) -> bytes:
-    text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
-    return text.replace("\n", "\r\n").encode("utf-8")
-
-
 def run_script(path: Path, *args: str) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [sys.executable, "-B", str(path), *args],
@@ -51,7 +46,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         expected_paths = [COMMON, RUNNER, VALIDATOR, FOCUSED_TEST]
         expected_rows = []
         for path in expected_paths:
-            checkout_bytes = expected_windows_checkout_bytes(path)
+            checkout_bytes = path.read_bytes()
             expected_rows.append(
                 {
                     "path": path.relative_to(REPO_ROOT).as_posix(),
@@ -61,7 +56,20 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 }
             )
         self.assertEqual(payload["scaffold_paths"], expected_rows)
-        self.assertEqual(payload["capabilities"]["implemented_success_modes"], ["preflight"])
+        self.assertEqual(
+            payload["capabilities"]["implemented_success_modes"],
+            ["preflight", "materialize-preimplementation-reviews"],
+        )
+        self.assertEqual(
+            payload["capabilities"]["implemented_success_validations"],
+            [
+                "require-preflight",
+                "require-preimplementation-reviews",
+                "require-execution-entry",
+            ],
+        )
+        self.assertTrue(payload["capabilities"]["review_materialization_present"])
+        self.assertTrue(payload["capabilities"]["execution_entry_validation_present"])
         self.assertFalse(payload["capabilities"]["aggregate_mode_present"])
         self.assertFalse(payload["capabilities"]["wp_implementation_present"])
         self.assertFalse(payload["capabilities"]["gate_adoption_present"])
@@ -89,6 +97,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 "json",
                 "os",
                 "pathlib",
+                "re",
                 "shutil",
                 "subprocess",
                 "typing",
@@ -102,7 +111,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertFalse(root.exists())
 
-    def test_non_preflight_modes_are_inert_and_write_nothing(self) -> None:
+    def test_non_entry_modes_are_inert_and_write_nothing(self) -> None:
         for mode in ("implementation", "wp1", "gate-candidate", "adopt-gate", "finalize"):
             with self.subTest(mode=mode):
                 root = self.temporary_evidence_root()
@@ -116,7 +125,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 self.assertFalse(payload["finalization_allowed"])
                 self.assertFalse(root.exists())
 
-    def test_non_preflight_validator_requirements_are_inert(self) -> None:
+    def test_post_entry_validator_requirements_are_inert(self) -> None:
         root = self.temporary_evidence_root()
         result = run_script(
             VALIDATOR,

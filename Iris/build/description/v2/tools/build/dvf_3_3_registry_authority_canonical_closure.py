@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 from typing import Any
@@ -48,6 +49,11 @@ PLAN_APPROVAL_INPUT = (
 REVIEWER_DESIGNATION_INPUT = (
     OWNER_INPUT_ROOT / "reviewer_designations" / "current_session_independent_reviewer_designation.json"
 )
+GATE_ADOPTION_INPUT = (
+    OWNER_INPUT_ROOT
+    / "gate_adoptions"
+    / "current_session_required_gate_adoption_authorization_record.json"
+)
 PREIMPLEMENTATION_REVIEW_INPUTS = (
     OWNER_INPUT_ROOT
     / "preimplementation_reviews"
@@ -72,6 +78,7 @@ RESERVED_EXTERNAL_INPUTS = (
     PLAN_APPROVAL_INPUT,
     REVIEWER_DESIGNATION_INPUT,
     *PREIMPLEMENTATION_REVIEW_INPUTS,
+    GATE_ADOPTION_INPUT,
     INDEPENDENT_REVIEW_INPUT,
     OWNER_SEAL_INPUT,
 )
@@ -103,16 +110,44 @@ ALL_RUNNER_MODES = (
     "post-external",
     "finalize",
 )
-IMPLEMENTED_SCAFFOLD_MODES = ("preflight",)
+IMPLEMENTED_SCAFFOLD_MODES = (
+    "preflight",
+    "materialize-preimplementation-reviews",
+)
+IMPLEMENTED_SCAFFOLD_VALIDATIONS = (
+    "require-preflight",
+    "require-preimplementation-reviews",
+    "require-execution-entry",
+)
+
+PREIMPLEMENTATION_REVIEW_SCOPES = (
+    "responsibility_boundary",
+    "authority_evidence_integrity",
+    "adversarial_failure_mode",
+)
+PREIMPLEMENTATION_REVIEW_OUTPUTS = (
+    "responsibility_boundary_review.md",
+    "authority_evidence_integrity_review.md",
+    "adversarial_failure_mode_review.md",
+)
 
 PROTECTED_SURFACES = (
     V2_ROOT / "data" / "dvf_3_3_input_manifest.json",
     V2_ROOT / "data" / "dvf_3_3_facts.jsonl",
     V2_ROOT / "data" / "dvf_3_3_decisions.jsonl",
     V2_ROOT / "data" / "dvf_3_3_overlay_support.jsonl",
+    V2_ROOT / "data" / "compose_profiles_v2.json",
+    V2_ROOT / "data" / "compose_profile_identity_hint_rules.json",
+    V2_ROOT / "data" / "compose_profile_conflict_precedence_rules.json",
     V2_ROOT / "output" / "dvf_3_3_rendered.json",
+    V2_ROOT / "output" / "style_normalization_changes.jsonl",
+    V2_ROOT / "output" / "compose_requeue_candidates.jsonl",
+    REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "layer3_renderer.lua",
     REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "IrisLayer3DataChunks.lua",
     REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "IrisLayer3DataChunks",
+    REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "UI" / "Wiki" / "IrisWikiSections.lua",
+    REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Util" / "IrisModuleBootstrap.lua",
+    REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Util" / "IrisRequire.lua",
     REPO_ROOT / "Iris" / "build" / "package",
 )
 
@@ -195,6 +230,15 @@ def write_json(path: Path, payload: Any) -> None:
     temporary.replace(path)
 
 
+def write_text(path: Path, payload: str) -> None:
+    if not is_within(path, DEFAULT_EVIDENCE_ROOT):
+        raise ValueError(f"refusing out-of-root evidence write: {path}")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.tmp")
+    temporary.write_text(payload, encoding="utf-8", newline="\n")
+    temporary.replace(path)
+
+
 def copy_external_bytes(source: Path, target: Path) -> None:
     if not source.is_file():
         raise FileNotFoundError(source)
@@ -257,8 +301,11 @@ def scaffold_file_rows() -> list[dict[str, Any]]:
 def scaffold_capabilities() -> dict[str, Any]:
     return {
         "implemented_success_modes": list(IMPLEMENTED_SCAFFOLD_MODES),
+        "implemented_success_validations": list(IMPLEMENTED_SCAFFOLD_VALIDATIONS),
         "declared_future_modes": list(ALL_RUNNER_MODES),
         "aggregate_mode_present": False,
+        "review_materialization_present": True,
+        "execution_entry_validation_present": True,
         "wp_implementation_present": False,
         "gate_adoption_present": False,
         "finalization_producer_present": False,
@@ -269,7 +316,7 @@ def scaffold_capabilities() -> dict[str, Any]:
 
 def scaffold_manifest_projection() -> dict[str, Any]:
     return {
-        "schema_version": f"{SCHEMA_PREFIX}-bootstrap-scaffold-manifest-v1",
+        "schema_version": f"{SCHEMA_PREFIX}-bootstrap-scaffold-manifest-v2",
         "round_id": ROUND_ID,
         "self_hash_excluded": True,
         "commit_hash_excluded": True,
@@ -522,6 +569,7 @@ def validate_plan_approval(
     head: str | None,
     checkpoint_hash: str | None,
     scaffold: dict[str, Any],
+    enforce_present_input_set: bool = True,
 ) -> list[str]:
     blockers: list[str] = []
     if not payload:
@@ -572,7 +620,7 @@ def validate_plan_approval(
         for path in RESERVED_EXTERNAL_INPUTS
         if path.is_file() and path != PLAN_APPROVAL_INPUT
     }
-    if seen != present_external_inputs:
+    if enforce_present_input_set and seen != present_external_inputs:
         blockers.append("plan_approval_present_external_input_set_mismatch")
     return blockers
 
@@ -647,6 +695,9 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
     approval = read_json_object(PLAN_APPROVAL_INPUT)
     designation = read_json_object(REVIEWER_DESIGNATION_INPUT)
     lua = lua_environment_report()
+    protected_rows = protected_surface_rows()
+    protected_paths = [row["path"] for row in protected_rows]
+    expected_protected_paths = [repo_relative(path) for path in PROTECTED_SURFACES]
 
     blockers: list[str] = []
     if scaffold["status"] != "PASS":
@@ -682,6 +733,10 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
             blockers.append(f"ignored_external_input:{repo_relative(path)}")
     if lua["status"] != "PASS":
         blockers.append("lua_syntax_environment_preflight_failed")
+    if protected_paths != expected_protected_paths or len(set(protected_paths)) != len(protected_paths):
+        blockers.append("protected_surface_plan_denominator_set_mismatch")
+    if any(row["kind"] == "missing" for row in protected_rows):
+        blockers.append("protected_surface_plan_member_missing")
 
     input_hash_rows = [
         {"path": repo_relative(path), "sha256": sha256_file(path)}
@@ -699,7 +754,7 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
         "round_id": ROUND_ID,
         "execution_base_commit": head,
         "inputs": input_hash_rows,
-        "protected_surface_hash": canonical_hash(protected_surface_rows()),
+        "protected_surface_hash": canonical_hash(protected_rows),
         "lua_environment_hash": canonical_hash(lua),
         "preflight_status": "PASS" if not blockers else "FAIL",
     }
@@ -812,12 +867,30 @@ def run_preflight(evidence_root: str | Path | None = None) -> dict[str, Any]:
             "round_id": ROUND_ID,
             "writer_authority_opened": False,
             "current_regeneration_authorized": False,
-            "paths": [repo_relative(path) for path in PROTECTED_SURFACES],
+            "paths": expected_protected_paths,
+            "plan_denominator_set_equality": protected_paths == expected_protected_paths,
+            "duplicate_path_count": len(protected_paths) - len(set(protected_paths)),
+            "missing_path_count": sum(row["kind"] == "missing" for row in protected_rows),
         },
         "protected_surface_hashes.before.json": {
             "schema_version": f"{SCHEMA_PREFIX}-protected-hashes-v1",
             "round_id": ROUND_ID,
-            "rows": protected_surface_rows(),
+            "rows": protected_rows,
+        },
+        "protected_surface_plan_mapping_report.json": {
+            "schema_version": f"{SCHEMA_PREFIX}-protected-surface-plan-mapping-v1",
+            "round_id": ROUND_ID,
+            "status": "PASS"
+            if protected_paths == expected_protected_paths
+            and len(set(protected_paths)) == len(protected_paths)
+            and all(row["kind"] != "missing" for row in protected_rows)
+            else "FAIL",
+            "expected_paths": expected_protected_paths,
+            "actual_paths": protected_paths,
+            "set_equality": set(protected_paths) == set(expected_protected_paths),
+            "order_equality": protected_paths == expected_protected_paths,
+            "duplicate_path_count": len(protected_paths) - len(set(protected_paths)),
+            "missing_paths": [row["path"] for row in protected_rows if row["kind"] == "missing"],
         },
         "vcs_visibility_preflight.json": {
             "schema_version": f"{SCHEMA_PREFIX}-vcs-preflight-v1",
@@ -905,4 +978,463 @@ def validate_preflight(evidence_root: str | Path | None = None) -> dict[str, Any
         "blockers": blockers,
         "canonical_closure_claimed": False,
         "owner_seal_claimed": False,
+    }
+
+
+REVIEW_FIELD_PATTERN = re.compile(
+    r"^- ([a-z0-9_]+): `([^`]*)`\s*$",
+    flags=re.MULTILINE,
+)
+REVIEW_FINDING_PATTERN = re.compile(
+    r"^###\s+([A-Z][A-Z0-9_-]*-\d+)\s+[—-]\s+(.+?)\s*$",
+    flags=re.MULTILINE,
+)
+
+
+def parse_review_document(path: Path) -> dict[str, Any]:
+    try:
+        text = path.read_text(encoding="utf-8-sig")
+    except (OSError, UnicodeError):
+        return {"fields": {}, "findings": [], "text_sha256": sha256_file(path)}
+    fields = {key: value for key, value in REVIEW_FIELD_PATTERN.findall(text)}
+    headings = list(REVIEW_FINDING_PATTERN.finditer(text))
+    findings = []
+    for index, heading in enumerate(headings):
+        end = headings[index + 1].start() if index + 1 < len(headings) else len(text)
+        section = text[heading.end() : end]
+        severity_match = re.search(
+            r"^- severity: `(Critical|Important|Minor)`\s*$",
+            section,
+            flags=re.MULTILINE,
+        )
+        disposition_match = re.search(
+            r"^- disposition: `(owner_resolved|owner_accepted)`\s*$",
+            section,
+            flags=re.MULTILINE,
+        )
+        findings.append(
+            {
+                "finding_id": heading.group(1),
+                "title": heading.group(2).strip(),
+                "severity": severity_match.group(1) if severity_match else None,
+                "disposition": disposition_match.group(1) if disposition_match else None,
+            }
+        )
+    return {
+        "fields": fields,
+        "findings": findings,
+        "text_sha256": sha256_file(path),
+    }
+
+
+def review_materialization_row(
+    source: Path,
+    target: Path,
+    *,
+    expected_scope: str,
+    manifest: dict[str, Any],
+    manifest_path: Path,
+    designation: dict[str, Any],
+) -> dict[str, Any]:
+    parsed = parse_review_document(source)
+    fields = parsed["fields"]
+    findings = parsed["findings"]
+    blockers: list[str] = []
+    required_fields = (
+        "schema_version",
+        "round_id",
+        "review_scope",
+        "reviewer_identity",
+        "relation_to_plan_scaffold_implementer",
+        "reviewed_manifest_path",
+        "reviewed_manifest_sha256",
+        "reviewed_bundle_hash",
+        "reviewed_execution_base_commit",
+        "authored_after_bundle_publication",
+        "closure_runner_authored_verdict",
+        "reviewer_authored_verdict",
+        "verdict",
+        "critical_count",
+        "important_count",
+        "minor_count",
+    )
+    for field in required_fields:
+        if field not in fields:
+            blockers.append(f"review_field_missing:{field}")
+    expected_fields = {
+        "schema_version": "dvf-3-3-registry-authority-phase3-review-v1",
+        "round_id": ROUND_ID,
+        "review_scope": expected_scope,
+        "reviewer_identity": designation.get("reviewer_identity"),
+        "reviewed_manifest_path": repo_relative(manifest_path),
+        "reviewed_manifest_sha256": sha256_file(manifest_path),
+        "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
+        "reviewed_execution_base_commit": manifest.get("reviewed_bundle", {}).get(
+            "execution_base_commit"
+        ),
+        "authored_after_bundle_publication": "true",
+        "closure_runner_authored_verdict": "false",
+        "reviewer_authored_verdict": "true",
+        "three_independent_reviewers_claimed": "false",
+    }
+    for field, expected in expected_fields.items():
+        if fields.get(field) != expected:
+            blockers.append(f"review_field_mismatch:{field}")
+    if not fields.get("relation_to_plan_scaffold_implementer"):
+        blockers.append("review_implementer_relation_missing")
+    assigned_scopes = designation.get("phase3_scope_assignments", [])
+    if not isinstance(assigned_scopes, list) or expected_scope not in assigned_scopes:
+        blockers.append("review_scope_not_owner_designated")
+    if fields.get("verdict") not in {"PASS", "FAIL"}:
+        blockers.append("review_verdict_invalid")
+    declared_counts: dict[str, int] = {}
+    for severity in ("critical", "important", "minor"):
+        raw = fields.get(f"{severity}_count")
+        try:
+            declared_counts[severity] = int(raw)
+        except (TypeError, ValueError):
+            declared_counts[severity] = -1
+            blockers.append(f"review_{severity}_count_invalid")
+    actual_counts = {
+        severity.lower(): sum(row.get("severity") == severity for row in findings)
+        for severity in ("Critical", "Important", "Minor")
+    }
+    if any(row.get("severity") is None for row in findings):
+        blockers.append("review_finding_severity_missing")
+    for severity in ("critical", "important", "minor"):
+        if declared_counts[severity] != actual_counts[severity]:
+            blockers.append(f"review_{severity}_count_mismatch")
+    unresolved_minor_count = sum(
+        row.get("severity") == "Minor"
+        and row.get("disposition") not in {"owner_resolved", "owner_accepted"}
+        for row in findings
+    )
+    if source.is_file() and manifest_path.is_file():
+        if source.stat().st_mtime_ns < manifest_path.stat().st_mtime_ns:
+            blockers.append("review_predates_published_bundle")
+    else:
+        blockers.append("review_or_manifest_missing")
+    return {
+        "scope": expected_scope,
+        "source_path": repo_relative(source),
+        "source_sha256": sha256_file(source),
+        "target_path": repo_relative(target),
+        "reviewer_identity": fields.get("reviewer_identity"),
+        "verdict": fields.get("verdict"),
+        "critical_count": actual_counts["critical"],
+        "important_count": actual_counts["important"],
+        "minor_count": actual_counts["minor"],
+        "unresolved_minor_count": unresolved_minor_count,
+        "findings": findings,
+        "schema_valid": not blockers,
+        "blockers": sorted(set(blockers)),
+    }
+
+
+def materialize_preimplementation_reviews(
+    evidence_root: str | Path | None = None,
+) -> dict[str, Any]:
+    root = resolve_evidence_root(evidence_root)
+    phase3 = root / "phase3"
+    manifest_path = phase3 / "preimplementation_review_input_manifest.json"
+    manifest = read_json_object(manifest_path)
+    designation = read_json_object(REVIEWER_DESIGNATION_INPUT)
+    preflight = validate_preflight(root)
+    rows = []
+    for source, output_name, scope in zip(
+        PREIMPLEMENTATION_REVIEW_INPUTS,
+        PREIMPLEMENTATION_REVIEW_OUTPUTS,
+        PREIMPLEMENTATION_REVIEW_SCOPES,
+    ):
+        target = phase3 / output_name
+        row = review_materialization_row(
+            source,
+            target,
+            expected_scope=scope,
+            manifest=manifest,
+            manifest_path=manifest_path,
+            designation=designation,
+        )
+        if source.is_file():
+            copy_external_bytes(source, target)
+        row["target_sha256"] = sha256_file(target)
+        row["byte_identical"] = bool(
+            row["source_sha256"]
+            and row["source_sha256"] == row["target_sha256"]
+        )
+        if not row["byte_identical"]:
+            row["blockers"].append("review_materialization_not_byte_identical")
+            row["schema_valid"] = False
+        rows.append(row)
+
+    materialization_blockers = []
+    if preflight.get("status") != "PASS":
+        materialization_blockers.append("preflight_validation_not_pass")
+    if manifest.get("status") != "READY_FOR_EXTERNAL_REVIEW":
+        materialization_blockers.append("review_manifest_not_ready")
+    if designation.get("eligible") is not True:
+        materialization_blockers.append("reviewer_designation_not_eligible")
+    for row in rows:
+        materialization_blockers.extend(
+            f"{row['scope']}:{blocker}" for blocker in row["blockers"]
+        )
+
+    totals = {
+        key: sum(int(row[key]) for row in rows)
+        for key in (
+            "critical_count",
+            "important_count",
+            "minor_count",
+            "unresolved_minor_count",
+        )
+    }
+    all_reviewer_pass = all(row["verdict"] == "PASS" for row in rows)
+    blocker_zero = (
+        not materialization_blockers
+        and all_reviewer_pass
+        and totals["critical_count"] == 0
+        and totals["important_count"] == 0
+        and totals["unresolved_minor_count"] == 0
+    )
+    materialization_report = {
+        "schema_version": f"{SCHEMA_PREFIX}-preimplementation-review-materialization-v1",
+        "round_id": ROUND_ID,
+        "status": "PASS" if not materialization_blockers else "FAIL",
+        "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
+        "reviewed_manifest_path": repo_relative(manifest_path),
+        "reviewed_manifest_sha256": sha256_file(manifest_path),
+        "tool_authored_review_verdict": False,
+        "single_reviewer_multiple_scopes": designation.get(
+            "single_reviewer_multiple_scopes"
+        ),
+        "three_independent_reviewers_claimed": False,
+        "rows": rows,
+        "blocker_count": len(set(materialization_blockers)),
+        "blockers": sorted(set(materialization_blockers)),
+    }
+    carry_forward = {
+        "schema_version": f"{SCHEMA_PREFIX}-carry-forward-findings-v1",
+        "round_id": ROUND_ID,
+        "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
+        "findings": [
+            {"scope": row["scope"], **finding}
+            for row in rows
+            for finding in row["findings"]
+        ],
+        **totals,
+    }
+    resolution = {
+        "schema_version": f"{SCHEMA_PREFIX}-preimplementation-blocker-resolution-v1",
+        "round_id": ROUND_ID,
+        "status": "PASS" if blocker_zero else "FAIL",
+        "all_reviewer_verdicts_pass": all_reviewer_pass,
+        **totals,
+    }
+    zero_record = {
+        "schema_version": f"{SCHEMA_PREFIX}-blocker-zero-v1",
+        "round_id": ROUND_ID,
+        "status": "PASS" if blocker_zero else "FAIL",
+        "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
+        "critical_count": totals["critical_count"],
+        "important_count": totals["important_count"],
+        "unresolved_minor_count": totals["unresolved_minor_count"],
+        "all_reviewer_verdicts_pass": all_reviewer_pass,
+        "wp_execution_allowed": False,
+    }
+    consolidated_lines = [
+        "# Phase 3 Consolidated Review (Mechanical Projection)",
+        "",
+        f"- reviewed_bundle_hash: `{manifest.get('reviewed_bundle_hash')}`",
+        "- tool_authored_review_verdict: `false`",
+        f"- materialization_status: `{materialization_report['status']}`",
+        f"- blocker_zero_status: `{zero_record['status']}`",
+        "",
+    ]
+    for row in rows:
+        consolidated_lines.extend(
+            [
+                f"## {row['scope']}",
+                "",
+                f"- reviewer_identity: `{row['reviewer_identity']}`",
+                f"- source_sha256: `{row['source_sha256']}`",
+                f"- verdict: `{row['verdict']}`",
+                f"- critical_count: `{row['critical_count']}`",
+                f"- important_count: `{row['important_count']}`",
+                f"- minor_count: `{row['minor_count']}`",
+                "",
+            ]
+        )
+    write_json(phase3 / "preimplementation_review_materialization_report.json", materialization_report)
+    write_json(phase3 / "carry_forward_findings_table.json", carry_forward)
+    write_json(phase3 / "pre_implementation_blocker_resolution_report.json", resolution)
+    write_json(phase3 / "blocker_zero_record.json", zero_record)
+    write_text(phase3 / "consolidated_review.md", "\n".join(consolidated_lines))
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-preimplementation-review-materialization-result-v1",
+        "round_id": ROUND_ID,
+        "status": materialization_report["status"],
+        "blocker_count": materialization_report["blocker_count"],
+        "blockers": materialization_report["blockers"],
+        "reviewed_bundle_hash": manifest.get("reviewed_bundle_hash"),
+        "critical_count": totals["critical_count"],
+        "important_count": totals["important_count"],
+        "minor_count": totals["minor_count"],
+        "review_verdicts_pass": all_reviewer_pass,
+        "blocker_zero": blocker_zero,
+        "owner_or_reviewer_verdict_authored": False,
+        "wp_execution_allowed": False,
+    }
+
+
+def validate_preimplementation_reviews(
+    evidence_root: str | Path | None = None,
+) -> dict[str, Any]:
+    root = resolve_evidence_root(evidence_root)
+    phase3 = root / "phase3"
+    report = read_json_object(
+        phase3 / "preimplementation_review_materialization_report.json"
+    )
+    zero = read_json_object(phase3 / "blocker_zero_record.json")
+    blockers: list[str] = []
+    if report.get("status") != "PASS":
+        blockers.append("review_materialization_report_not_pass")
+    rows = report.get("rows")
+    if not isinstance(rows, list) or len(rows) != len(PREIMPLEMENTATION_REVIEW_INPUTS):
+        blockers.append("review_materialization_row_count_mismatch")
+        rows = []
+    expected_scopes = set(PREIMPLEMENTATION_REVIEW_SCOPES)
+    if {row.get("scope") for row in rows if isinstance(row, dict)} != expected_scopes:
+        blockers.append("review_materialization_scope_set_mismatch")
+    for row in rows:
+        if not isinstance(row, dict):
+            blockers.append("review_materialization_row_invalid")
+            continue
+        source = REPO_ROOT / str(row.get("source_path", ""))
+        target = REPO_ROOT / str(row.get("target_path", ""))
+        source_hash = sha256_file(source)
+        target_hash = sha256_file(target)
+        if not source_hash or source_hash != row.get("source_sha256"):
+            blockers.append(f"review_source_hash_mismatch:{row.get('scope')}")
+        if not target_hash or target_hash != row.get("target_sha256"):
+            blockers.append(f"review_target_hash_mismatch:{row.get('scope')}")
+        if source_hash != target_hash or row.get("byte_identical") is not True:
+            blockers.append(f"review_byte_identity_mismatch:{row.get('scope')}")
+        if row.get("schema_valid") is not True:
+            blockers.append(f"review_schema_invalid:{row.get('scope')}")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-preimplementation-review-validation-v1",
+        "round_id": ROUND_ID,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(blockers),
+        "blockers": blockers,
+        "reviewed_bundle_hash": report.get("reviewed_bundle_hash"),
+        "critical_count": zero.get("critical_count"),
+        "important_count": zero.get("important_count"),
+        "unresolved_minor_count": zero.get("unresolved_minor_count"),
+        "review_verdicts_pass": zero.get("all_reviewer_verdicts_pass"),
+        "blocker_zero_status": zero.get("status"),
+        "owner_or_reviewer_verdict_authored": False,
+        "wp_execution_allowed": False,
+    }
+
+
+def validate_execution_entry(
+    evidence_root: str | Path | None = None,
+) -> dict[str, Any]:
+    root = resolve_evidence_root(evidence_root)
+    phase0 = root / "phase0"
+    phase3 = root / "phase3"
+    preflight = validate_preflight(root)
+    reviews = validate_preimplementation_reviews(root)
+    zero = read_json_object(phase3 / "blocker_zero_record.json")
+    scaffold = validate_bootstrap_manifest()
+    checkpoint = read_json_object(CLEAN_CHECKPOINT_INPUT)
+    approval = read_json_object(PLAN_APPROVAL_INPUT)
+    designation = read_json_object(REVIEWER_DESIGNATION_INPUT)
+    head = current_head()
+    blockers: list[str] = []
+    if preflight.get("status") != "PASS":
+        blockers.append("entry_preflight_not_pass")
+    if reviews.get("status") != "PASS":
+        blockers.append("entry_review_materialization_not_pass")
+    if zero.get("status") != "PASS":
+        blockers.append("entry_review_blocker_zero_not_pass")
+    if scaffold.get("status") != "PASS":
+        blockers.append("entry_bootstrap_scaffold_mismatch")
+    blockers.extend(validate_checkpoint(checkpoint, scaffold, head))
+    blockers.extend(
+        validate_plan_approval(
+            approval,
+            head=head,
+            checkpoint_hash=sha256_file(CLEAN_CHECKPOINT_INPUT),
+            scaffold=scaffold,
+            enforce_present_input_set=False,
+        )
+    )
+    blockers.extend(validate_reviewer_designation(designation))
+    if (phase0 / "clean_worktree_checkpoint_record.json").read_bytes() != CLEAN_CHECKPOINT_INPUT.read_bytes():
+        blockers.append("entry_checkpoint_materialization_not_byte_identical")
+    if (phase0 / "implementation_plan_approval_record.json").read_bytes() != PLAN_APPROVAL_INPUT.read_bytes():
+        blockers.append("entry_plan_approval_materialization_not_byte_identical")
+
+    protected_mapping = read_json_object(
+        phase0 / "protected_surface_plan_mapping_report.json"
+    )
+    if protected_mapping.get("status") != "PASS" or protected_mapping.get("set_equality") is not True:
+        blockers.append("entry_protected_surface_plan_denominator_mismatch")
+    stored_lua = read_json_object(phase0 / "lua_syntax_environment_preflight.json")
+    current_lua = lua_environment_report()
+    if stored_lua.get("status") != "PASS" or canonical_hash(stored_lua) != canonical_hash(current_lua):
+        blockers.append("entry_lua_environment_drift")
+
+    report = read_json_object(
+        phase3 / "preimplementation_review_materialization_report.json"
+    )
+    allowed_hashes = {
+        str(row.get("path", "")).replace("\\", "/"): row.get("sha256")
+        for row in approval.get("reserved_external_inputs", [])
+        if isinstance(row, dict)
+    }
+    allowed_hashes[repo_relative(PLAN_APPROVAL_INPUT)] = sha256_file(PLAN_APPROVAL_INPUT)
+    for row in report.get("rows", []):
+        if isinstance(row, dict):
+            allowed_hashes[str(row.get("source_path", ""))] = row.get("source_sha256")
+    _, status_lines = git_status_rows()
+    status_rows = []
+    for line in status_lines:
+        path = status_path(line)
+        actual = sha256_file(REPO_ROOT / path)
+        expected = allowed_hashes.get(path)
+        allowed = bool(expected and actual == expected)
+        status_rows.append(
+            {
+                "status_line": line,
+                "path": path,
+                "expected_sha256": expected,
+                "actual_sha256": actual,
+                "allowed": allowed,
+            }
+        )
+        if not allowed:
+            blockers.append(f"entry_unapproved_delta:{path}")
+
+    entry_allowed = not blockers
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-execution-entry-validation-v1",
+        "round_id": ROUND_ID,
+        "status": "PASS" if entry_allowed else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "execution_base_commit": head,
+        "reviewed_bundle_hash": reviews.get("reviewed_bundle_hash"),
+        "critical_count": zero.get("critical_count"),
+        "important_count": zero.get("important_count"),
+        "unresolved_minor_count": zero.get("unresolved_minor_count"),
+        "status_rows": status_rows,
+        "wp_execution_allowed": entry_allowed,
+        "gate_adoption_allowed": False,
+        "finalization_allowed": False,
+        "canonical_closure_claimed": False,
+        "owner_seal_claimed": False,
+        "owner_or_reviewer_verdict_authored": False,
     }

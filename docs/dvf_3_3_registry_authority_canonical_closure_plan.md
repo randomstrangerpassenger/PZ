@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> Status: implementation-authorized / retry-semantics-corrected / cycle-id-attempt-id-separated / write-once-attempt-evidence / failure-laundering-prohibited / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / attempt-0005-review-required / execution-blocked-before-WP
+> Status: implementation-authorized / retry-semantics-corrected / cycle-id-attempt-id-separated / write-once-attempt-evidence / failure-laundering-prohibited / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / attempt-0006-review-required / execution-blocked-before-WP
 > 작성일: 2026-07-10
 > Round candidate: dvf_3_3_registry_authority_canonical_closure
 > Roadmap input: C:/Users/MW/.codex/attachments/8d0d9746-0c56-482c-a7ed-e5aca9fedebf/pasted-text.txt / consumed_roadmap_hash=sha256:17C41198E4D35A15743FD6C9F869CA545C5363A3A32EB005DB1E94BC16530ECD / 1482 lines
@@ -9,7 +9,8 @@
 > Phase 3 attempt-0002 reviewed bundle: sha256:8A77019F38EFA265BA2A34767A53FE3EBCCF85CA28910BECDF86F9617E4D0EF3 / verdict FAIL / Critical 1 / Important 1 / superseded but byte-preserved
 > Phase 3 attempt-0003 bundle: sha256:F92DD854BB0785AE581E815B7DEBED1F5426A7578D9842829F443BAA2712D11A / superseded before final review after primary fixed-path audit / byte-preserved
 > Phase 3 attempt-0004 bundle: sha256:EBC2A1831A3F10ED295FA9C72D64160F25827AFB8879DFC6B325F65E4665B47D / superseded before final review after retry-semantics correction / byte-preserved
-> Execution entry status: blocked until attempt-0005-entry receives fresh external reviews with Critical=0 and Important=0
+> Phase 3 attempt-0005 bundle: sha256:5BADA09896EF6A6699E950AE7C6B66450D21036DC425735CA76E79CC2A9F8885 / preflight FAIL / D10 plan-hash transcription mismatch / terminal report sha256:3D2DD029091F14932120E30F0793EF2D65E02B4EA0FE95919760DF283E8F9F4B / byte-preserved
+> Execution entry status: blocked until attempt-0006-entry receives fresh external reviews with Critical=0 and Important=0
 > Template input: docs/PLAN_TEMPLATE.md / sha256 38D70D4D624733DB4D24F047E0B737A47C75522A967C84F06FE5AABC5EBD9BA1
 > Top authority: docs/Philosophy.md / sha256 938C52E9090C36AF00DAC18B64905E12A4F2390AC238A26121A63A14F81F44B2
 > Planning readpoints: docs/DECISIONS.md / sha256 E57C4D3BC21BB2DFA10791E41EF7440358C3DAF66D11AD05A06E8158090C40D3; docs/ARCHITECTURE.md / sha256 8B2CA298EF75FE1C85C7E44B81E6536EE6343E0FC5227F662142398EE1636C89; docs/ROADMAP.md / sha256 9D3A74DA7B54FD6392FD44F5D7A2ED1ABA35CA29AB83D3EB914CD64AAC6C0A12

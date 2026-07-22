@@ -614,6 +614,10 @@ def preflight_external_contract() -> dict[str, Any]:
                 "preserved_evidence_tree_sha256",
                 "failure_record_preserved",
             ],
+            "post_split_predecessor_required_fields": [
+                "preserved_owner_inputs_path",
+                "preserved_owner_inputs_tree_sha256",
+            ],
         },
         "clean_checkpoint": {
             "path": repo_relative(CLEAN_CHECKPOINT_INPUT),
@@ -697,6 +701,79 @@ def validate_checkpoint(payload: dict[str, Any], scaffold: dict[str, Any], head:
     return blockers
 
 
+def validate_preserved_owner_input_archive(
+    row: dict[str, Any],
+    *,
+    predecessor_id: str,
+    attempt_archive: Path,
+) -> tuple[Path | None, list[str]]:
+    blockers: list[str] = []
+    path_value = row.get("preserved_owner_inputs_path")
+    expected_hash = row.get("preserved_owner_inputs_tree_sha256")
+    if not isinstance(path_value, str) or not isinstance(expected_hash, str):
+        return None, [
+            f"attempt_registration_predecessor_owner_inputs_binding_missing:{predecessor_id}"
+        ]
+    archive = (REPO_ROOT / path_value).resolve()
+    expected_archive = (
+        DEFAULT_EVIDENCE_ROOT / "superseded_owner_inputs" / predecessor_id
+    ).resolve()
+    if (
+        archive != expected_archive
+        or not is_within(archive, DEFAULT_EVIDENCE_ROOT / "superseded_owner_inputs")
+        or not archive.is_dir()
+        or path_value.replace("\\", "/") != repo_relative(archive)
+    ):
+        blockers.append(
+            f"attempt_registration_predecessor_owner_inputs_not_preserved:{predecessor_id}"
+        )
+    elif directory_tree_hash(archive) != expected_hash:
+        blockers.append(
+            f"attempt_registration_predecessor_owner_inputs_hash_mismatch:{predecessor_id}"
+        )
+    elif not any(path.is_file() for path in archive.rglob("*")):
+        blockers.append(
+            f"attempt_registration_predecessor_owner_inputs_empty:{predecessor_id}"
+        )
+    required_inputs = (
+        "worktree_checkpoints/current_session_clean_worktree_checkpoint_record.json",
+        "attempt_registrations/current_session_attempt_record.json",
+        "owner_decisions/current_session_owner_decision_record.json",
+        "reviewer_designations/current_session_independent_reviewer_designation.json",
+        "plan_approvals/current_session_implementation_plan_approval_record.json",
+    )
+    for relative in required_inputs:
+        if not (archive / relative).is_file():
+            blockers.append(
+                f"attempt_registration_predecessor_owner_input_missing:{predecessor_id}:{relative}"
+            )
+    zero_record = read_json_object(
+        attempt_archive / "phase3" / "blocker_zero_record.json"
+    )
+    if zero_record:
+        for review_name in (
+            "current_session_responsibility_boundary_review.md",
+            "current_session_authority_evidence_integrity_review.md",
+            "current_session_adversarial_failure_mode_review.md",
+        ):
+            if not (archive / "preimplementation_reviews" / review_name).is_file():
+                blockers.append(
+                    f"attempt_registration_predecessor_review_input_missing:{predecessor_id}:{review_name}"
+                )
+    if zero_record.get("status") == "PASS":
+        entry_failure = read_json_object(archive / "execution_entry_failure_record.json")
+        if (
+            entry_failure.get("cycle_id") != CYCLE_ID
+            or entry_failure.get("attempt_id") != predecessor_id
+            or entry_failure.get("status") != "FAIL"
+            or entry_failure.get("wp_execution_allowed") is not False
+        ):
+            blockers.append(
+                f"attempt_registration_predecessor_entry_failure_record_invalid:{predecessor_id}"
+            )
+    return (archive if not blockers else None), blockers
+
+
 def validate_attempt_registration(
     payload: dict[str, Any],
     *,
@@ -734,6 +811,7 @@ def validate_attempt_registration(
         return blockers
     seen_ids: set[str] = set()
     seen_archives: set[Path] = set()
+    seen_owner_input_archives: set[Path] = set()
     for index, row in enumerate(predecessors):
         if not isinstance(row, dict):
             blockers.append(f"attempt_registration_predecessor_row_invalid:{index}")
@@ -773,6 +851,15 @@ def validate_attempt_registration(
             blockers.append(f"attempt_registration_predecessor_terminal_record_missing:{predecessor_id}")
         if row.get("failure_record_preserved") is not True:
             blockers.append(f"attempt_registration_predecessor_failure_not_preserved:{predecessor_id}")
+        if is_within(archive, ATTEMPTS_ROOT):
+            owner_archive, owner_archive_blockers = validate_preserved_owner_input_archive(
+                row,
+                predecessor_id=predecessor_id,
+                attempt_archive=archive,
+            )
+            blockers.extend(owner_archive_blockers)
+            if owner_archive is not None:
+                seen_owner_input_archives.add(owner_archive)
     legacy_root = DEFAULT_EVIDENCE_ROOT / "superseded_review_rounds"
     expected_archives = {
         path.resolve()
@@ -783,6 +870,18 @@ def validate_attempt_registration(
     }
     if seen_archives != expected_archives:
         blockers.append("attempt_registration_predecessor_archive_set_mismatch")
+    owner_history_root = DEFAULT_EVIDENCE_ROOT / "superseded_owner_inputs"
+    expected_owner_input_archives = (
+        {
+            path.resolve()
+            for path in owner_history_root.iterdir()
+            if path.is_dir()
+        }
+        if owner_history_root.is_dir()
+        else set()
+    )
+    if seen_owner_input_archives != expected_owner_input_archives:
+        blockers.append("attempt_registration_predecessor_owner_input_archive_set_mismatch")
     return blockers
 
 

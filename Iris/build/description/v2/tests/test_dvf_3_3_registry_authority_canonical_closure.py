@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import ast
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import shutil
@@ -36,6 +37,17 @@ def run_script(path: Path, *args: str) -> subprocess.CompletedProcess[str]:
         capture_output=True,
         check=False,
     )
+
+
+def load_common_module():
+    spec = importlib.util.spec_from_file_location(
+        "registry_authority_common_for_test", COMMON
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load {COMMON}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
@@ -283,6 +295,36 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
                 shutil.rmtree(resolved)
+
+    def test_preserved_owner_input_tree_hash_is_revalidated(self) -> None:
+        common = load_common_module()
+        predecessor_id = "attempt-0006-entry"
+        archive = (
+            EVIDENCE_ROOT / "superseded_owner_inputs" / predecessor_id
+        ).resolve()
+        self.assertTrue(archive.is_dir())
+        row = {
+            "preserved_owner_inputs_path": archive.relative_to(REPO_ROOT).as_posix(),
+            "preserved_owner_inputs_tree_sha256": common.directory_tree_hash(archive),
+        }
+        preserved, blockers = common.validate_preserved_owner_input_archive(
+            row,
+            predecessor_id=predecessor_id,
+            attempt_archive=EVIDENCE_ROOT / "attempts" / predecessor_id,
+        )
+        self.assertEqual(preserved, archive)
+        self.assertEqual(blockers, [])
+        row["preserved_owner_inputs_tree_sha256"] = "0" * 64
+        preserved, blockers = common.validate_preserved_owner_input_archive(
+            row,
+            predecessor_id=predecessor_id,
+            attempt_archive=EVIDENCE_ROOT / "attempts" / predecessor_id,
+        )
+        self.assertIsNone(preserved)
+        self.assertIn(
+            "attempt_registration_predecessor_owner_inputs_hash_mismatch:attempt-0006-entry",
+            blockers,
+        )
 
 
 if __name__ == "__main__":

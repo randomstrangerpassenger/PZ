@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> Status: implementation-authorized / retry-semantics-corrected / cycle-id-attempt-id-separated / write-once-attempt-evidence / failure-laundering-prohibited / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / attempt-0007-review-required / execution-blocked-before-WP
+> Status: implementation-authorized / retry-semantics-corrected / cycle-id-attempt-id-separated / write-once-attempt-evidence / failure-laundering-prohibited / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / attempt-0008-review-required / execution-blocked-before-WP
 > 작성일: 2026-07-10
 > Round candidate: dvf_3_3_registry_authority_canonical_closure
 > Roadmap input: C:/Users/MW/.codex/attachments/8d0d9746-0c56-482c-a7ed-e5aca9fedebf/pasted-text.txt / consumed_roadmap_hash=sha256:17C41198E4D35A15743FD6C9F869CA545C5363A3A32EB005DB1E94BC16530ECD / 1482 lines
@@ -11,7 +11,8 @@
 > Phase 3 attempt-0004 bundle: sha256:EBC2A1831A3F10ED295FA9C72D64160F25827AFB8879DFC6B325F65E4665B47D / superseded before final review after retry-semantics correction / byte-preserved
 > Phase 3 attempt-0005 bundle: sha256:5BADA09896EF6A6699E950AE7C6B66450D21036DC425735CA76E79CC2A9F8885 / preflight FAIL / D10 plan-hash transcription mismatch / terminal report sha256:3D2DD029091F14932120E30F0793EF2D65E02B4EA0FE95919760DF283E8F9F4B / byte-preserved
 > Phase 3 attempt-0006 bundle: sha256:13290EABFAA5A9321B806FF11A6CCCC1E7046ED89A79489DCDCBF043077EA3F8 / Codex Reviewer PASS 0/0/0 / Execution Entry FAIL entry_lua_environment_drift / execution-metadata normalization defect / byte-preserved
-> Execution entry status: blocked until attempt-0007-entry receives fresh external reviews with Critical=0 and Important=0
+> Phase 3 attempt-0007 bundle: sha256:BC656153A9DD794B85C5ADC8A5318E0CDB60CF751180AFF0BAC6938C729AB1E8 / Codex Reviewer FAIL / Critical 0 / Important 1 AFM7-001 / predecessor owner-input archive hash not revalidated / byte-preserved
+> Execution entry status: blocked until attempt-0008-entry receives fresh external reviews with Critical=0 and Important=0
 > Template input: docs/PLAN_TEMPLATE.md / sha256 38D70D4D624733DB4D24F047E0B737A47C75522A967C84F06FE5AABC5EBD9BA1
 > Top authority: docs/Philosophy.md / sha256 938C52E9090C36AF00DAC18B64905E12A4F2390AC238A26121A63A14F81F44B2
 > Planning readpoints: docs/DECISIONS.md / sha256 E57C4D3BC21BB2DFA10791E41EF7440358C3DAF66D11AD05A06E8158090C40D3; docs/ARCHITECTURE.md / sha256 8B2CA298EF75FE1C85C7E44B81E6536EE6343E0FC5227F662142398EE1636C89; docs/ROADMAP.md / sha256 9D3A74DA7B54FD6392FD44F5D7A2ED1ABA35CA29AB83D3EB914CD64AAC6C0A12
@@ -390,6 +391,11 @@ Every execution attempt writes only below its registered immutable root:
 
 The phase0/* through phase5/* paths below are relative to that attempt root unless explicitly identified as the cycle-level tracked bootstrap manifest. An existing attempt root or claim-bearing output is never overwritten; retry uses a new attempt_id and new root while preserving predecessor failure records.
 
+Cycle-level preserved retry history, never used as the active attempt output root:
+
+* superseded_review_rounds/<legacy_round>/
+* superseded_owner_inputs/<attempt_id>/
+
 Phase 0 / plan binding:
 
 * phase0/registry_authority_plan_traceability_matrix.json
@@ -635,7 +641,7 @@ Implementation Notes:
 * After that clean checkpoint and before preflight, only the exact reserved external owner/reviewer input files named in Section 5 may be introduced. D10 lists each present input path/hash and binds the clean-checkpoint hash. Preflight rejects any code/docs/config/evidence delta, unlisted input, ignored input, or changed checkpoint/approval hash before its own evidence writes. Later gates recompute expected round-owned deltas separately; the planning observation of 99 modified paths is provenance only, never an execution predicate.
 * Resolve every path before hashing or writing. Evidence writes must remain under the ratified evidence root.
 * Separate cycle_id from attempt_id. cycle_id remains dvf_3_3_registry_authority_canonical_closure; each execution uses an owner-registered attempt_id matching attempt-NNNN-lowercase-label and the exact root cycle_root/attempts/<attempt_id>/. Preflight rejects a missing/mismatched registration, path traversal, a reused attempt root, or any existing attempt output before writes.
-* A pre-adoption retry is legal only with a new attempt_id and new output root while protected_mutation_count=0, live_gate_adopted=false, and top_docs_applied=false. The registration lists every predecessor attempt, its preserved failure/archive path, and the canonical tree SHA-256 of that archive. Preflight and Entry recompute every predecessor tree hash and require its terminal preflight report or write-once preflight exception record. The tool must not delete, truncate, replace, rename-away, or rewrite a predecessor failure record.
+* A pre-adoption retry is legal only with a new attempt_id and new output root while protected_mutation_count=0, live_gate_adopted=false, and top_docs_applied=false. The registration lists every predecessor attempt, its preserved failure/archive path, and the canonical tree SHA-256 of that archive. For every post-separation attempts/<attempt_id> predecessor it also binds the exact superseded_owner_inputs/<attempt_id> path and canonical tree SHA-256. Preflight and Entry recompute both complete archive sets, every tree hash, and the predecessor terminal preflight report or write-once preflight exception record. Each post-separation owner-input archive must retain the checkpoint, registration, owner decision, reviewer designation, and plan approval; a materialized review attempt must also retain all three original review sources, and a blocker-zero predecessor superseded before WP execution must retain its Entry failure record. This protects the actual owner/reviewer inputs and separately captured Entry failures as well as the attempt evidence. The tool must not delete, truncate, replace, rename-away, or rewrite a predecessor failure record.
 * All attempt claim-bearing outputs are exclusive-create/write-once. A failed or partial attempt remains immutable evidence; it may be superseded by a later attempt but never converted in place from FAIL to PASS. preflight_report.json and preimplementation_review_materialization_report.json are their modes' terminal outputs and are written only after every preceding mode output succeeds. Before Entry, the runner records an otherwise-unmaterialized mode exception once under attempt_failures/<mode>.json; it never rewrites that record and never appends one after the mode's terminal output already exists. materialize-preimplementation-reviews prechecks its entire output set and refuses a same-attempt rerun if any target already exists.
 * Receipt nonce consumption is scoped to one attempt and never reset. A consumed nonce cannot be retried; a later legal attempt requires a newly authorized receipt and nonce. Candidate/fixture generation failures may discard or supersede only the candidate/fixture inside their attempt, then continue only in a new attempt root.
 * Use one closed plan-mapped protected/identity-bearing denominator resolver for preflight, Entry, implementation freeze, final no-mutation, and reviewed-bundle hashing. It includes the six DVF current inputs, compose_profiles_v2.json, compose_profile_identity_hint_rules.json, compose_profile_conflict_precedence_rules.json, dvf_3_3_rendered.json, style_normalization_changes.jsonl, compose_requeue_candidates.jsonl, layer3_renderer.lua, IrisWikiSections.lua, IrisModuleBootstrap.lua, IrisRequire.lua, the verified runtime chunk manifest/directory, and Iris/build/package. Build runtime paths from _dvf_3_3_vnext_common.RUNTIME_CHUNK_MANIFEST, RUNTIME_CHUNK_DIR, RUNTIME_MONOLITH or equally verified actual repo-root paths. Emit one explicit row per exact file/directory and require set equality with this plan-mapped denominator; assert required members exist and reject omissions, extras, and duplicate-root forms such as Iris/Iris/media/....
@@ -668,6 +674,8 @@ Validation:
 * cycle_id_attempt_id_separation = true
 * same_attempt_claim_output_overwrite_count = 0
 * predecessor_failure_record_deletion_or_rewrite_count = 0
+* predecessor_owner_reviewer_input_archive_set_equality = true
+* predecessor_owner_reviewer_input_tree_hash_mismatch_count = 0
 * attempt_registration_materialization_byte_identity = true
 * uncaptured_pre_entry_mode_exception_count = 0
 * pre_adoption_new_attempt_retry_allowed = true

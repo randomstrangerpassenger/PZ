@@ -1,0 +1,142 @@
+{
+  "accepted_row_count": 27869,
+  "actual_apply_eligible_row_count": 163,
+  "actual_diff_ledger_materialized_by_this_round": false,
+  "actual_diff_ledger_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness/phase4/actual_diff_to_ledger_report.json",
+  "actual_diff_ledger_path_kind": "future_readiness_target",
+  "actual_diff_ledger_source_authority": false,
+  "actual_diff_ledger_status": "downstream_readiness_generated_after_apply",
+  "actual_diff_ledger_target_only": true,
+  "anchor_freshness_summary": {
+    "apply_eligible_rows_with_bounded_context_hash": 163,
+    "apply_eligible_rows_with_target_file_hash": 163,
+    "claim_boundary": "consumer migration input normalization only; not consumer migration execution, current authority adoption, runtime cutover, package readiness, or release readiness",
+    "contract_summary": {
+      "blocked_row_passthrough_count": 0,
+      "claim_boundary": "consumer migration input normalization only; not consumer migration execution, current authority adoption, runtime cutover, package readiness, or release readiness",
+      "row_count_reconciliation": "PASS",
+      "row_id_set_hash": "2f5fce57d9838a945ff5a600292cd2acbf4432bfb0bcd6e0b6178df6f7089839",
+      "row_id_set_not_applicable_reason": null,
+      "source_fingerprint_check": "PASS",
+      "source_fingerprint_ref": "phase0/source_matrix_fingerprint_report.json"
+    },
+    "generated_at": "2026-06-17T00:00:00+00:00",
+    "schema_version": "dvf-3-3-consumer-migration-anchor-freshness-binding-v0",
+    "status": "PASS"
+  },
+  "anchor_relocation_summary": {
+    "ambiguous_count": 0,
+    "anchor_relocation_counts": {
+      "exact_line_match": 120,
+      "missing_path_non_apply": 125,
+      "relocated_deterministically": 66
+    },
+    "apply_eligible_ambiguous_count": 0,
+    "apply_eligible_unresolved_count": 0,
+    "claim_boundary": "consumer migration input normalization only; not consumer migration execution, current authority adoption, runtime cutover, package readiness, or release readiness",
+    "contract_summary": {
+      "blocked_row_passthrough_count": 0,
+      "claim_boundary": "consumer migration input normalization only; not consumer migration execution, current authority adoption, runtime cutover, package readiness, or release readiness",
+      "row_count_reconciliation": "PASS",
+      "row_id_set_hash": "2f5fce57d9838a945ff5a600292cd2acbf4432bfb0bcd6e0b6178df6f7089839",
+      "row_id_set_not_applicable_reason": null,
+      "source_fingerprint_check": "PASS",
+      "source_fingerprint_ref": "phase0/source_matrix_fingerprint_report.json"
+    },
+    "generated_at": "2026-06-17T00:00:00+00:00",
+    "path_status_writer_phase": "phase2",
+    "phase2_path_status_consumed": true,
+    "row_count": 311,
+    "schema_version": "dvf-3-3-consumer-migration-anchor-relocation-validation-v0",
+    "status": "PASS",
+    "unresolved_count": 0
+  },
+  "blocked_apply_eligible_row_count": 0,
+  "blocked_non_apply_row_count": 0,
+  "blocked_reason_distribution": {},
+  "blocked_row_count": 0,
+  "change_forbidden_row_count": 27558,
+  "change_required_row_count": 311,
+  "claim_boundary": "candidate predicate only; not cutover authorization",
+  "compatibility_manifest_path": "phase5/downstream_command_surface_compatibility_manifest.json",
+  "compatibility_source_binding_path": "phase5/compatibility_source_binding.json",
+  "contract_summary": {
+    "blocked_row_passthrough_count": 0,
+    "claim_boundary": "consumer migration input normalization only; not consumer migration execution, current authority adoption, runtime cutover, package readiness, or release readiness",
+    "row_count_reconciliation": "PASS",
+    "row_id_set_hash": "2f5fce57d9838a945ff5a600292cd2acbf4432bfb0bcd6e0b6178df6f7089839",
+    "row_id_set_not_applicable_reason": null,
+    "source_fingerprint_check": "PASS",
+    "source_fingerprint_ref": "phase0/source_matrix_fingerprint_report.json"
+  },
+  "cutover_input_usable": true,
+  "diagnostic_preserved_row_count": 0,
+  "downstream_direct_mapping": "downstream must consume this manifest, not raw change_required_index.md or raw consumer_migration_matrix.jsonl",
+  "downstream_phase5_consumption_note": "downstream Phase 5 consumes readiness-owned row-level ledger and diff-to-ledger evidence after readiness executor runs; this manifest is source contract only",
+  "exact_command_validation_registry_path": "phase5/exact_command_validation_registry.json",
+  "executing_consumer_row_count": 1062,
+  "false_positive_no_mutation_row_count": 0,
+  "gate_field_schema_descriptions": {
+    "cutover_input_usable": "candidate predicate only; not cutover authorization",
+    "handoff_usable": "downstream tooling-readiness input only; not migration completion"
+  },
+  "generated_at": "2026-06-17T00:00:00+00:00",
+  "generated_no_mutation_row_count": 0,
+  "handoff_usable": true,
+  "handoff_usage_scope": "downstream_tooling_readiness_input_only",
+  "historical_preserved_row_count": 0,
+  "implementation_scope_boundary": {
+    "consumer_migration_execution_allowed": false,
+    "current_cutover_allowed": false,
+    "downstream_target_contract_execution_allowed": false,
+    "implementation_allowed_scope": "core_input_normalization_only",
+    "package_or_release_readiness_allowed": false,
+    "roadmap_artifact_status": "draft_not_final",
+    "roadmap_final_approval_required_before_governance_complete": true,
+    "runtime_replacement_allowed": false
+  },
+  "missing_apply_eligible_row_count": 0,
+  "missing_path_summary": {
+    "claim_boundary": "consumer migration input normalization only; not consumer migration execution, current authority adoption, runtime cutover, package readiness, or release readiness",
+    "contract_summary": {
+      "blocked_row_passthrough_count": 0,
+      "claim_boundary": "consumer migration input normalization only; not consumer migration execution, current authority adoption, runtime cutover, package readiness, or release readiness",
+      "row_count_reconciliation": "PASS",
+      "row_id_set_hash": "2f5fce57d9838a945ff5a600292cd2acbf4432bfb0bcd6e0b6178df6f7089839",
+      "row_id_set_not_applicable_reason": null,
+      "source_fingerprint_check": "PASS",
+      "source_fingerprint_ref": "phase0/source_matrix_fingerprint_report.json"
+    },
+    "generated_at": "2026-06-17T00:00:00+00:00",
+    "known_missing_plan_path_rows": 125,
+    "missing_apply_eligible_row_count": 0,
+    "missing_diff_countable_row_count": 0,
+    "missing_path_row_count": 125,
+    "path_status_counts": {
+      "exists": 186,
+      "missing": 125
+    },
+    "schema_version": "dvf-3-3-consumer-migration-missing-path-summary-v0",
+    "status": "PASS",
+    "total_rows": 311
+  },
+  "no_op_row_count": 148,
+  "non_apply_reconciled_row_count": 148,
+  "normalized_row_counts": {
+    "actual_apply_eligible": 163,
+    "no_op": 148
+  },
+  "required_source_input_binding_refs": "phase0/required_source_inputs.json",
+  "row_disposition_ledger_path": "phase6/row_disposition_ledger.for_readiness.jsonl",
+  "row_id_set_reconciliation_hashes": {
+    "phase1": "2f5fce57d9838a945ff5a600292cd2acbf4432bfb0bcd6e0b6178df6f7089839",
+    "phase6": "2f5fce57d9838a945ff5a600292cd2acbf4432bfb0bcd6e0b6178df6f7089839"
+  },
+  "rule_seed_artifact_path": "phase4/authority_role_migration_rule_seed.jsonl",
+  "schema_version": "dvf-3-3-consumer-migration-reconciled-input-manifest-v0",
+  "source_input_fingerprints": "phase0/source_matrix_fingerprint_report.json",
+  "source_matrix_fingerprint": "633357da9b1a3919a69d509ec4d508ec8296e8706d1e703967187a8505d83d2c",
+  "source_matrix_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl",
+  "source_membership_reconciliation_refs": "phase0/source_membership_reconciliation.json",
+  "verdict": "PASS"
+}

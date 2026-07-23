@@ -1,0 +1,452 @@
+{
+  "errors": [],
+  "phase_outputs": {
+    "phase0": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/input_readpoint.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/command_surface_inventory.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/template_and_input_anchor.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/protected_surface_set.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/protected_surface_hashes.before.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/implementation_command_contract.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/tooling_closure_report.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/guard_negative_self_test.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/tool_behavior_self_test_report.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase0/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/EXECUTION_CONTRACT.md"
+      }
+    ],
+    "phase1": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase1/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase1/runtime_derived_seed.jsonl"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase1/source_universe_manifest.schema.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase1/source_universe_manifest.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase1/source_manifest.validation.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase1/source_manifest.fingerprint.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase1/source_input_attempt_order.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase1/source_blocked_state.md"
+      }
+    ],
+    "phase10": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase10/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase10/cutover_preconditions.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase10/rollback_boundary.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase10/protected_surface_hashes.after.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase10/protected_surface_hash_diff.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase10/protected_surface_no_mutation_verdict.json"
+      }
+    ],
+    "phase11": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/ledger_update_packet.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/proposed_decisions_entry.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/proposed_architecture_patch.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/proposed_roadmap_patch.md"
+      }
+    ],
+    "phase2": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase2/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase2/dvf_3_3_vnext_facts.jsonl"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase2/dvf_3_3_vnext_decisions.jsonl"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase2/facts_decisions.validation.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase2/facts_decisions.hashes.json"
+      }
+    ],
+    "phase3": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase3/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase3/compose_binding_manifest.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase3/compose_profile_fingerprint.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase3/overlay_disposition.md"
+      }
+    ],
+    "phase4": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase4/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase4/dvf_3_3_vnext_rendered.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase4/style_normalization_changes.jsonl"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase4/rendered.validation.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase4/rendered.determinism.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase4/rendered.hash.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase4/style_baseline_conformance.json"
+      }
+    ],
+    "phase5": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/IrisLayer3Data.lua"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/IrisLayer3DataChunks.lua"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/lua_bridge_export_report.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/runtime_bridge_validation_report.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/chunk_hashes.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/staging_lua_load_harness_report.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/staging_loaded_module_paths.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase5/live_module_leak_report.json"
+      }
+    ],
+    "phase6": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase6/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase6/source_to_runtime_self_consistency.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase6/authority_chain_fingerprint.json"
+      }
+    ],
+    "phase7": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase7/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase7/predecessor_successor_delta.jsonl"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase7/delta_summary.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase7/unexplained_delta_report.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase7/explained_delta_metrics.json"
+      }
+    ],
+    "phase8": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/output_path_preflight_guard.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/migration_input_manifest.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_matrix.jsonl"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_migration_dry_run.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.before.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hashes.after.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/consumer_hash_diff.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/forbidden_touch_report.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase8/migration_blockers.md"
+      }
+    ],
+    "phase9": [
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase9/output_path_preflight_guard.json"
+      },
+      {
+        "exists": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase9/validator_test_tool_contract.md"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase9/current_route_regression_report.json"
+      },
+      {
+        "exists": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase9/vnext_route_validation_report.json"
+      },
+      {
+        "exists": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase9/tool_change_list.md"
+      }
+    ]
+  },
+  "phase_statuses": {
+    "phase0": "present",
+    "phase1": "present",
+    "phase10": "PASS",
+    "phase11": "present",
+    "phase2": "present",
+    "phase3": "present",
+    "phase4": "present",
+    "phase5": "present",
+    "phase6": "present",
+    "phase7": "present",
+    "phase8": "present",
+    "phase9": "present"
+  },
+  "require_phase": "all",
+  "schema_version": "dvf-3-3-vnext-execution-contract-validation-v0",
+  "status": "PASS",
+  "tools": [
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/hash_dvf_3_3_vnext_protected_surface.py",
+      "state": "implemented_new",
+      "tool": "hash_dvf_3_3_vnext_protected_surface.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/guard_dvf_3_3_vnext_output_paths.py",
+      "state": "implemented_new",
+      "tool": "guard_dvf_3_3_vnext_output_paths.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/write_dvf_3_3_vnext_phase0_contract_inputs.py",
+      "state": "implemented_new",
+      "tool": "write_dvf_3_3_vnext_phase0_contract_inputs.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/extract_dvf_3_3_vnext_runtime_seed.py",
+      "state": "implemented_new",
+      "tool": "extract_dvf_3_3_vnext_runtime_seed.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_vnext_source_manifest.py",
+      "state": "implemented_new",
+      "tool": "build_dvf_3_3_vnext_source_manifest.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_source_manifest.py",
+      "state": "implemented_new",
+      "tool": "validate_dvf_3_3_vnext_source_manifest.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_vnext_facts_decisions.py",
+      "state": "implemented_new",
+      "tool": "build_dvf_3_3_vnext_facts_decisions.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_facts_decisions.py",
+      "state": "implemented_new",
+      "tool": "validate_dvf_3_3_vnext_facts_decisions.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_compose_binding.py",
+      "state": "implemented_new",
+      "tool": "validate_dvf_3_3_vnext_compose_binding.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_lua_load_harness.py",
+      "state": "implemented_new",
+      "tool": "validate_dvf_3_3_vnext_lua_load_harness.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_self_consistency.py",
+      "state": "implemented_new",
+      "tool": "validate_dvf_3_3_vnext_self_consistency.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/classify_dvf_3_3_vnext_delta.py",
+      "state": "implemented_new",
+      "tool": "classify_dvf_3_3_vnext_delta.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/build_dvf_3_3_vnext_consumer_migration_matrix.py",
+      "state": "implemented_new",
+      "tool": "build_dvf_3_3_vnext_consumer_migration_matrix.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/dry_run_dvf_3_3_vnext_consumer_migration.py",
+      "state": "implemented_new",
+      "tool": "dry_run_dvf_3_3_vnext_consumer_migration.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_vnext_execution_contract.py",
+      "state": "implemented_new",
+      "tool": "validate_dvf_3_3_vnext_execution_contract.py"
+    },
+    {
+      "exists": true,
+      "path": "Iris/build/description/v2/tools/build/write_dvf_3_3_vnext_ledger_packet.py",
+      "state": "implemented_new",
+      "tool": "write_dvf_3_3_vnext_ledger_packet.py"
+    }
+  ]
+}

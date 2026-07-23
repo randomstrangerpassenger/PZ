@@ -6,13 +6,14 @@ import fnmatch
 import hashlib
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 import queue
 import re
 import secrets
 import shutil
 import subprocess
 import sys
+import tempfile
 import threading
 import time
 from typing import Any
@@ -336,6 +337,32 @@ CONSUMER_MIGRATION_NORMALIZATION_INPUTS = (
     / "phase8"
     / "consumer_migration_dry_run.json",
 )
+CURRENT_ROUTE_FROZEN_FIXTURE_CAPTURE_TOOL = (
+    TOOLS_ROOT
+    / "capture_dvf_3_3_registry_authority_frozen_predecessor_fixture.py"
+)
+CURRENT_ROUTE_FROZEN_FIXTURE_ROOT = (
+    V2_ROOT
+    / "frozen_predecessor_inputs"
+    / ROUND_ID
+    / "current_route"
+)
+CURRENT_ROUTE_FROZEN_FIXTURE_MANIFEST = (
+    CURRENT_ROUTE_FROZEN_FIXTURE_ROOT / "manifest.json"
+)
+CURRENT_ROUTE_FROZEN_FIXTURE_PAYLOADS = tuple(
+    CURRENT_ROUTE_FROZEN_FIXTURE_ROOT
+    / "payload"
+    / f"{index:04d}.bin"
+    for index in range(34)
+)
+CURRENT_ROUTE_FROZEN_FIXTURE_FILES = (
+    CURRENT_ROUTE_FROZEN_FIXTURE_MANIFEST,
+    *CURRENT_ROUTE_FROZEN_FIXTURE_PAYLOADS,
+)
+CURRENT_ROUTE_FROZEN_FIXTURE_ROWS_SHA256 = (
+    "6017c214709e77fd84f0b9a43c374f74bc95ce430bc3b5b2f65e03d524896efb"
+)
 CURRENT_ROUTE_REFACTORED_TESTS = (
     TESTS_ROOT / "test_dvf_3_3_closeout_reentry_guard_seal.py",
     TESTS_ROOT
@@ -387,6 +414,8 @@ CURRENT_ROUTE_SELECTIVE_DEPENDENCIES = (
     CONSUMER_MIGRATION_NORMALIZATION_TEST,
     CONSUMER_MIGRATION_NORMALIZATION_COMMON,
     *CONSUMER_MIGRATION_NORMALIZATION_INPUTS,
+    CURRENT_ROUTE_FROZEN_FIXTURE_CAPTURE_TOOL,
+    *CURRENT_ROUTE_FROZEN_FIXTURE_FILES,
     *CURRENT_ROUTE_REFACTORED_TESTS,
     *CURRENT_ROUTE_SUBPROCESS_TARGETS,
     *CURRENT_ROUTE_SUBPROCESS_IMPLEMENTATIONS,
@@ -427,6 +456,7 @@ PRACTICAL_FINAL_COMMAND_IDS = (
     "final_internal_no_mutation_and_binding",
 )
 PRACTICAL_CODE_STATE_PATHS = (
+    REPO_ROOT / ".gitattributes",
     REPO_ROOT / ".gitignore",
     PLAN_PATH,
     ROADMAP_PATH,
@@ -4475,6 +4505,150 @@ def completion_fixture_paths() -> list[Path]:
     )
 
 
+def current_route_frozen_fixture_validation(
+    repo_root: Path = REPO_ROOT,
+) -> dict[str, Any]:
+    fixture_root = (
+        repo_root
+        / "Iris"
+        / "build"
+        / "description"
+        / "v2"
+        / "frozen_predecessor_inputs"
+        / ROUND_ID
+        / "current_route"
+    )
+    manifest_path = fixture_root / "manifest.json"
+    manifest = read_json_object(manifest_path)
+    rows = manifest.get("rows")
+    blockers: list[str] = []
+    expected_fields = {
+        "schema_version": (
+            f"{SCHEMA_PREFIX}-frozen-predecessor-fixture-v1"
+        ),
+        "status": "PASS",
+        "role": "frozen_predecessor_input",
+        "authority_claimed": False,
+        "current_route_authority_claimed": False,
+        "isolated_candidate_only": True,
+        "live_materialization_allowed": False,
+        "candidate_discard_required": True,
+        "file_count": 34,
+        "rows_sha256": CURRENT_ROUTE_FROZEN_FIXTURE_ROWS_SHA256,
+    }
+    for field, expected in expected_fields.items():
+        if manifest.get(field) != expected:
+            blockers.append(
+                f"current_route_frozen_fixture_field_mismatch:{field}"
+            )
+    if not isinstance(rows, list):
+        rows = []
+        blockers.append("current_route_frozen_fixture_rows_missing")
+    if canonical_hash(rows) != CURRENT_ROUTE_FROZEN_FIXTURE_ROWS_SHA256:
+        blockers.append("current_route_frozen_fixture_rows_hash_mismatch")
+    expected_payload_paths = {
+        f"payload/{index:04d}.bin" for index in range(34)
+    }
+    observed_payload_paths: set[str] = set()
+    observed_target_paths: set[str] = set()
+    total_byte_length = 0
+    for index, row in enumerate(rows):
+        if not isinstance(row, dict):
+            blockers.append(
+                f"current_route_frozen_fixture_row_not_object:{index}"
+            )
+            continue
+        target = row.get("target_path")
+        payload_relative = row.get("payload_path")
+        if not isinstance(target, str):
+            blockers.append(
+                f"current_route_frozen_fixture_target_invalid:{index}"
+            )
+            continue
+        target_path = PurePosixPath(target)
+        if (
+            target_path.is_absolute()
+            or ".." in target_path.parts
+            or target != target_path.as_posix()
+        ):
+            blockers.append(
+                f"current_route_frozen_fixture_target_unsafe:{index}"
+            )
+        if target in observed_target_paths:
+            blockers.append(
+                f"current_route_frozen_fixture_target_duplicate:{target}"
+            )
+        observed_target_paths.add(target)
+        if (
+            row.get("role") != "frozen_predecessor_input"
+            or row.get("source_git_state") != "ignored_untracked"
+            or row.get("isolated_candidate_only") is not True
+            or row.get("live_materialization_allowed") is not False
+        ):
+            blockers.append(
+                f"current_route_frozen_fixture_role_invalid:{target}"
+            )
+        if not isinstance(payload_relative, str):
+            blockers.append(
+                f"current_route_frozen_fixture_payload_invalid:{target}"
+            )
+            continue
+        observed_payload_paths.add(payload_relative)
+        payload_path = fixture_root.joinpath(
+            *PurePosixPath(payload_relative).parts
+        )
+        if (
+            payload_relative not in expected_payload_paths
+            or not path_is_file(payload_path)
+            or sha256_file(payload_path) != row.get("sha256")
+        ):
+            blockers.append(
+                f"current_route_frozen_fixture_payload_hash_mismatch:{target}"
+            )
+        byte_length = row.get("byte_length")
+        if not isinstance(byte_length, int) or byte_length < 0:
+            blockers.append(
+                f"current_route_frozen_fixture_byte_length_invalid:{target}"
+            )
+        else:
+            total_byte_length += byte_length
+            if path_is_file(payload_path) and (
+                filesystem_path(payload_path).stat().st_size != byte_length
+            ):
+                blockers.append(
+                    "current_route_frozen_fixture_payload_size_mismatch:"
+                    f"{target}"
+                )
+        live_target = repo_root.joinpath(*target_path.parts)
+        if path_is_file(live_target) or path_is_dir(live_target):
+            blockers.append(
+                f"current_route_frozen_fixture_live_target_present:{target}"
+            )
+    if observed_payload_paths != expected_payload_paths:
+        blockers.append("current_route_frozen_fixture_payload_set_mismatch")
+    if total_byte_length != manifest.get("total_byte_length"):
+        blockers.append(
+            "current_route_frozen_fixture_total_byte_length_mismatch"
+        )
+    return {
+        "schema_version": (
+            f"{SCHEMA_PREFIX}-current-route-frozen-fixture-validation-v1"
+        ),
+        "status": "PASS" if not blockers else "FAIL",
+        "manifest_path": repo_relative(
+            CURRENT_ROUTE_FROZEN_FIXTURE_MANIFEST
+        ),
+        "manifest_sha256": sha256_file(manifest_path),
+        "fixture_file_count": len(rows),
+        "fixture_total_byte_length": total_byte_length,
+        "rows_sha256": canonical_hash(rows),
+        "isolated_candidate_only": True,
+        "live_materialization_allowed": False,
+        "candidate_discard_required": True,
+        "blockers": sorted(set(blockers)),
+    }
+
+
 def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
     phase4 = root / "phase4"
     manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
@@ -4497,7 +4671,10 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
         CONSUMER_MIGRATION_NORMALIZATION_TEST,
         *CURRENT_ROUTE_REFACTORED_TESTS,
     }
-    frozen_predecessor_inputs = set(CONSUMER_MIGRATION_NORMALIZATION_INPUTS)
+    frozen_predecessor_inputs = {
+        *CONSUMER_MIGRATION_NORMALIZATION_INPUTS,
+        *CURRENT_ROUTE_FROZEN_FIXTURE_FILES,
+    }
     path_sets = git_path_sets()
     rows = []
     blockers = []
@@ -4553,6 +4730,8 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
     )
     if not preimport_markers:
         blockers.append("round3_preimport_guard_missing")
+    frozen_fixture = current_route_frozen_fixture_validation()
+    blockers.extend(frozen_fixture.get("blockers", []))
     preimport_command = [
         sys.executable,
         "-B",
@@ -4687,6 +4866,7 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
         ("wp4_required_test_dependency_closure_report.json", dependency),
         ("wp4_bare_import_guard_validation_report.json", bare_guard),
         ("wp4_current_route_preimport_dependency_scan_report.json", preimport_scan),
+        ("wp4_current_route_isolated_fixture_report.json", frozen_fixture),
         ("wp4_fresh_execution_manifest.json", fresh_manifest),
     )
     for name, payload in outputs:
@@ -8333,6 +8513,12 @@ PRACTICAL_IMPLEMENTATION_REQUIRED_REPORTS = {
         "status": "PASS",
         "selected_test_unqualified_tools_build_import_count": 0,
     },
+    "wp4_current_route_isolated_fixture_report.json": {
+        "status": "PASS",
+        "fixture_file_count": 34,
+        "isolated_candidate_only": True,
+        "live_materialization_allowed": False,
+    },
     "wp6_stale_current_looking_path_scan_report.json": {
         "status": "PASS",
         "current_looking_stale_path_count": 0,
@@ -9507,12 +9693,14 @@ def streamed_command_record(
     wp_owner: str,
     validation_class: str,
     expect_zero: bool = True,
+    cwd: Path | None = None,
+    execution_cwd_role: str = "live_repository_root",
 ) -> dict[str, Any]:
     started_at = utc_now()
     started_monotonic = time.monotonic()
     process = subprocess.Popen(
         argv,
-        cwd=REPO_ROOT,
+        cwd=cwd or REPO_ROOT,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
@@ -9606,6 +9794,7 @@ def streamed_command_record(
         "command_id": command_id,
         "wp_owner": wp_owner,
         "validation_class": validation_class,
+        "execution_cwd_role": execution_cwd_role,
         "status": "PASS" if passed else "FAIL",
         "argv": argv,
         "command": subprocess.list2cmdline(argv),
@@ -9630,6 +9819,327 @@ def streamed_command_record(
         "first_failing_predicate": None if passed else command_id,
         "claim_output_overwritten": False,
     }
+
+
+def git_status_lines_at(repo_root: Path) -> list[str]:
+    result = subprocess.run(
+        ["git", "status", "--porcelain=v1", "--untracked-files=all"],
+        cwd=repo_root,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "isolated candidate git status failed: "
+            + result.stderr.strip()
+        )
+    return [
+        line
+        for line in result.stdout.splitlines()
+        if line.strip()
+    ]
+
+
+def isolated_current_route_command_record(
+    spec: dict[str, Any],
+    *,
+    root: Path,
+    freeze_head: str,
+) -> dict[str, Any]:
+    live_output = (
+        root / "phase5" / "current_route_validation_result.json"
+    )
+    isolation_report_path = (
+        root / "phase5" / "current_route_isolation_report.json"
+    )
+    if path_is_file(live_output) or path_is_file(isolation_report_path):
+        raise FileExistsError(
+            "current route isolated outputs are write-once"
+        )
+    live_status_before = git_status_rows()[1]
+    fixture_validation = current_route_frozen_fixture_validation()
+    started_at = utc_now()
+    preparation_blockers = list(
+        fixture_validation.get("blockers", [])
+    )
+    clone_exit_code: int | None = None
+    checkout_exit_code: int | None = None
+    candidate_initial_status: list[str] = []
+    candidate_final_status: list[str] = []
+    candidate_result_sha256: str | None = None
+    output_copied_once = False
+    candidate_discarded = False
+    record: dict[str, Any] | None = None
+    error_text = ""
+    temp_owner: tempfile.TemporaryDirectory[str] | None = None
+    candidate_root: Path | None = None
+    try:
+        if preparation_blockers:
+            raise ValueError(
+                "frozen predecessor fixture invalid: "
+                + ",".join(preparation_blockers)
+            )
+        temp_owner = tempfile.TemporaryDirectory(
+            prefix="dra_cr_"
+        )
+        candidate_root = Path(temp_owner.name) / "repo"
+        clone = subprocess.run(
+            [
+                "git",
+                "clone",
+                "--shared",
+                "--no-checkout",
+                "--quiet",
+                str(REPO_ROOT),
+                str(candidate_root),
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        clone_exit_code = clone.returncode
+        if clone.returncode != 0:
+            raise RuntimeError(
+                "isolated current route clone failed: "
+                + clone.stderr.strip()
+            )
+        checkout = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(candidate_root),
+                "checkout",
+                "--detach",
+                "--quiet",
+                freeze_head,
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        checkout_exit_code = checkout.returncode
+        if checkout.returncode != 0:
+            raise RuntimeError(
+                "isolated current route checkout failed: "
+                + checkout.stderr.strip()
+            )
+        candidate_fixture = current_route_frozen_fixture_validation(
+            candidate_root
+        )
+        if candidate_fixture.get("status") != "PASS":
+            raise ValueError(
+                "committed frozen predecessor fixture invalid in candidate: "
+                + ",".join(candidate_fixture.get("blockers", []))
+            )
+        fixture_root = (
+            candidate_root
+            / "Iris"
+            / "build"
+            / "description"
+            / "v2"
+            / "frozen_predecessor_inputs"
+            / ROUND_ID
+            / "current_route"
+        )
+        fixture_manifest = read_json_object(
+            fixture_root / "manifest.json"
+        )
+        for row in fixture_manifest.get("rows", []):
+            payload = fixture_root.joinpath(
+                *PurePosixPath(str(row["payload_path"])).parts
+            )
+            target = candidate_root.joinpath(
+                *PurePosixPath(str(row["target_path"])).parts
+            )
+            if target.exists():
+                raise FileExistsError(
+                    "frozen predecessor overlay refuses existing target: "
+                    + str(row["target_path"])
+                )
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(payload, target)
+        candidate_initial_status = git_status_lines_at(candidate_root)
+        if candidate_initial_status:
+            raise ValueError(
+                "isolated predecessor overlay escaped ignored targets"
+            )
+        record = streamed_command_record(
+            list(spec["argv"]),
+            command_id=str(spec["command_id"]),
+            wp_owner=str(spec["wp_owner"]),
+            validation_class=str(spec["validation_class"]),
+            cwd=candidate_root,
+            execution_cwd_role=(
+                "isolated_detached_committed_checkout"
+            ),
+        )
+        candidate_output = candidate_root / repo_relative(live_output)
+        candidate_result_sha256 = sha256_file(candidate_output)
+        if not path_is_file(candidate_output):
+            record["status"] = "FAIL"
+            record["failure_category"] = (
+                "isolated_current_route_result_missing"
+            )
+            record["first_failing_predicate"] = (
+                "current_route_isolated_result_missing"
+            )
+            preparation_blockers.append(
+                "isolated_current_route_result_missing"
+            )
+        else:
+            copy_external_bytes_once(candidate_output, live_output)
+            output_copied_once = True
+        candidate_final_status = git_status_lines_at(candidate_root)
+    except Exception as exc:
+        error_text = f"{type(exc).__name__}:{exc}"
+        preparation_blockers.append(
+            "isolated_current_route_execution_error:"
+            f"{type(exc).__name__}"
+        )
+        if record is None:
+            encoded = error_text.encode("utf-8")
+            record = {
+                "schema_version": (
+                    f"{SCHEMA_PREFIX}-practical-command-receipt-v1"
+                ),
+                "command_id": spec["command_id"],
+                "wp_owner": spec["wp_owner"],
+                "validation_class": spec["validation_class"],
+                "execution_cwd_role": (
+                    "isolated_detached_committed_checkout"
+                ),
+                "status": "FAIL",
+                "argv": spec["argv"],
+                "command": subprocess.list2cmdline(spec["argv"]),
+                "started_at": started_at,
+                "finished_at": utc_now(),
+                "exit_code": None,
+                "expected_exit": "zero",
+                "combined_output_sha256": sha256_bytes(encoded),
+                "combined_output_byte_length": len(encoded),
+                "tests_run": None,
+                "test_reported_duration_seconds": None,
+                "monitoring_policy": {
+                    "process_timeout_seconds": None,
+                    "first_checkpoint_after_seconds": 5,
+                    "maximum_running_checkpoint_interval_seconds": 10,
+                    "nonblocking_output_drain": True,
+                },
+                "monitor_checkpoints": [],
+                "failure_category": (
+                    "isolated_fixture_preparation_failed"
+                ),
+                "first_failing_predicate": (
+                    "current_route_isolated_fixture_preparation"
+                ),
+                "claim_output_overwritten": False,
+            }
+    finally:
+        if temp_owner is not None:
+            try:
+                temp_owner.cleanup()
+            except OSError as exc:
+                preparation_blockers.append(
+                    "isolated_candidate_cleanup_failed:"
+                    f"{type(exc).__name__}"
+                )
+        candidate_discarded = (
+            candidate_root is None or not candidate_root.exists()
+        )
+    assert record is not None
+    live_status_after = git_status_rows()[1]
+    live_status_unchanged = live_status_after == live_status_before
+    candidate_mutation_contained = (
+        candidate_discarded and live_status_unchanged
+    )
+    if not live_status_unchanged:
+        preparation_blockers.append(
+            "isolated_current_route_live_worktree_drift"
+        )
+    if not candidate_discarded:
+        preparation_blockers.append(
+            "isolated_current_route_candidate_not_discarded"
+        )
+    if preparation_blockers:
+        record["status"] = "FAIL"
+        record["failure_category"] = (
+            "isolated_current_route_containment_failed"
+        )
+        record["first_failing_predicate"] = preparation_blockers[0]
+    isolation_report = {
+        "schema_version": (
+            f"{SCHEMA_PREFIX}-current-route-isolation-report-v1"
+        ),
+        "status": (
+            "PASS" if not preparation_blockers else "FAIL"
+        ),
+        "attempt_id": root.name,
+        "freeze_head": freeze_head,
+        "clone_strategy": "local_shared_detached_clone",
+        "fixture_manifest_path": fixture_validation.get(
+            "manifest_path"
+        ),
+        "fixture_manifest_sha256": fixture_validation.get(
+            "manifest_sha256"
+        ),
+        "fixture_rows_sha256": fixture_validation.get("rows_sha256"),
+        "fixture_file_count": fixture_validation.get(
+            "fixture_file_count"
+        ),
+        "fixture_total_byte_length": fixture_validation.get(
+            "fixture_total_byte_length"
+        ),
+        "fixture_role": "frozen_predecessor_input",
+        "isolated_candidate_only": True,
+        "live_materialization_allowed": False,
+        "candidate_initial_status_count": len(
+            candidate_initial_status
+        ),
+        "candidate_final_status_count": len(candidate_final_status),
+        "candidate_final_status_sha256": canonical_hash(
+            candidate_final_status
+        ),
+        "candidate_mutation_expected": True,
+        "candidate_final_status_is_authority": False,
+        "candidate_mutation_contained": candidate_mutation_contained,
+        "candidate_result_sha256": candidate_result_sha256,
+        "candidate_discarded": candidate_discarded,
+        "candidate_cleanup_path": (
+            None
+            if candidate_discarded or candidate_root is None
+            else str(candidate_root)
+        ),
+        "output_copied_once": output_copied_once,
+        "live_status_before_sha256": canonical_hash(
+            live_status_before
+        ),
+        "live_status_after_sha256": canonical_hash(live_status_after),
+        "live_status_changed": not live_status_unchanged,
+        "clone_exit_code": clone_exit_code,
+        "checkout_exit_code": checkout_exit_code,
+        "error": error_text or None,
+        "blockers": sorted(set(preparation_blockers)),
+    }
+    write_json_once(isolation_report_path, isolation_report)
+    record["isolation_report_path"] = repo_relative(
+        isolation_report_path
+    )
+    record["isolation_report_sha256"] = sha256_file(
+        isolation_report_path
+    )
+    record["isolated_candidate_discarded"] = candidate_discarded
+    record["candidate_mutation_contained"] = (
+        candidate_mutation_contained
+    )
+    record["live_worktree_changed_by_command"] = (
+        not live_status_unchanged
+    )
+    record["current_route_result_path"] = (
+        repo_relative(live_output) if output_copied_once else None
+    )
+    record["current_route_result_sha256"] = sha256_file(live_output)
+    return record
 
 
 def practical_wp5_command_args(
@@ -9921,6 +10431,7 @@ def practical_final_command_specs(root: Path) -> list[dict[str, Any]]:
             "command_id": "current_route_required_regressions",
             "wp_owner": "adjacent_regression",
             "validation_class": "live_required_manifest",
+            "isolated_committed_checkout_required": True,
             "argv": [
                 "uv",
                 "run",
@@ -10029,12 +10540,19 @@ def run_practical_final_validation(
                 "claim_output_overwritten": False,
             }
         else:
-            row = streamed_command_record(
-                spec["argv"],
-                command_id=spec["command_id"],
-                wp_owner=spec["wp_owner"],
-                validation_class=spec["validation_class"],
-            )
+            if spec.get("isolated_committed_checkout_required"):
+                row = isolated_current_route_command_record(
+                    spec,
+                    root=root,
+                    freeze_head=str(freeze_head),
+                )
+            else:
+                row = streamed_command_record(
+                    spec["argv"],
+                    command_id=spec["command_id"],
+                    wp_owner=spec["wp_owner"],
+                    validation_class=spec["validation_class"],
+                )
             if row["status"] != "PASS":
                 blockers.append(str(row["command_id"]))
         write_json_once(

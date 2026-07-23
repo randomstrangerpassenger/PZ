@@ -34,6 +34,12 @@ Iris/build/tests/*
 Iris/build/description/*
 !Iris/build/description/v2/
 Iris/build/description/v2/*
+!Iris/build/description/v2/frozen_predecessor_inputs/
+Iris/build/description/v2/frozen_predecessor_inputs/*
+!Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/
+Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/*
+!Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/
+!Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/**
 !Iris/build/description/v2/data/
 !Iris/build/description/v2/data/dvf_3_3_input_manifest.json
 !Iris/build/description/v2/*.md
@@ -251,6 +257,7 @@ Iris/build/description/v2/tools/build/*
 !Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py
 !Iris/build/description/v2/tools/build/run_dvf_3_3_registry_authority_canonical_closure.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py
+!Iris/build/description/v2/tools/build/capture_dvf_3_3_registry_authority_frozen_predecessor_fixture.py
 !Iris/build/description/v2/tools/build/dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py
 !Iris/build/description/v2/tools/build/run_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py
 !Iris/build/description/v2/tools/build/validate_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py

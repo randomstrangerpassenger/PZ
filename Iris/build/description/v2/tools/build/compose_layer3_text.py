@@ -707,15 +707,6 @@ def enforce_compose_write_contract(
         if key in {"output_path", "style_log_path", "requeue_candidates_path"}
         and value is not None
     ]
-    for target in raw_targets:
-        if is_real_current_protected_path(target):
-            raise ComposeEntrypointGuardError(
-                REGISTRY_REAL_CURRENT_WRITE_DISABLED_ERROR_CODE,
-                compose_context=compose_context,
-                output_path_class="real-current-protected",
-                profile_class=profile_class,
-                path=target,
-            )
     fixture_receipt_targets: set[Path] = set()
     if registry_current_write_authorization_receipt is not None:
         receipt = validate_registry_fixture_receipt(
@@ -760,6 +751,15 @@ def enforce_compose_write_contract(
                 profile_class=profile_class,
             )
         enforce_current_authority_input_contract(DEFAULT_MODE, paths)
+    for target in raw_targets:
+        if is_real_current_protected_path(target):
+            raise ComposeEntrypointGuardError(
+                REGISTRY_REAL_CURRENT_WRITE_DISABLED_ERROR_CODE,
+                compose_context=compose_context,
+                output_path_class="real-current-protected",
+                profile_class=profile_class,
+                path=target,
+            )
 
 
 def enforce_resolver_authority_output_contract(

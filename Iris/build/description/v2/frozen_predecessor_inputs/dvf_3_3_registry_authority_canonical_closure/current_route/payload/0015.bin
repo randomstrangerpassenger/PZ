@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-06-17T16:24:07.083759+00:00",
+  "old_chunk_dir_retained_as_live_authority": false,
+  "runtime_authority_paths": [
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks"
+  ],
+  "schema_version": "dvf-3-3-vnext-current-authority-dual-current-absence-v0",
+  "status": "PASS",
+  "successor_chunk_dir_is_live_authority": true
+}

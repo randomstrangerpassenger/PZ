@@ -1,0 +1,357 @@
+{
+  "authority_claimed": false,
+  "candidate_discard_required": true,
+  "captured_at": "2026-07-23T22:11:58.656167+00:00",
+  "current_route_authority_claimed": false,
+  "file_count": 34,
+  "isolated_candidate_only": true,
+  "live_materialization_allowed": false,
+  "role": "frozen_predecessor_input",
+  "rows": [
+    {
+      "byte_length": 7773,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0000.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "277d3354de5dd289abbf10850606ef1204715c91592c4baa9dbbd67e4f4a152c",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/consumer_migration_reconciled_input_manifest.json"
+    },
+    {
+      "byte_length": 304941,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0001.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "8f2667eafcf59a460fd292d45357667dc17e9fd3a4a6fb73c58d6610e347c094",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_consumer_migration_input_normalization/phase6/row_disposition_ledger.for_readiness.jsonl"
+    },
+    {
+      "byte_length": 951,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0002.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua"
+    },
+    {
+      "byte_length": 102745,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0003.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "08373c2a0e2f6ff572021f2f82d1b322316e7886a8876664d65f022cb764b7dd",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua"
+    },
+    {
+      "byte_length": 93472,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0004.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "37e72049ceb83d294f52d9bb86936a3a3e05942cdaa037865532338cfaef4764",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua"
+    },
+    {
+      "byte_length": 89927,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0005.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "562c7c18aef25538ef341764da4a5635313352212f1bce515b20c5dccc90e0b9",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua"
+    },
+    {
+      "byte_length": 102589,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0006.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "42753e063661679583c3430acc6bc52ec6f47d873cbf4685dacdb603a964e440",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua"
+    },
+    {
+      "byte_length": 92247,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0007.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "89c7d39902ff83166f4cfb8cea4225359e86b62750703cfc7c4f15b44cce5a5e",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua"
+    },
+    {
+      "byte_length": 101600,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0008.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "5942559c4927ab8ed948fed42f73e362b26e35d180e2206b745caaa98ed20c09",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua"
+    },
+    {
+      "byte_length": 96491,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0009.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "19661a52a3418f413ad49c7df474a2f221a0d5c751232f1b9b3083768074966b",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua"
+    },
+    {
+      "byte_length": 104738,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0010.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "0df3875bd9cd109bf70b50b4c847c99e56437d1ab8183c1a814c797a754ed924",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua"
+    },
+    {
+      "byte_length": 97142,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0011.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "abbe34d842d2d1162a5828e3f3e3147cb93f1e991f89da3009d2bb81add82729",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua"
+    },
+    {
+      "byte_length": 91423,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0012.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "954ed61ca9f9a08fb9818a38c91925356901561b9d3cd3dd9dfd5d91bd359997",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua"
+    },
+    {
+      "byte_length": 61528,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0013.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "8e0311e7d6fb020056e9fb74fbc546dce898668f4ed7c60561e7538f5bc9d179",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase0/rollback_snapshot_payload/Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua"
+    },
+    {
+      "byte_length": 474,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0014.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "3f51bc2108ec0708dcf6c535920539253240fba1522e9d5aebc820073b2e7c0e",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/claim_boundary_report.json"
+    },
+    {
+      "byte_length": 417,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0015.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "b12d95f6f830dc48e8f76a911a92f55205982592e960add0cffeb5389ae7035b",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/old_new_dual_current_absence_report.json"
+    },
+    {
+      "byte_length": 16175,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0016.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "f10b89e7d64582189bc13a0db45d93ac22b625ea44fc90e6be478bfafd5651c3",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/final_execution_contract_report.json"
+    },
+    {
+      "byte_length": 10656,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0017.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "b907a0875580ed9f285f4f3a565e82dccf246df46a23de07b714f036f72844bf",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase2_adoption_validation.py"
+    },
+    {
+      "byte_length": 19696,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0018.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "0157e6015cec23b8f04b542ca6bbc84c8998d6e599f1a6bcbd516bdc0213181b",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg1_resource4e.py"
+    },
+    {
+      "byte_length": 10467,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0019.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "42408993dc61d6a01e954e4c39eca79ad0be5a31e243a33848ccd499fdb887e6",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg2_combat_reuse.py"
+    },
+    {
+      "byte_length": 20583,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0020.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "15619dcb19a6eaebffc336355b84bfcd6ac662965d945366bfdb9c7437dc16fc",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3a_construction_repair_materials.py"
+    },
+    {
+      "byte_length": 17063,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0021.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "0d54c53269f39c5242612eb1c03ce7594f8d1b08a94c0c1f398ee481c24fb4ab",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3b_vehicle_service_utility.py"
+    },
+    {
+      "byte_length": 18866,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0022.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "b26a6164c0541f30dc084b69cee30ce6588dea1b8e52e81dced87dbfe431d9f4",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3c_camping_and_fire_setup.py"
+    },
+    {
+      "byte_length": 14691,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0023.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "4f29fb7b462d10ae72e10b3ba90d2c4e61411c762ca3158a25ceaa396e850c23",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3d_water_and_container_handling.py"
+    },
+    {
+      "byte_length": 12509,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0024.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "a0f3b412b275622a117d7c3b18a841217cd995a924a725db90c55edb2d37f023",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg3g_household_access_and_safety.py"
+    },
+    {
+      "byte_length": 13875,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0025.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "415adf2067f8a5dfa98b6b95753e73165ed6c0da917607c49a6702755197985e",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg4_combat_devices_and_firearms.py"
+    },
+    {
+      "byte_length": 16056,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0026.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "f2a210ddb617764a8d2ab26267c8ad0862dda62ed783e8c70cf05558ba58bcc9",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg5_tool_trap_and_utility_net_new.py"
+    },
+    {
+      "byte_length": 20024,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0027.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "3b8b9bcd20a5c24e90a30387ee1d3debe7957572cfd3eb27876fda856b683d64",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_pkg6_residual_tail.py"
+    },
+    {
+      "byte_length": 18091,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0028.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "3381f86deabe78256b4aa49dcb280a9122acbc325bc5b6c90dfdf3fc2670e57b",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_post_cleanup_phase3_runtime_integration.py"
+    },
+    {
+      "byte_length": 3625,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0029.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "5c57d3feed96bbd1acfe4d9dc22c7d829df9e3fb53d96f81a6dea09ec6581750",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_source_coverage_hold_policy.py"
+    },
+    {
+      "byte_length": 3272,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0030.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "42ee8dd0218377f4a3b93760e7b9d6c538721a9f62a5a22c194243b70bd09114",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tests/test_source_coverage_post_c.py"
+    },
+    {
+      "byte_length": 20419,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0031.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "830bf87b24d23571562373898117337bad120b431f31c9731da647b32df45a53",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tools/build/validate_body_plan_full_runtime_regression_gate.py"
+    },
+    {
+      "byte_length": 15883,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0032.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "e1538418b64700c8a29dd563a65de92b8820cb730d2aab8ab09436427de86a22",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tools/build/validate_phase_d_signal_preservation.py"
+    },
+    {
+      "byte_length": 14325,
+      "isolated_candidate_only": true,
+      "live_materialization_allowed": false,
+      "payload_path": "payload/0033.bin",
+      "role": "frozen_predecessor_input",
+      "sha256": "cfbca97db8ebd09824cd6f5427b9adbcbd09bf3b3a5ec5897234e498ab73ece7",
+      "source_git_state": "ignored_untracked",
+      "target_path": "Iris/build/description/v2/tools/build/validate_structural_reclassification_convergence.py"
+    }
+  ],
+  "rows_sha256": "6017c214709e77fd84f0b9a43c374f74bc95ce430bc3b5b2f65e03d524896efb",
+  "schema_version": "dvf-3-3-registry-authority-canonical-closure-frozen-predecessor-fixture-v1",
+  "source_checkout_commit": "bfbcffedf8250cec28f5aa8f9dcc08b5df94760d",
+  "status": "PASS",
+  "total_byte_length": 1614734
+}

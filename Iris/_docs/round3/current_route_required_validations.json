@@ -2038,6 +2038,39 @@
         }
       ],
       "path": "Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/phase6/final_naming_realignment_machine_report.json"
+    },
+    {
+      "checks": [
+        {
+          "equals": "PASS",
+          "field": "status"
+        },
+        {
+          "equals": true,
+          "field": "required_gate_adopted"
+        },
+        {
+          "equals": "registry_authority",
+          "field": "authority_axis"
+        },
+        {
+          "equals": "additive_tracked_commit",
+          "field": "required_manifest_adoption_mode"
+        },
+        {
+          "equals": 0,
+          "field": "protected_surface_changed_count"
+        },
+        {
+          "equals": false,
+          "field": "runtime_compatibility_claimed"
+        },
+        {
+          "equals": false,
+          "field": "publish_boundary_claimed"
+        }
+      ],
+      "path": "Iris/_docs/round3/registry_authority_required_gate_contract.json"
     }
   ],
   "required_tests": [
@@ -2300,6 +2333,21 @@
       "required": true,
       "role": "dvf_3_3_dvf_system_naming_realignment_required_validation",
       "test_id": "test_dvf_3_3_dvf_system_naming_realignment.DvfSystemNamingRealignmentCurrentRouteTest.test_required_gate_evidence_is_subprocess_generated_and_governance_only"
+    },
+    {
+      "required": true,
+      "role": "registry_authority_canonical_closure_required_validation",
+      "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_registry_authority_required_gate_contract"
+    },
+    {
+      "required": true,
+      "role": "registry_authority_canonical_closure_required_validation",
+      "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_default_current_compose_is_rejected_without_mutation"
+    },
+    {
+      "required": true,
+      "role": "registry_authority_canonical_closure_required_validation",
+      "test_id": "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_live_denominator_closes_dependencies_and_vcs_inventory"
     }
   ],
   "route": "current",

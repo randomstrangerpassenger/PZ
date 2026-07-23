@@ -1,0 +1,23 @@
+{
+  "authority_axis": "registry_authority",
+  "canonical_closure_claimed": false,
+  "cycle_id": "dvf_3_3_registry_authority_canonical_closure",
+  "owner_seal_required_for_canonical_complete": true,
+  "package_or_release_readiness_claimed": false,
+  "protected_surface_changed_count": 0,
+  "publish_boundary_claimed": false,
+  "required_gate_adopted": true,
+  "required_manifest_adoption_mode": "additive_tracked_commit",
+  "required_test_count": 3,
+  "required_test_ids": [
+    "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_registry_authority_required_gate_contract",
+    "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_default_current_compose_is_rejected_without_mutation",
+    "test_dvf_3_3_registry_authority_canonical_closure.RegistryAuthorityCanonicalClosureImplementationTest.test_wp6_live_denominator_closes_dependencies_and_vcs_inventory"
+  ],
+  "round_id": "dvf_3_3_registry_authority_canonical_closure",
+  "runtime_compatibility_claimed": false,
+  "schema_version": "dvf-3-3-registry-authority-canonical-closure-durable-required-gate-v1",
+  "source_attempt_id": "attempt-0027-practical",
+  "source_rendered_lua_runtime_package_mutation": false,
+  "status": "PASS"
+}

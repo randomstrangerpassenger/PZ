@@ -135,6 +135,7 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 "shutil",
                 "subprocess",
                 "sys",
+                "tempfile",
                 "threading",
                 "time",
                 "typing",

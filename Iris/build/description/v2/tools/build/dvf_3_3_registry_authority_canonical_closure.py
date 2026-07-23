@@ -3829,21 +3829,51 @@ TEMPFILE_FACTORY_NAMES = {"TemporaryDirectory", "mkdtemp"}
 
 def python_trusted_tempfile_factory_symbols(tree: ast.AST) -> set[str]:
     module_aliases: set[str] = set()
-    imported_factories: set[str] = set()
+    direct_factory_sources: dict[str, set[str]] = {}
+    import_bindings: dict[str, set[str]] = {}
+    wildcard_import_present = False
     for node in ast.walk(tree):
         if isinstance(node, ast.Import):
             for alias in node.names:
+                local_name = alias.asname or alias.name.split(".", 1)[0]
+                import_bindings.setdefault(local_name, set()).add(
+                    f"import:{alias.name}"
+                )
                 if alias.name == "tempfile":
-                    module_aliases.add(alias.asname or alias.name)
+                    module_aliases.add(local_name)
         elif isinstance(node, ast.ImportFrom) and node.module == "tempfile":
             for alias in node.names:
+                if alias.name == "*":
+                    wildcard_import_present = True
+                    continue
+                local_name = alias.asname or alias.name
+                import_bindings.setdefault(local_name, set()).add(
+                    f"from:{node.module}:{alias.name}"
+                )
                 if alias.name in TEMPFILE_FACTORY_NAMES:
-                    imported_factories.add(alias.asname or alias.name)
-    trusted = {
+                    direct_factory_sources.setdefault(local_name, set()).add(
+                        f"from:tempfile:{alias.name}"
+                    )
+        elif isinstance(node, ast.ImportFrom):
+            for alias in node.names:
+                if alias.name == "*":
+                    wildcard_import_present = True
+                    continue
+                local_name = alias.asname or alias.name
+                import_bindings.setdefault(local_name, set()).add(
+                    f"from:{node.module}:{alias.name}"
+                )
+    trusted = set() if wildcard_import_present else {
         f"{module_alias}.{factory_name}"
         for module_alias in module_aliases
+        if import_bindings.get(module_alias) == {"import:tempfile"}
         for factory_name in TEMPFILE_FACTORY_NAMES
-    } | imported_factories
+    } | {
+        local_name
+        for local_name, expected_sources in direct_factory_sources.items()
+        if len(expected_sources) == 1
+        and import_bindings.get(local_name) == expected_sources
+    }
     stored_symbols = {
         key
         for node in ast.walk(tree)
@@ -3866,6 +3896,23 @@ def python_trusted_tempfile_factory_symbols(tree: ast.AST) -> set[str]:
             *node.args.args,
             *node.args.kwonlyargs,
         ]
+    )
+    stored_symbols.update(
+        node.name
+        for node in ast.walk(tree)
+        if isinstance(node, ast.ExceptHandler) and node.name
+    )
+    stored_symbols.update(
+        name
+        for node in ast.walk(tree)
+        for name in [
+            node.name
+            if isinstance(node, (ast.MatchAs, ast.MatchStar))
+            else node.rest
+            if isinstance(node, ast.MatchMapping)
+            else None
+        ]
+        if name
     )
     return {
         symbol
@@ -4857,7 +4904,15 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "method_collision = factory.mkdtemp(current)\n"
         + "loader = open\n"
         + "loader(local_collision, 'rb')\n"
-        + "loader(method_collision, 'rb')\n",
+        + "loader(method_collision, 'rb')\n"
+        + "from tempfile import TemporaryDirectory as ImportedFactory\n"
+        + "from pathlib import Path as ImportedFactory\n"
+        + "import tempfile as imported_module\n"
+        + "import pathlib as imported_module\n"
+        + "direct_import_collision = ImportedFactory(current)\n"
+        + "module_import_collision = imported_module.TemporaryDirectory(current)\n"
+        + "loader(direct_import_collision, 'rb')\n"
+        + "loader(module_import_collision, 'rb')\n",
     )
     write_text_once(
         lua_consumer,
@@ -4981,7 +5036,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         )
     ]
     tempfile_name_collisions_fail_closed = (
-        len(collision_unresolved_blockers) == 2
+        len(collision_unresolved_blockers) == 4
         and not collision_contained_references
     )
     return {
@@ -5038,6 +5093,8 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "python_contained_helper_return_classified_non_live",
             "python_local_tempfile_factory_name_collision_fail_closed",
             "python_method_tempfile_factory_name_collision_fail_closed",
+            "python_direct_import_tempfile_factory_name_collision_fail_closed",
+            "python_module_import_tempfile_factory_name_collision_fail_closed",
         ],
         "recognized_current_set_derived_from_observed_rows": False,
         "violations": violations,

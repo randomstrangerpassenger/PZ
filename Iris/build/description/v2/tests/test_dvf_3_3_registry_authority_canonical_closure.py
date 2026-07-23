@@ -502,6 +502,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                     "python_contained_helper_return_classified_non_live",
                     "python_local_tempfile_factory_name_collision_fail_closed",
                     "python_method_tempfile_factory_name_collision_fail_closed",
+                    "python_direct_import_tempfile_factory_name_collision_fail_closed",
+                    "python_module_import_tempfile_factory_name_collision_fail_closed",
                 },
             )
             self.assertEqual(
@@ -527,7 +529,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             )
             self.assertTrue(report["tempfile_name_collisions_fail_closed"])
             self.assertEqual(
-                len(report["tempfile_name_collision_unresolved_blockers"]), 2
+                len(report["tempfile_name_collision_unresolved_blockers"]), 4
             )
             self.assertEqual(
                 report["tempfile_name_collision_contained_references"], []

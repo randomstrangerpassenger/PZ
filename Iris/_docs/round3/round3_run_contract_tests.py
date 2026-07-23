@@ -72,6 +72,16 @@ def selected_test_module_paths(test_ids: list[str]) -> list[Path]:
     return paths
 
 
+def tools_build_module_path(module: str) -> Path:
+    if module == "__init__":
+        return TOOLS_BUILD_ROOT / "__init__.py"
+    module_file = TOOLS_BUILD_ROOT / f"{module}.py"
+    package_init = TOOLS_BUILD_ROOT / module / "__init__.py"
+    if package_init.is_file():
+        return package_init
+    return module_file
+
+
 def tools_build_import_candidates(path: Path) -> list[dict]:
     source = path.read_text(encoding="utf-8")
     tree = ast.parse(source, filename=str(path))
@@ -86,14 +96,22 @@ def tools_build_import_candidates(path: Path) -> list[dict]:
         if isinstance(node, ast.Import):
             names.extend((alias.name, "import") for alias in node.names)
         elif isinstance(node, ast.ImportFrom) and node.module:
-            names.append((node.module, "from_import"))
+            if node.module == "tools.build":
+                names.extend(
+                    (f"{node.module}.{alias.name}", "from_import")
+                    for alias in node.names
+                )
+            else:
+                names.append((node.module, "from_import"))
         for imported, syntax in names:
             module = None
-            if imported.startswith("tools.build."):
+            if imported == "tools.build":
+                module = "__init__"
+            elif imported.startswith("tools.build."):
                 module = imported[len("tools.build.") :].split(".", 1)[0]
             elif "." not in imported:
-                candidate = TOOLS_BUILD_ROOT / f"{imported}.py"
-                if candidate.is_file() or literal_tools_path_added:
+                candidate = tools_build_module_path(imported)
+                if candidate.is_file():
                     module = imported
             if module:
                 rows.append(
@@ -102,7 +120,7 @@ def tools_build_import_candidates(path: Path) -> list[dict]:
                         "module": module,
                         "syntax": syntax,
                         "line": getattr(node, "lineno", None),
-                        "resolved_path": (TOOLS_BUILD_ROOT / f"{module}.py").resolve(),
+                        "resolved_path": tools_build_module_path(module).resolve(),
                         "literal_tools_sys_path_present": literal_tools_path_added,
                     }
                 )

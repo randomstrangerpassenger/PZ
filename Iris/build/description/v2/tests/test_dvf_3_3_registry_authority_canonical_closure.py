@@ -1174,12 +1174,234 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 "dvf_3_3_completion_vocabulary_external_gate_vocabulary_split",
             )
             self.assertTrue(rows[0]["literal_tools_sys_path_present"])
+            with (
+                mock.patch.object(
+                    runner,
+                    "selected_test_module_paths",
+                    return_value=[fixture_path],
+                ),
+                mock.patch.object(
+                    runner,
+                    "git_path_is_tracked",
+                    return_value=True,
+                ),
+                mock.patch.object(
+                    runner,
+                    "git_path_is_ignored",
+                    return_value=False,
+                ),
+            ):
+                with self.assertRaisesRegex(
+                    ImportError,
+                    "unqualified_tools_build_import_bypass",
+                ):
+                    runner.enforce_preimport_build_dependency_closure(
+                        [
+                            (
+                                "test_preimport_bypass."
+                                "FixtureTest.test_never_imported"
+                            )
+                        ],
+                        set(),
+                    )
             self.assertFalse(sentinel.exists())
         finally:
             if fixture_root.exists():
                 resolved = fixture_root.resolve()
                 resolved.relative_to(EVIDENCE_ROOT.resolve())
                 shutil.rmtree(resolved)
+
+    def test_round3_preimport_guard_reports_missing_selected_test_precisely(
+        self,
+    ) -> None:
+        runner = load_module(
+            ROUND3_RUNNER,
+            "round3_runner_for_missing_selected_test",
+        )
+        missing = (
+            EVIDENCE_ROOT
+            / "_scaffold_tests"
+            / uuid.uuid4().hex
+            / "test_missing_selected.py"
+        )
+        with (
+            mock.patch.object(
+                runner,
+                "selected_test_module_paths",
+                return_value=[missing],
+            ),
+            mock.patch.object(
+                runner,
+                "git_path_is_tracked",
+                return_value=False,
+            ),
+            mock.patch.object(
+                runner,
+                "git_path_is_ignored",
+                return_value=True,
+            ),
+        ):
+            report = runner.inspect_preimport_build_dependency_closure(
+                ["test_missing_selected.MissingTest.test_missing"],
+                set(),
+            )
+        self.assertEqual(report["status"], "FAIL")
+        self.assertEqual(report["violation_count"], 1)
+        violation = report["violations"][0]
+        self.assertEqual(violation["code"], "selected_test_module_missing")
+        message = runner.preimport_violation_message(violation)
+        self.assertTrue(message.startswith("selected_test_module_missing:"))
+        self.assertNotIn("unqualified_tools_build_import_bypass", message)
+        self.assertNotIn("resolved_target=None", message)
+
+    def test_round3_preimport_guard_distinguishes_import_target_states(
+        self,
+    ) -> None:
+        runner = load_module(
+            ROUND3_RUNNER,
+            "round3_runner_for_import_target_states",
+        )
+        fixture_root = (
+            EVIDENCE_ROOT / "_scaffold_tests" / uuid.uuid4().hex
+        )
+        fixture_root.mkdir(parents=True)
+        module_name = "dvf_3_3_preimport_target_fixture"
+        test_path = fixture_root / "test_import_target_states.py"
+        target_path = fixture_root / f"{module_name}.py"
+        test_path.write_text(
+            "import sys\n"
+            "from pathlib import Path\n"
+            "TOOLS_ROOT = Path("
+            "'Iris/build/description/v2/tools/build'"
+            ")\n"
+            "sys.path.insert(0, str(TOOLS_ROOT))\n"
+            f"import {module_name}\n",
+            encoding="utf-8",
+        )
+        original_module_path = runner.tools_build_module_path
+        try:
+            for state, expected_code in (
+                ("missing", "target_missing"),
+                ("untracked", "target_untracked"),
+                ("ignored", "target_ignored"),
+            ):
+                with self.subTest(state=state):
+                    target_path.unlink(missing_ok=True)
+                    if state != "missing":
+                        target_path.write_text(
+                            "FIXTURE = True\n",
+                            encoding="utf-8",
+                        )
+
+                    def module_path(name: str) -> Path:
+                        if name == module_name:
+                            return target_path
+                        return original_module_path(name)
+
+                    def is_tracked(path: Path) -> bool:
+                        resolved = path.resolve()
+                        if resolved == test_path.resolve():
+                            return True
+                        if resolved == target_path.resolve():
+                            return state != "untracked"
+                        return True
+
+                    def is_ignored(path: Path) -> bool:
+                        return (
+                            path.resolve() == target_path.resolve()
+                            and state == "ignored"
+                        )
+
+                    with (
+                        mock.patch.object(
+                            runner,
+                            "selected_test_module_paths",
+                            return_value=[test_path],
+                        ),
+                        mock.patch.object(
+                            runner,
+                            "tools_build_module_path",
+                            side_effect=module_path,
+                        ),
+                        mock.patch.object(
+                            runner,
+                            "git_path_is_tracked",
+                            side_effect=is_tracked,
+                        ),
+                        mock.patch.object(
+                            runner,
+                            "git_path_is_ignored",
+                            side_effect=is_ignored,
+                        ),
+                    ):
+                        report = (
+                            runner.inspect_preimport_build_dependency_closure(
+                                [
+                                    (
+                                        "test_import_target_states."
+                                        "FixtureTest.test_never_imported"
+                                    )
+                                ],
+                                {module_name},
+                            )
+                        )
+                        self.assertEqual(report["status"], "FAIL")
+                        self.assertEqual(
+                            report["violations"][0]["code"],
+                            "unqualified_tools_build_import_bypass",
+                        )
+                        self.assertEqual(
+                            report["violations"][0]["reason"],
+                            expected_code,
+                        )
+                        with self.assertRaisesRegex(
+                            ImportError,
+                            expected_code,
+                        ):
+                            runner.enforce_preimport_build_dependency_closure(
+                                [
+                                    (
+                                        "test_import_target_states."
+                                        "FixtureTest.test_never_imported"
+                                    )
+                                ],
+                                {module_name},
+                            )
+        finally:
+            if fixture_root.exists():
+                resolved = fixture_root.resolve()
+                resolved.relative_to(EVIDENCE_ROOT.resolve())
+                shutil.rmtree(resolved)
+
+    def test_wp4_subprocess_targets_are_tracked_and_not_ignored(
+        self,
+    ) -> None:
+        common = load_common_module()
+        path_sets = common.git_path_sets()
+        self.assertTrue(common.CURRENT_ROUTE_SUBPROCESS_TARGETS)
+        for path in common.CURRENT_ROUTE_SUBPROCESS_TARGETS:
+            with self.subTest(path=common.repo_relative(path)):
+                relative = common.repo_relative(path)
+                self.assertTrue(path.is_file())
+                self.assertIn(relative, path_sets["tracked"])
+                self.assertNotIn(relative, path_sets["ignored"])
+
+    def test_current_route_static_preimport_scan_passes_without_running_tests(
+        self,
+    ) -> None:
+        result = run_script(
+            ROUND3_RUNNER,
+            "--class",
+            "current",
+            "--enforce-current-build-closure",
+            "--preimport-only",
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "PASS")
+        self.assertEqual(payload["violation_count"], 0)
+        self.assertGreater(payload["selected_test_count"], 0)
+        self.assertFalse(payload["test_execution_performed"])
 
 
 if __name__ == "__main__":

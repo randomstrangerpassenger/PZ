@@ -35,6 +35,12 @@ CURRENT_REQUIRED_VALIDATIONS = REPO_ROOT / "Iris" / "_docs" / "round3" / "curren
 
 CURRENT_ROUTE_RESULT = EVIDENCE_ROOT / "phase7" / "full_current_route_validation_result.json"
 EXPECTED_CURRENT_ROUTE_TEST_COUNT = 107
+HISTORICAL_ROUTE_VALIDATION_MODE = "historical_approved_successor_baseline"
+EXPECTED_HISTORICAL_REQUIRED_TEST_COUNT = 52
+EXPECTED_HISTORICAL_REQUIRED_ARTIFACT_COUNT = 112
+EXPECTED_HISTORICAL_REQUIRED_TEST_IDS_SHA256 = (
+    "bec4bb70527e17528205996acd7dc83be2c79b06e97a67f3af9257c8913503ac"
+)
 FULL_CURRENT_ROUTE_SCHEMA_VERSION = "round3-contract-test-run-v1"
 FULL_CURRENT_ROUTE_CONTRACT_CLASS = "current"
 
@@ -278,9 +284,7 @@ REQUIRED_TESTS = [
 
 
 def phase_dir(phase: str) -> Path:
-    path = EVIDENCE_ROOT / phase
-    path.mkdir(parents=True, exist_ok=True)
-    return path
+    return EVIDENCE_ROOT / phase
 
 
 def phase_path(phase: str, name: str) -> Path:
@@ -1216,20 +1220,6 @@ def docs_have_required_sync_text() -> dict[str, bool]:
 def full_current_route_runner_shape_errors(payload: dict[str, Any]) -> list[dict[str, Any]]:
     errors: list[dict[str, Any]] = []
     required_validations = payload.get("required_validations")
-    live_manifest = read_json(CURRENT_REQUIRED_VALIDATIONS) if CURRENT_REQUIRED_VALIDATIONS.exists() else None
-    live_required_tests = []
-    live_required_artifacts = []
-    if isinstance(live_manifest, dict):
-        live_required_tests = [
-            row.get("test_id")
-            for row in live_manifest.get("required_tests", [])
-            if isinstance(row, dict) and row.get("required") is True and row.get("test_id")
-        ]
-        live_required_artifacts = [
-            row.get("path")
-            for row in live_manifest.get("required_artifacts", [])
-            if isinstance(row, dict) and row.get("path")
-        ]
     if payload.get("schema_version") != FULL_CURRENT_ROUTE_SCHEMA_VERSION:
         errors.append(
             {
@@ -1270,6 +1260,8 @@ def full_current_route_runner_shape_errors(payload: dict[str, Any]) -> list[dict
         errors.append({"field": "errors", "expected": [], "actual": payload.get("errors")})
     if payload.get("failures") != []:
         errors.append({"field": "failures", "expected": [], "actual": payload.get("failures")})
+    if payload.get("skipped") != []:
+        errors.append({"field": "skipped", "expected": [], "actual": payload.get("skipped")})
     if not isinstance(required_validations, dict):
         errors.append({"field": "required_validations", "expected": "dict", "actual": type(required_validations).__name__})
     else:
@@ -1299,54 +1291,75 @@ def full_current_route_runner_shape_errors(payload: dict[str, Any]) -> list[dict
                     "required_test_count": required_validations.get("required_test_count"),
                 }
             )
-        if not isinstance(live_manifest, dict):
+        if required_validations.get("required") is not True:
+            errors.append(
+                {
+                    "field": "required_validations.required",
+                    "expected": True,
+                    "actual": required_validations.get("required"),
+                }
+            )
+        expected_manifest_path = rel(CURRENT_REQUIRED_VALIDATIONS)
+        actual_manifest_path = str(
+            required_validations.get("manifest_path", "")
+        ).replace("\\", "/")
+        if actual_manifest_path != expected_manifest_path:
             errors.append(
                 {
                     "field": "required_validations.manifest_path",
-                    "expected": rel(CURRENT_REQUIRED_VALIDATIONS),
-                    "actual": "missing_live_manifest",
+                    "expected": expected_manifest_path,
+                    "actual": required_validations.get("manifest_path"),
                 }
             )
-        else:
-            expected_manifest_path = rel(CURRENT_REQUIRED_VALIDATIONS)
-            actual_manifest_path = str(required_validations.get("manifest_path", "")).replace("\\", "/")
-            if actual_manifest_path != expected_manifest_path:
+        if (
+            required_validations.get("required_test_count")
+            != EXPECTED_HISTORICAL_REQUIRED_TEST_COUNT
+        ):
+            errors.append(
+                {
+                    "field": "required_validations.required_test_count",
+                    "expected": EXPECTED_HISTORICAL_REQUIRED_TEST_COUNT,
+                    "actual": required_validations.get(
+                        "required_test_count"
+                    ),
+                    "validation_mode": HISTORICAL_ROUTE_VALIDATION_MODE,
+                }
+            )
+        if (
+            required_validations.get("required_artifact_count")
+            != EXPECTED_HISTORICAL_REQUIRED_ARTIFACT_COUNT
+        ):
+            errors.append(
+                {
+                    "field": "required_validations.required_artifact_count",
+                    "expected": EXPECTED_HISTORICAL_REQUIRED_ARTIFACT_COUNT,
+                    "actual": required_validations.get(
+                        "required_artifact_count"
+                    ),
+                    "validation_mode": HISTORICAL_ROUTE_VALIDATION_MODE,
+                }
+            )
+        if isinstance(required_tests, list):
+            actual_required_test_ids_sha256 = canonical_hash(
+                sorted(str(test_id) for test_id in required_tests)
+            )
+            if (
+                actual_required_test_ids_sha256
+                != EXPECTED_HISTORICAL_REQUIRED_TEST_IDS_SHA256
+            ):
                 errors.append(
                     {
-                        "field": "required_validations.manifest_path",
-                        "expected": expected_manifest_path,
-                        "actual": required_validations.get("manifest_path"),
+                        "field": (
+                            "required_validations."
+                            "required_test_ids_sha256"
+                        ),
+                        "expected": (
+                            EXPECTED_HISTORICAL_REQUIRED_TEST_IDS_SHA256
+                        ),
+                        "actual": actual_required_test_ids_sha256,
+                        "validation_mode": HISTORICAL_ROUTE_VALIDATION_MODE,
                     }
                 )
-            if required_validations.get("required_test_count") != len(live_required_tests):
-                errors.append(
-                    {
-                        "field": "required_validations.required_test_count",
-                        "expected": len(live_required_tests),
-                        "actual": required_validations.get("required_test_count"),
-                    }
-                )
-            if required_validations.get("required_artifact_count") != len(live_required_artifacts):
-                errors.append(
-                    {
-                        "field": "required_validations.required_artifact_count",
-                        "expected": len(live_required_artifacts),
-                        "actual": required_validations.get("required_artifact_count"),
-                    }
-                )
-            if isinstance(required_tests, list):
-                expected_tests = set(live_required_tests)
-                actual_tests = set(required_tests)
-                if actual_tests != expected_tests:
-                    errors.append(
-                        {
-                            "field": "required_validations.required_tests",
-                            "expected_count": len(expected_tests),
-                            "actual_count": len(actual_tests),
-                            "missing": sorted(expected_tests - actual_tests),
-                            "unexpected": sorted(actual_tests - expected_tests),
-                        }
-                    )
     return errors
 
 
@@ -1390,7 +1403,10 @@ def independent_review_artifact_paths() -> list[Path]:
     ]
 
 
-def write_independent_review_artifact_hash_report() -> dict[str, Any]:
+def write_independent_review_artifact_hash_report(
+    *,
+    write_report: bool = True,
+) -> dict[str, Any]:
     review_records = [file_record(path, "primary_review_artifact", required=True) for path in independent_review_artifact_paths()]
     missing = [row for row in review_records if not row["exists"]]
     report = {
@@ -1406,7 +1422,14 @@ def write_independent_review_artifact_hash_report() -> dict[str, Any]:
         "artifacts": review_records,
         "aggregate_sha256": canonical_hash(review_records),
     }
-    write_json(phase_path("phase7", "independent_review_artifact_hash_report.json"), report)
+    if write_report:
+        write_json(
+            phase_path(
+                "phase7",
+                "independent_review_artifact_hash_report.json",
+            ),
+            report,
+        )
     return report
 
 
@@ -1426,6 +1449,9 @@ def full_current_route_result_summary() -> dict[str, Any]:
             "runner_result_valid": False,
             "runner_shape_error_count": None,
             "runner_shape_errors": [],
+            "validation_mode": HISTORICAL_ROUTE_VALIDATION_MODE,
+            "live_manifest_parity_checked": False,
+            "live_manifest_parity_delegated_to_outer_runner": True,
             "status": "not_run",
         }
     payload = read_json(CURRENT_ROUTE_RESULT)
@@ -1445,6 +1471,18 @@ def full_current_route_result_summary() -> dict[str, Any]:
         "runner_result_valid": not shape_errors,
         "runner_shape_error_count": len(shape_errors),
         "runner_shape_errors": shape_errors,
+        "validation_mode": HISTORICAL_ROUTE_VALIDATION_MODE,
+        "live_manifest_parity_checked": False,
+        "live_manifest_parity_delegated_to_outer_runner": True,
+        "historical_required_test_count": (
+            EXPECTED_HISTORICAL_REQUIRED_TEST_COUNT
+        ),
+        "historical_required_artifact_count": (
+            EXPECTED_HISTORICAL_REQUIRED_ARTIFACT_COUNT
+        ),
+        "historical_required_test_ids_sha256": (
+            EXPECTED_HISTORICAL_REQUIRED_TEST_IDS_SHA256
+        ),
         "status": "PASS" if payload.get("success") is True and not shape_errors else "FAIL",
         "path": rel(CURRENT_ROUTE_RESULT),
     }
@@ -1498,8 +1536,10 @@ def write_phase7(
                 "command": 'uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_closeout*.py"',
             },
             {
-                "id": "full_current_route",
+                "id": "historical_full_current_route_baseline",
                 "command": "uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_closeout_reentry_guard_seal/phase7/full_current_route_validation_result.json",
+                "execution_state": "historical_completed_not_rerun_by_closeout",
+                "validation_mode": HISTORICAL_ROUTE_VALIDATION_MODE,
             },
         ],
         "approved_successor_pinned_baseline": {
@@ -1507,6 +1547,21 @@ def write_phase7(
             "approving_artifact_path": rel(phase_path("phase0", "owner_reserved_seal_requirements.json")),
             "command": "uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure",
             "expected_test_count": EXPECTED_CURRENT_ROUTE_TEST_COUNT,
+            "expected_required_test_count": (
+                EXPECTED_HISTORICAL_REQUIRED_TEST_COUNT
+            ),
+            "expected_required_artifact_count": (
+                EXPECTED_HISTORICAL_REQUIRED_ARTIFACT_COUNT
+            ),
+            "expected_required_test_ids_sha256": (
+                EXPECTED_HISTORICAL_REQUIRED_TEST_IDS_SHA256
+            ),
+            "validation_mode": HISTORICAL_ROUTE_VALIDATION_MODE,
+            "live_manifest_parity_checked": False,
+            "live_manifest_parity_delegated_to_outer_runner": True,
+            "fresh_live_current_route_result_owner": (
+                "registry_authority_canonical_closure_phase5_attempt_result"
+            ),
             "replacement_reason": "Adds Closeout / Reentry Guard Seal focused tests to the previous current route baseline.",
             "owner_approval_status": "resolved_by_current_owner_execution_request",
         },
@@ -1548,6 +1603,13 @@ def write_phase7(
         "claim_surface_scan_missing_required_surface_family_count": claim_scan_missing_family_count,
         "full_current_route_validation_state": route_status,
         "full_current_route_runner_result_valid": route_runner_valid,
+        "full_current_route_validation_mode": (
+            HISTORICAL_ROUTE_VALIDATION_MODE
+        ),
+        "full_current_route_live_manifest_parity_checked": False,
+        "fresh_live_current_route_result_owner": (
+            "registry_authority_canonical_closure_phase5_attempt_result"
+        ),
         "protected_surface_no_mutation_state": "PASS" if diff["changed_count"] == 0 else "FAIL",
         "protected_source_rendered_lua_runtime_package_changed_count": diff["changed_count"],
         "full_current_route_validation": route_summary,
@@ -1580,7 +1642,11 @@ def generate_artifacts() -> dict[str, Any]:
     return final
 
 
-def validate_taxonomy(*, require_complete: bool = False) -> tuple[dict[str, Any], bool]:
+def validate_taxonomy(
+    *,
+    require_complete: bool = False,
+    write_report: bool = True,
+) -> tuple[dict[str, Any], bool]:
     errors: list[dict[str, Any]] = []
     path = phase_path("phase2", "dvf_3_3_closeout_claim_taxonomy.json")
     if not path.exists():
@@ -1605,11 +1671,22 @@ def validate_taxonomy(*, require_complete: bool = False) -> tuple[dict[str, Any]
         "error_count": len(errors),
         "errors": errors,
     }
-    write_json(phase_path("phase2", "closeout_claim_taxonomy_validation_report.json"), report)
+    if write_report:
+        write_json(
+            phase_path(
+                "phase2",
+                "closeout_claim_taxonomy_validation_report.json",
+            ),
+            report,
+        )
     return report, not errors
 
 
-def validate_predecessor(*, require_complete: bool = False) -> tuple[dict[str, Any], bool]:
+def validate_predecessor(
+    *,
+    require_complete: bool = False,
+    write_report: bool = True,
+) -> tuple[dict[str, Any], bool]:
     errors: list[dict[str, Any]] = []
     required = [
         phase_path("phase3", "predecessor_reentry_context_allowlist.json"),
@@ -1646,11 +1723,22 @@ def validate_predecessor(*, require_complete: bool = False) -> tuple[dict[str, A
         "error_count": len(errors),
         "errors": errors,
     }
-    write_json(phase_path("phase3", "predecessor_reentry_validation_report.json"), report)
+    if write_report:
+        write_json(
+            phase_path(
+                "phase3",
+                "predecessor_reentry_validation_report.json",
+            ),
+            report,
+        )
     return report, not errors
 
 
-def validate_boundary(*, require_complete: bool = False) -> tuple[dict[str, Any], bool]:
+def validate_boundary(
+    *,
+    require_complete: bool = False,
+    write_report: bool = True,
+) -> tuple[dict[str, Any], bool]:
     errors: list[dict[str, Any]] = []
     required = [
         phase_path("phase4", "closeout_claim_boundary_guard_report.json"),
@@ -1686,13 +1774,31 @@ def validate_boundary(*, require_complete: bool = False) -> tuple[dict[str, Any]
         "error_count": len(errors),
         "errors": errors,
     }
-    write_json(phase_path("phase4", "closeout_claim_boundary_validation_report.json"), report)
+    if write_report:
+        write_json(
+            phase_path(
+                "phase4",
+                "closeout_claim_boundary_validation_report.json",
+            ),
+            report,
+        )
     return report, not errors
 
 
-def validate_all(*, require_complete: bool = False, section: str = "all") -> tuple[dict[str, Any], bool]:
+def validate_all(
+    *,
+    require_complete: bool = False,
+    section: str = "all",
+    write_report: bool = True,
+) -> tuple[dict[str, Any], bool]:
     errors: list[dict[str, Any]] = []
-    if phase_path("phase7", "final_closeout_reentry_guard_seal_report.json").exists():
+    if (
+        write_report
+        and phase_path(
+            "phase7",
+            "final_closeout_reentry_guard_seal_report.json",
+        ).exists()
+    ):
         write_independent_review_artifact_hash_report()
     required_paths = [
         phase_path("phase0", "roadmap_input_binding.json"),
@@ -1719,11 +1825,26 @@ def validate_all(*, require_complete: bool = False, section: str = "all") -> tup
             errors.append({"code": "missing_artifact", "path": rel(path)})
     reports = []
     if section in {"taxonomy", "all"}:
-        reports.append(validate_taxonomy(require_complete=require_complete)[0])
+        reports.append(
+            validate_taxonomy(
+                require_complete=require_complete,
+                write_report=write_report,
+            )[0]
+        )
     if section in {"predecessor", "all"}:
-        reports.append(validate_predecessor(require_complete=require_complete)[0])
+        reports.append(
+            validate_predecessor(
+                require_complete=require_complete,
+                write_report=write_report,
+            )[0]
+        )
     if section in {"boundary", "all"}:
-        reports.append(validate_boundary(require_complete=require_complete)[0])
+        reports.append(
+            validate_boundary(
+                require_complete=require_complete,
+                write_report=write_report,
+            )[0]
+        )
     for report in reports:
         if report.get("status") != "PASS":
             errors.append({"code": "section_validation_failed", "report": report})
@@ -1759,12 +1880,37 @@ def validate_all(*, require_complete: bool = False, section: str = "all") -> tup
             errors.append({"code": "forbidden_final_claim_nonzero", "report": final})
         final_route = final.get("full_current_route_validation", {})
         route = full_current_route_result_summary()
-        if require_complete and final_route != route:
+        route_contract_fields = {
+            "result_present",
+            "success",
+            "test_count",
+            "closure_enforced",
+            "schema_version",
+            "contract_class",
+            "required_validations_success",
+            "selected_identity_count",
+            "errors_count",
+            "failures_count",
+            "runner_result_valid",
+            "runner_shape_error_count",
+            "runner_shape_errors",
+            "status",
+            "path",
+        }
+        final_route_contract = {
+            key: final_route.get(key)
+            for key in route_contract_fields
+        }
+        current_route_contract = {
+            key: route.get(key)
+            for key in route_contract_fields
+        }
+        if require_complete and final_route_contract != current_route_contract:
             errors.append(
                 {
                     "code": "full_current_route_validation_summary_stale",
-                    "final_report_route": final_route,
-                    "current_route": route,
+                    "final_report_route": final_route_contract,
+                    "current_route": current_route_contract,
                 }
             )
         if require_complete and route.get("result_present") is not True:
@@ -1793,11 +1939,46 @@ def validate_all(*, require_complete: bool = False, section: str = "all") -> tup
         "error_count": len(errors),
         "errors": errors,
     }
-    write_json(phase_path("phase7", f"validation_report.{section}.json"), report)
+    if write_report:
+        write_json(
+            phase_path("phase7", f"validation_report.{section}.json"),
+            report,
+        )
     if section == "all":
-        review_hash = write_independent_review_artifact_hash_report()
+        review_hash = write_independent_review_artifact_hash_report(
+            write_report=write_report
+        )
+        if not write_report:
+            stored_review_path = phase_path(
+                "phase7",
+                "independent_review_artifact_hash_report.json",
+            )
+            stored_review = (
+                read_json(stored_review_path)
+                if stored_review_path.exists()
+                else None
+            )
+            if stored_review != review_hash:
+                errors.append(
+                    {
+                        "code": (
+                            "independent_review_artifact_hash_report_stale"
+                        ),
+                        "path": rel(stored_review_path),
+                        "stored_present": stored_review is not None,
+                        "expected_aggregate_sha256": review_hash.get(
+                            "aggregate_sha256"
+                        ),
+                        "stored_aggregate_sha256": (
+                            stored_review.get("aggregate_sha256")
+                            if isinstance(stored_review, dict)
+                            else None
+                        ),
+                    }
+                )
         if require_complete and review_hash.get("status") != "PASS":
             errors.append({"code": "independent_review_artifact_hash_report_not_pass", "report": review_hash})
+        if errors:
             report = {
                 "schema_version": "dvf-3-3-closeout-reentry-validation-report-v1",
                 "generated_at": GENERATED_AT,
@@ -1807,6 +1988,7 @@ def validate_all(*, require_complete: bool = False, section: str = "all") -> tup
                 "error_count": len(errors),
                 "errors": errors,
             }
+        if write_report and errors:
             write_json(phase_path("phase7", f"validation_report.{section}.json"), report)
             write_independent_review_artifact_hash_report()
     return report, not errors

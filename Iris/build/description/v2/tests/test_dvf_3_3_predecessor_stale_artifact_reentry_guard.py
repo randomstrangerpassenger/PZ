@@ -15,19 +15,25 @@ RUNNER = TOOLS / "run_dvf_3_3_predecessor_stale_artifact_reentry_guard.py"
 VALIDATOR = TOOLS / "validate_dvf_3_3_predecessor_stale_artifact_reentry_guard.py"
 INNER_CURRENT_ROUTE = os.environ.get("DVF_PREDECESSOR_STALE_INNER_CURRENT_ROUTE") == "1"
 
-sys.path.insert(0, str(TOOLS))
-
-from dvf_3_3_predecessor_stale_artifact_reentry_guard_common import (  # noqa: E402
-    DISPOSITIONS,
-    ROUND_REQUIRED_ARTIFACTS,
-    ROUND_REQUIRED_TESTS,
-    classify_claim_text,
-    negative_fixture_rows,
-)
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def load_contract_probe() -> dict:
+    result = subprocess.run(
+        [sys.executable, "-B", str(VALIDATOR), "--probe-contract"],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise AssertionError(
+            "predecessor/stale contract probe failed\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+    return json.loads(result.stdout.strip().splitlines()[-1])
 
 
 class DvfPredecessorStaleArtifactReentryGuardTest(unittest.TestCase):
@@ -68,7 +74,8 @@ class DvfPredecessorStaleArtifactReentryGuardTest(unittest.TestCase):
         self.assertEqual(coverage["coverage_percent"], 100)
         self.assertEqual(coverage["unknown_blocked_count"], 0)
         self.assertEqual(coverage["bare_review_input_only_disposition_count"], 0)
-        self.assertEqual(taxonomy["enum"], DISPOSITIONS)
+        probe = load_contract_probe()
+        self.assertEqual(taxonomy["enum"], probe["dispositions"])
         self.assertIn("review_input_only_non_authority", taxonomy["enum"])
         self.assertNotIn("review_input_only", taxonomy["enum"])
         self.assertEqual(samples["status"], "PASS")
@@ -82,7 +89,10 @@ class DvfPredecessorStaleArtifactReentryGuardTest(unittest.TestCase):
 
         self.assertEqual(phase3["status"], "PASS")
         self.assertEqual(phase5["status"], "PASS")
-        self.assertTrue(all(row["status"] == "PASS" for row in negative_fixture_rows()))
+        probe = load_contract_probe()
+        self.assertTrue(
+            all(row["status"] == "PASS" for row in probe["negative_fixture_rows"])
+        )
         fixture_ids = {row["fixture_id"] for row in phase5["fixtures"]}
         for fixture_id in {
             "renamed_legacy_bridge_payload",
@@ -144,14 +154,25 @@ class DvfPredecessorStaleArtifactReentryGuardTest(unittest.TestCase):
 
         required_paths = {row["path"] for row in live_manifest["required_artifacts"]}
         required_tests = {row["test_id"] for row in live_manifest["required_tests"]}
-        for row in ROUND_REQUIRED_ARTIFACTS:
+        probe = load_contract_probe()
+        for row in probe["round_required_artifacts"]:
             self.assertIn(row["path"], required_paths)
-        for test_id in ROUND_REQUIRED_TESTS:
+        for test_id in probe["round_required_tests"]:
             self.assertIn(test_id, required_tests)
 
-        self.assertEqual(classify_claim_text("The stale bridge is current authority."), "blocked")
-        self.assertEqual(classify_claim_text("Stale bridge cannot become current authority."), "allowed")
-        self.assertEqual(classify_claim_text("레거시 bridge는 현재 권위가 아니다."), "allowed")
+        classifications = probe["claim_classifications"]
+        self.assertEqual(
+            classifications["The stale bridge is current authority."],
+            "blocked",
+        )
+        self.assertEqual(
+            classifications["Stale bridge cannot become current authority."],
+            "allowed",
+        )
+        self.assertEqual(
+            classifications["레거시 bridge는 현재 권위가 아니다."],
+            "allowed",
+        )
 
     def test_final_report_preserves_non_claims_and_review_boundary(self) -> None:
         final = load_json(ROOT / "phase6/final_predecessor_stale_artifact_reentry_guard_report.json")

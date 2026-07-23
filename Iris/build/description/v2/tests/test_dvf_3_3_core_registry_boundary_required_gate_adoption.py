@@ -21,9 +21,6 @@ INNER = (
     or os.environ.get("DVF_REQUIRED_GATE_ADOPTION_INNER_FOCUSED") == "1"
 )
 
-sys.path.insert(0, str(TOOLS))
-import dvf_3_3_core_registry_boundary_required_gate_adoption as adoption  # noqa: E402
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -31,6 +28,29 @@ def load_json(path: Path) -> dict:
 
 def write_json(path: Path, payload: dict) -> None:
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def load_contract_probe() -> dict:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-B",
+            str(VALIDATOR),
+            "--root",
+            str(ROOT),
+            "--probe-contract",
+        ],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise AssertionError(
+            "required gate adoption contract probe failed\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+    return json.loads(result.stdout.strip().splitlines()[-1])
 
 
 class DvfCoreRegistryBoundaryRequiredGateAdoptionTest(unittest.TestCase):
@@ -76,15 +96,13 @@ class DvfCoreRegistryBoundaryRequiredGateAdoptionTest(unittest.TestCase):
         )
 
     def test_live_rescan_enforces_claim_boundary(self) -> None:
-        report = adoption.live_claim_rescan(mode="pre_route", root=ROOT)
+        probe = load_contract_probe()
+        report = probe["clean_scan"]
         self.assertEqual(report["status"], "PASS")
         self.assertEqual(report["forbidden_overclaim_count"], 0)
         self.assertTrue(report["claim_scan_minimum_universe_satisfied"])
 
-        with tempfile.TemporaryDirectory(prefix="dvf_claim_inject_") as tmp:
-            injected = Path(tmp) / "forbidden_claim.md"
-            injected.write_text("Current DVF PASS is sufficient for release readiness.\n", encoding="utf-8")
-            bad = adoption.live_claim_rescan(mode="pre_route", root=ROOT, extra_paths=[injected])
+        bad = probe["injected_scan"]
         self.assertGreater(bad["forbidden_overclaim_count"], 0)
         self.assertIn("standalone_current_dvf_pass", {row["violation_code"] for row in bad["violations"]})
 
@@ -102,9 +120,10 @@ class DvfCoreRegistryBoundaryRequiredGateAdoptionTest(unittest.TestCase):
         self.assertEqual(report["modified_existing_entries"], 0)
         self.assertEqual(report["predicate_meaning_change_count"], 0)
         self.assertFalse(report["source_rendered_lua_runtime_package_authority_mutated"])
-        for row in adoption.round_required_artifacts():
+        probe = load_contract_probe()
+        for row in probe["round_required_artifacts"]:
             self.assertIn(row["path"], paths)
-        for test_id in adoption.ROUND_REQUIRED_TESTS:
+        for test_id in probe["round_required_tests"]:
             self.assertIn(test_id, tests)
 
     def test_bootstrap_and_pre_route_no_mutation_are_pass(self) -> None:

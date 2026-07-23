@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import ast
 import importlib.abc
+import importlib.util
 import json
 import subprocess
 import sys
@@ -111,7 +112,10 @@ def tools_build_import_candidates(path: Path) -> list[dict]:
                 module = imported[len("tools.build.") :].split(".", 1)[0]
             elif "." not in imported:
                 candidate = tools_build_module_path(imported)
-                if candidate.is_file():
+                if candidate.is_file() or (
+                    literal_tools_path_added
+                    and importlib.util.find_spec(imported) is None
+                ):
                     module = imported
             if module:
                 rows.append(
@@ -127,57 +131,121 @@ def tools_build_import_candidates(path: Path) -> list[dict]:
     return rows
 
 
-def enforce_preimport_build_dependency_closure(
+def inspect_preimport_build_dependency_closure(
     test_ids: list[str], allowed_modules: set[str]
 ) -> dict:
-    rows = []
-    violations = []
+    rows: list[dict] = []
+    selected_tests: list[dict] = []
+    violations: list[dict] = []
     for test_path in selected_test_module_paths(test_ids):
-        if not test_path.is_file():
-            violations.append(
-                {
-                    "code": "selected_test_module_missing",
-                    "selected_test": test_path.relative_to(REPO).as_posix(),
-                }
-            )
-            continue
-        for row in tools_build_import_candidates(test_path):
-            target = row.pop("resolved_path")
-            exists = target.is_file()
-            tracked = exists and git_path_is_tracked(target)
-            ignored = exists and git_path_is_ignored(target)
-            allowed = row["module"] in allowed_modules
-            observed = {
-                **row,
-                "resolved_path": target.relative_to(REPO).as_posix(),
+        selected_test = test_path.relative_to(REPO).as_posix()
+        exists = test_path.is_file()
+        tracked = git_path_is_tracked(test_path)
+        ignored = git_path_is_ignored(test_path)
+        selected_tests.append(
+            {
+                "selected_test": selected_test,
                 "exists": exists,
                 "tracked": tracked,
                 "ignored": ignored,
+            }
+        )
+        if not exists:
+            violations.append(
+                {
+                    "code": "selected_test_module_missing",
+                    "selected_test": selected_test,
+                }
+            )
+            continue
+        if not tracked:
+            violations.append(
+                {
+                    "code": "selected_test_module_untracked",
+                    "selected_test": selected_test,
+                }
+            )
+        if ignored:
+            violations.append(
+                {
+                    "code": "selected_test_module_ignored",
+                    "selected_test": selected_test,
+                }
+            )
+        for row in tools_build_import_candidates(test_path):
+            target = row["resolved_path"]
+            target_exists = target.is_file()
+            target_tracked = target_exists and git_path_is_tracked(target)
+            target_ignored = git_path_is_ignored(target)
+            allowed = row["module"] in allowed_modules
+            observed = {
+                **{key: value for key, value in row.items() if key != "resolved_path"},
+                "resolved_path": target.relative_to(REPO).as_posix(),
+                "exists": target_exists,
+                "tracked": target_tracked,
+                "ignored": target_ignored,
                 "allowed_by_current_closure": allowed,
             }
             rows.append(observed)
-            if not exists or not tracked or ignored or not allowed:
+            violation_reason = None
+            if not target_exists:
+                violation_reason = "target_missing"
+            elif not target_tracked:
+                violation_reason = "target_untracked"
+            elif target_ignored:
+                violation_reason = "target_ignored"
+            elif not allowed:
+                violation_reason = "outside_preserved_closure"
+            if violation_reason:
                 violations.append(
                     {
                         "code": "unqualified_tools_build_import_bypass",
+                        "reason": violation_reason,
                         **observed,
                     }
                 )
-    if violations:
-        first = violations[0]
-        raise ImportError(
-            "unqualified_tools_build_import_bypass: "
-            f"selected_test={first.get('selected_test')} "
-            f"resolved_target={first.get('resolved_path')}"
-        )
     return {
-        "status": "PASS",
+        "status": "PASS" if not violations else "FAIL",
         "selected_test_count": len(selected_test_module_paths(test_ids)),
+        "selected_tests": selected_tests,
         "tools_build_dependency_count": len(rows),
-        "unqualified_tools_build_import_count": 0,
+        "unqualified_tools_build_import_count": sum(
+            row.get("code") == "unqualified_tools_build_import_bypass"
+            for row in violations
+        ),
+        "selected_test_source_violation_count": sum(
+            str(row.get("code", "")).startswith("selected_test_module_")
+            for row in violations
+        ),
+        "violation_count": len(violations),
+        "violations": violations,
         "dependencies": rows,
         "preimport_enforced": True,
+        "test_execution_performed": False,
     }
+
+
+def preimport_violation_message(violation: dict) -> str:
+    fields = [
+        str(violation.get("code", "preimport_build_dependency_violation")),
+        f"selected_test={violation.get('selected_test')}",
+    ]
+    if violation.get("resolved_path") is not None:
+        fields.append(f"resolved_target={violation['resolved_path']}")
+    if violation.get("module") is not None:
+        fields.append(f"module={violation['module']}")
+    if violation.get("reason") is not None:
+        fields.append(f"reason={violation['reason']}")
+    return ": ".join((fields[0], " ".join(fields[1:])))
+
+
+def enforce_preimport_build_dependency_closure(
+    test_ids: list[str], allowed_modules: set[str]
+) -> dict:
+    report = inspect_preimport_build_dependency_closure(test_ids, allowed_modules)
+    if report["violations"]:
+        raise ImportError(preimport_violation_message(report["violations"][0]))
+    return report
 
 
 def load_json(path: Path) -> dict:
@@ -372,6 +440,7 @@ def main() -> int:
     parser.add_argument("--required-validations", default=str(DEFAULT_REQUIRED_VALIDATIONS))
     parser.add_argument("--include-non-ok", action="store_true")
     parser.add_argument("--enforce-current-build-closure", action="store_true")
+    parser.add_argument("--preimport-only", action="store_true")
     parser.add_argument("--list", action="store_true")
     parser.add_argument("--out")
     parser.add_argument("-v", "--verbosity", type=int, default=1)
@@ -393,6 +462,29 @@ def main() -> int:
     if not test_ids:
         print(f"No tests selected for contract class {args.contract_class}", file=sys.stderr)
         return 2
+
+    if args.preimport_only:
+        if not args.enforce_current_build_closure or args.contract_class != "current":
+            print(
+                "--preimport-only requires --class current "
+                "and --enforce-current-build-closure",
+                file=sys.stderr,
+            )
+            return 2
+        closure = load_json(Path(args.closure))
+        allowed = set(closure["current_closure_modules"])
+        allowed.update(closure.get("current_route_allowed_tooling_modules", []))
+        report = inspect_preimport_build_dependency_closure(test_ids, allowed)
+        if args.out:
+            out_path = Path(args.out)
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(
+                json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True)
+                + "\n",
+                encoding="utf-8",
+            )
+        print(json.dumps(report, ensure_ascii=False, sort_keys=True))
+        return 0 if report["status"] == "PASS" else 2
 
     sys.path.insert(0, str(TEST_ROOT))
     sys.path.insert(0, str(V2_ROOT))

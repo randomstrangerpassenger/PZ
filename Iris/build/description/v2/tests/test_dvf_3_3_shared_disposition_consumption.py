@@ -11,10 +11,7 @@ REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_shared_disposition_ledger_consumption"
 SCRIPT = TOOLS / "run_dvf_3_3_shared_disposition_consumption.py"
-
-sys.path.insert(0, str(TOOLS))
-
-from dvf_3_3_shared_disposition_consumption_common import classify_consumption_record, validate_all  # noqa: E402
+VALIDATOR = TOOLS / "validate_dvf_3_3_shared_disposition_consumption.py"
 
 
 def load_json(path: Path) -> dict:
@@ -23,6 +20,22 @@ def load_json(path: Path) -> dict:
 
 def load_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def load_classifier_probe() -> dict:
+    result = subprocess.run(
+        [sys.executable, "-B", str(VALIDATOR), "--probe-classifiers"],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise AssertionError(
+            "shared disposition classifier probe failed\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+    return json.loads(result.stdout.strip().splitlines()[-1])
 
 
 class SharedDispositionConsumptionTest(unittest.TestCase):
@@ -98,20 +111,14 @@ class SharedDispositionConsumptionTest(unittest.TestCase):
         self.assertEqual(raw_report["RAW_AUTHORITY_READ"], 0)
         self.assertEqual(divergence["divergence_count"], 0)
 
-        self.assertIn(
-            "RAW_AUTHORITY_READ",
-            classify_consumption_record(
-                {
-                    "path": "Iris/build/description/v2/staging/2105_baseline_consumption_audit/classified_ledger.jsonl",
-                    "authority_role": "current_execution_authority",
-                }
-            ),
-        )
+        probe = load_classifier_probe()
+        classifications = probe["classifications"]
+        self.assertIn("RAW_AUTHORITY_READ", classifications[0])
         self.assertIn(
             "VALUE_DIVERGENCE",
-            classify_consumption_record({"denominator_id": "DEN-AUDIT-EXECUTING-CONSUMERS", "value": 1063}),
+            classifications[1],
         )
-        self.assertIn("PREDECESSOR_REENTRY", classify_consumption_record({"token": "2105", "lifecycle_role": "current_debt"}))
+        self.assertIn("PREDECESSOR_REENTRY", classifications[2])
 
     def test_phase4_and_phase5_record_live_required_gate_adoption(self) -> None:
         no_op = load_json(ROOT / "phase4/no_op_realignment_report.json")
@@ -182,9 +189,20 @@ class SharedDispositionConsumptionTest(unittest.TestCase):
         self.assertEqual(final["owner_adoption_status"], "adopted_required_gate")
 
     def test_validator_accepts_complete_adopted_state(self) -> None:
-        report, ok = validate_all(require_complete=True, write_report=False)
-
-        self.assertTrue(ok, report["errors"])
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(VALIDATOR),
+                "--require-complete",
+                "--no-write-report",
+            ],
+            cwd=REPO,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
 
 if __name__ == "__main__":

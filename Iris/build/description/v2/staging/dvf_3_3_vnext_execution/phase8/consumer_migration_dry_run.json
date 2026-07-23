@@ -1,0 +1,10 @@
+{
+  "candidate_count": 311,
+  "dynamic_execution_reach_deferred": true,
+  "forbidden_changes_count": 0,
+  "generated_at": "2026-06-13T00:35:35.878030+00:00",
+  "mutation_performed": false,
+  "projected_static_current_surface_residue": 0,
+  "schema_version": "dvf-3-3-vnext-consumer-migration-dry-run-v0",
+  "status": "PASS"
+}

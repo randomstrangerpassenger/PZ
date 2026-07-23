@@ -10,10 +10,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_vnext_cutover_tooling_readiness"
-
-sys.path.insert(0, str(TOOLS))
-
-from dvf_3_3_cutover_tooling_readiness_common import MANDATORY_COMMAND_FIELDS  # noqa: E402
+MAPPING_VALIDATOR = TOOLS / "validate_dvf_3_3_command_surface_mapping.py"
 
 
 def load_json(path: Path) -> dict:
@@ -26,6 +23,22 @@ def load_jsonl(path: Path) -> list[dict]:
         if line.strip():
             rows.append(json.loads(line))
     return rows
+
+
+def load_command_contract() -> dict:
+    result = subprocess.run(
+        [sys.executable, "-B", str(MAPPING_VALIDATOR), "--describe-contract"],
+        cwd=REPO,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise AssertionError(
+            "command surface contract probe failed\n"
+            f"STDOUT:\n{result.stdout}\nSTDERR:\n{result.stderr}"
+        )
+    return json.loads(result.stdout.strip().splitlines()[-1])
 
 
 class DvfCutoverToolingReadinessTest(unittest.TestCase):
@@ -53,12 +66,16 @@ class DvfCutoverToolingReadinessTest(unittest.TestCase):
     def test_phase0_command_mapping_has_downstream_compatibility_fields(self) -> None:
         mapping = load_json(ROOT / "phase0/command_surface_mapping.json")
         contracts = load_json(ROOT / "phase0/minimum_schema_contracts.json")
+        mandatory_fields = load_command_contract()["mandatory_command_fields"]
 
         self.assertEqual(mapping["mapping_owner"], "cutover_tooling_readiness_round")
-        self.assertEqual(set(contracts["mandatory_fields"]["command_surface_mapping.json"]), set(MANDATORY_COMMAND_FIELDS))
+        self.assertEqual(
+            set(contracts["mandatory_fields"]["command_surface_mapping.json"]),
+            set(mandatory_fields),
+        )
         self.assertEqual(len(mapping["commands"]), 6)
         for row in mapping["commands"]:
-            for field in MANDATORY_COMMAND_FIELDS:
+            for field in mandatory_fields:
                 self.assertIn(field, row)
             self.assertIn("validation_family", row)
             self.assertIn("concrete_command_or_tool", row)

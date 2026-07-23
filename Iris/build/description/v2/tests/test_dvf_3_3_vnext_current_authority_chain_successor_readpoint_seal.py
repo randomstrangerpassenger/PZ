@@ -15,10 +15,6 @@ RUNNER = TOOLS / "run_dvf_3_3_vnext_current_authority_chain_successor_readpoint_
 VALIDATOR = TOOLS / "validate_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py"
 INNER_CURRENT_ROUTE = os.environ.get("DVF_SUCCESSOR_READPOINT_INNER_CURRENT_ROUTE") == "1"
 
-sys.path.insert(0, str(TOOLS))
-
-from dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal import validate_artifacts  # noqa: E402
-
 
 def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
@@ -169,11 +165,14 @@ class DvfVnextCurrentAuthorityChainSuccessorReadpointSealTest(unittest.TestCase)
         if INNER_CURRENT_ROUTE:
             self.assertTrue((ROOT / "phase0/report_field_contract.json").exists())
             return
-        report, ok = validate_artifacts(require_complete=True, write_report=False)
-        self.assertTrue(ok, report["errors"])
-
         result = subprocess.run(
-            [sys.executable, "-B", str(VALIDATOR), "--require-complete"],
+            [
+                sys.executable,
+                "-B",
+                str(VALIDATOR),
+                "--require-complete",
+                "--no-write-report",
+            ],
             cwd=REPO,
             text=True,
             capture_output=True,

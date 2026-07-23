@@ -282,6 +282,7 @@ PROTECTED_SURFACES = (
 
 LIVE_REQUIRED_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
 ACTIVE_CORE_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_active_core_closure.json"
+ROUND3_TEST_TAXONOMY = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_test_taxonomy.json"
 ROUND3_CONTRACT_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_contract_manifest.json"
 AUTHORITY_MANIFEST = REPO_ROOT / "Iris" / "_docs" / "authority" / "iris_current_authority_manifest.json"
 INPUT_MANIFEST = V2_ROOT / "data" / "dvf_3_3_input_manifest.json"
@@ -304,6 +305,92 @@ COMPLETION_RUNNER = TOOLS_ROOT / "run_dvf_3_3_completion_vocabulary_external_gat
 COMPLETION_VALIDATOR = TOOLS_ROOT / "validate_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
 COMPLETION_TEST = TESTS_ROOT / "test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
 ROUND3_RUNNER = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_run_contract_tests.py"
+COMPOSE_OVERLAY_TEST = TESTS_ROOT / "test_compose_layer3_text_overlay.py"
+CONSUMER_MIGRATION_NORMALIZATION_TEST = (
+    TESTS_ROOT / "test_dvf_3_3_consumer_migration_input_normalization.py"
+)
+CONSUMER_MIGRATION_NORMALIZATION_COMMON = (
+    TOOLS_ROOT / "dvf_3_3_consumer_migration_normalization_common.py"
+)
+CONSUMER_MIGRATION_NORMALIZATION_WRAPPERS = (
+    TOOLS_ROOT / "generate_dvf_3_3_consumer_migration_input_contract.py",
+    TOOLS_ROOT / "generate_dvf_3_3_consumer_migration_eligibility_matrix.py",
+    TOOLS_ROOT / "generate_dvf_3_3_missing_path_disposition_ledger.py",
+    TOOLS_ROOT / "validate_dvf_3_3_consumer_migration_anchor_relocation.py",
+    TOOLS_ROOT / "generate_dvf_3_3_authority_role_migration_rule_seed.py",
+    TOOLS_ROOT
+    / "generate_dvf_3_3_downstream_command_surface_compatibility_manifest.py",
+    TOOLS_ROOT
+    / "generate_dvf_3_3_consumer_migration_reconciled_input_manifest.py",
+    TOOLS_ROOT / "validate_dvf_3_3_consumer_migration_input_normalization.py",
+)
+CONSUMER_MIGRATION_NORMALIZATION_INPUTS = (
+    V2_ROOT
+    / "staging"
+    / "dvf_3_3_vnext_execution"
+    / "phase8"
+    / "consumer_migration_matrix.jsonl",
+    V2_ROOT
+    / "staging"
+    / "dvf_3_3_vnext_execution"
+    / "phase8"
+    / "consumer_migration_dry_run.json",
+)
+CURRENT_ROUTE_REFACTORED_TESTS = (
+    TESTS_ROOT / "test_dvf_3_3_closeout_reentry_guard_seal.py",
+    TESTS_ROOT
+    / "test_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    TESTS_ROOT / "test_dvf_3_3_cutover_tooling_readiness.py",
+    TESTS_ROOT
+    / "test_dvf_3_3_predecessor_stale_artifact_reentry_guard.py",
+    TESTS_ROOT / "test_dvf_3_3_shared_disposition_consumption.py",
+    TESTS_ROOT
+    / "test_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+)
+CURRENT_ROUTE_SUBPROCESS_TARGETS = (
+    TOOLS_ROOT / "run_dvf_3_3_closeout_reentry_guard_seal.py",
+    TOOLS_ROOT
+    / "run_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    TOOLS_ROOT
+    / "validate_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    TOOLS_ROOT / "generate_dvf_3_3_overlay_support_artifact.py",
+    TOOLS_ROOT / "manage_dvf_3_3_runtime_chunk_cutover.py",
+    TOOLS_ROOT / "apply_dvf_3_3_consumer_migration.py",
+    TOOLS_ROOT / "generate_dvf_3_3_row_level_migration_ledger.py",
+    TOOLS_ROOT / "validate_dvf_3_3_actual_diff_to_ledger.py",
+    TOOLS_ROOT / "validate_dvf_3_3_command_surface_mapping.py",
+    TOOLS_ROOT
+    / "run_dvf_3_3_predecessor_stale_artifact_reentry_guard.py",
+    TOOLS_ROOT
+    / "validate_dvf_3_3_predecessor_stale_artifact_reentry_guard.py",
+    TOOLS_ROOT / "run_dvf_3_3_shared_disposition_consumption.py",
+    TOOLS_ROOT / "validate_dvf_3_3_shared_disposition_consumption.py",
+    TOOLS_ROOT
+    / "run_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    TOOLS_ROOT
+    / "validate_dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+    *CONSUMER_MIGRATION_NORMALIZATION_WRAPPERS,
+)
+CURRENT_ROUTE_SUBPROCESS_IMPLEMENTATIONS = (
+    TOOLS_ROOT / "dvf_3_3_closeout_reentry_guard_seal_common.py",
+    TOOLS_ROOT
+    / "dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+    TOOLS_ROOT / "dvf_3_3_cutover_tooling_readiness_common.py",
+    TOOLS_ROOT
+    / "dvf_3_3_predecessor_stale_artifact_reentry_guard_common.py",
+    TOOLS_ROOT / "dvf_3_3_shared_disposition_consumption_common.py",
+    TOOLS_ROOT
+    / "dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal.py",
+)
+CURRENT_ROUTE_SELECTIVE_DEPENDENCIES = (
+    COMPOSE_OVERLAY_TEST,
+    CONSUMER_MIGRATION_NORMALIZATION_TEST,
+    CONSUMER_MIGRATION_NORMALIZATION_COMMON,
+    *CONSUMER_MIGRATION_NORMALIZATION_INPUTS,
+    *CURRENT_ROUTE_REFACTORED_TESTS,
+    *CURRENT_ROUTE_SUBPROCESS_TARGETS,
+    *CURRENT_ROUTE_SUBPROCESS_IMPLEMENTATIONS,
+)
 PRACTICAL_DURABLE_GATE_CONTRACT = (
     REPO_ROOT
     / "Iris"
@@ -351,11 +438,14 @@ PRACTICAL_CODE_STATE_PATHS = (
     VALIDATOR_PATH,
     FOCUSED_TEST_PATH,
     ROUND3_RUNNER,
+    ROUND3_TEST_TAXONOMY,
+    ACTIVE_CORE_MANIFEST,
     COMPOSE_TOOL,
     COMPLETION_TOOL,
     COMPLETION_RUNNER,
     COMPLETION_VALIDATOR,
     COMPLETION_TEST,
+    *CURRENT_ROUTE_SELECTIVE_DEPENDENCIES,
     LIVE_REQUIRED_MANIFEST,
     PRACTICAL_DURABLE_GATE_CONTRACT,
     REPO_ROOT / "docs" / "dvf_registry_handoff_contract.md",
@@ -4388,14 +4478,26 @@ def completion_fixture_paths() -> list[Path]:
 def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
     phase4 = root / "phase4"
     manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
-    dependencies = [
+    dependencies = list(dict.fromkeys([
         *COMPOSE_DEPENDENCIES,
         COMPLETION_TOOL,
         COMPLETION_RUNNER,
         COMPLETION_VALIDATOR,
         COMPLETION_TEST,
         *completion_fixture_paths(),
-    ]
+        *CURRENT_ROUTE_SELECTIVE_DEPENDENCIES,
+    ]))
+    subprocess_targets = {
+        COMPLETION_RUNNER,
+        COMPLETION_VALIDATOR,
+        *CURRENT_ROUTE_SUBPROCESS_TARGETS,
+    }
+    selected_current_tests = {
+        COMPOSE_OVERLAY_TEST,
+        CONSUMER_MIGRATION_NORMALIZATION_TEST,
+        *CURRENT_ROUTE_REFACTORED_TESTS,
+    }
+    frozen_predecessor_inputs = set(CONSUMER_MIGRATION_NORMALIZATION_INPUTS)
     path_sets = git_path_sets()
     rows = []
     blockers = []
@@ -4405,7 +4507,19 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
             **hash_row(path),
             "tracked": relative in path_sets["tracked"],
             "ignored": relative in path_sets["ignored"],
-            "dependency_role": "subprocess_target" if path in {COMPLETION_RUNNER, COMPLETION_VALIDATOR} else "required_fixture_or_source",
+            "dependency_role": (
+                "subprocess_target"
+                if path in subprocess_targets
+                else (
+                    "selected_current_test"
+                    if path in selected_current_tests
+                    else (
+                        "frozen_predecessor_input"
+                        if path in frozen_predecessor_inputs
+                        else "required_fixture_or_source"
+                    )
+                )
+            ),
         }
         rows.append(row)
         if row["kind"] == "missing" or not row["tracked"] or row["ignored"]:
@@ -4439,6 +4553,59 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
     )
     if not preimport_markers:
         blockers.append("round3_preimport_guard_missing")
+    preimport_command = [
+        sys.executable,
+        "-B",
+        str(ROUND3_RUNNER),
+        "--class",
+        "current",
+        "--enforce-current-build-closure",
+        "--preimport-only",
+    ]
+    preimport_completed = subprocess.run(
+        preimport_command,
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    try:
+        preimport_report = json.loads(preimport_completed.stdout)
+    except json.JSONDecodeError:
+        preimport_report = {
+            "status": "FAIL",
+            "violation_count": 1,
+            "violations": [
+                {
+                    "code": "current_route_preimport_report_invalid_json",
+                    "selected_test": None,
+                }
+            ],
+        }
+    if preimport_completed.returncode != 0:
+        blockers.append("current_route_static_preimport_scan_command_failed")
+    if preimport_report.get("status") != "PASS":
+        for violation in preimport_report.get("violations", []):
+            blockers.append(
+                "current_route_preimport_violation:"
+                f"{violation.get('code')}:"
+                f"{violation.get('selected_test')}:"
+                f"{violation.get('resolved_path')}"
+            )
+    preimport_scan = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp4-current-route-preimport-scan-v1",
+        "status": (
+            "PASS"
+            if preimport_completed.returncode == 0
+            and preimport_report.get("status") == "PASS"
+            else "FAIL"
+        ),
+        "command": preimport_command,
+        "exit_code": preimport_completed.returncode,
+        "stderr": preimport_completed.stderr,
+        "test_execution_performed": False,
+        "report": preimport_report,
+    }
     ownership = {
         "schema_version": f"{SCHEMA_PREFIX}-wp4-required-validation-ownership-v1",
         "status": "PASS" if not blockers else "FAIL",
@@ -4476,8 +4643,17 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
         "dependency_count": len(rows),
         "dependencies": rows,
         "sys_path_injected_bare_import_count": len(bare_tool_imports),
-        "subprocess_target_count": 2,
+        "subprocess_target_count": len(subprocess_targets),
         "fixture_count": len(completion_fixture_paths()),
+        "current_route_selected_test_count": preimport_report.get(
+            "selected_test_count"
+        ),
+        "current_route_selected_test_source_violation_count": preimport_report.get(
+            "selected_test_source_violation_count"
+        ),
+        "current_route_tools_build_import_violation_count": preimport_report.get(
+            "unqualified_tools_build_import_count"
+        ),
     }
     bare_guard = {
         "schema_version": f"{SCHEMA_PREFIX}-wp4-bare-import-guard-v1",
@@ -4501,6 +4677,7 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
             "post_adoption_current_route",
         ],
         "executed_during_implementation_mode": [],
+        "static_preimport_scan_executed": True,
         "reason": "tests execute only at explicit Section 7 command boundaries",
     }
     outputs = (
@@ -4509,6 +4686,7 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
         ("wp4_durable_vs_generated_evidence_report.json", durable),
         ("wp4_required_test_dependency_closure_report.json", dependency),
         ("wp4_bare_import_guard_validation_report.json", bare_guard),
+        ("wp4_current_route_preimport_dependency_scan_report.json", preimport_scan),
         ("wp4_fresh_execution_manifest.json", fresh_manifest),
     )
     for name, payload in outputs:

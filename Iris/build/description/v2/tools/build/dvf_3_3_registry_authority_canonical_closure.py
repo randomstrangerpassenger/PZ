@@ -8877,6 +8877,7 @@ def authorize_practical_gate_adoption(
         )
         is True,
     }
+    consumption_path.parent.mkdir(parents=True, exist_ok=True)
     write_json_once(consumption_path, consumption)
     report = {
         "schema_version": f"{SCHEMA_PREFIX}-practical-gate-adoption-authorization-v1",

@@ -527,6 +527,33 @@ def resolve_evidence_root(
     return candidate
 
 
+def practical_attempt_failure_paths(root: Path) -> list[Path]:
+    failure_root = filesystem_path(root / "attempt_failures")
+    if not failure_root.is_dir():
+        return []
+    return [
+        root / "attempt_failures" / child.name
+        for child in sorted(failure_root.glob("*.json"), key=lambda path: path.name)
+        if child.is_file()
+    ]
+
+
+def require_practical_attempt_open(root: Path) -> None:
+    failure_paths = practical_attempt_failure_paths(root)
+    if failure_paths:
+        raise RuntimeError(
+            "practical attempt already terminated by preserved failure record: "
+            + ",".join(path.name for path in failure_paths)
+        )
+
+
+def practical_attempt_failure_blockers(root: Path) -> list[str]:
+    return [
+        f"practical_attempt_terminal_failure_present:{path.name}"
+        for path in practical_attempt_failure_paths(root)
+    ]
+
+
 def read_json_object(path: Path) -> dict[str, Any]:
     source = filesystem_path(path)
     if not source.is_file():
@@ -542,28 +569,32 @@ def read_json_object(path: Path) -> dict[str, Any]:
 def write_json_once(path: Path, payload: Any) -> None:
     if not is_within(path, ATTEMPTS_ROOT):
         raise ValueError(f"refusing out-of-attempt evidence write: {path}")
-    path.parent.mkdir(parents=True, exist_ok=True)
+    target = filesystem_path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
     serialized = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
-    with path.open("x", encoding="utf-8", newline="\n") as handle:
+    with target.open("x", encoding="utf-8", newline="\n") as handle:
         handle.write(serialized)
 
 
 def write_text_once(path: Path, payload: str) -> None:
     if not is_within(path, ATTEMPTS_ROOT):
         raise ValueError(f"refusing out-of-attempt evidence write: {path}")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("x", encoding="utf-8", newline="\n") as handle:
+    target = filesystem_path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with target.open("x", encoding="utf-8", newline="\n") as handle:
         handle.write(payload)
 
 
 def copy_external_bytes_once(source: Path, target: Path) -> None:
-    if not source.is_file():
+    source_path = filesystem_path(source)
+    if not source_path.is_file():
         raise FileNotFoundError(source)
     if not is_within(target, ATTEMPTS_ROOT):
         raise ValueError(f"refusing out-of-attempt materialization: {target}")
-    target.parent.mkdir(parents=True, exist_ok=True)
-    with target.open("xb") as handle:
-        handle.write(source.read_bytes())
+    target_path = filesystem_path(target)
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    with target_path.open("xb") as handle:
+        handle.write(source_path.read_bytes())
 
 
 def record_attempt_failure_once(
@@ -576,6 +607,24 @@ def record_attempt_failure_once(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    existing_failure_paths = practical_attempt_failure_paths(root)
+    if existing_failure_paths:
+        same_mode_failure = root / "attempt_failures" / f"{mode}.json"
+        preserved = (
+            same_mode_failure
+            if same_mode_failure in existing_failure_paths
+            else existing_failure_paths[0]
+        )
+        return {
+            "written": False,
+            "reason": (
+                "failure_record_already_preserved"
+                if preserved == same_mode_failure
+                else "attempt_terminal_failure_already_preserved"
+            ),
+            "path": repo_relative(preserved),
+            "sha256": sha256_file(preserved),
+        }
     terminal_by_mode = {
         "preflight": root / "phase0" / "preflight_report.json",
         "materialize-preimplementation-reviews": (
@@ -7749,6 +7798,7 @@ def run_practical_preflight(
     if not normalized_attempt_id.endswith("-practical"):
         raise ValueError("practical attempt_id must end with -practical")
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     terminal = root / "phase0" / "practical_preflight_report.json"
     if terminal.exists():
         raise FileExistsError("practical preflight is write-once")
@@ -7831,6 +7881,7 @@ def validate_practical_preflight(
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
     stored = read_json_object(root / "phase0" / "practical_preflight_report.json")
     blockers: list[str] = []
+    blockers.extend(practical_attempt_failure_blockers(root))
     if stored.get("status") != "PASS":
         blockers.append("practical_preflight_not_pass")
     if stored.get("attempt_id") != normalized_attempt_id:
@@ -7884,6 +7935,7 @@ def validate_practical_preflight_snapshot(
 ) -> dict[str, Any]:
     stored = read_json_object(root / "phase0" / "practical_preflight_report.json")
     blockers: list[str] = []
+    blockers.extend(practical_attempt_failure_blockers(root))
     execution_head = stored.get("execution_head")
     if stored.get("status") != "PASS":
         blockers.append("practical_preflight_snapshot_not_pass")
@@ -7946,6 +7998,7 @@ def materialize_practical_review(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     phase3 = root / "phase3"
     target = phase3 / "practical_preimplementation_review.md"
     terminal = phase3 / "practical_review_materialization_report.json"
@@ -8077,6 +8130,7 @@ def run_practical_implementation(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     phase4 = root / "phase4"
     terminal = phase4 / "practical_implementation_scope_report.json"
     if terminal.exists():
@@ -8546,6 +8600,7 @@ def run_practical_gate_candidate(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     candidate_root = root / "phase4" / "gate_candidate"
     report_path = candidate_root / "candidate_report.json"
     if report_path.exists():
@@ -8829,6 +8884,7 @@ def authorize_practical_gate_adoption(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     adoption_root = root / "phase4" / "gate_adoption"
     terminal = adoption_root / "adoption_authorization_report.json"
     if terminal.exists():
@@ -8877,7 +8933,6 @@ def authorize_practical_gate_adoption(
         )
         is True,
     }
-    consumption_path.parent.mkdir(parents=True, exist_ok=True)
     write_json_once(consumption_path, consumption)
     report = {
         "schema_version": f"{SCHEMA_PREFIX}-practical-gate-adoption-authorization-v1",
@@ -8926,6 +8981,7 @@ def confirm_practical_gate_adoption(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     adoption_root = root / "phase4" / "gate_adoption"
     terminal = adoption_root / "adoption_report.json"
     if terminal.exists():
@@ -9671,6 +9727,7 @@ def run_practical_final_validation(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     phase5 = root / "phase5"
     terminal = phase5 / "final_command_matrix_report.json"
     if terminal.exists():
@@ -10220,6 +10277,7 @@ def materialize_practical_closeout_review(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     phase5 = root / "phase5"
     target = phase5 / "external" / "practical_closeout_review.md"
     terminal = phase5 / "closeout_review_materialization_report.json"
@@ -10350,6 +10408,7 @@ def materialize_practical_owner_seal(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     phase5 = root / "phase5"
     target = phase5 / "external" / "practical_owner_seal.json"
     terminal = phase5 / "owner_seal_materialization_report.json"
@@ -10430,6 +10489,7 @@ def finalize_practical_closure(
 ) -> dict[str, Any]:
     normalized_attempt_id = validate_attempt_id(attempt_id)
     root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    require_practical_attempt_open(root)
     phase5 = root / "phase5"
     final_path = phase5 / "final_registry_authority_closure_report.json"
     seal_path = phase5 / "terminal_hash_seal.json"

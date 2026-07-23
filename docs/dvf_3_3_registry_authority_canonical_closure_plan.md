@@ -54,7 +54,9 @@
 
 * 모든 attempt는 새 `attempt_id`와 새 출력 디렉터리를 사용한다.
 * terminal PASS/FAIL, implementation scope, final command receipt, seal receipt는 exclusive-create/write-once다.
+* shell quoting, sandbox approval, launcher invocation처럼 runner가 claim 또는 failure byte를 하나도 만들기 전에 실패한 외부 호출은 terminal attempt failure가 아니다. 이 경우 같은 `attempt_id`로 올바른 호출을 다시 실행할 수 있다.
 * 실패 attempt는 최소한 attempt id, plan hash, execution base commit, 실패 단계, 명령 또는 predicate, exit/status, 최초 실패 원인, 작성 시각을 담은 terminal failure record를 보존한다.
+* `attempt_failures/*.json`이 하나라도 생성된 attempt는 그 즉시 terminal이다. 같은 attempt의 다른 practical mode도 새 claim-bearing 산출물을 추가할 수 없고 validator는 보존된 failure와 후속 PASS 산출물의 공존을 거부한다.
 * raw transcript hash와 전체 owner-input/evidence tree 연쇄 hash는 확보된 경우 진단 정보로 기록할 수 있지만 completion authority는 아니며 필수 조건도 아니다.
 * 환경·권한·일시적 fixture 실패로 새 attempt를 만들 때 plan hash와 execution base commit이 같으면 기존 preimplementation review를 참조해 재사용할 수 있다. 새 checkpoint, 새 전체 review, 새 owner approval은 요구하지 않는다.
 * plan 또는 execution base code가 바뀌면 새 checkpoint와 새 Reviewer review가 필요하다. 사용자가 명시적으로 승인한 practical revision은 별도 형식의 중복 plan-approval JSON을 요구하지 않는다.

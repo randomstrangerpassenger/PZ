@@ -431,6 +431,93 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
                 shutil.rmtree(resolved)
 
+    def test_practical_failure_record_terminates_all_same_attempt_writes(self) -> None:
+        common = load_common_module()
+        root = ATTEMPTS_ROOT / (
+            f"attempt-9999-{uuid.uuid4().hex[:8]}-practical"
+        )
+        failure = root / "attempt_failures" / "practical-gate-candidate.json"
+        try:
+            common.write_json_once(
+                failure,
+                {
+                    "attempt_id": root.name,
+                    "mode": "practical-gate-candidate",
+                    "status": "FAIL",
+                },
+            )
+            before = sha256_file(failure)
+            with self.assertRaisesRegex(
+                RuntimeError,
+                "practical attempt already terminated",
+            ):
+                common.require_practical_attempt_open(root)
+            self.assertEqual(
+                common.practical_attempt_failure_blockers(root),
+                [
+                    "practical_attempt_terminal_failure_present:"
+                    "practical-gate-candidate.json"
+                ],
+            )
+            later = common.record_attempt_failure_once(
+                root,
+                attempt_id=root.name,
+                mode="practical-adopt-gate",
+                error_type="RuntimeError",
+                error="same-attempt continuation refused",
+            )
+            self.assertFalse(later["written"])
+            self.assertEqual(
+                later["reason"],
+                "attempt_terminal_failure_already_preserved",
+            )
+            self.assertEqual(sha256_file(failure), before)
+            self.assertFalse(
+                (
+                    root
+                    / "attempt_failures"
+                    / "practical-adopt-gate.json"
+                ).exists()
+            )
+            snapshot = common.validate_practical_preflight_snapshot(
+                root,
+                attempt_id=root.name,
+            )
+            self.assertIn(
+                "practical_attempt_terminal_failure_present:"
+                "practical-gate-candidate.json",
+                snapshot["blockers"],
+            )
+        finally:
+            extended_root = common.filesystem_path(root)
+            if extended_root.is_dir():
+                shutil.rmtree(extended_root)
+
+    def test_write_json_once_supports_long_nonce_consumption_path(self) -> None:
+        common = load_common_module()
+        root = ATTEMPTS_ROOT / (
+            f"attempt-9999-{uuid.uuid4().hex[:8]}-practical"
+        )
+        nonce_path = (
+            root
+            / "phase4"
+            / "gate_adoption"
+            / "nonce_consumption"
+            / ("f" * 64 + ".json")
+        )
+        try:
+            common.write_json_once(nonce_path, {"status": "CONSUMED"})
+            self.assertEqual(
+                common.read_json_object(nonce_path),
+                {"status": "CONSUMED"},
+            )
+            with self.assertRaises(FileExistsError):
+                common.write_json_once(nonce_path, {"status": "REUSED"})
+        finally:
+            extended_root = common.filesystem_path(root)
+            if extended_root.is_dir():
+                shutil.rmtree(extended_root)
+
     def test_partial_terminal_write_records_one_immutable_implementation_failure(self) -> None:
         common = load_common_module()
         root = self.temporary_evidence_root()

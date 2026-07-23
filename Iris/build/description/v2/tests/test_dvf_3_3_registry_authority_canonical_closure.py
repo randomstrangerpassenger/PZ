@@ -493,6 +493,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                     "python_unresolved_taint_loader_fail_closed",
                     "lua_unresolved_taint_loader_fail_closed",
                     "powershell_unresolved_taint_copy_fail_closed",
+                    "powershell_named_join_path_unresolved_taint_fail_closed",
                     "python_repo_anchor_required_current_exact_edge",
                     "python_contained_generated_fixture_classified_non_live",
                     "python_contained_v2_tmp_tests_classified_non_live",
@@ -528,6 +529,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 report["contained_python_fixture_reference_count"], 6
             )
             self.assertTrue(report["tempfile_name_collisions_fail_closed"])
+            self.assertTrue(report["powershell_named_join_path_fail_closed"])
             self.assertEqual(
                 len(report["tempfile_name_collision_unresolved_blockers"]), 4
             )
@@ -540,6 +542,245 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
                 shutil.rmtree(resolved)
+
+    def test_wp6_live_denominator_closes_dependencies_and_vcs_inventory(self) -> None:
+        common = load_common_module()
+        scan_files, blockers, denominator = (
+            common.registry_reference_scan_files()
+        )
+        self.assertEqual(blockers, [])
+        self.assertTrue(denominator["complete"])
+        self.assertTrue(
+            denominator[
+                "vcs_tracked_untracked_ignored_dirty_enumeration_succeeded"
+            ]
+        )
+        self.assertTrue(
+            denominator["vcs_executable_inventory_partition_complete"]
+        )
+        self.assertTrue(denominator["tracked_inventory_partition_complete"])
+        self.assertTrue(denominator["required_executable_inclusion_complete"])
+        self.assertTrue(denominator["live_seed_inclusion_complete"])
+        self.assertTrue(denominator["live_seed_tracked_complete"])
+        self.assertFalse(
+            denominator["non_live_inventory_scanned_as_current_readpoints"]
+        )
+        vcs_count = denominator["vcs_executable_inventory_count"]
+        self.assertEqual(
+            vcs_count,
+            denominator["vcs_live_admitted_count"]
+            + denominator["vcs_non_live_classified_count"],
+        )
+        rows = denominator["vcs_executable_classification_rows"]
+        self.assertEqual(len(rows), vcs_count)
+        self.assertEqual(
+            len({row["path"] for row in rows}),
+            vcs_count,
+        )
+        admitted_paths = {
+            common.repo_relative(path)
+            for path in scan_files
+        }
+        live_rows = {
+            row["path"]
+            for row in rows
+            if row["admission"] == "live_current_readpoint"
+        }
+        non_live_rows = {
+            row["path"]
+            for row in rows
+            if row["admission"] == "classified_non_live"
+        }
+        self.assertEqual(live_rows, admitted_paths)
+        self.assertTrue(live_rows.isdisjoint(non_live_rows))
+        self.assertEqual(len(live_rows | non_live_rows), vcs_count)
+        runtime_dependency = (
+            "Iris/build/description/v2/tools/build/"
+            "runtime_payload_state_integrity.py"
+        )
+        self.assertIn(runtime_dependency, live_rows)
+        self.assertTrue(
+            any(
+                edge["source"].endswith(
+                    "/tests/test_runtime_payload_state_integrity.py"
+                )
+                and edge["dependency"] == runtime_dependency
+                for edge in denominator["execution_dependency_edges"]
+            )
+        )
+        gate_dependency_prefix = (
+            "Iris/build/description/v2/tools/build/"
+        )
+        gate_dependencies = {
+            gate_dependency_prefix
+            + "run_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+            gate_dependency_prefix
+            + "validate_dvf_3_3_core_registry_boundary_required_gate_adoption.py",
+        }
+        self.assertTrue(gate_dependencies.issubset(live_rows))
+        gate_test_suffix = (
+            "/tests/"
+            "test_dvf_3_3_core_registry_boundary_required_gate_adoption.py"
+        )
+        gate_edges = {
+            edge["dependency"]
+            for edge in denominator["execution_dependency_edges"]
+            if edge["source"].endswith(gate_test_suffix)
+        }
+        self.assertTrue(gate_dependencies.issubset(gate_edges))
+        self.assertTrue(
+            all(
+                row["admission"] == "classified_non_live"
+                for row in rows
+                if row["classification"]
+                == "historical_or_staging_evidence"
+            )
+        )
+
+    def test_wp6_wp2_ledger_binding_rejects_truncated_jsonl(self) -> None:
+        common = load_common_module()
+        root = self.temporary_evidence_root()
+        phase4 = root / "phase4"
+        phase4.mkdir(parents=True)
+        ledger_path = (
+            phase4 / "wp2_artifact_role_classification_ledger.jsonl"
+        )
+        census_path = (
+            phase4 / "wp2_current_checkout_artifact_surface_census.json"
+        )
+        row = {
+            "path": (
+                "Iris/build/description/v2/output/dvf_3_3_rendered.json"
+            ),
+            "kind": "file",
+            "role": "current",
+            "current_reentry_allowed": True,
+        }
+        try:
+            ledger_path.write_text(
+                json.dumps(row, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            census_path.write_text(
+                json.dumps(
+                    {
+                        "status": "PASS",
+                        "normalized_ledger_sha256": common.canonical_hash(
+                            [row]
+                        ),
+                    },
+                    sort_keys=True,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            rows, binding = common.wp2_role_ledger_binding(root)
+            self.assertEqual(rows, [row])
+            self.assertEqual(binding["status"], "PASS")
+            self.assertTrue(binding["exact_hash_match"])
+
+            ledger_path.write_text(
+                ledger_path.read_text(encoding="utf-8") + "{truncated\n",
+                encoding="utf-8",
+            )
+            _, rejected = common.wp2_role_ledger_binding(root)
+            self.assertEqual(rejected["status"], "FAIL")
+            self.assertIn(
+                "wp2_role_ledger_json_invalid:2",
+                rejected["blockers"],
+            )
+            self.assertIn(
+                "wp2_role_ledger_line_parse_count_mismatch",
+                rejected["blockers"],
+            )
+        finally:
+            if root.exists():
+                resolved = root.resolve()
+                resolved.relative_to(ATTEMPTS_ROOT.resolve())
+                shutil.rmtree(resolved)
+
+    def test_wp6_lua_module_table_requires_all_distinct_literals(self) -> None:
+        common = load_common_module()
+        source = (
+            V2_ROOT
+            / ".tmp_tests"
+            / "registry_module_table_loader.lua"
+        )
+        prefix = (
+            "local safeRequire = require\n"
+            "local DEFINITIONS = {\n"
+        )
+        suffix = (
+            "}\n"
+            "local definition = DEFINITIONS[key]\n"
+            "safeRequire(definition.module)\n"
+        )
+        positive = (
+            prefix
+            + "  one = { module = 'Iris/Data/IrisCapabilities' },\n"
+            + "  two = { module = 'Iris/Data/IrisClassifications' },\n"
+            + suffix
+        )
+        reads, blockers = common.lua_structural_registry_reads(
+            source,
+            positive,
+            input_path_by_name={},
+        )
+        self.assertEqual(blockers, [])
+        self.assertEqual(
+            {row[0] for row in reads},
+            {
+                "Iris/media/lua/client/Iris/Data/IrisCapabilities.lua",
+                "Iris/media/lua/client/Iris/Data/IrisClassifications.lua",
+            },
+        )
+
+        nonliteral = (
+            prefix
+            + "  one = { module = dynamicModule },\n"
+            + suffix
+        )
+        _, nonliteral_blockers = common.lua_structural_registry_reads(
+            source,
+            nonliteral,
+            input_path_by_name={},
+        )
+        self.assertTrue(
+            any(
+                blocker.startswith(
+                    "incomplete_lua_module_table_reference:"
+                )
+                for blocker in nonliteral_blockers
+            )
+        )
+        self.assertTrue(
+            any(
+                blocker.startswith(
+                    "unresolved_registry_loader_reference:"
+                )
+                for blocker in nonliteral_blockers
+            )
+        )
+
+        duplicate = (
+            prefix
+            + "  one = { module = 'Iris/Data/IrisCapabilities' },\n"
+            + "  two = { module = 'Iris/Data/IrisCapabilities' },\n"
+            + suffix
+        )
+        _, duplicate_blockers = common.lua_structural_registry_reads(
+            source,
+            duplicate,
+            input_path_by_name={},
+        )
+        self.assertTrue(
+            any(
+                blocker.startswith(
+                    "incomplete_lua_module_table_reference:"
+                )
+                for blocker in duplicate_blockers
+            )
+        )
 
     def test_default_current_compose_is_rejected_without_mutation(self) -> None:
         protected = (

@@ -3375,18 +3375,118 @@ def build_wp4_reports(root: Path) -> list[dict[str, Any]]:
     return [payload for _, payload in outputs]
 
 
-def role_ledger_rows(root: Path) -> list[dict[str, Any]]:
-    path = root / "phase4" / "wp2_artifact_role_classification_ledger.jsonl"
-    rows = []
-    if not path_is_file(path):
-        return rows
-    for line in filesystem_path(path).read_text(encoding="utf-8").splitlines():
+def wp2_role_ledger_binding(
+    root: Path,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    ledger_path = (
+        root / "phase4" / "wp2_artifact_role_classification_ledger.jsonl"
+    )
+    census_path = (
+        root / "phase4" / "wp2_current_checkout_artifact_surface_census.json"
+    )
+    rows: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    line_count = 0
+    seen_paths: set[str] = set()
+    if not path_is_file(ledger_path):
+        blockers.append("wp2_role_ledger_missing")
+    else:
         try:
-            value = json.loads(line)
-        except json.JSONDecodeError:
-            continue
-        if isinstance(value, dict):
+            lines = filesystem_path(ledger_path).read_text(
+                encoding="utf-8"
+            ).splitlines()
+        except (OSError, UnicodeError) as exc:
+            lines = []
+            blockers.append(
+                f"wp2_role_ledger_unreadable:{type(exc).__name__}"
+            )
+        line_count = len(lines)
+        for line_number, line in enumerate(lines, start=1):
+            if not line.strip():
+                blockers.append(f"wp2_role_ledger_blank_line:{line_number}")
+                continue
+            try:
+                value = json.loads(line)
+            except json.JSONDecodeError:
+                blockers.append(
+                    f"wp2_role_ledger_json_invalid:{line_number}"
+                )
+                continue
+            if not isinstance(value, dict):
+                blockers.append(
+                    f"wp2_role_ledger_row_not_object:{line_number}"
+                )
+                continue
+            path = value.get("path")
+            if (
+                not isinstance(path, str)
+                or not path.strip()
+                or not isinstance(value.get("kind"), str)
+                or not isinstance(value.get("role"), str)
+                or not isinstance(value.get("current_reentry_allowed"), bool)
+            ):
+                blockers.append(
+                    f"wp2_role_ledger_row_schema_invalid:{line_number}"
+                )
+                continue
+            normalized = path.replace("\\", "/")
+            if normalized in seen_paths:
+                blockers.append(
+                    f"wp2_role_ledger_duplicate_path:{normalized}"
+                )
+                continue
+            seen_paths.add(normalized)
             rows.append(value)
+
+    census: dict[str, Any] = {}
+    if not path_is_file(census_path):
+        blockers.append("wp2_surface_census_missing")
+    else:
+        try:
+            census = read_json_object(census_path)
+        except (OSError, UnicodeError, json.JSONDecodeError, ValueError) as exc:
+            blockers.append(
+                f"wp2_surface_census_invalid:{type(exc).__name__}"
+            )
+    if census.get("status") != "PASS":
+        blockers.append("wp2_surface_census_status_not_pass")
+    observed_hash = canonical_hash(rows)
+    expected_hash = census.get("normalized_ledger_sha256")
+    if (
+        not isinstance(expected_hash, str)
+        or not re.fullmatch(r"[0-9a-f]{64}", expected_hash)
+    ):
+        blockers.append("wp2_surface_census_ledger_hash_invalid")
+    elif expected_hash != observed_hash:
+        blockers.append("wp2_surface_census_ledger_hash_mismatch")
+    if line_count != len(rows):
+        blockers.append("wp2_role_ledger_line_parse_count_mismatch")
+    binding = {
+        "schema_version": f"{SCHEMA_PREFIX}-wp2-ledger-census-binding-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "ledger_path": repo_relative(ledger_path),
+        "census_path": repo_relative(census_path),
+        "ledger_file_sha256": (
+            sha256_file(ledger_path) if path_is_file(ledger_path) else None
+        ),
+        "ledger_line_count": line_count,
+        "ledger_parsed_row_count": len(rows),
+        "ledger_observed_canonical_sha256": observed_hash,
+        "census_expected_ledger_sha256": expected_hash,
+        "census_status": census.get("status"),
+        "exact_hash_match": expected_hash == observed_hash,
+        "blockers": sorted(set(blockers)),
+    }
+    return rows, binding
+
+
+def role_ledger_rows(root: Path) -> list[dict[str, Any]]:
+    rows, binding = wp2_role_ledger_binding(root)
+    if binding["status"] != "PASS":
+        raise ValueError(
+            "wp2_role_ledger_binding_failed:"
+            + ",".join(binding["blockers"])
+        )
     return rows
 
 
@@ -3465,6 +3565,8 @@ def evaluate_stale_reentry(
     recognized = {normalized_registry_path(path) for path in recognized_current_paths}
     violations: list[dict[str, Any]] = []
     for row in readpoints:
+        if row.get("reference_role") == "validation_fixture_read":
+            continue
         raw_path = row.get("path")
         if not isinstance(raw_path, str):
             continue
@@ -3582,10 +3684,173 @@ def independent_current_registry_paths() -> set[str]:
     return recognized
 
 
+def repository_execution_dependencies(
+    source: Path,
+) -> tuple[set[Path], list[str]]:
+    execution_dependency_suffixes = {".py", ".ps1"}
+    dependencies: set[Path] = set()
+    blockers: list[str] = []
+    if source.suffix.lower() != ".py":
+        return dependencies, blockers
+    try:
+        source_text = filesystem_path(source).read_text(
+            encoding="utf-8-sig",
+            errors="replace",
+        )
+        tree = ast.parse(source_text, filename=str(source))
+    except (OSError, SyntaxError) as exc:
+        return dependencies, [
+            f"live_execution_dependency_parse_error:{repo_relative(source)}:{type(exc).__name__}"
+        ]
+
+    def admit_candidate(candidate: Path) -> bool:
+        try:
+            resolved = candidate.resolve()
+            resolved.relative_to(REPO_ROOT.resolve())
+        except (OSError, ValueError):
+            return False
+        if (
+            resolved == source.resolve()
+            or resolved.suffix.lower() not in execution_dependency_suffixes
+            or not path_is_file(resolved)
+        ):
+            return False
+        dependencies.add(resolved)
+        return True
+
+    def module_candidates(module: str, level: int) -> list[Path]:
+        parts = [part for part in module.split(".") if part]
+        candidates: list[Path] = []
+        if level:
+            base = source.parent
+            for _ in range(max(0, level - 1)):
+                base = base.parent
+            relative = Path(*parts) if parts else Path("__init__")
+            candidates.extend(
+                (
+                    base / relative.with_suffix(".py"),
+                    base / relative / "__init__.py",
+                )
+            )
+        elif parts:
+            relative = Path(*parts)
+            candidates.extend(
+                (
+                    source.parent / relative.with_suffix(".py"),
+                    source.parent / relative / "__init__.py",
+                    V2_ROOT / relative.with_suffix(".py"),
+                    V2_ROOT / relative / "__init__.py",
+                    REPO_ROOT / relative.with_suffix(".py"),
+                    REPO_ROOT / relative / "__init__.py",
+                    TOOLS_ROOT / f"{parts[-1]}.py",
+                    TESTS_ROOT / f"{parts[-1]}.py",
+                )
+            )
+        return candidates
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            modules = [(alias.name, 0) for alias in node.names]
+        elif isinstance(node, ast.ImportFrom):
+            modules = [(node.module or "", node.level)]
+        else:
+            modules = []
+        for module, level in modules:
+            for candidate in module_candidates(module, level):
+                if admit_candidate(candidate):
+                    break
+
+    symbols: dict[str, SymbolicState] = {
+        "__file__": symbolic_state(
+            {str(source.resolve())},
+            complete=True,
+            tainted=False,
+        )
+    }
+    for _ in range(8):
+        changed = False
+        for statement in tree.body:
+            if isinstance(statement, (ast.Assign, ast.AnnAssign)):
+                value = statement.value
+                targets = (
+                    statement.targets
+                    if isinstance(statement, ast.Assign)
+                    else [statement.target]
+                )
+            else:
+                continue
+            if value is None:
+                continue
+            state = python_symbolic_state(value, symbols)
+            for target in targets:
+                key = python_symbol_key(target)
+                if not key:
+                    continue
+                before = symbols.get(key)
+                symbols[key] = state
+                changed = changed or before != state
+        if not changed:
+            break
+
+    for values, complete, _, _ in symbols.values():
+        if not complete:
+            continue
+        for value in values:
+            if Path(value).suffix.lower() not in execution_dependency_suffixes:
+                continue
+            literal = Path(value)
+            candidates = (
+                [literal]
+                if literal.is_absolute()
+                else [
+                    source.parent / literal,
+                    REPO_ROOT / literal,
+                    TOOLS_ROOT / literal.name,
+                    TESTS_ROOT / literal.name,
+                ]
+            )
+            for candidate in candidates:
+                if admit_candidate(candidate):
+                    break
+
+    literal_suffix_pattern = re.compile(
+        r"(?P<path>[A-Za-z0-9_.\\/:-]+\.(?:py|ps1))",
+        re.I,
+    )
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Constant) or not isinstance(node.value, str):
+            continue
+        for match in literal_suffix_pattern.finditer(node.value):
+            value = match.group("path").replace("\\", "/").lstrip("./")
+            literal = Path(value)
+            candidates: list[Path] = []
+            if value.startswith("Iris/"):
+                candidates.append(REPO_ROOT / value)
+            elif "/" in value:
+                candidates.extend((source.parent / literal, REPO_ROOT / literal))
+            else:
+                candidates.extend(
+                    (
+                        source.parent / literal,
+                        TOOLS_ROOT / literal,
+                        TESTS_ROOT / literal,
+                        V2_ROOT / literal,
+                        REPO_ROOT / literal,
+                    )
+                )
+            for candidate in candidates:
+                if admit_candidate(candidate):
+                    break
+    return dependencies, blockers
+
+
 def registry_reference_scan_files(
     *,
     extra_files: tuple[Path, ...] = (),
     include_live: bool = True,
+    wp2_ledger: tuple[dict[str, Any], ...] = (),
+    wp2_binding: dict[str, Any] | None = None,
+    require_wp2_ledger: bool = False,
 ) -> tuple[list[Path], list[str], dict[str, Any]]:
     executable_suffixes = {".py", ".lua", ".ps1"}
     paths: set[Path] = set()
@@ -3593,7 +3858,23 @@ def registry_reference_scan_files(
     required_executable_paths: set[Path] = set()
     required_test_ids: set[str] = set()
     tracked_executable_paths: set[Path] = set()
+    vcs_executable_paths: set[Path] = set()
+    vcs_states_by_path: dict[Path, set[str]] = {}
+    wp2_executable_file_paths: set[Path] = set()
+    live_seed_reasons: dict[Path, set[str]] = {}
+    dependency_edges: list[dict[str, str]] = []
+    vcs_classification_rows: list[dict[str, Any]] = []
     tracked_enumeration_succeeded = not include_live
+    vcs_enumeration_succeeded = not include_live
+
+    def add_live_seed(path: Path, reason: str) -> None:
+        if path.suffix.lower() not in executable_suffixes:
+            blockers.append(
+                f"registry_live_seed_not_executable:{reason}:{repo_relative(path)}"
+            )
+            return
+        live_seed_reasons.setdefault(path, set()).add(reason)
+
     for path in extra_files:
         if path.suffix.lower() not in executable_suffixes:
             blockers.append(
@@ -3609,6 +3890,7 @@ def registry_reference_scan_files(
         tracked_result = run_git("ls-files")
         tracked_rows: set[str] = set()
         tracked_enumeration_succeeded = tracked_result["exit_code"] == 0
+        vcs_enumeration_succeeded = tracked_enumeration_succeeded
         if tracked_result["exit_code"] != 0:
             blockers.append(
                 "registry_reference_git_tracked_enumeration_failed:"
@@ -3620,15 +3902,59 @@ def registry_reference_scan_files(
                 for value in tracked_result["stdout"].splitlines()
                 if value.strip()
             }
-        for relative in sorted(tracked_rows):
-            if Path(relative).suffix.lower() not in executable_suffixes:
-                continue
-            path = REPO_ROOT / relative
-            tracked_executable_paths.add(path)
-            if path_is_file(path):
-                paths.add(path)
+        vcs_rows_by_state: dict[str, set[str]] = {"tracked": tracked_rows}
+        vcs_commands = {
+            "untracked": ("ls-files", "--others", "--exclude-standard"),
+            "ignored": (
+                "ls-files",
+                "--others",
+                "--ignored",
+                "--exclude-standard",
+            ),
+        }
+        for state, args in vcs_commands.items():
+            result = run_git(*args)
+            if result["exit_code"] != 0:
+                blockers.append(
+                    f"registry_reference_git_{state}_enumeration_failed:"
+                    + str(result["exit_code"])
+                )
+                vcs_rows_by_state[state] = set()
+                vcs_enumeration_succeeded = False
             else:
-                blockers.append(f"tracked_executable_missing:{relative}")
+                vcs_rows_by_state[state] = {
+                    value.replace("\\", "/")
+                    for value in result["stdout"].splitlines()
+                    if value.strip()
+                }
+        status_result = run_git("status", "--short", "--untracked-files=all")
+        if status_result["exit_code"] != 0:
+            blockers.append(
+                "registry_reference_git_dirty_enumeration_failed:"
+                + str(status_result["exit_code"])
+            )
+            vcs_rows_by_state["dirty"] = set()
+            vcs_enumeration_succeeded = False
+        else:
+            vcs_rows_by_state["dirty"] = {
+                status_path(line)
+                for line in status_result["stdout"].splitlines()
+                if line.strip()
+            }
+        vcs_enumeration_succeeded = (
+            vcs_enumeration_succeeded and tracked_enumeration_succeeded
+        )
+        for state, rows in vcs_rows_by_state.items():
+            for relative in sorted(rows):
+                if Path(relative).suffix.lower() not in executable_suffixes:
+                    continue
+                path = (REPO_ROOT / relative).resolve()
+                vcs_executable_paths.add(path)
+                vcs_states_by_path.setdefault(path, set()).add(state)
+                if state == "tracked":
+                    tracked_executable_paths.add(path)
+                    if not path_is_file(path):
+                        blockers.append(f"tracked_executable_missing:{relative}")
         required_manifest = read_json_object(LIVE_REQUIRED_MANIFEST)
         required_artifacts = required_manifest.get("required_artifacts")
         required_tests = required_manifest.get("required_tests")
@@ -3658,37 +3984,333 @@ def registry_reference_scan_files(
                 blockers.append(f"required_test_module_invalid:{test_id}")
                 continue
             required_executable_paths.add(TESTS_ROOT / f"{module_name}.py")
+
+        active_core_manifest = read_json_object(ACTIVE_CORE_MANIFEST)
+        closure_rows = active_core_manifest.get("closure_rows")
+        allowed_tooling_rows = active_core_manifest.get(
+            "current_route_allowed_tooling_rows"
+        )
+        if not isinstance(closure_rows, list):
+            blockers.append("active_core_manifest_closure_rows_not_list")
+            closure_rows = []
+        if not isinstance(allowed_tooling_rows, list):
+            blockers.append("active_core_manifest_allowed_tooling_rows_not_list")
+            allowed_tooling_rows = []
+        for index, row in enumerate(closure_rows):
+            if not isinstance(row, dict):
+                blockers.append(f"active_core_manifest_closure_row_invalid:{index}")
+                continue
+            if row.get("in_current_closure") is not True:
+                continue
+            relative = row.get("path")
+            if not isinstance(relative, str) or not relative.strip():
+                blockers.append(
+                    f"active_core_manifest_current_path_invalid:{index}"
+                )
+                continue
+            add_live_seed(
+                REPO_ROOT / relative.replace("\\", "/"),
+                "active_core_current_closure",
+            )
+        for index, row in enumerate(allowed_tooling_rows):
+            if not isinstance(row, dict):
+                blockers.append(
+                    f"active_core_manifest_allowed_tooling_row_invalid:{index}"
+                )
+                continue
+            if row.get("import_allowed_for_current_route") is not True:
+                continue
+            relative = row.get("path")
+            if not isinstance(relative, str) or not relative.strip():
+                blockers.append(
+                    f"active_core_manifest_allowed_tooling_path_invalid:{index}"
+                )
+                continue
+            add_live_seed(
+                REPO_ROOT / relative.replace("\\", "/"),
+                "current_route_allowed_tooling",
+            )
+
+        for path in required_executable_paths:
+            add_live_seed(path, "live_required_manifest")
+        add_live_seed(ROUND3_RUNNER, "current_route_runner")
+        add_live_seed(
+            REPO_ROOT / "Iris" / "tools" / "package_iris.ps1",
+            "current_package_source",
+        )
+        for path in vcs_executable_paths:
+            relative = repo_relative(path)
+            if relative.startswith("Iris/media/lua/") and path.suffix.lower() == ".lua":
+                add_live_seed(path, "runtime_lua_surface")
+
+        if require_wp2_ledger and not wp2_ledger:
+            blockers.append("wp2_role_ledger_missing_for_live_readpoint_admission")
+        if require_wp2_ledger and (
+            not isinstance(wp2_binding, dict)
+            or wp2_binding.get("status") != "PASS"
+        ):
+            blockers.append("wp2_role_ledger_census_binding_not_pass")
+            if isinstance(wp2_binding, dict):
+                blockers.extend(
+                    f"wp2_role_ledger_census_binding:{blocker}"
+                    for blocker in wp2_binding.get("blockers", [])
+                    if isinstance(blocker, str)
+                )
+        wp2_seen_paths: set[str] = set()
+        for index, row in enumerate(wp2_ledger):
+            relative = row.get("path")
+            if not isinstance(relative, str) or not relative.strip():
+                blockers.append(f"wp2_role_ledger_path_invalid:{index}")
+                continue
+            relative = relative.replace("\\", "/")
+            if relative in wp2_seen_paths:
+                blockers.append(f"wp2_role_ledger_duplicate_path:{relative}")
+                continue
+            wp2_seen_paths.add(relative)
+            if (
+                Path(relative).suffix.lower() in executable_suffixes
+                and row.get("kind") == "file"
+            ):
+                wp2_path = (REPO_ROOT / relative).resolve()
+                wp2_executable_file_paths.add(wp2_path)
+                if wp2_path not in vcs_executable_paths:
+                    blockers.append(
+                        f"wp2_executable_absent_from_vcs_inventory:{relative}"
+                    )
+
+        dependency_queue = sorted(live_seed_reasons, key=repo_relative)
+        dependency_scanned: set[Path] = set()
+        while dependency_queue:
+            source = dependency_queue.pop(0)
+            if source in dependency_scanned or not path_is_file(source):
+                continue
+            dependency_scanned.add(source)
+            dependencies, dependency_blockers = repository_execution_dependencies(
+                source
+            )
+            blockers.extend(dependency_blockers)
+            source_reasons = live_seed_reasons.get(source, set())
+            validation_dependency = any(
+                reason == "live_required_manifest"
+                or reason.startswith("required_validation_dependency:")
+                for reason in source_reasons
+            )
+            for dependency in sorted(dependencies, key=repo_relative):
+                source_relative = repo_relative(source)
+                dependency_relative = repo_relative(dependency)
+                edge = {
+                    "source": source_relative,
+                    "dependency": dependency_relative,
+                }
+                if edge not in dependency_edges:
+                    dependency_edges.append(edge)
+                already_live = dependency in live_seed_reasons
+                add_live_seed(
+                    dependency,
+                    (
+                        f"required_validation_dependency:{source_relative}"
+                        if validation_dependency
+                        else f"execution_dependency:{source_relative}"
+                    ),
+                )
+                if not already_live:
+                    dependency_queue.append(dependency)
+
+        live_seed_paths = set(live_seed_reasons)
+        for path in sorted(live_seed_paths, key=repo_relative):
+            relative = repo_relative(path)
+            if not path_is_file(path):
+                blockers.append(f"registry_live_seed_missing:{relative}")
+                continue
+            paths.add(path)
+            if relative not in tracked_rows:
+                blockers.append(f"registry_live_seed_not_tracked:{relative}")
+            states = vcs_states_by_path.get(path, set())
+            if "ignored" in states:
+                blockers.append(f"registry_live_seed_ignored:{relative}")
+            if "untracked" in states:
+                blockers.append(f"registry_live_seed_untracked:{relative}")
+
         for path in sorted(required_executable_paths, key=repo_relative):
             relative = repo_relative(path)
             if not path_is_file(path):
                 blockers.append(f"required_executable_missing:{relative}")
                 continue
-            paths.add(path)
             if relative not in tracked_rows:
                 blockers.append(f"required_executable_not_tracked:{relative}")
-        omitted_required = required_executable_paths - paths
+
+        wp2_role_by_path = {
+            str(row.get("path")).replace("\\", "/"): row.get("role")
+            for row in wp2_ledger
+            if isinstance(row.get("path"), str)
+        }
+        for path in sorted(vcs_executable_paths, key=repo_relative):
+            relative = repo_relative(path)
+            reasons = sorted(live_seed_reasons.get(path, set()))
+            states = sorted(vcs_states_by_path.get(path, set()))
+            if reasons:
+                admission = "live_current_readpoint"
+                classification = "current_execution_consumer"
+            else:
+                admission = "classified_non_live"
+                if relative.startswith(".tmp/") or relative.startswith(
+                    "Iris/build/description/v2/staging/"
+                ):
+                    classification = "historical_or_staging_evidence"
+                elif "/fixtures/" in f"/{relative.lower()}/":
+                    classification = "non_live_fixture"
+                elif relative.startswith(
+                    "Iris/build/description/v2/tests/"
+                ):
+                    classification = "non_required_diagnostic_test"
+                elif relative.startswith("Iris/build/package/"):
+                    classification = "read_only_package_snapshot"
+                elif "ignored" in states:
+                    classification = "ignored_generated_non_live"
+                    blockers.append(
+                        f"unclassified_ignored_executable_outside_non_live_roots:{relative}"
+                    )
+                elif "untracked" in states:
+                    classification = "untracked_unadmitted_non_live"
+                    blockers.append(
+                        f"unclassified_untracked_executable_outside_non_live_roots:{relative}"
+                    )
+                elif wp2_role_by_path.get(relative) == "current":
+                    classification = (
+                        "current_registry_artifact_not_reachable_as_execution_consumer"
+                    )
+                else:
+                    classification = (
+                        "not_reachable_from_current_manifest_dependency_graph"
+                    )
+            vcs_classification_rows.append(
+                {
+                    "path": relative,
+                    "vcs_states": states,
+                    "admission": admission,
+                    "classification": classification,
+                    "live_admission_reasons": reasons,
+                    "wp2_registry_artifact_role": wp2_role_by_path.get(relative),
+                }
+            )
+
+    live_seed_paths = set(live_seed_reasons)
+    omitted_required = required_executable_paths - paths
+    if include_live:
         for path in sorted(omitted_required, key=repo_relative):
             relative = repo_relative(path)
             marker = f"required_executable_not_admitted:{relative}"
             if marker not in blockers:
                 blockers.append(marker)
+    tracked_live_paths = tracked_executable_paths & live_seed_paths
+    tracked_non_live_paths = tracked_executable_paths - tracked_live_paths
+    vcs_live_paths = vcs_executable_paths & live_seed_paths
+    vcs_non_live_paths = vcs_executable_paths - vcs_live_paths
+    tracked_partition_complete = (
+        tracked_live_paths.isdisjoint(tracked_non_live_paths)
+        and tracked_live_paths | tracked_non_live_paths
+        == tracked_executable_paths
+    )
+    inventory_partition_complete = (
+        vcs_live_paths.isdisjoint(vcs_non_live_paths)
+        and vcs_live_paths | vcs_non_live_paths == vcs_executable_paths
+        and len(vcs_classification_rows) == len(vcs_executable_paths)
+        and {
+            str(row.get("path"))
+            for row in vcs_classification_rows
+            if isinstance(row.get("path"), str)
+        }
+        == {repo_relative(path) for path in vcs_executable_paths}
+    )
     denominator_paths = sorted(paths, key=repo_relative)
     required_executable_inclusion_complete = required_executable_paths.issubset(paths)
+    live_seed_inclusion_complete = live_seed_paths.issubset(paths)
+    live_seed_tracked_complete = live_seed_paths.issubset(
+        tracked_executable_paths
+    )
     completeness = {
         "scope": (
-            "full_tracked_and_required_manifest_python_lua_powershell"
+            "full_vcs_tracked_untracked_ignored_dirty_inventory_classified_with_transitive_current_live_python_lua_powershell_admission"
             if include_live
             else "explicit_fixture_python_lua_powershell"
         ),
         "complete": (
             not blockers
             and tracked_enumeration_succeeded
+            and vcs_enumeration_succeeded
             and required_executable_inclusion_complete
+            and live_seed_inclusion_complete
+            and live_seed_tracked_complete
+            and inventory_partition_complete
         ),
         "tracked_enumeration_succeeded": tracked_enumeration_succeeded,
+        "vcs_tracked_untracked_ignored_dirty_enumeration_succeeded": (
+            vcs_enumeration_succeeded
+        ),
+        "vcs_executable_inventory_count": len(vcs_executable_paths),
+        "vcs_executable_inventory_paths_sha256": canonical_hash(
+            sorted(repo_relative(path) for path in vcs_executable_paths)
+        ),
+        "vcs_executable_inventory_partition_complete": inventory_partition_complete,
+        "vcs_live_admitted_count": len(vcs_live_paths),
+        "vcs_live_admitted_paths_sha256": canonical_hash(
+            sorted(repo_relative(path) for path in vcs_live_paths)
+        ),
+        "vcs_non_live_classified_count": len(vcs_non_live_paths),
+        "vcs_non_live_classified_paths_sha256": canonical_hash(
+            sorted(repo_relative(path) for path in vcs_non_live_paths)
+        ),
+        "vcs_state_counts": {
+            state: sum(
+                state in states
+                for states in vcs_states_by_path.values()
+            )
+            for state in ("tracked", "untracked", "ignored", "dirty")
+        },
         "tracked_executable_count": len(tracked_executable_paths),
         "tracked_executable_paths_sha256": canonical_hash(
             sorted(repo_relative(path) for path in tracked_executable_paths)
+        ),
+        "tracked_inventory_partition_complete": tracked_partition_complete,
+        "tracked_live_admitted_count": len(tracked_live_paths),
+        "tracked_live_admitted_paths_sha256": canonical_hash(
+            sorted(repo_relative(path) for path in tracked_live_paths)
+        ),
+        "tracked_non_live_classified_count": len(tracked_non_live_paths),
+        "tracked_non_live_classified_paths_sha256": canonical_hash(
+            sorted(repo_relative(path) for path in tracked_non_live_paths)
+        ),
+        "vcs_executable_classification_rows": vcs_classification_rows,
+        "execution_dependency_edge_count": len(dependency_edges),
+        "execution_dependency_edges": dependency_edges,
+        "wp2_role_ledger_required": require_wp2_ledger,
+        "wp2_role_ledger_path_count": len(
+            {
+                str(row.get("path"))
+                for row in wp2_ledger
+                if isinstance(row.get("path"), str)
+            }
+        ),
+        "wp2_role_ledger_sha256": canonical_hash(list(wp2_ledger)),
+        "wp2_role_ledger_census_binding": wp2_binding,
+        "wp2_role_ledger_census_binding_pass": (
+            isinstance(wp2_binding, dict)
+            and wp2_binding.get("status") == "PASS"
+        )
+        if require_wp2_ledger
+        else True,
+        "wp2_executable_file_count": len(wp2_executable_file_paths)
+        if include_live
+        else 0,
+        "wp2_executable_file_paths_sha256": canonical_hash(
+            sorted(repo_relative(path) for path in wp2_executable_file_paths)
+        )
+        if include_live
+        else canonical_hash([]),
+        "wp2_executable_vcs_inventory_comparison_complete": (
+            wp2_executable_file_paths.issubset(vcs_executable_paths)
+            if include_live
+            else True
         ),
         "required_test_id_count": len(required_test_ids),
         "required_executable_count": len(required_executable_paths),
@@ -3696,10 +4318,14 @@ def registry_reference_scan_files(
             repo_relative(path) for path in required_executable_paths
         ),
         "required_executable_inclusion_complete": required_executable_inclusion_complete,
+        "live_seed_count": len(live_seed_paths),
+        "live_seed_inclusion_complete": live_seed_inclusion_complete,
+        "live_seed_tracked_complete": live_seed_tracked_complete,
         "admitted_executable_count": len(denominator_paths),
         "admitted_paths_sha256": canonical_hash(
             [repo_relative(path) for path in denominator_paths]
         ),
+        "non_live_inventory_scanned_as_current_readpoints": False,
         "blockers": sorted(set(blockers)),
     }
     return denominator_paths, sorted(set(blockers)), completeness
@@ -3766,7 +4392,16 @@ def registry_identifier_present(value: str) -> bool:
     return any(
         token in lowered
         for token in (
-            "dvf_3_3",
+            "dvf_3_3_input_manifest",
+            "dvf_3_3_facts",
+            "dvf_3_3_decisions",
+            "dvf_3_3_overlay_support",
+            "dvf_3_3_rendered",
+            "compose_profiles_v2",
+            "compose_profile_identity_hint_rules",
+            "compose_profile_conflict_precedence_rules",
+            "style_normalization_changes",
+            "compose_requeue_candidates",
             "layer3data",
             "irisdvfbridge",
             "round3_contract_manifest",
@@ -4402,6 +5037,24 @@ def lua_structural_registry_reads(
     symbols: dict[str, SymbolicState] = {}
     loader_aliases = {"require", "safeRequire", "dofile", "loadfile"}
     lines = source_text.splitlines()
+    module_field_lines = [
+        line for line in lines if re.search(r"\bmodule\s*=", line)
+    ]
+    module_field_values = {
+        match.group(2)
+        for line in module_field_lines
+        for match in [
+            re.search(
+                r"\bmodule\s*=\s*([\"'])(.*?)\1",
+                line,
+            )
+        ]
+        if match
+    }
+    literal_module_fields_complete = (
+        bool(module_field_lines)
+        and len(module_field_values) == len(module_field_lines)
+    )
     for _ in range(6):
         changed = False
         for line in lines:
@@ -4427,11 +5080,33 @@ def lua_structural_registry_reads(
     for loader, argument, line_number in balanced_call_arguments(
         source_text, loader_aliases
     ):
-        values, complete, tainted, _ = simple_symbolic_state(
-            argument,
-            symbols,
-            language="lua",
+        table_module_argument = re.fullmatch(
+            r"[A-Za-z_][A-Za-z0-9_]*\.module",
+            argument.strip(),
         )
+        if table_module_argument:
+            values, complete, tainted, _ = (
+                symbolic_state(
+                    module_field_values,
+                    complete=True,
+                )
+                if literal_module_fields_complete
+                else symbolic_state(
+                    complete=False,
+                    tainted=True,
+                )
+            )
+        else:
+            values, complete, tainted, _ = simple_symbolic_state(
+                argument,
+                symbols,
+                language="lua",
+            )
+        if table_module_argument and not literal_module_fields_complete:
+            blockers.append(
+                "incomplete_lua_module_table_reference:"
+                f"{repo_relative(source)}:{line_number}"
+            )
         targets = {
             target
             for value in values
@@ -4451,6 +5126,91 @@ def lua_structural_registry_reads(
                 f"unresolved_registry_loader_reference:{repo_relative(source)}:{line_number}"
             )
     return reads, blockers
+
+
+def powershell_first_argument_expression(text: str) -> str:
+    value = text.lstrip()
+    if not value:
+        return ""
+    if value[0] in {"'", '"'}:
+        quote = value[0]
+        escaped = False
+        for index, character in enumerate(value[1:], start=1):
+            if escaped:
+                escaped = False
+                continue
+            if character == "`":
+                escaped = True
+                continue
+            if character == quote:
+                return value[: index + 1]
+        return value
+    if value[0] == "(":
+        depth = 0
+        quote = ""
+        escaped = False
+        for index, character in enumerate(value):
+            if escaped:
+                escaped = False
+                continue
+            if character == "`":
+                escaped = True
+                continue
+            if quote:
+                if character == quote:
+                    quote = ""
+                continue
+            if character in {"'", '"'}:
+                quote = character
+            elif character == "(":
+                depth += 1
+            elif character == ")":
+                depth -= 1
+                if depth == 0:
+                    return value[: index + 1]
+        return value
+    match = re.match(r"\$[A-Za-z_][A-Za-z0-9_]*|[^\s]+", value)
+    return match.group(0) if match else value
+
+
+def powershell_top_level_path_argument(command_tail: str) -> str | None:
+    depth = 0
+    quote = ""
+    escaped = False
+    for index, character in enumerate(command_tail):
+        if escaped:
+            escaped = False
+            continue
+        if character == "`":
+            escaped = True
+            continue
+        if quote:
+            if character == quote:
+                quote = ""
+            continue
+        if character in {"'", '"'}:
+            quote = character
+            continue
+        if character == "(":
+            depth += 1
+            continue
+        if character == ")":
+            depth = max(0, depth - 1)
+            continue
+        if depth != 0 or character != "-":
+            continue
+        if index > 0 and not command_tail[index - 1].isspace():
+            continue
+        match = re.match(
+            r"-(?:Literal)?Path\b",
+            command_tail[index:],
+            re.I,
+        )
+        if match:
+            return powershell_first_argument_expression(
+                command_tail[index + match.end() :]
+            )
+    return None
 
 
 def powershell_structural_registry_reads(
@@ -4496,34 +5256,14 @@ def powershell_structural_registry_reads(
         )
         if not command:
             continue
-        source_expression_match = re.search(
-            r"-(?:Literal)?Path\s+(\$[A-Za-z_][A-Za-z0-9_]*|'[^']*'|\"[^\"]*\"|\([^)]*\))",
-            line,
-            re.I,
+        tail = line[(direct.end() if direct else invoked.end()) :].strip()
+        top_level_path_argument = powershell_top_level_path_argument(
+            tail
         )
-        if source_expression_match:
-            expression = source_expression_match.group(1)
+        if top_level_path_argument is not None:
+            expression = top_level_path_argument or tail
         else:
-            tail = line[(direct.end() if direct else invoked.end()) :].strip()
-            if tail.startswith("("):
-                depth = 0
-                expression = ""
-                for index, character in enumerate(tail):
-                    if character == "(":
-                        depth += 1
-                    elif character == ")":
-                        depth -= 1
-                        if depth == 0:
-                            expression = tail[: index + 1]
-                            break
-                if not expression:
-                    expression = tail
-            else:
-                argument_match = re.match(
-                    r"(\$[A-Za-z_][A-Za-z0-9_]*|'[^']*'|\"[^\"]*\")",
-                    tail,
-                )
-                expression = argument_match.group(1) if argument_match else tail
+            expression = powershell_first_argument_expression(tail)
         values, complete, tainted, _ = simple_symbolic_state(
             expression,
             symbols,
@@ -4554,6 +5294,9 @@ def discover_registry_readpoints(
     *,
     extra_files: tuple[Path, ...] = (),
     include_live: bool = True,
+    wp2_ledger: tuple[dict[str, Any], ...] = (),
+    wp2_binding: dict[str, Any] | None = None,
+    require_wp2_ledger: bool = False,
 ) -> tuple[list[dict[str, Any]], list[str], dict[str, Any]]:
     input_manifest = read_json_object(INPUT_MANIFEST)
     input_paths = current_input_manifest_paths(input_manifest)
@@ -4578,8 +5321,37 @@ def discover_registry_readpoints(
     scan_files, denominator_blockers, denominator = registry_reference_scan_files(
         extra_files=extra_files,
         include_live=include_live,
+        wp2_ledger=wp2_ledger,
+        wp2_binding=wp2_binding,
+        require_wp2_ledger=require_wp2_ledger,
     )
     blockers.extend(denominator_blockers)
+    validation_source_paths = {
+        str(row.get("path"))
+        for row in denominator.get("vcs_executable_classification_rows", [])
+        if isinstance(row, dict)
+        and any(
+            reason == "live_required_manifest"
+            or str(reason).startswith("required_validation_dependency:")
+            for reason in row.get("live_admission_reasons", [])
+        )
+    }
+    wp2_role_by_path = {
+        normalized_registry_path(str(row.get("path"))): row.get("role")
+        for row in wp2_ledger
+        if isinstance(row.get("path"), str)
+    }
+
+    def resolved_reference_role(source: Path, target: str) -> str:
+        source_relative = repo_relative(source)
+        normalized_target = normalized_registry_path(target)
+        if (
+            source_relative in validation_source_paths
+            and wp2_role_by_path.get(normalized_target) == "fixture"
+        ):
+            return "validation_fixture_read"
+        return "consumer_read"
+
     for source in scan_files:
         try:
             source_text = filesystem_path(source).read_text(
@@ -4657,6 +5429,7 @@ def discover_registry_readpoints(
                     )
                     if role != "consumer_read":
                         continue
+                    role = resolved_reference_role(source, target)
                     key = (target, repo_relative(source), line_number, role)
                     if key in seen:
                         continue
@@ -4729,7 +5502,8 @@ def discover_registry_readpoints(
                 and stale_path_reason(target) is not None
             ):
                 continue
-            key = (target, source_relative, line_number, "consumer_read")
+            reference_role = resolved_reference_role(source, target)
+            key = (target, source_relative, line_number, reference_role)
             if key in seen:
                 continue
             seen.add(key)
@@ -4758,21 +5532,51 @@ def discover_registry_readpoints(
                     "consumer": source_relative,
                     "reference_source": source_relative,
                     "reference_line": line_number,
-                    "reference_role": "consumer_read",
+                    "reference_role": reference_role,
                     "discovery_kind": discovery_kind,
                     "raw_reference_sha256": sha256_bytes(raw_line.encode("utf-8")),
                     "observed_fresh": True,
                 }
             )
+    invalid_validation_fixture_reads = [
+        {
+            "consumer": row.get("consumer"),
+            "path": row.get("path"),
+            "wp2_role": wp2_role_by_path.get(
+                normalized_registry_path(str(row.get("path")))
+            ),
+        }
+        for row in rows
+        if row.get("reference_role") == "validation_fixture_read"
+        and wp2_role_by_path.get(
+            normalized_registry_path(str(row.get("path")))
+        )
+        != "fixture"
+    ]
+    if invalid_validation_fixture_reads:
+        blockers.append("validation_fixture_read_without_wp2_fixture_role")
     denominator = {
         **denominator,
         "contained_fixture_reference_count": len(set(contained_fixture_references)),
         "contained_fixture_references": sorted(set(contained_fixture_references)),
+        "validation_fixture_read_count": sum(
+            row.get("reference_role") == "validation_fixture_read"
+            for row in rows
+        ),
+        "validation_fixture_read_role_mismatch_count": len(
+            invalid_validation_fixture_reads
+        ),
+        "validation_fixture_read_role_mismatches": (
+            invalid_validation_fixture_reads
+        ),
     }
     return rows, sorted(set(blockers)), denominator
 
 
-def registry_live_readpoint_graph() -> tuple[
+def registry_live_readpoint_graph(
+    wp2_ledger: tuple[dict[str, Any], ...],
+    wp2_binding: dict[str, Any],
+) -> tuple[
     list[dict[str, Any]],
     set[str],
     list[str],
@@ -4782,7 +5586,11 @@ def registry_live_readpoint_graph() -> tuple[
     rendered_path = V2_ROOT / "output" / "dvf_3_3_rendered.json"
     rendered = read_json_object(rendered_path)
     package_script = REPO_ROOT / "Iris" / "tools" / "package_iris.ps1"
-    rows, blockers, denominator = discover_registry_readpoints()
+    rows, blockers, denominator = discover_registry_readpoints(
+        wp2_ledger=wp2_ledger,
+        wp2_binding=wp2_binding,
+        require_wp2_ledger=True,
+    )
     recognized = independent_current_registry_paths()
     expected_readpoints = {
         path
@@ -4936,7 +5744,8 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + f"$destination = {repo_relative(fixture_root / 'copy_sink.lua')!r}\n"
         + "& $copyCommand -LiteralPath $source -Destination $destination\n"
         + "$runtimeLeaf = Get-RuntimeLeaf\n"
-        + "& $copyCommand (Join-Path 'Iris/media/lua/client/Iris/Data' $runtimeLeaf) $destination\n",
+        + "& $copyCommand (Join-Path 'Iris/media/lua/client/Iris/Data' $runtimeLeaf) $destination\n"
+        + "& $copyCommand (Join-Path -Path 'Iris/media/lua/client/Iris/Data' -ChildPath $runtimeLeaf) $destination\n",
     )
     stale_rows = [
         {
@@ -5039,6 +5848,10 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         len(collision_unresolved_blockers) == 4
         and not collision_contained_references
     )
+    powershell_named_join_path_fail_closed = (
+        f"unresolved_registry_loader_reference:{repo_relative(powershell_consumer)}:9"
+        in discovery_blockers
+    )
     return {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-negative-fixture-v1",
         "status": (
@@ -5052,6 +5865,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             and contained_python_fixture_classified
             and contained_python_fixture_reference_count >= 6
             and tempfile_name_collisions_fail_closed
+            and powershell_named_join_path_fail_closed
             else "FAIL"
         ),
         "expected_violation_kinds": sorted(expected),
@@ -5071,6 +5885,9 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         "tempfile_name_collision_unresolved_blockers": collision_unresolved_blockers,
         "tempfile_name_collision_contained_references": collision_contained_references,
         "tempfile_name_collisions_fail_closed": tempfile_name_collisions_fail_closed,
+        "powershell_named_join_path_fail_closed": (
+            powershell_named_join_path_fail_closed
+        ),
         "same_raw_discovery_path_as_live_graph": True,
         "negative_consumer_roots": [
             "current_route",
@@ -5084,6 +5901,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "python_unresolved_taint_loader_fail_closed",
             "lua_unresolved_taint_loader_fail_closed",
             "powershell_unresolved_taint_copy_fail_closed",
+            "powershell_named_join_path_unresolved_taint_fail_closed",
             "python_repo_anchor_required_current_exact_edge",
             "python_contained_generated_fixture_classified_non_live",
             "python_contained_v2_tmp_tests_classified_non_live",
@@ -5104,13 +5922,13 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
 
 def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
     phase4 = root / "phase4"
-    ledger = role_ledger_rows(root)
+    ledger, wp2_binding = wp2_role_ledger_binding(root)
     (
         readpoints,
         recognized_current_paths,
         graph_blockers,
         executable_denominator,
-    ) = registry_live_readpoint_graph()
+    ) = registry_live_readpoint_graph(tuple(ledger), wp2_binding)
     package_members, package_blockers = package_content_rows()
     live_violations = evaluate_stale_reentry(
         readpoints,
@@ -5193,12 +6011,42 @@ def build_wp6_reports(root: Path) -> list[dict[str, Any]]:
             "complete"
         )
         is True,
+        "tracked_executable_inventory_count": executable_denominator.get(
+            "tracked_executable_count", 0
+        ),
+        "tracked_executable_inventory_sha256": executable_denominator.get(
+            "tracked_executable_paths_sha256"
+        ),
+        "tracked_executable_inventory_partition_complete": executable_denominator.get(
+            "tracked_inventory_partition_complete"
+        )
+        is True,
+        "vcs_executable_inventory_count": executable_denominator.get(
+            "vcs_executable_inventory_count", 0
+        ),
+        "vcs_executable_inventory_sha256": executable_denominator.get(
+            "vcs_executable_inventory_paths_sha256"
+        ),
+        "vcs_executable_inventory_partition_complete": executable_denominator.get(
+            "vcs_executable_inventory_partition_complete"
+        )
+        is True,
         "executable_denominator_count": executable_denominator.get(
             "admitted_executable_count", 0
         ),
         "executable_denominator_sha256": executable_denominator.get(
             "admitted_paths_sha256"
         ),
+        "live_executable_denominator_count": executable_denominator.get(
+            "vcs_live_admitted_count", 0
+        ),
+        "classified_non_live_executable_count": executable_denominator.get(
+            "vcs_non_live_classified_count", 0
+        ),
+        "execution_dependency_edge_count": executable_denominator.get(
+            "execution_dependency_edge_count", 0
+        ),
+        "wp2_role_ledger_census_binding": wp2_binding,
         "executable_denominator_admission": executable_denominator,
         "structural_analyzers": [
             "python_ast_complete_unknown_tainted_path_and_loader_alias_dataflow",

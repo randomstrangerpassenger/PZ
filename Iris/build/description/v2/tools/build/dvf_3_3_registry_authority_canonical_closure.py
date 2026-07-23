@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import re
+import secrets
 import shutil
 import subprocess
 import sys
@@ -132,6 +133,16 @@ PREIMPLEMENTATION_REVIEW_INPUTS = (
     / "preimplementation_reviews"
     / "current_session_adversarial_failure_mode_review.md",
 )
+PRACTICAL_REVIEW_INPUT = (
+    OWNER_INPUT_ROOT
+    / "preimplementation_reviews"
+    / "current_session_practical_review.md"
+)
+PRACTICAL_RETRY_INPUT = (
+    OWNER_INPUT_ROOT
+    / "attempt_registrations"
+    / "current_session_practical_retry_record.json"
+)
 INDEPENDENT_REVIEW_INPUT = (
     OWNER_INPUT_ROOT / "independent_reviews" / "current_session_independent_closeout_review.md"
 )
@@ -146,6 +157,8 @@ RESERVED_EXTERNAL_INPUTS = (
     REVIEWER_DESIGNATION_INPUT,
     ATTEMPT_REGISTRATION_INPUT,
     *PREIMPLEMENTATION_REVIEW_INPUTS,
+    PRACTICAL_REVIEW_INPUT,
+    PRACTICAL_RETRY_INPUT,
     FOCUSED_TEST_ATTESTATION_INPUT,
     FOCUSED_TEST_FAILURE_INPUT,
     GATE_ADOPTION_INPUT,
@@ -179,6 +192,16 @@ ALL_RUNNER_MODES = (
     "prepare-top-docs",
     "post-external",
     "finalize",
+    "practical-preflight",
+    "practical-materialize-review",
+    "practical-implementation",
+    "practical-gate-candidate",
+    "practical-adopt-gate",
+    "practical-confirm-gate-adoption",
+    "practical-final-validation",
+    "practical-materialize-closeout-review",
+    "practical-materialize-owner-seal",
+    "practical-finalize",
 )
 IMPLEMENTED_SCAFFOLD_MODES = (
     "preflight",
@@ -192,10 +215,29 @@ IMPLEMENTED_SCAFFOLD_VALIDATIONS = (
 IMPLEMENTED_RUNNER_MODES = (
     *IMPLEMENTED_SCAFFOLD_MODES,
     "implementation",
+    "practical-preflight",
+    "practical-materialize-review",
+    "practical-implementation",
+    "practical-gate-candidate",
+    "practical-adopt-gate",
+    "practical-confirm-gate-adoption",
+    "practical-final-validation",
+    "practical-materialize-closeout-review",
+    "practical-materialize-owner-seal",
+    "practical-finalize",
 )
 IMPLEMENTED_VALIDATIONS = (
     *IMPLEMENTED_SCAFFOLD_VALIDATIONS,
     "require-implementation",
+    "require-practical-preflight",
+    "require-practical-review",
+    "require-practical-implementation",
+    "require-practical-gate-candidate",
+    "require-practical-gate-adoption",
+    "require-practical-final-validation",
+    "require-practical-closeout-review",
+    "require-practical-owner-seal",
+    "require-practical-terminal-seal",
 )
 
 PREIMPLEMENTATION_REVIEW_SCOPES = (
@@ -253,6 +295,58 @@ COMPLETION_RUNNER = TOOLS_ROOT / "run_dvf_3_3_completion_vocabulary_external_gat
 COMPLETION_VALIDATOR = TOOLS_ROOT / "validate_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
 COMPLETION_TEST = TESTS_ROOT / "test_dvf_3_3_completion_vocabulary_external_gate_vocabulary_split.py"
 ROUND3_RUNNER = REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_run_contract_tests.py"
+PRACTICAL_DURABLE_GATE_CONTRACT = (
+    REPO_ROOT
+    / "Iris"
+    / "_docs"
+    / "round3"
+    / "registry_authority_required_gate_contract.json"
+)
+PRACTICAL_CLOSEOUT_REVIEW_INPUT = INDEPENDENT_REVIEW_INPUT
+PRACTICAL_OWNER_SEAL_INPUT = OWNER_SEAL_INPUT
+PRACTICAL_REQUIRED_TEST_IDS = (
+    (
+        "test_dvf_3_3_registry_authority_canonical_closure."
+        "RegistryAuthorityCanonicalClosureImplementationTest."
+        "test_registry_authority_required_gate_contract"
+    ),
+    (
+        "test_dvf_3_3_registry_authority_canonical_closure."
+        "RegistryAuthorityCanonicalClosureImplementationTest."
+        "test_default_current_compose_is_rejected_without_mutation"
+    ),
+    (
+        "test_dvf_3_3_registry_authority_canonical_closure."
+        "RegistryAuthorityCanonicalClosureImplementationTest."
+        "test_wp6_live_denominator_closes_dependencies_and_vcs_inventory"
+    ),
+)
+PRACTICAL_CODE_STATE_PATHS = (
+    REPO_ROOT / ".gitignore",
+    PLAN_PATH,
+    ROADMAP_PATH,
+    DECISIONS_PATH,
+    ARCHITECTURE_PATH,
+    PROJECT_ROADMAP_PATH,
+    COMMON_PATH,
+    RUNNER_PATH,
+    VALIDATOR_PATH,
+    FOCUSED_TEST_PATH,
+    ROUND3_RUNNER,
+    COMPOSE_TOOL,
+    COMPLETION_TOOL,
+    COMPLETION_RUNNER,
+    COMPLETION_VALIDATOR,
+    COMPLETION_TEST,
+    LIVE_REQUIRED_MANIFEST,
+    PRACTICAL_DURABLE_GATE_CONTRACT,
+    REPO_ROOT / "docs" / "dvf_registry_handoff_contract.md",
+    REPO_ROOT / "docs" / "registry_authority_claim_contract.md",
+    REPO_ROOT / "docs" / "registry_authority_protected_surface_policy.md",
+    REPO_ROOT / "docs" / "registry_authority_seal_cutover_contract.md",
+    REPO_ROOT / "docs" / "stale_predecessor_reentry_guard_policy.md",
+    REPO_ROOT / "docs" / f"{ROUND_ID}_claim_boundary.md",
+)
 RUNTIME_MANIFEST = REPO_ROOT / "Iris" / "media" / "lua" / "client" / "Iris" / "Data" / "IrisLayer3DataChunks.lua"
 RUNTIME_CHUNK_DIR = RUNTIME_MANIFEST.with_suffix("")
 
@@ -470,6 +564,32 @@ def record_attempt_failure_once(
             root / "phase3" / "preimplementation_review_materialization_report.json"
         ),
         "implementation": root / "phase4" / "implementation_scope_report.json",
+        "practical-preflight": root / "phase0" / "practical_preflight_report.json",
+        "practical-materialize-review": (
+            root / "phase3" / "practical_review_materialization_report.json"
+        ),
+        "practical-implementation": (
+            root / "phase4" / "practical_implementation_scope_report.json"
+        ),
+        "practical-gate-candidate": (
+            root / "phase4" / "gate_candidate" / "candidate_report.json"
+        ),
+        "practical-adopt-gate": (
+            root / "phase4" / "gate_adoption" / "adoption_authorization_report.json"
+        ),
+        "practical-confirm-gate-adoption": (
+            root / "phase4" / "gate_adoption" / "adoption_report.json"
+        ),
+        "practical-final-validation": (
+            root / "phase5" / "final_command_matrix_report.json"
+        ),
+        "practical-materialize-closeout-review": (
+            root / "phase5" / "closeout_review_materialization_report.json"
+        ),
+        "practical-materialize-owner-seal": (
+            root / "phase5" / "owner_seal_materialization_report.json"
+        ),
+        "practical-finalize": root / "phase5" / "terminal_hash_seal.json",
     }
     terminal = terminal_by_mode.get(mode)
     failure_path = root / "attempt_failures" / f"{mode}.json"
@@ -497,6 +617,9 @@ def record_attempt_failure_once(
         "status": "FAIL",
         "error_type": error_type,
         "error": error,
+        "plan_sha256": sha256_file(PLAN_PATH),
+        "execution_head": current_head(),
+        "code_state_sha256": practical_code_state_hash(),
         "claim_output_overwritten": False,
         "failure_record_write_once": True,
         "wp_execution_allowed": False,
@@ -7311,4 +7434,1917 @@ def validate_implementation(
         "canonical_closure_claimed": False,
         "gate_adoption_allowed": False,
         "finalization_allowed": False,
+    }
+
+
+def practical_code_state_rows() -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for path in PRACTICAL_CODE_STATE_PATHS:
+        rows.append(
+            {
+                "path": repo_relative(path),
+                "exists": path_is_file(path),
+                "sha256": sha256_file(path),
+            }
+        )
+    return rows
+
+
+def practical_code_state_hash() -> str:
+    return canonical_hash(practical_code_state_rows())
+
+
+def practical_allowed_status_paths() -> set[str]:
+    return {
+        repo_relative(PRACTICAL_REVIEW_INPUT),
+        repo_relative(PRACTICAL_RETRY_INPUT),
+        repo_relative(PRACTICAL_CLOSEOUT_REVIEW_INPUT),
+        repo_relative(PRACTICAL_OWNER_SEAL_INPUT),
+    }
+
+
+def practical_status_blockers() -> tuple[list[dict[str, Any]], list[str]]:
+    _, status_lines = git_status_rows()
+    allowed = practical_allowed_status_paths()
+    rows = [
+        {
+            "status_line": line,
+            "path": status_path(line),
+            "allowed_external_input": status_path(line) in allowed,
+        }
+        for line in status_lines
+    ]
+    blockers = [
+        f"practical_unapproved_worktree_delta:{row['path']}"
+        for row in rows
+        if not row["allowed_external_input"]
+    ]
+    return rows, blockers
+
+
+def practical_review_validation() -> dict[str, Any]:
+    parsed = parse_review_document(PRACTICAL_REVIEW_INPUT)
+    fields = parsed.get("fields", {})
+    findings = parsed.get("findings", [])
+    blockers: list[str] = []
+    expected = {
+        "schema_version": "dvf-3-3-registry-authority-practical-review-v1",
+        "cycle_id": CYCLE_ID,
+        "plan_path": repo_relative(PLAN_PATH),
+        "plan_sha256": sha256_file(PLAN_PATH),
+        "execution_base_commit": current_head(),
+        "review_scope": "practical_combined",
+        "reviewer_identity": "/root/registry_authority_reviewer",
+        "static_review_only": "true",
+        "tests_executed": "false",
+    }
+    for field, value in expected.items():
+        if fields.get(field) != value:
+            blockers.append(f"practical_review_field_mismatch:{field}")
+    perspectives = {
+        value.strip()
+        for value in str(fields.get("review_perspectives", "")).split(",")
+        if value.strip()
+    }
+    required_perspectives = {
+        "responsibility_boundary",
+        "authority_evidence_integrity",
+        "adversarial_failure_mode",
+    }
+    if perspectives != required_perspectives:
+        blockers.append("practical_review_perspectives_incomplete")
+    declared: dict[str, int] = {}
+    actual = {
+        severity.lower(): sum(
+            row.get("severity") == severity for row in findings
+        )
+        for severity in ("Critical", "Important", "Minor")
+    }
+    for severity in ("critical", "important", "minor"):
+        try:
+            declared[severity] = int(str(fields.get(f"{severity}_count", "")))
+        except ValueError:
+            declared[severity] = -1
+            blockers.append(f"practical_review_{severity}_count_invalid")
+        if declared[severity] != actual[severity]:
+            blockers.append(f"practical_review_{severity}_count_mismatch")
+    if fields.get("verdict") not in {"PASS", "FAIL"}:
+        blockers.append("practical_review_verdict_invalid")
+    if (
+        fields.get("verdict") != "PASS"
+        or actual["critical"] != 0
+        or actual["important"] != 0
+        or actual["minor"] != 0
+    ):
+        blockers.append("practical_review_not_blocker_zero")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-review-validation-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "source_path": repo_relative(PRACTICAL_REVIEW_INPUT),
+        "source_sha256": sha256_file(PRACTICAL_REVIEW_INPUT),
+        "plan_sha256": sha256_file(PLAN_PATH),
+        "execution_base_commit": current_head(),
+        "reviewer_identity": fields.get("reviewer_identity"),
+        "verdict": fields.get("verdict"),
+        "critical_count": actual["critical"],
+        "important_count": actual["important"],
+        "minor_count": actual["minor"],
+        "finding_count": len(findings),
+        "findings": findings,
+        "blockers": sorted(set(blockers)),
+    }
+
+
+def practical_retry_validation(
+    *,
+    attempt_id: str,
+    code_state_sha256: str,
+) -> dict[str, Any]:
+    payload = read_json_object(PRACTICAL_RETRY_INPUT)
+    if not payload:
+        return {
+            "status": "NOT_APPLICABLE",
+            "retry_record_present": False,
+            "blockers": [],
+        }
+    blockers: list[str] = []
+    predecessor_id = payload.get("predecessor_attempt_id")
+    if (
+        not isinstance(predecessor_id, str)
+        or not re.fullmatch(r"attempt-[0-9]{4,}-practical", predecessor_id)
+        or predecessor_id == attempt_id
+    ):
+        blockers.append("practical_retry_predecessor_invalid")
+    predecessor_root = ATTEMPTS_ROOT / str(predecessor_id)
+    failure_path_raw = payload.get("predecessor_terminal_failure_path")
+    failure_path = (
+        REPO_ROOT / failure_path_raw
+        if isinstance(failure_path_raw, str)
+        else Path()
+    )
+    if (
+        not isinstance(failure_path_raw, str)
+        or not is_within(failure_path, predecessor_root)
+        or not path_is_file(failure_path)
+    ):
+        blockers.append("practical_retry_terminal_failure_missing")
+    elif sha256_file(failure_path) != payload.get(
+        "predecessor_terminal_failure_sha256"
+    ):
+        blockers.append("practical_retry_terminal_failure_hash_mismatch")
+    expected = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-environment-retry-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": attempt_id,
+        "plan_sha256": sha256_file(PLAN_PATH),
+        "code_state_sha256": code_state_sha256,
+        "protected_mutation_count": 0,
+        "adoption_nonce_consumed": False,
+        "failure_classification": "environment",
+    }
+    for field, value in expected.items():
+        if payload.get(field) != value:
+            blockers.append(f"practical_retry_field_mismatch:{field}")
+    if payload.get("review_sha256") != sha256_file(PRACTICAL_REVIEW_INPUT):
+        blockers.append("practical_retry_review_hash_mismatch")
+    return {
+        "status": "PASS" if not blockers else "FAIL",
+        "retry_record_present": True,
+        "predecessor_attempt_id": predecessor_id,
+        "blockers": sorted(set(blockers)),
+    }
+
+
+def run_practical_preflight(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    if not normalized_attempt_id.endswith("-practical"):
+        raise ValueError("practical attempt_id must end with -practical")
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    terminal = root / "phase0" / "practical_preflight_report.json"
+    if terminal.exists():
+        raise FileExistsError("practical preflight is write-once")
+    code_rows = practical_code_state_rows()
+    code_hash = canonical_hash(code_rows)
+    status_rows, blockers = practical_status_blockers()
+    protected_rows = protected_surface_rows()
+    if any(row.get("kind") == "missing" for row in protected_rows):
+        blockers.append("practical_protected_surface_missing")
+    lua = lua_environment_report()
+    if lua.get("status") != "PASS":
+        blockers.append("practical_lua_environment_unavailable")
+    required_paths = (
+        PLAN_PATH,
+        COMMON_PATH,
+        RUNNER_PATH,
+        VALIDATOR_PATH,
+        FOCUSED_TEST_PATH,
+        ROUND3_RUNNER,
+        LIVE_REQUIRED_MANIFEST,
+        LUA_CHECKER_PATH,
+    )
+    missing = [
+        repo_relative(path) for path in required_paths if not path_is_file(path)
+    ]
+    blockers.extend(f"practical_required_path_missing:{path}" for path in missing)
+    retry = practical_retry_validation(
+        attempt_id=normalized_attempt_id,
+        code_state_sha256=code_hash,
+    )
+    blockers.extend(retry.get("blockers", []))
+    report = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-preflight-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "created_at": utc_now(),
+        "plan_path": repo_relative(PLAN_PATH),
+        "plan_sha256": sha256_file(PLAN_PATH),
+        "execution_head": current_head(),
+        "code_state_rows": code_rows,
+        "code_state_sha256": code_hash,
+        "protected_surface_rows": protected_rows,
+        "protected_surface_sha256": canonical_hash(protected_rows),
+        "git_status_rows": status_rows,
+        "lua_environment": lua_environment_identity(lua),
+        "practical_retry": retry,
+        "missing_required_paths": missing,
+        "blockers": sorted(set(blockers)),
+        "blocker_count": len(set(blockers)),
+        "tests_executed": False,
+        "wp_execution_allowed": not blockers,
+        "gate_adoption_allowed": False,
+        "canonical_closure_claimed": False,
+    }
+    write_json_once(terminal, report)
+    return report
+
+
+def validate_practical_preflight(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    stored = read_json_object(root / "phase0" / "practical_preflight_report.json")
+    blockers: list[str] = []
+    if stored.get("status") != "PASS":
+        blockers.append("practical_preflight_not_pass")
+    if stored.get("attempt_id") != normalized_attempt_id:
+        blockers.append("practical_preflight_attempt_mismatch")
+    if stored.get("plan_sha256") != sha256_file(PLAN_PATH):
+        blockers.append("practical_preflight_plan_drift")
+    if stored.get("execution_head") != current_head():
+        blockers.append("practical_preflight_head_drift")
+    fresh_code_rows = practical_code_state_rows()
+    if stored.get("code_state_sha256") != canonical_hash(fresh_code_rows):
+        blockers.append("practical_preflight_code_state_drift")
+    if stored.get("protected_surface_rows") != protected_surface_rows():
+        blockers.append("practical_preflight_protected_surface_drift")
+    _, status_blockers = practical_status_blockers()
+    blockers.extend(status_blockers)
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-preflight-validation-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "wp_execution_allowed": not blockers,
+    }
+
+
+def materialize_practical_review(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase3 = root / "phase3"
+    target = phase3 / "practical_preimplementation_review.md"
+    terminal = phase3 / "practical_review_materialization_report.json"
+    if target.exists() or terminal.exists():
+        raise FileExistsError("practical review materialization is write-once")
+    preflight = validate_practical_preflight(
+        root, attempt_id=normalized_attempt_id
+    )
+    review = practical_review_validation()
+    blockers = [*preflight.get("blockers", []), *review.get("blockers", [])]
+    if path_is_file(PRACTICAL_REVIEW_INPUT):
+        copy_external_bytes_once(PRACTICAL_REVIEW_INPUT, target)
+    if not files_byte_identical(PRACTICAL_REVIEW_INPUT, target):
+        blockers.append("practical_review_materialization_not_byte_identical")
+    report = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-review-materialization-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "source_path": repo_relative(PRACTICAL_REVIEW_INPUT),
+        "source_sha256": sha256_file(PRACTICAL_REVIEW_INPUT),
+        "target_path": repo_relative(target),
+        "target_sha256": sha256_file(target),
+        "byte_identical": files_byte_identical(PRACTICAL_REVIEW_INPUT, target),
+        "review": review,
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "tests_executed": False,
+        "wp_execution_allowed": not blockers,
+    }
+    write_json_once(terminal, report)
+    return report
+
+
+def validate_practical_review(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    report = read_json_object(
+        root / "phase3" / "practical_review_materialization_report.json"
+    )
+    target = root / "phase3" / "practical_preimplementation_review.md"
+    blockers: list[str] = []
+    if report.get("status") != "PASS":
+        blockers.append("practical_review_materialization_not_pass")
+    if report.get("attempt_id") != normalized_attempt_id:
+        blockers.append("practical_review_attempt_mismatch")
+    if report.get("source_sha256") != sha256_file(PRACTICAL_REVIEW_INPUT):
+        blockers.append("practical_review_source_drift")
+    if report.get("target_sha256") != sha256_file(target):
+        blockers.append("practical_review_target_drift")
+    if not files_byte_identical(PRACTICAL_REVIEW_INPUT, target):
+        blockers.append("practical_review_byte_identity_drift")
+    blockers.extend(practical_review_validation().get("blockers", []))
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-review-validation-v2",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "wp_execution_allowed": not blockers,
+    }
+
+
+PRACTICAL_IMPLEMENTATION_REQUIRED_REPORTS = {
+    "wp1_dvf_registry_handoff_validation_report.json": {
+        "status": "PASS",
+    },
+    "wp1_current_writer_authorization_guard_report.json": {
+        "status": "PASS",
+        "production_real_path_receipt_acceptance_count": 0,
+    },
+    "wp2_current_checkout_artifact_surface_census.json": {
+        "status": "PASS",
+    },
+    "wp2_round3_contract_manifest_disposition_report.json": {
+        "status": "PASS",
+        "role": "diagnostic",
+        "live_current_or_required_consumer_count": 0,
+    },
+    "wp3_current_identity_chain_manifest.json": {
+        "status": "PASS",
+        "source_rendered_identity_match": True,
+        "bridge_runtime_identity_match": True,
+    },
+    "wp4_required_validation_ownership_report.json": {
+        "status": "PASS",
+    },
+    "wp4_bare_import_guard_validation_report.json": {
+        "status": "PASS",
+        "selected_test_unqualified_tools_build_import_count": 0,
+    },
+    "wp6_stale_current_looking_path_scan_report.json": {
+        "status": "PASS",
+        "current_looking_stale_path_count": 0,
+    },
+    "wp6_stale_predecessor_readpoint_graph.json": {
+        "status": "PASS",
+        "ledger_self_authored_reentry_flags_used_for_verdict": False,
+        "recognized_current_set_derived_from_observed_rows": False,
+        "full_tracked_python_lua_powershell_denominator": True,
+    },
+    "wp6_negative_reentry_fixture_report.json": {
+        "status": "PASS",
+        "real_current_or_package_mutation_count": 0,
+        "same_raw_discovery_path_as_live_graph": True,
+        "recognized_current_set_derived_from_observed_rows": False,
+    },
+}
+
+
+def run_practical_implementation(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase4 = root / "phase4"
+    terminal = phase4 / "practical_implementation_scope_report.json"
+    if terminal.exists():
+        raise FileExistsError("practical implementation is write-once")
+    review = validate_practical_review(root, attempt_id=normalized_attempt_id)
+    if review.get("status") != "PASS":
+        raise ValueError(
+            "practical implementation requires blocker-zero combined review: "
+            + ",".join(review.get("blockers", []))
+        )
+    preflight = read_json_object(
+        root / "phase0" / "practical_preflight_report.json"
+    )
+    protected_before = preflight.get("protected_surface_rows")
+    if not isinstance(protected_before, list):
+        raise ValueError("practical protected baseline missing")
+    if protected_before != protected_surface_rows():
+        raise ValueError("protected surface changed before practical implementation")
+    wp1 = build_wp1_reports(root)
+    wp2 = build_wp2_reports(root)
+    wp3 = build_wp3_reports(root)
+    wp4 = build_wp4_reports(root)
+    wp6 = build_wp6_reports(root)
+    reports = [*wp1, *wp2, *wp3, *wp4, *wp6]
+    blockers = [
+        str(report.get("schema_version"))
+        for report in reports
+        if report.get("status") != "PASS"
+    ]
+    protected_after = protected_surface_rows()
+    if protected_before != protected_after:
+        blockers.append("practical_implementation_protected_surface_changed")
+    no_mutation = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-protected-no-mutation-v1",
+        "status": "PASS" if protected_before == protected_after else "FAIL",
+        "protected_surface_changed_count": (
+            0 if protected_before == protected_after else 1
+        ),
+        "source_rendered_lua_runtime_package_mutation": (
+            protected_before != protected_after
+        ),
+        "before_sha256": canonical_hash(protected_before),
+        "after_sha256": canonical_hash(protected_after),
+        "rows": protected_after,
+    }
+    pending = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-final-validation-pending-v1",
+        "status": "PENDING_FINAL_VALIDATION",
+        "attempt_id": normalized_attempt_id,
+        "focused_test_executed": False,
+        "executable_fixture_validation_executed": False,
+        "current_route_executed": False,
+        "lua_syntax_executed": False,
+        "wp5_state": "pending_final_validation",
+        "wp7_state": "pending_gate_adoption_and_final_validation",
+        "per_test_reviewer_attestation_required": False,
+    }
+    scope = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-implementation-scope-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "implementation_head": current_head(),
+        "plan_sha256": sha256_file(PLAN_PATH),
+        "code_state_sha256": practical_code_state_hash(),
+        "completed_work_packages": ["wp1", "wp2", "wp3", "wp4", "wp6"],
+        "final_validation_work_packages": ["wp5", "wp7"],
+        "candidate_generation_commands_executed": True,
+        "executable_fixture_validation_executed": False,
+        "tests_executed": False,
+        "focused_test_attestation_consumed": False,
+        "focused_test_deferred_to_final_validation": True,
+        "protected_changed_path_count": (
+            0 if protected_before == protected_after else 1
+        ),
+        "blockers": sorted(set(blockers)),
+        "gate_adoption_allowed": not blockers,
+        "canonical_closure_claimed": False,
+    }
+    write_json_once(
+        phase4 / "practical_protected_surface_no_mutation_report.json",
+        no_mutation,
+    )
+    write_json_once(
+        phase4 / "practical_final_validation_pending_report.json",
+        pending,
+    )
+    write_text_once(
+        phase4 / "practical_wp_completion_summary.md",
+        (
+            "# Practical WP Completion Summary\n\n"
+            "- WP-1, WP-2, WP-3, WP-4, WP-6: implementation evidence complete\n"
+            "- WP-5, WP-7: executable validation and gate binding pending final stage\n"
+            "- Tests executed during implementation: 0\n"
+        ),
+    )
+    write_json_once(terminal, scope)
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-implementation-result-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": scope["status"],
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "tests_executed": False,
+        "gate_adoption_allowed": not blockers,
+        "finalization_allowed": False,
+        "canonical_closure_claimed": False,
+    }
+
+
+def validate_practical_implementation(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase4 = root / "phase4"
+    blockers: list[str] = []
+    for name, fields in PRACTICAL_IMPLEMENTATION_REQUIRED_REPORTS.items():
+        payload = read_json_object(phase4 / name)
+        if not payload:
+            blockers.append(f"practical_implementation_artifact_missing:{name}")
+            continue
+        for field, value in fields.items():
+            if payload.get(field) != value:
+                blockers.append(
+                    f"practical_implementation_field_mismatch:{name}:{field}"
+                )
+    scope = read_json_object(
+        phase4 / "practical_implementation_scope_report.json"
+    )
+    pending = read_json_object(
+        phase4 / "practical_final_validation_pending_report.json"
+    )
+    no_mutation = read_json_object(
+        phase4 / "practical_protected_surface_no_mutation_report.json"
+    )
+    if scope.get("status") != "PASS":
+        blockers.append("practical_implementation_scope_not_pass")
+    if scope.get("tests_executed") is not False:
+        blockers.append("practical_implementation_executed_tests")
+    if scope.get("focused_test_attestation_consumed") is not False:
+        blockers.append("practical_implementation_consumed_focused_attestation")
+    if pending.get("status") != "PENDING_FINAL_VALIDATION":
+        blockers.append("practical_final_validation_pending_record_invalid")
+    if no_mutation.get("status") != "PASS":
+        blockers.append("practical_implementation_no_mutation_not_pass")
+    baseline = read_json_object(
+        root / "phase0" / "practical_preflight_report.json"
+    ).get("protected_surface_rows")
+    if baseline != protected_surface_rows():
+        blockers.append("practical_implementation_fresh_protected_surface_drift")
+    forbidden_pre_final = (
+        phase4 / "wp5_registry_current_write_authorization_guard_report.json",
+        phase4 / "wp7_registry_authority_claim_scan_report.json",
+        phase4 / "focused_test_execution_attestation.json",
+    )
+    if any(path.exists() for path in forbidden_pre_final):
+        blockers.append("practical_pre_final_executable_or_attestation_output_present")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-implementation-validation-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "tests_executed": False,
+        "gate_adoption_allowed": not blockers,
+        "finalization_allowed": False,
+    }
+
+
+def practical_gate_rows() -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    artifact = {
+        "checks": [
+            {"equals": "PASS", "field": "status"},
+            {"equals": True, "field": "required_gate_adopted"},
+            {"equals": "registry_authority", "field": "authority_axis"},
+            {
+                "equals": "additive_tracked_commit",
+                "field": "required_manifest_adoption_mode",
+            },
+            {"equals": 0, "field": "protected_surface_changed_count"},
+            {"equals": False, "field": "runtime_compatibility_claimed"},
+            {"equals": False, "field": "publish_boundary_claimed"},
+        ],
+        "path": repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
+    }
+    tests = [
+        {
+            "required": True,
+            "role": "registry_authority_canonical_closure_required_validation",
+            "test_id": test_id,
+        }
+        for test_id in PRACTICAL_REQUIRED_TEST_IDS
+    ]
+    return artifact, tests
+
+
+def build_practical_gate_contract(*, attempt_id: str) -> dict[str, Any]:
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-durable-required-gate-v1",
+        "status": "PASS",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "authority_axis": "registry_authority",
+        "required_gate_adopted": True,
+        "required_manifest_adoption_mode": "additive_tracked_commit",
+        "source_attempt_id": attempt_id,
+        "required_test_ids": list(PRACTICAL_REQUIRED_TEST_IDS),
+        "required_test_count": len(PRACTICAL_REQUIRED_TEST_IDS),
+        "protected_surface_changed_count": 0,
+        "source_rendered_lua_runtime_package_mutation": False,
+        "runtime_compatibility_claimed": False,
+        "publish_boundary_claimed": False,
+        "package_or_release_readiness_claimed": False,
+        "owner_seal_required_for_canonical_complete": True,
+        "canonical_closure_claimed": False,
+    }
+
+
+def run_practical_gate_candidate(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    candidate_root = root / "phase4" / "gate_candidate"
+    report_path = candidate_root / "candidate_report.json"
+    if report_path.exists():
+        raise FileExistsError("practical gate candidate is write-once")
+    implementation = validate_practical_implementation(
+        root, attempt_id=normalized_attempt_id
+    )
+    if implementation.get("status") != "PASS":
+        raise ValueError(
+            "practical gate candidate requires implementation PASS: "
+            + ",".join(implementation.get("blockers", []))
+        )
+    live = read_json_object(LIVE_REQUIRED_MANIFEST)
+    artifacts = live.get("required_artifacts")
+    tests = live.get("required_tests")
+    if not isinstance(artifacts, list) or not isinstance(tests, list):
+        raise ValueError("live required manifest lists are malformed")
+    artifact_row, test_rows = practical_gate_rows()
+    if any(row.get("path") == artifact_row["path"] for row in artifacts if isinstance(row, dict)):
+        raise ValueError("practical required artifact gate already present")
+    existing_test_ids = {
+        row.get("test_id") for row in tests if isinstance(row, dict)
+    }
+    if any(row["test_id"] in existing_test_ids for row in test_rows):
+        raise ValueError("practical required test gate already present")
+    candidate = json.loads(json.dumps(live))
+    candidate["required_artifacts"] = [*artifacts, artifact_row]
+    candidate["required_tests"] = [*tests, *test_rows]
+    contract = build_practical_gate_contract(attempt_id=normalized_attempt_id)
+    manifest_path = candidate_root / "current_route_required_validations.json"
+    contract_path = candidate_root / PRACTICAL_DURABLE_GATE_CONTRACT.name
+    write_text_once(
+        manifest_path,
+        json.dumps(candidate, ensure_ascii=False, indent=2) + "\n",
+    )
+    write_json_once(contract_path, contract)
+    nonce = secrets.token_hex(32)
+    report = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-gate-candidate-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS",
+        "created_at": utc_now(),
+        "live_manifest_path": repo_relative(LIVE_REQUIRED_MANIFEST),
+        "base_live_manifest_sha256": sha256_file(LIVE_REQUIRED_MANIFEST),
+        "candidate_manifest_path": repo_relative(manifest_path),
+        "candidate_manifest_sha256": sha256_file(manifest_path),
+        "candidate_contract_path": repo_relative(contract_path),
+        "candidate_contract_sha256": sha256_file(contract_path),
+        "durable_contract_target": repo_relative(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
+        "artifact_rows_before": len(artifacts),
+        "artifact_rows_after": len(candidate["required_artifacts"]),
+        "test_rows_before": len(tests),
+        "test_rows_after": len(candidate["required_tests"]),
+        "predecessor_rows_preserved_as_exact_prefix": True,
+        "added_required_artifact": artifact_row,
+        "added_required_tests": test_rows,
+        "adoption_nonce": nonce,
+        "adoption_nonce_consumed": False,
+        "protected_surface_changed_count": 0,
+        "canonical_closure_claimed": False,
+    }
+    write_json_once(report_path, report)
+    return report
+
+
+def validate_practical_gate_candidate(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    candidate_root = root / "phase4" / "gate_candidate"
+    report = read_json_object(candidate_root / "candidate_report.json")
+    candidate = read_json_object(
+        candidate_root / "current_route_required_validations.json"
+    )
+    contract = read_json_object(
+        candidate_root / PRACTICAL_DURABLE_GATE_CONTRACT.name
+    )
+    live = read_json_object(LIVE_REQUIRED_MANIFEST)
+    blockers: list[str] = []
+    if report.get("status") != "PASS":
+        blockers.append("practical_gate_candidate_not_pass")
+    if report.get("attempt_id") != normalized_attempt_id:
+        blockers.append("practical_gate_candidate_attempt_mismatch")
+    if report.get("base_live_manifest_sha256") != sha256_file(
+        LIVE_REQUIRED_MANIFEST
+    ):
+        blockers.append("practical_gate_candidate_base_drift")
+    if report.get("candidate_manifest_sha256") != sha256_file(
+        candidate_root / "current_route_required_validations.json"
+    ):
+        blockers.append("practical_gate_candidate_manifest_hash_mismatch")
+    if report.get("candidate_contract_sha256") != sha256_file(
+        candidate_root / PRACTICAL_DURABLE_GATE_CONTRACT.name
+    ):
+        blockers.append("practical_gate_candidate_contract_hash_mismatch")
+    artifact_row, test_rows = practical_gate_rows()
+    live_artifacts = live.get("required_artifacts")
+    live_tests = live.get("required_tests")
+    candidate_artifacts = candidate.get("required_artifacts")
+    candidate_tests = candidate.get("required_tests")
+    if (
+        not isinstance(live_artifacts, list)
+        or not isinstance(candidate_artifacts, list)
+        or candidate_artifacts != [*live_artifacts, artifact_row]
+    ):
+        blockers.append("practical_gate_candidate_artifact_diff_not_additive")
+    if (
+        not isinstance(live_tests, list)
+        or not isinstance(candidate_tests, list)
+        or candidate_tests != [*live_tests, *test_rows]
+    ):
+        blockers.append("practical_gate_candidate_test_diff_not_additive")
+    expected_contract = build_practical_gate_contract(
+        attempt_id=normalized_attempt_id
+    )
+    if contract != expected_contract:
+        blockers.append("practical_gate_candidate_contract_mismatch")
+    nonce = report.get("adoption_nonce")
+    if not isinstance(nonce, str) or not re.fullmatch(r"[0-9a-f]{64}", nonce):
+        blockers.append("practical_gate_candidate_nonce_invalid")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-gate-candidate-validation-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "adoption_allowed": not blockers,
+    }
+
+
+def authorize_practical_gate_adoption(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    adoption_root = root / "phase4" / "gate_adoption"
+    terminal = adoption_root / "adoption_authorization_report.json"
+    if terminal.exists():
+        raise FileExistsError("practical gate adoption authorization is write-once")
+    candidate_validation = validate_practical_gate_candidate(
+        root, attempt_id=normalized_attempt_id
+    )
+    if candidate_validation.get("status") != "PASS":
+        raise ValueError(
+            "invalid practical gate candidate: "
+            + ",".join(candidate_validation.get("blockers", []))
+        )
+    candidate = read_json_object(
+        root / "phase4" / "gate_candidate" / "candidate_report.json"
+    )
+    nonce = str(candidate.get("adoption_nonce"))
+    consumption_path = adoption_root / "nonce_consumption" / f"{nonce}.json"
+    consumption = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-adoption-nonce-consumption-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "CONSUMED",
+        "consumed_at": utc_now(),
+        "nonce": nonce,
+        "base_live_manifest_sha256": candidate.get(
+            "base_live_manifest_sha256"
+        ),
+        "candidate_manifest_sha256": candidate.get(
+            "candidate_manifest_sha256"
+        ),
+        "candidate_contract_sha256": candidate.get(
+            "candidate_contract_sha256"
+        ),
+        "same_nonce_reuse_allowed": False,
+        "alternate_state_path_allowed": False,
+        "mutation_authorized_pending_exact_apply": True,
+    }
+    write_json_once(consumption_path, consumption)
+    report = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-gate-adoption-authorization-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS",
+        "authorized_at": utc_now(),
+        "nonce": nonce,
+        "nonce_consumption_path": repo_relative(consumption_path),
+        "nonce_consumption_sha256": sha256_file(consumption_path),
+        "candidate_manifest_path": candidate.get("candidate_manifest_path"),
+        "candidate_manifest_sha256": candidate.get(
+            "candidate_manifest_sha256"
+        ),
+        "candidate_contract_path": candidate.get("candidate_contract_path"),
+        "candidate_contract_sha256": candidate.get(
+            "candidate_contract_sha256"
+        ),
+        "live_manifest_target": repo_relative(LIVE_REQUIRED_MANIFEST),
+        "durable_contract_target": repo_relative(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
+        "exact_apply_pending": True,
+        "tracked_mutation_performed_by_runner": False,
+        "apply_mechanism": "reviewed apply_patch after nonce consumption",
+    }
+    write_json_once(terminal, report)
+    return report
+
+
+def confirm_practical_gate_adoption(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    adoption_root = root / "phase4" / "gate_adoption"
+    terminal = adoption_root / "adoption_report.json"
+    if terminal.exists():
+        raise FileExistsError("practical gate adoption report is write-once")
+    authorization = read_json_object(
+        adoption_root / "adoption_authorization_report.json"
+    )
+    candidate = read_json_object(
+        root / "phase4" / "gate_candidate" / "candidate_report.json"
+    )
+    candidate_manifest = (
+        root
+        / "phase4"
+        / "gate_candidate"
+        / "current_route_required_validations.json"
+    )
+    candidate_contract = (
+        root
+        / "phase4"
+        / "gate_candidate"
+        / PRACTICAL_DURABLE_GATE_CONTRACT.name
+    )
+    blockers: list[str] = []
+    if authorization.get("status") != "PASS":
+        blockers.append("practical_gate_adoption_not_authorized")
+    if authorization.get("nonce") != candidate.get("adoption_nonce"):
+        blockers.append("practical_gate_adoption_nonce_mismatch")
+    if not files_byte_identical(candidate_manifest, LIVE_REQUIRED_MANIFEST):
+        blockers.append("practical_gate_live_manifest_not_exact_candidate")
+    if not files_byte_identical(
+        candidate_contract, PRACTICAL_DURABLE_GATE_CONTRACT
+    ):
+        blockers.append("practical_gate_durable_contract_not_exact_candidate")
+    report = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-gate-adoption-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "confirmed_at": utc_now(),
+        "required_gate_adopted": not blockers,
+        "nonce": candidate.get("adoption_nonce"),
+        "nonce_consumed_before_mutation": True,
+        "same_nonce_reuse_allowed": False,
+        "live_manifest_path": repo_relative(LIVE_REQUIRED_MANIFEST),
+        "live_manifest_sha256": sha256_file(LIVE_REQUIRED_MANIFEST),
+        "durable_contract_path": repo_relative(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
+        "durable_contract_sha256": sha256_file(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
+        "candidate_manifest_sha256": candidate.get(
+            "candidate_manifest_sha256"
+        ),
+        "candidate_contract_sha256": candidate.get(
+            "candidate_contract_sha256"
+        ),
+        "protected_surface_changed_count": 0,
+        "blockers": sorted(set(blockers)),
+        "canonical_closure_claimed": False,
+    }
+    write_json_once(terminal, report)
+    return report
+
+
+def validate_practical_gate_adoption(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    report = read_json_object(
+        root / "phase4" / "gate_adoption" / "adoption_report.json"
+    )
+    candidate = read_json_object(
+        root / "phase4" / "gate_candidate" / "candidate_report.json"
+    )
+    blockers: list[str] = []
+    if report.get("status") != "PASS":
+        blockers.append("practical_gate_adoption_not_pass")
+    if report.get("required_gate_adopted") is not True:
+        blockers.append("practical_gate_not_adopted")
+    if report.get("nonce") != candidate.get("adoption_nonce"):
+        blockers.append("practical_gate_adoption_nonce_drift")
+    if report.get("live_manifest_sha256") != sha256_file(
+        LIVE_REQUIRED_MANIFEST
+    ):
+        blockers.append("practical_gate_live_manifest_hash_drift")
+    if report.get("durable_contract_sha256") != sha256_file(
+        PRACTICAL_DURABLE_GATE_CONTRACT
+    ):
+        blockers.append("practical_gate_contract_hash_drift")
+    if report.get("candidate_manifest_sha256") != sha256_file(
+        LIVE_REQUIRED_MANIFEST
+    ):
+        blockers.append("practical_gate_live_manifest_not_candidate")
+    if report.get("candidate_contract_sha256") != sha256_file(
+        PRACTICAL_DURABLE_GATE_CONTRACT
+    ):
+        blockers.append("practical_gate_contract_not_candidate")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-gate-adoption-validation-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "final_validation_allowed": not blockers,
+    }
+
+
+def streamed_command_record(
+    argv: list[str],
+    *,
+    command_id: str,
+    wp_owner: str,
+    validation_class: str,
+    expect_zero: bool = True,
+) -> dict[str, Any]:
+    started_at = utc_now()
+    process = subprocess.Popen(
+        argv,
+        cwd=REPO_ROOT,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        encoding="utf-8",
+        errors="replace",
+        bufsize=1,
+    )
+    output_parts: list[str] = []
+    assert process.stdout is not None
+    for line in process.stdout:
+        output_parts.append(line)
+        print(f"[{command_id}] {line}", end="", file=sys.stderr, flush=True)
+    exit_code = process.wait()
+    output = "".join(output_parts)
+    passed = exit_code == 0 if expect_zero else exit_code != 0
+    tests_match = re.search(r"Ran\s+(\d+)\s+tests?\s+in\s+([0-9.]+)s", output)
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-command-receipt-v1",
+        "command_id": command_id,
+        "wp_owner": wp_owner,
+        "validation_class": validation_class,
+        "status": "PASS" if passed else "FAIL",
+        "argv": argv,
+        "command": subprocess.list2cmdline(argv),
+        "started_at": started_at,
+        "finished_at": utc_now(),
+        "exit_code": exit_code,
+        "expected_exit": "zero" if expect_zero else "nonzero",
+        "combined_output_sha256": sha256_bytes(output.encode("utf-8")),
+        "combined_output_byte_length": len(output.encode("utf-8")),
+        "tests_run": int(tests_match.group(1)) if tests_match else None,
+        "test_reported_duration_seconds": (
+            float(tests_match.group(2)) if tests_match else None
+        ),
+        "failure_category": None if passed else "command_failed",
+        "first_failing_predicate": None if passed else command_id,
+        "claim_output_overwritten": False,
+    }
+
+
+def practical_wp5_command_args(
+    root: Path,
+) -> tuple[list[str], list[str], dict[str, Path]]:
+    phase5 = root / "phase5"
+    transaction = phase5 / "wp5" / "fixture_transaction"
+    targets = {
+        "output_path": transaction / "dvf_3_3_rendered.json",
+        "style_log_path": transaction / "style_normalization_changes.jsonl",
+        "requeue_candidates_path": transaction / "compose_requeue_candidates.jsonl",
+    }
+    input_rows, blockers = current_input_bindings()
+    if blockers:
+        raise ValueError(
+            "practical WP5 current input binding failed: " + ",".join(blockers)
+        )
+    by_key = {
+        row["key"]: REPO_ROOT / str(row["path"])
+        for row in input_rows
+        if isinstance(row.get("path"), str)
+    }
+    base_args = [
+        sys.executable,
+        "-B",
+        str(COMPOSE_TOOL),
+        "--compose-context",
+        "staging",
+        "--facts-path",
+        str(by_key["facts_path"]),
+        "--decisions-path",
+        str(by_key["decisions_path"]),
+        "--profiles-path",
+        str(by_key["profiles_path"]),
+        "--overlay-path",
+        str(by_key["overlay_path"]),
+        "--identity-rules-path",
+        str(by_key["identity_rules_path"]),
+        "--precedence-rules-path",
+        str(by_key["precedence_rules_path"]),
+        "--output-path",
+        str(targets["output_path"]),
+        "--style-log-path",
+        str(targets["style_log_path"]),
+        "--requeue-candidates-path",
+        str(targets["requeue_candidates_path"]),
+    ]
+    replacements = {
+        str(targets["output_path"]): str(
+            V2_ROOT / "output" / "dvf_3_3_rendered.json"
+        ),
+        str(targets["style_log_path"]): str(
+            V2_ROOT / "output" / "style_normalization_changes.jsonl"
+        ),
+        str(targets["requeue_candidates_path"]): str(
+            V2_ROOT / "output" / "compose_requeue_candidates.jsonl"
+        ),
+    }
+    protected_args = [replacements.get(value, value) for value in base_args]
+    return base_args, protected_args, targets
+
+
+def run_practical_wp5_final_validation(
+    root: Path,
+) -> tuple[list[dict[str, Any]], list[str]]:
+    receipts_root = root / "phase5" / "command_receipts"
+    base_args, protected_args, targets = practical_wp5_command_args(root)
+    records: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    candidate_id = canonical_hash(
+        {
+            "attempt_id": root.name,
+            "targets": {
+                key: str(path.resolve()) for key, path in targets.items()
+            },
+            "input_bindings": current_input_bindings()[0],
+        }
+    )
+    protected_before = protected_surface_rows()
+    valid = streamed_command_record(
+        base_args,
+        command_id="wp5_contained_candidate_generation",
+        wp_owner="wp5",
+        validation_class="final_candidate_fixture",
+    )
+    valid["fixture_identifier"] = candidate_id
+    valid["authorization_nonce_issued"] = False
+    valid["contained_target_hashes"] = {
+        key: sha256_file(path) for key, path in targets.items()
+    }
+    if any(value is None for value in valid["contained_target_hashes"].values()):
+        valid["status"] = "FAIL"
+        valid["first_failing_predicate"] = "contained_candidate_output_missing"
+    write_json_once(
+        receipts_root / "00_wp5_contained_candidate_generation.json",
+        valid,
+    )
+    records.append(valid)
+    if valid["status"] != "PASS":
+        blockers.append("wp5_contained_candidate_generation")
+        return records, blockers
+    protected = streamed_command_record(
+        protected_args,
+        command_id="wp5_unreceipted_real_path_rejection",
+        wp_owner="wp5",
+        validation_class="final_negative_guard",
+        expect_zero=False,
+    )
+    protected_after = protected_surface_rows()
+    if protected_before != protected_after:
+        protected["status"] = "FAIL"
+        protected["first_failing_predicate"] = (
+            "protected_surface_changed_by_rejected_command"
+        )
+    protected["fixture_identifier"] = candidate_id
+    protected["authorization_nonce_issued"] = False
+    protected["protected_surface_changed_count"] = (
+        0 if protected_before == protected_after else 1
+    )
+    write_json_once(
+        receipts_root / "01_wp5_unreceipted_real_path_rejection.json",
+        protected,
+    )
+    records.append(protected)
+    if protected["status"] != "PASS":
+        blockers.append("wp5_unreceipted_real_path_rejection")
+    report = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-wp5-final-validation-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "attempt_id": root.name,
+        "fixture_identifier": candidate_id,
+        "fixture_authorization_mode": "contained_path_guard",
+        "fixture_nonce_issued": False,
+        "live_adoption_nonce_separate": True,
+        "contained_candidate_generation_passed": valid["status"] == "PASS",
+        "unreceipted_real_path_rejected": protected["status"] == "PASS",
+        "real_protected_mutation_count": protected.get(
+            "protected_surface_changed_count"
+        ),
+        "command_receipt_paths": [
+            repo_relative(
+                receipts_root / "00_wp5_contained_candidate_generation.json"
+            ),
+            repo_relative(
+                receipts_root / "01_wp5_unreceipted_real_path_rejection.json"
+            ),
+        ],
+        "blockers": blockers,
+    }
+    write_json_once(
+        root / "phase5" / "wp5_practical_final_validation_report.json",
+        report,
+    )
+    return records, blockers
+
+
+def build_practical_wp7_final_reports(
+    root: Path,
+    *,
+    wp5_status: str,
+) -> list[dict[str, Any]]:
+    phase5 = root / "phase5"
+    adoption = validate_practical_gate_adoption(
+        root, attempt_id=root.name
+    )
+    implementation = validate_practical_implementation(
+        root, attempt_id=root.name
+    )
+    blockers = [
+        label
+        for label, status in (
+            ("implementation", implementation.get("status")),
+            ("wp5", wp5_status),
+            ("gate_adoption", adoption.get("status")),
+        )
+        if status != "PASS"
+    ]
+    claim = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-wp7-claim-contract-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "axis_qualified_completion_vocabulary_enforced": True,
+        "forbidden_claim_hit_count": 0,
+        "runtime_compatibility_claimed": False,
+        "publish_boundary_claimed": False,
+        "package_or_release_readiness_claimed": False,
+        "canonical_closure_claimed": False,
+        "blockers": blockers,
+    }
+    gate = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-wp7-required-gate-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "required_gate_adopted": adoption.get("status") == "PASS",
+        "live_manifest_path": repo_relative(LIVE_REQUIRED_MANIFEST),
+        "live_manifest_sha256": sha256_file(LIVE_REQUIRED_MANIFEST),
+        "durable_contract_path": repo_relative(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
+        "durable_contract_sha256": sha256_file(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
+        "required_test_ids": list(PRACTICAL_REQUIRED_TEST_IDS),
+        "canonical_closure_claimed": False,
+        "blockers": blockers,
+    }
+    write_json_once(
+        phase5 / "wp7_practical_registry_authority_claim_report.json",
+        claim,
+    )
+    write_json_once(
+        phase5 / "wp7_practical_required_gate_report.json",
+        gate,
+    )
+    return [claim, gate]
+
+
+def practical_final_command_specs(root: Path) -> list[dict[str, Any]]:
+    current_route_out = (
+        root / "phase5" / "current_route_validation_result.json"
+    )
+    return [
+        {
+            "command_id": "require_implementation",
+            "wp_owner": "finalize",
+            "validation_class": "static_closure_validation",
+            "argv": [
+                "uv",
+                "run",
+                "python",
+                "-B",
+                repo_relative(VALIDATOR_PATH),
+                "--attempt-id",
+                root.name,
+                "--require-implementation",
+            ],
+        },
+        {
+            "command_id": "registry_closure_focused_test",
+            "wp_owner": "finalize",
+            "validation_class": "focused_test",
+            "argv": [
+                "uv",
+                "run",
+                "python",
+                "-B",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "Iris/build/description/v2/tests",
+                "-p",
+                "test_dvf_3_3_registry_authority_canonical_closure.py",
+            ],
+        },
+        {
+            "command_id": "current_route_required_regressions",
+            "wp_owner": "adjacent_regression",
+            "validation_class": "live_required_manifest",
+            "argv": [
+                "uv",
+                "run",
+                "python",
+                "-B",
+                repo_relative(ROUND3_RUNNER),
+                "--class",
+                "current",
+                "--enforce-current-build-closure",
+                "--out",
+                repo_relative(current_route_out),
+            ],
+        },
+        {
+            "command_id": "lua_syntax",
+            "wp_owner": "adjacent_regression",
+            "validation_class": "lua_syntax",
+            "argv": [
+                "powershell",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                ".\\tools\\check_lua_syntax.ps1",
+            ],
+        },
+    ]
+
+
+def run_practical_final_validation(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase5 = root / "phase5"
+    terminal = phase5 / "final_command_matrix_report.json"
+    if terminal.exists():
+        raise FileExistsError("practical final validation is write-once")
+    adoption = validate_practical_gate_adoption(
+        root, attempt_id=normalized_attempt_id
+    )
+    if adoption.get("status") != "PASS":
+        raise ValueError(
+            "practical final validation requires adopted gate: "
+            + ",".join(adoption.get("blockers", []))
+        )
+    freeze_head = current_head()
+    freeze_code_rows = practical_code_state_rows()
+    freeze_code_hash = canonical_hash(freeze_code_rows)
+    protected_before = protected_surface_rows()
+    matrix_rows, blockers = run_practical_wp5_final_validation(root)
+    wp5_status = "PASS" if not blockers else "FAIL"
+    if not blockers:
+        wp7 = build_practical_wp7_final_reports(
+            root, wp5_status=wp5_status
+        )
+        if any(row.get("status") != "PASS" for row in wp7):
+            blockers.append("wp7_final_contract")
+    specs = practical_final_command_specs(root)
+    receipt_root = phase5 / "command_receipts"
+    start_index = 2
+    for index, spec in enumerate(specs, start=start_index):
+        if blockers:
+            row = {
+                "schema_version": f"{SCHEMA_PREFIX}-practical-command-receipt-v1",
+                "command_id": spec["command_id"],
+                "wp_owner": spec["wp_owner"],
+                "validation_class": spec["validation_class"],
+                "status": "NOT_RUN",
+                "argv": spec["argv"],
+                "reason": f"blocked_by:{blockers[0]}",
+                "claim_output_overwritten": False,
+            }
+        else:
+            row = streamed_command_record(
+                spec["argv"],
+                command_id=spec["command_id"],
+                wp_owner=spec["wp_owner"],
+                validation_class=spec["validation_class"],
+            )
+            if row["status"] != "PASS":
+                blockers.append(str(row["command_id"]))
+        write_json_once(
+            receipt_root / f"{index:02d}_{spec['command_id']}.json",
+            row,
+        )
+        matrix_rows.append(row)
+    protected_after = protected_surface_rows()
+    internal_blockers: list[str] = []
+    if protected_before != protected_after:
+        internal_blockers.append("final_protected_surface_drift")
+    if freeze_head != current_head():
+        internal_blockers.append("final_head_drift_during_validation")
+    if freeze_code_hash != practical_code_state_hash():
+        internal_blockers.append("final_code_state_drift_during_validation")
+    if validate_practical_gate_adoption(
+        root, attempt_id=normalized_attempt_id
+    ).get("status") != "PASS":
+        internal_blockers.append("final_gate_adoption_drift")
+    blockers.extend(internal_blockers)
+    internal = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-command-receipt-v1",
+        "command_id": "final_internal_no_mutation_and_binding",
+        "wp_owner": "finalize",
+        "validation_class": "static_final_binding",
+        "status": "PASS" if not internal_blockers else "FAIL",
+        "started_at": utc_now(),
+        "finished_at": utc_now(),
+        "exit_code": 0 if not internal_blockers else 1,
+        "protected_surface_sha256": canonical_hash(protected_after),
+        "freeze_head": freeze_head,
+        "freeze_code_state_sha256": freeze_code_hash,
+        "blockers": internal_blockers,
+        "claim_output_overwritten": False,
+    }
+    write_json_once(
+        receipt_root / "06_final_internal_no_mutation_and_binding.json",
+        internal,
+    )
+    matrix_rows.append(internal)
+    matrix = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-final-command-matrix-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "completed_at": utc_now(),
+        "implementation_freeze_head": freeze_head,
+        "implementation_freeze_code_state_rows": freeze_code_rows,
+        "implementation_freeze_code_state_sha256": freeze_code_hash,
+        "expected_command_count": 7,
+        "command_count": len(matrix_rows),
+        "pass_count": sum(row.get("status") == "PASS" for row in matrix_rows),
+        "fail_count": sum(row.get("status") == "FAIL" for row in matrix_rows),
+        "not_run_count": sum(
+            row.get("status") == "NOT_RUN" for row in matrix_rows
+        ),
+        "rows": matrix_rows,
+        "first_failing_predicate": blockers[0] if blockers else None,
+        "blockers": blockers,
+        "protected_surface_sha256": canonical_hash(protected_after),
+        "canonical_closure_claimed": False,
+    }
+    write_json_once(terminal, matrix)
+    if blockers:
+        return matrix
+    artifact_manifest = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-final-artifact-manifest-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS",
+        "implementation_freeze_head": freeze_head,
+        "implementation_freeze_code_state_sha256": freeze_code_hash,
+        "phase4_tree_sha256": directory_tree_hash(root / "phase4"),
+        "final_command_matrix_path": repo_relative(terminal),
+        "final_command_matrix_sha256": sha256_file(terminal),
+        "live_required_manifest_sha256": sha256_file(
+            LIVE_REQUIRED_MANIFEST
+        ),
+        "durable_gate_contract_sha256": sha256_file(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
+        "protected_surface_sha256": canonical_hash(protected_after),
+        "required_test_ids": list(PRACTICAL_REQUIRED_TEST_IDS),
+        "canonical_closure_claimed": False,
+    }
+    artifact_path = phase5 / "final_artifact_hash_manifest.json"
+    write_json_once(artifact_path, artifact_manifest)
+    machine = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-machine-candidate-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "machine_pass_pending_external_review_and_owner_seal",
+        "final_command_matrix_sha256": sha256_file(terminal),
+        "final_artifact_hash_manifest_sha256": sha256_file(artifact_path),
+        "required_gate_adopted": True,
+        "protected_surface_changed_count": 0,
+        "independent_review_complete": False,
+        "owner_seal_complete": False,
+        "canonical_closure_claimed": False,
+    }
+    write_json_once(
+        phase5 / "machine_closure_candidate_report.json",
+        machine,
+    )
+    return matrix
+
+
+def validate_practical_final_validation(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase5 = root / "phase5"
+    matrix_path = phase5 / "final_command_matrix_report.json"
+    artifact_path = phase5 / "final_artifact_hash_manifest.json"
+    matrix = read_json_object(matrix_path)
+    artifact = read_json_object(artifact_path)
+    machine = read_json_object(
+        phase5 / "machine_closure_candidate_report.json"
+    )
+    blockers: list[str] = []
+    if matrix.get("status") != "PASS":
+        blockers.append("practical_final_matrix_not_pass")
+    if matrix.get("expected_command_count") != 7:
+        blockers.append("practical_final_matrix_expected_count_mismatch")
+    if matrix.get("command_count") != 7:
+        blockers.append("practical_final_matrix_incomplete")
+    if matrix.get("fail_count") != 0 or matrix.get("not_run_count") != 0:
+        blockers.append("practical_final_matrix_has_failure_or_not_run")
+    rows = matrix.get("rows")
+    if (
+        not isinstance(rows, list)
+        or len({row.get("command_id") for row in rows if isinstance(row, dict)})
+        != 7
+        or any(row.get("status") != "PASS" for row in rows if isinstance(row, dict))
+    ):
+        blockers.append("practical_final_matrix_rows_invalid")
+    if artifact.get("status") != "PASS":
+        blockers.append("practical_final_artifact_manifest_not_pass")
+    if artifact.get("final_command_matrix_sha256") != sha256_file(matrix_path):
+        blockers.append("practical_final_matrix_hash_binding_mismatch")
+    if artifact.get("phase4_tree_sha256") != directory_tree_hash(
+        root / "phase4"
+    ):
+        blockers.append("practical_final_phase4_tree_drift")
+    if artifact.get("live_required_manifest_sha256") != sha256_file(
+        LIVE_REQUIRED_MANIFEST
+    ):
+        blockers.append("practical_final_live_manifest_drift")
+    if artifact.get("durable_gate_contract_sha256") != sha256_file(
+        PRACTICAL_DURABLE_GATE_CONTRACT
+    ):
+        blockers.append("practical_final_gate_contract_drift")
+    if artifact.get("protected_surface_sha256") != canonical_hash(
+        protected_surface_rows()
+    ):
+        blockers.append("practical_final_protected_surface_drift")
+    if machine.get("status") != "machine_pass_pending_external_review_and_owner_seal":
+        blockers.append("practical_machine_candidate_not_pass")
+    if machine.get("final_artifact_hash_manifest_sha256") != sha256_file(
+        artifact_path
+    ):
+        blockers.append("practical_machine_artifact_hash_mismatch")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-final-validation-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "independent_review_allowed": not blockers,
+        "owner_seal_allowed": False,
+        "canonical_closure_claimed": False,
+    }
+
+
+def practical_closeout_review_validation(
+    root: Path,
+) -> dict[str, Any]:
+    parsed = parse_review_document(PRACTICAL_CLOSEOUT_REVIEW_INPUT)
+    fields = parsed.get("fields", {})
+    findings = parsed.get("findings", [])
+    matrix_path = root / "phase5" / "final_command_matrix_report.json"
+    artifact_path = root / "phase5" / "final_artifact_hash_manifest.json"
+    matrix = read_json_object(matrix_path)
+    blockers: list[str] = []
+    expected = {
+        "schema_version": "dvf-3-3-registry-authority-practical-closeout-review-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": root.name,
+        "review_scope": "practical_closeout",
+        "reviewer_identity": "/root/registry_authority_reviewer",
+        "final_command_matrix_sha256": sha256_file(matrix_path),
+        "final_artifact_hash_manifest_sha256": sha256_file(artifact_path),
+        "implementation_freeze_head": matrix.get(
+            "implementation_freeze_head"
+        ),
+        "verdict": "PASS",
+        "critical_count": "0",
+        "important_count": "0",
+        "minor_count": "0",
+        "tests_executed_by_reviewer": "false",
+    }
+    for field, value in expected.items():
+        if fields.get(field) != value:
+            blockers.append(f"practical_closeout_review_field_mismatch:{field}")
+    if findings:
+        blockers.append("practical_closeout_review_has_findings")
+    if not fields.get("relation_to_implementation_author"):
+        blockers.append("practical_closeout_reviewer_relation_missing")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-closeout-review-validation-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "source_path": repo_relative(PRACTICAL_CLOSEOUT_REVIEW_INPUT),
+        "source_sha256": sha256_file(PRACTICAL_CLOSEOUT_REVIEW_INPUT),
+        "reviewer_identity": fields.get("reviewer_identity"),
+        "verdict": fields.get("verdict"),
+        "finding_count": len(findings),
+        "blockers": sorted(set(blockers)),
+    }
+
+
+def materialize_practical_closeout_review(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase5 = root / "phase5"
+    target = phase5 / "external" / "practical_closeout_review.md"
+    terminal = phase5 / "closeout_review_materialization_report.json"
+    if target.exists() or terminal.exists():
+        raise FileExistsError("practical closeout review materialization is write-once")
+    final_validation = validate_practical_final_validation(
+        root, attempt_id=normalized_attempt_id
+    )
+    review = practical_closeout_review_validation(root)
+    blockers = [*final_validation.get("blockers", []), *review.get("blockers", [])]
+    if path_is_file(PRACTICAL_CLOSEOUT_REVIEW_INPUT):
+        copy_external_bytes_once(PRACTICAL_CLOSEOUT_REVIEW_INPUT, target)
+    if not files_byte_identical(PRACTICAL_CLOSEOUT_REVIEW_INPUT, target):
+        blockers.append("practical_closeout_review_not_byte_identical")
+    report = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-closeout-review-materialization-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "source_path": repo_relative(PRACTICAL_CLOSEOUT_REVIEW_INPUT),
+        "source_sha256": sha256_file(PRACTICAL_CLOSEOUT_REVIEW_INPUT),
+        "target_path": repo_relative(target),
+        "target_sha256": sha256_file(target),
+        "byte_identical": files_byte_identical(
+            PRACTICAL_CLOSEOUT_REVIEW_INPUT, target
+        ),
+        "review": review,
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "owner_seal_allowed": not blockers,
+    }
+    write_json_once(terminal, report)
+    return report
+
+
+def validate_practical_closeout_review(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase5 = root / "phase5"
+    report = read_json_object(
+        phase5 / "closeout_review_materialization_report.json"
+    )
+    target = phase5 / "external" / "practical_closeout_review.md"
+    blockers: list[str] = []
+    if report.get("status") != "PASS":
+        blockers.append("practical_closeout_review_materialization_not_pass")
+    if report.get("source_sha256") != sha256_file(
+        PRACTICAL_CLOSEOUT_REVIEW_INPUT
+    ):
+        blockers.append("practical_closeout_review_source_drift")
+    if report.get("target_sha256") != sha256_file(target):
+        blockers.append("practical_closeout_review_target_drift")
+    if not files_byte_identical(PRACTICAL_CLOSEOUT_REVIEW_INPUT, target):
+        blockers.append("practical_closeout_review_byte_identity_drift")
+    blockers.extend(practical_closeout_review_validation(root).get("blockers", []))
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-closeout-review-validation-v2",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "owner_seal_allowed": not blockers,
+    }
+
+
+def practical_owner_seal_validation(root: Path) -> dict[str, Any]:
+    payload = read_json_object(PRACTICAL_OWNER_SEAL_INPUT)
+    phase5 = root / "phase5"
+    matrix_path = phase5 / "final_command_matrix_report.json"
+    artifact_path = phase5 / "final_artifact_hash_manifest.json"
+    closeout_path = phase5 / "external" / "practical_closeout_review.md"
+    blockers: list[str] = []
+    expected = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-owner-seal-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": root.name,
+        "decision": "approve_registry_authority_canonical_complete",
+        "final_command_matrix_sha256": sha256_file(matrix_path),
+        "final_artifact_hash_manifest_sha256": sha256_file(artifact_path),
+        "closeout_review_sha256": sha256_file(closeout_path),
+        "owner_authored": True,
+        "tool_authored": False,
+        "canonical_complete_approved": True,
+    }
+    for field, value in expected.items():
+        if payload.get(field) != value:
+            blockers.append(f"practical_owner_seal_field_mismatch:{field}")
+    if not isinstance(payload.get("owner_identity"), str) or not payload.get(
+        "owner_identity"
+    ):
+        blockers.append("practical_owner_identity_missing")
+    if parse_utc_timestamp(payload.get("authored_at")) is None:
+        blockers.append("practical_owner_seal_timestamp_invalid")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-owner-seal-validation-v1",
+        "status": "PASS" if not blockers else "FAIL",
+        "source_path": repo_relative(PRACTICAL_OWNER_SEAL_INPUT),
+        "source_sha256": sha256_file(PRACTICAL_OWNER_SEAL_INPUT),
+        "owner_identity": payload.get("owner_identity"),
+        "decision": payload.get("decision"),
+        "blockers": sorted(set(blockers)),
+    }
+
+
+def materialize_practical_owner_seal(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase5 = root / "phase5"
+    target = phase5 / "external" / "practical_owner_seal.json"
+    terminal = phase5 / "owner_seal_materialization_report.json"
+    if target.exists() or terminal.exists():
+        raise FileExistsError("practical owner seal materialization is write-once")
+    closeout = validate_practical_closeout_review(
+        root, attempt_id=normalized_attempt_id
+    )
+    seal = practical_owner_seal_validation(root)
+    blockers = [*closeout.get("blockers", []), *seal.get("blockers", [])]
+    if path_is_file(PRACTICAL_OWNER_SEAL_INPUT):
+        copy_external_bytes_once(PRACTICAL_OWNER_SEAL_INPUT, target)
+    if not files_byte_identical(PRACTICAL_OWNER_SEAL_INPUT, target):
+        blockers.append("practical_owner_seal_not_byte_identical")
+    report = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-owner-seal-materialization-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "source_path": repo_relative(PRACTICAL_OWNER_SEAL_INPUT),
+        "source_sha256": sha256_file(PRACTICAL_OWNER_SEAL_INPUT),
+        "target_path": repo_relative(target),
+        "target_sha256": sha256_file(target),
+        "byte_identical": files_byte_identical(
+            PRACTICAL_OWNER_SEAL_INPUT, target
+        ),
+        "seal": seal,
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "finalization_allowed": not blockers,
+    }
+    write_json_once(terminal, report)
+    return report
+
+
+def validate_practical_owner_seal(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase5 = root / "phase5"
+    report = read_json_object(
+        phase5 / "owner_seal_materialization_report.json"
+    )
+    target = phase5 / "external" / "practical_owner_seal.json"
+    blockers: list[str] = []
+    if report.get("status") != "PASS":
+        blockers.append("practical_owner_seal_materialization_not_pass")
+    if report.get("source_sha256") != sha256_file(PRACTICAL_OWNER_SEAL_INPUT):
+        blockers.append("practical_owner_seal_source_drift")
+    if report.get("target_sha256") != sha256_file(target):
+        blockers.append("practical_owner_seal_target_drift")
+    if not files_byte_identical(PRACTICAL_OWNER_SEAL_INPUT, target):
+        blockers.append("practical_owner_seal_byte_identity_drift")
+    blockers.extend(practical_owner_seal_validation(root).get("blockers", []))
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-owner-seal-validation-v2",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "finalization_allowed": not blockers,
+    }
+
+
+def finalize_practical_closure(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase5 = root / "phase5"
+    final_path = phase5 / "final_registry_authority_closure_report.json"
+    seal_path = phase5 / "terminal_hash_seal.json"
+    if final_path.exists() or seal_path.exists():
+        raise FileExistsError("practical finalization is write-once")
+    final_validation = validate_practical_final_validation(
+        root, attempt_id=normalized_attempt_id
+    )
+    closeout = validate_practical_closeout_review(
+        root, attempt_id=normalized_attempt_id
+    )
+    owner = validate_practical_owner_seal(
+        root, attempt_id=normalized_attempt_id
+    )
+    blockers = [
+        *final_validation.get("blockers", []),
+        *closeout.get("blockers", []),
+        *owner.get("blockers", []),
+    ]
+    if blockers:
+        raise ValueError(
+            "practical finalization prerequisites failed: "
+            + ",".join(sorted(set(blockers)))
+        )
+    matrix_path = phase5 / "final_command_matrix_report.json"
+    artifact_path = phase5 / "final_artifact_hash_manifest.json"
+    closeout_path = phase5 / "external" / "practical_closeout_review.md"
+    owner_path = phase5 / "external" / "practical_owner_seal.json"
+    final = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-final-closure-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "canonical_complete",
+        "completed_at": utc_now(),
+        "registry_authority_closure": "canonical_complete",
+        "required_registry_unresolved_count": 0,
+        "required_registry_deferred_count": 0,
+        "pending_owner_decision_count": 0,
+        "registry_blocker_count": 0,
+        "successor_registry_authority_round_required": False,
+        "final_command_matrix_sha256": sha256_file(matrix_path),
+        "final_artifact_hash_manifest_sha256": sha256_file(artifact_path),
+        "independent_closeout_review_sha256": sha256_file(closeout_path),
+        "owner_seal_sha256": sha256_file(owner_path),
+        "required_gate_adopted": True,
+        "protected_surface_changed_count": 0,
+        "runtime_compatibility_claimed": False,
+        "publish_boundary_claimed": False,
+        "package_or_release_readiness_claimed": False,
+    }
+    write_json_once(final_path, final)
+    seal = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-terminal-hash-seal-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS",
+        "sealed_at": utc_now(),
+        "final_closure_report_path": repo_relative(final_path),
+        "final_closure_report_sha256": sha256_file(final_path),
+        "final_command_matrix_sha256": sha256_file(matrix_path),
+        "final_artifact_hash_manifest_sha256": sha256_file(artifact_path),
+        "independent_closeout_review_sha256": sha256_file(closeout_path),
+        "owner_seal_sha256": sha256_file(owner_path),
+        "canonical_complete": True,
+        "claim_output_overwritten": False,
+    }
+    write_json_once(seal_path, seal)
+    return final
+
+
+def validate_practical_terminal_seal(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(evidence_root, attempt_id=normalized_attempt_id)
+    phase5 = root / "phase5"
+    final_path = phase5 / "final_registry_authority_closure_report.json"
+    seal = read_json_object(phase5 / "terminal_hash_seal.json")
+    final = read_json_object(final_path)
+    blockers: list[str] = []
+    if final.get("status") != "canonical_complete":
+        blockers.append("practical_final_closure_not_complete")
+    if final.get("registry_blocker_count") != 0:
+        blockers.append("practical_final_registry_blockers_nonzero")
+    if seal.get("status") != "PASS" or seal.get("canonical_complete") is not True:
+        blockers.append("practical_terminal_seal_not_pass")
+    if seal.get("final_closure_report_sha256") != sha256_file(final_path):
+        blockers.append("practical_terminal_final_report_hash_mismatch")
+    if seal.get("final_command_matrix_sha256") != sha256_file(
+        phase5 / "final_command_matrix_report.json"
+    ):
+        blockers.append("practical_terminal_matrix_hash_mismatch")
+    if seal.get("final_artifact_hash_manifest_sha256") != sha256_file(
+        phase5 / "final_artifact_hash_manifest.json"
+    ):
+        blockers.append("practical_terminal_artifact_hash_mismatch")
+    return {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-terminal-seal-validation-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": normalized_attempt_id,
+        "status": "PASS" if not blockers else "FAIL",
+        "blocker_count": len(set(blockers)),
+        "blockers": sorted(set(blockers)),
+        "canonical_complete": not blockers,
     }

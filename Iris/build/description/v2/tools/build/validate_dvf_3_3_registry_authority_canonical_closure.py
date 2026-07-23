@@ -10,6 +10,15 @@ from dvf_3_3_registry_authority_canonical_closure import (
     ROUND_ID,
     validate_execution_entry,
     validate_implementation,
+    validate_practical_closeout_review,
+    validate_practical_final_validation,
+    validate_practical_gate_adoption,
+    validate_practical_gate_candidate,
+    validate_practical_implementation,
+    validate_practical_owner_seal,
+    validate_practical_preflight,
+    validate_practical_review,
+    validate_practical_terminal_seal,
     validate_preflight,
     validate_preimplementation_reviews,
 )
@@ -29,6 +38,15 @@ ALL_REQUIRE_FLAGS = (
     "require-top-doc-owner-application",
     "require-post-external",
     "require-terminal-seal",
+    "require-practical-preflight",
+    "require-practical-review",
+    "require-practical-implementation",
+    "require-practical-gate-candidate",
+    "require-practical-gate-adoption",
+    "require-practical-final-validation",
+    "require-practical-closeout-review",
+    "require-practical-owner-seal",
+    "require-practical-terminal-seal",
 )
 
 
@@ -94,6 +112,51 @@ def main(argv: list[str] | None = None) -> int:
             )
         elif requirement == "require-execution-entry":
             result = validate_execution_entry(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-implementation":
+            if args.attempt_id.endswith("-practical"):
+                result = validate_practical_implementation(
+                    args.evidence_root, attempt_id=args.attempt_id
+                )
+            else:
+                result = validate_implementation(
+                    args.evidence_root, attempt_id=args.attempt_id
+                )
+        elif requirement == "require-practical-preflight":
+            result = validate_practical_preflight(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-practical-review":
+            result = validate_practical_review(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-practical-implementation":
+            result = validate_practical_implementation(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-practical-gate-candidate":
+            result = validate_practical_gate_candidate(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-practical-gate-adoption":
+            result = validate_practical_gate_adoption(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-practical-final-validation":
+            result = validate_practical_final_validation(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-practical-closeout-review":
+            result = validate_practical_closeout_review(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-practical-owner-seal":
+            result = validate_practical_owner_seal(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif requirement == "require-practical-terminal-seal":
+            result = validate_practical_terminal_seal(
                 args.evidence_root, attempt_id=args.attempt_id
             )
         else:

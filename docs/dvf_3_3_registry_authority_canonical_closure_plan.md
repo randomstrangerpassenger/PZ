@@ -84,7 +84,9 @@
    * Codex Reviewer가 Section 0.3의 단일 practical review를 작성한다.
 3. **Implementation**
    * WP-1~WP-7 산출물과 guard를 구현한다.
-   * required manifest/gate/top-doc의 additive tracked 변경도 이 단계에서 완료한다.
+   * required gate candidate를 생성하고 additive diff를 검증한다.
+   * live adoption nonce를 attempt-local write-once consumption record로 먼저 소비한 뒤, 그 exact candidate만 reviewed patch로 required manifest와 durable gate contract에 적용한다. 적용 직후 exact byte/hash 확인 report를 만든다.
+   * top-doc 변경이 필요하면 이 단계에서 완료한다.
    * 구현 단계에서는 테스트를 실행하지 않는다.
 4. **Final validation**
    * 모든 tracked 구현/config/doc 변경이 끝난 뒤 Section 0.5의 명령을 실행한다.
@@ -99,23 +101,29 @@
 
 테스트는 항상 구현·tracked configuration·top-doc 변경이 모두 끝난 뒤 아래 순서에서만 실행한다. 계획에 없는 추가 테스트는 이 행렬이 끝난 뒤 마지막 진단으로만 실행할 수 있으며, 실행 전 사용자에게 알린다.
 
-1. Static/read-only closure validation:
+1. WP-5 contained candidate and negative guard validation:
+
+   * attempt-local contained target에는 authority nonce 없이 candidate를 생성한다.
+   * 동일 명령을 real current/protected target으로 바꾼 negative command가 nonzero로 거부되고 protected hash가 유지됨을 확인한다.
+   * 이 두 executable fixture command는 final command matrix의 첫 두 write-once row다. fixture용 nonce는 발행하지 않는다.
+
+2. Static/read-only closure validation:
 
        uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-implementation
 
-2. Registry closure focused test:
+3. Registry closure focused test:
 
        uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_registry_authority_canonical_closure.py"
 
-3. Adjacent required regressions, exact files selected from the live required manifest:
+4. Adjacent required regressions, exact files selected from the live required manifest:
 
        uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/phase5/current_route_validation_result.json
 
-4. Lua syntax:
+5. Lua syntax:
 
        powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1
 
-5. Final no-mutation, VCS visibility, current-manifest denominator, identity-chain, stale-reentry, and claim-contract validators. 이 단계는 앞 명령들의 fresh receipts를 소비하며 테스트를 다시 실행하지 않는다.
+6. Final no-mutation, VCS visibility, current-manifest denominator, identity-chain, stale-reentry, and claim-contract validators. 이 단계는 앞 명령들의 fresh receipts를 소비하며 테스트를 다시 실행하지 않는다.
 
 모든 명령은 별도 장시간 timeout을 두지 않는다. 실행 후 5초에 최초 상태를 확인하고, 종료할 때까지 10초 이하 간격으로 출력과 프로세스 상태를 점검한다.
 

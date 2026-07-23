@@ -9,9 +9,19 @@ from dvf_3_3_registry_authority_canonical_closure import (
     CYCLE_ID,
     IMPLEMENTED_RUNNER_MODES,
     ROUND_ID,
+    authorize_practical_gate_adoption,
+    confirm_practical_gate_adoption,
+    finalize_practical_closure,
+    materialize_practical_closeout_review,
+    materialize_practical_owner_seal,
+    materialize_practical_review,
     materialize_preimplementation_reviews,
     record_attempt_failure_once,
     run_implementation,
+    run_practical_final_validation,
+    run_practical_gate_candidate,
+    run_practical_implementation,
+    run_practical_preflight,
     run_preflight,
 )
 
@@ -65,8 +75,48 @@ def main(argv: list[str] | None = None) -> int:
             result = materialize_preimplementation_reviews(
                 args.evidence_root, attempt_id=args.attempt_id
             )
-        else:
+        elif args.mode == "implementation":
             result = run_implementation(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-preflight":
+            result = run_practical_preflight(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-materialize-review":
+            result = materialize_practical_review(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-implementation":
+            result = run_practical_implementation(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-gate-candidate":
+            result = run_practical_gate_candidate(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-adopt-gate":
+            result = authorize_practical_gate_adoption(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-confirm-gate-adoption":
+            result = confirm_practical_gate_adoption(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-final-validation":
+            result = run_practical_final_validation(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-materialize-closeout-review":
+            result = materialize_practical_closeout_review(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        elif args.mode == "practical-materialize-owner-seal":
+            result = materialize_practical_owner_seal(
+                args.evidence_root, attempt_id=args.attempt_id
+            )
+        else:
+            result = finalize_practical_closure(
                 args.evidence_root, attempt_id=args.attempt_id
             )
     except Exception as exc:  # fail closed before any positive claim
@@ -103,7 +153,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     emit(result)
-    return 0 if result.get("status") == "PASS" else 2
+    return 0 if result.get("status") in {"PASS", "canonical_complete"} else 2
 
 
 if __name__ == "__main__":

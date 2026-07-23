@@ -7,11 +7,14 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import queue
 import re
 import secrets
 import shutil
 import subprocess
 import sys
+import threading
+import time
 from typing import Any
 import zipfile
 
@@ -143,6 +146,11 @@ PRACTICAL_RETRY_INPUT = (
     / "attempt_registrations"
     / "current_session_practical_retry_record.json"
 )
+PRACTICAL_CORRECTION_INPUT = (
+    OWNER_INPUT_ROOT
+    / "attempt_registrations"
+    / "current_session_practical_post_adoption_correction_record.json"
+)
 INDEPENDENT_REVIEW_INPUT = (
     OWNER_INPUT_ROOT / "independent_reviews" / "current_session_independent_closeout_review.md"
 )
@@ -159,6 +167,7 @@ RESERVED_EXTERNAL_INPUTS = (
     *PREIMPLEMENTATION_REVIEW_INPUTS,
     PRACTICAL_REVIEW_INPUT,
     PRACTICAL_RETRY_INPUT,
+    PRACTICAL_CORRECTION_INPUT,
     FOCUSED_TEST_ATTESTATION_INPUT,
     FOCUSED_TEST_FAILURE_INPUT,
     GATE_ADOPTION_INPUT,
@@ -320,6 +329,15 @@ PRACTICAL_REQUIRED_TEST_IDS = (
         "RegistryAuthorityCanonicalClosureImplementationTest."
         "test_wp6_live_denominator_closes_dependencies_and_vcs_inventory"
     ),
+)
+PRACTICAL_FINAL_COMMAND_IDS = (
+    "wp5_contained_candidate_generation",
+    "wp5_unreceipted_real_path_rejection",
+    "require_implementation",
+    "registry_closure_focused_test",
+    "current_route_required_regressions",
+    "lua_syntax",
+    "final_internal_no_mutation_and_binding",
 )
 PRACTICAL_CODE_STATE_PATHS = (
     REPO_ROOT / ".gitignore",
@@ -7522,6 +7540,7 @@ def practical_allowed_status_paths() -> set[str]:
     return {
         repo_relative(PRACTICAL_REVIEW_INPUT),
         repo_relative(PRACTICAL_RETRY_INPUT),
+        repo_relative(PRACTICAL_CORRECTION_INPUT),
         repo_relative(PRACTICAL_CLOSEOUT_REVIEW_INPUT),
         repo_relative(PRACTICAL_OWNER_SEAL_INPUT),
     }
@@ -7745,6 +7764,14 @@ def run_practical_preflight(
         code_state_sha256=code_hash,
     )
     blockers.extend(retry.get("blockers", []))
+    gate_state = practical_live_gate_state()
+    blockers.extend(gate_state.get("blockers", []))
+    correction = practical_correction_validation(
+        attempt_id=normalized_attempt_id,
+        code_state_sha256=code_hash,
+        gate_state=gate_state,
+    )
+    blockers.extend(correction.get("blockers", []))
     report = {
         "schema_version": f"{SCHEMA_PREFIX}-practical-preflight-v1",
         "round_id": ROUND_ID,
@@ -7762,6 +7789,8 @@ def run_practical_preflight(
         "git_status_rows": status_rows,
         "lua_environment": lua_environment_identity(lua),
         "practical_retry": retry,
+        "live_gate_state": gate_state,
+        "post_adoption_correction": correction,
         "missing_required_paths": missing,
         "blockers": sorted(set(blockers)),
         "blocker_count": len(set(blockers)),
@@ -7805,6 +7834,18 @@ def validate_practical_preflight(
     blockers.extend(retry.get("blockers", []))
     if stored.get("practical_retry") != retry:
         blockers.append("practical_preflight_retry_projection_drift")
+    gate_state = practical_live_gate_state()
+    blockers.extend(gate_state.get("blockers", []))
+    correction = practical_correction_validation(
+        attempt_id=normalized_attempt_id,
+        code_state_sha256=str(stored.get("code_state_sha256")),
+        gate_state=gate_state,
+    )
+    blockers.extend(correction.get("blockers", []))
+    if stored.get("live_gate_state") != gate_state:
+        blockers.append("practical_preflight_gate_state_projection_drift")
+    if stored.get("post_adoption_correction") != correction:
+        blockers.append("practical_preflight_correction_projection_drift")
     return {
         "schema_version": f"{SCHEMA_PREFIX}-practical-preflight-validation-v1",
         "round_id": ROUND_ID,
@@ -7849,6 +7890,26 @@ def validate_practical_preflight_snapshot(
     blockers.extend(retry.get("blockers", []))
     if stored.get("practical_retry") != retry:
         blockers.append("practical_preflight_snapshot_retry_projection_drift")
+    gate_state = practical_live_gate_state()
+    blockers.extend(gate_state.get("blockers", []))
+    stored_gate_state = stored.get("live_gate_state")
+    same_attempt_initial_adoption = (
+        isinstance(stored_gate_state, dict)
+        and stored_gate_state.get("status") == "NOT_ADOPTED"
+        and gate_state.get("status") == "ADOPTED_EXACT"
+        and gate_state.get("source_attempt_id") == attempt_id
+    )
+    if not same_attempt_initial_adoption:
+        correction = practical_correction_validation(
+            attempt_id=attempt_id,
+            code_state_sha256=str(stored.get("code_state_sha256")),
+            gate_state=gate_state,
+        )
+        blockers.extend(correction.get("blockers", []))
+        if stored_gate_state != gate_state:
+            blockers.append("practical_preflight_snapshot_gate_state_drift")
+        if stored.get("post_adoption_correction") != correction:
+            blockers.append("practical_preflight_snapshot_correction_drift")
     _, status_blockers = practical_status_blockers()
     blockers.extend(status_blockers)
     return {
@@ -8239,6 +8300,226 @@ def build_practical_gate_contract(*, attempt_id: str) -> dict[str, Any]:
     }
 
 
+def practical_live_gate_state() -> dict[str, Any]:
+    live = read_json_object(LIVE_REQUIRED_MANIFEST)
+    artifacts = live.get("required_artifacts")
+    tests = live.get("required_tests")
+    artifact_row, test_rows = practical_gate_rows()
+    contract_present = path_is_file(PRACTICAL_DURABLE_GATE_CONTRACT)
+    contract = read_json_object(PRACTICAL_DURABLE_GATE_CONTRACT)
+    if not isinstance(artifacts, list) or not isinstance(tests, list):
+        return {
+            "status": "CONFLICT",
+            "blockers": ["practical_live_gate_manifest_lists_malformed"],
+        }
+    artifact_path_matches = [
+        row
+        for row in artifacts
+        if isinstance(row, dict)
+        and row.get("path") == artifact_row["path"]
+    ]
+    test_match_counts = {
+        row["test_id"]: sum(
+            isinstance(candidate, dict)
+            and candidate.get("test_id") == row["test_id"]
+            for candidate in tests
+        )
+        for row in test_rows
+    }
+    no_gate_rows = not artifact_path_matches and all(
+        count == 0 for count in test_match_counts.values()
+    )
+    if no_gate_rows and not contract_present:
+        return {
+            "status": "NOT_ADOPTED",
+            "source_attempt_id": None,
+            "blockers": [],
+        }
+    source_attempt_id = contract.get("source_attempt_id")
+    contract_matches = (
+        isinstance(source_attempt_id, str)
+        and re.fullmatch(r"attempt-[0-9]{4,}-practical", source_attempt_id)
+        and contract
+        == build_practical_gate_contract(attempt_id=source_attempt_id)
+    )
+    exact_suffix = (
+        artifacts[-1:] == [artifact_row]
+        and tests[-len(test_rows) :] == test_rows
+        and len(artifact_path_matches) == 1
+        and all(count == 1 for count in test_match_counts.values())
+    )
+    blockers: list[str] = []
+    if not exact_suffix:
+        blockers.append("practical_live_gate_rows_not_exact_additive_suffix")
+    if not contract_present or not contract_matches:
+        blockers.append("practical_live_gate_contract_not_exact")
+    return {
+        "status": "ADOPTED_EXACT" if not blockers else "CONFLICT",
+        "source_attempt_id": source_attempt_id,
+        "live_manifest_sha256": sha256_file(LIVE_REQUIRED_MANIFEST),
+        "durable_contract_sha256": sha256_file(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
+        "blockers": blockers,
+    }
+
+
+def practical_correction_validation(
+    *,
+    attempt_id: str,
+    code_state_sha256: str,
+    gate_state: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    observed_gate = gate_state or practical_live_gate_state()
+    payload = read_json_object(PRACTICAL_CORRECTION_INPUT)
+    blockers: list[str] = []
+    if observed_gate.get("status") == "NOT_ADOPTED":
+        if payload:
+            blockers.append("practical_correction_record_unexpected_before_adoption")
+        return {
+            "status": "NOT_APPLICABLE" if not blockers else "FAIL",
+            "correction_record_present": bool(payload),
+            "source_sha256": sha256_file(PRACTICAL_CORRECTION_INPUT),
+            "blockers": blockers,
+        }
+    if observed_gate.get("status") != "ADOPTED_EXACT":
+        blockers.extend(observed_gate.get("blockers", []))
+    if not payload:
+        blockers.append("practical_post_adoption_correction_record_missing")
+        return {
+            "status": "FAIL",
+            "correction_record_present": False,
+            "source_sha256": None,
+            "blockers": sorted(set(blockers)),
+        }
+    predecessor_id = payload.get("predecessor_attempt_id")
+    if (
+        not isinstance(predecessor_id, str)
+        or not re.fullmatch(r"attempt-[0-9]{4,}-practical", predecessor_id)
+        or predecessor_id == attempt_id
+    ):
+        blockers.append("practical_correction_predecessor_invalid")
+        predecessor_root = ATTEMPTS_ROOT / "invalid"
+    else:
+        predecessor_root = ATTEMPTS_ROOT / predecessor_id
+    matrix_path = (
+        predecessor_root / "phase5" / "final_command_matrix_report.json"
+    )
+    exception_path = (
+        predecessor_root
+        / "attempt_failures"
+        / "practical-final-validation.json"
+    )
+    adoption_path = (
+        predecessor_root / "phase4" / "gate_adoption" / "adoption_report.json"
+    )
+    matrix = read_json_object(matrix_path)
+    exception = read_json_object(exception_path)
+    adoption = read_json_object(adoption_path)
+    if matrix.get("status") == "FAIL":
+        failure_kind = "final_command_matrix"
+        failure_path = matrix_path
+        failure_payload = matrix
+        first_failing_predicate = matrix.get("first_failing_predicate")
+        failure_completed_at = matrix.get("completed_at")
+        predecessor_code_state_sha256 = matrix.get(
+            "implementation_freeze_code_state_sha256"
+        )
+    elif (
+        exception.get("status") == "FAIL"
+        and exception.get("mode") == "practical-final-validation"
+    ):
+        failure_kind = "final_validation_exception"
+        failure_path = exception_path
+        failure_payload = exception
+        first_failing_predicate = (
+            f"{exception.get('error_type')}:{exception.get('error')}"
+        )
+        failure_completed_at = exception.get("recorded_at")
+        predecessor_code_state_sha256 = exception.get(
+            "code_state_sha256"
+        )
+    else:
+        failure_kind = None
+        failure_path = matrix_path
+        failure_payload = {}
+        first_failing_predicate = None
+        failure_completed_at = None
+        predecessor_code_state_sha256 = None
+    expected = {
+        "schema_version": f"{SCHEMA_PREFIX}-practical-post-adoption-correction-v1",
+        "cycle_id": CYCLE_ID,
+        "attempt_id": attempt_id,
+        "correction_kind": "post_adoption_new_attempt",
+        "plan_sha256": sha256_file(PLAN_PATH),
+        "code_state_sha256": code_state_sha256,
+        "predecessor_attempt_id": predecessor_id,
+        "predecessor_failure_kind": failure_kind,
+        "predecessor_failure_path": repo_relative(failure_path),
+        "predecessor_failure_sha256": sha256_file(failure_path),
+        "predecessor_plan_sha256": failure_payload.get("plan_sha256"),
+        "predecessor_code_state_sha256": predecessor_code_state_sha256,
+        "predecessor_adoption_report_path": repo_relative(adoption_path),
+        "predecessor_adoption_report_sha256": sha256_file(adoption_path),
+        "predecessor_first_failing_predicate": first_failing_predicate,
+        "rerun_command_ids": list(PRACTICAL_FINAL_COMMAND_IDS),
+        "predecessor_failure_preserved": True,
+        "gate_rewrite_allowed": False,
+        "same_attempt_reuse_allowed": False,
+        "prior_nonce_reuse_allowed": False,
+        "prior_receipt_reuse_allowed": False,
+    }
+    for field, value in expected.items():
+        if payload.get(field) != value:
+            blockers.append(f"practical_correction_field_mismatch:{field}")
+    if not failure_payload:
+        blockers.append("practical_correction_predecessor_failure_missing")
+    if failure_payload.get("attempt_id") != predecessor_id:
+        blockers.append("practical_correction_predecessor_failure_attempt_mismatch")
+    if payload.get(
+        "predecessor_first_failing_predicate"
+    ) != first_failing_predicate:
+        blockers.append("practical_correction_failure_predicate_mismatch")
+    if not first_failing_predicate:
+        blockers.append("practical_correction_predecessor_failure_anchor_missing")
+    if failure_kind == "final_validation_exception" and (
+        exception.get("adoption_nonce_consumed") is not True
+        or exception.get("protected_mutation_count") != 0
+    ):
+        blockers.append("practical_correction_exception_boundary_invalid")
+    if adoption.get("status") != "PASS":
+        blockers.append("practical_correction_predecessor_adoption_not_pass")
+    if adoption.get("required_gate_adopted") is not True:
+        blockers.append("practical_correction_predecessor_gate_not_adopted")
+    if adoption.get("live_manifest_sha256") != observed_gate.get(
+        "live_manifest_sha256"
+    ):
+        blockers.append("practical_correction_live_gate_hash_drift")
+    if adoption.get("durable_contract_sha256") != observed_gate.get(
+        "durable_contract_sha256"
+    ):
+        blockers.append("practical_correction_durable_gate_hash_drift")
+    if payload.get("prior_adoption_nonce") != adoption.get("nonce"):
+        blockers.append("practical_correction_prior_nonce_mismatch")
+    failure_completed = parse_utc_timestamp(failure_completed_at)
+    correction_created = parse_utc_timestamp(payload.get("created_at"))
+    if (
+        failure_completed is None
+        or correction_created is None
+        or correction_created <= failure_completed
+    ):
+        blockers.append("practical_correction_chronology_invalid")
+    return {
+        "status": "PASS" if not blockers else "FAIL",
+        "correction_record_present": True,
+        "source_path": repo_relative(PRACTICAL_CORRECTION_INPUT),
+        "source_sha256": sha256_file(PRACTICAL_CORRECTION_INPUT),
+        "predecessor_attempt_id": predecessor_id,
+        "prior_adoption_nonce": payload.get("prior_adoption_nonce"),
+        "blockers": sorted(set(blockers)),
+    }
+
+
 def run_practical_gate_candidate(
     evidence_root: str | Path | None = None,
     *,
@@ -8271,17 +8552,47 @@ def run_practical_gate_candidate(
     if not isinstance(artifacts, list) or not isinstance(tests, list):
         raise ValueError("live required manifest lists are malformed")
     artifact_row, test_rows = practical_gate_rows()
-    if any(row.get("path") == artifact_row["path"] for row in artifacts if isinstance(row, dict)):
-        raise ValueError("practical required artifact gate already present")
-    existing_test_ids = {
-        row.get("test_id") for row in tests if isinstance(row, dict)
-    }
-    if any(row["test_id"] in existing_test_ids for row in test_rows):
-        raise ValueError("practical required test gate already present")
+    gate_state = practical_live_gate_state()
+    if gate_state.get("status") == "CONFLICT":
+        raise ValueError(
+            "practical live gate state conflicts with candidate: "
+            + ",".join(gate_state.get("blockers", []))
+        )
+    already_adopted = gate_state.get("status") == "ADOPTED_EXACT"
+    correction = practical_correction_validation(
+        attempt_id=normalized_attempt_id,
+        code_state_sha256=str(scope.get("code_state_sha256")),
+        gate_state=gate_state,
+    )
+    if already_adopted and correction.get("status") != "PASS":
+        raise ValueError(
+            "practical post-adoption candidate requires correction lineage: "
+            + ",".join(correction.get("blockers", []))
+        )
     candidate = json.loads(json.dumps(live))
-    candidate["required_artifacts"] = [*artifacts, artifact_row]
-    candidate["required_tests"] = [*tests, *test_rows]
-    contract = build_practical_gate_contract(attempt_id=normalized_attempt_id)
+    if already_adopted:
+        base_artifacts = artifacts[:-1]
+        base_tests = tests[: -len(test_rows)]
+        contract = read_json_object(PRACTICAL_DURABLE_GATE_CONTRACT)
+        adoption_mode = "additive_correction_revalidation"
+    else:
+        base_artifacts = artifacts
+        base_tests = tests
+        candidate["required_artifacts"] = [*artifacts, artifact_row]
+        candidate["required_tests"] = [*tests, *test_rows]
+        contract = build_practical_gate_contract(
+            attempt_id=normalized_attempt_id
+        )
+        adoption_mode = "initial_additive_tracked_commit"
+    reconstructed_base = json.loads(json.dumps(candidate))
+    reconstructed_base["required_artifacts"] = base_artifacts
+    reconstructed_base["required_tests"] = base_tests
+    reconstructed_base_sha256 = sha256_bytes(
+        (
+            json.dumps(reconstructed_base, ensure_ascii=False, indent=2)
+            + "\n"
+        ).encode("utf-8")
+    )
     manifest_path = candidate_root / "current_route_required_validations.json"
     contract_path = candidate_root / PRACTICAL_DURABLE_GATE_CONTRACT.name
     write_text_once(
@@ -8297,8 +8608,13 @@ def run_practical_gate_candidate(
         "attempt_id": normalized_attempt_id,
         "status": "PASS",
         "created_at": utc_now(),
+        "adoption_mode": adoption_mode,
+        "gate_already_adopted_exact": already_adopted,
         "live_manifest_path": repo_relative(LIVE_REQUIRED_MANIFEST),
-        "base_live_manifest_sha256": sha256_file(LIVE_REQUIRED_MANIFEST),
+        "live_manifest_sha256_at_candidate": sha256_file(
+            LIVE_REQUIRED_MANIFEST
+        ),
+        "base_live_manifest_sha256": reconstructed_base_sha256,
         "candidate_manifest_path": repo_relative(manifest_path),
         "candidate_manifest_sha256": sha256_file(manifest_path),
         "candidate_contract_path": repo_relative(contract_path),
@@ -8313,6 +8629,10 @@ def run_practical_gate_candidate(
         "predecessor_rows_preserved_as_exact_prefix": True,
         "added_required_artifact": artifact_row,
         "added_required_tests": test_rows,
+        "gate_contract_source_attempt_id": contract.get(
+            "source_attempt_id"
+        ),
+        "correction_record_sha256": correction.get("source_sha256"),
         "adoption_nonce": nonce,
         "adoption_nonce_consumed": False,
         "protected_surface_changed_count": 0,
@@ -8346,6 +8666,14 @@ def validate_practical_gate_candidate(
         blockers.append("practical_gate_candidate_not_pass")
     if report.get("attempt_id") != normalized_attempt_id:
         blockers.append("practical_gate_candidate_attempt_mismatch")
+    already_adopted = report.get("gate_already_adopted_exact") is True
+    expected_mode = (
+        "additive_correction_revalidation"
+        if already_adopted
+        else "initial_additive_tracked_commit"
+    )
+    if report.get("adoption_mode") != expected_mode:
+        blockers.append("practical_gate_candidate_adoption_mode_mismatch")
     if report.get("candidate_manifest_sha256") != sha256_file(
         candidate_root / "current_route_required_validations.json"
     ):
@@ -8397,11 +8725,43 @@ def validate_practical_gate_candidate(
             blockers.append("practical_gate_candidate_adopted_live_semantic_drift")
     else:
         blockers.append("practical_gate_candidate_live_state_unrecognized")
+    gate_state = practical_live_gate_state()
+    blockers.extend(gate_state.get("blockers", []))
+    if already_adopted:
+        correction = practical_correction_validation(
+            attempt_id=normalized_attempt_id,
+            code_state_sha256=str(
+                read_json_object(
+                    root
+                    / "phase4"
+                    / "practical_implementation_scope_report.json"
+                ).get("code_state_sha256")
+            ),
+            gate_state=gate_state,
+        )
+        blockers.extend(correction.get("blockers", []))
+        if report.get("correction_record_sha256") != correction.get(
+            "source_sha256"
+        ):
+            blockers.append("practical_gate_candidate_correction_hash_drift")
+        if report.get("adoption_nonce") == correction.get(
+            "prior_adoption_nonce"
+        ):
+            blockers.append("practical_gate_candidate_reused_prior_nonce")
+        contract_source_attempt = gate_state.get("source_attempt_id")
+    else:
+        contract_source_attempt = normalized_attempt_id
+        if gate_state.get("status") == "ADOPTED_EXACT" and gate_state.get(
+            "source_attempt_id"
+        ) != normalized_attempt_id:
+            blockers.append("practical_gate_candidate_foreign_adoption")
     expected_contract = build_practical_gate_contract(
-        attempt_id=normalized_attempt_id
+        attempt_id=str(contract_source_attempt)
     )
     if contract != expected_contract:
         blockers.append("practical_gate_candidate_contract_mismatch")
+    if report.get("gate_contract_source_attempt_id") != contract_source_attempt:
+        blockers.append("practical_gate_candidate_contract_source_mismatch")
     nonce = report.get("adoption_nonce")
     if not isinstance(nonce, str) or not re.fullmatch(r"[0-9a-f]{64}", nonce):
         blockers.append("practical_gate_candidate_nonce_invalid")
@@ -8458,9 +8818,19 @@ def authorize_practical_gate_adoption(
         "candidate_contract_sha256": candidate.get(
             "candidate_contract_sha256"
         ),
+        "adoption_mode": candidate.get("adoption_mode"),
+        "correction_record_sha256": candidate.get(
+            "correction_record_sha256"
+        ),
         "same_nonce_reuse_allowed": False,
         "alternate_state_path_allowed": False,
-        "mutation_authorized_pending_exact_apply": True,
+        "mutation_authorized_pending_exact_apply": not candidate.get(
+            "gate_already_adopted_exact"
+        ),
+        "exact_revalidation_authorized": candidate.get(
+            "gate_already_adopted_exact"
+        )
+        is True,
     }
     write_json_once(consumption_path, consumption)
     report = {
@@ -8470,6 +8840,10 @@ def authorize_practical_gate_adoption(
         "attempt_id": normalized_attempt_id,
         "status": "PASS",
         "authorized_at": utc_now(),
+        "adoption_mode": candidate.get("adoption_mode"),
+        "correction_record_sha256": candidate.get(
+            "correction_record_sha256"
+        ),
         "nonce": nonce,
         "nonce_consumption_path": repo_relative(consumption_path),
         "nonce_consumption_sha256": sha256_file(consumption_path),
@@ -8485,9 +8859,15 @@ def authorize_practical_gate_adoption(
         "durable_contract_target": repo_relative(
             PRACTICAL_DURABLE_GATE_CONTRACT
         ),
-        "exact_apply_pending": True,
+        "exact_apply_pending": not candidate.get(
+            "gate_already_adopted_exact"
+        ),
         "tracked_mutation_performed_by_runner": False,
-        "apply_mechanism": "reviewed apply_patch after nonce consumption",
+        "apply_mechanism": (
+            "additive correction revalidation; no gate rewrite"
+            if candidate.get("gate_already_adopted_exact")
+            else "reviewed apply_patch after nonce consumption"
+        ),
     }
     write_json_once(terminal, report)
     return report
@@ -8544,10 +8924,18 @@ def confirm_practical_gate_adoption(
         for line in status_lines
         if status_path(line) not in practical_allowed_status_paths()
     }
-    expected_status_paths = {
-        repo_relative(LIVE_REQUIRED_MANIFEST),
-        repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
-    }
+    correction_revalidation = (
+        candidate.get("adoption_mode")
+        == "additive_correction_revalidation"
+    )
+    expected_status_paths = (
+        set()
+        if correction_revalidation
+        else {
+            repo_relative(LIVE_REQUIRED_MANIFEST),
+            repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
+        }
+    )
     if observed_status_paths != expected_status_paths:
         blockers.append("practical_gate_apply_delta_not_exact")
     report = {
@@ -8557,10 +8945,18 @@ def confirm_practical_gate_adoption(
         "attempt_id": normalized_attempt_id,
         "status": "PASS" if not blockers else "FAIL",
         "confirmed_at": utc_now(),
+        "adoption_mode": candidate.get("adoption_mode"),
+        "correction_record_sha256": candidate.get(
+            "correction_record_sha256"
+        ),
         "required_gate_adopted": not blockers,
         "nonce": candidate.get("adoption_nonce"),
-        "nonce_consumed_before_mutation": True,
+        "nonce_consumed_before_mutation": (
+            None if correction_revalidation else True
+        ),
+        "nonce_consumed_before_revalidation": True,
         "same_nonce_reuse_allowed": False,
+        "gate_rewritten": False if correction_revalidation else True,
         "live_manifest_path": repo_relative(LIVE_REQUIRED_MANIFEST),
         "live_manifest_sha256": sha256_file(LIVE_REQUIRED_MANIFEST),
         "durable_contract_path": repo_relative(
@@ -8632,9 +9028,19 @@ def validate_practical_gate_adoption(
         "candidate_contract_sha256": candidate.get(
             "candidate_contract_sha256"
         ),
+        "adoption_mode": candidate.get("adoption_mode"),
+        "correction_record_sha256": candidate.get(
+            "correction_record_sha256"
+        ),
         "same_nonce_reuse_allowed": False,
         "alternate_state_path_allowed": False,
-        "mutation_authorized_pending_exact_apply": True,
+        "mutation_authorized_pending_exact_apply": not candidate.get(
+            "gate_already_adopted_exact"
+        ),
+        "exact_revalidation_authorized": candidate.get(
+            "gate_already_adopted_exact"
+        )
+        is True,
     }
     for field, value in expected_consumption.items():
         if consumption.get(field) != value:
@@ -8647,6 +9053,12 @@ def validate_practical_gate_adoption(
         blockers.append("practical_gate_authorization_not_pass")
     if authorization.get("nonce") != nonce:
         blockers.append("practical_gate_authorization_nonce_mismatch")
+    if authorization.get("adoption_mode") != candidate.get("adoption_mode"):
+        blockers.append("practical_gate_authorization_mode_mismatch")
+    if authorization.get("correction_record_sha256") != candidate.get(
+        "correction_record_sha256"
+    ):
+        blockers.append("practical_gate_authorization_correction_hash_mismatch")
     if authorization.get("nonce_consumption_sha256") != sha256_file(
         consumption_path
     ):
@@ -8665,6 +9077,24 @@ def validate_practical_gate_adoption(
         blockers.append("practical_gate_not_adopted")
     if report.get("nonce") != nonce:
         blockers.append("practical_gate_adoption_nonce_drift")
+    if report.get("adoption_mode") != candidate.get("adoption_mode"):
+        blockers.append("practical_gate_adoption_mode_drift")
+    if report.get("correction_record_sha256") != candidate.get(
+        "correction_record_sha256"
+    ):
+        blockers.append("practical_gate_adoption_correction_hash_drift")
+    expected_apply_paths = (
+        []
+        if candidate.get("gate_already_adopted_exact")
+        else sorted(
+            {
+                repo_relative(LIVE_REQUIRED_MANIFEST),
+                repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
+            }
+        )
+    )
+    if report.get("apply_status_paths") != expected_apply_paths:
+        blockers.append("practical_gate_adoption_apply_paths_mismatch")
     if report.get("live_manifest_sha256") != sha256_file(
         LIVE_REQUIRED_MANIFEST
     ):
@@ -8689,6 +9119,10 @@ def validate_practical_gate_adoption(
         "status": "PASS" if not blockers else "FAIL",
         "blocker_count": len(set(blockers)),
         "blockers": sorted(set(blockers)),
+        "adoption_mode": report.get("adoption_mode"),
+        "correction_record_sha256": report.get(
+            "correction_record_sha256"
+        ),
         "final_validation_allowed": not blockers,
     }
 
@@ -8702,6 +9136,7 @@ def streamed_command_record(
     expect_zero: bool = True,
 ) -> dict[str, Any]:
     started_at = utc_now()
+    started_monotonic = time.monotonic()
     process = subprocess.Popen(
         argv,
         cwd=REPO_ROOT,
@@ -8713,11 +9148,83 @@ def streamed_command_record(
         bufsize=1,
     )
     output_parts: list[str] = []
+    monitor_checkpoints: list[dict[str, Any]] = []
+    output_queue: queue.Queue[str | None] = queue.Queue()
     assert process.stdout is not None
-    for line in process.stdout:
-        output_parts.append(line)
-        print(f"[{command_id}] {line}", end="", file=sys.stderr, flush=True)
+
+    def read_output() -> None:
+        try:
+            for line in process.stdout:
+                output_queue.put(line)
+        finally:
+            output_queue.put(None)
+
+    reader = threading.Thread(
+        target=read_output,
+        name=f"{command_id}-stdout-reader",
+        daemon=True,
+    )
+    reader.start()
+    reader_done = False
+    next_checkpoint = started_monotonic + 5.0
+    while True:
+        now = time.monotonic()
+        wait_seconds = max(0.0, next_checkpoint - now)
+        try:
+            item = output_queue.get(timeout=wait_seconds)
+        except queue.Empty:
+            item = ""
+        if item is None:
+            reader_done = True
+        elif item:
+            output_parts.append(item)
+            print(
+                f"[{command_id}] {item}",
+                end="",
+                file=sys.stderr,
+                flush=True,
+            )
+        now = time.monotonic()
+        exit_code = process.poll()
+        if now >= next_checkpoint and exit_code is None:
+            checkpoint = {
+                "observed_at": utc_now(),
+                "elapsed_seconds": round(now - started_monotonic, 3),
+                "pid": process.pid,
+                "process_status": "running",
+            }
+            monitor_checkpoints.append(checkpoint)
+            print(
+                f"[{command_id}] heartbeat "
+                f"elapsed={checkpoint['elapsed_seconds']}s "
+                f"pid={process.pid} status=running",
+                file=sys.stderr,
+                flush=True,
+            )
+            next_checkpoint = now + 10.0
+        if reader_done and exit_code is not None:
+            break
+    reader.join()
     exit_code = process.wait()
+    finished_monotonic = time.monotonic()
+    monitor_checkpoints.append(
+        {
+            "observed_at": utc_now(),
+            "elapsed_seconds": round(
+                finished_monotonic - started_monotonic, 3
+            ),
+            "pid": process.pid,
+            "process_status": "completed",
+            "exit_code": exit_code,
+        }
+    )
+    print(
+        f"[{command_id}] completed "
+        f"elapsed={monitor_checkpoints[-1]['elapsed_seconds']}s "
+        f"pid={process.pid} exit={exit_code}",
+        file=sys.stderr,
+        flush=True,
+    )
     output = "".join(output_parts)
     passed = exit_code == 0 if expect_zero else exit_code != 0
     tests_match = re.search(r"Ran\s+(\d+)\s+tests?\s+in\s+([0-9.]+)s", output)
@@ -8739,6 +9246,13 @@ def streamed_command_record(
         "test_reported_duration_seconds": (
             float(tests_match.group(2)) if tests_match else None
         ),
+        "monitoring_policy": {
+            "process_timeout_seconds": None,
+            "first_checkpoint_after_seconds": 5,
+            "maximum_running_checkpoint_interval_seconds": 10,
+            "nonblocking_output_drain": True,
+        },
+        "monitor_checkpoints": monitor_checkpoints,
         "failure_category": None if passed else "command_failed",
         "first_failing_predicate": None if passed else command_id,
         "claim_output_overwritten": False,
@@ -9088,10 +9602,15 @@ def run_practical_final_validation(
     committed_delta = run_git(
         "diff", "--name-only", f"{implementation_head}..HEAD"
     )
-    expected_gate_paths = {
-        repo_relative(LIVE_REQUIRED_MANIFEST),
-        repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
-    }
+    expected_gate_paths = (
+        set()
+        if adoption.get("adoption_mode")
+        == "additive_correction_revalidation"
+        else {
+            repo_relative(LIVE_REQUIRED_MANIFEST),
+            repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
+        }
+    )
     actual_gate_paths = {
         line.strip().replace("\\", "/")
         for line in committed_delta.get("stdout", "").splitlines()
@@ -9203,6 +9722,10 @@ def run_practical_final_validation(
         "completed_at": utc_now(),
         "plan_sha256": sha256_file(PLAN_PATH),
         "execution_base_commit": implementation_head,
+        "adoption_mode": adoption.get("adoption_mode"),
+        "correction_record_sha256": adoption.get(
+            "correction_record_sha256"
+        ),
         "implementation_freeze_head": freeze_head,
         "implementation_freeze_code_state_rows": freeze_code_rows,
         "implementation_freeze_code_state_sha256": freeze_code_hash,
@@ -9231,6 +9754,10 @@ def run_practical_final_validation(
         "cycle_id": CYCLE_ID,
         "attempt_id": normalized_attempt_id,
         "status": "PASS",
+        "adoption_mode": adoption.get("adoption_mode"),
+        "correction_record_sha256": adoption.get(
+            "correction_record_sha256"
+        ),
         "implementation_freeze_head": freeze_head,
         "implementation_freeze_code_state_sha256": freeze_code_hash,
         "phase4_tree_sha256": directory_tree_hash(root / "phase4"),
@@ -9254,6 +9781,10 @@ def run_practical_final_validation(
         "cycle_id": CYCLE_ID,
         "attempt_id": normalized_attempt_id,
         "status": "machine_pass_pending_external_review_and_owner_seal",
+        "adoption_mode": adoption.get("adoption_mode"),
+        "correction_record_sha256": adoption.get(
+            "correction_record_sha256"
+        ),
         "final_command_matrix_sha256": sha256_file(terminal),
         "final_artifact_hash_manifest_sha256": sha256_file(artifact_path),
         "required_gate_adopted": True,
@@ -9303,15 +9834,7 @@ def validate_practical_final_validation(
     if matrix.get("fail_count") != 0 or matrix.get("not_run_count") != 0:
         blockers.append("practical_final_matrix_has_failure_or_not_run")
     rows = matrix.get("rows")
-    expected_ids = [
-        "wp5_contained_candidate_generation",
-        "wp5_unreceipted_real_path_rejection",
-        "require_implementation",
-        "registry_closure_focused_test",
-        "current_route_required_regressions",
-        "lua_syntax",
-        "final_internal_no_mutation_and_binding",
-    ]
+    expected_ids = list(PRACTICAL_FINAL_COMMAND_IDS)
     if (
         not isinstance(rows, list)
         or [row.get("command_id") for row in rows if isinstance(row, dict)]
@@ -9333,6 +9856,12 @@ def validate_practical_final_validation(
         "implementation_head"
     ):
         blockers.append("practical_final_matrix_base_binding_mismatch")
+    if matrix.get("adoption_mode") != adoption.get("adoption_mode"):
+        blockers.append("practical_final_matrix_adoption_mode_drift")
+    if matrix.get("correction_record_sha256") != adoption.get(
+        "correction_record_sha256"
+    ):
+        blockers.append("practical_final_matrix_correction_hash_drift")
     if parse_utc_timestamp(matrix.get("recorded_at")) is None:
         blockers.append("practical_final_matrix_recorded_at_invalid")
     freeze_head = matrix.get("implementation_freeze_head")
@@ -9358,10 +9887,15 @@ def validate_practical_final_validation(
         for line in committed_delta.get("stdout", "").splitlines()
         if line.strip()
     }
-    expected_delta_paths = {
-        repo_relative(LIVE_REQUIRED_MANIFEST),
-        repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
-    }
+    expected_delta_paths = (
+        set()
+        if adoption.get("adoption_mode")
+        == "additive_correction_revalidation"
+        else {
+            repo_relative(LIVE_REQUIRED_MANIFEST),
+            repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
+        }
+    )
     if (
         committed_delta.get("exit_code") != 0
         or actual_delta_paths != expected_delta_paths
@@ -9404,6 +9938,49 @@ def validate_practical_final_validation(
         if stored_row.get("status") != "PASS":
             blockers.append(f"practical_final_receipt_not_pass:{command_id}")
         if command_id != "final_internal_no_mutation_and_binding":
+            expected_monitoring_policy = {
+                "process_timeout_seconds": None,
+                "first_checkpoint_after_seconds": 5,
+                "maximum_running_checkpoint_interval_seconds": 10,
+                "nonblocking_output_drain": True,
+            }
+            if stored_row.get("monitoring_policy") != (
+                expected_monitoring_policy
+            ):
+                blockers.append(
+                    f"practical_final_receipt_monitoring_policy_drift:{command_id}"
+                )
+            checkpoints = stored_row.get("monitor_checkpoints")
+            if (
+                not isinstance(checkpoints, list)
+                or not checkpoints
+                or checkpoints[-1].get("process_status") != "completed"
+                or checkpoints[-1].get("exit_code")
+                != stored_row.get("exit_code")
+            ):
+                blockers.append(
+                    f"practical_final_receipt_monitoring_incomplete:{command_id}"
+                )
+                checkpoints = []
+            running_elapsed = [
+                row.get("elapsed_seconds")
+                for row in checkpoints
+                if isinstance(row, dict)
+                and row.get("process_status") == "running"
+                and isinstance(row.get("elapsed_seconds"), (int, float))
+            ]
+            if running_elapsed and (
+                running_elapsed[0] > 6.0
+                or any(
+                    later - earlier > 10.5
+                    for earlier, later in zip(
+                        running_elapsed, running_elapsed[1:]
+                    )
+                )
+            ):
+                blockers.append(
+                    f"practical_final_receipt_monitoring_interval_invalid:{command_id}"
+                )
             if stored_row.get("exit_code") != 0 and command_id != (
                 "wp5_unreceipted_real_path_rejection"
             ):
@@ -9443,6 +10020,12 @@ def validate_practical_final_validation(
         blockers.append("practical_final_current_route_result_not_pass")
     if artifact.get("status") != "PASS":
         blockers.append("practical_final_artifact_manifest_not_pass")
+    if artifact.get("adoption_mode") != adoption.get("adoption_mode"):
+        blockers.append("practical_final_artifact_adoption_mode_drift")
+    if artifact.get("correction_record_sha256") != adoption.get(
+        "correction_record_sha256"
+    ):
+        blockers.append("practical_final_artifact_correction_hash_drift")
     if artifact.get("final_command_matrix_sha256") != sha256_file(matrix_path):
         blockers.append("practical_final_matrix_hash_binding_mismatch")
     if artifact.get("phase4_tree_sha256") != directory_tree_hash(
@@ -9463,6 +10046,12 @@ def validate_practical_final_validation(
         blockers.append("practical_final_protected_surface_drift")
     if machine.get("status") != "machine_pass_pending_external_review_and_owner_seal":
         blockers.append("practical_machine_candidate_not_pass")
+    if machine.get("adoption_mode") != adoption.get("adoption_mode"):
+        blockers.append("practical_machine_adoption_mode_drift")
+    if machine.get("correction_record_sha256") != adoption.get(
+        "correction_record_sha256"
+    ):
+        blockers.append("practical_machine_correction_hash_drift")
     if machine.get("final_artifact_hash_manifest_sha256") != sha256_file(
         artifact_path
     ):
@@ -9779,6 +10368,7 @@ def finalize_practical_closure(
         )
     matrix_path = phase5 / "final_command_matrix_report.json"
     artifact_path = phase5 / "final_artifact_hash_manifest.json"
+    matrix = read_json_object(matrix_path)
     closeout_path = phase5 / "external" / "practical_closeout_review.md"
     owner_path = phase5 / "external" / "practical_owner_seal.json"
     final = {
@@ -9788,6 +10378,10 @@ def finalize_practical_closure(
         "attempt_id": normalized_attempt_id,
         "status": "canonical_complete",
         "completed_at": utc_now(),
+        "adoption_mode": matrix.get("adoption_mode"),
+        "correction_record_sha256": matrix.get(
+            "correction_record_sha256"
+        ),
         "registry_authority_closure": "canonical_complete",
         "required_registry_unresolved_count": 0,
         "required_registry_deferred_count": 0,
@@ -9812,6 +10406,10 @@ def finalize_practical_closure(
         "attempt_id": normalized_attempt_id,
         "status": "PASS",
         "sealed_at": utc_now(),
+        "adoption_mode": matrix.get("adoption_mode"),
+        "correction_record_sha256": matrix.get(
+            "correction_record_sha256"
+        ),
         "final_closure_report_path": repo_relative(final_path),
         "final_closure_report_sha256": sha256_file(final_path),
         "final_command_matrix_sha256": sha256_file(matrix_path),
@@ -9836,6 +10434,9 @@ def validate_practical_terminal_seal(
     final_path = phase5 / "final_registry_authority_closure_report.json"
     seal = read_json_object(phase5 / "terminal_hash_seal.json")
     final = read_json_object(final_path)
+    matrix = read_json_object(
+        phase5 / "final_command_matrix_report.json"
+    )
     final_validation = validate_practical_final_validation(
         root, attempt_id=normalized_attempt_id
     )
@@ -9856,6 +10457,18 @@ def validate_practical_terminal_seal(
         blockers.append("practical_final_registry_blockers_nonzero")
     if seal.get("status") != "PASS" or seal.get("canonical_complete") is not True:
         blockers.append("practical_terminal_seal_not_pass")
+    if (
+        final.get("adoption_mode") != matrix.get("adoption_mode")
+        or seal.get("adoption_mode") != matrix.get("adoption_mode")
+    ):
+        blockers.append("practical_terminal_adoption_mode_drift")
+    if (
+        final.get("correction_record_sha256")
+        != matrix.get("correction_record_sha256")
+        or seal.get("correction_record_sha256")
+        != matrix.get("correction_record_sha256")
+    ):
+        blockers.append("practical_terminal_correction_hash_drift")
     if seal.get("final_closure_report_sha256") != sha256_file(final_path):
         blockers.append("practical_terminal_final_report_hash_mismatch")
     if seal.get("final_command_matrix_sha256") != sha256_file(

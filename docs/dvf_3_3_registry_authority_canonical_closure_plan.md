@@ -59,9 +59,11 @@
 * 환경·권한·일시적 fixture 실패로 새 attempt를 만들 때 plan hash와 execution base commit이 같으면 기존 preimplementation review를 참조해 재사용할 수 있다. 새 checkpoint, 새 전체 review, 새 owner approval은 요구하지 않는다.
 * plan 또는 execution base code가 바뀌면 새 checkpoint와 새 Reviewer review가 필요하다. 사용자가 명시적으로 승인한 practical revision은 별도 형식의 중복 plan-approval JSON을 요구하지 않는다.
 * read-only census, static validation, candidate generation에는 nonce/receipt를 요구하지 않는다.
-* nonce는 live current/protected authority를 실제로 바꾸는 adoption에만 사용하며 한 번 소비된 nonce는 성공·부분 실패와 관계없이 재사용하지 않는다.
+* nonce는 live current/protected authority를 실제로 바꾸는 initial adoption 또는 이미 채택된 exact gate의 post-adoption correction re-entry authorization에만 사용하며, 한 번 소비된 nonce는 성공·부분 실패와 관계없이 재사용하지 않는다. correction re-entry nonce는 gate 재작성 권한이 아니다.
 * gate 채택 전 실패 candidate/fixture는 폐기 또는 supersede할 수 있다. 과거 terminal failure record는 삭제하지 않는다.
-* gate 채택 후 correction은 additive correction record와 영향받는 최종 검증 재실행으로 처리한다.
+* gate 채택 후 correction은 새 `attempt_id`의 additive correction record와 영향받는 최종 검증 재실행으로 처리한다. correction record는 이전 FAIL final matrix 또는 final-validation exception record와 adoption report의 path/hash, 이전 attempt id, 첫 실패 predicate, plan/code-state hash, 전체 재실행 command id를 결속한다.
+* 이미 채택된 gate가 exact candidate와 일치하면 correction attempt는 gate row나 contract를 다시 쓰거나 중복 추가하지 않는다. 새 nonce를 소비해 `additive_correction_revalidation` 진입을 기록하고, 이전 FAIL evidence를 보존한 채 Final Validation Matrix 7개 행 전체를 새 write-once receipt로 재실행한다.
+* 이미 채택된 gate가 exact candidate와 다르거나 correction lineage가 불완전하면 fail-closed한다. 같은 attempt, 이전 nonce, 이전 receipt, 이전 PASS/FAIL matrix는 재사용하지 않는다.
 
 ### 0.3 Review 모델
 
@@ -79,6 +81,7 @@
    * 기존 attempt의 terminal failure record를 보존한다.
    * practical plan과 구현 코드를 tracked commit에 고정한다.
    * 현재 변경 목록과 protected-surface baseline을 기록한다.
+   * live gate가 이미 채택된 상태라면 이전 FAIL matrix/adoption hash에 결속된 additive correction record를 검증하고, 새 attempt와 새 nonce를 사용한다.
 2. **Practical preflight and review**
    * path 존재, JSON parse, git visibility, protected baseline, required tool capability를 read-only로 검사한다.
    * Codex Reviewer가 Section 0.3의 단일 practical review를 작성한다.
@@ -92,6 +95,7 @@
    * 모든 tracked 구현/config/doc 변경이 끝난 뒤 Section 0.5의 명령을 실행한다.
    * 각 명령은 command, start/end, exit code, PASS/FAIL, 첫 실패 원인을 attempt-local append-only command matrix에 기록한다.
    * 실패하면 해당 attempt를 FAIL로 종결한다. 수정은 새 attempt에서 수행하며 이전 실패 record를 보존한다.
+   * post-adoption correction attempt는 이미 채택된 exact gate를 재작성하지 않고, Section 0.2의 correction lineage를 결속한 뒤 이 행렬 전체를 새 receipt로 실행한다.
 5. **Closeout and seal**
    * final command matrix와 Registry artifact manifest를 hash로 결속한다.
    * Codex Reviewer closeout review를 수행한다.

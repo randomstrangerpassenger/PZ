@@ -9864,6 +9864,7 @@ def isolated_current_route_command_record(
         fixture_validation.get("blockers", [])
     )
     clone_exit_code: int | None = None
+    longpaths_config_exit_code: int | None = None
     checkout_exit_code: int | None = None
     candidate_initial_status: list[str] = []
     candidate_final_status: list[str] = []
@@ -9903,6 +9904,25 @@ def isolated_current_route_command_record(
             raise RuntimeError(
                 "isolated current route clone failed: "
                 + clone.stderr.strip()
+            )
+        longpaths_config = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(candidate_root),
+                "config",
+                "core.longpaths",
+                "true",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        longpaths_config_exit_code = longpaths_config.returncode
+        if longpaths_config.returncode != 0:
+            raise RuntimeError(
+                "isolated current route longpaths config failed: "
+                + longpaths_config.stderr.strip()
             )
         checkout = subprocess.run(
             [
@@ -10117,6 +10137,10 @@ def isolated_current_route_command_record(
         "live_status_after_sha256": canonical_hash(live_status_after),
         "live_status_changed": not live_status_unchanged,
         "clone_exit_code": clone_exit_code,
+        "longpaths_config_exit_code": longpaths_config_exit_code,
+        "longpaths_enabled_in_candidate": (
+            longpaths_config_exit_code == 0
+        ),
         "checkout_exit_code": checkout_exit_code,
         "error": error_text or None,
         "blockers": sorted(set(preparation_blockers)),

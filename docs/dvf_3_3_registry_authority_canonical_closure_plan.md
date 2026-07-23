@@ -1,6 +1,6 @@
 # Implementation Plan
 
-> Status: implementation-authorized / retry-semantics-corrected / cycle-id-attempt-id-separated / write-once-attempt-evidence / failure-laundering-prohibited / entry-deadlock-removed / protected-denominator-and-freshness-closed / external-review-source-recomputed / fixed-review-path-allowlist / candidate-specific-D6-required / real-current-write-disabled / attempt-0009-review-required / execution-blocked-before-WP
+> Status: practical-revision-authorized / core-registry-scope-preserved / audit-control-plane-reduced / final-test-only / failure-laundering-prohibited / implementation-pending
 > 작성일: 2026-07-10
 > Round candidate: dvf_3_3_registry_authority_canonical_closure
 > Roadmap input: C:/Users/MW/.codex/attachments/8d0d9746-0c56-482c-a7ed-e5aca9fedebf/pasted-text.txt / consumed_roadmap_hash=sha256:17C41198E4D35A15743FD6C9F869CA545C5363A3A32EB005DB1E94BC16530ECD / 1482 lines
@@ -23,7 +23,116 @@
 > Attempt evidence root contract: Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/ (write-once; never reused or overwritten)
 > Maximum future execution claim: Registry Authority Closure = canonical_complete
 > Review boundary: machine PASS, independent review PASS, owner seal, and canonical seal are separate non-substitutable axes
-> Execution authorization: 현재 사용자는 이 revised implementation round와 Codex Reviewer 사용을 승인했다. 테스트는 Section 7의 명시된 command boundary에서만 실행한다. candidate-specific required-gate adoption, top-doc 반영, independent review verdict, owner seal, canonical seal은 각각 명시된 외부 입력/검증 경계를 통과해야 한다.
+> Execution authorization: 현재 사용자는 원 계획을 기반으로 한 practical revision의 작성·구현과 Codex Reviewer 사용을 승인했다. 테스트는 아래 Section 0의 Final Validation Matrix에서만, 구현 및 tracked configuration/doc 변경이 끝난 뒤 실행한다.
+
+---
+
+## 0. Practical Execution Profile (Normative Override, 2026-07-23)
+
+이 절은 원 계획의 Registry 기술 범위를 유지하면서 실행·감사 비용을 실무 수준으로 줄이는 규범적 개정이다. 이 절과 뒤 절이 충돌하면 이 절이 우선한다. 뒤 절의 상세 inventory, WP-1~WP-7 기술 요구, 보호 표면, claim/non-claim 경계는 유지하지만, attempt별 승인·review·receipt·attestation·validation 순서는 이 절로 대체한다.
+
+### 0.1 유지하는 핵심 보장
+
+다음 기술 보장은 축소하지 않는다.
+
+* DVF / Registry 책임 및 handoff 경계
+* current-checkout 기반 artifact role census
+* source -> rendered -> bridge -> runtime chunks -> package projection의 단일 identity chain
+* required-validation ownership, denominator, freshness
+* candidate-to-current promotion과 seal/cutover 조건
+* stale/predecessor/current-looking/package fallback reentry guard
+* axis-qualified `Registry Authority PASS`와 금지 claim
+* protected source/rendered/runtime/package payload 무변경
+* 최종 변경 이후 fresh validation
+* independent closeout review와 owner seal의 분리
+
+### 0.2 실무형 evidence와 retry 규칙
+
+핵심 목적은 재시도 금지가 아니라 실패 흔적을 삭제하고 같은 식별자의 PASS로 덮어쓰는 실패 세탁 방지다.
+
+> 같은 cycle의 새 attempt는 허용하되, 같은 attempt의 claim-bearing 산출물 덮어쓰기, 실패 이력 삭제, receipt 재사용은 금지한다.
+
+* 모든 attempt는 새 `attempt_id`와 새 출력 디렉터리를 사용한다.
+* terminal PASS/FAIL, implementation scope, final command receipt, seal receipt는 exclusive-create/write-once다.
+* 실패 attempt는 최소한 attempt id, plan hash, execution base commit, 실패 단계, 명령 또는 predicate, exit/status, 최초 실패 원인, 작성 시각을 담은 terminal failure record를 보존한다.
+* raw transcript hash와 전체 owner-input/evidence tree 연쇄 hash는 확보된 경우 진단 정보로 기록할 수 있지만 completion authority는 아니며 필수 조건도 아니다.
+* 환경·권한·일시적 fixture 실패로 새 attempt를 만들 때 plan hash와 execution base commit이 같으면 기존 preimplementation review를 참조해 재사용할 수 있다. 새 checkpoint, 새 전체 review, 새 owner approval은 요구하지 않는다.
+* plan 또는 execution base code가 바뀌면 새 checkpoint와 새 Reviewer review가 필요하다. 사용자가 명시적으로 승인한 practical revision은 별도 형식의 중복 plan-approval JSON을 요구하지 않는다.
+* read-only census, static validation, candidate generation에는 nonce/receipt를 요구하지 않는다.
+* nonce는 live current/protected authority를 실제로 바꾸는 adoption에만 사용하며 한 번 소비된 nonce는 성공·부분 실패와 관계없이 재사용하지 않는다.
+* gate 채택 전 실패 candidate/fixture는 폐기 또는 supersede할 수 있다. 과거 terminal failure record는 삭제하지 않는다.
+* gate 채택 후 correction은 additive correction record와 영향받는 최종 검증 재실행으로 처리한다.
+
+### 0.3 Review 모델
+
+* 구현 전 Codex Reviewer review는 현재 practical plan hash와 execution base code hash에 대해 한 번 수행한다. Responsibility Boundary, Authority/Evidence Integrity, Adversarial/Failure-Mode 세 관점을 하나의 review artifact에 포함할 수 있다.
+* 단일 review input 경로는 `Iris/build/description/v2/owner_inputs/dvf_3_3_registry_authority_canonical_closure/preimplementation_reviews/current_session_practical_review.md`다. 이 파일은 `plan_sha256`, `execution_base_commit`, 세 관점의 검토 결론, Critical/Important/Minor count, verdict, reviewer identity를 명시한다.
+* Critical 또는 Important finding이 있으면 구현을 시작하지 않는다.
+* plan/code가 바뀌지 않은 환경 전용 retry에는 동일 review를 재사용한다.
+* Reviewer가 각 테스트 프로세스를 직접 실행·관찰하거나 별도 PASS attestation을 작성할 필요는 없다.
+* 구현과 최종 검증이 끝난 뒤 별도의 Codex Reviewer closeout review가 final artifact/command matrix hash에 결속되어야 한다.
+* Reviewer와 자동화 도구는 owner seal을 대신 작성하지 않는다.
+
+### 0.4 실행 단계
+
+1. **Failure preservation and clean base**
+   * 기존 attempt의 terminal failure record를 보존한다.
+   * practical plan과 구현 코드를 tracked commit에 고정한다.
+   * 현재 변경 목록과 protected-surface baseline을 기록한다.
+2. **Practical preflight and review**
+   * path 존재, JSON parse, git visibility, protected baseline, required tool capability를 read-only로 검사한다.
+   * Codex Reviewer가 Section 0.3의 단일 practical review를 작성한다.
+3. **Implementation**
+   * WP-1~WP-7 산출물과 guard를 구현한다.
+   * required manifest/gate/top-doc의 additive tracked 변경도 이 단계에서 완료한다.
+   * 구현 단계에서는 테스트를 실행하지 않는다.
+4. **Final validation**
+   * 모든 tracked 구현/config/doc 변경이 끝난 뒤 Section 0.5의 명령을 실행한다.
+   * 각 명령은 command, start/end, exit code, PASS/FAIL, 첫 실패 원인을 attempt-local append-only command matrix에 기록한다.
+   * 실패하면 해당 attempt를 FAIL로 종결한다. 수정은 새 attempt에서 수행하며 이전 실패 record를 보존한다.
+5. **Closeout and seal**
+   * final command matrix와 Registry artifact manifest를 hash로 결속한다.
+   * Codex Reviewer closeout review를 수행한다.
+   * owner가 최종 hash를 승인한 뒤에만 owner/canonical seal을 생성한다.
+
+### 0.5 Final Validation Matrix
+
+테스트는 항상 구현·tracked configuration·top-doc 변경이 모두 끝난 뒤 아래 순서에서만 실행한다. 계획에 없는 추가 테스트는 이 행렬이 끝난 뒤 마지막 진단으로만 실행할 수 있으며, 실행 전 사용자에게 알린다.
+
+1. Static/read-only closure validation:
+
+       uv run python -B Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_authority_canonical_closure.py --attempt-id <attempt_id> --require-implementation
+
+2. Registry closure focused test:
+
+       uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_registry_authority_canonical_closure.py"
+
+3. Adjacent required regressions, exact files selected from the live required manifest:
+
+       uv run python -B Iris/_docs/round3/round3_run_contract_tests.py --class current --enforce-current-build-closure --out Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/<attempt_id>/phase5/current_route_validation_result.json
+
+4. Lua syntax:
+
+       powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1
+
+5. Final no-mutation, VCS visibility, current-manifest denominator, identity-chain, stale-reentry, and claim-contract validators. 이 단계는 앞 명령들의 fresh receipts를 소비하며 테스트를 다시 실행하지 않는다.
+
+모든 명령은 별도 장시간 timeout을 두지 않는다. 실행 후 5초에 최초 상태를 확인하고, 종료할 때까지 10초 이하 간격으로 출력과 프로세스 상태를 점검한다.
+
+### 0.6 원 계획에서 폐기되는 절차
+
+다음 요구는 practical revision에서 completion predicate가 아니다.
+
+* focused test의 preimplementation 실행
+* Reviewer-authored focused-test PASS/FAIL attestation
+* raw stdout/stderr byte hash의 필수 보존
+* 모든 predecessor owner-input/evidence directory의 완전한 tree-hash chain
+* 환경 전용 retry마다 checkpoint, owner approval, 3개 review를 전면 재생성하는 절차
+* read-only/candidate 단계의 receipt nonce
+* diagnostic projection과 external input 사이의 자기참조 hash binding
+* 하나의 실패가 발생할 때 terminal lifecycle 전체를 처음부터 다시 증명하는 절차
+
+attempt 20~22의 기존 failure evidence는 역사 기록으로 유지하지만 새 practical execution의 authority 입력으로 사용하지 않는다. 기존 Section 4의 Execution Entry Gate, Section 6 Change 0/8의 절차 제어, Section 7의 실행 순서, Section 10의 retry 절차 중 이 절과 충돌하는 항목은 superseded다.
 
 ---
 
@@ -617,6 +726,8 @@ This table records plan revision coverage only. It does not convert the attached
 
 ### Change 0 - Execution Scaffold, Provenance, Review, and Blocker-Zero Gate
 
+> Practical revision note: 이 Change의 Registry path/provenance inventory는 유지하지만 per-attempt external input, 세 개의 별도 review 파일, focused-test attestation, full predecessor tree-hash chain은 Section 0으로 대체한다.
+
 Purpose:
 
 Freeze the plan-derived execution boundary, provide only the minimum non-circular review-materialization/Entry-validation bridge, prove that bridge cannot execute a WP or claim completion, capture the live dirty/protected baseline, and complete the three roadmap-mandated pre-implementation reviews before WP execution.
@@ -1183,6 +1294,8 @@ Validation:
 
 ### Change 8 - Final Rerun, Independent Review, Owner Seal, and Closeout
 
+> Practical revision note: 최종 산출물·independent review·owner seal의 분리는 유지한다. 세분화된 gate-candidate/final-rerun/post-external mode 순서와 test-before-implementation 경계는 Section 0.4~0.5의 Implementation -> Final Validation -> Closeout 순서로 대체한다.
+
 Purpose:
 
 After the last implementation/config change, rerun every required validation, bind claim-bearing artifacts and validation results by hash, obtain eligible external independent review and owner seal, then apply and validate the final top-doc trace under the selected Option B DAG before closing the Registry parent problem.
@@ -1281,6 +1394,8 @@ Validation:
 ---
 
 ## 7. Validation Plan
+
+> Normative order: Section 0.5가 현재 실행 명령과 순서의 authority다. 아래 기존 세부 명령은 coverage inventory와 historical rationale로만 남으며, Section 0.5가 선택하지 않은 명령을 중간에 실행하는 authority가 아니다.
 
 ### Automated Validation
 
@@ -1598,6 +1713,8 @@ Mitigation:
 ---
 
 ## 10. Rollback Plan
+
+> Normative retry rule: Section 0.2가 현재 rollback/retry authority다. 아래 상세 rollback 항목은 기술 복구 참고자료이며, 환경 전용 retry에 checkpoint·owner approval·전체 review 재생성을 강제하지 않는다.
 
 Rollback is governance-scoped containment, not destructive cleanup.
 

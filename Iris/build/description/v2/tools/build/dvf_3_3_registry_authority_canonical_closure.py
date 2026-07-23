@@ -8633,6 +8633,9 @@ def run_practical_gate_candidate(
         "live_manifest_sha256_at_candidate": sha256_file(
             LIVE_REQUIRED_MANIFEST
         ),
+        "live_contract_sha256_at_candidate": sha256_file(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ),
         "base_live_manifest_sha256": sha256_file(
             LIVE_REQUIRED_MANIFEST
         ),
@@ -8780,6 +8783,16 @@ def validate_practical_gate_candidate(
             "prior_adoption_nonce"
         ):
             blockers.append("practical_gate_candidate_reused_prior_nonce")
+        if report.get("live_manifest_sha256_at_candidate") != (
+            gate_state.get("live_manifest_sha256")
+        ):
+            blockers.append("practical_gate_candidate_correction_live_hash_drift")
+        if report.get("live_contract_sha256_at_candidate") != (
+            gate_state.get("durable_contract_sha256")
+        ):
+            blockers.append(
+                "practical_gate_candidate_correction_contract_hash_drift"
+            )
         contract_source_attempt = gate_state.get("source_attempt_id")
     else:
         contract_source_attempt = normalized_attempt_id
@@ -8939,12 +8952,36 @@ def confirm_practical_gate_adoption(
         blockers.append("practical_gate_adoption_not_authorized")
     if authorization.get("nonce") != candidate.get("adoption_nonce"):
         blockers.append("practical_gate_adoption_nonce_mismatch")
-    if not files_byte_identical(candidate_manifest, LIVE_REQUIRED_MANIFEST):
-        blockers.append("practical_gate_live_manifest_not_exact_candidate")
-    if not files_byte_identical(
-        candidate_contract, PRACTICAL_DURABLE_GATE_CONTRACT
-    ):
-        blockers.append("practical_gate_durable_contract_not_exact_candidate")
+    correction_revalidation = (
+        candidate.get("adoption_mode")
+        == "additive_correction_revalidation"
+    )
+    if correction_revalidation:
+        if candidate.get("live_manifest_sha256_at_candidate") != sha256_file(
+            LIVE_REQUIRED_MANIFEST
+        ):
+            blockers.append("practical_gate_correction_live_manifest_byte_drift")
+        if candidate.get("live_contract_sha256_at_candidate") != sha256_file(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ):
+            blockers.append("practical_gate_correction_live_contract_byte_drift")
+        if read_json_object(candidate_manifest) != read_json_object(
+            LIVE_REQUIRED_MANIFEST
+        ):
+            blockers.append("practical_gate_correction_live_manifest_semantic_drift")
+        if read_json_object(candidate_contract) != read_json_object(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ):
+            blockers.append("practical_gate_correction_live_contract_semantic_drift")
+    else:
+        if not files_byte_identical(
+            candidate_manifest, LIVE_REQUIRED_MANIFEST
+        ):
+            blockers.append("practical_gate_live_manifest_not_exact_candidate")
+        if not files_byte_identical(
+            candidate_contract, PRACTICAL_DURABLE_GATE_CONTRACT
+        ):
+            blockers.append("practical_gate_durable_contract_not_exact_candidate")
     scope = read_json_object(
         root / "phase4" / "practical_implementation_scope_report.json"
     )
@@ -8956,10 +8993,6 @@ def confirm_practical_gate_adoption(
         for line in status_lines
         if status_path(line) not in practical_allowed_status_paths()
     }
-    correction_revalidation = (
-        candidate.get("adoption_mode")
-        == "additive_correction_revalidation"
-    )
     expected_status_paths = (
         set()
         if correction_revalidation
@@ -9030,6 +9063,18 @@ def validate_practical_gate_adoption(
     )
     candidate = read_json_object(
         root / "phase4" / "gate_candidate" / "candidate_report.json"
+    )
+    candidate_manifest_path = (
+        root
+        / "phase4"
+        / "gate_candidate"
+        / "current_route_required_validations.json"
+    )
+    candidate_contract_path = (
+        root
+        / "phase4"
+        / "gate_candidate"
+        / PRACTICAL_DURABLE_GATE_CONTRACT.name
     )
     candidate_validation = validate_practical_gate_candidate(
         root, attempt_id=normalized_attempt_id
@@ -9135,14 +9180,24 @@ def validate_practical_gate_adoption(
         PRACTICAL_DURABLE_GATE_CONTRACT
     ):
         blockers.append("practical_gate_contract_hash_drift")
-    if report.get("candidate_manifest_sha256") != sha256_file(
-        LIVE_REQUIRED_MANIFEST
-    ):
-        blockers.append("practical_gate_live_manifest_not_candidate")
-    if report.get("candidate_contract_sha256") != sha256_file(
-        PRACTICAL_DURABLE_GATE_CONTRACT
-    ):
-        blockers.append("practical_gate_contract_not_candidate")
+    if candidate.get("gate_already_adopted_exact"):
+        if read_json_object(candidate_manifest_path) != read_json_object(
+            LIVE_REQUIRED_MANIFEST
+        ):
+            blockers.append("practical_gate_live_manifest_not_candidate_semantic")
+        if read_json_object(candidate_contract_path) != read_json_object(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ):
+            blockers.append("practical_gate_contract_not_candidate_semantic")
+    else:
+        if report.get("candidate_manifest_sha256") != sha256_file(
+            LIVE_REQUIRED_MANIFEST
+        ):
+            blockers.append("practical_gate_live_manifest_not_candidate")
+        if report.get("candidate_contract_sha256") != sha256_file(
+            PRACTICAL_DURABLE_GATE_CONTRACT
+        ):
+            blockers.append("practical_gate_contract_not_candidate")
     return {
         "schema_version": f"{SCHEMA_PREFIX}-practical-gate-adoption-validation-v1",
         "round_id": ROUND_ID,

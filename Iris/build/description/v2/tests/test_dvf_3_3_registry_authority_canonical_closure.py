@@ -129,10 +129,14 @@ class RegistryAuthorityBootstrapScaffoldTest(unittest.TestCase):
                 "json",
                 "os",
                 "pathlib",
+                "queue",
                 "re",
+                "secrets",
                 "shutil",
                 "subprocess",
                 "sys",
+                "threading",
+                "time",
                 "typing",
                 "zipfile",
             },
@@ -510,6 +514,17 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             self.assertEqual(
                 common.read_json_object(nonce_path),
                 {"status": "CONSUMED"},
+            )
+            normal_children = [
+                nonce_path.parent / child.name
+                for child in common.filesystem_path(nonce_path.parent).glob(
+                    "*.json"
+                )
+            ]
+            self.assertEqual(normal_children, [nonce_path])
+            self.assertEqual(
+                common.repo_relative(normal_children[0]),
+                nonce_path.relative_to(REPO_ROOT).as_posix(),
             )
             with self.assertRaises(FileExistsError):
                 common.write_json_once(nonce_path, {"status": "REUSED"})

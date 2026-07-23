@@ -9846,10 +9846,14 @@ def run_practical_final_validation(
         internal,
     )
     matrix_rows.append(internal)
-    receipt_paths = sorted(
-        filesystem_path(receipt_root).glob("*.json"),
-        key=lambda path: path.name,
-    )
+    receipt_paths = [
+        receipt_root / child.name
+        for child in sorted(
+            filesystem_path(receipt_root).glob("*.json"),
+            key=lambda path: path.name,
+        )
+        if child.is_file()
+    ]
     receipt_manifest = [
         {
             "path": repo_relative(path),

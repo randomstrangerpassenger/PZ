@@ -8096,6 +8096,13 @@ def run_practical_gate_candidate(
             "practical gate candidate requires implementation PASS: "
             + ",".join(implementation.get("blockers", []))
         )
+    scope = read_json_object(
+        root / "phase4" / "practical_implementation_scope_report.json"
+    )
+    if scope.get("implementation_head") != current_head():
+        raise ValueError("code HEAD changed after practical implementation")
+    if scope.get("code_state_sha256") != practical_code_state_hash():
+        raise ValueError("code state changed after practical implementation")
     live = read_json_object(LIVE_REQUIRED_MANIFEST)
     artifacts = live.get("required_artifacts")
     tests = live.get("required_tests")
@@ -8339,6 +8346,23 @@ def confirm_practical_gate_adoption(
         candidate_contract, PRACTICAL_DURABLE_GATE_CONTRACT
     ):
         blockers.append("practical_gate_durable_contract_not_exact_candidate")
+    scope = read_json_object(
+        root / "phase4" / "practical_implementation_scope_report.json"
+    )
+    if scope.get("implementation_head") != current_head():
+        blockers.append("practical_gate_apply_head_changed")
+    _, status_lines = git_status_rows()
+    observed_status_paths = {
+        status_path(line)
+        for line in status_lines
+        if status_path(line) not in practical_allowed_status_paths()
+    }
+    expected_status_paths = {
+        repo_relative(LIVE_REQUIRED_MANIFEST),
+        repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
+    }
+    if observed_status_paths != expected_status_paths:
+        blockers.append("practical_gate_apply_delta_not_exact")
     report = {
         "schema_version": f"{SCHEMA_PREFIX}-practical-gate-adoption-v1",
         "round_id": ROUND_ID,
@@ -8365,6 +8389,7 @@ def confirm_practical_gate_adoption(
             "candidate_contract_sha256"
         ),
         "protected_surface_changed_count": 0,
+        "apply_status_paths": sorted(observed_status_paths),
         "blockers": sorted(set(blockers)),
         "canonical_closure_claimed": False,
     }
@@ -8773,6 +8798,33 @@ def run_practical_final_validation(
         raise ValueError(
             "practical final validation requires adopted gate: "
             + ",".join(adoption.get("blockers", []))
+        )
+    scope = read_json_object(
+        root / "phase4" / "practical_implementation_scope_report.json"
+    )
+    implementation_head = scope.get("implementation_head")
+    committed_delta = run_git(
+        "diff", "--name-only", f"{implementation_head}..HEAD"
+    )
+    expected_gate_paths = {
+        repo_relative(LIVE_REQUIRED_MANIFEST),
+        repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
+    }
+    actual_gate_paths = {
+        line.strip().replace("\\", "/")
+        for line in committed_delta.get("stdout", "").splitlines()
+        if line.strip()
+    }
+    if (
+        committed_delta.get("exit_code") != 0
+        or actual_gate_paths != expected_gate_paths
+    ):
+        raise ValueError("post-review committed delta is not the exact gate adoption")
+    _, freeze_status_blockers = practical_status_blockers()
+    if freeze_status_blockers:
+        raise ValueError(
+            "implementation freeze has unapproved worktree delta: "
+            + ",".join(freeze_status_blockers)
         )
     freeze_head = current_head()
     freeze_code_rows = practical_code_state_rows()

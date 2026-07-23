@@ -8633,7 +8633,10 @@ def run_practical_gate_candidate(
         "live_manifest_sha256_at_candidate": sha256_file(
             LIVE_REQUIRED_MANIFEST
         ),
-        "base_live_manifest_sha256": reconstructed_base_sha256,
+        "base_live_manifest_sha256": sha256_file(
+            LIVE_REQUIRED_MANIFEST
+        ),
+        "pre_adoption_base_manifest_sha256": reconstructed_base_sha256,
         "candidate_manifest_path": repo_relative(manifest_path),
         "candidate_manifest_sha256": sha256_file(manifest_path),
         "candidate_contract_path": repo_relative(contract_path),
@@ -8693,6 +8696,10 @@ def validate_practical_gate_candidate(
     )
     if report.get("adoption_mode") != expected_mode:
         blockers.append("practical_gate_candidate_adoption_mode_mismatch")
+    if report.get("base_live_manifest_sha256") != report.get(
+        "live_manifest_sha256_at_candidate"
+    ):
+        blockers.append("practical_gate_candidate_live_base_hash_mismatch")
     if report.get("candidate_manifest_sha256") != sha256_file(
         candidate_root / "current_route_required_validations.json"
     ):
@@ -8720,7 +8727,7 @@ def validate_practical_gate_candidate(
         json.dumps(reconstructed_base, ensure_ascii=False, indent=2) + "\n"
     ).encode("utf-8")
     if sha256_bytes(reconstructed_base_bytes) != report.get(
-        "base_live_manifest_sha256"
+        "pre_adoption_base_manifest_sha256"
     ):
         blockers.append("practical_gate_candidate_reconstructed_base_hash_mismatch")
     if not isinstance(candidate_artifacts, list) or candidate_artifacts != [
@@ -8734,11 +8741,17 @@ def validate_practical_gate_candidate(
     ]:
         blockers.append("practical_gate_candidate_test_diff_not_additive")
     live_hash = sha256_file(LIVE_REQUIRED_MANIFEST)
-    if live_hash == report.get("base_live_manifest_sha256"):
-        if live.get("required_artifacts") != base_artifacts:
-            blockers.append("practical_gate_candidate_live_base_artifact_drift")
-        if live.get("required_tests") != base_tests:
-            blockers.append("practical_gate_candidate_live_base_test_drift")
+    if live_hash == report.get("live_manifest_sha256_at_candidate"):
+        if already_adopted:
+            if live != candidate:
+                blockers.append(
+                    "practical_gate_candidate_correction_live_semantic_drift"
+                )
+        else:
+            if live.get("required_artifacts") != base_artifacts:
+                blockers.append("practical_gate_candidate_live_base_artifact_drift")
+            if live.get("required_tests") != base_tests:
+                blockers.append("practical_gate_candidate_live_base_test_drift")
     elif live_hash == report.get("candidate_manifest_sha256"):
         if live != candidate:
             blockers.append("practical_gate_candidate_adopted_live_semantic_drift")

@@ -836,6 +836,66 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
                 shutil.rmtree(resolved)
 
+    def test_wp6_diagnostic_self_observation_is_not_authority_reentry(self) -> None:
+        common = load_common_module()
+        target = common.repo_relative(common.ROUND3_CONTRACT_MANIFEST)
+        digest = sha256_file(common.ROUND3_CONTRACT_MANIFEST)
+        self.assertTrue(
+            common.registry_diagnostic_self_observation(
+                common.COMMON_PATH,
+                target,
+            )
+        )
+        self.assertFalse(
+            common.registry_diagnostic_self_observation(
+                FOCUSED_TEST,
+                target,
+            )
+        )
+        stale_rows = [
+            {
+                "path": target,
+                "role": "diagnostic",
+                "sha256": digest,
+            }
+        ]
+        diagnostic_readpoint = {
+            "consumer": common.repo_relative(common.COMMON_PATH),
+            "path": target,
+            "reference_role": "diagnostic_self_observation",
+            "sha256": digest,
+            "surface": "validation",
+        }
+        self.assertEqual(
+            common.evaluate_stale_reentry(
+                [diagnostic_readpoint],
+                stale_rows,
+                [],
+                set(),
+            ),
+            [],
+        )
+        authority_readpoint = {
+            **diagnostic_readpoint,
+            "reference_role": "consumer_read",
+        }
+        self.assertEqual(
+            {
+                row["kind"]
+                for row in common.evaluate_stale_reentry(
+                    [authority_readpoint],
+                    stale_rows,
+                    [],
+                    set(),
+                )
+            },
+            {
+                "stale_path_readpoint",
+                "renamed_stale_payload",
+                "unrecognized_current_looking_path",
+            },
+        )
+
     def test_wp6_live_denominator_closes_dependencies_and_vcs_inventory(self) -> None:
         common = load_common_module()
         scan_files, blockers, denominator = (

@@ -4638,6 +4638,10 @@ STALE_REGISTRY_ROLES = {
     "quarantine",
     "forbidden-current-looking",
 }
+NON_AUTHORITY_REFERENCE_ROLES = {
+    "diagnostic_self_observation",
+    "validation_fixture_read",
+}
 FORBIDDEN_STALE_PATH_SUFFIXES = (
     "irislayer3data.lua",
     "irisdvfbridgedata.lua",
@@ -4651,6 +4655,14 @@ FORBIDDEN_PACKAGE_PATH_SUFFIXES = (
 
 def normalized_registry_path(value: str) -> str:
     return value.replace("\\", "/").lstrip("./").lower()
+
+
+def registry_diagnostic_self_observation(source: Path, target: str) -> bool:
+    return (
+        source.resolve() == COMMON_PATH.resolve()
+        and normalized_registry_path(target)
+        == normalized_registry_path(repo_relative(ROUND3_CONTRACT_MANIFEST))
+    )
 
 
 def stale_path_reason(value: str, *, package_member: bool = False) -> str | None:
@@ -4706,7 +4718,7 @@ def evaluate_stale_reentry(
     recognized = {normalized_registry_path(path) for path in recognized_current_paths}
     violations: list[dict[str, Any]] = []
     for row in readpoints:
-        if row.get("reference_role") == "validation_fixture_read":
+        if row.get("reference_role") in NON_AUTHORITY_REFERENCE_ROLES:
             continue
         raw_path = row.get("path")
         if not isinstance(raw_path, str):
@@ -6486,6 +6498,8 @@ def discover_registry_readpoints(
     def resolved_reference_role(source: Path, target: str) -> str:
         source_relative = repo_relative(source)
         normalized_target = normalized_registry_path(target)
+        if registry_diagnostic_self_observation(source, target):
+            return "diagnostic_self_observation"
         if (
             source_relative in validation_source_paths
             and wp2_role_by_path.get(normalized_target) == "fixture"
@@ -6696,6 +6710,34 @@ def discover_registry_readpoints(
     ]
     if invalid_validation_fixture_reads:
         blockers.append("validation_fixture_read_without_wp2_fixture_role")
+    diagnostic_self_observations = [
+        row
+        for row in rows
+        if row.get("reference_role") == "diagnostic_self_observation"
+    ]
+    invalid_diagnostic_self_observations = [
+        {
+            "consumer": row.get("consumer"),
+            "path": row.get("path"),
+            "wp2_role": wp2_role_by_path.get(
+                normalized_registry_path(str(row.get("path")))
+            ),
+        }
+        for row in diagnostic_self_observations
+        if (
+            row.get("consumer") != repo_relative(COMMON_PATH)
+            or normalized_registry_path(str(row.get("path")))
+            != normalized_registry_path(
+                repo_relative(ROUND3_CONTRACT_MANIFEST)
+            )
+            or wp2_role_by_path.get(
+                normalized_registry_path(str(row.get("path")))
+            )
+            != "diagnostic"
+        )
+    ]
+    if invalid_diagnostic_self_observations:
+        blockers.append("diagnostic_self_observation_scope_invalid")
     denominator = {
         **denominator,
         "contained_fixture_reference_count": len(set(contained_fixture_references)),
@@ -6709,6 +6751,15 @@ def discover_registry_readpoints(
         ),
         "validation_fixture_read_role_mismatches": (
             invalid_validation_fixture_reads
+        ),
+        "diagnostic_self_observation_count": len(
+            diagnostic_self_observations
+        ),
+        "diagnostic_self_observation_scope_mismatch_count": len(
+            invalid_diagnostic_self_observations
+        ),
+        "diagnostic_self_observation_scope_mismatches": (
+            invalid_diagnostic_self_observations
         ),
     }
     return rows, sorted(set(blockers)), denominator

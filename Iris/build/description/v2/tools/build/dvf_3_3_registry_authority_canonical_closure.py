@@ -624,6 +624,42 @@ def record_attempt_failure_once(
         "failure_record_write_once": True,
         "wp_execution_allowed": False,
     }
+    if mode.startswith("practical-"):
+        normalized_error = f"{error_type}: {error}".lower()
+        environment_failure = (
+            error_type in {"PermissionError", "FileNotFoundError"}
+            or "permissionerror" in normalized_error
+            or "winerror 5" in normalized_error
+            or "environment" in normalized_error
+            or "luac" in normalized_error
+        )
+        practical_preflight = read_json_object(
+            root / "phase0" / "practical_preflight_report.json"
+        )
+        baseline = practical_preflight.get("protected_surface_rows")
+        fresh_protected = protected_surface_rows()
+        nonce_root = root / "phase4" / "gate_adoption" / "nonce_consumption"
+        nonce_consumed = bool(
+            path_is_dir(nonce_root)
+            and any(
+                child.is_file()
+                for child in filesystem_path(nonce_root).glob("*.json")
+            )
+        )
+        payload.update(
+            {
+                "review_sha256": sha256_file(PRACTICAL_REVIEW_INPUT),
+                "failure_classification": (
+                    "environment" if environment_failure else "implementation"
+                ),
+                "protected_mutation_count": (
+                    0
+                    if isinstance(baseline, list) and baseline == fresh_protected
+                    else 1
+                ),
+                "adoption_nonce_consumed": nonce_consumed,
+            }
+        )
     write_json_once(failure_path, payload)
     return {
         "written": True,
@@ -7582,6 +7618,7 @@ def practical_retry_validation(
         if isinstance(failure_path_raw, str)
         else Path()
     )
+    failure_payload: dict[str, Any] = {}
     if (
         not isinstance(failure_path_raw, str)
         or not is_within(failure_path, predecessor_root)
@@ -7592,6 +7629,10 @@ def practical_retry_validation(
         "predecessor_terminal_failure_sha256"
     ):
         blockers.append("practical_retry_terminal_failure_hash_mismatch")
+    else:
+        failure_payload = read_json_object(failure_path)
+        if failure_payload.get("status") != "FAIL":
+            blockers.append("practical_retry_terminal_record_not_fail")
     expected = {
         "schema_version": f"{SCHEMA_PREFIX}-practical-environment-retry-v1",
         "cycle_id": CYCLE_ID,
@@ -7607,6 +7648,21 @@ def practical_retry_validation(
             blockers.append(f"practical_retry_field_mismatch:{field}")
     if payload.get("review_sha256") != sha256_file(PRACTICAL_REVIEW_INPUT):
         blockers.append("practical_retry_review_hash_mismatch")
+    if failure_payload:
+        if failure_payload.get("code_state_sha256") != code_state_sha256:
+            blockers.append("practical_retry_predecessor_code_state_mismatch")
+        if failure_payload.get("plan_sha256") != sha256_file(PLAN_PATH):
+            blockers.append("practical_retry_predecessor_plan_mismatch")
+        if failure_payload.get("review_sha256") != sha256_file(
+            PRACTICAL_REVIEW_INPUT
+        ):
+            blockers.append("practical_retry_predecessor_review_mismatch")
+        if failure_payload.get("protected_mutation_count") != 0:
+            blockers.append("practical_retry_predecessor_protected_mutation")
+        if failure_payload.get("adoption_nonce_consumed") is not False:
+            blockers.append("practical_retry_predecessor_nonce_consumed")
+        if failure_payload.get("failure_classification") != "environment":
+            blockers.append("practical_retry_predecessor_not_environment_failure")
     return {
         "status": "PASS" if not blockers else "FAIL",
         "retry_record_present": True,
@@ -7855,6 +7911,14 @@ def run_practical_implementation(
     terminal = phase4 / "practical_implementation_scope_report.json"
     if terminal.exists():
         raise FileExistsError("practical implementation is write-once")
+    preflight_validation = validate_practical_preflight(
+        root, attempt_id=normalized_attempt_id
+    )
+    if preflight_validation.get("status") != "PASS":
+        raise ValueError(
+            "practical implementation requires fresh preflight parity: "
+            + ",".join(preflight_validation.get("blockers", []))
+        )
     review = validate_practical_review(root, attempt_id=normalized_attempt_id)
     if review.get("status") != "PASS":
         raise ValueError(

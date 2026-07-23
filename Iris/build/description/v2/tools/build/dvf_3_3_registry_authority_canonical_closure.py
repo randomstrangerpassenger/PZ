@@ -3797,10 +3797,21 @@ def contained_fixture_path_present(value: str) -> bool:
     if not candidate.is_absolute():
         candidate = REPO_ROOT / candidate
     try:
-        relative = candidate.resolve().relative_to(TESTS_ROOT.resolve())
+        resolved = candidate.resolve()
+    except OSError:
+        return False
+    try:
+        relative = resolved.relative_to(TESTS_ROOT.resolve())
+    except (OSError, ValueError):
+        pass
+    else:
+        if any(part.lower().startswith("_tmp") for part in relative.parts):
+            return True
+    try:
+        resolved.relative_to((V2_ROOT / ".tmp_tests").resolve())
     except (OSError, ValueError):
         return False
-    return any(part.lower().startswith("_tmp") for part in relative.parts)
+    return True
 
 
 def python_symbol_key(node: ast.AST) -> str | None:
@@ -3915,6 +3926,12 @@ def python_symbolic_state(
             if isinstance(node.func, ast.Attribute)
             else ""
         )
+        if function_name in {"TemporaryDirectory", "mkdtemp"}:
+            return symbolic_state(
+                complete=False,
+                tainted=False,
+                contained_fixture=True,
+            )
         if function_name in {"Path", "PurePath", "resolve", "joinpath"}:
             components: list[SymbolicState] = []
             if isinstance(node.func, ast.Attribute):
@@ -4730,12 +4747,21 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "with TemporaryDirectory() as tmp:\n"
         + "    generated = Path(tmp) / 'IrisLayer3DataChunks.lua'\n"
         + "    loader(generated, 'rb')\n"
+        + "v2_tmp_root = repo / 'Iris/build/description/v2/.tmp_tests'\n"
+        + "v2_tmp_manifest = v2_tmp_root / 'registry_attempt/dvf_3_3_rendered.adopted.json'\n"
+        + "loader(v2_tmp_manifest, 'rb')\n"
         + "class FixtureOwner:\n"
         + "    pass\n"
         + "fixture = FixtureOwner()\n"
         + "fixture.tmp_dir = repo / 'Iris/build/description/v2/tests/_tmp_registry_attribute'\n"
         + "attribute_manifest = fixture.tmp_dir / 'IrisLayer3DataChunks.lua'\n"
         + "loader(attribute_manifest, 'rb')\n"
+        + "fixture.temp_owner = TemporaryDirectory()\n"
+        + "owner_manifest = Path(fixture.temp_owner.name) / 'dvf_3_3_rendered.json'\n"
+        + "loader(owner_manifest, 'rb')\n"
+        + "generated_tmp = __import__('tempfile').mkdtemp()\n"
+        + "mkdtemp_manifest = Path(generated_tmp) / 'round3_contract_manifest.json'\n"
+        + "loader(mkdtemp_manifest, 'rb')\n"
         + "def reset_tmp_dir(path):\n"
         + "    return path\n"
         + "helper_tmp = reset_tmp_dir(repo / 'Iris/build/description/v2/tests/_tmp_registry_helper')\n"
@@ -4853,7 +4879,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             and denominator.get("complete") is True
             and repo_anchor_current_edge_detected
             and contained_python_fixture_classified
-            and contained_python_fixture_reference_count >= 3
+            and contained_python_fixture_reference_count >= 6
             else "FAIL"
         ),
         "expected_violation_kinds": sorted(expected),
@@ -4885,7 +4911,10 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "powershell_unresolved_taint_copy_fail_closed",
             "python_repo_anchor_required_current_exact_edge",
             "python_contained_generated_fixture_classified_non_live",
+            "python_contained_v2_tmp_tests_classified_non_live",
             "python_contained_attribute_assignment_classified_non_live",
+            "python_contained_temporary_directory_owner_classified_non_live",
+            "python_contained_mkdtemp_classified_non_live",
             "python_contained_helper_return_classified_non_live",
         ],
         "recognized_current_set_derived_from_observed_rows": False,

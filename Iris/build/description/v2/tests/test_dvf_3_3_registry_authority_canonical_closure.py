@@ -495,7 +495,10 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                     "powershell_unresolved_taint_copy_fail_closed",
                     "python_repo_anchor_required_current_exact_edge",
                     "python_contained_generated_fixture_classified_non_live",
+                    "python_contained_v2_tmp_tests_classified_non_live",
                     "python_contained_attribute_assignment_classified_non_live",
+                    "python_contained_temporary_directory_owner_classified_non_live",
+                    "python_contained_mkdtemp_classified_non_live",
                     "python_contained_helper_return_classified_non_live",
                 },
             )
@@ -518,7 +521,7 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             self.assertTrue(report["repo_anchor_current_edge_detected"])
             self.assertTrue(report["contained_python_fixture_classified"])
             self.assertGreaterEqual(
-                report["contained_python_fixture_reference_count"], 3
+                report["contained_python_fixture_reference_count"], 6
             )
             self.assertEqual(report["real_current_or_package_mutation_count"], 0)
         finally:

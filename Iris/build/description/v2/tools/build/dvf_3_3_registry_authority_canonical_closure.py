@@ -40,6 +40,28 @@ COMMON_PATH = TOOLS_ROOT / f"{ROUND_ID}.py"
 RUNNER_PATH = TOOLS_ROOT / f"run_{ROUND_ID}.py"
 VALIDATOR_PATH = TOOLS_ROOT / f"validate_{ROUND_ID}.py"
 FOCUSED_TEST_PATH = TESTS_ROOT / f"test_{ROUND_ID}.py"
+FOCUSED_TEST_COMMAND = (
+    'uv run python -B -m unittest discover -s Iris/build/description/v2/tests '
+    '-p "test_dvf_3_3_registry_authority_canonical_closure.py"'
+)
+FOCUSED_TEST_RECEIPT_NAME = "focused_test_preimplementation_receipt.json"
+TRUSTED_EXECUTION_SEQUENCE_FAILURE_ANCHORS = {
+    "attempt-0020-entry": {
+        "execution_base_commit": "334a90fc9606017326d936fd9450d98de27ee7a5",
+        "sequence_failure_record_sha256": "f302cf7ee72df38f1b6efc25440692b3d0d61ea4bdd78ad5ed44e0b5d73f4c4d",
+        "attempt_evidence_tree_sha256": "e050206d21b621f8b78a843e5fb55ffd4410113f4595cf0c4a2c69c469c5c0f5",
+        "owner_inputs_tree_sha256": "53706035450dfc75fb1105ade725181ae4e1d8ca2db6e1ec6d74d35448aeb472",
+        "predecessor_registration_rows_sha256": "0c9a42ad666059d48c2e05e33e5b78151a60e1909543335a64d1f2ec02d2ae0a",
+        "preflight_report_sha256": "36843d0af33fa5ab232fb7636d5ec5a137446e4f7331cc1e582eb9877f4a875e",
+        "materialization_report_sha256": "b8a2a294d778deee300b81325da44db3b8846e0dab5a677b6c3d1447c51226ee",
+        "blocker_zero_record_sha256": "f6678097f6cdc6134cfe6f19d8e0195ae762cb8cc9506e64e2446c740c286dd4",
+        "focused_test_result_report_sha256": "8f35f61bf71a6bc9c22d6b560ac5df54fa8348fb891e4a6101ed2a5bba63f895",
+        "implementation_scope_report_sha256": "8d3b15ea853f0bad5c5c738c44f2ea4a98bca3788ce3e08ac9a3d351ab152c46",
+        "focused_test_base_file_sha256": "1b46b78e305cfd9012d06b2e4bd890b531e59c08268018351de3dc7d05e633f5",
+        "implementation_common_base_file_sha256": "6f3adb0a2ac4ee968fe24997cf6d2ed1238a14a75c039b5ef9a76d253c2ce2d9",
+        "implementation_runner_base_file_sha256": "3e3bacbf6a876036b8f9a34cf2f0462cbbc98fa1edd7b6b1f80074becb779d51",
+    },
+}
 BOOTSTRAP_MANIFEST_PATH = DEFAULT_EVIDENCE_ROOT / "phase0" / "bootstrap_scaffold_hash_manifest.json"
 
 OWNER_INPUT_ROOT = V2_ROOT / "owner_inputs" / ROUND_ID
@@ -54,6 +76,11 @@ PLAN_APPROVAL_INPUT = (
 )
 REVIEWER_DESIGNATION_INPUT = (
     OWNER_INPUT_ROOT / "reviewer_designations" / "current_session_independent_reviewer_designation.json"
+)
+FOCUSED_TEST_ATTESTATION_INPUT = (
+    OWNER_INPUT_ROOT
+    / "focused_test_attestations"
+    / "current_session_focused_test_execution_attestation.json"
 )
 ATTEMPT_REGISTRATION_INPUT = (
     OWNER_INPUT_ROOT
@@ -90,6 +117,7 @@ RESERVED_EXTERNAL_INPUTS = (
     REVIEWER_DESIGNATION_INPUT,
     ATTEMPT_REGISTRATION_INPUT,
     *PREIMPLEMENTATION_REVIEW_INPUTS,
+    FOCUSED_TEST_ATTESTATION_INPUT,
     GATE_ADOPTION_INPUT,
     INDEPENDENT_REVIEW_INPUT,
     OWNER_SEAL_INPUT,
@@ -203,6 +231,18 @@ def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def parse_utc_timestamp(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    return parsed.astimezone(timezone.utc)
+
+
 def sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
 
@@ -237,6 +277,16 @@ def sha256_file(path: Path) -> str | None:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def git_blob_sha256(commit: str, relative_path: str) -> str | None:
+    completed = subprocess.run(
+        ["git", "show", f"{commit}:{relative_path}"],
+        cwd=REPO_ROOT,
+        capture_output=True,
+        check=False,
+    )
+    return sha256_bytes(completed.stdout) if completed.returncode == 0 else None
 
 
 def files_byte_identical(left: Path, right: Path) -> bool:
@@ -507,6 +557,276 @@ def scaffold_manifest_projection() -> dict[str, Any]:
     }
 
 
+def valid_execution_sequence_failure_record(
+    payload: dict[str, Any],
+    *,
+    predecessor_id: str,
+    attempt_archive: Path,
+    owner_archive: Path,
+) -> bool:
+    anchor = TRUSTED_EXECUTION_SEQUENCE_FAILURE_ANCHORS.get(predecessor_id)
+    if not isinstance(anchor, dict):
+        return False
+    preflight_report = attempt_archive / "phase0" / "preflight_report.json"
+    materialization_report = (
+        attempt_archive
+        / "phase3"
+        / "preimplementation_review_materialization_report.json"
+    )
+    blocker_zero_record = attempt_archive / "phase3" / "blocker_zero_record.json"
+    focused_report = attempt_archive / "phase4" / "focused_test_result_report.json"
+    implementation_report = attempt_archive / "phase4" / "implementation_scope_report.json"
+    focused_receipt = attempt_archive / "phase4" / FOCUSED_TEST_RECEIPT_NAME
+    sequence_record = owner_archive / "execution_sequence_failure_record.json"
+    stored_preflight = read_json_object(preflight_report)
+    stored_materialization = read_json_object(materialization_report)
+    stored_blocker_zero = read_json_object(blocker_zero_record)
+    stored_focused = read_json_object(focused_report)
+    stored_implementation = read_json_object(implementation_report)
+    command_receipt = payload.get("implementation_command_receipt")
+    if not isinstance(command_receipt, dict):
+        return False
+    first_evidence_at = parse_utc_timestamp(
+        command_receipt.get("first_phase4_evidence_at_utc")
+    )
+    terminal_at = parse_utc_timestamp(command_receipt.get("terminal_at_utc"))
+    recorded_at = parse_utc_timestamp(payload.get("recorded_at"))
+    timestamp_order_valid = (
+        first_evidence_at is not None
+        and terminal_at is not None
+        and recorded_at is not None
+        and first_evidence_at <= terminal_at < recorded_at
+    )
+    return (
+        sha256_file(sequence_record) == anchor["sequence_failure_record_sha256"]
+        and directory_tree_hash(attempt_archive) == anchor["attempt_evidence_tree_sha256"]
+        and directory_tree_hash(owner_archive) == anchor["owner_inputs_tree_sha256"]
+        and sha256_file(preflight_report) == anchor["preflight_report_sha256"]
+        and sha256_file(materialization_report)
+        == anchor["materialization_report_sha256"]
+        and sha256_file(blocker_zero_record)
+        == anchor["blocker_zero_record_sha256"]
+        and sha256_file(focused_report)
+        == anchor["focused_test_result_report_sha256"]
+        and sha256_file(implementation_report)
+        == anchor["implementation_scope_report_sha256"]
+        and not path_is_file(focused_receipt)
+        and git_blob_sha256(
+            str(anchor["execution_base_commit"]),
+            repo_relative(FOCUSED_TEST_PATH),
+        )
+        == anchor["focused_test_base_file_sha256"]
+        and git_blob_sha256(
+            str(anchor["execution_base_commit"]),
+            repo_relative(COMMON_PATH),
+        )
+        == anchor["implementation_common_base_file_sha256"]
+        and git_blob_sha256(
+            str(anchor["execution_base_commit"]),
+            repo_relative(RUNNER_PATH),
+        )
+        == anchor["implementation_runner_base_file_sha256"]
+        and timestamp_order_valid
+        and payload.get("schema_version")
+        == f"{SCHEMA_PREFIX}-execution-sequence-failure-v1"
+        and payload.get("cycle_id") == CYCLE_ID
+        and payload.get("attempt_id") == predecessor_id
+        and payload.get("status") == "FAIL"
+        and payload.get("failure_class") == "command_order_violation"
+        and payload.get("missing_required_predecessor_command")
+        == FOCUSED_TEST_COMMAND
+        and payload.get("observed_completed_command") == "implementation"
+        and payload.get("focused_test_executed_before_implementation") is False
+        and payload.get("same_attempt_claim_continuation_allowed") is False
+        and payload.get("new_attempt_required") is True
+        and payload.get("failure_history_preserved") is True
+        and payload.get("claim_output_overwritten") is False
+        and payload.get("wp_execution_allowed") is False
+        and payload.get("gate_adoption_allowed") is False
+        and payload.get("live_gate_adopted") is False
+        and payload.get("protected_mutation_count") == 0
+        and payload.get("execution_base_commit") == anchor["execution_base_commit"]
+        and payload.get("attempt_evidence_tree_sha256")
+        == anchor["attempt_evidence_tree_sha256"]
+        and payload.get("preflight_report_path") == repo_relative(preflight_report)
+        and payload.get("preflight_report_sha256")
+        == anchor["preflight_report_sha256"]
+        and payload.get("materialization_report_path")
+        == repo_relative(materialization_report)
+        and payload.get("materialization_report_sha256")
+        == anchor["materialization_report_sha256"]
+        and payload.get("blocker_zero_record_path")
+        == repo_relative(blocker_zero_record)
+        and payload.get("blocker_zero_record_sha256")
+        == anchor["blocker_zero_record_sha256"]
+        and payload.get("focused_test_result_report_path")
+        == repo_relative(focused_report)
+        and payload.get("focused_test_result_report_sha256")
+        == anchor["focused_test_result_report_sha256"]
+        and payload.get("focused_test_preimplementation_receipt_path")
+        == repo_relative(focused_receipt)
+        and payload.get("focused_test_preimplementation_receipt_present") is False
+        and payload.get("implementation_scope_report_path")
+        == repo_relative(implementation_report)
+        and payload.get("implementation_scope_report_sha256")
+        == anchor["implementation_scope_report_sha256"]
+        and payload.get("focused_test_base_file_sha256")
+        == anchor["focused_test_base_file_sha256"]
+        and payload.get("implementation_common_base_file_sha256")
+        == anchor["implementation_common_base_file_sha256"]
+        and payload.get("implementation_runner_base_file_sha256")
+        == anchor["implementation_runner_base_file_sha256"]
+        and payload.get("owner_identity") == "workspace_owner"
+        and payload.get("recorder_identity") == "/root"
+        and stored_preflight.get("status") == "PASS"
+        and stored_materialization.get("status") == "PASS"
+        and stored_blocker_zero.get("status") == "PASS"
+        and stored_blocker_zero.get("critical_count") == 0
+        and stored_blocker_zero.get("important_count") == 0
+        and stored_focused.get("status") == "PENDING_PLAN_STEP_6"
+        and stored_focused.get("test_executed_inside_implementation_mode") is False
+        and stored_implementation.get("schema_version")
+        == f"{SCHEMA_PREFIX}-implementation-scope-v1"
+        and stored_implementation.get("status") == "PASS"
+        and stored_implementation.get("attempt_id") == predecessor_id
+        and command_receipt.get("session_id") == 54414
+        and command_receipt.get("exit_code") == 0
+        and isinstance(command_receipt.get("terminal_result"), dict)
+        and command_receipt["terminal_result"].get("status") == "PASS"
+        and command_receipt["terminal_result"].get("attempt_id") == predecessor_id
+        and command_receipt["terminal_result"].get("blocker_count") == 0
+    )
+
+
+def focused_test_inventory() -> list[str]:
+    tree = ast.parse(
+        FOCUSED_TEST_PATH.read_text(encoding="utf-8"),
+        filename=str(FOCUSED_TEST_PATH),
+    )
+    return sorted(
+        f"{FOCUSED_TEST_PATH.stem}.{class_node.name}.{item.name}"
+        for class_node in tree.body
+        if isinstance(class_node, ast.ClassDef)
+        for item in class_node.body
+        if isinstance(item, (ast.FunctionDef, ast.AsyncFunctionDef))
+        and item.name.startswith("test_")
+    )
+
+
+def focused_test_attestation_output_path(root: Path) -> Path:
+    return root / "phase4" / "focused_test_execution_attestation.json"
+
+
+def focused_test_attestation_entry_projection(
+    entry: dict[str, Any],
+) -> dict[str, Any]:
+    projection = json.loads(json.dumps(entry))
+    status_rows = projection.get("status_rows")
+    if isinstance(status_rows, list):
+        excluded_path = repo_relative(FOCUSED_TEST_ATTESTATION_INPUT)
+        projection["status_rows"] = [
+            row
+            for row in status_rows
+            if not isinstance(row, dict) or row.get("path") != excluded_path
+        ]
+    return projection
+
+
+def validate_focused_test_execution_attestation(
+    root: Path,
+    *,
+    attempt_id: str,
+) -> tuple[dict[str, Any], list[str]]:
+    payload = read_json_object(FOCUSED_TEST_ATTESTATION_INPUT)
+    if not payload:
+        return {}, ["focused_test_external_attestation_missing_or_invalid"]
+    blockers: list[str] = []
+    designation = read_json_object(REVIEWER_DESIGNATION_INPUT)
+    blockers.extend(
+        validate_reviewer_designation(
+            designation,
+            attempt_id=attempt_id,
+        )
+    )
+    preflight_path = root / "phase0" / "preflight_report.json"
+    materialization_path = (
+        root / "phase3" / "preimplementation_review_materialization_report.json"
+    )
+    preflight = read_json_object(preflight_path)
+    materialization = read_json_object(materialization_path)
+    entry = validate_execution_entry(root, attempt_id=attempt_id)
+    entry_projection = focused_test_attestation_entry_projection(entry)
+    expected_test_ids = focused_test_inventory()
+    started = parse_utc_timestamp(payload.get("command_started_at"))
+    finished = parse_utc_timestamp(payload.get("command_finished_at"))
+    authored = parse_utc_timestamp(payload.get("authored_at"))
+    expected = {
+        "schema_version": f"{SCHEMA_PREFIX}-focused-test-execution-attestation-v1",
+        "round_id": ROUND_ID,
+        "cycle_id": CYCLE_ID,
+        "attempt_id": attempt_id,
+        "verdict": "PASS",
+        "command": FOCUSED_TEST_COMMAND,
+        "exit_code": 0,
+        "tests_run": len(expected_test_ids),
+        "failure_count": 0,
+        "error_count": 0,
+        "skipped_count": 0,
+        "expected_failure_count": 0,
+        "unexpected_success_count": 0,
+        "expected_test_ids": expected_test_ids,
+        "execution_base_commit": current_head(),
+        "focused_test_path": repo_relative(FOCUSED_TEST_PATH),
+        "focused_test_sha256": sha256_file(FOCUSED_TEST_PATH),
+        "focused_test_inventory_sha256": canonical_hash(expected_test_ids),
+        "reviewer_identity": designation.get("reviewer_identity"),
+        "reviewer_designation_path": repo_relative(REVIEWER_DESIGNATION_INPUT),
+        "reviewer_designation_sha256": sha256_file(REVIEWER_DESIGNATION_INPUT),
+        "relation_to_implementation_author": (
+            "separate Codex reviewer agent; not the implementation author"
+        ),
+        "test_command_observed_directly": True,
+        "reviewer_authored_attestation": True,
+        "runner_authored_attestation": False,
+        "test_target_authored_attestation": False,
+        "preflight_report_path": repo_relative(preflight_path),
+        "preflight_report_sha256": sha256_file(preflight_path),
+        "materialization_report_path": repo_relative(materialization_path),
+        "materialization_report_sha256": sha256_file(materialization_path),
+        "reviewed_bundle_hash": materialization.get("reviewed_bundle_hash"),
+        "entry_validation_status": "PASS",
+        "entry_validation_sha256": canonical_hash(entry_projection),
+        "entry_validation_projection_rule": (
+            "exclude_only_current_focused_test_attestation_status_row"
+        ),
+        "test_output_summary": "OK",
+    }
+    for field, value in expected.items():
+        if payload.get(field) != value:
+            blockers.append(f"focused_test_attestation_{field}_mismatch")
+    if (
+        started is None
+        or finished is None
+        or authored is None
+        or started > finished
+        or finished >= authored
+    ):
+        blockers.append("focused_test_attestation_timestamp_order_invalid")
+    output_hash = payload.get("test_output_sha256")
+    if not isinstance(output_hash, str) or not re.fullmatch(r"[0-9a-f]{64}", output_hash):
+        blockers.append("focused_test_attestation_output_hash_invalid")
+    if (
+        type(payload.get("test_output_byte_length")) is not int
+        or payload["test_output_byte_length"] <= 0
+    ):
+        blockers.append("focused_test_attestation_output_length_invalid")
+    if preflight.get("status") != "PASS" or materialization.get("status") != "PASS":
+        blockers.append("focused_test_attestation_entry_chain_not_pass")
+    if entry.get("status") != "PASS" or entry.get("wp_execution_allowed") is not True:
+        blockers.append("focused_test_attestation_fresh_entry_not_pass")
+    return payload, blockers
+
+
 def validate_bootstrap_manifest() -> dict[str, Any]:
     stored = read_json_object(BOOTSTRAP_MANIFEST_PATH)
     projection = scaffold_manifest_projection()
@@ -531,12 +851,26 @@ def validate_bootstrap_manifest() -> dict[str, Any]:
         failure = read_json_object(
             predecessor_root / "attempt_failures" / "implementation.json"
         )
-        if (
+        implementation_failure_valid = (
             failure.get("status") == "FAIL"
             and failure.get("mode") == "implementation"
             and failure.get("failure_record_write_once") is True
             and failure.get("claim_output_overwritten") is False
-        ):
+        )
+        owner_archive_value = row.get("preserved_owner_inputs_path")
+        sequence_failure_valid = False
+        if isinstance(owner_archive_value, str):
+            owner_archive = REPO_ROOT / owner_archive_value
+            sequence_failure = read_json_object(
+                owner_archive / "execution_sequence_failure_record.json"
+            )
+            sequence_failure_valid = valid_execution_sequence_failure_record(
+                sequence_failure,
+                predecessor_id=str(row.get("attempt_id")),
+                attempt_archive=predecessor_root,
+                owner_archive=owner_archive,
+            )
+        if implementation_failure_valid or sequence_failure_valid:
             post_entry_retry_evidence.append(row.get("attempt_id"))
     stored_rows = stored.get("scaffold_paths")
     frozen_scaffold_shape_valid = (
@@ -798,12 +1132,22 @@ def preflight_external_contract() -> dict[str, Any]:
             "path": repo_relative(REVIEWER_DESIGNATION_INPUT),
             "required_fields": [
                 "round_id",
+                "cycle_id",
+                "attempt_id",
                 "owner_identity",
                 "designated_at",
                 "reviewer_identity",
                 "eligible",
                 "excluded_authors",
+                "phase3_scope_assignments",
+                "focused_test_execution_attestation_eligible",
             ],
+        },
+        "focused_test_execution_attestation": {
+            "path": repo_relative(FOCUSED_TEST_ATTESTATION_INPUT),
+            "required_after_focused_test_before_implementation": True,
+            "reviewer_authored_only": True,
+            "runner_or_test_target_authorship_allowed": False,
         },
     }
 
@@ -875,27 +1219,233 @@ def validate_preserved_owner_input_archive(
         "reviewer_designations/current_session_independent_reviewer_designation.json",
         "plan_approvals/current_session_implementation_plan_approval_record.json",
     )
+    review_manifest_path = (
+        attempt_archive / "phase3" / "preimplementation_review_input_manifest.json"
+    )
+    review_manifest_present = path_is_file(review_manifest_path)
+    review_manifest = read_json_object(review_manifest_path)
+    reviewed_bundle = review_manifest.get("reviewed_bundle")
+    reviewed_inputs = (
+        reviewed_bundle.get("inputs")
+        if isinstance(reviewed_bundle, dict)
+        else None
+    )
+    reviewed_input_hashes = {
+        str(item.get("path")): item.get("sha256")
+        for item in (reviewed_inputs if isinstance(reviewed_inputs, list) else [])
+        if isinstance(item, dict)
+    }
     for relative in required_inputs:
-        if not path_is_file(archive / relative):
+        archived_input = archive / relative
+        source_path = repo_relative(OWNER_INPUT_ROOT / relative)
+        expected_source_hash = reviewed_input_hashes.get(source_path)
+        if not path_is_file(archived_input):
             blockers.append(
                 f"attempt_registration_predecessor_owner_input_missing:{predecessor_id}:{relative}"
             )
-    zero_record = read_json_object(
-        attempt_archive / "phase3" / "blocker_zero_record.json"
-    )
-    if zero_record:
-        for review_name in (
-            "current_session_responsibility_boundary_review.md",
-            "current_session_authority_evidence_integrity_review.md",
-            "current_session_adversarial_failure_mode_review.md",
+        elif review_manifest_present and (
+            not isinstance(expected_source_hash, str)
+            or sha256_file(archived_input) != expected_source_hash
         ):
-            if not path_is_file(
-                archive / "preimplementation_reviews" / review_name
+            blockers.append(
+                f"attempt_registration_predecessor_owner_input_drifted_from_reviewed_bundle:{predecessor_id}:{relative}"
+            )
+    phase3 = attempt_archive / "phase3"
+    materialization_path = (
+        phase3 / "preimplementation_review_materialization_report.json"
+    )
+    zero_path = phase3 / "blocker_zero_record.json"
+    materialization = read_json_object(materialization_path)
+    zero_record = read_json_object(zero_path)
+    materialized_review_names = {
+        "responsibility_boundary": "current_session_responsibility_boundary_review.md",
+        "authority_evidence_integrity": "current_session_authority_evidence_integrity_review.md",
+        "adversarial_failure_mode": "current_session_adversarial_failure_mode_review.md",
+    }
+    phase3_review_artifact_present = any(
+        path_is_file(phase3 / name)
+        for name in (
+            "responsibility_boundary_review.md",
+            "authority_evidence_integrity_review.md",
+            "adversarial_failure_mode_review.md",
+            "carry_forward_findings_table.json",
+            "blocker_zero_record.json",
+        )
+    )
+    post_review_execution_artifact_present = (
+        any(
+            path_is_file(attempt_archive / "phase4" / name)
+            for name in (
+                "implementation_scope_report.json",
+                "focused_test_result_report.json",
+                FOCUSED_TEST_RECEIPT_NAME,
+                "focused_test_execution_attestation.json",
+            )
+        )
+        or path_is_file(attempt_archive / "attempt_failures" / "implementation.json")
+    )
+    expected_zero_status: str | None = None
+    if path_is_file(materialization_path):
+        rows = materialization.get("rows")
+        rows_valid = (
+            materialization.get("schema_version")
+            == f"{SCHEMA_PREFIX}-preimplementation-review-materialization-v1"
+            and materialization.get("cycle_id") == CYCLE_ID
+            and materialization.get("attempt_id") == predecessor_id
+            and materialization.get("status") == "PASS"
+            and isinstance(rows, list)
+            and len(rows) == len(materialized_review_names)
+            and all(
+                isinstance(item, dict)
+                and isinstance(item.get("scope"), str)
+                and item.get("verdict") in {"PASS", "FAIL"}
+                and all(
+                    type(item.get(field)) is int and item[field] >= 0
+                    for field in (
+                        "critical_count",
+                        "important_count",
+                        "unresolved_minor_count",
+                    )
+                )
+                and isinstance(item.get("source_sha256"), str)
+                and len(item["source_sha256"]) == 64
+                for item in rows
+            )
+        )
+        if not rows_valid:
+            blockers.append(
+                f"attempt_registration_predecessor_review_materialization_invalid:{predecessor_id}"
+            )
+            rows = []
+        scope_rows = {
+            str(item.get("scope")): item
+            for item in rows
+            if isinstance(item, dict)
+        }
+        if set(scope_rows) != set(materialized_review_names):
+            blockers.append(
+                f"attempt_registration_predecessor_review_scope_set_invalid:{predecessor_id}"
+            )
+        critical_count = sum(
+            int(item.get("critical_count", 0))
+            for item in scope_rows.values()
+        )
+        important_count = sum(
+            int(item.get("important_count", 0))
+            for item in scope_rows.values()
+        )
+        unresolved_minor_count = sum(
+            int(item.get("unresolved_minor_count", 0))
+            for item in scope_rows.values()
+        )
+        all_verdicts_pass = (
+            len(scope_rows) == len(materialized_review_names)
+            and all(item.get("verdict") == "PASS" for item in scope_rows.values())
+        )
+        expected_zero_status = (
+            "PASS"
+            if (
+                all_verdicts_pass
+                and critical_count == 0
+                and important_count == 0
+                and unresolved_minor_count == 0
+            )
+            else "FAIL"
+        )
+        zero_binding_valid = (
+            path_is_file(zero_path)
+            and zero_record.get("schema_version")
+            == f"{SCHEMA_PREFIX}-blocker-zero-v1"
+            and zero_record.get("cycle_id") == CYCLE_ID
+            and zero_record.get("attempt_id") == predecessor_id
+            and zero_record.get("status") == expected_zero_status
+            and zero_record.get("critical_count") == critical_count
+            and zero_record.get("important_count") == important_count
+            and zero_record.get("unresolved_minor_count") == unresolved_minor_count
+            and zero_record.get("all_reviewer_verdicts_pass") is all_verdicts_pass
+        )
+        if not zero_binding_valid:
+            blockers.append(
+                f"attempt_registration_predecessor_blocker_zero_binding_invalid:{predecessor_id}"
+            )
+        for scope, review_name in materialized_review_names.items():
+            review_path = archive / "preimplementation_reviews" / review_name
+            review_row = scope_rows.get(scope, {})
+            if (
+                not path_is_file(review_path)
+                or sha256_file(review_path) != review_row.get("source_sha256")
             ):
                 blockers.append(
-                    f"attempt_registration_predecessor_review_input_missing:{predecessor_id}:{review_name}"
+                    f"attempt_registration_predecessor_review_input_missing_or_drifted:{predecessor_id}:{review_name}"
                 )
-    if zero_record.get("status") == "PASS":
+    elif phase3_review_artifact_present:
+        blockers.append(
+            f"attempt_registration_predecessor_partial_review_materialization:{predecessor_id}"
+        )
+    if post_review_execution_artifact_present and not path_is_file(materialization_path):
+        blockers.append(
+            f"attempt_registration_predecessor_execution_without_materialized_reviews:{predecessor_id}"
+        )
+    materialized_focused_attestation = (
+        attempt_archive / "phase4" / "focused_test_execution_attestation.json"
+    )
+    preserved_focused_attestation = (
+        archive
+        / "focused_test_attestations"
+        / "current_session_focused_test_execution_attestation.json"
+    )
+    attempt_number_match = re.fullmatch(
+        r"attempt-([0-9]{4,})-[a-z0-9][a-z0-9-]{0,47}",
+        predecessor_id,
+    )
+    focused_attestation_contract_applies = (
+        attempt_number_match is not None
+        and int(attempt_number_match.group(1)) >= 21
+    )
+    phase4_root = attempt_archive / "phase4"
+    implementation_execution_trace_present = (
+        (
+            path_is_dir(phase4_root)
+            and bool(directory_file_rows(phase4_root))
+        )
+        or path_is_file(attempt_archive / "attempt_failures" / "implementation.json")
+    )
+    if (
+        path_is_file(materialized_focused_attestation)
+        or (
+            focused_attestation_contract_applies
+            and implementation_execution_trace_present
+        )
+    ):
+        if (
+            not path_is_file(materialized_focused_attestation)
+            or not path_is_file(preserved_focused_attestation)
+            or not files_byte_identical(
+                preserved_focused_attestation,
+                materialized_focused_attestation,
+            )
+        ):
+            blockers.append(
+                f"attempt_registration_predecessor_focused_test_attestation_missing_or_drifted:{predecessor_id}"
+            )
+
+    sequence_failure = read_json_object(
+        archive / "execution_sequence_failure_record.json"
+    )
+    sequence_failure_valid = valid_execution_sequence_failure_record(
+        sequence_failure,
+        predecessor_id=predecessor_id,
+        attempt_archive=attempt_archive,
+        owner_archive=archive,
+    )
+    if (
+        predecessor_id in TRUSTED_EXECUTION_SEQUENCE_FAILURE_ANCHORS
+        and not sequence_failure_valid
+    ):
+        blockers.append(
+            f"attempt_registration_predecessor_anchored_sequence_failure_invalid:{predecessor_id}"
+        )
+    if expected_zero_status == "PASS":
         entry_failure = read_json_object(archive / "execution_entry_failure_record.json")
         implementation_failure = read_json_object(
             attempt_archive / "attempt_failures" / "implementation.json"
@@ -915,7 +1465,11 @@ def validate_preserved_owner_input_archive(
             and implementation_failure.get("claim_output_overwritten") is False
             and implementation_failure.get("wp_execution_allowed") is False
         )
-        if not entry_failure_valid and not implementation_failure_valid:
+        if (
+            not entry_failure_valid
+            and not implementation_failure_valid
+            and not sequence_failure_valid
+        ):
             blockers.append(
                 f"attempt_registration_predecessor_post_review_failure_record_invalid:{predecessor_id}"
             )
@@ -1008,6 +1562,47 @@ def validate_attempt_registration(
             blockers.extend(owner_archive_blockers)
             if owner_archive is not None:
                 seen_owner_input_archives.add(owner_archive)
+    anchor_id = "attempt-0020-entry"
+    anchor = TRUSTED_EXECUTION_SEQUENCE_FAILURE_ANCHORS[anchor_id]
+    anchored_registration = read_json_object(
+        ATTEMPTS_ROOT / anchor_id / "phase0" / "attempt_registration_record.json"
+    )
+    anchored_rows = anchored_registration.get("predecessor_attempts")
+    anchor_indexes = [
+        index
+        for index, row in enumerate(predecessors)
+        if isinstance(row, dict) and row.get("attempt_id") == anchor_id
+    ]
+    current_pre_anchor_rows = (
+        predecessors[: anchor_indexes[0]]
+        if len(anchor_indexes) == 1
+        else []
+    )
+    if (
+        not isinstance(anchored_rows, list)
+        or canonical_hash(anchored_rows)
+        != anchor["predecessor_registration_rows_sha256"]
+        or len(anchor_indexes) != 1
+        or current_pre_anchor_rows != anchored_rows
+    ):
+        blockers.append("attempt_registration_anchored_predecessor_chain_mismatch")
+    expected_anchor_row = {
+        "attempt_id": anchor_id,
+        "failure_record_preserved": True,
+        "preserved_evidence_path": repo_relative(ATTEMPTS_ROOT / anchor_id),
+        "preserved_evidence_tree_sha256": anchor["attempt_evidence_tree_sha256"],
+        "preserved_owner_inputs_path": repo_relative(
+            DEFAULT_EVIDENCE_ROOT / "superseded_owner_inputs" / anchor_id
+        ),
+        "preserved_owner_inputs_tree_sha256": anchor["owner_inputs_tree_sha256"],
+    }
+    anchor_rows = [
+        row
+        for row in predecessors
+        if isinstance(row, dict) and row.get("attempt_id") == anchor_id
+    ]
+    if anchor_rows != [expected_anchor_row]:
+        blockers.append("attempt_registration_anchored_sequence_row_mismatch")
     legacy_root = DEFAULT_EVIDENCE_ROOT / "superseded_review_rounds"
     expected_archives = {
         path.resolve()
@@ -1102,12 +1697,20 @@ def validate_plan_approval(
     return blockers
 
 
-def validate_reviewer_designation(payload: dict[str, Any]) -> list[str]:
+def validate_reviewer_designation(
+    payload: dict[str, Any],
+    *,
+    attempt_id: str,
+) -> list[str]:
     blockers: list[str] = []
     if not payload:
         return ["independent_reviewer_designation_missing_or_invalid"]
     if payload.get("round_id") != ROUND_ID:
         blockers.append("reviewer_designation_round_id_mismatch")
+    if payload.get("cycle_id") != CYCLE_ID:
+        blockers.append("reviewer_designation_cycle_id_mismatch")
+    if payload.get("attempt_id") != attempt_id:
+        blockers.append("reviewer_designation_attempt_id_mismatch")
     if payload.get("eligible") is not True:
         blockers.append("reviewer_designation_not_eligible")
     if not payload.get("owner_identity") or not payload.get("designated_at"):
@@ -1117,6 +1720,24 @@ def validate_reviewer_designation(payload: dict[str, Any]) -> list[str]:
     excluded = payload.get("excluded_authors")
     if not isinstance(excluded, list) or not excluded:
         blockers.append("reviewer_excluded_authors_missing")
+    elif payload.get("reviewer_identity") in excluded:
+        blockers.append("reviewer_identity_is_excluded")
+    required_scopes = {
+        "responsibility_boundary",
+        "authority_evidence_integrity",
+        "adversarial_failure_mode",
+        "focused_test_execution_attestation",
+    }
+    assigned_scopes = payload.get("phase3_scope_assignments")
+    if (
+        not isinstance(assigned_scopes, list)
+        or len(assigned_scopes) != len(required_scopes)
+        or not all(isinstance(scope, str) for scope in assigned_scopes)
+        or set(assigned_scopes) != required_scopes
+    ):
+        blockers.append("reviewer_designation_scope_assignments_mismatch")
+    if payload.get("focused_test_execution_attestation_eligible") is not True:
+        blockers.append("reviewer_focused_test_attestation_not_eligible")
     return blockers
 
 
@@ -1213,7 +1834,12 @@ def run_preflight(
         attempt_registration_hash=sha256_file(ATTEMPT_REGISTRATION_INPUT),
     )
     blockers.extend(plan_approval_blockers)
-    blockers.extend(validate_reviewer_designation(designation))
+    blockers.extend(
+        validate_reviewer_designation(
+            designation,
+            attempt_id=normalized_attempt_id,
+        )
+    )
     status_rows, status_blockers = validate_preflight_status(status_lines, approval)
     blockers.extend(status_blockers)
     reserved_external = {path.resolve() for path in RESERVED_EXTERNAL_INPUTS}
@@ -2030,7 +2656,12 @@ def validate_execution_entry(
             enforce_present_input_set=False,
         )
     )
-    blockers.extend(validate_reviewer_designation(designation))
+    blockers.extend(
+        validate_reviewer_designation(
+            designation,
+            attempt_id=normalized_attempt_id,
+        )
+    )
     if not files_byte_identical(
         phase0 / "clean_worktree_checkpoint_record.json", CLEAN_CHECKPOINT_INPUT
     ):
@@ -2096,6 +2727,10 @@ def validate_execution_entry(
     allowed_hashes[repo_relative(PLAN_APPROVAL_INPUT)] = sha256_file(PLAN_APPROVAL_INPUT)
     for source in PREIMPLEMENTATION_REVIEW_INPUTS:
         allowed_hashes[repo_relative(source)] = sha256_file(source)
+    if path_is_file(FOCUSED_TEST_ATTESTATION_INPUT):
+        allowed_hashes[repo_relative(FOCUSED_TEST_ATTESTATION_INPUT)] = sha256_file(
+            FOCUSED_TEST_ATTESTATION_INPUT
+        )
     _, status_lines = git_status_rows()
     status_rows = []
     for line in status_lines:
@@ -6191,6 +6826,22 @@ def run_implementation(
         raise ValueError("implementation requires blocker-zero Phase 3 review")
     if path_is_file(phase4 / "implementation_scope_report.json"):
         raise FileExistsError("implementation attempt outputs already exist")
+    focused_attestation, focused_attestation_blockers = (
+        validate_focused_test_execution_attestation(
+            root,
+            attempt_id=normalized_attempt_id,
+        )
+    )
+    if focused_attestation_blockers:
+        raise ValueError(
+            "implementation requires the external focused test attestation: "
+            + ",".join(focused_attestation_blockers)
+        )
+    focused_attestation_output = focused_test_attestation_output_path(root)
+    copy_external_bytes_once(
+        FOCUSED_TEST_ATTESTATION_INPUT,
+        focused_attestation_output,
+    )
     registration = read_json_object(ATTEMPT_REGISTRATION_INPUT)
     base_commit = registration.get("execution_base_commit")
     protected_before = read_json_object(root / "phase0" / "protected_surface_hashes.before.json").get("rows")
@@ -6234,6 +6885,13 @@ def run_implementation(
         "protected_changed_path_count": len(protected_paths.intersection(changed_paths)),
         "bootstrap_manifest_rewritten_after_entry": False,
         "plan_mapped_implementation_transition": True,
+        "focused_test_execution_attestation_path": repo_relative(
+            focused_attestation_output
+        ),
+        "focused_test_execution_attestation_sha256": sha256_file(
+            focused_attestation_output
+        ),
+        "focused_test_execution_attestation_verified": True,
         "blockers": blockers,
     }
     no_mutation = {
@@ -6257,12 +6915,20 @@ def run_implementation(
     }
     focused = {
         "schema_version": f"{SCHEMA_PREFIX}-focused-test-result-v1",
-        "status": "PENDING_PLAN_STEP_6",
+        "status": "PASS",
         "test_executed_inside_implementation_mode": False,
-        "command": (
-            "uv run python -B -m unittest discover -s Iris/build/description/v2/tests "
-            "-p test_dvf_3_3_registry_authority_canonical_closure.py"
+        "test_executed_before_implementation_mode": True,
+        "command": FOCUSED_TEST_COMMAND,
+        "external_attestation_path": repo_relative(
+            focused_attestation_output
         ),
+        "external_attestation_sha256": sha256_file(
+            focused_attestation_output
+        ),
+        "reviewer_identity": focused_attestation.get("reviewer_identity"),
+        "tests_run": focused_attestation.get("tests_run"),
+        "failure_count": focused_attestation.get("failure_count"),
+        "error_count": focused_attestation.get("error_count"),
     }
     completion_text = (
         "# WP Completion Summary\n\n"
@@ -6318,7 +6984,16 @@ def validate_implementation(
         "wp6_negative_reentry_fixture_report.json": {"status": "PASS", "real_current_or_package_mutation_count": 0, "same_raw_discovery_path_as_live_graph": True, "recognized_current_set_derived_from_observed_rows": False},
         "wp7_registry_authority_claim_scan_report.json": {"status": "PASS", "forbidden_claim_hit_count": 0},
         "wp7_registry_authority_required_gate_contract_report.json": {"status": "PASS", "required_gate_adopted": False},
-        "implementation_scope_report.json": {"status": "PASS", "protected_changed_path_count": 0},
+        "focused_test_result_report.json": {
+            "status": "PASS",
+            "test_executed_before_implementation_mode": True,
+            "test_executed_inside_implementation_mode": False,
+        },
+        "implementation_scope_report.json": {
+            "status": "PASS",
+            "protected_changed_path_count": 0,
+            "focused_test_execution_attestation_verified": True,
+        },
         "protected_surface_no_mutation_report.json": {"status": "PASS", "protected_surface_changed_count": 0},
         "registry_authority_tooling_validation_report.json": {"status": "PASS", "current_or_protected_writer_enabled": False},
     }
@@ -6332,6 +7007,31 @@ def validate_implementation(
         for field, expected in fields.items():
             if payload.get(field) != expected:
                 blockers.append(f"implementation_field_mismatch:{name}:{field}")
+    _, focused_attestation_blockers = validate_focused_test_execution_attestation(
+        root,
+        attempt_id=normalized_attempt_id,
+    )
+    blockers.extend(focused_attestation_blockers)
+    focused_attestation_output = focused_test_attestation_output_path(root)
+    focused_attestation_hash = sha256_file(focused_attestation_output)
+    implementation_scope = read_json_object(
+        phase4 / "implementation_scope_report.json"
+    )
+    focused_result = read_json_object(phase4 / "focused_test_result_report.json")
+    if (
+        implementation_scope.get(
+            "focused_test_execution_attestation_sha256"
+        )
+        != focused_attestation_hash
+    ):
+        blockers.append("implementation_focused_test_attestation_hash_mismatch")
+    if focused_result.get("external_attestation_sha256") != focused_attestation_hash:
+        blockers.append("focused_test_result_attestation_hash_mismatch")
+    if not files_byte_identical(
+        FOCUSED_TEST_ATTESTATION_INPUT,
+        focused_attestation_output,
+    ):
+        blockers.append("focused_test_external_attestation_byte_identity_mismatch")
     stored_before = read_json_object(root / "phase0" / "protected_surface_hashes.before.json").get("rows")
     fresh = protected_surface_rows()
     if stored_before != fresh:

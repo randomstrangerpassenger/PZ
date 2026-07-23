@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import unittest
+from unittest import mock
 import uuid
 
 
@@ -473,6 +474,196 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 resolved = root.resolve()
                 resolved.relative_to(ATTEMPTS_ROOT.resolve())
                 shutil.rmtree(resolved)
+
+    def test_command_order_failure_anchor_rejects_same_attempt_rewrite(self) -> None:
+        common = load_common_module()
+        predecessor_id = "attempt-0020-entry"
+        attempt_archive = ATTEMPTS_ROOT / predecessor_id
+        owner_archive = (
+            EVIDENCE_ROOT / "superseded_owner_inputs" / predecessor_id
+        )
+        anchor = common.TRUSTED_EXECUTION_SEQUENCE_FAILURE_ANCHORS[predecessor_id]
+        record = {
+            "schema_version": (
+                f"{common.SCHEMA_PREFIX}-execution-sequence-failure-v1"
+            ),
+            "cycle_id": ROUND_ID,
+            "attempt_id": predecessor_id,
+            "status": "FAIL",
+            "failure_class": "command_order_violation",
+            "missing_required_predecessor_command": common.FOCUSED_TEST_COMMAND,
+            "observed_completed_command": "implementation",
+            "focused_test_executed_before_implementation": False,
+            "same_attempt_claim_continuation_allowed": False,
+            "new_attempt_required": True,
+            "failure_history_preserved": True,
+            "claim_output_overwritten": False,
+            "wp_execution_allowed": False,
+            "gate_adoption_allowed": False,
+            "live_gate_adopted": False,
+            "protected_mutation_count": 0,
+            "execution_base_commit": anchor["execution_base_commit"],
+            "attempt_evidence_tree_sha256": anchor["attempt_evidence_tree_sha256"],
+            "preflight_report_path": common.repo_relative(
+                attempt_archive / "phase0" / "preflight_report.json"
+            ),
+            "preflight_report_sha256": anchor["preflight_report_sha256"],
+            "materialization_report_path": common.repo_relative(
+                attempt_archive
+                / "phase3"
+                / "preimplementation_review_materialization_report.json"
+            ),
+            "materialization_report_sha256": anchor[
+                "materialization_report_sha256"
+            ],
+            "blocker_zero_record_path": common.repo_relative(
+                attempt_archive / "phase3" / "blocker_zero_record.json"
+            ),
+            "blocker_zero_record_sha256": anchor["blocker_zero_record_sha256"],
+            "focused_test_result_report_path": common.repo_relative(
+                attempt_archive / "phase4" / "focused_test_result_report.json"
+            ),
+            "focused_test_result_report_sha256": anchor[
+                "focused_test_result_report_sha256"
+            ],
+            "focused_test_preimplementation_receipt_path": common.repo_relative(
+                attempt_archive / "phase4" / common.FOCUSED_TEST_RECEIPT_NAME
+            ),
+            "focused_test_preimplementation_receipt_present": False,
+            "implementation_scope_report_path": common.repo_relative(
+                attempt_archive / "phase4" / "implementation_scope_report.json"
+            ),
+            "implementation_scope_report_sha256": anchor[
+                "implementation_scope_report_sha256"
+            ],
+            "focused_test_base_file_sha256": anchor["focused_test_base_file_sha256"],
+            "implementation_common_base_file_sha256": anchor[
+                "implementation_common_base_file_sha256"
+            ],
+            "implementation_runner_base_file_sha256": anchor[
+                "implementation_runner_base_file_sha256"
+            ],
+            "owner_identity": "workspace_owner",
+            "recorder_identity": "/root",
+            "recorded_at": "2026-07-23T12:00:00+00:00",
+            "implementation_command_receipt": {
+                "session_id": 54414,
+                "exit_code": 0,
+                "first_phase4_evidence_at_utc": "2026-07-23T11:55:18+00:00",
+                "terminal_at_utc": "2026-07-23T11:57:17+00:00",
+                "terminal_result": {
+                    "status": "PASS",
+                    "attempt_id": predecessor_id,
+                    "blocker_count": 0,
+                },
+            },
+        }
+
+        def fake_sha256(path: Path) -> str | None:
+            return {
+                "execution_sequence_failure_record.json": anchor[
+                    "sequence_failure_record_sha256"
+                ],
+                "preflight_report.json": anchor["preflight_report_sha256"],
+                "preimplementation_review_materialization_report.json": anchor[
+                    "materialization_report_sha256"
+                ],
+                "blocker_zero_record.json": anchor["blocker_zero_record_sha256"],
+                "focused_test_result_report.json": anchor[
+                    "focused_test_result_report_sha256"
+                ],
+                "implementation_scope_report.json": anchor[
+                    "implementation_scope_report_sha256"
+                ],
+            }.get(path.name)
+
+        def fake_read_json(path: Path) -> dict[str, object]:
+            return {
+                "preflight_report.json": {"status": "PASS"},
+                "preimplementation_review_materialization_report.json": {
+                    "status": "PASS"
+                },
+                "blocker_zero_record.json": {
+                    "status": "PASS",
+                    "critical_count": 0,
+                    "important_count": 0,
+                },
+                "focused_test_result_report.json": {
+                    "status": "PENDING_PLAN_STEP_6",
+                    "test_executed_inside_implementation_mode": False,
+                },
+                "implementation_scope_report.json": {
+                    "schema_version": (
+                        f"{common.SCHEMA_PREFIX}-implementation-scope-v1"
+                    ),
+                    "status": "PASS",
+                    "attempt_id": predecessor_id,
+                },
+            }.get(path.name, {})
+
+        with (
+            mock.patch.object(common, "sha256_file", side_effect=fake_sha256),
+            mock.patch.object(
+                common,
+                "directory_tree_hash",
+                side_effect=lambda path: (
+                    anchor["attempt_evidence_tree_sha256"]
+                    if path == attempt_archive
+                    else anchor["owner_inputs_tree_sha256"]
+                ),
+            ),
+            mock.patch.object(
+                common,
+                "git_blob_sha256",
+                side_effect=[
+                    anchor["focused_test_base_file_sha256"],
+                    anchor["implementation_common_base_file_sha256"],
+                    anchor["implementation_runner_base_file_sha256"],
+                ]
+                * 2,
+            ),
+            mock.patch.object(common, "read_json_object", side_effect=fake_read_json),
+            mock.patch.object(common, "path_is_file", return_value=False),
+        ):
+            self.assertTrue(
+                common.valid_execution_sequence_failure_record(
+                    record,
+                    predecessor_id=predecessor_id,
+                    attempt_archive=attempt_archive,
+                    owner_archive=owner_archive,
+                )
+            )
+            forged = dict(record)
+            forged["focused_test_executed_before_implementation"] = True
+            self.assertFalse(
+                common.valid_execution_sequence_failure_record(
+                    forged,
+                    predecessor_id=predecessor_id,
+                    attempt_archive=attempt_archive,
+                    owner_archive=owner_archive,
+                )
+            )
+
+    def test_focused_test_inventory_is_exact_and_unique(self) -> None:
+        common = load_common_module()
+        inventory = common.focused_test_inventory()
+        self.assertEqual(inventory, sorted(set(inventory)))
+        self.assertIn(
+            (
+                "test_dvf_3_3_registry_authority_canonical_closure."
+                "RegistryAuthorityCanonicalClosureImplementationTest."
+                "test_command_order_failure_anchor_rejects_same_attempt_rewrite"
+            ),
+            inventory,
+        )
+        self.assertIn(
+            (
+                "test_dvf_3_3_registry_authority_canonical_closure."
+                "RegistryAuthorityCanonicalClosureImplementationTest."
+                "test_focused_test_inventory_is_exact_and_unique"
+            ),
+            inventory,
+        )
 
     def test_wp6_negative_fixtures_detect_path_hash_and_package_reentry(self) -> None:
         common = load_common_module()

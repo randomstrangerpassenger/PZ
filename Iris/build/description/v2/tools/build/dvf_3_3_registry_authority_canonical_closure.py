@@ -611,7 +611,26 @@ def record_attempt_failure_once(
     }
     terminal = terminal_by_mode.get(mode)
     failure_path = root / "attempt_failures" / f"{mode}.json"
-    if terminal is not None and terminal.is_file():
+    terminal_claim_complete = bool(terminal is not None and terminal.is_file())
+    if terminal_claim_complete and mode == "practical-final-validation":
+        matrix = read_json_object(terminal)
+        artifact_path = root / "phase5" / "final_artifact_hash_manifest.json"
+        machine_path = root / "phase5" / "machine_closure_candidate_report.json"
+        artifact = read_json_object(artifact_path)
+        machine = read_json_object(machine_path)
+        terminal_claim_complete = matrix.get("status") == "FAIL" or (
+            matrix.get("status") == "PASS"
+            and artifact.get("status") == "PASS"
+            and artifact.get("final_command_matrix_sha256")
+            == sha256_file(terminal)
+            and machine.get("status")
+            == "machine_pass_pending_external_review_and_owner_seal"
+            and machine.get("final_command_matrix_sha256")
+            == sha256_file(terminal)
+            and machine.get("final_artifact_hash_manifest_sha256")
+            == sha256_file(artifact_path)
+        )
+    if terminal_claim_complete:
         return {
             "written": False,
             "reason": "terminal_claim_output_already_exists",

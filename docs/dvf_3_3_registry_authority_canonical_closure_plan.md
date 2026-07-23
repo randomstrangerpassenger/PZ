@@ -95,6 +95,7 @@
    * 모든 tracked 구현/config/doc 변경이 끝난 뒤 Section 0.5의 명령을 실행한다.
    * 각 명령은 command, start/end, exit code, PASS/FAIL, 첫 실패 원인을 attempt-local append-only command matrix에 기록한다.
    * 실패하면 해당 attempt를 FAIL로 종결한다. 수정은 새 attempt에서 수행하며 이전 실패 record를 보존한다.
+   * PASS command matrix는 final artifact manifest와 machine candidate가 그 hash를 write-once로 결속한 뒤에만 완전한 final-validation terminal이다. 그 사이 후속 기록이 실패하면 PASS matrix를 덮어쓰지 않고 별도 write-once final-validation exception record를 보존한다.
    * post-adoption correction attempt는 이미 채택된 exact gate를 재작성하지 않고, Section 0.2의 correction lineage를 결속한 뒤 이 행렬 전체를 새 receipt로 실행한다.
 5. **Closeout and seal**
    * final command matrix와 Registry artifact manifest를 hash로 결속한다.

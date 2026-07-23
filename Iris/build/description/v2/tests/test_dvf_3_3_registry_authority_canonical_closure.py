@@ -500,6 +500,8 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                     "python_contained_temporary_directory_owner_classified_non_live",
                     "python_contained_mkdtemp_classified_non_live",
                     "python_contained_helper_return_classified_non_live",
+                    "python_local_tempfile_factory_name_collision_fail_closed",
+                    "python_method_tempfile_factory_name_collision_fail_closed",
                 },
             )
             self.assertEqual(
@@ -515,13 +517,20 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 set(report["expected_unresolved_taint_sources"]),
                 set(report["observed_unresolved_taint_sources"]),
             )
-            self.assertEqual(len(report["expected_unresolved_taint_sources"]), 3)
+            self.assertEqual(len(report["expected_unresolved_taint_sources"]), 4)
             self.assertEqual(report["unexpected_discovery_blockers"], [])
             self.assertTrue(report["fixture_executable_denominator"]["complete"])
             self.assertTrue(report["repo_anchor_current_edge_detected"])
             self.assertTrue(report["contained_python_fixture_classified"])
             self.assertGreaterEqual(
                 report["contained_python_fixture_reference_count"], 6
+            )
+            self.assertTrue(report["tempfile_name_collisions_fail_closed"])
+            self.assertEqual(
+                len(report["tempfile_name_collision_unresolved_blockers"]), 2
+            )
+            self.assertEqual(
+                report["tempfile_name_collision_contained_references"], []
             )
             self.assertEqual(report["real_current_or_package_mutation_count"], 0)
         finally:

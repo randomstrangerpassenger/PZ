@@ -3823,6 +3823,62 @@ def python_symbol_key(node: ast.AST) -> str | None:
     return None
 
 
+TRUSTED_TEMPFILE_FACTORY_MARKER = "__trusted_tempfile_factory__:"
+TEMPFILE_FACTORY_NAMES = {"TemporaryDirectory", "mkdtemp"}
+
+
+def python_trusted_tempfile_factory_symbols(tree: ast.AST) -> set[str]:
+    module_aliases: set[str] = set()
+    imported_factories: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                if alias.name == "tempfile":
+                    module_aliases.add(alias.asname or alias.name)
+        elif isinstance(node, ast.ImportFrom) and node.module == "tempfile":
+            for alias in node.names:
+                if alias.name in TEMPFILE_FACTORY_NAMES:
+                    imported_factories.add(alias.asname or alias.name)
+    trusted = {
+        f"{module_alias}.{factory_name}"
+        for module_alias in module_aliases
+        for factory_name in TEMPFILE_FACTORY_NAMES
+    } | imported_factories
+    stored_symbols = {
+        key
+        for node in ast.walk(tree)
+        if isinstance(node, (ast.Name, ast.Attribute))
+        and isinstance(node.ctx, ast.Store)
+        for key in [python_symbol_key(node)]
+        if key
+    }
+    stored_symbols.update(
+        node.name
+        for node in ast.walk(tree)
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+    )
+    stored_symbols.update(
+        argument.arg
+        for node in ast.walk(tree)
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda))
+        for argument in [
+            *node.args.posonlyargs,
+            *node.args.args,
+            *node.args.kwonlyargs,
+        ]
+    )
+    return {
+        symbol
+        for symbol in trusted
+        if symbol not in stored_symbols
+        and not any(
+            symbol.startswith(f"{stored}.")
+            for stored in stored_symbols
+            if stored in module_aliases
+        )
+    }
+
+
 SymbolicState = tuple[frozenset[str], bool, bool, bool]
 
 
@@ -3926,7 +3982,11 @@ def python_symbolic_state(
             if isinstance(node.func, ast.Attribute)
             else ""
         )
-        if function_name in {"TemporaryDirectory", "mkdtemp"}:
+        function_key = python_symbol_key(node.func)
+        if (
+            function_key
+            and f"{TRUSTED_TEMPFILE_FACTORY_MARKER}{function_key}" in symbols
+        ):
             return symbolic_state(
                 complete=False,
                 tainted=False,
@@ -4039,6 +4099,15 @@ def python_structural_registry_reads(
             contained_fixture=False,
         )
     }
+    symbols.update(
+        {
+            f"{TRUSTED_TEMPFILE_FACTORY_MARKER}{symbol}": symbolic_state(
+                complete=False,
+                tainted=False,
+            )
+            for symbol in python_trusted_tempfile_factory_symbols(tree)
+        }
+    )
     for node in ast.walk(tree):
         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
             for argument in [*node.args.posonlyargs, *node.args.args, *node.args.kwonlyargs]:
@@ -4050,17 +4119,18 @@ def python_structural_registry_reads(
                     )
         if isinstance(node, (ast.With, ast.AsyncWith)):
             for item in node.items:
-                function_name = (
-                    item.context_expr.func.id
+                function_key = (
+                    python_symbol_key(item.context_expr.func)
                     if isinstance(item.context_expr, ast.Call)
-                    and isinstance(item.context_expr.func, ast.Name)
-                    else item.context_expr.func.attr
-                    if isinstance(item.context_expr, ast.Call)
-                    and isinstance(item.context_expr.func, ast.Attribute)
-                    else ""
+                    else None
                 )
-                if function_name == "TemporaryDirectory" and isinstance(
-                    item.optional_vars, ast.Name
+                if (
+                    function_key
+                    and (
+                        f"{TRUSTED_TEMPFILE_FACTORY_MARKER}{function_key}"
+                        in symbols
+                    )
+                    and isinstance(item.optional_vars, ast.Name)
                 ):
                     symbols[item.optional_vars.id] = symbolic_state(
                         complete=False,
@@ -4718,6 +4788,9 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
     stale_path = fixture_root / "stale" / "IrisLayer3Data.lua"
     renamed_path = fixture_root / "active" / "registry_payload.lua"
     python_consumer = fixture_root / "current_route" / "split_reader.py"
+    python_collision_consumer = (
+        fixture_root / "current_route" / "tempfile_name_collision_reader.py"
+    )
     lua_consumer = fixture_root / "runtime_shared" / "alias_reader.lua"
     powershell_consumer = fixture_root / "required_tests" / "copy_reader.ps1"
     repo_parent_index = next(
@@ -4731,7 +4804,8 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
     write_text_once(
         python_consumer,
         "from pathlib import Path\n"
-        + "from tempfile import TemporaryDirectory\n"
+        + "import tempfile\n"
+        + "from tempfile import TemporaryDirectory, mkdtemp\n"
         + f"prefix = {Path(repo_relative(renamed_path)).parent.as_posix()!r}\n"
         + "leaf = 'registry_' + 'payload.lua'\n"
         + "target = Path(prefix) / leaf\n"
@@ -4756,10 +4830,10 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "fixture.tmp_dir = repo / 'Iris/build/description/v2/tests/_tmp_registry_attribute'\n"
         + "attribute_manifest = fixture.tmp_dir / 'IrisLayer3DataChunks.lua'\n"
         + "loader(attribute_manifest, 'rb')\n"
-        + "fixture.temp_owner = TemporaryDirectory()\n"
+        + "fixture.temp_owner = tempfile.TemporaryDirectory()\n"
         + "owner_manifest = Path(fixture.temp_owner.name) / 'dvf_3_3_rendered.json'\n"
         + "loader(owner_manifest, 'rb')\n"
-        + "generated_tmp = __import__('tempfile').mkdtemp()\n"
+        + "generated_tmp = mkdtemp()\n"
         + "mkdtemp_manifest = Path(generated_tmp) / 'round3_contract_manifest.json'\n"
         + "loader(mkdtemp_manifest, 'rb')\n"
         + "def reset_tmp_dir(path):\n"
@@ -4767,6 +4841,23 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "helper_tmp = reset_tmp_dir(repo / 'Iris/build/description/v2/tests/_tmp_registry_helper')\n"
         + "helper_manifest = helper_tmp / 'IrisLayer3DataChunks.lua'\n"
         + "loader(helper_manifest, 'rb')\n",
+    )
+    write_text_once(
+        python_collision_consumer,
+        "from pathlib import Path\n"
+        + f"repo = Path(__file__).resolve().parents[{repo_parent_index}]\n"
+        + "current = repo / 'Iris/build/description/v2/output/dvf_3_3_rendered.json'\n"
+        + "def TemporaryDirectory(path):\n"
+        + "    return path\n"
+        + "class LocalFactory:\n"
+        + "    def mkdtemp(self, path):\n"
+        + "        return path\n"
+        + "factory = LocalFactory()\n"
+        + "local_collision = TemporaryDirectory(current)\n"
+        + "method_collision = factory.mkdtemp(current)\n"
+        + "loader = open\n"
+        + "loader(local_collision, 'rb')\n"
+        + "loader(method_collision, 'rb')\n",
     )
     write_text_once(
         lua_consumer,
@@ -4800,7 +4891,12 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         }
     ]
     readpoints, discovery_blockers, denominator = discover_registry_readpoints(
-        extra_files=(python_consumer, lua_consumer, powershell_consumer),
+        extra_files=(
+            python_consumer,
+            python_collision_consumer,
+            lua_consumer,
+            powershell_consumer,
+        ),
         include_live=False,
     )
     package_members = [
@@ -4831,6 +4927,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
     }
     required_unresolved_sources = {
         repo_relative(python_consumer),
+        repo_relative(python_collision_consumer),
         repo_relative(lua_consumer),
         repo_relative(powershell_consumer),
     }
@@ -4868,6 +4965,25 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         )
         for reference in contained_fixture_references
     )
+    collision_consumer_path = repo_relative(python_collision_consumer)
+    collision_unresolved_blockers = [
+        blocker
+        for blocker in discovery_blockers
+        if blocker.startswith(
+            f"unresolved_registry_loader_reference:{collision_consumer_path}:"
+        )
+    ]
+    collision_contained_references = [
+        reference
+        for reference in contained_fixture_references
+        if str(reference).startswith(
+            f"contained_fixture_registry_reference:{collision_consumer_path}:"
+        )
+    ]
+    tempfile_name_collisions_fail_closed = (
+        len(collision_unresolved_blockers) == 2
+        and not collision_contained_references
+    )
     return {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-negative-fixture-v1",
         "status": (
@@ -4880,6 +4996,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             and repo_anchor_current_edge_detected
             and contained_python_fixture_classified
             and contained_python_fixture_reference_count >= 6
+            and tempfile_name_collisions_fail_closed
             else "FAIL"
         ),
         "expected_violation_kinds": sorted(expected),
@@ -4896,6 +5013,9 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         "repo_anchor_current_edge_detected": repo_anchor_current_edge_detected,
         "contained_python_fixture_classified": contained_python_fixture_classified,
         "contained_python_fixture_reference_count": contained_python_fixture_reference_count,
+        "tempfile_name_collision_unresolved_blockers": collision_unresolved_blockers,
+        "tempfile_name_collision_contained_references": collision_contained_references,
+        "tempfile_name_collisions_fail_closed": tempfile_name_collisions_fail_closed,
         "same_raw_discovery_path_as_live_graph": True,
         "negative_consumer_roots": [
             "current_route",
@@ -4916,6 +5036,8 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "python_contained_temporary_directory_owner_classified_non_live",
             "python_contained_mkdtemp_classified_non_live",
             "python_contained_helper_return_classified_non_live",
+            "python_local_tempfile_factory_name_collision_fail_closed",
+            "python_method_tempfile_factory_name_collision_fail_closed",
         ],
         "recognized_current_set_derived_from_observed_rows": False,
         "violations": violations,

@@ -9433,9 +9433,12 @@ def validate_practical_final_validation(
     )
     if (
         current_route.get("success") is not True
-        or current_route.get("failures") != 0
-        or current_route.get("errors") != 0
-        or current_route.get("skipped") != 0
+        or current_route.get("closure_enforced") is not True
+        or current_route.get("failures") != []
+        or current_route.get("errors") != []
+        or current_route.get("skipped") != []
+        or not isinstance(current_route.get("required_validations"), dict)
+        or current_route["required_validations"].get("success") is not True
     ):
         blockers.append("practical_final_current_route_result_not_pass")
     if artifact.get("status") != "PASS":

@@ -3792,6 +3792,26 @@ def join_symbolic_path(left: str, right: str) -> str:
     return left.rstrip("/\\") + "/" + right.lstrip("/\\")
 
 
+def contained_fixture_path_present(value: str) -> bool:
+    candidate = Path(value)
+    if not candidate.is_absolute():
+        candidate = REPO_ROOT / candidate
+    try:
+        relative = candidate.resolve().relative_to(TESTS_ROOT.resolve())
+    except (OSError, ValueError):
+        return False
+    return any(part.lower().startswith("_tmp") for part in relative.parts)
+
+
+def python_symbol_key(node: ast.AST) -> str | None:
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        parent = python_symbol_key(node.value)
+        return f"{parent}.{node.attr}" if parent else None
+    return None
+
+
 SymbolicState = tuple[frozenset[str], bool, bool, bool]
 
 
@@ -3811,7 +3831,8 @@ def symbolic_state(
             if tainted is None
             else tainted
         ),
-        contained_fixture,
+        contained_fixture
+        or any(contained_fixture_path_present(value) for value in frozen),
     )
 
 
@@ -3829,6 +3850,10 @@ def python_symbolic_state(
                 tainted=registry_path_taint_present(node.id),
             ),
         )
+    if isinstance(node, ast.Attribute):
+        key = python_symbol_key(node)
+        if key in symbols:
+            return symbols[key]
     if isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Add, ast.Div)):
         left_values, left_complete, left_tainted, left_contained = python_symbolic_state(
             node.left, symbols
@@ -4036,10 +4061,11 @@ def python_structural_registry_reads(
             state = python_symbolic_state(value_node, symbols)
             targets = node.targets if isinstance(node, ast.Assign) else [node.target]
             for target in targets:
-                if not isinstance(target, ast.Name):
+                target_key = python_symbol_key(target)
+                if not target_key:
                     continue
-                before = symbols.get(target.id)
-                symbols[target.id] = state
+                before = symbols.get(target_key)
+                symbols[target_key] = state
                 changed = changed or before != state
                 alias_name = (
                     value_node.id
@@ -4048,7 +4074,7 @@ def python_structural_registry_reads(
                     if isinstance(value_node, ast.Attribute)
                     else ""
                 )
-                if alias_name in loader_aliases:
+                if alias_name in loader_aliases and isinstance(target, ast.Name):
                     loader_aliases.add(target.id)
         if not changed:
             break
@@ -4075,6 +4101,14 @@ def python_structural_registry_reads(
         values = {
             value for state_values, _, _, _ in path_states for value in state_values
         }
+        complete = bool(path_states) and all(state[1] for state in path_states)
+        tainted = any(state[2] for state in path_states)
+        contained_fixture = any(state[3] for state in path_states)
+        if contained_fixture:
+            blockers.append(
+                f"contained_fixture_registry_reference:{repo_relative(source)}:{getattr(node, 'lineno', 0)}"
+            )
+            continue
         targets = {
             target
             for value in values
@@ -4088,14 +4122,7 @@ def python_structural_registry_reads(
             for target in sorted(targets)
         )
         raw_call = ast.get_source_segment(source_text, node) or ""
-        complete = bool(path_states) and all(state[1] for state in path_states)
-        tainted = any(state[2] for state in path_states)
-        contained_fixture = any(state[3] for state in path_states)
-        if not complete and tainted and contained_fixture:
-            blockers.append(
-                f"contained_fixture_registry_reference:{repo_relative(source)}:{getattr(node, 'lineno', 0)}"
-            )
-        elif (not complete and tainted) or not targets and (
+        if (not complete and tainted) or not targets and (
             registry_path_taint_present(raw_call) or tainted
         ):
             blockers.append(
@@ -4702,7 +4729,18 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         + "loader(required_current, 'rb')\n"
         + "with TemporaryDirectory() as tmp:\n"
         + "    generated = Path(tmp) / 'IrisLayer3DataChunks.lua'\n"
-        + "    loader(generated, 'rb')\n",
+        + "    loader(generated, 'rb')\n"
+        + "class FixtureOwner:\n"
+        + "    pass\n"
+        + "fixture = FixtureOwner()\n"
+        + "fixture.tmp_dir = repo / 'Iris/build/description/v2/tests/_tmp_registry_attribute'\n"
+        + "attribute_manifest = fixture.tmp_dir / 'IrisLayer3DataChunks.lua'\n"
+        + "loader(attribute_manifest, 'rb')\n"
+        + "def reset_tmp_dir(path):\n"
+        + "    return path\n"
+        + "helper_tmp = reset_tmp_dir(repo / 'Iris/build/description/v2/tests/_tmp_registry_helper')\n"
+        + "helper_manifest = helper_tmp / 'IrisLayer3DataChunks.lua'\n"
+        + "loader(helper_manifest, 'rb')\n",
     )
     write_text_once(
         lua_consumer,
@@ -4798,6 +4836,12 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         )
         for reference in contained_fixture_references
     )
+    contained_python_fixture_reference_count = sum(
+        str(reference).startswith(
+            f"contained_fixture_registry_reference:{repo_relative(python_consumer)}:"
+        )
+        for reference in contained_fixture_references
+    )
     return {
         "schema_version": f"{SCHEMA_PREFIX}-wp6-negative-fixture-v1",
         "status": (
@@ -4809,6 +4853,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             and denominator.get("complete") is True
             and repo_anchor_current_edge_detected
             and contained_python_fixture_classified
+            and contained_python_fixture_reference_count >= 3
             else "FAIL"
         ),
         "expected_violation_kinds": sorted(expected),
@@ -4824,6 +4869,7 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
         "repo_anchor_required_current_path": required_current_path,
         "repo_anchor_current_edge_detected": repo_anchor_current_edge_detected,
         "contained_python_fixture_classified": contained_python_fixture_classified,
+        "contained_python_fixture_reference_count": contained_python_fixture_reference_count,
         "same_raw_discovery_path_as_live_graph": True,
         "negative_consumer_roots": [
             "current_route",
@@ -4839,6 +4885,8 @@ def build_wp6_negative_fixture_report(root: Path) -> dict[str, Any]:
             "powershell_unresolved_taint_copy_fail_closed",
             "python_repo_anchor_required_current_exact_edge",
             "python_contained_generated_fixture_classified_non_live",
+            "python_contained_attribute_assignment_classified_non_live",
+            "python_contained_helper_return_classified_non_live",
         ],
         "recognized_current_set_derived_from_observed_rows": False,
         "violations": violations,

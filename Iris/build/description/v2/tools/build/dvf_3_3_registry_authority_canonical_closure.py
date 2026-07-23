@@ -9348,6 +9348,25 @@ def validate_practical_final_validation(
         freeze_rows
     ):
         blockers.append("practical_final_matrix_freeze_hash_drift")
+    committed_delta = run_git(
+        "diff",
+        "--name-only",
+        f"{scope.get('implementation_head')}..{freeze_head}",
+    )
+    actual_delta_paths = {
+        line.strip().replace("\\", "/")
+        for line in committed_delta.get("stdout", "").splitlines()
+        if line.strip()
+    }
+    expected_delta_paths = {
+        repo_relative(LIVE_REQUIRED_MANIFEST),
+        repo_relative(PRACTICAL_DURABLE_GATE_CONTRACT),
+    }
+    if (
+        committed_delta.get("exit_code") != 0
+        or actual_delta_paths != expected_delta_paths
+    ):
+        blockers.append("practical_final_committed_delta_not_exact_gate")
     expected_wp5_args = practical_wp5_command_args(root)
     expected_specs = practical_final_command_specs(root)
     expected_argv: dict[str, list[str] | None] = {
@@ -9489,6 +9508,14 @@ def practical_closeout_review_validation(
     for field, value in expected.items():
         if fields.get(field) != value:
             blockers.append(f"practical_closeout_review_field_mismatch:{field}")
+    matrix_completed = parse_utc_timestamp(matrix.get("completed_at"))
+    authored = parse_utc_timestamp(fields.get("authored_at"))
+    if (
+        matrix_completed is None
+        or authored is None
+        or authored <= matrix_completed
+    ):
+        blockers.append("practical_closeout_review_chronology_invalid")
     if findings:
         blockers.append("practical_closeout_review_has_findings")
     if not fields.get("relation_to_implementation_author"):
@@ -9500,6 +9527,7 @@ def practical_closeout_review_validation(
         "source_sha256": sha256_file(PRACTICAL_CLOSEOUT_REVIEW_INPUT),
         "reviewer_identity": fields.get("reviewer_identity"),
         "verdict": fields.get("verdict"),
+        "authored_at": fields.get("authored_at"),
         "finding_count": len(findings),
         "blockers": sorted(set(blockers)),
     }
@@ -9613,7 +9641,16 @@ def practical_owner_seal_validation(root: Path) -> dict[str, Any]:
         "owner_identity"
     ):
         blockers.append("practical_owner_identity_missing")
-    if parse_utc_timestamp(payload.get("authored_at")) is None:
+    owner_authored = parse_utc_timestamp(payload.get("authored_at"))
+    closeout_fields = parse_review_document(
+        phase5 / "external" / "practical_closeout_review.md"
+    ).get("fields", {})
+    closeout_authored = parse_utc_timestamp(closeout_fields.get("authored_at"))
+    if (
+        owner_authored is None
+        or closeout_authored is None
+        or owner_authored <= closeout_authored
+    ):
         blockers.append("practical_owner_seal_timestamp_invalid")
     return {
         "schema_version": f"{SCHEMA_PREFIX}-practical-owner-seal-validation-v1",

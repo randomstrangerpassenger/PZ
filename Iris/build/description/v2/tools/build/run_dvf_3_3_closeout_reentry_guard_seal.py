@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 from contextlib import contextmanager
 import json
+import os
 from pathlib import Path
 import shutil
 import sys
@@ -20,6 +21,7 @@ EXPECTED_CONTRACT_PROBE_REQUEST_SHA256 = (
 EXPECTED_FORBIDDEN_SURFACE_PROBE_REQUEST_SHA256 = (
     "821013056117e43b97729e500b246146398173e49061e1bc0bb391d4f90fa93b"
 )
+ISOLATED_TEMP_ROOT_ENV = "IRIS_DVF_ISOLATED_TEMP_ROOT"
 
 
 def read_probe_request() -> dict:
@@ -113,12 +115,23 @@ def historical_route_payload() -> dict:
 @contextmanager
 def isolated_fixture_candidate(label: str):
     nonce = uuid.uuid4().hex
+    isolated_temp_root_value = os.environ.get(ISOLATED_TEMP_ROOT_ENV)
+    isolated_temp_root = (
+        Path(isolated_temp_root_value).resolve()
+        if isolated_temp_root_value
+        else None
+    )
+    if (
+        isolated_temp_root is not None
+        and not isolated_temp_root.is_dir()
+    ):
+        raise ValueError("isolated temp root is not an existing directory")
     with tempfile.TemporaryDirectory(
-        prefix=f"{common.ROUND_ID}_{label}_{nonce}_",
-        dir=common.EVIDENCE_ROOT.parent,
+        prefix=f"d3c_{label[:3]}_{nonce[:8]}_",
+        dir=isolated_temp_root,
     ) as temp_dir:
         temp_root = Path(temp_dir)
-        candidate_root = temp_root / common.ROUND_ID
+        candidate_root = temp_root / "e"
         shutil.copytree(common.EVIDENCE_ROOT, candidate_root)
         candidate_docs = temp_root / "docs"
         candidate_docs.mkdir(parents=True, exist_ok=True)

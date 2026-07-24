@@ -363,6 +363,16 @@ CURRENT_ROUTE_FROZEN_FIXTURE_FILES = (
 CURRENT_ROUTE_FROZEN_FIXTURE_ROWS_SHA256 = (
     "6017c214709e77fd84f0b9a43c374f74bc95ce430bc3b5b2f65e03d524896efb"
 )
+CURRENT_ROUTE_FROZEN_FIXTURE_USAGE_PARTITION_SHA256 = (
+    "4dd67eca4ee2d186edff5913e4d36d2647420a3c2d05184e801218714dcae303"
+)
+CURRENT_ROUTE_LIVE_IGNORED_INPUTS = (
+    V2_ROOT / "output" / "dvf_3_3_rendered.json",
+)
+CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV = (
+    "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR"
+)
+CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV = "IRIS_DVF_ISOLATED_TEMP_ROOT"
 CURRENT_ROUTE_REFACTORED_TESTS = (
     TESTS_ROOT / "test_dvf_3_3_closeout_reentry_guard_seal.py",
     TESTS_ROOT
@@ -399,6 +409,7 @@ CURRENT_ROUTE_SUBPROCESS_TARGETS = (
     *CONSUMER_MIGRATION_NORMALIZATION_WRAPPERS,
 )
 CURRENT_ROUTE_SUBPROCESS_IMPLEMENTATIONS = (
+    TOOLS_ROOT / "consumer_universe_denominator_lock_common.py",
     TOOLS_ROOT / "dvf_3_3_closeout_reentry_guard_seal_common.py",
     TOOLS_ROOT
     / "dvf_3_3_core_registry_boundary_required_gate_adoption.py",
@@ -522,12 +533,25 @@ def filesystem_path(path: Path) -> Path:
     return Path("\\\\?\\" + raw)
 
 
+def lexical_filesystem_path(path: Path) -> Path:
+    raw = os.path.abspath(os.fspath(path))
+    if os.name != "nt" or raw.startswith("\\\\?\\"):
+        return Path(raw)
+    if raw.startswith("\\\\"):
+        return Path("\\\\?\\UNC\\" + raw[2:])
+    return Path("\\\\?\\" + raw)
+
+
 def path_is_file(path: Path) -> bool:
     return filesystem_path(path).is_file()
 
 
 def path_is_dir(path: Path) -> bool:
     return filesystem_path(path).is_dir()
+
+
+def path_lexists(path: Path) -> bool:
+    return os.path.lexists(str(lexical_filesystem_path(path)))
 
 
 def sha256_file(path: Path) -> str | None:
@@ -4549,6 +4573,56 @@ def current_route_frozen_fixture_validation(
     expected_payload_paths = {
         f"payload/{index:04d}.bin" for index in range(34)
     }
+    usage_sets: dict[str, set[str]] = {}
+    for field in (
+        "candidate_seed_payload_paths",
+        "normalization_source_payload_paths",
+        "archive_only_payload_paths",
+    ):
+        values = manifest.get(field)
+        if not isinstance(values, list) or any(
+            not isinstance(value, str) for value in values
+        ):
+            blockers.append(
+                f"current_route_frozen_fixture_usage_partition_invalid:{field}"
+            )
+            usage_sets[field] = set()
+        else:
+            usage_sets[field] = set(values)
+            if len(usage_sets[field]) != len(values):
+                blockers.append(
+                    f"current_route_frozen_fixture_usage_duplicate:{field}"
+                )
+    usage_union = set().union(*usage_sets.values())
+    usage_intersection = (
+        usage_sets["candidate_seed_payload_paths"]
+        & usage_sets["normalization_source_payload_paths"]
+    ) | (
+        usage_sets["candidate_seed_payload_paths"]
+        & usage_sets["archive_only_payload_paths"]
+    ) | (
+        usage_sets["normalization_source_payload_paths"]
+        & usage_sets["archive_only_payload_paths"]
+    )
+    if usage_union != expected_payload_paths or usage_intersection:
+        blockers.append(
+            "current_route_frozen_fixture_usage_partition_incomplete"
+        )
+    usage_partition_sha256 = canonical_hash(
+        {
+            key: sorted(value)
+            for key, value in sorted(usage_sets.items())
+        }
+    )
+    if (
+        usage_partition_sha256
+        != CURRENT_ROUTE_FROZEN_FIXTURE_USAGE_PARTITION_SHA256
+        or manifest.get("usage_partition_sha256")
+        != CURRENT_ROUTE_FROZEN_FIXTURE_USAGE_PARTITION_SHA256
+    ):
+        blockers.append(
+            "current_route_frozen_fixture_usage_partition_hash_mismatch"
+        )
     observed_payload_paths: set[str] = set()
     observed_target_paths: set[str] = set()
     total_byte_length = 0
@@ -4620,9 +4694,30 @@ def current_route_frozen_fixture_validation(
                     f"{target}"
                 )
         live_target = repo_root.joinpath(*target_path.parts)
-        if path_is_file(live_target) or path_is_dir(live_target):
+        if (
+            payload_relative
+            in usage_sets["candidate_seed_payload_paths"]
+            and (path_is_file(live_target) or path_is_dir(live_target))
+        ):
             blockers.append(
                 f"current_route_frozen_fixture_live_target_present:{target}"
+            )
+        if (
+            payload_relative
+            in usage_sets["candidate_seed_payload_paths"]
+            and target_path.suffix.lower() in {".py", ".ps1"}
+        ):
+            blockers.append(
+                f"current_route_frozen_fixture_executable_seed_forbidden:{target}"
+            )
+        if (
+            payload_relative
+            in usage_sets["normalization_source_payload_paths"]
+            and target_path.suffix.lower() != ".py"
+        ):
+            blockers.append(
+                "current_route_frozen_fixture_normalization_source_not_python:"
+                f"{target}"
             )
     if observed_payload_paths != expected_payload_paths:
         blockers.append("current_route_frozen_fixture_payload_set_mismatch")
@@ -4642,6 +4737,16 @@ def current_route_frozen_fixture_validation(
         "fixture_file_count": len(rows),
         "fixture_total_byte_length": total_byte_length,
         "rows_sha256": canonical_hash(rows),
+        "candidate_seed_file_count": len(
+            usage_sets["candidate_seed_payload_paths"]
+        ),
+        "normalization_source_file_count": len(
+            usage_sets["normalization_source_payload_paths"]
+        ),
+        "archive_only_file_count": len(
+            usage_sets["archive_only_payload_paths"]
+        ),
+        "usage_partition_sha256": usage_partition_sha256,
         "isolated_candidate_only": True,
         "live_materialization_allowed": False,
         "candidate_discard_required": True,
@@ -9695,6 +9800,7 @@ def streamed_command_record(
     expect_zero: bool = True,
     cwd: Path | None = None,
     execution_cwd_role: str = "live_repository_root",
+    env_overrides: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     started_at = utc_now()
     started_monotonic = time.monotonic()
@@ -9707,6 +9813,11 @@ def streamed_command_record(
         encoding="utf-8",
         errors="replace",
         bufsize=1,
+        env=(
+            {**os.environ, **env_overrides}
+            if env_overrides
+            else None
+        ),
     )
     output_parts: list[str] = []
     monitor_checkpoints: list[dict[str, Any]] = []
@@ -9795,6 +9906,9 @@ def streamed_command_record(
         "wp_owner": wp_owner,
         "validation_class": validation_class,
         "execution_cwd_role": execution_cwd_role,
+        "environment_contract_keys": sorted(
+            (env_overrides or {}).keys()
+        ),
         "status": "PASS" if passed else "FAIL",
         "argv": argv,
         "command": subprocess.list2cmdline(argv),
@@ -9841,6 +9955,75 @@ def git_status_lines_at(repo_root: Path) -> list[str]:
     ]
 
 
+def current_route_live_ignored_input_rows() -> tuple[
+    list[dict[str, Any]], list[str]
+]:
+    rows: list[dict[str, Any]] = []
+    blockers: list[str] = []
+    for path in CURRENT_ROUTE_LIVE_IGNORED_INPUTS:
+        relative = repo_relative(path)
+        tracked = run_git(
+            "ls-files", "--error-unmatch", "--", relative
+        )["exit_code"] == 0
+        ignored = run_git(
+            "check-ignore", "-q", "--", relative
+        )["exit_code"] == 0
+        exists = path_is_file(path)
+        row = {
+            "path": relative,
+            "role": "live_ignored_current_route_input",
+            "exists": exists,
+            "tracked": tracked,
+            "ignored": ignored,
+            "sha256": sha256_file(path),
+            "byte_length": (
+                filesystem_path(path).stat().st_size
+                if exists
+                else None
+            ),
+            "copied_to_isolated_candidate_only": True,
+            "live_materialization_allowed": False,
+        }
+        rows.append(row)
+        if not exists:
+            blockers.append(
+                f"current_route_live_ignored_input_missing:{relative}"
+            )
+        if tracked or not ignored:
+            blockers.append(
+                "current_route_live_ignored_input_git_state_invalid:"
+                f"{relative}"
+            )
+    return rows, blockers
+
+
+def discard_isolated_candidate(candidate_root: Path) -> tuple[bool, str | None]:
+    last_error: str | None = None
+    for retry in range(3):
+        try:
+            candidate = lexical_filesystem_path(candidate_root)
+            if path_lexists(candidate_root):
+                is_junction = bool(
+                    getattr(os.path, "isjunction", lambda _: False)(
+                        candidate
+                    )
+                )
+                if candidate.is_symlink():
+                    candidate.unlink()
+                elif is_junction:
+                    os.rmdir(candidate)
+                elif candidate.is_dir():
+                    shutil.rmtree(candidate)
+                else:
+                    candidate.unlink()
+            if not path_lexists(candidate_root):
+                return True, None
+        except OSError as exc:
+            last_error = f"{type(exc).__name__}:{exc}"
+        time.sleep(0.1 * (retry + 1))
+    return not path_lexists(candidate_root), last_error
+
+
 def isolated_current_route_command_record(
     spec: dict[str, Any],
     *,
@@ -9859,10 +10042,16 @@ def isolated_current_route_command_record(
         )
     live_status_before = git_status_rows()[1]
     fixture_validation = current_route_frozen_fixture_validation()
+    live_input_rows_before, live_input_blockers = (
+        current_route_live_ignored_input_rows()
+    )
     started_at = utc_now()
     preparation_blockers = list(
         fixture_validation.get("blockers", [])
     )
+    preparation_blockers.extend(live_input_blockers)
+    result_processing_blockers: list[str] = []
+    containment_blockers: list[str] = []
     clone_exit_code: int | None = None
     longpaths_config_exit_code: int | None = None
     checkout_exit_code: int | None = None
@@ -9872,19 +10061,21 @@ def isolated_current_route_command_record(
     output_copied_once = False
     candidate_discarded = False
     record: dict[str, Any] | None = None
+    command_failure_category: str | None = None
+    command_first_failing_predicate: str | None = None
     error_text = ""
-    temp_owner: tempfile.TemporaryDirectory[str] | None = None
+    cleanup_error: str | None = None
+    temp_owner_root: Path | None = None
     candidate_root: Path | None = None
+    candidate_ephemeral_root: Path | None = None
     try:
         if preparation_blockers:
             raise ValueError(
                 "frozen predecessor fixture invalid: "
                 + ",".join(preparation_blockers)
             )
-        temp_owner = tempfile.TemporaryDirectory(
-            prefix="dra_cr_"
-        )
-        candidate_root = Path(temp_owner.name) / "repo"
+        temp_owner_root = Path(tempfile.mkdtemp(prefix="c"))
+        candidate_root = temp_owner_root
         clone = subprocess.run(
             [
                 "git",
@@ -9965,7 +10156,12 @@ def isolated_current_route_command_record(
         fixture_manifest = read_json_object(
             fixture_root / "manifest.json"
         )
+        candidate_seed_payloads = set(
+            fixture_manifest.get("candidate_seed_payload_paths", [])
+        )
         for row in fixture_manifest.get("rows", []):
+            if row.get("payload_path") not in candidate_seed_payloads:
+                continue
             payload = fixture_root.joinpath(
                 *PurePosixPath(str(row["payload_path"])).parts
             )
@@ -9979,11 +10175,32 @@ def isolated_current_route_command_record(
                 )
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(payload, target)
+        for input_row in live_input_rows_before:
+            source = REPO_ROOT.joinpath(
+                *PurePosixPath(str(input_row["path"])).parts
+            )
+            target = candidate_root.joinpath(
+                *PurePosixPath(str(input_row["path"])).parts
+            )
+            if target.exists():
+                raise FileExistsError(
+                    "isolated live ignored input refuses existing target: "
+                    + str(input_row["path"])
+                )
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
+            if sha256_file(target) != input_row["sha256"]:
+                raise ValueError(
+                    "isolated live ignored input hash mismatch: "
+                    + str(input_row["path"])
+                )
         candidate_initial_status = git_status_lines_at(candidate_root)
         if candidate_initial_status:
             raise ValueError(
                 "isolated predecessor overlay escaped ignored targets"
             )
+        candidate_ephemeral_root = candidate_root / ".dvf_tmp"
+        candidate_ephemeral_root.mkdir(parents=False, exist_ok=False)
         record = streamed_command_record(
             list(spec["argv"]),
             command_id=str(spec["command_id"]),
@@ -9993,18 +10210,35 @@ def isolated_current_route_command_record(
             execution_cwd_role=(
                 "isolated_detached_committed_checkout"
             ),
+            env_overrides={
+                CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV: "1",
+                CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV: str(
+                    candidate_ephemeral_root
+                ),
+            },
+        )
+        command_failure_category = record.get("failure_category")
+        command_first_failing_predicate = record.get(
+            "first_failing_predicate"
         )
         candidate_output = candidate_root / repo_relative(live_output)
         candidate_result_sha256 = sha256_file(candidate_output)
         if not path_is_file(candidate_output):
             record["status"] = "FAIL"
-            record["failure_category"] = (
+            if record.get("failure_category") is None:
+                record["failure_category"] = (
+                    "isolated_current_route_result_missing"
+                )
+                record["first_failing_predicate"] = (
+                    "current_route_isolated_result_missing"
+                )
+            record["result_processing_failure_category"] = (
                 "isolated_current_route_result_missing"
             )
-            record["first_failing_predicate"] = (
+            record["result_processing_first_failing_predicate"] = (
                 "current_route_isolated_result_missing"
             )
-            preparation_blockers.append(
+            result_processing_blockers.append(
                 "isolated_current_route_result_missing"
             )
         else:
@@ -10013,11 +10247,11 @@ def isolated_current_route_command_record(
         candidate_final_status = git_status_lines_at(candidate_root)
     except Exception as exc:
         error_text = f"{type(exc).__name__}:{exc}"
-        preparation_blockers.append(
-            "isolated_current_route_execution_error:"
-            f"{type(exc).__name__}"
-        )
         if record is None:
+            preparation_blockers.append(
+                "isolated_current_route_preparation_error:"
+                f"{type(exc).__name__}"
+            )
             encoded = error_text.encode("utf-8")
             record = {
                 "schema_version": (
@@ -10055,44 +10289,94 @@ def isolated_current_route_command_record(
                 ),
                 "claim_output_overwritten": False,
             }
-    finally:
-        if temp_owner is not None:
-            try:
-                temp_owner.cleanup()
-            except OSError as exc:
-                preparation_blockers.append(
-                    "isolated_candidate_cleanup_failed:"
-                    f"{type(exc).__name__}"
+        else:
+            result_blocker = (
+                "isolated_current_route_result_processing_error:"
+                f"{type(exc).__name__}"
+            )
+            result_processing_blockers.append(result_blocker)
+            record["status"] = "FAIL"
+            record["result_processing_failure_category"] = (
+                "isolated_current_route_result_processing_failed"
+            )
+            record["result_processing_first_failing_predicate"] = (
+                result_blocker
+            )
+            if record.get("failure_category") is None:
+                record["failure_category"] = (
+                    "isolated_current_route_result_processing_failed"
                 )
-        candidate_discarded = (
-            candidate_root is None or not candidate_root.exists()
-        )
+                record["first_failing_predicate"] = result_blocker
+    finally:
+        if temp_owner_root is not None:
+            candidate_discarded, cleanup_error = (
+                discard_isolated_candidate(temp_owner_root)
+            )
+            if not candidate_discarded:
+                containment_blockers.append(
+                    "isolated_candidate_cleanup_failed:"
+                    + (
+                        cleanup_error.split(":", 1)[0]
+                        if cleanup_error
+                        else "unknown"
+                    )
+                )
+        else:
+            candidate_discarded = True
     assert record is not None
     live_status_after = git_status_rows()[1]
+    live_input_rows_after, live_input_after_blockers = (
+        current_route_live_ignored_input_rows()
+    )
+    containment_blockers.extend(live_input_after_blockers)
     live_status_unchanged = live_status_after == live_status_before
+    live_input_unchanged = (
+        live_input_rows_after == live_input_rows_before
+    )
     candidate_mutation_contained = (
-        candidate_discarded and live_status_unchanged
+        candidate_discarded
+        and live_status_unchanged
+        and live_input_unchanged
     )
     if not live_status_unchanged:
-        preparation_blockers.append(
+        containment_blockers.append(
             "isolated_current_route_live_worktree_drift"
         )
     if not candidate_discarded:
-        preparation_blockers.append(
+        containment_blockers.append(
             "isolated_current_route_candidate_not_discarded"
         )
-    if preparation_blockers:
+    if not live_input_unchanged:
+        containment_blockers.append(
+            "isolated_current_route_live_ignored_input_drift"
+        )
+    isolation_blockers = (
+        preparation_blockers
+        + result_processing_blockers
+        + containment_blockers
+    )
+    if isolation_blockers:
         record["status"] = "FAIL"
-        record["failure_category"] = (
+    if containment_blockers:
+        record["containment_failure_category"] = (
             "isolated_current_route_containment_failed"
         )
-        record["first_failing_predicate"] = preparation_blockers[0]
+        record["containment_first_failing_predicate"] = (
+            containment_blockers[0]
+        )
+        if record.get("failure_category") is None:
+            record["failure_category"] = (
+                "isolated_current_route_containment_failed"
+            )
+            record["first_failing_predicate"] = (
+                containment_blockers[0]
+            )
     isolation_report = {
         "schema_version": (
-            f"{SCHEMA_PREFIX}-current-route-isolation-report-v1"
+            f"{SCHEMA_PREFIX}-current-route-isolation-report-v2"
         ),
         "status": (
-            "PASS" if not preparation_blockers else "FAIL"
+            "PASS" if not isolation_blockers else "FAIL"
         ),
         "attempt_id": root.name,
         "freeze_head": freeze_head,
@@ -10107,6 +10391,18 @@ def isolated_current_route_command_record(
         "fixture_file_count": fixture_validation.get(
             "fixture_file_count"
         ),
+        "fixture_candidate_seed_file_count": fixture_validation.get(
+            "candidate_seed_file_count"
+        ),
+        "fixture_normalization_source_file_count": fixture_validation.get(
+            "normalization_source_file_count"
+        ),
+        "fixture_archive_only_file_count": fixture_validation.get(
+            "archive_only_file_count"
+        ),
+        "fixture_usage_partition_sha256": fixture_validation.get(
+            "usage_partition_sha256"
+        ),
         "fixture_total_byte_length": fixture_validation.get(
             "fixture_total_byte_length"
         ),
@@ -10120,6 +10416,7 @@ def isolated_current_route_command_record(
         "candidate_final_status_sha256": canonical_hash(
             candidate_final_status
         ),
+        "candidate_final_status_rows": candidate_final_status,
         "candidate_mutation_expected": True,
         "candidate_final_status_is_authority": False,
         "candidate_mutation_contained": candidate_mutation_contained,
@@ -10130,12 +10427,32 @@ def isolated_current_route_command_record(
             if candidate_discarded or candidate_root is None
             else str(candidate_root)
         ),
+        "candidate_cleanup_error": cleanup_error,
+        "nested_temp_root_relative_path": (
+            None
+            if candidate_root is None
+            or candidate_ephemeral_root is None
+            else candidate_ephemeral_root.relative_to(
+                candidate_root
+            ).as_posix()
+        ),
+        "nested_temp_root_contained_by_candidate": (
+            candidate_root is not None
+            and candidate_ephemeral_root is not None
+            and candidate_ephemeral_root.parent == candidate_root
+        ),
         "output_copied_once": output_copied_once,
         "live_status_before_sha256": canonical_hash(
             live_status_before
         ),
         "live_status_after_sha256": canonical_hash(live_status_after),
         "live_status_changed": not live_status_unchanged,
+        "live_ignored_input_rows_before": live_input_rows_before,
+        "live_ignored_input_rows_after": live_input_rows_after,
+        "live_ignored_input_rows_sha256": canonical_hash(
+            live_input_rows_before
+        ),
+        "live_ignored_input_changed": not live_input_unchanged,
         "clone_exit_code": clone_exit_code,
         "longpaths_config_exit_code": longpaths_config_exit_code,
         "longpaths_enabled_in_candidate": (
@@ -10143,7 +10460,38 @@ def isolated_current_route_command_record(
         ),
         "checkout_exit_code": checkout_exit_code,
         "error": error_text or None,
-        "blockers": sorted(set(preparation_blockers)),
+        "execution_failure_category": command_failure_category,
+        "execution_first_failing_predicate": (
+            command_first_failing_predicate
+        ),
+        "preparation_failure_category": (
+            "isolated_fixture_preparation_failed"
+            if preparation_blockers
+            else None
+        ),
+        "preparation_first_failing_predicate": (
+            preparation_blockers[0]
+            if preparation_blockers
+            else None
+        ),
+        "result_processing_failure_category": record.get(
+            "result_processing_failure_category"
+        ),
+        "result_processing_first_failing_predicate": record.get(
+            "result_processing_first_failing_predicate"
+        ),
+        "containment_failure_category": record.get(
+            "containment_failure_category"
+        ),
+        "containment_first_failing_predicate": record.get(
+            "containment_first_failing_predicate"
+        ),
+        "preparation_blockers": sorted(set(preparation_blockers)),
+        "result_processing_blockers": sorted(
+            set(result_processing_blockers)
+        ),
+        "containment_blockers": sorted(set(containment_blockers)),
+        "blockers": sorted(set(isolation_blockers)),
     }
     write_json_once(isolation_report_path, isolation_report)
     record["isolation_report_path"] = repo_relative(
@@ -10683,6 +11031,12 @@ def run_practical_final_validation(
         "phase4_tree_sha256": directory_tree_hash(root / "phase4"),
         "final_command_matrix_path": repo_relative(terminal),
         "final_command_matrix_sha256": sha256_file(terminal),
+        "current_route_isolation_report_sha256": sha256_file(
+            phase5 / "current_route_isolation_report.json"
+        ),
+        "current_route_validation_result_sha256": sha256_file(
+            phase5 / "current_route_validation_result.json"
+        ),
         "live_required_manifest_sha256": sha256_file(
             LIVE_REQUIRED_MANIFEST
         ),
@@ -10916,6 +11270,115 @@ def validate_practical_final_validation(
         blockers.append("practical_final_receipt_manifest_drift")
     if matrix.get("receipt_manifest_sha256") != canonical_hash(receipt_rows):
         blockers.append("practical_final_receipt_manifest_hash_drift")
+    current_route_receipt_path = (
+        phase5
+        / "command_receipts"
+        / "04_current_route_required_regressions.json"
+    )
+    current_route_receipt = read_json_object(current_route_receipt_path)
+    isolation_report_path = phase5 / "current_route_isolation_report.json"
+    current_route_result_path = (
+        phase5 / "current_route_validation_result.json"
+    )
+    isolation_report = read_json_object(isolation_report_path)
+    isolation_report_sha256 = sha256_file(isolation_report_path)
+    current_route_result_sha256 = sha256_file(
+        current_route_result_path
+    )
+    if current_route_receipt.get("isolation_report_path") != repo_relative(
+        isolation_report_path
+    ):
+        blockers.append(
+            "practical_final_current_route_isolation_path_drift"
+        )
+    if (
+        current_route_receipt.get("isolation_report_sha256")
+        != isolation_report_sha256
+    ):
+        blockers.append(
+            "practical_final_current_route_isolation_hash_drift"
+        )
+    if current_route_receipt.get(
+        "current_route_result_path"
+    ) != repo_relative(current_route_result_path):
+        blockers.append(
+            "practical_final_current_route_result_path_drift"
+        )
+    if (
+        current_route_receipt.get("current_route_result_sha256")
+        != current_route_result_sha256
+        or current_route_receipt.get("candidate_result_sha256")
+        != current_route_result_sha256
+    ):
+        blockers.append(
+            "practical_final_current_route_result_hash_drift"
+        )
+    expected_isolation_environment_keys = sorted(
+        (
+            CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV,
+            CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV,
+        )
+    )
+    if current_route_receipt.get(
+        "environment_contract_keys"
+    ) != expected_isolation_environment_keys:
+        blockers.append(
+            "practical_final_current_route_environment_contract_drift"
+        )
+    candidate_final_status_rows = isolation_report.get(
+        "candidate_final_status_rows"
+    )
+    if (
+        isolation_report.get("schema_version")
+        != f"{SCHEMA_PREFIX}-current-route-isolation-report-v2"
+        or isolation_report.get("status") != "PASS"
+        or isolation_report.get("attempt_id") != normalized_attempt_id
+        or isolation_report.get("freeze_head") != freeze_head
+        or isolation_report.get("blockers") != []
+        or isolation_report.get("preparation_blockers") != []
+        or isolation_report.get("result_processing_blockers") != []
+        or isolation_report.get("containment_blockers") != []
+        or isolation_report.get("candidate_initial_status_count") != 0
+        or not isinstance(candidate_final_status_rows, list)
+        or isolation_report.get("candidate_final_status_count")
+        != (
+            len(candidate_final_status_rows)
+            if isinstance(candidate_final_status_rows, list)
+            else None
+        )
+        or isolation_report.get("candidate_final_status_sha256")
+        != canonical_hash(
+            candidate_final_status_rows
+            if isinstance(candidate_final_status_rows, list)
+            else []
+        )
+        or isolation_report.get("candidate_mutation_contained") is not True
+        or isolation_report.get("candidate_discarded") is not True
+        or isolation_report.get("candidate_cleanup_path") is not None
+        or isolation_report.get("candidate_cleanup_error") is not None
+        or isolation_report.get(
+            "nested_temp_root_contained_by_candidate"
+        )
+        is not True
+        or isolation_report.get("output_copied_once") is not True
+        or isolation_report.get("live_status_changed") is not False
+        or isolation_report.get("live_ignored_input_changed") is not False
+        or isolation_report.get("live_ignored_input_rows_before")
+        != isolation_report.get("live_ignored_input_rows_after")
+        or isolation_report.get("candidate_result_sha256")
+        != current_route_result_sha256
+        or isolation_report.get("fixture_usage_partition_sha256")
+        != CURRENT_ROUTE_FROZEN_FIXTURE_USAGE_PARTITION_SHA256
+        or isolation_report.get("execution_failure_category") is not None
+        or isolation_report.get("preparation_failure_category") is not None
+        or isolation_report.get("result_processing_failure_category")
+        is not None
+        or isolation_report.get("containment_failure_category")
+        is not None
+    ):
+        blockers.append(
+            "practical_final_current_route_isolation_contract_invalid"
+        )
     focused_row = (
         rows[3]
         if isinstance(rows, list)
@@ -10925,9 +11388,7 @@ def validate_practical_final_validation(
     )
     if focused_row.get("tests_run") != len(focused_test_inventory()):
         blockers.append("practical_final_focused_inventory_count_mismatch")
-    current_route = read_json_object(
-        phase5 / "current_route_validation_result.json"
-    )
+    current_route = read_json_object(current_route_result_path)
     if (
         current_route.get("success") is not True
         or current_route.get("closure_enforced") is not True
@@ -10948,6 +11409,18 @@ def validate_practical_final_validation(
         blockers.append("practical_final_artifact_correction_hash_drift")
     if artifact.get("final_command_matrix_sha256") != sha256_file(matrix_path):
         blockers.append("practical_final_matrix_hash_binding_mismatch")
+    if artifact.get(
+        "current_route_isolation_report_sha256"
+    ) != isolation_report_sha256:
+        blockers.append(
+            "practical_final_artifact_isolation_hash_drift"
+        )
+    if artifact.get(
+        "current_route_validation_result_sha256"
+    ) != current_route_result_sha256:
+        blockers.append(
+            "practical_final_artifact_current_route_result_hash_drift"
+        )
     if artifact.get("phase4_tree_sha256") != directory_tree_hash(
         root / "phase4"
     ):

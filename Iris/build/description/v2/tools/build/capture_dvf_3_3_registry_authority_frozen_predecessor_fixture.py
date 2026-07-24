@@ -85,6 +85,15 @@ TARGET_PATHS = tuple(
     )
 )
 
+CANDIDATE_SEED_TARGETS = frozenset(
+    {
+        *FIXED_PREDECESSOR_TARGETS[2:],
+        *ROLLBACK_RUNTIME_TARGETS,
+    }
+)
+NORMALIZATION_SOURCE_TARGETS = frozenset(NORMALIZATION_EXISTENCE_TARGETS)
+ARCHIVE_ONLY_TARGETS = frozenset(FIXED_PREDECESSOR_TARGETS[:2])
+
 
 def canonical_hash(value: Any) -> str:
     payload = json.dumps(
@@ -174,6 +183,28 @@ def capture(source_root: Path, output_root: Path) -> dict[str, Any]:
             }
         )
 
+    candidate_seed_payload_paths = [
+        row["payload_path"]
+        for row in rows
+        if row["target_path"] in CANDIDATE_SEED_TARGETS
+    ]
+    normalization_source_payload_paths = [
+        row["payload_path"]
+        for row in rows
+        if row["target_path"] in NORMALIZATION_SOURCE_TARGETS
+    ]
+    archive_only_payload_paths = [
+        row["payload_path"]
+        for row in rows
+        if row["target_path"] in ARCHIVE_ONLY_TARGETS
+    ]
+    usage_partition = {
+        "archive_only_payload_paths": archive_only_payload_paths,
+        "candidate_seed_payload_paths": candidate_seed_payload_paths,
+        "normalization_source_payload_paths": (
+            normalization_source_payload_paths
+        ),
+    }
     manifest = {
         "schema_version": SCHEMA_VERSION,
         "status": "PASS",
@@ -187,6 +218,8 @@ def capture(source_root: Path, output_root: Path) -> dict[str, Any]:
         "isolated_candidate_only": True,
         "live_materialization_allowed": False,
         "candidate_discard_required": True,
+        **usage_partition,
+        "usage_partition_sha256": canonical_hash(usage_partition),
         "file_count": len(rows),
         "total_byte_length": sum(row["byte_length"] for row in rows),
         "rows": rows,
@@ -223,6 +256,9 @@ def main() -> int:
                 "file_count": manifest["file_count"],
                 "total_byte_length": manifest["total_byte_length"],
                 "rows_sha256": manifest["rows_sha256"],
+                "usage_partition_sha256": manifest[
+                    "usage_partition_sha256"
+                ],
             },
             sort_keys=True,
         )

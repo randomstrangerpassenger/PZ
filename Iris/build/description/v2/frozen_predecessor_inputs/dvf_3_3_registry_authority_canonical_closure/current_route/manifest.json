@@ -1,11 +1,51 @@
 {
   "authority_claimed": false,
+  "archive_only_payload_paths": [
+    "payload/0000.bin",
+    "payload/0001.bin"
+  ],
   "candidate_discard_required": true,
+  "candidate_seed_payload_paths": [
+    "payload/0002.bin",
+    "payload/0003.bin",
+    "payload/0004.bin",
+    "payload/0005.bin",
+    "payload/0006.bin",
+    "payload/0007.bin",
+    "payload/0008.bin",
+    "payload/0009.bin",
+    "payload/0010.bin",
+    "payload/0011.bin",
+    "payload/0012.bin",
+    "payload/0013.bin",
+    "payload/0014.bin",
+    "payload/0015.bin",
+    "payload/0016.bin"
+  ],
   "captured_at": "2026-07-23T22:11:58.656167+00:00",
   "current_route_authority_claimed": false,
   "file_count": 34,
   "isolated_candidate_only": true,
   "live_materialization_allowed": false,
+  "normalization_source_payload_paths": [
+    "payload/0017.bin",
+    "payload/0018.bin",
+    "payload/0019.bin",
+    "payload/0020.bin",
+    "payload/0021.bin",
+    "payload/0022.bin",
+    "payload/0023.bin",
+    "payload/0024.bin",
+    "payload/0025.bin",
+    "payload/0026.bin",
+    "payload/0027.bin",
+    "payload/0028.bin",
+    "payload/0029.bin",
+    "payload/0030.bin",
+    "payload/0031.bin",
+    "payload/0032.bin",
+    "payload/0033.bin"
+  ],
   "role": "frozen_predecessor_input",
   "rows": [
     {
@@ -353,5 +393,6 @@
   "schema_version": "dvf-3-3-registry-authority-canonical-closure-frozen-predecessor-fixture-v1",
   "source_checkout_commit": "bfbcffedf8250cec28f5aa8f9dcc08b5df94760d",
   "status": "PASS",
-  "total_byte_length": 1614734
+  "total_byte_length": 1614734,
+  "usage_partition_sha256": "4dd67eca4ee2d186edff5913e4d36d2647420a3c2d05184e801218714dcae303"
 }

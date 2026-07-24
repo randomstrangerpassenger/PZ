@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import difflib
+import hashlib
 import json
 import re
 import shutil
 from collections import Counter, defaultdict
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -40,6 +42,12 @@ CLAIM_BOUNDARY = (
     "DVF 3-3 vNext current authority cutover tooling readiness only; "
     "not current authority adoption, live runtime replacement, consumer migration completion, "
     "package readiness, or release readiness"
+)
+EXPECTED_FROZEN_PREDECESSOR_ROWS_SHA256 = (
+    "6017c214709e77fd84f0b9a43c374f74bc95ce430bc3b5b2f65e03d524896efb"
+)
+EXPECTED_FROZEN_PREDECESSOR_USAGE_PARTITION_SHA256 = (
+    "4dd67eca4ee2d186edff5913e4d36d2647420a3c2d05184e801218714dcae303"
 )
 
 READINESS_ROOT = V2_ROOT / "staging" / "dvf_3_3_vnext_cutover_tooling_readiness"
@@ -799,8 +807,24 @@ def write_consumer_migration_readiness() -> dict[str, Any]:
     assert_required_inputs()
     rows = normalized_rows()
     apply_rows = [row for row in rows if row.get("apply_eligibility") is True]
-    missing_apply = [row for row in apply_rows if not resolve_repo(row["path"]).exists()]
+    missing_apply = [
+        row
+        for row in apply_rows
+        if not migration_source_for_row(row).exists()
+    ]
     missing_non_apply = [row for row in rows if row.get("path_status") == "missing" and row.get("apply_eligibility") is not True]
+    frozen_sources = sorted(
+        {
+            (
+                str(row["path"]),
+                str(row["source_materialization_path"]),
+                str(row["frozen_predecessor_source_sha256"]),
+            )
+            for row in rows
+            if row.get("source_materialization_role")
+            == "frozen_predecessor_input"
+        }
+    )
     preflight = {
         "schema_version": "dvf-3-3-vnext-consumer-migration-materialization-preflight-v0",
         "generated_at": GENERATED_AT,
@@ -808,11 +832,27 @@ def write_consumer_migration_readiness() -> dict[str, Any]:
         "matrix_fingerprint": sha256_file(CONSUMER_MATRIX),
         "change_required_row_count": len(rows),
         "change_required_path_count": len({row["path"] for row in rows}),
-        "materialized_path_count": len({row["path"] for row in rows if resolve_repo(row["path"]).exists()}),
+        "materialized_path_count": len(
+            {
+                row["path"]
+                for row in rows
+                if migration_source_for_row(row).exists()
+            }
+        ),
         "missing_required_path_count": len({row["path"] for row in missing_non_apply + missing_apply}),
         "missing_required_row_count": len(missing_non_apply) + len(missing_apply),
         "known_missing_paths": sorted({row["path"] for row in missing_non_apply + missing_apply}),
-        "reconstruction_sources": [],
+        "reconstruction_sources": [
+            {
+                "target_path": target_path,
+                "source_path": source_path,
+                "source_sha256": source_sha256,
+                "source_role": "frozen_predecessor_input",
+                "authority_claimed": False,
+                "current_route_authority_claimed": False,
+            }
+            for target_path, source_path, source_sha256 in frozen_sources
+        ],
         "blocked_rows": [row["row_id"] for row in missing_apply],
         "excluded_rows": [row["row_id"] for row in missing_non_apply],
         "verdict": "PASS" if not missing_apply else "FAIL",
@@ -898,7 +938,151 @@ def write_after_target_authority_handle() -> None:
 
 
 def sandbox_path_for(repo_path: str, root: Path) -> Path:
-    return root / repo_path.replace("/", "__").replace("\\", "__")
+    normalized = repo_path.replace("\\", "/")
+    suffix = Path(normalized).suffix
+    digest = hashlib.sha256(normalized.encode("utf-8")).hexdigest()
+    return root / f"{digest}{suffix}"
+
+
+@lru_cache(maxsize=1)
+def frozen_predecessor_fixture_binding() -> dict[str, Any]:
+    fixture_root = (
+        V2_ROOT
+        / "frozen_predecessor_inputs"
+        / "dvf_3_3_registry_authority_canonical_closure"
+        / "current_route"
+    )
+    manifest_path = fixture_root / "manifest.json"
+    manifest = read_json(manifest_path)
+    manifest_rows = manifest.get("rows")
+    usage_partition = {
+        field: manifest.get(field)
+        for field in (
+            "archive_only_payload_paths",
+            "candidate_seed_payload_paths",
+            "normalization_source_payload_paths",
+        )
+    }
+    if (
+        manifest.get("schema_version")
+        != (
+            "dvf-3-3-registry-authority-canonical-closure-"
+            "frozen-predecessor-fixture-v1"
+        )
+        or manifest.get("status") != "PASS"
+        or manifest.get("authority_claimed") is not False
+        or manifest.get("current_route_authority_claimed") is not False
+        or not isinstance(manifest_rows, list)
+        or canonical_hash(manifest_rows)
+        != EXPECTED_FROZEN_PREDECESSOR_ROWS_SHA256
+        or manifest.get("rows_sha256")
+        != EXPECTED_FROZEN_PREDECESSOR_ROWS_SHA256
+        or canonical_hash(usage_partition)
+        != EXPECTED_FROZEN_PREDECESSOR_USAGE_PARTITION_SHA256
+        or manifest.get("usage_partition_sha256")
+        != EXPECTED_FROZEN_PREDECESSOR_USAGE_PARTITION_SHA256
+    ):
+        raise ValueError(
+            "frozen predecessor readiness manifest boundary is invalid"
+        )
+    allowed_payloads = set(
+        manifest.get("normalization_source_payload_paths", [])
+    )
+    rows_by_target = {
+        str(row["target_path"]): row
+        for row in manifest.get("rows", [])
+        if isinstance(row, dict)
+        and row.get("payload_path") in allowed_payloads
+        and isinstance(row.get("target_path"), str)
+    }
+    if len(rows_by_target) != len(allowed_payloads):
+        raise ValueError(
+            "frozen predecessor readiness binding is incomplete"
+        )
+    return {
+        "fixture_root": fixture_root,
+        "payload_root": (fixture_root / "payload").resolve(),
+        "manifest_sha256": sha256_file(manifest_path),
+        "rows_by_target": rows_by_target,
+    }
+
+
+def migration_source_for_row(row: dict[str, Any]) -> Path:
+    source_path = row.get("source_materialization_path")
+    if isinstance(source_path, str) and source_path:
+        source = resolve_repo(source_path).resolve()
+        source_role = row.get("source_materialization_role")
+        if source_role == "current_checkout_target":
+            if (
+                source != resolve_repo(row["path"])
+                or row.get("current_checkout_path_exists") is not True
+            ):
+                raise ValueError(
+                    "current checkout migration source binding mismatch: "
+                    + str(row.get("row_id"))
+                )
+        elif source_role == "frozen_predecessor_input":
+            binding = frozen_predecessor_fixture_binding()
+            fixture_payload_root = binding["payload_root"]
+            try:
+                source.resolve().relative_to(fixture_payload_root)
+            except ValueError as exc:
+                raise ValueError(
+                    "frozen predecessor migration source escaped fixture: "
+                    + str(row.get("row_id"))
+                ) from exc
+            fixture_row = binding["rows_by_target"].get(str(row["path"]))
+            expected_source = (
+                None
+                if fixture_row is None
+                else (
+                    binding["fixture_root"]
+                    / str(fixture_row["payload_path"])
+                ).resolve()
+            )
+            actual_source_sha256 = sha256_file(source)
+            actual_source_byte_length = (
+                source.stat().st_size if source.is_file() else None
+            )
+            if (
+                fixture_row is None
+                or source != expected_source
+                or source.suffix.lower() != ".bin"
+                or row.get("current_checkout_path_exists") is not False
+                or row.get("frozen_predecessor_authority_claimed") is not False
+                or actual_source_sha256
+                != row.get("frozen_predecessor_source_sha256")
+                or actual_source_sha256 != fixture_row.get("sha256")
+                or actual_source_byte_length
+                != fixture_row.get("byte_length")
+                or row.get(
+                    "frozen_predecessor_fixture_manifest_sha256"
+                )
+                != binding["manifest_sha256"]
+                or row.get("frozen_predecessor_fixture_row_sha256")
+                != canonical_hash(fixture_row)
+            ):
+                raise ValueError(
+                    "frozen predecessor migration source binding mismatch: "
+                    + str(row.get("row_id"))
+                )
+        else:
+            raise ValueError(
+                "unsupported migration source role: "
+                + str(source_role)
+            )
+        return source
+    if (
+        row.get("path_status") == "missing"
+        and row.get("apply_eligibility") is not True
+        and row.get("source_materialization_role") == "none"
+        and row.get("current_checkout_path_exists") is False
+    ):
+        return resolve_repo(row["path"])
+    raise ValueError(
+        "migration source binding is missing: "
+        + str(row.get("row_id"))
+    )
 
 
 def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[str, Any]], rules: list[dict[str, Any]]) -> dict[str, Any]:
@@ -909,9 +1093,25 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
             shutil.rmtree(root)
         root.mkdir(parents=True, exist_ok=True)
 
-    materialized_paths = sorted({row["path"] for row in rows if resolve_repo(row["path"]).exists()})
+    materialized_paths = sorted(
+        {
+            row["path"]
+            for row in rows
+            if migration_source_for_row(row).exists()
+        }
+    )
+    source_by_target: dict[str, Path] = {}
+    for row in rows:
+        if row["path"] not in materialized_paths:
+            continue
+        source = migration_source_for_row(row)
+        previous = source_by_target.setdefault(row["path"], source)
+        if previous != source:
+            raise ValueError(
+                f"multiple migration sources for target {row['path']}"
+            )
     for repo_path in materialized_paths:
-        source = resolve_repo(repo_path)
+        source = source_by_target[repo_path]
         baseline_target = sandbox_path_for(repo_path, baseline_root)
         after_target = sandbox_path_for(repo_path, after_root)
         ensure_parent(baseline_target)
@@ -950,7 +1150,22 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
             continue
         ledger_rows.append(non_apply_ledger_row(row))
 
-    baseline_records = [file_record(sandbox_path_for(path, baseline_root), "sandbox_baseline_copy") for path in materialized_paths]
+    baseline_records = []
+    for path in materialized_paths:
+        record = file_record(
+            sandbox_path_for(path, baseline_root),
+            "sandbox_baseline_copy",
+        )
+        record["target_path"] = path
+        record["source_path"] = rel(source_by_target[path])
+        record["source_is_live_target"] = (
+            source_by_target[path] == resolve_repo(path)
+        )
+        record["source_is_frozen_predecessor_input"] = (
+            not record["source_is_live_target"]
+        )
+        record["sandbox_baseline_copy_authority_claimed"] = False
+        baseline_records.append(record)
     baseline = {
         "schema_version": "dvf-3-3-vnext-consumer-migration-sandbox-baseline-v0",
         "generated_at": GENERATED_AT,

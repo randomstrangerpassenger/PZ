@@ -982,12 +982,74 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             if edge["source"].endswith(gate_test_suffix)
         }
         self.assertTrue(gate_dependencies.issubset(gate_edges))
+        denominator_common = (
+            gate_dependency_prefix
+            + "consumer_universe_denominator_lock_common.py"
+        )
+        self.assertIn(
+            denominator_common,
+            {
+                common.repo_relative(path)
+                for path in common.CURRENT_ROUTE_SELECTIVE_DEPENDENCIES
+            },
+        )
         self.assertTrue(
             all(
                 row["admission"] == "classified_non_live"
                 for row in rows
                 if row["classification"]
                 == "historical_or_staging_evidence"
+            )
+        )
+        fixture_validation = (
+            common.current_route_frozen_fixture_validation()
+        )
+        self.assertEqual(fixture_validation["status"], "PASS")
+        self.assertEqual(
+            fixture_validation["candidate_seed_file_count"],
+            15,
+        )
+        self.assertEqual(
+            fixture_validation["normalization_source_file_count"],
+            17,
+        )
+        self.assertEqual(
+            fixture_validation["archive_only_file_count"],
+            2,
+        )
+        self.assertEqual(
+            fixture_validation["usage_partition_sha256"],
+            common.CURRENT_ROUTE_FROZEN_FIXTURE_USAGE_PARTITION_SHA256,
+        )
+        fixture_manifest = common.read_json_object(
+            common.CURRENT_ROUTE_FROZEN_FIXTURE_MANIFEST
+        )
+        normalization_payloads = set(
+            fixture_manifest["normalization_source_payload_paths"]
+        )
+        normalization_targets = {
+            row["target_path"]
+            for row in fixture_manifest["rows"]
+            if row["payload_path"] in normalization_payloads
+        }
+        self.assertTrue(normalization_targets.isdisjoint(live_rows))
+        self.assertTrue(normalization_targets.isdisjoint(non_live_rows))
+        candidate_seed_payloads = set(
+            fixture_manifest["candidate_seed_payload_paths"]
+        )
+        rollback_targets = {
+            row["target_path"]
+            for row in fixture_manifest["rows"]
+            if row["payload_path"] in candidate_seed_payloads
+            and row["target_path"].endswith(".lua")
+        }
+        self.assertTrue(
+            all(
+                target.startswith(
+                    "Iris/build/description/v2/staging/"
+                )
+                and not target.endswith((".py", ".ps1"))
+                for target in rollback_targets
             )
         )
 

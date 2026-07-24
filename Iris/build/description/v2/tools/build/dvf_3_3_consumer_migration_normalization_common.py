@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from collections import Counter
+from functools import lru_cache
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -48,6 +50,22 @@ EXECUTING_CONSUMERS = AUDIT_ROOT / "executing_consumers.jsonl"
 CONSUMER_MIGRATION_MATRIX = EXECUTION_ROOT / "phase8" / "consumer_migration_matrix.jsonl"
 CONSUMER_MIGRATION_DRY_RUN = EXECUTION_ROOT / "phase8" / "consumer_migration_dry_run.json"
 CURRENT_ROUTE_REQUIRED_VALIDATIONS = REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
+FROZEN_PREDECESSOR_MODE_ENV = "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR"
+FROZEN_PREDECESSOR_FIXTURE_ROOT = (
+    V2_ROOT
+    / "frozen_predecessor_inputs"
+    / "dvf_3_3_registry_authority_canonical_closure"
+    / "current_route"
+)
+FROZEN_PREDECESSOR_FIXTURE_MANIFEST = (
+    FROZEN_PREDECESSOR_FIXTURE_ROOT / "manifest.json"
+)
+EXPECTED_FROZEN_PREDECESSOR_ROWS_SHA256 = (
+    "6017c214709e77fd84f0b9a43c374f74bc95ce430bc3b5b2f65e03d524896efb"
+)
+EXPECTED_FROZEN_PREDECESSOR_USAGE_PARTITION_SHA256 = (
+    "4dd67eca4ee2d186edff5913e4d36d2647420a3c2d05184e801218714dcae303"
+)
 
 INPUT_NORMALIZATION_PLAN = REPO_ROOT / "docs" / "dvf_3_3_vnext_consumer_migration_input_normalization_plan.md"
 IMPLEMENTATION_PLAN = REPO_ROOT / "docs" / "dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration_plan.md"
@@ -117,6 +135,98 @@ SCOPE_BOUNDARY = {
     "runtime_replacement_allowed": False,
     "package_or_release_readiness_allowed": False,
 }
+
+
+@lru_cache(maxsize=1)
+def validated_frozen_predecessor_source_rows() -> dict[
+    str, dict[str, Any]
+]:
+    manifest = read_json(FROZEN_PREDECESSOR_FIXTURE_MANIFEST)
+    expected_schema = (
+        "dvf-3-3-registry-authority-canonical-closure-"
+        "frozen-predecessor-fixture-v1"
+    )
+    if (
+        manifest.get("schema_version") != expected_schema
+        or manifest.get("status") != "PASS"
+        or manifest.get("authority_claimed") is not False
+        or manifest.get("current_route_authority_claimed") is not False
+        or canonical_hash(manifest.get("rows"))
+        != EXPECTED_FROZEN_PREDECESSOR_ROWS_SHA256
+        or manifest.get("rows_sha256")
+        != EXPECTED_FROZEN_PREDECESSOR_ROWS_SHA256
+        or canonical_hash(
+            {
+                field: manifest.get(field)
+                for field in (
+                    "archive_only_payload_paths",
+                    "candidate_seed_payload_paths",
+                    "normalization_source_payload_paths",
+                )
+            }
+        )
+        != EXPECTED_FROZEN_PREDECESSOR_USAGE_PARTITION_SHA256
+        or manifest.get("usage_partition_sha256")
+        != EXPECTED_FROZEN_PREDECESSOR_USAGE_PARTITION_SHA256
+    ):
+        raise ValueError("invalid frozen predecessor fixture authority boundary")
+    allowed_payloads = set(
+        manifest.get("normalization_source_payload_paths", [])
+    )
+    manifest_sha256 = sha256_file(FROZEN_PREDECESSOR_FIXTURE_MANIFEST)
+    rows: dict[str, dict[str, Any]] = {}
+    for row in manifest.get("rows", []):
+        if not isinstance(row, dict):
+            continue
+        payload_relative = row.get("payload_path")
+        target = row.get("target_path")
+        if (
+            payload_relative not in allowed_payloads
+            or not isinstance(target, str)
+            or not isinstance(payload_relative, str)
+        ):
+            continue
+        payload = FROZEN_PREDECESSOR_FIXTURE_ROOT / payload_relative
+        if (
+            not payload.is_file()
+            or sha256_file(payload) != row.get("sha256")
+            or payload.stat().st_size != row.get("byte_length")
+            or row.get("role") != "frozen_predecessor_input"
+            or row.get("isolated_candidate_only") is not True
+            or row.get("live_materialization_allowed") is not False
+        ):
+            raise ValueError(
+                f"invalid frozen predecessor normalization source: {target}"
+            )
+        rows[target] = {
+            **row,
+            "resolved_payload": payload,
+            "fixture_manifest_sha256": manifest_sha256,
+            "fixture_row_sha256": canonical_hash(row),
+        }
+    if len(rows) != len(allowed_payloads):
+        raise ValueError(
+            "frozen predecessor normalization source partition is incomplete"
+        )
+    return rows
+
+
+def frozen_predecessor_source_rows() -> dict[str, dict[str, Any]]:
+    if os.environ.get(FROZEN_PREDECESSOR_MODE_ENV) != "1":
+        return {}
+    return validated_frozen_predecessor_source_rows()
+
+
+def frozen_predecessor_source_for(path: Path) -> dict[str, Any] | None:
+    target = rel_norm(path)
+    return frozen_predecessor_source_rows().get(target)
+
+
+def row_materialization_source(row: dict[str, Any]) -> Path:
+    source_path = row.get("source_materialization_path")
+    if isinstance(source_path, str) and source_path:
+        return resolve_repo(source_path)
+    return resolve_repo(row["path"])
 
 PHASE_ARTIFACTS = {
     "phase0": [
@@ -644,17 +754,66 @@ def write_phase1() -> None:
 
 def attach_path_status(row: dict[str, Any]) -> dict[str, Any]:
     path = resolve_repo(row["path"])
-    exists = path.exists()
-    path_status = "exists" if exists else "missing"
+    current_checkout_exists = path.exists()
+    frozen_source = (
+        None
+        if current_checkout_exists
+        else frozen_predecessor_source_for(path)
+    )
+    path_status = (
+        "exists"
+        if current_checkout_exists
+        else "frozen_predecessor_available"
+        if frozen_source is not None
+        else "missing"
+    )
+    source_path = (
+        rel_norm(path)
+        if current_checkout_exists
+        else rel_norm(frozen_source["resolved_payload"])
+        if frozen_source is not None
+        else None
+    )
     updated = {
         **row,
         "path_status": path_status,
         "path_existence_checked_at": GENERATED_AT,
-        "path_existence_basis": "current_checkout_path_existence",
+        "path_existence_basis": (
+            "current_checkout_path_existence"
+            if current_checkout_exists
+            else "validated_frozen_predecessor_payload"
+            if frozen_source is not None
+            else "current_checkout_absence_without_frozen_source"
+        ),
         "path_status_writer_phase": "phase2",
         "path_status_claim_boundary": "path absence is not a cleanup, deletion, recovery, or migrated-diff instruction",
+        "current_checkout_path_exists": current_checkout_exists,
+        "source_materialization_path": source_path,
+        "source_materialization_role": (
+            "current_checkout_target"
+            if current_checkout_exists
+            else "frozen_predecessor_input"
+            if frozen_source is not None
+            else "none"
+        ),
+        "frozen_predecessor_source_sha256": (
+            frozen_source.get("sha256")
+            if frozen_source is not None
+            else None
+        ),
+        "frozen_predecessor_fixture_manifest_sha256": (
+            frozen_source.get("fixture_manifest_sha256")
+            if frozen_source is not None
+            else None
+        ),
+        "frozen_predecessor_fixture_row_sha256": (
+            frozen_source.get("fixture_row_sha256")
+            if frozen_source is not None
+            else None
+        ),
+        "frozen_predecessor_authority_claimed": False,
     }
-    if not exists and row["apply_eligibility"]:
+    if path_status == "missing" and row["apply_eligibility"]:
         updated["normalized_disposition"] = "blocked"
         updated["implementation_compatible_disposition"] = "blocked"
         updated["apply_eligibility"] = False
@@ -709,6 +868,18 @@ def write_phase2() -> None:
         "status": status,
         "total_rows": len(rows),
         "path_status_counts": sorted_counts(row["path_status"] for row in rows),
+        "frozen_predecessor_source_row_count": sum(
+            1
+            for row in rows
+            if row["path_status"] == "frozen_predecessor_available"
+        ),
+        "frozen_predecessor_source_path_count": len(
+            {
+                row["path"]
+                for row in rows
+                if row["path_status"] == "frozen_predecessor_available"
+            }
+        ),
         "missing_path_row_count": len(missing),
         "missing_apply_eligible_row_count": len(missing_apply),
         "missing_diff_countable_row_count": sum(1 for row in missing if row.get("diff_countable")),
@@ -884,7 +1055,7 @@ def anchor_row(row: dict[str, Any]) -> dict[str, Any]:
             "anchor_freshness_status": "PASS",
             "anchor_freshness_claim_boundary": "missing non-apply rows are executor-excluded and not migrated diffs",
         }
-    path = resolve_repo(row["path"])
+    path = row_materialization_source(row)
     lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
     result = anchor_relocation_for_text(lines, row.get("line"), row.get("token"))
     if result["result"] == "unresolved" and row.get("apply_eligibility"):
@@ -902,6 +1073,12 @@ def anchor_row(row: dict[str, Any]) -> dict[str, Any]:
         "anchor_candidate_count": result.get("candidate_count"),
         "anchor_validation_basis": result.get("basis"),
         "target_file_sha256": sha256_file(path),
+        "anchor_source_path": rel_norm(path),
+        "anchor_source_role": row.get("source_materialization_role"),
+        "anchor_source_is_current_checkout_target": (
+            row.get("source_materialization_role")
+            == "current_checkout_target"
+        ),
         "bounded_context_sha256": canonical_hash(context_lines) if context_lines else None,
         "bounded_context_start_line": start,
         "bounded_context_end_line": end,
@@ -1454,6 +1631,28 @@ def write_phase6() -> None:
                 "evidence_anchor": row.get("evidence_anchor"),
                 "anchor_strategy": row["anchor_strategy"],
                 "path_status": row["path_status"],
+                "current_checkout_path_exists": row.get(
+                    "current_checkout_path_exists"
+                ),
+                "source_materialization_path": row.get(
+                    "source_materialization_path"
+                ),
+                "source_materialization_role": row.get(
+                    "source_materialization_role"
+                ),
+                "frozen_predecessor_source_sha256": row.get(
+                    "frozen_predecessor_source_sha256"
+                ),
+                "frozen_predecessor_fixture_manifest_sha256": row.get(
+                    "frozen_predecessor_fixture_manifest_sha256"
+                ),
+                "frozen_predecessor_fixture_row_sha256": row.get(
+                    "frozen_predecessor_fixture_row_sha256"
+                ),
+                "frozen_predecessor_authority_claimed": row.get(
+                    "frozen_predecessor_authority_claimed",
+                    False,
+                ),
                 "rule_seed_ref": rule_by_row.get(row["row_id"]),
                 "claim_boundary": CLAIM_BOUNDARY,
             }
@@ -1873,3 +2072,14 @@ no successor baseline identity final seal, no package readiness, and no release 
 def assert_phase_status(path: Path) -> bool:
     payload = read_json(path)
     return payload.get("status") == "PASS"
+
+
+def run_all() -> dict[str, Any]:
+    write_phase0()
+    write_phase1()
+    write_phase2()
+    write_phase3()
+    write_phase4()
+    write_phase5()
+    write_phase6()
+    return write_phase7_and_phase8()

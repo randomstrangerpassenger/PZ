@@ -21,6 +21,9 @@ from _dvf_3_3_vnext_common import (
     write_jsonl,
     write_text,
 )
+from dvf_3_3_consumer_migration_normalization_common import (
+    run_all as run_consumer_migration_normalization,
+)
 
 
 GENERATED_AT = "2026-06-19T00:00:00+09:00"
@@ -1517,6 +1520,11 @@ def write_final_report(fingerprint_before: dict[str, Any], fingerprint_after: di
 
 
 def run_all() -> dict[str, Any]:
+    normalization = run_consumer_migration_normalization()
+    if normalization.get("machine_contract_status") != "PASS":
+        raise ValueError(
+            "consumer migration normalization prerequisite did not pass"
+        )
     generate_core()
     first = canonical_artifact_fingerprint()
     generate_core()

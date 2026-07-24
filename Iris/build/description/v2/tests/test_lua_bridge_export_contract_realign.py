@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import sys
 import unittest
@@ -18,6 +19,7 @@ from tools.build.export_dvf_3_3_lua_bridge import (
     BRIDGE_DATA_PATH,
     BridgeExportContractError,
     export_lua_bridge,
+    resolve_registry_compatibility_invocation_from_manifest,
     validate_chunk_bundle,
 )
 
@@ -62,6 +64,27 @@ def write_rendered(path: Path, *, count: int = 6) -> None:
     )
 
 
+def export_lua_bridge_under_test(**kwargs: object) -> dict[str, object]:
+    required_manifest = os.environ.get(
+        "IRIS_RTC_TEST_ONLY_EXPLICIT_REQUIRED_MANIFEST"
+    )
+    if required_manifest:
+        kwargs["registry_compatibility"] = (
+            resolve_registry_compatibility_invocation_from_manifest(
+                rendered_path=Path(kwargs["rendered_path"]),
+                report_path=Path(kwargs["report_path"]),
+                required_manifest=Path(required_manifest),
+                candidate_manifest_probe=(
+                    os.environ.get(
+                        "IRIS_RTC_TEST_ONLY_CANDIDATE_MANIFEST_PROBE"
+                    )
+                    == "1"
+                ),
+            )
+        )
+    return export_lua_bridge(**kwargs)
+
+
 class LuaBridgeExportContractRealignTest(unittest.TestCase):
     def test_default_route_writes_chunk_bundle_under_pinned_staging_root(self) -> None:
         tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_lua_bridge_default_contract")
@@ -72,7 +95,7 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
             output_root = tmp / "default"
             write_rendered(rendered_path, count=6)
 
-            report = export_lua_bridge(
+            report = export_lua_bridge_under_test(
                 rendered_path=rendered_path,
                 report_path=report_path,
                 output_root=output_root,
@@ -110,7 +133,7 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
             write_rendered(rendered_path)
 
             with self.assertRaises(BridgeExportContractError):
-                export_lua_bridge(
+                export_lua_bridge_under_test(
                     rendered_path=rendered_path,
                     report_path=tmp / "bridge_report.json",
                     chunk_manifest_path=BRIDGE_CHUNK_MANIFEST_PATH,
@@ -127,13 +150,13 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
             write_rendered(rendered_path)
 
             with self.assertRaises(BridgeExportContractError):
-                export_lua_bridge(
+                export_lua_bridge_under_test(
                     rendered_path=rendered_path,
                     report_path=tmp / "current_context_report.json",
                     bridge_context="current",
                 )
             with self.assertRaises(BridgeExportContractError):
-                export_lua_bridge(
+                export_lua_bridge_under_test(
                     rendered_path=rendered_path,
                     report_path=tmp / "live_monolith_report.json",
                     bridge_context="historical",
@@ -141,7 +164,7 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
                     lua_output_path=BRIDGE_DATA_PATH,
                 )
             with self.assertRaises(BridgeExportContractError):
-                export_lua_bridge(
+                export_lua_bridge_under_test(
                     rendered_path=rendered_path,
                     report_path=tmp / "staging_monolith_report.json",
                     bridge_context="staging",
@@ -158,14 +181,14 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path, count=2)
 
-            historical_report = export_lua_bridge(
+            historical_report = export_lua_bridge_under_test(
                 rendered_path=rendered_path,
                 report_path=tmp / "historical_report.json",
                 bridge_context="historical",
                 output_format="monolith",
                 lua_output_path=tmp / "historical" / "IrisLayer3Data.lua",
             )
-            diagnostic_report = export_lua_bridge(
+            diagnostic_report = export_lua_bridge_under_test(
                 rendered_path=rendered_path,
                 report_path=tmp / "diagnostic_report.json",
                 bridge_context="diagnostic",
@@ -189,13 +212,13 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path, count=6)
 
-            first = export_lua_bridge(
+            first = export_lua_bridge_under_test(
                 rendered_path=rendered_path,
                 report_path=tmp / "first_report.json",
                 output_root=tmp / "first",
                 chunk_size=2,
             )
-            second = export_lua_bridge(
+            second = export_lua_bridge_under_test(
                 rendered_path=rendered_path,
                 report_path=tmp / "second_report.json",
                 output_root=tmp / "second",
@@ -279,7 +302,7 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
         try:
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path)
-            report = export_lua_bridge(
+            report = export_lua_bridge_under_test(
                 rendered_path=rendered_path,
                 report_path=tmp / "bridge_report.json",
                 output_root=tmp / "default",

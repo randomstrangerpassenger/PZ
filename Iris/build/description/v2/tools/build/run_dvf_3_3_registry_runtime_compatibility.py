@@ -433,8 +433,8 @@ def execute_current_route_isolated(
                 )
             environment.update(
                 {
-                    "IRIS_RTC_CANDIDATE_MANIFEST_PROBE": "1",
-                    "IRIS_RTC_REQUIRED_MANIFEST": str(
+                    "IRIS_RTC_TEST_ONLY_CANDIDATE_MANIFEST_PROBE": "1",
+                    "IRIS_RTC_TEST_ONLY_EXPLICIT_REQUIRED_MANIFEST": str(
                         candidate_manifest_path
                     ),
                 }

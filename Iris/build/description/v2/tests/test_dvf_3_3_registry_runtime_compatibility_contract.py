@@ -116,6 +116,17 @@ class RegistryRuntimeCompatibilityContractTest(unittest.TestCase):
         self.assertEqual(matrix["unknown_invocation_count"], 0)
         self.assertEqual(matrix["unmigrated_invocation_count"], 0)
 
+    def test_exporter_omitted_route_has_no_environment_authority(self) -> None:
+        exporter = (
+            V2_ROOT / "tools" / "build" / "export_dvf_3_3_lua_bridge.py"
+        ).read_text(encoding="utf-8")
+        self.assertNotIn("os.environ", exporter)
+        self.assertNotIn("IRIS_RTC_", exporter)
+        self.assertIn(
+            "required_manifest=CURRENT_REQUIRED_VALIDATIONS",
+            exporter,
+        )
+
     def test_porcelain_parser_preserves_status_and_paths(self) -> None:
         rows = rtc.parse_porcelain_v1_z(
             b" M docs/ROADMAP.md\0?? docs/new plan.md\0"

@@ -3,7 +3,6 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import os
 import re
 import subprocess
 import sys
@@ -116,21 +115,17 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def resolve_live_registry_compatibility_invocation(
+def resolve_registry_compatibility_invocation_from_manifest(
     *,
     rendered_path: Path,
     report_path: Path,
+    required_manifest: Path,
+    candidate_manifest_probe: bool,
 ) -> RegistryCompatibilityInvocation:
-    candidate_probe = os.environ.get("IRIS_RTC_CANDIDATE_MANIFEST_PROBE") == "1"
-    candidate_manifest = os.environ.get("IRIS_RTC_REQUIRED_MANIFEST")
-    selected_manifest = (
-        Path(candidate_manifest).resolve()
-        if candidate_probe and candidate_manifest
-        else CURRENT_REQUIRED_VALIDATIONS
-    )
+    selected_manifest = required_manifest.resolve()
     if not selected_manifest.is_file():
         raise BridgeExportContractError(
-            "compatibility_policy_context_required: live required-validation "
+            "compatibility_policy_context_required: required-validation "
             "manifest is missing"
         )
     manifest = load_json(selected_manifest)
@@ -141,7 +136,7 @@ def resolve_live_registry_compatibility_invocation(
             "manifest has no Registry Runtime Compatibility selection"
         )
     candidate_state_valid = (
-        candidate_probe
+        candidate_manifest_probe
         and selection.get("candidate_manifest_probe") is True
         and selection.get("policy_lifecycle_state")
         == "package_guard_active_not_required_gate_adopted"
@@ -174,13 +169,18 @@ def resolve_live_registry_compatibility_invocation(
     binding_path = bundle_root / "candidate_contract_binding_manifest.json"
     input_path = report_path.with_name("bridge_preflight_inputs.json")
     receipt_path = report_path.with_name("bridge_preflight_report.json")
+    resolution_mode = (
+        "candidate_required_manifest_override"
+        if candidate_state_valid
+        else "post_adoption_live_manifest_default"
+    )
     dump_json(
         input_path,
         {
             "schema_version": "rtc-bridge-preflight-input-v1",
             "round_id": "dvf_3_3_registry_runtime_compatibility",
             "producer_attempt_id": selection.get("attempt_id"),
-            "resolution_mode": "post_adoption_live_manifest_default",
+            "resolution_mode": resolution_mode,
             "rendered": {
                 "path": str(rendered_path.resolve()),
                 "sha256": sha256_file(rendered_path),
@@ -203,11 +203,20 @@ def resolve_live_registry_compatibility_invocation(
         binding_manifest_path=binding_path,
         bridge_preflight_input_manifest=input_path,
         bridge_preflight_receipt=receipt_path,
-        resolution_mode=(
-            "candidate_required_manifest_override"
-            if candidate_state_valid
-            else "post_adoption_live_manifest_default"
-        ),
+        resolution_mode=resolution_mode,
+    )
+
+
+def resolve_live_registry_compatibility_invocation(
+    *,
+    rendered_path: Path,
+    report_path: Path,
+) -> RegistryCompatibilityInvocation:
+    return resolve_registry_compatibility_invocation_from_manifest(
+        rendered_path=rendered_path,
+        report_path=report_path,
+        required_manifest=CURRENT_REQUIRED_VALIDATIONS,
+        candidate_manifest_probe=False,
     )
 
 

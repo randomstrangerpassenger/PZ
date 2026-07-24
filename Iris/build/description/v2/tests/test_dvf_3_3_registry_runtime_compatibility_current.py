@@ -32,10 +32,14 @@ REQUIRED_MANIFEST = (
 class RegistryRuntimeCompatibilityCurrentRouteTest(unittest.TestCase):
     def test_required_gate_runs_standalone_subprocess(self) -> None:
         required_manifest = Path(
-            os.environ.get("IRIS_RTC_REQUIRED_MANIFEST", str(REQUIRED_MANIFEST))
+            os.environ.get(
+                "IRIS_RTC_TEST_ONLY_EXPLICIT_REQUIRED_MANIFEST",
+                str(REQUIRED_MANIFEST),
+            )
         )
         candidate_probe = (
-            os.environ.get("IRIS_RTC_CANDIDATE_MANIFEST_PROBE") == "1"
+            os.environ.get("IRIS_RTC_TEST_ONLY_CANDIDATE_MANIFEST_PROBE")
+            == "1"
         )
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / "required_gate.json"

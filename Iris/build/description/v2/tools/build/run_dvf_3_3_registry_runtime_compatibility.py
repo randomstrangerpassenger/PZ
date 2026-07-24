@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import ast
+import importlib.util
 import json
 import shutil
 import subprocess
@@ -355,6 +356,8 @@ def command_phase2(args: argparse.Namespace) -> int:
     phase1 = attempt_root / "phase1"
     phase2 = attempt_root / "phase2"
     phase3 = attempt_root / "phase3"
+    phase2.mkdir(parents=True, exist_ok=True)
+    phase3.mkdir(parents=True, exist_ok=True)
     candidate_root = phase1 / "candidate"
     contract = binding_paths(candidate_root)
     toolchain = phase1 / "implementation_toolchain_manifest.json"
@@ -594,13 +597,238 @@ def command_phase2(args: argparse.Namespace) -> int:
     return 0
 
 
+def load_bootstrap_module() -> Any:
+    path = (
+        REPO_ROOT
+        / "Iris"
+        / "_docs"
+        / "round3"
+        / "registry_runtime_compatibility"
+        / "bootstrap"
+        / "reserve_registry_runtime_compatibility_attempt.py"
+    )
+    spec = importlib.util.spec_from_file_location("rtc_bootstrap_for_terminal", path)
+    if spec is None or spec.loader is None:
+        raise rtc.CompatibilityError(
+            "bootstrap_terminal_dependency_missing",
+            f"Cannot load bootstrap governance module: {path}",
+        )
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def command_terminal_failure(args: argparse.Namespace) -> int:
+    bootstrap = load_bootstrap_module()
+    attempt_root = Path(args.attempt_root).resolve()
+    event_ledger = (
+        REPO_ROOT
+        / "Iris"
+        / "_docs"
+        / "round3"
+        / "registry_runtime_compatibility"
+        / "attempt_events.jsonl"
+    )
+    durable_root = (
+        REPO_ROOT
+        / "Iris"
+        / "_docs"
+        / "round3"
+        / "registry_runtime_compatibility"
+        / "attempts"
+        / args.attempt_id
+    )
+    common_dir = Path(
+        rtc.git_text(
+            REPO_ROOT,
+            "rev-parse",
+            "--path-format=absolute",
+            "--git-common-dir",
+        )
+    ).resolve()
+    coordination_key = rtc.sha256_bytes(
+        str(common_dir).lower().encode("utf-8")
+    )[:24]
+    mutex_name = f"IrisRegistryRuntimeCompatibility-{coordination_key}"
+    with bootstrap.NamedMutex(mutex_name, timeout_seconds=60):
+        if rtc.git_text(REPO_ROOT, "status", "--porcelain"):
+            raise rtc.CompatibilityError(
+                "terminal_worktree_not_clean",
+                "Terminal transaction requires a clean tracked worktree",
+            )
+        state = bootstrap.replay_event_ledger(event_ledger)
+        if state.open_attempt_ids != (args.attempt_id,):
+            raise rtc.CompatibilityError(
+                "terminal_open_attempt_mismatch",
+                f"Expected one open attempt {args.attempt_id}, got "
+                f"{state.open_attempt_ids}",
+            )
+        evidence_rows: list[dict[str, Any]] = []
+        if attempt_root.is_dir():
+            for path in sorted(
+                (
+                    candidate
+                    for candidate in attempt_root.rglob("*")
+                    if candidate.is_file()
+                    and candidate.suffix.lower() in {".json", ".jsonl", ".txt"}
+                ),
+                key=lambda candidate: candidate.as_posix(),
+            ):
+                evidence_rows.append(
+                    {
+                        "path": path.relative_to(attempt_root).as_posix(),
+                        "sha256": rtc.sha256_file(path),
+                        "byte_count": path.stat().st_size,
+                        "evidence_class": "supporting_generated",
+                    }
+                )
+        failure_summary = {
+            "schema_version": "rtc-attempt-failure-summary-v1",
+            "round_id": rtc.ROUND_ID,
+            "attempt_id": args.attempt_id,
+            "terminal_state": "invalid",
+            "failure_code": args.failure_code,
+            "failure_stage": args.failure_stage,
+            "failure_message": args.failure_message,
+            "compatibility_pass_claimed": False,
+            "retry_requirement": "new_atomic_attempt_from_gate_b",
+        }
+        evidence_manifest = {
+            "schema_version": "rtc-attempt-evidence-manifest-v1",
+            "round_id": rtc.ROUND_ID,
+            "attempt_id": args.attempt_id,
+            "terminal_state": "invalid",
+            "local_supporting_evidence_available": True,
+            "supporting_evidence_row_count": len(evidence_rows),
+            "supporting_evidence_rows": evidence_rows,
+            "claim_scope": "failure_evidence_only",
+        }
+        failure_path = durable_root / "failure_summary.json"
+        evidence_path = durable_root / "evidence_manifest.json"
+        terminal_path = durable_root / "terminal_record.json"
+        bootstrap.exclusive_write(
+            failure_path,
+            rtc.canonical_json_bytes(failure_summary),
+        )
+        bootstrap.exclusive_write(
+            evidence_path,
+            rtc.canonical_json_bytes(evidence_manifest),
+        )
+        terminal_record = {
+            "schema_version": "rtc-attempt-terminal-v1",
+            "round_id": rtc.ROUND_ID,
+            "attempt_id": args.attempt_id,
+            "event_type": "terminal",
+            "terminal_state": "invalid",
+            "failure_code": args.failure_code,
+            "failure_summary_path": rtc.normalized_relative(
+                REPO_ROOT,
+                failure_path,
+            ),
+            "failure_summary_sha256": rtc.sha256_file(failure_path),
+            "evidence_manifest_path": rtc.normalized_relative(
+                REPO_ROOT,
+                evidence_path,
+            ),
+            "evidence_manifest_sha256": rtc.sha256_file(evidence_path),
+            "previous_event_prefix_sha256": state.prefix_sha256,
+            "implementation_toolchain_invalidated": True,
+            "compatibility_pass_claimed": False,
+            "claim_scope": "attempt_invalid_no_compatibility_claim",
+        }
+        bootstrap.exclusive_write(
+            terminal_path,
+            rtc.canonical_json_bytes(terminal_record),
+        )
+        event = {
+            "schema_version": "rtc-attempt-event-v1",
+            "event_sequence": state.event_count + 1,
+            "round_id": rtc.ROUND_ID,
+            "attempt_id": args.attempt_id,
+            "event_type": "terminal",
+            "terminal_state": "invalid",
+            "record_path": rtc.normalized_relative(REPO_ROOT, terminal_path),
+            "record_sha256": rtc.sha256_file(terminal_path),
+            "previous_event_sha256": state.last_event_sha256,
+            "previous_event_prefix_sha256": state.prefix_sha256,
+        }
+        bootstrap.append_durable(
+            event_ledger,
+            rtc.canonical_json_bytes(event),
+        )
+        post_state = bootstrap.replay_event_ledger(event_ledger)
+        if post_state.open_attempt_ids:
+            raise rtc.CompatibilityError(
+                "terminal_post_append_open_attempt",
+                f"Terminal append left open attempts: {post_state.open_attempt_ids}",
+            )
+        staged_paths = [
+            rtc.normalized_relative(REPO_ROOT, path)
+            for path in (
+                failure_path,
+                evidence_path,
+                terminal_path,
+                event_ledger,
+            )
+        ]
+        rtc.run_git(REPO_ROOT, "add", "--", *staged_paths)
+        staged = set(
+            rtc.git_text(REPO_ROOT, "diff", "--cached", "--name-only").splitlines()
+        )
+        if staged != set(staged_paths):
+            raise rtc.CompatibilityError(
+                "terminal_stage_scope_violation",
+                f"Unexpected staged paths: {sorted(staged)}",
+            )
+        rtc.run_git(
+            REPO_ROOT,
+            "commit",
+            "-m",
+            f"chore(rtc): terminal {args.attempt_id} invalid",
+        )
+        terminal_commit = rtc.git_text(REPO_ROOT, "rev-parse", "HEAD")
+        shared_path = bootstrap.shared_ledger_path(REPO_ROOT)
+        bootstrap.append_durable(
+            shared_path,
+            rtc.canonical_json_bytes(
+                {
+                    "schema_version": "rtc-shared-terminal-v1",
+                    "round_id": rtc.ROUND_ID,
+                    "attempt_id": args.attempt_id,
+                    "terminal_state": "invalid",
+                    "terminal_commit": terminal_commit,
+                    "committed_event_prefix_sha256": post_state.prefix_sha256,
+                    "event_record_sha256": rtc.sha256_file(terminal_path),
+                }
+            ),
+        )
+    receipt = {
+        "schema_version": "rtc-terminal-transaction-receipt-v1",
+        "round_id": rtc.ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "terminal_state": "invalid",
+        "terminal_commit": terminal_commit,
+        "event_prefix_after_sha256": post_state.prefix_sha256,
+        "post_terminal_open_attempt_ids": [],
+        "status": "PASS",
+    }
+    rtc.write_json(attempt_root / "terminal_transaction_receipt.json", receipt)
+    print(json.dumps(receipt, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_mutually_exclusive_group(required=True)
     modes.add_argument("--seal-toolchain", action="store_true")
     modes.add_argument("--phase2", action="store_true")
+    modes.add_argument("--terminal-failure", action="store_true")
     parser.add_argument("--attempt-root", required=True)
     parser.add_argument("--attempt-id", required=True)
+    parser.add_argument("--failure-code")
+    parser.add_argument("--failure-stage")
+    parser.add_argument("--failure-message")
     return parser
 
 
@@ -609,6 +837,18 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         if args.seal_toolchain:
             return command_seal_toolchain(args)
+        if args.terminal_failure:
+            missing = [
+                name
+                for name in ("failure_code", "failure_stage", "failure_message")
+                if not getattr(args, name)
+            ]
+            if missing:
+                raise rtc.CompatibilityError(
+                    "terminal_failure_argument_missing",
+                    f"Terminal failure mode is missing: {missing}",
+                )
+            return command_terminal_failure(args)
         return command_phase2(args)
     except rtc.CompatibilityError as exc:
         print(

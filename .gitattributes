@@ -1,6 +1,8 @@
 Iris/build/baseline/full/* -diff
 .gitattributes -text
 Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/payload/*.bin -text -diff
+Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/manifest.json -text
+Iris/_docs/round3/round3_run_contract_tests.py -text
 Iris/_docs/round3/registry_runtime_compatibility/inputs/** -diff -text
 Iris/_docs/round3/registry_runtime_compatibility/** -text
 Iris/build/description/v2/owner_inputs/dvf_3_3_registry_runtime_compatibility/** -text

@@ -1,0 +1,19 @@
+{
+  "schema_version": "rtc-execution-contract-check-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "execution_contract_path": "docs/EXECUTION_CONTRACT.md",
+  "plan_template_path": "docs/PLAN_TEMPLATE.md",
+  "authority_hierarchy_checked": true,
+  "execution_weight": "heavy",
+  "touched_surfaces": [
+    "authority",
+    "compatibility",
+    "sealed_artifact"
+  ],
+  "public_facing_output_surface_touched": false,
+  "runtime_lua_payload_mutation_authorized": false,
+  "claim_evidence_binding_required": true,
+  "validation_ceiling_required": true,
+  "historical_trace_preservation_required": true,
+  "status": "PASS"
+}

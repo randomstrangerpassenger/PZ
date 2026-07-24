@@ -1,2 +1,3 @@
 Iris/build/baseline/full/* -diff
 Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/current_route/payload/*.bin -text -diff
+Iris/_docs/round3/registry_runtime_compatibility/inputs/** -diff -text

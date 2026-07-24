@@ -1,0 +1,37 @@
+{
+  "schema_version": "rtc-bootstrap-tool-manifest-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "dependency_rule": "python_standard_library_only",
+  "allowed_root": "Iris/_docs/round3/registry_runtime_compatibility",
+  "allowed_round_id": "dvf_3_3_registry_runtime_compatibility",
+  "tools": [
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bootstrap/reserve_registry_runtime_compatibility_attempt.py",
+      "role": "bootstrap_only_attempt_reservation_executor",
+      "schema_version": "rtc-bootstrap-executor-v1",
+      "sha256": "4d1a56724f45773b9f21f2c676f40cd81b1d1b7f46008597918d320f2dadffdc",
+      "byte_count": 27783
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bootstrap/test_reserve_registry_runtime_compatibility_attempt.py",
+      "role": "bootstrap_executor_contract_test",
+      "schema_version": "rtc-bootstrap-test-v1",
+      "sha256": "89cede32e9208e44d5a96d96dfb6fb4ddfe76753ed1b50179f5721f55578d5e4",
+      "byte_count": 6491
+    }
+  ],
+  "resolved_python": {
+    "path": "C:/Users/MW/scoop/apps/python/current/python.exe",
+    "version": "3.14.3",
+    "sha256": "cce21c0e8710e304273e98ac4b2b0f5aceb639acbcd2343cbaa5c4e81619c45b",
+    "byte_count": 106328
+  },
+  "resolved_git": {
+    "path": "C:/Program Files/Git/cmd/git.exe",
+    "version": "2.51.0.windows.2",
+    "sha256": "ee3d2a38093c3680745a5c973488f5bb78a16f010145d5cdc7470a7395c9e7e8",
+    "byte_count": 46480
+  },
+  "forbidden_responsibility_count": 0,
+  "self_hash_included": false
+}

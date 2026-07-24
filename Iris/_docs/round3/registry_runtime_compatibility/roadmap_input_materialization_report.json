@@ -1,0 +1,13 @@
+{
+  "schema_version": "rtc-roadmap-input-materialization-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "external_source": "C:/Users/MW/.codex/attachments/d2bde82b-a66a-448b-8097-be54301e0475/pasted-text.txt",
+  "repo_local_path": "Iris/_docs/round3/registry_runtime_compatibility/inputs/roadmap_input.txt",
+  "external_sha256": "cbef54897015c75fd9212489ba46a50882c8f9d4be9f3639dbb34a866de49dcc",
+  "repo_local_sha256": "cbef54897015c75fd9212489ba46a50882c8f9d4be9f3639dbb34a866de49dcc",
+  "byte_count": 76286,
+  "byte_parity": true,
+  "canonical_text_parity": true,
+  "materialization_normalization": "none",
+  "status": "PASS"
+}

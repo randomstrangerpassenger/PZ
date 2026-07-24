@@ -1,0 +1,26 @@
+{
+  "schema_version": "rtc-roadmap-plan-traceability-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "roadmap_path": "Iris/_docs/round3/registry_runtime_compatibility/inputs/roadmap_input.txt",
+  "roadmap_sha256": "cbef54897015c75fd9212489ba46a50882c8f9d4be9f3639dbb34a866de49dcc",
+  "plan_path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+  "plan_sha256": "78eefb7eb415e436b456442b093b82dc8b4aafd59774ceba706dd2138faf1e27",
+  "fixture_mappings": [
+    {"roadmap_fixture": 1, "plan_fixture_id": "RTC-RM-01-ordinary-exact-key-set-positive"},
+    {"roadmap_fixture": 2, "plan_fixture_id": "RTC-RM-02-unauthorized-collision"},
+    {"roadmap_fixture": 3, "plan_fixture_id": "RTC-RM-03-owner-record-missing"},
+    {"roadmap_fixture": 4, "plan_fixture_id": "RTC-RM-04-payload-divergent-exception"},
+    {"roadmap_fixture": 5, "plan_fixture_id": "RTC-RM-05-third-variant"},
+    {"roadmap_fixture": 6, "plan_fixture_id": "RTC-RM-06-windows-projection-cardinality-loss"},
+    {"roadmap_fixture": 7, "plan_fixture_id": "RTC-RM-07-exact-overwrite-merge"},
+    {"roadmap_fixture": 8, "plan_fixture_id": "RTC-RM-08-current-collision-positive"},
+    {"roadmap_fixture": 9, "plan_fixture_id": "RTC-RM-09-current-full-payload"},
+    {"roadmap_fixture": 10, "plan_fixture_id": "RTC-RM-10-package-projection"}
+  ],
+  "roadmap_fixture_mapping_count": 10,
+  "unmapped_fixture_count": 0,
+  "duplicate_fixture_mapping_count": 0,
+  "orphan_requirement_count": 0,
+  "roadmap_plan_traceability_complete": true,
+  "status": "PASS"
+}

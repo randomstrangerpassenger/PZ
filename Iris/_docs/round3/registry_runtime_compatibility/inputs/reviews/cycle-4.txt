@@ -1,0 +1,1368 @@
+# REVIEW — dvf_3_3_registry_runtime_compatibility_plan.md  
+## Cycle 4 Combined Plan-Level Review
+
+> Review level: `plan_level`  
+> Review target: Cycle 3 revised `dvf_3_3_registry_runtime_compatibility_plan.md`  
+> Reviewed-plan fingerprint: `ec9218504a51f918c2e0bcf16d6f0e5b6596435a27f7a00da7beeadfe4ad06cd`  
+> Review inputs:
+> - ChatGPT Cycle 3 implementation-plan review
+> - Claude Cycle 4 adversarial review
+>
+> Input verdicts:
+> - ChatGPT: `FAIL`
+> - Claude: `PASS`
+>
+> Combined verdict: `UNRESOLVED — FAIL / PASS conflict`
+>
+> Independent closeout review:
+> - ChatGPT: `ineligible — roadmap and prior plan-review participation`
+> - Claude: `BLOCKED — upstream roadmap co-draft participation`
+> - Combined: `not satisfied`
+
+---
+
+## 1. Verdict
+
+# FAIL / PASS 판정 충돌 — 단일 판정 보류
+
+두 검토안은 Cycle 3 개정본이 이전 계획의 주요 구조적 문제를 해결했다는 데에는 동의한다.
+
+그러나 현재 계획이 구현 진입 가능한 `plan_level PASS`에 도달했는지에 대해서는 결론이 정반대다.
+
+```text
+ChatGPT:
+FAIL
+Open Critical = 4
+Open Important = 5
+Open Minor = 2
+
+Claude:
+PASS
+Open Critical = 0
+Required Revision = 0
+Open Minor = 2
+```
+
+따라서 종합 단계에서 어느 한쪽 verdict를 임의로 채택하지 않는다.
+
+다음 네 항목의 현재 계획 내 충족 여부를 별도로 판정해야 한다.
+
+1. roadmap 필수 fixture coverage
+2. 기존 exporter/package invocation 전수 이관
+3. claim-affecting implementation toolchain freshness
+4. pre-entry durable-ledger VCS bootstrap
+
+확정 가능한 상태는 다음과 같다.
+
+```text
+previous structural defects materially resolved = true
+single plan-level verdict established = false
+implementation result validated = false
+independent closeout gate satisfied = false
+Registry Runtime Compatibility PASS established = false
+```
+
+---
+
+## 2. Executive Summary
+
+### Current Execution Readiness
+
+두 검토안의 실행 준비도 판단은 일치하지 않는다.
+
+```text
+ChatGPT:
+plan_level_pass = false
+implementation_entry_allowed = false
+production mutation prohibited
+
+Claude:
+plan_level_pass = true
+next gates = owner approval + execution evidence
+```
+
+현재 두 검토안이 공통으로 요구하는 후속 단계는 다음과 같다.
+
+- owner의 plan contract approval
+- execution baseline 승인
+- 실제 implementation 및 validation evidence
+- live required-validation adoption evidence
+- eligible independent implementation review
+- owner canonical seal
+- terminal hash seal
+
+### 공통적으로 인정된 주요 개선
+
+두 검토안은 다음 문제가 해결되었거나 충분히 구체화되었다는 데 동의한다.
+
+- exporter의 analyzer direct import 금지
+- exporter → standalone validator subprocess 경계
+- candidate leaf 간 reciprocal final hash 제거
+- external candidate binding manifest
+- append-only attempt event ledger
+- immutable per-attempt reservation/terminal records
+- mutable attempt index의 authority 격하
+- local supporting evidence와 clean-checkout durable evidence의 분리
+- durable promotion source bundle 확장
+- Windows four-surface input manifest
+- candidate와 canonical-durable policy lifecycle 분리
+- package guard state와 live required-gate state 분리
+- Windows Route A canonical, Route C transport regression 구조
+- source/rendered/runtime/package exact key-set equality
+- alias-added key count 0
+- candidate manifest probe와 official current-route PASS 분리
+- formal claim을 `Registry Runtime Compatibility PASS`로 제한
+- current core 및 tooling allowlist no-mutation
+- required-validation self-reference 제거
+- independent review와 owner seal의 비대체성
+
+### 공통적으로 유지된 경계
+
+- Registry Authority predecessor 재개방 금지
+- source key rename·삭제·merge 금지
+- runtime normalization·alias repair 금지
+- DVF Body Compiler 책임 침범 금지
+- Publish Boundary 혼입 금지
+- live Lua payload 변경 금지
+- package publication 및 release readiness 비주장
+- PUC Lua validation을 Kahlua/PZ equivalence로 확대 금지
+
+### 핵심 판정 충돌
+
+#### 1. Roadmap fixture coverage
+
+```text
+ChatGPT:
+ordinary-key positive fixture와
+Windows projection cardinality-loss negative fixture가 누락
+→ Critical
+
+Claude:
+Missing Validation 없음
+fixture 계약 완성
+→ 문제 없음
+```
+
+#### 2. Existing invocation migration
+
+```text
+ChatGPT:
+새 필수 CLI 인수로 기존 exporter/package caller가 파손될 수 있음
+전수 census와 migration matrix 부재
+→ Critical
+
+Claude:
+contract gap 없음
+plan-level PASS 가능
+→ 문제 없음
+```
+
+#### 3. Implementation toolchain freshness
+
+```text
+ChatGPT:
+evidence 생성 후 tool/test/script가 변경돼도
+promoted evidence와 live gate가 계속 진행될 수 있음
+→ Critical
+
+Claude:
+validation 및 evidence binding에 공백 없음
+→ 문제 없음
+```
+
+#### 4. Pre-entry durable-ledger bootstrap
+
+```text
+ChatGPT:
+attempt reservation 전에 tracked/unignored durable root가 필요하지만
+그 visibility 변경은 implementation entry 전에 금지되어 순환 가능
+→ Critical
+
+Claude:
+event ledger와 durable bundle의 authority 경계가 완결됨
+→ 문제 없음
+```
+
+---
+
+## 3. Critical Issues
+
+한쪽 검토안에서라도 Critical로 판정한 항목을 모두 보존한다.
+
+---
+
+### Issue RTC-C4-1 — Roadmap 필수 Fixture Coverage
+
+**Severity:**
+
+```text
+ChatGPT = Critical
+Claude = 문제 없음
+Combined = 직접 판정 충돌
+```
+
+**Impact:**
+
+ChatGPT 검토는 roadmap 최소 fixture 중 다음 두 종류가 계획에 명시적으로 대응되지 않는다고 판정했다.
+
+```text
+ordinary_exact_key_set_positive
+windows_projection_cardinality_loss_negative
+```
+
+#### Ordinary exact-key positive
+
+collision, exception, role disposition이 전혀 없는 일반 registry가 정상적으로 보존되는지 검증한다.
+
+ChatGPT 검토는 case-variant pair positive fixture가 exception path를 통과하므로 ordinary path의 positive fixture를 대체하지 못한다고 판단했다.
+
+#### Windows projection cardinality-loss negative
+
+다음 상태를 직접 주입하는 fixture다.
+
+```text
+source_count > projection_count
+lost_count > 0
+round_trip_restored_count < source_count
+round_trip_exact_keyset_match = false
+```
+
+ChatGPT 검토는 `ConvertFrom-Json` rejection fixture가 parser rejection을 검증할 뿐 projection cardinality loss를 직접 검증하지 않는다고 판단했다.
+
+Claude 검토는 missing validation이 없으며 fixture matrix가 신규 계약 전반을 충분히 포함한다고 판정했다.
+
+**Affected Scope:**
+
+- Change 5
+- Validation Plan
+- fixture matrix
+- roadmap traceability
+- Windows round-trip proof
+
+**Related Surface:**
+
+- Compatibility Surface
+- Runtime Behavior Surface
+- Sealed Artifact Surface
+
+**Required Fix proposed by ChatGPT:**
+
+- `ordinary_exact_key_set_positive` fixture 추가
+- `windows_projection_cardinality_loss_negative` fixture 추가
+- roadmap fixture 1~10과 plan fixture ID의 1:1 traceability
+- 각 fixture의 expected code/stage/first predicate 명시
+- unresolved roadmap fixture count 0
+
+**Blocking Reason:**
+
+현재 fixture 목록이 roadmap 최소 validation을 완전하게 포함하는지 두 검토안이 반대로 판정한다.
+
+**Combined Status:**
+
+```text
+fixture_traceability_adjudication_required
+```
+
+---
+
+### Issue RTC-C4-2 — Existing Exporter / Package Invocation Migration
+
+**Severity:**
+
+```text
+ChatGPT = Critical
+Claude = 문제 없음
+Combined = 직접 판정 충돌
+```
+
+**Impact:**
+
+계획은 exporter 및 package command에 다음과 같은 explicit context와 artifact path를 요구한다.
+
+```text
+RegistryCompatibilityContext
+RegistryCompatibilityPolicy
+RegistryCompatibilityDisposition
+RegistryCompatibilityBindingManifest
+RegistryCompatibilityRequiredGateState
+```
+
+context/path/binding/gate state가 생략되면 implicit default 없이 실패하도록 구성한다.
+
+ChatGPT 검토는 다음 기존 호출부가 새 계약으로 인해 파손될 가능성을 제기했다.
+
+- existing exporter invocations
+- `package_iris.ps1 -Clean -Zip`
+- adjacent 및 비인접 tests
+- current-route tooling
+- operator package commands
+- historical/diagnostic export routes
+
+현재 계획에 전 호출부 census와 migration matrix가 없으며, 새 validation command만 정상 작동하고 기존 workflow는 실패할 수 있다는 판단이다.
+
+Claude 검토는 runtime/build-time contract와 FAIL-LOUD 경계에 공백이 없다고 판정했다.
+
+**Affected Scope:**
+
+- Repository Areas Affected
+- Change 3
+- exporter CLI
+- package CLI
+- existing tests
+- operator workflow
+
+**Related Surface:**
+
+- Runtime Behavior Surface
+- Compatibility Surface
+- Sealed Artifact Surface
+- Operator Workflow Surface
+
+**Required Fix proposed by ChatGPT:**
+
+다음 artifact를 추가한다.
+
+```text
+exporter_package_invocation_inventory.json
+invocation_migration_matrix.json
+default_route_compatibility_report.json
+```
+
+최소 fields:
+
+- caller path
+- command origin
+- route class
+- current invocation
+- required invocation
+- policy context
+- migration required
+- updated status
+- regression test
+- unresolved status
+
+허용 방식:
+
+```text
+Option A:
+post-adoption canonical default route를 결정론적으로 유지
+
+Option B:
+모든 caller를 explicit CLI로 전수 이관
+```
+
+성공 조건:
+
+```text
+unmigrated_invocation_count = 0
+unknown_invocation_count = 0
+```
+
+**Blocking Reason:**
+
+새 guard contract가 기존 build/package workflow 전체에 미치는 영향이 이미 닫혀 있는지 판정이 충돌한다.
+
+**Combined Status:**
+
+```text
+invocation_migration_adjudication_required
+```
+
+---
+
+### Issue RTC-C4-3 — Implementation Toolchain Freshness
+
+**Severity:**
+
+```text
+ChatGPT = Critical
+Claude = 문제 없음
+Combined = 직접 판정 충돌
+```
+
+**Impact:**
+
+ChatGPT 검토는 다음 claim-affecting 파일이 Phase 2 evidence 생성 후 변경될 가능성을 지적했다.
+
+```text
+canonical analyzer
+validator
+runner
+record exporter
+bridge exporter
+package_iris.ps1
+Windows inspection wrapper
+Lua merge harness
+required tests
+```
+
+현재 source/rendered/runtime/package input freshness는 강하게 검사하지만, evidence를 생성한 toolchain bytes와 durable promotion/live adoption 시점의 toolchain bytes가 같다는 명시적 contract가 부족하다는 판단이다.
+
+지적된 시나리오:
+
+```text
+Phase 2 evidence PASS
+→ guard contract report 생성
+→ validator/package script 변경
+→ old report promotion
+→ changed implementation으로 live gate 진행
+```
+
+Claude 검토는 event ledger, immutable bundle 및 validation matrix를 통해 sealed artifact surface가 충분히 닫혔다고 판정했다.
+
+**Affected Scope:**
+
+- Change 2 freshness contract
+- Change 3 package guard contract
+- Change 5
+- Change 6
+- required unittest
+- final machine report
+
+**Related Surface:**
+
+- Sealed Artifact Surface
+- Compatibility Surface
+- Authority Surface
+
+**Required Fix proposed by ChatGPT:**
+
+```text
+implementation_toolchain_manifest.json
+implementation_toolchain_freshness_report.json
+```
+
+manifest fields:
+
+```text
+path
+role
+sha256
+byte_count
+tracked
+not_ignored
+```
+
+재검증 시점:
+
+1. Phase 2 evidence 생성 전
+2. pre-adoption report 전
+3. durable promotion 전
+4. candidate manifest probe 전
+5. live adoption 전
+6. official post-adoption route 전
+7. final machine report 전
+
+성공 조건:
+
+```text
+implementation_toolchain_drift_count = 0
+required_tool_missing_count = 0
+required_tool_untracked_count = 0
+```
+
+**Blocking Reason:**
+
+현재 계획이 evidence와 implementation code의 byte identity를 이미 결속하는지 두 검토안의 판단이 다르다.
+
+**Combined Status:**
+
+```text
+toolchain_freshness_adjudication_required
+```
+
+---
+
+### Issue RTC-C4-4 — Pre-Entry Durable-Ledger VCS Bootstrap
+
+**Severity:**
+
+```text
+ChatGPT = Critical
+Claude = 문제 없음
+Combined = 직접 판정 충돌
+```
+
+**Impact:**
+
+계획은 implementation entry 이전에 attempt reservation receipt를 요구하며, reservation은 tracked durable history를 생성한다.
+
+```text
+attempt_events.jsonl
+attempts/attempt-NNNN/reservation_record.json
+```
+
+ChatGPT 검토는 이 경로가 `.gitignore`에 가려져 있다면 다음 순환이 생길 수 있다고 판단했다.
+
+```text
+attempt reservation 필요
+→ tracked durable path 필요
+→ VCS visibility 변경 필요
+→ implementation entry 전 config mutation 금지
+→ reservation 불가
+```
+
+반대로 ignored 상태로 먼저 생성한 뒤 visibility를 열면 pre-entry failed attempt가 처음부터 canonical durable history였다고 증명할 수 없다는 지적이다.
+
+Claude 검토는 tracked durable ledger와 git-common-dir coordination surface가 올바르게 분리되었고 sealed artifact gap이 없다고 판정했다.
+
+**Affected Scope:**
+
+- Change 0
+- preimplementation gate
+- attempt event ledger
+- `.gitignore`
+- failure preservation
+- clean-checkout reproducibility
+
+**Related Surface:**
+
+- Sealed Artifact Surface
+- Authority Surface
+
+**Required Fix proposed by ChatGPT:**
+
+다음 중 하나를 고정한다.
+
+```text
+Option A:
+pre-existing tracked governance root
+
+Option B:
+owner-approved governance-only bootstrap phase
+
+Option C:
+pre-entry local reservation 후 post-gate durable materialization
+```
+
+필수 predicate:
+
+```text
+preentry_required_path_ignored_count = 0
+preentry_required_path_untracked_count = 0
+retroactive_attempt_materialization_count = 0
+```
+
+**Blocking Reason:**
+
+pre-entry reservation이 최초 시점부터 tracked durable evidence인지 현재 계획만으로 보장되는지 판정이 충돌한다.
+
+**Combined Status:**
+
+```text
+preentry_bootstrap_adjudication_required
+```
+
+---
+
+## 4. Non-Critical Issues
+
+### RTC-I4-1 — Attempt Event Append Transaction
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = 문제 없음
+```
+
+ChatGPT 검토는 다음 partial state의 처리 규칙이 필요하다고 판단했다.
+
+- record exists / event missing
+- event exists / record missing
+- shared ledger exists / durable record missing
+- local root exists / reservation record missing
+
+확정할 사항:
+
+```text
+record bytes 생성
+→ hash 계산
+→ exclusive-create record
+→ append event
+```
+
+또는 동등한 staged transaction.
+
+---
+
+### RTC-I4-2 — Cross-Worktree Event-Prefix Synchronization
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = Minor N-ii에서 cross-branch merge 문제 제기
+Combined = 공통 문제의식, severity 차이
+```
+
+ChatGPT는 selected worktree와 shared reservation ledger의 canonical event prefix 일치를 요구했다.
+
+```text
+selected_worktree_event_prefix
+= approved_canonical_event_prefix
+= shared_reservation_ledger_committed_prefix
+```
+
+Claude는 서로 다른 branch에서 순차적으로 attempt가 실행되면 tracked hash-chain이 분기되고 merge 불능이 될 수 있다고 지적했다.
+
+두 검토안은 cross-worktree/cross-branch ledger divergence가 정상 workflow를 차단할 수 있다는 방향에서 양립한다.
+
+---
+
+### RTC-I4-3 — Bundle ID의 Attempt-Specific Path
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = 문제 없음
+```
+
+bundle ID 계산에 attempt-local source path가 포함되면 동일 bytes라도 attempt마다 다른 bundle ID가 생성될 수 있다.
+
+확정 대상:
+
+```text
+provenance-versioned bundle ID
+또는
+content-addressed bundle ID
+```
+
+content-addressed bundle이면 role 및 canonical destination filename 기준으로 path를 정규화해야 한다는 제안이다.
+
+---
+
+### RTC-I4-4 — Roadmap OR 조건의 Plan AND 강화
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = 문제 없음
+```
+
+roadmap 조건:
+
+```text
+current required-validation
+또는
+package-required guard
+```
+
+현재 plan canonical closeout:
+
+```text
+package guard mandatory
+그리고
+live additive required gate mandatory
+```
+
+ChatGPT는 이를 단순 C-5 선택이 아니라 execution contract 강화로 기록해야 한다고 판단했다.
+
+제안 fields:
+
+```text
+roadmap_or_condition_superseded_by_plan_and_condition = true
+owner_explicitly_approved = true
+```
+
+---
+
+### RTC-I4-5 — Bridge Preflight Surface Boundary
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = 문제 없음
+```
+
+exporter child invocation이 rendered path를 직접 전달하면서 four-surface equality, alias-added key 및 freshness까지 차단한다고 선언하는 점이 문제로 제기됐다.
+
+제안:
+
+- bridge preflight에도 explicit `surface-input-manifest` 전달
+- 또는 bridge preflight를 rendered/policy validation으로 축소
+- four-surface equality는 post-generation validator가 담당
+
+---
+
+### RTC-N-i — C-4 Route-Model 전환의 Approval Binding
+
+**Severity:**
+
+```text
+Claude = Minor
+ChatGPT = 미제기
+```
+
+C-4가 owner-selected A/C route에서 다음으로 변경되었다.
+
+```text
+Route A = fixed canonical
+Route C = required transport regression
+```
+
+Claude는 C-1/C-2, C-5, C-6와 달리 이 owner decision 축소가 `plan_contract_approval_record.json`에 직접 결속되지 않은 점을 지적했다.
+
+권고:
+
+```text
+C-4 route-model transition acknowledged = true
+```
+
+---
+
+### RTC-N-ii — Event Ledger Cross-Branch Merge Semantics
+
+**Severity:**
+
+```text
+Claude = Minor
+ChatGPT = RTC-I4-2에서 관련 Important
+```
+
+서로 merge되지 않은 branch에서 각각 attempt가 실행되면 append-only hash chain이 분기될 수 있다.
+
+권고:
+
+- single integration branch에서만 attempt 실행
+- 또는 owner-reviewed chain supersession 절차
+
+---
+
+### RTC-M4-1 — Route A/C Evidence Count
+
+**Severity:**
+
+```text
+ChatGPT = Minor
+Claude = 문제 없음
+```
+
+두 route는 같은 Python producer를 사용하므로 다음처럼 구분하는 것이 제안됐다.
+
+```text
+algorithm_proof_count = 1
+transport_conformance_count = 2
+```
+
+---
+
+### RTC-M4-2 — PUC Lua Report Vocabulary
+
+**Severity:**
+
+```text
+ChatGPT = Minor
+Claude = 문제 없음
+```
+
+final report 권고 fields:
+
+```text
+lua_runtime_family = PUC_LUA
+validation_role = offline_table_reconstruction_only
+project_zomboid_runtime_executed = false
+kahlua_equivalence_claimed = false
+```
+
+---
+
+## 5. Scope Review
+
+### Scope Drift
+
+두 검토안 모두 직접적인 기능 범위 drift는 거의 제거되었다고 평가한다.
+
+승인된 범위 안으로 인정된 항목:
+
+- exact/comparison identity
+- bounded collision disposition
+- bridge/chunk/package guard
+- Windows lossless inspection
+- required-validation adoption
+- independent review와 owner seal
+- candidate binding manifest
+- attempt ledger
+- durable bundle lifecycle
+
+#### Attempt Governance Infrastructure
+
+```text
+ChatGPT:
+ledger·mutex·cross-worktree history가 과도하게 일반화되면
+별도 governance framework가 될 수 있음
+
+Claude:
+모든 추가 구조는 Cycle conflict adjudication 이행이며 scope drift 없음
+```
+
+### Missing Scope
+
+ChatGPT가 누락으로 판정한 영역:
+
+- roadmap fixture 1~10 traceability
+- exporter/package caller census
+- invocation migration
+- implementation toolchain freshness
+- pre-entry VCS visibility bootstrap
+- event transaction partial-state handling
+- cross-worktree prefix synchronization
+- bridge preflight surface boundary
+
+Claude는 N-i와 N-ii 외 missing scope가 없다고 판정했다.
+
+### Explicitly Out Of Scope Consistency
+
+두 검토안 모두 대체로 일관적이라고 평가한다.
+
+- source mutation 제외
+- Registry Authority 재수행 제외
+- DVF Body Compiler 변경 제외
+- runtime alias 제외
+- monolith 복귀 제외
+- package publication 제외
+- release/Workshop/B42 readiness 제외
+- public text·semantic quality 제외
+- manual QA 제외
+- Kahlua/PZ equivalence 제외
+
+---
+
+## 6. Validation Review
+
+### Missing Validation
+
+ChatGPT가 완전히 빠졌다고 판정한 validation:
+
+1. ordinary key-set positive fixture
+2. Windows projection cardinality-loss negative fixture
+3. roadmap fixture 1~10 traceability
+4. exporter/package caller census
+5. unmigrated caller validation
+6. old/default command compatibility test
+7. implementation toolchain drift test
+8. current toolchain vs durable contract hash test
+9. pre-entry path VCS visibility test
+10. ignored pre-entry ledger fixture
+11. cross-worktree event-prefix mismatch fixture
+12. bridge surface-input completeness test
+
+Claude는 missing validation이 없으며, Cycle 3의 missing-disposition fixture와 Windows input contract까지 모두 해소되었다고 판정했다.
+
+### Weak Validation
+
+#### Invocation Migration
+
+```text
+ChatGPT:
+새 command가 작동하는지와 기존 caller가 모두 이관됐는지는 별개
+
+Claude:
+runtime/build-time 및 FAIL-LOUD contract에 공백 없음
+```
+
+#### Toolchain Freshness
+
+```text
+ChatGPT:
+promoted evidence와 current implementation bytes의 동일성 검증 부족
+
+Claude:
+immutable bundle과 validation matrix로 충분
+```
+
+#### Attempt Governance
+
+```text
+ChatGPT:
+pre-entry VCS visibility와 worktree prefix freshness 부족
+
+Claude:
+event hash chain, immutable records, mutex로 충분
+```
+
+#### Fixture Coverage
+
+```text
+ChatGPT:
+roadmap 최소 fixture 두 개 누락
+
+Claude:
+fixture matrix 완전
+```
+
+### Validation Ceiling Risk
+
+두 검토안 모두 낮거나 매우 낮다고 평가한다.
+
+명확히 제외된 claim:
+
+- Registry Authority PASS
+- DVF Body Compiler PASS
+- Publish Boundary PASS
+- release readiness
+- package publication
+- Workshop/B42 readiness
+- manual QA
+- full runtime equivalence
+- Kahlua/PZ equivalence
+
+candidate manifest probe도 official current-route PASS와 분리된다.
+
+### Validation Practicality
+
+공통 평가:
+
+- 핵심 compatibility validation은 현실적으로 실행 가능
+- risk surface에 비례한 heavy validation
+- raw JSON/Lua inspection
+- actual Lua reconstruction
+- package no-ZIP propagation
+- Windows PowerShell 5.1 route
+- candidate/live policy separation
+- deterministic rerun
+
+판정 차이:
+
+```text
+ChatGPT:
+governance ceremony가 큰 만큼 bootstrap·transaction·worktree 문제를 더 닫아야 함
+
+Claude:
+모든 heavy validation은 adjudicated finding 이행이며 잉여 ceremony 없음
+```
+
+---
+
+## 7. Governance Review
+
+### Philosophy.md Compliance
+
+두 검토안 모두 위반 없음으로 평가한다.
+
+- compatibility 우선
+- fail-loud
+- authority no-mutation
+- runtime/build-time 분리
+- stale/predecessor reentry 금지
+- Hub & Spoke/SPI 유지
+
+### Architecture Boundary
+
+공통적으로 준수한다고 평가한다.
+
+- DVF Body Compiler 책임 재흡수 없음
+- Registry Authority 재개방 없음
+- Publish Boundary 혼입 없음
+- Pulse/다른 spoke 의존 없음
+- runtime alias framework 없음
+- core/allowlist no-mutation
+
+### Runtime / Build-Time Separation
+
+두 검토안 모두 준수한다고 평가한다.
+
+- Python/PowerShell은 offline tooling
+- live Lua payload 변경 없음
+- runtime JSON parser 없음
+- comparison identity를 runtime lookup에 사용하지 않음
+
+### FAIL-LOUD Preservation
+
+공통적으로 강하다고 평가한 부분:
+
+- missing dependency block
+- invalid UTF-8 block
+- non-ASCII comparator block
+- no hidden policy default
+- package child non-zero 전파
+- ZIP 전 guard
+- owner technical waiver 금지
+- hash-chain break block
+- partial promotion block
+
+판정 충돌:
+
+```text
+ChatGPT:
+caller migration·toolchain freshness·bootstrap 미완으로
+fail-loud가 unrelated existing workflow를 차단할 수 있음
+
+Claude:
+silent 경로가 모두 제거됐으며 contract gap 없음
+```
+
+### Authority Ownership
+
+공통적으로 claim boundary와 owner/machine 분리는 적절하다고 평가한다.
+
+잔여 판정 차이:
+
+- C-4 route-model 전환 approval binding
+- attempt event ledger의 branch authority
+- roadmap OR → plan AND 강화 승인
+- pre-entry ledger bootstrap authority
+
+### Contract Compliance
+
+공통적으로 정렬된 항목:
+
+- active core/tooling allowlist no-mutation
+- additive required-validation adoption
+- post-adoption self-cycle 금지
+- independent review/owner seal 분리
+- axis-qualified claim
+- candidate/live route 분리
+
+ChatGPT가 잔여 충돌로 본 항목:
+
+- existing invocation contract 파손
+- pre-entry durable evidence bootstrap
+- stale toolchain evidence
+- roadmap fixture incompleteness
+
+Claude는 전체 contract가 준수된다고 판정했다.
+
+---
+
+## 8. Risk Surface Review
+
+### Authority Surface
+
+```text
+ChatGPT = concerns
+Claude = concerns 없음
+```
+
+쟁점:
+
+- pre-entry attempt ledger bootstrap
+- current implementation과 promoted evidence의 binding
+- roadmap OR → plan AND owner approval
+- C-4 route-model approval
+
+### Runtime Behavior Surface
+
+```text
+ChatGPT = concerns
+Claude = none
+```
+
+live Lua behavior 변경은 없다는 점에는 동의한다.
+
+차이는 새 필수 CLI contract가 existing build/package workflow를 차단할 가능성에 대한 평가다.
+
+### Compatibility Surface
+
+두 검토안 모두 핵심 의도된 surface로 본다.
+
+- exact identity
+- comparison identity
+- JSON/Lua decoding
+- Windows projection
+- Lua merge
+- package projection
+- current-route consumption
+
+판정 충돌은 fixture completeness에 집중된다.
+
+### Sealed Artifact Surface
+
+```text
+ChatGPT = high concern
+Claude = none
+```
+
+쟁점:
+
+- toolchain freshness
+- attempt ledger bootstrap
+- event synchronization
+- durable evidence와 current code의 identity
+
+### Public-Facing Output Surface
+
+두 검토안 모두 `None`으로 평가한다.
+
+---
+
+## 9. Risk Review
+
+### Regression Risk
+
+- 기존 exporter/package caller가 새 필수 인수를 전달하지 못할 가능성
+- historical/diagnostic route 차단
+- adjacent tests 외 caller 누락
+- pre-entry ledger path가 ignored 상태일 가능성
+- changed toolchain과 old evidence의 혼합
+
+Claude는 위 위험이 현재 계획의 contract와 fixtures로 충분히 차단되었다고 평가했다.
+
+### Compatibility Risk
+
+- ordinary non-collision positive path 미검증 가능성
+- Windows cardinality-loss 전용 fixture 부재 가능성
+- stale package guard report 채택 가능성
+- bridge preflight가 암묵 surface를 읽을 가능성
+
+Claude는 fixture와 explicit input 계약이 완전하다고 평가했다.
+
+### Operational Risk
+
+- event/record partial write
+- cross-worktree ledger prefix divergence
+- cross-branch hash-chain 분기
+- no-arg package command 차단
+- pre-entry ignored ledger
+- toolchain 변경 후 old attempt evidence 재사용
+
+Claude는 cross-branch chain 분기만 Minor로 남겼다.
+
+### Validation Risk
+
+- roadmap fixture coverage 오판
+- current code와 promoted evidence의 byte divergence
+- Route A/C를 독립 algorithm proof로 과대 계상
+- caller migration 미검출
+- pre-entry evidence의 사후 materialization
+
+Claude는 validation risk가 없다고 판정했다.
+
+### Governance Risk
+
+- pre-entry bootstrap이 implementation gate를 우회
+- roadmap OR 조건의 AND 강화
+- stale tool contract의 live gate 채택
+- unrelated workflow 차단
+- event ledger branch divergence
+
+Claude는 C-4 approval record와 cross-branch ledger 규약만 Minor로 남겼다.
+
+---
+
+## 10. Required Revisions
+
+### A. 직접 충돌 없이 채택 가능한 보완
+
+#### Revision A1 — C-4 Route-Model Approval Binding
+
+**Source:** Claude N-i
+
+`plan_contract_approval_record.json`에 다음 전환을 명시한다.
+
+```text
+C-4 owner-selected route
+→ Route A fixed canonical
++ Route C required transport regression
+```
+
+---
+
+#### Revision A2 — Event Ledger Cross-Branch Rule
+
+**Sources:**
+
+- Claude N-ii
+- ChatGPT RTC-I4-2
+
+다음 중 계획에 이미 채택된 방식을 명시한다.
+
+- single integration branch에서 attempt 실행
+- canonical event-prefix synchronization
+- owner-reviewed chain supersession
+
+---
+
+#### Revision A3 — Route Evidence Strength
+
+**Source:** ChatGPT RTC-M4-1
+
+```text
+algorithm_proof_count = 1
+transport_conformance_count = 2
+```
+
+로 구분한다.
+
+---
+
+#### Revision A4 — Lua Report Vocabulary
+
+**Source:** ChatGPT RTC-M4-2
+
+```text
+lua_runtime_family = PUC_LUA
+validation_role = offline_table_reconstruction_only
+project_zomboid_runtime_executed = false
+kahlua_equivalence_claimed = false
+```
+
+를 final report에 포함한다.
+
+---
+
+### B. 직접 판정 충돌로 별도 확인이 필요한 항목
+
+#### Revision B1 — Roadmap Fixture Traceability
+
+확인할 사항:
+
+- ordinary non-collision positive fixture가 현재 목록에 존재하는가
+- Windows cardinality-loss injection fixture가 존재하는가
+- roadmap fixture 1~10과 plan fixture 사이 1:1 mapping이 존재하는가
+
+없다면 ChatGPT가 제시한 두 fixture와 traceability를 추가한다.
+
+---
+
+#### Revision B2 — Invocation Migration
+
+확인할 사항:
+
+- exporter와 package script의 모든 repository caller가 census되었는가
+- historical/diagnostic/operator route가 분류되었는가
+- no-arg/default invocation의 post-adoption behavior가 정의되었는가
+- unmigrated caller count를 측정하는가
+
+누락이 확인되면 invocation inventory와 migration matrix를 추가한다.
+
+---
+
+#### Revision B3 — Implementation Toolchain Freshness
+
+확인할 사항:
+
+- claim-affecting scripts/tests/harness의 hash manifest가 존재하는가
+- pre-adoption report와 durable bundle이 toolchain manifest hash를 결속하는가
+- live adoption 및 final report 전에 current checkout hash를 다시 검증하는가
+
+없다면 toolchain manifest와 drift report를 추가한다.
+
+---
+
+#### Revision B4 — Pre-Entry Ledger Bootstrap
+
+확인할 사항:
+
+- attempt ledger root가 entry gate 전에 이미 tracked/unignored 상태인가
+- governance-only bootstrap이 존재하는가
+- pre-entry local reservation과 canonical attempt의 구분이 존재하는가
+- retroactive durable materialization이 금지되는가
+
+---
+
+#### Revision B5 — Event Transaction and Prefix Synchronization
+
+확인할 사항:
+
+- record/event exact write order
+- partial state failure code
+- selected worktree의 canonical ledger prefix
+- shared reservation ledger와 tracked event ledger의 reconciliation
+
+---
+
+#### Revision B6 — Roadmap OR → Plan AND Approval
+
+확인할 사항:
+
+- package guard와 live required gate를 모두 canonical closeout 필수로 만든 강화가 owner approval record에 별도 결속되는가
+
+---
+
+#### Revision B7 — Bridge Preflight Surface Boundary
+
+확인할 사항:
+
+- exporter preflight가 explicit four-surface manifest를 받는가
+- 아니면 책임이 rendered/policy inspection으로 제한되는가
+- post-generation validator와 역할이 명확히 분리되는가
+
+---
+
+## 11. Final Recommendation
+
+# PLAN-LEVEL VERDICT UNRESOLVED
+
+두 검토안의 최종 verdict는 직접 충돌한다.
+
+```text
+ChatGPT = FAIL
+Claude = PASS
+```
+
+두 검토안 모두 다음 구조적 개선은 인정한다.
+
+```text
+exporter subprocess boundary
+acyclic candidate binding
+append-only attempt authority
+durable bundle promotion
+Windows four-surface inputs
+policy/gate lifecycle separation
+exact/comparison identity separation
+four-surface exact-key equality
+```
+
+합의되지 않은 항목은 다음 네 가지다.
+
+```text
+mandatory fixture completeness
+existing invocation migration
+implementation toolchain freshness
+pre-entry durable-ledger bootstrap
+```
+
+### PASS 채택 조건
+
+Claude의 `PASS`를 최종 verdict로 채택하려면 다음을 확인해야 한다.
+
+- roadmap 최소 fixture가 모두 현재 계획에 존재
+- existing caller migration이 이미 계획에 포함
+- toolchain freshness가 durable evidence와 live gate에 결속
+- pre-entry durable ledger가 bootstrap 순환 없이 생성 가능
+
+### FAIL 채택 조건
+
+ChatGPT의 `FAIL`을 최종 verdict로 채택하려면 위 네 항목 중 하나 이상이 실제 계획에서 누락되었음을 확인해야 한다.
+
+### Independent Review
+
+어느 verdict가 채택되더라도 현재 두 reviewer는 final implementation independent reviewer가 될 수 없다.
+
+---
+
+## 12. Reviewer Notes
+
+이 종합 검토는 두 AI 검토안의 공통점·차이점·충돌점을 구조화한 것이다.
+
+다음은 직접 재검증하지 않았다.
+
+- roadmap fixture 원본과 plan fixture의 실제 mapping
+- repository 전체 exporter/package caller
+- implementation toolchain hash manifest
+- `.gitignore` 및 durable ledger root의 현재 VCS visibility
+- event transaction 순서
+- cross-worktree/branch ledger prefix
+- bridge preflight surface input
+- C-4 및 C-5 owner approval record
+
+두 검토안의 차이는 compatibility algorithm 자체가 아니라 다음 질문에 집중된다.
+
+```text
+계획에 계약이 존재하는가
+그리고
+그 계약을 실행할 공급 경로·호출부·freshness·bootstrap까지 닫혀 있는가
+```
+
+본 종합 검토는 다음을 대체하지 않는다.
+
+- implementation result review
+- required-validation adoption review
+- eligible independent closeout review
+- owner canonical seal
+- terminal hash seal
+- `Registry Runtime Compatibility PASS`

@@ -10013,11 +10013,15 @@ def current_route_apply_input_coverage() -> dict[str, Any]:
             )
             continue
         matrix_rows.append(row)
-    apply_rows = [
+    candidate_rows = [
         row
         for row in matrix_rows
         if row.get("action") == "current_role_migration_candidate"
-        and row.get("migration_disposition")
+    ]
+    apply_rows = [
+        row
+        for row in candidate_rows
+        if row.get("migration_disposition")
         == "migrate_when_new_baseline_approved"
     ]
     tracked_result = run_git("ls-files")
@@ -10100,7 +10104,7 @@ def current_route_apply_input_coverage() -> dict[str, Any]:
     unexpected_live_inputs = sorted(
         live_ignored_apply_paths - apply_paths
     )
-    if len(matrix_rows) != 311:
+    if len(candidate_rows) != 311:
         blockers.append("current_route_apply_input_matrix_row_count_mismatch")
     if len(apply_rows) != 163:
         blockers.append("current_route_apply_input_apply_row_count_mismatch")
@@ -10135,6 +10139,7 @@ def current_route_apply_input_coverage() -> dict[str, Any]:
         "matrix_path": repo_relative(matrix_path),
         "matrix_sha256": sha256_file(matrix_path),
         "matrix_row_count": len(matrix_rows),
+        "candidate_row_count": len(candidate_rows),
         "apply_row_count": len(apply_rows),
         "apply_row_projection_sha256": canonical_hash(apply_projection),
         "source_row_counts": source_counts,

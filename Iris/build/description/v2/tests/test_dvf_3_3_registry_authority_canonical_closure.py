@@ -1061,6 +1061,10 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
         )
         self.assertEqual(apply_input_coverage["status"], "PASS")
         self.assertEqual(
+            apply_input_coverage["candidate_row_count"],
+            311,
+        )
+        self.assertEqual(
             apply_input_coverage["apply_row_count"],
             163,
         )

@@ -25,6 +25,7 @@ if str(V2_ROOT) not in sys.path:
     sys.path.insert(0, str(V2_ROOT))
 
 from tools.build import dvf_3_3_registry_runtime_compatibility as rtc
+from tools.build import dvf_3_3_registry_runtime_compatibility_closeout as rtc_closeout
 
 
 ANALYZER = TOOLS_ROOT / "dvf_3_3_registry_runtime_compatibility.py"
@@ -74,6 +75,7 @@ REQUIRED_TESTS = [
         "fixtures",
         "current",
         "package",
+        "closeout",
     )
 ]
 
@@ -1144,6 +1146,7 @@ def command_phase4(args: argparse.Namespace) -> int:
         "windows",
         "fixtures",
         "package",
+        "closeout",
     )
     test_receipts: list[dict[str, Any]] = []
     for name in test_patterns:
@@ -1300,6 +1303,8 @@ def _append_bundle_lifecycle_locked(
     reason_code: str,
     trigger_path: Path,
     extra_stage_paths: Sequence[Path] = (),
+    selected_bundle_id: str | None = None,
+    superseding_bundle_id: str | None = None,
 ) -> dict[str, Any]:
     bootstrap = load_bootstrap_module()
     root = (
@@ -1335,11 +1340,20 @@ def _append_bundle_lifecycle_locked(
             "package_guard_active_not_required_gate_adopted",
             "live_required_gate_adopted",
         ),
+        ("live_required_gate_adopted", "superseded"),
     }
     if (prior_state, new_state) not in allowed:
         raise rtc.CompatibilityError(
             "bundle_lifecycle_transition_invalid",
             f"Disallowed lifecycle transition {prior_state} -> {new_state}",
+        )
+    if new_state == "superseded" and (
+        selected_bundle_id in (None, bundle_id)
+        or superseding_bundle_id != selected_bundle_id
+    ):
+        raise rtc.CompatibilityError(
+            "bundle_lifecycle_supersession_binding_invalid",
+            "Supersession must bind one different selected bundle",
         )
     sequence = len(rows) + 1
     previous_hash = (
@@ -1375,6 +1389,10 @@ def _append_bundle_lifecycle_locked(
         "triggering_artifact_sha256": rtc.sha256_file(trigger_path),
         "previous_event_sha256": previous_hash,
     }
+    if selected_bundle_id is not None:
+        record["selected_bundle_id"] = selected_bundle_id
+    if superseding_bundle_id is not None:
+        record["superseding_bundle_id"] = superseding_bundle_id
     bootstrap.exclusive_write(record_path, rtc.canonical_json_bytes(record))
     event = {
         "schema_version": "rtc-bundle-lifecycle-event-v1",
@@ -1387,6 +1405,10 @@ def _append_bundle_lifecycle_locked(
         "record_sha256": rtc.sha256_file(record_path),
         "previous_event_sha256": previous_hash,
     }
+    if selected_bundle_id is not None:
+        event["selected_bundle_id"] = selected_bundle_id
+    if superseding_bundle_id is not None:
+        event["superseding_bundle_id"] = superseding_bundle_id
     bootstrap.append_durable(ledger, rtc.canonical_json_bytes(event))
     lifecycle_rows(ledger)
     stage_paths = [
@@ -1441,6 +1463,8 @@ def append_bundle_lifecycle(
     reason_code: str,
     trigger_path: Path,
     extra_stage_paths: Sequence[Path] = (),
+    selected_bundle_id: str | None = None,
+    superseding_bundle_id: str | None = None,
 ) -> dict[str, Any]:
     bootstrap = load_bootstrap_module()
     common_dir = Path(
@@ -1464,6 +1488,8 @@ def append_bundle_lifecycle(
             reason_code=reason_code,
             trigger_path=trigger_path,
             extra_stage_paths=extra_stage_paths,
+            selected_bundle_id=selected_bundle_id,
+            superseding_bundle_id=superseding_bundle_id,
         )
 
 
@@ -1632,11 +1658,31 @@ def validate_additive_required_manifest(
     before: dict[str, Any],
     after: dict[str, Any],
 ) -> dict[str, Any]:
-    if "registry_runtime_compatibility" in before:
+    before_selection = before.get("registry_runtime_compatibility")
+    after_selection = after.get("registry_runtime_compatibility")
+    if not isinstance(after_selection, dict):
         raise rtc.CompatibilityError(
-            "live_required_manifest_selection_already_exists",
-            "This adoption path only permits a new additive selection",
+            "live_required_manifest_selection_missing",
+            "Adoption must provide a Registry Runtime Compatibility selection",
         )
+    if before_selection is not None:
+        if (
+            not isinstance(before_selection, dict)
+            or before_selection.get("schema_version")
+            != "rtc-live-required-selection-v1"
+            or before_selection.get("policy_lifecycle_state")
+            != "live_required_gate_adopted"
+            or before_selection.get("candidate_manifest_probe") is not False
+        ):
+            raise rtc.CompatibilityError(
+                "live_required_manifest_prior_selection_not_live",
+                "Only a valid live selection may be superseded",
+            )
+        if before_selection.get("bundle_id") == after_selection.get("bundle_id"):
+            raise rtc.CompatibilityError(
+                "live_required_manifest_duplicate_selection",
+                "Supersession requires a different selected bundle",
+            )
     before_artifacts = before.get("required_artifacts", [])
     after_artifacts = after.get("required_artifacts", [])
     before_tests = before.get("required_tests", [])
@@ -1649,15 +1695,19 @@ def validate_additive_required_manifest(
             "live_required_manifest_non_additive_diff",
             "Existing required artifacts/tests changed or were reordered",
         )
-    projected = json.loads(json.dumps(after))
-    projected.pop("registry_runtime_compatibility", None)
-    projected["required_artifacts"] = projected.get("required_artifacts", [])[
+    projected_before = json.loads(json.dumps(before))
+    projected_before.pop("registry_runtime_compatibility", None)
+    projected_after = json.loads(json.dumps(after))
+    projected_after.pop("registry_runtime_compatibility", None)
+    projected_after["required_artifacts"] = projected_after.get(
+        "required_artifacts", []
+    )[
         : len(before_artifacts)
     ]
-    projected["required_tests"] = projected.get("required_tests", [])[
+    projected_after["required_tests"] = projected_after.get("required_tests", [])[
         : len(before_tests)
     ]
-    if projected != before:
+    if projected_after != projected_before:
         raise rtc.CompatibilityError(
             "live_required_manifest_non_additive_diff",
             "Live required-validation adoption changes existing manifest fields",
@@ -1680,7 +1730,12 @@ def validate_additive_required_manifest(
         "added_required_artifact_count": len(after_artifacts)
         - len(before_artifacts),
         "added_required_test_count": len(after_tests) - len(before_tests),
-        "added_selection_count": 1,
+        "added_selection_count": 1 if before_selection is None else 0,
+        "replaced_selection_count": 0 if before_selection is None else 1,
+        "superseded_bundle_id": (
+            None if before_selection is None else before_selection.get("bundle_id")
+        ),
+        "selected_bundle_id": after_selection.get("bundle_id"),
     }
 
 
@@ -1931,6 +1986,7 @@ def command_phase5_promote(args: argparse.Namespace) -> int:
     )
     live_manifest_before = live_manifest_path.read_bytes()
     live_payload = json.loads(live_manifest_before.decode("utf-8"))
+    prior_live_selection = live_payload.get("registry_runtime_compatibility")
     candidate_payload = build_required_manifest(
         source_manifest=live_payload,
         bundle_root=durable_root,
@@ -2013,6 +2069,27 @@ def command_phase5_promote(args: argparse.Namespace) -> int:
         phase5 / "bundle_lifecycle_event_receipt_live.json",
         live_receipt,
     )
+    superseded_receipt: dict[str, Any] | None = None
+    if prior_live_selection is not None:
+        prior_bundle_id = str(prior_live_selection["bundle_id"])
+        prior_bundle_root = rtc_closeout.contained_repo_path(
+            REPO_ROOT,
+            str(prior_live_selection["bundle_root"]),
+        )
+        superseded_receipt = append_bundle_lifecycle(
+            bundle_id=prior_bundle_id,
+            bundle_manifest=prior_bundle_root / "durable_bundle_manifest.json",
+            attempt_id=args.attempt_id,
+            new_state="superseded",
+            reason_code="live_required_gate_selection_replaced",
+            trigger_path=live_manifest_path,
+            selected_bundle_id=bundle_id,
+            superseding_bundle_id=bundle_id,
+        )
+        rtc.write_json(
+            phase5 / "bundle_lifecycle_event_receipt_superseded.json",
+            superseded_receipt,
+        )
     write_toolchain_freshness(
         attempt_root=attempt_root,
         checkpoint="before_official_post_adoption_route",
@@ -2099,6 +2176,16 @@ def command_phase5_promote(args: argparse.Namespace) -> int:
         "post_adoption_live_manifest_sha256": rtc.sha256_file(live_manifest_path),
         "adoption_commit": adoption_commit,
         "live_lifecycle_commit": live_receipt["lifecycle_commit"],
+        "superseded_bundle_id": (
+            None
+            if prior_live_selection is None
+            else prior_live_selection["bundle_id"]
+        ),
+        "superseded_lifecycle_commit": (
+            None
+            if superseded_receipt is None
+            else superseded_receipt["lifecycle_commit"]
+        ),
         "candidate_manifest_route_status": "PASS",
         "official_current_route_status": "PASS",
         "live_gate_package_status": "PASS",
@@ -2138,7 +2225,55 @@ def load_bootstrap_module() -> Any:
     return module
 
 
+def command_prepare_final_machine(args: argparse.Namespace) -> int:
+    report = rtc_closeout.prepare_final_machine(
+        repo_root=REPO_ROOT,
+        attempt_root=Path(args.attempt_root).resolve(),
+        attempt_id=args.attempt_id,
+        implementation_identity=args.implementation_identity,
+    )
+    print(json.dumps(report, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+def command_validate_independent_review(args: argparse.Namespace) -> int:
+    receipt = rtc_closeout.validate_independent_review(
+        repo_root=REPO_ROOT,
+        attempt_root=Path(args.attempt_root).resolve(),
+        attempt_id=args.attempt_id,
+        review_path=Path(args.independent_review_path).resolve(),
+        runner_path=RUNNER,
+        validator_path=VALIDATOR,
+    )
+    print(json.dumps(receipt, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+def command_finalize_closeout(args: argparse.Namespace) -> int:
+    receipt = rtc_closeout.finalize_closeout(
+        repo_root=REPO_ROOT,
+        attempt_root=Path(args.attempt_root).resolve(),
+        attempt_id=args.attempt_id,
+        independent_review_path=Path(args.independent_review_path).resolve(),
+        owner_seal_path=Path(args.owner_seal_path).resolve(),
+        runner_path=RUNNER,
+        validator_path=VALIDATOR,
+    )
+    print(json.dumps(receipt, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
 def command_terminal_failure(args: argparse.Namespace) -> int:
+    if args.failure_stage in {
+        "governance_closeout",
+        "post_implementation_review",
+        "owner_canonical_seal",
+    }:
+        raise rtc.CompatibilityError(
+            "terminal_before_closeout_forbidden",
+            "Post-implementation review and owner seal are pending states, "
+            "not terminal failure conditions",
+        )
     bootstrap = load_bootstrap_module()
     attempt_root = Path(args.attempt_root).resolve()
     terminal_state = args.terminal_state
@@ -2356,9 +2491,15 @@ def build_parser() -> argparse.ArgumentParser:
     modes.add_argument("--phase2", action="store_true")
     modes.add_argument("--phase4", action="store_true")
     modes.add_argument("--phase5-promote", action="store_true")
+    modes.add_argument("--prepare-final-machine", action="store_true")
+    modes.add_argument("--validate-independent-review", action="store_true")
+    modes.add_argument("--finalize-closeout", action="store_true")
     modes.add_argument("--terminal-failure", action="store_true")
     parser.add_argument("--attempt-root", required=True)
     parser.add_argument("--attempt-id", required=True)
+    parser.add_argument("--implementation-identity")
+    parser.add_argument("--independent-review-path")
+    parser.add_argument("--owner-seal-path")
     parser.add_argument("--failure-code")
     parser.add_argument("--failure-stage")
     parser.add_argument("--failure-message")
@@ -2375,6 +2516,32 @@ def main(argv: Sequence[str] | None = None) -> int:
     try:
         if args.seal_toolchain:
             return command_seal_toolchain(args)
+        if args.prepare_final_machine:
+            if not args.implementation_identity:
+                raise rtc.CompatibilityError(
+                    "implementation_identity_missing",
+                    "Final machine preparation requires implementation identity",
+                )
+            return command_prepare_final_machine(args)
+        if args.validate_independent_review:
+            if not args.independent_review_path:
+                raise rtc.CompatibilityError(
+                    "independent_review_path_missing",
+                    "Independent review validation requires its exact path",
+                )
+            return command_validate_independent_review(args)
+        if args.finalize_closeout:
+            missing = [
+                name
+                for name in ("independent_review_path", "owner_seal_path")
+                if not getattr(args, name)
+            ]
+            if missing:
+                raise rtc.CompatibilityError(
+                    "closeout_authority_argument_missing",
+                    f"Closeout mode is missing: {missing}",
+                )
+            return command_finalize_closeout(args)
         if args.terminal_failure:
             missing = [
                 name

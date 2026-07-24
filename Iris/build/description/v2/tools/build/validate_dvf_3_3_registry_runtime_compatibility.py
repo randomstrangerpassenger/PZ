@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import shutil
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -19,6 +20,7 @@ if str(V2_ROOT) not in sys.path:
     sys.path.insert(0, str(V2_ROOT))
 
 from tools.build import dvf_3_3_registry_runtime_compatibility as rtc
+from tools.build import dvf_3_3_registry_runtime_compatibility_closeout as rtc_closeout
 
 
 ROUND_ID = rtc.ROUND_ID
@@ -777,6 +779,264 @@ def command_surface_validation(args: argparse.Namespace) -> int:
     return 0 if report["status"] == "PASS" else 2
 
 
+def validate_selected_attempt_closeout(
+    *,
+    manifest_path: Path,
+    selection: dict[str, Any],
+) -> dict[str, Any]:
+    attempt_id = str(selection.get("attempt_id", ""))
+    event_ledger = (
+        REPO_ROOT
+        / "Iris"
+        / "_docs"
+        / "round3"
+        / "registry_runtime_compatibility"
+        / "attempt_events.jsonl"
+    )
+    previous_hash = "0" * 64
+    selected_events: list[dict[str, Any]] = []
+    for sequence, raw_line in enumerate(
+        event_ledger.read_bytes().splitlines(keepends=True),
+        1,
+    ):
+        if not raw_line.endswith(b"\n"):
+            raise rtc.CompatibilityError(
+                "attempt_event_truncated_line",
+                f"Attempt event {sequence} lacks LF",
+            )
+        event = json.loads(raw_line.decode("utf-8"))
+        if (
+            event.get("event_sequence") != sequence
+            or event.get("previous_event_sha256") != previous_hash
+        ):
+            raise rtc.CompatibilityError(
+                "attempt_event_hash_chain_break",
+                f"Attempt event chain broke at {sequence}",
+            )
+        record_path = contained_relative(
+            REPO_ROOT,
+            str(event.get("record_path", "")),
+        )
+        if (
+            not record_path.is_file()
+            or rtc.sha256_file(record_path) != event.get("record_sha256")
+            or not rtc.git_tracked(REPO_ROOT, record_path)
+            or rtc.git_ignored(
+                REPO_ROOT,
+                [rtc.normalized_relative(REPO_ROOT, record_path)],
+            )
+        ):
+            raise rtc.CompatibilityError(
+                "attempt_event_record_invalid",
+                f"Attempt event record is missing, changed, or invisible: {record_path}",
+            )
+        if event.get("attempt_id") == attempt_id:
+            selected_events.append(event)
+        previous_hash = rtc.sha256_bytes(raw_line)
+    reservation_events = [
+        row for row in selected_events if row.get("event_type") == "reservation"
+    ]
+    terminal_events = [
+        row for row in selected_events if row.get("event_type") == "terminal"
+    ]
+    if len(reservation_events) != 1 or len(terminal_events) > 1:
+        raise rtc.CompatibilityError(
+            "selected_attempt_event_cardinality_invalid",
+            f"Selected attempt event cardinality differs: {attempt_id}",
+        )
+    if not terminal_events:
+        return {
+            "selected_attempt_terminal_event_count": 0,
+            "selected_attempt_closeout_state": (
+                "compatibility_machine_pass_governance_pending"
+            ),
+            "durable_closeout_required_role_count": 9,
+            "durable_closeout_artifact_missing_count": 0,
+            "durable_closeout_hash_mismatch_count": 0,
+            "independent_review_content_available": False,
+            "owner_seal_content_available": False,
+            "terminal_seal_content_available": False,
+            "terminal_event_before_closeout_commit_count": 0,
+        }
+    terminal_event = terminal_events[0]
+    if (
+        terminal_event.get("terminal_state")
+        != "registry_runtime_compatibility_canonical_complete"
+    ):
+        raise rtc.CompatibilityError(
+            "selected_live_attempt_terminal_not_canonical",
+            "A selected live bundle cannot be governed by a non-canonical terminal",
+        )
+    terminal_path = contained_relative(
+        REPO_ROOT,
+        str(terminal_event["record_path"]),
+    )
+    terminal = read_json(terminal_path)
+    packet_path = contained_relative(
+        REPO_ROOT,
+        str(terminal.get("durable_closeout_packet_manifest_path", "")),
+    )
+    evidence_path = contained_relative(
+        REPO_ROOT,
+        str(terminal.get("evidence_manifest_path", "")),
+    )
+    terminal_seal_path = contained_relative(
+        REPO_ROOT,
+        str(terminal.get("terminal_hash_seal_path", "")),
+    )
+    closeout_commit = str(terminal.get("durable_closeout_packet_commit", ""))
+    terminal_commit = rtc.git_text(
+        REPO_ROOT,
+        "log",
+        "-1",
+        "--format=%H",
+        "--",
+        rtc.normalized_relative(REPO_ROOT, terminal_path),
+    )
+    ancestry = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(REPO_ROOT),
+            "merge-base",
+            "--is-ancestor",
+            closeout_commit,
+            terminal_commit,
+        ],
+        capture_output=True,
+        check=False,
+    )
+    if (
+        not packet_path.is_file()
+        or rtc.sha256_file(packet_path)
+        != terminal.get("durable_closeout_packet_manifest_sha256")
+        or not evidence_path.is_file()
+        or rtc.sha256_file(evidence_path)
+        != terminal.get("evidence_manifest_sha256")
+        or not terminal_seal_path.is_file()
+        or rtc.sha256_file(terminal_seal_path)
+        != terminal.get("terminal_hash_seal_sha256")
+        or closeout_commit == terminal_commit
+        or ancestry.returncode != 0
+    ):
+        raise rtc.CompatibilityError(
+            "durable_closeout_terminal_binding_invalid",
+            "Terminal does not bind a prior durable closeout commit",
+        )
+    packet = read_json(packet_path)
+    rows = packet.get("rows")
+    if (
+        packet.get("schema_version")
+        != "rtc-durable-closeout-packet-manifest-v1"
+        or packet.get("required_role_count") != 9
+        or packet.get("artifact_missing_count") != 0
+        or packet.get("hash_mismatch_count") != 0
+        or not isinstance(rows, list)
+        or len(rows) != 9
+        or {row.get("role") for row in rows}
+        != set(rtc_closeout.NINE_PACKET_ROLES)
+    ):
+        raise rtc.CompatibilityError(
+            "durable_closeout_packet_invalid",
+            "Durable closeout packet does not satisfy the nine-role contract",
+        )
+    closeout_root = packet_path.parent
+    role_paths: dict[str, Path] = {}
+    for row in rows:
+        path = (closeout_root / Path(str(row.get("path", "")))).resolve()
+        try:
+            path.relative_to(closeout_root.resolve())
+        except ValueError as exc:
+            raise rtc.CompatibilityError(
+                "durable_closeout_path_escape",
+                f"Closeout role escapes packet root: {path}",
+            ) from exc
+        role_paths[str(row["role"])] = path
+        if (
+            not path.is_file()
+            or path.stat().st_size != row.get("byte_count")
+            or rtc.sha256_file(path) != row.get("sha256")
+            or read_json(path).get("schema_version") != row.get("schema_version")
+            or not rtc.git_tracked(REPO_ROOT, path)
+            or rtc.git_ignored(
+                REPO_ROOT,
+                [rtc.normalized_relative(REPO_ROOT, path)],
+            )
+        ):
+            raise rtc.CompatibilityError(
+                "durable_closeout_role_invalid",
+                f"Durable closeout role is missing, changed, or invisible: {path}",
+            )
+    final_machine = read_json(role_paths["final_machine_report"])
+    independent = read_json(role_paths["independent_review"])
+    owner = read_json(role_paths["owner_canonical_seal"])
+    final_report = read_json(role_paths["final_compatibility_report"])
+    claim_scan = read_json(role_paths["final_claim_scan_report"])
+    terminal_seal = read_json(role_paths["terminal_hash_seal"])
+    expected_binding = {
+        "pre_adoption_live_manifest_sha256": final_machine.get(
+            "pre_adoption_live_manifest_sha256"
+        ),
+        "post_adoption_live_manifest_sha256": rtc.sha256_file(manifest_path),
+        "selected_durable_bundle_id": selection.get("bundle_id"),
+        "selected_bundle_manifest_sha256": selection.get(
+            "bundle_manifest_sha256"
+        ),
+        "adopted_row_identity": selection.get("adopted_row_identity"),
+    }
+    binding_artifacts = (
+        terminal,
+        packet,
+        final_machine,
+        independent,
+        owner,
+        final_report,
+        claim_scan,
+        terminal_seal,
+    )
+    if any(
+        any(artifact.get(field) != value for field, value in expected_binding.items())
+        for artifact in binding_artifacts
+    ):
+        raise rtc.CompatibilityError(
+            "durable_closeout_final_binding_mismatch",
+            "Closeout artifacts do not bind the selected live identity",
+        )
+    if (
+        final_machine.get("status") != "PASS"
+        or final_machine.get("machine_contract_status") != "PASS"
+        or independent.get("status") != "PASS"
+        or independent.get("verdict") != "PASS"
+        or owner.get("owner_seal_status") != "PASS"
+        or owner.get("canonical_seal_status") != "PASS"
+        or owner.get("final_signoff_status") != "PASS"
+        or final_report.get("formal_claim")
+        != "Registry Runtime Compatibility PASS"
+        or claim_scan.get("formal_claim_count") != 1
+        or claim_scan.get("bare_pass_claim_count") != 0
+        or claim_scan.get("bare_runtime_compatibility_claim_count") != 0
+        or terminal_seal.get("status") != "PASS"
+    ):
+        raise rtc.CompatibilityError(
+            "durable_closeout_governance_invalid",
+            "Review, owner seal, final claim, or terminal seal is not PASS",
+        )
+    return {
+        "selected_attempt_terminal_event_count": 1,
+        "selected_attempt_closeout_state": (
+            "registry_runtime_compatibility_canonical_complete"
+        ),
+        "durable_closeout_required_role_count": 9,
+        "durable_closeout_artifact_missing_count": 0,
+        "durable_closeout_hash_mismatch_count": 0,
+        "independent_review_content_available": True,
+        "owner_seal_content_available": True,
+        "terminal_seal_content_available": True,
+        "terminal_event_before_closeout_commit_count": 0,
+        "durable_closeout_packet_manifest_sha256": rtc.sha256_file(packet_path),
+    }
+
+
 def live_contract_from_manifest(path: Path) -> dict[str, Any]:
     manifest = read_json(path)
     row = manifest.get("registry_runtime_compatibility")
@@ -819,6 +1079,17 @@ def live_contract_from_manifest(path: Path) -> dict[str, Any]:
         selection=row,
         expected_lifecycle_state=lifecycle_state,
     )
+    closeout_validation = (
+        {
+            "selected_attempt_terminal_event_count": 0,
+            "selected_attempt_closeout_state": "candidate_manifest_probe",
+        }
+        if is_candidate_probe
+        else validate_selected_attempt_closeout(
+            manifest_path=path,
+            selection=row,
+        )
+    )
     return {
         "bundle_root": bundle_root,
         "policy": bundle_root / "registry_runtime_compatibility_policy.json",
@@ -828,6 +1099,7 @@ def live_contract_from_manifest(path: Path) -> dict[str, Any]:
         "row": row,
         "candidate_probe": is_candidate_probe,
         "durable_validation": durable_validation,
+        "closeout_validation": closeout_validation,
     }
 
 
@@ -943,6 +1215,7 @@ def command_required_gate(args: argparse.Namespace) -> int:
     if contract["candidate_probe"]:
         report["candidate_manifest_route_status"] = "PASS"
     report.update(contract["durable_validation"])
+    report.update(contract["closeout_validation"])
     rtc.write_json(output_path, report)
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))
     return 0 if report["status"] == "PASS" else 2

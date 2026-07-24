@@ -11,6 +11,8 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
+import time
 from pathlib import Path
 from typing import Any, Sequence
 
@@ -43,6 +45,24 @@ LUA_HARNESS = (
 LUA_SYNTAX = REPO_ROOT / "tools" / "check_lua_syntax.ps1"
 ACTIVE_CORE_CLOSURE = (
     REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_active_core_closure.json"
+)
+ROUND3_RUNNER = (
+    REPO_ROOT / "Iris" / "_docs" / "round3" / "round3_run_contract_tests.py"
+)
+FROZEN_CURRENT_ROUTE_FIXTURE = (
+    V2_ROOT
+    / "frozen_predecessor_inputs"
+    / "dvf_3_3_registry_authority_canonical_closure"
+    / "current_route"
+)
+ISOLATED_CURRENT_ROUTE_INPUT_ROOTS = (
+    V2_ROOT / "output",
+    V2_ROOT / "staging" / "dvf_3_3_vnext_execution",
+    V2_ROOT / "staging" / "dvf_3_3_vnext_current_authority_cutover",
+    V2_ROOT
+    / "staging"
+    / "dvf_3_3_vnext_consumer_migration_input_normalization",
+    REPO_ROOT / "Iris" / "build" / "package",
 )
 REQUIRED_TESTS = [
     TEST_ROOT / f"test_dvf_3_3_registry_runtime_compatibility_{suffix}.py"
@@ -94,6 +114,424 @@ def execute(
             f"stderr={completed.stderr}",
         )
     return completed
+
+
+def ignored_isolation_inputs() -> list[Path]:
+    root_paths = [
+        rtc.normalized_relative(REPO_ROOT, path)
+        for path in ISOLATED_CURRENT_ROUTE_INPUT_ROOTS
+    ]
+    completed = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(REPO_ROOT),
+            "ls-files",
+            "-z",
+            "--others",
+            "--ignored",
+            "--exclude-standard",
+            "--",
+            *root_paths,
+        ],
+        text=False,
+        capture_output=True,
+        check=False,
+    )
+    if completed.returncode != 0:
+        raise rtc.CompatibilityError(
+            "isolated_current_route_input_census_failed",
+            completed.stderr.decode("utf-8", errors="replace"),
+        )
+    relative_paths = sorted(
+        {
+            value.decode("utf-8").replace("\\", "/")
+            for value in completed.stdout.split(b"\0")
+            if value
+        }
+    )
+    inputs: list[Path] = []
+    for relative in relative_paths:
+        source = REPO_ROOT.joinpath(*Path(relative).parts).resolve()
+        try:
+            source.relative_to(REPO_ROOT.resolve())
+        except ValueError as exc:
+            raise rtc.CompatibilityError(
+                "isolated_current_route_input_escape",
+                relative,
+            ) from exc
+        if not source.is_file():
+            raise rtc.CompatibilityError(
+                "isolated_current_route_input_not_file",
+                relative,
+            )
+        if not any(
+            source.is_relative_to(root.resolve())
+            for root in ISOLATED_CURRENT_ROUTE_INPUT_ROOTS
+        ):
+            raise rtc.CompatibilityError(
+                "isolated_current_route_input_outside_allowlist",
+                relative,
+            )
+        inputs.append(source)
+    required_ignored_inputs = (
+        V2_ROOT / "output" / "dvf_3_3_rendered.json",
+        REPO_ROOT
+        / "Iris"
+        / "build"
+        / "package"
+        / "Iris"
+        / "media"
+        / "lua"
+        / "client"
+        / "Iris"
+        / "Data"
+        / "IrisLayer3DataChunks.lua",
+    )
+    missing = [
+        rtc.normalized_relative(REPO_ROOT, path)
+        for path in required_ignored_inputs
+        if path.resolve() not in inputs
+    ]
+    if missing:
+        raise rtc.CompatibilityError(
+            "isolated_current_route_required_input_missing",
+            f"Missing ignored current-route inputs: {missing}",
+        )
+    return inputs
+
+
+def remove_isolated_checkout(path: Path) -> tuple[bool, str | None]:
+    last_error: str | None = None
+    for retry in range(6):
+        try:
+            if path.exists():
+                shutil.rmtree(path)
+            if not path.exists():
+                return True, None
+        except OSError as exc:
+            last_error = f"{type(exc).__name__}:{exc}"
+        time.sleep(0.1 * (retry + 1))
+    return not path.exists(), last_error
+
+
+def execute_current_route_isolated(
+    *,
+    result_path: Path,
+    receipt_path: Path,
+    required_manifest: Path | None = None,
+    candidate_probe: bool = False,
+) -> dict[str, Any]:
+    if result_path.exists() or receipt_path.exists():
+        raise rtc.CompatibilityError(
+            "isolated_current_route_output_exists",
+            "Isolated current-route outputs are write-once",
+        )
+    live_status_before = rtc.git_text(REPO_ROOT, "status", "--porcelain")
+    if live_status_before:
+        raise rtc.CompatibilityError(
+            "isolated_current_route_live_worktree_not_clean",
+            live_status_before,
+        )
+    freeze_head = rtc.git_text(REPO_ROOT, "rev-parse", "HEAD")
+    inputs = ignored_isolation_inputs()
+    fixture_manifest_path = FROZEN_CURRENT_ROUTE_FIXTURE / "manifest.json"
+    fixture_manifest = json.loads(
+        fixture_manifest_path.read_text(encoding="utf-8")
+    )
+    if fixture_manifest.get("status") != "PASS":
+        raise rtc.CompatibilityError(
+            "isolated_current_route_fixture_not_pass",
+            str(fixture_manifest_path),
+        )
+    candidate_payloads = set(
+        fixture_manifest.get("candidate_seed_payload_paths", [])
+    )
+    candidate_rows = [
+        row
+        for row in fixture_manifest.get("rows", [])
+        if row.get("payload_path") in candidate_payloads
+    ]
+    if len(candidate_rows) != 15:
+        raise rtc.CompatibilityError(
+            "isolated_current_route_candidate_seed_count",
+            f"Expected 15 candidate seed rows, got {len(candidate_rows)}",
+        )
+    overlay_rows = [
+        {
+            "path": rtc.normalized_relative(REPO_ROOT, path),
+            "sha256": rtc.sha256_file(path),
+            "byte_count": path.stat().st_size,
+        }
+        for path in inputs
+    ]
+    candidate_owner = Path(tempfile.mkdtemp(prefix="rtc"))
+    candidate_root = candidate_owner
+    completed: subprocess.CompletedProcess[str] | None = None
+    preparation_error: str | None = None
+    cleanup_error: str | None = None
+    candidate_status_before: list[str] = []
+    candidate_status_after: list[str] = []
+    copied_result = False
+    try:
+        clone = subprocess.run(
+            [
+                "git",
+                "clone",
+                "--shared",
+                "--no-checkout",
+                "--quiet",
+                str(REPO_ROOT),
+                str(candidate_root),
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if clone.returncode != 0:
+            raise RuntimeError(
+                "isolated clone failed: " + clone.stderr.strip()
+            )
+        longpaths = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(candidate_root),
+                "config",
+                "core.longpaths",
+                "true",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if longpaths.returncode != 0:
+            raise RuntimeError(
+                "isolated longpaths config failed: "
+                + longpaths.stderr.strip()
+            )
+        checkout = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(candidate_root),
+                "checkout",
+                "--detach",
+                "--quiet",
+                freeze_head,
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if checkout.returncode != 0:
+            raise RuntimeError(
+                "isolated checkout failed: " + checkout.stderr.strip()
+            )
+        for source in inputs:
+            relative = source.relative_to(REPO_ROOT)
+            destination = candidate_root / relative
+            if destination.exists():
+                raise FileExistsError(
+                    f"isolated ignored input target exists: {relative}"
+                )
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, destination)
+            if rtc.sha256_file(destination) != rtc.sha256_file(source):
+                raise RuntimeError(
+                    f"isolated ignored input hash mismatch: {relative}"
+                )
+        for row in candidate_rows:
+            payload = FROZEN_CURRENT_ROUTE_FIXTURE.joinpath(
+                *Path(str(row["payload_path"])).parts
+            )
+            if rtc.sha256_file(payload) != row["sha256"]:
+                raise RuntimeError(
+                    "frozen candidate seed payload hash mismatch: "
+                    + str(row["payload_path"])
+                )
+            destination = candidate_root.joinpath(
+                *Path(str(row["target_path"])).parts
+            )
+            if destination.exists():
+                raise FileExistsError(
+                    "frozen candidate seed target exists: "
+                    + str(row["target_path"])
+                )
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(payload, destination)
+        candidate_manifest_path: Path | None = None
+        if required_manifest is not None:
+            candidate_manifest_path = candidate_root / required_manifest.relative_to(
+                REPO_ROOT
+            )
+            if candidate_manifest_path.exists():
+                raise FileExistsError(
+                    "isolated required manifest target exists"
+                )
+            candidate_manifest_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(required_manifest, candidate_manifest_path)
+        status = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(candidate_root),
+                "status",
+                "--short",
+                "--untracked-files=all",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        if status.returncode != 0:
+            raise RuntimeError(
+                "isolated initial status failed: " + status.stderr.strip()
+            )
+        candidate_status_before = [
+            line for line in status.stdout.splitlines() if line.strip()
+        ]
+        if candidate_status_before:
+            raise RuntimeError(
+                "isolated overlays escaped ignored targets: "
+                + repr(candidate_status_before)
+            )
+        ephemeral_root = candidate_root / ".dvf_tmp"
+        ephemeral_root.mkdir(parents=False, exist_ok=False)
+        candidate_result = candidate_root / result_path.relative_to(REPO_ROOT)
+        command = [
+            "uv",
+            "run",
+            "python",
+            "-B",
+            str(candidate_root / ROUND3_RUNNER.relative_to(REPO_ROOT)),
+            "--class",
+            "current",
+            "--enforce-current-build-closure",
+        ]
+        if candidate_manifest_path is not None:
+            command.extend(
+                [
+                    "--required-validations",
+                    str(candidate_manifest_path),
+                ]
+            )
+        command.extend(["--out", str(candidate_result)])
+        environment = os.environ.copy()
+        environment.update(
+            {
+                "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR": "1",
+                "IRIS_DVF_ISOLATED_TEMP_ROOT": str(ephemeral_root),
+            }
+        )
+        if candidate_probe:
+            if candidate_manifest_path is None:
+                raise RuntimeError(
+                    "candidate probe requires isolated required manifest"
+                )
+            environment.update(
+                {
+                    "IRIS_RTC_CANDIDATE_MANIFEST_PROBE": "1",
+                    "IRIS_RTC_REQUIRED_MANIFEST": str(
+                        candidate_manifest_path
+                    ),
+                }
+            )
+        completed = subprocess.run(
+            command,
+            cwd=candidate_root,
+            text=True,
+            capture_output=True,
+            check=False,
+            env=environment,
+        )
+        if candidate_result.is_file():
+            result_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(candidate_result, result_path)
+            copied_result = True
+        final_status = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(candidate_root),
+                "status",
+                "--short",
+                "--untracked-files=all",
+            ],
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        candidate_status_after = [
+            line
+            for line in final_status.stdout.splitlines()
+            if line.strip()
+        ]
+    except Exception as exc:
+        preparation_error = f"{type(exc).__name__}:{exc}"
+    finally:
+        removed, cleanup_error = remove_isolated_checkout(candidate_root)
+        if not removed and cleanup_error is None:
+            cleanup_error = "isolated checkout still exists"
+    live_status_after = rtc.git_text(REPO_ROOT, "status", "--porcelain")
+    receipt = {
+        "schema_version": "rtc-isolated-current-route-receipt-v1",
+        "round_id": rtc.ROUND_ID,
+        "freeze_head": freeze_head,
+        "candidate_probe": candidate_probe,
+        "required_manifest_path": (
+            None
+            if required_manifest is None
+            else rtc.normalized_relative(REPO_ROOT, required_manifest)
+        ),
+        "ignored_overlay_count": len(overlay_rows),
+        "ignored_overlay_rows_sha256": rtc.sha256_bytes(
+            rtc.canonical_json_bytes(overlay_rows)
+        ),
+        "frozen_candidate_seed_count": len(candidate_rows),
+        "candidate_initial_status": candidate_status_before,
+        "candidate_final_status_count": len(candidate_status_after),
+        "candidate_result_copied": copied_result,
+        "command_exit_code": (
+            None if completed is None else completed.returncode
+        ),
+        "stdout": "" if completed is None else completed.stdout,
+        "stderr": "" if completed is None else completed.stderr,
+        "preparation_error": preparation_error,
+        "cleanup_error": cleanup_error,
+        "live_status_before": live_status_before,
+        "live_status_after": live_status_after,
+        "status": (
+            "PASS"
+            if (
+                preparation_error is None
+                and cleanup_error is None
+                and completed is not None
+                and completed.returncode == 0
+                and copied_result
+                and live_status_before == live_status_after
+            )
+            else "FAIL"
+        ),
+    }
+    rtc.write_json(receipt_path, receipt)
+    if receipt["status"] != "PASS":
+        raise rtc.CompatibilityError(
+            "isolated_current_route_failed",
+            "Isolated current route failed: "
+            + json.dumps(
+                {
+                    "preparation_error": preparation_error,
+                    "cleanup_error": cleanup_error,
+                    "command_exit_code": receipt["command_exit_code"],
+                    "stderr": receipt["stderr"],
+                    "live_status_before": live_status_before,
+                    "live_status_after": live_status_after,
+                },
+                ensure_ascii=False,
+            ),
+        )
+    return receipt
 
 
 def binding_paths(candidate_root: Path) -> dict[str, Path]:
@@ -272,6 +710,11 @@ def toolchain_roots() -> list[tuple[Path, str]]:
         (LUA_HARNESS, "lua_merge_harness"),
         (LUA_SYNTAX, "lua_syntax_checker"),
         (ACTIVE_CORE_CLOSURE, "active_core_closure_no_mutation_guard"),
+        (ROUND3_RUNNER, "isolated_current_route_runner"),
+        (
+            FROZEN_CURRENT_ROUTE_FIXTURE / "manifest.json",
+            "isolated_current_route_fixture_manifest",
+        ),
         (REPO_ROOT / ".gitattributes", "vcs_byte_stability_contract"),
         *[(path, "focused_compatibility_test") for path in REQUIRED_TESTS],
         (
@@ -1512,32 +1955,11 @@ def command_phase5_promote(args: argparse.Namespace) -> int:
         / "implementation_toolchain_freshness_before_candidate_manifest_probe.json",
     )
     candidate_probe_result = phase5 / "candidate_manifest_route_probe.json"
-    execute(
-        [
-            "uv",
-            "run",
-            "python",
-            "-B",
-            str(
-                REPO_ROOT
-                / "Iris"
-                / "_docs"
-                / "round3"
-                / "round3_run_contract_tests.py"
-            ),
-            "--class",
-            "current",
-            "--enforce-current-build-closure",
-            "--required-validations",
-            str(candidate_manifest),
-            "--out",
-            str(candidate_probe_result),
-        ],
+    execute_current_route_isolated(
+        result_path=candidate_probe_result,
         receipt_path=phase5 / "candidate_manifest_route_command_receipt.json",
-        extra_environment={
-            "IRIS_RTC_CANDIDATE_MANIFEST_PROBE": "1",
-            "IRIS_RTC_REQUIRED_MANIFEST": str(candidate_manifest),
-        },
+        required_manifest=candidate_manifest,
+        candidate_probe=True,
     )
     candidate_result_payload = json.loads(
         candidate_probe_result.read_text(encoding="utf-8")
@@ -1598,25 +2020,8 @@ def command_phase5_promote(args: argparse.Namespace) -> int:
         / "implementation_toolchain_freshness_before_official_route.json",
     )
     official_result = phase5 / "post_adoption_current_route_result.json"
-    execute(
-        [
-            "uv",
-            "run",
-            "python",
-            "-B",
-            str(
-                REPO_ROOT
-                / "Iris"
-                / "_docs"
-                / "round3"
-                / "round3_run_contract_tests.py"
-            ),
-            "--class",
-            "current",
-            "--enforce-current-build-closure",
-            "--out",
-            str(official_result),
-        ],
+    execute_current_route_isolated(
+        result_path=official_result,
         receipt_path=phase5 / "official_current_route_command_receipt.json",
     )
     live_package_receipt = phase5 / "live_gate_package_finalization_result.json"

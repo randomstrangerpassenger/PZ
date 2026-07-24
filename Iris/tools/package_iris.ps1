@@ -2,7 +2,17 @@
 param(
     [string]$OutputRoot = '',
     [switch]$Clean,
-    [switch]$Zip
+    [switch]$Zip,
+    [ValidateSet('', 'candidate', 'canonical_durable')]
+    [string]$RegistryCompatibilityContext = '',
+    [string]$RegistryCompatibilityPolicy = '',
+    [string]$RegistryCompatibilityDisposition = '',
+    [string]$RegistryCompatibilityBindingManifest = '',
+    [ValidateSet('', 'not_adopted', 'live_gate_adopted')]
+    [string]$RegistryCompatibilityRequiredGateState = '',
+    [switch]$RegistryCompatibilityProbe,
+    [string]$RegistryCompatibilityRequiredManifest = '',
+    [string]$RegistryCompatibilityReceipt = ''
 )
 
 $ErrorActionPreference = 'Stop'
@@ -14,6 +24,35 @@ if ([string]::IsNullOrWhiteSpace($OutputRoot)) {
 function Get-FullPath {
     param([Parameter(Mandatory = $true)][string]$Path)
     return [System.IO.Path]::GetFullPath($Path)
+}
+
+function Write-Utf8NoBomJson {
+    param(
+        [Parameter(Mandatory = $true)][object]$Value,
+        [Parameter(Mandatory = $true)][string]$Path,
+        [int]$Depth = 10
+    )
+    $parent = Split-Path -Parent $Path
+    if (-not [string]::IsNullOrWhiteSpace($parent)) {
+        New-Item -ItemType Directory -Path $parent -Force | Out-Null
+    }
+    $json = $Value | ConvertTo-Json -Depth $Depth
+    $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    [System.IO.File]::WriteAllText($Path, $json + [Environment]::NewLine, $utf8NoBom)
+}
+
+function Invoke-RegistryCompatibilityValidator {
+    param(
+        [Parameter(Mandatory = $true)][string[]]$ValidatorArguments
+    )
+    $uv = Get-Command uv -ErrorAction SilentlyContinue
+    if ($null -eq $uv) {
+        throw 'compatibility_blocked_required_dependency: uv executable is missing'
+    }
+    & $uv.Source run python -B $script:registryCompatibilityValidator @ValidatorArguments
+    if ($LASTEXITCODE -ne 0) {
+        throw "registry_compatibility_validator_failed: exit=$LASTEXITCODE"
+    }
 }
 
 function Get-RelativePackagePath {
@@ -122,6 +161,95 @@ $outputRootFull = Get-FullPath $OutputRoot
 $packageRoot = Join-Path $outputRootFull 'Iris'
 $manifestPath = Join-Path $outputRootFull 'Iris.package_manifest.sha256.json'
 $zipPath = Join-Path $outputRootFull 'Iris.zip'
+$registryCompatibilityValidator = Join-Path $repoRoot 'Iris\build\description\v2\tools\build\validate_dvf_3_3_registry_runtime_compatibility.py'
+$defaultRequiredManifest = Join-Path $repoRoot 'Iris\_docs\round3\current_route_required_validations.json'
+$registryCompatibilityResolutionMode = 'explicit'
+
+$compatibilityValues = @(
+    $RegistryCompatibilityContext,
+    $RegistryCompatibilityPolicy,
+    $RegistryCompatibilityDisposition,
+    $RegistryCompatibilityBindingManifest,
+    $RegistryCompatibilityRequiredGateState
+)
+$explicitCompatibilityCount = @($compatibilityValues | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }).Count
+if ($explicitCompatibilityCount -ne 0 -and $explicitCompatibilityCount -ne $compatibilityValues.Count) {
+    throw 'partial_registry_compatibility_arguments_forbidden'
+}
+
+if ($explicitCompatibilityCount -eq 0) {
+    $selectedRequiredManifest = if ([string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest)) {
+        $defaultRequiredManifest
+    } else {
+        Get-FullPath $RegistryCompatibilityRequiredManifest
+    }
+    if (-not (Test-Path -LiteralPath $selectedRequiredManifest -PathType Leaf)) {
+        throw 'compatibility_policy_context_required: required-validation manifest is missing'
+    }
+    $requiredPayload = Get-Content -LiteralPath $selectedRequiredManifest -Raw -Encoding UTF8 | ConvertFrom-Json
+    $selection = $requiredPayload.registry_runtime_compatibility
+    if ($null -eq $selection -or $selection.policy_lifecycle_state -ne 'live_required_gate_adopted') {
+        throw 'compatibility_policy_context_required: no live-gate-adopted Registry Runtime Compatibility selection'
+    }
+    $bundleRoot = Get-FullPath (Join-Path $repoRoot $selection.bundle_root)
+    $RegistryCompatibilityContext = 'canonical_durable'
+    $RegistryCompatibilityPolicy = Join-Path $bundleRoot 'registry_runtime_compatibility_policy.json'
+    $RegistryCompatibilityDisposition = Join-Path $bundleRoot 'current_collision_disposition.json'
+    $RegistryCompatibilityBindingManifest = Join-Path $bundleRoot 'candidate_contract_binding_manifest.json'
+    $RegistryCompatibilityRequiredGateState = 'live_gate_adopted'
+    $RegistryCompatibilityRequiredManifest = $selectedRequiredManifest
+    $registryCompatibilityResolutionMode = 'post_adoption_live_manifest_default'
+} else {
+    $RegistryCompatibilityPolicy = Get-FullPath $RegistryCompatibilityPolicy
+    $RegistryCompatibilityDisposition = Get-FullPath $RegistryCompatibilityDisposition
+    $RegistryCompatibilityBindingManifest = Get-FullPath $RegistryCompatibilityBindingManifest
+    if (-not [string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest)) {
+        $RegistryCompatibilityRequiredManifest = Get-FullPath $RegistryCompatibilityRequiredManifest
+    }
+}
+
+if ($RegistryCompatibilityContext -eq 'candidate') {
+    if (-not $RegistryCompatibilityProbe) {
+        throw 'candidate_package_requires_registry_compatibility_probe'
+    }
+    if ($RegistryCompatibilityRequiredGateState -ne 'not_adopted') {
+        throw 'candidate_package_gate_state_invalid'
+    }
+    if ($Zip) {
+        throw 'candidate_package_zip_forbidden'
+    }
+    $normalizedOutput = $outputRootFull.Replace('\', '/').ToLowerInvariant()
+    if (-not $normalizedOutput.Contains('/staging/dvf_3_3_registry_runtime_compatibility/attempts/')) {
+        throw 'candidate_package_output_outside_attempt_root'
+    }
+}
+if ($RegistryCompatibilityContext -eq 'canonical_durable' -and $RegistryCompatibilityRequiredGateState -eq 'not_adopted') {
+    if (-not $RegistryCompatibilityProbe -or $Zip) {
+        throw 'package_guard_active_not_required_gate_adopted'
+    }
+}
+if ($RegistryCompatibilityRequiredGateState -eq 'live_gate_adopted') {
+    if ([string]::IsNullOrWhiteSpace($RegistryCompatibilityRequiredManifest)) {
+        throw 'live_gate_required_manifest_missing'
+    }
+}
+if (-not (Test-Path -LiteralPath $registryCompatibilityValidator -PathType Leaf)) {
+    throw "compatibility_blocked_required_dependency: validator is missing: $registryCompatibilityValidator"
+}
+
+$contractReceiptPath = if ([string]::IsNullOrWhiteSpace($RegistryCompatibilityReceipt)) {
+    Join-Path $outputRootFull 'registry_compatibility_contract_receipt.json'
+} else {
+    (Get-FullPath $RegistryCompatibilityReceipt) + '.contract.json'
+}
+Invoke-RegistryCompatibilityValidator -ValidatorArguments @(
+    '--contract-only',
+    '--policy-context', $RegistryCompatibilityContext,
+    '--policy', $RegistryCompatibilityPolicy,
+    '--disposition', $RegistryCompatibilityDisposition,
+    '--binding-manifest', $RegistryCompatibilityBindingManifest,
+    '--out', $contractReceiptPath
+)
 
 $requiredPaths = @(
     (Join-Path $sourceRoot 'mod.info'),
@@ -210,6 +338,68 @@ if ($violations.Count -gt 0) {
     throw "Forbidden Iris package path(s) were included: $($violations -join ', ')"
 }
 
+$v2Root = Join-Path $sourceRoot 'build\description\v2'
+$sourceRuntimeData = Join-Path $sourceRoot 'media\lua\client\Iris\Data'
+$packageRuntimeData = Join-Path $packageRoot 'media\lua\client\Iris\Data'
+$factsPath = Join-Path $v2Root 'data\dvf_3_3_facts.jsonl'
+$decisionsPath = Join-Path $v2Root 'data\dvf_3_3_decisions.jsonl'
+$overlayPath = Join-Path $v2Root 'data\dvf_3_3_overlay_support.jsonl'
+$renderedPath = Join-Path $v2Root 'output\dvf_3_3_rendered.json'
+$runtimeManifestPath = Join-Path $sourceRuntimeData 'IrisLayer3DataChunks.lua'
+$runtimeChunksPath = Join-Path $sourceRuntimeData 'IrisLayer3DataChunks'
+$packageRuntimeManifestPath = Join-Path $packageRuntimeData 'IrisLayer3DataChunks.lua'
+$packageRuntimeChunksPath = Join-Path $packageRuntimeData 'IrisLayer3DataChunks'
+$surfaceInputPath = Join-Path $outputRootFull 'registry_compatibility_surface_inputs.json'
+$resolvedCompatibilityReceipt = if ([string]::IsNullOrWhiteSpace($RegistryCompatibilityReceipt)) {
+    Join-Path $outputRootFull 'registry_compatibility_receipt.json'
+} else {
+    Get-FullPath $RegistryCompatibilityReceipt
+}
+
+$surfaceInputs = [ordered]@{
+    schema_version = 'rtc-compatibility-surface-input-v1'
+    round_id = 'dvf_3_3_registry_runtime_compatibility'
+    producer_attempt_id = $null
+    resolution_mode = $registryCompatibilityResolutionMode
+    binding_manifest_sha256 = (Get-FileHash -LiteralPath $RegistryCompatibilityBindingManifest -Algorithm SHA256).Hash.ToLowerInvariant()
+    source = [ordered]@{
+        facts = (Get-FullPath $factsPath)
+        facts_sha256 = (Get-FileHash -LiteralPath $factsPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        decisions = (Get-FullPath $decisionsPath)
+        decisions_sha256 = (Get-FileHash -LiteralPath $decisionsPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        overlay = (Get-FullPath $overlayPath)
+        overlay_sha256 = (Get-FileHash -LiteralPath $overlayPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    }
+    rendered = [ordered]@{
+        path = (Get-FullPath $renderedPath)
+        path_sha256 = (Get-FileHash -LiteralPath $renderedPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    }
+    runtime = [ordered]@{
+        manifest = (Get-FullPath $runtimeManifestPath)
+        manifest_sha256 = (Get-FileHash -LiteralPath $runtimeManifestPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        chunks = (Get-FullPath $runtimeChunksPath)
+    }
+    package = [ordered]@{
+        manifest = (Get-FullPath $packageRuntimeManifestPath)
+        manifest_sha256 = (Get-FileHash -LiteralPath $packageRuntimeManifestPath -Algorithm SHA256).Hash.ToLowerInvariant()
+        chunks = (Get-FullPath $packageRuntimeChunksPath)
+    }
+}
+Write-Utf8NoBomJson -Value $surfaceInputs -Path $surfaceInputPath -Depth 8
+Invoke-RegistryCompatibilityValidator -ValidatorArguments @(
+    '--surface-validation',
+    '--surface-input-manifest', $surfaceInputPath,
+    '--policy-context', $RegistryCompatibilityContext,
+    '--policy', $RegistryCompatibilityPolicy,
+    '--disposition', $RegistryCompatibilityDisposition,
+    '--binding-manifest', $RegistryCompatibilityBindingManifest,
+    '--out', $resolvedCompatibilityReceipt
+)
+$compatibilityResult = Get-Content -LiteralPath $resolvedCompatibilityReceipt -Raw -Encoding UTF8 | ConvertFrom-Json
+if ($compatibilityResult.status -ne 'PASS') {
+    throw "registry_compatibility_package_guard_failed: $resolvedCompatibilityReceipt"
+}
+
 $packageRootFull = Get-FullPath $packageRoot
 $files = Get-ChildItem -LiteralPath $packageRootFull -Recurse -File |
     Sort-Object FullName |
@@ -228,6 +418,18 @@ $manifest = [pscustomobject]@{
     copied_roots = @('mod.info', 'poster.png if present', 'media/')
     excluded_roots = $excludedRootNames
     forbidden_files = $forbiddenPackageFiles
+    registry_compatibility = [ordered]@{
+        policy_context = $RegistryCompatibilityContext
+        required_gate_state = $RegistryCompatibilityRequiredGateState
+        resolution_mode = $registryCompatibilityResolutionMode
+        probe = [bool]$RegistryCompatibilityProbe
+        binding_manifest_sha256 = (Get-FileHash -LiteralPath $RegistryCompatibilityBindingManifest -Algorithm SHA256).Hash.ToLowerInvariant()
+        contract_receipt = $contractReceiptPath
+        surface_input_manifest = $surfaceInputPath
+        guard_receipt = $resolvedCompatibilityReceipt
+        guard_receipt_sha256 = (Get-FileHash -LiteralPath $resolvedCompatibilityReceipt -Algorithm SHA256).Hash.ToLowerInvariant()
+        status = $compatibilityResult.status
+    }
     file_count = @($files).Count
     files = $files
 }

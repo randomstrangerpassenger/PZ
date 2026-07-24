@@ -4,6 +4,9 @@ import argparse
 import hashlib
 import json
 import re
+import subprocess
+import sys
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -34,6 +37,13 @@ RUNTIME_FULLTYPE_ALIASES = {
 }
 RUNTIME_ENTRY_KEYS = ("text_ko", "source", "publish_state")
 DEFAULT_CHUNK_SIZE = 200
+REPO_ROOT = Path(__file__).resolve().parents[6]
+REGISTRY_COMPATIBILITY_VALIDATOR = (
+    ROOT / "tools" / "build" / "validate_dvf_3_3_registry_runtime_compatibility.py"
+)
+CURRENT_REQUIRED_VALIDATIONS = (
+    REPO_ROOT / "Iris" / "_docs" / "round3" / "current_route_required_validations.json"
+)
 LUA_ENTRY_HEADER_RE = re.compile(r'^    \["(?P<full_type>(?:\\\\|\\"|[^"])*)"\] = \{$')
 LUA_ENTRY_KEY_RE = re.compile(r'\["(?P<full_type>(?:\\\\|\\"|[^"])*)"\]\s*=\s*\{')
 LUA_CHUNK_MODULE_RE = re.compile(r'^\s+"(?P<module>[^"]+/Chunk\d{3})",\s*$')
@@ -43,6 +53,17 @@ OUTPUT_FORMATS = {"chunk", "monolith"}
 
 class BridgeExportContractError(ValueError):
     """Raised when an export request violates the bridge output contract."""
+
+
+@dataclass(frozen=True)
+class RegistryCompatibilityInvocation:
+    policy_context: str
+    policy_path: Path
+    disposition_path: Path
+    binding_manifest_path: Path
+    bridge_preflight_input_manifest: Path
+    bridge_preflight_receipt: Path
+    resolution_mode: str = "explicit"
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -92,6 +113,166 @@ def sha256_file(path: Path) -> str:
         for block in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def resolve_live_registry_compatibility_invocation(
+    *,
+    rendered_path: Path,
+    report_path: Path,
+) -> RegistryCompatibilityInvocation:
+    if not CURRENT_REQUIRED_VALIDATIONS.is_file():
+        raise BridgeExportContractError(
+            "compatibility_policy_context_required: live required-validation "
+            "manifest is missing"
+        )
+    manifest = load_json(CURRENT_REQUIRED_VALIDATIONS)
+    selection = manifest.get("registry_runtime_compatibility")
+    if not isinstance(selection, dict):
+        raise BridgeExportContractError(
+            "compatibility_policy_context_required: live required-validation "
+            "manifest has no Registry Runtime Compatibility selection"
+        )
+    if selection.get("policy_lifecycle_state") != "live_required_gate_adopted":
+        raise BridgeExportContractError(
+            "compatibility_policy_context_required: selected policy is not "
+            "live-gate adopted"
+        )
+    bundle_root_value = selection.get("bundle_root")
+    if not isinstance(bundle_root_value, str):
+        raise BridgeExportContractError(
+            "compatibility_policy_context_required: selected bundle root is missing"
+        )
+    bundle_root = (REPO_ROOT / Path(bundle_root_value)).resolve()
+    bundle_manifest = bundle_root / "durable_bundle_manifest.json"
+    if (
+        not bundle_manifest.is_file()
+        or sha256_file(bundle_manifest) != selection.get("bundle_manifest_sha256")
+    ):
+        raise BridgeExportContractError(
+            "live_bundle_manifest_hash_mismatch: required manifest does not bind "
+            "the selected durable bundle"
+        )
+    policy_path = bundle_root / "registry_runtime_compatibility_policy.json"
+    disposition_path = bundle_root / "current_collision_disposition.json"
+    binding_path = bundle_root / "candidate_contract_binding_manifest.json"
+    input_path = report_path.with_name("bridge_preflight_inputs.json")
+    receipt_path = report_path.with_name("bridge_preflight_report.json")
+    dump_json(
+        input_path,
+        {
+            "schema_version": "rtc-bridge-preflight-input-v1",
+            "round_id": "dvf_3_3_registry_runtime_compatibility",
+            "producer_attempt_id": selection.get("attempt_id"),
+            "resolution_mode": "post_adoption_live_manifest_default",
+            "rendered": {
+                "path": str(rendered_path.resolve()),
+                "sha256": sha256_file(rendered_path),
+                "byte_count": rendered_path.stat().st_size,
+            },
+            "binding_manifest_path": str(binding_path),
+            "binding_manifest_sha256": sha256_file(binding_path),
+            "policy_path": str(policy_path),
+            "policy_sha256": sha256_file(policy_path),
+            "disposition_path": str(disposition_path),
+            "disposition_sha256": sha256_file(disposition_path),
+            "required_manifest_path": str(CURRENT_REQUIRED_VALIDATIONS),
+            "required_manifest_sha256": sha256_file(CURRENT_REQUIRED_VALIDATIONS),
+        },
+    )
+    return RegistryCompatibilityInvocation(
+        policy_context="canonical_durable",
+        policy_path=policy_path,
+        disposition_path=disposition_path,
+        binding_manifest_path=binding_path,
+        bridge_preflight_input_manifest=input_path,
+        bridge_preflight_receipt=receipt_path,
+        resolution_mode="post_adoption_live_manifest_default",
+    )
+
+
+def run_registry_compatibility_preflight(
+    *,
+    rendered_path: Path,
+    report_path: Path,
+    invocation: RegistryCompatibilityInvocation | None,
+) -> tuple[RegistryCompatibilityInvocation, dict[str, Any]]:
+    selected = invocation or resolve_live_registry_compatibility_invocation(
+        rendered_path=rendered_path,
+        report_path=report_path,
+    )
+    required_paths = (
+        selected.policy_path,
+        selected.disposition_path,
+        selected.binding_manifest_path,
+        selected.bridge_preflight_input_manifest,
+        REGISTRY_COMPATIBILITY_VALIDATOR,
+    )
+    missing = [str(path) for path in required_paths if not path.is_file()]
+    if missing:
+        raise BridgeExportContractError(
+            f"compatibility_required_input_missing: {missing}"
+        )
+    python_path = Path(sys.executable).resolve()
+    command = [
+        str(python_path),
+        "-B",
+        str(REGISTRY_COMPATIBILITY_VALIDATOR.resolve()),
+        "--bridge-preflight",
+        "--bridge-preflight-input-manifest",
+        str(selected.bridge_preflight_input_manifest.resolve()),
+        "--policy-context",
+        selected.policy_context,
+        "--policy",
+        str(selected.policy_path.resolve()),
+        "--disposition",
+        str(selected.disposition_path.resolve()),
+        "--binding-manifest",
+        str(selected.binding_manifest_path.resolve()),
+        "--out",
+        str(selected.bridge_preflight_receipt.resolve()),
+    ]
+    completed = subprocess.run(
+        command,
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    receipt = (
+        load_json(selected.bridge_preflight_receipt)
+        if selected.bridge_preflight_receipt.is_file()
+        else {}
+    )
+    execution = {
+        "schema_version": "rtc-bridge-preflight-execution-v1",
+        "resolution_mode": selected.resolution_mode,
+        "command_argv": command,
+        "child_exit_code": completed.returncode,
+        "child_stdout": completed.stdout,
+        "child_stderr": completed.stderr,
+        "python_executable_path": str(python_path),
+        "python_executable_sha256": sha256_file(python_path),
+        "validator_path": str(REGISTRY_COMPATIBILITY_VALIDATOR.resolve()),
+        "validator_sha256": sha256_file(REGISTRY_COMPATIBILITY_VALIDATOR),
+        "receipt_path": str(selected.bridge_preflight_receipt.resolve()),
+        "receipt_sha256": (
+            sha256_file(selected.bridge_preflight_receipt)
+            if selected.bridge_preflight_receipt.is_file()
+            else None
+        ),
+        "validator_report_status": receipt.get("status"),
+    }
+    if completed.returncode != 0 or receipt.get("status") != "PASS":
+        failure_code = receipt.get("failure_code", "bridge_preflight_child_failed")
+        raise BridgeExportContractError(
+            f"{failure_code}: validator exited {completed.returncode}; "
+            f"stderr={completed.stderr.strip()}"
+        )
+    if receipt.get("rendered_sha256") != sha256_file(rendered_path):
+        raise BridgeExportContractError(
+            "bridge_preflight_receipt_rendered_hash_mismatch"
+        )
+    return selected, execution
 
 
 def protected_monolith_paths() -> set[Path]:
@@ -683,6 +864,7 @@ def export_lua_bridge(
     bridge_context: str = "staging",
     output_format: str = "chunk",
     output_root: Path | None = None,
+    registry_compatibility: RegistryCompatibilityInvocation | None = None,
 ) -> dict[str, Any]:
     resolved_chunk_size = chunk_size if chunk_size is not None else DEFAULT_CHUNK_SIZE
     resolved_output_root = output_root if output_root is not None else DEFAULT_OUTPUT_ROOT
@@ -703,6 +885,13 @@ def export_lua_bridge(
         chunk_output_dir=resolved_chunk_output_dir,
     )
 
+    selected_compatibility, compatibility_preflight = (
+        run_registry_compatibility_preflight(
+            rendered_path=rendered_path,
+            report_path=report_path,
+            invocation=registry_compatibility,
+        )
+    )
     rendered = load_json(rendered_path)
     source_entries = rendered.get("entries", {})
     publish_preview_map = load_publish_preview_map(publish_preview_path)
@@ -782,6 +971,18 @@ def export_lua_bridge(
         "non_current": bridge_context in {"diagnostic", "historical"} or output_format == "chunk",
         "input_scale": input_scale,
         "input_authority_status": input_authority_status,
+        "registry_compatibility": {
+            "policy_context": selected_compatibility.policy_context,
+            "policy_path": str(selected_compatibility.policy_path.resolve()),
+            "disposition_path": str(
+                selected_compatibility.disposition_path.resolve()
+            ),
+            "binding_manifest_path": str(
+                selected_compatibility.binding_manifest_path.resolve()
+            ),
+            "resolution_mode": selected_compatibility.resolution_mode,
+            "bridge_preflight": compatibility_preflight,
+        },
         "pass": True,
         **chunk_report,
     }
@@ -803,6 +1004,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--chunk-size", type=int, default=None)
     parser.add_argument("--chunk-module-prefix", default=BRIDGE_CHUNK_MODULE_PREFIX)
     parser.add_argument(
+        "--registry-compatibility-context",
+        choices=("candidate", "canonical_durable"),
+    )
+    parser.add_argument("--registry-compatibility-policy", type=Path)
+    parser.add_argument("--registry-compatibility-disposition", type=Path)
+    parser.add_argument("--registry-compatibility-binding-manifest", type=Path)
+    parser.add_argument("--bridge-preflight-input-manifest", type=Path)
+    parser.add_argument("--bridge-preflight-receipt", type=Path)
+    parser.add_argument(
         "--chunk-existing-lua-path",
         type=Path,
         default=None,
@@ -813,7 +1023,41 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    compatibility_values = (
+        args.registry_compatibility_context,
+        args.registry_compatibility_policy,
+        args.registry_compatibility_disposition,
+        args.registry_compatibility_binding_manifest,
+        args.bridge_preflight_input_manifest,
+        args.bridge_preflight_receipt,
+    )
+    if any(value is not None for value in compatibility_values) and not all(
+        value is not None for value in compatibility_values
+    ):
+        raise BridgeExportContractError(
+            "partial_registry_compatibility_arguments_forbidden"
+        )
+    registry_compatibility = (
+        RegistryCompatibilityInvocation(
+            policy_context=args.registry_compatibility_context,
+            policy_path=args.registry_compatibility_policy,
+            disposition_path=args.registry_compatibility_disposition,
+            binding_manifest_path=args.registry_compatibility_binding_manifest,
+            bridge_preflight_input_manifest=args.bridge_preflight_input_manifest,
+            bridge_preflight_receipt=args.bridge_preflight_receipt,
+            resolution_mode="explicit",
+        )
+        if all(value is not None for value in compatibility_values)
+        else None
+    )
     if args.chunk_existing_lua_path is not None:
+        selected_compatibility, compatibility_preflight = (
+            run_registry_compatibility_preflight(
+                rendered_path=args.rendered_path,
+                report_path=args.report_path,
+                invocation=registry_compatibility,
+            )
+        )
         report = write_chunked_lua_bridge_from_monolith(
             lua_input_path=args.chunk_existing_lua_path,
             chunk_output_dir=(
@@ -830,6 +1074,11 @@ def main() -> int:
             chunk_module_prefix=args.chunk_module_prefix,
             bridge_context=args.bridge_context,
         )
+        report["registry_compatibility"] = {
+            "policy_context": selected_compatibility.policy_context,
+            "resolution_mode": selected_compatibility.resolution_mode,
+            "bridge_preflight": compatibility_preflight,
+        }
         dump_json(args.report_path, report)
         print(
             "lua bridge chunks exported from existing monolith:",
@@ -854,6 +1103,7 @@ def main() -> int:
         bridge_context=args.bridge_context,
         output_format=args.output_format,
         output_root=args.output_root,
+        registry_compatibility=registry_compatibility,
     )
     if report["chunked"]:
         print(

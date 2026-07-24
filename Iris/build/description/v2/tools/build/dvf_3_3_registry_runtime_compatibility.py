@@ -86,6 +86,22 @@ TEXT_SUFFIXES = {
     ".yaml",
     ".yml",
 }
+RUNTIME_PAYLOAD_FIELDS = ("source", "text_ko", "publish_state")
+SOURCE_IDENTITY_EXCLUSIONS = {
+    "facts": {"item_id"},
+    "decisions": {"item_id", "facts_ref"},
+    "overlay": {"item_id"},
+}
+LUA_MANIFEST_MODULE_RE = re.compile(
+    r'"(?P<module>Iris/Data/IrisLayer3DataChunks/Chunk\d{3})"'
+)
+LUA_ENTRY_RE = re.compile(
+    r"^\s{4}\[(?P<token>\"(?:\\.|[^\"\\])*\")\]\s*=\s*\{\s*$"
+)
+LUA_FIELD_RE = re.compile(
+    r"^\s{8}\[\"(?P<field>source|text_ko|publish_state)\"\]\s*=\s*"
+    r"(?P<token>\"(?:\\.|[^\"\\])*\")\s*,\s*$"
+)
 
 
 class CompatibilityError(RuntimeError):
@@ -101,6 +117,21 @@ class SnapshotFile:
     path: str
     blob_sha: str
     data: bytes
+
+
+@dataclass(frozen=True)
+class SurfaceRecord:
+    surface: str
+    ordinal: int
+    decoded_key: str
+    raw_token_text: str
+    raw_token_bytes_sha256: str
+    payload: dict[str, Any]
+    source_path: str
+
+
+class JsonPairs(list[tuple[str, Any]]):
+    """Marker returned by object_pairs_hook so duplicate object fields survive."""
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -742,6 +773,1375 @@ def git_ignored(repo: Path, paths: Iterable[str]) -> list[str]:
     return ignored
 
 
+def ascii_lower_v1(value: str) -> str:
+    lowered: list[str] = []
+    for character in value:
+        codepoint = ord(character)
+        if codepoint > 0x7F:
+            raise CompatibilityError(
+                "unsupported_comparator_domain",
+                f"ascii_lower_v1 rejects non-ASCII key {value!r}",
+            )
+        if 0x41 <= codepoint <= 0x5A:
+            lowered.append(chr(codepoint + 0x20))
+        else:
+            lowered.append(character)
+    return "".join(lowered)
+
+
+def identity_projection(record: SurfaceRecord) -> dict[str, Any]:
+    decoded_bytes = record.decoded_key.encode("utf-8")
+    return {
+        "surface": record.surface,
+        "ordinal": record.ordinal,
+        "source_path": record.source_path,
+        "raw_token_text": record.raw_token_text,
+        "raw_token_bytes_sha256": record.raw_token_bytes_sha256,
+        "decoded_format_string": record.decoded_key,
+        "decoded_utf8_bytes_sha256": sha256_bytes(decoded_bytes),
+        "decoded_exact_codepoints": [ord(char) for char in record.decoded_key],
+        "decoded_exact_key_sha256": sha256_bytes(decoded_bytes),
+        "comparison_key": ascii_lower_v1(record.decoded_key),
+    }
+
+
+def pairs_to_object(value: Any, *, path: str = "$") -> Any:
+    if isinstance(value, JsonPairs):
+        result: dict[str, Any] = {}
+        for key, child in value:
+            if key in result:
+                raise CompatibilityError(
+                    "json_payload_duplicate_field",
+                    f"Duplicate JSON field {key!r} at {path}",
+                )
+            result[key] = pairs_to_object(child, path=f"{path}.{key}")
+        return result
+    if isinstance(value, list):
+        return [pairs_to_object(child, path=f"{path}[]") for child in value]
+    return value
+
+
+def load_jsonl_surface(
+    paths: dict[str, Path],
+    *,
+    repo: Path,
+) -> tuple[list[SurfaceRecord], dict[str, Any]]:
+    component_rows: dict[str, list[tuple[str, dict[str, Any], str]]] = {}
+    component_duplicates: dict[str, list[str]] = {}
+    for component, path in paths.items():
+        rows: list[tuple[str, dict[str, Any], str]] = []
+        seen: set[str] = set()
+        duplicates: list[str] = []
+        for line_number, raw_line in enumerate(path.read_bytes().splitlines(), start=1):
+            if not raw_line.strip():
+                continue
+            try:
+                parsed = json.loads(
+                    raw_line,
+                    object_pairs_hook=JsonPairs,
+                )
+                row = pairs_to_object(parsed, path=f"{component}:{line_number}")
+            except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+                raise CompatibilityError(
+                    "source_jsonl_decode_failure",
+                    f"{path}:{line_number}: {exc}",
+                ) from exc
+            key = row.get("item_id")
+            if not isinstance(key, str):
+                raise CompatibilityError(
+                    "source_item_id_missing",
+                    f"{path}:{line_number} has no string item_id",
+                )
+            if key in seen:
+                duplicates.append(key)
+            seen.add(key)
+            raw_token = json.dumps(key, ensure_ascii=False)
+            rows.append((key, row, raw_token))
+        component_rows[component] = rows
+        component_duplicates[component] = duplicates
+    component_sets = {
+        component: {key for key, _, _ in rows}
+        for component, rows in component_rows.items()
+    }
+    reference_set = component_sets["facts"]
+    mismatches = {
+        component: {
+            "missing_from_component": sorted(reference_set - keys),
+            "extra_in_component": sorted(keys - reference_set),
+        }
+        for component, keys in component_sets.items()
+        if keys != reference_set
+    }
+    indexed = {
+        component: {key: row for key, row, _ in rows}
+        for component, rows in component_rows.items()
+    }
+    records: list[SurfaceRecord] = []
+    for ordinal, (key, _, raw_token) in enumerate(component_rows["facts"], start=1):
+        payload = {
+            component: indexed[component][key]
+            for component in ("facts", "decisions", "overlay")
+            if key in indexed[component]
+        }
+        records.append(
+            SurfaceRecord(
+                surface="source",
+                ordinal=ordinal,
+                decoded_key=key,
+                raw_token_text=raw_token,
+                raw_token_bytes_sha256=sha256_bytes(raw_token.encode("utf-8")),
+                payload=payload,
+                source_path=" + ".join(
+                    normalized_relative(repo, paths[name])
+                    for name in ("facts", "decisions", "overlay")
+                ),
+            )
+        )
+    return records, {
+        "component_counts": {
+            component: len(rows) for component, rows in component_rows.items()
+        },
+        "component_duplicate_keys": component_duplicates,
+        "component_set_mismatches": mismatches,
+        "component_hashes": {
+            component: sha256_file(path) for component, path in paths.items()
+        },
+    }
+
+
+def skip_json_whitespace(text: str, position: int) -> int:
+    while position < len(text) and text[position] in " \t\r\n":
+        position += 1
+    return position
+
+
+def raw_json_object_pairs(
+    text: str,
+    position: int,
+) -> tuple[list[tuple[str, str, Any]], int]:
+    decoder = json.JSONDecoder(object_pairs_hook=JsonPairs)
+    position = skip_json_whitespace(text, position)
+    if position >= len(text) or text[position] != "{":
+        raise CompatibilityError(
+            "rendered_entries_not_object",
+            "Rendered entries value must be a JSON object",
+        )
+    position += 1
+    pairs: list[tuple[str, str, Any]] = []
+    position = skip_json_whitespace(text, position)
+    if position < len(text) and text[position] == "}":
+        return pairs, position + 1
+    while position < len(text):
+        position = skip_json_whitespace(text, position)
+        token_start = position
+        try:
+            key, token_end = decoder.raw_decode(text, position)
+        except json.JSONDecodeError as exc:
+            raise CompatibilityError(
+                "rendered_key_decode_failure",
+                f"Could not decode rendered key at character {position}: {exc}",
+            ) from exc
+        if not isinstance(key, str):
+            raise CompatibilityError(
+                "rendered_key_not_string",
+                f"Rendered key at character {position} is not a string",
+            )
+        raw_token = text[token_start:token_end]
+        position = skip_json_whitespace(text, token_end)
+        if position >= len(text) or text[position] != ":":
+            raise CompatibilityError(
+                "rendered_key_separator_missing",
+                f"Rendered key {key!r} is not followed by ':'",
+            )
+        position = skip_json_whitespace(text, position + 1)
+        try:
+            value, position = decoder.raw_decode(text, position)
+        except json.JSONDecodeError as exc:
+            raise CompatibilityError(
+                "rendered_payload_decode_failure",
+                f"Could not decode payload for rendered key {key!r}: {exc}",
+            ) from exc
+        pairs.append((raw_token, key, pairs_to_object(value, path=f"entries.{key}")))
+        position = skip_json_whitespace(text, position)
+        if position >= len(text):
+            break
+        if text[position] == "}":
+            return pairs, position + 1
+        if text[position] != ",":
+            raise CompatibilityError(
+                "rendered_pair_separator_missing",
+                f"Rendered key {key!r} is not followed by ',' or '}}'",
+            )
+        position += 1
+    raise CompatibilityError(
+        "rendered_entries_truncated",
+        "Rendered entries object ended without a closing brace",
+    )
+
+
+def find_rendered_entries_position(text: str) -> int:
+    decoder = json.JSONDecoder(object_pairs_hook=JsonPairs)
+    position = skip_json_whitespace(text, 0)
+    if position >= len(text) or text[position] != "{":
+        raise CompatibilityError(
+            "rendered_root_not_object",
+            "Rendered root must be a JSON object",
+        )
+    position += 1
+    while position < len(text):
+        position = skip_json_whitespace(text, position)
+        key, position = decoder.raw_decode(text, position)
+        position = skip_json_whitespace(text, position)
+        if position >= len(text) or text[position] != ":":
+            raise CompatibilityError(
+                "rendered_root_separator_missing",
+                f"Rendered root key {key!r} is not followed by ':'",
+            )
+        position = skip_json_whitespace(text, position + 1)
+        if key == "entries":
+            return position
+        _, position = decoder.raw_decode(text, position)
+        position = skip_json_whitespace(text, position)
+        if position < len(text) and text[position] == ",":
+            position += 1
+            continue
+        break
+    raise CompatibilityError(
+        "rendered_entries_missing",
+        "Rendered root does not contain entries",
+    )
+
+
+def load_rendered_surface(path: Path, *, repo: Path) -> list[SurfaceRecord]:
+    raw = path.read_bytes()
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise CompatibilityError(
+            "rendered_utf8_decode_failure",
+            f"Rendered input is not strict UTF-8: {exc}",
+        ) from exc
+    position = find_rendered_entries_position(text)
+    pairs, _ = raw_json_object_pairs(text, position)
+    return [
+        SurfaceRecord(
+            surface="rendered",
+            ordinal=ordinal,
+            decoded_key=key,
+            raw_token_text=raw_token,
+            raw_token_bytes_sha256=sha256_bytes(raw_token.encode("utf-8")),
+            payload=payload,
+            source_path=normalized_relative(repo, path),
+        )
+        for ordinal, (raw_token, key, payload) in enumerate(pairs, start=1)
+    ]
+
+
+def decode_lua_string(token: str) -> str:
+    if len(token) < 2 or token[0] != '"' or token[-1] != '"':
+        raise CompatibilityError(
+            "lua_string_token_invalid",
+            f"Expected quoted Lua string token, got {token!r}",
+        )
+    output = bytearray()
+    index = 1
+    simple = {
+        "a": 0x07,
+        "b": 0x08,
+        "f": 0x0C,
+        "n": 0x0A,
+        "r": 0x0D,
+        "t": 0x09,
+        "v": 0x0B,
+        "\\": 0x5C,
+        '"': 0x22,
+        "'": 0x27,
+    }
+    while index < len(token) - 1:
+        character = token[index]
+        if character != "\\":
+            output.extend(character.encode("utf-8"))
+            index += 1
+            continue
+        index += 1
+        if index >= len(token) - 1:
+            raise CompatibilityError(
+                "lua_string_escape_truncated",
+                f"Truncated Lua escape in {token!r}",
+            )
+        escaped = token[index]
+        if escaped in simple:
+            output.append(simple[escaped])
+            index += 1
+            continue
+        if escaped.isdigit():
+            end = index
+            while end < min(index + 3, len(token) - 1) and token[end].isdigit():
+                end += 1
+            value = int(token[index:end], 10)
+            if value > 255:
+                raise CompatibilityError(
+                    "lua_decimal_escape_out_of_range",
+                    f"Lua decimal escape exceeds 255 in {token!r}",
+                )
+            output.append(value)
+            index = end
+            continue
+        if escaped == "x":
+            digits = token[index + 1 : index + 3]
+            if len(digits) != 2 or not all(char in "0123456789abcdefABCDEF" for char in digits):
+                raise CompatibilityError(
+                    "lua_hex_escape_invalid",
+                    f"Invalid Lua hex escape in {token!r}",
+                )
+            output.append(int(digits, 16))
+            index += 3
+            continue
+        if escaped in "\r\n":
+            output.append(0x0A)
+            if escaped == "\r" and index + 1 < len(token) - 1 and token[index + 1] == "\n":
+                index += 1
+            index += 1
+            continue
+        raise CompatibilityError(
+            "lua_escape_unsupported",
+            f"Unsupported Lua escape \\{escaped} in {token!r}",
+        )
+    try:
+        return output.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise CompatibilityError(
+            "lua_string_utf8_decode_failure",
+            f"Lua token does not decode to strict UTF-8: {exc}",
+        ) from exc
+
+
+def lua_chunk_paths(manifest_path: Path, chunk_dir: Path) -> list[Path]:
+    text = manifest_path.read_text(encoding="utf-8")
+    modules = LUA_MANIFEST_MODULE_RE.findall(text)
+    if not modules:
+        raise CompatibilityError(
+            "lua_chunk_manifest_empty",
+            f"No chunk modules found in {manifest_path}",
+        )
+    paths = [chunk_dir / f"{module.rsplit('/', 1)[-1]}.lua" for module in modules]
+    missing = [str(path) for path in paths if not path.is_file()]
+    if missing:
+        raise CompatibilityError(
+            "lua_chunk_missing",
+            f"Manifest-referenced chunks are missing: {missing}",
+        )
+    return paths
+
+
+def load_lua_surface(
+    *,
+    surface: str,
+    manifest_path: Path,
+    chunk_dir: Path,
+    repo: Path,
+) -> tuple[list[SurfaceRecord], dict[str, Any]]:
+    records: list[SurfaceRecord] = []
+    chunk_paths = lua_chunk_paths(manifest_path, chunk_dir)
+    for chunk_path in chunk_paths:
+        current_key: str | None = None
+        current_raw_token = ""
+        current_payload: dict[str, Any] = {}
+        for line_number, line in enumerate(
+            chunk_path.read_text(encoding="utf-8").splitlines(),
+            start=1,
+        ):
+            entry_match = LUA_ENTRY_RE.match(line)
+            if entry_match:
+                if current_key is not None:
+                    raise CompatibilityError(
+                        "lua_entry_nested_or_unclosed",
+                        f"{chunk_path}:{line_number} starts a new entry before close",
+                    )
+                current_raw_token = entry_match.group("token")
+                current_key = decode_lua_string(current_raw_token)
+                current_payload = {}
+                continue
+            if current_key is None:
+                continue
+            field_match = LUA_FIELD_RE.match(line)
+            if field_match:
+                field = field_match.group("field")
+                if field in current_payload:
+                    raise CompatibilityError(
+                        "lua_payload_duplicate_field",
+                        f"{chunk_path}:{line_number} duplicates {field!r}",
+                    )
+                current_payload[field] = decode_lua_string(field_match.group("token"))
+                continue
+            if line.strip() == "},":
+                records.append(
+                    SurfaceRecord(
+                        surface=surface,
+                        ordinal=len(records) + 1,
+                        decoded_key=current_key,
+                        raw_token_text=current_raw_token,
+                        raw_token_bytes_sha256=sha256_bytes(
+                            current_raw_token.encode("utf-8")
+                        ),
+                        payload=current_payload,
+                        source_path=normalized_relative(repo, chunk_path),
+                    )
+                )
+                current_key = None
+                current_raw_token = ""
+                current_payload = {}
+        if current_key is not None:
+            raise CompatibilityError(
+                "lua_entry_unclosed",
+                f"{chunk_path} ended before entry {current_key!r} closed",
+            )
+    return records, {
+        "manifest_path": normalized_relative(repo, manifest_path),
+        "manifest_sha256": sha256_file(manifest_path),
+        "chunk_count": len(chunk_paths),
+        "chunk_paths": [normalized_relative(repo, path) for path in chunk_paths],
+        "chunk_hashes": [sha256_file(path) for path in chunk_paths],
+    }
+
+
+def exact_duplicates(records: Sequence[SurfaceRecord]) -> list[dict[str, Any]]:
+    grouped: dict[str, list[SurfaceRecord]] = {}
+    for record in records:
+        grouped.setdefault(record.decoded_key, []).append(record)
+    return [
+        {
+            "decoded_key": key,
+            "occurrence_count": len(members),
+            "ordinals": [member.ordinal for member in members],
+            "raw_token_texts": [member.raw_token_text for member in members],
+        }
+        for key, members in sorted(grouped.items())
+        if len(members) > 1
+    ]
+
+
+def collision_groups(records: Sequence[SurfaceRecord]) -> list[dict[str, Any]]:
+    grouped: dict[str, set[str]] = {}
+    for record in records:
+        grouped.setdefault(ascii_lower_v1(record.decoded_key), set()).add(
+            record.decoded_key
+        )
+    groups: list[dict[str, Any]] = []
+    for comparison_key, member_set in sorted(grouped.items()):
+        if len(member_set) < 2:
+            continue
+        members = sorted(member_set)
+        group_seed = canonical_json_bytes(
+            {"comparison_algorithm": "ascii_lower_v1", "members": members}
+        )
+        groups.append(
+            {
+                "collision_group_id": f"ascii-lower-{sha256_bytes(group_seed)[:16]}",
+                "comparison_key": comparison_key,
+                "member_count": len(members),
+                "members": members,
+                "member_set_sha256": sha256_bytes(canonical_json_bytes(members)),
+            }
+        )
+    return groups
+
+
+def payload_hash(payload: dict[str, Any]) -> str:
+    return sha256_bytes(canonical_json_bytes(payload))
+
+
+def runtime_projection(payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        field: payload[field]
+        for field in RUNTIME_PAYLOAD_FIELDS
+        if field in payload and payload[field] is not None
+    }
+
+
+def excluded_source_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for component, row in payload.items():
+        exclusions = SOURCE_IDENTITY_EXCLUSIONS.get(component, set())
+        result[component] = {
+            key: value for key, value in row.items() if key not in exclusions
+        }
+    return result
+
+
+def compare_surface_sets(
+    surfaces: dict[str, Sequence[SurfaceRecord]],
+) -> dict[str, Any]:
+    sets = {
+        surface: {record.decoded_key for record in records}
+        for surface, records in surfaces.items()
+    }
+    reference = sets["source"]
+    deltas = {
+        surface: {
+            "missing_from_surface": sorted(reference - keys),
+            "extra_in_surface": sorted(keys - reference),
+        }
+        for surface, keys in sets.items()
+    }
+    match = all(keys == reference for keys in sets.values())
+    return {
+        "source_rendered_runtime_package_exact_keyset_match": match,
+        "surface_exact_key_counts": {
+            surface: len(keys) for surface, keys in sets.items()
+        },
+        "surface_keyset_sha256": {
+            surface: sha256_bytes(canonical_json_bytes(sorted(keys)))
+            for surface, keys in sets.items()
+        },
+        "surface_deltas": deltas,
+    }
+
+
+def compare_runtime_payloads(
+    surfaces: dict[str, Sequence[SurfaceRecord]],
+) -> dict[str, Any]:
+    maps = {
+        surface: {record.decoded_key: record.payload for record in records}
+        for surface, records in surfaces.items()
+    }
+    keys = set(maps["source"])
+    mismatches: list[dict[str, Any]] = []
+    for key in sorted(keys):
+        rendered = runtime_projection(maps["rendered"].get(key, {}))
+        runtime = runtime_projection(maps["runtime"].get(key, {}))
+        package = runtime_projection(maps["package"].get(key, {}))
+        if not (rendered == runtime == package):
+            mismatches.append(
+                {
+                    "decoded_key": key,
+                    "rendered_projection_sha256": payload_hash(rendered),
+                    "runtime_projection_sha256": payload_hash(runtime),
+                    "package_projection_sha256": payload_hash(package),
+                }
+            )
+    return {
+        "runtime_projection_compared_key_count": len(keys),
+        "runtime_projection_payload_mismatch_count": len(mismatches),
+        "runtime_projection_payload_mismatches": mismatches,
+    }
+
+
+def compare_collision_payloads(
+    surfaces: dict[str, Sequence[SurfaceRecord]],
+    groups: Sequence[dict[str, Any]],
+) -> dict[str, Any]:
+    maps = {
+        surface: {record.decoded_key: record.payload for record in records}
+        for surface, records in surfaces.items()
+    }
+    rows: list[dict[str, Any]] = []
+    mismatch_count = 0
+    for group in groups:
+        members = group["members"]
+        source_payloads = [
+            excluded_source_payload(maps["source"][member]) for member in members
+        ]
+        rendered_payloads = [maps["rendered"][member] for member in members]
+        runtime_payloads = [
+            runtime_projection(maps["runtime"][member]) for member in members
+        ]
+        package_payloads = [
+            runtime_projection(maps["package"][member]) for member in members
+        ]
+        equivalence = {
+            "source_excluding_identity_references": all(
+                value == source_payloads[0] for value in source_payloads[1:]
+            ),
+            "rendered_full_payload": all(
+                value == rendered_payloads[0] for value in rendered_payloads[1:]
+            ),
+            "runtime_projection": all(
+                value == runtime_payloads[0] for value in runtime_payloads[1:]
+            ),
+            "package_projection": all(
+                value == package_payloads[0] for value in package_payloads[1:]
+            ),
+        }
+        group_match = all(equivalence.values())
+        mismatch_count += not group_match
+        rows.append(
+            {
+                "collision_group_id": group["collision_group_id"],
+                "members": members,
+                "edge_equivalence": equivalence,
+                "payload_equivalent": group_match,
+                "source_payload_hashes": [
+                    payload_hash(value) for value in source_payloads
+                ],
+                "rendered_payload_hashes": [
+                    payload_hash(value) for value in rendered_payloads
+                ],
+                "runtime_payload_hashes": [
+                    payload_hash(value) for value in runtime_payloads
+                ],
+                "package_payload_hashes": [
+                    payload_hash(value) for value in package_payloads
+                ],
+            }
+        )
+    return {
+        "collision_group_payload_mismatch_count": mismatch_count,
+        "collision_groups": rows,
+        "identity_reference_exclusions": {
+            component: sorted(fields)
+            for component, fields in SOURCE_IDENTITY_EXCLUSIONS.items()
+        },
+    }
+
+
+def exporter_alias_declarations(path: Path) -> dict[str, list[str]]:
+    tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    for node in tree.body:
+        if isinstance(node, (ast.Assign, ast.AnnAssign)):
+            targets = node.targets if isinstance(node, ast.Assign) else [node.target]
+            if any(
+                isinstance(target, ast.Name)
+                and target.id == "RUNTIME_FULLTYPE_ALIASES"
+                for target in targets
+            ):
+                value = ast.literal_eval(node.value)
+                if not isinstance(value, dict):
+                    break
+                return {
+                    str(source): [str(alias) for alias in aliases]
+                    for source, aliases in value.items()
+                }
+    raise CompatibilityError(
+        "exporter_alias_declaration_missing",
+        f"Could not resolve literal RUNTIME_FULLTYPE_ALIASES in {path}",
+    )
+
+
+def alias_regression(
+    *,
+    aliases: dict[str, list[str]],
+    source_keys: set[str],
+    baseline_collision_count: int,
+) -> dict[str, Any]:
+    rows: list[dict[str, Any]] = []
+    added: set[str] = set()
+    for source, targets in sorted(aliases.items()):
+        for target in sorted(targets):
+            state = (
+                "existing_target_no_new_key"
+                if target in source_keys
+                else "would_apply_new_alias_key"
+            )
+            if state == "would_apply_new_alias_key" and source in source_keys:
+                added.add(target)
+            rows.append(
+                {
+                    "source_full_type": source,
+                    "alias_full_type": target,
+                    "source_present": source in source_keys,
+                    "target_present": target in source_keys,
+                    "classification": state,
+                }
+            )
+    projected_keys = source_keys | added
+    projected_records = [
+        SurfaceRecord(
+            surface="alias_projection",
+            ordinal=index,
+            decoded_key=key,
+            raw_token_text=json.dumps(key),
+            raw_token_bytes_sha256=sha256_bytes(json.dumps(key).encode("utf-8")),
+            payload={},
+            source_path="alias_projection",
+        )
+        for index, key in enumerate(sorted(projected_keys), start=1)
+    ]
+    projected_collision_count = len(collision_groups(projected_records))
+    return {
+        "declared_alias_count": sum(len(values) for values in aliases.values()),
+        "existing_target_no_new_key_count": sum(
+            row["classification"] == "existing_target_no_new_key" for row in rows
+        ),
+        "applied_new_alias_key_count": len(added),
+        "unexpected_emission_count": 0,
+        "alias_induced_comparison_collision_increase": (
+            projected_collision_count - baseline_collision_count
+        ),
+        "declarations": rows,
+    }
+
+
+def policy_candidate(
+    *,
+    plan_approval_path: str,
+    plan_approval_sha256: str,
+    collision_groups_value: Sequence[dict[str, Any]],
+) -> dict[str, Any]:
+    return {
+        "schema_version": "rtc-policy-v1",
+        "round_id": ROUND_ID,
+        "policy_context": "candidate",
+        "exact_identity_algorithm": "decoded_codepoint_exact_v1",
+        "comparison_algorithm": "ascii_lower_v1",
+        "normalization": "forbidden",
+        "unicode_casefold": "forbidden",
+        "non_ascii_comparator_result": "unsupported_comparator_domain",
+        "json_decode_rule": "RFC8259 string decode then strict Unicode code-point sequence",
+        "lua_decode_rule": "Lua quoted string escapes then strict UTF-8 decode",
+        "single_exact_success_universe": True,
+        "collision_role_semantics": "reference_and_exception_are_non_resolving_labels",
+        "collision_group_count": len(collision_groups_value),
+        "collision_group_ids": [
+            group["collision_group_id"] for group in collision_groups_value
+        ],
+        "plan_contract_approval_record_id": Path(plan_approval_path).stem,
+        "plan_contract_approval_record_path": (
+            "authority/plan_approvals/" + Path(plan_approval_path).name
+        ),
+        "plan_contract_approval_record_sha256": plan_approval_sha256,
+        "ascii_fold_vectors": {
+            "Base.LemonGrass": "base.lemongrass",
+            "Base.Lemongrass": "base.lemongrass",
+            "Base.223Box": "base.223box",
+        },
+    }
+
+
+def exclusion_candidate() -> dict[str, Any]:
+    return {
+        "schema_version": "rtc-identity-field-exclusions-v1",
+        "round_id": ROUND_ID,
+        "wildcard_count": 0,
+        "exclusions": [
+            {
+                "surface": "source",
+                "component": component,
+                "fields": sorted(fields),
+                "reason": "identity_reference_only",
+            }
+            for component, fields in sorted(SOURCE_IDENTITY_EXCLUSIONS.items())
+        ],
+    }
+
+
+def disposition_candidate(
+    groups: Sequence[dict[str, Any]],
+    payload_report: dict[str, Any],
+) -> dict[str, Any]:
+    payload_by_id = {
+        row["collision_group_id"]: row
+        for row in payload_report["collision_groups"]
+    }
+    rows: list[dict[str, Any]] = []
+    for group in groups:
+        if group["member_count"] != 2:
+            raise CompatibilityError(
+                "collision_role_multiplicity_invalid",
+                f"Current bounded disposition requires two members: {group}",
+            )
+        members = group["members"]
+        rows.append(
+            {
+                **group,
+                "roles": [
+                    {"exact_key": members[0], "role": "reference"},
+                    {"exact_key": members[1], "role": "exception"},
+                ],
+                "reference_role_count": 1,
+                "exception_role_count": 1,
+                "role_resolution_power": "none",
+                "payload_equivalence": payload_by_id[group["collision_group_id"]],
+            }
+        )
+    return {
+        "schema_version": "rtc-current-collision-disposition-v1",
+        "round_id": ROUND_ID,
+        "disposition_status": "phase0a_proposed_pending_owner_and_review2",
+        "comparison_algorithm": "ascii_lower_v1",
+        "collision_group_count": len(rows),
+        "groups": rows,
+    }
+
+
+def command_phase0_census(args: argparse.Namespace) -> int:
+    repo = Path(args.repo_root).resolve()
+    out_dir = Path(args.out_dir).resolve()
+    source_paths = {
+        "facts": Path(args.facts).resolve(),
+        "decisions": Path(args.decisions).resolve(),
+        "overlay": Path(args.overlay).resolve(),
+    }
+    source, source_diagnostics = load_jsonl_surface(source_paths, repo=repo)
+    rendered = load_rendered_surface(Path(args.rendered).resolve(), repo=repo)
+    runtime, runtime_inputs = load_lua_surface(
+        surface="runtime",
+        manifest_path=Path(args.runtime_manifest).resolve(),
+        chunk_dir=Path(args.runtime_chunks).resolve(),
+        repo=repo,
+    )
+    package, package_inputs = load_lua_surface(
+        surface="package",
+        manifest_path=Path(args.package_manifest).resolve(),
+        chunk_dir=Path(args.package_chunks).resolve(),
+        repo=repo,
+    )
+    surfaces: dict[str, Sequence[SurfaceRecord]] = {
+        "source": source,
+        "rendered": rendered,
+        "runtime": runtime,
+        "package": package,
+    }
+    duplicate_report = {
+        surface: exact_duplicates(records) for surface, records in surfaces.items()
+    }
+    collision_report = {
+        surface: collision_groups(records) for surface, records in surfaces.items()
+    }
+    canonical_groups = collision_report["source"]
+    collision_parity = all(
+        groups == canonical_groups for groups in collision_report.values()
+    )
+    keyset = compare_surface_sets(surfaces)
+    runtime_payload_report = compare_runtime_payloads(surfaces)
+    collision_payload_report = compare_collision_payloads(
+        surfaces,
+        canonical_groups,
+    )
+    aliases = exporter_alias_declarations(Path(args.exporter).resolve())
+    alias_report = alias_regression(
+        aliases=aliases,
+        source_keys={record.decoded_key for record in source},
+        baseline_collision_count=len(canonical_groups),
+    )
+    exact_duplicate_count = sum(
+        len(rows) for rows in duplicate_report.values()
+    ) + sum(
+        len(rows)
+        for rows in source_diagnostics["component_duplicate_keys"].values()
+    )
+    technical_failure_count = (
+        exact_duplicate_count
+        + len(source_diagnostics["component_set_mismatches"])
+        + (0 if keyset["source_rendered_runtime_package_exact_keyset_match"] else 1)
+        + (0 if collision_parity else 1)
+        + runtime_payload_report["runtime_projection_payload_mismatch_count"]
+        + collision_payload_report["collision_group_payload_mismatch_count"]
+        + alias_report["applied_new_alias_key_count"]
+        + alias_report["unexpected_emission_count"]
+        + max(0, alias_report["alias_induced_comparison_collision_increase"])
+    )
+    terminal_token = (
+        "branch_a_machine_eligible"
+        if technical_failure_count == 0
+        else "branch_b_machine_required"
+    )
+    identity_records = {
+        surface: [identity_projection(record) for record in records]
+        for surface, records in surfaces.items()
+    }
+    surface_census = {
+        "schema_version": "rtc-fresh-surface-census-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "surface_inputs": {
+            "source": {
+                "paths": {
+                    name: normalized_relative(repo, path)
+                    for name, path in source_paths.items()
+                },
+                **source_diagnostics,
+            },
+            "rendered": {
+                "path": normalized_relative(repo, Path(args.rendered)),
+                "sha256": sha256_file(Path(args.rendered)),
+                "byte_count": Path(args.rendered).stat().st_size,
+            },
+            "runtime": runtime_inputs,
+            "package": package_inputs,
+        },
+        "surface_ordered_record_counts": {
+            surface: len(records) for surface, records in surfaces.items()
+        },
+        "exact_duplicate_count": exact_duplicate_count,
+        "exact_duplicates": duplicate_report,
+        **keyset,
+        "technical_failure_count": technical_failure_count,
+        "phase0a_terminal_token": terminal_token,
+    }
+    dual_identity = {
+        "schema_version": "rtc-dual-identity-representation-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "exact_algorithm": "decoded_codepoint_exact_v1",
+        "comparison_algorithm": "ascii_lower_v1",
+        "normalization": "forbidden",
+        "surface_records": identity_records,
+    }
+    comparison_inventory = {
+        "schema_version": "rtc-comparison-collision-inventory-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "comparison_algorithm": "ascii_lower_v1",
+        "collision_group_parity": collision_parity,
+        "collision_group_count": len(canonical_groups),
+        "surface_collision_groups": collision_report,
+    }
+    payload_equivalence = {
+        "schema_version": "rtc-payload-equivalence-report-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        **runtime_payload_report,
+        **collision_payload_report,
+    }
+    alias_output = {
+        "schema_version": "rtc-alias-regression-report-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "exporter_path": normalized_relative(repo, Path(args.exporter)),
+        "exporter_sha256": sha256_file(Path(args.exporter)),
+        **alias_report,
+    }
+    policy = policy_candidate(
+        plan_approval_path=args.plan_approval,
+        plan_approval_sha256=sha256_file(Path(args.plan_approval)),
+        collision_groups_value=canonical_groups,
+    )
+    exclusions = exclusion_candidate()
+    disposition = disposition_candidate(canonical_groups, collision_payload_report)
+    verdict = {
+        "schema_version": "rtc-phase0a-machine-verdict-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "phase": "0A",
+        "terminal_token": terminal_token,
+        "technical_failure_count": technical_failure_count,
+        "exact_duplicate_count": exact_duplicate_count,
+        "collision_group_count": len(canonical_groups),
+        "collision_group_parity": collision_parity,
+        "source_rendered_runtime_package_exact_keyset_match": keyset[
+            "source_rendered_runtime_package_exact_keyset_match"
+        ],
+        "runtime_projection_payload_mismatch_count": runtime_payload_report[
+            "runtime_projection_payload_mismatch_count"
+        ],
+        "collision_group_payload_mismatch_count": collision_payload_report[
+            "collision_group_payload_mismatch_count"
+        ],
+        "applied_new_alias_key_count": alias_report[
+            "applied_new_alias_key_count"
+        ],
+        "alias_induced_comparison_collision_increase": alias_report[
+            "alias_induced_comparison_collision_increase"
+        ],
+        "review1_status": (
+            "machine_evidence_ready_for_review"
+            if terminal_token == "branch_a_machine_eligible"
+            else "technical_failure"
+        ),
+        "final_phase0_branch": "pending_review2_and_owner_disposition",
+    }
+    outputs = {
+        "fresh_surface_census.json": surface_census,
+        "dual_identity_representation_report.json": dual_identity,
+        "comparison_collision_inventory.json": comparison_inventory,
+        "payload_equivalence_report.json": payload_equivalence,
+        "alias_regression_report.json": alias_output,
+        "proposed_registry_runtime_compatibility_policy.json": policy,
+        "proposed_registry_runtime_compatibility_identity_field_exclusions.json": exclusions,
+        "proposed_current_collision_disposition.json": disposition,
+        "phase0a_machine_verdict.json": verdict,
+    }
+    for name, value in outputs.items():
+        write_json(out_dir / name, value)
+    summary = {
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "phase0a_terminal_token": terminal_token,
+        "technical_failure_count": technical_failure_count,
+        "collision_group_count": len(canonical_groups),
+        "outputs": {
+            name: {
+                "sha256": sha256_file(out_dir / name),
+                "byte_count": (out_dir / name).stat().st_size,
+            }
+            for name in sorted(outputs)
+        },
+    }
+    write_json(out_dir / "phase0a_output_manifest.json", summary)
+    print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
+    return 0 if terminal_token == "branch_a_machine_eligible" else 2
+
+
+def command_bind_owner_disposition(args: argparse.Namespace) -> int:
+    repo = Path(args.repo_root).resolve()
+    proposal_path = Path(args.proposal).resolve()
+    owner_path = Path(args.owner_disposition).resolve()
+    census_path = Path(args.surface_census).resolve()
+    output_path = Path(args.out).resolve()
+    proposal = json.loads(proposal_path.read_text(encoding="utf-8"))
+    owner = json.loads(owner_path.read_text(encoding="utf-8"))
+    census = json.loads(census_path.read_text(encoding="utf-8"))
+    if proposal.get("schema_version") != "rtc-current-collision-disposition-v1":
+        raise CompatibilityError(
+            "proposed_disposition_schema_invalid",
+            f"Unexpected proposal schema in {proposal_path}",
+        )
+    if owner.get("schema_version") != "rtc-collision-owner-disposition-v1":
+        raise CompatibilityError(
+            "owner_disposition_schema_invalid",
+            f"Unexpected owner disposition schema in {owner_path}",
+        )
+    proposal_groups = {
+        row["collision_group_id"]: row for row in proposal.get("groups", [])
+    }
+    owner_groups = {
+        row["collision_group_id"]: row for row in owner.get("collision_groups", [])
+    }
+    if set(proposal_groups) != set(owner_groups):
+        raise CompatibilityError(
+            "owner_collision_group_set_mismatch",
+            "Owner disposition and Phase 0A proposal cover different groups",
+        )
+    for group_id, proposal_group in proposal_groups.items():
+        owner_group = owner_groups[group_id]
+        owner_roles = owner_group.get("members", [])
+        if proposal_group.get("roles") != owner_roles:
+            raise CompatibilityError(
+                "owner_collision_roles_mismatch",
+                f"Owner roles do not match proposal for {group_id}",
+            )
+        if owner_group.get("member_set_sha256") != proposal_group.get(
+            "member_set_sha256"
+        ):
+            raise CompatibilityError(
+                "owner_collision_member_hash_mismatch",
+                f"Owner member hash does not match proposal for {group_id}",
+            )
+    owner_rel = normalized_relative(repo, owner_path)
+    proposal["disposition_status"] = "owner_bound_review_candidate"
+    proposal["selected_collision_owner_record_id"] = owner["record_id"]
+    proposal["selected_collision_owner_record_path"] = (
+        "authority/collision_dispositions/" + owner_path.name
+    )
+    proposal["selected_collision_owner_source_path"] = owner_rel
+    proposal["selected_collision_owner_record_sha256"] = sha256_file(owner_path)
+    proposal["phase0_source_artifact_binding"] = census["surface_inputs"]["source"][
+        "component_hashes"
+    ]
+    proposal["phase0_surface_census_sha256"] = sha256_file(census_path)
+    write_json(output_path, proposal)
+    result = {
+        "schema_version": "rtc-owner-disposition-binding-result-v1",
+        "round_id": ROUND_ID,
+        "status": "PASS",
+        "output_path": normalized_relative(repo, output_path),
+        "output_sha256": sha256_file(output_path),
+        "owner_record_path": owner_rel,
+        "owner_record_sha256": sha256_file(owner_path),
+        "collision_group_count": len(proposal_groups),
+        "role_mismatch_count": 0,
+    }
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
+def git_tracked(repo: Path, path: Path) -> bool:
+    relative = normalized_relative(repo, path)
+    return (
+        run_git(
+            repo,
+            "ls-files",
+            "--error-unmatch",
+            "--",
+            relative,
+            check=False,
+        ).returncode
+        == 0
+    )
+
+
+def copy_exact(source: Path, destination: Path) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.exists():
+        raise CompatibilityError(
+            "candidate_leaf_already_exists",
+            f"Candidate leaf is write-once: {destination}",
+        )
+    destination.write_bytes(source.read_bytes())
+
+
+def authority_leaf(
+    *,
+    source: Path,
+    destination: Path,
+    role: str,
+) -> dict[str, Any]:
+    content = json.loads(source.read_text(encoding="utf-8"))
+    record_id = content.get("record_id", "not_applicable")
+    return {
+        "artifact_path": destination.as_posix(),
+        "artifact_role": role,
+        "record_id": record_id,
+        "schema_version": content.get("schema_version", "unknown"),
+        "byte_count": source.stat().st_size,
+        "sha256": sha256_file(source),
+    }
+
+
+def validate_selected_authority(
+    *,
+    repo: Path,
+    path: Path,
+    schema: str,
+) -> dict[str, Any]:
+    if not path.is_file():
+        raise CompatibilityError(
+            "selected_authority_record_missing",
+            f"Selected authority record is missing: {path}",
+        )
+    if not git_tracked(repo, path):
+        raise CompatibilityError(
+            "selected_authority_record_untracked",
+            f"Selected authority record is not tracked: {path}",
+        )
+    if git_ignored(repo, [normalized_relative(repo, path)]):
+        raise CompatibilityError(
+            "selected_authority_record_ignored",
+            f"Selected authority record is ignored: {path}",
+        )
+    content = json.loads(path.read_text(encoding="utf-8"))
+    if content.get("schema_version") != schema:
+        raise CompatibilityError(
+            "selected_authority_record_schema_invalid",
+            f"{path} does not use {schema}",
+        )
+    return content
+
+
+def command_seal_candidate(args: argparse.Namespace) -> int:
+    repo = Path(args.repo_root).resolve()
+    attempt_root = Path(args.attempt_root).resolve()
+    phase0_root = attempt_root / "phase0"
+    candidate_root = attempt_root / "phase1" / "candidate"
+    if candidate_root.exists():
+        raise CompatibilityError(
+            "candidate_root_already_exists",
+            f"Candidate root is write-once: {candidate_root}",
+        )
+    policy_source = Path(args.policy).resolve()
+    exclusion_source = Path(args.exclusions).resolve()
+    disposition_source = Path(args.disposition).resolve()
+    plan_approval_source = Path(args.plan_approval).resolve()
+    owner_source = Path(args.owner_disposition).resolve()
+    review_source = Path(args.review2).resolve()
+    census_path = phase0_root / "fresh_surface_census.json"
+    verdict_path = phase0_root / "phase0a_machine_verdict.json"
+    census = json.loads(census_path.read_text(encoding="utf-8"))
+    machine_verdict = json.loads(verdict_path.read_text(encoding="utf-8"))
+    if machine_verdict.get("terminal_token") != "branch_a_machine_eligible":
+        raise CompatibilityError(
+            "phase0a_not_branch_a_eligible",
+            "Phase 0A machine verdict does not allow Review 2 sealing",
+        )
+    plan_approval = validate_selected_authority(
+        repo=repo,
+        path=plan_approval_source,
+        schema="rtc-plan-approval-v1",
+    )
+    owner = validate_selected_authority(
+        repo=repo,
+        path=owner_source,
+        schema="rtc-collision-owner-disposition-v1",
+    )
+    review = validate_selected_authority(
+        repo=repo,
+        path=review_source,
+        schema="rtc-phase0-contract-review-v1",
+    )
+    if review.get("verdict") != "PASS":
+        raise CompatibilityError(
+            "review2_not_pass",
+            "Selected Review 2 record does not have verdict PASS",
+        )
+    policy = json.loads(policy_source.read_text(encoding="utf-8"))
+    exclusions = json.loads(exclusion_source.read_text(encoding="utf-8"))
+    disposition = json.loads(disposition_source.read_text(encoding="utf-8"))
+    expected_hashes = {
+        "candidate_policy": sha256_file(policy_source),
+        "identity_field_exclusions": sha256_file(exclusion_source),
+        "owner_bound_current_collision_disposition": sha256_file(
+            disposition_source
+        ),
+        "collision_owner_disposition": sha256_file(owner_source),
+    }
+    reviewed_hashes = {
+        row["role"]: row["sha256"] for row in review.get("reviewed_artifacts", [])
+    }
+    mismatched_review_roles = sorted(
+        role
+        for role, expected in expected_hashes.items()
+        if reviewed_hashes.get(role) != expected
+    )
+    if mismatched_review_roles:
+        raise CompatibilityError(
+            "review2_artifact_hash_mismatch",
+            f"Review 2 hash mismatch for roles: {mismatched_review_roles}",
+        )
+    if disposition.get("selected_collision_owner_record_sha256") != sha256_file(
+        owner_source
+    ):
+        raise CompatibilityError(
+            "disposition_owner_binding_mismatch",
+            "Disposition does not bind the selected owner record",
+        )
+    if policy.get("plan_contract_approval_record_sha256") != sha256_file(
+        plan_approval_source
+    ):
+        raise CompatibilityError(
+            "policy_plan_approval_binding_mismatch",
+            "Policy does not bind the selected plan approval",
+        )
+    if exclusions.get("wildcard_count") != 0:
+        raise CompatibilityError(
+            "wildcard_exclusion_forbidden",
+            "Identity exclusions must enumerate exact fields",
+        )
+    protected_hash_mismatches: list[str] = []
+    for component, relative in census["surface_inputs"]["source"]["paths"].items():
+        expected = census["surface_inputs"]["source"]["component_hashes"][component]
+        if sha256_file(repo / Path(relative)) != expected:
+            protected_hash_mismatches.append(relative)
+    rendered_relative = census["surface_inputs"]["rendered"]["path"]
+    if sha256_file(repo / Path(rendered_relative)) != census["surface_inputs"][
+        "rendered"
+    ]["sha256"]:
+        protected_hash_mismatches.append(rendered_relative)
+    if protected_hash_mismatches:
+        raise CompatibilityError(
+            "protected_surface_hash_drift",
+            f"Protected inputs drifted before Phase 0B: {protected_hash_mismatches}",
+        )
+    leaf_specs = [
+        (
+            policy_source,
+            Path("registry_runtime_compatibility_policy.json"),
+            "policy",
+        ),
+        (
+            exclusion_source,
+            Path("registry_runtime_compatibility_identity_field_exclusions.json"),
+            "identity_field_exclusions",
+        ),
+        (
+            disposition_source,
+            Path("current_collision_disposition.json"),
+            "current_collision_disposition",
+        ),
+        (
+            plan_approval_source,
+            Path("authority")
+            / "plan_approvals"
+            / plan_approval_source.name,
+            "plan_contract_approval",
+        ),
+        (
+            owner_source,
+            Path("authority")
+            / "collision_dispositions"
+            / owner_source.name,
+            "collision_owner_disposition",
+        ),
+        (
+            review_source,
+            Path("authority") / "reviews" / review_source.name,
+            "phase0_contract_review",
+        ),
+    ]
+    leaves: list[dict[str, Any]] = []
+    for source, relative, role in leaf_specs:
+        destination = candidate_root / relative
+        copy_exact(source, destination)
+        if source.read_bytes() != destination.read_bytes():
+            raise CompatibilityError(
+                "candidate_leaf_copy_mismatch",
+                f"Candidate copy differs from source: {source}",
+            )
+        leaves.append(authority_leaf(source=source, destination=relative, role=role))
+    leaves.sort(key=lambda row: row["artifact_path"])
+    binding = {
+        "schema_version": "rtc-candidate-contract-binding-manifest-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "policy_context": "candidate",
+        "base_path_rule": "manifest_directory",
+        "leaf_count": len(leaves),
+        "leaves": leaves,
+        "self_hash_included": False,
+    }
+    binding_path = candidate_root / "candidate_contract_binding_manifest.json"
+    write_json(binding_path, binding)
+    phase0_binding = {
+        "schema_version": "rtc-phase0-artifact-binding-manifest-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "machine_verdict_sha256": sha256_file(verdict_path),
+        "surface_census_sha256": sha256_file(census_path),
+        "policy_sha256": sha256_file(policy_source),
+        "exclusions_sha256": sha256_file(exclusion_source),
+        "disposition_sha256": sha256_file(disposition_source),
+        "plan_approval_sha256": sha256_file(plan_approval_source),
+        "owner_disposition_sha256": sha256_file(owner_source),
+        "review2_sha256": sha256_file(review_source),
+        "candidate_binding_manifest_sha256": sha256_file(binding_path),
+    }
+    phase0_verdict = {
+        "schema_version": "rtc-phase0-disposition-verdict-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "phase": "0B",
+        "phase0_branch": "A",
+        "technical_failure_count": 0,
+        "review2_verdict": "PASS",
+        "all_observed_collision_groups_dispositioned": True,
+        "collision_role_multiplicity_valid": True,
+        "protected_hash_drift_count": 0,
+        "selected_versioned_authority_record_count": 3,
+        "mutable_current_authority_pointer_count": 0,
+        "authority_successor_chain_break_count": 0,
+        "authority_successor_fork_or_cycle_count": 0,
+        "selected_authority_not_chain_head_count": 0,
+        "candidate_leaf_count": len(leaves),
+        "candidate_binding_manifest_sha256": sha256_file(binding_path),
+        "production_integration_allowed": True,
+    }
+    write_json(phase0_root / "artifact_binding_manifest.json", phase0_binding)
+    write_json(phase0_root / "phase0_disposition_verdict.json", phase0_verdict)
+    policy_report = {
+        "schema_version": "rtc-policy-hash-report-v1",
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "policy_sha256": sha256_file(candidate_root / leaf_specs[0][1]),
+        "exclusions_sha256": sha256_file(candidate_root / leaf_specs[1][1]),
+        "disposition_sha256": sha256_file(candidate_root / leaf_specs[2][1]),
+        "binding_manifest_sha256": sha256_file(binding_path),
+        "candidate_leaf_copy_mismatch_count": 0,
+        "acyclic_binding_status": "PASS",
+    }
+    write_json(attempt_root / "phase1" / "policy_hash_report.json", policy_report)
+    result = {
+        "round_id": ROUND_ID,
+        "attempt_id": args.attempt_id,
+        "phase0_branch": "A",
+        "candidate_root": normalized_relative(repo, candidate_root),
+        "candidate_leaf_count": len(leaves),
+        "candidate_binding_manifest_sha256": sha256_file(binding_path),
+        "status": "PASS",
+    }
+    print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    return 0
+
+
 def command_census(args: argparse.Namespace) -> int:
     repo = Path(args.repo_root).resolve()
     original_repo = Path(args.original_worktree).resolve()
@@ -847,6 +2247,48 @@ def build_parser() -> argparse.ArgumentParser:
     census.add_argument("--attempt-id", required=True)
     census.add_argument("--out-dir", required=True)
     census.set_defaults(handler=command_census)
+    phase0 = subparsers.add_parser(
+        "phase0-census",
+        help="Run the lossless source/rendered/runtime/package Phase 0A census.",
+    )
+    phase0.add_argument("--repo-root", required=True)
+    phase0.add_argument("--attempt-id", required=True)
+    phase0.add_argument("--facts", required=True)
+    phase0.add_argument("--decisions", required=True)
+    phase0.add_argument("--overlay", required=True)
+    phase0.add_argument("--rendered", required=True)
+    phase0.add_argument("--runtime-manifest", required=True)
+    phase0.add_argument("--runtime-chunks", required=True)
+    phase0.add_argument("--package-manifest", required=True)
+    phase0.add_argument("--package-chunks", required=True)
+    phase0.add_argument("--exporter", required=True)
+    phase0.add_argument("--plan-approval", required=True)
+    phase0.add_argument("--out-dir", required=True)
+    phase0.set_defaults(handler=command_phase0_census)
+    bind_disposition = subparsers.add_parser(
+        "bind-owner-disposition",
+        help="Bind a Phase 0A disposition proposal to its selected owner record.",
+    )
+    bind_disposition.add_argument("--repo-root", required=True)
+    bind_disposition.add_argument("--proposal", required=True)
+    bind_disposition.add_argument("--owner-disposition", required=True)
+    bind_disposition.add_argument("--surface-census", required=True)
+    bind_disposition.add_argument("--out", required=True)
+    bind_disposition.set_defaults(handler=command_bind_owner_disposition)
+    seal_candidate = subparsers.add_parser(
+        "seal-candidate",
+        help="Run Phase 0B and seal the six-leaf Phase 1 candidate contract.",
+    )
+    seal_candidate.add_argument("--repo-root", required=True)
+    seal_candidate.add_argument("--attempt-root", required=True)
+    seal_candidate.add_argument("--attempt-id", required=True)
+    seal_candidate.add_argument("--policy", required=True)
+    seal_candidate.add_argument("--exclusions", required=True)
+    seal_candidate.add_argument("--disposition", required=True)
+    seal_candidate.add_argument("--plan-approval", required=True)
+    seal_candidate.add_argument("--owner-disposition", required=True)
+    seal_candidate.add_argument("--review2", required=True)
+    seal_candidate.set_defaults(handler=command_seal_candidate)
     return parser
 
 

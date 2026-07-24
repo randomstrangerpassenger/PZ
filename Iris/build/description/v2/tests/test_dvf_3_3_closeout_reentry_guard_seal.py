@@ -429,6 +429,14 @@ class DvfCloseoutReentryGuardSealTest(unittest.TestCase):
             cases["valid"]["ok"],
             cases["valid"]["error_codes"],
         )
+        self.assertEqual(
+            cases["valid"]["relocated_surface_families"],
+            {
+                "generated_evidence": "generated_evidence",
+                "ledger_packet": "ledger_packets",
+                "policy_doc": "docs",
+            },
+        )
         self.assertFalse(probe["live_evidence_writes_performed"])
         self.assertTrue(
             all(

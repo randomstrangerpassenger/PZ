@@ -283,6 +283,19 @@ def route_shape_probe_case(case: str) -> dict:
                 }
             ),
             "report_status": report.get("status"),
+            "relocated_surface_families": {
+                "generated_evidence": common.surface_family(
+                    candidate["root"]
+                    / "phase0"
+                    / "owner_reserved_seal_requirements.json"
+                ),
+                "ledger_packet": common.surface_family(
+                    common.LEDGER_PACKET_DOC
+                ),
+                "policy_doc": common.surface_family(
+                    common.CLAIM_BOUNDARY_DOC
+                ),
+            },
         }
         if isinstance(final, dict):
             row["final"] = {
@@ -315,6 +328,12 @@ def route_shape_probe_payload() -> dict:
         and "full_current_route_runner_shape_invalid"
         in cases["bad_required"]["error_codes"]
         and cases["valid"]["ok"] is True
+        and cases["valid"]["relocated_surface_families"]
+        == {
+            "generated_evidence": "generated_evidence",
+            "ledger_packet": "ledger_packets",
+            "policy_doc": "docs",
+        }
         else "FAIL"
     )
     return {

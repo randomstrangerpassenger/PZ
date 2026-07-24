@@ -745,10 +745,40 @@ def scan_surface_files() -> list[Path]:
     return sorted({resolve_repo(path) for path in candidates if resolve_repo(path).exists()}, key=rel)
 
 
+def same_surface_path(left: str | Path, right: str | Path) -> bool:
+    return resolve_repo(left) == resolve_repo(right)
+
+
+def surface_path_is_within(
+    path: str | Path,
+    root: str | Path,
+) -> bool:
+    try:
+        resolve_repo(path).relative_to(resolve_repo(root))
+        return True
+    except ValueError:
+        return False
+
+
 def surface_family(path: Path) -> str:
-    normalized = rel(path)
-    if normalized == "Iris/_docs/round3/current_route_required_validations.json":
+    if same_surface_path(path, CURRENT_REQUIRED_VALIDATIONS):
         return "required_validation_manifest"
+    if same_surface_path(path, LEDGER_PACKET_DOC):
+        return "ledger_packets"
+    current_doc_paths = (
+        PLAN_PATH,
+        CLAIM_BOUNDARY_DOC,
+        COMPLETION_POLICY_DOC,
+        PREDECESSOR_POLICY_DOC,
+        ROADMAP_DOC,
+        DECISIONS_DOC,
+        ARCHITECTURE_DOC,
+    )
+    if any(same_surface_path(path, target) for target in current_doc_paths):
+        return "docs"
+    if surface_path_is_within(path, EVIDENCE_ROOT):
+        return "generated_evidence"
+    normalized = rel(path)
     if normalized.startswith("docs/"):
         if normalized.endswith("_ledger_packet.md"):
             return "ledger_packets"

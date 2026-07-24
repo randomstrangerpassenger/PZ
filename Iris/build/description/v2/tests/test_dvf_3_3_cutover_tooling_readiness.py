@@ -119,6 +119,7 @@ class DvfCutoverToolingReadinessTest(unittest.TestCase):
 
     def test_consumer_migration_sandbox_and_row_ledger_are_complete(self) -> None:
         preflight = load_json(ROOT / "phase3/consumer_migration_materialization_preflight_report.json")
+        baseline = load_json(ROOT / "phase3/sandbox_baseline_manifest.json")
         actual = load_json(ROOT / "phase3/consumer_migration_actual_report.json")
         forbidden = load_json(ROOT / "phase3/change_forbidden_zero_mutation_report.json")
         generation = load_json(ROOT / "phase3/row_level_migration_ledger_generation_report.json")
@@ -130,6 +131,22 @@ class DvfCutoverToolingReadinessTest(unittest.TestCase):
         self.assertEqual(actual["status"], "PASS")
         self.assertEqual(actual["apply_row_count"], 163)
         self.assertFalse(actual["live_repo_mutated"])
+        self.assertEqual(baseline["tracked_sandbox_path_count"], 96)
+        self.assertEqual(
+            baseline["tracked_sandbox_executable_path_count"],
+            76,
+        )
+        self.assertTrue(baseline["tracked_sandbox_paths_preserved"])
+        self.assertEqual(
+            baseline["tracked_sandbox_missing_after"],
+            [],
+        )
+        self.assertEqual(actual["tracked_sandbox_path_count"], 96)
+        self.assertEqual(
+            actual["tracked_sandbox_executable_path_count"],
+            76,
+        )
+        self.assertTrue(actual["tracked_sandbox_paths_preserved"])
         self.assertEqual(forbidden["change_forbidden_occurrence_denominator"], 27558)
         self.assertEqual(forbidden["change_forbidden_occurrence_mutation_count"], 0)
         self.assertEqual(generation["status"], "PASS")

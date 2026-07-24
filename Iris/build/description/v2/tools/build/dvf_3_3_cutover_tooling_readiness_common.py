@@ -5,6 +5,8 @@ import hashlib
 import json
 import re
 import shutil
+import stat
+import subprocess
 from collections import Counter, defaultdict
 from functools import lru_cache
 from pathlib import Path
@@ -944,6 +946,88 @@ def sandbox_path_for(repo_path: str, root: Path) -> Path:
     return root / f"{digest}{suffix}"
 
 
+HASHED_SANDBOX_FILENAME_RE = re.compile(
+    r"^[0-9a-f]{64}(?:\.[A-Za-z0-9_-]+)?$"
+)
+
+
+def tracked_sandbox_paths(root: Path) -> set[Path]:
+    result = subprocess.run(
+        ["git", "ls-files", "--", rel(root)],
+        cwd=REPO_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            "tracked sandbox inventory failed: "
+            + result.stderr.strip()
+        )
+    return {
+        resolve_repo(line.strip())
+        for line in result.stdout.splitlines()
+        if line.strip()
+    }
+
+
+def prepare_sandbox_root(
+    root: Path,
+    *,
+    tracked_paths: set[Path],
+    owned_targets: set[Path],
+) -> list[str]:
+    root.mkdir(parents=True, exist_ok=True)
+    resolved_root = root.resolve()
+    missing_before = sorted(
+        rel(path) for path in tracked_paths if not path.is_file()
+    )
+    if missing_before:
+        raise ValueError(
+            "tracked sandbox evidence missing before materialization: "
+            + ",".join(missing_before)
+    )
+    removed: list[str] = []
+    for target in sorted(owned_targets, key=lambda path: path.name):
+        if (
+            target.parent.resolve() != resolved_root
+            or not HASHED_SANDBOX_FILENAME_RE.fullmatch(target.name)
+        ):
+            raise ValueError(
+                "invalid owned hashed sandbox target: " + rel(target)
+            )
+        try:
+            target_stat = target.lstat()
+        except FileNotFoundError:
+            continue
+        reparse_mask = getattr(
+            stat,
+            "FILE_ATTRIBUTE_REPARSE_POINT",
+            0,
+        )
+        if target.is_symlink() or (
+            getattr(target_stat, "st_file_attributes", 0)
+            & reparse_mask
+        ):
+            raise ValueError(
+                "refusing to remove reparse-point sandbox target: "
+                + rel(target)
+            )
+        if target.resolve() in tracked_paths:
+            raise ValueError(
+                "refusing to remove tracked hashed sandbox evidence: "
+                + rel(target)
+            )
+        if not stat.S_ISREG(target_stat.st_mode):
+            raise ValueError(
+                "owned hashed sandbox target is not a file: "
+                + rel(target)
+            )
+        target.unlink()
+        removed.append(rel(target))
+    return removed
+
+
 @lru_cache(maxsize=1)
 def frozen_predecessor_fixture_binding() -> dict[str, Any]:
     fixture_root = (
@@ -1088,11 +1172,6 @@ def migration_source_for_row(row: dict[str, Any]) -> Path:
 def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[str, Any]], rules: list[dict[str, Any]]) -> dict[str, Any]:
     baseline_root = phase_dir("phase3") / "sandbox_baseline"
     after_root = phase_dir("phase3") / "sandbox_after"
-    for root in [baseline_root, after_root]:
-        if root.exists():
-            shutil.rmtree(root)
-        root.mkdir(parents=True, exist_ok=True)
-
     materialized_paths = sorted(
         {
             row["path"]
@@ -1110,6 +1189,25 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
             raise ValueError(
                 f"multiple migration sources for target {row['path']}"
             )
+    tracked_by_root = {
+        root: tracked_sandbox_paths(root)
+        for root in (baseline_root, after_root)
+    }
+    owned_targets_by_root = {
+        root: {
+            sandbox_path_for(repo_path, root)
+            for repo_path in materialized_paths
+        }
+        for root in (baseline_root, after_root)
+    }
+    removed_hash_targets = {
+        rel(root): prepare_sandbox_root(
+            root,
+            tracked_paths=tracked_by_root[root],
+            owned_targets=owned_targets_by_root[root],
+        )
+        for root in (baseline_root, after_root)
+    }
     for repo_path in materialized_paths:
         source = source_by_target[repo_path]
         baseline_target = sandbox_path_for(repo_path, baseline_root)
@@ -1118,6 +1216,28 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
         ensure_parent(after_target)
         shutil.copy2(source, baseline_target)
         shutil.copy2(source, after_target)
+    tracked_missing_after = sorted(
+        rel(path)
+        for tracked_paths in tracked_by_root.values()
+        for path in tracked_paths
+        if not path.is_file()
+    )
+    if tracked_missing_after:
+        raise ValueError(
+            "tracked sandbox evidence removed by materialization: "
+            + ",".join(tracked_missing_after)
+        )
+    tracked_sandbox_paths_preserved = sorted(
+        rel(path)
+        for tracked_paths in tracked_by_root.values()
+        for path in tracked_paths
+    )
+    tracked_sandbox_executable_paths_preserved = sorted(
+        rel(path)
+        for tracked_paths in tracked_by_root.values()
+        for path in tracked_paths
+        if path.suffix.lower() in {".lua", ".py"}
+    )
 
     rows_by_path: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in apply_rows:
@@ -1172,6 +1292,21 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
         "status": "PASS",
         "source_snapshot_identity": sha256_file(CONSUMER_MATRIX),
         "materialized_path_count": len(materialized_paths),
+        "tracked_sandbox_path_count": len(
+            tracked_sandbox_paths_preserved
+        ),
+        "tracked_sandbox_paths_sha256": canonical_hash(
+            tracked_sandbox_paths_preserved
+        ),
+        "tracked_sandbox_executable_path_count": len(
+            tracked_sandbox_executable_paths_preserved
+        ),
+        "tracked_sandbox_executable_paths_sha256": canonical_hash(
+            tracked_sandbox_executable_paths_preserved
+        ),
+        "tracked_sandbox_paths_preserved": True,
+        "tracked_sandbox_missing_after": tracked_missing_after,
+        "removed_prior_hash_targets": removed_hash_targets,
         "file_hashes": baseline_records,
         "audit_matrix_fingerprint": sha256_file(CONSUMER_MATRIX),
         "current_route_validation_manifest_fingerprint": sha256_file(CURRENT_ROUTE_REQUIRED_VALIDATIONS),
@@ -1190,6 +1325,13 @@ def write_sandbox_and_apply(rows: list[dict[str, Any]], apply_rows: list[dict[st
         "apply_row_count": len(apply_rows),
         "changed_path_count": len(changed_paths),
         "changed_paths": changed_paths,
+        "tracked_sandbox_path_count": len(
+            tracked_sandbox_paths_preserved
+        ),
+        "tracked_sandbox_executable_path_count": len(
+            tracked_sandbox_executable_paths_preserved
+        ),
+        "tracked_sandbox_paths_preserved": True,
         "forbidden_occurrence_mutation_count": 0,
         "live_repo_mutated": False,
         "claim_boundary": CLAIM_BOUNDARY,

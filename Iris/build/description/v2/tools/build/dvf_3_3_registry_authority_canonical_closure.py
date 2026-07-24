@@ -366,8 +366,31 @@ CURRENT_ROUTE_FROZEN_FIXTURE_ROWS_SHA256 = (
 CURRENT_ROUTE_FROZEN_FIXTURE_USAGE_PARTITION_SHA256 = (
     "4dd67eca4ee2d186edff5913e4d36d2647420a3c2d05184e801218714dcae303"
 )
+CURRENT_ROUTE_LIVE_IGNORED_PACKAGE_DATA_ROOT = (
+    REPO_ROOT
+    / "Iris"
+    / "build"
+    / "package"
+    / "Iris"
+    / "media"
+    / "lua"
+    / "client"
+    / "Iris"
+    / "Data"
+)
+CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS = (
+    CURRENT_ROUTE_LIVE_IGNORED_PACKAGE_DATA_ROOT
+    / "IrisLayer3DataChunks.lua",
+    *(
+        CURRENT_ROUTE_LIVE_IGNORED_PACKAGE_DATA_ROOT
+        / "IrisLayer3DataChunks"
+        / f"Chunk{index:03d}.lua"
+        for index in (2, 3, 4, 5, 7, 8, 10, 11)
+    ),
+)
 CURRENT_ROUTE_LIVE_IGNORED_INPUTS = (
     V2_ROOT / "output" / "dvf_3_3_rendered.json",
+    *CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS,
 )
 CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV = (
     "IRIS_DVF_CURRENT_ROUTE_FROZEN_PREDECESSOR"
@@ -9955,8 +9978,183 @@ def git_status_lines_at(repo_root: Path) -> list[str]:
     ]
 
 
+def current_route_apply_input_coverage() -> dict[str, Any]:
+    blockers: list[str] = []
+    matrix_path = CONSUMER_MIGRATION_NORMALIZATION_INPUTS[0]
+    matrix_rows: list[dict[str, Any]] = []
+    try:
+        source_lines = filesystem_path(matrix_path).read_text(
+            encoding="utf-8"
+        ).splitlines()
+    except (OSError, UnicodeError) as exc:
+        source_lines = []
+        blockers.append(
+            "current_route_apply_input_matrix_unreadable:"
+            f"{type(exc).__name__}"
+        )
+    for line_number, line in enumerate(source_lines, start=1):
+        if not line.strip():
+            blockers.append(
+                f"current_route_apply_input_matrix_blank_line:{line_number}"
+            )
+            continue
+        try:
+            row = json.loads(line)
+        except json.JSONDecodeError:
+            blockers.append(
+                f"current_route_apply_input_matrix_invalid_json:{line_number}"
+            )
+            continue
+        if not isinstance(row, dict) or not isinstance(
+            row.get("path"), str
+        ):
+            blockers.append(
+                f"current_route_apply_input_matrix_invalid_row:{line_number}"
+            )
+            continue
+        matrix_rows.append(row)
+    apply_rows = [
+        row
+        for row in matrix_rows
+        if row.get("action") == "current_role_migration_candidate"
+        and row.get("migration_disposition")
+        == "migrate_when_new_baseline_approved"
+    ]
+    tracked_result = run_git("ls-files")
+    tracked_paths = (
+        {
+            line.strip().replace("\\", "/")
+            for line in tracked_result["stdout"].splitlines()
+            if line.strip()
+        }
+        if tracked_result["exit_code"] == 0
+        else set()
+    )
+    if tracked_result["exit_code"] != 0:
+        blockers.append("current_route_apply_input_tracked_inventory_failed")
+    fixture_manifest = read_json_object(
+        CURRENT_ROUTE_FROZEN_FIXTURE_MANIFEST
+    )
+    normalization_payloads = set(
+        fixture_manifest.get("normalization_source_payload_paths", [])
+    )
+    frozen_paths = {
+        str(row["target_path"]).replace("\\", "/")
+        for row in fixture_manifest.get("rows", [])
+        if isinstance(row, dict)
+        and row.get("payload_path") in normalization_payloads
+        and isinstance(row.get("target_path"), str)
+    }
+    live_ignored_apply_paths = {
+        repo_relative(path) for path in CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS
+    }
+    source_counts = {
+        "tracked_checkout": 0,
+        "frozen_predecessor_input": 0,
+        "live_ignored_apply_input": 0,
+    }
+    missing_rows: list[dict[str, Any]] = []
+    overlapping_rows: list[dict[str, Any]] = []
+    apply_projection: list[dict[str, Any]] = []
+    for row in apply_rows:
+        path = str(row["path"]).replace("\\", "/")
+        sources = [
+            source
+            for source, present in (
+                ("tracked_checkout", path in tracked_paths),
+                ("frozen_predecessor_input", path in frozen_paths),
+                (
+                    "live_ignored_apply_input",
+                    path in live_ignored_apply_paths,
+                ),
+            )
+            if present
+        ]
+        apply_projection.append(
+            {
+                "occurrence_id": row.get("occurrence_id"),
+                "path": path,
+                "sources": sources,
+            }
+        )
+        if len(sources) == 1:
+            source_counts[sources[0]] += 1
+        elif not sources:
+            missing_rows.append(
+                {
+                    "occurrence_id": row.get("occurrence_id"),
+                    "path": path,
+                }
+            )
+        else:
+            overlapping_rows.append(
+                {
+                    "occurrence_id": row.get("occurrence_id"),
+                    "path": path,
+                    "sources": sources,
+                }
+            )
+    apply_paths = {
+        str(row["path"]).replace("\\", "/") for row in apply_rows
+    }
+    unexpected_live_inputs = sorted(
+        live_ignored_apply_paths - apply_paths
+    )
+    if len(matrix_rows) != 311:
+        blockers.append("current_route_apply_input_matrix_row_count_mismatch")
+    if len(apply_rows) != 163:
+        blockers.append("current_route_apply_input_apply_row_count_mismatch")
+    expected_counts = {
+        "tracked_checkout": 101,
+        "frozen_predecessor_input": 40,
+        "live_ignored_apply_input": 22,
+    }
+    for source, expected in expected_counts.items():
+        if source_counts[source] != expected:
+            blockers.append(
+                "current_route_apply_input_source_count_mismatch:"
+                f"{source}"
+            )
+    if len(live_ignored_apply_paths) != 9:
+        blockers.append(
+            "current_route_live_ignored_apply_input_path_count_mismatch"
+        )
+    if missing_rows:
+        blockers.append("current_route_apply_input_source_coverage_missing")
+    if overlapping_rows:
+        blockers.append("current_route_apply_input_source_coverage_overlap")
+    if unexpected_live_inputs:
+        blockers.append(
+            "current_route_live_ignored_apply_input_not_in_matrix"
+        )
+    return {
+        "schema_version": (
+            f"{SCHEMA_PREFIX}-current-route-apply-input-coverage-v1"
+        ),
+        "status": "PASS" if not blockers else "FAIL",
+        "matrix_path": repo_relative(matrix_path),
+        "matrix_sha256": sha256_file(matrix_path),
+        "matrix_row_count": len(matrix_rows),
+        "apply_row_count": len(apply_rows),
+        "apply_row_projection_sha256": canonical_hash(apply_projection),
+        "source_row_counts": source_counts,
+        "expected_source_row_counts": expected_counts,
+        "frozen_predecessor_source_path_count": len(frozen_paths),
+        "live_ignored_apply_input_path_count": len(
+            live_ignored_apply_paths
+        ),
+        "live_ignored_apply_input_paths": sorted(
+            live_ignored_apply_paths
+        ),
+        "missing_rows": missing_rows,
+        "overlapping_rows": overlapping_rows,
+        "unexpected_live_ignored_apply_inputs": unexpected_live_inputs,
+        "blockers": sorted(set(blockers)),
+    }
+
+
 def current_route_live_ignored_input_rows() -> tuple[
-    list[dict[str, Any]], list[str]
+    list[dict[str, Any]], dict[str, Any], list[str]
 ]:
     rows: list[dict[str, Any]] = []
     blockers: list[str] = []
@@ -9972,6 +10170,11 @@ def current_route_live_ignored_input_rows() -> tuple[
         row = {
             "path": relative,
             "role": "live_ignored_current_route_input",
+            "input_class": (
+                "current_package_apply_input"
+                if path in CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS
+                else "current_rendered_input"
+            ),
             "exists": exists,
             "tracked": tracked,
             "ignored": ignored,
@@ -9983,6 +10186,9 @@ def current_route_live_ignored_input_rows() -> tuple[
             ),
             "copied_to_isolated_candidate_only": True,
             "live_materialization_allowed": False,
+            "current_authority_claimed": False,
+            "package_authority_claimed": False,
+            "executable_fixture_claimed": False,
         }
         rows.append(row)
         if not exists:
@@ -9994,7 +10200,43 @@ def current_route_live_ignored_input_rows() -> tuple[
                 "current_route_live_ignored_input_git_state_invalid:"
                 f"{relative}"
             )
-    return rows, blockers
+    coverage = current_route_apply_input_coverage()
+    blockers.extend(coverage.get("blockers", []))
+    return rows, coverage, blockers
+
+
+def isolated_candidate_live_input_rows(
+    candidate_root: Path,
+    live_input_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for input_row in live_input_rows:
+        relative = str(input_row["path"])
+        target = candidate_root.joinpath(
+            *PurePosixPath(relative).parts
+        )
+        exists = path_is_file(target)
+        rows.append(
+            {
+                "path": relative,
+                "role": input_row.get("role"),
+                "input_class": input_row.get("input_class"),
+                "exists": exists,
+                "sha256": sha256_file(target),
+                "byte_length": (
+                    filesystem_path(target).stat().st_size
+                    if exists
+                    else None
+                ),
+                "matches_live_bound_input": (
+                    exists
+                    and sha256_file(target) == input_row.get("sha256")
+                    and filesystem_path(target).stat().st_size
+                    == input_row.get("byte_length")
+                ),
+            }
+        )
+    return rows
 
 
 def discard_isolated_candidate(candidate_root: Path) -> tuple[bool, str | None]:
@@ -10042,7 +10284,11 @@ def isolated_current_route_command_record(
         )
     live_status_before = git_status_rows()[1]
     fixture_validation = current_route_frozen_fixture_validation()
-    live_input_rows_before, live_input_blockers = (
+    (
+        live_input_rows_before,
+        live_input_coverage_before,
+        live_input_blockers,
+    ) = (
         current_route_live_ignored_input_rows()
     )
     started_at = utc_now()
@@ -10057,6 +10303,8 @@ def isolated_current_route_command_record(
     checkout_exit_code: int | None = None
     candidate_initial_status: list[str] = []
     candidate_final_status: list[str] = []
+    candidate_live_input_rows_before: list[dict[str, Any]] = []
+    candidate_live_input_rows_after: list[dict[str, Any]] = []
     candidate_result_sha256: str | None = None
     output_copied_once = False
     candidate_discarded = False
@@ -10194,6 +10442,19 @@ def isolated_current_route_command_record(
                     "isolated live ignored input hash mismatch: "
                     + str(input_row["path"])
                 )
+        candidate_live_input_rows_before = (
+            isolated_candidate_live_input_rows(
+                candidate_root,
+                live_input_rows_before,
+            )
+        )
+        if any(
+            row.get("matches_live_bound_input") is not True
+            for row in candidate_live_input_rows_before
+        ):
+            raise ValueError(
+                "isolated live ignored input copy binding mismatch"
+            )
         candidate_initial_status = git_status_lines_at(candidate_root)
         if candidate_initial_status:
             raise ValueError(
@@ -10308,24 +10569,53 @@ def isolated_current_route_command_record(
                 )
                 record["first_failing_predicate"] = result_blocker
     finally:
-        if temp_owner_root is not None:
-            candidate_discarded, cleanup_error = (
-                discard_isolated_candidate(temp_owner_root)
-            )
-            if not candidate_discarded:
-                containment_blockers.append(
-                    "isolated_candidate_cleanup_failed:"
-                    + (
-                        cleanup_error.split(":", 1)[0]
-                        if cleanup_error
-                        else "unknown"
+        try:
+            if candidate_root is not None and (
+                candidate_live_input_rows_before
+            ):
+                try:
+                    candidate_live_input_rows_after = (
+                        isolated_candidate_live_input_rows(
+                            candidate_root,
+                            live_input_rows_before,
+                        )
                     )
+                except Exception as inspection_exc:
+                    containment_blockers.append(
+                        "isolated_candidate_live_input_inspection_failed:"
+                        f"{type(inspection_exc).__name__}"
+                    )
+                    candidate_live_input_rows_after = []
+                if (
+                    candidate_live_input_rows_after
+                    != candidate_live_input_rows_before
+                ):
+                    containment_blockers.append(
+                        "isolated_candidate_live_input_mutated"
+                    )
+        finally:
+            if temp_owner_root is not None:
+                candidate_discarded, cleanup_error = (
+                    discard_isolated_candidate(temp_owner_root)
                 )
-        else:
-            candidate_discarded = True
+                if not candidate_discarded:
+                    containment_blockers.append(
+                        "isolated_candidate_cleanup_failed:"
+                        + (
+                            cleanup_error.split(":", 1)[0]
+                            if cleanup_error
+                            else "unknown"
+                        )
+                    )
+            else:
+                candidate_discarded = True
     assert record is not None
     live_status_after = git_status_rows()[1]
-    live_input_rows_after, live_input_after_blockers = (
+    (
+        live_input_rows_after,
+        live_input_coverage_after,
+        live_input_after_blockers,
+    ) = (
         current_route_live_ignored_input_rows()
     )
     containment_blockers.extend(live_input_after_blockers)
@@ -10333,10 +10623,19 @@ def isolated_current_route_command_record(
     live_input_unchanged = (
         live_input_rows_after == live_input_rows_before
     )
+    live_input_coverage_unchanged = (
+        live_input_coverage_after == live_input_coverage_before
+    )
+    candidate_live_input_unchanged = (
+        candidate_live_input_rows_after
+        == candidate_live_input_rows_before
+    )
     candidate_mutation_contained = (
         candidate_discarded
         and live_status_unchanged
         and live_input_unchanged
+        and live_input_coverage_unchanged
+        and candidate_live_input_unchanged
     )
     if not live_status_unchanged:
         containment_blockers.append(
@@ -10349,6 +10648,10 @@ def isolated_current_route_command_record(
     if not live_input_unchanged:
         containment_blockers.append(
             "isolated_current_route_live_ignored_input_drift"
+        )
+    if not live_input_coverage_unchanged:
+        containment_blockers.append(
+            "isolated_current_route_apply_input_coverage_drift"
         )
     isolation_blockers = (
         preparation_blockers
@@ -10453,6 +10756,27 @@ def isolated_current_route_command_record(
             live_input_rows_before
         ),
         "live_ignored_input_changed": not live_input_unchanged,
+        "live_ignored_apply_input_coverage_before": (
+            live_input_coverage_before
+        ),
+        "live_ignored_apply_input_coverage_after": (
+            live_input_coverage_after
+        ),
+        "live_ignored_apply_input_coverage_changed": (
+            not live_input_coverage_unchanged
+        ),
+        "candidate_live_ignored_input_rows_before": (
+            candidate_live_input_rows_before
+        ),
+        "candidate_live_ignored_input_rows_after": (
+            candidate_live_input_rows_after
+        ),
+        "candidate_live_ignored_input_rows_sha256": canonical_hash(
+            candidate_live_input_rows_before
+        ),
+        "candidate_live_ignored_input_changed": (
+            not candidate_live_input_unchanged
+        ),
         "clone_exit_code": clone_exit_code,
         "longpaths_config_exit_code": longpaths_config_exit_code,
         "longpaths_enabled_in_candidate": (
@@ -11328,6 +11652,36 @@ def validate_practical_final_validation(
     candidate_final_status_rows = isolation_report.get(
         "candidate_final_status_rows"
     )
+    fresh_apply_input_coverage = current_route_apply_input_coverage()
+    candidate_live_input_rows = isolation_report.get(
+        "candidate_live_ignored_input_rows_before"
+    )
+    expected_live_input_rows = isolation_report.get(
+        "live_ignored_input_rows_before"
+    )
+    candidate_live_input_binding_valid = (
+        isinstance(candidate_live_input_rows, list)
+        and isinstance(expected_live_input_rows, list)
+        and len(candidate_live_input_rows) == len(expected_live_input_rows)
+        == len(CURRENT_ROUTE_LIVE_IGNORED_INPUTS)
+        and all(
+            isinstance(candidate_row, dict)
+            and isinstance(live_row, dict)
+            and candidate_row.get("path") == live_row.get("path")
+            and candidate_row.get("role") == live_row.get("role")
+            and candidate_row.get("input_class")
+            == live_row.get("input_class")
+            and candidate_row.get("exists") is True
+            and candidate_row.get("sha256") == live_row.get("sha256")
+            and candidate_row.get("byte_length")
+            == live_row.get("byte_length")
+            and candidate_row.get("matches_live_bound_input") is True
+            for candidate_row, live_row in zip(
+                candidate_live_input_rows,
+                expected_live_input_rows,
+            )
+        )
+    )
     if (
         isolation_report.get("schema_version")
         != f"{SCHEMA_PREFIX}-current-route-isolation-report-v2"
@@ -11365,6 +11719,33 @@ def validate_practical_final_validation(
         or isolation_report.get("live_ignored_input_changed") is not False
         or isolation_report.get("live_ignored_input_rows_before")
         != isolation_report.get("live_ignored_input_rows_after")
+        or isolation_report.get(
+            "live_ignored_apply_input_coverage_before"
+        )
+        != fresh_apply_input_coverage
+        or isolation_report.get(
+            "live_ignored_apply_input_coverage_before"
+        )
+        != isolation_report.get(
+            "live_ignored_apply_input_coverage_after"
+        )
+        or isolation_report.get(
+            "live_ignored_apply_input_coverage_changed"
+        )
+        is not False
+        or fresh_apply_input_coverage.get("status") != "PASS"
+        or fresh_apply_input_coverage.get("blockers") != []
+        or not candidate_live_input_binding_valid
+        or isolation_report.get(
+            "candidate_live_ignored_input_rows_before"
+        )
+        != isolation_report.get(
+            "candidate_live_ignored_input_rows_after"
+        )
+        or isolation_report.get(
+            "candidate_live_ignored_input_changed"
+        )
+        is not False
         or isolation_report.get("candidate_result_sha256")
         != current_route_result_sha256
         or isolation_report.get("fixture_usage_partition_sha256")

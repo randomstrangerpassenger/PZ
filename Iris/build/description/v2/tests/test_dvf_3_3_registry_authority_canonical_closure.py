@@ -1052,6 +1052,77 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 for target in rollback_targets
             )
         )
+        apply_input_coverage = (
+            common.current_route_apply_input_coverage()
+        )
+        self.assertEqual(
+            apply_input_coverage["blockers"],
+            [],
+        )
+        self.assertEqual(apply_input_coverage["status"], "PASS")
+        self.assertEqual(
+            apply_input_coverage["apply_row_count"],
+            163,
+        )
+        self.assertEqual(
+            apply_input_coverage["source_row_counts"],
+            {
+                "tracked_checkout": 101,
+                "frozen_predecessor_input": 40,
+                "live_ignored_apply_input": 22,
+            },
+        )
+        self.assertEqual(
+            apply_input_coverage[
+                "live_ignored_apply_input_path_count"
+            ],
+            9,
+        )
+        expected_live_apply_inputs = {
+            common.repo_relative(path)
+            for path in common.CURRENT_ROUTE_LIVE_IGNORED_APPLY_INPUTS
+        }
+        self.assertEqual(
+            set(
+                apply_input_coverage[
+                    "live_ignored_apply_input_paths"
+                ]
+            ),
+            expected_live_apply_inputs,
+        )
+        (
+            live_input_rows,
+            projected_apply_input_coverage,
+            live_input_blockers,
+        ) = common.current_route_live_ignored_input_rows()
+        self.assertEqual(live_input_blockers, [])
+        self.assertEqual(
+            projected_apply_input_coverage,
+            apply_input_coverage,
+        )
+        self.assertEqual(
+            len(live_input_rows),
+            1 + len(expected_live_apply_inputs),
+        )
+        self.assertTrue(
+            all(
+                row["exists"]
+                and row["ignored"]
+                and not row["tracked"]
+                and row["copied_to_isolated_candidate_only"]
+                and not row["live_materialization_allowed"]
+                and not row["current_authority_claimed"]
+                and not row["package_authority_claimed"]
+                and not row["executable_fixture_claimed"]
+                for row in live_input_rows
+            )
+        )
+        self.assertTrue(
+            all(
+                not path.endswith((".py", ".ps1"))
+                for path in expected_live_apply_inputs
+            )
+        )
 
     def test_wp6_wp2_ledger_binding_rejects_truncated_jsonl(self) -> None:
         common = load_common_module()

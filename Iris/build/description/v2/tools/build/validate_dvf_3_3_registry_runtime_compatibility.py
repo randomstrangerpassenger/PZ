@@ -835,7 +835,17 @@ def command_required_gate(args: argparse.Namespace) -> int:
     manifest_path = Path(args.required_manifest).resolve()
     output_path = Path(args.out).resolve()
     contract = live_contract_from_manifest(manifest_path)
-    with tempfile.TemporaryDirectory(prefix="iris-rtc-required-gate-") as temporary:
+    required_gate_temp_root = (
+        V2_ROOT
+        / "staging"
+        / "dvf_3_3_registry_runtime_compatibility"
+        / "required-gate-temp"
+    )
+    required_gate_temp_root.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(
+        prefix="iris-rtc-required-gate-",
+        dir=required_gate_temp_root,
+    ) as temporary:
         package_data = (
             Path(temporary)
             / "Iris"

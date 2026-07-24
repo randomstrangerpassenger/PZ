@@ -8,6 +8,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 from unittest import mock
 import uuid
@@ -1017,6 +1018,67 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
             fixture_validation["archive_only_file_count"],
             2,
         )
+        fixture_environment_state = fixture_validation[
+            "isolated_environment_contract_state"
+        ]
+        self.assertIn(
+            fixture_environment_state,
+            {"absent", "exact"},
+        )
+        self.assertEqual(
+            fixture_validation["candidate_seed_expected_count"],
+            15,
+        )
+        self.assertEqual(
+            fixture_validation["candidate_seed_target_invalid_count"],
+            0,
+        )
+        if fixture_environment_state == "exact":
+            self.assertEqual(
+                fixture_validation["candidate_seed_target_policy"],
+                "isolated_payload_exact",
+            )
+            self.assertEqual(
+                fixture_validation[
+                    "candidate_seed_target_present_count"
+                ],
+                15,
+            )
+            self.assertEqual(
+                fixture_validation[
+                    "candidate_seed_target_absent_count"
+                ],
+                0,
+            )
+            self.assertEqual(
+                fixture_validation[
+                    "candidate_seed_target_exact_match_count"
+                ],
+                15,
+            )
+        else:
+            self.assertEqual(
+                fixture_validation["candidate_seed_target_policy"],
+                "strict_absence",
+            )
+            self.assertEqual(
+                fixture_validation[
+                    "candidate_seed_target_present_count"
+                ],
+                0,
+            )
+            self.assertEqual(
+                fixture_validation[
+                    "candidate_seed_target_absent_count"
+                ],
+                15,
+            )
+            self.assertEqual(
+                fixture_validation[
+                    "candidate_seed_target_exact_match_count"
+                ],
+                0,
+            )
         self.assertEqual(
             fixture_validation["usage_partition_sha256"],
             common.CURRENT_ROUTE_FROZEN_FIXTURE_USAGE_PARTITION_SHA256,
@@ -1127,6 +1189,212 @@ class RegistryAuthorityCanonicalClosureImplementationTest(unittest.TestCase):
                 for path in expected_live_apply_inputs
             )
         )
+
+    def test_frozen_fixture_isolated_materialization_contract_fails_closed(
+        self,
+    ) -> None:
+        common = load_common_module()
+        with tempfile.TemporaryDirectory() as temporary:
+            temporary_repo = Path(temporary) / "repo"
+            fixture_root = (
+                temporary_repo
+                / "Iris"
+                / "build"
+                / "description"
+                / "v2"
+                / "frozen_predecessor_inputs"
+                / ROUND_ID
+                / "current_route"
+            )
+            shutil.copytree(
+                common.CURRENT_ROUTE_FROZEN_FIXTURE_ROOT,
+                fixture_root,
+            )
+            isolated_temp_root = temporary_repo / ".dvf_tmp"
+            isolated_temp_root.mkdir(parents=True)
+            manifest = common.read_json_object(
+                fixture_root / "manifest.json"
+            )
+            candidate_seed_payloads = set(
+                manifest["candidate_seed_payload_paths"]
+            )
+            candidate_seed_rows = [
+                row
+                for row in manifest["rows"]
+                if row["payload_path"] in candidate_seed_payloads
+            ]
+            for row in candidate_seed_rows:
+                source = fixture_root.joinpath(
+                    *Path(row["payload_path"]).parts
+                )
+                target = temporary_repo.joinpath(
+                    *Path(row["target_path"]).parts
+                )
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(source, target)
+
+            exact_environment = {
+                common.CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV: "1",
+                common.CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV: str(
+                    isolated_temp_root
+                ),
+            }
+            with mock.patch.dict(
+                common.os.environ,
+                exact_environment,
+                clear=True,
+            ):
+                exact = common.current_route_frozen_fixture_validation(
+                    temporary_repo
+                )
+            self.assertEqual(exact["status"], "PASS")
+            self.assertEqual(
+                exact["isolated_environment_contract_state"],
+                "exact",
+            )
+            self.assertEqual(
+                exact["candidate_seed_target_present_count"],
+                15,
+            )
+            self.assertEqual(
+                exact["candidate_seed_target_exact_match_count"],
+                15,
+            )
+
+            invalid_environments = (
+                {},
+                {
+                    common.CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV: "1",
+                },
+                {
+                    common.CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV: str(
+                        isolated_temp_root
+                    ),
+                },
+                {
+                    common.CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV: "0",
+                    common.CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV: str(
+                        isolated_temp_root
+                    ),
+                },
+                {
+                    common.CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV: "1",
+                    common.CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV: (
+                        ".dvf_tmp"
+                    ),
+                },
+                {
+                    common.CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV: "1",
+                    common.CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV: str(
+                        temporary_repo / "sibling"
+                    ),
+                },
+            )
+            for environment in invalid_environments:
+                with self.subTest(environment=environment):
+                    with mock.patch.dict(
+                        common.os.environ,
+                        environment,
+                        clear=True,
+                    ):
+                        invalid = (
+                            common.current_route_frozen_fixture_validation(
+                                temporary_repo
+                            )
+                        )
+                    self.assertEqual(invalid["status"], "FAIL")
+                    self.assertNotEqual(
+                        invalid["candidate_seed_target_policy"],
+                        "isolated_payload_exact",
+                    )
+
+            seed_row = candidate_seed_rows[0]
+            seed_payload = fixture_root.joinpath(
+                *Path(seed_row["payload_path"]).parts
+            )
+            seed_target = temporary_repo.joinpath(
+                *Path(seed_row["target_path"]).parts
+            )
+            seed_target.unlink()
+            with mock.patch.dict(
+                common.os.environ,
+                exact_environment,
+                clear=True,
+            ):
+                missing = (
+                    common.current_route_frozen_fixture_validation(
+                        temporary_repo
+                    )
+                )
+            self.assertIn(
+                "current_route_frozen_fixture_seed_target_missing:"
+                + seed_row["target_path"],
+                missing["blockers"],
+            )
+            self.assertEqual(
+                missing["candidate_seed_target_invalid_count"],
+                1,
+            )
+            shutil.copyfile(seed_payload, seed_target)
+
+            seed_target.write_bytes(seed_target.read_bytes() + b"\n")
+            with mock.patch.dict(
+                common.os.environ,
+                exact_environment,
+                clear=True,
+            ):
+                modified = (
+                    common.current_route_frozen_fixture_validation(
+                        temporary_repo
+                    )
+                )
+            self.assertIn(
+                "current_route_frozen_fixture_seed_target_mismatch:"
+                + seed_row["target_path"],
+                modified["blockers"],
+            )
+            shutil.copyfile(seed_payload, seed_target)
+
+            seed_target.unlink()
+            seed_target.mkdir()
+            with mock.patch.dict(
+                common.os.environ,
+                exact_environment,
+                clear=True,
+            ):
+                directory = (
+                    common.current_route_frozen_fixture_validation(
+                        temporary_repo
+                    )
+                )
+            self.assertIn(
+                "current_route_frozen_fixture_seed_target_type_invalid:"
+                + seed_row["target_path"],
+                directory["blockers"],
+            )
+            seed_target.rmdir()
+            shutil.copyfile(seed_payload, seed_target)
+
+            symlink_stat = mock.Mock(
+                st_mode=common.stat.S_IFLNK,
+                st_file_attributes=0,
+            )
+            self.assertTrue(
+                common.lstat_is_reparse_or_symlink(symlink_stat)
+            )
+            reparse_mask = getattr(
+                common.stat,
+                "FILE_ATTRIBUTE_REPARSE_POINT",
+                0,
+            )
+            if reparse_mask:
+                reparse_stat = mock.Mock(
+                    st_mode=common.stat.S_IFREG,
+                    st_file_attributes=reparse_mask,
+                )
+                self.assertTrue(
+                    common.lstat_is_reparse_or_symlink(reparse_stat)
+                )
 
     def test_wp6_wp2_ledger_binding_rejects_truncated_jsonl(self) -> None:
         common = load_common_module()

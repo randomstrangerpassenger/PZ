@@ -11,6 +11,7 @@ import queue
 import re
 import secrets
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -4552,6 +4553,88 @@ def completion_fixture_paths() -> list[Path]:
     )
 
 
+def lstat_is_reparse_or_symlink(result: os.stat_result) -> bool:
+    reparse_mask = getattr(
+        stat,
+        "FILE_ATTRIBUTE_REPARSE_POINT",
+        0,
+    )
+    return stat.S_ISLNK(result.st_mode) or bool(
+        getattr(result, "st_file_attributes", 0) & reparse_mask
+    )
+
+
+def current_route_frozen_fixture_environment_contract(
+    repo_root: Path,
+) -> dict[str, Any]:
+    frozen_flag = os.environ.get(CURRENT_ROUTE_FROZEN_PREDECESSOR_ENV)
+    temp_root_value = os.environ.get(
+        CURRENT_ROUTE_ISOLATED_TEMP_ROOT_ENV
+    )
+    if frozen_flag is None and temp_root_value is None:
+        return {
+            "state": "absent",
+            "candidate_seed_target_policy": "strict_absence",
+            "temp_root_matches_repo": False,
+            "blockers": [],
+        }
+
+    blockers: list[str] = []
+    if frozen_flag != "1":
+        blockers.append(
+            "current_route_frozen_fixture_isolated_flag_invalid"
+        )
+    if not isinstance(temp_root_value, str) or not temp_root_value:
+        blockers.append(
+            "current_route_frozen_fixture_isolated_temp_root_missing"
+        )
+        temp_root: Path | None = None
+    else:
+        temp_root = Path(temp_root_value)
+        if not temp_root.is_absolute():
+            blockers.append(
+                "current_route_frozen_fixture_isolated_temp_root_relative"
+            )
+
+    expected_temp_root = repo_root / ".dvf_tmp"
+    temp_root_matches_repo = False
+    if temp_root is not None and temp_root.is_absolute():
+        try:
+            temp_root_matches_repo = (
+                temp_root.resolve() == expected_temp_root.resolve()
+            )
+        except OSError:
+            temp_root_matches_repo = False
+        if not temp_root_matches_repo:
+            blockers.append(
+                "current_route_frozen_fixture_isolated_temp_root_mismatch"
+            )
+        try:
+            temp_root_stat = lexical_filesystem_path(temp_root).lstat()
+        except OSError:
+            blockers.append(
+                "current_route_frozen_fixture_isolated_temp_root_unreadable"
+            )
+        else:
+            if (
+                not stat.S_ISDIR(temp_root_stat.st_mode)
+                or lstat_is_reparse_or_symlink(temp_root_stat)
+            ):
+                blockers.append(
+                    "current_route_frozen_fixture_isolated_temp_root_invalid"
+                )
+
+    exact = not blockers
+    return {
+        "state": "exact" if exact else "invalid",
+        "candidate_seed_target_policy": (
+            "isolated_payload_exact" if exact else "strict_absence"
+        ),
+        "temp_root_matches_repo": temp_root_matches_repo,
+        "blockers": sorted(set(blockers)),
+    }
+
+
 def current_route_frozen_fixture_validation(
     repo_root: Path = REPO_ROOT,
 ) -> dict[str, Any]:
@@ -4569,6 +4652,10 @@ def current_route_frozen_fixture_validation(
     manifest = read_json_object(manifest_path)
     rows = manifest.get("rows")
     blockers: list[str] = []
+    environment_contract = (
+        current_route_frozen_fixture_environment_contract(repo_root)
+    )
+    blockers.extend(environment_contract["blockers"])
     expected_fields = {
         "schema_version": (
             f"{SCHEMA_PREFIX}-frozen-predecessor-fixture-v1"
@@ -4648,6 +4735,11 @@ def current_route_frozen_fixture_validation(
         )
     observed_payload_paths: set[str] = set()
     observed_target_paths: set[str] = set()
+    candidate_seed_target_rows: list[dict[str, Any]] = []
+    candidate_seed_present_count = 0
+    candidate_seed_absent_count = 0
+    candidate_seed_exact_match_count = 0
+    candidate_seed_invalid_count = 0
     total_byte_length = 0
     for index, row in enumerate(rows):
         if not isinstance(row, dict):
@@ -4717,21 +4809,91 @@ def current_route_frozen_fixture_validation(
                     f"{target}"
                 )
         live_target = repo_root.joinpath(*target_path.parts)
-        if (
-            payload_relative
-            in usage_sets["candidate_seed_payload_paths"]
-            and (path_is_file(live_target) or path_is_dir(live_target))
-        ):
-            blockers.append(
-                f"current_route_frozen_fixture_live_target_present:{target}"
-            )
-        if (
-            payload_relative
-            in usage_sets["candidate_seed_payload_paths"]
-            and target_path.suffix.lower() in {".py", ".ps1"}
-        ):
-            blockers.append(
-                f"current_route_frozen_fixture_executable_seed_forbidden:{target}"
+        if payload_relative in usage_sets["candidate_seed_payload_paths"]:
+            if target_path.suffix.lower() in {".py", ".ps1"}:
+                blockers.append(
+                    "current_route_frozen_fixture_executable_seed_forbidden:"
+                    f"{target}"
+                )
+            target_present = path_lexists(live_target)
+            target_regular = False
+            target_reparse = False
+            target_sha256: str | None = None
+            target_byte_length: int | None = None
+            exact_payload_match = False
+            if target_present:
+                candidate_seed_present_count += 1
+                try:
+                    target_stat = lexical_filesystem_path(
+                        live_target
+                    ).lstat()
+                except OSError:
+                    candidate_seed_invalid_count += 1
+                    blockers.append(
+                        "current_route_frozen_fixture_seed_target_unreadable:"
+                        f"{target}"
+                    )
+                else:
+                    target_regular = stat.S_ISREG(target_stat.st_mode)
+                    target_reparse = lstat_is_reparse_or_symlink(
+                        target_stat
+                    )
+                    target_byte_length = target_stat.st_size
+                    if (
+                        target_regular
+                        and not target_reparse
+                        and environment_contract["state"] == "exact"
+                    ):
+                        target_sha256 = sha256_file(live_target)
+                        exact_payload_match = (
+                            target_sha256 == row.get("sha256")
+                            and target_sha256 == sha256_file(payload_path)
+                            and target_byte_length == byte_length
+                        )
+                    if environment_contract["state"] != "exact":
+                        candidate_seed_invalid_count += 1
+                        blockers.append(
+                            "current_route_frozen_fixture_live_target_present:"
+                            f"{target}"
+                        )
+                    elif not target_regular or target_reparse:
+                        candidate_seed_invalid_count += 1
+                        blockers.append(
+                            "current_route_frozen_fixture_seed_target_type_invalid:"
+                            f"{target}"
+                        )
+                    elif not exact_payload_match:
+                        candidate_seed_invalid_count += 1
+                        blockers.append(
+                            "current_route_frozen_fixture_seed_target_mismatch:"
+                            f"{target}"
+                        )
+                    else:
+                        candidate_seed_exact_match_count += 1
+            else:
+                candidate_seed_absent_count += 1
+                if environment_contract["state"] == "exact":
+                    candidate_seed_invalid_count += 1
+                    blockers.append(
+                        "current_route_frozen_fixture_seed_target_missing:"
+                        f"{target}"
+                    )
+            candidate_seed_target_rows.append(
+                {
+                    "target_path": target,
+                    "payload_path": payload_relative,
+                    "policy": environment_contract[
+                        "candidate_seed_target_policy"
+                    ],
+                    "present": target_present,
+                    "regular_file": target_regular,
+                    "reparse_or_symlink": target_reparse,
+                    "expected_sha256": row.get("sha256"),
+                    "target_sha256": target_sha256,
+                    "expected_byte_length": byte_length,
+                    "target_byte_length": target_byte_length,
+                    "exact_payload_match": exact_payload_match,
+                }
             )
         if (
             payload_relative
@@ -4748,6 +4910,32 @@ def current_route_frozen_fixture_validation(
         blockers.append(
             "current_route_frozen_fixture_total_byte_length_mismatch"
         )
+    candidate_seed_expected_count = len(
+        usage_sets["candidate_seed_payload_paths"]
+    )
+    if candidate_seed_expected_count != 15:
+        blockers.append(
+            "current_route_frozen_fixture_seed_expected_count_mismatch"
+        )
+    if environment_contract["state"] == "absent" and (
+        candidate_seed_present_count != 0
+        or candidate_seed_absent_count != candidate_seed_expected_count
+        or candidate_seed_exact_match_count != 0
+        or candidate_seed_invalid_count != 0
+    ):
+        blockers.append(
+            "current_route_frozen_fixture_strict_absence_mismatch"
+        )
+    if environment_contract["state"] == "exact" and (
+        candidate_seed_present_count != candidate_seed_expected_count
+        or candidate_seed_absent_count != 0
+        or candidate_seed_exact_match_count
+        != candidate_seed_expected_count
+        or candidate_seed_invalid_count != 0
+    ):
+        blockers.append(
+            "current_route_frozen_fixture_isolated_payload_mismatch"
+        )
     return {
         "schema_version": (
             f"{SCHEMA_PREFIX}-current-route-frozen-fixture-validation-v1"
@@ -4762,6 +4950,28 @@ def current_route_frozen_fixture_validation(
         "rows_sha256": canonical_hash(rows),
         "candidate_seed_file_count": len(
             usage_sets["candidate_seed_payload_paths"]
+        ),
+        "isolated_environment_contract_state": (
+            environment_contract["state"]
+        ),
+        "candidate_seed_target_policy": environment_contract[
+            "candidate_seed_target_policy"
+        ],
+        "candidate_seed_expected_count": candidate_seed_expected_count,
+        "candidate_seed_target_present_count": (
+            candidate_seed_present_count
+        ),
+        "candidate_seed_target_absent_count": (
+            candidate_seed_absent_count
+        ),
+        "candidate_seed_target_exact_match_count": (
+            candidate_seed_exact_match_count
+        ),
+        "candidate_seed_target_invalid_count": (
+            candidate_seed_invalid_count
+        ),
+        "candidate_seed_target_rows_sha256": canonical_hash(
+            candidate_seed_target_rows
         ),
         "normalization_source_file_count": len(
             usage_sets["normalization_source_payload_paths"]

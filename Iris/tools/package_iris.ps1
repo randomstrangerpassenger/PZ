@@ -237,6 +237,20 @@ if (-not (Test-Path -LiteralPath $registryCompatibilityValidator -PathType Leaf)
     throw "compatibility_blocked_required_dependency: validator is missing: $registryCompatibilityValidator"
 }
 
+$requiredGateReceiptPath = ''
+if ($RegistryCompatibilityRequiredGateState -eq 'live_gate_adopted') {
+    $requiredGateReceiptPath = if ([string]::IsNullOrWhiteSpace($RegistryCompatibilityReceipt)) {
+        Join-Path $outputRootFull 'registry_compatibility_required_gate_receipt.json'
+    } else {
+        (Get-FullPath $RegistryCompatibilityReceipt) + '.required.json'
+    }
+    Invoke-RegistryCompatibilityValidator -ValidatorArguments @(
+        '--required-gate',
+        '--required-manifest', $RegistryCompatibilityRequiredManifest,
+        '--out', $requiredGateReceiptPath
+    )
+}
+
 $contractReceiptPath = if ([string]::IsNullOrWhiteSpace($RegistryCompatibilityReceipt)) {
     Join-Path $outputRootFull 'registry_compatibility_contract_receipt.json'
 } else {
@@ -425,6 +439,7 @@ $manifest = [pscustomobject]@{
         probe = [bool]$RegistryCompatibilityProbe
         binding_manifest_sha256 = (Get-FileHash -LiteralPath $RegistryCompatibilityBindingManifest -Algorithm SHA256).Hash.ToLowerInvariant()
         contract_receipt = $contractReceiptPath
+        required_gate_receipt = $requiredGateReceiptPath
         surface_input_manifest = $surfaceInputPath
         guard_receipt = $resolvedCompatibilityReceipt
         guard_receipt_sha256 = (Get-FileHash -LiteralPath $resolvedCompatibilityReceipt -Algorithm SHA256).Hash.ToLowerInvariant()

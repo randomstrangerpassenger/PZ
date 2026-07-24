@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -120,19 +121,35 @@ def resolve_live_registry_compatibility_invocation(
     rendered_path: Path,
     report_path: Path,
 ) -> RegistryCompatibilityInvocation:
-    if not CURRENT_REQUIRED_VALIDATIONS.is_file():
+    candidate_probe = os.environ.get("IRIS_RTC_CANDIDATE_MANIFEST_PROBE") == "1"
+    candidate_manifest = os.environ.get("IRIS_RTC_REQUIRED_MANIFEST")
+    selected_manifest = (
+        Path(candidate_manifest).resolve()
+        if candidate_probe and candidate_manifest
+        else CURRENT_REQUIRED_VALIDATIONS
+    )
+    if not selected_manifest.is_file():
         raise BridgeExportContractError(
             "compatibility_policy_context_required: live required-validation "
             "manifest is missing"
         )
-    manifest = load_json(CURRENT_REQUIRED_VALIDATIONS)
+    manifest = load_json(selected_manifest)
     selection = manifest.get("registry_runtime_compatibility")
     if not isinstance(selection, dict):
         raise BridgeExportContractError(
             "compatibility_policy_context_required: live required-validation "
             "manifest has no Registry Runtime Compatibility selection"
         )
-    if selection.get("policy_lifecycle_state") != "live_required_gate_adopted":
+    candidate_state_valid = (
+        candidate_probe
+        and selection.get("candidate_manifest_probe") is True
+        and selection.get("policy_lifecycle_state")
+        == "package_guard_active_not_required_gate_adopted"
+    )
+    if (
+        selection.get("policy_lifecycle_state") != "live_required_gate_adopted"
+        and not candidate_state_valid
+    ):
         raise BridgeExportContractError(
             "compatibility_policy_context_required: selected policy is not "
             "live-gate adopted"
@@ -175,8 +192,8 @@ def resolve_live_registry_compatibility_invocation(
             "policy_sha256": sha256_file(policy_path),
             "disposition_path": str(disposition_path),
             "disposition_sha256": sha256_file(disposition_path),
-            "required_manifest_path": str(CURRENT_REQUIRED_VALIDATIONS),
-            "required_manifest_sha256": sha256_file(CURRENT_REQUIRED_VALIDATIONS),
+            "required_manifest_path": str(selected_manifest),
+            "required_manifest_sha256": sha256_file(selected_manifest),
         },
     )
     return RegistryCompatibilityInvocation(
@@ -186,7 +203,11 @@ def resolve_live_registry_compatibility_invocation(
         binding_manifest_path=binding_path,
         bridge_preflight_input_manifest=input_path,
         bridge_preflight_receipt=receipt_path,
-        resolution_mode="post_adoption_live_manifest_default",
+        resolution_mode=(
+            "candidate_required_manifest_override"
+            if candidate_state_valid
+            else "post_adoption_live_manifest_default"
+        ),
     )
 
 

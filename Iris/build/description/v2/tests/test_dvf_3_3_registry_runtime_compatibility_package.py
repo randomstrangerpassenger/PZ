@@ -21,6 +21,7 @@ class RegistryRuntimeCompatibilityPackageTest(unittest.TestCase):
             "RegistryCompatibilityRequiredGateState",
             "RegistryCompatibilityProbe",
             "RegistryCompatibilityReceipt",
+            "--required-gate",
             "--surface-validation",
         ):
             self.assertIn(token, text)

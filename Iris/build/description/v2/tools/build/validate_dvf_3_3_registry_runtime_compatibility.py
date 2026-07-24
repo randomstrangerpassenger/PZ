@@ -33,6 +33,19 @@ REQUIRED_ROLES = {
     "collision_owner_disposition",
     "phase0_contract_review",
 }
+PROMOTION_ROLES = {
+    "policy",
+    "exclusion",
+    "disposition",
+    "plan_contract_approval",
+    "collision_owner_disposition",
+    "phase0_contract_review",
+    "candidate_binding",
+    "package_guard_contract",
+    "implementation_toolchain",
+    "pre_promotion_toolchain_freshness",
+    "pre_adoption_machine_result",
+}
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -49,6 +62,223 @@ def read_json(path: Path) -> dict[str, Any]:
             f"JSON root must be an object: {path}",
         )
     return value
+
+
+def validate_toolchain_freshness(path: Path) -> dict[str, Any]:
+    manifest = read_json(path)
+    rows = manifest.get("rows")
+    if (
+        manifest.get("schema_version")
+        != "rtc-implementation-toolchain-manifest-v1"
+        or not isinstance(rows, list)
+        or manifest.get("row_count") != len(rows)
+        or manifest.get("unclassified_tool_dependency_count") != 0
+    ):
+        raise rtc.CompatibilityError(
+            "implementation_toolchain_manifest_invalid",
+            "Durable implementation toolchain manifest is incomplete",
+        )
+    drift: list[str] = []
+    missing: list[str] = []
+    untracked: list[str] = []
+    ignored: list[str] = []
+    for row in rows:
+        relative = str(row.get("path", ""))
+        current = contained_relative(REPO_ROOT, relative)
+        if not current.is_file():
+            missing.append(relative)
+            continue
+        if (
+            current.stat().st_size != row.get("byte_count")
+            or rtc.sha256_file(current) != row.get("sha256")
+        ):
+            drift.append(relative)
+        if row.get("tracked") is not True or not rtc.git_tracked(
+            REPO_ROOT,
+            current,
+        ):
+            untracked.append(relative)
+        if (
+            row.get("not_ignored") is not True
+            or rtc.git_ignored(REPO_ROOT, [relative])
+        ):
+            ignored.append(relative)
+    if drift or missing or untracked or ignored:
+        raise rtc.CompatibilityError(
+            "implementation_toolchain_freshness_failed",
+            "Required-gate toolchain drift: "
+            f"drift={drift}, missing={missing}, untracked={untracked}, "
+            f"ignored={ignored}",
+        )
+    return {
+        "implementation_toolchain_manifest_sha256": rtc.sha256_file(path),
+        "implementation_toolchain_row_count": len(rows),
+        "implementation_toolchain_drift_count": 0,
+        "required_tool_missing_count": 0,
+        "required_tool_untracked_count": 0,
+        "required_tool_ignored_count": 0,
+        "unclassified_tool_dependency_count": 0,
+    }
+
+
+def validate_durable_bundle(
+    *,
+    bundle_root: Path,
+    bundle_manifest_path: Path,
+    selection: dict[str, Any],
+    expected_lifecycle_state: str,
+) -> dict[str, Any]:
+    manifest = read_json(bundle_manifest_path)
+    rows = manifest.get("rows")
+    bundle_id = str(selection.get("bundle_id", ""))
+    if (
+        manifest.get("schema_version") != "rtc-durable-bundle-manifest-v1"
+        or manifest.get("bundle_id") != bundle_id
+        or bundle_root.name != bundle_id
+        or manifest.get("promotion_role_count") != 11
+        or not isinstance(rows, list)
+        or len(rows) != 11
+        or manifest.get("all_source_destination_bytes_equal") is not True
+    ):
+        raise rtc.CompatibilityError(
+            "durable_bundle_manifest_invalid",
+            "Selected durable bundle does not satisfy the eleven-role contract",
+        )
+    roles = {row.get("role") for row in rows}
+    destinations = [str(row.get("destination_path", "")) for row in rows]
+    if roles != PROMOTION_ROLES or len(set(destinations)) != 11:
+        raise rtc.CompatibilityError(
+            "durable_bundle_role_set_invalid",
+            "Selected durable bundle roles or destinations differ",
+        )
+    if (
+        not rtc.git_tracked(REPO_ROOT, bundle_manifest_path)
+        or rtc.git_ignored(
+            REPO_ROOT,
+            [rtc.normalized_relative(REPO_ROOT, bundle_manifest_path)],
+        )
+    ):
+        raise rtc.CompatibilityError(
+            "durable_bundle_manifest_visibility_invalid",
+            "Selected durable bundle manifest must be tracked and not ignored",
+        )
+    for row in rows:
+        destination = contained_relative(
+            bundle_root,
+            str(row["destination_path"]),
+        )
+        relative = rtc.normalized_relative(REPO_ROOT, destination)
+        if (
+            not destination.is_file()
+            or destination.stat().st_size != row.get("byte_count")
+            or rtc.sha256_file(destination) != row.get("destination_sha256")
+            or row.get("source_sha256") != row.get("destination_sha256")
+            or row.get("byte_parity") is not True
+        ):
+            raise rtc.CompatibilityError(
+                "durable_bundle_destination_drift",
+                f"Durable bundle destination differs: {destination}",
+            )
+        if (
+            not rtc.git_tracked(REPO_ROOT, destination)
+            or rtc.git_ignored(REPO_ROOT, [relative])
+        ):
+            raise rtc.CompatibilityError(
+                "durable_bundle_destination_visibility_invalid",
+                f"Durable bundle destination is not tracked and visible: {destination}",
+            )
+    lifecycle_ledger = (
+        REPO_ROOT
+        / "Iris"
+        / "_docs"
+        / "round3"
+        / "registry_runtime_compatibility"
+        / "bundle_lifecycle_events.jsonl"
+    )
+    if (
+        not lifecycle_ledger.is_file()
+        or not rtc.git_tracked(REPO_ROOT, lifecycle_ledger)
+        or rtc.git_ignored(
+            REPO_ROOT,
+            [rtc.normalized_relative(REPO_ROOT, lifecycle_ledger)],
+        )
+    ):
+        raise rtc.CompatibilityError(
+            "bundle_lifecycle_ledger_visibility_invalid",
+            "Bundle lifecycle ledger must be tracked and not ignored",
+        )
+    previous_hash = "0" * 64
+    selected_events: list[dict[str, Any]] = []
+    for sequence, raw_line in enumerate(
+        lifecycle_ledger.read_bytes().splitlines(keepends=True),
+        1,
+    ):
+        if not raw_line.endswith(b"\n"):
+            raise rtc.CompatibilityError(
+                "bundle_lifecycle_truncated_line",
+                f"Bundle lifecycle event {sequence} lacks LF",
+            )
+        event = json.loads(raw_line.decode("utf-8"))
+        if (
+            event.get("event_sequence") != sequence
+            or event.get("previous_event_sha256") != previous_hash
+        ):
+            raise rtc.CompatibilityError(
+                "bundle_lifecycle_hash_chain_break",
+                f"Bundle lifecycle event chain broke at {sequence}",
+            )
+        record_path = contained_relative(
+            REPO_ROOT,
+            str(event.get("record_path", "")),
+        )
+        record = read_json(record_path)
+        if (
+            not record_path.is_file()
+            or rtc.sha256_file(record_path) != event.get("record_sha256")
+            or record.get("bundle_id") != event.get("bundle_id")
+            or record.get("current_state") != event.get("current_state")
+            or record.get("previous_event_sha256") != previous_hash
+            or (
+                event.get("bundle_id") == bundle_id
+                and record.get("bundle_manifest_sha256")
+                != selection.get("bundle_manifest_sha256")
+            )
+        ):
+            raise rtc.CompatibilityError(
+                "bundle_lifecycle_record_mismatch",
+                f"Bundle lifecycle record differs at event {sequence}",
+            )
+        if (
+            not rtc.git_tracked(REPO_ROOT, record_path)
+            or rtc.git_ignored(
+                REPO_ROOT,
+                [rtc.normalized_relative(REPO_ROOT, record_path)],
+            )
+        ):
+            raise rtc.CompatibilityError(
+                "bundle_lifecycle_record_visibility_invalid",
+                f"Bundle lifecycle record is not tracked and visible: {record_path}",
+            )
+        if event.get("bundle_id") == bundle_id:
+            selected_events.append(event)
+        previous_hash = rtc.sha256_bytes(raw_line)
+    if (
+        not selected_events
+        or selected_events[-1].get("current_state") != expected_lifecycle_state
+    ):
+        raise rtc.CompatibilityError(
+            "bundle_lifecycle_state_mismatch",
+            "Selected bundle does not have the required latest lifecycle state",
+        )
+    toolchain = validate_toolchain_freshness(
+        bundle_root / "implementation_toolchain_manifest.json"
+    )
+    return {
+        **toolchain,
+        "durable_bundle_role_count": len(rows),
+        "durable_bundle_lifecycle_state": expected_lifecycle_state,
+        "durable_bundle_lifecycle_event_count": len(selected_events),
+    }
 
 
 def contained_relative(base: Path, relative: str) -> Path:
@@ -215,11 +445,42 @@ def validate_binding_contract(
             "disposition_owner_record_hash_mismatch",
             "Disposition does not bind the candidate owner authority bytes",
         )
+    approval = read_json(resolved_by_role["plan_contract_approval"])
+    owner = read_json(owner_path)
     review = read_json(resolved_by_role["phase0_contract_review"])
-    if review.get("verdict") != "PASS":
+    if (
+        approval.get("record_state") != "issued"
+        or approval.get("owner_explicitly_approved") is not True
+        or approval.get("governance_bootstrap_allowed") is not True
+        or approval.get("mutable_current_authority_pointer_used") is not False
+        or approval.get("technical_failure_waiver_allowed") is not False
+        or approval.get("final_plan_review_reviewer_closeout_eligible") is not False
+    ):
+        raise rtc.CompatibilityError(
+            "plan_approval_contract_invalid",
+            "Selected plan approval does not preserve fixed owner contracts",
+        )
+    if (
+        owner.get("decision") != "approve_bounded_non_resolving_roles"
+        or owner.get("authority_chain_state") != "unique_head"
+        or owner.get("comparison_algorithm") != "ascii_lower_v1"
+        or owner.get("role_contract", {}).get("role_resolution_power") != "none"
+    ):
+        raise rtc.CompatibilityError(
+            "collision_owner_authority_invalid",
+            "Selected collision owner record is not the unique bounded head",
+        )
+    if (
+        review.get("verdict") != "PASS"
+        or review.get("authority_chain_state") != "unique_head"
+        or review.get("final_independent_review_eligible") is not False
+        or review.get("review_checks", {}).get("technical_failure_count") != 0
+        or review.get("review_checks", {}).get("implementation_blocker_count")
+        != 0
+    ):
         raise rtc.CompatibilityError(
             "review2_verdict_not_pass",
-            "Candidate Review 2 authority is not PASS",
+            "Candidate Review 2 authority is not an eligible unique PASS head",
         )
     return {
         "policy_context": policy_context,
@@ -524,7 +785,15 @@ def live_contract_from_manifest(path: Path) -> dict[str, Any]:
             "compatibility_policy_context_required",
             "Live required manifest has no registry compatibility selection",
         )
-    if row.get("policy_lifecycle_state") != "live_required_gate_adopted":
+    is_candidate_probe = (
+        row.get("candidate_manifest_probe") is True
+        and row.get("policy_lifecycle_state")
+        == "package_guard_active_not_required_gate_adopted"
+    )
+    if (
+        row.get("policy_lifecycle_state") != "live_required_gate_adopted"
+        and not is_candidate_probe
+    ):
         raise rtc.CompatibilityError(
             "compatibility_policy_context_required",
             "Registry compatibility selection is not live-gate adopted",
@@ -539,6 +808,17 @@ def live_contract_from_manifest(path: Path) -> dict[str, Any]:
             "live_bundle_manifest_hash_mismatch",
             "Live required manifest does not bind durable bundle bytes",
         )
+    lifecycle_state = (
+        "package_guard_active_not_required_gate_adopted"
+        if is_candidate_probe
+        else "live_required_gate_adopted"
+    )
+    durable_validation = validate_durable_bundle(
+        bundle_root=bundle_root,
+        bundle_manifest_path=manifest_path,
+        selection=row,
+        expected_lifecycle_state=lifecycle_state,
+    )
     return {
         "bundle_root": bundle_root,
         "policy": bundle_root / "registry_runtime_compatibility_policy.json",
@@ -546,6 +826,8 @@ def live_contract_from_manifest(path: Path) -> dict[str, Any]:
         "binding": bundle_root / "candidate_contract_binding_manifest.json",
         "bundle_manifest": manifest_path,
         "row": row,
+        "candidate_probe": is_candidate_probe,
+        "durable_validation": durable_validation,
     }
 
 
@@ -636,12 +918,21 @@ def command_required_gate(args: argparse.Namespace) -> int:
         manifest_path,
     )
     report["required_manifest_sha256"] = rtc.sha256_file(manifest_path)
-    report["resolution_mode"] = "post_adoption_live_manifest_default"
+    report["resolution_mode"] = (
+        "candidate_required_manifest_override"
+        if contract["candidate_probe"]
+        else "post_adoption_live_manifest_default"
+    )
     report["selected_durable_bundle_id"] = contract["row"].get("bundle_id")
     report["selected_bundle_manifest_sha256"] = contract["row"].get(
         "bundle_manifest_sha256"
     )
-    report["required_gate_state"] = "live_gate_adopted"
+    report["required_gate_state"] = (
+        "not_adopted" if contract["candidate_probe"] else "live_gate_adopted"
+    )
+    if contract["candidate_probe"]:
+        report["candidate_manifest_route_status"] = "PASS"
+    report.update(contract["durable_validation"])
     rtc.write_json(output_path, report)
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))
     return 0 if report["status"] == "PASS" else 2

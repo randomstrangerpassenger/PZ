@@ -13,6 +13,19 @@ from tools.build import dvf_3_3_registry_runtime_compatibility as rtc
 
 
 class RegistryRuntimeCompatibilityContractTest(unittest.TestCase):
+    def test_promotion_staging_uses_short_same_volume_path(self) -> None:
+        runner = (
+            V2_ROOT
+            / "tools"
+            / "build"
+            / "run_dvf_3_3_registry_runtime_compatibility.py"
+        ).read_text(encoding="utf-8")
+        self.assertIn(
+            'REPO_ROOT / "Iris" / "build" / ".rtc-promotion-staging"',
+            runner,
+        )
+        self.assertNotIn('phase5 / "promotion-staging"', runner)
+
     def test_route_class_enum_is_closed(self) -> None:
         self.assertEqual(
             rtc.ROUTE_CLASSES,

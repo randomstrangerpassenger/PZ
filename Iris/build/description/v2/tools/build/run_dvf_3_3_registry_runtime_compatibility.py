@@ -1360,7 +1360,11 @@ def command_phase5_promote(args: argparse.Namespace) -> int:
             "durable_bundle_destination_exists",
             f"Unexpected existing durable bundle: {durable_root}",
         )
-    staging_root = phase5 / "promotion-staging" / bundle_id
+    # Keep the transient tree short enough for Windows APIs while preserving a
+    # same-volume atomic directory rename into the durable round namespace.
+    staging_root = (
+        REPO_ROOT / "Iris" / "build" / ".rtc-promotion-staging" / bundle_id
+    )
     if staging_root.exists():
         shutil.rmtree(staging_root)
     for role, source, destination in sources:

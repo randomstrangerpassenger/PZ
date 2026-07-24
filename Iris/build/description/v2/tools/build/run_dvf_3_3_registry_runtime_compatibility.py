@@ -272,6 +272,7 @@ def toolchain_roots() -> list[tuple[Path, str]]:
         (LUA_HARNESS, "lua_merge_harness"),
         (LUA_SYNTAX, "lua_syntax_checker"),
         (ACTIVE_CORE_CLOSURE, "active_core_closure_no_mutation_guard"),
+        (REPO_ROOT / ".gitattributes", "vcs_byte_stability_contract"),
         *[(path, "focused_compatibility_test") for path in REQUIRED_TESTS],
         (
             TEST_ROOT

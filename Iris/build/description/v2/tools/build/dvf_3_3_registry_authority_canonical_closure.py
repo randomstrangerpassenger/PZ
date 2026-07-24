@@ -153,6 +153,57 @@ PRACTICAL_CORRECTION_INPUT = (
     / "attempt_registrations"
     / "current_session_practical_post_adoption_correction_record.json"
 )
+PRACTICAL_VERIFIER_CORRECTION_ATTEMPT_ID = "attempt-0038-practical"
+PRACTICAL_VERIFIER_CORRECTION_ALLOWED_PATHS = (
+    "Iris/build/description/v2/tools/build/"
+    "dvf_3_3_registry_authority_canonical_closure.py",
+)
+PRACTICAL_VERIFIER_CORRECTION_POST_BINDING_PATHS = (
+    "phase5/verifier_correction/post_matrix_validation_audit.json",
+    "phase5/verifier_correction/correction_binding.json",
+    "phase5/external/practical_closeout_review.md",
+    "phase5/closeout_review_materialization_report.json",
+    "phase5/external/practical_owner_seal.json",
+    "phase5/owner_seal_materialization_report.json",
+    "phase5/final_registry_authority_closure_report.json",
+    "phase5/terminal_hash_seal.json",
+)
+PRACTICAL_VERIFIER_CORRECTION_ANCHORS = {
+    "execution_freeze_head": "d9cda876ab9287b605c214e2b1485a2951d46d3b",
+    "execution_freeze_code_state_sha256": (
+        "363fae8b53a50099c26fed5fb2e52c0f0140ed53511c46c54760f0cf9f7f9266"
+    ),
+    "final_command_matrix_sha256": (
+        "709d6af58ca9a86b59fc9c7f7bb3b584b08bb5cb2a9c94b1afb520a318aee16a"
+    ),
+    "current_route_receipt_sha256": (
+        "c7d2304cbbee0b14a7f06811ac712c57d4d650ddc3b45d1ce42a7b109d5368a3"
+    ),
+    "current_route_result_sha256": (
+        "34504bbbbb20925b74ebc8fe55d6caf563bceb30a6410d34a5f28b7a6338d95b"
+    ),
+    "current_route_isolation_report_sha256": (
+        "8967fa26c0fa9b028653ac8f9880b8b472b8aed779b29e55dc126bf89d500688"
+    ),
+    "final_artifact_hash_manifest_sha256": (
+        "94f0808d1292b8438dc8cceffc3f2b095d27fa4388607bcb549f38db622f1157"
+    ),
+    "machine_closure_candidate_report_sha256": (
+        "dc5765b7d64b1dfc9558b9e5b84fb79d0fe115851d19aad911a41e35a14d2fe6"
+    ),
+    "adoption_report_sha256": (
+        "23fcffb617316d055fc9125c6d621ddc43ef91a5fdf286e711c16e308dd0bc12"
+    ),
+    "nonce_consumption_sha256": (
+        "c0b81b54a66219051bdf6e39c6a5f3ceb2268468e2c11b4805d9dfad5dd1d17b"
+    ),
+    "post_matrix_validation_audit_sha256": (
+        "ef156917edb29edfe3701571c80677c01dc57b3c47bf388e557be306b540a9a3"
+    ),
+    "nonce": (
+        "8f9b0c1ead4143f9605026045edf642ff7f8e9a452abde0d70eb5bcd1c5d6036"
+    ),
+}
 INDEPENDENT_REVIEW_INPUT = (
     OWNER_INPUT_ROOT / "independent_reviews" / "current_session_independent_closeout_review.md"
 )
@@ -11049,6 +11100,7 @@ def isolated_current_route_command_record(
     record["current_route_result_path"] = (
         repo_relative(live_output) if output_copied_once else None
     )
+    record["candidate_result_sha256"] = candidate_result_sha256
     record["current_route_result_sha256"] = sha256_file(live_output)
     return record
 
@@ -11613,6 +11665,478 @@ def run_practical_final_validation(
     return matrix
 
 
+def practical_verifier_correction_paths(root: Path) -> dict[str, Path]:
+    phase5 = root / "phase5"
+    nonce = PRACTICAL_VERIFIER_CORRECTION_ANCHORS["nonce"]
+    return {
+        "matrix": phase5 / "final_command_matrix_report.json",
+        "receipt": (
+            phase5
+            / "command_receipts"
+            / "04_current_route_required_regressions.json"
+        ),
+        "result": phase5 / "current_route_validation_result.json",
+        "isolation": phase5 / "current_route_isolation_report.json",
+        "artifact": phase5 / "final_artifact_hash_manifest.json",
+        "machine": phase5 / "machine_closure_candidate_report.json",
+        "adoption": (
+            root / "phase4" / "gate_adoption" / "adoption_report.json"
+        ),
+        "nonce_consumption": (
+            root
+            / "phase4"
+            / "gate_adoption"
+            / "nonce_consumption"
+            / f"{nonce}.json"
+        ),
+        "audit": (
+            phase5
+            / "verifier_correction"
+            / "post_matrix_validation_audit.json"
+        ),
+        "binding": (
+            phase5 / "verifier_correction" / "correction_binding.json"
+        ),
+    }
+
+
+def practical_verifier_correction_evidence_rows(
+    root: Path,
+) -> list[dict[str, str | None]]:
+    rows = directory_file_rows(root)
+    if rows is None:
+        return []
+    excluded = set(PRACTICAL_VERIFIER_CORRECTION_POST_BINDING_PATHS)
+    return [
+        {
+            "path": str(row["path"]),
+            "sha256": row["sha256"],
+        }
+        for row in rows
+        if row["path"] not in excluded
+    ]
+
+
+def practical_verifier_correction_patch_rows(
+    *,
+    execution_head: str,
+    corrected_head: str,
+) -> list[dict[str, Any]]:
+    return [
+        {
+            "path": path,
+            "before_sha256": git_blob_sha256(execution_head, path),
+            "after_sha256": git_blob_sha256(corrected_head, path),
+        }
+        for path in PRACTICAL_VERIFIER_CORRECTION_ALLOWED_PATHS
+    ]
+
+
+def practical_verifier_correction_audit_validation(
+    root: Path,
+) -> dict[str, Any]:
+    paths = practical_verifier_correction_paths(root)
+    audit_present = path_is_file(paths["audit"])
+    binding_present = path_is_file(paths["binding"])
+    if root.name != PRACTICAL_VERIFIER_CORRECTION_ATTEMPT_ID:
+        blockers = []
+        if audit_present or binding_present:
+            blockers.append(
+                "practical_verifier_correction_unexpected_for_attempt"
+            )
+        return {
+            "status": "NOT_APPLICABLE" if not blockers else "FAIL",
+            "blockers": blockers,
+            "audit_present": audit_present,
+            "binding_present": binding_present,
+        }
+
+    anchors = PRACTICAL_VERIFIER_CORRECTION_ANCHORS
+    blockers: list[str] = []
+    for key, anchor_key in (
+        ("matrix", "final_command_matrix_sha256"),
+        ("receipt", "current_route_receipt_sha256"),
+        ("result", "current_route_result_sha256"),
+        ("isolation", "current_route_isolation_report_sha256"),
+        ("artifact", "final_artifact_hash_manifest_sha256"),
+        ("machine", "machine_closure_candidate_report_sha256"),
+        ("adoption", "adoption_report_sha256"),
+        ("nonce_consumption", "nonce_consumption_sha256"),
+        ("audit", "post_matrix_validation_audit_sha256"),
+    ):
+        if sha256_file(paths[key]) != anchors[anchor_key]:
+            blockers.append(
+                f"practical_verifier_correction_anchor_drift:{key}"
+            )
+
+    matrix = read_json_object(paths["matrix"])
+    receipt = read_json_object(paths["receipt"])
+    result_sha256 = sha256_file(paths["result"])
+    isolation = read_json_object(paths["isolation"])
+    artifact = read_json_object(paths["artifact"])
+    machine = read_json_object(paths["machine"])
+    adoption = read_json_object(paths["adoption"])
+    nonce_consumption = read_json_object(paths["nonce_consumption"])
+    audit = read_json_object(paths["audit"])
+    result_projection = anchors["current_route_result_sha256"]
+
+    if (
+        matrix.get("status") != "PASS"
+        or matrix.get("pass_count") != 7
+        or matrix.get("fail_count") != 0
+        or matrix.get("not_run_count") != 0
+        or matrix.get("implementation_freeze_head")
+        != anchors["execution_freeze_head"]
+        or matrix.get("implementation_freeze_code_state_sha256")
+        != anchors["execution_freeze_code_state_sha256"]
+    ):
+        blockers.append("practical_verifier_correction_matrix_invalid")
+    if (
+        receipt.get("status") != "PASS"
+        or "candidate_result_sha256" in receipt
+        or receipt.get("current_route_result_sha256") != result_projection
+    ):
+        blockers.append("practical_verifier_correction_receipt_invalid")
+    if (
+        isolation.get("status") != "PASS"
+        or isolation.get("candidate_result_sha256") != result_projection
+        or isolation.get("candidate_discarded") is not True
+        or isolation.get("candidate_mutation_contained") is not True
+    ):
+        blockers.append("practical_verifier_correction_isolation_invalid")
+    if (
+        artifact.get("status") != "PASS"
+        or artifact.get("current_route_validation_result_sha256")
+        != result_projection
+        or artifact.get("current_route_isolation_report_sha256")
+        != anchors["current_route_isolation_report_sha256"]
+        or artifact.get("final_command_matrix_sha256")
+        != anchors["final_command_matrix_sha256"]
+    ):
+        blockers.append("practical_verifier_correction_artifact_invalid")
+    if (
+        machine.get("status")
+        != "machine_pass_pending_external_review_and_owner_seal"
+        or machine.get("final_command_matrix_sha256")
+        != anchors["final_command_matrix_sha256"]
+        or machine.get("final_artifact_hash_manifest_sha256")
+        != anchors["final_artifact_hash_manifest_sha256"]
+    ):
+        blockers.append("practical_verifier_correction_machine_invalid")
+    if (
+        adoption.get("status") != "PASS"
+        or adoption.get("nonce") != anchors["nonce"]
+        or adoption.get("gate_rewritten") is not False
+        or adoption.get("protected_surface_changed_count") != 0
+    ):
+        blockers.append("practical_verifier_correction_adoption_invalid")
+    if (
+        nonce_consumption.get("status") != "CONSUMED"
+        or nonce_consumption.get("nonce") != anchors["nonce"]
+        or nonce_consumption.get("same_nonce_reuse_allowed") is not False
+    ):
+        blockers.append(
+            "practical_verifier_correction_nonce_consumption_invalid"
+        )
+
+    expected_audit = {
+        "schema_version": (
+            f"{SCHEMA_PREFIX}-post-matrix-validation-audit-v1"
+        ),
+        "cycle_id": CYCLE_ID,
+        "attempt_id": root.name,
+        "recorded_at": audit.get("recorded_at"),
+        "status": "FAIL",
+        "failure_stage": "post_matrix_final_validator",
+        "blockers": [
+            "practical_final_current_route_result_hash_drift"
+        ],
+        "validator_head": anchors["execution_freeze_head"],
+        "validator_code_state_sha256": (
+            anchors["execution_freeze_code_state_sha256"]
+        ),
+        "final_command_matrix_path": repo_relative(paths["matrix"]),
+        "final_command_matrix_sha256": anchors[
+            "final_command_matrix_sha256"
+        ],
+        "current_route_receipt_path": repo_relative(paths["receipt"]),
+        "current_route_receipt_sha256": anchors[
+            "current_route_receipt_sha256"
+        ],
+        "current_route_result_path": repo_relative(paths["result"]),
+        "current_route_result_sha256": result_projection,
+        "current_route_isolation_report_path": repo_relative(
+            paths["isolation"]
+        ),
+        "current_route_isolation_report_sha256": anchors[
+            "current_route_isolation_report_sha256"
+        ],
+        "final_artifact_hash_manifest_path": repo_relative(
+            paths["artifact"]
+        ),
+        "final_artifact_hash_manifest_sha256": anchors[
+            "final_artifact_hash_manifest_sha256"
+        ],
+        "machine_closure_candidate_report_path": repo_relative(
+            paths["machine"]
+        ),
+        "machine_closure_candidate_report_sha256": anchors[
+            "machine_closure_candidate_report_sha256"
+        ],
+        "receipt_candidate_result_sha256_state": "absent",
+        "receipt_candidate_result_sha256": None,
+        "actual_result_sha256": result_projection,
+        "receipt_current_route_result_sha256": result_projection,
+        "isolation_candidate_result_sha256": result_projection,
+        "artifact_current_route_result_sha256": result_projection,
+        "adoption_report_path": repo_relative(paths["adoption"]),
+        "adoption_report_sha256": anchors["adoption_report_sha256"],
+        "nonce_consumption_path": repo_relative(paths["nonce_consumption"]),
+        "nonce_consumption_sha256": anchors[
+            "nonce_consumption_sha256"
+        ],
+        "nonce": anchors["nonce"],
+        "nonce_consumed": True,
+        "protected_mutation_count": 0,
+        "commands_reexecuted": False,
+        "receipts_rewritten": False,
+        "claim_output_overwritten": False,
+        "write_once": True,
+    }
+    if audit != expected_audit:
+        blockers.append("practical_verifier_correction_audit_invalid")
+    matrix_completed = parse_utc_timestamp(matrix.get("completed_at"))
+    audit_recorded = parse_utc_timestamp(audit.get("recorded_at"))
+    if (
+        matrix_completed is None
+        or audit_recorded is None
+        or audit_recorded <= matrix_completed
+    ):
+        blockers.append("practical_verifier_correction_audit_chronology_invalid")
+
+    return {
+        "status": "PASS" if not blockers else "FAIL",
+        "blockers": sorted(set(blockers)),
+        "audit_path": repo_relative(paths["audit"]),
+        "audit_sha256": sha256_file(paths["audit"]),
+        "audit_recorded_at": audit.get("recorded_at"),
+        "execution_freeze_head": anchors["execution_freeze_head"],
+        "execution_freeze_code_state_sha256": anchors[
+            "execution_freeze_code_state_sha256"
+        ],
+    }
+
+
+def practical_verifier_correction_binding_payload(
+    root: Path,
+    *,
+    created_at: Any,
+    corrected_head: str,
+) -> dict[str, Any]:
+    anchors = PRACTICAL_VERIFIER_CORRECTION_ANCHORS
+    paths = practical_verifier_correction_paths(root)
+    execution_head = anchors["execution_freeze_head"]
+    patch_rows = practical_verifier_correction_patch_rows(
+        execution_head=execution_head,
+        corrected_head=corrected_head,
+    )
+    evidence_rows = practical_verifier_correction_evidence_rows(root)
+    corrected_code_state_rows = practical_code_state_rows_at_commit(
+        corrected_head
+    )
+    return {
+        "schema_version": (
+            f"{SCHEMA_PREFIX}-same-attempt-verifier-correction-v1"
+        ),
+        "cycle_id": CYCLE_ID,
+        "attempt_id": root.name,
+        "created_at": created_at,
+        "correction_kind": "same_attempt_post_matrix_verifier_contract",
+        "audit_path": repo_relative(paths["audit"]),
+        "audit_sha256": anchors[
+            "post_matrix_validation_audit_sha256"
+        ],
+        "execution_freeze_head": execution_head,
+        "execution_freeze_code_state_sha256": anchors[
+            "execution_freeze_code_state_sha256"
+        ],
+        "corrected_verifier_head": corrected_head,
+        "corrected_verifier_code_state_rows_sha256": canonical_hash(
+            corrected_code_state_rows
+        ),
+        "corrected_verifier_code_state_sha256": canonical_hash(
+            corrected_code_state_rows
+        ),
+        "changed_paths": list(
+            PRACTICAL_VERIFIER_CORRECTION_ALLOWED_PATHS
+        ),
+        "patch_rows": patch_rows,
+        "patch_sha256": canonical_hash(patch_rows),
+        "pre_correction_evidence_manifest": evidence_rows,
+        "pre_correction_evidence_manifest_sha256": canonical_hash(
+            evidence_rows
+        ),
+        "final_matrix_commands_reexecuted": False,
+        "tests_reexecuted": False,
+        "adoption_nonce_reconsumed": False,
+        "prior_evidence_rewritten": False,
+    }
+
+
+def practical_verifier_correction_changed_paths(
+    *,
+    execution_head: str,
+    corrected_head: str,
+) -> tuple[dict[str, Any], list[str]]:
+    changed = run_git(
+        "diff",
+        "--name-only",
+        f"{execution_head}..{corrected_head}",
+    )
+    changed_paths = sorted(
+        line.strip().replace("\\", "/")
+        for line in changed.get("stdout", "").splitlines()
+        if line.strip()
+    )
+    return changed, changed_paths
+
+
+def materialize_practical_verifier_correction_binding(
+    evidence_root: str | Path | None = None,
+    *,
+    attempt_id: str | None,
+) -> dict[str, Any]:
+    normalized_attempt_id = validate_attempt_id(attempt_id)
+    root = resolve_evidence_root(
+        evidence_root,
+        attempt_id=normalized_attempt_id,
+    )
+    require_practical_attempt_open(root)
+    if normalized_attempt_id != PRACTICAL_VERIFIER_CORRECTION_ATTEMPT_ID:
+        raise ValueError(
+            "verifier correction binding is limited to the anchored attempt"
+        )
+    paths = practical_verifier_correction_paths(root)
+    if paths["binding"].exists():
+        raise FileExistsError(
+            "practical verifier correction binding is write-once"
+        )
+    audit = practical_verifier_correction_audit_validation(root)
+    if audit.get("status") != "PASS":
+        raise ValueError(
+            "practical verifier correction audit failed: "
+            + ",".join(audit.get("blockers", []))
+        )
+    execution_head = PRACTICAL_VERIFIER_CORRECTION_ANCHORS[
+        "execution_freeze_head"
+    ]
+    corrected_head = current_head()
+    if not isinstance(corrected_head, str) or not corrected_head:
+        raise ValueError("corrected verifier HEAD is unavailable")
+    changed, changed_paths = practical_verifier_correction_changed_paths(
+        execution_head=execution_head,
+        corrected_head=corrected_head,
+    )
+    if (
+        corrected_head == execution_head
+        or changed.get("exit_code") != 0
+        or changed_paths
+        != list(PRACTICAL_VERIFIER_CORRECTION_ALLOWED_PATHS)
+    ):
+        raise ValueError(
+            "corrected verifier changed paths do not match the bounded scope"
+        )
+    payload = practical_verifier_correction_binding_payload(
+        root,
+        created_at=utc_now(),
+        corrected_head=corrected_head,
+    )
+    write_json_once(paths["binding"], payload)
+    return practical_verifier_correction_validation(root)
+
+
+def practical_verifier_correction_validation(
+    root: Path,
+) -> dict[str, Any]:
+    paths = practical_verifier_correction_paths(root)
+    audit = practical_verifier_correction_audit_validation(root)
+    if root.name != PRACTICAL_VERIFIER_CORRECTION_ATTEMPT_ID:
+        return audit
+
+    anchors = PRACTICAL_VERIFIER_CORRECTION_ANCHORS
+    blockers: list[str] = list(audit.get("blockers", []))
+    binding = read_json_object(paths["binding"])
+    if not path_is_file(paths["binding"]):
+        blockers.append("practical_verifier_correction_binding_missing")
+    corrected_head = current_head()
+    execution_head = anchors["execution_freeze_head"]
+    corrected_code_state_rows: list[dict[str, Any]] = []
+    changed: dict[str, Any] = {
+        "exit_code": 1,
+        "stdout": "",
+        "stderr": "corrected verifier HEAD unavailable",
+    }
+    changed_paths: list[str] = []
+    expected_binding: dict[str, Any] = {}
+    if isinstance(corrected_head, str) and corrected_head:
+        changed, changed_paths = practical_verifier_correction_changed_paths(
+            execution_head=execution_head,
+            corrected_head=corrected_head,
+        )
+        corrected_code_state_rows = practical_code_state_rows_at_commit(
+            corrected_head
+        )
+        expected_binding = practical_verifier_correction_binding_payload(
+            root,
+            created_at=binding.get("created_at"),
+            corrected_head=corrected_head,
+        )
+    else:
+        blockers.append("practical_verifier_correction_head_invalid")
+    if binding != expected_binding:
+        blockers.append("practical_verifier_correction_binding_invalid")
+    audit_recorded = parse_utc_timestamp(audit.get("audit_recorded_at"))
+    binding_created = parse_utc_timestamp(binding.get("created_at"))
+    if (
+        audit_recorded is None
+        or binding_created is None
+        or binding_created <= audit_recorded
+    ):
+        blockers.append(
+            "practical_verifier_correction_binding_chronology_invalid"
+        )
+    if (
+        corrected_head == execution_head
+        or changed.get("exit_code") != 0
+        or changed_paths
+        != list(PRACTICAL_VERIFIER_CORRECTION_ALLOWED_PATHS)
+    ):
+        blockers.append(
+            "practical_verifier_correction_changed_paths_invalid"
+        )
+    return {
+        "status": "PASS" if not blockers else "FAIL",
+        "blockers": sorted(set(blockers)),
+        "audit_path": repo_relative(paths["audit"]),
+        "audit_sha256": sha256_file(paths["audit"]),
+        "binding_path": repo_relative(paths["binding"]),
+        "binding_sha256": sha256_file(paths["binding"]),
+        "execution_freeze_head": execution_head,
+        "execution_freeze_code_state_sha256": anchors[
+            "execution_freeze_code_state_sha256"
+        ],
+        "corrected_verifier_head": corrected_head,
+        "corrected_verifier_code_state_sha256": canonical_hash(
+            corrected_code_state_rows
+        ),
+        "binding_created_at": binding.get("created_at"),
+        "tests_reexecuted": False,
+        "commands_reexecuted": False,
+        "adoption_nonce_reconsumed": False,
+        "prior_evidence_rewritten": False,
+    }
+
+
 def validate_practical_final_validation(
     evidence_root: str | Path | None = None,
     *,
@@ -11634,10 +12158,13 @@ def validate_practical_final_validation(
     adoption = validate_practical_gate_adoption(
         root, attempt_id=normalized_attempt_id
     )
+    verifier_correction = practical_verifier_correction_validation(root)
     blockers: list[str] = [
         *implementation.get("blockers", []),
         *adoption.get("blockers", []),
     ]
+    if verifier_correction.get("status") == "FAIL":
+        blockers.extend(verifier_correction.get("blockers", []))
     if matrix.get("status") != "PASS":
         blockers.append("practical_final_matrix_not_pass")
     if matrix.get("expected_command_count") != 7:
@@ -11678,7 +12205,12 @@ def validate_practical_final_validation(
     if parse_utc_timestamp(matrix.get("recorded_at")) is None:
         blockers.append("practical_final_matrix_recorded_at_invalid")
     freeze_head = matrix.get("implementation_freeze_head")
-    if freeze_head != current_head():
+    if freeze_head != current_head() and (
+        verifier_correction.get("status") != "PASS"
+        or verifier_correction.get("execution_freeze_head") != freeze_head
+        or verifier_correction.get("corrected_verifier_head")
+        != current_head()
+    ):
         blockers.append("practical_final_matrix_freeze_head_drift")
     if not isinstance(freeze_head, str):
         freeze_rows: list[dict[str, Any]] = []
@@ -11843,11 +12375,27 @@ def validate_practical_final_validation(
         blockers.append(
             "practical_final_current_route_result_path_drift"
         )
+    receipt_candidate_hash_present = (
+        "candidate_result_sha256" in current_route_receipt
+    )
+    receipt_candidate_hash = current_route_receipt.get(
+        "candidate_result_sha256"
+    )
+    corrected_absent_candidate_hash = (
+        not receipt_candidate_hash_present
+        and verifier_correction.get("status") == "PASS"
+        and isolation_report.get("candidate_result_sha256")
+        == current_route_result_sha256
+        and artifact.get("current_route_validation_result_sha256")
+        == current_route_result_sha256
+    )
     if (
         current_route_receipt.get("current_route_result_sha256")
         != current_route_result_sha256
-        or current_route_receipt.get("candidate_result_sha256")
-        != current_route_result_sha256
+        or (
+            receipt_candidate_hash != current_route_result_sha256
+            and not corrected_absent_candidate_hash
+        )
     ):
         blockers.append(
             "practical_final_current_route_result_hash_drift"
@@ -12056,6 +12604,7 @@ def validate_practical_final_validation(
         "independent_review_allowed": not blockers,
         "owner_seal_allowed": False,
         "canonical_closure_claimed": False,
+        "verifier_correction": verifier_correction,
     }
 
 
@@ -12068,6 +12617,7 @@ def practical_closeout_review_validation(
     matrix_path = root / "phase5" / "final_command_matrix_report.json"
     artifact_path = root / "phase5" / "final_artifact_hash_manifest.json"
     matrix = read_json_object(matrix_path)
+    verifier_correction = practical_verifier_correction_validation(root)
     blockers: list[str] = []
     expected = {
         "schema_version": "dvf-3-3-registry-authority-practical-closeout-review-v1",
@@ -12086,15 +12636,49 @@ def practical_closeout_review_validation(
         "minor_count": "0",
         "tests_executed_by_reviewer": "false",
     }
+    if verifier_correction.get("status") == "PASS":
+        expected.update(
+            {
+                "post_matrix_validation_audit_sha256": (
+                    verifier_correction.get("audit_sha256")
+                ),
+                "verifier_correction_binding_sha256": (
+                    verifier_correction.get("binding_sha256")
+                ),
+                "corrected_verifier_head": verifier_correction.get(
+                    "corrected_verifier_head"
+                ),
+                "corrected_verifier_code_state_sha256": (
+                    verifier_correction.get(
+                        "corrected_verifier_code_state_sha256"
+                    )
+                ),
+                "commands_reexecuted": "false",
+                "tests_reexecuted": "false",
+                "adoption_nonce_reconsumed": "false",
+            }
+        )
+    elif verifier_correction.get("status") == "FAIL":
+        blockers.extend(verifier_correction.get("blockers", []))
     for field, value in expected.items():
         if fields.get(field) != value:
             blockers.append(f"practical_closeout_review_field_mismatch:{field}")
     matrix_completed = parse_utc_timestamp(matrix.get("completed_at"))
+    correction_created = parse_utc_timestamp(
+        verifier_correction.get("binding_created_at")
+    )
     authored = parse_utc_timestamp(fields.get("authored_at"))
     if (
         matrix_completed is None
         or authored is None
         or authored <= matrix_completed
+        or (
+            verifier_correction.get("status") == "PASS"
+            and (
+                correction_created is None
+                or authored <= correction_created
+            )
+        )
     ):
         blockers.append("practical_closeout_review_chronology_invalid")
     if findings:
@@ -12203,6 +12787,7 @@ def practical_owner_seal_validation(root: Path) -> dict[str, Any]:
     matrix_path = phase5 / "final_command_matrix_report.json"
     artifact_path = phase5 / "final_artifact_hash_manifest.json"
     closeout_path = phase5 / "external" / "practical_closeout_review.md"
+    verifier_correction = practical_verifier_correction_validation(root)
     blockers: list[str] = []
     expected = {
         "schema_version": f"{SCHEMA_PREFIX}-practical-owner-seal-v1",
@@ -12216,6 +12801,30 @@ def practical_owner_seal_validation(root: Path) -> dict[str, Any]:
         "tool_authored": False,
         "canonical_complete_approved": True,
     }
+    if verifier_correction.get("status") == "PASS":
+        expected.update(
+            {
+                "post_matrix_validation_audit_sha256": (
+                    verifier_correction.get("audit_sha256")
+                ),
+                "verifier_correction_binding_sha256": (
+                    verifier_correction.get("binding_sha256")
+                ),
+                "corrected_verifier_head": verifier_correction.get(
+                    "corrected_verifier_head"
+                ),
+                "corrected_verifier_code_state_sha256": (
+                    verifier_correction.get(
+                        "corrected_verifier_code_state_sha256"
+                    )
+                ),
+                "commands_reexecuted": False,
+                "tests_reexecuted": False,
+                "adoption_nonce_reconsumed": False,
+            }
+        )
+    elif verifier_correction.get("status") == "FAIL":
+        blockers.extend(verifier_correction.get("blockers", []))
     for field, value in expected.items():
         if payload.get(field) != value:
             blockers.append(f"practical_owner_seal_field_mismatch:{field}")
@@ -12363,6 +12972,7 @@ def finalize_practical_closure(
     matrix = read_json_object(matrix_path)
     closeout_path = phase5 / "external" / "practical_closeout_review.md"
     owner_path = phase5 / "external" / "practical_owner_seal.json"
+    verifier_correction = practical_verifier_correction_validation(root)
     final = {
         "schema_version": f"{SCHEMA_PREFIX}-practical-final-closure-v1",
         "round_id": ROUND_ID,
@@ -12389,6 +12999,26 @@ def finalize_practical_closure(
         "runtime_compatibility_claimed": False,
         "publish_boundary_claimed": False,
         "package_or_release_readiness_claimed": False,
+        "post_matrix_validation_audit_sha256": (
+            verifier_correction.get("audit_sha256")
+        ),
+        "verifier_correction_binding_sha256": (
+            verifier_correction.get("binding_sha256")
+        ),
+        "execution_freeze_head": verifier_correction.get(
+            "execution_freeze_head"
+        ),
+        "corrected_verifier_head": verifier_correction.get(
+            "corrected_verifier_head"
+        ),
+        "corrected_verifier_code_state_sha256": (
+            verifier_correction.get(
+                "corrected_verifier_code_state_sha256"
+            )
+        ),
+        "commands_reexecuted_for_verifier_correction": False,
+        "tests_reexecuted_for_verifier_correction": False,
+        "adoption_nonce_reconsumed_for_verifier_correction": False,
     }
     write_json_once(final_path, final)
     seal = {
@@ -12410,6 +13040,26 @@ def finalize_practical_closure(
         "owner_seal_sha256": sha256_file(owner_path),
         "canonical_complete": True,
         "claim_output_overwritten": False,
+        "post_matrix_validation_audit_sha256": (
+            verifier_correction.get("audit_sha256")
+        ),
+        "verifier_correction_binding_sha256": (
+            verifier_correction.get("binding_sha256")
+        ),
+        "execution_freeze_head": verifier_correction.get(
+            "execution_freeze_head"
+        ),
+        "corrected_verifier_head": verifier_correction.get(
+            "corrected_verifier_head"
+        ),
+        "corrected_verifier_code_state_sha256": (
+            verifier_correction.get(
+                "corrected_verifier_code_state_sha256"
+            )
+        ),
+        "commands_reexecuted_for_verifier_correction": False,
+        "tests_reexecuted_for_verifier_correction": False,
+        "adoption_nonce_reconsumed_for_verifier_correction": False,
     }
     write_json_once(seal_path, seal)
     return final
@@ -12438,11 +13088,14 @@ def validate_practical_terminal_seal(
     owner = validate_practical_owner_seal(
         root, attempt_id=normalized_attempt_id
     )
+    verifier_correction = practical_verifier_correction_validation(root)
     blockers: list[str] = [
         *final_validation.get("blockers", []),
         *closeout.get("blockers", []),
         *owner.get("blockers", []),
     ]
+    if verifier_correction.get("status") == "FAIL":
+        blockers.extend(verifier_correction.get("blockers", []))
     if final.get("status") != "canonical_complete":
         blockers.append("practical_final_closure_not_complete")
     if final.get("registry_blocker_count") != 0:
@@ -12483,6 +13136,31 @@ def validate_practical_terminal_seal(
         blockers.append("practical_terminal_closeout_review_hash_mismatch")
     if seal.get("owner_seal_sha256") != actual_owner_hash:
         blockers.append("practical_terminal_owner_seal_hash_mismatch")
+    correction_expected = {
+        "post_matrix_validation_audit_sha256": verifier_correction.get(
+            "audit_sha256"
+        ),
+        "verifier_correction_binding_sha256": verifier_correction.get(
+            "binding_sha256"
+        ),
+        "execution_freeze_head": verifier_correction.get(
+            "execution_freeze_head"
+        ),
+        "corrected_verifier_head": verifier_correction.get(
+            "corrected_verifier_head"
+        ),
+        "corrected_verifier_code_state_sha256": verifier_correction.get(
+            "corrected_verifier_code_state_sha256"
+        ),
+        "commands_reexecuted_for_verifier_correction": False,
+        "tests_reexecuted_for_verifier_correction": False,
+        "adoption_nonce_reconsumed_for_verifier_correction": False,
+    }
+    if any(
+        final.get(field) != value or seal.get(field) != value
+        for field, value in correction_expected.items()
+    ):
+        blockers.append("practical_terminal_verifier_correction_drift")
     return {
         "schema_version": f"{SCHEMA_PREFIX}-practical-terminal-seal-validation-v1",
         "round_id": ROUND_ID,

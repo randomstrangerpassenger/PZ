@@ -2143,6 +2143,78 @@
           "equals": 11
         }
       ]
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/candidate_contract_binding_manifest.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/authority/collision_dispositions/disposition-current-collision-20260725-v2.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/current_collision_disposition.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/registry_runtime_compatibility_identity_field_exclusions.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/implementation_toolchain_manifest.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/package_guard_contract_report.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/authority/reviews/phase0-contract-review-20260725-attempt-0008.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/authority/plan_approvals/approval-user-request-20260725.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/registry_runtime_compatibility_policy.json",
+      "checks": []
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/pre_adoption_compatibility_machine_report.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/implementation_toolchain_freshness_report.json",
+      "checks": [
+        {
+          "field": "status",
+          "equals": "PASS"
+        }
+      ]
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be/durable_bundle_manifest.json",
+      "checks": [
+        {
+          "field": "bundle_id",
+          "equals": "0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be"
+        },
+        {
+          "field": "promotion_role_count",
+          "equals": 11
+        }
+      ]
     }
   ],
   "required_tests": [
@@ -2431,13 +2503,13 @@
   "status": "PASS",
   "registry_runtime_compatibility": {
     "schema_version": "rtc-live-required-selection-v1",
-    "attempt_id": "attempt-0007",
-    "bundle_id": "34e50ad3d4657908c1416c2930ae38d14deaf2e07aa5cf70f5eb8197ebdb2add",
-    "bundle_root": "Iris/_docs/round3/registry_runtime_compatibility/bundles/34e50ad3d4657908c1416c2930ae38d14deaf2e07aa5cf70f5eb8197ebdb2add",
-    "bundle_manifest_sha256": "7f23550b4d006ae40c0b6207a5155127188d591bc3006078bf885e1bded387dc",
+    "attempt_id": "attempt-0008",
+    "bundle_id": "0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be",
+    "bundle_root": "Iris/_docs/round3/registry_runtime_compatibility/bundles/0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be",
+    "bundle_manifest_sha256": "f5d0057d1be5a66c621c7c1563948336d1425926d1da88e8fa84de06e91811d0",
     "policy_lifecycle_state": "live_required_gate_adopted",
     "candidate_manifest_probe": false,
-    "adopted_row_identity": "registry_runtime_compatibility::34e50ad3d4657908c1416c2930ae38d14deaf2e07aa5cf70f5eb8197ebdb2add::live",
+    "adopted_row_identity": "registry_runtime_compatibility::0905370cb0ab8b2973944bb3d7bbe89560d1abf15630c2a60dba98d91729b9be::live",
     "roadmap_or_condition_superseded_by_plan_and_condition": true,
     "package_guard_and_live_required_gate_both_mandatory_for_closeout": true,
     "owner_explicitly_approved": true

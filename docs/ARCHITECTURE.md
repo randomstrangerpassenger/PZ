@@ -440,7 +440,7 @@ Iris 3-3의 claim vocabulary는 축별로 분리한다.
 DVF Body Compiler PASS
 DVF System Body Compiler PASS
 Registry Authority PASS
-Runtime Compatibility PASS
+Registry Runtime Compatibility PASS
 Publish Boundary PASS
 Legacy Combined DVF Governance Route PASS
 ```
@@ -459,7 +459,7 @@ Legacy Combined DVF Governance Route PASS
 DVF Body Compiler PASS
 DVF System Body Compiler PASS
 Registry Authority PASS
-Runtime Compatibility PASS
+Registry Runtime Compatibility PASS
 Publish Boundary PASS
 Legacy Combined DVF Governance Route PASS
 
@@ -533,6 +533,32 @@ cycle
 Registry Authority closure의 claim 상한은 Registry Authority 축이다. terminal seal이 PASS여도 Runtime Compatibility, Publish Boundary, public text acceptance, semantic quality acceptance, package / release / Workshop readiness, manual QA를 자동으로 닫지 않는다.
 
 현재 sealed readpoint는 `attempt-0038-practical`, implementation / integrated `main` commit `63357b7afb879f89c4f43df67ad0d39a060561fb`, terminal validation `PASS / blocker_count=0 / canonical_complete=true`다. 이후 top-doc 업데이트는 이 sealed execution을 다시 쓰는 단계가 아니라 additive documentation trace로 취급한다.
+
+### Registry Runtime Compatibility canonical closure
+
+Registry Runtime Compatibility는 Registry Authority를 다시 여는 계층이 아니라, 이미 봉인된 current payload identity를 서로 다른 consumer transport가 손실 없이 소비하는지 검증하는 별도 축이다.
+
+```text
+current source / rendered object
+-> bridge pre-materialization guard
+-> Lua chunk generation / cross-chunk guard
+-> actual Lua merge / runtime reconstruction
+-> isolated package projection guard
+-> Windows lossless record projection
+-> live required-validation route
+```
+
+exact identity는 decoded Unicode code-point sequence를 그대로 비교하고, comparison identity는 current ASCII domain에 한정한 `ascii_lower_v1`으로 계산한다. normalization, Unicode casefold, source key rename, case-variant key 병합은 허용하지 않는다.
+
+`Base.LemonGrass`와 `Base.Lemongrass`는 두 개의 exact runtime key로 유지한다. 둘은 하나의 case-insensitive comparison collision group이지만, owner-bound `reference + exception` disposition으로 봉인되어 있다. 이 role은 winner 선택이나 의미 판정 권한이 없으며, source / rendered / runtime / package 각 edge의 member set과 payload binding을 검증하는 비해결 라벨이다.
+
+Windows PowerShell 5.1의 `ConvertFrom-Json`으로 current rendered object를 직접 materialize하는 방식은 지원 consumer route가 아니다. Windows Route A는 canonical Python analyzer를 직접 실행하고, Route C는 같은 analyzer가 exact identity별 UTF-8 JSONL record sidecar를 만든다. 두 route는 하나의 algorithm proof와 두 개의 transport conformance 증거이며, PowerShell은 case-variant property를 object property로 합치지 않는다.
+
+bridge exporter, chunk/runtime validator, package wrapper는 동일한 compatibility contract를 fail-closed로 소비한다. package guard는 ZIP 생성 여부와 무관하게 unconditional이며, compatibility failure 시 publication artifact를 만들지 않는다. exporter의 생략 인자는 environment variable이 아니라 tracked live `current_route_required_validations.json`이 결속한 exact durable bundle과 lifecycle state에서만 해석한다.
+
+canonical evidence는 append-only attempt ledger, immutable content-addressed bundle, append-only bundle lifecycle, nine-role durable closeout packet으로 구성한다. successful terminal event는 independent review와 owner seal을 포함한 closeout packet이 먼저 commit된 뒤에만 기록한다.
+
+현재 readpoint는 `attempt-0009`, durable bundle `46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9`, terminal commit `7d253c91b87abb7f1e044acf3953504180848682`, local `main` integration commit `c6e2190e7b093b29bc5d615523ae29cf32560ff1`이다. claim 상한은 `Registry Runtime Compatibility PASS`이며 Registry Authority, DVF Body Compiler, Publish Boundary, source mutation, package publication, release / Workshop readiness, manual QA를 대신하지 않는다.
 
 ## 2-6. Frame
 

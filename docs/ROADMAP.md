@@ -461,6 +461,18 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * implementation과 local / remote `main`의 sealed closure commit은 `63357b7afb879f89c4f43df67ad0d39a060561fb`이다.
   * 이후 Registry Authority 작업은 새 drift, 명시적 correction / rollback, 또는 별도 approved scope가 있을 때만 연다.
 
+* Registry Runtime Compatibility closure는 `attempt-0009` 기준으로 완료 상태를 유지한다.
+
+  * current sealed bundle은 `46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9`이며 lifecycle state는 `live_required_gate_adopted`다.
+  * source / rendered / runtime / package exact key-set은 각각 `2105`개로 동일하고 unauthorized comparison collision은 `0`이다.
+  * `Base.LemonGrass` / `Base.Lemongrass` 잔존 collision은 exact key 두 개를 유지하는 owner-bound `reference + exception` disposition과 four-edge payload binding으로 봉인했다.
+  * bridge preflight, chunk generation / merge, actual Lua reconstruction, isolated package projection, Windows Route A / C가 동일 contract를 fail-closed로 소비한다.
+  * Windows tooling은 raw rendered object의 PowerShell 5.1 `ConvertFrom-Json` 직접 소비 대신 exact identity별 UTF-8 JSONL record projection을 사용한다. 네 surface의 `2105`개씩 총 `8420` records를 보존한다.
+  * roadmap negative fixture `10 / 10`, Lua syntax `188` files, RTC regression `29 / 29`, adjacent bridge regression `7 / 7`, isolated official current route `135 / 135`가 PASS했다.
+  * independent review, owner canonical seal, nine-role durable closeout packet, terminal event 순서로 `registry_runtime_compatibility_canonical_complete`를 봉인했다.
+  * terminal implementation commit은 `7d253c91b87abb7f1e044acf3953504180848682`, local `main` integration commit은 `c6e2190e7b093b29bc5d615523ae29cf32560ff1`이다.
+  * 이후 Runtime Compatibility 작업은 새 collision, consumer drift, required-route drift, 명시적 rollback / successor scope가 있을 때만 연다.
+
 * 설명 계층은 해석 / 권장 / 비교 / 재작성을 하지 않는다.
 
   * Evidence / Source / Outcome / Description layer의 책임 분리를 유지한다.
@@ -587,6 +599,15 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * 같은 cycle의 새 attempt 자체를 금지하지는 않지만, 새 attempt는 새 식별자·출력 경로·nonce와 predecessor failure preservation을 요구한다.
   * 실행 증거가 변하지 않은 verifier-only metadata 결함을 이유로 새 attempt를 만들지 않는다. exact-head / exact-path / full-evidence binding을 갖춘 bounded correction으로만 처리한다.
   * bounded correction을 명령 재실행, protected mutation, receipt rewrite, nonce 재소비를 숨기는 예외로 사용하지 않는다.
+
+* Registry Runtime Compatibility closure를 우회하거나 과대 해석하는 것
+
+  * current rendered object를 PowerShell 5.1 `ConvertFrom-Json`으로 직접 읽는 경로를 supported Windows consumer route로 되살리지 않는다.
+  * case-variant exact key를 rename / merge / winner selection으로 해결하거나 owner-bound exception을 단순 allowlist로 축소하지 않는다.
+  * environment variable, staging candidate, superseded bundle, invalidated attempt를 exporter / package의 default authority로 사용하지 않는다.
+  * bridge preflight, post-generation surface validation, Lua merge reconstruction, package guard 중 하나를 생략한 부분 PASS를 closure로 읽지 않는다.
+  * `Registry Runtime Compatibility PASS`를 Registry Authority PASS, DVF Body Compiler PASS, Publish Boundary PASS, package publication, release / Workshop readiness, manual QA로 확대하지 않는다.
+  * attempt-0008의 independent-review major finding과 invalid terminal evidence를 삭제하거나 attempt-0009의 PASS로 덮어쓰지 않는다.
 
 * current runtime authority를 과거 기준이나 임시 산출물로 되돌리는 것
 

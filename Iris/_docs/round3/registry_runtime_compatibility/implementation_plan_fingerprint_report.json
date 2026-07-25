@@ -1,0 +1,15 @@
+{
+  "schema_version": "rtc-implementation-plan-fingerprint-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "plan_path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+  "plan_sha256": "78eefb7eb415e436b456442b093b82dc8b4aafd59774ceba706dd2138faf1e27",
+  "plan_byte_count": 171193,
+  "reviewed_plan_before_final_warning_incorporation_sha256": "20806fc55c4cf4080f2a4ad38bb209d108a3190e831051644167c5b774b9586f",
+  "superseded_plan_sha256": "2bceca07eeaa77fe928453f2ad414b762519bb91d7823d9973b5fc22e716f6be",
+  "final_warning_incorporation_present": true,
+  "fr5_warning_1_hardening_present": true,
+  "fr5_warning_2_hardening_present": true,
+  "self_hash_included": false,
+  "current_plan_fingerprint_matches": true,
+  "status": "PASS"
+}

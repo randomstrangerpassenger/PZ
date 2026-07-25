@@ -1,0 +1,1726 @@
+# REVIEW — dvf_3_3_registry_runtime_compatibility_plan.md  
+## Cycle 2 Combined Final Review
+
+> Review level: `plan_level`  
+> Review target: revised `dvf_3_3_registry_runtime_compatibility_plan.md`
+>
+> Review inputs:
+> - ChatGPT revised-plan review
+> - Claude Cycle 2 adversarial review
+>
+> Input verdicts:
+> - ChatGPT: `FAIL`
+> - Claude: `WARN`
+>
+> Combined review status: `NOT PASS`
+>
+> Independent closeout eligibility:
+> - ChatGPT: `ineligible — roadmap drafting participation`
+> - Claude: `BLOCKED — upstream roadmap co-draft participation`
+> - Combined: `independent closeout gate not satisfied`
+
+---
+
+## 1. Verdict
+
+# NOT PASS — FAIL / WARN 판정 충돌
+
+두 검토안은 최종 심각도에서 일치하지 않는다.
+
+```text
+ChatGPT verdict = FAIL
+Claude verdict = WARN
+```
+
+그러나 현재 계획의 구현 진입 여부에 대해서는 일치한다.
+
+```text
+plan_level_pass = false
+implementation_entry_recommended = false
+independent_closeout_gate = not satisfied
+required_revisions = open
+```
+
+ChatGPT는 Critical 4건과 Important 6건이 남았다고 판정했다.
+
+Claude는 Critical은 없으며 Important Required Revision 2건과 Minor 보완 사항이 남았다고 판정했다.
+
+따라서 두 검토안만으로 확정할 수 있는 종합 판정은 다음과 같다.
+
+```text
+PASS = 불가
+즉시 구현 진입 = 불가
+최종 severity FAIL/WARN = 별도 판정 필요
+```
+
+---
+
+## 2. Executive Summary
+
+### Current Execution Readiness
+
+```text
+plan_level_pass = false
+implementation_entry_allowed = false
+production_mutation_allowed = false
+independent_review_gate = blocked
+```
+
+### 공통적으로 인정된 개선점
+
+두 검토안은 개정본이 이전 Cycle 1 계획보다 크게 개선되었다는 점에 동의한다.
+
+공통 또는 상호 양립 가능한 긍정 평가 항목은 다음과 같다.
+
+- required-validation self-reference 제거
+- pre-adoption evidence와 post-adoption final report의 DAG 분리
+- `round3_active_core_closure.json` read-only 유지
+- tooling allowlist cap 유지
+- decoded code-point exact identity 고정
+- ASCII-only comparator와 unsupported-domain fail-closed
+- technical failure에 대한 owner override 금지
+- package compatibility guard unconditional 실행
+- candidate/live 또는 pre/post adoption evidence 구분
+- pre-implementation blocker-zero gate 추가
+- independent reviewer eligibility 고정
+- dirty source worktree와 clean execution worktree 분리
+- actual Lua harness 계약 강화
+- package logical binding과 ZIP transport metadata 분리
+- attempt-scoped evidence root 도입
+- evidence class와 durable promotion 구분
+- cross-phase freshness 검증
+- Branch B의 axis-qualified terminal state
+- current core 12개 유지
+- source/runtime payload mutation 금지
+- DVF Body Compiler·Registry Authority·Publish Boundary와의 책임 분리
+- release·Workshop·B42 readiness claim 제외
+- owner seal과 independent review의 비대체성
+
+### 공통적으로 남아 있다고 본 문제
+
+두 검토안이 같은 severity로 분류하지는 않았지만, 다음 영역에는 추가 명확화 또는 수정이 필요하다는 점이 겹친다.
+
+1. candidate validation과 official/live current-route validation의 구분
+2. pre-adoption candidate surface가 실제로 어떤 command와 dependency로 실행되는지
+3. allowlist contract의 실제 적용 범위
+4. C-1/C-2 및 C-6 owner record의 binding 방식
+5. Windows validation report schema와 determinism/parity 기준
+6. independent closeout review가 현재 두 reviewer로 충족되지 않는다는 점
+
+### 주요 판정 충돌
+
+다음 네 항목은 ChatGPT가 Critical로 판정했으나 Claude는 문제 없음 또는 Minor/Resolved로 판정했다.
+
+1. candidate policy bootstrap과 durable promotion 순환
+2. alias emission universe가 exact-key equality를 약화하는지
+3. Phase 0B와 Review 2의 실행 순서
+4. attempt allocator와 failed-evidence preservation의 강제 가능성
+
+다음 두 항목은 Claude가 Important Required Revision으로 판정했으나 ChatGPT는 별도 문제로 제기하지 않았다.
+
+1. candidate current-route validation mechanism과 runner flag surface
+2. standalone subprocess가 allowlist closure의 의도를 준수하는지 확인하는 절차
+
+이 충돌 항목은 임의로 절충하지 않고 별도 판정 대상으로 남긴다.
+
+### Whether Execution Should Proceed
+
+두 검토안 모두 현재 상태에서 즉시 implementation entry를 승인하지 않는다.
+
+```text
+uncontested revisions
+→ contested finding adjudication
+→ revised fingerprint
+→ incremental plan-level review
+→ eligible independent closeout reviewer
+```
+
+---
+
+## 3. Critical Issues
+
+이 섹션에는 한쪽 검토안에서라도 Critical로 판정한 항목을 모두 보존한다.
+
+---
+
+### Issue RTC-R2-C1 — Candidate Policy Bootstrap / Durable Promotion 순환
+
+**Severity:**
+
+```text
+ChatGPT = Critical
+Claude = 미식별 / candidate policy 문제를 Critical로 보지 않음
+Combined = Critical 판정 보존, 사실관계 판정 필요
+```
+
+**Impact:**
+
+ChatGPT 검토는 다음 실행 순서가 성립하지 않는다고 판단했다.
+
+```text
+Phase 1
+→ attempt-local candidate policy 생성
+
+Phase 2
+→ package guard가 policy 필요
+
+Phase 3
+→ Windows route가 policy 필요
+
+Phase 4
+→ package/Windows current regression 필요
+
+Phase 5
+→ candidate policy를 durable path로 promotion
+```
+
+ChatGPT는 Windows route가 durable policy path를 직접 참조하며, package command에도 candidate policy를 명시적으로 전달하는 인수가 없다고 지적했다.
+
+이에 따라 다음 가능성이 모두 문제가 된다고 판단했다.
+
+- durable policy 조기 기록
+- attempt-local policy의 암묵 탐색
+- policy 없는 package guard
+- package/Windows regression의 Phase 5 이후 지연
+
+Claude 검토는 이 순환을 식별하지 않았다. 오히려 candidate/live artifact 분리와 promotion byte parity가 적절히 폐쇄되었다고 평가했다.
+
+**Affected Scope:**
+
+- Change 2
+- Change 3
+- Change 4
+- Change 5
+- Change 6
+- package validation command
+- Windows validation command
+- durable evidence promotion
+
+**Related Surface:**
+
+- Compatibility Surface
+- Sealed Artifact Surface
+- Runtime Behavior Surface
+
+**Required Fix proposed by ChatGPT:**
+
+```text
+Phase 1 candidate policy
+→ attempt-local immutable path
+
+Phase 2~4
+→ explicit candidate policy path 사용
+→ isolated output only
+
+Phase 5
+→ byte-identical durable promotion
+
+post-promotion execution
+→ durable policy path only
+```
+
+제안된 package arguments:
+
+```powershell
+-RegistryCompatibilityPolicy <path>
+-RegistryCompatibilityContext candidate|adopted
+```
+
+추가 요구:
+
+- candidate context의 attempt-root containment
+- candidate disposition/policy hash binding
+- publication 금지
+- adopted context에서 durable policy 외 입력 거부
+- candidate/durable byte parity
+- pre-adoption package probe와 post-promotion package probe 분리
+
+**Blocking Reason:**
+
+Phase 2~4가 candidate policy를 실제로 소비할 수 있는지가 두 검토안 사이에서 확인되지 않았다.
+
+**Combined Disposition:**
+
+```text
+status = adjudication_required
+```
+
+---
+
+### Issue RTC-R2-C2 — Alias Emission Universe와 Exact-Key Invariant
+
+**Severity:**
+
+```text
+ChatGPT = Critical
+Claude = Cycle 1 R-4 resolved, 계약상 폐쇄
+Combined = 직접 판정 충돌
+```
+
+**Impact:**
+
+ChatGPT 검토는 계획이 다음을 허용한다고 판단했다.
+
+```text
+declared alias target이 authority universe에 없을 경우
+선언된 alias key 하나를 runtime emission universe에 추가 가능
+```
+
+이 경우 equality가 다음처럼 분리된다.
+
+```text
+source/rendered
+= authority_exact_universe
+
+runtime/package
+= declared_alias_emission_universe
+```
+
+ChatGPT는 이것이 다음 roadmap invariant를 약화한다고 판단했다.
+
+```text
+source exact key-set
+= rendered exact key-set
+= runtime exact key-set
+= package exact key-set
+```
+
+또한 generic alias emission universe가 현재 collision closure를 넘어 전역 alias validation framework를 도입한다고 보았다.
+
+Claude 검토는 반대로 authority/emission universe 분리와 typed alias failure 5종이 Cycle 1의 alias 위험을 해소했다고 평가했다. Compatibility Surface에서도 alias universe가 계약상 폐쇄되었다고 판정했다.
+
+**Affected Scope:**
+
+- Scope
+- Surface Projection and Alias Universes
+- Change 1
+- Change 2
+- Change 3
+- Current-data regression
+- Expected Closeout State
+
+**Related Surface:**
+
+- Authority Surface
+- Compatibility Surface
+- Runtime Behavior Surface
+
+**Required Fix proposed by ChatGPT:**
+
+```text
+source exact key-set
+= rendered exact key-set
+= runtime exact key-set
+= package exact key-set
+
+applied_new_alias_key_count = 0
+unexpected_emission_count = 0
+alias_induced_comparison_collision_increase = 0
+```
+
+existing alias는 target이 이미 authority universe에 존재할 때만 허용한다.
+
+authority universe 밖 alias target은 다음 terminal state로 처리한다.
+
+```text
+compatibility_blocked_alias_identity_expansion_requires_separate_scope
+```
+
+**Blocking Reason:**
+
+alias emission universe가 현재 exact-key preservation을 약화하는지, 기존 alias behavior를 정확히 계량하기 위한 안전한 projection model인지 판정이 충돌한다.
+
+**Combined Disposition:**
+
+```text
+status = authority_and_invariant_adjudication_required
+```
+
+---
+
+### Issue RTC-R2-C3 — Phase 0B Branch A와 Review 2 순서
+
+**Severity:**
+
+```text
+ChatGPT = Critical
+Claude = Cycle 1 R-2 resolved
+Combined = 직접 판정 충돌
+```
+
+**Impact:**
+
+ChatGPT 검토는 Phase 0A가 exclusion manifest를 사용해 payload equivalence를 판정하고 Phase 0B에서 Branch A를 확정하지만, 다음 항목은 Review 2에서야 ratify된다고 해석했다.
+
+- exclusion manifest
+- C-6 role
+- bounded exception policy
+- invalidation contract
+
+따라서 다음 순서가 모순이라고 판단했다.
+
+```text
+Phase 0B Branch A 확정
+→ 그 근거가 되는 exclusion/policy는 Review 2에서 후행 승인
+```
+
+ChatGPT가 요구한 순서는 다음과 같다.
+
+```text
+Phase 0A
+→ raw census
+→ unfiltered delta
+→ proposed exclusion/role/policy
+
+Review 2
+→ ratification
+
+Phase 0B
+→ final Branch A/B/C
+```
+
+Claude 검토는 C-6 timing이 이미 `Phase 0A 후, Phase 0B 전`으로 단일화되어 Cycle 1 R-2가 해결되었다고 판정했다.
+
+**Affected Scope:**
+
+- Change 1
+- Change 2
+- C-6
+- Manual Review 1
+- Manual Review 2
+- Phase 0 disposition verdict
+
+**Related Surface:**
+
+- Authority Surface
+- Compatibility Surface
+- Sealed Artifact Surface
+
+**Required Fix proposed by ChatGPT:**
+
+Phase 0A에서는 다음 machine eligibility token만 허용한다.
+
+```text
+branch_a_machine_eligible
+branch_b_machine_required
+branch_c_blocked
+```
+
+최종 `phase0_branch=A`는 Review 2와 owner record 완료 후 Phase 0B에서만 기록한다.
+
+**Blocking Reason:**
+
+실제 revised plan에서 Review 2가 Phase 0B보다 앞에 있는지 두 검토안의 독해가 상반된다.
+
+**Combined Disposition:**
+
+```text
+status = sequence_text_verification_required
+```
+
+---
+
+### Issue RTC-R2-C4 — Attempt Allocator와 Failed-Evidence 보존
+
+**Severity:**
+
+```text
+ChatGPT = Critical
+Claude = Cycle 1 R-1 resolved / Sealed Artifact Surface concerns 없음
+Combined = 직접 판정 충돌
+```
+
+**Impact:**
+
+ChatGPT 검토는 계획이 다음을 요구하지만 실제 강제 mechanism이 없다고 판단했다.
+
+```text
+attempt-NNNN monotonic
+no reuse
+failed attempt preservation
+claim-bearing output immutable
+```
+
+누락되었다고 본 항목:
+
+- next attempt number authority
+- existing attempt census
+- concurrent execution 충돌 방지
+- atomic reservation
+- ignored/untracked staging root의 장기 보존
+- deleted failed attempt 탐지
+- partial attempt의 번호 소비 여부
+- allocator failure code
+- attempt index 또는 ledger
+
+ChatGPT는 두 clean worktree가 동시에 동일 attempt ID를 배정할 수 있다고 판단했다.
+
+Claude 검토는 attempt-scoped immutable lifecycle, monotonic ID, immutable phase output 및 promotion byte parity가 Cycle 1 R-1을 해소했다고 평가했다. Sealed Artifact Surface에서도 write-once 위반 경로가 제거되었다고 판정했다.
+
+**Affected Scope:**
+
+- Change 0
+- Generated Artifacts and Evidence Classes
+- Rollback Plan
+- Governance Constraints
+- final evidence integrity
+
+**Related Surface:**
+
+- Sealed Artifact Surface
+- Authority Surface
+
+**Required Fix proposed by ChatGPT:**
+
+```text
+canonical_attempt_index
+atomic_attempt_reservation
+attempt_root_nonexistence_check
+reservation_receipt
+failed_attempt_terminal_marker
+attempt_reuse_count = 0
+deleted_attempt_reference_count = 0
+```
+
+추가 요구:
+
+- exclusive-create reservation
+- 충돌 시 재할당
+- Phase 0 이전 실패도 attempt ID 소비
+- failed/invalid/complete marker
+- tracked durable attempt index
+- claim-bearing file overwrite reject
+
+**Blocking Reason:**
+
+현재 계획의 monotonic/no-reuse 규칙이 선언 수준인지 실제 allocator contract까지 포함하는지 판정이 충돌한다.
+
+**Combined Disposition:**
+
+```text
+status = enforcement_contract_adjudication_required
+```
+
+---
+
+## 4. Non-Critical Issues
+
+### RTC-R2-I1 — Candidate Current-Route Validation Mechanism
+
+**Severity:**
+
+```text
+Claude = Important
+ChatGPT = candidate/live 용어 문제를 Important로 제기했으나 runner flag surface는 미제기
+Combined = Important
+```
+
+Claude는 candidate validation command가 다음 flag를 사용한다고 지적했다.
+
+```text
+--required-validations <candidate-manifest>
+```
+
+그러나 해당 runner가 수정 대상 목록에 없으며 flag 실재 여부가 review surface 밖이라고 밝혔다.
+
+가능한 문제:
+
+```text
+flag 존재
+→ 문제 없음
+
+flag 부재
+→ undeclared runner modification
+또는
+→ candidate validation 불능
+```
+
+**Required Fix proposed by Claude:**
+
+다음 중 하나를 고정한다.
+
+1. Change 0에서 flag surface를 검사하고 부재 시:
+
+```text
+compatibility_blocked_required_dependency
+```
+
+2. 또는 runner에 candidate manifest override flag 추가를 조건부 수정 범위로 명시한다.
+
+`candidate override/isolated copy` 중 실제 mechanism도 하나로 고정한다.
+
+---
+
+### RTC-R2-I2 — Allowlist Closure 의도-준수 판정
+
+**Severity:**
+
+```text
+Claude = Important
+ChatGPT = 이전 review에서 allowlist 문제를 Critical로 제기했으나 revised review에서는 해소로 판정
+Combined = Important
+```
+
+Claude는 standalone subprocess가 direct import를 피하므로 allowlist의 문자적 조건은 지키지만, closure contract가 다음 중 무엇인지 확인되지 않았다고 지적했다.
+
+```text
+import-closure only
+또는
+executed-tooling closure
+```
+
+executed-tooling closure라면 subprocess도 우회가 될 수 있다.
+
+**Required Fix proposed by Claude:**
+
+`execution_contract_check_report.json`에 다음 판독을 기록한다.
+
+```text
+allowlist_scope =
+  import_closure_only
+  | executed_tooling_closure
+```
+
+executed-tooling closure로 판독되면 자동 차단한다.
+
+```text
+compatibility_blocked_allowlist_expansion_requires_separate_scope
+```
+
+---
+
+### RTC-R2-I3 — Candidate Probe와 Official Current Route 용어 구분
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = candidate validation mechanism을 Important로 제기
+Combined = 공통 Important
+```
+
+ChatGPT는 candidate manifest override 실행을 다음과 같이 부르는 것이 부정확하다고 지적했다.
+
+```text
+pre_adoption_current_route_result.json
+Candidate current-route validation
+```
+
+candidate override는 live required manifest를 소비하는 official current route가 아니다.
+
+**Required Fix:**
+
+```text
+candidate_manifest_route_probe.json
+candidate_manifest_route_status
+```
+
+다음 claim은 post-adoption official run에만 사용한다.
+
+```text
+current-route PASS
+```
+
+---
+
+### RTC-R2-I4 — C-6 Role Multiplicity
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = C-6 role vocabulary를 Minor로 제기
+Combined = Important 판정 보존
+```
+
+role enum:
+
+```text
+contract_reference_member
+bounded_compatibility_exception_member
+```
+
+누락된 multiplicity constraints:
+
+```text
+member_count = 2
+contract_reference_member_count = 1
+bounded_compatibility_exception_member_count = 1
+role_overlap_count = 0
+unassigned_member_count = 0
+```
+
+두 role 모두 runtime resolution 권한은 없어야 한다.
+
+---
+
+### RTC-R2-I5 — Format-Specific JSON/Lua Key Decoding Contract
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = decoded equality와 raw provenance 분리가 이미 폐쇄되었다고 평가
+Combined = severity/충족 여부 판정 필요
+```
+
+ChatGPT는 다음 representation을 구분해야 한다고 지적했다.
+
+- raw source token bytes
+- decoded format string
+- decoded UTF-8 bytes
+- exact code-point sequence
+- raw token hash
+- decoded exact-key hash
+
+필요 fixture:
+
+```json
+"Base.LemonGrass"
+"\u0042ase.LemonGrass"
+```
+
+```lua
+["Base.LemonGrass"]
+["Base.\076emonGrass"]
+```
+
+Claude는 decoded identity, byte provenance 및 wildcard exclusion 문제가 개정본에서 폐쇄되었다고 평가했다.
+
+**Combined Disposition:**
+
+```text
+status = schema_presence_verification_required
+```
+
+---
+
+### RTC-R2-I6 — Windows Route B / jq 설명
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = rejection 근거가 기술적으로 정확하다고 평가
+Combined = 직접 판정 충돌
+```
+
+ChatGPT는 jq가 case-variant key를 collapse한다는 설명은 부정확하다고 판단했다.
+
+```text
+Base.LemonGrass
+Base.Lemongrass
+```
+
+두 key는 jq object에서도 distinct하다는 지적이다.
+
+Claude는 기본 object parsing에서 duplicate key가 last-wins로 collapse되므로 rejection 근거가 정확하다고 평가했다. 다만 `jq --stream`은 duplicate-aware일 수 있다고 부연했다.
+
+판정에 필요한 구분:
+
+```text
+case-variant distinct keys
+vs
+exact duplicate identical keys
+```
+
+**Combined Disposition:**
+
+```text
+status = wording_and_fixture_scope_adjudication_required
+```
+
+---
+
+### RTC-R2-I7 — Lua Accepted Version Contract
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = Lua/luac dependency handling은 반영되었다고 평가
+Combined = Important 판정 보존
+```
+
+ChatGPT는 `lua -v` 기록만 있고 accepted major/minor가 정의되지 않았다고 지적했다.
+
+최소 수정:
+
+```text
+accepted_lua_version_range
+unsupported_lua_version_failure_code
+not_claimed = Kahlua/PZ full runtime equivalence
+```
+
+예시:
+
+```text
+accepted = Lua 5.1.x
+or explicitly reviewed compatible version
+```
+
+---
+
+### RTC-R2-I8 — Review Verdict Vocabulary
+
+**Severity:**
+
+```text
+ChatGPT = Important
+Claude = 미식별
+Combined = Important
+```
+
+계획의 pre-entry predicate가 다음 token을 허용한다고 지적되었다.
+
+```text
+PASS_WITH_NONBLOCKING_WARNINGS
+```
+
+그러나 review template vocabulary는 다음이다.
+
+```text
+PASS
+WARN
+FAIL
+```
+
+최소 수정:
+
+```text
+revised_plan_review_verdict = PASS
+```
+
+또는:
+
+```text
+revised_plan_review_verdict = WARN
+open_implementation_blocker_count = 0
+all_warnings_owner_dispositioned = true
+```
+
+새 verdict token을 암묵적으로 도입하지 않는다.
+
+---
+
+### RTC-R2-M1 — C-1/C-2 Owner Record 단위
+
+**Severity:**
+
+```text
+Claude = Minor
+ChatGPT = 미식별
+```
+
+C-1/C-2가 approved plan으로 ratify될 때 owner record hash가 다음 중 무엇을 가리키는지 명시해야 한다.
+
+- plan approval record 하나
+- C-1/C-2 discrete decision records
+- policy approval record
+
+invalidation predicate가 어떤 record를 hash-bind하는지 고정한다.
+
+---
+
+### RTC-R2-M2 — C-6 Role Vocabulary Traceability
+
+**Severity:**
+
+```text
+Claude = Minor
+ChatGPT = canonical role 오독 문제를 이전 review에서 제기
+Combined = Minor
+```
+
+기존 vocabulary:
+
+```text
+canonical_exact_key
+exception_exact_key
+```
+
+개정 vocabulary:
+
+```text
+contract_reference_member
+bounded_compatibility_exception_member
+```
+
+Claude는 재명명 취지는 타당하지만 traceability matrix와 owner ratification 범위에 의도적 변경을 기록할 것을 권고했다.
+
+---
+
+### RTC-R2-M3 — C-5 Owner 선택지 축소
+
+**Severity:**
+
+```text
+Claude = Minor
+ChatGPT = package guard unconditional을 적절한 수정으로 평가
+Combined = Minor
+```
+
+roadmap은 다음 선택지를 허용했다.
+
+```text
+current required-validation
+또는
+package-required guard
+```
+
+개정본은 package guard를 unconditional로 만들고 canonical closeout에 live additive required gate를 필수화했다.
+
+Claude는 강화 자체는 위반이 아니지만 owner 선택지 축소를 C-5 ratification에서 인지하도록 기록할 것을 제안했다.
+
+---
+
+### RTC-R2-M4 — Windows Inspection Report 10항목 Binding
+
+**Severity:**
+
+```text
+Claude = Minor
+ChatGPT = 미식별
+```
+
+Windows report에 직접 포함하거나 다른 evidence hash로 결속할 항목:
+
+- four-surface cardinality
+- exact distinct count
+- comparison collision group count
+- unauthorized count
+- exception-backed count
+- round-trip restored count
+- merged count
+- lost count
+- overwritten count
+- terminal status
+
+---
+
+### RTC-R2-M5 — Windows 2회 실행 Parity 기준
+
+**Severity:**
+
+```text
+Claude = Minor
+ChatGPT = 미식별
+```
+
+Windows route/projection/round-trip을 두 번 실행할 경우 비교 기준을 명시한다.
+
+예:
+
+```text
+normalized report hash parity
+decoded record sequence parity
+round-trip restored key-set parity
+```
+
+---
+
+## 5. Scope Review
+
+### Scope Drift
+
+#### 합의된 사항
+
+두 검토안은 이전 Cycle 1의 주요 scope drift가 제거되었다고 평가한다.
+
+- tooling allowlist 확대 제거
+- source correction 제외
+- runtime case alias 추가 제외
+- package publication 제외
+- current core 12개 유지
+- top-doc 적용을 owner step으로 분리
+- Registry Authority 재개방 금지
+- DVF Body Compiler 및 Publish Boundary 분리
+
+#### 판정 충돌 — Alias Emission Universe
+
+```text
+ChatGPT:
+generic alias emission universe는 전역 alias framework에 가까우며 scope drift
+
+Claude:
+authority/emission universe 분리는 combined review 지시 이행이며 scope drift 없음
+```
+
+### Missing Scope
+
+두 검토안에서 제기된 missing scope를 합치면 다음과 같다.
+
+- candidate policy의 pre-adoption execution path
+- candidate current-route runner/flag mechanism
+- allowlist closure semantics inspection
+- atomic attempt allocation 및 reservation ledger
+- failed-attempt durable index
+- exact role multiplicity
+- JSON/Lua escaped-key decoding schema
+- Lua accepted version
+- candidate probe와 official current-route claim 분리
+- verdict vocabulary alignment
+- Windows report 10항목 binding
+
+### Explicitly Out Of Scope Consistency
+
+alias universe를 제외한 대부분의 out-of-scope boundary는 두 검토안 모두 일관적이라고 평가한다.
+
+유지된 비범위:
+
+- source key rename·merge
+- item semantic 판정
+- runtime-side repair
+- public text acceptance
+- release/Workshop/B42 readiness
+- manual QA
+- Registry Authority PASS 재수행
+- DVF Body Compiler 변경
+- Publish Boundary 실행
+
+---
+
+## 6. Validation Review
+
+### Missing Validation
+
+한쪽 이상에서 누락되었다고 판단한 validation은 다음과 같다.
+
+1. candidate package command가 attempt-local policy를 정확히 소비하는지
+2. adopted package command가 non-durable policy를 거부하는지
+3. policy context downgrade/substitution fixture
+4. concurrent attempt allocation/reuse fixture
+5. failed attempt deletion/reference-loss fixture
+6. C-6 role multiplicity fixture
+7. JSON escaped-key exact duplicate fixture
+8. Lua escaped-key exact duplicate fixture
+9. alias-added-new-key rejection fixture
+10. candidate probe claim scanner
+11. unsupported Lua version fixture
+12. runner `--required-validations` flag existence/precondition
+13. allowlist contract scope 판독
+14. Windows rerun normalized parity
+
+이 중 1~5, 7~9, 11은 ChatGPT가 필요하다고 판정했으나 Claude는 대부분 이미 해소된 것으로 평가했다.
+
+### Weak Validation
+
+#### Candidate Route
+
+두 검토안 모두 candidate override를 official current route와 혼동해서는 안 된다는 방향과 양립한다.
+
+남은 문제:
+
+- 실제 runner flag 존재 여부
+- candidate manifest override mechanism
+- candidate result filename 및 claim vocabulary
+
+#### Alias Validation
+
+```text
+ChatGPT:
+applied_new_key_count는 반드시 0이어야 함
+
+Claude:
+typed alias failure 및 emission universe로 폐쇄됨
+```
+
+성공 invariant가 exact equality인지 declared emission equality인지 별도 판정이 필요하다.
+
+#### Attempt Validation
+
+```text
+ChatGPT:
+directory naming과 monotonic 선언만으로 부족
+
+Claude:
+attempt-scoped immutable lifecycle로 해결
+```
+
+atomic allocation과 durable index가 계획에 실제로 존재하는지 확인이 필요하다.
+
+#### Windows Validation
+
+Claude는 A/C가 같은 Python producer를 사용할 경우 algorithmic 독립 proof가 아니라 transport conformance로 봐야 한다고 지적했다.
+
+ChatGPT는 jq Route B의 rejection 이유 자체를 수정해야 한다고 보았다.
+
+#### Package Binding
+
+두 검토안 모두 logical binding과 ZIP metadata 분리는 개선된 것으로 인정한다.
+
+ChatGPT는 candidate/adopted policy context가 없으면 실제 실행이 성립하지 않는다고 보았다.
+
+### Validation Ceiling Risk
+
+두 검토안 모두 validation ceiling은 낮다고 평가한다.
+
+계획이 제외하는 claim:
+
+- full runtime equivalence
+- Kahlua/PZ runtime equivalence
+- release readiness
+- package publication
+- public quality acceptance
+- manual QA
+- Registry Authority PASS
+- DVF Body Compiler PASS
+- Workshop/B42 readiness
+
+잔여 위험:
+
+- candidate manifest probe를 current-route validation으로 부르는 표현
+- Windows A/C route를 독립 compatibility proof로 과대 계상하는 표현
+
+### Validation Practicality
+
+공통 평가:
+
+- validation depth는 heavy하지만 target risk에 비례
+- raw property-pair parsing
+- actual Lua reconstruction
+- PowerShell 5.1
+- package failure propagation
+- deterministic rerun
+- cross-phase freshness
+- isolated output
+- independent review
+
+판정 차이:
+
+```text
+ChatGPT:
+generic alias framework와 allocator 없는 attempt ceremony가 실행 불능 또는 과도함
+
+Claude:
+Cycle 1/combined review 이행 비용이며 과잉 ceremony 없음
+```
+
+---
+
+## 7. Governance Review
+
+### Philosophy.md Compliance
+
+두 검토안 모두 대체로 준수한다고 평가한다.
+
+- compatibility 우선
+- fail-loud
+- runtime/build-time 분리
+- current authority no-mutation
+- legacy artifact reentry 금지
+- Python/PowerShell offline tooling
+- live Lua renderer 무변경
+
+### Architecture Boundary
+
+공통 평가:
+
+- DVF Body Compiler 책임 침범 없음
+- Registry Authority 재개방 없음
+- Publish Boundary 혼입 없음
+- Pulse 또는 다른 spoke dependency 없음
+- current core 12개 유지
+
+판정 충돌:
+
+```text
+alias emission universe
+= 승인 범위 밖 전역 framework
+또는
+= existing alias regression을 닫는 typed projection contract
+```
+
+### Runtime / Build-Time Separation
+
+두 검토안 모두 준수한다고 평가한다.
+
+- runtime JSON parser 없음
+- runtime case normalization 없음
+- runtime repair 없음
+- actual Lua harness는 isolated offline execution
+- live payload mutation 없음
+
+### FAIL-LOUD Preservation
+
+공통적으로 강화되었다고 평가한 항목:
+
+- missing dependency block
+- unsupported comparator domain block
+- no `ConvertFrom-Json` fallback
+- package child non-zero propagation
+- no ZIP after guard failure
+- owner technical override 금지
+- freshness drift 시 new attempt
+- fallback forbidden route enum
+
+ChatGPT의 잔여 우려:
+
+- candidate policy resolution이 명시되지 않으면 hidden fallback 가능
+- allocator가 없으면 failed-evidence preservation이 선언에 그침
+
+Claude의 잔여 우려:
+
+- allowlist closure semantics 판독이 실행자 해석에 의존
+
+### Authority Ownership
+
+공통 평가:
+
+- owner는 governance disposition을 소유
+- owner seal은 independent review를 대체하지 않음
+- technical failure waiver 금지
+- C-8 baseline record는 Cycle 1 문제를 해소
+
+잔여 항목:
+
+- C-1/C-2 owner record 단위
+- C-6 role multiplicity
+- alias-added identity가 authority 확장인지 여부
+- attempt allocator authority
+
+### Contract Compliance
+
+정렬되었다고 공통 또는 상호 양립적으로 평가된 사항:
+
+- tooling allowlist cap 유지
+- live manifest additive adoption
+- self-reference 금지
+- independent review/owner seal 분리
+- failed evidence 보존 원칙
+- axis-qualified claim
+- dirty baseline과 execution worktree 분리
+- plan self-hash의 외부 fingerprint 처리
+
+불충분하거나 판정이 필요한 사항:
+
+- candidate/adopted policy path
+- attempt identity authority
+- alias exact-key invariant
+- candidate validation runner
+- allowlist closure semantics
+- verdict vocabulary
+
+---
+
+## 8. Risk Surface Review
+
+### Authority Surface
+
+**Concerns**
+
+- compatibility policy와 role disposition 추가 자체는 승인 범위 안
+- alias-added key가 authority/runtime universe를 확장하는지 판정 필요
+- attempt allocator authority 존재 여부 미확정
+- candidate와 durable policy precedence 미확정
+- C-1/C-2 owner record 단위 미특정
+
+### Runtime Behavior Surface
+
+**Low concern / none**
+
+- live Lua behavior와 payload는 변경하지 않음
+- build/package failure timing만 강화
+- policy resolution 오류 시 package command 전체가 차단될 수 있음
+
+### Compatibility Surface
+
+**High / intended**
+
+핵심 대상:
+
+- JSON decoded key identity
+- Lua decoded key identity
+- Windows comparison semantics
+- package projection
+- alias emission
+- exact-key equality
+- round-trip restoration
+- candidate/adopted policy context
+
+### Sealed Artifact Surface
+
+**판정 충돌**
+
+```text
+ChatGPT:
+attempt allocator/index 부재로 append-only lifecycle 불완전
+
+Claude:
+attempt isolation, immutable output, byte-parity promotion으로 concerns 해소
+```
+
+공통 관리 대상:
+
+- attempt evidence
+- candidate-to-durable promotion
+- owner role record
+- required manifest
+- final report
+- terminal seal
+
+### Public-Facing Output Surface
+
+**None**
+
+사용자 표시 text, Tooltip, Wiki 및 public content에는 영향이 없다.
+
+---
+
+## 9. Risk Review
+
+### Regression Risk
+
+- package guard가 올바른 policy를 찾지 못해 모든 package 실행을 차단
+- candidate runner flag 부재로 Phase 5 late failure
+- alias validation이 unrelated alias behavior까지 확장
+- exporter preflight가 historical/diagnostic route를 오차단
+- `.gitignore` exact exception 누락
+- dirty top-doc와 clean worktree result 혼합
+- failed attempt root overwrite 또는 삭제
+- standalone subprocess가 allowlist 의도를 우회
+
+### Compatibility Risk
+
+- alias-added key가 source/runtime identity 차이를 정당화
+- escaped JSON/Lua key가 raw token 기준으로 오판
+- candidate policy와 adopted policy가 다르게 소비
+- role assignment이 두 member를 유일하게 구분하지 못함
+- future non-ASCII key가 comparator domain을 차단
+- jq rejection 설명이 exact duplicate와 case variant를 혼합할 가능성
+
+### Operational Risk
+
+- attempt 번호 충돌
+- failed attempt root 삭제
+- Lua version 불일치
+- candidate manifest override flag 부재
+- policy path substitution
+- package failure 후 partial output 잔존
+- candidate probe가 live route result로 오인
+- closure contract가 executed-tooling까지 포괄할 가능성
+
+### Validation Risk
+
+- Windows A/C route를 독립 proof로 과대 계상
+- alias contribution만 계량하고 new key를 허용
+- Review 2와 Phase 0B 순서 오독
+- candidate policy의 durable 조기 기록
+- attempt reuse 검사가 non-atomic directory scan에 의존
+- unsupported Lua version을 단순 환경 차이로 통과
+- review verdict vocabulary mismatch
+
+### Governance Risk
+
+- alias framework scope drift
+- failed evidence laundering
+- candidate/live route claim 혼동
+- undefined verdict token
+- owner role assignment 모호성
+- candidate policy를 live policy처럼 소비
+- standalone subprocess의 allowlist intent 우회
+- current 두 reviewer를 independent reviewer로 오인
+
+---
+
+## 10. Required Revisions
+
+### A. 두 검토안 사이에 직접 충돌이 없는 채택 가능 수정
+
+---
+
+### Revision A1 — Candidate Validation Mechanism 명시
+
+**Affected Section:**
+
+- Code / modified files
+- Change 6
+- automated command list
+- execution preconditions
+
+**Why Required:**
+
+candidate manifest override flag와 runner support가 실제로 존재하는지 불명확하다.
+
+**Minimum Acceptable Correction:**
+
+다음 중 하나를 고정한다.
+
+```text
+existing runner flag verified
+→ report exact flag surface
+```
+
+또는:
+
+```text
+flag absent
+→ compatibility_blocked_required_dependency
+→ runner change is separate reviewed scope
+```
+
+또는 조건부 runner 수정 범위를 명시한다.
+
+---
+
+### Revision A2 — Allowlist Contract Scope 판독
+
+**Affected Section:**
+
+- Change 0
+- execution contract check
+- Config
+
+**Why Required:**
+
+allowlist가 import closure만 통제하는지 executed tooling까지 통제하는지 불명확하다.
+
+**Minimum Acceptable Correction:**
+
+```text
+allowlist_contract_scope =
+  import_closure_only
+  | executed_tooling_closure
+```
+
+executed-tooling closure이면 별도 scope blocker로 종료한다.
+
+---
+
+### Revision A3 — Candidate Probe와 Official Current Route 분리
+
+**Affected Section:**
+
+- Change 6
+- evidence filenames
+- claim scanner
+
+**Why Required:**
+
+candidate override는 official live current route가 아니다.
+
+**Minimum Acceptable Correction:**
+
+```text
+candidate_manifest_route_probe.json
+candidate_manifest_route_status
+```
+
+official `current-route PASS`는 live adoption 후 결과에만 사용한다.
+
+---
+
+### Revision A4 — C-6 Role Multiplicity
+
+**Affected Section:**
+
+- C-6 role contract
+- Phase 0B
+- policy schema
+
+**Why Required:**
+
+두 exact member의 role 배치가 유일하게 닫혀 있지 않다.
+
+**Minimum Acceptable Correction:**
+
+```text
+member_count = 2
+reference_member_count = 1
+exception_member_count = 1
+role_overlap_count = 0
+unassigned_member_count = 0
+```
+
+---
+
+### Revision A5 — Review Verdict Vocabulary 정렬
+
+**Affected Section:**
+
+- pre-implementation blocker-zero predicate
+
+**Why Required:**
+
+template에 없는 verdict token을 사용해서는 안 된다.
+
+**Minimum Acceptable Correction:**
+
+```text
+PASS / WARN / FAIL
+```
+
+중 하나를 사용한다.
+
+WARN을 implementation entry에 허용한다면 blocker-zero와 owner disposition 조건을 별도로 명시한다.
+
+---
+
+### Revision A6 — C-1/C-2 Owner Record Binding
+
+**Affected Section:**
+
+- C-1/C-2 fixed contract
+- policy binding
+- invalidation predicates
+
+**Why Required:**
+
+owner record hash가 어떤 approval artifact를 가리키는지 불명확하다.
+
+**Minimum Acceptable Correction:**
+
+- plan approval record
+- discrete decision record
+- policy approval record
+
+중 하나를 명시하고 hash binding 단위를 고정한다.
+
+---
+
+### Revision A7 — Windows Report 및 Rerun Parity
+
+**Affected Section:**
+
+- Windows projection report schema
+- determinism validation
+
+**Why Required:**
+
+roadmap 10항목과 두 번의 실행 결과 비교 기준이 분산되어 있다.
+
+**Minimum Acceptable Correction:**
+
+10항목을 직접 포함하거나 hash reference로 결속하고, rerun parity 기준을 명시한다.
+
+---
+
+### Revision A8 — C-6 Vocabulary Traceability와 C-5 Owner Confirmation
+
+**Affected Section:**
+
+- traceability matrix
+- C-5/C-6 ratification
+
+**Why Required:**
+
+role token 변경과 canonical route 선택지 축소를 owner가 명시적으로 인지하도록 한다.
+
+**Minimum Acceptable Correction:**
+
+- old/new vocabulary mapping
+- runtime resolution 권한 없음
+- C-5 선택지 강화 사실
+- owner ratification 기록
+
+---
+
+### B. 판정 충돌로 인해 별도 확인이 필요한 수정
+
+---
+
+### Revision B1 — Candidate / Adopted Policy Execution Context
+
+확인할 사항:
+
+- Phase 2~4가 attempt-local policy path를 명시적으로 소비하는가
+- package command에 policy path/context input이 존재하는가
+- Windows command가 durable path를 조기 참조하는가
+- candidate/durable byte parity만으로 실행 bootstrap이 해결되는가
+
+ChatGPT 해석이 맞다면 candidate/adopted context를 명시적으로 분리한다.
+
+---
+
+### Revision B2 — Exact-Key Equality와 Alias Emission Universe
+
+확인할 사항:
+
+- source/rendered/runtime/package key-set 차이를 PASS로 허용하는가
+- `applied_new_alias_key_count > 0`이 가능한가
+- existing alias target은 authority universe에 이미 존재하는가
+- emission universe가 current regression 계량인지 future alias expansion contract인지
+
+ChatGPT 해석이 맞다면 전 surface exact equality와 new alias key count 0을 고정한다.
+
+---
+
+### Revision B3 — Phase 0A / Review 2 / Phase 0B Order
+
+확인할 사항:
+
+- Review 2가 실제로 Phase 0B보다 앞에 있는가
+- exclusion manifest와 role/policy가 Branch A 전에 ratify되는가
+- Phase 0A가 final Branch token을 기록하는가 machine eligibility만 기록하는가
+
+Claude 해석대로 이미 순서가 닫혀 있다면 추가 수정하지 않는다.
+
+---
+
+### Revision B4 — Attempt Allocation Enforcement
+
+확인할 사항:
+
+- attempt ID가 atomic하게 reserve되는가
+- concurrent worktree 충돌을 막는가
+- failed attempt의 durable index가 존재하는가
+- deleted attempt reference를 탐지하는가
+- pre-Phase 0 failure도 ID를 소비하는가
+
+ChatGPT 해석이 맞다면 canonical index와 atomic reservation contract를 추가한다.
+
+---
+
+### Revision B5 — Format-Specific Decode Contract
+
+확인할 사항:
+
+- JSON/Lua raw token과 decoded exact key가 schema에서 이미 분리되어 있는가
+- escaped-key fixtures가 존재하는가
+- raw token hash와 decoded-key hash가 별도인가
+
+없다면 ChatGPT 제안에 따라 adapter contract와 fixtures를 추가한다.
+
+---
+
+### Revision B6 — jq Route B Rejection Rationale
+
+확인할 사항:
+
+- rejection이 case-variant collapse를 주장하는가
+- exact duplicate collapse를 주장하는가
+- 기본 object mode와 `--stream` mode를 구분하는가
+
+기술 설명이 case variant와 exact duplicate를 혼합하면 수정한다.
+
+---
+
+### Revision B7 — Lua Accepted Version
+
+확인할 사항:
+
+- accepted Lua major/minor가 이미 명시되어 있는가
+- 단순 `lua -v` receipt만 존재하는가
+- Kahlua/PZ equivalence non-claim이 존재하는가
+
+없다면 accepted range와 unsupported-version failure code를 추가한다.
+
+---
+
+## 11. Final Recommendation
+
+# NOT PASS
+
+두 검토안은 최종 severity에서 합의하지 못했다.
+
+```text
+ChatGPT = FAIL
+Claude = WARN
+```
+
+그러나 다음에는 합의한다.
+
+```text
+current plan-level PASS = unavailable
+required revisions = open
+independent closeout review = unsatisfied
+immediate implementation entry = not recommended
+```
+
+### 확정 가능한 Blocking Conditions
+
+```text
+candidate validation mechanism = unresolved
+allowlist contract scope = unresolved
+candidate/live route terminology = unresolved
+open required revisions = present
+eligible independent reviewer = absent
+```
+
+### 판정이 필요한 Critical Conditions
+
+```text
+candidate policy bootstrap
+alias exact-key invariant
+Phase 0B ordering
+attempt allocation enforcement
+```
+
+이 네 항목은 실제 revised plan text와 referenced contracts를 대조하여 유효 여부를 판정해야 한다.
+
+### Required Next Actions
+
+```text
+1. Revision A1~A8 반영
+2. Revision B1~B7 실문서 대조
+3. carry-forward table 갱신
+4. revised plan re-fingerprint
+5. unresolved findings만 증분 재검토
+6. implementation 전 eligible independent reviewer 별도 지정
+```
+
+### PASS Condition
+
+두 검토안의 요구를 합치면 다음 조건이 필요하다.
+
+```text
+open validated Critical = 0
+open required Important = 0
+Minor findings = explicitly dispositioned
+review verdict = approved template token
+approved plan fingerprint = execution plan fingerprint
+independent closeout reviewer eligibility = satisfied at final gate
+```
+
+---
+
+## 12. Reviewer Notes
+
+### Review Limitations
+
+이 종합 검토는 두 AI 검토안을 구조화한 것이며 revised plan이나 repository를 직접 재검증하지 않았다.
+
+직접 확인하지 않은 항목:
+
+- candidate policy path
+- package command arguments
+- Windows route command
+- runner flag surface
+- allowlist contract semantics
+- alias emission schema
+- Phase 0/Review ordering
+- attempt allocator implementation
+- JSON/Lua decode schema
+- accepted Lua version
+- actual file hashes
+- live repository state
+
+따라서 한쪽 검토안에서만 제기된 Critical finding은 삭제하거나 자동 확정하지 않고 판정 보류 상태로 유지했다.
+
+### Independent Review Limitation
+
+두 reviewer 모두 roadmap 또는 upstream drafting에 관여했다.
+
+따라서 현재 ChatGPT 검토, Claude 검토 및 본 종합 검토는 다음을 대체하지 않는다.
+
+- implementation result review
+- required-validation adoption review
+- eligible independent closeout review
+- owner seal
+- terminal hash seal
+- `Registry Runtime Compatibility PASS`
+
+### 종합자 관찰 / 별도 검토 필요
+
+두 검토안의 핵심 차이는 계획의 전체 방향이 아니라 다음 계약 문장의 실제 존재 여부와 의미에 집중되어 있다.
+
+```text
+candidate policy path
+alias emission success invariant
+Review 2 placement
+attempt ID allocation mechanism
+runner override flag
+allowlist closure scope
+```
+
+이 여섯 항목을 revised plan 및 authority document와 직접 대조하면 FAIL/WARN 판정 차이의 대부분을 해소할 수 있다.

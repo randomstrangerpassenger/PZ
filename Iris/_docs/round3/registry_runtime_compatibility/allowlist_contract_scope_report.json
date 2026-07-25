@@ -1,0 +1,18 @@
+{
+  "schema_version": "rtc-allowlist-contract-scope-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "decision_ledger_path": "docs/DECISIONS.md",
+  "runner_path": "Iris/_docs/round3/round3_run_contract_tests.py",
+  "active_core_closure_path": "Iris/_docs/round3/round3_active_core_closure.json",
+  "allowlist_contract_scope": "import_closure_only",
+  "required_validations_override_flag_verified": true,
+  "required_validations_override_flag": "--required-validations",
+  "current_core_count": 12,
+  "current_route_allowed_tooling_modules": [
+    "export_dvf_3_3_lua_bridge"
+  ],
+  "current_route_allowed_tooling_module_cap": 1,
+  "tooling_allowlist_mutation_planned_count": 0,
+  "separate_scope_required_if_executed_tooling_closure": true,
+  "status": "PASS"
+}

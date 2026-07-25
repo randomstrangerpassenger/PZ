@@ -1,0 +1,1136 @@
+# Iris Registry Runtime Compatibility Cycle 4 Implementation Plan Review
+
+> Review level: `plan_level`  
+> Review target: Cycle 4 revised `dvf_3_3_registry_runtime_compatibility_plan.md`  
+> Review status: incremental pre-implementation review  
+> Verdict: `FAIL`  
+> Open Critical: 3  
+> Open Important: 5  
+> Open Minor: 2  
+> Independent closeout review eligibility: `ineligible — roadmap and prior plan-review participation`
+
+---
+
+## 1. Verdict
+
+# FAIL
+
+Cycle 4 개정본은 이전 검토에서 제기된 다음 문제를 충분히 해결했다.
+
+- roadmap 필수 fixture 1~10의 명시적 traceability
+- 일반 key positive fixture
+- Windows projection cardinality-loss negative fixture
+- exporter/package repository-wide invocation census
+- post-adoption canonical default route
+- implementation toolchain manifest와 다단계 freshness check
+- governance-only ledger bootstrap commit
+- single integration branch와 event-prefix equality
+- record/event/VCS/shared-ledger transaction 순서
+- bridge preflight와 post-generation four-surface validation 분리
+- roadmap의 OR 조건을 더 강한 AND 조건으로 바꾸는 owner acknowledgement
+- content-addressed durable bundle ID
+- PUC Lua 검증 상한 명시
+
+따라서 이전 Cycle 4 review의 Critical finding은 계획상 대부분 해소되었다.
+
+그러나 현재 계획에는 다음 세 blocker가 남아 있다.
+
+1. Gate B의 attempt reservation을 수행할 실행기가 implementation entry 이전에 존재하지 않는다.
+2. owner-bound exception을 구성하는 owner/review authority record가 durable bundle과 live required surface에 포함되지 않는다.
+3. final machine report, independent review, owner seal, final closure report, terminal seal이 disposable local supporting evidence에만 남는다.
+
+이 상태에서는 implementation entry와 canonical closeout 중 적어도 하나가 성립하지 않는다.
+
+---
+
+## 2. Executive Summary
+
+### Current Execution Readiness
+
+```text
+plan_level_pass = false
+governance_bootstrap_allowed = false
+implementation_entry_allowed = false
+production_tooling_mutation_allowed = false
+live_required_validation_adoption_allowed = false
+```
+
+### Primary Strengths
+
+현재 계획의 compatibility contract는 충분히 안정적이다.
+
+```text
+exact_runtime_identity_v1
+= strict UTF-8 decoded code-point sequence
+
+consumer_comparison_identity_ascii_lower_v1
+= collision analysis only
+```
+
+다음 불변조건도 명확하다.
+
+```text
+source exact key-set
+= rendered exact key-set
+= runtime exact key-set
+= package exact key-set
+
+silent merge = 0
+overwrite = 0
+loss = 0
+alias-added key = 0
+```
+
+특히 다음 경계가 적절하다.
+
+- comparison identity는 runtime lookup에 사용하지 않음
+- collision role은 canonical winner가 아님
+- source authority mutation 없음
+- Registry Authority predecessor 재개방 없음
+- DVF Body Compiler 책임 침범 없음
+- Publish Boundary 혼입 없음
+- package guard unconditional
+- current core/tooling allowlist no-mutation
+- candidate route와 official current route 분리
+- owner seal과 independent review 분리
+- formal claim을 `Registry Runtime Compatibility PASS`로 제한
+
+이는 현재 Iris의 DVF System / Artifact Registry / Runtime Compatibility / Publish Boundary 책임 분리와 일치한다. fileciteturn0file1 fileciteturn0file3
+
+### Primary Remaining Risks
+
+현재 남은 위험은 collision 판단 로직이 아니다.
+
+```text
+pre-entry executor availability
+owner-bound authority durability
+final closeout evidence durability
+```
+
+### Whether Execution Should Proceed
+
+진행해서는 안 된다.
+
+아래 Critical Issues를 수정한 뒤 다시 plan-level review를 받아야 한다.
+
+---
+
+## 3. Critical Issues
+
+### Issue RTC-C5-1 — Gate B Attempt Reservation Executor Bootstrap Cycle
+
+**Severity:** Critical
+
+**Impact:**
+
+계획은 implementation entry 전에 다음을 요구한다.
+
+```text
+attempt reservation
+reservation record exclusive-create
+event ledger append
+reservation VCS commit
+shared ledger update
+attempt_reservation_receipt.json
+preimplementation_gate_report.json
+```
+
+이 작업에는 다음 기능을 수행할 실행기가 필요하다.
+
+- named mutex 획득
+- Git common-dir coordination
+- event prefix 검증
+- immutable reservation record 생성
+- JSONL event transaction
+- Git stage/commit
+- shared reservation ledger 갱신
+- partial-state reconciliation
+- Gate B predicate 계산
+
+그러나 이 기능을 수행할 신규 tooling은 `Repository Areas Affected`에 포함된 implementation code다.
+
+```text
+run_dvf_3_3_registry_runtime_compatibility.py
+dvf_3_3_registry_runtime_compatibility.py
+validate_dvf_3_3_registry_runtime_compatibility.py
+```
+
+현재 Gate A가 허용하는 bootstrap commit은 다음뿐이다.
+
+```text
+ledger_bootstrap_contract.json
+zero-byte attempt_events.jsonl
+필요한 exact .gitignore exception
+```
+
+즉 현재 순서는 다음과 같다.
+
+```text
+Gate B reservation executor 필요
+→ executor는 아직 구현되지 않음
+→ executor 구현은 implementation_entry_allowed 이후
+→ implementation_entry_allowed는 Gate B reservation 완료를 요구
+```
+
+이는 직접적인 bootstrap cycle이다.
+
+Gate A 문서와 빈 ledger만으로 named mutex·transaction·reservation commit을 machine contract대로 실행할 수 없다.
+
+수동 Git/PowerShell 명령으로 수행할 경우에도 다음 문제가 생긴다.
+
+- reviewed executable identity 없음
+- exact command schema 없음
+- tool hash 없음
+- partial-state handling의 재현성 없음
+- toolchain manifest 이전의 unbound code execution
+
+**Affected Scope:**
+
+- Change 0
+- Gate A / Gate B
+- attempt allocation
+- preimplementation gate
+- governance bootstrap
+- execution provenance
+
+**Related Surface:**
+
+- Authority Surface
+- Sealed Artifact Surface
+
+**Required Fix:**
+
+다음 중 하나를 명시적으로 선택해야 한다.
+
+#### Option A — Bootstrap-Only Governance Executor
+
+Gate A에서 다음과 같은 최소 executor를 ledger 파일과 함께 owner-approved bootstrap commit으로 채택한다.
+
+```text
+tools/governance/
+  reserve_iris_registry_runtime_compatibility_attempt.py
+```
+
+이 executor의 책임은 다음으로 제한한다.
+
+- mutex
+- event prefix
+- reservation record
+- event append
+- reservation commit
+- shared ledger
+- Gate B reservation receipt
+
+금지:
+
+- compatibility census
+- source/rendered/runtime inspection
+- exporter/package modification
+- required-validation adoption
+- PASS claim
+
+필수 조건:
+
+- plan review가 executor schema와 허용 책임을 승인
+- Gate A commit에서 executor path/hash 고정
+- bootstrap executor 자체의 test/fixture 존재
+- bootstrap contract가 executor hash를 결속
+- Gate B가 오직 해당 executor만 사용
+- executor 변경 시 bootstrap 재승인
+
+#### Option B — Implementation Setup Gate 분리
+
+다음 세 상태로 나눈다.
+
+```text
+governance_bootstrap_allowed
+implementation_setup_allowed
+implementation_attempt_entry_allowed
+```
+
+`implementation_setup_allowed`에서는 compatibility tooling code와 tests만 작성·검토할 수 있다.
+
+금지:
+
+- Phase 0 census
+- package/exporter execution evidence
+- candidate policy 생성
+- claim-bearing report
+- live manifest mutation
+
+tooling 구현과 implementation-result review가 끝난 후 attempt를 reserve하고 Phase 0을 시작한다.
+
+어느 방식을 선택하든, ad hoc 외부 스크립트나 수동 절차를 Gate B authority로 사용해서는 안 된다.
+
+**Blocking Reason:**
+
+현재 계획의 절차만으로는 `implementation_entry_allowed=true`에 도달할 수 없다.
+
+---
+
+### Issue RTC-C5-2 — Owner-Bound Disposition Authority Records가 Durable Contract에 포함되지 않음
+
+**Severity:** Critical
+
+**Impact:**
+
+roadmap과 계획은 Branch A exception이 owner-bound여야 한다고 명시한다.
+
+현재 candidate policy/disposition은 다음 hash를 소비한다.
+
+```text
+plan_contract_approval_record_sha256
+C-6 owner role record hash
+```
+
+그러나 durable bundle의 8개 role에는 다음 record가 포함되지 않는다.
+
+- `plan_contract_approval_record.json`
+- collision disposition owner record
+- C-6 role assignment record
+- Review 2 ratification record
+
+durable bundle은 다음만 포함한다.
+
+```text
+policy
+exclusion
+disposition
+candidate binding
+package guard contract
+implementation toolchain
+toolchain freshness
+pre-adoption machine result
+```
+
+owner record는 `owner_inputs` 경로에 있다고만 되어 있으며 다음이 고정되지 않았다.
+
+- exact durable path
+- tracked/not-ignored requirement
+- immutable version
+- bundle role
+- live required manifest consumption
+- clean-checkout presence
+- replacement/supersession 규칙
+
+따라서 clean checkout에서 다음 상황이 가능하다.
+
+```text
+durable disposition 존재
+owner record content 부재
+disposition 안에는 과거 owner-record hash만 존재
+required gate가 owner record의 schema·identity·선택 내용을 재검증하지 못함
+```
+
+이는 roadmap의 다음 invalidation 조건과 충돌한다.
+
+```text
+owner record 또는 hash binding이 없음
+→ exception fail-closed
+```
+
+또한 `RTC-RM-03-owner-record-missing` fixture를 production required route와 같은 방식으로 구현하기 어렵다. required route가 owner record를 직접 요구하지 않는다면 fixture만 owner record absence를 검사하고 실제 current gate는 검사하지 않는 이중 계약이 생긴다.
+
+**Affected Scope:**
+
+- plan contract approval
+- C-6 role contract
+- Phase 0B
+- Change 2
+- durable bundle
+- live required-validation
+- owner binding fixture
+
+**Related Surface:**
+
+- Authority Surface
+- Sealed Artifact Surface
+- Compatibility Surface
+
+**Required Fix:**
+
+owner/review authority record를 versioned durable contract에 포함해야 한다.
+
+권장 durable bundle role 추가:
+
+```text
+plan_contract_approval
+collision_owner_disposition
+phase0_contract_review
+```
+
+최소 durable set:
+
+```text
+plan_contract_approval_record.json
+current_collision_owner_disposition_record.json
+phase0_disposition_contract_review_record.json
+```
+
+각 record는 다음을 가져야 한다.
+
+- owner/reviewer identity
+- role/eligibility
+- timestamp
+- selected decision
+- target plan/policy/disposition hash
+- input artifact hashes
+- record self-hash 또는 외부 binding
+- supersession status
+
+candidate binding DAG는 다음처럼 유지할 수 있다.
+
+```text
+owner approval record
+owner collision record
+Review 2 record
+policy
+exclusion
+disposition
+→ external contract bundle manifest
+```
+
+live required manifest 또는 required unittest는 다음을 직접 검증해야 한다.
+
+```text
+owner record present
+owner record tracked/not ignored
+owner record hash matches
+owner decision matches disposition
+Review 2 PASS matches policy/exclusion
+reviewer eligibility valid
+```
+
+durable promotion role count와 bundle ID 계산도 이에 맞게 수정해야 한다.
+
+**Blocking Reason:**
+
+현재 durable exception은 `owner-bound exception`이 아니라 `과거 owner hash를 문자열로 포함한 exception`으로 축소될 수 있다.
+
+---
+
+### Issue RTC-C5-3 — Final Canonical Closeout Evidence가 Disposable Local Evidence에만 존재함
+
+**Severity:** Critical
+
+**Impact:**
+
+formal closeout은 다음 artifact를 요구한다.
+
+```text
+final_machine_report.json
+independent_review_gate_report.json
+owner_canonical_seal_gate_report.json
+final_registry_runtime_compatibility_report.json
+terminal_hash_seal.json
+```
+
+그러나 이 파일들은 모두 local attempt root의 `phase5/`에 남는다.
+
+Evidence classification상 local attempt root는:
+
+```text
+supporting_generated
+→ terminal sealing 이후 clean-checkout requirement 아님
+```
+
+tracked per-attempt durable surface에는 다음만 남는다.
+
+```text
+reservation_record.json
+terminal_record.json
+evidence_manifest.json
+failure_summary.json
+```
+
+즉 terminal record와 evidence manifest가 final artifacts의 hash를 보존할 수는 있지만, 해당 artifact의 실제 bytes는 clean checkout에서 사라질 수 있다.
+
+이 상태에서는 미래 auditor가 다음을 검증할 수 없다.
+
+- independent review가 어떤 finding을 검토했는가
+- reviewer eligibility가 실제로 무엇이었는가
+- owner가 어떤 final machine report에 seal했는가
+- final claim boundary가 무엇이었는가
+- terminal hash seal이 어떤 artifact graph를 봉인했는가
+
+남는 것은 검증할 원문 없이 존재하는 SHA-256뿐이다.
+
+이는 다음과 같은 상태다.
+
+```text
+hash exists
+referenced evidence bytes absent
+canonical closeout content unverifiable
+```
+
+final claim-bearing evidence는 일반 supporting log와 동일하게 폐기 가능해서는 안 된다.
+
+**Affected Scope:**
+
+- Change 7
+- Evidence Classes
+- per-attempt durable records
+- terminal transaction
+- independent review
+- owner seal
+- final claim
+- clean-checkout validation
+
+**Related Surface:**
+
+- Sealed Artifact Surface
+- Authority Surface
+
+**Required Fix:**
+
+final governance packet을 tracked immutable per-attempt durable surface로 보존해야 한다.
+
+권장 구조:
+
+```text
+Iris/_docs/round3/registry_runtime_compatibility/
+  attempts/attempt-NNNN/
+    reservation_record.json
+    terminal_record.json
+    evidence_manifest.json
+
+    closeout/
+      final_machine_report.json
+      independent_review_gate_report.json
+      owner_canonical_seal_gate_report.json
+      final_registry_runtime_compatibility_report.json
+      terminal_hash_seal.json
+```
+
+필요하다면 다음도 포함한다.
+
+```text
+post_adoption_current_route_result.json
+live_gate_package_finalization_result.json
+final_claim_scan_report.json
+```
+
+필수 ordering:
+
+```text
+final machine report
+→ independent review
+→ owner seal
+→ final compatibility report
+→ terminal hash seal
+→ durable closeout packet commit
+→ terminal record/event transaction
+```
+
+terminal event는 durable closeout packet commit을 직접 참조해야 한다.
+
+clean-checkout validator는 다음을 요구해야 한다.
+
+```text
+durable_closeout_artifact_missing_count = 0
+durable_closeout_hash_mismatch_count = 0
+independent_review_content_available = true
+owner_seal_content_available = true
+terminal_seal_content_available = true
+```
+
+local phase5 copies는 provenance source가 될 수 있지만, canonical closeout authority는 tracked durable closeout packet이어야 한다.
+
+**Blocking Reason:**
+
+현재 계획으로는 `registry_runtime_compatibility_canonical_complete`의 근거가 terminal 이후 사라질 수 있다.
+
+---
+
+## 4. Non-Critical Issues
+
+### RTC-I5-1 — Durable Bundle Lifecycle State의 Authority Surface가 불명확함
+
+**Severity:** Important
+
+계획은 다음 lifecycle을 정의한다.
+
+```text
+candidate
+canonical_durable
+package_guard_active_not_required_gate_adopted
+live_required_gate_adopted
+invalidated
+superseded
+```
+
+그러나 `durable_bundle_lifecycle_report.json`은 local attempt evidence다.
+
+다음 상태가 durable하게 어디에 기록되는지 명확하지 않다.
+
+- invalidated
+- superseded
+- package_guard_active_not_required_gate_adopted
+
+live manifest가 선택한 bundle은 `live_required_gate_adopted`를 간접적으로 나타낼 수 있지만, 비선택 bundle의 invalidation/supersession은 clean checkout에서 확인하기 어렵다.
+
+**Recommended Fix:**
+
+append-only durable bundle lifecycle event를 둔다.
+
+```text
+bundle_lifecycle_events.jsonl
+```
+
+또는 bundle별 immutable event record를 추가한다.
+
+bundle directory 자체를 수정하지 않고 additive event로 상태를 관리해야 한다.
+
+---
+
+### RTC-I5-2 — Terminal Transaction과 Durable Closeout Commit의 순서 필요
+
+**Severity:** Important
+
+Critical Issue RTC-C5-3의 수정과 연결된다.
+
+terminal record/event는 다음을 구분해야 한다.
+
+```text
+closeout artifacts generated
+closeout artifacts committed
+terminal event appended
+terminal commit completed
+shared prefix updated
+```
+
+closeout packet이 commit되기 전에 terminal event를 기록하면 terminal event가 아직 durable하지 않은 artifact를 참조한다.
+
+---
+
+### RTC-I5-3 — Toolchain Manifest에 Bootstrap Executor 포함 필요
+
+**Severity:** Important
+
+RTC-C5-1을 Option A로 수정할 경우 bootstrap executor도 authority-bearing code가 된다.
+
+현재 toolchain manifest는 Phase 1에 생성되므로 Gate B에서 사용된 bootstrap executor를 사후에만 기록하게 된다.
+
+다음 중 하나가 필요하다.
+
+- bootstrap contract가 별도 bootstrap-tool manifest를 소유
+- 또는 implementation toolchain manifest가 bootstrap executor provenance를 import
+
+Gate B 이전 실행 code가 provenance 밖에 남아서는 안 된다.
+
+---
+
+### RTC-I5-4 — Live Manifest Pre/Post Hash Binding을 Final Report에 명시
+
+**Severity:** Important
+
+계획은 additive diff와 selected bundle binding을 검증하지만 final machine report의 required field 목록에 다음이 명시적으로 고정되어 있지 않다.
+
+```text
+pre_adoption_live_manifest_sha256
+post_adoption_live_manifest_sha256
+selected_durable_bundle_id
+selected_bundle_manifest_sha256
+adopted_row_identity
+```
+
+이 값은 post-adoption default route와 final claim을 연결하는 핵심 binding이다.
+
+---
+
+### RTC-I5-5 — Original Dirty Docs와 Invocation Inventory Baseline 분리
+
+**Severity:** Important
+
+invocation inventory는 current operator docs까지 조사한다.
+
+그러나 original worktree의 `ARCHITECTURE.md`, `DECISIONS.md`, `ROADMAP.md`에는 user-owned dirty changes가 있다.
+
+inventory는 다음 중 어느 기준을 읽는지 고정해야 한다.
+
+- owner-approved clean execution baseline
+- original dirty user state
+- 양쪽의 union
+
+권장 기준:
+
+```text
+execution authority = owner-approved clean baseline
+dirty user docs = preservation-only comparison
+```
+
+dirty user text가 invocation authority로 조용히 소비되어서는 안 된다.
+
+---
+
+### RTC-M5-1 — Cross-Version Lua Parity Field
+
+**Severity:** Minor
+
+한 version만 실행한 경우 다음을 명확히 기록하는 것이 좋다.
+
+```text
+cross_version_parity_executed = false
+cross_version_parity_claimed = false
+```
+
+---
+
+### RTC-M5-2 — Round-Local Governance Infrastructure 제한
+
+**Severity:** Minor
+
+attempt ledger, bundle lifecycle, bootstrap executor는 이 round 전용 namespace에 머물러야 한다.
+
+이를 Registry 전역 attempt framework나 다른 closure의 공용 infrastructure로 일반화하려면 별도 scope가 필요하다.
+
+---
+
+## 5. Scope Review
+
+### Scope Drift
+
+기능 범위의 직접적 drift는 없다.
+
+다음은 모두 target scope 안에 있다.
+
+- exact/comparison identity
+- collision exception
+- bridge/chunk/package guard
+- Windows projection
+- required-validation adoption
+- Registry Runtime Compatibility claim
+
+다만 다음 governance infrastructure는 round-local로 제한해야 한다.
+
+- governance bootstrap executor
+- attempt event ledger
+- durable closeout packet
+- bundle lifecycle events
+
+### Missing Scope
+
+현재 누락된 범위는 다음이다.
+
+- Gate B를 수행할 pre-entry executor
+- durable owner/review authority records
+- durable final closeout packet
+- durable bundle lifecycle authority
+- terminal event와 closeout commit ordering
+
+### Explicitly Out Of Scope Consistency
+
+일관적이다.
+
+다음은 여전히 제외되어 있다.
+
+- source authority correction
+- Registry Authority 재수행
+- DVF Body Compiler 변경
+- runtime case alias
+- monolith 복구
+- package publication
+- release/Workshop/B42 readiness
+- manual in-game QA
+- semantic quality acceptance
+- Kahlua/PZ runtime equivalence
+
+---
+
+## 6. Validation Review
+
+### Missing Validation
+
+다음 validation이 누락되어 있다.
+
+1. Gate B executor 존재·hash·허용 책임 검사
+2. bootstrap executor 없이 reservation을 수행하는 경로 차단
+3. durable owner approval record presence/hash/schema
+4. durable C-6 owner disposition record
+5. durable Review 2 ratification record
+6. clean-checkout owner-binding validation
+7. durable final machine report presence
+8. durable independent review content availability
+9. durable owner seal content availability
+10. durable terminal seal content availability
+11. terminal event before closeout commit negative fixture
+12. bundle invalidation/supersession lifecycle event validation
+
+### Weak Validation
+
+#### Owner Binding
+
+현재는 disposition 내부 owner hash 중심이다.
+
+owner record bytes가 clean checkout에 존재하고 실제 decision과 일치하는지까지 요구해야 한다.
+
+#### Terminal Evidence
+
+현재 event ledger는 terminal record의 존재를 강하게 검증하지만 terminal record가 참조하는 final evidence bytes의 지속성을 보장하지 않는다.
+
+#### Bootstrap
+
+Gate A/B predicate는 상세하지만 이를 실행할 reviewed mechanism이 없다.
+
+### Validation Ceiling Risk
+
+낮다.
+
+다음 overclaim은 충분히 차단된다.
+
+- Registry Authority PASS
+- DVF Body Compiler PASS
+- Publish Boundary PASS
+- package publication
+- release readiness
+- Workshop/B42 readiness
+- manual QA
+- Kahlua equivalence
+
+### Validation Practicality
+
+compatibility 검증 자체는 실행 가능하다.
+
+남은 문제는 모두 governance execution topology와 evidence durability다.
+
+따라서 다음 개정에서는 fixture나 guard를 더 늘릴 필요가 없다.
+
+---
+
+## 7. Governance Review
+
+### Philosophy.md Compliance
+
+준수한다.
+
+- compatibility 우선
+- fail-loud
+- 역할 경계 유지
+- current authority no-mutation
+- runtime/build-time 분리
+
+### Architecture Boundary
+
+준수한다.
+
+- DVF Body Compiler 책임 침범 없음
+- Registry Authority 재개방 없음
+- Publish Boundary 혼입 없음
+- 다른 Pulse spoke 의존 없음
+
+### Runtime / Build-Time Separation
+
+준수한다.
+
+- Python/PowerShell은 offline tooling
+- live Lua payload 변경 없음
+- runtime JSON parser 없음
+- comparison key lookup 사용 없음
+
+### FAIL-LOUD Preservation
+
+대체로 강하다.
+
+- missing dependency block
+- invalid UTF-8 block
+- comparator domain block
+- owner technical waiver 금지
+- package no-ZIP failure
+- context substitution 차단
+- toolchain drift 차단
+- event-prefix divergence 차단
+
+다만 bootstrap executor 부재로 인해 실제 실행자가 ad hoc 절차를 사용하면 fail-loud contract 자체가 검증되지 않는다.
+
+### Authority Ownership
+
+Registry Runtime Compatibility의 책임 축은 정확하다.
+
+그러나 owner-bound disposition과 final owner seal의 bytes가 durable authority에 포함되지 않는 문제가 남아 있다.
+
+### Contract Compliance
+
+정렬된 부분:
+
+- current core/tooling allowlist no-mutation
+- additive required gate
+- candidate/live route 분리
+- independent review/owner seal 분리
+- formal claim token
+- failure evidence no-rewrite
+
+미완료 부분:
+
+- pre-entry executor authority
+- owner record durability
+- final closeout evidence durability
+
+---
+
+## 8. Risk Surface Review
+
+### Authority Surface
+
+**Concerns**
+
+- compatibility policy와 disposition은 적절하다.
+- owner record가 durable policy bundle 밖에 있다.
+- final closeout authority가 local supporting evidence에 남는다.
+
+### Runtime Behavior Surface
+
+**Low concern**
+
+live Lua behavior는 변경하지 않는다.
+
+### Compatibility Surface
+
+**Low residual concern**
+
+identity, projection, merge, package guard coverage는 충분하다.
+
+### Sealed Artifact Surface
+
+**High concern**
+
+현재 남은 Critical Issue 세 개가 모두 이 surface에 속한다.
+
+### Public-Facing Output Surface
+
+**None**
+
+---
+
+## 9. Risk Review
+
+### Regression Risk
+
+- ad hoc bootstrap procedure가 event ledger를 잘못 생성할 수 있음
+- owner record가 누락되어도 embedded hash만으로 gate가 통과할 수 있음
+- final review/owner seal bytes가 worktree 정리로 사라질 수 있음
+- durable lifecycle 상태가 local report 삭제 후 사라질 수 있음
+
+### Compatibility Risk
+
+낮다.
+
+핵심 compatibility algorithm과 fixture coverage는 충분히 정의됐다.
+
+### Operational Risk
+
+- Gate B executor 부재로 implementation entry가 불가능함
+- owner input path가 ignored/untracked일 수 있음
+- final closeout packet이 commit되지 않은 채 terminal event가 생성될 수 있음
+- invalidated bundle이 durable 상태 표시 없이 남을 수 있음
+
+### Validation Risk
+
+- owner-bound exception을 owner record 없이 재현할 수 있음
+- terminal hash만 남고 참조 artifact가 사라질 수 있음
+- bootstrap을 수동으로 처리한 뒤 사후 receipt를 작성할 수 있음
+
+### Governance Risk
+
+- owner approval을 단순 hash literal로 축소
+- independent review를 보존되지 않는 일회성 evidence로 축소
+- canonical completion 근거가 clean checkout에서 검증 불가능
+- pre-entry 절차를 사후 문서화해 gate를 소급 충족
+
+---
+
+## 10. Required Revisions
+
+### Revision 1 — Gate B Bootstrap Executor Contract 추가
+
+**Affected Section:**
+
+- Gate A / Gate B
+- Change 0
+- Config
+- Validation Plan
+
+**Why Required:**
+
+attempt reservation과 pre-entry gate를 실행할 reviewed mechanism이 없다.
+
+**Minimum Acceptable Correction:**
+
+- bootstrap-only executor를 Gate A commit에 포함하거나
+- implementation setup gate를 별도로 도입
+- exact executor path/hash/schema
+- 허용 책임과 금지 책임
+- bootstrap executor tests
+- ad hoc/manual reservation count 0
+
+---
+
+### Revision 2 — Owner/Review Authority Records를 Durable Bundle에 포함
+
+**Affected Section:**
+
+- Plan contract approval
+- C-6
+- Review 2
+- Change 2
+- Change 6
+
+**Why Required:**
+
+owner-bound exception의 실제 authority bytes가 durable하지 않다.
+
+**Minimum Acceptable Correction:**
+
+- plan approval record
+- collision owner disposition record
+- Phase 0/Review 2 contract review record
+- exact durable roles
+- bundle/hash binding
+- live required consumption
+- clean-checkout missing-owner failure
+
+---
+
+### Revision 3 — Final Closeout Packet을 Tracked Durable Surface로 보존
+
+**Affected Section:**
+
+- Change 7
+- Evidence Classes
+- terminal transaction
+- clean-checkout validation
+
+**Why Required:**
+
+canonical completion 근거가 terminal 이후 사라질 수 있다.
+
+**Minimum Acceptable Correction:**
+
+- final machine report
+- independent review report
+- owner seal
+- final compatibility report
+- terminal hash seal
+
+을 immutable durable per-attempt closeout packet으로 저장하고 terminal event가 이를 직접 참조하도록 한다.
+
+---
+
+### Revision 4 — Durable Bundle Lifecycle Events 추가
+
+**Affected Section:**
+
+- Policy lifecycle
+- Rollback
+- Config
+
+**Why Required:**
+
+invalidated/superseded 상태가 local evidence에만 존재한다.
+
+**Minimum Acceptable Correction:**
+
+append-only durable lifecycle event와 selected/superseded bundle binding을 추가한다.
+
+---
+
+### Revision 5 — Live Manifest Final Binding Fields 고정
+
+**Affected Section:**
+
+- final machine report
+- final closeout
+
+**Why Required:**
+
+post-adoption default route와 selected bundle의 관계를 직접 봉인해야 한다.
+
+**Minimum Acceptable Correction:**
+
+```text
+pre_adoption_manifest_sha256
+post_adoption_manifest_sha256
+selected_bundle_id
+selected_bundle_manifest_sha256
+adopted_row_identity
+```
+
+를 필수 final fields로 추가한다.
+
+---
+
+### Revision 6 — Inventory Authority Baseline 명시
+
+**Affected Section:**
+
+- Change 0 invocation inventory
+
+**Why Required:**
+
+dirty user docs가 실행 authority로 혼입될 수 있다.
+
+**Minimum Acceptable Correction:**
+
+owner-approved clean baseline만 invocation authority로 사용하고 dirty original docs는 preservation-only comparison으로 둔다.
+
+---
+
+## 11. Final Recommendation
+
+# FAIL
+
+Cycle 4 계획은 compatibility 구현 관점에서는 사실상 완료 단계다.
+
+다음 축은 추가 수정이 필요하지 않다.
+
+```text
+identity contract
+collision policy
+fixture coverage
+bridge/chunk/package validation
+Windows inspection
+toolchain freshness
+invocation migration
+required-validation DAG
+```
+
+남은 수정은 세 가지다.
+
+```text
+1. Gate B를 실행할 bootstrap mechanism
+2. owner-bound authority bytes의 durability
+3. final canonical closeout evidence의 durability
+```
+
+이 세 항목을 닫은 다음 계획은 새로운 compatibility guard를 추가하지 말고 plan-level PASS 여부만 재검토하는 것이 적절하다.
+
+PASS 조건:
+
+```text
+open_critical_count = 0
+preentry_executor_contract_complete = true
+durable_owner_authority_record_count > 0
+durable_closeout_artifact_missing_count = 0
+clean_checkout_final_evidence_validation = PASS
+review_verdict = PASS
+```
+
+---
+
+## 12. Reviewer Notes
+
+이 검토는 Cycle 4 implementation plan의 실행 가능성과 evidence durability를 평가한 `plan_level review`다.
+
+본 reviewer는 상위 roadmap과 이전 plan review에 참여했으므로 final implementation의 independent reviewer가 될 수 없다.
+
+이 검토는 다음을 대신하지 않는다.
+
+- implementation result review
+- required-validation adoption review
+- eligible independent closeout review
+- owner canonical seal
+- terminal hash seal
+- `Registry Runtime Compatibility PASS`
+
+실제 repository diff나 command receipt는 아직 존재하지 않으므로 runtime compatibility 성공 여부는 판단하지 않았다.
+
+content_reuse와 기존 bundle lifecycle state의 교차 의미론 미정의. 같은 content-addressed destination이 이미 존재하고 byte-exact일 때 content_reuse=true로 재사용하는데, 그 기존 bundle의 lifecycle state가 invalidated 또는 superseded인 경우의 처리가 미정의다. invalidation 사유가 attempt-국소적(예: 당시 toolchain drift)이었다면 새 attempt의 fresh probe로 동일 내용을 재정당화하는 것이 논리적으로 가능하나, invalidated → canonical_durable 전이가 허용되는지, 아니면 새 attempt가 별도 supersession record를 요구하는지 한 문장으로 고정할 것. 현 상태로도 오독 시 결과는 block(안전 방향)이므로 비차단.

@@ -1,0 +1,619 @@
+# Iris Registry Runtime Compatibility Cycle 5 Implementation Plan Review
+
+> Review level: `plan_level`  
+> Review target: Cycle 5 revised `dvf_3_3_registry_runtime_compatibility_plan.md`  
+> Review status: final incremental pre-bootstrap review  
+> Verdict: `WARN`  
+> Open Critical: 0  
+> Open implementation blockers: 0  
+> Open non-blocking warnings: 2  
+> Governance bootstrap allowed: `true`  
+> Further plan revision required before Gate A: `false`  
+> Independent closeout review eligibility: `ineligible — roadmap and prior plan-review participation`
+
+---
+
+## 1. Verdict
+
+# WARN
+
+현재 계획은 구현 진입에 필요한 성공 경로를 완성했다.
+
+다음이 모두 계획에 포함되어 있다.
+
+- exact runtime identity와 comparison identity의 분리
+- owner-bound collision disposition
+- Phase 0A → Review 2 → Phase 0B 순서
+- bridge pre-materialization guard
+- post-generation four-surface validation
+- actual Lua reconstruction
+- Windows lossless projection
+- unconditional package guard
+- repository-wide caller migration
+- implementation toolchain freshness
+- required-validation additive adoption
+- owner/review authority bytes의 durable 보존
+- append-only attempt 및 bundle lifecycle
+- tracked final closeout packet
+- independent review와 owner seal 분리
+- axis-qualified claim ceiling
+
+현재 남은 지적은 이번 실행의 성공 경로를 막지 않는다.
+
+따라서:
+
+```text
+governance_bootstrap_allowed = true
+plan_execution_may_proceed = true
+```
+
+다만 WARN 항목은 Gate A 또는 bootstrap executor 구현 과정에서 반영하거나 owner가 명시적으로 disposition해야 한다.
+
+새 plan revision과 추가 plan-level re-review는 필요하지 않다. 계획의 책임 경계나 실행 DAG가 실질적으로 변경될 때만 다시 검토한다.
+
+---
+
+## 2. Executive Summary
+
+### Current Execution Readiness
+
+```text
+plan_contract_ready = true
+governance_bootstrap_allowed = true
+implementation_plan_sufficient = true
+
+implementation_entry_allowed =
+  pending the plan-defined Gate A and Gate B predicates
+
+production_integration_allowed =
+  pending the plan-defined Gate C predicates
+```
+
+이 구분은 정상적이다.
+
+이번 review는 계획이 실행 가능한지를 판정한다. 실제 Gate A executor test, owner approval, reservation commit 및 inventory 결과를 미리 PASS로 간주하지 않는다.
+
+### Primary Strengths
+
+계획의 핵심 identity contract가 명확하다.
+
+```text
+exact_runtime_identity_v1
+= strict UTF-8 decoded code-point sequence
+
+consumer_comparison_identity_ascii_lower_v1
+= ASCII-only collision-analysis identity
+```
+
+다음 불변조건도 충분히 닫혀 있다.
+
+```text
+source exact key-set
+= rendered exact key-set
+= runtime exact key-set
+= package exact key-set
+
+exact duplicate = 0
+unauthorized collision = 0
+alias-added key = 0
+merge loss = 0
+overwrite = 0
+round-trip loss = 0
+```
+
+또한 계획은 비교용 identity를 runtime lookup, alias resolution, canonical winner 선정에 사용하지 않는다. `contract_reference_member` 역시 runtime 우선순위를 갖지 않는다.
+
+실행 및 evidence 측면에서는 다음이 강하다.
+
+- dictionary materialization 이전의 JSON property-pair 검사
+- JSON/Lua escape decoding 이후 exact duplicate 판정
+- owner technical waiver 금지
+- candidate와 canonical-durable policy context 분리
+- package ZIP finalization 이전 guard
+- exporter direct analyzer import 금지
+- current core와 tooling allowlist no-mutation
+- roadmap fixture 1~10 완전 매핑
+- Windows projection cardinality-loss negative fixture
+- actual PUC Lua reconstruction
+- claim-affecting toolchain byte binding
+- owner/review actual bytes를 durable bundle에서 직접 검증
+- closeout actual bytes를 tracked per-attempt packet으로 보존
+- final claim을 `Registry Runtime Compatibility PASS`로 제한
+
+### Primary Risks
+
+남은 위험은 두 가지다.
+
+1. owner/review record를 미래에 교체할 때 fixed `current_*` path가 불편할 수 있다.
+2. bootstrap executor가 새 reservation 전에 nonterminal attempt를 직접 확인하는 편이 더 안전하다.
+
+둘 다 현재 첫 실행의 성공 경로를 불가능하게 만들지는 않는다.
+
+### Whether Execution Should Proceed
+
+진행해도 된다.
+
+다음 단계는 계획 수정이 아니라 Gate A다.
+
+```text
+plan review
+→ Gate A bootstrap executor/contract review
+→ owner approval
+→ governance bootstrap commit
+```
+
+---
+
+## 3. Critical Issues
+
+# None
+
+현재 계획에는 실행 또는 plan approval을 막는 Critical Issue가 없다.
+
+이전 검토에서 Critical로 분류했던 다음 사항은 이번 기준에서 비차단 항목이다.
+
+### Owner Record Supersession
+
+현재 round의 첫 실행에는 plan approval, collision disposition, Review 2 record가 각각 한 개만 필요하다.
+
+향후 correction이나 replacement에서 versioned namespace가 더 적절하지만, 현재 execution path 자체는 fixed immutable record로 수행할 수 있다.
+
+따라서 미래 유지보수 문제이지 현재 실행 blocker가 아니다.
+
+### Multiple Nonterminal Attempts
+
+계획은 이미 다음을 요구한다.
+
+- named mutex
+- owner-approved single integration branch
+- selected/approved/shared prefix equality
+- clean dedicated worktree
+- immutable reservation event
+- terminal transaction
+- no attempt ID reuse
+
+`nonterminal_attempt_count=0`을 명시적으로 추가하면 더 강해지지만, 현재 운영 계약상 동일 round의 시도는 owner-approved branch에서 순차적으로 진행하도록 되어 있다.
+
+따라서 추가 hardening 항목이지 계획 실행 불가능 사유는 아니다.
+
+---
+
+## 4. Non-Critical Issues
+
+### Warning 1 — Owner/Review Record의 Versioned Namespace 권장
+
+**Severity:** Warning  
+**Execution Blocking:** No
+
+현재 record paths는 `current_*` 형태이며 exclusive-create immutable로 정의되어 있다.
+
+첫 execution에는 문제가 없다. 하지만 다음 상황에서는 successor record를 저장하기 불편할 수 있다.
+
+- plan 재승인
+- owner disposition correction
+- Review 2 재수행
+- schema revision
+- 후속 attempt의 새 authority record
+
+권장 구현:
+
+```text
+plan_approvals/approval-<id-or-hash>.json
+collision_dispositions/disposition-<id-or-hash>.json
+reviews/phase0-contract-review-<id-or-hash>.json
+```
+
+candidate binding은 선택한 exact versioned path와 hash를 직접 소비한다.
+
+이 변경은 Gate A 구현에서 바로 적용할 수 있으며 plan revision을 요구하지 않는다.
+
+fixed paths를 그대로 사용할 경우에는 이번 round에서 supersession을 지원하지 않고, 변경이 필요하면 새 reviewed attempt scope로 넘긴다는 제한을 owner approval에 기록하면 된다.
+
+---
+
+### Warning 2 — Reservation 전 Nonterminal Attempt 검사 권장
+
+**Severity:** Warning  
+**Execution Blocking:** No
+
+bootstrap executor가 새 reservation 전에 다음을 계산하는 것이 바람직하다.
+
+```text
+nonterminal_attempt_count
+open_attempt_ids[]
+```
+
+권장 predicate:
+
+```text
+nonterminal_attempt_count == 0
+```
+
+기존 reservation event가 있고 terminal event가 없다면 다음 ID를 열지 않고 기존 attempt를 먼저 terminal 처리한다.
+
+이 검사는 현재 named mutex·single branch·prefix parity를 보강하는 작은 안전장치다.
+
+다음 fixture를 bootstrap executor test에 포함하는 것을 권장한다.
+
+- open attempt가 두 번째 reservation을 차단
+- terminal 완료 후 다음 reservation 허용
+- clean worktree여도 open attempt가 있으면 차단
+
+이 역시 plan revision 없이 bootstrap executor 구현에 반영할 수 있다.
+
+---
+
+## 5. Scope Review
+
+### Scope Drift
+
+승인된 roadmap 범위를 벗어나는 기능 확장은 없다.
+
+계획은 다음 책임에 머문다.
+
+- registry exact identity 보존
+- consumer comparison collision 판정
+- bounded compatibility exception
+- bridge/chunk/package compatibility guard
+- Windows lossless inspection
+- required-validation adoption
+- Registry Runtime Compatibility closeout
+
+attempt ledger, lifecycle ledger, bootstrap executor, durable closeout packet은 모두 다음 round-local namespace에 제한된다.
+
+```text
+dvf_3_3_registry_runtime_compatibility
+```
+
+이를 Registry 전역 공용 framework로 확장하는 것은 계획의 out-of-scope다.
+
+### Missing Scope
+
+실행을 막는 missing scope는 없다.
+
+두 warning에 대응하는 다음 보강만 권장된다.
+
+- versioned owner/review record path
+- nonterminal attempt count 검사
+
+### Explicitly Out Of Scope Consistency
+
+일관적이다.
+
+다음은 계속 제외되어 있다.
+
+- Registry Authority 재수행
+- source key correction
+- DVF Body Compiler 변경
+- runtime case alias
+- monolith 복구
+- package publication
+- Workshop/B42/release readiness
+- semantic quality acceptance
+- manual in-game QA
+- Kahlua 또는 Project Zomboid full runtime equivalence
+
+---
+
+## 6. Validation Review
+
+### Missing Validation
+
+실행을 막을 정도로 완전히 누락된 validation은 없다.
+
+계획은 최소한 다음을 포함한다.
+
+- roadmap fixture 1~10
+- ordinary exact-key positive
+- unauthorized collision negative
+- missing owner negative
+- payload divergence negative
+- third variant negative
+- Windows cardinality-loss negative
+- overwrite/merge negative
+- current collision positive
+- current full-payload regression
+- package projection regression
+- JSON/Lua escaped duplicate
+- non-ASCII comparator rejection
+- package no-ZIP failure
+- actual Lua cardinality
+- Windows deterministic rerun
+- toolchain drift
+- owner/review authority presence
+- lifecycle transition
+- closeout content availability
+
+### Weak Validation
+
+두 비차단 약점만 남는다.
+
+#### Owner Record Successor Validation
+
+broken supersession은 검사하지만 valid second-generation record의 positive path가 약하다.
+
+이는 첫 실행의 correctness보다 후속 유지보수에 영향을 준다.
+
+#### Active Attempt Validation
+
+ID duplication과 prefix divergence는 검사하지만 nonterminal attempt count 자체가 명시적 metric은 아니다.
+
+bootstrap executor에서 추가하기를 권장한다.
+
+### Validation Ceiling Risk
+
+낮다.
+
+계획은 다음 claim을 하지 않는다.
+
+- Registry Authority PASS
+- DVF Body Compiler PASS
+- Publish Boundary PASS
+- release readiness
+- package publication
+- Workshop/B42 readiness
+- semantic correctness
+- manual QA completion
+- Kahlua runtime equivalence
+
+PUC Lua 실행 역시 `offline_table_reconstruction_only`로 제한한다.
+
+### Validation Practicality
+
+검증량은 매우 많고 ceremony도 무겁다.
+
+그러나 각 검증은 실제 위험과 연결되어 있으며 명령·artifact·failure stage가 구체적이다.
+
+현재 이후에는 검증 계층을 더 추가하지 않는 것이 적절하다.
+
+---
+
+## 7. Governance Review
+
+### Philosophy.md Compliance
+
+준수한다.
+
+- compatibility 우선
+- fail-loud
+- 역할 침범 금지
+- current authority no-mutation
+- offline validation과 runtime responsibility 분리
+
+### Architecture Boundary
+
+준수한다.
+
+- DVF Body Compiler 책임을 확장하지 않는다.
+- Registry Authority predecessor를 재개방하지 않는다.
+- Publish Boundary를 포함하지 않는다.
+- 다른 Pulse spoke에 의존하지 않는다.
+
+### Runtime / Build-Time Separation
+
+준수한다.
+
+Python과 PowerShell은 offline build/inspection tooling에만 사용된다.
+
+live Lua payload, renderer 또는 runtime lookup semantics를 변경하지 않는다.
+
+### FAIL-LOUD Preservation
+
+강하게 보존된다.
+
+- missing dependency 차단
+- invalid UTF-8 차단
+- unsupported comparator domain 차단
+- missing owner record 차단
+- policy substitution 차단
+- package child failure 전파
+- ZIP 생성 이전 guard
+- event-prefix divergence 차단
+- toolchain drift 차단
+- lifecycle invalidation 차단
+- closeout content absence 차단
+
+### Authority Ownership
+
+적절하다.
+
+- owner disposition과 independent review를 분리한다.
+- owner seal이 machine failure를 override하지 않는다.
+- actual owner/review bytes를 durable contract에 포함한다.
+- final closeout bytes도 tracked authority로 보존한다.
+
+### Contract Compliance
+
+현재 sealed boundary와 정렬된다.
+
+- current core 12개 유지
+- tooling allowlist 변경 없음
+- additive required validation
+- final report 자기참조 없음
+- failed evidence no-rewrite
+- axis-qualified claim
+- source/rendered/runtime/package no-mutation
+
+---
+
+## 8. Risk Surface Review
+
+### Authority Surface
+
+**Concerns:** 낮음
+
+owner/review actual bytes, lifecycle ledger, closeout packet을 durable하게 보존한다.
+
+향후 supersession path만 warning으로 남는다.
+
+### Runtime Behavior Surface
+
+**Concerns:** 없음
+
+live runtime behavior는 변경하지 않는다.
+
+invalid build/package 상태가 더 일찍 실패하게 되는 것만 변경된다.
+
+### Compatibility Surface
+
+**Concerns:** 없음
+
+identity, collision, projection, merge, package, Windows validation 범위가 충분하다.
+
+### Sealed Artifact Surface
+
+**Concerns:** 낮음
+
+append-only event와 durable packet 구조가 명확하다.
+
+nonterminal attempt explicit count가 있으면 더 강해진다.
+
+### Public-Facing Output Surface
+
+**None**
+
+사용자 표시 text나 release output은 변경하지 않는다.
+
+---
+
+## 9. Risk Review
+
+### Regression Risk
+
+- 기존 exporter/package caller migration 누락 가능성  
+  → repository-wide inventory와 migration matrix로 차단
+
+- default package route가 잘못된 bundle을 선택할 가능성  
+  → live manifest-selected exact versioned bundle만 허용
+
+- tool 변경 후 stale evidence 사용 가능성  
+  → 다단계 toolchain freshness로 차단
+
+### Compatibility Risk
+
+- exact/comparison identity 혼용  
+  → 별도 schema와 사용 금지 규칙으로 차단
+
+- Windows projection loss  
+  → cardinality-loss fixture와 round-trip hash로 차단
+
+- Lua merge overwrite  
+  → raw assignment 및 actual Lua cardinality로 차단
+
+### Operational Risk
+
+- owner record의 미래 correction이 불편할 수 있음
+- open attempt 상태에서 새 attempt가 시작될 가능성
+
+두 항목 모두 WARN으로 관리한다.
+
+### Validation Risk
+
+- 같은 Python producer를 쓰는 Windows A/C를 독립 algorithm proof로 과장할 가능성  
+  → `algorithm_proof_count=1`, `transport_conformance_count=2`로 차단
+
+- PUC Lua 결과를 Kahlua equivalence로 과장할 가능성  
+  → 명시적 non-claim으로 차단
+
+### Governance Risk
+
+- round-local infrastructure가 공용 framework로 확장될 가능성  
+  → out-of-scope 및 namespace 제한으로 차단
+
+- owner 또는 review record supersession이 필요해질 가능성  
+  → versioned immutable namespace 권장
+
+---
+
+## 10. Required Revisions
+
+# None before execution
+
+Gate A 또는 구현 진입 전에 필요한 plan revision은 없다.
+
+다음은 비차단 implementation hardening이다.
+
+### Recommendation 1 — Versioned Authority Records
+
+**Affected Section:** owner/review record paths  
+**Why Recommended:** 미래 correction 및 supersession 단순화  
+**Minimum Recommended Implementation:** record-id 또는 content-hash 기반 immutable filename
+
+### Recommendation 2 — Nonterminal Attempt Predicate
+
+**Affected Section:** bootstrap executor reservation preflight  
+**Why Recommended:** sequential attempt contract의 기계적 보강  
+**Minimum Recommended Implementation:**
+
+```text
+nonterminal_attempt_count == 0
+```
+
+두 recommendation은 owner가 Gate A approval record에서 다음 중 하나로 disposition할 수 있다.
+
+```text
+adopted_during_implementation
+accepted_as_round_local_limitation
+```
+
+새 plan revision 또는 추가 plan-level review는 요구하지 않는다.
+
+---
+
+## 11. Final Recommendation
+
+# WARN
+
+현재 계획은 구현을 시작하기에 충분하다.
+
+```text
+open_critical_count = 0
+open_implementation_blocker_count = 0
+governance_bootstrap_allowed = true
+```
+
+실행 순서:
+
+```text
+1. Gate A bootstrap executor/contract review
+2. owner approval
+3. governance bootstrap commit
+4. Gate B reservation
+5. Gate C inventory and production-integration decision
+6. implementation
+```
+
+이 WARN은 다음을 의미하지 않는다.
+
+- implementation PASS
+- machine contract PASS
+- independent review PASS
+- owner seal 완료
+- Registry Runtime Compatibility PASS
+
+이는 오직 다음을 뜻한다.
+
+```text
+the implementation plan is sufficient to proceed
+```
+
+계획의 architecture boundary, evidence DAG 또는 claim ceiling이 실질적으로 바뀌지 않는 한 추가 plan-level review는 필요하지 않다.
+
+---
+
+## 12. Reviewer Notes
+
+이 검토는 implementation plan의 실행 가능성을 판정한 것이다.
+
+본 reviewer는 roadmap 작성과 이전 plan review에 참여했으므로 final implementation independent review를 수행할 수 없다.
+
+향후 별도로 필요한 검토:
+
+- Gate A bootstrap executor review
+- implementation result review
+- required-validation adoption review
+- eligible independent closeout review
+- owner canonical seal
+- terminal hash seal
+
+현재 단계의 다음 작업은 계획 수정이 아니라 Gate A 실행이다.

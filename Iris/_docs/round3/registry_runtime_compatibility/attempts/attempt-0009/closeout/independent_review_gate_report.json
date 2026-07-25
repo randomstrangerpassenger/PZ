@@ -1,0 +1,76 @@
+{
+  "schema_version": "rtc-independent-review-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "attempt_id": "attempt-0009",
+  "status": "PASS",
+  "verdict": "PASS",
+  "reviewer_identity": "codex-task-/root/attempt9_independent_review-20260725",
+  "same_implementation_agent_or_session_identity": false,
+  "eligibility": {
+    "not_roadmap_author": true,
+    "not_plan_author_or_coauthor": true,
+    "not_implementation_author_or_coauthor": true,
+    "not_owner_or_disposition_signer": true,
+    "distinct_agent_and_session_identity": true
+  },
+  "open_critical_finding_count": 0,
+  "open_major_finding_count": 0,
+  "unresolved_finding_count": 0,
+  "artifacts_reviewed": [
+    {
+      "path": "Iris/_docs/round3/current_route_required_validations.json",
+      "sha256": "2a0a46eb9188f160bacca77862f40ad14260646744b2ff62bc05ab35f02997e1"
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/bundles/46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9/durable_bundle_manifest.json",
+      "sha256": "0e50d9d37d67da7534f637252366bc6ecba58d2b975960b6477c01ebb5a052a1"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_registry_runtime_compatibility/attempts/attempt-0009/phase5/phase5_adoption_result.json",
+      "sha256": "7330fb818982c64a297b723fa360f22ef4d505230ea88138b4f320976b170b9d"
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_registry_runtime_compatibility/attempts/attempt-0009/phase6/final_machine_report.json",
+      "sha256": "e37e29d02110fcd452a5495fb0f4d9e395629ee5f6db39947db15b0729453430"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_registry_runtime_compatibility_closeout.py",
+      "sha256": "e766d02bc45f1d76123663cf9203e65f232189e1feb759ff4be7177c8baf3462"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_registry_runtime_compatibility.py",
+      "sha256": "793da34b8c823a0fd07555adc64c5b812d2839ddd66b1e11bb1bdd4773888229"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_registry_runtime_compatibility.py",
+      "sha256": "c4d0d81f3866dfeecd6324c8df9af6a2b8fc8177fa815749e287a54681097d08"
+    }
+  ],
+  "rerun_commands": [
+    {
+      "command": "uv run python -B -c \"from pathlib import Path; from Iris.build.description.v2.tools.build.run_dvf_3_3_registry_runtime_compatibility import execute_current_route_isolated; a=(Path.cwd()/r'Iris/build/description/v2/staging/dvf_3_3_registry_runtime_compatibility/attempts/attempt-0009/phase6').resolve(); execute_current_route_isolated(result_path=a/'independent_official_current_route_result_rerun2.json', receipt_path=a/'independent_official_current_route_receipt_rerun2.json')\"",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_registry_runtime_compatibility_*.py\"",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_lua_bridge_export_contract_realign.py\"",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "uv run python -B -m unittest Iris.build.description.v2.tests.test_dvf_3_3_registry_runtime_compatibility_contract.RegistryRuntimeCompatibilityContractTest.test_exporter_omitted_route_has_no_environment_authority",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "pre_adoption_live_manifest_sha256": "1e344f4b4fe4ceb50bc6671fa8b636f4a330ab70a733c81da9e738d0b3113e89",
+  "post_adoption_live_manifest_sha256": "2a0a46eb9188f160bacca77862f40ad14260646744b2ff62bc05ab35f02997e1",
+  "selected_durable_bundle_id": "46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9",
+  "selected_bundle_manifest_sha256": "0e50d9d37d67da7534f637252366bc6ecba58d2b975960b6477c01ebb5a052a1",
+  "adopted_row_identity": "registry_runtime_compatibility::46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9::live"
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": "rtc-revised-plan-review-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "review_cycle_count": 6,
+  "review_inputs": [
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/inputs/reviews/cycle-1.txt",
+      "sha256": "70b9356fdf2b7a8d98411bac372dbeb4168f74f201abec0980ed8c75e2c771fa"
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/inputs/reviews/cycle-2.txt",
+      "sha256": "9b92656f324581681544f33e4150adc14bb10355969bcee4a4a79b371c19c783"
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/inputs/reviews/cycle-3.txt",
+      "sha256": "0ed4e7c3438bfd0009c541b6a5f012a867b5d77b3bb1f4352c5ae5126bbd9320"
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/inputs/reviews/cycle-4.txt",
+      "sha256": "6910d636fe49e24a73dc40ab4b71d34e1ca0629becedf7be45d91fba3a4fb963"
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/inputs/reviews/cycle-5.txt",
+      "sha256": "bbba8421c86c449950c0e2bfe750f2a54f7ec097662c5031ab87a0a5c409b9cc"
+    },
+    {
+      "path": "Iris/_docs/round3/registry_runtime_compatibility/inputs/reviews/cycle-5-final-incremental.txt",
+      "sha256": "130efc7ceef1657c1982ee231bddde737de1d7d1ea7b4dd163f4791280aa7d4a"
+    }
+  ],
+  "verdict": "WARN",
+  "open_critical_count": 0,
+  "open_implementation_blocker_count": 0,
+  "warning_count": 2,
+  "all_review_warnings_owner_dispositioned": true,
+  "warning_dispositions": {
+    "FR5-W1": "versioned immutable authority records adopted",
+    "FR5-W2": "event-ledger nonterminal census required before reservation"
+  },
+  "governance_bootstrap_allowed": true,
+  "implementation_pass_claimed": false,
+  "compatibility_pass_claimed": false,
+  "final_plan_reviewer_closeout_eligible": false,
+  "status": "PASS"
+}

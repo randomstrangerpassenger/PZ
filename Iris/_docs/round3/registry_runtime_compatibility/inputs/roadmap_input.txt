@@ -1,0 +1,2768 @@
+# Iris Artifact Registry — Registry Runtime Compatibility 최종 종합 로드맵
+
+> **문서 상태:** Final Synthesis Roadmap  
+> **대상 축:** Iris Artifact Registry / Registry Runtime Compatibility  
+> **구현 상태:** 미착수  
+> **최대 허용 claim:** `Registry Runtime Compatibility PASS`  
+> **권장 문서 경로:** `docs/dvf_3_3_registry_runtime_compatibility_plan.md`
+>
+> 이 문서는 ChatGPT안과 Claude안의 공통 범위 및 비충돌 세부사항을 통합한 종합본이다.
+>
+> 두 안 사이에서 서로 다른 결론을 내린 항목은 임의로 절충하지 않고 `판정 보류 항목`으로 남긴다. 해당 항목은 지정된 review gate에서 owner 또는 승인된 reviewer가 별도로 판정해야 한다.
+
+---
+
+# 0. 종합 결과
+
+## 0.1 공통 채택 항목
+
+두 로드맵은 다음 사항에 실질적으로 합의한다.
+
+- 문제의 본질은 Registry Authority 부재가 아니라 consumer별 identity semantics 차이다.
+- `exact_runtime_identity`와 `consumer_comparison_identity`를 분리해야 한다.
+- comparison identity는 collision 탐지 전용이며 runtime lookup, alias resolution, source authority를 대체하지 않는다.
+- 현재 관찰된 collision은 `Base.LemonGrass` / `Base.Lemongrass`이다.
+- 현재 수치인 `2105 entries`, `collision group 1`은 관찰값이며 실행 시 fresh preflight로 재파생해야 한다.
+- owner disposition 없이 구현자가 collision을 alias 또는 intentional coexistence로 판정해서는 안 된다.
+- Phase 0에서 Branch A/B/C를 결정한다.
+- Branch A에서만 compatibility 구현을 계속한다.
+- Branch B는 bounded source identity correction scope로 이관한다.
+- Branch C는 owner disposition 부재로 fail-closed 차단한다.
+- exception은 단순 코드 allowlist가 아니라 owner-bound·hash-bound policy여야 한다.
+- bridge, chunk, package가 동일한 compatibility contract를 소비해야 한다.
+- JSON property map으로 materialization하기 전에 duplicate와 collision을 탐지해야 한다.
+- Windows 공식 inspection route는 object property map이 아닌 lossless record projection을 사용해야 한다.
+- PowerShell 5.1 `ConvertFrom-Json`은 main rendered object의 row-key identity 검사에 사용하지 않는다.
+- 최소 fixture 10종과 기존 exact-duplicate regression을 유지한다.
+- 기존 stale bridge, monolith, predecessor reentry, forbidden-path, Lua syntax guard를 완화하지 않는다.
+- required-validation adoption은 기존 container와 gate를 제거하지 않는 additive 방식이어야 한다.
+- independent review와 owner seal은 서로 대체하지 않는다.
+- 최대 claim은 `Registry Runtime Compatibility PASS`뿐이다.
+
+## 0.2 비충돌 세부사항 채택
+
+한쪽 안에만 구체적으로 제시되었지만 다른 안과 충돌하지 않는 다음 항목은 종합 로드맵에 포함한다.
+
+- 하나의 canonical compatibility analyzer와 surface-specific lossless adapter 구조
+- ordered registry record stream을 내부 interchange로 사용하는 방식
+- pre-materialization property-pair 또는 streaming-token 검사
+- 입력 검사와 직렬화 후 재검사를 분리하는 two-sided validation
+- surface별 exact key-set hash와 payload-binding hash
+- identity-field exclusion manifest의 명시적 관리와 hash binding
+- source/rendered/runtime/package bundle hash binding
+- chunk assignment, manifest reconstruction, post-serialization 검증 분리
+- isolated package output에서 publication 이전 compatibility 검사
+- Windows record-array projection metadata와 round-trip reconstruction
+- deterministic rerun 및 normalized report hash 검증
+- required evidence의 tracked/not-ignored 검증
+- final machine report, independent review report, owner seal, terminal hash seal 분리
+
+## 0.3 판정 보류 항목
+
+다음 항목은 두 안의 결론이 다르므로 이 문서에서 선택하지 않는다.
+
+### C-1 — Exact identity의 기술적 기준
+
+**ChatGPT안**
+
+```text
+decoded key string의 exact code-point sequence
+```
+
+**Claude안**
+
+```text
+byte-exact key
+```
+
+**충돌점**
+
+decoded 문자열의 code-point 동일성과 원본 byte sequence 동일성은 동일한 계약이 아니다.
+
+**판정 시점**
+
+Phase 1 Contract Review 전.
+
+**보류 상태**
+
+```text
+exact_runtime_identity_representation = OWNER_REVIEW_REQUIRED
+```
+
+---
+
+### C-2 — Comparison comparator v1
+
+**ChatGPT안**
+
+```text
+ASCII A-Z → a-z
+그 외 code point 보존
+non-ASCII key 발견 시 comparator extension 전까지 fail-closed
+```
+
+**Claude안**
+
+```text
+ordinal/invariant lowercase
+locale-dependent lowercase 금지
+```
+
+**충돌점**
+
+ASCII-only transform과 invariant lowercase는 적용 domain이 다르다.
+
+**판정 시점**
+
+Phase 1 Contract Review 전.
+
+**보류 상태**
+
+```text
+consumer_comparison_identity_v1_algorithm = OWNER_REVIEW_REQUIRED
+```
+
+---
+
+### C-3 — 관찰 baseline과 fresh preflight 불일치 처리
+
+**ChatGPT안**
+
+fresh current state가 authority이며 `2105 / group 1` 일치를 성공 조건으로 사용하지 않는다.
+
+**Claude안**
+
+fresh preflight가 관찰 baseline과 불일치하면 disposition 전에 fail-loud 정지하고 재조사한다.
+
+**충돌점**
+
+baseline 불일치가 즉시 terminal block인지, fresh-derived current state로 계속 판정 가능한지 다르다.
+
+**판정 시점**
+
+Review 1 또는 Phase 0 entry review.
+
+**보류 상태**
+
+```text
+baseline_mismatch_behavior = OWNER_REVIEW_REQUIRED
+```
+
+---
+
+### C-4 — Windows canonical route
+
+**ChatGPT안**
+
+```text
+PowerShell wrapper
+→ uv run python
+→ duplicate-aware reader
+→ record-array projection
+```
+
+을 canonical route로 두고 `jq`는 보조 route로 한정한다.
+
+**Claude안**
+
+`jq`, `uv run python`, duplicate-aware sidecar 또는 동등한 비손실 방식 중 하나 이상을 owner가 선택한다.
+
+**충돌점**
+
+canonical implementation이 미리 고정되는지, implementation plan에서 선택되는지 다르다.
+
+**판정 시점**
+
+Review 3 — Implementation Plan Review.
+
+**보류 상태**
+
+```text
+windows_canonical_route = AUTHOR_RESERVED
+```
+
+---
+
+### C-5 — Closure adoption 조건
+
+**ChatGPT안**
+
+다음 두 소비가 모두 필요하다.
+
+```text
+live current-route required-validation adoption
+AND
+package-required guard adoption
+```
+
+**Claude안**
+
+다음 중 하나 이상의 소비로 서술한다.
+
+```text
+live required-validation manifest
+OR
+package-required guard
+```
+
+**충돌점**
+
+최종 closure가 두 route 모두를 요구하는지, 하나만으로 가능한지 다르다.
+
+**판정 시점**
+
+Review 5 — Required-Validation Adoption Review 전.
+
+**보류 상태**
+
+```text
+closure_adoption_requirement = OWNER_REVIEW_REQUIRED
+```
+
+---
+
+### C-6 — Canonical key / exception key 사전 지정
+
+**ChatGPT안**
+
+문서 예시와 Phase 1 role contract에서 다음을 지정한다.
+
+```text
+Base.LemonGrass → canonical
+Base.Lemongrass → compatibility_exception
+```
+
+**Claude안**
+
+canonical key, exception key, branch 선택을 모두 author-reserved로 남긴다.
+
+**충돌점**
+
+로드맵이 role을 사전 결정할 수 있는지 여부가 다르다.
+
+**판정 시점**
+
+Phase 0 owner disposition.
+
+**보류 상태**
+
+```text
+canonical_exact_key = AUTHOR_RESERVED
+exception_exact_key = AUTHOR_RESERVED
+```
+
+---
+
+### C-7 — Independent reviewer 자격과 verdict token
+
+**ChatGPT안**
+
+independent review와 owner seal을 요구하지만 reviewer의 모델·주체를 별도로 제한하지 않는다.
+
+**Claude안**
+
+Claude가 co-draft했으므로 Claude review는 self-confirmation이며, non-Claude reviewer가 필요하다고 명시한다. 또한 `plan_level`과 `independent_review_gate`를 별도 token으로 관리한다.
+
+**충돌점**
+
+independence 판정 기준과 별도 verdict token이 필수 계약인지 여부가 다르다.
+
+**판정 시점**
+
+Review 1 및 Review 6.
+
+**보류 상태**
+
+```text
+independent_reviewer_eligibility = OWNER_REVIEW_REQUIRED
+verdict_token_model = OWNER_REVIEW_REQUIRED
+```
+
+---
+
+# 1. Problem Statement
+
+Iris Artifact Registry는 다음 current identity chain을 이미 current authority로 소유한다.
+
+```text
+current source
+→ rendered artifact
+→ Lua bridge export
+→ runtime chunk manifest/chunks
+→ isolated package projection
+```
+
+현재 문제는 authority 선정이 불명확하거나 current artifact가 누락된 것이 아니다.
+
+문제는 Registry가 보존하는 exact key 집합을 consumer가 서로 다른 identity semantics로 읽을 수 있다는 점이다.
+
+현재 관찰된 collision group은 다음과 같다.
+
+```text
+Base.LemonGrass
+Base.Lemongrass
+```
+
+Lua table과 case-sensitive parser는 두 exact key를 별도 entry로 보존할 수 있다.
+
+반면 Windows PowerShell 5.1의 `ConvertFrom-Json`은 두 property를 case-insensitive duplicate로 판정하여 main rendered object를 읽지 못한다.
+
+따라서 하나의 current artifact가 consumer에 따라 다음처럼 다르게 해석될 수 있다.
+
+```text
+case-sensitive consumer
+→ exact key 2개 보존
+
+case-insensitive property-map consumer
+→ parse failure
+→ silent merge
+→ overwrite
+→ cardinality 감소 가능
+```
+
+이 상태에서는 다음 문제가 발생한다.
+
+- current registry cardinality가 consumer별로 다르게 보고될 수 있다.
+- exact key 집합이 Windows-side inspection에서 보존되지 않을 수 있다.
+- 한 exact key의 payload가 다른 exact key의 payload를 덮어쓸 수 있다.
+- bridge, chunk, package 검증이 통과해도 inspection route가 identity를 손실할 수 있다.
+- 기존 exact-duplicate guard가 case-insensitive collision을 탐지하지 못한다.
+- 기존 package guard가 stale bridge와 monolith는 차단하지만 comparison collision은 검사하지 않는다.
+- owner disposition 없이 구현자가 collision을 alias 또는 intentional coexistence로 해석할 수 있다.
+- `Registry Authority PASS`가 runtime consumer compatibility까지 포함한다고 오독될 수 있다.
+
+따라서 최소한 다음 두 identity를 독립 계약으로 정의해야 한다.
+
+```text
+exact_runtime_identity
+consumer_comparison_identity
+```
+
+## 1.1 exact_runtime_identity
+
+Registry authority chain과 Lua runtime이 보존해야 하는 원래 key identity다.
+
+공통적으로 합의된 성질은 다음과 같다.
+
+- case-sensitive
+- trimming 없음
+- separator 변경 없음
+- punctuation 변경 없음
+- implicit normalization 없음
+- aliasing 없음
+- canonical/exception role과 무관하게 각 exact key를 별도 entry로 유지
+- source/rendered/runtime/package에서 동일한 identity를 복원할 수 있어야 함
+
+문자열 code-point 기준과 byte-exact 기준 중 어느 계약을 채택할지는 C-1에서 판정한다.
+
+## 1.2 consumer_comparison_identity
+
+case-insensitive consumer compatibility를 분석하기 위한 collision identity다.
+
+```text
+consumer_comparison_identity
+= collision detection / compatibility analysis only
+
+consumer_comparison_identity
+!= runtime lookup key
+!= source authority key
+!= alias resolution key
+!= source correction key
+```
+
+comparison algorithm은 다음 공통 제약을 만족해야 한다.
+
+- deterministic
+- locale-independent
+- versioned
+- trimming 없음
+- punctuation normalization 없음
+- separator normalization 없음
+- module-name normalization 없음
+- comparison 용도 외 사용 금지
+
+구체적인 v1 algorithm은 C-2에서 판정한다.
+
+## 1.3 필수 불변조건
+
+각 필수 surface와 consumer는 다음을 만족해야 한다.
+
+```text
+전체 cardinality 보존
+exact key 집합 보존
+각 exact key와 payload 연결 보존
+round-trip exact identity 복원
+silent merge 금지
+silent overwrite 금지
+silent loss 금지
+```
+
+현재 보고된 `2105 entries`와 `collision group 1`은 독립 authority나 코드 상수가 아니다.
+
+모든 count와 collision inventory는 실행 시점의 current surface에서 fresh하게 재파생한다.
+
+---
+
+# 2. Current State
+
+## 2.1 이미 닫힌 상태
+
+다음 사항은 본 로드맵의 입력 전제이며 재개방하지 않는다.
+
+- Registry Authority 일반 closure
+- current source authority 선정
+- rendered artifact authority 선정
+- runtime chunk manifest/chunks authority 선정
+- isolated package projection 경계
+- successor current entry identity chain
+- stale bridge 차단
+- monolith runtime path 차단
+- predecessor·historical·staging artifact current 재진입 차단
+- DVF Body Compiler 책임 경계
+- runtime offline sealed-data-only 원칙
+- Lua renderer display-only 원칙
+- Publish Boundary 분리
+- bare `DVF PASS` 금지
+- axis-qualified claim의 상호 비대체성
+
+다음 claim은 서로 대체하지 않는다.
+
+```text
+Registry Authority PASS
+DVF Body Compiler PASS
+Registry Runtime Compatibility PASS
+Publish Boundary PASS
+```
+
+## 2.2 현재 관찰 baseline
+
+현재 보고된 관찰값은 다음과 같다.
+
+| Surface | Exact keys | Comparison collision groups |
+|---|---:|---:|
+| Current source | 2105 | 1 |
+| Rendered artifact | 2105 | 1 |
+| Runtime chunks | 2105 | 1 |
+| Isolated package projection | 2105 | 1 |
+
+관찰된 group:
+
+```text
+Base.LemonGrass
+Base.Lemongrass
+```
+
+추가 관찰:
+
+- 두 exact key는 source facts에 존재한다.
+- rendered JSON에도 두 key가 존재한다.
+- runtime chunks에도 두 key가 존재한다.
+- isolated package projection에도 두 key가 존재한다.
+- 두 entry의 payload는 exact key를 제외하면 동일한 것으로 관찰되었다.
+- Lua table은 두 exact key를 독립 보존한다.
+- PowerShell 5.1 `ConvertFrom-Json`은 main rendered object를 읽지 못한다.
+- bridge/chunk validation은 exact duplicate를 검사한다.
+- case-insensitive collision은 별도로 계량되지 않는다.
+- package guard는 stale bridge와 monolith를 차단한다.
+- comparison collision disposition record는 아직 존재하지 않는 것으로 보고되었다.
+
+이 값은 Phase 0에서 다시 검증한다.
+
+관찰 baseline과 fresh preflight 불일치 시 처리 방식은 C-3에서 판정한다.
+
+## 2.3 주요 current surface
+
+```text
+Rendered artifact
+Iris/build/description/v2/output/dvf_3_3_rendered.json
+
+Bridge exporter
+Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py
+
+Runtime manifest
+Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua
+
+Runtime chunks
+Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/
+
+Package route
+Iris/tools/package_iris.ps1
+
+Required validations
+Iris/_docs/round3/current_route_required_validations.json
+```
+
+## 2.4 현재 validation gap
+
+현재 validation은 다음을 충분히 증명하지 않는다.
+
+- object materialization 전에 exact duplicate를 탐지하는가
+- comparison identity가 몇 개의 collision group을 형성하는가
+- 각 collision이 owner-bound exception으로 승인되었는가
+- collision member의 payload equivalence가 유지되는가
+- chunk 사이에서 새로운 case variant가 추가되는가
+- merge 과정에서 exact key가 덮어써지는가
+- package projection에서 exact key-set이나 cardinality가 감소하는가
+- Windows inspection route가 exact identity를 round-trip 복원하는가
+- 세 번째 variant 또는 payload drift 발생 시 exception이 자동 무효화되는가
+- bridge, package, Windows tooling이 동일 policy version을 소비하는가
+
+## 2.5 Required-validation 상태
+
+live manifest는 계속 기존 legacy combined governance route container 지위를 유지한다.
+
+compatibility validation은 기존 manifest ownership을 변경하지 않고 additive consumer로만 도입한다.
+
+C-5 판정 전까지 최종 adoption 최소조건은 확정하지 않는다.
+
+---
+
+# 3. Desired Outcome
+
+로드맵 완료 후 다음 상태를 달성한다.
+
+## 3.1 Identity clarity
+
+다음 identity가 machine-readable contract로 분리된다.
+
+```text
+exact_runtime_identity
+consumer_comparison_identity
+```
+
+- exact identity는 authority chain과 runtime에서 그대로 유지된다.
+- comparison identity는 collision 탐지에만 사용된다.
+- comparison identity가 같다는 이유로 exact key를 병합하지 않는다.
+- canonical role은 audit/governance role이며 runtime winner나 alias target이 아니다.
+- canonical/exception role의 실제 key 값은 Phase 0 owner disposition으로 확정한다.
+
+## 3.2 Bounded current disposition
+
+현재 collision inventory는 Phase 0에서 다음 중 하나로 닫힌다.
+
+```text
+preserve_as_bounded_compatibility_exception
+bounded_source_identity_correction_required
+blocked_owner_disposition_missing
+```
+
+- Branch A만 Phase 1 이후로 진행한다.
+- Branch B는 해당 collision group만 다루는 bounded successor authority correction으로 이관한다.
+- Branch C는 implementation을 시작하지 않고 blocked 상태로 닫는다.
+
+## 3.3 Lossless cross-consumer compatibility
+
+다음 surface가 동일한 exact identity를 보고해야 한다.
+
+```text
+current source
+rendered artifact
+runtime manifest/chunks
+isolated package projection
+Windows record-array projection
+round-trip restored projection
+```
+
+각 surface는 다음을 만족해야 한다.
+
+- freshly derived cardinality 동일
+- exact key-set 동일
+- exact key별 payload binding 동일
+- comparison collision group 분류 가능
+- unauthorized collision 0
+- merge/overwrite/loss 0
+- restored exact key count와 source exact count 동일
+
+## 3.4 Fail-closed guard coverage
+
+compatibility contract를 다음 경계에 적용한다.
+
+- bridge generation 이전
+- chunk generation
+- cross-chunk merge
+- runtime manifest/chunk reconstruction
+- post-serialization reconstruction
+- isolated package projection
+- Windows inspection route
+- current full-payload regression
+- adopted required-validation route
+
+## 3.5 Governance closure
+
+최종 closure는 다음을 별도 증거로 구분한다.
+
+- owner disposition
+- machine contract
+- implementation result
+- fixture result
+- current regression
+- package projection compatibility
+- Windows round-trip compatibility
+- required-validation adoption
+- independent review
+- owner seal
+- final claim boundary
+
+최대 claim:
+
+```text
+Registry Runtime Compatibility PASS
+```
+
+---
+
+# 4. Constraints
+
+## 4.1 Authority preservation
+
+Branch A에서는 다음을 변경하지 않는다.
+
+- source authority
+- exact key spelling
+- rendered payload 의미
+- rendered item text
+- runtime payload 의미
+- 두 collision member의 존재
+- current authority chain
+- predecessor/historical/staging 지위
+
+다음 작업은 금지한다.
+
+- key 삭제
+- source rename
+- alias writer 추가
+- Registry Authority closure 재수행
+- successor identity chain 재봉인
+- predecessor authority 복구
+- historical artifact current 승격
+
+## 4.2 Responsibility preservation
+
+- DVF Body Compiler에 runtime compatibility 책임을 추가하지 않는다.
+- Lua renderer에 collision repair 책임을 추가하지 않는다.
+- runtime에서 source를 재검증하지 않는다.
+- runtime에서 key를 case-normalize하지 않는다.
+- runtime에 JSON parser를 추가하지 않는다.
+- Publish Boundary 문제를 포함하지 않는다.
+- package publication이나 release readiness를 주장하지 않는다.
+
+## 4.3 Identity preservation
+
+- comparison identity는 exact identity를 대체하지 않는다.
+- canonical role은 runtime lookup 우선순위가 아니다.
+- compatibility exception은 alias가 아니다.
+- payload-equivalent라도 exact key를 병합하지 않는다.
+- identity를 보존하지 못하는 property-map consumer는 record-array projection으로 우회한다.
+- materialization 전에 key collapse 가능성이 있는 parser는 canonical validation route로 사용하지 않는다.
+
+## 4.4 Comparator constraints
+
+`consumer_comparison_identity`는 다음 공통 제약을 갖는다.
+
+- deterministic
+- locale-independent
+- versioned
+- no trim
+- no punctuation normalization
+- no separator normalization
+- no module-name normalization
+- collision analysis 전용
+
+구체 algorithm은 C-2 판정 전까지 구현하지 않는다.
+
+## 4.5 Count and hash constraints
+
+- `2105`를 성공 predicate 또는 코드 상수로 사용하지 않는다.
+- `collision group 1`을 일반 validator 상수로 사용하지 않는다.
+- source cardinality는 current source adapter에서 파생한다.
+- runtime cardinality는 manifest와 실제 chunk content에서 파생한다.
+- package cardinality는 isolated package output에서 파생한다.
+- exception policy는 대상 key, owner record, current artifact hashes와 binding한다.
+- collision-relevant artifact가 변경되면 기존 binding을 stale로 판정한다.
+- timestamp와 temporary path를 deterministic comparison에서 제외할 경우 schema에 제외 field를 명시한다.
+
+## 4.6 Failure behavior
+
+다음은 모두 non-zero exit 대상이다.
+
+- owner record 없음
+- owner identity 없음
+- owner record hash 없음
+- policy hash 불일치
+- artifact binding 불일치
+- parser collapse 감지
+- exact duplicate 발견
+- unauthorized comparison collision 발견
+- exception member 수 불일치
+- payload equivalence 불일치
+- 제3 case variant 추가
+- surface별 exact key-set 불일치
+- payload-binding mismatch
+- round-trip identity loss
+- package projection cardinality 감소
+- merge/overwrite/loss 발생
+- required evidence 누락
+- 필수 dependency 부재 상태에서 lossy fallback 실행 시도
+
+## 4.7 Existing guard preservation
+
+다음 기존 guard는 제거하거나 완화하지 않는다.
+
+- exact duplicate guard
+- stale bridge guard
+- monolith runtime path guard
+- current-looking stale artifact guard
+- package forbidden-path scan
+- predecessor reentry guard
+- Lua syntax validation
+- current-route closure enforcement
+
+---
+
+# 5. Non-Goals
+
+다음은 범위 밖이다.
+
+- item text 품질 개선
+- `LemonGrass` 또는 `Lemongrass`의 의미 재판정
+- 두 entry가 실제로 독립 item인지에 대한 semantic 판결
+- 어느 spelling이 올바른지에 대한 naming 판결
+- item naming convention 정리
+- source key rename
+- source row 삭제
+- semantic rewrite
+- description regeneration 자체
+- Registry Authority 일반 재개방
+- DVF Body Compiler 수정
+- body composition 변경
+- runtime-side repair
+- Lua alias resolver
+- 전역 legacy alias framework
+- 모든 legacy case variant 일반화
+- 모든 외부 Windows JSON tool 지원
+- PowerShell object-map semantics 자체 수정
+- predecessor artifact 복구
+- stale bridge 복귀
+- monolith runtime 복귀
+- package publication
+- Workshop 업로드
+- B42 readiness
+- release readiness
+- deployment readiness
+- public text acceptance
+- semantic quality acceptance
+- manual in-game QA
+- multiplayer validation
+- 외부 모드 데이터 전체 collision sweep
+- 모든 third-party parser 호환성
+- macOS/Linux 외부 consumer 전체 검사
+- Branch B source correction의 구현과 검증
+
+---
+
+# 6. Proposed Approach
+
+전체 순서는 다음과 같다.
+
+```text
+fresh current census
+→ owner disposition
+→ compatibility contract
+→ bridge/chunk/package guards
+→ lossless Windows projection
+→ fixtures/current regression
+→ required-validation adoption
+→ final closure
+```
+
+## 6.1 하나의 canonical analyzer
+
+bridge, chunk, package, Windows tooling이 독립적인 collision 규칙을 구현하지 않는다.
+
+공통 구조:
+
+```text
+surface-specific lossless reader
+→ ordered registry record stream
+→ exact identity analyzer
+→ comparison identity analyzer
+→ exception policy verifier
+→ cross-surface equivalence verifier
+→ machine-readable report
+```
+
+내부 interchange는 object property map이 아닌 ordered record stream을 사용한다.
+
+```json
+{
+  "exact_key": "Base.LemonGrass",
+  "comparison_key": "base.lemongrass",
+  "payload": {},
+  "source_surface": "rendered"
+}
+```
+
+실제 `comparison_key` 생성 algorithm은 C-2 판정 결과를 따른다.
+
+## 6.2 Pre-materialization detection
+
+reader는 ordinary dictionary materialization 이후가 아니라 property pair 또는 streaming token 단계에서 다음을 계량한다.
+
+- raw property count
+- exact duplicate count
+- exact distinct count
+- comparison distinct count
+- comparison collision group count
+- parser collapse suspicion count
+
+## 6.3 Owner-bound exception policy
+
+현재 collision은 코드의 key-specific `if` 분기나 단순 문자열 allowlist로 처리하지 않는다.
+
+policy binding 대상:
+
+- owner identity
+- owner disposition
+- disposition schema version
+- policy version
+- policy hash
+- canonical exact key
+- exception exact key
+- comparison identity
+- normalized payload hash
+- identity-field exclusion manifest hash
+- source authority digest
+- rendered artifact hash
+- runtime bundle aggregate hash
+- isolated package bundle aggregate hash
+- required exact member count
+- source authority mutation flag
+- scope
+- invalidation predicates
+
+canonical/exception key 값은 C-6 판정과 Phase 0 owner record에 따른다.
+
+## 6.4 Two-sided validation
+
+각 writer boundary는 입력과 출력에서 각각 검사한다.
+
+```text
+input record stream validation
+→ serialization
+→ serialized output validation
+```
+
+Bridge route 예시:
+
+```text
+rendered preflight
+→ in-memory chunk assignment
+→ serialized chunk readback
+→ manifest/chunk reconstruction
+→ cross-surface comparison
+```
+
+## 6.5 Non-authority Windows projection
+
+Windows record-array projection은 inspection surface이며 current authority가 아니다.
+
+포함 metadata:
+
+- projection schema version
+- source artifact path
+- source artifact hash
+- policy hash
+- owner record hash
+- generated timestamp
+- generated record count
+- exact key-set hash
+- payload-binding hash
+- source order
+- exact key
+- comparison key
+- role
+- payload 또는 payload hash
+
+## 6.6 Additive adoption
+
+adoption 과정에서 다음을 유지한다.
+
+- existing required artifact 제거 0
+- existing required test 제거 0
+- existing required role 변경 0
+- stale/monolith guard 완화 0
+- current-route container ownership 변경 0
+
+최종 adoption route의 필수 조합은 C-5에서 판정한다.
+
+---
+
+# 7. Authority / Surface Impact
+
+## Authority Surface
+
+**Branch A:** authority mutation 없음.
+
+- source authority 유지
+- exact keys 유지
+- rendered authority 유지
+- runtime authority 유지
+- package identity 유지
+- owner disposition과 compatibility policy만 additive하게 추가
+
+**Branch B:** 본 로드맵에서 authority를 변경하지 않는다.
+
+```text
+bounded_source_identity_correction_required
+```
+
+상태로 종료하고 collision group에 한정된 successor correction scope로 이관한다.
+
+**Branch C:** authority mutation 없이 blocked 상태로 종료한다.
+
+## Runtime Behavior Surface
+
+변경 없음.
+
+- Lua key lookup semantics 변경 없음
+- Lua renderer 변경 없음
+- runtime alias 추가 없음
+- runtime key normalization 없음
+- item behavior 변경 없음
+- runtime payload 의미 변경 없음
+
+## Compatibility Surface
+
+직접 영향이 있다.
+
+- case-sensitive Lua consumer validation
+- PowerShell 5.1 inspection
+- duplicate-aware JSON reader
+- bridge exporter
+- runtime manifest/chunks
+- chunk reconstruction
+- isolated package projection
+- current-route validation
+- package validation
+
+## Sealed Artifact Surface
+
+Branch A에서는 payload mutation 없이 additive governance 및 validation artifact를 추가한다.
+
+- owner disposition record
+- compatibility policy
+- policy hash report
+- artifact binding manifest
+- collision inventory
+- Windows projection report
+- fixture matrix
+- final machine report
+- independent review report
+- owner seal
+- terminal hash seal
+- final closeout report
+
+## Public-Facing Output Surface
+
+없음.
+
+- Browser output 변경 없음
+- Tooltip output 변경 없음
+- item text 변경 없음
+- public quality claim 없음
+
+---
+
+# 8. Phases
+
+# Phase 0 — Current Collision Disposition
+
+## Goal
+
+current checkout의 collision inventory를 fresh하게 파생하고, 각 collision group의 owner-bound disposition을 결정한다.
+
+Phase 0은 이 로드맵의 선행 gate이며 별도 predecessor roadmap은 아니다.
+
+## Entry Conditions
+
+- roadmap scope/boundary review 완료
+- Registry Authority 재개방 금지 확인
+- read-only 또는 isolated-output preflight route 준비
+- current source/rendered/runtime/package primary surface 식별
+- C-3 baseline mismatch behavior 판정 또는 해당 판정 gate 지정
+
+## Primary Changes
+
+### A. Fresh current census
+
+다음 surface를 독립적으로 읽는다.
+
+```text
+current source
+rendered JSON
+runtime manifest
+runtime chunks
+isolated package manifest/chunks
+```
+
+각 surface에서 다음을 계량한다.
+
+- raw record count
+- exact distinct count
+- exact duplicate count
+- comparison distinct count
+- comparison collision group count
+- collision group별 exact member 목록
+- exact key별 payload hash
+- surface exact key-set hash
+- surface payload-binding hash
+- parser collapse suspicion count
+
+package census는 live publication이 아니라 isolated output root에서 수행한다.
+
+### B. Cross-surface identity verification
+
+다음을 검증한다.
+
+```text
+source exact key-set
+== rendered exact key-set
+== runtime exact key-set
+== isolated package exact key-set
+```
+
+각 collision group의 member도 모든 surface에서 동일해야 한다.
+
+### C. Payload equivalence proof
+
+각 exception 후보 group에 대해 normalized payload equivalence를 검증한다.
+
+원칙:
+
+- object property name인 exact key는 payload hash에서 제외한다.
+- payload 내부 identity-bearing field는 explicit field-path manifest에 등록된 경우에만 제외한다.
+- 임의의 문자열 field를 광범위하게 제거하지 않는다.
+- exclusion manifest 자체를 hash-bind한다.
+- object ordering은 canonical serialization로 정규화할 수 있다.
+- scalar value, null, array order는 보존한다.
+
+### D. Owner-bound disposition
+
+owner는 collision group별로 다음 중 하나를 판정한다.
+
+```text
+preserve_as_bounded_compatibility_exception
+bounded_source_identity_correction_required
+blocked_owner_disposition_missing
+```
+
+Branch A record의 의미 구조:
+
+```json
+{
+  "decision": "preserve_as_bounded_compatibility_exception",
+  "canonical_exact_key": "<author-reserved>",
+  "exception_exact_key": "<author-reserved>",
+  "comparison_identity": "<contract-derived>",
+  "role": "consumer_compatibility_legacy_case_exception",
+  "scope": "registry_runtime_compatibility_only",
+  "source_authority_mutation": false,
+  "exact_runtime_identity_preserved": true,
+  "payload_equivalence_required": true,
+  "lossless_windows_projection_required": true
+}
+```
+
+추가 binding:
+
+- owner identifier
+- decision timestamp
+- disposition schema version
+- policy version
+- current source digest
+- rendered artifact hash
+- runtime bundle aggregate hash
+- package bundle aggregate hash
+- normalized payload hash
+- identity-field exclusion manifest hash
+- record self-hash
+
+## Branches
+
+### Branch A — Compatibility exception
+
+```text
+preserve_as_bounded_compatibility_exception
+```
+
+필수 조건:
+
+- owner approval 존재
+- owner identity 존재
+- owner record hash valid
+- exact member 수가 policy와 일치
+- exact member가 owner record의 key와 일치
+- comparison identity 동일
+- 모든 current surface에 모든 member 존재
+- normalized payload equivalence 성립
+- source authority mutation 불필요
+- lossless Windows projection route가 구현 가능한 범위
+- unauthorized additional collision 없음
+- third variant 없음
+
+Branch A에서만 Phase 1로 진행한다.
+
+### Branch B — Authority correction required
+
+```text
+bounded_source_identity_correction_required
+```
+
+다음 중 하나일 때 선택한다.
+
+- owner가 compatibility exception을 승인하지 않음
+- payload equivalence 불성립
+- collision member가 서로 다른 semantic payload 보유
+- exact member 수가 policy와 불일치
+- current surfaces 사이 key-set 불일치
+- source correction이 필요하다는 owner 판정
+
+Branch B에서는 compatibility implementation을 계속하지 않는다.
+
+handoff packet:
+
+- exact collision evidence
+- surface별 key-set delta
+- payload divergence evidence
+- owner disposition
+- affected artifact inventory
+- forbidden mutation statement
+- bounded correction scope recommendation
+
+### Branch C — Owner disposition missing
+
+```text
+blocked_owner_disposition_missing
+```
+
+다음 조건이면 선택한다.
+
+- owner record 없음
+- owner identity 없음
+- owner record hash 없음
+- artifact hash binding 없음
+- 구현자가 canonical/exception role을 임의 지정함
+
+Phase 1 진입을 차단한다.
+
+## Expected Risks
+
+- parser가 collision을 보기 전에 property를 collapse함
+- source adapter가 current source 전체가 아닌 fixture 일부만 읽음
+- package probe가 live output을 오염시킴
+- exclusion manifest가 payload divergence를 숨김
+- owner record가 문서 승인만 포함하고 artifact binding을 누락함
+- baseline mismatch 처리 방식이 C-3 판정 없이 구현됨
+- canonical/exception role이 C-6 판정 전에 고정됨
+
+## Expected Validation
+
+- census deterministic rerun
+- read-only/isolated-output 확인
+- exact duplicate detection self-test
+- collision member parity
+- normalized payload hash parity
+- artifact binding validation
+- owner record schema validation
+- Branch A/B/C machine verdict
+- blocked branch의 다음 Phase 진입 실패
+
+## Expected Deliverables
+
+```text
+docs/dvf_3_3_registry_runtime_compatibility_policy.md
+docs/dvf_3_3_registry_runtime_compatibility_claim_boundary.md
+
+Iris/build/description/v2/owner_inputs/
+  dvf_3_3_registry_runtime_compatibility/
+    current_collision_disposition.json
+
+Iris/build/description/v2/staging/
+  dvf_3_3_registry_runtime_compatibility/
+    phase0/
+      fresh_surface_census.json
+      comparison_collision_inventory.json
+      payload_equivalence_report.json
+      artifact_binding_manifest.json
+      phase0_disposition_verdict.json
+```
+
+## Exit Conditions
+
+```text
+phase0_disposition
+= preserve_as_bounded_compatibility_exception
+```
+
+이 조건 외에는 Phase 1에 진입하지 않는다.
+
+---
+
+# Phase 1 — Runtime Compatibility Contract
+
+## Goal
+
+exact identity, comparison identity, exception policy, invalidation 조건, report schema를 machine-readable contract로 봉인한다.
+
+## Entry Conditions
+
+- Phase 0 Branch A
+- C-1 판정
+- C-2 판정
+- C-6 owner role 판정
+- Phase 0 owner record와 artifact binding valid
+
+## Primary Changes
+
+### A. Identity contract
+
+다음을 versioned contract로 정의한다.
+
+```text
+exact_runtime_identity_v1
+consumer_comparison_identity_v1
+```
+
+`exact_runtime_identity_v1`은 C-1 판정 결과를 따르며 다음 공통 제약을 유지한다.
+
+- case-sensitive
+- no trim
+- no implicit normalization
+- no aliasing
+
+`consumer_comparison_identity_v1`은 C-2 판정 결과를 따르며 다음 공통 제약을 유지한다.
+
+- collision analysis only
+- deterministic
+- locale-independent
+- no trimming
+- no punctuation/separator rewrite
+- no runtime lookup usage
+
+### B. Role contract
+
+owner가 선택한 두 exact key에 다음 audit role을 부여한다.
+
+```text
+<owner-selected key>
+→ canonical
+
+<owner-selected key>
+→ compatibility_exception
+```
+
+role은 다음 권한을 갖지 않는다.
+
+- runtime winner 선정
+- payload fallback
+- alias redirect
+- key deletion
+- key merge
+- source correction
+- user-facing canonical name 판정
+
+### C. Exception policy schema
+
+```json
+{
+  "schema_version": "registry_runtime_compatibility_exception_v1",
+  "canonical_exact_key": "<owner-selected>",
+  "exception_exact_key": "<owner-selected>",
+  "comparison_identity": "<contract-derived>",
+  "role": "consumer_compatibility_legacy_case_exception",
+  "scope": "registry_runtime_compatibility_only",
+  "source_authority_mutation": false,
+  "exact_runtime_identity_preserved": true,
+  "payload_equivalence_required": true,
+  "lossless_windows_projection_required": true,
+  "member_count_required": 2
+}
+```
+
+### D. Invalidation contract
+
+다음 조건에서는 exception을 즉시 무효화한다.
+
+- collision member 수 불일치
+- canonical key 변경
+- exception key 변경
+- comparison identity 변경
+- 제3 case variant 추가
+- normalized payload hash 변경
+- identity-field exclusion manifest 변경
+- source key 누락
+- rendered key 누락
+- runtime key 누락
+- package key 누락
+- source/rendered/runtime/package cardinality 불일치
+- exact key-set 불일치
+- payload-binding mismatch
+- policy hash 불일치
+- owner record hash 불일치
+- artifact binding stale
+- Windows projection cardinality 감소
+- exact identity round-trip 실패
+- merge/overwrite/loss 증가
+
+### E. Common report schema
+
+최소 field:
+
+```text
+source_cardinality
+rendered_cardinality
+runtime_cardinality
+package_cardinality
+
+exact_distinct_count
+exact_duplicate_count
+
+comparison_distinct_count
+comparison_collision_group_count
+unauthorized_collision_count
+exception_backed_collision_count
+
+round_trip_restored_exact_key_count
+merged_key_count
+lost_key_count
+overwritten_key_count
+
+surface_keyset_mismatch_count
+surface_payload_binding_mismatch_count
+
+policy_hash_valid
+owner_binding_valid
+artifact_binding_valid
+```
+
+## Expected Risks
+
+- C-1 계약이 실제 reader representation과 불일치
+- C-2 comparator가 PowerShell-side behavior와 불일치
+- canonical role이 alias priority로 오용됨
+- exception policy가 전역 allowlist로 확대됨
+- binding 범위가 과도하게 넓거나 좁음
+- Python/PowerShell adapter가 다른 comparison algorithm을 소비함
+
+## Expected Validation
+
+- identity contract unit tests
+- comparator conformance tests
+- non-supported input 처리 test
+- role non-resolution test
+- policy schema positive/negative tests
+- invalidation predicate별 focused tests
+- Python/PowerShell comparison-key parity
+- report schema validation
+- deterministic policy hash
+- unauthorized exception path 0
+- runtime alias behavior 0
+- source mutation authority 0
+
+## Expected Deliverables
+
+```text
+docs/dvf_3_3_registry_runtime_compatibility_policy.md
+docs/dvf_3_3_registry_runtime_compatibility_claim_boundary.md
+docs/dvf_3_3_registry_runtime_compatibility_ledger_packet.md
+
+Iris/build/description/v2/tools/build/
+  dvf_3_3_registry_runtime_compatibility.py
+
+Iris/build/description/v2/tests/
+  test_dvf_3_3_registry_runtime_compatibility_contract.py
+```
+
+## Exit Conditions
+
+- Phase 0 owner record와 contract hash-bound
+- C-1/C-2/C-6 resolved
+- contract review PASS
+- unauthorized exception path 0
+- runtime alias behavior 0
+- source mutation authority 0
+
+---
+
+# Phase 2 — Bridge / Chunk / Package Guards
+
+## Goal
+
+동일한 compatibility contract를 bridge generation, chunk generation/merge, runtime reconstruction, isolated package projection에 적용한다.
+
+## Primary Changes
+
+### A. Bridge preflight guard
+
+bridge exporter는 rendered object를 ordinary dictionary로 먼저 읽지 않는다.
+
+필수 동작:
+
+1. lossless property-pair 또는 streaming reader로 입력 읽기
+2. exact duplicate 계량
+3. comparison collision group 계량
+4. exception policy 검증
+5. owner/artifact binding 검증
+6. unauthorized collision이면 export 전 실패
+7. parser collapse 가능성이 있으면 실패
+8. 입력 exact record count를 generation context에 전달
+
+### B. Chunk generation guard
+
+별도 계량:
+
+```text
+exact duplicate count
+comparison collision group count
+cross-chunk collision count
+exception-backed group count
+unauthorized group count
+```
+
+필수 조건:
+
+- chunk assignment 전 exact record count 보존
+- 각 exact key가 정확히 한 chunk에 기록
+- exact duplicate write 0
+- cross-chunk exact duplicate 0
+- approved exception의 모든 member 존재
+- member가 다른 chunk에 배치되어도 동일 policy 적용
+- manifest entry count와 chunk-derived count 일치
+- manifest 참조 chunk와 실제 chunk 집합 일치
+- orphan chunk 0
+- missing chunk 0
+
+### C. Merge guard
+
+실제 지원 Lua harness 또는 실제 semantics를 모사하는 검증 route에서 다음을 계량한다.
+
+```text
+input assignment count
+unique exact output key count
+duplicate exact assignment count
+overwritten exact key count
+comparison collision group count
+```
+
+성공 조건:
+
+```text
+input assignment count
+== unique exact output key count
+
+duplicate exact assignment count
+== 0
+
+overwritten exact key count
+== 0
+```
+
+comparison collision은 valid owner-bound exception일 때만 허용한다.
+
+### D. Post-serialization guard
+
+생성된 Lua chunk를 다시 읽어 pre-generation record stream과 비교한다.
+
+- exact key-set equality
+- exact key별 payload binding equality
+- exception member presence
+- comparison collision classification
+- serialization loss 0
+
+### E. Runtime reconstruction guard
+
+manifest와 실제 chunk를 이용해 runtime registry를 재구성하고 다음을 검증한다.
+
+- manifest-derived count
+- actual chunk count
+- reconstructed exact key count
+- missing/orphan chunk
+- exact key-set
+- payload binding
+- merge/overwrite/loss
+
+### F. Package projection guard
+
+`package_iris.ps1` 또는 package route는 isolated projection 생성 후 final zip/publication 이전에 compatibility validation을 실행한다.
+
+필수 검증:
+
+```text
+source exact key-set
+== rendered exact key-set
+== repo runtime exact key-set
+== isolated package exact key-set
+```
+
+추가 조건:
+
+- package cardinality 감소 0
+- package payload mismatch 0
+- merge/overwrite/loss 0
+- stale bridge guard 유지
+- monolith guard 유지
+- forbidden current-looking path guard 유지
+- validation 실패 시 non-zero exit
+- failed output을 valid package로 표시하지 않음
+- live publication과 분리된 package probe route 제공
+
+## Expected Risks
+
+- preflight reader와 post-serialization reader가 같은 결함을 공유함
+- merge simulator가 실제 Lua semantics와 다름
+- validation이 zip 이후 실행됨
+- 기존 package guard가 통합 과정에서 약화됨
+- build와 package가 다른 policy version을 읽음
+- common analyzer 대신 duplicated logic이 생김
+
+## Expected Validation
+
+- unauthorized collision negative test
+- owner-backed exception positive test
+- cross-chunk collision test
+- exact duplicate write test
+- manifest/chunk count parity
+- post-serialization key-set parity
+- merge cardinality test
+- runtime reconstruction test
+- isolated package projection test
+- package failure exit-code test
+- stale bridge regression
+- monolith regression
+- current-looking stale path regression
+
+## Expected Deliverables
+
+```text
+Updated:
+Iris/build/description/v2/tools/build/export_dvf_3_3_lua_bridge.py
+Iris/tools/package_iris.ps1
+
+Focused tests:
+Iris/build/description/v2/tests/
+  test_dvf_3_3_registry_runtime_compatibility_bridge.py
+  test_dvf_3_3_registry_runtime_compatibility_chunks.py
+  test_dvf_3_3_registry_runtime_compatibility_package.py
+
+Evidence:
+phase2/bridge_preflight_report.json
+phase2/chunk_generation_compatibility_report.json
+phase2/chunk_merge_compatibility_report.json
+phase2/runtime_reconstruction_report.json
+phase2/package_projection_compatibility_report.json
+phase2/existing_package_guard_regression_report.json
+```
+
+## Exit Conditions
+
+- bridge guard PASS
+- chunk generation guard PASS
+- merge guard PASS
+- runtime reconstruction PASS
+- package projection guard PASS
+- existing stale/monolith guard regression 0
+- unapproved authority/payload mutation 0
+
+---
+
+# Phase 3 — Windows Consumer Tooling
+
+## Goal
+
+PowerShell 5.1에서 main rendered object의 exact identity를 손실하지 않고 검사할 수 있는 공식 Windows inspection route를 제공한다.
+
+## Entry Conditions
+
+- C-4 canonical route 판정
+- Phase 1 contract PASS
+- common analyzer 사용 가능
+
+## Primary Changes
+
+### A. Main object inspection prohibition
+
+PowerShell 5.1 `ConvertFrom-Json`을 다음 용도로 사용하지 않는다.
+
+```text
+main rendered object row-key identity 검사
+exact key cardinality 측정
+exact key-set 비교
+collision group 검출
+round-trip identity 검증
+```
+
+PowerShell 전체 사용을 금지하는 것은 아니다.
+
+`ConvertFrom-Json`은 exact key가 property name이 아닌 record-array report 또는 sidecar를 읽는 데 사용할 수 있다.
+
+### B. Canonical Windows route
+
+C-4 판정으로 다음 후보 중 canonical route를 확정한다.
+
+**후보 A**
+
+```text
+PowerShell wrapper
+→ uv run python
+→ duplicate-aware rendered reader
+→ record-array projection
+→ compatibility report
+```
+
+**후보 B**
+
+```text
+PowerShell wrapper
+→ approved jq route
+→ record-array projection
+→ compatibility report
+```
+
+**후보 C**
+
+```text
+PowerShell wrapper
+→ approved duplicate-aware reader
+→ hash-bound record-array sidecar
+→ compatibility report
+```
+
+어느 후보를 채택하더라도 다음은 금지한다.
+
+```text
+required dependency missing
+→ ConvertFrom-Json main object fallback
+```
+
+dependency 부재 시 actionable error와 non-zero exit를 반환한다.
+
+### C. Record-array projection
+
+```json
+[
+  {
+    "exact_key": "<exact-key-1>",
+    "comparison_key": "<contract-derived>",
+    "role": "canonical",
+    "payload": {}
+  },
+  {
+    "exact_key": "<exact-key-2>",
+    "comparison_key": "<contract-derived>",
+    "role": "compatibility_exception",
+    "payload": {}
+  }
+]
+```
+
+metadata:
+
+- projection schema version
+- source path
+- source hash
+- policy hash
+- owner record hash
+- generated record count
+- exact key-set hash
+- payload-binding hash
+- source order
+
+### D. Round-trip restoration
+
+PowerShell case-insensitive hashtable 안에서 round-trip을 수행하지 않는다.
+
+```text
+rendered object property-pair stream
+→ record-array projection
+→ exact-keyed serialized reconstruction
+→ duplicate-aware reread
+→ exact key/payload comparison
+```
+
+검증 대상:
+
+- restored cardinality
+- restored exact key-set
+- contract가 order를 요구하는 경우 restored order
+- exact key별 payload binding
+- lost/merged/overwritten count
+
+### E. Windows report
+
+공식 report는 최소한 다음을 포함한다.
+
+```text
+source cardinality
+rendered cardinality
+runtime cardinality
+package cardinality
+
+exact distinct count
+exact duplicate count
+
+comparison collision group count
+unauthorized collision count
+exception-backed collision count
+
+round-trip restored exact key count
+
+merged key count
+lost key count
+overwritten key count
+
+surface key-set mismatch count
+surface payload mismatch count
+
+policy hash validation
+owner binding validation
+artifact binding validation
+```
+
+## Expected Risks
+
+- wrapper가 Python/jq stderr 또는 exit code를 숨김
+- space/non-ASCII path invocation 실패
+- Windows newline/encoding 차이로 hash mismatch
+- sidecar가 authority로 오독됨
+- adapter별 comparison algorithm drift
+- wrapper 내부에서 main-object `ConvertFrom-Json` fallback 발생
+
+## Expected Validation
+
+- Windows PowerShell 5.1 invocation
+- path-with-spaces fixture
+- UTF-8 input/output fixture
+- missing dependency fail-closed test
+- forbidden main-object `ConvertFrom-Json` route scan
+- adapter/report count parity
+- sidecar cardinality preservation
+- round-trip exact key restoration
+- current collision positive inspection
+- current full payload inspection
+- source hash binding
+
+## Expected Deliverables
+
+```text
+Iris/tools/inspect_registry_runtime_compatibility.ps1
+
+Iris/build/description/v2/tools/build/
+  export_registry_runtime_records.py
+
+Iris/build/description/v2/tests/
+  test_registry_runtime_windows_projection.py
+
+Evidence:
+phase3/windows_projection.json
+phase3/windows_projection_report.json
+phase3/windows_round_trip_report.json
+phase3/powershell_5_1_execution_report.json
+```
+
+## Exit Conditions
+
+- C-4 resolved
+- main rendered object identity 검사에 `ConvertFrom-Json` 사용 0
+- Windows projection cardinality loss 0
+- round-trip exact identity loss 0
+- approved exception member 전부 복원
+- sidecar authority claim false
+- dependency-missing silent fallback 0
+
+---
+
+# Phase 4 — Fixtures and Current Regression
+
+## Goal
+
+정상 입력은 보존하고, 비승인 collision·loss·overwrite·invalid exception을 fail-closed로 차단함을 fixture와 current payload로 증명한다.
+
+## Primary Changes
+
+### Fixture 1 — 일반 key 집합 positive
+
+입력:
+
+```text
+Base.Apple
+Base.Banana
+Base.LemonGrass
+```
+
+기대:
+
+- collision 0
+- exact count 보존
+- round-trip loss 0
+- PASS
+
+### Fixture 2 — Unauthorized collision negative
+
+```text
+Base.TestKey
+Base.Testkey
+```
+
+owner exception 없음.
+
+기대:
+
+```text
+unauthorized_collision_count = 1
+exit_code != 0
+```
+
+### Fixture 3 — Owner record missing negative
+
+exception policy 형식은 있으나 owner record 또는 owner hash가 없다.
+
+기대:
+
+```text
+blocked_owner_disposition_missing
+exit_code != 0
+```
+
+### Fixture 4 — Payload-divergent exception negative
+
+collision member의 normalized payload가 다르다.
+
+기대:
+
+```text
+payload_equivalence = false
+exception_invalidated = true
+exit_code != 0
+```
+
+### Fixture 5 — Third variant negative
+
+```text
+Base.LemonGrass
+Base.Lemongrass
+Base.lemongrass
+```
+
+기대:
+
+```text
+member_count = 3
+exception_invalidated = true
+exit_code != 0
+```
+
+### Fixture 6 — Windows cardinality-loss negative
+
+projection stage가 두 record를 하나로 줄이는 결함을 주입한다.
+
+기대:
+
+```text
+source_count != projection_count
+lost_key_count > 0
+exit_code != 0
+```
+
+### Fixture 7 — Exact overwrite/merge negative
+
+chunk merge 또는 reconstruction이 한 exact key를 overwrite한다.
+
+기대:
+
+```text
+overwritten_key_count > 0
+exit_code != 0
+```
+
+### Fixture 8 — Current collision positive regression
+
+Phase 0 Branch A policy를 소비한다.
+
+기대:
+
+- policy-required member count 충족
+- comparison collision group 분류
+- exception-backed group
+- payload equivalence true
+- exact identity preserved
+- PASS
+
+fixture 내부 member 수는 fixture expectation이며 full registry cardinality 상수가 아니다.
+
+### Fixture 9 — Current full payload regression
+
+실행 시점의 current source/rendered/runtime을 fresh하게 읽는다.
+
+기대:
+
+- source/rendered/runtime exact key-set equality
+- exact duplicate 0
+- unauthorized collision 0
+- 잔존 collision 전부 valid owner policy와 결합
+- key별 payload binding 유지
+- round-trip loss 0
+
+### Fixture 10 — Package projection regression
+
+isolated package projection을 생성하여 repo runtime과 비교한다.
+
+기대:
+
+- package exact key-set equality
+- package cardinality preservation
+- package payload-binding parity
+- stale bridge hit 0
+- monolith hit 0
+- overwrite/loss 0
+
+### Existing exact-duplicate regression
+
+기존 exact duplicate negative fixture를 유지한다.
+
+comparison collision guard가 exact duplicate guard를 대체하지 않는다.
+
+## Validation Layers
+
+```text
+unit tests
+→ focused integration tests
+→ bridge/chunk integration
+→ runtime reconstruction
+→ Windows projection
+→ package projection
+→ current full payload
+→ current-route candidate rerun
+→ Lua merge validation
+→ Lua syntax
+```
+
+## Determinism
+
+같은 checkout, policy, owner record, current artifacts에서 두 번 실행할 때 다음 normalized 결과가 같아야 한다.
+
+- collision inventory hash
+- policy validation result
+- exact key-set hash
+- payload-binding hash
+- Windows projection hash
+- final machine verdict
+
+timestamp와 temp path를 제외할 경우 제외 field를 schema에 명시한다.
+
+## Lua Validation
+
+actual runtime merge semantics를 사용하는 supported harness가 있으면 이를 사용한다.
+
+없다면 implementation plan에서 실제 Lua merge validation route를 마련한다.
+
+단순 문자열 scan만으로 최종 compatibility closure를 주장하지 않는다.
+
+최소 Lua syntax command:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1
+```
+
+## Expected Risks
+
+- negative fixture가 실제 production failure route를 통과하지 않음
+- fixture가 기대 실패 사유가 아닌 다른 오류로 실패함
+- current regression이 staging artifact를 authority로 읽음
+- package fixture가 live path를 오염시킴
+- deterministic normalization이 semantic difference를 제거함
+- Windows test가 PowerShell 7에서만 수행됨
+- test와 validator가 같은 결함 helper를 공유함
+
+## Expected Validation
+
+- 10개 fixture result matrix
+- 모든 negative fixture non-zero exit
+- 각 negative fixture의 expected failure reason 일치
+- current collision positive
+- current full payload positive
+- package projection positive
+- deterministic rerun parity
+- actual PowerShell 5.1 execution
+- Lua merge cardinality
+- Lua syntax exit code 0
+- unresolved fixture 0
+
+## Expected Deliverables
+
+```text
+Iris/build/description/v2/tests/fixtures/
+  registry_runtime_compatibility/
+
+Iris/build/description/v2/tests/
+  test_dvf_3_3_registry_runtime_compatibility_fixtures.py
+  test_dvf_3_3_registry_runtime_compatibility_current.py
+  test_dvf_3_3_registry_runtime_compatibility_package.py
+
+Evidence:
+phase4/fixture_matrix_report.json
+phase4/current_full_payload_regression_report.json
+phase4/package_projection_regression_report.json
+phase4/determinism_report.json
+phase4/lua_merge_report.json
+phase4/lua_syntax_report.json
+```
+
+## Exit Conditions
+
+- 필수 negative fixture 전부 fail-closed
+- positive fixture 전부 PASS
+- current full payload PASS
+- isolated package projection PASS
+- deterministic rerun PASS
+- PowerShell 5.1 route PASS
+- Lua merge validation PASS
+- Lua syntax exit code 0
+- unresolved fixture 0
+
+---
+
+# Phase 5 — Required-Validation Adoption and Closure
+
+## Goal
+
+검증된 runtime compatibility validation을 승인된 live enforcement route에 additive하게 채택하고 claim boundary 안에서 closure한다.
+
+## Entry Conditions
+
+- Phase 4 PASS
+- C-5 adoption requirement 판정
+- C-7 independent reviewer eligibility 판정
+- required evidence tracked/not-ignored 상태 확인
+
+## Primary Changes
+
+### A. Required-validation candidate
+
+권장 role:
+
+```text
+dvf_3_3_registry_runtime_compatibility_required_validation
+```
+
+candidate는 최소한 다음을 소비한다.
+
+- compatibility policy
+- owner disposition record
+- artifact binding manifest
+- current collision report
+- current full payload regression
+- package projection report
+- Windows round-trip report
+- focused compatibility tests
+- fixture matrix
+- final machine report
+
+### B. Live-manifest adoption
+
+C-5에서 live manifest adoption을 필수로 판정할 경우 다음을 수행한다.
+
+- `current_route_required_validations.json`에 additive entry 추가
+- existing required artifact 제거 0
+- existing required test 제거 0
+- existing role 변경 0
+- candidate/live manifest hash trace
+- pre-adoption current route PASS
+- post-adoption current route PASS
+- post-final live rescan PASS
+
+manifest는 기존 legacy combined governance route container 지위를 유지한다.
+
+### C. Package-required adoption
+
+C-5에서 package guard adoption을 필수로 판정할 경우 package route가 compatibility validator를 필수 소비한다.
+
+금지되는 우회:
+
+- guard default OFF
+- zip 이후 warning-only 처리
+- invalid policy 상태에서 package 계속 생성
+- Windows projection failure advisory 처리
+- stale/monolith guard와 compatibility guard 중 선택 실행
+- test-only route에만 guard 연결
+
+### D. Final machine closure report
+
+최소 field:
+
+```text
+phase0_disposition
+policy_hash_valid
+owner_binding_valid
+artifact_binding_valid
+
+source_cardinality
+rendered_cardinality
+runtime_cardinality
+package_cardinality
+
+exact_duplicate_count
+comparison_collision_group_count
+unauthorized_collision_count
+exception_backed_collision_count
+
+round_trip_restored_exact_key_count
+merged_key_count
+lost_key_count
+overwritten_key_count
+
+required_gate_adopted
+package_guard_adopted
+current_route_status
+lua_syntax_status
+
+protected_payload_mutation_count
+claim_scope
+```
+
+### E. Independent review
+
+review 대상:
+
+- Branch A 조건이 실제 충족되는가
+- owner record와 artifact hash가 bind되는가
+- payload exclusion manifest가 과도하지 않은가
+- comparison identity가 exact identity를 대체하지 않는가
+- canonical role이 alias resolution에 사용되지 않는가
+- negative fixture가 기대 경로에서 fail-closed인가
+- package projection이 payload를 변경하지 않았는가
+- current count가 하드코딩되지 않았는가
+- adoption이 additive한가
+- final claim이 Runtime Compatibility 축을 넘지 않는가
+
+reviewer 자격과 verdict token은 C-7 판정 결과를 따른다.
+
+### F. Owner seal
+
+owner seal은 independent review를 대체하지 않는다.
+
+직접 참조 대상:
+
+- owner disposition hash
+- compatibility policy hash
+- final machine report hash
+- fixture matrix hash
+- current regression hash
+- package projection report hash
+- Windows round-trip report hash
+- independent review hash
+- required-validation manifest post-adoption hash 또는 C-5에서 승인된 adoption evidence
+
+### G. Final closure report
+
+허용 상태:
+
+```text
+machine_contract_status = PASS
+independent_review_status = PASS
+owner_seal_status = PASS
+closeout_state = canonical_complete
+claim_scope = registry_runtime_compatibility_only
+```
+
+다음 field는 C-5 결과와 일치해야 한다.
+
+```text
+required_gate_adopted
+package_guard_adopted
+```
+
+## Expected Risks
+
+- candidate 검증이 live adoption으로 오독됨
+- owner seal이 independent review를 대체함
+- full current-route PASS가 compatibility 실패를 숨김
+- package guard가 test-only route에 연결됨
+- final claim이 Registry Authority 또는 release readiness로 확대됨
+- required evidence가 untracked/ignored 상태로 남음
+- C-5 미판정 상태에서 closure 조건을 임의 선택함
+- C-7 미판정 상태에서 self-review를 independent review로 인정함
+
+## Expected Validation
+
+- pre-adoption manifest validation
+- candidate validation
+- additive diff
+- C-5가 요구하는 모든 adoption route 검증
+- post-adoption current-route rerun
+- post-final current-route rerun
+- package route invocation proof
+- required artifact presence
+- tracked/not-ignored 검증
+- independent review hash coverage
+- owner seal binding
+- final claim scan
+- Lua syntax validation
+
+## Expected Deliverables
+
+```text
+Iris/_docs/round3/current_route_required_validations.json
+
+docs/dvf_3_3_registry_runtime_compatibility_policy.md
+docs/dvf_3_3_registry_runtime_compatibility_claim_boundary.md
+docs/dvf_3_3_registry_runtime_compatibility_ledger_packet.md
+docs/dvf_3_3_registry_runtime_compatibility_closeout.md
+
+Iris/build/description/v2/staging/
+  dvf_3_3_registry_runtime_compatibility/
+    phase5/
+      required_gate_adoption_report.json
+      package_guard_adoption_report.json
+      final_machine_report.json
+      independent_review_gate_report.json
+      owner_canonical_seal_gate_report.json
+      final_registry_runtime_compatibility_report.json
+      terminal_hash_seal.json
+```
+
+## Exit Conditions
+
+- C-5 resolved
+- C-7 resolved
+- C-5에서 요구된 adoption 전부 PASS
+- current-route rerun PASS
+- Lua syntax PASS
+- unauthorized collision 0
+- exact identity loss 0
+- merge/overwrite/loss 0
+- independent review PASS
+- owner seal PASS
+- final claim boundary scan PASS
+
+---
+
+# Review Gate Sequence
+
+별도 predecessor review chain을 만들지 않는다.
+
+## Review 1 — Roadmap Scope / Boundary Review
+
+검토 대상:
+
+- Registry Authority 재개방 여부
+- DVF Body Compiler 책임 침범 여부
+- Publish Boundary 혼입 여부
+- single-roadmap 원칙
+- Phase 0 integrated disposition
+- claim ceiling
+- C-3 baseline mismatch behavior
+- C-7 reviewer eligibility 원칙
+
+실패 시 Phase 0에 진입하지 않는다.
+
+## Review 2 — Phase 0 Disposition / Contract Review
+
+검토 대상:
+
+- fresh census
+- owner-bound disposition
+- payload equivalence
+- C-1 exact identity basis
+- C-2 comparator
+- C-6 canonical/exception role
+- policy schema
+- invalidation predicates
+- Branch A/B/C 판정
+
+Branch A와 contract 승인 전 구현 금지.
+
+## Review 3 — Implementation Plan Review
+
+검토 대상:
+
+- canonical analyzer
+- bridge integration
+- chunk/merge integration
+- runtime reconstruction
+- package integration
+- C-4 Windows route
+- fixture 설계
+- evidence paths
+- protected surface
+
+검토 완료 전 production tooling 수정 금지.
+
+## Review 4 — Implementation / Result Review
+
+검토 대상:
+
+- 실제 diff
+- guard bypass 가능성
+- fixture 결과
+- current regression
+- package projection
+- Windows round-trip
+- Lua merge/syntax
+- no-mutation evidence
+
+## Review 5 — Required-Validation Adoption Review
+
+검토 대상:
+
+- C-5 adoption requirement
+- candidate/live manifest diff
+- additive adoption
+- package-required guard 연결
+- required artifact durability
+- post-adoption rerun
+
+## Review 6 — Final Closure Review
+
+검토 대상:
+
+- final machine report
+- independent review
+- C-7 reviewer eligibility 충족
+- owner seal
+- terminal hash seal
+- claim boundary
+- non-decision statements
+
+---
+
+# 9. Validation Expectations
+
+## Expected Validation Depth
+
+```text
+heavy
+```
+
+단일 unit test나 current collision positive test만으로는 충분하지 않다.
+
+## Expected Validation Areas
+
+### Runtime identity
+
+- exact key preservation
+- Lua table identity
+- chunk reconstruction
+- merge cardinality
+- payload binding
+
+### Compatibility
+
+- case-insensitive collision detection
+- owner-backed exception validation
+- Windows non-lossy projection
+- round-trip restoration
+- package projection
+
+### Determinism
+
+- census normalized hash parity
+- policy hash parity
+- projection hash parity
+- repeated final verdict parity
+
+### Regression
+
+- existing exact duplicate guard
+- stale bridge guard
+- monolith guard
+- predecessor reentry guard
+- package forbidden scan
+- current full payload
+- current route
+
+### Governance
+
+- owner identity
+- policy/artifact binding
+- additive adoption
+- independent review
+- owner seal
+- claim boundary
+
+## Required Validation Matrix
+
+| Area | Required result |
+|---|---|
+| Fresh source census | PASS |
+| Rendered lossless read | PASS |
+| Runtime chunk reconstruction | PASS |
+| Isolated package projection | PASS |
+| Exact duplicate count | 0 |
+| Unauthorized comparison collision | 0 |
+| Invalid exception | 0 |
+| Exact key-set mismatch | 0 |
+| Payload-binding mismatch | 0 |
+| Round-trip exact identity loss | 0 |
+| Merge/overwrite/loss | 0 |
+| Negative fixtures | 전부 fail-closed |
+| Current collision regression | PASS |
+| Current full payload | PASS |
+| Package projection regression | PASS |
+| C-5 required adoption route | PASS |
+| Current-route rerun | PASS |
+| Lua syntax | exit code 0 |
+
+## Known Validation Limits
+
+검증하지 않는 항목:
+
+- manual in-game behavior
+- Browser UX
+- Tooltip UX
+- semantic text quality
+- item meaning
+- public acceptance
+- Workshop packaging/publication
+- B42 compatibility 전체
+- release readiness
+- deployment readiness
+- multiplayer
+- 장시간 runtime session
+- 모든 third-party JSON parser
+- 모든 Windows tool
+- PowerShell 전체 버전 매트릭스
+- 외부 모드 데이터
+- macOS/Linux external consumer sweep
+- Branch B source correction validity
+
+---
+
+# 10. Risk Assessment
+
+## High Risk
+
+- parser가 collision 검사 전에 property를 collapse함
+- exact identity representation을 C-1 판정 없이 구현함
+- comparator를 C-2 판정 없이 구현함
+- comparison algorithm이 실제 consumer behavior와 불일치함
+- exception policy가 단순 allowlist로 축소됨
+- payload equivalence exclusion 범위가 과도함
+- owner record와 artifact hash가 bind되지 않음
+- canonical role이 runtime alias/winner로 오용됨
+- current count를 하드코딩함
+- package projection이 exact key를 조용히 병합함
+- bridge와 package가 다른 policy version을 소비함
+- Branch B 조건에서 Branch A implementation을 강행함
+- final claim이 Registry Authority 또는 release readiness로 확대됨
+
+## Medium Risk
+
+- baseline mismatch를 C-3 판정과 다르게 처리함
+- Windows route를 C-4 판정 전에 고정함
+- wrapper가 child process exit code를 숨김
+- PowerShell path quoting/encoding 문제
+- adapter 간 comparison behavior 차이
+- chunk order 변경을 payload mismatch로 오판함
+- package probe가 live output을 오염시킴
+- sidecar가 authority로 오독됨
+- current-route test 시간이 증가함
+- required evidence가 untracked/ignored 상태로 남음
+- duplicated adapter logic이 drift함
+- C-5 adoption 조건을 임의 해석함
+- C-7 reviewer 자격을 임의 해석함
+
+## Low Risk
+
+- 추가 report 파일로 인한 repository noise
+- build-time validation 시간 증가
+- 문서 terminology 불일치
+- sidecar file 크기 증가
+- operator가 비공식적으로 main object에 `ConvertFrom-Json`을 직접 사용해 실패함
+
+---
+
+# 11. Rollback Strategy
+
+## 11.1 Phase 0 이전
+
+compatibility tooling mutation이 없으므로 roadmap 문서만 수정하거나 폐기할 수 있다.
+
+## 11.2 Phase 0 Branch B 또는 C
+
+구현을 시작하지 않는다.
+
+- Branch B: bounded authority correction handoff만 보존
+- Branch C: blocked owner disposition report만 보존
+
+source/rendered/runtime/package를 임시 수정해 우회하지 않는다.
+
+## 11.3 Adoption 이전
+
+신규 tooling에 결함이 있으면 implementation diff를 revert하거나 격리할 수 있다.
+
+다음 evidence는 삭제하지 않는다.
+
+- failed fixture result
+- failed current regression
+- failed package probe
+- review finding
+- owner disposition
+- invalidated policy record
+
+새 실행은 새 attempt identity 또는 새 evidence path를 사용한다.
+
+## 11.4 Adoption 이후
+
+live required-validation entry나 package guard를 조용히 제거하거나 advisory로 낮추지 않는다.
+
+rollback에는 다음이 필요하다.
+
+- explicit rollback reason
+- affected adoption entry
+- before/after hash
+- preserved prior PASS/FAIL evidence
+- package guard 상태
+- independent review
+- owner approval
+- current-route rerun
+
+변경 이력은 supersession 또는 동등한 append-only 방식으로 보존한다.
+
+## 11.5 Exception invalidation 이후
+
+artifact drift 또는 payload divergence로 exception이 무효화되면 자동 재사용하지 않는다.
+
+```text
+exception invalidated
+→ bridge/package/adopted route blocked
+→ new owner disposition required
+```
+
+source correction이 필요하면 Branch B successor scope로 이관한다.
+
+---
+
+# 12. Success Criteria
+
+모든 조건을 만족해야 한다.
+
+## Disposition
+
+- Phase 0 fresh preflight 완료
+- count가 실행 시점에 파생됨
+- collision inventory가 실행 시점에 파생됨
+- C-3 처리 방식 준수
+- owner-bound disposition 존재
+- owner record hash valid
+- artifact binding valid
+- selected branch가 Branch A
+- Branch B/C silent bypass 0
+- C-6 role owner 판정 완료
+
+## Contract
+
+- C-1 resolved
+- C-2 resolved
+- `exact_runtime_identity` 정의 존재
+- `consumer_comparison_identity` 정의 존재
+- 두 identity의 비대체성 명시
+- comparison algorithm versioned
+- canonical role이 alias가 아님
+- exception policy schema 존재
+- invalidation predicates 구현
+
+## Guard coverage
+
+- bridge preflight collision guard 존재
+- exact duplicate와 comparison collision 별도 계량
+- chunk generation guard 존재
+- cross-chunk collision guard 존재
+- merge cardinality guard 존재
+- runtime reconstruction guard 존재
+- post-serialization guard 존재
+- package projection guard 존재
+- stale bridge guard 유지
+- monolith guard 유지
+- current-looking stale artifact guard 유지
+
+## Windows compatibility
+
+- C-4 resolved
+- main rendered object identity 검사에 PowerShell 5.1 `ConvertFrom-Json` 미사용
+- official PowerShell wrapper 존재
+- lossless record-array projection 존재
+- source/rendered/runtime/package cardinality 보고
+- exact distinct count 보고
+- comparison collision group count 보고
+- unauthorized/exception-backed collision count 보고
+- round-trip restored exact key count 보고
+- merge/loss/overwrite count 보고
+- Windows projection cardinality loss 0
+- exact identity round-trip loss 0
+- silent fallback 0
+
+## Fixtures and regression
+
+- 일반 key positive PASS
+- unauthorized collision negative fail-closed
+- missing owner negative fail-closed
+- payload divergence negative fail-closed
+- third variant negative fail-closed
+- Windows cardinality-loss negative fail-closed
+- exact overwrite/merge negative fail-closed
+- current collision positive PASS
+- current full payload regression PASS
+- package projection regression PASS
+- existing exact duplicate regression 유지
+- deterministic rerun PASS
+- 기대 실패 지점·사유 일치
+
+## Current surface invariants
+
+- source/rendered/runtime/package cardinality 동일
+- exact key-set equality
+- exact key별 payload 연결 보존
+- unauthorized comparison collision 0
+- 잔존 collision 전부 valid owner-bound policy와 결합
+- merge count 0
+- overwrite count 0
+- loss count 0
+- missing key count 0
+- third variant count 0
+
+## Adoption and closure
+
+- C-5 resolved
+- C-5가 요구한 adoption route 전부 PASS
+- additive adoption
+- existing required validation removal 0
+- post-adoption current-route PASS
+- C-7 resolved
+- independent review PASS
+- owner seal PASS
+- final claim scan PASS
+- required evidence tracked/not-ignored
+- Lua syntax command exit code 0
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\tools\check_lua_syntax.ps1
+```
+
+---
+
+# 13. Expected Claim Boundary
+
+이 로드맵 문서의 존재는 PASS를 의미하지 않는다.
+
+모든 Phase, review gate, 보류 판정 항목이 완료된 뒤 허용되는 최대 claim은 다음뿐이다.
+
+```text
+Registry Runtime Compatibility PASS
+```
+
+이 claim은 다음을 의미한다.
+
+- current exact runtime identity가 승인된 필수 consumer와 projection에서 보존된다.
+- unauthorized comparison collision이 없다.
+- 잔존 collision이 owner-bound exception policy와 결합되어 있다.
+- Windows inspection route가 non-lossy하다.
+- bridge/chunk/runtime reconstruction/package guard가 collision과 identity loss를 fail-closed로 차단한다.
+- C-5에서 승인된 enforcement route가 compatibility validation을 소비한다.
+
+이 claim은 다음을 의미하지 않는다.
+
+- Registry Authority PASS 재수행
+- Registry Authority correction 권한
+- DVF Body Compiler PASS
+- DVF System Body Compiler PASS
+- Publish Boundary PASS
+- Legacy Combined Governance Route 전체 PASS
+- source key rename 승인
+- source authority mutation
+- rendered text mutation
+- runtime payload mutation
+- item semantic equivalence 판결
+- 독립 item legitimacy 판결
+- public text acceptance
+- semantic quality acceptance
+- package publication
+- package readiness
+- release readiness
+- Workshop readiness
+- B42 readiness
+- deployment readiness
+- manual in-game QA
+- multiplayer validation
+- full runtime equivalence
+- 외부 모드 데이터 collision-free 보장
+- 향후 collision을 위한 일반 alias framework 승인
+
+최종 closeout에는 다음 비결정문을 포함한다.
+
+```text
+Registry Runtime Compatibility PASS
+does not imply Registry Authority PASS,
+DVF Body Compiler PASS,
+Publish Boundary PASS,
+source mutation authority,
+package publication,
+release readiness,
+Workshop readiness,
+B42 readiness,
+deployment readiness,
+or manual QA completion.
+```
+
+bare `PASS` 또는 bare `complete` claim은 사용하지 않는다.
+
+---
+
+# 14. 채택 가능 항목 / 보류 항목 요약
+
+## 즉시 채택 가능
+
+| 항목 | 상태 |
+|---|---|
+| 단일 roadmap / Phase 0 통합 disposition | 채택 가능 |
+| Branch A/B/C 구조 | 채택 가능 |
+| dual-identity 분리 | 채택 가능 |
+| comparison identity의 비권위성 | 채택 가능 |
+| fresh-derived count | 채택 가능 |
+| common analyzer | 채택 가능 |
+| pre-materialization 검사 | 채택 가능 |
+| owner-bound hash-bound policy | 채택 가능 |
+| two-sided validation | 채택 가능 |
+| bridge/chunk/merge/package guards | 채택 가능 |
+| Windows record-array projection | 채택 가능 |
+| main-object `ConvertFrom-Json` 금지 | 채택 가능 |
+| fixture 10종 + exact duplicate regression | 채택 가능 |
+| deterministic rerun | 채택 가능 |
+| additive adoption | 채택 가능 |
+| independent review + owner seal 분리 | 채택 가능 |
+| bounded claim boundary | 채택 가능 |
+
+## 별도 판정 필요
+
+| ID | 항목 | 판정 gate |
+|---|---|---|
+| C-1 | code-point exact vs byte-exact | Review 2 |
+| C-2 | ASCII-only lowercase vs invariant lowercase | Review 2 |
+| C-3 | baseline mismatch terminal block 여부 | Review 1 |
+| C-4 | Windows canonical route | Review 3 |
+| C-5 | live manifest와 package guard의 AND/OR 조건 | Review 5 |
+| C-6 | canonical/exception key 사전 지정 여부 | Phase 0 / Review 2 |
+| C-7 | non-Claude reviewer 및 별도 verdict token 의무 | Review 1 / Review 6 |
+
+---
+
+# 15. 종합자 관찰 / 별도 검토 필요
+
+다음 내용은 본문 범위나 정책으로 채택하지 않고 별도 검토 대상으로 남긴다.
+
+1. Claude안에 기재된 Registry Authority attempt identifier, commit hash, `7/7 PASS` 등의 구체 값은 ChatGPT안에는 포함되지 않는다. 해당 값은 repository evidence로 직접 확인된 이후 Current State의 canonical identifier로 사용할 수 있다.
+
+2. Claude안의 `AI-assisted staging draft`, co-draft disclosure, `independent_review_gate: BLOCKED` 표기는 reviewer 자격 문제인 C-7과 연결되지만 두 안의 공통 요구는 아니다.
+
+3. `PLAN_TEMPLATE.md`와 `EXECUTION_CONTRACT.md` 실물 미검증 공시는 Claude안에만 존재한다. 실제 implementation plan review에서 해당 문서가 적용 대상인지 별도로 확인해야 한다.
+
+4. C-1과 C-2는 단순 표현 차이가 아니라 serialized identity와 comparator domain을 바꾸는 계약 차이다. 두 항목은 implementation 중 암묵적으로 정하면 안 되며 Phase 1 진입 전에 명시적 판정이 필요하다.

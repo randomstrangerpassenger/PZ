@@ -1,0 +1,33 @@
+{
+  "schema_version": "rtc-bootstrap-executor-validation-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "validation_stage": "gate_a_candidate_review",
+  "executed_command": [
+    "C:/Users/MW/scoop/apps/python/current/python.exe",
+    "-I",
+    "-B",
+    "Iris/_docs/round3/registry_runtime_compatibility/bootstrap/test_reserve_registry_runtime_compatibility_attempt.py"
+  ],
+  "exit_code": 0,
+  "status": "PASS",
+  "tests_run": 11,
+  "failure_count": 0,
+  "error_count": 0,
+  "bootstrap_executor_path": "Iris/_docs/round3/registry_runtime_compatibility/bootstrap/reserve_registry_runtime_compatibility_attempt.py",
+  "bootstrap_executor_sha256": "4d1a56724f45773b9f21f2c676f40cd81b1d1b7f46008597918d320f2dadffdc",
+  "bootstrap_test_path": "Iris/_docs/round3/registry_runtime_compatibility/bootstrap/test_reserve_registry_runtime_compatibility_attempt.py",
+  "bootstrap_test_sha256": "89cede32e9208e44d5a96d96dfb6fb4ddfe76753ed1b50179f5721f55578d5e4",
+  "bootstrap_tool_manifest_path": "Iris/_docs/round3/registry_runtime_compatibility/bootstrap/bootstrap_tool_manifest.json",
+  "bootstrap_tool_manifest_sha256": "404ba066ea3a493399f2d8684ff032070bae9f99a9a7a8887c2d7f1975b843da",
+  "ledger_bootstrap_contract_path": "Iris/_docs/round3/registry_runtime_compatibility/ledger_bootstrap_contract.json",
+  "ledger_bootstrap_contract_sha256": "094a4ee555ad399c005461042a0ce1e8add156aa4d92570964d434f12e4aec7b",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "09a28868e20a954c92fa13826bbcfae1dba733afcf01623d66f6cfec6013cdd4",
+  "scope_violation_count": 0,
+  "manual_or_substituted_executor_count": 0,
+  "compatibility_surface_inspection_count": 0,
+  "production_mutation_count": 0,
+  "reviewed_responsibility": "bootstrap_reservation_only_v1",
+  "implementation_pass_claimed": false,
+  "compatibility_pass_claimed": false
+}

@@ -1,0 +1,66 @@
+{
+  "schema_version": "rtc-roadmap-fixture-matrix-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "fixtures": [
+    {
+      "fixture_id": "RTC-RM-01",
+      "purpose": "ordinary exact-key positive",
+      "expected_stage": "four_surface_validation",
+      "expected_result": "PASS"
+    },
+    {
+      "fixture_id": "RTC-RM-02",
+      "purpose": "decoded JSON escaped-key exact duplicate",
+      "expected_stage": "raw_rendered_preflight",
+      "expected_failure_code": "rendered_exact_duplicate"
+    },
+    {
+      "fixture_id": "RTC-RM-03",
+      "purpose": "missing owner authority record",
+      "expected_stage": "candidate_binding",
+      "expected_failure_code": "binding_leaf_missing"
+    },
+    {
+      "fixture_id": "RTC-RM-04",
+      "purpose": "unauthorized ASCII-lower collision",
+      "expected_stage": "raw_rendered_preflight",
+      "expected_failure_code": "rendered_unauthorized_comparison_collision"
+    },
+    {
+      "fixture_id": "RTC-RM-05",
+      "purpose": "payload divergence outside identity exclusions",
+      "expected_stage": "four_surface_validation",
+      "expected_result": "FAIL"
+    },
+    {
+      "fixture_id": "RTC-RM-06",
+      "purpose": "alias-added exact key",
+      "expected_stage": "alias_regression",
+      "expected_result": "FAIL"
+    },
+    {
+      "fixture_id": "RTC-RM-07",
+      "purpose": "Lua decimal-escape decoded duplicate",
+      "expected_stage": "runtime_raw_assignment_scan",
+      "expected_result": "FAIL"
+    },
+    {
+      "fixture_id": "RTC-RM-08",
+      "purpose": "Windows comparison-key cardinality loss",
+      "expected_stage": "windows_transport_conformance",
+      "expected_result": "FAIL"
+    },
+    {
+      "fixture_id": "RTC-RM-09",
+      "purpose": "partial compatibility argument override",
+      "expected_stage": "invocation_resolution",
+      "expected_failure_code": "partial_registry_compatibility_arguments_forbidden"
+    },
+    {
+      "fixture_id": "RTC-RM-10",
+      "purpose": "toolchain freshness drift",
+      "expected_stage": "implementation_toolchain_freshness",
+      "expected_result": "FAIL"
+    }
+  ]
+}

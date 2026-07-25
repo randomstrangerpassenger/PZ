@@ -1,0 +1,44 @@
+{
+  "schema_version": "rtc-ledger-bootstrap-contract-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "allowed_responsibility_version": "bootstrap_reservation_only_v1",
+  "contract_path": "Iris/_docs/round3/registry_runtime_compatibility/ledger_bootstrap_contract.json",
+  "event_ledger_path": "Iris/_docs/round3/registry_runtime_compatibility/attempt_events.jsonl",
+  "bundle_lifecycle_ledger_path": "Iris/_docs/round3/registry_runtime_compatibility/bundle_lifecycle_events.jsonl",
+  "durable_attempt_root": "Iris/_docs/round3/registry_runtime_compatibility/attempts",
+  "local_attempt_root": "Iris/build/description/v2/staging/dvf_3_3_registry_runtime_compatibility/attempts",
+  "shared_ledger_relative_to_git_common_dir": "iris_registry_runtime_compatibility/attempt_reservations.jsonl",
+  "mutex_name_derivation": "IrisRegistryRuntimeCompatibility-sha256(lowercase_absolute_git_common_dir)[0:24]",
+  "mutex_timeout_seconds": 60,
+  "event_schema_version": "rtc-attempt-event-v1",
+  "reservation_record_schema_version": "rtc-attempt-reservation-v1",
+  "terminal_record_schema_version": "rtc-attempt-terminal-v1",
+  "partial_state_matrix_version": "rtc-partial-state-v1",
+  "commit_message_prefix": "chore(rtc): reserve ",
+  "bootstrap_executor_sha256": "4d1a56724f45773b9f21f2c676f40cd81b1d1b7f46008597918d320f2dadffdc",
+  "bootstrap_test_sha256": "89cede32e9208e44d5a96d96dfb6fb4ddfe76753ed1b50179f5721f55578d5e4",
+  "bootstrap_tool_manifest_sha256": "404ba066ea3a493399f2d8684ff032070bae9f99a9a7a8887c2d7f1975b843da",
+  "exact_cli_schema": [
+    "reserve",
+    "--contract",
+    "--preentry-input-manifest",
+    "--repo-root",
+    "--expected-branch",
+    "--expected-starting-prefix",
+    "--reservation-receipt",
+    "--gate-report"
+  ],
+  "allowed_git_path_patterns": [
+    "Iris/_docs/round3/registry_runtime_compatibility/attempt_events.jsonl",
+    "Iris/_docs/round3/registry_runtime_compatibility/attempts/attempt-NNNN/reservation_record.json"
+  ],
+  "forbidden_responsibilities": [
+    "compatibility_surface_census",
+    "source_rendered_runtime_package_inspection",
+    "exporter_or_package_mutation",
+    "candidate_contract_generation",
+    "required_validation_adoption",
+    "compatibility_pass_claim"
+  ],
+  "self_hash_included": false
+}

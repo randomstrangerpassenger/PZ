@@ -1,0 +1,21 @@
+{
+  "schema_version": "rtc-governance-ledger-bootstrap-v1",
+  "round_id": "dvf_3_3_registry_runtime_compatibility",
+  "baseline_head": "63357b7afb879f89c4f43df67ad0d39a060561fb",
+  "selected_integration_branch": "codex/dvf-3-3-registry-runtime-compatibility",
+  "event_ledger_path": "Iris/_docs/round3/registry_runtime_compatibility/attempt_events.jsonl",
+  "event_ledger_byte_count": 0,
+  "event_ledger_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "bundle_lifecycle_ledger_path": "Iris/_docs/round3/registry_runtime_compatibility/bundle_lifecycle_events.jsonl",
+  "bundle_lifecycle_ledger_byte_count": 0,
+  "bundle_lifecycle_ledger_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reservation_preflight_nonterminal_attempt_count": 0,
+  "reservation_preflight_open_attempt_ids": [],
+  "retroactive_attempt_materialization_count": 0,
+  "bootstrap_executor_contract_reviewed": true,
+  "bootstrap_executor_test_status": "PASS",
+  "bootstrap_executor_scope_violation_count": 0,
+  "production_compatibility_tooling_in_bootstrap_count": 0,
+  "source_rendered_runtime_package_inspection_count": 0,
+  "status": "PASS"
+}

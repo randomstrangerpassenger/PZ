@@ -1949,72 +1949,34 @@ Iris DVF 3-3 — Registry Authority canonical closure / failure-laundering guard
   * current canonical readpoint는 "attempt-0038-practical / canonical_complete"다.
   * COMMON-EVIDENCE-TRACE.
 
-Iris DVF 3-3 — Registry Runtime Compatibility canonical closure
+Iris DVF 3-3 — Registry Runtime Compatibility contract
 
-* 상태: current readpoint / `attempt-0009` canonical complete / `Registry Runtime Compatibility PASS` / local `main` integration complete
+* 상태: current readpoint / compatibility contract adopted
 
-* 결정: Registry Runtime Compatibility는 Registry Authority와 별도인 consumer compatibility 축으로 닫는다. current exact key identity는 변경하지 않고, case-insensitive comparison identity를 별도 계산하여 bridge, chunk/runtime merge, package projection, Windows tooling이 같은 key universe를 손실 없이 소비하는지 fail-closed로 검증한다.
+* 결정: Iris Artifact Registry는 Lua의 exact·case-sensitive key identity와 Windows 계열 consumer의 case-insensitive comparison identity를 구분한다. current payload의 exact identity는 보존하며, 서로 다른 consumer가 같은 payload를 병합·덮어쓰기·유실 없이 소비하도록 Registry Runtime Compatibility를 독립 계약으로 둔다.
 
 * 현재 기준:
 
-  * exact identity algorithm은 `decoded_codepoint_exact_v1`, current comparison algorithm은 ASCII domain의 `ascii_lower_v1`이다. normalization과 Unicode casefold는 금지한다.
-  * source / rendered / runtime / package surface는 각각 `2105` exact keys이며 동일 key-set hash를 가진다.
-  * current comparison collision group은 `Base.LemonGrass` / `Base.Lemongrass` 한 개다. unauthorized collision count는 `0`이다.
-  * 이 group은 owner-bound `reference + exception` disposition으로 봉인한다. 두 role은 winner 선택, semantic equivalence 판정, source rename 권한이 없는 non-resolving labels다.
-  * 두 exact member는 source / rendered / runtime / package에 별도로 남고, 각 edge의 member set과 payload hash를 직접 비교한다.
-  * bridge exporter는 dictionary materialization 전에 rendered raw property pairs와 selected policy / disposition / binding을 검증한다.
-  * chunk generation은 cross-chunk duplicate / collision을 검사하고, actual Lua merge harness는 generated runtime과 isolated package에서 각각 `2105` key cardinality를 재구성한다.
-  * package compatibility guard는 unconditional이며 실패하면 ZIP을 생성하지 않는다.
-  * PowerShell 5.1 `ConvertFrom-Json`으로 raw current rendered object를 직접 읽는 방식은 supported route가 아니다. Windows Route A는 canonical analyzer 실행, Route C는 exact identity별 UTF-8 JSONL record sidecar를 사용한다.
-  * Windows record projection은 네 surface의 `2105`개씩 총 `8420` records를 보존하며, 하나의 algorithm proof와 두 transport conformance를 갖는다.
-  * exporter / package의 생략 인자는 environment variable이나 candidate transport가 아니라 live `current_route_required_validations.json`이 결속한 exact durable bundle에서만 해석한다.
-  * caller census는 unknown caller `0`, unresolved migration `0`으로 닫혔다.
-  * successful closeout은 final machine PASS 뒤 eligible independent review, owner canonical seal, nine-role durable packet commit, terminal transaction 순서를 강제한다.
+  * source → rendered artifact → Lua bridge → runtime chunk → package projection은 동일한 exact key universe를 유지한다.
+  * case-insensitive collision은 기본적으로 fail-closed다. 의도적 공존은 owner-bound 정책과 비손실 consumer representation이 함께 있을 때만 허용한다.
+  * 허용된 collision도 alias, rename, winner 선택 또는 semantic equivalence를 뜻하지 않는다. 각 exact key와 payload는 끝까지 독립 엔트리로 남는다.
+  * bridge materialization 전, runtime chunk 생성·병합 후, package projection 전에 같은 compatibility contract를 검증한다.
+  * Windows tooling은 case-variant object key를 안전하게 표현하지 못하는 raw JSON object 경로 대신 exact identity를 보존하는 record projection을 사용한다.
+  * compatibility authority는 live required-validation 경로에 결속하며 environment override, staging candidate, superseded evidence를 current default authority로 사용하지 않는다.
+  * Lua renderer는 봉인된 offline data를 표시할 뿐 identity 해석이나 quality 판단을 수행하지 않는다.
 
-* 최소 결과 trace:
+* 영향:
 
-  * successful attempt: `attempt-0009`
-  * terminal state: `registry_runtime_compatibility_canonical_complete`
-  * selected durable bundle: `46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9`
-  * selected bundle manifest SHA-256: `0e50d9d37d67da7534f637252366bc6ecba58d2b975960b6477c01ebb5a052a1`
-  * live required-validation manifest SHA-256: `2a0a46eb9188f160bacca77862f40ad14260646744b2ff62bc05ab35f02997e1`
-  * independent review SHA-256: `364b28570529258a51b2ca94895166a0a61c1d2006078ebc3932fde9e46165e7`
-  * owner canonical seal SHA-256: `be312b7d577fe62f0b4ab279f99b8cad9d0188dcce6b6bc78ad4f237754cf567`
-  * final compatibility report SHA-256: `016558d327234e24db8497c86bf59369bcfbf90069e12d698d571b36bc7d1198`
-  * durable closeout packet manifest SHA-256: `03848b7a60e074c01d1de749267d62f4952e3bd00885bc1beebde98c9257bccc`
-  * closeout commit: `bdadf7f7ae3de4febc82ad8cb91bfd8eb5c5d646`
-  * terminal implementation commit: `7d253c91b87abb7f1e044acf3953504180848682`
-  * local `main` integration commit: `c6e2190e7b093b29bc5d615523ae29cf32560ff1`
-  * final required gate: `PASS`
-  * RTC regression: `29 / 29 PASS`
-  * adjacent bridge regression: `7 / 7 PASS`
-  * isolated official current route: `135 / 135 PASS`
-  * Lua syntax: `188 files PASS`
+  * compatibility violation은 bridge export와 package 생성을 차단하지만 source item의 의미나 spelling을 임의로 고치는 권한을 만들지 않는다.
+  * `Registry Runtime Compatibility PASS`는 Registry Authority, DVF Body Compiler, Publish Boundary와 분리된 claim이다.
+  * 이 결정은 item text quality, semantic rewrite, source authority mutation, public acceptance, package publication, release / Workshop readiness, manual QA를 닫지 않는다.
 
-* 후속 input artifact:
+* Trace:
 
-  * execution plan: `docs/dvf_3_3_registry_runtime_compatibility_plan.md`
-  * live required manifest: `Iris/_docs/round3/current_route_required_validations.json`
-  * selected bundle: `Iris/_docs/round3/registry_runtime_compatibility/bundles/46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9/`
-  * final report: `Iris/_docs/round3/registry_runtime_compatibility/attempts/attempt-0009/closeout/final_registry_runtime_compatibility_report.json`
-  * terminal record: `Iris/_docs/round3/registry_runtime_compatibility/attempts/attempt-0009/terminal_record.json`
-
-* 오독 금지:
-
-  * `Registry Runtime Compatibility PASS`는 Registry Authority PASS, DVF Body Compiler PASS, Publish Boundary PASS를 대체하지 않는다.
-  * 이 결정은 item text quality, semantic rewrite, source authority mutation, public acceptance, package publication, release / Workshop readiness, B42 readiness, deployment readiness, manual QA를 선언하지 않는다.
-  * owner-bound exception은 case-variant keys의 병합, 삭제, winner 선택, spelling correction 권한이 아니다.
-  * Windows lossless record projection은 raw rendered JSON object의 PowerShell 5.1 `ConvertFrom-Json` 직접 소비가 안전하다는 뜻이 아니다.
-  * staging evidence와 candidate manifest probe는 live required route 또는 canonical closeout을 대신하지 않는다.
-  * invalidated / superseded bundle과 invalid attempt는 current default authority로 재사용하지 않는다.
-  * COMMON-RELEASE-NONDECISION.
-
-* Predecessor trace:
-
-  * `attempt-0008`은 exporter가 environment-provided candidate/default authority를 읽는 major contract violation으로 independent review에서 invalidated됐다.
-  * `attempt-0009`는 environment authority override를 제거한 뒤 Gate A / B / C, caller census, Phase 0 / 2 / 4 / 5, live adoption, independent review, owner seal, durable closeout를 새 authority chain으로 완주했다.
-  * predecessor attempt와 bundle lifecycle evidence는 append-only로 보존하며 current canonical readpoint는 `attempt-0009 / registry_runtime_compatibility_canonical_complete`다.
+  * contract plan: `docs/dvf_3_3_registry_runtime_compatibility_plan.md`
+  * canonical evidence root: `Iris/_docs/round3/registry_runtime_compatibility/`
   * COMMON-EVIDENCE-TRACE.
+  * COMMON-RELEASE-NONDECISION.
 
 ---
 ## Frame

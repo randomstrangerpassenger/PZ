@@ -1882,6 +1882,73 @@ Iris DVF 3-3 — subordinate readpoint / current-vs-historical contract split
   * DVF VCS Tracking Policy addendum 이후 current route count는 "50"에서 "57"로 갱신해 읽는다.
   * COMMON-EVIDENCE-TRACE.
 
+Iris DVF 3-3 — Registry Authority canonical closure / failure-laundering guard
+
+* 상태: current readpoint / practical closure "canonical_complete" / terminal validation PASS / main integration complete
+
+* 결정: Registry Authority canonical closure는 원본 계획의 모든 의식적 절차를 유지하는 대신, 실패 이력의 삭제·덮어쓰기·replay를 막는 수정된 실무 계획을 충분한 closure contract로 채택한다. 핵심 목적은 같은 cycle의 재시도를 전면 금지하는 것이 아니라, 실패 흔적을 제거하고 같은 식별자의 PASS로 바꾸는 failure laundering을 막는 것이다.
+
+* 현재 기준:
+
+  * "cycle_id"와 "attempt_id"는 분리한다.
+  * gate 채택 전이고 protected mutation이 없으면 같은 cycle에서 새 attempt를 열 수 있다. 새 attempt는 새 "attempt_id", 새 출력 경로, 새 nonce를 사용하고 모든 predecessor 실패 증거를 보존한다.
+  * 같은 attempt의 claim-bearing JSON, receipt, command result, failure record는 write-once다. FAIL을 PASS로 덮어쓰거나 실패 파일을 삭제한 뒤 동일 식별자를 재사용하지 않는다.
+  * receipt nonce는 한 번만 소비한다. 소비 뒤 같은 receipt / nonce / attempt execution을 replay하지 않는다.
+  * live gate 채택 뒤 실행 명령이나 protected surface를 다시 움직이는 correction은 additive correction record와 affected-consumer rerun을 요구한다.
+  * 실행 결과가 그대로이고 사후 verifier의 중복 metadata projection만 잘못된 경우에는 새 attempt를 만들지 않는다. 원래 validator FAIL을 additive audit로 보존하고, exact attempt / execution freeze / corrected verifier HEAD / 단일 changed path / patch hash / 전체 pre-correction evidence manifest를 묶은 write-once same-attempt correction만 허용한다.
+  * bounded verifier correction은 누락된 중복 projection만 허용한다. field가 실제로 존재하면서 null이거나 다른 hash를 가리키면 계속 FAIL이다.
+  * "attempt-0038-practical"은 final command matrix "7 PASS / 0 FAIL / 0 NOT_RUN"을 유지한 채, 사후 validator의 "practical_final_current_route_result_hash_drift" FAIL을 삭제하지 않고 correction audit로 보존했다.
+  * correction 동안 final matrix command, test, gate adoption, nonce consumption은 다시 실행하지 않았다. 기존 receipt, result, isolation report, artifact manifest, machine report, adoption evidence도 다시 쓰지 않았다.
+  * Codex Reviewer closeout은 "Critical 0 / Important 0 / Minor 0 / PASS", owner seal은 "approve_registry_authority_canonical_complete", 마지막 terminal validation은 "PASS / blocker_count=0 / canonical_complete=true"로 닫혔다.
+  * sealed implementation commit과 local / remote "main" integration commit은 "63357b7afb879f89c4f43df67ad0d39a060561fb"이다.
+  * 이 top-doc sync는 sealed execution claim을 다시 실행하거나 rewrite하는 작업이 아니라, 이미 닫힌 readpoint를 additive하게 기록하는 successor documentation trace다.
+
+* 최소 결과 trace:
+
+  * attempt: "attempt-0038-practical"
+  * execution freeze HEAD: "d9cda876ab9287b605c214e2b1485a2951d46d3b"
+  * corrected verifier / integrated main HEAD: "63357b7afb879f89c4f43df67ad0d39a060561fb"
+  * final command matrix: "7 / 7 PASS"
+  * final command matrix SHA-256: "709d6af58ca9a86b59fc9c7f7bb3b584b08bb5cb2a9c94b1afb520a318aee16a"
+  * preserved post-matrix validation audit SHA-256: "ef156917edb29edfe3701571c80677c01dc57b3c47bf388e557be306b540a9a3"
+  * verifier correction binding SHA-256: "fcbda54380d15a715228e0318f6da1734b5104bd9aecbad4ede4fb38ebeadd6f"
+  * independent closeout review SHA-256: "0732d3c39d90e091739737dab7ef211d27791cc773f70fcba5076f9bea7af852"
+  * owner seal SHA-256: "d5cd242167e65bf53f80248974b3c52c09eed01444d53529851c17f5d8f90c5b"
+  * final closure report SHA-256: "83339285fff77730a21f98815b2e0fa2eb4c92335cc05d46371aa9037641722b"
+  * terminal hash seal SHA-256: "30a75951fbd556a32e07255b84d574fdaff5997252cf3ffddd7b3d2054467cb2"
+  * terminal validation: "PASS / blocker_count=0 / canonical_complete=true"
+  * protected surface mutation: "0"
+  * verifier correction command / test rerun: "false / false"
+  * adoption nonce reconsumption: "false"
+
+* 후속 input artifact:
+
+  * practical plan: "docs/dvf_3_3_registry_authority_canonical_closure_plan.md"
+  * implementation / validator common module: "Iris/build/description/v2/tools/build/dvf_3_3_registry_authority_canonical_closure.py"
+  * attempt evidence root: "Iris/build/description/v2/staging/dvf_3_3_registry_authority_canonical_closure/attempts/attempt-0038-practical/"
+  * correction audit: "phase5/verifier_correction/post_matrix_validation_audit.json"
+  * correction binding: "phase5/verifier_correction/correction_binding.json"
+  * final closure report: "phase5/final_registry_authority_closure_report.json"
+  * terminal hash seal: "phase5/terminal_hash_seal.json"
+
+* 오독 금지:
+
+  * "canonical_complete"는 Registry Authority closure 범위에서만 읽는다.
+  * 이 결정은 Runtime Compatibility PASS, Publish Boundary PASS, public text acceptance, semantic quality acceptance, package / release / Workshop readiness, B42 readiness, deployment readiness, manual QA를 선언하지 않는다.
+  * same-attempt bounded verifier correction은 일반적인 same-attempt rerun 허가가 아니다.
+  * 사소한 verifier metadata 결함을 이유로 불필요한 새 attempt를 만들지 않지만, 실행 명령 재실행, protected mutation, nonce 재소비, receipt 재사용, claim-bearing output rewrite가 필요한 경우에는 이 예외를 사용할 수 없다.
+  * round-owned external Reviewer / owner source와 ignored attempt evidence는 current source / rendered / runtime / package authority나 tracked-required artifact로 승격하지 않는다.
+  * failure audit, correction binding, closeout, owner seal, final report, terminal seal을 삭제·교체·재작성해 새 PASS를 만들지 않는다.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
+* Predecessor trace:
+
+  * "attempt-0037-practical"의 focused-test matrix FAIL은 보존된 predecessor failure다.
+  * "attempt-0038-practical"의 post-matrix verifier FAIL은 새 attempt로 세탁하지 않고 same-attempt additive audit / binding으로 보존했다.
+  * current canonical readpoint는 "attempt-0038-practical / canonical_complete"다.
+  * COMMON-EVIDENCE-TRACE.
+
 ---
 ## Frame
 

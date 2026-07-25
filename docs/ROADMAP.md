@@ -451,6 +451,16 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * `DVF Body Compiler PASS`와 `DVF System Body Compiler PASS`는 Registry Authority / Runtime Compatibility / Publish Boundary PASS를 대체하지 않는다.
   * 단독 `DVF PASS`와 단독 `DVF System PASS` current claim은 허용하지 않는다.
 
+* Registry Authority canonical closure는 수정된 실무 계획 기준으로 완료 상태를 유지한다.
+
+  * current sealed attempt는 `attempt-0038-practical`이다.
+  * final command matrix는 `7 / 7 PASS`, terminal validation은 `PASS / blocker_count=0 / canonical_complete=true`다.
+  * 사후 verifier metadata 결함은 새 attempt나 재실행으로 우회하지 않고, 원래 FAIL을 보존한 bounded same-attempt correction으로 닫았다.
+  * correction 동안 command / test / adoption nonce를 다시 실행하거나 소비하지 않았고, claim-bearing evidence를 다시 쓰지 않았다.
+  * Codex Reviewer closeout `0 / 0 / 0 PASS`와 owner seal을 terminal hash chain에 포함했다.
+  * implementation과 local / remote `main`의 sealed closure commit은 `63357b7afb879f89c4f43df67ad0d39a060561fb`이다.
+  * 이후 Registry Authority 작업은 새 drift, 명시적 correction / rollback, 또는 별도 approved scope가 있을 때만 연다.
+
 * 설명 계층은 해석 / 권장 / 비교 / 재작성을 하지 않는다.
 
   * Evidence / Source / Outcome / Description layer의 책임 분리를 유지한다.
@@ -569,6 +579,14 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * body compiler determinism / `body_plan` / rendered body shape 문제는 DVF Body Compiler scope로만 연다.
   * source / rendered / runtime / package identity, required validation, seal, cutover, stale reentry guard, runtime compatibility 문제는 Iris Artifact Registry scope로만 연다.
   * public text acceptance, semantic quality acceptance, package publication, release / Workshop readiness, manual QA 문제는 DVF scope가 아니라 Publish Boundary 범위에서만 연다.
+
+* Registry Authority closure의 실패 흔적을 세탁하거나 불필요한 attempt churn을 만드는 것
+
+  * 같은 attempt의 FAIL, receipt, result, matrix, audit, binding, review, owner seal, terminal seal을 삭제·교체·덮어쓰지 않는다.
+  * 소비된 nonce나 receipt를 replay하지 않는다.
+  * 같은 cycle의 새 attempt 자체를 금지하지는 않지만, 새 attempt는 새 식별자·출력 경로·nonce와 predecessor failure preservation을 요구한다.
+  * 실행 증거가 변하지 않은 verifier-only metadata 결함을 이유로 새 attempt를 만들지 않는다. exact-head / exact-path / full-evidence binding을 갖춘 bounded correction으로만 처리한다.
+  * bounded correction을 명령 재실행, protected mutation, receipt rewrite, nonce 재소비를 숨기는 예외로 사용하지 않는다.
 
 * current runtime authority를 과거 기준이나 임시 산출물로 되돌리는 것
 

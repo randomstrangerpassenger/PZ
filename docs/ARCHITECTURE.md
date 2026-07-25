@@ -495,6 +495,45 @@ Historical / stale artifact reentry prevention
 
 세부 required-validation manifest, required-gate adoption, route runner, lexical scanner, artifact inventory, seal, review, predecessor trace, stale artifact guard, current-route PASS 이력은 별도 Iris governance 문서에서 관리한다.
 
+### Registry Authority canonical closure 증거 모델
+
+Registry Authority closure는 재시도 횟수를 줄이는 스케줄러가 아니라, 실패를 지우고 같은 claim을 PASS로 교체하는 failure laundering을 막는 append-only 증거 모델이다.
+
+```text
+cycle
+-> attempt-N
+   -> write-once command receipts / results
+   -> gate candidate / one-time nonce consumption / adoption
+   -> final command matrix
+   -> preserved validator failure audit
+   -> bounded verifier correction binding
+   -> independent closeout review
+   -> owner seal
+   -> final closure report
+   -> terminal hash seal
+```
+
+`cycle_id`는 같은 closure 목표를 묶고, `attempt_id`는 한 번의 실행 episode를 식별한다. gate 채택 전이고 protected mutation이 없으면 같은 cycle에서 새 attempt를 열 수 있지만, 이전 attempt의 실패 증거를 삭제하거나 출력 경로를 재사용하지 않는다.
+
+같은 attempt 안에서는 claim-bearing output을 write-once로 취급한다. receipt nonce는 한 번만 소비하며, 부분 write나 실패 뒤 동일 nonce / receipt / attempt execution을 replay하지 않는다. 새 실행이 필요하면 새 attempt와 새 권한 증거를 사용한다.
+
+실행 증거가 그대로인데 사후 verifier의 중복 metadata projection만 잘못된 경우에는 새 attempt가 아니라 bounded same-attempt correction을 사용할 수 있다. 이 correction은 다음 조건을 모두 만족해야 한다.
+
+- 원래 validator FAIL을 additive audit로 보존한다.
+- exact attempt와 execution freeze HEAD를 고정한다.
+- corrected verifier HEAD와 허용된 changed path 전체를 고정한다.
+- before / after blob hash와 canonical patch hash를 고정한다.
+- correction 이전 attempt evidence 전체를 manifest로 묶는다.
+- final matrix command, test, gate adoption, nonce consumption을 다시 실행하지 않는다.
+- receipt / result / isolation / artifact / machine / adoption evidence를 다시 쓰지 않는다.
+- independent review와 owner seal이 audit / binding hash를 직접 소비한다.
+
+이 예외는 누락된 중복 metadata projection에만 적용한다. field가 존재하면서 null이거나 실제 result hash와 다르면 정상적인 evidence mismatch로 계속 차단한다.
+
+Registry Authority closure의 claim 상한은 Registry Authority 축이다. terminal seal이 PASS여도 Runtime Compatibility, Publish Boundary, public text acceptance, semantic quality acceptance, package / release / Workshop readiness, manual QA를 자동으로 닫지 않는다.
+
+현재 sealed readpoint는 `attempt-0038-practical`, implementation / integrated `main` commit `63357b7afb879f89c4f43df67ad0d39a060561fb`, terminal validation `PASS / blocker_count=0 / canonical_complete=true`다. 이후 top-doc 업데이트는 이 sealed execution을 다시 쓰는 단계가 아니라 additive documentation trace로 취급한다.
+
 ## 2-6. Frame
 
 ### 정체성

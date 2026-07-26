@@ -1,0 +1,10 @@
+{
+  "current_authority_reference_count": 0,
+  "historical_non_authoritative_references": [
+    "docs/dvf_3_3_body_role_policy.md",
+    "docs/dvf_3_3_text_policy.md",
+    "docs/3_3_vs_3_4_boundary_examples.md"
+  ],
+  "schema_version": "dvf-3-3-source-authority-reference-audit-v1",
+  "unresolved_authority_reference_count": 0
+}

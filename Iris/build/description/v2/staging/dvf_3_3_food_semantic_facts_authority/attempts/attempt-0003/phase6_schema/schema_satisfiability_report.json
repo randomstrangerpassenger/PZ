@@ -1,0 +1,95 @@
+{
+  "ambiguous_token_count": 0,
+  "automatic_eligible_projection": {
+    "beverage_property": [
+      "alcoholic",
+      "low_alcohol"
+    ],
+    "consumption_form": [],
+    "culinary_role": [
+      "spice",
+      "herb",
+      "baking_fat",
+      "minor_ingredient",
+      "sweetener",
+      "herbal_infusion_component",
+      "coffee_preparation_component"
+    ],
+    "ingredient_origin": [],
+    "meal_role": [],
+    "preparation_requirement": [
+      "cooking_declared"
+    ],
+    "preparation_state": [
+      "already_cooked"
+    ],
+    "preservation_form": [
+      "dried",
+      "freezing_supported"
+    ]
+  },
+  "closed_vocabulary": true,
+  "combination_rules_complete": true,
+  "curation_required_projection": {
+    "beverage_property": [
+      "alcoholic",
+      "low_alcohol"
+    ],
+    "consumption_form": [
+      "solid_food",
+      "beverage",
+      "ingredient_component"
+    ],
+    "culinary_role": [
+      "spice",
+      "herb",
+      "baking_fat",
+      "minor_ingredient",
+      "sweetener",
+      "herbal_infusion_component",
+      "coffee_preparation_component",
+      "meal_component"
+    ],
+    "ingredient_origin": [
+      "plant",
+      "animal",
+      "fungal"
+    ],
+    "meal_role": [
+      "meal",
+      "snack",
+      "component",
+      "ingredient"
+    ],
+    "preparation_requirement": [
+      "cooking_declared",
+      "ready_without_preparation"
+    ],
+    "preparation_state": [
+      "raw",
+      "already_cooked",
+      "prepared_dish",
+      "intermediate"
+    ],
+    "preservation_form": [
+      "dried",
+      "freezing_supported",
+      "frozen",
+      "canned_opened",
+      "preserved"
+    ]
+  },
+  "field_definition_complete": true,
+  "free_text_escape_count": 0,
+  "proposition_licensing_complete": true,
+  "schema_combination_rules_satisfiable": true,
+  "schema_expressible_meaningful_profile_count": 8,
+  "schema_expressible_meaningful_profile_count_kernel_gate_credit": 0,
+  "schema_has_meaningful_distinctions": true,
+  "schema_owner_approval_consumed_during_implementation": false,
+  "schema_satisfiability_automatic_curation_projection_complete": true,
+  "schema_threshold_driven_token_count": 0,
+  "status": "PASS",
+  "threshold_driven_token_count": 0,
+  "unknown_token_count": 0
+}

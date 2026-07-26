@@ -1,0 +1,89 @@
+{
+  "appendix_required_authority_outcome_count": 12,
+  "appendix_required_authority_outcome_traceability_count": 12,
+  "historical_design_source_role": "non_normative_provenance_only",
+  "normative_authority_transition": "owner_directed_embedded_requirements_snapshot",
+  "owner_ratification": {
+    "approval_time": "2026-07-27T07:53:49.4755918+09:00",
+    "approver_identity": "repository_owner",
+    "ratified_requirements_snapshot_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+    "semantic_or_adoption_decision_consumed": false,
+    "snapshot_hash_match": true,
+    "status": "ratified_owner_directive"
+  },
+  "plan": {
+    "byte_count": 162652,
+    "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+    "sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897"
+  },
+  "plan_git_blob_id": "6bcfd7ecdc9b3a8344aef81d225975637e57f091",
+  "required_authority_outcomes": [
+    {
+      "outcome_id": "O-01",
+      "planned_change": "Changes 0,2",
+      "required_exit": "approved_rule_route=R3"
+    },
+    {
+      "outcome_id": "O-02",
+      "planned_change": "Changes 1,3",
+      "required_exit": "document_machine_identity_match=true"
+    },
+    {
+      "outcome_id": "O-03",
+      "planned_change": "Change 3",
+      "required_exit": "allowed_field_operation_registries_bound"
+    },
+    {
+      "outcome_id": "O-04",
+      "planned_change": "Changes 4,7,10",
+      "required_exit": "fact_proposition_lineage_coverage=100%"
+    },
+    {
+      "outcome_id": "O-05",
+      "planned_change": "Change 8",
+      "required_exit": "curated_approval_missing_count=0"
+    },
+    {
+      "outcome_id": "O-06",
+      "planned_change": "Changes 1,9",
+      "required_exit": "target_semantic_disposition_count=317"
+    },
+    {
+      "outcome_id": "O-07",
+      "planned_change": "Changes 7,8,9",
+      "required_exit": "unsupported_and_arbitrary_inference_count=0"
+    },
+    {
+      "outcome_id": "O-08",
+      "planned_change": "Changes 1,10",
+      "required_exit": "non_target_row_byte_mismatch_count=0"
+    },
+    {
+      "outcome_id": "O-09",
+      "planned_change": "Changes 10,11",
+      "required_exit": "successor_current_identity_confusion=0"
+    },
+    {
+      "outcome_id": "O-10",
+      "planned_change": "Change 12",
+      "required_exit": "selected_consumed_four_sha_identity=true"
+    },
+    {
+      "outcome_id": "O-11",
+      "planned_change": "Change 12",
+      "required_exit": "meaningful_semantic_partition_formation"
+    },
+    {
+      "outcome_id": "O-12",
+      "planned_change": "Changes 6,12",
+      "required_exit": "canonical_threshold_detector_binding"
+    }
+  ],
+  "requirements_outcome_traceability": "complete",
+  "requirements_snapshot_expected_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+  "requirements_snapshot_logical_line_count": 60,
+  "requirements_snapshot_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+  "requirements_snapshot_sha256_match": true,
+  "schema_version": "food-semantic-requirements-plan-traceability-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "document": {
+    "byte_count": 4781,
+    "path": "Iris/_docs/iris-evidence-allowlist.md",
+    "sha256": "da2e260346eafbf122f30a35e208003fa501d083f103e4f272c65cf7b2f161fa"
+  },
+  "document_heading_version": "0.4",
+  "document_history_latest_version": "0.5",
+  "machine": {
+    "byte_count": 13786,
+    "path": "Iris/build/phase0_validation/allowlist.py",
+    "sha256": "89931b4325455e07e32c9ce8d7c6dce09993f32144acaf90bd03898753f988fd"
+  },
+  "machine_declared_version": "0.3",
+  "three_way_divergence_present": true
+}

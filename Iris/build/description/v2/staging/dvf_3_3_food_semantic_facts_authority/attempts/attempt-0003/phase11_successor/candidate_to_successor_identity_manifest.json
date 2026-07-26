@@ -1,0 +1,14 @@
+{
+  "authority_bearing": false,
+  "candidate_facts": {
+    "byte_count": 1471033,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0003/phase10_candidate/candidate_successor_facts.jsonl",
+    "sha256": "bd6f9230f06582f35cc07171fea7f905b39c30fc1857f19cac3c900ab9d0ffea"
+  },
+  "candidate_manifest": {
+    "byte_count": 3731,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0003/phase10_candidate/candidate_successor_input_manifest.json",
+    "sha256": "5a195089260b9e5f299e6cb25e7396b96f2afae05be0f9b786918ccf93ca637d"
+  },
+  "successor_identity_state": "not_sealed_implementation_only"
+}

@@ -1,0 +1,24 @@
+{
+  "average_propositions_per_item": 1.0,
+  "axis_distribution": {
+    "beverage_property": 238,
+    "consumption_form": 238,
+    "culinary_role": 238,
+    "ingredient_origin": 238,
+    "meal_role": 238,
+    "preparation_requirement": 238,
+    "preparation_state": 238,
+    "preservation_form": 238
+  },
+  "curation_cap_basis_schema_satisfiability_sha256_bound": true,
+  "curation_cap_sealed_before_phase7_result": true,
+  "curation_feasibility_report_dimensions_complete": true,
+  "curation_item_cap_unit_bound": true,
+  "curation_proposition_cap_unit_bound": true,
+  "maximum_propositions_per_item": 1,
+  "predicted_required_curation_items": 238,
+  "predicted_required_curation_propositions": 238,
+  "proposed_curation_item_cap": 240,
+  "proposed_curation_proposition_cap": 480,
+  "status": "PASS"
+}

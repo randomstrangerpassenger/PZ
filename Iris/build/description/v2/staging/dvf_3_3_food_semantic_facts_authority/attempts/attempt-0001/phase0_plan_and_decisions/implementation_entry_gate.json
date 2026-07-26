@@ -1,0 +1,35 @@
+{
+  "blocking_predicates": [
+    "facts_registry_boundary_binding",
+    "change0_predecessor_plan_identity_verified"
+  ],
+  "change0_exit_pass": false,
+  "predicates": {
+    "change0_predecessor_plan_identity_verified": false,
+    "change0_protected_surface_policy_materialized": true,
+    "change0_routing_ambiguity_count": 0,
+    "change0_successor_plan_identity_verified": true,
+    "external_review_consumed_count": 0,
+    "facts_naturalization_sync_reciprocal": true,
+    "facts_registry_boundary_binding": false,
+    "owner_approval_consumed_count": 0,
+    "owner_decision_consumed_count": 0,
+    "preimplementation_open_critical_count": 0,
+    "preimplementation_open_important_count": 0,
+    "preimplementation_plan_review": "PASS",
+    "preimplementation_review_bound_to_ratified_snapshot_sha256": true,
+    "requirements_artifact_git_blob_identity_bound": true,
+    "requirements_artifact_materialized": true,
+    "requirements_artifact_owner_ratified": true,
+    "requirements_artifact_present_at_entry": true,
+    "requirements_artifact_tracked": true,
+    "requirements_ratification_approval_time_present": true,
+    "requirements_ratification_approver_identity_present": true,
+    "requirements_ratified_snapshot_sha256_match": true,
+    "requirements_snapshot_logical_line_count_match": true,
+    "requirements_snapshot_sha256_match": true,
+    "requirements_to_plan_traceability": "complete"
+  },
+  "schema_version": "food-semantic-implementation-entry-gate-v1",
+  "status": "BLOCKED"
+}

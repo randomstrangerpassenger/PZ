@@ -1,0 +1,916 @@
+{
+  "artifact_count": 178,
+  "artifact_manifest_sha256": "5f00feb4539bfe248b2d6585663107eb5524d45f1f1ea0779583b910d84f905b",
+  "artifacts": [
+    {
+      "byte_count": 2048,
+      "path": ".gitattributes",
+      "sha256": "55b64f718af57335c96684428e63d5452ac43b47b64b0c1be58911fc408837a3"
+    },
+    {
+      "byte_count": 794,
+      "path": "Iris/_docs/authority/food_semantic/README.md",
+      "sha256": "24e8ddd825255c60de573e53dbd8c4ae6be215d0c5f2057574c534a5933b479a"
+    },
+    {
+      "byte_count": 474,
+      "path": "Iris/_docs/authority/food_semantic/authority_manifest.json",
+      "sha256": "5f8acd73dcd1c7b6ffc34eec033b874f4dfbab321be538c22d4f8f5ee984de24"
+    },
+    {
+      "byte_count": 622,
+      "path": "Iris/_docs/authority/food_semantic/curation_policy.json",
+      "sha256": "d339fdaff04c5e572cf439fef5e816bebef446556cc24844b2d8cf810369643c"
+    },
+    {
+      "byte_count": 2390,
+      "path": "Iris/_docs/authority/food_semantic/evidence_allowlist_contract.json",
+      "sha256": "5ec304915ab89d222b04156eaeca4588b12981139bf9ea4d9c3096a2f69560d8"
+    },
+    {
+      "byte_count": 1294,
+      "path": "Iris/_docs/authority/food_semantic/food_semantic_proposition_inventory.schema.json",
+      "sha256": "5bdfb32ee457ab90f463f7ad6864b5fb7454013008bc3c5ae1659936ffacc8a1"
+    },
+    {
+      "byte_count": 5703,
+      "path": "Iris/_docs/authority/food_semantic/food_semantic_schema.json",
+      "sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+    },
+    {
+      "byte_count": 753,
+      "path": "Iris/_docs/authority/food_semantic/forbidden_inference_registry.json",
+      "sha256": "d59198495cc887113febdb9cd4c43d24ac437224020b4bc343aafe8ee4f3ba52"
+    },
+    {
+      "byte_count": 13570,
+      "path": "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json",
+      "sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd"
+    },
+    {
+      "byte_count": 6944,
+      "path": "Iris/_docs/authority/food_semantic/rule_registry.json",
+      "sha256": "2d9c0c30a793305a5b0137b6080a1a00f40c47422b57c46c8c3beb9227ff44f2"
+    },
+    {
+      "byte_count": 9578,
+      "path": "Iris/_docs/authority/food_semantic/signal_to_fact_mappings.json",
+      "sha256": "b5da04219bcd7457717e82c9d346c102f8a4c72a871595d5cf299c4aa4f28260"
+    },
+    {
+      "byte_count": 477,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/implementation_execution_summary.json",
+      "sha256": "3ded02d650d6056a5af1ca3bec832dd5551910a7443546163b8fb7607028191a"
+    },
+    {
+      "byte_count": 338,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/kernel_execution_summary.json",
+      "sha256": "f821bd4802732f65fe4d097e112edee02c80bbbd639205e96c65c0ca8d57c372"
+    },
+    {
+      "byte_count": 2603,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/cross_plan_sync_binding.json",
+      "sha256": "ac6b3af4f3fed541bf338232599b9601d32a23a7971c722ad0aa17875dce86bc"
+    },
+    {
+      "byte_count": 2071,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/implementation_entry_gate.json",
+      "sha256": "f61ec90ed6777ebdf0169325c80250db73daeed8f666bd5b365a5cb538865f48"
+    },
+    {
+      "byte_count": 3006,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/owner_reserved_decisions.schema.json",
+      "sha256": "3a7906a73bd53e59fafdfe3259aab2172bf8cb16d797b32055b3eca7778f7e5c"
+    },
+    {
+      "byte_count": 285,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/post_implementation_review_bundle_schema.json",
+      "sha256": "3b767fe11b607c6c680f06ddca5d14c13b2f74d86ea4d9ec51b9f1848ff8272d"
+    },
+    {
+      "byte_count": 1355,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/predecessor_overwrite_restore_episode.json",
+      "sha256": "42a7235ddcf46f4811d8ae5d3856c135556c9dc8c5874031c3f5f526d978a421"
+    },
+    {
+      "byte_count": 794,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/preimplementation_plan_review_binding.json",
+      "sha256": "6f096833bc21ad252f65f2907de2efa97f1d662a1f0d0271c9814c69c02f9bf4"
+    },
+    {
+      "byte_count": 672,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/protected_surface_policy.json",
+      "sha256": "30077279f7a90d71d72f1f18ba9cbabdc01322d5c2e306758f752234581738a7"
+    },
+    {
+      "byte_count": 6584,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/requirements_plan_traceability.json",
+      "sha256": "ba9ee765e6e99e48e0f84ece3bd577418031f3d5877c6a5f687d0a71f6bcf898"
+    },
+    {
+      "byte_count": 252,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase0_plan_and_decisions/review_finding_disposition.json",
+      "sha256": "595029a80ffe2b826a9883b2e8c9386075be0ef1e0c806d32bb0108a5c384195"
+    },
+    {
+      "byte_count": 272,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase10_candidate/candidate_determinism_report.json",
+      "sha256": "fdff5b75a1dcdd7eb23af2b39f51351c9ee2ede02406311b9163044b423db55e"
+    },
+    {
+      "byte_count": 364,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase10_candidate/candidate_diff_report.json",
+      "sha256": "5c95694212b49abec80a8e0b1ae4bb69481988faf01fa21731852b14a0909ee3"
+    },
+    {
+      "byte_count": 123910,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase10_candidate/candidate_lineage_bundle.jsonl",
+      "sha256": "51d49c05970c3ccb7717d2bdb6d9c76f41f4a709f12d279cf43b5cf55e604e1d"
+    },
+    {
+      "byte_count": 1471033,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase10_candidate/candidate_successor_facts.jsonl",
+      "sha256": "bd6f9230f06582f35cc07171fea7f905b39c30fc1857f19cac3c900ab9d0ffea"
+    },
+    {
+      "byte_count": 3731,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase10_candidate/candidate_successor_input_manifest.json",
+      "sha256": "df3b939334f14b7ed7640c4b6e2fdddb730976c45c462c03b44cdc2730620452"
+    },
+    {
+      "byte_count": 559,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase10_candidate/candidate_validation_report.json",
+      "sha256": "2b05032206ae6ee0a01420de734006c3dfa86017c6709259149908d37dcbb44a"
+    },
+    {
+      "byte_count": 577,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase10_candidate/writer_attempt_manifest.json",
+      "sha256": "f9d345d3254b28f6ca8be8880737ffaf3bb910c1504c4f1e7930c3e0ca583660"
+    },
+    {
+      "byte_count": 163,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/atomic_promotion_negative_fixture_results.json",
+      "sha256": "6e39821c7020c72b4943b51e536d09cd0e5d0a26a4eb22b8c5cab7382d7d5049"
+    },
+    {
+      "byte_count": 695,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/candidate_to_successor_identity_manifest.json",
+      "sha256": "01ad0de3f752857e8e268ad8b7822e16d61e00424b0974904acb37902e3bcf06"
+    },
+    {
+      "byte_count": 355,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/current_authority_defect_declared.schema.json",
+      "sha256": "1e41151e565461fd825889191c0c701c3359f880170ae4358615dd8e9160e3dd"
+    },
+    {
+      "byte_count": 211,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/declared_divergence_report.json",
+      "sha256": "d469a693c1936c87c73d3f52246a8e7c6664fa5a887e8de8ab0583b8591ed925"
+    },
+    {
+      "byte_count": 181,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/freshness_impact_report.json",
+      "sha256": "28528dc6e31b077444bda7b6d94ec16b44d044a1ff6800cdb27b51f9e55f6cb9"
+    },
+    {
+      "byte_count": 237,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/pre_successor_review.json",
+      "sha256": "0cacf30505019d74593782a3819ceecaf8f1bd8d6f4eaa421d85d593a5fc58da"
+    },
+    {
+      "byte_count": 161,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/predecessor_disposition_report.json",
+      "sha256": "1c9d26961bc2af651e8809bb55686ed38c4714060098736f4911153e4ba07c0c"
+    },
+    {
+      "byte_count": 5120,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/protected_surface_hashes_after.json",
+      "sha256": "2c414a05380500afaf871d117edf8c5fe22d704f6b179d5bca6c3f20161a6522"
+    },
+    {
+      "byte_count": 436,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/registry_candidate_diff_manifest.json",
+      "sha256": "e385527a2f13d000525a0bfa267ab05d5682e055348ba894868bcb4f03e34154"
+    },
+    {
+      "byte_count": 403,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/registry_cutover_request.template.json",
+      "sha256": "ef21350ae7704039ce2a7abb8dc9b9ede4dd51983003b4b533e440fb01c3b273"
+    },
+    {
+      "byte_count": 222,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/sealed_successor_receipt.schema.json",
+      "sha256": "f718d9465c7efd2be3667aa7b5e5727f27acb3c624c906e4490a493d410227a6"
+    },
+    {
+      "byte_count": 706,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/selected_successor_input_binding.schema.json",
+      "sha256": "9e6d09f4e2cbecd1d0ffa84c99e9d05abc9e62adcb37ae833ab7309e00550d60"
+    },
+    {
+      "byte_count": 239,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/successor_authorization.schema.json",
+      "sha256": "91343ee0c1807b4483a16898f86328a04415c8880bd5e78a92c6ca038c6ac811"
+    },
+    {
+      "byte_count": 202,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/successor_facts_identity_report.json",
+      "sha256": "14758017517c717fcc25edef6ab59b3bb93c5cb30d051abead7afbfe578126b2"
+    },
+    {
+      "byte_count": 214,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/successor_manifest_identity_report.json",
+      "sha256": "b7df60f636af58db42c8a87df6bb886e81682282498c756f418e4158c2cff362"
+    },
+    {
+      "byte_count": 346,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase11_successor/successor_tooling_implementation_report.json",
+      "sha256": "5452841856c5df9a3de35129b14e86df41ccd98472efcab0a468961eaa88e2d6"
+    },
+    {
+      "byte_count": 437,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/actual_phase2_consumed_input_receipt.schema.json",
+      "sha256": "caa1b05d32f3bf89ae96e98a432d8a69843bfd3212a4faf85cb03aae96160b45"
+    },
+    {
+      "byte_count": 368,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/attempt_0014_baseline_reproduction_report.json",
+      "sha256": "659549d734035884155087f80e7bdbaa1154c2928a9b134e4ad2e83c651989a7"
+    },
+    {
+      "byte_count": 7869,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/candidate_patch_files/Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "sha256": "0bb037cc2bb1abd90745cd6b05f9cd307473c99e4d53138ad5c6fa0227f9d04a"
+    },
+    {
+      "byte_count": 4439,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/candidate_patch_files/Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "sha256": "3a0c86a7dbcdeca8c5af02096ab9996af4198beb6cbb5a9c766198cb02434c48"
+    },
+    {
+      "byte_count": 116261,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/candidate_patch_files/Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+      "sha256": "8f2692d2113fd6d73a1f405a4522271733a813aca153fc3f9254a6202643efa6"
+    },
+    {
+      "byte_count": 23114,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/candidate_patch_files/Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+      "sha256": "0582c70c94fcda46ba7f60c3338c546b20302ca11d70e4dfbc6144118221c02a"
+    },
+    {
+      "byte_count": 186,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/consumed_input_identity_report.schema.json",
+      "sha256": "9feeb822579232649f6ff21995fb62d7c75a9a0b5c1b071ebe421a1524a4ada1"
+    },
+    {
+      "byte_count": 257,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/downstream_resume_packet.json",
+      "sha256": "6944dd5247a139446806722378de0a35befe8b338228dd769aa2f85a69a19df9"
+    },
+    {
+      "byte_count": 152,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/existing_phase4_to_8_no_impact_report.json",
+      "sha256": "9d72e9962cec7879f57a5337b78abca11adae7a4a1f430c9c362d8ad3cfe9135"
+    },
+    {
+      "byte_count": 106,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/forbidden_dispersion_report.json",
+      "sha256": "e932bdc2dcf94aa98da24ecc6a8f12ae6d7c15dce3bab31b518a453ef94dad82"
+    },
+    {
+      "byte_count": 14373,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/frozen_proposition_interface_fixture.jsonl",
+      "sha256": "b8a758bd7c2cdfab85b9d3ddb9e827f704c279e182d6867bd27155c631d6612d"
+    },
+    {
+      "byte_count": 423,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/meaningful_partition_definition.json",
+      "sha256": "700fde964faf3f026283e76545435f1f5fe2f994e8dca6981a856bbb9a50eb0a"
+    },
+    {
+      "byte_count": 207,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/meaningless_partition_detector_fixture_report.json",
+      "sha256": "1f96f5ae68bff96ef36a122ad67c0f8d2ca671c21fb3ad152723daf8c46a8e86"
+    },
+    {
+      "byte_count": 3327,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/naturalization_candidate_patch_manifest.json",
+      "sha256": "0280873b67ea63ae33f517186efc561850eb4fd257badd58b92eb5ada63036a0"
+    },
+    {
+      "byte_count": 294,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/naturalization_tooling_authorization_binding.schema.json",
+      "sha256": "d16596a62bd32a0ace6feccfac57fe48f903339480b98a9508e25a08f25a4f31"
+    },
+    {
+      "byte_count": 187,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/no_relaxation_attestation.json",
+      "sha256": "5c65ff23619232154c8a5a855d50cb7651d4733f01aab2546b49ffefad12d3ef"
+    },
+    {
+      "byte_count": 398,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/phase2_handoff_acceptance_report.json",
+      "sha256": "ae046f3a94281f68580ee7ffbd940111c3d14d986564a396491626690bac77f8"
+    },
+    {
+      "byte_count": 703,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/phase2_handoff_contract.json",
+      "sha256": "ce8df42037673a46b00b76db634fe1c0098b9b2132a851a8c04c058b1d7a677b"
+    },
+    {
+      "byte_count": 194,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/proposition_consumption_report.json",
+      "sha256": "290be82949e30aec4bc649300f93364b52c235ab7207db8e8456580a59a5b8a1"
+    },
+    {
+      "byte_count": 266,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/semantic_partition_report.json",
+      "sha256": "2a5c83618446c88aea62d94151030e2455c4e8e5da715082ca49714d22b9917a"
+    },
+    {
+      "byte_count": 183,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/skeleton_group_report.schema.json",
+      "sha256": "f7b0d8767cd53abe6e01d4b1fa9333213beb6608f9063a44adad806f806725a6"
+    },
+    {
+      "byte_count": 721,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase12_phase2_handoff/threshold_authority_binding.json",
+      "sha256": "2fd1960f03aca161d2dce815b01b6ed731767c627a0639a2b32289989273f9d3"
+    },
+    {
+      "byte_count": 193,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/final_artifact_manifest.schema.json",
+      "sha256": "6f23c2347fbc365b6e5059a8c9196540d39d00b08647f44a901cd7c2bc95f76f"
+    },
+    {
+      "byte_count": 4896,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/final_claim_non_claim_vocabulary_scan.json",
+      "sha256": "98c5947c3f67fe85485306ecc872fde127ee2b0f52ad8890900c3ac728894db6"
+    },
+    {
+      "byte_count": 511,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/final_machine_report.json",
+      "sha256": "9f6525796e4489b13138f38bcd59b5698c97a04e9294ee18e89e4dabad1cf827"
+    },
+    {
+      "byte_count": 282,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/focused_validation_result.json",
+      "sha256": "9f786ded4bf95f3f40846aa5fd182ac62555a194fe0430b92f9d2f6b7b91fa5b"
+    },
+    {
+      "byte_count": 332,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/implementation_claim_ceiling_scan.json",
+      "sha256": "aea63a27c29a6bc5eff6d0e456c75d88c055452479c2ebad3de1bd8cd3ec744a"
+    },
+    {
+      "byte_count": 1609,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/implementation_machine_validation_report.json",
+      "sha256": "fa42b53f2c9f52cb254bd627e1a468b4a63ba586df1f9559729fbde2f77f9c62"
+    },
+    {
+      "byte_count": 276,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/independent_closeout_review.schema.json",
+      "sha256": "b393b024bedefb40959e30de4a8bf029cdc77ab01f7b210ccba66c470422c430"
+    },
+    {
+      "byte_count": 308,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/independent_reviewer_eligibility_report.schema.json",
+      "sha256": "043a21c035c5cea3890df09f09cbf134c843c5adda47d89deb833ca450955e8c"
+    },
+    {
+      "byte_count": 229,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/owner_seal.schema.json",
+      "sha256": "df51c0e111ed0319d90c23f59e3e6c6bc4d794e68ce5def506e069e0535beba8"
+    },
+    {
+      "byte_count": 1326,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/required_artifact_vcs_disposition.json",
+      "sha256": "4f1bdb602f2797ca5d01743909ffc80c55be8b2cffb459607b4e11e20639a48a"
+    },
+    {
+      "byte_count": 284,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/required_gate_candidate.template.json",
+      "sha256": "7e91f0fd8a347d1b9a9bfee4aba5e1dfa3abdc75d45d14b30f77405a27686b81"
+    },
+    {
+      "byte_count": 189,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/required_gate_deferred_freshness_impact.json",
+      "sha256": "5e9fea67f3df756b8e9cdad42e861715ff7c9aaaf625c3a2fb1b60c605128689"
+    },
+    {
+      "byte_count": 212,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/sealed_successor_closeout.schema.json",
+      "sha256": "0a93a1a47d6478750af7af1456fa829846d5a1949d2d112345873c7c959eb049"
+    },
+    {
+      "byte_count": 257,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/terminal_branch_disposition.schema.json",
+      "sha256": "8b7cdc2af328221c9734cbf2756ef6b482abcc9e6ecf373865f7339328274fb4"
+    },
+    {
+      "byte_count": 222,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/terminal_hash_seal.schema.json",
+      "sha256": "9e6ef7fa2439465c2e838c77d62dc820183b58ce84014621a98f4985d165723a"
+    },
+    {
+      "byte_count": 263,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase13_closeout/top_doc_update_candidate.json",
+      "sha256": "b8f76ebe0426c632e0b48f5e53a607974bb9cb6ecd19c0094956a8ec8df022e0"
+    },
+    {
+      "byte_count": 523,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/allowlist_identity_census.json",
+      "sha256": "ca43ac85e239f6741baff0bbffc2709cbf76d73d47419085aae73f173b36e040"
+    },
+    {
+      "byte_count": 661,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/current_facts_identity_report.json",
+      "sha256": "a4367f4c757be780cf780e62e2d0838a3e232d13a950531f88a86e19af4b0f18"
+    },
+    {
+      "byte_count": 262,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/generated_tag_role_report.json",
+      "sha256": "2649bfbc709554990973baaa99c492fa16dffc2372c8f2aa1eca779451bad9e7"
+    },
+    {
+      "byte_count": 7630,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/layer4_signal_role_report.json",
+      "sha256": "26412218a46c4ef13d2f5d9cd0f4dd953f0d59a4bcf2e34b81b66093cda68428"
+    },
+    {
+      "byte_count": 1553,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/live_non_claim_enumeration.json",
+      "sha256": "cad734b5b53f609d9774329f29a4a928cd5d96fb3e7ec6939595bc1ffb4ea7a5"
+    },
+    {
+      "byte_count": 11657,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/predecessor_evidence_manifest.json",
+      "sha256": "aec064ae3f5fa1448a6ca144cc5f4573445b6ffbdf850e536be2b91b15efc058"
+    },
+    {
+      "byte_count": 3547,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/protected_surface_hashes_before.json",
+      "sha256": "171ee3dff9d86daffdedfb5ea85a0594a84685c0a1800c0873600cb7f60cea89"
+    },
+    {
+      "byte_count": 2401,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/required_validation_denominator_reconciliation.json",
+      "sha256": "599d31e39b36bb45761b749c8891bcf8b308d2710c06e9040804f56740953a4e"
+    },
+    {
+      "byte_count": 548,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/rule_module_census.json",
+      "sha256": "fc6459df8c924f209a19192a6100059cfed116bb9b7934f8f9cb4e10b6710e7f"
+    },
+    {
+      "byte_count": 460,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/set_identity_report.json",
+      "sha256": "5c43728381067f1c21ecbb6f252f9bafdb2e8655375bec9e5ce0bda680b9d75a"
+    },
+    {
+      "byte_count": 7576,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/target_food_universe_manifest.json",
+      "sha256": "af17d00af8bf387e2d4189ac00c495de09c1a19750b70cb34cf79f91100cff6a"
+    },
+    {
+      "byte_count": 170,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase1_census/writer_capability_census.json",
+      "sha256": "10c6aeedd57cea607292d089a3f6118b4f5a159277e121903e23d2e0d8cec607"
+    },
+    {
+      "byte_count": 355,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase2_rule_authority/predecessor_rule_disposition.json",
+      "sha256": "8dcef52aefe6b827d51b7fa5c06b844a9a95296894dcbbcc454ee5044d86f18e"
+    },
+    {
+      "byte_count": 167,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase2_rule_authority/provenance_gap_record.json",
+      "sha256": "d7aa9bb30f402845c39e1223dbb05d2ddfa555a5b4554f7d7f28ea162afa9cdc"
+    },
+    {
+      "byte_count": 1396,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase2_rule_authority/recovery_attempt_log.jsonl",
+      "sha256": "5f2b94c11279b3b92f2f4cc024242aee644a009074a4025f876d2e31151f92d2"
+    },
+    {
+      "byte_count": 1886,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase2_rule_authority/rule_dependency_manifest.json",
+      "sha256": "f75c6c4b73c0d0f3c82baa357175976f97a6c9fb1c80378bc890e4def9f631b4"
+    },
+    {
+      "byte_count": 519,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase2_rule_authority/rule_execution_order_manifest.json",
+      "sha256": "bbf0e3f304f6e39f9ce26d09de3f50c82b96b90e02fc6af20ef477da1814f16c"
+    },
+    {
+      "byte_count": 286,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase2_rule_authority/rule_reproducibility_report.json",
+      "sha256": "863697d8753f68a224eaa2e8558ab4aa4286cc3e2ec83b16fd1bc39987c78721"
+    },
+    {
+      "byte_count": 619,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase3_allowlist/allowed_operation_registry.json",
+      "sha256": "01968c00092ed8e7885ac56326573c49ae37f1a563b7dad2b1b5cb78c8158fb0"
+    },
+    {
+      "byte_count": 1304,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase3_allowlist/allowed_source_field_registry.json",
+      "sha256": "69feba064283f7c163d619ba36d6b4037484b2dcb32b12b229720ef4dc16cd92"
+    },
+    {
+      "byte_count": 588,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase3_allowlist/allowlist_identity_binding_report.json",
+      "sha256": "a65c261daf0ce029a78e87309707734aa8cbec31a6368e8005433cb622445e75"
+    },
+    {
+      "byte_count": 753,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase3_allowlist/forbidden_operation_registry.json",
+      "sha256": "d59198495cc887113febdb9cd4c43d24ac437224020b4bc343aafe8ee4f3ba52"
+    },
+    {
+      "byte_count": 164,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase3_allowlist/predecessor_version_disposition.json",
+      "sha256": "7e95c25421fe3f51428ae2bec7bfc27b353335b0e98c5f97e720695f7f4a41b7"
+    },
+    {
+      "byte_count": 241,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase3_allowlist/three_way_divergence_report.json",
+      "sha256": "41832d342153fec740145c76907b9acfe4fa730d155642ca893588931f6e7009"
+    },
+    {
+      "byte_count": 199,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase3_allowlist/version_impact_census.json",
+      "sha256": "a6b05f466c954ca0d15518fbc819d06939c9df125541898cfa6b7d116809d159"
+    },
+    {
+      "byte_count": 229,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase4_lineage/legacy_successor_divergence_report.json",
+      "sha256": "a90a05727cb7800df85321e08e4a331de1f094fcea73782d093145e0ebe96efa"
+    },
+    {
+      "byte_count": 470,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase4_lineage/lineage_completeness_report.json",
+      "sha256": "28c51dff9f68a8e309f1d0212c1fad29601d0d9cf150bfb85c00a14925eb9f27"
+    },
+    {
+      "byte_count": 107,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase4_lineage/lineage_conflict_report.json",
+      "sha256": "4430459e00fefaf3f0d7bdd98db9387e82414d1a5b4511cdabdc56bdbaa5268f"
+    },
+    {
+      "byte_count": 116770,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase4_lineage/lineage_ledger.jsonl",
+      "sha256": "38caa4f81c255942aeea1549b98ea6bc9a328a82c1acbef87a55d9c0dbb9dff1"
+    },
+    {
+      "byte_count": 113,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase4_lineage/old_generated_tag_disposition.json",
+      "sha256": "60e24134eeb9b1396242aa1293ff7ee901f27e189521c8645b6396f0452def0a"
+    },
+    {
+      "byte_count": 261312,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase4_lineage/successor_signals.jsonl",
+      "sha256": "168912496502567a9442f30681a8e917c752b386978079e7e93fbf505ab9c508"
+    },
+    {
+      "byte_count": 414,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase5_writer_contract/hard_forbidden_surface_contract.json",
+      "sha256": "ae5577a707e1ec7bcc5f471ac1408f2af2aa38ead72e8fff80d7013bd4d1fb23"
+    },
+    {
+      "byte_count": 452,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase5_writer_contract/scoped_writer_contract.json",
+      "sha256": "f011349c833c792280f5317f1d302c11a6f7545fa8081bb220058e1522e9937c"
+    },
+    {
+      "byte_count": 225,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase5_writer_contract/single_writer_authority_report.json",
+      "sha256": "fe33b86fb903ce5cf1de119942edcce7181ea4e91a93a8fc4497cd2d344bf19d"
+    },
+    {
+      "byte_count": 260,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase5_writer_contract/tooling_allowlist_relation_report.json",
+      "sha256": "df6659ee4a247e261a306c4fc51a71b25f3002b30235334cd753b8a0b81612d5"
+    },
+    {
+      "byte_count": 295,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase5_writer_contract/writer_input_allowlist.json",
+      "sha256": "10b79d2ebf8ec9ebf12e6ebc03dd2dfac59e7f3cd8c0de78ae2bd3c61d6f84ea"
+    },
+    {
+      "byte_count": 181,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase5_writer_contract/writer_negative_fixture_results.json",
+      "sha256": "ea71219a7614921ecfb95434d9c9e9c07f084bc7aeb820d61a7edff344304a5a"
+    },
+    {
+      "byte_count": 200,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase5_writer_contract/writer_output_allowlist.json",
+      "sha256": "4c4feab426c5a5f186f7bad3a9105c89ae0f6819317bd6ca12ebcdb21e49ac47"
+    },
+    {
+      "byte_count": 426,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase6_schema/combination_rule_matrix.json",
+      "sha256": "fe17fd02098af0ac576ab8c92d4c8282e0fd5e7036b78a96b7adc8f7fe8739da"
+    },
+    {
+      "byte_count": 432,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase6_schema/proposed_curation_caps.json",
+      "sha256": "fd36f9ebe7df79547f1ca182d1f44d9347448e6bb008b7c4c5eec10144a26592"
+    },
+    {
+      "byte_count": 1082,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase6_schema/schema_examples_and_counterexamples.json",
+      "sha256": "0a56f95fdaf5ce5349bf561e8db58307d182f0ab36987dc58b0b0314c1fb3330"
+    },
+    {
+      "byte_count": 572,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase6_schema/schema_review_record.json",
+      "sha256": "90c004d559ff78c4f004cfabc388a291a98060f1e0b8392524d0a9cecaf53477"
+    },
+    {
+      "byte_count": 2234,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase6_schema/schema_satisfiability_report.json",
+      "sha256": "468b824879b4d8ce0997a94d9c5d34b134b90dac7c566bf58de8bec6ecb0d714"
+    },
+    {
+      "byte_count": 148,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase7_automatic_mapping/automatic_conflict_report.json",
+      "sha256": "de127fc34a729b453ebdaf51a4a282f4e7d7fdbe494e5a52d65d195a78705ef8"
+    },
+    {
+      "byte_count": 318,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase7_automatic_mapping/automatic_coverage_report.json",
+      "sha256": "997f72768af4556058ac4409d367b3a6f727ee7a18547fdccb1a70fefe490ac5"
+    },
+    {
+      "byte_count": 123910,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase7_automatic_mapping/automatic_food_fact_ledger.jsonl",
+      "sha256": "51d49c05970c3ccb7717d2bdb6d9c76f41f4a709f12d279cf43b5cf55e604e1d"
+    },
+    {
+      "byte_count": 802,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase7_automatic_mapping/curation_feasibility_report.json",
+      "sha256": "5c9da3d81bacb9c11894f7567e8c60dbb1c28ee6274f473db189421fc7edbc23"
+    },
+    {
+      "byte_count": 76716,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase7_automatic_mapping/curation_required_queue.jsonl",
+      "sha256": "2c9d0cb71fca6fefc31f9b12f1a880a5521a2e002b64ab17109487f36b4132c7"
+    },
+    {
+      "byte_count": 1146,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase7_automatic_mapping/feasibility_kernel_bundle.json",
+      "sha256": "e836556a2ec8a1f6025787c7d2495fd102ab7ab6f4c46e6a4a3843b2034e3398"
+    },
+    {
+      "byte_count": 107,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase7_automatic_mapping/partial_resolution_report.json",
+      "sha256": "66037f7b75c34906fbdbc84d4a493b979dbeef095f13a605a7bfc60131908f8c"
+    },
+    {
+      "byte_count": 151,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase7_automatic_mapping/residual_set_reason_codes.json",
+      "sha256": "49ef50c79e5790bef23beb03b6087eae02985bcc881957a8ab3fb190c5b0355d"
+    },
+    {
+      "byte_count": 197,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/automatic_curated_reconciliation_report.json",
+      "sha256": "a1739b411fbc2c54f28f6c2959d02dab1cc7b31c5ac4c6fdac463cf529329c32"
+    },
+    {
+      "byte_count": 7414,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/curation_batch_manifest.jsonl",
+      "sha256": "a88c1f61245353aa7a3df0e529146cdbf69d1a2d3c91ebe9ff1c07ceb7d4d18e"
+    },
+    {
+      "byte_count": 324,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/curation_checkpoint.json",
+      "sha256": "5b2cd0791f49f4a08fe225950c1358726ced8041ce6c4d7ced9c5d345b5a1270"
+    },
+    {
+      "byte_count": 584,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/curation_completion_report.json",
+      "sha256": "7ebdcc6b1fd4ede863d440ef61a92ff1781236c7fda61491b0ef01386fc775a9"
+    },
+    {
+      "byte_count": 415,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/curation_consistency_report.json",
+      "sha256": "c9a281bcaf6943bbe7654d320942c7dc3e382a7bdd0edd72ca4c7117cbd7b9b1"
+    },
+    {
+      "byte_count": 36098,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/curation_event_ledger.jsonl",
+      "sha256": "61d3b8ff54a1068a7f2890b31912c7262bc428450a297acc0b4b96d0c49d0f6d"
+    },
+    {
+      "byte_count": 0,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/curation_rework_queue.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "byte_count": 94568,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/curation_work_queue.jsonl",
+      "sha256": "6081a7044c07ee2268dc9bf0aab39556a0ef47dcdd73957060c1848aac1e4f74"
+    },
+    {
+      "byte_count": 13851,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_07f909b26bb4f9fe9b437f29.json",
+      "sha256": "a004cb4aaea1875efe8ed3f0bbe8b29dff6ea322876d26b6850624af2bf443b0"
+    },
+    {
+      "byte_count": 14006,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_1f994516b5c6e8342df5c4a6.json",
+      "sha256": "50d2ce65d3c8765e3efb70c29f6ffa4f3f786fc616ad81b4f6db72d3dc7b15e9"
+    },
+    {
+      "byte_count": 14606,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_39b9b2757f5002c3f9b999cf.json",
+      "sha256": "d7ccc1fcce1fd71714264f00bd5557d83f5fc46e39bd7c73e5ced6e4b3331b85"
+    },
+    {
+      "byte_count": 13064,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_711763d2496ce3e78626307f.json",
+      "sha256": "d130c56e7d36fb0ab476b39ca8fc09cfb64d67cac9f45b5513cda9bc01f8e3a5"
+    },
+    {
+      "byte_count": 13916,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_8ebd278195a970d1577cfb18.json",
+      "sha256": "c8c1f2e865d5cf2d9ed94d971a6b55ba34528168a3b0da483ffe23fcba8886af"
+    },
+    {
+      "byte_count": 14271,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_d1b002457a9c589280734ff1.json",
+      "sha256": "d5914c8cedf5f867d83a357a6fa240caf28ab5f0c2fe36777219d391db3c23d2"
+    },
+    {
+      "byte_count": 14081,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_d237a2d0b4f84c227a6c921e.json",
+      "sha256": "cf7f6fb3592e9275b7f3ddac699a029e1035bdae58be41eeabb88343e329629a"
+    },
+    {
+      "byte_count": 13956,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_d5d4e6b00b67d1100bee65cd.json",
+      "sha256": "daa525fab1316239f40f1f0fd48a8ac74d0f28ae3ee3a653850786183499bee2"
+    },
+    {
+      "byte_count": 13981,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_e47d19f20d78df0d8594d4d7.json",
+      "sha256": "1a355c7b25754c8229baf0b9ac71e42f5822263a43ffee0c23d85a27bb88b58b"
+    },
+    {
+      "byte_count": 14146,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase8_curation/unapproved_curation_packets/fsb_f8384fea0c6b9b34c14df9d3.json",
+      "sha256": "9d3072b84d04222d2c0435780d650e0ecc969d590ce5e66f516ed4396cb2be15"
+    },
+    {
+      "byte_count": 112,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase9_coverage/arbitrary_inference_zero_report.json",
+      "sha256": "55fa1587195506e3bef4bdf82cc4eff639e19043c5573c0ab1151e623e051255"
+    },
+    {
+      "byte_count": 283,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase9_coverage/coverage_reconciliation_report.json",
+      "sha256": "b8ec37baa75b6d210208736ebb3be26b79aeca604a0def55f7f3173940066536"
+    },
+    {
+      "byte_count": 221,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase9_coverage/forbidden_inference_registry_binding.json",
+      "sha256": "248167c4422276f77b14ded3fc2abec72fefee5f05ea198b6a6ecde0f8af4ee7"
+    },
+    {
+      "byte_count": 48999,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase9_coverage/full_317_semantic_disposition.jsonl",
+      "sha256": "f4f00cf117ad2f6d07c02da7bd75acea1ed1c09162d85dca21c5074533bc58bc"
+    },
+    {
+      "byte_count": 166,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase9_coverage/layer4_non_promotion_report.json",
+      "sha256": "d25d49938c8b8ceb3a55c49faeea96231ee695346f4b152472292d7bf151e9a4"
+    },
+    {
+      "byte_count": 350,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase9_coverage/semantic_consistency_report.json",
+      "sha256": "ffbc3fb862308625861a32c96dddc0097fdece1d6ff857a1284a337cfee30672"
+    },
+    {
+      "byte_count": 160,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase9_coverage/singleton_disposition_closure.json",
+      "sha256": "0f4562a0787c1292e1dd2e7004d4936989f21b867be150e26d475b9d16d0a53b"
+    },
+    {
+      "byte_count": 144,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0006/phase9_coverage/unsupported_fact_zero_report.json",
+      "sha256": "748929be9bc3993b73025d20dd079d119e1d32956d8e0e85eeef50c20b25f4bd"
+    },
+    {
+      "byte_count": 1075,
+      "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_food_semantic_contract_fixtures.json",
+      "sha256": "1ea18da5f2d33b88511c525045f1671c9209f46aa6ecafcc14bff147ab42f167"
+    },
+    {
+      "byte_count": 4181,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_closeout.py",
+      "sha256": "f563c4dd0fae1ec2e408c144623e66b7ef00d36ba6d555c9b14e624c0ec6f032"
+    },
+    {
+      "byte_count": 6221,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_writer.py",
+      "sha256": "0ef7e699df11c1347ceba9de8911ac713432992c643a6bcf0a294016a0fb066a"
+    },
+    {
+      "byte_count": 3399,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py",
+      "sha256": "7ac53fa8679a7a006434bbf2d919ac4aa0cfae235eaae269c7faefdbe7906e2c"
+    },
+    {
+      "byte_count": 4036,
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_kernel.py",
+      "sha256": "7caa692cc66b48a49abbe290515adf5fc4a79cf29de6d7392d74b3ae30d7704d"
+    },
+    {
+      "byte_count": 337,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/__init__.py",
+      "sha256": "ded3b66141dcf6e07566a7c978296a718574cd17fdd7d14ce3137e2abb19b274"
+    },
+    {
+      "byte_count": 16835,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/candidate_writer.py",
+      "sha256": "3f5b10df071a6e85357e612557f3c4b40c0258d6c7833293b7f9e35b1c72f608"
+    },
+    {
+      "byte_count": 43548,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/census_rules.py",
+      "sha256": "5d78d5a72069cdd15e02812fc0560edfb6af5404cef0bede5fcf5ba61b625656"
+    },
+    {
+      "byte_count": 21471,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/closeout.py",
+      "sha256": "c099fd49dc6bb7e20c503134bd07d02e8c5c065ec0306fcb3ca77e0b415f33b1"
+    },
+    {
+      "byte_count": 7901,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/contracts.py",
+      "sha256": "e148f2cebee20445427d32f410b7d59a9138cc9e3ddcd0fe5081a846306ea36f"
+    },
+    {
+      "byte_count": 16188,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_workflow.py",
+      "sha256": "1f7fe263f975107787bfd610dec38470141f092b7de27c9c023bbb83ed58b0ec"
+    },
+    {
+      "byte_count": 17866,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/lineage_allowlist.py",
+      "sha256": "d1de8cb56f379d50df6523bfaef9f97d540d9ef8d8886de1e2a344cfca5bf3d4"
+    },
+    {
+      "byte_count": 21262,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/naturalization_handoff.py",
+      "sha256": "956e35ed07b881b1f2106d8b1b7641aa15ba068344864a8742ce34027d2da9a5"
+    },
+    {
+      "byte_count": 25576,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/schema_feasibility.py",
+      "sha256": "95d8f43eacd38e8bb793174467f4938233caa6b3067ea4386255bf3a452745b5"
+    },
+    {
+      "byte_count": 10251,
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py",
+      "sha256": "4bb8911f2c41f394ea6866fc0b9befa38c56d216cf6c612e8a447121664934e9"
+    },
+    {
+      "byte_count": 766,
+      "path": "docs/dvf_3_3_food_semantic_authority_policy.md",
+      "sha256": "f167377f6f1fa487596a24ffd08c27e258b8de614e8f0ac92666ba35be9dcb9b"
+    },
+    {
+      "byte_count": 755,
+      "path": "docs/dvf_3_3_food_semantic_claim_boundary.md",
+      "sha256": "8be2f0fc469135b484265c6713a3d2465b97ab572530dda26be440b57bd445ae"
+    },
+    {
+      "byte_count": 904,
+      "path": "docs/dvf_3_3_food_semantic_schema.md",
+      "sha256": "0fabb2b49458dad07238eb018181aa4bebc1129592e8b8acf3bd8f753da3391f"
+    }
+  ],
+  "attempt_id": "attempt-0006",
+  "authority_claim_emitted_count": 0,
+  "business_feasibility_claimed": false,
+  "changes_8_through_13_implementation_complete": true,
+  "current_facts_manifest_mutation_count": 0,
+  "external_review_consumed_count": 0,
+  "feasibility_kernel_state": "PASS",
+  "food_semantic_facts_authority_implementation_state": "implementation_complete_proposal_only",
+  "implementation_build_complete": true,
+  "implementation_complete_bundle_sealed": true,
+  "implementation_machine_validation": "PASS",
+  "implementation_machine_validation_report_sha256": "fa42b53f2c9f52cb254bd627e1a468b4a63ba586df1f9559729fbde2f77f9c62",
+  "implementation_option_matrix_complete": true,
+  "owner_approval_consumed_count": 0,
+  "owner_decision_consumed_count": 0,
+  "post_implementation_external_review_required": true,
+  "post_implementation_owner_action_required": true,
+  "proposal_structural_feasibility": "PASS",
+  "proposal_technical_feasibility": "PASS",
+  "schema_version": "food-semantic-implementation-complete-bundle-v1"
+}

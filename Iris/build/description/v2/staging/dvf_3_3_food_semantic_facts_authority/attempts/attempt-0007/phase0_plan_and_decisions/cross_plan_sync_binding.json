@@ -1,0 +1,52 @@
+{
+  "naturalization": {
+    "consumer_projection_sha256": "1db4c6b46b9772796965d78f45c3fa78e217decc2c48e043fc4b1c2b0b5b7afa",
+    "contract_present": true,
+    "contract_token": "dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v1",
+    "execution_sha256": "11ed7682a07a6dfd41f516f80a1a708b09f20814c5971f493b74f7c9a44908a4",
+    "expected_sha256": "11ed7682a07a6dfd41f516f80a1a708b09f20814c5971f493b74f7c9a44908a4",
+    "mutation_allowed": false,
+    "mutation_count": 0,
+    "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+    "producer_consumer_projection_byte_equivalent": true,
+    "producer_projection": {
+      "current_facts_read_count": 0,
+      "explicit_non_current_input_override": true,
+      "facts_path_identity": "successor_facts_sha256",
+      "manifest_path_identity": "successor_input_manifest_sha256",
+      "proposition_license_identity": "approved_proposition_licensing_contract_sha256",
+      "render_write_count": 0,
+      "schema_identity": "approved_food_semantic_schema_sha256"
+    },
+    "producer_projection_sha256": "1db4c6b46b9772796965d78f45c3fa78e217decc2c48e043fc4b1c2b0b5b7afa"
+  },
+  "publish_direct_sync_required": false,
+  "registry": {
+    "boundary_binding_match": true,
+    "boundary_projection": {
+      "facts_round_current_write_count": 0,
+      "facts_round_registry_promotion_count": 0,
+      "registry_operational_cutover_plan_required": true,
+      "sealed_successor_receipt_required": true
+    },
+    "boundary_projection_sha256": "7081c969b396968035a4f7f00fc1e42a5e462d3d3e34cf129b1eec985df9771a",
+    "consumer_projection_sha256": "7081c969b396968035a4f7f00fc1e42a5e462d3d3e34cf129b1eec985df9771a",
+    "contract_present": true,
+    "contract_token": "dvf3_3_food_semantic_facts_authority__registry_successor_sync_v1",
+    "contract_token_owner": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+    "counterpart_boundary_anchors": {
+      "candidate_current": true,
+      "promotion": true,
+      "seal_cutover": true,
+      "stale_predecessor": true
+    },
+    "execution_sha256": "0de824e9b471895689b5089d71bfe4a79d3526dc96f0268f681a9b9d65aa7cfb",
+    "expected_sha256": "0de824e9b471895689b5089d71bfe4a79d3526dc96f0268f681a9b9d65aa7cfb",
+    "mutation_allowed": false,
+    "mutation_count": 0,
+    "path": "docs/dvf_3_3_registry_authority_canonical_closure_plan.md",
+    "producer_projection_sha256": "7081c969b396968035a4f7f00fc1e42a5e462d3d3e34cf129b1eec985df9771a"
+  },
+  "schema_version": "food-semantic-cross-plan-sync-binding-v1",
+  "status": "PASS"
+}

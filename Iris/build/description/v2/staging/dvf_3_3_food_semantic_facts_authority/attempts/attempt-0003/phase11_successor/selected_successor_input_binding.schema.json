@@ -1,0 +1,18 @@
+{
+  "implementation_preview_values": {
+    "candidate_facts_sha256": "bd6f9230f06582f35cc07171fea7f905b39c30fc1857f19cac3c900ab9d0ffea",
+    "candidate_manifest_sha256": "5a195089260b9e5f299e6cb25e7396b96f2afae05be0f9b786918ccf93ca637d",
+    "proposed_proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+    "proposed_schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+  },
+  "required": [
+    "selected_branch",
+    "successor_facts_sha256",
+    "successor_input_manifest_sha256",
+    "approved_food_semantic_schema_sha256",
+    "approved_proposition_licensing_contract_sha256"
+  ],
+  "selected_branch_allowed": [
+    "B"
+  ]
+}

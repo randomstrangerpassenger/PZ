@@ -1,0 +1,10 @@
+{
+  "automatic_food_semantic_allowed_field_count": 6,
+  "predecessor_versions": [
+    "0.3",
+    "0.4",
+    "0.5"
+  ],
+  "successor_version": "1",
+  "version_number_order_used_as_authority": false
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": "dvf-3-3-body-plan-applicability-owner-approval-v1",
+  "status": "approved",
+  "owner_id": "workspace_owner_user",
+  "owner_role": "project_owner",
+  "approval_date": "2026-07-26",
+  "approval_channel": "explicit_user_message_in_current_codex_task",
+  "approval_scope": "candidate_body_plan_source_bound_applicability",
+  "rule_id": "source_bound_profile_role_applicability_v1",
+  "profile_required_role_with_no_approved_source_proposition": "candidate_optional_owner_approved_exclusion",
+  "derived_context_from_primary_use": "candidate_required_with_verified_fusion",
+  "source_proposition_invention_allowed": false,
+  "current_compose_profiles_mutated": false,
+  "current_source_authority_mutated": false,
+  "supersedes_attempt_id": "attempt-0008-handoff",
+  "approval_statement": "프로젝트 owner가 immutable Publish handoff 생성을 위해 승인된 source proposition이 없는 profile-required 역할을 candidate 구조 요구사항에서 optional owner-approved exclusion으로 분류하는 authority change를 승인했다.",
+  "compiler_or_tool_generated_owner_judgment": false
+}

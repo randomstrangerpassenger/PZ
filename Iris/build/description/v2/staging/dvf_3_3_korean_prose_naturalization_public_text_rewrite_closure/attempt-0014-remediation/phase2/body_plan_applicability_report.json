@@ -1,0 +1,20 @@
+{
+  "approval_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/body_plan_applicability_approval.json",
+  "approval_sha256": "5a4ac01575f54ba2f505ee6a79501f9ed927d089a9945a17a64bf546cfdcfc31",
+  "candidate_required_requirement_count": 3173,
+  "current_compose_profile_mutation_count": 0,
+  "current_source_authority_mutation_count": 0,
+  "derived_context_required_with_verified_fusion_count": 50,
+  "owner_approved_source_absence_exclusion_by_role": {
+    "context": 532,
+    "limitation": 917,
+    "use": 54
+  },
+  "owner_approved_source_absence_exclusion_count": 1503,
+  "policy_contract_match": true,
+  "profile_required_requirement_count": 4676,
+  "rule_id": "source_bound_profile_role_applicability_v1",
+  "schema_version": "dvf-3-3-body-plan-applicability-report-v1",
+  "source_proposition_invention_count": 0,
+  "status": "PASS"
+}

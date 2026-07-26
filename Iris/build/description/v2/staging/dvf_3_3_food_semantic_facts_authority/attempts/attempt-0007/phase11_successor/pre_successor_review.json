@@ -1,0 +1,7 @@
+{
+  "candidate_semantic_review": "not_started",
+  "external_implementation_review_required": true,
+  "implementation_complete_bundle_required": true,
+  "owner_semantic_approval_required": true,
+  "state": "implementation_preview_only"
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "dvf-3-3-gold-corpus-owner-approval-v1",
+  "status": "approved",
+  "owner_id": "workspace_owner_user",
+  "owner_role": "project_owner",
+  "approval_date": "2026-07-26",
+  "approval_channel": "explicit_user_message_in_current_codex_task",
+  "approval_scope": "dvf_3_3_korean_prose_gold_corpus_and_manifest",
+  "gold_corpus_path": "Iris/build/description/v2/data/korean_prose_naturalization/gold_corpus.jsonl",
+  "gold_corpus_sha256": "ac729c39828b6bacd8c5f509048d154899f8235b89bff1b867e645c1d89b4d7f",
+  "corpus_manifest_path": "Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json",
+  "corpus_manifest_sha256": "f9813306175a0483e89a075ac03c768f7f830364a5517d1fdfa6cb9f07657fcf",
+  "approval_statement": "프로젝트 owner가 immutable Publish handoff 생성을 위해 gold corpus와 corpus manifest를 승인했다.",
+  "compiler_or_tool_generated_owner_judgment": false
+}

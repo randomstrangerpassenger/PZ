@@ -1,0 +1,12 @@
+{
+  "forbidden_paths": [
+    "Iris/build/description/v2/data",
+    "Iris/build/description/v2/output",
+    "Iris/media/lua",
+    "Iris/Iris/media/lua",
+    "Iris/build/description/v2/package",
+    "docs/dvf_3_3_facts_authority_enrichment_plan.md",
+    "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation"
+  ],
+  "reject_before_write": true
+}

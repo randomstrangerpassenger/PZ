@@ -1,0 +1,16 @@
+{
+  "detector_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+  "detector_sha256": "c6eb4e0544fc08f08fee802e83dc2a88b56de9178387de9dce1517612edbc477",
+  "detector_value_source": "bound_policy",
+  "planning_observed_value": 104,
+  "policy_path": "Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json",
+  "policy_ratio": {
+    "denominator": 20,
+    "numerator": 1
+  },
+  "policy_sha256": "50c2fdf90e43b2a44b7aed78115fa57f6555b6013c5224bb7080de005b83a9de",
+  "resolved_bound_threshold_value": 104,
+  "resolved_candidate_denominator": 2084,
+  "threshold_authority_unclassified_mismatch_count": 0,
+  "threshold_policy_detector_identity_match": true
+}

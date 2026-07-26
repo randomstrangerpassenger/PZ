@@ -1,0 +1,16 @@
+{
+  "allowlist_contract": {
+    "byte_count": 2390,
+    "path": "Iris/_docs/authority/food_semantic/evidence_allowlist_contract.json",
+    "sha256": "5ec304915ab89d222b04156eaeca4588b12981139bf9ea4d9c3096a2f69560d8"
+  },
+  "canonical_adoption_claimed": false,
+  "forbidden_registry": {
+    "byte_count": 753,
+    "path": "Iris/_docs/authority/food_semantic/forbidden_inference_registry.json",
+    "sha256": "d59198495cc887113febdb9cd4c43d24ac437224020b4bc343aafe8ee4f3ba52"
+  },
+  "owner_approval_consumed": false,
+  "proposed_document_machine_identity_match": true,
+  "status": "PASS"
+}

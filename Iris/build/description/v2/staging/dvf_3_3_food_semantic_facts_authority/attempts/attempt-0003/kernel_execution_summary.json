@@ -1,0 +1,17 @@
+{
+  "attempt_id": "attempt-0003",
+  "authority_claim_emitted_count": 0,
+  "changes_8_through_13_allowed": true,
+  "completed_phases": [
+    "phase0",
+    "phase1",
+    "phase2",
+    "phase3",
+    "phase4",
+    "phase5",
+    "phase6",
+    "phase7"
+  ],
+  "schema_version": "food-semantic-kernel-execution-summary-v1",
+  "status": "PASS"
+}

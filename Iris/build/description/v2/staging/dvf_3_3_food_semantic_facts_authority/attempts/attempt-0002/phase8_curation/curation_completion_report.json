@@ -1,0 +1,13 @@
+{
+  "authority_completion_claimed": false,
+  "curated_approval_detector_fixture_pass": true,
+  "curated_authority_emitted_during_implementation_count": 0,
+  "curation_batch_exact_member_expansion_fixture_pass": true,
+  "curation_crash_boundary_fixtures_pass": true,
+  "curation_rejection_rework_fixture_pass": true,
+  "curation_resume_idempotence_fixture_pass": true,
+  "curation_workflow_option_implementations_complete": true,
+  "duplicate_replay_event_count_detected_and_ignored": 238,
+  "status": "IMPLEMENTATION_READY",
+  "unapproved_curation_packet_generation_complete": true
+}

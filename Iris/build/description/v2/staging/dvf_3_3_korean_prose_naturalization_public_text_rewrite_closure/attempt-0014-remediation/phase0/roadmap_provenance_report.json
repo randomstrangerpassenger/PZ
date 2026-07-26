@@ -1,0 +1,42 @@
+{
+  "attachment_bindings": [
+    {
+      "actual_sha256": "c0c4838352910f8cacbcedfca8b74912d544d4f2ebc1d8d96f5cd34860eb3d1d",
+      "expected_sha256": "c0c4838352910f8cacbcedfca8b74912d544d4f2ebc1d8d96f5cd34860eb3d1d",
+      "hash_match": true,
+      "path": "C:\\Users\\MW\\.codex\\attachments\\91b61f60-9f67-4407-b32f-4952747614ae\\pasted-text.txt"
+    },
+    {
+      "actual_sha256": "dee1b7d3368936e88fffa2bc2dd2b5afdead1a55c8df749db387959c256d989f",
+      "expected_sha256": "dee1b7d3368936e88fffa2bc2dd2b5afdead1a55c8df749db387959c256d989f",
+      "hash_match": true,
+      "path": "C:\\Users\\MW\\.codex\\attachments\\245e56e9-90fb-4f85-9b76-6ec568de0a4f\\pasted-text.txt"
+    },
+    {
+      "actual_sha256": "278daed986a32cc8964b0cfd9c786ae015f8e6fbcaac879a32ec2fea30098848",
+      "expected_sha256": "278daed986a32cc8964b0cfd9c786ae015f8e6fbcaac879a32ec2fea30098848",
+      "hash_match": true,
+      "path": "C:\\Users\\MW\\.codex\\attachments\\800664bb-cbe3-4b88-885c-d703af54a644\\pasted-text.txt"
+    }
+  ],
+  "plan_path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+  "plan_sha256": "bbac14e7e4754c6afb10d7a5a932afae8b769cc45256b38eba8b89f59a275574",
+  "roadmap_binding": {
+    "approved_plan_path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+    "approved_plan_sha256": "bbac14e7e4754c6afb10d7a5a932afae8b769cc45256b38eba8b89f59a275574",
+    "authorization_source": "explicit_user_instruction_in_execution_task",
+    "execution_scope": "phase0_through_phase8_handoff_build",
+    "owner_judgment_generated_by_tool": false,
+    "phase8_consume_publish_result_authorized": false,
+    "phase9_authorized": false,
+    "publish_official_attempt_authorized": false,
+    "roadmap_input_kind": "owner_provided_attachment_review_synthesis",
+    "roadmap_input_path": "C:/Users/MW/.codex/attachments/91b61f60-9f67-4407-b32f-4952747614ae/pasted-text.txt",
+    "roadmap_input_sha256": "c0c4838352910f8cacbcedfca8b74912d544d4f2ebc1d8d96f5cd34860eb3d1d",
+    "schema_version": "dvf-3-3-korean-prose-roadmap-binding-v1"
+  },
+  "roadmap_binding_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/roadmap_binding.json",
+  "roadmap_binding_sha256": "7c7eec8f085b6b0fe52506f02acaa23ac81477a1c9304e1b4e0988e1fe6051d2",
+  "roadmap_provenance_bound": true,
+  "schema_version": "dvf-3-3-roadmap-provenance-report-v1"
+}

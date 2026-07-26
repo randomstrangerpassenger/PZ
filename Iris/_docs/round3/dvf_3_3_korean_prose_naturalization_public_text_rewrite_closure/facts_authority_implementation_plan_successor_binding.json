@@ -1,0 +1,17 @@
+{
+  "mutates_predecessor_binding": false,
+  "predecessor_plan": {
+    "byte_count": 9553,
+    "path": "docs/dvf_3_3_facts_authority_enrichment_plan.md",
+    "sha256": "bd4f559694da2e7011434715973273033ebf986a12023bb4c2363c51210c231a"
+  },
+  "routing_ambiguity_count": 0,
+  "schema_version": "food-semantic-implementation-plan-successor-binding-v1",
+  "status": "additive_routing_supersession",
+  "successor_plan": {
+    "byte_count": 162652,
+    "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+    "sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897"
+  },
+  "successor_plan_git_blob_id": "6bcfd7ecdc9b3a8344aef81d225975637e57f091"
+}

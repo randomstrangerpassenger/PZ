@@ -1,0 +1,13 @@
+{
+  "attempt_id": "attempt-0002",
+  "authority_bearing": false,
+  "automatic_ledger_sha256": "5756d3c529e0d327446ff7f17611556dfe392431eb26bd4f86efc4d5d8ea1951",
+  "current_facts": {
+    "byte_count": 1438689,
+    "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6"
+  },
+  "target_member_set_sha256": "4f64dc313194016da1c52dc5ad372b281998df36a865b6361373c31a32955739",
+  "write_once": true,
+  "writer": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/candidate_writer.py"
+}

@@ -1,0 +1,95 @@
+{
+  "schema_version": "dvf3_3_food_semantic_preimplementation_plan_review_v1",
+  "review_id": "dvf_3_3_food_semantic_facts_authority_reconstruction_preimplementation_review_20260727",
+  "reviewed_at": "2026-07-27T07:56:13.6944885+09:00",
+  "reviewer": {
+    "identity": "codex_primary_preimplementation_reviewer",
+    "role": "preimplementation_plan_reviewer",
+    "implementation_author_role": true,
+    "terminal_independent_reviewer_eligible": false,
+    "terminal_independent_gate_credit": 0
+  },
+  "review_target": {
+    "repository_commit": "5e5ef93bd71610c018efdd09005f431cf31f1f19",
+    "plan_path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+    "plan_git_blob_id": "6bcfd7ecdc9b3a8344aef81d225975637e57f091",
+    "plan_content_sha256": "e9f2812686ea74e2234dfa7c21910a10567afaddee87dcc6ad37354537a6ebf6",
+    "plan_logical_line_count": 2557,
+    "requirements_snapshot_marker": "NORMATIVE DESIGN REQUIREMENTS SNAPSHOT v1",
+    "requirements_snapshot_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+    "requirements_snapshot_logical_line_count": 60,
+    "predecessor_plan_path": "docs/dvf_3_3_facts_authority_enrichment_plan.md",
+    "predecessor_plan_git_blob_id": "be0efaad44b628cf6caf975125040071b9db1fa9",
+    "predecessor_plan_sha256": "61f9235e8ed3787f8388859f383d44727a2f088fb277a1d46cd1dcc78a3b5ee7"
+  },
+  "owner_ratification": {
+    "status": "ratified_owner_directive",
+    "approver_identity": "repository_owner",
+    "approval_time": "2026-07-27T07:53:49.4755918+09:00",
+    "ratified_requirements_snapshot_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+    "snapshot_hash_match": true,
+    "semantic_or_adoption_decision_consumed": false
+  },
+  "review_axes": [
+    {
+      "axis": "responsibility_boundary",
+      "verdict": "PASS",
+      "findings": [],
+      "observations": [
+        "Classification, semantic approval, Registry lifecycle, DVF consumption, and Publish acceptance remain separately owned.",
+        "The in-round terminal action is limited to a sealed non-current successor and does not authorize current adoption.",
+        "Runtime Lua, rendered output, runtime chunks, package payload, and public text remain out of scope."
+      ]
+    },
+    {
+      "axis": "authority_and_evidence_integrity",
+      "verdict": "PASS",
+      "findings": [],
+      "observations": [
+        "The exact case-sensitive 317-member set, proposition-level lineage, closed vocabulary, and automatic/curated authority separation are mandatory.",
+        "The owner-ratified requirements snapshot is repository-tracked and bound to an exact Git blob and SHA-256.",
+        "R1 and R2 are diagnostic-only and R3 is the sole executable successor route without historical-equivalence overclaim.",
+        "Current facts and manifest mutation, retrospective lineage invention, and Layer 4 automatic promotion are forbidden."
+      ]
+    },
+    {
+      "axis": "adversarial_and_failure_mode",
+      "verdict": "PASS",
+      "findings": [],
+      "observations": [
+        "Changes 0 through 7 form a fail-loud feasibility dominator for Changes 8 through 13.",
+        "Failed and blocked attempts are append-only and cannot be rewritten as PASS.",
+        "Detector, threshold, and waiver relaxation as well as ID/hash/random dispersion are explicitly rejected.",
+        "Post-promotion correction forbids predecessor-current reentry, while this round performs no Registry promotion."
+      ]
+    }
+  ],
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "open_critical": 0,
+    "open_important": 0,
+    "open_minor": 0
+  },
+  "review_verdict": "PASS",
+  "entry_credit": {
+    "preimplementation_plan_review": "PASS",
+    "preimplementation_review_bound_to_ratified_snapshot_sha256": true,
+    "open_critical_count": 0,
+    "open_important_count": 0,
+    "implementation_complete_bundle_review_credit": 0,
+    "post_implementation_external_review_credit": 0,
+    "terminal_independent_review_credit": 0
+  },
+  "non_claims": [
+    "implementation_complete",
+    "semantic_owner_approval",
+    "registry_promotion",
+    "current_authority_reconstruction_complete",
+    "canonical_complete",
+    "naturalization_official_retry",
+    "publish_boundary_pass",
+    "runtime_or_package_readiness"
+  ]
+}

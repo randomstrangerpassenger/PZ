@@ -1,0 +1,302 @@
+{
+  "schema_version": "food-semantic-owner-reserved-decisions-v1",
+  "record_status": "approved",
+  "approval_source_kind": "owner_conversation_directive",
+  "approval_directive": "D1/D5~D16 결정을 승인할게",
+  "approver_identity": "repository_owner",
+  "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+  "bound_plan_path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+  "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+  "bound_implementation_complete_bundle_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase13_closeout/implementation_complete_bundle.json",
+  "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "bound_implementation_commit": "36021201ab24dd5c1cf5525d33fcd0d11577e795",
+  "bound_external_review_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_reviews/external_implementation_review.json",
+  "bound_external_review_sha256": "0bccc6567056af6a68b422c1044055e5b8849bf2f72929c596d6b654551d6847",
+  "bound_external_review_commit": "d10f5c5d",
+  "approved_owner_decision_count": 13,
+  "retired_mandatory_contract_count": 3,
+  "post_implementation_owner_decisions_complete": true,
+  "current_authority_mutation_authorized": false,
+  "registry_operational_cutover_authorized": false,
+  "official_naturalization_retry_authorized": false,
+  "decisions": [
+    {
+      "decision_id": "D1",
+      "status": "approved",
+      "selected_option": "C1",
+      "selection_parameters": {
+        "claim_token": "Food Semantic Facts Authority Successor Handoff",
+        "terminal_value": "sealed_successor_handoff_complete",
+        "canonical_complete_allowed": false
+      },
+      "rationale": "Adopt the plan-defined, axis-bounded successor handoff vocabulary without claiming current canonical, runtime, Publish, or release completion.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D5",
+      "status": "approved",
+      "selected_option": "allow_layer4_as_curated_human_review_context",
+      "selection_parameters": {
+        "automatic_lineage_use_allowed": false,
+        "layer4_auto_promotion_allowed": false,
+        "human_review_context_only": true
+      },
+      "rationale": "Permit Layer 4 only as bounded human curation context while preserving the prohibition on automatic evidence promotion.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D6",
+      "status": "approved",
+      "selected_option": "bounded_batch_allowed_bulk_prohibited",
+      "selection_parameters": {
+        "maximum_batch_member_count": 24,
+        "per_member_exact_fact_value_required": true,
+        "per_member_rationale_applicability_required": true,
+        "machine_expanded_member_ledger_required": true,
+        "anonymous_or_implicit_approval_allowed": false
+      },
+      "rationale": "Adopt the prebuilt ten-batch workflow with at most 24 members per batch and retain row-level accountability.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D7",
+      "status": "approved",
+      "selected_option": "approve_pre_result_sealed_curation_caps",
+      "selection_parameters": {
+        "proposed_curation_item_cap": 240,
+        "proposed_curation_proposition_cap": 480,
+        "proposal_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase6_schema/proposed_curation_caps.json",
+        "schema_satisfiability_sha256": "468b824879b4d8ce0997a94d9c5d34b134b90dac7c566bf58de8bec6ecb0d714"
+      },
+      "rationale": "Approve the exact two-axis caps sealed before Phase 7 results; no cap change or result-driven expansion is authorized.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D8",
+      "status": "approved",
+      "selected_option": "approve_exact_automatic_row_review_denominator",
+      "selection_parameters": {
+        "automatic_row_review_denominator": 79,
+        "automatic_proposition_review_count": 84,
+        "automatic_member_set_sha256": "bc5a73a77d2cbf1e40895b2bc940d14b3b791916e4514fab7f37828a0d3ab1ce",
+        "coverage_report_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase7_automatic_mapping/automatic_coverage_report.json"
+      },
+      "rationale": "Approve review of the complete exact automatic member set, including every proposition attached to those rows.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D9",
+      "status": "approved",
+      "selected_option": "branch_B_sealed_non_current_handoff_and_future_registry_request",
+      "selection_parameters": {
+        "selected_branch": "B",
+        "future_registry_cutover_request_allowed": true,
+        "current_mutation_allowed": false,
+        "separate_registry_operational_cutover_plan_required": true
+      },
+      "rationale": "Authorize a sealed non-current successor and a future Registry request without granting current writer or promotion authority.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D10",
+      "status": "approved",
+      "selected_option": "approve_minimum_meaningful_partition_criterion",
+      "selection_parameters": {
+        "minimum_meaningful_partition": 4,
+        "authority_scope": "phase12_actual_consumer_acceptance_only",
+        "upstream_schema_token_use_allowed": false
+      },
+      "rationale": "Adopt the pre-result criterion only for the actual Phase 12 consumer acceptance claim.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D11",
+      "status": "approved",
+      "selected_option": "G2_in_round_deferral_with_future_G1_adoption_request",
+      "selection_parameters": {
+        "in_round_branch": "G2",
+        "future_registry_G1_request_allowed": true,
+        "live_required_manifest_mutation_allowed": false
+      },
+      "rationale": "Keep required-gate adoption deferred in this round and carry the additive G1 proposal into a future Registry-owned cutover.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D12",
+      "status": "approved",
+      "selected_option": "registry_owned_additive_correction_successor",
+      "selection_parameters": {
+        "correction_owner": "Iris Artifact Registry",
+        "operational_route": "separate_reviewed_registry_operational_cutover_plan",
+        "predecessor_current_reentry_allowed": false,
+        "predecessor_fallback_after_future_promotion_allowed": false,
+        "partial_or_dual_current_allowed": false
+      },
+      "rationale": "Bind future corrections to an additive Registry-owned successor route and prohibit restoration or fallback to a stale predecessor.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D13",
+      "status": "approved",
+      "selected_option": "I1",
+      "selection_parameters": {
+        "full_chain_non_participation_required": true,
+        "prohibited_prior_roles": [
+          "requirements",
+          "plan",
+          "review",
+          "implementation",
+          "curation",
+          "owner-decision"
+        ],
+        "reviewer_model_family_restriction": null
+      },
+      "rationale": "Require a genuinely independent terminal reviewer based on full-chain non-participation, without substituting the earlier external implementation review.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D14",
+      "status": "approved",
+      "selected_option": "adopt_12_plus_1_non_expansion_proof_as_formal_evidence",
+      "selection_parameters": {
+        "current_core_count": 12,
+        "current_route_tooling_count": 1,
+        "allowlist_expansion_allowed": false,
+        "proof_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase5_writer_contract/tooling_allowlist_relation_report.json",
+        "canonical_closure_path": "Iris/_docs/round3/round3_active_core_closure.json"
+      },
+      "rationale": "Adopt the formal non-expansion proof while preserving the existing 12 core plus one tooling route cap.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D15",
+      "status": "approved",
+      "selected_option": "post_closeout_additive_top_doc_updates_with_freshness_reseal",
+      "selection_parameters": {
+        "allowed_docs": [
+          "docs/DECISIONS.md",
+          "docs/ARCHITECTURE.md",
+          "docs/ROADMAP.md"
+        ],
+        "additive_updates_only": true,
+        "freshness_reseal_required": true,
+        "execution_before_terminal_closeout_allowed": false
+      },
+      "rationale": "Authorize only the plan-proposed additive top-document updates after closeout, followed by the required freshness reseal.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D16",
+      "status": "approved",
+      "selected_option": "adopt_exact_naturalization_adapter_no_render_candidate",
+      "selection_parameters": {
+        "tooling_owner": "Naturalization tooling owner",
+        "adapter_and_no_render_only": true,
+        "existing_phase4_to_8_mutation_prohibited": true,
+        "attempt_0014_validator_semantics_preserved": true,
+        "official_retry_authority_granted": false,
+        "allowed_files_and_symbols": [
+          {
+            "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+            "symbols": [
+              "build_food_semantic_proposition_inventory",
+              "build_food_semantic_no_render_receipt"
+            ]
+          },
+          {
+            "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+            "symbols": [
+              "validate_food_semantic_consumed_input_receipt"
+            ]
+          },
+          {
+            "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
+            "symbols": [
+              "FoodSemanticNoRenderReceiptCandidateContractTest"
+            ]
+          },
+          {
+            "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
+            "symbols": [
+              "FoodSemanticPhase4To8PreservationCandidateContractTest"
+            ]
+          }
+        ]
+      },
+      "rationale": "Adopt only the exact additive candidate surface sealed by the manifest; do not replace existing symbols or authorize an official retry.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D2",
+      "status": "retired_mandatory_contract",
+      "selected_option": "R3_official_successor_is_sole_executable_rule_route",
+      "owner_selection_consumed": false,
+      "rationale": "Retained as the plan-mandated replacement contract rather than an owner-selectable option.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D3",
+      "status": "retired_mandatory_contract",
+      "selected_option": "final_automatic_proposition_level_lineage_mandatory",
+      "owner_selection_consumed": false,
+      "rationale": "Retained as the plan-mandated lineage contract rather than an owner-selectable option.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    },
+    {
+      "decision_id": "D4",
+      "status": "retired_mandatory_contract",
+      "selected_option": "exact_case_sensitive_317_set_identity_binding_mandatory",
+      "owner_selection_consumed": false,
+      "rationale": "Retained as the plan-mandated target identity contract rather than an owner-selectable option.",
+      "approver_identity": "repository_owner",
+      "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+      "bound_plan_sha256": "506c3d1ee640f17114682eef5761fe283bfcf57076c8c49622d052a382fc1897",
+      "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+    }
+  ]
+}

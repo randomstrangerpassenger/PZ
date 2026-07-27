@@ -1,0 +1,107 @@
+{
+  "amendment_bindings": {
+    "owner_approval_sha256": "f955af8abfef014755e940783a5987095f7eb5657f6f38a19970d22f5fff074f",
+    "review_pass_sha256": "17876ce64d3442ad9c720344c224d969ab090f8e86f19a18bc0980ae3a106cd6",
+    "scope_manifest_sha256": "84dee19b9d26a4b4cd8a7a65bd4003fe221f049f694fe2843039831634d31b82"
+  },
+  "correction_id": "phase12-correction-0001",
+  "d16_adoption_manifest_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase12_corrections/phase12-correction-0001/d16_manifest.json",
+    "sha256": "757f3f1e228bb781d2c8784a7d9423e4bfd3b038ff898c3f0a8a55e49258b3f5",
+    "status": "PASS"
+  },
+  "external_implementation_review": {
+    "eligible_to_review": true,
+    "required_critical_count": 0,
+    "required_important_count": 0,
+    "required_out_of_scope_change_count": 0,
+    "review_complete": false
+  },
+  "implementation_commits": [
+    "2b32c2cdcdcdbd3e76fd6a45c27adf9abc6ec367",
+    "baeb0219cba471f2b009a2cbf741714a27ef1ccf"
+  ],
+  "origin_findings": [
+    {
+      "finding_id": "P12-D16-I1",
+      "resolution": "The complete additive candidate-only compose dependency chain is present and imported through the actual Naturalization module path.",
+      "scope_test_status": "PASS"
+    },
+    {
+      "finding_id": "P12-D16-I2",
+      "resolution": "The handoff assertions model both pending-preimage and owner-approved exact replacement states and bind the D16 file/symbol set.",
+      "scope_test_status": "PASS"
+    }
+  ],
+  "original_scope_bindings": {
+    "correction_addendum_sha256": "8eeb9a9e49a377457d9175120f2472701697cc536b8fbbb9687e9b32b427987d",
+    "owner_scope_approval_sha256": "af97d91fcf84e875de3841867b9b0be4e1607690f5579a92d8313652f036b369",
+    "scope_manifest_sha256": "e833710b19cca89c544eae1383bf7e41e96a5c0e5353f5298e231455b8388127",
+    "scope_review_pass_sha256": "d531463e7712c234ea826bef9ad757b2a0149a3908c32562c7854e8b7958c248"
+  },
+  "owner_result_approval": {
+    "eligible": false,
+    "reason": "The approved required-validation contract includes the full repository suite, and that command exited 1.",
+    "replacement_sha256_set_bound_below": true,
+    "result_approval_granted": false
+  },
+  "protected_surface_change_counts": {
+    "authority_schema_or_mapping": 0,
+    "current_facts_manifest_rendered_lua": 0,
+    "naturalization_phase4_to_8_behavior": 0,
+    "package_or_runtime": 0,
+    "registry_or_publish_boundary": 0
+  },
+  "replacement_files": [
+    {
+      "git_blob_id": "869e9faa332ca3d835507f0d27cab522ff04680c",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+      "preimage_sha256": "5c59c5ee97895fa65b2aa11e2c6418af0a49e7acaf7e7350cc59d5f3e85ae173",
+      "replacement_sha256": "f679ad917cae60e8cf5d7175302fd8ac11f8ac9d25f0b1ada4e662093a8e0f75"
+    },
+    {
+      "git_blob_id": "41f44a8e944af0094fb6fa2eafd8a41c09a80dac",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "preimage_sha256": "f6a6bf7848a673f4069aaecfd58b55c9e9a31d3d88361ea962d38507b4e3c824",
+      "replacement_sha256": "1440f6dc98b5e7a5dc7bc9aa993db7c9ca29aa93303808fb7944da67cbe6d2e7"
+    },
+    {
+      "git_blob_id": "1e6e633a74dc13a3d90fb8db13ec0b81b9503c4c",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "preimage_sha256": "68265a9a9611be201db25452afd43bbfb5b7544daea5b00a30f669427a7663af",
+      "replacement_sha256": "ecd1ef00e321ea3a36dc86ba000fdf5ebffc12871413ef728b615e12341bbddf"
+    },
+    {
+      "git_blob_id": "811725ac1c5c37337e9ed4a4c04d9eca8fcaf7b5",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+      "preimage_sha256": "8ff755fbdd2718f07552f544c94eeacb0a1cdb482752ce455f8ac013bd0d3f02",
+      "replacement_sha256": "49ede9d8112a3d3cf560f012e6acd9218fabd72f5cb7b9bb216ca46c9743e3c0"
+    },
+    {
+      "git_blob_id": "d07225385814c1a328b615601c7635297772a844",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "preimage_sha256": "331672fcf328f0e6420808d91860cbb9c008d2b2dab025d7676875946e6289d5",
+      "replacement_sha256": "1badf3dadb74ca20ef1cf343e201571dbb6ac183ce06ee6ce1dce1eb1cbd092a"
+    },
+    {
+      "git_blob_id": "39b6589d4bb4f99b152ab4005c1638641030a529",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py",
+      "preimage_sha256": "7ac53fa8679a7a006434bbf2d919ac4aa0cfae235eaae269c7faefdbe7906e2c",
+      "replacement_sha256": "b6b254dfd3de5ec7f3600d3b9fff2c3fb3be61e2ed6039031cbf893e072d2077"
+    },
+    {
+      "git_blob_id": "8947a3b8141f8df2578d66d4d99bedd882e2b40a",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_authority_phase9_10.py",
+      "preimage_sha256": "71bea8af710446963d553b7b8ec95cd29c7a9d1e98ce73cda2f164987f5a101c",
+      "replacement_sha256": "f349996ba01fe24f8bdc94ffa9b4647aababbb51611844bbb0dad21d3bc04120"
+    }
+  ],
+  "result_commit": "baeb0219cba471f2b009a2cbf741714a27ef1ccf",
+  "schema_version": "food-semantic-phase12-correction-result-bundle-v1",
+  "status": "IMPLEMENTED_SCOPE_PASS_REQUIRED_VALIDATION_BLOCKED",
+  "validation_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase12_corrections/phase12-correction-0001/validation.json",
+    "required_validation_exit_predicate_satisfied": false,
+    "sha256": "0040277e45badaacc3aa83dd732db8080f6dd63539f6130ef4bef629898cb5e6"
+  }
+}

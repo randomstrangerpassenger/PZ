@@ -1,0 +1,85 @@
+{
+  "clean_committed_scope_tests": [
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "test_count": 46
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_acceptance_gate.py\"",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "test_count": 8
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_semantic_preservation.py\"",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "test_count": 4
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_entrypoint_guard_hardening.py\"",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "test_count": 7
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_layer3_text_overlay.py\"",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "test_count": 7
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_layer3_text_v2.py\"",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "test_count": 15
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "correction_scope_regression_count": 0,
+  "full_repository_suite": {
+    "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_*.py\"",
+    "duration_seconds": 813.164,
+    "errors": 21,
+    "exit_code": 1,
+    "failures": 13,
+    "representative_inputs_absent_at_both_scope_base_and_result_commit": [
+      "Iris/build/description/v2/tools/build/validate_interaction_cluster_phase_d_runtime.py",
+      "Iris/build/description/v2/tools/build/build_acquisition_sprint7_authority_promotion.py",
+      "Iris/build/description/v2/tools/build/build_body_role_lexical_cleanup_authority.py",
+      "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "Iris/build/description/v2/staging/dvf_3_3_vnext_execution/phase11/final_execution_contract_report.json",
+      "Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/claim_boundary_report.json"
+    ],
+    "result": "FAIL",
+    "test_count": 309,
+    "test_generated_side_effects": {
+      "recoverable_stash_commit": "9d0d4285f9176313de756eeb428b2d20f682d6d9",
+      "status_entry_count_before_isolation": 612,
+      "tracked_file_count": 192,
+      "worktree_clean_after_isolation": true
+    }
+  },
+  "protected_surface_checks": {
+    "authority_schema_or_mapping_change_count": 0,
+    "current_facts_manifest_rendered_lua_change_count": 0,
+    "naturalization_phase4_to_8_execution_count": 0,
+    "official_naturalization_retry_count": 0,
+    "package_or_runtime_change_count": 0
+  },
+  "required_validation_exit_predicate_satisfied": false,
+  "result_commit": "baeb0219cba471f2b009a2cbf741714a27ef1ccf",
+  "schema_version": "food-semantic-phase12-correction-validation-v1",
+  "status": "BLOCKED_BY_FULL_REPOSITORY_SUITE"
+}

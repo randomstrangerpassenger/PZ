@@ -1,0 +1,73 @@
+{
+  "adoption_state": "owner_approved_exact_replacement_adopted",
+  "candidate_patch_out_of_scope_symbol_count": 0,
+  "candidate_patch_preimage_mismatch_count": 0,
+  "decision_binding": {
+    "decision_id": "D16",
+    "decision_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/owner_reserved_decisions.json",
+    "decision_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+    "official_retry_authority_granted": false,
+    "selected_option": "adopt_exact_naturalization_adapter_no_render_candidate",
+    "status": "approved"
+  },
+  "files": [
+    {
+      "affected_symbols": [
+        "build_food_semantic_proposition_inventory",
+        "build_food_semantic_no_render_receipt"
+      ],
+      "candidate_sha256": "8f2692d2113fd6d73a1f405a4522271733a813aca153fc3f9254a6202643efa6",
+      "live_git_blob_id": "bfe8d5562bf5cf2ae3945ee21d6d24febdd36786",
+      "live_matches_sealed_replacement": true,
+      "live_sha256": "8f2692d2113fd6d73a1f405a4522271733a813aca153fc3f9254a6202643efa6",
+      "preimage_sha256": "c6eb4e0544fc08f08fee802e83dc2a88b56de9178387de9dce1517612edbc477",
+      "replacement_sha256": "8f2692d2113fd6d73a1f405a4522271733a813aca153fc3f9254a6202643efa6",
+      "target_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py"
+    },
+    {
+      "affected_symbols": [
+        "validate_food_semantic_consumed_input_receipt"
+      ],
+      "candidate_sha256": "0582c70c94fcda46ba7f60c3338c546b20302ca11d70e4dfbc6144118221c02a",
+      "live_git_blob_id": "7025799243216f4d323d0b5f38492d7bd7681810",
+      "live_matches_sealed_replacement": true,
+      "live_sha256": "0582c70c94fcda46ba7f60c3338c546b20302ca11d70e4dfbc6144118221c02a",
+      "preimage_sha256": "985cd9beb2ec0f73ec0ef52261c260dc13f7dbf5f588333b514805f0cfa5a8f1",
+      "replacement_sha256": "0582c70c94fcda46ba7f60c3338c546b20302ca11d70e4dfbc6144118221c02a",
+      "target_path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py"
+    },
+    {
+      "affected_symbols": [
+        "FoodSemanticNoRenderReceiptCandidateContractTest"
+      ],
+      "candidate_sha256": "0bb037cc2bb1abd90745cd6b05f9cd307473c99e4d53138ad5c6fa0227f9d04a",
+      "live_git_blob_id": "3c11de4e2190913d476395477187507d8af42179",
+      "live_matches_sealed_replacement": true,
+      "live_sha256": "0bb037cc2bb1abd90745cd6b05f9cd307473c99e4d53138ad5c6fa0227f9d04a",
+      "preimage_sha256": "d9e40adb82c7981ed5e37ec2d323321c26ae498a5ff23ef2ff50ace83f134597",
+      "replacement_sha256": "0bb037cc2bb1abd90745cd6b05f9cd307473c99e4d53138ad5c6fa0227f9d04a",
+      "target_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py"
+    },
+    {
+      "affected_symbols": [
+        "FoodSemanticPhase4To8PreservationCandidateContractTest"
+      ],
+      "candidate_sha256": "3a0c86a7dbcdeca8c5af02096ab9996af4198beb6cbb5a9c766198cb02434c48",
+      "live_git_blob_id": "9be26d74024ba6402eae8635bd69739509793760",
+      "live_matches_sealed_replacement": true,
+      "live_sha256": "3a0c86a7dbcdeca8c5af02096ab9996af4198beb6cbb5a9c766198cb02434c48",
+      "preimage_sha256": "b3b1772a76356f147aac085742128de8cec4007e32425f43b08d9196007869a3",
+      "replacement_sha256": "3a0c86a7dbcdeca8c5af02096ab9996af4198beb6cbb5a9c766198cb02434c48",
+      "target_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py"
+    }
+  ],
+  "live_replacement_mismatch_count": 0,
+  "original_manifest_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase12_phase2_handoff/naturalization_candidate_patch_manifest.json",
+    "preserved_unchanged": true,
+    "sha256": "c4847ddf0148de934561de329e30884156b3dfa53df225f7ec93eef290e65273"
+  },
+  "regeneration_method": "Recalculate the four live target identities against the preserved sealed candidate manifest; do not rerun the pre-adoption append generator against already-adopted sources.",
+  "schema_version": "food-semantic-naturalization-d16-adoption-manifest-v1",
+  "status": "PASS"
+}

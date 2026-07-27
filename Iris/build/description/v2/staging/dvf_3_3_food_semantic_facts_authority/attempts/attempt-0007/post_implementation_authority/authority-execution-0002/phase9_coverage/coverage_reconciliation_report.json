@@ -1,0 +1,16 @@
+{
+  "approved_automatic_item_count": 79,
+  "approved_automatic_proposition_count": 84,
+  "approved_curated_item_count": 238,
+  "approved_curated_proposition_count": 238,
+  "approved_total_proposition_count": 322,
+  "authority_317_completion_claimed": true,
+  "blocked_count": 0,
+  "coverage_gap": 0,
+  "current_mutation_authorized": false,
+  "double_count": 0,
+  "per_item_disposition_missing": 0,
+  "schema_version": "food-semantic-authority-coverage-v1",
+  "status": "PASS_COMPLETE",
+  "target_semantic_disposition_count": 317
+}

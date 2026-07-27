@@ -1,0 +1,17 @@
+{
+  "approved_axis_distribution": {
+    "consumption_form": 91,
+    "culinary_role": 23,
+    "ingredient_origin": 7,
+    "meal_role": 140,
+    "preparation_requirement": 52,
+    "preparation_state": 1,
+    "preservation_form": 8
+  },
+  "approved_item_count": 317,
+  "approved_proposition_count": 322,
+  "authority_class_separation": true,
+  "automatic_curated_conflict_count": 0,
+  "proposition_identity_duplicate_count": 0,
+  "status": "PASS"
+}

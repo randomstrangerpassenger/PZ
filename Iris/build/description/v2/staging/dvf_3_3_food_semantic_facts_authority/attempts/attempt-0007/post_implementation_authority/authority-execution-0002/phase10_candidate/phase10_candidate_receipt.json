@@ -1,0 +1,54 @@
+{
+  "approved_assertion_count": 322,
+  "approved_food_semantic_schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+  "approved_proposition_licensing_contract_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+  "authority_execution_root": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002",
+  "candidate_artifacts": [
+    {
+      "byte_count": 272,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/candidate_determinism_report.json",
+      "sha256": "e03a7c17d9cde9a35f0d6f6e49ea361cdd087a48c4a386eeeb7565fd2783610d"
+    },
+    {
+      "byte_count": 474,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/candidate_diff_report.json",
+      "sha256": "1e439bc513f7a6fddae5885163e5c76a335e72e14e7221bac11e626e75a7d845"
+    },
+    {
+      "byte_count": 497421,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/candidate_lineage_bundle.jsonl",
+      "row_count": 322,
+      "sha256": "e1710230c09bf48d36866da329c4e729397f5e21f840c92a1eeb0e829ec8436d"
+    },
+    {
+      "byte_count": 1558106,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/candidate_successor_facts.jsonl",
+      "row_count": 2105,
+      "sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b"
+    },
+    {
+      "byte_count": 4445,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/candidate_successor_input_manifest.json",
+      "sha256": "adcdb4527147214e19e00aab45fbc274863a59499205b0e347cc7cd556b9a955"
+    },
+    {
+      "byte_count": 483,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/candidate_validation_report.json",
+      "sha256": "830938a8cde4af24fc7f6d121666ac2d91a6aaeeb6cba055fafa5bc286bf9487"
+    },
+    {
+      "byte_count": 1619,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/writer_attempt_manifest.json",
+      "sha256": "1be2b1d8d82e1518932d05a3b0f99732d578a55de7a7d9d3b91679bbb62eb573"
+    }
+  ],
+  "candidate_successor_facts_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+  "candidate_successor_input_manifest_sha256": "adcdb4527147214e19e00aab45fbc274863a59499205b0e347cc7cd556b9a955",
+  "current_adoption": false,
+  "current_facts_mutation_count": 0,
+  "current_manifest_mutation_count": 0,
+  "phase9_authority_execution_receipt_sha256": "289c2b23daf8adb71deed54f151a016aaa9baed815f2e7901596425ea4f28aee",
+  "schema_version": "food-semantic-phase10-candidate-receipt-v1",
+  "status": "PASS",
+  "target_member_count": 317
+}

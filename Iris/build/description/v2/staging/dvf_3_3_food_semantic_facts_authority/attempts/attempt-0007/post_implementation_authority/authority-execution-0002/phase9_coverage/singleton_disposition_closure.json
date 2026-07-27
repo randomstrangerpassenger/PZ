@@ -1,0 +1,11 @@
+{
+  "approved_proposition_ids": [
+    "fsp:7bc4af6988d227a1c3d1c45c",
+    "fsp:d16d6f9b6cf134e554a2751b",
+    "fsp:f662dfbbeef0c037d2cd51b1"
+  ],
+  "authority_route": "automatic",
+  "authority_terminal_disposition": true,
+  "record_count": 1,
+  "singleton": "Base.Lemongrass"
+}

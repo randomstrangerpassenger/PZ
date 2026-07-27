@@ -1,0 +1,27 @@
+{
+  "approved_automatic_ledger_sha256": "26e91b27df1a1c53fc5e315fd3c71ad7536372eb2a444f3c40bbfb3aae5b7241",
+  "approved_curated_ledger_sha256": "5b028c7d9bcd4fb4c6ab7c9ad74bd72d3ef92503d1b56e19f0d418c517d5caf0",
+  "approved_food_semantic_schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+  "approved_proposition_licensing_contract_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+  "attempt_id": "attempt-0007",
+  "authority_bearing": true,
+  "current_facts": {
+    "byte_count": 1438689,
+    "line_ending_normalized_sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+    "manifest_declared_normalized_sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+    "normalized_manifest_identity_match": true,
+    "observed_worktree_sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6",
+    "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+  },
+  "current_manifest": {
+    "byte_count": 3438,
+    "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "sha256": "db4c5e827c1aad4175894fb0f5b59db9496c5819cacd86a9f703d3542a05be41"
+  },
+  "current_sink_count": 0,
+  "phase9_authority_execution_receipt_sha256": "289c2b23daf8adb71deed54f151a016aaa9baed815f2e7901596425ea4f28aee",
+  "schema_version": "food-semantic-authority-writer-attempt-v1",
+  "target_member_set_sha256": "4f64dc313194016da1c52dc5ad372b281998df36a865b6361373c31a32955739",
+  "write_once": true,
+  "writer": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/authority_phase9_10.py"
+}

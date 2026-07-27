@@ -1,0 +1,7 @@
+{
+  "candidate_same_input_same_output": true,
+  "first_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+  "input_order_permuted": true,
+  "second_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+  "status": "PASS"
+}

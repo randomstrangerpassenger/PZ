@@ -1,0 +1,15 @@
+{
+  "approved_assertion_count": 322,
+  "changed_target_count": 317,
+  "current_facts_mutation_count": 0,
+  "current_manifest_mutation_count": 0,
+  "missing_target_count": 0,
+  "non_target_count": 1788,
+  "non_target_denominator": 1788,
+  "non_target_denominator_derived_from_bound_sets": true,
+  "non_target_row_byte_mismatch_count": 0,
+  "non_target_row_change_count": 0,
+  "out_of_scope_field_write_count": 0,
+  "target_member_count": 317,
+  "unchanged_target_count": 0
+}

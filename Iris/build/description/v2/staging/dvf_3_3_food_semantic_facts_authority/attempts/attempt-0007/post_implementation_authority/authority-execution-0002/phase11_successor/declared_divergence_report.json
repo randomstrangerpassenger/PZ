@@ -1,0 +1,17 @@
+{
+  "affected_row_count": 317,
+  "allowed_divergence_scope": "sealed non-current source successor versus intact predecessor current",
+  "current_facts_sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6",
+  "current_manifest_sha256": "db4c5e827c1aad4175894fb0f5b59db9496c5819cacd86a9f703d3542a05be41",
+  "live_current_source_runtime_divergence_created": false,
+  "resolution_owner": "Iris Artifact Registry",
+  "resolution_scope": "separate reviewed Registry operational cutover plan",
+  "schema_version": "food-semantic-declared-divergence-v1",
+  "selected_branch": "B",
+  "status": "PASS",
+  "successor_facts_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+  "successor_is_non_current": true,
+  "successor_manifest_sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5",
+  "unchanged_rendered_runtime_payload_references_predecessor": true,
+  "undeclared_divergence_count": 0
+}

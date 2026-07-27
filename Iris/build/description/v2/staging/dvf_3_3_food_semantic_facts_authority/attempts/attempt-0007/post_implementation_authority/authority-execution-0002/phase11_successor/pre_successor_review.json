@@ -1,0 +1,16 @@
+{
+  "candidate_semantic_review": "PASS",
+  "current_mutation_authorized": false,
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "phase11_execution_allowed": true,
+  "phase9_10_external_output_review_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase9_10_external_output_review.json",
+  "phase9_10_external_output_review_sha256": "d679374037286737867295bf6cbe5ea9f5a944cbc9e3ee3d1f7e13da9297b23b",
+  "reviewer_identity": "Codex Reviewer",
+  "schema_version": "food-semantic-phase11-pre-successor-review-v1",
+  "status": "PASS",
+  "terminal_independent_gate_credit": 0
+}

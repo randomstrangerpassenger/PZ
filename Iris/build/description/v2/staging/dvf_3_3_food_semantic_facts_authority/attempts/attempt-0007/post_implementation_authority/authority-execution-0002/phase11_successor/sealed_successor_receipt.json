@@ -1,0 +1,100 @@
+{
+  "approved_assertion_count": 322,
+  "artifacts": [
+    {
+      "byte_count": 2162,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/candidate_to_successor_identity_manifest.json",
+      "sha256": "841f8d712671c6ff5091475a878443da9f17f1fb0fe4bf5b8207e29afc1af9a3"
+    },
+    {
+      "byte_count": 565,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/current_authority_defect_declared.schema.json",
+      "sha256": "67409f10f456d57042a7826665d40095266eae400435cf2be5d5056425002909"
+    },
+    {
+      "byte_count": 952,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/declared_divergence_report.json",
+      "sha256": "fc61536440661b8ef5473893231f6135059d476a6b613ab888f79ed7880af9a8"
+    },
+    {
+      "byte_count": 554,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/freshness_impact_report.json",
+      "sha256": "0bb74b0fcab7feb37cb6377a354ddcea64b52a46c6440b2261f3723ba7062034"
+    },
+    {
+      "byte_count": 717,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/pre_successor_review.json",
+      "sha256": "e09341374a8b019e8ed9d153f5de37f135c98af369bd3bbc1affaa14c7239956"
+    },
+    {
+      "byte_count": 516,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/predecessor_disposition_report.json",
+      "sha256": "5a0733abcbb49cf2fd84ea444c59c9c90fe65a789b327d00e85d5564afac345d"
+    },
+    {
+      "byte_count": 5305,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/protected_surface_hashes_after.json",
+      "sha256": "0e23e954df6edc7e9757cc9b83e7070ab4f05a847277c6171840212479ed7fde"
+    },
+    {
+      "byte_count": 1367,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/registry_candidate_diff_manifest.json",
+      "sha256": "ad78ae5341dd832bd2cb28701c71f677a43855eeb9bd1588159fbc23fbdb052e"
+    },
+    {
+      "byte_count": 1680,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/registry_cutover_request.json",
+      "sha256": "32bfe06cd93873339e4f01506dfc9bdf197748283a77e02c0eaea6f2a5de8ea1"
+    },
+    {
+      "byte_count": 1558106,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_facts.jsonl",
+      "row_count": 2105,
+      "sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b"
+    },
+    {
+      "byte_count": 4828,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_input_manifest.json",
+      "sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5"
+    },
+    {
+      "byte_count": 1348,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/selected_successor_input_binding.json",
+      "sha256": "f75ba65c9da60f07d2390767b54a6ea4d4f049aa4214040c8d35c5edb8233977"
+    },
+    {
+      "byte_count": 1282,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/successor_authorization.json",
+      "sha256": "41fcac572c06f37324053b21928ac0430f5904ecf984cbd3e0a738b6e067bdc4"
+    },
+    {
+      "byte_count": 500,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/successor_facts_identity_report.json",
+      "sha256": "8a9422113f8ccb48d70fd5e0427078b47f269f494f7e371aa9b0eb1a8ef0fb9e"
+    },
+    {
+      "byte_count": 949,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/successor_manifest_identity_report.json",
+      "sha256": "9f861a2a4e6661e43efff2a456e7c5deb783da82a66b737d4140050da5ce6d8b"
+    }
+  ],
+  "authorization_sha256": "41fcac572c06f37324053b21928ac0430f5904ecf984cbd3e0a738b6e067bdc4",
+  "branch": "B",
+  "current_facts_mutation_count": 0,
+  "current_manifest_mutation_count": 0,
+  "current_mutation_authorized": false,
+  "forbidden_inference_registry_sha256": "d59198495cc887113febdb9cd4c43d24ac437224020b4bc343aafe8ee4f3ba52",
+  "non_current": true,
+  "owner_decisions_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+  "phase9_10_external_output_review_sha256": "d679374037286737867295bf6cbe5ea9f5a944cbc9e3ee3d1f7e13da9297b23b",
+  "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+  "registry_adoption_receipt_emitted_count": 0,
+  "rendered_lua_runtime_package_change": 0,
+  "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+  "schema_version": "food-semantic-sealed-successor-receipt-v1",
+  "selected_successor_input_binding_sha256": "f75ba65c9da60f07d2390767b54a6ea4d4f049aa4214040c8d35c5edb8233977",
+  "status": "SEALED_NON_CURRENT_SUCCESSOR",
+  "successor_facts_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+  "successor_manifest_sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5",
+  "target_member_count": 317
+}

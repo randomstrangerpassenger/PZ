@@ -1,0 +1,25 @@
+{
+  "branch": "B",
+  "candidate_facts_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+  "candidate_manifest_sha256": "adcdb4527147214e19e00aab45fbc274863a59499205b0e347cc7cd556b9a955",
+  "current_adoption_allowed": false,
+  "current_mutation_allowed": false,
+  "implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "owner_decision_D12": {
+    "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+    "correction_owner": "Iris Artifact Registry",
+    "selected_option": "registry_owned_additive_correction_successor"
+  },
+  "owner_decision_D9": {
+    "approval_time": "2026-07-27T17:23:20.9527814+09:00",
+    "selected_branch": "B",
+    "selected_option": "branch_B_sealed_non_current_handoff_and_future_registry_request"
+  },
+  "owner_decisions_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+  "phase9_10_external_output_review_sha256": "d679374037286737867295bf6cbe5ea9f5a944cbc9e3ee3d1f7e13da9297b23b",
+  "phase9_10_external_output_review_verdict": "PASS",
+  "registry_operational_cutover_authorized": false,
+  "schema_version": "food-semantic-phase11-successor-authorization-v1",
+  "semantic_approval": "PASS_COMPLETE_322_ASSERTIONS",
+  "status": "AUTHORIZED"
+}

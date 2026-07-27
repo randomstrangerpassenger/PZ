@@ -1,0 +1,41 @@
+{
+  "approved_assertion_count": 322,
+  "candidate_facts": {
+    "byte_count": 1558106,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/candidate_successor_facts.jsonl",
+    "sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b"
+  },
+  "candidate_manifest": {
+    "byte_count": 4445,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase10_candidate/candidate_successor_input_manifest.json",
+    "sha256": "adcdb4527147214e19e00aab45fbc274863a59499205b0e347cc7cd556b9a955"
+  },
+  "candidate_successor_facts_byte_identical": true,
+  "manifest_derivation_allowed_changed_fields": [
+    "authority_role",
+    "status",
+    "facts.path",
+    "facts.role",
+    "food_semantic_authority.phase10_candidate_receipt_sha256",
+    "food_semantic_authority.phase9_10_external_output_review_sha256",
+    "food_semantic_authority.successor_authorization_sha256",
+    "food_semantic_authority.selected_branch",
+    "food_semantic_authority.sealed_non_current"
+  ],
+  "manifest_derivation_out_of_scope_change_count": 0,
+  "non_target_row_byte_mismatch_count": 0,
+  "schema_version": "food-semantic-candidate-to-successor-identity-v1",
+  "status": "PASS",
+  "successor_facts": {
+    "byte_count": 1558106,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_facts.jsonl",
+    "row_count": 2105,
+    "sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b"
+  },
+  "successor_manifest": {
+    "byte_count": 4828,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_input_manifest.json",
+    "sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5"
+  },
+  "target_member_count": 317
+}

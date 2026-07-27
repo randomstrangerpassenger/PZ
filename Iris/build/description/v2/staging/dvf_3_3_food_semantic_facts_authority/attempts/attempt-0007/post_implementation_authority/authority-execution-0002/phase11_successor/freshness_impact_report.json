@@ -1,0 +1,12 @@
+{
+  "current_freshness_changed": false,
+  "downstream_closure_restored_by_this_declaration": false,
+  "fresh_naturalization_attempt_required_after_future_adoption": true,
+  "future_registry_cutover_requires_freshness_reseal": true,
+  "future_registry_cutover_would_stale_required_validation": true,
+  "official_naturalization_retry_allowed": false,
+  "official_naturalization_retry_deferred_until_registry_adoption": true,
+  "schema_version": "food-semantic-freshness-impact-v1",
+  "status": "DECLARED_NOT_RESEALED",
+  "successor_is_non_current": true
+}

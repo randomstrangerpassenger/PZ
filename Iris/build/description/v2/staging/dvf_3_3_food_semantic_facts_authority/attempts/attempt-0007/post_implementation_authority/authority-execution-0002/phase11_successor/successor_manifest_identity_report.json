@@ -1,0 +1,24 @@
+{
+  "candidate_manifest_sha256": "adcdb4527147214e19e00aab45fbc274863a59499205b0e347cc7cd556b9a955",
+  "current_adoption": false,
+  "derivation_allowed_changed_fields": [
+    "authority_role",
+    "status",
+    "facts.path",
+    "facts.role",
+    "food_semantic_authority.phase10_candidate_receipt_sha256",
+    "food_semantic_authority.phase9_10_external_output_review_sha256",
+    "food_semantic_authority.successor_authorization_sha256",
+    "food_semantic_authority.selected_branch",
+    "food_semantic_authority.sealed_non_current"
+  ],
+  "derivation_out_of_scope_change_count": 0,
+  "non_current": true,
+  "proposition_license_sha256_bound": true,
+  "schema_sha256_bound": true,
+  "schema_version": "food-semantic-successor-manifest-identity-v1",
+  "status": "PASS",
+  "successor_facts_sha256_bound": true,
+  "successor_identity_sealed": true,
+  "successor_manifest_sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5"
+}

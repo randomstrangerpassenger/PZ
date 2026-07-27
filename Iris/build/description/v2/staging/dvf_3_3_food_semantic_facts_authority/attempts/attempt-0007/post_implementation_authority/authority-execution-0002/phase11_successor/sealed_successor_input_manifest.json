@@ -1,0 +1,94 @@
+{
+  "authority_date": "2026-06-18",
+  "authority_role": "sealed_non_current_food_semantic_successor",
+  "baseline_identity": "dvf_3_3_vnext_current_authority_implementation_2105_consumer_migration",
+  "compose_authority": {
+    "body_plan_alias": "body-plan v2 is alias only for compose_profiles_v2.json + body_plan",
+    "identity_rules_path": "Iris/build/description/v2/data/compose_profile_identity_hint_rules.json",
+    "identity_rules_sha256": "254a088e885ec905680a8830e78ff6e761a272f9002afa9c55b9093118c32c97",
+    "precedence_rules_path": "Iris/build/description/v2/data/compose_profile_conflict_precedence_rules.json",
+    "precedence_rules_sha256": "d108c7e6a80b109d8947be6e9a8efe936ded2bd40e5b48943fbcc5327986c67d",
+    "profiles_path": "Iris/build/description/v2/data/compose_profiles_v2.json",
+    "profiles_sha256": "ba986a2f267a2d7f450474a903867b0120221fdd135dab93d2f3e6332dd92b14"
+  },
+  "decisions": {
+    "legacy_active_silent_current_writer_allowed": false,
+    "path": "Iris/build/description/v2/data/dvf_3_3_decisions.jsonl",
+    "role": "current_decision_authority",
+    "row_count": 2105,
+    "runtime_vocabulary": [
+      "adopted",
+      "unadopted"
+    ],
+    "sha256": "c0d6c253d9d7041fb072383c253ec8f438f9211a039ee1cf91b17e5c3418df46"
+  },
+  "expected_universe": {
+    "decisions_count": 2105,
+    "facts_count": 2105,
+    "rendered_count": 2105,
+    "source": "corrected vNext source manifest promoted to current source paths"
+  },
+  "facts": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_facts.jsonl",
+    "role": "sealed_non_current_successor_input",
+    "row_count": 2105,
+    "sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b"
+  },
+  "fixture_exclusion_rule": {
+    "excluded_paths": [
+      "Iris/build/description/v2/staging/compose_contract_migration/layer3_body_source_overlay.jsonl",
+      "Iris/build/description/v2/staging/dvf_3_3_vnext_regeneration_parity/phase3/accepted_overlay.jsonl"
+    ],
+    "fixture_threshold": 10,
+    "production_manifest_must_not_reference_fixture_paths": true
+  },
+  "food_semantic_authority": {
+    "approved_assertion_count": 322,
+    "approved_item_count": 317,
+    "attempt_id": "attempt-0007",
+    "authority_bearing": true,
+    "authority_execution_root": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002",
+    "current_adoption_allowed": false,
+    "owner_decisions_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+    "phase10_candidate_receipt_sha256": "c9ced3a64dd3a1aa850a246bc35b95a9f4c80cd58b8f4887bbcab9f4189af8f8",
+    "phase8_external_review_sha256": "15a937be6dea2754a43f2359bffbed8087f95b5c8c613644698d9822319d642a",
+    "phase9_10_external_output_review_sha256": "d679374037286737867295bf6cbe5ea9f5a944cbc9e3ee3d1f7e13da9297b23b",
+    "phase9_authority_execution_receipt_sha256": "289c2b23daf8adb71deed54f151a016aaa9baed815f2e7901596425ea4f28aee",
+    "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+    "sealed_non_current": true,
+    "selected_branch": "B",
+    "successor_authorization_sha256": "41fcac572c06f37324053b21928ac0430f5904ecf984cbd3e0a738b6e067bdc4"
+  },
+  "generated_at": "2026-06-17T16:24:05.830775+00:00",
+  "non_claims": [
+    "no_package_release_readiness",
+    "no_workshop_readiness",
+    "no_b42_readiness",
+    "no_manual_in_game_validation",
+    "no_public_facing_text_quality_acceptance"
+  ],
+  "overlays": [
+    {
+      "path": "Iris/build/description/v2/data/dvf_3_3_overlay_support.jsonl",
+      "role": "compose_support_not_source_authority",
+      "row_count": 2105,
+      "sha256": "c16947429ccf0d07bd8df0b4a10c9c9ccae057e5407241414bfbf88628d04464",
+      "source": "fresh_generated_from_current_facts"
+    }
+  ],
+  "runtime_authority": {
+    "chunk_dir_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks",
+    "chunk_manifest_path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+    "monolith_runtime_authority": false
+  },
+  "schema_version": "dvf-3-3-input-manifest-v1",
+  "source_promotion": {
+    "accepted_source_count": 2105,
+    "corrected_source_manifest": "Iris/build/description/v2/staging/dvf_3_3_vnext_rejected_delta_correction_reparity/phase5/corrected_source_manifest.json",
+    "corrected_source_manifest_sha256": "9258e7bd486c9085089a3742ee509e70ad7384aeacd29eb3f1d2ab7f652437f9",
+    "mode": "replace_current_paths",
+    "predecessor_fixture_paths_are_historical": true
+  },
+  "status": "sealed_non_current_successor"
+}

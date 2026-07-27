@@ -1,0 +1,31 @@
+{
+  "atomic_allowed_states": [
+    "predecessor_current_intact",
+    "successor_current_fully_adopted"
+  ],
+  "correction_contract": {
+    "correction_owner": "Iris Artifact Registry",
+    "correction_successor_must_be_additive": true,
+    "operational_route": "separate_reviewed_registry_operational_cutover_plan",
+    "partial_or_dual_current_allowed": false,
+    "predecessor_current_reentry_allowed": false,
+    "predecessor_fallback_after_future_promotion_allowed": false
+  },
+  "current_mutation_authorized_by_this_execution": false,
+  "current_mutation_requested_by_this_execution": false,
+  "official_naturalization_retry_requires_fresh_attempt_after_cutover": true,
+  "owner_decision_D12": "registry_owned_additive_correction_successor",
+  "owner_decision_D9": "branch_B_sealed_non_current_handoff_and_future_registry_request",
+  "partial_or_dual_current_allowed": false,
+  "predecessor_fallback_allowed": false,
+  "registry_adoption_receipt_emitted_count": 0,
+  "registry_candidate_diff_manifest_sha256": "ad78ae5341dd832bd2cb28701c71f677a43855eeb9bd1588159fbc23fbdb052e",
+  "request_owner": "Iris Artifact Registry",
+  "requested_action": "review sealed successor for a future atomic operational cutover",
+  "required_validation_freshness_reseal_after_future_cutover": true,
+  "schema_version": "food-semantic-registry-cutover-request-v1",
+  "selected_successor_input_binding_sha256": "f75ba65c9da60f07d2390767b54a6ea4d4f049aa4214040c8d35c5edb8233977",
+  "separate_reviewed_operational_cutover_plan_required": true,
+  "status": "PENDING_SEPARATE_REGISTRY_REVIEW",
+  "successor_authorization_sha256": "41fcac572c06f37324053b21928ac0430f5904ecf984cbd3e0a738b6e067bdc4"
+}

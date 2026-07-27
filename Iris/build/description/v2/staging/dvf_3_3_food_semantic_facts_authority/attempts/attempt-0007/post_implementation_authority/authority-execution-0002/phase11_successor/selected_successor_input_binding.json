@@ -1,0 +1,16 @@
+{
+  "approved_food_semantic_schema_path": "Iris/_docs/authority/food_semantic/food_semantic_schema.json",
+  "approved_food_semantic_schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+  "approved_proposition_licensing_contract_path": "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json",
+  "approved_proposition_licensing_contract_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+  "current": false,
+  "current_adoption_allowed": false,
+  "only_authorized_phase12_input": true,
+  "schema_version": "food-semantic-selected-successor-input-binding-v1",
+  "selected_branch": "B",
+  "status": "SEALED",
+  "successor_facts_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_facts.jsonl",
+  "successor_facts_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+  "successor_input_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_input_manifest.json",
+  "successor_input_manifest_sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5"
+}

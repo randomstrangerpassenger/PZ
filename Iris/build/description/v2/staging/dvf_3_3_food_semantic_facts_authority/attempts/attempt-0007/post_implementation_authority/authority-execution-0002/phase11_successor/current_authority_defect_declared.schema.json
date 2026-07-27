@@ -1,0 +1,18 @@
+{
+  "correction_owner": "Iris Artifact Registry",
+  "partial_or_dual_current": 0,
+  "predecessor_current_reentry": 0,
+  "predecessor_fallback": 0,
+  "proposal_only_not_issued": true,
+  "required": [
+    "defect_identity",
+    "affected_rows_and_propositions",
+    "defect_discovery_evidence",
+    "correction_successor_unavailable_reason",
+    "current_source_rendered_divergence_update",
+    "required_gate_status",
+    "owner_scoped_correction_round_route"
+  ],
+  "schema_version": "food-semantic-current-authority-defect-v1",
+  "success_terminal_state": false
+}

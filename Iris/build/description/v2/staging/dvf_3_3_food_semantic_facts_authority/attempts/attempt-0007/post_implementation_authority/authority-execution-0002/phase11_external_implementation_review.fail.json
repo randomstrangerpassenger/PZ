@@ -1,0 +1,358 @@
+{
+  "schema_version": "food-semantic-phase11-external-implementation-review-v1",
+  "review_id": "dvf-3-3-food-semantic-phase11-external-implementation-review-a03b4943",
+  "reviewed_at": "2026-07-27T21:57:45.3945345+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": "Pre-execution external implementation review of the exact Phase 11 canonical runner, private fixture path, reviewed Phase 9/10 output and 18-artifact closure, live sealed contracts, D9 Branch B and D12 Registry-owned additive correction authority, sealed successor facts and manifest derivation, exact four-hash selected input binding, payload preflight and write-once behavior, current and protected-surface preservation, Registry request-only boundary, receipts, divergence, freshness, predecessor no-fallback, and independent positive and adversarial fixtures.",
+  "review_target": {
+    "reviewed_commit_sha": "a03b4943672f838f3466d8ba5a5de3e8c73ae8ca",
+    "reviewed_commit_parent_sha": "3b8dd7feb7a8e9d4f361b61e4e310e8685d48a28",
+    "reviewed_commit_subject": "Implement Phase 11 sealed successor execution",
+    "commit_is_checked_out_head": true,
+    "authority_root": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002",
+    "bound_attempt_id": "attempt-0007",
+    "actual_phase11_successor_present_before_review": false,
+    "actual_phase11_successor_present_after_review": false,
+    "reviewed_commit_changed_path_count": 3,
+    "reviewed_commit_changed_path_set_exactly_reviewed_code_artifacts": true,
+    "reviewed_commit_current_or_protected_path_change_count": 0
+  },
+  "reviewed_commit_sha": "a03b4943672f838f3466d8ba5a5de3e8c73ae8ca",
+  "reviewed_commit_parent_sha": "3b8dd7feb7a8e9d4f361b61e4e310e8685d48a28",
+  "reviewed_phase9_10_output_review_sha256": "d679374037286737867295bf6cbe5ea9f5a944cbc9e3ee3d1f7e13da9297b23b",
+  "reviewed_owner_decisions_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+  "reviewed_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "reviewed_code_artifacts": [
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/authority_phase11.py",
+      "sha256": "ab638e22125fdc59d01c1361477f44faa484a93e8b28f67114b84829af3aa694",
+      "byte_count": 43274
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_authority_phase11.py",
+      "sha256": "2be68bae9be2b326159a158ddbc95ac8cc0d9dc24c9b8b359881dd9b695ab6bf",
+      "byte_count": 1076
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_authority_phase11.py",
+      "sha256": "3a4f6d754fef16e7c76020f7b343f73a7fd8ef2281819237baca1b694cea3e05",
+      "byte_count": 6912
+    }
+  ],
+  "reviewed_authority_chain": {
+    "phase9_10_external_output_review": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase9_10_external_output_review.json",
+      "sha256": "d679374037286737867295bf6cbe5ea9f5a944cbc9e3ee3d1f7e13da9297b23b",
+      "byte_count": 26201,
+      "verdict": "PASS",
+      "phase9_10_output_scope_verdict": "PASS",
+      "phase11_execution_allowed": true,
+      "reviewed_artifact_count": 18,
+      "reviewed_artifact_identity_mismatch_count": 0
+    },
+    "owner_decisions": {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/owner_reserved_decisions.json",
+      "sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+      "byte_count": 16305,
+      "record_status": "approved",
+      "approver_identity": "repository_owner",
+      "D9_selected_branch": "B",
+      "D9_current_mutation_allowed": false,
+      "D12_correction_owner": "Iris Artifact Registry",
+      "D12_predecessor_current_reentry_allowed": false,
+      "D12_predecessor_fallback_after_future_promotion_allowed": false
+    },
+    "implementation_complete_bundle": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase13_closeout/implementation_complete_bundle.json",
+      "sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "byte_count": 50331,
+      "attempt_verify_identity_match": true
+    },
+    "prior_review_artifacts_preserved": [
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/external_authority_materialization_review.json",
+        "sha256": "15a937be6dea2754a43f2359bffbed8087f95b5c8c613644698d9822319d642a",
+        "byte_count": 25764
+      },
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase9_10_external_implementation_review.fail.json",
+        "sha256": "b2e2d0d7721689c54734142a9489320184d05c297cdde974332508ee8a24ac22",
+        "byte_count": 23886
+      },
+      {
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase9_10_external_implementation_review.json",
+        "sha256": "1953243e5c34c153a644d1222ec904f9aaa368a197d0ae4e382c4928a4f7257a",
+        "byte_count": 15063
+      }
+    ]
+  },
+  "reviewed_sealed_contracts": [
+    {
+      "role": "food semantic schema",
+      "path": "Iris/_docs/authority/food_semantic/food_semantic_schema.json",
+      "sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "byte_count": 5703,
+      "live_bundle_identity_match": true,
+      "independent_tamper_result": "EXPECTED_BLOCKED"
+    },
+    {
+      "role": "proposition licensing contract",
+      "path": "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json",
+      "sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "byte_count": 13570,
+      "live_bundle_identity_match": true,
+      "independent_tamper_result": "EXPECTED_BLOCKED"
+    },
+    {
+      "role": "forbidden inference registry",
+      "path": "Iris/_docs/authority/food_semantic/forbidden_inference_registry.json",
+      "sha256": "d59198495cc887113febdb9cd4c43d24ac437224020b4bc343aafe8ee4f3ba52",
+      "byte_count": 753,
+      "live_bundle_identity_match": true,
+      "independent_tamper_result": "EXPECTED_BLOCKED"
+    }
+  ],
+  "positive_implementation_observations": {
+    "canonical_public_runner_missing_external_review_result": "EXPECTED_BLOCKED",
+    "phase9_10_reviewed_artifact_count": 18,
+    "phase9_10_reviewed_artifact_identity_mismatch_count": 0,
+    "D9_branch_B_exact_binding": true,
+    "D12_registry_owned_additive_correction_route_exact_binding": true,
+    "candidate_successor_facts_byte_identical": true,
+    "candidate_successor_facts_row_count": 2105,
+    "candidate_manifest_exact_allowed_change_count": 9,
+    "candidate_manifest_out_of_scope_change_count": 0,
+    "selected_successor_binding_exact_hash_count": 4,
+    "selected_successor_facts_hash_bound": true,
+    "selected_successor_manifest_hash_bound": true,
+    "selected_successor_schema_hash_bound": true,
+    "selected_successor_license_hash_bound": true,
+    "phase11_payload_count": 17,
+    "sealed_receipt_artifact_count": 15,
+    "execution_receipt_artifact_count_excluding_self": 16,
+    "preflight_before_write": true,
+    "isolated_same_root_idempotent": true,
+    "isolated_differing_rerun_result": "EXPECTED_BLOCKED",
+    "isolated_differing_rerun_other_artifact_change_count": 0,
+    "current_facts_mutation_count": 0,
+    "current_manifest_mutation_count": 0,
+    "protected_surface_changed_count": 0,
+    "rendered_lua_runtime_package_change_count": 0,
+    "registry_operational_cutover_executed": false,
+    "registry_adoption_receipt_emitted_count": 0,
+    "registry_cutover_artifact_role": "REQUEST_ONLY",
+    "predecessor_current_reentry_allowed": false,
+    "predecessor_fallback_after_future_promotion_allowed": false,
+    "future_registry_cutover_requires_freshness_reseal": true,
+    "official_naturalization_retry_allowed": false
+  },
+  "independent_adversarial_results": [
+    {
+      "case": "canonical public gate without Phase 11 external implementation review",
+      "result": "EXPECTED_BLOCKED",
+      "phase11_successor_created": false
+    },
+    {
+      "case": "private fixture given canonical authority-root phase11_successor sink without Phase 11 external review",
+      "result": "UNEXPECTED_ACCEPTED",
+      "payload_count": 17,
+      "write_phase_reached": true,
+      "write_function_mocked": true,
+      "actual_phase11_successor_created": false,
+      "finding_id": "PHASE11-EXT-I-001"
+    },
+    {
+      "case": "external Phase 11 review with wrong reviewed_commit_sha and exact current code identities",
+      "result": "UNEXPECTED_ACCEPTED",
+      "synthetic_reviewed_commit_sha": "0000000000000000000000000000000000000000",
+      "finding_id": "PHASE11-EXT-I-002"
+    },
+    {
+      "case": "external Phase 11 review with wrong reviewed code hash",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "pinned Phase 9/10 external output review byte tamper",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "reviewed Phase 9/10 artifact identity tamper",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "owner D9/D12 decision record identity tamper",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "live food semantic schema drift",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "live proposition licensing contract drift",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "live forbidden-inference registry drift",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "reviewed Phase 10 candidate facts identity tamper",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "protected or escaped output sink",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "differing isolated Phase 11 write-once artifact",
+      "result": "EXPECTED_BLOCKED_NO_OTHER_WRITES"
+    }
+  ],
+  "current_and_protected_identity": {
+    "current_facts": {
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6",
+      "byte_count": 1438689,
+      "row_count": 2105
+    },
+    "current_manifest": {
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "sha256": "db4c5e827c1aad4175894fb0f5b59db9496c5819cacd86a9f703d3542a05be41",
+      "byte_count": 3438
+    },
+    "attempt_verify_artifact_mismatch_count": 0,
+    "attempt_verify_authority_claim_emitted_count": 0,
+    "attempt_verify_current_facts_manifest_mutation_count": 0,
+    "attempt_verify_protected_surface_changed_count": 0,
+    "actual_phase11_successor_created": false,
+    "actual_phase12_or_later_artifact_created": false,
+    "actual_current_or_protected_mutation_count": 0,
+    "prior_review_or_phase9_10_artifact_mutation_count": 0
+  },
+  "findings": [
+    {
+      "finding_id": "PHASE11-EXT-I-001",
+      "severity": "important",
+      "title": "Private fixture can bypass the external review gate at the canonical Phase 11 sink",
+      "locations": [
+        {
+          "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/authority_phase11.py",
+          "line": 458,
+          "symbol": "_require_phase11_output_sink"
+        },
+        {
+          "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/authority_phase11.py",
+          "line": 1084,
+          "symbol": "_materialize_authority_phase11_fixture"
+        }
+      ],
+      "evidence": "The private materializer does not call _validate_phase11_external_implementation_review, while the shared sink validator explicitly accepts an output root named phase11_successor. With the canonical review absent, an independent no-write reproduction passed authority_root/phase11_successor to _materialize_authority_phase11_fixture; it produced a PASS result, built all 17 payloads, and reached _preflight_and_write. The write function was mocked, so no actual directory or artifact was created.",
+      "impact": "Any caller able to import the module can materialize authoritative-looking canonical Phase 11 artifacts at the exact public sink without the required external implementation PASS. The public CLI is fail-closed, but the actual durable authority boundary is not exclusive to that gated path.",
+      "required_remediation": "Make the fixture path temp-only and structurally unable to target phase11_successor. Separate the gated canonical materializer from the fixture materializer, require the fixture output name and location to be an existing p11-fixture-* temporary sink, and ensure only run_authority_phase11 can reach the canonical phase11_successor write path after validating the exact external review. Add a zero-write test that calls the private fixture with the canonical sink while the external review is absent and expects rejection."
+    },
+    {
+      "finding_id": "PHASE11-EXT-I-002",
+      "severity": "important",
+      "title": "External implementation review is not bound to the reviewed commit",
+      "locations": [
+        {
+          "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/authority_phase11.py",
+          "line": 1009,
+          "symbol": "_validate_phase11_external_implementation_review"
+        }
+      ],
+      "evidence": "The validator checks the exact three reviewed code file hashes and the other PASS fields but never reads reviewed_commit_sha. An independent synthetic review containing the exact current code identities and every required PASS field, but reviewed_commit_sha set to forty zeroes, was accepted unchanged. Changing one reviewed code hash was correctly rejected, isolating the missing commit check.",
+      "impact": "The canonical Phase 11 gate can consume a review that does not attest to exact commit a03b4943672f838f3466d8ba5a5de3e8c73ae8ca, breaking the requested commit-level review chain and allowing misleading or stale commit provenance even when file hashes happen to match.",
+      "required_remediation": "Introduce the exact reviewed implementation commit as a constant or otherwise sealed input and require review.reviewed_commit_sha to equal a03b4943672f838f3466d8ba5a5de3e8c73ae8ca. Add a test proving a wrong or missing reviewed_commit_sha blocks before any payload construction or write."
+    }
+  ],
+  "finding_counts": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0
+  },
+  "validation_runs": [
+    {
+      "command": "git show --check a03b4943672f838f3466d8ba5a5de3e8c73ae8ca",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "uv run python -B -m unittest Iris.build.description.v2.tests.test_dvf_3_3_food_semantic_authority_phase11",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 6
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 44
+    },
+    {
+      "command": "independent Codex Reviewer in-memory payload, manifest diff, selected binding, receipt closure, authority chain, protected identity, and adversarial audit",
+      "exit_code": 0,
+      "result": "FAIL_WITH_TWO_REPRODUCED_IMPORTANT_FINDINGS",
+      "phase11_payload_count": 17,
+      "unexpected_accept_case_count": 2,
+      "actual_output_write_count": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_authority_claim_emitted_count": 0,
+      "observed_current_facts_manifest_mutation_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "canonical public runner invocation with no Phase 11 external implementation review",
+      "exit_code": 1,
+      "result": "EXPECTED_BLOCKED_BEFORE_PHASE11_EXECUTION",
+      "error": "Phase 11 external implementation review is missing",
+      "actual_phase11_successor_created": false
+    },
+    {
+      "command": "git diff --name-only 3b8dd7feb7a8e9d4f361b61e4e310e8685d48a28..a03b4943672f838f3466d8ba5a5de3e8c73ae8ca over current facts/manifest, rendered output, Lua/runtime, and package roots",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    }
+  ],
+  "review_verdict": "FAIL",
+  "verdict": "FAIL",
+  "phase11_scope_verdict": "FAIL",
+  "verdict_basis": "The exact implementation correctly validates the pinned Phase 9/10 output review and all 18 artifacts, the live bundled schema/license/forbidden contracts, D9 Branch B and D12 Registry-owned correction route, candidate closure, exact successor facts bytes, the nine-field manifest derivation, selected four-hash binding, receipt closure, request-only Registry boundary, current/protected preservation, idempotence, and write-once behavior. However, two open Important findings break the pre-execution authority boundary: the private fixture can reach the canonical Phase 11 sink without the external implementation gate, and the external review validator accepts a review whose reviewed_commit_sha is wrong. Phase 11 execution is not authorized.",
+  "phase11_execution_allowed": false,
+  "current_mutation_authorized": false,
+  "current_adoption_allowed": false,
+  "terminal_independent_gate_credit": 0,
+  "required_gate_filename_created": false,
+  "required_gate_filename": "phase11_external_implementation_review.json",
+  "canonical_pass_review_present": false,
+  "actual_public_runner_invocation_blocked_before_phase11_execution": true,
+  "actual_phase11_execution_performed_by_review": false,
+  "actual_phase11_successor_generation_performed_by_review": false,
+  "actual_phase12_or_later_execution_performed_by_review": false,
+  "actual_current_facts_mutation_performed_by_review": false,
+  "actual_current_manifest_mutation_performed_by_review": false,
+  "actual_current_adoption_performed_by_review": false,
+  "actual_terminal_review_performed_by_review": false,
+  "required_next_state": "A successor implementation commit must make the private fixture temp-only, reserve the canonical phase11_successor sink exclusively for the externally gated public path, validate exact reviewed_commit_sha, add adversarial zero-write coverage for both cases, and receive a fresh external Phase 11 implementation review. The canonical phase11_external_implementation_review.json must remain absent until that review passes.",
+  "non_claims": [
+    "Phase 11 implementation externally approved",
+    "Phase 11 execution allowed",
+    "Phase 11 successor materialized",
+    "sealed non-current successor created in the actual authority root",
+    "Phase 12 or later execution authorized",
+    "current facts or manifest mutation authorized",
+    "current adoption authorized",
+    "Registry operational cutover executed",
+    "Registry adoption receipt emitted",
+    "terminal independent closeout PASS"
+  ]
+}

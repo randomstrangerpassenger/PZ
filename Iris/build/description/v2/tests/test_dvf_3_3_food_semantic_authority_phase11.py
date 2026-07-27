@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 
 V2_ROOT = Path(__file__).resolve().parents[1]
@@ -22,6 +23,7 @@ from tools.build.dvf_3_3_food_semantic.authority_phase11 import (
     _validate_phase9_10_output_review,
 )
 from tools.build.dvf_3_3_food_semantic.contracts import FoodSemanticError
+from tools.build.dvf_3_3_food_semantic.contracts import sha256_file
 
 
 ATTEMPT_ROOT = (
@@ -36,6 +38,60 @@ AUTHORITY_ROOT = (
 
 
 class FoodSemanticAuthorityPhase11Test(unittest.TestCase):
+    def _synthetic_external_review(
+        self,
+        reviewed_commit_sha: str | None,
+    ) -> dict[str, object]:
+        relative_paths = [
+            (
+                "Iris/build/description/v2/tools/build/"
+                "dvf_3_3_food_semantic/authority_phase11.py"
+            ),
+            (
+                "Iris/build/description/v2/tools/build/"
+                "run_dvf_3_3_food_semantic_authority_phase11.py"
+            ),
+            (
+                "Iris/build/description/v2/tests/"
+                "test_dvf_3_3_food_semantic_authority_phase11.py"
+            ),
+        ]
+        payload: dict[str, object] = {
+            "verdict": "PASS",
+            "review_verdict": "PASS",
+            "phase11_scope_verdict": "PASS",
+            "reviewer_identity": "Codex Reviewer",
+            "reviewer_is_implementation_author": False,
+            "finding_counts": {
+                "critical": 0,
+                "important": 0,
+                "minor": 0,
+            },
+            "phase11_execution_allowed": True,
+            "current_mutation_authorized": False,
+            "current_adoption_allowed": False,
+            "terminal_independent_gate_credit": 0,
+            "reviewed_phase9_10_output_review_sha256": (
+                PHASE9_10_OUTPUT_REVIEW_SHA256
+            ),
+            "reviewed_owner_decisions_sha256": OWNER_DECISIONS_SHA256,
+            "reviewed_commit_parent_sha": "0" * 40,
+            "actual_phase11_execution_performed_by_review": False,
+            "actual_current_adoption_performed_by_review": False,
+            "actual_terminal_review_performed_by_review": False,
+            "reviewed_code_artifacts": [
+                {
+                    "path": relative,
+                    "sha256": sha256_file(REPO_ROOT / relative),
+                    "byte_count": (REPO_ROOT / relative).stat().st_size,
+                }
+                for relative in relative_paths
+            ],
+        }
+        if reviewed_commit_sha is not None:
+            payload["reviewed_commit_sha"] = reviewed_commit_sha
+        return payload
+
     def test_reviewed_phase9_10_output_gate_is_exact(self) -> None:
         review = _validate_phase9_10_output_review(
             REPO_ROOT,
@@ -85,6 +141,54 @@ class FoodSemanticAuthorityPhase11Test(unittest.TestCase):
                     REPO_ROOT,
                     temp_authority,
                 )
+
+    def test_external_review_rejects_wrong_or_missing_commit_provenance(
+        self,
+    ) -> None:
+        for marker in ("0" * 40, None):
+            with self.subTest(reviewed_commit_sha=marker):
+                with tempfile.TemporaryDirectory(
+                    dir=AUTHORITY_ROOT
+                ) as temp_dir:
+                    temp_authority = Path(temp_dir)
+                    review = self._synthetic_external_review(marker)
+                    (
+                        temp_authority
+                        / "phase11_external_implementation_review.json"
+                    ).write_text(
+                        json.dumps(review),
+                        encoding="utf-8",
+                    )
+                    with self.assertRaises(FoodSemanticError):
+                        _validate_phase11_external_implementation_review(
+                            REPO_ROOT,
+                            temp_authority,
+                        )
+                    self.assertFalse(
+                        (temp_authority / "phase11_successor").exists()
+                    )
+
+    def test_private_fixture_rejects_canonical_sink_before_write(
+        self,
+    ) -> None:
+        canonical = AUTHORITY_ROOT / "phase11_successor"
+        with patch(
+            (
+                "tools.build.dvf_3_3_food_semantic."
+                "authority_phase11._preflight_and_write"
+            )
+        ) as writer:
+            with self.assertRaisesRegex(
+                FoodSemanticError,
+                "fixture output must be p11-fixture temp-only",
+            ):
+                _materialize_authority_phase11_fixture(
+                    REPO_ROOT,
+                    ATTEMPT_ROOT,
+                    AUTHORITY_ROOT,
+                    canonical,
+                )
+            writer.assert_not_called()
 
     def test_fixture_materializes_sealed_non_current_successor(self) -> None:
         with tempfile.TemporaryDirectory(

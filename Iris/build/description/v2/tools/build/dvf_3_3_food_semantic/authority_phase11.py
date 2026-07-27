@@ -3,6 +3,7 @@ from __future__ import annotations
 from copy import deepcopy
 from dataclasses import asdict
 from pathlib import Path
+import subprocess
 from typing import Any
 
 from .authority_phase9_10 import (
@@ -449,6 +450,8 @@ def _require_phase11_output_sink(
     attempt_root: Path,
     authority_root: Path,
     output_root: Path,
+    *,
+    fixture_only: bool,
 ) -> None:
     try:
         output_root.resolve().relative_to(authority_root.resolve())
@@ -458,11 +461,19 @@ def _require_phase11_output_sink(
         ) from exc
     if output_root.resolve() == authority_root.resolve():
         raise FoodSemanticError("Phase 11 output root cannot be authority root")
-    if not (
-        output_root.name.startswith("phase11_successor")
-        or output_root.name.startswith("p11-fixture-")
-    ):
-        raise FoodSemanticError("Phase 11 output root name is not allowed")
+    canonical = (authority_root / "phase11_successor").resolve()
+    if fixture_only:
+        if (
+            output_root.resolve() == canonical
+            or not output_root.name.startswith("p11-fixture-")
+        ):
+            raise FoodSemanticError(
+                "Phase 11 fixture output must be p11-fixture temp-only"
+            )
+    elif output_root.resolve() != canonical:
+        raise FoodSemanticError(
+            "canonical Phase 11 materializer requires exact successor sink"
+        )
     try:
         output_root.resolve().relative_to(attempt_root.resolve())
     except ValueError as exc:
@@ -509,8 +520,15 @@ def _phase11_payloads(
     attempt_root: Path,
     authority_root: Path,
     output_root: Path,
+    *,
+    fixture_only: bool = True,
 ) -> tuple[dict[Path, bytes], dict[str, Any]]:
-    _require_phase11_output_sink(attempt_root, authority_root, output_root)
+    _require_phase11_output_sink(
+        attempt_root,
+        authority_root,
+        output_root,
+        fixture_only=fixture_only,
+    )
     output_review = _validate_phase9_10_output_review(
         root,
         attempt_root,
@@ -1078,7 +1096,68 @@ def _validate_phase11_external_implementation_review(
         raise FoodSemanticError(
             "Phase 11 external implementation review is not exact PASS"
         )
+    _validate_reviewed_commit_provenance(
+        root,
+        review,
+        required_code_paths=required_code_paths,
+        reviewed_by_path=reviewed_by_path,
+    )
     return review
+
+
+def _git_output(root: Path, *arguments: str) -> bytes:
+    completed = subprocess.run(
+        ["git", "-C", str(root), *arguments],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if completed.returncode != 0:
+        message = completed.stderr.decode("utf-8", errors="replace").strip()
+        raise FoodSemanticError(
+            f"reviewed commit provenance lookup failed: {message}"
+        )
+    return completed.stdout
+
+
+def _validate_reviewed_commit_provenance(
+    root: Path,
+    review: dict[str, Any],
+    *,
+    required_code_paths: set[str],
+    reviewed_by_path: dict[str, dict[str, Any]],
+) -> None:
+    commit = review.get("reviewed_commit_sha")
+    parent = review.get("reviewed_commit_parent_sha")
+    hexadecimal = set("0123456789abcdef")
+    if (
+        not isinstance(commit, str)
+        or len(commit) != 40
+        or set(commit) - hexadecimal
+        or not isinstance(parent, str)
+        or len(parent) != 40
+        or set(parent) - hexadecimal
+    ):
+        raise FoodSemanticError(
+            "Phase 11 reviewed commit identity is missing or malformed"
+        )
+    observed_parent = (
+        _git_output(root, "rev-parse", f"{commit}^")
+        .decode("ascii")
+        .strip()
+    )
+    if observed_parent != parent:
+        raise FoodSemanticError("Phase 11 reviewed commit parent mismatch")
+    for relative in sorted(required_code_paths):
+        committed = _git_output(root, "show", f"{commit}:{relative}")
+        row = reviewed_by_path[relative]
+        if (
+            sha256_bytes(committed) != row.get("sha256")
+            or len(committed) != row.get("byte_count")
+        ):
+            raise FoodSemanticError(
+                f"Phase 11 reviewed commit blob mismatch: {relative}"
+            )
 
 
 def _materialize_authority_phase11_fixture(
@@ -1092,6 +1171,24 @@ def _materialize_authority_phase11_fixture(
         attempt_root,
         authority_root,
         output_root,
+        fixture_only=True,
+    )
+    _preflight_and_write(payloads)
+    return result
+
+
+def _materialize_authority_phase11_canonical(
+    root: Path,
+    attempt_root: Path,
+    authority_root: Path,
+    output_root: Path,
+) -> dict[str, Any]:
+    payloads, result = _phase11_payloads(
+        root,
+        attempt_root,
+        authority_root,
+        output_root,
+        fixture_only=False,
     )
     _preflight_and_write(payloads)
     return result
@@ -1118,7 +1215,7 @@ def run_authority_phase11(
         resolved_root,
         authority_root,
     )
-    return _materialize_authority_phase11_fixture(
+    return _materialize_authority_phase11_canonical(
         resolved_root,
         attempt_root,
         authority_root,

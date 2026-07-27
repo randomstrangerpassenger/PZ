@@ -1,0 +1,216 @@
+{
+  "base_commit": "32a2323afdb1e226470aec930574020f1dd7922d",
+  "blocked_review_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase12_external_implementation_review.blocked.json",
+    "sha256": "ddaf0529d031a6ef6b01a0895c3553a12b1b7437f242a841d3400b64740a38fe",
+    "verdict": "BLOCKED"
+  },
+  "correction_id": "phase12-correction-0001",
+  "correction_purpose": "Restore the additive candidate-only Naturalization synthesis dependency closure and make the food-semantic handoff test distinguish the pending preimage state from the owner-authorized replacement state.",
+  "forbidden_change_areas": [
+    "docs/Philosophy.md",
+    "docs/DECISIONS.md",
+    "docs/ARCHITECTURE.md",
+    "docs/ROADMAP.md",
+    "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+    "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+    "Iris/_docs/authority/food_semantic/food_semantic_schema.json",
+    "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json",
+    "Iris/_docs/authority/food_semantic/rule_registry.json",
+    "Iris/_docs/authority/food_semantic/signal_to_fact_mappings.json",
+    "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+    "Iris/build/description/v2/data/dvf_3_3_rendered.json",
+    "Iris/media/lua",
+    "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation",
+    "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure",
+    "package and release outputs",
+    "Registry current-adoption surfaces"
+  ],
+  "forbidden_operations": [
+    "modify any existing default, legacy, or v2 compose function body",
+    "modify any already adopted D16 target file",
+    "change Naturalization Phase 4 through 8 mode semantics",
+    "change facts schema, mapping, curation policy, or approved semantic assertions",
+    "change detector, threshold, waiver, Registry, or Publish Boundary authority",
+    "write current facts, current manifest, rendered output, Lua, runtime, or package artifacts",
+    "rewrite or delete the original attempt or Phase 12 BLOCKED review",
+    "copy a whole dirty-worktree file instead of applying the reviewed symbol-bounded additive patch",
+    "use a direct helper invocation, import shim, mock, or approximate acceptance harness to bypass the actual Naturalization module import path"
+  ],
+  "generated_artifact_allowlist": [
+    "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase12_corrections/phase12-correction-0001"
+  ],
+  "implementation_entry_predicate": {
+    "base_commit_match": true,
+    "focused_scope_review_critical_count_must_equal": 0,
+    "focused_scope_review_important_count_must_equal": 0,
+    "focused_scope_review_out_of_scope_change_count_must_equal": 0,
+    "owner_scope_approval_required": true,
+    "owner_scope_approval_binds_preimage_only": true,
+    "replacement_sha256_required_before_implementation": false
+  },
+  "implementation_exit_predicate": {
+    "all_required_tests_exit_zero": true,
+    "current_or_protected_surface_change_count": 0,
+    "d16_manifest_regenerated": true,
+    "existing_phase4_to_8_behavior_change_count": 0,
+    "external_implementation_review_critical_count": 0,
+    "external_implementation_review_important_count": 0,
+    "external_implementation_review_out_of_scope_change_count": 0,
+    "owner_result_approval_binds_replacement_sha256": true
+  },
+  "origin_findings": [
+    "P12-D16-I1",
+    "P12-D16-I2"
+  ],
+  "preservation_requirements": {
+    "existing_attempt_preserved": true,
+    "original_blocked_review_preserved": true,
+    "current_facts_manifest_rendered_lua_runtime_package_change_count": 0,
+    "official_naturalization_retry_allowed": false,
+    "naturalization_phase4_to_8_execution_count": 0
+  },
+  "read_only_bindings": [
+    {
+      "git_blob_id": "bfe8d5562bf5cf2ae3945ee21d6d24febdd36786",
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+      "sha256": "8f2692d2113fd6d73a1f405a4522271733a813aca153fc3f9254a6202643efa6"
+    },
+    {
+      "git_blob_id": "7025799243216f4d323d0b5f38492d7bd7681810",
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+      "sha256": "0582c70c94fcda46ba7f60c3338c546b20302ca11d70e4dfbc6144118221c02a"
+    },
+    {
+      "git_blob_id": "3c11de4e2190913d476395477187507d8af42179",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "sha256": "0bb037cc2bb1abd90745cd6b05f9cd307473c99e4d53138ad5c6fa0227f9d04a"
+    },
+    {
+      "git_blob_id": "9be26d74024ba6402eae8635bd69739509793760",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "sha256": "3a0c86a7dbcdeca8c5af02096ab9996af4198beb6cbb5a9c766198cb02434c48"
+    }
+  ],
+  "required_validation_commands": [
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_acceptance_gate.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_semantic_preservation.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_entrypoint_guard_hardening.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_layer3_text_overlay.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_layer3_text_v2.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_*.py\"",
+    "git diff --check"
+  ],
+  "result_approval_contract": {
+    "approval_stage": "after implementation and external implementation review PASS",
+    "owner_result_approval_required": true,
+    "replacement_sha256_set_required": true,
+    "scope_approval_does_not_approve_results": true
+  },
+  "schema_version": "food-semantic-phase12-correction-scope-v1",
+  "scope_approval_contract": {
+    "approval_stage": "after focused scope review PASS and before implementation",
+    "owner_scope_approval_required": true,
+    "preimage_sha256_set_required": true,
+    "replacement_sha256_set_required": false,
+    "scope_approval_does_not_approve_results": true
+  },
+  "status": "PROPOSED_PENDING_FOCUSED_SCOPE_REVIEW",
+  "writable_files": [
+    {
+      "allowed_module_import_additions": [
+        "hashlib",
+        "json"
+      ],
+      "allowed_symbols": [
+        "SECTION_TO_PROPOSITION_ROLE",
+        "CANDIDATE_STRUCTURAL_STATUSES",
+        "build_candidate_body_plan_requirements",
+        "canonical_proof_digest",
+        "build_single_proposition_equivalence_proof"
+      ],
+      "git_blob_id": "ecd7bb44e06a37fc0dd02a1a9c2bf3103332a13c",
+      "modification_kind": "additive_candidate_only_symbols",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+      "preimage_byte_count": 13008,
+      "preimage_sha256": "5c59c5ee97895fa65b2aa11e2c6418af0a49e7acaf7e7350cc59d5f3e85ae173"
+    },
+    {
+      "allowed_symbols": [
+        "has_final_rieul",
+        "append_instrumental",
+        "strip_sentence_ending",
+        "naturalize_source_fragment",
+        "build_candidate_lead_context",
+        "_has_semantic_tokens",
+        "select_candidate_lead_realization",
+        "render_candidate_lead",
+        "apply_identity_zero_anaphora"
+      ],
+      "git_blob_id": "a5c52e94c4b8af8a6a4219deb8c59cd685f76cfb",
+      "modification_kind": "additive_candidate_only_symbols",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "preimage_byte_count": 2313,
+      "preimage_sha256": "f6a6bf7848a673f4069aaecfd58b55c9e9a31d3d88361ea962d38507b4e3c824"
+    },
+    {
+      "allowed_import_bindings": [
+        "compose_layer3_body_profile.build_single_proposition_equivalence_proof",
+        "compose_layer3_identity.apply_identity_zero_anaphora",
+        "compose_layer3_identity.build_candidate_lead_context",
+        "compose_layer3_identity.derive_context_from_primary_use",
+        "compose_layer3_identity.ensure_sentence",
+        "compose_layer3_identity.naturalize_source_fragment",
+        "compose_layer3_identity.select_candidate_lead_realization"
+      ],
+      "allowed_symbols": [
+        "_candidate_clause",
+        "compose_item_candidate"
+      ],
+      "git_blob_id": "b4e7ca6e3a357981c5b866ea41e9b3d5928ed910",
+      "modification_kind": "additive_candidate_only_symbols_and_import_bindings",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "preimage_byte_count": 6857,
+      "preimage_sha256": "68265a9a9611be201db25452afd43bbfb5b7544daea5b00a30f669427a7663af"
+    },
+    {
+      "allowed_import_bindings": [
+        "compose_layer3_item.compose_item_candidate"
+      ],
+      "allowed_symbols": [
+        "compose_all_candidate"
+      ],
+      "git_blob_id": "9025255ab6ef80f0204bed5fe7a2af3f43c91198",
+      "modification_kind": "additive_candidate_only_symbol_and_import_binding",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+      "preimage_byte_count": 3783,
+      "preimage_sha256": "8ff755fbdd2718f07552f544c94eeacb0a1cdb482752ce455f8ac013bd0d3f02"
+    },
+    {
+      "allowed_import_bindings": [
+        "compose_layer3_render.compose_all_candidate"
+      ],
+      "allowed_symbols": [
+        "build_candidate_rendered"
+      ],
+      "git_blob_id": "c1edd70189aca3a415592634a3a3cbd64a1f56d5",
+      "modification_kind": "additive_candidate_only_symbol_and_import_binding",
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "preimage_byte_count": 46309,
+      "preimage_sha256": "331672fcf328f0e6420808d91860cbb9c008d2b2dab025d7676875946e6289d5"
+    },
+    {
+      "allowed_symbols": [
+        "FoodSemanticHandoffTest.test_candidate_patch_is_bounded",
+        "FoodSemanticHandoffTest.test_successful_attempt_patch_manifest_is_exact"
+      ],
+      "git_blob_id": "f4c4e04828febd94f53498e0af5972d9278ea727",
+      "modification_kind": "adoption_aware_assertion_only",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py",
+      "preimage_byte_count": 3399,
+      "preimage_sha256": "7ac53fa8679a7a006434bbf2d919ac4aa0cfae235eaae269c7faefdbe7906e2c"
+    }
+  ]
+}

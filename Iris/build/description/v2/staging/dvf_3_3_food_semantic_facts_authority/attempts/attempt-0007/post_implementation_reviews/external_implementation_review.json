@@ -1,0 +1,260 @@
+{
+  "schema_version": "dvf3_3_food_semantic_external_implementation_review_v1",
+  "review_id": "dvf_3_3_food_semantic_facts_authority_attempt_0007_codex_external_review_20260727",
+  "implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "verdict": "PASS",
+  "reviewed_at": "2026-07-27T17:13:46.5385227+09:00",
+  "reviewer": {
+    "identity": "Codex Reviewer",
+    "role": "post_implementation_external_implementation_reviewer",
+    "reviewer_is_implementation_author": false,
+    "terminal_independent_reviewer_eligible": false,
+    "terminal_independent_gate_credit": 0
+  },
+  "review_target_authorization": {
+    "authorized_by": "repository_owner",
+    "authorization_directive": "use Codex Reviewer for the external review",
+    "authorization_scope": "review the exact current implementation target only",
+    "reviewed_commit": "36021201ab24dd5c1cf5525d33fcd0d11577e795",
+    "reviewed_attempt_id": "attempt-0007",
+    "reviewed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+    "semantic_or_adoption_approval_consumed": false,
+    "d1_d5_through_d16_decision_consumed": false,
+    "terminal_independent_review_credit": 0
+  },
+  "review_target": {
+    "repository_branch": "codex/dvf-food-semantic-authority",
+    "repository_commit": "36021201ab24dd5c1cf5525d33fcd0d11577e795",
+    "implementation_bundle_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase13_closeout/implementation_complete_bundle.json",
+    "implementation_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+    "implementation_bundle_artifact_count": 178,
+    "implementation_bundle_artifact_missing_count": 0,
+    "implementation_bundle_artifact_hash_mismatch_count": 0,
+    "ratified_plan_path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+    "ratified_plan_git_blob_id": "6bcfd7ecdc9b3a8344aef81d225975637e57f091",
+    "requirements_snapshot_marker": "NORMATIVE DESIGN REQUIREMENTS SNAPSHOT v1",
+    "requirements_snapshot_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+    "requirements_snapshot_logical_line_count": 60,
+    "preimplementation_review_path": "Iris/_docs/round3/dvf_3_3_food_semantic_facts_authority_reconstruction/preimplementation_plan_review.json",
+    "preimplementation_review_verdict": "PASS",
+    "preimplementation_open_critical_count": 0,
+    "preimplementation_open_important_count": 0
+  },
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0,
+    "open_critical": 0,
+    "open_important": 0,
+    "open_minor": 0
+  },
+  "findings": [],
+  "verified_findings": [
+    {
+      "finding_id": "FSAR-EXT-V-001",
+      "severity": "informational",
+      "status": "verified",
+      "subject": "review target and bundle identity",
+      "detail": "The checked-out branch and HEAD match the authorized target. The exact attempt-0007 bundle hashes to 41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205, lists 178 artifacts, and every listed artifact exists at its bound SHA-256 in reviewed commit 36021201.",
+      "gate_effect": "none"
+    },
+    {
+      "finding_id": "FSAR-EXT-V-002",
+      "severity": "informational",
+      "status": "verified",
+      "subject": "ratified requirements and plan entry",
+      "detail": "The ratified plan Git blob is 6bcfd7ecdc9b3a8344aef81d225975637e57f091. Independent marker-scope normalization reproduces requirements snapshot SHA-256 443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e and 60 logical lines. The preimplementation review is bound to that snapshot and has no open Critical or Important finding.",
+      "gate_effect": "none"
+    },
+    {
+      "finding_id": "FSAR-EXT-V-003",
+      "severity": "informational",
+      "status": "verified",
+      "subject": "exact case-sensitive 317 identity",
+      "detail": "Ordinal case-sensitive independent aggregation confirms 317 unique target FullTypes, including distinct Base.LemonGrass and Base.Lemongrass. Automatic proposals cover 79 members and the curated-review queue covers 238 members; their union is exactly 317 with zero overlap and zero missing member.",
+      "gate_effect": "none"
+    },
+    {
+      "finding_id": "FSAR-EXT-V-004",
+      "severity": "informational",
+      "status": "verified",
+      "subject": "R3, allowlist, lineage, and schema contracts",
+      "detail": "R1 and R2 have zero authority executions and R3 is the sole executable proposed route. The reconciled allowlist identity matches its durable machine contract. All 84 automatic proposition proposals have unique proposition identities and complete source artifact, item locator, source field/value, R3 rule, allowlist, mapping, and supporting-signal lineage; conflict and duplicate counts are zero. The schema is closed, has no unknown/generic/other shortcut, has no threshold-derived token, and records owner semantic approval as not consumed.",
+      "gate_effect": "none"
+    },
+    {
+      "finding_id": "FSAR-EXT-V-005",
+      "severity": "informational",
+      "status": "verified",
+      "subject": "curation and writer contracts",
+      "detail": "The feasibility kernel precedes Changes 8 through 13 and is PASS. The curated lane remains unapproved and authority-neutral while providing deterministic batches, append-only event/checkpoint schemas, negative approval fixtures, and 238 exact work items. The candidate writer rejects live sinks and authority-bearing use of unapproved facts. The non-authoritative dry run changes 79 target rows only, preserves all 1,788 non-target rows byte-for-byte, and emits no current write.",
+      "gate_effect": "none"
+    },
+    {
+      "finding_id": "FSAR-EXT-V-006",
+      "severity": "informational",
+      "status": "verified",
+      "subject": "Naturalization handoff and no-relaxation boundary",
+      "detail": "The handoff is an unapplied four-file additive candidate patch bound to exact preimage and replacement hashes. D16 is not consumed, no official retry or Phase 4 through 8 execution occurs, and policy, detector, threshold, and waiver relaxation counts are zero. The canonical policy ratio resolves the bound readpoint denominator 2,084 to threshold 104 without using it as an upstream schema token.",
+      "gate_effect": "none"
+    },
+    {
+      "finding_id": "FSAR-EXT-V-007",
+      "severity": "informational",
+      "status": "verified",
+      "subject": "protected surfaces and append-only attempts",
+      "detail": "The reviewed commit does not change current facts, current input manifest, required-validation manifest, rendered output, Lua/runtime chunks, or package surfaces. Before/after protected hashes report changed_count=0. Attempts 0001 through 0007 remain present as separate directories, and write-once contracts reject differing rewrites within an existing attempt.",
+      "gate_effect": "none"
+    },
+    {
+      "finding_id": "FSAR-EXT-V-008",
+      "severity": "informational",
+      "status": "verified",
+      "subject": "test credibility and claim ceiling",
+      "detail": "The exact focused unittest command independently runs 13 tests and exits 0. Tests cover case-sensitive identity, deterministic R3 signals, forbidden inference surfaces, closed schema shortcuts, candidate byte preservation and live-sink rejection, curation idempotence and negative approval detection, bounded Naturalization patches, validation fail-closed behavior, and claim ceilings. Exact bundle verification independently exits 0. The final machine state remains IMPLEMENTATION_COMPLETE_NOT_AUTHORITY_CLOSEOUT with canonical_complete=false, current_authority_reconstruction_complete=false, sealed_successor_handoff_complete=false, authority execution unauthorized, and forbidden claim emissions zero.",
+      "gate_effect": "none"
+    }
+  ],
+  "checks_performed": [
+    {
+      "check_id": "FSAR-EXT-C-001",
+      "subject": "constitutional and ecosystem documents",
+      "status": "PASS",
+      "evidence": [
+        "docs/Philosophy.md",
+        "docs/DECISIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/ROADMAP.md"
+      ]
+    },
+    {
+      "check_id": "FSAR-EXT-C-002",
+      "subject": "ratified implementation plan and preimplementation review",
+      "status": "PASS",
+      "evidence": [
+        "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+        "Iris/_docs/round3/dvf_3_3_food_semantic_facts_authority_reconstruction/preimplementation_plan_review.json"
+      ]
+    },
+    {
+      "check_id": "FSAR-EXT-C-003",
+      "subject": "bundle identity and all bound artifact hashes",
+      "status": "PASS",
+      "observed_artifact_count": 178,
+      "missing_count": 0,
+      "hash_mismatch_count": 0,
+      "artifacts_not_in_reviewed_commit": 0
+    },
+    {
+      "check_id": "FSAR-EXT-C-004",
+      "subject": "Changes 0 through 7 feasibility dominator",
+      "status": "PASS",
+      "observed_kernel_state": "PASS",
+      "blocking_predicate_count": 0
+    },
+    {
+      "check_id": "FSAR-EXT-C-005",
+      "subject": "Changes 8 through 13 implementation-completion evidence",
+      "status": "PASS",
+      "authority_execution_credit": 0
+    },
+    {
+      "check_id": "FSAR-EXT-C-006",
+      "subject": "current protected-surface non-mutation",
+      "status": "PASS",
+      "changed_count": 0
+    },
+    {
+      "check_id": "FSAR-EXT-C-007",
+      "subject": "required durable artifact VCS identity",
+      "status": "PASS",
+      "tracked_required_artifact_count": 5,
+      "ignored_required_artifact_count": 0,
+      "uncommitted_bundle_artifact_count": 0
+    },
+    {
+      "check_id": "FSAR-EXT-C-008",
+      "subject": "authority and public claim ceiling",
+      "status": "PASS",
+      "forbidden_claim_emission_count": 0,
+      "authority_claim_emitted_count": 0
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_test_count": 13
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "git diff --name-only aa49e8f9..36021201 -- <current facts, current manifest, required-validation manifest, rendered, Lua/runtime, and package protected paths>",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    },
+    {
+      "command": "independent PowerShell SHA-256 and Ordinal case-sensitive ledger aggregation",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_target_count": 317,
+      "observed_automatic_member_count": 79,
+      "observed_curation_queue_member_count": 238,
+      "observed_route_union_count": 317,
+      "observed_route_overlap_count": 0
+    }
+  ],
+  "protected_surface_verdict": {
+    "verdict": "PASS",
+    "current_facts_mutation_count": 0,
+    "current_manifest_mutation_count": 0,
+    "required_validation_manifest_mutation_count": 0,
+    "rendered_lua_runtime_package_mutation_count": 0,
+    "protected_surface_hash_changed_count": 0
+  },
+  "authority_claim_ceiling_verdict": {
+    "verdict": "PASS",
+    "implementation_complete_claim_is_axis_qualified": true,
+    "authority_execution_authorized": false,
+    "semantic_owner_approval_consumed": false,
+    "owner_decision_consumed_count": 0,
+    "sealed_successor_handoff_complete": false,
+    "canonical_complete": false,
+    "current_authority_reconstruction_complete": false,
+    "terminal_independent_gate_credit": 0
+  },
+  "review_verdict": "PASS",
+  "verdict_basis": "No open Critical or Important finding exists. The exact reviewed commit and bundle genuinely support the plan-defined implementation-completion target: all implementation options, contracts, validators, fixtures, non-authoritative dry runs, and closeout tooling are present and hash-bound; exact 317 routing and protected non-mutation independently reproduce; focused tests and bundle verification exit 0; and no semantic approval, authority execution, current adoption, terminal completion, or terminal independent-review claim is consumed.",
+  "post_review_state": {
+    "external_implementation_review": "PASS",
+    "authority_execution_state": "blocked_pending_owner_or_review",
+    "remaining_owner_semantic_and_adoption_decisions_required": true,
+    "terminal_independent_closeout_review_required_after_sealed_successor": true,
+    "terminal_independent_gate_credit": 0
+  },
+  "non_claims": [
+    "semantic owner approval",
+    "D1 or D5 through D16 decision acceptance",
+    "approved curated authority",
+    "authority-bearing successor generated",
+    "sealed successor handoff complete",
+    "Registry promotion",
+    "current authority reconstruction complete",
+    "canonical complete",
+    "Naturalization official retry",
+    "Publish Boundary PASS",
+    "terminal independent closeout review"
+  ],
+  "terminal_independent_gate_credit": 0
+}

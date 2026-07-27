@@ -1,0 +1,484 @@
+{
+  "schema_version": "food-semantic-external-rework-resolution-review-v1",
+  "review_id": "dvf-3-3-food-semantic-external-rework-resolution-review-7306dcb3",
+  "reviewed_at": "2026-07-27T20:18:27.8986976+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": "Independent successor review of the exact two-item curation rework-resolution implementation, the unchanged prior FAIL review, live source and semantic bindings, prior-authority authentication, proposal regeneration durability, proposal-local external-review enforcement, owner-receipt enforcement, pre-write fail-closed behavior, focused tests, attempt seal, and current/protected boundary.",
+  "review_target": {
+    "reviewed_commit_sha": "7306dcb3487a8cbb6cd603872f79d3ec7924e65f",
+    "reviewed_commit_parent_sha": "a507e9c3fd2c2ba480d318e938f190760255c267",
+    "reviewed_commit_subject": "fix: harden curation rework authority gate",
+    "commit_is_checked_out_head": true,
+    "bound_attempt_id": "attempt-0007",
+    "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+    "bound_prior_authority_execution_receipt_sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+    "bound_prior_authority_external_review_sha256": "e001179f19fe7a962ece427ba0443efa47fa2abb0d981c516d0bdbe6d3932508",
+    "proposal_root": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001"
+  },
+  "reviewed_commit_sha": "7306dcb3487a8cbb6cd603872f79d3ec7924e65f",
+  "reviewed_commit_parent_sha": "a507e9c3fd2c2ba480d318e938f190760255c267",
+  "reviewed_proposal_summary_sha256": "ad8c846fab2e7436cc48deebd85d28f3010440f5a23fa88377c8b7086f0f8e0c",
+  "reviewed_proposal_ledger_sha256": "d9406e6dd48ba1ed18986259e4641f54ff5668fd44cff7cc8e75c4e53c8ac285",
+  "original_fail_review": {
+    "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/external_rework_resolution_review.json",
+    "sha256": "edca15dbb2f604caaa90b3a93ac45139ac87f38d9566539cc94e2d5959ab1cf8",
+    "byte_count": 26925,
+    "verdict": "FAIL",
+    "preserved_unchanged": true
+  },
+  "reviewed_artifact_hashes": [
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_proposals.py",
+      "sha256": "7e216ecb8e77fc75000ddb2340ad2b8d9806c35f73d6da803877a781976c9ec9",
+      "byte_count": 49868
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py",
+      "sha256": "5546fd8ffe52fd407bb417823cd7e616c9672a0cac75a8a933d89b0ef5602dc5",
+      "byte_count": 42613
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/propose_dvf_3_3_food_semantic_rework_resolution.py",
+      "sha256": "e499041018ff43017d5fe1b1e0627e245d36aca9864c64542519d1967564c202",
+      "byte_count": 1922
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py",
+      "sha256": "d3b834d8fd06a85b286113fe25b989fee608ec33eddf1cdda25203a403bc5fe4",
+      "byte_count": 3914
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_rework_resolution.py",
+      "sha256": "28622bee27e3f5103ab0405118ad52e1b1627257b62989768e6a66fceecdac77",
+      "byte_count": 21113
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_batch_approval.schema.json",
+      "sha256": "97d31e7a81629f57314b19afd4c7a20ccb838fe36ceded0fd49c1045f0ae1d60",
+      "byte_count": 988
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_proposal_summary.json",
+      "sha256": "ad8c846fab2e7436cc48deebd85d28f3010440f5a23fa88377c8b7086f0f8e0c",
+      "byte_count": 894
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_rework_resolution_proposals.jsonl",
+      "sha256": "d9406e6dd48ba1ed18986259e4641f54ff5668fd44cff7cc8e75c4e53c8ac285",
+      "byte_count": 6308
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_rework_resolution_validation.json",
+      "sha256": "16495a43ec9ebe18e1bc28a9993c537972fd63809d0e58fa829cd70a8e328a0a",
+      "byte_count": 437
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_rework_resolution_review.md",
+      "sha256": "17705ab786fc23830f1d9a8aa0e51750b148626b227d9f126092e10506ac2716",
+      "byte_count": 648
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/review_batches/fsb_c6b37612f34582054041a916.json",
+      "sha256": "5aa62b7e04c7b5d12a679133f101d57ae86de036a39c1343dd0a855f99aaa930",
+      "byte_count": 9082
+    },
+    {
+      "path": "Iris/_docs/authority/food_semantic/food_semantic_schema.json",
+      "sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "byte_count": 5703
+    },
+    {
+      "path": "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json",
+      "sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "byte_count": 13570
+    },
+    {
+      "path": "scripts/newitems.txt",
+      "sha256": "06cb9bcd39cab185f3b956785c955302b39df90ef301b4f986c3b115f7668347",
+      "byte_count": 124936
+    },
+    {
+      "path": "lua/shared/Foraging/forageDefinitions.lua",
+      "sha256": "235cc27f511e75a44ef95fe69f6a04542d6ad7856b92f8b72a0f1bafb292e7f2",
+      "byte_count": 158478
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "sha256": "062b2849a34722c52c4dc03a93592059f796504858659092c0a037f9668a0ead",
+      "byte_count": 98632
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0001/authority_execution_receipt.json",
+      "sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+      "byte_count": 2751
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0001/external_authority_materialization_review.json",
+      "sha256": "e001179f19fe7a962ece427ba0443efa47fa2abb0d981c516d0bdbe6d3932508",
+      "byte_count": 19228
+    }
+  ],
+  "recomputed_bindings": {
+    "prior_curated_row_count": 236,
+    "prior_approval_row_count": 236,
+    "prior_event_row_count": 714,
+    "prior_unique_event_count": 714,
+    "prior_rework_count": 2,
+    "prior_rework_items": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "source_record_count": 6,
+    "source_artifact_hash_match_count": 6,
+    "source_block_hash_match_count": 6,
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+    "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+    "proposal_ledger_sha256": "d9406e6dd48ba1ed18986259e4641f54ff5668fd44cff7cc8e75c4e53c8ac285",
+    "proposal_summary_sha256": "ad8c846fab2e7436cc48deebd85d28f3010440f5a23fa88377c8b7086f0f8e0c",
+    "queue_sha256": "5176ee896cf04db0be817a87d69d869d55ff94a5352356e3fda13a9f92ebddee",
+    "batch_id": "fsb:c6b37612f34582054041a916",
+    "batch_proposal_content_sha256": "dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8",
+    "prior_authority_execution_receipt_sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+    "prior_authority_external_review_sha256": "e001179f19fe7a962ece427ba0443efa47fa2abb0d981c516d0bdbe6d3932508",
+    "implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+  },
+  "semantic_scope_verdict": "PASS",
+  "semantic_scope_judgment": {
+    "status": "PASS",
+    "exact_item_set": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "exact_proposed_fact_axis": "ingredient_origin",
+    "exact_proposed_fact_value": "plant",
+    "exact_proposition_count": 2,
+    "schema_value_present": true,
+    "schema_curated_allowed": true,
+    "proposition_license_curated_allowed": true,
+    "automatic_eligible": false,
+    "consumed_reviewed_fields": [
+      "foraging_definition.type",
+      "foraging_definition.categories"
+    ],
+    "forbidden_context_field_consumed_count": 0,
+    "forbidden_context_operation_consumed_count": 0,
+    "display_or_item_id_semantic_inference_count": 0,
+    "food_or_edible_claim_count": 0,
+    "consumption_claim_count": 0,
+    "meal_claim_count": 0,
+    "culinary_role_claim_count": 0,
+    "authority_effect": false,
+    "human_semantic_approval_required": true
+  },
+  "prior_finding_dispositions": [
+    {
+      "finding_id": "REWORK-EXT-I-001",
+      "severity": "Important",
+      "disposition": "RESOLVED",
+      "resolution": "The successor now authenticates the exact prior execution root and receipt, all six declared phase artifacts with SHA-256, byte and JSONL row identities, the prior external materialization PASS review, 236 curated and approval rows, 714 unique event semantics, checkpoint/report state, and the exact two-item rework set before output construction.",
+      "adversarial_evidence": {
+        "fixture": "Relocated internally consistent prior-authority copy with one curated row removed while its original receipt remained unchanged.",
+        "result": "EXPECTED_BLOCKED",
+        "tampered_prior_curated_row_count": 235,
+        "successor_write_count": 0
+      },
+      "implementation_locations": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py:559",
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py:939"
+      ]
+    },
+    {
+      "finding_id": "REWORK-EXT-I-002",
+      "severity": "Important",
+      "disposition": "RESOLVED",
+      "resolution": "Authority entry now recomputes the narrow proposal validator, requires exact ledger, summary, batch, source, schema, license, proposition, queue, prior receipt, and prior external-review bindings, requires the proposal-local fresh external review PASS, and binds both proposal ledger and external review into the successor report before permitting writes.",
+      "adversarial_evidence": {
+        "fixture": "Changed Comfrey to culinary_role=herb, recomputed its canonical proposition ID and proposal hash, updated batch, ledger, summary and an exact fixture approval.",
+        "generic_batch_validator_result": "PASS",
+        "authority_entry_result": "EXPECTED_BLOCKED",
+        "successor_write_count": 0,
+        "missing_external_review_result": "EXPECTED_BLOCKED",
+        "missing_external_review_write_count": 0,
+        "tampered_external_review_cases": [
+          "important_finding_open",
+          "wrong_proposal_ledger_sha256",
+          "wrong_proposal_summary_sha256",
+          "wrong_reviewer_identity"
+        ],
+        "tampered_external_review_blocked_count": 4,
+        "tampered_external_review_write_count": 0
+      },
+      "implementation_locations": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py:729",
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py:896",
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py:939"
+      ]
+    },
+    {
+      "finding_id": "REWORK-EXT-I-003",
+      "severity": "Important",
+      "disposition": "RESOLVED",
+      "resolution": "Proposal regeneration performs an all-packet and receipt preflight before writes. Exact approved content and receipt are preserved byte-for-byte; changed approved content and stale or mismatched receipts fail before mutation.",
+      "adversarial_evidence": {
+        "same_content_approved_regeneration_result": "PASS_PRESERVED",
+        "same_content_preserved_file_count": 8,
+        "changed_content_approved_regeneration_result": "EXPECTED_BLOCKED",
+        "changed_content_preserved_file_count": 8,
+        "stale_receipt_regeneration_result": "EXPECTED_BLOCKED",
+        "stale_receipt_preserved_remaining_file_count": 7
+      },
+      "implementation_locations": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py:352",
+        "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_rework_resolution.py"
+      ]
+    },
+    {
+      "finding_id": "REWORK-EXT-M-001",
+      "severity": "Minor",
+      "disposition": "RESOLVED",
+      "resolution": "The canonical approval-batch proposal hash is now a deliberate public contract API and all consumers use that public name.",
+      "adversarial_evidence": {
+        "public_api": "review_batch_proposal_hash",
+        "deterministic": true,
+        "owner_approval_excluded_from_content_hash": true,
+        "proposal_content_change_detected": true,
+        "observed_exact_hash": "dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8"
+      },
+      "implementation_locations": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_proposals.py:830"
+      ]
+    }
+  ],
+  "positive_successor_fixture": {
+    "result": "PASS_COMPLETE",
+    "prior_curated_row_preserved_count": 236,
+    "prior_approval_row_preserved_count": 236,
+    "prior_event_prefix_preserved_count": 714,
+    "new_resolution_count": 2,
+    "new_resolution_facts": [
+      [
+        "Base.Comfrey",
+        "ingredient_origin",
+        "plant"
+      ],
+      [
+        "Base.Plantain",
+        "ingredient_origin",
+        "plant"
+      ]
+    ],
+    "final_curated_count": 238,
+    "final_approval_count": 238,
+    "final_event_count": 718,
+    "unique_event_count": 718,
+    "final_rework_count": 0,
+    "candidate_generation_authorized": true,
+    "current_mutation_authorized": false,
+    "proposal_ledger_binding_present": true,
+    "external_review_binding_present": true,
+    "qualification": "This was an isolated fixture using a fixture-only exact owner approval and temporary successor sink; no real owner approval or actual successor materialization was performed."
+  },
+  "pending_packet_state": {
+    "review_batch_count": 1,
+    "batch_member_count": 2,
+    "maximum_D6_member_count": 24,
+    "D6_respected": true,
+    "ordered_members": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "owner_approval": null,
+    "validator_status": "PENDING",
+    "pending_batch_count": 1,
+    "approved_batch_count": 0,
+    "invalid_batch_count": 0,
+    "approved_proposition_count": 0,
+    "authority_effect": false,
+    "require_all_approved_status": "BLOCKED"
+  },
+  "review_checks": [
+    {
+      "check_id": "REWORK-EXT-RR-V-001",
+      "subject": "exact successor target and original FAIL preservation",
+      "status": "PASS",
+      "target_head_match": true,
+      "target_parent_match": true,
+      "original_fail_sha256_match": true
+    },
+    {
+      "check_id": "REWORK-EXT-RR-V-002",
+      "subject": "prior authority execution and review authentication",
+      "status": "PASS",
+      "exact_artifact_identity_count": 6,
+      "prior_curated_and_approval_count_match": true,
+      "prior_event_semantics_match": true,
+      "tamper_fail_closed_before_write": true
+    },
+    {
+      "check_id": "REWORK-EXT-RR-V-003",
+      "subject": "exact two-proposition semantic scope and binding chain",
+      "status": "PASS",
+      "source_artifact_hash_mismatch_count": 0,
+      "source_block_hash_mismatch_count": 0,
+      "binding_mismatch_count": 0,
+      "scope_tamper_fail_closed_before_write": true
+    },
+    {
+      "check_id": "REWORK-EXT-RR-V-004",
+      "subject": "proposal-local external review gate",
+      "status": "PASS",
+      "missing_review_fail_closed": true,
+      "tampered_review_case_count": 4,
+      "tampered_review_blocked_count": 4,
+      "pre_gate_write_count": 0
+    },
+    {
+      "check_id": "REWORK-EXT-RR-V-005",
+      "subject": "owner approval durability and receipt consistency",
+      "status": "PASS",
+      "same_content_byte_preserved": true,
+      "changed_content_rejected_before_write": true,
+      "stale_receipt_rejected_before_write": true
+    },
+    {
+      "check_id": "REWORK-EXT-RR-V-006",
+      "subject": "public proposal hash contract",
+      "status": "PASS",
+      "public_api_present": true,
+      "deterministic": true,
+      "approval_metadata_excluded": true,
+      "content_change_detected": true
+    },
+    {
+      "check_id": "REWORK-EXT-RR-V-007",
+      "subject": "focused tests and sealed attempt",
+      "status": "PASS",
+      "focused_test_count": 31,
+      "focused_test_failure_count": 0,
+      "attempt_artifact_count": 178,
+      "attempt_artifact_mismatch_count": 0,
+      "attempt_current_facts_manifest_mutation_count": 0,
+      "attempt_protected_surface_changed_count": 0
+    },
+    {
+      "check_id": "REWORK-EXT-RR-V-008",
+      "subject": "reviewed commit current and protected diff",
+      "status": "PASS",
+      "git_show_check_pass": true,
+      "current_or_protected_changed_path_count": 0
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "git rev-parse HEAD; git rev-parse HEAD^",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_head_sha": "7306dcb3487a8cbb6cd603872f79d3ec7924e65f",
+      "observed_parent_sha": "a507e9c3fd2c2ba480d318e938f190760255c267"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_test_count": 31,
+      "observed_failure_count": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py validate",
+      "exit_code": 0,
+      "result": "PENDING",
+      "observed_pending_batch_count": 1,
+      "observed_approved_batch_count": 0,
+      "observed_invalid_batch_count": 0,
+      "observed_authority_effect": false
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py validate --require-all-approved",
+      "exit_code": 1,
+      "result": "EXPECTED_BLOCKED",
+      "observed_pending_batch_count": 1,
+      "observed_invalid_batch_count": 1,
+      "observed_authority_effect": false
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_current_facts_manifest_mutation_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "independent isolated adversarial rework-resolution review fixture",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_case_groups": [
+        "positive_exact_successor",
+        "prior_authority_tamper",
+        "semantic_scope_tamper_with_rehashed_approval",
+        "missing_external_review",
+        "tampered_external_review",
+        "same_content_approved_regeneration",
+        "changed_content_approved_regeneration",
+        "stale_receipt_regeneration",
+        "public_hash_contract"
+      ],
+      "unexpected_pass_count": 0,
+      "failed_pre_gate_write_count": 0
+    },
+    {
+      "command": "git show --check 7306dcb3487a8cbb6cd603872f79d3ec7924e65f",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "git diff over current data, rendered output, Lua/runtime, and package roots from a507e9c3fd2c2ba480d318e938f190760255c267 to 7306dcb3487a8cbb6cd603872f79d3ec7924e65f",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    },
+    {
+      "command": "Get-FileHash -Algorithm SHA256 over reviewed tooling, tests, proposal artifacts, live sources, schema, license, prior receipt, prior external review, and original FAIL review",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_hash_mismatch_count": 0
+    }
+  ],
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "review_verdict": "PASS",
+  "verdict": "PASS",
+  "verdict_basis": "The exact successor commit resolves all three prior Important findings and the prior Minor finding. The implementation authenticates the prior authority and its prior external PASS review, enforces the exact two-item plant-origin proposal and proposal-local fresh external PASS review, binds the ledger and review into the successor report, preserves exact durable approval during regeneration, rejects changed or stale approved state before write, and exposes the canonical batch hash through a public contract API. Independent positive and adversarial fixtures produced the expected 238/238/718/0 successor only for the exact approved path and blocked every tested tamper before successor writes.",
+  "owner_semantic_approval_required": true,
+  "owner_semantic_approval_allowed": true,
+  "owner_approval_allowed": true,
+  "owner_semantic_approval_blockers": [],
+  "authority_materialization_allowed": false,
+  "materialization_after_exact_owner_approval_allowed": true,
+  "authority_effect_before_owner_approval": false,
+  "actual_owner_approval_performed_by_review": false,
+  "actual_successor_materialization_performed_by_review": false,
+  "current_or_protected_mutation_count_by_review": 0,
+  "terminal_independent_gate_credit": 0,
+  "required_next_state": "The owner may record the exact semantic approval against proposal content SHA-256 dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8. Materialization is allowed only afterward through the reviewed fail-closed gate and remains limited to a safe non-current successor sink.",
+  "non_claims": [
+    "owner semantic approval already recorded",
+    "actual rework-resolution authority effect already performed",
+    "actual Base.Comfrey rework already resolved",
+    "actual Base.Plantain rework already resolved",
+    "actual curation status PASS_COMPLETE",
+    "actual candidate generation already authorized",
+    "317 terminal semantic disposition complete",
+    "sealed successor handoff complete",
+    "current facts or manifest mutation authorized",
+    "Registry adoption complete",
+    "terminal independent closeout PASS"
+  ]
+}

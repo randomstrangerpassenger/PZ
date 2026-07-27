@@ -1,0 +1,405 @@
+{
+  "schema_version": "food-semantic-external-approved-curation-review-v1",
+  "review_id": "dvf-3-3-food-semantic-external-approved-curation-review-93b3d53b",
+  "reviewed_at": "2026-07-27T19:02:45.0722140+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": "Independent post-approval authority-entry review of the exact owner-approved curation successor, including the approval importer, ten D6 approval packets, owner approval receipt, validator, proposal regeneration guard, authority materializer preconditions, focused tests, attempt-0007 seal, and protected-surface boundary.",
+  "review_target": {
+    "commit_sha": "93b3d53b1b75eb11072b4cbedb311649712f8576",
+    "commit_subject": "docs: record owner curation batch approvals",
+    "commit_is_checked_out_head": true,
+    "approval_importer_commit_sha": "a9cccd333aed555042ed98c4466b50a21f125ed9",
+    "approval_importer_is_target_ancestor": true,
+    "pre_approval_review_commit_sha": "3479778c9ea2dcfbdc10e2fa78d46c0e478acc60",
+    "bound_attempt_id": "attempt-0007",
+    "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+    "proposal_ledger_sha256": "0155b11b7be9b515d0e4bd56b48da1cff34e4d9db9b3b02c924c95bdbc32ee7f"
+  },
+  "preserved_prior_reviews": [
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/external_curation_review.e4fd86db.json",
+      "sha256": "869fac97b153c01494148f283fef0a339a92ced37deb2c039ec2457f9dec5a71",
+      "verdict": "FAIL",
+      "role": "historical pre-fix curation review"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/external_curation_review.json",
+      "sha256": "5267c254ee435a701703850981ca6034a294cf2a2e50a3e8fe914d3faa951557",
+      "verdict": "PASS",
+      "role": "pre-approval successor review"
+    }
+  ],
+  "reviewed_artifact_hashes": [
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_proposals.py",
+      "sha256": "211e0af0117f78d54865d69a59c78c65c96b99e9b79e33179dfe9f444b43623e"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_curation.py",
+      "sha256": "8377cacbbfae0b88432798e2152a9d3c4bc2485ab97afc3feb8a5a46e84ec6eb"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_proposals.py",
+      "sha256": "63b28543a67e659ce4aba6a529764f4fff94a61694bda8a0351b2f253f7bfb5b"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/owner_curation_approval_receipt.json",
+      "sha256": "bd2d057b83096d66905f89ec4d7c6179f996896603a325b889181e76c2bd541a"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposition_proposals.jsonl",
+      "sha256": "0155b11b7be9b515d0e4bd56b48da1cff34e4d9db9b3b02c924c95bdbc32ee7f"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposal_summary.json",
+      "sha256": "17c934d85c80cf22fbc8c0ec19a9cee5cbfda31eadf29ae57b14c200d8776e1f"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposal_validation.json",
+      "sha256": "4aeac765b3a0f2bb245795090a01c4c9a2ea8377599a0aabbf251f575ef25ca4"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_source_context_diagnostics.json",
+      "sha256": "6717a9c36b776241d0f9f35b5eefcafb829aa3e8f2cdedae717774d7aa19beb4"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/owner_reserved_decisions.json",
+      "sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a"
+    }
+  ],
+  "reviewed_approval_packet_hashes": [
+    {
+      "batch_id": "fsb:07f909b26bb4f9fe9b437f29",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_07f909b26bb4f9fe9b437f29.json",
+      "sha256": "73a360fb6257e13932dc93e890b93764d7aa1fb040d6e3957b2b66a078242d3b"
+    },
+    {
+      "batch_id": "fsb:1f994516b5c6e8342df5c4a6",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_1f994516b5c6e8342df5c4a6.json",
+      "sha256": "e1ad3e0a5b9aea144f04d85fe30356000fdd3d3613935df50c8e5773e84069f6"
+    },
+    {
+      "batch_id": "fsb:39b9b2757f5002c3f9b999cf",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_39b9b2757f5002c3f9b999cf.json",
+      "sha256": "0e14ebadcada2cd7e74559ff3919b575d4e29d2d01e1be7f8d505f4099a7c6a7"
+    },
+    {
+      "batch_id": "fsb:711763d2496ce3e78626307f",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_711763d2496ce3e78626307f.json",
+      "sha256": "1991f6167d9898246fd50bcebf604e07d4b8ea75adb7580c4cf23f82e2564330"
+    },
+    {
+      "batch_id": "fsb:8ebd278195a970d1577cfb18",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_8ebd278195a970d1577cfb18.json",
+      "sha256": "0f5b90a59b7560908aae6d46a226b82e472ce66737452fc0eea3d3ab4faca7f8"
+    },
+    {
+      "batch_id": "fsb:d1b002457a9c589280734ff1",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_d1b002457a9c589280734ff1.json",
+      "sha256": "bef1b67a54e3cdfce839adb42d49ea709a6f70436a1bab32005121f921faee3a"
+    },
+    {
+      "batch_id": "fsb:d237a2d0b4f84c227a6c921e",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_d237a2d0b4f84c227a6c921e.json",
+      "sha256": "f240fdfa788e546941fd5a03ca3c1d29b7ce2c2bef45f2be5fa5255ef315780f"
+    },
+    {
+      "batch_id": "fsb:d5d4e6b00b67d1100bee65cd",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_d5d4e6b00b67d1100bee65cd.json",
+      "sha256": "b9be2c21c3bad32891c0e7ddbadf31a4f5980a3aa33d81e124437394c4572bcf"
+    },
+    {
+      "batch_id": "fsb:e47d19f20d78df0d8594d4d7",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_e47d19f20d78df0d8594d4d7.json",
+      "sha256": "0351381d2013df8d70fdf0836499b6c95902a4b661c06ba66412c258c09f66bf"
+    },
+    {
+      "batch_id": "fsb:f8384fea0c6b9b34c14df9d3",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/review_batches/fsb_f8384fea0c6b9b34c14df9d3.json",
+      "sha256": "f3dc20a6ffcab09a1262156bdd59368314916e774f7f1b98fb221cd8aefd4b94"
+    }
+  ],
+  "owner_approval_evidence": {
+    "approval_source_kind": "owner_conversation_directive",
+    "approval_directive": "승인",
+    "approver_identity": "repository_owner",
+    "approver_identity_matches_owner_decisions": true,
+    "approval_time": "2026-07-27T18:52:51.2381778+09:00",
+    "approval_time_is_timezone_aware_iso8601": true,
+    "approval_rationale": "Owner approves every exact proposition and accepts every needs-rework disposition in each of the ten bounded D6 review batches after receiving the AI curation summary and Codex Reviewer PASS.",
+    "approval_rationale_is_nonblank": true,
+    "receipt_validation_status": "PASS",
+    "receipt_authority_effect_before_materialization": false,
+    "packet_directive_match_count": 10,
+    "packet_owner_identity_match_count": 10,
+    "packet_approval_time_match_count": 10,
+    "packet_rationale_match_count": 10,
+    "packet_receipt_binding_match_count": 10
+  },
+  "exact_approval_counts": {
+    "review_batch_count": 10,
+    "approved_batch_count": 10,
+    "pending_batch_count": 0,
+    "invalid_batch_count": 0,
+    "reviewed_member_count": 238,
+    "unique_reviewed_member_count": 238,
+    "maximum_batch_member_count": 24,
+    "approval_packet_content_match_to_preapproval_count": 10,
+    "recomputed_proposal_hash_match_count": 10,
+    "exact_member_order_match_count": 10,
+    "approved_proposition_count": 236,
+    "unique_approved_proposition_count": 236,
+    "accepted_needs_rework_count": 2,
+    "accepted_needs_rework_items": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ]
+  },
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "review_checks": [
+    {
+      "check_id": "CUR-APP-EXT-001",
+      "subject": "exact target and importer ancestry",
+      "status": "PASS",
+      "observed_target_sha": "93b3d53b1b75eb11072b4cbedb311649712f8576",
+      "observed_head_sha": "93b3d53b1b75eb11072b4cbedb311649712f8576",
+      "importer_ancestor_sha": "a9cccd333aed555042ed98c4466b50a21f125ed9"
+    },
+    {
+      "check_id": "CUR-APP-EXT-002",
+      "subject": "durable and attributable owner directive",
+      "status": "PASS",
+      "receipt_present_and_tracked": true,
+      "exact_directive_match": true,
+      "exact_owner_identity_match": true,
+      "timezone_aware_timestamp_match": true,
+      "nonblank_rationale_match": true,
+      "all_packet_metadata_matches_receipt": true
+    },
+    {
+      "check_id": "CUR-APP-EXT-003",
+      "subject": "ten exact D6 packet bindings",
+      "status": "PASS",
+      "batch_count": 10,
+      "maximum_member_count": 24,
+      "member_count": 238,
+      "unique_member_count": 238,
+      "preapproval_packet_content_match_count": 10,
+      "recomputed_hash_match_count": 10,
+      "ordered_member_match_count": 10
+    },
+    {
+      "check_id": "CUR-APP-EXT-004",
+      "subject": "exact approved and rework sets",
+      "status": "PASS",
+      "approved_proposition_count": 236,
+      "unique_approved_proposition_count": 236,
+      "accepted_rework_count": 2,
+      "accepted_rework_items": [
+        "Base.Comfrey",
+        "Base.Plantain"
+      ]
+    },
+    {
+      "check_id": "CUR-APP-EXT-005",
+      "subject": "require-all-approved authority gate",
+      "status": "PASS",
+      "validator_status": "PASS",
+      "approved_batch_count": 10,
+      "pending_batch_count": 0,
+      "invalid_batch_count": 0,
+      "approved_proposition_count": 236,
+      "acknowledged_rework_count": 2,
+      "blocker_count": 0,
+      "authority_effect_before_materialization": false
+    },
+    {
+      "check_id": "CUR-APP-EXT-006",
+      "subject": "proposal regeneration and approved packet preservation",
+      "status": "PASS",
+      "same_content_regeneration_packet_bytes_preserved_count": 10,
+      "same_content_regeneration_receipt_bytes_preserved": true,
+      "same_content_regeneration_validator_status": "PASS",
+      "different_content_regeneration_blocked": true,
+      "different_content_regeneration_packet_bytes_preserved_count": 10,
+      "different_content_regeneration_receipt_bytes_preserved": true
+    },
+    {
+      "check_id": "CUR-APP-EXT-007",
+      "subject": "approval replay, overwrite, and partial-approval fail-closed behavior",
+      "status": "PASS",
+      "fully_approved_replay_blocked": true,
+      "fully_approved_replay_packet_bytes_preserved_count": 10,
+      "fully_approved_replay_receipt_bytes_preserved": true,
+      "partial_input_approved_batch_count": 1,
+      "partial_input_pending_batch_count": 9,
+      "partial_input_import_blocked": true,
+      "partial_input_validator_status": "BLOCKED",
+      "partial_input_packet_bytes_preserved_count": 10
+    },
+    {
+      "check_id": "CUR-APP-EXT-008",
+      "subject": "source discipline and proposal identity preservation",
+      "status": "PASS",
+      "target_count": 238,
+      "proposal_ledger_sha256_unchanged": true,
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "missing_reviewed_context_count": 0,
+      "proposal_validation_status": "PASS",
+      "proposal_authority_effect": false
+    },
+    {
+      "check_id": "CUR-APP-EXT-009",
+      "subject": "authority materializer preconditions and sink boundary",
+      "status": "PASS",
+      "attempt_local_sink_guard_executes_before_validation_or_writes": true,
+      "require_all_approved_validation_executes_before_output_construction": true,
+      "authority_outputs_are_write_once": true,
+      "current_mutation_authorized": false,
+      "actual_approved_bundle_materialization_performed_by_review": false
+    },
+    {
+      "check_id": "CUR-APP-EXT-010",
+      "subject": "focused regressions and sealed implementation bundle",
+      "status": "PASS",
+      "focused_test_count": 22,
+      "focused_test_failure_count": 0,
+      "attempt_artifact_count": 178,
+      "attempt_artifact_mismatch_count": 0,
+      "attempt_authority_claim_emitted_count": 0,
+      "attempt_current_facts_manifest_mutation_count": 0,
+      "attempt_protected_surface_changed_count": 0,
+      "implementation_complete_bundle_sealed": true
+    },
+    {
+      "check_id": "CUR-APP-EXT-011",
+      "subject": "reviewed commits do not mutate current or protected surfaces",
+      "status": "PASS",
+      "preapproval_review_to_target_changed_path_count": 0,
+      "approval_hardening_to_target_changed_path_count": 0,
+      "reviewed_protected_roots": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output",
+        "Iris/media/lua",
+        "Iris/Iris/media/lua",
+        "Iris/build/description/v2/package"
+      ]
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "git rev-parse HEAD; git rev-parse 93b3d53b",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_sha": "93b3d53b1b75eb11072b4cbedb311649712f8576"
+    },
+    {
+      "command": "git merge-base --is-ancestor a9cccd333aed555042ed98c4466b50a21f125ed9 93b3d53b1b75eb11072b4cbedb311649712f8576",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_test_count": 22
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_current_facts_manifest_mutation_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_curation.py validate --require-all-approved",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_approved_batch_count": 10,
+      "observed_pending_batch_count": 0,
+      "observed_invalid_batch_count": 0,
+      "observed_approved_proposition_count": 236,
+      "observed_acknowledged_rework_count": 2
+    },
+    {
+      "command": "independent packet/receipt audit with preapproval git-object comparison and canonical proposal-hash recomputation, piped to uv run python -B -",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_packet_count": 10,
+      "observed_preapproval_content_match_count": 10,
+      "observed_recomputed_hash_match_count": 10,
+      "observed_member_order_match_count": 10,
+      "observed_receipt_binding_match_count": 10
+    },
+    {
+      "command": "isolated same/different regeneration, replay, and partial-approval fixtures piped to uv run python -B -",
+      "exit_code": 0,
+      "result": "PASS",
+      "same_content_regeneration_status": "PASS",
+      "different_content_regeneration_status": "EXPECTED_BLOCKED",
+      "approval_replay_status": "EXPECTED_BLOCKED",
+      "partial_approval_status": "EXPECTED_BLOCKED",
+      "approved_packet_overwrite_count": 0
+    },
+    {
+      "command": "git show --check a9cccd333aed555042ed98c4466b50a21f125ed9; git show --check 93b3d53b1b75eb11072b4cbedb311649712f8576",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --name-only 3479778c..93b3d53b and 4337bd6e..93b3d53b over current data, rendered output, Lua/runtime, and package roots",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    },
+    {
+      "command": "Get-FileHash -Algorithm SHA256 over importer, runner, tests, receipt, proposal artifacts, owner decisions, prior reviews, and ten approval packets",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_hash_mismatch_count": 0
+    }
+  ],
+  "review_verdict": "PASS",
+  "verdict": "PASS",
+  "verdict_basis": "The exact owner directive is durably attributable to repository_owner and consistently bound to all ten unchanged D6 packets. Every packet retains its preapproval proposal body, recomputed proposal hash, exact ordered member set, and exact approved/rework sets. The require-all validator is PASS with no pending or invalid batch. Regeneration, replay, overwrite, and partial-input negative fixtures fail closed without replacing approved packets. The proposal source discipline, attempt seal, and current/protected no-mutation boundaries remain intact, and no new Critical, Important, or Minor finding is open.",
+  "authority_materialization_allowed": true,
+  "authority_materialization_constraints": [
+    "Materialization is authorized only for the exact target commit and reviewed approval packet hashes recorded in this review.",
+    "The require-all-approved validator must still report PASS immediately before execution.",
+    "The authority root must remain an attempt-local non-current sink accepted by assert_curation_authority_sink.",
+    "Any drift in proposal content, owner approval metadata, receipt binding, owner decisions, or reviewed hashes invalidates this review authorization."
+  ],
+  "approved_authority_scope": {
+    "approved_curated_proposition_count": 236,
+    "acknowledged_needs_rework_count": 2,
+    "current_mutation_authorized": false
+  },
+  "candidate_generation_authorized": false,
+  "candidate_generation_blockers": [
+    "Base.Comfrey remains in the curation rework queue.",
+    "Base.Plantain remains in the curation rework queue."
+  ],
+  "actual_approved_bundle_materialization_performed_by_review": false,
+  "terminal_independent_gate_credit": 0,
+  "non_claims": [
+    "Base.Comfrey or Base.Plantain rework resolved",
+    "curation rework unresolved count zero",
+    "candidate generation authorized",
+    "317 terminal semantic disposition complete",
+    "sealed successor handoff complete",
+    "current facts or manifest mutation authorized",
+    "Registry adoption complete",
+    "rendered or runtime freshness restored",
+    "terminal independent closeout PASS"
+  ]
+}

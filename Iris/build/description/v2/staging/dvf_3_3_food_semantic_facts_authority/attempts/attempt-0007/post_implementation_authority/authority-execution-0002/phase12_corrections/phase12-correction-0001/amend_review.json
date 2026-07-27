@@ -1,0 +1,37 @@
+{
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "mechanical_checks": {
+    "exact_two_proposal_files": true,
+    "four_methods_and_copytree_calls_exact": true,
+    "original_scope_review_owner_bindings_match": true,
+    "preimage_sha_byte_blob_match": true,
+    "wip_implementation_preserved": true,
+    "worktree_clean": true
+  },
+  "out_of_scope_change_count": 0,
+  "review_target": {
+    "scope_amendment_markdown_sha256": "e9eecbf0d598b73ce11cf237ca39d90f22a57521f1c009fe375747679bf8541f",
+    "scope_amendment_manifest_sha256": "84dee19b9d26a4b4cd8a7a65bd4003fe221f049f694fe2843039831634d31b82"
+  },
+  "reviewed_commit": "887575824a22f79957ec5d8c2f90aa6e5e8d026f",
+  "reviewed_parent": "2b32c2cdcdcdbd3e76fd6a45c27adf9abc6ec367",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "scope_checks": {
+    "cause_verified": true,
+    "lifecycle_separation_correct": true,
+    "minimal_fixture_only_change": true,
+    "phase9_10_consumes_phase12_corrections": false,
+    "production_or_authority_semantics_authorized": false,
+    "required_tests_sufficient": true
+  },
+  "schema_version": "food-semantic-phase12-correction-scope-amendment-review-v1",
+  "terminal_independent_gate_credit": 0,
+  "verdict": "PASS",
+  "verdict_basis": "The amendment is an exact, minimal test-fixture portability correction. It excludes only unconsumed later Phase 12 correction evidence from four nested Phase 9/10 temporary copies, preserves every authority input and prior approval, and authorizes no production or semantic behavior change."
+}

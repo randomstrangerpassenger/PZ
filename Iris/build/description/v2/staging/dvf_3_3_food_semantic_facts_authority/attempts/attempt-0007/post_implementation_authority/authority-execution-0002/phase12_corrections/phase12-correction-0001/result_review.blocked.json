@@ -1,0 +1,59 @@
+{
+  "code_and_scope_checks": {
+    "adoption_aware_handoff_correct": true,
+    "approved_file_and_symbol_scope_exact": true,
+    "d16_live_replacement_mismatch_count": 0,
+    "d16_original_manifest_preserved": true,
+    "origin_finding_p12_d16_i1_resolved": true,
+    "origin_finding_p12_d16_i2_resolved": true,
+    "phase4_to_8_behavior_change_count": 0,
+    "protected_surface_change_count": 0,
+    "replacement_hash_or_blob_mismatch_count": 0
+  },
+  "finding_counts": {
+    "critical": 0,
+    "important": 1,
+    "minor": 0
+  },
+  "findings": [
+    {
+      "finding_id": "P12-CORRECTION-RESULT-I1",
+      "finding": "The mandatory full-repository validation predicate is unsatisfied.",
+      "remediation": "Repair the absent upstream modules and artifacts through their proper authority scopes, rerun the exact full suite from a clean committed state, regenerate validation and result artifacts, and obtain a new external result review.",
+      "severity": "important",
+      "waiver_allowed": false
+    }
+  ],
+  "focused_validation_checks": {
+    "compose_entrypoint_guard_test_count": 7,
+    "compose_overlay_test_count": 7,
+    "compose_v2_test_count": 15,
+    "d16_acceptance_test_count": 8,
+    "d16_preservation_test_count": 4,
+    "focused_exit_code": 0,
+    "food_semantic_test_count": 46,
+    "git_diff_check_exit_code": 0
+  },
+  "full_repository_validation": {
+    "errors": 21,
+    "exit_code": 1,
+    "failures": 13,
+    "representative_missing_inputs_absent_at_scope_base": true,
+    "test_count": 309
+  },
+  "out_of_scope_change_count": 0,
+  "owner_result_approval_eligible": false,
+  "phase12_execution_allowed": false,
+  "reviewed_base": "32a2323afdb1e226470aec930574020f1dd7922d",
+  "reviewed_implementation_commits": [
+    "2b32c2cdcdcdbd3e76fd6a45c27adf9abc6ec367",
+    "baeb0219cba471f2b009a2cbf741714a27ef1ccf"
+  ],
+  "reviewed_result_commit": "d70609aa247137fcafdffbad877016d6f631f74b",
+  "reviewer_identity": "Codex Reviewer",
+  "schema_version": "food-semantic-phase12-correction-external-result-review-v1",
+  "terminal_d13_review": false,
+  "terminal_independent_gate_credit": 0,
+  "verdict": "BLOCKED",
+  "verdict_basis": "The bounded correction implementation is correct and all focused gates pass, but the approved correction contract requires every listed validation command to exit zero. The full repository suite exited one, so external implementation PASS, owner result approval, and Phase 12 continuation are prohibited."
+}

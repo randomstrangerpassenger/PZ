@@ -1,0 +1,17 @@
+{
+  "approved_batch_count": 1,
+  "approved_curated_proposition_count": 238,
+  "bound_prior_authority_execution_receipt_sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+  "bound_resolution_external_review_sha256": "1c3d9ab7dc35d699b8eae21d24ecf6ef57454a9383122e2030c8f94081e6e2ac",
+  "bound_resolution_proposal_ledger_sha256": "d9406e6dd48ba1ed18986259e4641f54ff5668fd44cff7cc8e75c4e53c8ac285",
+  "bound_resolution_proposal_summary_sha256": "ad8c846fab2e7436cc48deebd85d28f3010440f5a23fa88377c8b7086f0f8e0c",
+  "candidate_generation_authorized": true,
+  "curated_approval_missing_count": 0,
+  "curated_schema_violation_count": 0,
+  "current_mutation_authorized": false,
+  "duplicate_approval_event_count": 0,
+  "resolved_prior_rework_count": 2,
+  "schema_version": "food-semantic-curation-rework-materialization-v1",
+  "status": "PASS_COMPLETE",
+  "unresolved_rework_count": 0
+}

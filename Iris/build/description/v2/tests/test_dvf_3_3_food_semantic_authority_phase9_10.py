@@ -190,7 +190,11 @@ class FoodSemanticAuthorityPhase910Test(unittest.TestCase):
         ) as temp_dir:
             temp_root = Path(temp_dir)
             authority_copy = temp_root / "authority-input"
-            shutil.copytree(AUTHORITY_ROOT, authority_copy)
+            shutil.copytree(
+                AUTHORITY_ROOT,
+                authority_copy,
+                ignore=shutil.ignore_patterns("phase12_corrections"),
+            )
             (
                 authority_copy
                 / "external_authority_materialization_review.json"
@@ -214,7 +218,11 @@ class FoodSemanticAuthorityPhase910Test(unittest.TestCase):
         ) as temp_dir:
             temp_root = Path(temp_dir)
             authority_copy = temp_root / "authority-input"
-            shutil.copytree(AUTHORITY_ROOT, authority_copy)
+            shutil.copytree(
+                AUTHORITY_ROOT,
+                authority_copy,
+                ignore=shutil.ignore_patterns("phase12_corrections"),
+            )
             review_path = (
                 authority_copy
                 / "phase9_10_external_implementation_review.json"
@@ -239,7 +247,11 @@ class FoodSemanticAuthorityPhase910Test(unittest.TestCase):
             dir=ATTEMPT_ROOT / "post_implementation_authority"
         ) as temp_dir:
             authority_copy = Path(temp_dir) / "authority-input"
-            shutil.copytree(AUTHORITY_ROOT, authority_copy)
+            shutil.copytree(
+                AUTHORITY_ROOT,
+                authority_copy,
+                ignore=shutil.ignore_patterns("phase12_corrections"),
+            )
             code_paths = [
                 (
                     "Iris/build/description/v2/tools/build/"
@@ -382,7 +394,11 @@ class FoodSemanticAuthorityPhase910Test(unittest.TestCase):
         ) as temp_dir:
             temp_root = Path(temp_dir)
             authority_copy = temp_root / "authority-input"
-            shutil.copytree(AUTHORITY_ROOT, authority_copy)
+            shutil.copytree(
+                AUTHORITY_ROOT,
+                authority_copy,
+                ignore=shutil.ignore_patterns("phase12_corrections"),
+            )
             curated_path = (
                 authority_copy
                 / "phase8_curation/curated_fact_ledger.jsonl"

@@ -195,7 +195,19 @@
       "semantic_approver": null
     }
   ],
-  "owner_approval": null,
+  "owner_approval": {
+    "accepted_needs_rework_items": [],
+    "approval_directive": "승인",
+    "approval_state": "approved",
+    "approval_time": "2026-07-27T20:23:51.8485036+09:00",
+    "approved_proposition_ids": [
+      "fsp:b8442f179c0764d485da604a",
+      "fsp:d969ed6992da5b2c455fa9c4"
+    ],
+    "approver_identity": "repository_owner",
+    "proposal_content_sha256": "dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8",
+    "rationale": "Owner approved exactly Base.Comfrey and Base.Plantain ingredient_origin=plant after Codex Reviewer PASS; no food, edible, consumption, meal, or culinary-role proposition is approved."
+  },
   "proposal_content_sha256": "dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8",
   "schema_version": "food-semantic-curation-rework-resolution-v1"
 }

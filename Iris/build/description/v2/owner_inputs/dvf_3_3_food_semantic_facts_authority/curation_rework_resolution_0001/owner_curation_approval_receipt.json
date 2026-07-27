@@ -1,0 +1,23 @@
+{
+  "accepted_needs_rework_count": 0,
+  "approval_directive": "승인",
+  "approval_rationale": "Owner approved exactly Base.Comfrey and Base.Plantain ingredient_origin=plant after Codex Reviewer PASS; no food, edible, consumption, meal, or culinary-role proposition is approved.",
+  "approval_source_kind": "owner_conversation_directive",
+  "approval_time": "2026-07-27T20:23:51.8485036+09:00",
+  "approved_batch_count": 1,
+  "approved_proposition_count": 2,
+  "approver_identity": "repository_owner",
+  "authority_effect_before_materialization": false,
+  "batches": [
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 2,
+      "batch_id": "fsb:c6b37612f34582054041a916",
+      "member_count": 2,
+      "proposal_content_sha256": "dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8"
+    }
+  ],
+  "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "schema_version": "food-semantic-owner-curation-approval-receipt-v1",
+  "validation_status": "PASS"
+}

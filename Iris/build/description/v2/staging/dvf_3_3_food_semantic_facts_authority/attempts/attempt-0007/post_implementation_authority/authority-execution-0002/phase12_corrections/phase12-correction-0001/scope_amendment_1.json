@@ -1,0 +1,70 @@
+{
+  "amendment_id": "phase12-correction-0001-scope-amendment-0001",
+  "base_implementation_commit": "2b32c2cdcdcdbd3e76fd6a45c27adf9abc6ec367",
+  "change_budget": {
+    "allowed_call_expression_change_count": 4,
+    "allowed_file_count": 1,
+    "allowed_method_count": 4,
+    "production_file_change_count": 0
+  },
+  "failure_evidence": {
+    "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+    "error_count": 4,
+    "failure_class": "Windows legacy path-length overflow while copying Phase 12 evidence into a nested temporary Phase 9/10 fixture",
+    "observed_exception": "[WinError 3] The system cannot find the path specified",
+    "original_correction_finding_regression": false,
+    "test_count": 46
+  },
+  "forbidden_changes": [
+    "any production file",
+    "any test assertion, expected value, test gate, authority contract, or implementation behavior",
+    "any current facts, manifest, rendered, Lua, runtime, Registry, Publish Boundary, or package surface",
+    "any Naturalization Phase 4 through 8 behavior",
+    "any original correction scope, focused review, owner approval, implementation commit, attempt, or Phase 12 BLOCKED record",
+    "moving, renaming, rewriting, or deleting phase12_corrections evidence",
+    "ignoring any authority input other than the phase12_corrections evidence subtree in the four bounded fixture copies"
+  ],
+  "implementation_contract": {
+    "allowed_edit": "Add ignore=shutil.ignore_patterns(\"phase12_corrections\") to each of the four existing shutil.copytree(AUTHORITY_ROOT, authority_copy) calls.",
+    "allowed_methods": [
+      "FoodSemanticAuthorityPhase910Test.test_missing_phase8_review_blocks_before_output",
+      "FoodSemanticAuthorityPhase910Test.test_authority_execution_requires_external_code_review",
+      "FoodSemanticAuthorityPhase910Test.test_external_code_review_gate_is_exact_and_tamper_evident",
+      "FoodSemanticAuthorityPhase910Test.test_phase8_tamper_blocks_before_output"
+    ],
+    "allowed_path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_authority_phase9_10.py",
+    "semantic_effect": "The Phase 9/10 temporary fixture copies retain all inputs consumed by those tests and omit only later Phase 12 correction evidence that those tests neither read nor validate."
+  },
+  "original_scope_bindings": {
+    "correction_scope_manifest_sha256": "e833710b19cca89c544eae1383bf7e41e96a5c0e5353f5298e231455b8388127",
+    "focused_scope_review_pass_sha256": "d531463e7712c234ea826bef9ad757b2a0149a3908c32562c7854e8b7958c248",
+    "owner_scope_approval_sha256": "af97d91fcf84e875de3841867b9b0be4e1607690f5579a92d8313652f036b369"
+  },
+  "preimage_binding": {
+    "byte_count": 15507,
+    "git_blob_id": "1b74ea7908312f2d83a1b19cad395f291937711e",
+    "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_authority_phase9_10.py",
+    "sha256": "71bea8af710446963d553b7b8ec95cd29c7a9d1e98ce73cda2f164987f5a101c"
+  },
+  "required_validation_commands": [
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_acceptance_gate.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_semantic_preservation.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_entrypoint_guard_hardening.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_layer3_text_overlay.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_compose_layer3_text_v2.py\"",
+    "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_*.py\"",
+    "git diff --check"
+  ],
+  "review_and_approval_contract": {
+    "focused_scope_review_critical_count_must_equal": 0,
+    "focused_scope_review_important_count_must_equal": 0,
+    "focused_scope_review_out_of_scope_change_count_must_equal": 0,
+    "owner_scope_approval_required_before_edit": true,
+    "owner_scope_approval_binds_preimage_only": true,
+    "owner_result_approval_still_required": true,
+    "replacement_sha256_approved_now": false
+  },
+  "schema_version": "food-semantic-phase12-correction-scope-amendment-v1",
+  "status": "PROPOSED_PENDING_FOCUSED_SCOPE_REVIEW"
+}

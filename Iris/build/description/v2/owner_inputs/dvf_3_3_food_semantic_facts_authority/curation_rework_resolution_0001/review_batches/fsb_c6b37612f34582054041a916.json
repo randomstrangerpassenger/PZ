@@ -1,0 +1,201 @@
+{
+  "approval_state": "pending_human_semantic_approval",
+  "authority_effect": false,
+  "batch": {
+    "approval_state": "unapproved",
+    "authority_class": "curated",
+    "batch_id": "fsb:c6b37612f34582054041a916",
+    "member_count": 2,
+    "ordered_members": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "queue_sha256": "5176ee896cf04db0be817a87d69d869d55ff94a5352356e3fda13a9f92ebddee",
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+  },
+  "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "curator_identity": "codex_ai_curator",
+  "members": [
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "foraging_definition.type",
+        "foraging_definition.categories"
+      ],
+      "curation_mode": "ai_rework_resolution_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "ingredient_origin",
+      "fact_value": "plant",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.Comfrey",
+      "judgment_rule": "curated_exact_foraging_medicinal_plant_category",
+      "proposition_id": "fsp:d969ed6992da5b2c455fa9c4",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "The exact foraging record joins this FullType to the MedicinalPlants category, supporting only plant origin. Type=Normal and the Health poultice recipe are retained as negative scope controls: no food-consumption, meal, or culinary role proposition is claimed.",
+      "resolves_prior_rework": {
+        "approval_record": "fsb:d1b002457a9c589280734ff1@aeb70570b715e15e7a5532506eaba66645dc337bd22eacbbbd5c8fc6876cec14",
+        "reason": "reviewed_source_does_not_establish_food_semantic_scope"
+      },
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "Type": "Normal"
+          },
+          "source_artifact_path": "scripts/newitems.txt",
+          "source_artifact_sha256": "06cb9bcd39cab185f3b956785c955302b39df90ef301b4f986c3b115f7668347",
+          "source_block_sha256": "d59e4896bce63bb6fd51b455758abf27c93e5c748829bb631bf83f4161adf3ee",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.Comfrey@L2049-L2058"
+        },
+        {
+          "forbidden_fields_present_but_not_consumed": [],
+          "normalization_operations": [
+            "exact_item_identity_join",
+            "exact_category_membership_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "categories": [
+              "MedicinalPlants"
+            ],
+            "recipes": [
+              "Herbalist"
+            ],
+            "type": "Base.Comfrey"
+          },
+          "source_artifact_path": "lua/shared/Foraging/forageDefinitions.lua",
+          "source_artifact_sha256": "235cc27f511e75a44ef95fe69f6a04542d6ad7856b92f8b72a0f1bafb292e7f2",
+          "source_block_sha256": "bae4bb36c34926259f5e9a1b65e1cd3230c11803160549853dfa94ef0e858d1d",
+          "source_family": "foraging_definition_human_review_context",
+          "source_item_locator": "Comfrey[type=Base.Comfrey]@L2606-L2622"
+        },
+        {
+          "forbidden_fields_present_but_not_consumed": [],
+          "normalization_operations": [
+            "exact_recipe_ingredient_join",
+            "exact_recipe_category_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "category": "Health",
+            "ingredient_count": 5,
+            "ingredient_item_identity": "Base.Comfrey",
+            "result_item_identity": "Base.ComfreyCataplasm"
+          },
+          "source_artifact_path": "scripts/recipes.txt",
+          "source_artifact_sha256": "062b2849a34722c52c4dc03a93592059f796504858659092c0a037f9668a0ead",
+          "source_block_sha256": "db242f863021a49a871e078f9291718d378abafdae69a6df109e550c18e0cbf7",
+          "source_family": "recipe_definition_human_review_context",
+          "source_item_locator": "Make Comfrey Poultice@L1202-L1210"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "foraging_definition.type",
+        "foraging_definition.categories"
+      ],
+      "curation_mode": "ai_rework_resolution_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "ingredient_origin",
+      "fact_value": "plant",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.Plantain",
+      "judgment_rule": "curated_exact_foraging_medicinal_plant_category",
+      "proposition_id": "fsp:b8442f179c0764d485da604a",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "The exact foraging record joins this FullType to the MedicinalPlants category, supporting only plant origin. Type=Normal and the Health poultice recipe are retained as negative scope controls: no food-consumption, meal, or culinary role proposition is claimed.",
+      "resolves_prior_rework": {
+        "approval_record": "fsb:d5d4e6b00b67d1100bee65cd@68dcc4225fb55195870c10333a591581f82301188d380a7f778aa4b17834524f",
+        "reason": "reviewed_source_does_not_establish_food_semantic_scope"
+      },
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "Type": "Normal"
+          },
+          "source_artifact_path": "scripts/newitems.txt",
+          "source_artifact_sha256": "06cb9bcd39cab185f3b956785c955302b39df90ef301b4f986c3b115f7668347",
+          "source_block_sha256": "d7a995c375fd0f1eaf76d224e1801f75e1bbff82404d8b0c952a727ca89ae495",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.Plantain@L2027-L2036"
+        },
+        {
+          "forbidden_fields_present_but_not_consumed": [],
+          "normalization_operations": [
+            "exact_item_identity_join",
+            "exact_category_membership_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "categories": [
+              "MedicinalPlants"
+            ],
+            "recipes": [
+              "Herbalist"
+            ],
+            "type": "Base.Plantain"
+          },
+          "source_artifact_path": "lua/shared/Foraging/forageDefinitions.lua",
+          "source_artifact_sha256": "235cc27f511e75a44ef95fe69f6a04542d6ad7856b92f8b72a0f1bafb292e7f2",
+          "source_block_sha256": "07cad6b4cc9b6644d4d1bf67e821fb850b477635792eba67c6ca24b1bf78029a",
+          "source_family": "foraging_definition_human_review_context",
+          "source_item_locator": "Plantain[type=Base.Plantain]@L2589-L2605"
+        },
+        {
+          "forbidden_fields_present_but_not_consumed": [],
+          "normalization_operations": [
+            "exact_recipe_ingredient_join",
+            "exact_recipe_category_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "category": "Health",
+            "ingredient_count": 5,
+            "ingredient_item_identity": "Base.Plantain",
+            "result_item_identity": "Base.PlantainCataplasm"
+          },
+          "source_artifact_path": "scripts/recipes.txt",
+          "source_artifact_sha256": "062b2849a34722c52c4dc03a93592059f796504858659092c0a037f9668a0ead",
+          "source_block_sha256": "ea0748c3c66da73f2901bb9940751a80ac95746068105aafa8c93ea4abc4a4e7",
+          "source_family": "recipe_definition_human_review_context",
+          "source_item_locator": "Make Plantain Poultice@L1192-L1200"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    }
+  ],
+  "owner_approval": null,
+  "proposal_content_sha256": "dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8",
+  "schema_version": "food-semantic-curation-rework-resolution-v1"
+}

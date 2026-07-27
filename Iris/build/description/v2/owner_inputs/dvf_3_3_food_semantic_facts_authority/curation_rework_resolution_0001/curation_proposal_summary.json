@@ -1,0 +1,17 @@
+{
+  "authority_effect": false,
+  "bound_attempt_id": "attempt-0007",
+  "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "bound_prior_authority_execution_receipt_sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+  "curator_identity": "codex_ai_curator",
+  "human_semantic_approval_required": true,
+  "maximum_batch_member_count": 2,
+  "needs_rework_count": 0,
+  "proposal_ledger_sha256": "d9406e6dd48ba1ed18986259e4641f54ff5668fd44cff7cc8e75c4e53c8ac285",
+  "proposed_proposition_count": 2,
+  "review_batch_count": 1,
+  "schema_version": "food-semantic-curation-rework-resolution-v1",
+  "status": "READY_FOR_HUMAN_BATCH_REVIEW",
+  "target_count": 2,
+  "validation_status": "PASS"
+}

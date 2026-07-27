@@ -1,0 +1,16 @@
+{
+  "authority_effect": false,
+  "blockers": [],
+  "forbidden_context_field_consumed_count": 0,
+  "forbidden_context_operation_consumed_count": 0,
+  "prior_rework_count": 2,
+  "proposed_items": [
+    "Base.Comfrey",
+    "Base.Plantain"
+  ],
+  "proposed_proposition_count": 2,
+  "resolution_proposal_count": 2,
+  "resolved_item_count": 2,
+  "schema_version": "food-semantic-curation-rework-resolution-validation-v1",
+  "status": "PASS"
+}

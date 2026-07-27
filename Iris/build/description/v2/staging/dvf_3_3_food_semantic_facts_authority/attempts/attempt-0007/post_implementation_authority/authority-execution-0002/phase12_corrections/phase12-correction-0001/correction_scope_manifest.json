@@ -126,7 +126,6 @@
       ],
       "allowed_symbols": [
         "SECTION_TO_PROPOSITION_ROLE",
-        "CANDIDATE_STRUCTURAL_STATUSES",
         "build_candidate_body_plan_requirements",
         "canonical_proof_digest",
         "build_single_proposition_equivalence_proof"
@@ -146,7 +145,6 @@
         "build_candidate_lead_context",
         "_has_semantic_tokens",
         "select_candidate_lead_realization",
-        "render_candidate_lead",
         "apply_identity_zero_anaphora"
       ],
       "git_blob_id": "a5c52e94c4b8af8a6a4219deb8c59cd685f76cfb",

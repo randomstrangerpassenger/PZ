@@ -1,0 +1,49 @@
+{
+  "approval_directive": "승인",
+  "approval_scope": "preimage_bound_phase12_correction_scope_only",
+  "approval_time": "2026-07-27T23:24:05.3153602+09:00",
+  "approved_files": [
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+      "preimage_sha256": "5c59c5ee97895fa65b2aa11e2c6418af0a49e7acaf7e7350cc59d5f3e85ae173"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "preimage_sha256": "f6a6bf7848a673f4069aaecfd58b55c9e9a31d3d88361ea962d38507b4e3c824"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "preimage_sha256": "68265a9a9611be201db25452afd43bbfb5b7544daea5b00a30f669427a7663af"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+      "preimage_sha256": "8ff755fbdd2718f07552f544c94eeacb0a1cdb482752ce455f8ac013bd0d3f02"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "preimage_sha256": "331672fcf328f0e6420808d91860cbb9c008d2b2dab025d7676875946e6289d5"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py",
+      "preimage_sha256": "7ac53fa8679a7a006434bbf2d919ac4aa0cfae235eaae269c7faefdbe7906e2c"
+    }
+  ],
+  "approver_identity": "repository_owner",
+  "bound_correction_addendum_sha256": "8eeb9a9e49a377457d9175120f2472701697cc536b8fbbb9687e9b32b427987d",
+  "bound_correction_scope_manifest_sha256": "e833710b19cca89c544eae1383bf7e41e96a5c0e5353f5298e231455b8388127",
+  "bound_focused_scope_review_sha256": "d531463e7712c234ea826bef9ad757b2a0149a3908c32562c7854e8b7958c248",
+  "bound_scope_review_commit": "1504a5a21995f1ab7fd4c328e52238d40982e789",
+  "correction_id": "phase12-correction-0001",
+  "implementation_authorized": true,
+  "replacement_sha256_approved": false,
+  "replacement_sha256_set_present": false,
+  "result_approval_granted": false,
+  "schema_version": "food-semantic-phase12-correction-owner-scope-approval-v1",
+  "scope_review_finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "scope_review_out_of_scope_change_count": 0,
+  "status": "APPROVED_FOR_BOUNDED_IMPLEMENTATION"
+}

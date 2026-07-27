@@ -3,6 +3,7 @@
   "bound_attempt_id": "attempt-0007",
   "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
   "bound_prior_authority_execution_receipt_sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+  "bound_prior_authority_external_review_sha256": "e001179f19fe7a962ece427ba0443efa47fa2abb0d981c516d0bdbe6d3932508",
   "curator_identity": "codex_ai_curator",
   "human_semantic_approval_required": true,
   "maximum_batch_member_count": 2,

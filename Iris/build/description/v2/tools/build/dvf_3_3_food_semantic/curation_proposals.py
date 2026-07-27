@@ -770,8 +770,8 @@ def write_curation_proposal_bundle(
                 if (
                     existing_batch.get("proposal_content_sha256")
                     != batch.get("proposal_content_sha256")
-                    or _review_batch_proposal_hash(existing_batch)
-                    != _review_batch_proposal_hash(batch)
+                    or review_batch_proposal_hash(existing_batch)
+                    != review_batch_proposal_hash(batch)
                 ):
                     raise FoodSemanticError(
                         "approved review batch cannot be regenerated from "
@@ -827,7 +827,8 @@ def write_curation_proposal_bundle(
     return summary
 
 
-def _review_batch_proposal_hash(batch: dict[str, Any]) -> str:
+def review_batch_proposal_hash(batch: dict[str, Any]) -> str:
+    """Return the public canonical content hash for an approval batch."""
     return sha256_bytes(
         canonical_json_bytes(
             {
@@ -932,7 +933,7 @@ def record_exact_owner_batch_approvals(
             raise FoodSemanticError(
                 f"owner approval is already recorded: {path}"
             )
-        computed_hash = _review_batch_proposal_hash(batch)
+        computed_hash = review_batch_proposal_hash(batch)
         if computed_hash != batch.get("proposal_content_sha256"):
             raise FoodSemanticError(
                 f"proposal content hash mismatch before approval: {path}"
@@ -1045,7 +1046,7 @@ def validate_batch_approvals(
     for batch in batches:
         batch_id = batch["batch"]["batch_id"]
         errors: list[str] = []
-        computed_hash = _review_batch_proposal_hash(batch)
+        computed_hash = review_batch_proposal_hash(batch)
         if computed_hash != batch.get("proposal_content_sha256"):
             errors.append("proposal_content_hash_mismatch")
         members = batch.get("members", [])

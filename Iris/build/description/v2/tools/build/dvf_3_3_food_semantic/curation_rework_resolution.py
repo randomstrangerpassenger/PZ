@@ -12,6 +12,7 @@ from .contracts import (
     load_json,
     load_jsonl,
     relative_posix,
+    repo_root,
     sha256_bytes,
     sha256_file,
     write_json,
@@ -19,10 +20,10 @@ from .contracts import (
 )
 from .curation_proposals import (
     AI_CURATOR_IDENTITY,
-    _review_batch_proposal_hash,
     approval_packet_schema,
     assert_curation_authority_sink,
     parse_script_items,
+    review_batch_proposal_hash,
     validate_batch_approvals,
 )
 
@@ -426,7 +427,53 @@ def write_rework_resolution_bundle(
         "curator_identity": AI_CURATOR_IDENTITY,
         "owner_approval": None,
     }
-    batch["proposal_content_sha256"] = _review_batch_proposal_hash(batch)
+    batch["proposal_content_sha256"] = review_batch_proposal_hash(batch)
+    review_root = output_root / "review_batches"
+    filename = batch["batch"]["batch_id"].replace(":", "_") + ".json"
+    batch_path = review_root / filename
+    receipt_path = output_root / "owner_curation_approval_receipt.json"
+    existing_batch_paths = (
+        sorted(review_root.glob("*.json")) if review_root.is_dir() else []
+    )
+    if existing_batch_paths and existing_batch_paths != [batch_path]:
+        raise FoodSemanticError(
+            "rework-resolution review batch set cannot be regenerated "
+            "with unexpected existing packets"
+        )
+    if batch_path.is_file():
+        existing_batch = load_json(batch_path)
+        existing_approval = existing_batch.get("owner_approval")
+        if existing_approval is not None:
+            if (
+                existing_batch.get("proposal_content_sha256")
+                != batch.get("proposal_content_sha256")
+                or review_batch_proposal_hash(existing_batch)
+                != review_batch_proposal_hash(batch)
+            ):
+                raise FoodSemanticError(
+                    "approved rework-resolution batch cannot be regenerated "
+                    f"from different proposal content: {batch_path}"
+                )
+            batch["owner_approval"] = existing_approval
+            _validate_resolution_owner_receipt(
+                output_root,
+                batches=[batch],
+                approval_validation={
+                    "approved_batch_count": 1,
+                    "approved_proposition_count": len(proposals),
+                    "acknowledged_rework_count": 0,
+                },
+            )
+        elif receipt_path.exists():
+            raise FoodSemanticError(
+                "stale owner receipt exists without an approved "
+                "rework-resolution batch"
+            )
+    elif receipt_path.exists():
+        raise FoodSemanticError(
+            "stale owner receipt exists without its exact "
+            "rework-resolution batch"
+        )
     write_jsonl(
         output_root / "curation_rework_resolution_proposals.jsonl",
         proposals,
@@ -437,9 +484,7 @@ def write_rework_resolution_bundle(
         validation,
         write_once=False,
     )
-    review_root = output_root / "review_batches"
-    filename = batch["batch"]["batch_id"].replace(":", "_") + ".json"
-    write_json(review_root / filename, batch, write_once=False)
+    write_json(batch_path, batch, write_once=False)
     write_json(
         output_root / "curation_batch_approval.schema.json",
         approval_packet_schema(),
@@ -452,6 +497,10 @@ def write_rework_resolution_bundle(
         "bound_implementation_complete_bundle_sha256": bundle_sha256,
         "bound_prior_authority_execution_receipt_sha256": sha256_file(
             prior_authority_root / "authority_execution_receipt.json"
+        ),
+        "bound_prior_authority_external_review_sha256": sha256_file(
+            prior_authority_root
+            / "external_authority_materialization_review.json"
         ),
         "curator_identity": AI_CURATOR_IDENTITY,
         "target_count": len(proposals),
@@ -507,14 +556,397 @@ def write_rework_resolution_bundle(
     return summary
 
 
+def _validate_prior_authority_execution(
+    prior_authority_root: Path,
+) -> dict[str, Any]:
+    root = repo_root()
+    receipt_path = prior_authority_root / "authority_execution_receipt.json"
+    receipt = load_json(receipt_path)
+    declared_root = root / receipt.get("execution_root", "")
+    if declared_root.resolve() != prior_authority_root.resolve():
+        raise FoodSemanticError(
+            "prior authority execution receipt root binding mismatch"
+        )
+    expected_artifacts = {
+        "phase8_curation/curated_fact_ledger.jsonl",
+        "phase8_curation/semantic_authority_approval_ledger.jsonl",
+        "phase8_curation/curation_event_ledger.jsonl",
+        "phase8_curation/curation_rework_queue.jsonl",
+        "phase8_curation/curation_checkpoint.json",
+        "phase8_curation/curation_authority_execution_report.json",
+    }
+    rows = receipt.get("artifacts")
+    if not isinstance(rows, list):
+        raise FoodSemanticError("prior authority artifact manifest is invalid")
+    declared_paths = {row.get("path") for row in rows}
+    if declared_paths != expected_artifacts:
+        raise FoodSemanticError(
+            "prior authority artifact manifest exact set mismatch"
+        )
+    for row in rows:
+        relative = Path(row["path"])
+        path = (prior_authority_root / relative).resolve()
+        try:
+            path.relative_to(prior_authority_root.resolve())
+        except ValueError as exc:
+            raise FoodSemanticError(
+                "prior authority artifact escapes execution root"
+            ) from exc
+        if not path.is_file():
+            raise FoodSemanticError(
+                f"prior authority artifact is missing: {path}"
+            )
+        if sha256_file(path) != row.get("sha256"):
+            raise FoodSemanticError(
+                f"prior authority artifact hash mismatch: {path}"
+            )
+        if path.stat().st_size != row.get("byte_count"):
+            raise FoodSemanticError(
+                f"prior authority artifact byte count mismatch: {path}"
+            )
+        if "row_count" in row:
+            line_count = len(path.read_text(encoding="utf-8").splitlines())
+            if line_count != row["row_count"]:
+                raise FoodSemanticError(
+                    f"prior authority artifact row count mismatch: {path}"
+                )
+    review_path = (
+        prior_authority_root
+        / "external_authority_materialization_review.json"
+    )
+    review = load_json(review_path)
+    if (
+        review.get("verdict") != "PASS"
+        or review.get("finding_counts", {}).get("critical") != 0
+        or review.get("finding_counts", {}).get("important") != 0
+        or review.get("candidate_generation_authorized")
+        or review.get("current_mutation_authorized")
+    ):
+        raise FoodSemanticError(
+            "prior authority external review gate is not PASS"
+        )
+    review_target = review.get("review_target", {})
+    if (
+        review_target.get("execution_root")
+        != receipt.get("execution_root")
+        or review_target.get("authority_execution_receipt_sha256")
+        != sha256_file(receipt_path)
+    ):
+        raise FoodSemanticError(
+            "prior authority external review receipt binding mismatch"
+        )
+    verified_outputs = review.get("verified_output_artifacts", [])
+    reviewed_by_path = {
+        row.get("path"): row for row in verified_outputs
+    }
+    if set(reviewed_by_path) != expected_artifacts:
+        raise FoodSemanticError(
+            "prior authority external review artifact set mismatch"
+        )
+    receipt_by_path = {row["path"]: row for row in rows}
+    for relative, reviewed in reviewed_by_path.items():
+        artifact = receipt_by_path[relative]
+        if (
+            reviewed.get("observed_sha256") != artifact["sha256"]
+            or reviewed.get("receipt_declared_sha256")
+            != artifact["sha256"]
+            or reviewed.get("observed_byte_count")
+            != artifact["byte_count"]
+            or reviewed.get("receipt_declared_byte_count")
+            != artifact["byte_count"]
+        ):
+            raise FoodSemanticError(
+                "prior authority external review artifact identity mismatch"
+            )
+
+    phase = prior_authority_root / "phase8_curation"
+    curated = load_jsonl(phase / "curated_fact_ledger.jsonl")
+    approvals = load_jsonl(
+        phase / "semantic_authority_approval_ledger.jsonl"
+    )
+    events = load_jsonl(phase / "curation_event_ledger.jsonl")
+    rework = load_jsonl(phase / "curation_rework_queue.jsonl")
+    checkpoint = load_json(phase / "curation_checkpoint.json")
+    report = load_json(
+        phase / "curation_authority_execution_report.json"
+    )
+    curated_ids = {
+        row["fact_proposition_identity"] for row in curated
+    }
+    approval_ids = {row["proposition_id"] for row in approvals}
+    event_ids = [row["event_id"] for row in events]
+    event_counts: dict[str, int] = {}
+    for event in events:
+        event_counts[event["event"]] = (
+            event_counts.get(event["event"], 0) + 1
+        )
+    if (
+        len(curated) != 236
+        or len(curated_ids) != 236
+        or len(approvals) != 236
+        or approval_ids != curated_ids
+        or len(events) != 714
+        or len(set(event_ids)) != 714
+        or event_counts
+        != {
+            "queued": 238,
+            "review_started": 238,
+            "accepted": 236,
+            "needs_rework": 2,
+        }
+        or sum(event.get("authority_effect") is True for event in events)
+        != 236
+        or any(
+            event.get("authority_effect") is True
+            and event["event"] != "accepted"
+            for event in events
+        )
+        or sorted(row["item_identity"] for row in rework)
+        != list(EXPECTED_REWORK_ITEMS)
+        or {row["item_identity"] for row in rework}
+        & {row["item_identity"] for row in curated}
+    ):
+        raise FoodSemanticError(
+            "prior authority semantic ledger reconciliation failed"
+        )
+    if (
+        checkpoint.get("event_ledger_sha256")
+        != sha256_file(phase / "curation_event_ledger.jsonl")
+        or checkpoint.get("accepted_count") != 236
+        or checkpoint.get("rework_count") != 2
+        or report.get("status") != "PASS_WITH_REWORK"
+        or report.get("approved_curated_proposition_count") != 236
+        or report.get("unresolved_rework_count") != 2
+        or report.get("candidate_generation_authorized") is not False
+        or report.get("current_mutation_authorized") is not False
+    ):
+        raise FoodSemanticError(
+            "prior authority checkpoint or report reconciliation failed"
+        )
+    return receipt
+
+
+def _validate_resolution_bundle_binding(
+    root: Path,
+    *,
+    proposal_root: Path,
+    prior_authority_root: Path,
+    batch_members: list[dict[str, Any]],
+) -> dict[str, Any]:
+    summary_path = proposal_root / "curation_proposal_summary.json"
+    summary = load_json(summary_path)
+    proposal_path = (
+        proposal_root / "curation_rework_resolution_proposals.jsonl"
+    )
+    proposal_rows = load_jsonl(proposal_path)
+    if sha256_file(proposal_path) != summary.get("proposal_ledger_sha256"):
+        raise FoodSemanticError(
+            "rework-resolution proposal ledger hash mismatch"
+        )
+    prior_receipt_path = (
+        prior_authority_root / "authority_execution_receipt.json"
+    )
+    if sha256_file(prior_receipt_path) != summary.get(
+        "bound_prior_authority_execution_receipt_sha256"
+    ):
+        raise FoodSemanticError(
+            "rework-resolution prior authority receipt binding mismatch"
+        )
+    prior_review_path = (
+        prior_authority_root
+        / "external_authority_materialization_review.json"
+    )
+    if sha256_file(prior_review_path) != summary.get(
+        "bound_prior_authority_external_review_sha256"
+    ):
+        raise FoodSemanticError(
+            "rework-resolution prior external review binding mismatch"
+        )
+    ordered_proposals = sorted(
+        proposal_rows,
+        key=lambda row: row["item_identity"],
+    )
+    ordered_members = sorted(
+        batch_members,
+        key=lambda row: row["item_identity"],
+    )
+    if ordered_proposals != ordered_members:
+        raise FoodSemanticError(
+            "review batch members do not exactly match proposal ledger"
+        )
+    recomputed = validate_rework_resolution_proposals(
+        root,
+        prior_authority_root=prior_authority_root,
+        proposals=ordered_members,
+    )
+    stored = load_json(
+        proposal_root / "curation_rework_resolution_validation.json"
+    )
+    if recomputed != stored or recomputed["status"] != "PASS":
+        raise FoodSemanticError(
+            "rework-resolution narrow validation is not exact PASS"
+        )
+    if (
+        summary.get("validation_status") != "PASS"
+        or summary.get("target_count") != len(ordered_members)
+        or summary.get("proposed_proposition_count")
+        != len(ordered_members)
+        or summary.get("needs_rework_count") != 0
+        or summary.get("authority_effect") is not False
+    ):
+        raise FoodSemanticError(
+            "rework-resolution proposal summary contract mismatch"
+        )
+    return summary
+
+
+def _validate_resolution_owner_receipt(
+    proposal_root: Path,
+    *,
+    batches: list[dict[str, Any]],
+    approval_validation: dict[str, Any],
+) -> dict[str, Any]:
+    receipt_path = proposal_root / "owner_curation_approval_receipt.json"
+    if not receipt_path.is_file():
+        raise FoodSemanticError(
+            "rework-resolution owner approval receipt is missing"
+        )
+    receipt = load_json(receipt_path)
+    expected_batches = [
+        {
+            "batch_id": batch["batch"]["batch_id"],
+            "member_count": len(batch["members"]),
+            "proposal_content_sha256": batch[
+                "proposal_content_sha256"
+            ],
+            "approved_proposition_count": sum(
+                member["disposition"] == "proposed"
+                for member in batch["members"]
+            ),
+            "accepted_needs_rework_count": sum(
+                member["disposition"] == "needs_rework"
+                for member in batch["members"]
+            ),
+        }
+        for batch in batches
+    ]
+    if sorted(
+        receipt.get("batches", []),
+        key=lambda row: row["batch_id"],
+    ) != sorted(expected_batches, key=lambda row: row["batch_id"]):
+        raise FoodSemanticError(
+            "rework-resolution owner receipt batch binding mismatch"
+        )
+    if (
+        receipt.get("schema_version")
+        != "food-semantic-owner-curation-approval-receipt-v1"
+        or receipt.get("approval_source_kind")
+        != "owner_conversation_directive"
+        or not isinstance(receipt.get("approval_directive"), str)
+        or not receipt["approval_directive"].strip()
+        or receipt.get("approved_batch_count")
+        != approval_validation["approved_batch_count"]
+        or receipt.get("approved_proposition_count")
+        != approval_validation["approved_proposition_count"]
+        or receipt.get("accepted_needs_rework_count")
+        != approval_validation["acknowledged_rework_count"]
+        or receipt.get("validation_status") != "PASS"
+        or receipt.get("authority_effect_before_materialization")
+        is not False
+    ):
+        raise FoodSemanticError(
+            "rework-resolution owner receipt summary mismatch"
+        )
+    for batch in batches:
+        approval = batch.get("owner_approval")
+        expected_proposition_ids = sorted(
+            member["proposition_id"]
+            for member in batch["members"]
+            if member["disposition"] == "proposed"
+        )
+        expected_rework_items = sorted(
+            member["item_identity"]
+            for member in batch["members"]
+            if member["disposition"] == "needs_rework"
+        )
+        if (
+            not isinstance(approval, dict)
+            or approval.get("approval_state") != "approved"
+            or approval.get("approver_identity")
+            != receipt.get("approver_identity")
+            or approval.get("approval_time")
+            != receipt.get("approval_time")
+            or approval.get("rationale")
+            != receipt.get("approval_rationale")
+            or approval.get("approval_directive")
+            != receipt.get("approval_directive")
+            or approval.get("proposal_content_sha256")
+            != batch["proposal_content_sha256"]
+            or approval.get("approved_proposition_ids")
+            != expected_proposition_ids
+            or approval.get("accepted_needs_rework_items")
+            != expected_rework_items
+        ):
+            raise FoodSemanticError(
+                "rework-resolution owner receipt approval mismatch"
+            )
+    return receipt
+
+
+def _validate_rework_external_review(
+    proposal_root: Path,
+    *,
+    external_review_path: Path,
+    summary: dict[str, Any],
+) -> dict[str, Any]:
+    try:
+        external_review_path.resolve().relative_to(proposal_root.resolve())
+    except ValueError as exc:
+        raise FoodSemanticError(
+            "rework-resolution external review must be proposal-local"
+        ) from exc
+    if not external_review_path.is_file():
+        raise FoodSemanticError(
+            "rework-resolution external review PASS is missing"
+        )
+    review = load_json(external_review_path)
+    if (
+        review.get("verdict") != "PASS"
+        or review.get("reviewer_identity") != "Codex Reviewer"
+        or review.get("reviewer_is_implementation_author") is not False
+        or review.get("finding_counts", {}).get("critical") != 0
+        or review.get("finding_counts", {}).get("important") != 0
+        or review.get("semantic_scope_verdict") != "PASS"
+        or review.get("owner_approval_allowed") is not True
+        or review.get(
+            "materialization_after_exact_owner_approval_allowed"
+        )
+        is not True
+        or review.get("authority_effect_before_owner_approval") is not False
+        or review.get("reviewed_proposal_summary_sha256")
+        != sha256_file(
+            proposal_root / "curation_proposal_summary.json"
+        )
+        or review.get("reviewed_proposal_ledger_sha256")
+        != summary["proposal_ledger_sha256"]
+    ):
+        raise FoodSemanticError(
+            "rework-resolution external review gate is not exact PASS"
+        )
+    return review
+
+
 def materialize_resolved_curation(
     proposal_root: Path,
     *,
     prior_authority_root: Path,
     successor_authority_root: Path,
     owner_decisions_path: Path,
+    external_review_path: Path | None = None,
 ) -> dict[str, Any]:
     assert_curation_authority_sink(successor_authority_root)
+    root = repo_root()
+    _validate_prior_authority_execution(prior_authority_root)
     validation = validate_batch_approvals(
         proposal_root,
         owner_decisions_path=owner_decisions_path,
@@ -545,6 +977,25 @@ def materialize_resolved_curation(
         key=lambda row: row["batch"]["batch_id"],
     )
     members = [member for batch in batches for member in batch["members"]]
+    summary = _validate_resolution_bundle_binding(
+        root,
+        proposal_root=proposal_root,
+        prior_authority_root=prior_authority_root,
+        batch_members=members,
+    )
+    review_path = external_review_path or (
+        proposal_root / "external_rework_resolution_review.pass.json"
+    )
+    _validate_rework_external_review(
+        proposal_root,
+        external_review_path=review_path,
+        summary=summary,
+    )
+    _validate_resolution_owner_receipt(
+        proposal_root,
+        batches=batches,
+        approval_validation=validation,
+    )
     if sorted(row["item_identity"] for row in members) != list(
         EXPECTED_REWORK_ITEMS
     ):
@@ -694,6 +1145,12 @@ def materialize_resolved_curation(
         ),
         "bound_resolution_proposal_summary_sha256": sha256_file(
             proposal_root / "curation_proposal_summary.json"
+        ),
+        "bound_resolution_proposal_ledger_sha256": summary[
+            "proposal_ledger_sha256"
+        ],
+        "bound_resolution_external_review_sha256": sha256_file(
+            review_path
         ),
     }
     write_json(

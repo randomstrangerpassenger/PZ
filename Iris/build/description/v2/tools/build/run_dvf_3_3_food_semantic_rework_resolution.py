@@ -54,6 +54,7 @@ def main() -> int:
         default=DEFAULT_PRIOR_AUTHORITY_ROOT,
     )
     parser.add_argument("--successor-authority-root", type=Path)
+    parser.add_argument("--external-review", type=Path)
     parser.add_argument(
         "--owner-decisions",
         type=Path,
@@ -99,6 +100,11 @@ def main() -> int:
                 args.successor_authority_root,
             ),
             owner_decisions_path=decisions_path,
+            external_review_path=(
+                _resolve(root, args.external_review)
+                if args.external_review is not None
+                else None
+            ),
         )
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))
     status = report.get("status", report.get("validation_status"))

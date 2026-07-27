@@ -1,0 +1,530 @@
+{
+  "schema_version": "food-semantic-external-rework-resolution-review-v1",
+  "review_id": "dvf-3-3-food-semantic-external-rework-resolution-review-a507e9c3",
+  "reviewed_at": "2026-07-27T19:56:30.8413972+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": "Independent review of the exact two-item curation rework-resolution proposal, live source and block bindings, schema and proposition license, pending D6 packet, proposal and authority wrappers, successor materializer, isolated positive/idempotence/partial-write fixtures, tamper fixtures, focused tests, attempt seal, and current/protected boundary.",
+  "review_target": {
+    "commit_sha": "a507e9c3fd2c2ba480d318e938f190760255c267",
+    "commit_subject": "feat: propose exact curation rework resolution",
+    "commit_is_checked_out_head": true,
+    "bound_attempt_id": "attempt-0007",
+    "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+    "bound_prior_authority_execution_receipt_sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+    "proposal_root": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001"
+  },
+  "reviewed_artifact_hashes": [
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py",
+      "sha256": "00979a34d1b4da6960767937ff0576ea4da3146ac0248f78bbf616d074dc53a3",
+      "byte_count": 25180
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/propose_dvf_3_3_food_semantic_rework_resolution.py",
+      "sha256": "e499041018ff43017d5fe1b1e0627e245d36aca9864c64542519d1967564c202",
+      "byte_count": 1922
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py",
+      "sha256": "ffeebfe8b0ac1075645fa0baf14ade3fb4ec1b9eb1c978dca99dc93f87d87f19",
+      "byte_count": 3677
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_rework_resolution.py",
+      "sha256": "d2bc2256ffd46acea4673403b1416c9012563896c200020f577377d2eb4f9904",
+      "byte_count": 6542
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_batch_approval.schema.json",
+      "sha256": "97d31e7a81629f57314b19afd4c7a20ccb838fe36ceded0fd49c1045f0ae1d60",
+      "byte_count": 988
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_proposal_summary.json",
+      "sha256": "33a4e0d0acae3015b2949d7438d60c298a716f13dd25c4a7e42ed511fa7dcc6e",
+      "byte_count": 776
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_rework_resolution_proposals.jsonl",
+      "sha256": "d9406e6dd48ba1ed18986259e4641f54ff5668fd44cff7cc8e75c4e53c8ac285",
+      "byte_count": 6308
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_rework_resolution_validation.json",
+      "sha256": "16495a43ec9ebe18e1bc28a9993c537972fd63809d0e58fa829cd70a8e328a0a",
+      "byte_count": 437
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_rework_resolution_review.md",
+      "sha256": "17705ab786fc23830f1d9a8aa0e51750b148626b227d9f126092e10506ac2716",
+      "byte_count": 648
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/review_batches/fsb_c6b37612f34582054041a916.json",
+      "sha256": "5aa62b7e04c7b5d12a679133f101d57ae86de036a39c1343dd0a855f99aaa930",
+      "byte_count": 9082
+    },
+    {
+      "path": "Iris/_docs/authority/food_semantic/food_semantic_schema.json",
+      "sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "byte_count": 5703
+    },
+    {
+      "path": "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json",
+      "sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "byte_count": 13570
+    },
+    {
+      "path": "scripts/newitems.txt",
+      "sha256": "06cb9bcd39cab185f3b956785c955302b39df90ef301b4f986c3b115f7668347",
+      "byte_count": 124936
+    },
+    {
+      "path": "lua/shared/Foraging/forageDefinitions.lua",
+      "sha256": "235cc27f511e75a44ef95fe69f6a04542d6ad7856b92f8b72a0f1bafb292e7f2",
+      "byte_count": 158478
+    },
+    {
+      "path": "scripts/recipes.txt",
+      "sha256": "062b2849a34722c52c4dc03a93592059f796504858659092c0a037f9668a0ead",
+      "byte_count": 98632
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0001/authority_execution_receipt.json",
+      "sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+      "byte_count": 2751
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0001/external_authority_materialization_review.json",
+      "sha256": "e001179f19fe7a962ece427ba0443efa47fa2abb0d981c516d0bdbe6d3932508",
+      "byte_count": 19228
+    }
+  ],
+  "recomputed_bindings": {
+    "prior_rework_count": 2,
+    "prior_rework_items": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "source_record_count": 6,
+    "source_artifact_hash_match_count": 6,
+    "source_block_hash_match_count": 6,
+    "raw_type_normal_match_count": 2,
+    "foraging_exact_item_identity_join_count": 2,
+    "foraging_categories": [
+      "MedicinalPlants"
+    ],
+    "foraging_recipes": [
+      "Herbalist"
+    ],
+    "health_poultice_recipe_match_count": 2,
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+    "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+    "proposal_ledger_sha256": "d9406e6dd48ba1ed18986259e4641f54ff5668fd44cff7cc8e75c4e53c8ac285",
+    "queue_sha256": "5176ee896cf04db0be817a87d69d869d55ff94a5352356e3fda13a9f92ebddee",
+    "batch_id": "fsb:c6b37612f34582054041a916",
+    "batch_proposal_content_sha256": "dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8",
+    "prior_authority_execution_receipt_sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+    "implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+  },
+  "semantic_scope_judgment": {
+    "status": "PASS_AS_PENDING_CURATED_PROPOSAL_ONLY",
+    "proposed_fact_axis": "ingredient_origin",
+    "proposed_fact_value": "plant",
+    "proposed_item_count": 2,
+    "schema_value_present": true,
+    "schema_curated_allowed": true,
+    "proposition_license_curated_allowed": true,
+    "automatic_eligible": false,
+    "primary_support": "Each exact FullType is joined to an explicit modern foraging definition whose exact category membership is MedicinalPlants. This supports only the curated plant-origin proposition and remains subject to human semantic approval.",
+    "raw_type_scope_control": "Both exact raw item records declare Type=Normal, not Food.",
+    "foraging_recipe_scope_control": "The exact foraging recipe family is Herbalist and is not consumed as a food, edible, meal, consumption, or culinary-role proposition.",
+    "health_recipe_scope_control": "Both exact recipes are Health-category poultice recipes and are not consumed as food or culinary evidence.",
+    "consumed_reviewed_fields": [
+      "foraging_definition.type",
+      "foraging_definition.categories"
+    ],
+    "forbidden_context_field_consumed_count": 0,
+    "forbidden_context_operation_consumed_count": 0,
+    "display_or_item_id_semantic_inference_count": 0,
+    "food_or_edible_claim_count": 0,
+    "consumption_claim_count": 0,
+    "meal_claim_count": 0,
+    "culinary_role_claim_count": 0,
+    "authority_effect": false,
+    "human_semantic_approval_required": true
+  },
+  "pending_packet_state": {
+    "review_batch_count": 1,
+    "batch_member_count": 2,
+    "maximum_D6_member_count": 24,
+    "D6_respected": true,
+    "ordered_members": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "owner_approval": null,
+    "validator_status": "PENDING",
+    "pending_batch_count": 1,
+    "approved_batch_count": 0,
+    "invalid_batch_count": 0,
+    "approved_proposition_count": 0,
+    "authority_effect": false,
+    "require_all_approved_status": "BLOCKED"
+  },
+  "finding_counts": {
+    "critical": 0,
+    "important": 3,
+    "minor": 1
+  },
+  "findings": [
+    {
+      "finding_id": "REWORK-EXT-I-001",
+      "severity": "Important",
+      "title": "Successor materialization trusts an unverified prior authority tree",
+      "location": {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py",
+        "lines": "527-557, 692-694"
+      },
+      "contract_violation": "The successor must preserve the exact reviewed 236-row prior authority and may claim a prior receipt binding only after verifying the receipt's six artifact identities. A receipt hash by itself does not authenticate a mutated prior phase.",
+      "technical_detail": "materialize_resolved_curation checks only the prior report status and two-item rework set, then directly loads the prior curated, approval, and event ledgers. It never loads authority_execution_receipt.json or verifies its artifact SHA-256, byte, or row declarations. The output report later hashes the unchanged receipt and labels it as the binding even when the prior phase bytes differ.",
+      "negative_fixture": {
+        "mutation": "Removed one row from an isolated copy of the prior curated_fact_ledger.jsonl while leaving the authority receipt, report, approval ledger, event ledger, and rework queue unchanged.",
+        "observed_materializer_status": "PASS_COMPLETE",
+        "observed_final_curated_count": 237,
+        "observed_candidate_generation_authorized": true,
+        "observed_report_bound_unchanged_prior_receipt": true
+      },
+      "impact": "Missing or forged prior curated authority can be silently propagated, marked complete, and exposed to candidate generation while the report falsely appears bound to the reviewed prior receipt.",
+      "required_resolution": "Before constructing any successor rows or writing any artifact, load and verify the exact prior execution receipt, execution root, all six declared artifact paths, hashes, byte counts, JSONL row counts, checkpoint/event hash, report counts/status, 236 curated and approval rows, 714 unique event semantics, and exact two-item rework state. Require the prior external authority materialization review PASS binding as applicable. Any mismatch must fail before write."
+    },
+    {
+      "finding_id": "REWORK-EXT-I-002",
+      "severity": "Important",
+      "title": "Materializer does not bind or enforce the reviewed two-proposition semantic scope",
+      "location": {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py",
+        "lines": "518-525, 542-551, 695-697"
+      },
+      "contract_violation": "This route is licensed only for the exact reviewed Base.Comfrey/Base.Plantain ingredient_origin=plant propositions. Generic batch approval and matching item names do not substitute for source, schema, license, proposal-ledger, summary, or external-review binding.",
+      "technical_detail": "materialize_resolved_curation calls only the generic approval validator and checks the two item identities. It does not invoke a strengthened rework-resolution validator, compare batch members with the proposal ledger and summary, recompute source artifact/block hashes, schema/license hashes or canonical proposition identities, enforce ingredient_origin=plant, or consume an exact external rework review. The output report merely hashes the summary after accepting the batch.",
+      "negative_fixture": {
+        "mutation": "Changed the Comfrey member to culinary_role=herb, recomputed its canonical proposition ID and batch proposal hash, left the plant-only proposal ledger and summary unchanged, and applied an isolated exact fixture approval.",
+        "generic_validator_status": "PASS",
+        "observed_materializer_status": "PASS_COMPLETE",
+        "observed_resolved_facts": [
+          [
+            "Base.Comfrey",
+            "culinary_role",
+            "herb"
+          ],
+          [
+            "Base.Plantain",
+            "ingredient_origin",
+            "plant"
+          ]
+        ],
+        "observed_candidate_generation_authorized": true,
+        "observed_report_bound_unchanged_plant_summary": true
+      },
+      "impact": "An internally rehashed and approved but externally unreviewed scope expansion can be materialized and labeled as complete while the report claims a binding to a different plant-only summary.",
+      "required_resolution": "Add a fail-closed authority-entry validator that recomputes all source artifact/block, schema, license, proposition, queue, batch, prior-receipt, proposal-ledger, summary, and external-review bindings; requires exact ingredient_origin=plant members for the two exact items; and runs before any output construction or write. The materializer must consume the exact fresh external review PASS and subsequent exact owner approval, not just generic approval fields."
+    },
+    {
+      "finding_id": "REWORK-EXT-I-003",
+      "severity": "Important",
+      "title": "Proposal regeneration overwrites an existing owner approval and leaves a stale receipt",
+      "location": {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py",
+        "lines": "430-472"
+      },
+      "contract_violation": "Explicit owner approval is a durable authority input. Regeneration must preserve the exact approval when proposal content is byte-equivalent and reject different content before any proposal or receipt mutation.",
+      "technical_detail": "write_rework_resolution_bundle rewrites the batch with write_once=False and owner_approval=None without checking for an existing approved packet. It also does not reconcile or remove the existing write-once owner approval receipt.",
+      "negative_fixture": {
+        "initial_state": "Isolated exact two-member fixture approval with owner receipt present.",
+        "action": "Regenerated the same proposal bundle into the same output root.",
+        "observed_owner_approval_after_regeneration": null,
+        "observed_validator_status_after_regeneration": "PENDING",
+        "approved_packet_bytes_preserved": false,
+        "stale_owner_approval_receipt_preserved": true
+      },
+      "impact": "A normal proposal command can erase attributable owner approval while retaining a contradictory approval receipt, corrupting the durable approval chain and forcing manual recovery.",
+      "required_resolution": "Preflight every existing packet and receipt before writing. Preserve an existing approval verbatim only when the newly recomputed proposal content is exact; reject different content and stale or mismatched receipts before any write. Add same-content approved regeneration, different-content rejection, and receipt-consistency fixtures."
+    },
+    {
+      "finding_id": "REWORK-EXT-M-001",
+      "severity": "Minor",
+      "title": "Rework module imports a sibling private batch-hash helper",
+      "location": {
+        "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py",
+        "lines": "20-23, 429"
+      },
+      "contract_violation": "The implementation plan's module boundary prohibits direct sibling private-function consumption.",
+      "technical_detail": "curation_rework_resolution imports and calls curation_proposals._review_batch_proposal_hash.",
+      "impact": "The resolution packet contract is coupled to an internal sibling implementation surface and can drift without a public contract boundary.",
+      "required_resolution": "Move the canonical review-batch proposal hash operation to a public shared contract API or expose a deliberately public version, then add a contract-level determinism test."
+    }
+  ],
+  "positive_successor_fixture": {
+    "status": "PASS_COMPLETE",
+    "prior_curated_row_preserved_count": 236,
+    "prior_approval_row_preserved_count": 236,
+    "prior_event_prefix_preserved_count": 714,
+    "new_resolution_count": 2,
+    "new_resolution_facts": [
+      [
+        "Base.Comfrey",
+        "ingredient_origin",
+        "plant"
+      ],
+      [
+        "Base.Plantain",
+        "ingredient_origin",
+        "plant"
+      ]
+    ],
+    "added_superseded_event_count": 2,
+    "added_accepted_event_count": 2,
+    "added_nonaccepted_authority_effect_true_count": 0,
+    "final_curated_count": 238,
+    "final_approval_count": 238,
+    "final_event_count": 718,
+    "unique_event_count": 718,
+    "final_rework_count": 0,
+    "idempotent_artifact_byte_match_count": 6,
+    "candidate_generation_authorized": true,
+    "current_mutation_authorized": false,
+    "qualification": "The intended exact-input path produces the expected successor, but this does not resolve the tamper and overwrite findings above."
+  },
+  "partial_write_and_sink_fixtures": {
+    "matching_partial_preexisting_artifact_count": 2,
+    "matching_partial_final_exact_artifact_count": 6,
+    "matching_partial_status": "PASS_COMPLETE",
+    "differing_partial_status": "EXPECTED_BLOCKED",
+    "differing_partial_new_write_count": 0,
+    "protected_or_outside_attempt_sink_case_count": 6,
+    "protected_or_outside_attempt_sink_rejected_count": 6,
+    "protected_or_outside_attempt_phase8_write_count": 0
+  },
+  "review_checks": [
+    {
+      "check_id": "REWORK-EXT-V-001",
+      "subject": "exact target and prior authority state",
+      "status": "PASS",
+      "target_head_match": true,
+      "prior_rework_exact_set_match": true,
+      "prior_receipt_hash_match": true
+    },
+    {
+      "check_id": "REWORK-EXT-V-002",
+      "subject": "live source artifact and block identities",
+      "status": "PASS",
+      "source_record_count": 6,
+      "source_artifact_hash_match_count": 6,
+      "source_block_hash_match_count": 6
+    },
+    {
+      "check_id": "REWORK-EXT-V-003",
+      "subject": "narrow semantic scope",
+      "status": "PASS_AS_PENDING_PROPOSAL_ONLY",
+      "exact_plant_origin_proposition_count": 2,
+      "food_edible_consumption_meal_or_culinary_claim_count": 0,
+      "display_or_item_id_inference_count": 0,
+      "human_semantic_approval_required": true
+    },
+    {
+      "check_id": "REWORK-EXT-V-004",
+      "subject": "schema, license, queue, batch, and proposal bindings",
+      "status": "PASS",
+      "schema_and_license_match": true,
+      "canonical_proposition_match_count": 2,
+      "canonical_batch_id_match": true,
+      "proposal_content_hash_match": true,
+      "proposal_ledger_hash_match": true,
+      "D6_respected": true
+    },
+    {
+      "check_id": "REWORK-EXT-V-005",
+      "subject": "pending non-authority gate",
+      "status": "PASS",
+      "pending_batch_count": 1,
+      "approved_batch_count": 0,
+      "authority_effect": false,
+      "require_all_approved_status": "BLOCKED"
+    },
+    {
+      "check_id": "REWORK-EXT-V-006",
+      "subject": "intended exact successor construction",
+      "status": "PASS_WITH_IMPORTANT_TAMPER_EXCEPTIONS",
+      "prior_236_preserved": true,
+      "exact_two_appended": true,
+      "final_238_and_718_counts": true,
+      "rework_zero": true,
+      "exception_finding_ids": [
+        "REWORK-EXT-I-001",
+        "REWORK-EXT-I-002"
+      ]
+    },
+    {
+      "check_id": "REWORK-EXT-V-007",
+      "subject": "idempotence, partial writes, and safe sink",
+      "status": "PASS_WITH_APPROVAL_REGENERATION_EXCEPTION",
+      "idempotent_output_count": 6,
+      "matching_partial_resume_pass": true,
+      "differing_partial_fail_closed": true,
+      "protected_sink_write_count": 0,
+      "exception_finding_id": "REWORK-EXT-I-003"
+    },
+    {
+      "check_id": "REWORK-EXT-V-008",
+      "subject": "focused tests and sealed attempt",
+      "status": "PASS",
+      "focused_test_count": 24,
+      "focused_test_failure_count": 0,
+      "attempt_artifact_count": 178,
+      "attempt_artifact_mismatch_count": 0,
+      "attempt_current_facts_manifest_mutation_count": 0,
+      "attempt_protected_surface_changed_count": 0
+    },
+    {
+      "check_id": "REWORK-EXT-V-009",
+      "subject": "reviewed commit current and protected diff",
+      "status": "PASS",
+      "current_or_protected_changed_path_count": 0
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "git rev-parse HEAD; git rev-parse a507e9c3",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_sha": "a507e9c3fd2c2ba480d318e938f190760255c267"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_test_count": 24
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py validate",
+      "exit_code": 0,
+      "result": "PENDING",
+      "observed_pending_batch_count": 1,
+      "observed_approved_batch_count": 0,
+      "observed_invalid_batch_count": 0,
+      "observed_authority_effect": false
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py validate --require-all-approved",
+      "exit_code": 1,
+      "result": "EXPECTED_BLOCKED",
+      "observed_pending_batch_count": 1,
+      "observed_invalid_batch_count": 1
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_current_facts_manifest_mutation_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "independent source/block/schema/license/proposition/queue/batch/prior-receipt hash audit piped to uv run python -B -",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_source_artifact_hash_mismatch_count": 0,
+      "observed_source_block_hash_mismatch_count": 0,
+      "observed_binding_mismatch_count": 0
+    },
+    {
+      "command": "isolated exact fixture approval and intended successor materialization with rerun",
+      "exit_code": 0,
+      "result": "PASS_COMPLETE",
+      "observed_prior_curated_preserved_count": 236,
+      "observed_final_curated_count": 238,
+      "observed_final_approval_count": 238,
+      "observed_final_event_count": 718,
+      "observed_final_rework_count": 0,
+      "observed_idempotent_byte_match_count": 6
+    },
+    {
+      "command": "isolated prior-ledger removal tamper fixture",
+      "exit_code": 0,
+      "result": "UNEXPECTED_PASS_COMPLETE",
+      "finding_id": "REWORK-EXT-I-001",
+      "observed_final_curated_count": 237,
+      "observed_candidate_generation_authorized": true
+    },
+    {
+      "command": "isolated culinary-role scope tamper, internal rehash, fixture approval, and successor materialization",
+      "exit_code": 0,
+      "result": "UNEXPECTED_PASS_COMPLETE",
+      "finding_id": "REWORK-EXT-I-002"
+    },
+    {
+      "command": "isolated approved-packet same-root regeneration",
+      "exit_code": 0,
+      "result": "UNEXPECTED_APPROVAL_OVERWRITE",
+      "finding_id": "REWORK-EXT-I-003"
+    },
+    {
+      "command": "isolated matching/differing partial output and six protected/outside-attempt sink fixtures",
+      "exit_code": 0,
+      "result": "PASS",
+      "matching_partial_final_exact_count": 6,
+      "differing_partial_new_write_count": 0,
+      "protected_or_outside_attempt_write_count": 0
+    },
+    {
+      "command": "git show --check a507e9c3",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --name-only dd9afde5..a507e9c3 and 3262689d..a507e9c3 over current data, rendered output, Lua/runtime, and package roots",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    },
+    {
+      "command": "Get-FileHash -Algorithm SHA256 over reviewed tooling, tests, proposal artifacts, live sources, schema, license, prior receipt, and prior external review",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_hash_mismatch_count": 0
+    }
+  ],
+  "review_verdict": "FAIL",
+  "verdict": "FAIL",
+  "verdict_basis": "The committed two-item semantic proposal is exact, narrowly licensed as a curated plant-origin proposal, source-bound, non-authoritative, and free of food, edible, consumption, meal, culinary-role, display-text, or item-ID inference. The intended exact-input successor fixture also produces the expected 238/238/718/0 state. However, three open Important findings allow an unverified prior authority tree to be promoted, allow rehashed out-of-scope resolution content to be materialized while claiming a different summary binding, and permit proposal regeneration to erase durable owner approval while leaving a stale receipt. Authority entry cannot consume this commit.",
+  "owner_semantic_approval_required": true,
+  "owner_semantic_approval_allowed": false,
+  "owner_semantic_approval_blockers": [
+    "REWORK-EXT-I-001",
+    "REWORK-EXT-I-002",
+    "REWORK-EXT-I-003"
+  ],
+  "authority_materialization_allowed": false,
+  "required_next_state": "A new successor commit must resolve all three Important findings, address the private helper boundary, add the demonstrated tamper/regeneration fixtures, and receive a fresh external review before owner semantic approval or actual successor materialization.",
+  "actual_owner_approval_performed_by_review": false,
+  "actual_successor_materialization_performed_by_review": false,
+  "current_or_protected_mutation_count_by_review": 0,
+  "terminal_independent_gate_credit": 0,
+  "non_claims": [
+    "owner semantic approval recorded",
+    "rework resolution authority effect",
+    "Base.Comfrey rework resolved",
+    "Base.Plantain rework resolved",
+    "curation status PASS_COMPLETE",
+    "candidate generation authorized",
+    "317 terminal semantic disposition complete",
+    "sealed successor handoff complete",
+    "current facts or manifest mutation authorized",
+    "Registry adoption complete",
+    "terminal independent closeout PASS"
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "schema_version": "food-semantic-phase9-10-external-implementation-review-v1",
+  "review_id": "dvf-3-3-food-semantic-phase9-10-external-implementation-review-776d7ee0",
+  "reviewed_at": "2026-07-27T21:13:06.1599708+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": "Pre-execution external review of the exact successor implementation commit that authenticates the sealed schema, proposition license, and forbidden-inference registry before Phase 9/10 payload construction or writes; reconciles every automatic and curated proposition against those contracts; binds their hashes in the Phase 9 receipt; and preserves the existing authority, sink, write-once, byte-preservation, and fail-closed controls.",
+  "review_target": {
+    "reviewed_commit_sha": "776d7ee0a354d43a99b4250e7e4a707a44b1aa2c",
+    "reviewed_commit_parent_sha": "810dd84255c175cb194c2329ff7a61be73bb44b6",
+    "reviewed_commit_subject": "fix: bind sealed semantic contracts before authority",
+    "commit_is_checked_out_head": true,
+    "authority_root": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002",
+    "bound_attempt_id": "attempt-0007",
+    "actual_phase9_coverage_present_before_review": false,
+    "actual_phase10_candidate_present_before_review": false
+  },
+  "reviewed_commit_sha": "776d7ee0a354d43a99b4250e7e4a707a44b1aa2c",
+  "reviewed_commit_parent_sha": "810dd84255c175cb194c2329ff7a61be73bb44b6",
+  "reviewed_phase8_external_review_sha256": "15a937be6dea2754a43f2359bffbed8087f95b5c8c613644698d9822319d642a",
+  "reviewed_owner_decisions_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+  "reviewed_automatic_source_ledger_sha256": "462afee4eaac82300b242c693af5e765e7dd3d10e6694dcd73be97dc77ebc13f",
+  "reviewed_code_artifacts": [
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/authority_phase9_10.py",
+      "sha256": "414efa66ea2c5ad89713077f5dedf1ca0555d370f40111e2d238a3cb042efbcf",
+      "byte_count": 45343
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_authority_phase9_10.py",
+      "sha256": "3fd252f0c6d134597a0998f86fd2b1baaa85832c54ae94f3b62a9ed6ab1464f3",
+      "byte_count": 1999
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_authority_phase9_10.py",
+      "sha256": "71bea8af710446963d553b7b8ec95cd29c7a9d1e98ce73cda2f164987f5a101c",
+      "byte_count": 15507
+    }
+  ],
+  "reviewed_input_artifacts": [
+    {
+      "role": "Phase 8 authority materialization external PASS",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/external_authority_materialization_review.json",
+      "sha256": "15a937be6dea2754a43f2359bffbed8087f95b5c8c613644698d9822319d642a",
+      "byte_count": 25764
+    },
+    {
+      "role": "owner D5-D8 and successor decisions",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/owner_reserved_decisions.json",
+      "sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+      "byte_count": 16305
+    },
+    {
+      "role": "automatic source proposition ledger",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase7_automatic_mapping/automatic_food_fact_ledger.jsonl",
+      "sha256": "462afee4eaac82300b242c693af5e765e7dd3d10e6694dcd73be97dc77ebc13f",
+      "byte_count": 123910,
+      "row_count": 84
+    },
+    {
+      "role": "automatic coverage report",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase7_automatic_mapping/automatic_coverage_report.json",
+      "sha256": "997f72768af4556058ac4409d367b3a6f727ee7a18547fdccb1a70fefe490ac5",
+      "byte_count": 318
+    },
+    {
+      "role": "target universe manifest",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase1_census/target_food_universe_manifest.json",
+      "sha256": "af17d00af8bf387e2d4189ac00c495de09c1a19750b70cb34cf79f91100cff6a",
+      "byte_count": 7576
+    },
+    {
+      "role": "protected surface preimage",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase1_census/protected_surface_hashes_before.json",
+      "sha256": "171ee3dff9d86daffdedfb5ea85a0594a84685c0a1800c0873600cb7f60cea89",
+      "byte_count": 3547
+    },
+    {
+      "role": "implementation-complete bundle",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase13_closeout/implementation_complete_bundle.json",
+      "sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "byte_count": 50331
+    },
+    {
+      "role": "post-implementation external PASS",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_reviews/external_implementation_review.json",
+      "sha256": "0bccc6567056af6a68b422c1044055e5b8849bf2f72929c596d6b654551d6847",
+      "byte_count": 13475
+    },
+    {
+      "role": "sealed semantic fact schema",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase2_contracts/food_semantic_fact_schema.json",
+      "sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "byte_count": 5703
+    },
+    {
+      "role": "sealed proposition license",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase2_contracts/proposition_license.json",
+      "sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "byte_count": 13570
+    },
+    {
+      "role": "sealed forbidden-inference registry",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase2_contracts/forbidden_inference_registry.json",
+      "sha256": "d59198495cc887113febdb9cd4c43d24ac437224020b4bc343aafe8ee4f3ba52",
+      "byte_count": 753
+    },
+    {
+      "role": "automatic source",
+      "path": "Iris/input/items_itemscript.json",
+      "sha256": "ce52d8fe38302c5dca5b7c28d2258155c5f91b6aee52ebe2b82276a8bb28b22e",
+      "byte_count": 499454
+    },
+    {
+      "role": "current facts baseline",
+      "path": "Iris/build/description/v2/current/item_facts.jsonl",
+      "sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6",
+      "byte_count": 1438689,
+      "row_count": 2105
+    },
+    {
+      "role": "current manifest baseline",
+      "path": "Iris/build/description/v2/current/item_manifest.json",
+      "sha256": "db4c5e827c1aad4175894fb0f5b59db9496c5819cacd86a9f703d3542a05be41",
+      "byte_count": 3438
+    }
+  ],
+  "prior_external_review": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase9_10_external_implementation_review.fail.json",
+    "sha256": "b2e2d0d7721689c54734142a9489320184d05c297cdde974332508ee8a24ac22",
+    "byte_count": 23886,
+    "verdict": "FAIL",
+    "reviewed_commit_sha": "810dd84255c175cb194c2329ff7a61be73bb44b6",
+    "preserved_unchanged": true
+  },
+  "prior_finding_dispositions": [
+    {
+      "finding_id": "PHASE9-10-EXT-I-001",
+      "prior_severity": "important",
+      "disposition": "RESOLVED",
+      "resolution": "The successor implementation authenticates the schema, proposition license, and forbidden-inference registry against the implementation-complete bundle before Phase 8 consumption or payload construction; reconciles every automatic and curated proposition against the exact schema and license; and binds all three exact contract hashes into the Phase 9 execution receipt.",
+      "independent_adversarial_evidence": {
+        "schema_contract_drift": "EXPECTED_BLOCKED_ZERO_WRITES",
+        "proposition_license_contract_drift": "EXPECTED_BLOCKED_ZERO_WRITES",
+        "forbidden_inference_registry_drift": "EXPECTED_BLOCKED_ZERO_WRITES",
+        "automatic_contract_reconciliation_violation": "EXPECTED_BLOCKED_ZERO_WRITES",
+        "curated_contract_reconciliation_violation": "EXPECTED_BLOCKED_ZERO_WRITES"
+      }
+    }
+  ],
+  "positive_fixture_observations": {
+    "automatic_item_count": 79,
+    "automatic_proposition_count": 84,
+    "curated_item_count": 238,
+    "curated_proposition_count": 238,
+    "authority_disposition_count": 317,
+    "total_proposition_count": 322,
+    "candidate_row_count": 2105,
+    "target_original_field_preservation_count": 317,
+    "non_target_raw_byte_preservation_count": 1788,
+    "phase9_receipt_contract_hash_binding_count": 3
+  },
+  "independent_adversarial_results": [
+    {
+      "case": "missing external review",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "reviewed code hash mismatch",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "automatic ledger tamper",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "owner D8 tamper",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "Phase 8 artifact tamper",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "Phase 8 external review tamper",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "protected output sink",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "unapproved candidate proposition",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "schema contract drift",
+      "result": "EXPECTED_BLOCKED",
+      "phase9_written": false,
+      "phase10_written": false
+    },
+    {
+      "case": "proposition license contract drift",
+      "result": "EXPECTED_BLOCKED",
+      "phase9_written": false,
+      "phase10_written": false
+    },
+    {
+      "case": "forbidden-inference registry contract drift",
+      "result": "EXPECTED_BLOCKED",
+      "phase9_written": false,
+      "phase10_written": false
+    },
+    {
+      "case": "automatic proposition violates sealed contract",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "curated proposition embedded schema identity mismatch",
+      "result": "EXPECTED_BLOCKED"
+    },
+    {
+      "case": "differing partial output tree",
+      "result": "EXPECTED_BLOCKED_UNCHANGED"
+    }
+  ],
+  "determinism_and_preservation_results": {
+    "idempotent_artifact_count": 18,
+    "matching_partial_final_artifact_count": 18,
+    "same_output_rerun_byte_identical": true,
+    "mixed_non_target_lf_bytes_preserved": true,
+    "mixed_non_target_crlf_bytes_preserved": true,
+    "failed_case_new_write_count": 0
+  },
+  "validation_runs": [
+    {
+      "command": "git show --check 776d7ee0a354d43a99b4250e7e4a707a44b1aa2c",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 38
+    },
+    {
+      "command": "uv run python -B -m unittest Iris.build.description.v2.tests.test_dvf_3_3_food_semantic_authority_phase9_10",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 7
+    },
+    {
+      "command": "isolated positive, contract-drift, contract-reconciliation, review/input tamper, sink, partial-output, idempotence, and mixed-line-ending audit",
+      "exit_code": 0,
+      "result": "PASS",
+      "actual_authority_root_write_count": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_authority_claim_emitted_count": 0,
+      "observed_current_facts_manifest_mutation_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_authority_phase9_10.py --help",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_review_or_hash_override_option_count": 0,
+      "actual_authority_execution_performed": false
+    },
+    {
+      "command": "git diff --name-only 810dd84255c175cb194c2329ff7a61be73bb44b6..776d7ee0a354d43a99b4250e7e4a707a44b1aa2c over current facts/manifest, protected surfaces, rendered output, Lua/runtime, and package roots",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    }
+  ],
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "review_verdict": "PASS",
+  "verdict": "PASS",
+  "phase9_10_scope_verdict": "PASS",
+  "verdict_basis": "The exact successor commit resolves the sole prior Important finding. Independent positive and adversarial fixtures establish exact 79-item/84-proposition automatic authority, 238-item/238-proposition curated authority, disjoint 317-item and 322-proposition closure, deterministic 2105-row attempt-local candidate construction, target original-field and non-target raw-byte preservation, exact contract receipt bindings, and zero-write fail-closed behavior for all three sealed-contract drift attacks and proposition-contract reconciliation attacks. No Critical, Important, or Minor findings remain.",
+  "authority_execution_allowed": true,
+  "current_mutation_authorized": false,
+  "terminal_independent_gate_credit": 0,
+  "required_gate_filename_created": true,
+  "required_gate_filename": "phase9_10_external_implementation_review.json",
+  "actual_public_phase9_10_runner_execution_performed_by_review": false,
+  "actual_phase9_execution_performed_by_review": false,
+  "actual_phase10_candidate_generation_performed_by_review": false,
+  "actual_phase11_or_later_execution_performed_by_review": false,
+  "actual_current_adoption_performed_by_review": false,
+  "actual_terminal_review_performed_by_review": false,
+  "next_authorized_state": "The exact reviewed Phase 9/10 implementation may be executed against authority-execution-0002. This review does not itself perform that execution and does not authorize current facts or manifest mutation.",
+  "non_claims": [
+    "Phase 9 coverage execution performed",
+    "Phase 10 candidate generation performed",
+    "317 authority closure materialized in the actual authority root",
+    "322 approved assertions materialized in the actual authority root",
+    "authority-bearing candidate created in the actual authority root",
+    "Phase 11 or later execution authorized",
+    "current facts or manifest mutation authorized",
+    "current adoption complete",
+    "terminal independent closeout PASS"
+  ]
+}

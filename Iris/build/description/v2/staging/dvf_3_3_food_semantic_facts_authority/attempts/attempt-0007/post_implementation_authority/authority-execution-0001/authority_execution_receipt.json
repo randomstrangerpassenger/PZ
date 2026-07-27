@@ -1,0 +1,67 @@
+{
+  "schema_version": "food-semantic-authority-execution-receipt-v1",
+  "authority_execution_id": "attempt-0007-authority-execution-0001",
+  "executed_at": "2026-07-27T19:07:11.9349029+09:00",
+  "execution_root": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0001",
+  "materializer_commit": "5e3c166d34fe1008859538685030d5b59ebbbd07",
+  "owner_approval_receipt": {
+    "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/owner_curation_approval_receipt.json",
+    "sha256": "bd2d057b83096d66905f89ec4d7c6179f996896603a325b889181e76c2bd541a"
+  },
+  "approved_curation_external_review": {
+    "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/external_approved_curation_review.json",
+    "sha256": "f247ce8abda139537b026577c5c016989cbc36804339094e90dcabf2229de805",
+    "verdict": "PASS",
+    "authority_materialization_allowed": true
+  },
+  "status": "PASS_WITH_REWORK",
+  "approved_batch_count": 10,
+  "approved_curated_proposition_count": 236,
+  "unresolved_rework_count": 2,
+  "unresolved_rework_items": [
+    "Base.Comfrey",
+    "Base.Plantain"
+  ],
+  "candidate_generation_authorized": false,
+  "current_mutation_authorized": false,
+  "curated_approval_missing_count": 0,
+  "curated_schema_violation_count": 0,
+  "duplicate_approval_event_count": 0,
+  "idempotent_materialization_rerun_passed": true,
+  "artifacts": [
+    {
+      "path": "phase8_curation/curated_fact_ledger.jsonl",
+      "sha256": "41047008abfd55e6c9585d8c34758dd5e76725fce93a83cbd391237990a04c0f",
+      "byte_count": 355797,
+      "row_count": 236
+    },
+    {
+      "path": "phase8_curation/semantic_authority_approval_ledger.jsonl",
+      "sha256": "cb29c75084c96b3e7b7fc93ddd0cadde50bee128c7144ac7c9fa1e4164c84f4f",
+      "byte_count": 157497,
+      "row_count": 236
+    },
+    {
+      "path": "phase8_curation/curation_event_ledger.jsonl",
+      "sha256": "f573e1b6df57696eca82d1d5d2c21f122390fd620fe44bad981135e5f44e5c81",
+      "byte_count": 140764,
+      "row_count": 714
+    },
+    {
+      "path": "phase8_curation/curation_rework_queue.jsonl",
+      "sha256": "5cf53b198a10fabb0b29d2d00be83edae199ed01f1669580f4b9b31ee77fe353",
+      "byte_count": 1664,
+      "row_count": 2
+    },
+    {
+      "path": "phase8_curation/curation_checkpoint.json",
+      "sha256": "a8cd7e16342de946c6b85b587cbf68578f0eb480481b4707d5c0d58f11568eb9",
+      "byte_count": 355
+    },
+    {
+      "path": "phase8_curation/curation_authority_execution_report.json",
+      "sha256": "1f578df5bdf65d57e31d35d28f6c486ee4849817fa4b1b61251970082641a2d7",
+      "byte_count": 408
+    }
+  ]
+}

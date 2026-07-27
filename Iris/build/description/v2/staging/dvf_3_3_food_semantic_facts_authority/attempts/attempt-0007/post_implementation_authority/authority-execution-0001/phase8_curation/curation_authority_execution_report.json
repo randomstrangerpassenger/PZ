@@ -1,0 +1,12 @@
+{
+  "approved_batch_count": 10,
+  "approved_curated_proposition_count": 236,
+  "candidate_generation_authorized": false,
+  "curated_approval_missing_count": 0,
+  "curated_schema_violation_count": 0,
+  "current_mutation_authorized": false,
+  "duplicate_approval_event_count": 0,
+  "schema_version": "food-semantic-curation-materialization-v1",
+  "status": "PASS_WITH_REWORK",
+  "unresolved_rework_count": 2
+}

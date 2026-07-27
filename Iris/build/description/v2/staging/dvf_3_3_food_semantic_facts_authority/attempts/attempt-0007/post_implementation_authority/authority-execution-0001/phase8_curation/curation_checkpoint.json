@@ -1,0 +1,9 @@
+{
+  "accepted_count": 236,
+  "authority_execution_started": true,
+  "event_ledger_sha256": "f573e1b6df57696eca82d1d5d2c21f122390fd620fe44bad981135e5f44e5c81",
+  "last_fully_committed_batch_id": "fsb:711763d2496ce3e78626307f",
+  "next_canonical_cursor": "Base.Comfrey\u0000\u0000curation-pending:Base.Comfrey",
+  "rejected_count": 0,
+  "rework_count": 2
+}

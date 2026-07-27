@@ -14,6 +14,7 @@ if str(V2_ROOT) not in sys.path:
 
 from tools.build.dvf_3_3_food_semantic.authority_phase9_10 import (
     _materialize_authority_phase9_10_fixture,
+    _validate_bundled_authority_contracts,
     _validate_phase9_10_external_review,
     run_authority_phase9_10,
 )
@@ -315,6 +316,65 @@ class FoodSemanticAuthorityPhase910Test(unittest.TestCase):
                     ATTEMPT_ROOT,
                     authority_copy,
                 )
+
+    def test_all_three_sealed_contract_drifts_are_rejected(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            dir=REPO_ROOT
+        ) as temp_dir:
+            fixture_root = Path(temp_dir) / "repo"
+            fixture_attempt = (
+                fixture_root
+                / "Iris/build/description/v2/staging/"
+                "dvf_3_3_food_semantic_facts_authority/"
+                "attempts/attempt-0007"
+            )
+            bundle_source = (
+                ATTEMPT_ROOT
+                / "phase13_closeout/"
+                "implementation_complete_bundle.json"
+            )
+            bundle_target = (
+                fixture_attempt
+                / "phase13_closeout/"
+                "implementation_complete_bundle.json"
+            )
+            bundle_target.parent.mkdir(parents=True)
+            shutil.copy2(bundle_source, bundle_target)
+            relative_contracts = [
+                (
+                    "Iris/_docs/authority/food_semantic/"
+                    "food_semantic_schema.json"
+                ),
+                (
+                    "Iris/_docs/authority/food_semantic/"
+                    "proposition_licensing_contract.json"
+                ),
+                (
+                    "Iris/_docs/authority/food_semantic/"
+                    "forbidden_inference_registry.json"
+                ),
+            ]
+            for relative in relative_contracts:
+                target = fixture_root / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(REPO_ROOT / relative, target)
+            sealed = _validate_bundled_authority_contracts(
+                fixture_root,
+                fixture_attempt,
+            )
+            self.assertEqual(len(sealed["identities"]), 3)
+            for relative in relative_contracts:
+                target = fixture_root / relative
+                original = target.read_bytes()
+                target.write_bytes(original + b" ")
+                with self.assertRaises(FoodSemanticError):
+                    _validate_bundled_authority_contracts(
+                        fixture_root,
+                        fixture_attempt,
+                    )
+                target.write_bytes(original)
 
     def test_phase8_tamper_blocks_before_output(self) -> None:
         with tempfile.TemporaryDirectory(

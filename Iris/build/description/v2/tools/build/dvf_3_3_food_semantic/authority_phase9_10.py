@@ -111,6 +111,89 @@ def _bundle_artifact(
     return row
 
 
+def _validate_bundled_authority_contracts(
+    root: Path,
+    attempt_root: Path,
+) -> dict[str, Any]:
+    contract_paths = {
+        "schema": root / SCHEMA,
+        "proposition_license": root / PROPOSITION_LICENSE,
+        "forbidden_registry": root / FORBIDDEN_REGISTRY,
+    }
+    identities = {
+        name: _bundle_artifact(root, attempt_root, path)
+        for name, path in contract_paths.items()
+    }
+    return {
+        "schema": load_json(contract_paths["schema"]),
+        "proposition_license": load_json(
+            contract_paths["proposition_license"]
+        ),
+        "forbidden_registry": load_json(
+            contract_paths["forbidden_registry"]
+        ),
+        "identities": identities,
+    }
+
+
+def _validate_proposition_contracts(
+    contracts: dict[str, Any],
+    *,
+    automatic: list[dict[str, Any]],
+    curated: list[dict[str, Any]],
+) -> None:
+    schema = contracts["schema"]
+    proposition_license = contracts["proposition_license"]
+    schema_values = {
+        (axis["axis"], value["value"]): value
+        for axis in schema.get("axes", [])
+        for value in axis.get("values", [])
+    }
+    license_values = {
+        (row["fact_axis"], row["fact_value"]): row
+        for row in proposition_license.get("licenses", [])
+    }
+    schema_sha256 = contracts["identities"]["schema"]["sha256"]
+    license_sha256 = contracts["identities"]["proposition_license"][
+        "sha256"
+    ]
+    if (
+        schema.get("schema_version")
+        != proposition_license.get("food_semantic_schema_version")
+        or schema.get("free_text_values_allowed") is not False
+        or set(schema_values) != set(license_values)
+    ):
+        raise FoodSemanticError(
+            "schema and proposition license vocabulary mismatch"
+        )
+    for row in automatic:
+        key = (row["fact_field"], row["fact_value"])
+        if (
+            key not in schema_values
+            or schema_values[key].get("automatic_eligible") is not True
+            or license_values[key].get("automatic_eligible") is not True
+            or row.get("authority_class") != "automatic"
+            or row.get("approval_status") != "approved"
+        ):
+            raise FoodSemanticError(
+                "automatic proposition is not licensed by sealed contracts"
+            )
+    for row in curated:
+        key = (row["fact_field"], row["fact_value"])
+        if (
+            key not in schema_values
+            or schema_values[key].get("curated_allowed") is not True
+            or license_values[key].get("curated_allowed") is not True
+            or row.get("authority_class") != "curated"
+            or row.get("approval_status") != "owner_approved"
+            or row.get("schema_sha256") != schema_sha256
+            or row.get("proposition_license_sha256") != license_sha256
+        ):
+            raise FoodSemanticError(
+                "curated proposition is not licensed by sealed contracts"
+            )
+
+
 def validate_reviewed_phase8_authority(
     root: Path,
     authority_root: Path,
@@ -546,6 +629,10 @@ def _materialize_authority_phase9_10_fixture(
     output_root: Path,
 ) -> dict[str, Any]:
     _require_attempt_local_output(attempt_root, output_root)
+    contracts = _validate_bundled_authority_contracts(
+        root,
+        attempt_root,
+    )
     phase8 = validate_reviewed_phase8_authority(
         root,
         authority_root,
@@ -555,6 +642,11 @@ def _materialize_authority_phase9_10_fixture(
         attempt_root,
     )
     curated = phase8["curated"]
+    _validate_proposition_contracts(
+        contracts,
+        automatic=automatic,
+        curated=curated,
+    )
     target_path = (
         attempt_root / "phase1_census/target_food_universe_manifest.json"
     )
@@ -762,6 +854,15 @@ def _materialize_authority_phase9_10_fixture(
         "bound_implementation_complete_bundle_sha256": automatic_bindings[
             "implementation_complete_bundle_sha256"
         ],
+        "bound_food_semantic_schema_sha256": contracts["identities"][
+            "schema"
+        ]["sha256"],
+        "bound_proposition_licensing_contract_sha256": contracts[
+            "identities"
+        ]["proposition_license"]["sha256"],
+        "bound_forbidden_inference_registry_sha256": contracts[
+            "identities"
+        ]["forbidden_registry"]["sha256"],
         "target_member_set_sha256": target["member_set_sha256"],
         "automatic_member_set_sha256": automatic_bindings[
             "automatic_member_set_sha256"

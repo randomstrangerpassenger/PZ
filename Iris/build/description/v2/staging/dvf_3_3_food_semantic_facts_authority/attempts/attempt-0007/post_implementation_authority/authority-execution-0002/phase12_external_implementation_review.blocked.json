@@ -1,0 +1,110 @@
+{
+  "authority_execution_allowed": false,
+  "candidate_patch_identity_verdict": "PASS",
+  "candidate_patch_scope_verdict": "PASS",
+  "finding_counts": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0
+  },
+  "findings": [
+    {
+      "evidence": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py imports build_candidate_body_plan_requirements",
+        "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py imports build_single_proposition_equivalence_proof",
+        "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py at reviewed commit defines neither symbol",
+        "both exact D16 unittest commands exit 1 during import collection"
+      ],
+      "finding_id": "P12-D16-I1",
+      "priority": "Important",
+      "required_disposition": "Obtain a separately reviewed Naturalization tooling correction with exact expanded file and symbol scope; do not bypass imports or directly invoke extracted helper definitions.",
+      "title": "The approved adapter cannot load through the actual Phase 2 consumer path"
+    },
+    {
+      "evidence": [
+        "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_handoff.py still requires each live target SHA-256 to equal the candidate manifest preimage SHA-256",
+        "approved D16 adoption correctly changes each live target to the manifest replacement SHA-256",
+        "the exact focused food-semantic suite runs 46 tests and fails this adoption-state assertion"
+      ],
+      "finding_id": "P12-D16-I2",
+      "priority": "Important",
+      "required_disposition": "Add an authority-bound adoption-aware handoff state model under separately reviewed scope, then rerun the focused food-semantic suite.",
+      "title": "The implementation test model rejects the authorized post-adoption state"
+    }
+  ],
+  "non_claims": [
+    "Phase 12 compatibility execution complete",
+    "actual Phase 2 consumer receipt present",
+    "minimum meaningful partition accepted",
+    "official Naturalization retry authorized",
+    "Phase 4 through 8 executed",
+    "terminal independent closeout review performed"
+  ],
+  "phase12_execution_performed_by_review": false,
+  "recommendation": {
+    "approximate_harness_allowed": false,
+    "next_action": "Open a separately reviewed correction for the missing Naturalization dependency symbols and the adoption-aware food handoff test state, obtain exact owner authorization for that expanded scope, and rerun all three required focused commands with exit code 0 before Phase 12 authority execution.",
+    "phase12_may_proceed_without_correction": false
+  },
+  "review_scope": "External review of the exact D16 Naturalization adapter/no-render adoption commit, candidate manifest replacement identities, authorized file and symbol scope, mandatory D16 focused tests, and post-adoption food-semantic focused regression.",
+  "review_target": {
+    "candidate_patch_manifest_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase12_phase2_handoff/naturalization_candidate_patch_manifest.json",
+    "candidate_patch_manifest_sha256": "c4847ddf0148de934561de329e30884156b3dfa53df225f7ec93eef290e65273",
+    "owner_reserved_decisions_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/owner_reserved_decisions.json",
+    "owner_reserved_decisions_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+    "reviewed_commit_parent_sha": "8c2f98200872950f22c9b557515215fcfe247025",
+    "reviewed_commit_sha": "27fe9b3aab05b3839026247d6b892d6804bc2020"
+  },
+  "reviewed_files": [
+    {
+      "byte_count": 116261,
+      "manifest_identity_role": "replacement",
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+      "sha256": "8f2692d2113fd6d73a1f405a4522271733a813aca153fc3f9254a6202643efa6"
+    },
+    {
+      "byte_count": 23114,
+      "manifest_identity_role": "replacement",
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+      "sha256": "0582c70c94fcda46ba7f60c3338c546b20302ca11d70e4dfbc6144118221c02a"
+    },
+    {
+      "byte_count": 7869,
+      "manifest_identity_role": "replacement",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "sha256": "0bb037cc2bb1abd90745cd6b05f9cd307473c99e4d53138ad5c6fa0227f9d04a"
+    },
+    {
+      "byte_count": 4439,
+      "manifest_identity_role": "replacement",
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "sha256": "3a0c86a7dbcdeca8c5af02096ab9996af4198beb6cbb5a9c766198cb02434c48"
+    }
+  ],
+  "reviewed_at": "2026-07-27T22:50:53.7548278+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "schema_version": "food-semantic-phase12-external-implementation-review-v1",
+  "terminal_independent_gate_credit": 0,
+  "validation_commands": [
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_acceptance_gate.py\"",
+      "exit_code": 1,
+      "result": "FAIL_IMPORT_COLLECTION"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_korean_prose_semantic_preservation.py\"",
+      "exit_code": 1,
+      "result": "FAIL_IMPORT_COLLECTION"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 1,
+      "observed_failure_count": 1,
+      "observed_test_count": 46,
+      "result": "FAIL_POST_ADOPTION_STATE_MODEL"
+    }
+  ],
+  "verdict": "BLOCKED",
+  "verdict_basis": "The exact four-file D16 adoption is byte-identical to the approved manifest replacement set and stays within the authorized additive symbols. Phase 12 nevertheless cannot execute through the actual Naturalization consumer because pre-existing imports reference missing compose-layer symbols, and the food handoff regression still encodes only the pre-adoption state. Repairing either defect is outside the approved D16 file and symbol scope; an approximate harness is expressly forbidden."
+}

@@ -762,7 +762,23 @@ def write_curation_proposal_bundle(
     batch_root = output_root / "review_batches"
     for batch in batches:
         filename = batch["batch"]["batch_id"].replace(":", "_") + ".json"
-        write_json(batch_root / filename, batch, write_once=False)
+        batch_path = batch_root / filename
+        if batch_path.is_file():
+            existing_batch = load_json(batch_path)
+            existing_approval = existing_batch.get("owner_approval")
+            if existing_approval is not None:
+                if (
+                    existing_batch.get("proposal_content_sha256")
+                    != batch.get("proposal_content_sha256")
+                    or _review_batch_proposal_hash(existing_batch)
+                    != _review_batch_proposal_hash(batch)
+                ):
+                    raise FoodSemanticError(
+                        "approved review batch cannot be regenerated from "
+                        f"different proposal content: {batch_path}"
+                    )
+                batch["owner_approval"] = existing_approval
+        write_json(batch_path, batch, write_once=False)
     write_json(
         output_root / "curation_batch_approval.schema.json",
         approval_packet_schema(),

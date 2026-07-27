@@ -27,6 +27,7 @@ from tools.build.dvf_3_3_food_semantic.curation_proposals import (
     record_exact_owner_batch_approvals,
     source_context_diagnostics,
     validate_batch_approvals,
+    write_curation_proposal_bundle,
 )
 
 
@@ -249,6 +250,40 @@ class FoodSemanticCurationProposalTest(unittest.TestCase):
                     proposal_root / "owner_curation_approval_receipt.json"
                 ).is_file()
             )
+
+    def test_proposal_regeneration_preserves_exact_owner_approvals(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(dir=ATTEMPT_ROOT.parent) as temp_dir:
+            proposal_root = Path(temp_dir) / "proposals"
+            write_curation_proposal_bundle(
+                REPO_ROOT,
+                ATTEMPT_ROOT,
+                proposal_root,
+            )
+            record_exact_owner_batch_approvals(
+                proposal_root,
+                owner_decisions_path=OWNER_DECISIONS,
+                approval_directive="승인",
+                approval_rationale=(
+                    "Owner approves every exact proposition and accepts every "
+                    "needs-rework disposition in each bounded D6 batch."
+                ),
+                approval_time="2026-07-27T19:00:00+09:00",
+            )
+            write_curation_proposal_bundle(
+                REPO_ROOT,
+                ATTEMPT_ROOT,
+                proposal_root,
+            )
+            validation = validate_batch_approvals(
+                proposal_root,
+                owner_decisions_path=OWNER_DECISIONS,
+                require_all_approved=True,
+            )
+            self.assertEqual(validation["status"], "PASS")
+            self.assertEqual(validation["approved_batch_count"], 10)
+            self.assertEqual(validation["approved_proposition_count"], 236)
 
     def test_blank_approval_metadata_cannot_materialize_authority(
         self,

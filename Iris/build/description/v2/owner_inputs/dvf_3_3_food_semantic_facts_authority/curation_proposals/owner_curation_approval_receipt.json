@@ -1,0 +1,86 @@
+{
+  "accepted_needs_rework_count": 2,
+  "approval_directive": "승인",
+  "approval_rationale": "Owner approves every exact proposition and accepts every needs-rework disposition in each of the ten bounded D6 review batches after receiving the AI curation summary and Codex Reviewer PASS.",
+  "approval_source_kind": "owner_conversation_directive",
+  "approval_time": "2026-07-27T18:52:51.2381778+09:00",
+  "approved_batch_count": 10,
+  "approved_proposition_count": 236,
+  "approver_identity": "repository_owner",
+  "authority_effect_before_materialization": false,
+  "batches": [
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 24,
+      "batch_id": "fsb:07f909b26bb4f9fe9b437f29",
+      "member_count": 24,
+      "proposal_content_sha256": "44b423edc47cb6b411af3342063113b24ef80ee245eff570678a49ea156caccc"
+    },
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 24,
+      "batch_id": "fsb:1f994516b5c6e8342df5c4a6",
+      "member_count": 24,
+      "proposal_content_sha256": "51988b76d98fec3ef66a7fc662350d1da6e32bfb9c90c052d5aa8d0705416b30"
+    },
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 24,
+      "batch_id": "fsb:39b9b2757f5002c3f9b999cf",
+      "member_count": 24,
+      "proposal_content_sha256": "9046dc93e20ddae4c08ff1169e8c1a9dbdb85ceaf5d1a4e24c46d0f711046258"
+    },
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 22,
+      "batch_id": "fsb:711763d2496ce3e78626307f",
+      "member_count": 22,
+      "proposal_content_sha256": "394e1317ca31130ceb259a3f6be0dcf6f2652d8352ea7f67b5d6d79adbb0812e"
+    },
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 24,
+      "batch_id": "fsb:8ebd278195a970d1577cfb18",
+      "member_count": 24,
+      "proposal_content_sha256": "52fb5b9bc77e0e97f2d7316a27f1428c94b9d00803c9ee4fe29174acd626d455"
+    },
+    {
+      "accepted_needs_rework_count": 1,
+      "approved_proposition_count": 23,
+      "batch_id": "fsb:d1b002457a9c589280734ff1",
+      "member_count": 24,
+      "proposal_content_sha256": "aeb70570b715e15e7a5532506eaba66645dc337bd22eacbbbd5c8fc6876cec14"
+    },
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 24,
+      "batch_id": "fsb:d237a2d0b4f84c227a6c921e",
+      "member_count": 24,
+      "proposal_content_sha256": "86d24e1728a7885419f373247a843283ee7f599feb4c3bc2e9013419708eb440"
+    },
+    {
+      "accepted_needs_rework_count": 1,
+      "approved_proposition_count": 23,
+      "batch_id": "fsb:d5d4e6b00b67d1100bee65cd",
+      "member_count": 24,
+      "proposal_content_sha256": "68dcc4225fb55195870c10333a591581f82301188d380a7f778aa4b17834524f"
+    },
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 24,
+      "batch_id": "fsb:e47d19f20d78df0d8594d4d7",
+      "member_count": 24,
+      "proposal_content_sha256": "cba6eb36d3f1d07b704afbf4d0ad1fcf8b0a1ed2e55d8140e04c5107be547910"
+    },
+    {
+      "accepted_needs_rework_count": 0,
+      "approved_proposition_count": 24,
+      "batch_id": "fsb:f8384fea0c6b9b34c14df9d3",
+      "member_count": 24,
+      "proposal_content_sha256": "cec9fccf0a1c5944f82a270307cfef5f277a362fec31b675bec12b5860e380be"
+    }
+  ],
+  "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "schema_version": "food-semantic-owner-curation-approval-receipt-v1",
+  "validation_status": "PASS"
+}

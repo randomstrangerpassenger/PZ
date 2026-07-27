@@ -1210,7 +1210,41 @@
       "semantic_approver": null
     }
   ],
-  "owner_approval": null,
+  "owner_approval": {
+    "accepted_needs_rework_items": [],
+    "approval_directive": "승인",
+    "approval_state": "approved",
+    "approval_time": "2026-07-27T18:52:51.2381778+09:00",
+    "approved_proposition_ids": [
+      "fsp:1132fe585b7788c444515135",
+      "fsp:1a1593b16b7f730c1c8408de",
+      "fsp:1ec811b57be95a4777dfb4a9",
+      "fsp:26479bae22f11596d6af23c5",
+      "fsp:2e3194647498471c305516ab",
+      "fsp:3e9170abe7790a2dfb86d4bd",
+      "fsp:4b1d4ad756c4e3743c57e2d7",
+      "fsp:7a05334507023e6e0e48e3af",
+      "fsp:806e6822ce63da85ee3910ef",
+      "fsp:83b74104d94bcc376d511031",
+      "fsp:92094f736d5fb0d4049b7008",
+      "fsp:9d637731fa66989246da08c7",
+      "fsp:a5bec3bd5516059206fe2428",
+      "fsp:acf1fa9ff358e0c76c6fcb04",
+      "fsp:afbefc75fb33e7033c76c728",
+      "fsp:b15729d89d24fa328293a837",
+      "fsp:c16ad41609dc8f8ff1c45d98",
+      "fsp:c27ccd88b0e464cf2f17280f",
+      "fsp:ccd8956b3410f872606e912f",
+      "fsp:de65708d1b62f99891da4a48",
+      "fsp:de70e01ea8bbbb6c8ea4fc61",
+      "fsp:e2c4c2b558e3e353cdeee494",
+      "fsp:f605abb4baa970704d9168ba",
+      "fsp:fcf1e8f578865a7ac73f9a63"
+    ],
+    "approver_identity": "repository_owner",
+    "proposal_content_sha256": "cec9fccf0a1c5944f82a270307cfef5f277a362fec31b675bec12b5860e380be",
+    "rationale": "Owner approves every exact proposition and accepts every needs-rework disposition in each of the ten bounded D6 review batches after receiving the AI curation summary and Codex Reviewer PASS."
+  },
   "proposal_content_sha256": "cec9fccf0a1c5944f82a270307cfef5f277a362fec31b675bec12b5860e380be",
   "schema_version": "food-semantic-ai-assisted-curation-proposal-v1"
 }

@@ -1,0 +1,570 @@
+{
+  "schema_version": "food-semantic-external-authority-materialization-review-v1",
+  "review_id": "dvf-3-3-food-semantic-external-authority-materialization-review-52dd651f",
+  "reviewed_at": "2026-07-27T20:33:38.4787687+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": "Independent review of the exact committed attempt-local successor Phase 8 curation authority materialization, its exact owner approval commit and receipt, reviewed two-proposition PASS artifact, prior authority receipt and PASS review, six successor output identities, row and event preservation, semantic scope, checkpoint/report consistency, same-root idempotence, focused regressions, attempt seal, and current/protected/rendered/runtime/package boundary.",
+  "review_target": {
+    "reviewed_commit_sha": "52dd651f9acce54f9a5a9ef54f27ee0b11b39a45",
+    "reviewed_commit_parent_sha": "6e7fe2050e971c5f7f18bc7c5fbe008ab22e6e59",
+    "reviewed_commit_subject": "feat: resolve final curation authority rework",
+    "commit_is_checked_out_head": true,
+    "owner_approval_commit_sha": "6e7fe2050e971c5f7f18bc7c5fbe008ab22e6e59",
+    "owner_approval_commit_parent_sha": "35e8eb46ae129df933ba78c1a253c034a8111f94",
+    "proposal_review_commit_sha": "35e8eb46ae129df933ba78c1a253c034a8111f94",
+    "execution_root": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002",
+    "bound_attempt_id": "attempt-0007",
+    "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205"
+  },
+  "reviewed_commit_sha": "52dd651f9acce54f9a5a9ef54f27ee0b11b39a45",
+  "reviewed_commit_parent_sha": "6e7fe2050e971c5f7f18bc7c5fbe008ab22e6e59",
+  "input_bindings": [
+    {
+      "role": "exact owner curation approval receipt",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/owner_curation_approval_receipt.json",
+      "observed_sha256": "93ec15fa27f12395264888a7218758fd51dd7125a450200a6e5f1e6888b8c73c",
+      "byte_count": 1062,
+      "owner_approval_commit_sha": "6e7fe2050e971c5f7f18bc7c5fbe008ab22e6e59",
+      "validation_status": "PASS",
+      "approved_batch_count": 1,
+      "approved_proposition_count": 2,
+      "accepted_needs_rework_count": 0,
+      "authority_effect_before_materialization": false,
+      "hash_and_commit_binding_match": true
+    },
+    {
+      "role": "exact approved review batch",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/review_batches/fsb_c6b37612f34582054041a916.json",
+      "observed_sha256": "7c76c36287fa8e42ee2fd9c6c1eead93bd1866dc8b075c624516fdff32955f3d",
+      "byte_count": 9712,
+      "batch_id": "fsb:c6b37612f34582054041a916",
+      "proposal_content_sha256": "dc65791cd39a25059896648d7a58a7e85a27f25aef6ce9cd81f7cc137e994dd8",
+      "owner_approval_state": "approved",
+      "owner_approver_identity": "repository_owner",
+      "exact_owner_receipt_metadata_match": true,
+      "exact_approved_proposition_set_match": true
+    },
+    {
+      "role": "reviewed proposal external PASS",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/external_rework_resolution_review.pass.json",
+      "observed_sha256": "1c3d9ab7dc35d699b8eae21d24ecf6ef57454a9383122e2030c8f94081e6e2ac",
+      "byte_count": 22779,
+      "proposal_review_commit_sha": "35e8eb46ae129df933ba78c1a253c034a8111f94",
+      "reviewed_implementation_commit_sha": "7306dcb3487a8cbb6cd603872f79d3ec7924e65f",
+      "verdict": "PASS",
+      "semantic_scope_verdict": "PASS",
+      "critical_finding_count": 0,
+      "important_finding_count": 0,
+      "materialization_after_exact_owner_approval_allowed": true,
+      "hash_and_commit_binding_match": true
+    },
+    {
+      "role": "reviewed resolution proposal summary",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_proposal_summary.json",
+      "observed_sha256": "ad8c846fab2e7436cc48deebd85d28f3010440f5a23fa88377c8b7086f0f8e0c",
+      "byte_count": 894,
+      "external_review_binding_match": true,
+      "execution_report_binding_match": true
+    },
+    {
+      "role": "reviewed resolution proposal ledger",
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_rework_resolution_0001/curation_rework_resolution_proposals.jsonl",
+      "observed_sha256": "d9406e6dd48ba1ed18986259e4641f54ff5668fd44cff7cc8e75c4e53c8ac285",
+      "byte_count": 6308,
+      "row_count": 2,
+      "summary_binding_match": true,
+      "external_review_binding_match": true,
+      "execution_report_binding_match": true
+    },
+    {
+      "role": "prior authority execution receipt",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0001/authority_execution_receipt.json",
+      "observed_sha256": "9531476217c6694fed908f886c3368a209b441929eae4c7f7c7c56efca5740b7",
+      "byte_count": 2751,
+      "status": "PASS_WITH_REWORK",
+      "approved_curated_proposition_count": 236,
+      "unresolved_rework_count": 2,
+      "summary_binding_match": true,
+      "execution_report_binding_match": true
+    },
+    {
+      "role": "prior authority materialization external PASS",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0001/external_authority_materialization_review.json",
+      "observed_sha256": "e001179f19fe7a962ece427ba0443efa47fa2abb0d981c516d0bdbe6d3932508",
+      "byte_count": 19228,
+      "verdict": "PASS",
+      "reviewer_identity": "Codex Reviewer",
+      "critical_finding_count": 0,
+      "important_finding_count": 0,
+      "reviewed_prior_receipt_binding_match": true,
+      "summary_binding_match": true
+    },
+    {
+      "role": "implementation-complete bundle",
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/phase13_closeout/implementation_complete_bundle.json",
+      "observed_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "attempt_verify_binding_match": true
+    }
+  ],
+  "reviewed_materializer_hashes": [
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_proposals.py",
+      "sha256": "7e216ecb8e77fc75000ddb2340ad2b8d9806c35f73d6da803877a781976c9ec9",
+      "byte_count": 49868
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_rework_resolution.py",
+      "sha256": "5546fd8ffe52fd407bb417823cd7e616c9672a0cac75a8a933d89b0ef5602dc5",
+      "byte_count": 42613
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py",
+      "sha256": "d3b834d8fd06a85b286113fe25b989fee608ec33eddf1cdda25203a403bc5fe4",
+      "byte_count": 3914
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_rework_resolution.py",
+      "sha256": "28622bee27e3f5103ab0405118ad52e1b1627257b62989768e6a66fceecdac77",
+      "byte_count": 21113
+    }
+  ],
+  "reviewed_artifact_hashes": [
+    {
+      "path": "phase8_curation/curated_fact_ledger.jsonl",
+      "sha256": "5b028c7d9bcd4fb4c6ab7c9ad74bd72d3ef92503d1b56e19f0d418c517d5caf0",
+      "byte_count": 361331,
+      "row_count": 238,
+      "git_blob_and_worktree_match": true
+    },
+    {
+      "path": "phase8_curation/semantic_authority_approval_ledger.jsonl",
+      "sha256": "76424a295785bb8103a1afbd8643a97f22f7bdaa0ce98f99ab44213e026753ab",
+      "byte_count": 158808,
+      "row_count": 238,
+      "git_blob_and_worktree_match": true
+    },
+    {
+      "path": "phase8_curation/curation_event_ledger.jsonl",
+      "sha256": "6816261ea295ee27299247326ce3decc38b9878cd0bad6b90b97c241b0e828de",
+      "byte_count": 141656,
+      "row_count": 718,
+      "git_blob_and_worktree_match": true
+    },
+    {
+      "path": "phase8_curation/curation_rework_queue.jsonl",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byte_count": 0,
+      "row_count": 0,
+      "git_blob_and_worktree_match": true
+    },
+    {
+      "path": "phase8_curation/curation_checkpoint.json",
+      "sha256": "11e5aef526d117e7685e709bdcaa5e84783f972a320da911d3934f073f90e163",
+      "byte_count": 304,
+      "logical_record_count": 1,
+      "git_blob_and_worktree_match": true
+    },
+    {
+      "path": "phase8_curation/curation_authority_execution_report.json",
+      "sha256": "700ded16f68e4eb9d3378f458e365db4385a4a8320d9a43265d5ae24b60e2297",
+      "byte_count": 906,
+      "logical_record_count": 1,
+      "git_blob_and_worktree_match": true
+    }
+  ],
+  "prior_authority_preservation": {
+    "prior_curated_row_count": 236,
+    "prior_curated_exact_object_preserved_count": 236,
+    "prior_curated_missing_or_changed_count": 0,
+    "prior_approval_row_count": 236,
+    "prior_approval_exact_object_preserved_count": 236,
+    "prior_approval_missing_or_changed_count": 0,
+    "prior_event_row_count": 714,
+    "prior_event_exact_object_prefix_preserved_count": 714,
+    "prior_event_exact_byte_prefix_preserved_count": 714,
+    "prior_event_missing_or_changed_count": 0,
+    "prior_rework_row_count": 2,
+    "prior_rework_items": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "prior_authority_preservation_status": "PASS"
+  },
+  "semantic_reconciliation": {
+    "successor_curated_row_count": 238,
+    "successor_curated_unique_proposition_count": 238,
+    "successor_approval_row_count": 238,
+    "successor_approval_unique_proposition_count": 238,
+    "new_curated_row_count": 2,
+    "new_approval_row_count": 2,
+    "new_item_set": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "new_propositions": [
+      {
+        "item_identity": "Base.Comfrey",
+        "proposition_id": "fsp:d969ed6992da5b2c455fa9c4",
+        "fact_axis": "ingredient_origin",
+        "fact_value": "plant",
+        "authority_class": "curated",
+        "approval_status": "owner_approved",
+        "semantic_approver": "repository_owner"
+      },
+      {
+        "item_identity": "Base.Plantain",
+        "proposition_id": "fsp:b8442f179c0764d485da604a",
+        "fact_axis": "ingredient_origin",
+        "fact_value": "plant",
+        "authority_class": "curated",
+        "approval_status": "owner_approved",
+        "semantic_approver": "repository_owner"
+      }
+    ],
+    "new_curated_rows_exact_reviewed_member_match_count": 2,
+    "new_approval_rows_exact_owner_metadata_match_count": 2,
+    "missing_approved_proposition_count": 0,
+    "unexpected_curated_proposition_count": 0,
+    "duplicate_curated_proposition_count": 0,
+    "duplicate_semantic_approval_count": 0,
+    "curated_approval_missing_count": 0,
+    "curated_schema_violation_count": 0,
+    "semantic_scope_verdict": "PASS",
+    "food_or_edible_scope_expansion_count": 0,
+    "consumption_scope_expansion_count": 0,
+    "meal_scope_expansion_count": 0,
+    "culinary_role_scope_expansion_count": 0,
+    "display_or_item_id_semantic_inference_count": 0
+  },
+  "event_reconciliation": {
+    "event_row_count": 718,
+    "unique_event_id_count": 718,
+    "duplicate_event_id_count": 0,
+    "event_distribution": {
+      "queued": 238,
+      "review_started": 238,
+      "accepted": 238,
+      "needs_rework": 2,
+      "superseded": 2
+    },
+    "new_event_count": 4,
+    "new_superseded_event_count": 2,
+    "new_accepted_event_count": 2,
+    "new_transition_item_count": 2,
+    "new_superseded_events_exact_pending_to_approved_binding_match": true,
+    "new_accepted_events_exact_approved_proposition_set_match": true,
+    "authority_effect_true_count": 238,
+    "accepted_authority_effect_true_count": 238,
+    "nonaccepted_authority_effect_true_count": 0,
+    "accepted_authority_effect_false_count": 0,
+    "duplicate_approval_event_count": 0
+  },
+  "rework_reconciliation": {
+    "successor_rework_row_count": 0,
+    "resolved_prior_rework_count": 2,
+    "resolved_prior_rework_items": [
+      "Base.Comfrey",
+      "Base.Plantain"
+    ],
+    "unresolved_rework_count": 0,
+    "exact_resolution_match": true
+  },
+  "checkpoint_and_report": {
+    "checkpoint_event_ledger_sha256_match": true,
+    "checkpoint_accepted_count": 238,
+    "checkpoint_rejected_count": 0,
+    "checkpoint_rework_count": 0,
+    "checkpoint_last_fully_committed_batch_id": "fsb:c6b37612f34582054041a916",
+    "checkpoint_last_batch_match": true,
+    "checkpoint_next_canonical_cursor": null,
+    "report_status": "PASS_COMPLETE",
+    "report_approved_batch_count": 1,
+    "report_approved_curated_proposition_count": 238,
+    "report_resolved_prior_rework_count": 2,
+    "report_unresolved_rework_count": 0,
+    "report_curated_approval_missing_count": 0,
+    "report_curated_schema_violation_count": 0,
+    "report_duplicate_approval_event_count": 0,
+    "report_prior_receipt_sha256_match": true,
+    "report_proposal_summary_sha256_match": true,
+    "report_proposal_ledger_sha256_match": true,
+    "report_external_review_sha256_match": true,
+    "report_candidate_generation_authorized": true,
+    "report_current_mutation_authorized": false,
+    "checkpoint_report_and_ledgers_consistent": true
+  },
+  "idempotence_check": {
+    "same_root_materializer_rerun_status": "PASS_COMPLETE",
+    "pre_rerun_artifact_count": 6,
+    "post_rerun_artifact_count": 6,
+    "sha256_preserved_count": 6,
+    "byte_count_preserved_count": 6,
+    "committed_artifact_mutation_count_by_review": 0,
+    "worktree_change_count_after_rerun": 0,
+    "status": "PASS"
+  },
+  "boundary_reconciliation": {
+    "materialization_commit_changed_path_count": 6,
+    "materialization_commit_exact_phase8_artifact_path_count": 6,
+    "materialization_commit_unexpected_changed_path_count": 0,
+    "review_to_materialization_chain_changed_path_count": 9,
+    "review_to_materialization_chain_expected_owner_review_or_phase8_path_count": 9,
+    "current_facts_manifest_changed_path_count": 0,
+    "protected_surface_changed_path_count": 0,
+    "rendered_output_changed_path_count": 0,
+    "lua_or_runtime_changed_path_count": 0,
+    "package_changed_path_count": 0,
+    "actual_phase9_or_phase10_artifact_created_count_by_review": 0,
+    "actual_current_mutation_count_by_review": 0
+  },
+  "review_checks": [
+    {
+      "check_id": "AUTH-MAT-EXT2-001",
+      "subject": "exact materialization commit and owner approval ancestry",
+      "status": "PASS",
+      "target_head_match": true,
+      "target_parent_is_exact_owner_approval_commit": true,
+      "owner_approval_parent_is_exact_proposal_review_commit": true
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-002",
+      "subject": "prior authority receipt and prior external PASS",
+      "status": "PASS",
+      "prior_receipt_hash_match": true,
+      "prior_review_hash_match": true,
+      "prior_review_receipt_binding_match": true,
+      "prior_review_severe_finding_count": 0
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-003",
+      "subject": "owner approval, reviewed proposal, and fresh external PASS bindings",
+      "status": "PASS",
+      "owner_approval_commit_match": true,
+      "owner_receipt_and_batch_metadata_match": true,
+      "proposal_content_hash_match": true,
+      "proposal_summary_hash_match": true,
+      "proposal_ledger_hash_match": true,
+      "fresh_external_review_hash_match": true,
+      "forged_or_unbound_input_count": 0
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-004",
+      "subject": "six successor artifact identities",
+      "status": "PASS",
+      "artifact_count": 6,
+      "artifact_path_set_match": true,
+      "artifact_sha256_match_count": 6,
+      "artifact_byte_count_match_count": 6,
+      "jsonl_row_count_match_count": 4,
+      "json_object_parse_count": 2
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-005",
+      "subject": "prior authority exact preservation",
+      "status": "PASS",
+      "prior_curated_exact_preserved_count": 236,
+      "prior_approval_exact_preserved_count": 236,
+      "prior_event_exact_object_prefix_preserved_count": 714,
+      "prior_event_exact_byte_prefix_preserved_count": 714,
+      "prior_missing_or_changed_count": 0
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-006",
+      "subject": "exact two-proposition semantic scope",
+      "status": "PASS",
+      "exact_ingredient_origin_plant_count": 2,
+      "exact_owner_approved_curated_match_count": 2,
+      "food_edible_consumption_meal_or_culinary_expansion_count": 0,
+      "unexpected_or_duplicate_proposition_count": 0
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-007",
+      "subject": "event transition and authority semantics",
+      "status": "PASS",
+      "event_count": 718,
+      "unique_event_count": 718,
+      "new_superseded_false_count": 2,
+      "new_accepted_true_count": 2,
+      "nonaccepted_authority_effect_true_count": 0,
+      "wrong_or_duplicate_event_count": 0
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-008",
+      "subject": "zero rework and checkpoint/report integrity",
+      "status": "PASS",
+      "rework_count": 0,
+      "event_ledger_hash_match": true,
+      "count_and_cursor_match": true,
+      "all_report_binding_hashes_match": true,
+      "candidate_generation_authorized": true,
+      "current_mutation_authorized": false
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-009",
+      "subject": "same-root idempotent materializer rerun",
+      "status": "PASS",
+      "rerun_status": "PASS_COMPLETE",
+      "artifact_sha256_preserved_count": 6,
+      "artifact_byte_count_preserved_count": 6,
+      "post_rerun_worktree_change_count": 0
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-010",
+      "subject": "focused regressions, approval validator, and attempt seal",
+      "status": "PASS",
+      "focused_test_count": 31,
+      "focused_test_failure_count": 0,
+      "require_all_validator_status": "PASS",
+      "approved_batch_count": 1,
+      "approved_proposition_count": 2,
+      "attempt_artifact_count": 178,
+      "attempt_artifact_mismatch_count": 0,
+      "attempt_current_facts_manifest_mutation_count": 0,
+      "attempt_protected_surface_changed_count": 0
+    },
+    {
+      "check_id": "AUTH-MAT-EXT2-011",
+      "subject": "attempt-local next-phase permission and protected boundary",
+      "status": "PASS",
+      "phase9_authority_execution_allowed": true,
+      "candidate_generation_authorized": true,
+      "permission_scope": "subsequent attempt-local Phase 9 and Phase 10 only",
+      "phase9_or_phase10_executed_by_review": false,
+      "current_mutation_authorized": false,
+      "protected_or_rendered_or_runtime_or_package_changed_path_count": 0,
+      "terminal_independent_gate_credit": 0
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "git rev-parse HEAD; git show -s --format=%H%n%P%n%s 52dd651f",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_target_sha": "52dd651f9acce54f9a5a9ef54f27ee0b11b39a45",
+      "observed_parent_sha": "6e7fe2050e971c5f7f18bc7c5fbe008ab22e6e59"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_test_count": 31,
+      "observed_failure_count": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py validate --require-all-approved",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_approved_batch_count": 1,
+      "observed_approved_proposition_count": 2,
+      "observed_pending_batch_count": 0,
+      "observed_invalid_batch_count": 0,
+      "observed_authority_effect_before_materialization": false
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_authority_claim_emitted_count": 0,
+      "observed_current_facts_manifest_mutation_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "independent prior receipt/review, approval/proposal/review, curated/approval/event/rework, checkpoint/report, and six-artifact reconciliation",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_prior_curated_exact_preserved_count": 236,
+      "observed_prior_approval_exact_preserved_count": 236,
+      "observed_prior_event_exact_byte_prefix_preserved_count": 714,
+      "observed_successor_curated_count": 238,
+      "observed_successor_approval_count": 238,
+      "observed_successor_event_count": 718,
+      "observed_successor_unique_event_count": 718,
+      "observed_successor_rework_count": 0,
+      "observed_binding_mismatch_count": 0,
+      "observed_semantic_scope_expansion_count": 0,
+      "observed_event_semantic_mismatch_count": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_rework_resolution.py materialize --successor-authority-root Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002",
+      "exit_code": 0,
+      "result": "PASS_COMPLETE",
+      "observed_artifact_sha256_preserved_count": 6,
+      "observed_artifact_byte_count_preserved_count": 6,
+      "observed_post_rerun_worktree_change_count": 0
+    },
+    {
+      "command": "git show --check 52dd651f9acce54f9a5a9ef54f27ee0b11b39a45",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --name-only 6e7fe2050e971c5f7f18bc7c5fbe008ab22e6e59..52dd651f9acce54f9a5a9ef54f27ee0b11b39a45",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 6,
+      "observed_exact_expected_phase8_path_count": 6,
+      "observed_unexpected_changed_path_count": 0
+    },
+    {
+      "command": "git diff over current facts/manifest, protected surfaces, rendered output, Lua/runtime, and package roots from 7306dcb3487a8cbb6cd603872f79d3ec7924e65f through 52dd651f9acce54f9a5a9ef54f27ee0b11b39a45",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    },
+    {
+      "command": "Get-FileHash -Algorithm SHA256 over materializer, runner, tests, owner approval receipt and batch, reviewed proposal artifacts, prior receipt/review, implementation bundle, and six successor outputs",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_hash_mismatch_count": 0
+    }
+  ],
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "review_verdict": "PASS",
+  "verdict": "PASS",
+  "authority_materialization_verdict": "PASS",
+  "authority_materialization_review_passed": true,
+  "authority_execution_status": "PASS_COMPLETE",
+  "verdict_basis": "The exact materialization commit consumes the exact owner approval commit, reviewed two-proposition PASS artifact, proposal summary and ledger, and authenticated prior authority receipt and PASS review. All 236 prior curated and approval rows are preserved exactly, all 714 prior event objects and bytes are preserved as an exact prefix, and only the two owner-approved Base.Comfrey and Base.Plantain ingredient_origin=plant propositions plus their correct superseded and accepted transitions are added. The successor has 238 curated rows, 238 approvals, 718 unique events, zero rework, correct authority_effect semantics, consistent checkpoint and report bindings, and byte-identical same-root rerun behavior. No current, protected, rendered, Lua/runtime, or package surface changed, and no Critical, Important, or Minor finding is open.",
+  "accepted_materialized_authority_scope": {
+    "curated_proposition_count": 238,
+    "semantic_approval_count": 238,
+    "resolved_prior_rework_count": 2,
+    "unresolved_rework_count": 0,
+    "new_curated_scope": [
+      "Base.Comfrey ingredient_origin=plant",
+      "Base.Plantain ingredient_origin=plant"
+    ],
+    "scope_expansion_count": 0
+  },
+  "phase9_authority_execution_allowed": true,
+  "phase9_authority_execution_scope": "A subsequent command may consume this reviewed Phase 8 authority only for attempt-local Phase 9 coverage validation and then attempt-local Phase 10 candidate generation. This permission does not authorize current facts, manifest, rendered output, runtime, package, Registry, seal, or terminal-review mutation.",
+  "candidate_generation_authorized": true,
+  "current_mutation_authorized": false,
+  "terminal_independent_gate_credit": 0,
+  "actual_phase9_execution_performed_by_review": false,
+  "actual_phase10_candidate_generation_performed_by_review": false,
+  "actual_owner_seal_performed_by_review": false,
+  "actual_current_adoption_performed_by_review": false,
+  "actual_terminal_independent_review_performed_by_review": false,
+  "non_claims": [
+    "Phase 9 coverage execution already performed",
+    "Phase 10 candidate generation already performed",
+    "candidate successor already sealed",
+    "317 terminal semantic disposition already closed",
+    "current facts or manifest mutation authorized",
+    "current facts or manifest changed",
+    "rendered output or runtime freshness restored",
+    "Registry adoption complete",
+    "owner final seal recorded",
+    "terminal independent closeout PASS"
+  ]
+}

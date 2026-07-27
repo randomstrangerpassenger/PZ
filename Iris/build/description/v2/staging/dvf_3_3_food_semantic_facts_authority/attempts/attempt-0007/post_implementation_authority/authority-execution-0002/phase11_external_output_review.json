@@ -1,0 +1,353 @@
+{
+  "schema_version": "food-semantic-phase11-external-output-review-v1",
+  "review_id": "dvf-3-3-food-semantic-phase11-external-output-review-2d9873d2",
+  "reviewed_at": "2026-07-27T22:25:26.4802698+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": "Independent external review of the exact committed Phase 11 sealed non-current successor output, including all 17 artifact identities, Phase 11 implementation-review gate provenance, receipt self-exclusion closure, Phase 10 facts byte identity, exact nine-field manifest derivation, exact four-hash selected input binding, D9 Branch B and D12 Registry-owned additive correction authority, predecessor and current preservation, proposal-only Registry boundary, divergence and freshness claim ceilings, public-runner idempotence, and write-once tamper failure.",
+  "review_target": {
+    "reviewed_commit_sha": "2d9873d2aad953c57095ea78fb920cf61d8531e0",
+    "reviewed_commit_parent_sha": "44d807ecdfa23e0e8bec8b44e48228bc6ffdb545",
+    "reviewed_commit_subject": "Seal Phase 11 non-current successor",
+    "commit_is_checked_out_head": true,
+    "authority_root": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002",
+    "phase11_output_root": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor",
+    "bound_attempt_id": "attempt-0007",
+    "reviewed_artifact_count": 17,
+    "commit_changed_path_count": 17,
+    "commit_changed_path_set_exactly_reviewed_artifacts": true,
+    "commit_changed_current_or_protected_path_count": 0
+  },
+  "reviewed_commit_sha": "2d9873d2aad953c57095ea78fb920cf61d8531e0",
+  "reviewed_commit_parent_sha": "44d807ecdfa23e0e8bec8b44e48228bc6ffdb545",
+  "reviewed_artifacts": [
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/candidate_to_successor_identity_manifest.json",
+      "sha256": "841f8d712671c6ff5091475a878443da9f17f1fb0fe4bf5b8207e29afc1af9a3",
+      "byte_count": 2162,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/current_authority_defect_declared.schema.json",
+      "sha256": "67409f10f456d57042a7826665d40095266eae400435cf2be5d5056425002909",
+      "byte_count": 565,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/declared_divergence_report.json",
+      "sha256": "fc61536440661b8ef5473893231f6135059d476a6b613ab888f79ed7880af9a8",
+      "byte_count": 952,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/freshness_impact_report.json",
+      "sha256": "0bb74b0fcab7feb37cb6377a354ddcea64b52a46c6440b2261f3723ba7062034",
+      "byte_count": 554,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/phase11_execution_receipt.json",
+      "sha256": "486a0ed7abea48dbb5973d3a09bef31b733227982a215b6173410fa3c0f6ac7f",
+      "byte_count": 6423,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/pre_successor_review.json",
+      "sha256": "e09341374a8b019e8ed9d153f5de37f135c98af369bd3bbc1affaa14c7239956",
+      "byte_count": 717,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/predecessor_disposition_report.json",
+      "sha256": "5a0733abcbb49cf2fd84ea444c59c9c90fe65a789b327d00e85d5564afac345d",
+      "byte_count": 516,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/protected_surface_hashes_after.json",
+      "sha256": "0e23e954df6edc7e9757cc9b83e7070ab4f05a847277c6171840212479ed7fde",
+      "byte_count": 5305,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/registry_candidate_diff_manifest.json",
+      "sha256": "ad78ae5341dd832bd2cb28701c71f677a43855eeb9bd1588159fbc23fbdb052e",
+      "byte_count": 1367,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/registry_cutover_request.json",
+      "sha256": "32bfe06cd93873339e4f01506dfc9bdf197748283a77e02c0eaea6f2a5de8ea1",
+      "byte_count": 1680,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_facts.jsonl",
+      "sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+      "byte_count": 1558106,
+      "row_count": 2105
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_input_manifest.json",
+      "sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5",
+      "byte_count": 4828,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/sealed_successor_receipt.json",
+      "sha256": "2c311e522dfb95eb142ec1ae28c31f7f2c378872b44b76a9383d8c4dd1e3e25b",
+      "byte_count": 6494,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/selected_successor_input_binding.json",
+      "sha256": "f75ba65c9da60f07d2390767b54a6ea4d4f049aa4214040c8d35c5edb8233977",
+      "byte_count": 1348,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/successor_authorization.json",
+      "sha256": "41fcac572c06f37324053b21928ac0430f5904ecf984cbd3e0a738b6e067bdc4",
+      "byte_count": 1282,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/successor_facts_identity_report.json",
+      "sha256": "8a9422113f8ccb48d70fd5e0427078b47f269f494f7e371aa9b0eb1a8ef0fb9e",
+      "byte_count": 500,
+      "row_count": 1
+    },
+    {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/successor_manifest_identity_report.json",
+      "sha256": "9f861a2a4e6661e43efff2a456e7c5deb783da82a66b737d4140050da5ce6d8b",
+      "byte_count": 949,
+      "row_count": 1
+    }
+  ],
+  "reviewed_implementation_gate_chain": {
+    "phase11_external_implementation_review": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_external_implementation_review.json",
+      "sha256": "56842bc79de0b604766b443765c3b892eff82cdc157857eaa8759ee5b6ede470",
+      "byte_count": 18740,
+      "verdict": "PASS",
+      "review_verdict": "PASS",
+      "phase11_scope_verdict": "PASS",
+      "reviewed_commit_sha": "7722d71466310b6951249f68f19e7e8be4d13b5e",
+      "reviewed_commit_parent_sha": "a03b4943672f838f3466d8ba5a5de3e8c73ae8ca",
+      "reviewer_identity": "Codex Reviewer",
+      "reviewer_is_implementation_author": false,
+      "finding_count": 0,
+      "phase11_execution_allowed": true
+    },
+    "prior_phase11_external_implementation_review_fail": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_external_implementation_review.fail.json",
+      "sha256": "9dc53916699f8c3ebcdf6be4c08b6da5808145d7f57c95676138e7349637a677",
+      "byte_count": 19541,
+      "verdict": "FAIL",
+      "preserved_unchanged": true
+    },
+    "phase9_10_external_output_review": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase9_10_external_output_review.json",
+      "sha256": "d679374037286737867295bf6cbe5ea9f5a944cbc9e3ee3d1f7e13da9297b23b",
+      "byte_count": 26201,
+      "verdict": "PASS",
+      "phase11_execution_allowed": true
+    },
+    "implementation_code_unchanged_since_reviewed_commit": true,
+    "public_runner_validates_exact_external_review_before_canonical_materializer": true,
+    "canonical_idempotent_rerun_invoked_through_public_runner": true
+  },
+  "facts_and_manifest_reconciliation": {
+    "successor_facts_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+    "phase10_candidate_facts_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+    "successor_facts_byte_identical_to_phase10_candidate": true,
+    "successor_facts_row_count": 2105,
+    "unique_item_id_count": 2105,
+    "target_member_count": 317,
+    "approved_assertion_count": 322,
+    "candidate_current_identity_confusion_count": 0,
+    "successor_manifest_sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5",
+    "phase10_candidate_manifest_sha256": "adcdb4527147214e19e00aab45fbc274863a59499205b0e347cc7cd556b9a955",
+    "manifest_exact_allowed_change_count": 9,
+    "manifest_out_of_scope_change_count": 0,
+    "manifest_exact_allowed_changed_fields": [
+      "authority_role",
+      "status",
+      "facts.path",
+      "facts.role",
+      "food_semantic_authority.phase10_candidate_receipt_sha256",
+      "food_semantic_authority.phase9_10_external_output_review_sha256",
+      "food_semantic_authority.successor_authorization_sha256",
+      "food_semantic_authority.selected_branch",
+      "food_semantic_authority.sealed_non_current"
+    ],
+    "manifest_facts_identity_binding_match": true,
+    "manifest_phase10_receipt_binding_match": true,
+    "manifest_phase9_10_review_binding_match": true,
+    "manifest_successor_authorization_binding_match": true,
+    "manifest_non_current_branch_B_binding_match": true
+  },
+  "selected_successor_input_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase11_successor/selected_successor_input_binding.json",
+    "selected_branch": "B",
+    "current": false,
+    "current_adoption_allowed": false,
+    "only_authorized_phase12_input": true,
+    "exact_hash_count": 4,
+    "successor_facts_sha256": "bc38e562afb6768ee020ffb8d7d31cc891233126edec9cf01ed6335a25fee80b",
+    "successor_input_manifest_sha256": "6201b6d40ab437c8b3a1a31a22e9d86589206939cded44285487a09d0c14a5a5",
+    "approved_food_semantic_schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+    "approved_proposition_licensing_contract_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+    "all_exact_identities_match": true
+  },
+  "receipt_and_authority_closure": {
+    "sealed_successor_receipt": {
+      "sha256": "2c311e522dfb95eb142ec1ae28c31f7f2c378872b44b76a9383d8c4dd1e3e25b",
+      "listed_non_self_artifact_count": 15,
+      "listed_artifact_identity_mismatch_count": 0,
+      "self_excluded": true,
+      "facts_manifest_schema_license_binding_match": true,
+      "authorization_and_review_binding_match": true
+    },
+    "phase11_execution_receipt": {
+      "sha256": "486a0ed7abea48dbb5973d3a09bef31b733227982a215b6173410fa3c0f6ac7f",
+      "listed_non_self_artifact_count": 16,
+      "listed_artifact_identity_mismatch_count": 0,
+      "self_excluded": true,
+      "sealed_receipt_binding_match": true,
+      "selected_binding_match": true,
+      "registry_request_binding_match": true
+    },
+    "owner_decisions_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+    "D9_selected_branch": "B",
+    "D9_selected_option": "branch_B_sealed_non_current_handoff_and_future_registry_request",
+    "D12_correction_owner": "Iris Artifact Registry",
+    "D12_selected_option": "registry_owned_additive_correction_successor",
+    "predecessor_current_remains_intact": true,
+    "predecessor_current_reentry_allowed": false,
+    "predecessor_fallback_after_future_promotion_allowed": false,
+    "dual_current_count": 0,
+    "current_identity_ambiguity_count": 0
+  },
+  "current_and_protected_identity": {
+    "current_facts": {
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6",
+      "byte_count": 1438689,
+      "row_count": 2105
+    },
+    "current_manifest": {
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "sha256": "db4c5e827c1aad4175894fb0f5b59db9496c5819cacd86a9f703d3542a05be41",
+      "byte_count": 3438,
+      "row_count": 1
+    },
+    "protected_surface_artifact_count": 17,
+    "protected_surface_changed_count": 0,
+    "current_facts_mutation_count": 0,
+    "current_manifest_mutation_count": 0,
+    "rendered_lua_runtime_package_change_count": 0,
+    "review_rerun_current_or_protected_hash_or_timestamp_change_count": 0
+  },
+  "registry_divergence_and_freshness_boundary": {
+    "registry_request_status": "PENDING_SEPARATE_REGISTRY_REVIEW",
+    "registry_request_is_proposal_only": true,
+    "registry_request_owner": "Iris Artifact Registry",
+    "registry_adoption_receipt_emitted_count": 0,
+    "separate_reviewed_registry_operational_cutover_plan_required": true,
+    "D12_additive_correction_route_match": true,
+    "current_mutation_requested_by_phase11": false,
+    "current_mutation_authorized_by_phase11": false,
+    "registry_operational_cutover_executed": false,
+    "successor_is_non_current": true,
+    "live_current_source_runtime_divergence_created": false,
+    "undeclared_divergence_count": 0,
+    "current_freshness_changed": false,
+    "downstream_closure_restored_by_phase11": false,
+    "future_registry_cutover_requires_freshness_reseal": true,
+    "official_naturalization_retry_allowed": false
+  },
+  "idempotence_and_adversarial_results": {
+    "canonical_public_rerun_result": "PASS_BYTE_AND_TIMESTAMP_IDENTICAL",
+    "canonical_public_rerun_artifact_change_count": 0,
+    "isolated_fixture_same_input_same_output": true,
+    "isolated_differing_rerun_result": "EXPECTED_BLOCKED",
+    "isolated_differing_rerun_other_artifact_change_count": 0,
+    "write_once_tamper_fail_closed": true
+  },
+  "findings": [],
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "validation_runs": [
+    {
+      "command": "independent Codex Reviewer exact commit, 17-artifact identity, receipt closure, facts/manifest/binding, authority chain, protected identity, public idempotence, and tamper audit",
+      "exit_code": 0,
+      "result": "PASS",
+      "reviewed_artifact_count": 17,
+      "artifact_identity_mismatch_count": 0,
+      "unexpected_accept_case_count": 0
+    },
+    {
+      "command": "uv run python -B -m unittest Iris.build.description.v2.tests.test_dvf_3_3_food_semantic_authority_phase11",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 8
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "tests_run": 46
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_authority_claim_emitted_count": 0,
+      "observed_current_facts_manifest_mutation_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "git -c core.whitespace=cr-at-eol show --check 2d9873d2aad953c57095ea78fb920cf61d8531e0",
+      "exit_code": 0,
+      "result": "PASS"
+    }
+  ],
+  "review_verdict": "PASS",
+  "verdict": "PASS",
+  "phase11_output_scope_verdict": "PASS",
+  "verdict_basis": "The exact 17-file Phase 11 output commit is closed and internally consistent: the public implementation-review gate is a live exact PASS while the prior FAIL remains unchanged; both receipts have complete self-excluded hash closure; successor facts are byte-identical to the reviewed Phase 10 candidate with 2105 rows, 317 targets, and 322 assertions; the successor manifest differs only at the exact nine authorized fields; the four-hash Branch B non-current binding is exact; D9 and D12 authority, predecessor no-reentry/no-fallback, current and protected preservation, proposal-only Registry routing, and divergence/freshness claim ceilings all match. Public rerun is byte-and-timestamp idempotent and a differing write-once rerun fails closed without collateral writes.",
+  "phase12_execution_allowed": true,
+  "current_mutation_authorized": false,
+  "current_adoption_allowed": false,
+  "registry_cutover_executed": false,
+  "terminal_independent_gate_credit": 0,
+  "canonical_pass_review_present": true,
+  "required_gate_filename_created": true,
+  "required_gate_filename": "phase11_external_output_review.json",
+  "actual_phase11_public_rerun_performed_by_review": true,
+  "actual_phase11_artifact_mutation_performed_by_review": false,
+  "actual_phase12_execution_performed_by_review": false,
+  "actual_current_facts_mutation_performed_by_review": false,
+  "actual_current_manifest_mutation_performed_by_review": false,
+  "actual_current_adoption_performed_by_review": false,
+  "actual_registry_operational_cutover_performed_by_review": false,
+  "actual_terminal_review_performed_by_review": false,
+  "non_claims": [
+    "Phase 12 execution performed",
+    "current facts or manifest mutation authorized",
+    "current adoption authorized",
+    "Registry operational cutover executed",
+    "Registry adoption receipt emitted",
+    "live current source/runtime cutover completed",
+    "downstream freshness closure restored",
+    "official Naturalization retry authorized",
+    "terminal independent closeout PASS"
+  ]
+}

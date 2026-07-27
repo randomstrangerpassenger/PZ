@@ -1,0 +1,35 @@
+{
+  "authority_effect": false,
+  "blockers": [],
+  "confidence_distribution": {
+    "blocked": 2,
+    "high": 146,
+    "medium": 15,
+    "requires_owner_attention": 75
+  },
+  "curation_item_cap": 240,
+  "curation_proposition_cap": 480,
+  "duplicate_proposition_count": 0,
+  "forbidden_context_field_consumed_count": 0,
+  "forbidden_context_operation_consumed_count": 0,
+  "human_semantic_approval_required": true,
+  "judgment_rule_distribution": {
+    "curated_exact_food_type_beverage_context": 1,
+    "curated_exact_food_type_origin_context": 5,
+    "curated_exact_toaster_tag_context": 15,
+    "curated_explicit_recipe_participation": 140,
+    "curated_food_consumption_mechanics_review": 75
+  },
+  "missing_required_field_count": 0,
+  "needs_rework_count": 2,
+  "needs_rework_items": [
+    "Base.Comfrey",
+    "Base.Plantain"
+  ],
+  "proposal_row_count": 238,
+  "proposed_proposition_count": 236,
+  "schema_version": "food-semantic-curation-proposal-validation-v1",
+  "schema_violation_count": 0,
+  "status": "PASS",
+  "target_queue_count": 238
+}

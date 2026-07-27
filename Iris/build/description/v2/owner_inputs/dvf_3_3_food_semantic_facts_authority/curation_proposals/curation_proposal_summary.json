@@ -1,0 +1,20 @@
+{
+  "authority_effect": false,
+  "bound_attempt_id": "attempt-0007",
+  "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "curator_identity": "codex_ai_curator",
+  "human_semantic_approval_required": true,
+  "maximum_batch_member_count": 24,
+  "needs_rework_count": 2,
+  "needs_rework_items": [
+    "Base.Comfrey",
+    "Base.Plantain"
+  ],
+  "proposal_ledger_sha256": "0155b11b7be9b515d0e4bd56b48da1cff34e4d9db9b3b02c924c95bdbc32ee7f",
+  "proposed_proposition_count": 236,
+  "review_batch_count": 10,
+  "schema_version": "food-semantic-ai-assisted-curation-proposal-v1",
+  "status": "READY_FOR_HUMAN_BATCH_REVIEW",
+  "target_count": 238,
+  "validation_status": "PASS"
+}

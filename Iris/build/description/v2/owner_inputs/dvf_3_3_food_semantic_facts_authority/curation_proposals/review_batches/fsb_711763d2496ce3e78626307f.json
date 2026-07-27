@@ -1,0 +1,1129 @@
+{
+  "approval_state": "pending_human_semantic_approval",
+  "authority_effect": false,
+  "batch": {
+    "approval_state": "unapproved",
+    "authority_class": "curated",
+    "batch_id": "fsb:711763d2496ce3e78626307f",
+    "member_count": 22,
+    "ordered_members": [
+      "Base.TofuFried",
+      "Base.TomatoPaste",
+      "Base.Tortilla",
+      "Base.TortillaChips",
+      "Base.TunaTinOpen",
+      "Base.Violets",
+      "Base.WafflesRecipe",
+      "Base.Wasabi",
+      "Base.WinterBerry",
+      "Base.Worm",
+      "Base.Yoghurt",
+      "Base.Zucchini",
+      "farming.BloomingBroccoli",
+      "farming.Cabbage",
+      "farming.MayonnaiseFull",
+      "farming.MayonnaiseHalf",
+      "farming.Potato",
+      "farming.RedRadish",
+      "farming.RemouladeFull",
+      "farming.RemouladeHalf",
+      "farming.Strewberrie",
+      "farming.Tomato"
+    ],
+    "queue_sha256": "6081a7044c07ee2268dc9bf0aab39556a0ef47dcdd73957060c1848aac1e4f74",
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+  },
+  "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+  "curator_identity": "codex_ai_curator",
+  "members": [
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.TofuFried",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:2f01f29f927f369d7b903b53",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 6,
+            "DaysTotallyRotten": 14,
+            "EvolvedRecipe": "Soup:15;Stew:15;Stir fry Griddle Pan:15;Stir fry:15;Burger:15;Salad:15;RicePot:15;RicePan:15;Roasted Vegetables:15;PastaPot:15;PastaPan:15;Taco:5;Burrito:15;Burger:15",
+            "FoodType": "Vegetables",
+            "HungerChange": -15,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "c220a6ea3a2683f8618c08b5e37980fbe5944215cf6c3ff2955c32d0098e58fc",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.TofuFried@L7050-L7067"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.TomatoPaste",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:a3bef0fed4606217a72ce10d",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "EvolvedRecipe": "Pizza:3;Soup:3;Stew:3;Omelette:3;RicePot:3;RicePan:3;PastaPot:3;PastaPan:3;Stir fry:3;Stir fry Griddle Pan:3;Pie:3;Salad:3;Roasted Vegetables:3;Sandwich:3;Sandwich Baguette:3",
+            "FoodType": "NoExplicit",
+            "HungerChange": -15,
+            "Spice": true,
+            "Tags": "PizzaSauce",
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "9001e98139b2649813a202251ced4d106226ff4f46339fae7b2e13f3dd35c421",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.TomatoPaste@L9807-L9829"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "requires_owner_attention",
+      "consumed_reviewed_fields": [
+        "Type",
+        "HungerChange",
+        "DaysFresh",
+        "DaysTotallyRotten"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "consumption_form",
+      "fact_value": "solid_food",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.Tortilla",
+      "judgment_rule": "curated_food_consumption_mechanics_review",
+      "proposition_id": "fsp:e9a2262b072e7fd66081fb3e",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "AI curator proposal for explicit human confirmation: the reviewed food-consumption mechanics support solid-food treatment, but no automatic allowlisted semantic signal licenses this value.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 3,
+            "DaysTotallyRotten": 5,
+            "HungerChange": -5,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "6f48ab45c3247a482bbac55bf0073742d0660a7b00eb38b5e41a36922853b28e",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.Tortilla@L7069-L7084"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "requires_owner_attention",
+      "consumed_reviewed_fields": [
+        "Type",
+        "HungerChange"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "consumption_form",
+      "fact_value": "solid_food",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.TortillaChips",
+      "judgment_rule": "curated_food_consumption_mechanics_review",
+      "proposition_id": "fsp:1dd21e797e1fc42c82d2a2e7",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "AI curator proposal for explicit human confirmation: the reviewed food-consumption mechanics support solid-food treatment, but no automatic allowlisted semantic signal licenses this value.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "HungerChange": -15,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "936dc68e11859c38abc60778a79f36b95b1d5f9c4f9f6c9d82068a2ac7a60b9a",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.TortillaChips@L7103-L7120"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.TunaTinOpen",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:790d87b4d64d5112d18075b9",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 2,
+            "DaysTotallyRotten": 4,
+            "EvolvedRecipe": "Omelette:9;Stew:18;Stir fry Griddle Pan:18;Stir fry:18;RicePot:18;RicePan:18;Sandwich:9;Sandwich Baguette:9;Taco:9;Burrito:18",
+            "FoodType": "Fish",
+            "HungerChange": -18,
+            "ReplaceOnUse": "TinCanEmpty",
+            "Tags": "HasMetal",
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "56d83bbf1eae2233433d2cc149c804b4cca77cc36f922147f38ac282513c14cf",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.TunaTinOpen@L561-L585"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.Violets",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:03dcef3e78711c683ded0ee0",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "EvolvedRecipe": "Salad:2;HotDrink:2;HotDrinkRed:2;HotDrinkWhite:2;HotDrinkSpiffo:2;HotDrinkTea:2",
+            "FoodType": "NoExplicit",
+            "HungerChange": -2,
+            "Spice": true,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "4796327c8e83a510c1facd112c5e9260d371e37e279a408deede8ddc9d2b916a",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.Violets@L4193-L4210"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "requires_owner_attention",
+      "consumed_reviewed_fields": [
+        "Type",
+        "HungerChange",
+        "DaysFresh",
+        "DaysTotallyRotten"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "consumption_form",
+      "fact_value": "solid_food",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.WafflesRecipe",
+      "judgment_rule": "curated_food_consumption_mechanics_review",
+      "proposition_id": "fsp:5417e78fe01fe2646a747f15",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "AI curator proposal for explicit human confirmation: the reviewed food-consumption mechanics support solid-food treatment, but no automatic allowlisted semantic signal licenses this value.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 3,
+            "DaysTotallyRotten": 5,
+            "HungerChange": -15,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "0474148abee77efb05f53f1ac9450492caa54f9b7c5f908800598cb57384098c",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.WafflesRecipe@L3743-L3759"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.Wasabi",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:a950d3ab6dff06deb1cd8fcf",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 4,
+            "DaysTotallyRotten": 8,
+            "EvolvedRecipe": "Soup:1;Stew:1;Pie:1;Stir fry Griddle Pan:1;Stir fry:1;Burger:1;Salad:1;Roasted Vegetables:1;RicePot:1;RicePan:1;PastaPot:1;PastaPan:1;Sandwich:1;Sandwich Baguette:1",
+            "FoodType": "NoExplicit",
+            "HungerChange": -10,
+            "Spice": true,
+            "ThirstChange": 20,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "7027590a578feb3d188b74bc1f5178792acdac1d547a3faf80a166607b95e898",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.Wasabi@L7122-L7136"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.WinterBerry",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:8a1ae41761326b9cbc40433b",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 6,
+            "DaysTotallyRotten": 10,
+            "EvolvedRecipe": "Cake:10;FruitSalad:10;Pancakes:10;Waffles:10;Muffin:10;ConeIcecream:5;PieSweet:10;Oatmeal:5",
+            "FoodType": "Berry",
+            "HungerChange": -10,
+            "ThirstChange": -1,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "111a808e124e274f212e057e65600efffd40c5b5c8e9450bd2e7b419164a76b9",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.WinterBerry@L8743-L8763"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "requires_owner_attention",
+      "consumed_reviewed_fields": [
+        "Type",
+        "HungerChange"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "consumption_form",
+      "fact_value": "solid_food",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.Worm",
+      "judgment_rule": "curated_food_consumption_mechanics_review",
+      "proposition_id": "fsp:50bdf78fce3d5b42efd3b046",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "AI curator proposal for explicit human confirmation: the reviewed food-consumption mechanics support solid-food treatment, but no automatic allowlisted semantic signal licenses this value.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "HungerChange": -2,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "9ed227a2a4fe84245855ad3da019e1a404531ecaf5534d6fd5f56dc71d35ffef",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.Worm@L4138-L4153"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.Yoghurt",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:f48b2c37c0b4c1622114fa39",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 10,
+            "DaysTotallyRotten": 15,
+            "EvolvedRecipe": "Oatmeal:5",
+            "FoodType": "NoExplicit",
+            "HungerChange": -10,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "b2dc7c7f158bb3e51f1b98291a97a13cbe073f7c6e5f72bed8b1ceee571d72ad",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.Yoghurt@L5159-L5177"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "Base.Zucchini",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:1ec5cd225b0733d8659b2dc3",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 6,
+            "DaysTotallyRotten": 14,
+            "EvolvedRecipe": "Pizza:10;Soup:10;Stew:10;Pie:10;Stir fry Griddle Pan:10;Stir fry:10;Salad:10;Roasted Vegetables:10;RicePot:10;RicePan:10;PastaPot:10;PastaPan:10;Sandwich:5;Sandwich Baguette:5;Omelette:5",
+            "FoodType": "Vegetables",
+            "HungerChange": -10,
+            "ThirstChange": -10,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/items_food.txt",
+          "source_artifact_sha256": "d844f9f8d0f07b28918630db1b4500c52947e0178b001b969497ae8d526906d6",
+          "source_block_sha256": "7b9b47ce517218f0198316c52dddbf583959443b566c945ec298d53de9535d74",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "Base.Zucchini@L1086-L1105"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "requires_owner_attention",
+      "consumed_reviewed_fields": [
+        "Type",
+        "HungerChange",
+        "DaysFresh",
+        "DaysTotallyRotten"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "consumption_form",
+      "fact_value": "solid_food",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.BloomingBroccoli",
+      "judgment_rule": "curated_food_consumption_mechanics_review",
+      "proposition_id": "fsp:2ae9308a14756106d65e96f1",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "AI curator proposal for explicit human confirmation: the reviewed food-consumption mechanics support solid-food treatment, but no automatic allowlisted semantic signal licenses this value.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 4,
+            "DaysTotallyRotten": 7,
+            "HungerChange": -10,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "f2c4b8e24267a72103c799e523b4b747c517723dbac8c09f2d235aad49ae97ef",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.BloomingBroccoli@L12-L28"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.Cabbage",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:5475c7e816cd811846b6945f",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 2,
+            "DaysTotallyRotten": 4,
+            "EvolvedRecipe": "Soup:12;Stew:12;Stir fry Griddle Pan:12;Stir fry:12;Sandwich:6;Sandwich Baguette:6;Burger:6;Salad:12;Roasted Vegetables:12;Taco:6;Burrito:6",
+            "FoodType": "Vegetables",
+            "HungerChange": -24,
+            "ThirstChange": -10,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "401076645184e511a6ffe8229113471c390e809590b11c30bb6ee1ca8f69e730",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.Cabbage@L117-L137"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.MayonnaiseFull",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:0cf5b1c44834c432b597a7b2",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 10,
+            "DaysTotallyRotten": 13,
+            "EvolvedRecipe": "Sandwich:2;Sandwich Baguette:2;Burger:2;Salad:2;RicePot:2;RicePan:2;PastaPot:2;PastaPan:2;Taco:2;Burrito:2",
+            "FoodType": "NoExplicit",
+            "HungerChange": -30,
+            "ReplaceOnUse": "MayonnaiseEmpty",
+            "Spice": true,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "6327104aba71ebc3310f1bb7c66d7e2d2fd41202a26eaf0c9df5a36120266a65",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.MayonnaiseFull@L224-L248"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.MayonnaiseHalf",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:537bc3bfac9cdcc4047d920e",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 5,
+            "DaysTotallyRotten": 6,
+            "EvolvedRecipe": "Sandwich:2;Sandwich Baguette:2;Burger:2;Salad:2;RicePot:2;RicePan:2;PastaPot:2;PastaPan:2;Taco:2;Burrito:2",
+            "FoodType": "NoExplicit",
+            "HungerChange": -10,
+            "ReplaceOnUse": "MayonnaiseEmpty",
+            "Spice": true,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "2ca5b168dda8ca2b83cf1e8e31fbbed297ac2fd76518ec5feba305319e50cb1c",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.MayonnaiseHalf@L250-L269"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.Potato",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:acf7011e1985e9e99837ae80",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 14,
+            "DaysTotallyRotten": 28,
+            "EvolvedRecipe": "Omelette:9;Soup:18;Stew:18;Pie:18;Stir fry Griddle Pan:18;Stir fry:18;Salad:9;Roasted Vegetables:18",
+            "FoodType": "Vegetables",
+            "HungerChange": -18,
+            "ThirstChange": -7,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "5320a12f5c8f8d4e5648551853057cbaab868ae618090732df1c05d5ec46ea21",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.Potato@L97-L115"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.RedRadish",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:5aa62c6c1f86a1d8e3734944",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 3,
+            "DaysTotallyRotten": 7,
+            "EvolvedRecipe": "Soup:3;Stew:3;Stir fry Griddle Pan:3;Stir fry:3;Burger:3;Salad:3;Roasted Vegetables:3",
+            "FoodType": "Vegetables",
+            "HungerChange": -3,
+            "ThirstChange": -1,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "1592329db4d349d6f5e68743f9fa0e6c1bbbba22f5a0492d8b21d064e2e30bfe",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.RedRadish@L30-L49"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "requires_owner_attention",
+      "consumed_reviewed_fields": [
+        "Type",
+        "HungerChange",
+        "DaysFresh",
+        "DaysTotallyRotten"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "consumption_form",
+      "fact_value": "solid_food",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.RemouladeFull",
+      "judgment_rule": "curated_food_consumption_mechanics_review",
+      "proposition_id": "fsp:55ef6b1e0735e1dd3399e0c5",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "AI curator proposal for explicit human confirmation: the reviewed food-consumption mechanics support solid-food treatment, but no automatic allowlisted semantic signal licenses this value.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 8,
+            "DaysTotallyRotten": 11,
+            "HungerChange": -10,
+            "ReplaceOnUse": "RemouladeEmpty",
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "f876928eb35780f65a212ec8d8f02b4b3f182eee6e3ec377dd8b368feff07c3e",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.RemouladeFull@L305-L327"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "requires_owner_attention",
+      "consumed_reviewed_fields": [
+        "Type",
+        "HungerChange",
+        "DaysFresh",
+        "DaysTotallyRotten"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "consumption_form",
+      "fact_value": "solid_food",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.RemouladeHalf",
+      "judgment_rule": "curated_food_consumption_mechanics_review",
+      "proposition_id": "fsp:e5577e30e444e16ac538a30d",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "AI curator proposal for explicit human confirmation: the reviewed food-consumption mechanics support solid-food treatment, but no automatic allowlisted semantic signal licenses this value.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 4,
+            "DaysTotallyRotten": 5,
+            "HungerChange": -10,
+            "ReplaceOnUse": "RemouladeEmpty",
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "ce096640b2a34fffed32be81695ae62efca1d225337c34b0287813164c4f173f",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.RemouladeHalf@L329-L345"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.Strewberrie",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:947284ec5de67be017e66e15",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 2,
+            "DaysTotallyRotten": 5,
+            "EvolvedRecipe": "Cake:5;FruitSalad:5;Pancakes:5;Waffles:5;ConeIcecream:5;Oatmeal:5;PieSweet:5;Salad:5;HotDrink:5;HotDrinkRed:5;HotDrinkWhite:5;HotDrinkSpiffo:5;HotDrinkTea:5",
+            "FoodType": "Berry",
+            "HungerChange": -5,
+            "ThirstChange": -1,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "7028bebb32f7f725a32ac56b0e69899840b756e6825f7ab0392755ba80925295",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.Strewberrie@L51-L73"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": null,
+      "approval_status": "pending_human_semantic_approval",
+      "authority_class": "curated",
+      "confidence": "high",
+      "consumed_reviewed_fields": [
+        "EvolvedRecipe",
+        "Type"
+      ],
+      "curation_mode": "ai_proposal_requiring_human_semantic_approval",
+      "curator_identity": "codex_ai_curator",
+      "disposition": "proposed",
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0,
+      "item_identity": "farming.Tomato",
+      "judgment_rule": "curated_explicit_recipe_participation",
+      "proposition_id": "fsp:0614bca30a25200acb0de09d",
+      "proposition_license_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+      "rationale": "Human-review proposal: the item script explicitly lists one or more EvolvedRecipe uses, supporting an ingredient role.",
+      "reviewed_source_set": [
+        {
+          "forbidden_fields_present_but_not_consumed": [
+            "DisplayCategory",
+            "DisplayName"
+          ],
+          "normalization_operations": [
+            "exact_field_read",
+            "human_semantic_review"
+          ],
+          "reviewed_fields": {
+            "DaysFresh": 4,
+            "DaysTotallyRotten": 12,
+            "EvolvedRecipe": "Pizza:12;Omelette:6;Soup:12;Stew:12;Pie:12;Stir fry Griddle Pan:12;Stir fry:12;Sandwich:6;Sandwich Baguette:6;Burger:6;Salad:6;Roasted Vegetables:12;RicePot:12;RicePan:12;PastaPot:12;PastaPan:12;Taco:6;Burrito:6",
+            "FoodType": "Vegetables",
+            "HungerChange": -12,
+            "ThirstChange": -8,
+            "Type": "Food"
+          },
+          "source_artifact_path": "scripts/farming.txt",
+          "source_artifact_sha256": "a96bf5c525ed46cdb9ce419462cce09ca41888e0fa08316beea1b3db5cbfb4b5",
+          "source_block_sha256": "2167c88b2b1df4319ae5cc21bb912ed89d3a8243f21ac606dd89fd788e759ebf",
+          "source_family": "raw_item_script_human_review_context",
+          "source_item_locator": "farming.Tomato@L75-L95"
+        }
+      ],
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "semantic_approver": null
+    }
+  ],
+  "owner_approval": null,
+  "proposal_content_sha256": "394e1317ca31130ceb259a3f6be0dcf6f2652d8352ea7f67b5d6d79adbb0812e",
+  "schema_version": "food-semantic-ai-assisted-curation-proposal-v1"
+}

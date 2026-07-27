@@ -7,6 +7,7 @@ from pathlib import Path
 from dvf_3_3_food_semantic.contracts import repo_root
 from dvf_3_3_food_semantic.curation_proposals import (
     materialize_approved_curation,
+    record_exact_owner_batch_approvals,
     validate_batch_approvals,
 )
 
@@ -25,7 +26,10 @@ def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(
         description="Validate and materialize approved food-semantic curation batches."
     )
-    result.add_argument("command", choices=("validate", "materialize"))
+    result.add_argument(
+        "command",
+        choices=("validate", "approve", "materialize"),
+    )
     result.add_argument("--proposal-root", type=Path, default=DEFAULT_PROPOSAL_ROOT)
     result.add_argument("--owner-decisions", type=Path, default=DEFAULT_DECISIONS)
     result.add_argument(
@@ -36,6 +40,9 @@ def parser() -> argparse.ArgumentParser:
             "repository sinks are rejected."
         ),
     )
+    result.add_argument("--owner-directive")
+    result.add_argument("--approval-rationale")
+    result.add_argument("--approval-time")
     result.add_argument("--require-all-approved", action="store_true")
     return result
 
@@ -55,6 +62,18 @@ def main() -> int:
             owner_decisions_path=decisions_path,
             require_all_approved=args.require_all_approved,
         )
+    elif args.command == "approve":
+        if args.owner_directive is None:
+            raise SystemExit("--owner-directive is required for approve")
+        if args.approval_rationale is None:
+            raise SystemExit("--approval-rationale is required for approve")
+        report = record_exact_owner_batch_approvals(
+            proposal_root,
+            owner_decisions_path=decisions_path,
+            approval_directive=args.owner_directive,
+            approval_rationale=args.approval_rationale,
+            approval_time=args.approval_time,
+        )
     else:
         if args.authority_root is None:
             raise SystemExit("--authority-root is required for materialize")
@@ -65,7 +84,13 @@ def main() -> int:
             owner_decisions_path=decisions_path,
         )
     print(json.dumps(report, ensure_ascii=False, sort_keys=True))
-    return 0 if report["status"] in {"PASS", "PASS_COMPLETE", "PASS_WITH_REWORK", "PENDING"} else 1
+    status = report.get("status", report.get("validation_status"))
+    return 0 if status in {
+        "PASS",
+        "PASS_COMPLETE",
+        "PASS_WITH_REWORK",
+        "PENDING",
+    } else 1
 
 
 if __name__ == "__main__":

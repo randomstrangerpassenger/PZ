@@ -15,6 +15,7 @@ from .contracts import (
     canonical_proposition_id,
     load_json,
     load_jsonl,
+    now_iso,
     relative_posix,
     repo_root,
     sha256_bytes,
@@ -868,6 +869,132 @@ def assert_curation_authority_sink(authority_root: Path) -> None:
             root / relative for relative in FORBIDDEN_AUTHORITY_WRITER_ROOTS
         ],
     )
+
+
+def record_exact_owner_batch_approvals(
+    proposal_root: Path,
+    *,
+    owner_decisions_path: Path,
+    approval_directive: str,
+    approval_rationale: str,
+    approval_time: str | None = None,
+) -> dict[str, Any]:
+    if not _is_nonblank_string(approval_directive):
+        raise FoodSemanticError("owner approval directive must be nonblank")
+    if not _is_nonblank_string(approval_rationale):
+        raise FoodSemanticError("owner approval rationale must be nonblank")
+    recorded_at = approval_time or now_iso()
+    if not _is_timezone_aware_iso8601(recorded_at):
+        raise FoodSemanticError(
+            "owner approval time must be a timezone-aware ISO-8601 timestamp"
+        )
+
+    pending_validation = validate_batch_approvals(
+        proposal_root,
+        owner_decisions_path=owner_decisions_path,
+        require_all_approved=False,
+    )
+    if (
+        pending_validation["status"] != "PENDING"
+        or pending_validation["invalid_batch_count"] != 0
+        or pending_validation["approved_batch_count"] != 0
+    ):
+        raise FoodSemanticError(
+            "owner approval import requires an exact fully-pending proposal bundle"
+        )
+
+    decisions = load_json(owner_decisions_path)
+    approver_identity = decisions.get("approver_identity")
+    if not _is_nonblank_string(approver_identity):
+        raise FoodSemanticError("owner decision approver identity is invalid")
+    paths = sorted((proposal_root / "review_batches").glob("*.json"))
+    prepared: list[tuple[Path, dict[str, Any]]] = []
+    receipt_batches: list[dict[str, Any]] = []
+    for path in paths:
+        batch = load_json(path)
+        if batch.get("owner_approval") is not None:
+            raise FoodSemanticError(
+                f"owner approval is already recorded: {path}"
+            )
+        computed_hash = _review_batch_proposal_hash(batch)
+        if computed_hash != batch.get("proposal_content_sha256"):
+            raise FoodSemanticError(
+                f"proposal content hash mismatch before approval: {path}"
+            )
+        members = batch["members"]
+        approved_ids = sorted(
+            row["proposition_id"]
+            for row in members
+            if row["disposition"] == "proposed"
+        )
+        accepted_rework = sorted(
+            row["item_identity"]
+            for row in members
+            if row["disposition"] == "needs_rework"
+        )
+        batch["owner_approval"] = {
+            "approval_state": "approved",
+            "approver_identity": approver_identity,
+            "approval_time": recorded_at,
+            "proposal_content_sha256": computed_hash,
+            "approved_proposition_ids": approved_ids,
+            "accepted_needs_rework_items": accepted_rework,
+            "rationale": approval_rationale,
+            "approval_directive": approval_directive,
+        }
+        prepared.append((path, batch))
+        receipt_batches.append(
+            {
+                "batch_id": batch["batch"]["batch_id"],
+                "member_count": len(members),
+                "proposal_content_sha256": computed_hash,
+                "approved_proposition_count": len(approved_ids),
+                "accepted_needs_rework_count": len(accepted_rework),
+            }
+        )
+
+    for path, batch in prepared:
+        write_json(path, batch, write_once=False)
+
+    approved_validation = validate_batch_approvals(
+        proposal_root,
+        owner_decisions_path=owner_decisions_path,
+        require_all_approved=True,
+    )
+    if approved_validation["status"] != "PASS":
+        raise FoodSemanticError(
+            "recorded owner approvals did not pass exact validation: "
+            f"{approved_validation['blockers']}"
+        )
+    summary = load_json(proposal_root / "curation_proposal_summary.json")
+    receipt = {
+        "schema_version": "food-semantic-owner-curation-approval-receipt-v1",
+        "approval_source_kind": "owner_conversation_directive",
+        "approval_directive": approval_directive,
+        "approval_rationale": approval_rationale,
+        "approver_identity": approver_identity,
+        "approval_time": recorded_at,
+        "bound_implementation_complete_bundle_sha256": summary[
+            "bound_implementation_complete_bundle_sha256"
+        ],
+        "approved_batch_count": approved_validation[
+            "approved_batch_count"
+        ],
+        "approved_proposition_count": approved_validation[
+            "approved_proposition_count"
+        ],
+        "accepted_needs_rework_count": approved_validation[
+            "acknowledged_rework_count"
+        ],
+        "batches": receipt_batches,
+        "validation_status": approved_validation["status"],
+        "authority_effect_before_materialization": False,
+    }
+    write_json(
+        proposal_root / "owner_curation_approval_receipt.json",
+        receipt,
+    )
+    return receipt
 
 
 def validate_batch_approvals(

@@ -24,6 +24,7 @@ from tools.build.dvf_3_3_food_semantic.curation_proposals import (
     build_review_batches,
     build_source_contexts,
     materialize_approved_curation,
+    record_exact_owner_batch_approvals,
     source_context_diagnostics,
     validate_batch_approvals,
 )
@@ -88,6 +89,26 @@ def write_exact_batch_approvals(
         )
 
 
+def copy_pending_proposal_bundle(target: Path) -> Path:
+    shutil.copytree(PROPOSAL_ROOT, target)
+    for path in sorted((target / "review_batches").glob("*.json")):
+        batch = load_json(path)
+        batch["owner_approval"] = None
+        path.write_text(
+            json.dumps(
+                batch,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+    receipt_path = target / "owner_curation_approval_receipt.json"
+    receipt_path.unlink(missing_ok=True)
+    return target
+
+
 class FoodSemanticCurationProposalTest(unittest.TestCase):
     def test_source_contexts_cover_exact_queue_without_forbidden_consumption(
         self,
@@ -139,28 +160,34 @@ class FoodSemanticCurationProposalTest(unittest.TestCase):
         )
 
     def test_unapproved_batches_cannot_materialize_authority(self) -> None:
-        report = validate_batch_approvals(
-            PROPOSAL_ROOT,
-            owner_decisions_path=OWNER_DECISIONS,
-            require_all_approved=False,
-        )
-        self.assertEqual(report["status"], "PENDING")
-        self.assertEqual(report["pending_batch_count"], 10)
-        self.assertEqual(report["approved_batch_count"], 0)
-        with self.assertRaises(FoodSemanticError):
-            materialize_approved_curation(
-                PROPOSAL_ROOT,
-                ATTEMPT_ROOT.parent / "test-authority-not-created",
-                owner_decisions_path=OWNER_DECISIONS,
+        with tempfile.TemporaryDirectory(dir=ATTEMPT_ROOT.parent) as temp_dir:
+            temp_root = Path(temp_dir)
+            proposal_root = copy_pending_proposal_bundle(
+                temp_root / "proposals"
             )
+            report = validate_batch_approvals(
+                proposal_root,
+                owner_decisions_path=OWNER_DECISIONS,
+                require_all_approved=False,
+            )
+            self.assertEqual(report["status"], "PENDING")
+            self.assertEqual(report["pending_batch_count"], 10)
+            self.assertEqual(report["approved_batch_count"], 0)
+            with self.assertRaises(FoodSemanticError):
+                materialize_approved_curation(
+                    proposal_root,
+                    temp_root / "authority",
+                    owner_decisions_path=OWNER_DECISIONS,
+                )
 
     def test_exact_batch_approvals_materialize_partial_append_only_state(
         self,
     ) -> None:
         with tempfile.TemporaryDirectory(dir=ATTEMPT_ROOT.parent) as temp_dir:
             temp_root = Path(temp_dir)
-            proposal_root = temp_root / "proposals"
-            shutil.copytree(PROPOSAL_ROOT, proposal_root)
+            proposal_root = copy_pending_proposal_bundle(
+                temp_root / "proposals"
+            )
             write_exact_batch_approvals(proposal_root)
             authority_root = temp_root / "authority"
             report = materialize_approved_curation(
@@ -187,13 +214,50 @@ class FoodSemanticCurationProposalTest(unittest.TestCase):
             self.assertEqual(checkpoint["rework_count"], 2)
             self.assertIsNotNone(checkpoint["next_canonical_cursor"])
 
+    def test_owner_directive_records_exact_bounded_batch_approvals(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(dir=ATTEMPT_ROOT.parent) as temp_dir:
+            temp_root = Path(temp_dir)
+            proposal_root = copy_pending_proposal_bundle(
+                temp_root / "proposals"
+            )
+            receipt = record_exact_owner_batch_approvals(
+                proposal_root,
+                owner_decisions_path=OWNER_DECISIONS,
+                approval_directive="승인",
+                approval_rationale=(
+                    "Owner approves every exact proposition and accepts every "
+                    "needs-rework disposition in each bounded D6 batch."
+                ),
+                approval_time="2026-07-27T19:00:00+09:00",
+            )
+            self.assertEqual(receipt["validation_status"], "PASS")
+            self.assertEqual(receipt["approved_batch_count"], 10)
+            self.assertEqual(receipt["approved_proposition_count"], 236)
+            self.assertEqual(receipt["accepted_needs_rework_count"], 2)
+            self.assertEqual(receipt["approval_directive"], "승인")
+            validation = validate_batch_approvals(
+                proposal_root,
+                owner_decisions_path=OWNER_DECISIONS,
+                require_all_approved=True,
+            )
+            self.assertEqual(validation["status"], "PASS")
+            self.assertEqual(validation["approved_batch_count"], 10)
+            self.assertTrue(
+                (
+                    proposal_root / "owner_curation_approval_receipt.json"
+                ).is_file()
+            )
+
     def test_blank_approval_metadata_cannot_materialize_authority(
         self,
     ) -> None:
         with tempfile.TemporaryDirectory(dir=ATTEMPT_ROOT.parent) as temp_dir:
             temp_root = Path(temp_dir)
-            proposal_root = temp_root / "proposals"
-            shutil.copytree(PROPOSAL_ROOT, proposal_root)
+            proposal_root = copy_pending_proposal_bundle(
+                temp_root / "proposals"
+            )
             write_exact_batch_approvals(
                 proposal_root,
                 blank_metadata=True,
@@ -241,8 +305,9 @@ class FoodSemanticCurationProposalTest(unittest.TestCase):
         staging = V2_ROOT / "staging"
         with tempfile.TemporaryDirectory(dir=staging) as temp_dir:
             temp_root = Path(temp_dir)
-            proposal_root = temp_root / "proposals"
-            shutil.copytree(PROPOSAL_ROOT, proposal_root)
+            proposal_root = copy_pending_proposal_bundle(
+                temp_root / "proposals"
+            )
             write_exact_batch_approvals(proposal_root)
             authority_root = temp_root / "outside-attempt-authority"
             with self.assertRaises(FoodSemanticError):

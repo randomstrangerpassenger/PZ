@@ -1,0 +1,32 @@
+{
+  "approval_scope": {
+    "allowed_call_expression_change_count": 4,
+    "allowed_file_count": 1,
+    "allowed_method_count": 4,
+    "production_file_change_count": 0
+  },
+  "approved_at": "2026-07-27T23:48:37+09:00",
+  "approved_preimage": {
+    "byte_count": 15507,
+    "git_blob_id": "1b74ea7908312f2d83a1b19cad395f291937711e",
+    "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_authority_phase9_10.py",
+    "sha256": "71bea8af710446963d553b7b8ec95cd29c7a9d1e98ce73cda2f164987f5a101c"
+  },
+  "approval_statement": "The owner approved the focused, preimage-bound Phase 12 correction scope amendment after Codex Reviewer PASS.",
+  "approval_type": "owner_preimage_scope_approval",
+  "approved_replacement_sha256": null,
+  "implementation_may_begin": true,
+  "owner_authority": "repository_owner",
+  "result_approval_granted": false,
+  "review_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase12_corrections/phase12-correction-0001/amend_review.json",
+    "sha256": "17876ce64d3442ad9c720344c224d969ab090f8e86f19a18bc0980ae3a106cd6",
+    "verdict": "PASS"
+  },
+  "schema_version": "food-semantic-phase12-correction-scope-amendment-owner-approval-v1",
+  "scope_amendment_binding": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0007/post_implementation_authority/authority-execution-0002/phase12_corrections/phase12-correction-0001/scope_amendment_1.json",
+    "sha256": "84dee19b9d26a4b4cd8a7a65bd4003fe221f049f694fe2843039831634d31b82"
+  },
+  "status": "APPROVED_FOR_IMPLEMENTATION"
+}

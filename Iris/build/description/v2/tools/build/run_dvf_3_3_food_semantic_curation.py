@@ -28,7 +28,14 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("command", choices=("validate", "materialize"))
     result.add_argument("--proposal-root", type=Path, default=DEFAULT_PROPOSAL_ROOT)
     result.add_argument("--owner-decisions", type=Path, default=DEFAULT_DECISIONS)
-    result.add_argument("--authority-root", type=Path)
+    result.add_argument(
+        "--authority-root",
+        type=Path,
+        help=(
+            "Attempt-local non-current execution root; protected/current "
+            "repository sinks are rejected."
+        ),
+    )
     result.add_argument("--require-all-approved", action="store_true")
     return result
 

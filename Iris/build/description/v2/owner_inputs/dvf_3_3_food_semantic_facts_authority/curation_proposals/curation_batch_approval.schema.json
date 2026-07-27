@@ -4,10 +4,14 @@
     "rejected",
     "needs_rework"
   ],
+  "approval_time_contract": "nonblank timezone-aware ISO-8601 timestamp",
+  "approver_identity_contract": "nonblank exact match to owner decision approver_identity",
   "authority_effect_before_import": false,
   "description": "Owner approval is valid only when every member disposition and proposition identity is reviewed and the proposal content hash matches.",
   "implicit_or_anonymous_approval_allowed": false,
   "maximum_batch_member_count": 24,
+  "member_set_contract": "arrays of nonblank strings exactly matching the batch proposals and needs-rework items",
+  "rationale_contract": "nonblank string",
   "required_owner_approval_fields": [
     "approval_state",
     "approver_identity",

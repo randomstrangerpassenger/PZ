@@ -1,0 +1,310 @@
+{
+  "schema_version": "dvf3_3_food_semantic_external_curation_review_v1",
+  "review_id": "dvf_3_3_food_semantic_curation_e4fd86db_codex_review_20260727",
+  "reviewed_at": "2026-07-27T18:26:33.7352865+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "target_commit": "e4fd86dbdfa3105a40814630da90aa0dd558d338",
+  "target_commit_short": "e4fd86db",
+  "target_subject": "feat: add AI-assisted food semantic curation",
+  "review_scope": "Independent review of the 238-item AI-assisted curation proposal bundle, approval validator, authority materializer, focused tests, and protected-surface boundary.",
+  "authority_scope": {
+    "owner_decisions_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/owner_reserved_decisions.json",
+    "owner_decisions_sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a",
+    "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+    "d5_status": "approved",
+    "d6_status": "approved",
+    "d7_status": "approved",
+    "d8_status": "approved",
+    "d14_status": "approved",
+    "current_authority_mutation_authorized": false,
+    "registry_operational_cutover_authorized": false
+  },
+  "reviewed_artifact_identities": [
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_proposals.py",
+      "sha256": "01104a26215557a05391b26fd1880f7181d52017635c10a318371cdb792c43f1"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/propose_dvf_3_3_food_semantic_curation.py",
+      "sha256": "6767188ea7279fd524442ba3006d376c7c61c75fc4cbed196953f4b9ab39619a"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_curation.py",
+      "sha256": "1f55dd7ee838e84e167a05a7fdc761fd7dac8352472dae6d2a1437e37deadf0c"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_proposals.py",
+      "sha256": "fe4da35b7a88e31c78ff188600603c0c81f2f4b0e74d9c56055f2d82a6ee1730"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_source_context.jsonl",
+      "sha256": "ed708a8ea6a9ca42ffa85c05aa8460b83092c253e6f0398684e2dc7d519c1da7"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposition_proposals.jsonl",
+      "sha256": "0155b11b7be9b515d0e4bd56b48da1cff34e4d9db9b3b02c924c95bdbc32ee7f"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposal_summary.json",
+      "sha256": "17c934d85c80cf22fbc8c0ec19a9cee5cbfda31eadf29ae57b14c200d8776e1f"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposal_validation.json",
+      "sha256": "4aeac765b3a0f2bb245795090a01c4c9a2ea8377599a0aabbf251f575ef25ca4"
+    }
+  ],
+  "finding_counts": {
+    "critical": 0,
+    "important": 2,
+    "minor": 0,
+    "open_critical": 0,
+    "open_important": 2,
+    "open_minor": 0
+  },
+  "findings": [
+    {
+      "finding_id": "CUR-EXT-I-001",
+      "severity": "Important",
+      "status": "open",
+      "title": "Whitespace and blank approval metadata are accepted as explicit semantic approval",
+      "affected_paths": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_proposals.py",
+        "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_proposals.py"
+      ],
+      "affected_lines": {
+        "validator": "883-890",
+        "materializer": "1025-1069"
+      },
+      "contract_violation": "Change 8 and D6 prohibit anonymous or implicit approval and require an explicit approver, approval time, and rationale. Required approval metadata must fail closed, not merely have dictionary keys.",
+      "technical_detail": "The validator checks required-key membership, then applies truthiness only to approver_identity. A whitespace-only identity is truthy, and approval_time and rationale are never checked for nonblank values or format. Exact proposal hashes and exact proposition/rework sets therefore allow semantically anonymous approval packets to pass.",
+      "reproduction": {
+        "fixture": {
+          "approval_state": "approved",
+          "approver_identity": "   ",
+          "approval_time": "",
+          "rationale": "",
+          "proposal_content_sha256": "the exact stored per-batch hash",
+          "approved_proposition_ids": "the exact complete per-batch set",
+          "accepted_needs_rework_items": "the exact complete per-batch set"
+        },
+        "batch_count": 10,
+        "validator_require_all_approved": true,
+        "validator_exit_code": 0,
+        "observed_status": "PASS",
+        "observed_approved_batch_count": 10,
+        "observed_approved_proposition_count": 236,
+        "observed_acknowledged_rework_count": 2,
+        "observed_invalid_batch_count": 0,
+        "observed_blockers": []
+      },
+      "impact": "The subsequent materializer treats the whitespace identity as semantic_approver and emits accepted events with authority_effect=true for 236 curated propositions. This bypasses the required attributable human semantic approval.",
+      "required_resolution": "Reject empty or whitespace-only approver_identity, approval_time, and rationale; validate approval_time as a nonblank accepted timestamp; add negative fixtures proving validation and materialization fail closed for blank, whitespace, anonymous, and missing metadata.",
+      "authority_execution_gate_effect": "BLOCK"
+    },
+    {
+      "finding_id": "CUR-EXT-I-002",
+      "severity": "Important",
+      "status": "open",
+      "title": "Authority materialization accepts an unrestricted output root",
+      "affected_paths": [
+        "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_curation.py",
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_proposals.py",
+        "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_proposals.py"
+      ],
+      "affected_lines": {
+        "cli": "52-58",
+        "materializer": "955-960, 1073-1114"
+      },
+      "contract_violation": "The plan and owner decisions prohibit current facts, manifest, rendered, Lua/runtime, and package mutation in this route. Authority-bearing output must be constrained to the authorized attempt-local successor execution surface.",
+      "technical_detail": "The CLI resolves any supplied --authority-root and passes it directly to materialize_approved_curation. The materializer appends phase8_curation to that arbitrary root and writes five authority-bearing files without assert_attempt_output_root, assert_safe_writer_sink, a protected-root denylist, or an authorized-root allowlist.",
+      "reproduction": {
+        "static_call_path": "CLI --authority-root -> _resolve -> materialize_approved_curation -> authority_root/phase8_curation",
+        "safe_sink_guard_call_count": 0,
+        "attempt_root_guard_call_count": 0,
+        "focused_protected_sink_negative_fixture_count": 0
+      },
+      "impact": "After otherwise valid approvals, an invocation can create authority artifacts beneath a protected current data, runtime, Lua, or package tree. Write-once byte behavior prevents later divergent rewrites but does not make the initial sink safe.",
+      "required_resolution": "Constrain authority_root to the approved attempt-local/non-current authority execution root, explicitly reject current/protected roots, and add negative fixtures for current facts/data, rendered, Lua/runtime, and package sink targets.",
+      "authority_execution_gate_effect": "BLOCK"
+    }
+  ],
+  "verified_checks": [
+    {
+      "check_id": "CUR-EXT-V-001",
+      "subject": "exact source-context coverage",
+      "status": "PASS",
+      "observed_queue_count": 238,
+      "observed_source_context_count": 238,
+      "observed_proposal_row_count": 238,
+      "ordinal_order_mismatch_count": 0,
+      "unique_item_count": 238
+    },
+    {
+      "check_id": "CUR-EXT-V-002",
+      "subject": "forbidden semantic evidence",
+      "status": "PASS",
+      "forbidden_fields": [
+        "DisplayName",
+        "Description",
+        "DisplayCategory",
+        "FullType"
+      ],
+      "forbidden_operations": [
+        "display_text_inference",
+        "description_inference",
+        "display_category_inference",
+        "item_id_inference"
+      ],
+      "observed_forbidden_field_consumption_count": 0,
+      "observed_forbidden_operation_consumption_count": 0,
+      "independently_observed_forbidden_consumed_field_count": 0,
+      "independently_observed_item_id_inference_count": 0
+    },
+    {
+      "check_id": "CUR-EXT-V-003",
+      "subject": "proposal and rework disposition",
+      "status": "PASS",
+      "proposed_proposition_count": 236,
+      "unique_proposition_id_count": 236,
+      "duplicate_proposition_count": 0,
+      "needs_rework_count": 2,
+      "needs_rework_items": [
+        "Base.Comfrey",
+        "Base.Plantain"
+      ],
+      "rework_basis": "Both reviewed source blocks declare Type=Normal rather than Type=Food; the proposer emits no proposition, no authority class, and no semantic approver for either item.",
+      "candidate_generation_authorized_with_rework": false
+    },
+    {
+      "check_id": "CUR-EXT-V-004",
+      "subject": "D7 caps",
+      "status": "PASS",
+      "item_count": 238,
+      "item_cap": 240,
+      "proposition_count": 236,
+      "proposition_cap": 480,
+      "item_cap_exceeded": false,
+      "proposition_cap_exceeded": false
+    },
+    {
+      "check_id": "CUR-EXT-V-005",
+      "subject": "D6 bounded batches",
+      "status": "PASS",
+      "review_batch_count": 10,
+      "total_batch_members": 238,
+      "unique_batch_members": 238,
+      "minimum_batch_member_count": 22,
+      "maximum_batch_member_count": 24,
+      "unique_proposal_content_hash_count": 10
+    },
+    {
+      "check_id": "CUR-EXT-V-006",
+      "subject": "exact hash and exact set approval binding",
+      "status": "PASS_WITH_IMPORTANT_METADATA_EXCEPTION",
+      "proposal_content_hash_recomputed_per_batch": true,
+      "approval_hash_mismatch_rejected": true,
+      "incomplete_or_blanket_proposition_set_rejected": true,
+      "incomplete_rework_acknowledgement_set_rejected": true,
+      "exception_finding_id": "CUR-EXT-I-001"
+    },
+    {
+      "check_id": "CUR-EXT-V-007",
+      "subject": "pending proposal authority boundary",
+      "status": "PASS",
+      "pending_batch_count": 10,
+      "approved_batch_count": 0,
+      "pending_batch_authority_effect_true_count": 0,
+      "proposal_authority_effect_true_count": 0,
+      "materialization_before_complete_approval_rejected": true
+    },
+    {
+      "check_id": "CUR-EXT-V-008",
+      "subject": "append-only and idempotent materialization bytes",
+      "status": "PASS_WITH_IMPORTANT_SINK_SCOPE_EXCEPTION",
+      "write_once_output_count": 6,
+      "same_payload_rerun_idempotent": true,
+      "differing_existing_payload_rejected": true,
+      "partial_rework_state_preserved": true,
+      "exception_finding_id": "CUR-EXT-I-002"
+    },
+    {
+      "check_id": "CUR-EXT-V-009",
+      "subject": "D14 non-expansion and current protected surfaces",
+      "status": "PASS_FOR_REVIEWED_COMMIT_DIFF",
+      "current_core_or_tooling_allowlist_change_count": 0,
+      "current_facts_or_manifest_change_count": 0,
+      "required_validation_manifest_change_count": 0,
+      "rendered_lua_runtime_package_change_count": 0,
+      "latent_sink_scope_exception_finding_id": "CUR-EXT-I-002"
+    },
+    {
+      "check_id": "CUR-EXT-V-010",
+      "subject": "committed proposal bundle identity",
+      "status": "PASS",
+      "proposal_bundle_file_count": 17,
+      "proposal_bundle_uncommitted_file_count": 0,
+      "proposal_ledger_sha256": "0155b11b7be9b515d0e4bd56b48da1cff34e4d9db9b3b02c924c95bdbc32ee7f"
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "observed_test_count": 18,
+      "result": "PASS",
+      "review_interpretation": "Does not cover whitespace/blank approval metadata or protected authority-root rejection."
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "run_dvf_3_3_food_semantic_curation.py validate against the committed unapproved proposal bundle",
+      "exit_code": 0,
+      "result": "PENDING",
+      "observed_pending_batch_count": 10,
+      "observed_approved_batch_count": 0,
+      "observed_authority_effect": false
+    },
+    {
+      "command": "isolated exact-hash/exact-set approval fixture with whitespace approver_identity and blank approval_time/rationale",
+      "exit_code": 0,
+      "result": "UNEXPECTED_PASS",
+      "finding_id": "CUR-EXT-I-001"
+    },
+    {
+      "command": "isolated blanket approval fixture with empty proposition and rework sets",
+      "validator_exit_code": 1,
+      "result": "EXPECTED_BLOCKED",
+      "observed_blocker": "invalid_batch_approval_present"
+    },
+    {
+      "command": "git diff --name-only 36021201..e4fd86db -- <current facts, manifest, required-validation, active core, rendered, Lua/runtime, and package protected paths>",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    }
+  ],
+  "review_verdict": "FAIL",
+  "verdict": "FAIL",
+  "verdict_basis": "The committed proposal data is exact, bounded, non-authoritative, and source-disciplined, and the normal focused tests pass. However, two open Important findings permit semantically anonymous approval and leave authority-bearing output sink scope unrestricted. The Change 8 authority gate therefore cannot consume this commit.",
+  "authority_execution_allowed": false,
+  "required_next_state": "new successor commit with both Important findings resolved and a fresh external curation review",
+  "terminal_independent_gate_credit": 0,
+  "non_claims": [
+    "curated semantic approval PASS",
+    "curated authority materialization authorized",
+    "317 terminal semantic disposition complete",
+    "candidate generation authorized",
+    "sealed successor handoff complete",
+    "current authority reconstruction complete",
+    "canonical complete",
+    "terminal independent review"
+  ]
+}

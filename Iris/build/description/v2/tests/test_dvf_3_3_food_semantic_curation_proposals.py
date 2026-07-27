@@ -19,6 +19,7 @@ from tools.build.dvf_3_3_food_semantic.contracts import (
     load_jsonl,
 )
 from tools.build.dvf_3_3_food_semantic.curation_proposals import (
+    assert_curation_authority_sink,
     build_curation_proposals,
     build_review_batches,
     build_source_contexts,
@@ -43,6 +44,48 @@ OWNER_DECISIONS = (
     / "owner_inputs/dvf_3_3_food_semantic_facts_authority/"
     "owner_reserved_decisions.json"
 )
+
+
+def write_exact_batch_approvals(
+    proposal_root: Path, *, blank_metadata: bool = False
+) -> None:
+    for path in sorted((proposal_root / "review_batches").glob("*.json")):
+        batch = load_json(path)
+        batch["owner_approval"] = {
+            "approval_state": "approved",
+            "approver_identity": (
+                "   " if blank_metadata else "repository_owner"
+            ),
+            "approval_time": (
+                "" if blank_metadata else "2026-07-27T00:00:00+09:00"
+            ),
+            "proposal_content_sha256": batch[
+                "proposal_content_sha256"
+            ],
+            "approved_proposition_ids": [
+                row["proposition_id"]
+                for row in batch["members"]
+                if row["disposition"] == "proposed"
+            ],
+            "accepted_needs_rework_items": [
+                row["item_identity"]
+                for row in batch["members"]
+                if row["disposition"] == "needs_rework"
+            ],
+            "rationale": (
+                "" if blank_metadata else "test exact bounded batch approval"
+            ),
+        }
+        path.write_text(
+            json.dumps(
+                batch,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
 
 
 class FoodSemanticCurationProposalTest(unittest.TestCase):
@@ -114,42 +157,11 @@ class FoodSemanticCurationProposalTest(unittest.TestCase):
     def test_exact_batch_approvals_materialize_partial_append_only_state(
         self,
     ) -> None:
-        staging = V2_ROOT / "staging"
-        with tempfile.TemporaryDirectory(dir=staging) as temp_dir:
+        with tempfile.TemporaryDirectory(dir=ATTEMPT_ROOT.parent) as temp_dir:
             temp_root = Path(temp_dir)
             proposal_root = temp_root / "proposals"
             shutil.copytree(PROPOSAL_ROOT, proposal_root)
-            for path in sorted((proposal_root / "review_batches").glob("*.json")):
-                batch = load_json(path)
-                batch["owner_approval"] = {
-                    "approval_state": "approved",
-                    "approver_identity": "repository_owner",
-                    "approval_time": "2026-07-27T00:00:00+09:00",
-                    "proposal_content_sha256": batch[
-                        "proposal_content_sha256"
-                    ],
-                    "approved_proposition_ids": [
-                        row["proposition_id"]
-                        for row in batch["members"]
-                        if row["disposition"] == "proposed"
-                    ],
-                    "accepted_needs_rework_items": [
-                        row["item_identity"]
-                        for row in batch["members"]
-                        if row["disposition"] == "needs_rework"
-                    ],
-                    "rationale": "test exact bounded batch approval",
-                }
-                path.write_text(
-                    json.dumps(
-                        batch,
-                        ensure_ascii=False,
-                        indent=2,
-                        sort_keys=True,
-                    )
-                    + "\n",
-                    encoding="utf-8",
-                )
+            write_exact_batch_approvals(proposal_root)
             authority_root = temp_root / "authority"
             report = materialize_approved_curation(
                 proposal_root,
@@ -174,6 +186,72 @@ class FoodSemanticCurationProposalTest(unittest.TestCase):
             self.assertEqual(checkpoint["accepted_count"], 236)
             self.assertEqual(checkpoint["rework_count"], 2)
             self.assertIsNotNone(checkpoint["next_canonical_cursor"])
+
+    def test_blank_approval_metadata_cannot_materialize_authority(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(dir=ATTEMPT_ROOT.parent) as temp_dir:
+            temp_root = Path(temp_dir)
+            proposal_root = temp_root / "proposals"
+            shutil.copytree(PROPOSAL_ROOT, proposal_root)
+            write_exact_batch_approvals(
+                proposal_root,
+                blank_metadata=True,
+            )
+            validation = validate_batch_approvals(
+                proposal_root,
+                owner_decisions_path=OWNER_DECISIONS,
+                require_all_approved=True,
+            )
+            self.assertEqual(validation["status"], "BLOCKED")
+            self.assertEqual(validation["approved_batch_count"], 0)
+            self.assertEqual(validation["invalid_batch_count"], 10)
+            self.assertTrue(
+                all(
+                    "approver_identity_blank_or_invalid" in row["errors"]
+                    and "approval_time_blank_or_invalid" in row["errors"]
+                    and "approval_rationale_blank_or_invalid" in row["errors"]
+                    for row in validation["batch_results"]
+                )
+            )
+            authority_root = temp_root / "authority"
+            with self.assertRaises(FoodSemanticError):
+                materialize_approved_curation(
+                    proposal_root,
+                    authority_root,
+                    owner_decisions_path=OWNER_DECISIONS,
+                )
+            self.assertFalse((authority_root / "phase8_curation").exists())
+
+    def test_authority_sink_is_attempt_local_and_rejects_protected_root(
+        self,
+    ) -> None:
+        protected_roots = [
+            REPO_ROOT / "Iris/build/description/v2/data",
+            REPO_ROOT / "Iris/build/description/v2/output",
+            REPO_ROOT / "Iris/media/lua",
+            REPO_ROOT / "Iris/Iris/media/lua",
+            REPO_ROOT / "Iris/build/description/v2/package",
+        ]
+        for protected_root in protected_roots:
+            with self.subTest(protected_root=protected_root):
+                with self.assertRaises(FoodSemanticError):
+                    assert_curation_authority_sink(protected_root)
+
+        staging = V2_ROOT / "staging"
+        with tempfile.TemporaryDirectory(dir=staging) as temp_dir:
+            temp_root = Path(temp_dir)
+            proposal_root = temp_root / "proposals"
+            shutil.copytree(PROPOSAL_ROOT, proposal_root)
+            write_exact_batch_approvals(proposal_root)
+            authority_root = temp_root / "outside-attempt-authority"
+            with self.assertRaises(FoodSemanticError):
+                materialize_approved_curation(
+                    proposal_root,
+                    authority_root,
+                    owner_decisions_path=OWNER_DECISIONS,
+                )
+            self.assertFalse((authority_root / "phase8_curation").exists())
 
 
 if __name__ == "__main__":

@@ -2,17 +2,21 @@ from __future__ import annotations
 
 from collections import Counter
 from dataclasses import dataclass
+from datetime import datetime
 from pathlib import Path
 import re
 from typing import Any, Iterable
 
 from .contracts import (
     FoodSemanticError,
+    assert_attempt_output_root,
+    assert_safe_writer_sink,
     canonical_json_bytes,
     canonical_proposition_id,
     load_json,
     load_jsonl,
     relative_posix,
+    repo_root,
     sha256_bytes,
     sha256_file,
     write_json,
@@ -81,6 +85,13 @@ SOLID_FOOD_TYPES = {
     "NoExplicit",
 }
 BEVERAGE_FOOD_TYPES = {"Juice"}
+FORBIDDEN_AUTHORITY_WRITER_ROOTS = (
+    "Iris/build/description/v2/data",
+    "Iris/build/description/v2/output",
+    "Iris/media/lua",
+    "Iris/Iris/media/lua",
+    "Iris/build/description/v2/package",
+)
 ITEM_START = re.compile(r"^\s*item\s+([A-Za-z0-9_]+)\s*$")
 MODULE_START = re.compile(r"^\s*module\s+([A-Za-z0-9_]+)\s*$")
 FIELD_LINE = re.compile(r"^\s*([A-Za-z0-9_]+)\s*=\s*(.*?)\s*,\s*$")
@@ -641,6 +652,15 @@ def approval_packet_schema() -> dict[str, Any]:
         ],
         "allowed_approval_state": ["approved", "rejected", "needs_rework"],
         "implicit_or_anonymous_approval_allowed": False,
+        "approver_identity_contract": (
+            "nonblank exact match to owner decision approver_identity"
+        ),
+        "approval_time_contract": "nonblank timezone-aware ISO-8601 timestamp",
+        "rationale_contract": "nonblank string",
+        "member_set_contract": (
+            "arrays of nonblank strings exactly matching the batch proposals "
+            "and needs-rework items"
+        ),
         "maximum_batch_member_count": 24,
         "authority_effect_before_import": False,
     }
@@ -815,6 +835,41 @@ def load_review_batches(proposal_root: Path) -> list[dict[str, Any]]:
     )
 
 
+def _is_nonblank_string(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _is_timezone_aware_iso8601(value: Any) -> bool:
+    if not _is_nonblank_string(value):
+        return False
+    normalized = value.strip()
+    if normalized.endswith("Z"):
+        normalized = normalized[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(normalized)
+    except ValueError:
+        return False
+    return parsed.tzinfo is not None and parsed.utcoffset() is not None
+
+
+def _is_nonblank_string_list(value: Any) -> bool:
+    return isinstance(value, list) and all(
+        _is_nonblank_string(member) for member in value
+    )
+
+
+def assert_curation_authority_sink(authority_root: Path) -> None:
+    root = repo_root()
+    assert_attempt_output_root(authority_root, root=root)
+    assert_safe_writer_sink(
+        authority_root / "phase8_curation",
+        attempt_root=authority_root,
+        forbidden_roots=[
+            root / relative for relative in FORBIDDEN_AUTHORITY_WRITER_ROOTS
+        ],
+    )
+
+
 def validate_batch_approvals(
     proposal_root: Path,
     *,
@@ -869,6 +924,9 @@ def validate_batch_approvals(
             state = "pending"
             if require_all_approved:
                 errors.append("owner_approval_missing")
+        elif not isinstance(owner_approval, dict):
+            state = "invalid"
+            errors.append("owner_approval_not_object")
         else:
             state = str(owner_approval.get("approval_state"))
             required = {
@@ -884,8 +942,17 @@ def validate_batch_approvals(
                 errors.append("owner_approval_required_field_missing")
             if state != "approved":
                 errors.append("batch_not_approved")
-            if not owner_approval.get("approver_identity"):
-                errors.append("anonymous_approval_forbidden")
+            approver_identity = owner_approval.get("approver_identity")
+            if not _is_nonblank_string(approver_identity):
+                errors.append("approver_identity_blank_or_invalid")
+            elif approver_identity != decisions.get("approver_identity"):
+                errors.append("approver_identity_owner_mismatch")
+            if not _is_timezone_aware_iso8601(
+                owner_approval.get("approval_time")
+            ):
+                errors.append("approval_time_blank_or_invalid")
+            if not _is_nonblank_string(owner_approval.get("rationale")):
+                errors.append("approval_rationale_blank_or_invalid")
             if owner_approval.get("proposal_content_sha256") != computed_hash:
                 errors.append("approval_proposal_hash_mismatch")
             expected_propositions = sorted(
@@ -898,12 +965,20 @@ def validate_batch_approvals(
                 for row in members
                 if row["disposition"] == "needs_rework"
             )
-            approved_ids = sorted(
-                owner_approval.get("approved_proposition_ids", [])
+            raw_approved_ids = owner_approval.get("approved_proposition_ids")
+            if not _is_nonblank_string_list(raw_approved_ids):
+                errors.append("approved_proposition_ids_invalid")
+                approved_ids: list[str] = []
+            else:
+                approved_ids = sorted(raw_approved_ids)
+            raw_accepted_rework = owner_approval.get(
+                "accepted_needs_rework_items"
             )
-            accepted_rework = sorted(
-                owner_approval.get("accepted_needs_rework_items", [])
-            )
+            if not _is_nonblank_string_list(raw_accepted_rework):
+                errors.append("accepted_needs_rework_items_invalid")
+                accepted_rework: list[str] = []
+            else:
+                accepted_rework = sorted(raw_accepted_rework)
             if approved_ids != expected_propositions:
                 errors.append("approved_proposition_set_mismatch")
             if accepted_rework != expected_rework:
@@ -958,6 +1033,7 @@ def materialize_approved_curation(
     *,
     owner_decisions_path: Path,
 ) -> dict[str, Any]:
+    assert_curation_authority_sink(authority_root)
     validation = validate_batch_approvals(
         proposal_root,
         owner_decisions_path=owner_decisions_path,

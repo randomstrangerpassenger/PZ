@@ -1,0 +1,42 @@
+{
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "mechanical_binding_checks": {
+    "blocked_review_binding_match": true,
+    "origin_finding_set_match": true,
+    "prior_fail_review_preserved": true,
+    "prior_important_finding_resolved": true,
+    "read_only_binding_count": 4,
+    "read_only_binding_mismatch_count": 0,
+    "writable_file_count": 6,
+    "writable_preimage_binding_mismatch_count": 0
+  },
+  "out_of_scope_change_count": 0,
+  "review_scope": "Fresh focused preimplementation review of the corrected preimage-bound Phase 12 correction scope only; no implementation result was reviewed.",
+  "review_target": {
+    "correction_addendum_sha256": "8eeb9a9e49a377457d9175120f2472701697cc536b8fbbb9687e9b32b427987d",
+    "correction_scope_manifest_sha256": "e833710b19cca89c544eae1383bf7e41e96a5c0e5353f5298e231455b8388127",
+    "prior_fail_review_sha256": "2db0dca11f3cb6e13418bd8c5fa9dafb930ce228f97a359d94dcb46479fe5e51",
+    "reviewed_commit_sha": "25af4571865210d7053d11bf5dc7491dea38ffc1",
+    "scope_base_commit_sha": "32a2323afdb1e226470aec930574020f1dd7922d"
+  },
+  "reviewed_at": "2026-07-27T23:15:00+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "schema_version": "food-semantic-phase12-correction-focused-scope-review-v1",
+  "scope_checks": {
+    "adoption_aware_handoff_test_scope_adequate": true,
+    "already_adopted_d16_files_read_only": true,
+    "current_and_protected_boundaries_unchanged": true,
+    "five_compose_modules_are_minimal_transitive_chain": true,
+    "lifecycle_separates_preimage_scope_approval_from_replacement_result_approval": true,
+    "naturalization_phase4_to_8_semantic_change_authorized": false,
+    "required_test_set_sufficient": true
+  },
+  "terminal_independent_gate_credit": 0,
+  "verdict": "PASS",
+  "verdict_basis": "The two non-consumer symbols identified by the first review were removed and no other scope changed. The six writable preimages and four adopted-D16 read-only inputs match their exact SHA-256, byte-count, and Git-blob bindings. The five compose modules are the minimal candidate-only dependency chain, the handoff test change is narrowly adoption-aware, all protected authority boundaries remain intact, and no implementation result has been pre-approved."
+}

@@ -1,0 +1,339 @@
+{
+  "schema_version": "food-semantic-external-curation-review-v1",
+  "review_id": "dvf-3-3-food-semantic-external-curation-review-4337bd6e",
+  "reviewed_at": "2026-07-27T18:38:57.3356573+09:00",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": "Fresh independent successor review of the AI-assisted curation proposal bundle, approval validator, authority materializer and CLI, focused regression tests, attempt-0007 seal, and protected-surface boundary after the e4fd86db FAIL review.",
+  "review_target": {
+    "commit_sha": "4337bd6e093d8a8ce6ff57dcf28338de59669a30",
+    "commit_subject": "fix: harden curation approval execution",
+    "commit_is_checked_out_head": true,
+    "predecessor_commit_sha": "e4fd86dbdfa3105a40814630da90aa0dd558d338",
+    "bound_attempt_id": "attempt-0007",
+    "bound_implementation_complete_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+    "proposal_ledger_sha256": "0155b11b7be9b515d0e4bd56b48da1cff34e4d9db9b3b02c924c95bdbc32ee7f"
+  },
+  "reviewed_artifact_hashes": [
+    {
+      "path": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/curation_proposals.py",
+      "sha256": "6986927d3e304326cc9ec293e92b590d9fd8068a1c40293ee5b3f0742797349c"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_curation.py",
+      "sha256": "75b3d80224669362e1871b2e268ddc6d8e5c5378f177618c0a53dcf81a68f9d2"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_food_semantic_curation_proposals.py",
+      "sha256": "52bab52b507c72ed676a80b625c734edbc50533c4c2f9d3209fa6f50d65f0972"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_batch_approval.schema.json",
+      "sha256": "97d31e7a81629f57314b19afd4c7a20ccb838fe36ceded0fd49c1045f0ae1d60"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposition_proposals.jsonl",
+      "sha256": "0155b11b7be9b515d0e4bd56b48da1cff34e4d9db9b3b02c924c95bdbc32ee7f"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposal_summary.json",
+      "sha256": "17c934d85c80cf22fbc8c0ec19a9cee5cbfda31eadf29ae57b14c200d8776e1f"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_proposal_validation.json",
+      "sha256": "4aeac765b3a0f2bb245795090a01c4c9a2ea8377599a0aabbf251f575ef25ca4"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/curation_source_context_diagnostics.json",
+      "sha256": "6717a9c36b776241d0f9f35b5eefcafb829aa3e8f2cdedae717774d7aa19beb4"
+    },
+    {
+      "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/owner_reserved_decisions.json",
+      "sha256": "3abf570cc58a791a729671c3731f524b75acb9ec8e5cd5f89afb4c6097e6213a"
+    }
+  ],
+  "prior_review": {
+    "path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/curation_proposals/external_curation_review.e4fd86db.json",
+    "sha256": "869fac97b153c01494148f283fef0a339a92ced37deb2c039ec2457f9dec5a71",
+    "target_commit_sha": "e4fd86dbdfa3105a40814630da90aa0dd558d338",
+    "verdict": "FAIL",
+    "open_important_finding_count": 2
+  },
+  "prior_finding_dispositions": [
+    {
+      "finding_id": "CUR-EXT-I-001",
+      "prior_severity": "Important",
+      "status": "RESOLVED",
+      "resolution": "Approval validation now requires an object with every required field, exact nonblank owner identity, a nonblank timezone-aware ISO-8601 approval timestamp, nonblank rationale, exact proposal hash, and typed nonblank-string member lists whose sets exactly match the batch. Invalid approval metadata contributes invalid_batch_approval_present and materialization requires a PASS validation.",
+      "review_evidence": {
+        "independent_negative_fixture_count": 6,
+        "cases": [
+          "missing required field",
+          "whitespace approver identity",
+          "wrong owner identity",
+          "timezone-naive timestamp",
+          "approved proposition IDs with non-list type",
+          "accepted rework items with non-list type"
+        ],
+        "blocked_case_count": 6,
+        "invalid_batch_count_per_case": 10,
+        "approved_batch_count_per_case": 0,
+        "materialization_blocked_case_count": 6,
+        "phase8_write_count": 0
+      }
+    },
+    {
+      "finding_id": "CUR-EXT-I-002",
+      "prior_severity": "Important",
+      "status": "RESOLVED",
+      "resolution": "The materializer now calls assert_curation_authority_sink before approval loading or output construction. The guard constrains authority roots to children of the food-semantic attempts tree, resolves paths before comparison, and rejects protected/current data, rendered output, Lua/runtime, package, and other outside-attempt roots before any phase8_curation write. The CLI passes its resolved authority root through the guarded materializer.",
+      "review_evidence": {
+        "cli_negative_sink_count": 6,
+        "rejected_sink_count": 6,
+        "nonzero_exit_count": 6,
+        "phase8_write_count": 0,
+        "rejected_roots": [
+          "Iris/build/description/v2/data",
+          "Iris/build/description/v2/output",
+          "Iris/media/lua",
+          "Iris/Iris/media/lua",
+          "Iris/build/description/v2/package",
+          "Iris/build/description/v2/staging/review-outside-attempt"
+        ]
+      }
+    }
+  ],
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "minor": 0
+  },
+  "findings": [],
+  "review_checks": [
+    {
+      "check_id": "CUR-EXT-V2-001",
+      "subject": "exact successor identity and predecessor binding",
+      "status": "PASS",
+      "observed_head_sha": "4337bd6e093d8a8ce6ff57dcf28338de59669a30",
+      "observed_target_sha": "4337bd6e093d8a8ce6ff57dcf28338de59669a30",
+      "prior_fail_target_sha": "e4fd86dbdfa3105a40814630da90aa0dd558d338"
+    },
+    {
+      "check_id": "CUR-EXT-V2-002",
+      "subject": "approval metadata and list-type fail-closed behavior",
+      "status": "PASS",
+      "negative_fixture_count": 6,
+      "blocked_fixture_count": 6,
+      "authority_materialization_count": 0,
+      "phase8_write_count": 0
+    },
+    {
+      "check_id": "CUR-EXT-V2-003",
+      "subject": "attempt-local materialization and protected sink rejection",
+      "status": "PASS",
+      "guard_executes_before_validation_or_writes": true,
+      "cli_rejected_sink_count": 6,
+      "protected_or_outside_attempt_phase8_write_count": 0
+    },
+    {
+      "check_id": "CUR-EXT-V2-004",
+      "subject": "exact 238-member proposal scope",
+      "status": "PASS",
+      "target_queue_count": 238,
+      "source_context_count": 238,
+      "proposal_row_count": 238,
+      "unique_item_identity_count": 238,
+      "queue_context_proposal_exact_set_match": true,
+      "proposed_proposition_count": 236,
+      "unique_proposition_id_count": 236,
+      "needs_rework_count": 2,
+      "needs_rework_items": [
+        "Base.Comfrey",
+        "Base.Plantain"
+      ]
+    },
+    {
+      "check_id": "CUR-EXT-V2-005",
+      "subject": "D6 exact bounded batch partition",
+      "status": "PASS",
+      "review_batch_count": 10,
+      "reviewed_member_count": 238,
+      "unique_reviewed_member_count": 238,
+      "maximum_batch_member_count": 24,
+      "batch_members_exact_proposal_set_match": true
+    },
+    {
+      "check_id": "CUR-EXT-V2-006",
+      "subject": "source discipline and no forbidden context consumption",
+      "status": "PASS",
+      "missing_reviewed_context_count": 0,
+      "forbidden_context_field_consumed_count": 0,
+      "forbidden_context_operation_consumed_count": 0
+    },
+    {
+      "check_id": "CUR-EXT-V2-007",
+      "subject": "committed proposal bundle remains pending and non-authoritative",
+      "status": "PASS",
+      "pending_item_approval_count": 238,
+      "owner_approval_nonnull_batch_count": 0,
+      "pending_batch_count": 10,
+      "approved_batch_count": 0,
+      "proposal_authority_effect_true_count": 0,
+      "summary_authority_effect": false,
+      "validation_authority_effect": false
+    },
+    {
+      "check_id": "CUR-EXT-V2-008",
+      "subject": "focused regression suite",
+      "status": "PASS",
+      "observed_test_count": 20,
+      "test_failure_count": 0,
+      "test_error_count": 0
+    },
+    {
+      "check_id": "CUR-EXT-V2-009",
+      "subject": "attempt-0007 sealed bundle integrity",
+      "status": "PASS",
+      "artifact_count": 178,
+      "artifact_mismatch_count": 0,
+      "authority_claim_emitted_count": 0,
+      "current_facts_manifest_mutation_count": 0,
+      "protected_surface_changed_count": 0,
+      "implementation_complete_bundle_sealed": true
+    },
+    {
+      "check_id": "CUR-EXT-V2-010",
+      "subject": "successor diff does not mutate current or protected outputs",
+      "status": "PASS",
+      "e4fd_to_4337_current_or_protected_changed_path_count": 0,
+      "implementation_baseline_to_4337_current_or_protected_changed_path_count": 0,
+      "reviewed_protected_roots": [
+        "Iris/build/description/v2/data",
+        "Iris/build/description/v2/output",
+        "Iris/media/lua",
+        "Iris/Iris/media/lua",
+        "Iris/build/description/v2/package"
+      ]
+    }
+  ],
+  "validation_commands": [
+    {
+      "command": "git rev-parse HEAD; git rev-parse 4337bd6e",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_sha": "4337bd6e093d8a8ce6ff57dcf28338de59669a30"
+    },
+    {
+      "command": "uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p \"test_dvf_3_3_food_semantic_*.py\"",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_test_count": 20
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/dvf_3_3_food_semantic_facts_authority.py verify --attempt-id attempt-0007",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_bundle_sha256": "41352d42779ecbc86fd122f08d6388f22a69d1b29a5caa8e4f352a9a414b9205",
+      "observed_artifact_count": 178,
+      "observed_artifact_mismatch_count": 0,
+      "observed_protected_surface_changed_count": 0
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_curation.py validate",
+      "exit_code": 0,
+      "result": "PENDING",
+      "observed_pending_batch_count": 10,
+      "observed_approved_batch_count": 0,
+      "observed_invalid_batch_count": 0,
+      "observed_authority_effect": false
+    },
+    {
+      "command": "uv run python -B Iris/build/description/v2/tools/build/run_dvf_3_3_food_semantic_curation.py validate --require-all-approved",
+      "exit_code": 1,
+      "result": "EXPECTED_BLOCKED",
+      "observed_pending_batch_count": 10,
+      "observed_invalid_batch_count": 10,
+      "observed_blockers": [
+        "invalid_batch_approval_present",
+        "pending_batch_approval_present"
+      ],
+      "observed_authority_effect": false
+    },
+    {
+      "command": "independent six-case approval metadata/type mutation fixture piped to uv run python -B -",
+      "exit_code": 0,
+      "result": "PASS",
+      "cases": [
+        "missing_field",
+        "whitespace_approver",
+        "wrong_owner",
+        "invalid_timestamp",
+        "invalid_proposition_list_type",
+        "invalid_rework_list_type"
+      ],
+      "blocked_case_count": 6,
+      "materialization_blocked_case_count": 6,
+      "phase8_written_case_count": 0
+    },
+    {
+      "command": "run_dvf_3_3_food_semantic_curation.py materialize --authority-root <each current/protected/outside-attempt negative root>",
+      "exit_code_per_case": 1,
+      "result": "PASS",
+      "case_count": 6,
+      "rejected_case_count": 6,
+      "phase8_before_count": 0,
+      "phase8_after_count": 0
+    },
+    {
+      "command": "independent queue/context/proposal/batch exactness audit piped to uv run python -B -",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_target_count": 238,
+      "observed_proposed_count": 236,
+      "observed_rework_count": 2,
+      "observed_batch_count": 10,
+      "observed_maximum_batch_member_count": 24,
+      "observed_forbidden_context_consumed_count": 0
+    },
+    {
+      "command": "git show --check 4337bd6e",
+      "exit_code": 0,
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --name-only e4fd86db..4337bd6e and 36021201..4337bd6e over current data, rendered output, Lua/runtime, and package roots",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_changed_path_count": 0
+    },
+    {
+      "command": "Get-FileHash -Algorithm SHA256 over reviewed implementation, test, schema, proposal, owner-decision, and prior-review artifacts",
+      "exit_code": 0,
+      "result": "PASS",
+      "observed_hash_mismatch_count": 0
+    }
+  ],
+  "review_verdict": "PASS",
+  "verdict": "PASS",
+  "verdict_basis": "Both prior Important findings are resolved. Approval metadata and set types fail closed without authority writes, authority output is constrained to the food-semantic attempt tree and rejects current/protected/outside-attempt sinks before writing, the exact 238-member proposal bundle remains bounded and non-authoritative, focused tests and attempt verification pass, and no new Critical, Important, or Minor finding is open.",
+  "external_review_gate_passed": true,
+  "authority_execution_allowed": false,
+  "authority_execution_blockers": [
+    "All 10 committed review batches still have owner_approval=null; explicit exact per-batch repository-owner approval has not yet been supplied."
+  ],
+  "required_next_state": "The repository owner may now review the exact 10 bounded batches. Only exact approvals bound to each batch proposal_content_sha256, exact proposition/rework member sets, nonblank owner identity, timezone-aware timestamp, and nonblank rationale may be validated with --require-all-approved and materialized under an attempt-local non-current authority root.",
+  "candidate_generation_authorized": false,
+  "terminal_independent_gate_credit": 0,
+  "non_claims": [
+    "curated semantic approval PASS",
+    "curated authority materialization already authorized",
+    "Base.Comfrey or Base.Plantain rework resolved",
+    "317 terminal semantic disposition complete",
+    "candidate generation authorized",
+    "sealed successor handoff complete",
+    "current authority reconstruction complete",
+    "Registry adoption complete",
+    "rendered or runtime freshness restored",
+    "terminal independent closeout PASS"
+  ]
+}

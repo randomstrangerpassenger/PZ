@@ -1,0 +1,8 @@
+{"fixture_id":"unsupported-use","mutation":"insert source-absent concrete use","expected_failure_reason":"unsupported_use_insertion"}
+{"fixture_id":"modality-strengthening","mutation":"change possibility to primary use assertion","expected_failure_reason":"strengthened_modality"}
+{"fixture_id":"limitation-drop","mutation":"remove limitation proposition","expected_failure_reason":"limitation_deleted"}
+{"fixture_id":"qualifier-drop","mutation":"remove context condition","expected_failure_reason":"context_qualifier_deleted"}
+{"fixture_id":"cross-item-copy","mutation":"reuse proposition from another exact item key","expected_failure_reason":"cross_item_proposition"}
+{"fixture_id":"trace-omission","mutation":"insert clause without proposition trace","expected_failure_reason":"trace_missing"}
+{"fixture_id":"suppression-invalid","mutation":"use unregistered suppression reason","expected_failure_reason":"invalid_suppression_reason"}
+{"fixture_id":"key-swap","mutation":"swap source and candidate exact item keys","expected_failure_reason":"source_candidate_key_swap"}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "dvf-3-3-korean-prose-roadmap-binding-v1",
+  "roadmap_input_kind": "owner_provided_attachment_review_synthesis",
+  "roadmap_input_path": "C:/Users/MW/.codex/attachments/91b61f60-9f67-4407-b32f-4952747614ae/pasted-text.txt",
+  "roadmap_input_sha256": "c0c4838352910f8cacbcedfca8b74912d544d4f2ebc1d8d96f5cd34860eb3d1d",
+  "approved_plan_path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+  "approved_plan_sha256": "bbac14e7e4754c6afb10d7a5a932afae8b769cc45256b38eba8b89f59a275574",
+  "authorization_source": "explicit_user_instruction_in_execution_task",
+  "execution_scope": "phase0_through_phase8_handoff_build",
+  "phase8_consume_publish_result_authorized": false,
+  "phase9_authorized": false,
+  "publish_official_attempt_authorized": false,
+  "owner_judgment_generated_by_tool": false
+}

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
@@ -43,6 +45,22 @@ SELECTED_ROLE_TARGET = {
     "material": "material_body",
     "output": "output_body",
 }
+
+SECTION_TO_PROPOSITION_ROLE = {
+    "identity_core": "identity",
+    "use_core": "use",
+    "context_support": "context",
+    "acquisition_support": "acquisition",
+    "limitation_tail": "limitation",
+}
+
+CANDIDATE_STRUCTURAL_STATUSES = (
+    "emitted_direct",
+    "satisfied_by_verified_fusion",
+    "satisfied_by_verified_suppression",
+    "not_required",
+    "missing",
+)
 
 
 def is_body_plan_profiles_v2(profiles: dict[str, Any]) -> bool:
@@ -337,3 +355,110 @@ def build_body_plan_sections(
         "missing_required_sections": missing_required_sections,
         "coverage_quality_candidate": coverage_quality_candidate,
     }
+
+
+def build_candidate_body_plan_requirements(
+    *,
+    item_id: str,
+    profile_name: str,
+    profile_spec: dict[str, Any],
+    proposition_rows: list[dict[str, Any]],
+    emission_eligible: bool,
+    applicability_rule_id: str,
+    applicability_approval_sha256: str,
+) -> list[dict[str, Any]]:
+    propositions_by_role: dict[str, list[dict[str, Any]]] = {}
+    for row in proposition_rows:
+        propositions_by_role.setdefault(str(row["role"]), []).append(row)
+    required = set(str(value) for value in profile_spec.get("required_sections", []))
+    optional = set(str(value) for value in profile_spec.get("optional_sections", []))
+    result: list[dict[str, Any]] = []
+    for order_index, raw_section_name in enumerate(
+        profile_spec.get("section_order", [])
+    ):
+        section_name = str(raw_section_name)
+        role = SECTION_TO_PROPOSITION_ROLE.get(section_name)
+        if role is None:
+            continue
+        applicable_rows = propositions_by_role.get(role, [])
+        derived_context_available = (
+            role == "context"
+            and any(
+                derive_context_from_primary_use(row.get("source_value")) is not None
+                for row in propositions_by_role.get("use", [])
+            )
+        )
+        profile_required = section_name in required
+        source_applicable = bool(applicable_rows) or derived_context_available
+        owner_approved_exclusion = (
+            emission_eligible and profile_required and not source_applicable
+        )
+        candidate_required = profile_required and not owner_approved_exclusion
+        result.append(
+            {
+                "item_id": item_id,
+                "requirement_id": f"{item_id}#{section_name}",
+                "resolved_profile": profile_name,
+                "section_name": section_name,
+                "role": role,
+                "profile_required": profile_required,
+                "required": candidate_required,
+                "optional": section_name in optional or owner_approved_exclusion,
+                "ordering_index": order_index,
+                "applicable_proposition_ids": sorted(
+                    str(row["proposition_id"]) for row in applicable_rows
+                ),
+                "emission_eligible": emission_eligible,
+                "source_applicable": source_applicable,
+                "derived_context_available": derived_context_available,
+                "candidate_applicability": (
+                    "owner_approved_source_absence_exclusion"
+                    if owner_approved_exclusion
+                    else "source_or_verified_derivation_applicable"
+                    if source_applicable
+                    else "emission_ineligible"
+                ),
+                "owner_approved_exclusion": owner_approved_exclusion,
+                "applicability_rule_id": applicability_rule_id,
+                "applicability_approval_sha256": applicability_approval_sha256,
+            }
+        )
+    return result
+
+
+def canonical_proof_digest(value: dict[str, Any]) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            value,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def build_single_proposition_equivalence_proof(
+    *,
+    item_id: str,
+    requirement_id: str,
+    proposition: dict[str, Any],
+    surviving_clause_id: str,
+) -> dict[str, Any]:
+    proposition_id = str(proposition["proposition_id"])
+    source_path = str(proposition["source_path"])
+    source_field = str(proposition["source_field"])
+    provenance = f"{source_path}#{source_field}"
+    payload = {
+        "equivalence_proof_schema_version": "dvf-3-3-equivalence-proof-v1",
+        "equivalence_proof_id": f"{item_id}#{requirement_id}#fusion-proof",
+        "input_proposition_ids": [proposition_id],
+        "surviving_clause_id": surviving_clause_id,
+        "semantic_signature_set": [str(proposition["semantic_key"])],
+        "qualifier_set": [str(proposition.get("qualifier") or "none")],
+        "condition_set": [str(proposition.get("condition") or "none")],
+        "modality_set": [str(proposition.get("modality") or "asserted")],
+        "input_provenance_union": [provenance],
+        "surviving_trace_provenance_set": [provenance],
+    }
+    payload["proof_digest"] = canonical_proof_digest(payload)
+    return payload

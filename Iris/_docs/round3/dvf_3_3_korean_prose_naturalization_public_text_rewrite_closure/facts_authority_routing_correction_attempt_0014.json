@@ -1,0 +1,96 @@
+{
+  "schema_version": "dvf-3-3-facts-authority-routing-correction-v1",
+  "status": "recorded_architecture_correction_no_attempt_mutation",
+  "correction_date": "2026-07-26",
+  "correction_scope": "owner_and_routing_metadata_only",
+  "immutable_naturalization_attempt_id": "attempt-0014-remediation",
+  "immutable_attempt_root": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation",
+  "immutable_attempt_file_count": 34,
+  "immutable_attempt_inventory_canonicalization": "UTF-8 path<TAB>sha256<LF>, sorted by attempt-relative path",
+  "immutable_attempt_inventory_sha256": "19b9ed289f31abf22b59a6b57ed6110735815a5eddc1e733f8a5341168af7d0b",
+  "preserved_phase3_result": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation/phase3/phase3_result.json",
+    "sha256": "414dc88689398c623240cd5250ed82f39365fc8b24c318dca53e8c42005eaba2"
+  },
+  "preserved_cause_analysis": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation/phase3/repeated_skeleton_cause_analysis.json",
+    "sha256": "653d19ab3c48c4b432015e90ec2ca5b2eb6f308531d92c71f2fb3f1a910e0c6a"
+  },
+  "preserved_semantic_rule_projection": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation/phase3/semantic_lead_rule_projection_report.json",
+    "sha256": "47f074c6447dae92752412bc54ec4c37b3c63b6e898656ccfe82523a3e4a85dc"
+  },
+  "preserved_legacy_request": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation/phase3/source_qg_return_request.json",
+    "sha256": "932eb20d9693ef2198ccaee9e6c79077596ff0d1b19e279b0f520f96e328e56f"
+  },
+  "superseded_binding": {
+    "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/source_qg_return_binding_attempt_0014.json",
+    "sha256": "0816b3bc041140b689b86aa3c167bd11f07e5c0512f96d68f0a8c4c0ac47e07d",
+    "superseded_fields": [
+      "schema_version",
+      "status",
+      "owner",
+      "source_qg_return_request_path",
+      "source_qg_return_request_sha256"
+    ],
+    "supersession_limit": "owner_and_routing_claims_only"
+  },
+  "preserved_analysis": {
+    "finding": "317 food rows share one identical approved Layer 3 semantic condition and cannot be split into four meaning-bearing structures by the compiler alone",
+    "blocking_semantic_condition_digest": "3707352bc4e8363e712ffc383a0ecdb2d5f1d8cfd74ff54a15531485f934738e",
+    "blocked_item_count": 317,
+    "maximum_repetition_count": 104,
+    "minimum_required_semantic_partition_count": 4,
+    "compiler_rule_remediable_item_count": 133,
+    "item_id_hash_or_random_rule_selection_count": 0,
+    "source_proposition_invention_count": 0
+  },
+  "corrected_architecture": {
+    "owner": "dvf_3_3_facts_authority",
+    "authority_domain": "layer3_3_facts",
+    "routing_target": "dvf_3_3_facts_authority_enrichment_plan",
+    "facts_authority_plan_path": "docs/dvf_3_3_facts_authority_enrichment_plan.md",
+    "layer4_qg_role": "separate_interaction_quality_gate",
+    "layer4_qg_routing_allowed": false,
+    "layer4_qg_source_authority_allowed": false,
+    "cross_layer_promotion_requires_separate_approved_plan": true,
+    "earliest_naturalization_resume_phase": "phase2_source_inventory_reseal_then_phase3"
+  },
+  "current_facts_authority_snapshot": {
+    "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+    "sha256": "a765c50ba88167b9b686f70a8ca1e63df970f9e59e7750c005d4dcb49153aac8",
+    "mutated_by_this_correction": false
+  },
+  "implementation_bindings": [
+    {
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "sha256": "d3dd1464f204a1587f36ef3e13d77b975e5fab52891e61f6d63b368a87ff211b"
+    },
+    {
+      "path": "docs/dvf_3_3_facts_authority_enrichment_plan.md",
+      "sha256": "61f9235e8ed3787f8388859f383d44727a2f088fb277a1d46cd1dcc78a3b5ee7"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+      "sha256": "c6eb4e0544fc08f08fee802e83dc2a88b56de9178387de9dce1517612edbc477"
+    },
+    {
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+      "sha256": "985cd9beb2ec0f73ec0ef52261c260dc13f7dbf5f588333b514805f0cfa5a8f1"
+    },
+    {
+      "path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "sha256": "d9e40adb82c7981ed5e37ec2d323321c26ae498a5ff23ef2ff50ace83f134597"
+    }
+  ],
+  "execution_accounting": {
+    "immutable_attempt_artifact_mutation_count": 0,
+    "facts_mutation_count": 0,
+    "layer4_qg_mutation_count": 0,
+    "candidate_mutation_count": 0,
+    "phase4_to_phase8_execution_count": 0,
+    "naturalization_phase_runner_execution_count": 0
+  },
+  "correction_effect": "append_only_governance_supersession_without_retroactive_attempt_rewrite"
+}

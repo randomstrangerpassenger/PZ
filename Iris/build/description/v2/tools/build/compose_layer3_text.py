@@ -30,7 +30,11 @@ if __package__ in {None, ""}:
         is_body_plan_profiles_v2,
         load_profile_resolution_rules,
     )
-    from tools.build.compose_layer3_render import compose_all_legacy, compose_all_v2
+    from tools.build.compose_layer3_render import (
+        compose_all_candidate,
+        compose_all_legacy,
+        compose_all_v2,
+    )
 else:
     from .compose_layer3_io import (
         entries_sha256,
@@ -47,7 +51,11 @@ else:
         is_body_plan_profiles_v2,
         load_profile_resolution_rules,
     )
-    from .compose_layer3_render import compose_all_legacy, compose_all_v2
+    from .compose_layer3_render import (
+        compose_all_candidate,
+        compose_all_legacy,
+        compose_all_v2,
+    )
 from tools.common.paths import V2_ROOT as ROOT
 
 
@@ -65,7 +73,6 @@ BODY_PLAN_PROFILES_PATH = DATA_DIR / "compose_profiles_v2.json"
 VNEXT_EXECUTION_DIR = ROOT / "staging" / "dvf_3_3_vnext_execution"
 TEST_TMP_ROOT = ROOT / "tests"
 BUILD_TMP_ROOT = ROOT / ".tmp_tests"
-CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV = "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"
 
 DEFAULT_MODE = "default"
 DIAGNOSTIC_RESOLVER_MODE = "diagnostic_resolver"
@@ -217,9 +224,6 @@ def resolved(path: Path) -> Path:
 
 def has_test_tmp_segment(path: Path) -> bool:
     path = resolved(path)
-    configured_root = os.environ.get(CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV)
-    if configured_root and is_under_path(path, Path(configured_root)):
-        return True
     if path == BUILD_TMP_ROOT.resolve() or BUILD_TMP_ROOT.resolve() in path.parents:
         return True
     try:
@@ -1017,6 +1021,126 @@ def build_rendered(
 
     if requeue_candidates_path is not None:
         write_jsonl(requeue_candidates_path, requeue_candidates)
+    return rendered
+
+
+def build_candidate_rendered(
+    *,
+    facts_path: Path,
+    decisions_path: Path,
+    profiles_path: Path,
+    identity_rules_path: Path,
+    precedence_rules_path: Path,
+    policy_path: Path,
+    source_proposition_inventory_path: Path,
+    body_plan_requirement_inventory_path: Path,
+    output_path: Path,
+    trace_path: Path,
+    structural_path: Path,
+    proposition_resolution_path: Path,
+    equivalence_proof_path: Path,
+    attempt_root: Path,
+    compose_context: str,
+    expected_policy_sha256: str,
+) -> dict[str, Any]:
+    if compose_context != STAGING_COMPOSE_CONTEXT:
+        raise ComposeEntrypointGuardError(
+            "CANDIDATE_PROSE_REQUIRES_STAGING_CONTEXT",
+            compose_context=compose_context,
+        )
+    candidate_paths = (
+        output_path,
+        trace_path,
+        structural_path,
+        proposition_resolution_path,
+        equivalence_proof_path,
+    )
+    invalid_path = next(
+        (
+            path
+            for path in candidate_paths
+            if not is_under_path(path, attempt_root)
+            or is_known_current_protected_path(path)
+        ),
+        None,
+    )
+    if invalid_path is not None:
+        raise ComposeEntrypointGuardError(
+            "CANDIDATE_PROSE_OUTPUT_OUTSIDE_ATTEMPT_ROOT",
+            compose_context=compose_context,
+            path=invalid_path,
+        )
+    if file_sha256(policy_path) != expected_policy_sha256:
+        raise ValueError("CANDIDATE_PROSE_POLICY_HASH_MISMATCH")
+    facts_list = load_jsonl(facts_path)
+    decisions_list = load_jsonl(decisions_path)
+    profiles = load_json(profiles_path)
+    policy = load_json(policy_path)
+    propositions = load_jsonl(source_proposition_inventory_path)
+    requirements = load_jsonl(body_plan_requirement_inventory_path)
+    propositions_by_item: dict[str, list[dict[str, Any]]] = {}
+    requirements_by_item: dict[str, list[dict[str, Any]]] = {}
+    for row in propositions:
+        propositions_by_item.setdefault(str(row["item_id"]), []).append(row)
+    for row in requirements:
+        requirements_by_item.setdefault(str(row["item_id"]), []).append(row)
+    identity_hint_target_map, precedence_rules = load_profile_resolution_rules(
+        identity_rules_path=identity_rules_path,
+        precedence_rules_path=precedence_rules_path,
+    )
+    (
+        entries,
+        traces,
+        structural_rows,
+        resolution_rows,
+        proof_rows,
+    ) = compose_all_candidate(
+        facts_list,
+        decisions_list,
+        profiles,
+        identity_hint_target_map=identity_hint_target_map,
+        precedence_rules=precedence_rules,
+        propositions_by_item=propositions_by_item,
+        requirements_by_item=requirements_by_item,
+        policy=policy,
+    )
+    rendered = {
+        "meta": {
+            "version": "dvf-3-3-korean-prose-candidate-v1",
+            "facts_sha256": file_sha256(facts_path),
+            "decisions_sha256": file_sha256(decisions_path),
+            "profiles_sha256": file_sha256(profiles_path),
+            "identity_rules_sha256": file_sha256(identity_rules_path),
+            "precedence_rules_sha256": file_sha256(precedence_rules_path),
+            "policy_sha256": file_sha256(policy_path),
+            "source_proposition_inventory_sha256": file_sha256(
+                source_proposition_inventory_path
+            ),
+            "body_plan_requirement_inventory_sha256": file_sha256(
+                body_plan_requirement_inventory_path
+            ),
+            "entries_sha256": entries_sha256(entries),
+            "stats": {
+                "total": len(entries),
+                "candidate_emitted": sum(
+                    1
+                    for entry in entries.values()
+                    if entry["source"] == "korean_prose_candidate_v1"
+                ),
+                "unadopted": sum(
+                    1
+                    for entry in entries.values()
+                    if entry["source"] == UNADOPTED_RUNTIME_STATE
+                ),
+            },
+        },
+        "entries": entries,
+    }
+    write_json_retry(output_path, rendered)
+    write_jsonl(trace_path, traces)
+    write_jsonl(structural_path, structural_rows)
+    write_jsonl(proposition_resolution_path, resolution_rows)
+    write_jsonl(equivalence_proof_path, proof_rows)
     return rendered
 
 

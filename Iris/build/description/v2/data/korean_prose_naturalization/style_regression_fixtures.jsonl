@@ -1,0 +1,10 @@
+{"fixture_id":"bad-section-fragmentation","kind":"synthetic_negative","text":"탄약이다.\n\n장전에 쓴다.\n\n상자에서 얻는다.","expected_detector_ids":["paragraph_fragmentation"]}
+{"fixture_id":"bad-internal-task","kind":"synthetic_negative","text":"장전 준비 작업에서 다루는 탄약이다.","expected_detector_ids":["banned_internal_abstraction"]}
+{"fixture_id":"bad-internal-context","kind":"synthetic_negative","text":"총기 장전 맥락에서 쓰인다.","expected_detector_ids":["banned_internal_abstraction","passive_translationese_pattern"]}
+{"fixture_id":"bad-passive","kind":"synthetic_negative","text":"여러 조리에 사용된다.","expected_detector_ids":["passive_translationese_pattern"]}
+{"fixture_id":"bad-filler","kind":"synthetic_negative","text":"관련 정보다.","expected_detector_ids":["empty_or_filler_sentence"]}
+{"fixture_id":"bad-repeated-identity","kind":"synthetic_negative","item_id":"Base.223Box","text":"탄약으로 다룬다. 탄약은 상자에서 얻는다.","expected_detector_ids":["repeated_identity_noun_window"]}
+{"fixture_id":"positive-naturalized-task","kind":"synthetic_positive","text":"장전 준비 과정에서 다루는 탄약이다.","expected_detector_ids":[]}
+{"fixture_id":"positive-single-paragraph","kind":"synthetic_positive","text":"총기 장전에 쓰는 탄창이다. 경찰 시설에서 발견된다.","expected_detector_ids":[]}
+{"fixture_id":"case-identity-upper-g","kind":"live_identity","item_id":"Base.LemonGrass","expected_exact_key_preserved":true}
+{"fixture_id":"case-identity-lower-g","kind":"live_identity","item_id":"Base.Lemongrass","expected_exact_key_preserved":true}

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import hashlib
-import json
 import sys
 import tempfile
 import unittest
@@ -12,402 +10,146 @@ V2_ROOT = Path(__file__).resolve().parents[1]
 if str(V2_ROOT) not in sys.path:
     sys.path.insert(0, str(V2_ROOT))
 
+from tools.build.run_dvf_3_3_korean_prose_naturalization import (
+    EVALUATION_SUBJECT_KIND,
+    RUNNER_MODES,
+    build_facts_authority_enrichment_request_payload,
+    constituent,
+    evaluate_human_review_decision,
+    select_rank,
+)
+from tools.build.validate_dvf_3_3_korean_prose_naturalization import (
+    validate_facts_authority_routing_contract,
+)
 
-# BEGIN DVF FOOD SEMANTIC CANDIDATE PATCH (D16 adoption required)
-class FoodSemanticNoRenderReceiptCandidateContractTest(unittest.TestCase):
-    def test_food_semantic_receipt_requires_exact_projection(self):
-        from tools.build.run_dvf_3_3_korean_prose_naturalization import (
-            consume_food_semantic_inputs_no_render,
-        )
-        from tools.build.validate_dvf_3_3_korean_prose_naturalization import (
-            validate_food_semantic_consumed_input_receipt,
-        )
 
-        staging = V2_ROOT / "staging"
-        staging.mkdir(parents=True, exist_ok=True)
-        with tempfile.TemporaryDirectory(dir=staging) as temp_dir:
-            root = Path(temp_dir)
-            facts = root / "successor.jsonl"
-            manifest = root / "successor-manifest.json"
-            schema = root / "food-schema.json"
-            proposition_license = root / "food-license.json"
-            threshold_policy = (
-                V2_ROOT
-                / "tools/build/dvf_3_3_food_semantic/"
-                "d16_candidate_sources/korean_prose_policy.json"
-            )
-            threshold_denominator_binding = (
-                V2_ROOT
-                / "tests/fixtures/dvf_3_3_food_semantic_facts_authority/"
-                "naturalization_attempt_0014_baseline_binding.json"
-            )
-            facts.write_text(
-                json.dumps(
-                    {
-                        "item_id": "Base.Test",
-                        "food_semantic_assertions": [
-                            {
-                                "proposition_id": "fsp:consumption",
-                                "fact_axis": "consumption_form",
-                                "fact_value": "solid_food",
-                                "authority_class": "curated",
-                                "authority_state": "owner_approved",
-                                "lineage_id": "approval:consumption",
-                            },
-                            {
-                                "proposition_id": "fsp:meal",
-                                "fact_axis": "meal_role",
-                                "fact_value": "meal",
-                                "authority_class": "curated",
-                                "authority_state": "owner_approved",
-                                "lineage_id": "approval:meal",
-                            }
-                        ],
-                    },
-                    sort_keys=True,
-                    separators=(",", ":"),
-                )
-                + "\n",
-                encoding="utf-8",
-            )
-            schema.write_text(
-                json.dumps(
-                    {
-                        "schema_version": "fixture",
-                        "axes": [
-                            {
-                                "axis": "consumption_form",
-                                "cardinality": "one_or_more",
-                                "values": [{"value": "solid_food"}],
-                            },
-                            {
-                                "axis": "meal_role",
-                                "cardinality": "one_or_more",
-                                "values": [{"value": "meal"}],
-                            },
-                        ],
-                    },
-                    sort_keys=True,
-                    separators=(",", ":"),
-                )
-                + "\n",
-                encoding="utf-8",
-            )
-            proposition_license.write_text(
-                json.dumps(
-                    {
-                        "schema_version": "fixture",
-                        "licenses": [
-                            {
-                                "fact_axis": "consumption_form",
-                                "fact_value": "solid_food",
-                                "automatic_eligible": False,
-                                "curated_allowed": True,
-                            },
-                            {
-                                "fact_axis": "meal_role",
-                                "fact_value": "meal",
-                                "automatic_eligible": False,
-                                "curated_allowed": True,
-                            },
-                        ],
-                    },
-                    sort_keys=True,
-                    separators=(",", ":"),
-                )
-                + "\n",
-                encoding="utf-8",
-            )
+class KoreanProseAcceptanceGateTest(unittest.TestCase):
+    def test_selection_rank_is_exact_hash_deterministic(self) -> None:
+        first = select_rank("a" * 64, "resolved_profile:tool_body", "Base.Test")
+        second = select_rank("a" * 64, "resolved_profile:tool_body", "Base.Test")
+        changed = select_rank("b" * 64, "resolved_profile:tool_body", "Base.Test")
+        self.assertEqual(first, second)
+        self.assertNotEqual(first, changed)
 
-            def digest(path: Path) -> str:
-                return hashlib.sha256(path.read_bytes()).hexdigest()
+    def test_handoff_constituent_binds_exact_file_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "candidate.json"
+            path.write_bytes(b'{"candidate":true}\n')
+            row = constituent("candidate_rendered_hash", path=path)
+            self.assertTrue(row["present"])
+            self.assertEqual(len(row["sha256"]), 64)
 
-            item_set_sha256 = hashlib.sha256(
-                b"Base.Test\n"
-            ).hexdigest()
-            expected_inventory_rows = [
-                {
-                    "item_id": "Base.Test",
-                    "proposition_id": "fsp:consumption",
-                    "fact_axis": "consumption_form",
-                    "fact_value": "solid_food",
-                    "authority_class": "curated",
-                    "source_or_approval_lineage_id": "approval:consumption",
-                    "schema_sha256": digest(schema),
-                    "proposition_license_sha256": digest(
-                        proposition_license
-                    ),
+    def test_uniform_owner_review_binds_exact_sample(self) -> None:
+        selected = ["Base.A", "Base.B"]
+        blocker_count, errors = evaluate_human_review_decision(
+            decision={
+                "decision_mode": "exact_sample_uniform_owner_approval",
+                "candidate_rendered_hash": "a" * 64,
+                "selected_ordered_digest": "b" * 64,
+                "reviewed_denominator": 2,
+                "reviewed_item_id_binding": (
+                    "human_review_sample_manifest.selected_item_ids"
+                ),
+                "uniform_review": {
+                    "readability": "pass",
+                    "naturalness": "pass",
+                    "semantic_fidelity": "pass",
+                    "public_suitability": "pass",
                 },
+                "compiler_or_tool_generated_human_judgment": False,
+            },
+            candidate_hash="a" * 64,
+            selected_ordered_digest="b" * 64,
+            ordered_selected=selected,
+        )
+        self.assertEqual(blocker_count, 0)
+        self.assertEqual(errors, [])
+
+    def test_scope_stops_at_phase8_handoff_build(self) -> None:
+        self.assertIn("phase8-publish-handoff", RUNNER_MODES)
+        self.assertNotIn("phase8-consume-publish-result", RUNNER_MODES)
+        self.assertFalse(any(value.startswith("phase9") for value in RUNNER_MODES))
+        self.assertEqual(
+            EVALUATION_SUBJECT_KIND,
+            "dvf_3_3_korean_naturalization_candidate",
+        )
+
+    def test_layer3_source_deficiency_routes_to_facts_authority(self) -> None:
+        request = build_facts_authority_enrichment_request_payload(
+            blocking_conditions=[
                 {
-                    "item_id": "Base.Test",
-                    "proposition_id": "fsp:meal",
-                    "fact_axis": "meal_role",
-                    "fact_value": "meal",
-                    "authority_class": "curated",
-                    "source_or_approval_lineage_id": "approval:meal",
-                    "schema_sha256": digest(schema),
-                    "proposition_license_sha256": digest(
-                        proposition_license
-                    ),
-                },
-            ]
-            expected_inventory_bytes = "".join(
-                json.dumps(
-                    row,
-                    ensure_ascii=False,
-                    sort_keys=True,
-                    separators=(",", ":"),
-                )
-                + "\n"
-                for row in expected_inventory_rows
-            ).encode("utf-8")
-            expected_inventory_sha256 = hashlib.sha256(
-                expected_inventory_bytes
-            ).hexdigest()
-            manifest.write_text(
-                json.dumps(
-                    {
-                        "facts": {
-                            "path": str(facts),
-                            "sha256": digest(facts),
-                        },
-                        "food_semantic_authority": {
-                            "schema_sha256": digest(schema),
-                            "proposition_license_sha256": digest(
-                                proposition_license
-                            ),
-                            "target_member_count": 1,
-                            "target_member_set_sha256": item_set_sha256,
-                            "required_fact_axes": [
-                                "consumption_form",
-                                "meal_role",
-                            ],
-                            "proposition_count": 2,
-                            "proposition_inventory_sha256": (
-                                expected_inventory_sha256
-                            ),
-                        },
-                    },
-                    sort_keys=True,
-                    separators=(",", ":"),
-                )
-                + "\n",
-                encoding="utf-8",
-            )
-            consumed = consume_food_semantic_inputs_no_render(
-                facts_path=facts,
-                manifest_path=manifest,
-                schema_path=schema,
-                proposition_license_path=proposition_license,
-                explicit_non_current_input_override=True,
-                threshold_policy_path=threshold_policy,
-                threshold_denominator_binding_path=(
-                    threshold_denominator_binding
-                ),
-            )
-            receipt = consumed["receipt"]
-            inventory_bytes = "".join(
-                json.dumps(
-                    row,
-                    ensure_ascii=False,
-                    sort_keys=True,
-                    separators=(",", ":"),
-                )
-                + "\n"
-                for row in consumed["inventory"]
-            ).encode("utf-8")
-            expected_projection = {
-                "inventory_sha256": expected_inventory_sha256,
-                "proposition_count": 2,
-                "item_count": 1,
-                "item_set_sha256": item_set_sha256,
-                "required_fact_axes": [
-                    "consumption_form",
-                    "meal_role",
-                ],
-                "minimum_meaningful_partition": 1,
-                "meaningful_partition_count": 1,
-            }
-            selected = {
-                "successor_facts_path": str(facts),
-                "successor_facts_sha256": digest(facts),
-                "successor_input_manifest_path": str(manifest),
-                "successor_input_manifest_sha256": digest(manifest),
-                "approved_food_semantic_schema_path": str(schema),
-                "approved_food_semantic_schema_sha256": digest(schema),
-                "approved_proposition_licensing_contract_path": str(
-                    proposition_license
-                ),
-                "approved_proposition_licensing_contract_sha256": digest(
-                    proposition_license
-                ),
-                "target_member_count": 1,
-                "target_member_set_sha256": item_set_sha256,
-                "required_fact_axes": [
-                    "consumption_form",
-                    "meal_role",
-                ],
-                "minimum_meaningful_partition": 1,
-            }
-            self.assertEqual(inventory_bytes, expected_inventory_bytes)
-            self.assertEqual(receipt["opened_input_count"], 4)
-            self.assertEqual(receipt["current_facts_read_count"], 0)
-            self.assertEqual(receipt["render_write_count"], 0)
-            self.assertEqual(receipt["food_semantic_proposition_count"], 2)
-            deferment = consumed[
-                "canonical_text_skeleton_deferment_report"
-            ]
-            self.assertEqual(deferment["status"], "PASS")
-            self.assertEqual(
-                deferment["canonical_text_skeleton_evaluation_count"], 0
-            )
-            self.assertEqual(
-                deferment[
-                    "semantic_profile_as_text_skeleton_substitution_count"
-                ],
-                0,
-            )
-            self.assertEqual(
-                consumed["threshold_authority_binding"][
-                    "detector_symbol"
-                ],
-                "text_skeleton",
-            )
-            self.assertEqual(
-                validate_food_semantic_consumed_input_receipt(
-                    receipt,
-                    selected,
-                    repository_root=root,
-                    expected_projection=expected_projection,
-                )["status"],
-                "PASS",
-            )
+                    "semantic_condition_digest": "a" * 64,
+                    "item_count": 317,
+                    "required_partition_count": 4,
+                }
+            ],
+            blocked_item_count=317,
+            current_facts_authority_path=(
+                "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+            ),
+            current_facts_authority_sha256="b" * 64,
+        )
 
-            wrong_predecessor = dict(selected)
-            wrong_predecessor["successor_facts_sha256"] = "e" * 64
-            predecessor_drift = validate_food_semantic_consumed_input_receipt(
-                receipt,
-                wrong_predecessor,
-                repository_root=root,
-                expected_projection=expected_projection,
-            )
-            self.assertEqual(predecessor_drift["status"], "FAIL")
-            self.assertIn("facts_sha256", predecessor_drift["mismatches"])
+        self.assertEqual(
+            request["status"],
+            "blocked_facts_authority_information_insufficient",
+        )
+        self.assertEqual(request["owner"], "dvf_3_3_facts_authority")
+        self.assertEqual(request["authority_domain"], "layer3_3_facts")
+        self.assertFalse(request["layer4_qg_routing_allowed"])
+        self.assertFalse(request["layer4_qg_source_authority_allowed"])
+        self.assertEqual(validate_facts_authority_routing_contract(request), [])
 
-            wrong_candidate = dict(selected)
-            wrong_candidate["successor_input_manifest_sha256"] = "f" * 64
-            candidate_drift = validate_food_semantic_consumed_input_receipt(
-                receipt,
-                wrong_candidate,
-                repository_root=root,
-                expected_projection=expected_projection,
-            )
-            self.assertEqual(candidate_drift["status"], "FAIL")
-            self.assertIn("manifest_sha256", candidate_drift["mismatches"])
+    def test_validator_rejects_automatic_layer4_qg_routing(self) -> None:
+        request = build_facts_authority_enrichment_request_payload(
+            blocking_conditions=[],
+            blocked_item_count=0,
+            current_facts_authority_path=(
+                "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+            ),
+            current_facts_authority_sha256="b" * 64,
+        )
+        request["schema_version"] = "dvf-3-3-source-qg-return-request-v1"
+        request["status"] = "blocked_source_qg_information_insufficient"
+        request["owner"] = "source_qg"
+        request["routing_target"] = "layer4_qg"
+        request["layer4_qg_routing_allowed"] = True
+        request["layer4_qg_source_authority_allowed"] = True
 
-            dropped = dict(receipt)
-            dropped["food_semantic_proposition_count"] = 1
-            self.assertEqual(
-                validate_food_semantic_consumed_input_receipt(
-                    dropped,
-                    selected,
-                    repository_root=root,
-                    expected_projection=expected_projection,
-                )["status"],
-                "FAIL",
-            )
-            invented = dict(receipt)
-            invented["food_semantic_proposition_inventory_sha256"] = "0" * 64
-            self.assertEqual(
-                validate_food_semantic_consumed_input_receipt(
-                    invented,
-                    selected,
-                    repository_root=root,
-                    expected_projection=expected_projection,
-                )["status"],
-                "FAIL",
-            )
-            missing_axis = dict(receipt)
-            missing_axis["required_axis_missing_item_count"] = 1
-            self.assertEqual(
-                validate_food_semantic_consumed_input_receipt(
-                    missing_axis,
-                    selected,
-                    repository_root=root,
-                    expected_projection=expected_projection,
-                )["status"],
-                "FAIL",
-            )
-            approximate_skeleton = dict(receipt)
-            approximate_skeleton[
-                "semantic_profile_as_text_skeleton_substitution_count"
-            ] = 1
-            self.assertEqual(
-                validate_food_semantic_consumed_input_receipt(
-                    approximate_skeleton,
-                    selected,
-                    repository_root=root,
-                    expected_projection=expected_projection,
-                )["status"],
-                "FAIL",
-            )
-            forbidden_maximum_claim = dict(receipt)
-            forbidden_maximum_claim["maximum_same_skeleton_group"] = 1
-            self.assertEqual(
-                validate_food_semantic_consumed_input_receipt(
-                    forbidden_maximum_claim,
-                    selected,
-                    repository_root=root,
-                    expected_projection=expected_projection,
-                )["status"],
-                "FAIL",
-            )
+        errors = validate_facts_authority_routing_contract(request)
 
-            with self.assertRaises(ValueError):
-                consume_food_semantic_inputs_no_render(
-                    facts_path=facts,
-                    facts_sha256="0" * 64,
-                    manifest_path=manifest,
-                    schema_path=schema,
-                    proposition_license_path=proposition_license,
-                    explicit_non_current_input_override=True,
-                    threshold_policy_path=threshold_policy,
-                    threshold_denominator_binding_path=(
-                        threshold_denominator_binding
-                    ),
-                )
-            with self.assertRaises(ValueError):
-                consume_food_semantic_inputs_no_render(
-                    facts_path=facts,
-                    manifest_path=manifest,
-                    schema_path=schema,
-                    proposition_license_path=proposition_license,
-                    explicit_non_current_input_override=False,
-                    threshold_policy_path=threshold_policy,
-                    threshold_denominator_binding_path=(
-                        threshold_denominator_binding
-                    ),
-                )
-            bad_manifest = root / "wrong-candidate-manifest.json"
-            bad_manifest.write_text(
-                json.dumps(
-                    {"facts": {"path": str(facts), "sha256": "9" * 64}},
-                    sort_keys=True,
-                    separators=(",", ":"),
-                )
-                + "\n",
-                encoding="utf-8",
-                )
-            with self.assertRaises(ValueError):
-                consume_food_semantic_inputs_no_render(
-                    facts_path=facts,
-                    manifest_path=bad_manifest,
-                    schema_path=schema,
-                    proposition_license_path=proposition_license,
-                    explicit_non_current_input_override=True,
-                    threshold_policy_path=threshold_policy,
-                    threshold_denominator_binding_path=(
-                        threshold_denominator_binding
-                    ),
-                )
-# END DVF FOOD SEMANTIC CANDIDATE PATCH
+        self.assertIn("facts_authority_schema_invalid", errors)
+        self.assertIn("facts_authority_status_invalid", errors)
+        self.assertIn("facts_authority_owner_invalid", errors)
+        self.assertIn("facts_authority_routing_target_invalid", errors)
+        self.assertIn(
+            "layer3_source_deficiency_auto_routed_to_layer4_qg",
+            errors,
+        )
+        self.assertIn(
+            "layer4_qg_promoted_to_layer3_facts_authority",
+            errors,
+        )
+
+    def test_enrichment_request_forbids_layer4_qg_fallbacks(self) -> None:
+        request = build_facts_authority_enrichment_request_payload(
+            blocking_conditions=[],
+            blocked_item_count=0,
+            current_facts_authority_path=(
+                "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+            ),
+            current_facts_authority_sha256="b" * 64,
+        )
+
+        self.assertIn(
+            "automatic_layer4_qg_routing",
+            request["forbidden_fallbacks"],
+        )
+        self.assertIn(
+            "layer4_trace_as_layer3_facts_authority",
+            request["forbidden_fallbacks"],
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()

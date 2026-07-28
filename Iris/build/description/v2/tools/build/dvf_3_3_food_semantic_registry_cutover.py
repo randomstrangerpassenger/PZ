@@ -1583,6 +1583,19 @@ def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[st
         error_release_guard=apply_error_release_guard,
     ):
         startup_recovery(exclude_attempt=attempt_id)
+        locked_authorization, locked_authorization_sha256 = (
+            validate_owner_authorization(root)
+        )
+        require_equal(
+            locked_authorization,
+            authorization,
+            "locked_owner_authorization_payload",
+        )
+        require_equal(
+            locked_authorization_sha256,
+            authorization_sha256,
+            "locked_owner_authorization_sha256",
+        )
         validate_apply_repository_readpoint(root)
         require_equal(
             {

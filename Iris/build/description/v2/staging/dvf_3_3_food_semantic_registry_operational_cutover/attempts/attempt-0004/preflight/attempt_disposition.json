@@ -1,0 +1,18 @@
+{
+  "schema_version": "food-semantic-registry-cutover-attempt-disposition-v1",
+  "status": "SUPERSEDED_AFTER_REVIEW_FINDINGS_BEFORE_AUTHORIZATION",
+  "attempt_id": "attempt-0004",
+  "implementation_commit": "07f9ac2592b62cde2e8bd6b108c4cf18d0af3c67",
+  "implementation_tree": "55693d41cfd7a7be3e4aa7b5627f480d2010a25c",
+  "candidate_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "candidate_current_manifest_sha256": "019003754eda72318374ef7bd951c3c243d82a17d886cdc81cb5f74a427aa152",
+  "reason": "Codex Reviewer found a direct canonical RTC validator staleness bypass and a cross-attempt nonce replay recheck TOCTOU under the round lock",
+  "pre_cutover_review_complete": false,
+  "pre_cutover_review_interim_finding_count": 2,
+  "owner_authorization_issued": false,
+  "authorization_nonce_consumed": false,
+  "live_write_count": 0,
+  "tests_executed": false,
+  "same_attempt_retry_allowed": false,
+  "successor_attempt_required": true
+}

@@ -109,6 +109,22 @@ def reject_stale_current_source_alignment(
         )
 
 
+def enforce_explicit_current_source_alignment(policy_context: str) -> None:
+    if policy_context not in {"candidate", "canonical_durable"}:
+        return
+    manifest = read_json(DEFAULT_REQUIRED_MANIFEST)
+    selection = manifest.get("registry_runtime_compatibility")
+    if not isinstance(selection, dict):
+        raise rtc.CompatibilityError(
+            "compatibility_policy_context_required",
+            "Live required manifest has no registry compatibility selection",
+        )
+    reject_stale_current_source_alignment(
+        selection,
+        isolated_candidate_probe=policy_context == "candidate",
+    )
+
+
 def validate_toolchain_freshness(path: Path) -> dict[str, Any]:
     manifest = read_json(path)
     rows = manifest.get("rows")
@@ -590,6 +606,7 @@ def unauthorized_group_count(
 
 
 def command_bridge_preflight(args: argparse.Namespace) -> int:
+    enforce_explicit_current_source_alignment(args.policy_context)
     input_path = Path(args.bridge_preflight_input_manifest).resolve()
     output_path = Path(args.out).resolve()
     inputs = read_json(input_path)
@@ -809,6 +826,7 @@ def validate_four_surfaces(
 
 
 def command_surface_validation(args: argparse.Namespace) -> int:
+    enforce_explicit_current_source_alignment(args.policy_context)
     output_path = Path(args.out).resolve()
     report = validate_four_surfaces(
         manifest_path=Path(args.surface_input_manifest).resolve(),
@@ -1269,6 +1287,7 @@ def command_required_gate(args: argparse.Namespace) -> int:
 
 
 def command_contract_only(args: argparse.Namespace) -> int:
+    enforce_explicit_current_source_alignment(args.policy_context)
     binding = validate_binding_contract(
         policy_context=args.policy_context,
         policy_path=Path(args.policy).resolve(),

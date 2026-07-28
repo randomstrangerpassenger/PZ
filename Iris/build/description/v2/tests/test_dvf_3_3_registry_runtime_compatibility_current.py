@@ -93,6 +93,45 @@ class RegistryRuntimeCompatibilityCurrentRouteTest(unittest.TestCase):
                 )
                 self.assertFalse((Path(temporary) / "required-gate-temp").exists())
 
+    def test_explicit_canonical_surface_validation_cannot_bypass_staleness(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / "surface.json"
+            completed = subprocess.run(
+                [
+                    sys.executable,
+                    "-B",
+                    str(VALIDATOR),
+                    "--surface-validation",
+                    "--surface-input-manifest",
+                    str(root / "unread-surface.json"),
+                    "--policy-context",
+                    "canonical_durable",
+                    "--policy",
+                    str(root / "unread-policy.json"),
+                    "--disposition",
+                    str(root / "unread-disposition.json"),
+                    "--binding-manifest",
+                    str(root / "unread-binding.json"),
+                    "--out",
+                    str(output),
+                ],
+                cwd=REPO_ROOT,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
+            self.assertEqual(completed.returncode, 2, completed.stderr)
+            payload = json.loads(output.read_text(encoding="utf-8"))
+            self.assertEqual(payload["status"], "BLOCKED")
+            self.assertEqual(
+                payload["failure_code"],
+                "registry_runtime_compatibility_current_source_stale",
+            )
+            self.assertFalse((root / "unread-surface.json").exists())
+
 
 if __name__ == "__main__":
     unittest.main()

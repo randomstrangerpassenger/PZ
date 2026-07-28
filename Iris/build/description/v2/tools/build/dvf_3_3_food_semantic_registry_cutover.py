@@ -1128,6 +1128,16 @@ def command_prepare(attempt_id: str) -> dict[str, Any]:
         }
     ):
         recovered = startup_recovery()
+        require_hash(
+            CURRENT_FACTS,
+            CURRENT_FACTS_PREIMAGE_SHA256,
+            "locked_prepare_current_facts_preimage",
+        )
+        require_hash(
+            CURRENT_MANIFEST,
+            CURRENT_MANIFEST_PREIMAGE_SHA256,
+            "locked_prepare_current_manifest_preimage",
+        )
         root.mkdir(parents=True)
         facts_candidate, manifest_candidate = candidate_paths(root)
         write_once_bytes(facts_candidate, G2_SUCCESSOR_FACTS.read_bytes())

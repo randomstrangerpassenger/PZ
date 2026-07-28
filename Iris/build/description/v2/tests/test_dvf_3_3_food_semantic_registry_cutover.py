@@ -15,7 +15,7 @@ if str(V2_ROOT) not in sys.path:
 from tools.build import dvf_3_3_food_semantic_registry_cutover as cutover
 
 
-ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0001"
+ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0002"
 
 
 class FoodSemanticRegistryCutoverTest(unittest.TestCase):

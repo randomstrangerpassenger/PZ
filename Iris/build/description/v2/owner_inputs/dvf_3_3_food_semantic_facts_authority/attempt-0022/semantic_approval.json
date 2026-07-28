@@ -1,0 +1,22 @@
+{
+  "approval_time": "2026-07-28T23:10:50.8122760+09:00",
+  "approved_automatic_review_denominator": 84,
+  "approved_curation_item_cap": 317,
+  "approved_curation_proposition_cap": 634,
+  "approved_proposal_ledger_sha256": "576f7c5093b6d50e5a1fddb81d5f11cd05b7bd96c2ec9e01f394811c4222f576",
+  "approved_review_table_sha256": "662e4c5cfc9339df1e6792703b4fe86ab8f0ee720a77100693a82cabe8914e6f",
+  "attempt_id": "attempt-0022",
+  "automatic_food_fact_ledger_sha256": "13810a9525b2187764cb5e6a0993706a40ad06051e01fc1336d9b9cb5bf9bee0",
+  "curated_fact_ledger_sha256": "f33819b4dadc0b63e3b34b7c7a88dd96d0243885a26744a958c706db1b5a7e0a",
+  "curation_value_owner_approval_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/attempt-0022/curation_value_owner_approval.json",
+  "curation_value_owner_approval_sha256": "c1152fff8268b44509b8f8be6fe3e772b5f6a9aabd09166ed968398c5de211eb",
+  "food_semantic_schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+  "implementation_complete_bundle_sha256": "e308cdff38769cdbfec51b0ced399ce79be3fb3d67f39efae9037a5692f0baf2",
+  "layer4_automatic_authority_credit": 0,
+  "owner_message": "승인",
+  "proposition_licensing_contract_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+  "schema_version": "food-semantic-post-implementation-semantic-approval-v1",
+  "semantic_approver": "repository_owner",
+  "signal_to_fact_mappings_sha256": "b5da04219bcd7457717e82c9d346c102f8a4c72a871595d5cf299c4aa4f28260",
+  "status": "PASS"
+}

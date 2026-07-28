@@ -1,0 +1,12 @@
+{
+  "actual_consumer_derived_meaningful_partition_count": 17,
+  "actual_inventory_sha256": "0c3ef45f54d60fc135a5c56776a0afc9f4f6efe80e880cc90d058bfabdff8b29",
+  "actual_proposition_count": 718,
+  "dropped_proposition_count": 0,
+  "exact_inventory_match": true,
+  "expected_inventory_sha256": "0c3ef45f54d60fc135a5c56776a0afc9f4f6efe80e880cc90d058bfabdff8b29",
+  "expected_proposition_count": 718,
+  "invented_proposition_count": 0,
+  "schema_version": "food-semantic-phase2-proposition-reconciliation-v1",
+  "status": "PASS"
+}

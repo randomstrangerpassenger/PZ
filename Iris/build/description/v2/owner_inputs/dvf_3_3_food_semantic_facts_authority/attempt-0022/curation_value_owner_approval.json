@@ -1,0 +1,17 @@
+{
+  "approval_time": "2026-07-28T23:10:50.8122760+09:00",
+  "approved_curated_ledger_path": "Iris/build/description/v2/owner_inputs/dvf_3_3_food_semantic_facts_authority/attempt-0022/curated_fact_ledger.approved.jsonl",
+  "approved_curated_ledger_sha256": "f33819b4dadc0b63e3b34b7c7a88dd96d0243885a26744a958c706db1b5a7e0a",
+  "approved_item_count": 317,
+  "approved_proposal_commit": "a87ded0cd31770dfd0fae88a80556b25ef2855eb",
+  "approved_proposal_ledger_sha256": "576f7c5093b6d50e5a1fddb81d5f11cd05b7bd96c2ec9e01f394811c4222f576",
+  "approved_proposition_count": 634,
+  "approved_review_table_sha256": "662e4c5cfc9339df1e6792703b4fe86ab8f0ee720a77100693a82cabe8914e6f",
+  "approver_identity": "repository_owner",
+  "attempt_id": "attempt-0022",
+  "layer4_automatic_authority_credit": 0,
+  "owner_message": "승인",
+  "schema_version": "food-semantic-curation-value-owner-approval-v1",
+  "semantic_value_approval_consumed": true,
+  "status": "PASS"
+}

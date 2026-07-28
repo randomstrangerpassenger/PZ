@@ -1,0 +1,15 @@
+{
+  "O-12_downstream_owner": "registry-adopted fresh Naturalization attempt",
+  "O-12_in_round_disposition": "deferred_without_gate_credit",
+  "actual_candidate_text_ko_required": true,
+  "canonical_same_skeleton_acceptance_claim_allowed": false,
+  "canonical_text_skeleton_evaluation_count": 0,
+  "canonical_text_skeleton_evaluation_state": "deferred_to_registry_adopted_fresh_naturalization_attempt",
+  "facts_round_sealed_successor_handoff_complete_claim_allowed": true,
+  "maximum_same_skeleton_group_claim_emitted_count": 0,
+  "producer": "naturalization_actual_phase2_consumer",
+  "render_write_count": 0,
+  "schema_version": "food-semantic-canonical-text-skeleton-deferment-v1",
+  "semantic_profile_as_text_skeleton_substitution_count": 0,
+  "status": "PASS"
+}

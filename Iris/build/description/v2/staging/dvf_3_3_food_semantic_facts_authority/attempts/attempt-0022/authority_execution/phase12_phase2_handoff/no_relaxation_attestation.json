@@ -1,0 +1,14 @@
+{
+  "detector_execution_count": 0,
+  "detector_modification_count": 0,
+  "detector_source_commit": "36021201ab24dd5c1cf5525d33fcd0d11577e795",
+  "detector_source_git_blob_id": "44996ed2e658e06418ebb9277d6cce5aad00af55",
+  "detector_symbol": "text_skeleton",
+  "policy_modification_count": 0,
+  "policy_sha256": "50c2fdf90e43b2a44b7aed78115fa57f6555b6013c5224bb7080de005b83a9de",
+  "policy_source_sha256": "50c2fdf90e43b2a44b7aed78115fa57f6555b6013c5224bb7080de005b83a9de",
+  "schema_version": "food-semantic-actual-no-relaxation-v1",
+  "status": "PASS",
+  "threshold_relaxation_count": 0,
+  "waiver_added_count": 0
+}

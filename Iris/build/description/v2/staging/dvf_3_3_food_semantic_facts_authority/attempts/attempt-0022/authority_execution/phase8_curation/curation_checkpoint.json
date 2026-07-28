@@ -1,0 +1,13 @@
+{
+  "accepted_count": 634,
+  "authority_execution_complete": true,
+  "authority_execution_started": true,
+  "committed_event_count": 1902,
+  "event_ledger_sha256": "8363ba6c08aba9682ac7c97bad4c0bb3bf8b8cbfca5d24749c7c0fdec145b8ad",
+  "last_committed_event_id": "fsp:curated:d477720310416144ef00b039:accepted:1902",
+  "last_fully_committed_batch_id": "fsb:21103a986b11c9764d579472",
+  "next_canonical_cursor": null,
+  "queue_sha256": "69ac07202f47cc0163c4afabbdfb83604e7de10089927d79f8ffe7626d7ffbd9",
+  "rejected_count": 0,
+  "rework_count": 0
+}

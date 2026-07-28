@@ -1,0 +1,13 @@
+{
+  "atomic_cutover_required": true,
+  "correction_operational_route": "separate_reviewed_registry_operational_cutover_plan_and_additive_correction_successor",
+  "correction_owner": "Iris Artifact Registry owner",
+  "current_mutation_requested_by_this_round": false,
+  "partial_or_dual_current_allowed": false,
+  "predecessor_current_reentry_allowed": false,
+  "schema_version": "food-semantic-registry-cutover-request-v1",
+  "selected_successor_input_binding_sha256": "bbea40be6c9b174fbc1e25de217646e13584dde1e9fcb18fa424ccd8bf3f2f42",
+  "status": "future_registry_review_required",
+  "successor_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "successor_input_manifest_sha256": "d1dea3b7b871fac90fc6a15ec18d95641a52d566cd62d14ffb0114c2bfb0098a"
+}

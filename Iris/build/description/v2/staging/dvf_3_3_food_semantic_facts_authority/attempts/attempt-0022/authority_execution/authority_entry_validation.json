@@ -1,0 +1,42 @@
+{
+  "D5_selected_option": "allow_layer4_as_curated_review_context",
+  "blocking_predicates": [],
+  "bundle_sha256": "e308cdff38769cdbfec51b0ced399ce79be3fb3d67f39efae9037a5692f0baf2",
+  "curated_item_count": 317,
+  "curated_proposition_count": 634,
+  "curated_queue_missing_or_extra_count": 0,
+  "curated_validation": {
+    "curated_approval_missing_count": 0,
+    "curated_approval_state_violation_count": 0,
+    "curated_authority_class_violation_count": 0,
+    "curated_duplicate_proposition_count": 0,
+    "curated_layer4_policy_violation_count": 0,
+    "curated_reviewed_source_set_violation_count": 0,
+    "curated_schema_identity_violation_count": 0,
+    "curated_schema_violation_count": 0
+  },
+  "expected_semantic_hashes": {
+    "automatic_food_fact_ledger_sha256": "13810a9525b2187764cb5e6a0993706a40ad06051e01fc1336d9b9cb5bf9bee0",
+    "curated_fact_ledger_sha256": "f33819b4dadc0b63e3b34b7c7a88dd96d0243885a26744a958c706db1b5a7e0a",
+    "food_semantic_schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+    "proposition_licensing_contract_sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd",
+    "signal_to_fact_mappings_sha256": "b5da04219bcd7457717e82c9d346c102f8a4c72a871595d5cf299c4aa4f28260"
+  },
+  "implementation_bundle_artifact_verification": {
+    "artifact_manifest_sha256_match": true,
+    "artifact_mismatch_count": 0,
+    "artifact_mismatches": [],
+    "blocking_predicates": [],
+    "bundle_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/implementation_complete_bundle.json",
+    "bundle_sha256": "e308cdff38769cdbfec51b0ced399ce79be3fb3d67f39efae9037a5692f0baf2",
+    "computed_artifact_manifest_sha256": "e4c08fda656d025197eb34bb4c3522c34e2fb47c55cf7da5f6f0a66981d8acaa",
+    "declared_artifact_count": 196,
+    "status": "PASS",
+    "verified_artifact_count": 196
+  },
+  "missing_owner_decision_ids": [],
+  "owner_decision_option_mismatches": [],
+  "required_axis_missing_by_item": {},
+  "required_axis_missing_item_count": 0,
+  "status": "PASS"
+}

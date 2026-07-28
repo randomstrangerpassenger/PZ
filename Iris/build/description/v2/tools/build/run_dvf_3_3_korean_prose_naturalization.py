@@ -1427,7 +1427,13 @@ def build_phase2(attempt_id: str, attempt_root: Path) -> dict[str, Any]:
                     assertion.get("authority_state") in {"approved", "owner_approved"},
                     isinstance(assertion.get("proposition_id"), str),
                     bool(assertion.get("proposition_id")),
-                    isinstance(assertion.get("lineage_id"), dict),
+                    (
+                        isinstance(assertion.get("lineage_id"), dict)
+                        or (
+                            isinstance(assertion.get("lineage_id"), str)
+                            and bool(assertion.get("lineage_id"))
+                        )
+                    ),
                 )
             )
             if not assertion_valid:

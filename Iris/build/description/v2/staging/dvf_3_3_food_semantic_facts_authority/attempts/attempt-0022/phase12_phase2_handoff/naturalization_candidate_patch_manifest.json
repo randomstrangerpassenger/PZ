@@ -1,0 +1,129 @@
+{
+  "D16_owner_authorization_consumed": false,
+  "candidate_only_file_count": 4,
+  "candidate_patch_forbidden_symbol_count": 0,
+  "candidate_patch_missing_symbol_count": 0,
+  "candidate_patch_out_of_scope_symbol_count": 0,
+  "candidate_patch_preimage_mismatch_count": 0,
+  "existing_D16_adoption_file_count": 0,
+  "files": [
+    {
+      "affected_symbols": [
+        "EXPECTED_CANONICAL_DETECTOR_GIT_BLOB_ID",
+        "EXPECTED_THRESHOLD_DENOMINATOR_BINDING_SHA256",
+        "EXPECTED_THRESHOLD_POLICY_GIT_BLOB_ID",
+        "EXPECTED_THRESHOLD_POLICY_SHA256",
+        "EXPECTED_THRESHOLD_POLICY_SOURCE_COMMIT",
+        "REPEATED_SKELETON_DETECTOR_ID",
+        "_canonical_jsonl_bytes",
+        "_load_jsonl",
+        "_member_set_sha256",
+        "_sha256_file",
+        "build_canonical_text_skeleton_deferment",
+        "build_food_semantic_no_render_receipt",
+        "build_food_semantic_proposition_inventory",
+        "consume_food_semantic_inputs_no_render"
+      ],
+      "candidate_forbidden_symbol_count": 0,
+      "candidate_missing_symbol_count": 0,
+      "candidate_out_of_scope_symbol_count": 0,
+      "candidate_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/run_dvf_3_3_korean_prose_naturalization.py",
+      "candidate_top_level_symbols": [
+        "EXPECTED_CANONICAL_DETECTOR_GIT_BLOB_ID",
+        "EXPECTED_THRESHOLD_DENOMINATOR_BINDING_SHA256",
+        "EXPECTED_THRESHOLD_POLICY_GIT_BLOB_ID",
+        "EXPECTED_THRESHOLD_POLICY_SHA256",
+        "EXPECTED_THRESHOLD_POLICY_SOURCE_COMMIT",
+        "REPEATED_SKELETON_DETECTOR_ID",
+        "_canonical_jsonl_bytes",
+        "_load_jsonl",
+        "_member_set_sha256",
+        "_sha256_file",
+        "build_canonical_text_skeleton_deferment",
+        "build_food_semantic_no_render_receipt",
+        "build_food_semantic_proposition_inventory",
+        "consume_food_semantic_inputs_no_render"
+      ],
+      "existing_symbol_replacement_count": 0,
+      "patch_kind": "create_absent_target_after_D16_authorization",
+      "preimage_sha256": null,
+      "preimage_state": "absent_at_g0_v0",
+      "replacement_sha256": "4976adb54de9d736fcffea8e85d91e57bd928fa890d9b731235877ad39608dfa",
+      "symbol_extraction_scope": "functions_classes_and_module_assignments_excluding_import_bindings",
+      "target_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py"
+    },
+    {
+      "affected_symbols": [
+        "validate_food_semantic_consumed_input_receipt"
+      ],
+      "candidate_forbidden_symbol_count": 0,
+      "candidate_missing_symbol_count": 0,
+      "candidate_out_of_scope_symbol_count": 0,
+      "candidate_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/validate_dvf_3_3_korean_prose_naturalization.py",
+      "candidate_top_level_symbols": [
+        "validate_food_semantic_consumed_input_receipt"
+      ],
+      "existing_symbol_replacement_count": 0,
+      "patch_kind": "create_absent_target_after_D16_authorization",
+      "preimage_sha256": null,
+      "preimage_state": "absent_at_g0_v0",
+      "replacement_sha256": "3c400ec19e58a47da6305dd2e5ed299e79290d8920d1ee46f0a1d054128ef3ce",
+      "symbol_extraction_scope": "functions_classes_and_module_assignments_excluding_import_bindings",
+      "target_path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py"
+    },
+    {
+      "affected_symbols": [
+        "FoodSemanticNoRenderReceiptCandidateContractTest",
+        "V2_ROOT"
+      ],
+      "candidate_forbidden_symbol_count": 0,
+      "candidate_missing_symbol_count": 0,
+      "candidate_out_of_scope_symbol_count": 0,
+      "candidate_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_acceptance_gate.py",
+      "candidate_top_level_symbols": [
+        "FoodSemanticNoRenderReceiptCandidateContractTest",
+        "V2_ROOT"
+      ],
+      "existing_symbol_replacement_count": 0,
+      "patch_kind": "create_absent_target_after_D16_authorization",
+      "preimage_sha256": null,
+      "preimage_state": "absent_at_g0_v0",
+      "replacement_sha256": "7851f8c10285f04ea1ef8c33a4a8ffea6b010533ae6d9d0dc3fc05dc208ec87b",
+      "symbol_extraction_scope": "functions_classes_and_module_assignments_excluding_import_bindings",
+      "target_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py"
+    },
+    {
+      "affected_symbols": [
+        "FoodSemanticPhase4To8PreservationCandidateContractTest",
+        "V2_ROOT"
+      ],
+      "candidate_forbidden_symbol_count": 0,
+      "candidate_missing_symbol_count": 0,
+      "candidate_out_of_scope_symbol_count": 0,
+      "candidate_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase12_phase2_handoff/d16_candidate_patch/test_dvf_3_3_korean_prose_semantic_preservation.py",
+      "candidate_top_level_symbols": [
+        "FoodSemanticPhase4To8PreservationCandidateContractTest",
+        "V2_ROOT"
+      ],
+      "existing_symbol_replacement_count": 0,
+      "patch_kind": "create_absent_target_after_D16_authorization",
+      "preimage_sha256": null,
+      "preimage_state": "absent_at_g0_v0",
+      "replacement_sha256": "ce7ac930d761b04c178e4adc790425ae534bb91c63116bc2b1c0f89a83cefff1",
+      "symbol_extraction_scope": "functions_classes_and_module_assignments_excluding_import_bindings",
+      "target_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py"
+    }
+  ],
+  "forbidden_symbols": [
+    "publish",
+    "render",
+    "run_phase4",
+    "run_phase5",
+    "run_phase6",
+    "run_phase7",
+    "run_phase8"
+  ],
+  "missing_future_preimage_count": 4,
+  "schema_version": "food-semantic-naturalization-candidate-patch-v1",
+  "status": "candidate_pending_D16_adoption"
+}

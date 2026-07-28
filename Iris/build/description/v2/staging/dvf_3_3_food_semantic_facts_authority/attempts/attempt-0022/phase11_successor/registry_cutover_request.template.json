@@ -1,0 +1,12 @@
+{
+  "atomic_allowed_states": [
+    "predecessor_current_intact",
+    "successor_current_fully_adopted"
+  ],
+  "correction_contract_requires_D12": true,
+  "current_mutation_requested_by_this_implementation": false,
+  "exact_successor_binding_required": true,
+  "owner": "Iris Artifact Registry",
+  "partial_or_dual_current_allowed": false,
+  "separate_reviewed_operational_cutover_plan_required": true
+}

@@ -1,0 +1,26 @@
+{
+  "expected_predecessor_modules": [
+    "__init__.py",
+    "tool_rules.py",
+    "combat_rules.py",
+    "consumable_rules.py",
+    "resource_rules.py",
+    "literature_rules.py",
+    "wearable_rules.py",
+    "furniture_rules.py",
+    "vehicle_rules.py"
+  ],
+  "missing": [
+    "__init__.py",
+    "tool_rules.py",
+    "combat_rules.py",
+    "consumable_rules.py",
+    "resource_rules.py",
+    "literature_rules.py",
+    "wearable_rules.py",
+    "furniture_rules.py",
+    "vehicle_rules.py"
+  ],
+  "present": [],
+  "role": "R1_R2_diagnostic_only"
+}

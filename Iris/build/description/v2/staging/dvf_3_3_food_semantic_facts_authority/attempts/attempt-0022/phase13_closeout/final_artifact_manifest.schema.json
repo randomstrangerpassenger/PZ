@@ -1,0 +1,6 @@
+{
+  "implementation_final_authority_manifest_emitted": false,
+  "requires_exact_hashes": true,
+  "requires_sealed_non_current_successor": true,
+  "requires_terminal_independent_review": true
+}

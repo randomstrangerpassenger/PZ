@@ -1,0 +1,50 @@
+{
+  "document": {
+    "byte_count": 6520,
+    "path": "docs/dvf_3_3_food_semantic_facts_authority_o12_phase_boundary_reconciliation.md",
+    "sha256": "8f9b5cb98bb997114bf2f5c2f5d6f43d588f9d9ae683f0f83e831de00cc8e293"
+  },
+  "document_normalized_sha256": "996fd36e3b3ddfeec2b02e440ae78a335030dfe90fad9e7068bf52a75a788c56",
+  "failed_attempt_review": {
+    "byte_count": 5783,
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/post_implementation_reviews/external_implementation_review.json",
+    "sha256": "52dc1a43ad8ccf2e620bd5ca9cb0273c99a9015d03b915792fd09e0119b454c1"
+  },
+  "failed_attempt_review_normalized_sha256": "52dc1a43ad8ccf2e620bd5ca9cb0273c99a9015d03b915792fd09e0119b454c1",
+  "implementation_reentry_allowed": true,
+  "independent_review": {
+    "byte_count": 12842,
+    "path": "Iris/_docs/round3/dvf_3_3_food_semantic_facts_authority_reconstruction/o12_phase_boundary_reconciliation_review.json",
+    "sha256": "431770b2a239ca4aff24857f9a7f7c6ea50ca27dded8680b2a4f69a7746d4ba2"
+  },
+  "independent_review_normalized_sha256": "f5d70aecb2b92c46e167595392c28bec53cb8e958b71efd7a0e70cc2fadb82b3",
+  "machine_contract": {
+    "byte_count": 4451,
+    "path": "Iris/_docs/round3/dvf_3_3_food_semantic_facts_authority_reconstruction/o12_phase_boundary_reconciliation.json",
+    "sha256": "7fdfff70704eb0fda6eadee9922053b173f28d60b0dc11db9b06f02eaf38cfad"
+  },
+  "machine_contract_normalized_sha256": "8f1b9e40141ee096bfa5ab17e4506aa67f759733a9c476023db6dbcbea5bf3c1",
+  "predicates": {
+    "contract_id_match": true,
+    "contract_identity_match": true,
+    "contract_tracked": true,
+    "document_identity_match": true,
+    "document_tracked": true,
+    "facts_phase2_approximation_forbidden": true,
+    "facts_phase2_canonical_evaluation_deferred": true,
+    "failed_attempt_review_identity_match": true,
+    "new_attempt_from_change0_required": true,
+    "o12_downstream_owner_bound": true,
+    "o12_not_weakened": true,
+    "open_critical_zero": true,
+    "open_important_zero": true,
+    "owner_ratified": true,
+    "review_gate_pass": true,
+    "review_identity_match": true,
+    "review_pass": true,
+    "review_tracked": true
+  },
+  "schema_version": "food-semantic-o12-phase-boundary-reconciliation-binding-v1",
+  "status": "PASS",
+  "terminal_independent_gate_credit": 0
+}

@@ -1,0 +1,716 @@
+{
+  "approval_state": "unapproved",
+  "authority_effect": false,
+  "batch": {
+    "approval_state": "unapproved",
+    "authority_class": "curated",
+    "batch_id": "fsb:f2413c0141607cacafc7c7b2",
+    "member_count": 24,
+    "ordered_members": [
+      "Base.Shrimp",
+      "Base.ShrimpDumpling",
+      "Base.ShrimpFried",
+      "Base.SilkMothCaterpillar",
+      "Base.Slug",
+      "Base.Slug2",
+      "Base.Snail",
+      "Base.SnoGlobes",
+      "Base.Soysauce",
+      "Base.Springroll",
+      "Base.Squid",
+      "Base.SquidCalamari",
+      "Base.Steak",
+      "Base.Sugar",
+      "Base.SugarBrown",
+      "Base.SugarPacket",
+      "Base.SunflowerSeeds",
+      "Base.SushiEgg",
+      "Base.SushiFish",
+      "Base.SwallowtailCaterpillar",
+      "Base.TVDinner",
+      "Base.Taco",
+      "Base.TacoShell",
+      "Base.Termites"
+    ],
+    "ordered_proposition_ids": [
+      "curation-pending:Base.Shrimp:consumption_form",
+      "curation-pending:Base.Shrimp:meal_role",
+      "curation-pending:Base.ShrimpDumpling:consumption_form",
+      "curation-pending:Base.ShrimpDumpling:meal_role",
+      "curation-pending:Base.ShrimpFried:consumption_form",
+      "curation-pending:Base.ShrimpFried:meal_role",
+      "curation-pending:Base.SilkMothCaterpillar:consumption_form",
+      "curation-pending:Base.SilkMothCaterpillar:meal_role",
+      "curation-pending:Base.Slug:consumption_form",
+      "curation-pending:Base.Slug:meal_role",
+      "curation-pending:Base.Slug2:consumption_form",
+      "curation-pending:Base.Slug2:meal_role",
+      "curation-pending:Base.Snail:consumption_form",
+      "curation-pending:Base.Snail:meal_role",
+      "curation-pending:Base.SnoGlobes:consumption_form",
+      "curation-pending:Base.SnoGlobes:meal_role",
+      "curation-pending:Base.Soysauce:consumption_form",
+      "curation-pending:Base.Soysauce:meal_role",
+      "curation-pending:Base.Springroll:consumption_form",
+      "curation-pending:Base.Springroll:meal_role",
+      "curation-pending:Base.Squid:consumption_form",
+      "curation-pending:Base.Squid:meal_role",
+      "curation-pending:Base.SquidCalamari:consumption_form",
+      "curation-pending:Base.SquidCalamari:meal_role",
+      "curation-pending:Base.Steak:consumption_form",
+      "curation-pending:Base.Steak:meal_role",
+      "curation-pending:Base.Sugar:consumption_form",
+      "curation-pending:Base.Sugar:meal_role",
+      "curation-pending:Base.SugarBrown:consumption_form",
+      "curation-pending:Base.SugarBrown:meal_role",
+      "curation-pending:Base.SugarPacket:consumption_form",
+      "curation-pending:Base.SugarPacket:meal_role",
+      "curation-pending:Base.SunflowerSeeds:consumption_form",
+      "curation-pending:Base.SunflowerSeeds:meal_role",
+      "curation-pending:Base.SushiEgg:consumption_form",
+      "curation-pending:Base.SushiEgg:meal_role",
+      "curation-pending:Base.SushiFish:consumption_form",
+      "curation-pending:Base.SushiFish:meal_role",
+      "curation-pending:Base.SwallowtailCaterpillar:consumption_form",
+      "curation-pending:Base.SwallowtailCaterpillar:meal_role",
+      "curation-pending:Base.TVDinner:consumption_form",
+      "curation-pending:Base.TVDinner:meal_role",
+      "curation-pending:Base.Taco:consumption_form",
+      "curation-pending:Base.Taco:meal_role",
+      "curation-pending:Base.TacoShell:consumption_form",
+      "curation-pending:Base.TacoShell:meal_role",
+      "curation-pending:Base.Termites:consumption_form",
+      "curation-pending:Base.Termites:meal_role"
+    ],
+    "proposition_count": 48,
+    "queue_sha256": "69ac07202f47cc0163c4afabbdfb83604e7de10089927d79f8ffe7626d7ffbd9",
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+  },
+  "members": [
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Shrimp\u0000consumption_form\u0000curation-pending:Base.Shrimp:consumption_form",
+      "item_identity": "Base.Shrimp",
+      "proposition_id": "curation-pending:Base.Shrimp:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Shrimp\u0000meal_role\u0000curation-pending:Base.Shrimp:meal_role",
+      "item_identity": "Base.Shrimp",
+      "proposition_id": "curation-pending:Base.Shrimp:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.ShrimpDumpling\u0000consumption_form\u0000curation-pending:Base.ShrimpDumpling:consumption_form",
+      "item_identity": "Base.ShrimpDumpling",
+      "proposition_id": "curation-pending:Base.ShrimpDumpling:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.ShrimpDumpling\u0000meal_role\u0000curation-pending:Base.ShrimpDumpling:meal_role",
+      "item_identity": "Base.ShrimpDumpling",
+      "proposition_id": "curation-pending:Base.ShrimpDumpling:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.ShrimpFried\u0000consumption_form\u0000curation-pending:Base.ShrimpFried:consumption_form",
+      "item_identity": "Base.ShrimpFried",
+      "proposition_id": "curation-pending:Base.ShrimpFried:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.ShrimpFried\u0000meal_role\u0000curation-pending:Base.ShrimpFried:meal_role",
+      "item_identity": "Base.ShrimpFried",
+      "proposition_id": "curation-pending:Base.ShrimpFried:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SilkMothCaterpillar\u0000consumption_form\u0000curation-pending:Base.SilkMothCaterpillar:consumption_form",
+      "item_identity": "Base.SilkMothCaterpillar",
+      "proposition_id": "curation-pending:Base.SilkMothCaterpillar:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SilkMothCaterpillar\u0000meal_role\u0000curation-pending:Base.SilkMothCaterpillar:meal_role",
+      "item_identity": "Base.SilkMothCaterpillar",
+      "proposition_id": "curation-pending:Base.SilkMothCaterpillar:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Slug\u0000consumption_form\u0000curation-pending:Base.Slug:consumption_form",
+      "item_identity": "Base.Slug",
+      "proposition_id": "curation-pending:Base.Slug:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Slug\u0000meal_role\u0000curation-pending:Base.Slug:meal_role",
+      "item_identity": "Base.Slug",
+      "proposition_id": "curation-pending:Base.Slug:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Slug2\u0000consumption_form\u0000curation-pending:Base.Slug2:consumption_form",
+      "item_identity": "Base.Slug2",
+      "proposition_id": "curation-pending:Base.Slug2:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Slug2\u0000meal_role\u0000curation-pending:Base.Slug2:meal_role",
+      "item_identity": "Base.Slug2",
+      "proposition_id": "curation-pending:Base.Slug2:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Snail\u0000consumption_form\u0000curation-pending:Base.Snail:consumption_form",
+      "item_identity": "Base.Snail",
+      "proposition_id": "curation-pending:Base.Snail:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Snail\u0000meal_role\u0000curation-pending:Base.Snail:meal_role",
+      "item_identity": "Base.Snail",
+      "proposition_id": "curation-pending:Base.Snail:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SnoGlobes\u0000consumption_form\u0000curation-pending:Base.SnoGlobes:consumption_form",
+      "item_identity": "Base.SnoGlobes",
+      "proposition_id": "curation-pending:Base.SnoGlobes:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SnoGlobes\u0000meal_role\u0000curation-pending:Base.SnoGlobes:meal_role",
+      "item_identity": "Base.SnoGlobes",
+      "proposition_id": "curation-pending:Base.SnoGlobes:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Soysauce\u0000consumption_form\u0000curation-pending:Base.Soysauce:consumption_form",
+      "item_identity": "Base.Soysauce",
+      "proposition_id": "curation-pending:Base.Soysauce:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Soysauce\u0000meal_role\u0000curation-pending:Base.Soysauce:meal_role",
+      "item_identity": "Base.Soysauce",
+      "proposition_id": "curation-pending:Base.Soysauce:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Springroll\u0000consumption_form\u0000curation-pending:Base.Springroll:consumption_form",
+      "item_identity": "Base.Springroll",
+      "proposition_id": "curation-pending:Base.Springroll:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Springroll\u0000meal_role\u0000curation-pending:Base.Springroll:meal_role",
+      "item_identity": "Base.Springroll",
+      "proposition_id": "curation-pending:Base.Springroll:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Squid\u0000consumption_form\u0000curation-pending:Base.Squid:consumption_form",
+      "item_identity": "Base.Squid",
+      "proposition_id": "curation-pending:Base.Squid:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Squid\u0000meal_role\u0000curation-pending:Base.Squid:meal_role",
+      "item_identity": "Base.Squid",
+      "proposition_id": "curation-pending:Base.Squid:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SquidCalamari\u0000consumption_form\u0000curation-pending:Base.SquidCalamari:consumption_form",
+      "item_identity": "Base.SquidCalamari",
+      "proposition_id": "curation-pending:Base.SquidCalamari:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SquidCalamari\u0000meal_role\u0000curation-pending:Base.SquidCalamari:meal_role",
+      "item_identity": "Base.SquidCalamari",
+      "proposition_id": "curation-pending:Base.SquidCalamari:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Steak\u0000consumption_form\u0000curation-pending:Base.Steak:consumption_form",
+      "item_identity": "Base.Steak",
+      "proposition_id": "curation-pending:Base.Steak:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Steak\u0000meal_role\u0000curation-pending:Base.Steak:meal_role",
+      "item_identity": "Base.Steak",
+      "proposition_id": "curation-pending:Base.Steak:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Sugar\u0000consumption_form\u0000curation-pending:Base.Sugar:consumption_form",
+      "item_identity": "Base.Sugar",
+      "proposition_id": "curation-pending:Base.Sugar:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Sugar\u0000meal_role\u0000curation-pending:Base.Sugar:meal_role",
+      "item_identity": "Base.Sugar",
+      "proposition_id": "curation-pending:Base.Sugar:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SugarBrown\u0000consumption_form\u0000curation-pending:Base.SugarBrown:consumption_form",
+      "item_identity": "Base.SugarBrown",
+      "proposition_id": "curation-pending:Base.SugarBrown:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SugarBrown\u0000meal_role\u0000curation-pending:Base.SugarBrown:meal_role",
+      "item_identity": "Base.SugarBrown",
+      "proposition_id": "curation-pending:Base.SugarBrown:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SugarPacket\u0000consumption_form\u0000curation-pending:Base.SugarPacket:consumption_form",
+      "item_identity": "Base.SugarPacket",
+      "proposition_id": "curation-pending:Base.SugarPacket:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SugarPacket\u0000meal_role\u0000curation-pending:Base.SugarPacket:meal_role",
+      "item_identity": "Base.SugarPacket",
+      "proposition_id": "curation-pending:Base.SugarPacket:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SunflowerSeeds\u0000consumption_form\u0000curation-pending:Base.SunflowerSeeds:consumption_form",
+      "item_identity": "Base.SunflowerSeeds",
+      "proposition_id": "curation-pending:Base.SunflowerSeeds:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SunflowerSeeds\u0000meal_role\u0000curation-pending:Base.SunflowerSeeds:meal_role",
+      "item_identity": "Base.SunflowerSeeds",
+      "proposition_id": "curation-pending:Base.SunflowerSeeds:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SushiEgg\u0000consumption_form\u0000curation-pending:Base.SushiEgg:consumption_form",
+      "item_identity": "Base.SushiEgg",
+      "proposition_id": "curation-pending:Base.SushiEgg:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SushiEgg\u0000meal_role\u0000curation-pending:Base.SushiEgg:meal_role",
+      "item_identity": "Base.SushiEgg",
+      "proposition_id": "curation-pending:Base.SushiEgg:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SushiFish\u0000consumption_form\u0000curation-pending:Base.SushiFish:consumption_form",
+      "item_identity": "Base.SushiFish",
+      "proposition_id": "curation-pending:Base.SushiFish:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SushiFish\u0000meal_role\u0000curation-pending:Base.SushiFish:meal_role",
+      "item_identity": "Base.SushiFish",
+      "proposition_id": "curation-pending:Base.SushiFish:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.SwallowtailCaterpillar\u0000consumption_form\u0000curation-pending:Base.SwallowtailCaterpillar:consumption_form",
+      "item_identity": "Base.SwallowtailCaterpillar",
+      "proposition_id": "curation-pending:Base.SwallowtailCaterpillar:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.SwallowtailCaterpillar\u0000meal_role\u0000curation-pending:Base.SwallowtailCaterpillar:meal_role",
+      "item_identity": "Base.SwallowtailCaterpillar",
+      "proposition_id": "curation-pending:Base.SwallowtailCaterpillar:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.TVDinner\u0000consumption_form\u0000curation-pending:Base.TVDinner:consumption_form",
+      "item_identity": "Base.TVDinner",
+      "proposition_id": "curation-pending:Base.TVDinner:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.TVDinner\u0000meal_role\u0000curation-pending:Base.TVDinner:meal_role",
+      "item_identity": "Base.TVDinner",
+      "proposition_id": "curation-pending:Base.TVDinner:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Taco\u0000consumption_form\u0000curation-pending:Base.Taco:consumption_form",
+      "item_identity": "Base.Taco",
+      "proposition_id": "curation-pending:Base.Taco:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Taco\u0000meal_role\u0000curation-pending:Base.Taco:meal_role",
+      "item_identity": "Base.Taco",
+      "proposition_id": "curation-pending:Base.Taco:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.TacoShell\u0000consumption_form\u0000curation-pending:Base.TacoShell:consumption_form",
+      "item_identity": "Base.TacoShell",
+      "proposition_id": "curation-pending:Base.TacoShell:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.TacoShell\u0000meal_role\u0000curation-pending:Base.TacoShell:meal_role",
+      "item_identity": "Base.TacoShell",
+      "proposition_id": "curation-pending:Base.TacoShell:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Termites\u0000consumption_form\u0000curation-pending:Base.Termites:consumption_form",
+      "item_identity": "Base.Termites",
+      "proposition_id": "curation-pending:Base.Termites:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Termites\u0000meal_role\u0000curation-pending:Base.Termites:meal_role",
+      "item_identity": "Base.Termites",
+      "proposition_id": "curation-pending:Base.Termites:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    }
+  ],
+  "selected_values": []
+}

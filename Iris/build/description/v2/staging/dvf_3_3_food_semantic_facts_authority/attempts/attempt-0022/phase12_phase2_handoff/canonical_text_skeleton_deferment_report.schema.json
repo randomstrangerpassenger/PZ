@@ -1,0 +1,10 @@
+{
+  "canonical_detector_execution_required_in_facts_round": false,
+  "downstream_owner": "registry-adopted fresh Naturalization attempt",
+  "implementation_result_emitted": false,
+  "maximum_same_skeleton_group_claim_allowed": false,
+  "requires_actual_phase2_consumer": true,
+  "requires_canonical_threshold_binding": true,
+  "requires_selected_successor_binding": true,
+  "semantic_profile_substitution_allowed": false
+}

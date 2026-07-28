@@ -1,0 +1,8 @@
+{
+  "D10_owner_decision_consumed": false,
+  "approved_facts_consumed": false,
+  "automatic_preview_meaningful_partition_count": 10,
+  "criterion_gate_credit": 0,
+  "minimum_meaningful_partition_criterion": 4,
+  "status": "NON_AUTHORITATIVE_IMPLEMENTATION_DRY_RUN"
+}

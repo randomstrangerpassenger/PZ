@@ -1,0 +1,60 @@
+{
+  "schema_version": "iris-clean-checkout-commit-transition-v1",
+  "ledger_state": "terminal",
+  "recorded_date": "2026-07-28",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "entries": [
+    {
+      "identity": "O0",
+      "state": "unidentifiable",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "The historical 309-test command has no immutable command receipt and remains qualitative evidence only."
+    },
+    {
+      "identity": "P0",
+      "state": "bound",
+      "commit": "9d0d4285f9176313de756eeb428b2d20f682d6d9",
+      "tree": "050037bd77c082f205e548502f88c42435a60ee7",
+      "binding_evidence": "Iris/validation/clean_checkout/evidence/preservation_baseline_record.json"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound_nonterminal",
+      "commit": "a28b3b6ee4bd122317f13d5b426e5773408cf569",
+      "tree": "854c26dbd75bb32676bb6b9131b2a7d93f6858f5",
+      "binding_evidence": "Initial full-gate implementation; nonterminal because the external checkout path exceeded the Windows non-extended path budget."
+    },
+    {
+      "identity": "CXn",
+      "state": "bound_nonterminal",
+      "commit": "7fcf7c35ecd43b00d64af99d908f879c53f8874b",
+      "tree": "c1afc42243aba0a6d71bef1ce19c0216f66359cb",
+      "binding_evidence": "Introduced an explicit Windows path budget; nonterminal because the provisional limit of 80 characters still allowed a required tracked binding leaf to exceed the Windows path limit."
+    },
+    {
+      "identity": "C0",
+      "state": "bound",
+      "commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+      "tree": "d064bd7958cf4d11a5d75f59f3f39974e58334ba",
+      "binding_evidence": "Final candidate with a 56-character Windows checkout-root budget, zero unresolved mandatory dependency edges, and equal Run A/B canonical results."
+    },
+    {
+      "identity": "V0",
+      "state": "bound",
+      "commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+      "tree": "d064bd7958cf4d11a5d75f59f3f39974e58334ba",
+      "binding_evidence": "Independent disposable Run A and Run B each passed 130 pytest identities plus 4 standalone validations with canonical sha256 9c01275ea1366ef9d5855e456aad67bff0e6dfcfc23997888014efe527672288."
+    },
+    {
+      "identity": "S0",
+      "state": "not_created",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "This append-only evidence successor was written after V0 and deliberately does not embed its containing commit."
+    }
+  ],
+  "tracked_input_change_invalidates_prior_execution_evidence": true,
+  "validated_subject_is_unchanged_by_this_record": true,
+  "self_referential_commit_fields": 0
+}

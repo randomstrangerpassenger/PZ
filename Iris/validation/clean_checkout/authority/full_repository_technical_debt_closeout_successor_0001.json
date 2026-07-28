@@ -1,0 +1,137 @@
+{
+  "schema_version": "iris_clean_checkout_full_repository_technical_debt_closeout_successor_v1",
+  "recorded_date": "2026-07-28",
+  "status": "complete",
+  "record_mode": "append_only_machine_validation_successor",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "problem_id": "iris_clean_checkout_full_repository_validation_reproducibility_authority_closure",
+  "predecessor_closeout": {
+    "path": "Iris/validation/clean_checkout/authority/technical_debt_gate_closeout_successor_0001.json",
+    "rewrite_permitted": false,
+    "scope": "predecessor scoped technical-debt gate"
+  },
+  "owner_scope": {
+    "claim": "Iris mandatory full-required-repository clean-checkout technical debt is closed.",
+    "historical_authority_reenactment_claim": "not_required",
+    "diagnostic_authority_reenactment_claim": "not_required",
+    "OR-07_status": "discarded",
+    "OR-08_status": "discarded",
+    "administrator_token_required": false,
+    "windows_audit_policy_changes_required": false,
+    "independent_operator_required": false,
+    "new_plan_created": false,
+    "additional_plan_review_created": false
+  },
+  "validated_subject": {
+    "role": "V0",
+    "commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+    "tree": "d064bd7958cf4d11a5d75f59f3f39974e58334ba",
+    "branch": "codex/iris-clean-checkout-validation"
+  },
+  "candidate_history": [
+    {
+      "commit": "a28b3b6ee4bd122317f13d5b426e5773408cf569",
+      "tree": "854c26dbd75bb32676bb6b9131b2a7d93f6858f5",
+      "terminal_use": false,
+      "disposition": "Windows execution path exceeded the non-extended path limit"
+    },
+    {
+      "commit": "7fcf7c35ecd43b00d64af99d908f879c53f8874b",
+      "tree": "c1afc42243aba0a6d71bef1ce19c0216f66359cb",
+      "terminal_use": false,
+      "disposition": "Provisional Windows path budget remained too long"
+    },
+    {
+      "commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+      "tree": "d064bd7958cf4d11a5d75f59f3f39974e58334ba",
+      "terminal_use": true,
+      "disposition": "selected_as_C0_and_V0"
+    }
+  ],
+  "technical_contract": {
+    "full_repository_gate_path": "Iris/validation/clean_checkout/contracts/full_repository_gate.json",
+    "required_denominator": "dynamic current, ok taxonomy identities plus explicitly classified maintained pytest identities and standalone validations",
+    "fixed_sacred_test_count": false,
+    "tracked_test_source_count": 67,
+    "required_source_count": 25,
+    "historical_optional_source_count": 39,
+    "obsolete_or_misrouted_source_count": 3,
+    "unclassified_source_count": 0,
+    "external_environment_receipt_path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "external_environment_receipt_sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2"
+  },
+  "bootstrap_contract": {
+    "preexisting_local_residue_required_count": 0,
+    "hermetic_test_fixture_file_count": 15,
+    "deterministically_materialized_package_file_count": 12,
+    "fixture_manifest_sha256": "b77720204c6e12f46c122d52c5602eefda311a6f5379b055aee0b843f822dfa2",
+    "materialization_scope": "external disposable execution checkout only",
+    "source_authority_promotion_performed": false
+  },
+  "static_dependency_census": {
+    "status": "PASS",
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/c2",
+    "dependency_edge_count": 402,
+    "tracked_dependency_edge_count": 63,
+    "external_environment_edge_count": 339,
+    "ambient_dependency_candidate_edge_count": 0,
+    "unresolved_edge_count": 0,
+    "test_inventory_sha256": "7ee68ec3e6cbc22af7433c552c71bff266f0d6d4773e50606499603bdbaf5ccf",
+    "dependency_edge_ledger_sha256": "d434fd95a6d1abce21ce5a3dd014a4da0214042ab7fb21b1e4238398c86c374c",
+    "d0_manifest_sha256": "e056df3f7469ffc1c2f60392a371847acd057b5d22f01e1c27f3804fb22828d3"
+  },
+  "execution_reproducibility": {
+    "status": "PASS",
+    "run_a_status": "PASS",
+    "run_b_status": "PASS",
+    "pytest_identity_count": 130,
+    "standalone_validation_count": 4,
+    "required_execution_unit_count": 134,
+    "passed_execution_unit_count": 134,
+    "failed_execution_unit_count": 0,
+    "collection_error_count": 0,
+    "canonical_results_equal": true,
+    "canonical_result_sha256": "9c01275ea1366ef9d5855e456aad67bff0e6dfcfc23997888014efe527672288",
+    "test_inventory_sha256": "abc7451fd2225c56f20af41a762eb113af39d2e6d4f4b124bdf450c59e3a3d43",
+    "run_a_receipt_sha256": "26913440dd64721f085640e283bfdd6628cbad3b42486a4793a1d365bcce208f",
+    "run_b_receipt_sha256": "9a3bbbb73368a77440d7bef26d15c215d96f9c8ec76c177c5bfea926d0a00c5c"
+  },
+  "success_criteria": {
+    "exact_clean_commit_bound": true,
+    "preexisting_ignored_or_local_residue_requirement_count": 0,
+    "missing_required_source_or_tool_count": 0,
+    "undeclared_generated_input_dependency_count": 0,
+    "required_artifact_producer_missing_count": 0,
+    "authority_role_ambiguity_count": 0,
+    "broad_unignore_count": 0,
+    "test_assertion_weakening_count": 0,
+    "repository_external_temporary_output_enforced": true,
+    "post_test_source_checkout_tracked_change_count": 0,
+    "post_test_source_checkout_untracked_or_ignored_residue_count": 0,
+    "post_cleanup_external_work_root_entry_count": 0,
+    "full_required_suite_exit_code": 0,
+    "repeated_clean_execution_result_identical": true
+  },
+  "preservation": {
+    "attempt_0007_changed": false,
+    "authority_execution_0002_changed": false,
+    "phase11_sealed_successor_changed": false,
+    "d16_adoption_record_changed": false,
+    "phase12_correction_record_changed": false,
+    "naturalization_phase4_through_phase8_changed": false,
+    "publish_boundary_attempts_changed": false,
+    "preservation_commit": "9d0d4285f9176313de756eeb428b2d20f682d6d9"
+  },
+  "closeout": {
+    "technical_debt_status": "PASS",
+    "full_required_repository_reproducibility_status": "PASS",
+    "blocking_condition_count": 0,
+    "blocking_conditions": []
+  },
+  "successor_boundary": {
+    "validated_subject_is_unchanged_by_this_record": true,
+    "this_record_is_not_the_validated_subject": true,
+    "tests_rerun_for_this_successor_record": false,
+    "self_referential_commit_fields": 0
+  }
+}

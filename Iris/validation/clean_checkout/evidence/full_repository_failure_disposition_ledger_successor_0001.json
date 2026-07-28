@@ -1,0 +1,159 @@
+{
+  "schema_version": "iris-clean-checkout-full-repository-failure-disposition-v1",
+  "ledger_state": "terminal",
+  "recorded_date": "2026-07-28",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "validated_subject": {
+    "commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+    "tree": "d064bd7958cf4d11a5d75f59f3f39974e58334ba"
+  },
+  "origin_observation": {
+    "preservation_commit": "9d0d4285f9176313de756eeb428b2d20f682d6d9",
+    "preservation_tree": "050037bd77c082f205e548502f88c42435a60ee7",
+    "reported_test_count": 309,
+    "reported_failure_count": 13,
+    "reported_error_count": 21,
+    "origin_command_provenance_status": "unidentifiable",
+    "origin_observation_use": "qualitative_trigger_only",
+    "claim": "The exact historical 309-identity denominator cannot be reconstructed without inventing command provenance."
+  },
+  "successor_diagnostics": [
+    {
+      "diagnostic_id": "configured_all_collect_only",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-full-collect-configured-all-0001/pytest_result.json",
+      "sha256": "60bacf241230cbeaf07ae1eeca8450638617eba7be3547a3cbdc46aaeefd37b3",
+      "identity_count": 330,
+      "passed_or_collected_count": 330,
+      "failed_outcome_count": 0,
+      "status": "PASS"
+    },
+    {
+      "diagnostic_id": "configured_all_without_bootstrap",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-full-exec-configured-all-0001/pytest_result.json",
+      "sha256": "55f6158f3ad6b42df07b87ddc22a131bc8a4fbfded28e9409e40816b362e1cf7",
+      "identity_count": 330,
+      "passed_count": 242,
+      "failed_outcome_count": 88,
+      "exit_status": 1,
+      "status": "FAIL"
+    },
+    {
+      "diagnostic_id": "current_taxonomy_without_bootstrap",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-current-taxonomy-exec-0001/pytest_result.json",
+      "sha256": "0cb4486a4ff1c6420e78e4d08442b9a052ac6c5d0a883e81ed0fa09a08e48dd0",
+      "identity_count": 99,
+      "passed_count": 77,
+      "failed_outcome_count": 22,
+      "observed_pytest_breakdown": "1 failure and 21 errors",
+      "exit_status": 1,
+      "status": "FAIL"
+    },
+    {
+      "diagnostic_id": "current_taxonomy_with_tracked_bootstrap",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-current-taxonomy-fixture-exec-0002/pytest_result.json",
+      "sha256": "7eb8ed4bd330e86d38defe869284973aad3fb2b457bc6a6fed7accdb6ca093b0",
+      "identity_count": 99,
+      "passed_count": 99,
+      "failed_outcome_count": 0,
+      "exit_status": 0,
+      "status": "PASS"
+    },
+    {
+      "diagnostic_id": "configured_all_with_tracked_bootstrap",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-full-all-bootstrap-exec-0001/pytest_result.json",
+      "sha256": "80c81c5011a0a25fc1a3b8b168a0513e006682cffb9106185c397c511c2658ec",
+      "identity_count": 330,
+      "passed_count": 275,
+      "failed_outcome_count": 55,
+      "exit_status": 1,
+      "status": "FAIL",
+      "disposition": "The remaining outcomes belong to historical, diagnostic, aggregate-governance reenactment, or obsolete surfaces and are not mandatory product validation."
+    }
+  ],
+  "authority_class_dispositions": [
+    {
+      "authority_class": "required_tracked_source",
+      "source_count": 25,
+      "disposition": "required",
+      "producer_contract": "exact subject Git tree",
+      "consumer_contract": "full_repository_gate.json dynamic taxonomy selection plus explicit maintained sources and commands"
+    },
+    {
+      "authority_class": "hermetic_test_fixture",
+      "materialized_file_count": 15,
+      "disposition": "required_test_only",
+      "producer_contract": "tracked hash-bound frozen predecessor fixture",
+      "consumer_contract": "materialized only in the external disposable execution checkout",
+      "manifest_sha256": "b77720204c6e12f46c122d52c5602eefda311a6f5379b055aee0b843f822dfa2"
+    },
+    {
+      "authority_class": "deterministically_materialized_input",
+      "materialized_file_count": 12,
+      "disposition": "required_test_only",
+      "producer_contract": "byte-identical copy from the exact subject's tracked runtime manifest and chunks",
+      "consumer_contract": "ignored package mirror inside the external disposable execution checkout"
+    },
+    {
+      "authority_class": "sealed_current_required_artifact",
+      "disposition": "required",
+      "producer_contract": "exact subject Git blobs",
+      "consumer_contract": "current taxonomy gate and deterministic package mirror",
+      "examples": [
+        "Iris/_docs/round3/round3_test_taxonomy.json",
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+        "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua through Chunk011.lua"
+      ]
+    },
+    {
+      "authority_class": "historical_optional_evidence",
+      "source_count": 39,
+      "disposition": "not_mandatory",
+      "classification_rule": "tracked Iris/build/description/v2/tests/test_*.py source without a current, ok Round 3 taxonomy identity",
+      "reason": "These sources reenact historical authority workflows; executing them is outside technical-debt repair and cannot define the current required gate."
+    },
+    {
+      "authority_class": "obsolete_or_misrouted_test_dependency",
+      "source_count": 3,
+      "identity_count_outside_source_count": 1,
+      "disposition": "not_mandatory",
+      "sources": [
+        "Iris/build/tests/test_description_generator.py",
+        "Iris/build/tests/test_layer3_pipeline.py",
+        "Iris/build/tests/test_wearable_6f.py"
+      ],
+      "identity": "Iris/test/test_rightclick_pipeline.py::test_tc8_full_pipeline_snapshot"
+    },
+    {
+      "authority_class": "genuine_code_regression",
+      "count": 0,
+      "disposition": "none_observed_in_mandatory_gate"
+    }
+  ],
+  "source_census": {
+    "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/c2/test_inventory.json",
+    "sha256": "7ee68ec3e6cbc22af7433c552c71bff266f0d6d4773e50606499603bdbaf5ccf",
+    "tracked_test_source_count": 67,
+    "required_source_count": 25,
+    "historical_optional_source_count": 39,
+    "obsolete_or_misrouted_source_count": 3,
+    "unclassified_source_count": 0
+  },
+  "forbidden_shortcuts": {
+    "broad_unignore_count": 0,
+    "test_assertion_weakening_count": 0,
+    "test_deletion_count": 0,
+    "new_skip_count": 0,
+    "dirty_workstation_file_promoted_without_provenance_count": 0,
+    "staging_tree_promoted_to_current_authority_count": 0
+  },
+  "terminal_disposition": {
+    "mandatory_failure_count": 0,
+    "mandatory_error_count": 0,
+    "missing_required_source_or_tool_count": 0,
+    "undeclared_generated_input_dependency_count": 0,
+    "required_artifact_producer_missing_count": 0,
+    "authority_role_ambiguity_count": 0,
+    "status": "PASS"
+  },
+  "self_referential_commit_fields": 0
+}

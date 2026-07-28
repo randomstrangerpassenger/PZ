@@ -6,16 +6,6 @@
   "six_not_equal_2105_is_stale_recovery_premise": true,
   "stale_candidate_occurrences": [
     {
-      "line": 405,
-      "path": "docs/ARCHITECTURE.md",
-      "text": "Full current-route closure depends on the current source baseline and source-overlay contract. The previous `CURRENT_FACTS=6` vs `2105` and missing `body_source_overlay` blocker for a runtime-adopted row was a Current-Route Baseline / Source-Overlay Repair issue, not a denominator, terminal disposition, shared disposition, or live migration readiness failure."
-    },
-    {
-      "line": 407,
-      "path": "docs/ARCHITECTURE.md",
-      "text": "The repaired current-route contract uses `docs/dvf_3_3_current_route_baseline_source_overlay_repair_problem7_plan.md` as the canonical `primary_problem7_plan`. The predecessor repair plan is a `predecessor_contract_plan` only; it has no execution authority. The current-route build surface consumes the vNext source / overlay / rendered / runtime evidence contract consistently across compose, current-authority, and Layer4 trace consumers. `CURRENT_FACTS=6` is not the full current-route universe ex"
-    },
-    {
       "line": 30,
       "path": "docs/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement_plan.md",
       "text": "No current-looking 6-entry fixture payload or predecessor current-authority"
@@ -146,24 +136,14 @@
       "text": "If any source identity mismatch, consumer path drift, missing overlay blocker, rendered identity drift, 6-entry fixture reentry, predecessor authority reentry, or protected mutation is found, expected closeout becomes `blocked_authorized_repair_or_correction_scope_required`."
     },
     {
-      "line": 367,
-      "path": "docs/ROADMAP.md",
-      "text": "* frozen 2105, prior staging, 6-entry fixture, legacy bridge, monolith output은 current authority가 아니라 historical / comparison / diagnostic / prerequisite trace로만 보존한다."
-    },
-    {
-      "line": 474,
+      "line": 505,
       "path": "docs/ROADMAP.md",
       "text": "* stale bridge와 legacy 6-entry payload는 current fallback이나 package authority로 사용하지 않는다."
     },
     {
-      "line": 521,
+      "line": 506,
       "path": "docs/ROADMAP.md",
-      "text": "* broad current-route runner의 이전 `CURRENT_FACTS=6` vs `2105` 및 `Base.CanOpener` overlay blocker는 Current-Route Baseline / Source-Overlay Repair에서 별도로 닫혔다. Denominator adoption PASS는 여전히 terminal/shared/current-route repair completion을 대체하지 않는다."
-    },
-    {
-      "line": 536,
-      "path": "docs/ROADMAP.md",
-      "text": "* `CURRENT_FACTS=6`은 full current-route universe expectation으로 쓰지 않는다. vNext `2105` row universe는 source / overlay / rendered / runtime evidence contract로 소비하지만 old predecessor authority 복구나 current debt로 재진입하지 않는다."
+      "text": "* predecessor fixture, old 6-entry bridge, rollback snapshot, historical staging evidence는 historical / diagnostic / fixture / provenance trace로만 유지한다."
     }
   ],
   "status": "PASS",

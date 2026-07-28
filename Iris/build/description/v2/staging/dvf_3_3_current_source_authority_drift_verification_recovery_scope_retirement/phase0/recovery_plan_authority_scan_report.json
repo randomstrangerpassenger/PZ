@@ -1,10 +1,10 @@
 {
   "live_write_execution_authority_count": 0,
-  "recovery_hit_count": 188,
+  "recovery_hit_count": 228,
   "rows": [
     {
       "classification": "recovery_term_contextual_non_execution",
-      "line": 455,
+      "line": 607,
       "live_write_execution_authority": false,
       "path": "docs/ARCHITECTURE.md",
       "text": "- **자동 스냅샷**: 세션 복구와 변화 추적을 위한 보조 안전망"
@@ -53,49 +53,98 @@
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
-      "line": 943,
+      "line": 996,
       "live_write_execution_authority": false,
       "path": "docs/DECISIONS.md",
-      "text": "* predecessor `2105 / 2084 / 21` baseline은 복구 대상 current authority가 아니라 historical / comparison / migration input이다."
+      "text": "* vNext는 frozen \"2105 / 2084 / 21\" 복구가 아니라 successor authority model이다."
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
-      "line": 958,
-      "live_write_execution_authority": false,
-      "path": "docs/DECISIONS.md",
-      "text": "* vNext는 frozen `2105 / 2084 / 21` 복구가 아니라 successor authority model이다."
-    },
-    {
-      "classification": "historical_or_forbidden_non_execution_trace",
-      "line": 962,
+      "line": 1001,
       "live_write_execution_authority": false,
       "path": "docs/DECISIONS.md",
       "text": "* regeneration parity는 frozen 2105 복구 증명이 아니라 vNext successor candidate와 predecessor runtime의 delta 측정이다."
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
-      "line": 1013,
+      "line": 1045,
       "live_write_execution_authority": false,
       "path": "docs/DECISIONS.md",
       "text": "* 이 항목은 frozen 2105 byte-level recovery, current source authority 복원, canonical rendered promotion, successor baseline identity final seal, current cutover, live runtime chunk replacement, old chunks replacement, package readiness, release readiness, Workshop readiness, deployment readiness, manual in-game validation, public-facing text quality acceptance를 승인한 것이 아니다."
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
-      "line": 1122,
+      "line": 1187,
       "live_write_execution_authority": false,
       "path": "docs/DECISIONS.md",
-      "text": "* `IrisDvfBridgeData.legacy_6_entry.lua` quarantine retention은 historical evidence 보존이지 current bridge fallback 복구가 아니다."
+      "text": "* \"IrisDvfBridgeData.legacy_6_entry.lua\" quarantine retention은 historical evidence 보존이지 current bridge fallback 복구가 아니다."
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
-      "line": 1246,
+      "line": 1311,
       "live_write_execution_authority": false,
       "path": "docs/DECISIONS.md",
-      "text": "* `CURRENT_FACTS=6`은 full current-route universe expectation으로 쓰지 않는다. vNext `2105` row universe는 current-route build validation의 source / overlay / rendered / runtime evidence contract로 소비하되 old predecessor authority 복구나 current debt로 재진입하지 않는다."
+      "text": "* vNext \"2105\" row universe는 current-route build validation의 source / overlay / rendered / runtime evidence contract로 소비하되 old predecessor authority 복구나 current debt로 재진입하지 않는다."
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
-      "line": 1455,
+      "line": 1354,
+      "live_write_execution_authority": false,
+      "path": "docs/DECISIONS.md",
+      "text": "* 이 항목은 current authority cutover, live migration execution, runtime chunk replacement, old predecessor authority 복구, old \"2105 / 2084 / 21\" baseline 재채택을 승인하지 않는다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1378,
+      "live_write_execution_authority": false,
+      "path": "docs/DECISIONS.md",
+      "text": "* Current Source Authority Drift Verification / Recovery Scope Retirement는 stale \"CURRENT_FACTS=6 != 2105\" premise를 현재 checkout 기준으로 폐기하고, source restoration이 아니라 successor current source authority 소비 경로 검증과 stale Recovery live-write scope retirement로 닫는다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1379,
+      "live_write_execution_authority": false,
+      "path": "docs/DECISIONS.md",
+      "text": "* current \"facts / decisions / overlay_support\"는 모두 successor \"2105\" row identity와 count/hash가 일치한다. 여기서 \"2105\"는 old predecessor recovery target이 아니라 vNext successor universe count다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1381,
+      "live_write_execution_authority": false,
+      "path": "docs/DECISIONS.md",
+      "text": "* 기존 Current Source Authority Drift Recovery live-write plan은 현재 실행 근거가 아니라 future drift가 새로 증명될 때만 열 수 있는 contingency로 격하한다."
+    },
+    {
+      "classification": "recovery_wording_requires_retirement",
+      "line": 1419,
+      "live_write_execution_authority": false,
+      "path": "docs/DECISIONS.md",
+      "text": "* recovery live-write scope: \"retired\""
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1515,
+      "live_write_execution_authority": false,
+      "path": "docs/DECISIONS.md",
+      "text": "* Recovery plan retirement은 future drift contingency를 보존하는 것이며, 새 drift evidence 없이 live-write recovery scope를 다시 여는 근거가 아니다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1516,
+      "live_write_execution_authority": false,
+      "path": "docs/DECISIONS.md",
+      "text": "* \"2105\"는 successor current source universe count로만 읽으며, predecessor \"2105 / 2084 / 21\" recovery target이나 current debt로 읽지 않는다."
+    },
+    {
+      "classification": "recovery_wording_requires_retirement",
+      "line": 1542,
+      "live_write_execution_authority": false,
+      "path": "docs/DECISIONS.md",
+      "text": "* Drift Verification / Recovery Scope Retirement: read-only verification round / stale recovery premise 폐기 / recovery live-write scope retirement."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 2030,
       "live_write_execution_authority": false,
       "path": "docs/DECISIONS.md",
       "text": "* 자동 스냅샷은 공식 기록과 같은 위상이 아니라, 복구와 회귀 추적을 위한 안전망으로만 둔다."
@@ -106,6 +155,13 @@
       "live_write_execution_authority": false,
       "path": "docs/dvf_3_3_closeout_reentry_guard_seal_plan.md",
       "text": "* predecessor `2105 / 2084 / 21`을 current hard gate, runtime authority, current debt, package authority, release readiness 근거로 복구하지 않는다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 908,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_authority_required_evidence_integrity_closure_plan.md",
+      "text": "Rollback is governance-hardening rollback, not runtime recovery."
     },
     {
       "classification": "recovery_term_contextual_non_execution",
@@ -529,6 +585,118 @@
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 22,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+      "text": "이번 라운드의 본질은 source 복구, current authority cutover, rendered regeneration, Lua bridge export, runtime chunk replacement, package readiness가 아니라 다음 네 surface의 evidence freshness / readpoint identity 결속이다."
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 74,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+      "text": "* latest Current Source Authority Drift Verification / Recovery Scope Retirement evidence root inventory"
+    },
+    {
+      "classification": "recovery_wording_requires_retirement",
+      "line": 139,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+      "text": "* live-write recovery plan reopening"
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 148,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+      "text": "* Current Source Authority Drift Verification / Recovery Scope Retirement를 source writer authority로 승격하지 않는다."
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 170,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+      "text": "* Current Source Authority Drift Verification / Recovery Scope Retirement는 canonical PASS 상태로 읽되, read-only governance evidence로만 소비한다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 176,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+      "text": "* Existing drift recovery live-write scope는 current execution authority가 아니라 future drift contingency다."
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 427,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+      "text": "Current Source Authority Drift Verification / Recovery Scope Retirement 결과를 live required-validation manifest가 machine-readable하게 소비할 수 있도록 field spec과 evidence freshness taxonomy를 정의한다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 441,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_route_required_validation_evidence_freshness_reseal_plan.md",
+      "text": "* 최소 field는 `status`, `closeout_state`, source manifest identity, successor source count, facts / decisions / overlay hash parity, direct compose sandbox evidence, missing overlay count, protected live write count, recovery live-write scope retirement state, candidate manifest non-authority, release/manual QA/semantic quality non-claim을 포함한다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 11,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_claim_boundary.md",
+      "text": "It does not authorize source restoration, old predecessor recovery, rendered regeneration, Lua bridge export, runtime chunk replacement, package payload mutation, release readiness, manual in-game QA, semantic quality completion, or public-facing text acceptance."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 48,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md",
+      "text": "The objective is not source restoration, old predecessor recovery, live writer authorization, runtime mutation, package mutation, release readiness, or public text acceptance."
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 61,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md",
+      "text": "This plan covers current-route governance adoption or explicit non-current isolation for the Current Source Authority Drift Verification / Recovery Scope Retirement round."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 97,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md",
+      "text": "* old predecessor recovery"
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 578,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md",
+      "text": "* Future drift recovery remains a contingency requiring fresh drift evidence and a new scope."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 715,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md",
+      "text": "* Re-state that Recovery live-write contingency is not automatically reopened."
+    },
+    {
+      "classification": "recovery_wording_requires_retirement",
+      "line": 873,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md",
+      "text": "* old Recovery live-write execution"
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 972,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_current_source_authority_drift_verification_adoption_reseal_plan.md",
+      "text": "* Do not rollback by deleting raw evidence, restoring old predecessor payloads, or reopening old Recovery live-write scope."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
       "line": 11,
       "live_write_execution_authority": false,
       "path": "docs/dvf_3_3_current_source_authority_drift_verification_claim_boundary.md",
@@ -829,6 +997,34 @@
       "text": "* final claim boundary is limited to read-only verification / stale recovery scope retirement"
     },
     {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 87,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_durable_current_authority_surface_alignment_plan.md",
+      "text": "* stale bridge / monolith / legacy fixture current-looking path 복구"
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 743,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "text": "- `StyleNormalizer`는 typography/확정된 low-level normalization에만 사용할 수 있다. source proposition을 고치거나 누락 의미를 복구하는 단계로 사용하지 않는다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1390,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "text": "이 round는 candidate-only이므로 기본 rollback은 current payload 복구가 아니라 **candidate closeout disposition 무효화와 additive change 철회**다."
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 1400,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "text": "9. protected surface mutation이 발견되면 즉시 중단하고 before snapshot과 비교해 exact target을 확인한 뒤 사용자 승인을 받아 복구한다."
+    },
+    {
       "classification": "historical_or_forbidden_non_execution_trace",
       "line": 109,
       "live_write_execution_authority": false,
@@ -848,6 +1044,83 @@
       "live_write_execution_authority": false,
       "path": "docs/dvf_3_3_live_migration_readiness_execution_plan.md",
       "text": "* Iris baseline authority mode는 전환 중이다. 이 계획은 legacy 2105 baseline 복구를 요구하지 않는다."
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 142,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_predecessor_stale_artifact_reentry_guard_plan.md",
+      "text": "* frozen `2105` byte-level recovery"
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 258,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_authority_canonical_closure_plan.md",
+      "text": "* old monolith 또는 stale bridge fallback 복구"
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1732,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_authority_canonical_closure_plan.md",
+      "text": "> Normative retry rule: Section 0.2가 현재 rollback/retry authority다. 아래 상세 rollback 항목은 기술 복구 참고자료이며, 환경 전용 retry에 checkpoint·owner approval·전체 review 재생성을 강제하지 않는다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1760,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_authority_canonical_closure_plan.md",
+      "text": "13. Revoke unused fixture receipt nonces after a failed attempt. Once a nonce is consumed, the same attempt may not retry that action; a new attempt requires a newly issued receipt and nonce. Never reuse a receipt or treat a fixture receipt as recovery or real-current-path authorization."
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 90,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+      "text": "| B-7 | lock recovery | Windows named mutex 하나만 canonical mechanism으로 사용한다 | timeout/recovery recensus 실패 시 allocation block |"
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 105,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+      "text": "| I4-1 | event append transaction | record/event/shared-ledger partial state의 recovery/block 규칙이 부족했다 | exact write/flush/append order와 partial-state matrix 추가 |"
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 276,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+      "text": "Gate B의 `preentry_required_path_*_count` denominator는 selected versioned plan contract approval record, bootstrap executor/test/tool manifest/validation report/contract, attempt/lifecycle ledgers, current attempt reservation record/event commit이다. reservation commit이 tracked 상태가 되고 three-prefix parity가 복구된 뒤에만 count를 계산하므로 dynamic record를 Phase 0 뒤 사후 tracking하는 경로는 없다. `approved_canonical_event_prefix`는 owner-approved starting prefix에 contract-valid exact-one event를 적용해 reservation commit이 확정한 "
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 367,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+      "text": "- live runtime chunk payload replacement 또는 monolith 복구"
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 723,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+      "text": "- abandoned-mutex recensus에서 valid reservation event/record는 있으나 terminal이 없는 exactly-one attempt만 machine-generated `abandoned` terminal record와 terminal event로 닫을 수 있다. reservation/event mismatch나 둘 이상의 orphan attempt는 자동 복구하지 않고 block한다."
+    },
+    {
+      "classification": "recovery_term_contextual_non_execution",
+      "line": 739,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+      "text": "| record+event exist / reservation commit missing | exact bytes가 approved prefix의 one-event extension이면 그 same bytes를 recovery commit하고 즉시 `failed_pre_phase0`로 닫는다 | retroactive materialization count 0 |"
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1267,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_registry_runtime_compatibility_plan.md",
+      "text": "- record-without-event recovery, event-without-record block, shared/durable divergence, orphan local root, cross-worktree/branch prefix mismatch"
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
@@ -904,6 +1177,13 @@
       "live_write_execution_authority": false,
       "path": "docs/dvf_3_3_vnext_consumer_migration_input_normalization_plan.md",
       "text": "* Successor-not-recovery language must be preserved."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 110,
+      "live_write_execution_authority": false,
+      "path": "docs/dvf_3_3_vnext_current_authority_chain_successor_readpoint_seal_plan.md",
+      "text": "* old predecessor byte-level recovery"
     },
     {
       "classification": "recovery_term_contextual_non_execution",
@@ -1194,6 +1474,13 @@
     },
     {
       "classification": "historical_or_forbidden_non_execution_trace",
+      "line": 1661,
+      "live_write_execution_authority": false,
+      "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+      "text": "gate를 제거해 stale `accepted`를 복구하지 않는다. rollback이 필요한 경우 existing manifest entry 전체가 아니라 이 round의 exact additive rows만 대상으로 하며 predecessor failure와 adoption evidence를 보존한다."
+    },
+    {
+      "classification": "historical_or_forbidden_non_execution_trace",
       "line": 723,
       "live_write_execution_authority": false,
       "path": "docs/lua_bridge_export_contract_realign_plan.md",
@@ -1249,29 +1536,22 @@
       "text": "- `enabled=false` 복구 가능 여부 판단"
     },
     {
-      "classification": "historical_or_forbidden_non_execution_trace",
-      "line": 536,
-      "live_write_execution_authority": false,
-      "path": "docs/ROADMAP.md",
-      "text": "* `CURRENT_FACTS=6`은 full current-route universe expectation으로 쓰지 않는다. vNext `2105` row universe는 source / overlay / rendered / runtime evidence contract로 소비하지만 old predecessor authority 복구나 current debt로 재진입하지 않는다."
-    },
-    {
       "classification": "recovery_term_contextual_non_execution",
-      "line": 574,
+      "line": 684,
       "live_write_execution_authority": false,
       "path": "docs/ROADMAP.md",
       "text": "* ProtectedCall boundary policy를 다시 열 경우, `engine / ui / data / compat` 라벨별 복구 / 로그 / fallback 정책표를 먼저 봉인한다."
     },
     {
       "classification": "recovery_term_contextual_non_execution",
-      "line": 684,
+      "line": 718,
       "live_write_execution_authority": false,
       "path": "docs/ROADMAP.md",
       "text": "- import 단계 검증 규칙과 복구 화면 UX를 정리한다."
     },
     {
       "classification": "recovery_term_contextual_non_execution",
-      "line": 700,
+      "line": 734,
       "live_write_execution_authority": false,
       "path": "docs/ROADMAP.md",
       "text": "- 첫 화면 / 복구 화면 등 `한 방`이 되는 메인 UX 다듬기"
@@ -1319,7 +1599,7 @@
       "text": "* old path 복구나 compatibility shim 추가는 이 change의 허용 행동이 아니다."
     }
   ],
-  "scanned_file_count": 102,
+  "scanned_file_count": 184,
   "schema_version": "dvf-3-3-current-source-authority-drift-recovery-authority-scan-v1",
   "status": "PASS",
   "truncated": false

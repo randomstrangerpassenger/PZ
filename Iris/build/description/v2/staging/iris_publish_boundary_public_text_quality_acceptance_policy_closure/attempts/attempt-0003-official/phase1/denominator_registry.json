@@ -1,0 +1,130 @@
+{
+  "authority_effect": "official_contract_candidate",
+  "count_equality_does_not_alias_denominator_ids": true,
+  "foundation_projection_hash": "d0d8e7ab3509ef634d61ab2c33b86bab5352f3fa94c7e85b28d667a04937ff4b",
+  "official_attempt_id": "attempt-0003-official",
+  "registrations": [
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "current_item_universe_v1",
+      "unit": "item",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "quality_evaluable_adopted_item_v1",
+      "unit": "item",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "unadopted_item_v1",
+      "unit": "item",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_section_opportunity_v1",
+      "unit": "section_opportunity",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_identity_core_opportunity_v1",
+      "unit": "section_opportunity",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_context_support_opportunity_v1",
+      "unit": "section_opportunity",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_limitation_tail_opportunity_v1",
+      "unit": "section_opportunity",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "required_use_core_opportunity_v1",
+      "unit": "section_opportunity",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "current_runtime_payload"
+      ],
+      "denominator_id": "profile_adopted_item_v1:<profile_id>",
+      "unit": "item",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_candidate_item_v1",
+      "unit": "item",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_source_proposition_v1",
+      "unit": "source_proposition",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_required_body_plan_role_v1",
+      "unit": "required_body_plan_role",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+      "unit": "fusion_suppression_transformation",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:<detector_id>",
+      "unit": "detector_opportunity",
+      "unknown_or_missing_effect": "technical_blocker"
+    },
+    {
+      "applicable_subject_kinds": [
+        "dvf_3_3_korean_naturalization_candidate"
+      ],
+      "denominator_id": "naturalization_human_review_required_v1",
+      "unit": "required_human_review_row",
+      "unknown_or_missing_effect": "technical_blocker"
+    }
+  ],
+  "schema_version": "public_text_quality_denominator_registry_v1",
+  "zero_denominator_effect": "technical_blocker"
+}

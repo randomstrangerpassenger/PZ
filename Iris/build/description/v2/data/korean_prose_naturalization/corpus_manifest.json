@@ -1,0 +1,38 @@
+{
+  "schema_version": "dvf-3-3-korean-prose-corpus-manifest-v1",
+  "selection_algorithm": "profile_first_exact_key_plus_mandatory_case_identity_and_synthetic_taxonomy_v1",
+  "manual_item_only_selection": false,
+  "artifacts": [
+    {
+      "id": "positive_gold_corpus",
+      "path": "Iris/build/description/v2/data/korean_prose_naturalization/gold_corpus.jsonl",
+      "role": "positive_realization_examples_bound_to_live_source"
+    },
+    {
+      "id": "style_regression_fixtures",
+      "path": "Iris/build/description/v2/data/korean_prose_naturalization/style_regression_fixtures.jsonl",
+      "role": "positive_negative_raw_detector_expectations"
+    },
+    {
+      "id": "current_surface_snapshot",
+      "path": "Iris/build/description/v2/data/korean_prose_naturalization/current_surface_snapshot_manifest.json",
+      "role": "surface_regression_reference_not_semantic_authority"
+    },
+    {
+      "id": "semantic_negative_fixtures",
+      "path": "Iris/build/description/v2/data/korean_prose_naturalization/semantic_negative_fixtures.jsonl",
+      "role": "semantic_fail_closed_mutations"
+    }
+  ],
+  "required_strata": [
+    "resolved_profile",
+    "item_family",
+    "section_topology",
+    "primary_use_origin",
+    "acquisition_presence",
+    "limitation_presence",
+    "adopted_state",
+    "length_band"
+  ],
+  "current_surface_as_semantic_expected_output_count": 0
+}

@@ -1,0 +1,27 @@
+{
+  "body_plan_requirement_digest": "0efdba43f182e57d80b85a27772705affff27743de7b6c9a675b9de057700a2b",
+  "candidate_content_hash_count": 1,
+  "candidate_emission_count": 2084,
+  "candidate_entries_hash": "e71474f41cb4b219ce8b67b201d0fd53085a2b90976f2facf111fce69c50aa77",
+  "candidate_equivalence_proof_hash": "62a607bb58551ffcd0c500f7b96e1f1d4747b1fa6b80c582cfaa8c1cfb478151",
+  "candidate_proposition_trace_hash": "23889a9efa1135a531a739ce5e226978cc2893caee8a28fcd0dc4c1fe27e853a",
+  "candidate_rendered_hash": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+  "candidate_rendered_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase4/candidate_rendered.json",
+  "candidate_resolution_candidate_hash": "25375334e49dc37bbbaead743efdab292724a2e731793ab02229ab7c5c14f382",
+  "candidate_structural_candidate_hash": "b47f167b05164bbbcdd83ddf11cf1bfdcc89922f378eaf99b1611eee7ff8e28e",
+  "candidate_volatile_metadata_field_count": 0,
+  "compiler_implementation_hash": "f305e75fb3126ec83b92bc1edf411dc26324978b35df574e1a14e8e37a3cc7b3",
+  "corpus_manifest_hash": "f9813306175a0483e89a075ac03c768f7f830364a5517d1fdfa6cb9f07657fcf",
+  "execution_metadata": {
+    "attempt_id": "attempt-0011-handoff",
+    "attempt_root": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff"
+  },
+  "korean_prose_policy_hash": "50c2fdf90e43b2a44b7aed78115fa57f6555b6013c5224bb7080de005b83a9de",
+  "naturalization_attempt_id": "attempt-0011-handoff",
+  "ordered_key_digest": "b834728755b8bd8cf8214c3745e60801eaf209a03802a2d42b141369615dcdd9",
+  "schema_version": "dvf-3-3-korean-prose-candidate-manifest-v1",
+  "source_manifest_hash": "8166257cf801c3b1bdb6131f2ade6b85e732c0b312552866cb9f40d28f71689d",
+  "source_proposition_manifest_hash": "0d90bac30b0ec3a990f8befbb73e054a7e30a5ce60d7b1a0607efcb3b9ed80e7",
+  "source_universe_count": 2105,
+  "unadopted_count": 21
+}

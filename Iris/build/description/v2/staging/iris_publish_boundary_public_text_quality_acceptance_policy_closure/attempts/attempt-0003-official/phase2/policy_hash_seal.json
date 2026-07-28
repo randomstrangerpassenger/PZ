@@ -1,0 +1,12 @@
+{
+  "applicable_waiver_set_raw_sha256": "db47cbf374e755b660c047dc7ccdf4a0f7127be6b1eaf032c7ba1dbdc0d65434",
+  "authority_effect": "official_public_text_evaluation_policy",
+  "foundation_policy_projection_hash": "bf6e941f48eb2507b4da909b035b7e68d6351de6fdfc6043468b2533fb30cea3",
+  "policy_canonical_sha256": "2f510ce134bfb3f6e5d4a3ca2f05ebec505a88bb5d74c571860c7d99447a85c2",
+  "policy_path": "Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0003-official/phase2/public_text_quality_acceptance_policy.json",
+  "policy_ratified": true,
+  "policy_raw_sha256": "5ac934f1950ccd8b07d5d709abcab0f8ff35ca6fdf28f77098726458d67b78d0",
+  "ratification_record_hash": "5fc8e360c2704f0c965164aa1ae2e4a98b478bcc5eef803d1608483be2dc2a9f",
+  "schema_version": "public_text_quality_policy_hash_seal_v1",
+  "seal_hash": "c004572f5c71d97beecda014646b1b0da5d9f045427babd81bc64dbc1c869987"
+}

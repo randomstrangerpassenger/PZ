@@ -1,8 +1,8 @@
 # DVF 3-3 Food Semantic Facts Authority Reconstruction — Implementation Plan
 
-> 상태: owner-ratified / cross-plan-synchronized-v1 / preimplementation-plan-review-required / implementation-entry-blocked
+> 상태: owner-ratified / cross-plan-synchronized-v2-aa49 / preimplementation-plan-review-PASS-at-aa49 / owner-directed synchronization-only addendum requires no additional plan-level review / implementation-entry blocked only until synchronized plan-set materialization and G1 clean-validation PASS
 > 작성일: 2026-07-26
-> 최종 수정일: 2026-07-27
+> 최종 수정일: 2026-07-28
 > Round ID: `dvf_3_3_food_semantic_facts_authority_reconstruction`
 > Historical design source input: `C:/Users/MW/.codex/attachments/982ec766-f8aa-4c0b-83f6-9c081f8b2ad0/pasted-text.txt` [non-normative provenance only; live presence not required]
 > Historical design source SHA-256 / logical line count: `016e621b39ff175ac9fa7b4a671631ba03eae6569652077c715c586fc3e87394` / `3057`
@@ -26,7 +26,7 @@
 > Attempt root contract: `Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/<attempt-id>/`
 > Cross-plan synchronization targets: `docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md`, `docs/dvf_3_3_registry_authority_canonical_closure_plan.md`
 > Cross-plan synchronization contracts: `dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v1`, `dvf3_3_food_semantic_facts_authority__registry_successor_sync_v1`
-> Current implementation entry: repository-relative requirements snapshot materialization/presence/tracking과 owner ratification, counterpart plans의 presence/read-only stance, fresh pre-implementation plan review PASS, protected-surface non-overlap, required tool availability와 Section 4 entry predicate가 모두 충족된 뒤에만 implementation build를 시작할 수 있다. Change 0 exit가 실제 reciprocal/boundary binding을 생산하며 별도 roadmap artifact는 요구하지 않는다. Planning-stage requirements ratification을 제외한 semantic/adoption owner decision·approval과 post-implementation external review는 implementation-complete bundle 뒤에만 시작한다.
+> Current implementation entry: `aa49e8f9`의 pre-implementation plan review PASS와 owner-directed synchronization-only addendum을 보존하고, synchronized four-plan set의 presence/tracking/projection equality, G1 clean-validation terminal PASS, repository-relative requirements snapshot materialization, counterpart plans의 presence/read-only stance, protected-surface non-overlap, required tool availability와 Section 4 entry predicate가 모두 충족된 뒤에만 implementation build를 시작할 수 있다. 이 synchronization-only 개정에는 추가 plan-level review가 필요하지 않다. Change 0 exit가 실제 reciprocal/boundary binding을 생산하며 별도 roadmap artifact는 요구하지 않는다. Planning-stage requirements ratification을 제외한 semantic/adoption owner decision·approval과 post-implementation external review는 implementation-complete bundle 뒤에만 시작한다.
 > Post-implementation authority entry: implementation-complete bundle이 봉인된 뒤 owner가 D1/D5~D16과 semantic artifacts를 직접 승인하고 post-implementation external implementation review가 PASS해야 authority execution으로 진행할 수 있다. Sealed non-current successor가 생성된 뒤에만 terminal independent closeout review, owner final seal과 terminal hash seal을 순서대로 수행한다. D2는 owner-selectable route가 아닌 retired mandatory contract다. Current adoption은 별도 Registry-owned operational-cutover 계획만 소유한다.
 > Maximum future claim: post-implementation owner approval에서 D1로 확정한 food semantic facts/source authority claim token에 한정한다.
 
@@ -38,6 +38,33 @@
 
 이 절은 implementation entry, Registry successor 처리, Naturalization Phase 2 handoff에 관한 이 문서의 규범적 동기화 절이다. 뒤 절의 문구가 이 절과 충돌하면 이 절이 우선한다.
 
+### 0.0 `aa49e8f9` Four-Plan Synchronization Contract
+
+이 계획은 공통 계약 `iris_aa49_four_plan_execution_sync_v1`의 `G2_food_semantic_facts_authority` owner다. 공통 ancestry/planning readpoint는 `aa49e8f9fce19955a374b45d0744b1418a45ac9e`이며, 이 commit의 Food plan review PASS는 그대로 보존한다. 이번 개정은 authority outcome, 317-row scope, schema, writer, reviewer 또는 terminal predicate를 바꾸지 않는 owner-directed coordination-only addendum이므로 추가 plan-level review를 요구하지 않는다.
+
+`aa49e8f9`에는 네 계획 전부가 존재하지 않으므로 그 commit 자체를 implementation base로 사용하지 않는다. `G0_plan_set_materialization_and_owner_sync`가 네 exact plan blob과 SHA-256, 공통 projection을 tracked 상태로 가진 clean descendant를 만든 뒤, G1 Clean-Checkout plan의 terminal PASS가 있어야 Change 0에 진입한다. 현재 planning worktree의 staged/unstaged/untracked implementation, staging, candidate 또는 attempt 산출물은 G0에 자동 편입하지 않는다.
+
+네 계획이 동일하게 소비할 canonical compact-JSON projection은 다음과 같다.
+
+```json
+{"authority_boundaries":{"clean":"validation_reproducibility_only","food":"sealed_non_current_successor_only","naturalization_phase8":"immutable_candidate_handoff_only","naturalization_terminal":"requires_publish_accepted_and_policy_closure_complete","publish_foundation":"authority_effect_none","publish_official":"accepted_required_before_live_gate","registry_cutover":"separate_registry_owned_plan"},"baseline_commit":"aa49e8f9fce19955a374b45d0744b1418a45ac9e","baseline_role":"immutable_ancestry_and_planning_readpoint_only","contract_id":"iris_aa49_four_plan_execution_sync_v1","fresh_attempt_rules":{"clean":"fresh_phase0_from_plan_set_commit","food":"fresh_attempt_from_change0_no_attempt_0007_reuse","naturalization":"fresh_attempt_from_phase0_do_not_resume_attempt_0014","publish":"fresh_official_attempt_from_phase0_do_not_resume_attempt_0003"},"owner_directive":"synchronization_only_no_additional_plan_level_review","plan_paths":["docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md","docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md","docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md","docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md"],"prerequisite_closures":{"registry_authority":"canonical_complete","registry_runtime_compatibility":"canonical_complete"},"stage_order":["G0_plan_set_materialization_and_owner_sync","G1_clean_checkout_full_repository_validation","G2_food_semantic_facts_authority","G3_registry_food_successor_operational_cutover","G4_publish_boundary_foundation","G5_naturalization_phase0_through_phase8","G6_publish_boundary_official_phase0_through_phase7","G7_naturalization_terminal_finalize"]}
+```
+
+```text
+four_plan_sync_projection_sha256 = 12c32873dc7e16e0d64e416bdb6693599e2790e9fc129606a90a72ca745a6eb0
+```
+
+| Global stage | Food plan relationship |
+|---|---|
+| `G0_plan_set_materialization_and_owner_sync` | 네 plan blob/projection equality와 owner sync directive를 결속한다. |
+| `G1_clean_checkout_full_repository_validation` | terminal PASS와 exact downstream-unblock receipt가 없으면 Food Change 0을 금지한다. |
+| `G2_food_semantic_facts_authority` | 이 plan의 Change 0~13, post-implementation authority execution과 sealed non-current successor closeout이다. `attempt-0007`을 재개·재사용하지 않고 fresh attempt를 연다. |
+| `G3_registry_food_successor_operational_cutover` | 이 plan 밖의 별도 Registry-owned current adoption이다. |
+| `G4_publish_boundary_foundation` | G3 adoption receipt 뒤 candidate-independent foundation을 봉인한다. |
+| `G5_naturalization_phase0_through_phase8` | 새 Naturalization attempt가 current successor와 foundation을 소비한다. |
+| `G6_publish_boundary_official_phase0_through_phase7` | 새 official Publish attempt만 허용한다. |
+| `G7_naturalization_terminal_finalize` | accepted/complete Publish 결과가 있을 때만 실행한다. |
+
 ### 0.1 Canonical lifecycle
 
 실행 순서는 다음으로 고정한다.
@@ -46,7 +73,10 @@
 requirements artifact materialization/presence/tracking
 -> requirements artifact owner ratification
 -> counterpart plan presence/read-only preflight
--> plan-level finding closure and fresh pre-implementation plan review PASS
+-> aa49-bound pre-implementation review PASS preserved
+-> owner-directed synchronization-only addendum bound; no additional plan-level review
+-> G0 four-plan set materialization/projection equality
+-> G1 clean-validation terminal PASS and downstream-unblock receipt
 -> attempt-local Change 0 requirements/cross-plan binding verification
 -> Changes 1-7 feasibility kernel
 -> [kernel PASS only] Changes 8-13 implementation build
@@ -59,9 +89,11 @@ requirements artifact materialization/presence/tracking
 -> owner final seal
 -> terminal hash seal
 -> separately reviewed Registry operational cutover
+-> Publish Boundary Foundation Track F with authority_effect=none
 -> new Naturalization attempt Phase 0, with Phase 2 source inventory reseal
 -> Naturalization Phase 3 through Phase 8
--> fresh Publish Boundary official attempt
+-> fresh Publish Boundary official attempt Phase 0 through Phase 7
+-> Naturalization terminal finalize after accepted/complete Publish result
 ```
 
 Kernel BLOCKED이면 lifecycle은 Change 7에서 종료하며 Changes 8~13, implementation-complete bundle, owner/review stage로 진행하지 않는다. 실패 bundle을 보존한 새 attempt만 허용한다.
@@ -100,7 +132,7 @@ Naturalization counterpart plan은 read-only synchronization readpoint다.
 
 ```text
 naturalization_plan_path = docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md
-naturalization_plan_planning_sha256 = 11ed7682a07a6dfd41f516f80a1a708b09f20814c5971f493b74f7c9a44908a4
+naturalization_plan_planning_sha256 = 1563bf063aad99f478e4a9541e845d85bb5baca3eb31a8fa4b3759435bc8b78d
 naturalization_sync_mutation_allowed = false
 naturalization_counterpart_contract_present = true
 naturalization_counterpart_contract_anchor = "Food Semantic Facts Authority → Naturalization Phase 2 synchronization"
@@ -133,6 +165,8 @@ registry_operational_cutover_plan_required = true
 
 이 round는 Publish Boundary policy, detector, threshold, waiver 또는 evaluation-subject schema를 변경하지 않는다. Publish Boundary와 직접 교차 계약을 추가하지 않으며 Publish counterpart plan path/hash를 Change 0 input으로 소비하지 않는다. Publish Boundary는 Registry adoption 뒤 새 Naturalization attempt가 만든 fresh Phase 8 handoff만 기존 `dvf3_3_korean_naturalization__publish_boundary_sync_v1`로 소비한다.
 
+위 문장은 Food↔Publish의 직접 semantic contract가 불필요하다는 뜻이다. 네 계획의 전역 순서와 baseline을 결속하는 `iris_aa49_four_plan_execution_sync_v1` projection은 Change 0 필수 입력이며, G3 이전의 Publish foundation 실행이나 G5 이전의 official Publish attempt를 허용하지 않는다.
+
 ### 0.5 Implementation entry predicates
 
 다음 atomic predicate가 모두 true여야 implementation build를 시작할 수 있다.
@@ -147,6 +181,12 @@ requirements_ratification_approver_identity_present = true
 requirements_ratification_approval_time_present = true
 requirements_ratified_snapshot_sha256_match = true
 preimplementation_review_bound_to_ratified_snapshot_sha256 = true
+four_plan_sync_contract_id = iris_aa49_four_plan_execution_sync_v1
+four_plan_sync_projection_sha256_match = true
+four_plan_set_tracked_blob_count = 4
+four_plan_owner_directive = synchronization_only_no_additional_plan_level_review
+clean_validation_terminal_pass = true
+clean_validation_downstream_unblock_target = G2_food_semantic_facts_authority
 naturalization_counterpart_present_at_entry = true
 registry_counterpart_present_at_entry = true
 cross_plan_mutation_allowed = false
@@ -158,7 +198,7 @@ open_important_count = 0
 
 여기서 `preimplementation_plan_review`는 설계 요구사항·계획 사이클의 구현 전 계획 품질 검토다. 구현 결과를 대상으로 하는 owner 승인, 외부 리뷰 또는 terminal independent review가 아니며 그 어떤 승인·리뷰 token도 선소비하지 않는다.
 
-`requirements_artifact_owner_ratified`는 Appendix A의 planning requirements authority만 승인하는 entry-time ratification이다. D1/D5~D16 semantic/adoption decision이나 구현 결과 승인이 아니며 implementation 중 consumed owner-decision count에 포함하지 않는다. Ratification은 이 plan header의 approver identity, approval time, exact snapshot SHA-256 세 필드가 `not_ratified`가 아닌 값으로 채워지고 hash가 재계산될 때만 true다. 이 개정 시점의 header 상태는 `ratified_owner_directive`이며 fresh pre-implementation plan review PASS 전까지 implementation entry는 계속 차단된다.
+`requirements_artifact_owner_ratified`는 Appendix A의 planning requirements authority만 승인하는 entry-time ratification이다. D1/D5~D16 semantic/adoption decision이나 구현 결과 승인이 아니며 implementation 중 consumed owner-decision count에 포함하지 않는다. Ratification은 이 plan header의 approver identity, approval time, exact snapshot SHA-256 세 필드가 `not_ratified`가 아닌 값으로 채워지고 hash가 재계산될 때만 true다. 이 개정 시점의 header 상태는 `ratified_owner_directive`이고 aa49-bound pre-implementation review는 PASS다. 추가 plan review가 아니라 G0 plan-set materialization과 G1 clean-validation PASS가 남은 선행 gate다.
 
 이 gate 전에는 attempt root, implementation code, schema candidate, writer candidate 또는 generated implementation evidence를 만들지 않는다.
 
@@ -502,7 +542,7 @@ Minor = resolved or explicit owner-accepted bounded disposition
 authority_execution_authorized = true
 ```
 
-별도 roadmap artifact의 존재나 materialization은 implementation entry predicate가 아니다. 현재 implementation entry는 이 plan 내부 normative requirements snapshot의 materialization/presence/tracking과 owner ratification, counterpart plans의 presence/read-only stance, fresh pre-implementation plan review, protected-surface non-overlap 및 required tool availability만 소비한다. Requirements-to-plan traceability, Naturalization reciprocity와 Registry boundary binding은 entry가 아니라 Change 0 exit가 생산한다.
+별도 roadmap artifact의 존재나 materialization은 implementation entry predicate가 아니다. 현재 implementation entry는 이 plan 내부 normative requirements snapshot의 materialization/presence/tracking과 owner ratification, aa49-bound pre-implementation review PASS, owner-directed synchronization-only directive, G0 four-plan set, G1 clean-validation PASS, counterpart plans의 presence/read-only stance, protected-surface non-overlap 및 required tool availability만 소비한다. Requirements-to-plan traceability, Naturalization reciprocity와 Registry boundary binding은 entry가 아니라 Change 0 exit가 생산한다.
 
 다음은 entry 허용이 아니다.
 
@@ -751,9 +791,9 @@ BLOCKED kernel은 실패 원인, exact input/code/schema hashes, 예상 automati
 
 ### Review Finding Disposition
 
-기존 finding은 plan text에 반영됐지만 이번 synchronization 이후 exact plan hash에 대한 pre-implementation review를 다시 수행해야 한다. Open Critical/Important는 implementation build를 차단한다. Implementation-complete bundle external review와 terminal independent review는 별도 후속 review다.
+기존 finding은 plan text에 반영됐고 `aa49e8f9`의 pre-implementation review가 PASS로 닫았다. 아래 표의 `pending`/`pending re-review` 표기는 각 cycle 당시의 historical state이며 current blocker가 아니다. 이번 owner-directed synchronization-only 개정은 current exact plan blob과 공통 projection을 G0 manifest에 결속하지만 pre-implementation review를 다시 수행하지 않는다. Authority/scope/schema/writer/terminal predicate가 추가로 바뀌면 synchronization-only가 아니다. Implementation-complete bundle external review와 terminal independent review는 별도 후속 review다.
 
-| Finding | Plan-text disposition | Re-review state |
+| Finding | Plan-text disposition | Historical state at that cycle |
 |---|---|---|
 | R-1 | predecessor exact bytes restored, successor 별도 path, protected identity, overwrite episode non-laundering | pending |
 | R-2 | owner directive에 따라 별도 roadmap은 제거하되 Appendix A normative requirements snapshot과 tracked plan Git blob으로 durable retrievability 확보 | reflected; pending re-review |
@@ -779,7 +819,7 @@ BLOCKED kernel은 실패 원인, exact input/code/schema hashes, 예상 automati
 
 Cycle 2 재검토 finding disposition:
 
-| Finding | Plan-text disposition | Re-review state |
+| Finding | Plan-text disposition | Historical state at that cycle |
 |---|---|---|
 | I-1 | Change 0 requirements/plan traceability, implementation entry/exit, Change 1 exit predicate를 분리 | pending post-implementation review |
 | I-2 | G-A strict blocker-zero를 post-implementation authority gate에 적용; OPEN Important owner-waiver 금지 | pending post-implementation review |
@@ -797,7 +837,7 @@ Cycle 2 재검토 finding disposition:
 
 Cycle 3 재검토 finding disposition:
 
-| Finding | Plan-text disposition | Re-review state |
+| Finding | Plan-text disposition | Historical state at that cycle |
 |---|---|---|
 | P-1 | owner-waiver 금지를 open Critical/Important로 한정하고 Minor bounded disposition과 정합화 | pending |
 | P-2 | Phase 6 projection 기반 D7 cap proposal을 Phase 7 dry-run 전 봉인하고 owner accept/reject는 implementation 뒤로 이동 | pending post-implementation review |
@@ -808,7 +848,7 @@ Cycle 3 재검토 finding disposition:
 
 Cycle 4 종합 재검토 finding disposition:
 
-| Finding | Plan-text disposition | Re-review state |
+| Finding | Plan-text disposition | Historical state at that cycle |
 |---|---|---|
 | C-1 | Appendix A normative requirements snapshot을 이 repo-relative plan에 내장하고 독립 hash/line count 결속; historical attachment는 non-normative | reflected; pending re-review |
 | I-1 | Naturalization counterpart plan을 exact path/hash/contract-anchor read-only verification으로 고정하고 mutation 금지 | reflected; pending re-review |
@@ -822,7 +862,7 @@ Cycle 4 종합 재검토 finding disposition:
 
 Cycle 5 최종 종합 검토 및 S-1 후속 finding disposition:
 
-| Finding | Plan-text disposition | Re-review state |
+| Finding | Plan-text disposition | Historical state at that cycle |
 |---|---|---|
 | I-1 | §0.1을 owner approval → external implementation review → authority execution → sealed successor → terminal independent closeout → owner final seal → terminal hash seal 순서로 통일하고 review token을 분리 | reflected; pending fresh re-review |
 | I-2 | `schema_expressible_meaningful_profile_count >= 4`를 kernel blocker에서 제거하고 meaningful distinction/satisfiable combination/no threshold-driven token만 kernel gate로 유지; 4-partition 검사는 D10 승인 시 Change 12로 한정 | reflected; pending fresh re-review |
@@ -862,8 +902,8 @@ Implementation Notes:
 * episode record는 overwritten successor identity, occurrence time/readpoint, `restore_source_kind=session_read_record`, `restore_source_commit_or_blob_available=false`, routing-correction verifier path/hash, restored path/hash/logical-line-count, `boundary_violation_preserved=true`를 기록한다. Commit/blob recovery였다고 과대 주장하지 않는다.
 * immutable routing correction의 predecessor plan binding은 재작성하지 않는다. 별도 additive successor binding이 predecessor path/hash와 successor path/hash를 함께 결속하고 routing ambiguity를 0으로 만든다.
 * reviewed design requirements와 successor plan에 없는 scope, claim, current mutation을 추가하지 않는다.
-* `cross_plan_sync_binding.json`은 Naturalization/Registry counterpart 각각의 repo-relative path, planning SHA-256, execution SHA-256, contract token/anchor, producer projection SHA-256, consumer projection SHA-256, mutation-allowed=false와 exact match verdict를 기록한다.
-* Responsibility Boundary, Authority/Evidence Integrity, Adversarial/Failure-Mode pre-implementation plan review의 exact reviewed plan hash, ratified requirements snapshot SHA-256, verdict, finding counts와 finding-disposition identity를 결속한다. Owner ratification 뒤의 exact plan Git blob을 fresh review하지 않으면 PASS가 아니다. Implementation-complete bundle review와 terminal independent review는 별도 후속 축이다.
+* `cross_plan_sync_binding.json`은 four-plan set manifest, 공통 projection hash, G1 downstream-unblock receipt와 Naturalization/Registry counterpart 각각의 repo-relative path, planning SHA-256, execution SHA-256, contract token/anchor, producer projection SHA-256, consumer projection SHA-256, mutation-allowed=false와 exact match verdict를 기록한다.
+* Responsibility Boundary, Authority/Evidence Integrity, Adversarial/Failure-Mode pre-implementation plan review의 aa49-bound reviewed plan hash, ratified requirements snapshot SHA-256, verdict, finding counts와 finding-disposition identity, owner-directed synchronization-only directive, current synchronized plan Git blob을 함께 결속한다. 이 coordination-only 개정에는 fresh review를 요구하지 않는다. Implementation-complete bundle review와 terminal independent review는 별도 후속 축이다.
 * pre-implementation plan review의 Open Critical/Important는 Change 0 진입 전에 0이어야 한다. Minor finding은 exact reviewer-recorded bounded disposition이 있을 때만 carry할 수 있으며 owner approval token을 소비하지 않는다.
 * Change 0 bootstrap entry는 이 계획 header와 Appendix A에 기록된 normative requirements snapshot materialization/presence와 current successor-plan identity만 소비한다. Historical source attachment path의 live 존재는 요구하지 않는다. Change 0 exit는 requirements-to-plan traceability binding을 생산하고, Change 1 exit는 predecessor evidence/current baseline/exact 317 binding을 생산한다.
 * `requirements_artifact_materialized`는 repo-relative plan path와 Appendix marker가 존재함을 뜻하고, `requirements_artifact_tracked`는 reviewed commit/tree에서 해당 path가 Git blob으로 조회됨을 뜻한다. Untracked working-tree copy나 machine-local attachment는 entry credit 0이다. Change 0은 plan Git blob ID, requirements snapshot SHA-256/line count와 reviewed commit identity를 함께 결속한다.
@@ -887,6 +927,12 @@ requirements_ratification_approver_identity_present = true
 requirements_ratification_approval_time_present = true
 requirements_ratified_snapshot_sha256_match = true
 preimplementation_review_bound_to_ratified_snapshot_sha256 = true
+four_plan_sync_contract_id = iris_aa49_four_plan_execution_sync_v1
+four_plan_sync_projection_sha256_match = true
+four_plan_set_tracked_blob_count = 4
+four_plan_owner_directive = synchronization_only_no_additional_plan_level_review
+clean_validation_terminal_pass = true
+clean_validation_downstream_unblock_target = G2_food_semantic_facts_authority
 requirements_snapshot_sha256_match = true
 requirements_snapshot_logical_line_count_match = true
 requirements_to_plan_traceability = complete
@@ -922,7 +968,7 @@ postimplementation_owner_approval_consumed_count = 0
 postimplementation_external_review_consumed_count = 0
 ```
 
-위 atomic predicate가 모두 true일 때만 `change0_exit_pass = true`다. Pre-implementation plan review는 Change 0의 필수 선행 조건이다. Owner decision·approval, implementation-complete bundle review, terminal reviewer eligibility와 final owner seal은 §4의 post-implementation authority execution 요건으로 분리하며 Change 0 또는 implementation build가 소비하지 않는다.
+위 atomic predicate가 모두 true일 때만 `change0_exit_pass = true`다. aa49-bound Pre-implementation plan review PASS, owner-directed synchronization-only directive, G0 plan-set projection equality와 G1 clean-validation PASS는 Change 0의 필수 선행 조건이다. 추가 plan-level review는 요구하지 않는다. Owner decision·approval, implementation-complete bundle review, terminal reviewer eligibility와 final owner seal은 §4의 post-implementation authority execution 요건으로 분리하며 Change 0 또는 implementation build가 소비하지 않는다.
 
 ---
 
@@ -2002,7 +2048,7 @@ uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "tes
 
 ### Manual Validation
 
-아래 semantic/adoption manual validation과 post-implementation owner decision·approval은 `implementation_complete_bundle_sealed = true` 뒤에 수행한다. Post-implementation external implementation review는 owner가 exact bundle을 승인한 뒤 수행하고, terminal independent closeout review는 authority execution이 sealed non-current successor와 final artifact manifest를 봉인한 뒤 수행한다. §0.5의 requirements owner ratification과 fresh pre-implementation plan review는 별도의 planning-stage implementation entry gate다.
+아래 semantic/adoption manual validation과 post-implementation owner decision·approval은 `implementation_complete_bundle_sealed = true` 뒤에 수행한다. Post-implementation external implementation review는 owner가 exact bundle을 승인한 뒤 수행하고, terminal independent closeout review는 authority execution이 sealed non-current successor와 final artifact manifest를 봉인한 뒤 수행한다. §0.5의 requirements owner ratification, aa49-bound pre-implementation review PASS, G0 owner sync와 G1 clean-validation PASS는 별도의 planning/coordination-stage implementation entry gate다.
 
 * owner review of schema exact meanings, examples, counterexamples, combination rules and proposition licensing
 * D7 pre-result-sealed proposed item/proposition cap과 predicted workload distribution의 accept/reject review
@@ -2338,7 +2384,7 @@ Future G1/D15 candidate는 owner seal 전 supersede할 수 있다. 이 plan은 l
 
 ### Plan State
 
-이 문서의 작성 상태는 `food_semantic_facts_authority_plan_state=cross_plan_synchronized_proposed / separate_roadmap_required=false / preimplementation_plan_review_required=true / implementation_entry_owner_approval_required=false / implementation_entry_blocked=true / post_implementation_owner_approval_required=true / post_implementation_re_review_required=true`다.
+이 문서의 작성 상태는 `food_semantic_facts_authority_plan_state=cross_plan_synchronized_v2_aa49 / separate_roadmap_required=false / preimplementation_plan_review=PASS_at_aa49 / synchronization_addendum_additional_plan_review_required=false / implementation_entry_owner_approval_required=false / implementation_entry_blocked_until_G0_and_G1=true / post_implementation_owner_approval_required=true / post_implementation_re_review_required=true`다.
 
 다음을 의미한다.
 
@@ -2352,11 +2398,12 @@ Cycle 2 review findings I-1 through I-7 and M-1 through M-6 reflected
 Cycle 3 review findings P-1 through P-6 reflected
 Cycle 4 synthesis findings C-1, I-1 through I-6 and M-1 through M-2 reflected
 Cycle 5 synthesis findings I-1 through I-3 and M-1 through M-3 plus S-1 follow-up reflected
+aa49 four-plan execution projection synchronized
 Facts/Naturalization Phase 2 reciprocal contract synchronized
 Facts/Registry boundary synchronized without mutating the reviewed Registry plan
-Publish Boundary direct synchronization not required
+Food/Publish direct semantic contract not required; global G0-G7 ordering contract required
 requirements artifact owner ratification recorded
-fresh pre-implementation plan review pending against the ratified exact plan blob
+aa49-bound pre-implementation plan review PASS preserved; synchronization-only re-review not required
 codebase gaps reflected
 R3 fixed as sole executable Rule authority route; R1/R2 diagnostic only
 Changes 0-7 feasibility kernel gates Changes 8-13 implementation

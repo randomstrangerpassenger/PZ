@@ -1,0 +1,256 @@
+{
+  "approval_channel": "explicit_user_message_in_current_codex_task",
+  "candidate_policy_hash": "89d58ada8ef777460b7be613e73c622471ba6c2b0495bdadf586d5a873c26c9e",
+  "decided_at": "2026-07-26T18:13:24+09:00",
+  "decision": "ratified",
+  "evaluation_subject_hash": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+  "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+  "metric_affirmations": [
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "coverage_quality_weak",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "non_claim",
+      "metric_id": "coverage_quality_adequate",
+      "threshold": {
+        "operator": "none",
+        "value": null
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "non_claim",
+      "metric_id": "coverage_quality_strong",
+      "threshold": {
+        "operator": "none",
+        "value": null
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "missing_any_required_section_row",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "advisory_debt",
+      "metric_id": "missing_required_section_occurrence",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "non_claim",
+      "metric_id": "missing_context_support",
+      "threshold": {
+        "operator": "none",
+        "value": null
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "non_claim",
+      "metric_id": "missing_limitation_tail",
+      "threshold": {
+        "operator": "none",
+        "value": null
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "non_claim",
+      "metric_id": "missing_use_core",
+      "threshold": {
+        "operator": "none",
+        "value": null
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "non_claim",
+      "metric_id": "unadopted",
+      "threshold": {
+        "operator": "none",
+        "value": null
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "semantic_preservation_failure",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "unsatisfied_required_body_plan_role",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "equivalence_proof_failure",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "compiler_invalid_pattern",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "duplicate_proposition_realization",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "advisory_debt",
+      "metric_id": "repeated_identity_noun_window",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "banned_internal_abstraction",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "advisory_debt",
+      "metric_id": "repeated_skeleton_concentration",
+      "threshold": {
+        "operator": "le",
+        "value": {
+          "denominator": 20,
+          "numerator": 1
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "advisory_debt",
+      "metric_id": "paragraph_fragmentation",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "advisory_debt",
+      "metric_id": "passive_translationese_pattern",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "empty_or_filler_sentence",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    },
+    {
+      "default_exception_set_is_empty": true,
+      "disposition_class": "blocking_gate",
+      "metric_id": "human_review_blocker_required_denominator",
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "waiver_effect": "deferred_internal_debt_only"
+    }
+  ],
+  "owner_acknowledges_evaluation_subject_may_be_blocked": true,
+  "owner_binding_proof": "137cac06487f37fef3f12cd898625c43911d54a8bd9830d37656cc5154327194",
+  "owner_identity": "workspace_owner_user",
+  "rationale": "The workspace owner explicitly approved the exact Phase 2 policy hash and all 21 metric-level dispositions, thresholds, empty default exceptions, and debt-only waiver effects.",
+  "schema_version": "public_text_quality_policy_ratification_decision_v1"
+}

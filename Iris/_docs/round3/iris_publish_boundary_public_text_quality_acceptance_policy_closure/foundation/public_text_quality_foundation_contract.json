@@ -1,0 +1,885 @@
+{
+  "authority_effect": "none",
+  "candidate_content_dependency_count": 0,
+  "candidate_metric_dependency_count": 0,
+  "denominator_registry_candidate": {
+    "count_equality_does_not_alias_denominator_ids": true,
+    "registrations": [
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "current_item_universe_v1",
+        "unit": "item",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "quality_evaluable_adopted_item_v1",
+        "unit": "item",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "unadopted_item_v1",
+        "unit": "item",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_section_opportunity_v1",
+        "unit": "section_opportunity",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_identity_core_opportunity_v1",
+        "unit": "section_opportunity",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_context_support_opportunity_v1",
+        "unit": "section_opportunity",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_limitation_tail_opportunity_v1",
+        "unit": "section_opportunity",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_use_core_opportunity_v1",
+        "unit": "section_opportunity",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "profile_adopted_item_v1:<profile_id>",
+        "unit": "item",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_candidate_item_v1",
+        "unit": "item",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_source_proposition_v1",
+        "unit": "source_proposition",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_required_body_plan_role_v1",
+        "unit": "required_body_plan_role",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+        "unit": "fusion_suppression_transformation",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:<detector_id>",
+        "unit": "detector_opportunity",
+        "unknown_or_missing_effect": "technical_blocker"
+      },
+      {
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_human_review_required_v1",
+        "unit": "required_human_review_row",
+        "unknown_or_missing_effect": "technical_blocker"
+      }
+    ],
+    "schema_version": "public_text_quality_denominator_registry_candidate_v1",
+    "zero_denominator_effect": "technical_blocker"
+  },
+  "denominator_registry_candidate_hash": "d0d8e7ab3509ef634d61ab2c33b86bab5352f3fa94c7e85b28d667a04937ff4b",
+  "detector_mapping_candidate": {
+    "mappings": [
+      {
+        "detector_id": "duplicate_proposition_realization",
+        "disposition_class": "blocking_gate",
+        "rationale_id": "semantic_duplication_zero_tolerance_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      {
+        "detector_id": "repeated_identity_noun_window",
+        "disposition_class": "advisory_debt",
+        "rationale_id": "identity_repetition_debt_free_target_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      {
+        "detector_id": "banned_internal_abstraction",
+        "disposition_class": "blocking_gate",
+        "rationale_id": "internal_abstraction_zero_tolerance_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      {
+        "detector_id": "repeated_skeleton_concentration",
+        "disposition_class": "advisory_debt",
+        "rationale_id": "corpus_skeleton_concentration_cap_v1",
+        "threshold": {
+          "operator": "le",
+          "value": {
+            "denominator": 20,
+            "numerator": 1
+          }
+        }
+      },
+      {
+        "detector_id": "paragraph_fragmentation",
+        "disposition_class": "advisory_debt",
+        "rationale_id": "fragmentation_debt_free_target_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      {
+        "detector_id": "passive_translationese_pattern",
+        "disposition_class": "advisory_debt",
+        "rationale_id": "translationese_debt_free_target_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      {
+        "detector_id": "empty_or_filler_sentence",
+        "disposition_class": "blocking_gate",
+        "rationale_id": "empty_filler_zero_tolerance_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      }
+    ],
+    "schema_version": "public_text_quality_detector_mapping_candidate_v1",
+    "unknown_or_unmapped_detector_effect": "technical_blocker"
+  },
+  "detector_mapping_candidate_hash": "dbfa7b0fbfe4effdc45fcfd983ab0dc65478f17988626af3590e1cbbd3a300f4",
+  "foundation_contract_ready_for_remediation": true,
+  "foundation_contract_version": "1.0.0",
+  "foundation_id": "ptqa-foundation-v1",
+  "freshness_contract": {
+    "foundation_change_requires_new_version": true,
+    "last_known_good_disposition_fallback_allowed": false,
+    "naturalization_earliest_affected_phase_rerun_required": true,
+    "same_version_threshold_or_mapping_mutation_allowed": false,
+    "schema_version": "public_text_quality_freshness_contract_v1",
+    "stale_on_change": [
+      "foundation_contract_bytes_or_hash",
+      "policy_bytes_or_hash",
+      "evaluation_subject_binding",
+      "metric_calculator_or_schema",
+      "subject_applicable_source_runtime_or_candidate_handoff_constituent",
+      "applicable_waiver_set",
+      "human_review_selection_or_decision_binding"
+    ],
+    "technical_or_freshness_waiver_allowed": false
+  },
+  "freshness_contract_hash": "580d70bb57c68fa0116cc9f87a1f060392f0b00b1c945922659dd5ddae178ad6",
+  "human_review_selection_contract": {
+    "algorithm_id": "deterministic_stratified_sha256_rank_v1",
+    "base_sample": {
+      "cap_at_candidate_item_count": true,
+      "maximum_rows": 256,
+      "minimum_rows": 128,
+      "ratio": {
+        "denominator": 20,
+        "numerator": 1
+      }
+    },
+    "corpus_wide_human_only_zero_claim_requires_full_corpus_review": true,
+    "human_only_claim_scope": "selected_required_denominator_only",
+    "missing_or_unbound_review_effect": "technical_blocker",
+    "required_denominator_id": "naturalization_human_review_required_v1",
+    "required_strata": [
+      {
+        "minimum_rows_per_nonempty_stratum": 8,
+        "stratum_source": "resolved_profile"
+      },
+      {
+        "minimum_rows_per_nonempty_stratum": 16,
+        "stratum_source": "structural_fusion_or_suppression"
+      },
+      {
+        "minimum_rows_per_nonempty_stratum": 8,
+        "stratum_source": "raw_detector_id"
+      }
+    ],
+    "schema_version": "public_text_quality_human_review_selection_v1",
+    "selection_identity": "sha256(candidate_rendered_hash + NUL + stratum_id + NUL + item_id)",
+    "selection_union_deduplicated_by": "exact_item_id"
+  },
+  "human_review_selection_contract_hash": "8f82450c07ae83e936c3011595ec55b77ade10230fa1556cfde8ed9ed84687d0",
+  "live_gate_adopted": false,
+  "metric_registry_candidate": {
+    "disposition_class_enum": [
+      "blocking_gate",
+      "advisory_debt",
+      "non_claim"
+    ],
+    "raw_metric_immutable": true,
+    "registrations": [
+      {
+        "annotation": "acceptance_blocker",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "quality_evaluable_adopted_item_v1",
+        "disposition_class": "blocking_gate",
+        "metric_id": "coverage_quality_weak",
+        "unit": "ratio"
+      },
+      {
+        "annotation": "quality_distribution",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "quality_evaluable_adopted_item_v1",
+        "disposition_class": "non_claim",
+        "metric_id": "coverage_quality_adequate",
+        "unit": "ratio"
+      },
+      {
+        "annotation": "quality_distribution",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "quality_evaluable_adopted_item_v1",
+        "disposition_class": "non_claim",
+        "metric_id": "coverage_quality_strong",
+        "unit": "ratio"
+      },
+      {
+        "annotation": "acceptance_blocker",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "quality_evaluable_adopted_item_v1",
+        "disposition_class": "blocking_gate",
+        "metric_id": "missing_any_required_section_row",
+        "unit": "ratio"
+      },
+      {
+        "annotation": "missing_occurrence_debt",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_section_opportunity_v1",
+        "disposition_class": "advisory_debt",
+        "metric_id": "missing_required_section_occurrence",
+        "unit": "ratio"
+      },
+      {
+        "annotation": "diagnostic_breakdown",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_context_support_opportunity_v1",
+        "disposition_class": "non_claim",
+        "metric_id": "missing_context_support",
+        "unit": "ratio"
+      },
+      {
+        "annotation": "diagnostic_breakdown",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_limitation_tail_opportunity_v1",
+        "disposition_class": "non_claim",
+        "metric_id": "missing_limitation_tail",
+        "unit": "ratio"
+      },
+      {
+        "annotation": "diagnostic_breakdown",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "required_use_core_opportunity_v1",
+        "disposition_class": "non_claim",
+        "metric_id": "missing_use_core",
+        "unit": "ratio"
+      },
+      {
+        "annotation": "separate_adoption_axis",
+        "applicable_subject_kinds": [
+          "current_runtime_payload"
+        ],
+        "denominator_id": "current_item_universe_v1",
+        "disposition_class": "non_claim",
+        "metric_id": "unadopted",
+        "unit": "count_ratio"
+      },
+      {
+        "annotation": "source_provenance_blocker",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_source_proposition_v1",
+        "disposition_class": "blocking_gate",
+        "metric_id": "semantic_preservation_failure",
+        "unit": "count"
+      },
+      {
+        "annotation": "structural_satisfaction_blocker",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_required_body_plan_role_v1",
+        "disposition_class": "blocking_gate",
+        "metric_id": "unsatisfied_required_body_plan_role",
+        "unit": "count"
+      },
+      {
+        "annotation": "technical_semantic_blocker",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+        "disposition_class": "blocking_gate",
+        "metric_id": "equivalence_proof_failure",
+        "unit": "count"
+      },
+      {
+        "annotation": "compiler_contract_blocker",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_candidate_item_v1",
+        "disposition_class": "blocking_gate",
+        "metric_id": "compiler_invalid_pattern",
+        "unit": "count"
+      },
+      {
+        "annotation": "raw_korean_prose_detector",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:duplicate_proposition_realization",
+        "disposition_class": "blocking_gate",
+        "metric_id": "duplicate_proposition_realization",
+        "unit": "count_ratio"
+      },
+      {
+        "annotation": "raw_korean_prose_detector",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_identity_noun_window",
+        "disposition_class": "advisory_debt",
+        "metric_id": "repeated_identity_noun_window",
+        "unit": "count_ratio"
+      },
+      {
+        "annotation": "raw_korean_prose_detector",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:banned_internal_abstraction",
+        "disposition_class": "blocking_gate",
+        "metric_id": "banned_internal_abstraction",
+        "unit": "count_ratio"
+      },
+      {
+        "annotation": "raw_korean_prose_detector",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_skeleton_concentration",
+        "disposition_class": "advisory_debt",
+        "metric_id": "repeated_skeleton_concentration",
+        "unit": "rational_metric"
+      },
+      {
+        "annotation": "raw_korean_prose_detector",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:paragraph_fragmentation",
+        "disposition_class": "advisory_debt",
+        "metric_id": "paragraph_fragmentation",
+        "unit": "count_ratio"
+      },
+      {
+        "annotation": "raw_korean_prose_detector",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:passive_translationese_pattern",
+        "disposition_class": "advisory_debt",
+        "metric_id": "passive_translationese_pattern",
+        "unit": "count_ratio"
+      },
+      {
+        "annotation": "raw_korean_prose_detector",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_raw_detector_opportunity_v1:empty_or_filler_sentence",
+        "disposition_class": "blocking_gate",
+        "metric_id": "empty_or_filler_sentence",
+        "unit": "count_ratio"
+      },
+      {
+        "annotation": "denominator_qualified_human_only_finding",
+        "applicable_subject_kinds": [
+          "dvf_3_3_korean_naturalization_candidate"
+        ],
+        "denominator_id": "naturalization_human_review_required_v1",
+        "disposition_class": "blocking_gate",
+        "metric_id": "human_review_blocker_required_denominator",
+        "unit": "count"
+      }
+    ],
+    "schema_version": "public_text_quality_metric_registry_candidate_v1"
+  },
+  "metric_registry_candidate_hash": "1c7c08e519e9db9bb60fee5c14c749d11af07cb2ddc2c70cd4af7592fadb31a3",
+  "naturalization_required_handoff_schema_complete": true,
+  "official_attempt_created": false,
+  "official_disposition": "not_issued",
+  "owner_instruction_is_gate_adoption": false,
+  "owner_instruction_is_policy_ratification": false,
+  "owner_instruction_is_terminal_seal": false,
+  "owner_instruction_scope": "implement_s1_foundation_only",
+  "policy_candidate": {
+    "aggregate_disposition_enum": [
+      "accepted",
+      "blocked",
+      "deferred_internal_debt"
+    ],
+    "authority_effect": "none",
+    "authority_state": "development_foundation_candidate",
+    "current_runtime_payload_thresholds": {
+      "coverage_quality_adequate": {
+        "disposition_class": "non_claim",
+        "threshold": {
+          "operator": "none",
+          "value": null
+        }
+      },
+      "coverage_quality_strong": {
+        "disposition_class": "non_claim",
+        "threshold": {
+          "operator": "none",
+          "value": null
+        }
+      },
+      "coverage_quality_weak": {
+        "disposition_class": "blocking_gate",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "missing_any_required_section_row": {
+        "disposition_class": "blocking_gate",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "missing_context_support": {
+        "disposition_class": "non_claim",
+        "threshold": {
+          "operator": "none",
+          "value": null
+        }
+      },
+      "missing_limitation_tail": {
+        "disposition_class": "non_claim",
+        "threshold": {
+          "operator": "none",
+          "value": null
+        }
+      },
+      "missing_required_section_occurrence": {
+        "disposition_class": "advisory_debt",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "missing_use_core": {
+        "disposition_class": "non_claim",
+        "threshold": {
+          "operator": "none",
+          "value": null
+        }
+      },
+      "unadopted": {
+        "disposition_class": "non_claim",
+        "threshold": {
+          "operator": "none",
+          "value": null
+        }
+      }
+    },
+    "default_exceptions": [],
+    "final_disposition_algorithm": [
+      {
+        "result": "blocked",
+        "when": "technical_blocker_count > 0"
+      },
+      {
+        "result": "blocked",
+        "when": "effective_blocking_finding_count > 0"
+      },
+      {
+        "result": "deferred_internal_debt",
+        "when": "advisory_debt_count > 0 or active_waiver_count > 0"
+      },
+      {
+        "result": "accepted",
+        "when": "otherwise"
+      }
+    ],
+    "item_disposition_mapping": {
+      "active_waiver": "deferred_internal_debt",
+      "advisory_debt_unsatisfied": "deferred_internal_debt",
+      "blocking_gate_unsatisfied": "blocked",
+      "no_applicable_finding": "accepted",
+      "non_claim_metric": "no_item_disposition_effect",
+      "technical_blocker": "blocked"
+    },
+    "naturalization_candidate_thresholds": {
+      "banned_internal_abstraction": {
+        "disposition_class": "blocking_gate",
+        "rationale_id": "internal_abstraction_zero_tolerance_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "compiler_invalid_pattern": {
+        "disposition_class": "blocking_gate",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "duplicate_proposition_realization": {
+        "disposition_class": "blocking_gate",
+        "rationale_id": "semantic_duplication_zero_tolerance_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "empty_or_filler_sentence": {
+        "disposition_class": "blocking_gate",
+        "rationale_id": "empty_filler_zero_tolerance_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "equivalence_proof_failure": {
+        "disposition_class": "blocking_gate",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "human_review_blocker_required_denominator": {
+        "disposition_class": "blocking_gate",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "paragraph_fragmentation": {
+        "disposition_class": "advisory_debt",
+        "rationale_id": "fragmentation_debt_free_target_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "passive_translationese_pattern": {
+        "disposition_class": "advisory_debt",
+        "rationale_id": "translationese_debt_free_target_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "repeated_identity_noun_window": {
+        "disposition_class": "advisory_debt",
+        "rationale_id": "identity_repetition_debt_free_target_v1",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "repeated_skeleton_concentration": {
+        "disposition_class": "advisory_debt",
+        "rationale_id": "corpus_skeleton_concentration_cap_v1",
+        "threshold": {
+          "operator": "le",
+          "value": {
+            "denominator": 20,
+            "numerator": 1
+          }
+        }
+      },
+      "semantic_preservation_failure": {
+        "disposition_class": "blocking_gate",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      },
+      "unsatisfied_required_body_plan_role": {
+        "disposition_class": "blocking_gate",
+        "threshold": {
+          "operator": "eq",
+          "value": {
+            "integer": 0
+          }
+        }
+      }
+    },
+    "official_policy_ratified": false,
+    "policy_candidate_version": "1.0.0",
+    "raw_metrics_immutable": true,
+    "schema_version": "public_text_quality_acceptance_policy_candidate_v1",
+    "threshold_rationale_constraints": {
+      "candidate_metric_dependency_allowed": false,
+      "current_payload_result_dependency_allowed": false,
+      "exact_integer_or_rational_comparison_required": true,
+      "historical_threshold_inheritance_allowed": false
+    },
+    "waiver_contract": {
+      "allowed_waived_disposition": "deferred_internal_debt",
+      "default_set": [],
+      "expiry_or_reevaluation_condition_required": true,
+      "raw_metric_mutation_allowed": false,
+      "technical_or_freshness_scope_allowed": false,
+      "waiver_can_create_clean_accepted": false
+    }
+  },
+  "policy_candidate_hash": "bf6e941f48eb2507b4da909b035b7e68d6351de6fdfc6043468b2533fb30cea3",
+  "policy_closure_state": "not_started",
+  "policy_seal_created": false,
+  "required_handoff_schema": {
+    "candidate_runtime_parity_applicability": "not_applicable",
+    "candidate_runtime_parity_reason": "candidate_not_registry_adopted",
+    "exact_path_hash_binding_required": true,
+    "hash_fields_require_lowercase_sha256_hex": true,
+    "post_handoff_mutation_effect": "stale",
+    "registry_runtime_pass_claim_allowed": false,
+    "requested_evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+    "required_constituent_ids": [
+      "naturalization_attempt_id",
+      "foundation_contract_hash",
+      "candidate_rendered_hash",
+      "candidate_manifest_hash",
+      "source_proposition_manifest_hash",
+      "body_plan_requirement_digest",
+      "structural_satisfaction_ledger_hash",
+      "semantic_preservation_report_hash",
+      "raw_detector_report_hash",
+      "human_review_sample_manifest_hash",
+      "human_review_decision_hash",
+      "compiler_implementation_hash",
+      "korean_prose_policy_hash",
+      "corpus_manifest_hash",
+      "protected_surface_no_mutation_report_hash",
+      "requested_evaluation_subject_kind"
+    ],
+    "schema_version": "naturalization_publish_handoff_required_schema_v1"
+  },
+  "required_handoff_schema_hash": "d78b8c6742d8b94b6aedd620e4c3b787f78e2ed83a202ad050eef1ec25379fe6",
+  "roadmap_input_sha256_planning_observation": "4b28e1fd3302877de81d85b14b6a7facd79b5b97a09e6db5aa5bcf8e2d4b07b9",
+  "roadmap_provenance_effect": "planning_observation_only",
+  "runner_validator_interface": {
+    "exit_codes": {
+      "0": "validated_foundation_ready",
+      "2": "interface_or_contract_failure",
+      "3": "write_once_conflict"
+    },
+    "foundation_can_issue_official_disposition": false,
+    "official_phase_modes_implemented": false,
+    "runner": {
+      "forbidden_arguments": [
+        "--attempt-id"
+      ],
+      "foundation_root_policy": {
+        "external_fixture_or_diagnostic_root": "allowed_when_explicit",
+        "other_repository_local_root": "forbidden",
+        "repository_local_default": "exact_tracked_s1_foundation_root_only"
+      },
+      "implicit_default_mode_allowed": false,
+      "optional_arguments": {
+        "--foundation-root": "explicit_output_root_for_fixture_or_diagnostic"
+      },
+      "path": "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
+      "required_arguments": {
+        "--foundation-id": "nonempty_identifier",
+        "--mode": "foundation-build"
+      }
+    },
+    "schema_version": "public_text_quality_runner_validator_interface_v1",
+    "validator": {
+      "forbidden_arguments": [
+        "--attempt-id"
+      ],
+      "foundation_root_policy": {
+        "external_fixture_or_diagnostic_root": "allowed_when_explicit",
+        "other_repository_local_root": "forbidden",
+        "repository_local_default": "exact_tracked_s1_foundation_root_only"
+      },
+      "optional_arguments": {
+        "--foundation-root": "explicit_input_root_for_fixture_or_diagnostic"
+      },
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+      "required_arguments": {
+        "--foundation-id": "exact_runner_foundation_id",
+        "--no-write": true,
+        "--require-foundation-ready": true
+      }
+    }
+  },
+  "runner_validator_interface_hash": "5dffcff3051291489502f0f81ab0fc76214ee5c6c465b82bc8b63591644ad388",
+  "schema_version": "public_text_quality_foundation_contract_v1",
+  "synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1",
+  "synchronization_projection": {
+    "blocked_immediate_allowed_for_synchronized_candidate": false,
+    "candidate_runtime_parity_applicability": "not_applicable",
+    "candidate_runtime_parity_reason": "candidate_not_registry_adopted",
+    "candidate_structural_status_enum": [
+      "emitted_direct",
+      "satisfied_by_verified_fusion",
+      "satisfied_by_verified_suppression",
+      "not_required",
+      "missing"
+    ],
+    "canonical_stage_order": [
+      "S0_plan_sync",
+      "S1_publish_foundation",
+      "S2_naturalization_build",
+      "S3_publish_official_attempt",
+      "S4_naturalization_finalize"
+    ],
+    "dvf_owns_proposition_discourse_realization_raw_detector": true,
+    "evaluation_subject_kind_enum": [
+      "current_runtime_payload",
+      "dvf_3_3_korean_naturalization_candidate"
+    ],
+    "foundation_required_state": {
+      "authority_effect": "none",
+      "foundation_contract_ready_for_remediation": true,
+      "live_gate_adopted": false,
+      "official_disposition": "not_issued",
+      "policy_closure_state": "not_started"
+    },
+    "nonaccepted_candidate_action": "after_remediation",
+    "publish_owns_metric_mapping_threshold_waiver_disposition": true,
+    "required_handoff_constituent_ids": [
+      "naturalization_attempt_id",
+      "foundation_contract_hash",
+      "candidate_rendered_hash",
+      "candidate_manifest_hash",
+      "source_proposition_manifest_hash",
+      "body_plan_requirement_digest",
+      "structural_satisfaction_ledger_hash",
+      "semantic_preservation_report_hash",
+      "raw_detector_report_hash",
+      "human_review_sample_manifest_hash",
+      "human_review_decision_hash",
+      "compiler_implementation_hash",
+      "korean_prose_policy_hash",
+      "corpus_manifest_hash",
+      "protected_surface_no_mutation_report_hash",
+      "requested_evaluation_subject_kind"
+    ],
+    "synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1"
+  },
+  "synchronization_projection_hash": "85d9ec5507cbd2d4dcecd34dcd6c7bd6901cd26a3927d2a760d66121ac9cb1a7",
+  "terminal_seal_created": false
+}

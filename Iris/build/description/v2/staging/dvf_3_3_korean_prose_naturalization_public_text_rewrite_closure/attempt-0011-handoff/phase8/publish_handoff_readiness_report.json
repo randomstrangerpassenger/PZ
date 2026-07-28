@@ -1,0 +1,14 @@
+{
+  "blocker_reasons": [],
+  "candidate_rendered_hash": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+  "live_required_gate_adopted": false,
+  "naturalization_attempt_id": "attempt-0011-handoff",
+  "official_publish_attempt_created": false,
+  "present_constituent_count": 16,
+  "publish_acceptance_handoff_manifest_frozen": true,
+  "publish_disposition_created": false,
+  "required_constituent_count": 16,
+  "runtime_or_current_adoption_claimed": false,
+  "schema_version": "dvf-3-3-publish-handoff-readiness-report-v1",
+  "status": "PASS"
+}

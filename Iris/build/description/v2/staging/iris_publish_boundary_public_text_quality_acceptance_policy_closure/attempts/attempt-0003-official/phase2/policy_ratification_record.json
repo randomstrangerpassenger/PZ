@@ -1,0 +1,18 @@
+{
+  "candidate_policy_hash": "5ac934f1950ccd8b07d5d709abcab0f8ff35ca6fdf28f77098726458d67b78d0",
+  "decided_at": "2026-07-26T18:24:55+09:00",
+  "decision": "ratified",
+  "evaluation_subject_hash": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+  "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+  "metric_affirmation_count": 21,
+  "metric_affirmation_duplicate_count": 0,
+  "metric_affirmation_mismatch_count": 0,
+  "metric_affirmation_missing_count": 0,
+  "owner_acknowledges_evaluation_subject_may_be_blocked": true,
+  "owner_binding_proof": "490a8169a1024df34873781e89b4d246883033d233bb9c3c7e81300a70189e1a",
+  "owner_identity": "workspace_owner_user",
+  "owner_input_path": "Iris/build/description/v2/owner_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/policy_ratification_decision.json",
+  "owner_input_raw_sha256": "33f3c8d784985ad7ff24ef9f4f2f1c9b30de120a75d00380714af66da055d42c",
+  "schema_version": "public_text_quality_policy_ratification_record_v1",
+  "status": "PASS"
+}

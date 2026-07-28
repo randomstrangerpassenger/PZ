@@ -1,0 +1,113 @@
+{
+  "attempt_id": "attempt-0003-official",
+  "constituents": [
+    {
+      "actual_sha256": "3505b2edbe7b5826c70ee80a62c2eb6db25ff9d0b224f527936c1504fbf516ee",
+      "declared_sha256": "3505b2edbe7b5826c70ee80a62c2eb6db25ff9d0b224f527936c1504fbf516ee",
+      "id": "foundation_contract_hash",
+      "match": true,
+      "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json"
+    },
+    {
+      "actual_sha256": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+      "declared_sha256": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+      "id": "candidate_rendered_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase4/candidate_rendered.json"
+    },
+    {
+      "actual_sha256": "2e6bf9c17563f4b71cc9bfba26a590b1780a9a6acada1e7675b2b24403d6e160",
+      "declared_sha256": "2e6bf9c17563f4b71cc9bfba26a590b1780a9a6acada1e7675b2b24403d6e160",
+      "id": "candidate_manifest_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase4/candidate_manifest.json"
+    },
+    {
+      "actual_sha256": "0d90bac30b0ec3a990f8befbb73e054a7e30a5ce60d7b1a0607efcb3b9ed80e7",
+      "declared_sha256": "0d90bac30b0ec3a990f8befbb73e054a7e30a5ce60d7b1a0607efcb3b9ed80e7",
+      "id": "source_proposition_manifest_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase2/source_proposition_manifest.json"
+    },
+    {
+      "actual_sha256": "0efdba43f182e57d80b85a27772705affff27743de7b6c9a675b9de057700a2b",
+      "declared_sha256": "0efdba43f182e57d80b85a27772705affff27743de7b6c9a675b9de057700a2b",
+      "id": "body_plan_requirement_digest",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase2/body_plan_requirement_inventory.jsonl"
+    },
+    {
+      "actual_sha256": "be99ff34964537ff560d2ce7055088afa16486966173218d847dee3739c6ca3e",
+      "declared_sha256": "be99ff34964537ff560d2ce7055088afa16486966173218d847dee3739c6ca3e",
+      "id": "structural_satisfaction_ledger_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase5/structural_satisfaction_ledger.jsonl"
+    },
+    {
+      "actual_sha256": "9f27fcbb7318962839fb501832aa59ae42a3665116b28b921bd73b6030557302",
+      "declared_sha256": "9f27fcbb7318962839fb501832aa59ae42a3665116b28b921bd73b6030557302",
+      "id": "semantic_preservation_report_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase5/semantic_preservation_report.json"
+    },
+    {
+      "actual_sha256": "5b6914f9031bb3de12c5fb4761d477a0b43882a21ec53d5eb47afa9f29fda748",
+      "declared_sha256": "5b6914f9031bb3de12c5fb4761d477a0b43882a21ec53d5eb47afa9f29fda748",
+      "id": "raw_detector_report_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase6/raw_detector_report.json"
+    },
+    {
+      "actual_sha256": "3cdd21030b2866aa62ec366c367c5e57f09f476e92b83f00a7aa29433652c8fd",
+      "declared_sha256": "3cdd21030b2866aa62ec366c367c5e57f09f476e92b83f00a7aa29433652c8fd",
+      "id": "human_review_sample_manifest_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase7/human_review_sample_manifest.json"
+    },
+    {
+      "actual_sha256": "e4951eb709519c01a9f7435bc6642a4518c7eed1ecbf1d82cea3289144692b81",
+      "declared_sha256": "e4951eb709519c01a9f7435bc6642a4518c7eed1ecbf1d82cea3289144692b81",
+      "id": "human_review_decision_hash",
+      "match": true,
+      "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/human_review_decision.json"
+    },
+    {
+      "actual_sha256": "50c2fdf90e43b2a44b7aed78115fa57f6555b6013c5224bb7080de005b83a9de",
+      "declared_sha256": "50c2fdf90e43b2a44b7aed78115fa57f6555b6013c5224bb7080de005b83a9de",
+      "id": "korean_prose_policy_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json"
+    },
+    {
+      "actual_sha256": "f9813306175a0483e89a075ac03c768f7f830364a5517d1fdfa6cb9f07657fcf",
+      "declared_sha256": "f9813306175a0483e89a075ac03c768f7f830364a5517d1fdfa6cb9f07657fcf",
+      "id": "corpus_manifest_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json"
+    },
+    {
+      "actual_sha256": "85613554de3b1a9141aad7269341e5d343ee47d03682e2aff4780efdf99f4fb8",
+      "declared_sha256": "85613554de3b1a9141aad7269341e5d343ee47d03682e2aff4780efdf99f4fb8",
+      "id": "protected_surface_no_mutation_report_hash",
+      "match": true,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase4/protected_surface_after_snapshot.json"
+    }
+  ],
+  "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+  "foundation_contract": {
+    "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+    "raw_sha256": "3505b2edbe7b5826c70ee80a62c2eb6db25ff9d0b224f527936c1504fbf516ee"
+  },
+  "foundation_readiness": {
+    "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json",
+    "raw_sha256": "4a970c3975137493e7ed29194076e0618821ada2032bc92ca567fc630381b113",
+    "status": "PASS"
+  },
+  "handoff": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase8/publish_acceptance_handoff_manifest.json",
+    "raw_sha256": "f597c7b04eeaa4f0679214cf35759610554725f7df91fcb5ac51b4aed29db953"
+  },
+  "ignored_rendered_direct_authority_read_count": 0,
+  "schema_version": "public_text_quality_current_input_constituent_manifest_v1",
+  "status": "PASS"
+}

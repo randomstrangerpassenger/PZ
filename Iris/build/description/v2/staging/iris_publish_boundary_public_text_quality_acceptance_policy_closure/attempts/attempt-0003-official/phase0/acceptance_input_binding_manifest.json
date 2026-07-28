@@ -1,0 +1,101 @@
+{
+  "attempt_id": "attempt-0003-official",
+  "authority_effect": "official_evaluation_input_binding_only",
+  "binding_fresh": true,
+  "binding_hash": "41ce3d07809c171880e01c064ac50f6277a130659cbfd9ea90ff7c42d6c10c48",
+  "canonical_entries_sha256": "c151b6fe38d6df414bd5555ebe0a36a215d30cf91bc81744f0c04ef7e842bd87",
+  "canonical_metric_projection_sha256": "86ca30bec7a5add728b0917ae79663cf44ffeb37c592a947ce05e67fd3411ab0",
+  "constituent_hashes": [
+    {
+      "id": "naturalization_attempt_id",
+      "sha256": "ab21c6cdac7d6c2432bd6dfb0c7df42d98d34b3d46f0d52a3ccdc51aeb0a2371"
+    },
+    {
+      "id": "foundation_contract_hash",
+      "sha256": "3505b2edbe7b5826c70ee80a62c2eb6db25ff9d0b224f527936c1504fbf516ee"
+    },
+    {
+      "id": "candidate_rendered_hash",
+      "sha256": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7"
+    },
+    {
+      "id": "candidate_manifest_hash",
+      "sha256": "2e6bf9c17563f4b71cc9bfba26a590b1780a9a6acada1e7675b2b24403d6e160"
+    },
+    {
+      "id": "source_proposition_manifest_hash",
+      "sha256": "0d90bac30b0ec3a990f8befbb73e054a7e30a5ce60d7b1a0607efcb3b9ed80e7"
+    },
+    {
+      "id": "body_plan_requirement_digest",
+      "sha256": "0efdba43f182e57d80b85a27772705affff27743de7b6c9a675b9de057700a2b"
+    },
+    {
+      "id": "structural_satisfaction_ledger_hash",
+      "sha256": "be99ff34964537ff560d2ce7055088afa16486966173218d847dee3739c6ca3e"
+    },
+    {
+      "id": "semantic_preservation_report_hash",
+      "sha256": "9f27fcbb7318962839fb501832aa59ae42a3665116b28b921bd73b6030557302"
+    },
+    {
+      "id": "raw_detector_report_hash",
+      "sha256": "5b6914f9031bb3de12c5fb4761d477a0b43882a21ec53d5eb47afa9f29fda748"
+    },
+    {
+      "id": "human_review_sample_manifest_hash",
+      "sha256": "3cdd21030b2866aa62ec366c367c5e57f09f476e92b83f00a7aa29433652c8fd"
+    },
+    {
+      "id": "human_review_decision_hash",
+      "sha256": "e4951eb709519c01a9f7435bc6642a4518c7eed1ecbf1d82cea3289144692b81"
+    },
+    {
+      "id": "compiler_implementation_hash",
+      "sha256": "c36dcf5b2c182d0ee704315e47739ba3f444805c383f01b324cd2573f0358aaa"
+    },
+    {
+      "id": "korean_prose_policy_hash",
+      "sha256": "50c2fdf90e43b2a44b7aed78115fa57f6555b6013c5224bb7080de005b83a9de"
+    },
+    {
+      "id": "corpus_manifest_hash",
+      "sha256": "f9813306175a0483e89a075ac03c768f7f830364a5517d1fdfa6cb9f07657fcf"
+    },
+    {
+      "id": "protected_surface_no_mutation_report_hash",
+      "sha256": "85613554de3b1a9141aad7269341e5d343ee47d03682e2aff4780efdf99f4fb8"
+    },
+    {
+      "id": "requested_evaluation_subject_kind",
+      "sha256": "7d8e809d24ca00dd4275220895f021d1dfb5e6822b09aa431616df7b900215d1"
+    }
+  ],
+  "denominator_registry_candidate_hash": "d0d8e7ab3509ef634d61ab2c33b86bab5352f3fa94c7e85b28d667a04937ff4b",
+  "evaluation_subject_hash": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+  "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+  "foundation_contract_hash": "3505b2edbe7b5826c70ee80a62c2eb6db25ff9d0b224f527936c1504fbf516ee",
+  "metric_registry_candidate_hash": "1c7c08e519e9db9bb60fee5c14c749d11af07cb2ddc2c70cd4af7592fadb31a3",
+  "naturalization_handoff_hash": "f597c7b04eeaa4f0679214cf35759610554725f7df91fcb5ac51b4aed29db953",
+  "official_disposition": "not_issued",
+  "policy_candidate_hash": "bf6e941f48eb2507b4da909b035b7e68d6351de6fdfc6043468b2533fb30cea3",
+  "schema_version": "public_text_quality_acceptance_input_binding_v1",
+  "synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1",
+  "tool_hashes": [
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "sha256": "d48be3501be662e5ee676ff1d3912e8a53cd36945814a575a7f1bde09b62f6a4"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
+      "sha256": "f373d4f612178afdbd03dc6d96a8edc64502b737125e2ef1ac6134e586f888f4"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+      "sha256": "4f7e9d2fcc55fb9993d53a6652b1badd96faf5d4d7e0350fdbc80ead4626c2ee"
+    }
+  ]
+}

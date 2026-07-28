@@ -1,0 +1,271 @@
+{
+  "blocker_paths": [],
+  "ignored_count": 0,
+  "present_count": 37,
+  "required_path_count": 37,
+  "rows": [
+    {
+      "ignored": false,
+      "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/human_review_decision.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase2/body_plan_requirement_inventory.jsonl",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase2/source_proposition_manifest.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase4/candidate_manifest.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase4/candidate_rendered.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase4/protected_surface_after_snapshot.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase5/semantic_preservation_report.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase5/structural_satisfaction_ledger.jsonl",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase6/raw_detector_report.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase7/human_review_sample_manifest.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/phase8/publish_acceptance_handoff_manifest.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tests/fixtures/public_text_quality_acceptance/foundation_fixtures.json",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_blocks.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_body_profile.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_identity.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_io.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_item.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_render.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/compose_layer3_text.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/public_text_quality_acceptance_claim_boundary.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/public_text_quality_acceptance_policy.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/public_text_quality_denominator_contract.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/public_text_quality_exception_policy.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/public_text_quality_freshness_policy.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/public_text_quality_metric_contract.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    },
+    {
+      "ignored": false,
+      "path": "docs/public_text_quality_waiver_policy.md",
+      "present": true,
+      "tracked": true,
+      "unstaged_delta": false
+    }
+  ],
+  "schema_version": "public_text_quality_vcs_required_surface_preflight_v1",
+  "status": "PASS",
+  "tracked_count": 37,
+  "unstaged_delta_count": 0
+}

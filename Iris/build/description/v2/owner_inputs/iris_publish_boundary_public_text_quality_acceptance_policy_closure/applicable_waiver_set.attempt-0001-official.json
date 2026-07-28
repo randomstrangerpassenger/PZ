@@ -1,0 +1,8 @@
+{
+  "candidate_policy_hash": "89d58ada8ef777460b7be613e73c622471ba6c2b0495bdadf586d5a873c26c9e",
+  "evaluation_subject_hash": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+  "owner_binding_proof": "bd2991befd528b4ad07948c005c165af5182dce6037bf6bc2e53a9d398d2a9fd",
+  "owner_identity": "workspace_owner_user",
+  "waiver_schema_version": "public_text_quality_applicable_waiver_set_v1",
+  "waivers": []
+}

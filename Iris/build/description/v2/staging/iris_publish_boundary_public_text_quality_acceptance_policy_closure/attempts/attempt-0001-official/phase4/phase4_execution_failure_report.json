@@ -1,0 +1,15 @@
+{
+  "attempt_id": "attempt-0001-official",
+  "error": "fixture manifest immutable identifier was read as trace_id instead of fixture_id",
+  "exception_type": "KeyError",
+  "failed_mode": "phase4-adversarial",
+  "failed_phase": 4,
+  "failure_evidence_preserved": true,
+  "implementation_change_effect": "attempt_stale_restart_from_phase0_required",
+  "live_gate_adopted": false,
+  "official_disposition": "not_issued",
+  "policy_closure_state": "incomplete",
+  "policy_seal_preserved": true,
+  "schema_version": "public_text_quality_phase_execution_failure_v1",
+  "status": "technical_failure"
+}

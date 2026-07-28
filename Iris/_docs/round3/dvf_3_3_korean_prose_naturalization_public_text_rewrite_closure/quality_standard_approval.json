@@ -1,0 +1,13 @@
+{
+  "schema_version": "dvf-3-3-quality-standard-owner-approval-v1",
+  "status": "approved",
+  "owner_id": "workspace_owner_user",
+  "owner_role": "project_owner",
+  "approval_date": "2026-07-26",
+  "approval_channel": "explicit_user_message_in_current_codex_task",
+  "approval_scope": "dvf_3_3_korean_prose_quality_standard",
+  "quality_standard_path": "docs/dvf_3_3_korean_prose_quality_standard.md",
+  "quality_standard_sha256": "6a6f32f2b6ecca4c3e54fd28a2a6e0f43846d093335af36e0c17665c9024835e",
+  "approval_statement": "프로젝트 owner가 immutable Publish handoff 생성을 위해 품질 기준을 승인했다.",
+  "compiler_or_tool_generated_owner_judgment": false
+}

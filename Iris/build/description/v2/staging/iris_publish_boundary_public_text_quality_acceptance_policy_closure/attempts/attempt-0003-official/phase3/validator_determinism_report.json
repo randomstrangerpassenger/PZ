@@ -1,0 +1,8 @@
+{
+  "normalized_output_parity": true,
+  "run1_metric_projection_hash": "6a0d18a254d0b3ab69ac4a6f55f2559b6d567536157d5190b6e9393e23875521",
+  "run2_metric_projection_hash": "6a0d18a254d0b3ab69ac4a6f55f2559b6d567536157d5190b6e9393e23875521",
+  "schema_version": "public_text_quality_validator_determinism_report_v1",
+  "status": "PASS",
+  "volatile_metadata_excluded": true
+}

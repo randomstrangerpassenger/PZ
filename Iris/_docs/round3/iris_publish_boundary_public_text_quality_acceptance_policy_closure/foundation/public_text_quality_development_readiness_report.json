@@ -1,0 +1,127 @@
+{
+  "authority_effect": "none",
+  "candidate_content_dependency_count": 0,
+  "candidate_metric_dependency_count": 0,
+  "contract_validation": {
+    "candidate_content_dependency_count": 0,
+    "candidate_metric_dependency_count": 0,
+    "denominator_count": 15,
+    "metric_count": 21,
+    "raw_detector_count": 7,
+    "status": "PASS",
+    "unknown_denominator_count": 0,
+    "unknown_metric_count": 0,
+    "unmapped_raw_detector_count": 0
+  },
+  "denominator_registry_candidate_hash": "d0d8e7ab3509ef634d61ab2c33b86bab5352f3fa94c7e85b28d667a04937ff4b",
+  "detector_mapping_candidate_hash": "dbfa7b0fbfe4effdc45fcfd983ab0dc65478f17988626af3590e1cbbd3a300f4",
+  "documentation_hashes": [
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+      "sha256": "d357b18c812ea1395e48b8ddcd0a7f255943353800dd45b2376a307259f1172b"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "sha256": "bbac14e7e4754c6afb10d7a5a932afae8b769cc45256b38eba8b89f59a275574"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_metric_contract.md",
+      "sha256": "a1b047fa31bc4ed38ab58f899d03a4e84cb2ed81162133bcd234916077f053c8"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_denominator_contract.md",
+      "sha256": "d27fcae6b5fa8cd5f90080d9c7b31507b2b2fbd97c8e6d69c95c119adf2368b1"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_acceptance_policy.md",
+      "sha256": "b39a54430a61ba0e3a9a0e4b7868df5acd12f02a4b15850ff0d1fd641f238cd3"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_acceptance_claim_boundary.md",
+      "sha256": "cb601887f5999b3ce9401424cd8f87bf90cc50a78dd952fa3095a82018f22c35"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_exception_policy.md",
+      "sha256": "61dd42df0c99e65c56e40d1e0076aac4ceb8161d968414e6139fbb87771c3796"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_waiver_policy.md",
+      "sha256": "754da174d34792027b907b38b3c173eb7c4278fa439e348f89791bcbc5c2f2c0"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_freshness_policy.md",
+      "sha256": "0b0cf6fb7441059a0e1744e5cf0cf0d0d65a6489c9477ceb44b3b9771a476976"
+    }
+  ],
+  "dry_run": {
+    "candidate_metric_values_read": 0,
+    "current_payload_bytes_read": 0,
+    "detector_mapping_coverage_pass": true,
+    "handoff_schema_contract_pass": true,
+    "human_review_selection_contract_pass": true,
+    "kind": "synthetic_candidate_independent_fixture_dry_run",
+    "naturalization_candidate_bytes_read": 0,
+    "runner_validator_fixture_pass": true
+  },
+  "evaluation_subject_disposition_created": false,
+  "fixture_manifest": {
+    "fixture_failure_count": 0,
+    "hash_algorithm": "sha256_canonical_json_v1",
+    "path": "Iris/build/description/v2/tests/fixtures/public_text_quality_acceptance/foundation_fixtures.json",
+    "plan_additive_fixture_count": 10,
+    "roadmap_mandatory_fixture_count": 36,
+    "sha256": "4be4467542c5e49894a5038cbfa3b36aac97018f288ac9aeda87a7882afb637d",
+    "total_fixture_count": 46
+  },
+  "foundation_contract_canonical_sha256": "02858fad0e835748af827eec4cf9c4ffc6f60601387584a7cd7b8510aee8943c",
+  "foundation_contract_path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+  "foundation_contract_raw_sha256": "3505b2edbe7b5826c70ee80a62c2eb6db25ff9d0b224f527936c1504fbf516ee",
+  "foundation_contract_ready_for_remediation": true,
+  "foundation_contract_version": "1.0.0",
+  "foundation_id": "ptqa-foundation-v1",
+  "foundation_runner_validator_fixture_pass": true,
+  "freshness_contract_hash": "580d70bb57c68fa0116cc9f87a1f060392f0b00b1c945922659dd5ddae178ad6",
+  "human_review_selection_contract_hash": "8f82450c07ae83e936c3011595ec55b77ade10230fa1556cfde8ed9ed84687d0",
+  "implementation_hashes": [
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "sha256": "d48be3501be662e5ee676ff1d3912e8a53cd36945814a575a7f1bde09b62f6a4"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
+      "sha256": "f373d4f612178afdbd03dc6d96a8edc64502b737125e2ef1ac6134e586f888f4"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+      "sha256": "4f7e9d2fcc55fb9993d53a6652b1badd96faf5d4d7e0350fdbc80ead4626c2ee"
+    }
+  ],
+  "live_gate_adopted": false,
+  "metric_registry_candidate_hash": "1c7c08e519e9db9bb60fee5c14c749d11af07cb2ddc2c70cd4af7592fadb31a3",
+  "naturalization_required_handoff_schema_complete": true,
+  "official_attempt_created": false,
+  "official_disposition": "not_issued",
+  "policy_candidate_hash": "bf6e941f48eb2507b4da909b035b7e68d6351de6fdfc6043468b2533fb30cea3",
+  "policy_closure_state": "not_started",
+  "policy_seal_created": false,
+  "required_gate_candidate_created": false,
+  "required_handoff_schema_hash": "d78b8c6742d8b94b6aedd620e4c3b787f78e2ed83a202ad050eef1ec25379fe6",
+  "runner_validator_interface_hash": "5dffcff3051291489502f0f81ab0fc76214ee5c6c465b82bc8b63591644ad388",
+  "schema_version": "public_text_quality_development_readiness_v1",
+  "status": "foundation_ready_for_remediation",
+  "synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1",
+  "synchronization_projection_hash": "85d9ec5507cbd2d4dcecd34dcd6c7bd6901cd26a3927d2a760d66121ac9cb1a7",
+  "terminal_seal_created": false
+}

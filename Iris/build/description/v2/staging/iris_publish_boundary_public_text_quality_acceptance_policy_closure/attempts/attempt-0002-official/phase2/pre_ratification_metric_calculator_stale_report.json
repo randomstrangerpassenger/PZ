@@ -1,0 +1,13 @@
+{
+  "attempt_id": "attempt-0002-official",
+  "discovered_by": "repository_external_isolated_phase4_phase5_diagnostic",
+  "false_blocker_count": 2,
+  "false_blocker_source": "emission-ineligible unadopted roles were included in the candidate required-role denominator",
+  "implementation_change_effect": "attempt_stale_restart_from_phase0_required",
+  "live_gate_adopted": false,
+  "official_disposition": "not_issued",
+  "policy_closure_state": "incomplete",
+  "policy_seal_created": false,
+  "schema_version": "public_text_quality_pre_ratification_stale_report_v1",
+  "status": "stale_pre_ratification"
+}

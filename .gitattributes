@@ -18,3 +18,22 @@ Iris/tools/package_iris.ps1 -text
 Iris/tools/inspect_registry_runtime_compatibility.ps1 -text
 Iris/_docs/round3/round3_active_core_closure.json -text
 tools/check_lua_syntax.ps1 -text
+Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json -text
+Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json -text
+Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0011-handoff/** -text whitespace=cr-at-eol
+Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/human_review_decision.json -text
+Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json -text
+Iris/build/description/v2/data/korean_prose_naturalization/corpus_manifest.json -text
+Iris/build/description/v2/tools/build/compose_layer3_text.py -text whitespace=cr-at-eol
+Iris/build/description/v2/tools/build/compose_layer3_body_profile.py -text whitespace=cr-at-eol
+Iris/build/description/v2/tools/build/compose_layer3_item.py -text whitespace=cr-at-eol
+Iris/build/description/v2/tools/build/compose_layer3_render.py -text whitespace=cr-at-eol
+Iris/build/description/v2/tools/build/compose_layer3_blocks.py -text
+Iris/build/description/v2/tools/build/compose_layer3_identity.py -text whitespace=cr-at-eol
+Iris/build/description/v2/tools/build/compose_layer3_io.py -text
+Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py -text
+Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py -text
+Iris/build/description/v2/owner_inputs/iris_publish_boundary_public_text_quality_acceptance_policy_closure/** -text
+Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0001-official/** -text
+Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0002-official/** -text
+Iris/build/description/v2/staging/iris_publish_boundary_public_text_quality_acceptance_policy_closure/attempts/attempt-0003-official/** -text

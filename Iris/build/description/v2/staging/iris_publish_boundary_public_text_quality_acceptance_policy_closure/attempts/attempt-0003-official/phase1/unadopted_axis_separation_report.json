@@ -1,0 +1,7 @@
+{
+  "candidate_unadopted_disposition_effect": "non_claim",
+  "schema_version": "public_text_quality_unadopted_axis_separation_report_v1",
+  "status": "PASS",
+  "unadopted_in_quality_denominator_count": 0,
+  "unadopted_is_separate_adoption_axis": true
+}

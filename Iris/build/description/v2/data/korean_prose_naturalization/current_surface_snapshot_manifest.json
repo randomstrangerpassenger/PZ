@@ -1,0 +1,14 @@
+{
+  "schema_version": "dvf-3-3-current-surface-snapshot-manifest-v1",
+  "snapshot_role": "surface_regression_reference_only",
+  "semantic_authority": false,
+  "candidate_answer_corpus": false,
+  "source_path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+  "source_raw_sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d",
+  "source_entries_sha256": "6ef48bcf84183ea6700b3768431cbbcf77340aef224f4f45ac4e7195b426cfed",
+  "source_item_count": 2105,
+  "regeneration_preferred": true,
+  "volatile_metadata_fields": [
+    "meta.generated_at"
+  ]
+}

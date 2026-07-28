@@ -22,24 +22,24 @@
       "sha256_at_manifest_generation": "9363224997e976456a37700fa403123903eb2935e2a511a25026c5aeb36fcaad"
     },
     {
-      "bytes": 10183,
+      "bytes": 8397,
       "exists": true,
-      "expected_sha256": "224bfae35fd4cbba76588efd69b4efdd63d00c48f8714a38b3e3172fe965195c",
+      "expected_sha256": "61d0d2d99ded8a431a44ca61057344ec637c53ae057b9929a420e434a1f119ee",
       "hash_comparison_policy": "frozen_expected_sha256",
       "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/stale_premise_capture_report.json",
       "root_relative_path": "phase0/stale_premise_capture_report.json",
-      "sha256": "224bfae35fd4cbba76588efd69b4efdd63d00c48f8714a38b3e3172fe965195c",
-      "sha256_at_manifest_generation": "224bfae35fd4cbba76588efd69b4efdd63d00c48f8714a38b3e3172fe965195c"
+      "sha256": "61d0d2d99ded8a431a44ca61057344ec637c53ae057b9929a420e434a1f119ee",
+      "sha256_at_manifest_generation": "61d0d2d99ded8a431a44ca61057344ec637c53ae057b9929a420e434a1f119ee"
     },
     {
-      "bytes": 71537,
+      "bytes": 87872,
       "exists": true,
-      "expected_sha256": "b0abe97b1776022eeee151ef9daf498abe57f241bdfbdcd12c8f73316ef2e55e",
+      "expected_sha256": "df314281b91b3985903f2470b336711bd9bb70f00cab549e7302429349e84e59",
       "hash_comparison_policy": "frozen_expected_sha256",
       "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/recovery_plan_authority_scan_report.json",
       "root_relative_path": "phase0/recovery_plan_authority_scan_report.json",
-      "sha256": "b0abe97b1776022eeee151ef9daf498abe57f241bdfbdcd12c8f73316ef2e55e",
-      "sha256_at_manifest_generation": "b0abe97b1776022eeee151ef9daf498abe57f241bdfbdcd12c8f73316ef2e55e"
+      "sha256": "df314281b91b3985903f2470b336711bd9bb70f00cab549e7302429349e84e59",
+      "sha256_at_manifest_generation": "df314281b91b3985903f2470b336711bd9bb70f00cab549e7302429349e84e59"
     },
     {
       "bytes": 11120,
@@ -84,12 +84,12 @@
     {
       "bytes": 4296,
       "exists": true,
-      "expected_sha256": "63d7c338a5ec2b26c16d5a9b4a20edf249212cc4dad40273aa22339ba2aa0862",
+      "expected_sha256": "b5d4cbbf1c019f6b616e89a4461d818438009bc8d08330e66983bace6989fbda",
       "hash_comparison_policy": "frozen_expected_sha256",
       "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase0/existing_evidence_reuse_map.json",
       "root_relative_path": "phase0/existing_evidence_reuse_map.json",
-      "sha256": "63d7c338a5ec2b26c16d5a9b4a20edf249212cc4dad40273aa22339ba2aa0862",
-      "sha256_at_manifest_generation": "63d7c338a5ec2b26c16d5a9b4a20edf249212cc4dad40273aa22339ba2aa0862"
+      "sha256": "b5d4cbbf1c019f6b616e89a4461d818438009bc8d08330e66983bace6989fbda",
+      "sha256_at_manifest_generation": "b5d4cbbf1c019f6b616e89a4461d818438009bc8d08330e66983bace6989fbda"
     },
     {
       "bytes": 754,
@@ -342,14 +342,14 @@
       "sha256_at_manifest_generation": "d9636717a23fa71cf8455a777b06287b86eb5896b3e1534df2fce96cc01a260d"
     },
     {
-      "bytes": 21264,
+      "bytes": 20010,
       "exists": true,
-      "expected_sha256": "b958734c13a91e193a729163463f912fa6b1cf8c7a58288f078451a5fafb45a5",
+      "expected_sha256": "c64f6ceef8fc1d4359a0bd8aedba91a734019ec82d13ea9a1499e76d9047dcbb",
       "hash_comparison_policy": "frozen_expected_sha256",
       "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase4/allowed_historical_trace_inventory.jsonl",
       "root_relative_path": "phase4/allowed_historical_trace_inventory.jsonl",
-      "sha256": "b958734c13a91e193a729163463f912fa6b1cf8c7a58288f078451a5fafb45a5",
-      "sha256_at_manifest_generation": "b958734c13a91e193a729163463f912fa6b1cf8c7a58288f078451a5fafb45a5"
+      "sha256": "c64f6ceef8fc1d4359a0bd8aedba91a734019ec82d13ea9a1499e76d9047dcbb",
+      "sha256_at_manifest_generation": "c64f6ceef8fc1d4359a0bd8aedba91a734019ec82d13ea9a1499e76d9047dcbb"
     },
     {
       "bytes": 189,
@@ -452,14 +452,14 @@
       "sha256_at_manifest_generation": "5f3488188e6a49759b5e2e24ee17f2963a08ed861fea8c5509653c8f7e6ebc26"
     },
     {
-      "bytes": 33054,
+      "bytes": 33053,
       "exists": true,
       "expected_sha256": null,
       "hash_comparison_policy": "post_manifest_hash_observation_no_expected_comparison",
       "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/primary_review_artifact_manifest.json",
       "root_relative_path": "phase6/primary_review_artifact_manifest.json",
-      "sha256": "afba994c69a4d5b64a11dc70376443a9dfb58687b8d28b595918e0743ac73b65",
-      "sha256_at_manifest_generation": "afba994c69a4d5b64a11dc70376443a9dfb58687b8d28b595918e0743ac73b65"
+      "sha256": "adfc492603282f1110662719a8589078ed28c59e706b4debc422f5f7021d7dd1",
+      "sha256_at_manifest_generation": "adfc492603282f1110662719a8589078ed28c59e706b4debc422f5f7021d7dd1"
     },
     {
       "bytes": 36708,
@@ -468,8 +468,8 @@
       "hash_comparison_policy": "self_hash_not_representable_presence_only",
       "path": "Iris/build/description/v2/staging/dvf_3_3_current_source_authority_drift_verification_recovery_scope_retirement/phase6/independent_review_artifact_hash_report.json",
       "root_relative_path": "phase6/independent_review_artifact_hash_report.json",
-      "sha256": "f039ea3b2bf5e768a3987f80a5faae9c70c7246e71e3a00ac470a520403330f1",
-      "sha256_at_manifest_generation": "f039ea3b2bf5e768a3987f80a5faae9c70c7246e71e3a00ac470a520403330f1"
+      "sha256": "f910cac3864f3a91ace5e4dc32acae45d3680e0fba8f6d70863a1f9b39e5b1cc",
+      "sha256_at_manifest_generation": "f910cac3864f3a91ace5e4dc32acae45d3680e0fba8f6d70863a1f9b39e5b1cc"
     },
     {
       "bytes": 216,
@@ -502,7 +502,7 @@
     "self_hash_not_representable_presence_only": "include in review inventory and require presence, but do not claim a self-contained current hash for the hash report itself"
   },
   "inventory_file_count": 49,
-  "manifest_payload_sha256_excluding_self_hash": "92580a8a5dcab35a7a4633acf3c948b5296d424b6d1d1e0d818a3a1eec651f73",
+  "manifest_payload_sha256_excluding_self_hash": "f2815ad3d2561db70807257b06d344c69b0f4d1cfcf7397080977bbd3eef4b6e",
   "manifest_scope": "complete_evidence_inventory",
   "missing_artifact_hard_fail": true,
   "missing_count": 0,
@@ -510,6 +510,6 @@
   "review_not_started_at_generation": true,
   "reviewer_identity_metadata_required": true,
   "schema_version": "dvf-3-3-current-source-authority-drift-primary-review-manifest-v1",
-  "stable_run_id": "da17729bb57a24d6181f33add18b6fba6bf00199165ca65184bb832903268f18",
+  "stable_run_id": "9fe32aa083812f404e5b9aeb684956a0b72394d11655acf09c4f182475d94ea6",
   "status": "PASS"
 }

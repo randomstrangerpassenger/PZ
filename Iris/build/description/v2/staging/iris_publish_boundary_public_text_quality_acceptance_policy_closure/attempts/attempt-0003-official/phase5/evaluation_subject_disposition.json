@@ -1,0 +1,46 @@
+{
+  "acceptance_input_binding_hash": "41ce3d07809c171880e01c064ac50f6277a130659cbfd9ea90ff7c42d6c10c48",
+  "active_waiver_count": 0,
+  "advisory_debt_count": 1,
+  "applicable_waiver_set_hash": "db47cbf374e755b660c047dc7ccdf4a0f7127be6b1eaf032c7ba1dbdc0d65434",
+  "attempt_id": "attempt-0003-official",
+  "disposition_hash": "64a79b4920e9d8143c7a6c4bf1625102b421619ef1c0ae0452ba74ac566ea5ab",
+  "effective_blocking_finding_count": 0,
+  "evaluation_subject_hash": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+  "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+  "exact_failure_ledger": [
+    {
+      "denominator": 2084,
+      "disposition_class": "advisory_debt",
+      "metric_id": "repeated_skeleton_concentration",
+      "numerator": 450,
+      "owner_route": "dvf_korean_prose_naturalization_retry",
+      "threshold": {
+        "operator": "le",
+        "value": {
+          "denominator": 20,
+          "numerator": 1
+        }
+      }
+    }
+  ],
+  "foundation_contract_hash": "3505b2edbe7b5826c70ee80a62c2eb6db25ff9d0b224f527936c1504fbf516ee",
+  "metric_snapshot_hash": "ca31e222e5d6b4d872c26d30fe4de542e02509ba284252a047972929ea2260bc",
+  "naturalization_handoff_hash": "f597c7b04eeaa4f0679214cf35759610554725f7df91fcb5ac51b4aed29db953",
+  "package_or_release_ready_claimed": false,
+  "policy_closure_state": "incomplete",
+  "policy_raw_sha256": "5ac934f1950ccd8b07d5d709abcab0f8ff35ca6fdf28f77098726458d67b78d0",
+  "policy_seal_hash": "c004572f5c71d97beecda014646b1b0da5d9f045427babd81bc64dbc1c869987",
+  "publish_boundary_pass_claimed": false,
+  "qualified_disposition": "deferred_internal_debt",
+  "registry_runtime_current_adoption_claimed": false,
+  "schema_version": "public_text_quality_evaluation_subject_disposition_v1",
+  "synchronization_return": {
+    "adoption_timing": "after_remediation",
+    "earliest_affected_naturalization_phase": "phase6-raw-detectors",
+    "phase6_live_gate_adoption_allowed": false,
+    "phase7_finalize_allowed": false,
+    "required": true
+  },
+  "technical_blocker_count": 0
+}

@@ -1,0 +1,273 @@
+{
+  "effective_findings": [
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_skeleton_concentration",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 450
+      },
+      "metric_id": "repeated_skeleton_concentration",
+      "numerator": 450,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "le",
+        "value": {
+          "denominator": 20,
+          "numerator": 1
+        }
+      },
+      "threshold_satisfied": false
+    }
+  ],
+  "evaluation_subject_hash": "e3cc76d2e9714d3c1d9164889fa524a6d24539228459ec024e4b041406db00b7",
+  "evaluation_subject_kind": "dvf_3_3_korean_naturalization_candidate",
+  "exception_application": {
+    "applied_exception_count": 0,
+    "default_exception_count": 0,
+    "raw_metric_mutation_count": 0
+  },
+  "metric_snapshot_hash": "ca31e222e5d6b4d872c26d30fe4de542e02509ba284252a047972929ea2260bc",
+  "omitted_blocking_or_advisory_finding_count": 0,
+  "policy_raw_sha256": "5ac934f1950ccd8b07d5d709abcab0f8ff35ca6fdf28f77098726458d67b78d0",
+  "raw_metric_count": 12,
+  "raw_metrics": [
+    {
+      "denominator": 5197,
+      "denominator_id": "naturalization_source_proposition_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 5197,
+        "numerator": 0
+      },
+      "metric_id": "semantic_preservation_failure",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 3131,
+      "denominator_id": "naturalization_required_body_plan_role_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 3131,
+        "numerator": 0
+      },
+      "metric_id": "unsatisfied_required_body_plan_role",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 49,
+      "denominator_id": "naturalization_fusion_suppression_transformation_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 49,
+        "numerator": 0
+      },
+      "metric_id": "equivalence_proof_failure",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_candidate_item_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "compiler_invalid_pattern",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:duplicate_proposition_realization",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "duplicate_proposition_realization",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_identity_noun_window",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "repeated_identity_noun_window",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:banned_internal_abstraction",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "banned_internal_abstraction",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:repeated_skeleton_concentration",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 450
+      },
+      "metric_id": "repeated_skeleton_concentration",
+      "numerator": 450,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "le",
+        "value": {
+          "denominator": 20,
+          "numerator": 1
+        }
+      },
+      "threshold_satisfied": false
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:paragraph_fragmentation",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "paragraph_fragmentation",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:passive_translationese_pattern",
+      "disposition_class": "advisory_debt",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "passive_translationese_pattern",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 2084,
+      "denominator_id": "naturalization_raw_detector_opportunity_v1:empty_or_filler_sentence",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 2084,
+        "numerator": 0
+      },
+      "metric_id": "empty_or_filler_sentence",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    },
+    {
+      "denominator": 196,
+      "denominator_id": "naturalization_human_review_required_v1",
+      "disposition_class": "blocking_gate",
+      "exact_ratio": {
+        "denominator": 196,
+        "numerator": 0
+      },
+      "metric_id": "human_review_blocker_required_denominator",
+      "numerator": 0,
+      "raw_metric_mutated": false,
+      "threshold": {
+        "operator": "eq",
+        "value": {
+          "integer": 0
+        }
+      },
+      "threshold_satisfied": true
+    }
+  ],
+  "schema_version": "public_text_quality_evaluation_subject_raw_metric_report_v1",
+  "status": "PASS",
+  "waiver_application": {
+    "active_waiver_count": 0,
+    "applicable_waiver_count": 0,
+    "raw_metric_mutation_count": 0
+  }
+}

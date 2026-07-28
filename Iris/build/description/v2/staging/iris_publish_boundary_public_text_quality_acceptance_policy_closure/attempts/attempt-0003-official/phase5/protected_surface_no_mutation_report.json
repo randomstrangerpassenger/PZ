@@ -1,0 +1,59 @@
+{
+  "after_snapshot": [
+    {
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "present": true,
+      "sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d"
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "present": false,
+      "sha256": null
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "present": true,
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+    },
+    {
+      "path": "Iris/build/package/Iris.zip",
+      "present": true,
+      "sha256": "36597373c364e6d8c3e97ffb9b01852d3de4cde86463cf1a5ba9795e80b5436b"
+    },
+    {
+      "path": "Iris/build/package/Iris.package_manifest.sha256.json",
+      "present": true,
+      "sha256": "ac07b8c2299509d4a2ab594087409f7fc8dd5927b30e610f02474942172f4668"
+    }
+  ],
+  "before_snapshot": [
+    {
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "present": true,
+      "sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d"
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3Data.lua",
+      "present": false,
+      "sha256": null
+    },
+    {
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "present": true,
+      "sha256": "fa9f74938023cc81a08e12bc271a22f65befb5df36c0a18e85550882c82f6e2c"
+    },
+    {
+      "path": "Iris/build/package/Iris.zip",
+      "present": true,
+      "sha256": "36597373c364e6d8c3e97ffb9b01852d3de4cde86463cf1a5ba9795e80b5436b"
+    },
+    {
+      "path": "Iris/build/package/Iris.package_manifest.sha256.json",
+      "present": true,
+      "sha256": "ac07b8c2299509d4a2ab594087409f7fc8dd5927b30e610f02474942172f4668"
+    }
+  ],
+  "changed_count": 0,
+  "schema_version": "public_text_quality_phase5_protected_surface_no_mutation_v1",
+  "status": "PASS"
+}

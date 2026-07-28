@@ -47,8 +47,8 @@
   },
   "attempt_local_correction_tool": {
     "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/vc1_validation_contract.py",
-    "sha256": "4ed261967760f5dd81abc93dbf3e1c22df8b651d191ee859804024a36ef4a282",
-    "git_blob_id": "9b04c3622364e9d02ce98c5b5c8ba47f47f8ceaf",
+    "sha256": "f358aff8e4375cc55022e223f93b0650b8b9bf959e9df3f3c3bb634de353c15f",
+    "git_blob_id": "29f57cd47ab21b81535c99f3eee7b6f199202be2",
     "original_closeout_tool_mutated": false,
     "original_cli_mutated": false,
     "write_mode": "write_once",
@@ -67,8 +67,8 @@
   },
   "attempt_local_closeout_overlay": {
     "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/vc1_prepare_closeout.py",
-    "sha256": "51df47103d62417b34a698a59c3563ac29c4ceaad65050343c3e82a3346801a8",
-    "git_blob_id": "0354fb2c844c2121ca0f45c4dcff5a7a4c24ccdf",
+    "sha256": "f28401336fdeb1d51e84b57188a75318b268538a426a080125e5d2f0e445ca95",
+    "git_blob_id": "10423d72b4285fca8ed1369826845470517ee276",
     "original_closeout_tool_mutated": false,
     "direct_current_plan_manifest_row_required": true,
     "terminal_review_request_current_plan_identity_required": true,
@@ -80,6 +80,18 @@
     "git_blob_id": "f523fcd5ab10779322c87b090f898898ffaea655",
     "finding_count": 5,
     "same_attempt_remediation": true
+  },
+  "preflight_block_and_correction": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/scoped_validation_preflight_block.json",
+    "sha256": "a4d0e03dd0e1e182ee6a25faf788493e739e264cf9149e4a818ef668309eeeb1",
+    "git_blob_id": "8e8ca89c7f517df9679279e655e580497b02a36a",
+    "test_command_count_started": 0,
+    "correction": "separate_normalized_Git_blob_identity_from_CRLF_working_file_sha256",
+    "previous_PASS_review_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/validation_contract_correction_review.json",
+    "previous_PASS_review_sha256": "f776d3124f851b0e91ad513ad0a7aadfdcde245773625f4170d17dcbc5cd597d",
+    "previous_PASS_review_git_blob_id": "554818725992c1c1cc237d15af153db76d347440",
+    "previous_PASS_review_final_validation_credit": 0,
+    "fresh_review_name": "validation_contract_correction_review_v2.json"
   },
   "preserved_seals": {
     "implementation_complete_bundle": {
@@ -107,6 +119,7 @@
   },
   "review_requirements": {
     "fresh_Codex_Reviewer_correction_review_required": true,
+    "canonical_fresh_review_name": "validation_contract_correction_review_v2.json",
     "reviewed_commit_and_tree_must_be_exact": true,
     "reviewed_bindings_required": [
       "plan",

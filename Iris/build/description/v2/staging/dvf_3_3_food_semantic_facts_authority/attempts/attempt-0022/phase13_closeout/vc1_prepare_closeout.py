@@ -30,7 +30,7 @@ EXPECTED_SCOPE_DIRECTION_SHA256 = (
     "85b4038c4395eab0fd4d3fc9313e1fe461e6225fca3f8d00f9eca525f80f16ea"
 )
 SCOPED_RECEIPT_NAME = "vc1_focused_validation_receipt.json"
-CORRECTION_REVIEW_NAME = "validation_contract_correction_review.json"
+CORRECTION_REVIEW_NAME = "validation_contract_correction_review_v2.json"
 
 
 class CloseoutOverlayError(RuntimeError):

@@ -37,6 +37,7 @@ EXPECTED_RATIFICATION_BLOB = "7b1fa03d4784e0f53eb409bc0ac6c781f6dc3dd2"
 EXPECTED_PLAN_SHA256 = (
     "e23fff82de3cf661fb0d22299f708989a7ae75589e70bbfd6e3ec442b1c8d26f"
 )
+EXPECTED_PLAN_BLOB = "bfe6cf8d537a03672acfa5b98786fc08d1da97e4"
 EXPECTED_SCOPE_DIRECTION_SHA256 = (
     "85b4038c4395eab0fd4d3fc9313e1fe461e6225fca3f8d00f9eca525f80f16ea"
 )
@@ -49,7 +50,7 @@ PLAN_PATH = (
     "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_"
     "implementation_plan.md"
 )
-CORRECTION_REVIEW_NAME = "validation_contract_correction_review.json"
+CORRECTION_REVIEW_NAME = "validation_contract_correction_review_v2.json"
 RATIFICATION_NAME = (
     "validation_contract_reconciliation_owner_ratification.json"
 )
@@ -327,9 +328,12 @@ def validate_bound_authority(
         "scope_direction_blob_mismatch",
     )
     require(
-        git_blob_sha256(repo, subject_commit, PLAN_PATH)
-        == EXPECTED_PLAN_SHA256,
-        "validation_subject_plan_sha256_mismatch",
+        git_blob(repo, subject_commit, PLAN_PATH) == EXPECTED_PLAN_BLOB,
+        "validation_subject_plan_blob_mismatch",
+    )
+    require(
+        sha256_file(repo / PLAN_PATH) == EXPECTED_PLAN_SHA256,
+        "working_plan_sha256_mismatch",
     )
     require(ratification.get("status") == "APPROVED", "owner_ratification_not_approved")
     require(
@@ -526,8 +530,17 @@ def validate_correction_review(
         )
         require(
             row.get("sha256")
-            == git_blob_sha256(repo, reviewed_commit, relative),
+            == sha256_file(repo / relative),
             f"correction_review_sha256_mismatch:{key}",
+        )
+        require(
+            row.get("git_blob_id")
+            == git_blob(
+                repo,
+                validation_subject["commit"],
+                relative,
+            ),
+            f"correction_review_validation_subject_blob_mismatch:{key}",
         )
     allowed_delta = (
         "Iris/build/description/v2/staging/"

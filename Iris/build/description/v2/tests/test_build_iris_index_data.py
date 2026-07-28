@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.build_iris_fixing_index_data import parse_fixers
 from tools.build.build_iris_moveables_index_data import build_index as build_moveables_index
 from tools.build.build_iris_recipe_index_data import build_index as build_recipe_index
@@ -18,7 +19,7 @@ from tools.build.build_iris_recipe_index_data import build_index as build_recipe
 
 class BuildIrisIndexDataTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.tmp_dir = ROOT / "tests" / "_tmp_iris_index_data"
+        self.tmp_dir = external_test_path("_tmp_iris_index_data")
         if self.tmp_dir.exists():
             shutil.rmtree(self.tmp_dir)
         self.tmp_dir.mkdir(parents=True)

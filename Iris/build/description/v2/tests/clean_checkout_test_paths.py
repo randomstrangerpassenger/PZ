@@ -1,0 +1,48 @@
+"""External temporary paths for repository validation tests."""
+
+from __future__ import annotations
+
+import hashlib
+import os
+import tempfile
+from pathlib import Path
+
+
+OUTPUT_ROOT_ENV = "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"
+REPOSITORY_ROOT = Path(__file__).resolve().parents[5]
+
+
+def _is_within(path: Path, parent: Path) -> bool:
+    try:
+        path.relative_to(parent)
+    except ValueError:
+        return False
+    return True
+
+
+def external_test_root() -> Path:
+    configured = os.environ.get(OUTPUT_ROOT_ENV)
+    if configured:
+        root = Path(configured).resolve()
+    else:
+        checkout_key = hashlib.sha256(
+            str(REPOSITORY_ROOT).casefold().encode("utf-8")
+        ).hexdigest()[:12]
+        root = (
+            Path(tempfile.gettempdir()).resolve()
+            / f"iris-clean-checkout-tests-{checkout_key}"
+        )
+    if _is_within(root, REPOSITORY_ROOT):
+        raise RuntimeError(
+            f"{OUTPUT_ROOT_ENV} must resolve outside the checkout: {root}"
+        )
+    root.mkdir(parents=True, exist_ok=True)
+    return root
+
+
+def external_test_path(name: str) -> Path:
+    root = external_test_root()
+    path = (root / name).resolve()
+    if not _is_within(path, root):
+        raise RuntimeError(f"test path escapes external root: {name}")
+    return path

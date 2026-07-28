@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.layer3_current_authority_reconstruction import (  # noqa: E402
     decode_lua_string,
     parse_lua_chunk,
@@ -24,7 +25,9 @@ def write_text(path: Path, text: str) -> None:
 
 class Layer3CurrentAuthorityReconstructionTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.tmp_dir = ROOT / "tests" / "_tmp_layer3_current_authority_reconstruction"
+        self.tmp_dir = external_test_path(
+            "_tmp_layer3_current_authority_reconstruction"
+        )
         if self.tmp_dir.exists():
             shutil.rmtree(self.tmp_dir)
         self.tmp_dir.mkdir(parents=True, exist_ok=True)

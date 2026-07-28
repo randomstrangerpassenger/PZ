@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.export_dvf_3_3_lua_bridge import (
     BRIDGE_CHUNK_DIR,
     BRIDGE_CHUNK_MANIFEST_PATH,
@@ -87,7 +88,9 @@ def export_lua_bridge_under_test(**kwargs: object) -> dict[str, object]:
 
 class LuaBridgeExportContractRealignTest(unittest.TestCase):
     def test_default_route_writes_chunk_bundle_under_pinned_staging_root(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_lua_bridge_default_contract")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_lua_bridge_default_contract")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             report_path = tmp / "bridge_report.json"
@@ -127,7 +130,9 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_protected_live_chunk_destination_is_rejected_before_write(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_lua_bridge_live_chunk_rejection")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_lua_bridge_live_chunk_rejection")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path)
@@ -144,7 +149,9 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_current_context_and_current_monolith_destination_are_rejected(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_lua_bridge_current_rejection")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_lua_bridge_current_rejection")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path)
@@ -176,7 +183,9 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_explicit_historical_and_diagnostic_monolith_routes_are_preserved(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_lua_bridge_monolith_routes")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_lua_bridge_monolith_routes")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path, count=2)
@@ -207,7 +216,9 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_chunk_bundle_determinism(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_lua_bridge_determinism")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_lua_bridge_determinism")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path, count=6)
@@ -235,7 +246,9 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_chunk_integrity_reports_missing_orphan_and_duplicate_chunks(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_lua_bridge_integrity")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_lua_bridge_integrity")
+        )
         try:
             manifest_path = tmp / "IrisLayer3DataChunks.lua"
             chunk_dir = tmp / "IrisLayer3DataChunks"
@@ -298,7 +311,9 @@ class LuaBridgeExportContractRealignTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_bridge_report_forbidden_claim_scan(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_lua_bridge_forbidden_claims")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_lua_bridge_forbidden_claims")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             write_rendered(rendered_path)

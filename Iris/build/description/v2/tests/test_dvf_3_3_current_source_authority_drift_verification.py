@@ -9,6 +9,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from clean_checkout_test_paths import external_test_path
+
 
 REPO = Path(__file__).resolve().parents[5]
 TOOLS = REPO / "Iris/build/description/v2/tools/build"
@@ -170,7 +172,9 @@ class DvfCurrentSourceAuthorityDriftVerificationTest(unittest.TestCase):
                 self.assertTrue(row["sha256_matches"])
 
     def test_validator_recalculates_manifest_expected_hashes(self) -> None:
-        temp_parent = REPO / "Iris/build/description/v2/.tmp_tests/dvf_3_3_current_source_authority_drift_verification"
+        temp_parent = external_test_path(
+            "dvf_3_3_current_source_authority_drift_verification"
+        )
         temp_parent.mkdir(parents=True, exist_ok=True)
         with tempfile.TemporaryDirectory(prefix="review_hash_recalc_", dir=temp_parent) as temp_dir:
             temp_root = Path(temp_dir) / "evidence"

@@ -7,6 +7,8 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 
+from clean_checkout_test_paths import external_test_root
+
 
 V2_ROOT = Path(__file__).resolve().parents[1]
 if str(V2_ROOT) not in sys.path:
@@ -111,7 +113,9 @@ class RegistryRuntimeCompatibilityCloseoutTest(unittest.TestCase):
         )
 
     def test_write_once_is_idempotent_but_rejects_changed_bytes(self) -> None:
-        with tempfile.TemporaryDirectory(dir=V2_ROOT / "staging") as temporary:
+        with tempfile.TemporaryDirectory(
+            dir=external_test_root()
+        ) as temporary:
             path = Path(temporary) / "record.json"
             closeout.write_json_idempotent(path, {"status": "PASS"})
             closeout.write_json_idempotent(path, {"status": "PASS"})

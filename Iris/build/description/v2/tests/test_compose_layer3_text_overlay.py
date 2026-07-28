@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.compose_layer3_text import HISTORICAL_COMPOSE_CONTEXT, build_rendered
 
 
@@ -25,7 +26,7 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
 
 class ComposeLayer3TextOverlayTest(unittest.TestCase):
     def test_build_rendered_applies_quality_flag_from_overlay(self) -> None:
-        tmp_dir = ROOT / "tests" / "_tmp_compose_overlay"
+        tmp_dir = external_test_path("_tmp_compose_overlay")
         if tmp_dir.exists():
             shutil.rmtree(tmp_dir)
         tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -139,7 +140,7 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
                 shutil.rmtree(tmp_dir)
 
     def test_acq_dominant_sets_flag_only_when_reordered(self) -> None:
-        tmp_dir = ROOT / "tests" / "_tmp_compose_overlay_acq"
+        tmp_dir = external_test_path("_tmp_compose_overlay_acq")
         if tmp_dir.exists():
             shutil.rmtree(tmp_dir)
         tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -250,7 +251,9 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
                 shutil.rmtree(tmp_dir)
 
     def test_representative_override_promotes_primary_and_drops_conflicting_identity(self) -> None:
-        tmp_dir = ROOT / "tests" / "_tmp_compose_overlay_representative_override"
+        tmp_dir = external_test_path(
+            "_tmp_compose_overlay_representative_override"
+        )
         if tmp_dir.exists():
             shutil.rmtree(tmp_dir)
         tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -344,7 +347,9 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
                 shutil.rmtree(tmp_dir)
 
     def test_strong_function_narrow_repairs_focus_without_quality_flag(self) -> None:
-        tmp_dir = ROOT / "tests" / "_tmp_compose_overlay_strong_function_narrow"
+        tmp_dir = external_test_path(
+            "_tmp_compose_overlay_strong_function_narrow"
+        )
         if tmp_dir.exists():
             shutil.rmtree(tmp_dir)
         tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -439,7 +444,7 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
                 shutil.rmtree(tmp_dir)
 
     def test_identity_only_drops_generic_identity_echo(self) -> None:
-        tmp_dir = ROOT / "tests" / "_tmp_compose_overlay_identity_only"
+        tmp_dir = external_test_path("_tmp_compose_overlay_identity_only")
         if tmp_dir.exists():
             shutil.rmtree(tmp_dir)
         tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -550,7 +555,9 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
                 shutil.rmtree(tmp_dir)
 
     def test_secondary_and_distinctive_slots_render_between_primary_and_acquisition(self) -> None:
-        tmp_dir = ROOT / "tests" / "_tmp_compose_overlay_secondary_distinctive"
+        tmp_dir = external_test_path(
+            "_tmp_compose_overlay_secondary_distinctive"
+        )
         if tmp_dir.exists():
             shutil.rmtree(tmp_dir)
         tmp_dir.mkdir(parents=True, exist_ok=True)
@@ -652,7 +659,9 @@ class ComposeLayer3TextOverlayTest(unittest.TestCase):
                 shutil.rmtree(tmp_dir)
 
     def test_identity_only_suppresses_secondary_and_distinctive_slots(self) -> None:
-        tmp_dir = ROOT / "tests" / "_tmp_compose_overlay_identity_only_suppression"
+        tmp_dir = external_test_path(
+            "_tmp_compose_overlay_identity_only_suppression"
+        )
         if tmp_dir.exists():
             shutil.rmtree(tmp_dir)
         tmp_dir.mkdir(parents=True, exist_ok=True)

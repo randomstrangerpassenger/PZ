@@ -377,6 +377,7 @@ Iris/build/description/v2/tests/fixtures/*
 !Iris/build/description/v2/tests/test_phase3_sync_queue.py
 !Iris/build/description/v2/tests/test_build_iris_index_data.py
 !Iris/build/description/v2/tests/conftest.py
+!Iris/build/description/v2/tests/clean_checkout_test_paths.py
 !Iris/build/description/v2/staging/
 Iris/build/description/v2/staging/*
 !Iris/build/description/v2/staging/README.md

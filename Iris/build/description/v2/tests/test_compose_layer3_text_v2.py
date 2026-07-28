@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.compose_layer3_text import (
     DEFAULT_MODE,
     ENTRYPOINT_MODES,
@@ -48,7 +49,7 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
 
 class ComposeLayer3TextV2Test(unittest.TestCase):
     def setUp(self) -> None:
-        self.tmp_dir = ROOT / "tests" / "_tmp_compose_v2"
+        self.tmp_dir = external_test_path("_tmp_compose_v2")
         if self.tmp_dir.exists():
             shutil.rmtree(self.tmp_dir)
         self.tmp_dir.mkdir(parents=True, exist_ok=True)

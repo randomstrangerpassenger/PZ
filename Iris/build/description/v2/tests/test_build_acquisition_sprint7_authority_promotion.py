@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.build_acquisition_sprint7_authority_promotion import build_acquisition_sprint7_authority_promotion
 
 
@@ -30,7 +31,9 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
 
 class BuildAcquisitionSprint7AuthorityPromotionTest(unittest.TestCase):
     def test_promotes_full_acquisition_bundle_into_sprint7_authority_preview(self) -> None:
-        tmp_dir = ROOT / "tests" / "_tmp_acquisition_sprint7_authority_promotion"
+        tmp_dir = external_test_path(
+            "_tmp_acquisition_sprint7_authority_promotion"
+        )
         if tmp_dir.exists():
             shutil.rmtree(tmp_dir)
         tmp_dir.mkdir(parents=True, exist_ok=True)

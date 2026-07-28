@@ -13,6 +13,7 @@ IRIS_MOD_ROOT = ROOT.parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.export_dvf_3_3_lua_bridge import (
     export_lua_bridge,
     write_chunked_lua_bridge_from_monolith,
@@ -28,7 +29,9 @@ def reset_tmp_dir(path: Path) -> Path:
 
 class Layer3DataChunkingContractTest(unittest.TestCase):
     def test_export_lua_bridge_writes_optional_chunk_manifest(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_layer3_data_chunking")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_layer3_data_chunking")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             lua_output_path = tmp / "IrisLayer3Data.lua"
@@ -110,7 +113,7 @@ class Layer3DataChunkingContractTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_export_lua_bridge_default_keeps_monolith_only_contract(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_layer3_data_default")
+        tmp = reset_tmp_dir(external_test_path("_tmp_layer3_data_default"))
         try:
             rendered_path = tmp / "rendered.json"
             lua_output_path = tmp / "IrisLayer3Data.lua"
@@ -159,7 +162,9 @@ class Layer3DataChunkingContractTest(unittest.TestCase):
         self.assertIn("IrisLayer3Data = chunkLoaded", renderer_text)
 
     def test_existing_monolith_can_generate_chunk_bundle_without_rewriting_monolith(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_layer3_existing_monolith_chunking")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_layer3_existing_monolith_chunking")
+        )
         try:
             monolith_path = tmp / "IrisLayer3Data.lua"
             chunk_output_dir = tmp / "IrisLayer3DataChunks"

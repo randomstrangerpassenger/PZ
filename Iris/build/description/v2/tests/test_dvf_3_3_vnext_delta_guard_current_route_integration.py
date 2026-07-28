@@ -7,6 +7,8 @@ import sys
 import unittest
 from pathlib import Path
 
+from clean_checkout_test_paths import external_test_path
+
 
 REPO = Path(__file__).resolve().parents[5]
 ROOT = REPO / "Iris/build/description/v2/staging/dvf_3_3_vnext_delta_guard_current_route_integration"
@@ -115,7 +117,7 @@ class DvfVnextDeltaGuardCurrentRouteIntegrationTest(unittest.TestCase):
             list_result.stdout,
         )
 
-        tmp = REPO / "Iris/build/description/v2/tests/_tmp_delta_guard_current_route_manifest"
+        tmp = external_test_path("_tmp_delta_guard_current_route_manifest")
         if tmp.exists():
             shutil.rmtree(tmp)
         tmp.mkdir(parents=True)

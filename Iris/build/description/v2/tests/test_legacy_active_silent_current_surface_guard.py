@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.validate_legacy_active_silent_current_surface_guard import (
     ALLOWLIST_TOO_BROAD_ERROR_CODE,
     CURRENT_SURFACE_ERROR_CODE,
@@ -27,7 +28,9 @@ def write_text(path: Path, text: str) -> None:
 
 class LegacyActiveSilentCurrentSurfaceGuardTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.tmp_dir = ROOT / "tests" / "_tmp_legacy_active_silent_guard"
+        self.tmp_dir = external_test_path(
+            "_tmp_legacy_active_silent_guard"
+        )
         if self.tmp_dir.exists():
             shutil.rmtree(self.tmp_dir)
         self.tmp_dir.mkdir(parents=True, exist_ok=True)

@@ -13,6 +13,7 @@ IRIS_MOD_ROOT = ROOT.parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.build_interaction_cluster_phase_d_runtime import write_checklist
 from tools.build.export_dvf_3_3_lua_bridge import export_lua_bridge
 from tools.build.validate_interaction_cluster_phase_d_runtime import (
@@ -35,7 +36,9 @@ def reset_tmp_dir(path: Path) -> Path:
 
 class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
     def test_export_lua_bridge_writes_generated_module(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_phase_d_runtime_bridge")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_phase_d_runtime_bridge")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             lua_output_path = tmp / "IrisLayer3Data.lua"
@@ -81,7 +84,9 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_export_lua_bridge_merges_publish_state_preview_when_supplied(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_phase_d_runtime_bridge_publish_state")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_phase_d_runtime_bridge_publish_state")
+        )
         try:
             rendered_path = tmp / "rendered.json"
             publish_preview_path = tmp / "publish_preview.jsonl"
@@ -156,7 +161,9 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_phase_d_runtime_report_passes_with_consumer_files_present(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_phase_d_runtime_report")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_phase_d_runtime_report")
+        )
         try:
             runtime_dir = tmp / "phase_d_runtime"
             lua_output_path = tmp / "IrisLayer3Data.lua"
@@ -298,7 +305,9 @@ class InteractionClusterPhaseDRuntimeTest(unittest.TestCase):
                 shutil.rmtree(tmp)
 
     def test_write_checklist_emits_phase_d_manual_steps(self) -> None:
-        tmp = reset_tmp_dir(ROOT / "tests" / "_tmp_phase_d_runtime_checklist")
+        tmp = reset_tmp_dir(
+            external_test_path("_tmp_phase_d_runtime_checklist")
+        )
         try:
             checklist_path = write_checklist(tmp / "phase_d_in_game_checklist.md")
             text = checklist_path.read_text(encoding="utf-8")

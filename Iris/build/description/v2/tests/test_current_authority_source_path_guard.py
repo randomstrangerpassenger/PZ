@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.compose_layer3_text import (
     DATA_DIR,
     DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE,
@@ -36,6 +37,7 @@ def current_authority_paths(**overrides: Path) -> dict[str, Path | None]:
 
 class CurrentAuthoritySourcePathGuardTest(unittest.TestCase):
     def test_default_entrypoint_rejects_staging_current_authority_input(self) -> None:
+        output_root = external_test_path("_tmp_current_authority_guard")
         with self.assertRaisesRegex(ValueError, DEFAULT_CURRENT_AUTHORITY_INPUT_PATH_ERROR_CODE):
             compose_main(
                 [
@@ -44,9 +46,9 @@ class CurrentAuthoritySourcePathGuardTest(unittest.TestCase):
                     "--facts-path",
                     str(ROOT / "staging" / "round" / "facts.jsonl"),
                     "--output-path",
-                    str(ROOT / "tests" / "_tmp_current_authority_guard" / "rendered.json"),
+                    str(output_root / "rendered.json"),
                     "--style-log-path",
-                    str(ROOT / "tests" / "_tmp_current_authority_guard" / "style_log.jsonl"),
+                    str(output_root / "style_log.jsonl"),
                 ]
             )
 

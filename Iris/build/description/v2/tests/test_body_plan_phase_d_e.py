@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.build_body_plan_v2_runtime_rollout import build_runtime_rollout
 from tools.build.report_layer3_body_plan_structural_reclassification import (
     build_reclassification_report,
@@ -36,7 +37,7 @@ def write_jsonl(path: Path, rows: list[dict]) -> None:
 
 class BodyPlanPhaseDETest(unittest.TestCase):
     def setUp(self) -> None:
-        self.tmp_dir = ROOT / "tests" / "_tmp_body_plan_phase_d_e"
+        self.tmp_dir = external_test_path("_tmp_body_plan_phase_d_e")
         if self.tmp_dir.exists():
             shutil.rmtree(self.tmp_dir)
         self.tmp_dir.mkdir(parents=True, exist_ok=True)

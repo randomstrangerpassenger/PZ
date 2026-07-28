@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from clean_checkout_test_paths import external_test_path
 from tools.build.build_post_cleanup_phase2_runtime_adoption import (
     build_post_cleanup_phase2_runtime_adoption,
 )
@@ -32,7 +33,7 @@ def dump_jsonl(path: Path, rows: list[dict]) -> None:
 
 class PostCleanupPhase2RuntimeAdoptionTest(unittest.TestCase):
     def test_build_phase2_runtime_adoption_overlays_adopt_rows(self) -> None:
-        tmp_root = ROOT / ".tmp_tests"
+        tmp_root = external_test_path("post_cleanup_phase2_runtime")
         tmp_root.mkdir(parents=True, exist_ok=True)
         tmp = tmp_root / f"post_cleanup_phase2_runtime_{uuid.uuid4().hex}"
         tmp.mkdir(parents=True, exist_ok=True)

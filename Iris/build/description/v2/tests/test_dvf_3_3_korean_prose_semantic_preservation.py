@@ -26,7 +26,7 @@ class FoodSemanticPhase4To8PreservationCandidateContractTest(unittest.TestCase):
                         "fact_axis": "culinary_role",
                         "fact_value": "spice",
                         "authority_class": "automatic",
-                        "authority_state": "approved_candidate",
+                        "authority_state": "approved",
                         "lineage_id": "lineage:approved",
                     },
                     {

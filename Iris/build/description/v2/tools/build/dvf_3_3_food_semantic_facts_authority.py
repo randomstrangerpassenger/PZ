@@ -12,6 +12,7 @@ if str(V2_ROOT) not in sys.path:
     sys.path.insert(0, str(V2_ROOT))
 
 from tools.build.dvf_3_3_food_semantic.candidate_writer import (
+    run_authority_execution,
     run_phase10,
     run_phase11,
 )
@@ -244,6 +245,7 @@ def build_parser() -> argparse.ArgumentParser:
             "record-validation",
             "seal",
             "verify",
+            "authority",
         ],
     )
     parser.add_argument("--attempt-id", required=True)
@@ -256,6 +258,10 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--validation-command", default=FOCUSED_VALIDATION_COMMAND)
     parser.add_argument("--validation-exit-code", type=int)
+    parser.add_argument("--owner-decisions")
+    parser.add_argument("--semantic-approval")
+    parser.add_argument("--external-review")
+    parser.add_argument("--curated-ledger")
     return parser
 
 
@@ -303,8 +309,40 @@ def main(argv: list[str] | None = None) -> int:
             result = seal_implementation_bundle(
                 root, attempt_root, args.attempt_id
             )
-        else:
+        elif args.command == "verify":
             result = verify_bundle(root, attempt_root)
+        else:
+            required_paths = {
+                "--owner-decisions": args.owner_decisions,
+                "--semantic-approval": args.semantic_approval,
+                "--external-review": args.external_review,
+                "--curated-ledger": args.curated_ledger,
+            }
+            missing = [name for name, value in required_paths.items() if not value]
+            if missing:
+                raise FoodSemanticError(
+                    "authority requires " + ", ".join(sorted(missing))
+                )
+            resolved_inputs = {
+                name: Path(value).resolve()
+                for name, value in required_paths.items()
+            }
+            for name, path in resolved_inputs.items():
+                try:
+                    path.relative_to(root.resolve())
+                except ValueError as exc:
+                    raise FoodSemanticError(
+                        f"{name} must stay inside the repository: {path}"
+                    ) from exc
+            result = run_authority_execution(
+                root,
+                attempt_root,
+                args.attempt_id,
+                owner_decisions_path=resolved_inputs["--owner-decisions"],
+                semantic_approval_path=resolved_inputs["--semantic-approval"],
+                external_review_path=resolved_inputs["--external-review"],
+                curated_ledger_path=resolved_inputs["--curated-ledger"],
+            )
     except (FoodSemanticError, FileNotFoundError, KeyError, ValueError) as exc:
         print(
             json.dumps(

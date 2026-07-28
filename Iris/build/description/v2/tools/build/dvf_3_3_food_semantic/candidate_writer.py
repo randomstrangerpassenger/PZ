@@ -14,6 +14,7 @@ from .contracts import (
     iter_jsonl_with_raw,
     load_json,
     load_jsonl,
+    now_iso,
     relative_posix,
     sha256_bytes,
     sha256_file,
@@ -21,6 +22,11 @@ from .contracts import (
     write_jsonl,
     write_once_bytes,
 )
+from .curation_workflow import (
+    materialize_authority_curation,
+    validate_curated_rows,
+)
+from .schema_feasibility import required_axes
 
 
 CURRENT_FACTS = "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
@@ -44,7 +50,10 @@ def _assertion_projection(rows: Iterable[dict[str, Any]]) -> dict[str, list[dict
                 "fact_value": row["fact_value"],
                 "authority_class": row["authority_class"],
                 "authority_state": row["approval_status"],
-                "lineage_id": row["fact_proposition_identity"],
+                "lineage_id": row.get(
+                    "source_or_approval_lineage_id",
+                    row["fact_proposition_identity"],
+                ),
                 "mapping_id": row["signal_to_fact_mapping_id"],
             }
         )
@@ -329,9 +338,13 @@ def run_phase11(root: Path, attempt_root: Path) -> dict[str, Any]:
         {
             "required": [
                 "selected_branch",
+                "successor_facts_path",
                 "successor_facts_sha256",
+                "successor_input_manifest_path",
                 "successor_input_manifest_sha256",
+                "approved_food_semantic_schema_path",
                 "approved_food_semantic_schema_sha256",
+                "approved_proposition_licensing_contract_path",
                 "approved_proposition_licensing_contract_sha256",
             ],
             "selected_branch_allowed": ["B"],
@@ -447,6 +460,58 @@ def run_phase11(root: Path, attempt_root: Path) -> dict[str, Any]:
             "non_current_must_equal": True,
         },
     )
+    write_json(
+        phase / "authority_execution_input.schema.json",
+        {
+            "schema_version": "food-semantic-authority-execution-input-schema-v1",
+            "command": (
+                "dvf_3_3_food_semantic_facts_authority.py authority "
+                "--attempt-id <attempt-id> --owner-decisions <path> "
+                "--semantic-approval <path> --external-review <path> "
+                "--curated-ledger <path>"
+            ),
+            "required_owner_decision_ids": sorted(
+                AUTHORITY_EXECUTION_REQUIRED_DECISIONS
+            ),
+            "allowed_selected_options": {
+                key: sorted(value)
+                for key, value in sorted(
+                    AUTHORITY_DECISION_ALLOWED_OPTIONS.items()
+                )
+            },
+            "semantic_approval_required_fields": [
+                "attempt_id",
+                "implementation_complete_bundle_sha256",
+                "status",
+                "semantic_approver",
+                "approval_time",
+                "food_semantic_schema_sha256",
+                "proposition_licensing_contract_sha256",
+                "signal_to_fact_mappings_sha256",
+                "automatic_food_fact_ledger_sha256",
+                "curated_fact_ledger_sha256",
+                "approved_automatic_review_denominator",
+                "approved_curation_item_cap",
+                "approved_curation_proposition_cap",
+            ],
+            "curated_ledger_required_fields": [
+                "item_identity",
+                "fact_axis",
+                "fact_value",
+                "proposition_id",
+                "authority_class",
+                "curator_identity",
+                "reviewed_source_set",
+                "rationale",
+                "schema_sha256",
+                "approval_record",
+                "semantic_approver",
+                "approval_status",
+            ],
+            "branch": "B",
+            "current_mutation_allowed": False,
+        },
+    )
     report = {
         "status": "PASS",
         "successor_tooling_implementation_complete": True,
@@ -463,3 +528,569 @@ def run_phase11(root: Path, attempt_root: Path) -> dict[str, Any]:
     if report["protected_surface_changed_count"]:
         raise FoodSemanticError("protected surface changed during implementation")
     return report
+
+
+AUTHORITY_EXECUTION_REQUIRED_DECISIONS = {
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9",
+    "D10",
+    "D12",
+    "D14",
+    "D16",
+}
+AUTHORITY_DECISION_ALLOWED_OPTIONS = {
+    "D5": {
+        "allow_layer4_as_curated_review_context",
+        "deny_layer4_review_context",
+    },
+    "D6": {
+        "row_level_only",
+        "bounded_batch_exact_member_expansion",
+    },
+    "D7": {"accept_exact_proposed_item_and_proposition_caps"},
+    "D8": {"accept_exact_automatic_review_denominator"},
+    "D9": {"approve_branch_B_sealed_handoff_and_registry_cutover_request"},
+    "D10": {"accept_minimum_meaningful_partition_4"},
+    "D12": {"bind_registry_correction_owner_and_route"},
+    "D14": {"adopt_12_plus_1_tooling_cap_non_expansion_proof"},
+    "D16": {"authorize_exact_existing_adapter_and_no_render_only"},
+}
+
+
+def _approved_decision_ids(owner_decisions: dict[str, Any]) -> set[str]:
+    return {
+        row["decision_id"]
+        for row in owner_decisions.get("decisions", [])
+        if row.get("selected_option")
+        and row.get("status", "approved") in {"approved", "accepted"}
+    }
+
+
+def _decision_by_id(
+    owner_decisions: dict[str, Any], decision_id: str
+) -> dict[str, Any]:
+    matches = [
+        row
+        for row in owner_decisions.get("decisions", [])
+        if row.get("decision_id") == decision_id
+    ]
+    if len(matches) != 1:
+        raise FoodSemanticError(
+            f"owner decision {decision_id} must appear exactly once"
+        )
+    return matches[0]
+
+
+def validate_authority_execution_inputs(
+    root: Path,
+    attempt_root: Path,
+    *,
+    owner_decisions_path: Path,
+    semantic_approval_path: Path,
+    external_review_path: Path,
+    curated_ledger_path: Path,
+) -> dict[str, Any]:
+    bundle_path = attempt_root / "phase13_closeout/implementation_complete_bundle.json"
+    bundle = load_json(bundle_path)
+    bundle_sha256 = sha256_file(bundle_path)
+    owner = load_json(owner_decisions_path)
+    semantic = load_json(semantic_approval_path)
+    external = load_json(external_review_path)
+    schema_path = root / "Iris/_docs/authority/food_semantic/food_semantic_schema.json"
+    license_path = (
+        root
+        / "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json"
+    )
+    mapping_path = (
+        root / "Iris/_docs/authority/food_semantic/signal_to_fact_mappings.json"
+    )
+    automatic_path = (
+        attempt_root / "phase7_automatic_mapping/automatic_food_fact_ledger.jsonl"
+    )
+    cap_path = attempt_root / "phase6_schema/proposed_curation_caps.json"
+    queue_path = attempt_root / "phase7_automatic_mapping/curation_required_queue.jsonl"
+
+    blockers: list[str] = []
+    if bundle.get("attempt_id") != attempt_root.name:
+        blockers.append("implementation_bundle_attempt_mismatch")
+    if bundle.get("implementation_complete_bundle_sealed") is not True:
+        blockers.append("implementation_bundle_not_sealed")
+    if owner.get("attempt_id") != attempt_root.name:
+        blockers.append("owner_decisions_attempt_mismatch")
+    if owner.get("bound_implementation_complete_bundle_sha256") != bundle_sha256:
+        blockers.append("owner_decisions_bundle_mismatch")
+    if not owner.get("approver_identity") or not owner.get("approval_time"):
+        blockers.append("owner_decisions_identity_or_time_missing")
+    missing_decisions = sorted(
+        AUTHORITY_EXECUTION_REQUIRED_DECISIONS - _approved_decision_ids(owner)
+    )
+    if missing_decisions:
+        blockers.append("owner_decisions_incomplete")
+    option_mismatches: list[str] = []
+    for decision_id in sorted(AUTHORITY_EXECUTION_REQUIRED_DECISIONS):
+        if decision_id in missing_decisions:
+            continue
+        decision = _decision_by_id(owner, decision_id)
+        if decision.get("selected_option") not in (
+            AUTHORITY_DECISION_ALLOWED_OPTIONS[decision_id]
+        ):
+            option_mismatches.append(decision_id)
+        if not decision.get("rationale"):
+            option_mismatches.append(f"{decision_id}:rationale")
+    if option_mismatches:
+        blockers.append("owner_decision_option_contract_mismatch")
+    plan_path = (
+        root
+        / "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md"
+    )
+    if owner.get("bound_plan_sha256") != sha256_file(plan_path):
+        blockers.append("owner_decisions_plan_mismatch")
+    if (
+        external.get("verdict") != "PASS"
+        or external.get("attempt_id") != attempt_root.name
+        or external.get("reviewer_is_implementation_author") is not False
+        or external.get("reviewed_bundle_sha256_match") is not True
+        or external.get("implementation_complete_bundle_sha256") != bundle_sha256
+        or external.get("finding_counts", {}).get("critical") != 0
+        or external.get("finding_counts", {}).get("important") != 0
+    ):
+        blockers.append("external_implementation_review_not_pass")
+
+    expected_semantic_hashes = {
+        "food_semantic_schema_sha256": sha256_file(schema_path),
+        "proposition_licensing_contract_sha256": sha256_file(license_path),
+        "signal_to_fact_mappings_sha256": sha256_file(mapping_path),
+        "automatic_food_fact_ledger_sha256": sha256_file(automatic_path),
+        "curated_fact_ledger_sha256": sha256_file(curated_ledger_path),
+    }
+    if semantic.get("status") != "PASS":
+        blockers.append("semantic_approval_not_pass")
+    if semantic.get("attempt_id") != attempt_root.name:
+        blockers.append("semantic_approval_attempt_mismatch")
+    if semantic.get("implementation_complete_bundle_sha256") != bundle_sha256:
+        blockers.append("semantic_approval_bundle_mismatch")
+    if (
+        not semantic.get("semantic_approver")
+        or not semantic.get("approval_time")
+    ):
+        blockers.append("semantic_approval_identity_or_time_missing")
+    for field, value in expected_semantic_hashes.items():
+        if semantic.get(field) != value:
+            blockers.append(f"semantic_approval_{field}_mismatch")
+
+    schema = load_json(schema_path)
+    curated = load_jsonl(curated_ledger_path)
+    curated_validation = validate_curated_rows(
+        curated,
+        schema,
+        expected_schema_sha256=sha256_file(schema_path),
+    )
+    if any(curated_validation.values()):
+        blockers.append("curated_ledger_contract_violation")
+
+    target = load_json(
+        attempt_root / "phase1_census/target_food_universe_manifest.json"
+    )
+    target_members = set(target["members"])
+    queue = load_jsonl(queue_path)
+    expected_queue_pairs = {
+        (row["item_identity"], row["required_fact_axis"]) for row in queue
+    }
+    actual_queue_pairs = {
+        (row.get("item_identity"), row.get("fact_axis")) for row in curated
+    }
+    if (
+        expected_queue_pairs != actual_queue_pairs
+        or len(curated) != len(actual_queue_pairs)
+    ):
+        blockers.append("curated_ledger_queue_identity_mismatch")
+    if any(row.get("item_identity") not in target_members for row in curated):
+        blockers.append("curated_ledger_out_of_target_member")
+
+    cap = load_json(cap_path)
+    curated_items = {row["item_identity"] for row in curated}
+    if len(curated_items) > cap["proposed_curation_item_cap"]:
+        blockers.append("curated_item_cap_exceeded")
+    if len(curated) > cap["proposed_curation_proposition_cap"]:
+        blockers.append("curated_proposition_cap_exceeded")
+    if (
+        semantic.get("approved_curation_item_cap")
+        != cap["proposed_curation_item_cap"]
+        or semantic.get("approved_curation_proposition_cap")
+        != cap["proposed_curation_proposition_cap"]
+    ):
+        blockers.append("D7_approved_cap_mismatch")
+
+    automatic = load_jsonl(automatic_path)
+    if semantic.get("approved_automatic_review_denominator") != len(automatic):
+        blockers.append("D8_automatic_review_denominator_mismatch")
+    axes_by_item: dict[str, set[str]] = {
+        member: set() for member in target_members
+    }
+    for row in automatic:
+        axes_by_item[row["item_identity"]].add(row["fact_field"])
+    for row in curated:
+        axes_by_item[row["item_identity"]].add(row["fact_axis"])
+    missing_cardinality = {
+        member: sorted(set(required_axes()) - axes)
+        for member, axes in axes_by_item.items()
+        if set(required_axes()) - axes
+    }
+    if missing_cardinality:
+        blockers.append("schema_required_axis_cardinality_unsatisfied")
+    tooling_cap = load_json(
+        attempt_root
+        / "phase5_writer_contract/tooling_allowlist_relation_report.json"
+    )
+    if (
+        tooling_cap.get("status") != "PASS"
+        or tooling_cap.get("current_core_count") != 12
+        or tooling_cap.get("current_route_tooling_count") != 1
+        or tooling_cap.get("tooling_allowlist_convenience_expansion_count") != 0
+    ):
+        blockers.append("D14_tooling_cap_proof_not_pass")
+    d12 = (
+        _decision_by_id(owner, "D12")
+        if "D12" not in missing_decisions
+        else {}
+    )
+    if (
+        not d12.get("correction_owner")
+        or not d12.get("operational_route")
+        or d12.get("predecessor_current_reentry_allowed") is not False
+    ):
+        blockers.append("D12_correction_contract_incomplete")
+    d16_manifest_path = (
+        attempt_root
+        / "phase12_phase2_handoff/naturalization_candidate_patch_manifest.json"
+    )
+    d16 = (
+        _decision_by_id(owner, "D16")
+        if "D16" not in missing_decisions
+        else {}
+    )
+    if d16.get("naturalization_candidate_patch_manifest_sha256") != sha256_file(
+        d16_manifest_path
+    ):
+        blockers.append("D16_exact_manifest_mismatch")
+
+    return {
+        "status": "PASS" if not blockers else "BLOCKED",
+        "blocking_predicates": blockers,
+        "missing_owner_decision_ids": missing_decisions,
+        "owner_decision_option_mismatches": option_mismatches,
+        "bundle_sha256": bundle_sha256,
+        "expected_semantic_hashes": expected_semantic_hashes,
+        "curated_validation": curated_validation,
+        "curated_item_count": len(curated_items),
+        "curated_proposition_count": len(curated),
+        "curated_queue_missing_or_extra_count": len(
+            expected_queue_pairs ^ actual_queue_pairs
+        )
+        + abs(len(curated) - len(actual_queue_pairs)),
+        "required_axis_missing_item_count": len(missing_cardinality),
+        "required_axis_missing_by_item": missing_cardinality,
+    }
+
+
+def run_authority_execution(
+    root: Path,
+    attempt_root: Path,
+    attempt_id: str,
+    *,
+    owner_decisions_path: Path,
+    semantic_approval_path: Path,
+    external_review_path: Path,
+    curated_ledger_path: Path,
+) -> dict[str, Any]:
+    validation = validate_authority_execution_inputs(
+        root,
+        attempt_root,
+        owner_decisions_path=owner_decisions_path,
+        semantic_approval_path=semantic_approval_path,
+        external_review_path=external_review_path,
+        curated_ledger_path=curated_ledger_path,
+    )
+    authority_root = attempt_root / "authority_execution"
+    write_json(authority_root / "authority_entry_validation.json", validation)
+    if validation["status"] != "PASS":
+        raise FoodSemanticError(
+            "authority execution blocked: "
+            + ",".join(validation["blocking_predicates"])
+        )
+
+    target = load_json(
+        attempt_root / "phase1_census/target_food_universe_manifest.json"
+    )
+    automatic_source_path = (
+        attempt_root / "phase7_automatic_mapping/automatic_food_fact_ledger.jsonl"
+    )
+    automatic = load_jsonl(automatic_source_path)
+    approved_automatic = [
+        {**row, "approval_status": "approved"} for row in automatic
+    ]
+    curated = load_jsonl(curated_ledger_path)
+    normalized_curated = [
+        {
+            **row,
+            "fact_field": row["fact_axis"],
+            "fact_proposition_identity": row["proposition_id"],
+            "source_or_approval_lineage_id": row["approval_record"],
+            "signal_to_fact_mapping_id": row.get(
+                "signal_to_fact_mapping_id",
+                f"curated:{row['approval_record']}",
+            ),
+            "mapping_version": row.get("mapping_version", "curated-v1"),
+        }
+        for row in curated
+    ]
+    all_approved_rows = approved_automatic + normalized_curated
+    assertions_by_item = _assertion_projection(all_approved_rows)
+    meaningful_profiles = {
+        tuple(
+            sorted(
+                (row["fact_axis"], row["fact_value"])
+                for row in assertions_by_item.get(member, [])
+            )
+        )
+        for member in target["members"]
+    }
+    minimum_meaningful_partition = 4
+    if len(meaningful_profiles) < minimum_meaningful_partition:
+        raise FoodSemanticError(
+            "D10 meaningful partition criterion failed: "
+            f"{len(meaningful_profiles)} < {minimum_meaningful_partition}"
+        )
+
+    approved_automatic_path = (
+        authority_root / "approved_automatic_fact_ledger.jsonl"
+    )
+    write_jsonl(approved_automatic_path, approved_automatic)
+    curation_report = materialize_authority_curation(
+        attempt_root,
+        authority_root,
+        normalized_curated,
+    )
+    write_json(
+        authority_root / "phase8_curation/selected_workflow_options.json",
+        {
+            "D5": _decision_by_id(
+                load_json(owner_decisions_path), "D5"
+            )["selected_option"],
+            "D6": _decision_by_id(
+                load_json(owner_decisions_path), "D6"
+            )["selected_option"],
+            "batch_member_expansion_preserved": True,
+            "implicit_or_anonymous_approval_allowed": False,
+        },
+    )
+
+    current_facts_path = root / CURRENT_FACTS
+    facts_payload, stats = build_candidate_bytes(
+        current_facts_path,
+        target_members=set(target["members"]),
+        automatic_rows=approved_automatic,
+        curated_rows=normalized_curated,
+        authority_bearing=True,
+    )
+    if (
+        stats["changed_target_count"] != target["target_member_count"]
+        or stats["missing_target_count"] != 0
+        or stats["non_target_row_byte_mismatch_count"] != 0
+    ):
+        raise FoodSemanticError(f"authority candidate coverage failed: {stats}")
+    successor_facts_path = authority_root / "successor_facts.jsonl"
+    write_once_bytes(successor_facts_path, facts_payload)
+    successor_facts_sha256 = sha256_file(successor_facts_path)
+
+    current_manifest = load_json(root / CURRENT_MANIFEST)
+    successor_manifest = deepcopy(current_manifest)
+    successor_manifest["authority_role"] = "sealed_non_current_successor"
+    successor_manifest["status"] = "sealed_successor_handoff"
+    successor_manifest["facts"] = {
+        "path": relative_posix(successor_facts_path, root=root),
+        "sha256": successor_facts_sha256,
+        "row_count": current_manifest["facts"]["row_count"],
+        "role": "sealed_non_current_successor",
+    }
+    successor_manifest["food_semantic_authority"] = {
+        "attempt_id": attempt_id,
+        "authority_bearing": True,
+        "selected_branch": "B",
+        "non_current": True,
+        "current_adoption_allowed": False,
+    }
+    successor_manifest_path = authority_root / "successor_input_manifest.json"
+    write_json(successor_manifest_path, successor_manifest)
+
+    schema_path = root / "Iris/_docs/authority/food_semantic/food_semantic_schema.json"
+    license_path = (
+        root
+        / "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json"
+    )
+    authorization = {
+        "schema_version": "food-semantic-successor-authorization-v1",
+        "attempt_id": attempt_id,
+        "implementation_complete_bundle_sha256": validation["bundle_sha256"],
+        "owner_decisions_sha256": sha256_file(owner_decisions_path),
+        "semantic_approval_sha256": sha256_file(semantic_approval_path),
+        "external_review_sha256": sha256_file(external_review_path),
+        "branch": "B",
+        "current_mutation_allowed": False,
+        "authorized_at": now_iso(),
+    }
+    authorization_path = (
+        attempt_root / "phase11_successor/successor_authorization.json"
+    )
+    write_json(authorization_path, authorization)
+    selected_binding = {
+        "schema_version": "food-semantic-selected-successor-input-binding-v1",
+        "selected_branch": "B",
+        "successor_facts_path": relative_posix(successor_facts_path, root=root),
+        "successor_facts_sha256": successor_facts_sha256,
+        "successor_input_manifest_path": relative_posix(
+            successor_manifest_path, root=root
+        ),
+        "successor_input_manifest_sha256": sha256_file(successor_manifest_path),
+        "approved_food_semantic_schema_path": relative_posix(
+            schema_path, root=root
+        ),
+        "approved_food_semantic_schema_sha256": sha256_file(schema_path),
+        "approved_proposition_licensing_contract_path": relative_posix(
+            license_path, root=root
+        ),
+        "approved_proposition_licensing_contract_sha256": sha256_file(
+            license_path
+        ),
+    }
+    selected_binding_path = (
+        attempt_root / "phase11_successor/selected_successor_input_binding.json"
+    )
+    write_json(selected_binding_path, selected_binding)
+    receipt = {
+        "schema_version": "food-semantic-sealed-successor-receipt-v1",
+        "successor_facts_sha256": successor_facts_sha256,
+        "successor_manifest_sha256": sha256_file(successor_manifest_path),
+        "schema_sha256": sha256_file(schema_path),
+        "proposition_license_sha256": sha256_file(license_path),
+        "non_current": True,
+        "authorization_sha256": sha256_file(authorization_path),
+        "selected_binding_sha256": sha256_file(selected_binding_path),
+        "current_facts_manifest_mutation_count": 0,
+    }
+    receipt_path = attempt_root / "phase11_successor/sealed_successor_receipt.json"
+    write_json(receipt_path, receipt)
+    owner = load_json(owner_decisions_path)
+    d12 = _decision_by_id(owner, "D12")
+    write_json(
+        authority_root / "phase11_successor/registry_cutover_request.json",
+        {
+            "schema_version": "food-semantic-registry-cutover-request-v1",
+            "status": "future_registry_review_required",
+            "selected_successor_input_binding_sha256": sha256_file(
+                selected_binding_path
+            ),
+            "successor_facts_sha256": successor_facts_sha256,
+            "successor_input_manifest_sha256": sha256_file(
+                successor_manifest_path
+            ),
+            "current_mutation_requested_by_this_round": False,
+            "atomic_cutover_required": True,
+            "partial_or_dual_current_allowed": False,
+            "correction_owner": d12["correction_owner"],
+            "correction_operational_route": d12["operational_route"],
+            "predecessor_current_reentry_allowed": False,
+        },
+    )
+    write_json(
+        authority_root / "phase12_phase2_handoff/semantic_partition_report.json",
+        {
+            "schema_version": "food-semantic-authority-partition-report-v1",
+            "status": "PASS",
+            "meaningful_partition_definition": (
+                "Partitions differ by at least one approved licensed "
+                "food-semantic axis/value proposition."
+            ),
+            "meaningful_partition_count": len(meaningful_profiles),
+            "minimum_meaningful_partition_criterion": (
+                minimum_meaningful_partition
+            ),
+            "D10_owner_decision_consumed": True,
+            "criterion_gate_credit": 1,
+        },
+    )
+    tooling_cap = load_json(
+        attempt_root
+        / "phase5_writer_contract/tooling_allowlist_relation_report.json"
+    )
+    write_json(
+        authority_root / "phase5_writer_contract/tooling_cap_adoption.json",
+        {
+            "schema_version": "food-semantic-tooling-cap-adoption-v1",
+            "status": "PASS",
+            "current_core_count": tooling_cap["current_core_count"],
+            "current_route_tooling_count": tooling_cap[
+                "current_route_tooling_count"
+            ],
+            "convenience_expansion_count": tooling_cap[
+                "tooling_allowlist_convenience_expansion_count"
+            ],
+            "D14_owner_decision_consumed": True,
+        },
+    )
+
+    from tools.build.run_dvf_3_3_korean_prose_naturalization import (
+        build_food_semantic_no_render_receipt,
+    )
+    from tools.build.validate_dvf_3_3_korean_prose_naturalization import (
+        validate_food_semantic_consumed_input_receipt,
+    )
+
+    consumed_receipt = build_food_semantic_no_render_receipt(
+        facts_path=successor_facts_path,
+        manifest_path=successor_manifest_path,
+        schema_path=schema_path,
+        proposition_license_path=license_path,
+        explicit_non_current_input_override=True,
+        repository_root=root,
+    )
+    consumed_receipt_path = (
+        attempt_root
+        / "phase12_phase2_handoff/actual_phase2_consumed_input_receipt.json"
+    )
+    write_json(consumed_receipt_path, consumed_receipt)
+    consumed_validation = validate_food_semantic_consumed_input_receipt(
+        consumed_receipt,
+        selected_binding,
+        repository_root=root,
+    )
+    write_json(
+        attempt_root
+        / "phase12_phase2_handoff/consumed_input_identity_report.json",
+        consumed_validation,
+    )
+    if consumed_validation["status"] != "PASS":
+        raise FoodSemanticError(
+            f"actual Phase 2 consumed input mismatch: {consumed_validation}"
+        )
+    summary = {
+        "schema_version": "food-semantic-authority-execution-summary-v1",
+        "attempt_id": attempt_id,
+        "status": "PASS",
+        "selected_branch": "B",
+        "sealed_non_current_successor": True,
+        "successor_facts_sha256": successor_facts_sha256,
+        "successor_manifest_sha256": sha256_file(successor_manifest_path),
+        "curated_proposition_count": curation_report[
+            "curated_proposition_count"
+        ],
+        "meaningful_partition_count": len(meaningful_profiles),
+        "actual_phase2_no_render_identity_match": True,
+        "current_facts_manifest_mutation_count": 0,
+        "official_naturalization_retry_allowed": False,
+    }
+    write_json(authority_root / "authority_execution_summary.json", summary)
+    return summary

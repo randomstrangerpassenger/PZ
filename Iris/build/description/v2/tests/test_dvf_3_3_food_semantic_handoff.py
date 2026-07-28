@@ -12,27 +12,22 @@ if str(V2_ROOT) not in sys.path:
     sys.path.insert(0, str(V2_ROOT))
 
 from tools.build.dvf_3_3_food_semantic.naturalization_handoff import (
-    ACCEPTANCE_TEST_APPEND,
     ACCEPTANCE_TEST_PATH,
     PREDECESSOR_BASELINE_FIXTURE_PATH,
-    PRESERVATION_TEST_APPEND,
     PRESERVATION_TEST_PATH,
-    RUNNER_APPEND,
     RUNNER_PATH,
-    VALIDATOR_APPEND,
     VALIDATOR_PATH,
-    _candidate_bytes,
 )
 from tools.build.dvf_3_3_food_semantic.contracts import load_json, sha256_file
 
 
 class FoodSemanticHandoffTest(unittest.TestCase):
     def test_candidate_patch_is_bounded(self) -> None:
-        specs = [
-            (RUNNER_PATH, RUNNER_APPEND),
-            (VALIDATOR_PATH, VALIDATOR_APPEND),
-            (ACCEPTANCE_TEST_PATH, ACCEPTANCE_TEST_APPEND),
-            (PRESERVATION_TEST_PATH, PRESERVATION_TEST_APPEND),
+        targets = [
+            RUNNER_PATH,
+            VALIDATOR_PATH,
+            ACCEPTANCE_TEST_PATH,
+            PRESERVATION_TEST_PATH,
         ]
         attempts = (
             V2_ROOT
@@ -57,24 +52,24 @@ class FoodSemanticHandoffTest(unittest.TestCase):
         manifest_by_target = {
             row["target_path"]: row for row in manifest["files"]
         }
-        for relative, append_text in specs:
+        for relative in targets:
             row = manifest_by_target[relative]
-            candidate = (REPO_ROOT / row["candidate_path"]).read_bytes()
-            suffix = append_text.encode("utf-8").lstrip(b"\n")
             source = REPO_ROOT / relative
-            if source.is_file():
-                self.assertEqual(
-                    candidate, _candidate_bytes(source.read_bytes(), append_text)
-                )
-                self.assertEqual(row["preimage_state"], "present")
-            else:
-                self.assertEqual(candidate, suffix)
-                self.assertEqual(row["preimage_state"], "absent_at_g0_v0")
-                self.assertEqual(
-                    row["patch_kind"],
-                    "add_symbol_fragment_pending_future_preimage",
-                )
-        self.assertEqual(len({relative for relative, _ in specs}), 4)
+            self.assertTrue(source.is_file())
+            self.assertIsNone(row["candidate_path"])
+            self.assertEqual(
+                row["preimage_state"],
+                "present_and_D16_symbols_adopted",
+            )
+            self.assertEqual(
+                row["patch_kind"],
+                "no_change_required_existing_D16_adoption",
+            )
+            self.assertEqual(sha256_file(source), row["preimage_sha256"])
+            self.assertEqual(sha256_file(source), row["replacement_sha256"])
+        self.assertEqual(len(set(targets)), 4)
+        self.assertEqual(manifest["status"], "existing_D16_adoption_verified")
+        self.assertEqual(manifest["existing_D16_adoption_file_count"], 4)
         self.assertFalse(manifest["D16_owner_authorization_consumed"])
 
     def test_predecessor_threshold_is_bound_without_authority_claim(self) -> None:
@@ -88,8 +83,6 @@ class FoodSemanticHandoffTest(unittest.TestCase):
         self.assertFalse(cause["current_fact_semantic_authority_granted"])
 
     def test_successful_attempt_patch_manifest_is_exact(self) -> None:
-        from tools.build.dvf_3_3_food_semantic.contracts import sha256_bytes
-
         attempts = (
             V2_ROOT
             / "staging/dvf_3_3_food_semantic_facts_authority/attempts"
@@ -113,31 +106,11 @@ class FoodSemanticHandoffTest(unittest.TestCase):
         )
         self.assertEqual(len(manifest["files"]), 4)
         self.assertEqual(manifest["candidate_patch_out_of_scope_symbol_count"], 0)
-        append_by_target = {
-            RUNNER_PATH: RUNNER_APPEND,
-            VALIDATOR_PATH: VALIDATOR_APPEND,
-            ACCEPTANCE_TEST_PATH: ACCEPTANCE_TEST_APPEND,
-            PRESERVATION_TEST_PATH: PRESERVATION_TEST_APPEND,
-        }
         for row in manifest["files"]:
             source = REPO_ROOT / row["target_path"]
-            candidate = REPO_ROOT / row["candidate_path"]
-            self.assertEqual(sha256_file(candidate), row["replacement_sha256"])
-            candidate_bytes = candidate.read_bytes()
-            suffix = append_by_target[row["target_path"]].encode("utf-8").lstrip(
-                b"\n"
-            )
-            self.assertTrue(candidate_bytes.endswith(suffix))
-            if source.is_file():
-                preimage_bytes = candidate_bytes[: -len(suffix)]
-                self.assertEqual(
-                    sha256_bytes(preimage_bytes), row["preimage_sha256"]
-                )
-                self.assertEqual(sha256_file(source), row["preimage_sha256"])
-                self.assertTrue(candidate_bytes.startswith(source.read_bytes()))
-            else:
-                self.assertIsNone(row["preimage_sha256"])
-                self.assertEqual(candidate_bytes, suffix)
+            self.assertIsNone(row["candidate_path"])
+            self.assertEqual(sha256_file(source), row["replacement_sha256"])
+            self.assertEqual(sha256_file(source), row["preimage_sha256"])
             self.assertEqual(row["existing_symbol_replacement_count"], 0)
         self.assertFalse(manifest["D16_owner_authorization_consumed"])
 

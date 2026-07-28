@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .contracts import (
+    FoodSemanticError,
     identity,
     load_json,
     load_jsonl,
@@ -241,7 +242,6 @@ def _materialize_candidate_patch(
     specs = [
         (
             RUNNER_PATH,
-            RUNNER_APPEND,
             [
                 "build_food_semantic_proposition_inventory",
                 "build_food_semantic_no_render_receipt",
@@ -249,52 +249,41 @@ def _materialize_candidate_patch(
         ),
         (
             VALIDATOR_PATH,
-            VALIDATOR_APPEND,
             ["validate_food_semantic_consumed_input_receipt"],
         ),
         (
             ACCEPTANCE_TEST_PATH,
-            ACCEPTANCE_TEST_APPEND,
             ["FoodSemanticNoRenderReceiptCandidateContractTest"],
         ),
         (
             PRESERVATION_TEST_PATH,
-            PRESERVATION_TEST_APPEND,
             ["FoodSemanticPhase4To8PreservationCandidateContractTest"],
         ),
     ]
     rows: list[dict[str, Any]] = []
-    for index, (relative, append_text, symbols) in enumerate(specs, start=1):
+    for relative, symbols in specs:
         source = root / relative
         preimage_present = source.is_file()
         preimage = source.read_bytes() if preimage_present else b""
-        replacement = (
-            _candidate_bytes(preimage, append_text)
-            if preimage_present
-            else append_text.encode("utf-8").lstrip(b"\n")
+        source_text = preimage.decode("utf-8") if preimage_present else ""
+        adopted_symbols_present = preimage_present and all(
+            symbol in source_text for symbol in symbols
         )
-        candidate = phase / "candidate_fragments" / f"d16-{index:02d}.py"
-        write_once_bytes(candidate, replacement)
+        if not adopted_symbols_present:
+            raise FoodSemanticError(
+                "attempt-0019 requires the exact D16 adoption preserved from "
+                f"attempt-0018: missing {relative}"
+            )
         rows.append(
             {
                 "target_path": relative,
-                "candidate_path": candidate.relative_to(root).as_posix(),
-                "preimage_state": (
-                    "present"
-                    if preimage_present
-                    else "absent_at_g0_v0"
-                ),
-                "preimage_sha256": (
-                    sha256_bytes(preimage) if preimage_present else None
-                ),
-                "replacement_sha256": sha256_bytes(replacement),
+                "candidate_path": None,
+                "preimage_state": "present_and_D16_symbols_adopted",
+                "preimage_sha256": sha256_bytes(preimage),
+                "replacement_sha256": sha256_bytes(preimage),
                 "affected_symbols": symbols,
                 "existing_symbol_replacement_count": 0,
-                "patch_kind": (
-                    "additive_candidate_not_adopted"
-                    if preimage_present
-                    else "add_symbol_fragment_pending_future_preimage"
-                ),
+                "patch_kind": "no_change_required_existing_D16_adoption",
             }
         )
     return rows
@@ -360,7 +349,11 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
         phase / "naturalization_candidate_patch_manifest.json",
         {
             "schema_version": "food-semantic-naturalization-candidate-patch-v1",
-            "status": "candidate_pending_D16_adoption",
+            "status": (
+                "existing_D16_adoption_verified"
+                if all(row["candidate_path"] is None for row in patch_rows)
+                else "candidate_pending_D16_adoption"
+            ),
             "files": patch_rows,
             "candidate_patch_out_of_scope_symbol_count": 0,
             "candidate_patch_preimage_mismatch_count": 0,
@@ -369,6 +362,9 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
                 for row in patch_rows
             ),
             "D16_owner_authorization_consumed": False,
+            "existing_D16_adoption_file_count": sum(
+                row["candidate_path"] is None for row in patch_rows
+            ),
         },
     )
     write_json(
@@ -387,8 +383,18 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
                 "explicit_non_current_input_override",
                 "current_facts_read_count",
                 "render_write_count",
+                "opened_input_count",
+                "manifest_declared_facts_path",
+                "manifest_declared_facts_sha256",
+                "manifest_facts_path_match",
+                "manifest_facts_sha256_match",
+                "food_semantic_proposition_count",
+                "food_semantic_proposition_inventory_sha256",
             ],
             "producer_must_equal": "naturalization_actual_phase2_consumer",
+            "explicit_non_current_input_override_must_equal": True,
+            "current_facts_read_count_must_equal": 0,
+            "opened_input_count_must_equal": 4,
             "implementation_receipt_emitted": False,
         },
     )
@@ -524,8 +530,9 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
             "status": "NO_EFFECT_PROVEN",
             "changed_path_has_no_effect_on_attempt_0014": True,
             "proof": (
-                "Candidate fragments are not adopted, no Naturalization target "
-                "path is written, and the predecessor digest extract is read-only."
+                "The D16 adapter is already present at implementation entry; "
+                "this attempt writes no Naturalization target path and the "
+                "predecessor digest extract remains read-only."
             ),
             "baseline_repeated_skeleton_hit_count": cause[
                 "baseline_repeated_skeleton_hit_count"
@@ -544,6 +551,9 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
             "status": "PASS",
             "existing_phase4_to_8_behavior_change_count": 0,
             "candidate_patch_adopted": False,
+            "existing_D16_adoption_verified": all(
+                row["candidate_path"] is None for row in patch_rows
+            ),
             "existing_symbol_replacement_count": sum(
                 row["existing_symbol_replacement_count"] for row in patch_rows
             ),
@@ -598,6 +608,9 @@ def run_phase12(root: Path, attempt_root: Path) -> dict[str, Any]:
         "handoff_tooling_implementation_complete": True,
         "candidate_patch_file_count": len(patch_rows),
         "candidate_patch_adopted": False,
+        "existing_D16_adoption_verified": all(
+            row["candidate_path"] is None for row in patch_rows
+        ),
         "D16_owner_authorization_consumed": False,
         "authority_handoff_claim_emitted_count": 0,
     }

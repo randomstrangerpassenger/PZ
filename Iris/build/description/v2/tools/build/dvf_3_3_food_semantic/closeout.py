@@ -96,6 +96,27 @@ def _implementation_files(root: Path, attempt_root: Path) -> list[Path]:
     )
     if cli.is_file():
         files.append(cli)
+    files.extend(
+        root / relative
+        for relative in (
+            (
+                "Iris/build/description/v2/tools/build/"
+                "run_dvf_3_3_korean_prose_naturalization.py"
+            ),
+            (
+                "Iris/build/description/v2/tools/build/"
+                "validate_dvf_3_3_korean_prose_naturalization.py"
+            ),
+            (
+                "Iris/build/description/v2/tests/"
+                "test_dvf_3_3_korean_prose_acceptance_gate.py"
+            ),
+            (
+                "Iris/build/description/v2/tests/"
+                "test_dvf_3_3_korean_prose_semantic_preservation.py"
+            ),
+        )
+    )
     tests = root / "Iris/build/description/v2/tests"
     files.extend(tests.glob("test_dvf_3_3_food_semantic_*.py"))
     fixture_dir = (
@@ -414,6 +435,13 @@ def run_phase13(
     kernel = load_json(
         attempt_root / "phase7_automatic_mapping/feasibility_kernel_bundle.json"
     )
+    feasibility = load_json(
+        attempt_root
+        / "phase7_automatic_mapping/curation_feasibility_report.json"
+    )
+    curation_caps = load_json(
+        attempt_root / "phase6_schema/proposed_curation_caps.json"
+    )
     curation = load_json(
         attempt_root / "phase8_curation/curation_completion_report.json"
     )
@@ -425,6 +453,10 @@ def run_phase13(
     )
     arbitrary = load_json(
         attempt_root / "phase9_coverage/arbitrary_inference_zero_report.json"
+    )
+    forbidden_binding = load_json(
+        attempt_root
+        / "phase9_coverage/forbidden_inference_registry_binding.json"
     )
     candidate = load_json(
         attempt_root / "phase10_candidate/candidate_validation_report.json"
@@ -466,21 +498,40 @@ def run_phase13(
         "candidate_only_single_writer_pass": writer_contract["status"] == "PASS",
         "schema_satisfiability_pass": schema["status"] == "PASS",
         "feasibility_kernel_pass": kernel["feasibility_kernel_state"] == "PASS",
+        "mandatory_curation_workload_exact": (
+            feasibility["predicted_required_curation_items"] == 317
+            and feasibility["predicted_required_curation_propositions"] == 634
+            and curation_caps["proposed_curation_item_cap"] == 317
+            and curation_caps["proposed_curation_proposition_cap"] == 634
+        ),
         "curation_workflow_options_complete": curation[
             "curation_workflow_option_implementations_complete"
         ],
         "curation_negative_fixtures_pass": curation[
             "curated_approval_detector_fixture_pass"
         ],
+        "curation_state_machine_fixtures_pass": (
+            curation["curation_batch_exact_member_expansion_fixture_pass"]
+            and curation["curation_resume_idempotence_fixture_pass"]
+            and curation["curation_crash_boundary_fixtures_pass"]
+            and curation["curation_rejection_rework_fixture_pass"]
+        ),
         "implementation_route_count_is_317": coverage[
             "implementation_route_count"
         ]
         == 317,
         "implementation_route_gap_zero": coverage["unrouted_target_count"] == 0
-        and coverage["double_route_count"] == 0,
+        and coverage["conflicting_terminal_route_count"] == 0,
         "unsupported_fact_count_zero": unsupported["unsupported_fact_count"] == 0,
         "arbitrary_inference_count_zero": arbitrary["arbitrary_inference_count"]
         == 0,
+        "forbidden_fixture_member_coverage_complete": (
+            arbitrary["forbidden_member_fixture_missing_count"] == 0
+            and arbitrary["forbidden_member_fixture_extra_count"] == 0
+            and forbidden_binding[
+                "all_forbidden_members_have_detector_fixtures"
+            ]
+        ),
         "candidate_writer_dry_run_pass": candidate[
             "non_authoritative_dry_run"
         ]
@@ -507,7 +558,8 @@ def run_phase13(
         "existing_phase4_to_8_behavior_change_count_zero": no_impact[
             "existing_phase4_to_8_behavior_change_count"
         ]
-        == 0,
+        == 0
+        and no_impact["existing_D16_adoption_verified"],
         "threshold_authority_binding_deferred_without_credit": (
             threshold["authority_match_evaluated"] is False
             and threshold["threshold_policy_detector_identity_match"] is None

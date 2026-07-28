@@ -20,6 +20,7 @@ from tools.build.dvf_3_3_food_semantic.contracts import FoodSemanticError
 from tools.build.dvf_3_3_food_semantic.contracts import load_json
 from tools.build.dvf_3_3_food_semantic_facts_authority import (
     FOCUSED_VALIDATION_COMMAND,
+    build_parser,
     record_focused_validation,
     resolve_attempt_root,
 )
@@ -68,6 +69,17 @@ class FoodSemanticCloseoutTest(unittest.TestCase):
         valid = resolve_attempt_root(REPO_ROOT, "attempt-0001")
         self.assertEqual(valid.name, "attempt-0001")
 
+    def test_authority_command_is_exposed_but_requires_exact_inputs(self) -> None:
+        parser = build_parser()
+        args = parser.parse_args(
+            ["authority", "--attempt-id", "attempt-0019"]
+        )
+        self.assertEqual(args.command, "authority")
+        self.assertIsNone(args.owner_decisions)
+        self.assertIsNone(args.semantic_approval)
+        self.assertIsNone(args.external_review)
+        self.assertIsNone(args.curated_ledger)
+
     def test_successful_attempt_stays_below_authority_claim_ceiling(self) -> None:
         attempts = (
             V2_ROOT
@@ -107,6 +119,32 @@ class FoodSemanticCloseoutTest(unittest.TestCase):
         self.assertEqual(protected["changed_count"], 0)
         self.assertEqual(machine_validation["status"], "PASS")
         self.assertEqual(machine_validation["blocking_predicate_count"], 0)
+        bundle = load_json(
+            attempt
+            / "phase13_closeout/implementation_complete_bundle.json"
+        )
+        artifact_paths = {row["path"] for row in bundle["artifacts"]}
+        self.assertTrue(
+            {
+                (
+                    "Iris/build/description/v2/tools/build/"
+                    "run_dvf_3_3_korean_prose_naturalization.py"
+                ),
+                (
+                    "Iris/build/description/v2/tools/build/"
+                    "validate_dvf_3_3_korean_prose_naturalization.py"
+                ),
+                (
+                    "Iris/build/description/v2/tests/"
+                    "test_dvf_3_3_korean_prose_acceptance_gate.py"
+                ),
+                (
+                    "Iris/build/description/v2/tests/"
+                    "test_dvf_3_3_korean_prose_semantic_preservation.py"
+                ),
+            }
+            <= artifact_paths
+        )
 
 
 if __name__ == "__main__":

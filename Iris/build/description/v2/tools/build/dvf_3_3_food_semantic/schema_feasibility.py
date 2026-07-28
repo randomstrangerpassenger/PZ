@@ -20,8 +20,9 @@ from .contracts import (
 
 SCHEMA_VERSION = "food-semantic-schema-v1"
 PROPOSITION_LICENSE_VERSION = "food-semantic-proposition-license-v1"
-PROPOSED_CURATION_ITEM_CAP = 240
-PROPOSED_CURATION_PROPOSITION_CAP = 480
+TARGET_FOOD_ITEM_COUNT = 317
+PROPOSED_CURATION_ITEM_CAP = TARGET_FOOD_ITEM_COUNT
+PROPOSED_CURATION_PROPOSITION_CAP = TARGET_FOOD_ITEM_COUNT * 2
 
 AXES: list[dict[str, Any]] = [
     {
@@ -228,6 +229,12 @@ AXES: list[dict[str, Any]] = [
         ],
     },
 ]
+
+
+def required_axes() -> tuple[str, ...]:
+    return tuple(
+        sorted(axis["axis"] for axis in AXES if axis["cardinality"] == "one_or_more")
+    )
 
 
 def _schema_values() -> dict[str, set[str]]:
@@ -490,6 +497,10 @@ def run_phase6(root: Path, attempt_root: Path) -> dict[str, Any]:
         "schema_satisfiability_sha256": sha256_file(report_path),
         "proposed_curation_item_cap": PROPOSED_CURATION_ITEM_CAP,
         "proposed_curation_proposition_cap": PROPOSED_CURATION_PROPOSITION_CAP,
+        "required_axis_count": len(required_axes()),
+        "required_axes": list(required_axes()),
+        "target_food_item_count": TARGET_FOOD_ITEM_COUNT,
+        "proposition_cap_formula": "target_food_item_count * required_axis_count",
         "phase7_result_consumed_to_select_cap": False,
         "owner_decision_consumed": False,
     }
@@ -541,6 +552,9 @@ def run_phase7(root: Path, attempt_root: Path) -> dict[str, Any]:
         attempt_root / "phase6_schema/schema_satisfiability_report.json"
     )
     cap = load_json(attempt_root / "phase6_schema/proposed_curation_caps.json")
+    rule_reproducibility = load_json(
+        attempt_root / "phase2_rule_authority/rule_reproducibility_report.json"
+    )
     mappings = _mapping_rows(lineage)
     mapping_path = (
         root
@@ -568,18 +582,28 @@ def run_phase7(root: Path, attempt_root: Path) -> dict[str, Any]:
     for row in automatic_rows:
         automatic_by_item[row["item_identity"]].append(row)
     automatic_members = set(automatic_by_item)
-    residual_members = sorted(set(target["members"]) - automatic_members)
-    queue_rows = [
-        {
-            "item_identity": member,
-            "route": "curated_review_required",
-            "minimum_proposition_count": 1,
-            "review_axes": sorted(axis["axis"] for axis in AXES),
-            "selected_fact_value": None,
-            "authority_emitted": False,
+    mandatory_axes = required_axes()
+    missing_required_axes_by_item: dict[str, list[str]] = {}
+    queue_rows = []
+    for member in sorted(target["members"]):
+        automatic_axes = {
+            row["fact_field"] for row in automatic_by_item.get(member, [])
         }
-        for member in residual_members
-    ]
+        missing_axes = sorted(set(mandatory_axes) - automatic_axes)
+        if missing_axes:
+            missing_required_axes_by_item[member] = missing_axes
+        for axis in missing_axes:
+            queue_rows.append(
+                {
+                    "item_identity": member,
+                    "route": "curated_review_required",
+                    "required_fact_axis": axis,
+                    "minimum_proposition_count": 1,
+                    "selected_fact_value": None,
+                    "authority_emitted": False,
+                }
+            )
+    curation_members = sorted(missing_required_axes_by_item)
     write_jsonl(phase / "curation_required_queue.jsonl", queue_rows)
     write_json(
         phase / "automatic_coverage_report.json",
@@ -597,8 +621,16 @@ def run_phase7(root: Path, attempt_root: Path) -> dict[str, Any]:
     write_json(
         phase / "partial_resolution_report.json",
         {
-            "automatic_only_item_count": len(automatic_members),
-            "curation_required_item_count": len(residual_members),
+            "automatic_only_item_count": sum(
+                not missing_required_axes_by_item.get(member)
+                for member in target["members"]
+            ),
+            "automatic_partial_item_count": sum(
+                member in automatic_members and member in missing_required_axes_by_item
+                for member in target["members"]
+            ),
+            "curation_required_item_count": len(curation_members),
+            "curation_required_proposition_count": len(queue_rows),
             "unrouted_target_count": 0,
         },
     )
@@ -613,7 +645,7 @@ def run_phase7(root: Path, attempt_root: Path) -> dict[str, Any]:
         },
     )
     reason_counts = Counter(
-        "no_allowlisted_semantic_signal" for _ in residual_members
+        "missing_mandatory_curated_axis" for _ in queue_rows
     )
     write_json(
         phase / "residual_set_reason_codes.json",
@@ -623,8 +655,11 @@ def run_phase7(root: Path, attempt_root: Path) -> dict[str, Any]:
             "unsupported_fact_emitted": False,
         },
     )
-    predicted_items = len(residual_members)
-    predicted_propositions = len(residual_members)
+    predicted_items = len(curation_members)
+    predicted_propositions = len(queue_rows)
+    axis_distribution = Counter(
+        row["required_fact_axis"] for row in queue_rows
+    )
     feasibility = {
         "status": "PASS"
         if predicted_items <= cap["proposed_curation_item_cap"]
@@ -635,10 +670,18 @@ def run_phase7(root: Path, attempt_root: Path) -> dict[str, Any]:
         "average_propositions_per_item": (
             predicted_propositions / predicted_items if predicted_items else 0
         ),
-        "maximum_propositions_per_item": 1 if predicted_items else 0,
+        "maximum_propositions_per_item": max(
+            (len(value) for value in missing_required_axes_by_item.values()),
+            default=0,
+        ),
         "axis_distribution": {
-            axis["axis"]: predicted_items for axis in AXES
+            axis["axis"]: axis_distribution.get(axis["axis"], 0) for axis in AXES
         },
+        "mandatory_axis_workload_derived_per_item": True,
+        "items_with_partial_automatic_facts_still_routed_to_curation": sum(
+            member in automatic_members and member in missing_required_axes_by_item
+            for member in target["members"]
+        ),
         "proposed_curation_item_cap": cap["proposed_curation_item_cap"],
         "proposed_curation_proposition_cap": cap[
             "proposed_curation_proposition_cap"
@@ -657,11 +700,12 @@ def run_phase7(root: Path, attempt_root: Path) -> dict[str, Any]:
         "curation_feasibility_report_dimensions_complete": True,
     }
     write_json(phase / "curation_feasibility_report.json", feasibility)
-    all_routed = len(automatic_members) + len(residual_members)
+    routed_members = automatic_members | set(curation_members)
+    all_routed = len(routed_members)
     kernel_predicates = {
         "feasibility_kernel_changes_0_through_7_complete": True,
         "r3_successor_registry_implementation_complete": True,
-        "r3_determinism_validation": "PASS",
+        "r3_determinism_validation": rule_reproducibility["status"],
         "r1_r2_member_disposition_complete": True,
         "closed_schema_validator": "PASS",
         "schema_has_meaningful_distinctions": schema_report[
@@ -683,10 +727,14 @@ def run_phase7(root: Path, attempt_root: Path) -> dict[str, Any]:
             "proposed_curation_proposition_cap"
         ],
         "feasibility_authority_claim_emitted_count": 0,
+        "mandatory_required_axes": list(mandatory_axes),
+        "mandatory_axis_missing_count": predicted_propositions,
     }
     blockers = []
     if all_routed != 317:
         blockers.append("exact_317_automatic_or_curation_route_count")
+    if rule_reproducibility["status"] != "PASS":
+        blockers.append("r3_determinism_validation")
     if schema_report["schema_threshold_driven_token_count"] != 0:
         blockers.append("schema_threshold_driven_token_count")
     if not schema_report["schema_has_meaningful_distinctions"]:

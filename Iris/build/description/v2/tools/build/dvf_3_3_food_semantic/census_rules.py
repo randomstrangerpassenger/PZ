@@ -2,13 +2,16 @@ from __future__ import annotations
 
 from dataclasses import asdict
 import json
+import os
 from pathlib import Path
 import subprocess
+import sys
 from typing import Any
 
 from .contracts import (
     FoodSemanticError,
     artifact_manifest,
+    canonical_jsonl_bytes,
     canonical_member_digest,
     identity,
     load_json,
@@ -1391,9 +1394,18 @@ def _rule_matches(rule: dict[str, Any], item: dict[str, Any]) -> bool:
     raise FoodSemanticError(f"unregistered operation: {operation}")
 
 
-def execute_r3_signals(root: Path, members: list[str]) -> list[dict[str, Any]]:
+def execute_r3_signals(
+    root: Path,
+    members: list[str],
+    *,
+    reverse_source_traversal: bool = False,
+) -> list[dict[str, Any]]:
     items_path = root / ITEMSCRIPT_PATH
-    items = load_json(items_path)
+    loaded_items = load_json(items_path)
+    source_entries = list(loaded_items.items())
+    if reverse_source_traversal:
+        source_entries.reverse()
+    items = dict(source_entries)
     source_hash = sha256_file(items_path)
     rows: list[dict[str, Any]] = []
     for member in sorted(members):
@@ -1417,6 +1429,99 @@ def execute_r3_signals(root: Path, members: list[str]) -> list[dict[str, Any]]:
                     }
                 )
     return rows
+
+
+def _execute_r3_subprocess(
+    root: Path,
+    members: list[str],
+    *,
+    pythonhashseed: str,
+    locale_name: str,
+    reverse_traversal: bool,
+) -> dict[str, Any]:
+    v2_root = root / "Iris/build/description/v2"
+    script = """
+import json
+import os
+from pathlib import Path
+import sys
+
+payload = json.load(sys.stdin)
+sys.path.insert(0, payload["v2_root"])
+from tools.build.dvf_3_3_food_semantic.census_rules import execute_r3_signals
+
+reverse_traversal = os.environ["IRIS_R3_REVERSE_TRAVERSAL"] == "1"
+members = (
+    list(reversed(payload["members"]))
+    if reverse_traversal
+    else payload["members"]
+)
+rows = execute_r3_signals(
+    Path(payload["root"]),
+    members,
+    reverse_source_traversal=reverse_traversal,
+)
+json.dump(
+    {
+        "rows": rows,
+        "observed_pythonhashseed": os.environ.get("PYTHONHASHSEED"),
+        "observed_lc_all": os.environ.get("LC_ALL"),
+        "observed_lang": os.environ.get("LANG"),
+        "reverse_traversal": os.environ.get("IRIS_R3_REVERSE_TRAVERSAL") == "1",
+    },
+    sys.stdout,
+    ensure_ascii=False,
+    sort_keys=True,
+    separators=(",", ":"),
+)
+"""
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "PYTHONHASHSEED": pythonhashseed,
+            "LC_ALL": locale_name,
+            "LANG": locale_name,
+            "IRIS_R3_REVERSE_TRAVERSAL": "1" if reverse_traversal else "0",
+        }
+    )
+    completed = subprocess.run(
+        [sys.executable, "-B", "-c", script],
+        input=json.dumps(
+            {
+                "root": str(root),
+                "v2_root": str(v2_root),
+                "members": members,
+            },
+            ensure_ascii=False,
+        ),
+        text=True,
+        encoding="utf-8",
+        capture_output=True,
+        cwd=root,
+        env=environment,
+        check=False,
+    )
+    if completed.returncode != 0:
+        raise FoodSemanticError(
+            "R3 determinism subprocess failed: "
+            f"seed={pythonhashseed}, locale={locale_name}, "
+            f"reverse={reverse_traversal}, stderr={completed.stderr}"
+        )
+    payload = json.loads(completed.stdout)
+    rows = payload["rows"]
+    return {
+        "pythonhashseed": pythonhashseed,
+        "locale": locale_name,
+        "reverse_traversal": reverse_traversal,
+        "returncode": completed.returncode,
+        "stderr": completed.stderr,
+        "observed_pythonhashseed": payload["observed_pythonhashseed"],
+        "observed_lc_all": payload["observed_lc_all"],
+        "observed_lang": payload["observed_lang"],
+        "signal_count": len(rows),
+        "signal_sha256": sha256_bytes(canonical_jsonl_bytes(rows)),
+        "rows": rows,
+    }
 
 
 def run_phase2(root: Path, attempt_root: Path) -> dict[str, Any]:
@@ -1475,17 +1580,53 @@ def run_phase2(root: Path, attempt_root: Path) -> dict[str, Any]:
         },
     )
     first = execute_r3_signals(root, members)
-    second = execute_r3_signals(root, list(reversed(members)))
+    local_signal_sha256 = sha256_bytes(canonical_jsonl_bytes(first))
+    subprocess_fixtures = [
+        _execute_r3_subprocess(
+            root,
+            members,
+            pythonhashseed=pythonhashseed,
+            locale_name=locale_name,
+            reverse_traversal=reverse_traversal,
+        )
+        for pythonhashseed, locale_name, reverse_traversal in [
+            ("1", "C", False),
+            ("777", "C", True),
+            ("1", "ko-KR", True),
+            ("777", "ko-KR", False),
+        ]
+    ]
+    subprocess_rows_match = all(
+        row["rows"] == first for row in subprocess_fixtures
+    )
+    environment_observed = all(
+        row["observed_pythonhashseed"] == row["pythonhashseed"]
+        and row["observed_lc_all"] == row["locale"]
+        and row["observed_lang"] == row["locale"]
+        for row in subprocess_fixtures
+    )
+    reproducibility_pass = subprocess_rows_match and environment_observed
     write_json(
         phase / "rule_reproducibility_report.json",
         {
-            "status": "PASS" if first == second else "FAIL",
-            "same_input_same_signal_output": first == second,
+            "status": "PASS" if reproducibility_pass else "FAIL",
+            "same_input_same_signal_output": subprocess_rows_match,
             "execution_order_deterministic": True,
-            "input_member_order_independent": first == second,
+            "input_member_order_independent": subprocess_rows_match,
             "signal_count": len(first),
             "pythonhashseed_fixture_values": ["1", "777"],
             "locale_fixture_values": ["C", "ko-KR"],
+            "isolated_subprocess_count": len(subprocess_fixtures),
+            "isolated_subprocess_environment_observed": environment_observed,
+            "reverse_source_record_traversal_fixture_count": sum(
+                row["reverse_traversal"] for row in subprocess_fixtures
+            ),
+            "filesystem_traversal_not_applicable_single_exact_source_file": True,
+            "local_signal_sha256": local_signal_sha256,
+            "subprocess_fixtures": [
+                {key: value for key, value in row.items() if key != "rows"}
+                for row in subprocess_fixtures
+            ],
         },
     )
     write_json(
@@ -1512,7 +1653,7 @@ def run_phase2(root: Path, attempt_root: Path) -> dict[str, Any]:
             "failure_evidence_deleted_count": 0,
         },
     )
-    if first != second:
+    if not reproducibility_pass:
         raise FoodSemanticError("R3 determinism failed")
     return {
         "status": "PASS",

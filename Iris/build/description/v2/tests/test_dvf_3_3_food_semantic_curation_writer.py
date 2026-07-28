@@ -24,6 +24,8 @@ from tools.build.dvf_3_3_food_semantic.contracts import (
 from tools.build.dvf_3_3_food_semantic.curation_workflow import (
     apply_events_idempotently,
     build_batch_rows,
+    build_event,
+    validate_checkpoint,
     validate_curated_rows,
 )
 from tools.build.dvf_3_3_food_semantic.schema_feasibility import AXES
@@ -80,9 +82,9 @@ class FoodSemanticCurationWriterTest(unittest.TestCase):
 
     def test_curation_batch_and_approval_contracts(self) -> None:
         queue = [
-            {"item_identity": "Base.A"},
-            {"item_identity": "Base.B"},
-            {"item_identity": "Base.C"},
+            {"item_identity": "Base.A", "proposition_id": "prop-a"},
+            {"item_identity": "Base.B", "proposition_id": "prop-b"},
+            {"item_identity": "Base.C", "proposition_id": "prop-c"},
         ]
         first = build_batch_rows(queue, schema_sha256="a" * 64, batch_size=2)
         second = build_batch_rows(queue, schema_sha256="a" * 64, batch_size=2)
@@ -90,15 +92,52 @@ class FoodSemanticCurationWriterTest(unittest.TestCase):
         self.assertEqual(sum(row["member_count"] for row in first), len(queue))
 
         events = [
-            {
-                "event_id": "event-1",
-                "proposition_id": "prop-1",
-                "event": "queued",
-            }
+            build_event(
+                sequence=1,
+                proposition_id="prop-1",
+                event="queued",
+                previous_state=None,
+            ),
+            build_event(
+                sequence=2,
+                proposition_id="prop-1",
+                event="review_started",
+                previous_state="queued",
+            ),
+            build_event(
+                sequence=3,
+                proposition_id="prop-1",
+                event="accepted",
+                previous_state="review_started",
+                authority_effect=True,
+                approval_record="approval-1",
+                semantic_approver="approver-1",
+            ),
         ]
         states, duplicates = apply_events_idempotently(events + events)
-        self.assertEqual(states, {"prop-1": "queued"})
-        self.assertEqual(duplicates, 1)
+        self.assertEqual(states, {"prop-1": "accepted"})
+        self.assertEqual(duplicates, 3)
+        invalid_transition = build_event(
+            sequence=1,
+            proposition_id="prop-invalid",
+            event="review_started",
+            previous_state=None,
+        )
+        with self.assertRaises(ValueError):
+            apply_events_idempotently([invalid_transition])
+        with self.assertRaises(ValueError):
+            validate_checkpoint(
+                events,
+                {
+                    "queue_sha256": "b" * 64,
+                    "event_ledger_sha256": "c" * 64,
+                    "committed_event_count": 3,
+                    "last_committed_event_id": events[-1]["event_id"],
+                    "next_canonical_cursor": None,
+                },
+                queue_sha256="a" * 64,
+                expected_next_cursor=None,
+            )
 
         schema = {"axes": AXES}
         report = validate_curated_rows(
@@ -144,7 +183,24 @@ class FoodSemanticCurationWriterTest(unittest.TestCase):
         )
         self.assertEqual(coverage["implementation_route_count"], 317)
         self.assertEqual(coverage["unrouted_target_count"], 0)
-        self.assertEqual(coverage["double_route_count"], 0)
+        self.assertEqual(coverage["conflicting_terminal_route_count"], 0)
+        curation = load_json(
+            attempt / "phase8_curation/curation_completion_report.json"
+        )
+        self.assertTrue(
+            curation["curation_batch_exact_member_expansion_fixture_pass"]
+        )
+        self.assertTrue(curation["curation_resume_idempotence_fixture_pass"])
+        self.assertTrue(curation["curation_crash_boundary_fixtures_pass"])
+        self.assertTrue(curation["curation_rejection_rework_fixture_pass"])
+        forbidden = load_json(
+            attempt
+            / "phase9_coverage/forbidden_inference_registry_binding.json"
+        )
+        self.assertTrue(
+            forbidden["all_forbidden_members_have_detector_fixtures"]
+        )
+        self.assertEqual(forbidden["missing_fixture_members"], [])
 
         target = load_json(
             attempt / "phase1_census/target_food_universe_manifest.json"

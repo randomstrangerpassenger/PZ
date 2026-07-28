@@ -32,6 +32,7 @@ from tools.build.dvf_3_3_food_semantic.schema_feasibility import (
     AXES,
     PROPOSED_CURATION_ITEM_CAP,
     PROPOSED_CURATION_PROPOSITION_CAP,
+    required_axes,
 )
 
 
@@ -70,8 +71,9 @@ class FoodSemanticKernelTest(unittest.TestCase):
             value["value"] for axis in AXES for value in axis["values"]
         }
         self.assertFalse({"unknown", "generic", "other"} & schema_values)
-        self.assertGreaterEqual(PROPOSED_CURATION_ITEM_CAP, 238)
-        self.assertGreaterEqual(PROPOSED_CURATION_PROPOSITION_CAP, 238)
+        self.assertEqual(required_axes(), ("consumption_form", "meal_role"))
+        self.assertEqual(PROPOSED_CURATION_ITEM_CAP, 317)
+        self.assertEqual(PROPOSED_CURATION_PROPOSITION_CAP, 634)
 
         predecessor_text = (REPO_ROOT / PREDECESSOR_PLAN_PATH).read_text(
             encoding="utf-8"
@@ -135,6 +137,56 @@ class FoodSemanticKernelTest(unittest.TestCase):
         self.assertEqual(
             kernel["predicates"]["exact_317_automatic_or_curation_route_count"],
             317,
+        )
+        cap = load_json(
+            attempt / "phase6_schema/proposed_curation_caps.json"
+        )
+        self.assertEqual(cap["proposed_curation_item_cap"], 317)
+        self.assertEqual(cap["proposed_curation_proposition_cap"], 634)
+        feasibility = load_json(
+            attempt
+            / "phase7_automatic_mapping/curation_feasibility_report.json"
+        )
+        self.assertEqual(
+            feasibility["predicted_required_curation_items"], 317
+        )
+        self.assertEqual(
+            feasibility["predicted_required_curation_propositions"], 634
+        )
+        self.assertEqual(feasibility["maximum_propositions_per_item"], 2)
+        queue = load_jsonl(
+            attempt
+            / "phase7_automatic_mapping/curation_required_queue.jsonl"
+        )
+        target = load_json(
+            attempt / "phase1_census/target_food_universe_manifest.json"
+        )
+        self.assertEqual(len(queue), 634)
+        self.assertEqual(
+            {
+                (row["item_identity"], row["required_fact_axis"])
+                for row in queue
+            },
+            {
+                (member, axis)
+                for member in target["members"]
+                for axis in required_axes()
+            },
+        )
+        reproducibility = load_json(
+            attempt
+            / "phase2_rule_authority/rule_reproducibility_report.json"
+        )
+        self.assertEqual(reproducibility["isolated_subprocess_count"], 4)
+        self.assertTrue(
+            reproducibility["isolated_subprocess_environment_observed"]
+        )
+        self.assertTrue(
+            all(
+                row["signal_sha256"]
+                == reproducibility["local_signal_sha256"]
+                for row in reproducibility["subprocess_fixtures"]
+            )
         )
         lineage = load_jsonl(attempt / "phase4_lineage/lineage_ledger.jsonl")
         proposition_ids = [

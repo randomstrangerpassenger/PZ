@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import re
 import sys
+import tempfile
 import time
 from typing import Any
 
@@ -73,6 +74,8 @@ BODY_PLAN_PROFILES_PATH = DATA_DIR / "compose_profiles_v2.json"
 VNEXT_EXECUTION_DIR = ROOT / "staging" / "dvf_3_3_vnext_execution"
 TEST_TMP_ROOT = ROOT / "tests"
 BUILD_TMP_ROOT = ROOT / ".tmp_tests"
+CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV = "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"
+REPOSITORY_ROOT = ROOT.parents[3]
 
 DEFAULT_MODE = "default"
 DIAGNOSTIC_RESOLVER_MODE = "diagnostic_resolver"
@@ -229,8 +232,27 @@ def has_test_tmp_segment(path: Path) -> bool:
     try:
         relative_parts = path.relative_to(TEST_TMP_ROOT.resolve()).parts
     except ValueError:
+        relative_parts = ()
+    if any(part.startswith("_tmp") for part in relative_parts):
+        return True
+    configured_root = os.environ.get(CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV)
+    if configured_root:
+        external_root = Path(configured_root).resolve()
+    else:
+        checkout_key = hashlib.sha256(
+            str(REPOSITORY_ROOT).casefold().encode("utf-8")
+        ).hexdigest()[:12]
+        external_root = (
+            Path(tempfile.gettempdir()).resolve()
+            / f"iris-clean-checkout-tests-{checkout_key}"
+        )
+    if is_under_path(external_root, REPOSITORY_ROOT):
         return False
-    return any(part.startswith("_tmp") for part in relative_parts)
+    try:
+        external_parts = path.relative_to(external_root).parts
+    except ValueError:
+        return False
+    return any(part.startswith("_tmp") for part in external_parts)
 
 
 def is_known_current_protected_path(path: Path) -> bool:

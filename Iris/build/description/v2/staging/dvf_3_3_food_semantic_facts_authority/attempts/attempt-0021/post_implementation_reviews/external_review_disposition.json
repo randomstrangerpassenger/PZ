@@ -1,0 +1,26 @@
+{
+  "schema_version": "food-semantic-external-review-disposition-v1",
+  "attempt_id": "attempt-0021",
+  "external_review_sha256": "52dc1a43ad8ccf2e620bd5ca9cb0273c99a9015d03b915792fd09e0119b454c1",
+  "verdict": "FAIL",
+  "open_critical_count": 0,
+  "open_important_count": 1,
+  "authority_execution_allowed": false,
+  "implementation_complete_claim_rejected": true,
+  "rejection_reason": "The Phase 2 same-skeleton gate groups semantic profiles instead of applying the byte-bound canonical text_skeleton detector to realized text_ko, so it can undercount the actual maximum.",
+  "preserve_attempt_as_append_only_failed_evidence": true,
+  "same_attempt_correction_allowed": false,
+  "correction_attempt_required": false,
+  "owner_authorized_plan_reconciliation_required": true,
+  "plan_contract_conflict": {
+    "canonical_detector_input_required": "realized text_ko",
+    "actual_phase2_output": "source proposition inventory",
+    "forbidden_in_round_actions": [
+      "Naturalization candidate generation",
+      "Naturalization Phase 4 through Phase 8 execution",
+      "Publish Boundary retry"
+    ],
+    "approximate_semantic_profile_harness_allowed": false
+  },
+  "next_entry": "owner-authorized planning reconciliation before any new implementation attempt"
+}

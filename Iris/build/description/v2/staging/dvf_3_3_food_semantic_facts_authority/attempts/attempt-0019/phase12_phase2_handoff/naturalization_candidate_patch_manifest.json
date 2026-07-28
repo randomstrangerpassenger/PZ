@@ -1,0 +1,60 @@
+{
+  "D16_owner_authorization_consumed": false,
+  "candidate_patch_out_of_scope_symbol_count": 0,
+  "candidate_patch_preimage_mismatch_count": 0,
+  "existing_D16_adoption_file_count": 4,
+  "files": [
+    {
+      "affected_symbols": [
+        "build_food_semantic_proposition_inventory",
+        "build_food_semantic_no_render_receipt"
+      ],
+      "candidate_path": null,
+      "existing_symbol_replacement_count": 0,
+      "patch_kind": "no_change_required_existing_D16_adoption",
+      "preimage_sha256": "1439e41bb627bb68621c68e1cb0230762a70d3fa3c920207902170a222cc329f",
+      "preimage_state": "present_and_D16_symbols_adopted",
+      "replacement_sha256": "1439e41bb627bb68621c68e1cb0230762a70d3fa3c920207902170a222cc329f",
+      "target_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py"
+    },
+    {
+      "affected_symbols": [
+        "validate_food_semantic_consumed_input_receipt"
+      ],
+      "candidate_path": null,
+      "existing_symbol_replacement_count": 0,
+      "patch_kind": "no_change_required_existing_D16_adoption",
+      "preimage_sha256": "fb75808ee70b1340f0272ba6229f5b85b8dd459cbb4d012c9dae027ad16ed1ab",
+      "preimage_state": "present_and_D16_symbols_adopted",
+      "replacement_sha256": "fb75808ee70b1340f0272ba6229f5b85b8dd459cbb4d012c9dae027ad16ed1ab",
+      "target_path": "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py"
+    },
+    {
+      "affected_symbols": [
+        "FoodSemanticNoRenderReceiptCandidateContractTest"
+      ],
+      "candidate_path": null,
+      "existing_symbol_replacement_count": 0,
+      "patch_kind": "no_change_required_existing_D16_adoption",
+      "preimage_sha256": "594bb94ac143590e5f260ca737bd1d8d59c3a0489a688b20ac48d4645020a878",
+      "preimage_state": "present_and_D16_symbols_adopted",
+      "replacement_sha256": "594bb94ac143590e5f260ca737bd1d8d59c3a0489a688b20ac48d4645020a878",
+      "target_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py"
+    },
+    {
+      "affected_symbols": [
+        "FoodSemanticPhase4To8PreservationCandidateContractTest"
+      ],
+      "candidate_path": null,
+      "existing_symbol_replacement_count": 0,
+      "patch_kind": "no_change_required_existing_D16_adoption",
+      "preimage_sha256": "0abe0fc40509580ea47c1605792de298fa365ba75fd2a37a0901dfdf946d4756",
+      "preimage_state": "present_and_D16_symbols_adopted",
+      "replacement_sha256": "0abe0fc40509580ea47c1605792de298fa365ba75fd2a37a0901dfdf946d4756",
+      "target_path": "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py"
+    }
+  ],
+  "missing_future_preimage_count": 0,
+  "schema_version": "food-semantic-naturalization-candidate-patch-v1",
+  "status": "existing_D16_adoption_verified"
+}

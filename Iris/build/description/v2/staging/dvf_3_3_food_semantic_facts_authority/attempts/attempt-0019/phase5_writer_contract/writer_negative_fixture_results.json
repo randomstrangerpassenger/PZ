@@ -1,0 +1,7 @@
+{
+  "live_sink_request_blocked": true,
+  "negative_fixture_hit_count": 3,
+  "out_of_scope_field_write_blocked": true,
+  "out_of_scope_row_write_blocked": true,
+  "status": "PASS"
+}

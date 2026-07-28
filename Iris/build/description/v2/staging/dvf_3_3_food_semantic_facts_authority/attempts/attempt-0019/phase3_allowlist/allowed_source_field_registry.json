@@ -1,0 +1,55 @@
+{
+  "allowlist_id": "food-semantic-allowlist-v1",
+  "fields": [
+    {
+      "allowed_operations": [
+        "exact_equality"
+      ],
+      "authority_role": "scope_only",
+      "field": "Type",
+      "source_family": "item_script"
+    },
+    {
+      "allowed_operations": [
+        "exact_boolean"
+      ],
+      "authority_role": "automatic_semantic_candidate",
+      "field": "IsCookable",
+      "source_family": "item_script"
+    },
+    {
+      "allowed_operations": [
+        "exact_boolean"
+      ],
+      "authority_role": "automatic_semantic_candidate",
+      "field": "Alcoholic",
+      "source_family": "item_script"
+    },
+    {
+      "allowed_operations": [
+        "exact_equality"
+      ],
+      "authority_role": "automatic_semantic_candidate",
+      "field": "FoodType",
+      "source_family": "item_script"
+    },
+    {
+      "allowed_operations": [
+        "truth_literal"
+      ],
+      "authority_role": "automatic_semantic_candidate",
+      "field": "Spice",
+      "source_family": "item_script"
+    },
+    {
+      "allowed_operations": [
+        "semicolon_token_membership"
+      ],
+      "authority_role": "automatic_semantic_candidate",
+      "field": "Tags",
+      "source_family": "item_script",
+      "token_registry_closed": true
+    }
+  ],
+  "unclassified_field_count": 0
+}

@@ -1,0 +1,15 @@
+{
+  "authority_match_evaluated": false,
+  "detector_path": "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py",
+  "detector_present_at_g0_v0": true,
+  "detector_sha256": "1439e41bb627bb68621c68e1cb0230762a70d3fa3c920207902170a222cc329f",
+  "detector_value_source": "future_canonical_policy_required",
+  "implementation_authority_gate_credit": 0,
+  "policy_path": "Iris/build/description/v2/data/korean_prose_naturalization/korean_prose_policy.json",
+  "policy_present_at_g0_v0": false,
+  "policy_sha256": null,
+  "predecessor_candidate_denominator": 2084,
+  "predecessor_observed_threshold_value": 104,
+  "threshold_authority_unclassified_mismatch_count": 0,
+  "threshold_policy_detector_identity_match": null
+}

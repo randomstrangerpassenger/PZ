@@ -1,0 +1,13 @@
+{
+  "predecessor_current_reentry": 0,
+  "required": [
+    "defect_identity",
+    "affected_rows_and_propositions",
+    "defect_discovery_evidence",
+    "correction_successor_unavailable_reason",
+    "current_source_rendered_divergence_update",
+    "required_gate_status",
+    "owner_scoped_correction_round_route"
+  ],
+  "success_terminal_state": false
+}

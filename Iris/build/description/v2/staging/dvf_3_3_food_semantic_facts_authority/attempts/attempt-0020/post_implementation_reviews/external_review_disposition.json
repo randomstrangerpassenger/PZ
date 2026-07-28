@@ -1,0 +1,15 @@
+{
+  "schema_version": "food-semantic-external-review-disposition-v1",
+  "attempt_id": "attempt-0020",
+  "external_review_sha256": "347599f92dd9d650348dbc5112a593ade2451e5fca6e1de6f7685f66f9a99579",
+  "verdict": "FAIL",
+  "open_critical_count": 0,
+  "open_important_count": 3,
+  "authority_execution_allowed": false,
+  "implementation_complete_claim_rejected": true,
+  "rejection_reason": "D16 exact symbol scope, authoritative same-skeleton threshold validation, and reviewed implementation artifact drift protection remain incomplete.",
+  "preserve_attempt_as_append_only_failed_evidence": true,
+  "same_attempt_correction_allowed": false,
+  "correction_attempt_required": true,
+  "next_attempt_entry": "Change 0"
+}

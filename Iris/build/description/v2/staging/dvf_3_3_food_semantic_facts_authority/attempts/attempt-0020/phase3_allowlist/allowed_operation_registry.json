@@ -1,0 +1,22 @@
+{
+  "allowlist_id": "food-semantic-allowlist-v1",
+  "operations": [
+    {
+      "description": "Exact case-sensitive equality against a registry operand.",
+      "operation": "exact_equality"
+    },
+    {
+      "description": "Exact JSON boolean equality.",
+      "operation": "exact_boolean"
+    },
+    {
+      "description": "Exact true boolean or legacy lowercase true literal.",
+      "operation": "truth_literal"
+    },
+    {
+      "description": "Exact membership after semicolon tokenization; no substring match.",
+      "operation": "semicolon_token_membership"
+    }
+  ],
+  "unclassified_operation_count": 0
+}

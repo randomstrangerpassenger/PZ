@@ -1,0 +1,23 @@
+{
+  "boundary_violation_preserved": true,
+  "expected_sha256": "61f9235e8ed3787f8388859f383d44727a2f088fb277a1d46cd1dcc78a3b5ee7",
+  "hash_normalization": "UTF-8 LF",
+  "naturalization_predecessor_baseline_binding": {
+    "byte_count": 1753,
+    "path": "Iris/build/description/v2/tests/fixtures/dvf_3_3_food_semantic_facts_authority/naturalization_attempt_0014_baseline_binding.json",
+    "sha256": "310308a7377423f5bec4615de58244da2c4b305014dd835838313d29287df30e"
+  },
+  "occurrence_time_readpoint": "Cycle 1 plan authoring before owner-ratified successor restoration",
+  "overwritten_successor_sha256": "e800a937bacf5eaea0d3841f524961720603d17ffb640846c48e25f3b73b0834",
+  "predecessor_overwrite_restore_episode_recorded": true,
+  "predecessor_restore_hash_matches_bound_identity": true,
+  "recovery_source_overclaim_count": 0,
+  "restore_source_commit_or_blob_available": false,
+  "restore_source_kind": "session_read_record",
+  "restored_logical_line_count": 234,
+  "restored_path": "docs/dvf_3_3_facts_authority_enrichment_plan.md",
+  "restored_sha256": "61f9235e8ed3787f8388859f383d44727a2f088fb277a1d46cd1dcc78a3b5ee7",
+  "restored_worktree_byte_sha256": "bd4f559694da2e7011434715973273033ebf986a12023bb4c2363c51210c231a",
+  "scenario": "scenario_b_overwritten_then_restored",
+  "schema_version": "food-semantic-predecessor-overwrite-restore-episode-v1"
+}

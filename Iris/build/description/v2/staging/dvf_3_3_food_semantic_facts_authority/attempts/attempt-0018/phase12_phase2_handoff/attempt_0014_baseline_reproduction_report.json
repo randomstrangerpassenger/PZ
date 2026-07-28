@@ -1,0 +1,8 @@
+{
+  "baseline_repeated_skeleton_hit_count": 450,
+  "changed_path_has_no_effect_on_attempt_0014": true,
+  "compiler_rule_remediable_item_count": 133,
+  "proof": "Candidate fragments are not adopted, no Naturalization target path is written, and the predecessor digest extract is read-only.",
+  "source_qg_blocked_item_count": 317,
+  "status": "NO_EFFECT_PROVEN"
+}

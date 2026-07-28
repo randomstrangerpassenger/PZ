@@ -1,0 +1,6 @@
+{
+  "dual_current_rejected": true,
+  "partial_promotion_rejected": true,
+  "predecessor_fallback_rejected": true,
+  "registry_adoption_receipt_emitted_count": 0
+}

@@ -1,0 +1,81 @@
+{
+  "schema_version": "food-semantic-external-implementation-review-v1",
+  "attempt_id": "attempt-0021",
+  "implementation_complete_bundle_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/phase13_closeout/implementation_complete_bundle.json",
+  "implementation_complete_bundle_sha256": "4084a0c9d77ea241ad9f6dad4111d48320fdf182d8deb4a095be703efe1b449a",
+  "computed_implementation_complete_bundle_sha256": "4084a0c9d77ea241ad9f6dad4111d48320fdf182d8deb4a095be703efe1b449a",
+  "reviewed_bundle_sha256_match": true,
+  "bundle_integrity": {
+    "sealed_artifact_count": 191,
+    "sealed_artifact_identity_mismatch_count": 0,
+    "artifact_manifest_sha256": "cbbb83f3891a6478d01535dd140c4cd6956f656b2e57d50d25e7d795cfdaf11e",
+    "computed_artifact_manifest_sha256": "cbbb83f3891a6478d01535dd140c4cd6956f656b2e57d50d25e7d795cfdaf11e",
+    "artifact_manifest_sha256_match": true,
+    "implementation_machine_validation_report_sha256_match": true
+  },
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_is_implementation_author": false,
+  "review_scope": {
+    "sealed_implementation_complete_bundle": true,
+    "complete_staged_diff": true,
+    "correctness": true,
+    "scope_and_safety": true,
+    "plan_compliance": true,
+    "hash_and_claim_boundaries": true,
+    "tests_run_by_reviewer": false,
+    "existing_test_evidence_reviewed": true
+  },
+  "verdict": "FAIL",
+  "finding_counts": {
+    "critical": 0,
+    "important": 1,
+    "advisory": 0
+  },
+  "prior_review_finding_dispositions": [
+    {
+      "prior_finding_id": "IMPORTANT-001",
+      "status": "RESOLVED",
+      "evidence": "D16 candidate sealing now parses each replacement with Python AST, records the complete top-level function/class/module-assignment set, rejects missing, extra, and forbidden symbols, and repeats the same structural and hash checks immediately before adoption. The manifest and candidate runner both contain the previously omitted helper symbols."
+    },
+    {
+      "prior_finding_id": "IMPORTANT-002",
+      "status": "PARTIALLY_RESOLVED",
+      "evidence": "The authority path now emits threshold identity/value and skeleton-group artifacts and prepare-closeout blocks unless those declared predicates pass. The implemented grouping is not the bound canonical Naturalization text-skeleton detector; see IMPORTANT-001."
+    },
+    {
+      "prior_finding_id": "IMPORTANT-003",
+      "status": "RESOLVED",
+      "evidence": "Authority entry, prepare-closeout, and terminal-seal now revalidate artifact count, manifest digest, byte count, and SHA-256 for every implementation-bundle artifact. The final manifest also directly expands all implementation-bundle artifacts, includes the adopted D16 targets, and is fully revalidated during terminal sealing."
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "IMPORTANT-001",
+      "severity": "important",
+      "status": "OPEN",
+      "title": "The Phase 2 same-skeleton gate replaces the canonical text detector with an approximate semantic-profile grouping",
+      "paths": [
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/d16_candidate_sources/run_dvf_3_3_korean_prose_naturalization.py:64",
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/d16_candidate_sources/run_dvf_3_3_korean_prose_naturalization.py:73",
+        "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/candidate_writer.py:1462",
+        "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md:1742"
+      ],
+      "evidence": "The new _canonical_profile_skeleton serializes each item's sorted semantic axis/value pairs as JSON, and build_food_semantic_skeleton_group_report groups items by that JSON. It then labels the result detector_id=repeated_skeleton_concentration and asserts threshold_policy_detector_identity_match=true and detector_modification_count=0. The byte-bound historical Naturalization runner at policy source commit 36021201ab24dd5c1cf5525d33fcd0d11577e795 instead defines text_skeleton(text), normalizes realized text_ko, and counts those normalized text skeletons for repeated_skeleton_concentration. Different semantic profiles can realize to the same normalized Korean text skeleton, so profile grouping can undercount the actual maximum. Repository history confirms the bound policy blob identity, but no historical text_skeleton detector code or byte-equivalent projection is consumed by the adopted no-render path.",
+      "impact": "Change 12, phase2_handoff_acceptance_report, and terminal closeout can PASS maximum_same_skeleton_group <= 104 even when the canonical Naturalization repeated-text-skeleton detector would exceed the bound. This is the approximate acceptance harness the plan explicitly forbids.",
+      "required_action": "Use the byte-bound canonical text_skeleton detector on the actual no-render Phase 2 projection that the Naturalization consumer would realize, and bind its exact source identity and output. If canonical text-skeleton evaluation cannot occur without forbidden candidate/Phase 4-8 execution, close Change 12 as blocked rather than substituting semantic-profile JSON groups."
+    }
+  ],
+  "claim_boundary_assessment": {
+    "implementation_bundle_claim_ceiling_respected": true,
+    "current_facts_manifest_mutation_observed": false,
+    "sealed_non_current_successor_observed": false,
+    "naturalization_candidate_generation_observed": false,
+    "naturalization_phase4_to_8_execution_observed": false,
+    "publish_boundary_retry_observed": false,
+    "threshold_relaxation_observed": false,
+    "authority_execution_may_proceed": false,
+    "terminal_independent_gate_credit": 0
+  },
+  "terminal_independent_gate_credit": 0,
+  "reviewed_at": "2026-07-28T13:07:43.0067090Z"
+}

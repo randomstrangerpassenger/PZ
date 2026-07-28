@@ -1,0 +1,716 @@
+{
+  "approval_state": "unapproved",
+  "authority_effect": false,
+  "batch": {
+    "approval_state": "unapproved",
+    "authority_class": "curated",
+    "batch_id": "fsb:c61e9ebc902c7677cc06495b",
+    "member_count": 24,
+    "ordered_members": [
+      "Base.Chocolate",
+      "Base.ChocolateChips",
+      "Base.ChocolateCoveredCoffeeBeans",
+      "Base.Cilantro",
+      "Base.CinnamonRoll",
+      "Base.Cockroach",
+      "Base.CocoaPowder",
+      "Base.Comfrey",
+      "Base.CommonMallow",
+      "Base.Cone",
+      "Base.ConeIcecreamMelted",
+      "Base.CookieChocolateChip",
+      "Base.CookieJelly",
+      "Base.CookiesChocolate",
+      "Base.CookiesOatmeal",
+      "Base.CookiesShortbread",
+      "Base.CookiesSugar",
+      "Base.Corn",
+      "Base.CornFrozen",
+      "Base.Cornbread",
+      "Base.Corndog",
+      "Base.Crackers",
+      "Base.Crappie",
+      "Base.Crayfish"
+    ],
+    "ordered_proposition_ids": [
+      "curation-pending:Base.Chocolate:consumption_form",
+      "curation-pending:Base.Chocolate:meal_role",
+      "curation-pending:Base.ChocolateChips:consumption_form",
+      "curation-pending:Base.ChocolateChips:meal_role",
+      "curation-pending:Base.ChocolateCoveredCoffeeBeans:consumption_form",
+      "curation-pending:Base.ChocolateCoveredCoffeeBeans:meal_role",
+      "curation-pending:Base.Cilantro:consumption_form",
+      "curation-pending:Base.Cilantro:meal_role",
+      "curation-pending:Base.CinnamonRoll:consumption_form",
+      "curation-pending:Base.CinnamonRoll:meal_role",
+      "curation-pending:Base.Cockroach:consumption_form",
+      "curation-pending:Base.Cockroach:meal_role",
+      "curation-pending:Base.CocoaPowder:consumption_form",
+      "curation-pending:Base.CocoaPowder:meal_role",
+      "curation-pending:Base.Comfrey:consumption_form",
+      "curation-pending:Base.Comfrey:meal_role",
+      "curation-pending:Base.CommonMallow:consumption_form",
+      "curation-pending:Base.CommonMallow:meal_role",
+      "curation-pending:Base.Cone:consumption_form",
+      "curation-pending:Base.Cone:meal_role",
+      "curation-pending:Base.ConeIcecreamMelted:consumption_form",
+      "curation-pending:Base.ConeIcecreamMelted:meal_role",
+      "curation-pending:Base.CookieChocolateChip:consumption_form",
+      "curation-pending:Base.CookieChocolateChip:meal_role",
+      "curation-pending:Base.CookieJelly:consumption_form",
+      "curation-pending:Base.CookieJelly:meal_role",
+      "curation-pending:Base.CookiesChocolate:consumption_form",
+      "curation-pending:Base.CookiesChocolate:meal_role",
+      "curation-pending:Base.CookiesOatmeal:consumption_form",
+      "curation-pending:Base.CookiesOatmeal:meal_role",
+      "curation-pending:Base.CookiesShortbread:consumption_form",
+      "curation-pending:Base.CookiesShortbread:meal_role",
+      "curation-pending:Base.CookiesSugar:consumption_form",
+      "curation-pending:Base.CookiesSugar:meal_role",
+      "curation-pending:Base.Corn:consumption_form",
+      "curation-pending:Base.Corn:meal_role",
+      "curation-pending:Base.CornFrozen:consumption_form",
+      "curation-pending:Base.CornFrozen:meal_role",
+      "curation-pending:Base.Cornbread:consumption_form",
+      "curation-pending:Base.Cornbread:meal_role",
+      "curation-pending:Base.Corndog:consumption_form",
+      "curation-pending:Base.Corndog:meal_role",
+      "curation-pending:Base.Crackers:consumption_form",
+      "curation-pending:Base.Crackers:meal_role",
+      "curation-pending:Base.Crappie:consumption_form",
+      "curation-pending:Base.Crappie:meal_role",
+      "curation-pending:Base.Crayfish:consumption_form",
+      "curation-pending:Base.Crayfish:meal_role"
+    ],
+    "proposition_count": 48,
+    "queue_sha256": "69ac07202f47cc0163c4afabbdfb83604e7de10089927d79f8ffe7626d7ffbd9",
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+  },
+  "members": [
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Chocolate\u0000consumption_form\u0000curation-pending:Base.Chocolate:consumption_form",
+      "item_identity": "Base.Chocolate",
+      "proposition_id": "curation-pending:Base.Chocolate:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Chocolate\u0000meal_role\u0000curation-pending:Base.Chocolate:meal_role",
+      "item_identity": "Base.Chocolate",
+      "proposition_id": "curation-pending:Base.Chocolate:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.ChocolateChips\u0000consumption_form\u0000curation-pending:Base.ChocolateChips:consumption_form",
+      "item_identity": "Base.ChocolateChips",
+      "proposition_id": "curation-pending:Base.ChocolateChips:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.ChocolateChips\u0000meal_role\u0000curation-pending:Base.ChocolateChips:meal_role",
+      "item_identity": "Base.ChocolateChips",
+      "proposition_id": "curation-pending:Base.ChocolateChips:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.ChocolateCoveredCoffeeBeans\u0000consumption_form\u0000curation-pending:Base.ChocolateCoveredCoffeeBeans:consumption_form",
+      "item_identity": "Base.ChocolateCoveredCoffeeBeans",
+      "proposition_id": "curation-pending:Base.ChocolateCoveredCoffeeBeans:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.ChocolateCoveredCoffeeBeans\u0000meal_role\u0000curation-pending:Base.ChocolateCoveredCoffeeBeans:meal_role",
+      "item_identity": "Base.ChocolateCoveredCoffeeBeans",
+      "proposition_id": "curation-pending:Base.ChocolateCoveredCoffeeBeans:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Cilantro\u0000consumption_form\u0000curation-pending:Base.Cilantro:consumption_form",
+      "item_identity": "Base.Cilantro",
+      "proposition_id": "curation-pending:Base.Cilantro:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Cilantro\u0000meal_role\u0000curation-pending:Base.Cilantro:meal_role",
+      "item_identity": "Base.Cilantro",
+      "proposition_id": "curation-pending:Base.Cilantro:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CinnamonRoll\u0000consumption_form\u0000curation-pending:Base.CinnamonRoll:consumption_form",
+      "item_identity": "Base.CinnamonRoll",
+      "proposition_id": "curation-pending:Base.CinnamonRoll:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CinnamonRoll\u0000meal_role\u0000curation-pending:Base.CinnamonRoll:meal_role",
+      "item_identity": "Base.CinnamonRoll",
+      "proposition_id": "curation-pending:Base.CinnamonRoll:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Cockroach\u0000consumption_form\u0000curation-pending:Base.Cockroach:consumption_form",
+      "item_identity": "Base.Cockroach",
+      "proposition_id": "curation-pending:Base.Cockroach:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Cockroach\u0000meal_role\u0000curation-pending:Base.Cockroach:meal_role",
+      "item_identity": "Base.Cockroach",
+      "proposition_id": "curation-pending:Base.Cockroach:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CocoaPowder\u0000consumption_form\u0000curation-pending:Base.CocoaPowder:consumption_form",
+      "item_identity": "Base.CocoaPowder",
+      "proposition_id": "curation-pending:Base.CocoaPowder:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CocoaPowder\u0000meal_role\u0000curation-pending:Base.CocoaPowder:meal_role",
+      "item_identity": "Base.CocoaPowder",
+      "proposition_id": "curation-pending:Base.CocoaPowder:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Comfrey\u0000consumption_form\u0000curation-pending:Base.Comfrey:consumption_form",
+      "item_identity": "Base.Comfrey",
+      "proposition_id": "curation-pending:Base.Comfrey:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Comfrey\u0000meal_role\u0000curation-pending:Base.Comfrey:meal_role",
+      "item_identity": "Base.Comfrey",
+      "proposition_id": "curation-pending:Base.Comfrey:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CommonMallow\u0000consumption_form\u0000curation-pending:Base.CommonMallow:consumption_form",
+      "item_identity": "Base.CommonMallow",
+      "proposition_id": "curation-pending:Base.CommonMallow:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CommonMallow\u0000meal_role\u0000curation-pending:Base.CommonMallow:meal_role",
+      "item_identity": "Base.CommonMallow",
+      "proposition_id": "curation-pending:Base.CommonMallow:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Cone\u0000consumption_form\u0000curation-pending:Base.Cone:consumption_form",
+      "item_identity": "Base.Cone",
+      "proposition_id": "curation-pending:Base.Cone:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Cone\u0000meal_role\u0000curation-pending:Base.Cone:meal_role",
+      "item_identity": "Base.Cone",
+      "proposition_id": "curation-pending:Base.Cone:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.ConeIcecreamMelted\u0000consumption_form\u0000curation-pending:Base.ConeIcecreamMelted:consumption_form",
+      "item_identity": "Base.ConeIcecreamMelted",
+      "proposition_id": "curation-pending:Base.ConeIcecreamMelted:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.ConeIcecreamMelted\u0000meal_role\u0000curation-pending:Base.ConeIcecreamMelted:meal_role",
+      "item_identity": "Base.ConeIcecreamMelted",
+      "proposition_id": "curation-pending:Base.ConeIcecreamMelted:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CookieChocolateChip\u0000consumption_form\u0000curation-pending:Base.CookieChocolateChip:consumption_form",
+      "item_identity": "Base.CookieChocolateChip",
+      "proposition_id": "curation-pending:Base.CookieChocolateChip:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CookieChocolateChip\u0000meal_role\u0000curation-pending:Base.CookieChocolateChip:meal_role",
+      "item_identity": "Base.CookieChocolateChip",
+      "proposition_id": "curation-pending:Base.CookieChocolateChip:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CookieJelly\u0000consumption_form\u0000curation-pending:Base.CookieJelly:consumption_form",
+      "item_identity": "Base.CookieJelly",
+      "proposition_id": "curation-pending:Base.CookieJelly:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CookieJelly\u0000meal_role\u0000curation-pending:Base.CookieJelly:meal_role",
+      "item_identity": "Base.CookieJelly",
+      "proposition_id": "curation-pending:Base.CookieJelly:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CookiesChocolate\u0000consumption_form\u0000curation-pending:Base.CookiesChocolate:consumption_form",
+      "item_identity": "Base.CookiesChocolate",
+      "proposition_id": "curation-pending:Base.CookiesChocolate:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CookiesChocolate\u0000meal_role\u0000curation-pending:Base.CookiesChocolate:meal_role",
+      "item_identity": "Base.CookiesChocolate",
+      "proposition_id": "curation-pending:Base.CookiesChocolate:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CookiesOatmeal\u0000consumption_form\u0000curation-pending:Base.CookiesOatmeal:consumption_form",
+      "item_identity": "Base.CookiesOatmeal",
+      "proposition_id": "curation-pending:Base.CookiesOatmeal:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CookiesOatmeal\u0000meal_role\u0000curation-pending:Base.CookiesOatmeal:meal_role",
+      "item_identity": "Base.CookiesOatmeal",
+      "proposition_id": "curation-pending:Base.CookiesOatmeal:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CookiesShortbread\u0000consumption_form\u0000curation-pending:Base.CookiesShortbread:consumption_form",
+      "item_identity": "Base.CookiesShortbread",
+      "proposition_id": "curation-pending:Base.CookiesShortbread:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CookiesShortbread\u0000meal_role\u0000curation-pending:Base.CookiesShortbread:meal_role",
+      "item_identity": "Base.CookiesShortbread",
+      "proposition_id": "curation-pending:Base.CookiesShortbread:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CookiesSugar\u0000consumption_form\u0000curation-pending:Base.CookiesSugar:consumption_form",
+      "item_identity": "Base.CookiesSugar",
+      "proposition_id": "curation-pending:Base.CookiesSugar:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CookiesSugar\u0000meal_role\u0000curation-pending:Base.CookiesSugar:meal_role",
+      "item_identity": "Base.CookiesSugar",
+      "proposition_id": "curation-pending:Base.CookiesSugar:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Corn\u0000consumption_form\u0000curation-pending:Base.Corn:consumption_form",
+      "item_identity": "Base.Corn",
+      "proposition_id": "curation-pending:Base.Corn:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Corn\u0000meal_role\u0000curation-pending:Base.Corn:meal_role",
+      "item_identity": "Base.Corn",
+      "proposition_id": "curation-pending:Base.Corn:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.CornFrozen\u0000consumption_form\u0000curation-pending:Base.CornFrozen:consumption_form",
+      "item_identity": "Base.CornFrozen",
+      "proposition_id": "curation-pending:Base.CornFrozen:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.CornFrozen\u0000meal_role\u0000curation-pending:Base.CornFrozen:meal_role",
+      "item_identity": "Base.CornFrozen",
+      "proposition_id": "curation-pending:Base.CornFrozen:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Cornbread\u0000consumption_form\u0000curation-pending:Base.Cornbread:consumption_form",
+      "item_identity": "Base.Cornbread",
+      "proposition_id": "curation-pending:Base.Cornbread:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Cornbread\u0000meal_role\u0000curation-pending:Base.Cornbread:meal_role",
+      "item_identity": "Base.Cornbread",
+      "proposition_id": "curation-pending:Base.Cornbread:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Corndog\u0000consumption_form\u0000curation-pending:Base.Corndog:consumption_form",
+      "item_identity": "Base.Corndog",
+      "proposition_id": "curation-pending:Base.Corndog:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Corndog\u0000meal_role\u0000curation-pending:Base.Corndog:meal_role",
+      "item_identity": "Base.Corndog",
+      "proposition_id": "curation-pending:Base.Corndog:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Crackers\u0000consumption_form\u0000curation-pending:Base.Crackers:consumption_form",
+      "item_identity": "Base.Crackers",
+      "proposition_id": "curation-pending:Base.Crackers:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Crackers\u0000meal_role\u0000curation-pending:Base.Crackers:meal_role",
+      "item_identity": "Base.Crackers",
+      "proposition_id": "curation-pending:Base.Crackers:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Crappie\u0000consumption_form\u0000curation-pending:Base.Crappie:consumption_form",
+      "item_identity": "Base.Crappie",
+      "proposition_id": "curation-pending:Base.Crappie:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Crappie\u0000meal_role\u0000curation-pending:Base.Crappie:meal_role",
+      "item_identity": "Base.Crappie",
+      "proposition_id": "curation-pending:Base.Crappie:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Crayfish\u0000consumption_form\u0000curation-pending:Base.Crayfish:consumption_form",
+      "item_identity": "Base.Crayfish",
+      "proposition_id": "curation-pending:Base.Crayfish:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Crayfish\u0000meal_role\u0000curation-pending:Base.Crayfish:meal_role",
+      "item_identity": "Base.Crayfish",
+      "proposition_id": "curation-pending:Base.Crayfish:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    }
+  ],
+  "selected_values": []
+}

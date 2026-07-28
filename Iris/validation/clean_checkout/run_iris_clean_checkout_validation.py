@@ -106,6 +106,29 @@ def _required_test_ids(manifest: dict[str, Any]) -> set[str]:
     }
 
 
+def _canonical_gate_sources(
+    contract: dict[str, Any],
+    taxonomy: dict[str, Any],
+) -> list[str]:
+    selection = contract["test_selection"]
+    if selection["kind"] != "taxonomy_contract":
+        raise CleanCheckoutError(
+            f"unsupported test selection: {selection['kind']}"
+        )
+    excluded_paths = set(selection.get("excluded_paths", []))
+    selected_paths = {
+        row["source_file"]
+        for row in taxonomy["rows"]
+        if row["contract_class"] == selection["contract_class"]
+        and row["state"] == selection["state"]
+        and row["source_file"] not in excluded_paths
+    }
+    selected_paths.update(selection.get("additional_paths", []))
+    if not selected_paths:
+        raise CleanCheckoutError("canonical gate selected no test sources")
+    return sorted(selected_paths)
+
+
 def _imports(
     source: bytes,
     source_path: str,
@@ -247,6 +270,8 @@ def build_source_census(
     tracked = set(paths)
     sources = _test_sources(paths)
     taxonomy = json_at_commit(repo, commit, TAXONOMY_PATH)
+    gate_contract = json_at_commit(repo, commit, CANONICAL_GATE_PATH)
+    gate_sources = set(_canonical_gate_sources(gate_contract, taxonomy))
     required_manifest = json_at_commit(repo, commit, REQUIRED_MANIFEST_PATH)
     taxonomy_by_source, taxonomy_by_id = _taxonomy_indexes(taxonomy)
     required_ids = _required_test_ids(required_manifest)
@@ -277,9 +302,12 @@ def build_source_census(
                 ),
                 "taxonomy_identity_count": len(taxonomy_rows),
                 "required_manifest_member": source_path in required_sources,
+                "canonical_gate_member": source_path in gate_sources,
                 "discovery_state": "tracked_source_not_live_collected",
             }
         )
+        if source_path not in gate_sources:
+            continue
         visited_modules: set[tuple[str, str | None]] = set()
 
         def visit_module(
@@ -510,26 +538,10 @@ def run_gate(
     )
     command_contract = contract["command"]
     selection = contract["test_selection"]
-    if selection["kind"] != "taxonomy_contract":
-        raise CleanCheckoutError(
-            f"unsupported test selection: {selection['kind']}"
-        )
     taxonomy = json_at_commit(
         repo, subject["commit"], selection["taxonomy_path"]
     )
-    excluded_paths = set(selection.get("excluded_paths", []))
-    selected_paths = sorted(
-        {
-            row["source_file"]
-            for row in taxonomy["rows"]
-            if row["contract_class"] == selection["contract_class"]
-            and row["state"] == selection["state"]
-            and row["source_file"] not in excluded_paths
-        }
-    )
-    selected_paths.extend(selection.get("additional_paths", []))
-    if not selected_paths:
-        raise CleanCheckoutError("canonical gate selected no test sources")
+    selected_paths = _canonical_gate_sources(contract, taxonomy)
     command = [
         str(python_executable),
         *command_contract["python_flags"],

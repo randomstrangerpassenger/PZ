@@ -1,0 +1,61 @@
+{
+  "schema_version": "food-semantic-scoped-validation-materialization-environment-v1",
+  "status": "PASS",
+  "attempt_id": "attempt-0022",
+  "validation_subject": {
+    "commit": "59461f5c466308f34ee2072279067e44c87e17c1",
+    "tree": "387ed386e28f6375a79454bd17b1bbe9cbabbc87"
+  },
+  "recorded_at": "2026-07-29T01:34:42+09:00",
+  "purpose": "Reproduce the already sealed mixed Windows current-facts and LF D16 handoff byte identities in the disposable checkout.",
+  "git_configuration_scope": "single_validation_process_only",
+  "global_git_config_mutation_count": 0,
+  "repository_git_config_mutation_count": 0,
+  "source_worktree_mutation_count": 0,
+  "process_git_configuration": {
+    "core.longpaths": true,
+    "core.autocrlf": true,
+    "core.attributesfile": "transient_exact_D16_target_allowlist"
+  },
+  "transient_attributes": [
+    "Iris/build/description/v2/tools/build/run_dvf_3_3_korean_prose_naturalization.py -text",
+    "Iris/build/description/v2/tools/build/validate_dvf_3_3_korean_prose_naturalization.py -text",
+    "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_acceptance_gate.py -text",
+    "Iris/build/description/v2/tests/test_dvf_3_3_korean_prose_semantic_preservation.py -text"
+  ],
+  "transient_attributes_file_removed_after_validation": true,
+  "external_checkout_removed_after_validation": true,
+  "external_work_root_removed_after_validation": true,
+  "verified_pre_test_byte_identities": {
+    "current_facts_sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6",
+    "current_facts_source_and_checkout_equal": true,
+    "run_naturalization_sha256": "4976adb54de9d736fcffea8e85d91e57bd928fa890d9b731235877ad39608dfa",
+    "run_naturalization_source_and_checkout_equal": true,
+    "checkout_git_status_clean": true
+  },
+  "final_scoped_test_results": {
+    "food_semantic_focused": {
+      "test_count": 17,
+      "failure_count": 0,
+      "error_count": 0,
+      "exit_code": 0
+    },
+    "d16_acceptance": {
+      "test_count": 1,
+      "failure_count": 0,
+      "error_count": 0,
+      "exit_code": 0
+    },
+    "d16_semantic_preservation": {
+      "test_count": 1,
+      "failure_count": 0,
+      "error_count": 0,
+      "exit_code": 0
+    }
+  },
+  "full_repository_gate_execution_count": 0,
+  "direct_all_unittest_discovery_execution_count": 0,
+  "out_of_scope_test_execution_count": 0,
+  "waiver_created": false,
+  "new_attempt_created": false
+}

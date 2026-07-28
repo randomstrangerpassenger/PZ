@@ -1,0 +1,86 @@
+{
+  "schema_version": "iris-clean-checkout-gate-manifest-v2",
+  "manifest_state": "frozen",
+  "authority": "Iris Repository Validation / Clean-Checkout Reproducibility Authority",
+  "terminal_claim": "Iris clean-checkout technical-debt gate reproducibility PASS",
+  "excluded_claims": [
+    "full_repository_authority_closure",
+    "historical_evidence_regeneration",
+    "independent_third_party_reproduction",
+    "windows_event_level_transient_write_telemetry"
+  ],
+  "implementation_base": {
+    "commit": "40b2a05d41504fad43ac642b08a7e4e04b425df0",
+    "tree": "ff52dea652bd799fec12184b1721fb36a941d7d5"
+  },
+  "validated_subject": {
+    "commit": "145177ae81d56eb7f1c3223f152e43df3d6e136d",
+    "tree": "6a48291d6a1f2a15002a2ac5d3242a516f5c1fa7"
+  },
+  "contract_bindings": {
+    "plan": {
+      "path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+      "git_blob_id": "fd3a2405e8789646df6203eaaf23ba8a2c4eb12e",
+      "sha256": "97eddd1750490c60182ebbc135805abf43e62735c764f9c48ff1275935fc2a63"
+    },
+    "phase0": {
+      "path": "Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0003.json",
+      "git_blob_id": "679eb89d9ca3227130c9b3df86f99fc8477bd04f",
+      "sha256": "bec17c470ec3e09982923b8673c4af20fd6c622d80c49ae8dd2df372bbb5e882"
+    },
+    "canonical_gate": {
+      "path": "Iris/validation/clean_checkout/contracts/canonical_gate.json",
+      "git_blob_id": "e1404aa8d4deae018e4866fe25f51732174a82ae",
+      "sha256": "dbbe3d5441d4e73e6301d6551fc9d52ebee104720bcc30d4534eb3e1210f6d94"
+    }
+  },
+  "environment_binding": {
+    "receipt_path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "receipt_sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2",
+    "resolved_interpreter": "C:/Users/MW/iccv/env-v1/Scripts/python.exe"
+  },
+  "canonical_gate": {
+    "binding_state": "bound",
+    "command": "C:/Users/MW/iccv/env-v1/Scripts/python.exe -B -s -m pytest --round3-contract current -q -p no:cacheprovider -p Iris.validation.clean_checkout.pytest_result_plugin <taxonomy-selected paths plus focused clean-checkout contract tests>"
+  },
+  "write_boundary": {
+    "generated_state_location": "caller_supplied_repository_external_root",
+    "repository_local_output_allowed": false,
+    "windows_privileged_auditing_required": false
+  },
+  "live_manifest_consumption": "no",
+  "evidence_bindings": [
+    {
+      "role": "successor_scoped_source_inventory",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-v1-source-census-2/test_inventory.json",
+      "sha256": "9d45d19446d8a45207582afc51982649219380d837d84e954c878cdb7578df58"
+    },
+    {
+      "role": "successor_scoped_dependency_edge_ledger",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-v1-source-census-2/dependency_edge_ledger.json",
+      "sha256": "de5bd739c2859d9bebc6e2a8bbe5da553e15c6dd9fb875cacf1f41a5df7eef5b"
+    },
+    {
+      "role": "successor_scoped_d0_manifest",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-v1-source-census-2/d0_manifest.json",
+      "sha256": "373f806b3e25a0b297c94994b37dc0d3ed08260a2462df9894708a189752780c"
+    },
+    {
+      "role": "tracked_output_policy_at_validated_subject",
+      "path": "Iris/validation/clean_checkout/contracts/output_policy.json",
+      "sha256": "35949b6f49459212c4cb4d73f2d44d2da3bd12328e4c897f29b4200572123017"
+    },
+    {
+      "role": "successor_terminal_run_a_result",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-v1-ra4-result/canonical_result.json",
+      "sha256": "e3ac8214b6eeeeae150ef82a6e99ad6280f4b7a14e02b2578697bff9d20bedf1"
+    },
+    {
+      "role": "successor_terminal_run_b_result",
+      "path": "C:/Users/Public/Documents/ESTsoft/CreatorTemp/iccv-v1-rb4-result/canonical_result.json",
+      "sha256": "e3ac8214b6eeeeae150ef82a6e99ad6280f4b7a14e02b2578697bff9d20bedf1"
+    }
+  ],
+  "origin_observation_use": "qualitative_trigger_only",
+  "self_referential_commit_fields": 0
+}

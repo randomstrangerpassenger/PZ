@@ -1,0 +1,94 @@
+{
+  "schema_version": "iris-clean-checkout-commit-transition-v1",
+  "ledger_state": "terminal",
+  "common_context": {
+    "repository_root": "C:/Users/MW/.codex/visualizations/2026/07/27/019fa5fc-333b-7c03-8426-46d1780ab596/phase0-successor",
+    "submodule_state": "none",
+    "environment_receipt_path": "C:/Users/MW/iccv/receipts/env-v1/environment_receipt.json",
+    "environment_receipt_sha256": "fb5dd78e15c41346f15b39065c60c2ce4d83254d73bbde3d3181d327b30b6bc2",
+    "platform": "Windows 11 10.0.26200 AMD64",
+    "git_version": "2.51.0.windows.2",
+    "python_version": "3.14.3"
+  },
+  "entries": [
+    {
+      "identity": "O0",
+      "state": "unidentifiable",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "predecessor Change 2 ledger retains the bounded no-receipt result"
+    },
+    {
+      "identity": "P0",
+      "state": "bound",
+      "commit": "9d0d4285f9176313de756eeb428b2d20f682d6d9",
+      "tree": "050037bd77c082f205e548502f88c42435a60ee7",
+      "binding_evidence": "Iris/validation/clean_checkout/evidence/preservation_baseline_record.json"
+    },
+    {
+      "identity": "B0",
+      "state": "bound",
+      "commit": "40b2a05d41504fad43ac642b08a7e4e04b425df0",
+      "tree": "ff52dea652bd799fec12184b1721fb36a941d7d5",
+      "binding_evidence": "accepted Phase 0 implementation baseline"
+    },
+    {
+      "identity": "R0",
+      "state": "not_created",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "focused contract tests were introduced with their implementation and did not assert a pre-existing product regression"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "2f8168363286dd6990d71619bf7e9c3dd06abd0f",
+      "tree": "bbfcd99a49cb073786a6b97f6bd78073fbf672db",
+      "binding_evidence": "diagnostic static source census found one unresolved fallback-import edge; no terminal execution was started"
+    },
+    {
+      "identity": "CXn",
+      "state": "bound",
+      "commit": "145177ae81d56eb7f1c3223f152e43df3d6e136d",
+      "tree": "6a48291d6a1f2a15002a2ac5d3242a516f5c1fa7",
+      "binding_evidence": "successor candidate with zero unresolved dependency edges and equal Run A/B PASS results"
+    },
+    {
+      "identity": "C0",
+      "state": "bound",
+      "commit": "145177ae81d56eb7f1c3223f152e43df3d6e136d",
+      "tree": "6a48291d6a1f2a15002a2ac5d3242a516f5c1fa7",
+      "binding_evidence": "same exact passing CXn identity; no candidate-to-C0 byte change"
+    },
+    {
+      "identity": "G0",
+      "state": "not_created",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "live-manifest adoption remains omitted"
+    },
+    {
+      "identity": "V0",
+      "state": "bound",
+      "commit": "145177ae81d56eb7f1c3223f152e43df3d6e136d",
+      "tree": "6a48291d6a1f2a15002a2ac5d3242a516f5c1fa7",
+      "binding_evidence": "independent-object-store Run A and Run B each passed 73 identities with canonical result sha256 e3ac8214b6eeeeae150ef82a6e99ad6280f4b7a14e02b2578697bff9d20bedf1"
+    },
+    {
+      "identity": "S0",
+      "state": "not_created",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "this append-only successor packet is prepared after V0 and does not embed its own containing commit"
+    },
+    {
+      "identity": "DOC0",
+      "state": "not_created",
+      "commit": null,
+      "tree": null,
+      "binding_evidence": "no later top-level documentation trace is required"
+    }
+  ],
+  "tracked_input_change_invalidates_prior_execution_evidence": true,
+  "self_referential_commit_fields": 0
+}

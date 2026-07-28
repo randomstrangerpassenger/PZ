@@ -2023,6 +2023,50 @@ Iris DVF 3-3 — Food Semantic Facts Authority successor handoff
   * COMMON-RELEASE-NONDECISION.
   * COMMON-RUNTIME-SURFACE-NONMUTATION.
 
+Iris DVF 3-3 — Food Semantic Registry operational adoption and authority-problem disposition
+
+* 날짜: 2026-07-29
+* 상태: G3 complete / current adoption complete / food-semantic authority reconstruction problem resolved / public-text repetition pending
+* 결정: G2 `attempt-0022`가 봉인한 exact successor facts를 Registry-owned `attempt-0009`가 current facts authority로 채택한다. G2의 non-current successor 역할과 G3의 current adoption 역할은 계속 분리하되, G3 terminal 뒤에는 “DVF 3-3 식품 의미 사실 권위 재구축 문제”를 열린 상류 authority debt로 남기지 않는다.
+* 채택 결과:
+
+  * implementation commit/tree는 `e6802ce36c3d1282208a4ab19c6449d0f6095b69` / `e41060fcbafb4818e347c7b914d55162064560e9`이다.
+  * adoption commit/tree는 `6272271bf7c73ca8f7eae57ea10542c03cc915df` / `c6e436ca0c3d29fb615388b33b3f793689fa9e43`이다.
+  * current facts SHA-256은 selected successor와 같은 `1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40`이다.
+  * current input manifest SHA-256은 closed ten-path projection인 `7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c`이다.
+  * current facts/manifest의 Git blob과 working bytes는 동일하고, ambiguity와 partial/dual-current count는 모두 `0`이다.
+  * Registry terminal claim은 `DVF 3-3 Food Semantic Registry Adoption = current_adoption_complete`다.
+* 트랜잭션과 재현성:
+
+  * owner authorization은 exact plan, implementation commit/tree, attempt, pre-cutover review, successor/candidate/preimage identities와 두 target path를 결속한다.
+  * one-use nonce는 첫 live replace 전에 소비하고, round-global/OS lock 아래 preimage를 다시 검증한다.
+  * rollback snapshot을 먼저 보존하고 facts를 먼저, manifest를 마지막에 교체한다. power-loss atomicity와 intermediate-reader visibility zero는 주장하지 않는다.
+  * exact current authority 두 경로와 `attempt-0009` durable evidence는 `-text`로 고정한다. 최초 closeout run은 cross-checkout EOL 위험 발견 뒤 terminal 비적격 superseded evidence로 보존하고, replacement adoption과 canonical run-0002로 다시 봉인했다.
+* 검증과 review:
+
+  * canonical final validation은 food-semantic `27`, D16 `1 + 1`, RTC guard `5 + 3 + 2`, 합계 `39` tests PASS다.
+  * full-repository gate, direct all-test discovery와 계획 밖 suite 실행 count는 `0`이다.
+  * pre-cutover와 closeout Codex Reviewer는 서로 다르며 두 review 모두 Critical `0`, Important `0`, Advisory `0`, verdict `PASS`다.
+  * evidence-only closeout commit은 `6cc6ce1adccc94dde4fb4d02b4f96fa15096dbd2`이고 terminal hash seal SHA-256은 `1f494ed0661627a82c3fcfd8465f2313fe0768cac82af09457e9ffc9e91b7ae1`이다.
+* 문제 및 후속 경계:
+
+  * 317개 식품의 semantic authority 부채는 G2의 718 approved propositions/17 meaningful partitions와 G3 current adoption으로 해결된 것으로 판정한다.
+  * `official_naturalization_retry_allowed=true`, `fresh_naturalization_attempt_required=true`다. 다음 naturalization round는 기존 `attempt-0014`를 재개하지 않고 Phase 0부터 시작해 Phase 2 current input을 재봉인한다.
+  * rendered same-skeleton `104` 상한, 번역체 개선, Phase 3~8, Publish Boundary acceptance는 별도 Korean Prose Naturalization/Public Text 계획이 소유한다. 따라서 food repetition/public-text issue를 `resolved`, `canonical_complete`, `publicly accepted`로 기록하지 않는다.
+  * successor current facts가 기존 RTC collision payload-equivalence를 바꾸므로 live alignment는 `stale_requires_successor_rtc`다. successor RTC closure 전 bridge/runtime/package/publication compatibility를 주장하지 않는다.
+* 최소 결과 trace:
+
+  * attempt: `attempt-0009`
+  * plan: `docs/dvf_3_3_food_semantic_registry_operational_cutover_implementation_plan.md`
+  * evidence root: `Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/`
+  * current identity report SHA-256: `71dadc9901b713d6927e66719f758f925c50735fc6bc887e8f6a6ba8e086dca8`
+  * final validation receipt SHA-256: `705e8dc8f0ebd20f5963bb48ddd6114cc458a470cc00db1bd3b2f9fec9097e1e`
+  * independent closeout review SHA-256: `3de6eb7c541095845ea3a5b45d2de557faa87384b6ccab0e2534eb3324573047`
+  * owner seal SHA-256: `1f02e8d2dc01ba058407d9c95e2a396855b5fec067f2c246d10691a03139eaad`
+  * COMMON-EVIDENCE-TRACE.
+  * COMMON-RELEASE-NONDECISION.
+  * COMMON-RUNTIME-SURFACE-NONMUTATION.
+
 Iris — Clean-Checkout Full-Repository Validation Reproducibility Authority Phase 0
 
 * 날짜: 2026-07-28

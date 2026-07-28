@@ -445,10 +445,12 @@ Food Facts Authority (G2)
 -> sealed non-current successor facts + successor manifest
 -> Naturalization Phase 2 no-render compatibility probe
 
-Iris Artifact Registry (G3, separate approval)
+Iris Artifact Registry (G3, completed readpoint)
 -> exact successor/base/diff/contract review
--> atomic current facts/manifest adoption
--> Registry adoption receipt
+-> owner authorization + one-use nonce + round-global lock
+-> rollback snapshot + facts-first / manifest-last replace
+-> adoption commit + Git blob/working-byte identity
+-> Registry adoption receipt + Naturalization Phase 2 handoff v2
 
 Naturalization (fresh attempt)
 -> Phase 0
@@ -465,6 +467,13 @@ Publish Boundary (fresh official attempt)
 sealed_non_current_successor
 != current_source_authority
 
+after G3:
+selected_successor_facts_bytes
+== current_source_facts_bytes
+
+role(sealed_non_current_successor)
+!= role(current_source_authority)
+
 Phase 2 non-current no-render compatibility PASS
 != official Naturalization Phase 2 PASS
 
@@ -474,6 +483,10 @@ food semantic meaningful partition PASS
 Food Semantic Facts Authority Successor Handoff
 != Registry current adoption
 != Publish Boundary PASS
+
+Food Semantic Registry Adoption PASS
+!= rendered same-skeleton threshold PASS
+!= public-text repetition resolved
 ```
 
 G2의 canonical current write count는 0이다. G2 owner approval, independent review,
@@ -482,12 +495,38 @@ Current facts/manifest 변경은 별도의 Registry-owned operational-cutover �
 exact preimage, selected successor, atomicity/rollback과 adoption receipt를 봉인할
 때만 허용한다.
 
-2026-07-29 readpoint인 food `attempt-0022`는 317개 target, 718개 approved
+2026-07-29 G2 readpoint인 food `attempt-0022`는 317개 target, 718개 approved
 propositions, 17개 meaningful partitions를 가진
-`sealed_successor_handoff_complete`다. 이 readpoint는
-`current_authority_reconstruction_complete=false`,
-`canonical_complete=false`이며 current/public repetition issue의 종결 claim이
-아니다.
+`sealed_successor_handoff_complete`다. G2 자체의 canonical current write count는
+0이고 그 terminal은 Registry current writer 권한을 만들지 않는다.
+
+후속 G3 readpoint `attempt-0009`는 selected successor facts를 exact current bytes로
+채택했다. current facts SHA-256은
+`1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40`,
+current manifest SHA-256은
+`7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c`다.
+adoption commit/tree는
+`6272271bf7c73ca8f7eae57ea10542c03cc915df` /
+`c6e436ca0c3d29fb615388b33b3f793689fa9e43`이고 terminal claim은
+`DVF 3-3 Food Semantic Registry Adoption = current_adoption_complete`다.
+
+두 current authority path는 repository line-ending normalization을 받지 않도록
+`-text`로 고정한다. `attempt-0009` durable evidence도 attempt-local
+`.gitattributes`의 `* -text` 아래 두어 candidate, rollback, authorization,
+journal, review와 closeout bytes가 fresh checkout에서 Git blob과 동일하게
+유지되도록 한다.
+
+이 G3 readpoint에서 Food Semantic Facts Authority 재구축 문제는
+authority boundary 기준으로 완료다. 그러나 Naturalization은 fresh Phase 0에서
+시작해 Phase 2 current source inventory를 다시 봉인해야 하며, rendered
+same-skeleton `104` 상한과 public-text acceptance는 별도 Naturalization /
+Publish Boundary가 소유한다.
+
+successor current facts는 기존 RTC collision payload-equivalence를 변경하므로
+Registry Runtime Compatibility의 predecessor PASS를 successor current PASS로
+재사용하지 않는다. live current alignment는 `stale_requires_successor_rtc`이며
+successor RTC closure 전 bridge/runtime/package/publication을 fail-closed로
+차단한다. 이 상태는 offline fresh Naturalization retry 허용과 모순되지 않는다.
 
 Iris 3-3의 claim vocabulary는 축별로 분리한다.
 

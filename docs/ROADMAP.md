@@ -461,7 +461,7 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * implementation과 local / remote `main`의 sealed closure commit은 `63357b7afb879f89c4f43df67ad0d39a060561fb`이다.
   * 이후 Registry Authority 작업은 새 drift, 명시적 correction / rollback, 또는 별도 approved scope가 있을 때만 연다.
 
-* Registry Runtime Compatibility closure는 `attempt-0009` 기준으로 완료 상태를 유지한다.
+* Registry Runtime Compatibility의 predecessor-current closure는 역사적으로 보존하되, Food Semantic G3 뒤 live current-source alignment는 successor closure 대기 상태다.
 
   * current sealed bundle은 `46c87bfab662b09293adb6ba2b1028bdf6c0f20639c8e3fb8bd065895b5988b9`이며 lifecycle state는 `live_required_gate_adopted`다.
   * source / rendered / runtime / package exact key-set은 각각 `2105`개로 동일하고 unauthorized comparison collision은 `0`이다.
@@ -471,7 +471,9 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * roadmap negative fixture `10 / 10`, Lua syntax `188` files, RTC regression `29 / 29`, adjacent bridge regression `7 / 7`, isolated official current route `135 / 135`가 PASS했다.
   * independent review, owner canonical seal, nine-role durable closeout packet, terminal event 순서로 `registry_runtime_compatibility_canonical_complete`를 봉인했다.
   * terminal implementation commit은 `7d253c91b87abb7f1e044acf3953504180848682`, local `main` integration commit은 `c6e2190e7b093b29bc5d615523ae29cf32560ff1`이다.
-  * 이후 Runtime Compatibility 작업은 새 collision, consumer drift, required-route drift, 명시적 rollback / successor scope가 있을 때만 연다.
+  * Food Semantic G3가 current facts를 `1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40`로 바꾸면서 `Base.LemonGrass` / `Base.Lemongrass` successor payload-equivalence가 달라졌다.
+  * 따라서 기존 bundle은 predecessor historical PASS로 보존하고, live marker는 `stale_requires_successor_rtc`, `successor_registry_runtime_compatibility_closure=false`로 읽는다.
+  * successor RTC closure 전 bridge/runtime/package/publication compatibility claim은 금지한다. Offline Naturalization retry 권한과 RTC publication readiness는 서로 대체하지 않는다.
 
 * DVF 3-3 Food Semantic Facts Authority의 G2 successor handoff는 `attempt-0022`에서 완료했다.
 
@@ -482,6 +484,17 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
   * Codex Reviewer independent closeout PASS, owner seal, terminal hash seal `9a9a37731e8d76399f6b960a0e9beb21bcdd65d8ae39e511337527c5306d0c19`로 `sealed_successor_handoff_complete`를 봉인했다.
   * current facts/manifest mutation은 `0`이며 `current_authority_reconstruction_complete=false`, `canonical_complete=false`다.
   * 이 완료는 상류 successor 구축 완료이지 실제 current/public 반복 문제 해결 완료가 아니다.
+
+* DVF 3-3 Food Semantic Registry operational cutover G3는 `attempt-0009`에서 완료했다.
+
+  * exact G2 successor facts를 current facts로 채택했고 current facts SHA-256은 `1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40`이다.
+  * current manifest는 ten-path closed projection이며 SHA-256은 `7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c`이다.
+  * adoption commit/tree는 `6272271bf7c73ca8f7eae57ea10542c03cc915df` / `c6e436ca0c3d29fb615388b33b3f793689fa9e43`이고 evidence-only closeout commit은 `6cc6ce1adccc94dde4fb4d02b4f96fa15096dbd2`다.
+  * one-use owner authorization, nonce consumption, rollback snapshots, facts-first/manifest-last journal, Git blob/working identity를 봉인했다.
+  * canonical final validation은 계획된 `39/39` tests PASS, 계획 밖 실행 count `0`, distinct Codex Reviewer closeout `0/0/0 PASS`다.
+  * terminal hash seal `1f494ed0661627a82c3fcfd8465f2313fe0768cac82af09457e9ffc9e91b7ae1`로 `food_semantic_registry_adoption=current_adoption_complete`를 봉인했다.
+  * 이 readpoint에서 식품 의미 facts authority 재구축 문제는 해결됐고 fresh Naturalization Phase 0/2 재봉인 입력이 준비됐다.
+  * 실제 rendered same-skeleton `104` 상한, 번역체/반복 문제, Phase 3~8과 Publish acceptance는 별도 후속 계획의 미완료 상태다.
 
 * 설명 계층은 해석 / 권장 / 비교 / 재작성을 하지 않는다.
 
@@ -543,14 +556,14 @@ Mixin 기반 엔진 안정화 모드. Fuse는 평균 FPS 상승을 약속하는 
 
 ## Next
 
-* Food Semantic successor의 후속 경로는 G2와 분리해 명시적 승인 아래 단계별로 연다.
+* Food Semantic G2/G3 authority reconstruction과 current adoption은 닫힌 readpoint로 유지하고, 다음 단계는 별도 public-text 계획이 소유한다.
 
-  * G3 Registry operational cutover는 exact successor/base/diff/contract hashes, atomic current adoption, rollback, adoption receipt를 가진 별도 owner-approved 계획이 있을 때만 시작한다.
-  * 승인되지 않은 plan draft, candidate, compatibility probe 또는 G2 owner seal을 current write 권한으로 사용하지 않는다.
-  * G3 adoption 전에는 current facts/manifest를 변경하지 않고 official Naturalization retry를 열지 않는다.
-  * G3 뒤에는 fresh Naturalization attempt를 Phase 0부터 열고 Phase 2 source inventory를 재봉인한 뒤 Phase 3~8을 수행한다.
+  * G2/G3를 새 drift, 명시적 correction/rollback 또는 새 owner-approved successor scope 없이 재개방하지 않는다.
+  * G4 Publish Boundary candidate-independent foundation readiness를 확인한 뒤, G5 fresh Naturalization attempt를 기존 `attempt-0014` 재사용 없이 Phase 0부터 연다.
+  * fresh Naturalization은 `attempt-0009` Phase 2 handoff v2가 결속한 current facts/manifest를 소비하고 Phase 2 source inventory를 재봉인한 뒤 Phase 3~8을 수행한다.
   * fresh Phase 8 handoff 뒤에만 Publish Boundary official attempt를 새로 열 수 있다.
   * 위 후속 단계가 끝나기 전에는 DVF 3-3 food repetition problem을 `resolved`, `canonical_complete`, `publicly accepted`로 기록하지 않는다.
+  * successor RTC closure는 bridge/runtime/package/publication 전에 별도 scope로 닫는다. 이 compatibility 작업은 offline Korean prose candidate 생성의 semantic authority를 변경하지 않는다.
 
 * Iris refactoring v4.1 완료본을 packaging / release-note / commit 단계로 넘길지 별도 scope로 결정한다.
 

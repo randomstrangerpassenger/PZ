@@ -15,7 +15,7 @@ if str(V2_ROOT) not in sys.path:
 from tools.build import dvf_3_3_food_semantic_registry_cutover as cutover
 
 
-ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0008"
+ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0009"
 
 
 class FoodSemanticRegistryCutoverTest(unittest.TestCase):
@@ -132,6 +132,18 @@ class FoodSemanticRegistryCutoverTest(unittest.TestCase):
         self.assertFalse(collision["successor_source_payload_equivalence"])
         self.assertEqual(collision["exact_member_count"], 2)
         self.assertEqual(collision["comparison_collision_group_count"], 1)
+        self.assertEqual(
+            cutover.sha256_file(cutover.PLAN_REVIEW_PATH),
+            cutover.PLAN_REVIEW_SHA256,
+        )
+        self.assertEqual(
+            cutover.sha256_file(cutover.INITIAL_PLAN_REVIEW_PATH),
+            cutover.INITIAL_PLAN_REVIEW_SHA256,
+        )
+        self.assertEqual(
+            cutover.sha256_file(cutover.BASE_BINDING_PATH),
+            cutover.BASE_BINDING_SHA256,
+        )
 
     def test_authorization_fixtures_fail_before_target_write(self) -> None:
         expected = {

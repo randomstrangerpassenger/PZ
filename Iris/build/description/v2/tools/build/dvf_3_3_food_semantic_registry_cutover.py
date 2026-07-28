@@ -28,6 +28,9 @@ PLAN_PATH = (
     / "dvf_3_3_food_semantic_registry_operational_cutover_implementation_plan.md"
 )
 PLAN_REVIEW_PATH = ROUND_DOC_ROOT / "independent_plan_review.json"
+INITIAL_PLAN_REVIEW_PATH = (
+    ROUND_DOC_ROOT / "independent_plan_review.initial.json"
+)
 BASE_BINDING_PATH = ROUND_DOC_ROOT / "implementation_base_binding.json"
 
 G2_ATTEMPT_ROOT = (
@@ -113,6 +116,19 @@ PLAN_SHA256 = (
 PLAN_GIT_BLOB_ID = "c5c4e22d991fa150e9d556d1a7ca0d90e2935ebe"
 IMPLEMENTATION_BASE_HEAD = "1a4fe5a27f420f84e42f974f2765396d3c9924ab"
 IMPLEMENTATION_BASE_TREE = "c04ff1679cf481b4076fc89dbc5681d822fef626"
+BASE_BINDING_SHA256 = (
+    "47c389cc72ce8aa0b16e52e59d1acd222519ef3471e5651f7ebc8b3f429042bb"
+)
+PLAN_REVIEW_SHA256 = (
+    "f92be5dbbb774345511c5eb5a52ec9197f74e48c726aee309cb9deb71ea49e4f"
+)
+PLAN_REVIEW_BASE_BLOB_ID = "b340f511bd696d6565db15aeec912b6d3a305237"
+INITIAL_PLAN_REVIEW_SHA256 = (
+    "5742436e2daab97c98da2ed37728d06f18d200ad20eb3e1f8d007efbb6c1a1c6"
+)
+INITIAL_PLAN_REVIEW_BASE_BLOB_ID = (
+    "e6fd57b345d78c59839ace3e1284f189fb8e9b7b"
+)
 
 CURRENT_FACTS_REL = "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
 CURRENT_MANIFEST_REL = (
@@ -696,6 +712,17 @@ def validate_g2_chain(implementation_commit: str) -> dict[str, Any]:
 
 
 def validate_implementation_binding() -> dict[str, str]:
+    require_hash(
+        BASE_BINDING_PATH,
+        BASE_BINDING_SHA256,
+        "implementation_base_binding",
+    )
+    require_hash(PLAN_REVIEW_PATH, PLAN_REVIEW_SHA256, "independent_plan_review")
+    require_hash(
+        INITIAL_PLAN_REVIEW_PATH,
+        INITIAL_PLAN_REVIEW_SHA256,
+        "initial_independent_plan_review",
+    )
     base = read_json(BASE_BINDING_PATH)
     review = read_json(PLAN_REVIEW_PATH)
     require_equal(base.get("status"), "PASS", "implementation_base_status")
@@ -719,7 +746,53 @@ def validate_implementation_binding() -> dict[str, str]:
         PLAN_GIT_BLOB_ID,
         "base_reviewed_plan_blob",
     )
+    require_equal(
+        base.get("re_review_sha256"),
+        PLAN_REVIEW_SHA256,
+        "base_re_review_sha256",
+    )
+    require_equal(
+        base.get("initial_review_sha256"),
+        INITIAL_PLAN_REVIEW_SHA256,
+        "base_initial_review_sha256",
+    )
+    review_relative = repo_relative(PLAN_REVIEW_PATH)
+    initial_review_relative = repo_relative(INITIAL_PLAN_REVIEW_PATH)
+    require_equal(
+        git_blob_id(IMPLEMENTATION_BASE_HEAD, review_relative),
+        PLAN_REVIEW_BASE_BLOB_ID,
+        "base_re_review_git_blob",
+    )
+    require_equal(
+        sha256_bytes(
+            git_blob_bytes(IMPLEMENTATION_BASE_HEAD, review_relative)
+        ),
+        PLAN_REVIEW_SHA256,
+        "base_re_review_git_blob_sha256",
+    )
+    require_equal(
+        git_blob_id(IMPLEMENTATION_BASE_HEAD, initial_review_relative),
+        INITIAL_PLAN_REVIEW_BASE_BLOB_ID,
+        "base_initial_review_git_blob",
+    )
+    require_equal(
+        sha256_bytes(
+            git_blob_bytes(IMPLEMENTATION_BASE_HEAD, initial_review_relative)
+        ),
+        INITIAL_PLAN_REVIEW_SHA256,
+        "base_initial_review_git_blob_sha256",
+    )
     require_equal(review.get("verdict"), "PASS", "independent_plan_review")
+    require_equal(
+        review.get("reviewed_plan_sha256"),
+        PLAN_SHA256,
+        "independent_review_plan_sha256",
+    )
+    require_equal(
+        review.get("reviewed_plan_git_blob_id"),
+        PLAN_GIT_BLOB_ID,
+        "independent_review_plan_git_blob",
+    )
     require_hash(PLAN_PATH, PLAN_SHA256, "reviewed_plan")
     implementation_commit = git_head()
     implementation_tree = git_tree(implementation_commit)

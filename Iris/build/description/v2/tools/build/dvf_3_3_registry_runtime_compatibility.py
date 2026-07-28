@@ -23,6 +23,7 @@ from typing import Any, Iterable, Sequence
 
 
 ROUND_ID = "dvf_3_3_registry_runtime_compatibility"
+CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV = "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"
 EMPTY_SHA256 = hashlib.sha256(b"").hexdigest()
 ROUTE_CLASSES = {
     "executable_current",
@@ -207,6 +208,22 @@ def normalized_relative(repo: Path, path: Path) -> str:
             "path_outside_repository",
             f"Path must stay inside repository: {path}",
         ) from exc
+
+
+def normalized_surface_source(repo: Path, path: Path) -> str:
+    """Name an input surface without weakening repository path containment."""
+    try:
+        return normalized_relative(repo, path)
+    except CompatibilityError as repository_error:
+        configured_root = os.environ.get(CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV)
+        if not configured_root:
+            raise
+        external_root = Path(configured_root).resolve()
+        try:
+            relative = path.resolve().relative_to(external_root)
+        except ValueError:
+            raise repository_error
+        return f"clean-checkout-test-output/{relative.as_posix()}"
 
 
 def ensure_commit(repo: Path, commit: str) -> str:
@@ -1031,7 +1048,7 @@ def load_rendered_surface(path: Path, *, repo: Path) -> list[SurfaceRecord]:
             raw_token_text=raw_token,
             raw_token_bytes_sha256=sha256_bytes(raw_token.encode("utf-8")),
             payload=payload,
-            source_path=normalized_relative(repo, path),
+            source_path=normalized_surface_source(repo, path),
         )
         for ordinal, (raw_token, key, payload) in enumerate(pairs, start=1)
     ]

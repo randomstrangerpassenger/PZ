@@ -65,6 +65,7 @@ BODY_PLAN_PROFILES_PATH = DATA_DIR / "compose_profiles_v2.json"
 VNEXT_EXECUTION_DIR = ROOT / "staging" / "dvf_3_3_vnext_execution"
 TEST_TMP_ROOT = ROOT / "tests"
 BUILD_TMP_ROOT = ROOT / ".tmp_tests"
+CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV = "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT"
 
 DEFAULT_MODE = "default"
 DIAGNOSTIC_RESOLVER_MODE = "diagnostic_resolver"
@@ -216,6 +217,9 @@ def resolved(path: Path) -> Path:
 
 def has_test_tmp_segment(path: Path) -> bool:
     path = resolved(path)
+    configured_root = os.environ.get(CLEAN_CHECKOUT_TEST_OUTPUT_ROOT_ENV)
+    if configured_root and is_under_path(path, Path(configured_root)):
+        return True
     if path == BUILD_TMP_ROOT.resolve() or BUILD_TMP_ROOT.resolve() in path.parents:
         return True
     try:

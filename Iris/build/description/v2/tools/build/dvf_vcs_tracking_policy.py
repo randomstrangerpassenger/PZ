@@ -51,12 +51,12 @@ POLICY_ROWS = [
         "note": "Current checkout source input is retained separately from generated rendered output.",
     },
     {
-        "artifact_class": "fixture_non_authority",
-        "expected_state": "reproduction-retained",
+        "artifact_class": "current_rendered_input",
+        "expected_state": "tracked",
         "paths": [
             "Iris/build/description/v2/output/dvf_3_3_rendered.json",
         ],
-        "note": "The 6-entry rendered artifact is not current runtime authority.",
+        "note": "The 2105-entry rendered surface is a required clean-checkout input for the active current contract.",
     },
     {
         "artifact_class": "regeneration-tooling",
@@ -608,7 +608,7 @@ Protected current payload surfaces are facts, decisions, rendered output, and `I
             "schema_version": "dvf-vcs-reproduction-closure-v1",
             "ignored_reproducible_candidate_count": 0,
             "pass": True,
-            "note": "No artifact is promoted to ignored-reproducible in this round; generated outputs remain non-current local evidence.",
+            "note": "No artifact is promoted to ignored-reproducible in this round; the current rendered input is tracked while generated staging outputs remain non-current local evidence.",
         },
     )
     write_json(
@@ -671,7 +671,7 @@ Narrow exceptions are required for:
 - `Iris/build/description/v2/tools/build/dvf_vcs_tracking_policy.py`
 - `Iris/build/description/v2/tests/test_dvf_vcs_tracking_policy.py`
 
-The existing generated-output ignore rules remain in place.
+Generated staging-output ignore rules remain in place. The active 2105-entry rendered input is a narrow tracked exception.
 """,
     )
     write_json(

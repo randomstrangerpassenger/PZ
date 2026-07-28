@@ -517,12 +517,14 @@ def run_gate(
     taxonomy = json_at_commit(
         repo, subject["commit"], selection["taxonomy_path"]
     )
+    excluded_paths = set(selection.get("excluded_paths", []))
     selected_paths = sorted(
         {
             row["source_file"]
             for row in taxonomy["rows"]
             if row["contract_class"] == selection["contract_class"]
             and row["state"] == selection["state"]
+            and row["source_file"] not in excluded_paths
         }
     )
     selected_paths.extend(selection.get("additional_paths", []))

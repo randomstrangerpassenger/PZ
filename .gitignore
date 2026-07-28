@@ -34,6 +34,9 @@ Iris/build/tests/*
 Iris/build/description/*
 !Iris/build/description/v2/
 Iris/build/description/v2/*
+!Iris/build/description/v2/output/
+Iris/build/description/v2/output/*
+!Iris/build/description/v2/output/dvf_3_3_rendered.json
 !Iris/build/description/v2/frozen_predecessor_inputs/
 Iris/build/description/v2/frozen_predecessor_inputs/*
 !Iris/build/description/v2/frozen_predecessor_inputs/dvf_3_3_registry_authority_canonical_closure/
@@ -598,6 +601,7 @@ Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase3
 !Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/
 Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/*
 !Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/runtime_atomic_replace_report.json
+!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase4/old_new_dual_current_absence_report.json
 !Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase5/
 Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase5/*
 !Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase5/manifest_driven_consumer_validation_report.json
@@ -610,6 +614,7 @@ Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase9
 !Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/
 Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/*
 !Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/final_current_authority_cutover_report.json
+!Iris/build/description/v2/staging/dvf_3_3_vnext_current_authority_cutover/phase10/claim_boundary_report.json
 !Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/
 !Iris/build/description/v2/staging/dvf_3_3_core_registry_boundary_required_gate_adoption/**
 !Iris/build/description/v2/staging/dvf_3_3_dvf_system_naming_realignment/

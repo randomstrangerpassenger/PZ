@@ -1,0 +1,8 @@
+{
+  "claim_boundary": "DVF 3-3 vNext current authority cutover and 2105 consumer migration only; not package release readiness, Workshop readiness, B42 readiness, manual in-game validation, semantic quality completion, or public-facing text quality acceptance",
+  "forbidden_claim_hit_count": 0,
+  "forbidden_claim_hits": [],
+  "generated_at": "2026-06-17T16:28:41.742992+00:00",
+  "schema_version": "dvf-3-3-vnext-current-authority-claim-boundary-v0",
+  "status": "PASS"
+}

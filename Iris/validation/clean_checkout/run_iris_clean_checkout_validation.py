@@ -11,6 +11,8 @@ import argparse
 import ast
 import configparser
 import json
+import os
+import subprocess
 import sys
 from collections import defaultdict
 from pathlib import Path
@@ -20,10 +22,13 @@ from iris_clean_checkout_validation_common import (
     CleanCheckoutError,
     blob_id,
     bytes_at_commit,
+    canonical_json_bytes,
     ensure_external_root,
     git_identity,
+    git_text,
     json_at_commit,
     resolved_repo,
+    sha256_bytes,
     sha256_file,
     tracked_paths,
     write_json_external,
@@ -35,6 +40,9 @@ REQUIRED_MANIFEST_PATH = (
     "Iris/_docs/round3/current_route_required_validations.json"
 )
 PYTEST_INI_PATH = "pytest.ini"
+CANONICAL_GATE_PATH = (
+    "Iris/validation/clean_checkout/contracts/canonical_gate.json"
+)
 REPOSITORY_IMPORT_PREFIXES = (
     "",
     "Iris",
@@ -431,6 +439,250 @@ def build_source_census(
     }
 
 
+def _status_snapshot(repo: Path) -> str:
+    return git_text(
+        repo,
+        "status",
+        "--porcelain=v2",
+        "--untracked-files=all",
+        "--ignored=matching",
+    )
+
+
+def _load_pytest_result(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        return {
+            "schema_version": "iris-clean-checkout-pytest-result-v1",
+            "mode": "unknown",
+            "status": "FAIL",
+            "pytest_version": None,
+            "exit_status": None,
+            "identity_rows": [],
+            "collection_errors": [
+                {
+                    "node_id": "",
+                    "message": "pytest result plugin did not write its result",
+                }
+            ],
+            "counts": {},
+        }
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def run_gate(
+    repo: Path,
+    commit: str,
+    python_executable: Path,
+    environment_receipt: Path,
+    output_root: Path,
+    *,
+    collect_only: bool,
+) -> dict[str, Any]:
+    subject = git_identity(repo, commit)
+    head = git_identity(repo, "HEAD")
+    if head != subject:
+        raise CleanCheckoutError(
+            f"checkout HEAD does not match subject: {head} != {subject}"
+        )
+    before_status = _status_snapshot(repo)
+    if before_status:
+        raise CleanCheckoutError(
+            "gate requires a clean checkout, including no ignored generated "
+            f"state:\n{before_status}"
+        )
+    if any(output_root.iterdir()):
+        raise CleanCheckoutError(
+            f"output root must be empty before a gate run: {output_root}"
+        )
+    python_executable = python_executable.resolve()
+    environment_receipt = environment_receipt.resolve()
+    if not python_executable.is_file():
+        raise CleanCheckoutError(
+            f"external interpreter is missing: {python_executable}"
+        )
+    if not environment_receipt.is_file():
+        raise CleanCheckoutError(
+            f"environment receipt is missing: {environment_receipt}"
+        )
+
+    contract = json_at_commit(
+        repo, subject["commit"], CANONICAL_GATE_PATH
+    )
+    command_contract = contract["command"]
+    command = [
+        str(python_executable),
+        *command_contract["python_flags"],
+        "-m",
+        command_contract["module"],
+        *command_contract["arguments"],
+    ]
+    if collect_only:
+        command.append("--collect-only")
+
+    pytest_result_path = output_root / "pytest_result.json"
+    system_temp = output_root / "system-temp"
+    test_output = output_root / "test-output"
+    system_temp.mkdir(parents=True, exist_ok=True)
+    test_output.mkdir(parents=True, exist_ok=True)
+    environment = os.environ.copy()
+    environment.pop("PYTHONPATH", None)
+    environment.update(
+        {
+            "PYTHONNOUSERSITE": "1",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "PIP_NO_INDEX": "1",
+            "IRIS_CLEAN_CHECKOUT_PYTEST_RESULT": str(
+                pytest_result_path
+            ),
+            "IRIS_CLEAN_CHECKOUT_TEST_OUTPUT_ROOT": str(test_output),
+            "TEMP": str(system_temp),
+            "TMP": str(system_temp),
+        }
+    )
+    completed = subprocess.run(
+        command,
+        cwd=repo,
+        env=environment,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    stdout_path = output_root / "pytest.stdout.txt"
+    stderr_path = output_root / "pytest.stderr.txt"
+    stdout_path.write_bytes(completed.stdout)
+    stderr_path.write_bytes(completed.stderr)
+
+    raw_result = _load_pytest_result(pytest_result_path)
+    if not pytest_result_path.exists():
+        write_json_external(repo, pytest_result_path, raw_result)
+    after_status = _status_snapshot(repo)
+    identity_rows = sorted(
+        (
+            {
+                "node_id": row["node_id"],
+                "source_path": row["source_path"],
+                "outcome": row["outcome"],
+            }
+            for row in raw_result.get("identity_rows", [])
+        ),
+        key=lambda row: row["node_id"],
+    )
+    identity_projection = [
+        {
+            "node_id": row["node_id"],
+            "source_path": row["source_path"],
+        }
+        for row in identity_rows
+    ]
+    inventory_hash = sha256_bytes(
+        canonical_json_bytes(identity_projection)
+    )
+    expected_outcome = "collected" if collect_only else "passed"
+    status = (
+        "PASS"
+        if completed.returncode == 0
+        and raw_result.get("status") == "PASS"
+        and not before_status
+        and not after_status
+        and identity_rows
+        and all(
+            row["outcome"] == expected_outcome
+            for row in identity_rows
+        )
+        else "FAIL"
+    )
+    normalized_command = [
+        "<external-python>",
+        *command_contract["python_flags"],
+        "-m",
+        command_contract["module"],
+        *command_contract["arguments"],
+    ]
+    if collect_only:
+        normalized_command.append("--collect-only")
+    canonical_result = {
+        "schema_version": "iris-clean-checkout-canonical-result-v1",
+        "mode": "collect_only" if collect_only else "execute",
+        "status": status,
+        "subject": subject,
+        "canonical_gate_blob_id": blob_id(
+            repo, subject["commit"], CANONICAL_GATE_PATH
+        ),
+        "normalized_command": normalized_command,
+        "environment_receipt_sha256": sha256_file(
+            environment_receipt
+        ),
+        "python_executable_sha256": sha256_file(python_executable),
+        "pytest_version": raw_result.get("pytest_version"),
+        "test_identity_count": len(identity_rows),
+        "test_inventory_sha256": inventory_hash,
+        "identity_rows": identity_rows,
+        "collection_error_count": len(
+            raw_result.get("collection_errors", [])
+        ),
+        "repository_clean_before": not before_status,
+        "repository_clean_after": not after_status,
+    }
+    canonical_path = output_root / "canonical_result.json"
+    canonical_sha256 = write_json_external(
+        repo, canonical_path, canonical_result
+    )
+    receipt = {
+        "schema_version": "iris-clean-checkout-gate-run-receipt-v1",
+        "status": status,
+        "mode": canonical_result["mode"],
+        "subject": subject,
+        "checkout_path": repo.as_posix(),
+        "actual_command": command,
+        "environment_receipt_path": environment_receipt.as_posix(),
+        "environment_receipt_sha256": canonical_result[
+            "environment_receipt_sha256"
+        ],
+        "python_executable_path": python_executable.as_posix(),
+        "python_executable_sha256": canonical_result[
+            "python_executable_sha256"
+        ],
+        "pytest_return_code": completed.returncode,
+        "pytest_result": {
+            "path": pytest_result_path.as_posix(),
+            "sha256": sha256_file(pytest_result_path),
+        },
+        "stdout": {
+            "path": stdout_path.as_posix(),
+            "sha256": sha256_file(stdout_path),
+        },
+        "stderr": {
+            "path": stderr_path.as_posix(),
+            "sha256": sha256_file(stderr_path),
+        },
+        "canonical_result": {
+            "path": canonical_path.as_posix(),
+            "sha256": canonical_sha256,
+        },
+        "test_identity_count": len(identity_rows),
+        "test_inventory_sha256": inventory_hash,
+        "repository_status_before": before_status.splitlines(),
+        "repository_status_after": after_status.splitlines(),
+    }
+    receipt_path = output_root / "run_receipt.json"
+    receipt_sha256 = write_json_external(
+        repo, receipt_path, receipt
+    )
+    return {
+        "status": status,
+        "mode": canonical_result["mode"],
+        "subject": subject,
+        "test_identity_count": len(identity_rows),
+        "test_inventory_sha256": inventory_hash,
+        "canonical_result_path": canonical_path.as_posix(),
+        "canonical_result_sha256": canonical_sha256,
+        "run_receipt_path": receipt_path.as_posix(),
+        "run_receipt_sha256": receipt_sha256,
+        "pytest_return_code": completed.returncode,
+        "repository_clean_after": not after_status,
+    }
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -439,6 +691,13 @@ def _parser() -> argparse.ArgumentParser:
     source.add_argument("--commit", required=True)
     source.add_argument("--output-root", required=True)
     source.add_argument("--discovery-root")
+    gate = subparsers.add_parser("gate")
+    gate.add_argument("--repo", required=True)
+    gate.add_argument("--commit", required=True)
+    gate.add_argument("--python", required=True)
+    gate.add_argument("--environment-receipt", required=True)
+    gate.add_argument("--output-root", required=True)
+    gate.add_argument("--collect-only", action="store_true")
     return parser
 
 
@@ -447,19 +706,29 @@ def main() -> int:
     try:
         repo = resolved_repo(args.repo)
         output_root = ensure_external_root(repo, args.output_root)
-        discovery_root = (
-            Path(args.discovery_root).resolve()
-            if args.discovery_root
-            else None
-        )
-        result = build_source_census(
-            repo, args.commit, output_root, discovery_root
-        )
+        if args.command == "source-census":
+            discovery_root = (
+                Path(args.discovery_root).resolve()
+                if args.discovery_root
+                else None
+            )
+            result = build_source_census(
+                repo, args.commit, output_root, discovery_root
+            )
+        else:
+            result = run_gate(
+                repo,
+                args.commit,
+                Path(args.python),
+                Path(args.environment_receipt),
+                output_root,
+                collect_only=args.collect_only,
+            )
     except (CleanCheckoutError, OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
     print(json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True))
-    return 0
+    return 0 if result.get("status", "PASS") == "PASS" else 1
 
 
 if __name__ == "__main__":

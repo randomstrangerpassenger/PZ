@@ -18,40 +18,25 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
-try:
-    from .iris_clean_checkout_validation_common import (
-        CleanCheckoutError,
-        blob_id,
-        bytes_at_commit,
-        canonical_json_bytes,
-        ensure_external_root,
-        git_identity,
-        git_text,
-        json_at_commit,
-        resolved_repo,
-        sha256_bytes,
-        sha256_file,
-        tracked_paths,
-        validate_external_environment,
-        write_json_external,
-    )
-except ImportError:
-    from iris_clean_checkout_validation_common import (
-        CleanCheckoutError,
-        blob_id,
-        bytes_at_commit,
-        canonical_json_bytes,
-        ensure_external_root,
-        git_identity,
-        git_text,
-        json_at_commit,
-        resolved_repo,
-        sha256_bytes,
-        sha256_file,
-        tracked_paths,
-        validate_external_environment,
-        write_json_external,
-    )
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import (
+    CleanCheckoutError,
+    blob_id,
+    bytes_at_commit,
+    canonical_json_bytes,
+    ensure_external_root,
+    git_identity,
+    git_text,
+    json_at_commit,
+    resolved_repo,
+    sha256_bytes,
+    sha256_file,
+    tracked_paths,
+    validate_external_environment,
+    write_json_external,
+)
 
 
 TAXONOMY_PATH = "Iris/_docs/round3/round3_test_taxonomy.json"

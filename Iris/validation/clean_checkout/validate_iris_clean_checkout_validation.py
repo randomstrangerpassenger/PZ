@@ -8,24 +8,17 @@ import sys
 from pathlib import Path
 from typing import Any
 
-try:
-    from .iris_clean_checkout_validation_common import (
-        CleanCheckoutError,
-        git_identity,
-        json_at_commit,
-        resolved_repo,
-        sha256_file,
-        validate_external_environment,
-    )
-except ImportError:
-    from iris_clean_checkout_validation_common import (
-        CleanCheckoutError,
-        git_identity,
-        json_at_commit,
-        resolved_repo,
-        sha256_file,
-        validate_external_environment,
-    )
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+
+from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import (
+    CleanCheckoutError,
+    git_identity,
+    json_at_commit,
+    resolved_repo,
+    sha256_file,
+    validate_external_environment,
+)
 
 
 PHASE0_ENVIRONMENT_BINDING_PATH = (

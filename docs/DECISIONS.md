@@ -2064,36 +2064,20 @@ Iris — Clean-Checkout Phase 0 append-only successor attempt 0002
   * successor record: `Iris/validation/clean_checkout/authority/phase0_ratification_attempt_0002.json`
   * standing owner authorization SHA-256: `73646f404f088c6ad3d33a103fed638dbd5a08a2f394744a10ead9d6621a7c24`
 
-Iris — Clean-Checkout Full-Required-Repository terminal closeout and G1 release
+Iris — 필수 저장소 검증의 clean-checkout 재현성 원칙
 
-* 날짜: 2026-07-28
-* Problem ID: `iris_clean_checkout_full_repository_validation_reproducibility_authority_closure`
-* 상태: technical closeout `complete` / `clean_validation_terminal_pass=true` / G1 released
+* 상태: current project decision
 * 결정:
 
-  * mandatory denominator는 과거 `309` 고정 숫자가 아니라 exact commit의 tracked test inventory, current `ok` taxonomy, 명시적으로 분류된 maintained pytest identity와 standalone validation으로 결정한다.
-  * tracked test source 67개는 `required_tracked_source` 25개, `historical_optional_evidence` 39개, `obsolete_or_misrouted_test_dependency` 3개로 전부 분류했으며 unclassified source는 0개다.
-  * required bootstrap은 exact subject tree에서 추적된 hash-bound hermetic fixture 15개와 runtime manifest/chunk에서 byte-identical하게 materialize한 package mirror 12개만 사용한다. 기존 ignored/local residue는 입력 권위가 아니다.
-  * 실행은 저장소 외부의 짧은 Windows disposable checkout에서 수행하고 source checkout은 쓰지 않는다. 실행 후 disposable checkout을 제거하며 source checkout과 external work root에 잔존 상태를 남기지 않는다.
-  * V0 `2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db`에서 pytest 130개와 standalone validation 4개가 Run A/B 모두 PASS했고 canonical result SHA-256 `9c01275ea1366ef9d5855e456aad67bff0e6dfcfc23997888014efe527672288`로 일치했다.
-  * broad unignore, assertion 완화, 테스트 삭제, 신규 skip, 출처 없는 dirty-worktree 파일 승격은 수행하지 않았다.
-  * 과거 `309 / 13 failures / 21 errors` 실행은 immutable command receipt가 없어 qualitative trigger로만 보존한다. 그 실행을 sacred denominator나 current terminal claim으로 재구성하지 않는다.
-* G1 release:
+  * 필수 저장소 검증 결과는 개발자 작업 폴더의 과거 이력이 아니라 exact tracked commit과 명시적으로 선언된 외부 실행 환경으로 결정되어야 한다.
+  * 필수 검증 denominator는 고정된 과거 test count가 아니라 해당 commit의 tracked test inventory와 명시적인 분류 계약으로 관리한다. 테스트의 추가·삭제·역할 변경은 inventory 변경으로 reconciliation한다.
+  * 검증 입력은 tracked source, test fixture, deterministic materialization, current required artifact, historical evidence 등 역할을 구분해야 한다. 분류되지 않은 로컬 파일이나 ignored residue는 필수 검증의 암묵적 입력으로 사용할 수 없다.
+  * generated output, cache, staging 부산물과 테스트 임시 상태는 source checkout 밖에 격리한다. 필수 검증은 실행 후 source checkout에 tracked, untracked 또는 ignored residue를 남기지 않아야 한다.
+  * 누락 입력 문제를 테스트 삭제·skip, assertion 완화, 광범위한 `.gitignore` 해제, 출처 없는 로컬 파일의 승격으로 우회하지 않는다.
+  * clean-checkout validation PASS는 저장소 검증 재현성 축에만 효력이 있다. Food semantic authority, Registry cutover, Naturalization, Publish Boundary, package 또는 release readiness를 대신 승인하지 않는다.
+* 구현 및 실행 기록:
 
-  * 공통 sync contract ID는 `iris_aa49_four_plan_execution_sync_v1`이다.
-  * append-only receipt `Iris/validation/clean_checkout/authority/g1_release_receipt_0001.json`이 `clean_validation_terminal_pass=true`와 `downstream_unblock_target=G2_food_semantic_facts_authority`를 결속한다.
-  * 이 release는 clean-checkout validation-reproducibility blocker만 제거한다. Food semantic 승인, Registry cutover, Naturalization, Publish Boundary, package/release/Workshop readiness를 미리 승인하지 않는다.
-* evidence:
-
-  * closeout: `Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0001.json`
-  * closeout SHA-256: `45b03586b30ee4804d8bae71aad311912fedb52d9952c77aa4cbd56ca4d13c19`
-  * gate manifest: `Iris/validation/clean_checkout/evidence/full_repository_gate_manifest_successor_0001.json`
-  * failure disposition: `Iris/validation/clean_checkout/evidence/full_repository_failure_disposition_ledger_successor_0001.json`
-  * G1 release receipt commit: `ae497f6f1ee1ca83ba09859ae7c4ee09c010ee09`
-* preservation:
-
-  * 이 문서 후속 기록을 위해 V0 또는 Run A/B를 재실행하거나 rewrite하지 않았다.
-  * `attempt-0007`, `authority-execution-0002`, Phase 11 sealed successor, D16 채택 기록, `phase12-correction-0001`, current facts/manifest, Naturalization Phase 4~8, Publish Boundary attempts는 변경하지 않았다.
+  * 구체적인 test inventory, 분류 결과, 실행 identity, commit/hash, closeout과 downstream handoff는 `Iris/validation/clean_checkout/`의 append-only authority/evidence record가 소유한다.
 
 ---
 ## Frame

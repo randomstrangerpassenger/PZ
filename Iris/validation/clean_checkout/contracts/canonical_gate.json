@@ -13,7 +13,9 @@
       "-p",
       "no:cacheprovider",
       "-p",
-      "Iris.validation.clean_checkout.pytest_result_plugin"
+      "Iris.validation.clean_checkout.pytest_result_plugin",
+      "Iris/build/description/v2/tests",
+      "Iris/build/tests/test_evidence_pipeline_cross_track.py"
     ]
   },
   "collection_scope": "pytest.ini testpaths with round3 contract all",

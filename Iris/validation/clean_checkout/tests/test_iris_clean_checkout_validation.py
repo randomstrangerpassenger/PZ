@@ -12,6 +12,11 @@ from Iris.validation.clean_checkout.iris_clean_checkout_validation_common import
     validate_external_environment,
     write_json_external,
 )
+from Iris.validation.clean_checkout.run_iris_clean_checkout_validation import (
+    _classify_full_test_source,
+    _normalized_test_id,
+    _safe_checkout_target,
+)
 from Iris.validation.clean_checkout.validate_iris_clean_checkout_validation import (
     validate_result_pair,
 )
@@ -112,3 +117,32 @@ def test_result_pair_accepts_equivalent_passes(tmp_path: Path) -> None:
     result = validate_result_pair(run_a, run_b)
     assert result["status"] == "PASS"
     assert result["canonical_results_equal"] is True
+
+
+def test_full_source_policy_classifies_only_declared_fallback() -> None:
+    historical = _classify_full_test_source(
+        "Iris/build/description/v2/tests/test_old_authority.py",
+        {},
+    )
+    assert historical["authority_class"] == "historical_optional_evidence"
+    with pytest.raises(CleanCheckoutError, match="unclassified"):
+        _classify_full_test_source("Iris/test/test_unknown.py", {})
+
+
+def test_full_node_identity_normalization() -> None:
+    node_id = (
+        "Iris/build/description/v2/tests/test_sample.py::"
+        "SampleTest::test_value[param]"
+    )
+    assert _normalized_test_id(node_id) == (
+        "test_sample.SampleTest.test_value"
+    )
+
+
+def test_full_materialization_target_rejects_parent_escape(
+    tmp_path: Path,
+) -> None:
+    checkout = (tmp_path / "checkout").resolve()
+    checkout.mkdir()
+    with pytest.raises(CleanCheckoutError, match="unsafe"):
+        _safe_checkout_target(checkout, "../outside.json")

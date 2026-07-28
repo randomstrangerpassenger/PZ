@@ -66,14 +66,16 @@ def validate_result_pair(
     run_b_path = run_b_path.resolve()
     run_a = json.loads(run_a_path.read_text(encoding="utf-8"))
     run_b = json.loads(run_b_path.read_text(encoding="utf-8"))
+    supported_schemas = {
+        "iris-clean-checkout-canonical-result-v2",
+        "iris-clean-checkout-canonical-full-result-v1",
+    }
     _require(
-        run_a.get("schema_version")
-        == "iris-clean-checkout-canonical-result-v2",
+        run_a.get("schema_version") in supported_schemas,
         "Run A canonical result schema mismatch",
     )
     _require(
-        run_b.get("schema_version")
-        == "iris-clean-checkout-canonical-result-v2",
+        run_b.get("schema_version") == run_a.get("schema_version"),
         "Run B canonical result schema mismatch",
     )
     _require(run_a.get("status") == "PASS", "Run A is not PASS")
@@ -83,7 +85,13 @@ def validate_result_pair(
         "schema_version": "iris-clean-checkout-result-comparison-v1",
         "status": "PASS",
         "subject": run_a["subject"],
-        "test_identity_count": run_a["test_identity_count"],
+        "test_identity_count": run_a.get(
+            "test_identity_count",
+            run_a.get("pytest_identity_count"),
+        ),
+        "required_execution_unit_count": run_a.get(
+            "required_execution_unit_count"
+        ),
         "test_inventory_sha256": run_a["test_inventory_sha256"],
         "run_a_sha256": sha256_file(run_a_path),
         "run_b_sha256": sha256_file(run_b_path),

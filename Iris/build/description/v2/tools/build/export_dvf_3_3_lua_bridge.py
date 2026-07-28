@@ -269,6 +269,21 @@ def run_registry_compatibility_preflight(
     report_path: Path,
     invocation: RegistryCompatibilityInvocation | None,
 ) -> tuple[RegistryCompatibilityInvocation, dict[str, Any]]:
+    if invocation is not None:
+        required_manifest = load_json(CURRENT_REQUIRED_VALIDATIONS)
+        current_selection = required_manifest.get(
+            "registry_runtime_compatibility"
+        )
+        if not isinstance(current_selection, dict):
+            raise BridgeExportContractError(
+                "compatibility_policy_context_required: live "
+                "required-validation manifest has no Registry Runtime "
+                "Compatibility selection"
+            )
+        reject_stale_current_source_alignment(
+            current_selection,
+            isolated_candidate_probe=invocation.policy_context == "candidate",
+        )
     selected = invocation or resolve_live_registry_compatibility_invocation(
         rendered_path=rendered_path,
         report_path=report_path,

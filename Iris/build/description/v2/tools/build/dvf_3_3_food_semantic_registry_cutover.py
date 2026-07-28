@@ -375,6 +375,13 @@ def require_clean_candidate_entry() -> None:
         raise CutoverError(f"candidate_entry_worktree_not_clean:{status.strip()}")
 
 
+def require_tracked_worktree_clean(label: str) -> None:
+    if git("diff", "--quiet", check=False).returncode != 0:
+        raise CutoverError(f"{label}_tracked_worktree_not_clean")
+    if git("diff", "--cached", "--quiet", check=False).returncode != 0:
+        raise CutoverError(f"{label}_index_not_clean")
+
+
 def deep_diff(
     predecessor: Any,
     successor: Any,
@@ -1413,6 +1420,31 @@ def validate_owner_authorization(root: Path) -> tuple[dict[str, Any], str]:
     return authorization, sha256_file(path)
 
 
+def validate_apply_repository_readpoint(root: Path) -> None:
+    preflight = read_json(root / "preflight" / "current_preimage_report.json")
+    expected_commit = preflight.get("implementation_commit")
+    expected_tree = preflight.get("implementation_tree")
+    require_equal(git_head(), expected_commit, "apply_implementation_head")
+    require_equal(
+        git_tree(str(expected_commit)),
+        expected_tree,
+        "apply_implementation_tree",
+    )
+    require_tracked_worktree_clean("apply")
+    require_equal(
+        git_blob_id(str(expected_commit), repo_relative(PLAN_PATH)),
+        PLAN_GIT_BLOB_ID,
+        "apply_plan_git_blob",
+    )
+    require_equal(
+        sha256_bytes(
+            git_blob_bytes(str(expected_commit), repo_relative(PLAN_PATH))
+        ),
+        PLAN_SHA256,
+        "apply_plan_git_blob_sha256",
+    )
+
+
 def create_adoption_receipts(root: Path) -> tuple[Path, Path]:
     facts_candidate, manifest_candidate = candidate_paths(root)
     authorization_path = (
@@ -1420,10 +1452,13 @@ def create_adoption_receipts(root: Path) -> tuple[Path, Path]:
     )
     review_path = root / "reviews" / "independent_pre_cutover_review.json"
     receipt_path = root / "closeout" / "registry_adoption_receipt.json"
+    preflight = read_json(root / "preflight" / "current_preimage_report.json")
     receipt = {
         "schema_version": "food-semantic-registry-adoption-receipt-v1",
         "status": "PASS",
         "attempt_id": root.name,
+        "implementation_commit": preflight["implementation_commit"],
+        "implementation_tree": preflight["implementation_tree"],
         "food_semantic_registry_adoption": "current_adoption_complete",
         "selected_successor_facts_sha256": SUCCESSOR_FACTS_SHA256,
         "selected_successor_manifest_sha256": SUCCESSOR_MANIFEST_SHA256,
@@ -1506,6 +1541,7 @@ def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[st
             "startup_recovery_completed_commit_evidence_before_apply:"
             f"{initial_recovery}"
         )
+    validate_apply_repository_readpoint(root)
     authorization, authorization_sha256 = validate_owner_authorization(root)
     facts_candidate, manifest_candidate = candidate_paths(root)
     expected_preimages, expected_candidates = expected_pair_hashes(root)
@@ -1547,6 +1583,7 @@ def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[st
         error_release_guard=apply_error_release_guard,
     ):
         startup_recovery(exclude_attempt=attempt_id)
+        validate_apply_repository_readpoint(root)
         require_equal(
             {
                 "facts": sha256_file(CURRENT_FACTS),
@@ -1602,6 +1639,63 @@ def command_verify_committed(attempt_id: str) -> dict[str, Any]:
     require_equal(journal.get("state"), "committed", "transaction_journal_state")
     head = git_head()
     tree = git_tree(head)
+    preflight = read_json(root / "preflight" / "current_preimage_report.json")
+    implementation_commit = preflight["implementation_commit"]
+    implementation_tree = preflight["implementation_tree"]
+    require_equal(
+        git_tree(implementation_commit),
+        implementation_tree,
+        "committed_implementation_tree",
+    )
+    parent_row = git("rev-list", "--parents", "-n", "1", head).stdout.split()
+    if len(parent_row) != 2 or parent_row[1] != implementation_commit:
+        raise CutoverError(
+            "adoption_commit_not_single_direct_child_of_implementation"
+        )
+    changed_paths = [
+        row
+        for row in git(
+            "diff",
+            "--name-only",
+            implementation_commit,
+            head,
+        ).stdout.splitlines()
+        if row
+    ]
+    attempt_prefix = repo_relative(root) + "/"
+    unexpected_paths = [
+        path
+        for path in changed_paths
+        if path not in ALLOWED_TARGET_PATHS
+        and not path.startswith(attempt_prefix)
+    ]
+    if unexpected_paths:
+        raise CutoverError(
+            f"adoption_commit_unexpected_paths:{unexpected_paths}"
+        )
+    required_adoption_paths = {
+        CURRENT_FACTS_REL,
+        CURRENT_MANIFEST_REL,
+        repo_relative(
+            root / "closeout" / "registry_adoption_receipt.json"
+        ),
+        repo_relative(
+            root / "closeout" / "naturalization_phase2_current_handoff.json"
+        ),
+        repo_relative(
+            root / "authorization" / "owner_cutover_authorization.json"
+        ),
+        repo_relative(
+            root / "reviews" / "independent_pre_cutover_review.json"
+        ),
+        repo_relative(root / "transaction" / "cutover_journal.json"),
+    }
+    missing_adoption_paths = sorted(required_adoption_paths - set(changed_paths))
+    if missing_adoption_paths:
+        raise CutoverError(
+            f"adoption_commit_required_paths_missing:{missing_adoption_paths}"
+        )
+    require_tracked_worktree_clean("verify_committed")
     facts_working = sha256_file(CURRENT_FACTS)
     manifest_working = sha256_file(CURRENT_MANIFEST)
     facts_blob_bytes = git_blob_bytes(head, CURRENT_FACTS_REL)
@@ -1641,6 +1735,9 @@ def command_verify_committed(attempt_id: str) -> dict[str, Any]:
             "attempt_id": attempt_id,
             "adoption_commit": head,
             "adoption_tree": tree,
+            "implementation_commit": implementation_commit,
+            "implementation_tree": implementation_tree,
+            "adoption_changed_paths": changed_paths,
             "facts": {
                 "path": CURRENT_FACTS_REL,
                 "working_sha256": facts_working,
@@ -1729,6 +1826,18 @@ def parse_test_count(output: str) -> int | None:
 
 def command_run_final_validation(attempt_id: str) -> dict[str, Any]:
     root = attempt_root(attempt_id)
+    identity = read_json(root / "closeout" / "current_identity_report.json")
+    require_equal(
+        git_head(),
+        identity.get("adoption_commit"),
+        "final_validation_adoption_head",
+    )
+    require_equal(
+        git_tree(),
+        identity.get("adoption_tree"),
+        "final_validation_adoption_tree",
+    )
+    require_tracked_worktree_clean("final_validation")
     artifact_report = artifact_validation(attempt_id)
     runs_root = root / "closeout" / "final_validation_runs"
     existing = sorted(runs_root.glob("run-*.json")) if runs_root.exists() else []
@@ -1837,6 +1946,11 @@ def validate_closeout_review(root: Path) -> tuple[dict[str, Any], str]:
         "closeout_review_adoption_commit",
     )
     require_equal(
+        review.get("reviewed_adoption_tree"),
+        read_json(identity_path).get("adoption_tree"),
+        "closeout_review_adoption_tree",
+    )
+    require_equal(
         review.get("current_identity_report_sha256"),
         sha256_file(identity_path),
         "closeout_review_identity",
@@ -1892,6 +2006,28 @@ def command_owner_seal_template(attempt_id: str) -> dict[str, Any]:
 
 def command_finalize(attempt_id: str) -> dict[str, Any]:
     root = attempt_root(attempt_id)
+    identity = read_json(root / "closeout" / "current_identity_report.json")
+    require_equal(
+        git_head(),
+        identity.get("adoption_commit"),
+        "finalize_adoption_head",
+    )
+    require_equal(
+        git_tree(),
+        identity.get("adoption_tree"),
+        "finalize_adoption_tree",
+    )
+    require_tracked_worktree_clean("finalize")
+    require_equal(
+        sha256_bytes(git_blob_bytes(git_head(), CURRENT_FACTS_REL)),
+        sha256_file(CURRENT_FACTS),
+        "finalize_current_facts_blob_working",
+    )
+    require_equal(
+        sha256_bytes(git_blob_bytes(git_head(), CURRENT_MANIFEST_REL)),
+        sha256_file(CURRENT_MANIFEST),
+        "finalize_current_manifest_blob_working",
+    )
     owner_path = root / "closeout" / "owner_seal.json"
     owner = read_json(owner_path)
     expected = owner_seal_expected(root)

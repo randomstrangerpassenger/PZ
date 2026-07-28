@@ -121,6 +121,41 @@ class RegistryRuntimeCompatibilityBridgeTest(unittest.TestCase):
             self.assertFalse(output_root.exists())
             self.assertFalse((root / "report.json").exists())
 
+    def test_explicit_canonical_invocation_cannot_bypass_stale_alignment(self) -> None:
+        required = json.loads(
+            bridge.CURRENT_REQUIRED_VALIDATIONS.read_text(encoding="utf-8")
+        )
+        alignment = required["registry_runtime_compatibility"][
+            "current_source_alignment"
+        ]
+        self.assertEqual(
+            bridge.sha256_file(bridge.CURRENT_FACTS),
+            alignment["applies_when_current_facts_sha256"],
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output_root = root / "output"
+            invocation = bridge.RegistryCompatibilityInvocation(
+                policy_context="canonical_durable",
+                policy_path=root / "unread-policy.json",
+                disposition_path=root / "unread-disposition.json",
+                binding_manifest_path=root / "unread-binding.json",
+                bridge_preflight_input_manifest=root / "unread-input.json",
+                bridge_preflight_receipt=root / "unwritten-receipt.json",
+            )
+            with self.assertRaisesRegex(
+                bridge.BridgeExportContractError,
+                "registry_runtime_compatibility_current_source_stale",
+            ):
+                bridge.export_lua_bridge(
+                    rendered_path=root / "unread-rendered.json",
+                    output_root=output_root,
+                    report_path=root / "report.json",
+                    registry_compatibility=invocation,
+                )
+            self.assertFalse(output_root.exists())
+            self.assertFalse(invocation.bridge_preflight_receipt.exists())
+
 
 if __name__ == "__main__":
     unittest.main()

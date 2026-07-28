@@ -1,0 +1,16 @@
+{
+  "attempt_id": "attempt-0022",
+  "canonical_complete": false,
+  "claim_token": "Food Semantic Facts Authority Successor Handoff",
+  "current_authority_reconstruction_complete": false,
+  "final_artifact_manifest_sha256": "7e72bb17d7ff45abcf20fe9ca939f8e52779f3fd0e8da4646265c61b1557d620",
+  "food_semantic_facts_authority_closeout": "sealed_successor_handoff_complete",
+  "independent_closeout_review_sha256": "8c71275aee4c397b959d74bed25848850b36d699736cc1e8657287377105bce6",
+  "owner_seal_sha256": "c709ff339d4b95d2ead93d08e10e5dee807232ead087c6cb507cb642daff4646",
+  "post_terminal_claim_bearing_change_count": 0,
+  "schema_version": "food-semantic-sealed-successor-closeout-v1",
+  "sealed_successor_receipt_sha256": "a4a1960c332246cf9f9c33d15d04568859a251c7d6988fab4d878ec235a3b4b5",
+  "selected_branch": "B+G2",
+  "status": "PASS",
+  "terminal_branch_disposition_sha256": "dbf104ebc2fe68880ff08e86052f966b26415ed8f762ae592979424b7a32f1fb"
+}

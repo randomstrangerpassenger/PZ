@@ -1,0 +1,11 @@
+{
+  "attempt_id": "attempt-0022",
+  "branch": "B+G2",
+  "canonical_complete": false,
+  "current_authority_reconstruction_complete": false,
+  "current_facts_manifest_mutation_count": 0,
+  "future_registry_cutover_required": true,
+  "required_gate_deferred_explicitly": true,
+  "schema_version": "food-semantic-terminal-branch-disposition-v1",
+  "status": "PASS"
+}

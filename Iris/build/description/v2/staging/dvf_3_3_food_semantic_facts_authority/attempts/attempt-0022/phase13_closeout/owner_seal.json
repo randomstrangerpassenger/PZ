@@ -1,0 +1,11 @@
+{
+  "schema_version": "food-semantic-owner-seal-v1",
+  "verdict": "PASS",
+  "attempt_id": "attempt-0022",
+  "independent_closeout_review_sha256": "8c71275aee4c397b959d74bed25848850b36d699736cc1e8657287377105bce6",
+  "final_artifact_manifest_sha256": "7e72bb17d7ff45abcf20fe9ca939f8e52779f3fd0e8da4646265c61b1557d620",
+  "claim_token": "Food Semantic Facts Authority Successor Handoff",
+  "terminal_value": "sealed_successor_handoff_complete",
+  "approver_identity": "project_owner_user",
+  "approval_time": "2026-07-29T02:03:03.6502195+09:00"
+}

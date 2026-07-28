@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iris.invalid/schemas/clean-checkout/failure-disposition-ledger-v1",
+  "title": "Iris Clean-Checkout Failure Disposition Ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ledger_state",
+    "origin_command_provenance_status",
+    "origin_observation",
+    "search_scope",
+    "rows",
+    "coverage_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "iris-clean-checkout-failure-disposition-ledger-v1"
+    },
+    "ledger_state": {
+      "enum": [
+        "candidate_incomplete",
+        "complete"
+      ]
+    },
+    "origin_command_provenance_status": {
+      "enum": [
+        "identified",
+        "unidentifiable"
+      ]
+    },
+    "origin_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "test_count",
+        "failure_count",
+        "error_count",
+        "exit_code",
+        "reported_status_entry_count",
+        "quantitative_acceptance_use_allowed"
+      ],
+      "properties": {
+        "test_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failure_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "error_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "exit_code": {
+          "type": "integer"
+        },
+        "reported_status_entry_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "quantitative_acceptance_use_allowed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "search_scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "result"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "enum": [
+              "no_origin_receipt_found",
+              "qualitative_trigger_only",
+              "origin_receipt_found"
+            ]
+          }
+        }
+      }
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "row_id",
+          "surface_kind",
+          "identity",
+          "disposition",
+          "coverage",
+          "evidence"
+        ],
+        "properties": {
+          "row_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "surface_kind": {
+            "enum": [
+              "test_outcome",
+              "tracked_worktree_change",
+              "untracked_or_ignored_path",
+              "status_count_remainder"
+            ]
+          },
+          "identity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "disposition": {
+            "enum": [
+              "reproduced_same_root_cause",
+              "reproduced_transitive_failure",
+              "resolved_by_declared_dependency_repair",
+              "pre_existing_unrelated_workspace_state",
+              "superseded_by_bound_commit_difference",
+              "insufficient_preserved_evidence",
+              "unreconciled"
+            ]
+          },
+          "coverage": {
+            "enum": [
+              "covered",
+              "uncovered",
+              "pending"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "coverage_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit",
+        "origin_surface_total_count",
+        "covered_origin_surface_count",
+        "insufficient_preserved_evidence_count",
+        "unreconciled_origin_surface_count",
+        "coverage_complete_with_insufficient_evidence",
+        "origin_failure_surface_coverage_status"
+      ],
+      "properties": {
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "origin_surface_total_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "covered_origin_surface_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "insufficient_preserved_evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unreconciled_origin_surface_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "coverage_complete_with_insufficient_evidence": {
+          "const": false
+        },
+        "origin_failure_surface_coverage_status": {
+          "enum": [
+            "complete",
+            "incomplete"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iris.invalid/schemas/clean-checkout/commit-transition-v1",
+  "title": "Iris Clean-Checkout Commit Transition Ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "ledger_state",
+    "entries",
+    "tracked_input_change_invalidates_prior_execution_evidence",
+    "self_referential_commit_fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "iris-clean-checkout-commit-transition-v1"
+    },
+    "ledger_state": {
+      "enum": [
+        "candidate",
+        "terminal"
+      ]
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "identity",
+          "state",
+          "commit",
+          "tree",
+          "binding_evidence"
+        ],
+        "properties": {
+          "identity": {
+            "enum": [
+              "O0",
+              "P0",
+              "B0",
+              "R0",
+              "CXn",
+              "C0",
+              "G0",
+              "V0",
+              "S0",
+              "DOC0"
+            ]
+          },
+          "state": {
+            "enum": [
+              "unidentifiable",
+              "bound",
+              "not_created",
+              "not_applicable"
+            ]
+          },
+          "commit": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/sha1"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "tree": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/sha1"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "binding_evidence": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "tracked_input_change_invalidates_prior_execution_evidence": {
+      "const": true
+    },
+    "self_referential_commit_fields": {
+      "const": 0
+    }
+  },
+  "$defs": {
+    "sha1": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    }
+  }
+}

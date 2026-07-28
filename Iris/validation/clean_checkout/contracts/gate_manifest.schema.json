@@ -1,0 +1,214 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://iris.invalid/schemas/clean-checkout/gate-manifest-v1",
+  "title": "Iris Clean-Checkout Gate Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_state",
+    "authority",
+    "terminal_claim",
+    "excluded_claims",
+    "implementation_base",
+    "contract_bindings",
+    "environment_binding",
+    "canonical_gate",
+    "write_boundary",
+    "live_manifest_consumption",
+    "evidence_bindings",
+    "self_referential_commit_fields"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "iris-clean-checkout-gate-manifest-v1"
+    },
+    "manifest_state": {
+      "enum": [
+        "candidate",
+        "frozen",
+        "retired"
+      ]
+    },
+    "authority": {
+      "const": "Iris Repository Validation / Clean-Checkout Reproducibility Authority"
+    },
+    "terminal_claim": {
+      "const": "Iris Clean-Checkout Full-Repository Validation PASS"
+    },
+    "excluded_claims": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "independent_third_party_reproduction",
+          "windows_event_level_transient_write_telemetry"
+        ]
+      }
+    },
+    "implementation_base": {
+      "$ref": "#/$defs/git_identity"
+    },
+    "contract_bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan",
+        "phase0"
+      ],
+      "properties": {
+        "plan": {
+          "$ref": "#/$defs/tracked_binding"
+        },
+        "phase0": {
+          "$ref": "#/$defs/tracked_binding"
+        }
+      }
+    },
+    "environment_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receipt_path",
+        "receipt_sha256",
+        "resolved_interpreter"
+      ],
+      "properties": {
+        "receipt_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "receipt_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "resolved_interpreter": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "canonical_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "binding_state",
+        "command"
+      ],
+      "properties": {
+        "binding_state": {
+          "enum": [
+            "unbound_until_change_3",
+            "bound"
+          ]
+        },
+        "command": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "write_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_state_location",
+        "repository_local_output_allowed",
+        "windows_privileged_auditing_required"
+      ],
+      "properties": {
+        "generated_state_location": {
+          "const": "caller_supplied_repository_external_root"
+        },
+        "repository_local_output_allowed": {
+          "const": false
+        },
+        "windows_privileged_auditing_required": {
+          "const": false
+        }
+      }
+    },
+    "live_manifest_consumption": {
+      "const": "no"
+    },
+    "evidence_bindings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/external_binding"
+      }
+    },
+    "self_referential_commit_fields": {
+      "const": 0
+    }
+  },
+  "$defs": {
+    "sha1": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "git_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "commit",
+        "tree"
+      ],
+      "properties": {
+        "commit": {
+          "$ref": "#/$defs/sha1"
+        },
+        "tree": {
+          "$ref": "#/$defs/sha1"
+        }
+      }
+    },
+    "tracked_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "git_blob_id",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "git_blob_id": {
+          "$ref": "#/$defs/sha1"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "external_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "artifacts": [
+    {
+      "byte_count": 1438689,
+      "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+      "sha256": "a89af8d75a78a57bd2ac05f07af4246d1ebab862dd4021bd089c5efa6e533be6"
+    },
+    {
+      "byte_count": 3438,
+      "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+      "sha256": "db4c5e827c1aad4175894fb0f5b59db9496c5819cacd86a9f703d3542a05be41"
+    },
+    {
+      "byte_count": 3814457,
+      "path": "Iris/build/description/v2/output/dvf_3_3_rendered.json",
+      "sha256": "4ebdb0b6c381fb07d8a61517133c7f61483d979563fc9c0e6ebbb8f2359fa50d"
+    },
+    {
+      "byte_count": 982,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks.lua",
+      "sha256": "714050b6618c10e23fb15e31ec258fa3dec7652f00422093567a4c09af095f75"
+    },
+    {
+      "byte_count": 115154,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk001.lua",
+      "sha256": "5a0d30f7ec27d85707215a0ad87ac51a420af653d32555f3682cfc33a7ff0ea6"
+    },
+    {
+      "byte_count": 104921,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk002.lua",
+      "sha256": "6092f7c7f32c067533fb4b3787b8ef771e69acda4ab17daead29bd98189d3a3c"
+    },
+    {
+      "byte_count": 105367,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk003.lua",
+      "sha256": "230c2f55ad098f0743478c250b078caab97cdb5f72ad560f8e1882bac167bff7"
+    },
+    {
+      "byte_count": 113285,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk004.lua",
+      "sha256": "acc854a6d90af74885137a271924d6dbb0cd2606c7e98ab050047437bc257758"
+    },
+    {
+      "byte_count": 110232,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk005.lua",
+      "sha256": "13f61b346e81d94edefa1ad010908c16cc15151ba930fdad9fc74d7c505442d2"
+    },
+    {
+      "byte_count": 111996,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk006.lua",
+      "sha256": "7b6df5e450e1a79dfc217da5cf1ded6f2ae7ffbfe8e4ce48a0f9447aa37eb592"
+    },
+    {
+      "byte_count": 115764,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk007.lua",
+      "sha256": "b98fc0329ed0ee5fb1e38b196b0a33346d89bd5ed85e660183ae08e967dff7a3"
+    },
+    {
+      "byte_count": 112284,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk008.lua",
+      "sha256": "26dc602ad9b682ffad545af715a3fd51a9d458d89ce1334479b9c6d5715783a6"
+    },
+    {
+      "byte_count": 114605,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk009.lua",
+      "sha256": "11cc079b16de57e27ca32c6f3bfdfa8e6fe796393cfe2fede74251a4eb0ecdca"
+    },
+    {
+      "byte_count": 107042,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk010.lua",
+      "sha256": "9c609a00e14c62944845e1ba532d99ff4903a26c1a4d0fb3e117ac33c95374b5"
+    },
+    {
+      "byte_count": 59355,
+      "path": "Iris/media/lua/client/Iris/Data/IrisLayer3DataChunks/Chunk011.lua",
+      "sha256": "1cd911a9135730eea8163d42530ececa1833ba43723068c6dadb7aef0fede9cd"
+    },
+    {
+      "byte_count": 9553,
+      "path": "docs/dvf_3_3_facts_authority_enrichment_plan.md",
+      "sha256": "bd4f559694da2e7011434715973273033ebf986a12023bb4c2363c51210c231a"
+    },
+    {
+      "byte_count": 169787,
+      "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+      "sha256": "bdd7c6b04b773e5fcdd80882bd5d2436eed24af6c4904616d7fdaa06cdd7c74d"
+    },
+    {
+      "byte_count": 123392,
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "sha256": "f2a57c39431a1e520236e03f6a2e9b3129b6339d353f6682cb27cf0b1d2ed4f0"
+    },
+    {
+      "byte_count": 179311,
+      "path": "docs/dvf_3_3_registry_authority_canonical_closure_plan.md",
+      "sha256": "0de824e9b471895689b5089d71bfe4a79d3526dc96f0268f681a9b9d65aa7cfb"
+    },
+    {
+      "byte_count": 3968,
+      "path": "docs/iris_aa49_four_plan_execution_sync_manifest.json",
+      "sha256": "b5a8f8ff7778c40a0d8b0c9ad4ac2b09a213881303db10710cb63621f8fd68fb"
+    },
+    {
+      "byte_count": 130072,
+      "path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+      "sha256": "1f53edc910cc3b9b8480335c7ebcb445497f1fee3bc6564dbdd384e7b4b7ecd6"
+    },
+    {
+      "byte_count": 111566,
+      "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+      "sha256": "5497491b2c261e7b287639fde55f3f04d2e6e4a6a3597153e1d2dcb2a94d05f7"
+    }
+  ],
+  "schema_version": "food-semantic-protected-hashes-v1"
+}

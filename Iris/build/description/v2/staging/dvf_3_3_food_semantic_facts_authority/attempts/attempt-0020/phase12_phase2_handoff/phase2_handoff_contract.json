@@ -1,0 +1,16 @@
+{
+  "compatibility_consumer": "Naturalization actual Phase 2 inventory path",
+  "current_facts_read_count_for_branch_B": 0,
+  "exact_identity_set": [
+    "successor_facts_sha256",
+    "successor_input_manifest_sha256",
+    "approved_food_semantic_schema_sha256",
+    "approved_proposition_licensing_contract_sha256"
+  ],
+  "implementation_imports_current_naturalization_runner": false,
+  "no_render_required": true,
+  "official_consumer": "fresh Naturalization attempt after Registry adoption",
+  "producer": "Food Semantic Facts Authority",
+  "schema_version": "food-semantic-naturalization-phase2-handoff-v1",
+  "sync_contract": "dvf3_3_food_semantic_facts_authority__naturalization_phase2_sync_v1"
+}

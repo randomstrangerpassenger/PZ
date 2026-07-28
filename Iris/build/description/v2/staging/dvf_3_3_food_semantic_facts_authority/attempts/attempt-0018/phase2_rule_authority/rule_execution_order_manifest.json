@@ -1,0 +1,20 @@
+{
+  "execution_order": [
+    "R3.food.scope.type_food",
+    "R3.food.preparation.cookable",
+    "R3.food.beverage.alcoholic",
+    "R3.food.role.spice",
+    "R3.food.role.herb",
+    "R3.food.tag.driedfood",
+    "R3.food.tag.goodfrozen",
+    "R3.food.tag.alreadycooked",
+    "R3.food.tag.bakingfat",
+    "R3.food.tag.minoringredient",
+    "R3.food.tag.sugar",
+    "R3.food.tag.herbaltea",
+    "R3.food.tag.coffeemaker",
+    "R3.food.tag.alcoholicbeverage",
+    "R3.food.tag.lowalcohol"
+  ],
+  "order_is_explicit": true
+}

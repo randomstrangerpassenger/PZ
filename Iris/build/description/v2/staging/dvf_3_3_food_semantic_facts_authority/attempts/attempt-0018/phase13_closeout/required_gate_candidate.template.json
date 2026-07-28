@@ -1,0 +1,8 @@
+{
+  "additive_only": true,
+  "broad_staging_unignore_allowed": false,
+  "duplicate_artifact_or_test_row_allowed": false,
+  "existing_entry_removal_or_replacement_allowed": false,
+  "live_required_manifest_mutation_allowed": false,
+  "mode": "future_G1_registry_owned_proposal_only"
+}

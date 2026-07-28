@@ -1,0 +1,716 @@
+{
+  "approval_state": "unapproved",
+  "authority_effect": false,
+  "batch": {
+    "approval_state": "unapproved",
+    "authority_class": "curated",
+    "batch_id": "fsb:c98f9437c650832704e2f441",
+    "member_count": 24,
+    "ordered_members": [
+      "Base.DriedLentils",
+      "Base.DriedSplitPeas",
+      "Base.DriedWhiteBeans",
+      "Base.Edamame",
+      "Base.Egg",
+      "Base.EggOmelette",
+      "Base.EggScrambled",
+      "Base.Eggplant",
+      "Base.FishFried",
+      "Base.FriedOnionRings",
+      "Base.Fries",
+      "Base.GingerPickled",
+      "Base.GingerRoot",
+      "Base.Ginseng",
+      "Base.GrahamCrackers",
+      "Base.GranolaBar",
+      "Base.GrapeLeaves",
+      "Base.Grapefruit",
+      "Base.Grapes",
+      "Base.Grasshopper",
+      "Base.Gravy",
+      "Base.Gum",
+      "Base.GummyBears",
+      "Base.GummyWorms"
+    ],
+    "ordered_proposition_ids": [
+      "curation-pending:Base.DriedLentils:consumption_form",
+      "curation-pending:Base.DriedLentils:meal_role",
+      "curation-pending:Base.DriedSplitPeas:consumption_form",
+      "curation-pending:Base.DriedSplitPeas:meal_role",
+      "curation-pending:Base.DriedWhiteBeans:consumption_form",
+      "curation-pending:Base.DriedWhiteBeans:meal_role",
+      "curation-pending:Base.Edamame:consumption_form",
+      "curation-pending:Base.Edamame:meal_role",
+      "curation-pending:Base.Egg:consumption_form",
+      "curation-pending:Base.Egg:meal_role",
+      "curation-pending:Base.EggOmelette:consumption_form",
+      "curation-pending:Base.EggOmelette:meal_role",
+      "curation-pending:Base.EggScrambled:consumption_form",
+      "curation-pending:Base.EggScrambled:meal_role",
+      "curation-pending:Base.Eggplant:consumption_form",
+      "curation-pending:Base.Eggplant:meal_role",
+      "curation-pending:Base.FishFried:consumption_form",
+      "curation-pending:Base.FishFried:meal_role",
+      "curation-pending:Base.FriedOnionRings:consumption_form",
+      "curation-pending:Base.FriedOnionRings:meal_role",
+      "curation-pending:Base.Fries:consumption_form",
+      "curation-pending:Base.Fries:meal_role",
+      "curation-pending:Base.GingerPickled:consumption_form",
+      "curation-pending:Base.GingerPickled:meal_role",
+      "curation-pending:Base.GingerRoot:consumption_form",
+      "curation-pending:Base.GingerRoot:meal_role",
+      "curation-pending:Base.Ginseng:consumption_form",
+      "curation-pending:Base.Ginseng:meal_role",
+      "curation-pending:Base.GrahamCrackers:consumption_form",
+      "curation-pending:Base.GrahamCrackers:meal_role",
+      "curation-pending:Base.GranolaBar:consumption_form",
+      "curation-pending:Base.GranolaBar:meal_role",
+      "curation-pending:Base.GrapeLeaves:consumption_form",
+      "curation-pending:Base.GrapeLeaves:meal_role",
+      "curation-pending:Base.Grapefruit:consumption_form",
+      "curation-pending:Base.Grapefruit:meal_role",
+      "curation-pending:Base.Grapes:consumption_form",
+      "curation-pending:Base.Grapes:meal_role",
+      "curation-pending:Base.Grasshopper:consumption_form",
+      "curation-pending:Base.Grasshopper:meal_role",
+      "curation-pending:Base.Gravy:consumption_form",
+      "curation-pending:Base.Gravy:meal_role",
+      "curation-pending:Base.Gum:consumption_form",
+      "curation-pending:Base.Gum:meal_role",
+      "curation-pending:Base.GummyBears:consumption_form",
+      "curation-pending:Base.GummyBears:meal_role",
+      "curation-pending:Base.GummyWorms:consumption_form",
+      "curation-pending:Base.GummyWorms:meal_role"
+    ],
+    "proposition_count": 48,
+    "queue_sha256": "69ac07202f47cc0163c4afabbdfb83604e7de10089927d79f8ffe7626d7ffbd9",
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+  },
+  "members": [
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.DriedLentils\u0000consumption_form\u0000curation-pending:Base.DriedLentils:consumption_form",
+      "item_identity": "Base.DriedLentils",
+      "proposition_id": "curation-pending:Base.DriedLentils:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.DriedLentils\u0000meal_role\u0000curation-pending:Base.DriedLentils:meal_role",
+      "item_identity": "Base.DriedLentils",
+      "proposition_id": "curation-pending:Base.DriedLentils:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.DriedSplitPeas\u0000consumption_form\u0000curation-pending:Base.DriedSplitPeas:consumption_form",
+      "item_identity": "Base.DriedSplitPeas",
+      "proposition_id": "curation-pending:Base.DriedSplitPeas:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.DriedSplitPeas\u0000meal_role\u0000curation-pending:Base.DriedSplitPeas:meal_role",
+      "item_identity": "Base.DriedSplitPeas",
+      "proposition_id": "curation-pending:Base.DriedSplitPeas:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.DriedWhiteBeans\u0000consumption_form\u0000curation-pending:Base.DriedWhiteBeans:consumption_form",
+      "item_identity": "Base.DriedWhiteBeans",
+      "proposition_id": "curation-pending:Base.DriedWhiteBeans:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.DriedWhiteBeans\u0000meal_role\u0000curation-pending:Base.DriedWhiteBeans:meal_role",
+      "item_identity": "Base.DriedWhiteBeans",
+      "proposition_id": "curation-pending:Base.DriedWhiteBeans:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Edamame\u0000consumption_form\u0000curation-pending:Base.Edamame:consumption_form",
+      "item_identity": "Base.Edamame",
+      "proposition_id": "curation-pending:Base.Edamame:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Edamame\u0000meal_role\u0000curation-pending:Base.Edamame:meal_role",
+      "item_identity": "Base.Edamame",
+      "proposition_id": "curation-pending:Base.Edamame:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Egg\u0000consumption_form\u0000curation-pending:Base.Egg:consumption_form",
+      "item_identity": "Base.Egg",
+      "proposition_id": "curation-pending:Base.Egg:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Egg\u0000meal_role\u0000curation-pending:Base.Egg:meal_role",
+      "item_identity": "Base.Egg",
+      "proposition_id": "curation-pending:Base.Egg:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.EggOmelette\u0000consumption_form\u0000curation-pending:Base.EggOmelette:consumption_form",
+      "item_identity": "Base.EggOmelette",
+      "proposition_id": "curation-pending:Base.EggOmelette:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.EggOmelette\u0000meal_role\u0000curation-pending:Base.EggOmelette:meal_role",
+      "item_identity": "Base.EggOmelette",
+      "proposition_id": "curation-pending:Base.EggOmelette:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.EggScrambled\u0000consumption_form\u0000curation-pending:Base.EggScrambled:consumption_form",
+      "item_identity": "Base.EggScrambled",
+      "proposition_id": "curation-pending:Base.EggScrambled:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.EggScrambled\u0000meal_role\u0000curation-pending:Base.EggScrambled:meal_role",
+      "item_identity": "Base.EggScrambled",
+      "proposition_id": "curation-pending:Base.EggScrambled:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Eggplant\u0000consumption_form\u0000curation-pending:Base.Eggplant:consumption_form",
+      "item_identity": "Base.Eggplant",
+      "proposition_id": "curation-pending:Base.Eggplant:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Eggplant\u0000meal_role\u0000curation-pending:Base.Eggplant:meal_role",
+      "item_identity": "Base.Eggplant",
+      "proposition_id": "curation-pending:Base.Eggplant:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.FishFried\u0000consumption_form\u0000curation-pending:Base.FishFried:consumption_form",
+      "item_identity": "Base.FishFried",
+      "proposition_id": "curation-pending:Base.FishFried:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.FishFried\u0000meal_role\u0000curation-pending:Base.FishFried:meal_role",
+      "item_identity": "Base.FishFried",
+      "proposition_id": "curation-pending:Base.FishFried:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.FriedOnionRings\u0000consumption_form\u0000curation-pending:Base.FriedOnionRings:consumption_form",
+      "item_identity": "Base.FriedOnionRings",
+      "proposition_id": "curation-pending:Base.FriedOnionRings:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.FriedOnionRings\u0000meal_role\u0000curation-pending:Base.FriedOnionRings:meal_role",
+      "item_identity": "Base.FriedOnionRings",
+      "proposition_id": "curation-pending:Base.FriedOnionRings:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Fries\u0000consumption_form\u0000curation-pending:Base.Fries:consumption_form",
+      "item_identity": "Base.Fries",
+      "proposition_id": "curation-pending:Base.Fries:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Fries\u0000meal_role\u0000curation-pending:Base.Fries:meal_role",
+      "item_identity": "Base.Fries",
+      "proposition_id": "curation-pending:Base.Fries:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.GingerPickled\u0000consumption_form\u0000curation-pending:Base.GingerPickled:consumption_form",
+      "item_identity": "Base.GingerPickled",
+      "proposition_id": "curation-pending:Base.GingerPickled:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.GingerPickled\u0000meal_role\u0000curation-pending:Base.GingerPickled:meal_role",
+      "item_identity": "Base.GingerPickled",
+      "proposition_id": "curation-pending:Base.GingerPickled:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.GingerRoot\u0000consumption_form\u0000curation-pending:Base.GingerRoot:consumption_form",
+      "item_identity": "Base.GingerRoot",
+      "proposition_id": "curation-pending:Base.GingerRoot:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.GingerRoot\u0000meal_role\u0000curation-pending:Base.GingerRoot:meal_role",
+      "item_identity": "Base.GingerRoot",
+      "proposition_id": "curation-pending:Base.GingerRoot:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Ginseng\u0000consumption_form\u0000curation-pending:Base.Ginseng:consumption_form",
+      "item_identity": "Base.Ginseng",
+      "proposition_id": "curation-pending:Base.Ginseng:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Ginseng\u0000meal_role\u0000curation-pending:Base.Ginseng:meal_role",
+      "item_identity": "Base.Ginseng",
+      "proposition_id": "curation-pending:Base.Ginseng:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.GrahamCrackers\u0000consumption_form\u0000curation-pending:Base.GrahamCrackers:consumption_form",
+      "item_identity": "Base.GrahamCrackers",
+      "proposition_id": "curation-pending:Base.GrahamCrackers:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.GrahamCrackers\u0000meal_role\u0000curation-pending:Base.GrahamCrackers:meal_role",
+      "item_identity": "Base.GrahamCrackers",
+      "proposition_id": "curation-pending:Base.GrahamCrackers:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.GranolaBar\u0000consumption_form\u0000curation-pending:Base.GranolaBar:consumption_form",
+      "item_identity": "Base.GranolaBar",
+      "proposition_id": "curation-pending:Base.GranolaBar:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.GranolaBar\u0000meal_role\u0000curation-pending:Base.GranolaBar:meal_role",
+      "item_identity": "Base.GranolaBar",
+      "proposition_id": "curation-pending:Base.GranolaBar:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.GrapeLeaves\u0000consumption_form\u0000curation-pending:Base.GrapeLeaves:consumption_form",
+      "item_identity": "Base.GrapeLeaves",
+      "proposition_id": "curation-pending:Base.GrapeLeaves:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.GrapeLeaves\u0000meal_role\u0000curation-pending:Base.GrapeLeaves:meal_role",
+      "item_identity": "Base.GrapeLeaves",
+      "proposition_id": "curation-pending:Base.GrapeLeaves:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Grapefruit\u0000consumption_form\u0000curation-pending:Base.Grapefruit:consumption_form",
+      "item_identity": "Base.Grapefruit",
+      "proposition_id": "curation-pending:Base.Grapefruit:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Grapefruit\u0000meal_role\u0000curation-pending:Base.Grapefruit:meal_role",
+      "item_identity": "Base.Grapefruit",
+      "proposition_id": "curation-pending:Base.Grapefruit:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Grapes\u0000consumption_form\u0000curation-pending:Base.Grapes:consumption_form",
+      "item_identity": "Base.Grapes",
+      "proposition_id": "curation-pending:Base.Grapes:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Grapes\u0000meal_role\u0000curation-pending:Base.Grapes:meal_role",
+      "item_identity": "Base.Grapes",
+      "proposition_id": "curation-pending:Base.Grapes:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Grasshopper\u0000consumption_form\u0000curation-pending:Base.Grasshopper:consumption_form",
+      "item_identity": "Base.Grasshopper",
+      "proposition_id": "curation-pending:Base.Grasshopper:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Grasshopper\u0000meal_role\u0000curation-pending:Base.Grasshopper:meal_role",
+      "item_identity": "Base.Grasshopper",
+      "proposition_id": "curation-pending:Base.Grasshopper:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Gravy\u0000consumption_form\u0000curation-pending:Base.Gravy:consumption_form",
+      "item_identity": "Base.Gravy",
+      "proposition_id": "curation-pending:Base.Gravy:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Gravy\u0000meal_role\u0000curation-pending:Base.Gravy:meal_role",
+      "item_identity": "Base.Gravy",
+      "proposition_id": "curation-pending:Base.Gravy:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.Gum\u0000consumption_form\u0000curation-pending:Base.Gum:consumption_form",
+      "item_identity": "Base.Gum",
+      "proposition_id": "curation-pending:Base.Gum:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.Gum\u0000meal_role\u0000curation-pending:Base.Gum:meal_role",
+      "item_identity": "Base.Gum",
+      "proposition_id": "curation-pending:Base.Gum:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.GummyBears\u0000consumption_form\u0000curation-pending:Base.GummyBears:consumption_form",
+      "item_identity": "Base.GummyBears",
+      "proposition_id": "curation-pending:Base.GummyBears:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.GummyBears\u0000meal_role\u0000curation-pending:Base.GummyBears:meal_role",
+      "item_identity": "Base.GummyBears",
+      "proposition_id": "curation-pending:Base.GummyBears:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "Base.GummyWorms\u0000consumption_form\u0000curation-pending:Base.GummyWorms:consumption_form",
+      "item_identity": "Base.GummyWorms",
+      "proposition_id": "curation-pending:Base.GummyWorms:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "Base.GummyWorms\u0000meal_role\u0000curation-pending:Base.GummyWorms:meal_role",
+      "item_identity": "Base.GummyWorms",
+      "proposition_id": "curation-pending:Base.GummyWorms:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    }
+  ],
+  "selected_values": []
+}

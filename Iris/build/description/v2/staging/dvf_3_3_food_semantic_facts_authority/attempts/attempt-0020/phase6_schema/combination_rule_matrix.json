@@ -1,0 +1,21 @@
+{
+  "ambiguous_combination_count": 0,
+  "axis_count": 8,
+  "forbidden_value_tokens": [
+    "unknown",
+    "generic",
+    "other"
+  ],
+  "multiple_values_allowed_for": [
+    "beverage_property",
+    "consumption_form",
+    "culinary_role",
+    "ingredient_origin",
+    "meal_role",
+    "preparation_requirement",
+    "preparation_state",
+    "preservation_form"
+  ],
+  "orthogonal_axes_may_coexist": true,
+  "status": "PASS"
+}

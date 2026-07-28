@@ -1,0 +1,7 @@
+{
+  "single_writer_authority": true,
+  "status": "PASS",
+  "writer": "Iris/build/description/v2/tools/build/dvf_3_3_food_semantic/candidate_writer.py",
+  "writer_current_sink_count": 0,
+  "writer_unapproved_input_count": 0
+}

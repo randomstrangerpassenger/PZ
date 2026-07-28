@@ -1,0 +1,238 @@
+{
+  "amendment_governance": {
+    "existing_value_semantics_mutation_allowed": false,
+    "new_axis_or_value_requires_new_schema_version": true,
+    "owner_semantic_approval_required": true
+  },
+  "axes": [
+    {
+      "axis": "consumption_form",
+      "cardinality": "one_or_more",
+      "values": [
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "solid_food"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "beverage"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "ingredient_component"
+        }
+      ]
+    },
+    {
+      "axis": "preparation_requirement",
+      "cardinality": "zero_or_more",
+      "values": [
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "cooking_declared"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "ready_without_preparation"
+        }
+      ]
+    },
+    {
+      "axis": "culinary_role",
+      "cardinality": "zero_or_more",
+      "values": [
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "spice"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "herb"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "baking_fat"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "minor_ingredient"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "sweetener"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "herbal_infusion_component"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "coffee_preparation_component"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "meal_component"
+        }
+      ]
+    },
+    {
+      "axis": "preparation_state",
+      "cardinality": "zero_or_more",
+      "values": [
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "raw"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "already_cooked"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "prepared_dish"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "intermediate"
+        }
+      ]
+    },
+    {
+      "axis": "preservation_form",
+      "cardinality": "zero_or_more",
+      "values": [
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "dried"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "freezing_supported"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "frozen"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "canned_opened"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "preserved"
+        }
+      ]
+    },
+    {
+      "axis": "ingredient_origin",
+      "cardinality": "zero_or_more",
+      "values": [
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "plant"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "animal"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "fungal"
+        }
+      ]
+    },
+    {
+      "axis": "meal_role",
+      "cardinality": "one_or_more",
+      "values": [
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "meal"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "snack"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "component"
+        },
+        {
+          "automatic_eligible": false,
+          "curated_allowed": true,
+          "value": "ingredient"
+        }
+      ]
+    },
+    {
+      "axis": "beverage_property",
+      "cardinality": "zero_or_more",
+      "values": [
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "alcoholic"
+        },
+        {
+          "automatic_eligible": true,
+          "curated_allowed": true,
+          "value": "low_alcohol"
+        }
+      ]
+    }
+  ],
+  "combination_rules": [
+    {
+      "allowed": true,
+      "rule": "orthogonal_axes_may_coexist"
+    },
+    {
+      "allowed": true,
+      "rule": "multiple_culinary_roles_may_coexist"
+    },
+    {
+      "allowed": true,
+      "rule": "preparation_requirement_and_state_may_coexist"
+    },
+    {
+      "allowed": false,
+      "rule": "unknown_generic_other_values"
+    },
+    {
+      "allowed": false,
+      "rule": "schema_token_from_threshold"
+    }
+  ],
+  "free_text_values_allowed": false,
+  "representation": "structured_assertions",
+  "schema_version": "food-semantic-schema-v1",
+  "status": "implementation_proposal_pending_owner_semantic_approval"
+}

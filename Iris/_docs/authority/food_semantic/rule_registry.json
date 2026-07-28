@@ -1,0 +1,233 @@
+{
+  "predecessor_equivalence_claimed": false,
+  "r1_r2_authority_execution_allowed": false,
+  "registry_version": "1",
+  "route": "R3",
+  "route_status": "sole_executable_official_successor_proposal",
+  "rules": [
+    {
+      "dependencies": [],
+      "execution_order": 10,
+      "operand": "Food",
+      "operation": "exact_equality",
+      "output_signal": "food.scope.declared",
+      "registry_version": "1",
+      "rule_id": "R3.food.scope.type_food",
+      "rule_version": "1",
+      "semantic_fact_eligible": false,
+      "source_family": "item_script",
+      "source_field": "Type"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 20,
+      "operand": true,
+      "operation": "exact_boolean",
+      "output_signal": "food.preparation.cooking_declared",
+      "registry_version": "1",
+      "rule_id": "R3.food.preparation.cookable",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "IsCookable"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 30,
+      "operand": true,
+      "operation": "exact_boolean",
+      "output_signal": "food.beverage.alcoholic",
+      "registry_version": "1",
+      "rule_id": "R3.food.beverage.alcoholic",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Alcoholic"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 40,
+      "operand": true,
+      "operation": "truth_literal",
+      "output_signal": "food.culinary_role.spice",
+      "registry_version": "1",
+      "rule_id": "R3.food.role.spice",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Spice"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 50,
+      "operand": "Herb",
+      "operation": "exact_equality",
+      "output_signal": "food.culinary_role.herb",
+      "registry_version": "1",
+      "rule_id": "R3.food.role.herb",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "FoodType"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 60,
+      "operand": "DriedFood",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.preservation.dried",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.driedfood",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 61,
+      "operand": "GoodFrozen",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.preservation.freezing_supported",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.goodfrozen",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 62,
+      "operand": "AlreadyCooked",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.preparation.already_cooked",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.alreadycooked",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 63,
+      "operand": "BakingFat",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.culinary_role.baking_fat",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.bakingfat",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 64,
+      "operand": "MinorIngredient",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.culinary_role.minor_ingredient",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.minoringredient",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 65,
+      "operand": "Sugar",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.culinary_role.sweetener",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.sugar",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 66,
+      "operand": "HerbalTea",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.culinary_role.herbal_infusion_component",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.herbaltea",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 67,
+      "operand": "CoffeeMaker",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.culinary_role.coffee_preparation_component",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.coffeemaker",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 68,
+      "operand": "AlcoholicBeverage",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.beverage.alcoholic",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.alcoholicbeverage",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "execution_order": 69,
+      "operand": "LowAlcohol",
+      "operation": "semicolon_token_membership",
+      "output_signal": "food.beverage.low_alcohol",
+      "registry_version": "1",
+      "rule_id": "R3.food.tag.lowalcohol",
+      "rule_version": "1",
+      "semantic_fact_eligible": true,
+      "source_family": "item_script",
+      "source_field": "Tags"
+    }
+  ],
+  "schema_version": "food-semantic-r3-rule-registry-v1"
+}

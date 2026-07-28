@@ -1,0 +1,15 @@
+{
+  "business_feasibility_claimed": false,
+  "proposition_license": {
+    "byte_count": 13570,
+    "path": "Iris/_docs/authority/food_semantic/proposition_licensing_contract.json",
+    "sha256": "60f68c3e06fd148fce55072e1b7420165e10db16fc4e4b132b3fba7ae83e6edd"
+  },
+  "review_state": "implementation_structural_review_pass",
+  "schema": {
+    "byte_count": 5703,
+    "path": "Iris/_docs/authority/food_semantic/food_semantic_schema.json",
+    "sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+  },
+  "semantic_owner_approval": "not_consumed"
+}

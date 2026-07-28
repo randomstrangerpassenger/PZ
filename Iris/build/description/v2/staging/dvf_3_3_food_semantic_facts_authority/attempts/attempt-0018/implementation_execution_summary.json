@@ -1,0 +1,18 @@
+{
+  "attempt_id": "attempt-0018",
+  "authority_claim_emitted_count": 0,
+  "authority_execution_authorized": false,
+  "changes_8_through_13_implementation_complete": true,
+  "completed_phases": [
+    "phase8",
+    "phase9",
+    "phase10",
+    "phase11",
+    "phase12",
+    "phase13"
+  ],
+  "current_facts_manifest_mutation_count": 0,
+  "implementation_complete_bundle_sealed": false,
+  "schema_version": "food-semantic-implementation-execution-summary-v1",
+  "status": "PASS"
+}

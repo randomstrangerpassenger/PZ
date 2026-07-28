@@ -1,0 +1,6 @@
+{
+  "implementation_result_emitted": false,
+  "requires_actual_phase2_consumer": true,
+  "requires_canonical_threshold_binding": true,
+  "requires_selected_successor_binding": true
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "food-semantic-naturalization-attempt-0014-baseline-binding-v1",
+  "status": "immutable_predecessor_evidence_digest_extract",
+  "source": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0014-remediation/phase3/repeated_skeleton_cause_analysis.json",
+    "containing_commit": "36021201ab24dd5c1cf5525d33fcd0d11577e795",
+    "git_blob_id": "34f057d8110c1a1fa0f3016811051459955705fb",
+    "sha256": "653d19ab3c48c4b432015e90ec2ca5b2eb6f308531d92c71f2fb3f1a910e0c6a",
+    "present_in_g0_v0": false,
+    "source_artifact_rewritten": false
+  },
+  "routing_correction": {
+    "path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/facts_authority_routing_correction_attempt_0014.json",
+    "containing_commit": "36021201ab24dd5c1cf5525d33fcd0d11577e795",
+    "git_blob_id": "0d6231c345698b935074a091f5cf7f36f02ffff9",
+    "sha256": "267ce42750539f35e212e74353edc59f54f1f2b3b187aa570705352697f89c46",
+    "present_in_g0_v0": false,
+    "source_artifact_rewritten": false
+  },
+  "baseline_repeated_skeleton_hit_count": 450,
+  "candidate_denominator": 2084,
+  "compiler_rule_remediable_item_count": 133,
+  "source_qg_blocked_item_count": 317,
+  "maximum_repetition_count": 104,
+  "naturalization_target_member_count": 317,
+  "naturalization_target_member_set_sha256": "4f64dc313194016da1c52dc5ad372b281998df36a865b6361373c31a32955739",
+  "member_set_canonicalization": "UTF-8 Python-ordinal-sorted item_id<LF>",
+  "blocking_semantic_condition_digest": "3707352bc4e8363e712ffc383a0ecdb2d5f1d8cfd74ff54a15531485f934738e",
+  "authority_effect": "predecessor_identity_binding_only",
+  "current_fact_semantic_authority_granted": false
+}

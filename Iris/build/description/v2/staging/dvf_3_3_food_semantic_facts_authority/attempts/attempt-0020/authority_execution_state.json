@@ -1,0 +1,27 @@
+{
+  "schema_version": "food-semantic-authority-execution-state-v1",
+  "attempt_id": "attempt-0020",
+  "implementation_complete_bundle_sealed": true,
+  "implementation_complete_bundle_sha256": "550bce8ab5812b0f4563c298944064f9aa5d1980dcb95d8a545efed27dec7c4a",
+  "focused_food_validation": {
+    "status": "PASS",
+    "test_count": 15,
+    "failure_count": 0,
+    "error_count": 0
+  },
+  "D16_validation_observed_but_authority_credit": 0,
+  "post_implementation_external_review": {
+    "status": "FAIL",
+    "reviewer_identity": "Codex Reviewer",
+    "review_sha256": "347599f92dd9d650348dbc5112a593ade2451e5fca6e1de6f7685f66f9a99579",
+    "critical_finding_count": 0,
+    "important_finding_count": 3,
+    "advisory_finding_count": 0,
+    "terminal_independent_gate_credit": 0
+  },
+  "food_semantic_facts_authority_authority_execution_state": "rejected_postimplementation_external_review",
+  "correction_attempt_required": true,
+  "sealed_non_current_successor_emitted": false,
+  "current_facts_manifest_mutation_count": 0,
+  "official_naturalization_retry_allowed": false
+}

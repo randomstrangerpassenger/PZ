@@ -1,0 +1,43 @@
+{
+  "curated_negative_rows": [
+    {
+      "approval_record": null,
+      "fact_axis": "meal_role",
+      "fact_value": "meal",
+      "item_identity": "Fixture.MissingApproval",
+      "rationale": "fixture",
+      "semantic_approver": null
+    },
+    {
+      "approval_record": "fixture",
+      "fact_axis": "meal_role",
+      "fact_value": "generic",
+      "item_identity": "Fixture.OutOfSchema",
+      "rationale": "fixture",
+      "semantic_approver": "fixture"
+    }
+  ],
+  "forbidden_inference_rows": [
+    {
+      "normalization_operations": [
+        "display_text_inference"
+      ],
+      "source_field": "DisplayName"
+    },
+    {
+      "normalization_operations": [
+        "hash_partition"
+      ],
+      "source_field": "Type"
+    }
+  ],
+  "writer_automatic_row": {
+    "approval_status": "implementation_proposal_unapproved",
+    "authority_class": "automatic",
+    "fact_field": "culinary_role",
+    "fact_proposition_identity": "fsp:fixture",
+    "fact_value": "spice",
+    "item_identity": "Base.Target",
+    "signal_to_fact_mapping_id": "fsm.fixture"
+  }
+}

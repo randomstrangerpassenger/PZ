@@ -1,0 +1,306 @@
+{
+  "mappings": [
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.culinary_role.baking_fat",
+      "mapping_id": "fsm.v1.culinary_role_baking_fat.culinary_role.baking_fat",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "culinary_role",
+      "output_fact_value": "baking_fat",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.culinary_role.herb",
+      "mapping_id": "fsm.v1.culinary_role_herb.culinary_role.herb",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "culinary_role",
+      "output_fact_value": "herb",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.culinary_role.herbal_infusion_component",
+      "mapping_id": "fsm.v1.culinary_role_herbal_infusion_component.culinary_role.herbal_infusion_component",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "culinary_role",
+      "output_fact_value": "herbal_infusion_component",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.culinary_role.minor_ingredient",
+      "mapping_id": "fsm.v1.culinary_role_minor_ingredient.culinary_role.minor_ingredient",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "culinary_role",
+      "output_fact_value": "minor_ingredient",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.culinary_role.spice",
+      "mapping_id": "fsm.v1.culinary_role_spice.culinary_role.spice",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "culinary_role",
+      "output_fact_value": "spice",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.culinary_role.sweetener",
+      "mapping_id": "fsm.v1.culinary_role_sweetener.culinary_role.sweetener",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "culinary_role",
+      "output_fact_value": "sweetener",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.preparation.already_cooked",
+      "mapping_id": "fsm.v1.preparation_already_cooked.preparation_state.already_cooked",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "preparation_state",
+      "output_fact_value": "already_cooked",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.preparation.cooking_declared",
+      "mapping_id": "fsm.v1.preparation_cooking_declared.preparation_requirement.cooking_declared",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "preparation_requirement",
+      "output_fact_value": "cooking_declared",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.preservation.dried",
+      "mapping_id": "fsm.v1.preservation_dried.preservation_form.dried",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "preservation_form",
+      "output_fact_value": "dried",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    },
+    {
+      "approval_status": "implementation_proposal_unapproved",
+      "conflict_conditions": [
+        "same_item_axis_incompatible_value",
+        "schema_value_missing"
+      ],
+      "input_signal": "food.preservation.freezing_supported",
+      "mapping_id": "fsm.v1.preservation_freezing_supported.preservation_form.freezing_supported",
+      "mapping_version": "1",
+      "non_claims": [
+        "no_negative_fact_from_absence",
+        "no_layer4_promotion",
+        "no_display_text_inference"
+      ],
+      "output_fact_axis": "preservation_form",
+      "output_fact_value": "freezing_supported",
+      "preconditions": [
+        "source_lineage_complete",
+        "allowlist_identity_match"
+      ],
+      "required_source_lineage": [
+        "source_artifact_sha256",
+        "source_item_locator",
+        "source_field",
+        "source_value",
+        "normalization_operations",
+        "allowlist_identity",
+        "rule_identity"
+      ]
+    }
+  ],
+  "schema_version": "food-semantic-signal-to-fact-mappings-v1",
+  "status": "implementation_proposal_pending_owner_semantic_approval"
+}

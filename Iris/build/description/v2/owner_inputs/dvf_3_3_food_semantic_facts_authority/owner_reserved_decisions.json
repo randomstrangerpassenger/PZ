@@ -1,0 +1,31 @@
+{
+  "schema_version": "food-semantic-owner-reserved-decisions-v1",
+  "attempt_id": "attempt-0018",
+  "approver_identity": "repository_owner",
+  "approval_time": "2026-07-28T19:41:46.9873237+09:00",
+  "bound_plan_sha256": "bdd7c6b04b773e5fcdd80882bd5d2436eed24af6c4904616d7fdaa06cdd7c74d",
+  "bound_implementation_complete_bundle_sha256": "7bd485e9d2ca265a110689601ea099f221148544a502db44b0325d8a245ef1d1",
+  "decisions": [
+    {
+      "decision_id": "D16",
+      "selected_option": "authorize_exact_candidate_manifest_adapter_and_no_render_only",
+      "rationale": "The repository owner explicitly approved continuation after implementation completion. Authorization is limited to the exact attempt-0018 candidate patch manifest and does not authorize an official Naturalization retry."
+    }
+  ],
+  "pending_decision_ids": [
+    "D1",
+    "D5",
+    "D6",
+    "D7",
+    "D8",
+    "D9",
+    "D10",
+    "D11",
+    "D12",
+    "D13",
+    "D14",
+    "D15"
+  ],
+  "semantic_approval_complete": false,
+  "post_implementation_external_review_required": true
+}

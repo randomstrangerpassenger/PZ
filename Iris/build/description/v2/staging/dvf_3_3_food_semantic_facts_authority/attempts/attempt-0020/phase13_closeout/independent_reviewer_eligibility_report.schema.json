@@ -1,0 +1,8 @@
+{
+  "current_implementation_reviewer_eligible": false,
+  "options": {
+    "I1": "reviewer did not participate in requirements, plan, review, implementation, curation, or owner-decision chain",
+    "I2": "non-Claude reviewer plus the full I1 non-participation check"
+  },
+  "terminal_review_started": false
+}

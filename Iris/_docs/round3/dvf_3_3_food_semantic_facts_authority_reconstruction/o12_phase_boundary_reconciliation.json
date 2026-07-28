@@ -1,0 +1,89 @@
+{
+  "schema_version": "dvf3_3_food_semantic_o12_phase_boundary_reconciliation_v1",
+  "contract_id": "dvf3_3_food_semantic_o12_phase_boundary_reconciliation_0001",
+  "status": "owner_ratified_pending_independent_plan_review",
+  "owner_approval": {
+    "approver_identity": "repository_owner",
+    "approved_date": "2026-07-28",
+    "approval_statement": "승인",
+    "approved_direction": "defer canonical text_skeleton(text_ko) evaluation to the registry-adopted fresh Naturalization attempt"
+  },
+  "precedence": {
+    "scope": "O-12 and Facts-to-Naturalization Phase 2 synchronization only",
+    "food_plan": {
+      "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+      "git_blob_id": "f5eef414788a28d502bacbab8c51a173fe537d04",
+      "planning_sha256": "c75c1b048dabee755833a57e784839ded9c1fbb96e34e082c9cd12cbc82776f1"
+    },
+    "naturalization_plan": {
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "git_blob_id": "aad70374e8c77fd5828f95a4fb03d4385a5a58c8",
+      "planning_sha256": "1563bf063aad99f478e4a9541e845d85bb5baca3eb31a8fa4b3759435bc8b78d"
+    },
+    "original_plan_bytes_mutated": false,
+    "four_plan_stage_order_changed": false
+  },
+  "g1_binding": {
+    "receipt_path": "C:/Users/MW/.codex/visualizations/2026/07/27/019fa5fc-333b-7c03-8426-46d1780ab596/phase0-successor/Iris/validation/clean_checkout/authority/g1_release_receipt_0001.json",
+    "receipt_sha256": "10755804a1d70ed0014ed7d32ee2c4dbe452684b30afad1fddf7cb2ff210f2bf",
+    "receipt_id": "g1-clean-validation-release-0001",
+    "v0_commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+    "g1_reexecution_required": false,
+    "reason": "the reconciliation changes G2 acceptance ownership without mutating the G1-validated repository or the original four-plan set"
+  },
+  "failed_attempt_binding": {
+    "attempt_id": "attempt-0021",
+    "external_review_sha256": "52dc1a43ad8ccf2e620bd5ca9cb0273c99a9015d03b915792fd09e0119b454c1",
+    "verdict": "FAIL",
+    "critical_count": 0,
+    "important_count": 1,
+    "append_only": true,
+    "same_attempt_correction_allowed": false
+  },
+  "facts_phase2_contract": {
+    "consumer": "Naturalization actual Phase 2 source proposition inventory path",
+    "mode": "explicit_non_current_no_render",
+    "required_identity_count": 4,
+    "required_checks": [
+      "successor facts/manifest/schema/license exact identity consumption",
+      "exact 317 member coverage",
+      "licensed proposition inventory",
+      "meaningful semantic partition",
+      "compiler invented proposition count zero",
+      "ID/hash/random/order/synonym-only partition count zero",
+      "current facts read count zero",
+      "threshold policy and detector immutable identity binding"
+    ],
+    "canonical_text_skeleton_evaluation_state": "deferred_to_registry_adopted_fresh_naturalization_attempt",
+    "canonical_text_skeleton_evaluation_count": 0,
+    "semantic_profile_as_text_skeleton_substitution_count": 0,
+    "maximum_same_skeleton_group_claim_emitted_count": 0,
+    "candidate_generation_allowed": false,
+    "phase4_to_8_execution_allowed": false,
+    "publish_retry_allowed": false
+  },
+  "artifact_replacement": {
+    "retired_authority_artifact": "phase12_phase2_handoff/skeleton_group_report.json",
+    "replacement_artifact": "phase12_phase2_handoff/canonical_text_skeleton_deferment_report.json",
+    "prior_approximate_report_authority_credit": 0
+  },
+  "o12_disposition": {
+    "in_round": "deferred_without_gate_credit",
+    "downstream_owner": "registry-adopted fresh Naturalization attempt",
+    "downstream_required_input": "actual candidate text_ko",
+    "acceptance_predicate": "maximum_same_skeleton_group <= bound_threshold_value",
+    "canonical_detector_required": true,
+    "canonical_threshold_policy_required": true,
+    "detector_or_threshold_relaxation_allowed": false,
+    "waiver_allowed": false,
+    "facts_round_sealed_successor_handoff_complete_claim_allowed": true,
+    "facts_round_canonical_same_skeleton_acceptance_claim_allowed": false
+  },
+  "implementation_reentry": {
+    "independent_plan_review_required": true,
+    "required_reviewer": "Codex Reviewer",
+    "new_attempt_required_after_review_pass": true,
+    "new_attempt_entry": "Change 0",
+    "tests_allowed_during_planning_reconciliation": false
+  }
+}

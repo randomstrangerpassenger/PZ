@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -50,13 +51,13 @@ PLAN_PATH = (
     "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_"
     "implementation_plan.md"
 )
-CORRECTION_REVIEW_NAME = "validation_contract_correction_review_v2.json"
+CORRECTION_REVIEW_NAME = "validation_contract_correction_review_v3.json"
 RATIFICATION_NAME = (
     "validation_contract_reconciliation_owner_ratification.json"
 )
 FOCUSED_RECEIPT_NAME = "vc1_focused_validation_receipt.json"
 FOCUSED_WORK_ROOT = Path(
-    "C:/Users/Public/Documents/ESTsoft/CreatorTemp/fsvc-focused"
+    "C:/Users/MW/Downloads/coding/PZ/.fsv"
 )
 FOCUSED_COMMAND = (
     "uv run python -B -m unittest discover "
@@ -227,6 +228,16 @@ def progress(event: str) -> None:
         file=sys.stderr,
         flush=True,
     )
+
+
+def remove_disposable_tree(path: Path) -> None:
+    resolved = path.resolve()
+    target = (
+        Path("\\\\?\\" + str(resolved))
+        if os.name == "nt"
+        else resolved
+    )
+    shutil.rmtree(target)
 
 
 def ensure_attempt_root(repo: Path, attempt_root: Path) -> Path:
@@ -665,7 +676,7 @@ def run_scoped_validation_commands(
         checkout_after = repository_status(checkout)
     finally:
         if checkout.exists():
-            shutil.rmtree(checkout)
+            remove_disposable_tree(checkout)
         cleanup_status = (
             "PASS"
             if work_root.is_dir() and not any(work_root.iterdir())

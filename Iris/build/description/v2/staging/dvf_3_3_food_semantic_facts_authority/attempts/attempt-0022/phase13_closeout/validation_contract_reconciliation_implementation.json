@@ -47,8 +47,8 @@
   },
   "attempt_local_correction_tool": {
     "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/vc1_validation_contract.py",
-    "sha256": "f358aff8e4375cc55022e223f93b0650b8b9bf959e9df3f3c3bb634de353c15f",
-    "git_blob_id": "29f57cd47ab21b81535c99f3eee7b6f199202be2",
+    "sha256": "2241d5c7da131d0f4383b28f358c98f8cb36a2473e9fa3accb010becfd9d86b0",
+    "git_blob_id": "862416a3f2cecdaf9acaa278d0df0f221f796653",
     "original_closeout_tool_mutated": false,
     "original_cli_mutated": false,
     "write_mode": "write_once",
@@ -63,12 +63,14 @@
     "caller_supplied_exit_code_count_allowed": 0,
     "external_full_gate_run_count_required": 0,
     "full_repository_gate_out_of_scope": true,
+    "external_disposable_work_root": "C:/Users/MW/Downloads/coding/PZ/.fsv",
+    "windows_long_path_cleanup_supported": true,
     "repository_only_revalidation_supported": true
   },
   "attempt_local_closeout_overlay": {
     "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/vc1_prepare_closeout.py",
-    "sha256": "f28401336fdeb1d51e84b57188a75318b268538a426a080125e5d2f0e445ca95",
-    "git_blob_id": "10423d72b4285fca8ed1369826845470517ee276",
+    "sha256": "b715a2931bae63e25fe9cc1faf6243577291a8786a46af17182534287855a435",
+    "git_blob_id": "0126d3894a63379b94ab4f3469055618ba8ba81f",
     "original_closeout_tool_mutated": false,
     "direct_current_plan_manifest_row_required": true,
     "terminal_review_request_current_plan_identity_required": true,
@@ -91,7 +93,20 @@
     "previous_PASS_review_sha256": "f776d3124f851b0e91ad513ad0a7aadfdcde245773625f4170d17dcbc5cd597d",
     "previous_PASS_review_git_blob_id": "554818725992c1c1cc237d15af153db76d347440",
     "previous_PASS_review_final_validation_credit": 0,
-    "fresh_review_name": "validation_contract_correction_review_v2.json"
+    "fresh_review_name_at_that_stage": "validation_contract_correction_review_v2.json"
+  },
+  "cleanup_block_and_correction": {
+    "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/scoped_validation_cleanup_block.json",
+    "sha256": "67836832ee66f71ebd2e80fe85e58979a3fbd3a397531196febd23a0859eb6b2",
+    "git_blob_id": "277bafc6794ace1d16c76cc8a85c6b673ca48494",
+    "test_command_count_reached_process_completion": 3,
+    "PASS_claim_count": 0,
+    "correction": "short_external_root_plus_explicit_Windows_long_path_cleanup",
+    "previous_v2_PASS_review_path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/validation_contract_correction_review_v2.json",
+    "previous_v2_PASS_review_sha256": "aa33fb6b71f5bc35e8d6a2c6e9bbf32779e4563ca6541322abf11b62b02b336f",
+    "previous_v2_PASS_review_git_blob_id": "852caa383610bfa28d2e712c4b4d21ca18e1c58b",
+    "previous_v2_PASS_review_final_validation_credit": 0,
+    "fresh_review_name": "validation_contract_correction_review_v3.json"
   },
   "preserved_seals": {
     "implementation_complete_bundle": {
@@ -119,7 +134,7 @@
   },
   "review_requirements": {
     "fresh_Codex_Reviewer_correction_review_required": true,
-    "canonical_fresh_review_name": "validation_contract_correction_review_v2.json",
+    "canonical_fresh_review_name": "validation_contract_correction_review_v3.json",
     "reviewed_commit_and_tree_must_be_exact": true,
     "reviewed_bindings_required": [
       "plan",

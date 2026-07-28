@@ -1,0 +1,185 @@
+{
+  "appendix_required_authority_outcome_count": 12,
+  "appendix_required_authority_outcome_duplicate_id_count": 0,
+  "appendix_required_authority_outcome_traceability_count": 12,
+  "appendix_required_authority_outcome_unmapped_count": 0,
+  "historical_design_source_role": "non_normative_provenance_only",
+  "normative_authority_transition": "owner_directed_embedded_requirements_snapshot",
+  "owner_ratification": {
+    "approval_time": "2026-07-27T07:53:49.4755918+09:00",
+    "approver_identity": "repository_owner",
+    "ratified_requirements_snapshot_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+    "semantic_or_adoption_decision_consumed": false,
+    "snapshot_hash_match": true,
+    "status": "ratified_owner_directive"
+  },
+  "plan": {
+    "byte_count": 169787,
+    "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+    "sha256": "bdd7c6b04b773e5fcdd80882bd5d2436eed24af6c4904616d7fdaa06cdd7c74d"
+  },
+  "plan_git_blob_id": "f5eef414788a28d502bacbab8c51a173fe537d04",
+  "required_authority_outcomes": [
+    {
+      "evidence_paths": [
+        "phase2_rule_authority/predecessor_rule_disposition.json"
+      ],
+      "outcome_id": "O-01",
+      "planned_change": "Changes 0,2",
+      "required_exit": "approved_rule_route=R3",
+      "snapshot_line_numbers": [
+        18,
+        19,
+        20
+      ],
+      "snapshot_lines_sha256": "748d2dd75f2fdccf0a3fa0f24a8e3ce43e261027f892770711442d32c2ee1d7f"
+    },
+    {
+      "evidence_paths": [
+        "phase3_allowlist/allowlist_identity_binding_report.json"
+      ],
+      "outcome_id": "O-02",
+      "planned_change": "Changes 1,3",
+      "required_exit": "document_machine_identity_match=true",
+      "snapshot_line_numbers": [
+        21,
+        22
+      ],
+      "snapshot_lines_sha256": "5f853305008b3ee78af22c60ec79b8d1f9f3ba2814337f489e1da3d6e4dd0182"
+    },
+    {
+      "evidence_paths": [
+        "phase3_allowlist/allowed_source_field_registry.json",
+        "phase3_allowlist/allowed_operation_registry.json"
+      ],
+      "outcome_id": "O-03",
+      "planned_change": "Change 3",
+      "required_exit": "allowed_field_operation_registries_bound",
+      "snapshot_line_numbers": [
+        23
+      ],
+      "snapshot_lines_sha256": "299be3ab0a6cfaea10a6f72f1d25f97f76d62fd37e7693335e9f15b807a82f4c"
+    },
+    {
+      "evidence_paths": [
+        "phase4_lineage/lineage_completeness_report.json"
+      ],
+      "outcome_id": "O-04",
+      "planned_change": "Changes 4,7,10",
+      "required_exit": "fact_proposition_lineage_coverage=100%",
+      "snapshot_line_numbers": [
+        24
+      ],
+      "snapshot_lines_sha256": "31a5f676ee7e3bb8248af9329a97b0a725a42c2df85dcd2bc2324fe2f396d1a9"
+    },
+    {
+      "evidence_paths": [
+        "phase8_curation/curation_completion_report.json"
+      ],
+      "outcome_id": "O-05",
+      "planned_change": "Change 8",
+      "required_exit": "curated_approval_missing_count=0",
+      "snapshot_line_numbers": [
+        25
+      ],
+      "snapshot_lines_sha256": "48332dca4a9e715a0ddab818eb70674f30f63ddfdbdeba25a47c703bde73b8a5"
+    },
+    {
+      "evidence_paths": [
+        "phase9_coverage/coverage_reconciliation_report.json"
+      ],
+      "outcome_id": "O-06",
+      "planned_change": "Changes 1,9",
+      "required_exit": "target_semantic_disposition_count=317",
+      "snapshot_line_numbers": [
+        26
+      ],
+      "snapshot_lines_sha256": "2a4a302c204ee75764d78d7afef9ac5e1383a6c0c9ef0c1ee05909ea1c24ec7c"
+    },
+    {
+      "evidence_paths": [
+        "phase9_coverage/unsupported_fact_zero_report.json",
+        "phase9_coverage/arbitrary_inference_zero_report.json",
+        "phase9_coverage/layer4_non_promotion_report.json"
+      ],
+      "outcome_id": "O-07",
+      "planned_change": "Changes 7,8,9",
+      "required_exit": "unsupported_and_arbitrary_inference_count=0",
+      "snapshot_line_numbers": [
+        27
+      ],
+      "snapshot_lines_sha256": "4a36238f5e5005297a40b9d0d1bfa811e0d6dcda67ba45f3ddd0ef4c0bd8657a"
+    },
+    {
+      "evidence_paths": [
+        "phase10_candidate/candidate_validation_report.json"
+      ],
+      "outcome_id": "O-08",
+      "planned_change": "Changes 1,10",
+      "required_exit": "non_target_row_byte_mismatch_count=0",
+      "snapshot_line_numbers": [
+        28
+      ],
+      "snapshot_lines_sha256": "ed7b62b4c7b59e6d70516aa893ab0dd4c9d045a27c688771340d65ef83283666"
+    },
+    {
+      "evidence_paths": [
+        "phase11_successor/candidate_to_successor_identity_manifest.json"
+      ],
+      "outcome_id": "O-09",
+      "planned_change": "Changes 10,11",
+      "required_exit": "successor_current_identity_confusion=0",
+      "snapshot_line_numbers": [
+        29
+      ],
+      "snapshot_lines_sha256": "174f1abb5862ee3fdcceddabef9b817802a9723efc2afb622ca8c1f8fcdd6aaa"
+    },
+    {
+      "evidence_paths": [
+        "phase12_phase2_handoff/consumed_input_identity_report.schema.json"
+      ],
+      "outcome_id": "O-10",
+      "planned_change": "Change 12",
+      "required_exit": "selected_consumed_four_sha_identity=true",
+      "snapshot_line_numbers": [
+        30,
+        31
+      ],
+      "snapshot_lines_sha256": "418cc3b6f94ed81d954bb54fb0735352c23dca4b2983ff9b31b3b8da5e0b6bc9"
+    },
+    {
+      "evidence_paths": [
+        "phase12_phase2_handoff/meaningful_partition_definition.json"
+      ],
+      "outcome_id": "O-11",
+      "planned_change": "Change 12",
+      "required_exit": "meaningful_semantic_partition_formation",
+      "snapshot_line_numbers": [
+        32
+      ],
+      "snapshot_lines_sha256": "5d65bcbbebfae91a8ffcd421e2a26cf91e82ac7239bdcc0a7569e66b23f406b1"
+    },
+    {
+      "evidence_paths": [
+        "phase12_phase2_handoff/threshold_authority_binding.json"
+      ],
+      "outcome_id": "O-12",
+      "planned_change": "Changes 6,12",
+      "required_exit": "canonical_threshold_detector_binding",
+      "snapshot_line_numbers": [
+        33,
+        34,
+        35
+      ],
+      "snapshot_lines_sha256": "31f225b7d3745b9d229bcb0cfdcdf6db76824bfa17cd554089de5cc39a05450c"
+    }
+  ],
+  "requirements_outcome_traceability": "complete",
+  "requirements_plan_binding_verified_at_exit": true,
+  "requirements_snapshot_expected_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+  "requirements_snapshot_logical_line_count": 60,
+  "requirements_snapshot_sha256": "443b7f1e2f821ee86d2850cf6c0ecc8ead304ef62a857e6659387475ee1af83e",
+  "requirements_snapshot_sha256_match": true,
+  "schema_version": "food-semantic-requirements-plan-traceability-v1",
+  "status": "PASS"
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": "dvf-3-3-korean-prose-realization-policy-v1",
+  "policy_role": "candidate_realization_raw_detector_and_compiler_invalid_contract_only",
+  "authority_effect": "none",
+  "synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1",
+  "acceptance_threshold_owned_here": false,
+  "waiver_owned_here": false,
+  "item_or_aggregate_disposition_owned_here": false,
+  "structural_applicability_contract": {
+    "rule_id": "source_bound_profile_role_applicability_v1",
+    "approval_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/body_plan_applicability_approval.json",
+    "profile_required_role_with_no_approved_source_proposition": "candidate_optional_owner_approved_exclusion",
+    "derived_context_from_primary_use": "candidate_required_with_verified_fusion",
+    "source_proposition_invention_allowed": false,
+    "current_compose_profiles_mutated": false,
+    "current_source_authority_mutated": false
+  },
+  "realization_constraints": {
+    "paragraph_split_character_threshold": 220,
+    "profile_order_is_tie_break_authority": true,
+    "randomness_allowed": false,
+    "item_id_condition_allowed": false,
+    "source_value_reinterpretation_allowed": false
+  },
+  "transformation_registry": [
+    "reorder",
+    "merge_equivalent",
+    "suppress_duplicate",
+    "pronoun_or_zero_anaphora",
+    "particle_adjustment",
+    "copula_adjustment",
+    "paragraph_merge",
+    "lexical_surface_naturalization"
+  ],
+  "forbidden_transformations": [
+    "invent_fact",
+    "strengthen_modality",
+    "drop_qualifier",
+    "cross_item_copy",
+    "advice_conversion"
+  ],
+  "raw_detector_ids": [
+    "duplicate_proposition_realization",
+    "repeated_identity_noun_window",
+    "banned_internal_abstraction",
+    "repeated_skeleton_concentration",
+    "paragraph_fragmentation",
+    "passive_translationese_pattern",
+    "empty_or_filler_sentence"
+  ],
+  "detectors": {
+    "duplicate_proposition_realization": {
+      "calculation": "same proposition_id occurs in more than one emitted clause for an item"
+    },
+    "repeated_identity_noun_window": {
+      "calculation": "approved identity source value occurs more than once in an item body"
+    },
+    "banned_internal_abstraction": {
+      "patterns": [
+        "작업(?!장)",
+        "맥락",
+        "부품",
+        "용도"
+      ]
+    },
+    "repeated_skeleton_concentration": {
+      "ratio": {
+        "numerator": 1,
+        "denominator": 20
+      }
+    },
+    "paragraph_fragmentation": {
+      "maximum_paragraphs": 2,
+      "minimum_nonempty_paragraph_characters": 12
+    },
+    "passive_translationese_pattern": {
+      "patterns": [
+        "사용된다",
+        "활용된다",
+        "다뤄진다",
+        "이루어진다"
+      ]
+    },
+    "empty_or_filler_sentence": {
+      "filler_sentences": [
+        "관련 정보다",
+        "여러 상황에서 쓴다",
+        "다양하게 활용된다"
+      ]
+    }
+  },
+  "compiler_invalid_patterns": {
+    "maximum_sentence_characters": 160,
+    "empty_adopted_text_invalid": true,
+    "unknown_transformation_invalid": true,
+    "item_specific_patch_invalid": true,
+    "item_specific_override_invalid": true,
+    "item_specific_branch_invalid": true
+  }
+}

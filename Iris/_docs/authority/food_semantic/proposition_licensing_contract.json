@@ -1,0 +1,411 @@
+{
+  "food_semantic_schema_version": "food-semantic-schema-v1",
+  "licenses": [
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "consumption_form",
+      "fact_value": "solid_food",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:consumption_form=solid_food"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "consumption_form",
+      "fact_value": "beverage",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:consumption_form=beverage"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "consumption_form",
+      "fact_value": "ingredient_component",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:consumption_form=ingredient_component"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "preparation_requirement",
+      "fact_value": "cooking_declared",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preparation_requirement=cooking_declared"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "preparation_requirement",
+      "fact_value": "ready_without_preparation",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preparation_requirement=ready_without_preparation"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "culinary_role",
+      "fact_value": "spice",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:culinary_role=spice"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "culinary_role",
+      "fact_value": "herb",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:culinary_role=herb"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "culinary_role",
+      "fact_value": "baking_fat",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:culinary_role=baking_fat"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "culinary_role",
+      "fact_value": "minor_ingredient",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:culinary_role=minor_ingredient"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "culinary_role",
+      "fact_value": "sweetener",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:culinary_role=sweetener"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "culinary_role",
+      "fact_value": "herbal_infusion_component",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:culinary_role=herbal_infusion_component"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "culinary_role",
+      "fact_value": "coffee_preparation_component",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:culinary_role=coffee_preparation_component"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "culinary_role",
+      "fact_value": "meal_component",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:culinary_role=meal_component"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "preparation_state",
+      "fact_value": "raw",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preparation_state=raw"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "preparation_state",
+      "fact_value": "already_cooked",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preparation_state=already_cooked"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "preparation_state",
+      "fact_value": "prepared_dish",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preparation_state=prepared_dish"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "preparation_state",
+      "fact_value": "intermediate",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preparation_state=intermediate"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "preservation_form",
+      "fact_value": "dried",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preservation_form=dried"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "preservation_form",
+      "fact_value": "freezing_supported",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preservation_form=freezing_supported"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "preservation_form",
+      "fact_value": "frozen",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preservation_form=frozen"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "preservation_form",
+      "fact_value": "canned_opened",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preservation_form=canned_opened"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "preservation_form",
+      "fact_value": "preserved",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:preservation_form=preserved"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "ingredient_origin",
+      "fact_value": "plant",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:ingredient_origin=plant"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "ingredient_origin",
+      "fact_value": "animal",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:ingredient_origin=animal"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "ingredient_origin",
+      "fact_value": "fungal",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:ingredient_origin=fungal"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "meal_role",
+      "fact_value": "meal",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:meal_role=meal"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "meal_role",
+      "fact_value": "snack",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:meal_role=snack"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "meal_role",
+      "fact_value": "component",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:meal_role=component"
+    },
+    {
+      "automatic_eligible": false,
+      "curated_allowed": true,
+      "fact_axis": "meal_role",
+      "fact_value": "ingredient",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:meal_role=ingredient"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "beverage_property",
+      "fact_value": "alcoholic",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:beverage_property=alcoholic"
+    },
+    {
+      "automatic_eligible": true,
+      "curated_allowed": true,
+      "fact_axis": "beverage_property",
+      "fact_value": "low_alcohol",
+      "forbidden_propositions": [
+        "recommendation",
+        "efficiency_comparison",
+        "unlicensed_preparation_instruction",
+        "negative_fact_from_absence"
+      ],
+      "licensed_proposition": "item_has_declared_food_semantic:beverage_property=low_alcohol"
+    }
+  ],
+  "schema_token_is_not_free_text": true,
+  "schema_version": "food-semantic-proposition-license-v1",
+  "status": "implementation_proposal_pending_owner_semantic_approval"
+}

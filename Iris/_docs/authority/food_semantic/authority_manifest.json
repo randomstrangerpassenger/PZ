@@ -1,0 +1,9 @@
+{
+  "allowlist_contract_path": "Iris/_docs/authority/food_semantic/evidence_allowlist_contract.json",
+  "authority_execution_allowed": false,
+  "current_registry_adoption_allowed": false,
+  "forbidden_registry_path": "Iris/_docs/authority/food_semantic/forbidden_inference_registry.json",
+  "rule_registry_path": "Iris/_docs/authority/food_semantic/rule_registry.json",
+  "schema_version": "food-semantic-authority-manifest-v1",
+  "status": "implementation_proposal_only"
+}

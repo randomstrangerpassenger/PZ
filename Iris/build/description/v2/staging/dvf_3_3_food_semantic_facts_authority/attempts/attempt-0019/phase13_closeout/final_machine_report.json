@@ -1,0 +1,14 @@
+{
+  "attempt_id": "attempt-0019",
+  "authority_claim_emitted_count": 0,
+  "authority_execution_authorized": false,
+  "canonical_complete": false,
+  "current_authority_reconstruction_complete": false,
+  "current_facts_manifest_mutation_count": 0,
+  "external_review_consumed_count": 0,
+  "implementation_build_complete": true,
+  "owner_approval_consumed_count": 0,
+  "owner_decision_consumed_count": 0,
+  "sealed_successor_handoff_complete": false,
+  "status": "IMPLEMENTATION_COMPLETE_NOT_AUTHORITY_CLOSEOUT"
+}

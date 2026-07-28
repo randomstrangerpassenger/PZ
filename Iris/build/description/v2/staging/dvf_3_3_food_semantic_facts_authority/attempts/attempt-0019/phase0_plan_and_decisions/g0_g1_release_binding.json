@@ -1,0 +1,110 @@
+{
+  "authority_claim_emitted_count": 0,
+  "blocking_predicates": [],
+  "closeout_binding": {
+    "containing_commit": "d8e3e1811b59d9a4b02d7f585181d719bb974eae",
+    "git_blob_id": "9ae349dd89c3fb934d4a3e56c80125c4f8fb84d9",
+    "path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0001.json",
+    "predicates": {
+      "closeout_blob_match": true,
+      "closeout_sha256_match": true,
+      "closeout_status_complete": true,
+      "closeout_v0_commit_match": true,
+      "closeout_v0_tree_match": true,
+      "full_repository_reproducibility_pass": true,
+      "receipt_closeout_sha256_self_consistent": true,
+      "technical_debt_status_pass": true
+    },
+    "sha256": "45b03586b30ee4804d8bae71aad311912fedb52d9952c77aa4cbd56ca4d13c19"
+  },
+  "execution_base": {
+    "head_commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+    "head_tree": "d064bd7958cf4d11a5d75f59f3f39974e58334ba"
+  },
+  "four_plan_set_tracked_blob_count": 4,
+  "manifest": {
+    "git_blob_id": "70035140563ed6cd7ad70b60a6fb36101ed50519",
+    "path": "docs/iris_aa49_four_plan_execution_sync_manifest.json",
+    "plan_rows": [
+      {
+        "git_blob_id_match": true,
+        "path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+        "present": true,
+        "projection_occurrence_count_match": true,
+        "sha256_match": true,
+        "tracked": true,
+        "worktree_content_match": true
+      },
+      {
+        "git_blob_id_match": true,
+        "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+        "present": true,
+        "projection_occurrence_count_match": true,
+        "sha256_match": true,
+        "tracked": true,
+        "worktree_content_match": true
+      },
+      {
+        "git_blob_id_match": true,
+        "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+        "present": true,
+        "projection_occurrence_count_match": true,
+        "sha256_match": true,
+        "tracked": true,
+        "worktree_content_match": true
+      },
+      {
+        "git_blob_id_match": true,
+        "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+        "present": true,
+        "projection_occurrence_count_match": true,
+        "sha256_match": true,
+        "tracked": true,
+        "worktree_content_match": true
+      }
+    ],
+    "predicates": {
+      "all_plan_rows_match": true,
+      "contract_id_match": true,
+      "fresh_food_attempt_rule_match": true,
+      "manifest_blob_receipt_match": true,
+      "manifest_sha256_receipt_match": true,
+      "manifest_worktree_content_match": true,
+      "materialization_state_ready": true,
+      "owner_directive_match": true,
+      "plan_count_match": true,
+      "plan_paths_match": true,
+      "projection_hash_computed_match": true,
+      "projection_hash_declared_match": true,
+      "schema_version_match": true
+    },
+    "projection_sha256": "12c32873dc7e16e0d64e416bdb6693599e2790e9fc129606a90a72ca745a6eb0",
+    "sha256": "1f43bc3144f59f17774adac76f313ee67312c1818af120510de0c2591a9c426d"
+  },
+  "owner_approval_consumed_count": 0,
+  "owner_decision_consumed_count": 0,
+  "receipt_predicates": {
+    "clean_validation_terminal_pass": true,
+    "common_contract_id_match": true,
+    "common_manifest_path_match": true,
+    "common_projection_hash_match": true,
+    "contract_id_match": true,
+    "downstream_unblock_target_match": true,
+    "execution_head_matches_v0": true,
+    "execution_tree_matches_v0": true,
+    "global_stage_match": true,
+    "release_does_not_grant_food_approval": true,
+    "release_does_not_grant_registry_cutover": true,
+    "schema_version_match": true,
+    "status_released": true,
+    "v0_commit_self_consistent": true,
+    "v0_role_validated_subject": true
+  },
+  "schema_version": "food-semantic-g0-g1-release-binding-v1",
+  "source_receipt": {
+    "byte_count": 2998,
+    "path": "C:/Users/MW/.codex/visualizations/2026/07/27/019fa5fc-333b-7c03-8426-46d1780ab596/phase0-successor/Iris/validation/clean_checkout/authority/g1_release_receipt_0001.json",
+    "sha256": "10755804a1d70ed0014ed7d32ee2c4dbe452684b30afad1fddf7cb2ff210f2bf"
+  },
+  "status": "PASS"
+}

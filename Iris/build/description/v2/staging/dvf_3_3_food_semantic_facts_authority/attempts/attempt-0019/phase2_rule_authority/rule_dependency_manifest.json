@@ -1,0 +1,94 @@
+{
+  "hidden_dependency_count": 0,
+  "rules": [
+    {
+      "dependencies": [],
+      "rule_id": "R3.food.scope.type_food"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.preparation.cookable"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.beverage.alcoholic"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.role.spice"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.role.herb"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.driedfood"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.goodfrozen"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.alreadycooked"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.bakingfat"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.minoringredient"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.sugar"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.herbaltea"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.coffeemaker"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.alcoholicbeverage"
+    },
+    {
+      "dependencies": [
+        "R3.food.scope.type_food"
+      ],
+      "rule_id": "R3.food.tag.lowalcohol"
+    }
+  ],
+  "undefined_dependency_count": 0
+}

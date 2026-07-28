@@ -1,0 +1,165 @@
+{
+  "approval_state": "unapproved",
+  "authority_effect": false,
+  "batch": {
+    "approval_state": "unapproved",
+    "authority_class": "curated",
+    "batch_id": "fsb:21103a986b11c9764d579472",
+    "member_count": 5,
+    "ordered_members": [
+      "farming.RedRadish",
+      "farming.RemouladeFull",
+      "farming.RemouladeHalf",
+      "farming.Strewberrie",
+      "farming.Tomato"
+    ],
+    "ordered_proposition_ids": [
+      "curation-pending:farming.RedRadish:consumption_form",
+      "curation-pending:farming.RedRadish:meal_role",
+      "curation-pending:farming.RemouladeFull:consumption_form",
+      "curation-pending:farming.RemouladeFull:meal_role",
+      "curation-pending:farming.RemouladeHalf:consumption_form",
+      "curation-pending:farming.RemouladeHalf:meal_role",
+      "curation-pending:farming.Strewberrie:consumption_form",
+      "curation-pending:farming.Strewberrie:meal_role",
+      "curation-pending:farming.Tomato:consumption_form",
+      "curation-pending:farming.Tomato:meal_role"
+    ],
+    "proposition_count": 10,
+    "queue_sha256": "69ac07202f47cc0163c4afabbdfb83604e7de10089927d79f8ffe7626d7ffbd9",
+    "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563"
+  },
+  "members": [
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "farming.RedRadish\u0000consumption_form\u0000curation-pending:farming.RedRadish:consumption_form",
+      "item_identity": "farming.RedRadish",
+      "proposition_id": "curation-pending:farming.RedRadish:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "farming.RedRadish\u0000meal_role\u0000curation-pending:farming.RedRadish:meal_role",
+      "item_identity": "farming.RedRadish",
+      "proposition_id": "curation-pending:farming.RedRadish:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "farming.RemouladeFull\u0000consumption_form\u0000curation-pending:farming.RemouladeFull:consumption_form",
+      "item_identity": "farming.RemouladeFull",
+      "proposition_id": "curation-pending:farming.RemouladeFull:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "farming.RemouladeFull\u0000meal_role\u0000curation-pending:farming.RemouladeFull:meal_role",
+      "item_identity": "farming.RemouladeFull",
+      "proposition_id": "curation-pending:farming.RemouladeFull:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "farming.RemouladeHalf\u0000consumption_form\u0000curation-pending:farming.RemouladeHalf:consumption_form",
+      "item_identity": "farming.RemouladeHalf",
+      "proposition_id": "curation-pending:farming.RemouladeHalf:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "farming.RemouladeHalf\u0000meal_role\u0000curation-pending:farming.RemouladeHalf:meal_role",
+      "item_identity": "farming.RemouladeHalf",
+      "proposition_id": "curation-pending:farming.RemouladeHalf:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "farming.Strewberrie\u0000consumption_form\u0000curation-pending:farming.Strewberrie:consumption_form",
+      "item_identity": "farming.Strewberrie",
+      "proposition_id": "curation-pending:farming.Strewberrie:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "farming.Strewberrie\u0000meal_role\u0000curation-pending:farming.Strewberrie:meal_role",
+      "item_identity": "farming.Strewberrie",
+      "proposition_id": "curation-pending:farming.Strewberrie:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "consumption_form",
+      "canonical_sort_key": "farming.Tomato\u0000consumption_form\u0000curation-pending:farming.Tomato:consumption_form",
+      "item_identity": "farming.Tomato",
+      "proposition_id": "curation-pending:farming.Tomato:consumption_form",
+      "review_axes": [
+        "consumption_form"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    },
+    {
+      "authority_state": "unapproved",
+      "axis": "meal_role",
+      "canonical_sort_key": "farming.Tomato\u0000meal_role\u0000curation-pending:farming.Tomato:meal_role",
+      "item_identity": "farming.Tomato",
+      "proposition_id": "curation-pending:farming.Tomato:meal_role",
+      "review_axes": [
+        "meal_role"
+      ],
+      "reviewed_source_set_required": true,
+      "schema_sha256": "66f9eb59ea2cfec3fb5d647345ce5ab07ae17d0ba70b62c52b6bcaa7e3f32563",
+      "value": null
+    }
+  ],
+  "selected_values": []
+}

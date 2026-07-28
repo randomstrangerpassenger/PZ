@@ -1,0 +1,11 @@
+{
+  "claim_boundary": {
+    "byte_count": 755,
+    "path": "docs/dvf_3_3_food_semantic_claim_boundary.md",
+    "sha256": "8be2f0fc469135b484265c6713a3d2465b97ab572530dda26be440b57bd445ae"
+  },
+  "declared_vocabulary_reference_count": 1,
+  "forbidden_claim_emission_count": 0,
+  "forbidden_claim_emissions": [],
+  "status": "PASS"
+}

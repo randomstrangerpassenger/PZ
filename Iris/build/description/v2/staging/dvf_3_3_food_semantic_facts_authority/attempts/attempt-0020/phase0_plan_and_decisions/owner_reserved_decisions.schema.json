@@ -1,0 +1,98 @@
+{
+  "implementation_must_not_materialize_owner_input": true,
+  "options": [
+    {
+      "decision_id": "D1",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D5",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D6",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D7",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D8",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D9",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D10",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D11",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D12",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D13",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D14",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D15",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D16",
+      "implementation_state": "disabled_by_default_option_implemented",
+      "owner_selection_consumed": false
+    },
+    {
+      "decision_id": "D2",
+      "implementation_state": "retired_mandatory_contract",
+      "owner_selection_consumed": false,
+      "replacement": "R3 official successor is the sole executable Rule route"
+    },
+    {
+      "decision_id": "D3",
+      "implementation_state": "retired_mandatory_contract",
+      "owner_selection_consumed": false,
+      "replacement": "final automatic proposition-level lineage is mandatory"
+    },
+    {
+      "decision_id": "D4",
+      "implementation_state": "retired_mandatory_contract",
+      "owner_selection_consumed": false,
+      "replacement": "exact case-sensitive 317-set identity binding is mandatory"
+    }
+  ],
+  "required_fields": [
+    "decision_id",
+    "selected_option",
+    "rationale",
+    "approver_identity",
+    "approval_time",
+    "bound_plan_sha256",
+    "bound_implementation_complete_bundle_sha256"
+  ],
+  "schema_version": "food-semantic-owner-reserved-decisions-schema-v1"
+}

@@ -1,0 +1,6 @@
+{
+  "clean_corpus_is_unapproved": true,
+  "negative_fixture_unsupported_fact_hit_count": 1,
+  "status": "PASS",
+  "unsupported_fact_count": 0
+}

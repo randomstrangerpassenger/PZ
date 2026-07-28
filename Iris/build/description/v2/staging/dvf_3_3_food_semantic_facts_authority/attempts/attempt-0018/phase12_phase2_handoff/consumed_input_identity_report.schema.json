@@ -1,0 +1,5 @@
+{
+  "compares": "actual_phase2_consumed_input_receipt to phase11 selected_successor_input_binding",
+  "four_identity_match_required": true,
+  "receipt_self_declaration_allowed": false
+}

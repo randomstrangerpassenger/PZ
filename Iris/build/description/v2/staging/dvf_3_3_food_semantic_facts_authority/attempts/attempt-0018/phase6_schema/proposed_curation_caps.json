@@ -1,0 +1,10 @@
+{
+  "information_basis": "phase6_schema_satisfiability_only",
+  "owner_decision_consumed": false,
+  "phase7_result_consumed_to_select_cap": false,
+  "proposed_curation_item_cap": 240,
+  "proposed_curation_proposition_cap": 480,
+  "schema_satisfiability_sha256": "468b824879b4d8ce0997a94d9c5d34b134b90dac7c566bf58de8bec6ecb0d714",
+  "schema_version": "food-semantic-curation-cap-proposal-v1",
+  "sealed_before_phase7_result": true
+}

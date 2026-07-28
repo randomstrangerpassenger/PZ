@@ -1,0 +1,28 @@
+{
+  "current_facts_read_count_must_equal": 0,
+  "explicit_non_current_input_override_must_equal": true,
+  "implementation_receipt_emitted": false,
+  "opened_input_count_must_equal": 4,
+  "producer_must_equal": "naturalization_actual_phase2_consumer",
+  "required": [
+    "producer",
+    "facts_path",
+    "facts_sha256",
+    "manifest_path",
+    "manifest_sha256",
+    "schema_path",
+    "schema_sha256",
+    "proposition_license_path",
+    "proposition_license_sha256",
+    "explicit_non_current_input_override",
+    "current_facts_read_count",
+    "render_write_count",
+    "opened_input_count",
+    "manifest_declared_facts_path",
+    "manifest_declared_facts_sha256",
+    "manifest_facts_path_match",
+    "manifest_facts_sha256_match",
+    "food_semantic_proposition_count",
+    "food_semantic_proposition_inventory_sha256"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": "food-semantic-external-review-disposition-v1",
+  "attempt_id": "attempt-0018",
+  "external_review_sha256": "af77e7026b36a601c29c2da7ff0ff4cbc16f3bec04dc7e32f3f5bf5a12ee79a2",
+  "verdict": "FAIL",
+  "open_critical_count": 1,
+  "open_important_count": 5,
+  "authority_execution_allowed": false,
+  "implementation_complete_claim_rejected": true,
+  "rejection_reason": "The feasibility kernel undercounts mandatory curated axes and incorrectly permits Changes 8 through 13.",
+  "preserve_attempt_as_append_only_failed_evidence": true,
+  "same_attempt_correction_allowed": false,
+  "correction_attempt_required": true,
+  "next_attempt_entry": "Change 0"
+}

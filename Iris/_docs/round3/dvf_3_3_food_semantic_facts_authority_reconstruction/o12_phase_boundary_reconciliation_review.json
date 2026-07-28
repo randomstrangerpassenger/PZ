@@ -1,0 +1,242 @@
+{
+  "schema_version": "dvf3_3_food_semantic_o12_phase_boundary_reconciliation_review_v1",
+  "review_id": "dvf_3_3_food_semantic_o12_phase_boundary_reconciliation_review_20260728",
+  "reviewed_at": "2026-07-28T22:23:49.8050458+09:00",
+  "reviewer": {
+    "identity": "Codex Reviewer",
+    "role": "independent_substantive_plan_reviewer",
+    "reconciliation_author": false,
+    "attempt_0021_implementation_author": false,
+    "tests_run_by_reviewer": false
+  },
+  "review_target": {
+    "reconciliation_markdown": {
+      "path": "docs/dvf_3_3_food_semantic_facts_authority_o12_phase_boundary_reconciliation.md",
+      "byte_count": 6403,
+      "sha256": "996fd36e3b3ddfeec2b02e440ae78a335030dfe90fad9e7068bf52a75a788c56"
+    },
+    "reconciliation_machine_contract": {
+      "path": "Iris/_docs/round3/dvf_3_3_food_semantic_facts_authority_reconstruction/o12_phase_boundary_reconciliation.json",
+      "byte_count": 4362,
+      "sha256": "8f1b9e40141ee096bfa5ab17e4506aa67f759733a9c476023db6dbcbea5bf3c1",
+      "contract_id": "dvf3_3_food_semantic_o12_phase_boundary_reconciliation_0001",
+      "source_status": "owner_ratified_pending_independent_plan_review"
+    },
+    "target_identity_match": true
+  },
+  "reviewed_evidence": {
+    "original_precedence_plans": [
+      {
+        "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+        "byte_count": 169787,
+        "sha256": "bdd7c6b04b773e5fcdd80882bd5d2436eed24af6c4904616d7fdaa06cdd7c74d",
+        "git_blob_id": "f5eef414788a28d502bacbab8c51a173fe537d04",
+        "head_git_blob_id": "f5eef414788a28d502bacbab8c51a173fe537d04",
+        "four_plan_planning_sha256": "c75c1b048dabee755833a57e784839ded9c1fbb96e34e082c9cd12cbc82776f1",
+        "matches_head": true,
+        "matches_reconciliation_binding": true
+      },
+      {
+        "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+        "byte_count": 123392,
+        "sha256": "f2a57c39431a1e520236e03f6a2e9b3129b6339d353f6682cb27cf0b1d2ed4f0",
+        "git_blob_id": "aad70374e8c77fd5828f95a4fb03d4385a5a58c8",
+        "head_git_blob_id": "aad70374e8c77fd5828f95a4fb03d4385a5a58c8",
+        "four_plan_planning_sha256": "1563bf063aad99f478e4a9541e845d85bb5baca3eb31a8fa4b3759435bc8b78d",
+        "matches_head": true,
+        "matches_reconciliation_binding": true
+      }
+    ],
+    "four_plan_sync": {
+      "manifest": {
+        "path": "docs/iris_aa49_four_plan_execution_sync_manifest.json",
+        "byte_count": 3968,
+        "sha256": "b5a8f8ff7778c40a0d8b0c9ad4ac2b09a213881303db10710cb63621f8fd68fb",
+        "git_blob_id": "70035140563ed6cd7ad70b60a6fb36101ed50519",
+        "head_git_blob_id": "70035140563ed6cd7ad70b60a6fb36101ed50519",
+        "matches_head": true
+      },
+      "contract_id": "iris_aa49_four_plan_execution_sync_v1",
+      "declared_projection_sha256": "12c32873dc7e16e0d64e416bdb6693599e2790e9fc129606a90a72ca745a6eb0",
+      "computed_projection_sha256": "12c32873dc7e16e0d64e416bdb6693599e2790e9fc129606a90a72ca745a6eb0",
+      "projection_hash_match": true,
+      "plan_count": 4,
+      "projection_occurrence_count_per_plan": 1,
+      "plan_files": [
+        {
+          "path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+          "byte_count": 130072,
+          "sha256": "1f53edc910cc3b9b8480335c7ebcb445497f1fee3bc6564dbdd384e7b4b7ecd6",
+          "git_blob_id": "fd3a2405e8789646df6203eaaf23ba8a2c4eb12e",
+          "matches_head": true
+        },
+        {
+          "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+          "byte_count": 169787,
+          "sha256": "bdd7c6b04b773e5fcdd80882bd5d2436eed24af6c4904616d7fdaa06cdd7c74d",
+          "git_blob_id": "f5eef414788a28d502bacbab8c51a173fe537d04",
+          "matches_head": true
+        },
+        {
+          "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+          "byte_count": 123392,
+          "sha256": "f2a57c39431a1e520236e03f6a2e9b3129b6339d353f6682cb27cf0b1d2ed4f0",
+          "git_blob_id": "aad70374e8c77fd5828f95a4fb03d4385a5a58c8",
+          "matches_head": true
+        },
+        {
+          "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+          "byte_count": 111566,
+          "sha256": "5497491b2c261e7b287639fde55f3f04d2e6e4a6a3597153e1d2dcb2a94d05f7",
+          "git_blob_id": "b89f57bba1fe30bf60072a9155e4dbcc37f5ec2c",
+          "matches_head": true
+        }
+      ],
+      "stage_order": [
+        "G0_plan_set_materialization_and_owner_sync",
+        "G1_clean_checkout_full_repository_validation",
+        "G2_food_semantic_facts_authority",
+        "G3_registry_food_successor_operational_cutover",
+        "G4_publish_boundary_foundation",
+        "G5_naturalization_phase0_through_phase8",
+        "G6_publish_boundary_official_phase0_through_phase7",
+        "G7_naturalization_terminal_finalize"
+      ],
+      "stage_order_changed_by_reconciliation": false
+    },
+    "attempt_0021_external_review": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/post_implementation_reviews/external_implementation_review.json",
+      "byte_count": 5783,
+      "sha256": "52dc1a43ad8ccf2e620bd5ca9cb0273c99a9015d03b915792fd09e0119b454c1",
+      "matches_reconciliation_binding": true,
+      "verdict": "FAIL",
+      "finding_counts": {
+        "critical": 0,
+        "important": 1,
+        "advisory": 0
+      },
+      "open_finding": {
+        "finding_id": "IMPORTANT-001",
+        "title": "The Phase 2 same-skeleton gate replaces the canonical text detector with an approximate semantic-profile grouping",
+        "reconciliation_resolves_finding_without_weakening_o12": true
+      },
+      "append_only_failed_evidence_preserved": true,
+      "same_attempt_correction_allowed": false
+    },
+    "attempt_0021_corroborating_disposition": {
+      "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0021/post_implementation_reviews/external_review_disposition.json",
+      "byte_count": 1267,
+      "sha256": "a071abb098aae05645c26842d6b628b004f54db0805e078450287e071c5f9582",
+      "owner_authorized_plan_reconciliation_required": true,
+      "next_entry": "owner-authorized planning reconciliation before any new implementation attempt"
+    },
+    "g1_release_receipt": {
+      "path": "C:/Users/MW/.codex/visualizations/2026/07/27/019fa5fc-333b-7c03-8426-46d1780ab596/phase0-successor/Iris/validation/clean_checkout/authority/g1_release_receipt_0001.json",
+      "byte_count": 2998,
+      "sha256": "10755804a1d70ed0014ed7d32ee2c4dbe452684b30afad1fddf7cb2ff210f2bf",
+      "matches_reconciliation_binding": true,
+      "receipt_id": "g1-clean-validation-release-0001",
+      "status": "released",
+      "clean_validation_terminal_pass": true,
+      "v0_commit": "2a1741ce2e3ab85b0e5744f88b8a72a5a031b4db",
+      "declared_v0_tree": "d064bd7958cf4d11a5d75f59f3f39974e58334ba",
+      "computed_v0_tree": "d064bd7958cf4d11a5d75f59f3f39974e58334ba",
+      "v0_tree_match": true,
+      "four_plan_sync_projection_sha256": "12c32873dc7e16e0d64e416bdb6693599e2790e9fc129606a90a72ca745a6eb0",
+      "manifest_git_blob_id": "70035140563ed6cd7ad70b60a6fb36101ed50519",
+      "g1_reexecution_required": false,
+      "g1_reexecution_reasoning_valid": true
+    }
+  },
+  "review_axes": [
+    {
+      "axis": "canonical_text_skeleton_authority_transfer",
+      "verdict": "PASS",
+      "findings": [],
+      "observations": [
+        "The reconciliation does not delete, rename, approximate, waive, or relax O-12.",
+        "Facts Phase 2 emits no maximum_same_skeleton_group claim and grants no canonical same-skeleton gate credit.",
+        "The byte-bound canonical text_skeleton(text_ko) detector remains mandatory on actual materialized candidate text_ko in the Registry-adopted fresh Naturalization attempt.",
+        "Canonical detector identity, threshold policy identity, the bound predicate, and zero modification or waiver counts remain mandatory."
+      ]
+    },
+    {
+      "axis": "facts_phase2_claim_ceiling",
+      "verdict": "PASS",
+      "findings": [],
+      "observations": [
+        "Facts Phase 2 is restricted to exact four-identity consumption, exact licensed 317-member proposition inventory, meaningful semantic partition, and their fail-loud supporting zero-count checks.",
+        "Semantic axis/value profile JSON cannot substitute for text_skeleton(text_ko), and prior approximate report authority credit is zero.",
+        "Candidate generation, Phase 4 through Phase 8 execution, and Publish retry remain forbidden in the Facts round."
+      ]
+    },
+    {
+      "axis": "original_plan_four_plan_and_g1_preservation",
+      "verdict": "PASS",
+      "findings": [],
+      "observations": [
+        "Both precedence plan blobs exactly match HEAD and the reconciliation bindings.",
+        "All four synchronized plan blobs match HEAD, each contains the exact compact projection once, and the independently computed projection SHA-256 matches the manifest.",
+        "The G1 receipt bytes, receipt identity, V0 commit and tree, manifest blob, and four-plan projection are unchanged.",
+        "G1 re-execution is not logically required because the reconciliation changes only the downstream G2-to-G5 acceptance ownership and is separately plan-reviewed; it does not change the immutable G1 validated subject, G1 evidence, original four-plan bytes, projection, or stage order."
+      ]
+    },
+    {
+      "axis": "implementation_reentry_gate",
+      "verdict": "PASS",
+      "findings": [],
+      "observations": [
+        "The reconciliation classifies itself as substantive and owner-ratified pending independent plan review.",
+        "A new implementation attempt is forbidden until this exact reconciliation review reports PASS with zero open Critical and Important findings.",
+        "Attempt-0021 remains append-only failed evidence; re-entry must use a new attempt beginning at Change 0.",
+        "This review supplies plan-review entry credit only and does not pre-approve implementation, semantic authority, Registry adoption, Naturalization completion, Publish acceptance, runtime mutation, or release."
+      ]
+    },
+    {
+      "axis": "scope_ceiling",
+      "verdict": "PASS",
+      "findings": [],
+      "observations": [
+        "The reconciliation is limited to O-12 and the Facts-to-Naturalization Phase 2 boundary.",
+        "It does not authorize Facts candidate or Korean text generation, early Naturalization Phase 4 through Phase 8, Publish retry, current facts or manifest adoption, rendered output, Lua, runtime chunk, package, detector, threshold, ratio, or waiver changes.",
+        "The four-plan stage order and separate Registry, Naturalization, Publish, runtime, and package ownership remain intact."
+      ]
+    }
+  ],
+  "finding_counts": {
+    "critical": 0,
+    "important": 0,
+    "advisory": 0,
+    "open_critical": 0,
+    "open_important": 0,
+    "open_advisory": 0
+  },
+  "review_verdict": "PASS",
+  "effective_reconciliation_state": "owner_ratified_and_independent_plan_review_passed",
+  "implementation_reentry_gate": {
+    "required_review_path": "Iris/_docs/round3/dvf_3_3_food_semantic_facts_authority_reconstruction/o12_phase_boundary_reconciliation_review.json",
+    "required_review_verdict": "PASS",
+    "required_open_critical_count": 0,
+    "required_open_important_count": 0,
+    "required_reconciliation_markdown_sha256": "996fd36e3b3ddfeec2b02e440ae78a335030dfe90fad9e7068bf52a75a788c56",
+    "required_reconciliation_machine_contract_sha256": "8f1b9e40141ee096bfa5ab17e4506aa67f759733a9c476023db6dbcbea5bf3c1",
+    "required_g1_receipt_sha256": "10755804a1d70ed0014ed7d32ee2c4dbe452684b30afad1fddf7cb2ff210f2bf",
+    "required_failed_attempt_review_sha256": "52dc1a43ad8ccf2e620bd5ca9cb0273c99a9015d03b915792fd09e0119b454c1",
+    "new_attempt_required": true,
+    "new_attempt_entry": "Change 0",
+    "same_attempt_correction_allowed": false,
+    "gate_result": "PASS",
+    "gate_credit": "substantive_preimplementation_plan_review_only"
+  },
+  "non_claims": [
+    "implementation_complete",
+    "food_semantic_facts_authority_complete",
+    "sealed_successor_emitted",
+    "registry_adoption_complete",
+    "naturalization_candidate_complete",
+    "canonical_same_skeleton_acceptance_complete",
+    "publish_boundary_pass",
+    "current_or_runtime_mutation_authorized",
+    "package_or_release_readiness"
+  ]
+}

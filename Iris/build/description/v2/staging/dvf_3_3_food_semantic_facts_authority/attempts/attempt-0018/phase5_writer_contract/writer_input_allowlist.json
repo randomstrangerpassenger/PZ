@@ -1,0 +1,9 @@
+{
+  "inputs": [
+    "phase1_census/target_food_universe_manifest.json",
+    "phase4_lineage/lineage_ledger.jsonl",
+    "phase8_curation/curated_fact_ledger.jsonl",
+    "Iris/_docs/authority/food_semantic/food_semantic_schema.json",
+    "Iris/build/description/v2/data/dvf_3_3_facts.jsonl"
+  ]
+}

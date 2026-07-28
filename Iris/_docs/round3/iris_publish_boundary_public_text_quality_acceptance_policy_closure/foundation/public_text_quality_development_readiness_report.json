@@ -1,0 +1,441 @@
+{
+  "authority_effect": "none",
+  "candidate_content_dependency_count": 0,
+  "candidate_metric_dependency_count": 0,
+  "clean_validation_terminal_pass": true,
+  "contract_validation": {
+    "candidate_content_dependency_count": 0,
+    "candidate_metric_dependency_count": 0,
+    "clean_validation_terminal_pass": true,
+    "current_facts_equals_selected_successor_facts": true,
+    "current_manifest_binds_selected_successor_manifest": true,
+    "denominator_count": 15,
+    "food_sealed_successor_terminal_closeout": true,
+    "four_plan_sync_projection_sha256_match": true,
+    "metric_count": 21,
+    "raw_detector_count": 7,
+    "registry_food_successor_adoption_receipt_valid": true,
+    "status": "PASS",
+    "unknown_denominator_count": 0,
+    "unknown_metric_count": 0,
+    "unmapped_raw_detector_count": 0
+  },
+  "current_facts_equals_selected_successor_facts": true,
+  "current_manifest_binds_selected_successor_manifest": true,
+  "denominator_registry_candidate_hash": "d0d8e7ab3509ef634d61ab2c33b86bab5352f3fa94c7e85b28d667a04937ff4b",
+  "detector_mapping_candidate_hash": "dbfa7b0fbfe4effdc45fcfd983ab0dc65478f17988626af3590e1cbbd3a300f4",
+  "documentation_hashes": [
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+      "sha256": "97e63941c565217fdbe062612ca484f2df39bdb12ffb39ed8bda439b38fb17da"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+      "sha256": "c270e7da1c1c1e25bb0e37e638db5dd776ff53ed883a247c39f674438105fd75"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_metric_contract.md",
+      "sha256": "0268d259d9b5a509061cffd3aab099c5bff34a9e372d979cda36aac41edcc96e"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_denominator_contract.md",
+      "sha256": "fdba37a13571ade860fa21d4b49b3fc8b7abe8af05394247ee26aa7c632b9bff"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_acceptance_policy.md",
+      "sha256": "eebbd4d2d08903fc4498f8b0a01289737bf61d03ba1dff63fcdf475c03cdfdd5"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_acceptance_claim_boundary.md",
+      "sha256": "d297e97257b4e5894e3439a0259ca5db58c7d48d49c9c1f2b82d1f2bf094d762"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_exception_policy.md",
+      "sha256": "58fccffd6f92a8930860ea4a1ecdc796f2418d86718238fceb47247950691d0f"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_waiver_policy.md",
+      "sha256": "f3608ad9416c20fc662faa022a8f6b39ed2b725c42ad1a878e8c42230b4bef51"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "docs/public_text_quality_freshness_policy.md",
+      "sha256": "23e6f7e9fbf8c2d5c642e3cce30b02de9417e7c827938c8538b14123beb53728"
+    }
+  ],
+  "dry_run": {
+    "candidate_metric_values_read": 0,
+    "current_payload_bytes_read": 0,
+    "detector_mapping_coverage_pass": true,
+    "handoff_schema_contract_pass": true,
+    "human_review_selection_contract_pass": true,
+    "kind": "synthetic_candidate_independent_fixture_dry_run",
+    "naturalization_candidate_bytes_read": 0,
+    "runner_validator_fixture_pass": true
+  },
+  "evaluation_subject_disposition_created": false,
+  "fixture_manifest": {
+    "fixture_failure_count": 0,
+    "hash_algorithm": "sha256_canonical_json_v1",
+    "path": "Iris/build/description/v2/tests/fixtures/public_text_quality_acceptance/foundation_fixtures.json",
+    "plan_additive_fixture_count": 10,
+    "roadmap_mandatory_fixture_count": 36,
+    "sha256": "4be4467542c5e49894a5038cbfa3b36aac97018f288ac9aeda87a7882afb637d",
+    "total_fixture_count": 46
+  },
+  "food_sealed_successor_terminal_closeout": true,
+  "foundation_contract_canonical_sha256": "70e7261ad4fec51cf385a5182d8f23e1e72e1ac90dbd7638f37fd89a9b919e47",
+  "foundation_contract_path": "Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json",
+  "foundation_contract_raw_sha256": "4a31e48dacc9c906c4fe4a04cce22799226b23366cd77cd948e91473e1844b02",
+  "foundation_contract_ready_for_remediation": true,
+  "foundation_contract_version": "2.0.0",
+  "foundation_id": "ptqa-foundation-v2-g4-g3-current",
+  "foundation_runner_validator_fixture_pass": true,
+  "four_plan_sync_projection_sha256_match": true,
+  "freshness_contract_hash": "580d70bb57c68fa0116cc9f87a1f060392f0b00b1c945922659dd5ddae178ad6",
+  "global_synchronization_contract_id": "iris_aa49_four_plan_execution_sync_v1",
+  "human_review_selection_contract_hash": "8f82450c07ae83e936c3011595ec55b77ade10230fa1556cfde8ed9ed84687d0",
+  "implementation_hashes": [
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/public_text_quality_acceptance.py",
+      "sha256": "562b846a7e7ed6f956342ce03690e02cf31f66da80c3aaf44cb92ec389cdc84f"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/run_public_text_quality_acceptance.py",
+      "sha256": "016a2155d943006ea10fe3cede86640083c3a7b2fce211a72e9db841a53d127c"
+    },
+    {
+      "hash_algorithm": "sha256_utf8_lf_normalized_v1",
+      "path": "Iris/build/description/v2/tools/build/validate_public_text_quality_acceptance.py",
+      "sha256": "d5e631d753a6819f13da986a1608ddd67a76a7598d0adf9a5a97e1ffee491db2"
+    }
+  ],
+  "live_gate_adopted": false,
+  "metric_registry_candidate_hash": "1c7c08e519e9db9bb60fee5c14c749d11af07cb2ddc2c70cd4af7592fadb31a3",
+  "naturalization_required_handoff_schema_complete": true,
+  "official_attempt_created": false,
+  "official_disposition": "not_issued",
+  "policy_candidate_hash": "bf6e941f48eb2507b4da909b035b7e68d6351de6fdfc6043468b2533fb30cea3",
+  "policy_closure_state": "not_started",
+  "policy_seal_created": false,
+  "protected_no_write_guard": {
+    "after_snapshot_hash": "6efaa03489dd542a1562b47b96937dae5973bd779ab88d275c7d3e561bef3d88",
+    "before_snapshot_hash": "6efaa03489dd542a1562b47b96937dae5973bd779ab88d275c7d3e561bef3d88",
+    "changed_paths": [],
+    "protected_surface_mutation_count": 0,
+    "schema_version": "public_text_quality_foundation_no_write_guard_v1",
+    "source_rendered_lua_runtime_package_authority_effect": "none",
+    "status": "PASS"
+  },
+  "protected_surface_mutation_count": 0,
+  "registry_food_successor_adoption_receipt_valid": true,
+  "required_gate_candidate_created": false,
+  "required_handoff_schema_hash": "d78b8c6742d8b94b6aedd620e4c3b787f78e2ed83a202ad050eef1ec25379fe6",
+  "runner_validator_interface_hash": "d7796bffa5e854098887ac34f091fb556681678acf5430aab53ee8a02a55bb0d",
+  "schema_version": "public_text_quality_development_readiness_v2",
+  "status": "foundation_ready_for_remediation",
+  "synchronization_contract_id": "dvf3_3_korean_naturalization__publish_boundary_sync_v1",
+  "synchronization_projection_hash": "85d9ec5507cbd2d4dcecd34dcd6c7bd6901cd26a3927d2a760d66121ac9cb1a7",
+  "terminal_seal_created": false,
+  "upstream_prerequisite_binding": {
+    "clean_validation_terminal_pass": true,
+    "current_facts_equals_selected_successor_facts": true,
+    "current_manifest_binds_selected_successor_manifest": true,
+    "food_sealed_successor_terminal_closeout": true,
+    "four_plan_sync_projection_sha256_match": true,
+    "g0": {
+      "artifact": {
+        "git_blob_id": "70035140563ed6cd7ad70b60a6fb36101ed50519",
+        "git_blob_sha256": "1f43bc3144f59f17774adac76f313ee67312c1818af120510de0c2591a9c426d",
+        "git_filtered_working_blob_id": "70035140563ed6cd7ad70b60a6fb36101ed50519",
+        "git_filtered_working_identity": true,
+        "hash_algorithm": "sha256_lf_normalized_text_v1",
+        "ignored_by_current_rules": false,
+        "path": "docs/iris_aa49_four_plan_execution_sync_manifest.json",
+        "raw_working_byte_identity_required": false,
+        "sealed_expected_git_blob_id": "70035140563ed6cd7ad70b60a6fb36101ed50519",
+        "sealed_expected_identity_match": true,
+        "sealed_expected_lf_normalized_sha256": "1f43bc3144f59f17774adac76f313ee67312c1818af120510de0c2591a9c426d",
+        "sha256": "1f43bc3144f59f17774adac76f313ee67312c1818af120510de0c2591a9c426d",
+        "tracked": true,
+        "working_sha256_lf_normalized": "1f43bc3144f59f17774adac76f313ee67312c1818af120510de0c2591a9c426d"
+      },
+      "contract_id": "iris_aa49_four_plan_execution_sync_v1",
+      "current_successor_plan_blobs": [
+        {
+          "git_blob_id": "fd3a2405e8789646df6203eaaf23ba8a2c4eb12e",
+          "git_blob_sha256": "97eddd1750490c60182ebbc135805abf43e62735c764f9c48ff1275935fc2a63",
+          "git_filtered_working_blob_id": "fd3a2405e8789646df6203eaaf23ba8a2c4eb12e",
+          "git_filtered_working_identity": true,
+          "path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+          "raw_working_byte_identity_required": false,
+          "working_sha256_lf_normalized": "97eddd1750490c60182ebbc135805abf43e62735c764f9c48ff1275935fc2a63"
+        },
+        {
+          "git_blob_id": "bfe6cf8d537a03672acfa5b98786fc08d1da97e4",
+          "git_blob_sha256": "2a5ff70bf47c54f28be33b874dc8866df95feb1514ae1353ac9a4c491a0f351f",
+          "git_filtered_working_blob_id": "bfe6cf8d537a03672acfa5b98786fc08d1da97e4",
+          "git_filtered_working_identity": true,
+          "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+          "raw_working_byte_identity_required": false,
+          "working_sha256_lf_normalized": "2a5ff70bf47c54f28be33b874dc8866df95feb1514ae1353ac9a4c491a0f351f"
+        },
+        {
+          "git_blob_id": "ced2bbf1ffac5fcb72a92bfcf401c3b10c9ba419",
+          "git_blob_sha256": "c270e7da1c1c1e25bb0e37e638db5dd776ff53ed883a247c39f674438105fd75",
+          "git_filtered_working_blob_id": "ced2bbf1ffac5fcb72a92bfcf401c3b10c9ba419",
+          "git_filtered_working_identity": true,
+          "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+          "raw_working_byte_identity_required": false,
+          "working_sha256_lf_normalized": "c270e7da1c1c1e25bb0e37e638db5dd776ff53ed883a247c39f674438105fd75"
+        },
+        {
+          "git_blob_id": "b89f57bba1fe30bf60072a9155e4dbcc37f5ec2c",
+          "git_blob_sha256": "97e63941c565217fdbe062612ca484f2df39bdb12ffb39ed8bda439b38fb17da",
+          "git_filtered_working_blob_id": "b89f57bba1fe30bf60072a9155e4dbcc37f5ec2c",
+          "git_filtered_working_identity": true,
+          "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+          "raw_working_byte_identity_required": false,
+          "working_sha256_lf_normalized": "97e63941c565217fdbe062612ca484f2df39bdb12ffb39ed8bda439b38fb17da"
+        }
+      ],
+      "current_successor_plan_git_filtered_identity_count": 4,
+      "current_top_doc_blob_equality_required": false,
+      "current_top_doc_successor_changes_allowed": true,
+      "four_plan_set_tracked_blob_count": 4,
+      "four_plan_sync_projection_sha256": "12c32873dc7e16e0d64e416bdb6693599e2790e9fc129606a90a72ca745a6eb0",
+      "global_stage": "G0_plan_set_materialization_and_owner_sync",
+      "materialized_plan_blob_hash_match_count": 4,
+      "materialized_plan_blobs": [
+        {
+          "git_blob_id": "fd3a2405e8789646df6203eaaf23ba8a2c4eb12e",
+          "git_object_raw_sha256": "97eddd1750490c60182ebbc135805abf43e62735c764f9c48ff1275935fc2a63",
+          "git_object_raw_sha256_match": true,
+          "path": "docs/iris_clean_checkout_full_repository_validation_reproducibility_authority_closure_plan.md",
+          "projection_occurrence_count": 1,
+          "sha256": "97eddd1750490c60182ebbc135805abf43e62735c764f9c48ff1275935fc2a63"
+        },
+        {
+          "git_blob_id": "f5eef414788a28d502bacbab8c51a173fe537d04",
+          "git_object_raw_sha256": "c75c1b048dabee755833a57e784839ded9c1fbb96e34e082c9cd12cbc82776f1",
+          "git_object_raw_sha256_match": true,
+          "path": "docs/dvf_3_3_food_semantic_facts_authority_reconstruction_implementation_plan.md",
+          "projection_occurrence_count": 1,
+          "sha256": "c75c1b048dabee755833a57e784839ded9c1fbb96e34e082c9cd12cbc82776f1"
+        },
+        {
+          "git_blob_id": "aad70374e8c77fd5828f95a4fb03d4385a5a58c8",
+          "git_object_raw_sha256": "1563bf063aad99f478e4a9541e845d85bb5baca3eb31a8fa4b3759435bc8b78d",
+          "git_object_raw_sha256_match": true,
+          "path": "docs/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure_plan.md",
+          "projection_occurrence_count": 1,
+          "sha256": "1563bf063aad99f478e4a9541e845d85bb5baca3eb31a8fa4b3759435bc8b78d"
+        },
+        {
+          "git_blob_id": "b89f57bba1fe30bf60072a9155e4dbcc37f5ec2c",
+          "git_object_raw_sha256": "97e63941c565217fdbe062612ca484f2df39bdb12ffb39ed8bda439b38fb17da",
+          "git_object_raw_sha256_match": true,
+          "path": "docs/iris_publish_boundary_public_text_quality_acceptance_policy_closure_plan.md",
+          "projection_occurrence_count": 1,
+          "sha256": "97e63941c565217fdbe062612ca484f2df39bdb12ffb39ed8bda439b38fb17da"
+        }
+      ],
+      "status": "PASS"
+    },
+    "g1": {
+      "artifact": {
+        "byte_count": 4277,
+        "git_blob_id": "fdca7e01f0db43078e99841397a181579ef1d827",
+        "git_blob_sha256": "35bf9c5d4cd5b3dfd9ecaf397a67866d75b58b2ddf4eae2c456e66704503a9e2",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase0_plan_and_decisions/g0_g1_release_binding.json",
+        "raw_sha256": "35bf9c5d4cd5b3dfd9ecaf397a67866d75b58b2ddf4eae2c456e66704503a9e2",
+        "sealed_expected_raw_sha256": "35bf9c5d4cd5b3dfd9ecaf397a67866d75b58b2ddf4eae2c456e66704503a9e2",
+        "sealed_expected_raw_sha256_match": true,
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "35bf9c5d4cd5b3dfd9ecaf397a67866d75b58b2ddf4eae2c456e66704503a9e2"
+      },
+      "clean_validation_terminal_pass": true,
+      "downstream_unblock_target": "G2_food_semantic_facts_authority",
+      "global_stage": "G1_clean_checkout_full_repository_validation",
+      "source_receipt_path": "C:/Users/MW/.codex/visualizations/2026/07/27/019fa5fc-333b-7c03-8426-46d1780ab596/phase0-successor/Iris/validation/clean_checkout/authority/g1_release_receipt_0001.json",
+      "source_receipt_sha256": "10755804a1d70ed0014ed7d32ee2c4dbe452684b30afad1fddf7cb2ff210f2bf",
+      "status": "PASS",
+      "terminal_closeout_path": "Iris/validation/clean_checkout/authority/full_repository_technical_debt_closeout_successor_0001.json",
+      "terminal_closeout_sha256": "45b03586b30ee4804d8bae71aad311912fedb52d9952c77aa4cbd56ca4d13c19",
+      "validated_subject_commit": "d8e3e1811b59d9a4b02d7f585181d719bb974eae"
+    },
+    "g2": {
+      "attempt_id": "attempt-0022",
+      "global_stage": "G2_food_semantic_facts_authority",
+      "sealed_successor_closeout": {
+        "byte_count": 949,
+        "git_blob_id": "85909ca040f7c877ee104f878afe3c114e071e10",
+        "git_blob_sha256": "fe77dc23a9b6c1296c8c54361bd1291fbb5fa09bd6a662ad02336c145f4507f7",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/sealed_successor_closeout.json",
+        "raw_sha256": "fe77dc23a9b6c1296c8c54361bd1291fbb5fa09bd6a662ad02336c145f4507f7",
+        "sealed_expected_raw_sha256": "fe77dc23a9b6c1296c8c54361bd1291fbb5fa09bd6a662ad02336c145f4507f7",
+        "sealed_expected_raw_sha256_match": true,
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "fe77dc23a9b6c1296c8c54361bd1291fbb5fa09bd6a662ad02336c145f4507f7"
+      },
+      "sealed_successor_receipt": {
+        "byte_count": 1067,
+        "git_blob_id": "3700d01c225cfd16685366344e1b9675b2774696",
+        "git_blob_sha256": "a4a1960c332246cf9f9c33d15d04568859a251c7d6988fab4d878ec235a3b4b5",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase11_successor/sealed_successor_receipt.json",
+        "raw_sha256": "a4a1960c332246cf9f9c33d15d04568859a251c7d6988fab4d878ec235a3b4b5",
+        "sealed_expected_raw_sha256": "a4a1960c332246cf9f9c33d15d04568859a251c7d6988fab4d878ec235a3b4b5",
+        "sealed_expected_raw_sha256_match": true,
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "a4a1960c332246cf9f9c33d15d04568859a251c7d6988fab4d878ec235a3b4b5"
+      },
+      "sealed_successor_terminal_closeout": true,
+      "selected_successor_binding": {
+        "byte_count": 1492,
+        "git_blob_id": "8619a60da083761068704d9b5e4a4543fb6e39dd",
+        "git_blob_sha256": "bbea40be6c9b174fbc1e25de217646e13584dde1e9fcb18fa424ccd8bf3f2f42",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase11_successor/selected_successor_input_binding.json",
+        "raw_sha256": "bbea40be6c9b174fbc1e25de217646e13584dde1e9fcb18fa424ccd8bf3f2f42",
+        "sealed_expected_raw_sha256": "bbea40be6c9b174fbc1e25de217646e13584dde1e9fcb18fa424ccd8bf3f2f42",
+        "sealed_expected_raw_sha256_match": true,
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "bbea40be6c9b174fbc1e25de217646e13584dde1e9fcb18fa424ccd8bf3f2f42"
+      },
+      "selected_successor_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+      "selected_successor_manifest_sha256": "d1dea3b7b871fac90fc6a15ec18d95641a52d566cd62d14ffb0114c2bfb0098a",
+      "status": "PASS",
+      "terminal_hash_seal": {
+        "byte_count": 2308,
+        "git_blob_id": "f0a504cb820d345119b412d202606a208048d1c4",
+        "git_blob_sha256": "9a9a37731e8d76399f6b960a0e9beb21bcdd65d8ae39e511337527c5306d0c19",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": true,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_facts_authority/attempts/attempt-0022/phase13_closeout/terminal_hash_seal.json",
+        "raw_sha256": "9a9a37731e8d76399f6b960a0e9beb21bcdd65d8ae39e511337527c5306d0c19",
+        "sealed_expected_raw_sha256": "9a9a37731e8d76399f6b960a0e9beb21bcdd65d8ae39e511337527c5306d0c19",
+        "sealed_expected_raw_sha256_match": true,
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "9a9a37731e8d76399f6b960a0e9beb21bcdd65d8ae39e511337527c5306d0c19"
+      }
+    },
+    "g3": {
+      "adoption_commit": "6272271bf7c73ca8f7eae57ea10542c03cc915df",
+      "adoption_tree": "c6e436ca0c3d29fb615388b33b3f793689fa9e43",
+      "adoption_tree_matches_commit": true,
+      "attempt_id": "attempt-0009",
+      "current_facts": {
+        "byte_count": 2376411,
+        "git_blob_id": "4d6a4495325af65092940d23aaa381733bf49165",
+        "git_blob_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": false,
+        "path": "Iris/build/description/v2/data/dvf_3_3_facts.jsonl",
+        "raw_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40"
+      },
+      "current_identity_ambiguity_count": 0,
+      "current_identity_report": {
+        "byte_count": 4095,
+        "git_blob_id": "2af2fefcef31e4a6cd9dc0d1d681e89c2a89380a",
+        "git_blob_sha256": "71dadc9901b713d6927e66719f758f925c50735fc6bc887e8f6a6ba8e086dca8",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/closeout/current_identity_report.json",
+        "raw_sha256": "71dadc9901b713d6927e66719f758f925c50735fc6bc887e8f6a6ba8e086dca8",
+        "sealed_expected_raw_sha256": "71dadc9901b713d6927e66719f758f925c50735fc6bc887e8f6a6ba8e086dca8",
+        "sealed_expected_raw_sha256_match": true,
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "71dadc9901b713d6927e66719f758f925c50735fc6bc887e8f6a6ba8e086dca8"
+      },
+      "current_input_manifest": {
+        "adopted_successor_manifest_sha256": "d1dea3b7b871fac90fc6a15ec18d95641a52d566cd62d14ffb0114c2bfb0098a",
+        "byte_count": 5930,
+        "git_blob_id": "cbb992e13dc813894bf5bb03a6f87a6e31f32cab",
+        "git_blob_sha256": "7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": false,
+        "path": "Iris/build/description/v2/data/dvf_3_3_input_manifest.json",
+        "raw_sha256": "7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c",
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "7a282be929217f0c117bc1fd86f84b4146d34e92dc1d2833c3c0f943c371c43c"
+      },
+      "food_semantic_registry_adoption": "current_adoption_complete",
+      "global_stage": "G3_registry_food_successor_operational_cutover",
+      "partial_or_dual_current_count": 0,
+      "registry_adoption_receipt": {
+        "byte_count": 2194,
+        "git_blob_id": "f2bb467423fc8ac9eb0c272e44f21c102fc1a7b9",
+        "git_blob_sha256": "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/closeout/registry_adoption_receipt.json",
+        "raw_sha256": "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751",
+        "sealed_expected_raw_sha256": "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751",
+        "sealed_expected_raw_sha256_match": true,
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "efcc387bb395b561ab67df0cab4e498fe0b429680fc6cc8f6dd96eb94ba49751"
+      },
+      "registry_food_successor_adoption_receipt_valid": true,
+      "registry_runtime_compatibility_current_source_alignment": "stale_requires_successor_rtc",
+      "rendered_lua_runtime_package_mutation_count": 0,
+      "runtime_package_publication_claim_effect": "none_fail_closed_out_of_scope",
+      "selected_successor_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+      "selected_successor_manifest_sha256": "d1dea3b7b871fac90fc6a15ec18d95641a52d566cd62d14ffb0114c2bfb0098a",
+      "status": "PASS",
+      "successor_registry_runtime_compatibility_closure": false,
+      "terminal_hash_seal": {
+        "byte_count": 2294,
+        "git_blob_id": "160a53fd1aa1bb27440954d750a6e0fbd5828a6c",
+        "git_blob_sha256": "1f494ed0661627a82c3fcfd8465f2313fe0768cac82af09457e9ffc9e91b7ae1",
+        "git_blob_working_byte_identity": true,
+        "ignored_by_current_rules": false,
+        "path": "Iris/build/description/v2/staging/dvf_3_3_food_semantic_registry_operational_cutover/attempts/attempt-0009/closeout/terminal_hash_seal.json",
+        "raw_sha256": "1f494ed0661627a82c3fcfd8465f2313fe0768cac82af09457e9ffc9e91b7ae1",
+        "sealed_expected_raw_sha256": "1f494ed0661627a82c3fcfd8465f2313fe0768cac82af09457e9ffc9e91b7ae1",
+        "sealed_expected_raw_sha256_match": true,
+        "tracked": true,
+        "tracked_file_ignore_effect": "none",
+        "working_sha256": "1f494ed0661627a82c3fcfd8465f2313fe0768cac82af09457e9ffc9e91b7ae1"
+      }
+    },
+    "global_stage_order": [
+      "G0_plan_set_materialization_and_owner_sync",
+      "G1_clean_checkout_full_repository_validation",
+      "G2_food_semantic_facts_authority",
+      "G3_registry_food_successor_operational_cutover",
+      "G4_publish_boundary_foundation"
+    ],
+    "registry_food_successor_adoption_receipt_valid": true,
+    "schema_version": "public_text_quality_foundation_upstream_binding_v1",
+    "upstream_prerequisite_status": "PASS"
+  },
+  "upstream_prerequisite_binding_hash": "dfcb3d00db2ec12b0c7d193feb992a96964abdaa30459d533d26a7a9c0bc1776"
+}

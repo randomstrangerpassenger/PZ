@@ -1,0 +1,560 @@
+{
+  "schema_version": "public_text_quality_acceptance_fixture_manifest_v1",
+  "fixtures": [
+    {
+      "fixture_id": "PTQA-RM-01",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "freshness",
+      "input": {"expected_hash": "payload-a", "actual_hash": "payload-b"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-02",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "freshness",
+      "input": {"expected_hash": "source-a", "actual_hash": "source-b"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-03",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "freshness",
+      "input": {"expected_hash": "runtime-a", "actual_hash": "runtime-b"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-04",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "freshness",
+      "input": {"expected_hash": "calculator-a", "actual_hash": "calculator-b"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-05",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "freshness",
+      "input": {"expected_hash": "policy-a", "actual_hash": "policy-b"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-06",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "freshness",
+      "input": {"expected_hash": "waiver-a", "actual_hash": "waiver-b"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-07",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "registry_membership",
+      "input": {
+        "registry": "profile",
+        "value": "unknown_profile",
+        "known_values": ["tool_body", "material_body"]
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-08",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "registry_membership",
+      "input": {"registry": "metric", "value": "unknown_metric"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-09",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "registry_membership",
+      "input": {"registry": "denominator", "value": "unknown_denominator"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-10",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "denominator",
+      "input": {"value": 0},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-11",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "row_occurrence",
+      "input": {
+        "missing_any_row_count": 1,
+        "missing_occurrence_count": 2,
+        "effective_blocker_count": 2
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-12",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "unadopted_separation",
+      "input": {
+        "unadopted_in_quality_denominator_count": 1,
+        "unadopted_counted_as_weak": 1
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-13",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "waiver",
+      "input": {
+        "payload_binding_hash": "payload",
+        "expected_payload_binding_hash": "payload",
+        "policy_hash": "policy",
+        "expected_policy_hash": "policy",
+        "metric_id": "coverage_quality_weak",
+        "known_metric": "coverage_quality_weak",
+        "original_disposition": "blocking_gate",
+        "waived_disposition": "deferred_internal_debt",
+        "owner_identity": "owner",
+        "owner_valid": true,
+        "issued_at": "2026-07-01T00:00:00Z",
+        "expires_at": "2026-07-02T00:00:00Z",
+        "evaluation_at": "2026-07-03T00:00:00Z",
+        "owner_binding_proof": "proof",
+        "technical_failure_scope": false,
+        "raw_metric_mutated": false
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-14",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "waiver",
+      "input": {
+        "payload_binding_hash": "payload",
+        "expected_payload_binding_hash": "payload",
+        "policy_hash": "wrong-policy",
+        "expected_policy_hash": "policy",
+        "metric_id": "coverage_quality_weak",
+        "known_metric": "coverage_quality_weak",
+        "original_disposition": "blocking_gate",
+        "waived_disposition": "deferred_internal_debt",
+        "owner_identity": "owner",
+        "owner_valid": true,
+        "issued_at": "2026-07-01T00:00:00Z",
+        "expires_at": "2026-08-01T00:00:00Z",
+        "evaluation_at": "2026-07-03T00:00:00Z",
+        "owner_binding_proof": "proof",
+        "technical_failure_scope": false,
+        "raw_metric_mutated": false
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-15",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "waiver",
+      "input": {
+        "payload_binding_hash": "wrong-payload",
+        "expected_payload_binding_hash": "payload",
+        "policy_hash": "policy",
+        "expected_policy_hash": "policy",
+        "metric_id": "coverage_quality_weak",
+        "known_metric": "coverage_quality_weak",
+        "original_disposition": "blocking_gate",
+        "waived_disposition": "deferred_internal_debt",
+        "owner_identity": "owner",
+        "owner_valid": true,
+        "issued_at": "2026-07-01T00:00:00Z",
+        "expires_at": "2026-08-01T00:00:00Z",
+        "evaluation_at": "2026-07-03T00:00:00Z",
+        "owner_binding_proof": "proof",
+        "technical_failure_scope": false,
+        "raw_metric_mutated": false
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-16",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "waiver",
+      "input": {
+        "payload_binding_hash": "payload",
+        "expected_payload_binding_hash": "payload",
+        "policy_hash": "policy",
+        "expected_policy_hash": "policy",
+        "metric_id": "coverage_quality_weak",
+        "known_metric": "coverage_quality_weak",
+        "original_disposition": "blocking_gate",
+        "waived_disposition": "deferred_internal_debt",
+        "owner_identity": "owner",
+        "owner_valid": false,
+        "issued_at": "2026-07-01T00:00:00Z",
+        "expires_at": "2026-08-01T00:00:00Z",
+        "evaluation_at": "2026-07-03T00:00:00Z",
+        "owner_binding_proof": "proof",
+        "technical_failure_scope": false,
+        "raw_metric_mutated": false
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-17",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "waiver",
+      "input": {
+        "payload_binding_hash": "payload",
+        "expected_payload_binding_hash": "payload",
+        "policy_hash": "policy",
+        "expected_policy_hash": "policy",
+        "metric_id": "coverage_quality_weak",
+        "known_metric": "coverage_quality_weak",
+        "original_disposition": "blocking_gate",
+        "waived_disposition": "deferred_internal_debt",
+        "owner_identity": "owner",
+        "owner_valid": true,
+        "issued_at": "2026-07-01T00:00:00Z",
+        "expires_at": "2026-08-01T00:00:00Z",
+        "evaluation_at": "2026-07-03T00:00:00Z",
+        "owner_binding_proof": "proof",
+        "technical_failure_scope": true,
+        "raw_metric_mutated": false
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-18",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "threshold",
+      "input": {
+        "numerator": 0,
+        "denominator": 10,
+        "threshold": {"operator": "eq", "value": {"integer": 0}},
+        "disposition_class": "blocking_gate"
+      },
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-RM-19",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "threshold",
+      "input": {
+        "numerator": 4,
+        "denominator": 100,
+        "threshold": {
+          "operator": "le",
+          "value": {"numerator": 1, "denominator": 20}
+        },
+        "disposition_class": "advisory_debt"
+      },
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-RM-20",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "threshold",
+      "input": {
+        "numerator": 6,
+        "denominator": 100,
+        "threshold": {
+          "operator": "le",
+          "value": {"numerator": 1, "denominator": 20}
+        },
+        "disposition_class": "advisory_debt"
+      },
+      "expected_outcome": "deferred_internal_debt"
+    },
+    {
+      "fixture_id": "PTQA-RM-21",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "row_occurrence",
+      "input": {
+        "missing_any_row_count": 1,
+        "missing_occurrence_count": 2,
+        "effective_blocker_count": 1
+      },
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-RM-22",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "metric_axes",
+      "input": {
+        "quality_class": "adequate",
+        "missing_any_required_section": true
+      },
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-RM-23",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "metric_axes",
+      "input": {
+        "quality_class": "weak",
+        "missing_any_required_section": false
+      },
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-RM-24",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "exception",
+      "input": {
+        "default_exception_count": 0,
+        "semantic_freeform_exception": true
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-25",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "raw_metric_mutation",
+      "input": {"raw_metric_mutated": true},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-26",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "disposition",
+      "input": {
+        "technical_blocker_count": 1,
+        "effective_blocking_finding_count": 0,
+        "advisory_debt_count": 0,
+        "active_waiver_count": 0
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-27",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "disposition",
+      "input": {
+        "technical_blocker_count": 0,
+        "effective_blocking_finding_count": 1,
+        "advisory_debt_count": 0,
+        "active_waiver_count": 0
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-28",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "disposition",
+      "input": {
+        "technical_blocker_count": 0,
+        "effective_blocking_finding_count": 0,
+        "advisory_debt_count": 1,
+        "active_waiver_count": 0
+      },
+      "expected_outcome": "deferred_internal_debt"
+    },
+    {
+      "fixture_id": "PTQA-RM-29",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "schema",
+      "input": {
+        "value": {"qualified_disposition": "accepted", "second": "blocked"},
+        "required_keys": ["qualified_disposition"]
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-30",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "threshold",
+      "input": {
+        "numerator": 0,
+        "denominator": 0,
+        "threshold": {"operator": "eq", "value": {"integer": 0}},
+        "disposition_class": "blocking_gate"
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-31",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "state_claim",
+      "input": {
+        "foundation_contract_ready_for_remediation": true,
+        "authority_effect": "historical_threshold_reused",
+        "official_disposition": "not_issued",
+        "live_gate_adopted": false,
+        "policy_closure_state": "not_started"
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-32",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "schema",
+      "input": {
+        "value": {"threshold": 0, "derived_from_current_result": true},
+        "required_keys": ["threshold"]
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-33",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "disposition",
+      "input": {
+        "technical_blocker_count": 0,
+        "effective_blocking_finding_count": 0,
+        "advisory_debt_count": 0,
+        "active_waiver_count": 1
+      },
+      "expected_outcome": "deferred_internal_debt"
+    },
+    {
+      "fixture_id": "PTQA-RM-34",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "row_occurrence",
+      "input": {
+        "missing_any_row_count": 1,
+        "missing_occurrence_count": 1,
+        "effective_blocker_count": 0
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-35",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "schema",
+      "input": {
+        "value": {"operator": "eq"},
+        "required_keys": ["operator", "value"]
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-RM-36",
+      "origin": "roadmap_mandatory",
+      "fixture_kind": "canonicalization",
+      "input": {
+        "left": {
+          "item_id": "Base.A",
+          "generated_at": "2026-07-01T00:00:00Z",
+          "host": "host-a"
+        },
+        "right": {
+          "item_id": "Base.A",
+          "generated_at": "2026-07-02T00:00:00Z",
+          "host": "host-b"
+        }
+      },
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-PA-01",
+      "origin": "plan_additive",
+      "fixture_kind": "waiver",
+      "input": {
+        "payload_binding_hash": "payload",
+        "expected_payload_binding_hash": "payload",
+        "policy_hash": "policy",
+        "expected_policy_hash": "policy",
+        "metric_id": "coverage_quality_weak",
+        "known_metric": "coverage_quality_weak",
+        "original_disposition": "blocking_gate",
+        "waived_disposition": "deferred_internal_debt",
+        "owner_identity": "owner",
+        "owner_valid": true,
+        "issued_at": "2026-07-01T00:00:00Z",
+        "expires_at": "2026-08-01T00:00:00Z",
+        "evaluation_at": "2026-07-03T00:00:00Z",
+        "owner_binding_proof": "proof",
+        "technical_failure_scope": false,
+        "raw_metric_mutated": false
+      },
+      "expected_outcome": "deferred_internal_debt"
+    },
+    {
+      "fixture_id": "PTQA-PA-02",
+      "origin": "plan_additive",
+      "fixture_kind": "structural",
+      "input": {
+        "required": true,
+        "status": "satisfied_by_verified_fusion",
+        "equivalence_proof_valid": true
+      },
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-PA-03",
+      "origin": "plan_additive",
+      "fixture_kind": "structural",
+      "input": {
+        "required": true,
+        "status": "satisfied_by_verified_suppression",
+        "equivalence_proof_valid": false
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-PA-04",
+      "origin": "plan_additive",
+      "fixture_kind": "structural",
+      "input": {
+        "required": false,
+        "status": "not_required",
+        "equivalence_proof_valid": false
+      },
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-PA-05",
+      "origin": "plan_additive",
+      "fixture_kind": "structural",
+      "input": {
+        "required": true,
+        "status": "not_required",
+        "equivalence_proof_valid": false
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-PA-06",
+      "origin": "plan_additive",
+      "fixture_kind": "runtime_parity_claim",
+      "input": {
+        "applicability": "not_applicable",
+        "reason": "candidate_not_registry_adopted",
+        "registry_runtime_pass_claimed": true
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-PA-07",
+      "origin": "plan_additive",
+      "fixture_kind": "human_review_scope",
+      "input": {
+        "required_review_count": 128,
+        "reviewed_count": 128,
+        "corpus_wide_zero_claim": true,
+        "full_corpus_reviewed": false
+      },
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-PA-08",
+      "origin": "plan_additive",
+      "fixture_kind": "sync_projection",
+      "input": {"projection_hash": "stale-foundation-hash"},
+      "expected_outcome": "blocked"
+    },
+    {
+      "fixture_id": "PTQA-PA-09",
+      "origin": "plan_additive",
+      "fixture_kind": "raw_metric_mutation",
+      "input": {"raw_metric_mutated": false},
+      "expected_outcome": "accepted"
+    },
+    {
+      "fixture_id": "PTQA-PA-10",
+      "origin": "plan_additive",
+      "fixture_kind": "state_claim",
+      "input": {
+        "foundation_contract_ready_for_remediation": true,
+        "authority_effect": "none",
+        "official_disposition": "not_issued",
+        "live_gate_adopted": false,
+        "policy_closure_state": "not_started"
+      },
+      "expected_outcome": "accepted"
+    }
+  ]
+}

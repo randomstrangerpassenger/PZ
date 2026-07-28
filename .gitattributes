@@ -31,3 +31,5 @@ docs/dvf_3_3_food_semantic_claim_boundary.md -text
 docs/dvf_3_3_food_semantic_schema.md -text
 Iris/build/description/v2/data/dvf_3_3_facts.jsonl -text
 Iris/build/description/v2/data/dvf_3_3_input_manifest.json -text
+Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_foundation_contract.json -text
+Iris/_docs/round3/iris_publish_boundary_public_text_quality_acceptance_policy_closure/foundation/public_text_quality_development_readiness_report.json -text

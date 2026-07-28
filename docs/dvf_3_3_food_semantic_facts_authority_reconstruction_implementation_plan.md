@@ -2742,3 +2742,61 @@ implementation, curation, owner-decision, VC-1 correction chain에 참여하지 
 Final correction subject commit은 테스트 대상이다. Validation receipt와 terminal
 artifacts를 담는 후속 evidence commit은 self-referential하게 테스트 대상이라고
 주장하지 않으며, exact subject commit/tree와 각 receipt hash를 결속한다.
+
+---
+
+## Appendix C — Owner-Directed Scoped Final Validation
+
+Appendix C는 프로젝트 소유자의 최신 직접 지시에 따라 Appendix B.3의 validation
+denominator를 이 문제의 범위로 제한한다. 다음 owner direction artifact가 이
+변경의 권위다.
+
+```text
+phase13_closeout/validation_scope_owner_direction.json
+instruction = 계획과 우리가 해결하려는 문제 이외의 사항들은 검증하려고 하지마.
+              괜한 돈과 시간을 날리고 싶지 않아
+```
+
+Appendix B.3의 canonical full-repository `full-gate` run A/B 요구는 폐기한다.
+`full-gate`, direct all-`test_*.py`, historical/obsolete/misrouted test,
+Registry/runtime/shared-disposition/package/release suite는 이 round에서 실행하지
+않는다. 이는 실패 waiver가 아니라 문제·계획 밖 검증을 terminal denominator에
+포함하지 않는 scope correction이다. 기존
+`post_authority_validation_failure.json`은 diagnostic-only, terminal credit 0으로
+계속 보존한다.
+
+Final correction subject에 적용되는 테스트는 다음 세 그룹뿐이다.
+
+```powershell
+uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_food_semantic_*.py"
+uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_korean_prose_acceptance_gate.py"
+uv run python -B -m unittest discover -s Iris/build/description/v2/tests -p "test_dvf_3_3_korean_prose_semantic_preservation.py"
+```
+
+Attempt-local `vc1_validation_contract.py record`가 exact final subject의 외부
+disposable checkout에서 위 세 command를 직접 실행한다. Caller-supplied exit
+code는 허용하지 않는다. 각 command의 exact argv, exit code, stdout/stderr
+SHA-256, subject commit/tree, checkout before/after clean 및 cleanup 상태를
+repository-local write-once receipt에 봉인한다. `validate`는 그 receipt와
+authority/review/command/result 구조를 전부 다시 계산해 exact equality로
+검증한다.
+
+Attempt-local `vc1_prepare_closeout.py`는 기존 sealed closeout 구현을 변경하지
+않고 호출한 뒤 additive overlay를 적용한다. Overlay는 Appendix C까지 포함한
+현 plan을 `final_artifact_manifest.json`에 직접 artifact row로 추가하고,
+`terminal_review_request.json`의 plan SHA-256/Git blob을 동일 identity로
+교체한다. Pre-VC-1 traceability plan identity는 역사적 binding으로 별도
+보존한다.
+
+최종 순서는 다음과 같다.
+
+```text
+scoped correction implementation
+-> fresh Codex Reviewer correction review PASS
+-> exact final subject의 Food focused + D16 두 검증 직접 실행
+-> attempt-local receipt repository-only revalidation
+-> additive closeout overlay
+-> distinct Codex Reviewer terminal review
+-> owner final seal
+-> terminal hash seal
+```

@@ -1,0 +1,29 @@
+{
+  "schema_version": "food-semantic-validation-scope-owner-direction-v1",
+  "status": "APPROVED",
+  "attempt_id": "attempt-0022",
+  "authority": "direct_project_owner_user_instruction",
+  "instruction_text": "계획과 우리가 해결하려는 문제 이외의 사항들은 검증하려고 하지마. 괜한 돈과 시간을 날리고 싶지 않아",
+  "recorded_at": "2026-07-29T00:51:19+09:00",
+  "scope_effect": "restrict_validation_to_food_semantic_authority_and_direct_D16_handoff_only",
+  "applicable_final_validation_groups": [
+    "food_semantic_focused",
+    "d16_acceptance",
+    "d16_semantic_preservation",
+    "attempt_local_authority_and_receipt_integrity"
+  ],
+  "excluded_validation_groups": [
+    "direct_all_unittest_discovery",
+    "full_repository_gate",
+    "historical_optional_tests",
+    "obsolete_or_misrouted_tests",
+    "Registry_runtime_shared_disposition_package_release_suites",
+    "Naturalization_Phase_4_through_8",
+    "Publish_Boundary"
+  ],
+  "excluded_failure_waiver_created": false,
+  "existing_failure_evidence_rewrite_allowed": false,
+  "current_facts_manifest_mutation_allowed": false,
+  "same_attempt_continuation": true,
+  "new_attempt_created": false
+}

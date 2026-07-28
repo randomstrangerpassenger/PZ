@@ -1,0 +1,64 @@
+{
+  "schema_version": "food-semantic-validation-contract-correction-review-failure-v1",
+  "status": "FAIL",
+  "verdict": "FAIL",
+  "review_role": "external_Codex_Reviewer_VC1_correction_review",
+  "reviewer_identity": "Codex Reviewer /root/codex_reviewer_vc1_correction",
+  "reviewed_correction_subject": {
+    "commit": "61801b5ee7906616ae49a667e7792e78e0277836",
+    "tree": "18b773aba1df1ff6335e170b8c7c707c0390081e"
+  },
+  "tests_executed": false,
+  "files_modified": false,
+  "terminal_independent_review_credit": 0,
+  "finding_count": 5,
+  "open_critical_finding_count": 2,
+  "open_important_finding_count": 3,
+  "findings": [
+    {
+      "severity": "CRITICAL",
+      "id": "VC1-R1",
+      "location": "phase13_closeout/vc1_validation_contract.py:435-443,492-506",
+      "finding": "Food-focused and D16 PASS could be recorded from caller-supplied integer exit codes without machine-generated execution evidence.",
+      "required_fix": "Run the exact commands directly or validate exact-subject machine-generated per-command receipts with command and log hashes."
+    },
+    {
+      "severity": "CRITICAL",
+      "id": "VC1-R2",
+      "location": "phase13_closeout/vc1_validation_contract.py:444-459",
+      "finding": "Run A and B did not require distinct receipt, canonical-result, result-root, and execution identities, so one receipt could be supplied twice.",
+      "required_fix": "Enforce two direct runs with distinct sealed work/result roots and distinct receipt/canonical paths."
+    },
+    {
+      "severity": "IMPORTANT",
+      "id": "VC1-R3",
+      "location": "phase13_closeout/vc1_validation_contract.py:570-629",
+      "finding": "Repository-only validation rechecked only a subset of recorded invariants and could accept internally fabricated PASS JSON.",
+      "required_fix": "Recompute and compare the complete canonical focused, clean-checkout, correction-review, authority, command, subject, and current-route structures."
+    },
+    {
+      "severity": "IMPORTANT",
+      "id": "VC1-R4",
+      "location": "phase13_closeout/vc1_validation_contract.py:147-153,166-198,244-285,424-430",
+      "finding": "The canonical owner-ratification path and expected authority/reviewer schema, role, identity, participation, and binding predicates were not sufficiently fixed.",
+      "required_fix": "Fix the ratification path and hash and validate exact review schema, role, non-participation flags, terminal credit, reviewed subject, and reviewed blob/hash bindings."
+    },
+    {
+      "severity": "IMPORTANT",
+      "id": "VC1-R5",
+      "location": "implementation plan Appendix B and unchanged closeout final-manifest construction",
+      "finding": "The final artifact manifest omitted the Appendix-B plan row and terminal_review_request retained the pre-Appendix plan identity.",
+      "required_fix": "Use an additive closeout overlay that directly includes the Appendix-B plan and updates the terminal review request to its exact SHA-256 and Git blob."
+    }
+  ],
+  "confirmed_preservations": {
+    "plan_change_is_append_only_after_appendix_A": true,
+    "preserved_failure_sha256_matches": true,
+    "successor_facts_and_manifest_sha256_match": true,
+    "current_route_B_G2_is_NOT_APPLICABLE_with_null_exit": true,
+    "original_closeout_and_cli_modified": false,
+    "worktree_clean_after_review": true
+  },
+  "same_attempt_remediation_required": true,
+  "new_attempt_created": false
+}

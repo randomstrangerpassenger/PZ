@@ -15,7 +15,7 @@ if str(V2_ROOT) not in sys.path:
 from tools.build import dvf_3_3_food_semantic_registry_cutover as cutover
 
 
-ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0002"
+ATTEMPT_ROOT = cutover.ATTEMPTS_ROOT / "attempt-0003"
 
 
 class FoodSemanticRegistryCutoverTest(unittest.TestCase):
@@ -189,6 +189,37 @@ class FoodSemanticRegistryCutoverTest(unittest.TestCase):
             )
             self.assertEqual(failure["rollback"]["status"], "PASS")
             self.assertFalse(failure["same_attempt_retry_allowed"])
+
+    def test_lock_is_retained_until_error_release_guard_confirms_safety(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            lock_path = Path(temporary) / "transaction.lock"
+            with self.assertRaisesRegex(RuntimeError, "retain"):
+                with cutover.transaction_lock(
+                    {"mode": "fixture", "attempt_id": "attempt-9996"},
+                    error_release_guard=lambda: False,
+                    lock_path=lock_path,
+                ):
+                    raise RuntimeError("retain")
+            self.assertTrue(lock_path.is_file())
+            lock_path.unlink()
+            with self.assertRaisesRegex(RuntimeError, "release"):
+                with cutover.transaction_lock(
+                    {"mode": "fixture", "attempt_id": "attempt-9996"},
+                    error_release_guard=lambda: True,
+                    lock_path=lock_path,
+                ):
+                    raise RuntimeError("release")
+            self.assertFalse(lock_path.exists())
+            with self.assertRaisesRegex(RuntimeError, "guard-error"):
+                with cutover.transaction_lock(
+                    {"mode": "fixture", "attempt_id": "attempt-9996"},
+                    error_release_guard=lambda: (_ for _ in ()).throw(
+                        RuntimeError("guard")
+                    ),
+                    lock_path=lock_path,
+                ):
+                    raise RuntimeError("guard-error")
+            self.assertTrue(lock_path.is_file())
 
     def test_startup_recovery_closes_every_journal_transition(self) -> None:
         for transition in (

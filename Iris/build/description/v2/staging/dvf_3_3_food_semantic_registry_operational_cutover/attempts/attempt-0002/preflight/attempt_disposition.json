@@ -1,0 +1,17 @@
+{
+  "schema_version": "food-semantic-registry-cutover-attempt-disposition-v1",
+  "status": "SUPERSEDED_BEFORE_PRE_CUTOVER_REVIEW",
+  "attempt_id": "attempt-0002",
+  "implementation_commit": "6ea0871dd540d6c8836d2d13914c982a623b9e22",
+  "implementation_tree": "02cf2a68c784434c17f7e858068bc9287719176d",
+  "candidate_current_facts_sha256": "1ef1785f12d53fbfdca7e96d372079c16fcec276cbae93280e62908c8a891b40",
+  "candidate_current_manifest_sha256": "bebf9dabcc808135d608c2511c84ae9b3242a2916a476c2736298612fb4c18be",
+  "reason": "error-path lock release was hardened to require verified rollback and exact restored preimages after nonce consumption",
+  "pre_cutover_review_complete": false,
+  "owner_authorization_issued": false,
+  "authorization_nonce_consumed": false,
+  "live_write_count": 0,
+  "tests_executed": false,
+  "same_attempt_retry_allowed": false,
+  "successor_attempt_required": true
+}

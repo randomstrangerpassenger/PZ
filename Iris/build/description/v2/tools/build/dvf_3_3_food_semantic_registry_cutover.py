@@ -743,15 +743,22 @@ def process_is_alive(pid: int) -> bool:
 
 
 @contextmanager
-def transaction_lock(binding: dict[str, Any]) -> Iterator[None]:
-    ROUND_ROOT.mkdir(parents=True, exist_ok=True)
-    lock_path = ROUND_ROOT / "transaction.lock"
-    if lock_path.exists():
-        stale = read_json(lock_path)
+def transaction_lock(
+    binding: dict[str, Any],
+    *,
+    error_release_guard: Callable[[], bool] | None = None,
+    lock_path: Path | None = None,
+) -> Iterator[None]:
+    selected_lock_path = (
+        lock_path if lock_path is not None else ROUND_ROOT / "transaction.lock"
+    )
+    selected_lock_path.parent.mkdir(parents=True, exist_ok=True)
+    if selected_lock_path.exists():
+        stale = read_json(selected_lock_path)
         stale_pid = stale.get("pid")
         if not isinstance(stale_pid, int) or process_is_alive(stale_pid):
             raise CutoverError("round_transaction_lock_active_or_invalid")
-        lock_path.unlink()
+        selected_lock_path.unlink()
     payload = {
         "schema_version": "food-semantic-registry-cutover-lock-v1",
         "round_id": ROUND_ID,
@@ -759,14 +766,24 @@ def transaction_lock(binding: dict[str, Any]) -> Iterator[None]:
         "acquired_at": now_iso(),
         **binding,
     }
-    write_once_json(lock_path, payload)
+    write_once_json(selected_lock_path, payload)
+    release_lock = True
     try:
         yield
+    except BaseException:
+        if error_release_guard is None:
+            release_lock = True
+        else:
+            try:
+                release_lock = error_release_guard()
+            except BaseException:
+                release_lock = False
+        raise
     finally:
-        if lock_path.exists():
-            observed = read_json(lock_path)
+        if release_lock and selected_lock_path.exists():
+            observed = read_json(selected_lock_path)
             if observed.get("pid") == os.getpid():
-                lock_path.unlink()
+                selected_lock_path.unlink()
 
 
 def journal_path(root: Path) -> Path:
@@ -1086,6 +1103,32 @@ def startup_recovery(exclude_attempt: str | None = None) -> list[dict[str, Any]]
         state = read_json(journal).get("state")
         if state == "committed":
             continue
+        failure_path = root / "transaction" / "transaction_failure.json"
+        if failure_path.is_file():
+            failure = read_json(failure_path)
+            if (
+                failure.get("status") == "FAILED"
+                and failure.get("rollback", {}).get("status") == "PASS"
+                and failure.get("rollback", {}).get("restored_preimages")
+                == {
+                    "facts": CURRENT_FACTS_PREIMAGE_SHA256,
+                    "manifest": CURRENT_MANIFEST_PREIMAGE_SHA256,
+                }
+            ):
+                continue
+        recovery_path = root / "transaction" / "startup_recovery.json"
+        if recovery_path.is_file():
+            recovery = read_json(recovery_path)
+            if (
+                recovery.get("status") == "PASS"
+                and recovery.get("resolution") == "both_preimages_restored"
+                and recovery.get("rollback", {}).get("restored_preimages")
+                == {
+                    "facts": CURRENT_FACTS_PREIMAGE_SHA256,
+                    "manifest": CURRENT_MANIFEST_PREIMAGE_SHA256,
+                }
+            ):
+                continue
         recovered.append(recover_attempt(root))
     return recovered
 
@@ -1094,6 +1137,19 @@ def command_prepare(attempt_id: str) -> dict[str, Any]:
     root = attempt_root(attempt_id)
     if root.exists():
         raise CutoverError(f"attempt_already_exists:{attempt_id}")
+    with transaction_lock(
+        {
+            "mode": "prepare_startup_recovery",
+            "attempt_id": attempt_id,
+            "allowed_target_paths": ALLOWED_TARGET_PATHS,
+        }
+    ):
+        initial_recovery = startup_recovery()
+    if initial_recovery:
+        raise CutoverError(
+            "startup_recovery_completed_commit_evidence_before_prepare:"
+            f"{initial_recovery}"
+        )
     require_clean_candidate_entry()
     implementation = validate_implementation_binding()
     g2_chain = validate_g2_chain(implementation["implementation_commit"])
@@ -1259,6 +1315,12 @@ def validate_pre_cutover_review(root: Path) -> tuple[dict[str, Any], str]:
     require_equal(counts.get("important"), 0, "pre_cutover_important_count")
     require_equal(review.get("tests_executed"), False, "pre_cutover_tests_executed")
     require_equal(review.get("files_modified"), False, "pre_cutover_files_modified")
+    reviewer_identity = review.get("reviewer_identity")
+    if (
+        not isinstance(reviewer_identity, str)
+        or not reviewer_identity.startswith("Codex Reviewer /root/")
+    ):
+        raise CutoverError("pre_cutover_reviewer_identity_invalid")
     return review, sha256_file(path)
 
 
@@ -1317,6 +1379,14 @@ def validate_authorization_payload(
         raise CutoverError("owner_authorization_approver_invalid")
     if not isinstance(approval_time, str) or not approval_time.strip():
         raise CutoverError("owner_authorization_time_invalid")
+    try:
+        parsed_approval_time = datetime.fromisoformat(
+            approval_time.replace("Z", "+00:00")
+        )
+    except ValueError as exc:
+        raise CutoverError("owner_authorization_time_invalid") from exc
+    if parsed_approval_time.tzinfo is None:
+        raise CutoverError("owner_authorization_time_timezone_missing")
     if nonce_path.exists():
         raise CutoverError("owner_authorization_nonce_already_consumed")
 
@@ -1327,6 +1397,19 @@ def validate_owner_authorization(root: Path) -> tuple[dict[str, Any], str]:
     expected = authorization_expected(root)
     nonce_path = root / "transaction" / "nonce_consumption.json"
     validate_authorization_payload(authorization, expected, nonce_path)
+    for consumed_path in ATTEMPTS_ROOT.glob(
+        "attempt-*/transaction/nonce_consumption.json"
+    ):
+        if consumed_path.resolve() == nonce_path.resolve():
+            continue
+        consumed = read_json(consumed_path)
+        if consumed.get("authorization_nonce") == authorization[
+            "authorization_nonce"
+        ]:
+            raise CutoverError(
+                f"owner_authorization_nonce_replayed_across_attempts:"
+                f"{repo_relative(consumed_path)}"
+            )
     return authorization, sha256_file(path)
 
 
@@ -1410,6 +1493,19 @@ def create_adoption_receipts(root: Path) -> tuple[Path, Path]:
 
 def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[str, Any]:
     root = attempt_root(attempt_id)
+    with transaction_lock(
+        {
+            "mode": "apply_startup_recovery",
+            "attempt_id": attempt_id,
+            "allowed_target_paths": ALLOWED_TARGET_PATHS,
+        }
+    ):
+        initial_recovery = startup_recovery()
+    if initial_recovery:
+        raise CutoverError(
+            "startup_recovery_completed_commit_evidence_before_apply:"
+            f"{initial_recovery}"
+        )
     authorization, authorization_sha256 = validate_owner_authorization(root)
     facts_candidate, manifest_candidate = candidate_paths(root)
     expected_preimages, expected_candidates = expected_pair_hashes(root)
@@ -1418,6 +1514,27 @@ def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[st
         SUCCESSOR_FACTS_SHA256,
         "candidate_successor_facts",
     )
+
+    def apply_error_release_guard() -> bool:
+        nonce_path = root / "transaction" / "nonce_consumption.json"
+        if not nonce_path.exists():
+            return True
+        failure_path = root / "transaction" / "transaction_failure.json"
+        if not failure_path.is_file():
+            return False
+        try:
+            failure = read_json(failure_path)
+            actual = {
+                "facts": sha256_file(CURRENT_FACTS),
+                "manifest": sha256_file(CURRENT_MANIFEST),
+            }
+        except (CutoverError, OSError):
+            return False
+        return (
+            failure.get("rollback", {}).get("status") == "PASS"
+            and actual == expected_preimages
+        )
+
     with transaction_lock(
         {
             "mode": "apply",
@@ -1426,7 +1543,8 @@ def command_apply(attempt_id: str, inject_failure: str | None = None) -> dict[st
             "current_preimages": expected_preimages,
             "candidate_hashes": expected_candidates,
             "authorization_nonce": authorization["authorization_nonce"],
-        }
+        },
+        error_release_guard=apply_error_release_guard,
     ):
         startup_recovery(exclude_attempt=attempt_id)
         require_equal(
@@ -1787,6 +1905,14 @@ def command_finalize(attempt_id: str) -> dict[str, Any]:
         "approval_time"
     ].strip():
         raise CutoverError("owner_seal_time_invalid")
+    try:
+        parsed_owner_seal_time = datetime.fromisoformat(
+            owner["approval_time"].replace("Z", "+00:00")
+        )
+    except ValueError as exc:
+        raise CutoverError("owner_seal_time_invalid") from exc
+    if parsed_owner_seal_time.tzinfo is None:
+        raise CutoverError("owner_seal_time_timezone_missing")
     terminal_path = root / "closeout" / "terminal_hash_seal.json"
     artifacts = {
         "registry_adoption_receipt_sha256": sha256_file(

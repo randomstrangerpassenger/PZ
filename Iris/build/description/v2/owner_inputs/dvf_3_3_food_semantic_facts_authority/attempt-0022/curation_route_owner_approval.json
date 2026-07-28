@@ -1,0 +1,27 @@
+{
+  "schema_version": "food-semantic-curation-route-owner-approval-v1",
+  "status": "APPROVED",
+  "attempt_id": "attempt-0022",
+  "approver_identity": "repository_owner",
+  "approval_time": "2026-07-28T23:04:47.2137068+09:00",
+  "owner_message": "승인",
+  "bound_plan_sha256": "bdd7c6b04b773e5fcdd80882bd5d2436eed24af6c4904616d7fdaa06cdd7c74d",
+  "bound_implementation_complete_bundle_sha256": "e308cdff38769cdbfec51b0ced399ce79be3fb3d67f39efae9037a5692f0baf2",
+  "bound_external_implementation_review_sha256": "05c3b4875cc0e5fbad46c94795acc973d8527c1f25653fec119ee01bec33682b",
+  "approved_decisions": [
+    {
+      "decision_id": "D5",
+      "selected_option": "allow_layer4_as_curated_review_context",
+      "rationale": "Layer 4 may be inspected only as human review context and receives zero automatic Layer 3 or facts-authority credit."
+    },
+    {
+      "decision_id": "D6",
+      "selected_option": "bounded_batch_exact_member_expansion",
+      "rationale": "Bounded batches are review presentation units only; every accepted member and axis/value remains an explicit proposition row."
+    }
+  ],
+  "layer4_automatic_authority_credit": 0,
+  "curation_value_approval_consumed": false,
+  "semantic_approval_consumed": false,
+  "authority_effect": false
+}

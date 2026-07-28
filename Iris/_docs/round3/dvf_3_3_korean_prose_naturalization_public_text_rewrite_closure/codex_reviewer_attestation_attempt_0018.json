@@ -1,0 +1,158 @@
+{
+  "schema_version": "dvf-3-3-codex-reviewer-attestation-v1",
+  "status": "FAIL",
+  "naturalization_attempt_id": "attempt-0018-g3-reseal-a",
+  "reviewer_identity": "Codex Reviewer",
+  "reviewer_role": "independent_external_korean_prose_and_evidence_reviewer",
+  "review_date": "2026-07-29",
+  "candidate_rendered_path": "Iris/build/description/v2/staging/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/attempt-0018-g3-reseal-a/phase4/candidate_rendered.json",
+  "candidate_rendered_sha256": "7a2f6d454c0ebdd28fed90c161332058d143af01dd0b9989e35b2f0c8020e863",
+  "selection_algorithm": "deterministic_stratified_sha256_rank_v1",
+  "selected_denominator": 185,
+  "selected_ordered_digest": "9150f82243b1d29824ba8a130e286216db0bc36e57950cd4c4a4857602d8b9b7",
+  "rubric": {
+    "readability": "FAIL",
+    "naturalness": "FAIL",
+    "semantic_fidelity": "FAIL",
+    "public_suitability": "FAIL"
+  },
+  "blocker_count": 27,
+  "compiler_realization_blockers": [
+    {
+      "item_id": "Base.Hammer",
+      "reason": "작업 차량을 과정 차량으로 훼손"
+    },
+    {
+      "item_id": "Base.Crowbar",
+      "reason": "근접 전투나 작업과 작업 차량을 각각 근접 전투나 과정과 과정 차량으로 훼손"
+    },
+    {
+      "item_id": "Base.MetalPipe",
+      "reason": "금속 작업 장소를 금속 과정 장소로 훼손"
+    },
+    {
+      "item_id": "Base.Shovel2",
+      "reason": "흙 작업과 작업 차량을 각각 흙 과정과 과정 차량으로 훼손"
+    },
+    {
+      "item_id": "Radio.RadioBlack",
+      "reason": "전자 작업을 전자 과정으로 훼손"
+    },
+    {
+      "item_id": "Radio.WalkieTalkie2",
+      "reason": "전자 작업을 전자 과정으로 훼손"
+    },
+    {
+      "item_id": "Radio.TvBlack",
+      "reason": "전자 작업을 전자 과정으로 훼손"
+    }
+  ],
+  "current_facts_source_authority_blockers": [
+    {
+      "item_id": "Base.PillsBeta",
+      "reason": "베타 차단제를 상처 처치용으로 설명"
+    },
+    {
+      "item_id": "Radio.ElectricWire",
+      "reason": "전선을 전자 기기라고 규정"
+    },
+    {
+      "item_id": "Base.brokenglass_1_0",
+      "reason": "깨진 유리를 장식·전시·표지·구역 표시 용도로 설명"
+    },
+    {
+      "item_id": "Base.Pencil",
+      "reason": "연필에 종이 집기·고정 기능까지 부여"
+    },
+    {
+      "item_id": "Base.RedPen",
+      "reason": "빨간 펜에 지우기와 종이 집기·고정 기능까지 부여"
+    },
+    {
+      "item_id": "Base.Ring_Left_RingFinger_GoldRuby",
+      "reason": "반지에 시야 보조 기능 부여"
+    },
+    {
+      "item_id": "Base.Ring_Left_RingFinger_SilverDiamond",
+      "reason": "반지에 시야 보조 기능 부여"
+    },
+    {
+      "item_id": "Base.Bracelet_RightFriendshipTINT",
+      "reason": "팔찌에 시야 보조 기능 부여"
+    },
+    {
+      "item_id": "Base.Bracelet_BangleLeftSilver",
+      "reason": "팔찌에 시야 보조 기능 부여"
+    },
+    {
+      "item_id": "Base.RifleCase2",
+      "reason": "용기인 소총 케이스를 화기라고 설명"
+    },
+    {
+      "item_id": "Base.PoolBall",
+      "reason": "당구공을 던지고 차는 스포츠 용품으로 설명"
+    },
+    {
+      "item_id": "Base.SutureNeedleHolder",
+      "reason": "재사용 도구를 소모품으로 설명"
+    },
+    {
+      "item_id": "Base.Tweezers",
+      "reason": "재사용 도구를 소모품으로 설명"
+    },
+    {
+      "item_id": "Base.ScrewsBox",
+      "reason": "나사 상자를 물건 운반용 상자처럼 설명"
+    },
+    {
+      "item_id": "Base.MugWhite",
+      "reason": "머그잔을 재료를 익히는 조리 도구로 설명"
+    },
+    {
+      "item_id": "Base.BeerCan",
+      "reason": "맥주를 피우거나 마신다고 설명"
+    },
+    {
+      "item_id": "Base.WhiskeyFull",
+      "reason": "위스키를 피우거나 마신다고 설명"
+    },
+    {
+      "item_id": "Base.AlarmClock",
+      "reason": "알람 기능 대신 장식·반려동물 물건 용도로 설명"
+    },
+    {
+      "item_id": "Base.CerealBowl",
+      "reason": "시리얼을 냄비에서 조리하는 의미를 포함"
+    },
+    {
+      "item_id": "Base.CuttingBoardWooden",
+      "reason": "도마가 재료를 익힌다고 설명"
+    }
+  ],
+  "food_semantic_review": {
+    "selected_row_count": 19,
+    "licensed_axis_to_realization_match": true,
+    "qualifier_loss_count": 0,
+    "recommendation_count": 0,
+    "unlicensed_preparation_instruction_count": 0
+  },
+  "machine_evidence_crosscheck": {
+    "phase5_source_proposition_count": 5915,
+    "phase5_resolved_proposition_count": 5915,
+    "phase5_trace_clause_count": 3125,
+    "phase5_unbound_reference_count": 0,
+    "phase6_detector_opportunity_numerator": 14588,
+    "phase6_detector_opportunity_denominator": 14588,
+    "phase6_raw_hit_count": 0,
+    "repeated_skeleton_maximum_observed": 103,
+    "repeated_skeleton_limit": 104
+  },
+  "compiler_blocker_remediation": {
+    "status": "implemented_after_review_candidate_without_regenerating_attempt",
+    "commit": "b399cdbacf884ed97a884e8a0266f94a7e4a13d5",
+    "candidate_remains_stale_for_phase7": true
+  },
+  "owner_seal_issued": false,
+  "publish_disposition_issued": false,
+  "live_gate_adopted": false
+}

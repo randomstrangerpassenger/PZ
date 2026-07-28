@@ -1,0 +1,40 @@
+{
+  "schema_version": "dvf-3-3-naturalization-review-disposition-v1",
+  "attempt_id": "attempt-0018-g3-reseal-a",
+  "status": "blocked_external_review",
+  "candidate_rendered_sha256": "7a2f6d454c0ebdd28fed90c161332058d143af01dd0b9989e35b2f0c8020e863",
+  "completed_phase_status": {
+    "phase0": "PASS",
+    "phase1": "PASS",
+    "phase2": "PASS",
+    "phase3": "PASS",
+    "phase4": "PASS",
+    "phase5": "PASS",
+    "phase6": "PASS"
+  },
+  "phase7": {
+    "status": "not_executed_reviewer_blockers_present",
+    "codex_reviewer_attestation_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/codex_reviewer_attestation_attempt_0018.json",
+    "codex_reviewer_attestation_sha256": "04b54e150544b68f10b4cc080c39b76cb0b4ec59b6c5bd73be34a5f62d542b6e",
+    "review_blocker_count": 27,
+    "owner_pass_auto_issued": false
+  },
+  "phase8": {
+    "status": "not_executed_phase7_not_pass",
+    "immutable_publish_handoff_created": false
+  },
+  "compiler_remediation": {
+    "reviewer_blocker_count": 7,
+    "fix_commit": "b399cdbacf884ed97a884e8a0266f94a7e4a13d5",
+    "candidate_regenerated": false,
+    "candidate_stale_after_fix": true
+  },
+  "facts_authority_blocker_count": 20,
+  "facts_authority_request_path": "Iris/_docs/round3/dvf_3_3_korean_prose_naturalization_public_text_rewrite_closure/facts_authority_review_blocker_request_attempt_0018.json",
+  "attempt_0014_role": "immutable_historical_evidence_only",
+  "attempt_0014_resumed": false,
+  "official_publish_attempt_created": false,
+  "publish_disposition_created": false,
+  "live_gate_mutated": false,
+  "runtime_or_package_surface_mutated": false
+}
